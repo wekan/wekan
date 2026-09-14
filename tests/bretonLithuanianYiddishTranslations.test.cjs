@@ -181,3 +181,12 @@ assert.equal(locales.br['custom-product-name'], 'Anv personelaet ar produ');
 assert.doesNotMatch(locales.br['custom-product-name'], /Nom|personnalisé/);
 assert.match(locales.br['custom-product-name'], /ar produ$/, 'preserve product qualifier');
 assert.notEqual(locales.br['custom-product-name'], locales.br.fullname);
+
+assert.equal(locales.br['repository-name'], 'Anv ar mirlec’h');
+assert.equal(locales.br['no-repositories'], 'N’eus bet kavet mirlec’h ebet');
+assert.equal(locales.br['create-repository'], 'Krouiñ ur mirlec’h');
+for (const key of ['repository-name', 'no-repositories', 'create-repository']) {
+  assert.doesNotMatch(locales.br[key], /Nom du|Aucun dépôt|Créer/);
+  assert.match(locales.br[key], /mirlec’h/);
+}
+assert.equal(new Set(['repository-name', 'no-repositories', 'create-repository'].map(k => locales.br[k])).size, 3);

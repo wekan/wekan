@@ -130149,5 +130149,26 @@
     "before": "Aturunnaitittauqtuq",
     "after": "ᐊᑐᖅᑕᐅᙱᑦᑐᖅ",
     "reason": "Use native syllabic present used/not-used status wording for rule state. Legislative Assembly attests the negative form for software not in use; adaptation to enabled/disabled UI needs native/browser review."
+  },
+  {
+    "locale": "br",
+    "key": "repository-name",
+    "before": "Nom du dépôt",
+    "after": "Anv ar mirlec’h",
+    "reason": "Replace French repository label with Breton software repository terminology attested in Synaptic native translation. Adapted name/not-found/create phrases need full native review."
+  },
+  {
+    "locale": "br",
+    "key": "no-repositories",
+    "before": "Aucun dépôt trouvé",
+    "after": "N’eus bet kavet mirlec’h ebet",
+    "reason": "Replace French repository label with Breton software repository terminology attested in Synaptic native translation. Adapted name/not-found/create phrases need full native review."
+  },
+  {
+    "locale": "br",
+    "key": "create-repository",
+    "before": "Créer un dépôt",
+    "after": "Krouiñ ur mirlec’h",
+    "reason": "Replace French repository label with Breton software repository terminology attested in Synaptic native translation. Adapted name/not-found/create phrases need full native review."
   }
 ]
