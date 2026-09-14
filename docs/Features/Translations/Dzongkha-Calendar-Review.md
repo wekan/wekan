@@ -27,3 +27,30 @@ transliteration; browser not run. Native grammar discusses Bhutanese
 weekday reckoning separately: this label repair does not alter date math
 or claim that traditional weekday rules equal ISO 8601. Original pending
 stays 255, Dzongkha 2; correction ledger grows to 18,763.
+
+
+## Tabular epoch distinction — source review 2026-09-15
+
+Current CLDR common/bcp47/calendar.xml directly specifies both
+islamic-civil and islamic-tbla as tabular, with the same intercalary years
+2,5,7,10,13,16,18,21,24,26,29. The distinction is civil versus astronomical
+epoch, not tabular versus non-tabular or a different leap-year cycle.
+Source: https://raw.githubusercontent.com/unicode-org/cldr/main/common/bcp47/calendar.xml
+
+CLDR's design explanation identifies civil with Friday 622-07-16 Julian,
+and astronomical/tabular with Thursday 622-07-15 Julian. Astronomical epoch
+must not become current moon-sighting calculation: both remain tabular.
+Those are Julian dates, not Gregorian dates. The current XML also marks
+islamicc deprecated, preferred islamic-civil; do not add a separate locale
+choice for the legacy alias as part of translation repairs.
+Source: https://cldr.unicode.org/development/development-process/design-proposals/islamic-calendar-types
+
+Current Dzongkha values Islamic civil and Islamic tabular both remain
+pending: neither is a full native name, and the second omits its epoch.
+Next action is to verify Dzongkha arithmetic/tabular and starting-epoch
+terminology, then distinguish both names using the shared Hijri calendar
+base without substituting ordinary civil status or sky observation for
+these algorithm definitions. Earlier sighting-label and ISO repairs do
+not resolve the two epoch labels or their grammar. No translation or
+counts changed. Pending 159 original findings; Dzongkha 2. No live UI
+test ran and no remote writes were made.

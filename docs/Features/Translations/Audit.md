@@ -30,10 +30,10 @@ source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
 Latest terminology review: **2026-09-15** —
-[Tamazight image gestures](Tamazight-Review.md) confirms the Ctrl+V
-continuation and shared paste/drop image-type gate. Preserve both gesture
-steps and image-only type, not a one-image count. Dictionary verbs supply
-candidates; full UI compound remains open. No translations or counts changed.
+[Dzongkha tabular epochs](Dzongkha-Calendar-Review.md) checks current CLDR:
+both variants share tabular leap rules and differ by epoch, not sighting.
+Preserve Julian date basis and avoid a separate deprecated alias choice.
+Native epoch wording remains open. No translations or counts changed.
 Earlier reviews remain in detailed evidence.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
