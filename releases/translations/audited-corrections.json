@@ -121714,5 +121714,19 @@
     "before": "السماح بتغيير البريد الإلكتروني",
     "after": "ⴰⵊⵊ ⴰⵙⵏⴼⵍ ⵏ ⵉⵎⴰⵢⵍ",
     "reason": "Replace Arabic with declared Standard Moroccan Tamazight. Native MediaWiki protect-default attests ajj/Allow, blocked-mailpassword attests asnfl/editing, and changeemail-submit and email attest email-change and imayl. Preserve permission to change email rather than changing the address immediately. LOW CONFIDENCE complete permission phrase and nominalizing change/edit as asnfl in this software setting; component vocabulary is reference-supported, not full fluent composition. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "subject",
+    "before": "موضوع",
+    "after": "ⵉⵎⵔⵙⵉ",
+    "reason": "Replace Arabic in the generic email subject label. Native MediaWiki subject directly attests imrsi/Subject; remove only its UI colon for consistency with the English label. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "card_members",
+    "before": "Tous les participants de la carte actuelle dans ce tableau",
+    "after": "ⵉⴳⵎⴰⵎⵏ ⴰⴽⴽⵯ ⵏ ⵜⴽⴰⵕⴹⴰ ⴰⴷ ⴳ ⵜⴼⵍⵡⵉⵜ ⴰⴷ",
+    "reason": "Replace French with declared Standard Moroccan Tamazight. Native MediaWiki member-group messages attest igmamn/member plural and searchall attests akkw/all. Follow existing board_members and card terminology, adding this-card/this-board scope with ad and g. Preserve all members of the current card, distinct from all board members. LOW CONFIDENCE complete card/board genitives, demonstrative scope and kanban terminology; native member/all components do not establish fluent full phrasing. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]
