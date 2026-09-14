@@ -124262,5 +124262,19 @@
     "before": "Nom du sous-espace de travail",
     "after": "ⵉⵙⵎ ⵏ ⵓⴷⵓⵙⴰⵢⵔⴰⵔ",
     "reason": "2026-09-14: Replace French Subworkspace wording using an explicitly derived adu- Sub + existing asayrar Workspace compound. Preserve Add action versus Name prompt and hierarchical subworkspace rather than ordinary workspace. Native MediaWiki pageinfo-subpages-name uses bound plural tdusniwin Subpages; Brahim Hamek linguistic paper search-index excerpt printed 24 documents adu- Sub/hypo/infra with pan-Amazigh etymology and mathematical subspace example. This does not directly attest adusayrar organizational Subworkspace or Standard Moroccan full phrases. LOW CONFIDENCE new compound, workspace extension, bound form and complete wording require fluent dialect/terminology review. Paper direct web fetch returned 502; prefix entry is indexed evidence only. References: https://asjp.cerist.dz/en/downArticle/14/13/4/236605 ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://www.inpplc.ma/index.php/amz ."
+  },
+  {
+    "locale": "zgh",
+    "key": "and-n-other-card",
+    "before": "And __count__ other بطاقة",
+    "after": "ⴷ __count__ ⵜⴰⴽⴰⵕⴹⴰ ⵢⴰⴹⵏ",
+    "reason": "2026-09-14: Replace mixed English/Arabic card-count prose with Tamazight. Preserve exact __count__ token, And conjunction, Other qualifier and singular versus plural Card nouns. Native MediaWiki and supplies d; createacct-another/help wording and noarticletext other pages supply yadn Other. Reuse existing takarda/tikardiwin card terminology. LOW CONFIDENCE complete numeral phrase, noun state, counted plural and kanban card terminology extension require fluent Standard Moroccan grammar review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "and-n-other-card_plural",
+    "before": "And __count__ other بطاقات",
+    "after": "ⴷ __count__ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵢⴰⴹⵏ",
+    "reason": "2026-09-14: Replace mixed English/Arabic card-count prose with Tamazight. Preserve exact __count__ token, And conjunction, Other qualifier and singular versus plural Card nouns. Native MediaWiki and supplies d; createacct-another/help wording and noarticletext other pages supply yadn Other. Reuse existing takarda/tikardiwin card terminology. LOW CONFIDENCE complete numeral phrase, noun state, counted plural and kanban card terminology extension require fluent Standard Moroccan grammar review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]
