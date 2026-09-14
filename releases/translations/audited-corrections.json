@@ -126397,5 +126397,26 @@
     "before": "ⵙⴱⴻⴷⴷ ⴰⵙⵎⵓⵜⵜⵉ",
     "after": "ⵙⴱⴷⴷ ⴰⵙⵎⵓⵜⵜⵢ",
     "reason": "2026-09-14: Repair unflagged inherited Kabyle-leaning migration start/pause grammar; script alone is not language proof. Native Red Moon notification_action_pause attests Pause sbdd and pref_title_start_time Start tuddma: https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml . Start bdu retains separately indexed IRCAM plain-d versus Share emphatic-d distinction; direct PDF unavailable. Native MediaWiki All akkw and failure frame retained. Preserve Start versus Pause, ALL versus singular scope, failed operation versus completed Started notification. Stop values are not collapsed into Pause despite Red Moon using sbdd for both. Migration adaptation, pause nominalization, derived started plural and full grammar remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "hide-checked-items",
+    "before": "Cacher les éléments cochés",
+    "after": "ⴼⴼⵔ ⵉⴼⵔⴷⵉⵙⵏ ⵜⵜⵓⵙⵎⴰⵜⵔⵏ",
+    "reason": "2026-09-14: Replace French checklist checkbox controls. Native MediaWiki tooltip-invert/tooltip-namespace_association attest Check smatr in checkbox context, hide Hide ffr, All akkw and Remove kks: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Item/List native components retained. Preserve Hide CHECKED items, CHECK ALL items OF A LIST, and active UNCHECK ALL reversal rather than merely unchecked state. Uncheck paraphrased Remove Mark; derived mark nominalization, checked plural passive, bound list and full scope grammar remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-d-check-all",
+    "before": "Cocher tous les éléments d'une liste",
+    "after": "ⵙⵎⴰⵜⵔ ⴰⴽⴽⵯ ⵉⴼⵔⴷⵉⵙⵏ ⵏ ⵜⵍⴳⴰⵎⵜ",
+    "reason": "2026-09-14: Replace French checklist checkbox controls. Native MediaWiki tooltip-invert/tooltip-namespace_association attest Check smatr in checkbox context, hide Hide ffr, All akkw and Remove kks: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Item/List native components retained. Preserve Hide CHECKED items, CHECK ALL items OF A LIST, and active UNCHECK ALL reversal rather than merely unchecked state. Uncheck paraphrased Remove Mark; derived mark nominalization, checked plural passive, bound list and full scope grammar remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-d-uncheck-all",
+    "before": "Décocher tous les éléments d'une liste",
+    "after": "ⴽⴽⵙ ⴰⵙⵎⴰⵜⵔ ⵙⴳ ⵉⴼⵔⴷⵉⵙⵏ ⴰⴽⴽⵯ ⵏ ⵜⵍⴳⴰⵎⵜ",
+    "reason": "2026-09-14: Replace French checklist checkbox controls. Native MediaWiki tooltip-invert/tooltip-namespace_association attest Check smatr in checkbox context, hide Hide ffr, All akkw and Remove kks: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Item/List native components retained. Preserve Hide CHECKED items, CHECK ALL items OF A LIST, and active UNCHECK ALL reversal rather than merely unchecked state. Uncheck paraphrased Remove Mark; derived mark nominalization, checked plural passive, bound list and full scope grammar remain LOW CONFIDENCE."
   }
 ]
