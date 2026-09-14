@@ -76,3 +76,16 @@ assert.match(genericMove, /r-when-a-card[\s\S]*?r-is-moved/);
 assert.doesNotMatch(genericMove, /ruleTriggerCopula|r-a-card|r-moved-to|r-moved-from/);
 assert.equal([eu['r-when-a-card'], eu['r-is-moved']].join(' '), 'Txartel bat lekuz aldatzen denean');
 assert.doesNotMatch(eu['r-is-moved'], /\bes\b|\bis\b/, 'retain native temporal predicate rather than Spanish or English');
+
+const checklistTemplate = fs.readFileSync(path.join(root, 'client/components/rules/triggers/checklistTriggers.jade'), 'utf8');
+const itemTrigger = checklistTemplate.split("{{_'r-when-a-item'}}")[1].split('js-add-gen-check-item-trigger')[0];
+assert.match(itemTrigger, /option\(value="checked"\) \{\{_'r-checked'\}\}/);
+assert.match(itemTrigger, /option\(value="unchecked"\) \{\{_'r-unchecked'\}\}/);
+assert.doesNotMatch(itemTrigger, /ruleTriggerCopula/);
+assert.equal(eu['r-checked'], 'Markatzen denean');
+assert.equal(eu['r-unchecked'], 'Desmarkatzen denean');
+assert.notEqual(eu['r-checked'], eu['r-unchecked']);
+for (const key of ['r-checked', 'r-unchecked']) {
+  assert.match(eu[key], /tzen denean$/);
+  assert.doesNotMatch(eu[key], /Checked|Unchecked|marcado/, 'native action vocabulary preserved');
+}
