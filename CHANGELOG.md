@@ -768,6 +768,18 @@ This release adds the following translation improvements:
 **Translations** - Locale wording repairs and remaining audit progress.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/883fcb85c">Translate Tamazight user display and filter controls</a>. Thanks to xet7.</summary>
+
+Replace three unflagged French/Arabic Show, All Users and Clear filter values
+with native UI terms. Preserve the Show colon and singular filter meaning.
+All 17,327 correction checks pass, including rendered values, placeholders,
+key order and newer correct-language preference. Original counts remain
+713 pending, including 570 Tamazight. Composed usage and wider restored,
+unflagged and low-confidence wording validation remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ad3a4f2dc">Translate Tamazight deletion confirmation and self-account setting</a>. Thanks to xet7.</summary>
 
 Replace two French values, preserving the comment confirmation/action and
