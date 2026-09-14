@@ -738,6 +738,15 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b0f7f924f">Repair Breton selection and color labels</a>. Thanks to xet7.</summary>
+
+Three French labels become Breton; empty selection stays distinct from an
+unknown value. Focused checks pass. The dated audit keeps broader native
+and browser verification open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/bb65bf79d">Repair Breton navigation and templates</a>. Thanks to xet7.</summary>
 
 Six French labels become Breton using native software vocabulary. Template

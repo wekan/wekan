@@ -23968,3 +23968,18 @@ and template labels and distinguish return from home. All 18,637 corrections,
 4,170 retained reviews and 234-locale structural completeness pass.
 Pending/restored counts remain 288/11. Full browser verification and wider
 native review remain open.
+
+### 2026-09-14 — Breton selection states and color (b0f7f924f)
+
+Three unflagged French labels are repaired: custom-field-dropdown-none
+(aucun) becomes (hini ebet), custom-field-dropdown-unknown (inconnu)
+becomes (dianav), and allboards.workspace-color Couleur becomes Liv.
+[Native MediaWiki Breton software messages](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/br.json)
+attest (hini ebet) for absent values, Dianav for unknown information and
+liv in color-selection controls. Parentheses and case follow local label
+conventions. Actual dropdown controls use none/null sentinels for no
+selection; unknown must remain a distinct state. Focused exact-value and
+foreign-word checks preserve that distinction. All 18,640 corrections,
+4,170 retained reviews and 234-locale structural completeness pass.
+Pending/restored counts remain 288/11. Live browser and broader native
+verification remain open.
