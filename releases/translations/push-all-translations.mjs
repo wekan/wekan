@@ -2,6 +2,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import logDirectory from '../../tools/log-directory.cjs';
 import { api, readConfig, localLanguages, readToken } from './sync-transifex-languages.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
@@ -200,9 +201,8 @@ export function printUploadSummary(result, log = console.log) {
 }
 
 async function main() {
-  const stamp = new Date();
-  const pad = value => String(value).padStart(2, '0');
-  const timestamp = `${stamp.getFullYear()}-${pad(stamp.getMonth() + 1)}-${pad(stamp.getDate())}_${pad(stamp.getHours())}-${pad(stamp.getMinutes())}-${pad(stamp.getSeconds())}`;
+  const logDir = logDirectory.reserve(path.join(root, '.tools/log'), 'translations-push');
+  const timestamp = path.basename(logDir);
   const statusFile = path.join(root, '.tools/log', `push-all-translations_${timestamp}.txt`);
   fs.mkdirSync(path.dirname(statusFile), { recursive: true });
   // Append so simultaneous invocations cannot truncate another run's status.
@@ -254,8 +254,6 @@ async function main() {
   });
   result.languageSupport = await languageSupportReport({ request, languages, result });
   const safeResult = JSON.parse(JSON.stringify(result).replaceAll(token, '[redacted]'));
-  const logDir = path.join(root, '.tools/log', `translations-push-${new Date().toISOString().replace(/[:.]/g, '-')}`);
-  fs.mkdirSync(logDir, { recursive: true });
   fs.writeFileSync(path.join(logDir, 'report.json'), `${JSON.stringify(safeResult, null, 2)}\n`);
   printUploadSummary(safeResult);
   console.log(`[tx] report: ${logDir}/report.json`);

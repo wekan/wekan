@@ -14,11 +14,9 @@ test('development and release logs use dated time directories and preserve earli
     const result = spawnSync('bash', ['-c', helper + '\nfor pair in "build-dev-bundle dev" "build-release-bundle release"; do set -- $pair; file=$(build_log "$1" "$2") || exit $?; echo "$file"; echo first | tee -a "$file"; echo second | tee -a "$file"; done'], { env: { ...process.env, WEKAN_LOG_ROOT: base }, encoding: 'utf8' });
     assert.equal(result.status, 0, result.stderr);
     for (const [type, name] of [['build-dev-bundle', 'dev'], ['build-release-bundle', 'release']]) {
-      const day = fs.readdirSync(path.join(base, type))[0];
-      assert.match(day, /^\d{4}-\d{2}-\d{2}$/);
-      const time = fs.readdirSync(path.join(base, type, day))[0];
-      assert.match(time, /^\d{2}-\d{2}-\d{2}(?:-\d+)?$/);
-      assert.equal(fs.readFileSync(path.join(base, type, day, time, name + '.txt'), 'utf8'), 'first\nsecond\n');
+      const datetime = fs.readdirSync(path.join(base, type))[0];
+      assert.match(datetime, /^\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}(?:-\d+)?$/);
+      assert.equal(fs.readFileSync(path.join(base, type, datetime, name + '.txt'), 'utf8'), 'first\nsecond\n');
     }
     assert.match(result.stdout, /first\nsecond/);
     const repeated = spawnSync('bash', ['-c', helper + '\nfirst=$(build_log build-dev-bundle dev); second=$(build_log build-dev-bundle dev); test "$first" != "$second"'], { env: { ...process.env, WEKAN_LOG_ROOT: base }, encoding: 'utf8' });
@@ -41,7 +39,7 @@ test('Node directory reservation for Windows separates simultaneous starts and r
     const now = new Date(2026, 8, 14, 0, 1, 2);
     const first = reserve(base, 'dev-server', now);
     const second = reserve(base, 'dev-server', now);
-    assert.equal(path.relative(base, first), path.join('dev-server', '2026-09-14', '00-01-02'));
+    assert.equal(path.relative(base, first), path.join('dev-server', '2026-09-14_00-01-02'));
     assert.equal(second, first + '-1');
     assert.throws(() => reserve(base, '../escape', now), /Invalid log type/);
   } finally { fs.rmSync(base, { recursive: true, force: true }); }
@@ -54,6 +52,21 @@ test('all logger entry points use operation/date/time directories on both platfo
   for (const type of ['test-all-parallel', 'test-all-sequential', 'dev-server', 'build-dev-bundle', 'build-release-bundle']) assert.ok(bat.includes('call :logdir ' + type) || bat.includes('call :buildlog ' + type), type);
   assert.match(bat, /call :logdir test-%~1/);
   assert.match(bat, /call :build_logged meteor build/);
+});
+
+test('negative: release log directories use the shared readable datetime format', () => {
+  const read = name => fs.readFileSync(path.join(root, name), 'utf8');
+  for (const name of ['build.sh', 'build.bat', 'releases/mirror.sh', 'releases/mirror.md']) {
+    assert.doesNotMatch(read(name), /YYYY-MM-DD(?:\/|\\)HH-MM-SS|YYYY-MM-DD_HH-MM_SS|%H-%M_%S/, name);
+  }
+  for (const name of ['releases/translations/push-all-translations.mjs', 'tools/mirror-active-forges.mjs']) {
+    assert.match(read(name), /logDirectory\.reserve\(/, name);
+    assert.doesNotMatch(read(name), /toISOString\(\)\.replace/, name);
+  }
+  assert.match(read('releases/db-conformance.sh'), /test-db-conformance\/\$RUN_TS/);
+  for (const name of ['releases/debug-speed-server.sh', 'releases/debug-speed-ferretdb.sh']) {
+    assert.match(read(name), /\.tools\/log\/debug-speed\/\$STAMP/, name);
+  }
 });
 
 test('completed builds print the selected log path after compilation and release preparation', () => {

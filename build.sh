@@ -6,7 +6,7 @@ echo "Note1: If you use other locale than en_US.UTF-8 , you need to additionally
 echo "       with 'sudo dpkg-reconfigure locales' , so that MongoDB works correctly."
 echo "       You can still use any other locale as your main locale."
 echo "Note2: Console output is also logged to the operation-specific path printed below."
-echo "Note3: All logs use .tools/log/<operation>/YYYY-MM-DD/HH-MM-SS/."
+echo "Note3: All logs use .tools/log/<operation>/YYYY-MM-DD_HH-MM-SS/."
 echo "       .tools/log/ inside this repository. The path is printed when a run"
 echo "       starts."
 echo "Note4: Two build directories, and they are not the same thing:"
@@ -357,13 +357,13 @@ function build_stage(){
 # Used by menu option 2 and auto-invoked by option 9 when .build is missing.
 # Also clears the rspack dev-build caches (_build and node_modules/.cache) so the
 # next `meteor run` recompiles from scratch instead of serving stale modules.
-# Reserve one operation/type/date/time directory, including same-second collisions.
+# Reserve one operation/type/datetime directory, including same-second collisions.
 function log_directory(){
 	local type="$1" day dir suffix=1 candidate
 	case "$type" in ""|*[!a-zA-Z0-9_-]*) echo "ERROR: invalid log type: $type" >&2; return 1 ;; esac
-	day="${WEKAN_LOG_ROOT:-.tools/log}/$type/$(date '+%Y-%m-%d')"
+	day="${WEKAN_LOG_ROOT:-.tools/log}/$type"
 	mkdir -p "$day" || return $?
-	dir="$day/$(date '+%H-%M-%S')"
+	dir="$day/$(date '+%Y-%m-%d_%H-%M-%S')"
 	if ! mkdir "$dir" 2>/dev/null; then
 		while :; do
 			candidate="$dir-$suffix"

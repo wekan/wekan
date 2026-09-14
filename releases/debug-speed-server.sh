@@ -42,7 +42,7 @@ if [ ! -x "$METEOR_BIN" ]; then
 fi
 
 STAMP="$(date +%Y-%m-%d_%H-%M-%S)"
-LOG_DIR="${DEBUGSPEED_LOG_DIR:-$WEKAN_DIR/.tools/log/$STAMP/debug-speed}"
+LOG_DIR="${DEBUGSPEED_LOG_DIR:-$WEKAN_DIR/.tools/log/debug-speed/$STAMP}"
 mkdir -p "$LOG_DIR"
 FERRET_PID=''
 BRIDGE_PID=''

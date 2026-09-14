@@ -493,7 +493,7 @@ GitHub API requests identify the endpoint, page and retry attempt before fetchin
 without printing authentication headers or tokens. Rate-limit waits remain in effect.
 
 The `releases/mirror.sh` launcher also saves stdout and stderr to
-`.tools/log/mirror/YYYY-MM-DD_HH-MM_SS/mirror-log.txt` while printing them
+`.tools/log/mirror/YYYY-MM-DD_HH-MM-SS/mirror-log.txt` while printing them
 to stdout. It prints the log path at startup, after each sync/check menu operation (including
 failures), and on command exit, preserving command failure status.
 

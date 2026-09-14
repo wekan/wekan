@@ -27,8 +27,15 @@ mirror "sourceforge" "ssh://wekan@git.code.sf.net/p/wekan/code"
 }
 # Bitbucket is inactive because its repository access is unreliable.
 # Stream both output channels to the terminal and retain the complete run log.
-MIRROR_LOG_DIR="$TOOLS_DIR/log/mirror/$(date +%Y-%m-%d_%H-%M_%S)"
-mkdir -p "$MIRROR_LOG_DIR"
+MIRROR_LOG_DIR="$TOOLS_DIR/log/mirror/$(date +%Y-%m-%d_%H-%M-%S)"
+if ! mkdir -p "$(dirname "$MIRROR_LOG_DIR")"; then exit 1; fi
+MIRROR_LOG_BASE="$MIRROR_LOG_DIR"
+MIRROR_LOG_SUFFIX=0
+until mkdir "$MIRROR_LOG_DIR" 2>/dev/null; do
+  if [ ! -d "$MIRROR_LOG_DIR" ]; then echo "Cannot create mirror log directory: $MIRROR_LOG_DIR" >&2; exit 1; fi
+  MIRROR_LOG_SUFFIX=$((MIRROR_LOG_SUFFIX + 1))
+  MIRROR_LOG_DIR="$MIRROR_LOG_BASE-$MIRROR_LOG_SUFFIX"
+done
 MIRROR_LOG_FILE="$MIRROR_LOG_DIR/mirror-log.txt"
 export WEKAN_MIRROR_LOG_FILE="$MIRROR_LOG_FILE"
 {

@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // Human-run synchronization. No third-party runtime dependencies.
 import fs from 'node:fs';
+import logDirectory from './log-directory.cjs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { spawnSync } from 'node:child_process';
@@ -662,8 +663,7 @@ export async function main(args = process.argv.slice(2)) {
   const apply = args.includes('--apply');
   const mirrors = settings.mirrors.filter(name => name !== selectedSource && (!target || name === target)).map(name => ({ name, url: forges[name].push, sourceName: selectedSource }));
   if (!mirrors.length && !args.includes('--archive-only')) throw new Error(`No active destination mirrors${target ? `: ${target}` : ''}`);
-  const id = new Date().toISOString().replace(/[:.]/g, '-');
-  const logdir = path.join(root, '.tools/log', `mirror-${id}`);
+  const logdir = logDirectory.reserve(path.join(root, '.tools/log'), 'mirror-data');
   const temporary = path.join(root, '.tools/tmp/mirror-active');
   fs.mkdirSync(logdir, { recursive: true }); fs.mkdirSync(temporary, { recursive: true });
   process.env.TMPDIR = temporary;

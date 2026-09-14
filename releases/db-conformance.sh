@@ -52,7 +52,7 @@ RUN_TS="$(date '+%Y-%m-%d_%H-%M-%S')"
 if [ -z "${WEKAN_LOG_ROOT:-}" ]; then
   WEKAN_LOG_ROOT=".tools/log"
 fi
-LOGDIR="${WEKAN_LOGDIR:-$WEKAN_LOG_ROOT/$RUN_TS}"
+LOGDIR="${WEKAN_LOGDIR:-$WEKAN_LOG_ROOT/test-db-conformance/$RUN_TS}"
 mkdir -p "$LOGDIR"
 LOGDIR="$(cd "$LOGDIR" && pwd)"
 

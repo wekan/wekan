@@ -236,8 +236,8 @@ Or alternatively, delete wekan repo (if you did not need any changes you made), 
 The `build.sh` development bundle option announces cache removal, compilation to resolve Meteor plugin npm
 dependencies, dependency installation and compilation before each starts.
 Each stage streams its output to the terminal and the printed build log:
-`.tools/log/build-dev-bundle/YYYY-MM-DD/HH-MM-SS/dev.txt` for development bundles and
-`.tools/log/build-release-bundle/YYYY-MM-DD/HH-MM-SS/release.txt` for release bundles.
+`.tools/log/build-dev-bundle/YYYY-MM-DD_HH-MM-SS/dev.txt` for development bundles and
+`.tools/log/build-release-bundle/YYYY-MM-DD_HH-MM-SS/release.txt` for release bundles.
 Both scripts print the selected build log path again when the build finishes, including
 failed builds. Successful shell builds also append that completion message to the log.
 Each build gets its own time directory, keeping earlier runs separate. Same-second
@@ -264,7 +264,7 @@ results. Both terminal and build log receive this output. Command arguments reda
 common credential fields; the tracer does not print the process environment.
 
 All logging managed by `build.sh` and `build.bat` uses
-`.tools/log/<operation>/YYYY-MM-DD/HH-MM-SS/`. Both honor `WEKAN_LOG_ROOT`.
+`.tools/log/<operation>/YYYY-MM-DD_HH-MM-SS/`. Both honor `WEKAN_LOG_ROOT`.
 Same-second runs reserve a numeric suffix; previous run directories stay intact.
 
 | Operation | Directory type | Main log |
@@ -281,3 +281,12 @@ Same-second runs reserve a numeric suffix; previous run directories stay intact.
 commands stream through PowerShell to the selected log; command exit status is
 retained. Native Windows execution was not available for this change; directory
 reservation logic and Windows menu/logger wiring are tested locally.
+
+Log directory naming is shared by Unix and Windows builds and release tools:
+`.tools/log/<operation>/YYYY-MM-DD_HH-MM-SS/`, using local time. Same-second
+starts reserve distinct directories with `-1`, `-2`, etc. to preserve earlier
+logs. Translation upload reports use `translations-push`, mirror archive/sync
+reports use `mirror-data`, mirror launcher output uses `mirror`, database
+conformance uses `test-db-conformance`, and speed diagnostics use `debug-speed`.
+Existing log directories remain where they were written. Dates inside JSON
+records retain their data format; this naming rule applies to log directories.

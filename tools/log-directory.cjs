@@ -6,10 +6,11 @@ function reserve(root, type, now = new Date()) {
   const pad = value => String(value).padStart(2, '0');
   const day = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
   const time = `${pad(now.getHours())}-${pad(now.getMinutes())}-${pad(now.getSeconds())}`;
-  const parent = path.resolve(root, type, day);
+  const parent = path.resolve(root, type);
+  const stamp = `${day}_${time}`;
   fs.mkdirSync(parent, { recursive: true });
   for (let suffix = 0; ; suffix++) {
-    const directory = path.join(parent, time + (suffix ? `-${suffix}` : ''));
+    const directory = path.join(parent, stamp + (suffix ? `-${suffix}` : ''));
     try { fs.mkdirSync(directory); return directory; }
     catch (error) { if (error.code !== 'EEXIST') throw error; }
   }

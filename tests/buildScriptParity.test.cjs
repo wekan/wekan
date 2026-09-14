@@ -313,6 +313,8 @@ test('every script in releases/ is reachable from BOTH menus', () => {
     'require-ferretdb-resume-login.sh': 'a private preflight called by\n'
       + '      require-binaries.sh; it verifies a downloaded FerretDB fork before\n'
       + '      a release build and is not an operator-facing menu command',
+    'check-upcoming-release.sh': 'an internal release-all.sh preflight;\n'
+      + '      the release launcher runs it before any release operation',
   };
 
   // These are explicit audit/internal helpers, not independent release-menu actions.

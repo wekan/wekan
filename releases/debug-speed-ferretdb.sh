@@ -7,7 +7,7 @@ set -euo pipefail
 WEKAN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 FERRET_DIR="$WEKAN_DIR/.tools/FerretDB"
 STAMP="$(date +%Y-%m-%d_%H-%M-%S)"
-LOG_DIR="${DEBUGSPEED_LOG_DIR:-$WEKAN_DIR/.tools/log/$STAMP/debug-speed}"
+LOG_DIR="${DEBUGSPEED_LOG_DIR:-$WEKAN_DIR/.tools/log/debug-speed/$STAMP}"
 FERRET_PORT="${DEBUGSPEED_FERRETDB_PORT:-37017}"
 FERRET_STATE="${DEBUGSPEED_FERRETDB_STATE:-$FERRET_DIR/state-debug-speed}"
 

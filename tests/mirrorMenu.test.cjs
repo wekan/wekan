@@ -112,7 +112,7 @@ const work = fs.mkdtempSync(path.join(temporary, 'mirror-menu-tests-'));
     const logRoot = path.join(launcherRoot, '.tools/log/mirror');
     const directories = fs.readdirSync(logRoot);
     assert.equal(directories.length, 1);
-    assert.match(directories[0], /^\d{4}-\d{2}-\d{2}_\d{2}-\d{2}_\d{2}$/);
+    assert.match(directories[0], /^\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}(?:-\d+)?$/);
     assert.equal(fs.readFileSync(path.join(logRoot, directories[0], 'mirror-log.txt'), 'utf8'), result.stdout);
   });
   await test('Windows dispatch passes paths literally to Node without a command shell', async () => {

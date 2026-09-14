@@ -46,7 +46,7 @@ of at most 30 seconds. This output goes to the existing terminal/status log.
 Transifex documents throttling as [HTTP 429](https://developers.transifex.com/reference/rate-limit).
 
 At the end it lists each failed language with its local file and reason, saves a
-JSON report under `.tools/log/translations-push-<timestamp>/report.json`, and
+JSON report under `.tools/log/translations-push/YYYY-MM-DD_HH-MM-SS/report.json`, and
 returns a nonzero exit status when any language failed. An entirely successful
 run prints `None` in the failure list. Invalid JSON, missing keys, empty values
 where the source is nonempty, and altered placeholders are reported as failures.

@@ -82,7 +82,7 @@ if /i "%PROCESSOR_ARCHITECTURE%"=="ARM64" set "PLATFORM_ARCH=arm64"
 if /i "%PROCESSOR_ARCHITEW6432%"=="ARM64" set "PLATFORM_ARCH=arm64"
 echo Platform: %PLATFORM_OS% %PLATFORM_ARCH%
 echo Repo: %REPO%
-echo Note: Logs use .tools\log\<operation>\YYYY-MM-DD\HH-MM-SS\.
+echo Note: Logs use .tools\log\<operation>\YYYY-MM-DD_HH-MM-SS\.
 
 :menu
 echo.
@@ -1055,7 +1055,7 @@ set "S_mocha=RUN" & set "S_unit=RUN" & set "S_import=RUN" & set "S_e2e=RUN"
 set "S_chromium=RUN" & set "S_firefox=RUN" & set "S_webkit=RUN"
 set "C_mocha=0" & set "C_unit=0" & set "C_import=0" & set "C_e2e=0"
 set "C_chromium=0" & set "C_firefox=0" & set "C_webkit=0"
-REM Each run gets its own .tools\log\<operation>\YYYY-MM-DD\HH-MM-SS\ dir (stamped once at run start), so
+REM Each run gets its own .tools\log\<operation>\YYYY-MM-DD_HH-MM-SS\ dir (stamped once at run start), so
 REM logs are never overwritten and previous runs are kept. PowerShell gives a
 REM locale-independent yyyy-MM-dd_HH-mm-ss; %RUN_LOGDIR% is absolute so it works
 REM from any job's working directory (e.g. the browser job runs in tests\playwright).
@@ -1199,7 +1199,7 @@ set "S_mocha=RUN" & set "S_unit=RUN" & set "S_import=RUN" & set "S_e2e=RUN"
 set "S_chromium=RUN" & set "S_firefox=RUN" & set "S_webkit=RUN"
 set "C_mocha=0" & set "C_unit=0" & set "C_import=0" & set "C_e2e=0"
 set "C_chromium=0" & set "C_firefox=0" & set "C_webkit=0"
-REM Each run gets its own .tools\log\<operation>\YYYY-MM-DD\HH-MM-SS\ dir (stamped once at run start), so
+REM Each run gets its own .tools\log\<operation>\YYYY-MM-DD_HH-MM-SS\ dir (stamped once at run start), so
 REM logs are never overwritten and previous runs are kept. PowerShell gives a
 REM locale-independent yyyy-MM-dd_HH-mm-ss; %RUN_LOGDIR% is absolute so it works
 REM from any job's working directory (e.g. the browser job runs in tests\playwright).
@@ -1500,7 +1500,7 @@ echo Log directory: %LOG_DIRECTORY%
 exit /b 0
 
 :onelog
-REM Set ONELOG to .tools\log\<operation>\YYYY-MM-DD\HH-MM-SS\wekan-%1.log - the same place every other
+REM Set ONELOG to .tools\log\<operation>\YYYY-MM-DD_HH-MM-SS\wekan-%1.log - the same place every other
 REM test run writes, so "the newest test logs" is one directory whichever option
 REM produced them. A larger run (EVERYTHING) exports WEKAN_LOGDIR first, and then
 REM the whole run stays in that one directory. The Windows equivalent of build.sh's
@@ -1896,7 +1896,7 @@ REM there, and installing Go and the module dependencies if they are
 REM missing), then run the whole FerretDB v1 query catalogue against every
 REM database that has a Docker image for THIS CPU - one at a time, because they
 REM all use the same FerretDB port - and compare that they all answered the same.
-REM Results go to .tools\log\<operation>\YYYY-MM-DD\HH-MM-SS\ with every other test run's.
+REM Results go to .tools\log\<operation>\YYYY-MM-DD_HH-MM-SS\ with every other test run's.
 REM
 REM The orchestration is one bash script, shared with build.sh rather than
 REM rewritten here: a second implementation would drift, and Docker Desktop on
@@ -1919,7 +1919,7 @@ REM that .gitignore and .meteorignore already exclude, instead of one ignored
 REM subdirectory each at the repo root. It is cloned here when it is not there,
 REM the same as build.sh's ensure_tool_repo does, so neither script depends on
 REM the other having been run first. Its build.sh installs Go and the Go modules
-REM when they are missing, and writes its logs to .tools\log\<operation>\YYYY-MM-DD\HH-MM-SS\ with every
+REM when they are missing, and writes its logs to .tools\log\<operation>\YYYY-MM-DD_HH-MM-SS\ with every
 REM other test run's.
 where bash >nul 2>&1
 if errorlevel 1 (
@@ -1965,7 +1965,7 @@ goto test_everything
 :test_everything
 REM Every test WeKan and FerretDB have, one stage at a time: WeKan's own suite,
 REM then the database conformance run for every database with an image for this
-REM CPU, then all of FerretDB's tests. One .tools\log\<operation>\YYYY-MM-DD\HH-MM-SS\ directory for the
+REM CPU, then all of FerretDB's tests. One .tools\log\<operation>\YYYY-MM-DD_HH-MM-SS\ directory for the
 REM whole run, and nothing runs concurrently, which is what makes a failure
 REM readable.
 REM
