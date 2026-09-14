@@ -126103,5 +126103,54 @@
     "before": "Toutes les erreurs ont été effacées avec succès",
     "after": "ⵉⵣⴳⴰⵍⵏ ⴰⴽⴽⵯ ⵜⵜⵓⵙⴼⴹⵏ!",
     "reason": "2026-09-14: Replace French cron migration resume/error statuses. Native Red Moon notification_action_resume attests Resume als and notification_status_paused Paused ittusbdd: https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml . Native Mastodon notifications.clear directly attests Clear sfdh: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . Native CNDH izgaln Errors evidenced in https://cndh.ma/sites/default/files/2024-01/memo_code_penal_v_amazighe.pdf . Preserve Resume PAUSED migrations, NO paused migrations to resume, completed successful resumption and ALL errors cleared. Success uses completed notification rather than inventing an adverb. Migration ismutt yn reuses prior low-confidence Move-to-Migration adaptation. LOW CONFIDENCE plural paused/resumed/cleared passives, no-items-purpose clause and full phrases require native validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "add-cron-job",
+    "before": "Ajouter un travail planifié",
+    "after": "ⵔⵏⵓ ⵜⴰⵡⵓⵔⵉ ⵜⵜⵓⵖⴰⵡⵙⵏⵜ",
+    "reason": "2026-09-14: Replace French scheduled-job labels/statuses. Native Red Moon activity_schedule attests Schedule aghawas, notification_action_resume Resume als and pref_title_start_time Start tuddma: https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml . Native Ministry employment page attests Work tawuri: https://www.mmsp.gov.ma/amz/nos-metiers/absence-non-justifi%C3%A9e . Native MediaWiki filedeleteerror supplies failure frame and rcfilters-activefilters active iswur in component: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve Add, plural jobs, ACTIVE scope, Resume versus Start and failure versus successful completion. Scheduled passive ttughawsnt, feminine active agreement, Resume nominalization tulsa/past passive and Started tbda are derived, not directly attested complete job labels. LOW CONFIDENCE job adaptation, derived grammar and whole phrases require native validation. Success uses completed notification."
+  },
+  {
+    "locale": "zgh",
+    "key": "cron-jobs",
+    "before": "Travaux planifiés",
+    "after": "ⵜⵉⵡⵓⵔⵉⵡⵉⵏ ⵜⵜⵓⵖⴰⵡⵙⵏⵜ",
+    "reason": "2026-09-14: Replace French scheduled-job labels/statuses. Native Red Moon activity_schedule attests Schedule aghawas, notification_action_resume Resume als and pref_title_start_time Start tuddma: https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml . Native Ministry employment page attests Work tawuri: https://www.mmsp.gov.ma/amz/nos-metiers/absence-non-justifi%C3%A9e . Native MediaWiki filedeleteerror supplies failure frame and rcfilters-activefilters active iswur in component: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve Add, plural jobs, ACTIVE scope, Resume versus Start and failure versus successful completion. Scheduled passive ttughawsnt, feminine active agreement, Resume nominalization tulsa/past passive and Started tbda are derived, not directly attested complete job labels. LOW CONFIDENCE job adaptation, derived grammar and whole phrases require native validation. Success uses completed notification."
+  },
+  {
+    "locale": "zgh",
+    "key": "active-cron-jobs",
+    "before": "Travaux actifs planifiés",
+    "after": "ⵜⵉⵡⵓⵔⵉⵡⵉⵏ ⵜⵜⵓⵖⴰⵡⵙⵏⵜ ⵉⵙⵡⵓⵔⵉⵏⵜ",
+    "reason": "2026-09-14: Replace French scheduled-job labels/statuses. Native Red Moon activity_schedule attests Schedule aghawas, notification_action_resume Resume als and pref_title_start_time Start tuddma: https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml . Native Ministry employment page attests Work tawuri: https://www.mmsp.gov.ma/amz/nos-metiers/absence-non-justifi%C3%A9e . Native MediaWiki filedeleteerror supplies failure frame and rcfilters-activefilters active iswur in component: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve Add, plural jobs, ACTIVE scope, Resume versus Start and failure versus successful completion. Scheduled passive ttughawsnt, feminine active agreement, Resume nominalization tulsa/past passive and Started tbda are derived, not directly attested complete job labels. LOW CONFIDENCE job adaptation, derived grammar and whole phrases require native validation. Success uses completed notification."
+  },
+  {
+    "locale": "zgh",
+    "key": "cron-job-resume-failed",
+    "before": "Échec de la reprise de la tâche planifiée",
+    "after": "ⵓⵔ ⵜⴰⵍⵍⴼⵓⵙ ⵜⵓⵍⵙⴰ ⵏ ⵜⵡⵓⵔⵉ ⵜⵜⵓⵖⴰⵡⵙⵏⵜ",
+    "reason": "2026-09-14: Replace French scheduled-job labels/statuses. Native Red Moon activity_schedule attests Schedule aghawas, notification_action_resume Resume als and pref_title_start_time Start tuddma: https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml . Native Ministry employment page attests Work tawuri: https://www.mmsp.gov.ma/amz/nos-metiers/absence-non-justifi%C3%A9e . Native MediaWiki filedeleteerror supplies failure frame and rcfilters-activefilters active iswur in component: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve Add, plural jobs, ACTIVE scope, Resume versus Start and failure versus successful completion. Scheduled passive ttughawsnt, feminine active agreement, Resume nominalization tulsa/past passive and Started tbda are derived, not directly attested complete job labels. LOW CONFIDENCE job adaptation, derived grammar and whole phrases require native validation. Success uses completed notification."
+  },
+  {
+    "locale": "zgh",
+    "key": "cron-job-resumed",
+    "before": "Tâche planifiée reprise avec succès",
+    "after": "ⵜⴰⵡⵓⵔⵉ ⵜⵜⵓⵖⴰⵡⵙⵏⵜ ⵜⵜⵓⵢⴰⵍⵙ!",
+    "reason": "2026-09-14: Replace French scheduled-job labels/statuses. Native Red Moon activity_schedule attests Schedule aghawas, notification_action_resume Resume als and pref_title_start_time Start tuddma: https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml . Native Ministry employment page attests Work tawuri: https://www.mmsp.gov.ma/amz/nos-metiers/absence-non-justifi%C3%A9e . Native MediaWiki filedeleteerror supplies failure frame and rcfilters-activefilters active iswur in component: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve Add, plural jobs, ACTIVE scope, Resume versus Start and failure versus successful completion. Scheduled passive ttughawsnt, feminine active agreement, Resume nominalization tulsa/past passive and Started tbda are derived, not directly attested complete job labels. LOW CONFIDENCE job adaptation, derived grammar and whole phrases require native validation. Success uses completed notification."
+  },
+  {
+    "locale": "zgh",
+    "key": "cron-job-start-failed",
+    "before": "Échec du démarrage de la tâche planifiée",
+    "after": "ⵓⵔ ⵜⴰⵍⵍⴼⵓⵙ ⵜⵓⴷⴷⵎⴰ ⵏ ⵜⵡⵓⵔⵉ ⵜⵜⵓⵖⴰⵡⵙⵏⵜ",
+    "reason": "2026-09-14: Replace French scheduled-job labels/statuses. Native Red Moon activity_schedule attests Schedule aghawas, notification_action_resume Resume als and pref_title_start_time Start tuddma: https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml . Native Ministry employment page attests Work tawuri: https://www.mmsp.gov.ma/amz/nos-metiers/absence-non-justifi%C3%A9e . Native MediaWiki filedeleteerror supplies failure frame and rcfilters-activefilters active iswur in component: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve Add, plural jobs, ACTIVE scope, Resume versus Start and failure versus successful completion. Scheduled passive ttughawsnt, feminine active agreement, Resume nominalization tulsa/past passive and Started tbda are derived, not directly attested complete job labels. LOW CONFIDENCE job adaptation, derived grammar and whole phrases require native validation. Success uses completed notification."
+  },
+  {
+    "locale": "zgh",
+    "key": "cron-job-started",
+    "before": "Tâche planifiée démarrée avec succès",
+    "after": "ⵜⴰⵡⵓⵔⵉ ⵜⵜⵓⵖⴰⵡⵙⵏⵜ ⵜⴱⴷⴰ!",
+    "reason": "2026-09-14: Replace French scheduled-job labels/statuses. Native Red Moon activity_schedule attests Schedule aghawas, notification_action_resume Resume als and pref_title_start_time Start tuddma: https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml . Native Ministry employment page attests Work tawuri: https://www.mmsp.gov.ma/amz/nos-metiers/absence-non-justifi%C3%A9e . Native MediaWiki filedeleteerror supplies failure frame and rcfilters-activefilters active iswur in component: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve Add, plural jobs, ACTIVE scope, Resume versus Start and failure versus successful completion. Scheduled passive ttughawsnt, feminine active agreement, Resume nominalization tulsa/past passive and Started tbda are derived, not directly attested complete job labels. LOW CONFIDENCE job adaptation, derived grammar and whole phrases require native validation. Success uses completed notification."
   }
 ]
