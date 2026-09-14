@@ -303,3 +303,19 @@ those labels while preserving sensible unknown-stage fallback. Existing
 `migration-progress-note` is independently rendered and does not solve the
 step-ID gap. No runtime code or translation value changed in this review.
 Counts remain 281 pending and 4 restored; native phrase review stays open.
+
+## Explicit computer-server term — 2026-09-14
+
+Local `server` changes from French `Serveur` to the primary dictionary's
+explicit computer-server phrase `ⴰⵎⴰⴽⴽⴰⵢ ⴰⵙⵏⵎⴰⵍⴰⵢ` (PDF page 120,
+entry 2157). Unlike a generic helper or a physical support, the full quoted
+phrase has an expressly technical sense. Exact and French-negative regression
+checks cover the additional unflagged repair. No direct reference to this
+generic key was found in the inspected client source; no live rendering is
+claimed, and the original queue counts are unchanged.
+
+`smtp-tls-description` still contains Arabic. Its protocol-support meaning
+cannot be established by dictionary nouns for physical props or assistance.
+That pending phrase needs software compatibility terminology and complete
+grammar, preserving TLS/SMTP exactly. The verified server term supplies only
+one component and does not close the original finding.

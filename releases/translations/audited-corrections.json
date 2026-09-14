@@ -130940,5 +130940,12 @@
     "before": "Corriger les cartes orphelines",
     "after": "ⵙⵙⴰⵖⴷ ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ ⵜⵉⴳⵓⵊⵉⵍⵉⵏ",
     "reason": "Replace French orphaned-card repair label with primary IRCAM correct/orphan vocabulary and existing local card noun. Source confirms nonexistent swimlane references. Adapted software metaphor and agreement, low confidence pending native and browser validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "server",
+    "before": "Serveur",
+    "after": "ⴰⵎⴰⴽⴽⴰⵢ ⴰⵙⵏⵎⴰⵍⴰⵢ",
+    "reason": "Replace French server noun with explicitly attested computer-server phrase from primary IRCAM General Dictionary Amazigh-English (2019), PDF p120 entry2157. Technical support phrases still require separate semantic review."
   }
 ]
