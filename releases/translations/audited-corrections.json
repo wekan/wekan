@@ -131759,5 +131759,12 @@
     "before": "Näytä tyhjät listat",
     "after": "Peitä tühjad lugetišed",
     "reason": "2026-09-14: Replace Finnish wording that incorrectly says Show with complete Veps Hide empty lists draft. Native MediaWiki rcfilters-activefilters-hide attests Peitä and invalid-langconvert-attrs attests tühjad for plural empty. Existing local lists = Lugetišed supplies the plural. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json. LOW CONFIDENCE: assembled phrase, noun spelling and object agreement need native review. Actual sidebar control toggles Filter.hideEmpty; no live browser verification claimed."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "subtask-inherit-parent-labels",
+    "before": "Ḓadzhela zwiredzo zwa khadi ya mubebi",
+    "after": "Jäl'gesta vanhemban kartan znamad",
+    "reason": "2026-09-14: Replace Venda instruction with complete Veps inheritance draft. Zaiceva/Mullonen Uz’ venä-vepsläine vajehnik (2007), visually verified page 253, attests jäl’gestada (inherit). Noid dictionary attests vanhemb, genitive vanhemban, as parent/elder; existing WeKan card Kart and labels Znamad supply UI nouns. Sources: https://drive.google.com/file/d/0B92CAKqSx8Ped29wTmhIQ0NZSTg/view and https://vepsnoid.blogspot.com/p/dictionary.html. LOW CONFIDENCE: derived imperative, parent-card metaphor, genitive compound and label object agreement need native review. Actual checkbox passes inheritLabels when creating a subtask. No live browser claim."
   }
 ]

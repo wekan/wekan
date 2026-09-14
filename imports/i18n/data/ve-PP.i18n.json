@@ -2669,7 +2669,7 @@
   "wip-limit-group-add": "Ližata WIP-röunan jouk",
   "wip-limit-group-select-swimlane": "Valiče ujundšoid",
   "wip-limit-group-apply-swimlane": "Kävuta ujundšoidule",
-  "subtask-inherit-parent-labels": "Ḓadzhela zwiredzo zwa khadi ya mubebi",
+  "subtask-inherit-parent-labels": "Jäl'gesta vanhemban kartan znamad",
   "chart-forecast-none-remaining": "A huna tshi salaho u lavhelesa - makhadi oṱhe o fhedza.",
   "chart-forecast-no-velocity": "Hu kha ḓi vha na makhadi a __remaining__ o vulwaho; a huna u fhedza ha zwenezwino u itela u lavhelesa datumu.",
   "chart-forecast-projected": "Nga luvhilo lwa zwino lwa makhadi a __average__ nga vhege, makhadi a __remaining__ o vulwaho a fanela u fhedza nga __date__.",

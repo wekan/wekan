@@ -53,3 +53,11 @@ test('Veps hide-empty label preserves the action, emptiness and existing plural 
   assert.equal(data['filter-hide-empty'], `Peitä tühjad ${data.lists.toLowerCase()}`);
   assert.doesNotMatch(data['filter-hide-empty'], /näytä|ozuta|tyhjät/i);
 });
+
+test('Veps subtask inheritance draft preserves the parent-card and labels instead of Venda', () => {
+  const data = JSON.parse(fs.readFileSync('imports/i18n/data/ve-PP.i18n.json', 'utf8'));
+  assert.equal(data['subtask-inherit-parent-labels'], "Jäl'gesta vanhemban kartan znamad");
+  assert.match(data['subtask-inherit-parent-labels'], /vanhemban kartan/);
+  assert.match(data['subtask-inherit-parent-labels'], new RegExp(`${data.labels.toLowerCase()}$`));
+  assert.doesNotMatch(data['subtask-inherit-parent-labels'], /Ḓadzhela|zwiredzo|mubebi/);
+});
