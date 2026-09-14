@@ -214,3 +214,10 @@ assert.equal(inuktitut['board-operations'], 'ᐊᓪᓚᕕᐅᑉ ᐱᓕᕆᐊᖏ�
 assert.deepEqual(tokens(inuktitut['database-migration-confirm']), ['__db__']);
 assert.match(inuktitut['database-migration-description'], /WEKAN_FERRETDB_URL/);
 assert.equal(inuktitut['sandstorm-migration-success'], 'ᐱᔭᕇᖅᑐᖅ');
+
+assert.equal(inuktitut['r-rule-enabled'], 'ᐊᑐᖅᑕᐅᔪᖅ');
+assert.equal(inuktitut['r-rule-disabled'], 'ᐊᑐᖅᑕᐅᙱᑦᑐᖅ');
+assert.notEqual(inuktitut['r-rule-enabled'], inuktitut['r-rule-disabled']);
+for (const key of ['r-rule-enabled', 'r-rule-disabled']) {
+  assert.doesNotMatch(inuktitut[key], /Atur|lauqtuq/);
+}

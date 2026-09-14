@@ -130135,5 +130135,19 @@
     "before": "Nom personnalisé",
     "after": "Anv personelaet ar produ",
     "reason": "Replace French label and restore product qualifier; adapted Breton compound using native personelaat and dictionary produ. Full compound/browser validation remains open."
+  },
+  {
+    "locale": "iu",
+    "key": "r-rule-enabled",
+    "before": "Aturtaulauqtuq",
+    "after": "ᐊᑐᖅᑕᐅᔪᖅ",
+    "reason": "Use native syllabic present used/not-used status wording for rule state. Legislative Assembly attests the negative form for software not in use; adaptation to enabled/disabled UI needs native/browser review."
+  },
+  {
+    "locale": "iu",
+    "key": "r-rule-disabled",
+    "before": "Aturunnaitittauqtuq",
+    "after": "ᐊᑐᖅᑕᐅᙱᑦᑐᖅ",
+    "reason": "Use native syllabic present used/not-used status wording for rule state. Legislative Assembly attests the negative form for software not in use; adaptation to enabled/disabled UI needs native/browser review."
   }
 ]
