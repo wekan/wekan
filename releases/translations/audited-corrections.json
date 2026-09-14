@@ -124031,5 +124031,19 @@
     "before": "مقفل",
     "after": "ⵉⵜⵜⵓⵔⴳⵍ",
     "reason": "2026-09-14: Replace Arabic software label. Native Mastodon poll.closed directly supplies the completed closed-state wording. Preserve status Closed, not imperative Close, Resolved or Cancelled. Reference: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json (poll.closed)."
+  },
+  {
+    "locale": "zgh",
+    "key": "board-title",
+    "before": "عنوان اللوح",
+    "after": "ⴰⵣⵡⵍ ⵏ ⵜⴼⵍⵡⵉⵜ",
+    "reason": "2026-09-14: Replace Arabic heading, preserving Board Title, singular board title, not board contents or card title. Native MediaWiki pageinfo-display-title supports azwl/title. Reuse existing WeKan board/card nouns. LOW CONFIDENCE complete kanban noun phrase and bound-state adaptation: native title/details components do not independently establish full heading or board/card terminology extension. Fluent review remains required. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "cardDetailsPopup-title",
+    "before": "نقاصيل البطاقة",
+    "after": "ⵉⴼⵔⵓⵔⵉⵜⵏ ⵏ ⵜⴽⴰⵕⴹⴰ",
+    "reason": "2026-09-14: Replace Arabic heading, preserving Card Details popup, plural details of a singular card, not description alone or Board Details. Native MediaWiki passwordreset-emailtitle and metadata-help attest ifruritn/details. Reuse existing WeKan board/card nouns. LOW CONFIDENCE complete kanban noun phrase and bound-state adaptation: native title/details components do not independently establish full heading or board/card terminology extension. Fluent review remains required. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]
