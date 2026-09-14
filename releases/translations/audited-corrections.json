@@ -127384,5 +127384,12 @@
     "before": "Missatges d'error",
     "after": "Errors",
     "reason": "Historical migration stats template removed in a440d44ea places this label below operationStats.error, a count of errors, not error messages. Replace Missatges d’error with Errors to preserve count meaning."
+  },
+  {
+    "locale": "gl",
+    "key": "schedule",
+    "before": "Programar",
+    "after": "Programación",
+    "reason": "Use Galician schedule noun Programación instead of imperative/infinitive Programar. Historical a440d44ea displays schedule as cron table heading and recurrence dropdown label, not an action button. No current consumer found."
   }
 ]

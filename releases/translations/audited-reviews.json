@@ -24892,5 +24892,23 @@
     "key": "migration-complete",
     "value": "Completa",
     "reason": "Correct completed migration badge wording. Historical template removed in cbb1cd78d shows migration-complete when a migration is not needed, establishing finished-state context. No current consumer found."
+  },
+  {
+    "locale": "da",
+    "key": "schedule",
+    "value": "Tidsplan",
+    "reason": "Danish Tidsplan is the schedule noun used as cron table heading and job-schedule dropdown label in historical a440d44ea; this is not a scheduling imperative. No current consumer found; lexical/context review does not establish live workflow behavior."
+  },
+  {
+    "locale": "eu",
+    "key": "idle",
+    "value": "Geldi",
+    "reason": "Basque Geldi correctly denotes an idle/stopped state. Historical cronMigrationStatus fallback in a440d44ea establishes state-label context rather than an imperative. No current consumer found; lexical/context review does not establish live workflow behavior."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "idle",
+    "value": "Inactiu",
+    "reason": "Valencian Inactiu correctly denotes an inactive/idle state. Historical cronMigrationStatus fallback in a440d44ea establishes state-label context rather than an imperative. No current consumer found; lexical/context review does not establish live workflow behavior."
   }
 ]
