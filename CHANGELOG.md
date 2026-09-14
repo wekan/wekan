@@ -671,6 +671,15 @@ The empty wrongly placed Git directory was removed locally.
 **Languages updated:** Acehnese, Bambara, Basque, Breton, Esperanto, Galician, Greenlandic, Manx, Sardinian, Swedish, Valencian, Veps
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/698acc666">Repair Breton migration and recurrence language</a>. Thanks to xet7.</summary>
+
+Nine French-seeded migration, recurrence and status labels become Breton.
+Estimated-time wording remains provisional for native review. Structural
+checks pass; complete phrase and browser review remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ed962d026">Repair Breton list menu language</a>. Thanks to xet7.</summary>
 
 Three French-seeded list name, template and insertion labels reuse Breton

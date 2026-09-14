@@ -23053,3 +23053,14 @@ preserve list-template scope and insertion after the list. Last-access-time
 wording remains under review, rather than being guessed from the sort key.
 All 18,440 correction checks pass. Native phrase/browser validation remains
 open; original pending/restored scope stays 300/27.
+
+Dated unflagged repair, 2026-09-14, local commit `698acc666`: nine Breton
+migration/recurrence/status labels replace French. Existing analyze-board and
+restore-lost-cards messages support Dielfennañ and Adsevel; existing daily
+recurrence supports Bemdez. Estimated remaining-time uses brasjedet: native
+municipal Le Tambour 135 uses brasjedet for an estimated population:
+https://www.landerneau.bzh/wp-content/uploads/2025/02/WEB_078026_Le_Tambour_135_210x270mm_pages.pdf
+This attests the estimation word, not the complete time-estimation phrase;
+that wording remains provisional. All 18,449 correction and 4,158 unchanged
+checks pass. Native phrase/browser validation remain open; original pending/
+restored scope stays 300/27. Migration validation label still needs repair.
