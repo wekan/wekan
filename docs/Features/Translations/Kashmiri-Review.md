@@ -1,5 +1,26 @@
 # Kashmiri translation review
 
+## Primary grammar evidence — 2026-09-14
+
+Koul and Wali, Modern Kashmiri Grammar (Dunwoody Press, 2006), was
+retrieved directly and its relevant sections read:
+https://ikashmir.net/onkoul/pdf/ModernKashmiriGrammar.pdf
+
+PDF page 205 (zero-based page 204) lists moon as zu:n. PDF page 91
+identifies vuch as see. Section 3.4.6.1, PDF pages 124–125, describes
+infinitives formed with -UN and agreement with nominative subjects and
+transitive nominative objects; case-marked arguments behave differently.
+Section 4.3.4.3, PDF pages 175–176, supplies purpose constructions with
+the seeing infinitive and ablative/postposition forms. Section 4.3.2.2,
+PDF page 167, separately describes nominalized infinitives.
+
+These are primary lexical and grammatical evidence, replacing reliance
+on an unread dictionary snippet. They do not attest a complete Hijri
+moon-sighting calendar label, its Arabic-script inflections, or tabular
+and astronomical-epoch terminology. Extracted legacy-font characters
+must not be copied as Unicode spelling evidence. Both existing findings
+remain pending; no translation or correction-ledger acceptance is made.
+
 ## Kashmiri sighting terminology and source reliability — 2026-09-14
 
 Both ks calendar-system-islamic-rgsa and calendar-system-islamic-tbla
