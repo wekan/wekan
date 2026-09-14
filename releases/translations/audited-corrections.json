@@ -129218,5 +129218,61 @@
     "before": "Rendu incomplet",
     "after": "Lakaet da vezañ diechu",
     "reason": "Replace French completion-state prose with existing Breton pomodoro/checklist activity terminology; preserve completed versus made-incomplete state. Shared trigger clause grammar and browser rendering remain open."
+  },
+  {
+    "locale": "br",
+    "key": "r-name",
+    "before": "nom",
+    "after": "anv",
+    "reason": "Replace French rule-editor field/action prose with Breton, preserving actual name/recipient/date-operation/color/swimlane context. Ofis ar Brezhoneg computing glossary supports termeniñ, kas, postel and liv; complete phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "r-list-name",
+    "before": "Nom de la liste",
+    "after": "anv ar roll",
+    "reason": "Replace French rule-editor field/action prose with Breton, preserving actual name/recipient/date-operation/color/swimlane context. Ofis ar Brezhoneg computing glossary supports termeniñ, kas, postel and liv; complete phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "r-swimlane-name",
+    "before": "Nom du couloir",
+    "after": "anv ar vandenn",
+    "reason": "Replace French rule-editor field/action prose with Breton, preserving actual name/recipient/date-operation/color/swimlane context. Ofis ar Brezhoneg computing glossary supports termeniñ, kas, postel and liv; complete phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "r-in-swimlane",
+    "before": "Dans le couloir",
+    "after": "er vandenn",
+    "reason": "Replace French rule-editor field/action prose with Breton, preserving actual name/recipient/date-operation/color/swimlane context. Ofis ar Brezhoneg computing glossary supports termeniñ, kas, postel and liv; complete phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "r-send-email",
+    "before": "Envoyer un email",
+    "after": "Kas ur postel",
+    "reason": "Replace French rule-editor field/action prose with Breton, preserving actual name/recipient/date-operation/color/swimlane context. Ofis ar Brezhoneg computing glossary supports termeniñ, kas, postel and liv; complete phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "r-to",
+    "before": "à",
+    "after": "da",
+    "reason": "Replace French rule-editor field/action prose with Breton, preserving actual name/recipient/date-operation/color/swimlane context. Ofis ar Brezhoneg computing glossary supports termeniñ, kas, postel and liv; complete phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "r-set",
+    "before": "Définir",
+    "after": "Termeniñ",
+    "reason": "Replace French rule-editor field/action prose with Breton, preserving actual name/recipient/date-operation/color/swimlane context. Ofis ar Brezhoneg computing glossary supports termeniñ, kas, postel and liv; complete phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "r-set-color",
+    "before": "Définir la couleur à",
+    "after": "Termeniñ al liv da",
+    "reason": "Replace French rule-editor field/action prose with Breton, preserving actual name/recipient/date-operation/color/swimlane context. Ofis ar Brezhoneg computing glossary supports termeniñ, kas, postel and liv; complete phrase/browser review remains open."
   }
 ]
