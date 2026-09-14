@@ -2030,3 +2030,21 @@ restoration entry location before writing the full guidance.
 Sources:
 https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
 https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+
+Archive guidance source discrepancy **2026-09-14**:
+The earlier bounded header search is superseded by direct source inspection.
+boardsList.js menuSections supplies archive with labelKey archives and
+extraClass js-open-archived-board. boardsList.jade renders these sections
+as js-select-menu links; the click handler selects the archive section.
+The old board-header-btn js-open-archived-board markup at lines 390 onward
+is commented out. Thus close-board-pop's English home-header button location
+is outdated too; translating that location literally would perpetuate the
+error. Full repairs must use the active All Boards menu Archive location
+and preserve board restoration. This is an additional source-language
+finding, not proof that all other locales already describe it correctly.
+Do not make UI changes just to match obsolete prose. No locale/count
+changes or new browser execution are claimed. Original pending remains
+226 (zgh 119), restored 4, correction ledger 18,853. Next action includes
+repairing English and reviewing the same location in other locales, along
+with the unresolved Tamazight full sentence and UI terminology.
