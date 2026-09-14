@@ -123051,5 +123051,61 @@
     "before": "Pièces jointes S3",
     "after": "ⵜⵉⵙⵉⵡⴰⵢ ⵢⵔⵏⴰⵏ S3",
     "reason": "Replace French/Arabic attachment labels or action popups. Preserve singular/plural attachment, add/edit/delete/actions/move distinctions and exact GridFS/S3 destination names. Computing lexicon explicitly gives Pièce jointe (mail as attachment): Tasawit KBL (plural tisiway) yernan KBL, PDF page 109 printed 105: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . MediaWiki zgh actions, export-addcat, edit, listfiles-delete and move support action components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: Kabyle mail term adapted to Standard Moroccan card attachments, Tifinagh transcription, plural/relative agreement, bound noun relations and full software phrases require review. Existing Tifinagh attachment translations are not blanket-overwritten merely for consistency."
+  },
+  {
+    "locale": "zgh",
+    "key": "activity-delete-attach",
+    "before": "a supprimé une pièce jointe de %s",
+    "after": "ⵉⴽⴽⵙ ⵜⴰⵙⴰⵡⵉⵜ ⵢⵔⵏⴰⵏ ⵙⴳ %s",
+    "reason": "Replace French or mixed French/Arabic attachment activity, rule-fragment, personal-list or bulk-move message. Preserve deleted rather than delete command, FROM %s with exact token, incomplete When fragment, MY ownership, ALL versus ALL OF BOARD, and exact GridFS/S3 destinations. Explicit Tasawit KBL (plural tisiway) yernan KBL mail-attachment term: PDF page 109 printed 105, https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . Native MediaWiki zgh logentry-delete-delete, move, allpages, mywatchlist and metadata-fields support deleted/move/all/my/when components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: Kabyle-to-Standard-Moroccan card-attachment adaptation, Tifinagh transcription, generic activity actor gender, possessive/plural agreement, fragment composition, bound board and full bulk-move phrasing require fluent review. Existing correct-language values are not overwritten for terminology consistency."
+  },
+  {
+    "locale": "zgh",
+    "key": "activity-delete-attach-card",
+    "before": "a supprimé une pièce jointe",
+    "after": "ⵉⴽⴽⵙ ⵜⴰⵙⴰⵡⵉⵜ ⵢⵔⵏⴰⵏ",
+    "reason": "Replace French or mixed French/Arabic attachment activity, rule-fragment, personal-list or bulk-move message. Preserve deleted rather than delete command, FROM %s with exact token, incomplete When fragment, MY ownership, ALL versus ALL OF BOARD, and exact GridFS/S3 destinations. Explicit Tasawit KBL (plural tisiway) yernan KBL mail-attachment term: PDF page 109 printed 105, https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . Native MediaWiki zgh logentry-delete-delete, move, allpages, mywatchlist and metadata-fields support deleted/move/all/my/when components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: Kabyle-to-Standard-Moroccan card-attachment adaptation, Tifinagh transcription, generic activity actor gender, possessive/plural agreement, fragment composition, bound board and full bulk-move phrasing require fluent review. Existing correct-language values are not overwritten for terminology consistency."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-when-a-attach",
+    "before": "Quand une pièce jointe",
+    "after": "ⴰⴷⴷⴰⵢ ⵜⴰⵙⴰⵡⵉⵜ ⵢⵔⵏⴰⵏ",
+    "reason": "Replace French or mixed French/Arabic attachment activity, rule-fragment, personal-list or bulk-move message. Preserve deleted rather than delete command, FROM %s with exact token, incomplete When fragment, MY ownership, ALL versus ALL OF BOARD, and exact GridFS/S3 destinations. Explicit Tasawit KBL (plural tisiway) yernan KBL mail-attachment term: PDF page 109 printed 105, https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . Native MediaWiki zgh logentry-delete-delete, move, allpages, mywatchlist and metadata-fields support deleted/move/all/my/when components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: Kabyle-to-Standard-Moroccan card-attachment adaptation, Tifinagh transcription, generic activity actor gender, possessive/plural agreement, fragment composition, bound board and full bulk-move phrasing require fluent review. Existing correct-language values are not overwritten for terminology consistency."
+  },
+  {
+    "locale": "zgh",
+    "key": "my-attachments",
+    "before": "Mes المرفقات",
+    "after": "ⵜⵉⵙⵉⵡⴰⵢ ⵢⵔⵏⴰⵏ ⵉⵏⵓ",
+    "reason": "Replace French or mixed French/Arabic attachment activity, rule-fragment, personal-list or bulk-move message. Preserve deleted rather than delete command, FROM %s with exact token, incomplete When fragment, MY ownership, ALL versus ALL OF BOARD, and exact GridFS/S3 destinations. Explicit Tasawit KBL (plural tisiway) yernan KBL mail-attachment term: PDF page 109 printed 105, https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . Native MediaWiki zgh logentry-delete-delete, move, allpages, mywatchlist and metadata-fields support deleted/move/all/my/when components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: Kabyle-to-Standard-Moroccan card-attachment adaptation, Tifinagh transcription, generic activity actor gender, possessive/plural agreement, fragment composition, bound board and full bulk-move phrasing require fluent review. Existing correct-language values are not overwritten for terminology consistency."
+  },
+  {
+    "locale": "zgh",
+    "key": "move-all-attachments-to-gridfs",
+    "before": "Déplacer toutes les pièces jointes vers GridFS",
+    "after": "ⵙⵎⵓⵜⵜⵉ ⵜⵉⵙⵉⵡⴰⵢ ⵢⵔⵏⴰⵏ ⴰⴽⴽ ⵖⵔ GridFS",
+    "reason": "Replace French or mixed French/Arabic attachment activity, rule-fragment, personal-list or bulk-move message. Preserve deleted rather than delete command, FROM %s with exact token, incomplete When fragment, MY ownership, ALL versus ALL OF BOARD, and exact GridFS/S3 destinations. Explicit Tasawit KBL (plural tisiway) yernan KBL mail-attachment term: PDF page 109 printed 105, https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . Native MediaWiki zgh logentry-delete-delete, move, allpages, mywatchlist and metadata-fields support deleted/move/all/my/when components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: Kabyle-to-Standard-Moroccan card-attachment adaptation, Tifinagh transcription, generic activity actor gender, possessive/plural agreement, fragment composition, bound board and full bulk-move phrasing require fluent review. Existing correct-language values are not overwritten for terminology consistency."
+  },
+  {
+    "locale": "zgh",
+    "key": "move-all-attachments-to-s3",
+    "before": "Déplacer toutes les pièces jointes vers S3",
+    "after": "ⵙⵎⵓⵜⵜⵉ ⵜⵉⵙⵉⵡⴰⵢ ⵢⵔⵏⴰⵏ ⴰⴽⴽ ⵖⵔ S3",
+    "reason": "Replace French or mixed French/Arabic attachment activity, rule-fragment, personal-list or bulk-move message. Preserve deleted rather than delete command, FROM %s with exact token, incomplete When fragment, MY ownership, ALL versus ALL OF BOARD, and exact GridFS/S3 destinations. Explicit Tasawit KBL (plural tisiway) yernan KBL mail-attachment term: PDF page 109 printed 105, https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . Native MediaWiki zgh logentry-delete-delete, move, allpages, mywatchlist and metadata-fields support deleted/move/all/my/when components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: Kabyle-to-Standard-Moroccan card-attachment adaptation, Tifinagh transcription, generic activity actor gender, possessive/plural agreement, fragment composition, bound board and full bulk-move phrasing require fluent review. Existing correct-language values are not overwritten for terminology consistency."
+  },
+  {
+    "locale": "zgh",
+    "key": "move-all-attachments-of-board-to-gridfs",
+    "before": "Déplacer toutes les pièces jointes du tableau vers GridFS",
+    "after": "ⵙⵎⵓⵜⵜⵉ ⵜⵉⵙⵉⵡⴰⵢ ⵢⵔⵏⴰⵏ ⴰⴽⴽ ⵏ ⵜⴼⵍⵡⵉⵜ ⵖⵔ GridFS",
+    "reason": "Replace French or mixed French/Arabic attachment activity, rule-fragment, personal-list or bulk-move message. Preserve deleted rather than delete command, FROM %s with exact token, incomplete When fragment, MY ownership, ALL versus ALL OF BOARD, and exact GridFS/S3 destinations. Explicit Tasawit KBL (plural tisiway) yernan KBL mail-attachment term: PDF page 109 printed 105, https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . Native MediaWiki zgh logentry-delete-delete, move, allpages, mywatchlist and metadata-fields support deleted/move/all/my/when components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: Kabyle-to-Standard-Moroccan card-attachment adaptation, Tifinagh transcription, generic activity actor gender, possessive/plural agreement, fragment composition, bound board and full bulk-move phrasing require fluent review. Existing correct-language values are not overwritten for terminology consistency."
+  },
+  {
+    "locale": "zgh",
+    "key": "move-all-attachments-of-board-to-s3",
+    "before": "Déplacer toutes les pièces jointes du tableau vers S3",
+    "after": "ⵙⵎⵓⵜⵜⵉ ⵜⵉⵙⵉⵡⴰⵢ ⵢⵔⵏⴰⵏ ⴰⴽⴽ ⵏ ⵜⴼⵍⵡⵉⵜ ⵖⵔ S3",
+    "reason": "Replace French or mixed French/Arabic attachment activity, rule-fragment, personal-list or bulk-move message. Preserve deleted rather than delete command, FROM %s with exact token, incomplete When fragment, MY ownership, ALL versus ALL OF BOARD, and exact GridFS/S3 destinations. Explicit Tasawit KBL (plural tisiway) yernan KBL mail-attachment term: PDF page 109 printed 105, https://cedric.cnam.fr/~bouzefra/books/amawal.pdf . Native MediaWiki zgh logentry-delete-delete, move, allpages, mywatchlist and metadata-fields support deleted/move/all/my/when components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . LOW CONFIDENCE: Kabyle-to-Standard-Moroccan card-attachment adaptation, Tifinagh transcription, generic activity actor gender, possessive/plural agreement, fragment composition, bound board and full bulk-move phrasing require fluent review. Existing correct-language values are not overwritten for terminology consistency."
   }
 ]
