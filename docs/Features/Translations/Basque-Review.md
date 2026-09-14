@@ -210,7 +210,7 @@ browser tests must cover the full description, not just isolated JSON values.
 No restored value is classified from this review. Four restored findings and
 283 pending remain. The actual browser rendering has not been tested here.
 
-## 2026-09-14 — Named-subject DOM order repaired
+## 2026-09-14 — Named-subject DOM order repaired (1e4411183)
 
 The synchronous reactive ruleNameBeforeSubject helper selects Basque only.
 In all five named-object control rows, the name dropdown/input now precedes

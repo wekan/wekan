@@ -726,6 +726,17 @@ Four restored findings remain open. Audit consistency checks pass.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1e4411183">Order Basque named rule subjects correctly</a>. Thanks to xet7.</summary>
+
+Named controls precede the Basque noun phrase and its final demonstrative.
+Saved descriptions follow the same DOM order; other locales and existing
+translations are preserved. Locale positive/negative checks and all Jade
+compilation pass. The browser control/persisted-description case is syntax
+checked, not run: no local app is listening. Full native review stays open.
+
+</details>
+
 **Developer tooling** - Mirror Git progress.
 
 <details>

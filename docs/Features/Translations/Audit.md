@@ -39,12 +39,12 @@ contain **18,693** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest uncertain-phrase review: **2026-09-14**, `209d1088b` —
-[Basque rule review](Basque-Review.md) confirms named subjects put the selected
-name after the final demonstrative. Saved descriptions use that same DOM order.
-EHU native grammar establishes the noun-phrase constraint; a CSS-only fix
-would be incomplete. All four restored findings remain open for a locale-aware
-control/description repair. No unchanged acceptance was added.
+Latest uncertain-phrase repair: **2026-09-14**, `1e4411183` —
+[Basque rule review](Basque-Review.md) records corrected DOM order in five
+named-subject rows, shared with saved descriptions. Human noun phrases are
+preserved. Focused positive/negative checks and all Jade compilation pass.
+Browser spec 88 is syntax checked, not executed (no localhost app).
+Four restored findings remain open for browser/full native phrase verification.
 Latest unflagged unchanged review: **2026-09-14**, `5bf34bc48` —
 Inuktitut `new` retains `ᓄᑖᖅ`, matching the native software guide's New
 command and actual admin creation labels. Focused checks pass; browser review

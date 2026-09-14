@@ -24287,3 +24287,14 @@ cannot validate these four restored findings. Locale-aware complete subject
 construction must preserve DOM/control semantics and saved description order.
 No classifications change: 283 pending, 4 restored, 4,175 retained,
 15,619 corrected; 18,693 correction records. Browser verification is open.
+
+## Basque named-subject DOM repair, 2026-09-14
+
+Local commit `1e4411183` corrects the Basque name-control order in five rows
+while preserving all translated noun phrases. [Basque review](Basque-Review.md)
+records shared saved-description ordering and other-locale preservation.
+Focused locale/branch/negative checks, actual Jade compilation, retained
+review and completeness suites pass. Browser spec 88 covers control order,
+persisted description and English preservation; syntax checked, not executed.
+No local app listens on port 3000. Four restored findings remain open for
+browser/full native phrase validation; 283 pending, 18,693 correction records.
