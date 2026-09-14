@@ -377,6 +377,19 @@ node tools/mirror-active-forges.mjs --archive-only --apply
 The archive can be large when retaining all releases and historical versions.
 It remains gitignored and Meteor-ignored under `.tools/`.
 
+The launcher immediately reports whether `gh` is on PATH. GitHub source
+metadata prefers authenticated `gh api` when the CLI and a token are available
+(GH_TOKEN, GITHUB_TOKEN or the CLI's configured GitHub account). Issues,
+comments, pulls, reviews and releases retain the same paginated API inventory
+and incremental disk checkpoints; no whole-organization CLI output is buffered.
+Each CLI request has a two-minute timeout and a 16 MiB output limit. Response
+headers preserve pagination and the existing persisted rate-limit cooldowns.
+Missing CLI/authentication uses HTTP API access; rejected authentication retries
+public REST reads. Binary release attachments keep streaming HTTP downloads.
+Tokens are not included in command arguments or logs. CLI permissions depend
+on its account/token scopes; using the CLI does not grant extra access itself.
+See the [GitHub CLI API manual](https://cli.github.com/manual/gh_api).
+
 Missing WeKan branch-content links (`github.com/wekan/wekan/tree/...`,
 `blob/...` and equivalent `raw.githubusercontent.com` branch URLs) do not
 use archive.org fallback. The live URL is still attempted, but a missing or

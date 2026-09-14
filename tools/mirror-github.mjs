@@ -3,7 +3,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { setTimeout as pause } from 'node:timers/promises';
-import { spawnSync } from 'node:child_process';
+import { spawnSync, execFile } from 'node:child_process';
+import { promisify } from 'node:util';
+import { parseCliResponse } from './mirror-rate-limits.mjs';
 import { fileURLToPath } from 'node:url';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 export function retryDelay(headers, now, attempt=0) {
@@ -13,18 +15,47 @@ export function retryDelay(headers, now, attempt=0) {
   return Math.max(Number.isFinite(retryMs)?retryMs:0,primary,60000*2**attempt);
 }
 function tokenFromCli() {
-  const result=spawnSync('gh',['auth','token','--hostname','github.com'],{encoding:'utf8',shell:false,windowsHide:true,stdio:['ignore','pipe','pipe']});
+  const result=spawnSync('gh',['auth','token','--hostname','github.com'],{encoding:'utf8',shell:false,windowsHide:true,timeout:10000,stdio:['ignore','pipe','pipe']});
   return result.status===0?result.stdout.trim():'';
 }
-export function createGithubClient({fetcher=fetch,sleep=pause,now=Date.now,log=console.log,tokenLoader=tokenFromCli,token,stateFile=path.join(root,'.tools/mirror/github-rate-limit.json')}={}) {
-  let queue=Promise.resolve(),credential=token;
+export function githubCliAvailable() {
+  return spawnSync('gh',['--version'],{shell:false,windowsHide:true,timeout:10000,stdio:'ignore'}).status===0;
+}
+export async function githubCliRead(url, headers, credential, execute=promisify(execFile)) {
+  const args=['api',url,'--method','GET','--include'];
+  for(const [name,value] of Object.entries(headers)) if(name.toLowerCase()!=='authorization') args.push('--header',`${name}: ${value}`);
+  const options={encoding:'utf8',shell:false,windowsHide:true,timeout:120000,maxBuffer:16*1024*1024,
+    env:{...process.env,GH_TOKEN:credential,GH_PROMPT_DISABLED:'1'}};
+  let result;
+  try { result={...await execute('gh',args,options),status:0}; }
+  catch(error) {
+    // gh exits nonzero for HTTP errors; preserve their rate-limit headers.
+    if(!/^HTTP\/\S+\s+\d{3}/m.test(error.stdout||'')) throw Error('GitHub CLI request failed or timed out');
+    result={stdout:error.stdout,stderr:error.stderr,status:1};
+  }
+  const parsed=parseCliResponse(result);
+  if(result.status!==0 && parsed.response.status<400) throw Error('GitHub CLI request failed');
+  return new Response([204,205,304].includes(parsed.response.status)?null:parsed.body,
+    {status:parsed.response.status,headers:parsed.response.headers});
+}
+export function createGithubClient({fetcher=fetch,sleep=pause,now=Date.now,log=console.log,tokenLoader=tokenFromCli,token,
+  cliAvailable=token===undefined&&tokenLoader===tokenFromCli?githubCliAvailable:()=>false,
+  cliRead=githubCliRead,stateFile=path.join(root,'.tools/mirror/github-rate-limit.json')}={}) {
+  let queue=Promise.resolve(),credential=token,useCli;
   const load=()=>{if(!fs.existsSync(stateFile))return {};const state=JSON.parse(fs.readFileSync(stateFile,'utf8'));if(state.version!==1||!state.until||Object.values(state.until).some(n=>!Number.isFinite(n)))throw Error('Invalid GitHub rate-limit state');return state.until;};
   const save=(resource,until)=>{const state=load();state[resource]=Math.max(state[resource]||0,until);fs.mkdirSync(path.dirname(stateFile),{recursive:true});const incoming=stateFile+`.incoming-${process.pid}`;fs.writeFileSync(incoming,JSON.stringify({version:1,until:state})+'\n');fs.renameSync(incoming,stateFile);};
   async function wait(until) {let remaining=until-now();if(remaining<=0)return;log(`[github] rate limit: waiting ${Math.ceil(remaining/1000)} seconds`);while(remaining>0){await sleep(Math.min(remaining,60000));remaining=until-now();}}
   async function request(endpoint,{method='GET',data,headers:extra={}}={}) {
     let url=new URL(endpoint.startsWith('https://')?endpoint:`https://api.github.com/${endpoint.replace(/^\//,'')}`);
     if(!['api.github.com','uploads.github.com'].includes(url.hostname)||url.protocol!=='https:'||url.username||url.password)throw Error('Unsupported GitHub API URL');
-    if(credential===undefined)credential=process.env.GH_TOKEN||process.env.GITHUB_TOKEN||tokenLoader()||'';
+    if(useCli===undefined) {
+      const available=cliAvailable();
+      if(credential===undefined)credential=process.env.GH_TOKEN||process.env.GITHUB_TOKEN||
+        (available||tokenLoader!==tokenFromCli?tokenLoader():'')||'';
+      useCli=available&&Boolean(credential);
+      log(useCli?'[github] Using authenticated gh api for source metadata':
+        `[github] Using ${credential?'authenticated':'public unauthenticated'} HTTP API; gh ${available?'has no authentication':'is unavailable'}`);
+    }
     const graphql=url.pathname==='/graphql';
     const query=graphql&&method==='POST'&&typeof data?.query==='string'&&/^\s*(?:query\b|\{)/.test(data.query);
     if(!credential && method!=='GET' && method!=='HEAD' && !query)throw Error('GitHub token is required for remote writes');
@@ -37,7 +68,9 @@ export function createGithubClient({fetcher=fetch,sleep=pause,now=Date.now,log=c
     for(let attempt=0;attempt<6;attempt++) {
       await wait(load()[resource]||0);
       log(`[github] ${method} ${url.hostname}${url.pathname}${url.searchParams.has('page') ? ` page ${url.searchParams.get('page')}` : ''} (attempt ${attempt + 1}/6)`);
-      const response=await fetcher(url.href,{method,headers,body,redirect:'manual',signal:AbortSignal.timeout(3600000)});
+      const response=useCli&&method==='GET'&&url.hostname==='api.github.com'&&headers.Accept==='application/vnd.github+json'
+        ? await cliRead(url.href,headers,credential)
+        : await fetcher(url.href,{method,headers,body,redirect:'manual',signal:AbortSignal.timeout(3600000)});
       if(response.headers.get('x-ratelimit-remaining')==='0') {
         const reset=Number(response.headers.get('x-ratelimit-reset'))*1000;
         if(Number.isFinite(reset)&&reset>now())save(resource,reset+1000);
@@ -50,7 +83,7 @@ export function createGithubClient({fetcher=fetch,sleep=pause,now=Date.now,log=c
         url=next;attempt--;continue;
       }
       if(response.status===401 && credential && (method==='GET'||query)) {
-        await response.body?.cancel();credential='';delete headers.Authorization;
+        await response.body?.cancel();credential='';useCli=false;delete headers.Authorization;
         log('[github] token rejected; retrying public REST access without a token');
         if(graphql)throw Error('GitHub token rejected for Projects GraphQL inventory');
         continue;
