@@ -25407,3 +25407,16 @@ unquoted values and verifies the customfield predicate. Four suites pass;
 placeholders and newer human translations remain preserved. Low confidence:
 joined technical operator and native software compound; browser not run.
 Original pending remains 258; correction ledger grows to 18,757.
+
+
+Tamazight numeric-field total — 2026-09-14, local commit `318e5030b`.
+Unflagged sum-of-number-fields now uses primary total/top/mark components
+in place of unsupported seed wording, reusing existing custom-field and
+number terms. IRCAM PDF 602 entry 11282, PDF 67 entry 1008 and PDF 467
+entry 8828 supply the respective components. Actual listHeader.js helper
+uses summarizableCustomFields with number type, so the numeric and
+marked-for-display restrictions must both remain. Regression checks
+preserve those components and reject previous aggregate/top wording.
+Four suites pass with exact tokens, JSON order and human preference.
+Low confidence: plural genitive, passive marking and full relative clause;
+browser not run. Original pending remains 258; ledger grows to 18,758.

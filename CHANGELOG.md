@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/318e5030b">Repair Tamazight numeric-field total description</a>. Thanks to xet7.</summary>
+
+Restore aggregate and numeric custom-field wording, including display
+selection and list-top location. Four regression suites pass; native
+relative-clause grammar and browser verification remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d0175d46a">Repair Tamazight custom-field search operator</a>. Thanks to xet7.</summary>
 
 Replace French with joined native field/custom terminology that the search

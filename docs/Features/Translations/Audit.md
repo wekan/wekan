@@ -16,13 +16,13 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, local commit `d0175d46a` —
-Tamazight custom-field search operator replaces French with joined existing
-terminology accepted by the actual parser. Four checks pass; native
-compound/browser review remains open. Original pending: 258.
+Latest translation fix: **2026-09-14**, local commit `318e5030b` —
+Tamazight numeric custom-field tooltip restores aggregate, numeric,
+marked-for-display and list-top meanings. Four checks pass; full native
+relative-clause/browser review remains open. Original pending: 258.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **18,757** exact before/after values, including unflagged
+records contain **18,758** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
