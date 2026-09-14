@@ -21466,5 +21466,185 @@
     "key": "email-invite-register-text",
     "value": "Kaixo __user__,\n\n__inviter__ erabiltzaileak kanban arbelera gonbidatzen zaitu elkarlanean aritzeko.\n\nJarraitu mesedez beheko esteka:\n__url__\n\nZure gonbidapen-kodea hau da: __icode__\n\nEskerrik asko.",
     "reason": "Inspected Basque activity movement, membership, checklist, worker permission, JSON card-copy format, import-member mapping, swimlane actions, multiselection, notification participation, rescue overwrite and invitation messages preserve meaning. Canonical JSON keys, numeric label range 1-9 and all underscore/percent tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "webhook-title",
+    "value": "Webhook-aren izena",
+    "reason": "Inspected Basque webhook/subtask, label/attachment activity, rule builder, custom HTML insertion, duplicate/delete board/swimlane, due-reminder and account/drag-handle labels preserve the source meanings. Rule fragments assemble conditional denean after the card/label/checklist subject. Optional authentication, irreversible deletion, first reminder and body tag literals remain explicit; all source tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "webhook-token",
+    "value": "Tokena (aukerakoa, autentifikaziorako)",
+    "reason": "Inspected Basque webhook/subtask, label/attachment activity, rule builder, custom HTML insertion, duplicate/delete board/swimlane, due-reminder and account/drag-handle labels preserve the source meanings. Rule fragments assemble conditional denean after the card/label/checklist subject. Optional authentication, irreversible deletion, first reminder and body tag literals remain explicit; all source tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "default-subtasks-board",
+    "value": "__board__ arbelaren azpiatazak",
+    "reason": "Inspected Basque webhook/subtask, label/attachment activity, rule builder, custom HTML insertion, duplicate/delete board/swimlane, due-reminder and account/drag-handle labels preserve the source meanings. Rule fragments assemble conditional denean after the card/label/checklist subject. Optional authentication, irreversible deletion, first reminder and body tag literals remain explicit; all source tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "deposit-subtasks-list",
+    "value": "Hemen utzitako azpiatazen helburuko zerrenda:",
+    "reason": "Inspected Basque webhook/subtask, label/attachment activity, rule builder, custom HTML insertion, duplicate/delete board/swimlane, due-reminder and account/drag-handle labels preserve the source meanings. Rule fragments assemble conditional denean after the card/label/checklist subject. Optional authentication, irreversible deletion, first reminder and body tag literals remain explicit; all source tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "no-parent",
+    "value": "Ez erakutsi gurasoa",
+    "reason": "Inspected Basque webhook/subtask, label/attachment activity, rule builder, custom HTML insertion, duplicate/delete board/swimlane, due-reminder and account/drag-handle labels preserve the source meanings. Rule fragments assemble conditional denean after the card/label/checklist subject. Optional authentication, irreversible deletion, first reminder and body tag literals remain explicit; all source tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "activity-added-label",
+    "value": "'%s' etiketa gehitu da %s(e)ra",
+    "reason": "Inspected Basque webhook/subtask, label/attachment activity, rule builder, custom HTML insertion, duplicate/delete board/swimlane, due-reminder and account/drag-handle labels preserve the source meanings. Rule fragments assemble conditional denean after the card/label/checklist subject. Optional authentication, irreversible deletion, first reminder and body tag literals remain explicit; all source tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "activity-removed-label",
+    "value": "'%s' etiketa kendu da %s(e)tik",
+    "reason": "Inspected Basque webhook/subtask, label/attachment activity, rule builder, custom HTML insertion, duplicate/delete board/swimlane, due-reminder and account/drag-handle labels preserve the source meanings. Rule fragments assemble conditional denean after the card/label/checklist subject. Optional authentication, irreversible deletion, first reminder and body tag literals remain explicit; all source tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "activity-delete-attach",
+    "value": "eranskin bat ezabatu da %s(e)tik",
+    "reason": "Inspected Basque webhook/subtask, label/attachment activity, rule builder, custom HTML insertion, duplicate/delete board/swimlane, due-reminder and account/drag-handle labels preserve the source meanings. Rule fragments assemble conditional denean after the card/label/checklist subject. Optional authentication, irreversible deletion, first reminder and body tag literals remain explicit; all source tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "activity-added-label-card",
+    "value": "'%s' etiketa gehitu da",
+    "reason": "Inspected Basque webhook/subtask, label/attachment activity, rule builder, custom HTML insertion, duplicate/delete board/swimlane, due-reminder and account/drag-handle labels preserve the source meanings. Rule fragments assemble conditional denean after the card/label/checklist subject. Optional authentication, irreversible deletion, first reminder and body tag literals remain explicit; all source tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "activity-removed-label-card",
+    "value": "'%s' etiketa kendu da",
+    "reason": "Inspected Basque webhook/subtask, label/attachment activity, rule builder, custom HTML insertion, duplicate/delete board/swimlane, due-reminder and account/drag-handle labels preserve the source meanings. Rule fragments assemble conditional denean after the card/label/checklist subject. Optional authentication, irreversible deletion, first reminder and body tag literals remain explicit; all source tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "activity-delete-attach-card",
+    "value": "eranskin bat ezabatu da",
+    "reason": "Inspected Basque webhook/subtask, label/attachment activity, rule builder, custom HTML insertion, duplicate/delete board/swimlane, due-reminder and account/drag-handle labels preserve the source meanings. Rule fragments assemble conditional denean after the card/label/checklist subject. Optional authentication, irreversible deletion, first reminder and body tag literals remain explicit; all source tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "r-add-trigger",
+    "value": "Gehitu abiarazlea",
+    "reason": "Inspected Basque webhook/subtask, label/attachment activity, rule builder, custom HTML insertion, duplicate/delete board/swimlane, due-reminder and account/drag-handle labels preserve the source meanings. Rule fragments assemble conditional denean after the card/label/checklist subject. Optional authentication, irreversible deletion, first reminder and body tag literals remain explicit; all source tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "r-add-action",
+    "value": "Gehitu ekintza",
+    "reason": "Inspected Basque webhook/subtask, label/attachment activity, rule builder, custom HTML insertion, duplicate/delete board/swimlane, due-reminder and account/drag-handle labels preserve the source meanings. Rule fragments assemble conditional denean after the card/label/checklist subject. Optional authentication, irreversible deletion, first reminder and body tag literals remain explicit; all source tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "r-add-rule",
+    "value": "Gehitu araua",
+    "reason": "Inspected Basque webhook/subtask, label/attachment activity, rule builder, custom HTML insertion, duplicate/delete board/swimlane, due-reminder and account/drag-handle labels preserve the source meanings. Rule fragments assemble conditional denean after the card/label/checklist subject. Optional authentication, irreversible deletion, first reminder and body tag literals remain explicit; all source tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "r-when-a-card",
+    "value": "Txartel bat",
+    "reason": "Inspected Basque webhook/subtask, label/attachment activity, rule builder, custom HTML insertion, duplicate/delete board/swimlane, due-reminder and account/drag-handle labels preserve the source meanings. Rule fragments assemble conditional denean after the card/label/checklist subject. Optional authentication, irreversible deletion, first reminder and body tag literals remain explicit; all source tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "r-added-to",
+    "value": "Gehitzen denean hona:",
+    "reason": "Inspected Basque webhook/subtask, label/attachment activity, rule builder, custom HTML insertion, duplicate/delete board/swimlane, due-reminder and account/drag-handle labels preserve the source meanings. Rule fragments assemble conditional denean after the card/label/checklist subject. Optional authentication, irreversible deletion, first reminder and body tag literals remain explicit; all source tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "r-removed-from",
+    "value": "Kentzen denean hemendik:",
+    "reason": "Inspected Basque webhook/subtask, label/attachment activity, rule builder, custom HTML insertion, duplicate/delete board/swimlane, due-reminder and account/drag-handle labels preserve the source meanings. Rule fragments assemble conditional denean after the card/label/checklist subject. Optional authentication, irreversible deletion, first reminder and body tag literals remain explicit; all source tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "r-a-card",
+    "value": "txartel bat",
+    "reason": "Inspected Basque webhook/subtask, label/attachment activity, rule builder, custom HTML insertion, duplicate/delete board/swimlane, due-reminder and account/drag-handle labels preserve the source meanings. Rule fragments assemble conditional denean after the card/label/checklist subject. Optional authentication, irreversible deletion, first reminder and body tag literals remain explicit; all source tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "r-when-a-label-is",
+    "value": "Etiketa bat",
+    "reason": "Inspected Basque webhook/subtask, label/attachment activity, rule builder, custom HTML insertion, duplicate/delete board/swimlane, due-reminder and account/drag-handle labels preserve the source meanings. Rule fragments assemble conditional denean after the card/label/checklist subject. Optional authentication, irreversible deletion, first reminder and body tag literals remain explicit; all source tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "r-when-a-checklist",
+    "value": "Kontrol-zerrenda bat",
+    "reason": "Inspected Basque webhook/subtask, label/attachment activity, rule builder, custom HTML insertion, duplicate/delete board/swimlane, due-reminder and account/drag-handle labels preserve the source meanings. Rule fragments assemble conditional denean after the card/label/checklist subject. Optional authentication, irreversible deletion, first reminder and body tag literals remain explicit; all source tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "r-swimlane-name",
+    "value": "errailaren izena",
+    "reason": "Inspected Basque webhook/subtask, label/attachment activity, rule builder, custom HTML insertion, duplicate/delete board/swimlane, due-reminder and account/drag-handle labels preserve the source meanings. Rule fragments assemble conditional denean after the card/label/checklist subject. Optional authentication, irreversible deletion, first reminder and body tag literals remain explicit; all source tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "r-link-card",
+    "value": "Estekatu txartela hona:",
+    "reason": "Inspected Basque webhook/subtask, label/attachment activity, rule builder, custom HTML insertion, duplicate/delete board/swimlane, due-reminder and account/drag-handle labels preserve the source meanings. Rule fragments assemble conditional denean after the card/label/checklist subject. Optional authentication, irreversible deletion, first reminder and body tag literals remain explicit; all source tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "add-custom-html-after-body-start",
+    "value": "Gehitu HTML pertsonalizatua <body> hasieraren ondoren",
+    "reason": "Inspected Basque webhook/subtask, label/attachment activity, rule builder, custom HTML insertion, duplicate/delete board/swimlane, due-reminder and account/drag-handle labels preserve the source meanings. Rule fragments assemble conditional denean after the card/label/checklist subject. Optional authentication, irreversible deletion, first reminder and body tag literals remain explicit; all source tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "add-custom-html-before-body-end",
+    "value": "Gehitu HTML pertsonalizatua </body> amaieraren aurretik",
+    "reason": "Inspected Basque webhook/subtask, label/attachment activity, rule builder, custom HTML insertion, duplicate/delete board/swimlane, due-reminder and account/drag-handle labels preserve the source meanings. Rule fragments assemble conditional denean after the card/label/checklist subject. Optional authentication, irreversible deletion, first reminder and body tag literals remain explicit; all source tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "duplicate-board",
+    "value": "Bikoiztu arbela",
+    "reason": "Inspected Basque webhook/subtask, label/attachment activity, rule builder, custom HTML insertion, duplicate/delete board/swimlane, due-reminder and account/drag-handle labels preserve the source meanings. Rule fragments assemble conditional denean after the card/label/checklist subject. Optional authentication, irreversible deletion, first reminder and body tag literals remain explicit; all source tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "swimlane-delete-pop",
+    "value": "Ekintza guztiak jarduera-jariotik kenduko dira eta ezin izango duzu erraila berreskuratu. Ez dago desegiterik.",
+    "reason": "Inspected Basque webhook/subtask, label/attachment activity, rule builder, custom HTML insertion, duplicate/delete board/swimlane, due-reminder and account/drag-handle labels preserve the source meanings. Rule fragments assemble conditional denean after the card/label/checklist subject. Optional authentication, irreversible deletion, first reminder and body tag literals remain explicit; all source tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "act-newDue",
+    "value": "__list__/__card__ txartelak lehen epemuga-oharra du [__board__]",
+    "reason": "Inspected Basque webhook/subtask, label/attachment activity, rule builder, custom HTML insertion, duplicate/delete board/swimlane, due-reminder and account/drag-handle labels preserve the source meanings. Rule fragments assemble conditional denean after the card/label/checklist subject. Optional authentication, irreversible deletion, first reminder and body tag literals remain explicit; all source tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "accounts-allowUserDelete",
+    "value": "Erabiltzaileak bere kontua ezabatu dezake",
+    "reason": "Inspected Basque webhook/subtask, label/attachment activity, rule builder, custom HTML insertion, duplicate/delete board/swimlane, due-reminder and account/drag-handle labels preserve the source meanings. Rule fragments assemble conditional denean after the card/label/checklist subject. Optional authentication, irreversible deletion, first reminder and body tag literals remain explicit; all source tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "show-desktop-drag-handles",
+    "value": "Erakutsi mahaigaineko arrastatze-heldulekuak",
+    "reason": "Inspected Basque webhook/subtask, label/attachment activity, rule builder, custom HTML insertion, duplicate/delete board/swimlane, due-reminder and account/drag-handle labels preserve the source meanings. Rule fragments assemble conditional denean after the card/label/checklist subject. Optional authentication, irreversible deletion, first reminder and body tag literals remain explicit; all source tokens remain exact."
+  },
+  {
+    "locale": "eu",
+    "key": "addmore-detail",
+    "value": "Gehitu deskripzio zehatzagoa",
+    "reason": "Inspected Basque webhook/subtask, label/attachment activity, rule builder, custom HTML insertion, duplicate/delete board/swimlane, due-reminder and account/drag-handle labels preserve the source meanings. Rule fragments assemble conditional denean after the card/label/checklist subject. Optional authentication, irreversible deletion, first reminder and body tag literals remain explicit; all source tokens remain exact."
   }
 ]
