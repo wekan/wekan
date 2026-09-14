@@ -20434,5 +20434,185 @@
     "key": "s3-settings-save-failed",
     "value": "Non se puido gardar a configuración de S3",
     "reason": "Inspected Galician migration start/stop outcomes, no-migration state and stop-all confirmation preserve scope and polarity. S3/MinIO settings correctly distinguish access versus secret keys, required input, bucket storage, endpoint URL/port, region and failed settings saving. Product names, endpoint examples and us-east-1 remain literal technical identifiers."
+  },
+  {
+    "locale": "gl",
+    "key": "s3-settings-saved",
+    "value": "Configuración de S3 gardada correctamente",
+    "reason": "Inspected Galician storage/migration labels preserve SSL/TLS, writable-directory permission, start/stop-all scope, restoring archived items, deleting only duplicate empty lists, fixing missing lists and file/avatar URLs, migration required/failed states and progress steps. Carrís denotes swimlanes consistently with existing Galician board terminology; technical S3/SSL/TLS/URL identifiers are preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "s3-ssl-enabled",
+    "value": "SSL de S3 activado",
+    "reason": "Inspected Galician storage/migration labels preserve SSL/TLS, writable-directory permission, start/stop-all scope, restoring archived items, deleting only duplicate empty lists, fixing missing lists and file/avatar URLs, migration required/failed states and progress steps. Carrís denotes swimlanes consistently with existing Galician board terminology; technical S3/SSL/TLS/URL identifiers are preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "s3-ssl-enabled-description",
+    "value": "Usar SSL/TLS para as conexións con S3",
+    "reason": "Inspected Galician storage/migration labels preserve SSL/TLS, writable-directory permission, start/stop-all scope, restoring archived items, deleting only duplicate empty lists, fixing missing lists and file/avatar URLs, migration required/failed states and progress steps. Carrís denotes swimlanes consistently with existing Galician board terminology; technical S3/SSL/TLS/URL identifiers are preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "save-s3-settings",
+    "value": "Gardar a configuración de S3",
+    "reason": "Inspected Galician storage/migration labels preserve SSL/TLS, writable-directory permission, start/stop-all scope, restoring archived items, deleting only duplicate empty lists, fixing missing lists and file/avatar URLs, migration required/failed states and progress steps. Carrís denotes swimlanes consistently with existing Galician board terminology; technical S3/SSL/TLS/URL identifiers are preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "start-all-migrations",
+    "value": "Iniciar todas as migracións",
+    "reason": "Inspected Galician storage/migration labels preserve SSL/TLS, writable-directory permission, start/stop-all scope, restoring archived items, deleting only duplicate empty lists, fixing missing lists and file/avatar URLs, migration required/failed states and progress steps. Carrís denotes swimlanes consistently with existing Galician board terminology; technical S3/SSL/TLS/URL identifiers are preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "stop-all-migrations",
+    "value": "Deter todas as migracións",
+    "reason": "Inspected Galician storage/migration labels preserve SSL/TLS, writable-directory permission, start/stop-all scope, restoring archived items, deleting only duplicate empty lists, fixing missing lists and file/avatar URLs, migration required/failed states and progress steps. Carrís denotes swimlanes consistently with existing Galician board terminology; technical S3/SSL/TLS/URL identifiers are preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "test-s3-connection",
+    "value": "Probar a conexión con S3",
+    "reason": "Inspected Galician storage/migration labels preserve SSL/TLS, writable-directory permission, start/stop-all scope, restoring archived items, deleting only duplicate empty lists, fixing missing lists and file/avatar URLs, migration required/failed states and progress steps. Carrís denotes swimlanes consistently with existing Galician board terminology; technical S3/SSL/TLS/URL identifiers are preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "writable-path",
+    "value": "Ruta con permiso de escritura",
+    "reason": "Inspected Galician storage/migration labels preserve SSL/TLS, writable-directory permission, start/stop-all scope, restoring archived items, deleting only duplicate empty lists, fixing missing lists and file/avatar URLs, migration required/failed states and progress steps. Carrís denotes swimlanes consistently with existing Galician board terminology; technical S3/SSL/TLS/URL identifiers are preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "writable-path-description",
+    "value": "Ruta do directorio base para o almacenamento de ficheiros",
+    "reason": "Inspected Galician storage/migration labels preserve SSL/TLS, writable-directory permission, start/stop-all scope, restoring archived items, deleting only duplicate empty lists, fixing missing lists and file/avatar URLs, migration required/failed states and progress steps. Carrís denotes swimlanes consistently with existing Galician board terminology; technical S3/SSL/TLS/URL identifiers are preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "attachment-storage-settings",
+    "value": "Configuración do almacenamento",
+    "reason": "Inspected Galician storage/migration labels preserve SSL/TLS, writable-directory permission, start/stop-all scope, restoring archived items, deleting only duplicate empty lists, fixing missing lists and file/avatar URLs, migration required/failed states and progress steps. Carrís denotes swimlanes consistently with existing Galician board terminology; technical S3/SSL/TLS/URL identifiers are preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "automatic-migration",
+    "value": "Migración automática",
+    "reason": "Inspected Galician storage/migration labels preserve SSL/TLS, writable-directory permission, start/stop-all scope, restoring archived items, deleting only duplicate empty lists, fixing missing lists and file/avatar URLs, migration required/failed states and progress steps. Carrís denotes swimlanes consistently with existing Galician board terminology; technical S3/SSL/TLS/URL identifiers are preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "back-to-settings",
+    "value": "Volver á configuración",
+    "reason": "Inspected Galician storage/migration labels preserve SSL/TLS, writable-directory permission, start/stop-all scope, restoring archived items, deleting only duplicate empty lists, fixing missing lists and file/avatar URLs, migration required/failed states and progress steps. Carrís denotes swimlanes consistently with existing Galician board terminology; technical S3/SSL/TLS/URL identifiers are preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "delete-duplicate-empty-lists-migration",
+    "value": "Eliminar as listas baleiras duplicadas",
+    "reason": "Inspected Galician storage/migration labels preserve SSL/TLS, writable-directory permission, start/stop-all scope, restoring archived items, deleting only duplicate empty lists, fixing missing lists and file/avatar URLs, migration required/failed states and progress steps. Carrís denotes swimlanes consistently with existing Galician board terminology; technical S3/SSL/TLS/URL identifiers are preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "lost-cards-list",
+    "value": "Elementos restaurados",
+    "reason": "Inspected Galician storage/migration labels preserve SSL/TLS, writable-directory permission, start/stop-all scope, restoring archived items, deleting only duplicate empty lists, fixing missing lists and file/avatar URLs, migration required/failed states and progress steps. Carrís denotes swimlanes consistently with existing Galician board terminology; technical S3/SSL/TLS/URL identifiers are preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "restore-all-archived-migration",
+    "value": "Restaurar todo o arquivado",
+    "reason": "Inspected Galician storage/migration labels preserve SSL/TLS, writable-directory permission, start/stop-all scope, restoring archived items, deleting only duplicate empty lists, fixing missing lists and file/avatar URLs, migration required/failed states and progress steps. Carrís denotes swimlanes consistently with existing Galician board terminology; technical S3/SSL/TLS/URL identifiers are preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "fix-missing-lists-migration",
+    "value": "Corrixir as listas que faltan",
+    "reason": "Inspected Galician storage/migration labels preserve SSL/TLS, writable-directory permission, start/stop-all scope, restoring archived items, deleting only duplicate empty lists, fixing missing lists and file/avatar URLs, migration required/failed states and progress steps. Carrís denotes swimlanes consistently with existing Galician board terminology; technical S3/SSL/TLS/URL identifiers are preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "fix-avatar-urls-migration",
+    "value": "Corrixir os URL dos avatares",
+    "reason": "Inspected Galician storage/migration labels preserve SSL/TLS, writable-directory permission, start/stop-all scope, restoring archived items, deleting only duplicate empty lists, fixing missing lists and file/avatar URLs, migration required/failed states and progress steps. Carrís denotes swimlanes consistently with existing Galician board terminology; technical S3/SSL/TLS/URL identifiers are preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "fix-all-file-urls-migration",
+    "value": "Corrixir todos os URL de ficheiros",
+    "reason": "Inspected Galician storage/migration labels preserve SSL/TLS, writable-directory permission, start/stop-all scope, restoring archived items, deleting only duplicate empty lists, fixing missing lists and file/avatar URLs, migration required/failed states and progress steps. Carrís denotes swimlanes consistently with existing Galician board terminology; technical S3/SSL/TLS/URL identifiers are preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "migration-needed",
+    "value": "Necesítase unha migración",
+    "reason": "Inspected Galician storage/migration labels preserve SSL/TLS, writable-directory permission, start/stop-all scope, restoring archived items, deleting only duplicate empty lists, fixing missing lists and file/avatar URLs, migration required/failed states and progress steps. Carrís denotes swimlanes consistently with existing Galician board terminology; technical S3/SSL/TLS/URL identifiers are preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "migration-failed",
+    "value": "A migración fallou",
+    "reason": "Inspected Galician storage/migration labels preserve SSL/TLS, writable-directory permission, start/stop-all scope, restoring archived items, deleting only duplicate empty lists, fixing missing lists and file/avatar URLs, migration required/failed states and progress steps. Carrís denotes swimlanes consistently with existing Galician board terminology; technical S3/SSL/TLS/URL identifiers are preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "migrations",
+    "value": "Migracións",
+    "reason": "Inspected Galician storage/migration labels preserve SSL/TLS, writable-directory permission, start/stop-all scope, restoring archived items, deleting only duplicate empty lists, fixing missing lists and file/avatar URLs, migration required/failed states and progress steps. Carrís denotes swimlanes consistently with existing Galician board terminology; technical S3/SSL/TLS/URL identifiers are preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "no-issues-found",
+    "value": "Non se atoparon problemas",
+    "reason": "Inspected Galician storage/migration labels preserve SSL/TLS, writable-directory permission, start/stop-all scope, restoring archived items, deleting only duplicate empty lists, fixing missing lists and file/avatar URLs, migration required/failed states and progress steps. Carrís denotes swimlanes consistently with existing Galician board terminology; technical S3/SSL/TLS/URL identifiers are preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "run-migration",
+    "value": "Executar a migración",
+    "reason": "Inspected Galician storage/migration labels preserve SSL/TLS, writable-directory permission, start/stop-all scope, restoring archived items, deleting only duplicate empty lists, fixing missing lists and file/avatar URLs, migration required/failed states and progress steps. Carrís denotes swimlanes consistently with existing Galician board terminology; technical S3/SSL/TLS/URL identifiers are preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "migration-progress-overall",
+    "value": "Progreso xeral",
+    "reason": "Inspected Galician storage/migration labels preserve SSL/TLS, writable-directory permission, start/stop-all scope, restoring archived items, deleting only duplicate empty lists, fixing missing lists and file/avatar URLs, migration required/failed states and progress steps. Carrís denotes swimlanes consistently with existing Galician board terminology; technical S3/SSL/TLS/URL identifiers are preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "migration-progress-current-step",
+    "value": "Paso actual",
+    "reason": "Inspected Galician storage/migration labels preserve SSL/TLS, writable-directory permission, start/stop-all scope, restoring archived items, deleting only duplicate empty lists, fixing missing lists and file/avatar URLs, migration required/failed states and progress steps. Carrís denotes swimlanes consistently with existing Galician board terminology; technical S3/SSL/TLS/URL identifiers are preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "migration-progress-details",
+    "value": "Detalles",
+    "reason": "Inspected Galician storage/migration labels preserve SSL/TLS, writable-directory permission, start/stop-all scope, restoring archived items, deleting only duplicate empty lists, fixing missing lists and file/avatar URLs, migration required/failed states and progress steps. Carrís denotes swimlanes consistently with existing Galician board terminology; technical S3/SSL/TLS/URL identifiers are preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "steps",
+    "value": "pasos",
+    "reason": "Inspected Galician storage/migration labels preserve SSL/TLS, writable-directory permission, start/stop-all scope, restoring archived items, deleting only duplicate empty lists, fixing missing lists and file/avatar URLs, migration required/failed states and progress steps. Carrís denotes swimlanes consistently with existing Galician board terminology; technical S3/SSL/TLS/URL identifiers are preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "view",
+    "value": "Vista",
+    "reason": "Inspected Galician storage/migration labels preserve SSL/TLS, writable-directory permission, start/stop-all scope, restoring archived items, deleting only duplicate empty lists, fixing missing lists and file/avatar URLs, migration required/failed states and progress steps. Carrís denotes swimlanes consistently with existing Galician board terminology; technical S3/SSL/TLS/URL identifiers are preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "has-swimlanes",
+    "value": "Ten carrís",
+    "reason": "Inspected Galician storage/migration labels preserve SSL/TLS, writable-directory permission, start/stop-all scope, restoring archived items, deleting only duplicate empty lists, fixing missing lists and file/avatar URLs, migration required/failed states and progress steps. Carrís denotes swimlanes consistently with existing Galician board terminology; technical S3/SSL/TLS/URL identifiers are preserved."
+  },
+  {
+    "locale": "gl",
+    "key": "step-convert-shared-lists",
+    "value": "Converter as listas compartidas",
+    "reason": "Inspected Galician storage/migration labels preserve SSL/TLS, writable-directory permission, start/stop-all scope, restoring archived items, deleting only duplicate empty lists, fixing missing lists and file/avatar URLs, migration required/failed states and progress steps. Carrís denotes swimlanes consistently with existing Galician board terminology; technical S3/SSL/TLS/URL identifiers are preserved."
   }
 ]
