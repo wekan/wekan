@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,596 |
+| Corrected | 15,597 |
 | Restored pre-pull; awaiting validation | 27 |
 | Reviewed; retained unchanged | 4,158 |
-| Pending review or repair | 300 |
+| Pending review or repair | 299 |
 | Total tracked | 20,081 |
 
 Review is ongoing. [Nahuatl terminology review](Nahuatl-Review.md)
@@ -20,16 +20,16 @@ Polish-only sources do not establish correct Silesian terminology.
 French prose in the first 25 pending entries and records a new dictionary
 lead requiring primary-source cross-checks. No values accepted from that lead.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,468** exact before/after values, including unflagged repairs.
+contain **18,469** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `49bd242c9` —
-eight French Breton rule-editor name/recipient/date/color/swimlane labels
-repaired using existing terminology and the Ofis computing glossary. All
-**18,468** corrections pass structural checks. Complete native phrase/browser
-review remains open, including shared generic/named trigger verb placement,
-other wrong-language values, attachment agreement and calendar terminology.
+Latest translation fix: **2026-09-14**, local commit `019040ce1` —
+Greenlandic Indian-national-calendar English label repaired using native
+India/national/calendar vocabulary. All **18,469** corrections pass structural
+checks. The full compound remains adapted and needs native inflection review.
+Member Settings UI regression added and syntax-checked; no app is listening
+at the configured localhost:3000, so browser execution remains open.
 Latest unchanged review: **2026-09-14**, commit `64f1d7367` —
 assigned-card shortcut retained against actual current-user assignee toggle.
 IEC recognizes meves/meues as dialect variants; no wrong-language finding
@@ -41,7 +41,7 @@ Additional unflagged unchanged review: **2026-09-14**, `39af6aae5` —
 Veps Server and Valencian Errors retained with native software evidence and
 protected per locale from filling. Zero unreviewed English placeholders remain;
 this does not establish correct language or fluency in all values. The original
-4,158-row unchanged ledger and 300/27 pending/restored counts are unchanged.
+4,158-row unchanged ledger is unchanged; current pending/restored counts are 299/27.
 
 
 
@@ -62,7 +62,7 @@ Reviewed subtask actions/settings retain correct subordinate-task compounds.
 | tig — Tigre | 17 |
 | wal — Wolaytta | 17 |
 | ve-PP — Veps | 10 |
-| kl — Greenlandic | 5 |
+| kl — Greenlandic | 4 |
 | dz — Dzongkha | 3 |
 | ff — Fulah | 2 |
 | ks — Kashmiri | 2 |

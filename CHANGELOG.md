@@ -671,6 +671,15 @@ The empty wrongly placed Git directory was removed locally.
 **Languages updated:** Acehnese, Bambara, Basque, Breton, Esperanto, Galician, Greenlandic, Manx, Sardinian, Swedish, Valencian, Veps
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/019040ce1">Repair Greenlandic Indian national calendar language</a>. Thanks to xet7.</summary>
+
+Translate the English calendar label using native India, national and calendar
+vocabulary. Structural checks pass and Member Settings UI regression is added
+and syntax-checked. Full native compound review and browser execution remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/39af6aae5">Preserve native Veps and Valencian words during translation filling</a>. Thanks to xet7.</summary>
 
 Retain reviewed Veps Server and Valencian Errors even though their spelling

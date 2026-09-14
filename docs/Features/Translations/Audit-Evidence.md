@@ -23129,3 +23129,24 @@ rather than the obsolete Sardinian magenta exception (repaired in 04711b646).
 Three focused node suites and 20 human-preference checks pass. No locale
 values changed. Original 300 pending and 27 restored findings remain open;
 English-placeholder completeness is not wrong-language or fluency completion.
+
+Dated calendar repair, 2026-09-14, local commit `019040ce1`: Greenlandic
+calendar-system-indian replaces English Indian national with Indiap nuna
+tamakkerlugu ullorsiutaa. KNR's native India/Nepal flood report attests Indiap;
+KNR's organizational page and native government digital strategy attest
+nuna tamakkerlugu for nationwide/national. CLDR kl.xml records ullorsiut,
+and native calendar publishers independently use that noun. CLDR's draft
+unconfirmed Gregorian phrase is not treated as certification of new compounds.
+https://www.knr.gl/kl/nutaarsiassat/millioner-drevet-p%C3%A5-flugt-af-vandmasser-i-indien-og-nepal
+https://www.knr.gl/kl/knr-pillugu
+https://naalakkersuisut.gl/Nyheder/2024/10/3010_digital_strategi?sc_lang=kl-GL
+https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/kl.xml
+The complete calendar label is adapted, not directly attested; native whole-
+phrase and inflection validation remain open. All 18,469 correction and 4,158
+unchanged checks pass, along with the extended Greenlandic calendar check.
+Existing Member Settings browser suite gains a positive Indian-option label
+check and negative English-label check, accounting for runtime calendar support.
+Syntax check passes. Configured localhost:3000 returns connection failure,
+so live browser execution is unverified. Original counts now 15,597 corrected,
+4,158 retained, 27 restored and 299 pending; Greenlandic has four remaining
+calendar findings, including exact civil/astronomical epoch and sighting terms.
