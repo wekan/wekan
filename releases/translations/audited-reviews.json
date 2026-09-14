@@ -14482,5 +14482,155 @@
     "key": "delete-duplicate-lists-confirm",
     "value": "Estás seguro? Isto eliminará todas as listas duplicadas que teñan o mesmo nome e non conteñan tarxetas.",
     "reason": "2026-09-14: Direct semantic review confirms label shortcuts, tracking scope, registration invitations, field display/new/all-card options, private-only visibility and permanent board/notification deletion. Duplicate-list same-name AND empty condition, no-undo and authorization negation preserved; invitation placeholders exact."
+  },
+  {
+    "locale": "gl",
+    "key": "default-subtasks-board",
+    "value": "Subtarefas do taboleiro __board__",
+    "reason": "Direct semantic review preserves Galician card/minicard settings, parent-card relationships, subtask destination, attachment counts, activity verbs and automation rules. Parent pai denotes the parent relationship; source-board remains origin, move-all retains every card, and activity percent tokens match English exactly."
+  },
+  {
+    "locale": "gl",
+    "key": "card-settings",
+    "value": "Configuración da tarxeta",
+    "reason": "Direct semantic review preserves Galician card/minicard settings, parent-card relationships, subtask destination, attachment counts, activity verbs and automation rules. Parent pai denotes the parent relationship; source-board remains origin, move-all retains every card, and activity percent tokens match English exactly."
+  },
+  {
+    "locale": "gl",
+    "key": "minicard-settings",
+    "value": "Configuración da minitarxeta",
+    "reason": "Direct semantic review preserves Galician card/minicard settings, parent-card relationships, subtask destination, attachment counts, activity verbs and automation rules. Parent pai denotes the parent relationship; source-board remains origin, move-all retains every card, and activity percent tokens match English exactly."
+  },
+  {
+    "locale": "gl",
+    "key": "boardCardSettingsPopup-title",
+    "value": "Configuración da tarxeta",
+    "reason": "Direct semantic review preserves Galician card/minicard settings, parent-card relationships, subtask destination, attachment counts, activity verbs and automation rules. Parent pai denotes the parent relationship; source-board remains origin, move-all retains every card, and activity percent tokens match English exactly."
+  },
+  {
+    "locale": "gl",
+    "key": "boardMinicardSettingsPopup-title",
+    "value": "Configuración da minitarxeta",
+    "reason": "Direct semantic review preserves Galician card/minicard settings, parent-card relationships, subtask destination, attachment counts, activity verbs and automation rules. Parent pai denotes the parent relationship; source-board remains origin, move-all retains every card, and activity percent tokens match English exactly."
+  },
+  {
+    "locale": "gl",
+    "key": "deposit-subtasks-board",
+    "value": "Depositar as subtarefas neste taboleiro:",
+    "reason": "Direct semantic review preserves Galician card/minicard settings, parent-card relationships, subtask destination, attachment counts, activity verbs and automation rules. Parent pai denotes the parent relationship; source-board remains origin, move-all retains every card, and activity percent tokens match English exactly."
+  },
+  {
+    "locale": "gl",
+    "key": "show-parent-in-minicard",
+    "value": "Mostrar o pai na minitarxeta:",
+    "reason": "Direct semantic review preserves Galician card/minicard settings, parent-card relationships, subtask destination, attachment counts, activity verbs and automation rules. Parent pai denotes the parent relationship; source-board remains origin, move-all retains every card, and activity percent tokens match English exactly."
+  },
+  {
+    "locale": "gl",
+    "key": "description-on-minicard",
+    "value": "Descrición na minitarxeta",
+    "reason": "Direct semantic review preserves Galician card/minicard settings, parent-card relationships, subtask destination, attachment counts, activity verbs and automation rules. Parent pai denotes the parent relationship; source-board remains origin, move-all retains every card, and activity percent tokens match English exactly."
+  },
+  {
+    "locale": "gl",
+    "key": "cover-attachment-on-minicard",
+    "value": "Imaxe de portada na minitarxeta",
+    "reason": "Direct semantic review preserves Galician card/minicard settings, parent-card relationships, subtask destination, attachment counts, activity verbs and automation rules. Parent pai denotes the parent relationship; source-board remains origin, move-all retains every card, and activity percent tokens match English exactly."
+  },
+  {
+    "locale": "gl",
+    "key": "badge-attachment-on-minicard",
+    "value": "Reconto de anexos na minitarxeta",
+    "reason": "Direct semantic review preserves Galician card/minicard settings, parent-card relationships, subtask destination, attachment counts, activity verbs and automation rules. Parent pai denotes the parent relationship; source-board remains origin, move-all retains every card, and activity percent tokens match English exactly."
+  },
+  {
+    "locale": "gl",
+    "key": "card-sorting-by-number-on-minicard",
+    "value": "Ordenación de tarxetas por número na minitarxeta",
+    "reason": "Direct semantic review preserves Galician card/minicard settings, parent-card relationships, subtask destination, attachment counts, activity verbs and automation rules. Parent pai denotes the parent relationship; source-board remains origin, move-all retains every card, and activity percent tokens match English exactly."
+  },
+  {
+    "locale": "gl",
+    "key": "change-card-parent",
+    "value": "Cambiar o pai da tarxeta",
+    "reason": "Direct semantic review preserves Galician card/minicard settings, parent-card relationships, subtask destination, attachment counts, activity verbs and automation rules. Parent pai denotes the parent relationship; source-board remains origin, move-all retains every card, and activity percent tokens match English exactly."
+  },
+  {
+    "locale": "gl",
+    "key": "parent-card",
+    "value": "Tarxeta pai",
+    "reason": "Direct semantic review preserves Galician card/minicard settings, parent-card relationships, subtask destination, attachment counts, activity verbs and automation rules. Parent pai denotes the parent relationship; source-board remains origin, move-all retains every card, and activity percent tokens match English exactly."
+  },
+  {
+    "locale": "gl",
+    "key": "source-board",
+    "value": "Taboleiro de orixe",
+    "reason": "Direct semantic review preserves Galician card/minicard settings, parent-card relationships, subtask destination, attachment counts, activity verbs and automation rules. Parent pai denotes the parent relationship; source-board remains origin, move-all retains every card, and activity percent tokens match English exactly."
+  },
+  {
+    "locale": "gl",
+    "key": "no-parent",
+    "value": "Non mostrar o pai",
+    "reason": "Direct semantic review preserves Galician card/minicard settings, parent-card relationships, subtask destination, attachment counts, activity verbs and automation rules. Parent pai denotes the parent relationship; source-board remains origin, move-all retains every card, and activity percent tokens match English exactly."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-added-label",
+    "value": "engadiu a etiqueta '%s' a %s",
+    "reason": "Direct semantic review preserves Galician card/minicard settings, parent-card relationships, subtask destination, attachment counts, activity verbs and automation rules. Parent pai denotes the parent relationship; source-board remains origin, move-all retains every card, and activity percent tokens match English exactly."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-delete-attach",
+    "value": "eliminou un anexo de %s",
+    "reason": "Direct semantic review preserves Galician card/minicard settings, parent-card relationships, subtask destination, attachment counts, activity verbs and automation rules. Parent pai denotes the parent relationship; source-board remains origin, move-all retains every card, and activity percent tokens match English exactly."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-added-label-card",
+    "value": "engadiu a etiqueta '%s'",
+    "reason": "Direct semantic review preserves Galician card/minicard settings, parent-card relationships, subtask destination, attachment counts, activity verbs and automation rules. Parent pai denotes the parent relationship; source-board remains origin, move-all retains every card, and activity percent tokens match English exactly."
+  },
+  {
+    "locale": "gl",
+    "key": "activity-delete-attach-card",
+    "value": "eliminou un anexo",
+    "reason": "Direct semantic review preserves Galician card/minicard settings, parent-card relationships, subtask destination, attachment counts, activity verbs and automation rules. Parent pai denotes the parent relationship; source-board remains origin, move-all retains every card, and activity percent tokens match English exactly."
+  },
+  {
+    "locale": "gl",
+    "key": "r-add-trigger",
+    "value": "Engadir disparador",
+    "reason": "Direct semantic review preserves Galician card/minicard settings, parent-card relationships, subtask destination, attachment counts, activity verbs and automation rules. Parent pai denotes the parent relationship; source-board remains origin, move-all retains every card, and activity percent tokens match English exactly."
+  },
+  {
+    "locale": "gl",
+    "key": "r-add-action",
+    "value": "Engadir acción",
+    "reason": "Direct semantic review preserves Galician card/minicard settings, parent-card relationships, subtask destination, attachment counts, activity verbs and automation rules. Parent pai denotes the parent relationship; source-board remains origin, move-all retains every card, and activity percent tokens match English exactly."
+  },
+  {
+    "locale": "gl",
+    "key": "r-board-rules",
+    "value": "Regras do taboleiro",
+    "reason": "Direct semantic review preserves Galician card/minicard settings, parent-card relationships, subtask destination, attachment counts, activity verbs and automation rules. Parent pai denotes the parent relationship; source-board remains origin, move-all retains every card, and activity percent tokens match English exactly."
+  },
+  {
+    "locale": "gl",
+    "key": "r-add-rule",
+    "value": "Engadir regra",
+    "reason": "Direct semantic review preserves Galician card/minicard settings, parent-card relationships, subtask destination, attachment counts, activity verbs and automation rules. Parent pai denotes the parent relationship; source-board remains origin, move-all retains every card, and activity percent tokens match English exactly."
+  },
+  {
+    "locale": "gl",
+    "key": "r-board",
+    "value": "Taboleiro",
+    "reason": "Direct semantic review preserves Galician card/minicard settings, parent-card relationships, subtask destination, attachment counts, activity verbs and automation rules. Parent pai denotes the parent relationship; source-board remains origin, move-all retains every card, and activity percent tokens match English exactly."
+  },
+  {
+    "locale": "gl",
+    "key": "r-move-all-cards",
+    "value": "Mover todas as tarxetas da lista",
+    "reason": "Direct semantic review preserves Galician card/minicard settings, parent-card relationships, subtask destination, attachment counts, activity verbs and automation rules. Parent pai denotes the parent relationship; source-board remains origin, move-all retains every card, and activity percent tokens match English exactly."
   }
 ]
