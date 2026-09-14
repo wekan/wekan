@@ -22430,3 +22430,12 @@ Twenty-nine user, label, operator and troubleshooting values retain meanings.
 Canonical syntax, quoted examples, OR/AND, absence/sort/page instructions,
 interpolation tokens and snap/docker commands remain exact.
 Positive/negative correction and review checks pass; browser scope remains open.
+
+### 2026-09-14 — Basque reports, teams and storage migration
+
+Local commit `ea16ef95e` retains 30 correct report, team/organization,
+invitation, item-entry, migration and storage configuration values.
+Team deletion remains blocked while a user belongs to it; migration all-scope
+and success/failure polarity are preserved. Literal endpoint examples,
+product identifiers and percent tokens remain unchanged.
+Exact reviews pass; full language/browser scope remains open.

@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,571 corrected, 565 restored pre-pull values awaiting
-validation, 3,637 reviewed and retained, and 308 pending review or repair.
+findings: 15,571 corrected, 535 restored pre-pull values awaiting
+validation, 3,667 reviewed and retained, and 308 pending review or repair.
 The correction inventory records 18,171 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review
@@ -1243,6 +1243,18 @@ Search help distinguishes archived/unarchived cards from generic storage.
 Retained 29 correct search, label and troubleshooting values. Operator
 examples, commands and interpolation tokens remain intact. Exact correction
 and review checks pass; browser validation remains open.
+
+Thanks to xet7 !
+
+</details>
+
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ea16ef95e">Validate Basque reports and storage migration messages.</a></summary>
+
+Retained 30 correct report, team/organization, invitation, storage and
+migration values. Deletion restrictions, outcome polarity and technical
+examples remain intact. Exact review checks pass; broader review remains open.
 
 Thanks to xet7 !
 
