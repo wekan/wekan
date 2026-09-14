@@ -24976,5 +24976,11 @@
     "key": "r-is",
     "value": "คือ",
     "reason": "Retain correct Thai equative/identification word คือ. Native MediaWiki Thai uses it in identity/explanatory noun statements; actual rule-action context is repaired by omitting the separately inserted copula for Thai (9e34218c7), since action phrases already include their predicate. Regression executes reactive helper and negative duplicate-copula checks. Full browser execution remains open."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "color-peachpuff",
+    "value": "préssec",
+    "reason": "Retain native Valencian peach color label: actual palette is pale peach #ffdab9, with no separate competing peach key. Native Valencian color usage attests préssec; this is a descriptive UI color label, not a claim that native sources standardize the CSS keyword."
   }
 ]
