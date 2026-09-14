@@ -15,20 +15,20 @@ export function createLimiter({stateFile=path.join(root,'.tools/mirror/rate-limi
   const queues=new Map();
   const load=()=>{if(!fs.existsSync(stateFile))return {};const state=JSON.parse(fs.readFileSync(stateFile,'utf8'));if(state.version!==1 || !state.hosts || Object.values(state.hosts).some(n=>!Number.isFinite(n)))throw Error('Invalid forge rate-limit state');return state.hosts;};
   const save=(host,until)=>{const hosts=load();hosts[host]=Math.max(hosts[host]||0,until);fs.mkdirSync(path.dirname(stateFile),{recursive:true});const file=stateFile+`.incoming-${process.pid}`;fs.writeFileSync(file,JSON.stringify({version:1,hosts})+'\n');fs.renameSync(file,stateFile);};
-  async function wait(host){let ms=(load()[host]||0)-now();if(ms>0)log(`[${host}] rate limit: waiting ${Math.ceil(ms/1000)} seconds`);while(ms>0){await pause(Math.min(ms,60000));ms=(load()[host]||0)-now();}}
-  async function perform(host,operation){
+  async function wait(host,{maxWaitMs=Infinity}={}){let ms=(load()[host]||0)-now();if(ms>maxWaitMs)throw Error(`${host}: cooldown deferred; retry on next run`);if(ms>0)log(`[${host}] rate limit: waiting ${Math.ceil(ms/1000)} seconds`);while(ms>0){await pause(Math.min(ms,60000));ms=(load()[host]||0)-now();}}
+  async function perform(host,operation,options={}){
     for(let attempt=0;attempt<6;attempt++){
-      await wait(host);const result=await operation();const response=result.response || result;
+      await wait(host,options);const result=await operation();const response=result.response || result;
       const headers=response.headers || new Headers();
       const remaining=headers.get('x-ratelimit-remaining') ?? headers.get('ratelimit-remaining');
       const reset=Number(headers.get('x-ratelimit-reset') ?? headers.get('ratelimit-reset'))*1000;
       if(remaining==='0'&&reset>now())save(host,reset+1000);
       const limited=response.status===429 || ((response.status===403 || response.status===503) && (headers.has('retry-after') || remaining==='0' || /rate limit|too many requests|abuse detection/i.test(result.error || ''))) || (response.status>=400 && /rate limit|too many requests|abuse detection/i.test(result.error || ''));
-      if(limited){await response.body?.cancel?.();save(host,now()+cooldown(headers,now(),attempt));if(attempt===5)throw Error(`${host}: rate limit persisted after six attempts; saved cooldown will be respected next run`);continue;}
+      if(limited){await response.body?.cancel?.();save(host,now()+cooldown(headers,now(),attempt));if(options.noRetry)throw Error(`${host}: rate-limited attachment deferred; retry on next run`);if(attempt===5)throw Error(`${host}: rate limit persisted after six attempts; saved cooldown will be respected next run`);continue;}
       save(host,now()+spacing);return result;
     }
   }
-  return {wait,perform:(host,fn)=>{const result=(queues.get(host)||Promise.resolve()).then(()=>perform(host,fn));queues.set(host,result.then(()=>{},()=>{}));return result;}};
+  return {wait,perform:(host,fn,options)=>{const result=(queues.get(host)||Promise.resolve()).then(()=>perform(host,fn,options));queues.set(host,result.then(()=>{},()=>{}));return result;}};
 }
 export const limiter=createLimiter();
 export async function limitedFetch(url,options,fetcher=fetch){return limiter.perform(new URL(url).hostname,()=>fetcher(url,{...options,signal:AbortSignal.timeout(options?.timeoutMs || 3600000)}));}

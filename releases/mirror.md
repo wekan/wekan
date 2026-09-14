@@ -523,3 +523,20 @@ codeberg.txt or sourceforge.txt beside it, according to active destinations,
 in `.tools/log/mirror/YYYY-MM-DD_HH-MM-SS/`. These separate logs include Git
 and destination content output. Starting this script performs remote writes
 and is a human maintainer operation; offline tests use injected local commands.
+
+### Unavailable linked files and historical recovery
+
+Unavailable public issue/comment links are checked against archive.org's
+Wayback availability API using the content creation timestamp. The closest
+available successful capture is downloaded into the same comment directory,
+with recoveredFrom and captureTimestamp provenance in mirror-index.json.
+Original URLs remain the synchronization identity. Current links bypass this
+fallback; archive.org failures do not cause recursive recovery attempts.
+
+Attachment requests have a 30-second deadline covering redirects and body
+transfer. Long saved cooldowns and new rate limits defer the attachment to a
+later run instead of waiting; the saved cooldown remains respected. Optional
+linked-file failures are logged as skipped and preserve existing local bytes,
+so remaining content and target synchronization can continue. Repository/API
+inventory failures still stop incomplete synchronization. Private/local links
+remain blocked and no forge credentials are sent to archive.org or linked sites.

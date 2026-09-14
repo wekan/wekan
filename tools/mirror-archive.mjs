@@ -172,7 +172,8 @@ export async function pinnedFetch(url, options, addresses, transport = url.proto
 }
 export function commentIdentity(comment) {return staticCommentIdentity(comment);}
 
-export async function downloadUrl(url, { temporary, previous, cachedFile, fetcher = fetch, allLinks = false, resolveHost = lookup } = {}) {
+export async function downloadUrl(url, { temporary, previous, cachedFile, fetcher = fetch, allLinks = false, resolveHost = lookup, timeoutMs = 30000 } = {}) {
+  const signal = AbortSignal.timeout(timeoutMs);
   const requested = new URL(url);
   const archive = requested.hostname === 'api.github.com' && requested.pathname.match(/^\/repos\/([A-Za-z0-9_.-]+)\/([A-Za-z0-9_.-]+)\/(zipball|tarball)\/(.+)$/);
   // Use the file service directly so hundreds of public release archives do
@@ -188,10 +189,10 @@ export async function downloadUrl(url, { temporary, previous, cachedFile, fetche
   for (let hop = 0; hop < 10; hop++) {
     const u = new URL(url);
     if (!['http:', 'https:'].includes(u.protocol) || (!allLinks && (u.protocol !== 'https:' || !allowed(u.hostname))) || u.username || u.password) throw new Error('Unsupported attachment redirect host');
-    const addresses = allLinks ? await publicLink(u, resolveHost) : undefined;
-    const requestOptions = { headers, redirect: 'manual', signal: AbortSignal.timeout(3600000) };
-    const operation=()=>{const options={...requestOptions,signal:AbortSignal.timeout(3600000)};return allLinks && fetcher === fetch ? pinnedFetch(u,options,addresses) : fetcher(u.href,options);};
-    response=fetcher===fetch?await limiter.perform(u.hostname,operation):await operation();
+    const addresses = allLinks ? await publicLink(u, (host,opts) => new Promise((resolve,reject)=>{signal.addEventListener('abort',()=>reject(signal.reason),{once:true});Promise.resolve(resolveHost(host,opts)).then(resolve,reject);} )) : undefined;
+    const requestOptions = { headers, redirect: 'manual', signal };
+    const operation=()=>{const options={...requestOptions,signal};return allLinks && fetcher === fetch ? pinnedFetch(u,options,addresses) : fetcher(u.href,options);};
+    response=fetcher===fetch?await limiter.perform(u.hostname,operation,{maxWaitMs:3000,noRetry:true}):await operation();
     if (![301, 302, 303, 307, 308].includes(response.status)) break;
     const location = response.headers.get('location');
     if (!location) throw new Error('File redirect has no Location');
@@ -204,7 +205,8 @@ export async function downloadUrl(url, { temporary, previous, cachedFile, fetche
   if (!response.ok || !response.body) throw new Error(`File download failed: HTTP ${response.status}`);
   fs.mkdirSync(temporary, { recursive: true });
   const file = path.join(temporary, `${randomUUID()}.part`);
-  await pipeline(Readable.fromWeb(response.body), fs.createWriteStream(file));
+  try { await pipeline(Readable.fromWeb(response.body), fs.createWriteStream(file), {signal}); }
+  catch (error) { fs.rmSync(file,{force:true}); throw error; }
   const length = response.headers.get('content-length');
   // Encoded responses are transparently decoded by fetch.
   if (length !== null && !response.headers.get('content-encoding') && fs.statSync(file).size !== Number(length)) throw new Error('Incomplete attachment download');
@@ -217,6 +219,36 @@ export async function downloadUrl(url, { temporary, previous, cachedFile, fetche
     if (ext && (!path.extname(name) || ext === '.html')) originalName = `${name}${name.toLowerCase().endsWith(ext) ? '' : ext}`;
   }
   return { file, etag: response.headers.get('etag') || undefined, lastModified: response.headers.get('last-modified') || undefined, originalName };
+}
+
+export async function downloadHistoricalUrl(url, options, fetchFile = downloadUrl, record = () => {}) {
+  let failure, live;
+  try { live = await fetchFile(url, options); if (!live.missing) return live; }
+  catch (error) {
+    if (/Unsupported|public Internet addresses|credential/i.test(error.message)) throw error;
+    failure = error;
+  }
+  if (!options.createdAt || !Number.isFinite(Date.parse(options.createdAt))) {
+    if (failure) throw failure;
+    return live;
+  }
+  const timestamp = new Date(options.createdAt).toISOString().replace(/\D/g,'').slice(0,14);
+  record('checking', `archive.org history for ${url} at ${timestamp}`);
+  const lookupUrl = `https://archive.org/wayback/available?url=${encodeURIComponent(url)}&timestamp=${timestamp}`;
+  const lookup = await fetchFile(lookupUrl, {temporary:options.temporary,allLinks:true});
+  if (lookup.missing) { if (failure) throw failure; return live; }
+  let data;
+  try { data = JSON.parse(fs.readFileSync(lookup.file,'utf8')); }
+  finally { if (!lookup.reused) fs.rmSync(lookup.file,{force:true}); }
+  const capture = data.archived_snapshots?.closest;
+  if (!capture?.available || String(capture.status) !== '200') { if (failure) throw failure; return live; }
+  const archived = new URL(capture.url);
+  if (!['http:','https:'].includes(archived.protocol) || archived.hostname !== 'web.archive.org' || archived.username || archived.password || !/^\/web\/\d{14}(?:[a-z_]+)?\//.test(archived.pathname)) throw Error('Unsupported archive.org capture URL');
+  archived.protocol = 'https:';
+  const result = await fetchFile(archived.href, {temporary:options.temporary,allLinks:true});
+  if (result.missing) { if (failure) throw failure; return live; }
+  record('recovered', `${url} from ${archived.href}`);
+  return {...result, recoveredFrom:archived.href, captureTimestamp:capture.timestamp};
 }
 
 export async function archiveItem(base, type, key, source, files, options) {
@@ -247,7 +279,7 @@ export async function archiveItem(base, type, key, source, files, options) {
         if (descriptor.asset && (!descriptor.asset.sourceName || descriptor.asset.sourceName === 'github')) {
           if (cached && old.assetId === descriptor.asset.id && old.size === descriptor.asset.size && old.digest === descriptor.asset.digest) fetched = { file: path.join(directory, old.name), reused: true };
           else fetched = { file: await downloadAsset(descriptor.asset, temporary) };
-        } else fetched = await fetchFile(descriptor.source, { temporary, previous: old, cachedFile: cached ? path.join(directory, old.name) : undefined, allLinks: descriptor.allLinks === true });
+        } else { const downloadOptions = { temporary, previous: old, cachedFile: cached ? path.join(directory, old.name) : undefined, allLinks: descriptor.allLinks === true, createdAt:descriptor.createdAt }; fetched = descriptor.allLinks ? await downloadHistoricalUrl(descriptor.source,downloadOptions,fetchFile,record) : await fetchFile(descriptor.source,downloadOptions); }
         if (fetched.missing) {
           if (old && fs.existsSync(path.join(directory, old.name))) { retire(path.join(directory, old.name), now); record('retired', `${type}/${key}/${old.name}: source returned 404/410`); }
           record('missing', `${descriptor.source}: source file is no longer available`); continue;
@@ -256,7 +288,7 @@ export async function archiveItem(base, type, key, source, files, options) {
           descriptor.name = `attachment-${createHash('sha256').update(descriptor.source).digest('hex').slice(0, 8)}-${archiveName(fetched.originalName)}`;
           file = path.join(directory, descriptor.name);
         }
-        validators = { etag: fetched.etag, lastModified: fetched.lastModified, originalName: fetched.originalName };
+        validators = { etag: fetched.etag, lastModified: fetched.lastModified, originalName: fetched.originalName, ...(fetched.recoveredFrom ? {recoveredFrom:fetched.recoveredFrom,captureTimestamp:fetched.captureTimestamp} : {}) };
         const hash = contentHash = fetched.reused && old ? old.sha256 : await sha256(fetched.file);
         if (descriptor.asset && ((descriptor.asset.size !== undefined && fs.statSync(fetched.file).size !== descriptor.asset.size) || (descriptor.asset.digest && descriptor.asset.digest !== `sha256:${hash}`))) throw new Error('Source asset size/digest mismatch');
         const same = fs.existsSync(file) && ((cached && old.name === descriptor.name && old.sha256 === hash) || await sha256(file) === hash);
@@ -280,7 +312,7 @@ export async function archiveItem(base, type, key, source, files, options) {
     } catch (error) {
       // A network or disk failure is not proof the file was removed.
       if (old) current.push({ ...old, fetchFailed: true });
-      record('failed', `${type}/${key}/${descriptor.name}: ${error.message}`);
+      record(descriptor.allLinks ? 'skipped' : 'failed', `${type}/${key}/${descriptor.name}: ${error.message}`);
     }
   }
   if (!apply) return;
@@ -356,7 +388,7 @@ async function archiveUnlockedSnapshot(snapshot, { root, apply = true, downloadA
         const id = comment.id === 'body' ? 'body' : commentIdentity(comment);
         commentIds.add(id);
         const archivedComment = {...comment, archiveCommentId:id};
-        const linked = issueFiles({...comment, commentsToMirror:[], reviews:[], source_url:comment.source_url || issue.source_url || issue.html_url}, true).map(f=>({...f,allLinks:true}));
+        const linked = issueFiles({...comment, commentsToMirror:[], reviews:[], source_url:comment.source_url || issue.source_url || issue.html_url}, true).map(f=>({...f,allLinks:true,createdAt:comment.created_at || issue.created_at}));
         await archiveItem(directory, 'comments', id, comment.html_url || issue.html_url, [
           {key:'comment',name:'comment.json',kind:'metadata',bytes:serialized(archivedComment)},
           {key:'listing',name:'index.html',kind:'metadata',bytes:Buffer.alloc(0)},
