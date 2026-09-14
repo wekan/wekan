@@ -2966,3 +2966,10 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.equal(gl['activity-unset-customfield'], "quitou o valor do campo personalizado '%s' en %s");
   assert.notEqual(gl['activity-unset-customfield'], "quitou o campo personalizado '%s' en %s");
 }
+
+{
+  const gl = JSON.parse(require('node:fs').readFileSync(require('node:path').join(__dirname, '../imports/i18n/data/gl.i18n.json'), 'utf8'));
+  const assert = require('node:assert/strict');
+  assert.equal(gl.Node_heap_does_zap_garbage, 'Memoria heap de Node: sobrescribe o lixo cun patrón de bits');
+  assert.notEqual(gl.Node_heap_does_zap_garbage, 'Memoria heap de Node: limpa o lixo (zap garbage)');
+}

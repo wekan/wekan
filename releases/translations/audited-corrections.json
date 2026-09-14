@@ -127132,5 +127132,12 @@
     "before": "quitou o campo personalizado '%s' en %s",
     "after": "quitou o valor do campo personalizado '%s' en %s",
     "reason": "The models/cards.js unsetCustomField activity clears an individual card custom-field value, not the custom-field definition. Preserve both percent tokens and state value removal explicitly."
+  },
+  {
+    "locale": "gl",
+    "key": "Node_heap_does_zap_garbage",
+    "before": "Memoria heap de Node: limpa o lixo (zap garbage)",
+    "after": "Memoria heap de Node: sobrescribe o lixo cun patrón de bits",
+    "reason": "Node V8 getHeapStatistics does_zap_garbage reports whether heap garbage is overwritten with a bit pattern, rather than garbage collection or cleaning. Node official V8 API documentation establishes the distinction."
   }
 ]

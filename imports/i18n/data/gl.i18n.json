@@ -1966,7 +1966,7 @@
   "Node_heap_heap_size_limit": "Memoria heap de Node: límite de tamaño do heap",
   "Node_heap_malloced_memory": "Memoria heap de Node: memoria asignada con malloc",
   "Node_heap_peak_malloced_memory": "Memoria heap de Node: pico de memoria asignada con malloc",
-  "Node_heap_does_zap_garbage": "Memoria heap de Node: limpa o lixo (zap garbage)",
+  "Node_heap_does_zap_garbage": "Memoria heap de Node: sobrescribe o lixo cun patrón de bits",
   "Node_heap_number_of_native_contexts": "Memoria heap de Node: número de contextos nativos",
   "Node_heap_number_of_detached_contexts": "Memoria heap de Node: número de contextos desvinculados",
   "Node_memory_usage_rss": "Uso de memoria de Node: tamaño do conxunto residente",

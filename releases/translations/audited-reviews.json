@@ -19486,5 +19486,23 @@
     "key": "editCardSortOrderPopup-title",
     "value": "Cambiar a ordenación",
     "reason": "Direct Galician review retains swimlane copy/move, reports, string-template format with literal %{value}, and exact space entities &#32;/&nbsp;. Spinner options describe their animations within the wait-spinner selector. Email subject/Cc, closed/resolved/history, request singular/plural and sorting remain distinct. Ticket orthography is excluded pending dictionary review."
+  },
+  {
+    "locale": "gl",
+    "key": "ticket",
+    "value": "Tícket",
+    "reason": "Real Academia Galega dictionary https://academia.gal/dicionario/-/termo/t%C3%ADcket explicitly accepts the Galician spelling tícket; retain the singular, regular plural and number label instead of replacing with another language spelling."
+  },
+  {
+    "locale": "gl",
+    "key": "tickets",
+    "value": "Tíckets",
+    "reason": "Real Academia Galega dictionary https://academia.gal/dicionario/-/termo/t%C3%ADcket explicitly accepts the Galician spelling tícket; retain the singular, regular plural and number label instead of replacing with another language spelling."
+  },
+  {
+    "locale": "gl",
+    "key": "ticket-number",
+    "value": "Número de tícket",
+    "reason": "Real Academia Galega dictionary https://academia.gal/dicionario/-/termo/t%C3%ADcket explicitly accepts the Galician spelling tícket; retain the singular, regular plural and number label instead of replacing with another language spelling."
   }
 ]
