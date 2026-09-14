@@ -72,3 +72,19 @@ assert.match(read('si')['close-board-pop'], /සංරක්ෂිතය/);
 assert.match(read('mn')['close-board-pop'], /самбарыг сэргээх/);
 assert.match(read('kk')['close-board-pop'], /Тақтаны.*қалпына келтіре аласыз/);
 console.log('Archive batch six: eight complete localized page/section instructions, Sinhala English label removed');
+
+for (const code of ['uz', 'km', 'km-KH', 'km_KH']) {
+ const d = read(code), value = d['close-board-pop'];
+ assert.ok(value.includes(d.archives));
+ assert.ok(value.includes(d['all-boards']));
+ for (const key of ['all-boards', 'restore-board', 'close-board-pop'])
+  assert.doesNotMatch(d[key], /kengash|ក្រុមប្រឹក្សាភិបាល|sarlavha|បឋមកថា/);
+}
+assert.strictEqual(read('uz').board, 'Taxta');
+assert.strictEqual(read('uz').boards, 'Taxtalar');
+assert.strictEqual(read('uz')['restore-board'], 'Taxtani qayta tiklash');
+for (const code of ['km', 'km-KH', 'km_KH']) {
+ assert.strictEqual(read(code)['all-boards'], 'ក្តារទាំងអស់');
+ assert.strictEqual(read(code)['restore-board'], 'ស្តារក្តារ');
+}
+console.log('Uzbek and Khmer: board/council distinction and archive place labels verified');

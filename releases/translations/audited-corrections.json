@@ -132872,5 +132872,103 @@
     "before": "Тақтаны басты тақырып жолағындағы «Мұрағат» түймесін басып қалпына келтіре аласыз.",
     "after": "Тақтаны «Барлық тақталар» бетіндегі «Мұрағат» бөлімінен қалпына келтіре аласыз.",
     "reason": "2026-09-14: Correct complete archive guidance to existing Archive section on All Boards; preserve established locale restoration and board terminology. Replace obsolete home-header navigation; Sinhala also replaces English Archive with the actual localized place label."
+  },
+  {
+    "locale": "uz",
+    "key": "board",
+    "before": "Kengash",
+    "after": "Taxta",
+    "reason": "2026-09-14: Correct board/council sense using taxta (Uzbek) or established ក្តារ (Khmer), not an administrative governing body. Restore-board names the Kanban board action; complete archive guidance names existing Archive section on All Boards. Full computing collocations remain reviewable."
+  },
+  {
+    "locale": "uz",
+    "key": "boards",
+    "before": "Kengashlar",
+    "after": "Taxtalar",
+    "reason": "2026-09-14: Correct board/council sense using taxta (Uzbek) or established ក្តារ (Khmer), not an administrative governing body. Restore-board names the Kanban board action; complete archive guidance names existing Archive section on All Boards. Full computing collocations remain reviewable."
+  },
+  {
+    "locale": "uz",
+    "key": "all-boards",
+    "before": "Barcha kengashlar",
+    "after": "Barcha taxtalar",
+    "reason": "2026-09-14: Correct board/council sense using taxta (Uzbek) or established ក្តារ (Khmer), not an administrative governing body. Restore-board names the Kanban board action; complete archive guidance names existing Archive section on All Boards. Full computing collocations remain reviewable."
+  },
+  {
+    "locale": "uz",
+    "key": "restore-board",
+    "before": "Qayta tiklash paneli",
+    "after": "Taxtani qayta tiklash",
+    "reason": "2026-09-14: Correct board/council sense using taxta (Uzbek) or established ក្តារ (Khmer), not an administrative governing body. Restore-board names the Kanban board action; complete archive guidance names existing Archive section on All Boards. Full computing collocations remain reviewable."
+  },
+  {
+    "locale": "uz",
+    "key": "close-board-pop",
+    "before": "Bosh sahifa sarlavhasidagi \"Arxivlash\" tugmasini bosish orqali taxtani qayta tiklashingiz mumkin.",
+    "after": "Taxtani “Barcha taxtalar” sahifasidagi “Arxiv” bo‘limidan qayta tiklashingiz mumkin.",
+    "reason": "2026-09-14: Correct board/council sense using taxta (Uzbek) or established ក្តារ (Khmer), not an administrative governing body. Restore-board names the Kanban board action; complete archive guidance names existing Archive section on All Boards. Full computing collocations remain reviewable."
+  },
+  {
+    "locale": "km",
+    "key": "all-boards",
+    "before": "ក្រុមប្រឹក្សាភិបាលទាំងអស់។",
+    "after": "ក្តារទាំងអស់",
+    "reason": "2026-09-14: Correct board/council sense using taxta (Uzbek) or established ក្តារ (Khmer), not an administrative governing body. Restore-board names the Kanban board action; complete archive guidance names existing Archive section on All Boards. Full computing collocations remain reviewable."
+  },
+  {
+    "locale": "km",
+    "key": "restore-board",
+    "before": "ស្តារក្រុមប្រឹក្សាភិបាល",
+    "after": "ស្តារក្តារ",
+    "reason": "2026-09-14: Correct board/council sense using taxta (Uzbek) or established ក្តារ (Khmer), not an administrative governing body. Restore-board names the Kanban board action; complete archive guidance names existing Archive section on All Boards. Full computing collocations remain reviewable."
+  },
+  {
+    "locale": "km",
+    "key": "close-board-pop",
+    "before": "អ្នក​នឹង​អាច​ស្ដារ​ក្ដារ​ដោយ​ចុច​ប៊ូតុង “ទុក​ក្នុង​ប័ណ្ណសារ” ពី​បឋមកថា​ដើម។",
+    "after": "អ្នកអាចស្តារក្តារពីផ្នែក “បណ្ណសារ” នៅលើទំព័រ “ក្តារទាំងអស់”។",
+    "reason": "2026-09-14: Correct board/council sense using taxta (Uzbek) or established ក្តារ (Khmer), not an administrative governing body. Restore-board names the Kanban board action; complete archive guidance names existing Archive section on All Boards. Full computing collocations remain reviewable."
+  },
+  {
+    "locale": "km-KH",
+    "key": "all-boards",
+    "before": "ក្រុមប្រឹក្សាភិបាលទាំងអស់។",
+    "after": "ក្តារទាំងអស់",
+    "reason": "2026-09-14: Correct board/council sense using taxta (Uzbek) or established ក្តារ (Khmer), not an administrative governing body. Restore-board names the Kanban board action; complete archive guidance names existing Archive section on All Boards. Full computing collocations remain reviewable."
+  },
+  {
+    "locale": "km-KH",
+    "key": "restore-board",
+    "before": "ស្តារក្រុមប្រឹក្សាភិបាល",
+    "after": "ស្តារក្តារ",
+    "reason": "2026-09-14: Correct board/council sense using taxta (Uzbek) or established ក្តារ (Khmer), not an administrative governing body. Restore-board names the Kanban board action; complete archive guidance names existing Archive section on All Boards. Full computing collocations remain reviewable."
+  },
+  {
+    "locale": "km-KH",
+    "key": "close-board-pop",
+    "before": "អ្នក​នឹង​អាច​ស្ដារ​ក្ដារ​ដោយ​ចុច​ប៊ូតុង “ទុក​ក្នុង​ប័ណ្ណសារ” ពី​បឋមកថា​ដើម។",
+    "after": "អ្នកអាចស្តារក្តារពីផ្នែក “បណ្ណសារ” នៅលើទំព័រ “ក្តារទាំងអស់”។",
+    "reason": "2026-09-14: Correct board/council sense using taxta (Uzbek) or established ក្តារ (Khmer), not an administrative governing body. Restore-board names the Kanban board action; complete archive guidance names existing Archive section on All Boards. Full computing collocations remain reviewable."
+  },
+  {
+    "locale": "km_KH",
+    "key": "all-boards",
+    "before": "ក្រុមប្រឹក្សាភិបាលទាំងអស់។",
+    "after": "ក្តារទាំងអស់",
+    "reason": "2026-09-14: Correct board/council sense using taxta (Uzbek) or established ក្តារ (Khmer), not an administrative governing body. Restore-board names the Kanban board action; complete archive guidance names existing Archive section on All Boards. Full computing collocations remain reviewable."
+  },
+  {
+    "locale": "km_KH",
+    "key": "restore-board",
+    "before": "ស្តារក្រុមប្រឹក្សាភិបាល",
+    "after": "ស្តារក្តារ",
+    "reason": "2026-09-14: Correct board/council sense using taxta (Uzbek) or established ក្តារ (Khmer), not an administrative governing body. Restore-board names the Kanban board action; complete archive guidance names existing Archive section on All Boards. Full computing collocations remain reviewable."
+  },
+  {
+    "locale": "km_KH",
+    "key": "close-board-pop",
+    "before": "អ្នក​នឹង​អាច​ស្ដារ​ក្ដារ​ដោយ​ចុច​ប៊ូតុង “ទុក​ក្នុង​ប័ណ្ណសារ” ពី​បឋមកថា​ដើម។",
+    "after": "អ្នកអាចស្តារក្តារពីផ្នែក “បណ្ណសារ” នៅលើទំព័រ “ក្តារទាំងអស់”។",
+    "reason": "2026-09-14: Correct board/council sense using taxta (Uzbek) or established ក្តារ (Khmer), not an administrative governing body. Restore-board names the Kanban board action; complete archive guidance names existing Archive section on All Boards. Full computing collocations remain reviewable."
   }
 ]
