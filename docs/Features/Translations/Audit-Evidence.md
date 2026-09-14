@@ -23789,3 +23789,20 @@ validation remains open. The correction ledger now has 18,609 records;
 original pending/restored findings remain 289/13. Outgoing-webhook, reaction
 and soft-WIP terminology were inspected but not repaired from insufficient
 component evidence during this review.
+
+### 2026-09-14 — Inuktitut unchanged New label and script review
+
+The existing unflagged `iu:new` value `ᓄᑖᖅ` is retained. Microsoft's
+[Inuktitut software style guide](https://download.microsoft.com/download/0/b/6/0b65bcfe-5fac-4b20-86fe-f613200667c1/iku-can-styleguide.pdf),
+printed page 34, gives `Nutaaq` for the New command. This is the syllabic
+equivalent already used locally. Actual `newOrgRow`, `newTeamRow`,
+`newUserRow` and `newTranslationRow` templates use this standalone creation
+label beside a plus icon. Focused coverage preserves the value and checks
+those contexts; it does not certify surrounding prose or browser layout.
+
+The primary guide uses Latin Inuktitut throughout. Consequently the original
+“Wrong writing script — review required” rows remain review warnings, not
+proof of a wrong language. Review vocabulary and meaning independently of
+script. Greenlandic-looking phrases, network sense and complete calendar
+qualifiers still require their own evidence. No pending finding is accepted
+from the New entry or from a script-only test. No locale value changed.

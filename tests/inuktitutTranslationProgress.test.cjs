@@ -24,6 +24,20 @@ for (const [key, value] of Object.entries(inuktitut)) {
 }
 
 assert.equal(inuktitut.accept, 'ᐊᖏᖅᐸᕋ');
+// Microsoft's native software guide, p. 34: New -> Nutaaq. Preserve the
+// existing syllabic equivalent in actual admin creation controls.
+assert.equal(inuktitut.new, 'ᓄᑖᖅ');
+assert.notEqual(inuktitut.new, english.new);
+for (const [file, selectors] of [
+  ['peopleBody.jade', ['new-org', 'new-team', 'new-user']],
+  ['translationBody.jade', ['new-translation']],
+]) {
+  const jade = fs.readFileSync(path.join(root, 'client/components/settings', file), 'utf8');
+  for (const selector of selectors) {
+    assert.match(jade, new RegExp(`a\\.${selector}\\n\\s+i\\.fa\\.fa-plus\\n\\s+\\| \\{\\{_ 'new'\\}\\}`));
+  }
+}
+
 for (const stem of ['card-recurrence-interval', 'checklist-reset-interval']) {
   assert.equal(inuktitut[`${stem}-daily`], 'ᖃᐅᑕᒫᑦ');
   assert.equal(inuktitut[`${stem}-monthly`], 'ᑕᖅᑭᑕᒫᑦ');
