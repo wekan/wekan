@@ -52,3 +52,23 @@ full fluency or browser rendering.
 The remaining calendar options, settings heading, astronomical qualifier
 and other existing uncertain translations still require review. No original
 pending finding is resolved by this batch, and no live browser test ran.
+
+## Nine calendar-option noun repairs — 2026-09-14
+
+Local commit `474a2909e` replaces Intiwatana (clock) with Watanqillqa
+(calendar) in Gregorian, Buddhist, Chinese, Coptic, Ethiopic Amete Alem,
+Ethiopic, Hebrew, Japanese and Umm al-Qura options. The Chilean Ministry
+of Education Cusco Collao dictionary 2019 printed page 18 attests calendar;
+printed page 42 identifies Inti watana as clock. Source:
+https://aprendoenlinea.mineduc.gob.cl/sites/default/files/newtenberg/614/articles-134497_recurso_pdf.pdf
+
+Exact existing names and qualifiers are preserved. **Low confidence**
+remains for retained naming/modifiers, native full compounds and browser
+rendering. This lexical repair does not certify all components or all
+Quechua varieties. The generic calendar-system heading and remaining
+Jalali, ISO week and civil/sighting/astronomical labels still need their
+complete source meanings checked. No pending qualifier is accepted here.
+Existing ledger original-before values are preserved where present; eight
+new unflagged records and one revision bring total records to 18,751.
+Four focused checks pass; no browser validation was run. Original pending
+findings remain 259; native/runtime and prior uncertain repairs stay open.

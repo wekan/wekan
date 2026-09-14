@@ -16,13 +16,13 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, local commit `529775d9c` —
-Arabic card-count threshold label is repaired in Tamazight, preserving
-if/more-than wording before its numeric input. Four checks pass; full
-conditional grammar/native/browser review stays open. Pending: 259.
+Latest translation fix: **2026-09-14**, local commit `474a2909e` —
+Nine Quechua calendar options use the attested calendar noun instead of
+clock. Names/qualifiers survive; four checks pass. Retained modifiers,
+generic setting and full native/browser review remain open. Pending: 259.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **18,743** exact before/after values, including unflagged
+records contain **18,751** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

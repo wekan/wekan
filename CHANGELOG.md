@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/474a2909e">Correct Quechua calendar nouns in nine options</a>. Thanks to xet7.</summary>
+
+Use the attested calendar noun instead of clock, preserving names and
+qualifiers. Four focused checks pass. Retained modifiers and complete
+native/browser review remain open; original pending findings stay at 259.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/529775d9c">Repair Tamazight card-count threshold wording</a>. Thanks to xet7.</summary>
 
 Replace Arabic while retaining the if/more-than condition before the
