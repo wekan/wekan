@@ -21956,3 +21956,13 @@ all-card removal effects, unsaved-description overwrite warning and
 self-membership/assignment remain distinct. More-than threshold and 1-9
 ordering are preserved. All 2,389 reviews pass; 1,823 restored values and
 308 pending findings plus wider language/browser verification remain open.
+
+
+### Galician visibility and deletion warnings — 2026-09-14
+
+Local commit `e74cc6464` retains twenty-five correct visibility,
+invitation, field-application and deletion-warning values. Private-only,
+new/all-card scope, invitation placeholders and no-undo warnings remain
+explicit. Duplicate-list deletion retains same-name AND empty conditions.
+All 2,414 reviews pass; 1,798 restored values and 308 pending findings plus
+broader language/browser verification remain open.
