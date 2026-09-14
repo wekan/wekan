@@ -743,10 +743,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,191 original findings are
+Translation audit progress as of 2026-09-14: 15,196 original findings are
 corrected, 179 are reviewed and retained, 4,058 restored values await
-validation, and 653 original findings remain pending across 17 locales,
-including 510 Tamazight findings. The ledger contains 17,415 correction
+validation, and 648 original findings remain pending across 17 locales,
+including 505 Tamazight findings. The ledger contains 17,424 correction
 records, including repairs outside the original audit. Regression checks
 validate placeholders, rendering and merge behavior; fluency and wider
 language validation remain open. See the
@@ -761,6 +761,19 @@ Native MediaWiki supports the components; full capability and affirmative
 possession phrasing remains low confidence. All 17,415 correction checks
 pass. Restored values and wider language validation remain open; live
 browser verification was not run.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4191e56e4">Repair Tamazight creation-date ordering and export messages</a>. Thanks to xet7.</summary>
+
+Repair ten values, preserving opposite newest/oldest-first ordering, card
+versus board export, explicit export restrictions and Excel/PDF names.
+Five original findings and four unflagged French values are repaired; one
+existing mixed-script correction is refined. Native reference components
+support the wording; full noun, ordering and negative capability phrases
+remain low confidence. All 17,424 correction checks pass. Wider language
+validation and live browser verification remain open.
 
 </details>
 
