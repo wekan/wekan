@@ -4,6 +4,8 @@ Historical snapshot retained for reproducible repair tracking. See [Audit.md](Au
 
 ## Tamazight subtask wording review — 2026-09-14
 
+Activity follow-up local repair `b26d1ddc1`: `activity-subtask-added` and general `activity-added` now preserve completed past action and all percent placeholders using existing local irna/i wording. Full grammar and past conjugation remain LOW CONFIDENCE; the current MediaWiki file has no direct irna occurrence, so local wording is not independent canonical attestation. Linked-subtask wording still needs review; earlier pending-activity observations below are historical.
+
 Follow-up local repair `23c82a5c1`: existing-card action now uses hierarchical Task wording and As instead of Language and With. Add Subtask, deletion confirmation and plural Subtask Actions also repaired. Native MediaWiki As references and Mastodon confirmation frame support components; complete paraphrases, morphology and kanban extension remain LOW CONFIDENCE. Original activity and other linked-subtask wording remain under review. Earlier pending-action observations below describe the historical review before this repair.
 
 Follow-up local repair `f13775594`: five noun/settings/delete labels now explicitly paraphrase Task(s) under a Task, using ministry task nouns and indexed IRCAM Under wording. Complete hierarchy phrasing, noun state and kanban adaptation remain LOW CONFIDENCE, not a canonical attested Subtask term. Three original findings and two unflagged labels were changed; the existing-card action still requires repair. The initial no-values-changed observation below describes the earlier review.

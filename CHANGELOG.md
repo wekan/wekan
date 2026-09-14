@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,372 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 472 pending review or repair.
-The correction inventory records 17,780 exact before/after values,
+findings: 15,373 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 471 pending review or repair.
+The correction inventory records 17,782 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (337) and
+The largest original queues are Standard Moroccan Tamazight (336) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -102,15 +102,15 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is 23c82a5c1 (2026-09-14), repairing four subtask
-actions, including Language and With errors in Add Existing Card as
-Subtask. Full hierarchical phrases remain low confidence for fluent review.
+Latest translation fix is b26d1ddc1 (2026-09-14), replacing two Arabic
+added-activity messages while preserving all percent placeholders. Full
+activity grammar and past conjugation remain low confidence for fluent review.
 Start spelling follow-up 2219d5358 distinguishes plain Begin/Start from
 emphatic Share/Divide in indexed IRCAM entries; direct PDF and full command
 verification remain open. No values or counts changed.
 Subtask terminology finding 92f69f58d is repaired in 23c82a5c1. Full
-hierarchical phrases remain low confidence; activity and linked-subtask
-wording still need review.
+hierarchical phrases remain low confidence; added-subtask activity is repaired
+in b26d1ddc1. Linked-subtask wording still needs review.
 Bambara calendar follow-up 5610dff52 confirms current CLDR lacks native
 Hijri variant names; Era vocabulary does not establish reference-date
 Epoch. Both tabular calendar labels remain pending.
@@ -637,10 +637,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,372 original findings are
+Translation audit progress as of 2026-09-14: 15,373 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 472 remain pending across 17 locales, including 337 Tamazight findings.
-The ledger contains 17,780 correction records, including unflagged repairs.
+and 471 remain pending across 17 locales, including 336 Tamazight findings.
+The ledger contains 17,782 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -2016,6 +2016,17 @@ With from Add Existing Card as Subtask, preserving Existing and As. Keep
 confirmation question and plural Actions. Full phrases remain low confidence
 for fluent review. All 17,780 correction checks pass; 472 original findings
 remain pending, including 337 Tamazight.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b26d1ddc1">Translate Tamazight added activity messages</a>. Thanks to xet7.</summary>
+
+Replace two Arabic activity messages while preserving completed past action,
+all percent placeholder counts/order and hierarchical Subtask wording. Full
+activity grammar and past conjugation remain low confidence for fluent
+review. All 17,782 correction checks pass; 471 original findings remain
+pending, including 336 Tamazight.
 
 </details>
 
