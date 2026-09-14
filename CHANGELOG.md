@@ -694,6 +694,21 @@ Thanks to Wenhao Wu, Southeast University and xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/64123a603">Bind button rules to a writable board and its card</a></summary>
+
+RuleButtonBleed: a board member could run a button rule against a foreign
+private card, bypassing collection authorization (CWE-639). Manual rules
+now require write capability and a card belonging to the rule board, both
+before dispatch and in the shared action dispatcher. Cardless board
+buttons remain supported. Denials appear in bounded Problems summaries.
+Role and boundary decisions, dispatcher inventory and existing rule suites
+pass. Browser regression is syntax-checked; live execution remains pending.
+
+Thanks to Wenhao Wu, Southeast University and xet7 !
+
+</details>
+
 **Translations** - Tamazight interface and maintenance labels; Bambara, Fulah, Dzongkha and Ewe calendars.
 
 <details>
