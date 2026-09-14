@@ -629,7 +629,7 @@ This release includes the following translation repairs and build verification:
 **Translations** - Tamazight interface and maintenance labels; Bambara, Fulah, Dzongkha and Ewe calendars.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/fd6ae82a5">Repair Tamazight rule report and popup wording</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/7e3e11eda">Repair Tamazight rule report and popup wording</a>. Thanks to xet7.</summary>
 
 Repair three unflagged popup values, preserving singular report, plural
 rules, singular rule details and both import/export actions. Native reference
@@ -658,7 +658,7 @@ and 311 remain pending across 17 locales, including 176 Tamazight findings.
 The ledger contains 18,122 correction records, including unflagged repairs.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/193b22520">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
 
 Replace three French values, preserving multiple-operator capability and the
 different lockout cases: existing account with correct username and wrong
@@ -680,7 +680,7 @@ language validation and live browser checks remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/87c670290">Translate Tamazight enrollment subject and password-reset email</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/3834d033d">Translate Tamazight enrollment subject and password-reset email</a>. Thanks to xet7.</summary>
 
 Replace two French values, preserving recipient account ownership, reset
 purpose, greeting/thanks, paragraph layout and site/user/URL placeholders.
@@ -691,7 +691,7 @@ wider language validation and live browser checks remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/952c0ccb9">Translate Tamazight enrollment and verification email bodies</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/bc98c07cc">Translate Tamazight enrollment and verification email bodies</a>. Thanks to xet7.</summary>
 
 Replace two French bodies, preserving service-use versus account-email
 verification purpose, link-below action, greeting/thanks, paragraphs and
@@ -703,7 +703,7 @@ pass; wider language validation and live browser checks remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/7fbf0632b">Translate Tamazight activity email template labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ccd2f8072">Translate Tamazight activity email template labels</a>. Thanks to xet7.</summary>
 
 Replace three Arabic labels: two original findings and one unflagged value.
 Restore omitted notification meaning and preserve email body versus subject.
@@ -714,7 +714,7 @@ wider language validation and live browser checks remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/58f8b6e5c">Translate Tamazight invitation email template labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/50a4def6a">Translate Tamazight invitation email template labels</a>. Thanks to xet7.</summary>
 
 Replace three Arabic labels: two original findings and one unflagged value.
 Preserve invitation versus reception/computer prompt, body text versus
@@ -736,7 +736,7 @@ wider language validation and live browser checks remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/c80e08c95">Translate Tamazight board invitation templates and code label</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/288a2e7e5">Translate Tamazight board invitation templates and code label</a>. Thanks to xet7.</summary>
 
 Replace three French templates and an unflagged Arabic invitation-code label.
 Preserve inviter/recipient, board membership, cooperation purpose, polite
@@ -748,7 +748,7 @@ and live browser checks remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/6293ca7a5">Translate Tamazight selected-list position labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/93c55d1fc">Translate Tamazight selected-list position labels</a>. Thanks to xet7.</summary>
 
 Replace two French labels, preserving opposite left/right directions and
 selected-list scope. IRCAM and native UI components support vocabulary;
@@ -759,7 +759,7 @@ live browser checks remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/dc90fc0f7">Translate Tamazight used-email warning and username import</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/16d4a73de">Translate Tamazight used-email warning and username import</a>. Thanks to xet7.</summary>
 
 Replace Arabic and French values, preserving an already-used email-address
 warning and username import direction. Native UI components support
@@ -771,7 +771,7 @@ validation and live browser checks remain open.
 
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/2deb53a0c">Repair Tamazight label actions and minicard text visibility</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ee1845167">Repair Tamazight label actions and minicard text visibility</a>. Thanks to xet7.</summary>
 
 Replace six Arabic/French values, including five unflagged strings. Keep
 add/edit actions, card scope, colors and names distinct. Restore the missing
@@ -783,7 +783,7 @@ phrases remain low confidence. Wider language and browser review remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/688848ea8">Repair Tamazight card sorting and display labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ac49f847d">Repair Tamazight card sorting and display labels</a>. Thanks to xet7.</summary>
 
 Replace five Arabic/French values, including four unflagged strings. Preserve
 sorting by the number displayed on minicards, missing-label negation, list
@@ -795,7 +795,7 @@ browser validation remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/3ff48c54c">Repair Tamazight selection and diagnostic details labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/bc8ef464f">Repair Tamazight selection and diagnostic details labels</a>. Thanks to xet7.</summary>
 
 Repair four unflagged values: generic, Cron and migration Details labels
 replace Arabic; selected wording uses native UI vocabulary and retains its
@@ -807,7 +807,7 @@ validation remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/570869e59">Repair Tamazight previous and next month navigation labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/8e39144f6">Repair Tamazight previous and next month navigation labels</a>. Thanks to xet7.</summary>
 
 Replace three unflagged French values, preserving previous/next directions
 and explicit month scope. CLDR and native UI components support vocabulary;
@@ -818,7 +818,7 @@ counts are unchanged; wider language and live browser review remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/acfa4aec1">Repair Tamazight card and swimlane placement labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/081b2c8af">Repair Tamazight card and swimlane placement labels</a>. Thanks to xet7.</summary>
 
 Replace five original French findings, preserving above versus below,
 selected qualification, card versus swimlane scope and add action. Native UI
@@ -830,7 +830,7 @@ browser validation remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/b8f1b5c4a">Repair Tamazight multi-selection label and member actions</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/95c40e770">Repair Tamazight multi-selection label and member actions</a>. Thanks to xet7.</summary>
 
 Repair three original French findings and an unflagged card-label command
 that incorrectly used a button word. Preserve label versus member setting,
@@ -843,7 +843,7 @@ and live browser validation remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/7e1fa00c3">Repair Tamazight comment search error and header wording</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b9f553d2f">Repair Tamazight comment search error and header wording</a>. Thanks to xet7.</summary>
 
 Replace three French/Arabic values, including two unflagged strings. Preserve
 no matching card whose comment contains the queried text, card scope and
@@ -855,7 +855,7 @@ Wider language and live browser validation remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/2921a4e3d">Repair Tamazight organization labels and missing-name error</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/3ae48d78d">Repair Tamazight organization labels and missing-name error</a>. Thanks to xet7.</summary>
 
 Replace four French values, including one unflagged string. Preserve plural
 add/list, singular settings, missing named organization and exact %s token.
@@ -867,7 +867,7 @@ language and live browser validation remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/305503e7e">Repair Tamazight email test recipient and template labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/97a8210e6">Repair Tamazight email test recipient and template labels</a>. Thanks to xet7.</summary>
 
 Replace three French/Arabic values, including two unflagged strings.
 Preserve test qualifier, sending to oneself, plural templates and email scope.
@@ -879,7 +879,7 @@ language and live browser validation remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/0619954f5">Repair Tamazight team labels and organization name errors</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/36f198b38">Repair Tamazight team labels and organization name errors</a>. Thanks to xet7.</summary>
 
 Replace seven French/Arabic values, including five unflagged strings.
 Preserve already-used organization/team names versus missing team,
@@ -892,7 +892,7 @@ and live browser validation remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/4fa1b2408">Repair Tamazight group deletion guards and irreversible warnings</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/7a0afb331">Repair Tamazight group deletion guards and irreversible warnings</a>. Thanks to xet7.</summary>
 
 Replace five original French findings. Preserve organization/team/account
 scope, confirmation and no undo. Group deletion guards retain the condition
@@ -905,7 +905,7 @@ remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/f59f89e3d">Repair Tamazight board-group removal and creation guidance</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ec6e91594">Repair Tamazight board-group removal and creation guidance</a>. Thanks to xet7.</summary>
 
 Replace four original French findings. Preserve removal from the board,
 team/organization scope, creation purpose and contact-administrator guidance.
@@ -917,7 +917,7 @@ confidence. Wider language and live browser validation remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a8931f122">Repair Tamazight added-group display labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/36313cda3">Repair Tamazight added-group display labels</a>. Thanks to xet7.</summary>
 
 Replace two original French findings. Preserve added qualifier, team and
 organization plurals, displayed-below relation and colon. Native addition
@@ -930,7 +930,7 @@ validation remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/c2206260c">Repair Tamazight search, card import and received-date titles</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/d648d4e23">Repair Tamazight search, card import and received-date titles</a>. Thanks to xet7.</summary>
 
 Replace three original French findings. Preserve all-board search scope,
 singular Trello card import and received-date scope distinct from start/due
@@ -942,7 +942,7 @@ remain low confidence. Wider language and live browser validation remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/054cdeab3">Repair Tamazight field label and board-admin visibility wording</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/4dddf82cb">Repair Tamazight field label and board-admin visibility wording</a>. Thanks to xet7.</summary>
 
 Replace the original French field-label instruction and an unflagged unclear
 visibility phrase. Preserve field label on minicard and visible only to board
@@ -967,7 +967,7 @@ language and live browser validation remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a06b221a6">Repair Tamazight attachment activities and bulk-move messages</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b150142b2">Repair Tamazight attachment activities and bulk-move messages</a>. Thanks to xet7.</summary>
 
 Replace eight French/mixed-language values, including two unflagged strings.
 Preserve deleted activity, exact %s, incomplete when fragment, personal
@@ -980,7 +980,7 @@ Wider language and live browser validation remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/14bcae938">Repair Tamazight attachment count and filesystem move wording</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/0d1adc687">Repair Tamazight attachment count and filesystem move wording</a>. Thanks to xet7.</summary>
 
 Replace four original French/Arabic findings. Preserve minicard attachment
 count, singular/all/all-of-board scope and filesystem destination. All
@@ -992,7 +992,7 @@ Wider language and live browser validation remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/5734a2a88">Repair Tamazight attached activity and upload export headers</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/62f68966a">Repair Tamazight attached activity and upload export headers</a>. Thanks to xet7.</summary>
 
 Replace three unflagged Arabic/French values. Preserve both ordered %s
 tokens, attachment event meaning, upload direction and by-actor versus
@@ -1004,7 +1004,7 @@ low confidence. Wider language and live browser validation remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/596cc1ddb">Repair Tamazight missing-list and migration correction labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/37fdff2d2">Repair Tamazight missing-list and migration correction labels</a>. Thanks to xet7.</summary>
 
 Replace four original French findings. Preserve create versus fix, missing
 lists/IDs and correction of file URLs rather than file contents. All 17,598
@@ -1016,7 +1016,7 @@ remain low confidence. Wider language and live browser validation remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/85672c308">Repair Tamazight file and attachment URL correction actions</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/27d9f69f4">Repair Tamazight file and attachment URL correction actions</a>. Thanks to xet7.</summary>
 
 Replace two original French findings. Preserve all-file versus attachment
 URL scope, correction action and exact URL acronym. All 17,600 correction/
@@ -1028,7 +1028,7 @@ Wider language and live browser validation remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/44d2b0241">Repair Tamazight duplicate and empty-list deletion labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c288651ba">Repair Tamazight duplicate and empty-list deletion labels</a>. Thanks to xet7.</summary>
 
 Replace four original French findings with provisional repeat-derived and
 contains-nothing wording. Preserve duplicate and empty qualifiers and avoid
@@ -1040,7 +1040,7 @@ confidence and need further research. Wider language and browser review remain o
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/b2af87a24">Add provisional Bambara Buddhist and Coptic calendar names</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/281bc41b7">Add provisional Bambara Buddhist and Coptic calendar names</a>. Thanks to xet7.</summary>
 
 Replace two bare English labels with provisional calendar compounds using
 the existing calendar noun. Borrowing spelling, proper-name association and
@@ -1052,7 +1052,7 @@ browser validation remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/6d838c3fb">Use Fulah Adlam CLDR names for Buddhist and Coptic calendars</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/1582958d2">Use Fulah Adlam CLDR names for Buddhist and Coptic calendars</a>. Thanks to xet7.</summary>
 
 Replace two bare English labels with Latin transcriptions of full native
 Adlam CLDR calendar names. Exact Adlam sources are retained in the ledger;
@@ -1064,7 +1064,7 @@ variant text needs semantic review. Wider language and browser review remain ope
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/f36185936">Restore Fulah Saudi calendar moon-sighting qualifier</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/8e8198e26">Restore Fulah Saudi calendar moon-sighting qualifier</a>. Thanks to xet7.</summary>
 
 Replace the English label and restore missing moon-sighting detail. Exact
 Latin country name and native see/moon components support vocabulary; full
@@ -1077,7 +1077,7 @@ Wider language and browser review remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/dc91b2560">Repair Tamazight Excel import popup</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/7a77db4e9">Repair Tamazight Excel import popup</a>. Thanks to xet7.</summary>
 
 Replace the French import title while retaining Excel CSV/TSV names.
 Native entry wording and cached import terminology support components;
@@ -1087,7 +1087,7 @@ checks pass; 520 original findings remain pending.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/3c92879fa">Repair Tamazight avatar URL migration labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/7d86e7a56">Repair Tamazight avatar URL migration labels</a>. Thanks to xet7.</summary>
 
 Replace two French repair labels while retaining URL and existing avatar
 terminology. The correction verb has dictionary support; complete wording
@@ -1096,7 +1096,7 @@ still needs language review. All 17,637 correction checks pass.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/35ec1e4d8">Repair Tamazight date editing messages</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/8ca3f1a4a">Repair Tamazight date editing messages</a>. Thanks to xet7.</summary>
 
 Replace French/Arabic start, end and received-date activity/popup wording.
 The first activity value is the destination date, the second its card.
@@ -1105,7 +1105,7 @@ All 17,637 correction checks pass; full phrasing still needs language review.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/39c314a80">Repair Tamazight board avatar display label</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e24b61f13">Repair Tamazight board avatar display label</a>. Thanks to xet7.</summary>
 
 Replace French while preserving display action and board-member ownership.
 Native show/member components are supported; existing avatar terminology
@@ -1114,7 +1114,7 @@ and complete phrasing need review. All 17,637 correction checks pass.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/1c03cf094">Repair Tamazight JSON validity warning</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/6a3b81124">Repair Tamazight JSON validity warning</a>. Thanks to xet7.</summary>
 
 Replace French while preserving the invalid-JSON warning and text ownership.
 Native components support wording; full construction needs review. Paste
@@ -1123,7 +1123,7 @@ prompts remain open. All 17,637 correction checks pass.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/59190b2b5">Repair Tamazight member removal messages</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/0e797a3ac">Repair Tamazight member removal messages</a>. Thanks to xet7.</summary>
 
 Replace French activity and Arabic control, preserving removal from card
 and all location placeholders. Full phrasing and actor morphology need
@@ -1132,7 +1132,7 @@ language review. All 17,637 correction checks pass.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/082eed1cc">Repair Tamazight card move and restore activities</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c7d630200">Repair Tamazight card move and restore activities</a>. Thanks to xet7.</summary>
 
 Replace French using native move/restore components. Preserve restoration
 destination and distinct old/new locations. Full phrasing still needs
@@ -1141,7 +1141,7 @@ language review. All 17,637 correction checks pass.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/b63e5ebe1">Repair Tamazight card move rule triggers</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/16ff43bf8">Repair Tamazight card move rule triggers</a>. Thanks to xet7.</summary>
 
 Replace French trigger and fragment, preserving when-event scope and
 another-list destination. Derived passive and agreement need language
@@ -1150,7 +1150,7 @@ review. All 17,637 correction checks pass.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/f758682bd">Repair Tamazight removal source fragment</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/35121ef8b">Repair Tamazight removal source fragment</a>. Thanks to xet7.</summary>
 
 Replace unflagged French Removed from wording, preserving passive removal
 and source relation. Finite passive needs language review; assignee terms
@@ -1159,7 +1159,7 @@ remain open. All 17,637 correction checks pass; original counts unchanged.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/bca04c227">Repair Tamazight username length warning</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/7791cbb31">Repair Tamazight username length warning</a>. Thanks to xet7.</summary>
 
 Replace French, preserving the required minimum of three characters and
 username scope. Full construction still needs language review.
@@ -1168,7 +1168,7 @@ All 17,637 correction checks pass.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/78d9e79a8">Repair Tamazight file size limits</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/07f7ea683">Repair Tamazight file size limits</a>. Thanks to xet7.</summary>
 
 Replace Arabic avatar/upload labels, preserving maximum file size and
 byte units. Derived terminology and full phrasing need language review.
@@ -1177,7 +1177,7 @@ All 17,637 correction checks pass.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/9bf817de7">Repair Tamazight card opening labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/3856f63a3">Repair Tamazight card opening labels</a>. Thanks to xet7.</summary>
 
 Replace Arabic Open and bulk card-opening labels, preserving multiple
 cards and one-operation qualifier. Verb adaptation and full composition
@@ -1186,7 +1186,7 @@ need language review. All 17,637 correction checks pass.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/e675a7fe6">Repair Tamazight board scan labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/fd8b479c1">Repair Tamazight board scan labels</a>. Thanks to xet7.</summary>
 
 Replace French checking statuses, preserving separate board file-attachment
 and member-avatar scopes. Derived noun and full ownership wording need
@@ -1195,7 +1195,7 @@ language review. All 17,637 correction checks pass.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/ba5ba5e7b">Repair Tamazight login attempt error</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/9fbd8467a">Repair Tamazight login attempt error</a>. Thanks to xet7.</summary>
 
 Replace French while preserving error during attempted login without
 inventing a password or LDAP cause. Temporal construction needs language
@@ -1204,7 +1204,7 @@ review. All 17,637 correction checks pass.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/67dc918e5">Repair Tamazight restore control</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/0e4ea74c7">Repair Tamazight restore control</a>. Thanks to xet7.</summary>
 
 Replace unflagged Arabic Restore with a native restoration-root command.
 Imperative adaptation needs language review; archive terminology remains
@@ -1213,7 +1213,7 @@ open. All 17,637 correction checks pass; original counts unchanged.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/eaf0c46ec">Repair Tamazight existing account prompt</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/746a10ff7">Repair Tamazight existing account prompt</a>. Thanks to xet7.</summary>
 
 Replace French, preserving conditional and already-existing account.
 Positive possession adaptation and full clause need language review.
@@ -1222,7 +1222,7 @@ All 17,637 correction checks pass.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/0f26dbc16">Repair Tamazight memory usage label</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/6e7ecf2eb">Repair Tamazight memory usage label</a>. Thanks to xet7.</summary>
 
 Replace French diagnostics text with computer-memory terminology supported
 by native usage vocabulary and the CNAM computing lexicon. The free usage
@@ -1233,7 +1233,7 @@ findings remain pending. Restored and unflagged values still need validation.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/e5b5e199e">Refine Tamazight email click commands</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/dbb9d5309">Refine Tamazight email click commands</a>. Thanks to xet7.</summary>
 
 Use the native MediaWiki click imperative in password-reset, enrollment
 and email-verification messages. Refine existing correction records while
@@ -1244,7 +1244,7 @@ remains low confidence pending language review.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/554f8f1bf">Translate Tamazight upload completion status</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/9ecbdf30d">Translate Tamazight upload completion status</a>. Thanks to xet7.</summary>
 
 Replace French status text using native upload and completion vocabulary.
 Positive completion morphology and the full sentence remain low confidence
@@ -1255,7 +1255,7 @@ Restored, unflagged and earlier low-confidence wording still need validation.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/5c05043e0">Translate Tamazight total memory diagnostic</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/636e1aef8">Translate Tamazight total memory diagnostic</a>. Thanks to xet7.</summary>
 
 Replace Arabic OS total-memory text while preserving the OS acronym and
 total memory scope. Native total vocabulary and Moroccan computing memory
@@ -1266,7 +1266,7 @@ pending. Restored, unflagged and earlier low-confidence wording need review.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/688b99c26">Translate Tamazight card creator display setting</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/fcb0580de">Translate Tamazight card creator display setting</a>. Thanks to xet7.</summary>
 
 Replace French setting text using native display and creator terminology.
 Preserve creator ownership and existing vocabulary. Full card-label
@@ -1277,7 +1277,7 @@ Restored, unflagged and earlier low-confidence wording still need validation.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/93f907097">Translate Tamazight external memory diagnostic</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e203ace1d">Translate Tamazight external memory diagnostic</a>. Thanks to xet7.</summary>
 
 Replace French Node external-memory usage text. Preserve Node and external
 qualifier; vocabulary evidence does not imply disk storage. Full adaptation
@@ -1288,7 +1288,7 @@ restored, unflagged and earlier low-confidence wording still need review.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/eb7efa06f">Translate Tamazight announcement labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/3e14cc960">Translate Tamazight announcement labels</a>. Thanks to xet7.</summary>
 
 Replace Arabic/French announcement and administrator-title labels using
 native Moroccan announcement vocabulary, including one unflagged repair.
@@ -1299,7 +1299,7 @@ checks pass; 515 originals remain pending. Broader language review continues.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/e0ffa0088">Translate Dzongkha Coptic calendar label</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/3b9b9e677">Translate Dzongkha Coptic calendar label</a>. Thanks to xet7.</summary>
 
 Replace English-only Coptic text with native dictionary vocabulary and the
 existing calendar compound pattern. Coptic identity is preserved; complete
@@ -1310,7 +1310,7 @@ three Dzongkha Hijri variants. Broader language validation continues.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/f707f95bc">Review Dzongkha calendar variant reference limits</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/34e1e16d2">Review Dzongkha calendar variant reference limits</a>. Thanks to xet7.</summary>
 
 Compare directly downloaded publisher and GNU computing dictionaries.
 Both confirm Coptic spelling, but corrupted extraction and differing indexed
@@ -1321,7 +1321,7 @@ native review; no translation values or audit counts changed.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/f366f3b77">Translate Ewe Saudi sighting calendar label</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/d73bc647f">Translate Ewe Saudi sighting calendar label</a>. Thanks to xet7.</summary>
 
 Replace English-only variant text and restore the omitted sighting qualifier.
 Preserve Hijri calendar and Saudi identity with native component vocabulary.
@@ -1332,7 +1332,7 @@ including one Ewe astronomical-epoch finding. Broader validation continues.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/1f90298b2">Translate Tamazight due today status</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e7e5ef563">Translate Tamazight due today status</a>. Thanks to xet7.</summary>
 
 Replace French wording, restore the current qualifier and preserve the date
 placeholder. Native today/current vocabulary supports components; existing
@@ -1343,7 +1343,7 @@ findings remain pending. Broader language validation continues.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/7b9e343b6">Correct Tamazight reference provenance assumptions</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c6ff27201">Correct Tamazight reference provenance assumptions</a>. Thanks to xet7.</summary>
 
 Correct source notes in 98 Tamazight translation records after checking the
 CNAM bibliography. MC£ denotes Tuareg sources and MC denotes Mokrane
@@ -1355,7 +1355,7 @@ All 17,646 correction/rendering checks pass structurally, without proving fluenc
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a0b0d00d7">Review independent Tamazight memory usage evidence</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/0b608edc6">Review independent Tamazight memory usage evidence</a>. Thanks to xet7.</summary>
 
 Record direct RAM terminology usage from a Moroccan hardware website in
 three memory correction records. This corroborates computer-memory usage
@@ -1366,7 +1366,7 @@ values or counts changed; the original pending queue remains 512 findings.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/cfa7b6ed0">Translate Tamazight search instructions heading</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e37cdd564">Translate Tamazight search instructions heading</a>. Thanks to xet7.</summary>
 
 Replace French heading using native search and indexed directives vocabulary.
 Full source retrieval failed HTTP 403; institutional-to-software guidance
@@ -1377,7 +1377,7 @@ Broader language validation, including provenance-affected wording, continues.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a9fa466f3">Translate Tamazight vote end date popup title</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/5444fd2ff">Translate Tamazight vote end date popup title</a>. Thanks to xet7.</summary>
 
 Replace French title while preserving change vote end-date scope. Native
 component vocabulary supports provisional wording; election-to-card-voting
@@ -1388,7 +1388,7 @@ Broader language validation, including provenance-affected wording, continues.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/c5676043b">Translate Tamazight card voting controls</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/9d8719dc1">Translate Tamazight card voting controls</a>. Thanks to xet7.</summary>
 
 Replace four Arabic/French voting labels, preserving question, edit and delete
 actions. Native component vocabulary supports provisional wording; election
@@ -1399,7 +1399,7 @@ repairs leave 510 original findings pending. Broader language validation continu
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/49aaf724d">Repair Quechua Saudi Hijri sighting calendar label</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/02fa748b8">Repair Quechua Saudi Hijri sighting calendar label</a>. Thanks to xet7.</summary>
 
 Replace incomplete English with primary CLDR Quechua calendar and sighting
 vocabulary. The full label composition remains low confidence pending fluent
@@ -1410,7 +1410,7 @@ epoch; that finding remains open. All 17,653 correction/rendering checks pass;
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/ab94b8300">Translate Tamazight planning poker delete and vote date titles</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/464e8064a">Translate Tamazight planning poker delete and vote date titles</a>. Thanks to xet7.</summary>
 
 Replace two French popup titles, preserving the named Planning Poker technique,
 this deletion question and change vote end-date scope. Native component
@@ -1422,7 +1422,7 @@ Broader language validation continues.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/158ae52ca">Translate Tamazight support page labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/cd635c297">Translate Tamazight support page labels</a>. Thanks to xet7.</summary>
 
 Replace four Arabic/French support labels using native assistance vocabulary,
 preserving title and content distinctions. Help to support adaptation, bound
@@ -1434,7 +1434,7 @@ Broader language validation continues.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/d85bc40db">Translate Tamazight support authenticated user notice</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/cff15734b">Translate Tamazight support authenticated user notice</a>. Thanks to xet7.</summary>
 
 Replace French while preserving support information for logged-in users only.
 Native components support provisional wording; derived login participle and
@@ -1445,7 +1445,7 @@ validation and the not-yet-added notices remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/c509e6ae7">Translate Tamazight cron error message label</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/1faf5af98">Translate Tamazight cron error message label</a>. Thanks to xet7.</summary>
 
 Replace French with native message and error vocabulary, preserving the
 message versus details distinction. Full software noun phrase remains low
@@ -1456,7 +1456,7 @@ validation continues.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/b66f91e12">Translate Tamazight card member instruction and restore board scope</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e5e75d14e">Translate Tamazight card member instruction and restore board scope</a>. Thanks to xet7.</summary>
 
 Replace Arabic and restore omitted board-member scope. Preserve adding board
 members to the card or removing them from the card, without implying removal
@@ -1467,7 +1467,7 @@ checks pass; 505 original findings remain pending. Broader validation continues.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/f0b8e907a">Translate Tamazight end date search predicate guidance</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/dc56a74b0">Translate Tamazight end date search predicate guidance</a>. Thanks to xet7.</summary>
 
 Replace French while retaining exact predicate code and cards with an end
 date. Plural possession, full relative construction and end-date adaptation
@@ -1477,7 +1477,7 @@ pass; 504 original findings remain pending. Broader validation continues.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/00983d55d">Repair Tamazight OS CPU count translation</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ffd0a02e2">Repair Tamazight OS CPU count translation</a>. Thanks to xet7.</summary>
 
 Replace Arabic CPU consumption wording with CPU count using native count
 vocabulary and conventional OS/CPU abbreviations. Full technical label remains
@@ -1487,7 +1487,7 @@ low confidence pending fluent review. All 17,664 correction checks pass;
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/afc8e085e">Translate Tamazight account and card noun labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c6d225f64">Translate Tamazight account and card noun labels</a>. Thanks to xet7.</summary>
 
 Replace three Arabic labels, preserving plural accounts/cards and singular
 card. Native account and local card vocabulary support provisional wording;
@@ -1498,7 +1498,7 @@ fluent review. All 17,667 correction checks pass. These unflagged repairs leave
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/68cfc142c">Translate Tamazight support information not yet added notice</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/278ca9967">Translate Tamazight support information not yet added notice</a>. Thanks to xet7.</summary>
 
 Replace French while retaining support information, not yet and added action.
 Native components support provisional wording; full negative passive sentence
@@ -1508,7 +1508,7 @@ pass; 502 original findings remain pending. Broader validation continues.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/2b230ec99">Translate Tamazight rule list name label</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c333e96a8">Translate Tamazight rule list name label</a>. Thanks to xet7.</summary>
 
 Replace French with native name and list vocabulary, preserving the rule
 list-name meaning. Complete kanban noun phrase remains low confidence pending
@@ -1518,7 +1518,7 @@ fluent review. All 17,669 correction checks pass; this unflagged repair leaves
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/69732fc05">Translate Tamazight Umm al Qura calendar label</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f3534ffd4">Translate Tamazight Umm al Qura calendar label</a>. Thanks to xet7.</summary>
 
 Replace incomplete English with provisional CLDR Islamic calendar wording,
 retaining the named Umm al-Qura variant. Complete named-variant composition
@@ -1528,7 +1528,7 @@ pass; 501 original findings remain pending. Broader validation continues.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/e6f9bad44">Complete Tamazight Dangi and ISO calendar labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c5202dfd6">Complete Tamazight Dangi and ISO calendar labels</a>. Thanks to xet7.</summary>
 
 Use the native CLDR calendar noun while retaining named Dangi and ISO-8601
 identities. Full mixed-script composition remains low confidence pending
@@ -1538,7 +1538,7 @@ unflagged repair leave 500 originals pending. Broader validation continues.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/ccd2ff8b0">Record Tamazight server troubleshooting terminology review</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/fd1301db0">Record Tamazight server troubleshooting terminology review</a>. Thanks to xet7.</summary>
 
 Distinguish native server/error vocabulary from indexed cross-dialect command
 execution and installation terms. Preserve the literal snap/Docker diagnostic
@@ -1548,7 +1548,7 @@ unresolved; no locale values or classification counts changed.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/e0f04bcb5">Translate Tamazight change and delete avatar popup titles</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/bcc1bd4e8">Translate Tamazight change and delete avatar popup titles</a>. Thanks to xet7.</summary>
 
 Replace three Arabic/French titles, preserving change/delete actions and the
 delete question. Native actions and local profile-picture terminology support
@@ -1559,7 +1559,7 @@ repairs leave 500 original findings pending. Broader validation continues.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/950c4ac8a">Translate Tamazight avatar upload action and completion labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/88a9aeef4">Translate Tamazight avatar upload action and completion labels</a>. Thanks to xet7.</summary>
 
 Replace two Arabic labels while preserving upload action versus completed
 upload state. Native actions and local profile-picture vocabulary support
@@ -1570,7 +1570,7 @@ repairs leave 500 original findings pending. Broader validation continues.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/c43cb5cc2">Translate Tamazight minicard cover image controls</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/57685be53">Translate Tamazight minicard cover image controls</a>. Thanks to xet7.</summary>
 
 Replace three Arabic labels, retaining add, remove-from and display-on minicard
 cover meanings. Local cover sense, derived small adjective and complete phrases
@@ -1580,7 +1580,7 @@ remain low confidence pending fluent review. All 17,680 correction checks pass;
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/5be5aa3ec">Use Tamazight severity terminology in cron error table</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/fb65e027b">Use Tamazight severity terminology in cron error table</a>. Thanks to xet7.</summary>
 
 Replace French with existing recovery-severity wording for identical English
 source. Severity remains distinct from message/details. Terminology is low
@@ -1591,7 +1591,7 @@ Broader language validation continues.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/45d98c94f">Document Silesian database terminology evidence</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/454dd4291">Document Silesian database terminology evidence</a>. Thanks to xet7.</summary>
 
 Corroborate regional human use of the shared computer-database term while
 keeping the raw-file qualifier and complete label pending. Distinguish the
@@ -1601,7 +1601,7 @@ limits. No locale values or counts changed; broader language review continues.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/666680f12">Translate Tamazight email invitation action</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c2fb2749b">Translate Tamazight email invitation action</a>. Thanks to xet7.</summary>
 
 Replace the French button with the existing Invite action and native email
 term, retaining the email channel. The invitation verb and full phrase
@@ -1611,7 +1611,7 @@ remain low confidence and require renewed Moroccan dialect review. All
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/f559efd42">Translate Tamazight Ethiopic Amete Alem calendar label</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/794c8acda">Translate Tamazight Ethiopic Amete Alem calendar label</a>. Thanks to xet7.</summary>
 
 Use the CLDR native Ethiopic calendar base and retain Amete Alem to identify
 the era variant. The complete mixed-script label remains low confidence and
@@ -1621,7 +1621,7 @@ findings remain pending, including 361 Tamazight findings.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/d62f9c0ac">Align Tamazight page label with native software terminology</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/851bef0f1">Align Tamazight page label with native software terminology</a>. Thanks to xet7.</summary>
 
 Use the exact native MediaWiki singular Page noun. Supporting evidence is
 limited to this label; other regional synonyms and complete page phrases
@@ -1631,7 +1631,7 @@ pass; the original pending queue remains 496.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/830c3ed03">Translate Tamazight confirmation button</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/5f37a017d">Translate Tamazight confirmation button</a>. Thanks to xet7.</summary>
 
 Replace the Arabic Confirm label with the exact native software
 confirmation-button wording. Preserve its distinction from invitation
@@ -1641,7 +1641,7 @@ checks pass; 496 original findings remain pending.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/ecfa47b9e">Translate Tamazight workspace add edit and name labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/870da4dd2">Translate Tamazight workspace add edit and name labels</a>. Thanks to xet7.</summary>
 
 Replace five French values, preserving Add, Edit and Name distinctions and
 singular workspace scope. Native institutional space usage corroborates the
@@ -1652,7 +1652,7 @@ findings remain pending, including 356 Tamazight findings.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a9ae88584">Translate Tamazight workspace settings and close labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/059d46d0a">Translate Tamazight workspace settings and close labels</a>. Thanks to xet7.</summary>
 
 Replace two French Workspace Settings headings and the Arabic Close action,
 using native software terms. Complete workspace headings and bound forms
@@ -1662,7 +1662,7 @@ checks pass; 489 original findings remain pending, including 354 Tamazight findi
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/f034777ca">Translate Tamazight workspace confirmation and board deletion</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/5cde6f4a3">Translate Tamazight workspace confirmation and board deletion</a>. Thanks to xet7.</summary>
 
 Replace the French workspace deletion question and Delete Board action.
 Preserve certainty, singular object and deletion rather than archive. Native
@@ -1673,7 +1673,7 @@ findings remain pending, including 353 Tamazight findings.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/bef259a60">Translate Tamazight invitation decline action</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/785db327d">Translate Tamazight invitation decline action</a>. Thanks to xet7.</summary>
 
 Replace the French Decline button with native request-rejection wording.
 Check the invitation handlers to preserve rejection rather than merely
@@ -1683,7 +1683,7 @@ pending queue remains 488 and wider language review continues.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/74b94e495">Translate Tamazight navigation confirmation and settings labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/aa36776a9">Translate Tamazight navigation confirmation and settings labels</a>. Thanks to xet7.</summary>
 
 Replace five Arabic labels with native software wording. Preserve Back
 versus Previous/Next Page, confirmation acknowledgment and generic Settings.
@@ -1693,7 +1693,7 @@ remains 488 and broader language validation continues.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a336f6078">Translate Tamazight weekday and duration labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/0e2a70634">Translate Tamazight weekday and duration labels</a>. Thanks to xet7.</summary>
 
 Replace five Arabic labels using full CLDR Tuesday, Thursday and Saturday
 names and native software plural days/hours. Preserve weekday identity and
@@ -1703,7 +1703,7 @@ original pending queue remains 488 and wider language review continues.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/c852c57d8">Translate Tamazight minutes and seconds duration labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/7ee8c65e1">Translate Tamazight minutes and seconds duration labels</a>. Thanks to xet7.</summary>
 
 Replace two Arabic duration units, preserving minute versus second and
 plural scope. Native plural minutes is supported; derived plural seconds
@@ -1713,7 +1713,7 @@ correction/rendering checks pass; 488 original findings remain pending.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/2f6cd4b30">Translate Tamazight board card list and member add labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ea0dc6777">Translate Tamazight board card list and member add labels</a>. Thanks to xet7.</summary>
 
 Replace six Arabic Add labels and matching popup headings. Preserve singular
 Board, Card and List, plural Members and the Add action. Native component
@@ -1724,7 +1724,7 @@ findings remain pending.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/c59491dbb">Translate Tamazight member and board settings labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/5f6777192">Translate Tamazight member and board settings labels</a>. Thanks to xet7.</summary>
 
 Replace three Arabic labels, preserving singular Member Settings, singular
 Board Settings and plural Edit members. Native component vocabulary is
@@ -1735,7 +1735,7 @@ findings remain pending.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/d75da6cba">Translate Tamazight server error and closed status labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/989b9c960">Translate Tamazight server error and closed status labels</a>. Thanks to xet7.</summary>
 
 Replace two Arabic labels, preserving Server Error heading and Closed status
 rather than the Close action. Native status wording and error/server
@@ -1746,7 +1746,7 @@ findings remain pending.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/57d22b43b">Translate Tamazight board title and card details headings</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/329c1dd4d">Translate Tamazight board title and card details headings</a>. Thanks to xet7.</summary>
 
 Replace two Arabic headings, preserving Board Title and plural Details of
 a singular Card. Native title/details vocabulary is supported; complete
@@ -1757,7 +1757,7 @@ remain pending.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/9bcb5e162">Verify Tamazight authentication reference provenance</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2a099f1e2">Verify Tamazight authentication reference provenance</a>. Thanks to xet7.</summary>
 
 Direct PDF extraction identifies the authentication candidate’s source as
 Tuareg (MC£), despite search-index MCF rendering. Keep full authentication
@@ -1767,7 +1767,7 @@ versus ordinary sign-in/authorization. No locale values or counts changed.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/67dbacc28">Translate Tamazight Minguo calendar label</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/d791f67a8">Translate Tamazight Minguo calendar label</a>. Thanks to xet7.</summary>
 
 Use native Calendar vocabulary and retain Minguo from the English source,
 avoiding generic Chinese language/calendar substitution. The full mixed-script
@@ -1777,7 +1777,7 @@ checks pass; 487 original findings remain pending, including 342 Tamazight findi
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/cf0a2f19b">Translate Tamazight People label</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/df6b3a1e7">Translate Tamazight People label</a>. Thanks to xet7.</summary>
 
 Replace Arabic with the native People label documented in Mastodon zgh,
 preserving people scope rather than users or board members. All 17,723
@@ -1786,7 +1786,7 @@ correction/rendering checks pass; 487 original findings remain pending.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/e9f1b33b9">Translate Tamazight team user and Planning Poker edit headings</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/d2d46ce5e">Translate Tamazight team user and Planning Poker edit headings</a>. Thanks to xet7.</summary>
 
 Replace three French headings using native Edit components, preserving
 singular team/user objects and the Planning Poker feature name. Complete
@@ -1796,7 +1796,7 @@ correction/rendering checks pass; 487 original findings remain pending.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/aef5ea20a">Translate Tamazight profile and board view labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/cbd1047b9">Translate Tamazight profile and board view labels</a>. Thanks to xet7.</summary>
 
 Replace six Arabic People/Edit Profile/Title/Calendar/Lists/Members labels
 with native terminology supported by Mastodon, MediaWiki and CLDR. Preserve
@@ -1806,7 +1806,7 @@ pass; 487 original findings remain pending.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/82ba97005">Translate Tamazight week month and year date labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/198add194">Translate Tamazight week month and year date labels</a>. Thanks to xet7.</summary>
 
 Replace three Arabic date predicates with exact CLDR Tamazight singular
 date-field names used in tooltips, Gantt, calendar navigation and search.
@@ -1816,7 +1816,7 @@ pending. Live browser verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a06565956">Translate Tamazight search and rule nouns</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/a5562c120">Translate Tamazight search and rule nouns</a>. Thanks to xet7.</summary>
 
 Replace six Arabic User/Member/List labels, preserving distinct singular
 object types. The derived free-state Member noun remains low confidence
@@ -1826,7 +1826,7 @@ for fluent morphology review. All 17,741 correction/rendering checks pass;
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/ad526816b">Translate Tamazight card type and popup headings</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/6a211b7fd">Translate Tamazight card type and popup headings</a>. Thanks to xet7.</summary>
 
 Replace four Arabic Card/Delete Card?/Card Actions/Labels headings,
 preserving ordinary card type, singular card and plural actions/labels.
@@ -1837,7 +1837,7 @@ findings remain pending.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/fea294be0">Translate Tamazight workspace menu label</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/8db529010">Translate Tamazight workspace menu label</a>. Thanks to xet7.</summary>
 
 Replace French Workspace menu with native Menu/content-space components.
 Organizational workspace extension and the full bound phrase remain low
@@ -1847,7 +1847,7 @@ confidence for fluent review. All 17,746 correction/rendering checks pass;
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/f16fae64a">Translate Tamazight Planning Poker start heading</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/1d48efb92">Translate Tamazight Planning Poker start heading</a>. Thanks to xet7.</summary>
 
 Replace French initiation wording, preserving Planning Poker and Start
 action rather than the date noun. Full command remains low confidence;
@@ -1858,7 +1858,7 @@ pending, including 342 Tamazight findings.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/2219d5358">Document Tamazight start versus share spelling evidence</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/045444b83">Document Tamazight start versus share spelling evidence</a>. Thanks to xet7.</summary>
 
 Record indexed IRCAM plain Begin/Start versus emphatic Share/Divide
 spelling, protecting the corrected Planning Poker heading. Direct PDF
@@ -1868,7 +1868,7 @@ under review. No locale values or counts changed.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/5610dff52">Document Bambara tabular calendar terminology limits</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/9a16d9f59">Document Bambara tabular calendar terminology limits</a>. Thanks to xet7.</summary>
 
 Current CLDR provides date units and Era, but no native Hijri variant
 names. Era alone does not validate reference-date Epoch. Preserve tabular
@@ -1878,7 +1878,7 @@ No translation values or counts changed.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/45650996e">Translate Tamazight text profile and list deletion labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/8fd6e4051">Translate Tamazight text profile and list deletion labels</a>. Thanks to xet7.</summary>
 
 Replace three Arabic Text/Profile/Delete List? labels with native wording
 supported by MediaWiki and Mastodon, preserving singular list and question
@@ -1888,7 +1888,7 @@ findings remain pending.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/8dc2224c7">Translate Tamazight subworkspace add and name labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f2e9cb149">Translate Tamazight subworkspace add and name labels</a>. Thanks to xet7.</summary>
 
 Replace two French headings with an explicitly derived subworkspace compound,
 preserving hierarchy and Add versus Name. New compound, bound form and
@@ -1899,7 +1899,7 @@ checks pass; 483 original findings remain pending, including 342 Tamazight.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/faa68bf87">Translate Tamazight other card count labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/53faea649">Translate Tamazight other card count labels</a>. Thanks to xet7.</summary>
 
 Replace mixed English/Arabic count prose, preserving exact `__count__`,
 And/Other and singular/plural Card meaning. Complete numeral phrases and
@@ -1909,7 +1909,7 @@ counted noun morphology remain low confidence for fluent review. All
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/18f7fa766">Translate Tamazight board and card reference labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/14c0e79c1">Translate Tamazight board and card reference labels</a>. Thanks to xet7.</summary>
 
 Replace four Arabic labels preserving All versus generic Boards and
 This Board/Card scope. Board plural morphology and full kanban phrases
@@ -1919,7 +1919,7 @@ checks pass; 483 original findings remain pending.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/2f4752ff4">Translate Tamazight account unlock actions</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/1d3e91be7">Translate Tamazight account unlock actions</a>. Thanks to xet7.</summary>
 
 Replace three French click/confirmation/all-user labels by expressing
 removal of login blocking, preserving this-user versus all-users scope.
@@ -1930,7 +1930,7 @@ pending, including 342 Tamazight.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/d0791c6c4">Translate Tamazight all locked user unlock messages</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/eb44e6733">Translate Tamazight all locked user unlock messages</a>. Thanks to xet7.</summary>
 
 Replace two French messages preserving All Locked Users and confirmation
 question versus completed result. Full quantified unblock phrases and
@@ -1941,7 +1941,7 @@ including 342 Tamazight.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/4ba8d17d4">Translate Tamazight successful user unlock result</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e82fbbe1a">Translate Tamazight successful user unlock result</a>. Thanks to xet7.</summary>
 
 Replace French result preserving success, singular user and removal of
 login blocking. Positive success construction, removal nominalization and
@@ -1952,7 +1952,7 @@ including 342 Tamazight.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/15481a394">Translate Tamazight search text and Enter instruction</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b4aa7cd79">Translate Tamazight search text and Enter instruction</a>. Thanks to xet7.</summary>
 
 Replace French instruction preserving writing search text and pressing
 Enter. Native components support wording; key-press adaptation, relative
@@ -1963,7 +1963,7 @@ pending, including 342 Tamazight.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/fb554131b">Translate Tamazight New and New User labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/9d571595e">Translate Tamazight New and New User labels</a>. Thanks to xet7.</summary>
 
 Replace two Arabic labels using native New adjective and singular account
 user terminology. Complete New User heading remains low confidence for
@@ -1973,7 +1973,7 @@ findings remain pending.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/7a2d1caf4">Translate Tamazight Board View labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e5b85f241">Translate Tamazight Board View labels</a>. Thanks to xet7.</summary>
 
 Replace two Arabic Board View labels with generic view and singular board
 wording. The adapted full phrase and bound board noun remain low confidence
@@ -1983,7 +1983,7 @@ findings remain pending, including 342 Tamazight.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/196edd0f8">Repair Tamazight domain Users heading</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b0379afb8">Repair Tamazight domain Users heading</a>. Thanks to xet7.</summary>
 
 Replace cross-dialect account-user wording with the directly attested
 Standard Moroccan plural, preserving Users rather than board members or
@@ -1993,7 +1993,7 @@ remain pending. Broader restored-value and terminology validation continues.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/ef6318121">Translate Tamazight custom help link label</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/9ffc165f5">Translate Tamazight custom help link label</a>. Thanks to xet7.</summary>
 
 Replace French Custom Help Link URL wording, preserving URL and the custom
 qualifier. Full noun-chain grammar, bound link noun and specified/custom
@@ -2003,7 +2003,7 @@ checks pass; 476 original findings remain pending, including 341 Tamazight.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/92f69f58d">Record Tamazight subtask terminology error</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/4559d6bac">Record Tamazight subtask terminology error</a>. Thanks to xet7.</summary>
 
 Identify the unflagged use of Language in Add Existing Card as Subtask.
 Record indexed primary references and their limits; preserve the hierarchical
@@ -2013,7 +2013,7 @@ changed. This finding remains part of the broader translation review.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/f13775594">Translate Tamazight hierarchical subtask labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/17f7bb4ac">Translate Tamazight hierarchical subtask labels</a>. Thanks to xet7.</summary>
 
 Replace five Arabic/French labels with explicit Task(s) under a Task wording.
 Preserve hierarchy, singular/plural, settings and deletion question. Full
@@ -2024,7 +2024,7 @@ pending, including 338 Tamazight. Existing-card action repair remains open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/23c82a5c1">Repair Tamazight subtask action wording</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ef0181cd4">Repair Tamazight subtask action wording</a>. Thanks to xet7.</summary>
 
 Repair four actions with hierarchical Task wording. Remove Language and
 With from Add Existing Card as Subtask, preserving Existing and As. Keep
@@ -2035,7 +2035,7 @@ remain pending, including 337 Tamazight.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/b26d1ddc1">Translate Tamazight added activity messages</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/62bdf5ab9">Translate Tamazight added activity messages</a>. Thanks to xet7.</summary>
 
 Replace two Arabic activity messages while preserving completed past action,
 all percent placeholder counts/order and hierarchical Subtask wording. Full
@@ -2046,7 +2046,7 @@ pending, including 336 Tamazight.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/af33f6640">Translate Tamazight linked entity labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/d82e7ae07">Translate Tamazight linked entity labels</a>. Thanks to xet7.</summary>
 
 Repair Linked Subtask, Linked Card and Linked Board using native linked/
 associated wording. Preserve hierarchy and entity distinctions. Full phrases
@@ -2056,7 +2056,7 @@ and participle agreement remain low confidence for fluent review. All
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/97c1c79fe">Translate Tamazight field labels and actions</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2e89b4d91">Translate Tamazight field labels and actions</a>. Thanks to xet7.</summary>
 
 Replace four Arabic/French labels while preserving custom, edit, absence
 and hierarchical Subtask qualifiers. Derived field plurals, specified/custom
@@ -2067,7 +2067,7 @@ including 335 Tamazight.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/eb3965660">Translate Tamazight field control labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e5ae1e646">Translate Tamazight field control labels</a>. Thanks to xet7.</summary>
 
 Replace French checkbox, dropdown list and custom-field filter labels.
 Preserve selection, dropdown direction and filtering qualifiers. Full
@@ -2078,7 +2078,7 @@ remain pending, including 334 Tamazight.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/81fba99d7">Translate Tamazight migration scope and failure labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/54febc0b5">Translate Tamazight migration scope and failure labels</a>. Thanks to xet7.</summary>
 
 Replace four French labels, preserving singular/plural, board/database
 scope and failed status. Native move terminology adapted to software
@@ -2089,7 +2089,7 @@ pending, including 333 Tamazight.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/94eb1a0c5">Translate Tamazight selection and required migration labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/07e02fe2d">Translate Tamazight selection and required migration labels</a>. Thanks to xet7.</summary>
 
 Replace five labels, preserving Select action, entity scope and required/
 not-required polarity. Select Color follows native MediaWiki wording. Full
@@ -2100,7 +2100,7 @@ findings remain pending, including 331 Tamazight.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/1f72241e3">Translate Tamazight completion status labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2bdb12f24">Translate Tamazight completion status labels</a>. Thanks to xet7.</summary>
 
 Replace four French statuses, distinguishing bare completion from
 successful migration completion. Completed-tense adaptation and full
@@ -2111,7 +2111,7 @@ action remains under contextual review. All 17,805 correction checks pass;
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/858a00526">Translate Tamazight migration run and progress controls</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/a2546a352">Translate Tamazight migration run and progress controls</a>. Thanks to xet7.</summary>
 
 Replace three French labels, preserving imperative Run, ongoing Running/
 In Progress, ellipsis and board scope. Passive derivation and full software
@@ -2121,7 +2121,7 @@ checks pass; 464 original findings remain pending, including 329 Tamazight.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/b84a88696">Translate Tamazight step and current-step labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/d8a33d5fc">Translate Tamazight step and current-step labels</a>. Thanks to xet7.</summary>
 
 Replace three French labels, preserving singular/plural and Current. Primary
 references corroborate step noun/plural; software-phase extension and full
@@ -2131,7 +2131,7 @@ checks pass; 464 original findings remain pending.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/3416af191">Translate Tamazight migration validation action</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/eb0c8fdc0">Translate Tamazight migration validation action</a>. Thanks to xet7.</summary>
 
 Replace French Validate Migration with native verification imperative.
 Preserve validation rather than running or completion. Full migration
@@ -2141,7 +2141,7 @@ correction checks pass; 464 original findings remain pending.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/c303eb013">Translate Tamazight migration warnings heading</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/839088b60">Translate Tamazight migration warnings heading</a>. Thanks to xet7.</summary>
 
 Replace French Migration Warnings preserving plural warnings rather than
 errors or failure. Derived plural and full software-migration phrase remain
@@ -2151,7 +2151,7 @@ original findings remain pending, including 328 Tamazight.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/443b180a2">Use native Tamazight administrator role labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/ba8efb246">Use native Tamazight administrator role labels</a>. Thanks to xet7.</summary>
 
 Repair three unflagged role labels, including two Arabic values, using the
 native singular administrator term. Board-qualified phrase remains low
@@ -2161,7 +2161,7 @@ findings remain pending.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/41d712523">Align Tamazight plural migration and step labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/94a68db59">Align Tamazight plural migration and step labels</a>. Thanks to xet7.</summary>
 
 Repair three unflagged labels, including French All Migrations, preserving
 plurals and All semantics. Derived migration plural and software phrases
@@ -2171,7 +2171,7 @@ remain low confidence for fluent review. All 17,819 correction checks pass;
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/66c8bd979">Translate Tamazight migration errors heading</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/febec4e31">Translate Tamazight migration errors heading</a>. Thanks to xet7.</summary>
 
 Replace French Migration Errors preserving plural errors distinct from
 warnings. Full software phrase remains low confidence for fluent review.
@@ -2180,7 +2180,7 @@ All 17,820 correction checks pass; 463 original findings remain pending.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/5bb209c06">Translate Tamazight migration administrator restriction</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f0795037b">Translate Tamazight migration administrator restriction</a>. Thanks to xet7.</summary>
 
 Replace French text preserving Only board administrators and permission to
 execute plural migrations. Derived grammar and complete sentence remain low
@@ -2190,7 +2190,7 @@ findings remain pending, including 327 Tamazight.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/1824cd778">Align Tamazight migration status terminology</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f2603e2e7">Align Tamazight migration status terminology</a>. Thanks to xet7.</summary>
 
 Align two unflagged labels with reviewed migration spelling, preserving
 status rather than progress/completion. Full phrases remain low confidence
@@ -2200,7 +2200,7 @@ remain pending.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/6435ad6a6">Translate Tamazight checklist item actions</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/d70a15999">Translate Tamazight checklist item actions</a>. Thanks to xet7.</summary>
 
 Repair Add an item and Hide all checklist items, preserving action and scope.
 Proposed checklist paraphrase and derived forms remain low confidence for
@@ -2210,7 +2210,7 @@ remain pending, including 325 Tamazight.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/79be9d37d">Translate Tamazight checklist deletion headings</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/a5aea1651">Translate Tamazight checklist deletion headings</a>. Thanks to xet7.</summary>
 
 Repair two French headings, distinguishing one-item and whole-checklist
 deletion. Verification noun is not established by native-source checks;
@@ -2220,7 +2220,7 @@ correction checks pass; 459 original findings remain pending.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/0dd39bb6b">Translate Tamazight checklist menu actions</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/efc33e5c1">Translate Tamazight checklist menu actions</a>. Thanks to xet7.</summary>
 
 Repair Arabic Add Checklist and French Checklist Actions, preserving whole
 checklist and plural actions. Proposed verification noun and full paraphrase
@@ -2230,7 +2230,7 @@ remain low confidence for fluent review. All 17,829 correction checks pass;
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/b0a3b5308">Translate Tamazight checklist deletion confirmations</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/59845f1ca">Translate Tamazight checklist deletion confirmations</a>. Thanks to xet7.</summary>
 
 Repair two French confirmations with native question frame, preserving
 whole-checklist versus one-item deletion. Native bound singular Item is
@@ -2240,7 +2240,7 @@ All 17,831 correction checks pass; 457 original findings remain pending.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/3cd6ae3d6">Translate Tamazight checklist noun labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e50b2b72f">Translate Tamazight checklist noun labels</a>. Thanks to xet7.</summary>
 
 Repair six unflagged Arabic/French labels preserving singular, plural and
 Of relation. Native list components are attested; proposed verification noun
@@ -2250,7 +2250,7 @@ All 17,837 correction checks pass; 457 original findings remain pending.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/0379f9df8">Translate Tamazight checklist rule actions</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/177aff81b">Translate Tamazight checklist rule actions</a>. Thanks to xet7.</summary>
 
 Repair three unflagged French rule actions preserving Add versus Remove of
 whole checklist. Proposed verification noun and full phrases remain low
@@ -2260,7 +2260,7 @@ findings remain pending.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/edd3ae666">Align Tamazight checklist count terminology</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/8c1b29f29">Align Tamazight checklist count terminology</a>. Thanks to xet7.</summary>
 
 Use native count and plural element components preserving literal (0/0).
 Proposed checklist noun and complete phrase remain low confidence for fluent
@@ -2269,7 +2269,7 @@ review. All 17,841 correction checks pass; 457 original findings remain pending.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/ed9620896">Align Tamazight minicard checklist count</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/aa3f4ce66">Align Tamazight minicard checklist count</a>. Thanks to xet7.</summary>
 
 Align native count/item components preserving literal (0/0) and minicard
 scope. Small Card paraphrase and derived grammar remain low confidence for
@@ -2278,7 +2278,7 @@ fluent review. All 17,842 correction checks pass; 457 original findings remain p
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/0ecbc1189">Translate Tamazight checklist add and remove activities</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/85c8bcdf0">Translate Tamazight checklist add and remove activities</a>. Thanks to xet7.</summary>
 
 Repair four Arabic activities preserving checklist versus item, Add/Remove,
 To/From/In and exact %s order/count. Full phrases and derived forms remain low
@@ -2288,7 +2288,7 @@ findings remain pending, including 320 Tamazight.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/2544843d6">Translate Tamazight completed checklist activity</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e396b633d">Translate Tamazight completed checklist activity</a>. Thanks to xet7.</summary>
 
 Repair French completed activity preserving two ordered %s tokens. Full
 phrase and past/transitive completion adaptation remain low confidence.
@@ -2298,7 +2298,7 @@ All 17,847 correction checks pass; 454 original findings remain pending.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a8ac930ee">Translate Tamazight checklist form close controls</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b07cbe95a">Translate Tamazight checklist form close controls</a>. Thanks to xet7.</summary>
 
 Repair two French controls preserving Close Form and Add/Edit distinction.
 Derived addition noun and full checklist phrases remain low confidence for
@@ -2308,7 +2308,7 @@ pending, including 317 Tamazight.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/bd511b086">Translate Tamazight finished checklist visibility control</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/292b623e5">Translate Tamazight finished checklist visibility control</a>. Thanks to xet7.</summary>
 
 Repair Arabic control preserving Hide and finished-checklist restriction.
 Derived relative grammar and full phrase remain low confidence for fluent
@@ -2317,7 +2317,7 @@ review. All 17,850 correction checks pass; 451 original findings remain pending.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/9de9f2c15">Clarify Tamazight checklist completion evidence</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c3c60cd4c">Clarify Tamazight checklist completion evidence</a>. Thanks to xet7.</summary>
 
 Record native legal supplementation usages without treating them as proof
 of past transitive checklist completion. Preserve low-confidence status and
@@ -2326,7 +2326,7 @@ active-uncompletion distinction. No values/counts changed; correction checks pas
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/02cdb84f3">Translate Tamazight minicard checklist display control</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b701a697d">Translate Tamazight minicard checklist display control</a>. Thanks to xet7.</summary>
 
 Repair French control preserving Show Checklist and minicard scope. Proposed
 checklist/minicard phrases remain low confidence for fluent review.
@@ -2335,7 +2335,7 @@ All 17,851 correction checks pass; 450 original findings remain pending.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a536b274a">Translate Tamazight custom HTML tag labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/29e4bcc1c">Translate Tamazight custom HTML tag labels</a>. Thanks to xet7.</summary>
 
 Repair two French labels preserving plural tags, Custom, HTML and link/meta
 element identifiers. Terminology adaptations and full phrases remain low
@@ -2345,7 +2345,7 @@ findings remain pending, including 313 Tamazight.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/4139001a3">Record native transitive software completion evidence</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/dd797e68b">Record native transitive software completion evidence</a>. Thanks to xet7.</summary>
 
 Native Complete Login supplies stronger software completion evidence. Past
 actor form and full checklist grammar remain low confidence; custom-logo
@@ -2354,7 +2354,7 @@ terminology remains unresolved. No values/counts changed; correction checks pass
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/800934571">Translate Tamazight custom login logo URLs</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/3845b24a5">Translate Tamazight custom login logo URLs</a>. Thanks to xet7.</summary>
 
 Repair two French labels while preserving URL and distinguishing the logo
 image from its destination link. Native community usage supports Logo;
@@ -2364,7 +2364,7 @@ All 17,855 correction checks pass; 446 original findings remain pending.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/7d3d31e74">Translate Tamazight text below custom login logo</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/878bbd2b5">Translate Tamazight text below custom login logo</a>. Thanks to xet7.</summary>
 
 Replace the French label using native Text, Below, Logo and Login evidence.
 Preserve placement below the custom logo. Full noun-chain grammar remains
@@ -2374,7 +2374,7 @@ low confidence for fluent review. All 17,856 correction checks pass;
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/3e0373cff">Translate Tamazight checklist rule condition prefixes</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/479fbd178">Translate Tamazight checklist rule condition prefixes</a>. Thanks to xet7.</summary>
 
 Repair four French prefixes, including two unflagged values. Preserve
 generic versus named checklist and item conditions. Native usage supports
@@ -2385,7 +2385,7 @@ remain pending across 17 locales. Live browser verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a15be4669">Translate Tamazight checklist line-to-item hint</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e548b250d">Translate Tamazight checklist line-to-item hint</a>. Thanks to xet7.</summary>
 
 Replace Arabic bulk-entry guidance using native textual Line and Text
 usage. Preserve one line equals one checklist item and the literal equals
@@ -2395,7 +2395,7 @@ All 17,861 correction checks pass; 442 original findings remain pending.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/82d5c44f1">Translate Tamazight start and end date rule conditions</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2521b7092">Translate Tamazight start and end date rule conditions</a>. Thanks to xet7.</summary>
 
 Repair two unflagged mixed-language conditions, distinguishing start and
 end dates. Restore When and Set or Changed alternatives. Native component
@@ -2405,7 +2405,7 @@ confidence. All 17,863 correction checks pass; 442 originals remain pending.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/45603b3e1">Repair Tamazight checklist text editor title</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2f7ea0f78">Repair Tamazight checklist text editor title</a>. Thanks to xet7.</summary>
 
 Remove an inherited First qualifier absent from English and preserve Edit
 checklist items as Text. This unflagged wording repair does not treat Latin
@@ -2416,7 +2416,7 @@ full wording remains low confidence. All 17,864 correction checks pass.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/9c290966f">Translate Tamazight each-line checklist guidance</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b2f402fb7">Translate Tamazight each-line checklist guidance</a>. Thanks to xet7.</summary>
 
 Replace Arabic guidance while preserving each text line becoming one of
 the checklist items. Native component evidence supports Each, Line and
@@ -2427,7 +2427,7 @@ original-order variant remains pending. All 17,865 correction checks pass;
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/ecae7d919">Record Tamazight conversion verb evidence limits</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/06fc5be68">Record Tamazight conversion verb evidence limits</a>. Thanks to xet7.</summary>
 
 Native Ministry Return/date-back usage does not verify the proposed Become
 verb or its morphology. Retain low confidence and separately review the
@@ -2437,7 +2437,7 @@ All 17,865 correction checks pass; 441 originals remain pending.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/996cc65c7">Translate Tamazight original-order checklist guidance</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/63850d062">Translate Tamazight original-order checklist guidance</a>. Thanks to xet7.</summary>
 
 Replace two Arabic values, including an unflagged label. Preserve original
 ordering and one item per text line. Inspected dictionary preface confirms
@@ -2447,7 +2447,7 @@ All 17,867 correction checks pass; 440 original findings remain pending.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/89f36d41f">Clarify Tamazight logo dictionary provenance</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/af533b852">Clarify Tamazight logo dictionary provenance</a>. Thanks to xet7.</summary>
 
 Apply the inspected cross-variety preface to two earlier logo URL correction
 records. Retain separate native community-caption evidence and low confidence
@@ -2458,7 +2458,7 @@ terminology. No values/counts changed. All 17,867 correction checks pass.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/d6a5f7d7f">Translate Tamazight rule actor qualifier</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/638efa8ae">Translate Tamazight rule actor qualifier</a>. Thanks to xet7.</summary>
 
 Replace the unflagged French By qualifier before the user-name field.
 Preserve the actor condition; full assembled predicate grammar remains
@@ -2468,7 +2468,7 @@ pending. Live browser verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/4152861a5">Translate Tamazight migration starting progress</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e5628a333">Translate Tamazight migration starting progress</a>. Thanks to xet7.</summary>
 
 Replace French progress text using native Start evidence. Preserve ongoing
 starting, plural migrations and the ellipsis. Derived passive and full
@@ -2478,7 +2478,7 @@ checks pass; 439 original findings remain pending across 17 locales.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/2dd53bed6">Translate Tamazight migration pause states</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f5862acbd">Translate Tamazight migration pause states</a>. Thanks to xet7.</summary>
 
 Repair Pausing and Paused, including an unflagged value, using native app
 pause evidence. Preserve ongoing progress versus paused state and ellipsis.
@@ -2489,7 +2489,7 @@ All 17,871 correction checks pass; 438 original findings remain pending.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/15e54eeaf">Repair Tamazight resume migration control</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/9e1adc713">Repair Tamazight resume migration control</a>. Thanks to xet7.</summary>
 
 Use directly attested native app Resume terminology and align the reviewed
 Migration noun. Preserve resumption rather than completion. Migration
@@ -2499,7 +2499,7 @@ All 17,872 correction checks pass; 438 original findings remain pending.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/85229c1da">Translate Tamazight stop command and migration progress</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b274ed118">Translate Tamazight stop command and migration progress</a>. Thanks to xet7.</summary>
 
 Replace two unflagged French values using native app Stop terminology.
 Preserve command versus ongoing progress, plural migrations and ellipsis.
@@ -2510,7 +2510,7 @@ pending. Live browser verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/260b96587">Translate Tamazight structured-data import hints</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/73bbc6baf">Translate Tamazight structured-data import hints</a>. Thanks to xet7.</summary>
 
 Replace two French hints while preserving Paste your valid data here and
 literal CSV/TSV or JSON. Native component evidence supports Here, Data and
@@ -2521,7 +2521,7 @@ Live browser verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/5e2c3c708">Use attested Tamazight Paste terminology in import hints</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/075e8718d">Use attested Tamazight Paste terminology in import hints</a>. Thanks to xet7.</summary>
 
 Replace the tentative Paste verb in two earlier hints with a directly
 attested non-fuzzy native Dialect control. Preserve format identifiers and
@@ -2532,7 +2532,7 @@ findings pending. Live browser verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/786d29cfb">Translate Tamazight shortcut list action</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/aa4732010">Translate Tamazight shortcut list action</a>. Thanks to xet7.</summary>
 
 2026-09-14: Replace Arabic wording using native Dialect shortcut terminology.
 Preserve Show this list; complete grammar remains low confidence. All 17,877
@@ -2543,7 +2543,7 @@ and live browser checks remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/e5625d884">Translate Tamazight autocomplete shortcut labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/88af03586">Translate Tamazight autocomplete shortcut labels</a>. Thanks to xet7.</summary>
 
 2026-09-14: Replace two Arabic labels, preserving automatic completion and
 emoji/member targets. Native software components support provisional wording;
@@ -2555,7 +2555,7 @@ browser validation remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/abaa87ed9">Translate Tamazight sidebar and dialog controls</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2eb31cb56">Translate Tamazight sidebar and dialog controls</a>. Thanks to xet7.</summary>
 
 2026-09-14: Replace six Arabic/French controls, including three unflagged
 values. Preserve Open/Close, Show/Hide and distinct filter/search/board scopes.
@@ -2567,7 +2567,7 @@ wider language and live browser validation remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/cffc0bd98">Translate Tamazight membership and assignment shortcuts</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/845c624f0">Translate Tamazight membership and assignment shortcuts</a>. Thanks to xet7.</summary>
 
 2026-09-14: Replace four Arabic/French labels, including one unflagged value.
 Preserve membership versus assignment, current-card scopes and distinct
@@ -2579,7 +2579,7 @@ live browser verification remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/47758fc61">Repair Tamazight account and starred item labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/11c943dcf">Repair Tamazight account and starred item labels</a>. Thanks to xet7.</summary>
 
 2026-09-14: Repair three unflagged labels: Arabic Create Account and Starred
 Boards, plus the incorrect Lists noun. Native software directly attests Create
@@ -2591,7 +2591,7 @@ validation remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/9f60960f4">Translate Tamazight time tracking labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/3c2b1bbfd">Translate Tamazight time tracking labels</a>. Thanks to xet7.</summary>
 
 2026-09-14: Replace five Arabic/French labels, including three unflagged
 values. Preserve spent versus overtime, hours units and card-presence scope.
@@ -2603,7 +2603,7 @@ and live browser verification remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/5da9a2084">Translate Tamazight filter controls and status</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/a3fbbc9ba">Translate Tamazight filter controls and status</a>. Thanks to xet7.</summary>
 
 2026-09-14: Replace seven Arabic/French values, including five unflagged
 labels. Preserve member versus assignee, negative scopes, Other filters and
@@ -2615,7 +2615,7 @@ pending; wider language and live browser verification remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/13f8fbd14">Translate Tamazight assigned card permission labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/3843b82af">Translate Tamazight assigned card permission labels</a>. Thanks to xet7.</summary>
 
 2026-09-14: Replace six French role labels/descriptions. Preserve assigned-only
 visibility and distinct Normal editing, Read cannot edit and Comment-only
@@ -2627,7 +2627,7 @@ and live browser verification remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/2e15e9f7b">Translate Tamazight assignee labels and card scopes</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/012a78b69">Translate Tamazight assignee labels and card scopes</a>. Thanks to xet7.</summary>
 
 2026-09-14: Replace five French labels, including three unflagged values.
 Preserve singular/plural, No assignee and all-cards versus current-card board
@@ -2639,7 +2639,7 @@ live browser verification remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/0488199cf">Clarify Tamazight assignee filter recipient wording</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/0914e764b">Clarify Tamazight assignee filter recipient wording</a>. Thanks to xet7.</summary>
 
 2026-09-14: Refine two earlier filter labels with explicit To whom recipient
 wording and feminine card agreement, matching assignee labels. Preserve
@@ -2651,7 +2651,7 @@ remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/5dca9f38d">Translate Tamazight archive controls</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/90e738a83">Translate Tamazight archive controls</a>. Thanks to xet7.</summary>
 
 2026-09-14: Replace nine Arabic/French values, including eight unflagged
 labels. Preserve Archive versus Move-to-Archive and all/board/card/list/
@@ -2663,7 +2663,7 @@ correction checks pass, including placeholders and translation preference.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/fbe388603">Corroborate Tamazight archive noun from institutional logo</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/bee9ec474">Corroborate Tamazight archive noun from institutional logo</a>. Thanks to xet7.</summary>
 
 2026-09-14: Directly inspect the native Archives du Maroc logo embedded in a
 University Mohammed V press release. Add lexical provenance to nine archive
@@ -2674,7 +2674,7 @@ checks pass; no values/counts changed. Wider validation remains open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/38debcc33">Translate Tamazight archive status and empty states</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/a22c15f1c">Translate Tamazight archive status and empty states</a>. Thanks to xet7.</summary>
 
 2026-09-14: Replace seven Arabic/French labels, including three unflagged
 values. Preserve board/list/card negative scopes, singular this-board moved
@@ -2686,7 +2686,7 @@ pending; wider language and browser validation remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/cbc2bf400">Translate Tamazight archive rule actions and states</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e6d350b6d">Translate Tamazight archive rule actions and states</a>. Thanks to xet7.</summary>
 
 2026-09-14: Replace seven Arabic/French labels, including four unflagged
 values. Preserve Move-to versus Restore-from Archive, card scope and
@@ -2698,7 +2698,7 @@ remain pending; wider language and browser validation remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/66c5df4fe">Translate Tamazight archive confirmation and activity</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/bac0f5578">Translate Tamazight archive confirmation and activity</a>. Thanks to xet7.</summary>
 
 2026-09-14: Replace three French/Arabic values, including two unflagged
 labels. Preserve confirmation intent, this-board scope, question marks and
@@ -2710,7 +2710,7 @@ wider language and browser validation remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/dce7f41cd">Repair Tamazight archive activity vocabulary</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/38cd06713">Repair Tamazight archive activity vocabulary</a>. Thanks to xet7.</summary>
 
 2026-09-14: Repair four unflagged archive activities with inherited
 Kabyle-leaning vocabulary. Preserve objects, nested locations, completed
@@ -2722,7 +2722,7 @@ Wider language and browser validation remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/14c2b82da">Repair Tamazight archive alternative and native controls</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/185787ca0">Repair Tamazight archive alternative and native controls</a>. Thanks to xet7.</summary>
 
 2026-09-14: Preserve list removal from the board and activity retention in
 the archive alternative. Replace inherited Kabyle Save/Search labels with
@@ -2733,7 +2733,7 @@ including 270 Tamazight. Browser verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a9e68b414">Repair Tamazight archive and restore scope controls</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/64905b0d6">Repair Tamazight archive and restore scope controls</a>. Thanks to xet7.</summary>
 
 2026-09-14: Preserve swimlane movement, all cards in this list, Restore All
 and Restore All from Archive. Full phrases and swimlane adaptation remain
@@ -2744,7 +2744,7 @@ Tamazight. Browser verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a2a88d405">Repair Tamazight archive visibility and recovery guidance</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/d35495882">Repair Tamazight archive visibility and recovery guidance</a>. Thanks to xet7.</summary>
 
 2026-09-14: Preserve post-archive invisibility at the correct list/board,
 later restoration through Archive in Board Settings, and activity retention
@@ -2756,7 +2756,7 @@ Browser verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/148e72446">Repair Tamazight archive states and recovery titles</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/0f5c6a7da">Repair Tamazight archive states and recovery titles</a>. Thanks to xet7.</summary>
 
 2026-09-14: Repair archive states, recovery destinations, card settings and
 search guidance while preserving the backticked placeholder. Predicate itself
@@ -2767,7 +2767,7 @@ remain pending, including 259 Tamazight. Browser verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/67e2d101b">Repair Tamazight custom translation controls</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/17363c532">Repair Tamazight custom translation controls</a>. Thanks to xet7.</summary>
 
 2026-09-14: Replace five Arabic labels using directly attested non-fuzzy
 Translation terminology. Preserve New/Edit/Delete THIS, custom scope and
@@ -2778,7 +2778,7 @@ findings remain pending, including 257 Tamazight. Browser verification unrun.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/1f30de7d6">Repair Tamazight translation deletion warning and count</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e612c7e7a">Repair Tamazight translation deletion warning and count</a>. Thanks to xet7.</summary>
 
 2026-09-14: Preserve deletion confirmation, THIS/custom scope, absolute
 no-undo warning and count punctuation. Two Arabic findings repaired; derived
@@ -2789,7 +2789,7 @@ Browser verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/747e1d96e">Repair Tamazight template labels and save action</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/8efe26637">Repair Tamazight template labels and save action</a>. Thanks to xet7.</summary>
 
 2026-09-14: Repair seven unflagged template labels using directly attested
 Template terminology, including Save as Template previously using Subject.
@@ -2800,7 +2800,7 @@ counts unchanged. Browser verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/6c1388962">Repair Tamazight template container and copy controls</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/a6e7d0e54">Repair Tamazight template container and copy controls</a>. Thanks to xet7.</summary>
 
 2026-09-14: Preserve container distinction and Copy Template TO MANY Cards
 versus Copy Checklist FROM Template. Six French/mixed labels repaired.
@@ -2811,7 +2811,7 @@ including 252 Tamazight. Browser verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/2557151f0">Repair Tamazight board duplicate and information labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/423eb1051">Repair Tamazight board duplicate and information labels</a>. Thanks to xet7.</summary>
 
 2026-09-14: Preserve duplicate-THIS confirmation, ALL boards settings and
 Board/List/Swimlane information tuple. Four wrong-language labels repaired.
@@ -2822,7 +2822,7 @@ remain pending, including 250 Tamazight. Browser verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/9af74b9d0">Repair Tamazight due-time activity text</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f9534f366">Repair Tamazight due-time activity text</a>. Thanks to xet7.</summary>
 
 2026-09-14: Preserve new due TIME, When/Where labels, PREVIOUS due value,
 four-line layout and exact placeholders. Actor past, deadline compound and
@@ -2832,7 +2832,7 @@ original findings remain pending, including 249 Tamazight. Browser unverified.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/d6a73fae4">Repair Tamazight starred board and page controls</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/7e229b64c">Repair Tamazight starred board and page controls</a>. Thanks to xet7.</summary>
 
 2026-09-14: Preserve star/unstar, THIS board/page, top of YOUR board list and
 exact count placeholder in nine labels. Native Top/Page components support
@@ -2843,7 +2843,7 @@ including 245 Tamazight. Browser verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/c82cef74f">Repair Tamazight star selection and empty state controls</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/994202232">Repair Tamazight star selection and empty state controls</a>. Thanks to xet7.</summary>
 
 2026-09-14: Preserve SELECTED boards, star/unstar, ALL starred items and
 YOU have not starred ANYTHING YET in six unflagged values. Selected passive,
@@ -2854,7 +2854,7 @@ Browser verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/10b082127">Repair Tamazight settings navigation and save status</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b8d1e0b6e">Repair Tamazight settings navigation and save status</a>. Thanks to xet7.</summary>
 
 2026-09-14: Preserve Team settings, Return/Save distinction and S3 failure
 versus completed successful save in five unflagged labels. Derived save noun,
@@ -2864,7 +2864,7 @@ checks pass; original counts unchanged. Browser verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/34a98e0d1">Repair Tamazight migration resume and error status text</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/93ffecca2">Repair Tamazight migration resume and error status text</a>. Thanks to xet7.</summary>
 
 2026-09-14: Preserve Resume PAUSED migrations, NO paused items to resume,
 completed successful resumption and ALL errors cleared. Four French findings
@@ -2875,7 +2875,7 @@ pending, including 241 Tamazight. Browser verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/7a49eb16b">Repair Tamazight scheduled job labels and status messages</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/496b43423">Repair Tamazight scheduled job labels and status messages</a>. Thanks to xet7.</summary>
 
 2026-09-14: Preserve Add, ACTIVE/plural job scope, Resume versus Start and
 failure versus successful completion in seven French labels. Job adaptation
@@ -2886,7 +2886,7 @@ Browser verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/bc7b01940">Repair Tamazight scheduled job deletion and pause messages</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f745b5304">Repair Tamazight scheduled job deletion and pause messages</a>. Thanks to xet7.</summary>
 
 2026-09-14: Preserve Delete versus Pause, THIS scheduled job, confirmation
 question and failure versus successful completion in five unflagged values.
@@ -2896,7 +2896,7 @@ checks pass; original counts unchanged. Browser verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/7dcaf17cf">Repair Tamazight failed migration retry messages</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/db12dfa7a">Repair Tamazight failed migration retry messages</a>. Thanks to xet7.</summary>
 
 Replace three French values. Preserve FAILED migration scope, Retry versus
 Resume, NO failed items to retry and successful retry notification without
@@ -2908,7 +2908,7 @@ including 233 Tamazight. Live browser verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/7d1e0ef15">Repair Tamazight board selection checkbox instruction</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/a7f5c5c87">Repair Tamazight board selection checkbox instruction</a>. Thanks to xet7.</summary>
 
 Replace French while preserving clicking checkboxes to select boards. Native
 checkbox/selection components support wording; compound, plural and full
@@ -2919,7 +2919,7 @@ verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/f903af89d">Repair Tamazight Home navigation label</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/51f38c9a0">Repair Tamazight Home navigation label</a>. Thanks to xet7.</summary>
 
 Replace Arabic Home with exact native Tamazight UI wording. Full home-header
 Archive restoration instruction remains pending; label evidence does not
@@ -2929,7 +2929,7 @@ original counts unchanged. Live browser verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/381d18eb3">Repair Tamazight board role permission descriptions</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/0524017b8">Repair Tamazight board role permission descriptions</a>. Thanks to xet7.</summary>
 
 Replace administrator/normal-member descriptions and Activities label.
 Preserve card viewing/editing, member removal, board settings and activity
@@ -2941,7 +2941,7 @@ including 230 Tamazight. Live browser verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/1493cc244">Repair Tamazight card mention activity</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2842bbc98">Repair Tamazight card mention activity</a>. Thanks to xet7.</summary>
 
 Replace French while preserving mentioned YOU, card/comment/list/swimlane/board
 and all five exact placeholders. Indexed mention evidence and full grammar
@@ -2952,7 +2952,7 @@ Live browser verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/129fa829e">Repair Tamazight assignee and user search instructions</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/48b3fd33d">Repair Tamazight assignee and user search instructions</a>. Thanks to xet7.</summary>
 
 Replace two French values while preserving operator syntax, repeated username
 parameter and emphasis. Assignee-only versus member OR assignee scopes remain
@@ -2964,7 +2964,7 @@ verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/e0f16c497">Repair Tamazight organization and team search prose</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/30973c6c8">Repair Tamazight organization and team search prose</a>. Thanks to xet7.</summary>
 
 Replace two French descriptions while preserving exact query metasyntax and
 cards belonging to a board assigned to the organization/team. Native Given and
@@ -2976,7 +2976,7 @@ verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/3f2d9c726">Repair Tamazight search scopes and archive defaults</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/d9570ea4d">Repair Tamazight search scopes and archive defaults</a>. Thanks to xet7.</summary>
 
 Replace three French values preserving default archive exclusion, ALL archived
 and unarchived cards predicate, and title/description/custom-field scope on
@@ -2988,7 +2988,7 @@ verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/9daf257e4">Repair Tamazight swimlane title search instruction</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/516478676">Repair Tamazight swimlane title search instruction</a>. Thanks to xet7.</summary>
 
 Replace French preserving exact syntax and cards in swimlanes matching specified
 title. Native Matching/Title/Given components support provisional wording;
@@ -2999,7 +2999,7 @@ Days-ago-or-less findings and live browser verification remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/5e5519f2f">Repair Tamazight All search predicate</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/3ed703f5a">Repair Tamazight All search predicate</a>. Thanks to xet7.</summary>
 
 Replace Arabic All predicate with exact native Tamazight, preserving single-token
 query format. Add exact-value and negative whitespace/colon regression checks.
@@ -3009,7 +3009,7 @@ Date-boundary wording and live browser verification remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/c002054d5">Repair Tamazight board watcher explanation</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/8114b5a87">Repair Tamazight board watcher explanation</a>. Thanks to xet7.</summary>
 
 Replace French preserving future notification to YOU for ANY change on THIS
 board. Native components support provisional wording; derived passive and
@@ -3020,7 +3020,7 @@ verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/cda2d947b">Repair Tamazight worker role permission description</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/021a8fe97">Repair Tamazight worker role permission description</a>. Thanks to xet7.</summary>
 
 Replace French preserving ONLY card movement, SELF-assignment and commenting.
 Native components support provisional wording; self-assignment adaptation and
@@ -3031,7 +3031,7 @@ verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/df6e03f46">Repair Tamazight migration scheduling and resume wording</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/7f4ce0602">Repair Tamazight migration scheduling and resume wording</a>. Thanks to xet7.</summary>
 
 Repair four unflagged labels/statuses preserving Scheduled plural versus
 Automatic singular and Resume versus Complete. Native components support
@@ -3042,7 +3042,7 @@ Live browser verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/371ccad6b">Repair Tamazight migration start and pause controls</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/818852184">Repair Tamazight migration start and pause controls</a>. Thanks to xet7.</summary>
 
 Repair six unflagged values preserving Start/Pause, ALL/singular scope and
 failed/completed statuses. Native components support provisional wording;
@@ -3053,7 +3053,7 @@ counts unchanged. Live browser verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/fee3de6db">Repair Tamazight checklist check and uncheck controls</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/31b741b52">Repair Tamazight checklist check and uncheck controls</a>. Thanks to xet7.</summary>
 
 Replace three French controls preserving Hide checked items, Check ALL items
 OF A LIST and active Uncheck ALL reversal. Native components support provisional
@@ -3064,7 +3064,7 @@ including 216 Tamazight. Live browser verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/7caee4baa">Translation repair: Tamazight notification deletion confirmation.</a></summary>
+<summary><a href="https://github.com/wekan/wekan/commit/d256aea92">Translation repair: Tamazight notification deletion confirmation.</a></summary>
 
 2026-09-14: Replace French confirmation and align notification terminology. Preserve all notifications and the unconditional inability to undo. Native component evidence is recorded; full confirmation and action agreement remain low confidence. All 18,061 correction checks pass. Audit summary updated; broader translation validation remains open.
 
@@ -3073,7 +3073,7 @@ Thanks to xet7 !
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/4a03ba96c">Translation repair: Tamazight permanent board deletion warning.</a></summary>
+<summary><a href="https://github.com/wekan/wekan/commit/bf88de400">Translation repair: Tamazight permanent board deletion warning.</a></summary>
 
 2026-09-14: Replace French warning. Preserve all lists, cards, labels and activities, future deletion, inability to recover board contents and no undo. Native components are recorded; composed grammar remains low confidence. All 18,062 correction checks pass; broader language validation continues.
 
@@ -3082,7 +3082,7 @@ Thanks to xet7 !
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/8a9719417">Translation repair: Tamazight leave-board membership warning.</a></summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2a486083b">Translation repair: Tamazight leave-board membership warning.</a></summary>
 
 2026-09-14: Replace Arabic label and French confirmation. Preserve board-title placeholder and future removal of the current user from all cards on this board. Native components are recorded; membership adaptation and full grammar remain low confidence. All 18,064 correction checks pass; broader language validation continues.
 
@@ -3091,7 +3091,7 @@ Thanks to xet7 !
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/6800bb1ec">Translation repair: Tamazight board import instructions.</a></summary>
+<summary><a href="https://github.com/wekan/wekan/commit/df83b6543">Translation repair: Tamazight board import instructions.</a></summary>
 
 2026-09-14: Repair import instructions and matching Menu/Export Board labels. Preserve ordered navigation and copying text from the downloaded file. Native component evidence is recorded; derived morphology and full wording remain low confidence. All 18,067 correction checks pass; broader validation continues.
 
@@ -3100,7 +3100,7 @@ Thanks to xet7 !
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/f827f29de">Translation repair: Tamazight list-card archive instructions.</a></summary>
+<summary><a href="https://github.com/wekan/wekan/commit/8e8782eaa">Translation repair: Tamazight list-card archive instructions.</a></summary>
 
 2026-09-14: Replace French instructions, preserving all cards of this list removed from the board and their return via Menu > Archive. Native component evidence is recorded; full wording remains low confidence. All 18,068 correction checks pass; broader validation continues.
 
@@ -3109,7 +3109,7 @@ Thanks to xet7 !
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/4ee286985">Translation repair: Tamazight imported-member user selection.</a></summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e5116be84">Translation repair: Tamazight imported-member user selection.</a></summary>
 
 2026-09-14: Replace French instruction, preserving your existing user to use as this member. Native component evidence recorded; derived existence and full wording remain low confidence. All 18,069 correction checks pass; broader validation continues.
 
@@ -3118,7 +3118,7 @@ Thanks to xet7 !
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/bc0e7f13a">Translation repair: Tamazight checklist uncompletion activities.</a></summary>
+<summary><a href="https://github.com/wekan/wekan/commit/6600574f5">Translation repair: Tamazight checklist uncompletion activities.</a></summary>
 
 2026-09-14: Replace two wrong-language activities, preserving active undoing of completion and exact percent placeholders. Native Undo evidence recorded; derived morphology and full wording remain low confidence. All 18,071 correction checks pass; broader validation continues.
 
@@ -3127,7 +3127,7 @@ Thanks to xet7 !
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/e091ab50d">Translation repair: Tamazight card checklist completion activity.</a></summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2b685ef72">Translation repair: Tamazight card checklist completion activity.</a></summary>
 
 2026-09-14: Repair unflagged Kabyle-seeded wording, preserving active completion and all five exact location placeholders. Native completion evidence recorded; full grammar remains low confidence. All 18,072 correction checks pass; broader validation continues.
 
@@ -3136,7 +3136,7 @@ Thanks to xet7 !
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a9c0a3a55">Translation repair: Tamazight imported-board member mapping.</a></summary>
+<summary><a href="https://github.com/wekan/wekan/commit/d54c1674a">Translation repair: Tamazight imported-board member mapping.</a></summary>
 
 2026-09-14: Replace French instruction, preserving some members on your imported board and mapping selected members to your users. Native component evidence recorded; full grammar remains low confidence. All 18,073 correction checks pass; broader validation continues.
 
@@ -3145,7 +3145,7 @@ Thanks to xet7 !
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/77a0023cc">Translation repair: Tamazight unmapped-member fallback.</a></summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2dba93923">Translation repair: Tamazight unmapped-member fallback.</a></summary>
 
 2026-09-14: Preserve future assignment of unmapped members to current user.
 Native components recorded; full wording remains low confidence.
@@ -3156,7 +3156,7 @@ Thanks to xet7 !
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/7525d9271">Translation refinement: Tamazight imported-board agreement.</a></summary>
+<summary><a href="https://github.com/wekan/wekan/commit/4f7d7b69c">Translation refinement: Tamazight imported-board agreement.</a></summary>
 
 2026-09-14: Refine feminine Board relative agreement, preserving provenance
 and counts. Derived passive and full wording remain low confidence.
@@ -3167,7 +3167,7 @@ Thanks to xet7 !
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/73b5d0eed">Translation repair: Tamazight subtask deposit destination.</a></summary>
+<summary><a href="https://github.com/wekan/wekan/commit/945363441">Translation repair: Tamazight subtask deposit destination.</a></summary>
 
 2026-09-14: Preserve hierarchical subtasks and this-board destination.
 Indexed native Place evidence recorded; full wording remains low confidence.
@@ -3178,7 +3178,7 @@ Thanks to xet7 !
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/dccca19d4">Translation repair: Tamazight checked-item activities.</a></summary>
+<summary><a href="https://github.com/wekan/wekan/commit/32125b979">Translation repair: Tamazight checked-item activities.</a></summary>
 
 2026-09-14: Preserve active checking and exact percent placeholders.
 Native checkbox terminology recorded; full wording remains low confidence.
@@ -3189,7 +3189,7 @@ Thanks to xet7 !
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/28c88263f">Translation repair: Tamazight unchecked-item activities.</a></summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b18cfb5d4">Translation repair: Tamazight unchecked-item activities.</a></summary>
 
 2026-09-14: Preserve active checkmark removal and exact percent placeholders.
 Native components recorded; mark noun and full wording remain low confidence.
@@ -3200,7 +3200,7 @@ Thanks to xet7 !
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/e2cdae25d">Translation repair: Tamazight import activity.</a></summary>
+<summary><a href="https://github.com/wekan/wekan/commit/120dff310">Translation repair: Tamazight import activity.</a></summary>
 
 2026-09-14: Preserve import object, destination, source and placeholders.
 Native import noun recorded; full wording remains low confidence.
@@ -3211,7 +3211,7 @@ Thanks to xet7 !
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/c45999486">Translation repair: Tamazight custom-field activity.</a></summary>
+<summary><a href="https://github.com/wekan/wekan/commit/fbf2ac111">Translation repair: Tamazight custom-field activity.</a></summary>
 
 2026-09-14: Preserve field name to value assignment and exact placeholders.
 Native components recorded; full wording remains low confidence.
@@ -3222,7 +3222,7 @@ Thanks to xet7 !
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/e5cb150bc">Translation repair: Tamazight custom-field unsetting.</a></summary>
+<summary><a href="https://github.com/wekan/wekan/commit/9659de171">Translation repair: Tamazight custom-field unsetting.</a></summary>
 
 2026-09-14: Preserve card field value removal and exact placeholders.
 Native components recorded; technical Value wording remains low confidence.
@@ -3233,7 +3233,7 @@ Thanks to xet7 !
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/5be2812bd">Translation repair: Tamazight lockout duration.</a></summary>
+<summary><a href="https://github.com/wekan/wekan/commit/d8cdf1d12">Translation repair: Tamazight lockout duration.</a></summary>
 
 2026-09-14: Preserve lockout period in seconds, distinct from failure window.
 Native components recorded; full wording remains low confidence.
@@ -3244,7 +3244,7 @@ Thanks to xet7 !
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/ee8fc5f24">Translation repair: Tamazight lockout failure threshold.</a></summary>
+<summary><a href="https://github.com/wekan/wekan/commit/4cc989bd5">Translation repair: Tamazight lockout failure threshold.</a></summary>
 
 2026-09-14: Preserve failures before lockout as count threshold.
 Indexed native Before recorded; full wording remains low confidence.
@@ -3255,7 +3255,7 @@ Thanks to xet7 !
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/7c0384e5a">Translation repair: Tamazight failure counting window.</a></summary>
+<summary><a href="https://github.com/wekan/wekan/commit/beac93aae">Translation repair: Tamazight failure counting window.</a></summary>
 
 2026-09-14: Preserve failure window in seconds and distinct lockout scope.
 Native components recorded; full adaptations remain low confidence.
@@ -3266,7 +3266,7 @@ Thanks to xet7 !
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/1b8797450">Translation repair: Tamazight custom-field deletion warning.</a></summary>
+<summary><a href="https://github.com/wekan/wekan/commit/0108c2193">Translation repair: Tamazight custom-field deletion warning.</a></summary>
 
 2026-09-14: Preserve no undo, all-card removal and history destruction.
 Native components recorded; full wording remains low confidence.
@@ -3277,7 +3277,7 @@ Thanks to xet7 !
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/ee5f6301f">Translation refinement: Tamazight field history deletion.</a></summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2192b0428">Translation refinement: Tamazight field history deletion.</a></summary>
 
 2026-09-14: Clarify that field history is deleted with a repeated predicate.
 Preserve no undo and all-card removal; full grammar remains low confidence.
@@ -3288,7 +3288,7 @@ Thanks to xet7 !
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/93d592c07">Translation repair: Tamazight checked-item visibility.</a></summary>
+<summary><a href="https://github.com/wekan/wekan/commit/34fa863e5">Translation repair: Tamazight checked-item visibility.</a></summary>
 
 2026-09-14: Replace Arabic Hide Checked Checklist Items, preserving checked
 items only. Native Hide and Check support components; derived passive plural
@@ -3300,7 +3300,7 @@ Thanks to xet7 !
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/c863bb1a2">Translation refinement: Tamazight Hide All command.</a></summary>
+<summary><a href="https://github.com/wekan/wekan/commit/e79e80afd">Translation refinement: Tamazight Hide All command.</a></summary>
 
 2026-09-14: Replace derived Hide with directly attested native command.
 Preserve ALL scope and original provenance; checklist phrase remains low
@@ -3311,7 +3311,7 @@ Thanks to xet7 !
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/9685a1107">Translation repair: Tamazight permitted file types.</a></summary>
+<summary><a href="https://github.com/wekan/wekan/commit/1100ace91">Translation repair: Tamazight permitted file types.</a></summary>
 
 2026-09-14: Replace two Arabic labels; retain upload versus avatar scope
 and colons. Native vocabulary supports components; plural forms and full
@@ -3323,7 +3323,7 @@ Thanks to xet7 !
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/bf6faabb7">Translation repairs: Tamazight upload statuses and file plurals.</a></summary>
+<summary><a href="https://github.com/wekan/wekan/commit/87836f6b5">Translation repairs: Tamazight upload statuses and file plurals.</a></summary>
 
 2026-09-14: Replace three French upload statuses and refine two earlier
 file-type labels using directly attested Files plural. Preserve progress
@@ -3335,7 +3335,7 @@ Thanks to xet7 !
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/d1b8f6ca1">Translation repair: Tamazight workspace deletion confirmation.</a></summary>
+<summary><a href="https://github.com/wekan/wekan/commit/00a9fd000">Translation repair: Tamazight workspace deletion confirmation.</a></summary>
 
 2026-09-14: Replace French checkbox text, preserving confirmation action
 and workspace deletion scope. Native Verify and Deletion support components;
@@ -3347,7 +3347,7 @@ Thanks to xet7 !
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/12163bc6b">Translation repair: Tamazight workspace icon.</a></summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b80086e9f">Translation repair: Tamazight workspace icon.</a></summary>
 
 2026-09-14: Replace French label, preserving markdown. Inspected CNAM Icon
 is a starred cross-variety proposal, not normative Moroccan evidence.
@@ -3359,7 +3359,7 @@ Thanks to xet7 !
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/080225ac9">Translation repair: Tamazight format placeholder instruction.</a></summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f87013a7a">Translation repair: Tamazight format placeholder instruction.</a></summary>
 
 2026-09-14: Replace French help with in-place-of-value paraphrase, preserving
 %{value} exactly and substitution meaning. Format evidence remains indexed
@@ -3371,7 +3371,7 @@ Thanks to xet7 !
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/0968a9dc6">Translation repair: Tamazight separator space instruction.</a></summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2b9ecc10c">Translation repair: Tamazight separator space instruction.</a></summary>
 
 2026-09-14: Replace French help, preserving literal HTML space entities and
 OR. Inspected dictionary candidates are cross-variety; full instruction
@@ -3383,7 +3383,7 @@ Thanks to xet7 !
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/b579a024b">Translation refinement: Tamazight Value bound form.</a></summary>
+<summary><a href="https://github.com/wekan/wekan/commit/333250c88">Translation refinement: Tamazight Value bound form.</a></summary>
 
 2026-09-14: Replace derived uzal with indexed IRCAM wazal Value paradigm.
 Preserve placeholder and substitution meaning; direct PDF remains
@@ -3395,7 +3395,7 @@ Thanks to xet7 !
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/15fc620cb">Translation repairs: Tamazight clipboard copy actions.</a></summary>
+<summary><a href="https://github.com/wekan/wekan/commit/199da3581">Translation repairs: Tamazight clipboard copy actions.</a></summary>
 
 2026-09-14: Replace French/Arabic copy labels, preserving Text versus Card
 Link and clipboard destination. Inspected Clipboard candidate is a Kabyle
@@ -3407,7 +3407,7 @@ Thanks to xet7 !
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/b6b30d0a4">Translation repair: Tamazight clipboard or drag/drop.</a></summary>
+<summary><a href="https://github.com/wekan/wekan/commit/5f7347316">Translation repair: Tamazight clipboard or drag/drop.</a></summary>
 
 2026-09-14: Replace French label; retain OR between methods and AND within
 Drag/Drop. Dictionary and indexed components support wording; full software
@@ -3419,7 +3419,7 @@ Thanks to xet7 !
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/925a40f58">Translation repair: Tamazight board-icon instructions.</a></summary>
+<summary><a href="https://github.com/wekan/wekan/commit/3534bed86">Translation repair: Tamazight board-icon instructions.</a></summary>
 
 2026-09-14: Replace French help, retaining drag/drop to reorder icons and
 click to open their board. Native Click/Change and existing dictionary
@@ -3431,7 +3431,7 @@ Thanks to xet7 !
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a6647173f">Translate Tamazight board structure analysis command</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/c97b1d06b">Translate Tamazight board structure analysis command</a>. Thanks to xet7.</summary>
 
 Replace the French command using directly inspected dictionary letters,
 preserving Analyze, Structure and Board. Cross-variety terminology,
@@ -3442,7 +3442,7 @@ was not run. The audit now has 314 pending original findings.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/a56e507e9">Repair wrong-language Tamazight import labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/883527750">Repair wrong-language Tamazight import labels</a>. Thanks to xet7.</summary>
 
 Replace Kter and Arabic import labels, preserving generic Import versus
 Import Board. Native terminology supports the root; action noun and full
@@ -3453,7 +3453,7 @@ counts remain 314. Live browser verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/f8a1255dd">Translate permanent Tamazight board deletion notice</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/2cb3dad4b">Translate permanent Tamazight board deletion notice</a>. Thanks to xet7.</summary>
 
 Replace the French warning, preserving irreversible deletion and future loss
 of all lists, cards and actions associated with this board. Derived agreement
@@ -3464,7 +3464,7 @@ verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/ca3ba7006">Use native Tamazight muted and notification labels</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/9bb6154ee">Use native Tamazight muted and notification labels</a>. Thanks to xet7.</summary>
 
 Repair three additional labels with directly attested native software wording,
 aligning existing notification terminology. Board-specific Muted adaptation
@@ -3474,7 +3474,7 @@ original pending counts remain 313. Live browser verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/35eb7e7ab">Translate Tamazight zoom controls with reviewed dictionary terms</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/72a70be09">Translate Tamazight zoom controls with reviewed dictionary terms</a>. Thanks to xet7.</summary>
 
 Repair four French controls, preserving zoom direction, level, input command
 and literal 50-300% range. One original finding and three additional repairs.
@@ -3485,7 +3485,7 @@ remain pending. Live browser verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/afca796a0">Translate Tamazight MongoDB storage engine label</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/f3fda75a5">Translate Tamazight MongoDB storage engine label</a>. Thanks to xet7.</summary>
 
 Replace the French label with visually inspected Engine and Storage
 candidates, preserving MongoDB. Cross-variety terminology, bound form and
@@ -3496,7 +3496,7 @@ verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/3f72fb6e8">Align Tamazight select all controls with native selection terminology</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/dc8d40ad0">Align Tamazight select all controls with native selection terminology</a>. Thanks to xet7.</summary>
 
 Repair four additional controls, preserving Select All versus Unselect All
 without deleting content. Native terminology supports the root; derived
@@ -3507,7 +3507,7 @@ verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/6352fbd5e">Repair Tamazight board and list selection scopes</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/902ff1859">Repair Tamazight board and list selection scopes</a>. Thanks to xet7.</summary>
 
 Repair two additional instructions, preserving Only One Board versus All
 Cards In This List, including the omitted All. Derived commands, agreement
@@ -3517,7 +3517,7 @@ original pending counts remain 311. Live browser verification was not run.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/c5092a51f">Translation repairs: Tamazight authentication labels.</a></summary>
+<summary><a href="https://github.com/wekan/wekan/commit/b91b63c53">Translation repairs: Tamazight authentication labels.</a></summary>
 
 2026-09-14: Replace four French labels, preserving method/type, default and
 display distinctions. Authentication candidate is cross-variety; full
@@ -3531,7 +3531,7 @@ Thanks to xet7 !
 **Developer documentation** - Verify the reported build failure.
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/707dbe66e">Verify the wekan22 build failure is repaired</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/a6f136a8d">Verify the wekan22 build failure is repaired</a>. Thanks to xet7.</summary>
 
 The supplied logs are stored at `.tools/wekan22` and report the missing
 Moment import from v11.75. The assignee view already uses the existing native
