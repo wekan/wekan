@@ -4,19 +4,19 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,371 |
+| Corrected | 15,372 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 473 |
+| Pending review or repair | 472 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,776** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,780** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `f13775594` — replaced five Arabic/French subtask labels with explicit Task(s) under a Task paraphrases. Full hierarchical wording, bound noun morphology and kanban terminology remain **low confidence** for fluent review. All **17,776** correction/rendering checks pass. **473** originals remain pending across **17** locales, including **338** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `23c82a5c1` — repaired four subtask actions, including Language → hierarchical Task wording and With → As in Add Existing Card as Subtask. Confirmation and plural Actions are preserved. Full phrases and morphology remain **low confidence** for fluent review. All **17,780** correction/rendering checks pass. **472** originals remain pending across **17** locales, including **337** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
-**Subtask review (2026-09-14, `92f69f58d`):** unflagged Add Existing Card as Subtask uses the noun Language. Work/Task references do not yet validate hierarchical Subtask. Repair the full relation rather than substituting a small task. No values or counts changed; [evidence](Audit-Evidence.md) records sources and limits.
+**Subtask review (2026-09-14):** finding `92f69f58d` is repaired in `23c82a5c1`: existing-card action now uses As and hierarchical Task wording. Nine noun/settings/delete/action labels are repaired across `f13775594` and `23c82a5c1`; full paraphrases remain low confidence. Activity, linked-subtask and other related wording still need review. [Evidence](Audit-Evidence.md) retains source limits.
 
 **Bambara calendar review (2026-09-14, `5610dff52`):** current CLDR supplies date units and Era `tile`, but no native Hijri variant names. Era does not establish reference-date Epoch. Both tabular calendar findings remain pending; preserve civil versus astronomical epoch and seek full native terminology. [Evidence](Audit-Evidence.md) records limits; no values or counts changed.
 

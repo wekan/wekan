@@ -4,6 +4,8 @@ Historical snapshot retained for reproducible repair tracking. See [Audit.md](Au
 
 ## Tamazight subtask wording review — 2026-09-14
 
+Follow-up local repair `23c82a5c1`: existing-card action now uses hierarchical Task wording and As instead of Language and With. Add Subtask, deletion confirmation and plural Subtask Actions also repaired. Native MediaWiki As references and Mastodon confirmation frame support components; complete paraphrases, morphology and kanban extension remain LOW CONFIDENCE. Original activity and other linked-subtask wording remain under review. Earlier pending-action observations below describe the historical review before this repair.
+
 Follow-up local repair `f13775594`: five noun/settings/delete labels now explicitly paraphrase Task(s) under a Task, using ministry task nouns and indexed IRCAM Under wording. Complete hierarchy phrasing, noun state and kanban adaptation remain LOW CONFIDENCE, not a canonical attested Subtask term. Three original findings and two unflagged labels were changed; the existing-card action still requires repair. The initial no-values-changed observation below describes the earlier review.
 
 Current `add-existing-card-as-subtask` contains `ⵜⵓⵜⵍⴰⵢⵜ ⵜⴰⵎⵥⵢⴰⵏⵜ`, meaning a small language rather than a subtask. The indexed [IRCAM children’s vocabulary portal](https://tal2.ircam.ma/tamawalt/) uses `ⵜⵓⵜⵍⴰⵢⵜ ⵜⴰⵎⴰⵣⵉⵖⵜ` for Amazigh language; direct fetching timed out. [IRCAM’s conjugator](https://tal.ircam.ma/conjugueur/) likewise identifies language with this noun. Script alone cannot validate a Tifinagh value.
