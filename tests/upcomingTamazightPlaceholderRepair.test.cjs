@@ -643,3 +643,8 @@ console.log("Tamazight first due reminder preserves named activity tokens");
 assert.strictEqual(translated.Node_memory_usage_heap_used, "ⴰⵙⵎⵔⵙ ⵏ ⵜⵎⴽⵜⵉⵜ ⵏ Node: ⵜⵉⵎⴽⵜⵉⵜ ⵉⵜⵜⵓⵙⵙⵎⵔⵙⵏ ⵙ ⵜⵉⴷⵜ");
 assert.doesNotMatch(translated.Node_memory_usage_heap_used, /Utilisation|mémoire|[\u0600-\u06ff]/u);
 assert.notStrictEqual(translated.Node_memory_usage_heap_used, translated.Node_memory_usage_rss);
+
+assert.strictEqual(translated.Node_memory_usage_rss, "ⴰⵙⵎⵔⵙ ⵏ ⵜⵎⴽⵜⵉⵜ ⵏ Node: ⴰⵇⵓⴷⴷⵉ ⵏ RSS");
+assert.doesNotMatch(translated.Node_memory_usage_rss, /Utilisation|mémoire|résident|[\u0600-\u06ff]/u);
+assert.ok(translated.Node_memory_usage_rss.endsWith("RSS"));
+assert.notStrictEqual(translated.Node_memory_usage_rss, translated.Node_memory_usage_heap_used);

@@ -139284,5 +139284,12 @@
     "before": "Utilisation mémoire de Node : mémoire réellement utilisée",
     "after": "ⴰⵙⵎⵔⵙ ⵏ ⵜⵎⴽⵜⵉⵜ ⵏ Node: ⵜⵉⵎⴽⵜⵉⵜ ⵉⵜⵜⵓⵙⵙⵎⵔⵙⵏ ⵙ ⵜⵉⴷⵜ",
     "reason": "Replace French actual used-memory label; IRCAM 12742 memory, 9981 use, 12572 truth/reality. Computing memory adaptation, passive and actual-use paraphrase remain low confidence; heapUsed is V8 usage, not RSS."
+  },
+  {
+    "locale": "zgh",
+    "key": "Node_memory_usage_rss",
+    "before": "Utilisation mémoire de Node : taille de l'ensemble résident",
+    "after": "ⴰⵙⵎⵔⵙ ⵏ ⵜⵎⴽⵜⵉⵜ ⵏ Node: ⴰⵇⵓⴷⴷⵉ ⵏ RSS",
+    "reason": "Replace French resident-set size with Tamazight memory-usage and size nouns plus the precise technical acronym RSS. IRCAM 12742 memory, 1779 size, 9981 use. Full computing compound remains low confidence; native expansion of resident set remains open."
   }
 ]
