@@ -130919,5 +130919,12 @@
     "before": "Toutes les 6 heures",
     "after": "ⴽⵓ 6 ⵏ ⵜⵙⵔⴰⴳⵉⵏ",
     "reason": "Replace French interval label using primary IRCAM 2019 hour/minute plurals and native number-plus-n construction. Preserve exact interval. Adapted full phrase, low confidence pending native grammatical and browser validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-w-every-day-at",
+    "before": "ⴽⵓⵍ ⴰⵙⵙ ⴷⴻⴳ __time__",
+    "after": "ⴽⵓ ⴰⵙⵙ ⴳ __time__",
+    "reason": "Align active daily scheduled trigger with primary IRCAM ku each and temporal g, consistent with native daily lesson. Preserve __time__. Adapted full clause, low confidence pending full native and browser validation; alternate dg is attested and not rejected categorically."
   }
 ]

@@ -74,3 +74,8 @@ for (const [key, value] of Object.entries(numericIntervals)) {
   assert.equal(locales.zgh[key].match(/\d+/)[0], key.split('-')[1]);
 }
 assert.equal(new Set(Object.values(numericIntervals)).size, 4);
+assert.equal(locales.zgh['r-w-every-day-at'], 'ⴽⵓ ⴰⵙⵙ ⴳ __time__');
+assert.deepEqual(locales.zgh['r-w-every-day-at'].match(/__[a-z]+__/g), ['__time__']);
+assert.doesNotMatch(locales.zgh['r-w-every-day-at'], /ⴽⵓⵍ|ⴷⴻⴳ|Every|Tous/);
+assert.equal(locales.zgh['r-w-every-day-at'].replace('__time__', '09:00'),
+  'ⴽⵓ ⴰⵙⵙ ⴳ 09:00');

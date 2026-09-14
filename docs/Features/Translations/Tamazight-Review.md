@@ -228,3 +228,18 @@ distinguish hours from minutes and reject the French text; they cannot prove
 fluency. These legacy keys have no direct current client/server reference
 in the inspected source, so no browser rendering is claimed. Original pending
 counts are unchanged; these four unflagged repairs are tracked separately.
+
+## Active daily trigger clause — 2026-09-14
+
+`r-w-every-day-at` now uses `ⴽⵓ ⴰⵙⵙ ⴳ __time__`, aligning the active
+daily schedule label with the native everyday lesson and primary dictionary.
+PDF page 335, entry 6418, establishes `ⴽⵓ` each; page 306, entry 5962,
+establishes `ⴳ` and its alternatives. Page 588 gives a temporal sunrise
+example. The dictionary explicitly supports `ⴷⴳ`; this change does not
+declare that every alternative preposition or schwa spelling is wrong.
+
+The complete at-time clause is adapted, **low confidence** pending full
+native grammatical validation. `client/components/rules/rulesWorkflow.js`
+uses this key for a daily scheduled trigger with time `09:00`. Regression
+checks preserve `__time__` exactly and check substitution without retaining
+the prior wording. No live browser check ran; uncertainty remains tracked.
