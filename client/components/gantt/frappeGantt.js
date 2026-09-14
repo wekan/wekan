@@ -142,10 +142,14 @@ export function translatedViewModes(GanttLib) {
 function translateFrappeChrome(container, templateInstance) {
   const apply = () => {
     const today = container.querySelector('.today-button');
-    if (today && today.textContent === 'Today') today.textContent = TAPi18n.__('today');
+    const todayLabel = TAPi18n.__('today');
+    if (today && today.textContent === 'Today' && today.textContent !== todayLabel) {
+      today.textContent = todayLabel;
+    }
     const placeholder = container.querySelector('.viewmode-select option[disabled]');
-    if (placeholder && placeholder.textContent === 'Mode') {
-      placeholder.textContent = TAPi18n.__('gantt-view-mode');
+    const modeLabel = TAPi18n.__('gantt-view-mode');
+    if (placeholder && placeholder.textContent === 'Mode' && placeholder.textContent !== modeLabel) {
+      placeholder.textContent = modeLabel;
     }
   };
   if (!templateInstance.chromeObserver) {
