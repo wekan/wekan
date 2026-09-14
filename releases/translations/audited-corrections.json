@@ -138465,5 +138465,33 @@
     "before": "Islamic tabular",
     "after": "ہِجری کیلنڑَر (جدول حساب، شروع: 622-07-15، جولین)",
     "reason": "2026-09-15: Kashmiri tabular Hijri draft retains existing Hijri/calendar and table/start components, adds primary Bharatavani arithmetic حساب, and distinguishes civil Friday 622-07-16 from astronomical Thursday 622-07-15 Julian epoch per Unicode CLDR. Complete table-arithmetic compound, epoch phrasing and Julian borrowing remain low confidence; civil social-word seed is inappropriate."
+  },
+  {
+    "locale": "wal",
+    "key": "calendar",
+    "before": "Wolayttatto: Calendar",
+    "after": "Wodiyaa qoodaa",
+    "reason": "2026-09-15: replace language-prefixed English calendar noun with native Wolaytta wodiyaa qoodaa, explicitly glossed calendar in the Wolaytta Gifaataa article (oldid 5971248) and used in Wolaytta kawotettaa. Preserve existing all-boards and iCal qualifiers; full software phrase and qualifier grammar remain under review."
+  },
+  {
+    "locale": "wal",
+    "key": "board-view-cal",
+    "before": "Wolayttatto: Calendar",
+    "after": "Wodiyaa qoodaa",
+    "reason": "2026-09-15: replace language-prefixed English calendar noun with native Wolaytta wodiyaa qoodaa, explicitly glossed calendar in the Wolaytta Gifaataa article (oldid 5971248) and used in Wolaytta kawotettaa. Preserve existing all-boards and iCal qualifiers; full software phrase and qualifier grammar remain under review."
+  },
+  {
+    "locale": "wal",
+    "key": "board-view-multiboard-cal",
+    "before": "Wolayttatto: Calendar (Ubba bookkiyata)",
+    "after": "Wodiyaa qoodaa (Ubba bookkiyata)",
+    "reason": "2026-09-15: replace language-prefixed English calendar noun with native Wolaytta wodiyaa qoodaa, explicitly glossed calendar in the Wolaytta Gifaataa article (oldid 5971248) and used in Wolaytta kawotettaa. Preserve existing all-boards and iCal qualifiers; full software phrase and qualifier grammar remain under review."
+  },
+  {
+    "locale": "wal",
+    "key": "export-ical-feed",
+    "before": "Wolayttatto: Calendar (iCal)",
+    "after": "Wodiyaa qoodaa (iCal)",
+    "reason": "2026-09-15: replace language-prefixed English calendar noun with native Wolaytta wodiyaa qoodaa, explicitly glossed calendar in the Wolaytta Gifaataa article (oldid 5971248) and used in Wolaytta kawotettaa. Preserve existing all-boards and iCal qualifiers; full software phrase and qualifier grammar remain under review."
   }
 ]

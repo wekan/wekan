@@ -44,3 +44,9 @@ assert.equal(JSON.parse(wolaytta['copyManyCardsPopup-format']).length, 3);
 assert.match(wolaytta['enable-permanent-delete'], /Wolayttatto/);
 
 console.log('wolayttaTranslationProgress: complete locale passed');
+
+const repairedCalendarLocale = JSON.parse(require('node:fs').readFileSync(require('node:path').resolve(__dirname, '../imports/i18n/data/wal.i18n.json'), 'utf8'));
+for (const key of ['calendar','board-view-cal']) assert.equal(repairedCalendarLocale[key], 'Wodiyaa qoodaa');
+assert.equal(repairedCalendarLocale['board-view-multiboard-cal'], 'Wodiyaa qoodaa (Ubba bookkiyata)');
+assert.equal(repairedCalendarLocale['export-ical-feed'], 'Wodiyaa qoodaa (iCal)');
+for (const key of ['calendar','board-view-cal','board-view-multiboard-cal','export-ical-feed']) assert.doesNotMatch(repairedCalendarLocale[key], /Wolayttatto: Calendar/);
