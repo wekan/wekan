@@ -661,6 +661,17 @@ The browser assertion accepts whitespace between the regional flag and name.
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a00a983c1">Tamazight migration help</a></summary>
+
+Replace French help with a Tamazight draft retaining board integrity
+checks, repairs and individual execution. Four focused suites pass;
+complete clause grammar remains under native review.
+
+Thanks to xet7.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d9cebf2b0">Tamazight card description recovery confirmation</a></summary>
 
 Replace French recovery confirmation with a Tamazight draft naming the

@@ -2498,3 +2498,23 @@ suites pass for scope, question, source registration, placeholders,
 provenance and newer human translations; no live browser test ran. Ledger
 19,779; original corrected 15,698, pending 205 (zgh 102), restored 4.
 All broader uncertain/restored/unflagged review remains open. No push.
+
+## Migration help and individual execution — 2026-09-15
+
+Local commit `a00a983c1` replaces French migrations-description with a
+Tamazight draft retaining data-integrity checking and repairing for this
+board, followed by each migration being executable by itself. Existing
+documented IRCAM check/repair/integrity components are reused; the full
+cached [IRCAM dictionary](https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339)
+page 488 entry 9202 attests skr do/make. Physical division/separation
+entries were excluded as proof of individual software execution. Entry
+7184 iman soul is not evidence for the adapted reflexive phrase.
+
+**Low confidence:** the by-itself reflexive construction, modal/passive
+agreement, migration metaphor and complete integrity compound remain under
+native review. Four focused suites pass for both actions, board scope,
+each/individual execution, placeholders, provenance and newer translations.
+No active key reference or live browser run; removed migrations remain
+removed. Ledger 19,780; original corrected 15,699, pending 204 (zgh 101),
+restored 4 unchanged. All broader uncertain/restored findings remain open.
+No push.
