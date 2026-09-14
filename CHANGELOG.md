@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8d48c0e3e">Repair Tamazight Planning Poker action labels</a>. Thanks to xet7.</summary>
+
+Replace French Finish and Replay with attested verbs matching the actual
+round actions. Add positive and negative translation regression coverage.
+Four source checks pass; native and browser context review remains open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/502c7e0cf">Repair six Tamazight basic color labels</a>. Thanks to xet7.</summary>
 
 Replace French and Arabic basic colors with exact primary dictionary entries.

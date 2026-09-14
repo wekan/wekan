@@ -25654,3 +25654,19 @@ Four source checks pass, including exact values, wrong-language negatives,
 tokens, ordering and human preference. Complex CSS shades remain separate
 review; browser rendering is not certified. Ledger: 18,776; original
 pending queue remains 253 because these six keys were unflagged.
+
+Planning Poker repair and integer review — 2026-09-14, `8d48c0e3e`.
+French poker-finish and poker-replay become smd and als respectively.
+IRCAM Amazigh-English PDF page 499 entry 9408 explicitly means to
+complete/finish; page 117 entry 2103 means repeat/do again/start again.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+Actual cardDetails.js handlers set the poker end date for Finish, and
+replay/unset end and estimation for Replay. Short action imperatives use
+verb lemmas; native/browser context review remains open. Four source
+checks pass. These keys were unflagged: original pending remains 253,
+ledger 18,778.
+The same complete-verb entry glosses participle ismdn as integral. That
+is not explicit attestation of the mathematical noun integer, so it is
+not substituted into swimlane-height-error-message. Comprehensive-board
+migration likewise needs a full-scope modifier, not a completed-status
+verb that would suggest the operation already finished. Both stay open.
