@@ -132816,5 +132816,61 @@
     "before": "Ikaw ay maging able sa ibalik the pisara ni clicking the “Arkibo” button mula sa the tahanan header.",
     "after": "Maaari mong ibalik ang pisara mula sa “Arkibo” sa pahinang “Lahat ng pisara”.",
     "reason": "2026-09-14: Replace obsolete header/profile navigation with existing Archive and All Boards place labels; preserve locale terminology. Replace mixed English/Tagalog prose with complete Tagalog instruction."
+  },
+  {
+    "locale": "ml",
+    "key": "close-board-pop",
+    "before": "ഹോം ഹെഡറിലെ “ആർക്കൈവ്” ബട്ടൺ ക്ലിക്ക് ചെയ്ത് ബോർഡ് പുനഃസ്ഥാപിക്കാം.",
+    "after": "“എല്ലാ ബോർഡുകളും” പേജിലെ “ആർക്കൈവ്” വിഭാഗത്തിൽ നിന്ന് ബോർഡ് പുനഃസ്ഥാപിക്കാം.",
+    "reason": "2026-09-14: Correct complete archive guidance to existing Archive section on All Boards; preserve established locale restoration and board terminology. Replace obsolete home-header navigation; Sinhala also replaces English Archive with the actual localized place label."
+  },
+  {
+    "locale": "mr",
+    "key": "close-board-pop",
+    "before": "मुख्य शीर्षलेखातील “संग्रह” बटणावर क्लिक करून तुम्ही फलक पुनर्संचयित करू शकाल.",
+    "after": "“सर्व फलक” पृष्ठावरील “संग्रह” विभागातून तुम्ही फलक पुनर्संचयित करू शकता.",
+    "reason": "2026-09-14: Correct complete archive guidance to existing Archive section on All Boards; preserve established locale restoration and board terminology. Replace obsolete home-header navigation; Sinhala also replaces English Archive with the actual localized place label."
+  },
+  {
+    "locale": "gu-IN",
+    "key": "close-board-pop",
+    "before": "તમે હોમ હેડરમાંથી \"આર્કાઇવ\" બટનને ક્લિક કરીને બોર્ડને પુનઃસ્થાપિત કરવામાં સમર્થ હશો.",
+    "after": "તમે “બધા બોર્ડ” પૃષ્ઠના “આર્કાઇવ” વિભાગમાંથી બોર્ડને પુનઃસ્થાપિત કરી શકો છો.",
+    "reason": "2026-09-14: Correct complete archive guidance to existing Archive section on All Boards; preserve established locale restoration and board terminology. Replace obsolete home-header navigation; Sinhala also replaces English Archive with the actual localized place label."
+  },
+  {
+    "locale": "pa",
+    "key": "close-board-pop",
+    "before": "ਤੁਸੀਂ ਹੋਮ ਹੈਡਰ ਤੋਂ \"ਪੁਰਾਲੇਖ\" ਬਟਨ 'ਤੇ ਕਲਿੱਕ ਕਰਕੇ ਬੋਰਡ ਨੂੰ ਰੀਸਟੋਰ ਕਰਨ ਦੇ ਯੋਗ ਹੋਵੋਗੇ।",
+    "after": "ਤੁਸੀਂ “ਸਾਰੇ ਬੋਰਡ” ਪੰਨੇ ਦੇ “ਪੁਰਾਲੇਖ” ਭਾਗ ਤੋਂ ਬੋਰਡ ਨੂੰ ਰੀਸਟੋਰ ਕਰ ਸਕਦੇ ਹੋ।",
+    "reason": "2026-09-14: Correct complete archive guidance to existing Archive section on All Boards; preserve established locale restoration and board terminology. Replace obsolete home-header navigation; Sinhala also replaces English Archive with the actual localized place label."
+  },
+  {
+    "locale": "ne",
+    "key": "close-board-pop",
+    "before": "गृह शीर्षकबाट “अभिलेख” बटन क्लिक गरेर बोर्ड पुनर्स्थापित गर्न सक्नुहुनेछ।",
+    "after": "“सबै बोर्डहरू” पृष्ठको “अभिलेख” खण्डबाट बोर्ड पुनर्स्थापित गर्न सक्नुहुनेछ।",
+    "reason": "2026-09-14: Correct complete archive guidance to existing Archive section on All Boards; preserve established locale restoration and board terminology. Replace obsolete home-header navigation; Sinhala also replaces English Archive with the actual localized place label."
+  },
+  {
+    "locale": "si",
+    "key": "close-board-pop",
+    "before": "මුල් ශීර්ෂයේ “Archive” බොත්තම ක්ලික් කිරීමෙන් පුවරුව ප්‍රතිසාධනය කළ හැකිය.",
+    "after": "“සියලු පුවරු” පිටුවේ “සංරක්ෂිතය” කොටසෙන් පුවරුව ප්‍රතිසාධනය කළ හැකිය.",
+    "reason": "2026-09-14: Correct complete archive guidance to existing Archive section on All Boards; preserve established locale restoration and board terminology. Replace obsolete home-header navigation; Sinhala also replaces English Archive with the actual localized place label."
+  },
+  {
+    "locale": "mn",
+    "key": "close-board-pop",
+    "before": "Нүүр хуудасны толгой хэсгийн «Архив» товчийг дарж самбарыг сэргээх боломжтой.",
+    "after": "«Бүх самбарууд» хуудасны «Архив» хэсгээс самбарыг сэргээх боломжтой.",
+    "reason": "2026-09-14: Correct complete archive guidance to existing Archive section on All Boards; preserve established locale restoration and board terminology. Replace obsolete home-header navigation; Sinhala also replaces English Archive with the actual localized place label."
+  },
+  {
+    "locale": "kk",
+    "key": "close-board-pop",
+    "before": "Тақтаны басты тақырып жолағындағы «Мұрағат» түймесін басып қалпына келтіре аласыз.",
+    "after": "Тақтаны «Барлық тақталар» бетіндегі «Мұрағат» бөлімінен қалпына келтіре аласыз.",
+    "reason": "2026-09-14: Correct complete archive guidance to existing Archive section on All Boards; preserve established locale restoration and board terminology. Replace obsolete home-header navigation; Sinhala also replaces English Archive with the actual localized place label."
   }
 ]

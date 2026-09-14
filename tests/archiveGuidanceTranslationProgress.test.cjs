@@ -60,3 +60,15 @@ assert.match(read('ga')['close-board-pop'], /an clár a thabhairt ar ais/);
 assert.match(read('sr')['close-board-pop'], /^Списе можете да повратите/);
 assert.match(read('tl')['close-board-pop'], /^Maaari mong ibalik ang pisara/);
 console.log('Archive batch five: Irish restoration sense, Serbian local terminology and Tagalog mixed-language repair');
+
+const batchSix = ['ml', 'mr', 'gu-IN', 'pa', 'ne', 'si', 'mn', 'kk'];
+for (const code of batchSix) {
+ const d = read(code), value = d['close-board-pop'];
+ assert.ok(value.includes(d.archives), `${code}: Archive section label`);
+ assert.ok(value.includes(d['all-boards']), `${code}: All Boards page label`);
+ assert.doesNotMatch(value, /ഹോം|ഹെഡറിലെ|शीर्षलेख|હોમ હેડર|ਹੋਮ ਹੈਡਰ|गृह शीर्षक|මුල් ශීර්ෂ|Archive|толгой хэсгийн|басты тақырып/);
+}
+assert.match(read('si')['close-board-pop'], /සංරක්ෂිතය/);
+assert.match(read('mn')['close-board-pop'], /самбарыг сэргээх/);
+assert.match(read('kk')['close-board-pop'], /Тақтаны.*қалпына келтіре аласыз/);
+console.log('Archive batch six: eight complete localized page/section instructions, Sinhala English label removed');
