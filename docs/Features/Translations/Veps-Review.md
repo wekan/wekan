@@ -43,10 +43,13 @@ those checks do not establish fluency.
 No locale values were changed by this review. Native terminology for the
 full remaining labels, inflection and UI phrasing still need verification.
 
-Follow-up review: **2026-09-14**. The local advanced-filter example
-currently contains `Field1 == I'm`; English contains `Field1 == I\'m`.
-Direct JSON inspection confirms the escape is missing in the locale value.
-Repairing only this example would not resolve the wrong-language sentence;
+Follow-up review: **2026-09-14**. Direct JSON inspection confirms the
+local advanced-filter example contains `Field1 = I\\'m`, while English
+contains `Field1 == I\'m`. The locale has a single equality sign and two
+literal backslashes rather than the source's comparison operator and single
+escape. The first review description incorrectly called this an absent
+escape; the exact decoded JSON establishes malformed operator/escaping.
+Repairing only the example would not resolve the wrong-language sentence;
 keep its language review open rather than count a syntax-only repair as a
 completed translation. Literal apostrophe/backslash rules must remain
 visible in the final native help.
