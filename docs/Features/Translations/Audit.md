@@ -4,15 +4,15 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,217 |
+| Corrected | 15,218 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 627 |
+| Pending review or repair | 626 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,466** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,476** exact before/after values, including unflagged repairs.
 
 Latest translation fix: **2026-09-14**, local commit `88ba30aec` — replaced two French custom HTML insertion actions. Preserve opening `<body>` versus closing `</body>`, HTML identifier and opposite before/after directions. Native MediaWiki components support the vocabulary; specified/custom qualifier adaptation and full phrase composition remain **low confidence** pending fluent review. All **17,466** correction/rendering checks pass. **627** originals remain pending across **17** locales, including **484** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
