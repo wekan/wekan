@@ -82,7 +82,7 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 15,315 corrected, 4,058 restored pre-pull values awaiting
 validation, 179 reviewed and retained, and 529 pending review or repair.
-The correction inventory records 17,625 exact before/after values,
+The correction inventory records 17,626 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,9 +102,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383529a; translation repairs have resumed.
-Latest translation fix is b63e5ebe1 (2026-09-14), replacing French Tamazight
-card-move rule wording. Another-list destination and when-event scope
-remain intact; derived passive and full phrasing need language review.
+Latest translation fix is f758682bd (2026-09-14), replacing the unflagged
+French Tamazight Removed from fragment. Source relation is preserved;
+finite passive and assignee terminology still need language review.
 
 Node regressions resolved on 2026-09-13: the original audit ran 986 suites
 with 19 failures. After the recorded source and guard repairs and one new
@@ -612,7 +612,7 @@ remain open.
 Translation audit progress as of 2026-09-14: 15,315 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
 and 529 remain pending across 17 locales, including 391 Tamazight findings.
-The ledger contains 17,625 correction records, including unflagged repairs.
+The ledger contains 17,626 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -1027,7 +1027,7 @@ Replace the English label and restore missing moon-sighting detail. Exact
 Latin country name and native see/moon components support vocabulary; full
 composition remains low confidence pending technical review. Provisional
 Adlam Hijri names have punctuation/semantic uncertainties; a Swedish
-homograph is not accepted as Fulah evidence. All 17,625 correction/rendering
+homograph is not accepted as Fulah evidence. All 17,626 correction/rendering
 checks pass; 529 original findings remain, including two Fulah epoch findings.
 Wider language and browser review remain open.
 
@@ -1038,7 +1038,7 @@ Wider language and browser review remain open.
 
 Replace the French import title while retaining Excel CSV/TSV names.
 Native entry wording and cached import terminology support components;
-complete import phrasing remains low confidence. All 17,625 correction
+complete import phrasing remains low confidence. All 17,626 correction
 checks pass; 529 original findings remain pending.
 
 </details>
@@ -1048,7 +1048,7 @@ checks pass; 529 original findings remain pending.
 
 Replace two French repair labels while retaining URL and existing avatar
 terminology. The correction verb has dictionary support; complete wording
-still needs language review. All 17,625 correction checks pass.
+still needs language review. All 17,626 correction checks pass.
 
 </details>
 
@@ -1057,7 +1057,7 @@ still needs language review. All 17,625 correction checks pass.
 
 Replace French/Arabic start, end and received-date activity/popup wording.
 The first activity value is the destination date, the second its card.
-All 17,625 correction checks pass; full phrasing still needs language review.
+All 17,626 correction checks pass; full phrasing still needs language review.
 
 </details>
 
@@ -1066,7 +1066,7 @@ All 17,625 correction checks pass; full phrasing still needs language review.
 
 Replace French while preserving display action and board-member ownership.
 Native show/member components are supported; existing avatar terminology
-and complete phrasing need review. All 17,625 correction checks pass.
+and complete phrasing need review. All 17,626 correction checks pass.
 
 </details>
 
@@ -1075,7 +1075,7 @@ and complete phrasing need review. All 17,625 correction checks pass.
 
 Replace French while preserving the invalid-JSON warning and text ownership.
 Native components support wording; full construction needs review. Paste
-prompts remain open. All 17,625 correction checks pass.
+prompts remain open. All 17,626 correction checks pass.
 
 </details>
 
@@ -1084,7 +1084,7 @@ prompts remain open. All 17,625 correction checks pass.
 
 Replace French activity and Arabic control, preserving removal from card
 and all location placeholders. Full phrasing and actor morphology need
-language review. All 17,625 correction checks pass.
+language review. All 17,626 correction checks pass.
 
 </details>
 
@@ -1093,7 +1093,7 @@ language review. All 17,625 correction checks pass.
 
 Replace French using native move/restore components. Preserve restoration
 destination and distinct old/new locations. Full phrasing still needs
-language review. All 17,625 correction checks pass.
+language review. All 17,626 correction checks pass.
 
 </details>
 
@@ -1102,7 +1102,16 @@ language review. All 17,625 correction checks pass.
 
 Replace French trigger and fragment, preserving when-event scope and
 another-list destination. Derived passive and agreement need language
-review. All 17,625 correction checks pass.
+review. All 17,626 correction checks pass.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f758682bd">Repair Tamazight removal source fragment</a>. Thanks to xet7.</summary>
+
+Replace unflagged French Removed from wording, preserving passive removal
+and source relation. Finite passive needs language review; assignee terms
+remain open. All 17,626 correction checks pass; original counts unchanged.
 
 </details>
 
