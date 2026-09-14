@@ -2204,7 +2204,7 @@
   "cron-clear-errors": "ⵎⵃⵓ ⵜⵉⵣⴳⵍⵉⵏ ⴰⴽⴽⵯ",
   "cron-retry-failed": "ⴰⵍⵙ ⴰⵔⵎ ⵉⵙⵎⵓⵜⵜⵢⵏ ⵉⵜⵜⵡⴰⵣⴳⵍⵏ",
   "cron-resume-paused": "ⴰⵍⵙ ⵉⵙⵎⵓⵜⵜⵢⵏ ⵉⵜⵜⵓⵙⴱⴷⴷⵏ",
-  "cron-errors-cleared": "ⵉⵣⴳⴰⵍⵏ ⴰⴽⴽⵯ ⵜⵜⵓⵙⴼⴹⵏ!",
+  "cron-errors-cleared": "ⵎⵃⴰⵏⵜ ⵜⵉⵣⴳⵍⵉⵏ ⴰⴽⴽⵯ ⵙ ⵓⵎⵓⵔⵙ.",
   "cron-no-failed-migrations": "ⵓⵔ ⵍⵍⵉⵏ ⵉⵙⵎⵓⵜⵜⵢⵏ ⵉⵜⵜⵡⴰⵣⴳⵍⵏ ⴰⴼⴰⴷ ⴰⴷ ⵜⴰⵔⵎⴷ ⴷⵉⵖ.",
   "cron-no-paused-migrations": "ⵓⵔ ⵍⵍⵉⵏ ⵉⵙⵎⵓⵜⵜⵢⵏ ⵉⵜⵜⵓⵙⴱⴷⴷⵏ ⴰⴼⴰⴷ ⴰⴷ ⵜⵏ ⵜⴰⵍⵙⴷ.",
   "cron-migrations-resumed": "ⵉⵙⵎⵓⵜⵜⵢⵏ ⵜⵜⵓⵢⴰⵍⵙⵏ!",
