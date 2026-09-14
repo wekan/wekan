@@ -4,27 +4,26 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,561 |
-| Restored pre-pull; awaiting validation | 1,166 |
-| Reviewed; retained unchanged | 3,046 |
+| Corrected | 15,562 |
+| Restored pre-pull; awaiting validation | 1,140 |
+| Reviewed; retained unchanged | 3,071 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
 Review is ongoing. The [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,161** exact before/after values, including unflagged repairs.
+contain **18,162** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `54fdfd33c` —
-repaired four Galician automation date triggers, replacing Portuguese wording
-and restoring both setting and changing dates. Retained 39 correct automation
-and HTML-placement values. All **18,161** correction and **3,046** review
-records pass. Attachment/member rule participles need context-specific
+Latest translation fix: **2026-09-14**, local commit `29f1980b2` —
+clarified Galician custom-field value clearing, distinguishing it from
+removing the field definition. Retained 25 correct rule/activity values.
+All **18,162** correction and **3,071** review records pass. Attachment/member rule participles need context-specific
 agreement: shared feminine labels currently follow masculine subjects.
 Three Esperanto restored findings remain: lime color and two Complete labels.
 Broader language and browser verification remain open; nothing pushed.
-Latest unchanged review: **2026-09-14**, commit `dda51a1e5` — retained
-28 correct Galician account permissions, metadata and subtask settings.
+Latest unchanged review: **2026-09-14**, commit `29f1980b2` — retained
+25 correct Galician rule, movement and activity values.
 Received-label participles remain open pending agreement/context review.
 Galician export free wording remains open pending context.
 Galician Complete and migration-complete wording remain open pending context.

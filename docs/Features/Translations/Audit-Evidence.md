@@ -22226,3 +22226,16 @@ agreement and presentation-context inspection.
 Review checks pass: 15,561 corrected, 1,166 restored awaiting validation,
 3,046 reviewed unchanged and 308 pending. Broader language and browser
 validation remain open. Nothing pushed.
+
+
+### 2026-09-14 — Galician custom-field value clearing
+
+Local commit `29f1980b2` repairs activity-unset-customfield: models/cards.js
+registers clearing a card value, not deleting the field definition. Both
+percent tokens remain exact. Retain 25 directly reviewed movement, archive,
+checklist and rule controls. Shared added/removed and member fragments remain
+unaccepted pending contextual agreement repair.
+Positive/negative regression and ledger checks pass: 15,562 corrected,
+1,140 restored awaiting validation, 3,071 reviewed unchanged and 308 pending.
+Correction ledger 18,162. Broader language/browser validation remains open.
+Nothing pushed.
