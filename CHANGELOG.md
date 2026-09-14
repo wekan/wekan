@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,571 corrected, 301 restored pre-pull values awaiting
-validation, 3,901 reviewed and retained, and 308 pending review or repair.
+findings: 15,571 corrected, 285 restored pre-pull values awaiting
+validation, 3,917 reviewed and retained, and 308 pending review or repair.
 The correction inventory records 18,173 exact before/after values,
 Global completeness verification also identifies Veps `server` (currently
 English-identical “Server”) for terminology review; it is not accepted yet.
@@ -718,6 +718,15 @@ Borrowed ticket spelling and the remaining audit findings stay under review.
 Retained 35 correct storage/connection, migration status and scheduled interval
 labels. Frequencies and failure/success distinctions remain intact. Complete,
 Idle and bucket wording remain under review. Exact review checks pass.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/12ba3ba1a">Validate Basque authentication and date activities</a>. Thanks to xet7.</summary>
+
+Retained 16 correct authentication, deletion/restoration and old/new date-activity
+labels. Default versus displayed method, all-item scopes and source tokens
+remain intact. Exact review checks pass; remaining audit findings stay open.
 
 </details>
 

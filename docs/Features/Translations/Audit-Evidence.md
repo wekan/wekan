@@ -22517,3 +22517,10 @@ Retained 35 inspected password, attachment-path, scheduled confirmation,
 migration/status, S3 access/connection and duration/recurrence labels. Exact
 intervals and failure/success distinctions remain intact; Cron retains the tool
 name. Complete, Idle and bucket wording excluded. All 3,901 reviews pass.
+
+**2026-09-14 — Basque authentication and date activities (`12ba3ba1a`).**
+
+Retained 16 inspected authentication error/display/default labels, customization,
+date-value removal, deletion/restoration, loading and old/new date activities.
+Actual settings distinguish display and default method; rule action removes
+a value. Tokens and all-item scopes preserved. All 3,917 reviews pass.
