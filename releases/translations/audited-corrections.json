@@ -122183,5 +122183,19 @@
     "before": "رقم",
     "after": "ⴰⵎⴹⴰⵏ",
     "reason": "Replace Arabic Number with derived free noun from native MediaWiki recentchanges-label-plusminus bound umdan/number. Preserve numeric value meaning; do not substitute a single digit. LOW CONFIDENCE free noun form and generic UI application. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "act-a-receivedAt",
+    "before": "Modification de la date de réception de __timeOldValue__ à __timeValue__",
+    "after": "ⵉⵙⵏⴼⵍ ⴰⴽⵓⴷ ⵏ ⵜⵔⵎⵙⵜ ⵖⵔ __timeValue__ ⵙⴳ (__timeOldValue__)",
+    "reason": "Replace French received-time activity with Tamazight time/change components and derived bound tarmest/reception. Preserve destination versus previous time, parentheses and exact placeholders; the short activity fragment leaves its destination for the viewer. LOW CONFIDENCE reception terminology adaptation from mixed-source lexicon MW (not MediaWiki), bound noun and full phrase composition. References: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf (PDF page 120 reception Tarmest MW, rmes receive; Central Morocco root take/catch on same page); https://www.unicode.org/cldr/charts/47/summary/zgh.html (time akud); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (change/edit snfl)."
+  },
+  {
+    "locale": "zgh",
+    "key": "a-receivedAt",
+    "before": "Date de réception modifiée à",
+    "after": "ⵉⵙⵏⴼⵍ ⴰⴽⵓⴷ ⵏ ⵜⵔⵎⵙⵜ ⵖⵔ",
+    "reason": "Replace French received-time activity with Tamazight time/change components and derived bound tarmest/reception. Preserve destination versus previous time, parentheses and exact placeholders; the short activity fragment leaves its destination for the viewer. LOW CONFIDENCE reception terminology adaptation from mixed-source lexicon MW (not MediaWiki), bound noun and full phrase composition. References: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf (PDF page 120 reception Tarmest MW, rmes receive; Central Morocco root take/catch on same page); https://www.unicode.org/cldr/charts/47/summary/zgh.html (time akud); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (change/edit snfl)."
   }
 ]
