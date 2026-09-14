@@ -131325,5 +131325,12 @@
     "before": "Définit une limite maximale au nombre de cartes de cette liste",
     "after": "ⵙⵏⵎⵍ ⴰⵡⵜⵜⵓ ⵉ ⵡⵓⵣⵣⵓⵔ ⵏ ⵓⵎⴹⴰⵏ ⵏ ⵜⵡⵓⵔⵉⵡⵉⵏ ⴳ ⵜⵍⴳⴰⵎⵜ ⴰⴷ",
     "reason": "2026-09-14: Replace French WIP value setting with Tamazight, preserving imperative set/define, limit, maximum task count and this list. IRCAM PDF page 508 entry 9575 define snml, page 270 entry 5271 limit awttu, page 457 entry 8699 maximum uzzur/construct wuzzur; reuse count/task/list vocabulary. Low confidence: maximum-of-count compound, construct forms and full software phrase require native/browser review. Actual listHeader.jade numeric WIP value label remains unchanged structurally."
+  },
+  {
+    "locale": "dz",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Hijri ཟླ་ཐོ (Saudi Arabia, ཟླཝ་མཐོང་ནི་)",
+    "reason": "2026-09-14: Restore complete Hijri calendar, Saudi Arabia and moon-sighting components rather than English country-only seed. Grammar of Dzongkha PDF page 191 example 35 attests moon zlawa spelling ཟླཝ; PDF page 325 section 7.1 attests མཐོང་ནི infinitive see and its verbal-noun use. Reuse locale calendar noun; retain Hijri/Saudi Arabia as names. Low confidence: full moon-seeing compound and technical calendar nomenclature require native/browser review. Civil/astronomical epoch labels remain separately pending."
   }
 ]
