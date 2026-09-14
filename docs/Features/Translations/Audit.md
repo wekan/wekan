@@ -16,6 +16,12 @@ Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calenda
 
 Latest translation fix: **2026-09-14**, local commit `12163bc6b` — replaced French workspace icon text, preserving literal markdown. Directly inspected CNAM Icon is a starred cross-variety proposal with MC£ source marker, not normative Moroccan evidence. Reuse existing WeKan icon/workspace terms; full wording remains **low confidence**. All **18,094** correction checks pass; **324** findings remain pending across **17** locales, including **189** Tamazight. The **4,058** restored values, unflagged values, 98 provenance-affected records and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
+**Parent-card review (2026-09-14):** code confirms No Parent is display-only,
+distinct from changing the relationship. Indexed cross-variety vocabulary
+does not establish a singular Moroccan parent term; earlier inheritance
+wording and pending French controls still need review.
+[Evidence](Audit-Evidence.md) records the limits; values/counts unchanged.
+
 **Format review (2026-09-14):** indexed HACA terminology supports a native
 Format noun candidate; direct PDF retrieval failed. Full placeholder wording
 remains pending, with `%{value}` unchanged. Separator HTML space entities

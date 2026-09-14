@@ -1,5 +1,19 @@
 # Detailed translation audit evidence
 
+2026-09-14 — parent-card terminology review: models/boards.js documents
+`no-parent` as not showing the parent at all; it is a display option, not
+relationship removal. Keep this distinct from Change Card Parent and
+Show Parent In Minicard. Native MediaWiki directly supports Show, but does
+not by itself establish hierarchical parent terminology. The indexed
+[Amawal dictionary](https://imedyazen1.tripod.com/id38.html) search family
+has amaraw ancestor/parent and amawlan lexical/dictionary-related;
+Kabyle imawlan parents does not justify deriving singular amawlan for
+Standard Moroccan software Parent. These indexed, cross-variety candidates
+are not normative Moroccan proof. Earlier parent-label inheritance wording
+and full hierarchical terminology still need review. Leave current French
+parent controls pending; do not substitute a visually higher card for its
+actual parent relationship. No values, correction records or counts changed.
+
 2026-09-14 — `12163bc6b`: workspace icon label repaired from French,
 preserving literal markdown. Direct inspection of CNAM Amawal PDF page 71
 shows Icon Tignit*, diminutive of silhouette tigni with MC£ marker, not
