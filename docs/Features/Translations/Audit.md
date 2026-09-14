@@ -4,24 +4,23 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,557 |
-| Restored pre-pull; awaiting validation | 2,056 |
+| Corrected | 15,560 |
+| Restored pre-pull; awaiting validation | 2,053 |
 | Reviewed; retained unchanged | 2,160 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
 Review is ongoing. The [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,153** exact before/after values, including unflagged repairs.
+contain **18,156** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `5d94f1b92` —
-repaired Esperanto advanced-filter examples and literal-character escaping.
-All **18,153** correction records and focused filter checks pass. Latest
-unchanged review: `41fb26dff` (2026-09-14), scrollbar terminology confirmed.
-Six Esperanto restored findings remain: overtime variants, lime color and
-two Complete labels. Browser and broader language verification remain open;
-no translations pushed.
+Latest translation fix: **2026-09-14**, local commit `9b6b1ffe6` —
+clarified three Esperanto overtime-work labels for manually classified work
+hours. All **18,156** correction records pass. Latest unchanged review:
+`41fb26dff` (2026-09-14), scrollbar terminology confirmed. Three Esperanto
+restored findings remain: lime color and two Complete labels. Broader
+terminology/fluency and browser verification remain open; nothing pushed.
 
 
 Fixed categories include wrong-language prose, terminology, warnings,
@@ -30,7 +29,7 @@ Klingon findings and the broader 829 German-identical values were repaired;
 the cron label retains the actual tool name Cron. Danish restored review
 validated 611 values: 606 retained unchanged and five meanings repaired.
 Four Danish context-dependent labels remain: free, Complete, Schedule and Days Old.
-Esperanto overtime and lime-color wording
+Esperanto lime-color wording
 remains open.
 Reviewed subtask actions/settings retain correct subordinate-task compounds.
 

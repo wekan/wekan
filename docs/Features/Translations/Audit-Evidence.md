@@ -21851,3 +21851,18 @@ backslash inventory remain exact. Focused positive examples and negative
 wording coverage pass; all 18,153 corrections pass. Six Esperanto restored
 findings remain. Globally 2,056 restored and 308 pending findings plus wider
 language/browser verification remain open.
+
+
+### Esperanto overtime-work wording — 2026-09-14
+
+Local commit `9b6b1ffe6` uses Kromlaboro consistently in three overtime
+labels. cardTime.js stores the manually selected isOvertime alongside
+spentTime; this is work classification, not computed deadline expiry or
+extra time granted. Hours unit remains intact. Reference comparison:
+https://www.learnentry.com/english-esperanto/meaning/overtime/ gives
+kromlaboro; https://retavortaro.de/revo/art/labor.html establishes the
+compound for additional work, though its example is unofficial side work,
+not a payroll-specific definition. Thus native full-phrase fluency still
+belongs to the broader review. All 18,156 corrections pass. Three Esperanto
+restored findings remain; globally 2,053 restored and 308 pending findings
+plus broader language/browser verification remain open.
