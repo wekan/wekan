@@ -30,10 +30,10 @@ source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
 Latest terminology review: **2026-09-15** —
-[Dzongkha tabular epochs](Dzongkha-Calendar-Review.md) checks current CLDR:
-both variants share tabular leap rules and differ by epoch, not sighting.
-Preserve Julian date basis and avoid a separate deprecated alias choice.
-Native epoch wording remains open. No translations or counts changed.
+[Dzongkha tabular spelling](Dzongkha-Calendar-Review.md) visually confirms
+རེའུ་མིག་ཅན from the rendered publisher dictionary, resolving corrupt
+extracted glyphs. Full epoch compounds remain open; both variants need
+this component. No translations or counts changed.
 Earlier reviews remain in detailed evidence.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,

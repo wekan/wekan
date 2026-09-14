@@ -54,3 +54,25 @@ these algorithm definitions. Earlier sighting-label and ISO repairs do
 not resolve the two epoch labels or their grammar. No translation or
 counts changed. Pending 159 original findings; Dzongkha 2. No live UI
 test ran and no remote writes were made.
+
+
+## Legible tabular term — visual source review 2026-09-15
+
+The cached publisher DCT.pdf is a real 226-page PDF. A fresh pypdf
+extraction reproduced the mixed-script glyph corruption, so it was not
+used as final Dzongkha spelling. Local rendering of PDF page 196 (printed
+192) was inspected visually at `.tools/tmp/dz-tabular-page196.png`.
+The Tabular row clearly gives `རེའུ་མིག་ཅན།`, resolving the corrupted
+u glyph in the extracted `རེའఆ་མིག་ཅན` candidate.
+Source: https://www.cle.org.pk/research/rep/DCT.pdf
+
+This is visual confirmation of a native computing tabular term, not merely
+an indexed snippet. It does not establish the full calendar compound or
+civil/astronomical epoch terminology. Next action is to apply this legible
+component after checking the epoch/starting-date phrases; both variants
+must retain it and their distinct epoch qualifier.
+
+PyMuPDF was installed only in the existing temporary PDF-review venv to
+render this source; no application dependency or package manifest changed.
+No translations or counts changed. Pending 159 original findings;
+Dzongkha 2. No live calendar UI test ran and no remote writes were made.
