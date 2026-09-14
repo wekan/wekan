@@ -237,3 +237,15 @@ test("Veps list synchronization popup has a localized list title", () => {
  assert.doesNotMatch(data["listSyncPopup-title"],/Vhambadzanya|Bammbi/i);
  assert.notEqual(data["listSyncPopup-title"],data["list-sync-menu"]);
 });
+
+test("Veps vote sorting and event details replace wrong-language labels", () => {
+ const data=JSON.parse(fs.readFileSync("imports/i18n/data/ve-PP.i18n.json","utf8"));
+ assert.equal(data["sort-by-votes"],"Sortirui äniden mödhe");
+ assert.equal(data.voting,"Änestamine");
+ assert.equal(data["event-detail"],"Ližatedod");
+ assert.doesNotMatch(data["sort-by-votes"],/hangisa|vhukhetho/i);
+ assert.doesNotMatch(data.voting,/äänestys/i);
+ assert.doesNotMatch(data["event-detail"],/Zwidodombedzwa/i);
+ assert.notEqual(data["sort-by-votes"],data.sort);
+ assert.notEqual(data["event-detail"],data["event-severity"]);
+});

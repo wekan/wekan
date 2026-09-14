@@ -139550,5 +139550,26 @@
     "before": "U Vhambadzanya Bammbi",
     "after": "Lugetižen sinhronirund",
     "reason": "Native MediaWiki attests avadim for default sort key, independently of door key; apply software-key analogy to project identifier, retaining ID/path alternatives. Sync popup title replaces Tshivenda using local list and derived synchronization noun. Full compounds and case grammar remain low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "sort-by-votes",
+    "before": "U hangisa nga ndila ya vhukhetho",
+    "after": "Sortirui äniden mödhe",
+    "reason": "Replace Tshivenda/Finnish with Veps: existing änestamine/votes vocabulary, native MediaWiki sorting construction and details ližatedod. Vote genitive and full context terminology remain low confidence; preserve vote sorting rather than ballot action."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "voting",
+    "before": "Äänestys",
+    "after": "Änestamine",
+    "reason": "Replace Tshivenda/Finnish with Veps: existing änestamine/votes vocabulary, native MediaWiki sorting construction and details ližatedod. Vote genitive and full context terminology remain low confidence; preserve vote sorting rather than ballot action."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "event-detail",
+    "before": "Zwidodombedzwa",
+    "after": "Ližatedod",
+    "reason": "Replace Tshivenda/Finnish with Veps: existing änestamine/votes vocabulary, native MediaWiki sorting construction and details ližatedod. Vote genitive and full context terminology remain low confidence; preserve vote sorting rather than ballot action."
   }
 ]
