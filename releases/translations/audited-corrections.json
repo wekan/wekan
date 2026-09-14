@@ -123632,5 +123632,12 @@
     "before": "إضافة او حذف أعضاء للبطاقة.",
     "after": "ⵔⵏⵓ ⵉⴳⵎⴰⵎⵏ ⵏ ⵜⴼⵍⵡⵉⵜ ⴳ ⵜⴽⴰⵕⴹⴰ, ⵏⵖ ⴽⴽⵙ ⵜⵏ ⵙⴳ ⵜⴽⴰⵕⴹⴰ.",
     "reason": "Replace Arabic card-member instruction and restore the omitted board membership scope from English. Add board members to the card OR remove them FROM the card, not remove board membership. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json create-local rnu, delete kks, nosuchactiontext nɣ or and logentry-move-move sg from support action/preposition components; retain local igmamn members, tafelwit board and takarḍa card terminology. LOW CONFIDENCE complete coordinated instruction, bound noun forms and plural object pronoun tn require fluent review. Reviewed 2026-09-14."
+  },
+  {
+    "locale": "zgh",
+    "key": "globalSearch-instructions-status-ended",
+    "before": "`__predicate_ended__` - cartes ayant une date de fin.",
+    "after": "`__predicate_ended__` - ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵏⵏⴰ ⵖⵓⵔⵙⵏⵜ ⵉⵍⵍⴰ ⴰⵙⴰⴽⵓⴷ ⵏ ⵜⵉⴳⵉⵔⴰ",
+    "reason": "Replace French ended search predicate guidance, retaining exact __predicate_ended__ code and cards WITH an end date rather than implying completed cards or dates already past. Native MediaWiki https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json blockedtext-expiration-time supplies tigira end/expiry, userlogin-noaccount possession ɣurk and existence illi; local audited date/card vocabulary reused. LOW CONFIDENCE feminine plural possession ɣursnt, full relative construction and expiry-to-card-end-date adaptation require fluent review. Reviewed 2026-09-14."
   }
 ]
