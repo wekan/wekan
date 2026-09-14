@@ -247,3 +247,14 @@ initial default HTML reporter lacked permission to overwrite an existing
 report; changing only the reporter resolved registration without filesystem
 permission changes. Browser execution and full native fluency remain open.
 Four restored and 283 pending findings are not reclassified from VM checks.
+
+Assignee noun-phrase repair **2026-09-14**, local commit `486be5743`:
+`r-when-the-assignee` changes **Esleitu hau** (Assign this) to
+**Esleitutako erabiltzaile hau** (This assigned user). Existing assignee
+terminology and Basque technical references support the component wording.
+The actual named-assignee row still places its input after the subject,
+unlike the five Basque named-object rows already reordered. Full named
+assignee add/remove composition and browser verification remain open.
+This lexical repair does not accept the four restored findings. Four
+affected test files pass; ledger 18,831, pending 232/restored 4 unchanged.
+Source: https://learn.microsoft.com/eu-es/power-platform/admin/create-users

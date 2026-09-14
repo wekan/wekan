@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/486be5743">Correct Basque assignee rule subject wording</a>. Thanks to xet7.</summary>
+
+The subject now names the assigned user instead of saying Assign This.
+Locale, token and preference checks pass. Named-row composition and browser
+verification remain open in dated translation audit evidence.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3b12f68c7">Repair Veps card and minicard display labels</a>. Thanks to xet7.</summary>
 
 Two complete drafts preserve distinct display targets. Location forms and

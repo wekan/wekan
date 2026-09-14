@@ -16,13 +16,13 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, local commit `3b12f68c7` —
-two Finnish Veps card/minicard display labels replaced with complete drafts.
-Location forms and full software phrasing remain low confidence. Checks
-pass; original pending 232, ledger 18,830. Native/browser review stays open.
+Latest translation fix: **2026-09-14**, local commit `486be5743` —
+Basque assignee rule subject corrected from imperative to noun phrase.
+Checks pass; named-row composition/browser review remains open. Original
+pending 232 and restored 4 unchanged; ledger 18,831.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **18,830** exact before/after values, including unflagged
+records contain **18,831** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
