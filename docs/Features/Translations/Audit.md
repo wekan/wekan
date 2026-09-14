@@ -20,7 +20,7 @@ Latest translation fix: **2026-09-15**, `cda3ca904` — Tamazight
 check/uncheck labels and descriptions now share IRCAM mark/sign terms.
 Four focused suites pass. Ledger 19,818; original pending 189 (Tamazight
 94), restored 4 unchanged. Checkbox adaptation and complete phrase grammar
-remain low confidence. Issue fixes #6694 and #6693 are being handled before
+remain low confidence. Issue fixes #6694 (`a8226cc60`) and #6693 (`70202a849`) are complete locally;
 translation review continues.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)

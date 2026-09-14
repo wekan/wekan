@@ -638,14 +638,56 @@ the Markdown commit as the template.
 
 
 
-**In short:** **Swedish and Valencian translations** clarify Due Cards to
-include future deadlines and repair reflexive imperative and checklist wording.
-Reviews retain correct Valencian settings, Thai interface labels and Swedish
-and Arabic warnings. Exact correction and review checks preserve placeholders
-and newer translations; broader language, shared trigger grammar and browser
-verification remain open.
+**In short:** **Checklist deadlines** add a shared-calendar date picker and
+REST deadline access. **Multi-selection** correctly applies labels and members
+without reversing the action. **Swedish and Valencian translations** clarify
+Due Cards to include future deadlines and repair reflexive imperative and
+checklist wording. Reviews retain correct Valencian settings, Thai interface
+labels and Swedish and Arabic warnings. Exact correction and review checks
+preserve placeholders and newer translations; broader language, shared trigger
+grammar and browser verification remain open.
 
-This release documents the following translation fixes:
+This release includes the following features and fixes:
+
+**Checklist deadlines** - Header dates and REST access.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/70202a849">Add checklist deadlines and expose item dates in REST</a></summary>
+
+Optional checklist due dates use the existing selected-calendar date/time
+popup and due-date badge. Item deadlines remain independent. Checklist and
+single-card GETs expose checklist and item deadlines; checklist/item POST
+and PUT accept timezone-qualified ISO dates, with null clearing a deadline.
+Invalid dates return 400; omitted dates stay unchanged. Existing board write
+permissions and card/checklist ownership checks remain enforced.
+
+Focused model/API regressions and the Chromium save/edit/clear browser test
+pass. Both changed Jade templates compile. Uses existing dependencies,
+themes and translated controls, including On-Premise installations.
+
+Thanks to rmb82 and xet7 !
+
+</details>
+
+**Multi-selection** - Label and member actions.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a8226cc60">Apply labels and members from the clicked row</a></summary>
+
+Use the clicked label/member context rather than surrounding template data.
+Correct reversed assign/unassign popup actions and separate the bulk-label
+button from the sidebar create-label selector. Stop event propagation,
+await mutations and ignore repeated clicks in a double-click sequence.
+The initial action correction is in
+[the popup fix](https://github.com/wekan/wekan/commit/059c3311d).
+
+Behavioral tests verify add/remove direction, row context, popup wiring and
+repeated-click protection. Chromium verifies that a mixed selection retains
+added labels and members.
+
+Thanks to AmigaAbattoir and xet7 !
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/bdf511a2b">Keep RTL language marker on the first line</a>. Thanks to xet7.</summary>
