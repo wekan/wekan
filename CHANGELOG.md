@@ -668,7 +668,17 @@ The empty wrongly placed Git directory was removed locally.
 
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
-**Languages updated:** Acehnese, Basque, Esperanto, Galician, Greenlandic, Manx, Sardinian, Swedish, Valencian, Veps
+**Languages updated:** Acehnese, Basque, Breton, Esperanto, Galician, Greenlandic, Manx, Sardinian, Swedish, Valencian, Veps
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/87e2ed6fa">Repair Breton assignee label language</a>. Thanks to xet7.</summary>
+
+Replace three French labels with Breton assigned-person/absence wording.
+Retain the correct no-assignee label using assignment terminology evidence
+and existing assigned-only wording. Exact correction/review checks pass;
+broader language and browser verification remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/04711b646">Use evidenced Sardinian magenta colour wording</a>. Thanks to xet7.</summary>

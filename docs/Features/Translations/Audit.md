@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,592 |
-| Restored pre-pull; awaiting validation | 31 |
-| Reviewed; retained unchanged | 4,156 |
+| Restored pre-pull; awaiting validation | 30 |
+| Reviewed; retained unchanged | 4,157 |
 | Pending review or repair | 302 |
 | Total tracked | 20,081 |
 
@@ -20,24 +20,19 @@ Polish-only sources do not establish correct Silesian terminology.
 French prose in the first 25 pending entries and records a new dictionary
 lead requiring primary-source cross-checks. No values accepted from that lead.
  The records in the [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,206** exact before/after values, including unflagged repairs.
+contain **18,209** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `04711b646` —
-Sardinian magenta label now uses published fùcsia. W3C and WeKan colour
-mapping confirm the same #ff00ff identity. This chooses an evidenced native
-label, without claiming magenta cannot be a Sardinian loan. All **18,206**
-corrections pass. Wider Sardinian and browser review remain open.
-Greenlandic Buddhist calendar phrase in `e4860ab8e` remains an adaptation
-requiring native inflection review; Manx Coptagh remains provisional.
-Latest unchanged review: **2026-09-14**, same commit —
-Acehnese no-label retained for absence semantics. All **18,206** correction
-and **4,156** review records pass. Native technical terminology and live
-browser validation remain open. Connection-success and assignee wording
-still need stronger evidence; mixed-language filters need wider review.
-Manx Coptagh in `c5c91129b` remains provisional without dictionary attestation;
-its calendar noun feaillere is attested. Full language review remains open.
+Latest translation fix: **2026-09-14**, local commit `87e2ed6fa` —
+three unflagged French assignee labels become Breton. Latest unchanged
+review: **2026-09-14**, same commit — Den ebet deverket retained against
+Preder's assignment verb and existing assigned-only wording. Assigned-person
+and no-assignee meanings remain distinct. All **18,209** corrections and
+**4,157** reviews pass; wider Breton and browser validation remain open.
+Sardinian colour wording was repaired in `04711b646`. Greenlandic Buddhist
+calendar phrase remains an adaptation requiring native inflection review;
+Manx Coptagh remains provisional without dictionary attestation.
 Card-show-lists context is verified against its settings row and toggle.
 
 

@@ -22795,3 +22795,13 @@ magenta is wrong Sardinian. GNOME/LibreOffice sc paths tried returned 404;
 MediaWiki sc had no magenta entry, so those were not evidence of a term.
 All 18,206 corrections pass; 302 pending and 31 restored findings remain.
 Broader language/browser review remains open.
+
+Dated repair/review, 2026-09-14, local commit `87e2ed6fa`: retained
+Breton no-assignee Den ebet deverket. Preder's publisher reference
+https://www.preder.net/r/bibli/JEDOII/JEDOII17.pdf p22/p46 lists
+deverkañ = attribuer. Existing assigned-only labels corroborate deverket.
+Unflagged filter-no-assignee, assignee and cardAssigneePopup-title French
+values become Den ebet deverket / Den deverket, preserving absence versus
+assigned-person meaning. All 18,209 correction and 4,157 review records
+pass; 30 restored and 302 pending findings remain. No live browser claim;
+assign-member and broader French-seeded Breton prose remain review work.
