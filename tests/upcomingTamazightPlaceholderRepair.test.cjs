@@ -629,3 +629,8 @@ assert.strictEqual(translated["error-json-schema"], "ⵉⵙⴼⴽⴰ JSON ⵏⴽ
 assert.doesNotMatch(translated['error-json-schema'], /Vos données|contiennent|appropriée|[\u0600-\u06ff]/u);
 assert.ok(translated['error-json-schema'].includes('JSON'));
 console.log('Tamazight JSON schema warning retains data and information/format scope');
+
+assert.strictEqual(translated["error-csv-schema"], "ⵉⵙⴼⴽⴰ CSV (ⴰⵜⵉⴳⵏ ⵉⵜⵜⵓⴱⴹⴰⵏ ⵙ ⵜⵉⵙⴽⵔⵉⵏ)/TSV (ⴰⵜⵉⴳⵏ ⵉⵜⵜⵓⴱⴹⴰⵏ ⵙ ⵉⵙⴽⴽⵉⵍⵏ Tab) ⵏⴽ ⵓⵔ ⴷⴰⵔⵙⵏ ⵉⵏⵖⵎⵉⵙⵏ ⵉⴽⵏⴰⵏ ⴳ format ⵉⴽⵏⴰⵏ.");
+assert.doesNotMatch(translated['error-csv-schema'], /[\u0600-\u06ff]/u);
+for (const token of ['CSV', 'TSV', 'ⵜⵉⵙⴽⵔⵉⵏ', 'Tab', 'format']) assert.ok(translated['error-csv-schema'].includes(token));
+console.log('Tamazight CSV schema warning retains comma and Tab explanations');

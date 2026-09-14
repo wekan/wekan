@@ -139263,5 +139263,12 @@
     "before": "Vos données JSON ne contiennent pas l'information appropriée dans un format correct",
     "after": "ⵉⵙⴼⴽⴰ JSON ⵏⴽ ⵓⵔ ⴷⴰⵔⵙⵏ ⵉⵏⵖⵎⵉⵙⵏ ⵉⴽⵏⴰⵏ ⴳ format ⵉⴽⵏⴰⵏ.",
     "reason": "2026-09-15: Replace French JSON-schema error with your JSON data lacking correct information in correct format. IRCAM isfka data 7505, anghmis information 3457, kn correct 6406. Format borrowed technical noun; possessive plural and derived correct participles/full phrase low confidence. No narrow JSON syntax-only error claim."
+  },
+  {
+    "locale": "zgh",
+    "key": "error-csv-schema",
+    "before": "لا يتضمن ملف CSV (القيم المفصولة بفواصل)/TSV (القيم المفصولة بعلامات التبويب) الخاص بك المعلومات الصحيحة بالتنسيق الصحيح",
+    "after": "ⵉⵙⴼⴽⴰ CSV (ⴰⵜⵉⴳⵏ ⵉⵜⵜⵓⴱⴹⴰⵏ ⵙ ⵜⵉⵙⴽⵔⵉⵏ)/TSV (ⴰⵜⵉⴳⵏ ⵉⵜⵜⵓⴱⴹⴰⵏ ⵙ ⵉⵙⴽⴽⵉⵍⵏ Tab) ⵏⴽ ⵓⵔ ⴷⴰⵔⵙⵏ ⵉⵏⵖⵎⵉⵙⵏ ⵉⴽⵏⴰⵏ ⴳ format ⵉⴽⵏⴰⵏ.",
+    "reason": "2026-09-15: Replace Arabic CSV/TSV warning using repaired JSON-schema information/format pattern and existing CSV import comma/Tab-separated-values explanations. Preserve both formats and missing proper information in correct format. Tab/format technical loans retained; passive separation, correct participles and full possessive grammar remain low confidence."
   }
 ]
