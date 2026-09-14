@@ -128546,5 +128546,103 @@
     "before": "Mois suivant",
     "after": "Miz war-lerc’h",
     "reason": "Replace French calendar navigation with native Breton miz and kent/war-lerc’h supported by MediaWiki month units and previousrevision/nextrevision controls. Full calendar browser validation remains open."
+  },
+  {
+    "locale": "br",
+    "key": "sort",
+    "before": "Tri",
+    "after": "Urzhiañ",
+    "reason": "Replace French sorting prose using existing sort-desc Urzhiañ and card-sorting-by-number-on-minicard terminology. Manual order is rendered directly as urzh dre zorn. Full native phrase/mutation and browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "sorted",
+    "before": "Triées",
+    "after": "Urzhiet",
+    "reason": "Replace French sorting prose using existing sort-desc Urzhiañ and card-sorting-by-number-on-minicard terminology. Manual order is rendered directly as urzh dre zorn. Full native phrase/mutation and browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "remove-sort",
+    "before": "Ne plus trier",
+    "after": "Paouez da urzhiañ",
+    "reason": "Replace French sorting prose using existing sort-desc Urzhiañ and card-sorting-by-number-on-minicard terminology. Manual order is rendered directly as urzh dre zorn. Full native phrase/mutation and browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "list-sort-by",
+    "before": "Trier la liste par:",
+    "after": "Urzhiañ ar roll dre:",
+    "reason": "Replace French sorting prose using existing sort-desc Urzhiañ and card-sorting-by-number-on-minicard terminology. Manual order is rendered directly as urzh dre zorn. Full native phrase/mutation and browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "list-label-sort",
+    "before": "Votre manuel",
+    "after": "Ho urzh dre zorn",
+    "reason": "Replace French sorting prose using existing sort-desc Urzhiañ and card-sorting-by-number-on-minicard terminology. Manual order is rendered directly as urzh dre zorn. Full native phrase/mutation and browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "card-sorting-by-number",
+    "before": "Tri numérique des cartes",
+    "after": "Urzhiañ ar c’hartennoù dre an niver",
+    "reason": "Replace French sorting prose using existing sort-desc Urzhiañ and card-sorting-by-number-on-minicard terminology. Manual order is rendered directly as urzh dre zorn. Full native phrase/mutation and browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "myCardsSortChange-title",
+    "before": "Trier Mes Cartes",
+    "after": "Urzhiañ ma c’hartennoù",
+    "reason": "Replace French sorting prose using existing sort-desc Urzhiañ and card-sorting-by-number-on-minicard terminology. Manual order is rendered directly as urzh dre zorn. Full native phrase/mutation and browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "myCardsSortChangePopup-title",
+    "before": "Trier Mes Cartes",
+    "after": "Urzhiañ ma c’hartennoù",
+    "reason": "Replace French sorting prose using existing sort-desc Urzhiañ and card-sorting-by-number-on-minicard terminology. Manual order is rendered directly as urzh dre zorn. Full native phrase/mutation and browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "myCardsSortChange-choice-board",
+    "before": "Par tableau",
+    "after": "Dre daolenn",
+    "reason": "Replace French sorting prose using existing sort-desc Urzhiañ and card-sorting-by-number-on-minicard terminology. Manual order is rendered directly as urzh dre zorn. Full native phrase/mutation and browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "myCardsSortChange-choice-dueat",
+    "before": "Par date d'échéance",
+    "after": "Dre zeiziad termen",
+    "reason": "Replace French sorting prose using existing sort-desc Urzhiañ and card-sorting-by-number-on-minicard terminology. Manual order is rendered directly as urzh dre zorn. Full native phrase/mutation and browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "sort-cards",
+    "before": "Trier les cartes",
+    "after": "Urzhiañ ar c’hartennoù",
+    "reason": "Replace French sorting prose using existing sort-desc Urzhiañ and card-sorting-by-number-on-minicard terminology. Manual order is rendered directly as urzh dre zorn. Full native phrase/mutation and browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "cardsSortPopup-title",
+    "before": "Trier les cartes",
+    "after": "Urzhiañ ar c’hartennoù",
+    "reason": "Replace French sorting prose using existing sort-desc Urzhiañ and card-sorting-by-number-on-minicard terminology. Manual order is rendered directly as urzh dre zorn. Full native phrase/mutation and browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "editCardSortOrderPopup-title",
+    "before": "Modifier le tri",
+    "after": "Kemmañ an urzhiañ",
+    "reason": "Replace French sorting prose using existing sort-desc Urzhiañ and card-sorting-by-number-on-minicard terminology. Manual order is rendered directly as urzh dre zorn. Full native phrase/mutation and browser validation remain open."
+  },
+  {
+    "locale": "br",
+    "key": "sort-is-on",
+    "before": "Le tri est activé",
+    "after": "Gweredekaet eo an urzhiañ",
+    "reason": "Replace French sorting prose using existing sort-desc Urzhiañ and card-sorting-by-number-on-minicard terminology. Manual order is rendered directly as urzh dre zorn. Full native phrase/mutation and browser validation remain open."
   }
 ]
