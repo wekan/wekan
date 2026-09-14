@@ -661,6 +661,17 @@ The browser assertion accepts whitespace between the regional flag and name.
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/51dd39523">Repair remaining Uzbek board terminology and word forms</a>. Thanks to xet7.</summary>
+
+Correct 179 council-term sentences to the established Kanban board noun.
+Preserve plural, possessive and case forms; fix related schedule, search,
+selection, templates and visibility wording. Five focused suites pass,
+including exact placeholders and newer human-translation preservation.
+Stale loading instructions and full technical wording remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/bc8d3b233">Repair remaining Khmer board and related word senses</a>. Thanks to xet7.</summary>
 
 Replace governing-council wording in 69 sentences per stored Khmer locale

@@ -26877,3 +26877,40 @@ including computing migration and swimlane wording, remains reviewable.
 Remaining Uzbek council-term inventory is 179 values; each sentence and
 possessive suffix still requires review. All prior uncertain findings remain
 in scope. No external translation service and no remote push.
+
+
+### 2026-09-14 — Remaining Uzbek board-sense sweep
+
+Source commit `51dd39523`: 179 Uzbek values reviewed against English source
+and repaired. Ledger 19,382; original pending 225 and four restored values
+unchanged. No previously unchanged acceptance superseded. Every remaining
+kengash occurrence described a Kanban board, not a governing council.
+
+[Izoh.uz: taxta](https://izoh.uz/word/taxta) supports the board noun, including
+notice-board usage. Preserve suffixes by adapting consonant-final kengash
+to vowel-final taxta: kengashi becomes taxtasi, kengashingiz becomes
+ taxtangiz, with following case suffixes retained. Plural taxtalar keeps its
+own possessive/case forms. The vowel-final possessive rule is supported by
+[Duke's hosted Uzbek grammar](https://slaviccenters.duke.edu/sites/slaviccenters.duke.edu/files/file-attachments/uzbek.original.pdf).
+Dictionary/grammar evidence supports morphology, not every native software
+collocation. Full technical sentences remain reviewable.
+
+Explicit related corrections remove governing-administration wording from
+adding a member; preserve only-one-board guidance; fix selection, board
+sorting, search, schedule and template grammar; clarify Multi Board Calendar
+and imported ZIP board-named directories. Visibility notices reuse existing
+private/public translations inside unchanged strong tags. Placeholders,
+backticked examples and surrounding correct-language prose are preserved.
+
+Five focused suites pass: full Uzbek council-term absence, possessive-case
+negative regressions and meaning checks; exact ledger tokens/examples/order,
+idempotency and newer-human preservation; unchanged reviews; completeness;
+All Boards routing. No new browser run; these checks do not prove fluency.
+
+Independent stale prose remains: cards-loading-description still describes
+old all/lazy configuration rather than current automatic loading and omits
+CARDS_LOADING_LAZY_THRESHOLD. cards-loading-lazy-note and other technical
+instructions need current-source review. Keep these in scope even though
+they are outside the original 225-key pending table. Other archive locales,
+restored values and all prior low-confidence findings remain unfinished.
+No external translation service or remote push.

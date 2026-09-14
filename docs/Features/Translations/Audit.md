@@ -16,16 +16,16 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, `bc8d3b233` — all 69 remaining
-council-term sentences per stored Khmer locale repaired after English-source
-review. Financial deposit, list purchasing, visibility, multi-board calendar
-and extra board in swimlane choice corrected. Five focused suites pass.
-Ledger 19,203; original pending 225 (zgh 118), restored 4 unchanged. Khmer
-council-term inventory is now zero; 179 Uzbek values await sentence review.
-Full technical compounds and all other uncertain findings remain open.
+Latest translation fix: **2026-09-14**, `51dd39523` — 179 remaining Uzbek
+council-term sentences repaired after English-source review. Board noun cases,
+plural and possessive forms preserved; related search, schedule, selection
+and visibility wording corrected. Five focused suites pass. Ledger 19,382;
+original pending 225 (zgh 118), restored 4 unchanged. Uzbek/Khmer council-term
+inventories now zero. Stale Uzbek loading instructions, full technical
+phrasing, remaining archive locales and prior uncertain findings stay open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **19,203** exact before/after values, including unflagged
+records contain **19,382** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
