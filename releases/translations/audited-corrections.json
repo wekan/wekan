@@ -124815,5 +124815,47 @@
     "before": "Êtes-vous sûr de vouloir supprimer l'élément de la check-list ?",
     "after": "ⵉⵙ ⵏⵉⵜ ⵜⵅⵙⴷ ⴰⴷ ⵜⴽⴽⵙⴷ ⴰⴼⵔⴷⵉⵙ ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ?",
     "reason": "2026-09-14: Replace French checklist deletion confirmation preserving the Are you sure question and whole-checklist versus single-item distinction. Native Mastodon confirmations.delete.message directly supplies complete question/deletion frame; load_pending attests bound singular ufrdis Item, supporting adapted free afrdis. LOW CONFIDENCE free/bound adaptation, derived verification noun ussidd and full checklist paraphrase/noun-chain grammar require fluent Standard Moroccan review. Native question frame does not attest full checklist phrase. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json and https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "checklist",
+    "before": "Check-list",
+    "after": "ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ",
+    "reason": "2026-09-14: Replace Arabic/French checklist labels consistently with the proposed List of Verification paraphrase, retaining singular versus plural and Of relation where present. Native Mastodon lists.edit and column.lists directly attest talgamt/tilgamin List/Lists. LOW CONFIDENCE derived verification noun/bound ussidd, checklist semantic extension and full noun-chain grammar require fluent Standard Moroccan review; matching repaired controls is consistency evidence, not independent full-term attestation. Reference: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-checklist",
+    "before": "check-list",
+    "after": "ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ",
+    "reason": "2026-09-14: Replace Arabic/French checklist labels consistently with the proposed List of Verification paraphrase, retaining singular versus plural and Of relation where present. Native Mastodon lists.edit and column.lists directly attest talgamt/tilgamin List/Lists. LOW CONFIDENCE derived verification noun/bound ussidd, checklist semantic extension and full noun-chain grammar require fluent Standard Moroccan review; matching repaired controls is consistency evidence, not independent full-term attestation. Reference: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "operator-checklist-text",
+    "before": "check-list",
+    "after": "ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ",
+    "reason": "2026-09-14: Replace Arabic/French checklist labels consistently with the proposed List of Verification paraphrase, retaining singular versus plural and Of relation where present. Native Mastodon lists.edit and column.lists directly attest talgamt/tilgamin List/Lists. LOW CONFIDENCE derived verification noun/bound ussidd, checklist semantic extension and full noun-chain grammar require fluent Standard Moroccan review; matching repaired controls is consistency evidence, not independent full-term attestation. Reference: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "predicate-checklist",
+    "before": "check-list",
+    "after": "ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ",
+    "reason": "2026-09-14: Replace Arabic/French checklist labels consistently with the proposed List of Verification paraphrase, retaining singular versus plural and Of relation where present. Native Mastodon lists.edit and column.lists directly attest talgamt/tilgamin List/Lists. LOW CONFIDENCE derived verification noun/bound ussidd, checklist semantic extension and full noun-chain grammar require fluent Standard Moroccan review; matching repaired controls is consistency evidence, not independent full-term attestation. Reference: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "checklists",
+    "before": "قوائم التّدقيق",
+    "after": "ⵜⵉⵍⴳⴰⵎⵉⵏ ⵏ ⵓⵙⵙⵉⴷⴷ",
+    "reason": "2026-09-14: Replace Arabic/French checklist labels consistently with the proposed List of Verification paraphrase, retaining singular versus plural and Of relation where present. Native Mastodon lists.edit and column.lists directly attest talgamt/tilgamin List/Lists. LOW CONFIDENCE derived verification noun/bound ussidd, checklist semantic extension and full noun-chain grammar require fluent Standard Moroccan review; matching repaired controls is consistency evidence, not independent full-term attestation. Reference: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "r-of-checklist",
+    "before": "de la checklist",
+    "after": "ⵏ ⵜⵍⴳⴰⵎⵜ ⵏ ⵓⵙⵙⵉⴷⴷ",
+    "reason": "2026-09-14: Replace Arabic/French checklist labels consistently with the proposed List of Verification paraphrase, retaining singular versus plural and Of relation where present. Native Mastodon lists.edit and column.lists directly attest talgamt/tilgamin List/Lists. LOW CONFIDENCE derived verification noun/bound ussidd, checklist semantic extension and full noun-chain grammar require fluent Standard Moroccan review; matching repaired controls is consistency evidence, not independent full-term attestation. Reference: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
   }
 ]
