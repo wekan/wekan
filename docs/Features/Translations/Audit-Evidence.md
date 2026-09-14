@@ -21785,3 +21785,13 @@ restoration affects nonarchived items, whereas archive restoration affects
 all archived types. Difficult-undo warning, field identifiers and this-board
 URL scope remain explicit. All 2,089 reviews pass; 2,129 restored values and
 308 pending findings plus broader language/browser verification remain open.
+
+
+### Esperanto scheduling intervals and diagnostics — 2026-09-14
+
+Local commit `5a398d5ac` retains thirty correct restoration/scanning,
+completion, resource and interval labels. Ĉiun/Ĉiujn agrees with singular
+and plural day/hour/minute quantities. CPU percentage, run-once scope and
+previous/next order remain intact. All 2,119 reviews pass; 2,099 restored
+values and 308 pending findings plus broader language/browser verification
+remain open.
