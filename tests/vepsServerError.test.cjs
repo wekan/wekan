@@ -113,3 +113,12 @@ test("Veps rules heading replaces Finnish using native rules plural", () => {
  assert.doesNotMatch(data.rules, /säännöt/i);
  assert.notEqual(data.rules, data["r-rule"]);
 });
+
+test("Veps rule toggle replaces Tshivenda and preserves both actions", () => {
+ const data = JSON.parse(fs.readFileSync("imports/i18n/data/ve-PP.i18n.json", "utf8"));
+ assert.equal(data["r-rule-disabled"], "Kel'düd");
+ assert.equal(data["r-toggle-rule-enabled"], "Pane nece sänd päle libo kel'dä sidä");
+ assert.equal(data["r-rule-enabled"], "Päl");
+ assert.notEqual(data["r-rule-disabled"], data["r-rule-enabled"]);
+ for (const key of ["r-rule-disabled", "r-toggle-rule-enabled"]) assert.doesNotMatch(data[key], /shumiswi|Shumisani|mulayo|litshani/i);
+});

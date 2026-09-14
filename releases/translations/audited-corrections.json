@@ -139305,5 +139305,19 @@
     "before": "Säännöt",
     "after": "Sändod",
     "reason": "Replace unflagged Finnish rules heading with native Veps Sändod, attested in MediaWiki policy-url; existing r-rule supplies singular Sänd."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-rule-disabled",
+    "before": "A i shumiswi",
+    "after": "Kel'düd",
+    "reason": "Replace unflagged Tshivenda rule state/action with Veps draft. Native MediaWiki authmanager-autocreate-exception uses kel’düd and specialmute-label-mute-email uses Kel’dä; existing custom-head-tags-enabled gives Pane päle. Assembled rule-object grammar remains low confidence. Preserve enable-or-disable action and existing enabled state."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-toggle-rule-enabled",
+    "before": "Shumisani kana litshani mulayo hoyu",
+    "after": "Pane nece sänd päle libo kel'dä sidä",
+    "reason": "Replace unflagged Tshivenda rule state/action with Veps draft. Native MediaWiki authmanager-autocreate-exception uses kel’düd and specialmute-label-mute-email uses Kel’dä; existing custom-head-tags-enabled gives Pane päle. Assembled rule-object grammar remains low confidence. Preserve enable-or-disable action and existing enabled state."
   }
 ]
