@@ -27148,3 +27148,33 @@ new correction records or unchanged-language acceptances were made.
 Original pending 218 overall, Fulah 2; ledger 19,765, restored 4 unchanged.
 Structural tests cannot certify native phrase quality. No browser run or
 remote push.
+
+## Tabular epoch repairs — 2026-09-14
+
+Local commit `206859259` replaces both English-only epoch labels with
+component-based Fulah drafts. Existing Haatumeere Lislaam is retained;
+hiisa e haatumeere describes calculation with a structured table, and
+fuɗɗoode identifies the starting date. The civil Julian epoch is 622-07-16;
+the astronomical Julian epoch is 622-07-15. Explicit dates disambiguate the
+epochs without confusing astronomical epoch with moon sighting. These are
+fixed identifiers in labels, not a second user calendar or date formatter.
+
+New primary lexical evidence:
+[Smith/Niggli Fulfulde dictionary](https://mooreburkina.com/sites/www.mooreburkina.com/files/pdf-files/03%20Dictionnaire%20fulfulde%20-%20francais%20%20English.pdf)
+explicitly gives hiisa for arithmetic/calculation/counting and hiisaade for
+the calculation verb. The indexed entry resolves the previous unsupported
+calculation-term lead. It does not attest the assembled calendar phrase.
+The Senegal ministry structured-table evidence and Bah beginning entry
+above remain component references, not complete technical translations.
+
+**Low confidence:** full compound grammar, table-to-calendar calculation
+adaptation, Pular/Pulaar/Burkina dialect consistency, and the borrowed Julian
+proper name still need native review. Repeated Haatumeere uses retain the
+existing calendar-context name plus the attested structured-table sense;
+this does not certify generic calendar nomenclature throughout Fulah.
+Four focused suites pass, including exact placeholder/tag inventories,
+key order, correction provenance and newer human-translation preference.
+Existing Saudi sighting wording remains unchanged. No live calendar-selector
+browser test was run. Ledger 19,767; original corrected 15,687, pending 216,
+restored 4 unchanged. Zero original Fulah pending findings does not close
+broader uncertain or unflagged wording review. No remote push.

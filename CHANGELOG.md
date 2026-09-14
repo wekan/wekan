@@ -662,6 +662,19 @@ The browser assertion accepts whitespace between the regional flag and name.
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/206859259">Translate Fulah tabular Hijri calendar epoch labels</a></summary>
+
+Replace English-only labels with calculation, structured-table and beginning
+wording, retaining distinct Julian epoch dates and existing sighting wording.
+Four focused suites pass. Full compounds and dialect consistency remain
+under native review; audit evidence records sources and updated counts.
+
+Thanks to xet7.
+
+</details>
+
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ee94227ea">Document Fulah calendar component evidence</a></summary>
 
 Record primary structured-table and beginning-word evidence, distinguishing

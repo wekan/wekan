@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,685 |
+| Corrected | 15,687 |
 | Restored pre-pull; awaiting validation | 4 |
 | Reviewed; retained unchanged | 4,174 |
-| Pending review or repair | 218 |
+| Pending review or repair | 216 |
 | Total tracked | 20,081 |
 
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
@@ -16,23 +16,23 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, `3edd8d499` — Quechua Saudi
-calendar label now explicitly names moon sighting and uses a calendar noun.
-Four focused suites pass. Ledger 19,765; original pending 218, restored 4
-unchanged. Complete compounds, dialect consistency and all other
-uncertain/restored findings remain under review.
+Latest translation fix: **2026-09-14**, `206859259` — Fulah English-only
+civil/astronomical labels replaced with calculation/table/beginning drafts
+and distinct Julian epoch dates. Four focused suites pass. Ledger 19,767;
+original pending 216, restored 4 unchanged. Complete compounds, dialect
+consistency and all other uncertain/restored findings remain under review.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **19,765** exact before/after values, including unflagged
+records contain **19,767** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
 Latest terminology review: **2026-09-14**, `ee94227ea` —
 [Fulah calendar evidence](Fulah-Review.md) separates structured grid/table
-usage from furniture and adds primary beginning-word evidence. Complete
-calculation compounds and dialect/epoch grammar remain unverified; both
-Fulah findings stay pending. No locale values or counts changed.
+usage from furniture and adds primary beginning-word evidence. The latest repair above adds calculation-word evidence; complete compound
+grammar and dialect consistency remain unverified. Historical evidence
+review did not change locale values or counts.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:
@@ -49,7 +49,6 @@ restored values still await full native clause validation.
 | wal — Wolaytta | 17 |
 | ve-PP — Veps | 9 |
 | dz — Dzongkha | 2 |
-| ff — Fulah | 2 |
 | ks — Kashmiri | 2 |
 | ee — Ewe | 1 |
 | rup — Aromanian | 1 |
