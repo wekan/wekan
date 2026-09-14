@@ -1063,7 +1063,7 @@ jobs:
           path: provenance
           merge-multiple: true
 
-      - name: Compose the release notes, provenance first
+      - name: Compose release notes from the changelog only
         # The notes go from FILE to FILE and never become a shell value. Two
         # earlier shapes each broke a release: inline `${{ … }}` put them in the
         # shell SOURCE, so a backtick in any `code` span ran as a command (v10.59
@@ -1073,8 +1073,7 @@ jobs:
         # from CHANGELOG.md, appended with cat, the text is data all the way.
         run: |
           set -euo pipefail
-          bash releases/provenance-table.sh > release-notes.md || true
-          bash releases/release-notes.sh "$VERSION" >> release-notes.md
+          bash releases/release-notes.sh "$VERSION" > release-notes.md
           echo "----- release notes -----"
           head -40 release-notes.md
 
@@ -5317,15 +5316,8 @@ jobs:
             echo "::error::nextcloud FAILED. The ::error:: line in this job's log, above, says which step and why."
           fi
 
-  # ── The provenance table, completed ─────────────────────────────────────────
-  #
-  # The release is CREATED before win64, mac-arm64 and the extra architectures
-  # are built - those jobs need a release to upload their bundles to - so the
-  # table it is created with can only cover amd64 and arm64. This runs after all
-  # of them and rewrites the notes with every bundle's rows in.
-  #
-  # always(): a platform that failed should not cost the release its table for
-  # the platforms that succeeded.
+  # Refresh the selected changelog notes after builds. Binary provenance remains
+  # in build artifacts and is never appended to release notes.
   release-notes:
     name: complete the release notes
     needs:
@@ -5359,7 +5351,7 @@ jobs:
           path: provenance
           merge-multiple: true
 
-      - name: Rewrite the notes with every bundle in the table
+      - name: Refresh release notes from the changelog only
         # File to file, never a shell value: see the "Compose the release notes"
         # step for the two ways that broke a release.
         env:
@@ -5367,10 +5359,7 @@ jobs:
           VERSION: ${{ needs.prepare.outputs.version }}
         run: |
           set -euo pipefail
-          rows=$(find provenance -name '*.tsv' 2>/dev/null | wc -l)
-          echo "Provenance files collected: $rows"
-          bash releases/provenance-table.sh > release-notes.md || true
-          bash releases/release-notes.sh "$VERSION" >> release-notes.md
+          bash releases/release-notes.sh "$VERSION" > release-notes.md
           gh release edit --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" --notes-file release-notes.md
-          echo "Release notes updated with the provenance of every bundle built."
+          echo "Release notes updated from the changelog; binary provenance stays in build artifacts."
           head -40 release-notes.md

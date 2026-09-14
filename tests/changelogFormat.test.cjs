@@ -306,8 +306,7 @@ test('no CHANGELOG section carries a Platform/Binary/From/Version/SHA256 table (
   // Tried twice - right under the "In short" summary, then under a "Binaries
   // in these bundles" label at the end of the section - and removed both
   // times: it made every release's entry mostly a giant table nobody read.
-  // That data now lives only in the GitHub Release notes, built fresh by
-  // releases/provenance-table.sh every time a release is made. See CLAUDE.md.
+  // Provenance stays in build artifacts; it is also excluded from release notes.
   assert.ok(!/^\| Platform \| Binary \| From \| Version \| SHA256 \|$/m.test(changelog),
     'a Platform/Binary/From/Version/SHA256 table must not be in CHANGELOG.md');
   assert.ok(!/^\*\*Binaries in these bundles:\*\*$/m.test(changelog),
@@ -404,7 +403,7 @@ test('a RELEASED section never claims its binaries were not rebuilt', () => {
     `${version} carries the Upcoming section's "nothing here rebuilds them" - ` +
     `a release rebuilds every bundle, so its table has to be that build's own ` +
     `provenance (releases/provenance-table.sh prints it from provenance.tsv, ` +
-    `and the same table heads the GitHub release notes)`);
+    `kept separately in build artifacts)`);
 });
 
 test('CLAUDE.md states these rules, so they are not folklore', () => {

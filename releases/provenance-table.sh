@@ -1,7 +1,8 @@
 #!/bin/bash
 #
 # provenance-table.sh - turn the collected provenance rows into the markdown
-# table that goes at the TOP of the release notes.
+# diagnostic table for manual inspection; never append it to release notes
+# or CHANGELOG.md. Build provenance stays in artifacts.
 #
 # Reads every provenance.tsv the build jobs uploaded (given as arguments, or
 # found under ./provenance/) and prints a markdown section. Sorted by bundle,

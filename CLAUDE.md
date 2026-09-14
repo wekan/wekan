@@ -555,19 +555,12 @@ directly after the merge.
   `<details>` blocks below carry that information. Keep the paragraph current as
   topics change, and shorten it when added commits make it grow. A finished release
   keeps the paragraph it was written with.
-- **No release section carries a Platform/Binary/From/Version/SHA256 table, and
-  none ever should again.** It used to sit right under the `**In short:**`
-  paragraph, then moved to a `**Binaries in these bundles:**` label at the end
-  of the section — both tried and both removed, because CHANGELOG.md is not
-  where that data belongs: it made every release's entry mostly a giant table
-  nobody read, on top of what `<details>` entries already say. "Which Node.js
-  is in the arm64 bundle of 10.69, and was it checked" is answered by the
-  **GitHub Release notes** instead: `releases/provenance-table.sh` puts the
-  same table at the TOP of those, built fresh from the `provenance.tsv` rows
-  each build job records (see `releases/record-provenance.sh`), every time a
-  release is made — so it is never stale and never needs hand-editing into
-  CHANGELOG.md. Adding a binaries table back into a CHANGELOG entry, in any
-  shape, is reintroducing something the maintainer removed on purpose.
+- **Neither CHANGELOG.md nor release notes may contain a binaries provenance
+  section or a Platform/Bundle/Binary/From/Version/Checked/SHA256 table.**
+  Do not add "Binaries in these bundles" at the top or bottom of either.
+  Release notes contain the selected changelog section only. Keep download
+  verification and `provenance.tsv` build artifacts for diagnostics; do not
+  append their contents or `releases/provenance-table.sh` output to notes.
 - **Inside a subsection, entries are GROUPED BY TOPIC/AREA.** A release touches a handful
   of areas and repeating the area's name in every summary is the noise this
   removes — twelve entries that each begin "All Boards:" say "All Boards" twelve

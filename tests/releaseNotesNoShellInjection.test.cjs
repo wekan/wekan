@@ -113,10 +113,10 @@ test('every step that writes the notes into release-notes.md reads them from the
     !/>>\s*release-notes\.md[^\n]*\$\{\{/.test(text),
     'a step interpolates ${{ }} into the notes, where a backtick runs as a command',
   );
-  // and what must be there instead
+  // Notes now overwrite the file: provenance is excluded, while text stays data.
   assert.ok(
-    /release-notes\.sh "\$VERSION" >> release-notes\.md/.test(text),
-    'expected the notes to be appended from releases/release-notes.sh',
+    /release-notes\.sh "\$VERSION" > release-notes\.md/.test(text),
+    'expected changelog-only notes written directly from releases/release-notes.sh',
   );
 });
 

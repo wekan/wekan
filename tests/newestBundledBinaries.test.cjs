@@ -132,28 +132,14 @@ test('Node.js is resolved per architecture, not fetched from a fixed URL', () =>
     'it still knows all three sources');
 });
 
-test('the provenance table is what makes a `latest` build reproducible after the fact', () => {
-  // `latest` means rebuilding an old release would embed a different FerretDB
-  // than it shipped with. That is a deliberate trade - security fixes arrive
-  // without a commit - and what makes it safe is that every release RECORDS the
-  // versions and SHA256s it actually shipped.
-  //
-  // That record lives in the GitHub Release notes, not CHANGELOG.md: the
-  // Platform/Binary/From/Version/SHA256 table used to be duplicated into
-  // CHANGELOG.md as well, but the maintainer removed it there (it made every
-  // release's changelog entry mostly a giant table nobody read), so the
-  // release notes - built fresh from provenance-table.sh for every build -
-  // are now the one place this answers "which FerretDB did v10.77 ship?".
-  const rec = 'releases/record-provenance.sh';
-  assert.ok(fs.existsSync(path.join(repoRoot, rec)),
-    `${rec} must exist: it is what answers "which FerretDB did v10.77 ship?"`);
-  const table = 'releases/provenance-table.sh';
-  assert.ok(fs.existsSync(path.join(repoRoot, table)), `${table} must exist`);
+test('binary provenance stays separate from release notes', () => {
+  assert.ok(fs.existsSync(path.join(repoRoot, 'releases/record-provenance.sh')));
   const workflow = fs.readFileSync(path.join(repoRoot, '.github/workflows/release-all.yml'), 'utf8');
-  const uses = workflow.match(/bash releases\/provenance-table\.sh > release-notes\.md/g) || [];
-  assert.ok(uses.length >= 2,
-    'and release-all.yml still puts it at the top of the release notes (the initial '
-    + 'release and the later notes rewrite)');
+  assert.ok(/pattern: provenance-/.test(workflow), 'build provenance artifacts remain available');
+  assert.ok(!/bash releases\/provenance-table\.sh/.test(workflow),
+    'neither initial nor refreshed release notes may include the provenance table');
+  const uses = workflow.match(/bash releases\/release-notes\.sh "\$VERSION" > release-notes\.md/g) || [];
+  assert.equal(uses.length, 2, 'initial and refreshed notes use only changelog text');
 });
 
 console.log(`\n${passed} tests passed`);

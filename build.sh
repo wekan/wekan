@@ -2400,6 +2400,8 @@ choose() {
 # (a helper other scripts source), ferretdb/* (they run INSIDE the built
 # snap/bundle, not on a maintainer's machine) and the superseded old-*.sh and
 # translations/fill_translations.py.
+# Release notes contain only the changelog section. Binary provenance remains
+# a build artifact and must not be appended by any release entry point.
 RELEASE_SCRIPTS=(	"Release|Release ALL platforms: push CHANGELOG, trigger release-all.yml|releases/release-all.sh|||"
 	"Release|Release (older local flow), for one version|releases/release.sh|WeKan version, e.g. 10.50||"
 	"Release|Show the version numbers this checkout would release|releases/version.sh|||"
