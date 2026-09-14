@@ -139165,5 +139165,19 @@
     "before": "Tas de Node : limite de taille du tas",
     "after": "ⴰⴳⵓⴷⵉ ⵏ Node: ⵜⵉⴳⴳⵓⵎⵔⴰ ⵏ ⵓⵇⵓⴷⴷⵉ ⵏ ⵓⴳⵓⴷⵉ",
     "reason": "2026-09-15: Replace French heap-size-limit label using abstract IRCAM limit tiggumra 12525 and existing repaired heap/size compounds. Preserve ceiling distinct from total/used size or remaining capacity. Computing metaphor and nominal chain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "Node_heap_malloced_memory",
+    "before": "Tas de Node : mémoire allouée par malloc",
+    "after": "ⴰⴳⵓⴷⵉ ⵏ Node: ⵜⵉⵎⴽⵜⵉⵜ ⵙ malloc",
+    "reason": "2026-09-15: Replace French malloc-memory diagnostic with concise memory-through-malloc paraphrase. IRCAM timktit memory 12742 bound tmktit, amuzzur maximum 2691. Preserve malloc identifier and peak distinction. Allocation is implicit in malloc; computing memory adaptation, lifetime-peak interpretation and full compound remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "Node_heap_peak_malloced_memory",
+    "before": "Tas de Node : mémoire maximale allouée par malloc",
+    "after": "ⴰⴳⵓⴷⵉ ⵏ Node: ⴰⵎⵓⵣⵣⵓⵔ ⵏ ⵜⵎⴽⵜⵉⵜ ⵙ malloc",
+    "reason": "2026-09-15: Replace French malloc-memory diagnostic with concise memory-through-malloc paraphrase. IRCAM timktit memory 12742 bound tmktit, amuzzur maximum 2691. Preserve malloc identifier and peak distinction. Allocation is implicit in malloc; computing memory adaptation, lifetime-peak interpretation and full compound remain low confidence."
   }
 ]

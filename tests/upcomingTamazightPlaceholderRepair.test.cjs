@@ -565,3 +565,13 @@ assert.doesNotMatch(translated.Node_heap_heap_size_limit, /Tas de|limite de|[\u0
 assert.notStrictEqual(translated.Node_heap_heap_size_limit, translated.Node_heap_total_heap_size);
 assert.notStrictEqual(translated.Node_heap_heap_size_limit, translated.Node_heap_used_heap_size);
 console.log('Tamazight heap limit stays distinct from total and used size');
+
+assert.strictEqual(translated["Node_heap_malloced_memory"], "ⴰⴳⵓⴷⵉ ⵏ Node: ⵜⵉⵎⴽⵜⵉⵜ ⵙ malloc");
+
+assert.strictEqual(translated["Node_heap_peak_malloced_memory"], "ⴰⴳⵓⴷⵉ ⵏ Node: ⴰⵎⵓⵣⵣⵓⵔ ⵏ ⵜⵎⴽⵜⵉⵜ ⵙ malloc");
+for (const key of ['Node_heap_malloced_memory', 'Node_heap_peak_malloced_memory']) {
+ assert.doesNotMatch(translated[key], /Tas de|mémoire|allouée|[\u0600-\u06ff]|ⴰⴷⵔⴰⵔ/u);
+ assert.ok(translated[key].endsWith('ⵙ malloc'));
+}
+assert.notStrictEqual(translated.Node_heap_malloced_memory, translated.Node_heap_peak_malloced_memory);
+console.log('Tamazight malloc memory and peak labels retain allocation identifier and distinct maximum');
