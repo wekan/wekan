@@ -23045,3 +23045,11 @@ Not-found messages follow existing org-name-not-found structure and retain
 English %s token inventory exactly. Planning Poker remains a tool name.
 All 18,437 correction and 4,158 unchanged checks pass. Native phrase/browser
 validation remain open; original pending/restored remains 300/27.
+
+Dated unflagged repair, 2026-09-14, local commit `ed962d026`: three Breton
+list-menu labels replace French with Anv ar roll, Patromoù rolloù and
+Ouzhpennañ goude ar roll. Reuse existing name/list/template vocabulary;
+preserve list-template scope and insertion after the list. Last-access-time
+wording remains under review, rather than being guessed from the sort key.
+All 18,440 correction checks pass. Native phrase/browser validation remains
+open; original pending/restored scope stays 300/27.
