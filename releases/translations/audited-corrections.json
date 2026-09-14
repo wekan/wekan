@@ -126670,5 +126670,19 @@
     "before": "Séparateur (utiliser &#32; ou &nbsp; pour un espace)",
     "after": "ⴰⵏⴰⴱⵔⴰⵣ (ⵙⵎⵔⵙ &#32; ⵏⵖ &nbsp; ⵉ ⵓⵙⴽⴽⵉⵍ ⴰⵎⵍⵍⴰⵍ)",
     "reason": "2026-09-14: Replace French separator help preserving literal &#32; and &nbsp; and OR. Directly inspected CNAM Amawal PDF page 131: Separator Anabraz MC£,MC, from separate KBL/MAT and clear land MC£; page 31 Space character Asekkil amellal or Ilem KBL-sekkil (https://cedric.cnam.fr/~bouzefra/books/amawal.pdf). These cross-variety lexicon candidates are not normative Moroccan authority. Native MediaWiki rcfilters-search-placeholder attests Use smrs and OR ngh (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json). Adapt for a space as for a space character; cross-variety terminology, bound form usekkil and full software instruction remain low confidence and require language validation. Do not substitute Tifinagh U+2D70 word separator for HTML space entities."
+  },
+  {
+    "locale": "zgh",
+    "key": "copy-text-to-clipboard",
+    "before": "Copier le texte dans le presse-papier",
+    "after": "ⵙⵙⵏⵖⵍ ⴰⴹⵕⵉⵙ ⵖⵔ «ⵖⴼ ⵓⴼⵓⵙ»",
+    "reason": "2026-09-14: Replace wrong-language copy action preserving Text versus Card Link object and clipboard destination. Directly inspected CNAM PDF page 112 Clipboard ghef ufus at hand KBL (https://cedric.cnam.fr/~bouzefra/books/amawal.pdf); this is a Kabyle metaphor, not normative Moroccan software usage. Native MediaWiki filecopyerror/viewsourcetext support Copy ssnghl, missing-article supports Link asghn, and missing-article supports Text adhris (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json). Adapt the clipboard phrase as a quoted technical term, reusing local card noun. Copy imperative, Kabyle clipboard borrowing, bound card form and full action phrases remain low confidence and require Standard Moroccan language validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "copy-card-link-to-clipboard",
+    "before": "نسخ رابط البطاقة إلى الحافظة",
+    "after": "ⵙⵙⵏⵖⵍ ⴰⵙⵖⵏ ⵏ ⵜⴽⴰⵕⴹⴰ ⵖⵔ «ⵖⴼ ⵓⴼⵓⵙ»",
+    "reason": "2026-09-14: Replace wrong-language copy action preserving Text versus Card Link object and clipboard destination. Directly inspected CNAM PDF page 112 Clipboard ghef ufus at hand KBL (https://cedric.cnam.fr/~bouzefra/books/amawal.pdf); this is a Kabyle metaphor, not normative Moroccan software usage. Native MediaWiki filecopyerror/viewsourcetext support Copy ssnghl, missing-article supports Link asghn, and missing-article supports Text adhris (https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json). Adapt the clipboard phrase as a quoted technical term, reusing local card noun. Copy imperative, Kabyle clipboard borrowing, bound card form and full action phrases remain low confidence and require Standard Moroccan language validation."
   }
 ]
