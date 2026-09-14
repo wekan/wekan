@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,330 |
+| Corrected | 15,331 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 514 |
+| Pending review or repair | 513 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,644** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,645** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `e0ffa0088` — replaced the English-only Dzongkha Coptic calendar label using native computing dictionary vocabulary. Direct PDF extraction verifies Coptic; indexed primary text confirms the calendar term where PDF extraction corrupts a glyph. Full compound spelling remains **low confidence** pending fluent review. Three Dzongkha Hijri variant findings remain unresolved. All **17,644** correction/rendering checks pass. **514** originals remain pending across **17** locales, including **377** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `f366f3b77` — repaired the Ewe Saudi Hijri calendar label and restored the omitted sighting qualifier. Preserve existing Hijri/calendar terminology; CLDR country naming and Peace Corps moon/look vocabulary support components. Moon-sighting composition and the full technical label remain **low confidence** pending fluent review. One Ewe astronomical-epoch finding remains unresolved. All **17,645** correction/rendering checks pass. **513** originals remain pending across **17** locales, including **377** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Dzongkha variant reference review (2026-09-14):** downloaded both [GNU-hosted](https://download.savannah.gnu.org/releases/dzongkha-gnome/dzongkha_computer_terms.pdf) and [publisher-hosted](https://www.cle.org.pk/research/rep/DCT.pdf) computing dictionaries. Both directly extracted copies confirm Coptic `ཀོཔ་ཊིཀ` (PDF 47). Tabular (PDF 196) and Saudi Arabia (PDF 175) provide candidate components, but extracted glyphs are corrupt and indexed wording differs. The epoch entry (PDF 69) describes an important time; it does not establish a calendar reference date. No astronomical or moon-sighting term was found in this extraction, which does not prove absence. Keep all three Hijri variants pending; obtain legible native terms and preserve civil/astronomical reference-date and sighting distinctions. No translation values or counts changed.
 

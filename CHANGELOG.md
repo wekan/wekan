@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,330 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 514 pending review or repair.
-The correction inventory records 17,644 exact before/after values,
+findings: 15,331 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 513 pending review or repair.
+The correction inventory records 17,645 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,9 +102,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is e0ffa0088 (2026-09-14), replacing the English-only
-Dzongkha Coptic calendar label using native dictionary vocabulary. Full
-compound spelling and three Hijri variants still need language review.
+Latest translation fix is f366f3b77 (2026-09-14), repairing the Ewe Saudi
+Hijri calendar label and restoring the sighting qualifier. Full moon-sighting
+composition and astronomical-epoch terminology still need language review.
 
 Node regressions resolved on 2026-09-13: the original audit ran 986 suites
 with 19 failures. After the recorded source and guard repairs and one new
@@ -588,7 +588,7 @@ need language review.
 
 This release includes the following translation repairs and build verification:
 
-**Translations** - Tamazight interface and maintenance labels; Bambara, Fulah and Dzongkha calendars.
+**Translations** - Tamazight interface and maintenance labels; Bambara, Fulah, Dzongkha and Ewe calendars.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/fd6ae82a5">Repair Tamazight rule report and popup wording</a>. Thanks to xet7.</summary>
@@ -614,10 +614,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,330 original findings are
+Translation audit progress as of 2026-09-14: 15,331 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 514 remain pending across 17 locales, including 377 Tamazight findings.
-The ledger contains 17,644 correction records, including unflagged repairs.
+and 513 remain pending across 17 locales, including 377 Tamazight findings.
+The ledger contains 17,645 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -1279,6 +1279,17 @@ Both confirm Coptic spelling, but corrupted extraction and differing indexed
 terms do not establish full Hijri variants. The epoch example does not prove
 calendar reference-date terminology. Keep three variants pending further
 native review; no translation values or audit counts changed.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f366f3b77">Translate Ewe Saudi sighting calendar label</a>. Thanks to xet7.</summary>
+
+Replace English-only variant text and restore the omitted sighting qualifier.
+Preserve Hijri calendar and Saudi identity with native component vocabulary.
+Moon-sighting composition remains low confidence pending fluent review.
+All 17,645 correction/rendering checks pass; 513 originals remain pending,
+including one Ewe astronomical-epoch finding. Broader validation continues.
 
 </details>
 
