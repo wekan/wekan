@@ -202,3 +202,19 @@ test("Veps project label covers code, ID and repository path", () => {
  assert.ok(code.includes("/repos/${syncSource.projectKey}/issues"));
  assert.ok(code.includes("encodeURIComponent(syncSource.projectKey)"));
 });
+
+test("Veps two-factor controls distinguish actions and account status", () => {
+ const data=JSON.parse(fs.readFileSync("imports/i18n/data/ve-PP.i18n.json","utf8"));
+ for(const key of ["twoFactorAuthPopup-title","twoFactorAuth-enabled","twoFactorAuth-disable","twoFactorAuth-enable"]){
+  assert.match(data[key],/kahen faktoran autentifikacii/i);
+  assert.doesNotMatch(data[key],/zwibveledzwa|ṱhogomela|Vulani|Valani/i);
+ }
+ assert.match(data["twoFactorAuth-enable"],/^Pane .* päle$/);
+ assert.match(data["twoFactorAuth-disable"],/^Kel'dä /);
+ assert.match(data["twoFactorAuth-enabled"],/om päl sinun akkauntal/);
+ assert.notEqual(data["twoFactorAuth-enable"],data["twoFactorAuth-enabled"]);
+ assert.notEqual(data["twoFactorAuth-enable"],data["twoFactorAuth-disable"]);
+ const template=fs.readFileSync("client/components/users/userHeader.jade","utf8");
+ assert.match(template,/js-two-factor-start-enable.*twoFactorAuth-enable/);
+ assert.match(template,/js-two-factor-disable.*twoFactorAuth-disable/);
+});

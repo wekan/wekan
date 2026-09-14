@@ -139466,5 +139466,33 @@
     "before": "Khonwe ya phurodzheke",
     "after": "Projektan kod / ID / owner/repo",
     "reason": "Replace Tshivenda project-key label with Veps project-code paraphrase and literal ID/owner/repo alternatives matching Jira, GitLab and GitHub/Gitea fetchers. Native MediaWiki Projektan and kod; complete multi-tracker terminology remains low confidence, not door-key vocabulary."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "twoFactorAuthPopup-title",
+    "before": "U Ṱhogomela nga Zwibveledzwa Zwivhili",
+    "after": "Kahen faktoran autentifikacii",
+    "reason": "Replace Tshivenda with direct Veps two-factor authentication control draft. Preserve title, enable/disable actions and enabled-for-your-account status; two-factor compound, computing loan and full case grammar remain low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "twoFactorAuth-enabled",
+    "before": "U ṱhogomela nga zwibveledzwa zwivhili zwo vulwa kha akhaunthi yaṋu.",
+    "after": "Kahen faktoran autentifikacii om päl sinun akkauntal.",
+    "reason": "Replace Tshivenda with direct Veps two-factor authentication control draft. Preserve title, enable/disable actions and enabled-for-your-account status; two-factor compound, computing loan and full case grammar remain low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "twoFactorAuth-disable",
+    "before": "Valani u Ṱhogomela nga Zwibveledzwa Zwivhili",
+    "after": "Kel'dä kahen faktoran autentifikacii",
+    "reason": "Replace Tshivenda with direct Veps two-factor authentication control draft. Preserve title, enable/disable actions and enabled-for-your-account status; two-factor compound, computing loan and full case grammar remain low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "twoFactorAuth-enable",
+    "before": "Vulani u Ṱhogomela nga Zwibveledzwa Zwivhili",
+    "after": "Pane kahen faktoran autentifikacii päle",
+    "reason": "Replace Tshivenda with direct Veps two-factor authentication control draft. Preserve title, enable/disable actions and enabled-for-your-account status; two-factor compound, computing loan and full case grammar remain low confidence."
   }
 ]
