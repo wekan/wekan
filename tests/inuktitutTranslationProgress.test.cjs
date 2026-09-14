@@ -24,6 +24,14 @@ for (const [key, value] of Object.entries(inuktitut)) {
 }
 
 assert.equal(inuktitut.accept, 'ᐊᖏᖅᐸᕋ');
+for (const stem of ['card-recurrence-interval', 'checklist-reset-interval']) {
+  assert.equal(inuktitut[`${stem}-daily`], 'ᖃᐅᑕᒫᑦ');
+  assert.equal(inuktitut[`${stem}-monthly`], 'ᑕᖅᑭᑕᒫᑦ');
+  assert.notEqual(inuktitut[`${stem}-daily`], inuktitut[`${stem}-monthly`]);
+  for (const frequency of ['daily', 'monthly']) {
+    assert.doesNotMatch(inuktitut[`${stem}-${frequency}`], /Ullut|Taqqiit|tamaasa/);
+  }
+}
 assert.equal(inuktitut.board, 'ᐊᓪᓚᕕᒃ');
 assert.equal(inuktitut.card, 'ᐊᓪᓚᖅᓯᒪᔪᖅ');
 assert.equal(inuktitut.list, 'ᑎᑎᖅᑲᓕᐊᖅ');

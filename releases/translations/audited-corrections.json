@@ -130044,5 +130044,33 @@
     "before": "Tamat Hari ini",
     "after": "Bataih watèë uroe nyoe",
     "reason": "Use consistent Acehnese deadline wording instead of Indonesian/Malay jatuh tempo, tamat hari ini or tarikh akhir and unclear restored jitôh. Native MediaWiki Acehnese supports bataih (limit), watèë (time), uroe (day); ANU thesaurus mirrored text attests uroe nyoe (today). Adapted deadline compounds are low-confidence pending native contextual/browser review; due-today means same calendar day, not already completed."
+  },
+  {
+    "locale": "iu",
+    "key": "card-recurrence-interval-daily",
+    "before": "Ullut tamaasa",
+    "after": "ᖃᐅᑕᒫᑦ",
+    "reason": "Replace Greenlandic-seeded recurrence/reset frequency with native Inuktitut syllabic label. Nunavut Healthy Living IU source attests ᖃᐅᑕᒫᑦ in daily eating; bilingual Nunavut IQ sessions document attests ᑕᖅᑭᑕᒫᑦ alongside English monthly. Preserve distinct daily/monthly frequency and identical meanings across recurrence/reset; full browser execution remains open."
+  },
+  {
+    "locale": "iu",
+    "key": "card-recurrence-interval-monthly",
+    "before": "Taqqiit tamaasa",
+    "after": "ᑕᖅᑭᑕᒫᑦ",
+    "reason": "Replace Greenlandic-seeded recurrence/reset frequency with native Inuktitut syllabic label. Nunavut Healthy Living IU source attests ᖃᐅᑕᒫᑦ in daily eating; bilingual Nunavut IQ sessions document attests ᑕᖅᑭᑕᒫᑦ alongside English monthly. Preserve distinct daily/monthly frequency and identical meanings across recurrence/reset; full browser execution remains open."
+  },
+  {
+    "locale": "iu",
+    "key": "checklist-reset-interval-daily",
+    "before": "Ullut tamaasa",
+    "after": "ᖃᐅᑕᒫᑦ",
+    "reason": "Replace Greenlandic-seeded recurrence/reset frequency with native Inuktitut syllabic label. Nunavut Healthy Living IU source attests ᖃᐅᑕᒫᑦ in daily eating; bilingual Nunavut IQ sessions document attests ᑕᖅᑭᑕᒫᑦ alongside English monthly. Preserve distinct daily/monthly frequency and identical meanings across recurrence/reset; full browser execution remains open."
+  },
+  {
+    "locale": "iu",
+    "key": "checklist-reset-interval-monthly",
+    "before": "Taqqiit tamaasa",
+    "after": "ᑕᖅᑭᑕᒫᑦ",
+    "reason": "Replace Greenlandic-seeded recurrence/reset frequency with native Inuktitut syllabic label. Nunavut Healthy Living IU source attests ᖃᐅᑕᒫᑦ in daily eating; bilingual Nunavut IQ sessions document attests ᑕᖅᑭᑕᒫᑦ alongside English monthly. Preserve distinct daily/monthly frequency and identical meanings across recurrence/reset; full browser execution remains open."
   }
 ]
