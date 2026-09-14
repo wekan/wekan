@@ -23,6 +23,10 @@ test('new board fields use the shared policy-aware viewer', () => {
     }
   }
   assert.match(read('client/components/cards/minicard.jade'), /span\.minicard-title-text\n\s+\+viewer[\s\S]*?= getTitle/);
+  const opened = read('client/components/cards/cardDetails.jade');
+  const titleBlock = opened.slice(opened.indexOf('h2.card-details-title.js-card-title('), opened.indexOf('if isWatching', opened.indexOf('h2.card-details-title.js-card-title(')));
+  assert.match(titleBlock, /\+viewer[\s\S]*?= getTitle/);
+  assert.doesNotMatch(titleBlock, /\{\{\{?\s*(?:getTitle|title)\s*\}\}\}?/);
   assert.doesNotMatch(read('client/components/boards/timelineView.jade'), /timeline-(?:list|card)-title \{\{/);
   const editor = read('client/components/main/editor.js');
   assert.match(editor, /setting\.renderLinksAsPlainText/);

@@ -5,6 +5,8 @@ const { loginWithToken, openBoard } = require('../helpers/auth');
 // These tests change instance-wide policies and restore them after each case.
 test.describe.configure({ mode: 'serial' });
 for (const view of [
+  { name: 'minicard', title: '.minicard-title-text' },
+  { name: 'opened card', title: '.card-details-title' },
   { name: 'timeline', menu: '.js-open-timeline-view', title: '.timeline-card-title' },
   { name: 'assignee', menu: '.js-open-group-by-assignee-view', title: '.group-by-assignee-card-title' },
   { name: 'control chart', menu: '.js-open-control-chart-view', title: '.chart-data-table tbody td' },
@@ -34,7 +36,10 @@ for (const view of [
         }
         await loginWithToken(page, user.id, user.token);
         await openBoard(page, board.boardId, board.slug);
-        await page.locator(view.menu).first().click();
+        if (view.menu) await page.locator(view.menu).first().click();
+        if (view.name === 'opened card') {
+          await page.locator('.minicard').filter({ hasText: 'Demo' }).first().click();
+        }
         if (['control chart', 'cumulative flow'].includes(view.name)) {
           await expect(page.locator('.stats-view-title > .viewer')).toBeVisible();
           await expect(page.locator('.stats-view-title pre')).toHaveCount(policy === 'plain-source' ? 1 : 0);
