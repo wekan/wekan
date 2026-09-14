@@ -22073,3 +22073,16 @@ references and progress steps retain meaning. Completion label remains open.
 Review checks pass: 15,561 corrected, 1,528 restored awaiting validation,
 2,684 reviewed unchanged and 308 pending. Broader grammar, terminology and
 browser validation remain open. Nothing pushed.
+
+
+### 2026-09-14 — Galician migration execution and account messages
+
+Local commit `e8766c17b` retains 30 directly reviewed values unchanged.
+Migration text preserves once-per-board conversion, background continuation
+when closing the browser, longer completion warning, 1-100 batch limits
+and migrated/remaining/total attachment states. Authentication keeps invalid
+credential alternatives, both required inputs, password mismatch and at-least
+three-character username. Activity tokens and visibility labels remain intact.
+Review checks pass: 15,561 corrected, 1,498 restored awaiting validation,
+2,714 reviewed unchanged and 308 pending. Broader grammar, terminology and
+browser validation remain open. Nothing pushed.
