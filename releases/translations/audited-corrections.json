@@ -125242,5 +125242,40 @@
     "before": "ⵜⵉⵍⴰⵍ ⵢⵜⵜⵢⴰⵔⴰⵏ ⵙ ⵢⵉⵜⵔⵉ",
     "after": "ⵜⵉⵍⴳⴰⵎⵉⵏ ⵙ ⵢⵉⵜⵔⵉ",
     "reason": "2026-09-14: Correct local Lists noun ⵜⵉⵍⴰⵍ to directly attested native Mastodon navigation_bar.lists ⵜⵉⵍⴳⴰⵎⵉⵏ. Preserve starred state with the existing Star wording. Full nominal wording remains LOW CONFIDENCE; noun attestation does not validate the full label. Sources: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "spent-time-hours",
+    "before": "Temps passé (heures)",
+    "after": "ⴰⴽⵓⴷ ⵉⵜⵜⵓⵙⵎⵔⵙⵏ (ⵜⵉⵙⵔⴰⴳⵉⵏ)",
+    "reason": "2026-09-14: Replace Arabic/French time-tracking labels while preserving Spent versus Additional/Overtime, hours units, and Has cards scopes. CLDR zgh dates/fields/hour directly attests Hour ⵜⴰⵙⵔⴰⴳⵜ, not plural ⵜⵉⵙⵔⴰⴳⵉⵏ (derived). Time ⴰⴽⵓⴷ and bound ⵡⴰⴽⵓⴷ occur in native software. Spent provisionally uses Used time from the native Use root smr(s); passive participle is derived. Additional follows local Added irnan wording, not a directly attested overtime term. Used-time/Additional-time semantic adaptations, Has construction, derived forms and full labels remain LOW CONFIDENCE for native review. Source: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml . Mechanical checks cannot validate fluency."
+  },
+  {
+    "locale": "zgh",
+    "key": "overtime-hours",
+    "before": "وقت اضافي (ساعات)",
+    "after": "ⴰⴽⵓⴷ ⵉⵔⵏⴰⵏ (ⵜⵉⵙⵔⴰⴳⵉⵏ)",
+    "reason": "2026-09-14: Replace Arabic/French time-tracking labels while preserving Spent versus Additional/Overtime, hours units, and Has cards scopes. CLDR zgh dates/fields/hour directly attests Hour ⵜⴰⵙⵔⴰⴳⵜ, not plural ⵜⵉⵙⵔⴰⴳⵉⵏ (derived). Time ⴰⴽⵓⴷ and bound ⵡⴰⴽⵓⴷ occur in native software. Spent provisionally uses Used time from the native Use root smr(s); passive participle is derived. Additional follows local Added irnan wording, not a directly attested overtime term. Used-time/Additional-time semantic adaptations, Has construction, derived forms and full labels remain LOW CONFIDENCE for native review. Source: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml . Mechanical checks cannot validate fluency."
+  },
+  {
+    "locale": "zgh",
+    "key": "overtime",
+    "before": "وقت اضافي",
+    "after": "ⴰⴽⵓⴷ ⵉⵔⵏⴰⵏ",
+    "reason": "2026-09-14: Replace Arabic/French time-tracking labels while preserving Spent versus Additional/Overtime, hours units, and Has cards scopes. CLDR zgh dates/fields/hour directly attests Hour ⵜⴰⵙⵔⴰⴳⵜ, not plural ⵜⵉⵙⵔⴰⴳⵉⵏ (derived). Time ⴰⴽⵓⴷ and bound ⵡⴰⴽⵓⴷ occur in native software. Spent provisionally uses Used time from the native Use root smr(s); passive participle is derived. Additional follows local Added irnan wording, not a directly attested overtime term. Used-time/Additional-time semantic adaptations, Has construction, derived forms and full labels remain LOW CONFIDENCE for native review. Source: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml . Mechanical checks cannot validate fluency."
+  },
+  {
+    "locale": "zgh",
+    "key": "has-overtime-cards",
+    "before": "A des cartes avec du temps supplémentaire",
+    "after": "ⵖⵓⵔⵙ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵙ ⵡⴰⴽⵓⴷ ⵉⵔⵏⴰⵏ",
+    "reason": "2026-09-14: Replace Arabic/French time-tracking labels while preserving Spent versus Additional/Overtime, hours units, and Has cards scopes. CLDR zgh dates/fields/hour directly attests Hour ⵜⴰⵙⵔⴰⴳⵜ, not plural ⵜⵉⵙⵔⴰⴳⵉⵏ (derived). Time ⴰⴽⵓⴷ and bound ⵡⴰⴽⵓⴷ occur in native software. Spent provisionally uses Used time from the native Use root smr(s); passive participle is derived. Additional follows local Added irnan wording, not a directly attested overtime term. Used-time/Additional-time semantic adaptations, Has construction, derived forms and full labels remain LOW CONFIDENCE for native review. Source: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml . Mechanical checks cannot validate fluency."
+  },
+  {
+    "locale": "zgh",
+    "key": "has-spenttime-cards",
+    "before": "A des cartes avec du temps passé",
+    "after": "ⵖⵓⵔⵙ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵙ ⵡⴰⴽⵓⴷ ⵉⵜⵜⵓⵙⵎⵔⵙⵏ",
+    "reason": "2026-09-14: Replace Arabic/French time-tracking labels while preserving Spent versus Additional/Overtime, hours units, and Has cards scopes. CLDR zgh dates/fields/hour directly attests Hour ⵜⴰⵙⵔⴰⴳⵜ, not plural ⵜⵉⵙⵔⴰⴳⵉⵏ (derived). Time ⴰⴽⵓⴷ and bound ⵡⴰⴽⵓⴷ occur in native software. Spent provisionally uses Used time from the native Use root smr(s); passive participle is derived. Additional follows local Added irnan wording, not a directly attested overtime term. Used-time/Additional-time semantic adaptations, Has construction, derived forms and full labels remain LOW CONFIDENCE for native review. Source: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml . Mechanical checks cannot validate fluency."
   }
 ]
