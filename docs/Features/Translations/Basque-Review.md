@@ -49,3 +49,23 @@ Accepted generic movement and check/uncheck predicates are recorded in
 `aba731e82` and `1439c4c61`. Those focused reviews do not certify the other
 restored fragments or live browser behavior. The latest completion acceptance resolves one restored finding without
 changing its value. Broader clauses and browser validation remain open.
+
+## 2026-09-14 — Completion-status context
+
+[Native EHU eCampus activity-completion guidance](https://www.ehu.eus/eu/web/ecampus/jardueren-jarraipena-egiteko-tresnak-eskuragarritasuna-mugatu-eta-dominak/txostenak)
+provides an independent technical reference: it describes manual completion
+marking with `jarduera osatu gisa`, conditional completion status and the
+checkbox that displays that status. This supports treating completion as a
+status, rather than merely leaving work unfinished. It does not supply an
+exact incomplete-transition predicate and does not by itself validate
+`Osatu gabe uzten denean`.
+
+[The native EHU gabe dictionary](https://www.ehu.eus/eeh/cgi/bila?h=gabe)
+defines absence/lack and records both unfinished constructions and
+`gabe utzi` collocations. Their existence establishes ordinary grammar,
+not the required software state transition. The next repair needs a complete
+incomplete-status transition clause; copying the completion phrase with
+negation alone is insufficient. Both generic and named trigger options use
+the same key, so any replacement must also compose with both noun contexts.
+No value is changed or accepted in this review. Runtime and browser checks
+remain separate requirements.

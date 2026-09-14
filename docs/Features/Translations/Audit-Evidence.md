@@ -23928,3 +23928,14 @@ senses. Focused checks distinguish white from retained gray `gris` and
 silver `arc'hant`; all 18,631 correction records, 4,169 unchanged reviews
 and 234-locale structural completeness pass. Browser verification and the
 wider native-context review remain open. Pending/restored counts stay 288/12.
+
+### 2026-09-14 — Basque completion-status reference review
+
+The Basque review now records independent native EHU software guidance for
+manually marked and conditional completion status, plus the native gabe
+dictionary's lack/unfinished collocations. These change the repair constraint:
+`r-made-incomplete` must express an incomplete-status transition, not only
+leaving work unfinished. The source does not attest an exact replacement
+predicate. No restored finding is accepted and no locale value changes.
+Generic and named options share this key; both require composition review.
+Pending/restored counts remain 288/12.
