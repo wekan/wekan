@@ -12352,5 +12352,185 @@
     "key": "no-issues-found",
     "value": "Neniu problemo trovita",
     "reason": "2026-09-14: Direct semantic review confirms lost-card/list restoration, archived object scope, avatar/file URL repairs, migration outcomes and board-admin-only permission. swimlaneId/listId remain literal field names; all/this-board/individually qualifiers and success/failure negation preserved. Ambiguous Complete label excluded."
+  },
+  {
+    "locale": "eo",
+    "key": "run-migration",
+    "value": "Ruli migradon",
+    "reason": "2026-09-14: Direct semantic review confirms migration confirmations, progress and step labels. Shared-list conversion precedes duplicate deletion; nonarchived-only and all-archived scopes remain distinct, difficult undo warning retained, field identifiers literal and board-specific URL repair scope preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "run-comprehensive-migration-confirm",
+    "value": "Ĉi tio faros ampleksan migradon por kontroli kaj ripari la integrecon de tabulaj datumoj. Tio povas daŭri kelkajn momentojn. Ĉu daŭrigi?",
+    "reason": "2026-09-14: Direct semantic review confirms migration confirmations, progress and step labels. Shared-list conversion precedes duplicate deletion; nonarchived-only and all-archived scopes remain distinct, difficult undo warning retained, field identifiers literal and board-specific URL repair scope preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "run-delete-duplicate-empty-lists-migration-confirm",
+    "value": "Ĉi tio unue konvertos ĉiujn komunajn listojn al listoj po naĝlinio, poste forigos malplenajn listojn, kiuj havas duoblan liston kun la sama titolo enhavantan kartojn. Nur vere superfluaj malplenaj listoj estos forigitaj. Ĉu daŭrigi?",
+    "reason": "2026-09-14: Direct semantic review confirms migration confirmations, progress and step labels. Shared-list conversion precedes duplicate deletion; nonarchived-only and all-archived scopes remain distinct, difficult undo warning retained, field identifiers literal and board-specific URL repair scope preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "run-restore-lost-cards-migration-confirm",
+    "value": "Ĉi tio kreos naĝlinion 'Perditaj kartoj' kaj restarigos ĉiujn kartojn kaj listojn kun mankanta swimlaneId aŭ listId. Tio influas nur nearkivitajn erojn. Ĉu daŭrigi?",
+    "reason": "2026-09-14: Direct semantic review confirms migration confirmations, progress and step labels. Shared-list conversion precedes duplicate deletion; nonarchived-only and all-archived scopes remain distinct, difficult undo warning retained, field identifiers literal and board-specific URL repair scope preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "run-restore-all-archived-migration-confirm",
+    "value": "Ĉi tio restarigos ĈIUJN arkivitajn naĝliniojn, listojn kaj kartojn, denove videbligante ilin. Ĉiuj eroj kun mankantaj ID-oj estos aŭtomate riparitaj. Tio ne estas facile malfarebla. Ĉu daŭrigi?",
+    "reason": "2026-09-14: Direct semantic review confirms migration confirmations, progress and step labels. Shared-list conversion precedes duplicate deletion; nonarchived-only and all-archived scopes remain distinct, difficult undo warning retained, field identifiers literal and board-specific URL repair scope preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "run-fix-missing-lists-migration-confirm",
+    "value": "Ĉi tio detektos kaj riparos mankantajn aŭ difektitajn listojn en la tabula strukturo. Ĉu daŭrigi?",
+    "reason": "2026-09-14: Direct semantic review confirms migration confirmations, progress and step labels. Shared-list conversion precedes duplicate deletion; nonarchived-only and all-archived scopes remain distinct, difficult undo warning retained, field identifiers literal and board-specific URL repair scope preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "run-fix-avatar-urls-migration-confirm",
+    "value": "Ĉi tio ĝisdatigos avatarajn URL-ojn de tabulanoj por uzi la ĝustan konservejon. Ĉu daŭrigi?",
+    "reason": "2026-09-14: Direct semantic review confirms migration confirmations, progress and step labels. Shared-list conversion precedes duplicate deletion; nonarchived-only and all-archived scopes remain distinct, difficult undo warning retained, field identifiers literal and board-specific URL repair scope preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "run-fix-all-file-urls-migration-confirm",
+    "value": "Ĉi tio ĝisdatigos ĉiujn URL-ojn de dosieraj alligitaĵoj en ĉi tiu tabulo por uzi la ĝustan konservejon. Ĉu daŭrigi?",
+    "reason": "2026-09-14: Direct semantic review confirms migration confirmations, progress and step labels. Shared-list conversion precedes duplicate deletion; nonarchived-only and all-archived scopes remain distinct, difficult undo warning retained, field identifiers literal and board-specific URL repair scope preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "restore-lost-cards-nothing-to-restore",
+    "value": "Neniu perdita naĝlinio, listo aŭ karto por restarigi",
+    "reason": "2026-09-14: Direct semantic review confirms migration confirmations, progress and step labels. Shared-list conversion precedes duplicate deletion; nonarchived-only and all-archived scopes remain distinct, difficult undo warning retained, field identifiers literal and board-specific URL repair scope preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "migration-progress-title",
+    "value": "Tabula migrado rulanta",
+    "reason": "2026-09-14: Direct semantic review confirms migration confirmations, progress and step labels. Shared-list conversion precedes duplicate deletion; nonarchived-only and all-archived scopes remain distinct, difficult undo warning retained, field identifiers literal and board-specific URL repair scope preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "migration-progress-current-step",
+    "value": "Nuna paŝo",
+    "reason": "2026-09-14: Direct semantic review confirms migration confirmations, progress and step labels. Shared-list conversion precedes duplicate deletion; nonarchived-only and all-archived scopes remain distinct, difficult undo warning retained, field identifiers literal and board-specific URL repair scope preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "migration-progress-status",
+    "value": "Stato",
+    "reason": "2026-09-14: Direct semantic review confirms migration confirmations, progress and step labels. Shared-list conversion precedes duplicate deletion; nonarchived-only and all-archived scopes remain distinct, difficult undo warning retained, field identifiers literal and board-specific URL repair scope preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "migration-progress-details",
+    "value": "Detaloj",
+    "reason": "2026-09-14: Direct semantic review confirms migration confirmations, progress and step labels. Shared-list conversion precedes duplicate deletion; nonarchived-only and all-archived scopes remain distinct, difficult undo warning retained, field identifiers literal and board-specific URL repair scope preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "migration-progress-note",
+    "value": "Bonvolu atendi dum ni migras vian tabulon al la plej nova strukturo...",
+    "reason": "2026-09-14: Direct semantic review confirms migration confirmations, progress and step labels. Shared-list conversion precedes duplicate deletion; nonarchived-only and all-archived scopes remain distinct, difficult undo warning retained, field identifiers literal and board-specific URL repair scope preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "steps",
+    "value": "paŝoj",
+    "reason": "2026-09-14: Direct semantic review confirms migration confirmations, progress and step labels. Shared-list conversion precedes duplicate deletion; nonarchived-only and all-archived scopes remain distinct, difficult undo warning retained, field identifiers literal and board-specific URL repair scope preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "has-swimlanes",
+    "value": "Havas naĝliniojn",
+    "reason": "2026-09-14: Direct semantic review confirms migration confirmations, progress and step labels. Shared-list conversion precedes duplicate deletion; nonarchived-only and all-archived scopes remain distinct, difficult undo warning retained, field identifiers literal and board-specific URL repair scope preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "step-analyze-board-structure",
+    "value": "Analizi tabulan strukturon",
+    "reason": "2026-09-14: Direct semantic review confirms migration confirmations, progress and step labels. Shared-list conversion precedes duplicate deletion; nonarchived-only and all-archived scopes remain distinct, difficult undo warning retained, field identifiers literal and board-specific URL repair scope preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "step-fix-orphaned-cards",
+    "value": "Ripari orfajn kartojn",
+    "reason": "2026-09-14: Direct semantic review confirms migration confirmations, progress and step labels. Shared-list conversion precedes duplicate deletion; nonarchived-only and all-archived scopes remain distinct, difficult undo warning retained, field identifiers literal and board-specific URL repair scope preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "step-convert-shared-lists",
+    "value": "Konverti komunajn listojn",
+    "reason": "2026-09-14: Direct semantic review confirms migration confirmations, progress and step labels. Shared-list conversion precedes duplicate deletion; nonarchived-only and all-archived scopes remain distinct, difficult undo warning retained, field identifiers literal and board-specific URL repair scope preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "step-ensure-per-swimlane-lists",
+    "value": "Certigi listojn po naĝlinio",
+    "reason": "2026-09-14: Direct semantic review confirms migration confirmations, progress and step labels. Shared-list conversion precedes duplicate deletion; nonarchived-only and all-archived scopes remain distinct, difficult undo warning retained, field identifiers literal and board-specific URL repair scope preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "step-validate-migration",
+    "value": "Validigi migradon",
+    "reason": "2026-09-14: Direct semantic review confirms migration confirmations, progress and step labels. Shared-list conversion precedes duplicate deletion; nonarchived-only and all-archived scopes remain distinct, difficult undo warning retained, field identifiers literal and board-specific URL repair scope preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "step-fix-avatar-urls",
+    "value": "Ripari avatarajn URL-ojn",
+    "reason": "2026-09-14: Direct semantic review confirms migration confirmations, progress and step labels. Shared-list conversion precedes duplicate deletion; nonarchived-only and all-archived scopes remain distinct, difficult undo warning retained, field identifiers literal and board-specific URL repair scope preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "step-fix-attachment-urls",
+    "value": "Ripari URL-ojn de alligitaĵoj",
+    "reason": "2026-09-14: Direct semantic review confirms migration confirmations, progress and step labels. Shared-list conversion precedes duplicate deletion; nonarchived-only and all-archived scopes remain distinct, difficult undo warning retained, field identifiers literal and board-specific URL repair scope preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "step-analyze-lists",
+    "value": "Analizi listojn",
+    "reason": "2026-09-14: Direct semantic review confirms migration confirmations, progress and step labels. Shared-list conversion precedes duplicate deletion; nonarchived-only and all-archived scopes remain distinct, difficult undo warning retained, field identifiers literal and board-specific URL repair scope preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "step-create-missing-lists",
+    "value": "Krei mankantajn listojn",
+    "reason": "2026-09-14: Direct semantic review confirms migration confirmations, progress and step labels. Shared-list conversion precedes duplicate deletion; nonarchived-only and all-archived scopes remain distinct, difficult undo warning retained, field identifiers literal and board-specific URL repair scope preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "step-update-cards",
+    "value": "Ĝisdatigi kartojn",
+    "reason": "2026-09-14: Direct semantic review confirms migration confirmations, progress and step labels. Shared-list conversion precedes duplicate deletion; nonarchived-only and all-archived scopes remain distinct, difficult undo warning retained, field identifiers literal and board-specific URL repair scope preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "step-finalize",
+    "value": "Finpretigi",
+    "reason": "2026-09-14: Direct semantic review confirms migration confirmations, progress and step labels. Shared-list conversion precedes duplicate deletion; nonarchived-only and all-archived scopes remain distinct, difficult undo warning retained, field identifiers literal and board-specific URL repair scope preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "step-delete-duplicate-empty-lists",
+    "value": "Forigi duoblajn malplenajn listojn",
+    "reason": "2026-09-14: Direct semantic review confirms migration confirmations, progress and step labels. Shared-list conversion precedes duplicate deletion; nonarchived-only and all-archived scopes remain distinct, difficult undo warning retained, field identifiers literal and board-specific URL repair scope preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "step-ensure-lost-cards-swimlane",
+    "value": "Certigi naĝlinion de perditaj kartoj",
+    "reason": "2026-09-14: Direct semantic review confirms migration confirmations, progress and step labels. Shared-list conversion precedes duplicate deletion; nonarchived-only and all-archived scopes remain distinct, difficult undo warning retained, field identifiers literal and board-specific URL repair scope preserved."
+  },
+  {
+    "locale": "eo",
+    "key": "step-restore-lists",
+    "value": "Restarigi listojn",
+    "reason": "2026-09-14: Direct semantic review confirms migration confirmations, progress and step labels. Shared-list conversion precedes duplicate deletion; nonarchived-only and all-archived scopes remain distinct, difficult undo warning retained, field identifiers literal and board-specific URL repair scope preserved."
   }
 ]
