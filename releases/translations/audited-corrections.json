@@ -121357,5 +121357,26 @@
     "before": "Paramètres de la minicarte",
     "after": "ⵜⵉⵙⵖⴰⵍ ⵏ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵥⵢⴰⵏⵜ",
     "reason": "LOW CONFIDENCE composed Minicard Settings heading. Native Mastodon column_header.show_settings attests tisghal/settings. Reuse the locale card/small-card terminology with noun bound state after n/of, keeping the minicard distinction rather than general card settings. Moroccan government native pages attest takardha and feminine tamzzyant in other contexts, not the full kanban heading. Bound-state morphology, mini-card terminology and complete phrase need fluent review. Replace French consistently in both entry and popup title. Reference: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://www.maroc.ma/amz/ⵜⵉⵙⵜⵕⴰⵜⵉⵊⵉⵢⵉⵏ-ⴷ-ⵜⵙⵔⵜⵉⵜⵉⵏ-ⵜⵉⴳⴷⵓⴷⴰⵏⵉⵏ"
+  },
+  {
+    "locale": "zgh",
+    "key": "description",
+    "before": "وصف",
+    "after": "ⴰⵙⴳⵣⵍ",
+    "reason": "Replace Arabic/French description or minicard control with Tamazight. Native MediaWiki filedesc attests asgzl/description and tool-link-userrights-readonly attests skn/show. Reuse the minicard noun phrase consistently with the settings headings. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "description-on-minicard",
+    "before": "Description sur la mini-carte",
+    "after": "ⴰⵙⴳⵣⵍ ⵖⴼ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵥⵢⴰⵏⵜ",
+    "reason": "Replace Arabic/French description or minicard control with Tamazight. Native MediaWiki filedesc attests asgzl/description and tool-link-userrights-readonly attests skn/show. Reuse the minicard noun phrase consistently with the settings headings. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json LOW CONFIDENCE composed on-minicard phrase: ghf/on is native in searchprofile-images-tooltip, but full minicard usage and noun bound-state morphology require fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "show-on-minicard",
+    "before": "Afficher sur la minicarte",
+    "after": "ⵙⴽⵏ ⵖⴼ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵥⵢⴰⵏⵜ",
+    "reason": "Replace Arabic/French description or minicard control with Tamazight. Native MediaWiki filedesc attests asgzl/description and tool-link-userrights-readonly attests skn/show. Reuse the minicard noun phrase consistently with the settings headings. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json LOW CONFIDENCE composed on-minicard phrase: ghf/on is native in searchprofile-images-tooltip, but full minicard usage and noun bound-state morphology require fluent review."
   }
 ]
