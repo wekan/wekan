@@ -126187,5 +126187,26 @@
     "before": "ⴰⵅⴻⴷⴷⵉⵎ ⵢⴻⵜⵜⵡⴰⵖⴰⵡⵙⴻⵏ ⵢⴻⵃⴱⴻⵙ ⴰⴽⴽⴻⵏ ⵉⵡⴰⵜⴰ",
     "after": "ⵜⴰⵡⵓⵔⵉ ⵜⵜⵓⵖⴰⵡⵙⵏⵜ ⵜⵜⵓⵙⴱⴷⴷ!",
     "reason": "2026-09-14: Replace inherited Kabyle-leaning scheduled-job confirmation/statuses; script alone is not language proof. Native Mastodon confirmations.delete.message supplies Are you sure you want/Delete THIS frame: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . Native Red Moon notification_action_pause/status_paused supplies Pause sbdd/Paused ittusbdd: https://raw.githubusercontent.com/LibreShift/red-moon/master/app/src/main/res/values-zgh/strings.xml . Native MediaWiki filedeleteerror supplies failure and Deletion noun tukk sa: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve Delete versus Pause, scheduled THIS job, confirmation question and failed versus successfully completed action. Reuse prior LOW CONFIDENCE Scheduled Work proposal; feminine passives/paused nominalization and full phrases remain LOW CONFIDENCE for fluent validation. Success uses completed notification, not an invented adverb."
+  },
+  {
+    "locale": "zgh",
+    "key": "cron-retry-failed",
+    "before": "Réessayer les migrations échouées",
+    "after": "ⴰⵍⵙ ⴰⵔⵎ ⵉⵙⵎⵓⵜⵜⵢⵏ ⵉⵜⵜⵡⴰⵣⴳⵍⵏ",
+    "reason": "2026-09-14: Replace French with Standard Moroccan Tamazight. Native Mastodon zgh bundle_column_error.retry / bundle_modal_error.retry directly attest Retry als arm: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . Non-fuzzy Dialect Translation failed directly attests ittwazgl: https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po . Preserve FAILED migrations, retry versus paused/resumed, successful retry notification versus guaranteed successful migration, and NO failed items to retry. Migration retains earlier movement adaptation; failed plural modifier, passive tried-again form, no-items-purpose grammar and full phrases are LOW CONFIDENCE, requiring validation. Again digh retains native MediaWiki actionthrottledtext component; completed notification expresses successful retry without an invented success adverb."
+  },
+  {
+    "locale": "zgh",
+    "key": "cron-migrations-retried",
+    "before": "Migrations échouées réessayées avec succès",
+    "after": "ⵉⵙⵎⵓⵜⵜⵢⵏ ⵉⵜⵜⵡⴰⵣⴳⵍⵏ ⵜⵜⵓⵢⴰⵔⵎⵏ ⴷⵉⵖ!",
+    "reason": "2026-09-14: Replace French with Standard Moroccan Tamazight. Native Mastodon zgh bundle_column_error.retry / bundle_modal_error.retry directly attest Retry als arm: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . Non-fuzzy Dialect Translation failed directly attests ittwazgl: https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po . Preserve FAILED migrations, retry versus paused/resumed, successful retry notification versus guaranteed successful migration, and NO failed items to retry. Migration retains earlier movement adaptation; failed plural modifier, passive tried-again form, no-items-purpose grammar and full phrases are LOW CONFIDENCE, requiring validation. Again digh retains native MediaWiki actionthrottledtext component; completed notification expresses successful retry without an invented success adverb."
+  },
+  {
+    "locale": "zgh",
+    "key": "cron-no-failed-migrations",
+    "before": "Aucune migration échouée à réessayer",
+    "after": "ⵓⵔ ⵍⵍⵉⵏ ⵉⵙⵎⵓⵜⵜⵢⵏ ⵉⵜⵜⵡⴰⵣⴳⵍⵏ ⴰⴼⴰⴷ ⴰⴷ ⵜⴰⵔⵎⴷ ⴷⵉⵖ.",
+    "reason": "2026-09-14: Replace French with Standard Moroccan Tamazight. Native Mastodon zgh bundle_column_error.retry / bundle_modal_error.retry directly attest Retry als arm: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . Non-fuzzy Dialect Translation failed directly attests ittwazgl: https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po . Preserve FAILED migrations, retry versus paused/resumed, successful retry notification versus guaranteed successful migration, and NO failed items to retry. Migration retains earlier movement adaptation; failed plural modifier, passive tried-again form, no-items-purpose grammar and full phrases are LOW CONFIDENCE, requiring validation. Again digh retains native MediaWiki actionthrottledtext component; completed notification expresses successful retry without an invented success adverb."
   }
 ]
