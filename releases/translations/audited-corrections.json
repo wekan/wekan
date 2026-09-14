@@ -130611,5 +130611,131 @@
     "before": "Osatu gabe uzten denean",
     "after": "Osatu gabe markatzen denean",
     "reason": "Replace ambiguous leaving unfinished with an adapted incomplete-status marking clause based on native Moodle completion terminology. Full named-noun/browser review remains open."
+  },
+  {
+    "locale": "ak",
+    "key": "date-format-yyyy-mm-dd",
+    "before": "Nsɛm a ɛfa dwumadi yi ho",
+    "after": "YYYY-MM-DD",
+    "reason": "Replace unrelated or wrong-language date-format label with the actual selectable format pattern. Preserve valid localized notation in other locales."
+  },
+  {
+    "locale": "ak",
+    "key": "date-format-dd-mm-yyyy",
+    "before": "Nsɛm a ɛfa dwumadi yi ho",
+    "after": "DD-MM-YYYY",
+    "reason": "Replace unrelated or wrong-language date-format label with the actual selectable format pattern. Preserve valid localized notation in other locales."
+  },
+  {
+    "locale": "ak",
+    "key": "date-format-mm-dd-yyyy",
+    "before": "Nsɛm a ɛfa dwumadi yi ho",
+    "after": "MM-DD-YYYY",
+    "reason": "Replace unrelated or wrong-language date-format label with the actual selectable format pattern. Preserve valid localized notation in other locales."
+  },
+  {
+    "locale": "bs",
+    "key": "date-format-yyyy-mm-dd",
+    "before": "година-месец-дан",
+    "after": "YYYY-MM-DD",
+    "reason": "Replace unrelated or wrong-language date-format label with the actual selectable format pattern. Preserve valid localized notation in other locales."
+  },
+  {
+    "locale": "bs",
+    "key": "date-format-dd-mm-yyyy",
+    "before": "дан-месец-година",
+    "after": "DD-MM-YYYY",
+    "reason": "Replace unrelated or wrong-language date-format label with the actual selectable format pattern. Preserve valid localized notation in other locales."
+  },
+  {
+    "locale": "bs",
+    "key": "date-format-mm-dd-yyyy",
+    "before": "месец-дан-година",
+    "after": "MM-DD-YYYY",
+    "reason": "Replace unrelated or wrong-language date-format label with the actual selectable format pattern. Preserve valid localized notation in other locales."
+  },
+  {
+    "locale": "sl",
+    "key": "date-format-yyyy-mm-dd",
+    "before": "година-месец-дан",
+    "after": "YYYY-MM-DD",
+    "reason": "Replace unrelated or wrong-language date-format label with the actual selectable format pattern. Preserve valid localized notation in other locales."
+  },
+  {
+    "locale": "sl",
+    "key": "date-format-dd-mm-yyyy",
+    "before": "дан-месец-година",
+    "after": "DD-MM-YYYY",
+    "reason": "Replace unrelated or wrong-language date-format label with the actual selectable format pattern. Preserve valid localized notation in other locales."
+  },
+  {
+    "locale": "sl",
+    "key": "date-format-mm-dd-yyyy",
+    "before": "месец-дан-година",
+    "after": "MM-DD-YYYY",
+    "reason": "Replace unrelated or wrong-language date-format label with the actual selectable format pattern. Preserve valid localized notation in other locales."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "date-format-yyyy-mm-dd",
+    "before": "година-месец-дан",
+    "after": "YYYY-MM-DD",
+    "reason": "Replace unrelated or wrong-language date-format label with the actual selectable format pattern. Preserve valid localized notation in other locales."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "date-format-dd-mm-yyyy",
+    "before": "дан-месец-година",
+    "after": "DD-MM-YYYY",
+    "reason": "Replace unrelated or wrong-language date-format label with the actual selectable format pattern. Preserve valid localized notation in other locales."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "date-format-mm-dd-yyyy",
+    "before": "месец-дан-година",
+    "after": "MM-DD-YYYY",
+    "reason": "Replace unrelated or wrong-language date-format label with the actual selectable format pattern. Preserve valid localized notation in other locales."
+  },
+  {
+    "locale": "br",
+    "key": "date-format-yyyy-mm-dd",
+    "before": "AAAA-MM-JJ",
+    "after": "YYYY-MM-DD",
+    "reason": "Replace unrelated or wrong-language date-format label with the actual selectable format pattern. Preserve valid localized notation in other locales."
+  },
+  {
+    "locale": "br",
+    "key": "date-format-dd-mm-yyyy",
+    "before": "JJ-MM-AAAA",
+    "after": "DD-MM-YYYY",
+    "reason": "Replace unrelated or wrong-language date-format label with the actual selectable format pattern. Preserve valid localized notation in other locales."
+  },
+  {
+    "locale": "br",
+    "key": "date-format-mm-dd-yyyy",
+    "before": "MM-JJ-AAAA",
+    "after": "MM-DD-YYYY",
+    "reason": "Replace unrelated or wrong-language date-format label with the actual selectable format pattern. Preserve valid localized notation in other locales."
+  },
+  {
+    "locale": "zgh",
+    "key": "date-format-yyyy-mm-dd",
+    "before": "AAAA-MM-JJ",
+    "after": "YYYY-MM-DD",
+    "reason": "Replace unrelated or wrong-language date-format label with the actual selectable format pattern. Preserve valid localized notation in other locales."
+  },
+  {
+    "locale": "zgh",
+    "key": "date-format-dd-mm-yyyy",
+    "before": "JJ-MM-AAAA",
+    "after": "DD-MM-YYYY",
+    "reason": "Replace unrelated or wrong-language date-format label with the actual selectable format pattern. Preserve valid localized notation in other locales."
+  },
+  {
+    "locale": "zgh",
+    "key": "date-format-mm-dd-yyyy",
+    "before": "MM-JJ-AAAA",
+    "after": "MM-DD-YYYY",
+    "reason": "Replace unrelated or wrong-language date-format label with the actual selectable format pattern. Preserve valid localized notation in other locales."
   }
 ]
