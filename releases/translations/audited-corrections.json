@@ -128315,5 +128315,138 @@
     "before": "Moi",
     "after": "Me",
     "reason": "Replace French-seeded add/item/user controls with Breton, reusing existing Ouzhpennañ, attachment-settings stagadennoù, subtask-settings is-trevelloù, month unit miz and implijer terminology. Full article-mutation/phrase/browser review remains open."
+  },
+  {
+    "locale": "br",
+    "key": "r-rule",
+    "before": "Règle",
+    "after": "Reolenn",
+    "reason": "Replace French automation control prose using existing reolenn, tarzher, ober, ezel, tikedenn and roll-gwiriañ vocabulary. Full phrase/initial mutation/browser validation remains open; shared trigger clauses are not certified by this repair."
+  },
+  {
+    "locale": "br",
+    "key": "r-board-rules",
+    "before": "Règles du tableau",
+    "after": "Reolennoù an daolenn",
+    "reason": "Replace French automation control prose using existing reolenn, tarzher, ober, ezel, tikedenn and roll-gwiriañ vocabulary. Full phrase/initial mutation/browser validation remains open; shared trigger clauses are not certified by this repair."
+  },
+  {
+    "locale": "br",
+    "key": "r-add-rule",
+    "before": "Ajouter une règle",
+    "after": "Ouzhpennañ ur reolenn",
+    "reason": "Replace French automation control prose using existing reolenn, tarzher, ober, ezel, tikedenn and roll-gwiriañ vocabulary. Full phrase/initial mutation/browser validation remains open; shared trigger clauses are not certified by this repair."
+  },
+  {
+    "locale": "br",
+    "key": "r-view-rule",
+    "before": "Voir la règle",
+    "after": "Gwelout ar reolenn",
+    "reason": "Replace French automation control prose using existing reolenn, tarzher, ober, ezel, tikedenn and roll-gwiriañ vocabulary. Full phrase/initial mutation/browser validation remains open; shared trigger clauses are not certified by this repair."
+  },
+  {
+    "locale": "br",
+    "key": "r-delete-rule",
+    "before": "Supprimer la règle",
+    "after": "Dilemel ar reolenn",
+    "reason": "Replace French automation control prose using existing reolenn, tarzher, ober, ezel, tikedenn and roll-gwiriañ vocabulary. Full phrase/initial mutation/browser validation remains open; shared trigger clauses are not certified by this repair."
+  },
+  {
+    "locale": "br",
+    "key": "r-no-rules",
+    "before": "Pas de règles",
+    "after": "Reolenn ebet",
+    "reason": "Replace French automation control prose using existing reolenn, tarzher, ober, ezel, tikedenn and roll-gwiriañ vocabulary. Full phrase/initial mutation/browser validation remains open; shared trigger clauses are not certified by this repair."
+  },
+  {
+    "locale": "br",
+    "key": "r-rule-details",
+    "before": "Détails de la règle",
+    "after": "Munudoù ar reolenn",
+    "reason": "Replace French automation control prose using existing reolenn, tarzher, ober, ezel, tikedenn and roll-gwiriañ vocabulary. Full phrase/initial mutation/browser validation remains open; shared trigger clauses are not certified by this repair."
+  },
+  {
+    "locale": "br",
+    "key": "r-add-trigger",
+    "before": "Ajouter un déclencheur",
+    "after": "Ouzhpennañ un tarzher",
+    "reason": "Replace French automation control prose using existing reolenn, tarzher, ober, ezel, tikedenn and roll-gwiriañ vocabulary. Full phrase/initial mutation/browser validation remains open; shared trigger clauses are not certified by this repair."
+  },
+  {
+    "locale": "br",
+    "key": "r-trigger",
+    "before": "Déclencheur",
+    "after": "Tarzher",
+    "reason": "Replace French automation control prose using existing reolenn, tarzher, ober, ezel, tikedenn and roll-gwiriañ vocabulary. Full phrase/initial mutation/browser validation remains open; shared trigger clauses are not certified by this repair."
+  },
+  {
+    "locale": "br",
+    "key": "r-add-action",
+    "before": "Ajouter une action",
+    "after": "Ouzhpennañ un ober",
+    "reason": "Replace French automation control prose using existing reolenn, tarzher, ober, ezel, tikedenn and roll-gwiriañ vocabulary. Full phrase/initial mutation/browser validation remains open; shared trigger clauses are not certified by this repair."
+  },
+  {
+    "locale": "br",
+    "key": "r-edit-rule-trigger-action",
+    "before": "Kemmañ ar reolenn (Déclencheur/Ober)",
+    "after": "Kemmañ ar reolenn (Tarzher/Ober)",
+    "reason": "Replace French automation control prose using existing reolenn, tarzher, ober, ezel, tikedenn and roll-gwiriañ vocabulary. Full phrase/initial mutation/browser validation remains open; shared trigger clauses are not certified by this repair."
+  },
+  {
+    "locale": "br",
+    "key": "r-label",
+    "before": "étiquette",
+    "after": "Tikedenn",
+    "reason": "Replace French automation control prose using existing reolenn, tarzher, ober, ezel, tikedenn and roll-gwiriañ vocabulary. Full phrase/initial mutation/browser validation remains open; shared trigger clauses are not certified by this repair."
+  },
+  {
+    "locale": "br",
+    "key": "r-member",
+    "before": "participant",
+    "after": "Ezel",
+    "reason": "Replace French automation control prose using existing reolenn, tarzher, ober, ezel, tikedenn and roll-gwiriañ vocabulary. Full phrase/initial mutation/browser validation remains open; shared trigger clauses are not certified by this repair."
+  },
+  {
+    "locale": "br",
+    "key": "r-checklist",
+    "before": "check-list",
+    "after": "Roll-gwiriañ",
+    "reason": "Replace French automation control prose using existing reolenn, tarzher, ober, ezel, tikedenn and roll-gwiriañ vocabulary. Full phrase/initial mutation/browser validation remains open; shared trigger clauses are not certified by this repair."
+  },
+  {
+    "locale": "br",
+    "key": "r-d-add-label",
+    "before": "Ajouter une étiquette",
+    "after": "Ouzhpennañ un dikedenn",
+    "reason": "Replace French automation control prose using existing reolenn, tarzher, ober, ezel, tikedenn and roll-gwiriañ vocabulary. Full phrase/initial mutation/browser validation remains open; shared trigger clauses are not certified by this repair."
+  },
+  {
+    "locale": "br",
+    "key": "r-d-add-member",
+    "before": "Ajouter un participant",
+    "after": "Ouzhpennañ un ezel",
+    "reason": "Replace French automation control prose using existing reolenn, tarzher, ober, ezel, tikedenn and roll-gwiriañ vocabulary. Full phrase/initial mutation/browser validation remains open; shared trigger clauses are not certified by this repair."
+  },
+  {
+    "locale": "br",
+    "key": "r-d-add-checklist",
+    "before": "Ajouter une checklist",
+    "after": "Ouzhpennañ ur roll-gwiriañ",
+    "reason": "Replace French automation control prose using existing reolenn, tarzher, ober, ezel, tikedenn and roll-gwiriañ vocabulary. Full phrase/initial mutation/browser validation remains open; shared trigger clauses are not certified by this repair."
+  },
+  {
+    "locale": "br",
+    "key": "r-add-checklist",
+    "before": "Ajouter une checklist",
+    "after": "Ouzhpennañ ur roll-gwiriañ",
+    "reason": "Replace French automation control prose using existing reolenn, tarzher, ober, ezel, tikedenn and roll-gwiriañ vocabulary. Full phrase/initial mutation/browser validation remains open; shared trigger clauses are not certified by this repair."
+  },
+  {
+    "locale": "br",
+    "key": "r-add-swimlane",
+    "before": "Ajouter un couloir",
+    "after": "Ouzhpennañ ur vandenn",
+    "reason": "Replace French automation control prose using existing reolenn, tarzher, ober, ezel, tikedenn and roll-gwiriañ vocabulary. Full phrase/initial mutation/browser validation remains open; shared trigger clauses are not certified by this repair."
   }
 ]
