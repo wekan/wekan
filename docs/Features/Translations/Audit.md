@@ -16,14 +16,14 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, local commit `3a10fb927` —
-Veps Hide Empty Lists no longer incorrectly says Show. The complete native
-wording draft remains low confidence for noun spelling/object agreement.
-Locale/token/preference and filter wiring checks pass. Original pending
-remains 233; ledger 18,823. Full native/browser review stays open.
+Latest translation fix: **2026-09-14**, local commit `3ba133c10` —
+Venda-seeded Veps inheritance instruction replaced with a complete draft.
+Native dictionary supports the verb; full imperative/compound/object grammar
+remains low confidence. Locale/token/preference checks pass. Original pending
+remains 233; ledger 18,824. Native/browser verification stays open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **18,823** exact before/after values, including unflagged
+records contain **18,824** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

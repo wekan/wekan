@@ -656,6 +656,16 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/3ba133c10">Replace Venda wording in the Veps inheritance instruction</a>. Thanks to xet7.</summary>
+
+The subtask checkbox now has a complete Veps terminology draft, preserving
+inheritance of the parent card's labels. Full grammar and the software
+metaphor remain low confidence. Locale, placeholder and preference checks
+pass; dated audit evidence keeps native/browser verification open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e1ab5e4fa">Verify Veps inheritance terminology from a primary dictionary</a>. Thanks to xet7.</summary>
 
 The dated audit records a visually verified inheritance verb from the 2007

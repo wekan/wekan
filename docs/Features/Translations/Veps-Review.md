@@ -266,3 +266,20 @@ locale replacement or completed-language classification is claimed yet.
 
 Sources: [Noid dictionary and preface](https://vepsnoid.blogspot.com/p/dictionary.html),
 [linked primary dictionary](https://drive.google.com/file/d/0B92CAKqSx8Ped29wTmhIQ0NZSTg/view).
+
+Inheritance instruction draft applied **2026-09-14**, local commit
+`3ba133c10`: `subtask-inherit-parent-labels` now reads
+**Jäl'gesta vanhemban kartan znamad**, replacing Venda wording.
+The visually verified primary dictionary inheritance verb supports the
+meaning; Noid's parent noun/genitive and existing WeKan card/label nouns
+support the assembled instruction. This is **low confidence** for the
+derived imperative, parent-card software metaphor, compound genitive and
+label object agreement. It is not an attested complete native software phrase.
+
+The subtask form's checkbox consumes this translation and its handler
+passes `inheritLabels` during subtask creation. Label/parent concepts and
+absence of the Venda wording have regression checks; all ten registered
+tests across four files pass for corrections, placeholders and preference.
+No live browser execution is claimed. Original ten Veps findings remain
+pending; this additional repair brings the ledger to 18,824. Earlier
+“no replacement claimed” notes describe the review before this dated draft.

@@ -26190,3 +26190,10 @@ visually verified page 253 of Zaiceva/Mullonen's 2007 Russian–Veps dictionary
 for the inheritance verb. [Veps review](Veps-Review.md) records sources,
 extraction/rendering limits and the unresolved complete parent-card phrase.
 No locale values or counts changed; original pending remains 233.
+
+Veps inheritance instruction draft **2026-09-14**, local commit `3ba133c10`:
+Venda-seeded value replaced with a complete Veps draft supported by the
+primary inheritance verb and existing/native noun terminology.
+[Veps review](Veps-Review.md) records the low-confidence complete grammar
+and software metaphor. Ten tests across four files pass; ledger 18,824,
+original pending 233 unchanged. Native/browser verification remains open.
