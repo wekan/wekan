@@ -1072,5 +1072,125 @@
     "key": "Reactivity_order",
     "value": "Ordine di reattività (METEOR_REACTIVITY_ORDER)",
     "reason": "Retain existing Corsican wording: reattività occurs in Corsican Assembly proceedings and native Corsican business prose; ordine di is also compatible with Corsican. Shared Italian spelling alone is insufficient evidence of wrong language. Preserve METEOR_REACTIVITY_ORDER. Sources: https://www.isula.corsica/file/247459/ and https://hestiasecurite.corsica/co/lintrapresa"
+  },
+  {
+    "locale": "da",
+    "key": "add-template",
+    "value": "Tilføj skabelon",
+    "reason": "2026-09-14: Direct Danish vocabulary and complete source-meaning review. Retain correct Danish wording unchanged; technical head/meta/link tags, webmanifest, assetlinks.json, Computer and Type are valid technical/shared terms. Confirm selected-list left/right directions, attachment count, duplication question, organization/team/people counts and Change/Add actions as applicable. Preserve source identifiers, HTML/JSON labels and trailing count spacing."
+  },
+  {
+    "locale": "da",
+    "key": "computer",
+    "value": "Computer",
+    "reason": "2026-09-14: Direct Danish vocabulary and complete source-meaning review. Retain correct Danish wording unchanged; technical head/meta/link tags, webmanifest, assetlinks.json, Computer and Type are valid technical/shared terms. Confirm selected-list left/right directions, attachment count, duplication question, organization/team/people counts and Change/Add actions as applicable. Preserve source identifiers, HTML/JSON labels and trailing count spacing."
+  },
+  {
+    "locale": "da",
+    "key": "custom-field-currency-option",
+    "value": "Valutakode",
+    "reason": "2026-09-14: Direct Danish vocabulary and complete source-meaning review. Retain correct Danish wording unchanged; technical head/meta/link tags, webmanifest, assetlinks.json, Computer and Type are valid technical/shared terms. Confirm selected-list left/right directions, attachment count, duplication question, organization/team/people counts and Change/Add actions as applicable. Preserve source identifiers, HTML/JSON labels and trailing count spacing."
+  },
+  {
+    "locale": "da",
+    "key": "export-card-attachment-type",
+    "value": "Type",
+    "reason": "2026-09-14: Direct Danish vocabulary and complete source-meaning review. Retain correct Danish wording unchanged; technical head/meta/link tags, webmanifest, assetlinks.json, Computer and Type are valid technical/shared terms. Confirm selected-list left/right directions, attachment count, duplication question, organization/team/people counts and Change/Add actions as applicable. Preserve source identifiers, HTML/JSON labels and trailing count spacing."
+  },
+  {
+    "locale": "da",
+    "key": "moveListPopup-title",
+    "value": "Flyt liste",
+    "reason": "2026-09-14: Direct Danish vocabulary and complete source-meaning review. Retain correct Danish wording unchanged; technical head/meta/link tags, webmanifest, assetlinks.json, Computer and Type are valid technical/shared terms. Confirm selected-list left/right directions, attachment count, duplication question, organization/team/people counts and Change/Add actions as applicable. Preserve source identifiers, HTML/JSON labels and trailing count spacing."
+  },
+  {
+    "locale": "da",
+    "key": "type",
+    "value": "Type",
+    "reason": "2026-09-14: Direct Danish vocabulary and complete source-meaning review. Retain correct Danish wording unchanged; technical head/meta/link tags, webmanifest, assetlinks.json, Computer and Type are valid technical/shared terms. Confirm selected-list left/right directions, attachment count, duplication question, organization/team/people counts and Change/Add actions as applicable. Preserve source identifiers, HTML/JSON labels and trailing count spacing."
+  },
+  {
+    "locale": "da",
+    "key": "description-on-minicard",
+    "value": "Beskrivelse på minikort",
+    "reason": "2026-09-14: Direct Danish vocabulary and complete source-meaning review. Retain correct Danish wording unchanged; technical head/meta/link tags, webmanifest, assetlinks.json, Computer and Type are valid technical/shared terms. Confirm selected-list left/right directions, attachment count, duplication question, organization/team/people counts and Change/Add actions as applicable. Preserve source identifiers, HTML/JSON labels and trailing count spacing."
+  },
+  {
+    "locale": "da",
+    "key": "badge-attachment-on-minicard",
+    "value": "Antal vedhæftninger på minikort",
+    "reason": "2026-09-14: Direct Danish vocabulary and complete source-meaning review. Retain correct Danish wording unchanged; technical head/meta/link tags, webmanifest, assetlinks.json, Computer and Type are valid technical/shared terms. Confirm selected-list left/right directions, attachment count, duplication question, organization/team/people counts and Change/Add actions as applicable. Preserve source identifiers, HTML/JSON labels and trailing count spacing."
+  },
+  {
+    "locale": "da",
+    "key": "r-board",
+    "value": "Tavle",
+    "reason": "2026-09-14: Direct Danish vocabulary and complete source-meaning review. Retain correct Danish wording unchanged; technical head/meta/link tags, webmanifest, assetlinks.json, Computer and Type are valid technical/shared terms. Confirm selected-list left/right directions, attachment count, duplication question, organization/team/people counts and Change/Add actions as applicable. Preserve source identifiers, HTML/JSON labels and trailing count spacing."
+  },
+  {
+    "locale": "da",
+    "key": "custom-head-tags-enabled",
+    "value": "Aktivér brugerdefinerede head-tags",
+    "reason": "2026-09-14: Direct Danish vocabulary and complete source-meaning review. Retain correct Danish wording unchanged; technical head/meta/link tags, webmanifest, assetlinks.json, Computer and Type are valid technical/shared terms. Confirm selected-list left/right directions, attachment count, duplication question, organization/team/people counts and Change/Add actions as applicable. Preserve source identifiers, HTML/JSON labels and trailing count spacing."
+  },
+  {
+    "locale": "da",
+    "key": "custom-head-meta-tags",
+    "value": "Brugerdefinerede meta-tags (HTML)",
+    "reason": "2026-09-14: Direct Danish vocabulary and complete source-meaning review. Retain correct Danish wording unchanged; technical head/meta/link tags, webmanifest, assetlinks.json, Computer and Type are valid technical/shared terms. Confirm selected-list left/right directions, attachment count, duplication question, organization/team/people counts and Change/Add actions as applicable. Preserve source identifiers, HTML/JSON labels and trailing count spacing."
+  },
+  {
+    "locale": "da",
+    "key": "custom-head-link-tags",
+    "value": "Brugerdefinerede link-tags (HTML)",
+    "reason": "2026-09-14: Direct Danish vocabulary and complete source-meaning review. Retain correct Danish wording unchanged; technical head/meta/link tags, webmanifest, assetlinks.json, Computer and Type are valid technical/shared terms. Confirm selected-list left/right directions, attachment count, duplication question, organization/team/people counts and Change/Add actions as applicable. Preserve source identifiers, HTML/JSON labels and trailing count spacing."
+  },
+  {
+    "locale": "da",
+    "key": "custom-manifest-enabled",
+    "value": "Aktivér brugerdefineret webmanifest",
+    "reason": "2026-09-14: Direct Danish vocabulary and complete source-meaning review. Retain correct Danish wording unchanged; technical head/meta/link tags, webmanifest, assetlinks.json, Computer and Type are valid technical/shared terms. Confirm selected-list left/right directions, attachment count, duplication question, organization/team/people counts and Change/Add actions as applicable. Preserve source identifiers, HTML/JSON labels and trailing count spacing."
+  },
+  {
+    "locale": "da",
+    "key": "custom-assetlinks-enabled",
+    "value": "Aktivér brugerdefineret assetlinks.json",
+    "reason": "2026-09-14: Direct Danish vocabulary and complete source-meaning review. Retain correct Danish wording unchanged; technical head/meta/link tags, webmanifest, assetlinks.json, Computer and Type are valid technical/shared terms. Confirm selected-list left/right directions, attachment count, duplication question, organization/team/people counts and Change/Add actions as applicable. Preserve source identifiers, HTML/JSON labels and trailing count spacing."
+  },
+  {
+    "locale": "da",
+    "key": "duplicate-board-confirm",
+    "value": "Er du sikker på, at du vil duplikere denne tavle?",
+    "reason": "2026-09-14: Direct Danish vocabulary and complete source-meaning review. Retain correct Danish wording unchanged; technical head/meta/link tags, webmanifest, assetlinks.json, Computer and Type are valid technical/shared terms. Confirm selected-list left/right directions, attachment count, duplication question, organization/team/people counts and Change/Add actions as applicable. Preserve source identifiers, HTML/JSON labels and trailing count spacing."
+  },
+  {
+    "locale": "da",
+    "key": "org-number",
+    "value": "Antallet af organisationer er: ",
+    "reason": "2026-09-14: Direct Danish vocabulary and complete source-meaning review. Retain correct Danish wording unchanged; technical head/meta/link tags, webmanifest, assetlinks.json, Computer and Type are valid technical/shared terms. Confirm selected-list left/right directions, attachment count, duplication question, organization/team/people counts and Change/Add actions as applicable. Preserve source identifiers, HTML/JSON labels and trailing count spacing."
+  },
+  {
+    "locale": "da",
+    "key": "team-number",
+    "value": "Antallet af teams er: ",
+    "reason": "2026-09-14: Direct Danish vocabulary and complete source-meaning review. Retain correct Danish wording unchanged; technical head/meta/link tags, webmanifest, assetlinks.json, Computer and Type are valid technical/shared terms. Confirm selected-list left/right directions, attachment count, duplication question, organization/team/people counts and Change/Add actions as applicable. Preserve source identifiers, HTML/JSON labels and trailing count spacing."
+  },
+  {
+    "locale": "da",
+    "key": "people-number",
+    "value": "Antallet af personer er: ",
+    "reason": "2026-09-14: Direct Danish vocabulary and complete source-meaning review. Retain correct Danish wording unchanged; technical head/meta/link tags, webmanifest, assetlinks.json, Computer and Type are valid technical/shared terms. Confirm selected-list left/right directions, attachment count, duplication question, organization/team/people counts and Change/Add actions as applicable. Preserve source identifiers, HTML/JSON labels and trailing count spacing."
+  },
+  {
+    "locale": "da",
+    "key": "left-of-list",
+    "value": "Til venstre for den valgte liste",
+    "reason": "2026-09-14: Direct Danish vocabulary and complete source-meaning review. Retain correct Danish wording unchanged; technical head/meta/link tags, webmanifest, assetlinks.json, Computer and Type are valid technical/shared terms. Confirm selected-list left/right directions, attachment count, duplication question, organization/team/people counts and Change/Add actions as applicable. Preserve source identifiers, HTML/JSON labels and trailing count spacing."
+  },
+  {
+    "locale": "da",
+    "key": "right-of-list",
+    "value": "Til højre for den valgte liste",
+    "reason": "2026-09-14: Direct Danish vocabulary and complete source-meaning review. Retain correct Danish wording unchanged; technical head/meta/link tags, webmanifest, assetlinks.json, Computer and Type are valid technical/shared terms. Confirm selected-list left/right directions, attachment count, duplication question, organization/team/people counts and Change/Add actions as applicable. Preserve source identifiers, HTML/JSON labels and trailing count spacing."
   }
 ]
