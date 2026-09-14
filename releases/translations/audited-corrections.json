@@ -125277,5 +125277,54 @@
     "before": "A des cartes avec du temps passé",
     "after": "ⵖⵓⵔⵙ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵙ ⵡⴰⴽⵓⴷ ⵉⵜⵜⵓⵙⵎⵔⵙⵏ",
     "reason": "2026-09-14: Replace Arabic/French time-tracking labels while preserving Spent versus Additional/Overtime, hours units, and Has cards scopes. CLDR zgh dates/fields/hour directly attests Hour ⵜⴰⵙⵔⴰⴳⵜ, not plural ⵜⵉⵙⵔⴰⴳⵉⵏ (derived). Time ⴰⴽⵓⴷ and bound ⵡⴰⴽⵓⴷ occur in native software. Spent provisionally uses Used time from the native Use root smr(s); passive participle is derived. Additional follows local Added irnan wording, not a directly attested overtime term. Used-time/Additional-time semantic adaptations, Has construction, derived forms and full labels remain LOW CONFIDENCE for native review. Source: https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml . Mechanical checks cannot validate fluency."
+  },
+  {
+    "locale": "zgh",
+    "key": "filter-member-label",
+    "before": "Filtrer par participant",
+    "after": "ⵣⵉⵣⴷⵉⴳ ⵙ ⵓⴳⵎⴰⵎ",
+    "reason": "2026-09-14: Replace Arabic/French filtering labels. Preserve member versus assignee, No member/No assignee negation, Other filters, active filter status, and You filtering this board plus Click here to edit instruction. Filter/Card/Member vocabulary follows existing local usage; member singular/bound forms are derived and not independently validated. Assignee provisionally uses Person given the card (responsibility assignment), preserving a different noun scope from membership; this semantic paraphrase is LOW CONFIDENCE. Native MediaWiki attests No ⵓⵔ ⵉⵍⵍⵉ, Given ⵉⵜⵜⵓⴼⴽⴰ, Edit ⵙⵏⴼⵍ and Here ⴷⴰ. Working/active-filter and second-person filtering forms, other plural adjective and full clauses remain LOW CONFIDENCE requiring native validation; component evidence and local consistency do not prove complete grammar. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "filter-no-member",
+    "before": "ليس هناك أي عضو",
+    "after": "ⵓⵔ ⵉⵍⵍⵉ ⵓⴳⵎⴰⵎ",
+    "reason": "2026-09-14: Replace Arabic/French filtering labels. Preserve member versus assignee, No member/No assignee negation, Other filters, active filter status, and You filtering this board plus Click here to edit instruction. Filter/Card/Member vocabulary follows existing local usage; member singular/bound forms are derived and not independently validated. Assignee provisionally uses Person given the card (responsibility assignment), preserving a different noun scope from membership; this semantic paraphrase is LOW CONFIDENCE. Native MediaWiki attests No ⵓⵔ ⵉⵍⵍⵉ, Given ⵉⵜⵜⵓⴼⴽⴰ, Edit ⵙⵏⴼⵍ and Here ⴷⴰ. Working/active-filter and second-person filtering forms, other plural adjective and full clauses remain LOW CONFIDENCE requiring native validation; component evidence and local consistency do not prove complete grammar. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "filter-assignee-label",
+    "before": "Filtrer par personne assignée",
+    "after": "ⵣⵉⵣⴷⵉⴳ ⵙ ⵓⴼⴳⴰⵏ ⵉⵜⵜⵓⴼⴽⴰ ⵜⴰⴽⴰⵕⴹⴰ",
+    "reason": "2026-09-14: Replace Arabic/French filtering labels. Preserve member versus assignee, No member/No assignee negation, Other filters, active filter status, and You filtering this board plus Click here to edit instruction. Filter/Card/Member vocabulary follows existing local usage; member singular/bound forms are derived and not independently validated. Assignee provisionally uses Person given the card (responsibility assignment), preserving a different noun scope from membership; this semantic paraphrase is LOW CONFIDENCE. Native MediaWiki attests No ⵓⵔ ⵉⵍⵍⵉ, Given ⵉⵜⵜⵓⴼⴽⴰ, Edit ⵙⵏⴼⵍ and Here ⴷⴰ. Working/active-filter and second-person filtering forms, other plural adjective and full clauses remain LOW CONFIDENCE requiring native validation; component evidence and local consistency do not prove complete grammar. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "filter-no-assignee",
+    "before": "Pas de personne assignée",
+    "after": "ⵓⵔ ⵉⵍⵍⵉ ⵓⴼⴳⴰⵏ ⵉⵜⵜⵓⴼⴽⴰ ⵜⴰⴽⴰⵕⴹⴰ",
+    "reason": "2026-09-14: Replace Arabic/French filtering labels. Preserve member versus assignee, No member/No assignee negation, Other filters, active filter status, and You filtering this board plus Click here to edit instruction. Filter/Card/Member vocabulary follows existing local usage; member singular/bound forms are derived and not independently validated. Assignee provisionally uses Person given the card (responsibility assignment), preserving a different noun scope from membership; this semantic paraphrase is LOW CONFIDENCE. Native MediaWiki attests No ⵓⵔ ⵉⵍⵍⵉ, Given ⵉⵜⵜⵓⴼⴽⴰ, Edit ⵙⵏⴼⵍ and Here ⴷⴰ. Working/active-filter and second-person filtering forms, other plural adjective and full clauses remain LOW CONFIDENCE requiring native validation; component evidence and local consistency do not prove complete grammar. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "other-filters-label",
+    "before": "Autres filtres",
+    "after": "ⵜⵉⵎⵣⵉⵣⴷⴳⵉⵜⵉⵏ ⵢⴰⴹⵏⵉⵏ",
+    "reason": "2026-09-14: Replace Arabic/French filtering labels. Preserve member versus assignee, No member/No assignee negation, Other filters, active filter status, and You filtering this board plus Click here to edit instruction. Filter/Card/Member vocabulary follows existing local usage; member singular/bound forms are derived and not independently validated. Assignee provisionally uses Person given the card (responsibility assignment), preserving a different noun scope from membership; this semantic paraphrase is LOW CONFIDENCE. Native MediaWiki attests No ⵓⵔ ⵉⵍⵍⵉ, Given ⵉⵜⵜⵓⴼⴽⴰ, Edit ⵙⵏⴼⵍ and Here ⴷⴰ. Working/active-filter and second-person filtering forms, other plural adjective and full clauses remain LOW CONFIDENCE requiring native validation; component evidence and local consistency do not prove complete grammar. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "filter-on",
+    "before": "التصفية تشتغل",
+    "after": "ⴰⵔ ⵜⵙⵡⵓⵔⵉ ⵜⵎⵣⵉⵣⴷⴳⵜ",
+    "reason": "2026-09-14: Replace Arabic/French filtering labels. Preserve member versus assignee, No member/No assignee negation, Other filters, active filter status, and You filtering this board plus Click here to edit instruction. Filter/Card/Member vocabulary follows existing local usage; member singular/bound forms are derived and not independently validated. Assignee provisionally uses Person given the card (responsibility assignment), preserving a different noun scope from membership; this semantic paraphrase is LOW CONFIDENCE. Native MediaWiki attests No ⵓⵔ ⵉⵍⵍⵉ, Given ⵉⵜⵜⵓⴼⴽⴰ, Edit ⵙⵏⴼⵍ and Here ⴷⴰ. Working/active-filter and second-person filtering forms, other plural adjective and full clauses remain LOW CONFIDENCE requiring native validation; component evidence and local consistency do not prove complete grammar. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "filter-on-desc",
+    "before": "أنت بصدد تصفية بطاقات هذه اللوحة. اضغط هنا لتعديل التصفية.",
+    "after": "ⴰⵔ ⵜⵣⵉⵣⴷⵉⴳⴷ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵏ ⵜⴼⵍⵡⵉⵜ ⴰⴷ. ⵙⵙⵉⵜ ⴷⴰ ⴰⴼⴰⴷ ⴰⴷ ⵜⵙⵏⴼⵍⴷ ⵜⴰⵎⵣⵉⵣⴷⴳⵜ.",
+    "reason": "2026-09-14: Replace Arabic/French filtering labels. Preserve member versus assignee, No member/No assignee negation, Other filters, active filter status, and You filtering this board plus Click here to edit instruction. Filter/Card/Member vocabulary follows existing local usage; member singular/bound forms are derived and not independently validated. Assignee provisionally uses Person given the card (responsibility assignment), preserving a different noun scope from membership; this semantic paraphrase is LOW CONFIDENCE. Native MediaWiki attests No ⵓⵔ ⵉⵍⵍⵉ, Given ⵉⵜⵜⵓⴼⴽⴰ, Edit ⵙⵏⴼⵍ and Here ⴷⴰ. Working/active-filter and second-person filtering forms, other plural adjective and full clauses remain LOW CONFIDENCE requiring native validation; component evidence and local consistency do not prove complete grammar. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
   }
 ]
