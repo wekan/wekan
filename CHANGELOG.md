@@ -80,9 +80,9 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,298 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 546 pending review or repair.
-The correction inventory records 17,604 exact before/after values,
+findings: 15,300 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 544 pending review or repair.
+The correction inventory records 17,606 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,11 +102,11 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is 44d2b0241 (2026-09-14), replacing four
-original French duplicate-list deletion labels with provisional wording.
-Preserve duplicate/empty qualifiers and avoid private/double ambiguity.
-Repeat-derived technical meaning, grammar and full labels remain low
-confidence and need further research. Wider language review remains open.
+Latest translation fix is b2af87a24 (2026-09-14), replacing two bare
+English Bambara Buddhist/Coptic labels with provisional calendar compounds.
+Borrowing spelling, proper-name association and full compounds remain low
+confidence without canonical native attestation. Two Bambara civil/tabular
+epoch findings remain pending. Wider language review remains open.
 Greenlandic CLDR-unconfirmed wording and twelve Quechua color wrappers
 still need review, alongside the wider restored and unflagged values.
 Tamazight calendar review dd2aaa19a (2026-09-14) records provisional
@@ -626,10 +626,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,298 original findings are
+Translation audit progress as of 2026-09-14: 15,300 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 546 remain pending across 17 locales, including 403 Tamazight findings.
-The ledger contains 17,604 correction records, including unflagged repairs.
+and 544 remain pending across 17 locales, including 403 Tamazight findings.
+The ledger contains 17,606 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -1010,6 +1010,18 @@ private/double ambiguity. All 17,604 correction/rendering checks pass;
 546 original findings remain. Technical duplicate meaning is not established;
 derived passive, feminine-plural agreement and full labels remain low
 confidence and need further research. Wider language and browser review remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b2af87a24">Add provisional Bambara Buddhist and Coptic calendar names</a>. Thanks to xet7.</summary>
+
+Replace two bare English labels with provisional calendar compounds using
+the existing calendar noun. Borrowing spelling, proper-name association and
+compound grammar remain low confidence without canonical native attestation.
+All 17,606 correction/rendering checks pass; 544 original findings remain,
+including two Bambara civil/tabular epoch findings. Wider language and live
+browser validation remain open.
 
 </details>
 
