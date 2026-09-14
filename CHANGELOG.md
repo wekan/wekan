@@ -656,6 +656,16 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/439a18989">Replace Finnish Veps parent-card wording</a>. Thanks to xet7.</summary>
+
+The parent selection label now uses a complete Veps terminology draft.
+Compound grammar and software meaning remain low confidence. Locale, token
+and preference checks pass; dated audit evidence keeps native/browser
+verification open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a9d68dc92">Verify Veps arithmetic and location terminology</a>. Thanks to xet7.</summary>
 
 Visually verified primary dictionary entries establish addition, vertical

@@ -309,3 +309,14 @@ canvas dependency; the loading task's supported destroy method also
 succeeded. Temporary images/PDF/text remain ignored and are not bundled.
 No locale values, ledgers or completion counts changed by this review.
 Source: [linked primary dictionary](https://drive.google.com/file/d/0B92CAKqSx8Ped29wTmhIQ0NZSTg/view).
+
+Parent-card label draft **2026-09-14**, local commit `439a18989`:
+`parent-card` now reads **Vanhemb kart**, replacing Finnish
+Ylätehtäväkortti. Noid's dictionary attests vanhemb for parent/elder;
+existing WeKan `card` supplies Kart. The opened-card parent selection
+consumes the label. Software parent meaning and compound grammar remain
+**low confidence**; this is not an attested native computer compound.
+Eleven tests across four files pass for exact values, placeholders and
+translation preference. Original ten Veps findings remain pending;
+ledger 18,825. Live browser/native phrase verification remains open.
+Source: https://vepsnoid.blogspot.com/p/dictionary.html

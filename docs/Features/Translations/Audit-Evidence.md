@@ -26204,3 +26204,9 @@ arithmetic addition, vertical and upper-part terms. [Veps review](Veps-Review.md
 records exact entries and distinguishes addition from result noun Sum.
 No locale changes or completed classifications; 233 original findings
 remain pending, with full field-sum and scrollbar wording still open.
+
+Veps parent-card draft **2026-09-14**, local commit `439a18989`:
+additional Finnish label replaced with Veps terminology.
+[Veps review](Veps-Review.md) records the source and low-confidence
+compound/software metaphor. Eleven tests across four files pass; ledger
+18,825, original pending 233 unchanged. Native/browser review remains open.
