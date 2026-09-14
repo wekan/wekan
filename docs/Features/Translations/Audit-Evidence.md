@@ -22060,3 +22060,16 @@ meaning. Complete remains unaccepted pending action/status context.
 Review checks pass: 15,561 corrected, 1,562 restored awaiting validation,
 2,650 reviewed unchanged and 308 pending. Contextual agreement, broader
 language and browser validation remain open. Nothing pushed.
+
+
+### 2026-09-14 — Galician migration scopes and confirmations
+
+Local commit `ff77543b5` retains 34 directly reviewed values unchanged.
+Duplicate-list repair preserves empty AND same-title populated counterpart
+and conversion-before-deletion order. Lost-card restore excludes archived
+items; restore-all includes them and preserves the undo warning. Missing
+IDs, administrator-only and individual execution restrictions, URL storage
+references and progress steps retain meaning. Completion label remains open.
+Review checks pass: 15,561 corrected, 1,528 restored awaiting validation,
+2,684 reviewed unchanged and 308 pending. Broader grammar, terminology and
+browser validation remain open. Nothing pushed.
