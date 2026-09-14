@@ -64,6 +64,9 @@ test('different source organization and destination namespace are used in discov
  const api=async(kind,url,method,data)=>{calls.push({kind,url,method,data});if(url.startsWith('orgs/sample/repos'))return url.endsWith('page=1')?[{...repo('repo'),owner:{login:'sample'},full_name:'sample/repo'}]:[];if(url==='repos/destination/repo'&&!created)throw Error('HTTP 404: missing');if(method==='POST')created=true;return {private:false};};
  const success=await m.syncOrganization({source:'github',mirrors:['codeberg']},{organizationEntry:{source:'sample',destinations:{gitlab:'group/sub',codeberg:'destination',sourceforge:'sf'}},directory,api,log:()=>{},run:(tool,args,input,options)=>{assert.equal(options.env.WEKAN_MIRROR_ORGANIZATION,'sample');assert.equal(options.env.WEKAN_MIRROR_CODEBERG_NAMESPACE,'destination');fs.writeFileSync(args.at(-1),JSON.stringify({repository:'repo',issues:[],releases:[]}));return '';},synchronize:async()=>true});
  assert.equal(success,true);assert.ok(calls.some(c=>c.url==='orgs/destination/repos'&&c.method==='POST'));
+ const logs=fs.readdirSync(path.join(directory,'.tools/log/mirror-organization'));
+ assert.equal(logs.length,1);assert.match(logs[0],/^\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}(?:-\d+)?$/);
+ assert.ok(fs.existsSync(path.join(directory,'.tools/log/mirror-organization',logs[0],'report.json')));
  }finally{fs.rmSync(directory,{recursive:true,force:true});}
 });
 test('native wiki initialization merges source into destination default branch and aborts conflicting edits',async()=>{

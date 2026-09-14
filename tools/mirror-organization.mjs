@@ -2,6 +2,7 @@
 import { readSnapshot } from './mirror-disk-snapshot.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
+import logDirectory from './log-directory.cjs';
 import { command, cliApi, httpJson, root } from './mirror-active-forges.mjs';
 import { validateRepository, repositoryArchive, repositoryForges, sourceForgeMount } from './mirror-repository.mjs';
 import { generateCatalog } from './mirror-static.mjs';
@@ -153,7 +154,7 @@ export async function syncOrganization(settings,{preview=false,api=cliApi,http=h
   const targets = settings.mirrors.filter(n=>n!=='github');
   if (!targets.length) throw new Error('Select at least one non-GitHub destination mirror');
   const repos = await organizationRepositories(api,owner); // Complete discovery before writes.
-  const stamp = timestamp(), logdir = path.join(directory,'.tools/log',`mirror-organization-${stamp}`);
+  const stamp = timestamp(), logdir = logDirectory.reserve(path.join(directory, '.tools/log'), 'mirror-organization');
   const work = path.join(directory,'.tools/tmp',`mirror-organization-${stamp}`);
   fs.mkdirSync(logdir,{recursive:true}); fs.mkdirSync(work,{recursive:true});
   const report = {source:`https://github.com/${owner}`,destinations,preview,repositories:repos.map(r=>r.name),events:[]};

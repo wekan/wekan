@@ -159,7 +159,7 @@ to that category rather than assuming it was empty. Other categories and mirrors
 continue, and any failures/conflicts produce a nonzero exit status.
 
 Console status, `status.txt`, `report.json` and `source.json` snapshot are saved in
-`.tools/log/mirror-<timestamp>/`. Reports list copied/planned/checked items,
+`.tools/log/mirror-data/YYYY-MM-DD_HH-MM-SS/`. Reports list copied/planned/checked items,
 archive renames and each failure reason. Transfer files stay in `.tools/tmp`;
 completed source files remain in the persistent archive below. Available archived
 release binaries are reused for destination uploads. SourceForge also receives
@@ -242,7 +242,7 @@ reviews, releases and binaries through the existing engine. The source repositor
 actual default branch is used for merge recovery. Repositories with issues disabled
 still export PRs and their issue-style conversations. Errors in one repository or
 data category do not stop the remaining repositories. Reports and terminal output
-are saved under `.tools/log/mirror-organization-<timestamp>/`.
+are saved under `.tools/log/mirror-organization/YYYY-MM-DD_HH-MM-SS/`.
 
 Enabled wiki repositories are retained locally as `wiki.git` with files and Git
 history. GitLab/Codeberg use their native wiki Git repositories; empty native wikis

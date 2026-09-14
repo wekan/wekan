@@ -872,7 +872,7 @@ function run_playwright_parallel(){
 	read -p "Install Playwright test dependencies first? [y/N] " INSTALL_DEPS
 	case "$INSTALL_DEPS" in [Yy]*) ( cd "$pwdir" && meteor npm install ) ;; esac
 
-	# This run's own .tools/log/<operation>/<date>/<time>/ dir, so logs are never overwritten.
+	# This run's own .tools/log/<operation>/YYYY-MM-DD_HH-MM-SS/ dir, so logs are never overwritten.
 	local RUN_LOGDIR
 	RUN_LOGDIR="$(log_directory test-playwright-all)" || return $?
 	mkdir -p "$RUN_LOGDIR"
@@ -888,7 +888,7 @@ function run_playwright_parallel(){
 	local rc_chromium rc_firefox rc_webkit
 	local ts
 	# Stream live to the console with tee while also saving to this run's
-	# .tools/log/<operation>/<date>/<time>/ dir. PIPESTATUS[0] is run_pw_all_browser's exit code (the
+	# .tools/log/<operation>/YYYY-MM-DD_HH-MM-SS/ dir. PIPESTATUS[0] is run_pw_all_browser's exit code (the
 	# left side of the pipe), not tee's, so the pass/fail result stays accurate.
 	for entry in "chromium:Chromium" "firefox:Firefox" "webkit:WebKit"; do
 		browser="${entry%%:*}"; label="${entry#*:}"
@@ -1030,7 +1030,7 @@ function run_all_tests(){
 	local TEST_NODE_OPTIONS="${WEKAN_TEST_NODE_OPTIONS:---max-old-space-size=$TEST_HEAP_MB}"
 	echo "Node heap limit for test runtime processes: ${TEST_HEAP_MB} MB."
 	echo "  Override by exporting WEKAN_TEST_NODE_OPTIONS yourself."
-	# Each whole-suite run gets its own .tools/log/<operation>/<date>/<time>/ directory
+	# Each whole-suite run gets its own .tools/log/<operation>/YYYY-MM-DD_HH-MM-SS/ directory
 	# (stamped once, when the run starts), so logs are never overwritten and
 	# previous runs are kept.
 	local RUN_TS RUN_LOGDIR
