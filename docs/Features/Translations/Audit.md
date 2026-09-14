@@ -4,24 +4,23 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,547 |
-| Restored pre-pull; awaiting validation | 2,807 |
-| Reviewed; retained unchanged | 1,419 |
+| Corrected | 15,550 |
+| Restored pre-pull; awaiting validation | 2,767 |
+| Reviewed; retained unchanged | 1,456 |
 | Pending review or repair | 308 |
 | Total tracked | 20,081 |
 
 Review is ongoing. The [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,142** exact before/after values, including unflagged repairs.
+contain **18,145** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix/review: **2026-09-14**, local commit `9ee9d2357` —
-repaired Esperanto watch-settings terminology and retained 33 correct values,
-including reviewed subtask compounds. Latest unchanged-value review:
-**2026-09-14**, local commit `5ba04c102` — retained 49 correct role,
-custom-field and card-control values. All **18,142** correction records and
-unchanged-value/progress checks pass. Browser verification was not run;
-no translations were pushed. Completion terminology remains under review.
+Latest translation fix/review: **2026-09-14**, local commit `1b2232534` —
+restored three Esperanto date-format labels to canonical YYYY/MM/DD notation
+and retained 37 correct field, email and export values. All **18,145**
+correction records and unchanged-value/progress checks pass. Browser
+verification was not run; no translations were pushed. Completion, pronoun,
+overtime, lime-color and scrollbar terminology remain under review.
 
 
 Fixed categories include wrong-language prose, terminology, warnings,

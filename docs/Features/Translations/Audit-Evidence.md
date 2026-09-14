@@ -21559,3 +21559,14 @@ types and none/unknown states. Reviewed subtask compounds and deletion
 confirmations retain correct grammar. Lime wording is excluded pending
 color-versus-fruit review; earlier completion/member/overtime questions remain
 open. Unchanged-value tests pass; browser behavior was not verified.
+
+
+### Esperanto date-format and export review — 2026-09-14
+
+Local commit `1b2232534` restores three format labels from foreign JJJJ/TT
+abbreviations to canonical YYYY/DD notation. Retained 37 directly reviewed
+correct field, email and export values, preserving delimiter distinctions,
+role/date categories, attachment metadata, disk-space warnings and literal
+placeholders. Correction and unchanged-value checks pass; scrollbar wording
+is excluded for terminology review and earlier uncertainties remain open.
+Browser behavior was not verified.
