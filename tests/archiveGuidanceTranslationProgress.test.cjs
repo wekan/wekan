@@ -37,3 +37,14 @@ assert.doesNotMatch(read('ar')['close-board-pop'], /شما|می توانید|ب�
 assert.doesNotMatch(read('id')['close-board-pop'], /boleh|pulih semula|butang|Arkib/);
 for (const [c, v] of [['ca','Arxiu'],['gl','Arquivo'],['he','ארכיון']]) assert.strictEqual(read(c).archives,v);
 console.log(`Archive guidance batch three: ${batchThree.length} files; wrong-language and place-label regressions`);
+
+const batchFour = ["af", "af_ZA", "sq", "az-AZ", "az-LA", "az", "be", "bn", "hi-IN", "hi", "ta", "ur", "mk", "ka", "hy", "sw", "zu-ZA", "zu", "cy-GB", "cy", "mt"];
+for (const code of batchFour) {
+ const d=read(code),v=d['close-board-pop'];
+ assert.ok(v.includes(d.archives));assert.ok(v.includes(d['all-boards']));
+ assert.doesNotMatch(v,/tuiskopskrif|Əsas başlıqdakı|хатнім загалоўку|হোম শিরোনাম|होम हेडर|முகப்புத் தலைப்பில்|ویلل|تہے|хедъра|kichwa cha nyumbani|kunhlokweni yasekhaya|pennyn cartref|home header/);
+}
+assert.doesNotMatch(read('mk')['close-board-pop'],/Ще|възстановите|като натиснете/);
+assert.doesNotMatch(read('mt')['close-board-pop'],/You|by clicking|button/);
+assert.strictEqual(read('zu').archives,'Ingobo yomlando');
+console.log(`Archive batch four: ${batchFour.length} locale locations and wrong-language regressions`);

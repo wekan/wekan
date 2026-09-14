@@ -132634,5 +132634,166 @@
     "before": "להעביר לארכיון",
     "after": "ארכיון",
     "reason": "2026-09-14: Correct identical regional Archive action/save label to Archive place, matching reviewed base terminology."
+  },
+  {
+    "locale": "zu-ZA",
+    "key": "archives",
+    "before": "Faka kungobo yomlando",
+    "after": "Ingobo yomlando",
+    "reason": "2026-09-14: Repair archive guidance to current Archive section on All Boards, preserving full restoration meaning and native place labels. Macedonian Bulgarian and Urdu phonetic English replaced. Zulu Archive action becomes noun/place. Full Maltese and Zulu computing phrase collocations are low confidence and remain for native review."
+  },
+  {
+    "locale": "zu",
+    "key": "archives",
+    "before": "Faka kungobo yomlando",
+    "after": "Ingobo yomlando",
+    "reason": "2026-09-14: Repair archive guidance to current Archive section on All Boards, preserving full restoration meaning and native place labels. Macedonian Bulgarian and Urdu phonetic English replaced. Zulu Archive action becomes noun/place. Full Maltese and Zulu computing phrase collocations are low confidence and remain for native review."
+  },
+  {
+    "locale": "af",
+    "key": "close-board-pop",
+    "before": "U sal die bord kan herstel deur op die \"Argief\"-knoppie in die tuiskopskrif te klik.",
+    "after": "U kan die bord herstel vanuit “Argief” op die bladsy “Alle borde”.",
+    "reason": "2026-09-14: Repair archive guidance to current Archive section on All Boards, preserving full restoration meaning and native place labels. Macedonian Bulgarian and Urdu phonetic English replaced. Zulu Archive action becomes noun/place. Full Maltese and Zulu computing phrase collocations are low confidence and remain for native review."
+  },
+  {
+    "locale": "af_ZA",
+    "key": "close-board-pop",
+    "before": "U sal die bord kan herstel deur op die \"Argief\"-knoppie in die tuiskopskrif te klik.",
+    "after": "U kan die bord herstel vanuit “Argief” op die bladsy “Alle borde”.",
+    "reason": "2026-09-14: Repair archive guidance to current Archive section on All Boards, preserving full restoration meaning and native place labels. Macedonian Bulgarian and Urdu phonetic English replaced. Zulu Archive action becomes noun/place. Full Maltese and Zulu computing phrase collocations are low confidence and remain for native review."
+  },
+  {
+    "locale": "sq",
+    "key": "close-board-pop",
+    "before": "Do të mund ta rikthesh tabelën duke klikuar butonin “Arkivi” në krye të faqes kryesore.",
+    "after": "Mund ta riktheni tabelën nga seksioni «Arkivi» në faqen «Të gjitha tabelat».",
+    "reason": "2026-09-14: Repair archive guidance to current Archive section on All Boards, preserving full restoration meaning and native place labels. Macedonian Bulgarian and Urdu phonetic English replaced. Zulu Archive action becomes noun/place. Full Maltese and Zulu computing phrase collocations are low confidence and remain for native review."
+  },
+  {
+    "locale": "az-AZ",
+    "key": "close-board-pop",
+    "before": "Əsas başlıqdakı \"Arxiv\" düyməsini klikləməklə lövhəni bərpa edə biləcəksiniz.",
+    "after": "Lövhəni «Bütün lövhələr» səhifəsindəki «Arxiv» bölməsindən bərpa edə bilərsiniz.",
+    "reason": "2026-09-14: Repair archive guidance to current Archive section on All Boards, preserving full restoration meaning and native place labels. Macedonian Bulgarian and Urdu phonetic English replaced. Zulu Archive action becomes noun/place. Full Maltese and Zulu computing phrase collocations are low confidence and remain for native review."
+  },
+  {
+    "locale": "az-LA",
+    "key": "close-board-pop",
+    "before": "Əsas başlıqdakı \"Arxiv\" düyməsini klikləməklə lövhəni bərpa edə biləcəksiniz.",
+    "after": "Lövhəni «Bütün lövhələr» səhifəsindəki «Arxiv» bölməsindən bərpa edə bilərsiniz.",
+    "reason": "2026-09-14: Repair archive guidance to current Archive section on All Boards, preserving full restoration meaning and native place labels. Macedonian Bulgarian and Urdu phonetic English replaced. Zulu Archive action becomes noun/place. Full Maltese and Zulu computing phrase collocations are low confidence and remain for native review."
+  },
+  {
+    "locale": "az",
+    "key": "close-board-pop",
+    "before": "Əsas başlıqdakı \"Arxiv\" düyməsini klikləməklə lövhəni bərpa edə biləcəksiniz.",
+    "after": "Lövhəni «Bütün lövhələr» səhifəsindəki «Arxiv» bölməsindən bərpa edə bilərsiniz.",
+    "reason": "2026-09-14: Repair archive guidance to current Archive section on All Boards, preserving full restoration meaning and native place labels. Macedonian Bulgarian and Urdu phonetic English replaced. Zulu Archive action becomes noun/place. Full Maltese and Zulu computing phrase collocations are low confidence and remain for native review."
+  },
+  {
+    "locale": "be",
+    "key": "close-board-pop",
+    "before": "Вы зможаце аднавіць дошку, націснуўшы кнопку «Архіў» у хатнім загалоўку.",
+    "after": "Вы можаце аднавіць дошку ў раздзеле «Архіў» на старонцы «Усе дошкі».",
+    "reason": "2026-09-14: Repair archive guidance to current Archive section on All Boards, preserving full restoration meaning and native place labels. Macedonian Bulgarian and Urdu phonetic English replaced. Zulu Archive action becomes noun/place. Full Maltese and Zulu computing phrase collocations are low confidence and remain for native review."
+  },
+  {
+    "locale": "bn",
+    "key": "close-board-pop",
+    "before": "হোম শিরোনাম থেকে “সংরক্ষণাগার” বোতামে ক্লিক করে বোর্ডটি পুনরুদ্ধার করতে পারবেন।",
+    "after": "“সব বোর্ড” পৃষ্ঠার “সংরক্ষণাগার” বিভাগ থেকে বোর্ডটি পুনরুদ্ধার করতে পারবেন।",
+    "reason": "2026-09-14: Repair archive guidance to current Archive section on All Boards, preserving full restoration meaning and native place labels. Macedonian Bulgarian and Urdu phonetic English replaced. Zulu Archive action becomes noun/place. Full Maltese and Zulu computing phrase collocations are low confidence and remain for native review."
+  },
+  {
+    "locale": "hi-IN",
+    "key": "close-board-pop",
+    "before": "आप होम हेडर से \"संग्रह\" बटन पर क्लिक करके बोर्ड को पुनर्स्थापित करने में सक्षम होंगे।",
+    "after": "आप “सभी बोर्ड” पृष्ठ के “पुरालेख” अनुभाग से बोर्ड को पुनर्स्थापित कर सकते हैं।",
+    "reason": "2026-09-14: Repair archive guidance to current Archive section on All Boards, preserving full restoration meaning and native place labels. Macedonian Bulgarian and Urdu phonetic English replaced. Zulu Archive action becomes noun/place. Full Maltese and Zulu computing phrase collocations are low confidence and remain for native review."
+  },
+  {
+    "locale": "hi",
+    "key": "close-board-pop",
+    "before": "आप होम हेडर से \"संग्रह\" बटन पर क्लिक करके बोर्ड को पुनर्स्थापित करने में सक्षम होंगे।",
+    "after": "आप “सभी बोर्ड” पृष्ठ के “संग्रह” अनुभाग से बोर्ड को पुनर्स्थापित कर सकते हैं।",
+    "reason": "2026-09-14: Repair archive guidance to current Archive section on All Boards, preserving full restoration meaning and native place labels. Macedonian Bulgarian and Urdu phonetic English replaced. Zulu Archive action becomes noun/place. Full Maltese and Zulu computing phrase collocations are low confidence and remain for native review."
+  },
+  {
+    "locale": "ta",
+    "key": "close-board-pop",
+    "before": "முகப்புத் தலைப்பில் உள்ள “காப்பகம்” பொத்தானைச் சொடுக்கிப் பலகையை மீட்டெடுக்கலாம்.",
+    "after": "“அனைத்துப் பலகைகள்” பக்கத்தில் உள்ள “காப்பகம்” பகுதியிலிருந்து பலகையை மீட்டெடுக்கலாம்.",
+    "reason": "2026-09-14: Repair archive guidance to current Archive section on All Boards, preserving full restoration meaning and native place labels. Macedonian Bulgarian and Urdu phonetic English replaced. Zulu Archive action becomes noun/place. Full Maltese and Zulu computing phrase collocations are low confidence and remain for native review."
+  },
+  {
+    "locale": "ur",
+    "key": "close-board-pop",
+    "before": "آپ ویلل بے ابلے کو بحال تہے بورڈ کے ذریعے کلیککینگ تہے “محفوظ خانہ” بوتتون سے تہے ہومے ہےادےر.",
+    "after": "آپ «تمام بورڈز» صفحے کے «محفوظ خانہ» حصے سے بورڈ کو بحال کر سکتے ہیں۔",
+    "reason": "2026-09-14: Repair archive guidance to current Archive section on All Boards, preserving full restoration meaning and native place labels. Macedonian Bulgarian and Urdu phonetic English replaced. Zulu Archive action becomes noun/place. Full Maltese and Zulu computing phrase collocations are low confidence and remain for native review."
+  },
+  {
+    "locale": "mk",
+    "key": "close-board-pop",
+    "before": "Ще можете да възстановите Таблото като натиснете на бутона \"Архива\" в началото на хедъра.",
+    "after": "Можете да ја вратите таблата од делот „Архива“ на страницата „Сите табли“.",
+    "reason": "2026-09-14: Repair archive guidance to current Archive section on All Boards, preserving full restoration meaning and native place labels. Macedonian Bulgarian and Urdu phonetic English replaced. Zulu Archive action becomes noun/place. Full Maltese and Zulu computing phrase collocations are low confidence and remain for native review."
+  },
+  {
+    "locale": "ka",
+    "key": "close-board-pop",
+    "before": "დაფის აღდგენას შეძლებთ მთავარი გვერდის სათაურში „არქივი“ ღილაკზე დაწკაპუნებით.",
+    "after": "დაფის აღდგენა შეგიძლიათ „ყველა დაფა“ გვერდის „არქივი“ განყოფილებიდან.",
+    "reason": "2026-09-14: Repair archive guidance to current Archive section on All Boards, preserving full restoration meaning and native place labels. Macedonian Bulgarian and Urdu phonetic English replaced. Zulu Archive action becomes noun/place. Full Maltese and Zulu computing phrase collocations are low confidence and remain for native review."
+  },
+  {
+    "locale": "hy",
+    "key": "close-board-pop",
+    "before": "Դուք կկարողանաք վերականգնել տախտակը, սեղմելով «Արխիվ» կոճակը գլխավոր վերնագրից:",
+    "after": "Տախտակը կարող եք վերականգնել «Բոլոր տախտակները» էջի «Արխիվ» բաժնից։",
+    "reason": "2026-09-14: Repair archive guidance to current Archive section on All Boards, preserving full restoration meaning and native place labels. Macedonian Bulgarian and Urdu phonetic English replaced. Zulu Archive action becomes noun/place. Full Maltese and Zulu computing phrase collocations are low confidence and remain for native review."
+  },
+  {
+    "locale": "sw",
+    "key": "close-board-pop",
+    "before": "Utaweza kurejesha ubao kwa kubofya kitufe cha \"Kumbukumbu\" kutoka kwa kichwa cha nyumbani.",
+    "after": "Unaweza kurejesha ubao kutoka sehemu ya «Hifadhi» kwenye ukurasa wa «Bodi Zote».",
+    "reason": "2026-09-14: Repair archive guidance to current Archive section on All Boards, preserving full restoration meaning and native place labels. Macedonian Bulgarian and Urdu phonetic English replaced. Zulu Archive action becomes noun/place. Full Maltese and Zulu computing phrase collocations are low confidence and remain for native review."
+  },
+  {
+    "locale": "zu-ZA",
+    "key": "close-board-pop",
+    "before": "Uzokwazi ukubuyisela ibhodi ngokuchofoza inkinobho ethi “Faka kungobo yomlando” kunhlokweni yasekhaya.",
+    "after": "Ungabuyisela ibhodi engxenyeni ethi «Ingobo yomlando» ekhasini elithi «Wonke Amabhodi».",
+    "reason": "2026-09-14: Repair archive guidance to current Archive section on All Boards, preserving full restoration meaning and native place labels. Macedonian Bulgarian and Urdu phonetic English replaced. Zulu Archive action becomes noun/place. Full Maltese and Zulu computing phrase collocations are low confidence and remain for native review."
+  },
+  {
+    "locale": "zu",
+    "key": "close-board-pop",
+    "before": "Uzokwazi ukubuyisela ibhodi ngokuchofoza inkinobho ethi “Faka kungobo yomlando” kunhlokweni yasekhaya.",
+    "after": "Ungabuyisela ibhodi engxenyeni ethi «Ingobo yomlando» ekhasini elithi «Wonke Amabhodi».",
+    "reason": "2026-09-14: Repair archive guidance to current Archive section on All Boards, preserving full restoration meaning and native place labels. Macedonian Bulgarian and Urdu phonetic English replaced. Zulu Archive action becomes noun/place. Full Maltese and Zulu computing phrase collocations are low confidence and remain for native review."
+  },
+  {
+    "locale": "cy-GB",
+    "key": "close-board-pop",
+    "before": "Byddwch yn gallu adfer y bwrdd trwy glicio ar y botwm “Archif” o'r pennyn cartref.",
+    "after": "Gallwch adfer y bwrdd o «Archif» ar dudalen «Pob Bwrdd».",
+    "reason": "2026-09-14: Repair archive guidance to current Archive section on All Boards, preserving full restoration meaning and native place labels. Macedonian Bulgarian and Urdu phonetic English replaced. Zulu Archive action becomes noun/place. Full Maltese and Zulu computing phrase collocations are low confidence and remain for native review."
+  },
+  {
+    "locale": "cy",
+    "key": "close-board-pop",
+    "before": "Byddwch yn gallu adfer y bwrdd trwy glicio ar y botwm “Archif” o'r pennyn cartref.",
+    "after": "Gallwch adfer y bwrdd o «Archif» ar dudalen «Pob Bwrdd».",
+    "reason": "2026-09-14: Repair archive guidance to current Archive section on All Boards, preserving full restoration meaning and native place labels. Macedonian Bulgarian and Urdu phonetic English replaced. Zulu Archive action becomes noun/place. Full Maltese and Zulu computing phrase collocations are low confidence and remain for native review."
+  },
+  {
+    "locale": "mt",
+    "key": "close-board-pop",
+    "before": "You will be able għal restore il- bord by clicking il- “Arkivju” button minn il- home header.",
+    "after": "Tista’ tirrestawra l-bord minn «Arkivju» fil-paġna «Il-bordijiet kollha».",
+    "reason": "2026-09-14: Repair archive guidance to current Archive section on All Boards, preserving full restoration meaning and native place labels. Macedonian Bulgarian and Urdu phonetic English replaced. Zulu Archive action becomes noun/place. Full Maltese and Zulu computing phrase collocations are low confidence and remain for native review."
   }
 ]
