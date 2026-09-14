@@ -132025,5 +132025,194 @@
     "before": "Vous pouvez restaurer le tableau en cliquant sur le bouton « Archives » depuis le menu en entête.",
     "after": "ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⵙⵙⵓⴽⵏⴷ ⵜⴰⴼⵍⵡⵉⵜ ⵙⴳ «ⴰⵔⵛⵉⴼ» ⴳ ⵜⴰⵙⵏⴰ «ⴰⴽⴽⵯ ⵜⵉⴼⵍⵡⵉⵏ».",
     "reason": "2026-09-14: Correct outdated home-header Archive button guidance to active Archive section on All Boards page, verified in boardsList menuSections/render/click source. English variants updated; full French Tamazight prose replaced using native restore and existing UI place labels. Preserve source tokens. Low confidence for zgh: conjugated restore and full navigation phrase require native review. Other locale locations remain to audit."
+  },
+  {
+    "locale": "fi",
+    "key": "close-board-pop",
+    "before": "Voit palauttaa taulun klikkaamalla “Arkisto”-painiketta taululistan yläpalkista.",
+    "after": "Voit palauttaa taulun valitsemalla ”Arkisto” sivulta ”Kaikki taulut”.",
+    "reason": "2026-09-14: Repair obsolete header/button location to actual Archive section on All Boards, using each locale exact existing UI labels. Keep restoration meaning; regional exact copies updated, independently worded variants left for review. Polish action label corrected from Archive action to Archive place."
+  },
+  {
+    "locale": "de-AT",
+    "key": "close-board-pop",
+    "before": "Sie können das Board wiederherstellen, indem Sie die Schaltfläche \"Archiv\" in der Kopfzeile der Startseite anklicken.",
+    "after": "Sie können das Board unter „Archiv“ auf der Seite „Alle Boards“ wiederherstellen.",
+    "reason": "2026-09-14: Repair obsolete header/button location to actual Archive section on All Boards, using each locale exact existing UI labels. Keep restoration meaning; regional exact copies updated, independently worded variants left for review. Polish action label corrected from Archive action to Archive place."
+  },
+  {
+    "locale": "de-CH",
+    "key": "close-board-pop",
+    "before": "Sie können das Board wiederherstellen, indem Sie die Schaltfläche \"Archiv\" in der Kopfzeile der Startseite anklicken.",
+    "after": "Sie können das Board unter „Archiv“ auf der Seite „Alle Boards“ wiederherstellen.",
+    "reason": "2026-09-14: Repair obsolete header/button location to actual Archive section on All Boards, using each locale exact existing UI labels. Keep restoration meaning; regional exact copies updated, independently worded variants left for review. Polish action label corrected from Archive action to Archive place."
+  },
+  {
+    "locale": "de",
+    "key": "close-board-pop",
+    "before": "Sie können das Board wiederherstellen, indem Sie die Schaltfläche \"Archiv\" in der Kopfzeile der Startseite anklicken.",
+    "after": "Sie können das Board unter „Archiv“ auf der Seite „Alle Boards“ wiederherstellen.",
+    "reason": "2026-09-14: Repair obsolete header/button location to actual Archive section on All Boards, using each locale exact existing UI labels. Keep restoration meaning; regional exact copies updated, independently worded variants left for review. Polish action label corrected from Archive action to Archive place."
+  },
+  {
+    "locale": "de_DE",
+    "key": "close-board-pop",
+    "before": "Sie können das Board wiederherstellen, indem Sie die Schaltfläche \"Archiv\" in der Kopfzeile der Startseite anklicken.",
+    "after": "Sie können das Board unter „Archiv“ auf der Seite „Alle Boards“ wiederherstellen.",
+    "reason": "2026-09-14: Repair obsolete header/button location to actual Archive section on All Boards, using each locale exact existing UI labels. Keep restoration meaning; regional exact copies updated, independently worded variants left for review. Polish action label corrected from Archive action to Archive place."
+  },
+  {
+    "locale": "fr-BE",
+    "key": "close-board-pop",
+    "before": "Vous pouvez restaurer le tableau en cliquant sur le bouton « Archives » depuis le menu en entête.",
+    "after": "Vous pouvez restaurer le tableau depuis « Archives » sur la page « Tous les tableaux ».",
+    "reason": "2026-09-14: Repair obsolete header/button location to actual Archive section on All Boards, using each locale exact existing UI labels. Keep restoration meaning; regional exact copies updated, independently worded variants left for review. Polish action label corrected from Archive action to Archive place."
+  },
+  {
+    "locale": "fr-CA",
+    "key": "close-board-pop",
+    "before": "Vous pouvez restaurer le tableau en cliquant sur le bouton « Archives » depuis le menu en entête.",
+    "after": "Vous pouvez restaurer le tableau depuis « Archives » sur la page « Tous les tableaux ».",
+    "reason": "2026-09-14: Repair obsolete header/button location to actual Archive section on All Boards, using each locale exact existing UI labels. Keep restoration meaning; regional exact copies updated, independently worded variants left for review. Polish action label corrected from Archive action to Archive place."
+  },
+  {
+    "locale": "fr-CH",
+    "key": "close-board-pop",
+    "before": "Vous pouvez restaurer le tableau en cliquant sur le bouton « Archives » depuis le menu en entête.",
+    "after": "Vous pouvez restaurer le tableau depuis « Archives » sur la page « Tous les tableaux ».",
+    "reason": "2026-09-14: Repair obsolete header/button location to actual Archive section on All Boards, using each locale exact existing UI labels. Keep restoration meaning; regional exact copies updated, independently worded variants left for review. Polish action label corrected from Archive action to Archive place."
+  },
+  {
+    "locale": "fr-FR",
+    "key": "close-board-pop",
+    "before": "Vous pouvez restaurer le tableau en cliquant sur le bouton « Archives » depuis le menu en entête.",
+    "after": "Vous pouvez restaurer le tableau depuis « Archives » sur la page « Tous les tableaux ».",
+    "reason": "2026-09-14: Repair obsolete header/button location to actual Archive section on All Boards, using each locale exact existing UI labels. Keep restoration meaning; regional exact copies updated, independently worded variants left for review. Polish action label corrected from Archive action to Archive place."
+  },
+  {
+    "locale": "fr",
+    "key": "close-board-pop",
+    "before": "Vous pouvez restaurer le tableau en cliquant sur le bouton « Archives » depuis le menu en entête.",
+    "after": "Vous pouvez restaurer le tableau depuis « Archives » sur la page « Tous les tableaux ».",
+    "reason": "2026-09-14: Repair obsolete header/button location to actual Archive section on All Boards, using each locale exact existing UI labels. Keep restoration meaning; regional exact copies updated, independently worded variants left for review. Polish action label corrected from Archive action to Archive place."
+  },
+  {
+    "locale": "es-CL",
+    "key": "close-board-pop",
+    "before": "Podrás restaurar el tablero haciendo clic en el botón \"Archivo\" del encabezado de la pantalla inicial.",
+    "after": "Puedes restaurar el tablero desde «Archivo» en la página «Tableros».",
+    "reason": "2026-09-14: Repair obsolete header/button location to actual Archive section on All Boards, using each locale exact existing UI labels. Keep restoration meaning; regional exact copies updated, independently worded variants left for review. Polish action label corrected from Archive action to Archive place."
+  },
+  {
+    "locale": "es-CO",
+    "key": "close-board-pop",
+    "before": "Podrás restaurar el tablero haciendo clic en el botón \"Archivo\" del encabezado de la pantalla inicial.",
+    "after": "Puedes restaurar el tablero desde «Archivo» en la página «Tableros».",
+    "reason": "2026-09-14: Repair obsolete header/button location to actual Archive section on All Boards, using each locale exact existing UI labels. Keep restoration meaning; regional exact copies updated, independently worded variants left for review. Polish action label corrected from Archive action to Archive place."
+  },
+  {
+    "locale": "es-LA",
+    "key": "close-board-pop",
+    "before": "Podrás restaurar el tablero haciendo clic en el botón \"Archivo\" del encabezado de la pantalla inicial.",
+    "after": "Puedes restaurar el tablero desde «Archivo» en la página «Tableros».",
+    "reason": "2026-09-14: Repair obsolete header/button location to actual Archive section on All Boards, using each locale exact existing UI labels. Keep restoration meaning; regional exact copies updated, independently worded variants left for review. Polish action label corrected from Archive action to Archive place."
+  },
+  {
+    "locale": "es-MX",
+    "key": "close-board-pop",
+    "before": "Podrás restaurar el tablero haciendo clic en el botón \"Archivo\" del encabezado de la pantalla inicial.",
+    "after": "Puedes restaurar el tablero desde «Archivo» en la página «Todos los tableros».",
+    "reason": "2026-09-14: Repair obsolete header/button location to actual Archive section on All Boards, using each locale exact existing UI labels. Keep restoration meaning; regional exact copies updated, independently worded variants left for review. Polish action label corrected from Archive action to Archive place."
+  },
+  {
+    "locale": "es-PY",
+    "key": "close-board-pop",
+    "before": "Podrás restaurar el tablero haciendo clic en el botón \"Archivo\" del encabezado de la pantalla inicial.",
+    "after": "Puedes restaurar el tablero desde «Archivo» en la página «Tableros».",
+    "reason": "2026-09-14: Repair obsolete header/button location to actual Archive section on All Boards, using each locale exact existing UI labels. Keep restoration meaning; regional exact copies updated, independently worded variants left for review. Polish action label corrected from Archive action to Archive place."
+  },
+  {
+    "locale": "es",
+    "key": "close-board-pop",
+    "before": "Podrás restaurar el tablero haciendo clic en el botón \"Archivo\" del encabezado de la pantalla inicial.",
+    "after": "Puedes restaurar el tablero desde «Archivo» en la página «Tableros».",
+    "reason": "2026-09-14: Repair obsolete header/button location to actual Archive section on All Boards, using each locale exact existing UI labels. Keep restoration meaning; regional exact copies updated, independently worded variants left for review. Polish action label corrected from Archive action to Archive place."
+  },
+  {
+    "locale": "es_CO",
+    "key": "close-board-pop",
+    "before": "Podrás restaurar el tablero haciendo clic en el botón \"Archivo\" del encabezado de la pantalla inicial.",
+    "after": "Puedes restaurar el tablero desde «Archivo» en la página «Tableros».",
+    "reason": "2026-09-14: Repair obsolete header/button location to actual Archive section on All Boards, using each locale exact existing UI labels. Keep restoration meaning; regional exact copies updated, independently worded variants left for review. Polish action label corrected from Archive action to Archive place."
+  },
+  {
+    "locale": "it",
+    "key": "close-board-pop",
+    "before": "Potrai ripristinare la bacheca cliccando sul tasto \"Archivio\"  presente nell'intestazione della home.",
+    "after": "Puoi ripristinare la bacheca da «Archivio» nella pagina «Tutte le bacheche».",
+    "reason": "2026-09-14: Repair obsolete header/button location to actual Archive section on All Boards, using each locale exact existing UI labels. Keep restoration meaning; regional exact copies updated, independently worded variants left for review. Polish action label corrected from Archive action to Archive place."
+  },
+  {
+    "locale": "pt-PT",
+    "key": "close-board-pop",
+    "before": "Poderá restaurar o quadro clicando no botão “Arquivo” a partir do cabeçalho do Início.",
+    "after": "Pode restaurar o quadro em «Arquivo» na página «Todos os quadros».",
+    "reason": "2026-09-14: Repair obsolete header/button location to actual Archive section on All Boards, using each locale exact existing UI labels. Keep restoration meaning; regional exact copies updated, independently worded variants left for review. Polish action label corrected from Archive action to Archive place."
+  },
+  {
+    "locale": "pt",
+    "key": "close-board-pop",
+    "before": "Poderá restaurar o quadro clicando no botão “Arquivo” a partir do cabeçalho do Início.",
+    "after": "Pode restaurar o quadro em «Arquivo» na página «Todos os quadros».",
+    "reason": "2026-09-14: Repair obsolete header/button location to actual Archive section on All Boards, using each locale exact existing UI labels. Keep restoration meaning; regional exact copies updated, independently worded variants left for review. Polish action label corrected from Archive action to Archive place."
+  },
+  {
+    "locale": "pt_PT",
+    "key": "close-board-pop",
+    "before": "Poderá restaurar o quadro clicando no botão “Arquivo” a partir do cabeçalho do Início.",
+    "after": "Pode restaurar o quadro em «Arquivo» na página «Todos os quadros».",
+    "reason": "2026-09-14: Repair obsolete header/button location to actual Archive section on All Boards, using each locale exact existing UI labels. Keep restoration meaning; regional exact copies updated, independently worded variants left for review. Polish action label corrected from Archive action to Archive place."
+  },
+  {
+    "locale": "nl-NL",
+    "key": "close-board-pop",
+    "before": "Je kunt het bord terughalen door de \"Archief\" knop te klikken in de menubalk \"Mijn Borden\".",
+    "after": "Je kunt het bord herstellen via ‘Archief’ op de pagina ‘Alle borden’.",
+    "reason": "2026-09-14: Repair obsolete header/button location to actual Archive section on All Boards, using each locale exact existing UI labels. Keep restoration meaning; regional exact copies updated, independently worded variants left for review. Polish action label corrected from Archive action to Archive place."
+  },
+  {
+    "locale": "nl",
+    "key": "close-board-pop",
+    "before": "Je kunt het bord terughalen door de \"Archief\" knop te klikken in de menubalk \"Mijn Borden\".",
+    "after": "Je kunt het bord herstellen via ‘Archief’ op de pagina ‘Alle borden’.",
+    "reason": "2026-09-14: Repair obsolete header/button location to actual Archive section on All Boards, using each locale exact existing UI labels. Keep restoration meaning; regional exact copies updated, independently worded variants left for review. Polish action label corrected from Archive action to Archive place."
+  },
+  {
+    "locale": "da",
+    "key": "close-board-pop",
+    "before": "Du har mulighed for at genskabe tavlen ved at klikke på \"Arkiv\"-knappen fra overskriften hjem.",
+    "after": "Du kan gendanne tavlen fra »Arkiv« på siden »Alle tavler«.",
+    "reason": "2026-09-14: Repair obsolete header/button location to actual Archive section on All Boards, using each locale exact existing UI labels. Keep restoration meaning; regional exact copies updated, independently worded variants left for review. Polish action label corrected from Archive action to Archive place."
+  },
+  {
+    "locale": "nb",
+    "key": "close-board-pop",
+    "before": "Du vil ha muligheten til å gjenopprette Tavle ved å klikke på 'Arkiv'-knappen i hjem-menyen.",
+    "after": "Du kan gjenopprette tavlen fra «Arkiv» på siden «Alle tavler».",
+    "reason": "2026-09-14: Repair obsolete header/button location to actual Archive section on All Boards, using each locale exact existing UI labels. Keep restoration meaning; regional exact copies updated, independently worded variants left for review. Polish action label corrected from Archive action to Archive place."
+  },
+  {
+    "locale": "pl-PL",
+    "key": "close-board-pop",
+    "before": "Będziesz w stanie przywrócić tablicę poprzez kliknięcie przycisku \"Archiwizuj\" w nagłówku strony domowej.",
+    "after": "Możesz przywrócić tablicę z sekcji „Archiwum” na stronie „Wszystkie tablice”.",
+    "reason": "2026-09-14: Repair obsolete header/button location to actual Archive section on All Boards, using each locale exact existing UI labels. Keep restoration meaning; regional exact copies updated, independently worded variants left for review. Polish action label corrected from Archive action to Archive place."
+  },
+  {
+    "locale": "pl",
+    "key": "close-board-pop",
+    "before": "Będziesz w stanie przywrócić tablicę poprzez kliknięcie przycisku \"Archiwizuj\" w nagłówku strony domowej.",
+    "after": "Możesz przywrócić tablicę z sekcji „Archiwum” na stronie „Wszystkie tablice”.",
+    "reason": "2026-09-14: Repair obsolete header/button location to actual Archive section on All Boards, using each locale exact existing UI labels. Keep restoration meaning; regional exact copies updated, independently worded variants left for review. Polish action label corrected from Archive action to Archive place."
   }
 ]
