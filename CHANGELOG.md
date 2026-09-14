@@ -82,7 +82,7 @@ Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
 findings: 15,245 corrected, 4,058 restored pre-pull values awaiting
 validation, 179 reviewed and retained, and 599 pending review or repair.
-The correction inventory records 17,522 exact before/after values,
+The correction inventory records 17,525 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
@@ -102,10 +102,10 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is 3ff48c54c (2026-09-14), repairing four
-unflagged selection/diagnostic labels. Details vocabulary is supported by
-native UI references; standalone selected agreement remains low confidence.
-Multi-window wording is still pending reliable window-closing terminology.
+Latest translation fix is 570869e59 (2026-09-14), repairing three
+unflagged French navigation values: Previous, Previous Month and Next Month.
+CLDR and native UI references support components; complete calendar
+navigation and standalone previous usage remain low confidence.
 Original pending counts are unchanged; wider language review remains open.
 Greenlandic CLDR-unconfirmed wording and twelve Quechua color wrappers
 still need review, alongside the wider restored and unflagged values.
@@ -629,7 +629,7 @@ remain open.
 Translation audit progress as of 2026-09-14: 15,245 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
 and 599 remain pending across 17 locales, including 456 Tamazight findings.
-The ledger contains 17,522 correction records, including unflagged repairs.
+The ledger contains 17,525 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -777,6 +777,17 @@ colon. All 17,522 correction/rendering checks pass. Details vocabulary is
 reference-supported; standalone selected agreement remains low confidence.
 Original pending counts are unchanged. Wider language and live browser
 validation remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/570869e59">Repair Tamazight previous and next month navigation labels</a>. Thanks to xet7.</summary>
+
+Replace three unflagged French values, preserving previous/next directions
+and explicit month scope. CLDR and native UI components support vocabulary;
+complete calendar navigation and standalone previous usage remain low
+confidence. All 17,525 correction/rendering checks pass. Original pending
+counts are unchanged; wider language and live browser review remain open.
 
 </details>
 
