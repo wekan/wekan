@@ -685,3 +685,21 @@ distinct enabled/error/never states and the empty-option template binding.
 No live UI test ran. Ledger 19,922; original pending 126, restored 4.
 Project-key terminology, full background/immediate synchronization
 instructions and broader prior low-confidence review remain open.
+
+
+2026-09-15 — `25e6eefba`: list-sync-description wrong-language Tshivenda
+replaced with a direct Veps draft. Preserve all source clauses: list updated
+from an external tracker, background job, every 15 minutes, and immediate
+manual checking using the actual Sync now label. server/listSync.js schedules
+`every 15 minutes`. Native MediaWiki updatewatchlist uses Udišta and
+watchlistedit-normal-check-all uses Tarkišta; read again today:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json
+Existing local lugetiž/minutad support list/minute vocabulary. Complete
+sentence is not independently attested. External-tracker inflection,
+background computing loan Fonan rad, interval construction and the
+without-waiting immediate-action paraphrase remain LOW CONFIDENCE.
+Four focused files pass (26 checks): wrong-language rejection, interval,
+manual-label agreement, code scheduling and complete token/key inventories.
+No live sync UI test ran. Ledger 19,923; original pending 126/restored 4.
+Project-key label still requires appropriate multi-tracker terminology;
+full prior low-confidence and unflagged review remain within scope.

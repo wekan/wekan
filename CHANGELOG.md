@@ -1346,6 +1346,18 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/25e6eefba">Replace wrong-language Veps synchronization instructions.</a></summary>
+
+Preserve the external tracker, background 15-minute checking interval,
+and immediate manual synchronization action. Complete draft grammar and
+computing terminology remain low confidence and under review.
+Four focused files pass (26 checks); no live synchronization UI ran.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
