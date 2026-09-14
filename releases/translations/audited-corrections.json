@@ -126208,5 +126208,12 @@
     "before": "Aucune migration échouée à réessayer",
     "after": "ⵓⵔ ⵍⵍⵉⵏ ⵉⵙⵎⵓⵜⵜⵢⵏ ⵉⵜⵜⵡⴰⵣⴳⵍⵏ ⴰⴼⴰⴷ ⴰⴷ ⵜⴰⵔⵎⴷ ⴷⵉⵖ.",
     "reason": "2026-09-14: Replace French with Standard Moroccan Tamazight. Native Mastodon zgh bundle_column_error.retry / bundle_modal_error.retry directly attest Retry als arm: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . Non-fuzzy Dialect Translation failed directly attests ittwazgl: https://raw.githubusercontent.com/dialect-app/po/366f2ad81ddfc5af1f75075436a3da6cadf4ca08/ui/zgh.po . Preserve FAILED migrations, retry versus paused/resumed, successful retry notification versus guaranteed successful migration, and NO failed items to retry. Migration retains earlier movement adaptation; failed plural modifier, passive tried-again form, no-items-purpose grammar and full phrases are LOW CONFIDENCE, requiring validation. Again digh retains native MediaWiki actionthrottledtext component; completed notification expresses successful retry without an invented success adverb."
+  },
+  {
+    "locale": "zgh",
+    "key": "multi-selection-active",
+    "before": "Cliquez sur les cases à cocher pour sélectionner les tableaux",
+    "after": "ⵙⵙⵉⵜ ⵖⴼ ⵜⴼⵏⵉⵇⵉⵏ ⵏ ⵓⵙⵜⵉ ⴰⴼⴰⴷ ⴰⴷ ⵜⵙⵜⵉⴷ ⵜⵉⴼⵍⵡⵉⵡⵉⵏ.",
+    "reason": "2026-09-14: Replace French checkbox instruction with Standard Moroccan Tamazight. Native MediaWiki tooltip-invert/tooltip-namespace_association directly attest checkbox Box tafniqt and selected tstid: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Preserve clicking CHECKBOXES to SELECT BOARDS, not merely clicking board icons to open them. Checkbox Selection Box compound, derived plural/bound form, click verb reused locally, purpose clause and full sentence remain LOW CONFIDENCE; components are not independent proof of the whole phrase."
   }
 ]
