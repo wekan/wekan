@@ -122078,5 +122078,54 @@
     "before": "`__operator_label_abbrev__<nom|couleur>` - raccourci pour `__operator_label__:<couleur>` ou `__operator_label__:<nom>`",
     "after": "`__operator_label_abbrev__<ⵉⵙⵎ|ⴰⴽⵍⵓ>` - ⴰⵙⴳⵣⵍ ⵏ `__operator_label__:<ⴰⴽⵍⵓ>` ⵏⵖ `__operator_label__:<ⵉⵙⵎ>`",
     "reason": "Replace French. Native MediaWiki rcfilters-legend-heading abbreviation plural supplies a derived singular short-form noun; native name/color terms are directly attested. Preserve abbreviated-operator syntax, its name|color alternatives and both expanded label examples. LOW CONFIDENCE abbreviation singular and search-syntax short-form application; literal operator tokens and separator remain unchanged. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "operator-status-invalid",
+    "before": "'%s' n'est pas un statut valide",
+    "after": "ⴰⴷⴷⴰⴷ ⵏ '%s' ⵓⵔ ⵉⵙⵖⵣⵏ.",
+    "reason": "Replace French. Native MediaWiki metadata-help attests state/addad in bound form waddad; feed-invalid attests invalid/not-valid predicate. Preserve the status-validation meaning and exactly one %s format token. LOW CONFIDENCE derived free state noun and full diagnostic composition. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "globalSearch-instructions-operator-status",
+    "before": "`__operator_status__:<état>` - où *<état>* est l'un des choix suivants :",
+    "after": "`__operator_status__:<ⴰⴷⴷⴰⴷ>` - ⵉⴳⴰ *<ⴰⴷⴷⴰⴷ>* ⵢⴰⵏ ⵙⴳ ⵉⴷⴷⴰⴷⵏ ⴰⴷ:",
+    "reason": "Replace French. Native MediaWiki metadata-help attests state components and category count messages use ad to introduce following items. Preserve one-of-following status choices, repeated descriptive example and executable operator token. LOW CONFIDENCE derived state plural, one-of construction and full search instruction. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "accounts-lockout-status",
+    "before": "Statut",
+    "after": "ⴰⴷⴷⴰⴷ",
+    "reason": "Replace French Status with state/addad, supported by native MediaWiki metadata-help bound waddad and existing local board-status. Derived free state noun is consistent with existing local Status vocabulary; software-status application needs wider terminology review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "migration-progress-status",
+    "before": "Statut",
+    "after": "ⴰⴷⴷⴰⴷ",
+    "reason": "Replace French Status consistently with native state components attested in MediaWiki metadata-help and existing local migration-status. Software-status application needs wider terminology review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "problems-status-title",
+    "before": "Statut",
+    "after": "ⴰⴷⴷⴰⴷ",
+    "reason": "Replace French Status consistently with native state components attested in MediaWiki metadata-help and existing local board-status. Software-status application needs wider terminology review. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "invalid-date",
+    "before": "تاريخ غير صالح",
+    "after": "ⴰⵙⴰⴽⵓⴷ ⴰⵔⵓⵖⵣⵉⵏ",
+    "reason": "Replace Arabic. Native MediaWiki upload-form-label-infoform-date supplies date/asakud and passwordreset-invalidemail masculine invalid qualifier. Preserve invalid date rather than invalid time. LOW CONFIDENCE composed date-validation label and qualifier agreement. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "invalid-user",
+    "before": "Utilisateur invalide",
+    "after": "ⴰⵏⵙⵙⵎⵔⵙ ⴰⵔⵓⵖⵣⵉⵏ",
+    "reason": "Replace French. Native MediaWiki userexists supplies user noun in bound form and passwordreset-invalidemail masculine invalid qualifier. Preserve invalid user rather than incorrect credentials. LOW CONFIDENCE derived free user form and composed diagnostic agreement. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]
