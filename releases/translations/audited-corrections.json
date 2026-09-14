@@ -125585,5 +125585,33 @@
     "before": "%s انتقل الى الارشيف",
     "after": "%s ⵜⵜⵓⵙⵎⵓⵜⵜⵉ ⵖⵔ ⴰⵔⵛⵉⴼ",
     "reason": "2026-09-14: Replace French/Arabic archive confirmation/activity text. Preserve Are you sure you want, THIS board, Move TO Archive question and %s moved-to-archive completed activity. Native Mastodon confirmations.delete.message directly attests confirmation frame ⵉⵙ ⵏⵉⵜ ⵜⵅⵙⴷ ⴰⴷ ...? : https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json . Adapt Delete post to Move this board to Archive; second-person Move, passive activity form and complete clauses remain LOW CONFIDENCE for native validation. Archive noun uses directly inspected native institutional logo; action vocabulary follows native MediaWiki/local repairs. Preserve exactly one %s token; generic activity gender agreement needs review."
+  },
+  {
+    "locale": "zgh",
+    "key": "act-archivedBoard",
+    "before": "tafelwit __board__ tettwawi ɣer uɣbar",
+    "after": "ⵜⴰⴼⵍⵡⵉⵜ __board__ ⵜⵜⵓⵙⵎⵓⵜⵜⵉ ⵖⵔ ⴰⵔⵛⵉⴼ",
+    "reason": "2026-09-14: Replace inherited Kabyle-leaning archive activities (tabdart/deg/aɣbar) with provisional Standard Moroccan Tamazight vocabulary and corroborated Archive noun. Latin script alone is not the error. Preserve Board/Card/List/Swimlane object identity, every nested location, completed moved-to-archive meaning and all exact underscore placeholders. Native MediaWiki logentry-move-move attests active Move; passive moved forms are derived, not directly attested here. Native Mastodon supplies List; local Card/Board vocabulary reused. Swimlane retains existing Path abrid as a provisional software semantic adaptation, not a independently attested swimlane term. Bound nouns, gender/passive forms and full clauses remain LOW CONFIDENCE for native review. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Archive noun evidence: directly inspected native Archives du Maroc logo in University Mohammed V 2019 PDF."
+  },
+  {
+    "locale": "zgh",
+    "key": "act-archivedCard",
+    "before": "takarḍa __card__ deg tabdart __list__, abrid __swimlane__, tafelwit __board__ tettwawi ɣer uɣbar",
+    "after": "ⵜⴰⴽⴰⵕⴹⴰ __card__ ⴳ ⵜⵍⴳⴰⵎⵜ __list__ ⴳ ⵓⴱⵔⵉⴷ __swimlane__ ⴳ ⵜⴼⵍⵡⵉⵜ __board__ ⵜⵜⵓⵙⵎⵓⵜⵜⵉ ⵖⵔ ⴰⵔⵛⵉⴼ",
+    "reason": "2026-09-14: Replace inherited Kabyle-leaning archive activities (tabdart/deg/aɣbar) with provisional Standard Moroccan Tamazight vocabulary and corroborated Archive noun. Latin script alone is not the error. Preserve Board/Card/List/Swimlane object identity, every nested location, completed moved-to-archive meaning and all exact underscore placeholders. Native MediaWiki logentry-move-move attests active Move; passive moved forms are derived, not directly attested here. Native Mastodon supplies List; local Card/Board vocabulary reused. Swimlane retains existing Path abrid as a provisional software semantic adaptation, not a independently attested swimlane term. Bound nouns, gender/passive forms and full clauses remain LOW CONFIDENCE for native review. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Archive noun evidence: directly inspected native Archives du Maroc logo in University Mohammed V 2019 PDF."
+  },
+  {
+    "locale": "zgh",
+    "key": "act-archivedList",
+    "before": "tabdart __list__ deg abrid __swimlane__, tafelwit __board__ tettwawi ɣer uɣbar",
+    "after": "ⵜⴰⵍⴳⴰⵎⵜ __list__ ⴳ ⵓⴱⵔⵉⴷ __swimlane__ ⴳ ⵜⴼⵍⵡⵉⵜ __board__ ⵜⵜⵓⵙⵎⵓⵜⵜⵉ ⵖⵔ ⴰⵔⵛⵉⴼ",
+    "reason": "2026-09-14: Replace inherited Kabyle-leaning archive activities (tabdart/deg/aɣbar) with provisional Standard Moroccan Tamazight vocabulary and corroborated Archive noun. Latin script alone is not the error. Preserve Board/Card/List/Swimlane object identity, every nested location, completed moved-to-archive meaning and all exact underscore placeholders. Native MediaWiki logentry-move-move attests active Move; passive moved forms are derived, not directly attested here. Native Mastodon supplies List; local Card/Board vocabulary reused. Swimlane retains existing Path abrid as a provisional software semantic adaptation, not a independently attested swimlane term. Bound nouns, gender/passive forms and full clauses remain LOW CONFIDENCE for native review. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Archive noun evidence: directly inspected native Archives du Maroc logo in University Mohammed V 2019 PDF."
+  },
+  {
+    "locale": "zgh",
+    "key": "act-archivedSwimlane",
+    "before": "abrid __swimlane__ deg tafelwit __board__ yettwawi ɣer uɣbar",
+    "after": "ⴰⴱⵔⵉⴷ __swimlane__ ⴳ ⵜⴼⵍⵡⵉⵜ __board__ ⵉⵜⵜⵓⵙⵎⵓⵜⵜⵉ ⵖⵔ ⴰⵔⵛⵉⴼ",
+    "reason": "2026-09-14: Replace inherited Kabyle-leaning archive activities (tabdart/deg/aɣbar) with provisional Standard Moroccan Tamazight vocabulary and corroborated Archive noun. Latin script alone is not the error. Preserve Board/Card/List/Swimlane object identity, every nested location, completed moved-to-archive meaning and all exact underscore placeholders. Native MediaWiki logentry-move-move attests active Move; passive moved forms are derived, not directly attested here. Native Mastodon supplies List; local Card/Board vocabulary reused. Swimlane retains existing Path abrid as a provisional software semantic adaptation, not a independently attested swimlane term. Bound nouns, gender/passive forms and full clauses remain LOW CONFIDENCE for native review. Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Archive noun evidence: directly inspected native Archives du Maroc logo in University Mohammed V 2019 PDF."
   }
 ]
