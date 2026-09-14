@@ -20788,5 +20788,185 @@
     "key": "job-details",
     "value": "Detalles do traballo",
     "reason": "Inspected Galician migration-step labels preserve per-swimlane list creation, validation, missing/duplicate/empty qualifiers, restoration and identifier/URL repairs. Scheduler intervals retain every English numeric value and unit; monitoring export, filesystem/GridFS size, idle migration and job description/details preserve their distinct meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "job-name",
+    "value": "Nome do traballo",
+    "reason": "Inspected Galician scheduler/monitoring labels correctly distinguish last/next runs, queue, maximum concurrency, memory usage, storage migration destinations, batching, CPU pause threshold and millisecond delay. Numeric ranges 10-90 and 100-10000 remain exact; export/refresh/resume failures retain negative polarity, and pause/resume/run-once actions retain their meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "job-queue",
+    "value": "Cola de traballos",
+    "reason": "Inspected Galician scheduler/monitoring labels correctly distinguish last/next runs, queue, maximum concurrency, memory usage, storage migration destinations, batching, CPU pause threshold and millisecond delay. Numeric ranges 10-90 and 100-10000 remain exact; export/refresh/resume failures retain negative polarity, and pause/resume/run-once actions retain their meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "last-run",
+    "value": "Última execución",
+    "reason": "Inspected Galician scheduler/monitoring labels correctly distinguish last/next runs, queue, maximum concurrency, memory usage, storage migration destinations, batching, CPU pause threshold and millisecond delay. Numeric ranges 10-90 and 100-10000 remain exact; export/refresh/resume failures retain negative polarity, and pause/resume/run-once actions retain their meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "max-concurrent",
+    "value": "Máximo simultáneo",
+    "reason": "Inspected Galician scheduler/monitoring labels correctly distinguish last/next runs, queue, maximum concurrency, memory usage, storage migration destinations, batching, CPU pause threshold and millisecond delay. Numeric ranges 10-90 and 100-10000 remain exact; export/refresh/resume failures retain negative polarity, and pause/resume/run-once actions retain their meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "memory-usage",
+    "value": "Uso de memoria",
+    "reason": "Inspected Galician scheduler/monitoring labels correctly distinguish last/next runs, queue, maximum concurrency, memory usage, storage migration destinations, batching, CPU pause threshold and millisecond delay. Numeric ranges 10-90 and 100-10000 remain exact; export/refresh/resume failures retain negative polarity, and pause/resume/run-once actions retain their meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "migrate-all-to-filesystem",
+    "value": "Migrar todo ao sistema de ficheiros",
+    "reason": "Inspected Galician scheduler/monitoring labels correctly distinguish last/next runs, queue, maximum concurrency, memory usage, storage migration destinations, batching, CPU pause threshold and millisecond delay. Numeric ranges 10-90 and 100-10000 remain exact; export/refresh/resume failures retain negative polarity, and pause/resume/run-once actions retain their meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "migrate-all-to-gridfs",
+    "value": "Migrar todo a GridFS",
+    "reason": "Inspected Galician scheduler/monitoring labels correctly distinguish last/next runs, queue, maximum concurrency, memory usage, storage migration destinations, batching, CPU pause threshold and millisecond delay. Numeric ranges 10-90 and 100-10000 remain exact; export/refresh/resume failures retain negative polarity, and pause/resume/run-once actions retain their meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "migrate-all-to-s3",
+    "value": "Migrar todo a S3",
+    "reason": "Inspected Galician scheduler/monitoring labels correctly distinguish last/next runs, queue, maximum concurrency, memory usage, storage migration destinations, batching, CPU pause threshold and millisecond delay. Numeric ranges 10-90 and 100-10000 remain exact; export/refresh/resume failures retain negative polarity, and pause/resume/run-once actions retain their meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "migration-batch-size",
+    "value": "Tamaño do lote",
+    "reason": "Inspected Galician scheduler/monitoring labels correctly distinguish last/next runs, queue, maximum concurrency, memory usage, storage migration destinations, batching, CPU pause threshold and millisecond delay. Numeric ranges 10-90 and 100-10000 remain exact; export/refresh/resume failures retain negative polarity, and pause/resume/run-once actions retain their meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "migration-cpu-threshold",
+    "value": "Límite de CPU (%)",
+    "reason": "Inspected Galician scheduler/monitoring labels correctly distinguish last/next runs, queue, maximum concurrency, memory usage, storage migration destinations, batching, CPU pause threshold and millisecond delay. Numeric ranges 10-90 and 100-10000 remain exact; export/refresh/resume failures retain negative polarity, and pause/resume/run-once actions retain their meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "migration-cpu-threshold-description",
+    "value": "Pausar a migración cando o uso de CPU supere esta porcentaxe (10-90)",
+    "reason": "Inspected Galician scheduler/monitoring labels correctly distinguish last/next runs, queue, maximum concurrency, memory usage, storage migration destinations, batching, CPU pause threshold and millisecond delay. Numeric ranges 10-90 and 100-10000 remain exact; export/refresh/resume failures retain negative polarity, and pause/resume/run-once actions retain their meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "migration-delay-ms-description",
+    "value": "Atraso entre lotes en milisegundos (100-10000)",
+    "reason": "Inspected Galician scheduler/monitoring labels correctly distinguish last/next runs, queue, maximum concurrency, memory usage, storage migration destinations, batching, CPU pause threshold and millisecond delay. Numeric ranges 10-90 and 100-10000 remain exact; export/refresh/resume failures retain negative polarity, and pause/resume/run-once actions retain their meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "migration-detector",
+    "value": "Detector de migracións",
+    "reason": "Inspected Galician scheduler/monitoring labels correctly distinguish last/next runs, queue, maximum concurrency, memory usage, storage migration destinations, batching, CPU pause threshold and millisecond delay. Numeric ranges 10-90 and 100-10000 remain exact; export/refresh/resume failures retain negative polarity, and pause/resume/run-once actions retain their meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "migration-log",
+    "value": "Rexistro da migración",
+    "reason": "Inspected Galician scheduler/monitoring labels correctly distinguish last/next runs, queue, maximum concurrency, memory usage, storage migration destinations, batching, CPU pause threshold and millisecond delay. Numeric ranges 10-90 and 100-10000 remain exact; export/refresh/resume failures retain negative polarity, and pause/resume/run-once actions retain their meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "migration-markers",
+    "value": "Marcadores de migración",
+    "reason": "Inspected Galician scheduler/monitoring labels correctly distinguish last/next runs, queue, maximum concurrency, memory usage, storage migration destinations, batching, CPU pause threshold and millisecond delay. Numeric ranges 10-90 and 100-10000 remain exact; export/refresh/resume failures retain negative polarity, and pause/resume/run-once actions retain their meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "migration-resume-failed",
+    "value": "Non se puido retomar a migración",
+    "reason": "Inspected Galician scheduler/monitoring labels correctly distinguish last/next runs, queue, maximum concurrency, memory usage, storage migration destinations, batching, CPU pause threshold and millisecond delay. Numeric ranges 10-90 and 100-10000 remain exact; export/refresh/resume failures retain negative polarity, and pause/resume/run-once actions retain their meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "migration-resumed",
+    "value": "Migración retomada",
+    "reason": "Inspected Galician scheduler/monitoring labels correctly distinguish last/next runs, queue, maximum concurrency, memory usage, storage migration destinations, batching, CPU pause threshold and millisecond delay. Numeric ranges 10-90 and 100-10000 remain exact; export/refresh/resume failures retain negative polarity, and pause/resume/run-once actions retain their meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "migration-steps",
+    "value": "Pasos da migración",
+    "reason": "Inspected Galician scheduler/monitoring labels correctly distinguish last/next runs, queue, maximum concurrency, memory usage, storage migration destinations, batching, CPU pause threshold and millisecond delay. Numeric ranges 10-90 and 100-10000 remain exact; export/refresh/resume failures retain negative polarity, and pause/resume/run-once actions retain their meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "monitoring-export-failed",
+    "value": "Non se puideron exportar os datos de monitorización",
+    "reason": "Inspected Galician scheduler/monitoring labels correctly distinguish last/next runs, queue, maximum concurrency, memory usage, storage migration destinations, batching, CPU pause threshold and millisecond delay. Numeric ranges 10-90 and 100-10000 remain exact; export/refresh/resume failures retain negative polarity, and pause/resume/run-once actions retain their meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "monitoring-refresh-failed",
+    "value": "Non se puideron actualizar os datos de monitorización",
+    "reason": "Inspected Galician scheduler/monitoring labels correctly distinguish last/next runs, queue, maximum concurrency, memory usage, storage migration destinations, batching, CPU pause threshold and millisecond delay. Numeric ranges 10-90 and 100-10000 remain exact; export/refresh/resume failures retain negative polarity, and pause/resume/run-once actions retain their meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "next",
+    "value": "Seguinte",
+    "reason": "Inspected Galician scheduler/monitoring labels correctly distinguish last/next runs, queue, maximum concurrency, memory usage, storage migration destinations, batching, CPU pause threshold and millisecond delay. Numeric ranges 10-90 and 100-10000 remain exact; export/refresh/resume failures retain negative polarity, and pause/resume/run-once actions retain their meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "next-run",
+    "value": "Seguinte execución",
+    "reason": "Inspected Galician scheduler/monitoring labels correctly distinguish last/next runs, queue, maximum concurrency, memory usage, storage migration destinations, batching, CPU pause threshold and millisecond delay. Numeric ranges 10-90 and 100-10000 remain exact; export/refresh/resume failures retain negative polarity, and pause/resume/run-once actions retain their meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "operation-type",
+    "value": "Tipo de operación",
+    "reason": "Inspected Galician scheduler/monitoring labels correctly distinguish last/next runs, queue, maximum concurrency, memory usage, storage migration destinations, batching, CPU pause threshold and millisecond delay. Numeric ranges 10-90 and 100-10000 remain exact; export/refresh/resume failures retain negative polarity, and pause/resume/run-once actions retain their meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "overall-progress",
+    "value": "Progreso xeral",
+    "reason": "Inspected Galician scheduler/monitoring labels correctly distinguish last/next runs, queue, maximum concurrency, memory usage, storage migration destinations, batching, CPU pause threshold and millisecond delay. Numeric ranges 10-90 and 100-10000 remain exact; export/refresh/resume failures retain negative polarity, and pause/resume/run-once actions retain their meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "page",
+    "value": "Páxina",
+    "reason": "Inspected Galician scheduler/monitoring labels correctly distinguish last/next runs, queue, maximum concurrency, memory usage, storage migration destinations, batching, CPU pause threshold and millisecond delay. Numeric ranges 10-90 and 100-10000 remain exact; export/refresh/resume failures retain negative polarity, and pause/resume/run-once actions retain their meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "pause-migration",
+    "value": "Pausar a migración",
+    "reason": "Inspected Galician scheduler/monitoring labels correctly distinguish last/next runs, queue, maximum concurrency, memory usage, storage migration destinations, batching, CPU pause threshold and millisecond delay. Numeric ranges 10-90 and 100-10000 remain exact; export/refresh/resume failures retain negative polarity, and pause/resume/run-once actions retain their meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "refresh",
+    "value": "Actualizar",
+    "reason": "Inspected Galician scheduler/monitoring labels correctly distinguish last/next runs, queue, maximum concurrency, memory usage, storage migration destinations, batching, CPU pause threshold and millisecond delay. Numeric ranges 10-90 and 100-10000 remain exact; export/refresh/resume failures retain negative polarity, and pause/resume/run-once actions retain their meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "refresh-monitoring",
+    "value": "Actualizar a monitorización",
+    "reason": "Inspected Galician scheduler/monitoring labels correctly distinguish last/next runs, queue, maximum concurrency, memory usage, storage migration destinations, batching, CPU pause threshold and millisecond delay. Numeric ranges 10-90 and 100-10000 remain exact; export/refresh/resume failures retain negative polarity, and pause/resume/run-once actions retain their meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "resume-migration",
+    "value": "Retomar a migración",
+    "reason": "Inspected Galician scheduler/monitoring labels correctly distinguish last/next runs, queue, maximum concurrency, memory usage, storage migration destinations, batching, CPU pause threshold and millisecond delay. Numeric ranges 10-90 and 100-10000 remain exact; export/refresh/resume failures retain negative polarity, and pause/resume/run-once actions retain their meanings."
+  },
+  {
+    "locale": "gl",
+    "key": "run-once",
+    "value": "Executar unha vez",
+    "reason": "Inspected Galician scheduler/monitoring labels correctly distinguish last/next runs, queue, maximum concurrency, memory usage, storage migration destinations, batching, CPU pause threshold and millisecond delay. Numeric ranges 10-90 and 100-10000 remain exact; export/refresh/resume failures retain negative polarity, and pause/resume/run-once actions retain their meanings."
   }
 ]
