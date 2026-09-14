@@ -352,3 +352,24 @@ confidence**, pending native review. These component entries do not quote
 the complete warning. Exact wording, French negatives and placeholder
 inventory checks are added. Browser rendering remains unverified. Changing
 the original wrong-language value does not close these broader uncertainties.
+
+## Parser-error sense review — 2026-09-14
+
+The three pending `operator-has-invalid`, `operator-debug-invalid` and
+`operator-limit-invalid` values are French. English distinguishes existence
+checks, debug predicates and numeric limits; the last additionally requires
+a positive integer. Every `%s` must survive a complete repair.
+
+Primary IRCAM dictionary PDF page 177, entry 3292, uses English “invalid”
+alongside paralyzed/immobilized; page 354, entry 6732, also describes inability
+to move. Those physical senses cannot establish invalid parser input and
+must not be substituted from the English keyword alone.
+
+Verified leads are existence (`ⵉⵍⵉ`, page 377, entry 7138), verification/check
+(`ⵜⵉⵎⵏⵥⵉⵜ`, page 678, entry 12776), and be correct (page 334, entry 6406).
+Native MediaWiki `feed-invalid` and `rcfilters-invalid-filter` provide software
+invalidity constructions, but not these full messages. Compose complete
+technical clauses only after checking predicate, numeric-limit and positive-
+integer meanings; do not drop those distinctions to produce a short generic
+error. No value was changed or accepted. Counts remain 279 pending/4 restored;
+native phrase and browser validation remain open.
