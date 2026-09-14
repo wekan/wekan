@@ -497,3 +497,12 @@ assert.strictEqual(translated.owner, 'ⴱⴰⴱ ⵏ ⵜⴽⴰⵕⴹⴰ');
 assert.doesNotMatch(translated.owner, /Propriétaire|[\u0600-\u06ff]/u);
 assert.ok(translated['export-card-field-people'].includes(translated.owner));
 console.log('Tamazight owner heading agrees with the card-owner export field');
+
+assert.strictEqual(translated['smtp-tls'], 'ⴰⵙⵎⵔⵙ ⵏ TLS');
+assert.strictEqual(translated['email-smtp-test-subject'], 'ⵉⵎⴰⵢⵍ ⵏ ⵓⴽⴰⵢⴰⴷ SMTP');
+for (const key of ['smtp-tls', 'email-smtp-test-subject']) {
+  assert.doesNotMatch(translated[key], /[\u0600-\u06ff]|E-mail de test|ال سي/u);
+}
+assert.ok(translated['smtp-tls-description'].includes(translated['smtp-tls']));
+assert.ok(translated['send-smtp-test'].includes('ⵉⵎⴰⵢⵍ ⵏ ⵓⴽⴰⵢⴰⴷ'));
+console.log('Tamazight SMTP labels retain protocol identifiers and existing terminology');

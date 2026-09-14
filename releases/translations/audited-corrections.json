@@ -139053,5 +139053,19 @@
     "before": "Propriétaire",
     "after": "ⴱⴰⴱ ⵏ ⵜⴽⴰⵕⴹⴰ",
     "reason": "2026-09-15: Replace unflagged French owner export heading with existing card-owner compound. IRCAM entry 5710 bab owner of, possessor of; exporters use this heading for card owner. Software compound and gender-neutral usage remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "smtp-tls",
+    "before": "دعم التي ال سي",
+    "after": "ⴰⵙⵎⵔⵙ ⵏ TLS",
+    "reason": "2026-09-15: Replace unflagged Arabic/French SMTP label using existing smtp-tls-description and send-smtp-test Tamazight patterns. TLS/SMTP identifiers preserved. TLS support rendered as use of TLS; computing terminology and complete phrase remain under contextual review."
+  },
+  {
+    "locale": "zgh",
+    "key": "email-smtp-test-subject",
+    "before": "E-mail de test SMTP",
+    "after": "ⵉⵎⴰⵢⵍ ⵏ ⵓⴽⴰⵢⴰⴷ SMTP",
+    "reason": "2026-09-15: Replace unflagged Arabic/French SMTP label using existing smtp-tls-description and send-smtp-test Tamazight patterns. TLS/SMTP identifiers preserved. TLS support rendered as use of TLS; computing terminology and complete phrase remain under contextual review."
   }
 ]
