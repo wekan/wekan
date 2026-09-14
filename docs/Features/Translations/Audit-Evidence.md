@@ -22740,3 +22740,13 @@ coinage following existing calendar adjectives, not an attested dictionary
 translation. Native terminology review is required. Calendar and all 18,202
 correction checks pass; 304 original pending and 36 restored values remain.
 Manx original placeholder queue is filled, not fully language-verified.
+
+Dated unchanged review, 2026-09-14, local commit `4ddcb81c9`: retained
+Valencian S3 bucket/endpoint/port descriptions. attachmentSettings.jade binds
+these to s3Bucket, s3Endpoint and numeric s3Port respectively. Surrounding
+Valencian prose preserves name/storage, URL/examples and port-number meaning;
+protocol words and literal hostnames are not wrong-language prose.
+https://docs.aws.amazon.com/AmazonS3/latest/developerguide/RESTAPI.html
+confirms endpoint/bucket distinction. All 4,155 review records pass; 33 restored
+and 304 pending findings remain. This does not verify storage connectivity
+or live browser behavior. Other technical and grammar review remains open.

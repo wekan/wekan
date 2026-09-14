@@ -5,8 +5,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Status | Flagged keys |
 | --- | ---: |
 | Corrected | 15,589 |
-| Restored pre-pull; awaiting validation | 36 |
-| Reviewed; retained unchanged | 4,152 |
+| Restored pre-pull; awaiting validation | 33 |
+| Reviewed; retained unchanged | 4,155 |
 | Pending review or repair | 304 |
 | Total tracked | 20,081 |
 
@@ -27,11 +27,11 @@ dictionary-attested; Coptagh is a provisional coinage with no dictionary
 attestation found. Native terminology review remains open despite the queue
 status. All **18,202** correction records and calendar checks pass.
 Galician completion actions were repaired in `f52ab6adf`.
-Latest unchanged review: **2026-09-14**, commit `287e99dd2` — Danish
-Tidsplan and Basque/Valencian idle-state labels retained. All **18,202**
-corrections and **4,152** reviews pass. No current consumers found for these
-historical labels; live browser and broader language review remain open.
-Esperanto restored queue is resolved; wider fluency review remains open.
+Latest unchanged review: **2026-09-14**, commit `4ddcb81c9` — three
+Valencian S3 descriptions retain correct prose and protocol terms bucket/
+endpoint. Actual settings controls distinguish name, URL and numeric port;
+example hostnames remain literal. All **4,155** exact reviews pass.
+Storage connectivity and browser verification are not established by this review.
 Shared trigger grammar and remaining technical wording are still under review.
 Card-show-lists context is verified against its settings row and toggle.
 

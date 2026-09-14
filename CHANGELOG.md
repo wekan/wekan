@@ -671,6 +671,16 @@ The empty wrongly placed Git directory was removed locally.
 **Languages updated:** Basque, Esperanto, Galician, Greenlandic, Manx, Swedish, Valencian
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/4ddcb81c9">Validate Valencian S3 descriptions</a>. Thanks to xet7.</summary>
+
+Retain three correct descriptions for bucket name, endpoint URL and numeric
+port, including literal on-premise example hostname. Actual settings control
+bindings and exact review records were checked. Storage connectivity and
+browser verification remain open; no correct translations were overwritten.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c5c91129b">Fill Manx Coptic calendar label</a>. Thanks to xet7.</summary>
 
 Replace the English-only placeholder with Feaillere Coptagh. The calendar
