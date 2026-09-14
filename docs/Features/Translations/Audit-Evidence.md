@@ -4,6 +4,8 @@ Historical snapshot retained for reproducible repair tracking. See [Audit.md](Au
 
 ## Tamazight subtask wording review — 2026-09-14
 
+Linked-entity follow-up local repair `af33f6640`: Linked Subtask, Linked Card and Linked Board now use native MediaWiki izdin Linked/Associated component. Preserve each entity and the subtask hierarchy; do not infer unattested passive ittuzdin. Full kanban noun/participle agreement and hierarchical paraphrases remain LOW CONFIDENCE. Earlier pending-linked-label observations below are historical.
+
 Activity follow-up local repair `b26d1ddc1`: `activity-subtask-added` and general `activity-added` now preserve completed past action and all percent placeholders using existing local irna/i wording. Full grammar and past conjugation remain LOW CONFIDENCE; the current MediaWiki file has no direct irna occurrence, so local wording is not independent canonical attestation. Linked-subtask wording still needs review; earlier pending-activity observations below are historical.
 
 Follow-up local repair `23c82a5c1`: existing-card action now uses hierarchical Task wording and As instead of Language and With. Add Subtask, deletion confirmation and plural Subtask Actions also repaired. Native MediaWiki As references and Mastodon confirmation frame support components; complete paraphrases, morphology and kanban extension remain LOW CONFIDENCE. Original activity and other linked-subtask wording remain under review. Earlier pending-action observations below describe the historical review before this repair.
