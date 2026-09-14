@@ -871,6 +871,16 @@ pending original findings.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d90707d5d">Repair Tamazight blank rule-field instruction</a>. Thanks to xet7.</summary>
+
+Replace Arabic instruction, preserving empty fields matching every possible
+value. Native computing messages support matching terminology. Four
+focused translation suites pass. Derived noun and full grammar remain
+under native review. Dated audit records 164 pending original findings.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

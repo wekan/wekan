@@ -28777,3 +28777,25 @@ translation suites pass; no live UI toggle test ran. Ledger 19,853;
 original corrected 15,738, pending 165 (zgh 70), restored 4 unchanged.
 Two unflagged repairs do not alter original finding totals. Broader review
 remains open; no remote writes were made.
+
+
+## Blank rule-field instruction — repair 2026-09-15
+
+Source commit `d90707d5d` replaces Arabic r-board-note. Native MediaWiki
+zgh `search-file-match` uses `ⵉⵎⵙⴰⵙⴰ` for matching file content;
+`logempty` also uses a related matching participle. This provides computing
+context absent from the earlier lighting/sport/mail homographs.
+Derived bound action noun `ⵓⵎⵙⴰⵙⴰ` remains low confidence: verb
+attestation does not independently certify this noun or complete sentence.
+Source: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json
+
+Observation noun tinẓi is adapted as explanatory note; existing field,
+empty and value wording combines with IRCAM possible/potential amrdu.
+The complete instruction retains leave field empty to match every possible
+value, not erasure or matching only blanks. Earlier source review confirms
+card-title blanks/trimmed whitespace become the wildcard. Full clause,
+note adaptation and contextual agreement remain under native review.
+Four focused suites pass for exact repair, Arabic/homograph rejection and
+translation invariants. No live rule UI test ran. Ledger 19,854;
+original corrected 15,739, pending 164 (zgh 69), restored 4 unchanged.
+Broader review remains open; no remote writes were made.
