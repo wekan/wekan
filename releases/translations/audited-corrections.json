@@ -127314,5 +127314,12 @@
     "before": "Islamic tabular",
     "after": "Feaillere Hijri (taablagh, dait toshee rollageagh)",
     "reason": "Replace English calendar placeholder with Manx calendar and tabular wording, retaining civil versus astronomical epoch distinction. taablagh, shivoil and rollageagh are dictionary-attested at archive.gaelg.im/www.gaelg.iofm.net/DICTIONARY/dict/T.html, C.html and A.html. Epoch rendered descriptively as starting date (dait toshee); technical phrase is provisional and requires native terminology review."
+  },
+  {
+    "locale": "eo",
+    "key": "color-lime",
+    "before": "limeda",
+    "after": "limekolora",
+    "reason": "Use attested Esperanto limekolora for the lime color rather than ambiguous limeda fruit adjective. Reference https://en.wiktionary.org/wiki/verdo lists limekolora among Esperanto colors. Follow-up semantic correction preserves original provenance."
   }
 ]
