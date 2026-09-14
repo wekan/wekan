@@ -5068,5 +5068,359 @@
     "key": "archiveBoardPopup-title",
     "value": "Ĉu movi tabulon al Arkivo?",
     "reason": "Direct Esperanto review confirms action meaning and grammar. Activity verbs use past tense and direct objects retain accusative endings; board/list/swimlane locations and old/new movement directions are preserved. Add/archive controls use appropriate infinitives, keyboard toggles retain enable/disable polarity, and singular/plural card counts are distinct. All interpolation tokens are preserved verbatim."
+  },
+  {
+    "locale": "eo",
+    "key": "archived-boards",
+    "value": "Tabuloj en Arkivo",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "restore-board",
+    "value": "Restarigi tabulon",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "no-archived-boards",
+    "value": "Neniuj tabuloj en Arkivo.",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "add-template-container",
+    "value": "Aldoni ŝablonujon",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "add-background-image",
+    "value": "Aldoni fonbildon",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "show-at-all-boards-page",
+    "value": "Montri en la paĝo Ĉiuj tabuloj",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "board-info-on-my-boards",
+    "value": "Agordoj de Ĉiuj tabuloj",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "boardInfoOnMyBoardsPopup-title",
+    "value": "Agordoj de Ĉiuj tabuloj",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "boardInfoOnMyBoards-title",
+    "value": "Agordoj de Ĉiuj tabuloj",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "show-card-counter-per-list",
+    "value": "Montri nombron de kartoj por ĉiu listo",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "show-board_members-avatar",
+    "value": "Montri avatarojn de tabulanoj",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "board-not-found",
+    "value": "Tabulo ne trovita",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "board-private-info",
+    "value": "Ĉi tiu tabulo estos <strong>privata</strong>.",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "board-public-info",
+    "value": "Ĉi tiu tabulo estos <strong>publika</strong>.",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "board-drag-drop-reorder-or-click-open",
+    "value": "Trenu kaj faligu por reordigi tabulajn piktogramojn. Alklaku tabulan piktogramon por malfermi la tabulon.",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "boardChangeColorPopup-title",
+    "value": "Ŝanĝi fonon de tabulo",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "boardMenuPopup-title",
+    "value": "Agordoj de tabulo",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "boardChangeViewPopup-title",
+    "value": "Tabula vido",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "boards",
+    "value": "Tabuloj",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "board-view",
+    "value": "Tabula vido",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "cancel",
+    "value": "Nuligi",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "card-archived",
+    "value": "Ĉi tiu karto estas movita al Arkivo.",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "board-archived",
+    "value": "Ĉi tiu tabulo estas movita al Arkivo.",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "card-comments-title",
+    "value": "Ĉi tiu karto havas %s komenton.",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "card-delete-notice",
+    "value": "Forigo estas definitiva. Vi perdos ĉiujn agojn ligitajn al ĉi tiu karto.",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "card-delete-pop",
+    "value": "Ĉiuj agoj estos forigitaj el la aktivaĵa fluo kaj vi ne povos remalfermi la karton. Ne eblas malfari.",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "card-delete-suggest-archive",
+    "value": "Vi povas movi karton al Arkivo por forigi ĝin el la tabulo kaj konservi la aktivaĵojn.",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "card-archive-pop",
+    "value": "La karto ne estos videbla en ĉi tiu listo post arkivado.",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "card-archive-suggest-cancel",
+    "value": "Vi povas poste restarigi la karton el Arkivo.",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "card-edit-attachments",
+    "value": "Redakti aldonaĵojn",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "card-edit-custom-fields",
+    "value": "Redakti proprajn kampojn",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "card-labels-title",
+    "value": "Ŝanĝi la etikedojn de la karto.",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "card-members-title",
+    "value": "Aldoni aŭ forigi tabulanojn de la karto.",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "cardCustomFieldsPopup-title",
+    "value": "Redakti proprajn kampojn",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "editVoteEndDatePopup-title",
+    "value": "Ŝanĝi findaton de voĉdono",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "allowNonBoardMembers",
+    "value": "Permesi ĉiujn ensalutintajn uzantojn",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "vote-delete-pop",
+    "value": "Forigo estas definitiva. Vi perdos ĉiujn agojn ligitajn al ĉi tiu voĉdono.",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "editPokerEndDatePopup-title",
+    "value": "Ŝanĝi findaton de la voĉdono de Planning Poker",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "poker-delete-pop",
+    "value": "Forigo estas definitiva. Vi perdos ĉiujn agojn ligitajn al ĉi tiu Planning Poker.",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "cardDeletePopup-title",
+    "value": "Ĉu forigi karton?",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "cardArchivePopup-title",
+    "value": "Ĉu arkivi karton?",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "cardDetailsActionsPopup-title",
+    "value": "Kartaj agoj",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "cards-count-one",
+    "value": "Karto",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "cardType-card",
+    "value": "Karto",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "cardType-linkedCard",
+    "value": "Ligita karto",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "cardType-linkedBoard",
+    "value": "Ligita tabulo",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "change-permissions",
+    "value": "Ŝanĝi permesojn",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "changePermissionsPopup-title",
+    "value": "Ŝanĝi permesojn",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "click-to-star",
+    "value": "Alklaku por steligi ĉi tiun tabulon.",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "click-to-unstar",
+    "value": "Alklaku por malsteligi ĉi tiun tabulon.",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "click-to-enable-auto-width",
+    "value": "Aŭtomata listlarĝo malŝaltita. Alklaku por ŝalti.",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "click-to-disable-auto-width",
+    "value": "Aŭtomata listlarĝo ŝaltita. Alklaku por malŝalti.",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "close-board",
+    "value": "Fermi tabulon",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "close-board-pop",
+    "value": "Vi povos restarigi la tabulon alklakante la butonon “Arkivo” en la hejma kaplinio.",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "close-card",
+    "value": "Fermi karton",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "comment-only-desc",
+    "value": "Povas nur komenti pri kartoj.",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "comment-delete",
+    "value": "Ĉu vi certas, ke vi volas forigi la komenton?",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "deleteCommentPopup-title",
+    "value": "Ĉu forigi komenton?",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
+  },
+  {
+    "locale": "eo",
+    "key": "worker-desc",
+    "value": "Povas nur movi kartojn, atribui sin al karto kaj komenti.",
+    "reason": "Direct Esperanto review: correct board/card control meanings and grammar. Preserve permanent deletion versus reversible archiving, cannot-undo warnings, public/private polarity, logged-in-user scope, member role limits, star/unstar and width enable/disable opposites. Interpolation tokens and allowed strong markup remain unchanged."
   }
 ]
