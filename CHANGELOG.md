@@ -600,6 +600,17 @@ terms support the repairs; complete wording still needs fluent review.
 This release adds the following translation improvements:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/4ceda3332">Repair Tamazight text-editing label</a>. Thanks to xet7.</summary>
+
+Remove the extra first qualifier from Edit as text using native edit/text
+components. Complete phrasing and bound spelling remain low confidence.
+All 17,359 correction checks pass. This unflagged repair leaves 694 originals
+pending. Candidate checklist control vocabulary is marked Kabyle; Moroccan
+checklist wording still needs reference and dialect review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9722e1615">Translate Tamazight description and all-users choices</a>. Thanks to xet7.</summary>
 
 Replace French and Arabic using native component terms. The full
