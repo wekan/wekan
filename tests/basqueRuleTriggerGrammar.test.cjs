@@ -89,3 +89,15 @@ for (const key of ['r-checked', 'r-unchecked']) {
   assert.match(eu[key], /tzen denean$/);
   assert.doesNotMatch(eu[key], /Checked|Unchecked|marcado/, 'native action vocabulary preserved');
 }
+
+// GNOME's native software help attests osatzen denean for completion,
+// independently of a dictionary stem or a script test.
+const completionRow = checklistTemplate.split('select(id="gen-comp-check-action")')[1]
+  .split('js-add-gen-comp-trigger')[0];
+assert.match(completionRow, /option\(value="completed"\) \{\{_'r-completed'\}\}/);
+assert.doesNotMatch(completionRow, /ruleTriggerCopula/);
+assert.equal(eu['r-completed'], 'Osatzen denean');
+assert.equal([eu['r-when-a-checklist'], eu['r-completed']].join(' '),
+  'Kontrol-zerrenda bat Osatzen denean');
+assert.notEqual(eu['r-completed'], eu['r-made-incomplete']);
+assert.doesNotMatch(eu['r-completed'], /Completed|completado|\bes\b/);

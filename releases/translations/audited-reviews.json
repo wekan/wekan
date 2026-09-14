@@ -25000,5 +25000,11 @@
     "key": "r-unchecked",
     "value": "Desmarkatzen denean",
     "reason": "Retain the checklist-item temporal action. Actual generic checklist row combines Kontrol-zerrendako elementu bat with this singular predicate and no extra copula. Native EHU employment portal instructions explicitly use desmarkatu for unchecking a default check; Euskadi procurement FAQ independently uses desmarkatu for a software option. Euskadi grammar section 13.1 supports singular -tzen denean temporal clauses. The checked/unchecked opposition remains distinct; specific named-item word order and live browser validation remain open."
+  },
+  {
+    "locale": "eu",
+    "key": "r-completed",
+    "value": "Osatzen denean",
+    "reason": "Retain the singular completion predicate. Native GNOME Basque software help bluetooth-send-file.html.eu uses transferentzia osatzen denean for completion. EHU EEH osatu independently attests zerrenda osatu. Actual generic completion row supplies Kontrol-zerrenda bat and the completed option without an extra copula. Incomplete transition wording, named checklist order, the separately documented runtime predicate mismatch and browser execution remain open."
   }
 ]
