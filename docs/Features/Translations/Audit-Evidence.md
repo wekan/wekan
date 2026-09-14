@@ -22469,3 +22469,10 @@ Found unflagged Spanish `es` in shared `r-is`. Actual board/card/checklist
 triggers combine it with Basque conditional verbs already ending in `denean`.
 A literal copula replacement alone would leave redundant composed grammar;
 coordinated phrase repair is required before accepting these trigger values.
+
+**2026-09-14 — Basque rule archive terminology (`2a22a42a9`).**
+
+Corrected `r-archived` and `r-unarchived` from generic storage to archive
+terminology, preserving into/from directions. Exact archive regression and
+all 18,173 correction records pass, including token preservation and newer
+translation protection. Spanish `r-is` and composed grammar remain open.

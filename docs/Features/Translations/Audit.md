@@ -11,14 +11,14 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | Total tracked | 20,081 |
 
 Review is ongoing. The [correction ledger](../../../releases/translations/audited-corrections.json)
-contain **18,171** exact before/after values, including unflagged repairs.
+contain **18,173** exact before/after values, including unflagged repairs.
 [Detailed evidence](Audit-Evidence.md) retains categorized findings,
 source references, confidence limits and archived progress notes.
 
-Latest translation fix: **2026-09-14**, local commit `9910a2c13` —
-clarified Basque archived/unarchived wording in all-status search help.
-Retained 29 correct search instructions, labels and troubleshooting values.
-All **18,171** correction and **3,736** review records pass.
+Latest translation fix: **2026-09-14**, local commit `2a22a42a9` —
+corrected Basque rule archive/restore terminology, preserving direction.
+All **18,173** correction and **3,736** review records pass.
+Shared Spanish `r-is` and composed trigger grammar remain unresolved.
 Attachment/member rule participles still need context-specific agreement.
 Three Esperanto restored findings remain: lime color and two Complete labels.
 Broader language and browser verification remain open; nothing pushed.

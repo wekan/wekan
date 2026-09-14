@@ -1344,6 +1344,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2a22a42a9">Correct Basque rule archive terminology</a></summary>
+
+Archive and restore rule labels now refer to the archive instead of generic
+storage. Regression checks preserve both directions. Shared trigger auxiliary
+and composed grammar remain under review in the translation audit.
+
+Thanks to xet7 !
+
+</details>
+
 and fixes the following bugs:
 
 **LDAP login** - Optional user search filter.
