@@ -21994,3 +21994,16 @@ agreement repair rather than certify the assembled sentence as correct.
 Tracked: 15,561 corrected, 1,734 restored awaiting validation, 2,478 reviewed
 unchanged and 308 pending; correction ledger 18,161. Broader grammar and
 browser verification remain open. No external translation service or push.
+
+
+### 2026-09-14 — Galician deletion warnings and personal card views
+
+Local commit `2cb3f6b13` retains 34 directly reviewed values unchanged.
+Warnings preserve irreversible deletion and linked-card removal order.
+Mention text preserves every exact interpolation token; due-card help keeps
+incomplete-card and user-permission restrictions and markdown emphasis.
+Personal/due-card view, sorting, unread and visibility labels retain meaning.
+Review checks pass: 15,561 corrected, 1,700 restored awaiting validation,
+2,512 reviewed unchanged and 308 pending. Attachment/member participle
+agreement, broader language review and browser validation remain open.
+Nothing pushed; no external translation service used.

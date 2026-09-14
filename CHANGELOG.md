@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,561 corrected, 1,734 restored pre-pull values awaiting
-validation, 2,478 reviewed and retained, and 308 pending review or repair.
+findings: 15,561 corrected, 1,700 restored pre-pull values awaiting
+validation, 2,512 reviewed and retained, and 308 pending review or repair.
 The correction inventory records 18,161 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review
@@ -108,8 +108,8 @@ changes are implemented in local commit 02383521a; translation repairs have
 resumed.
 Latest translation fix/review is 54fdfd33c (2026-09-14): four Galician
 date-trigger meanings repaired; 39 correct values retained.
-Latest unchanged-value review is 54fdfd33c (2026-09-14): 39 Galician
-automation and HTML-placement values retained. Shared attachment/member
+Latest unchanged-value review is 2cb3f6b13 (2026-09-14): 34 Galician
+deletion warnings and personal/due-card view values retained. Shared attachment/member
 participles still need contextual agreement repair.
 Of 611 restored Danish values reviewed, 606 are retained and five repaired.
 Latest unchanged-value reviews are 944243917 and ed9be5431 (2026-09-14),
@@ -846,6 +846,15 @@ Four date-trigger conditions now preserve both setting and changing dates
 in Galician, replacing Portuguese wording. Retain 39 correct automation and
 HTML-placement values. Positive/negative regression and ledger checks pass;
 shared attachment/member participle agreement and browser validation remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2cb3f6b13">Validate Galician deletion warnings and personal card views</a>. Thanks to xet7.</summary>
+
+Retain 34 correct values. Preserve irreversible deletion, linked-card removal
+order, mention tokens and due-card permission restrictions. Review checks
+pass; broader language and browser verification remain open.
 
 </details>
 
