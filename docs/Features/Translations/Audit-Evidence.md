@@ -25771,3 +25771,9 @@ Four source checks pass; native/browser review remains open. Original
 corrected 15,654; pending 248 (kl 2); ledger 18,785. Earlier dated
 notes leaving this label English are superseded. Civil/astronomical
 tabular epochs remain pending; moon-phase terms do not resolve those.
+
+Greenlandic epoch evidence — 2026-09-14.
+Official committee decisions attest mathematical tables and start-date
+terms; ICU establishes Friday civil versus Thursday astronomical epochs.
+See Greenlandic-Calendar-Review.md for primary references and boundaries.
+Both values remain pending; no generic label is accepted as full repair.
