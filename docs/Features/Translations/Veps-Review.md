@@ -42,3 +42,19 @@ those checks do not establish fluency.
 
 No locale values were changed by this review. Native terminology for the
 full remaining labels, inflection and UI phrasing still need verification.
+
+Follow-up review: **2026-09-14**. The local advanced-filter example
+currently contains `Field1 == I'm`; English contains `Field1 == I\'m`.
+Direct JSON inspection confirms the escape is missing in the locale value.
+Repairing only this example would not resolve the wrong-language sentence;
+keep its language review open rather than count a syntax-only repair as a
+completed translation. Literal apostrophe/backslash rules must remain
+visible in the final native help.
+
+Additional directly inspected native MediaWiki evidence: `apisandbox-alert-field`
+uses `pöudon` for a field's value/size, `apisandbox-alert-page` uses plural
+`Pöudod`, and `authmanager-create-from-login` asks to fill `nene pöudod`.
+These provide native field terminology and inflected forms; they do not
+prove a complete Sum Of Fields At Top Of List translation. Mathematical
+Sum and the top-of-list position still need separate evidence and grammar
+review. Preserve all three concepts when repairing that label.
