@@ -139403,5 +139403,19 @@
     "before": "Tsimo",
     "after": "Lähte",
     "reason": "Replace unflagged Tshivenda source label with native Veps Lähte, directly attested by MediaWiki version-libraries-source and tags-source-header. Source selector is distinct from synchronization state."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "optional",
+    "before": "valinnainen",
+    "after": "Ei ole tarbhaine",
+    "reason": "Replace wrong-language optional wording with direct Veps not-required paraphrase; native MediaWiki htmlform-required supplies tarbhaine and existing username supplies Kävutajan nimi. Full negative adjective/context grammar remains low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "list-sync-username-placeholder",
+    "before": "Dzina ḽa mushumisi (a si vhukuma)",
+    "after": "Kävutajan nimi (ei ole tarbhaine)",
+    "reason": "Replace wrong-language optional wording with direct Veps not-required paraphrase; native MediaWiki htmlform-required supplies tarbhaine and existing username supplies Kävutajan nimi. Full negative adjective/context grammar remains low confidence."
   }
 ]

@@ -145,3 +145,11 @@ test("Veps sync source label uses native source noun", () => {
  assert.notEqual(data["list-sync-source-type"],"Tsimo");
  assert.notEqual(data["list-sync-source-type"],data["list-sync-source-none"]);
 });
+
+test("Veps optional username keeps its not-required qualification", () => {
+ const data=JSON.parse(fs.readFileSync("imports/i18n/data/ve-PP.i18n.json","utf8"));
+ assert.equal(data.optional,"Ei ole tarbhaine");
+ assert.equal(data["list-sync-username-placeholder"],"Kävutajan nimi (ei ole tarbhaine)");
+ for(const key of ["optional","list-sync-username-placeholder"]) assert.doesNotMatch(data[key],/valinnainen|mushumisi|vhukuma/i);
+ assert.notEqual(data["list-sync-username-placeholder"],data.username);
+});
