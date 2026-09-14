@@ -121693,5 +121693,19 @@
     "before": "Définir la couleur de sélection",
     "after": "ⵙⵜⵉ ⴰⴽⵍⵓ ⵏ ⵓⵙⵜⵉ",
     "reason": "Replace French. Native MediaWiki rcfilters-highlightmenu-title attests sti/select and uklu/bound color; derive free aklu after the command. Invert attests asti/selection, using derived bound usti after n/of. Actual setSelectionColorPopup applies card.setColor to every selected card. Preserve color of the selected cards, not label creation or a text-selection highlight. LOW CONFIDENCE complete selection-color genitive phrase and derived noun forms; component references do not validate full wording. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "email-resetPassword-subject",
+    "before": "Réinitialiser votre mot de passe sur __siteName__",
+    "after": "ⵔⴰⵔ ⴷ ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ ⵏⵏⴽ ⴳ __siteName__",
+    "reason": "Replace French. Native MediaWiki passwordreset and mailmypassword directly attest rar d taguri n uzray/Reset password. Append native nnk/your and g/on/in site scope, preserving __siteName__ exactly. LOW CONFIDENCE possessive attachment and full reset-your-password-on-site email subject. The reset-password command itself is directly attested. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "email-verifyEmail-subject",
+    "before": "Vérifier votre adresse de courriel sur __siteName__",
+    "after": "ⵙⵙⵉⴷⴻⴷ ⴰⵏⵙⴰ ⵏ ⵉⵎⴰⵢⵍ ⵏⵏⴽ ⴳ __siteName__",
+    "reason": "Replace French. Native MediaWiki login-security attests ssided/Verify identity; createacct-email-ph attests ansa n imayl nnk/your email address. Combine those components with g/on/in site scope, preserving __siteName__ exactly. Keep email verification distinct from password reset. LOW CONFIDENCE complete subject, adapting identity verification to email-address verification and the inherited source verb spelling/dialect with schwa; native components alone do not establish fluent Standard Moroccan email phrasing. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]
