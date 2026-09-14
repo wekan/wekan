@@ -50,6 +50,13 @@ for (const view of [
           await expect(title.locator('h1')).toHaveCount(0);
         } else {
           await expect(title.locator('h1')).toContainText('Demo card');
+          if (['minicard', 'opened card'].includes(view.name)) {
+            const sizes = await title.evaluate(el => [
+              parseFloat(getComputedStyle(el.querySelector('h1')).fontSize),
+              parseFloat(getComputedStyle(el.querySelector('.viewer')).fontSize),
+            ]);
+            expect(sizes[0]).toBeGreaterThan(sizes[1]);
+          }
           await expect(title).toContainText('👍');
           if (view.name !== 'cumulative flow') {
             await expect(title).toContainText('❤️');

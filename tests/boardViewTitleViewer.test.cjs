@@ -96,3 +96,15 @@ test('card numbers stay outside Markdown heading source', () => {
   assert.doesNotMatch(renderer.render('<span class="card-number">#1 &nbsp;</span>' + source), /<h1>/,
     'number markup before the source reproduces the former heading failure');
 });
+
+test('title Markdown heading sizes survive global and mobile resets', () => {
+  for (const [file, selector] of [
+    ['minicard.css', '.minicard-title-text'], ['cardDetails.css', '.card-details-title'],
+  ]) {
+    const css = read(`client/components/cards/${file}`);
+    for (const [level, size] of [[1, 2], [2, 1.5], [3, 1.25], [4, 1.125], [5, 1], [6, 0.875]]) {
+      assert.ok(css.includes(`#content ${selector} .viewer h${level} { font-size: ${size}em !important; }`));
+    }
+    assert.doesNotMatch(css.slice(css.lastIndexOf('/*')), /color\s*:/, 'headings keep theme color');
+  }
+});

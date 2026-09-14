@@ -1113,3 +1113,12 @@
 .minicard.minicard-aging-3:hover {
   opacity: 1;
 }
+
+/* Markdown title headings retain their hierarchy after the global reset and
+   mobile normal-text rules. Relative sizes follow the selected UI font scale. */
+#content .minicard-title-text .viewer h1 { font-size: 2em !important; }
+#content .minicard-title-text .viewer h2 { font-size: 1.5em !important; }
+#content .minicard-title-text .viewer h3 { font-size: 1.25em !important; }
+#content .minicard-title-text .viewer h4 { font-size: 1.125em !important; }
+#content .minicard-title-text .viewer h5 { font-size: 1em !important; }
+#content .minicard-title-text .viewer h6 { font-size: 0.875em !important; }

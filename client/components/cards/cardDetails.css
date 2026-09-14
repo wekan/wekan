@@ -1333,3 +1333,12 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
 .card-details .custom-fields-layout-toggle:hover {
   color: #000;
 }
+
+/* The global reset and mobile text normalization must not flatten Markdown
+   headings in the opened-card title. Keep theme colors and scaled base size. */
+#content .card-details-title .viewer h1 { font-size: 2em !important; }
+#content .card-details-title .viewer h2 { font-size: 1.5em !important; }
+#content .card-details-title .viewer h3 { font-size: 1.25em !important; }
+#content .card-details-title .viewer h4 { font-size: 1.125em !important; }
+#content .card-details-title .viewer h5 { font-size: 1em !important; }
+#content .card-details-title .viewer h6 { font-size: 0.875em !important; }
