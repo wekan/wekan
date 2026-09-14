@@ -474,3 +474,6 @@ assert.doesNotMatch(translated['attachment-delete-pop'], /[\u0600-\u06ff]|ⵜⴰ
 
 assert.strictEqual(translated["delete-linked-card-before-this-card"], "ⵓⵔ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⴽⴽⵙⴷ ⵜⴰⴽⴰⵕⴹⴰ ⴰⴷ ⴷⴰⵜ ⴰⴷ ⵜⴽⴽⵙⴷ ⵜⴰⴽⴰⵕⴹⴰ ⵉⵣⴷⵉⵏ ⵏⵏⴰ ⴷⴰⵔⵙ");
 assert.doesNotMatch(translated['delete-linked-card-before-this-card'], /Vous|supprimer|[\u0600-\u06ff]/u);
+
+assert.strictEqual(translated["delete-linked-cards-before-this-list"], "ⵓⵔ ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⴽⴽⵙⴷ ⵜⴰⵍⴳⴰⵎⵜ ⴰⴷ ⴷⴰⵜ ⴰⴷ ⵜⴽⴽⵙⴷ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵉⵣⴷⵉⵏ ⵏⵏⴰ ⵣⴷⵉⵏⵜ ⴰⴽⴷ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⴳ ⵜⴰⵍⴳⴰⵎⵜ ⴰⴷ.");
+assert.doesNotMatch(translated['delete-linked-cards-before-this-list'], /Vous|supprimer|pointent|[\u0600-\u06ff]/u);
