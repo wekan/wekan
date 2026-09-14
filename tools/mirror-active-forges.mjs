@@ -558,8 +558,23 @@ async function digestMatches(file, digest) {
 }
 export function syncGit(mirror, run = command, exists = fs.existsSync, tools) {
   const sourceName = mirror.sourceName || 'github', sourceUrl = forges[sourceName].git;
-  tools ||= path.join(repositoryArchive(root,repository,sourceName==='github'?organization:destinationNamespaces[sourceName],{github:'github.com',gitlab:'gitlab.com',codeberg:'codeberg.org',sourceforge:'sourceforge.net'}[sourceName]),'git');
+  tools ||= organization === 'wekan' && repository === 'wekan'
+    ? path.join(root, '.tools')
+    : path.join(root, '.tools', 'mirror-git', organization, repository);
   const defaultBranch = mirror.defaultBranch || process.env.WEKAN_MIRROR_DEFAULT_BRANCH || 'main';
+  const existingCheckout = path.join(tools, `wekan-${mirror.name}`);
+  if (exists(existingCheckout)) {
+    if (run('git', ['-C', existingCheckout, 'status', '--porcelain']).trim()) throw new Error('Mirror checkout has local changes; preserved');
+    if (run('git', ['-C', existingCheckout, 'symbolic-ref', '--short', 'HEAD']).trim() !== defaultBranch) throw new Error('Mirror checkout is not on its default branch; preserved');
+    run('git', ['-C', existingCheckout, 'fetch', mirror.url, defaultBranch]);
+    run('git', ['-C', existingCheckout, 'merge', '--no-edit', 'FETCH_HEAD']);
+    run('git', ['-C', existingCheckout, 'fetch', sourceUrl, '+refs/heads/*:refs/mirror-source/heads/*', '+refs/tags/*:refs/mirror-source/tags/*']);
+    run('git', ['-C', existingCheckout, 'merge', '--no-edit', `refs/mirror-source/heads/${defaultBranch}`]);
+    const refs = run('git', ['-C', existingCheckout, 'for-each-ref', '--format=%(refname)', 'refs/mirror-source/heads', 'refs/mirror-source/tags']).trim().split(/\r?\n/).filter(Boolean);
+    if (refs.some(ref => !/^refs\/mirror-source\/(heads|tags)\//.test(ref))) throw new Error('Unexpected source Git ref');
+    run('git', ['-C', existingCheckout, 'push', mirror.url, `HEAD:refs/heads/${defaultBranch}`, ...refs.filter(ref => ref !== `refs/mirror-source/heads/${defaultBranch}`).map(ref => `${ref}:${ref.replace('refs/mirror-source/', 'refs/')}`)]);
+    return true;
+  }
   const gitdir = path.join(tools, `wekan-${sourceName}-mirror.git`);
   fs.mkdirSync(tools, { recursive: true });
   if (!exists(gitdir)) run('git', ['clone', '--mirror', sourceUrl, gitdir]);
