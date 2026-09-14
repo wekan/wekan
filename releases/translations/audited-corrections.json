@@ -127503,5 +127503,89 @@
     "before": "Étiquettes",
     "after": "Tikedennoù",
     "reason": "Unflagged French member/label interface wording replaced with Breton using existing ezel/izili and filter vocabulary, Preder assignment verb deverkañ and native MediaWiki br.json Merañ/tikedennoù. Preserve assignment action, plural management, filter criterion and absent-member distinction."
+  },
+  {
+    "locale": "br",
+    "key": "add-list",
+    "before": "Ajouter une liste",
+    "after": "Ouzhpennañ ur roll",
+    "reason": "Unflagged French popup/control label replaced directly with Breton, using existing Krouiñ/Kemmañ/Dilemel/Ouzhpennañ, Taolenn/Roll, Yezh/Deiziad and native software tikedenn vocabulary. Preserve creation versus edit/deletion and confirmation question; no archive actions changed. Article mutation is directly adapted; native grammar/browser verification remains open."
+  },
+  {
+    "locale": "br",
+    "key": "addListPopup-title",
+    "before": "Ajouter une liste",
+    "after": "Ouzhpennañ ur roll",
+    "reason": "Unflagged French popup/control label replaced directly with Breton, using existing Krouiñ/Kemmañ/Dilemel/Ouzhpennañ, Taolenn/Roll, Yezh/Deiziad and native software tikedenn vocabulary. Preserve creation versus edit/deletion and confirmation question; no archive actions changed. Article mutation is directly adapted; native grammar/browser verification remains open."
+  },
+  {
+    "locale": "br",
+    "key": "createBoardPopup-title",
+    "before": "Créer un tableau",
+    "after": "Krouiñ un daolenn",
+    "reason": "Unflagged French popup/control label replaced directly with Breton, using existing Krouiñ/Kemmañ/Dilemel/Ouzhpennañ, Taolenn/Roll, Yezh/Deiziad and native software tikedenn vocabulary. Preserve creation versus edit/deletion and confirmation question; no archive actions changed. Article mutation is directly adapted; native grammar/browser verification remains open."
+  },
+  {
+    "locale": "br",
+    "key": "headerBarCreateBoardPopup-title",
+    "before": "Créer un tableau",
+    "after": "Krouiñ un daolenn",
+    "reason": "Unflagged French popup/control label replaced directly with Breton, using existing Krouiñ/Kemmañ/Dilemel/Ouzhpennañ, Taolenn/Roll, Yezh/Deiziad and native software tikedenn vocabulary. Preserve creation versus edit/deletion and confirmation question; no archive actions changed. Article mutation is directly adapted; native grammar/browser verification remains open."
+  },
+  {
+    "locale": "br",
+    "key": "delete-board",
+    "before": "Supprimer le tableau",
+    "after": "Dilemel an daolenn",
+    "reason": "Unflagged French popup/control label replaced directly with Breton, using existing Krouiñ/Kemmañ/Dilemel/Ouzhpennañ, Taolenn/Roll, Yezh/Deiziad and native software tikedenn vocabulary. Preserve creation versus edit/deletion and confirmation question; no archive actions changed. Article mutation is directly adapted; native grammar/browser verification remains open."
+  },
+  {
+    "locale": "br",
+    "key": "boardDeletePopup-title",
+    "before": "Supprimer le tableau ?",
+    "after": "Dilemel an daolenn ?",
+    "reason": "Unflagged French popup/control label replaced directly with Breton, using existing Krouiñ/Kemmañ/Dilemel/Ouzhpennañ, Taolenn/Roll, Yezh/Deiziad and native software tikedenn vocabulary. Preserve creation versus edit/deletion and confirmation question; no archive actions changed. Article mutation is directly adapted; native grammar/browser verification remains open."
+  },
+  {
+    "locale": "br",
+    "key": "listDeletePopup-title",
+    "before": "Supprimer la liste ?",
+    "after": "Dilemel ar roll ?",
+    "reason": "Unflagged French popup/control label replaced directly with Breton, using existing Krouiñ/Kemmañ/Dilemel/Ouzhpennañ, Taolenn/Roll, Yezh/Deiziad and native software tikedenn vocabulary. Preserve creation versus edit/deletion and confirmation question; no archive actions changed. Article mutation is directly adapted; native grammar/browser verification remains open."
+  },
+  {
+    "locale": "br",
+    "key": "cardCustomField-datePopup-title",
+    "before": "Modifier la date",
+    "after": "Kemmañ an deiziad",
+    "reason": "Unflagged French popup/control label replaced directly with Breton, using existing Krouiñ/Kemmañ/Dilemel/Ouzhpennañ, Taolenn/Roll, Yezh/Deiziad and native software tikedenn vocabulary. Preserve creation versus edit/deletion and confirmation question; no archive actions changed. Article mutation is directly adapted; native grammar/browser verification remains open."
+  },
+  {
+    "locale": "br",
+    "key": "changeLanguagePopup-title",
+    "before": "Modifier la langue",
+    "after": "Kemmañ ar yezh",
+    "reason": "Unflagged French popup/control label replaced directly with Breton, using existing Krouiñ/Kemmañ/Dilemel/Ouzhpennañ, Taolenn/Roll, Yezh/Deiziad and native software tikedenn vocabulary. Preserve creation versus edit/deletion and confirmation question; no archive actions changed. Article mutation is directly adapted; native grammar/browser verification remains open."
+  },
+  {
+    "locale": "br",
+    "key": "createLabelPopup-title",
+    "before": "Créer une étiquette",
+    "after": "Krouiñ un dikedenn",
+    "reason": "Unflagged French popup/control label replaced directly with Breton, using existing Krouiñ/Kemmañ/Dilemel/Ouzhpennañ, Taolenn/Roll, Yezh/Deiziad and native software tikedenn vocabulary. Preserve creation versus edit/deletion and confirmation question; no archive actions changed. Article mutation is directly adapted; native grammar/browser verification remains open."
+  },
+  {
+    "locale": "br",
+    "key": "editLabelPopup-title",
+    "before": "Modifier l'étiquette",
+    "after": "Kemmañ an dikedenn",
+    "reason": "Unflagged French popup/control label replaced directly with Breton, using existing Krouiñ/Kemmañ/Dilemel/Ouzhpennañ, Taolenn/Roll, Yezh/Deiziad and native software tikedenn vocabulary. Preserve creation versus edit/deletion and confirmation question; no archive actions changed. Article mutation is directly adapted; native grammar/browser verification remains open."
+  },
+  {
+    "locale": "br",
+    "key": "deleteLabelPopup-title",
+    "before": "Supprimer l'étiquette ?",
+    "after": "Dilemel an dikedenn ?",
+    "reason": "Unflagged French popup/control label replaced directly with Breton, using existing Krouiñ/Kemmañ/Dilemel/Ouzhpennañ, Taolenn/Roll, Yezh/Deiziad and native software tikedenn vocabulary. Preserve creation versus edit/deletion and confirmation question; no archive actions changed. Article mutation is directly adapted; native grammar/browser verification remains open."
   }
 ]
