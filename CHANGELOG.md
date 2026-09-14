@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,303 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 541 pending review or repair.
-The correction inventory records 17,609 exact before/after values,
+findings: 15,304 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 540 pending review or repair.
+The correction inventory records 17,610 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (403) and
+The largest original queues are Standard Moroccan Tamazight (402) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -102,28 +102,9 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383540a; translation repairs have resumed.
-Latest translation fix is f36185936 (2026-09-14), restoring the
-missing moon-sighting qualifier in the Fulah Saudi calendar label. Native
-components support vocabulary; full composition needs technical review.
-Provisional Adlam Hijri names have punctuation/semantic uncertainties; a
-Swedish homograph is not Fulah evidence. Two Fulah epoch findings remain
-unresolved. Wider language review remains open.
-Greenlandic CLDR-unconfirmed wording and twelve Quechua color wrappers
-still need review, alongside the wider restored and unflagged values.
-Tamazight calendar review dd2aaa19a (2026-09-14) records provisional
-Islamic naming and missing variant terminology; no values changed.
-Manx calendar review 669be8895 (2026-09-14) records missing CLDR display
-names and unresolved Coptic/tabular/epoch terminology; no values changed. Previous fix e07d2be5f replaced two English
-Cherokee Hijri labels with exact native-script CLDR variant names. Cherokee’s
-original queue is empty. Compact tabular epoch wording still needs fluent
-technical review. Quechua palette compounds and remaining color wrappers
-remain open. There are 403 Tamazight findings remaining.
-Silesian reference review (2026-09-14) confirms shared database/file terms
-in native MediaWiki messages; the full raw-file label remains pending.
-No translation value or finding count changed in that review.
-All correction/rendering checks pass; wider language validation remains open.
-Member assignment popup handlers need separate review for apparent reversed
-operations. The 1,015-suite Node result is historical and predates the latest batches.
+Latest translation fix is dc91b2560 (2026-09-14), replacing the French
+Tamazight Excel import popup title while preserving Excel CSV/TSV.
+Import-specific wording remains low confidence pending fluent review.
 
 Node regressions resolved on 2026-09-13: the original audit ran 986 suites
 with 19 failures. After the recorded source and guard repairs and one new
@@ -617,7 +598,7 @@ browser verification remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/5417ab3ca">Repair Tamazight search OR and AND explanations</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/5407ab3ca">Repair Tamazight search OR and AND explanations</a>. Thanks to xet7.</summary>
 
 Replace two French search notes and correct the mistaken optional
 interpretation of OR. Preserve OR/any versus AND/all, literal example names,
@@ -628,10 +609,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,303 original findings are
+Translation audit progress as of 2026-09-14: 15,304 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 541 remain pending across 17 locales, including 403 Tamazight findings.
-The ledger contains 17,609 correction records, including unflagged repairs.
+and 540 remain pending across 17 locales, including 402 Tamazight findings.
+The ledger contains 17,610 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -701,7 +682,7 @@ language validation and live browser checks remain open.
 </details>
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/435a9541e">Translate Tamazight registration invitation diagnostics</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/435a9540e">Translate Tamazight registration invitation diagnostics</a>. Thanks to xet7.</summary>
 
 Replace two French messages, preserving send error versus successful send
 and registration/account-creation purpose without claiming acceptance.
@@ -835,7 +816,7 @@ Wider language and live browser validation remain open.
 
 Replace four French values, including one unflagged string. Preserve plural
 add/list, singular settings, missing named organization and exact %s token.
-All 17,541 correction/rendering checks pass; 587 original findings remain.
+All 17,540 correction/rendering checks pass; 587 original findings remain.
 The computing lexicon marks vocabulary MW (Mammeri); dialect adaptation,
 spelling, feminine negation and full phrases remain low confidence. Wider
 language and live browser validation remain open.
@@ -1046,9 +1027,19 @@ Replace the English label and restore missing moon-sighting detail. Exact
 Latin country name and native see/moon components support vocabulary; full
 composition remains low confidence pending technical review. Provisional
 Adlam Hijri names have punctuation/semantic uncertainties; a Swedish
-homograph is not accepted as Fulah evidence. All 17,609 correction/rendering
-checks pass; 541 original findings remain, including two Fulah epoch findings.
+homograph is not accepted as Fulah evidence. All 17,610 correction/rendering
+checks pass; 540 original findings remain, including two Fulah epoch findings.
 Wider language and browser review remain open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dc91b2560">Repair Tamazight Excel import popup</a>. Thanks to xet7.</summary>
+
+Replace the French import title while retaining Excel CSV/TSV names.
+Native entry wording and cached import terminology support components;
+complete import phrasing remains low confidence. All 17,610 correction
+checks pass; 540 original findings remain pending.
 
 </details>
 
