@@ -22699,3 +22699,10 @@ https://www.euskadi.eus/bopv2/datos/2014/12/1405234e.pdf attests
 tiket- edo albaran-zenbakia. This validates lexical meaning; no current
 UI consumer was found. All 4,137 exact review records pass. Nineteen
 restored Basque values and wider language/browser verification remain open.
+
+Dated review, 2026-09-14, local commit `99a1e4835`: retained Danish ledig,
+Basque librea and Galician libre for export-card-excel-free. Actual historical
+code diffs 7de1b04eb and 5c5ed102c pair the translated label with mbFree MB
+and mbNeeded, proving available disk capacity rather than no-cost licensing.
+No current consumer found. All 4,140 review records pass; 50 restored
+values and 305 original pending findings remain.

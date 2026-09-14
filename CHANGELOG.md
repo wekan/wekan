@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,586 corrected, 53 restored pre-pull values awaiting
-validation, 4,137 reviewed and retained, and 305 pending review or repair.
+findings: 15,586 corrected, 50 restored pre-pull values awaiting
+validation, 4,140 reviewed and retained, and 305 pending review or repair.
 The correction inventory records 18,197 exact before/after values,
 including repairs outside the original findings.
 Global completeness verification also identifies Veps `server` (currently
@@ -112,9 +112,9 @@ resumed.
 Latest translation fix is c4e6aa1c0 (2026-09-14): Valencian My Attachments
 uses matching masculine plural modifiers. Regional possessive wording,
 shared trigger grammar and provisional calendar phrasing remain under review.
-Latest unchanged-value review is 37a664a5c (2026-09-14): Basque ticket
-number wording retained against government usage. Nineteen restored Basque
-values and wider language/browser verification remain open.
+Latest unchanged-value review is 99a1e4835 (2026-09-14): Danish, Basque
+and Galician free labels retained against historical disk-capacity export
+code. Eighteen restored Basque values and wider verification remain open.
 Of 611 restored Danish values reviewed, 606 are retained and five repaired.
 Latest unchanged-value reviews are 944243917 and ed9be5431 (2026-09-14),
 retaining 156 correct Danish storage, migration and monitoring/account labels.
@@ -870,6 +870,15 @@ regional wording and wider language/browser verification remain open.
 Retained Basque Tiket-zenbakia against published government usage. Exact
 review checks pass. No current UI consumer was found; lexical acceptance
 does not verify an unobserved workflow. Wider translation review remains open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/99a1e4835">Validate available disk-space terminology</a>. Thanks to xet7.</summary>
+
+Retained Danish, Basque and Galician free labels against historical export
+code displaying available and required MB. Exact review checks pass. No current
+consumer was found; broader language/browser verification remains open.
 
 </details>
 
