@@ -2,6 +2,10 @@
 
 Historical snapshot retained for reproducible repair tracking. See [Audit.md](Audit.md) for current progress.
 
+## Tamazight archive status and empty states — 2026-09-14
+
+Commit `38debcc33` replaces seven Arabic/French labels: four original findings and three unflagged values. Preserve boards in archive, separate No Boards/Lists/Cards negatives, THIS card/board moved-to-archive status, and the warning that this card is inside a LIST in archive (not an assertion that the card itself is archived). Fix the old Arabic board plural to source singular. Archive noun uses the directly inspected [native institutional logo](https://www.um5.ac.ma/um5/sites/default/files/2019-12/Communiqu%C3%A9%20JNA%202019.pdf); native software supplies Move/No/Warning/List components. Plural feminine negative agreement, passive moved form, nested archive-location grammar and full clauses remain LOW CONFIDENCE for native validation. Institutional noun evidence does not validate whole kanban labels. Four originals repaired; 410 remain pending, including 275 Tamazight. 17,931 mechanical checks pass; no live browser verification or remote uploads.
+
 ## Tamazight archive noun direct provenance — 2026-09-14
 
 Commit `fbe388603` adds provenance to nine records from `5dca9f38d`, without changing values/counts. Directly downloaded and inspected [University Mohammed V's 2019 National Archives Day press release](https://www.um5.ac.ma/um5/sites/default/files/2019-12/Communiqu%C3%A9%20JNA%202019.pdf). Page 1 contains an Archives du Maroc institutional logo with a Tifinagh Archive-of-Morocco caption, corroborating `ⴰⵔⵛⵉⴼ`. PDF text extraction only reads the French body; native evidence comes from the inspected embedded logo image (`/Image11`), not the body. This is stronger lexical provenance than the earlier Ministry search-index excerpt whose direct fetch timed out. Institutional archive usage still does not attest a kanban control: semantic adaptation, prepositional form and assembled labels remain LOW CONFIDENCE for native validation. All 17,924 mechanical checks pass; 414 originals remain pending, including 279 Tamazight. No live browser verification or remote uploads.

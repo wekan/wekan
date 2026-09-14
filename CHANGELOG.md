@@ -80,14 +80,14 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,430 corrected, 4,058 restored pre-pull values awaiting
-validation, 179 reviewed and retained, and 414 pending review or repair.
-The correction inventory records 17,924 exact before/after values,
+findings: 15,434 corrected, 4,058 restored pre-pull values awaiting
+validation, 179 reviewed and retained, and 410 pending review or repair.
+The correction inventory records 17,931 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (279) and
+The largest original queues are Standard Moroccan Tamazight (275) and
 Inuktitut (50); Veps retains 10 original findings. Silesian database terminology and 17 Tigre
 calendar findings need language-specific review. Restored and unflagged
 values, low-confidence wording and browser rendering remain unverified.
@@ -102,10 +102,10 @@ local findings, and Bosnian errors predate the pull. No remote uploads were
 performed. Preserve correct translations and source placeholders during repairs.
 The requested organization, linked-file/static-archive and rate-limit mirror
 changes are implemented in local commit 02383521a; translation repairs have resumed.
-Latest translation fix is 5dca9f38d (2026-09-14), replacing nine archive
-controls, including eight unflagged values. Noun/action and object scopes
-are preserved. Ministry noun evidence is indexed; direct access timed out.
-Full labels remain low confidence.
+Latest translation fix is 38debcc33 (2026-09-14), replacing seven archive
+state labels, including three unflagged values. Negative object scopes,
+singular this-board moved status and archived-containing-list warning are
+preserved; derived forms and full clauses remain low confidence.
 Archive provenance follow-up fbe388603 (2026-09-14) directly inspects the
 native Archives du Maroc logo in a university PDF, corroborating the noun
 beyond indexed evidence. Nine records updated; no values/counts changed.
@@ -651,10 +651,10 @@ remain open.
 
 </details>
 
-Translation audit progress as of 2026-09-14: 15,430 original findings are
+Translation audit progress as of 2026-09-14: 15,434 original findings are
 corrected, 179 reviewed and retained, 4,058 restored values await validation,
-and 414 remain pending across 17 locales, including 279 Tamazight findings.
-The ledger contains 17,924 correction records, including unflagged repairs.
+and 410 remain pending across 17 locales, including 275 Tamazight findings.
+The ledger contains 17,931 correction records, including unflagged repairs.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e812559c">Translate Tamazight lockout account scopes and multiple operators</a>. Thanks to xet7.</summary>
@@ -2669,6 +2669,18 @@ University Mohammed V press release. Add lexical provenance to nine archive
 records; the French body is not native evidence. Institutional-to-kanban
 adaptation and full labels remain low confidence. All 17,924 correction
 checks pass; no values/counts changed. Wider validation remains open.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/38debcc33">Translate Tamazight archive status and empty states</a>. Thanks to xet7.</summary>
+
+2026-09-14: Replace seven Arabic/French labels, including three unflagged
+values. Preserve board/list/card negative scopes, singular this-board moved
+status and the warning that this card's containing list is archived. Derived
+forms and full clauses remain low confidence. All 17,931 correction checks
+pass, including tokens and translation preference. 410 originals remain
+pending; wider language and browser validation remain open.
 
 </details>
 
