@@ -29,11 +29,11 @@ source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
 Latest terminology review: **2026-09-15** —
-[Tamazight mapping empty state](Tamazight-Review.md) confirms the distinction
-between no initial board targets and no search matches. Attested not-yet
-and above terms are available; actual-account wording remains open.
-Keep board scope and the instruction to search for any user.
-No translations or counts changed. Earlier reviews remain in detailed evidence.
+[Tamazight disk-space error](Tamazight-Review.md) identifies space and
+sufficiency candidates plus a hard-disk term. Keep general free storage
+capacity; avoid physical-space homographs and narrowing to hard disks.
+Complete error wording remains open. No translations or counts changed.
+Earlier reviews remain in detailed evidence.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:

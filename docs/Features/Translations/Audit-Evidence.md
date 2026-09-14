@@ -28661,3 +28661,27 @@ for exact wording, Arabic rejection and translation invariants. No live
 UI test ran. Ledger 19,849; original corrected 15,736, pending 167
 (zgh 72), restored 4 unchanged. Broader review remains open; no remote
 writes were made.
+
+
+## Excel disk-space error — terminology review 2026-09-15
+
+Flagged French `export-card-excel-no-disk-space` remains pending. IRCAM
+page 212 entry 4045 attests space `asayrar`, with an advertising-space
+phrase; page 711 entry 13405 `wdu` means suffice/be enough. Page 584
+entry 10935 gives diskette `taqaṛiḍt` and an explicit hard-disk compound
+`taqaṛiḍt taquṛaṛt`. These supply candidates, not attestation of a full
+free-storage-space error sentence.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+Do not use the dictionary's pathway-between-tents sense (7493), dental
+space (10747/11555/12213), or exclamation That's enough (5732/7595)
+as computing storage capacity. The hard-disk compound should not narrow
+the error to physical hard disks; the English says disk space generally.
+Free means available/unallocated capacity, not free-of-charge or political
+freedom. Preserve cannot export to Excel and insufficient free capacity.
+
+Next action is to verify a general storage-volume/free-capacity expression,
+combine it with negated sufficiency and the export failure, and keep Excel
+literal. This review changes no translation or counts. Pending 167
+original findings; full contextual grammar remains open. No runtime export
+or live UI test ran and no remote writes were made.
