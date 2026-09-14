@@ -124080,5 +124080,47 @@
     "before": "Éditer le planning poker",
     "after": "ⵙⵏⴼⵍ Planning Poker",
     "reason": "2026-09-14: Replace French edit heading using native snfl Edit, documented at Mastodon upload_form.edit and lists.edit. Preserve exact Planning Poker proper feature name from English source; do not add vote or end-date scope absent from this heading. LOW CONFIDENCE complete adapted heading: components are supported but full Standard Moroccan phrasing needs fluent review. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ."
+  },
+  {
+    "locale": "zgh",
+    "key": "people",
+    "before": "الناس",
+    "after": "ⵎⵉⴷⴷⵏ",
+    "reason": "2026-09-14: Replace Arabic Tamazight UI label. Exact Mastodon emoji_button.people; generic people, not users or members. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml ."
+  },
+  {
+    "locale": "zgh",
+    "key": "edit-profile",
+    "before": "تعديل الملف الشخصي",
+    "after": "ⵙⵏⴼⵍ ⵉⴼⵔⵙ",
+    "reason": "2026-09-14: Replace Arabic Tamazight UI label. Exact Mastodon account.edit_profile; preserve Edit Profile action. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml ."
+  },
+  {
+    "locale": "zgh",
+    "key": "text-note-title",
+    "before": "عنوان",
+    "after": "ⴰⵣⵡⵍ",
+    "reason": "2026-09-14: Replace Arabic Tamazight UI label. Reuse reviewed Title noun supported by MediaWiki pageinfo-display-title, preserving generic title. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml ."
+  },
+  {
+    "locale": "zgh",
+    "key": "board-view-cal",
+    "before": "التقويم",
+    "after": "ⴰⵙⵎⵍⵓⵙⵙⴰⵏ",
+    "reason": "2026-09-14: Replace Arabic Tamazight UI label. Exact CLDR localeDisplayNames/keys/calendar generic Calendar noun; do not impose a particular calendar system. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml ."
+  },
+  {
+    "locale": "zgh",
+    "key": "board-view-lists",
+    "before": "القائمات",
+    "after": "ⵜⵉⵍⴳⴰⵎⵉⵏ",
+    "reason": "2026-09-14: Replace Arabic Tamazight UI label. Exact Mastodon column.lists and navigation_bar.lists; preserve plural lists. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml ."
+  },
+  {
+    "locale": "zgh",
+    "key": "cardMembersPopup-title",
+    "before": "أعضاء",
+    "after": "ⵉⴳⵎⴰⵎⵏ",
+    "reason": "2026-09-14: Replace Arabic Tamazight UI label. Reuse reviewed plural Members noun supported by MediaWiki nmembers; preserve members rather than users. References: https://raw.githubusercontent.com/mastodon/mastodon/main/app/javascript/mastodon/locales/zgh.json ; https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json ; https://raw.githubusercontent.com/unicode-org/cldr/main/common/main/zgh.xml ."
   }
 ]
