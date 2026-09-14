@@ -38,6 +38,25 @@ const assert = require('node:assert/strict');
   assert.equal(updateAuditSummary(updated, summary, 12345, '2026-09-13'), updated, 'refresh is idempotent');
   assert.ok(updated.includes(report.match(/Latest translation fix:.*$/m)[0]), 'refresh preserves reviewed fix details and commit hash');
   assert.throws(() => updateAuditSummary('', summary, 0, '2026-09-13'), /Missing summary row/);
+  const staleReport = report.replace(/^(\| zgh — [^|]+ \| )\d+( \|)$/m, '$1999$2');
+  const refreshed = updateAuditSummary(staleReport, summary, 12345, '2026-09-13', result);
+  assert.match(refreshed, new RegExp(`\\| zgh — [^|]+ \\| ${result.pendingByLocale.zgh} \\|`));
+  assert.equal(updateAuditSummary(refreshed, summary, 12345, '2026-09-13', result), refreshed);
+  const changed = { ...result, pendingByLocale: { ...result.pendingByLocale, zgh: 1, lv: 2 } };
+  const changedSummary = { ...summary, pending: summary.pending - result.pendingByLocale.zgh + 3 };
+  const withNewLocale = updateAuditSummary(report, changedSummary, 12345, '2026-09-13', changed);
+  assert.match(withNewLocale, /\| lv — Latvian \| 2 \|/);
+  const withoutLocale = { ...result, pendingByLocale: { ...result.pendingByLocale } };
+  delete withoutLocale.pendingByLocale.zgh;
+  const removed = updateAuditSummary(report, { ...summary, pending: summary.pending - result.pendingByLocale.zgh },
+    12345, '2026-09-13', withoutLocale);
+  assert.doesNotMatch(removed, /\| zgh —/);
+  assert.throws(() => updateAuditSummary(report, summary, 0, '2026-09-13', changed), /do not reconcile/);
+  assert.throws(() => updateAuditSummary(report.replace('| Pending locale | Findings |', ''),
+    summary, 0, '2026-09-13', result), /Missing pending locale table/);
+  assert.ok(refreshed.includes(report.match(/Latest translation fix:.*$/m)[0]),
+    'full refresh preserves dated translation fix evidence');
+
   assert.equal(summary.auditedKeys, 20081, 'all original pull and full-local audit rows remain accounted for');
   assert.equal(summary.auditedKeys, summary.corrected + summary.restoredPrePull + summary.reviewedUnchanged + summary.pending);
   assert.equal(result.pendingByLocale.bs, undefined, 'every flagged Bosnian key has been repaired');

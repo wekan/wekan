@@ -34,7 +34,7 @@ export function classifyAuditRow(row, current, correction, review) {
   if (row.originalPull && current === row.local) return 'restoredPrePull';
   return 'pending';
 }
-export function updateAuditSummary(text, summary, correctionCount, date) {
+export function updateAuditSummary(text, summary, correctionCount, date, progress) {
   const labels = { Corrected: 'corrected', 'Restored pre-pull; awaiting validation': 'restoredPrePull',
     'Reviewed; retained unchanged': 'reviewedUnchanged', 'Pending review or repair': 'pending', 'Total tracked': 'auditedKeys' };
   for (const [label, key] of Object.entries(labels)) {
@@ -42,6 +42,23 @@ export function updateAuditSummary(text, summary, correctionCount, date) {
     if (!text.includes(row)) throw new Error(`Missing summary row: ${label}`);
     text = text.split('\n').map(line => line.startsWith(row)
       ? `${row} ${summary[key].toLocaleString('en-US')} |` : line).join('\n');
+  }
+  if (progress) {
+    const table = /\| Pending locale \| Findings \|\n\| --- \| ---: \|\n(?:\| [^\n]+ \|\n)*/;
+    if (!table.test(text)) throw new Error('Missing pending locale table');
+    const names = new Map([...text.matchAll(/^\| ([\w-]+) — ([^|]+) \| \d+ \|$/gm)]
+      .map(([, locale, name]) => [locale, name]));
+    for (const row of progress.rows) {
+      if (!names.has(row.locale)) names.set(row.locale, row.language.replace(/\s*\([^)]*\)\s*$/, ''));
+    }
+    const entries = Object.entries(progress.pendingByLocale);
+    if (entries.some(([locale, count]) => !names.has(locale) || !Number.isSafeInteger(count) || count <= 0)
+      || entries.reduce((total, [, count]) => total + count, 0) !== summary.pending) {
+      throw new Error('Pending locale counts do not reconcile with summary');
+    }
+    entries.sort(([a, ac], [b, bc]) => bc - ac || a.localeCompare(b));
+    text = text.replace(table, '| Pending locale | Findings |\n| --- | ---: |\n'
+      + entries.map(([locale, count]) => `| ${locale} — ${names.get(locale)} | ${count} |\n`).join(''));
   }
   return text.replace(/Last updated: \*\*\d{4}-\d{2}-\d{2}\*\*/, `Last updated: **${date}**`)
     .replace(/contain \*\*[\d,]+\*\* exact/, `contain **${correctionCount.toLocaleString('en-US')}** exact`);
@@ -72,7 +89,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
     const summaryPath = path.join(root, 'docs/Features/Translations/Audit.md');
     const corrections = JSON.parse(fs.readFileSync(path.join(root, 'releases/translations/audited-corrections.json'), 'utf8'));
     const date = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Helsinki', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
-    fs.writeFileSync(summaryPath, updateAuditSummary(fs.readFileSync(summaryPath, 'utf8'), result.summary, corrections.length, date));
+    fs.writeFileSync(summaryPath, updateAuditSummary(fs.readFileSync(summaryPath, 'utf8'), result.summary, corrections.length, date, result));
   }
   const localeIndex = process.argv.indexOf('--locale');
   if (localeIndex !== -1) {
