@@ -1301,6 +1301,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5d0583ef5">Fix Veps optional-field and synchronization username wording</a></summary>
+
+Replace wrong-language wording while preserving the optional qualifier.
+Four focused test files pass. Full contextual grammar remains under review
+in the dated translation audit.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

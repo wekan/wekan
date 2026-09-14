@@ -606,3 +606,25 @@ optional = valinnainen is Finnish and needs a coordinated repair with
 list-sync-username-placeholder. Keep optionality explicit; removing its
 qualifier would alter the field's meaning. Not-synced and never clauses,
 credential statuses and full synchronization instructions remain open.
+
+
+2026-09-15 — `5d0583ef5`: optional = valinnainen and
+list-sync-username-placeholder wrong-language values replaced with direct
+Veps not-required paraphrases. Keep the qualification explicit: Kävutajan
+nimi alone would lose optionality. Existing username supplies Kävutajan
+nimi. Native primary MediaWiki htmlform-required says Nece znamoičend om
+tarbhaine; native negative construction ei ole gives the assembled not-required
+paraphrase. Read 2026-09-15:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json
+Full contextual negative-adjective grammar remains low confidence; the
+complete optional-username phrase is not independently attested by this
+component evidence. Four focused files pass (22 checks), including exact
+values, negative Finnish/Tshivenda, retained username and explicit optional
+qualification, plus all placeholder/key-order inventories. No live field
+UI test ran. Ledger 19,917; original pending remains 126 (Veps 8), restored
+4 unchanged. These two additional wrong-language findings are repaired,
+but broad wording validation stays open. Never and not-synced must remain
+distinct from failed sync; no unsupported translation for those was added.
+The checked MediaWiki key-name search did not provide never; this limited
+search does not establish that native wording is absent. Credentials and
+15-minute/immediate-check instructions still require complete repairs.
