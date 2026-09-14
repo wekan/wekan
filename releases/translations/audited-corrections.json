@@ -121707,5 +121707,12 @@
     "before": "Vérifier votre adresse de courriel sur __siteName__",
     "after": "ⵙⵙⵉⴷⴻⴷ ⴰⵏⵙⴰ ⵏ ⵉⵎⴰⵢⵍ ⵏⵏⴽ ⴳ __siteName__",
     "reason": "Replace French. Native MediaWiki login-security attests ssided/Verify identity; createacct-email-ph attests ansa n imayl nnk/your email address. Combine those components with g/on/in site scope, preserving __siteName__ exactly. Keep email verification distinct from password reset. LOW CONFIDENCE complete subject, adapting identity verification to email-address verification and the inherited source verb spelling/dialect with schwa; native components alone do not establish fluent Standard Moroccan email phrasing. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
+  },
+  {
+    "locale": "zgh",
+    "key": "accounts-allowEmailChange",
+    "before": "السماح بتغيير البريد الإلكتروني",
+    "after": "ⴰⵊⵊ ⴰⵙⵏⴼⵍ ⵏ ⵉⵎⴰⵢⵍ",
+    "reason": "Replace Arabic with declared Standard Moroccan Tamazight. Native MediaWiki protect-default attests ajj/Allow, blocked-mailpassword attests asnfl/editing, and changeemail-submit and email attest email-change and imayl. Preserve permission to change email rather than changing the address immediately. LOW CONFIDENCE complete permission phrase and nominalizing change/edit as asnfl in this software setting; component vocabulary is reference-supported, not full fluent composition. Reference: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json"
   }
 ]
