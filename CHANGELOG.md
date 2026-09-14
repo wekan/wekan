@@ -738,6 +738,16 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a0aacc7a9">Preserve native Silesian raw database wording</a>. Thanks to xet7.</summary>
+
+Native vocabulary evidence supports retaining the shared raw-file label and
+MongoDB 3 identity. Focused checks pass and its last flagged finding resolves.
+The dated audit distinguishes native vocabulary from an exact standardized
+compound; browser and broader language review remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1e62fca35">Retain native Basque checklist completion wording</a>. Thanks to xet7.</summary>
 
 Native software usage and actual generic checklist context support the

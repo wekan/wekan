@@ -6,8 +6,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 | --- | ---: |
 | Corrected | 15,612 |
 | Restored pre-pull; awaiting validation | 12 |
-| Reviewed; retained unchanged | 4,168 |
-| Pending review or repair | 289 |
+| Reviewed; retained unchanged | 4,169 |
+| Pending review or repair | 288 |
 | Total tracked | 20,081 |
 
 Review is ongoing. [Basque rule review](Basque-Review.md) records native
@@ -21,9 +21,9 @@ No calendar findings were accepted from incomplete component-word evidence.
 [Nahuatl terminology review](Nahuatl-Review.md)
 records why historical tonalpohualli is not yet a verified generic label
 for all modern calendars; all 17 findings remain open.
-Silesian raw-database terminology remains unverified
-after reviewing existing mixed technical vocabulary and search evidence.
-Polish-only sources do not establish correct Silesian terminology.
+Silesian raw-database wording is retained with native vocabulary evidence
+in `a0aacc7a9`; shared Polish spelling alone does not prove an error.
+Exact standardized compound and browser review remain open.
  [Tamazight reference review](Tamazight-Review.md) confirms
 French prose in the first 25 pending entries and records a new dictionary
 lead requiring primary-source cross-checks. No values accepted from that lead.
@@ -53,12 +53,12 @@ runtime/browser formatting remain open. All **18,609** corrections, **4,167**
 unchanged reviews, focused locale and completeness checks pass. These unflagged
 repairs leave 289 pending and 13 restored findings unchanged. Earlier Inuktitut
 LDAP failure repair is in `ea1df33fa`, with full native grammar review open.
-Latest unchanged review: **2026-09-14**, local commit `1e62fca35` —
-Basque completion retains `Osatzen denean` with native GNOME software evidence
-and generic checklist context. One restored finding resolves; 12 remain.
-All 4,168 unchanged reviews and focused translation checks pass. Incomplete
-transition, specific named clauses, runtime mismatch and browser review remain
-open. Earlier check/uncheck review is in `1439c4c61`.
+Latest unchanged review: **2026-09-14**, local commit `a0aacc7a9` —
+Silesian raw MongoDB 3 files retains native shared vocabulary, resolving its
+last flagged finding. All 4,169 unchanged reviews and focused translation
+checks pass. Sources support vocabulary, not an exact standardized compound;
+browser and broader language review remain open. Basque completion review is
+in `1e62fca35`. Current counts are 288 pending and 12 restored.
 Earlier unchanged review: **2026-09-14**, Thai r-is —
 คือ retained after removing its incorrect insertion before action predicates.
 Danish Dage gammel remains validated in `824dd005e` with native age-construction
@@ -71,7 +71,7 @@ Additional unflagged unchanged review: **2026-09-14**, `39af6aae5` —
 Veps Server and Valencian Errors retained with native software evidence and
 protected per locale from filling. Zero unreviewed English placeholders remain;
 this does not establish correct language or fluency in all values. These two reviews are outside the original flagged ledger; current
-pending/restored counts are 289/12.
+pending/restored counts are 288/12.
 
 
 
@@ -99,7 +99,6 @@ Reviewed subtask actions/settings retain correct subordinate-task compounds.
 | ee — Ewe | 1 |
 | qu — Quechua | 1 |
 | rup — Aromanian | 1 |
-| szl — Silesian | 1 |
 
 Completion also requires reviewing all restored and unflagged values and
 previous low-confidence repairs. In particular, 98 Tamazight correction

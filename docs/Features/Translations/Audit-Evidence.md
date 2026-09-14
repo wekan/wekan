@@ -23825,3 +23825,20 @@ no additional copula. Four focused translation suites pass: 4,168 unchanged
 reviews, 18,609 corrections, Basque grammar and 234-locale completeness. One
 restored finding resolves; 12 remain with 289 pending. Specific named clauses,
 incomplete transition, runtime mismatch and browser review remain open.
+
+### 2026-09-14 — Silesian raw database label retained
+
+Local commit `a0aacc7a9` retains `sandstorm-raw-mongodb` as
+`Surowe pliki bazy danych MongoDB 3`. Shared Polish spelling is not itself
+proof of wrong-language prose. [Barbara Szmatloch's native Silesian lesson](https://katowice.wyborcza.pl/katowice/7,156347,21383873,pogodomy-se-po-slonsku-swiynto-krepla.html)
+uses plural `surowe` for raw/untreated food;
+[Wachtyrz's Silesian Hamlet article](https://wachtyrz.eu/tyjater-slonski-prymiera-hamleta-po-slonsku/)
+independently uses the adjective.
+[MediaWiki's native Silesian software translations](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/szl.json)
+use `pliki` in file messages and `bazy danych` in database error messages.
+The complete label is a compositional software usage; these sources do not
+attest an exact standardized database phrase. The legacy attachment template
+call is currently commented out. Browser and broader language review remain
+open. Focused exact-value/technical-identity and negative export coverage pass,
+as do 4,169 unchanged reviews, 18,609 corrections and completeness checks.
+One pending finding resolves: 288 pending and 12 restored remain.
