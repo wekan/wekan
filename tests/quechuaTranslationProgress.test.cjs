@@ -81,3 +81,13 @@ assert.match(quechua['calendar-system-jalali'], /^Jalali/);
 assert.equal(quechua['calendar-system'], 'Watanqillqa llika (p’unchay rikuchiy)');
 assert.doesNotMatch(quechua['calendar-system'], /Intiwatana/);
 assert.match(quechua['calendar-system'], /llika.*p’unchay rikuchiy/);
+
+// Unicode CLDR: tabular Thursday epoch is one Julian day before civil Friday.
+for (const [variant, epoch] of [['civil', '622-07-16'], ['tbla', '622-07-15']]) {
+  const value = quechua[`calendar-system-islamic-${variant}`];
+  assert.equal(value, `Hijri Watanqillqa (tawla yupay; qallariy: ${epoch}, Juliano)`);
+  assert.doesNotMatch(value, /Intiwatana|Islamic tabular|epoca civil/);
+  assert.deepEqual(tokens(value), tokens(english[`calendar-system-islamic-${variant}`]));
+}
+assert.notEqual(quechua['calendar-system-islamic-civil'],
+  quechua['calendar-system-islamic-tbla'], 'distinct epochs must not collapse');

@@ -138339,5 +138339,19 @@
     "before": "Vous serez notifié de toute modification concernant les cartes pour lesquelles vous êtes impliqué en tant que créateur ou participant.",
     "after": "ⵔⴰⴷ ⴰⴽ ⵜⵜⵓⵢⴰⵣⴰⵏⵏⵜ ⵜⵉⵏⵖⵎⵉⵙⵉⵏ ⵖⴼ ⴽⵓ ⴰⵙⵏⴼⵍ ⴳ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵍⵍⵉ ⵜⴳⵉⴷ ⴳⵉⵙⵏⵜ ⴰⵎⵙⵏⴼⵍⵓⵍ ⵏⵖ ⴰⴳⵎⴰⵎ.",
     "reason": "2026-09-14: Replace full French watch-mode guidance with Tamazight draft. Preserve never-for-this-board vs involved-card creator/member scope, reusing existing notification wording. IRCAM ur sar future never entry 8585 p452, creator amsnflul 2866 p155, member agmam 502 p43. Notification passive, negation placement and relative clause remain low-confidence under native review; dictionary evidence alone is not full grammar proof."
+  },
+  {
+    "locale": "qu",
+    "key": "calendar-system-islamic-civil",
+    "before": "Hijri Intiwatana (tabular, epoca civil)",
+    "after": "Hijri Watanqillqa (tawla yupay; qallariy: 622-07-16, Juliano)",
+    "reason": "2026-09-14: Use attested calendar/table/count/start components and explicit Julian epoch dates to distinguish civil and astronomical tabular Hijri variants. Full compound grammar remains low confidence; see Quechua-Review.md."
+  },
+  {
+    "locale": "qu",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Hijri Watanqillqa (tawla yupay; qallariy: 622-07-15, Juliano)",
+    "reason": "2026-09-14: Use attested calendar/table/count/start components and explicit Julian epoch dates to distinguish civil and astronomical tabular Hijri variants. Full compound grammar remains low confidence; see Quechua-Review.md."
   }
 ]
