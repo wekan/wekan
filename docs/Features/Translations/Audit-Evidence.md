@@ -22288,3 +22288,15 @@ retain role/object names and ended/overdue/due distinctions.
 Review checks pass: 15,562 corrected, 1,020 restored awaiting validation,
 3,191 reviewed unchanged and 308 pending. Broader language and browser
 validation remain open. Nothing pushed.
+
+
+### 2026-09-14 — Galician query syntax and troubleshooting instructions
+
+Local commit `d2d90abf5` retains 30 directly reviewed values unchanged.
+Query shorthand, exact operator/value tokens, pagination, descending minus,
+positive/negative day integers and current-period predicates remain intact.
+Server troubleshooting preserves exact snap/docker commands. Alphabetic and
+newest/oldest ordering remain distinct.
+Review checks pass: 15,562 corrected, 990 restored awaiting validation,
+3,221 reviewed unchanged and 308 pending. Broader language and browser
+validation remain open. Nothing pushed.
