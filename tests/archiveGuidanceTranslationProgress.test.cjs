@@ -16,3 +16,13 @@ for (const code of locales) {
 }
 assert.strictEqual(read('sv')['close-board-pop'], 'Du kommer att kunna återställa tavlan genom att klicka på knappen "Arkiv" i huvudmenyn.');
 console.log(`Archive guidance: ${locales.length} localized place labels verified; correct Swedish menu wording retained`);
+
+const additional = ["sk", "sl", "sl_SI", "hr", "bs", "hu", "ro-RO", "ro", "ru-RU", "ru-UA", "ru", "ru_RU", "uk-UA", "uk", "bg", "el-GR", "el", "tr", "es-AR", "es-PE", "pt-BR"];
+for (const code of additional) {
+ const locale = read(code); const value = locale['close-board-pop'];
+ assert.ok(value.includes(locale.archives));
+ assert.ok(value.includes(locale['all-boards']));
+ assert.doesNotMatch(value, /záhlaví|zaglavlju|fejléc|antetul|заголовке|заголовку|хедъра|επικεφαλίδα|Ana başlıktaki|encabesado|cabecera|cabeçalho/);
+}
+for (const [code, value] of [['tr','Arşiv'], ['es-AR','Archivo'], ['pt-BR','Arquivo']]) assert.strictEqual(read(code).archives, value);
+console.log(`Additional archive guidance: ${additional.length} locales and three Archive place labels verified`);

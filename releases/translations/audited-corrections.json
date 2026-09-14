@@ -12148,8 +12148,8 @@
     "locale": "ro",
     "key": "close-board-pop",
     "before": "Potrai ripristinare la bacheca cliccando sul tasto \"Archivio\"  presente nell'intestazione della home.",
-    "after": "Veți putea restaura panoul făcând clic pe butonul «Arhivă» din antetul paginii principale.",
-    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+    "after": "Puteți restaura panoul din secțiunea „Arhivă” de pe pagina „Toate tablele”.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples. 2026-09-14: Correct obsolete archive restoration location to actual All Boards Archive section. Preserve existing localized page names and correct human wording. Fix erroneous Archive action/grammatical place labels where required; no English fallback. Independent regional guidance explicitly reviewed."
   },
   {
     "locale": "ro",
@@ -12673,8 +12673,8 @@
     "locale": "ro-RO",
     "key": "close-board-pop",
     "before": "Potrai ripristinare la bacheca cliccando sul tasto \"Archivio\"  presente nell'intestazione della home.",
-    "after": "Veți putea restaura panoul făcând clic pe butonul «Arhivă» din antetul paginii principale.",
-    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+    "after": "Puteți restaura panoul din secțiunea „Arhivă” de pe pagina „Toate tablele”.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples. 2026-09-14: Correct obsolete archive restoration location to actual All Boards Archive section. Preserve existing localized page names and correct human wording. Fix erroneous Archive action/grammatical place labels where required; no English fallback. Independent regional guidance explicitly reviewed."
   },
   {
     "locale": "ro-RO",
@@ -17692,8 +17692,8 @@
     "locale": "sk",
     "key": "close-board-pop",
     "before": "Budete moci obnovit tablo kliknutím na tlačítko \"Archiv\" v hlavním menu.",
-    "after": "Nástenku budete môcť obnoviť kliknutím na tlačidlo «Archív» v záhlaví hlavnej stránky.",
-    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+    "after": "Nástenku môžete obnoviť zo sekcie „Archív“ na stránke „Všetky nástenky“.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples. 2026-09-14: Correct obsolete archive restoration location to actual All Boards Archive section. Preserve existing localized page names and correct human wording. Fix erroneous Archive action/grammatical place labels where required; no English fallback. Independent regional guidance explicitly reviewed."
   },
   {
     "locale": "sk",
@@ -132214,5 +132214,152 @@
     "before": "Będziesz w stanie przywrócić tablicę poprzez kliknięcie przycisku \"Archiwizuj\" w nagłówku strony domowej.",
     "after": "Możesz przywrócić tablicę z sekcji „Archiwum” na stronie „Wszystkie tablice”.",
     "reason": "2026-09-14: Repair obsolete header/button location to actual Archive section on All Boards, using each locale exact existing UI labels. Keep restoration meaning; regional exact copies updated, independently worded variants left for review. Polish action label corrected from Archive action to Archive place."
+  },
+  {
+    "locale": "tr",
+    "key": "archives",
+    "before": "Arşivle",
+    "after": "Arşiv",
+    "reason": "2026-09-14: Correct obsolete archive restoration location to actual All Boards Archive section. Preserve existing localized page names and correct human wording. Fix erroneous Archive action/grammatical place labels where required; no English fallback. Independent regional guidance explicitly reviewed."
+  },
+  {
+    "locale": "es-AR",
+    "key": "archives",
+    "before": "Archivar",
+    "after": "Archivo",
+    "reason": "2026-09-14: Correct obsolete archive restoration location to actual All Boards Archive section. Preserve existing localized page names and correct human wording. Fix erroneous Archive action/grammatical place labels where required; no English fallback. Independent regional guidance explicitly reviewed."
+  },
+  {
+    "locale": "pt-BR",
+    "key": "archives",
+    "before": "Arquivos morto",
+    "after": "Arquivo",
+    "reason": "2026-09-14: Correct obsolete archive restoration location to actual All Boards Archive section. Preserve existing localized page names and correct human wording. Fix erroneous Archive action/grammatical place labels where required; no English fallback. Independent regional guidance explicitly reviewed."
+  },
+  {
+    "locale": "sl",
+    "key": "close-board-pop",
+    "before": "Tablo boste lahko obnovili s klikom na gumb »Arhiviraj« na vstopni strani.",
+    "after": "Tablo lahko obnovite iz razdelka »Arhiv« na strani »Vse table«.",
+    "reason": "2026-09-14: Correct obsolete archive restoration location to actual All Boards Archive section. Preserve existing localized page names and correct human wording. Fix erroneous Archive action/grammatical place labels where required; no English fallback. Independent regional guidance explicitly reviewed."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "close-board-pop",
+    "before": "Tablo boste lahko obnovili s klikom na gumb »Arhiviraj« na vstopni strani.",
+    "after": "Tablo lahko obnovite iz razdelka »Arhiv« na strani »Vse table«.",
+    "reason": "2026-09-14: Correct obsolete archive restoration location to actual All Boards Archive section. Preserve existing localized page names and correct human wording. Fix erroneous Archive action/grammatical place labels where required; no English fallback. Independent regional guidance explicitly reviewed."
+  },
+  {
+    "locale": "hr",
+    "key": "close-board-pop",
+    "before": "Ploču ćete moći vratiti klikom na gumb \"Arhiviraj\" u zaglavlju.",
+    "after": "Ploču možete vratiti iz odjeljka „Arhiva” na stranici „Sve ploče”.",
+    "reason": "2026-09-14: Correct obsolete archive restoration location to actual All Boards Archive section. Preserve existing localized page names and correct human wording. Fix erroneous Archive action/grammatical place labels where required; no English fallback. Independent regional guidance explicitly reviewed."
+  },
+  {
+    "locale": "bs",
+    "key": "close-board-pop",
+    "before": "Ploču ćete moći vratiti klikom na gumb \"Arhiviraj\" u zaglavlju.",
+    "after": "Ploču možete vratiti iz odjeljka „Arhiva” na stranici „Sve table”.",
+    "reason": "2026-09-14: Correct obsolete archive restoration location to actual All Boards Archive section. Preserve existing localized page names and correct human wording. Fix erroneous Archive action/grammatical place labels where required; no English fallback. Independent regional guidance explicitly reviewed."
+  },
+  {
+    "locale": "hu",
+    "key": "close-board-pop",
+    "before": "Vissza tudod állítani a Táblát, ha az \"Archív\" gombra kattintasz a fejlécnél.",
+    "after": "A táblát az „Archívum” részben állíthatod vissza az „Összes tábla” oldalon.",
+    "reason": "2026-09-14: Correct obsolete archive restoration location to actual All Boards Archive section. Preserve existing localized page names and correct human wording. Fix erroneous Archive action/grammatical place labels where required; no English fallback. Independent regional guidance explicitly reviewed."
+  },
+  {
+    "locale": "ru-RU",
+    "key": "close-board-pop",
+    "before": "Вы сможете восстановить доску, нажав \"Архив\" в заголовке домашней страницы.",
+    "after": "Вы можете восстановить доску в разделе «Архив» на странице «Все доски».",
+    "reason": "2026-09-14: Correct obsolete archive restoration location to actual All Boards Archive section. Preserve existing localized page names and correct human wording. Fix erroneous Archive action/grammatical place labels where required; no English fallback. Independent regional guidance explicitly reviewed."
+  },
+  {
+    "locale": "ru-UA",
+    "key": "close-board-pop",
+    "before": "Вы сможете восстановить доску, нажав \"Архив\" в заголовке домашней страницы.",
+    "after": "Вы можете восстановить доску в разделе «Архив» на странице «Все доски».",
+    "reason": "2026-09-14: Correct obsolete archive restoration location to actual All Boards Archive section. Preserve existing localized page names and correct human wording. Fix erroneous Archive action/grammatical place labels where required; no English fallback. Independent regional guidance explicitly reviewed."
+  },
+  {
+    "locale": "ru",
+    "key": "close-board-pop",
+    "before": "Вы сможете восстановить доску, нажав \"Архив\" в заголовке домашней страницы.",
+    "after": "Вы можете восстановить доску в разделе «Архив» на странице «Все доски».",
+    "reason": "2026-09-14: Correct obsolete archive restoration location to actual All Boards Archive section. Preserve existing localized page names and correct human wording. Fix erroneous Archive action/grammatical place labels where required; no English fallback. Independent regional guidance explicitly reviewed."
+  },
+  {
+    "locale": "ru_RU",
+    "key": "close-board-pop",
+    "before": "Вы сможете восстановить доску, нажав \"Архив\" в заголовке домашней страницы.",
+    "after": "Вы можете восстановить доску в разделе «Архив» на странице «Все доски».",
+    "reason": "2026-09-14: Correct obsolete archive restoration location to actual All Boards Archive section. Preserve existing localized page names and correct human wording. Fix erroneous Archive action/grammatical place labels where required; no English fallback. Independent regional guidance explicitly reviewed."
+  },
+  {
+    "locale": "uk-UA",
+    "key": "close-board-pop",
+    "before": "Ви зможете відновити дошку, натиснувши кнопку «Архів» в заголовку домашньої сторінки.",
+    "after": "Ви можете відновити дошку в розділі «Архів» на сторінці «Всі дошки».",
+    "reason": "2026-09-14: Correct obsolete archive restoration location to actual All Boards Archive section. Preserve existing localized page names and correct human wording. Fix erroneous Archive action/grammatical place labels where required; no English fallback. Independent regional guidance explicitly reviewed."
+  },
+  {
+    "locale": "uk",
+    "key": "close-board-pop",
+    "before": "Ви зможете відновити дошку, натиснувши кнопку «Архів» в заголовку домашньої сторінки.",
+    "after": "Ви можете відновити дошку в розділі «Архів» на сторінці «Всі дошки».",
+    "reason": "2026-09-14: Correct obsolete archive restoration location to actual All Boards Archive section. Preserve existing localized page names and correct human wording. Fix erroneous Archive action/grammatical place labels where required; no English fallback. Independent regional guidance explicitly reviewed."
+  },
+  {
+    "locale": "bg",
+    "key": "close-board-pop",
+    "before": "Ще можете да възстановите Таблото като натиснете на бутона \"Архив\" в началото на хедъра.",
+    "after": "Можете да възстановите таблото от раздел „Архив“ на страницата „Всички табла“.",
+    "reason": "2026-09-14: Correct obsolete archive restoration location to actual All Boards Archive section. Preserve existing localized page names and correct human wording. Fix erroneous Archive action/grammatical place labels where required; no English fallback. Independent regional guidance explicitly reviewed."
+  },
+  {
+    "locale": "el-GR",
+    "key": "close-board-pop",
+    "before": "Μελλοντικά μπορείτε να επαναφέρετε τον πίνακα κάνοντας κλικ στο κουμπί \"Αρχειοθέτηση\" από την αρχική επικεφαλίδα.",
+    "after": "Μπορείτε να επαναφέρετε τον πίνακα από την ενότητα «Αρχείο» στη σελίδα «Όλοι οι πίνακες».",
+    "reason": "2026-09-14: Correct obsolete archive restoration location to actual All Boards Archive section. Preserve existing localized page names and correct human wording. Fix erroneous Archive action/grammatical place labels where required; no English fallback. Independent regional guidance explicitly reviewed."
+  },
+  {
+    "locale": "el",
+    "key": "close-board-pop",
+    "before": "Μελλοντικά μπορείτε να επαναφέρετε τον πίνακα κάνοντας κλικ στο κουμπί \"Αρχειοθέτηση\" από την αρχική επικεφαλίδα.",
+    "after": "Μπορείτε να επαναφέρετε τον πίνακα από την ενότητα «Αρχείο» στη σελίδα «Όλοι οι πίνακες».",
+    "reason": "2026-09-14: Correct obsolete archive restoration location to actual All Boards Archive section. Preserve existing localized page names and correct human wording. Fix erroneous Archive action/grammatical place labels where required; no English fallback. Independent regional guidance explicitly reviewed."
+  },
+  {
+    "locale": "tr",
+    "key": "close-board-pop",
+    "before": "Ana başlıktaki “Arşiv” düğmesine tıklayarak tahtayı geri yükleyebilirsiniz.",
+    "after": "Panoyu «Tüm panolar» sayfasındaki «Arşiv» bölümünden geri yükleyebilirsiniz.",
+    "reason": "2026-09-14: Correct obsolete archive restoration location to actual All Boards Archive section. Preserve existing localized page names and correct human wording. Fix erroneous Archive action/grammatical place labels where required; no English fallback. Independent regional guidance explicitly reviewed."
+  },
+  {
+    "locale": "es-AR",
+    "key": "close-board-pop",
+    "before": "Podrás restaurar el tablero clickeando el \"Archivo\" desde el encabesado de inicio.",
+    "after": "Podés restaurar el tablero desde «Archivo» en la página «Todos los tableros».",
+    "reason": "2026-09-14: Correct obsolete archive restoration location to actual All Boards Archive section. Preserve existing localized page names and correct human wording. Fix erroneous Archive action/grammatical place labels where required; no English fallback. Independent regional guidance explicitly reviewed."
+  },
+  {
+    "locale": "es-PE",
+    "key": "close-board-pop",
+    "before": "Podrá restaurar el tablero haciendo clic en el botón «Archivo» de la cabecera de inicio.",
+    "after": "Puede restaurar el tablero desde «Archivo» en la página «Todos los tableros».",
+    "reason": "2026-09-14: Correct obsolete archive restoration location to actual All Boards Archive section. Preserve existing localized page names and correct human wording. Fix erroneous Archive action/grammatical place labels where required; no English fallback. Independent regional guidance explicitly reviewed."
+  },
+  {
+    "locale": "pt-BR",
+    "key": "close-board-pop",
+    "before": "Você será capaz de restaurar o quadro clicando no botão “Arquivo morto” a partir do cabeçalho do Início.",
+    "after": "Você pode restaurar o quadro em «Arquivo» na página «Todos os quadros».",
+    "reason": "2026-09-14: Correct obsolete archive restoration location to actual All Boards Archive section. Preserve existing localized page names and correct human wording. Fix erroneous Archive action/grammatical place labels where required; no English fallback. Independent regional guidance explicitly reviewed."
   }
 ]
