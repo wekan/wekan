@@ -13,9 +13,9 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
 now reconcile with the live queue; historical notes remain in detailed evidence.
 
-Latest translation fix: **2026-09-14**, local commit `40491764c` —
-Four earlier authentication labels now use a verified Moroccan term instead
-of a Tuareg-derived form. Four checks pass; full native/browser review is open.
+Latest translation fix: **2026-09-14**, local commit `776840a4c` —
+Earlier analysis-stage wording now uses verified Moroccan analysis/structure
+terms. Four checks pass; complete phrasing and stage integration remain open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
 records contain **18,721** exact before/after values, including unflagged

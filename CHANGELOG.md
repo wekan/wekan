@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/776840a4c">Repair Moroccan analysis-stage terminology</a>. Thanks to xet7.</summary>
+
+Replace uncertain analysis/structure wording in the Tamazight migration
+label with verified Moroccan terms. Four checks pass; complete native
+phrasing and active stage-ID translation integration remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/40491764c">Repair Moroccan authentication terminology</a>. Thanks to xet7.</summary>
 
 Replace an uncertain Tuareg-derived authentication term in four Tamazight

@@ -24775,3 +24775,24 @@ placeholder inventories remain preserved. No live browser test ran.
 Original counts stay 15,629 corrected, 273 pending, four restored and
 4,175 retained. Ledger count stays 18,721: existing records were revised,
 not duplicated. Other Tuareg-sourced records remain under renewed review.
+
+## Moroccan analysis/structure revision — 2026-09-14
+
+Local commit `776840a4c` revises already corrected
+`step-analyze-board-structure` to
+`ⴰⵙⴼⵙⵉ ⵏ ⵜⵓⵚⴽⵉⵡⵜ ⵏ ⵜⴼⵍⵡⵉⵜ`. Primary IRCAM General
+Dictionary PDF page 221, entry 4239, explicitly gives the neologism
+analysis in addition to melting. The cited sense is analysis, not
+physical melting. Page 703, entry 13278, gives structure. This replaces
+unsupported `ⵙⵍⴹ` and cross-variety `ⵜⴰⵎⵚⵓⴽⵜ` with a nominal
+analysis-of-board-structure stage label and verified Moroccan components.
+
+The full noun phrase, genitive agreement and software structure metaphor
+remain **low confidence**, requiring native validation. The source review
+already establishes that active migration progress formats raw stage IDs
+and removed legacy migrations must stay removed. A repository search
+found no current client/server reference to this key; this repair does
+not claim the stage is visible or solve that integration gap. Four
+translation checks pass, preserving original ledger before-values and
+placeholders; no live browser test ran. Counts stay 15,629 corrected,
+273 pending, four restored, 4,175 retained and 18,721 ledger records.
