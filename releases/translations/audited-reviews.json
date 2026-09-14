@@ -9178,5 +9178,227 @@
     "key": "shortcut-autocomplete-emoji",
     "value": "Aŭtomate kompletigi emoĝiojn",
     "reason": "Direct Esperanto review confirms import member mapping, invalid date/time states, last-administrator constraint, list/selection controls, assigned-only editing scope, invitation state and image previews. Preserve at-least-one administrator, only-assigned visibility, image-only drop constraint, private-page login link and exact placeholders. Emoji autocomplete completion is distinct from checklist task completion and is correct here."
+  },
+  {
+    "locale": "eo",
+    "key": "shortcut-autocomplete-members",
+    "value": "Aŭtomate kompletigi membrojn",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "shortcut-close-dialog",
+    "value": "Fermi dialogon",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "shortcut-show-shortcuts",
+    "value": "Montri ĉi tiun liston de fulmoklavoj",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "shortcut-toggle-searchbar",
+    "value": "Ŝalti/malŝalti serĉan flankbreton",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "sidebar-open",
+    "value": "Malfermi flankbreton",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "sidebar-close",
+    "value": "Fermi flankbreton",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "spent-time-hours",
+    "value": "Pasigita tempo (horoj)",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "tracking",
+    "value": "Spurado",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "unassign-member",
+    "value": "Malatribui membron",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "upload-avatar",
+    "value": "Alŝuti avataron",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "uploaded-avatar",
+    "value": "Alŝutis avataron",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "uploading-files",
+    "value": "Alŝutado de dosieroj",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "upload-failed",
+    "value": "Alŝuto malsukcesis",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "upload-completed",
+    "value": "Alŝuto finita",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "custom-help-link-url",
+    "value": "URL de propra helpa ligilo",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "automatic-linked-url-schemes",
+    "value": "Propraj URL-skemoj, kiuj estu aŭtomate alklakeblaj. Unu URL-skemo por linio",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "view-it",
+    "value": "Vidi ĝin",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "go-to-board",
+    "value": "Iri al tabulo",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "welcome-swimlane",
+    "value": "Mejloŝtono 1",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "welcome-list1",
+    "value": "Bazaĵoj",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "welcome-list2",
+    "value": "Altnivelaĵoj",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "list-templates-swimlane",
+    "value": "Listaj ŝablonoj",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "people",
+    "value": "Homoj",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "registration",
+    "value": "Registriĝo",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "invite",
+    "value": "Inviti",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "invite-people",
+    "value": "Inviti homojn",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "email-addresses",
+    "value": "Retpoŝtadresoj",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "smtp-host",
+    "value": "SMTP-servilo",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "smtp-port",
+    "value": "SMTP-pordo",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "smtp-tls",
+    "value": "TLS-subteno",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "send-from",
+    "value": "De",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "send-smtp-test",
+    "value": "Sendi provan retpoŝton al vi mem",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "invitation-code",
+    "value": "Invitkodo",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "email-smtp-test-subject",
+    "value": "SMTP-prova retpoŝto",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "email-smtp-test-text",
+    "value": "Vi sukcese sendis retpoŝton",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "error-invitation-code-not-exist",
+    "value": "Invitkodo ne ekzistas",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
+  },
+  {
+    "locale": "eo",
+    "key": "error-notAuthorized",
+    "value": "Vi ne rajtas vidi ĉi tiun paĝon.",
+    "reason": "Direct Esperanto review confirms shortcut/sidebar action polarity, spent-time hours, assignment removal, upload states, custom URL scheme instructions, welcome/template labels, invitation and SMTP settings. Preserve one scheme per line, upload failure versus completion, self-directed test email, successful sending and authorization-denial scope. Literal SMTP/TLS product terms remain intact."
   }
 ]

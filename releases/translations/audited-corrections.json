@@ -127013,5 +127013,12 @@
     "before": "MM-TT-JJJJ",
     "after": "MM-DD-YYYY",
     "reason": "Restore literal YYYY/MM/DD format notation from English. JJJJ/TT are foreign localized abbreviations and do not match the date formats selected by these controls."
+  },
+  {
+    "locale": "eo",
+    "key": "unwatch",
+    "before": "Ĉesi rigardi",
+    "after": "Ĉesi observi",
+    "reason": "Unwatch stops ongoing observation/subscription, not merely looking. Align with existing observado and repaired watch controls."
   }
 ]
