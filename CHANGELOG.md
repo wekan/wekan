@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c831eb7e1">Review repository action terminology</a>. Thanks to xet7.</summary>
+
+Record native upload, login and update evidence while distinguishing data
+warehouses from source repositories. Complete stored action labels remain
+under review; no additional translation is counted as repaired.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/44cb2f6ca">Strengthen domain-label grammar provenance</a>. Thanks to xet7.</summary>
 
 Attach primary relative-marker and possession studies to the correction
