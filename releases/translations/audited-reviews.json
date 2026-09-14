@@ -15724,5 +15724,179 @@
     "key": "accounts-lockout-locked-users-info",
     "value": "Usuarios bloqueados actualmente por demasiados intentos de inicio de sesión fallidos",
     "reason": "Direct Galician review preserves storage destination and all-attachments versus board-only scope, ZIP/JSON format names, PDF fallback, irreversible custom-string deletion, support visibility and known/unknown/locked-user distinctions. Card-show-lists was verified against cardSettingsRows.js showLists row and sidebar allowsShowLists toggle; declarative wording correctly describes the selected visibility setting."
+  },
+  {
+    "locale": "gl",
+    "key": "accounts-lockout-no-locked-users",
+    "value": "Actualmente non hai usuarios bloqueados",
+    "reason": "Direct Galician review retains account unlock confirmations, only-locked filters, active/inactive inversion and all-user scope. Scheduled board archive, backup and cleanup distinguish successful scheduling from failure, not completed execution; attachment paths and scheduled-job labels remain correct. Ambiguous Complete label is excluded pending context."
+  },
+  {
+    "locale": "gl",
+    "key": "accounts-lockout-user-unlocked",
+    "value": "O usuario desbloqueouse correctamente",
+    "reason": "Direct Galician review retains account unlock confirmations, only-locked filters, active/inactive inversion and all-user scope. Scheduled board archive, backup and cleanup distinguish successful scheduling from failure, not completed execution; attachment paths and scheduled-job labels remain correct. Ambiguous Complete label is excluded pending context."
+  },
+  {
+    "locale": "gl",
+    "key": "accounts-lockout-confirm-unlock",
+    "value": "Está seguro de que quere desbloquear este usuario?",
+    "reason": "Direct Galician review retains account unlock confirmations, only-locked filters, active/inactive inversion and all-user scope. Scheduled board archive, backup and cleanup distinguish successful scheduling from failure, not completed execution; attachment paths and scheduled-job labels remain correct. Ambiguous Complete label is excluded pending context."
+  },
+  {
+    "locale": "gl",
+    "key": "accounts-lockout-confirm-unlock-all",
+    "value": "Está seguro de que quere desbloquear todos os usuarios bloqueados?",
+    "reason": "Direct Galician review retains account unlock confirmations, only-locked filters, active/inactive inversion and all-user scope. Scheduled board archive, backup and cleanup distinguish successful scheduling from failure, not completed execution; attachment paths and scheduled-job labels remain correct. Ambiguous Complete label is excluded pending context."
+  },
+  {
+    "locale": "gl",
+    "key": "accounts-lockout-show-locked-users",
+    "value": "Mostrar só os usuarios bloqueados",
+    "reason": "Direct Galician review retains account unlock confirmations, only-locked filters, active/inactive inversion and all-user scope. Scheduled board archive, backup and cleanup distinguish successful scheduling from failure, not completed execution; attachment paths and scheduled-job labels remain correct. Ambiguous Complete label is excluded pending context."
+  },
+  {
+    "locale": "gl",
+    "key": "accounts-lockout-user-locked",
+    "value": "O usuario está bloqueado",
+    "reason": "Direct Galician review retains account unlock confirmations, only-locked filters, active/inactive inversion and all-user scope. Scheduled board archive, backup and cleanup distinguish successful scheduling from failure, not completed execution; attachment paths and scheduled-job labels remain correct. Ambiguous Complete label is excluded pending context."
+  },
+  {
+    "locale": "gl",
+    "key": "accounts-lockout-click-to-unlock",
+    "value": "Faga clic para desbloquear este usuario",
+    "reason": "Direct Galician review retains account unlock confirmations, only-locked filters, active/inactive inversion and all-user scope. Scheduled board archive, backup and cleanup distinguish successful scheduling from failure, not completed execution; attachment paths and scheduled-job labels remain correct. Ambiguous Complete label is excluded pending context."
+  },
+  {
+    "locale": "gl",
+    "key": "admin-people-filter-locked",
+    "value": "Só usuarios bloqueados",
+    "reason": "Direct Galician review retains account unlock confirmations, only-locked filters, active/inactive inversion and all-user scope. Scheduled board archive, backup and cleanup distinguish successful scheduling from failure, not completed execution; attachment paths and scheduled-job labels remain correct. Ambiguous Complete label is excluded pending context."
+  },
+  {
+    "locale": "gl",
+    "key": "admin-people-filter-inactive",
+    "value": "Non activo",
+    "reason": "Direct Galician review retains account unlock confirmations, only-locked filters, active/inactive inversion and all-user scope. Scheduled board archive, backup and cleanup distinguish successful scheduling from failure, not completed execution; attachment paths and scheduled-job labels remain correct. Ambiguous Complete label is excluded pending context."
+  },
+  {
+    "locale": "gl",
+    "key": "admin-people-user-active",
+    "value": "O usuario está activo - faga clic para desactivalo",
+    "reason": "Direct Galician review retains account unlock confirmations, only-locked filters, active/inactive inversion and all-user scope. Scheduled board archive, backup and cleanup distinguish successful scheduling from failure, not completed execution; attachment paths and scheduled-job labels remain correct. Ambiguous Complete label is excluded pending context."
+  },
+  {
+    "locale": "gl",
+    "key": "admin-people-user-inactive",
+    "value": "O usuario está inactivo - faga clic para activalo",
+    "reason": "Direct Galician review retains account unlock confirmations, only-locked filters, active/inactive inversion and all-user scope. Scheduled board archive, backup and cleanup distinguish successful scheduling from failure, not completed execution; attachment paths and scheduled-job labels remain correct. Ambiguous Complete label is excluded pending context."
+  },
+  {
+    "locale": "gl",
+    "key": "accounts-lockout-all-users-unlocked",
+    "value": "Desbloqueáronse todos os usuarios bloqueados",
+    "reason": "Direct Galician review retains account unlock confirmations, only-locked filters, active/inactive inversion and all-user scope. Scheduled board archive, backup and cleanup distinguish successful scheduling from failure, not completed execution; attachment paths and scheduled-job labels remain correct. Ambiguous Complete label is excluded pending context."
+  },
+  {
+    "locale": "gl",
+    "key": "add-cron-job",
+    "value": "Engadir traballo programado",
+    "reason": "Direct Galician review retains account unlock confirmations, only-locked filters, active/inactive inversion and all-user scope. Scheduled board archive, backup and cleanup distinguish successful scheduling from failure, not completed execution; attachment paths and scheduled-job labels remain correct. Ambiguous Complete label is excluded pending context."
+  },
+  {
+    "locale": "gl",
+    "key": "add-cron-job-placeholder",
+    "value": "A función de engadir traballos programados estará dispoñible en breve",
+    "reason": "Direct Galician review retains account unlock confirmations, only-locked filters, active/inactive inversion and all-user scope. Scheduled board archive, backup and cleanup distinguish successful scheduling from failure, not completed execution; attachment paths and scheduled-job labels remain correct. Ambiguous Complete label is excluded pending context."
+  },
+  {
+    "locale": "gl",
+    "key": "attachment-storage-configuration",
+    "value": "Configuración do almacenamento de anexos",
+    "reason": "Direct Galician review retains account unlock confirmations, only-locked filters, active/inactive inversion and all-user scope. Scheduled board archive, backup and cleanup distinguish successful scheduling from failure, not completed execution; attachment paths and scheduled-job labels remain correct. Ambiguous Complete label is excluded pending context."
+  },
+  {
+    "locale": "gl",
+    "key": "attachments-path",
+    "value": "Ruta dos anexos",
+    "reason": "Direct Galician review retains account unlock confirmations, only-locked filters, active/inactive inversion and all-user scope. Scheduled board archive, backup and cleanup distinguish successful scheduling from failure, not completed execution; attachment paths and scheduled-job labels remain correct. Ambiguous Complete label is excluded pending context."
+  },
+  {
+    "locale": "gl",
+    "key": "attachments-path-description",
+    "value": "Ruta onde se gardan os ficheiros dos anexos",
+    "reason": "Direct Galician review retains account unlock confirmations, only-locked filters, active/inactive inversion and all-user scope. Scheduled board archive, backup and cleanup distinguish successful scheduling from failure, not completed execution; attachment paths and scheduled-job labels remain correct. Ambiguous Complete label is excluded pending context."
+  },
+  {
+    "locale": "gl",
+    "key": "board-archive-failed",
+    "value": "Non se puido programar o arquivado do taboleiro",
+    "reason": "Direct Galician review retains account unlock confirmations, only-locked filters, active/inactive inversion and all-user scope. Scheduled board archive, backup and cleanup distinguish successful scheduling from failure, not completed execution; attachment paths and scheduled-job labels remain correct. Ambiguous Complete label is excluded pending context."
+  },
+  {
+    "locale": "gl",
+    "key": "board-archive-scheduled",
+    "value": "Arquivado do taboleiro programado correctamente",
+    "reason": "Direct Galician review retains account unlock confirmations, only-locked filters, active/inactive inversion and all-user scope. Scheduled board archive, backup and cleanup distinguish successful scheduling from failure, not completed execution; attachment paths and scheduled-job labels remain correct. Ambiguous Complete label is excluded pending context."
+  },
+  {
+    "locale": "gl",
+    "key": "board-backup-failed",
+    "value": "Non se puido programar a copia de seguridade do taboleiro",
+    "reason": "Direct Galician review retains account unlock confirmations, only-locked filters, active/inactive inversion and all-user scope. Scheduled board archive, backup and cleanup distinguish successful scheduling from failure, not completed execution; attachment paths and scheduled-job labels remain correct. Ambiguous Complete label is excluded pending context."
+  },
+  {
+    "locale": "gl",
+    "key": "board-backup-scheduled",
+    "value": "Copia de seguridade do taboleiro programada correctamente",
+    "reason": "Direct Galician review retains account unlock confirmations, only-locked filters, active/inactive inversion and all-user scope. Scheduled board archive, backup and cleanup distinguish successful scheduling from failure, not completed execution; attachment paths and scheduled-job labels remain correct. Ambiguous Complete label is excluded pending context."
+  },
+  {
+    "locale": "gl",
+    "key": "board-cleanup-failed",
+    "value": "Non se puido programar a limpeza do taboleiro",
+    "reason": "Direct Galician review retains account unlock confirmations, only-locked filters, active/inactive inversion and all-user scope. Scheduled board archive, backup and cleanup distinguish successful scheduling from failure, not completed execution; attachment paths and scheduled-job labels remain correct. Ambiguous Complete label is excluded pending context."
+  },
+  {
+    "locale": "gl",
+    "key": "board-cleanup-scheduled",
+    "value": "Limpeza do taboleiro programada correctamente",
+    "reason": "Direct Galician review retains account unlock confirmations, only-locked filters, active/inactive inversion and all-user scope. Scheduled board archive, backup and cleanup distinguish successful scheduling from failure, not completed execution; attachment paths and scheduled-job labels remain correct. Ambiguous Complete label is excluded pending context."
+  },
+  {
+    "locale": "gl",
+    "key": "board-operations",
+    "value": "Operacións do taboleiro",
+    "reason": "Direct Galician review retains account unlock confirmations, only-locked filters, active/inactive inversion and all-user scope. Scheduled board archive, backup and cleanup distinguish successful scheduling from failure, not completed execution; attachment paths and scheduled-job labels remain correct. Ambiguous Complete label is excluded pending context."
+  },
+  {
+    "locale": "gl",
+    "key": "schedule-board-archive",
+    "value": "Programar o arquivado do taboleiro",
+    "reason": "Direct Galician review retains account unlock confirmations, only-locked filters, active/inactive inversion and all-user scope. Scheduled board archive, backup and cleanup distinguish successful scheduling from failure, not completed execution; attachment paths and scheduled-job labels remain correct. Ambiguous Complete label is excluded pending context."
+  },
+  {
+    "locale": "gl",
+    "key": "schedule-board-backup",
+    "value": "Programar a copia de seguridade do taboleiro",
+    "reason": "Direct Galician review retains account unlock confirmations, only-locked filters, active/inactive inversion and all-user scope. Scheduled board archive, backup and cleanup distinguish successful scheduling from failure, not completed execution; attachment paths and scheduled-job labels remain correct. Ambiguous Complete label is excluded pending context."
+  },
+  {
+    "locale": "gl",
+    "key": "schedule-board-cleanup",
+    "value": "Programar a limpeza do taboleiro",
+    "reason": "Direct Galician review retains account unlock confirmations, only-locked filters, active/inactive inversion and all-user scope. Scheduled board archive, backup and cleanup distinguish successful scheduling from failure, not completed execution; attachment paths and scheduled-job labels remain correct. Ambiguous Complete label is excluded pending context."
+  },
+  {
+    "locale": "gl",
+    "key": "scheduled-board-operations",
+    "value": "Operacións programadas do taboleiro",
+    "reason": "Direct Galician review retains account unlock confirmations, only-locked filters, active/inactive inversion and all-user scope. Scheduled board archive, backup and cleanup distinguish successful scheduling from failure, not completed execution; attachment paths and scheduled-job labels remain correct. Ambiguous Complete label is excluded pending context."
+  },
+  {
+    "locale": "gl",
+    "key": "add-job",
+    "value": "Engadir traballo",
+    "reason": "Direct Galician review retains account unlock confirmations, only-locked filters, active/inactive inversion and all-user scope. Scheduled board archive, backup and cleanup distinguish successful scheduling from failure, not completed execution; attachment paths and scheduled-job labels remain correct. Ambiguous Complete label is excluded pending context."
   }
 ]
