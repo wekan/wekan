@@ -21218,3 +21218,12 @@ unchanged. Correct obsolete migration strings remain in scope without
 claiming those migrations are active. Four context-dependent Danish labels
 remain: free, Complete, Schedule and Days Old. Unchanged-value ledger tests
 pass; browser rendering remains unverified.
+
+
+### Esperanto restored activities — 2026-09-14
+
+Local commit `2092f7860` retains 60 directly reviewed correct activity and
+card-control translations. Past-tense verbs, accusative direct objects,
+old/new movement directions and interpolation tokens remain intact.
+Completion and subtask terms are excluded pending further terminology review.
+Unchanged-value ledger tests pass; browser rendering was not verified.

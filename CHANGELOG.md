@@ -80,8 +80,8 @@ held only issues \#4774 and \#4055, and both are closed now.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 The audit tracks 20,081
-findings: 15,541 corrected, 3,447 restored pre-pull values awaiting
-validation, 785 reviewed and retained, and 308 pending review or repair.
+findings: 15,541 corrected, 3,387 restored pre-pull values awaiting
+validation, 845 reviewed and retained, and 308 pending review or repair.
 The correction inventory records 18,136 exact before/after values,
 including repairs outside the original findings.
 All 361 originally flagged Klingon findings are repaired. The broader review of 829
@@ -832,7 +832,7 @@ remain open.
 </details>
 
 Translation audit progress as of 2026-09-14: 15,541 original findings are
-corrected, 785 reviewed and retained, 3,447 restored values await validation,
+corrected, 845 reviewed and retained, 3,387 restored values await validation,
 and 308 remain pending across 17 locales, including 173 Tamazight findings.
 The ledger contains 18,136 correction records, including unflagged repairs.
 
