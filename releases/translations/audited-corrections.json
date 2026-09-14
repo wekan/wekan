@@ -130996,5 +130996,40 @@
     "before": "Préfixer avec le parent",
     "after": "ⴰⵣⵡⵉⵔ ⴰⴽⴷ ⵓⵎⴰⵔⴰⵡ",
     "reason": "Replace French display-prefix option using IRCAM 2019 p284 entry5564 grammatical prefix, adapted to text prepended to card title; verified with/path/entirely/father components and existing parent terminology. LOW CONFIDENCE: grammatical-to-display sense extension, full phrase and software metaphors need native/browser review."
+  },
+  {
+    "locale": "zgh",
+    "key": "move-selection",
+    "before": "Déplacer la sélection",
+    "after": "ⵙⵎⵓⵜⵜⵉ ⴰⴼⵔⴰⵏ",
+    "reason": "Replace unflagged French multi-selection label; IRCAM 2019 p70 entry1069 selection, p503 entry9495 move, p532 entry10013 copy, p77 entry1233 colour. LOW CONFIDENCE: selection-as-selected-cards metonymy and complete phrase grammar need native/browser validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "moveSelectionPopup-title",
+    "before": "Déplacer la sélection",
+    "after": "ⵙⵎⵓⵜⵜⵉ ⴰⴼⵔⴰⵏ",
+    "reason": "Replace unflagged French multi-selection label; IRCAM 2019 p70 entry1069 selection, p503 entry9495 move, p532 entry10013 copy, p77 entry1233 colour. LOW CONFIDENCE: selection-as-selected-cards metonymy and complete phrase grammar need native/browser validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "copy-selection",
+    "before": "Copier la sélection",
+    "after": "ⵙⵙⵏⵖⵍ ⴰⴼⵔⴰⵏ",
+    "reason": "Replace unflagged French multi-selection label; IRCAM 2019 p70 entry1069 selection, p503 entry9495 move, p532 entry10013 copy, p77 entry1233 colour. LOW CONFIDENCE: selection-as-selected-cards metonymy and complete phrase grammar need native/browser validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "copySelectionPopup-title",
+    "before": "Copier la sélection",
+    "after": "ⵙⵙⵏⵖⵍ ⴰⴼⵔⴰⵏ",
+    "reason": "Replace unflagged French multi-selection label; IRCAM 2019 p70 entry1069 selection, p503 entry9495 move, p532 entry10013 copy, p77 entry1233 colour. LOW CONFIDENCE: selection-as-selected-cards metonymy and complete phrase grammar need native/browser validation."
+  },
+  {
+    "locale": "zgh",
+    "key": "selection-color",
+    "before": "Couleur de sélection",
+    "after": "ⴰⴽⵍⵓ ⵏ ⵓⴼⵔⴰⵏ",
+    "reason": "Replace unflagged French multi-selection label; IRCAM 2019 p70 entry1069 selection, p503 entry9495 move, p532 entry10013 copy, p77 entry1233 colour. LOW CONFIDENCE: selection-as-selected-cards metonymy and complete phrase grammar need native/browser validation."
   }
 ]

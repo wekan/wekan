@@ -118,3 +118,18 @@ for (const [key, value] of Object.entries(parentPrefixes)) {
   assert.notEqual(locales.zgh[key], locales.zgh[key.replace('prefix-', 'subtext-')]);
 }
 assert.notEqual(locales.zgh['prefix-with-full-path'], locales.zgh['prefix-with-parent']);
+
+const selectedCardLabels = {
+  "move-selection": "ⵙⵎⵓⵜⵜⵉ ⴰⴼⵔⴰⵏ",
+  "moveSelectionPopup-title": "ⵙⵎⵓⵜⵜⵉ ⴰⴼⵔⴰⵏ",
+  "copy-selection": "ⵙⵙⵏⵖⵍ ⴰⴼⵔⴰⵏ",
+  "copySelectionPopup-title": "ⵙⵙⵏⵖⵍ ⴰⴼⵔⴰⵏ",
+  "selection-color": "ⴰⴽⵍⵓ ⵏ ⵓⴼⵔⴰⵏ"
+};
+for (const [key, value] of Object.entries(selectedCardLabels)) {
+  assert.equal(locales.zgh[key], value);
+  assert.doesNotMatch(locales.zgh[key], /Déplacer|Copier|sélection|Couleur/);
+}
+assert.equal(locales.zgh['move-selection'], locales.zgh['moveSelectionPopup-title']);
+assert.equal(locales.zgh['copy-selection'], locales.zgh['copySelectionPopup-title']);
+assert.notEqual(locales.zgh['move-selection'], locales.zgh['copy-selection']);
