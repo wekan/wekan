@@ -4,17 +4,17 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,322 |
+| Corrected | 15,323 |
 | Restored pre-pull; awaiting validation | 4,058 |
 | Reviewed; retained unchanged | 179 |
-| Pending review or repair | 522 |
+| Pending review or repair | 521 |
 | Total tracked | 20,081 |
 
 **Resumed at the maintainer’s request on 2026-09-13.** Reviewing and repairing the remaining local findings, beginning with Klingon. All **361** originally flagged Klingon findings are repaired. The broader check of **829** German-identical values is reviewed: **829** repaired, including the mistaken German `cron` retention corrected to the actual tool name **Cron**. Restored and unflagged translations still need validation.
 
-Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,635** exact before/after values, including unflagged repairs.
+Fixed: wrong-language text, terminology, warnings, placeholders and JSON/calendar/search formatting. [Correction records](../../../releases/translations/audited-corrections.json) contain **17,636** exact before/after values, including unflagged repairs.
 
-Latest translation fix: **2026-09-14**, local commit `67dc918e5` — replaced the unflagged Arabic Tamazight Restore control. Native restoration root supports vocabulary; imperative adaptation remains **low confidence** pending language review. Archive-specific phrases remain unresolved because the archive noun is not established by reviewed references. All **17,635** correction/rendering checks pass. Counts are unchanged: **522** originals pending across **17** locales, including **384** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
+Latest translation fix: **2026-09-14**, local commit `eaf0c46ec` — replaced the French Tamazight existing-account prompt, preserving conditional and already-existing account. Native possession/conditional components support vocabulary; positive adaptation and full clause remain **low confidence** pending language review. Custom-field terminology remains unresolved: MediaWiki personal/special terms do not independently establish user-defined customization. All **17,636** correction/rendering checks pass. **521** originals remain pending across **17** locales, including **383** Tamazight. Restored/unflagged values and earlier low-confidence wording still need validation. Live browser verification was not run; no translations were pushed.
 
 **Tamazight open-command review (2026-09-14):** [IRCAM’s generative grammar](https://www.ircam.ma/sites/default/files/2024-12/grammaire-generative-de-amazighe.pdf), printed page 36, gives a transitive open-door example; the indexed [children’s poems](https://biblio.ircam.ma/pmb/uploads/publications/224.pdf), printed page 44, give imperative `ⵕⵥⵎ` in an open-your-heart expression. These strengthen verb evidence, but the poem spelling differs from MediaWiki’s `ⵔⵥⵎ` root and full PDF retrieval failed certificate verification. Keep native spelling, imperative-to-software adaptation and the complete bulk-opening phrase under review. No values or counts changed; indexed examples do not prove full language validation.
 
