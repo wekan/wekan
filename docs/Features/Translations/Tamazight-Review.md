@@ -3980,3 +3980,21 @@ exact value, wrong-language/domain negatives and placeholder inventories.
 No live UI test ran; no targeted source caller was found for this key.
 Ledger 19,875; tracked pending 149 unchanged because finding was unflagged.
 Full native fluency review remains open.
+
+
+2026-09-15 — `7c58d6c3d`: French accounts-lockout-settings and
+accounts-lockout-settings-updated replaced using existing tisghal settings,
+IRCAM entry 1065 afrag protection (bound ufrag), update root sdghi.
+IRCAM entry 4175 asdghi is update; native MediaWiki updatedmarker and
+externaldberror support the software update root. Derived passive plural
+ ttusdghint and complete settings/protection construction remain low
+confidence. Brute force is explicitly a borrowed cybersecurity phrase,
+not an attested Tamazight compound. Physical adwas (853), coercion bssif
+(5943)/bzzez (5956/5957) and force-to-swallow sslghj (9963) are excluded.
+The confirmation says settings were updated, not that an attack was
+blocked or authentication succeeded. peopleBody.jade displays the heading.
+Four focused suites pass for exact distinct messages, negative French,
+Arabic and physical-force wording, and all token inventories. No live
+settings UI or update verification ran. Ledger 19,877; corrected 15,756,
+pending 147 (zgh 54), restored 4 unchanged. Brute-force explanatory prose
+remains French and pending; full contextual grammar review is open.

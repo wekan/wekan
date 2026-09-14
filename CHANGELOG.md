@@ -1060,6 +1060,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7c58d6c3d">Repair Tamazight account-protection settings wording</a></summary>
+
+Replace French heading and update confirmation with Tamazight prose,
+retaining brute force as a technical loan. Four focused suites pass;
+complete compound and passive plural remain under contextual review.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
