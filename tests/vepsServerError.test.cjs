@@ -138,3 +138,10 @@ test("Veps synchronization results retain distinct states and error token", () =
  assert.notEqual(data["list-sync-now-pending"],data["list-sync-now-success"]);
  assert.notEqual(data["list-sync-now-error"],data["list-sync-now-success"]);
 });
+
+test("Veps sync source label uses native source noun", () => {
+ const data=JSON.parse(fs.readFileSync("imports/i18n/data/ve-PP.i18n.json","utf8"));
+ assert.equal(data["list-sync-source-type"],"Lähte");
+ assert.notEqual(data["list-sync-source-type"],"Tsimo");
+ assert.notEqual(data["list-sync-source-type"],data["list-sync-source-none"]);
+});

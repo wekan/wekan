@@ -139396,5 +139396,12 @@
     "before": "Litshani u vhambadzanya",
     "after": "Seižuta sinhronirund",
     "reason": "Replace unflagged Tshivenda sync state/result using direct Veps draft. Derived synchronization noun from existing Sinhronirui; native MediaWiki actioncomplete supplies om loptud and createacct-loginerror hüvin. Full derivation/case grammar remains low confidence; preserve distinct states and literal %s."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "list-sync-source-type",
+    "before": "Tsimo",
+    "after": "Lähte",
+    "reason": "Replace unflagged Tshivenda source label with native Veps Lähte, directly attested by MediaWiki version-libraries-source and tags-source-header. Source selector is distinct from synchronization state."
   }
 ]
