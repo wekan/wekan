@@ -131584,5 +131584,33 @@
     "before": "L'invitation n'a pas encore été acceptée",
     "after": "ⴰⵙⵉⴳⵔ ⵓⵔ ⵜⴰ ⵉⵜⵜⵓⵇⴱⵉⵍ",
     "reason": "2026-09-14: Replace wrong-language acceptance wording. Secondary Learn Amazigh words lists qbl accept: https://learnamazigh.com/words . IRCAM Amazigh-English PDF 227 entry 4358 asigr invitation, PDF 452 entry 8585 ur ta not yet: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339 . Low confidence: secondary verb provenance/dialect fit, derived passive ittuqbil and assembled invitation status clause. Preserve not-yet scope, do not substitute accept-destiny or approval-only verbs. No native/browser acceptance claimed."
+  },
+  {
+    "locale": "zgh",
+    "key": "Cube-Grid",
+    "before": "Icône d'attente cube filaire",
+    "after": "ⴰⵏⵎⵎⴰⵍ ⵏ ⵓⴳⴰⵏⵉ (Cube-Grid)",
+    "reason": "2026-09-14: Replace French wait-spinner description with Tamazight waiting-indicator compound, preserving the exact named animation style identifier. IRCAM Amazigh-English PDF 180 entry 3376 anmmal indicator; PDF 39 entry 415 agani waiting and PDF 566 entry 10591 n ugani waiting-room genitive: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339 . Actual spinner selection maps identifiers to templates. Low confidence: indicator compound adaptation to software spinner; preserved style identifier is not translated prose. Exclude textile spinning terms. Native/browser review open."
+  },
+  {
+    "locale": "zgh",
+    "key": "Double-Bounce",
+    "before": "Icône d'attente double rebond",
+    "after": "ⴰⵏⵎⵎⴰⵍ ⵏ ⵓⴳⴰⵏⵉ (Double-Bounce)",
+    "reason": "2026-09-14: Replace French wait-spinner description with Tamazight waiting-indicator compound, preserving the exact named animation style identifier. IRCAM Amazigh-English PDF 180 entry 3376 anmmal indicator; PDF 39 entry 415 agani waiting and PDF 566 entry 10591 n ugani waiting-room genitive: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339 . Actual spinner selection maps identifiers to templates. Low confidence: indicator compound adaptation to software spinner; preserved style identifier is not translated prose. Exclude textile spinning terms. Native/browser review open."
+  },
+  {
+    "locale": "zgh",
+    "key": "Rotateplane",
+    "before": "Icône d'attente plan rotatif",
+    "after": "ⴰⵏⵎⵎⴰⵍ ⵏ ⵓⴳⴰⵏⵉ (Rotateplane)",
+    "reason": "2026-09-14: Replace French wait-spinner description with Tamazight waiting-indicator compound, preserving the exact named animation style identifier. IRCAM Amazigh-English PDF 180 entry 3376 anmmal indicator; PDF 39 entry 415 agani waiting and PDF 566 entry 10591 n ugani waiting-room genitive: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339 . Actual spinner selection maps identifiers to templates. Low confidence: indicator compound adaptation to software spinner; preserved style identifier is not translated prose. Exclude textile spinning terms. Native/browser review open."
+  },
+  {
+    "locale": "zgh",
+    "key": "Scaleout",
+    "before": "Icône d'attente mise à l'échelle",
+    "after": "ⴰⵏⵎⵎⴰⵍ ⵏ ⵓⴳⴰⵏⵉ (Scaleout)",
+    "reason": "2026-09-14: Replace French wait-spinner description with Tamazight waiting-indicator compound, preserving the exact named animation style identifier. IRCAM Amazigh-English PDF 180 entry 3376 anmmal indicator; PDF 39 entry 415 agani waiting and PDF 566 entry 10591 n ugani waiting-room genitive: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339 . Actual spinner selection maps identifiers to templates. Low confidence: indicator compound adaptation to software spinner; preserved style identifier is not translated prose. Exclude textile spinning terms. Native/browser review open."
   }
 ]

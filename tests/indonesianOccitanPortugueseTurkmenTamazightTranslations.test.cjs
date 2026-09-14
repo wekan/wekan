@@ -391,3 +391,8 @@ assert.doesNotMatch(locales.zgh.autoAddUsersWithDomainName, /[\u0600-\u06ff]|ⵜ
 assert.equal(locales.zgh.accept, 'ⵇⴱⵍ');
 assert.equal(locales.zgh['not-accepted-yet'], 'ⴰⵙⵉⴳⵔ ⵓⵔ ⵜⴰ ⵉⵜⵜⵓⵇⴱⵉⵍ');
 assert.doesNotMatch(locales.zgh.accept + locales.zgh['not-accepted-yet'], /[\u0600-\u06ff]|acceptée|ⵙⵙⵉⴷⵏ|ⵙⵙⵍⵖⴷ/);
+
+for (const style of ['Cube-Grid', 'Double-Bounce', 'Rotateplane', 'Scaleout']) {
+  assert.equal(locales.zgh[style], `ⴰⵏⵎⵎⴰⵍ ⵏ ⵓⴳⴰⵏⵉ (${style})`);
+  assert.doesNotMatch(locales.zgh[style], /Icône|attente|ⵓⵍⵓⵎ|ⵜⴰⴹⵓⵜ/);
+}
