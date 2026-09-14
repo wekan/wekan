@@ -22136,3 +22136,16 @@ Color labels preserve hue and pale distinctions, including verde lima.
 Review checks pass: 15,561 corrected, 1,373 restored awaiting validation,
 2,839 reviewed unchanged and 308 pending. Broader language and browser
 validation remain open. Nothing pushed.
+
+
+### 2026-09-14 — Galician custom fields and access labels
+
+Local commit `98c90fd8a` retains 30 directly reviewed values unchanged.
+Access labels distinguish read-only from assigned-only; custom-field types,
+currency code, none/unknown dropdown alternatives, action disambiguation,
+soft WIP limit and siteName email interpolation retain meaning. Peach/brown
+palette names identify their actual swatches (contrastColor.js); no competing
+peach/brown names require speculative new qualifiers.
+Review checks pass: 15,561 corrected, 1,343 restored awaiting validation,
+2,869 reviewed unchanged and 308 pending. Broader language and browser
+validation remain open. Nothing pushed.
