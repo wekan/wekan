@@ -1016,6 +1016,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/66f2a8fee">Repair Tamazight search date-filter instructions</a></summary>
+
+Replace French created and modified hints with recent-day wording,
+preserving distinct operators and literal examples. Four focused suites
+pass; complete passive and temporal grammar remain under review.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

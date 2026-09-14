@@ -29233,3 +29233,17 @@ showing handles, not enabling a Desktop application or moving a desk.
 Four focused suites pass for exact wording, negative French/Arabic checks
 and translation/token invariants. No live drag or UI verification ran.
 Ledger 19,870, corrected 15,751, pending 152 (zgh 59), restored 4 unchanged.
+
+
+2026-09-15 — `66f2a8fee`: French created/modified search hints replaced
+with cards created/modified during the last n days. This paraphrases
+n days ago or less, rather than only exactly n days ago or future days.
+Literal __operator_created__/__operator_modified__, backticks, :<n> and
+*<n>* remain exact. IRCAM entry 2274 amggaru last attests plural imggura;
+10003 ssnfl means change; creation follows existing snulfu wording.
+Full passive feminine-plural and temporal construction remain low
+confidence. Earlier parser review in this file establishes $gte bounds
+in config/query-classes.js; no parser behavior changed. Four focused
+suites pass for distinct values, wrong-language negatives and all literal
+placeholder inventories. No live search UI verification ran. Ledger
+19,872; corrected 15,753, pending 150 (zgh 57), restored 4 unchanged.
