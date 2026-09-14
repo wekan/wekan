@@ -24532,5 +24532,185 @@
     "key": "gcs-storage-description",
     "value": "Google Cloud Storage.",
     "reason": "Inspected Thai template/calendar/card/type labels, invitation/sender, day/hour/minute/second units, rule nouns/actions and prepositions, search operators and period/state predicates. Quarter is ไตรมาส (three months), Me retains first person; removal is not deletion and check means marking. Azure/Google storage descriptions are exact product names, not untranslated prose. Shared r-is identity copula excluded because passive trigger composition needs separate review; broader Thai grammar/browser validation remains open."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "due-today",
+    "value": "مستحق اليوم",
+    "reason": "Inspected Swedish type/sorting labels, global-admin role warning and irreversible team deletion; Arabic due-today and no-assignee values in generic/Algerian/Egyptian locales; Moroccan Darija due/no-assignee/no-label and daily/weekly/monthly intervals. Swedish negation and global-admin exception, Arabic assignee absence and Darija colloquial negation/frequencies preserve meaning. Standard Arabic is valid for country-tagged Arabic locales; shared spelling alone is not wrong language. Broader fluency/browser review remains open."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "filter-due-today",
+    "value": "مستحق اليوم",
+    "reason": "Inspected Swedish type/sorting labels, global-admin role warning and irreversible team deletion; Arabic due-today and no-assignee values in generic/Algerian/Egyptian locales; Moroccan Darija due/no-assignee/no-label and daily/weekly/monthly intervals. Swedish negation and global-admin exception, Arabic assignee absence and Darija colloquial negation/frequencies preserve meaning. Standard Arabic is valid for country-tagged Arabic locales; shared spelling alone is not wrong language. Broader fluency/browser review remains open."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "filter-no-assignee",
+    "value": "لا يوجد مُكلَّف",
+    "reason": "Inspected Swedish type/sorting labels, global-admin role warning and irreversible team deletion; Arabic due-today and no-assignee values in generic/Algerian/Egyptian locales; Moroccan Darija due/no-assignee/no-label and daily/weekly/monthly intervals. Swedish negation and global-admin exception, Arabic assignee absence and Darija colloquial negation/frequencies preserve meaning. Standard Arabic is valid for country-tagged Arabic locales; shared spelling alone is not wrong language. Broader fluency/browser review remains open."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "no-assignee",
+    "value": "لا يوجد مُكلَّف",
+    "reason": "Inspected Swedish type/sorting labels, global-admin role warning and irreversible team deletion; Arabic due-today and no-assignee values in generic/Algerian/Egyptian locales; Moroccan Darija due/no-assignee/no-label and daily/weekly/monthly intervals. Swedish negation and global-admin exception, Arabic assignee absence and Darija colloquial negation/frequencies preserve meaning. Standard Arabic is valid for country-tagged Arabic locales; shared spelling alone is not wrong language. Broader fluency/browser review remains open."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "due-today",
+    "value": "مستحق اليوم",
+    "reason": "Inspected Swedish type/sorting labels, global-admin role warning and irreversible team deletion; Arabic due-today and no-assignee values in generic/Algerian/Egyptian locales; Moroccan Darija due/no-assignee/no-label and daily/weekly/monthly intervals. Swedish negation and global-admin exception, Arabic assignee absence and Darija colloquial negation/frequencies preserve meaning. Standard Arabic is valid for country-tagged Arabic locales; shared spelling alone is not wrong language. Broader fluency/browser review remains open."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "filter-due-today",
+    "value": "مستحق اليوم",
+    "reason": "Inspected Swedish type/sorting labels, global-admin role warning and irreversible team deletion; Arabic due-today and no-assignee values in generic/Algerian/Egyptian locales; Moroccan Darija due/no-assignee/no-label and daily/weekly/monthly intervals. Swedish negation and global-admin exception, Arabic assignee absence and Darija colloquial negation/frequencies preserve meaning. Standard Arabic is valid for country-tagged Arabic locales; shared spelling alone is not wrong language. Broader fluency/browser review remains open."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "filter-no-assignee",
+    "value": "لا يوجد مُكلَّف",
+    "reason": "Inspected Swedish type/sorting labels, global-admin role warning and irreversible team deletion; Arabic due-today and no-assignee values in generic/Algerian/Egyptian locales; Moroccan Darija due/no-assignee/no-label and daily/weekly/monthly intervals. Swedish negation and global-admin exception, Arabic assignee absence and Darija colloquial negation/frequencies preserve meaning. Standard Arabic is valid for country-tagged Arabic locales; shared spelling alone is not wrong language. Broader fluency/browser review remains open."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "no-assignee",
+    "value": "لا يوجد مُكلَّف",
+    "reason": "Inspected Swedish type/sorting labels, global-admin role warning and irreversible team deletion; Arabic due-today and no-assignee values in generic/Algerian/Egyptian locales; Moroccan Darija due/no-assignee/no-label and daily/weekly/monthly intervals. Swedish negation and global-admin exception, Arabic assignee absence and Darija colloquial negation/frequencies preserve meaning. Standard Arabic is valid for country-tagged Arabic locales; shared spelling alone is not wrong language. Broader fluency/browser review remains open."
+  },
+  {
+    "locale": "ar",
+    "key": "due-today",
+    "value": "مستحق اليوم",
+    "reason": "Inspected Swedish type/sorting labels, global-admin role warning and irreversible team deletion; Arabic due-today and no-assignee values in generic/Algerian/Egyptian locales; Moroccan Darija due/no-assignee/no-label and daily/weekly/monthly intervals. Swedish negation and global-admin exception, Arabic assignee absence and Darija colloquial negation/frequencies preserve meaning. Standard Arabic is valid for country-tagged Arabic locales; shared spelling alone is not wrong language. Broader fluency/browser review remains open."
+  },
+  {
+    "locale": "ar",
+    "key": "filter-due-today",
+    "value": "مستحق اليوم",
+    "reason": "Inspected Swedish type/sorting labels, global-admin role warning and irreversible team deletion; Arabic due-today and no-assignee values in generic/Algerian/Egyptian locales; Moroccan Darija due/no-assignee/no-label and daily/weekly/monthly intervals. Swedish negation and global-admin exception, Arabic assignee absence and Darija colloquial negation/frequencies preserve meaning. Standard Arabic is valid for country-tagged Arabic locales; shared spelling alone is not wrong language. Broader fluency/browser review remains open."
+  },
+  {
+    "locale": "ar",
+    "key": "filter-no-assignee",
+    "value": "لا يوجد مُكلَّف",
+    "reason": "Inspected Swedish type/sorting labels, global-admin role warning and irreversible team deletion; Arabic due-today and no-assignee values in generic/Algerian/Egyptian locales; Moroccan Darija due/no-assignee/no-label and daily/weekly/monthly intervals. Swedish negation and global-admin exception, Arabic assignee absence and Darija colloquial negation/frequencies preserve meaning. Standard Arabic is valid for country-tagged Arabic locales; shared spelling alone is not wrong language. Broader fluency/browser review remains open."
+  },
+  {
+    "locale": "ar",
+    "key": "no-assignee",
+    "value": "لا يوجد مُكلَّف",
+    "reason": "Inspected Swedish type/sorting labels, global-admin role warning and irreversible team deletion; Arabic due-today and no-assignee values in generic/Algerian/Egyptian locales; Moroccan Darija due/no-assignee/no-label and daily/weekly/monthly intervals. Swedish negation and global-admin exception, Arabic assignee absence and Darija colloquial negation/frequencies preserve meaning. Standard Arabic is valid for country-tagged Arabic locales; shared spelling alone is not wrong language. Broader fluency/browser review remains open."
+  },
+  {
+    "locale": "ary",
+    "key": "due-today",
+    "value": "خاصو اليوم",
+    "reason": "Inspected Swedish type/sorting labels, global-admin role warning and irreversible team deletion; Arabic due-today and no-assignee values in generic/Algerian/Egyptian locales; Moroccan Darija due/no-assignee/no-label and daily/weekly/monthly intervals. Swedish negation and global-admin exception, Arabic assignee absence and Darija colloquial negation/frequencies preserve meaning. Standard Arabic is valid for country-tagged Arabic locales; shared spelling alone is not wrong language. Broader fluency/browser review remains open."
+  },
+  {
+    "locale": "ary",
+    "key": "filter-due-today",
+    "value": "خاصو اليوم",
+    "reason": "Inspected Swedish type/sorting labels, global-admin role warning and irreversible team deletion; Arabic due-today and no-assignee values in generic/Algerian/Egyptian locales; Moroccan Darija due/no-assignee/no-label and daily/weekly/monthly intervals. Swedish negation and global-admin exception, Arabic assignee absence and Darija colloquial negation/frequencies preserve meaning. Standard Arabic is valid for country-tagged Arabic locales; shared spelling alone is not wrong language. Broader fluency/browser review remains open."
+  },
+  {
+    "locale": "ary",
+    "key": "filter-no-assignee",
+    "value": "ماكاينش لي تعطات ليه",
+    "reason": "Inspected Swedish type/sorting labels, global-admin role warning and irreversible team deletion; Arabic due-today and no-assignee values in generic/Algerian/Egyptian locales; Moroccan Darija due/no-assignee/no-label and daily/weekly/monthly intervals. Swedish negation and global-admin exception, Arabic assignee absence and Darija colloquial negation/frequencies preserve meaning. Standard Arabic is valid for country-tagged Arabic locales; shared spelling alone is not wrong language. Broader fluency/browser review remains open."
+  },
+  {
+    "locale": "ary",
+    "key": "no-assignee",
+    "value": "ماكاينش لي تعطات ليه",
+    "reason": "Inspected Swedish type/sorting labels, global-admin role warning and irreversible team deletion; Arabic due-today and no-assignee values in generic/Algerian/Egyptian locales; Moroccan Darija due/no-assignee/no-label and daily/weekly/monthly intervals. Swedish negation and global-admin exception, Arabic assignee absence and Darija colloquial negation/frequencies preserve meaning. Standard Arabic is valid for country-tagged Arabic locales; shared spelling alone is not wrong language. Broader fluency/browser review remains open."
+  },
+  {
+    "locale": "sv",
+    "key": "export-card-attachment-type",
+    "value": "Typ",
+    "reason": "Inspected Swedish type/sorting labels, global-admin role warning and irreversible team deletion; Arabic due-today and no-assignee values in generic/Algerian/Egyptian locales; Moroccan Darija due/no-assignee/no-label and daily/weekly/monthly intervals. Swedish negation and global-admin exception, Arabic assignee absence and Darija colloquial negation/frequencies preserve meaning. Standard Arabic is valid for country-tagged Arabic locales; shared spelling alone is not wrong language. Broader fluency/browser review remains open."
+  },
+  {
+    "locale": "sv",
+    "key": "type",
+    "value": "Typ",
+    "reason": "Inspected Swedish type/sorting labels, global-admin role warning and irreversible team deletion; Arabic due-today and no-assignee values in generic/Algerian/Egyptian locales; Moroccan Darija due/no-assignee/no-label and daily/weekly/monthly intervals. Swedish negation and global-admin exception, Arabic assignee absence and Darija colloquial negation/frequencies preserve meaning. Standard Arabic is valid for country-tagged Arabic locales; shared spelling alone is not wrong language. Broader fluency/browser review remains open."
+  },
+  {
+    "locale": "sv",
+    "key": "myCardsSortChange-title",
+    "value": "Sortering av mina kort",
+    "reason": "Inspected Swedish type/sorting labels, global-admin role warning and irreversible team deletion; Arabic due-today and no-assignee values in generic/Algerian/Egyptian locales; Moroccan Darija due/no-assignee/no-label and daily/weekly/monthly intervals. Swedish negation and global-admin exception, Arabic assignee absence and Darija colloquial negation/frequencies preserve meaning. Standard Arabic is valid for country-tagged Arabic locales; shared spelling alone is not wrong language. Broader fluency/browser review remains open."
+  },
+  {
+    "locale": "sv",
+    "key": "myCardsSortChangePopup-title",
+    "value": "Sortering av mina kort",
+    "reason": "Inspected Swedish type/sorting labels, global-admin role warning and irreversible team deletion; Arabic due-today and no-assignee values in generic/Algerian/Egyptian locales; Moroccan Darija due/no-assignee/no-label and daily/weekly/monthly intervals. Swedish negation and global-admin exception, Arabic assignee absence and Darija colloquial negation/frequencies preserve meaning. Standard Arabic is valid for country-tagged Arabic locales; shared spelling alone is not wrong language. Broader fluency/browser review remains open."
+  },
+  {
+    "locale": "sv",
+    "key": "stats-scope",
+    "value": "Typ",
+    "reason": "Inspected Swedish type/sorting labels, global-admin role warning and irreversible team deletion; Arabic due-today and no-assignee values in generic/Algerian/Egyptian locales; Moroccan Darija due/no-assignee/no-label and daily/weekly/monthly intervals. Swedish negation and global-admin exception, Arabic assignee absence and Darija colloquial negation/frequencies preserve meaning. Standard Arabic is valid for country-tagged Arabic locales; shared spelling alone is not wrong language. Broader fluency/browser review remains open."
+  },
+  {
+    "locale": "sv",
+    "key": "roles-info",
+    "value": "Välj vilka tavelroller som får utföra varje åtgärd. Användare i adminpanelen (globala administratörer) har alltid alla rättigheter och kan inte begränsas här.",
+    "reason": "Inspected Swedish type/sorting labels, global-admin role warning and irreversible team deletion; Arabic due-today and no-assignee values in generic/Algerian/Egyptian locales; Moroccan Darija due/no-assignee/no-label and daily/weekly/monthly intervals. Swedish negation and global-admin exception, Arabic assignee absence and Darija colloquial negation/frequencies preserve meaning. Standard Arabic is valid for country-tagged Arabic locales; shared spelling alone is not wrong language. Broader fluency/browser review remains open."
+  },
+  {
+    "locale": "sv",
+    "key": "delete-team-confirm-popup",
+    "value": "Är du säker på att du vill ta bort det här teamet? Det går inte att ångra.",
+    "reason": "Inspected Swedish type/sorting labels, global-admin role warning and irreversible team deletion; Arabic due-today and no-assignee values in generic/Algerian/Egyptian locales; Moroccan Darija due/no-assignee/no-label and daily/weekly/monthly intervals. Swedish negation and global-admin exception, Arabic assignee absence and Darija colloquial negation/frequencies preserve meaning. Standard Arabic is valid for country-tagged Arabic locales; shared spelling alone is not wrong language. Broader fluency/browser review remains open."
+  },
+  {
+    "locale": "ary",
+    "key": "card-comments-more",
+    "value": "كتر",
+    "reason": "Inspected Swedish type/sorting labels, global-admin role warning and irreversible team deletion; Arabic due-today and no-assignee values in generic/Algerian/Egyptian locales; Moroccan Darija due/no-assignee/no-label and daily/weekly/monthly intervals. Swedish negation and global-admin exception, Arabic assignee absence and Darija colloquial negation/frequencies preserve meaning. Standard Arabic is valid for country-tagged Arabic locales; shared spelling alone is not wrong language. Broader fluency/browser review remains open."
+  },
+  {
+    "locale": "ary",
+    "key": "no-label",
+    "value": "ماكاينش علامة",
+    "reason": "Inspected Swedish type/sorting labels, global-admin role warning and irreversible team deletion; Arabic due-today and no-assignee values in generic/Algerian/Egyptian locales; Moroccan Darija due/no-assignee/no-label and daily/weekly/monthly intervals. Swedish negation and global-admin exception, Arabic assignee absence and Darija colloquial negation/frequencies preserve meaning. Standard Arabic is valid for country-tagged Arabic locales; shared spelling alone is not wrong language. Broader fluency/browser review remains open."
+  },
+  {
+    "locale": "ary",
+    "key": "checklist-reset-interval-daily",
+    "value": "كل نهار",
+    "reason": "Inspected Swedish type/sorting labels, global-admin role warning and irreversible team deletion; Arabic due-today and no-assignee values in generic/Algerian/Egyptian locales; Moroccan Darija due/no-assignee/no-label and daily/weekly/monthly intervals. Swedish negation and global-admin exception, Arabic assignee absence and Darija colloquial negation/frequencies preserve meaning. Standard Arabic is valid for country-tagged Arabic locales; shared spelling alone is not wrong language. Broader fluency/browser review remains open."
+  },
+  {
+    "locale": "ary",
+    "key": "checklist-reset-interval-weekly",
+    "value": "كل سيمانة",
+    "reason": "Inspected Swedish type/sorting labels, global-admin role warning and irreversible team deletion; Arabic due-today and no-assignee values in generic/Algerian/Egyptian locales; Moroccan Darija due/no-assignee/no-label and daily/weekly/monthly intervals. Swedish negation and global-admin exception, Arabic assignee absence and Darija colloquial negation/frequencies preserve meaning. Standard Arabic is valid for country-tagged Arabic locales; shared spelling alone is not wrong language. Broader fluency/browser review remains open."
+  },
+  {
+    "locale": "ary",
+    "key": "checklist-reset-interval-monthly",
+    "value": "كل شهر",
+    "reason": "Inspected Swedish type/sorting labels, global-admin role warning and irreversible team deletion; Arabic due-today and no-assignee values in generic/Algerian/Egyptian locales; Moroccan Darija due/no-assignee/no-label and daily/weekly/monthly intervals. Swedish negation and global-admin exception, Arabic assignee absence and Darija colloquial negation/frequencies preserve meaning. Standard Arabic is valid for country-tagged Arabic locales; shared spelling alone is not wrong language. Broader fluency/browser review remains open."
+  },
+  {
+    "locale": "ary",
+    "key": "card-recurrence-interval-daily",
+    "value": "كل نهار",
+    "reason": "Inspected Swedish type/sorting labels, global-admin role warning and irreversible team deletion; Arabic due-today and no-assignee values in generic/Algerian/Egyptian locales; Moroccan Darija due/no-assignee/no-label and daily/weekly/monthly intervals. Swedish negation and global-admin exception, Arabic assignee absence and Darija colloquial negation/frequencies preserve meaning. Standard Arabic is valid for country-tagged Arabic locales; shared spelling alone is not wrong language. Broader fluency/browser review remains open."
+  },
+  {
+    "locale": "ary",
+    "key": "card-recurrence-interval-monthly",
+    "value": "كل شهر",
+    "reason": "Inspected Swedish type/sorting labels, global-admin role warning and irreversible team deletion; Arabic due-today and no-assignee values in generic/Algerian/Egyptian locales; Moroccan Darija due/no-assignee/no-label and daily/weekly/monthly intervals. Swedish negation and global-admin exception, Arabic assignee absence and Darija colloquial negation/frequencies preserve meaning. Standard Arabic is valid for country-tagged Arabic locales; shared spelling alone is not wrong language. Broader fluency/browser review remains open."
   }
 ]
