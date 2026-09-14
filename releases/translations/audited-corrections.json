@@ -131339,5 +131339,12 @@
     "before": "ISO 8601",
     "after": "གྲེག་གོ་རི་ཡཱན་ཟླ་ཐོ (ISO 8601 བདུན་ཕྲག)",
     "reason": "2026-09-14: Restore Gregorian calendar and week qualifier omitted from ISO-only seed. Reuse existing Gregorian/calendar label and native week བདུན་ཕྲག, explicitly attested in Grammar of Dzongkha PDF page 373 (printed 363). ISO 8601 identifier stays exact. Low confidence: complete technical label and existing Gregorian transliteration require native/browser review; not a Bhutanese weekday-rule change."
+  },
+  {
+    "locale": "zgh",
+    "key": "optional",
+    "before": "اختياري",
+    "after": "ⴰⵔⵓⵛⵛⵉⵍ",
+    "reason": "2026-09-14: Replace Arabic Optional with explicitly attested Tamazight aruccil, IRCAM Amazigh-English dictionary PDF page 194 entry 3684. This is direct adjective attestation, not a guessed script conversion. Longer webhook authentication/token phrase requires separate complete native repair."
   }
 ]

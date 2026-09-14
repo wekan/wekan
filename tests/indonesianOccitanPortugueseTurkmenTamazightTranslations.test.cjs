@@ -283,3 +283,6 @@ for (const key of ['cron-migration-errors', 'cron-clear-errors']) assert.doesNot
 // Clearing confirmation retains all errors and the successful qualifier.
 assert.match(locales.zgh['cron-errors-cleared'], /^ⵎⵃⴰⵏⵜ ⵜⵉⵣⴳⵍⵉⵏ ⴰⴽⴽⵯ ⵙ ⵓⵎⵓⵔⵙ\.$/);
 assert.doesNotMatch(locales.zgh['cron-errors-cleared'], /ⵉⵣⴳⴰⵍⵏ|ⵜⵜⵓⵙⴼⴹⵏ/);
+
+assert.equal(locales.zgh.optional, 'ⴰⵔⵓⵛⵛⵉⵍ');
+assert.doesNotMatch(locales.zgh.optional, /[\u0600-\u06ff]/);
