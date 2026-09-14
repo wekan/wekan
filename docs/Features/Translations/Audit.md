@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-14**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,646 |
+| Corrected | 15,647 |
 | Restored pre-pull; awaiting validation | 4 |
 | Reviewed; retained unchanged | 4,175 |
-| Pending review or repair | 256 |
+| Pending review or repair | 255 |
 | Total tracked | 20,081 |
 
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
@@ -16,13 +16,13 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-14**, local commit `233955a45` —
-Tamazight error-clearing confirmation restores successful/all-error
-semantics using primary components. Four checks pass; feminine plural,
-adverbial and full native/browser review remain open. Pending: 256.
+Latest translation fix: **2026-09-14**, local commit `98cf2cda5` —
+Dzongkha Hijri sighting label restores calendar and moon-observation
+components with primary grammar evidence. Four checks pass; full native
+compound/browser review remains low confidence. Original pending: 255.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **18,761** exact before/after values, including unflagged
+records contain **18,762** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -47,7 +47,7 @@ restored values still await full native/browser validation.
 | wal — Wolaytta | 17 |
 | ve-PP — Veps | 10 |
 | kl — Greenlandic | 4 |
-| dz — Dzongkha | 3 |
+| dz — Dzongkha | 2 |
 | ff — Fulah | 2 |
 | ks — Kashmiri | 2 |
 | ee — Ewe | 1 |

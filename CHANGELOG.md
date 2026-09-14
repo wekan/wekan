@@ -656,6 +656,15 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/98cf2cda5">Restore Dzongkha Hijri moon-sighting qualifier</a>. Thanks to xet7.</summary>
+
+Replace the country-only English seed with calendar and moon-observation
+components supported by native grammar. Four suites pass; full compound
+and browser review remain open. Original pending findings: 255.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/233955a45">Restore Tamazight successful error-clearing qualifier</a>. Thanks to xet7.</summary>
 
 Restore successful and all-error meanings using primary terminology.
