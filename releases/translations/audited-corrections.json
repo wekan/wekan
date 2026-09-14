@@ -122435,5 +122435,26 @@
     "before": "Bonjour __user__,\n\nPour vérifier votre compte courriel, il suffit de cliquer sur le lien ci-dessous.\n\n__url__\n\nMerci.",
     "after": "ⴰⵣⵓⵍ __user__,\n\nⴰⴼⴰⴷ ⴰⴷ ⵜⵙⵙⵉⴷⴷⴻⴷ ⴰⵏⵙⴰ ⵏ ⵉⵎⴰⵢⵍ ⵏ ⵓⵎⵉⴹⴰⵏ ⵏⵏⴽ, ⴽⵍⵉⴽ ⵖⴼ ⵓⵙⵖⵏ ⴳ ⴷⴷⴰⵡ ⴷⴰ ⵖⴰⵙ.\n\n__url__\n\nⵜⴰⵏⵎⵎⵉⵔⵜ.",
     "reason": "Replace French enrollment or verification email body while preserving start-using-service versus verify-account-email purpose, simple click-link-below action, greeting/thanks, paragraph layout and exact user/URL placeholders. Native MediaWiki userlogin-reauth verify conjugation, tooltip-ca-addsection start, use, account/email/link/below and thanks components support wording. Computing lexicon Service Tanfa MC (Central Morocco), distinct from tanafut/gift, supports service vocabulary; IRCAM greeting azul supports greeting. LOW CONFIDENCE full nested start-use purpose, service software adaptation, account-email ownership, inherited schwa-bearing verify spelling and borrowed click imperative. References: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json; https://cedric.cnam.fr/~bouzefra/books/amawal.pdf (PDF p132 Service Tanfa MC); https://biblio.ircam.ma/pmb/uploads/publications/170.pdf (indexed greeting table)."
+  },
+  {
+    "locale": "zgh",
+    "key": "activity",
+    "before": "النشاط",
+    "after": "ⴰⵔⵎⵓⴷ",
+    "reason": "Replace Arabic activity label or activity notification email template labels. Preserve email body text versus subject and include notification meaning absent from Arabic activity labels; reuse local notifications ilgha. Native MediaWiki yourtext, email and subject imrsi support label components. Mixed computing lexicon Activity Armud MW (plural irmad; Central Morocco root hurry) and IRCAM geology radioactivity armud support proposed activity term but not full Standard Moroccan software usage. LOW CONFIDENCE activity terminology adaptation, bound armud form, notification plurality and full possessive label chains. References: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf (Activity p11); https://biblio.ircam.ma/pmb/catalogue/doc_num.php?explnum_id=125 (radioactivity armud, printed p170); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (yourtext, email, subject)."
+  },
+  {
+    "locale": "zgh",
+    "key": "email-templates-activity-body",
+    "before": "النشاط البريد الإلكتروني نص",
+    "after": "ⴰⴹⵕⵉⵙ ⵏ ⵉⵎⴰⵢⵍ ⵏ ⵉⵍⵖⴰ ⵏ ⵓⵔⵎⵓⴷ",
+    "reason": "Replace Arabic activity label or activity notification email template labels. Preserve email body text versus subject and include notification meaning absent from Arabic activity labels; reuse local notifications ilgha. Native MediaWiki yourtext, email and subject imrsi support label components. Mixed computing lexicon Activity Armud MW (plural irmad; Central Morocco root hurry) and IRCAM geology radioactivity armud support proposed activity term but not full Standard Moroccan software usage. LOW CONFIDENCE activity terminology adaptation, bound armud form, notification plurality and full possessive label chains. References: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf (Activity p11); https://biblio.ircam.ma/pmb/catalogue/doc_num.php?explnum_id=125 (radioactivity armud, printed p170); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (yourtext, email, subject)."
+  },
+  {
+    "locale": "zgh",
+    "key": "email-templates-activity-subject",
+    "before": "النشاط البريد الإلكتروني موضوع",
+    "after": "ⵉⵎⵔⵙⵉ ⵏ ⵉⵎⴰⵢⵍ ⵏ ⵉⵍⵖⴰ ⵏ ⵓⵔⵎⵓⴷ",
+    "reason": "Replace Arabic activity label or activity notification email template labels. Preserve email body text versus subject and include notification meaning absent from Arabic activity labels; reuse local notifications ilgha. Native MediaWiki yourtext, email and subject imrsi support label components. Mixed computing lexicon Activity Armud MW (plural irmad; Central Morocco root hurry) and IRCAM geology radioactivity armud support proposed activity term but not full Standard Moroccan software usage. LOW CONFIDENCE activity terminology adaptation, bound armud form, notification plurality and full possessive label chains. References: https://cedric.cnam.fr/~bouzefra/books/amawal.pdf (Activity p11); https://biblio.ircam.ma/pmb/catalogue/doc_num.php?explnum_id=125 (radioactivity armud, printed p170); https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json (yourtext, email, subject)."
   }
 ]
