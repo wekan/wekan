@@ -2,6 +2,10 @@
 
 Historical snapshot retained for reproducible repair tracking. See [Audit.md](Audit.md) for current progress.
 
+## Tamazight checklist completion review — 2026-09-14
+
+Native [CNDH penal-code memorandum](https://cndh.ma/sites/default/files/2024-01/memo_code_penal_v_amazighe.pdf), PDF page 56 (zero-based 55), recommendation passage, has `ad ismd usnti` and `ad smdnt` in amendment/supplement context. This adds root evidence beyond MediaWiki temporal Finish/End, but does not establish past transitive checklist completion. Preserve LOW CONFIDENCE on `activity-checklist-completed` (`2544843d6`); no value or count changes. Uncompleted activities require active reversal, not mere negative state. Next review must distinguish legal supplementation, finishing a process, completing an item and undoing its completion.
+
 ## Tamazight subtask wording review — 2026-09-14
 
 Linked-entity follow-up local repair `af33f6640`: Linked Subtask, Linked Card and Linked Board now use native MediaWiki izdin Linked/Associated component. Preserve each entity and the subtask hierarchy; do not infer unattested passive ittuzdin. Full kanban noun/participle agreement and hierarchical paraphrases remain LOW CONFIDENCE. Earlier pending-linked-label observations below are historical.
