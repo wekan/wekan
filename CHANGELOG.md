@@ -738,6 +738,15 @@ The empty wrongly placed Git directory was removed locally.
 **Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/33cc02ced">Clarify Basque incomplete checklist predicate</a>. Thanks to xet7.</summary>
+
+The incomplete trigger describes marking incomplete rather than leaving
+work unfinished. Focused checks verify generic composition and option wiring.
+The dated audit keeps named-clause grammar and browser review open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9024c6cf8">Repair Tamazight layout-change label</a>. Thanks to xet7.</summary>
 
 The card layout action uses the native edit verb instead of French.

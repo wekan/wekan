@@ -3,7 +3,7 @@
 Reviewed: **2026-09-14**. Review remains incomplete.
 
 The restored completion actions are **Osatzen denean** and
-**Osatu gabe uzten denean**. The generic checklist row supplies
+**Osatu gabe markatzen denean**. The generic checklist row supplies
 **Kontrol-zerrenda bat** without an additional copula. Specific checklist
 rows insert a name after **Kontrol-zerrenda hau**; their complete noun/name
 order still needs separate grammatical review.
@@ -81,3 +81,21 @@ label. In the actual attachment form it identifies the bucket-name input,
 with a related description explaining the name used for file storage.
 Focused checks preserve the label, description and actual input association.
 Broader language and browser verification remain open.
+
+## 2026-09-14 — Incomplete status predicate repaired (33cc02ced)
+
+[Native Moodle activity-completion documentation](https://docs.moodle.org/all/eu/Jarduera-osaketa)
+explains completed marking and a reset to `osatu gabea` status. This supplies
+independent software-state evidence beyond the spelling of gabe. The earlier
+phrase `Osatu gabe uzten denean` is replaced with `Osatu gabe markatzen denean`
+to express marking incomplete, rather than merely leaving work unfinished.
+The complete temporal clause is an adaptation, not an exact source quotation.
+Earlier paragraphs describe why the previous wording was not accepted.
+
+The generic checklist subject composes with the new predicate without an
+extra copula. Focused exact-value, ambiguity-negative and actual incomplete
+option wiring checks pass. The named subject/name order and broader native
+clause review remain open; this does not repair the runtime discrepancy above.
+All 18,659 corrections, 4,170 retained reviews and 234-locale completeness
+checks pass. One restored finding is now corrected: 10 restored findings
+and 288 pending remain. Browser execution was not performed.

@@ -24094,3 +24094,14 @@ actual layout-control context and the incomplete native throttling warning.
 All 18,658 correction records, 4,170 retained reviews, focused locale checks
 and completeness for 234 locales pass. Original counts remain 288 pending
 and 11 restored; browser and broader native phrase review remain open.
+
+## Basque incomplete checklist predicate, 2026-09-14
+
+Local repair commit `33cc02ced` replaces the ambiguous restored phrase
+`Osatu gabe uzten denean` with adapted `Osatu gabe markatzen denean`.
+[Basque review](Basque-Review.md) records native Moodle software-state evidence
+and actual generic checklist composition. Exact-value, ambiguity-negative,
+option wiring, all 18,659 corrections, 4,170 retained reviews and completeness
+for 234 locales pass. Original counts are 15,613 corrected, 10 restored,
+4,170 retained and 288 pending. Full named-clause grammar, runtime discrepancy
+and browser execution remain open; the source does not quote this full clause.
