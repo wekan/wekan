@@ -851,6 +851,16 @@ Dated audit records 167 pending original findings.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/897c89740">Repair Tamazight card-export people label</a>. Thanks to xet7.</summary>
+
+Replace French export-field wording, preserving all four roles and their
+order. Four focused translation suites pass. Computing ownership and
+assignee phrasing remain under native review. Dated audit records 166
+pending original findings.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

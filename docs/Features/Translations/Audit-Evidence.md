@@ -28685,3 +28685,24 @@ combine it with negated sufficiency and the export failure, and keep Excel
 literal. This review changes no translation or counts. Pending 167
 original findings; full contextual grammar remains open. No runtime export
 or live UI test ran and no remote writes were made.
+
+
+## Card-export people label — repair 2026-09-15
+
+Source commit `897c89740` replaces French export-card-field-people.
+IRCAM page 155 entry 2866 attests creator/designer/inventor `amsnflul`,
+matching the existing creator label; page 292 entry 5710 gives `bab`
+owner of/possessor of. The card-owner compound makes the owned object
+explicit and avoids land-owner (2825) or contractor (2921) specialization.
+Existing people, members and assignees labels provide the other terms.
+Source: https://ircam.biblio.ma/catalogue/doc_num.php?explnum_id=339
+
+`models/lib/exportFields.js:27` registers this label for the people field.
+The parenthetical roles retain the English order: Creator, Owner, Members,
+Assignees. Computing owner compound, gender-neutral use of the ownership
+expression, assignee relative-clause grammar and full contextual phrasing
+remain low confidence. This does not certify other owner labels.
+Four focused suites pass for exact role inventory, French rejection and
+translation invariants. No live export UI test ran. Ledger 19,850;
+original corrected 15,737, pending 166 (zgh 71), restored 4 unchanged.
+Broader review remains open; no remote writes were made.
