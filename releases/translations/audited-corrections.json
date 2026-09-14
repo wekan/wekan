@@ -126432,5 +126432,19 @@
     "before": "Toutes les listes, cartes, étiquettes et activités seront supprimées et vous ne pourrez pas retrouver le contenu du tableau. Cela est irréversible.",
     "after": "ⵔⴰⴷ ⵜⵜⵓⴽⴽⵙⵏⵜ ⴰⴽⴽⵯ ⵜⵉⵍⴳⴰⵎⵉⵏ, ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ, ⵜⵉⵎⴰⵜⴰⵔⵉⵏ ⴷ ⵜⵉⴳⴰⵡⵉⵏ. ⵓⵔ ⵔⴰ ⵜⵥⴹⴰⵕⴷ ⴰⴷ ⵜⵙⵡⵔⵔⵉⴷ ⵜⵓⵎⴰⵢⵜ ⵏ ⵜⴼⵍⵡⵉⵜ. ⴰⵙⵏⴼⵍ ⴰⴷ ⵓⵔ ⵢⴰⵍⵍⴼⵓⵙ ⴰⴷ ⴷ ⵉⵡⵔⵔⵉ.",
     "reason": "2026-09-14: Replace French permanent board deletion warning. MediaWiki thisisdeleted directly attests Restore swrri, noarticletext/native Can wording, restorelink deletion passive and undo-failure unconditional no-undo clause components: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Native Mastodon List plural and local Card/Label/Activity wording reused. Preserve ALL lists, cards, labels and activities WILL BE DELETED, future inability to RECOVER BOARD CONTENTS and NO UNDO. Restore-to-Recover adaptation, future negative/modal and plural passive agreement and full warning remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "leave-board",
+    "before": "مغادرة اللوحة",
+    "after": "ⴼⴼⵖ ⵙⴳ ⵜⴼⵍⵡⵉⵜ",
+    "reason": "2026-09-14: Replace Arabic Leave Board label and French membership warning. Native MediaWiki logout/userlogout Exit ffg, recentchanges-page-removed-from-category removal passive and From sg, and All components support wording: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse local confirmation and Card/Board terms. Preserve board-title placeholder exactly and future YOU removed FROM ALL CARDS ON THIS BOARD, not deletion of those cards or merely losing association. Exit-to-Leave membership adaptation, second-person passive, future scope and full confirmation grammar remain LOW CONFIDENCE."
+  },
+  {
+    "locale": "zgh",
+    "key": "leave-board-pop",
+    "before": "Êtes-vous sur de vouloir quitter __boardTitle__ ? Vous ne serez plus associé aux cartes de ce tableau.",
+    "after": "ⵉⵙ ⵏⵉⵜ ⵜⵅⵙⴷ ⴰⴷ ⵜⴼⴼⵖⴷ ⵙⴳ __boardTitle__? ⵔⴰⴷ ⵜⵜⵓⴽⴽⵙⴷ ⵙⴳ ⴰⴽⴽⵯ ⵜⵉⴽⴰⵔⴹⵉⵡⵉⵏ ⵏ ⵜⴼⵍⵡⵉⵜ ⴰⴷ.",
+    "reason": "2026-09-14: Replace Arabic Leave Board label and French membership warning. Native MediaWiki logout/userlogout Exit ffg, recentchanges-page-removed-from-category removal passive and From sg, and All components support wording: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse local confirmation and Card/Board terms. Preserve board-title placeholder exactly and future YOU removed FROM ALL CARDS ON THIS BOARD, not deletion of those cards or merely losing association. Exit-to-Leave membership adaptation, second-person passive, future scope and full confirmation grammar remain LOW CONFIDENCE."
   }
 ]
