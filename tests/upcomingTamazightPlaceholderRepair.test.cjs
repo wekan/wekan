@@ -483,3 +483,6 @@ assert.doesNotMatch(translated['page-maybe-private'], /[\u0600-\u06ff]/u);
 
 assert.strictEqual(translated["paste-or-dragdrop"], "ⵉ ⵓⵙⵍⴰⵖ, ⵏⵖ ⴽⵔⵉⵔⵓ ⴷ ⵙⵜⵓⵜⵜⵉ ⴰⴼⴰⵢⵍⵓ ⵏ ⵜⵡⵍⴰⴼⵜ ⴷⴰ (ⵜⴰⵡⵍⴰⴼⵜ ⴽⴰⵏ)");
 assert.doesNotMatch(translated['paste-or-dragdrop'], /coller|glissez|seulement|[\u0600-\u06ff]/u);
+
+assert.strictEqual(translated["calendar-system-islamic-rgsa"], "ⴰⵙⵎⵍⵓⵙⵙⴰⵏ ⵏ ⵍⵉⵙⵍⴰⵎ (Saudi Arabia, ⴰⵣⵍⴰⵎ ⵏ ⵡⴰⵢⵢⵓⵔ)");
+assert.doesNotMatch(translated['calendar-system-islamic-rgsa'], /^Islamic \(Saudi Arabia\)$/);

@@ -139025,5 +139025,12 @@
     "before": "Islamic tabular",
     "after": "Hijri ཟླ་ཐོ (རེའུ་མིག་ཅན་, འགོ་བཙུགས་ཚེས་ Julian 622-07-15)",
     "reason": "2026-09-15: Replace English seed with visually verified tabular term and explicit Julian starting-date epoch paraphrase. Same algorithm, different epoch dates. Starting-date compound and full grammar low confidence; Hijri/Julian borrowed proper names."
+  },
+  {
+    "locale": "zgh",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "ⴰⵙⵎⵍⵓⵙⵙⴰⵏ ⵏ ⵍⵉⵙⵍⴰⵎ (Saudi Arabia, ⴰⵣⵍⴰⵎ ⵏ ⵡⴰⵢⵢⵓⵔ)",
+    "reason": "2026-09-15: Replace English country-only seed with Islamic calendar base and attested spotting/seeing + moon components. Full sighting-calendar compound low confidence; country proper name borrowed."
   }
 ]
