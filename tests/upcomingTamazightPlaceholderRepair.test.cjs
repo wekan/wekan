@@ -589,3 +589,13 @@ assert.strictEqual(translated.Node_heap_does_zap_garbage, "ⴰⴳⵓⴷⵉ ⵏ N
 assert.doesNotMatch(translated.Node_heap_does_zap_garbage, /Tas de|Utilise|option|[\u0600-\u06ff]/u);
 assert.ok(translated.Node_heap_does_zap_garbage.endsWith('does_zap_garbage'));
 console.log('Tamazight garbage diagnostic retains its literal flag identifier');
+
+assert.strictEqual(translated["Node_heap_number_of_native_contexts"], "ⴰⴳⵓⴷⵉ ⵏ Node: ⵓⵟⵟⵓⵏ ⵏ ⵉⵎⵏⴰⴹⵏ (native)");
+
+assert.strictEqual(translated["Node_heap_number_of_detached_contexts"], "ⴰⴳⵓⴷⵉ ⵏ Node: ⵓⵟⵟⵓⵏ ⵏ ⵉⵎⵏⴰⴹⵏ (detached)");
+for (const q of ['native', 'detached']) {
+ const value = translated['Node_heap_number_of_' + q + '_contexts'];
+ assert.doesNotMatch(value, /Tas de|nombre de|[\u0600-\u06ff]|ⴰⵕⵚⵍⵉ/u);
+ assert.ok(value.endsWith('(' + q + ')'));
+}
+console.log('Tamazight context-count labels preserve distinct V8 qualifiers');

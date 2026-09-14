@@ -139200,5 +139200,19 @@
     "before": "Tas de Node : Utilise l'option does_zap_garbage",
     "after": "ⴰⴳⵓⴷⵉ ⵏ Node: ⴰⵙⵎⵔⵙ ⵏ does_zap_garbage",
     "reason": "2026-09-15: Replace French diagnostic with heap/use-of-flag wording. Preserve exact does_zap_garbage technical identifier, representing boolean flag usage rather than generic successful garbage collection. Existing heap and use nouns reused. Computing compound remains low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "Node_heap_number_of_native_contexts",
+    "before": "Tas de Node : nombre de contexte natifs",
+    "after": "ⴰⴳⵓⴷⵉ ⵏ Node: ⵓⵟⵟⵓⵏ ⵏ ⵉⵎⵏⴰⴹⵏ (native)",
+    "reason": "2026-09-15: Replace French context-count diagnostic using IRCAM uttun number 8679 and amnad context plural imnadn 2563. Native/detached retained as exact borrowed V8 technical qualifiers rather than indigenous or physical untying vocabulary. Computing-context compound and qualifier localization remain under low-confidence review."
+  },
+  {
+    "locale": "zgh",
+    "key": "Node_heap_number_of_detached_contexts",
+    "before": "Tas de Node : nombre de contexte détachés",
+    "after": "ⴰⴳⵓⴷⵉ ⵏ Node: ⵓⵟⵟⵓⵏ ⵏ ⵉⵎⵏⴰⴹⵏ (detached)",
+    "reason": "2026-09-15: Replace French context-count diagnostic using IRCAM uttun number 8679 and amnad context plural imnadn 2563. Native/detached retained as exact borrowed V8 technical qualifiers rather than indigenous or physical untying vocabulary. Computing-context compound and qualifier localization remain under low-confidence review."
   }
 ]
