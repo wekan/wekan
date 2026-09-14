@@ -1487,7 +1487,7 @@
   "add-custom-html-after-body-start": "ⵔⵏⵓ HTML ⵉⵥⵍⵉⵏ ⴷⴼⴼⵉⵔ ⵏ ⵜⵓⴷⴷⵎⴰ ⵏ <body>",
   "add-custom-html-before-body-end": "ⵔⵏⵓ HTML ⵉⵥⵍⵉⵏ ⴷⴰⵜ ⵏ ⵜⵉⴳⵉⵔⴰ ⵏ </body>",
   "error-undefined": "ⵉⵍⵍⴰ ⴽⵔⴰ ⵏ ⵓⵣⴳⴰⵍ",
-  "error-ldap-login": "Une erreur s'est produite lors de la tentative de connexion",
+  "error-ldap-login": "ⵉⵍⵍⴰ ⴽⵔⴰ ⵏ ⵓⵣⴳⴰⵍ ⴰⴷⴷⴰⵢ ⵜⴰⵔⵎⴷ ⴰⴷ ⵜⴽⵛⵎⴷ",
   "display-authentication-method": "Afficher la méthode d'authentification",
   "oidc-button-text": "Personnaliser le texte du bouton OIDC",
   "default-authentication-method": "Méthode d'authentification par défaut",

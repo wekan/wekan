@@ -123429,5 +123429,12 @@
     "before": "Vérification des avatars du participant du tableau",
     "after": "ⴰⵙⵙⵉⴷⴻⴷ ⵏ ⵜⵉⵎⴻⵔⵖⵉⵡⵉⵏ ⵏ ⵉⴳⵎⴰⵎⵏ ⵏ ⵜⴼⵍⵡⵉⵜ",
     "reason": "Replace French board scan status label, preserving checking process and distinct file attachments versus board-member avatars. Native MediaWiki login-security attests ssided/verify root and nmembers attests igmamn: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse existing attachment tisiway yernan from CNAM attachment entry and file/member/board/avatar terms. LOW CONFIDENCE derived action noun assided from verification imperative, schwa-heavy avatar noun, nested ownership and checking-files semantic adaptation require fluent review. This status does not claim checking completed or succeeded."
+  },
+  {
+    "locale": "zgh",
+    "key": "error-ldap-login",
+    "before": "Une erreur s'est produite lors de la tentative de connexion",
+    "after": "ⵉⵍⵍⴰ ⴽⵔⴰ ⵏ ⵓⵣⴳⴰⵍ ⴰⴷⴷⴰⵢ ⵜⴰⵔⵎⴷ ⴰⴷ ⵜⴽⵛⵎⴷ",
+    "reason": "Replace French error-during-login-attempt message; preserve error occurrence, trying and login context without claiming wrong password or adding LDAP diagnosis. Native MediaWiki externaldberror supplies illa kra n uzgal, view-pool-error supplies tarmd/try, and userlogin-reauth supplies ad ... tkchmd/to login: https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json . Reuse earlier when adday. LOW CONFIDENCE full temporal/attempt clause, tense and generic masculine address require fluent review."
   }
 ]
