@@ -27,10 +27,10 @@ repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
-Latest terminology review: **2026-09-14**, `8ba8134b9` — official
-Greenlandic table/start-date terms and ICU epoch definitions are recorded
-in [calendar review](Greenlandic-Calendar-Review.md). Subsequent drafts are recorded below; native grammar and epoch
-paraphrases still need review.
+Latest terminology review: **2026-09-14**, `08df9a347` — Tamazight
+search-limit error remains pending. Primary disability senses of “invalid”
+are excluded from computing validation wording; the full diagnosis and
+positive-integer guidance still need native review. See [Tamazight review](Tamazight-Review.md).
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:

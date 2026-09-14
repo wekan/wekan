@@ -656,6 +656,16 @@ This release documents the following translation fixes:
 **Translation audit** - Native wording and provenance reviews.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/08df9a347">Review search-limit terminology</a>. Thanks to xet7.</summary>
+
+Record why dictionary disability senses of invalid cannot be substituted
+into Tamazight query-validation errors. Preserve the complete pending
+sentence and exact placeholder while native terminology review continues.
+No translation is counted as repaired by this research.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/da45e203a">Correct Tamazight computing domain terminology</a>. Thanks to xet7.</summary>
 
 Replace a geographic-region noun in email-domain and board-sharing labels
