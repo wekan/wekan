@@ -72,18 +72,24 @@ test('an entry names its language in that language', () => {
 });
 
 test('every language has a flag, or the deliberate globe', () => {
-  const map = header.slice(header.indexOf('const flagMap'), header.indexOf('};', header.indexOf('const flagMap')));
-  // A constructed language has no country, and the code falls back to a globe
-  // rather than borrowing somebody's flag.
-  const CONSTRUCTED = ['eo', 'tlh', 'vo', 'ia'];
-  const missing = files
-    .map(t => t.split(/[-_@]/)[0])
-    .filter((t, i, all) => all.indexOf(t) === i)
-    .filter(t => !CONSTRUCTED.includes(t) && !new RegExp(`'${t}': '`).test(map));
-  assert.ok(missing.length <= 12,
-    `${missing.length} languages fall back to the globe: ${missing.join(' ')}`);
-  assert.ok(header.includes("flagMap[base] || '🌐'"),
-    'and the fallback is a globe, not a wrong country');
+  // Flag logic moved into a shared module; exercise the helper the picker calls.
+  const vm = require('node:vm');
+  const context = {};
+  vm.createContext(context);
+  vm.runInContext(read('imports/i18n/languageFlags.js').replace(/^export /gm, ''), context);
+  assert.match(header, /languageFlags\(this.tag\)\.language/);
+  const constructed = new Set(['eo', 'tlh', 'vo', 'ia']);
+  for (const tag of loaded) {
+    const flags = context.languageFlags(tag);
+    assert.ok(flags.language, `${tag} has no flag`);
+    if (constructed.has(tag.split(/[-_@]/)[0])) assert.equal(flags.language, '🌐');
+    else assert.notEqual(flags.language, '🌐', `${tag} unexpectedly falls back to the globe`);
+  }
+  assert.equal(context.languageFlags('unknown').language, '🌐',
+    'unknown languages use the deliberate globe fallback');
+  assert.equal(context.languageFlags('ve-PP').language, '🇷🇺', 'Veps is not Venda');
+  assert.equal(context.languageFlags('ve-CC').language, '🇮🇹', 'Venetian is not Venda');
+
 });
 
 test('a right-to-left language says so (negative)', () => {
