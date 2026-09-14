@@ -55,3 +55,8 @@ assert.equal(wolaytta['calendar-system-ethiopic'], 'Toophphiya wodiyaa qoodaa');
 assert.equal(wolaytta['calendar-system-ethioaa'], 'Toophphiya wodiyaa qoodaa (Amete Alem)');
 assert.notEqual(wolaytta['calendar-system-ethioaa'], wolaytta['calendar-system-ethiopic']);
 assert.doesNotMatch(wolaytta['calendar-system-ethioaa'] + wolaytta['calendar-system-ethiopic'], /Ethiopic/);
+
+assert.equal(wolaytta['calendar-system-dangi'], 'Dangi wodiyaa qoodaa');
+assert.equal(wolaytta['calendar-system-roc'], 'Minguo wodiyaa qoodaa');
+assert.notEqual(wolaytta['calendar-system-dangi'], wolaytta['calendar-system-roc']);
+assert.doesNotMatch(wolaytta['calendar-system-dangi'] + wolaytta['calendar-system-roc'], /Korean|Republic of China/);

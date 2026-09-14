@@ -138507,5 +138507,19 @@
     "before": "Ethiopic Amete Alem",
     "after": "Toophphiya wodiyaa qoodaa (Amete Alem)",
     "reason": "2026-09-15: replace English Ethiopian calendar seed with a Wolaytta draft using native Toophphiya country component and wodiyaa qoodaa calendar term from native Wolaytta prose. Preserve Amete Alem proper era name separately; complete country-calendar construction remains low confidence."
+  },
+  {
+    "locale": "wal",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "Dangi wodiyaa qoodaa",
+    "reason": "2026-09-15: Wolaytta calendar draft preserves the canonical Dangi/Minguo proper name from the corresponding English source and adds wodiyaa qoodaa, explicitly used as calendar in native Wolaytta Gifaataa prose. Replace English descriptive seed; proper-name adaptation and complete calendar-name compound remain low confidence."
+  },
+  {
+    "locale": "wal",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "Minguo wodiyaa qoodaa",
+    "reason": "2026-09-15: Wolaytta calendar draft preserves the canonical Dangi/Minguo proper name from the corresponding English source and adds wodiyaa qoodaa, explicitly used as calendar in native Wolaytta Gifaataa prose. Replace English descriptive seed; proper-name adaptation and complete calendar-name compound remain low confidence."
   }
 ]
