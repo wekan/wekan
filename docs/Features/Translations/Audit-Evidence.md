@@ -1,5 +1,13 @@
 # Detailed translation audit evidence
 
+2026-09-16 checkpoint: `1cf93f7e52` committed two unflagged
+Arabic-seeded Tamazight card/list URL labels and their exact correction
+records before the interruption. The working tree is clean. The ledger
+has 22,302 records and zgh has 102 Arabic-script values awaiting
+semantic classification. The original 20,081 findings have zero
+pending rows; broader wrong-language and low-confidence review remains
+open. No translation upload or remote push occurred.
+
 2026-09-15 (`79e5a93b4`): repaired 13 unflagged Arabic
 Tamazight common popup titles using native local terms.
 Complete phrase grammar remains low confidence. Focused,

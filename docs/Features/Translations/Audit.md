@@ -1,6 +1,6 @@
 # Translation audit progress
 
-Audit date: **2026-09-12**. Last updated: **2026-09-15**.
+Audit date: **2026-09-12**. Last updated: **2026-09-16**.
 
 | Status | Flagged keys |
 | --- | ---: |
@@ -16,7 +16,15 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `18a11d121` — replace six
+Latest translation fix: **2026-09-15**, `1cf93f7e52` — replace two
+Arabic-seeded Tamazight card and list URL labels with native link,
+card and list terms. The focused source, negative, ledger and
+234-locale checks pass. Ledger: **22,302**; zgh has **102**
+Arabic-script values awaiting semantic classification. Complete
+phrases still need fluent review. The original flagged queue remains
+at zero pending; this broader review is unfinished.
+
+Earlier translation fix: **2026-09-15**, `18a11d121` — replace six
 Arabic/French Tamazight My Boards, My Cards, To boards, Close Board
 and board/card removal labels with existing native components. My Cards
 exactly reuses the local shortcut phrase; board/card member removal
@@ -377,7 +385,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **22,300** exact before/after values, including unflagged
+records contain **22,302** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -416,7 +424,7 @@ clauses and broader wrong-language seeds remains open.
   invalidated Tuareg provenance, adapted grammar and software terminology.
   Email Addresses now uses IRCAM-attested `ansiwn` but its complete
   software compound remains open to native review.
-  Arabic-script values have fallen from 181 to 104 across these batches;
+  Arabic-script values have fallen from 181 to 102 across these batches;
   this count
   includes possible intentional symbols and is a review queue, not a
   count of proven wrong-language strings.

@@ -81,23 +81,28 @@ held only issues \#4774 and \#4055, and both are closed now.
 <summary>Local translation repairs and validation in progress.</summary>
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
-The audit tracks 20,081
-findings: 15,587 corrected, 40 restored pre-pull values awaiting
-validation, 4,149 reviewed and retained, and 305 pending review or repair.
-The correction inventory records 18,198 exact before/after values,
-including repairs outside the original findings.
-Global completeness verification also identifies Veps `server` (currently
-English-identical “Server”) for terminology review; it is not accepted yet.
+As of 2026-09-16, all 20,081 original findings are classified:
+15,880 corrected, 4,201 reviewed and retained, and zero restored or
+pending. The correction inventory records 22,302 exact before/after
+values, including repairs outside the original findings. This closes
+the original flagged queue; broader wrong-language, low-confidence
+wording and browser review remain unfinished.
+Global completeness and terminology review remains separate from the
+original queue.
 
 All 361 originally flagged Klingon findings are repaired. The broader review
 of 829
 German-identical Klingon values repaired all 829, including the mistaken
 German cron label, which now uses the actual tool name Cron.
-The largest original queues are Standard Moroccan Tamazight (173) and
-Inuktitut (50); Veps retains 10 original findings. Silesian database
-terminology and 17 Tigre
-calendar findings need language-specific review. Restored and unflagged
-values, low-confidence wording and browser rendering remain unverified.
+The original Standard Moroccan Tamazight, Inuktitut and Veps queues are
+classified. Silesian database terminology, Tigre calendar wording and
+unflagged values still need language-specific review. Low-confidence
+wording and browser rendering remain unverified.
+The latest committed Tamazight card/list URL repair is 1cf93f7e52
+(2026-09-15); its two exact correction records bring the ledger to
+22,302. The zgh file still has 102 Arabic-script values awaiting
+semantic classification. The translation working tree was clean at
+this 2026-09-16 interruption checkpoint; no remote upload occurred.
 Kashmiri reference review 0db69cf6c (2026-09-14) identifies provisional
 civil wording and unresolved sighting/tabular/epoch terminology; no values
 changed.
