@@ -147362,5 +147362,152 @@
     "before": "ሰሙን ዓመት ኣርኢ (ISO 8601)",
     "after": "እስቡዕ ሰነት ኣርኤ (ISO 8601)",
     "reason": "2026-09-15: Replace multiple Tigrinya-seeded components with independently corpus-attested Tigre terms already reviewed in the correction ledger. Preserve literal product, format, protocol, numeric and placeholder tokens. Any unchanged surrounding grammar remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "add-existing-card-as-subtask",
+    "before": "ዘሎ ካርድ ከም ንኡስ ዕዮ ወስኽ",
+    "after": "ዘሎ ወረቀት ካርድ ከም ንኡስ ዕዮ ወስኽ",
+    "reason": "2026-09-15: Replace the remaining singular Tigrinya card component with the corpus-attested Tigre Card term already reviewed in the correction ledger. Preserve surrounding grammar for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "cardDeletePopup-title",
+    "before": "ካርድ ይደምሰስ?",
+    "after": "ወረቀት ካርድ ይደምሰስ?",
+    "reason": "2026-09-15: Replace the remaining singular Tigrinya card component with the corpus-attested Tigre Card term already reviewed in the correction ledger. Preserve surrounding grammar for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "restoreArchivedCardToListPopup-title",
+    "before": "ካርድ ናብ ዝርዝር መልስ",
+    "after": "ወረቀት ካርድ ናብ ዝርዝር መልስ",
+    "reason": "2026-09-15: Replace the remaining singular Tigrinya card component with the corpus-attested Tigre Card term already reviewed in the correction ledger. Preserve surrounding grammar for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "moveCardPopup-title",
+    "before": "ካርድ ኣንቀሳቕስ",
+    "after": "ወረቀት ካርድ ኣንቀሳቕስ",
+    "reason": "2026-09-15: Replace the remaining singular Tigrinya card component with the corpus-attested Tigre Card term already reviewed in the correction ledger. Preserve surrounding grammar for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "shortcut-assign-self",
+    "before": "ንገዛእ ርእስኻ ናብ እዋናዊ ካርድ መድብ",
+    "after": "ንገዛእ ርእስኻ ናብ እዋናዊ ወረቀት ካርድ መድብ",
+    "reason": "2026-09-15: Replace the remaining singular Tigrinya card component with the corpus-attested Tigre Card term already reviewed in the correction ledger. Preserve surrounding grammar for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "r-w-card-created",
+    "before": "ካርድ ይፍጠር",
+    "after": "ወረቀት ካርድ ይፍጠር",
+    "reason": "2026-09-15: Replace the remaining singular Tigrinya card component with the corpus-attested Tigre Card term already reviewed in the correction ledger. Preserve surrounding grammar for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "r-when-card-in-list",
+    "before": "ካርድ ኣብ ዝርዝር ምስ ዝጸንሕ",
+    "after": "ወረቀት ካርድ ኣብ ዝርዝር ምስ ዝጸንሕ",
+    "reason": "2026-09-15: Replace the remaining singular Tigrinya card component with the corpus-attested Tigre Card term already reviewed in the correction ledger. Preserve surrounding grammar for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "r-card-button",
+    "before": "መልጎም ካርድ",
+    "after": "መልጎም ወረቀት ካርድ",
+    "reason": "2026-09-15: Replace the remaining singular Tigrinya card component with the corpus-attested Tigre Card term already reviewed in the correction ledger. Preserve surrounding grammar for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "r-when-a-card-matches-advanced-filter",
+    "before": "ካርድ ምስ ዝማዕበለ መጻረይ ምስ ዝሰማማዕ",
+    "after": "ወረቀት ካርድ ምስ ዝማዕበለ መጻረይ ምስ ዝሰማማዕ",
+    "reason": "2026-09-15: Replace the remaining singular Tigrinya card component with the corpus-attested Tigre Card term already reviewed in the correction ledger. Preserve surrounding grammar for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "r-d-move-to-top-spec",
+    "before": "ካርድ ናብ ላዕሊ ዝርዝር ኣዛውር",
+    "after": "ወረቀት ካርድ ናብ ላዕሊ ዝርዝር ኣዛውር",
+    "reason": "2026-09-15: Replace the remaining singular Tigrinya card component with the corpus-attested Tigre Card term already reviewed in the correction ledger. Preserve surrounding grammar for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "r-d-move-to-bottom-spec",
+    "before": "ካርድ ናብ ታሕቲ ዝርዝር ኣዛውር",
+    "after": "ወረቀት ካርድ ናብ ታሕቲ ዝርዝር ኣዛውር",
+    "reason": "2026-09-15: Replace the remaining singular Tigrinya card component with the corpus-attested Tigre Card term already reviewed in the correction ledger. Preserve surrounding grammar for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "card-counter-list",
+    "before": "ዝርዝር ቆጻሪ ካርድ",
+    "after": "ዝርዝር ቆጻሪ ወረቀት ካርድ",
+    "reason": "2026-09-15: Replace the remaining singular Tigrinya card component with the corpus-attested Tigre Card term already reviewed in the correction ledger. Preserve surrounding grammar for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "show-on-card",
+    "before": "ኣብ ካርድ ኣርኢ",
+    "after": "ኣብ ወረቀት ካርድ ኣርኢ",
+    "reason": "2026-09-15: Replace the remaining singular Tigrinya card component with the corpus-attested Tigre Card term already reviewed in the correction ledger. Preserve surrounding grammar for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "maximize-card",
+    "before": "ካርድ ኣዕብይ",
+    "after": "ወረቀት ካርድ ኣዕብይ",
+    "reason": "2026-09-15: Replace the remaining singular Tigrinya card component with the corpus-attested Tigre Card term already reviewed in the correction ledger. Preserve surrounding grammar for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "minimize-card",
+    "before": "ካርድ ኣንእስ",
+    "after": "ወረቀት ካርድ ኣንእስ",
+    "reason": "2026-09-15: Replace the remaining singular Tigrinya card component with the corpus-attested Tigre Card term already reviewed in the correction ledger. Preserve surrounding grammar for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "subtask-inherit-parent-labels",
+    "before": "ናይ ወላዲ ካርድ ስያመታት ውረስ",
+    "after": "ናይ ወላዲ ወረቀት ካርድ ስያመታት ውረስ",
+    "reason": "2026-09-15: Replace the remaining singular Tigrinya card component with the corpus-attested Tigre Card term already reviewed in the correction ledger. Preserve surrounding grammar for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "import-excel-file",
+    "before": "ፋይል Excel (.xlsx)",
+    "after": "ፈይል Excel (.xlsx)",
+    "reason": "2026-09-15: Replace the Tigrinya file component with corpus-attested Tigre File and System terms already reviewed in the correction ledger. Preserve literal Excel, Trello, GridFS and filename-extension identifiers."
+  },
+  {
+    "locale": "tig",
+    "key": "import-trello-json-file",
+    "before": "ፋይል Trello .json",
+    "after": "ፈይል Trello .json",
+    "reason": "2026-09-15: Replace the Tigrinya file component with corpus-attested Tigre File and System terms already reviewed in the correction ledger. Preserve literal Excel, Trello, GridFS and filename-extension identifiers."
+  },
+  {
+    "locale": "tig",
+    "key": "import-trello-zip-file",
+    "before": "ፋይል Trello .zip",
+    "after": "ፈይል Trello .zip",
+    "reason": "2026-09-15: Replace the Tigrinya file component with corpus-attested Tigre File and System terms already reviewed in the correction ledger. Preserve literal Excel, Trello, GridFS and filename-extension identifiers."
+  },
+  {
+    "locale": "tig",
+    "key": "move-storage-fs",
+    "before": "ስርዓተ ፋይል",
+    "after": "ስርዓም ፈይል",
+    "reason": "2026-09-15: Replace the Tigrinya file component with corpus-attested Tigre File and System terms already reviewed in the correction ledger. Preserve literal Excel, Trello, GridFS and filename-extension identifiers."
+  },
+  {
+    "locale": "tig",
+    "key": "gridfs-file-id",
+    "before": "መለለዪ ፋይል GridFS",
+    "after": "መለለዪ ፈይል GridFS",
+    "reason": "2026-09-15: Replace the Tigrinya file component with corpus-attested Tigre File and System terms already reviewed in the correction ledger. Preserve literal Excel, Trello, GridFS and filename-extension identifiers."
   }
 ]
