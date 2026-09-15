@@ -656,6 +656,15 @@ This release includes the following features and fixes:
 **Translations** - Tamazight, Tigre and multilingual list-width repairs.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/de0cc0ce4">Repair copied Tigre dark-green label</a>. Thanks to xet7.</summary>
+
+Use Tigre corpus terms for dark and green in the color label.
+The copied Tigrinya value is gone; the complete compound still
+needs fluent review. Focused and ledger checks pass.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ae76ba79d">Use corpus Tigre noun for DDP transport</a>. Thanks to xet7.</summary>
 
 Replace the Tigrinya-copied transport noun in the Tigre DDP label

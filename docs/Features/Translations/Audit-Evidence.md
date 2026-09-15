@@ -1,5 +1,15 @@
 # Detailed translation audit evidence
 
+2026-09-15 (`de0cc0ce4`): repaired Tigre `color-darkgreen`, previously
+an exact Tigrinya copy. The BeitTigreAI English–Tigre corpus glosses
+`ጽልም` as dark and uses `አክደር` for green in color sentences.
+The resulting `ጽልም አክደር` preserves both senses, but compound
+grammar remains low confidence pending fluent Tigre review. The focused
+source/negative check and ledger verifier pass. Correction records now
+22,183; exact Tigre/Tigrinya non-English overlaps fall to 227,
+including 22 reviewed shared forms and 205 unclassified values.
+The broader wrong-language and seeded-value audit remains open.
+
 2026-09-14 (`04df440db`): restored Danish Scaleout's outward qualifier;
 `spinner_scaleout.css` grows from scale(0) to scale(1). Retained 29 correct
 values, preserving sorting direction, creator roles, %{value}, spinner shapes
