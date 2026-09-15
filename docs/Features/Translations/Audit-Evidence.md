@@ -30139,3 +30139,22 @@ three distinct outcomes, actual forecast bindings and all token inventories.
 No live chart UI ran. Ledger 19,947; pending 126/restored 4 unchanged.
 Remaining backup, problems, CPU/severity, number/date-range wording and
 broader prior uncertain review remain within the full repair scope.
+
+
+2026-09-15 — `e8826e71a`: loading, problems-in-progress-help and
+problems-none-in-progress wrong-language values replaced with Veps drafts.
+Read problemsSummary.jade: statusOverview.anyInProgress chooses active
+message and fa-spinner items; else chooses no-running-work message.
+Preserve possible slow logins, login-required message or loading indicator,
+and duration until work finishes and CPU falls. Existing migracii/kohenda,
+system-login and ladind vocabulary supply bases; native MediaWiki varasta,
+libo, nügüd' and completion words rechecked today:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json
+Loading-indicator paraphrase and CPU load loan, migration/repair inflections
+and complete warning grammar remain LOW CONFIDENCE. The prose mentions
+translated conceptual error messages; exact runtime-message agreement
+requires further review. Four focused files pass (34 checks), including
+foreign-language rejection, temporary condition and active/inactive contrast,
+plus full token/key inventories. No live status/login UI ran.
+Ledger 19,950; pending 126/restored 4 unchanged. Summary acknowledgment,
+backup scope, CPU labels and wider earlier uncertain review stay in scope.

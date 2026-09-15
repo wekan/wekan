@@ -1440,6 +1440,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e8826e71a">Replace wrong-language Veps loading and migration status.</a></summary>
+
+Preserve active/inactive work and possible login delays until completion
+and lower CPU load. Complete draft grammar and terms remain under review.
+Four focused files pass (34 checks); no live status/login UI ran.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
