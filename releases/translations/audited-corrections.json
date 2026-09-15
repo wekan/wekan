@@ -153284,5 +153284,152 @@
     "before": "__list__/__card__ rappel d'échéance [__board__]",
     "after": "__list__/__card__ ⵉⵙⴽⵜⵉⵏ ⵏ ⵓⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ [__board__]",
     "reason": "2026-09-15 unflagged wrong-language repair: replace French rappel d’échéance with Standard Moroccan Tamazight. IRCAM primary terminology attests askti “reminder”; the existing act-newDue provides the due-date compound. The plural ⵉⵙⴽⵜⵉⵏ is a low-confidence regular adaptation pending fluent review. Preserve __list__, __card__, __board__, slash and square brackets. English source says reminders although activities.js selects this key for a prior dueAt value rather than reminder delivery; source-behavior discrepancy remains separate."
+  },
+  {
+    "locale": "tig",
+    "key": "s3-file-id",
+    "before": "S3 File ID",
+    "after": "መለለዪ ፈይል S3",
+    "reason": "2026-09-15 unflagged Tigre S3 settings fill: English placeholder replaced using established local storage, file, bucket, connection, port, region, size and key terminology. Preserve S3/AWS/MinIO/service names, Endpoint, URL, SSL and exact example hostnames. Compound word order remains low confidence pending native review."
+  },
+  {
+    "locale": "tig",
+    "key": "s3-minio-storage-description",
+    "before": "S3-compatible object storage: AWS S3, MinIO, Cloudflare R2, Backblaze B2, Wasabi, DigitalOcean Spaces and others.",
+    "after": "ምስ S3 ዝሰማማዕ መክዘን ነገራት፦ AWS S3፣ MinIO፣ Cloudflare R2፣ Backblaze B2፣ Wasabi፣ DigitalOcean Spacesን ካልኦትን።",
+    "reason": "2026-09-15 unflagged Tigre S3 settings fill: English placeholder replaced using established local storage, file, bucket, connection, port, region, size and key terminology. Preserve S3/AWS/MinIO/service names, Endpoint, URL, SSL and exact example hostnames. Compound word order remains low confidence pending native review."
+  },
+  {
+    "locale": "tig",
+    "key": "s3-disabled",
+    "before": "S3/MinIO Storage Disabled",
+    "after": "መክዘን S3/MinIO ጠፊኡ",
+    "reason": "2026-09-15 unflagged Tigre S3 settings fill: English placeholder replaced using established local storage, file, bucket, connection, port, region, size and key terminology. Preserve S3/AWS/MinIO/service names, Endpoint, URL, SSL and exact example hostnames. Compound word order remains low confidence pending native review."
+  },
+  {
+    "locale": "tig",
+    "key": "s3-access-key",
+    "before": "S3 Access Key",
+    "after": "መፍትሕ መእተዊ S3",
+    "reason": "2026-09-15 unflagged Tigre S3 settings fill: English placeholder replaced using established local storage, file, bucket, connection, port, region, size and key terminology. Preserve S3/AWS/MinIO/service names, Endpoint, URL, SSL and exact example hostnames. Compound word order remains low confidence pending native review."
+  },
+  {
+    "locale": "tig",
+    "key": "s3-bucket",
+    "before": "S3 Bucket",
+    "after": "ባልዲ S3",
+    "reason": "2026-09-15 unflagged Tigre S3 settings fill: English placeholder replaced using established local storage, file, bucket, connection, port, region, size and key terminology. Preserve S3/AWS/MinIO/service names, Endpoint, URL, SSL and exact example hostnames. Compound word order remains low confidence pending native review."
+  },
+  {
+    "locale": "tig",
+    "key": "s3-bucket-description",
+    "before": "S3 bucket name for storing files",
+    "after": "ስሜት ባልዲ S3 ፈይላት ንምዕቃብ",
+    "reason": "2026-09-15 unflagged Tigre S3 settings fill: English placeholder replaced using established local storage, file, bucket, connection, port, region, size and key terminology. Preserve S3/AWS/MinIO/service names, Endpoint, URL, SSL and exact example hostnames. Compound word order remains low confidence pending native review."
+  },
+  {
+    "locale": "tig",
+    "key": "s3-connection-failed",
+    "before": "S3 connection failed",
+    "after": "ምትእስሳር S3 ፈሺሉ",
+    "reason": "2026-09-15 unflagged Tigre S3 settings fill: English placeholder replaced using established local storage, file, bucket, connection, port, region, size and key terminology. Preserve S3/AWS/MinIO/service names, Endpoint, URL, SSL and exact example hostnames. Compound word order remains low confidence pending native review."
+  },
+  {
+    "locale": "tig",
+    "key": "s3-connection-success",
+    "before": "S3 connection successful",
+    "after": "ምትእስሳር S3 ተሳኺዑ",
+    "reason": "2026-09-15 unflagged Tigre S3 settings fill: English placeholder replaced using established local storage, file, bucket, connection, port, region, size and key terminology. Preserve S3/AWS/MinIO/service names, Endpoint, URL, SSL and exact example hostnames. Compound word order remains low confidence pending native review."
+  },
+  {
+    "locale": "tig",
+    "key": "s3-enabled",
+    "before": "S3 Enabled",
+    "after": "S3 ነቒሑ",
+    "reason": "2026-09-15 unflagged Tigre S3 settings fill: English placeholder replaced using established local storage, file, bucket, connection, port, region, size and key terminology. Preserve S3/AWS/MinIO/service names, Endpoint, URL, SSL and exact example hostnames. Compound word order remains low confidence pending native review."
+  },
+  {
+    "locale": "tig",
+    "key": "s3-endpoint",
+    "before": "S3 Endpoint",
+    "after": "ኣድራሻ Endpoint S3",
+    "reason": "2026-09-15 unflagged Tigre S3 settings fill: English placeholder replaced using established local storage, file, bucket, connection, port, region, size and key terminology. Preserve S3/AWS/MinIO/service names, Endpoint, URL, SSL and exact example hostnames. Compound word order remains low confidence pending native review. Endpoint label includes the locally used Tigre address noun."
+  },
+  {
+    "locale": "tig",
+    "key": "s3-endpoint-description",
+    "before": "S3 endpoint URL (e.g., s3.amazonaws.com or minio.example.com)",
+    "after": "URL Endpoint S3 (ንኣብነት s3.amazonaws.com ወይ minio.example.com)",
+    "reason": "2026-09-15 unflagged Tigre S3 settings fill: English placeholder replaced using established local storage, file, bucket, connection, port, region, size and key terminology. Preserve S3/AWS/MinIO/service names, Endpoint, URL, SSL and exact example hostnames. Compound word order remains low confidence pending native review."
+  },
+  {
+    "locale": "tig",
+    "key": "s3-minio-storage",
+    "before": "S3/MinIO Storage",
+    "after": "መክዘን S3/MinIO",
+    "reason": "2026-09-15 unflagged Tigre S3 settings fill: English placeholder replaced using established local storage, file, bucket, connection, port, region, size and key terminology. Preserve S3/AWS/MinIO/service names, Endpoint, URL, SSL and exact example hostnames. Compound word order remains low confidence pending native review."
+  },
+  {
+    "locale": "tig",
+    "key": "s3-port",
+    "before": "S3 Port",
+    "after": "ወደብ S3",
+    "reason": "2026-09-15 unflagged Tigre S3 settings fill: English placeholder replaced using established local storage, file, bucket, connection, port, region, size and key terminology. Preserve S3/AWS/MinIO/service names, Endpoint, URL, SSL and exact example hostnames. Compound word order remains low confidence pending native review."
+  },
+  {
+    "locale": "tig",
+    "key": "s3-port-description",
+    "before": "S3 endpoint port number",
+    "after": "ቁጽሪ ወደብ Endpoint S3",
+    "reason": "2026-09-15 unflagged Tigre S3 settings fill: English placeholder replaced using established local storage, file, bucket, connection, port, region, size and key terminology. Preserve S3/AWS/MinIO/service names, Endpoint, URL, SSL and exact example hostnames. Compound word order remains low confidence pending native review."
+  },
+  {
+    "locale": "tig",
+    "key": "s3-region",
+    "before": "S3 Region",
+    "after": "ዞባ S3",
+    "reason": "2026-09-15 unflagged Tigre S3 settings fill: English placeholder replaced using established local storage, file, bucket, connection, port, region, size and key terminology. Preserve S3/AWS/MinIO/service names, Endpoint, URL, SSL and exact example hostnames. Compound word order remains low confidence pending native review."
+  },
+  {
+    "locale": "tig",
+    "key": "s3-secret-key",
+    "before": "S3 Secret Key",
+    "after": "ስዉር መፍትሕ S3",
+    "reason": "2026-09-15 unflagged Tigre S3 settings fill: English placeholder replaced using established local storage, file, bucket, connection, port, region, size and key terminology. Preserve S3/AWS/MinIO/service names, Endpoint, URL, SSL and exact example hostnames. Compound word order remains low confidence pending native review."
+  },
+  {
+    "locale": "tig",
+    "key": "s3-secret-key-required",
+    "before": "S3 secret key is required",
+    "after": "ስዉር መፍትሕ S3 ይድለ",
+    "reason": "2026-09-15 unflagged Tigre S3 settings fill: English placeholder replaced using established local storage, file, bucket, connection, port, region, size and key terminology. Preserve S3/AWS/MinIO/service names, Endpoint, URL, SSL and exact example hostnames. Compound word order remains low confidence pending native review."
+  },
+  {
+    "locale": "tig",
+    "key": "s3-settings-saved",
+    "before": "S3 settings saved successfully",
+    "after": "ቅንብራት S3 ተዓቂቦም",
+    "reason": "2026-09-15 unflagged Tigre S3 settings fill: English placeholder replaced using established local storage, file, bucket, connection, port, region, size and key terminology. Preserve S3/AWS/MinIO/service names, Endpoint, URL, SSL and exact example hostnames. Compound word order remains low confidence pending native review."
+  },
+  {
+    "locale": "tig",
+    "key": "s3-ssl-enabled",
+    "before": "S3 SSL Enabled",
+    "after": "SSL S3 ነቒሑ",
+    "reason": "2026-09-15 unflagged Tigre S3 settings fill: English placeholder replaced using established local storage, file, bucket, connection, port, region, size and key terminology. Preserve S3/AWS/MinIO/service names, Endpoint, URL, SSL and exact example hostnames. Compound word order remains low confidence pending native review."
+  },
+  {
+    "locale": "tig",
+    "key": "s3-attachments",
+    "before": "S3 Attachments",
+    "after": "ተለጠፍቲ S3",
+    "reason": "2026-09-15 unflagged Tigre S3 settings fill: English placeholder replaced using established local storage, file, bucket, connection, port, region, size and key terminology. Preserve S3/AWS/MinIO/service names, Endpoint, URL, SSL and exact example hostnames. Compound word order remains low confidence pending native review."
+  },
+  {
+    "locale": "tig",
+    "key": "s3-size",
+    "before": "S3 Size",
+    "after": "ቅያስ S3",
+    "reason": "2026-09-15 unflagged Tigre S3 settings fill: English placeholder replaced using established local storage, file, bucket, connection, port, region, size and key terminology. Preserve S3/AWS/MinIO/service names, Endpoint, URL, SSL and exact example hostnames. Compound word order remains low confidence pending native review."
   }
 ]
