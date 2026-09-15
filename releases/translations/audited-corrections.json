@@ -155293,5 +155293,19 @@
     "before": "Adresse de courriel",
     "after": "ⴰⵏⵙⴰ ⵏ ⵉⵎⴰⵢⵍ",
     "reason": "Replace French email-address placeholder with Standard Moroccan Tamazight phrase. Native MediaWiki zgh createacct-email-ph directly uses ⴰⵏⵙⴰ ⵏ ⵉⵎⴰⵢⵍ for email address, preserving both address and email. The separate plural label remains unreviewed."
+  },
+  {
+    "locale": "zgh",
+    "key": "color-pink",
+    "before": "rose",
+    "after": "ⴰⵣⵡⴰⵡⴰⵖ",
+    "reason": "Replace French color label with ⴰⵣⵡⴰⵡⴰⵖ, directly glossed rose (couleur) in the IRCAM Moroccan Amazigh dictionary. Preserve the color sense rather than the rose flower."
+  },
+  {
+    "locale": "zgh",
+    "key": "color-darkgreen",
+    "before": "اخضر غامق",
+    "after": "ⴰⵣⴳⵣⴰ ⴰⴱⵔⴽⴰⵏ",
+    "reason": "Replace Arabic dark-green color seed with local native green term plus black/dark adjective attested in Moroccan Amazigh word list. The full shade compound and adjective order are low confidence pending fluent Standard Moroccan Tamazight review."
   }
 ]
