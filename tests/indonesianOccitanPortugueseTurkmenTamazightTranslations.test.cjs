@@ -417,3 +417,14 @@ for (const key of ['act-a-receivedAt', 'a-receivedAt']) {
   assert.doesNotMatch(locales.zgh[key], /ⵜⵔⵎⵙⵜ/);
 }
 assert.match(locales.zgh['act-a-receivedAt'], /__timeValue__.*__timeOldValue__/);
+
+for (const [key, epoch] of [
+  ['calendar-system-islamic-civil', '622-07-16'],
+  ['calendar-system-islamic-tbla', '622-07-15'],
+]) {
+  assert.match(locales.zgh[key], /ⴰⵙⵎⵍⵓⵙⵙⴰⵏ.*ⵓⵙⵉⴹⴻⵏ.*ⵜⵓⴷⴷⵎⴰ/);
+  assert.match(locales.zgh[key], new RegExp(epoch));
+  assert.doesNotMatch(locales.zgh[key], /Islamic (?:civil|tabular)/);
+}
+assert.notEqual(locales.zgh['calendar-system-islamic-civil'],
+  locales.zgh['calendar-system-islamic-tbla']);

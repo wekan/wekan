@@ -140348,5 +140348,19 @@
     "before": "Japanese",
     "after": "Japanese — ᐅᓪᓗᖅᓯᐅᑎ",
     "reason": "2026-09-15: Replace Azerbaijani and incomplete English calendar labels with a consistent Inuktitut display family using the official Nunavut-attested ᐅᓪᓗᖅᓯᐅᑎ calendar noun and existing local syllabic method, date-display, table, beginning, national and viewing vocabulary. Preserve standardized calendar names and distinguish civil, astronomical and moon-sighting Hijri variants. Proper-name adaptation and complete technical compounds remain low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "ⴰⵙⵎⵍⵓⵙⵙⴰⵏ ⵏ ⵍⵉⵙⵍⴰⵎ (ⵙ ⵓⵙⵉⴹⴻⵏ, ⵜⵓⴷⴷⵎⴰ ⵏ Julian: 622-07-16)",
+    "reason": "2026-09-15: Replace the two English tabular Hijri seeds without misusing the dictionary furniture-table noun. Reuse the existing Islamic-calendar label and attested/local calculation and beginning terms, then state the defining Julian epoch dates explicitly: civil 622-07-16 and astronomical 622-07-15. This preserves the algorithm distinction. Julian-name adaptation and complete technical compounds remain low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "ⴰⵙⵎⵍⵓⵙⵙⴰⵏ ⵏ ⵍⵉⵙⵍⴰⵎ (ⵙ ⵓⵙⵉⴹⴻⵏ, ⵜⵓⴷⴷⵎⴰ ⵏ Julian: 622-07-15)",
+    "reason": "2026-09-15: Replace the two English tabular Hijri seeds without misusing the dictionary furniture-table noun. Reuse the existing Islamic-calendar label and attested/local calculation and beginning terms, then state the defining Julian epoch dates explicitly: civil 622-07-16 and astronomical 622-07-15. This preserves the algorithm distinction. Julian-name adaptation and complete technical compounds remain low confidence pending fluent review."
   }
 ]
