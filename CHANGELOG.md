@@ -2080,6 +2080,16 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/40a20207b">Repair Tigre short interface controls.</a></summary>
+
+Use established Tigre terms in 16 At, Remove, Sign In, All, Delete, Failed
+and Count controls.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/088b01587">Repair additional Tigre interface terms.</a></summary>
 
 Use established Tigre Files, Address, Visibility, Format, First and Usage

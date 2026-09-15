@@ -31200,3 +31200,15 @@ correction records and 234 locale inventories pass. Raw overlap falls to 263,
 with 22 attested shared forms and 241 unclassified. Twenty-five raw matches
 contain at least 20 characters and six contain at least 35. No remote write
 occurred.
+
+
+### 2026-09-15 — Fourth Tigre short-control pass
+
+Source commit `40a20207b` repairs 16 exact Tigrinya short controls using
+established Tigre At, Remove, Sign In, All, Delete, Failed and Count terms.
+The regular Organization and Team plurals are marked low confidence pending
+fluent review. Focused exact and negative checks preserve all three `%s`
+tokens; all 21,365 correction records and 234 locale inventories pass. Raw
+overlap falls to 247, with 22 attested shared forms and 225 unclassified.
+Twenty-five raw matches contain at least 20 characters and six contain at
+least 35. No remote write occurred.
