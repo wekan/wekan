@@ -114,6 +114,47 @@ assert.match(nahuatl['export-card-pdf'], /PDF/);
 assert.match(nahuatl['export-card-excel'], /Excel/);
 assert.match(nahuatl['export-card-excel-no-disk-space'], /Excel.*disk/);
 assert.equal(nahuatl['filter-due-tomorrow'], 'Tlamiz moztla');
+const nahuatlCalendarLabels = {
+  'calendar-system': 'Tonalli tlapohualiztli (tonalli monextia)',
+  'calendar-system-jalali': 'Jalali (Persia)',
+  'calendar-system-buddhist': 'Buda tonalli tlapohualiztli',
+  'calendar-system-chinese': 'China tonalli tlapohualiztli',
+  'calendar-system-coptic': 'Copto tonalli tlapohualiztli',
+  'calendar-system-dangi': 'Dangi tonalli tlapohualiztli (Corea)',
+  'calendar-system-ethioaa': 'Etiopía Amete Alem tonalli tlapohualiztli',
+  'calendar-system-ethiopic': 'Etiopía tonalli tlapohualiztli',
+  'calendar-system-hebrew': 'Hebreo tonalli tlapohualiztli',
+  'calendar-system-indian': 'India altepetl tonalli tlapohualiztli',
+  'calendar-system-islamic': 'Hijri tonalli tlapohualiztli',
+  'calendar-system-islamic-civil':
+    'Hijri tonalli tlapohualiztli (tlapouhcayotl, altepetl pehualizcahuitl)',
+  'calendar-system-islamic-rgsa':
+    'Hijri tonalli tlapohualiztli (Saudi Arabia, metztli ittaliztli)',
+  'calendar-system-islamic-tbla':
+    'Hijri tonalli tlapohualiztli (tlapouhcayotl, citlalin pehualizcahuitl)',
+  'calendar-system-islamic-umalqura':
+    'Hijri tonalli tlapohualiztli (Umm al-Qura)',
+  'calendar-system-japanese': 'Japón tonalli tlapohualiztli',
+  'calendar-system-roc': 'Minguo tonalli tlapohualiztli (China República)',
+};
+for (const [key, value] of Object.entries(nahuatlCalendarLabels)) {
+  assert.equal(nahuatl[key], value, key);
+  assert.doesNotMatch(value,
+    /Kalendar sistem|görünüşü|Buddhist|Chinese|Coptic|Korean|Ethiopic|Hebrew|Indian national|Islamic|Japanese|Republic of China/,
+    key);
+}
+assert.notEqual(nahuatl['calendar-system-islamic-civil'],
+  nahuatl['calendar-system-islamic-tbla']);
+assert.match(nahuatl['calendar-system-islamic-civil'], /altepetl pehualizcahuitl/);
+assert.match(nahuatl['calendar-system-islamic-tbla'], /citlalin pehualizcahuitl/);
+assert.match(nahuatl['calendar-system-islamic-rgsa'], /metztli ittaliztli/);
+const calendarSystemsSource = fs.readFileSync(
+  path.join(root, 'imports/lib/calendarSystems.js'), 'utf8');
+for (const key of Object.keys(nahuatlCalendarLabels).filter(key =>
+  key !== 'calendar-system')) {
+  const id = key.slice('calendar-system-'.length);
+  assert.match(calendarSystemsSource, new RegExp(`'${id}'`), key);
+}
 for (const literal of ['==', '!=', '<=', '>=', '&&', '||', '/Tes.*/i']) {
   assert.match(nahuatl['advanced-filter-description'],
     new RegExp(literal.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
