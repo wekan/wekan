@@ -1599,6 +1599,18 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4d74f7080">Repair Veps keyboard-shortcut translations.</a></summary>
+
+Replace three tracked Finnish messages and their unflagged popup title with a
+consistent keyboard-command draft. Verify opposite setting actions, popup and
+route bindings, and the literal question-mark shortcut. Four focused files pass
+(40 checks). The technical compound remains under native review.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

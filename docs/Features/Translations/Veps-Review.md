@@ -1164,3 +1164,25 @@ template scopes, newer-value preservation and all 234 locale token/key
 inventories. No live board/sidebar toggle ran. One tracked finding is resolved:
 overall pending 122, Veps 4, restored 4. Broader Veps and prior low-confidence
 review remains active.
+
+2026-09-15 — `4d74f7080`: repaired the coordinated keyboard-shortcut family,
+including tracked `keyboard-shortcuts-enabled`, `keyboard-shortcuts-disabled`
+and `shortcut-show-shortcuts`, plus the unflagged Finnish page title
+`keyboard-shortcuts`. Source inspection verifies that the first pair are
+opposite profile-setting actions, the title opens and names the shortcuts
+popup, and `shortcut-show-shortcuts` is bound to the literal `?` key.
+
+No dedicated native shortcut term was established in the checked Veps sources;
+dictionary button/key entries describe physical objects and are unsuitable.
+Use the transparent technical label `Klaviaturan käskud`, reusing the locale's
+existing `käskud` command vocabulary, and preserve established enabled,
+disabled, click, show and list wording. The international loan and assembled
+cases remain LOW CONFIDENCE pending native contextual review.
+
+Four focused files pass (40 checks): 19,989 correction records, exact opposite
+states/actions, route and popup bindings, literal `?` binding, Finnish-fragment
+rejection, newer-value preservation and all 234 locale token/key inventories.
+No live keyboard-shortcuts UI ran. Three tracked findings are resolved: overall
+pending 119, Veps 1, restored four unchanged. The remaining tracked Veps item
+is the syntax-bearing advanced-filter description; broader unflagged and prior
+low-confidence review remains active.

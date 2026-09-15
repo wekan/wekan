@@ -30457,3 +30457,24 @@ idempotency and newer-human preservation; Finnish rejection; visible toggle and
 four affected template bindings; and all 234 locale inventories. No live UI ran.
 Broader Veps and prior uncertain review continues. No external translation
 service or remote push.
+
+### 2026-09-15 — Veps keyboard-command family
+
+Source commit `4d74f7080` repairs three tracked Finnish values and the unflagged
+Finnish popup title; ledger 19,989, corrected tracked rows 15,784, pending 119
+(Veps 1), restored four unchanged. UI source inspection distinguishes the
+enabled and disabled profile-setting tooltips, the popup title/opening action
+and the literal `?` shortcut that opens the same list.
+
+No dedicated native shortcut term was established in the checked native
+sources, and attested physical key/button nouns do not describe keyboard
+shortcuts. Use a transparent keyboard-command draft that reuses the locale's
+existing command, enabled, disabled, click, show and list vocabulary. The
+technical loan and assembled case grammar remain LOW CONFIDENCE.
+
+Four focused files pass (40 checks): exact ledger values/tokens/order,
+idempotency and newer-human preservation; Finnish rejection; opposite-state
+actions; popup, route and literal-key bindings; and all 234 locale inventories.
+No live shortcut UI ran. The syntax-bearing advanced-filter paragraph is the
+last tracked Veps finding; broader unflagged and prior uncertain review
+continues. No external translation service or remote push.
