@@ -856,3 +856,14 @@ The focused source, seed, ledger and runtime check passes. Ledger 21,920;
 exact non-English overlap 232 (22 attested shared, 210 unclassified), with
 22 matches at least 20 characters and 5 at least 35. No live UI test or
 remote write occurred.
+
+### 2026-09-15 — Tigre PDF preview warning
+
+`78f2c9bf7` replaces the exact Tigrinya copy in
+`preview-pdf-not-supported`. Tigre phrasebook entries support device,
+preview, unavailable, instead, download and try terms. Complete sentence
+grammar and the device suffix remain composed low-confidence wording.
+The attachment Jade key, source/fallback meaning, seed, ledger and runtime
+test pass. Ledger 21,921; exact non-English overlap 231 (22 attested shared,
+209 unclassified), with 21 matches at least 20 characters and 4 at least
+35. No live UI test or remote write occurred.

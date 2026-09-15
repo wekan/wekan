@@ -31366,3 +31366,23 @@ Ledger 21,920; original audit-row classifications remain 15,880 corrected
 and 4,201 retained. Non-English exact Tigre/Tigrinya overlap falls from 233
 to 232 (22 attested shared, 210 unclassified); matches at least 20 characters
 fall to 22 and at least 35 to 5. No live UI test or remote write occurred.
+
+### 2026-09-15 — Tigre PDF preview warning exact-overlap repair
+
+Source commit `78f2c9bf7` replaces `preview-pdf-not-supported`, which was
+copied byte-for-byte from Tigrinya. The
+[BeitTigreAI Tigre–English phrasebook](https://beittigre.github.io/tigre-multilingual-dictionaries/english/index.html)
+and its [search index](https://beittigre.github.io/tigre-multilingual-dictionaries/english/dict.json)
+attest `ጀሃዝ` for device, `ርእየት-ሰልፍ` for preview,
+`ኢልትረከብ` in an unavailable-video sentence, `በደል` for instead,
+`ጸዐን` for download and `ፈትን` for try. The new warning says PDF
+preview is unavailable on the user's device and suggests trying a PDF
+download instead. Its complete grammar and device suffix are composed and
+remain low confidence pending fluent review. Preserve the literal `PDF`
+in both clauses. A focused test verifies English meaning, unavailable
+state, alternative download, exact seed removal, attachment Jade wiring,
+ledger values and i18next runtime output. Ledger 21,921; original audit-row
+counts remain 15,880 corrected and 4,201 retained. Non-English exact
+Tigre/Tigrinya overlap falls from 232 to 231 (22 attested shared, 209
+unclassified); 21 matches are at least 20 characters and 4 at least 35.
+No live UI test or remote write occurred.

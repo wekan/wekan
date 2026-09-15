@@ -16,24 +16,23 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `36c2148ec` — replace one long
-authentication-error clause copied exactly from Tigrinya with a Tigre draft.
-The phrasebook attests “wrong”, “please” and “try again”; the composed
-authentication-code subject remains low confidence. Earlier Tigre S3 fill
-`970d9e664` and Tamazight activity repair `780a75a2b` retain their
-recorded review limits.
+Latest translation fix: **2026-09-15**, `78f2c9bf7` — replace a long PDF
+preview warning copied exactly from Tigrinya with a Tigre draft. The
+phrasebook attests its device, preview, unavailable, instead, download and
+try terms; full sentence grammar remains low confidence. Authentication
+error repair `36c2148ec` and S3 fill `970d9e664` retain their review limits.
 
 The tracked Tigre calendar queue being empty does not certify the locale. Of
-2,613 non-English Tigre values, 232 are byte-for-byte identical to Tigrinya;
-22 complete forms are corpus-attested shared terms and 210 full values remain
-unclassified, including 22 of at least 20 characters and 5 of at least 35.
+2,613 non-English Tigre values, 231 are byte-for-byte identical to Tigrinya;
+22 complete forms are corpus-attested shared terms and 209 full values remain
+unclassified, including 21 of at least 20 characters and 4 of at least 35.
 Four newly matching File phrases have a corpus-attested noun, but their full
 clauses still need review. This is an
 explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **21,920** exact before/after values, including unflagged
+records contain **21,921** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

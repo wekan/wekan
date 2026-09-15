@@ -646,12 +646,21 @@ cancellation of upload or renaming. Watch text covers boards
 and cards. Search help clarifies case-insensitive matching. Regression checks
 preserve placeholders and verify source wiring;
 full contextual grammar remains under native review.
-Tigre S3 help and an authentication error replace English and Tigrinya
-drafts. Their complete compounds remain under native review.
+Tigre S3 help, an authentication error and a PDF fallback warning replace
+English and Tigrinya drafts. Their complete compounds remain under review.
 
 This release includes the following features and fixes:
 
-**Translations** - Tamazight activity and rules; Tigre S3 and auth error.
+**Translations** - Tamazight activity and rules; Tigre S3 and warnings.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/78f2c9bf7">Repair Tigre PDF preview warning</a>. Thanks to xet7.</summary>
+
+Replace a long Tigrinya copy with Tigre phrasebook terms for preview,
+device and trying a download instead. The complete sentence remains
+under native review. Source, UI wiring, ledger and runtime checks pass.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/36c2148ec">Repair Tigre authentication error</a>. Thanks to xet7.</summary>
