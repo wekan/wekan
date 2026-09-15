@@ -1,5 +1,23 @@
 # Standard Moroccan Tamazight reference review
 
+## Admin active and inactive labels, 2026-09-15 (`f10daf2ae`)
+
+Four unflagged wrong-language labels are repaired: `active` and
+`admin-people-filter-active` were Arabic, while
+`admin-people-filter-inactive` and `admin-people-active-status`
+were French. The replacement active term is the component of
+the existing `active-person`, `active-team` and `active-org`
+labels. The inactive qualifier comes from `inactive-member`;
+the status noun comes from `operator-status` and other status
+headings. A focused negative check rejects the former Arabic
+and French seeds, and exact-ledger and 234-locale checks pass.
+
+These isolated adjective uses, the inactive qualifier as a
+filter value, and complete status compound grammar remain
+**low confidence** pending fluent review. Arabic-script values
+fall from 168 to 166. The original flagged finding categories
+are unchanged.
+
 ## Filter and sort controls, 2026-09-15 (`65c667419`)
 
 Three unflagged wrong-language controls are repaired:

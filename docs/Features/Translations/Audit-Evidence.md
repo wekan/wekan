@@ -1,5 +1,12 @@
 # Detailed translation audit evidence
 
+2026-09-15 (`f10daf2ae`): repaired four unflagged Tamazight
+active, inactive and admin status labels seeded in Arabic/French.
+Local native components are reused; isolated adjective and
+compound grammar remain low confidence. Exact ledger now
+22,233; Arabic-script review queue 166. Focused and 234-locale
+checks pass.
+
 2026-09-15 (`65c667419`): repaired three unflagged Tamazight
 filter/sort controls seeded in French or Arabic. Exact ledger now
 22,229; Arabic-script review queue 168. Full sentence grammar

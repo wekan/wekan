@@ -656,6 +656,15 @@ This release includes the following features and fixes:
 **Translations** - Tamazight, Tigre and multilingual list-width repairs.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f10daf2ae">Repair Tamazight admin status labels</a>. Thanks to xet7.</summary>
+
+Replace four Arabic/French active, inactive and status labels
+with local native terms. Agreement and compound grammar remain
+under fluent review; focused, ledger and inventory checks pass.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/65c667419">Repair Tamazight filter and sort controls</a>. Thanks to xet7.</summary>
 
 Replace three French/Arabic controls with local native hide,
