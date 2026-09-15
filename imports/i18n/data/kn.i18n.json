@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "ಅಗಲವನ್ನು ಹೊಂದಿಸಿ",
   "set-list-width": "ಅಗಲವನ್ನು ಹೊಂದಿಸಿ",
   "set-list-width-value": "ಪಟ್ಟಿಯ ಅಗಲ (ಪಿಕ್ಸೆಲ್‌ಗಳು)",
-  "list-width-error-message": "ಪಟ್ಟಿಯ ಅಗಲವು 270 ಕ್ಕಿಂತ ಹೆಚ್ಚಿನ ಪೂರ್ಣಾಂಕವಾಗಿರಬೇಕು",
+  "list-width-error-message": "ಪಟ್ಟಿಯ ಅಗಲವು ಕನಿಷ್ಠ 200 ಪಿಕ್ಸೆಲ್‌ಗಳ ಪೂರ್ಣಾಂಕವಾಗಿರಬೇಕು.",
   "list-width-shared-note": "ಈ ಅಗಲವನ್ನು ಈ ಫಲಕದಲ್ಲಿರುವ ಎಲ್ಲರೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಲಾಗುತ್ತದೆ.",
   "list-width-personal-note": "ಈ ಅಗಲವು ನಿಮಗೆ ಮಾತ್ರ.",
   "personal-list-width": "ವೈಯಕ್ತಿಕ ಪಟ್ಟಿಯ ಅಗಲಗಳು",

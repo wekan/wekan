@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "ግፍሒ ኣቐምጥ",
   "set-list-width": "ግፍሒ ኣቐምጥ",
   "set-list-width-value": "ግፍሒ ዝርዝር (ፒክሰል)",
-  "list-width-error-message": "ግፍሒ ዝርዝር ካብ 270 ዝዓቢ ምሉእ ቁጽሪ ክኸውን ኣለዎ",
+  "list-width-error-message": "ግፍሒ ዝርዝር እንተወሓደ 200 ፒክሰል ዝኾነ ምሉእ ቁጽሪ ክኸውን ኣለዎ።",
   "list-width-shared-note": "እዚ ግፍሒ ምስ ኩሎም ኣብዚ ሰሌዳ ይካፈል።",
   "list-width-personal-note": "እዚ ግፍሒ ንዓኻ ጥራይ እዩ።",
   "personal-list-width": "ውልቃዊ ግፍሒ ዝርዝር",

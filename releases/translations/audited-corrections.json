@@ -154523,5 +154523,173 @@
     "before": "Res yw dhe ledander an rol bos niver kowal moy es 270",
     "after": "Res yw dhe ledander an rol bos niver kowal ≥ 200 picselow.",
     "reason": "Correct obsolete >270 rule to inclusive 200-pixel integer minimum using local/native terms; Italian or English seed replaced where present. Full clause remains low-confidence pending native grammar review."
+  },
+  {
+    "locale": "am",
+    "key": "list-width-error-message",
+    "before": "የዝርዝሩ ስፋት ከ270 የሚበልጥ ሙሉ ቁጥር መሆን አለበት",
+    "after": "የዝርዝሩ ስፋት ቢያንስ 200 ፒክስል የሆነ ሙሉ ቁጥር መሆን አለበት።",
+    "reason": "Correct obsolete >270 rule to native-script inclusive 200-pixel whole-number minimum using existing locale terms."
+  },
+  {
+    "locale": "as",
+    "key": "list-width-error-message",
+    "before": "তালিকাৰ প্ৰস্থ 270 তকৈ ডাঙৰ পূৰ্ণসংখ্যা হ'ব লাগিব",
+    "after": "তালিকাৰ প্ৰস্থ অন্ততঃ 200 পিক্সেলৰ পূৰ্ণসংখ্যা হ'ব লাগিব।",
+    "reason": "Correct obsolete >270 rule to native-script inclusive 200-pixel whole-number minimum using existing locale terms."
+  },
+  {
+    "locale": "bho",
+    "key": "list-width-error-message",
+    "before": "सूची के चौड़ाई 270 से बड़ पूर्णांक होखे के चाहीं",
+    "after": "सूची के चौड़ाई कम से कम 200 पिक्सेल के पूर्णांक होखे के चाहीं।",
+    "reason": "Correct obsolete >270 rule to native-script inclusive 200-pixel whole-number minimum using existing locale terms. Full clause remains low-confidence pending native grammar review."
+  },
+  {
+    "locale": "bn",
+    "key": "list-width-error-message",
+    "before": "তালিকার প্রস্থ 270-এর চেয়ে বড় পূর্ণসংখ্যা হতে হবে",
+    "after": "তালিকার প্রস্থ অন্তত 200 পিক্সেলের পূর্ণসংখ্যা হতে হবে।",
+    "reason": "Correct obsolete >270 rule to native-script inclusive 200-pixel whole-number minimum using existing locale terms."
+  },
+  {
+    "locale": "bo",
+    "key": "list-width-error-message",
+    "before": "ཐོ་གཞུང་གི་ཞེང་ཚད་ 270 ལས་ཆེ་བའི་ཧྲིལ་གྲངས་ཡིན་དགོས།",
+    "after": "ཐོ་གཞུང་གི་ཞེང་ཚད་ ཉུང་མཐར་ 200 pixels ཀྱི་ཧྲིལ་གྲངས་ཡིན་དགོས།",
+    "reason": "Correct obsolete >270 rule to native-script inclusive 200-pixel whole-number minimum using existing locale terms. Full clause remains low-confidence pending native grammar review."
+  },
+  {
+    "locale": "dz",
+    "key": "list-width-error-message",
+    "before": "ཐོ་ཡིག་གི་རྒྱ་ཚད་འདི་ 270 ལས་མང་བའི་ཧྲིལ་གྲངས་འོང་དགོ།",
+    "after": "ཐོ་ཡིག་གི་རྒྱ་ཚད་འདི་ ཉུང་མཐར་ 200 པིག་སེལ་གྱི་ཧྲིལ་གྲངས་འོང་དགོ།",
+    "reason": "Correct obsolete >270 rule to native-script inclusive 200-pixel whole-number minimum using existing locale terms. Full clause remains low-confidence pending native grammar review."
+  },
+  {
+    "locale": "gu-IN",
+    "key": "list-width-error-message",
+    "before": "યાદીની પહોળાઈ 270 થી મોટો પૂર્ણાંક હોવી જોઈએ",
+    "after": "યાદીની પહોળાઈ ઓછામાં ઓછા 200 પિક્સેલ્સનો પૂર્ણાંક હોવો જોઈએ.",
+    "reason": "Correct obsolete >270 rule to native-script inclusive 200-pixel whole-number minimum using existing locale terms."
+  },
+  {
+    "locale": "kn",
+    "key": "list-width-error-message",
+    "before": "ಪಟ್ಟಿಯ ಅಗಲವು 270 ಕ್ಕಿಂತ ಹೆಚ್ಚಿನ ಪೂರ್ಣಾಂಕವಾಗಿರಬೇಕು",
+    "after": "ಪಟ್ಟಿಯ ಅಗಲವು ಕನಿಷ್ಠ 200 ಪಿಕ್ಸೆಲ್‌ಗಳ ಪೂರ್ಣಾಂಕವಾಗಿರಬೇಕು.",
+    "reason": "Correct obsolete >270 rule to native-script inclusive 200-pixel whole-number minimum using existing locale terms."
+  },
+  {
+    "locale": "ks",
+    "key": "list-width-error-message",
+    "before": "فہرست چوڑٲے گژھِ 270 کھۄتہٕ بڑ اکھ صحیح عدد آسُن",
+    "after": "فہرست چوڑٲے گژھِ کم از کم 200 پکسل اکھ صحیح عدد آسُن۔",
+    "reason": "Correct obsolete >270 rule to native-script inclusive 200-pixel whole-number minimum using existing locale terms. Full clause remains low-confidence pending native grammar review."
+  },
+  {
+    "locale": "ml",
+    "key": "list-width-error-message",
+    "before": "പട്ടികയുടെ വീതി 270-നേക്കാൾ വലിയ പൂർണ്ണസംഖ്യയായിരിക്കണം",
+    "after": "പട്ടികയുടെ വീതി കുറഞ്ഞത് 200 പിക്സൽ ആയ പൂർണ്ണസംഖ്യയായിരിക്കണം.",
+    "reason": "Correct obsolete >270 rule to native-script inclusive 200-pixel whole-number minimum using existing locale terms."
+  },
+  {
+    "locale": "mr",
+    "key": "list-width-error-message",
+    "before": "यादीची रुंदी 270 पेक्षा मोठी पूर्णांक संख्या असणे आवश्यक आहे",
+    "after": "यादीची रुंदी किमान 200 पिक्सेलची पूर्णांक संख्या असणे आवश्यक आहे.",
+    "reason": "Correct obsolete >270 rule to native-script inclusive 200-pixel whole-number minimum using existing locale terms."
+  },
+  {
+    "locale": "my",
+    "key": "list-width-error-message",
+    "before": "စာရင်းအကျယ်သည် 270 ထက်ကြီးသော ကိန်းပြည့်ဖြစ်ရမည်",
+    "after": "စာရင်းအကျယ်သည် အနည်းဆုံး 200 ပစ်ဇယ်ရှိသော ကိန်းပြည့်ဖြစ်ရမည်။",
+    "reason": "Correct obsolete >270 rule to native-script inclusive 200-pixel whole-number minimum using existing locale terms."
+  },
+  {
+    "locale": "ne",
+    "key": "list-width-error-message",
+    "before": "सूचीको चौडाइ 270 भन्दा ठूलो पूर्णाङ्क हुनुपर्छ",
+    "after": "सूचीको चौडाइ कम्तीमा 200 पिक्सेलको पूर्णाङ्क हुनुपर्छ।",
+    "reason": "Correct obsolete >270 rule to native-script inclusive 200-pixel whole-number minimum using existing locale terms."
+  },
+  {
+    "locale": "or_IN",
+    "key": "list-width-error-message",
+    "before": "ତାଲିକା ଓସାର 270 ରୁ ଅଧିକ ଏକ ପୂର୍ଣ୍ଣ ସଂଖ୍ୟା ହେବା ଆବଶ୍ୟକ",
+    "after": "ତାଲିକା ଓସାର ଅତିକମରେ 200 ପିକ୍ସେଲ୍‌ର ପୂର୍ଣ୍ଣ ସଂଖ୍ୟା ହେବା ଆବଶ୍ୟକ।",
+    "reason": "Correct obsolete >270 rule to native-script inclusive 200-pixel whole-number minimum using existing locale terms. Full clause remains low-confidence pending native grammar review."
+  },
+  {
+    "locale": "pa",
+    "key": "list-width-error-message",
+    "before": "ਸੂਚੀ ਦੀ ਚੌੜਾਈ 270 ਤੋਂ ਵੱਡਾ ਪੂਰਨ ਅੰਕ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ",
+    "after": "ਸੂਚੀ ਦੀ ਚੌੜਾਈ ਘੱਟੋ-ਘੱਟ 200 ਪਿਕਸਲ ਦਾ ਪੂਰਨ ਅੰਕ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ।",
+    "reason": "Correct obsolete >270 rule to native-script inclusive 200-pixel whole-number minimum using existing locale terms."
+  },
+  {
+    "locale": "si",
+    "key": "list-width-error-message",
+    "before": "ලැයිස්තු පළල 270 ට වැඩි පූර්ණ සංඛ්‍යාවක් විය යුතුය",
+    "after": "ලැයිස්තු පළල අවම වශයෙන් පික්සල් 200ක පූර්ණ සංඛ්‍යාවක් විය යුතුය.",
+    "reason": "Correct obsolete >270 rule to native-script inclusive 200-pixel whole-number minimum using existing locale terms. Full clause remains low-confidence pending native grammar review."
+  },
+  {
+    "locale": "ta",
+    "key": "list-width-error-message",
+    "before": "பட்டியல் அகலம் 270 ஐ விட அதிகமான முழு எண்ணாக இருக்க வேண்டும்",
+    "after": "பட்டியல் அகலம் குறைந்தது 200 பிக்சல்கள் கொண்ட முழு எண்ணாக இருக்க வேண்டும்.",
+    "reason": "Correct obsolete >270 rule to native-script inclusive 200-pixel whole-number minimum using existing locale terms."
+  },
+  {
+    "locale": "te-IN",
+    "key": "list-width-error-message",
+    "before": "జాబితా వెడల్పు 270 కంటే ఎక్కువ పూర్ణాంకం అయి ఉండాలి",
+    "after": "జాబితా వెడల్పు కనీసం 200 పిక్సెల్‌ల పూర్ణాంకం అయి ఉండాలి.",
+    "reason": "Correct obsolete >270 rule to native-script inclusive 200-pixel whole-number minimum using existing locale terms."
+  },
+  {
+    "locale": "th",
+    "key": "list-width-error-message",
+    "before": "ความกว้างของรายการต้องเป็นจำนวนเต็มที่มากกว่า 270",
+    "after": "ความกว้างของรายการต้องเป็นจำนวนเต็มอย่างน้อย 200 พิกเซล",
+    "reason": "Correct obsolete >270 rule to native-script inclusive 200-pixel whole-number minimum using existing locale terms."
+  },
+  {
+    "locale": "ti",
+    "key": "list-width-error-message",
+    "before": "ግፍሒ ዝርዝር ካብ 270 ዝዓቢ ምሉእ ቁጽሪ ክኸውን ኣለዎ",
+    "after": "ግፍሒ ዝርዝር እንተወሓደ 200 ፒክሰል ዝኾነ ምሉእ ቁጽሪ ክኸውን ኣለዎ።",
+    "reason": "Correct obsolete >270 rule to native-script inclusive 200-pixel whole-number minimum using existing locale terms. Full clause remains low-confidence pending native grammar review."
+  },
+  {
+    "locale": "ug",
+    "key": "list-width-error-message",
+    "before": "تىزىملىك كەڭلىكى 270 دىن چوڭ پۈتۈن سان بولۇشى كېرەك",
+    "after": "تىزىملىك كەڭلىكى كەم دېگەندە 200 پىكسېل بولغان پۈتۈن سان بولۇشى كېرەك.",
+    "reason": "Correct obsolete >270 rule to native-script inclusive 200-pixel whole-number minimum using existing locale terms."
+  },
+  {
+    "locale": "jv",
+    "key": "list-width-error-message",
+    "before": "Ambane dhaptar kudu wilangan wutuh luwih saka 270",
+    "after": "Ambane dhaptar kudu wilangan wutuh paling ora 200 piksel.",
+    "reason": "Correct obsolete >270 rule to native-script inclusive 200-pixel whole-number minimum using existing locale terms."
+  },
+  {
+    "locale": "sd",
+    "key": "list-width-error-message",
+    "before": "فهرست جي ويڪر 270 کان وڏو صحيح عدد هجڻ گهرجي",
+    "after": "فهرست جي ويڪر گهٽ ۾ گهٽ 200 پڪسل جو صحيح عدد هجڻ گهرجي.",
+    "reason": "Correct obsolete >270 rule to native-script inclusive 200-pixel whole-number minimum using existing locale terms."
+  },
+  {
+    "locale": "ps",
+    "key": "list-width-error-message",
+    "before": "د لړليک پلنوالی بايد له 270 څخه لوی بشپړ شمېر وي",
+    "after": "د لړليک پلنوالی بايد لږ تر لږه 200 پکسل بشپړ شمېر وي.",
+    "reason": "Correct obsolete >270 rule to native-script inclusive 200-pixel whole-number minimum using existing locale terms. Full clause remains low-confidence pending native grammar review."
   }
 ]

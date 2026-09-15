@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "ويڪر مقرر ڪريو",
   "set-list-width": "ويڪر مقرر ڪريو",
   "set-list-width-value": "فهرست جي ويڪر (پڪسل)",
-  "list-width-error-message": "فهرست جي ويڪر 270 کان وڏو صحيح عدد هجڻ گهرجي",
+  "list-width-error-message": "فهرست جي ويڪر گهٽ ۾ گهٽ 200 پڪسل جو صحيح عدد هجڻ گهرجي.",
   "list-width-shared-note": "هي ويڪر هن بورڊ تي سڀني سان گڏيل آهي.",
   "list-width-personal-note": "هي ويڪر رڳو توهان لاءِ آهي.",
   "personal-list-width": "ذاتي فهرست ويڪرون",

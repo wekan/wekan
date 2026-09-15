@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "चौड़ाई तय करीं",
   "set-list-width": "चौड़ाई तय करीं",
   "set-list-width-value": "सूची के चौड़ाई (पिक्सेल)",
-  "list-width-error-message": "सूची के चौड़ाई 270 से बड़ पूर्णांक होखे के चाहीं",
+  "list-width-error-message": "सूची के चौड़ाई कम से कम 200 पिक्सेल के पूर्णांक होखे के चाहीं।",
   "list-width-shared-note": "ई चौड़ाई एह बोर्ड पर सभका साथ साझा बा।",
   "list-width-personal-note": "ई चौड़ाई खाली रउआ खातिर बा।",
   "personal-list-width": "निजी सूची चौड़ाई",

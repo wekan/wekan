@@ -57,7 +57,8 @@ assert.match(malayalam['allboards.edit-workspace-icon'], /markdown/);
 assert.equal(malayalam['workspaceActionsPopup-title'],
   'പ്രവർത്തനസ്ഥല ക്രമീകരണങ്ങൾ');
 assert.deepEqual(tokens(malayalam['activity-dueDate']), ['%s', '%s']);
-assert.match(malayalam['list-width-error-message'], /270/);
+assert.match(malayalam['list-width-error-message'], /കുറഞ്ഞത് 200 പിക്സൽ.*പൂർണ്ണസംഖ്യ/);
+assert.doesNotMatch(malayalam['list-width-error-message'], /270/);
 assert.match(malayalam['set-list-width-value'], /പിക്സൽ/);
 assert.match(malayalam['set-swimlane-height-value'], /പിക്സൽ/);
 assert.equal(malayalam['add-checklist'], 'ചെക്ക്‌ലിസ്റ്റ് ചേർക്കുക');

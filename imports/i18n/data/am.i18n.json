@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "ስፋት አዘጋጅ",
   "set-list-width": "የዝርዝር ስፋት አዘጋጅ",
   "set-list-width-value": "የዝርዝር ስፋት (ፒክስል)",
-  "list-width-error-message": "የዝርዝሩ ስፋት ከ270 የሚበልጥ ሙሉ ቁጥር መሆን አለበት",
+  "list-width-error-message": "የዝርዝሩ ስፋት ቢያንስ 200 ፒክስል የሆነ ሙሉ ቁጥር መሆን አለበት።",
   "list-width-shared-note": "ይህ ስፋት በዚህ ሰሌዳ ላይ ለሁሉም ይጋራል።",
   "list-width-personal-note": "ይህ ስፋት ለእርስዎ ብቻ ነው።",
   "personal-list-width": "የግል ዝርዝር ስፋቶች",

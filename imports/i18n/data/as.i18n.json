@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "প্ৰস্থ স্থিৰ কৰক",
   "set-list-width": "প্ৰস্থ স্থিৰ কৰক",
   "set-list-width-value": "তালিকাৰ প্ৰস্থ (পিক্সেল)",
-  "list-width-error-message": "তালিকাৰ প্ৰস্থ 270 তকৈ ডাঙৰ পূৰ্ণসংখ্যা হ'ব লাগিব",
+  "list-width-error-message": "তালিকাৰ প্ৰস্থ অন্ততঃ 200 পিক্সেলৰ পূৰ্ণসংখ্যা হ'ব লাগিব।",
   "list-width-shared-note": "এই প্ৰস্থ এই ব'ৰ্ডৰ সকলোৰে সৈতে ভাগ কৰা হয়।",
   "list-width-personal-note": "এই প্ৰস্থ কেৱল আপোনাৰ বাবে।",
   "personal-list-width": "ব্যক্তিগত তালিকা প্ৰস্থ",

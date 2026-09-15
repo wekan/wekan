@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "အကျယ် သတ်မှတ်ရန်",
   "set-list-width": "အကျယ် သတ်မှတ်ရန်",
   "set-list-width-value": "စာရင်းအကျယ် (ပစ်ဇယ်)",
-  "list-width-error-message": "စာရင်းအကျယ်သည် 270 ထက်ကြီးသော ကိန်းပြည့်ဖြစ်ရမည်",
+  "list-width-error-message": "စာရင်းအကျယ်သည် အနည်းဆုံး 200 ပစ်ဇယ်ရှိသော ကိန်းပြည့်ဖြစ်ရမည်။",
   "list-width-shared-note": "ဤအကျယ်ကို ဤဘုတ်ရှိ လူတိုင်းနှင့် မျှဝေထားသည်။",
   "list-width-personal-note": "ဤအကျယ်သည် သင့်အတွက်သာ ဖြစ်သည်။",
   "personal-list-width": "ကိုယ်ပိုင် စာရင်းအကျယ်များ",

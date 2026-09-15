@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "પહોળાઈ સેટ કરો",
   "set-list-width": "પહોળાઈ સેટ કરો",
   "set-list-width-value": "યાદીની પહોળાઈ (પિક્સેલ્સ)",
-  "list-width-error-message": "યાદીની પહોળાઈ 270 થી મોટો પૂર્ણાંક હોવી જોઈએ",
+  "list-width-error-message": "યાદીની પહોળાઈ ઓછામાં ઓછા 200 પિક્સેલ્સનો પૂર્ણાંક હોવો જોઈએ.",
   "list-width-shared-note": "આ પહોળાઈ આ બોર્ડ પરના દરેક સાથે વહેંચાયેલી છે.",
   "list-width-personal-note": "આ પહોળાઈ ફક્ત તમારા માટે છે.",
   "personal-list-width": "વ્યક્તિગત યાદી પહોળાઈ",

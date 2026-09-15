@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "వెడల్పును సెట్ చేయండి",
   "set-list-width": "వెడల్పును సెట్ చేయండి",
   "set-list-width-value": "జాబితా వెడల్పు (పిక్సెల్‌లు)",
-  "list-width-error-message": "జాబితా వెడల్పు 270 కంటే ఎక్కువ పూర్ణాంకం అయి ఉండాలి",
+  "list-width-error-message": "జాబితా వెడల్పు కనీసం 200 పిక్సెల్‌ల పూర్ణాంకం అయి ఉండాలి.",
   "list-width-shared-note": "ఈ వెడల్పు ఈ బోర్డులోని అందరితో పంచుకోబడుతుంది.",
   "list-width-personal-note": "ఈ వెడల్పు మీ కోసం మాత్రమే.",
   "personal-list-width": "వ్యక్తిగత జాబితా వెడల్పులు",

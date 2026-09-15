@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "ਚੌੜਾਈ ਸੈੱਟ ਕਰੋ",
   "set-list-width": "ਚੌੜਾਈ ਸੈੱਟ ਕਰੋ",
   "set-list-width-value": "ਸੂਚੀ ਦੀ ਚੌੜਾਈ (ਪਿਕਸਲ)",
-  "list-width-error-message": "ਸੂਚੀ ਦੀ ਚੌੜਾਈ 270 ਤੋਂ ਵੱਡਾ ਪੂਰਨ ਅੰਕ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ",
+  "list-width-error-message": "ਸੂਚੀ ਦੀ ਚੌੜਾਈ ਘੱਟੋ-ਘੱਟ 200 ਪਿਕਸਲ ਦਾ ਪੂਰਨ ਅੰਕ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ।",
   "list-width-shared-note": "ਇਹ ਚੌੜਾਈ ਇਸ ਬੋਰਡ ਦੇ ਸਾਰੇ ਲੋਕਾਂ ਨਾਲ ਸਾਂਝੀ ਕੀਤੀ ਜਾਂਦੀ ਹੈ।",
   "list-width-personal-note": "ਇਹ ਚੌੜਾਈ ਸਿਰਫ਼ ਤੁਹਾਡੇ ਲਈ ਹੈ।",
   "personal-list-width": "ਨਿੱਜੀ ਸੂਚੀ ਚੌੜਾਈਆਂ",

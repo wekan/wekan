@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "كەڭلىكنى بەلگىلەش",
   "set-list-width": "كەڭلىكنى بەلگىلەش",
   "set-list-width-value": "تىزىملىك كەڭلىكى (پىكسېل)",
-  "list-width-error-message": "تىزىملىك كەڭلىكى 270 دىن چوڭ پۈتۈن سان بولۇشى كېرەك",
+  "list-width-error-message": "تىزىملىك كەڭلىكى كەم دېگەندە 200 پىكسېل بولغان پۈتۈن سان بولۇشى كېرەك.",
   "list-width-shared-note": "بۇ كەڭلىك بۇ تاختىدىكى ھەممەيلەن بىلەن ئورتاقلىشىلىدۇ.",
   "list-width-personal-note": "بۇ كەڭلىك پەقەت سىز ئۈچۈنلا.",
   "personal-list-width": "شەخسىي تىزىملىك كەڭلىكلىرى",

@@ -53,7 +53,8 @@ assert.deepEqual(tokens(burmese['activity-checklist-completed-card']),
 assert.equal(burmese['allboards.workspaces'], 'လုပ်ငန်းနေရာများ');
 assert.match(burmese['allboards.edit-workspace-icon'], /markdown/);
 assert.deepEqual(tokens(burmese['activity-dueDate']), ['%s', '%s']);
-assert.match(burmese['list-width-error-message'], /270/);
+assert.match(burmese['list-width-error-message'], /အနည်းဆုံး 200 ပစ်ဇယ်.*ကိန်းပြည့်/);
+assert.doesNotMatch(burmese['list-width-error-message'], /270/);
 assert.match(burmese['set-list-width-value'], /ပစ်ဇယ်/);
 assert.match(burmese['set-swimlane-height-value'], /ပစ်ဇယ်/);
 assert.equal(burmese['add-checklist'], 'စစ်ဆေးစာရင်း ထည့်ရန်');

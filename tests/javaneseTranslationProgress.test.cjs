@@ -71,7 +71,8 @@ assert.deepEqual(tags(javanese['globalSearch-instructions-operator-number']),
 assert.equal(javanese['workspace-settings'], 'Setelan Ruang Kerja');
 assert.equal(javanese['home-board-badge'],
   'Papan Ngarep (dibukak sawise mlebu)');
-assert.match(javanese['list-width-error-message'], /270/);
+assert.match(javanese['list-width-error-message'], /wilangan wutuh paling ora 200 piksel/);
+assert.doesNotMatch(javanese['list-width-error-message'], /270/);
 assert.equal(javanese['add-checklist'], 'Tambah Dhaptar Priksa');
 assert.deepEqual(tokens(javanese['avatar-too-big']), ['__size__']);
 assert.deepEqual(tags(javanese['board-private-info']),

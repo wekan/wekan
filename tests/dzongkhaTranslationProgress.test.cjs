@@ -77,7 +77,8 @@ assert.match(dzongkha['allboards.add-workspace'], /ལཱ་གི་ས་ས�
 assert.match(dzongkha['allboards.edit-workspace-icon'], /markdown/);
 assert.deepEqual(tokens(dzongkha['activity-dueDate']), ['%s', '%s']);
 assert.match(dzongkha['home-board-remove-confirm'], /བཏོན་ནི་མེན/);
-assert.match(dzongkha['list-width-error-message'], /270/);
+assert.match(dzongkha['list-width-error-message'], /ཉུང་མཐར་ 200 པིག་སེལ.*ཧྲིལ་གྲངས/);
+assert.doesNotMatch(dzongkha['list-width-error-message'], /270/);
 assert.match(dzongkha['set-swimlane-height'], /ཆུ་ལམ/);
 assert.match(dzongkha['convertChecklistItemToCardPopup-title'], /ཤོག་བྱང/);
 assert.deepEqual(tokens(dzongkha['and-n-other-card']), ['__count__']);

@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "ଓସାର ସେଟ୍ କରନ୍ତୁ",
   "set-list-width": "ଓସାର ସେଟ୍ କରନ୍ତୁ",
   "set-list-width-value": "ତାଲିକା ଓସାର (ପିକ୍ସେଲ୍)",
-  "list-width-error-message": "ତାଲିକା ଓସାର 270 ରୁ ଅଧିକ ଏକ ପୂର୍ଣ୍ଣ ସଂଖ୍ୟା ହେବା ଆବଶ୍ୟକ",
+  "list-width-error-message": "ତାଲିକା ଓସାର ଅତିକମରେ 200 ପିକ୍ସେଲ୍‌ର ପୂର୍ଣ୍ଣ ସଂଖ୍ୟା ହେବା ଆବଶ୍ୟକ।",
   "list-width-shared-note": "ଏହି ଓସାର ଏହି ବୋର୍ଡର ସମସ୍ତଙ୍କ ସହ ସହଭାଗୀ କରାଯାଇଛି।",
   "list-width-personal-note": "ଏହି ଓସାର କେବଳ ଆପଣଙ୍କ ପାଇଁ।",
   "personal-list-width": "ବ୍ୟକ୍ତିଗତ ତାଲିକା ଓସାର",

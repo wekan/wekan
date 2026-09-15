@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "පළල සකසන්න",
   "set-list-width": "පළල සකසන්න",
   "set-list-width-value": "ලැයිස්තු පළල (පික්සල්)",
-  "list-width-error-message": "ලැයිස්තු පළල 270 ට වැඩි පූර්ණ සංඛ්‍යාවක් විය යුතුය",
+  "list-width-error-message": "ලැයිස්තු පළල අවම වශයෙන් පික්සල් 200ක පූර්ණ සංඛ්‍යාවක් විය යුතුය.",
   "list-width-shared-note": "මෙම පළල මෙම පුවරුවේ සියලු දෙනා සමඟ බෙදා ගනී.",
   "list-width-personal-note": "මෙම පළල ඔබට පමණි.",
   "personal-list-width": "පුද්ගලික ලැයිස්තු පළල",

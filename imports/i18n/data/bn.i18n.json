@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "প্রস্থ নির্ধারণ করুন",
   "set-list-width": "প্রস্থ নির্ধারণ করুন",
   "set-list-width-value": "তালিকার প্রস্থ (পিক্সেল)",
-  "list-width-error-message": "তালিকার প্রস্থ 270-এর চেয়ে বড় পূর্ণসংখ্যা হতে হবে",
+  "list-width-error-message": "তালিকার প্রস্থ অন্তত 200 পিক্সেলের পূর্ণসংখ্যা হতে হবে।",
   "list-width-shared-note": "এই প্রস্থটি বোর্ডের সবার সঙ্গে ভাগ করা হয়।",
   "list-width-personal-note": "এই প্রস্থটি শুধু আপনার জন্য।",
   "personal-list-width": "ব্যক্তিগত তালিকার প্রস্থ",

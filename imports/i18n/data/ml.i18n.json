@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "വീതി സജ്ജമാക്കുക",
   "set-list-width": "വീതി സജ്ജമാക്കുക",
   "set-list-width-value": "പട്ടികയുടെ വീതി (പിക്സൽ)",
-  "list-width-error-message": "പട്ടികയുടെ വീതി 270-നേക്കാൾ വലിയ പൂർണ്ണസംഖ്യയായിരിക്കണം",
+  "list-width-error-message": "പട്ടികയുടെ വീതി കുറഞ്ഞത് 200 പിക്സൽ ആയ പൂർണ്ണസംഖ്യയായിരിക്കണം.",
   "list-width-shared-note": "ഈ വീതി ഈ ബോർഡിലെ എല്ലാവരുമായും പങ്കിടുന്നു.",
   "list-width-personal-note": "ഈ വീതി നിങ്ങൾക്ക് മാത്രമുള്ളതാണ്.",
   "personal-list-width": "വ്യക്തിഗത പട്ടിക വീതികൾ",

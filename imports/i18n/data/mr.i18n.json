@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "रुंदी सेट करा",
   "set-list-width": "रुंदी सेट करा",
   "set-list-width-value": "यादीची रुंदी (पिक्सेल)",
-  "list-width-error-message": "यादीची रुंदी 270 पेक्षा मोठी पूर्णांक संख्या असणे आवश्यक आहे",
+  "list-width-error-message": "यादीची रुंदी किमान 200 पिक्सेलची पूर्णांक संख्या असणे आवश्यक आहे.",
   "list-width-shared-note": "ही रुंदी या फलकावरील सर्वांसोबत सामायिक केली जाते.",
   "list-width-personal-note": "ही रुंदी फक्त तुमच्यासाठी आहे.",
   "personal-list-width": "वैयक्तिक यादी रुंदी",

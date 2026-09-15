@@ -54,7 +54,8 @@ assert.equal(marathi['allboards.workspaces'], 'कार्यस्थाने
 assert.match(marathi['allboards.edit-workspace-icon'], /markdown/);
 assert.equal(marathi['workspaceActionsPopup-title'], 'कार्यस्थान सेटिंग्ज');
 assert.deepEqual(tokens(marathi['activity-dueDate']), ['%s', '%s']);
-assert.match(marathi['list-width-error-message'], /270/);
+assert.match(marathi['list-width-error-message'], /किमान 200 पिक्सेलची पूर्णांक संख्या/);
+assert.doesNotMatch(marathi['list-width-error-message'], /270/);
 assert.match(marathi['set-list-width-value'], /पिक्सेल/);
 assert.match(marathi['set-swimlane-height-value'], /पिक्सेल/);
 assert.equal(marathi['add-checklist'], 'तपासणीसूची जोडा');

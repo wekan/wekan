@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "پلنوالی وټاکئ",
   "set-list-width": "پلنوالی وټاکئ",
   "set-list-width-value": "د لړليک پلنوالی (pixels)",
-  "list-width-error-message": "د لړليک پلنوالی بايد له 270 څخه لوی بشپړ شمېر وي",
+  "list-width-error-message": "د لړليک پلنوالی بايد لږ تر لږه 200 پکسل بشپړ شمېر وي.",
   "list-width-shared-note": "دا پلنوالی په دې تخته کې له ټولو سره شريک دی.",
   "list-width-personal-note": "دا پلنوالی يوازې ستاسو لپاره دی.",
   "personal-list-width": "د لړليک شخصي پلنوالی",

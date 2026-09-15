@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "چوڑٲے مقرر کریو",
   "set-list-width": "چوڑٲے مقرر کریو",
   "set-list-width-value": "فہرست چوڑٲے (پکسل)",
-  "list-width-error-message": "فہرست چوڑٲے گژھِ 270 کھۄتہٕ بڑ اکھ صحیح عدد آسُن",
+  "list-width-error-message": "فہرست چوڑٲے گژھِ کم از کم 200 پکسل اکھ صحیح عدد آسُن۔",
   "list-width-shared-note": "یِہ چوڑٲے چھِ یَتھ بورڈس پؠٹھ سٲرنۍ سٕتۍ شریک۔",
   "list-width-personal-note": "یِہ چوڑٲے چھِ صرف تُہند خٲطرٕ۔",
   "personal-list-width": "ذٲتی فہرست چوڑٲے",
