@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Breedte instellen",
   "set-list-width": "Breedte instellen",
   "set-list-width-value": "Lijstbreedte (pixels)",
-  "list-width-error-message": "De lijstbreedte moet een geheel getal groter dan 270 zijn",
+  "list-width-error-message": "De lijstbreedte moet een geheel getal van ten minste 200 pixels zijn.",
   "list-width-shared-note": "Deze breedte wordt gedeeld met iedereen op dit bord.",
   "list-width-personal-note": "Deze breedte is alleen voor jou.",
   "personal-list-width": "Persoonlijke lijstbreedtes",

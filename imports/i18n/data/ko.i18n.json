@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "너비 설정",
   "set-list-width": "너비 설정",
   "set-list-width-value": "목록 너비 (픽셀)",
-  "list-width-error-message": "목록 너비는 270보다 큰 정수여야 합니다",
+  "list-width-error-message": "목록 너비는 200픽셀 이상의 정수여야 합니다.",
   "list-width-shared-note": "이 너비는 이 보드의 모든 사용자와 공유됩니다.",
   "list-width-personal-note": "이 너비는 나에게만 적용됩니다.",
   "personal-list-width": "개인 목록 너비",

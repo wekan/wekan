@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "幅を設定",
   "set-list-width": "幅を設定",
   "set-list-width-value": "リストの幅(ピクセル)",
-  "list-width-error-message": "リストの幅は 270 より大きい整数でなければなりません",
+  "list-width-error-message": "リストの幅は 200 ピクセル以上の整数でなければなりません。",
   "list-width-shared-note": "この幅はこのボードの全員と共有されます。",
   "list-width-personal-note": "この幅はあなた専用です。",
   "personal-list-width": "個人ごとのリスト幅",

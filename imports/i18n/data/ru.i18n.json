@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Задать ширину",
   "set-list-width": "Задать ширину",
   "set-list-width-value": "Ширина списка (в пикселях)",
-  "list-width-error-message": "Ширина списка должна быть целым числом больше 270",
+  "list-width-error-message": "Ширина списка должна быть целым числом не менее 200 пикселей",
   "list-width-shared-note": "Эта ширина общая для всех на этой доске.",
   "list-width-personal-note": "Эта ширина только для вас.",
   "personal-list-width": "Персональная ширина списков",

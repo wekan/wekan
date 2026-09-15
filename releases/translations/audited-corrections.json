@@ -153732,5 +153732,159 @@
     "before": "A largura da lista tem de ser um número inteiro maior que 270",
     "after": "A largura da lista tem de ser um número inteiro de pelo menos 200 pixels.",
     "reason": "2026-09-15 stale list-width validation repair: preserve declared-language list width and integer wording; replace obsolete strictly-greater-than-270 semantics with inclusive at-least-200 pixels. Locale siblings use their existing language-specific style; no placeholders or service literals."
+  },
+  {
+    "locale": "ar",
+    "key": "list-width-error-message",
+    "before": "يجب أن يكون عرض القائمة عدداً صحيحاً أكبر من 270",
+    "after": "يجب أن يكون عرض القائمة عدداً صحيحاً لا يقل عن 200 بكسل.",
+    "reason": "Restore the actual inclusive 200-pixel whole-number minimum using existing locale terminology; old >270 rule was stale."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "list-width-error-message",
+    "before": "يجب أن يكون عرض القائمة عدداً صحيحاً أكبر من 270",
+    "after": "يجب أن يكون عرض القائمة عدداً صحيحاً لا يقل عن 200 بكسل.",
+    "reason": "Restore the actual inclusive 200-pixel whole-number minimum using existing locale terminology; old >270 rule was stale."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "list-width-error-message",
+    "before": "يجب أن يكون عرض القائمة عدداً صحيحاً أكبر من 270",
+    "after": "يجب أن يكون عرض القائمة عدداً صحيحاً لا يقل عن 200 بكسل.",
+    "reason": "Restore the actual inclusive 200-pixel whole-number minimum using existing locale terminology; old >270 rule was stale."
+  },
+  {
+    "locale": "he",
+    "key": "list-width-error-message",
+    "before": "רוחב הרשימה חייב להיות מספר שלם שגדול מ־270",
+    "after": "רוחב הרשימה חייב להיות מספר שלם של לפחות 200 פיקסלים",
+    "reason": "Restore the actual inclusive 200-pixel whole-number minimum using existing locale terminology; old >270 rule was stale."
+  },
+  {
+    "locale": "he-IL",
+    "key": "list-width-error-message",
+    "before": "רוחב הרשימה חייב להיות מספר שלם שגדול מ־270",
+    "after": "רוחב הרשימה חייב להיות מספר שלם של לפחות 200 פיקסלים",
+    "reason": "Restore the actual inclusive 200-pixel whole-number minimum using existing locale terminology; old >270 rule was stale."
+  },
+  {
+    "locale": "ru",
+    "key": "list-width-error-message",
+    "before": "Ширина списка должна быть целым числом больше 270",
+    "after": "Ширина списка должна быть целым числом не менее 200 пикселей",
+    "reason": "Restore the actual inclusive 200-pixel whole-number minimum using existing locale terminology; old >270 rule was stale."
+  },
+  {
+    "locale": "ru-UA",
+    "key": "list-width-error-message",
+    "before": "Ширина списка должна быть целым числом больше 270",
+    "after": "Ширина списка должна быть целым числом не менее 200 пикселей",
+    "reason": "Restore the actual inclusive 200-pixel whole-number minimum using existing locale terminology; old >270 rule was stale."
+  },
+  {
+    "locale": "ru_RU",
+    "key": "list-width-error-message",
+    "before": "Ширина списка должна быть целым числом больше 270",
+    "after": "Ширина списка должна быть целым числом не менее 200 пикселей",
+    "reason": "Restore the actual inclusive 200-pixel whole-number minimum using existing locale terminology; old >270 rule was stale."
+  },
+  {
+    "locale": "uk",
+    "key": "list-width-error-message",
+    "before": "Ширина списку має бути цілим числом більше 270",
+    "after": "Ширина списку має бути цілим числом не менше 200 пікселів",
+    "reason": "Restore the actual inclusive 200-pixel whole-number minimum using existing locale terminology; old >270 rule was stale."
+  },
+  {
+    "locale": "uk-UA",
+    "key": "list-width-error-message",
+    "before": "Ширина списку має бути цілим числом більше 270",
+    "after": "Ширина списку має бути цілим числом не менше 200 пікселів",
+    "reason": "Restore the actual inclusive 200-pixel whole-number minimum using existing locale terminology; old >270 rule was stale."
+  },
+  {
+    "locale": "ja",
+    "key": "list-width-error-message",
+    "before": "リストの幅は 270 より大きい整数でなければなりません",
+    "after": "リストの幅は 200 ピクセル以上の整数でなければなりません。",
+    "reason": "Restore the actual inclusive 200-pixel whole-number minimum using existing locale terminology; old >270 rule was stale."
+  },
+  {
+    "locale": "ja-JP",
+    "key": "list-width-error-message",
+    "before": "リストの幅は 270 より大きい整数でなければなりません",
+    "after": "リストの幅は 200 ピクセル以上の整数でなければなりません。",
+    "reason": "Restore the actual inclusive 200-pixel whole-number minimum using existing locale terminology; old >270 rule was stale."
+  },
+  {
+    "locale": "ja-HI",
+    "key": "list-width-error-message",
+    "before": "リストの幅は 270 より大きい整数でなければなりません",
+    "after": "リストの幅は 200 ピクセル以上の整数でなければなりません。",
+    "reason": "Restore the actual inclusive 200-pixel whole-number minimum using existing locale terminology; old >270 rule was stale."
+  },
+  {
+    "locale": "ko",
+    "key": "list-width-error-message",
+    "before": "목록 너비는 270보다 큰 정수여야 합니다",
+    "after": "목록 너비는 200픽셀 이상의 정수여야 합니다.",
+    "reason": "Restore the actual inclusive 200-pixel whole-number minimum using existing locale terminology; old >270 rule was stale."
+  },
+  {
+    "locale": "ko-KR",
+    "key": "list-width-error-message",
+    "before": "목록 너비는 270보다 큰 정수여야 합니다",
+    "after": "목록 너비는 200픽셀 이상의 정수여야 합니다.",
+    "reason": "Restore the actual inclusive 200-pixel whole-number minimum using existing locale terminology; old >270 rule was stale."
+  },
+  {
+    "locale": "pl",
+    "key": "list-width-error-message",
+    "before": "Szerokość listy musi być liczbą całkowitą większą niż 270",
+    "after": "Szerokość listy musi być liczbą całkowitą wynoszącą co najmniej 200 pikseli.",
+    "reason": "Restore the actual inclusive 200-pixel whole-number minimum using existing locale terminology; old >270 rule was stale."
+  },
+  {
+    "locale": "pl-PL",
+    "key": "list-width-error-message",
+    "before": "Szerokość listy musi być liczbą całkowitą większą niż 270",
+    "after": "Szerokość listy musi być liczbą całkowitą wynoszącą co najmniej 200 pikseli.",
+    "reason": "Restore the actual inclusive 200-pixel whole-number minimum using existing locale terminology; old >270 rule was stale."
+  },
+  {
+    "locale": "cs",
+    "key": "list-width-error-message",
+    "before": "Šířka seznamu musí být celé číslo větší než 270",
+    "after": "Šířka seznamu musí být celé číslo alespoň 200 pixelů.",
+    "reason": "Restore the actual inclusive 200-pixel whole-number minimum using existing locale terminology; old >270 rule was stale."
+  },
+  {
+    "locale": "cs-CZ",
+    "key": "list-width-error-message",
+    "before": "Šířka seznamu musí být celé číslo větší než 270",
+    "after": "Šířka seznamu musí být celé číslo alespoň 200 pixelů.",
+    "reason": "Restore the actual inclusive 200-pixel whole-number minimum using existing locale terminology; old >270 rule was stale."
+  },
+  {
+    "locale": "nl",
+    "key": "list-width-error-message",
+    "before": "De lijstbreedte moet een geheel getal groter dan 270 zijn",
+    "after": "De lijstbreedte moet een geheel getal van ten minste 200 pixels zijn.",
+    "reason": "Restore the actual inclusive 200-pixel whole-number minimum using existing locale terminology; old >270 rule was stale."
+  },
+  {
+    "locale": "nl-NL",
+    "key": "list-width-error-message",
+    "before": "De lijstbreedte moet een geheel getal groter dan 270 zijn",
+    "after": "De lijstbreedte moet een geheel getal van ten minste 200 pixels zijn.",
+    "reason": "Restore the actual inclusive 200-pixel whole-number minimum using existing locale terminology; old >270 rule was stale."
+  },
+  {
+    "locale": "vl-SS",
+    "key": "list-width-error-message",
+    "before": "De lijstbreedte moet een geheel getal groter dan 270 zijn",
+    "after": "De lijstbreedte moet een geheel getal van ten minste 200 pixels zijn.",
+    "reason": "Restore the actual inclusive 200-pixel whole-number minimum using existing locale terminology; old >270 rule was stale."
   }
 ]

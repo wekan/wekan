@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Ustaw szerokość",
   "set-list-width": "Ustaw szerokość",
   "set-list-width-value": "Szerokość listy (piksele)",
-  "list-width-error-message": "Szerokość listy musi być liczbą całkowitą większą niż 270",
+  "list-width-error-message": "Szerokość listy musi być liczbą całkowitą wynoszącą co najmniej 200 pikseli.",
   "list-width-shared-note": "Ta szerokość jest wspólna dla wszystkich na tej tablicy.",
   "list-width-personal-note": "Ta szerokość jest tylko dla Ciebie.",
   "personal-list-width": "Osobiste szerokości list",
