@@ -30821,3 +30821,11 @@ and Trigger values did not name the intended concepts. Focused exact and
 negative checks pass with all 20,814 correction records and 234 locale
 inventories. Exact overlap falls to 719; 700 remain unclassified after 19
 attested shared forms. No remote write occurred.
+
+### 2026-09-15 — Basic Tigre interface terms
+
+Source commit `62ff72c607` repairs 17 short labels using distinct Tigre forms
+attested in complete BeitTigreAI corpus sentences. Focused exact and negative
+checks pass with all 20,831 correction records and 234 locale inventories.
+Exact overlap falls to 702; 683 remain unclassified after 19 attested shared
+forms. No remote write occurred.

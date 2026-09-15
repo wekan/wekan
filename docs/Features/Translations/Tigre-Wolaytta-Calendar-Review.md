@@ -349,3 +349,12 @@ sentences. Focused checks reject each former seed; all 20,814 corrections and
 234 locale inventories pass. Exact overlap falls to 719, with 19 shared forms
 and 700 unclassified. The derived Trigger noun remains open to fluent review.
 No remote write ran.
+
+## Basic Tigre interface terms repaired — 2026-09-15
+
+Source commit `62ff72c607` replaces 17 basic Tigrinya-seeded labels with
+distinct forms attested in complete Tigre corpus sentences: sky, organization,
+pink, days, path, year, role, table, white, reply, small, notes, hours, count,
+tests and today. Focused checks reject every former seed; all 20,831 corrections
+and 234 locale inventories pass. Exact overlap falls to 702, with 19 shared
+forms and 683 unclassified. No remote write ran.
