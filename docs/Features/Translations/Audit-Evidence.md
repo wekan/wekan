@@ -30931,3 +30931,12 @@ Focused exact and former-seed checks pass with all 20,950 correction records
 and 234 locale inventories. Raw overlap falls to 583; 563 remain unclassified
 after 20 attested shared forms. Complete compound order remains open to fluent
 review. No remote write occurred.
+
+### 2026-09-15 — Additional Tigre member compounds
+
+Source commit `284fcff14` repairs seven board-member, filter, selection and rule
+labels with the explicit Tigre Member/Members pair and other independently
+reviewed Tigre control terms. Focused exact and former-seed checks pass with all
+20,957 correction records and 234 locale inventories. Raw overlap falls to 576;
+556 remain unclassified after 20 attested shared forms. Complete phrase order
+remains open to fluent review. No remote write occurred.

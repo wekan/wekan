@@ -480,3 +480,14 @@ inventing new vocabulary. Focused exact and negative checks cover all values;
 all 20,950 correction records and 234 locale inventories pass. Raw overlap
 falls to 583, with 20 attested shared forms and 563 unclassified. Complete
 compound order remains open to fluent review. No remote write ran.
+
+## Additional Tigre member compounds repaired — 2026-09-15
+
+Source commit `284fcff14` replaces seven Tigrinya-seeded board-member, filter,
+selection and rule controls with the explicit corpus `አባል`/`አባላት` pair. It
+reuses independently reviewed Tigre Board, List, Add, Select, Filter and
+negative-copula forms. Focused exact and negative checks cover every value and
+reject the Tigrinya Member spelling; all 20,957 correction records and 234
+locale inventories pass. Raw overlap falls to 576, with 20 attested shared
+forms and 556 unclassified. Complete phrase order remains open to fluent
+review. No remote write ran.
