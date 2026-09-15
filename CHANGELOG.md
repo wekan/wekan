@@ -1518,6 +1518,18 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/21e43e8b5">Replace wrong-language Veps card-number search text.</a></summary>
+
+Use existing Veps card, number and identifier terminology while preserving
+search placeholders and literal examples. Four focused files pass (40 checks).
+The complete relative-clause grammar remains under review, and the expanded
+Veps wrong-language candidate scan remains active.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

@@ -30332,3 +30332,22 @@ Four focused files pass (40 checks), including wrong-language rejection,
 sum/date-range distinction, actual helper binding and all token inventories.
 No live tooltip UI ran. Ledger 19,964; pending 126/restored 4 unchanged.
 CPU-core terminology and full broader prior uncertain review remain open.
+
+2026-09-15 — `21e43e8b5`: repaired the Veps card-number search group.
+`card-number`, `operator-number` and its complete search-help sentence had
+Zulu values. The replacement uses existing Veps UI `Kart`, the native numeric
+label `Lugu`, and the already established sorting construction `nomeran
+mödhe` for a card identifier. The help now reads that cards have the stated
+card number. The literal `<number>` tokens, Markdown emphasis and
+`__operator_number__` placeholder remain byte-for-byte equal to English.
+The whole relative clause is a direct draft and remains LOW CONFIDENCE; the
+component evidence does not certify its complete grammar. A bounded foreign-
+language scan found 117 values with distinctive Tshivenda markers and 25 with
+distinctive Finnish vocabulary. These overlap earlier repairs and include
+false-positive risk, but prove that the original pending table is not a full
+inventory of unflagged Veps damage; every candidate still requires individual
+semantic review. Four focused files pass (40 checks): 19,967 correction
+records, newer-value preservation, search substitution, wrong-language
+rejection and all 234 locale token/key inventories. No live search UI ran.
+Original pending remains 126 and restored remains 4; broader candidate and
+prior low-confidence review remains active.
