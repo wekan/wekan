@@ -146501,5 +146501,33 @@
     "before": "ፍቓዳት ቀይር",
     "after": "እጃዝት ቀይር",
     "reason": "Replace the Tigrinya-seeded Change permissions label with the exact Tigre permission noun from a complete UI message and the corpus-attested Change command."
+  },
+  {
+    "locale": "tig",
+    "key": "speedReportTitle",
+    "before": "ፍጥነት",
+    "after": "ሸፋገት",
+    "reason": "Replace the Tigrinya-seeded Speed noun with the Tigre stem attested in the complete corpus sentence describing a leopard running at full speed."
+  },
+  {
+    "locale": "tig",
+    "key": "speed",
+    "before": "ፍጥነት",
+    "after": "ሸፋገት",
+    "reason": "Replace the Tigrinya-seeded Speed noun with the Tigre stem attested in the complete corpus sentence describing a leopard running at full speed."
+  },
+  {
+    "locale": "tig",
+    "key": "storage",
+    "before": "መኽዘን",
+    "after": "መክዘን",
+    "reason": "Replace the Tigrinya-seeded Storage spelling with the Tigre spelling attested in a corpus warehouse sentence and the native Tigre Wikidata interface phrase data storage."
+  },
+  {
+    "locale": "tig",
+    "key": "sandstorm-storage-item",
+    "before": "መኽዘን",
+    "after": "መክዘን",
+    "reason": "Replace the Tigrinya-seeded Storage spelling with the Tigre spelling attested in a corpus warehouse sentence and the native Tigre Wikidata interface phrase data storage."
   }
 ]
