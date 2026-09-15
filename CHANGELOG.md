@@ -687,9 +687,11 @@ repeated reactive invalidation during viewer rendering. Keep
 canonical avatar URLs on WeKan's guarded current-and-legacy route
 instead of Meteor-Files' broad download middleware. Repair browser
 flows for visible Board View and list menus, REST Bearer auth,
-fixture IDs and post-reload navigation. The full Chromium run passes
-404 cases with one skip. Firefox's legacy avatar case now uses a PNG
-with a valid image-data checksum; its focused rerun passes.
+fixture IDs and post-reload navigation. The complete sequential
+EVERYTHING run passes: Chromium 404 cases, Firefox 393 and WebKit 393,
+with only the suite's browser-specific skips. All 1,152 node suites,
+527 Meteor Mocha cases, import and node E2E checks, four-backend
+database conformance, and FerretDB unit, vet and integration pass.
 
 </details>
 
@@ -700,7 +702,7 @@ with a valid image-data checksum; its focused rerun passes.
 
 Replace the malformed PNG fixture whose image-data checksum Firefox
 rejected. The authenticated avatar still returns exact fixture bytes;
-the Firefox image-decoding check now passes.
+the image-decoding check passes in Chromium, Firefox and WebKit.
 
 </details>
 
