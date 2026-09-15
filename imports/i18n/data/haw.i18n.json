@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "keka wikaka",
   "set-list-width": "keka wikaka",
   "set-list-width-value": "papa inoa wikaka (pikelaka)",
-  "list-width-error-message": "papa inoa wikaka mukaka he he inakekela kaleakela kana 270",
+  "list-width-error-message": "Ka laulā o ka papa inoa: he helu piha ≥ 200 pixels ka mea e pono ai",
   "list-width-shared-note": "kēia wikaka he kaleka me elelawone ma kēia papa.",
   "list-width-personal-note": "kēia wikaka he wale nō pola ʻoe.",
   "personal-list-width": "pelakonala papa inoa wikakaka",

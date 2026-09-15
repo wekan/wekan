@@ -155181,5 +155181,26 @@
     "before": "ⵜⴻⵀⵔⵉ ⵏ ⵓⵎⵓⵖ ⵉⵍⴰⵇ ⴰⴷ ⵜⵉⵍⵉ ⴷ ⵓⵎⵎⵉⴷ ⵓⴳⴰⵔ ⵏ 270",
     "after": "ⵜⴻⵀⵔⵉ ⵏ ⵓⵎⵓⵖ ⵉⵍⴰⵇ ⴰⴷ ⵜⵉⵍⵉ ⴷ ⵓⵎⵎⵉⴷ ≥ 200 ⵉⵒⵉⴽⵙⵉⵍⴻⵏ",
     "reason": "Retain native list-width and whole-number words; replace obsolete strict greater-than-270 with inclusive 200-pixel minimum and the locale's existing pixel spelling. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "haw",
+    "key": "list-width-error-message",
+    "before": "papa inoa wikaka mukaka he he inakekela kaleakela kana 270",
+    "after": "Ka laulā o ka papa inoa: he helu piha ≥ 200 pixels ka mea e pono ai",
+    "reason": "Replace corrupt Hawaiian-seeded width and integer words with dictionary-attested laulā and helu piha; state inclusive 200-pixel rule. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "tlh",
+    "key": "list-width-error-message",
+    "before": "tetlh 'ab: 270 nIvbogh mI' naQ (integer) poQlu'.",
+    "after": "tetlh 'ab: mI' naQ (≥ 200 pixel) poQlu'.",
+    "reason": "Retain Klingon list-width, whole-number and required terms; remove obsolete 270 and English integer gloss; state inclusive bound. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "iu",
+    "key": "list-width-error-message",
+    "before": "ᑎᑎᖅᑲᓕᐊᑉ ᓴᓂᒧᑦ ᐊᖏᓂᖓ 270-ᒥᑦ ᐊᖏᓂᖅᓴᐅᔪᒥᒃ ᑭᓯᑦᓯᐅᑎᐅᔭᕆᐊᓕᒃ",
+    "after": "ᑎᑎᖅᑲᓕᐊᑉ ᓴᓂᒧᑦ ᐊᖏᓂᖓ: ᑭᓯᑦᓯᐅᑎᐅᔭᕆᐊᓕᒃ ≥ 200 pixels",
+    "reason": "Retain Inuktitut width and number requirement terms; replace obsolete strict greater-than-270 with inclusive 200-pixel bound. Complete clause low-confidence pending native grammar review."
   }
 ]

@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "'ab cher",
   "set-list-width": "'ab cher",
   "set-list-width-value": "tetlh 'ab (pixel)",
-  "list-width-error-message": "tetlh 'ab: 270 nIvbogh mI' naQ (integer) poQlu'.",
+  "list-width-error-message": "tetlh 'ab: mI' naQ (≥ 200 pixel) poQlu'.",
   "list-width-shared-note": "'abvam lu'lo' raSvam lo'wI'pu' Hoch.",
   "list-width-personal-note": "'abvam SoHvaD neH.",
   "personal-list-width": "lo'wI' tetlh 'abmey",
