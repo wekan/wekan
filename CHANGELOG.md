@@ -1462,6 +1462,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bc8988c9d">Replace wrong-language Veps problem acknowledgment text.</a></summary>
+
+Preserve reviewed-area selection and resetting new-problem counts.
+Complete acknowledgment terminology and grammar remain under review.
+Four focused files pass (36 checks); no live acknowledgment UI ran.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

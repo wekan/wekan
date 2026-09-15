@@ -875,3 +875,22 @@ No live CPU UI ran. Ledger 19,953; pending 126/restored 4 unchanged.
 CPU-cores/suffix still need native computing-core evidence. Do not use
 MediaWiki Südäinviga/internal-error to claim processor-core attestation.
 Backup/progress acknowledgment and wider prior uncertain review remain open.
+
+
+2026-09-15 — `bc8988c9d`: five unflagged Tshivenda values replaced:
+problems, new-problems, no-new-problems, acknowledge, problems-summary-help.
+Read problemsSummary.js checked-stream collection and acknowledgeEventLog
+call, and Jade checkbox/button bindings. Preserve selecting reviewed areas
+then resetting their new-problem count; acknowledgment is not a repair.
+Native MediaWiki sessionfailure/upload-misc-error-text attests problem;
+local confirm supplies Vahvištoita. Native paina, znamoiče and lugumär
+support click/mark/count vocabulary; source read today:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json
+Problem plural/cases, reviewed-area clause, zero-reset construction and
+confirm-based acknowledgment paraphrase remain LOW CONFIDENCE. No whole
+native phrase attestation claim. Four focused files pass (36 checks):
+foreign-language rejection, button-label agreement, count-reset meaning,
+checked-stream code and complete token/key-order inventories.
+No live acknowledgment UI ran. Ledger 19,958; pending 126/restored 4.
+Backup scope, CPU-core/severity, number/date-range and broader prior
+uncertain wording remain within the full local translation repair scope.
