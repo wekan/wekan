@@ -30405,6 +30405,23 @@ source bindings, plus all 234 locale inventories. No live UI ran. The assembled
 technical prose remains LOW CONFIDENCE; broader Veps and prior uncertain review
 continues. No external translation service or remote push.
 
+### 2026-09-15 — Veps advanced-filter help
+
+Source commit `7bc3b73b0` repairs the final tracked Veps finding; ledger 19,990,
+corrected tracked rows 15,785, pending 118 with no Veps row, restored four
+unchanged. Replace Finnish prose with a Veps draft while treating the paragraph
+as executable parser documentation. Preserve exactly its operator inventory,
+field/value examples, quoted spaces, escape markers, Boolean alternatives and
+grouping, left-to-right evaluation, parentheses and regex example.
+
+Reuse established Veps advanced-filter, custom-field, name, value, space,
+symbol, writing, search, order and left/right vocabulary. Complete terminology
+for quoting, escaping, conditions and regex remains LOW CONFIDENCE. Six focused
+files pass (42 checks), including 14/14 real tokenizer/date-selector cases,
+19,990 exact correction records and all 234 locale inventories. No live filter
+UI ran. Broader unflagged and prior uncertain review continues; no external
+translation service or remote push.
+
 ### 2026-09-15 — Complete Veps accessibility family
 
 Source commit `09b62ffa4`: five Finnish values repaired, including two tracked

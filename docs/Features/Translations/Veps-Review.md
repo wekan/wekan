@@ -1186,3 +1186,24 @@ No live keyboard-shortcuts UI ran. Three tracked findings are resolved: overall
 pending 119, Veps 1, restored four unchanged. The remaining tracked Veps item
 is the syntax-bearing advanced-filter description; broader unflagged and prior
 low-confidence review remains active.
+
+2026-09-15 — `7bc3b73b0`: repaired the last tracked Veps finding,
+`advanced-filter-description`, replacing the Finnish prose with a Veps draft.
+The paragraph is executable documentation: preserve exactly all eight operator,
+field/value, quoted-space, escaped-apostrophe, Boolean-grouping and regex
+fragments, plus the source's three standalone backslashes. Source parser review
+confirms spaces delimit tokens outside quotes, apostrophes quote literal strings,
+backslash escapes the next character, slash delimits regex outside a quoted
+string, operators evaluate in sequence and parentheses change grouping.
+
+Reuse existing `Levenzoittud puhtastim`, custom-field, name, value, space,
+symbol, write, search, ordering and left/right vocabulary from this locale.
+Complete phrasing for quoting, escaping, conditions, grouping and regex remains
+LOW CONFIDENCE pending native contextual review.
+
+Six focused files pass (42 checks): the real parser/date-selector suite passes
+14/14; all executable examples and escape inventories match English; Finnish
+prose is rejected; 19,990 correction records and all 234 locale inventories
+verify. No live filter UI ran. The original tracked Veps queue is complete:
+overall pending 118, no Veps row, restored four unchanged. Broader unflagged and
+all prior low-confidence Veps wording remain in scope.

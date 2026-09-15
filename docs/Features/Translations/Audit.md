@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-15**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,784 |
+| Corrected | 15,785 |
 | Restored pre-pull; awaiting validation | 4 |
 | Reviewed; retained unchanged | 4,174 |
-| Pending review or repair | 119 |
+| Pending review or repair | 118 |
 | Total tracked | 20,081 |
 
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
@@ -16,16 +16,15 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `4d74f7080` — replace the coordinated
-Finnish Veps keyboard-shortcut family, including its unflagged page title, with
-a consistent keyboard-command draft. Source checks preserve enabled/disabled
-opposite actions, opening the popup and the literal `?` binding. Four focused
-files pass (40 checks). Ledger 19,989; original pending 119 (Veps 1), restored
-4 unchanged. No dedicated native shortcut term was established, so the
-technical compound and assembled cases remain low confidence.
+Latest translation fix: **2026-09-15**, `7bc3b73b0` — replace the final tracked
+Finnish Veps paragraph with an advanced-filter draft. Parser and language checks
+preserve every executable operator, field/value, quote, escape, grouping and
+regex example exactly. Six focused files pass (42 checks), including 14/14
+parser cases. Ledger 19,990; original pending 118 (Veps queue complete),
+restored 4 unchanged. The assembled technical prose remains low confidence.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **19,989** exact before/after values, including unflagged
+records contain **19,990** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -51,7 +50,6 @@ restored values still await full native clause validation.
 | wal — Wolaytta | 10 |
 | ee — Ewe | 1 |
 | rup — Aromanian | 1 |
-| ve-PP — Veps | 1 |
 
 Remaining review includes all restored, unflagged and prior low-confidence
 values, not just this pending table. Structural checks preserve exact English

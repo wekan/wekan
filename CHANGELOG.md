@@ -1611,6 +1611,18 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7bc3b73b0">Translate Veps advanced-filter help.</a></summary>
+
+Replace the final tracked Finnish Veps paragraph while preserving every
+executable operator, quote, escape, grouping and regex example. Six focused
+files pass (42 checks), including the real parser suite. Technical prose remains
+under native review.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
