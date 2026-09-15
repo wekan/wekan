@@ -139809,5 +139809,40 @@
     "before": "vastaan",
     "after": "Vastustada",
     "reason": "Replace Finnish voting-side labels with Veps forms. Rendered Zajceva/Mullonen pages 100, 331 and 370 attest änestamine/änestada, support tugi/tugeta, polestada for defending a position, and vastustai/vastustada for opponent/oppose. Button infinitives are directly attested; derived participant plurals, especially Polestajad as Proponents, remain low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board-status-loading-mode",
+    "before": "U laisa dzikhadi",
+    "after": "Kartoiden ladind",
+    "reason": "2026-09-15: Replace two Tshivenda labels, remove an obsolete default suffix, update stale all/lazy prose to the automatic above-threshold behavior, and replace the Russian multi-select hybrid. Reuse existing Veps card/loading, automatic, mode, threshold, memory, configure, force and multi-selection terminology; preserve literal mode values and both environment-variable names. The assembled technical description remains low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cards-loading-auto",
+    "before": "Zwi ḓi itaho (u laisa ho lengaho kha mabodo mahulu fhedzi)",
+    "after": "Avtomatine (lašk vaiše suril laudoil)",
+    "reason": "2026-09-15: Replace two Tshivenda labels, remove an obsolete default suffix, update stale all/lazy prose to the automatic above-threshold behavior, and replace the Russian multi-select hybrid. Reuse existing Veps card/loading, automatic, mode, threshold, memory, configure, force and multi-selection terminology; preserve literal mode values and both environment-variable names. The assembled technical description remains low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cards-loading-all",
+    "before": "Kaik kartad (alolane)",
+    "after": "Kaik kartad",
+    "reason": "2026-09-15: Replace two Tshivenda labels, remove an obsolete default suffix, update stale all/lazy prose to the automatic above-threshold behavior, and replace the Russian multi-select hybrid. Reuse existing Veps card/loading, automatic, mode, threshold, memory, configure, force and multi-selection terminology; preserve literal mode values and both environment-variable names. The assembled technical description remains low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cards-loading-description",
+    "before": "Kut joka laud ladib ičeze kartad. Kaik kartad: jogahine kart ladidas selaimha (kaikuten kebn, kaik ominazused rabotaba, no laud tuhanziden kartoidenke oigendab äi andmusid jogahižele kacujale). Lašk: joka list ladib vaiše nügüd' nägujad kartad (loppmatoi skrolind) i elävan lugun, muga lujas sured laudad kävutaba vähemba muštad i kaistandan tilad. Sädas mugažo CARDS_LOADING-ümbristön muuttujal.",
+    "after": "WeKan ladib laudan kartad avtomatižešti: sur laud (suruzülimärad suremb) ladib vaiše nügüd' nägujad kartad (loppmatoi skrolind) da elävan lugun, muga se radab piged, kävutab vähemba muštad da sirdab vähemba andmusid verkon mödhe; penembad laudad ladiba kaik kartad, miše kävutand oliži kaikuten kebn da kaik funkcijad oližiba kävutandaha. Ei pidagoi sädada midä-se. Operatorad voiba völ pakita režiman CARDS_LOADING (all/lazy/auto) da CARDS_LOADING_LAZY_THRESHOLD -ümbrišton vajehtujiden abul.",
+    "reason": "2026-09-15: Replace two Tshivenda labels, remove an obsolete default suffix, update stale all/lazy prose to the automatic above-threshold behavior, and replace the Russian multi-select hybrid. Reuse existing Veps card/loading, automatic, mode, threshold, memory, configure, force and multi-selection terminology; preserve literal mode values and both environment-variable names. The assembled technical description remains low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cards-loading-lazy-note",
+    "before": "Laškan kartoiden ladind om eksperimentaline: kartoiden lugijad i WIP-rajad oma tarkad, no Kalendar/Tablic/Gantt-nägud i mnog-valind ozutaba vaiše nenäd kartad, kudambad om jo ladidud. Lada avoinad laudad uzin necen vajehtandan jäl'ghe.",
+    "after": "Laškan kartoiden ladind om eksperimentaline: kartoiden lugijad i WIP-rajad oma tarkad, no Kalendar/Tablic/Gantt-nägud i äi valičuz ozutaba vaiše nenäd kartad, kudambad om jo ladidud. Lada avoinad laudad uzin necen vajehtandan jäl'ghe.",
+    "reason": "2026-09-15: Replace two Tshivenda labels, remove an obsolete default suffix, update stale all/lazy prose to the automatic above-threshold behavior, and replace the Russian multi-select hybrid. Reuse existing Veps card/loading, automatic, mode, threshold, memory, configure, force and multi-selection terminology; preserve literal mode values and both environment-variable names. The assembled technical description remains low confidence."
   }
 ]

@@ -2887,6 +2887,34 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.notEqual(vepsVotingSides['positiveVoteMembersPopup-title'], vepsVotingSides['negativeVoteMembersPopup-title']);
   assert.notEqual(vepsVotingSides['vote-for-it'], vepsVotingSides['vote-against']);
   assert.match(cache['ve-PP'].voting, /Änestamine/);
+  const vepsCardLoading = {
+    'board-status-loading-mode': 'Kartoiden ladind',
+    'cards-loading-auto': 'Avtomatine (lašk vaiše suril laudoil)',
+    'cards-loading-all': 'Kaik kartad',
+    'cards-loading-description': "WeKan ladib laudan kartad avtomatižešti: sur laud (suruzülimärad suremb) ladib vaiše nügüd' nägujad kartad (loppmatoi skrolind) da elävan lugun, muga se radab piged, kävutab vähemba muštad da sirdab vähemba andmusid verkon mödhe; penembad laudad ladiba kaik kartad, miše kävutand oliži kaikuten kebn da kaik funkcijad oližiba kävutandaha. Ei pidagoi sädada midä-se. Operatorad voiba völ pakita režiman CARDS_LOADING (all/lazy/auto) da CARDS_LOADING_LAZY_THRESHOLD -ümbrišton vajehtujiden abul.",
+    'cards-loading-lazy-note': "Laškan kartoiden ladind om eksperimentaline: kartoiden lugijad i WIP-rajad oma tarkad, no Kalendar/Tablic/Gantt-nägud i äi valičuz ozutaba vaiše nenäd kartad, kudambad om jo ladidud. Lada avoinad laudad uzin necen vajehtandan jäl'ghe.",
+  };
+  for (const [key, value] of Object.entries(vepsCardLoading)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.doesNotMatch(value, /Zwi ḓi itaho|u laisa|mabodo|dzikhadi|mnog-valind|ümbristön muuttujal|\(alolane\)/, key);
+  }
+  assert.equal(cache['ve-PP']['board-status-loading-mode'], cache['ve-PP']['cards-loading']);
+  assert.match(cache['ve-PP']['cards-loading-description'], /avtomatižešti.*suruzülimärad suremb.*vaiše nügüd' nägujad kartad.*elävan lugun/);
+  assert.match(cache['ve-PP']['cards-loading-description'], /vähemba muštad.*vähemba andmusid verkon mödhe.*penembad laudad.*kaik kartad/);
+  assert.match(cache['ve-PP']['cards-loading-description'], /Ei pidagoi sädada.*pakita režiman/);
+  assert.deepEqual(
+    cache['ve-PP']['cards-loading-description'].match(/CARDS_LOADING(?:_LAZY_THRESHOLD)?/g),
+    english['cards-loading-description'].match(/CARDS_LOADING(?:_LAZY_THRESHOLD)?/g),
+  );
+  assert.match(cache['ve-PP']['cards-loading-description'], /CARDS_LOADING \(all\/lazy\/auto\)/);
+  assert.match(cache['ve-PP']['cards-loading-lazy-note'], /WIP.*Kalendar\/Tablic\/Gantt.*äi valičuz.*jo ladidud.*Lada avoinad laudad uzin/);
+  const cardLoadingProblems = fs.readFileSync(path.join(root, 'client/components/settings/adminProblems.jade'), 'utf8');
+  const boardStatusView = fs.readFileSync(path.join(root, 'client/components/boards/statsView.jade'), 'utf8');
+  const boardStatusLogic = fs.readFileSync(path.join(root, 'client/components/boards/statsView.js'), 'utf8');
+  assert.match(cardLoadingProblems, /\{\{_ 'cards-loading-description'\}\}/);
+  assert.match(boardStatusView, /\{\{_ 'board-status-loading-mode'\}\}/);
+  assert.match(boardStatusLogic, /TAPi18n\.__\('cards-loading-(?:lazy|all)'\)/);
+  assert.match(boardStatusLogic, /TAPi18n\.__\('cards-loading-auto'\)/);
   assert.equal(vepsTranslator.t('MongoDB_storage_engine'), 'MongoDB kaičusen motor');
   assert.doesNotMatch(vepsTranslator.t('MongoDB_storage_engine'), /tallennusmoottori/);
   assert.equal(vepsTranslator.t('zoom-in'), 'Surenda');
