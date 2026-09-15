@@ -31326,3 +31326,22 @@ wrong-language removal, selector wiring and i18next runtime interpolation.
 Correction ledger now has 21,898 final records; original audit-row counts
 remain 15,880 corrected, 4,201 retained and zero pending. No live UI test
 or remote write occurred.
+
+### 2026-09-15 — Tigre S3 settings English placeholders
+
+Source commit `970d9e664` fills 21 unflagged S3 settings that were identical
+to English. The adjacent Tigre settings already use `መክዘን` for storage,
+`ፈይል` for file, `ምትእስሳር` for connection, `ወደብ` for port,
+`ኣድራሻ` for address and `ቅያስ` for size. Service names, protocol labels,
+literal hostnames and URL examples stay intact. The bare `s3-storage` value
+remains `S3`, a literal protocol name. Compound order, object-storage wording
+and several inflections are low confidence pending native review; this is a
+direct local fill, not a human Transifex translation. The focused suite checks
+all 21 exact-value ledger records, distinct success/failure and enabled/disabled
+states, retained hostnames and service order. Tigre progress, correction-ledger
+and 234-locale inventory suites pass. Ledger now has 21,919 final records;
+original audit-row counts remain 15,880 corrected and 4,201 retained.
+Non-English Tigre values rise from 2,592 to 2,613. Non-English exact
+Tigre/Tigrinya overlap remains 233, with 22 complete attested shared forms
+and 211 unclassified; 23 matches have at least 20 characters and 6 at least
+35. No live UI test or remote write occurred.

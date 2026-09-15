@@ -649,7 +649,17 @@ full contextual grammar remains under native review.
 
 This release includes the following features and fixes:
 
-**Translations** - Tamazight rule state labels and due-reminder activity.
+**Translations** - Tamazight activity and rule labels; Tigre S3 settings.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/970d9e664">Fill Tigre S3 settings translations</a>. Thanks to xet7.</summary>
+
+Fill 21 English placeholders for storage, connection, keys and endpoint
+help with established Tigre vocabulary. Keep service names and example
+hostnames literal. Focused meaning and ledger checks pass; full compound
+grammar remains under native review.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/780a75a2b">Repair Tamazight due-reminder activity</a>. Thanks to xet7.</summary>

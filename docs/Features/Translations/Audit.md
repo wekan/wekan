@@ -16,14 +16,15 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `780a75a2b` — replace one unflagged
-French due-reminder activity with Tamazight. IRCAM attests the reminder noun;
-the plural phrase remains low confidence pending native review. Three source
-placeholders and runtime interpolation are verified. Prior Tigre plural
-repair `5d53aa990` remains under full-clause review.
+Latest translation fix: **2026-09-15**, `970d9e664` — fill 21 Tigre S3
+settings that still matched English, using established local storage,
+file, connection, port, address and size vocabulary. Keep service names,
+hostnames and protocol terms literal. Compound grammar remains low confidence
+pending native review. Prior Tamazight activity repair `780a75a2b` and Tigre
+plural repair `5d53aa990` retain their recorded review limits.
 
 The tracked Tigre calendar queue being empty does not certify the locale. Of
-2,592 non-English Tigre values, 233 are byte-for-byte identical to Tigrinya;
+2,613 non-English Tigre values, 233 are byte-for-byte identical to Tigrinya;
 22 complete forms are corpus-attested shared terms and 211 full values remain
 unclassified, including 23 of at least 20 characters and 6 of at least 35.
 Four newly matching File phrases have a corpus-attested noun, but their full
@@ -32,7 +33,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **21,898** exact before/after values, including unflagged
+records contain **21,919** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

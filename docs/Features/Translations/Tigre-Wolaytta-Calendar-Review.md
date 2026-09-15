@@ -835,3 +835,14 @@ noun, but their complete clauses remain unclassified. Thus 22 complete
 forms are attested shared and 211 full values remain unclassified, including
 23 raw matches at least 20 characters and 6 at least 35. Team, Button and
 Collection plurals remain low confidence. No remote write occurred.
+
+### 2026-09-15 — Tigre S3 settings fill
+
+`970d9e664` replaces 21 English placeholders in the S3 settings family,
+using existing local Tigre storage, connection, port, address, file and size
+vocabulary. Technical service names, `Endpoint`, `URL`, `SSL`, hostnames and
+the bare `S3` protocol label remain literal. Complete compound grammar is
+low confidence pending native review. Focused and ledger checks pass; all
+234 locale inventories pass. Ledger 21,919. Non-English Tigre values 2,613;
+raw exact Tigre/Tigrinya overlap stays 233 (22 attested shared, 211
+unclassified). No live UI test or remote write occurred.
