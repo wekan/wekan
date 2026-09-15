@@ -145815,5 +145815,159 @@
     "before": "ሎሚ",
     "after": "ዮም",
     "reason": "Replace a Tigrinya-seeded basic label with the distinct Tigre form attested for the concept in complete BeitTigreAI corpus sentences."
+  },
+  {
+    "locale": "tig",
+    "key": "accept",
+    "before": "ተቐበል",
+    "after": "ቀብል",
+    "reason": "Replace a Tigrinya-seeded operational label with the distinct Tigre action or noun attested in complete BeitTigreAI corpus sentences; apply regular plural morphology where the UI source is plural."
+  },
+  {
+    "locale": "tig",
+    "key": "attachment-limits",
+    "before": "ደረታት",
+    "after": "ሕዱዳት",
+    "reason": "Replace a Tigrinya-seeded operational label with the distinct Tigre action or noun attested in complete BeitTigreAI corpus sentences; apply regular plural morphology where the UI source is plural."
+  },
+  {
+    "locale": "tig",
+    "key": "color-silver",
+    "before": "ብሩራዊ",
+    "after": "ፍደት",
+    "reason": "Replace a Tigrinya-seeded operational label with the distinct Tigre action or noun attested in complete BeitTigreAI corpus sentences; apply regular plural morphology where the UI source is plural."
+  },
+  {
+    "locale": "tig",
+    "key": "color-yellow",
+    "before": "ብጫ",
+    "after": "ቢጫይ",
+    "reason": "Replace a Tigrinya-seeded operational label with the distinct Tigre action or noun attested in complete BeitTigreAI corpus sentences; apply regular plural morphology where the UI source is plural."
+  },
+  {
+    "locale": "tig",
+    "key": "invite",
+    "before": "ዓድም",
+    "after": "ዐዝም",
+    "reason": "Replace a Tigrinya-seeded operational label with the distinct Tigre action or noun attested in complete BeitTigreAI corpus sentences; apply regular plural morphology where the UI source is plural."
+  },
+  {
+    "locale": "tig",
+    "key": "poker-finish",
+    "before": "ወድእ",
+    "after": "አትመም",
+    "reason": "Replace a Tigrinya-seeded operational label with the distinct Tigre action or noun attested in complete BeitTigreAI corpus sentences; apply regular plural morphology where the UI source is plural."
+  },
+  {
+    "locale": "tig",
+    "key": "upload",
+    "before": "ስቐል",
+    "after": "ጸዐን",
+    "reason": "Replace a Tigrinya-seeded operational label with the distinct Tigre action or noun attested in complete BeitTigreAI corpus sentences; apply regular plural morphology where the UI source is plural."
+  },
+  {
+    "locale": "tig",
+    "key": "voting",
+    "before": "ምድማጽ",
+    "after": "ሕርያን",
+    "reason": "Replace a Tigrinya-seeded operational label with the distinct Tigre action or noun attested in complete BeitTigreAI corpus sentences; apply regular plural morphology where the UI source is plural."
+  },
+  {
+    "locale": "tig",
+    "key": "worker",
+    "before": "ሰራሕተኛ",
+    "after": "ሸቃላይ",
+    "reason": "Replace a Tigrinya-seeded operational label with the distinct Tigre action or noun attested in complete BeitTigreAI corpus sentences; apply regular plural morphology where the UI source is plural."
+  },
+  {
+    "locale": "tig",
+    "key": "board-view-control-chart",
+    "before": "ቁጽጽር",
+    "after": "ሕክም",
+    "reason": "Replace a Tigrinya-seeded operational label with the distinct Tigre action or noun attested in complete BeitTigreAI corpus sentences; apply regular plural morphology where the UI source is plural."
+  },
+  {
+    "locale": "tig",
+    "key": "cleanup",
+    "before": "ምጽራይ",
+    "after": "ከስተሮት",
+    "reason": "Replace a Tigrinya-seeded operational label with the distinct Tigre action or noun attested in complete BeitTigreAI corpus sentences; apply regular plural morphology where the UI source is plural."
+  },
+  {
+    "locale": "tig",
+    "key": "minutes",
+    "before": "ደቓይቕ",
+    "after": "ደቃይቅ",
+    "reason": "Replace a Tigrinya-seeded operational label with the distinct Tigre action or noun attested in complete BeitTigreAI corpus sentences; apply regular plural morphology where the UI source is plural."
+  },
+  {
+    "locale": "tig",
+    "key": "reports",
+    "before": "ጸብጻባት",
+    "after": "ጽበጣት",
+    "reason": "Replace a Tigrinya-seeded operational label with the distinct Tigre action or noun attested in complete BeitTigreAI corpus sentences; apply regular plural morphology where the UI source is plural."
+  },
+  {
+    "locale": "tig",
+    "key": "request",
+    "before": "ሕቶ",
+    "after": "ሱአል",
+    "reason": "Replace a Tigrinya-seeded operational label with the distinct Tigre action or noun attested in complete BeitTigreAI corpus sentences; apply regular plural morphology where the UI source is plural."
+  },
+  {
+    "locale": "tig",
+    "key": "requests",
+    "before": "ሕቶታት",
+    "after": "ሱአላት",
+    "reason": "Replace a Tigrinya-seeded operational label with the distinct Tigre action or noun attested in complete BeitTigreAI corpus sentences; apply regular plural morphology where the UI source is plural."
+  },
+  {
+    "locale": "tig",
+    "key": "computer",
+    "before": "ኮምፒዩተር",
+    "after": "ኮምፒተር",
+    "reason": "Replace a Tigrinya-seeded operational label with the distinct Tigre action or noun attested in complete BeitTigreAI corpus sentences; apply regular plural morphology where the UI source is plural."
+  },
+  {
+    "locale": "tig",
+    "key": "features-security",
+    "before": "ድሕነት",
+    "after": "አምን",
+    "reason": "Replace a Tigrinya-seeded operational label with the distinct Tigre action or noun attested in complete BeitTigreAI corpus sentences; apply regular plural morphology where the UI source is plural."
+  },
+  {
+    "locale": "tig",
+    "key": "event-attempts",
+    "before": "ፈተነታት",
+    "after": "ጀርቤታት",
+    "reason": "Replace a Tigrinya-seeded operational label with the distinct Tigre action or noun attested in complete BeitTigreAI corpus sentences; apply regular plural morphology where the UI source is plural."
+  },
+  {
+    "locale": "tig",
+    "key": "previous",
+    "before": "ዝሓለፈ",
+    "after": "ቀዳሚት",
+    "reason": "Replace a Tigrinya-seeded operational label with the distinct Tigre action or noun attested in complete BeitTigreAI corpus sentences; apply regular plural morphology where the UI source is plural."
+  },
+  {
+    "locale": "tig",
+    "key": "problems",
+    "before": "ጸገማት",
+    "after": "መሻክል",
+    "reason": "Replace a Tigrinya-seeded operational label with the distinct Tigre action or noun attested in complete BeitTigreAI corpus sentences; apply regular plural morphology where the UI source is plural."
+  },
+  {
+    "locale": "tig",
+    "key": "progress",
+    "before": "ምዕባለ",
+    "after": "ዐቦት",
+    "reason": "Replace a Tigrinya-seeded operational label with the distinct Tigre action or noun attested in complete BeitTigreAI corpus sentences; apply regular plural morphology where the UI source is plural."
+  },
+  {
+    "locale": "tig",
+    "key": "schedule",
+    "before": "መደብ",
+    "after": "ጀድወል",
+    "reason": "Replace a Tigrinya-seeded operational label with the distinct Tigre action or noun attested in complete BeitTigreAI corpus sentences; apply regular plural morphology where the UI source is plural."
   }
 ]

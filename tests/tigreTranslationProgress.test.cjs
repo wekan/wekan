@@ -63,7 +63,7 @@ for (const [key, value] of Object.entries(tigre)) {
     `${key}: locale-wide HTML tag inventory`);
 }
 
-assert.equal(tigre.accept, 'ተቐበል');
+assert.equal(tigre.accept, 'ቀብል');
 assert.deepEqual(tokens(tigre['activity-changedTitle']), ['%s', '%s']);
 assert.deepEqual(tokens(tigre['act-deleteCard']),
   ['__board__', '__card__', '__list__', '__swimlane__']);
@@ -131,7 +131,7 @@ assert.match(tigre['card-aging-tier3'], /3/);
 assert.equal(tigre['color-black'], 'ጸሊም');
 assert.equal(tigre['color-red'], 'ቀይሕ');
 assert.equal(tigre['color-white'], 'ጸዕደ');
-assert.equal(tigre['color-yellow'], 'ብጫ');
+assert.equal(tigre['color-yellow'], 'ቢጫይ');
 assert.match(tigre['copyManyCardsPopup-instructions'], /JSON/);
 const copiedCards = JSON.parse(tigre['copyManyCardsPopup-format']);
 assert.equal(copiedCards.length, 3);
