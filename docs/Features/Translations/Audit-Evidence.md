@@ -1,5 +1,12 @@
 # Detailed translation audit evidence
 
+2026-09-15 (`f0ceb8d72`): separated six removal buttons from
+the shared `unset-color` status using existing translated action
+keys. zgh's Arabic status becomes local native not-set prose.
+All-locale source/Jade/ledger checks and one focused Chromium
+UI test pass. Exact ledger now 22,260; Arabic-script review
+queue 140.
+
 2026-09-15 (`87c049571`): repaired eight unflagged Arabic
 Tamazight board settings and color popup labels. Rename-board
 and choose-color titles reuse exact native labels; full command

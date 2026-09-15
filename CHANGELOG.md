@@ -656,6 +656,16 @@ This release includes the following features and fixes:
 **Translations** - Tamazight, Tigre and multilingual list-width repairs.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f0ceb8d72">Separate translated removal actions from Unset status</a>. Thanks to xet7.</summary>
+
+Color and image removal buttons use existing translated
+action keys; setting-status displays keep Unset. Tamazight's
+Arabic Unset becomes native not-set prose. Source, Jade,
+ledger, inventory and focused Chromium UI checks pass.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/87c049571">Repair Tamazight board and color popups</a>. Thanks to xet7.</summary>
 
 Replace eight Arabic board, visibility, watch and color popup

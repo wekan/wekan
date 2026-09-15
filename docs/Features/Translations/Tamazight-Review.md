@@ -1,5 +1,23 @@
 # Standard Moroccan Tamazight reference review
 
+## Unset status and removal action contexts, 2026-09-15 (`f0ceb8d72`)
+
+The Arabic `unset-color` key was used for both status displays
+and removal buttons. Six Jade controls now use existing action
+translations: five generic `remove-btn` buttons and one specific
+`remove-background-image` button. All locale files already have
+these keys. Settings status displays continue to use `unset-color`;
+zgh now takes its native not-set wording from `cloud-secret-none`.
+This avoids showing an imperative as a status or “not set” on
+an active removal button.
+
+The source test checks all locale inventories and rejects any
+old `unset-color` button use. All edited Jade compiles, ledger
+and 234-locale checks pass. A focused Chromium card-color popup
+test passed (1 UI test, list reporter). Arabic-script values
+fall from 141 to 140; original flagged finding categories
+are unchanged.
+
 ## Board settings and color popups, 2026-09-15 (`87c049571`)
 
 Eight unflagged Arabic board, visibility, watch and color popup
@@ -15,11 +33,9 @@ checks source keys, native components, duplicate popup/control
 wording and absence of Arabic seeds; exact-ledger and 234-locale
 checks pass. Arabic-script values fall from 149 to 141.
 
-The Arabic `unset-color` still serves both color-removal
-buttons and general setting-status text. One replacement
-phrase cannot convey both contexts clearly, so this key
-requires a separate UI/source-key review. Original flagged
-finding classifications are unchanged.
+The shared `unset-color` action/status issue identified in this
+batch was resolved in `f0ceb8d72`. Original flagged finding
+classifications are unchanged.
 
 ## Board-background controls, 2026-09-15 (`79d58098f`)
 
