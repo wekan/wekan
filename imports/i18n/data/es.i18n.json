@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Establecer ancho",
   "set-list-width": "Establecer ancho",
   "set-list-width-value": "Ancho de la lista (píxeles)",
-  "list-width-error-message": "El ancho de la lista debe ser un entero mayor que 270",
+  "list-width-error-message": "El ancho de la lista debe ser un número entero de al menos 200 píxeles.",
   "list-width-shared-note": "Este ancho se comparte con todos los miembros de este tablero.",
   "list-width-personal-note": "Este ancho es solo para ti.",
   "personal-list-width": "Anchos de lista personales",

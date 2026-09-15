@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Définir la largeur",
   "set-list-width": "Définir la largeur",
   "set-list-width-value": "Largeur de la liste (pixels)",
-  "list-width-error-message": "La largeur de la liste doit être un entier supérieur à 270",
+  "list-width-error-message": "La largeur de la liste doit être un nombre entier d'au moins 200 pixels.",
   "list-width-shared-note": "Cette largeur est partagée avec tout le monde sur ce tableau.",
   "list-width-personal-note": "Cette largeur ne s'applique qu'à vous.",
   "personal-list-width": "Largeurs de liste personnelles",

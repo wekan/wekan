@@ -153571,5 +153571,166 @@
     "before": "رۉیخت کینگ‌لیگی ۲۷۰ دن کتته پۇتون سان بۉلیشی کیرک",
     "after": "رۉیخت کینگ‌لیگی کمیده ۲۰۰ پیکسل بۉلگن پۇتون سان بۉلیشی کیرک",
     "reason": "2026-09-15 stale list-width rule repair: replace Persian-digit ۲۷۰ and strictly-greater condition with declared-language whole-number/inclusive-at-least-۲۰۰-pixel wording. Reuse existing local Persian حداقل / Uzbek Arabic کمیده, پۇتون سان and پیکسل terminology. Preserve native numeral style. Uzbek Arabic full sentence order remains low confidence pending native review."
+  },
+  {
+    "locale": "de-AT",
+    "key": "list-width-error-message",
+    "before": "Breite der Liste muss eine ganze Zahl größer als 270 sein",
+    "after": "Die Breite der Liste muss eine ganze Zahl von mindestens 200 Pixeln sein.",
+    "reason": "2026-09-15 stale list-width validation repair: preserve declared-language list width and integer wording; replace obsolete strictly-greater-than-270 semantics with inclusive at-least-200 pixels. Locale siblings use their existing language-specific style; no placeholders or service literals."
+  },
+  {
+    "locale": "de-CH",
+    "key": "list-width-error-message",
+    "before": "Breite der Liste muss eine ganze Zahl größer als 270 sein",
+    "after": "Die Breite der Liste muss eine ganze Zahl von mindestens 200 Pixeln sein.",
+    "reason": "2026-09-15 stale list-width validation repair: preserve declared-language list width and integer wording; replace obsolete strictly-greater-than-270 semantics with inclusive at-least-200 pixels. Locale siblings use their existing language-specific style; no placeholders or service literals."
+  },
+  {
+    "locale": "de",
+    "key": "list-width-error-message",
+    "before": "Breite der Liste muss eine ganze Zahl größer als 270 sein",
+    "after": "Die Breite der Liste muss eine ganze Zahl von mindestens 200 Pixeln sein.",
+    "reason": "2026-09-15 stale list-width validation repair: preserve declared-language list width and integer wording; replace obsolete strictly-greater-than-270 semantics with inclusive at-least-200 pixels. Locale siblings use their existing language-specific style; no placeholders or service literals."
+  },
+  {
+    "locale": "de_DE",
+    "key": "list-width-error-message",
+    "before": "Breite der Liste muss eine ganze Zahl größer als 270 sein",
+    "after": "Die Breite der Liste muss eine ganze Zahl von mindestens 200 Pixeln sein.",
+    "reason": "2026-09-15 stale list-width validation repair: preserve declared-language list width and integer wording; replace obsolete strictly-greater-than-270 semantics with inclusive at-least-200 pixels. Locale siblings use their existing language-specific style; no placeholders or service literals."
+  },
+  {
+    "locale": "es-AR",
+    "key": "list-width-error-message",
+    "before": "El ancho de la lista debe ser un entero mayor que 270",
+    "after": "El ancho de la lista debe ser un número entero de al menos 200 píxeles.",
+    "reason": "2026-09-15 stale list-width validation repair: preserve declared-language list width and integer wording; replace obsolete strictly-greater-than-270 semantics with inclusive at-least-200 pixels. Locale siblings use their existing language-specific style; no placeholders or service literals."
+  },
+  {
+    "locale": "es-CL",
+    "key": "list-width-error-message",
+    "before": "El ancho de la lista debe ser un entero mayor que 270",
+    "after": "El ancho de la lista debe ser un número entero de al menos 200 píxeles.",
+    "reason": "2026-09-15 stale list-width validation repair: preserve declared-language list width and integer wording; replace obsolete strictly-greater-than-270 semantics with inclusive at-least-200 pixels. Locale siblings use their existing language-specific style; no placeholders or service literals."
+  },
+  {
+    "locale": "es-CO",
+    "key": "list-width-error-message",
+    "before": "El ancho de la lista debe ser un entero mayor que 270",
+    "after": "El ancho de la lista debe ser un número entero de al menos 200 píxeles.",
+    "reason": "2026-09-15 stale list-width validation repair: preserve declared-language list width and integer wording; replace obsolete strictly-greater-than-270 semantics with inclusive at-least-200 pixels. Locale siblings use their existing language-specific style; no placeholders or service literals."
+  },
+  {
+    "locale": "es-LA",
+    "key": "list-width-error-message",
+    "before": "El ancho de la lista debe ser un entero mayor que 270",
+    "after": "El ancho de la lista debe ser un número entero de al menos 200 píxeles.",
+    "reason": "2026-09-15 stale list-width validation repair: preserve declared-language list width and integer wording; replace obsolete strictly-greater-than-270 semantics with inclusive at-least-200 pixels. Locale siblings use their existing language-specific style; no placeholders or service literals."
+  },
+  {
+    "locale": "es-MX",
+    "key": "list-width-error-message",
+    "before": "El ancho de la lista debe ser un entero mayor que 270",
+    "after": "El ancho de la lista debe ser un número entero de al menos 200 píxeles.",
+    "reason": "2026-09-15 stale list-width validation repair: preserve declared-language list width and integer wording; replace obsolete strictly-greater-than-270 semantics with inclusive at-least-200 pixels. Locale siblings use their existing language-specific style; no placeholders or service literals."
+  },
+  {
+    "locale": "es-PE",
+    "key": "list-width-error-message",
+    "before": "El ancho de la lista debe ser un entero mayor que 270",
+    "after": "El ancho de la lista debe ser un número entero de al menos 200 píxeles.",
+    "reason": "2026-09-15 stale list-width validation repair: preserve declared-language list width and integer wording; replace obsolete strictly-greater-than-270 semantics with inclusive at-least-200 pixels. Locale siblings use their existing language-specific style; no placeholders or service literals."
+  },
+  {
+    "locale": "es-PY",
+    "key": "list-width-error-message",
+    "before": "El ancho de la lista debe ser un entero mayor que 270",
+    "after": "El ancho de la lista debe ser un número entero de al menos 200 píxeles.",
+    "reason": "2026-09-15 stale list-width validation repair: preserve declared-language list width and integer wording; replace obsolete strictly-greater-than-270 semantics with inclusive at-least-200 pixels. Locale siblings use their existing language-specific style; no placeholders or service literals."
+  },
+  {
+    "locale": "es",
+    "key": "list-width-error-message",
+    "before": "El ancho de la lista debe ser un entero mayor que 270",
+    "after": "El ancho de la lista debe ser un número entero de al menos 200 píxeles.",
+    "reason": "2026-09-15 stale list-width validation repair: preserve declared-language list width and integer wording; replace obsolete strictly-greater-than-270 semantics with inclusive at-least-200 pixels. Locale siblings use their existing language-specific style; no placeholders or service literals."
+  },
+  {
+    "locale": "es_CO",
+    "key": "list-width-error-message",
+    "before": "El ancho de la lista debe ser un entero mayor que 270",
+    "after": "El ancho de la lista debe ser un número entero de al menos 200 píxeles.",
+    "reason": "2026-09-15 stale list-width validation repair: preserve declared-language list width and integer wording; replace obsolete strictly-greater-than-270 semantics with inclusive at-least-200 pixels. Locale siblings use their existing language-specific style; no placeholders or service literals."
+  },
+  {
+    "locale": "fr-BE",
+    "key": "list-width-error-message",
+    "before": "La largeur de la liste doit être un entier supérieur à 270",
+    "after": "La largeur de la liste doit être un nombre entier d'au moins 200 pixels.",
+    "reason": "2026-09-15 stale list-width validation repair: preserve declared-language list width and integer wording; replace obsolete strictly-greater-than-270 semantics with inclusive at-least-200 pixels. Locale siblings use their existing language-specific style; no placeholders or service literals."
+  },
+  {
+    "locale": "fr-CA",
+    "key": "list-width-error-message",
+    "before": "La largeur de la liste doit être un entier supérieur à 270",
+    "after": "La largeur de la liste doit être un nombre entier d'au moins 200 pixels.",
+    "reason": "2026-09-15 stale list-width validation repair: preserve declared-language list width and integer wording; replace obsolete strictly-greater-than-270 semantics with inclusive at-least-200 pixels. Locale siblings use their existing language-specific style; no placeholders or service literals."
+  },
+  {
+    "locale": "fr-CH",
+    "key": "list-width-error-message",
+    "before": "La largeur de la liste doit être un entier supérieur à 270",
+    "after": "La largeur de la liste doit être un nombre entier d'au moins 200 pixels.",
+    "reason": "2026-09-15 stale list-width validation repair: preserve declared-language list width and integer wording; replace obsolete strictly-greater-than-270 semantics with inclusive at-least-200 pixels. Locale siblings use their existing language-specific style; no placeholders or service literals."
+  },
+  {
+    "locale": "fr-FR",
+    "key": "list-width-error-message",
+    "before": "La largeur de la liste doit être un entier supérieur à 270",
+    "after": "La largeur de la liste doit être un nombre entier d'au moins 200 pixels.",
+    "reason": "2026-09-15 stale list-width validation repair: preserve declared-language list width and integer wording; replace obsolete strictly-greater-than-270 semantics with inclusive at-least-200 pixels. Locale siblings use their existing language-specific style; no placeholders or service literals."
+  },
+  {
+    "locale": "fr",
+    "key": "list-width-error-message",
+    "before": "La largeur de la liste doit être un entier supérieur à 270",
+    "after": "La largeur de la liste doit être un nombre entier d'au moins 200 pixels.",
+    "reason": "2026-09-15 stale list-width validation repair: preserve declared-language list width and integer wording; replace obsolete strictly-greater-than-270 semantics with inclusive at-least-200 pixels. Locale siblings use their existing language-specific style; no placeholders or service literals."
+  },
+  {
+    "locale": "it",
+    "key": "list-width-error-message",
+    "before": "La larghezza della lista deve essere un numero intero maggiore di 270",
+    "after": "La larghezza della lista deve essere un numero intero di almeno 200 pixel.",
+    "reason": "2026-09-15 stale list-width validation repair: preserve declared-language list width and integer wording; replace obsolete strictly-greater-than-270 semantics with inclusive at-least-200 pixels. Locale siblings use their existing language-specific style; no placeholders or service literals."
+  },
+  {
+    "locale": "pt-BR",
+    "key": "list-width-error-message",
+    "before": "A largura da lista deve ser um número inteiro maior que 270.",
+    "after": "A largura da lista deve ser um número inteiro de pelo menos 200 pixels.",
+    "reason": "2026-09-15 stale list-width validation repair: preserve declared-language list width and integer wording; replace obsolete strictly-greater-than-270 semantics with inclusive at-least-200 pixels. Locale siblings use their existing language-specific style; no placeholders or service literals."
+  },
+  {
+    "locale": "pt-PT",
+    "key": "list-width-error-message",
+    "before": "A largura da lista tem de ser um número inteiro maior que 270",
+    "after": "A largura da lista tem de ser um número inteiro de pelo menos 200 pixels.",
+    "reason": "2026-09-15 stale list-width validation repair: preserve declared-language list width and integer wording; replace obsolete strictly-greater-than-270 semantics with inclusive at-least-200 pixels. Locale siblings use their existing language-specific style; no placeholders or service literals."
+  },
+  {
+    "locale": "pt",
+    "key": "list-width-error-message",
+    "before": "A largura da lista tem de ser um número inteiro maior que 270",
+    "after": "A largura da lista tem de ser um número inteiro de pelo menos 200 pixels.",
+    "reason": "2026-09-15 stale list-width validation repair: preserve declared-language list width and integer wording; replace obsolete strictly-greater-than-270 semantics with inclusive at-least-200 pixels. Locale siblings use their existing language-specific style; no placeholders or service literals."
+  },
+  {
+    "locale": "pt_PT",
+    "key": "list-width-error-message",
+    "before": "A largura da lista tem de ser um número inteiro maior que 270",
+    "after": "A largura da lista tem de ser um número inteiro de pelo menos 200 pixels.",
+    "reason": "2026-09-15 stale list-width validation repair: preserve declared-language list width and integer wording; replace obsolete strictly-greater-than-270 semantics with inclusive at-least-200 pixels. Locale siblings use their existing language-specific style; no placeholders or service literals."
   }
 ]

@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Definir largura",
   "set-list-width": "Definir largura",
   "set-list-width-value": "Largura da lista (pixels)",
-  "list-width-error-message": "A largura da lista deve ser um número inteiro maior que 270.",
+  "list-width-error-message": "A largura da lista deve ser um número inteiro de pelo menos 200 pixels.",
   "list-width-shared-note": "Essa largura é compartilhada por todos neste quadro.",
   "list-width-personal-note": "Essa largura é só para você.",
   "personal-list-width": "Larguras de listas pessoais",
