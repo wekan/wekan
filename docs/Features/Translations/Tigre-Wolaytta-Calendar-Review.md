@@ -299,3 +299,15 @@ forms match the already established email-address and UI-name senses. Focused
 checks now cover 94 lexical values and all 20,757 correction records. Exact
 Tigre–Tigrinya overlap falls from 779 to 776, leaving 763 unclassified after
 the 13 attested shared forms. No remote write ran.
+
+## Repeated Tigre interface families repaired — 2026-09-15
+
+Source commit `2530126f27` replaces 32 repeated Tigrinya-seeded values for
+status, color actions, templates, creation, weekly/monthly intervals, team,
+week, weight and size. Each family reuses exact BeitTigreAI corpus headwords,
+so the same concept no longer varies between related controls.
+
+Focused checks preserve every selected value and reject every former seed. All
+20,789 correction records and all 234 locale inventories pass. Exact overlap
+falls from 776 to 744; after 13 attested shared forms, 731 remain unclassified.
+Composed UI phrases remain open to fluent style review. No remote write ran.

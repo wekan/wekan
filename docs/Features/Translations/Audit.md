@@ -16,21 +16,22 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `62956f2819` — following `f27cb82ca6`,
-replace 94 more Tigrinya-seeded Tigre interface values with context-appropriate
-Tigre corpus headwords and short phrases. Focused checks preserve the selected
-values and reject their Tigrinya seeds; ledger 20,757. The earlier Finnish-seeded Veps review remains complete with no
-unclassified match.
+Latest translation fix: **2026-09-15**, `2530126f27` — replace 32
+repeated Tigrinya-seeded Tigre UI families after the 94 lexical repairs in
+`f27cb82ca6` and `62956f2819`. Status, color actions, templates, creation,
+weekly/monthly intervals, team, week, weight and size now use coordinated Tigre
+corpus terminology; ledger 20,789. The earlier Finnish-seeded Veps review
+remains complete with no unclassified match.
 
 The tracked Tigre calendar queue being empty does not certify the locale. Of
-2,592 non-English Tigre values, 776 are byte-for-byte identical to Tigrinya;
-13 are corpus-attested shared terms and 763 remain unclassified, including 86
+2,592 non-English Tigre values, 744 are byte-for-byte identical to Tigrinya;
+13 are corpus-attested shared terms and 731 remain unclassified, including 86
 values of at least 20 characters and 18 of at least 35 characters. This is an
 explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **20,757** exact before/after values, including unflagged
+records contain **20,789** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

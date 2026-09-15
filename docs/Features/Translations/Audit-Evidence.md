@@ -30781,3 +30781,11 @@ the context-appropriate results already established for those senses in the
 Tigre locale. Exact overlap falls to 776, of which 763 remain unclassified.
 Focused checks cover 94 selected values and all 20,757 correction records. No
 remote write occurred.
+
+### 2026-09-15 — Repeated Tigre interface families
+
+Source commit `2530126f27` repairs 32 repeated Tigrinya-seeded controls with
+coordinated Tigre corpus terminology. A focused negative test covers every
+former seed; all 20,789 correction records and all 234 locale inventories
+pass. Exact overlap falls to 744, leaving 731 unclassified after 13 attested
+shared forms. No remote write occurred.
