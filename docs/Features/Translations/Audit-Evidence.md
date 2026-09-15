@@ -31171,3 +31171,19 @@ plural Template contexts; all 234 locale inventories pass. Raw overlap falls
 to 319, with 22 attested shared forms and 297 unclassified. Thirty-two raw
 matches contain at least 20 characters and seven contain at least 35. No
 remote write occurred.
+
+
+### 2026-09-15 — Second Tigre ledger-reuse pass
+
+Source commit `45a568aea` repairs 44 exact Tigrinya copies by reusing
+independently corpus-attested Tigre components already established in the
+correction ledger. The guarded map covers matching Start, Day, Text, Currency,
+Invite, Search, Large, From, Progress, Upload, Board, Subject, New, Delete,
+Trigger, Schedule, Type, Status, Title, Problem, Count, Run, Support, Active,
+Create, Login, More and Stop senses. Ambiguous senses and unverified plural
+morphology remain excluded. One sequential change is consolidated into its
+existing key record, leaving 21,337 verified final corrections. Focused exact
+and negative checks and all 234 locale inventories pass. Raw overlap falls to
+275, with 22 attested shared forms and 253 unclassified. Twenty-eight raw
+matches contain at least 20 characters and six contain at least 35. No remote
+write occurred.

@@ -2080,6 +2080,16 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/45a568aea">Reuse reviewed Tigre terms in remaining controls.</a></summary>
+
+Repair 44 exact Tigrinya copies by reusing established Tigre terms only in
+their matching UI senses.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e50072bc3">Repair Tigre edit and template terms.</a></summary>
 
 Use exact Tigre corpus terms in 31 Edit and singular Template contexts while
