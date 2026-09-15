@@ -140600,5 +140600,89 @@
     "before": "magenta",
     "after": "arosh-vinjit",
     "reason": "2026-09-15: Replace the English-valued magenta label with a descriptive Aromanian red-violet compound. The locale already uses arosh for red and vinjit for purple; external Aromanian lexical references independently attest rosh/arosh as red and vinit/vinjit as violet-blue. The exact compound remains low confidence pending native review because no source directly attests a dedicated magenta term."
+  },
+  {
+    "locale": "tig",
+    "key": "custom-field-date",
+    "before": "ዕለት",
+    "after": "ተመር",
+    "reason": "2026-09-15: Replace twelve unflagged basic date/day/month/weekday values copied byte-for-byte from Tigrinya with Tigre-specific forms directly returned by the 58,298-entry BeitTigreAI English–Tigre corpus. The Tigre glibc locale independently corroborates weekday distinctions. Preserve date versus day meaning and apply the same month noun to the search predicate. Corpus alternatives can encode regional variation; these selected forms remain subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "date",
+    "before": "ዕለት",
+    "after": "ተመር",
+    "reason": "2026-09-15: Replace twelve unflagged basic date/day/month/weekday values copied byte-for-byte from Tigrinya with Tigre-specific forms directly returned by the 58,298-entry BeitTigreAI English–Tigre corpus. The Tigre glibc locale independently corroborates weekday distinctions. Preserve date versus day meaning and apply the same month noun to the search predicate. Corpus alternatives can encode regional variation; these selected forms remain subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "monday",
+    "before": "ሰኑይ",
+    "after": "አትኒን",
+    "reason": "2026-09-15: Replace twelve unflagged basic date/day/month/weekday values copied byte-for-byte from Tigrinya with Tigre-specific forms directly returned by the 58,298-entry BeitTigreAI English–Tigre corpus. The Tigre glibc locale independently corroborates weekday distinctions. Preserve date versus day meaning and apply the same month noun to the search predicate. Corpus alternatives can encode regional variation; these selected forms remain subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "tuesday",
+    "before": "ሰሉስ",
+    "after": "አተሉት",
+    "reason": "2026-09-15: Replace twelve unflagged basic date/day/month/weekday values copied byte-for-byte from Tigrinya with Tigre-specific forms directly returned by the 58,298-entry BeitTigreAI English–Tigre corpus. The Tigre glibc locale independently corroborates weekday distinctions. Preserve date versus day meaning and apply the same month noun to the search predicate. Corpus alternatives can encode regional variation; these selected forms remain subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "wednesday",
+    "before": "ረቡዕ",
+    "after": "አረቡዕ",
+    "reason": "2026-09-15: Replace twelve unflagged basic date/day/month/weekday values copied byte-for-byte from Tigrinya with Tigre-specific forms directly returned by the 58,298-entry BeitTigreAI English–Tigre corpus. The Tigre glibc locale independently corroborates weekday distinctions. Preserve date versus day meaning and apply the same month noun to the search predicate. Corpus alternatives can encode regional variation; these selected forms remain subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "thursday",
+    "before": "ሓሙስ",
+    "after": "ከሚሽ",
+    "reason": "2026-09-15: Replace twelve unflagged basic date/day/month/weekday values copied byte-for-byte from Tigrinya with Tigre-specific forms directly returned by the 58,298-entry BeitTigreAI English–Tigre corpus. The Tigre glibc locale independently corroborates weekday distinctions. Preserve date versus day meaning and apply the same month noun to the search predicate. Corpus alternatives can encode regional variation; these selected forms remain subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "friday",
+    "before": "ዓርቢ",
+    "after": "ጅምዐት",
+    "reason": "2026-09-15: Replace twelve unflagged basic date/day/month/weekday values copied byte-for-byte from Tigrinya with Tigre-specific forms directly returned by the 58,298-entry BeitTigreAI English–Tigre corpus. The Tigre glibc locale independently corroborates weekday distinctions. Preserve date versus day meaning and apply the same month noun to the search predicate. Corpus alternatives can encode regional variation; these selected forms remain subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "saturday",
+    "before": "ቀዳም",
+    "after": "ሰንበት ንኢሽ",
+    "reason": "2026-09-15: Replace twelve unflagged basic date/day/month/weekday values copied byte-for-byte from Tigrinya with Tigre-specific forms directly returned by the 58,298-entry BeitTigreAI English–Tigre corpus. The Tigre glibc locale independently corroborates weekday distinctions. Preserve date versus day meaning and apply the same month noun to the search predicate. Corpus alternatives can encode regional variation; these selected forms remain subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "sunday",
+    "before": "ሰንበት",
+    "after": "ሰምበት ዓባይ",
+    "reason": "2026-09-15: Replace twelve unflagged basic date/day/month/weekday values copied byte-for-byte from Tigrinya with Tigre-specific forms directly returned by the 58,298-entry BeitTigreAI English–Tigre corpus. The Tigre glibc locale independently corroborates weekday distinctions. Preserve date versus day meaning and apply the same month noun to the search predicate. Corpus alternatives can encode regional variation; these selected forms remain subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "day",
+    "before": "መዓልቲ",
+    "after": "ምዕል",
+    "reason": "2026-09-15: Replace twelve unflagged basic date/day/month/weekday values copied byte-for-byte from Tigrinya with Tigre-specific forms directly returned by the 58,298-entry BeitTigreAI English–Tigre corpus. The Tigre glibc locale independently corroborates weekday distinctions. Preserve date versus day meaning and apply the same month noun to the search predicate. Corpus alternatives can encode regional variation; these selected forms remain subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "month",
+    "before": "ወርሒ",
+    "after": "ወርሕ",
+    "reason": "2026-09-15: Replace twelve unflagged basic date/day/month/weekday values copied byte-for-byte from Tigrinya with Tigre-specific forms directly returned by the 58,298-entry BeitTigreAI English–Tigre corpus. The Tigre glibc locale independently corroborates weekday distinctions. Preserve date versus day meaning and apply the same month noun to the search predicate. Corpus alternatives can encode regional variation; these selected forms remain subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "predicate-month",
+    "before": "ወርሒ",
+    "after": "ወርሕ",
+    "reason": "2026-09-15: Replace twelve unflagged basic date/day/month/weekday values copied byte-for-byte from Tigrinya with Tigre-specific forms directly returned by the 58,298-entry BeitTigreAI English–Tigre corpus. The Tigre glibc locale independently corroborates weekday distinctions. Preserve date versus day meaning and apply the same month noun to the search predicate. Corpus alternatives can encode regional variation; these selected forms remain subject to fluent review."
   }
 ]

@@ -244,7 +244,7 @@ assert.match(tigre['submit-on-enter-description'], /Ctrl\/Cmd\+Enter/);
 assert.deepEqual([
   tigre.monday, tigre.tuesday, tigre.wednesday, tigre.thursday,
   tigre.friday, tigre.saturday, tigre.sunday,
-], ['ሰኑይ', 'ሰሉስ', 'ረቡዕ', 'ሓሙስ', 'ዓርቢ', 'ቀዳም', 'ሰንበት']);
+], ['አትኒን', 'አተሉት', 'አረቡዕ', 'ከሚሽ', 'ጅምዐት', 'ሰንበት ንኢሽ', 'ሰምበት ዓባይ']);
 
 assert.match(tigre['invalid-domain'], /example\.com/);
 assert.deepEqual(tokens(tigre['board-title-not-found']),
@@ -336,3 +336,15 @@ assert.deepEqual(tokens(tigre['globalSearch-instructions-operator-number']),
 assert.match(tigre['import-wekan-file'], /\.json.*\.zip/);
 
 console.log('tigreTranslationProgress: all Tigre values passed');
+
+
+assert.equal(tigre.date, 'ተመር');
+assert.equal(tigre['custom-field-date'], 'ተመር');
+assert.equal(tigre.day, 'ምዕል');
+assert.equal(tigre.month, 'ወርሕ');
+assert.equal(tigre['predicate-month'], 'ወርሕ');
+for (const key of ['date', 'custom-field-date', 'day', 'month', 'predicate-month',
+  'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']) {
+  assert.notEqual(tigre[key], readLocale('ti')[key],
+    `${key}: Tigre-specific date vocabulary must not retain the Tigrinya seed`);
+}
