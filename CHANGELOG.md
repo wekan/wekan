@@ -639,7 +639,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v11.81 2026-09-16 WeKan ® release
 
 **In short:** Docker images reach Docker Hub and GHCR even while Quay
 refuses writes; Quay receives the published manifest when available.
