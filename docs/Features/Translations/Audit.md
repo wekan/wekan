@@ -16,13 +16,13 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `a222bad2d` — replace 128 coordinated
-Finnish-seeded Veps board, card, list, swimlane, member, label, archive,
-settings and CRUD labels. The compositions reuse native action and object
-vocabulary already established in the locale. Six focused files pass; ledger
-20,321. Finnish overlap falls from 540 to 352 values, with six attested shared
-forms and 346 unclassified. Tigre source `0e9418960` and review `5b2c5942e`
-reduce its unclassified Tigrinya overlap from 917 to 857.
+Latest translation fix: **2026-09-15**, `4caef872b` — replace 165 coordinated
+Finnish-seeded Veps account, email, profile, status, color, rules and settings
+values. Compositions reuse native lexical sources and established locale
+vocabulary while preserving placeholders and product literals. Seven focused
+files pass; ledger 20,486. Finnish overlap falls from 540 to 187 values, with
+six attested shared forms and 181 unclassified. Tigre source `0e9418960` and
+review `5b2c5942e` reduce its unclassified Tigrinya overlap from 917 to 857.
 
 The tracked Tigre calendar queue being empty does not certify the locale. Of
 2,592 non-English Tigre values, 870 are byte-for-byte identical to Tigrinya;
@@ -67,7 +67,7 @@ translation service is used, and no remote push was performed.
   [Quechua](Quechua-Review.md) and [Aromanian](Aromanian-Review.md): calendar
   qualifiers, complete compounds and native terminology.
 - [Basque](Basque-Review.md): broader full phrases and browser spec 88
-  (Chromium passed). [Veps](Veps-Review.md): 346 unclassified Finnish matches;
+  (Chromium passed). [Veps](Veps-Review.md): 181 unclassified Finnish matches;
   literal filter examples must be preserved.
 - [Uzbek Arabic](Uzbek-Arabic-Review.md): indexed cancellation evidence needs
   full-source and native orthographic verification (`b433730e3`).

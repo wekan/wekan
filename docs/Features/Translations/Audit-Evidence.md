@@ -30731,3 +30731,17 @@ Raw Finnish overlap falls from 480 to 352. Six forms are independently attested
 as shared, leaving 346 unclassified. Complete composed labels remain open to
 fluent style review, and unrelated product clauses remain in scope. No live UI
 test or remote write ran.
+
+### 2026-09-15 — Veps account and rule interface families
+
+Source commit `4caef872b` replaces 165 Finnish-seeded account, email, profile,
+color, status, rules, settings and related interface values. Drafts reuse the
+native MediaWiki/Wiktionary evidence and vocabulary already established in
+this locale. Exact checks preserve underscore/percent placeholders, product
+names and action distinctions. Seven focused files pass for all 20,486
+correction records and all 234 locale inventories.
+
+Raw Finnish overlap falls from 352 to 187; after six attested shared forms, 181
+remain unclassified. Full composed grammar remains open to fluent review, and
+unrelated migration/report phrases remain in scope. No live UI test or remote
+write ran.

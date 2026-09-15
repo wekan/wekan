@@ -1248,3 +1248,16 @@ Finnish-seed rejection, all 20,321 correction records and all 234 locale
 inventories. Raw Finnish overlap falls from 480 to 352, leaving 346
 unclassified after six attested shared forms. Complete composed labels remain
 open to fluent style review. No live UI test or remote write ran.
+
+2026-09-15 — `4caef872b`: repaired 165 account, email, profile, color, status,
+rules, settings and related interface values. The batch reuses checked native
+lexical entries and established Veps vocabulary for users, invitations,
+authentication, dates, fields, filters, rules and display actions. Literal
+`CAS`, `SAML`, `Node`, `Meteor`, `MongoDB`, `Oplog`, `PDF`, `Excel`, `CSV/TSV`,
+`iCal`, URLs and every source placeholder remain unchanged.
+
+Seven focused files pass for exact family values, Finnish-seed rejection,
+placeholder preservation, all 20,486 correction records and all 234 locale
+inventories. Raw Finnish overlap falls from 352 to 187, leaving 181
+unclassified after six attested shared forms. Full assembled grammar stays
+open to fluent review. No live UI test or remote write ran.

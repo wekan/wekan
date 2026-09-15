@@ -1851,6 +1851,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4caef872b">Repair Veps account and rule interface families.</a></summary>
+
+Replace 165 Finnish-seeded account, email, profile, color, status, rules and
+settings values with Veps drafts based on native lexical sources and existing
+locale vocabulary. Focused checks preserve placeholders and product literals.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
