@@ -687,12 +687,22 @@ repeated reactive invalidation during viewer rendering. Keep
 canonical avatar URLs on WeKan's guarded current-and-legacy route
 instead of Meteor-Files' broad download middleware. Repair browser
 flows for visible Board View and list menus, REST Bearer auth,
-fixture IDs and post-reload navigation. All 19 observed Chromium
-failures pass focused reruns; the complete matrix is being rerun.
+fixture IDs and post-reload navigation. The full Chromium run passes
+404 cases with one skip. Firefox's legacy avatar case now uses a PNG
+with a valid image-data checksum; its focused rerun passes.
 
 </details>
 
 **Developer tooling** - Board title viewer UI coverage.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/66c5b85c3">Correct legacy avatar PNG test data</a>. Thanks to xet7.</summary>
+
+Replace the malformed PNG fixture whose image-data checksum Firefox
+rejected. The authenticated avatar still returns exact fixture bytes;
+the Firefox image-decoding check now passes.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/929326ba2">Exercise board title viewers through visible controls</a>. Thanks to xet7.</summary>
