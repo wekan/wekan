@@ -339,3 +339,13 @@ Default/common and translation/interpretation senses in their specific UI
 contexts. The focused test now distinguishes 19 proven shared values from the
 remaining overlap. Raw overlap stays 723, while the unclassified set falls to
 704. The acceptance does not extend to related phrases. No remote write ran.
+
+## Conflicting Tigre interface senses repaired — 2026-09-15
+
+Source commit `67632637c2` replaces Task, Sort, Person and Trigger values
+whose attested corpus meanings conflict with their UI contexts. The new forms
+use Tigre work, sorting, person and causation roots found in complete corpus
+sentences. Focused checks reject each former seed; all 20,814 corrections and
+234 locale inventories pass. Exact overlap falls to 719, with 19 shared forms
+and 700 unclassified. The derived Trigger noun remains open to fluent review.
+No remote write ran.

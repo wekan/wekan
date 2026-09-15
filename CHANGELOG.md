@@ -1880,6 +1880,16 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/67632637c">Repair conflicting Tigre interface senses.</a></summary>
+
+Replace four Tigrinya-seeded labels whose attested meanings conflict with the
+Task, Sort, Person and Trigger UI contexts.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e17bb2b5e">Repair native-catalogue Veps interface terms.</a></summary>
 
 Replace 31 Finnish-seeded labels through exact English-source matching with

@@ -30812,3 +30812,12 @@ Review commit `b2caad45b7` adds exact retention coverage for red, phase, three
 Default controls and translation after checking their attested Tigre corpus
 senses against each UI context. Raw overlap remains 723; 19 matches are now
 proven shared forms and 704 remain unclassified. No remote write occurred.
+
+### 2026-09-15 — Conflicting Tigre interface senses
+
+Source commit `67632637c2` repairs four short labels after the Tigre corpus
+contradicted the seed senses: Task was mask, Sort was courtesy, and the Person
+and Trigger values did not name the intended concepts. Focused exact and
+negative checks pass with all 20,814 correction records and 234 locale
+inventories. Exact overlap falls to 719; 700 remain unclassified after 19
+attested shared forms. No remote write occurred.
