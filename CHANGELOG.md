@@ -2080,6 +2080,16 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1196bebaa">Repair Tigre board terms.</a></summary>
+
+Replace 31 copied Tigrinya Board singular, plural and possessive components
+with established Tigre forms while preserving surrounding context.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/71a15613c">Repair Tigre file terms in longer clauses.</a></summary>
 
 Replace the remaining eight copied Tigrinya File spellings with established

@@ -599,3 +599,14 @@ service and product identifiers stay literal. Exact and negative tests cover
 every value; all 21,081 correction records and 234 locale inventories pass.
 Raw overlap falls to 455, with 22 attested shared forms and 433 unclassified.
 Complete clause grammar remains open to fluent review. No remote write ran.
+
+
+## Tigre Board terms repaired — 2026-09-15
+
+Source commit `1196bebaa` replaces 31 Tigrinya Board singular, plural and
+possessive components with established Tigre `ምዱድ` and `ምዱዳት` forms.
+Exact and negative tests cover every value and preserve two excluded cases for
+semantic rewriting. All 21,112 correction records and 234 locale inventories
+pass. Raw overlap falls to 424, with 22 attested shared forms and 402
+unclassified. Surrounding grammar remains open to fluent review. No remote
+write ran.

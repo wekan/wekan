@@ -31053,3 +31053,16 @@ AWS S3 and MinIO identifiers. Focused exact and negative checks pass with all
 455; after 22 attested shared forms, 433 remain unclassified. Sixty-two raw
 matches contain at least 20 characters and 14 contain at least 35. No remote
 write occurred.
+
+
+### 2026-09-15 — Tigre Board terms
+
+Source commit `1196bebaa` replaces 31 Tigrinya Board singular, plural and
+possessive components with corpus-attested Tigre `ምዱድ` and `ምዱዳት` forms
+already reviewed in the correction ledger. Surrounding wording, HTML and
+punctuation remain intact. Clipboard and parenthesized-number cases are
+explicitly excluded because they need semantic or grammatical rewriting.
+Focused exact and negative checks pass with all 21,112 correction records and
+234 locale inventories. Raw overlap falls to 424; after 22 attested shared
+forms, 402 remain unclassified. Fifty-three raw matches contain at least 20
+characters and 13 contain at least 35. No remote write occurred.
