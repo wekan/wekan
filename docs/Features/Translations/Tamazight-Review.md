@@ -1,5 +1,23 @@
 # Standard Moroccan Tamazight reference review
 
+## Sky, gold and silver labels, 2026-09-15 (`e114ffde8`)
+
+The [IRCAM Moroccan Amazigh dictionary](https://biblio.ircam.ma/pmb/uploads/publications/177.pdf)
+directly glosses `ⵉⴳⵏⵏⴰ` as `ciel` and `ⵓⵔⵖ` as `or`.
+French `color-sky` and Arabic `color-gold` now use those terms.
+[Central Atlas Tamazight's silver dictionary entry](https://en.wiktionary.org/wiki/ⴰⵥⵔⴼ)
+attests `ⴰⵥⵔⴼ`, with related Tashelhit use; it replaces Arabic
+`color-silver`. These are unflagged wrong-language repairs.
+
+The source records gold and silver as metal nouns. Their use as CSS
+color names, and the silver spelling preferred by Standard Moroccan
+Tamazight, remain **low confidence** pending fluent review. An unrelated
+university [paper](https://toubkal.imist.ma/server/api/core/bitstreams/6ece0670-742b-4aea-8564-20d8cda3b273/content)
+glosses `ⵓⵔⵖ` as steel; IRCAM's explicit gold entry
+is the chosen local sense, but the conflicting gloss warrants checking.
+Focused positive/negative, ledger and 234-locale checks pass. The
+20,081 original finding classifications remain unchanged.
+
 ## Native pink and adapted dark-green, 2026-09-15 (`06678678d`)
 
 The [IRCAM Moroccan Amazigh dictionary](https://biblio.ircam.ma/pmb/uploads/publications/177.pdf)

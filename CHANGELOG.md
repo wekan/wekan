@@ -656,6 +656,15 @@ This release includes the following features and fixes:
 **Translations** - Tamazight, Tigre and multilingual list-width repairs.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e114ffde8">Repair Tamazight sky, gold and silver labels</a>. Thanks to xet7.</summary>
+
+Replace French and Arabic color seeds with native terms for sky,
+gold and silver. Metal nouns as CSS color names need fluent review;
+focused, ledger and inventory checks pass.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/06678678d">Repair Tamazight color labels</a>. Thanks to xet7.</summary>
 
 Replace French pink with IRCAM's native color word and Arabic

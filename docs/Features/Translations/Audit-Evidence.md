@@ -1,5 +1,14 @@
 # Detailed translation audit evidence
 
+2026-09-15 (`e114ffde8`): repaired three unflagged wrong-language
+Tamazight color labels. IRCAM directly glosses `ⵉⴳⵏⵏⴰ` sky and
+`ⵓⵔⵖ` gold; a Central Atlas Tamazight dictionary attests silver
+`ⴰⵥⵔⴼ`. Gold/silver nouns used for CSS colors and the silver
+standard spelling remain low confidence; a conflicting steel gloss
+for gold is noted in the native review. Focused, ledger and 234-locale
+checks pass; records rise to 22,190. Flagged-row counts unchanged.
+No remote write occurred.
+
 2026-09-15 (`06678678d`): corrected two unflagged wrong-language
 Tamazight color values. IRCAM directly glosses `ⴰⵣⵡⴰⵡⴰⵖ` as
 pink color; the local French `rose` is replaced. Arabic dark-green

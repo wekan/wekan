@@ -16,7 +16,14 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `06678678d` — replace French
+Latest translation fix: **2026-09-15**, `e114ffde8` — replace French
+Tamazight sky and Arabic gold/silver labels with native terms. IRCAM
+directly glosses sky and gold; a Moroccan Berber dictionary attests
+silver. Gold/silver metal nouns as CSS-color labels and silver's
+standard spelling remain low confidence. Focused, ledger and 234-locale
+checks pass. Ledger: **22,190**.
+
+Earlier translation fix: **2026-09-15**, `06678678d` — replace French
 Tamazight pink with IRCAM's exact color word and Arabic dark-green with
 native green/dark components. The combined shade phrase remains low
 confidence pending fluent review. Focused, ledger and 234-locale
@@ -213,7 +220,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **22,187** exact before/after values, including unflagged
+records contain **22,190** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
