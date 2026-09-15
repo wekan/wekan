@@ -146529,5 +146529,124 @@
     "before": "መኽዘን",
     "after": "መክዘን",
     "reason": "Replace the Tigrinya-seeded Storage spelling with the Tigre spelling attested in a corpus warehouse sentence and the native Tigre Wikidata interface phrase data storage."
+  },
+  {
+    "locale": "tig",
+    "key": "public-boards",
+    "before": "ህዝባዊ ሰሌዳታት",
+    "after": "ናይ ገቢል ምዱዳት",
+    "reason": "Replace a compact Tigrinya-seeded compound using only Tigre terms independently attested and already reviewed in the correction ledger; retain complete compound order for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "admin-announcement-title",
+    "before": "ምልክታ ካብ ኣመሓዳሪ",
+    "after": "አዋጅ ምን ሓክም",
+    "reason": "Replace a compact Tigrinya-seeded compound using only Tigre terms independently attested and already reviewed in the correction ledger; retain complete compound order for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "inactive-member",
+    "before": "ዘይንጡፍ ኣባል",
+    "after": "ከስላን አባል",
+    "reason": "Replace a compact Tigrinya-seeded compound using only Tigre terms independently attested and already reviewed in the correction ledger; retain complete compound order for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "roles-status",
+    "before": "ኩነታት ተራታት",
+    "after": "ሓላት ተረታት",
+    "reason": "Replace a compact Tigrinya-seeded compound using only Tigre terms independently attested and already reviewed in the correction ledger; retain complete compound order for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "search-boards",
+    "before": "ሰሌዳታት ድለ",
+    "after": "ምዱዳት ፈትሽ",
+    "reason": "Replace a compact Tigrinya-seeded compound using only Tigre terms independently attested and already reviewed in the correction ledger; retain complete compound order for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "card-templates-swimlane",
+    "before": "ኣብነታት ካርድ",
+    "after": "ሞደላት ወረቀት ካርድ",
+    "reason": "Replace a compact Tigrinya-seeded compound using only Tigre terms independently attested and already reviewed in the correction ledger; retain complete compound order for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "board-templates-swimlane",
+    "before": "ኣብነታት ሰሌዳ",
+    "after": "ሞደላት ምዱድ",
+    "reason": "Replace a compact Tigrinya-seeded compound using only Tigre terms independently attested and already reviewed in the correction ledger; retain complete compound order for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "org-admin",
+    "before": "ኣመሓዳሪ ውድብ",
+    "after": "ሓክም መነዘመት",
+    "reason": "Replace a compact Tigrinya-seeded compound using only Tigre terms independently attested and already reviewed in the correction ledger; retain complete compound order for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "board-admin",
+    "before": "ኣመሓዳሪ ሰሌዳ",
+    "after": "ሓክም ምዱድ",
+    "reason": "Replace a compact Tigrinya-seeded compound using only Tigre terms independently attested and already reviewed in the correction ledger; retain complete compound order for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "newUserPopup-title",
+    "before": "ሓድሽ ተጠቃሚ",
+    "after": "ሐዲስ መትነፍዓይ",
+    "reason": "Replace a compact Tigrinya-seeded compound using only Tigre terms independently attested and already reviewed in the correction ledger; retain complete compound order for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "active-org",
+    "before": "ንጡፍ ውድብ",
+    "after": "ህርኩት መነዘመት",
+    "reason": "Replace a compact Tigrinya-seeded compound using only Tigre terms independently attested and already reviewed in the correction ledger; retain complete compound order for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "newOrgPopup-title",
+    "before": "ሓድሽ ውድብ",
+    "after": "ሐዲስ መነዘመት",
+    "reason": "Replace a compact Tigrinya-seeded compound using only Tigre terms independently attested and already reviewed in the correction ledger; retain complete compound order for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "source-board",
+    "before": "ምንጪ ሰሌዳ",
+    "after": "መበገሲ ምዱድ",
+    "reason": "Replace a compact Tigrinya-seeded compound using only Tigre terms independently attested and already reviewed in the correction ledger; retain complete compound order for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "job-description",
+    "before": "መግለጺ ዕማም",
+    "after": "ዋስፎ ሹቁል",
+    "reason": "Replace a compact Tigrinya-seeded compound using only Tigre terms independently attested and already reviewed in the correction ledger; retain complete compound order for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "backup-path",
+    "before": "መንገዲ ፋይል",
+    "after": "ገበይ ፈይል",
+    "reason": "Replace a compact Tigrinya-seeded compound using only Tigre terms independently attested and already reviewed in the correction ledger; retain complete compound order for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "board-status",
+    "before": "ኩነታት ሰሌዳ",
+    "after": "ሓላት ምዱድ",
+    "reason": "Replace a compact Tigrinya-seeded compound using only Tigre terms independently attested and already reviewed in the correction ledger; retain complete compound order for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "delete-board",
+    "before": "ሰሌዳ ደምስስ",
+    "after": "ምዱድ ምሳሕ",
+    "reason": "Replace a compact Tigrinya-seeded compound using only Tigre terms independently attested and already reviewed in the correction ledger; retain complete compound order for fluent review."
   }
 ]
