@@ -638,6 +638,8 @@ the Markdown commit as the template.
 
 **In short:** Docker images reach Docker Hub and GHCR even while Quay
 refuses writes; Quay receives the published manifest when available.
+Security Problems now use distinct names for CAS account merge,
+attachment path, filename and stored MIME refusals.
 Tamazight rule, popup, warning and activity text replaces wrong-language
 values. Rules distinguish states from actions, and deletion warnings
 name irreversible effects. Import, PDF, administrator and filename
@@ -647,6 +649,19 @@ whole-number rule. Regression checks preserve placeholders and source
 wiring; complete Tamazight grammar remains under native review.
 
 This release includes the following features and fixes:
+
+**Security** - Distinct Problems names for published advisories.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c4c6e34ec">Align Hall of Fame security names and repair test guards</a>. Thanks to xet7.</summary>
+
+CAS account conflicts, unsafe attachment paths, exploit filenames
+and rejected MIME types now appear in Problems under their distinct
+Hall of Fame names. The CAS race fix has no denied event to log.
+Existing security guards and regression suites remain green;
+the complete node run passes 1,152 suites with no failures.
+
+</details>
 
 **Bug fixes** - Docker registry outage handling.
 
