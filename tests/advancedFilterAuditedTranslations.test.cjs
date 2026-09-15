@@ -27,15 +27,25 @@ const examples = ['== != <= >= && || ( )', 'Field1 == Value1', "'Field 1' == 'Va
   }
   assert.match(read('eo')['advanced-filter-description'], /specialajn signojn.*literalajn signojn/);
   assert.doesNotMatch(read('eo')['advanced-filter-description'], /regsignojn|Kampo1|Valoro1/);
-  // Syntax-only repair: Finnish prose remains an open Veps language finding.
+  // Veps prose and the syntax-bearing examples are both repaired.
   const vepsHelp = read('ve-PP')['advanced-filter-description'];
   for (const example of examples) {
     assert.ok(vepsHelp.includes(example), `Veps: exact executable example ${example}`);
   }
   assert.deepEqual(vepsHelp.match(/\\+/g), source.match(/\\+/g),
     'Veps: standalone escape markers match source inventory');
-  assert.ok(result.pendingByLocale['ve-PP'] > 0, 'Veps language review stays open');
+  assert.equal(result.pendingByLocale['ve-PP'], undefined,
+    'Veps tracked language queue is resolved');
   assert.ok(!vepsHelp.includes("Field1 = I"), 'Veps: reject malformed comparison');
+  assert.match(vepsHelp, /^Levenzoittud puhtastim/,
+    'Veps: use the established advanced-filter title');
+  assert.match(vepsHelp, /kävutajan märitud pöudod.*nimed da znamoičendad/,
+    'Veps: retain custom field names and values');
+  assert.match(vepsHelp, /huralpäi oigedale.*suluiden abul/,
+    'Veps: retain left-to-right evaluation and bracket ordering');
+  assert.doesNotMatch(vepsHelp,
+    /Edistynyt|suodatin|mahdollistaa|merkkijonon|seuraavat|välilyöntiä|Esimerkiksi|Huom|Yleensä|vasemmalta|oikealle/,
+    'Veps: Finnish prose is removed');
   // Tamazight full prose is repaired; executable syntax stays exact.
   const tamazightHelp = read('zgh')['advanced-filter-description'];
   for (const example of examples) {
