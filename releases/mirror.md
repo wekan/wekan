@@ -391,11 +391,10 @@ on its account/token scopes; using the CLI does not grant extra access itself.
 See the [GitHub CLI API manual](https://cli.github.com/manual/gh_api).
 
 Missing WeKan branch-content links (`github.com/wekan/wekan/tree/...`,
-`blob/...` and equivalent `raw.githubusercontent.com` branch URLs) do not
-use archive.org fallback. The live URL is still attempted, but a missing or
-failed branch URL is reported and mirroring continues. Repository Git history
-preserves that content. Immutable full commit-hash links and other missing
-attachments remain eligible for creation-date historical recovery.
+`blob/...` and equivalent `raw.githubusercontent.com` branch URLs) are reported
+after the live URL is attempted, and mirroring continues. Repository Git
+history preserves that content. The same rule applies to missing immutable
+commit links and other public attachments.
 
 
 The tool reports its practical scope. Original authors and timestamps appear
@@ -544,14 +543,11 @@ in `.tools/log/mirror/YYYY-MM-DD_HH-MM-SS/`. These separate logs include Git
 and destination content output. Starting this script performs remote writes
 and is a human maintainer operation; offline tests use injected local commands.
 
-### Unavailable linked files and historical recovery
+### Unavailable linked files
 
-Unavailable public issue/comment links are checked against archive.org's
-Wayback availability API using the content creation timestamp. The closest
-available successful capture is downloaded into the same comment directory,
-with recoveredFrom and captureTimestamp provenance in mirror-index.json.
-Original URLs remain the synchronization identity. Current links bypass this
-fallback; archive.org failures do not cause recursive recovery attempts.
+Public issue/comment links are downloaded from their live URLs only. A 404/410
+is reported as missing; a failed download is logged as skipped. Existing local
+files remain available when a transient download fails.
 
 Attachment requests have a 30-second deadline covering redirects and body
 transfer. Long saved cooldowns and new rate limits defer the attachment to a
@@ -559,7 +555,7 @@ later run instead of waiting; the saved cooldown remains respected. Optional
 linked-file failures are logged as skipped and preserve existing local bytes,
 so remaining content and target synchronization can continue. Repository/API
 inventory failures still stop incomplete synchronization. Private/local links
-remain blocked and no forge credentials are sent to archive.org or linked sites.
+remain blocked and no forge credentials are sent to linked sites.
 
 ### Git command progress
 

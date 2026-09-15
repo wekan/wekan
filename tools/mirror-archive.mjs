@@ -221,49 +221,6 @@ export async function downloadUrl(url, { temporary, previous, cachedFile, fetche
   return { file, etag: response.headers.get('etag') || undefined, lastModified: response.headers.get('last-modified') || undefined, originalName };
 }
 
-export async function downloadHistoricalUrl(url, options, fetchFile = downloadUrl, record = () => {}) {
-  let failure, live;
-  try { live = await fetchFile(url, options); if (!live.missing) return live; }
-  catch (error) {
-    if (/Unsupported|public Internet addresses|credential/i.test(error.message)) throw error;
-    failure = error;
-  }
-  // Git history already preserves repository content. Retired branch links
-  // should not consume Wayback requests on every archive restart.
-  const source = new URL(url);
-  const branchPath = source.hostname === 'github.com'
-    ? source.pathname.match(/^\/wekan\/wekan\/(?:tree|blob)\/([^/]+)/i)
-    : source.hostname === 'raw.githubusercontent.com'
-      ? source.pathname.match(/^\/wekan\/wekan\/(?:refs\/heads\/)?([^/]+)/i)
-      : null;
-  if (branchPath && !/^[a-f0-9]{40}$/i.test(branchPath[1])) {
-    record('skipped', `${url}: repository branch content; archive.org fallback disabled`);
-    if (failure) throw failure;
-    return live;
-  }
-  if (!options.createdAt || !Number.isFinite(Date.parse(options.createdAt))) {
-    if (failure) throw failure;
-    return live;
-  }
-  const timestamp = new Date(options.createdAt).toISOString().replace(/\D/g,'').slice(0,14);
-  record('checking', `archive.org history for ${url} at ${timestamp}`);
-  const lookupUrl = `https://archive.org/wayback/available?url=${encodeURIComponent(url)}&timestamp=${timestamp}`;
-  const lookup = await fetchFile(lookupUrl, {temporary:options.temporary,allLinks:true});
-  if (lookup.missing) { if (failure) throw failure; return live; }
-  let data;
-  try { data = JSON.parse(fs.readFileSync(lookup.file,'utf8')); }
-  finally { if (!lookup.reused) fs.rmSync(lookup.file,{force:true}); }
-  const capture = data.archived_snapshots?.closest;
-  if (!capture?.available || String(capture.status) !== '200') { if (failure) throw failure; return live; }
-  const archived = new URL(capture.url);
-  if (!['http:','https:'].includes(archived.protocol) || archived.hostname !== 'web.archive.org' || archived.username || archived.password || !/^\/web\/\d{14}(?:[a-z_]+)?\//.test(archived.pathname)) throw Error('Unsupported archive.org capture URL');
-  archived.protocol = 'https:';
-  const result = await fetchFile(archived.href, {temporary:options.temporary,allLinks:true});
-  if (result.missing) { if (failure) throw failure; return live; }
-  record('recovered', `${url} from ${archived.href}`);
-  return {...result, recoveredFrom:archived.href, captureTimestamp:capture.timestamp};
-}
-
 export async function archiveItem(base, type, key, source, files, options) {
   const { apply, record, downloadAsset, fetchFile, temporary, now } = options;
   const directory = itemDirectory(base, type, key);
@@ -292,7 +249,7 @@ export async function archiveItem(base, type, key, source, files, options) {
         if (descriptor.asset && (!descriptor.asset.sourceName || descriptor.asset.sourceName === 'github')) {
           if (cached && old.assetId === descriptor.asset.id && old.size === descriptor.asset.size && old.digest === descriptor.asset.digest) fetched = { file: path.join(directory, old.name), reused: true };
           else fetched = { file: await downloadAsset(descriptor.asset, temporary) };
-        } else { const downloadOptions = { temporary, previous: old, cachedFile: cached ? path.join(directory, old.name) : undefined, allLinks: descriptor.allLinks === true, createdAt:descriptor.createdAt }; fetched = descriptor.allLinks ? await downloadHistoricalUrl(descriptor.source,downloadOptions,fetchFile,record) : await fetchFile(descriptor.source,downloadOptions); }
+        } else { const downloadOptions = { temporary, previous: old, cachedFile: cached ? path.join(directory, old.name) : undefined, allLinks: descriptor.allLinks === true }; fetched = await fetchFile(descriptor.source,downloadOptions); }
         if (fetched.missing) {
           if (old && fs.existsSync(path.join(directory, old.name))) { retire(path.join(directory, old.name), now); record('retired', `${type}/${key}/${old.name}: source returned 404/410`); }
           record('missing', `${descriptor.source}: source file is no longer available`); continue;
@@ -301,7 +258,7 @@ export async function archiveItem(base, type, key, source, files, options) {
           descriptor.name = `attachment-${createHash('sha256').update(descriptor.source).digest('hex').slice(0, 8)}-${archiveName(fetched.originalName)}`;
           file = path.join(directory, descriptor.name);
         }
-        validators = { etag: fetched.etag, lastModified: fetched.lastModified, originalName: fetched.originalName, ...(fetched.recoveredFrom ? {recoveredFrom:fetched.recoveredFrom,captureTimestamp:fetched.captureTimestamp} : {}) };
+        validators = { etag: fetched.etag, lastModified: fetched.lastModified, originalName: fetched.originalName };
         const hash = contentHash = fetched.reused && old ? old.sha256 : await sha256(fetched.file);
         if (descriptor.asset && ((descriptor.asset.size !== undefined && fs.statSync(fetched.file).size !== descriptor.asset.size) || (descriptor.asset.digest && descriptor.asset.digest !== `sha256:${hash}`))) throw new Error('Source asset size/digest mismatch');
         const same = fs.existsSync(file) && ((cached && old.name === descriptor.name && old.sha256 === hash) || await sha256(file) === hash);

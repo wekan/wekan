@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Mirror one repository or all repositories of a configured GitHub organization.
-# Shared menu manages source/destination organizations and offline archives.
+# Shared menu manages source/destination organizations and local offline archives.
+# Linked files are downloaded from their live URLs only; no archive.org fallback.
 # Default repository: https://github.com/wekan/wekan to
 # GitLab, Codeberg and SourceForge.
 # Not to Bitbucket, it has Unauthorized errors.
