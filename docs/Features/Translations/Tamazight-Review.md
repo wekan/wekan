@@ -1,5 +1,21 @@
 # Standard Moroccan Tamazight reference review
 
+## Member/action popup labels and Copy Link, 2026-09-15 (`e11a2654c`)
+
+Five Arabic labels outside the original findings are repaired.
+`memberMenuPopup-title` exactly matches the existing
+`memberPopup-title`; Move Card reuses the action phrase in
+`r-move-card-to`. Leave Board and Remove Member reuse their
+native actions plus the popup question mark. Copy Link to
+Clipboard reuses the copy/link/clipboard phrase already shown
+for card links, omitting only the card qualifier.
+
+The card menu still references the Move Card key. Focused
+positive/negative, source-wiring, exact-ledger (22,281 records)
+and 234-locale checks pass. Arabic-script values fall from
+124 to 119. Complete phrases and interaction context remain
+open to fluent native review.
+
 ## Comments, Link and Email Addresses, 2026-09-15 (`2b22dd0be`)
 
 Three Arabic UI labels outside the original flagged table are repaired.

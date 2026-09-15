@@ -644,7 +644,8 @@ Security Problems now use distinct names for CAS account merge,
 attachment path, filename and stored MIME refusals.
 Tamazight rule, popup, warning and activity text replaces wrong-language
 values. Three Arabic common labels now use native Tamazight comment,
-link and email-address terms. Rules distinguish states from actions, and deletion warnings
+link and email-address terms; five popup/copy labels reuse native
+control wording. Rules distinguish states from actions, and deletion warnings
 name irreversible effects. Import, PDF, administrator and filename
 messages retain their conditions. Tigre help and error drafts replace
 English and Tigrinya. The list-width popup states its 200-pixel
@@ -718,6 +719,16 @@ plain-source security settings.
 </details>
 
 **Translations** - Tamazight, Tigre and multilingual list-width repairs.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e11a2654c">Align Tamazight popup and copy-link labels</a>. Thanks to xet7.</summary>
+
+Member Settings, Move Card, Leave Board, Remove Member and Copy Link
+use the native wording already shown by related controls. Focused,
+source-wiring, ledger and 234-locale checks pass; fluent phrase review
+continues.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2b22dd0be">Replace Arabic Tamazight common UI labels</a>. Thanks to xet7.</summary>
