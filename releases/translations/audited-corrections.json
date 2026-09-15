@@ -143400,5 +143400,1244 @@
     "before": "Korttini",
     "after": "Minun kartad",
     "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "prefix-with-full-path",
+    "before": "Etuliite koko polulla",
+    "after": "Liža täuz’ te ezmaižehe",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "prefix-with-parent",
+    "before": "Etuliite ylätehtävällä",
+    "after": "Liža vanhemb ezmaižehe",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "subtext-with-full-path",
+    "before": "Aliteksti koko polulla",
+    "after": "Liža täuz’ te alatekstaks",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "subtext-with-parent",
+    "before": "Aliteksti ylätehtävällä",
+    "after": "Liža vanhemb alatekstaks",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "add-custom-html-after-body-start",
+    "before": "Lisää HTML <body> alun jälkeen",
+    "after": "Ližada ičemäne HTML <body>-tagan jäl’ghe",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "add-custom-html-before-body-end",
+    "before": "Lisä HTML ennen </body> loppua",
+    "after": "Ližada ičemäne HTML </body>-tagan edele",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "addmore-detail",
+    "before": "Lisää tarkempi kuvaus",
+    "after": "Ližada tarkemb kuvadand",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "myCardsViewChange-title",
+    "before": "Korttini näkymä",
+    "after": "Minun kartoiden nägo",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "myCardsViewChangePopup-title",
+    "before": "Korttini näkymä",
+    "after": "Minun kartoiden nägo",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "myCardsViewChange-choice-boards",
+    "before": "Taulut",
+    "after": "Laudad",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "myCardsViewChange-choice-table",
+    "before": "Taulukko",
+    "after": "Tablic",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "myCardsSortChange-title",
+    "before": "Korttini järjestys",
+    "after": "Minun kartoiden järgenduz",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "myCardsSortChangePopup-title",
+    "before": "Korttini järjestys",
+    "after": "Minun kartoiden järgenduz",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "myCardsSortChange-choice-board",
+    "before": "Taulun mukaan",
+    "after": "Laudan mödhe",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "broken-cards",
+    "before": "Rikkinäiset kortit",
+    "after": "Rikotud kartad",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "list-title-not-found",
+    "before": "Listaa '%s' ei löytynyt.",
+    "after": "Lugetiž '%s' ei ole löutud.",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "team-name-not-found",
+    "before": "Tiimiä '%s' ei löydy.",
+    "after": "Jouk '%s' ei ole löutud.",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "globalSearch-title",
+    "before": "Etsi kaikilta tauluilta",
+    "after": "Ectä kaikiš laudoiš",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "no-cards-found",
+    "before": "Kortteja ei löytynyt.",
+    "after": "Kartoid ei ole löutud.",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "one-card-found",
+    "before": "Yksi kortti löytyi",
+    "after": "Üks’ kart om löutud",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "n-cards-found",
+    "before": "%s korttia löytyi",
+    "after": "%s kartad om löutud",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "n-n-of-n-cards-found",
+    "before": "__start__-__end__ / __total__ korttia löytyi",
+    "after": "__start__–__end__ / __total__ kartad om löutud",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "operator-customfield",
+    "before": "mukautettukenttä",
+    "after": "ičemänepöud",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "operator-attachment-text",
+    "before": "liitetiedosto",
+    "after": "tartutadudfail",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "operator-checklist-text",
+    "before": "tarkistuslista",
+    "after": "kodvindlugetiž",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "predicate-archived",
+    "before": "arkistoitu",
+    "after": "arhivas",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "predicate-open",
+    "before": "avoin",
+    "after": "avaidud",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "predicate-selector",
+    "before": "valitsin",
+    "after": "valičii",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "predicate-projection",
+    "before": "projektio",
+    "after": "projekcii",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "heading-notes",
+    "before": "Huomioitavaa",
+    "after": "Homaičused",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "globalSearch-instructions-heading",
+    "before": "Etsintäohjeet",
+    "after": "Ecindan opastused",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "globalSearch-instructions-operator-hash",
+    "before": "`__operator_label_abbrev__<nimi|väri>` - lyhenne `__operator_label__:<color>` tai `__operator_label__:<name>`",
+    "after": "`__operator_label_abbrev__<name|color>` — lühüd muod `__operator_label__:<color>` libo `__operator_label__:<name>`",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "globalSearch-instructions-status-archived",
+    "before": "`__predicate_archived__` - arkistoidut kortit",
+    "after": "`__predicate_archived__` — arhivas olevad kartad",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "link-to-search",
+    "before": "Linkki tähän hakuun",
+    "after": "Link necile ecindale",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "label-colors",
+    "before": "Nimilappujen värit",
+    "after": "Znamoiden mujud",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "sort-cards",
+    "before": "Lajittele kortit",
+    "after": "Järgenda kartad",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "sort-is-on",
+    "before": "Lajittelu on käytössä",
+    "after": "Järgenduz om päl",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cardsSortPopup-title",
+    "before": "Lajittele kortit",
+    "after": "Järgenda kartad",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "created-at-newest-first",
+    "before": "Luotu (Uusin ensin)",
+    "after": "Tehtud (uzimad ezmäi)",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "created-at-oldest-first",
+    "before": "Luotu (Vanhin ensin)",
+    "after": "Tehtud (vanhembad ezmäi)",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "links-heading",
+    "before": "Linkit",
+    "after": "Linkad",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "move-swimlane",
+    "before": "Siirrä uimarata",
+    "after": "Sirdä ujundšoid",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "moveSwimlanePopup-title",
+    "before": "Siirrä uimarata",
+    "after": "Sirdä ujundšoid",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "filesReportTitle",
+    "before": "Tiedostot raportti",
+    "after": "Failoiden raport",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "reports",
+    "before": "Raportit",
+    "after": "Raportad",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "rulesReportTitle",
+    "before": "Säännöt raportti",
+    "after": "Praviloiden raport",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "boardsReportTitle",
+    "before": "Taulut raportti",
+    "after": "Laudoiden raport",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cardsReportTitle",
+    "before": "Kortit raportti",
+    "after": "Kartoiden raport",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "impersonation-admin",
+    "before": "Ylläpitäjä",
+    "after": "Administrator",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "copy-swimlane",
+    "before": "Kopioi uimarata",
+    "after": "Kopirui ujundšoid",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "copySwimlanePopup-title",
+    "before": "Kopioi uimarata",
+    "after": "Kopirui ujundšoid",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "display-card-creator",
+    "before": "Näytä kortin luoja",
+    "after": "Ozuta kartan tegii",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "maximize-card",
+    "before": "Suurenna kortti",
+    "after": "Suurenda kart",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "minimize-card",
+    "before": "Pienennä kortti",
+    "after": "Pičenda kart",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "carbon-copy",
+    "before": "Kopio (Cc:)",
+    "after": "Kopii (Cc:)",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "ticket",
+    "before": "Tiketti",
+    "after": "Bilet",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "tickets",
+    "before": "Tiketit",
+    "after": "Biletad",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "ticket-number",
+    "before": "Tiketti numero",
+    "after": "Biletan numer",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "open",
+    "before": "Avoinna",
+    "after": "Avaidud",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "pending",
+    "before": "Odottaa",
+    "after": "Odotab",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "closed",
+    "before": "Suljettu",
+    "after": "Saubatud",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "resolved",
+    "before": "Ratkaistu",
+    "after": "Ratkaistud",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cancelled",
+    "before": "Peruutettu",
+    "after": "Heittud",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "request",
+    "before": "Pyyntö",
+    "after": "Pakičend",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "requests",
+    "before": "Pyynnöt",
+    "after": "Pakičendad",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "help-request",
+    "before": "Avunpyyntö",
+    "after": "Abun pakičend",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "editCardSortOrderPopup-title",
+    "before": "Muuta lajittelua",
+    "after": "Vajehta järgenduz",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cardDetailsPopup-title",
+    "before": "Kortin yksityiskohdat",
+    "after": "Kartan ližatedod",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "filter-card-title-label",
+    "before": "Suodata kortin otsikko",
+    "after": "Puhtasta kartan pälkirjutezen mödhe",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "copied",
+    "before": "Kopioitu!",
+    "after": "Kopiruidud!",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "moveChecklist",
+    "before": "Siirrä tarkistuslista",
+    "after": "Sirdä kodvindlugetiž",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "moveChecklistPopup-title",
+    "before": "Siirrä tarkistuslista",
+    "after": "Sirdä kodvindlugetiž",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "originOrder",
+    "before": "alkuperäinen järjestys",
+    "after": "alguiž järgenduz",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "copyChecklist",
+    "before": "Kopioi tarkistuslista",
+    "after": "Kopirui kodvindlugetiž",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "copyChecklistPopup-title",
+    "before": "Kopioi tarkistuslista",
+    "after": "Kopirui kodvindlugetiž",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card-show-lists",
+    "before": "Näytä listat kortilla",
+    "after": "Ozuta lugetižed kartal",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "attachmentActionsPopup-title",
+    "before": "Liite toimet",
+    "after": "Ličtusen tegendad",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "attachment-move-storage-s3",
+    "before": "Siirrä liitteet S3:een",
+    "after": "Sirdä ličtuz S3-ha",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "attachment-move",
+    "before": "Siirrä liite",
+    "after": "Sirdä ličtuz",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "move-progress-pause",
+    "before": "Tauko",
+    "after": "Seizata",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "move-progress-resume",
+    "before": "Jatka",
+    "after": "Jatkta",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "stats-scope",
+    "before": "Tyyppi",
+    "after": "Tip",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board-id",
+    "before": "Taulun tunnus",
+    "after": "Laudan ID",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "path",
+    "before": "Polku",
+    "after": "Te",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "version-name",
+    "before": "Version nimi",
+    "after": "Versijan nimi",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "storage",
+    "before": "Tallennustila",
+    "after": "Kaicend",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "remaining_time",
+    "before": "Jäljellä oleva aika",
+    "after": "Jäližjäänud aig",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "speed",
+    "before": "Nopeus",
+    "after": "Radviduz",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "progress",
+    "before": "Edistyminen",
+    "after": "Edenduz",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "if-you-already-have-an-account",
+    "before": "Jos sinulla on jo tili",
+    "after": "Ku sinun akkaunt jo om",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "register",
+    "before": "Rekisteröidy",
+    "after": "Registriruida",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "minicardDetailsActionsPopup-title",
+    "before": "Kortin yksityiskohdat",
+    "after": "Kartan ližatedod",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "Mongo_sessions_count",
+    "before": "Mongo sessioiden määrä",
+    "after": "Mongo-seansiden lugumär",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "translation",
+    "before": "Käännös",
+    "after": "Kändand",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "translation-text",
+    "before": "Käännetty teksti",
+    "after": "Kändadud tekst",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "convert-to-markdown",
+    "before": "Muuta markdowniksi",
+    "after": "Muuta Markdownaks",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "uncollapse",
+    "before": "Suurenna",
+    "after": "Levita",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "support-page-enabled",
+    "before": "Tuki sivu käytössä",
+    "after": "Abun lehtpol’ om päl",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "support-title",
+    "before": "Tuki otsikko",
+    "after": "Abun pälkirjutez",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "support-content",
+    "before": "Tuki sisältö",
+    "after": "Abun südäimuz",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board-operations",
+    "before": "Taulun toiminnot",
+    "after": "Laudan tegendad",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cron-migrations",
+    "before": "Ajastetut siirrot",
+    "after": "Plänitud sirdändad",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cron-error-severity",
+    "before": "Vakavuus",
+    "after": "Väran jügeduz",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cron-error-message",
+    "before": "Virhe viesti",
+    "after": "Väran tedotuz",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cron-clear-errors",
+    "before": "Tyhjennä kaikki virheet",
+    "after": "Heitä kaik värad",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "complete",
+    "before": "Valmis",
+    "after": "Val’miž",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "idle",
+    "before": "Tyhjäkäynti",
+    "after": "Joudai",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "sandstorm-storage-item",
+    "before": "Tallennustila",
+    "after": "Kaicend",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "features-notifications",
+    "before": "Ilmoitukset",
+    "after": "Tedotuzed",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "backup-restore",
+    "before": "Palauta",
+    "after": "Pöruta",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "gridfs-enabled",
+    "before": "GridFS käytössä",
+    "after": "GridFS om päl",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "all-migrations",
+    "before": "Kaikki siirrot",
+    "after": "Kaik sirdändad",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "select-migration",
+    "before": "Valitse siirto",
+    "after": "Valiče sirdänd",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "start",
+    "before": "Alkaa",
+    "after": "Augota",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "pause",
+    "before": "Tauko",
+    "after": "Seizata",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-progress",
+    "before": "Siirtojen edistyminen",
+    "after": "Sirdändan edenduz",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "add-job",
+    "before": "Lisää työ",
+    "after": "Ližada tegomäär",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "attachment-migration",
+    "before": "Liitteiden siirto",
+    "after": "Ličtusiden sirdänd",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "attachment-settings",
+    "before": "Liitteiden asetukset",
+    "after": "Ličtusiden sändod",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "attachment-storage-settings",
+    "before": "Tallennusasetukset",
+    "after": "Kaicendan sändod",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "automatic-migration",
+    "before": "Automaattinen siirto",
+    "after": "Avtomatine sirdänd",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-progress-title",
+    "before": "Taulu siirto meneillään",
+    "after": "Laudan sirdänd om teges",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-progress-overall",
+    "before": "Kokonaisedistyminen",
+    "after": "Ühtine edenduz",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-progress-current-step",
+    "before": "Nykyinen vaihe",
+    "after": "Nügüdläine askel",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "has-swimlanes",
+    "before": "Sisältää uimaratoja",
+    "after": "Om ujundšoiduid",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "step-fix-orphaned-cards",
+    "before": "Korjaa orvot kortit",
+    "after": "Kohenda ižandatomad kartad",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "step-convert-shared-lists",
+    "before": "Muunna jaetut listat",
+    "after": "Muuta jagetud lugetižed",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "step-create-missing-lists",
+    "before": "Luo puuttuvat listat",
+    "after": "Tege puudujad lugetižed",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "step-fix-missing-ids",
+    "before": "Korjaa puuttuvat ID:t",
+    "after": "Kohenda puudujad ID-d",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "completed",
+    "before": "Valmistunut",
+    "after": "Loptud",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "converting-board",
+    "before": "Muunnetaan taulua",
+    "after": "Laudad muudetase",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cpu-cores",
+    "before": "Suorittimen ytimet",
+    "after": "CPU-jurad",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "current-action",
+    "before": "Nykyinen toiminto",
+    "after": "Nügüdläine tegenda",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "days-old",
+    "before": "Päivää vanha",
+    "after": "Päiväd vanha",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "filesystem-storage",
+    "before": "Tiedostojärjestelmä",
+    "after": "Failsisteman kaicend",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "force-board-scan",
+    "before": "Pakota taulun skannaus",
+    "after": "Pakita laudan skanirind",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "gridfs-attachments",
+    "before": "GridFS-liitteet",
+    "after": "GridFS-ličtused",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "gridfs-size",
+    "before": "GridFS-koko",
+    "after": "GridFS-suruz’",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "idle-migration",
+    "before": "Tyhjäkäynti-siirto",
+    "after": "Joudai sirdänd",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "job-description",
+    "before": "Työn kuvaus",
+    "after": "Tegomääran kuvadand",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "job-details",
+    "before": "Työn yksityiskohdat",
+    "after": "Tegomääran ližatedod",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "job-name",
+    "before": "Työn nimi",
+    "after": "Tegomääran nimi",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "job-queue",
+    "before": "Työjono",
+    "after": "Tegomääriden jono",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "last-run",
+    "before": "Viimeksi ajettu",
+    "after": "Jäl’gmäine käivituz",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "max-concurrent",
+    "before": "Maksimi samanaikainen",
+    "after": "Enin ühtaigad",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migrate-all-to-gridfs",
+    "before": "Siirrä kaikki GridFS:ään",
+    "after": "Sirdä kaik GridFS-ha",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migrate-all-to-s3",
+    "before": "Siirrä kaikki S3:een",
+    "after": "Sirdä kaik S3-ha",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migrated-attachments",
+    "before": "Siirretyt liitteet",
+    "after": "Sirttud ličtused",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "migration-detector",
+    "before": "Siirron tunnistin",
+    "after": "Sirdändan löudai",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "next-run",
+    "before": "Seuraava ajo",
+    "after": "Tuleb käivituz",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "overall-progress",
+    "before": "Kokonaisedistyminen",
+    "after": "Ühtine edenduz",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "remaining-attachments",
+    "before": "Jäljellä olevat liitteet",
+    "after": "Jäližjäänud ličtused",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "run-once",
+    "before": "Aja kerran",
+    "after": "Käivitada üks’ kerad",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "s3-attachments",
+    "before": "S3-liitteet",
+    "after": "S3-ličtused",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "s3-size",
+    "before": "S3-koko",
+    "after": "S3-suruz’",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "scanning-status",
+    "before": "Skannauksen tila",
+    "after": "Skanirindan status",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "schedule",
+    "before": "Aikataulu",
+    "after": "Aigplän",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "show-list-on-minicard",
+    "before": "Näytä lista minikortilla",
+    "after": "Ozuta lugetiž minikartal",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "showing",
+    "before": "Näytetään",
+    "after": "Ozutadas",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "start-test-operation",
+    "before": "Aloita testitoiminto",
+    "after": "Augota test-tegenda",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "start-time",
+    "before": "Aloitusaika",
+    "after": "Augotižaig",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "step-progress",
+    "before": "Vaiheen edistyminen",
+    "after": "Askelen edenduz",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "system-resources",
+    "before": "Järjestelmän resurssit",
+    "after": "Sisteman resursad",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "total-attachments",
+    "before": "Liitteitä yhteensä",
+    "after": "Ličtused kaiked",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "total-operations",
+    "before": "Toimintoja yhteensä",
+    "after": "Tegendad kaiked",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "total-size",
+    "before": "Koko yhteensä",
+    "after": "Ühtine suruz’",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "unmigrated-boards",
+    "before": "Siirtämättömät taulut",
+    "after": "Sirdmatoi laudad",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cron",
+    "before": "Ajastus",
+    "after": "Cron",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "current-step",
+    "before": "Nykyinen vaihe",
+    "after": "Nügüdläine askel",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "otp",
+    "before": "OTP-koodi",
+    "after": "OTP-kod",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "size-bytes",
+    "before": "Koko (tavua)",
+    "after": "Suruz’ (baitad)",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "last-modified",
+    "before": "Viimeksi muokattu",
+    "after": "Jäl’gmäižikš vajehtadud",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "api-endpoints",
+    "before": "API päätepisteet",
+    "after": "API-loppukohdad",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "otp-required",
+    "before": "OTP-koodi vaaditaan",
+    "after": "OTP-kod om tarbiž",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "user-exists",
+    "before": "Käyttäjä on jo olemassa",
+    "after": "Kävutai jo om olemas",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "log",
+    "before": "Loki",
+    "after": "Žurnal",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "protocol",
+    "before": "Protokolla",
+    "after": "Protokol",
+    "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
   }
 ]

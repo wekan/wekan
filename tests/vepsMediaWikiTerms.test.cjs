@@ -80,6 +80,10 @@ for (const [key, value] of Object.entries(lexicalTerms)) {
   assert.notEqual(veps[key], finnish[key], `${key}: Finnish seed removed`);
 }
 const sharedTerms = {
+  repository: 'Repo',
+  'dueCardsViewChange-choice-me': 'Minä',
+  'r-of': '/',
+  of: ' / ',
   queue: 'Jono',
   name: 'Nimi',
   no: 'Ei',
@@ -91,4 +95,8 @@ for (const [key, value] of Object.entries(sharedTerms)) {
   assert.equal(veps[key], value, `${key}: attested shared Veps term`);
   assert.equal(finnish[key], value, `${key}: intentionally shared with Finnish`);
 }
+const remainingFinnishMatches = Object.keys(veps).filter(key =>
+  veps[key] !== read('en')[key] && veps[key] === finnish[key]);
+assert.deepEqual(remainingFinnishMatches.sort(), Object.keys(sharedTerms).sort(),
+  'every remaining Finnish match is explicitly reviewed');
 console.log(`vepsMediaWikiTerms: ${Object.keys(terms).length + Object.keys(lexicalTerms).length} repairs and ${Object.keys(sharedTerms).length} shared terms passed`);
