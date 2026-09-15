@@ -656,6 +656,15 @@ This release includes the following features and fixes:
 **Translations** - Tamazight, Tigre and multilingual list-width repairs.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d1c4a7290">Repair Tamazight board and missing labels</a>. Thanks to xet7.</summary>
+
+Replace six Arabic and French board, page, list and swimlane labels
+with native terms; keep named-item `%s` tokens. Full clause grammar
+needs fluent review. Focused, ledger and inventory checks pass.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e114ffde8">Repair Tamazight sky, gold and silver labels</a>. Thanks to xet7.</summary>
 
 Replace French and Arabic color seeds with native terms for sky,

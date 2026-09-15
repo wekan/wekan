@@ -1,5 +1,22 @@
 # Standard Moroccan Tamazight reference review
 
+## Board and missing-state labels, 2026-09-15 (`d1c4a7290`)
+
+Three Arabic and three French values are repaired from existing zgh
+board (`ⵜⴰⴼⵍⵡⵉⵜ`), page (`ⵜⴰⵙⵏⴰ`), list
+(`ⵜⴰⵍⴳⴰⵎⵜ`) and swimlane/path (`ⵓⴱⵔⵉⴷ`) usage. The feminine
+`ⵓⵔ ⵜⵍⵍⵉ` and masculine `ⵓⵔ ⵉⵍⵍⴰ` missing patterns follow
+other local organization, team and label diagnostics. `%s` is kept
+exactly in each named-item error. The view label `ⵉⴱⵔⵉⴷⵏ` spells
+local Latin `Ibriden` in Tifinagh.
+
+These are direct native drafts, **low confidence** for full sentence
+grammar, list terminology and swimlane metaphor pending fluent review.
+Focused positive/negative, ledger and all-234-locale checks pass.
+The zgh file's Arabic-script values drop from 181 to 178. Some are
+symbols or abbreviations; the rest still require key-by-key review.
+The original 20,081 flagged finding counts do not change.
+
 ## Sky, gold and silver labels, 2026-09-15 (`e114ffde8`)
 
 The [IRCAM Moroccan Amazigh dictionary](https://biblio.ircam.ma/pmb/uploads/publications/177.pdf)

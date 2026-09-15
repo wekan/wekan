@@ -16,7 +16,16 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `e114ffde8` — replace French
+Latest translation fix: **2026-09-15**, `d1c4a7290` — replace six
+Arabic/French Tamazight board, page, list and swimlane labels with
+locally established native terms. Exact `%s` placeholders survive.
+Complete sentence grammar and the path/swimlane metaphor remain low
+confidence pending native review. Focused, ledger and 234-locale
+checks pass. Ledger: **22,196**. The zgh file still contains **178**
+Arabic-script values; each needs semantic classification, including
+possible intentional abbreviations and symbols.
+
+Earlier translation fix: **2026-09-15**, `e114ffde8` — replace French
 Tamazight sky and Arabic gold/silver labels with native terms. IRCAM
 directly glosses sky and gold; a Moroccan Berber dictionary attests
 silver. Gold/silver metal nouns as CSS-color labels and silver's
@@ -220,7 +229,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **22,190** exact before/after values, including unflagged
+records contain **22,196** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -258,6 +267,9 @@ clauses and broader wrong-language seeds remains open.
 - [Tamazight](Tamazight-Review.md): wrong-language prose, 98 records with
   invalidated Tuareg provenance, adapted grammar and software terminology.
   Arabic `email-addresses` and its precise native plural remain open.
+  Arabic-script values fall from 181 to 178 in this batch; this count
+  includes possible intentional symbols and is a review queue, not a
+  count of proven wrong-language strings.
   Active migration stage IDs bypass translations; removed migrations must
   stay removed (source review `94c8857fd`).
 - [Inuktitut](Inuktitut-Calendar-Review.md), [Nahuatl](Nahuatl-Review.md),

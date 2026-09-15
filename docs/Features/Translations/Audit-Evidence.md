@@ -1,5 +1,15 @@
 # Detailed translation audit evidence
 
+2026-09-15 (`d1c4a7290`): repaired six unflagged Tamazight board,
+page, list and swimlane labels seeded in Arabic or French. Existing
+native nouns and gender-aware missing patterns supply the draft;
+three named errors preserve exact `%s` tokens. Full clause grammar,
+list terminology and path-as-swimlane use remain low confidence.
+Arabic-script values in zgh fall from 181 to 178, including possible
+intentional symbols requiring classification. Focused, ledger and
+234-locale checks pass; records rise to 22,196. Flagged-row counts
+unchanged. No remote write occurred.
+
 2026-09-15 (`e114ffde8`): repaired three unflagged wrong-language
 Tamazight color labels. IRCAM directly glosses `ⵉⴳⵏⵏⴰ` sky and
 `ⵓⵔⵖ` gold; a Central Atlas Tamazight dictionary attests silver
