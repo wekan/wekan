@@ -130,7 +130,7 @@ assert.match(tigre['card-aging-tier2'], /2/);
 assert.match(tigre['card-aging-tier3'], /3/);
 assert.equal(tigre['color-black'], 'ጸሊም');
 assert.equal(tigre['color-red'], 'ቀይሕ');
-assert.equal(tigre['color-white'], 'ጻዕዳ');
+assert.equal(tigre['color-white'], 'ጸዕደ');
 assert.equal(tigre['color-yellow'], 'ብጫ');
 assert.match(tigre['copyManyCardsPopup-instructions'], /JSON/);
 const copiedCards = JSON.parse(tigre['copyManyCardsPopup-format']);

@@ -145696,5 +145696,124 @@
     "before": "መበገሲ",
     "after": "መንሸጢ",
     "reason": "Replace a Tigrinya-seeded value whose corpus sense conflicts with the UI with the Tigre work, sorting, person or causation root attested in complete corpus sentences."
+  },
+  {
+    "locale": "tig",
+    "key": "color-sky",
+    "before": "ሰማያዊ ሰማይ",
+    "after": "ሰመ",
+    "reason": "Replace a Tigrinya-seeded basic label with the distinct Tigre form attested for the concept in complete BeitTigreAI corpus sentences."
+  },
+  {
+    "locale": "tig",
+    "key": "operator-org",
+    "before": "ውድብ",
+    "after": "መነዘመት",
+    "reason": "Replace a Tigrinya-seeded basic label with the distinct Tigre form attested for the concept in complete BeitTigreAI corpus sentences."
+  },
+  {
+    "locale": "tig",
+    "key": "color-pink",
+    "before": "ሮዛ",
+    "after": "ሸግራይ",
+    "reason": "Replace a Tigrinya-seeded basic label with the distinct Tigre form attested for the concept in complete BeitTigreAI corpus sentences."
+  },
+  {
+    "locale": "tig",
+    "key": "days",
+    "before": "መዓልታት",
+    "after": "አምዕል",
+    "reason": "Replace a Tigrinya-seeded basic label with the distinct Tigre form attested for the concept in complete BeitTigreAI corpus sentences."
+  },
+  {
+    "locale": "tig",
+    "key": "path",
+    "before": "መንገዲ",
+    "after": "ገበይ",
+    "reason": "Replace a Tigrinya-seeded basic label with the distinct Tigre form attested for the concept in complete BeitTigreAI corpus sentences."
+  },
+  {
+    "locale": "tig",
+    "key": "predicate-year",
+    "before": "ዓመት",
+    "after": "ሰነት",
+    "reason": "Replace a Tigrinya-seeded basic label with the distinct Tigre form attested for the concept in complete BeitTigreAI corpus sentences."
+  },
+  {
+    "locale": "tig",
+    "key": "roles-status-role",
+    "before": "ተራ",
+    "after": "ተረት",
+    "reason": "Replace a Tigrinya-seeded basic label with the distinct Tigre form attested for the concept in complete BeitTigreAI corpus sentences."
+  },
+  {
+    "locale": "tig",
+    "key": "roles",
+    "before": "ተራታት",
+    "after": "ተረታት",
+    "reason": "Replace a Tigrinya-seeded basic label with the distinct Tigre form attested for the concept in complete BeitTigreAI corpus sentences."
+  },
+  {
+    "locale": "tig",
+    "key": "board-view-table",
+    "before": "ሰደቓ",
+    "after": "ጣውለት",
+    "reason": "Replace a Tigrinya-seeded basic label with the distinct Tigre form attested for the concept in complete BeitTigreAI corpus sentences."
+  },
+  {
+    "locale": "tig",
+    "key": "color-white",
+    "before": "ጻዕዳ",
+    "after": "ጸዕደ",
+    "reason": "Replace a Tigrinya-seeded basic label with the distinct Tigre form attested for the concept in complete BeitTigreAI corpus sentences."
+  },
+  {
+    "locale": "tig",
+    "key": "comment-reply",
+    "before": "መልሲ",
+    "after": "ምብላስ",
+    "reason": "Replace a Tigrinya-seeded basic label with the distinct Tigre form attested for the concept in complete BeitTigreAI corpus sentences."
+  },
+  {
+    "locale": "tig",
+    "key": "font-size-small",
+    "before": "ንእሽቶ",
+    "after": "ንኢሽ",
+    "reason": "Replace a Tigrinya-seeded basic label with the distinct Tigre form attested for the concept in complete BeitTigreAI corpus sentences."
+  },
+  {
+    "locale": "tig",
+    "key": "heading-notes",
+    "before": "መዘኻኸሪታት",
+    "after": "ምለሐዛት",
+    "reason": "Replace a Tigrinya-seeded basic label with the distinct Tigre form attested for the concept in complete BeitTigreAI corpus sentences."
+  },
+  {
+    "locale": "tig",
+    "key": "hours",
+    "before": "ሰዓታት",
+    "after": "ሰዐታት",
+    "reason": "Replace a Tigrinya-seeded basic label with the distinct Tigre form attested for the concept in complete BeitTigreAI corpus sentences."
+  },
+  {
+    "locale": "tig",
+    "key": "stats-count",
+    "before": "ብዝሒ",
+    "after": "ዐደድ",
+    "reason": "Replace a Tigrinya-seeded basic label with the distinct Tigre form attested for the concept in complete BeitTigreAI corpus sentences."
+  },
+  {
+    "locale": "tig",
+    "key": "testsReportTitle",
+    "before": "ፈተናታት",
+    "after": "እምትሓናት",
+    "reason": "Replace a Tigrinya-seeded basic label with the distinct Tigre form attested for the concept in complete BeitTigreAI corpus sentences."
+  },
+  {
+    "locale": "tig",
+    "key": "today",
+    "before": "ሎሚ",
+    "after": "ዮም",
+    "reason": "Replace a Tigrinya-seeded basic label with the distinct Tigre form attested for the concept in complete BeitTigreAI corpus sentences."
   }
 ]
