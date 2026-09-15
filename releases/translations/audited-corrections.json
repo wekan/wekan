@@ -148230,5 +148230,124 @@
     "before": "ብሕታዊ",
     "after": "ብሕት",
     "reason": "2026-09-15: Replace a Tigrinya-seeded private form with a sense-matched Tigre form independently attested in complete corpus entries. Preserve surrounding connection, account and Import wording for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "attachment-soft-delete-pop",
+    "before": "እቲ መተሓሓዚ ካብዚ ካርድ ይእለ፣ ፋይሉ ግን ይዕቀብ። ነቲ ካርድ ከመሓይሽ ዝኽእል ዝኾነ ሰብ ካብ ታሪኽ ካርድ ክመልሶ ይኽእል።",
+    "after": "እቲ መተሓሓዚ ካብዚ ወረቀት ካርድ ይእለ፣ ፋይሉ ግን ይዕቀብ። ነቲ ወረቀት ካርድ ከመሓይሽ ዝኽእል ዝኾነ ሰብ ካብ ታሪኽ ወረቀት ካርድ ክመልሶ ይኽእል።",
+    "reason": "2026-09-15: Replace remaining Tigrinya singular, plural and possessive Card components with corpus-attested Tigre Card forms already reviewed in the correction ledger. Preserve surrounding long-clause grammar, numbers, quoted tokens and punctuation for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "filter-cards",
+    "before": "ካርድታት ወይ ዝርዝራት ኣጻሪ",
+    "after": "ወረቀት ካርዳት ወይ ዝርዝራት ኣጻሪ",
+    "reason": "2026-09-15: Replace remaining Tigrinya singular, plural and possessive Card components with corpus-attested Tigre Card forms already reviewed in the correction ledger. Preserve surrounding long-clause grammar, numbers, quoted tokens and punctuation for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "shortcut-filter-my-cards",
+    "before": "ካርድታተይ ኣጻሪ",
+    "after": "ወረቀት ካርዳተይ ኣጻሪ",
+    "reason": "2026-09-15: Replace remaining Tigrinya singular, plural and possessive Card components with corpus-attested Tigre Card forms already reviewed in the correction ledger. Preserve surrounding long-clause grammar, numbers, quoted tokens and punctuation for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "starred-cards",
+    "before": "ኮኾብ ዝተገብረሎም ካርድታት",
+    "after": "ኮኾብ ዝተገብረሎም ወረቀት ካርዳት",
+    "reason": "2026-09-15: Replace remaining Tigrinya singular, plural and possessive Card components with corpus-attested Tigre Card forms already reviewed in the correction ledger. Preserve surrounding long-clause grammar, numbers, quoted tokens and punctuation for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "toggle-labels",
+    "before": "ንካርድ ምልክታት 1-9 ቀያይር። ብዙሕ ምርጫ ምልክታት 1-9 ይውስኽ",
+    "after": "ንወረቀት ካርድ ምልክታት 1-9 ቀያይር። ብዙሕ ምርጫ ምልክታት 1-9 ይውስኽ",
+    "reason": "2026-09-15: Replace remaining Tigrinya singular, plural and possessive Card components with corpus-attested Tigre Card forms already reviewed in the correction ledger. Preserve surrounding long-clause grammar, numbers, quoted tokens and punctuation for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "external-link-pattern-description",
+    "before": "ኣብ ጽሑፍ ካርድ ዝርከቡ ከም \"#1234\" ዝኣመሰሉ ምልክታት ብቐጥታ ናብ ናይ ደገ ናይ ጸገማት ተከታታሊ የራኽቦም። ንምስራዝ ሓደ ካብቶም ቦታታት ባዶ ግደፍ።",
+    "after": "ኣብ ጽሑፍ ወረቀት ካርድ ዝርከቡ ከም \"#1234\" ዝኣመሰሉ ምልክታት ብቐጥታ ናብ ናይ ደገ ናይ ጸገማት ተከታታሊ የራኽቦም። ንምስራዝ ሓደ ካብቶም ቦታታት ባዶ ግደፍ።",
+    "reason": "2026-09-15: Replace remaining Tigrinya singular, plural and possessive Card components with corpus-attested Tigre Card forms already reviewed in the correction ledger. Preserve surrounding long-clause grammar, numbers, quoted tokens and punctuation for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "card-sorting-by-number",
+    "before": "ካርድታት ብቁጽሪ ምስራዕ",
+    "after": "ወረቀት ካርዳት ብቁጽሪ ምስራዕ",
+    "reason": "2026-09-15: Replace remaining Tigrinya singular, plural and possessive Card components with corpus-attested Tigre Card forms already reviewed in the correction ledger. Preserve surrounding long-clause grammar, numbers, quoted tokens and punctuation for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "cover-attachment-on-minicard",
+    "before": "ስእሊ ሽፋን ኣብ ንኡስ ካርድ",
+    "after": "ስእሊ ሽፋን ኣብ ንኡስ ወረቀት ካርድ",
+    "reason": "2026-09-15: Replace remaining Tigrinya singular, plural and possessive Card components with corpus-attested Tigre Card forms already reviewed in the correction ledger. Preserve surrounding long-clause grammar, numbers, quoted tokens and punctuation for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "card-sorting-by-number-on-minicard",
+    "before": "ካርድታት ብቁጽሪ ምስራዕ ኣብ ንኡስ ካርድ",
+    "after": "ወረቀት ካርዳት ብቁጽሪ ምስራዕ ኣብ ንኡስ ወረቀት ካርድ",
+    "reason": "2026-09-15: Replace remaining Tigrinya singular, plural and possessive Card components with corpus-attested Tigre Card forms already reviewed in the correction ledger. Preserve surrounding long-clause grammar, numbers, quoted tokens and punctuation for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "r-of-cards-in-list",
+    "before": "ንካርድታት ኣብ ዝርዝር",
+    "after": "ንወረቀት ካርዳት ኣብ ዝርዝር",
+    "reason": "2026-09-15: Replace remaining Tigrinya singular, plural and possessive Card components with corpus-attested Tigre Card forms already reviewed in the correction ledger. Preserve surrounding long-clause grammar, numbers, quoted tokens and punctuation for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "open-many-cards-at-once",
+    "before": "ብዙሓት ካርድታት ብሓንሳብ ክፈት",
+    "after": "ብዙሓት ወረቀት ካርዳት ብሓንሳብ ክፈት",
+    "reason": "2026-09-15: Replace remaining Tigrinya singular, plural and possessive Card components with corpus-attested Tigre Card forms already reviewed in the correction ledger. Preserve surrounding long-clause grammar, numbers, quoted tokens and punctuation for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "roles-status-sees",
+    "before": "ካርድታት ይርኢ",
+    "after": "ወረቀት ካርዳት ይርኢ",
+    "reason": "2026-09-15: Replace remaining Tigrinya singular, plural and possessive Card components with corpus-attested Tigre Card forms already reviewed in the correction ledger. Preserve surrounding long-clause grammar, numbers, quoted tokens and punctuation for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "myCardsViewChange-title",
+    "before": "ርእይቶ ካርድታተይ",
+    "after": "ርእይቶ ወረቀት ካርዳተይ",
+    "reason": "2026-09-15: Replace remaining Tigrinya singular, plural and possessive Card components with corpus-attested Tigre Card forms already reviewed in the correction ledger. Preserve surrounding long-clause grammar, numbers, quoted tokens and punctuation for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "myCardsViewChangePopup-title",
+    "before": "ርእይቶ ካርድታተይ",
+    "after": "ርእይቶ ወረቀት ካርዳተይ",
+    "reason": "2026-09-15: Replace remaining Tigrinya singular, plural and possessive Card components with corpus-attested Tigre Card forms already reviewed in the correction ledger. Preserve surrounding long-clause grammar, numbers, quoted tokens and punctuation for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "globalSearchViewChange-choice-me",
+    "before": "ካርድታተይ",
+    "after": "ወረቀት ካርዳተይ",
+    "reason": "2026-09-15: Replace remaining Tigrinya singular, plural and possessive Card components with corpus-attested Tigre Card forms already reviewed in the correction ledger. Preserve surrounding long-clause grammar, numbers, quoted tokens and punctuation for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "cardsReportTitle",
+    "before": "ጸብጻብ ካርድታት",
+    "after": "ጸብጻብ ወረቀት ካርዳት",
+    "reason": "2026-09-15: Replace remaining Tigrinya singular, plural and possessive Card components with corpus-attested Tigre Card forms already reviewed in the correction ledger. Preserve surrounding long-clause grammar, numbers, quoted tokens and punctuation for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "step-restore-cards",
+    "before": "ካርድታት መልስ",
+    "after": "ወረቀት ካርዳት መልስ",
+    "reason": "2026-09-15: Replace remaining Tigrinya singular, plural and possessive Card components with corpus-attested Tigre Card forms already reviewed in the correction ledger. Preserve surrounding long-clause grammar, numbers, quoted tokens and punctuation for separate fluent review."
   }
 ]
