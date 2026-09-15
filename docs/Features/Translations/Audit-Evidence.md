@@ -30759,3 +30759,17 @@ The raw overlap is ten and the test requires it to equal the explicit shared
 set exactly, leaving zero unclassified Finnish matches. Complete draft grammar
 remains open to fluent improvement, but the wrong-language seed defect is
 closed. No live UI test or remote write ran.
+
+### 2026-09-15 — Tigre lexical interface terms
+
+Source commit `f27cb82ca6` replaces 91 further Tigrinya-seeded interface
+values using exact complete-English-source results from the BeitTigreAI
+English–Tigre corpus. The focused test locks each selected Tigre value and
+requires it to differ from the former Tigrinya seed. All 20,754 correction
+records and all 234 locale inventories pass.
+
+Measured non-English overlap falls from 870 to 779 values. Thirteen are
+independently corpus-attested shared terms, leaving 766 unclassified; 86 of
+the remaining identical values have at least 20 characters and 18 have at
+least 35. Corpus glosses with several senses remain open to fluent review. No
+remote write occurred.

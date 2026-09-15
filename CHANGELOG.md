@@ -1819,6 +1819,17 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f27cb82ca6">Repair lexical Tigre interface terms.</a></summary>
+
+Replace 91 more Tigrinya-seeded labels with Tigre corpus headwords and short
+phrases. Focused checks preserve exact source placeholders and reject the
+former seeds; broader phrase review continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e17bb2b5e">Repair native-catalogue Veps interface terms.</a></summary>
 
 Replace 31 Finnish-seeded labels through exact English-source matching with

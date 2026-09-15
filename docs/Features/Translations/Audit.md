@@ -16,23 +16,22 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `a4ec295ff` — complete the
-Finnish-seeded Veps review by replacing the final 177 search, report, status,
-storage and migration values. Ten remaining byte-identical forms are now
-individually covered as native cognates or intentional slash syntax. Eight
-focused files pass; ledger 20,663. No Finnish match remains unclassified.
-Tigre source `0e9418960` and review `5b2c5942e` reduce its unclassified
-Tigrinya overlap from 917 to 857.
+Latest translation fix: **2026-09-15**, `f27cb82ca6` — replace 91 more
+Tigrinya-seeded Tigre interface values with Tigre headwords and short phrases
+returned for their complete English sources by the BeitTigreAI corpus. Focused
+checks preserve the selected values and reject their Tigrinya seeds; ledger
+20,754. The earlier Finnish-seeded Veps review remains complete with no
+unclassified match.
 
 The tracked Tigre calendar queue being empty does not certify the locale. Of
-2,592 non-English Tigre values, 870 are byte-for-byte identical to Tigrinya;
-13 are corpus-attested shared terms and 857 remain unclassified,
-including long clauses; several basic date words also match Tigrinya while
-Tigre-specific sources use different forms. This is now an explicit broader
-wrong-language review item and must be resolved before the full audit closes.
+2,592 non-English Tigre values, 779 are byte-for-byte identical to Tigrinya;
+13 are corpus-attested shared terms and 766 remain unclassified, including 86
+values of at least 20 characters and 18 of at least 35 characters. This is an
+explicit broader wrong-language review item and must be resolved before the
+full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **20,133** exact before/after values, including unflagged
+records contain **20,754** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

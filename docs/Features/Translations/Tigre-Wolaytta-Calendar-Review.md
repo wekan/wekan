@@ -273,3 +273,20 @@ The measured overlap remains 870 because accepted values are unchanged, but
 the unclassified set falls to 857. This acceptance is limited to exact
 headword evidence and does not certify related phrases or the locale as a
 whole. No live UI test or remote write ran.
+
+## Tigre lexical interface terms repaired — 2026-09-15
+
+Source commit `f27cb82ca6` replaces 91 further values copied byte-for-byte
+from Tigrinya. The BeitTigreAI corpus returns each selected Tigre headword or
+short phrase for the complete English source; the UI sense was selected where
+the corpus offers several glosses, and sentence punctuation was omitted from
+short labels where appropriate.
+
+Focused checks preserve every selected value and reject its former Tigrinya
+seed. All 20,754 correction records, exact source placeholders, key order and
+all 234 locale inventories pass. Exact non-English Tigre–Tigrinya overlap
+falls from 870 to 779 values. Thirteen are separately attested shared forms,
+leaving 766 unclassified; 86 remaining matches contain at least 20 characters
+and 18 contain at least 35. Short dictionary glosses can be polysemous, so
+these selected UI senses remain open to fluent review. No live UI test or
+remote write ran.
