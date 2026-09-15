@@ -139781,5 +139781,33 @@
     "before": "Tilanne",
     "after": "Olo",
     "reason": "Replace Finnish with the exact existing WeKan Veps generic status label Olo; the Problems template uses it as the status subsection heading."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "positiveVoteMembersPopup-title",
+    "before": "Kannattajat",
+    "after": "Polestajad",
+    "reason": "Replace Finnish voting-side labels with Veps forms. Rendered Zajceva/Mullonen pages 100, 331 and 370 attest änestamine/änestada, support tugi/tugeta, polestada for defending a position, and vastustai/vastustada for opponent/oppose. Button infinitives are directly attested; derived participant plurals, especially Polestajad as Proponents, remain low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "negativeVoteMembersPopup-title",
+    "before": "Vastustajat",
+    "after": "Vastustajad",
+    "reason": "Replace Finnish voting-side labels with Veps forms. Rendered Zajceva/Mullonen pages 100, 331 and 370 attest änestamine/änestada, support tugi/tugeta, polestada for defending a position, and vastustai/vastustada for opponent/oppose. Button infinitives are directly attested; derived participant plurals, especially Polestajad as Proponents, remain low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "vote-for-it",
+    "before": "puolesta",
+    "after": "Polestada",
+    "reason": "Replace Finnish voting-side labels with Veps forms. Rendered Zajceva/Mullonen pages 100, 331 and 370 attest änestamine/änestada, support tugi/tugeta, polestada for defending a position, and vastustai/vastustada for opponent/oppose. Button infinitives are directly attested; derived participant plurals, especially Polestajad as Proponents, remain low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "vote-against",
+    "before": "vastaan",
+    "after": "Vastustada",
+    "reason": "Replace Finnish voting-side labels with Veps forms. Rendered Zajceva/Mullonen pages 100, 331 and 370 attest änestamine/änestada, support tugi/tugeta, polestada for defending a position, and vastustai/vastustada for opponent/oppose. Button infinitives are directly attested; derived participant plurals, especially Polestajad as Proponents, remain low confidence."
   }
 ]

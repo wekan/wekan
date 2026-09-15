@@ -2874,6 +2874,19 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.equal(cache['ve-PP']['problems-status-title'], 'Olo');
   assert.doesNotMatch(cache['ve-PP'].summary, /Manweledzo/);
   assert.doesNotMatch(cache['ve-PP']['problems-status-title'], /Tilanne/);
+  const vepsVotingSides = {
+    'positiveVoteMembersPopup-title': 'Polestajad',
+    'negativeVoteMembersPopup-title': 'Vastustajad',
+    'vote-for-it': 'Polestada',
+    'vote-against': 'Vastustada',
+  };
+  for (const [key, value] of Object.entries(vepsVotingSides)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.doesNotMatch(value, /Kannattajat|Vastustajat|puolesta|vastaan/, key);
+  }
+  assert.notEqual(vepsVotingSides['positiveVoteMembersPopup-title'], vepsVotingSides['negativeVoteMembersPopup-title']);
+  assert.notEqual(vepsVotingSides['vote-for-it'], vepsVotingSides['vote-against']);
+  assert.match(cache['ve-PP'].voting, /Änestamine/);
   assert.equal(vepsTranslator.t('MongoDB_storage_engine'), 'MongoDB kaičusen motor');
   assert.doesNotMatch(vepsTranslator.t('MongoDB_storage_engine'), /tallennusmoottori/);
   assert.equal(vepsTranslator.t('zoom-in'), 'Surenda');
