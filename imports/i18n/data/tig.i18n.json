@@ -2662,7 +2662,7 @@
   "twoFactorCode-prompt": "ናትካ ናይ 6-ቁጽሪ ናይ ምርግጋጽ ኮድ ኣእቱ",
   "twoFactorCode-submit": "ኣክድ",
   "twoFactorCode-cancel": "ኣትርፍ",
-  "twoFactorCode-invalid": "ናይ ምርግጋጽ ኮድ ልክዕ ኣይኮነን። በጃኻ ደጊምካ ፈትን።",
+  "twoFactorCode-invalid": "ኮድ መረጋገጺ ቀለጥ ሀለ። ዐይብከ፡ ካልእ ዶል ፈትን።",
   "sort-by-votes": "ብድምጺ ስራዕ",
   "wip-limit-groups": "ደረት WIP ፍቐድ (ዝርዝር)",
   "wip-limit-group-name-placeholder": "ስሜት (ብድልየት)",
