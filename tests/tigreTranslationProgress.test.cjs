@@ -79,7 +79,7 @@ assert.deepEqual(tokens(tigre['act-removeChecklistItem']),
 assert.deepEqual(tokens(tigre['act-setCustomField']),
   ['__board__', '__card__', '__customFieldValue__', '__customField__',
     '__list__', '__swimlane__']);
-assert.equal(tigre['act-importBoard'], 'ሰሌዳ __board__ ኣእተወ');
+assert.equal(tigre['act-importBoard'], 'ምዱድ __board__ ኣእተወ');
 assert.match(tigre['act-addAttachment'], /ተለጣፊ/);
 assert.match(tigre['act-addChecklist'], /ናይ ምርመራ ዝርዝር/);
 assert.deepEqual(tokens(tigre['act-moveCardToOtherBoard']),
@@ -227,9 +227,10 @@ assert.equal(tigre['r-trigger'], 'መንሸጢ');
 assert.equal(tigre['r-action'], 'ትግባር');
 
 assert.equal(tigre['r-archived'], 'ናብ መዕቀቢ ተዛወረ');
-assert.equal(tigre['r-remove-all'], 'ኵሎም ኣባላት ካብ ካርድ ኣልይ');
+assert.equal(tigre['r-remove-all'],
+  'ኵሎም ኣባላት ካብ ወረቀት ካርድ ኣልይ');
 assert.equal(tigre['r-d-move-to-bottom-gen'],
-  'ካርድ ናብ ታሕቲ ዝርዝራ ኣዛውር');
+  'ወረቀት ካርድ ናብ ታሕቲ ዝርዝራ ኣዛውር');
 
 assert.equal(tigre['r-items-list'], 'ንጥል1,ንጥል2,ንጥል3');
 assert.match(tigre['custom-head-meta-tags'], /HTML/);
@@ -327,7 +328,7 @@ assert.match(tigre['invalid-domain'], /example\.com/);
 assert.deepEqual(tokens(tigre['board-title-not-found']),
   tokens(english['board-title-not-found']));
 assert.match(tigre['globalSearchViewChange-choice-all-description'],
-  /\*ካርድታተይ\*/);
+  /\*ወረቀት ካርድታተይ\*/);
 
 assert.deepEqual(tokens(tigre['n-n-of-n-cards-found']),
   tokens(english['n-n-of-n-cards-found']));
@@ -393,7 +394,7 @@ assert.match(tigre['restore-lost-cards-migration-description'], /swimlaneId.*lis
 assert.match(tigre['run-delete-duplicate-empty-lists-migration-confirm'], /ይቕጽል\?/);
 assert.match(tigre['fix-all-file-urls-migration-description'], /URL/);
 
-assert.match(tigre['step-fix-orphaned-cards'], /ካርድታት/);
+assert.match(tigre['step-fix-orphaned-cards'], /ወረቀት ካርዳት/);
 assert.match(tigre['step-fix-missing-ids'], /ID/);
 assert.match(tigre['cpu-usage'], /CPU/);
 
