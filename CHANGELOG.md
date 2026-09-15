@@ -2080,6 +2080,16 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e50072bc3">Repair Tigre edit and template terms.</a></summary>
+
+Use exact Tigre corpus terms in 31 Edit and singular Template contexts while
+preserving unrelated example phrases.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/eb1add1f2">Repair embedded Tigre account, storage and description terms.</a></summary>
 
 Replace remaining copied Tigrinya Account inflections, Storage/Repository

@@ -687,3 +687,17 @@ final corrections. The focused test checks 121 applicable contexts; all 234
 locale inventories pass. Raw overlap falls to 323, with 22 attested shared
 forms and 301 unclassified. Thirty-three raw matches contain at least 20
 characters and seven contain at least 35. No remote write ran.
+
+
+## Tigre Edit and Template terms repaired — 2026-09-15
+
+Source commit `e50072bc3` replaces 18 Tigrinya-seeded Edit components with
+exact corpus `አስነ` and 13 singular Template components with exact corpus
+`ሞደል`. The context filter preserves unrelated “for example” phrases and
+the already established Tigre Templates plural. Two sequential changes are
+consolidated into the existing record for each key, leaving 21,293 verified
+final corrections. Focused tests cover 18 Edit and 21 singular or plural
+Template contexts; all 234 locale inventories pass. Raw overlap falls to 319,
+with 22 attested shared forms and 297 unclassified. Thirty-two raw matches
+contain at least 20 characters and seven contain at least 35. No remote write
+ran.

@@ -31157,3 +31157,17 @@ checks 121 applicable contexts; all 234 locale inventories pass. Raw overlap
 falls to 323, with 22 attested shared forms and 301 unclassified. Thirty-three
 raw matches contain at least 20 characters and seven contain at least 35. No
 remote write occurred.
+
+
+### 2026-09-15 — Tigre Edit and Template terms
+
+Source commit `e50072bc3` replaces 18 Edit components with exact corpus
+`አስነ` and 13 singular Template components with exact corpus `ሞደል`.
+The context filter excludes “for example” uses of the Tigrinya substring and
+retains the separately established Tigre Templates plural. Two previously
+changed keys are consolidated into their existing records, leaving 21,293
+verified final corrections. Focused checks cover 18 Edit and 21 singular or
+plural Template contexts; all 234 locale inventories pass. Raw overlap falls
+to 319, with 22 attested shared forms and 297 unclassified. Thirty-two raw
+matches contain at least 20 characters and seven contain at least 35. No
+remote write occurred.
