@@ -643,6 +643,8 @@ the Markdown commit as the template.
 
 **In short:** Docker images reach Docker Hub and GHCR even while Quay
 refuses writes; Quay receives the published manifest when available.
+The local Docker build follows the same registry order, and enabled
+Admin Panel assetlinks are public at both well-known URLs.
 Markdown security settings now apply to viewers; canonical avatar URLs
 serve authenticated legacy images. Board View UI regressions are repaired.
 Security Problems now use distinct names for CAS account merge,
@@ -660,6 +662,8 @@ messages retain their conditions. Tigre help and error drafts replace
 English and Tigrinya. The list-width popup states its 200-pixel
 whole-number rule. Regression checks preserve placeholders and source
 wiring; complete Tamazight grammar remains under native review.
+Human Traditional Chinese translations replace 390 older values and
+stay protected during machine fills, Transifex pulls and force-pushes.
 
 This release includes the following features and fixes:
 
@@ -690,6 +694,27 @@ pass. Live registry publishing remains a maintainer step.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/25ed0c306">Keep local Docker builds available during Quay outages</a>. Thanks to xet7.</summary>
+
+The local Docker script now publishes to Docker Hub and GHCR before
+copying the manifest to Quay. A Quay read-only response no longer fails
+the completed primary build; permission errors and primary-build failures
+still fail. Mocked outage tests and shell syntax checks pass. Live
+publishing remains a maintainer step.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/99570e213">Serve enabled Admin Panel assetlinks publicly</a>. Thanks to xet7.</summary>
+
+Configured assetlinks JSON is served without authentication at
+`/well-known/assetlinks.json` and the standard
+`/.well-known/assetlinks.json`. Both paths share the setting guard and
+default-file fallback. The focused public-route test passes.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/fb66fa95c">Restore markdown security settings and legacy avatar downloads</a>. Thanks to xet7.</summary>
 
 Export the Meteor markdown renderer so the Admin Panel raw-source
@@ -706,7 +731,36 @@ database conformance, and FerretDB unit, vet and integration pass.
 
 </details>
 
-**Developer tooling** - Board title viewer UI coverage.
+**Developer tooling** - Board title viewer UI and translation protection coverage.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3865c3fde">Avoid incomplete escaping in Veps sync test</a>. Thanks to xet7.</summary>
+
+Check the immediate-sync label's final apostrophe directly instead of
+using a partial string replacement. All 37 Veps cases pass.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c399aeeee">Protect human Chinese translations from machine fills</a>. Thanks to s8321414 and xet7.</summary>
+
+Pin the 390 superseded values from the Traditional Chinese translation
+pull request as negative fixtures. Tests reject reversion to those values
+or English, and run the real fill command to prove the human values are
+neither offered nor overwritten. Focused Chinese suites pass.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8acf5d947">Preserve human Chinese translations across pull and push</a>. Thanks to s8321414 and xet7.</summary>
+
+Reject stale machine values during pulls while accepting newer valid
+human translations. The force-push helper skips whole-file uploads for
+the human-owned `zh-Hant` and `zh-TW` targets, and pulls fail before
+overwriting local files if Node is unavailable for the merge. Mocked
+pull/push and existing Transifex tests pass; no upload was run.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/66c5b85c3">Correct legacy avatar PNG test data</a>. Thanks to xet7.</summary>
@@ -727,7 +781,37 @@ plain-source security settings.
 
 </details>
 
-**Translations** - Tamazight, Tigre and multilingual list-width repairs.
+**Documentation** - Translation audit resume status.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0e962bba3">Record interrupted translation audit status</a>. Thanks to xet7.</summary>
+
+The original 20,081 flagged findings are fully classified while broader
+wrong-language and native-wording review remains open. The dated audit
+record and TODO Later status match the committed 22,302 correction
+records. Focused audit and translation checks pass.
+
+</details>
+
+**Translations** - Human Traditional Chinese, Tamazight, Tigre and multilingual list-width repairs.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2078c21819">Use human Traditional Chinese translations</a>. Thanks to s8321414 and xet7.</summary>
+
+The merged pull request replaces 252 `zh-Hant` and 138 `zh-TW` values
+with Transifex human translations. The focused Chinese checks pass;
+machine-fill and pull/push guards now preserve these values.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1cf93f7e52">Repair Tamazight card and list URL labels</a>. Thanks to xet7.</summary>
+
+Two Arabic-seeded card/list URL labels use local native link, card and
+list terms. Focused source, negative, ledger and 234-locale checks pass;
+full compound wording awaits fluent review.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/18a11d121">Repair Tamazight board/card headings and actions</a>. Thanks to xet7.</summary>
