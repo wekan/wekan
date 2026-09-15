@@ -284,3 +284,14 @@ test("Veps migration status retains temporary login and CPU warning", () => {
  assert.match(data["problems-none-in-progress"],/ei rada/);
  assert.notEqual(data["problems-in-progress-help"],data["problems-none-in-progress"]);
 });
+
+test("Veps CPU labels preserve current usage versus average load", () => {
+ const data=JSON.parse(fs.readFileSync("imports/i18n/data/ve-PP.i18n.json","utf8"));
+ assert.equal(data["cpu-usage-current"],"CPU-n kävutand nügüd'");
+ assert.equal(data["cpu-usage"],"CPU-n kävutand");
+ assert.equal(data["cpu-load-average"],"Keskmäine radmär");
+ for(const key of ["cpu-usage-current","cpu-usage","cpu-load-average"]) assert.doesNotMatch(data[key],/shumiswa|muelo|mushumo|Suorittimen|käyttö/i);
+ assert.notEqual(data["cpu-usage-current"],data["cpu-usage"]);
+ assert.notEqual(data["cpu-load-average"],data["cpu-usage"]);
+ assert.match(fs.readFileSync("client/components/settings/adminProblems.jade","utf8"),/cpu-load-average.*loadAverage/);
+});

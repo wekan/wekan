@@ -139648,5 +139648,26 @@
     "before": "A hu na pfulutshedzo kana u lugisa zwi khou shuma.",
     "after": "Migracijad libo kohendamised nügüd' ei rada.",
     "reason": "Replace Finnish/Tshivenda loading and migration-status prose with direct Veps drafts. Preserve active/inactive distinction, possible login delay/error/spinner until completion and CPU load falls. Full grammar and spinner/CPU computing terms remain low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cpu-usage-current",
+    "before": "U shumiswa ha CPU zwino",
+    "after": "CPU-n kävutand nügüd'",
+    "reason": "Replace Tshivenda/Finnish CPU labels using existing Veps usage vocabulary and OS load-average terminology. Preserve current qualifier versus generic usage and average-load distinction. Full computing compounds/case remain low confidence; core terminology still under review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cpu-usage",
+    "before": "Suorittimen käyttö",
+    "after": "CPU-n kävutand",
+    "reason": "Replace Tshivenda/Finnish CPU labels using existing Veps usage vocabulary and OS load-average terminology. Preserve current qualifier versus generic usage and average-load distinction. Full computing compounds/case remain low confidence; core terminology still under review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cpu-load-average",
+    "before": "muelo wa mushumo",
+    "after": "Keskmäine radmär",
+    "reason": "Replace Tshivenda/Finnish CPU labels using existing Veps usage vocabulary and OS load-average terminology. Preserve current qualifier versus generic usage and average-load distinction. Full computing compounds/case remain low confidence; core terminology still under review."
   }
 ]
