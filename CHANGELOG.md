@@ -656,6 +656,17 @@ This release includes the following features and fixes:
 **Translations** - Tamazight, Tigre and multilingual list-width repairs.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/92ea2a0f0">Repair ten native list-width minimum values</a>. Thanks to xet7.</summary>
+
+Update ten locale messages to express an inclusive 200-pixel whole-number
+minimum; replace Urdu's transliterated English requirement with Urdu
+prose. Older Ewe and Chuvash suites now check the current rule. Focused,
+runtime, ledger and inventory checks pass; seven complete clauses
+remain under native grammar review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9c1388a49">Repair ten native and mixed-seed list-width values</a>. Thanks to xet7.</summary>
 
 Replace obsolete greater-than-270 messages with inclusive 200-pixel

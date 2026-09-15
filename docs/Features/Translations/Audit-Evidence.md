@@ -31711,3 +31711,27 @@ completeness pass. Correction ledger rises from 22,120 to 22,130;
 remaining old-threshold list-width values fall from 46 to 36. Original
 20,081 audit-row classifications remain unchanged. No live UI test or
 remote write occurred.
+
+### 2026-09-15 — Native minimum terms and Urdu list-width repair
+
+Source commit `92ea2a0f0` repairs ten locale values: Acehnese,
+Bambara, Ewe, Venda, Turkmen, Waray, Nyanja, Sakha, Chuvash and Urdu.
+Each old value required a number greater than 270; each new value
+states an inclusive 200-pixel whole-number minimum. The Acehnese
+minimum `sikureueng`, Bambara `hali`, Ewe `ya teti`, Venda
+`zwi si fhasi ha`, Turkmen `azyndan`, Waray `pinakagutiay` and
+Nyanja `kapena kuposerapo` occur in related local UI strings or
+reuse local comparison wording. Sakha and Chuvash use `≥ 200` to
+state the boundary explicitly without guessing another full
+comparative phrase. Urdu replaces a sound-by-sound English seed with
+native Urdu words for list width, minimum and whole number. Bambara,
+Ewe, Waray, Nyanja, Sakha, Chuvash and Urdu complete clauses remain
+low confidence pending native grammar review; local term evidence
+does not certify full fluency. The focused suite verifies native
+integer/minimum/pixel phrases, absence of 270 and English rule words,
+one exact ledger row per locale, uncertainty notes and runtime Venda
+lookup. Older Ewe and Chuvash progress suites now check the current
+rule. Ledger integrity and 234-locale completeness pass. The ledger
+rises from 22,130 to 22,140; stale list-width values fall from 36 to
+26. Original 20,081 audit-row classifications remain unchanged. No
+live UI test or remote write occurred.
