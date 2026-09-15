@@ -146795,5 +146795,33 @@
     "before": "ሰሌዳ ምረጽ",
     "after": "ምዱድ ሕረ",
     "reason": "2026-09-15: Replace Tigrinya-seeded board selection, visibility and select-all controls with Tigre forms. The BeitTigreAI corpus directly attests Select all rows, Select a file, Hide and Show phrases; board/card/list/page terms were established by earlier corpus review. Complete compound order remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "list-label-title",
+    "before": "ስም ዝርዝር",
+    "after": "ስሜት ዝርዝር",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded value by reusing the unique complete Tigre replacement already established for the same source wording in the audited correction ledger; retain compound order where present for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "signupPopup-title",
+    "before": "መለያ ፍጠር",
+    "after": "ሕሳብ ፍትሕ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded value by reusing the unique complete Tigre replacement already established for the same source wording in the audited correction ledger; retain compound order where present for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "admin-people-filter-inactive",
+    "before": "ዘይንጡፍ",
+    "after": "ከስላን",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded value by reusing the unique complete Tigre replacement already established for the same source wording in the audited correction ledger; retain compound order where present for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "logout",
+    "before": "ውጻእ",
+    "after": "ፈጊር",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded value by reusing the unique complete Tigre replacement already established for the same source wording in the audited correction ledger; retain compound order where present for fluent review."
   }
 ]
