@@ -514,3 +514,13 @@ checks cover every value; all 20,971 correction records and 234 locale
 inventories pass. Raw non-English overlap falls to 565, with 20 attested shared
 forms and 545 unclassified. Complete phrase order remains open to fluent
 review. No remote write ran.
+
+## Reviewed Tigre terms reused — 2026-09-15
+
+Source commit `22615501d` replaces the final four Tigrinya-seeded values whose
+complete former wording maps to one unique Tigre replacement already proven in
+the correction ledger. The affected labels are List name, Create an Account,
+Not Active and Logout. Focused exact and negative checks cover every value; all
+20,975 correction records and 234 locale inventories pass. Raw non-English
+overlap falls to 561, with 20 attested shared forms and 541 unclassified. No
+remote write ran.

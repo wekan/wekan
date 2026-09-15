@@ -2050,6 +2050,16 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/22615501d">Reuse reviewed Tigre interface terms.</a></summary>
+
+Apply established Tigre wording to the remaining matching List name, Create an
+Account, Not Active and Logout labels.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e17bb2b5e">Repair native-catalogue Veps interface terms.</a></summary>
 
 Replace 31 Finnish-seeded labels through exact English-source matching with

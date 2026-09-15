@@ -30961,3 +30961,13 @@ and page nouns. Focused exact and former-seed checks pass with all 20,971
 correction records and 234 locale inventories. Raw non-English overlap falls
 to 565; 545 remain unclassified after 20 attested shared forms. Complete
 compound order remains open to fluent review. No remote write occurred.
+
+### 2026-09-15 — Reused reviewed Tigre interface terms
+
+Source commit `22615501d` repairs the final four raw overlaps whose complete
+former value has one unambiguous replacement elsewhere in the Tigre correction
+ledger: List name, Create an Account, Not Active and Logout. This reuses
+reviewed evidence without extending it to a different meaning. Focused exact
+and former-seed checks pass with all 20,975 correction records and 234 locale
+inventories. Raw non-English overlap falls to 561; 541 remain unclassified
+after 20 attested shared forms. No remote write occurred.
