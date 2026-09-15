@@ -16,7 +16,15 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `d6e6c558d` — repair 22 Arabic,
+Latest translation fix: **2026-09-15**, `212a46c07` — repair 33 Azerbaijani,
+Catalan, Uzbek Latin, Greek, Welsh, Romanian, Slovenian, Vietnamese,
+Afrikaans, Frisian, Galician, Hindi, Malay, Bosnian/Croatian and Khmer
+list-width values. The Khmer `km-KH` alias follows tracked `km_KH`.
+The same source commit aligns a stale Galician archive-help test with
+the English source and current All Boards UI. Focused, related-language,
+ledger and inventory checks pass. Remaining list-width queue: **150**.
+
+Earlier translation fix: **2026-09-15**, `d6e6c558d` — repair 22 Arabic,
 Hebrew, Russian, Ukrainian, Japanese, Korean, Polish, Czech and Dutch
 list-width values. Russian `ru-RU` resolves to the tracked `ru_RU` file,
 so it needs no second ledger row. Focused, runtime, ledger and inventory
@@ -39,7 +47,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **21,984** exact before/after values, including unflagged
+records contain **22,017** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -67,10 +75,11 @@ placeholders, JSON examples and key order; they do not establish language
 quality. Correct-language human translations remain preferred. No external
 translation service is used, and no remote push was performed.
 
-New unflagged source-semantic queue: **184 locale values** still express
+New unflagged source-semantic queue: **150 locale values** still express
 the old 270 list-width rule. The actual shared minimum is 200; three
 Persian-digit values, 23 Romance/Germanic variants and 22 further variants
-were repaired (23 picker codes because `ru-RU` aliases `ru_RU`). This
+plus 33 newly repaired distinct files are recorded. Aliases follow their
+tracked files, so one corrected file may resolve two visible codes. This
 queue is outside the 20,081
 original flagged rows and must be repaired in their declared languages,
 preserving useful native wording while correcting the inclusive threshold.

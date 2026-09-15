@@ -31493,3 +31493,26 @@ The correction ledger grows from 21,962 to 21,984 and the unflagged
 stale list-width queue falls from 207 to 184, including the resolved
 `ru-RU` alias. The original 20,081
 classified rows remain unchanged. No live UI test or remote write occurred.
+
+### 2026-09-15 — Native lower-bound list-width repairs and Galician gate
+
+Source commit `212a46c07` repairs 33 distinct JSON locale values across
+Azerbaijani (3), Catalan/Valencian (3), Uzbek Latin (3), Greek (2),
+Welsh (2), Romanian (2), Slovenian (2), Vietnamese (2), Afrikaans (2),
+Frisian (2), Galician (2), Hindi (2), Malay (2), Bosnian/Croatian (2)
+and Khmer (2). The Khmer `km-KH` picker file aliases the tracked
+`km_KH` JSON, so one correction row covers both visible codes.
+Existing width and pixel vocabulary and attested local lower-bound terms
+were used. The old “greater than 270” statement is replaced by an
+inclusive whole-number minimum of 200 pixels in each group. The focused
+test checks every exact sibling value, native lower-bound and integer
+phrases, absence of the obsolete threshold, one ledger record per
+tracked file, Khmer alias parity and runtime Catalan lookup. Ledger,
+234-locale completeness, audit-progress and related-language suites pass.
+An unrelated older Galician archive-help test expected a home-header
+button, while the current English source, Galician value and All Boards
+UI identify the Archive control on the All Boards page. Its assertion
+was aligned and its suite passes. The correction ledger grows from
+21,984 to 22,017. The stale visible list-width queue falls from 184
+to 150, including the resolved Khmer alias. Original 20,081 rows stay
+classified; no live UI test or remote write occurred.

@@ -653,7 +653,19 @@ remain under native review.
 
 This release includes the following features and fixes:
 
-**Translations** - Tamazight, Tigre and multilingual list-width rule repairs.
+**Translations** - Tamazight, Tigre and native list-width rule repairs.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/212a46c07">Repair 33 native list-width translations</a>. Thanks to xet7.</summary>
+
+Correct grouped Azerbaijani, Catalan, Uzbek Latin, Greek, Welsh,
+Romanian, Slovenian, Vietnamese, Afrikaans, Frisian, Galician, Hindi,
+Malay, Bosnian/Croatian and Khmer values to state the whole-number
+minimum of 200 pixels. Align the Galician archive-help regression check
+with the current All Boards control. Focused, ledger and related-language
+checks pass; remaining locales are tracked in the audit.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d6e6c558d">Repair 22 multilingual list-width translations</a>. Thanks to xet7.</summary>
