@@ -30257,3 +30257,26 @@ terminology; spelling uncertainty alone no longer blocks that comparison.
 No locale edit; event-severity remains wrong-language and within scope.
 Ledger 19,961, original pending 126/restored 4 unchanged. Full translation
 review remains active. Audit-progress consistency check passes; no live UI.
+
+
+2026-09-15 — rendered level/degree evidence for Veps event-severity.
+Searched cached primary dictionary extraction with its legacy Cyrillic
+encoding, then rendered and visually read actual printed page 475,
+PDF index 474: .tools/tmp/veps-native-source/level-475.png.
+уровень sense 1 (ступень развития) gives korktuz’ (-den, -t, -zid),
+with rahvahan hüvinvoindan korktuz’ (population well-being level).
+Sense 2 gives pind (-an, -oid) for water/sea level. Thus abstract level
+has independent native noun evidence; do not substitute the physical
+surface-level noun pind. This changes the next candidate assessment:
+compare a severity-level construction using korktuz’ with the attested
+kovuz’ stem kovuden, rather than inventing a generic Finnish taso.
+A Kovuden korktuz’ candidate is not yet independently attested technical
+usage and must not be described as a confirmed event-severity term.
+Broad web degree searches mostly returned English definitions or Estonian
+linguistics, not native Veps vocabulary, and are excluded as evidence.
+Primary dictionary source linked by:
+https://en.wiktionary.org/wiki/kova#Veps
+Event schema info|low|medium|high|critical remains the actual semantic
+requirement. No locale edit or count change: ledger 19,961, original
+pending 126/restored 4. Severity remains wrong-language and in scope.
+Audit consistency check passes; no live UI ran.

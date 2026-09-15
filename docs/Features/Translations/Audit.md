@@ -30,10 +30,10 @@ source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
 Latest terminology review: **2026-09-15** —
-[Veps rendered severity candidate](Veps-Review.md): dictionary page 442
-confirms kovuz’ as hardness/firmness, with figurative judgments example.
-This resolves the noun's existence/spelling, but not event-severity use.
-No locale edit/count change; native computing terminology remains open.
+[Veps rendered level candidate](Veps-Review.md): dictionary page 475
+attests korktuz’ for abstract level, distinct from water-level pind.
+This supplies a possible severity-level construction; the full technical
+phrase remains unverified. No locale/count change; review continues.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:
