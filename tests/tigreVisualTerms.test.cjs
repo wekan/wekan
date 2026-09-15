@@ -26,6 +26,13 @@ assert.equal(en['color-darkgreen'], 'darkgreen');
 assert.equal(tig['color-darkgreen'], 'ጽልም አክደር');
 assert.notEqual(tig['color-darkgreen'], ti['color-darkgreen']);
 assert.notEqual(tig['color-darkgreen'], 'ጸሊም ቀጠልያ');
+assert.equal(en['color-slateblue'], 'slateblue');
+assert.equal(tig['color-slateblue'], 'ስሌት አዝረቁ');
+assert.notEqual(tig['color-slateblue'], ti['color-slateblue']);
+assert.notEqual(tig['color-slateblue'], 'ስሌት ሰማያዊ');
+for (const key of ['color-red', 'color-black']) {
+  assert.equal(tig[key], ti[key], `${key}: independently attested shared Tigre term`);
+}
 assert.match(tig.rename, /^ስሜት /);
 assert.match(tig['board-change-background-image'], /^ተምስል /);
 console.log('Checked eight Tigre visual and Rename controls.');

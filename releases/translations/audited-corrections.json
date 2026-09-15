@@ -155279,5 +155279,12 @@
     "before": "ጸሊም ቀጠልያ",
     "after": "ጽልም አክደር",
     "reason": "Replace exact Tigrinya-copied dark-green label. BeitTigreAI corpus directly glosses ጽልም as dark and uses አክደር for green in color sentences. Full compound order and grammar remain low confidence pending fluent Tigre review."
+  },
+  {
+    "locale": "tig",
+    "key": "color-slateblue",
+    "before": "ስሌት ሰማያዊ",
+    "after": "ስሌት አዝረቁ",
+    "reason": "Replace Tigrinya blue component in exact copied slate-blue label with BeitTigreAI Tigre headword አዝረቁ glossed blue. Keep technical slate loan from local label; whole compound and slate loan remain low confidence pending fluent review."
   }
 ]
