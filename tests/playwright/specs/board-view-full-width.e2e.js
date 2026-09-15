@@ -2,7 +2,8 @@ const { test, expect } = require('../fixtures');
 
 for (const view of ['timeline', 'time', 'stats']) {
   test(`${view} content spans the board at desktop and mobile widths`, async ({ boardPage }) => {
-    await boardPage.locator(`.js-open-${view}-view`).first().click();
+    await boardPage.locator('.js-toggle-board-view').first().click();
+    await boardPage.locator(`.pop-over .js-open-${view}-view`).click();
     const content = boardPage.locator('.stats-view-content').first();
     await expect(content).toBeVisible();
     for (const width of [1440, 375]) {

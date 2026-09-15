@@ -25,7 +25,8 @@ for (const [language, direction] of [['en', 'ltr'], ['ar', 'rtl']]) {
     db.updateOne('users', { _id: user.id }, { $set: { 'profile.language': language } });
     await loginWithToken(page, user.id, user.token);
     await openBoard(page, board.boardId, board.slug);
-    await page.locator('.js-open-cal-view').first().click();
+    await page.locator('.js-toggle-board-view').first().click();
+    await page.locator('.pop-over .js-open-cal-view').click();
     await expect(page.locator(`.fc.fc-direction-${direction}`).first()).toBeVisible();
     expect(warnings).toEqual([]);
   });

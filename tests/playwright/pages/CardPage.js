@@ -86,12 +86,13 @@ class CardPage {
   // --- List/status selector ---
 
   listSelector() {
-    return this.root.locator('.js-select-card-details-lists');
+    return this.root.locator('.card-details-list-picker');
   }
 
   async changeList(listTitle) {
-    await this.listSelector().selectOption({ label: listTitle });
-    await this.page.waitForTimeout(600);
+    const picker = this.listSelector();
+    await picker.locator('summary').click();
+    await picker.locator('.js-select-card-details-list-option').filter({ hasText: listTitle }).click();
   }
 
   // --- Actions menu ---

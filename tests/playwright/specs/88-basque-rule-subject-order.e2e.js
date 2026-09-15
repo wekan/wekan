@@ -1,7 +1,7 @@
 'use strict';
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
-const { loginWithToken, navigateInApp } = require('../helpers/auth');
+const { loginWithToken, openBoard, navigateInApp } = require('../helpers/auth');
 
 test('Basque named controls and saved descriptions keep the demonstrative last', async ({ page, adminUser }) => {
   const board = db.seedBoard({ ownerId: adminUser.id, title: 'Basque subject order', listCount: 1 });
@@ -38,6 +38,7 @@ test('Basque named controls and saved descriptions keep the demonstrative last',
     await page.reload();
     // Reload keeps this page's HttpOnly session cookie. Logging in with the
     // same fixture token again would replace that session unnecessarily.
+    await openBoard(page, board.boardId, board.slug);
     await navigateInApp(page, `/b/${board.boardId}/${board.slug}/rules`);
     await page.locator('#ruleTitle').fill('English unchanged');
     await page.locator('.js-goto-trigger').click();

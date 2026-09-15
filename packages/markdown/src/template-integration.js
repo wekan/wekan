@@ -9,7 +9,7 @@ import { HTML } from 'meteor/htmljs';
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 
-const Markdown = new MarkdownIt({
+export const Markdown = new MarkdownIt({
   html: true,
   linkify: true,
   typographer: true,

@@ -20,8 +20,8 @@ const BoardPage = require('../pages/BoardPage');
 test.describe('Search', () => {
   test('Veps overdue search uses the translated predicate and excludes future cards', async ({ boardPage, board, user }) => {
     db.updateOne('users', { _id: user.id }, { $set: { 'profile.language': 've-PP' } });
-    db.updateOne('cards', { boardId: board.id, title: 'Alpha Card' }, { $set: { dueAt: new Date(Date.now() - 86400000) } });
-    db.updateOne('cards', { boardId: board.id, title: 'Beta Card' }, { $set: { dueAt: new Date(Date.now() + 7 * 86400000) } });
+    db.updateOne('cards', { boardId: board.boardId, title: 'Alpha Card' }, { $set: { dueAt: new Date(Date.now() - 86400000) } });
+    db.updateOne('cards', { boardId: board.boardId, title: 'Beta Card' }, { $set: { dueAt: new Date(Date.now() + 7 * 86400000) } });
     await boardPage.reload();
     await expect(boardPage.locator('html')).toHaveAttribute('lang', 've-PP');
     const sp = new SearchPage(boardPage);

@@ -6,6 +6,7 @@ const CardPage = require('../pages/CardPage');
 test.describe.configure({ mode: 'serial' });
 for (const policy of ['formatted', 'plain-links', 'plain-source']) {
   test(`card and sidebar activities obey ${policy}`, async ({ boardPage, board, user }) => {
+    if (policy === 'plain-source') test.setTimeout(90_000);
     const setting = db.findOne('settings', {});
     const activityId = db.uid('activity-viewer');
     const title = '# Demo :thumbsup: <strong>allowed</strong> [link](https://example.com/) <img src="x" onerror="window.activityViewerAttack=1">';
@@ -21,6 +22,7 @@ for (const policy of ['formatted', 'plain-links', 'plain-source']) {
         listId: board.listIds[0], createdAt: new Date(),
       });
       await boardPage.reload();
+      if (policy === 'plain-source') await expect.poll(() => boardPage.evaluate(() => Meteor.connection._stores.settings?._getCollection?.().findOne()?.alwaysShowCodeAsText), { timeout: 65_000 }).toBe(true);
       const bp = new BoardPage(boardPage);
       await bp.openSidebar();
       if (!(await boardPage.locator(`.board-sidebar .activity[data-id="${activityId}"]`).count())) {

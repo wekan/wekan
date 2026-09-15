@@ -28,6 +28,10 @@ const storagePath = Meteor.isServer ? computeAvatarStoragePath() : 'assets/app/u
 const Avatars = new FilesCollection({
   debug: false, // Change to `true` for debugging
   collectionName: 'avatars',
+  // WeKan serves current and legacy avatars through its guarded canonical
+  // /cdn/storage/avatars route. Meteor-Files' broad middleware must not
+  // intercept that URL first and reject an authenticated legacy file.
+  downloadRoute: '/meteor-files-internal',
   allowClientCode: true,
   storagePath: storagePath,
   namingFunction(opts) {

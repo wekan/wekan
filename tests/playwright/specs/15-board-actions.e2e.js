@@ -50,7 +50,8 @@ test.describe('Board-level actions', () => {
         await expect(toggle).toBeVisible();
         await expect(title).toBeVisible();
         await toggle.click();
-        await expect(header).toHaveAttribute('data-header-icons-collapsed', 'false');
+        // Blaze omits the attribute altogether when the boolean helper is false.
+        await expect(header).not.toHaveAttribute('data-header-icons-collapsed', 'true');
         await expect(mode).toBeVisible();
       }
     } finally {

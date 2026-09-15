@@ -9,7 +9,7 @@ test('normal member cannot rename a board through REST', async ({ request, user,
   db.updateOne('boards', { _id: board.boardId }, { $set: { members } });
   try {
     const response = await request.put(`${BASE_URL}/api/boards/${board.boardId}/title`, {
-      headers: { 'X-User-Id': user.id, 'X-Auth-Token': user.token },
+      headers: { Authorization: `Bearer ${user.token}` },
       data: { title: 'Unauthorized rename' },
     });
     expect(response.status()).toBe(403);

@@ -1,11 +1,25 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { findWhere } from '/imports/lib/collectionHelpers';
 import { TAPi18n } from '/imports/i18n';
+import { Markdown } from 'meteor/wekan-markdown';
 import Attachments from '/models/attachments';
 import { Utils } from '/client/lib/utils';
 import { memberMatchesTerm } from '/models/lib/memberAutocomplete';
 import autosize from 'autosize';
 var converter = require('@wekanteam/html-to-markdown');
+
+function syncMarkdownExternalLinkPattern(setting) {
+  const pattern = {
+    prefix: (setting && setting.externalLinkPatternPrefix) || '',
+    urlTemplate: (setting && setting.externalLinkPatternUrl) || '',
+  };
+  const current = Markdown.externalLinkPattern.get();
+  // ReactiveVar compares objects by identity. Setting a new object on every
+  // viewer render would invalidate that viewer again indefinitely.
+  if (current?.prefix !== pattern.prefix || current?.urlTemplate !== pattern.urlTemplate) {
+    Markdown.externalLinkPattern.set(pattern);
+  }
+}
 
 const specialHandles = [
   {userId: 'board_members', username: 'board_members'},
@@ -373,10 +387,7 @@ Blaze.Template.registerHelper(
     // wekan/wekan#3069: same same-render-pass reasoning as alwaysShowCodeAsText
     // above, for the external issue-tracker autolink pattern.
     if (typeof Markdown !== 'undefined' && Markdown.externalLinkPattern) {
-      Markdown.externalLinkPattern.set({
-        prefix: (setting && setting.externalLinkPatternPrefix) || '',
-        urlTemplate: (setting && setting.externalLinkPatternUrl) || '',
-      });
+      syncMarkdownExternalLinkPattern(setting);
     }
     let content = Blaze.toHTML(view.templateContentBlock);
     // Admin Panel / Features: when "render links as plain text" is enabled, every
@@ -534,10 +545,7 @@ Meteor.startup(() => {
       Markdown.alwaysShowCodeAsText.set(!!(setting && setting.alwaysShowCodeAsText));
     }
     if (typeof Markdown !== 'undefined' && Markdown.externalLinkPattern) {
-      Markdown.externalLinkPattern.set({
-        prefix: (setting && setting.externalLinkPatternPrefix) || '',
-        urlTemplate: (setting && setting.externalLinkPatternUrl) || '',
-      });
+      syncMarkdownExternalLinkPattern(setting);
     }
   });
 

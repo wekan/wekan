@@ -11,9 +11,9 @@ Package.onUse(function (api) {
 	api.use('reactive-var', 'client');
 	api.use("ecmascript", ['server', 'client']);
 
-	api.export('Markdown', ['server', 'client']);
+	api.export('Markdown', 'client');
 
 	api.use('ui', 'client', {weak: true});
 
-	api.addFiles('src/template-integration.js', 'client');
+	api.mainModule('src/template-integration.js', 'client');
 });

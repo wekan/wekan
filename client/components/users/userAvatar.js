@@ -329,7 +329,7 @@ Template.changeAvatarPopup.events({
     event.preventDefault();
     event.stopPropagation();
     if (this && typeof this.link === 'function') {
-      const avatarUrl = this.link();
+      const avatarUrl = `/cdn/storage/avatars/${this._id}`;
       changeAvatarSetAvatar(tpl, avatarUrl);
     }
   },
@@ -495,7 +495,7 @@ Template.adminChangeAvatarPopup.events({
     event.preventDefault();
     event.stopPropagation();
     if (this && typeof this.link === 'function') {
-      const avatarUrl = this.link();
+      const avatarUrl = `/cdn/storage/avatars/${this._id}`;
       adminChangeAvatarSetAvatar(tpl, avatarUrl);
     }
   },
