@@ -147509,5 +147509,61 @@
     "before": "መለለዪ ፋይል GridFS",
     "after": "መለለዪ ፈይል GridFS",
     "reason": "2026-09-15: Replace the Tigrinya file component with corpus-attested Tigre File and System terms already reviewed in the correction ledger. Preserve literal Excel, Trello, GridFS and filename-extension identifiers."
+  },
+  {
+    "locale": "tig",
+    "key": "import-trello-zip-file-too-large",
+    "before": "ኣብቲ .zip ዘሎ ፋይል ንምእታው ኣዝዩ ዓቢ እዩ።",
+    "after": "ኣብቲ .zip ዘሎ ፈይል ንምእታው ኣዝዩ ዓቢ እዩ።",
+    "reason": "2026-09-15: Replace the remaining Tigrinya File spelling inside longer Tigre clauses with the corpus-attested Tigre term already reviewed in the correction ledger. Preserve all surrounding wording and literal format, API, service and product identifiers for separate review."
+  },
+  {
+    "locale": "tig",
+    "key": "import-trello-zip-unsafe-path",
+    "before": "እቲ .zip ዘይውሑሳት መንገድታት ፋይል ስለ ዝሓዘ ተነጺጉ።",
+    "after": "እቲ .zip ዘይውሑሳት መንገድታት ፈይል ስለ ዝሓዘ ተነጺጉ።",
+    "reason": "2026-09-15: Replace the remaining Tigrinya File spelling inside longer Tigre clauses with the corpus-attested Tigre term already reviewed in the correction ledger. Preserve all surrounding wording and literal format, API, service and product identifiers for separate review."
+  },
+  {
+    "locale": "tig",
+    "key": "api-upload-limit-label",
+    "before": "ዝለዓለ ዓቐን ፋይል ምስቃል API",
+    "after": "ዝለዓለ ዓቐን ፈይል ምስቃል API",
+    "reason": "2026-09-15: Replace the remaining Tigrinya File spelling inside longer Tigre clauses with the corpus-attested Tigre term already reviewed in the correction ledger. Preserve all surrounding wording and literal format, API, service and product identifiers for separate review."
+  },
+  {
+    "locale": "tig",
+    "key": "api-download-limit-label",
+    "before": "ዝለዓለ ዓቐን ፋይል ምውራድ API",
+    "after": "ዝለዓለ ዓቐን ፈይል ምውራድ API",
+    "reason": "2026-09-15: Replace the remaining Tigrinya File spelling inside longer Tigre clauses with the corpus-attested Tigre term already reviewed in the correction ledger. Preserve all surrounding wording and literal format, API, service and product identifiers for separate review."
+  },
+  {
+    "locale": "tig",
+    "key": "allowed-avatar-filetypes",
+    "before": "ዝፍቀዱ ዓይነታት ፋይል ስእሊ መንነት፦",
+    "after": "ዝፍቀዱ ዓይነታት ፈይል ስእሊ መንነት፦",
+    "reason": "2026-09-15: Replace the remaining Tigrinya File spelling inside longer Tigre clauses with the corpus-attested Tigre term already reviewed in the correction ledger. Preserve all surrounding wording and literal format, API, service and product identifiers for separate review."
+  },
+  {
+    "locale": "tig",
+    "key": "gcs-key-filename",
+    "before": "መንገዲ ፋይል መፍትሕ መለያ ኣገልግሎት",
+    "after": "መንገዲ ፈይል መፍትሕ መለያ ኣገልግሎት",
+    "reason": "2026-09-15: Replace the remaining Tigrinya File spelling inside longer Tigre clauses with the corpus-attested Tigre term already reviewed in the correction ledger. Preserve all surrounding wording and literal format, API, service and product identifiers for separate review."
+  },
+  {
+    "locale": "tig",
+    "key": "gridfs-enabled-description",
+    "before": "ንመኽዘን ፋይል MongoDB GridFS ተጠቐም",
+    "after": "ንመኽዘን ፈይል MongoDB GridFS ተጠቐም",
+    "reason": "2026-09-15: Replace the remaining Tigrinya File spelling inside longer Tigre clauses with the corpus-attested Tigre term already reviewed in the correction ledger. Preserve all surrounding wording and literal format, API, service and product identifiers for separate review."
+  },
+  {
+    "locale": "tig",
+    "key": "s3-enabled-description",
+    "before": "ንመኽዘን ፋይል AWS S3 ወይ MinIO ተጠቐም",
+    "after": "ንመኽዘን ፈይል AWS S3 ወይ MinIO ተጠቐም",
+    "reason": "2026-09-15: Replace the remaining Tigrinya File spelling inside longer Tigre clauses with the corpus-attested Tigre term already reviewed in the correction ledger. Preserve all surrounding wording and literal format, API, service and product identifiers for separate review."
   }
 ]
