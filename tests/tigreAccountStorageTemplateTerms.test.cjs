@@ -19,7 +19,7 @@ const reviewed = {
   'if-you-already-have-an-account': 'ድሮ ሕሳብ እንተለካ',
   'azure-account-key': 'መፍትሕ ሕሳብ',
   'azure-connection-string-description':
-    'ኣማራጺ፦ ኣብ ክንዲ ስምን መፍትሕን ሕሳብ ምሉእ ሰንሰለት ምትእስሳር ተጠቐም።',
+    "ኣማራጺ፦ ኣብ ክንዲ ስሜትን መፍትሕን ሕሳብ ምሉእ ሰንሰለት ምትእስሳር ተጠቐም።",
   'gcs-credentials': 'መረጋገጺታት ሕሳብ ኣገልግሎት (JSON)',
   'azure-account-name-description': 'ስሜት ሕሳብ Azure Storageኻ።',
   'already-account': 'ድሮ ሕሳብ ኣለካ? እቶ',

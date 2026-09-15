@@ -147591,8 +147591,8 @@
     "locale": "tig",
     "key": "set-selected-unstarred",
     "before": "ካብ ዝተመርጹ ሰሌዳታት ኮኾብ ኣልዕል",
-    "after": "ካብ ዝተመርጹ ምዱዳት ኮኾብ ኣልዕል",
-    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
+    "after": "ካብ ዝተመርጹ ምዱዳት ኮከብ ኣልዕል",
+    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting. Tigre Star noun review: BeitTigreAI corpus sentences directly attest ኮከብ for star. Replace the copied Tigrinya ኮኾብ only where English source has the Star sense."
   },
   {
     "locale": "tig",
@@ -147640,22 +147640,22 @@
     "locale": "tig",
     "key": "bookmarksPopup-title",
     "before": "ኮኾብ ዝተገብረሎም ሰሌዳታት",
-    "after": "ኮኾብ ዝተገብረሎም ምዱዳት",
-    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
+    "after": "ኮከብ ዝተገብረሎም ምዱዳት",
+    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting. Tigre Star noun review: BeitTigreAI corpus sentences directly attest ኮከብ for star. Replace the copied Tigrinya ኮኾብ only where English source has the Star sense."
   },
   {
     "locale": "tig",
     "key": "click-to-star",
     "before": "ነዚ ሰሌዳ ኮኾብ ንምግባር ጠውቕ።",
-    "after": "ነዚ ምዱድ ኮኾብ ንምግባር ጠውቕ።",
-    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
+    "after": "ነዚ ምዱድ ኮከብ ንምግባር ጠውቕ።",
+    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting. Tigre Star noun review: BeitTigreAI corpus sentences directly attest ኮከብ for star. Replace the copied Tigrinya ኮኾብ only where English source has the Star sense."
   },
   {
     "locale": "tig",
     "key": "click-to-unstar",
     "before": "ካብዚ ሰሌዳ ኮኾብ ንምልዓል ጠውቕ።",
-    "after": "ካብዚ ምዱድ ኮኾብ ንምልዓል ጠውቕ።",
-    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
+    "after": "ካብዚ ምዱድ ኮከብ ንምልዓል ጠውቕ።",
+    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting. Tigre Star noun review: BeitTigreAI corpus sentences directly attest ኮከብ for star. Replace the copied Tigrinya ኮኾብ only where English source has the Star sense."
   },
   {
     "locale": "tig",
@@ -147850,8 +147850,8 @@
     "locale": "tig",
     "key": "see-all-starred-items",
     "before": "ኩሎም ኮኾብ ዝተገብረሎም ኣቕንዖት ርአ",
-    "after": "ክሎም ኮኾብ ዝተገብረሎም ኣቕንዖት ርአ",
-    "reason": "2026-09-15: Replace a Tigrinya-seeded all component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review."
+    "after": "ክሎም ኮከብ ዝተገብረሎም ኣቕንዖት ርአ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded all component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review. Tigre Star noun review: BeitTigreAI corpus sentences directly attest ኮከብ for star. Replace the copied Tigrinya ኮኾብ only where English source has the Star sense."
   },
   {
     "locale": "tig",
@@ -148256,8 +148256,8 @@
     "locale": "tig",
     "key": "starred-cards",
     "before": "ኮኾብ ዝተገብረሎም ካርድታት",
-    "after": "ኮኾብ ዝተገብረሎም ወረቀት ካርዳት",
-    "reason": "2026-09-15: Replace remaining Tigrinya singular, plural and possessive Card components with corpus-attested Tigre Card forms already reviewed in the correction ledger. Preserve surrounding long-clause grammar, numbers, quoted tokens and punctuation for separate fluent review."
+    "after": "ኮከብ ዝተገብረሎም ወረቀት ካርዳት",
+    "reason": "2026-09-15: Replace remaining Tigrinya singular, plural and possessive Card components with corpus-attested Tigre Card forms already reviewed in the correction ledger. Preserve surrounding long-clause grammar, numbers, quoted tokens and punctuation for separate fluent review. Tigre Star noun review: BeitTigreAI corpus sentences directly attest ኮከብ for star. Replace the copied Tigrinya ኮኾብ only where English source has the Star sense."
   },
   {
     "locale": "tig",
@@ -149887,8 +149887,8 @@
     "locale": "tig",
     "key": "set-selected-starred",
     "before": "ንዝተመርጹ ሰሌዳታት ኮኾብ ግበር",
-    "after": "ንዝተመርጹ ምዱዳት ኮኾብ ግበር",
-    "reason": "2026-09-15: Replace remaining embedded Tigrinya Board and Card nouns with corpus-attested Tigre singular/plural forms, restricted to English Board/Card senses. Preserve placeholders and surrounding clauses; exclude Clipboard uses and guard already-correct Tigre Card compounds against duplication."
+    "after": "ንዝተመርጹ ምዱዳት ኮከብ ግበር",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Board and Card nouns with corpus-attested Tigre singular/plural forms, restricted to English Board/Card senses. Preserve placeholders and surrounding clauses; exclude Clipboard uses and guard already-correct Tigre Card compounds against duplication. Tigre Star noun review: BeitTigreAI corpus sentences directly attest ኮከብ for star. Replace the copied Tigrinya ኮኾብ only where English source has the Star sense."
   },
   {
     "locale": "tig",
@@ -150867,8 +150867,8 @@
     "locale": "tig",
     "key": "quick-access-description",
     "before": "ኣብዚ ዓምዲ ኣሕጽሮተ መንገዲ ንምውሳኽ ንሰሌዳ ኮኾብ ግበረሉ።",
-    "after": "ኣብዚ ዓምዲ ኣሕጽሮተ መንገዲ ንምውሳኽ ንምዱድ ኮኾብ ግበረሉ።",
-    "reason": "2026-09-15: Replace remaining embedded Tigrinya Board and Card nouns with corpus-attested Tigre singular/plural forms, restricted to English Board/Card senses. Preserve placeholders and surrounding clauses; exclude Clipboard uses and guard already-correct Tigre Card compounds against duplication."
+    "after": "ኣብዚ ዓምዲ ኣሕጽሮተ መንገዲ ንምውሳኽ ንምዱድ ኮከብ ግበረሉ።",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Board and Card nouns with corpus-attested Tigre singular/plural forms, restricted to English Board/Card senses. Preserve placeholders and surrounding clauses; exclude Clipboard uses and guard already-correct Tigre Card compounds against duplication. Tigre Star noun review: BeitTigreAI corpus sentences directly attest ኮከብ for star. Replace the copied Tigrinya ኮኾብ only where English source has the Star sense."
   },
   {
     "locale": "tig",
@@ -150937,8 +150937,8 @@
     "locale": "tig",
     "key": "star-board-title",
     "before": "ነዚ ሰሌዳ ኮኾብ ንምግባር ጠውቕ። ኣብ ላዕሊ ዝርዝር ሰሌዳታትካ ክርአ እዩ።",
-    "after": "ነዚ ምዱድ ኮኾብ ንምግባር ጠውቕ። ኣብ ላዕሊ ዝርዝር ምዱዳትካ ክርአ እዩ።",
-    "reason": "2026-09-15: Replace remaining embedded Tigrinya Board and Card nouns with corpus-attested Tigre singular/plural forms, restricted to English Board/Card senses. Preserve placeholders and surrounding clauses; exclude Clipboard uses and guard already-correct Tigre Card compounds against duplication."
+    "after": "ነዚ ምዱድ ኮከብ ንምግባር ጠውቕ። ኣብ ላዕሊ ዝርዝር ምዱዳትካ ክርአ እዩ።",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Board and Card nouns with corpus-attested Tigre singular/plural forms, restricted to English Board/Card senses. Preserve placeholders and surrounding clauses; exclude Clipboard uses and guard already-correct Tigre Card compounds against duplication. Tigre Star noun review: BeitTigreAI corpus sentences directly attest ኮከብ for star. Replace the copied Tigrinya ኮኾብ only where English source has the Star sense."
   },
   {
     "locale": "tig",
@@ -150958,15 +150958,15 @@
     "locale": "tig",
     "key": "starred-boards",
     "before": "ኮኾብ ዝተገብረሎም ሰሌዳታት",
-    "after": "ኮኾብ ዝተገብረሎም ምዱዳት",
-    "reason": "2026-09-15: Replace remaining embedded Tigrinya Board and Card nouns with corpus-attested Tigre singular/plural forms, restricted to English Board/Card senses. Preserve placeholders and surrounding clauses; exclude Clipboard uses and guard already-correct Tigre Card compounds against duplication."
+    "after": "ኮከብ ዝተገብረሎም ምዱዳት",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Board and Card nouns with corpus-attested Tigre singular/plural forms, restricted to English Board/Card senses. Preserve placeholders and surrounding clauses; exclude Clipboard uses and guard already-correct Tigre Card compounds against duplication. Tigre Star noun review: BeitTigreAI corpus sentences directly attest ኮከብ for star. Replace the copied Tigrinya ኮኾብ only where English source has the Star sense."
   },
   {
     "locale": "tig",
     "key": "starred-boards-description",
     "before": "ኮኾብ ዝተገብረሎም ሰሌዳታት ኣብ ላዕሊ ዝርዝር ሰሌዳታትካ ይረኣዩ።",
-    "after": "ኮኾብ ዝተገብረሎም ምዱዳት ኣብ ላዕሊ ዝርዝር ምዱዳትካ ይረኣዩ።",
-    "reason": "2026-09-15: Replace remaining embedded Tigrinya Board and Card nouns with corpus-attested Tigre singular/plural forms, restricted to English Board/Card senses. Preserve placeholders and surrounding clauses; exclude Clipboard uses and guard already-correct Tigre Card compounds against duplication."
+    "after": "ኮከብ ዝተገብረሎም ምዱዳት ኣብ ላዕሊ ዝርዝር ምዱዳትካ ይረኣዩ።",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Board and Card nouns with corpus-attested Tigre singular/plural forms, restricted to English Board/Card senses. Preserve placeholders and surrounding clauses; exclude Clipboard uses and guard already-correct Tigre Card compounds against duplication. Tigre Star noun review: BeitTigreAI corpus sentences directly attest ኮከብ for star. Replace the copied Tigrinya ኮኾብ only where English source has the Star sense."
   },
   {
     "locale": "tig",
@@ -153263,5 +153263,75 @@
     "before": "መወዳእታታት API",
     "after": "Endpoints API",
     "reason": "Tigre technical terminology repair: English source means an API/S3 Endpoint, not a temporal end. Retain the established WeKan Endpoint technical label already used in S3 translation fields."
+  },
+  {
+    "locale": "tig",
+    "key": "allboards.starred",
+    "before": "ኮኾብ ዝተገብረሎም",
+    "after": "ኮከብ ዝተገብረሎም",
+    "reason": "Tigre Star noun review: BeitTigreAI corpus sentences directly attest ኮከብ for star. Replace the copied Tigrinya ኮኾብ only where English source has the Star sense."
+  },
+  {
+    "locale": "tig",
+    "key": "click-to-star-page",
+    "before": "ነዚ ገጽ ኮኾብ ንምግባር ጠውቕ።",
+    "after": "ነዚ ገጽ ኮከብ ንምግባር ጠውቕ።",
+    "reason": "Tigre Star noun review: BeitTigreAI corpus sentences directly attest ኮከብ for star. Replace the copied Tigrinya ኮኾብ only where English source has the Star sense."
+  },
+  {
+    "locale": "tig",
+    "key": "click-to-unstar-page",
+    "before": "ካብዚ ገጽ ኮኾብ ንምልዓል ጠውቕ።",
+    "after": "ካብዚ ገጽ ኮከብ ንምልዓል ጠውቕ።",
+    "reason": "Tigre Star noun review: BeitTigreAI corpus sentences directly attest ኮከብ for star. Replace the copied Tigrinya ኮኾብ only where English source has the Star sense."
+  },
+  {
+    "locale": "tig",
+    "key": "star-item",
+    "before": "ኮኾብ ግበር",
+    "after": "ኮከብ ግበር",
+    "reason": "Tigre Star noun review: BeitTigreAI corpus sentences directly attest ኮከብ for star. Replace the copied Tigrinya ኮኾብ only where English source has the Star sense."
+  },
+  {
+    "locale": "tig",
+    "key": "unstar-item",
+    "before": "ኮኾብ ኣወግድ",
+    "after": "ኮከብ ኣወግድ",
+    "reason": "Tigre Star noun review: BeitTigreAI corpus sentences directly attest ኮከብ for star. Replace the copied Tigrinya ኮኾብ only where English source has the Star sense."
+  },
+  {
+    "locale": "tig",
+    "key": "starred-swimlanes",
+    "before": "ኮኾብ ዝተገብረሎም Swimlane",
+    "after": "ኮከብ ዝተገብረሎም Swimlane",
+    "reason": "Tigre Star noun review: BeitTigreAI corpus sentences directly attest ኮከብ for star. Replace the copied Tigrinya ኮኾብ only where English source has the Star sense."
+  },
+  {
+    "locale": "tig",
+    "key": "starred-lists",
+    "before": "ኮኾብ ዝተገብረሎም ዝርዝራት",
+    "after": "ኮከብ ዝተገብረሎም ዝርዝራት",
+    "reason": "Tigre Star noun review: BeitTigreAI corpus sentences directly attest ኮከብ for star. Replace the copied Tigrinya ኮኾብ only where English source has the Star sense."
+  },
+  {
+    "locale": "tig",
+    "key": "no-starred-items",
+    "before": "ክሳብ ሕጂ ገለ ኮኾብ ኣይገበርካን።",
+    "after": "ክሳብ ሕጂ ገለ ኮከብ ኣይገበርካን።",
+    "reason": "Tigre Star noun review: BeitTigreAI corpus sentences directly attest ኮከብ for star. Replace the copied Tigrinya ኮኾብ only where English source has the Star sense."
+  },
+  {
+    "locale": "tig",
+    "key": "pomodoro-break",
+    "before": "ዕረፍቲ",
+    "after": "ዕርፍቲ",
+    "reason": "Tigre Pomodoro Break review: BeitTigreAI corpus directly attests ዕርፍቲ in “Let’s have a short break.” Correct the Tigrinya-seeded spelling."
+  },
+  {
+    "locale": "tig",
+    "key": "board-nb-stars",
+    "before": "%s ኮኾባት",
+    "after": "%s ከዋክብ",
+    "reason": "Tigre Star plural review: BeitTigreAI corpus sentences directly attest ከዋክብ for stars. Preserve %s rating count placeholder."
   }
 ]

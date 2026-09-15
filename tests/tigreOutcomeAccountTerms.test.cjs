@@ -8,7 +8,7 @@ const tigrinya = locale('ti');
 const reviewed = {
   "sandstorm-migration-failed": "ፈሽለ",
   "cloud-connection-failed": "ምትእስሳር ፈሽለ",
-  "account-creation-failed": "መለያ ምፍጣር ፈሽለ",
+  "account-creation-failed": "ሕሳብ ምፍጣር ፈሽለ",
   "import-scoped-failed": "ምእታው ፈሽለ",
   "ldap-test-connection-success": "ርክብ ተዐወተ",
   "sandstorm-migration-success": "ተዐወተ",

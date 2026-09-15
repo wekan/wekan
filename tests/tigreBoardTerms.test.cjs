@@ -9,19 +9,19 @@ const reviewed = {
   "multi-selection-active": "ምዱዳት ንምምራጽ ሳጹናት ምልክት ጠውቕ",
   "no-boards-selected": "ዝመረጽካዮ ምዱድ የለን።",
   "select-only-one-board": "በጃኻ ሓደ ምዱድ ጥራይ ምረጽ",
-  "set-selected-unstarred": "ካብ ዝተመርጹ ምዱዳት ኮኾብ ኣልዕል",
+  "set-selected-unstarred": "ካብ ዝተመርጹ ምዱዳት ኮከብ ኣልዕል",
   "board-creation-admin-only": "ኣመሓደርቲ ጥራይ ሓድሽ ምዱድ ክፈጥሩ ይኽእሉ",
   "restore-board": "ምዱድ መልስ",
   "board-not-found": "ምዱድ ኣይተረኽበን",
   "board-public-info": "እዚ ምዱድ <strong>ህዝባዊ</strong> ክኸውን እዩ።",
   "boardChangeColorPopup-title": "ድሕረ ባይታ ምዱድ ቀይር",
   "board-view-multiboard-cal": "ዓውደ ኣዋርሕ (ኩሎም ምዱዳት)",
-  "bookmarksPopup-title": "ኮኾብ ዝተገብረሎም ምዱዳት",
-  "click-to-star": "ነዚ ምዱድ ኮኾብ ንምግባር ጠውቕ።",
-  "click-to-unstar": "ካብዚ ምዱድ ኮኾብ ንምልዓል ጠውቕ።",
+  "bookmarksPopup-title": "ኮከብ ዝተገብረሎም ምዱዳት",
+  "click-to-star": "ነዚ ምዱድ ኮከብ ንምግባር ጠውቕ።",
+  "click-to-unstar": "ካብዚ ምዱድ ኮከብ ንምልዓል ጠውቕ።",
   "header-logo-title": "ናብ ገጽ ምዱዳትካ ተመለስ።",
   "my-boards": "ምዱዳተይ",
-  "custom-public-desc-placeholder": "ነባሪ ንምጥቃም ባዶ ግደፎ ህዝባዊ ናይ ምዱድ መግለጺ",
+  "custom-public-desc-placeholder": "ነባሪ ንምጥቃም ባዶ ግደፎ ህዝባዊ ናይ ምዱድ ዋስፎ",
   "go-to-board": "ናብ ምዱድ ኪድ",
   "tableVisibilityMode": "ርኡይነት ምዱዳት",
   "r-board-button": "መልጎም ምዱድ",
@@ -44,6 +44,12 @@ for (const [key, value] of Object.entries(reviewed)) {
   assert.match(tigre[key], /ምዱድ|ምዱዳ/, key + ': corpus-attested Board form');
   assert.doesNotMatch(tigre[key], /ሰሌዳ/, key + ': no Tigrinya Board stem');
 }
-assert.equal(tigre['copy-text-to-clipboard'], tigrinya['copy-text-to-clipboard'], 'clipboard awaits semantic repair');
-assert.equal(tigre['to-boards'], tigrinya['to-boards'], 'number shorthand awaits grammatical repair');
+assert.equal(tigre['copy-text-to-clipboard'], 'ክቱብ ናብ ሰሌዳ ቅዳሕ ቅዳሕ');
+assert.notEqual(tigre['copy-text-to-clipboard'],
+  tigrinya['copy-text-to-clipboard'], 'Tigre Text term is reviewed');
+assert.match(tigre['copy-text-to-clipboard'], /ሰሌዳ/,
+  'Clipboard keeps its separate meaning');
+assert.equal(tigre['to-boards'], 'ናብ ምዱድ(ምዱዳት)');
+assert.notEqual(tigre['to-boards'], tigrinya['to-boards'],
+  'Tigre Board singular/plural shorthand is reviewed');
 console.log('Tigre board terms: ' + Object.keys(reviewed).length);

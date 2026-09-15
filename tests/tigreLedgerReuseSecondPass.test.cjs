@@ -47,7 +47,7 @@ const reviewed = {
   'dependency-type': 'ዐይነት ዝምድና',
   'new-problems': 'ሓደስቲ መሻክል',
   'no-new-problems': 'ሐዲስ ጸገም የለን።',
-  'calculate-file-counts': 'ዐደድ ፋይላት ኣስል',
+  'calculate-file-counts': "ዐደድ ፈይላት ኣስል",
   'calculating-counts': 'ዐደድ ይሕሰብ ኣሎ...',
   'mongodb-compact-run': 'MongoDB Compact ሰዔ',
   'support-info-not-added-yet': 'ሓበሬታ ሰዳየት ገና ኣይተወሰኸን',

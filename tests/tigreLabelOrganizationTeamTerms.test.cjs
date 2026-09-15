@@ -12,7 +12,7 @@ const reviewed = {
   "label-default": "እሻረት %s (ነባሪ)",
   "r-d-add-label": "እሻረት ወስኽ",
   "label-not-found": "እሻረት '%s' ኣይተረኽበን።",
-  "label-color-not-found": "ሕብሪ እሻረት %s ኣይተረኽበን።",
+  "label-color-not-found": "ሕብር እሻረት %s ኣይተረኽበን።",
   "label-colors": "ሕብርታት እሻረት",
   "label-names": "ስሜታት እሻረት",
   "removeBoardOrgPopup-title": "መነዘመት ኣውጽእ",
