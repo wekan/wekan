@@ -4362,3 +4362,14 @@ negative French/Arabic, acronym retention and full token inventories.
 No live diagnostic UI test ran. Ledger 19,899; corrected 15,776, pending
 127 (zgh 34), restored 4 unchanged. Native expansion and grammar remain
 within the full audit scope despite this original classification change.
+
+
+2026-09-15 — `7d87955de`: seven Arabic or French accessibility and UI
+values replaced with Standard Moroccan Tamazight drafts. Reuse existing
+access-for-all, page, enabled, information, add, label, action, file, board,
+attachment, card, open and close vocabulary. Preserve the literal `.zip` and
+`JSON` tokens. Full accessibility, scrollbar and window compounds remain low
+confidence pending fluent review. Four focused suites pass for exact ledger
+values, negative Arabic checks, literal preservation and all 234 locale
+inventories. Ledger 20,059; corrected 15,853, pending 27 (zgh 26, rup 1),
+restored four unchanged. No live UI test or remote write ran.

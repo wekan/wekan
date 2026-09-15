@@ -1708,6 +1708,18 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7d87955de">Repair Tamazight accessibility and UI labels.</a></summary>
+
+Replace seven Arabic or French accessibility, label-action, scrollbar,
+ZIP-import and multi-card-window values. Preserve `.zip` and `JSON` literals
+and add focused script and terminology checks. Full accessibility, scrollbar
+and window compounds remain under native review.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

@@ -30604,3 +30604,16 @@ the algorithm distinction without misusing a furniture-table noun. Full
 compounds remain low confidence. Four focused files pass for 20,052 corrections
 and all 234 locale inventories. Pending is 33 (Tamazight 32), restored four
 unchanged. No live selector or remote write.
+
+### 2026-09-15 — Tamazight accessibility and UI labels
+
+Source commit `7d87955de` replaces seven Arabic or French values with Standard
+Moroccan Tamazight drafts. Existing locale vocabulary supplies access-for-all,
+page, enabled, information, add, label, action, file, board, attachment, card,
+open and close terms; `.zip` and `JSON` remain literal. Full accessibility,
+scrollbar and window compounds remain low confidence pending fluent review.
+
+Four focused files pass for all 20,059 correction records, negative Arabic
+checks, literal preservation and all 234 locale inventories. Original counts
+are 15,853 corrected, 27 pending (Tamazight 26, Aromanian 1), 4,197 retained
+and four restored. No live UI test or remote write occurred.
