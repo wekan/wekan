@@ -31768,6 +31768,25 @@ rises from 22,130 to 22,140; stale list-width values fall from 36 to
 26. Original 20,081 audit-row classifications remain unchanged. No
 live UI test or remote write occurred.
 
+### 2026-09-15 — Xitsonga list-width seed repair
+
+Source commit `21319c523` replaces the `mhaka`-repeated popup
+width label and error. `Nxaxamelo` for list is attested in a
+[South African education bilingual skills document](https://www.education.gov.za/LinkClick.aspx?fileticket=l2dBAidEnFo%3D&mid=13495&portalid=0&tabid=5133);
+`vuanami` for width in its
+[multilingual mathematics dictionary](https://www.dsac.gov.za/sites/default/files/2023-11/Multilingual%20Mathematics%20Dictionary.pdf).
+The
+[2025 Xitsonga mathematics plan](https://www.education.gov.za/Portals/0/Documents/MTbBE/Grade%204%20Maths%20ATPs%20Term%201-4/2025_Xitsonga_Grade%204_Mathematics_ATP_Term%201-4.pdf?ver=2025-08-13-105243-497)
+uses plural `tiholinamba` for whole numbers; this popup derives the
+singular `holinamba`, still low confidence pending native review.
+The full clause is likewise unverified. The explicit `≥ 200`
+operator avoids reinstating the old strict bound. Focused checks
+verify the terms, exact ledger rows, no seed repetitions and Xitsonga
+runtime lookup. Ledger integrity and 234-locale completeness pass.
+Records rise from 22,176 to 22,178; old-threshold queue falls from
+3 to 2. Broader corrupt Xitsonga values elsewhere in the file still
+need review. No live UI test or remote write occurred.
+
 ### 2026-09-15 — Aymara and Quechua list-width strings
 
 Source commit `83c8d0c2b` repairs four popup strings. The Aymara

@@ -656,6 +656,16 @@ This release includes the following features and fixes:
 **Translations** - Tamazight, Tigre and multilingual list-width repairs.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/21319c523">Replace corrupt Tsonga list-width seeds</a>. Thanks to xet7.</summary>
+
+Replace repeated `mhaka` seeds in the Xitsonga width label and
+error with local list, width and whole-number terms and the
+inclusive 200-pixel bound. Focused, runtime, ledger and inventory
+checks pass; the complete clause remains under native review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/83c8d0c2b">Repair Aymara and Quechua list-width strings</a>. Thanks to xet7.</summary>
 
 Replace Spanish/English-seeded width labels and errors with native

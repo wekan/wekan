@@ -16,7 +16,14 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `83c8d0c2b` — repair
+Latest translation fix: **2026-09-15**, `21319c523` — replace the
+corrupt Xitsonga list-width label and error with native width,
+list and whole-number terms plus the inclusive 200-pixel rule.
+Focused, runtime, ledger and 234-locale checks pass. The singular
+whole-number form and full clause remain low confidence for native
+review. Correction ledger: **22,178**; stale list-width values: **2**.
+
+Earlier translation fix: **2026-09-15**, `83c8d0c2b` — repair
 Aymara and Quechua list-width labels and obsolete errors. Native
 list, width and whole-number terms replace Spanish/English seeds;
 the inclusive 200-pixel minimum matches the popup's rule. Focused,
