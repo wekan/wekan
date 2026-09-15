@@ -491,3 +491,15 @@ reject the Tigrinya Member spelling; all 20,957 correction records and 234
 locale inventories pass. Raw overlap falls to 576, with 20 attested shared
 forms and 556 unclassified. Complete phrase order remains open to fluent
 review. No remote write ran.
+
+## Tigre date controls repaired — 2026-09-15
+
+Source commit `a03aa027c` replaces nine Tigrinya-seeded or semantically
+conflated date controls. The BeitTigreAI corpus gives separate exact Tigre
+entries for Due (`ሐዞት`) and Deadline (`አምዐል መዋዕድ`), so Due Date no longer
+reuses End. Independent entries also attest date, start, end, voting, received
+and change components used by the seven popup titles. Focused exact and
+negative checks cover every value; all 20,965 correction records and 234
+locale inventories pass. Raw non-English overlap falls to 571, with 20
+attested shared forms and 551 unclassified. Complete phrase order remains open
+to fluent review. No remote write ran.

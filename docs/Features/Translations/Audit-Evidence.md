@@ -30940,3 +30940,14 @@ reviewed Tigre control terms. Focused exact and former-seed checks pass with all
 20,957 correction records and 234 locale inventories. Raw overlap falls to 576;
 556 remain unclassified after 20 attested shared forms. Complete phrase order
 remains open to fluent review. No remote write occurred.
+
+### 2026-09-15 — Tigre date controls
+
+Source commit `a03aa027c` repairs nine Due, Due Date and date-popup controls.
+The BeitTigreAI corpus supplies distinct exact entries for Due (`ሐዞት`) and
+Deadline (`አምዐል መዋዕድ`) instead of treating both as End. It also directly
+attests the reused Tigre date, start, end, voting, received and change forms.
+Focused exact and former-seed checks pass with all 20,965 correction records
+and 234 locale inventories. Raw non-English overlap falls to 571; 551 remain
+unclassified after 20 attested shared forms. Complete compound order remains
+open to fluent review. No remote write occurred.
