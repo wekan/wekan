@@ -139725,5 +139725,12 @@
     "before": "Seva yoṱhe, kana tshiimiswa tshithihi. Bakapu ya tshiimiswa i na dzibodo dzatsho na zwoṱhe zwi re khadzo, na zwiṱaṱisi zwa idzo bodo — fhedzi a hu na akhaunthu dza vhashumisi kana mavhonele a seva, ngauri zwenezwo zwi shumiswa nga zwiimiswa zwoṱhe. U vusulusa bakapu ya tshiimiswa zwi ṅwala fhedzi kha dzibodo dza tshenetsho tshiimiswa.",
     "after": "Kaik WeKan-sistem libo üks' organizacii. Organizacijan varmkopijas oma sen laudad da kaik niil, mugažo nende laudoiden tartutadud failad — no ei ole kävutajiden akkauntoid libo sisteman valičusid, sikš miše kaik organizacijad kävutaba neid ühteži. Organizacijan varmkopijan endištamine kirjutab vaiše laudoile, miččed oma necen organizacijan.",
     "reason": "Replace Tshivenda backup scope with direct Veps drafts. Preserve whole-instance/one-organization choice, boards and attachments, exclusion of shared accounts/settings and organization-owned restore restriction. Whole-system paraphrase and full grammar remain low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "event-severity",
+    "before": "Vhukuma",
+    "after": "Kovuden korktuz’",
+    "reason": "Replace Tshivenda with direct Veps severity-level draft using rendered dictionary kovuz’ (-den) and abstract level korktuz’. Harshness/firmness-to-event-severity analogy and full compound remain low confidence, not attested computing terminology."
   }
 ]

@@ -315,3 +315,13 @@ test("Veps backup scope retains shared-data exclusions and restore boundary", ()
  assert.match(data["backup-scope-description"],/kirjutab vaiše laudoile.*necen organizacijan/);
  assert.notEqual(data["backup-scope"],data["backup-scope-instance"]);
 });
+
+test("Veps event severity replaces foreign text with a distinct level draft", () => {
+ const data=JSON.parse(fs.readFileSync("imports/i18n/data/ve-PP.i18n.json","utf8"));
+ assert.equal(data["event-severity"],"Kovuden korktuz’");
+ assert.doesNotMatch(data["event-severity"],/Vhukuma|vakavuus|tärged|selʹged/i);
+ assert.notEqual(data["event-severity"],data["event-detail"]);
+ assert.notEqual(data["event-severity"],data["event-category"]);
+ const code=fs.readFileSync("client/components/settings/adminProblems.js","utf8");
+ assert.match(code,/labelKey: 'event-severity', value: r => r.severity/);
+});
