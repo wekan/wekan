@@ -4373,3 +4373,13 @@ confidence pending fluent review. Four focused suites pass for exact ledger
 values, negative Arabic checks, literal preservation and all 234 locale
 inventories. Ledger 20,059; corrected 15,853, pending 27 (zgh 26, rup 1),
 restored four unchanged. No live UI test or remote write ran.
+
+
+2026-09-15 — `3d79d5ca5`: four French diagnostic and repository-action
+values replaced with Standard Moroccan Tamazight drafts. Reuse existing
+memory usage, total size, heap, export, Excel, free disk space, sign-in,
+upload and update vocabulary. Allocated-heap and software-repository compounds
+remain low confidence pending fluent review. Four focused suites pass for
+exact values, negative French prose after preserving `Node` and `Excel`, and
+all 234 locale inventories. Ledger 20,063; corrected 15,857, pending 23
+(zgh 22, rup 1), restored four unchanged. No live UI test or remote write ran.

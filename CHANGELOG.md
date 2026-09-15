@@ -1720,6 +1720,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3d79d5ca5">Repair Tamazight diagnostics and repository actions.</a></summary>
+
+Replace four French memory, Excel export and repository-action values with
+Tamazight drafts. Add focused terminology and wrong-language checks. Complete
+allocated-heap and software-repository compounds remain under native review.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

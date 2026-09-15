@@ -30617,3 +30617,16 @@ Four focused files pass for all 20,059 correction records, negative Arabic
 checks, literal preservation and all 234 locale inventories. Original counts
 are 15,853 corrected, 27 pending (Tamazight 26, Aromanian 1), 4,197 retained
 and four restored. No live UI test or remote write occurred.
+
+### 2026-09-15 — Tamazight diagnostics and repository actions
+
+Source commit `3d79d5ca5` replaces four French values with Standard Moroccan
+Tamazight drafts. Existing locale vocabulary supplies memory usage, total
+size, heap, export, Excel, free disk space, sign-in, upload and update terms.
+Allocated-heap and software-repository compounds remain low confidence pending
+fluent review.
+
+Four focused files pass for all 20,063 correction records, negative French
+prose after preserving `Node` and `Excel`, and all 234 locale inventories.
+Original counts are 15,857 corrected, 23 pending (Tamazight 22, Aromanian 1),
+4,197 retained and four restored. No live UI test or remote write occurred.
