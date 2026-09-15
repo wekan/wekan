@@ -30866,3 +30866,13 @@ compound labels remain explicitly open to fluent grammar review. Focused exact
 and former-seed checks pass with all 20,896 correction records and 234 locale
 inventories. Raw overlap falls to 637; 617 remain unclassified after 20
 attested shared forms. No remote write occurred.
+
+### 2026-09-15 — Tigre export controls
+
+Source commit `6d8f830a7` repairs seven generic, list and board Export controls.
+The action comes from the exact corpus entry Export pages; the list and board
+nouns were independently established in prior Tigre batches. Focused exact and
+former-seed checks pass with all 20,903 correction records and 234 locale
+inventories. Raw overlap falls to 630; 610 remain unclassified after 20
+attested shared forms. Compound word order remains open to fluent review. No
+remote write occurred.

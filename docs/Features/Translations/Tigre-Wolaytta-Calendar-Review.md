@@ -402,3 +402,14 @@ from those attested parts and retain that stated limitation pending fluent
 review. Focused exact and negative checks cover all 14 controls; all 20,896
 correction records and 234 locale inventories pass. Raw overlap falls to 637,
 with 20 attested shared forms and 617 unclassified. No remote write ran.
+
+## Tigre export controls repaired — 2026-09-15
+
+Source commit `6d8f830a7` replaces seven Tigrinya-seeded generic, list and board
+Export controls. The BeitTigreAI corpus gives the exact software-context phrase
+Export pages as `አግጸት አግዕዞ`; the controls reuse its export action with the
+independently reviewed Tigre list and board nouns. Focused exact and negative
+checks cover all seven values; all 20,903 correction records and 234 locale
+inventories pass. Raw overlap falls to 630, with 20 attested shared forms and
+610 unclassified. The composed list/board phrases remain open to fluent word-
+order review. No remote write ran.
