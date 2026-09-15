@@ -2080,6 +2080,16 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0896117b5">Repair Tigre date and time terms.</a></summary>
+
+Replace seven copied Tigrinya Time components and repair three date/hour
+prepositions while preserving independently attested Tigre nouns.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/242c1f27b">Repair Tigre label, organization and team terms.</a></summary>
 
 Replace 13 copied Tigrinya nouns in semantically matched Label, Organization

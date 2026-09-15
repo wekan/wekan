@@ -630,3 +630,13 @@ tests preserve the excluded icon, checkbox, token-prefix and plural senses.
 All 21,157 correction records and 234 locale inventories pass. Raw overlap
 falls to 379, with 22 attested shared forms and 357 unclassified. Surrounding
 grammar remains open to fluent review. No remote write ran.
+
+
+## Tigre Date and Time terms repaired — 2026-09-15
+
+Source commit `0896117b5` replaces seven absent-from-corpus Tigrinya Time
+spellings with attested Tigre `ወቅት`. Three controls retain attested Date and
+Hour nouns but use Tigre prepositions. Exact and negative tests cover all ten
+values; all 21,167 correction records and 234 locale inventories pass. Raw
+overlap falls to 369, with 22 attested shared forms and 347 unclassified.
+Surrounding grammar remains open to fluent review. No remote write ran.

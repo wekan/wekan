@@ -31092,3 +31092,16 @@ negative checks pass with all 21,157 correction records and 234 locale
 inventories. Raw overlap falls to 379; after 22 attested shared forms, 357
 remain unclassified. Forty-three raw matches contain at least 20 characters
 and 11 contain at least 35. No remote write occurred.
+
+
+### 2026-09-15 — Tigre Date and Time terms
+
+Source commit `0896117b5` replaces seven Tigrinya Time spellings, absent
+from the Tigre corpus, with repeatedly attested Tigre `ወቅት`. Three
+schedule/filter controls preserve corpus-attested `ዕለት` Date and `ሰዓት`
+Hour while replacing Tigrinya prepositions with Tigre `እብ` or `ዲብ`.
+Focused exact and negative checks pass with all 21,167 correction records and
+234 locale inventories. Raw overlap falls to 369; after 22 attested shared
+forms, 347 remain unclassified. Forty-three raw matches contain at least 20
+characters and 11 contain at least 35. Surrounding clauses remain subject to
+fluent review. No remote write occurred.
