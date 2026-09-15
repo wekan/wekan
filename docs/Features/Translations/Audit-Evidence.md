@@ -30773,3 +30773,11 @@ independently corpus-attested shared terms, leaving 766 unclassified; 86 of
 the remaining identical values have at least 20 characters and 18 have at
 least 35. Corpus glosses with several senses remain open to fluent review. No
 remote write occurred.
+
+### 2026-09-15 — Tigre address and name senses
+
+Source commit `62956f2819` repairs the two Address fields and event Name with
+the context-appropriate results already established for those senses in the
+Tigre locale. Exact overlap falls to 776, of which 763 remain unclassified.
+Focused checks cover 94 selected values and all 20,757 correction records. No
+remote write occurred.

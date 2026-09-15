@@ -16,22 +16,21 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `f27cb82ca6` — replace 91 more
-Tigrinya-seeded Tigre interface values with Tigre headwords and short phrases
-returned for their complete English sources by the BeitTigreAI corpus. Focused
-checks preserve the selected values and reject their Tigrinya seeds; ledger
-20,754. The earlier Finnish-seeded Veps review remains complete with no
+Latest translation fix: **2026-09-15**, `62956f2819` — following `f27cb82ca6`,
+replace 94 more Tigrinya-seeded Tigre interface values with context-appropriate
+Tigre corpus headwords and short phrases. Focused checks preserve the selected
+values and reject their Tigrinya seeds; ledger 20,757. The earlier Finnish-seeded Veps review remains complete with no
 unclassified match.
 
 The tracked Tigre calendar queue being empty does not certify the locale. Of
-2,592 non-English Tigre values, 779 are byte-for-byte identical to Tigrinya;
-13 are corpus-attested shared terms and 766 remain unclassified, including 86
+2,592 non-English Tigre values, 776 are byte-for-byte identical to Tigrinya;
+13 are corpus-attested shared terms and 763 remain unclassified, including 86
 values of at least 20 characters and 18 of at least 35 characters. This is an
 explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **20,754** exact before/after values, including unflagged
+records contain **20,757** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

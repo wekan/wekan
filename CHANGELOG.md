@@ -1830,6 +1830,16 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/62956f2819">Repair Tigre address and name labels.</a></summary>
+
+Replace three more Tigrinya-seeded labels with the context-appropriate Tigre
+corpus senses already used for Address and Name. Broader review continues.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e17bb2b5e">Repair native-catalogue Veps interface terms.</a></summary>
 
 Replace 31 Finnish-seeded labels through exact English-source matching with

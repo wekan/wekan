@@ -290,3 +290,12 @@ leaving 766 unclassified; 86 remaining matches contain at least 20 characters
 and 18 contain at least 35. Short dictionary glosses can be polysemous, so
 these selected UI senses remain open to fluent review. No live UI test or
 remote write ran.
+
+## Tigre address and name senses repaired — 2026-09-15
+
+Source commit `62956f2819` replaces three additional Tigrinya-seeded values.
+The BeitTigreAI corpus offers multiple results for Address and Name; the selected
+forms match the already established email-address and UI-name senses. Focused
+checks now cover 94 lexical values and all 20,757 correction records. Exact
+Tigre–Tigrinya overlap falls from 779 to 776, leaving 763 unclassified after
+the 13 attested shared forms. No remote write ran.
