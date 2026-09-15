@@ -30876,3 +30876,12 @@ former-seed checks pass with all 20,903 correction records and 234 locale
 inventories. Raw overlap falls to 630; 610 remain unclassified after 20
 attested shared forms. Compound word order remains open to fluent review. No
 remote write occurred.
+
+### 2026-09-15 — Tigre severity controls
+
+Source commit `e27abadf6` repairs three Severity controls after the corpus
+proves their former shared noun means physical weight. The replacement combines
+attested degree/level and severely forms; its full compound grammar remains low
+confidence. Focused negative checks pass with all 20,906 correction records and
+234 locale inventories. Raw overlap falls to 627; 607 remain unclassified after
+20 attested shared forms. No remote write occurred.

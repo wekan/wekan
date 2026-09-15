@@ -413,3 +413,14 @@ checks cover all seven values; all 20,903 correction records and 234 locale
 inventories pass. Raw overlap falls to 630, with 20 attested shared forms and
 610 unclassified. The composed list/board phrases remain open to fluent word-
 order review. No remote write ran.
+
+## Tigre severity controls repaired — 2026-09-15
+
+Source commit `e27abadf6` replaces the physical-weight noun in three Severity
+controls. The corpus explicitly uses the old `ክብደት` for losing body weight,
+while it supplies `ደረጀት` for degree/level and `ክብድት` for severely. The new
+severity-level compound is therefore semantically distinct but its complete
+grammar remains LOW CONFIDENCE pending fluent review. Focused checks reject
+the former seed; all 20,906 correction records and 234 locale inventories
+pass. Raw overlap falls to 627, with 20 attested shared forms and 607
+unclassified. No remote write ran.
