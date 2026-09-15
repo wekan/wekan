@@ -894,3 +894,23 @@ checked-stream code and complete token/key-order inventories.
 No live acknowledgment UI ran. Ledger 19,958; pending 126/restored 4.
 Backup scope, CPU-core/severity, number/date-range and broader prior
 uncertain wording remain within the full local translation repair scope.
+
+
+2026-09-15 — `cfed82e70`: backup-scope, backup-scope-instance and
+backup-scope-description wrong-language values replaced with Veps drafts.
+Read attachments Jade scope options/helper and server/methods/backup.js
+organization context/comments. Preserve whole instance or one organization,
+all its board content including attachments, excluded shared user accounts
+and instance settings, and restores restricted to owned boards.
+Existing local Varmkopii, organizacii, tartutadud failad, akkaunt, valičused
+and Endišta supply bases. Native MediaWiki libo/vaiše and system vocabulary
+were rechecked today:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json
+Kaik WeKan-sistem paraphrases the whole application instance, not a physical
+machine backup. Scope-boundaries noun, whole-instance paraphrase, ownership
+construction and complete grammar remain LOW CONFIDENCE. No full native
+sentence attestation claim. Four focused files pass (37 checks), including
+foreign-language rejection, attachment/shared-data clauses and restore
+restriction plus complete token/key inventories. No live backup UI ran.
+Ledger 19,961; original pending 126/restored 4 unchanged. CPU-core/severity,
+number/date-range and full prior uncertain review remain in scope.

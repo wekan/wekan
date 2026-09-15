@@ -1473,6 +1473,18 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cfed82e70">Replace wrong-language Veps backup scope text.</a></summary>
+
+Preserve organization attachments, shared accounts/settings exclusions
+and restore ownership restrictions. Whole-instance paraphrase and full
+grammar remain under review. Four focused files pass (37 checks).
+No live backup UI ran.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
