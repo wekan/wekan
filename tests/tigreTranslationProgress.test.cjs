@@ -68,8 +68,8 @@ assert.deepEqual(tokens(tigre['activity-changedTitle']), ['%s', '%s']);
 assert.deepEqual(tokens(tigre['act-deleteCard']),
   ['__board__', '__card__', '__list__', '__swimlane__']);
 assert.match(tigre['act-deleteCard'], /መገዲ/);
-assert.match(tigre['board-members-same-org-only'], /ውድብ/);
-assert.match(tigre['board-members-same-team-only'], /ጉጅለ/);
+assert.match(tigre['board-members-same-org-only'], /መነዘመት/);
+assert.match(tigre['board-members-same-team-only'], /ፈሪቅ/);
 assert.deepEqual(tokens(tigre['act-addChecklistItem']),
   ['__board__', '__card__', '__checklistItem__', '__checklist__', '__list__',
     '__swimlane__']);
@@ -116,8 +116,8 @@ assert.match(tigre['cardStartPlanningPokerPopup-title'], /Planning Poker/);
 assert.match(tigre['editPokerEndDatePopup-title'], /Planning Poker/);
 assert.match(tigre['poker-delete-pop'], /Planning Poker/);
 assert.equal(tigre['importSwimlanePopup-title'], 'መገዲ ኣእቱ');
-assert.match(tigre['addBoardOrgPopup-title'], /ውድብ/);
-assert.match(tigre['addBoardTeamPopup-title'], /ጉጅለ/);
+assert.match(tigre['addBoardOrgPopup-title'], /መነዘመት/);
+assert.match(tigre['addBoardTeamPopup-title'], /ፈሪቅ/);
 assert.match(tigre.casSignIn, /CAS/);
 assert.match(tigre['font-preview-text'], /0123456789/);
 assert.equal(tigre['restoreArchivedListToSwimlanePopup-title'],
