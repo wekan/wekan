@@ -653,7 +653,17 @@ remain under native review.
 
 This release includes the following features and fixes:
 
-**Translations** - Tamazight, Tigre and regional list-width repairs.
+**Translations** - Tamazight, Tigre and Asian list-width repairs.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8cc659ac9">Repair 24 Asian list-width values</a>. Thanks to xet7.</summary>
+
+Correct native-script messages to express a whole-number width of at
+least 200 pixels. Update seven progress suites that expected the old
+270 rule. Focused, language, ledger and inventory checks pass; eight
+complete clauses remain under native grammar review.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0fe4ecb48">Repair 20 Romance and Celtic list-width values</a>. Thanks to xet7.</summary>

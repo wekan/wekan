@@ -31604,3 +31604,32 @@ records for 20 changed values). The stale list-width queue falls from
 111 to 91. Original 20,081 classifications remain unchanged. No live
 UI test or remote write occurred. The broader wrong-language review
 of Italian-seeded regional files remains open beyond this key.
+
+### 2026-09-15 — Asian-script list-width lower bounds
+
+Source commit `8cc659ac9` repairs 24 distinct JSON locale values:
+Amharic, Assamese, Bhojpuri, Bengali, Tibetan, Dzongkha, Gujarati,
+Kannada, Kashmiri, Malayalam, Marathi, Burmese, Nepali, Odia, Punjabi,
+Sinhala, Tamil, Telugu, Thai, Tigrinya, Uyghur, Javanese, Sindhi and
+Pashto. The old values stated “greater than 270”; each replacement
+states an inclusive 200-pixel whole-number minimum. The native
+lower-bound terms are already present in related local translations:
+`ቢያንስ`, `অন্ততঃ`, `कम से कम`, `অন্তত`, `ཉུང་མཐར`,
+`ઓછામાં ઓછા`, `ಕನಿಷ್ಠ`, `کم از کم`, `കുറഞ്ഞത്`, `किमान`,
+`အနည်းဆုံး`, `कम्तीमा`, `ଅତିକମରେ`, `ਘੱਟੋ-ਘੱਟ`,
+`අවම වශයෙන්`, `குறைந்தது`, `కనీసం`, `อย่างน้อย`,
+`እንተወሓደ`, `كەم دېگەندە`, `paling ora`, `گهٽ ۾ گهٽ`
+and `لږ تر لږه`. The Tibetan, Dzongkha, Bhojpuri, Kashmiri,
+Odia, Sinhala, Tigrinya and Pashto complete clauses remain low
+confidence pending native grammar review; their integer, pixel and
+inclusive-boundary meanings are explicit. The focused suite checks
+all 24 native phrase inventories, absence of obsolete 270, one
+correction row per locale, exact final after-values, explicit
+uncertainty reasons and runtime Thai lookup. Dzongkha, Burmese,
+Marathi, Javanese, Malayalam, Nepali and Tigrinya progress suites
+previously expected 270; they now check their actual inclusive 200
+phrases. Correction-ledger integrity, 234-locale completeness and
+audit-progress checks pass. Ledger grows from 22,075 to 22,099;
+stale list-width queue falls from 91 to 67. The original 20,081
+audit-row classifications remain unchanged. No live UI test or
+remote write occurred.
