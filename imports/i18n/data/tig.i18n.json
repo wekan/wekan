@@ -2086,7 +2086,7 @@
   "max-avatar-filesize": "ዝለዓለ ዓቐን ፋይል ስእሊ መንነት ብባይት፦",
   "allowed-avatar-filetypes": "ዝፍቀዱ ዓይነታት ፈይል ስእሊ መንነት፦",
   "invalid-file": "ስም ፋይል ዘይቅቡል እንተኾይኑ፣ ምስቃል ወይ ስም ምቕያር ይስረዝ።",
-  "preview-pdf-not-supported": "መሳርሒኻ ቅድመ ርእይቶ PDF ኣይድግፍን። ኣብ ክንድኡ ከተውርዶ ፈትን።",
+  "preview-pdf-not-supported": "ርእየት-ሰልፍ PDF እት ጀሃዝከ ኢልትረከብ። በደል PDF እግል ጸዐን ፈትን።",
   "drag-board": "ምዱድ ስሓብ",
   "drag-board-to-workspace": "ምዱድ ናብ __workspaces__ ንምምዳብ ስሓብ (ኣብ ቦታ ዕዮ ኣብ ጎድናዊ ኣሞሌ ኣንብሮ)",
   "translation-number": "ብዝሒ ፍሉያት ሰንሰለታት ትርጉም፦",

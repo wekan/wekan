@@ -153438,5 +153438,12 @@
     "before": "ናይ ምርግጋጽ ኮድ ልክዕ ኣይኮነን። በጃኻ ደጊምካ ፈትን።",
     "after": "ኮድ መረጋገጺ ቀለጥ ሀለ። ዐይብከ፡ ካልእ ዶል ፈትን።",
     "reason": "2026-09-15 unflagged exact Tigre/Tigrinya overlap repair: replace copied authentication-error clause. BeitTigreAI Tigre-English phrasebook attests ህቱ ቀለጥ ሀለ (Wrong), ዐይብከ (Please) and ካልእ ዶል ፈትን (Try again). Authentication-code noun phrase is composed with existing Tigre UI terminology and remains low confidence pending native review. No placeholders."
+  },
+  {
+    "locale": "tig",
+    "key": "preview-pdf-not-supported",
+    "before": "መሳርሒኻ ቅድመ ርእይቶ PDF ኣይድግፍን። ኣብ ክንድኡ ከተውርዶ ፈትን።",
+    "after": "ርእየት-ሰልፍ PDF እት ጀሃዝከ ኢልትረከብ። በደል PDF እግል ጸዐን ፈትን።",
+    "reason": "2026-09-15 unflagged exact Tigre/Tigrinya overlap repair: replace copied PDF preview warning. BeitTigreAI Tigre-English phrasebook attests ጀሃዝ (device), ርእየት-ሰልፍ (Preview), ኢልትረከብ (not available), በደል (instead), ጸዐን (Download) and ፈትን (Try again). Compose device suffix and full sentence as a low-confidence draft pending fluent review. Preserve PDF literal and alternative download action; no placeholders."
   }
 ]
