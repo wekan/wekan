@@ -155566,5 +155566,19 @@
     "before": "sélecteur",
     "after": "selector",
     "reason": "Replace French technical Mongo selector term with portable selector debug keyword; native one-word software term remains open."
+  },
+  {
+    "locale": "zgh",
+    "key": "filter-creator-label",
+    "before": "Filtrer par personne المنشئ",
+    "after": "ⵣⵉⵣⴷⵉⴳ ⵙ ⵓⵎⵙⵏⴼⵍⵓⵍ",
+    "reason": "Replace mixed French and Arabic creator filter label with local Tamazight filter and creator terms; the complete genitive phrase remains low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "creator-on-minicard",
+    "before": "الخالق على بطاقة صغيرة",
+    "after": "ⴰⵎⵙⵏⴼⵍⵓⵍ ⵖⴼ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵥⵢⴰⵏⵜ",
+    "reason": "Replace Arabic minicard creator label with native creator and existing minicard/on-card terms; complete phrase grammar remains low confidence."
   }
 ]
