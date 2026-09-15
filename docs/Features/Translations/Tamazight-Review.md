@@ -4403,3 +4403,11 @@ question. Four focused suites pass. Full technical compounds and longer
 mapping/confirmation grammar remain low confidence. This clears the original
 Tamazight audit queue; it does not certify the whole locale or earlier draft
 compounds. No live UI test or remote write ran.
+
+2026-09-15 — `780a75a2b`: replace one unflagged French due-reminder activity.
+IRCAM attests `askti` (reminder); the plural adaptation `ⵉⵙⴽⵜⵉⵏ` and
+complete phrase remain low confidence pending fluent review. Preserve
+`__list__`, `__card__` and `__board__` exactly. Source selects `act-withDue`
+after an earlier due date, and the focused runtime test verifies slot
+interpolation. Ledger 21,898; original classified counts unchanged. No
+live UI test or remote write ran.

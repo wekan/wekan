@@ -649,7 +649,17 @@ full contextual grammar remains under native review.
 
 This release includes the following features and fixes:
 
-**Translations** - Tamazight rule state labels.
+**Translations** - Tamazight rule state labels and due-reminder activity.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/780a75a2b">Repair Tamazight due-reminder activity</a>. Thanks to xet7.</summary>
+
+Replace a French activity phrase with Tamazight while keeping its three
+runtime placeholders. A focused test verifies selector wiring, source
+meaning and interpolation. Reminder terminology is sourced from IRCAM;
+the plural phrase awaits native review.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4e8f1b7dd">Repair Tamazight checklist trigger state labels</a>. Thanks to xet7.</summary>

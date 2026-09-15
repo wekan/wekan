@@ -31309,3 +31309,20 @@ noun, but their complete clauses remain unclassified. Thus 22 complete
 forms are attested shared and 211 full values remain unclassified, including
 23 raw matches at least 20 characters and 6 at least 35. Team, Button and
 Collection plurals remain low confidence. No remote write occurred.
+
+### 2026-09-15 — Tamazight due-reminder activity
+
+Source commit `780a75a2b` replaces the unflagged French `act-withDue` value
+`__list__/__card__ rappel d'échéance [__board__]` with
+`__list__/__card__ ⵉⵙⴽⵜⵉⵏ ⵏ ⵓⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ [__board__]`.
+The [IRCAM Tamazight terminology PDF](https://biblio.ircam.ma/pmb/uploads/publications/132.pdf)
+attests `askti` for reminder; its plural adaptation here is low confidence
+pending native review. The neighboring first-reminder phrase supplies the
+due-date vocabulary. `activities.js` selects this key when an earlier due
+date exists. The English text says “due reminders”, though the selection
+uses prior due-date state; that source wording remains a separate issue.
+The focused test checks source sense, all three exact placeholders,
+wrong-language removal, selector wiring and i18next runtime interpolation.
+Correction ledger now has 21,898 final records; original audit-row counts
+remain 15,880 corrected, 4,201 retained and zero pending. No live UI test
+or remote write occurred.
