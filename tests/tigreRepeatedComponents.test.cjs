@@ -13,7 +13,7 @@ const reviewed = {
   "display-authentication-method": "ኣገባብ ምርግጋጽ መንነት ኣርኤ",
   "show-subtasks-field": "ዓውዲ ንኡሳን ዕማማት ኣርኤ",
   "importDependenciesPopup-title": "ጽግዕተኛነታት አምጸአ",
-  "trello-api-import": "ብመፍትሕን tokenን API ብቐጥታ ካብ Trello አምጸአ",
+  "trello-api-import": "ብመፍቲሕን tokenን API ብቐጥታ ካብ Trello አምጸአ",
   "import-source-heading": "ካብዚ አምጸአ፦",
   "see-all-starred-items": "ክሎም ኮከብ ዝተገብረሎም ኣቕንዖት ርአ",
   "delete-all-notifications": "ክሎም ምልክታታት ደምስስ",

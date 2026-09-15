@@ -29,7 +29,7 @@ const reviewed = {
   'custom-field-currency-option': 'ኮድ ግሩሽ',
   'email-invite': 'ብኢመይል ዐዝም',
   'import-trello-zip-too-large': 'እቲ .zip ንምእታው ኣዝዩ ገዚፍ እዩ።',
-  'trello-api-key': 'መፍትሕ Trello API (ምን https://trello.com/app-key)',
+  'trello-api-key': 'መፍቲሕ Trello API (ምን https://trello.com/app-key)',
   'trello-import-progress': 'ዐቦት ምእታው',
   'upload-avatar': 'ስእሊ መንነት ጸዐን',
   'upload-background': 'ስእሊ ድሕረ ባይታ ጸዐን',

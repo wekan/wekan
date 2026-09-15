@@ -147836,8 +147836,8 @@
     "locale": "tig",
     "key": "trello-api-import",
     "before": "ብመፍትሕን tokenን API ብቐጥታ ካብ Trello ኣእቱ",
-    "after": "ብመፍትሕን tokenን API ብቐጥታ ካብ Trello አምጸአ",
-    "reason": "2026-09-15: Replace a Tigrinya-seeded import component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review."
+    "after": "ብመፍቲሕን tokenን API ብቐጥታ ካብ Trello አምጸአ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded import component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review. 2026-09-15 Tigre Trello key noun review: BeitTigreAI phrasebook attests መፍቲሕ for key. Apply to the Trello credential family while preserving token, Trello API, .json and URL literals. Full compound grammar remains low confidence. The required prompt also uses corpus-attested ዐይብከ (please), ክልኢቶም (both) and ኣተ (enter), with composed word order pending fluent review."
   },
   {
     "locale": "tig",
@@ -149152,8 +149152,8 @@
     "locale": "tig",
     "key": "trello-api-key",
     "before": "መፍትሕ Trello API (ካብ https://trello.com/app-key)",
-    "after": "መፍትሕ Trello API (ምን https://trello.com/app-key)",
-    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+    "after": "መፍቲሕ Trello API (ምን https://trello.com/app-key)",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation. 2026-09-15 Tigre Trello key noun review: BeitTigreAI phrasebook attests መፍቲሕ for key. Apply to the Trello credential family while preserving token, Trello API, .json and URL literals. Full compound grammar remains low confidence. The required prompt also uses corpus-attested ዐይብከ (please), ክልኢቶም (both) and ኣተ (enter), with composed word order pending fluent review."
   },
   {
     "locale": "tig",
@@ -150594,8 +150594,8 @@
     "locale": "tig",
     "key": "import-trello-json-file-hint",
     "before": "ሓደ ሰሌዳ Trello ከም .json ዝወጸ። መፍትሕን tokenን Trello API እንተዓቂብካ፣ ተለጠፍቱ፣ ድሕረ ባይታ ሰሌዳን ስእልታት መንነት ኣባላትን እውን ይወርዱ።",
-    "after": "ሓደ ምዱድ Trello ከም .json ዝወጸ። መፍትሕን tokenን Trello API እንተዓቂብካ፣ ተለጠፍቱ፣ ድሕረ ባይታ ምዱድን ስእልታት መንነት ኣባላትን እውን ይወርዱ።",
-    "reason": "2026-09-15: Replace remaining embedded Tigrinya Board and Card nouns with corpus-attested Tigre singular/plural forms, restricted to English Board/Card senses. Preserve placeholders and surrounding clauses; exclude Clipboard uses and guard already-correct Tigre Card compounds against duplication."
+    "after": "ሓደ ምዱድ Trello ከም .json ዝወጸ። መፍቲሕን tokenን Trello API እንተዓቂብካ፣ ተለጠፍቱ፣ ድሕረ ባይታ ምዱድን ስእልታት መንነት ኣባላትን እውን ይወርዱ።",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Board and Card nouns with corpus-attested Tigre singular/plural forms, restricted to English Board/Card senses. Preserve placeholders and surrounding clauses; exclude Clipboard uses and guard already-correct Tigre Card compounds against duplication. 2026-09-15 Tigre Trello key noun review: BeitTigreAI phrasebook attests መፍቲሕ for key. Apply to the Trello credential family while preserving token, Trello API, .json and URL literals. Full compound grammar remains low confidence. The required prompt also uses corpus-attested ዐይብከ (please), ክልኢቶም (both) and ኣተ (enter), with composed word order pending fluent review."
   },
   {
     "locale": "tig",
@@ -150636,8 +150636,8 @@
     "locale": "tig",
     "key": "trello-api-import-desc",
     "before": "ቦታታት ዕዮን ሰሌዳታትን Trello ንምዝርዛር መፍትሕን tokenን Trello API ለጥፍ፣ ድሕሪኡ ነቶም ዝተመርጹ ምስ ተለጠፍቶም ኣእቱ።",
-    "after": "ቦታታት ዕዮን ምዱዳትን Trello ንምዝርዛር መፍትሕን tokenን Trello API ለጥፍ፣ ድሕሪኡ ነቶም ዝተመርጹ ምስ ተለጠፍቶም ኣእቱ።",
-    "reason": "2026-09-15: Replace remaining embedded Tigrinya Board and Card nouns with corpus-attested Tigre singular/plural forms, restricted to English Board/Card senses. Preserve placeholders and surrounding clauses; exclude Clipboard uses and guard already-correct Tigre Card compounds against duplication."
+    "after": "ቦታታት ዕዮን ምዱዳትን Trello ንምዝርዛር መፍቲሕን tokenን Trello API ለጥፍ፣ ድሕሪኡ ነቶም ዝተመርጹ ምስ ተለጠፍቶም ኣእቱ።",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Board and Card nouns with corpus-attested Tigre singular/plural forms, restricted to English Board/Card senses. Preserve placeholders and surrounding clauses; exclude Clipboard uses and guard already-correct Tigre Card compounds against duplication. 2026-09-15 Tigre Trello key noun review: BeitTigreAI phrasebook attests መፍቲሕ for key. Apply to the Trello credential family while preserving token, Trello API, .json and URL literals. Full compound grammar remains low confidence. The required prompt also uses corpus-attested ዐይብከ (please), ክልኢቶም (both) and ኣተ (enter), with composed word order pending fluent review."
   },
   {
     "locale": "tig",
@@ -153324,8 +153324,8 @@
     "locale": "tig",
     "key": "s3-bucket-description",
     "before": "S3 bucket name for storing files",
-    "after": "ስሜት ባልዲ S3 ፈይላት ንምዕቃብ",
-    "reason": "2026-09-15 unflagged Tigre S3 settings fill: English placeholder replaced using established local storage, file, bucket, connection, port, region, size and key terminology. Preserve S3/AWS/MinIO/service names, Endpoint, URL, SSL and exact example hostnames. Compound word order remains low confidence pending native review."
+    "after": "ስሜት ባልዲ S3 ፋይላት ንምዕቃብ",
+    "reason": "2026-09-15 unflagged Tigre S3 settings fill: English placeholder replaced using established local storage, file, bucket, connection, port, region, size and key terminology. Preserve S3/AWS/MinIO/service names, Endpoint, URL, SSL and exact example hostnames. Compound word order remains low confidence pending native review. 2026-09-15 follow-up: replace provisional ፈይላት with corpus-attested ፋይላት, as required by the full Tigre plural guard."
   },
   {
     "locale": "tig",
@@ -153445,5 +153445,26 @@
     "before": "መሳርሒኻ ቅድመ ርእይቶ PDF ኣይድግፍን። ኣብ ክንድኡ ከተውርዶ ፈትን።",
     "after": "ርእየት-ሰልፍ PDF እት ጀሃዝከ ኢልትረከብ። በደል PDF እግል ጸዐን ፈትን።",
     "reason": "2026-09-15 unflagged exact Tigre/Tigrinya overlap repair: replace copied PDF preview warning. BeitTigreAI Tigre-English phrasebook attests ጀሃዝ (device), ርእየት-ሰልፍ (Preview), ኢልትረከብ (not available), በደል (instead), ጸዐን (Download) and ፈትን (Try again). Compose device suffix and full sentence as a low-confidence draft pending fluent review. Preserve PDF literal and alternative download action; no placeholders."
+  },
+  {
+    "locale": "tig",
+    "key": "trello-api-token",
+    "before": "token Trello API (ኣብ ታሕቲ መፍትሕ API ብኢድ ዝፍጠር)",
+    "after": "token Trello API (ኣብ ታሕቲ መፍቲሕ API ብኢድ ዝፍጠር)",
+    "reason": "2026-09-15 Tigre Trello key noun review: BeitTigreAI phrasebook attests መፍቲሕ for key. Apply to the Trello credential family while preserving token, Trello API, .json and URL literals. Full compound grammar remains low confidence. The required prompt also uses corpus-attested ዐይብከ (please), ክልኢቶም (both) and ኣተ (enter), with composed word order pending fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "trello-api-credentials-required",
+    "before": "በጃኻ መፍትሕን tokenን Trello API ክልቲኦም ኣእቱ።",
+    "after": "ዐይብከ፡ መፍቲሕ Trello API ወ token ክልኢቶም ኣተ።",
+    "reason": "2026-09-15 Tigre Trello key noun review: BeitTigreAI phrasebook attests መፍቲሕ for key. Apply to the Trello credential family while preserving token, Trello API, .json and URL literals. Full compound grammar remains low confidence. The required prompt also uses corpus-attested ዐይብከ (please), ክልኢቶም (both) and ኣተ (enter), with composed word order pending fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "trello-api-credentials-saved",
+    "before": "መፍትሕን tokenን Trello API ተዓቂቦም። ዳግም ከየእተኻዮም ቦታታት ዕዮ ክትዝርዝር ትኽእል።",
+    "after": "መፍቲሕን tokenን Trello API ተዓቂቦም። ዳግም ከየእተኻዮም ቦታታት ዕዮ ክትዝርዝር ትኽእል።",
+    "reason": "2026-09-15 Tigre Trello key noun review: BeitTigreAI phrasebook attests መፍቲሕ for key. Apply to the Trello credential family while preserving token, Trello API, .json and URL literals. Full compound grammar remains low confidence. The required prompt also uses corpus-attested ዐይብከ (please), ክልኢቶም (both) and ኣተ (enter), with composed word order pending fluent review."
   }
 ]

@@ -16,6 +16,10 @@ for (const key of ['api-report-desc', 's3-endpoint-menu-path',
     `${key}: must not call an Endpoint an end`);
   assert.notEqual(tigre[key], tigrinya[key], `${key}: seed removed`);
 }
-assert.equal(tigre['s3-endpoint'], 'S3 Endpoint');
-assert.match(tigre['s3-endpoint-description'], /S3 endpoint URL/);
+assert.equal(tigre['s3-endpoint'], 'ኣድራሻ Endpoint S3');
+assert.match(tigre['s3-endpoint-description'], /URL Endpoint S3/u);
+assert.match(tigre['s3-endpoint-description'],
+  /s3\.amazonaws\.com.*minio\.example\.com/u);
+assert.doesNotMatch(tigre['s3-endpoint'], /መወዳእታ/u,
+  'endpoint remains an address rather than a temporal end');
 console.log('Three Tigre Endpoint contexts repaired.');

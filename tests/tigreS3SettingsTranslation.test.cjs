@@ -34,7 +34,8 @@ assert.match(tigre['s3-connection-success'], /ተሳኺዑ/u);
 assert.notEqual(tigre['s3-connection-failed'], tigre['s3-connection-success']);
 assert.match(tigre['s3-enabled'], /ነቒሑ/u);
 assert.match(tigre['s3-disabled'], /ጠፊኡ/u);
-assert.match(tigre['s3-bucket-description'], /ፈይላት/u);
+assert.match(tigre['s3-bucket-description'], /ፋይላት/u,
+  'corpus-attested file plural stays consistent with other Tigre values');
 assert.match(tigre['s3-port-description'], /ቁጽሪ/u);
 assert.match(tigre['s3-endpoint-description'],
   /s3\.amazonaws\.com.*minio\.example\.com/u);
