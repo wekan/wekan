@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Tautuhi whānui",
   "set-list-width": "Tautuhi whānui",
   "set-list-width-value": "Whānui rārangi (pika)",
-  "list-width-error-message": "Me noho te whānui rārangi hei tau tōpū nui ake i te 270",
+  "list-width-error-message": "Me noho te whānui rārangi hei tau tōpū, i te iti rawa 200 pika",
   "list-width-shared-note": "Ka tuarihia tēnei whānui ki te katoa i tēnei papa.",
   "list-width-personal-note": "Māu anake tēnei whānui.",
   "personal-list-width": "Ngā whānui rārangi whaiaro",

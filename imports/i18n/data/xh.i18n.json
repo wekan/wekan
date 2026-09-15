@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Misela ububanzi",
   "set-list-width": "Misela ububanzi",
   "set-list-width-value": "Ububanzi boluhlu (iipixels)",
-  "list-width-error-message": "Ububanzi boluhlu kufuneka bube linani elipheleleyo elingaphezu kwama-270",
+  "list-width-error-message": "Ububanzi boluhlu kufuneka bube linani elipheleleyo lee-pixels ezingama-200 ubuncinane",
   "list-width-shared-note": "Obu bubanzi babelwana nawo wonke umntu kule bhodi.",
   "list-width-personal-note": "Obu bubanzi bobakho kuphela.",
   "personal-list-width": "Ububanzi boluhlu bobuqu",

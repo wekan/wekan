@@ -55,7 +55,8 @@ assert.match(maori['allboards.edit-workspace-icon'], /markdown/);
 assert.equal(maori['workspaceActionsPopup-title'],
   'Ngā Tautuhinga Mokowāmahi');
 assert.deepEqual(tokens(maori['activity-dueDate']), ['%s', '%s']);
-assert.match(maori['list-width-error-message'], /270/);
+assert.match(maori['list-width-error-message'], /tau tōpū, i te iti rawa 200 pika/);
+assert.doesNotMatch(maori['list-width-error-message'], /270/);
 assert.match(maori['set-list-width-value'], /pika/);
 assert.match(maori['set-swimlane-height-value'], /pika/);
 assert.equal(maori['add-checklist'], 'Tāpiri Rārangi Arowhai');

@@ -51,7 +51,8 @@ assert.equal(tswana['allboards.workspaces'], 'Mafelo a tiro');
 assert.match(tswana['allboards.edit-workspace-icon'], /markdown/);
 
 assert.deepEqual(tokens(tswana['activity-dueDate']), ['%s', '%s']);
-assert.match(tswana['list-width-error-message'], /270/);
+assert.match(tswana['list-width-error-message'], /palogotlhe ya bonnye dipiksele di le 200/);
+assert.doesNotMatch(tswana['list-width-error-message'], /270/);
 assert.match(tswana['set-swimlane-height-value'], /dipiksele/);
 assert.equal(tswana['convertChecklistItemToCardPopup-title'],
   'Fetolela go karata');

@@ -154775,5 +154775,68 @@
     "before": "רשימה־ברייט מוז זייַן אַ גאַנצע צאָל גרעסער פֿון 270",
     "after": "רשימה־ברייט מוז זײַן אַ גאַנצע צאָל פֿון כאָטש 200 פּיקסלען",
     "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "nd",
+    "key": "list-width-error-message",
+    "before": "Ububanzi boluhlu kumele bube yinombolo epheleleyo enkulu kuka-270",
+    "after": "Ububanzi boluhlu kumele bube yinombolo epheleleyo okungenani amaphikseli angu-200",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording."
+  },
+  {
+    "locale": "ss",
+    "key": "list-width-error-message",
+    "before": "Bubanti beluhlu kufanele bube yinombolo lephelele lenkhulu kuna-270",
+    "after": "Bubanti beluhlu kufanele bube yinombolo lephelele lokungenani emapikseli langu-200",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording."
+  },
+  {
+    "locale": "tn",
+    "key": "list-width-error-message",
+    "before": "Bophara jwa lenaane bo tshwanetse go nna palogotlhe e e fetang 270",
+    "after": "Bophara jwa lenaane bo tshwanetse go nna palogotlhe ya bonnye dipiksele di le 200",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording."
+  },
+  {
+    "locale": "rw",
+    "key": "list-width-error-message",
+    "before": "Ubugari bw'urutonde bugomba kuba umubare wuzuye urenga 270",
+    "after": "Ubugari bw'urutonde bugomba kuba umubare wuzuye wa nibura 200 pixels",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "xh",
+    "key": "list-width-error-message",
+    "before": "Ububanzi boluhlu kufuneka bube linani elipheleleyo elingaphezu kwama-270",
+    "after": "Ububanzi boluhlu kufuneka bube linani elipheleleyo lee-pixels ezingama-200 ubuncinane",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "st",
+    "key": "list-width-error-message",
+    "before": "Bophara ba lenane e lokela ho ba nomoro e felletseng e fetang 270",
+    "after": "Bophara ba lenane e lokela ho ba nomoro e felletseng ya bonyane dipiksele tse 200",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording."
+  },
+  {
+    "locale": "sm",
+    "key": "list-width-error-message",
+    "before": "E tatau ona avea le lautele o le lisi ma numera atoa e sili atu i le 270",
+    "after": "E tatau ona avea le lautele o le lisi ma numera atoa e lē itiiti ifo i le 200 pixels",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording."
+  },
+  {
+    "locale": "yo",
+    "key": "list-width-error-message",
+    "before": "Ibú atokọ gbọdọ jẹ odidi ti o tobi ju 270 lọ",
+    "after": "Ibú atokọ gbọdọ jẹ odidi o kere ju 200 piksẹli",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "mi",
+    "key": "list-width-error-message",
+    "before": "Me noho te whānui rārangi hei tau tōpū nui ake i te 270",
+    "after": "Me noho te whānui rārangi hei tau tōpū, i te iti rawa 200 pika",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
   }
 ]
