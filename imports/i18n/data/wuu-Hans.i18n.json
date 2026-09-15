@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "设置宽度",
   "set-list-width": "设置宽度",
   "set-list-width-value": "列表宽度（像素）",
-  "list-width-error-message": "列表宽度必须为大于 270 的整数",
+  "list-width-error-message": "列表个宽度起码要 200 像素，数值还要是整数。",
   "list-width-shared-note": "此宽度对本看板上的所有人共享。",
   "list-width-personal-note": "此宽度仅对你生效。",
   "personal-list-width": "个人列表宽度",

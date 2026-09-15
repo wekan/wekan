@@ -154117,5 +154117,82 @@
     "before": "ទទឹងបញ្ជីត្រូវតែជាចំនួនគត់ធំជាង 270",
     "after": "ទទឹងបញ្ជីត្រូវតែជាចំនួនគត់យ៉ាងហោចណាស់ 200 ភីកសែល។",
     "reason": "Replace obsolete >270 rule with the actual inclusive 200-pixel integer minimum using this locale’s existing width, number and lower-bound wording."
+  },
+  {
+    "locale": "cmn",
+    "key": "list-width-error-message",
+    "before": "列表宽度必须为大于 270 的整数",
+    "after": "列表宽度必须是至少 200 像素的整数。",
+    "reason": "Replace >270 with an inclusive whole-number minimum of 200 pixels using Simplified Mandarin terms already present in the locale."
+  },
+  {
+    "locale": "zh",
+    "key": "list-width-error-message",
+    "before": "列表宽度必须为大于 270 的整数",
+    "after": "列表宽度必须是至少 200 像素的整数。",
+    "reason": "Replace >270 with an inclusive whole-number minimum of 200 pixels using Simplified Mandarin terms already present in the locale."
+  },
+  {
+    "locale": "zh-CN",
+    "key": "list-width-error-message",
+    "before": "列表宽度必须为大于 270 的整数",
+    "after": "列表宽度必须是至少 200 像素的整数。",
+    "reason": "Replace >270 with an inclusive whole-number minimum of 200 pixels using Simplified Mandarin terms already present in the locale."
+  },
+  {
+    "locale": "zh-GB",
+    "key": "list-width-error-message",
+    "before": "列表宽度必须为大于 270 的整数",
+    "after": "列表宽度必须是至少 200 像素的整数。",
+    "reason": "Replace >270 with an inclusive whole-number minimum of 200 pixels using Simplified Mandarin terms already present in the locale."
+  },
+  {
+    "locale": "zh-Hans",
+    "key": "list-width-error-message",
+    "before": "列表宽度必须为大于 270 的整数",
+    "after": "列表宽度必须是至少 200 像素的整数。",
+    "reason": "Replace >270 with an inclusive whole-number minimum of 200 pixels using Simplified Mandarin terms already present in the locale."
+  },
+  {
+    "locale": "zh_SG",
+    "key": "list-width-error-message",
+    "before": "列表宽度必须为大于 270 的整数",
+    "after": "列表宽度必须是至少 200 像素的整数。",
+    "reason": "Replace >270 with an inclusive whole-number minimum of 200 pixels using Simplified Mandarin terms already present in the locale."
+  },
+  {
+    "locale": "zh-HK",
+    "key": "list-width-error-message",
+    "before": "清單寬度必須為大於 270 的整數",
+    "after": "清單寬度必須是至少 200 畫素的整數。",
+    "reason": "Replace >270 with an inclusive whole-number minimum of 200 pixels using existing Traditional Chinese list and pixel terms."
+  },
+  {
+    "locale": "zh-Hant",
+    "key": "list-width-error-message",
+    "before": "清單寬度必須為大於 270 的整數",
+    "after": "清單寬度必須是至少 200 畫素的整數。",
+    "reason": "Replace >270 with an inclusive whole-number minimum of 200 pixels using existing Traditional Chinese list and pixel terms."
+  },
+  {
+    "locale": "zh-TW",
+    "key": "list-width-error-message",
+    "before": "清單寬度必須為大於 270 的整數",
+    "after": "清單寬度必須是至少 200 畫素的整數。",
+    "reason": "Replace >270 with an inclusive whole-number minimum of 200 pixels using existing Traditional Chinese list and pixel terms."
+  },
+  {
+    "locale": "wuu-Hans",
+    "key": "list-width-error-message",
+    "before": "列表宽度必须为大于 270 的整数",
+    "after": "列表个宽度起码要 200 像素，数值还要是整数。",
+    "reason": "Replace Mandarin-seeded >270 rule with provisional Wu-style 个 and 起码; full Wu sentence remains low-confidence pending native review."
+  },
+  {
+    "locale": "yue_CN",
+    "key": "list-width-error-message",
+    "before": "列表宽度必须为大于 270 的整数",
+    "after": "列表嘅闊度至少要 200 像素，而且要係整數。",
+    "reason": "Replace Mandarin-seeded >270 rule with provisional Cantonese 嘅, 闊度 and 係; complete Cantonese sentence remains low-confidence pending native review."
   }
 ]
