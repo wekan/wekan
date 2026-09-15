@@ -2854,6 +2854,21 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   }
   assert.match(vepsTranslator.t('globalSearch-instructions-description', { operator_list: 'lugetiž' }), /`lugetiž:Blocked`.*keskustoid libo eriližid simvoloid.*`lugetiž:"Kodvi"`/);
   assert.match(vepsTranslator.t('globalSearch-instructions-operator-due', { operator_due: 'märaig', predicate_overdue: cache['ve-PP']['predicate-overdue'] }), /`märaig:<n>`.*\*<n>\* päivässai.*`märaig:möhäline`.*märaig om männu/);
+  const vepsCardNumberSearch = {
+    'card-number': 'Kartan nomer',
+    'operator-number': 'lugu',
+    'globalSearch-instructions-operator-number': '`__operator_number__:<number>` - kartad, miččiden kartan nomer om *<number>*',
+  };
+  for (const [key, value] of Object.entries(vepsCardNumberSearch)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.doesNotMatch(value, /Inombolo|ikhadi|amakhadi|anenombolo|engu-/i, key);
+  }
+  assert.equal(
+    vepsTranslator.t('globalSearch-instructions-operator-number', { operator_number: 'nomer' }),
+    '`nomer:<number>` - kartad, miččiden kartan nomer om *<number>*',
+  );
+  assert.equal(cache['ve-PP']['operator-number'], cache['ve-PP'].number.toLowerCase());
+  assert.match(cache['ve-PP']['card-sorting-by-number'], /Kartoiden.*nomeran mödhe/);
   assert.equal(vepsTranslator.t('MongoDB_storage_engine'), 'MongoDB kaičusen motor');
   assert.doesNotMatch(vepsTranslator.t('MongoDB_storage_engine'), /tallennusmoottori/);
   assert.equal(vepsTranslator.t('zoom-in'), 'Surenda');

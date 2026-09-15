@@ -139746,5 +139746,26 @@
     "before": "Nzhengeledzo ya masia a khontḓo dza dziṅwalo dzi sumbedzwaho nṱha ha lushaka",
     "after": "Kävutajan märitud lugu-pöudoiden luguiden ližaduz, miččed oma märitud ozutada lugetižen ülähäl",
     "reason": "Replace Tshivenda with Veps numeric-field addition draft. Rendered dictionary page 419 directly attests luguiden ližaduz for addition of numbers; preserve custom number fields marked for list top. Full compound/case/list-top grammar remains low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card-number",
+    "before": "Inombolo yekhadi",
+    "after": "Kartan nomer",
+    "reason": "Replace Zulu card-number search labels with Veps. Existing Veps UI uses kart for card, the native number label Lugu, and the established card-sorting phrase nomeran mödhe for an identifier; preserve the literal <number> examples and __operator_number__ placeholder. Full relative-clause grammar remains low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "operator-number",
+    "before": "inombolo",
+    "after": "lugu",
+    "reason": "Replace Zulu card-number search labels with Veps. Existing Veps UI uses kart for card, the native number label Lugu, and the established card-sorting phrase nomeran mödhe for an identifier; preserve the literal <number> examples and __operator_number__ placeholder. Full relative-clause grammar remains low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "globalSearch-instructions-operator-number",
+    "before": "`__operator_number__:<number>` - amakhadi anenombolo yekhadi engu-*<number>*",
+    "after": "`__operator_number__:<number>` - kartad, miččiden kartan nomer om *<number>*",
+    "reason": "Replace Zulu card-number search labels with Veps. Existing Veps UI uses kart for card, the native number label Lugu, and the established card-sorting phrase nomeran mödhe for an identifier; preserve the literal <number> examples and __operator_number__ placeholder. Full relative-clause grammar remains low confidence."
   }
 ]
