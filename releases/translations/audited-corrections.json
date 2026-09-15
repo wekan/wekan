@@ -148349,5 +148349,124 @@
     "before": "ካርድታት መልስ",
     "after": "ወረቀት ካርዳት መልስ",
     "reason": "2026-09-15: Replace remaining Tigrinya singular, plural and possessive Card components with corpus-attested Tigre Card forms already reviewed in the correction ledger. Preserve surrounding long-clause grammar, numbers, quoted tokens and punctuation for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "imported-member-no-account",
+    "before": "ዝኣተወ ኣባል — ገና ዝሰማማዕ መለያ የለን",
+    "after": "ዝኣተወ ኣባል — ገና ዝሰማማዕ ሕሳብ የለን",
+    "reason": "2026-09-15: Replace exact Tigrinya Account, Storage and Templates components with corpus-attested Tigre terms already established by reviewed correction-ledger entries; preserve surrounding wording, literals and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "if-you-already-have-an-account",
+    "before": "ድሮ መለያ እንተለካ",
+    "after": "ድሮ ሕሳብ እንተለካ",
+    "reason": "2026-09-15: Replace exact Tigrinya Account, Storage and Templates components with corpus-attested Tigre terms already established by reviewed correction-ledger entries; preserve surrounding wording, literals and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "azure-account-key",
+    "before": "መፍትሕ መለያ",
+    "after": "መፍትሕ ሕሳብ",
+    "reason": "2026-09-15: Replace exact Tigrinya Account, Storage and Templates components with corpus-attested Tigre terms already established by reviewed correction-ledger entries; preserve surrounding wording, literals and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "azure-connection-string-description",
+    "before": "ኣማራጺ፦ ኣብ ክንዲ ስምን መፍትሕን መለያ ምሉእ ሰንሰለት ምትእስሳር ተጠቐም።",
+    "after": "ኣማራጺ፦ ኣብ ክንዲ ስምን መፍትሕን ሕሳብ ምሉእ ሰንሰለት ምትእስሳር ተጠቐም።",
+    "reason": "2026-09-15: Replace exact Tigrinya Account, Storage and Templates components with corpus-attested Tigre terms already established by reviewed correction-ledger entries; preserve surrounding wording, literals and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "gcs-credentials",
+    "before": "መረጋገጺታት መለያ ኣገልግሎት (JSON)",
+    "after": "መረጋገጺታት ሕሳብ ኣገልግሎት (JSON)",
+    "reason": "2026-09-15: Replace exact Tigrinya Account, Storage and Templates components with corpus-attested Tigre terms already established by reviewed correction-ledger entries; preserve surrounding wording, literals and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "azure-account-name-description",
+    "before": "ስም መለያ Azure Storageኻ።",
+    "after": "ስሜት ሕሳብ Azure Storageኻ።",
+    "reason": "2026-09-15: Replace exact Tigrinya Account, Storage and Templates components with corpus-attested Tigre terms already established by reviewed correction-ledger entries; preserve surrounding wording, literals and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "already-account",
+    "before": "ድሮ መለያ ኣለካ? እቶ",
+    "after": "ድሮ ሕሳብ ኣለካ? እቶ",
+    "reason": "2026-09-15: Replace exact Tigrinya Account, Storage and Templates components with corpus-attested Tigre terms already established by reviewed correction-ledger entries; preserve surrounding wording, literals and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "account-created",
+    "before": "መለያ ተፈጢሩ! ሕጂ ክትኣቱ ትኽእል።",
+    "after": "ሕሳብ ተፈጢሩ! ሕጂ ክትኣቱ ትኽእል።",
+    "reason": "2026-09-15: Replace exact Tigrinya Account, Storage and Templates components with corpus-attested Tigre terms already established by reviewed correction-ledger entries; preserve surrounding wording, literals and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "default-save-storage",
+    "before": "ነባሪ መኽዘን ምዕቃብ",
+    "after": "ነባሪ መክዘን ምዕቃብ",
+    "reason": "2026-09-15: Replace exact Tigrinya Account, Storage and Templates components with corpus-attested Tigre terms already established by reviewed correction-ledger entries; preserve surrounding wording, literals and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "default-save-storage-saved",
+    "before": "ነባሪ መኽዘን ምዕቃብ ተዓቂቡ",
+    "after": "ነባሪ መክዘን ምዕቃብ ተዓቂቡ",
+    "reason": "2026-09-15: Replace exact Tigrinya Account, Storage and Templates components with corpus-attested Tigre terms already established by reviewed correction-ledger entries; preserve surrounding wording, literals and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "backup-storage",
+    "before": "ናብ መኽዘን ዓቅብ",
+    "after": "ናብ መክዘን ዓቅብ",
+    "reason": "2026-09-15: Replace exact Tigrinya Account, Storage and Templates components with corpus-attested Tigre terms already established by reviewed correction-ledger entries; preserve surrounding wording, literals and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "cloud-settings-saved",
+    "before": "ቅንብራት መኽዘን ተዓቂቦም",
+    "after": "ቅንብራት መክዘን ተዓቂቦም",
+    "reason": "2026-09-15: Replace exact Tigrinya Account, Storage and Templates components with corpus-attested Tigre terms already established by reviewed correction-ledger entries; preserve surrounding wording, literals and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "attachment-storage-settings",
+    "before": "ቅንብራት መኽዘን",
+    "after": "ቅንብራት መክዘን",
+    "reason": "2026-09-15: Replace exact Tigrinya Account, Storage and Templates components with corpus-attested Tigre terms already established by reviewed correction-ledger entries; preserve surrounding wording, literals and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "list-templates-swimlane",
+    "before": "ኣብነታት ዝርዝር",
+    "after": "ሞደላት ዝርዝር",
+    "reason": "2026-09-15: Replace exact Tigrinya Account, Storage and Templates components with corpus-attested Tigre terms already established by reviewed correction-ledger entries; preserve surrounding wording, literals and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "email-templates-title",
+    "before": "ኢመይል ኣብነታት",
+    "after": "ኢመይል ሞደላት",
+    "reason": "2026-09-15: Replace exact Tigrinya Account, Storage and Templates components with corpus-attested Tigre terms already established by reviewed correction-ledger entries; preserve surrounding wording, literals and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "org-shared-templates",
+    "before": "ዝተኻፈሉ ኣብነታት",
+    "after": "ዝተኻፈሉ ሞደላት",
+    "reason": "2026-09-15: Replace exact Tigrinya Account, Storage and Templates components with corpus-attested Tigre terms already established by reviewed correction-ledger entries; preserve surrounding wording, literals and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "team-shared-templates",
+    "before": "ዝተኻፈሉ ኣብነታት",
+    "after": "ዝተኻፈሉ ሞደላት",
+    "reason": "2026-09-15: Replace exact Tigrinya Account, Storage and Templates components with corpus-attested Tigre terms already established by reviewed correction-ledger entries; preserve surrounding wording, literals and punctuation."
   }
 ]
