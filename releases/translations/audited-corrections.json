@@ -140243,5 +140243,110 @@
     "before": "Republic of China",
     "after": "ሚንጉዎ — አምዕል ለልተዐለብ እቱ ወድና አወርሕት (ሲን)",
     "reason": "2026-09-15: Replace Azerbaijani, English and incomplete calendar labels with a coordinated Tigre draft. The BeitTigreAI English–Tigre corpus directly glosses the full calendar expression and independently attests Tigre date, view, calculation, astronomy, country and religious terms. Preserve every calendar identity and distinguish civil/astronomical starting points from Saudi moon sighting. Full compounds, technical loans and proper-name spellings remain low confidence pending fluent review."
+  },
+  {
+    "locale": "iu",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "ᐅᓪᓗᖅᓯᐅᑎ ᐱᓕᕆᔾᔪᓯᖓ (ᐅᓪᓗᖅ ᑕᑯᑎᑕᐅᔪᖅ)",
+    "reason": "2026-09-15: Replace Azerbaijani and incomplete English calendar labels with a consistent Inuktitut display family using the official Nunavut-attested ᐅᓪᓗᖅᓯᐅᑎ calendar noun and existing local syllabic method, date-display, table, beginning, national and viewing vocabulary. Preserve standardized calendar names and distinguish civil, astronomical and moon-sighting Hijri variants. Proper-name adaptation and complete technical compounds remain low confidence pending fluent review."
+  },
+  {
+    "locale": "iu",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Jalali (Persian) — ᐅᓪᓗᖅᓯᐅᑎ",
+    "reason": "2026-09-15: Replace Azerbaijani and incomplete English calendar labels with a consistent Inuktitut display family using the official Nunavut-attested ᐅᓪᓗᖅᓯᐅᑎ calendar noun and existing local syllabic method, date-display, table, beginning, national and viewing vocabulary. Preserve standardized calendar names and distinguish civil, astronomical and moon-sighting Hijri variants. Proper-name adaptation and complete technical compounds remain low confidence pending fluent review."
+  },
+  {
+    "locale": "iu",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Buddhist — ᐅᓪᓗᖅᓯᐅᑎ",
+    "reason": "2026-09-15: Replace Azerbaijani and incomplete English calendar labels with a consistent Inuktitut display family using the official Nunavut-attested ᐅᓪᓗᖅᓯᐅᑎ calendar noun and existing local syllabic method, date-display, table, beginning, national and viewing vocabulary. Preserve standardized calendar names and distinguish civil, astronomical and moon-sighting Hijri variants. Proper-name adaptation and complete technical compounds remain low confidence pending fluent review."
+  },
+  {
+    "locale": "iu",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Chinese — ᐅᓪᓗᖅᓯᐅᑎ",
+    "reason": "2026-09-15: Replace Azerbaijani and incomplete English calendar labels with a consistent Inuktitut display family using the official Nunavut-attested ᐅᓪᓗᖅᓯᐅᑎ calendar noun and existing local syllabic method, date-display, table, beginning, national and viewing vocabulary. Preserve standardized calendar names and distinguish civil, astronomical and moon-sighting Hijri variants. Proper-name adaptation and complete technical compounds remain low confidence pending fluent review."
+  },
+  {
+    "locale": "iu",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Coptic — ᐅᓪᓗᖅᓯᐅᑎ",
+    "reason": "2026-09-15: Replace Azerbaijani and incomplete English calendar labels with a consistent Inuktitut display family using the official Nunavut-attested ᐅᓪᓗᖅᓯᐅᑎ calendar noun and existing local syllabic method, date-display, table, beginning, national and viewing vocabulary. Preserve standardized calendar names and distinguish civil, astronomical and moon-sighting Hijri variants. Proper-name adaptation and complete technical compounds remain low confidence pending fluent review."
+  },
+  {
+    "locale": "iu",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "Ethiopic Amete Alem — ᐅᓪᓗᖅᓯᐅᑎ",
+    "reason": "2026-09-15: Replace Azerbaijani and incomplete English calendar labels with a consistent Inuktitut display family using the official Nunavut-attested ᐅᓪᓗᖅᓯᐅᑎ calendar noun and existing local syllabic method, date-display, table, beginning, national and viewing vocabulary. Preserve standardized calendar names and distinguish civil, astronomical and moon-sighting Hijri variants. Proper-name adaptation and complete technical compounds remain low confidence pending fluent review."
+  },
+  {
+    "locale": "iu",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "Ethiopic — ᐅᓪᓗᖅᓯᐅᑎ",
+    "reason": "2026-09-15: Replace Azerbaijani and incomplete English calendar labels with a consistent Inuktitut display family using the official Nunavut-attested ᐅᓪᓗᖅᓯᐅᑎ calendar noun and existing local syllabic method, date-display, table, beginning, national and viewing vocabulary. Preserve standardized calendar names and distinguish civil, astronomical and moon-sighting Hijri variants. Proper-name adaptation and complete technical compounds remain low confidence pending fluent review."
+  },
+  {
+    "locale": "iu",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Hebrew — ᐅᓪᓗᖅᓯᐅᑎ",
+    "reason": "2026-09-15: Replace Azerbaijani and incomplete English calendar labels with a consistent Inuktitut display family using the official Nunavut-attested ᐅᓪᓗᖅᓯᐅᑎ calendar noun and existing local syllabic method, date-display, table, beginning, national and viewing vocabulary. Preserve standardized calendar names and distinguish civil, astronomical and moon-sighting Hijri variants. Proper-name adaptation and complete technical compounds remain low confidence pending fluent review."
+  },
+  {
+    "locale": "iu",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Indian ᓄᓇᓕᒫᒧᑦ — ᐅᓪᓗᖅᓯᐅᑎ",
+    "reason": "2026-09-15: Replace Azerbaijani and incomplete English calendar labels with a consistent Inuktitut display family using the official Nunavut-attested ᐅᓪᓗᖅᓯᐅᑎ calendar noun and existing local syllabic method, date-display, table, beginning, national and viewing vocabulary. Preserve standardized calendar names and distinguish civil, astronomical and moon-sighting Hijri variants. Proper-name adaptation and complete technical compounds remain low confidence pending fluent review."
+  },
+  {
+    "locale": "iu",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "Hijri — ᐅᓪᓗᖅᓯᐅᑎ",
+    "reason": "2026-09-15: Replace Azerbaijani and incomplete English calendar labels with a consistent Inuktitut display family using the official Nunavut-attested ᐅᓪᓗᖅᓯᐅᑎ calendar noun and existing local syllabic method, date-display, table, beginning, national and viewing vocabulary. Preserve standardized calendar names and distinguish civil, astronomical and moon-sighting Hijri variants. Proper-name adaptation and complete technical compounds remain low confidence pending fluent review."
+  },
+  {
+    "locale": "iu",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Hijri — ᐅᓪᓗᖅᓯᐅᑎ (ᓯᒃᑭᑕᖅ, ᐃᓄᓕᕆᓂᕐᒧᑦ ᐱᒋᐊᕐᓂᖅ)",
+    "reason": "2026-09-15: Replace Azerbaijani and incomplete English calendar labels with a consistent Inuktitut display family using the official Nunavut-attested ᐅᓪᓗᖅᓯᐅᑎ calendar noun and existing local syllabic method, date-display, table, beginning, national and viewing vocabulary. Preserve standardized calendar names and distinguish civil, astronomical and moon-sighting Hijri variants. Proper-name adaptation and complete technical compounds remain low confidence pending fluent review."
+  },
+  {
+    "locale": "iu",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Hijri — ᐅᓪᓗᖅᓯᐅᑎ (Saudi Arabia, ᑕᖅᑭᖅ ᑕᑯᔭᐅᓂᖓ)",
+    "reason": "2026-09-15: Replace Azerbaijani and incomplete English calendar labels with a consistent Inuktitut display family using the official Nunavut-attested ᐅᓪᓗᖅᓯᐅᑎ calendar noun and existing local syllabic method, date-display, table, beginning, national and viewing vocabulary. Preserve standardized calendar names and distinguish civil, astronomical and moon-sighting Hijri variants. Proper-name adaptation and complete technical compounds remain low confidence pending fluent review."
+  },
+  {
+    "locale": "iu",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Hijri — ᐅᓪᓗᖅᓯᐅᑎ (ᓯᒃᑭᑕᖅ, ᖃᖓᑕᔪᓕᕆᓂᕐᒧᑦ ᐱᒋᐊᕐᓂᖅ)",
+    "reason": "2026-09-15: Replace Azerbaijani and incomplete English calendar labels with a consistent Inuktitut display family using the official Nunavut-attested ᐅᓪᓗᖅᓯᐅᑎ calendar noun and existing local syllabic method, date-display, table, beginning, national and viewing vocabulary. Preserve standardized calendar names and distinguish civil, astronomical and moon-sighting Hijri variants. Proper-name adaptation and complete technical compounds remain low confidence pending fluent review."
+  },
+  {
+    "locale": "iu",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "Hijri — ᐅᓪᓗᖅᓯᐅᑎ (Umm al-Qura)",
+    "reason": "2026-09-15: Replace Azerbaijani and incomplete English calendar labels with a consistent Inuktitut display family using the official Nunavut-attested ᐅᓪᓗᖅᓯᐅᑎ calendar noun and existing local syllabic method, date-display, table, beginning, national and viewing vocabulary. Preserve standardized calendar names and distinguish civil, astronomical and moon-sighting Hijri variants. Proper-name adaptation and complete technical compounds remain low confidence pending fluent review."
+  },
+  {
+    "locale": "iu",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Japanese — ᐅᓪᓗᖅᓯᐅᑎ",
+    "reason": "2026-09-15: Replace Azerbaijani and incomplete English calendar labels with a consistent Inuktitut display family using the official Nunavut-attested ᐅᓪᓗᖅᓯᐅᑎ calendar noun and existing local syllabic method, date-display, table, beginning, national and viewing vocabulary. Preserve standardized calendar names and distinguish civil, astronomical and moon-sighting Hijri variants. Proper-name adaptation and complete technical compounds remain low confidence pending fluent review."
   }
 ]

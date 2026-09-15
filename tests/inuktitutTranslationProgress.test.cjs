@@ -258,3 +258,21 @@ for (const [key, name] of [['calendar-system-dangi', 'Dangi'], ['calendar-system
 }
 assert.notEqual(inuktitut['calendar-system-dangi'], inuktitut['calendar-system-roc']);
 assert.notEqual(inuktitut['calendar-system-roc'], inuktitut['calendar-system-chinese']);
+
+const reviewedCalendarSystems = [
+  'calendar-system', 'calendar-system-jalali', 'calendar-system-buddhist',
+  'calendar-system-chinese', 'calendar-system-coptic', 'calendar-system-ethioaa',
+  'calendar-system-ethiopic', 'calendar-system-hebrew', 'calendar-system-indian',
+  'calendar-system-islamic', 'calendar-system-islamic-civil',
+  'calendar-system-islamic-rgsa', 'calendar-system-islamic-tbla',
+  'calendar-system-islamic-umalqura', 'calendar-system-japanese',
+];
+for (const key of reviewedCalendarSystems) {
+  assert.match(inuktitut[key], /ᐅᓪᓗᖅᓯᐅᑎ/, `${key}: native calendar noun`);
+  assert.notEqual(inuktitut[key], english[key], `${key}: no English fallback`);
+}
+assert.equal(new Set(reviewedCalendarSystems.map(key => inuktitut[key])).size,
+  reviewedCalendarSystems.length, 'calendar labels remain distinct');
+assert.match(inuktitut['calendar-system-islamic-civil'], /ᓯᒃᑭᑕᖅ.*ᐱᒋᐊᕐᓂᖅ/);
+assert.match(inuktitut['calendar-system-islamic-tbla'], /ᖃᖓᑕᔪᓕᕆᓂᕐᒧᑦ.*ᐱᒋᐊᕐᓂᖅ/);
+assert.match(inuktitut['calendar-system-islamic-rgsa'], /ᑕᖅᑭᖅ.*ᑕᑯᔭᐅᓂᖓ/);
