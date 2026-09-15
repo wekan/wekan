@@ -197,3 +197,34 @@ calendar ID, distinct epoch/sighting variants, English-seed rejection,
 newer-value preservation and all 234 locale token/key inventories. No live
 calendar selector ran. Overall pending is 90 with no Wolaytta row; restored four
 unchanged. Broader uncertain and unflagged review continues; no remote push.
+
+## Tigre tracked calendar family repaired — 2026-09-15
+
+Source commit `88caf17515` replaces all 17 Azerbaijani, English and incomplete
+calendar labels. The open
+[BeitTigreAI English–Tigre phrasebook corpus](https://beittigre.github.io/tigre-multilingual-dictionaries/english/)
+directly maps `አምዕል ለልተዐለብ እቱ ወድና አወርሕት` to “calendar”. It also
+independently supplies the components used for date (`ተመር`), view (`ራኣው`),
+calculation (`ሕሳብ`), astronomy (`ከዋክብ ዐስተር`), Persia (`ፋርስ`), China
+(`ሲን`/`ቻይነ`), Korea (`ኮርየ`), India (`ህንድ`), Japan (`ጃፓን`), Saudi
+Arabia (`ስዑድያ`) and Jewish/Islamic terminology. The Tigre-specific
+[glibc locale](https://sources.debian.org/src/glibc/2.19-18%2Bdeb8u4/localedata/locales/tig_ER/)
+independently confirms its distinct weekday and month data.
+
+Every runtime calendar remains distinct, including calculated civil versus
+astronomical starting points and Saudi moon sighting. **Low confidence:** the
+full UI compounds, Coptic/Buddhist/Hijri proper-name spellings and punctuation
+are assembled rather than directly attested complete labels. Four focused
+files pass: exact labels, all 20,035 ledger records, every runtime calendar ID,
+newer-value preservation and all 234 locale token/key inventories. No live
+calendar selector ran. Original pending is 73 with no Tigre row; restored four
+unchanged. No external translation service or remote push.
+
+This repair also invalidates the earlier assumption that the rest of the Tigre
+file can be accepted from script alone. Of its 2,592 non-English values, 917
+are byte-for-byte identical to Tigrinya, including long clauses. Current basic
+values such as `month` = `ወርሒ` and the weekdays match Tigrinya, while the
+Tigre phrasebook and glibc locale use distinct forms such as `ወርሕ` and
+`ኣረርባዓ`. These are broader unflagged wrong-language candidates and remain
+open; completing the 17-row detector queue is not a claim of whole-file Tigre
+fluency.

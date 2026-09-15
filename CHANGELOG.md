@@ -1659,6 +1659,19 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/88caf1751">Translate Tigre calendar-system labels.</a></summary>
+
+Replace 17 Azerbaijani, English and incomplete labels using a Tigre corpus-
+attested calendar expression and native date, view, calculation, astronomy,
+country and religious terms. Preserve all named systems and epoch/sighting
+distinctions. Four focused files pass. Full compounds remain under native
+review, along with broader Tigrinya-seeded locale values.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

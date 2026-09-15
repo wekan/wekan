@@ -30541,3 +30541,27 @@ Four focused files pass: exact ledger values/tokens/order and newer-human
 preservation, all runtime IDs, variant distinctions, English-seed rejection and
 all 234 locale inventories. No live selector ran. Broader uncertain review
 continues; no external translation service or remote push.
+
+### 2026-09-15 — Tigre calendar-system labels and broader seed finding
+
+Source commit `88caf17515` repairs all 17 tracked Tigre calendar findings. The
+BeitTigreAI English–Tigre corpus directly glosses the calendar expression used
+in every label and independently supplies date, view, calculation, astronomy,
+country and religious components. The Tigre-specific glibc locale confirms
+that Tigre calendar vocabulary and weekdays differ from Tigrinya. All named
+systems remain distinct, including civil versus astronomical calculation and
+Saudi moon sighting. Full compounds and proper-name adaptations remain low
+confidence pending fluent review.
+
+Four focused files pass: exact label assertions, all 20,035 correction records,
+every runtime calendar ID, newer-value preservation, and all 234 locale token
+and key inventories. Original audit counts are 15,830 corrected, 73 pending and
+four restored; the Tigre tracked row is complete. No live selector ran and no
+remote write occurred.
+
+A whole-file comparison found 917 of Tigre's 2,592 non-English values are
+byte-for-byte identical to Tigrinya, including long clauses. Basic current date
+forms also conflict with the distinct Tigre forms in the cited phrasebook and
+glibc sources. This broader unflagged wrong-language review remains open and is
+now stated explicitly in the summary; clearing the 17 original rows does not
+certify the locale.
