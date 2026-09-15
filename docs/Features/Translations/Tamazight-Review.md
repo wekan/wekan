@@ -1,5 +1,22 @@
 # Standard Moroccan Tamazight reference review
 
+## Email-address placeholder, 2026-09-15 (`ce5092966`)
+
+The local `email-address` search-member placeholder was French,
+`Adresse de courriel`. [Native MediaWiki zgh software translations](https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/zgh.json)
+use `ⴰⵏⵙⴰ ⵏ ⵉⵎⴰⵢⵍ` in the email-address input prompts
+`createacct-email-ph` and `createacct-another-email-ph`. The corrected
+WeKan label keeps both address and email; reusing the short MediaWiki
+`createacct-emailrequired` value would omit the address qualifier in
+WeKan's member-search placeholder. Focused positive/negative, ledger
+and all-234-locale checks pass. This was an unflagged repair and does
+not change the 20,081 original finding classifications.
+
+The separate `email-addresses` invitation placeholder is still Arabic.
+Its plural Tamazight phrase needs a native Moroccan source; an Algerian
+plural example alone does not establish Moroccan wording. That
+wrong-language value remains open, as do broader native grammar reviews.
+
 Reviewed **2026-09-14**. Translation repairs remain open.
 
 The first 25 pending `zgh` audit entries were inspected against English.

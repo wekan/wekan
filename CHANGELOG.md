@@ -656,6 +656,15 @@ This release includes the following features and fixes:
 **Translations** - Tamazight, Tigre and multilingual list-width repairs.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ce5092966">Use native Tamazight email-address label</a>. Thanks to xet7.</summary>
+
+Replace French in the member-search placeholder with an attested
+Tamazight address-and-email phrase. Focused, ledger and inventory
+checks pass; the separate Arabic plural placeholder remains under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6f14c9a8c">Repair Tigre slate-blue wording</a>. Thanks to xet7.</summary>
 
 Replace its copied Tigrinya blue word with a corpus-glossed Tigre term.

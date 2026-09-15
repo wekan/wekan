@@ -1,5 +1,14 @@
 # Detailed translation audit evidence
 
+2026-09-15 (`ce5092966`): replaced French Tamazight `email-address`
+with `ⴰⵏⵙⴰ ⵏ ⵉⵎⴰⵢⵍ`, directly used in native MediaWiki zgh
+email-address input prompts. Member-search templates consume this key,
+so the address qualifier remains explicit. The Arabic plural key
+`email-addresses` is not silently accepted or changed without a verified
+Moroccan plural. Focused, correction-ledger and 234-locale checks pass;
+records rise to 22,185. The original flagged-row counts do not change.
+No remote write occurred.
+
 2026-09-15 (`6f14c9a8c`): repaired Tigre `color-slateblue` by replacing
 the copied Tigrinya blue component with the BeitTigreAI headword
 `አዝረቁ` glossed blue. The technical slate loan and compound remain
