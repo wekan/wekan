@@ -16,7 +16,17 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `79e5a93b4` — replace 13
+Latest translation fix: **2026-09-15**, `2b22dd0be` — replace
+three Arabic Tamazight common UI nouns. Comments and Link reuse
+the locale's existing card/comment and search-link terms. Email
+Addresses uses the [IRCAM media glossary's](https://biblio.ircam.ma/pmb/uploads/publications/133.pdf)
+attested `ansa` → `ansiwn` address plural alongside the local
+email noun. The focused positive/negative test, exact-token ledger
+and 234-locale checks pass. Ledger: **22,276**. The zgh file has
+**124** Arabic-script values still awaiting classification;
+full native phrase review remains open.
+
+Earlier translation fix: **2026-09-15**, `79e5a93b4` — replace 13
 Arabic Tamazight common popup titles with local native board,
 card, label, language, settings, notification and profile terms.
 The full phrases remain low confidence pending fluent review.
@@ -323,7 +333,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **22,260** exact before/after values, including unflagged
+records contain **22,276** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -360,8 +370,9 @@ clauses and broader wrong-language seeds remains open.
 
 - [Tamazight](Tamazight-Review.md): wrong-language prose, 98 records with
   invalidated Tuareg provenance, adapted grammar and software terminology.
-  Arabic `email-addresses` and its precise native plural remain open.
-  Arabic-script values have fallen from 181 to 127 across these batches;
+  Email Addresses now uses IRCAM-attested `ansiwn` but its complete
+  software compound remains open to native review.
+  Arabic-script values have fallen from 181 to 124 across these batches;
   this count
   includes possible intentional symbols and is a review queue, not a
   count of proven wrong-language strings.

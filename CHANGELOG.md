@@ -643,7 +643,8 @@ serve authenticated legacy images. Board View UI regressions are repaired.
 Security Problems now use distinct names for CAS account merge,
 attachment path, filename and stored MIME refusals.
 Tamazight rule, popup, warning and activity text replaces wrong-language
-values. Rules distinguish states from actions, and deletion warnings
+values. Three Arabic common labels now use native Tamazight comment,
+link and email-address terms. Rules distinguish states from actions, and deletion warnings
 name irreversible effects. Import, PDF, administrator and filename
 messages retain their conditions. Tigre help and error drafts replace
 English and Tigrinya. The list-width popup states its 200-pixel
@@ -717,6 +718,16 @@ plain-source security settings.
 </details>
 
 **Translations** - Tamazight, Tigre and multilingual list-width repairs.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2b22dd0be">Replace Arabic Tamazight common UI labels</a>. Thanks to xet7.</summary>
+
+Comments and Link reuse terms already present in local card and search
+text. Email Addresses uses the plural attested in an IRCAM glossary
+with the local email noun. The focused, correction-ledger and
+234-locale structural checks pass; full native wording review continues.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/79e5a93b4">Repair Tamazight common popup titles</a>. Thanks to xet7.</summary>

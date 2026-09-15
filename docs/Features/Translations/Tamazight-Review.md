@@ -1,5 +1,22 @@
 # Standard Moroccan Tamazight reference review
 
+## Comments, Link and Email Addresses, 2026-09-15 (`2b22dd0be`)
+
+Three Arabic UI labels outside the original flagged table are repaired.
+`comments` reuses the existing plural in `card-comments-title`, and
+`link` reuses the native noun in `link-to-search`. For
+`email-addresses`, the [IRCAM media glossary](https://biblio.ircam.ma/pmb/uploads/publications/133.pdf)
+lists address as `ansa` and its plural as `ansiwn`; the plural
+is rendered `ⴰⵏⵙⵉⵡⵏ` and paired with the already established local
+email noun `ⵉⵎⴰⵢⵍ`. The singular `email-address` remains intact.
+The full software compound and register still need fluent review.
+
+The focused positive/negative and source-token test, exact-ledger
+check (22,276 records) and 234-locale structural check pass.
+Arabic-script values fall from 127 to 124. Remaining Arabic
+values need individual semantic classification; intentional
+symbols and technical names must not be treated as prose errors.
+
 ## Common popup titles, 2026-09-15 (`79e5a93b4`)
 
 Thirteen unflagged popup titles formerly in Arabic now use
