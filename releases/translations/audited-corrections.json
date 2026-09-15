@@ -149441,5 +149441,117 @@
     "before": "ኣጠቓቕማ መዘክር",
     "after": "መትነፍዒት መዘክር",
     "reason": "2026-09-15: Replace exact Tigrinya Files, Address, Visibility, Format, First and Usage components with Tigre forms already established by reviewed corrections. The regular plural Address form is low confidence pending fluent review; preserve placeholders, product names and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "activity-on",
+    "before": "ኣብ %s",
+    "after": "ዲብ %s",
+    "reason": "2026-09-15: Replace exact Tigrinya At, Remove, Sign In, All, Delete, Failed, Count, Organization and Team components with established Tigre forms in matching short controls. Organization and Team plurals are regular derived forms marked low confidence pending fluent review; preserve placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "removeBoardDomainPopup-title",
+    "before": "ዶሜይን ኣውጽእ",
+    "after": "ዶሜይን አግዕዞ",
+    "reason": "2026-09-15: Replace exact Tigrinya At, Remove, Sign In, All, Delete, Failed, Count, Organization and Team components with established Tigre forms in matching short controls. Organization and Team plurals are regular derived forms marked low confidence pending fluent review; preserve placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "casSignIn",
+    "before": "ብ CAS እቶ",
+    "after": "ብ CAS እተው",
+    "reason": "2026-09-15: Replace exact Tigrinya At, Remove, Sign In, All, Delete, Failed, Count, Organization and Team components with established Tigre forms in matching short controls. Organization and Team plurals are regular derived forms marked low confidence pending fluent review; preserve placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "samlSignIn",
+    "before": "ብ SAML እቶ",
+    "after": "ብ SAML እተው",
+    "reason": "2026-09-15: Replace exact Tigrinya At, Remove, Sign In, All, Delete, Failed, Count, Organization and Team components with established Tigre forms in matching short controls. Organization and Team plurals are regular derived forms marked low confidence pending fluent review; preserve placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "sign-in-with",
+    "before": "ብ%s እቶ",
+    "after": "ብ%s እተው",
+    "reason": "2026-09-15: Replace exact Tigrinya At, Remove, Sign In, All, Delete, Failed, Count, Organization and Team components with established Tigre forms in matching short controls. Organization and Team plurals are regular derived forms marked low confidence pending fluent review; preserve placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "passwordless-sign-in",
+    "before": "ብኮድ እቶ",
+    "after": "ብኮድ እተው",
+    "reason": "2026-09-15: Replace exact Tigrinya At, Remove, Sign In, All, Delete, Failed, Count, Organization and Team components with established Tigre forms in matching short controls. Organization and Team plurals are regular derived forms marked low confidence pending fluent review; preserve placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "font-size-largest",
+    "before": "ዝዓበየ ኩሉ",
+    "after": "ዝዓበየ ክሎም",
+    "reason": "2026-09-15: Replace exact Tigrinya At, Remove, Sign In, All, Delete, Failed, Count, Organization and Team components with established Tigre forms in matching short controls. Organization and Team plurals are regular derived forms marked low confidence pending fluent review; preserve placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "unselect-all",
+    "before": "ኩሉ ምርጫ ኣልዕል",
+    "after": "ክሎም ምርጫ ኣልዕል",
+    "reason": "2026-09-15: Replace exact Tigrinya At, Remove, Sign In, All, Delete, Failed, Count, Organization and Team components with established Tigre forms in matching short controls. Organization and Team plurals are regular derived forms marked low confidence pending fluent review; preserve placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "r-unselect-all",
+    "before": "ኩሉ ምርጫ ኣልዕል",
+    "after": "ክሎም ምርጫ ኣልዕል",
+    "reason": "2026-09-15: Replace exact Tigrinya At, Remove, Sign In, All, Delete, Failed, Count, Organization and Team components with established Tigre forms in matching short controls. Organization and Team plurals are regular derived forms marked low confidence pending fluent review; preserve placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "listDeletePopup-title",
+    "before": "ዝርዝር ይደምሰስ?",
+    "after": "ዝርዝር ይምሳሕ?",
+    "reason": "2026-09-15: Replace exact Tigrinya At, Remove, Sign In, All, Delete, Failed, Count, Organization and Team components with established Tigre forms in matching short controls. Organization and Team plurals are regular derived forms marked low confidence pending fluent review; preserve placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "ldap-test-connection-error",
+    "before": "ርክብ ኣይተዓወተን: %s",
+    "after": "ርክብ ፈሽለ: %s",
+    "reason": "2026-09-15: Replace exact Tigrinya At, Remove, Sign In, All, Delete, Failed, Count, Organization and Team components with established Tigre forms in matching short controls. Organization and Team plurals are regular derived forms marked low confidence pending fluent review; preserve placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "mongodb-compact-error",
+    "before": "Compact ኣይተዓወተን፦",
+    "after": "Compact ፈሽለ፦",
+    "reason": "2026-09-15: Replace exact Tigrinya At, Remove, Sign In, All, Delete, Failed, Count, Organization and Team components with established Tigre forms in matching short controls. Organization and Team plurals are regular derived forms marked low confidence pending fluent review; preserve placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "list-sync-now-error",
+    "before": "ምስምማዕ ኣይተዓወተን: %s",
+    "after": "ምስምማዕ ፈሽለ: %s",
+    "reason": "2026-09-15: Replace exact Tigrinya At, Remove, Sign In, All, Delete, Failed, Count, Organization and Team components with established Tigre forms in matching short controls. Organization and Team plurals are regular derived forms marked low confidence pending fluent review; preserve placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "org-number",
+    "before": "ብዝሒ ውድባት፦ ",
+    "after": "ዐደድ መነዘመታት፦ ",
+    "reason": "2026-09-15: Replace exact Tigrinya At, Remove, Sign In, All, Delete, Failed, Count, Organization and Team components with established Tigre forms in matching short controls. Organization and Team plurals are regular derived forms marked low confidence pending fluent review; preserve placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "team-number",
+    "before": "ብዝሒ ጉጅለታት፦ ",
+    "after": "ዐደድ ፈሪቃት፦ ",
+    "reason": "2026-09-15: Replace exact Tigrinya At, Remove, Sign In, All, Delete, Failed, Count, Organization and Team components with established Tigre forms in matching short controls. Organization and Team plurals are regular derived forms marked low confidence pending fluent review; preserve placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "people-number",
+    "before": "ብዝሒ ሰባት፦ ",
+    "after": "ዐደድ ሰባት፦ ",
+    "reason": "2026-09-15: Replace exact Tigrinya At, Remove, Sign In, All, Delete, Failed, Count, Organization and Team components with established Tigre forms in matching short controls. Organization and Team plurals are regular derived forms marked low confidence pending fluent review; preserve placeholders and punctuation."
   }
 ]
