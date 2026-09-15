@@ -148167,5 +148167,68 @@
     "before": "ኣብ ሰዓት",
     "after": "ዲብ ሰዓት",
     "reason": "2026-09-15: Preserve corpus-attested Tigre Date or Hour nouns while replacing the Tigrinya preposition with independently attested Tigre by/on forms. Remaining control grammar stays open to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "sandstorm-migration-failed",
+    "before": "ፈሺሉ",
+    "after": "ፈሽለ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded failed form with a sense-matched Tigre form independently attested in complete corpus entries. Preserve surrounding connection, account and Import wording for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "cloud-connection-failed",
+    "before": "ምትእስሳር ፈሺሉ",
+    "after": "ምትእስሳር ፈሽለ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded failed form with a sense-matched Tigre form independently attested in complete corpus entries. Preserve surrounding connection, account and Import wording for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "account-creation-failed",
+    "before": "መለያ ምፍጣር ፈሺሉ",
+    "after": "መለያ ምፍጣር ፈሽለ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded failed form with a sense-matched Tigre form independently attested in complete corpus entries. Preserve surrounding connection, account and Import wording for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "import-scoped-failed",
+    "before": "ምእታው ፈሺሉ",
+    "after": "ምእታው ፈሽለ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded failed form with a sense-matched Tigre form independently attested in complete corpus entries. Preserve surrounding connection, account and Import wording for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "ldap-test-connection-success",
+    "before": "ርክብ ተዓዊቱ",
+    "after": "ርክብ ተዐወተ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded success form with a sense-matched Tigre form independently attested in complete corpus entries. Preserve surrounding connection, account and Import wording for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "sandstorm-migration-success",
+    "before": "ተዓዊቱ",
+    "after": "ተዐወተ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded success form with a sense-matched Tigre form independently attested in complete corpus entries. Preserve surrounding connection, account and Import wording for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "cloud-connection-success",
+    "before": "ምትእስሳር ተዓዊቱ",
+    "after": "ምትእስሳር ተዐወተ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded success form with a sense-matched Tigre form independently attested in complete corpus entries. Preserve surrounding connection, account and Import wording for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "registration",
+    "before": "ምዝገባ",
+    "after": "ተስጂል",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded registration form with a sense-matched Tigre form independently attested in complete corpus entries. Preserve surrounding connection, account and Import wording for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "predicate-private",
+    "before": "ብሕታዊ",
+    "after": "ብሕት",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded private form with a sense-matched Tigre form independently attested in complete corpus entries. Preserve surrounding connection, account and Import wording for separate fluent review."
   }
 ]
