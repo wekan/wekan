@@ -30382,3 +30382,25 @@ LOW CONFIDENCE and needs native contextual review. Four focused files pass
 wrong-language rejection, newer-value preservation and all 234 locale token/key
 inventories. No live voting UI ran. Original pending remains 126 and restored
 remains 4; broader candidate and prior low-confidence review remains active.
+
+### 2026-09-15 — Veps card-loading behavior and language repair
+
+Source commit `8480bee00`: five Veps values repaired; ledger 19,978. Original
+pending 126 and restored four are unchanged because these were unflagged
+findings. Two labels were Tshivenda, the all-cards label retained an obsolete
+default suffix, the description documented the removed manual all/lazy choice,
+and the experimental note contained the Russian hybrid `mnog-valind`.
+
+Direct source inspection establishes the semantics: automatic is the default;
+boards strictly above the size threshold load the visible window and live count;
+smaller boards load every card; there is no admin choice; operators retain exact
+`CARDS_LOADING (all/lazy/auto)` and `CARDS_LOADING_LAZY_THRESHOLD` overrides.
+Problems and Board Status files bind the repaired labels. Reuse existing Veps
+card/loading, automatic, mode, threshold, memory, configure, force and
+multi-selection vocabulary. Express lower bandwidth as transferring less data
+over the network rather than asserting an unattested compound. Four focused
+files pass (40 checks), covering exact ledger values/tokens/order/idempotency,
+newer-human preservation, wrong-language and stale fragments, behavior and
+source bindings, plus all 234 locale inventories. No live UI ran. The assembled
+technical prose remains LOW CONFIDENCE; broader Veps and prior uncertain review
+continues. No external translation service or remote push.

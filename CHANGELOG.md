@@ -1552,6 +1552,18 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8480bee00">Repair Veps card-loading translations.</a></summary>
+
+Replace two Tshivenda labels, obsolete/manual loading wording and a Russian
+multi-select hybrid. The Veps description now matches automatic above-threshold
+loading and preserves exact operator configuration literals. Four focused files
+pass (40 checks). Full technical grammar remains under native review.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

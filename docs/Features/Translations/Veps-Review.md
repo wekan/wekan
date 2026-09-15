@@ -1081,3 +1081,29 @@ LOW CONFIDENCE and needs native contextual review. Four focused files pass
 wrong-language rejection, newer-value preservation and all 234 locale token/key
 inventories. No live voting UI ran. Original pending remains 126 and restored
 remains 4; broader candidate and prior low-confidence review remains active.
+
+2026-09-15 — `8480bee00`: repaired the Veps card-loading group. The
+`cards-loading-auto` and `board-status-loading-mode` labels were Tshivenda;
+`cards-loading-all` still called the all-cards path the default after automatic
+per-board selection became the default; `cards-loading-description` documented
+the old manual all/lazy choice and omitted `CARDS_LOADING_LAZY_THRESHOLD`; and
+`cards-loading-lazy-note` contained the Russian hybrid `mnog-valind` for
+multi-selection. `models/lib/cardsLoading.js` confirms that auto is the default,
+boards strictly above the size threshold use the visible window and smaller
+boards load every card. `server/models/settings.js` confirms there is no admin
+choice and operators can override with the two environment variables. Problems
+and Board Status template/logic inspection confirms where the repaired labels
+render.
+
+The replacements reuse existing Veps terminology from this locale: `Kartoiden
+ladind`, `avtomatine`/`avtomatižešti`, `režim`, `ülimär`, `mušt`, `sädada`,
+`pakita`, and `äi valičuz`. The performance description expresses bandwidth as
+transferring less data over the network instead of inventing an unsupported
+literal noun. Exact `CARDS_LOADING (all/lazy/auto)` and
+`CARDS_LOADING_LAZY_THRESHOLD` literals are preserved. Four focused files pass
+(40 checks): 19,978 correction records, wrong-language/stale-fragment rejection,
+behavior distinctions, source-template bindings, newer-value preservation and
+all 234 locale token/key inventories. No live Problems or Board Status UI ran.
+The complete assembled technical description remains LOW CONFIDENCE and needs
+native contextual review. Original pending remains 126 and restored remains 4;
+the broader candidate and prior low-confidence review remains active.
