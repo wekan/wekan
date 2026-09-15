@@ -846,3 +846,13 @@ low confidence pending native review. Focused and ledger checks pass; all
 234 locale inventories pass. Ledger 21,919. Non-English Tigre values 2,613;
 raw exact Tigre/Tigrinya overlap stays 233 (22 attested shared, 211
 unclassified). No live UI test or remote write occurred.
+
+### 2026-09-15 — Tigre authentication error clause
+
+`36c2148ec` replaces the exact Tigrinya copy in `twoFactorCode-invalid`.
+The BeitTigreAI phrasebook attests the chosen wrong, please and try-again
+forms; authentication-code syntax remains a composed low-confidence phrase.
+The focused source, seed, ledger and runtime check passes. Ledger 21,920;
+exact non-English overlap 232 (22 attested shared, 210 unclassified), with
+22 matches at least 20 characters and 5 at least 35. No live UI test or
+remote write occurred.

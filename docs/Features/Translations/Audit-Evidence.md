@@ -31345,3 +31345,24 @@ Non-English Tigre values rise from 2,592 to 2,613. Non-English exact
 Tigre/Tigrinya overlap remains 233, with 22 complete attested shared forms
 and 211 unclassified; 23 matches have at least 20 characters and 6 at least
 35. No live UI test or remote write occurred.
+
+### 2026-09-15 — Tigre authentication error exact-overlap repair
+
+Source commit `36c2148ec` replaces the long `twoFactorCode-invalid` value
+copied byte-for-byte from Tigrinya. The
+[BeitTigreAI Tigre–English phrasebook](https://beittigre.github.io/tigre-multilingual-dictionaries/english/index.html)
+attests `ህቱ ቀለጥ ሀለ።` for “Wrong” on
+[page 6](https://beittigre.github.io/tigre-multilingual-dictionaries/english/page-0006.html)
+and `ካልእ ዶል ፈትን።` for “Try again” on
+[page 94](https://beittigre.github.io/tigre-multilingual-dictionaries/english/page-0094.html).
+Its [search index](https://beittigre.github.io/tigre-multilingual-dictionaries/english/dict.json)
+also contains `ዐይብከ` in “Please try again later”. The resulting UI clause
+`ኮድ መረጋገጺ ቀለጥ ሀለ። ዐይብከ፡ ካልእ ዶል ፈትን።`
+uses the existing authentication-code noun. Its complete syntax and noun
+phrase are composed, not attested verbatim, and remain low confidence pending
+fluent review. A focused test checks English source sense, exact seed removal,
+the three attested components, ledger values and i18next runtime output.
+Ledger 21,920; original audit-row classifications remain 15,880 corrected
+and 4,201 retained. Non-English exact Tigre/Tigrinya overlap falls from 233
+to 232 (22 attested shared, 210 unclassified); matches at least 20 characters
+fall to 22 and at least 35 to 5. No live UI test or remote write occurred.
