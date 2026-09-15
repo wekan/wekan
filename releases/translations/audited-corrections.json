@@ -153214,5 +153214,12 @@
     "before": "ስም (ብድልየት)",
     "after": "ስሜት (ብድልየት)",
     "reason": "Follow-up full-locale English source-sense repair: Name: ስም → ስሜት. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "organizations",
+    "before": "ትካላት",
+    "after": "መነዘመታት",
+    "reason": "Follow-up full-locale Organization repair: replace the missed Tigrinya plural with the regular plural of corpus-attested Tigre መነዘመት. Plural morphology remains low confidence pending fluent review."
   }
 ]

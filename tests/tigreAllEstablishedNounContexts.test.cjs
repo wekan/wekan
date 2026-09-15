@@ -12,7 +12,7 @@ const families = [
   { name: 'User', source: /\busers?\b/i, old: /ተጠቃሚ|ተጠቀምቲ/u },
   { name: 'Name', source: /\bnames?\b/i, old: /ስም|ስማት/u },
   { name: 'Label', source: /\blabels?\b/i, old: /ምልክት|ምልክታት/u },
-  { name: 'Organization', source: /\borganizations?\b/i, old: /ውድብ|ውድባት/u },
+  { name: 'Organization', source: /\borganizations?\b/i, old: /ውድብ|ውድባት|ትካላት/u },
   { name: 'Team', source: /\bteams?\b/i, old: /ጉጅለ|ጉጅለታት|ጋንታ/u },
   { name: 'Path', source: /\bpaths?\b/i, old: /መንገዲ/u },
   { name: 'Status', source: /\bstatus(?:es)?\b/i, old: /ኩነታት/u },
