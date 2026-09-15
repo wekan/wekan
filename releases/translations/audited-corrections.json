@@ -146648,5 +146648,54 @@
     "before": "ሰሌዳ ደምስስ",
     "after": "ምዱድ ምሳሕ",
     "reason": "Replace a compact Tigrinya-seeded compound using only Tigre terms independently attested and already reviewed in the correction ledger; retain complete compound order for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "board_members",
+    "before": "ኩሎም ኣባላት ሰሌዳ",
+    "after": "ክሎም አባላት ምዱድ",
+    "reason": "Replace a Tigrinya-seeded member compound with the explicit Tigre Member/Members pair and independently reviewed Tigre control terms; retain complete phrase order for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "map-to-existing-user-not-member",
+    "before": "ገና ኣባል ሰሌዳ ኣይኮነን",
+    "after": "ገና አባል ምዱድ ኢኮኒ",
+    "reason": "Replace a Tigrinya-seeded member compound with the explicit Tigre Member/Members pair and independently reviewed Tigre control terms; retain complete phrase order for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "filter-member-label",
+    "before": "ብኣባል ኣጻሪ",
+    "after": "እብ አባል ኣጻሪ",
+    "reason": "Replace a Tigrinya-seeded member compound with the explicit Tigre Member/Members pair and independently reviewed Tigre control terms; retain complete phrase order for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "filter-no-member",
+    "before": "ኣባል የለን",
+    "after": "አባል አለቡ",
+    "reason": "Replace a Tigrinya-seeded member compound with the explicit Tigre Member/Members pair and independently reviewed Tigre control terms; retain complete phrase order for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "importMapMembersAddPopup-title",
+    "before": "ኣባል ምረጽ",
+    "after": "አባል ሕረ",
+    "reason": "Replace a Tigrinya-seeded member compound with the explicit Tigre Member/Members pair and independently reviewed Tigre control terms; retain complete phrase order for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "r-d-add-member",
+    "before": "ኣባል ወስኽ",
+    "after": "አባል ወስክ",
+    "reason": "Replace a Tigrinya-seeded member compound with the explicit Tigre Member/Members pair and independently reviewed Tigre control terms; retain complete phrase order for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "board-member-list",
+    "before": "ዝርዝር ኣባላት ሰሌዳ",
+    "after": "ዝርዝር አባላት ምዱድ",
+    "reason": "Replace a Tigrinya-seeded member compound with the explicit Tigre Member/Members pair and independently reviewed Tigre control terms; retain complete phrase order for fluent review."
   }
 ]
