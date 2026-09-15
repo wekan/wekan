@@ -656,6 +656,16 @@ This release includes the following features and fixes:
 **Translations** - Tamazight, Tigre and multilingual list-width repairs.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/83c8d0c2b">Repair Aymara and Quechua list-width strings</a>. Thanks to xet7.</summary>
+
+Replace Spanish/English-seeded width labels and errors with native
+list and whole-number terms and the inclusive 200-pixel rule.
+Focused, runtime, ledger and inventory checks pass; full clauses
+and Quechua dialect fit remain under native review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c18780d5b">Correct three more native list-width bounds</a>. Thanks to xet7.</summary>
 
 Hawaiian, Klingon and Inuktitut list-width errors now show the

@@ -16,7 +16,16 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `c18780d5b` — correct
+Latest translation fix: **2026-09-15**, `83c8d0c2b` — repair
+Aymara and Quechua list-width labels and obsolete errors. Native
+list, width and whole-number terms replace Spanish/English seeds;
+the inclusive 200-pixel minimum matches the popup's rule. Focused,
+runtime, ledger and 234-locale completeness checks pass. Quechua
+dialect fit and both complete clauses remain low confidence for
+native review. Correction ledger: **22,176**; stale list-width
+values: **3**.
+
+Earlier translation fix: **2026-09-15**, `c18780d5b` — correct
 Hawaiian, Klingon and Inuktitut list-width errors using inclusive
 200-pixel bounds. The Hawaiian value replaces corrupt pseudo-language
 seeds with attested width and whole-number words. Focused, runtime,

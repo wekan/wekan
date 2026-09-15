@@ -31768,6 +31768,30 @@ rises from 22,130 to 22,140; stale list-width values fall from 36 to
 26. Original 20,081 audit-row classifications remain unchanged. No
 live UI test or remote write occurred.
 
+### 2026-09-15 — Aymara and Quechua list-width strings
+
+Source commit `83c8d0c2b` repairs four popup strings. The Aymara
+label used Spanish `lista ancho`, and the error added an English
+whole-number clause with an obsolete strict greater-than-270 bound.
+The replacements use `suti siqi` for list, `irwaqa` for width and
+`pachpa jakhu` for an integer, attested in Peru's
+[Aymara pedagogical vocabulary](https://repositorio.minedu.gob.pe/bitstream/handle/20.500.12799/7187/Yaticha%C3%B1a%20aru%20pirwa%20Vocabulario%20pedag%C3%B3gico%20aimara.pdf?isAllowed=y&sequence=1).
+The Quechua label and error carried artificial English words with
+Quechua suffixes; the replacements use `listapa patan`, already
+present in related locale strings, and `hunt'a yupay` for whole
+number. A
+[Kichwa education dictionary](https://educacion.gob.ec/wp-content/plugins/download-monitor/download.php?id=3113)
+attests `hunta` for whole and `yupay` for number, though the dialect
+fit with this Quechua file is not independently verified. The `≥ 200`
+operator states the inclusive minimum without a dialect-dependent
+comparative. Both complete clauses remain low confidence pending
+native grammar review. The focused suite checks matching labels and
+errors, native terms, no English rule seed, exact ledger rows and
+Aymara runtime lookup. Ledger integrity and 234-locale completeness
+pass. Records rise from 22,172 to 22,176; old-threshold queue falls
+from 5 to 3. Broader English or wrong-language seeding in both files
+remains open. No live UI test or remote write occurred.
+
 ### 2026-09-15 — Hawaiian, Klingon and Inuktitut list-width bounds
 
 Source commit `c18780d5b` replaces three obsolete strict
