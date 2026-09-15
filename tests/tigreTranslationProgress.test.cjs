@@ -16,6 +16,34 @@ const tokens = value => [...value.matchAll(
 const tags = value => [...value.matchAll(/<\/?[A-Za-z][^>]*>/g)]
   .map(([tag]) => tag).sort();
 
+const tigreCalendar = 'አምዕል ለልተዐለብ እቱ ወድና አወርሕት';
+const calendarSystems = {
+  'calendar-system': 'ንዛም አወርሕት (ተመር ራኣው)',
+  'calendar-system-jalali': `ጃላሊ — ${tigreCalendar} (ፋርስ)`,
+  'calendar-system-buddhist': `ቡድሂስት — ${tigreCalendar}`,
+  'calendar-system-chinese': `ቻይነ — ${tigreCalendar}`,
+  'calendar-system-coptic': `ቆብጢ — ${tigreCalendar}`,
+  'calendar-system-dangi': `ዳንጊ — ${tigreCalendar} (ኮርየ)`,
+  'calendar-system-ethioaa': `ኢትዮጵያ ዓመተ ዓለም — ${tigreCalendar}`,
+  'calendar-system-ethiopic': `ኢትዮጵያ — ${tigreCalendar}`,
+  'calendar-system-hebrew': `ያሁድ — ${tigreCalendar}`,
+  'calendar-system-indian': `ህንድ ወጠናይ — ${tigreCalendar}`,
+  'calendar-system-islamic': `ሂጅሪ — ${tigreCalendar}`,
+  'calendar-system-islamic-civil': `ሂጅሪ — ${tigreCalendar} (ሕሳብ፣ ሲቪል መትጀምሮ)`,
+  'calendar-system-islamic-rgsa': `ሂጅሪ — ${tigreCalendar} (ስዑድያ፣ ወርሕ ረኤ)`,
+  'calendar-system-islamic-tbla': `ሂጅሪ — ${tigreCalendar} (ሕሳብ፣ ከዋክብ ዐስተር መትጀምሮ)`,
+  'calendar-system-islamic-umalqura': `ሂጅሪ — ${tigreCalendar} (ኡም አል-ቁራ)`,
+  'calendar-system-japanese': `ጃፓን — ${tigreCalendar}`,
+  'calendar-system-roc': `ሚንጉዎ — ${tigreCalendar} (ሲን)`,
+};
+
+for (const [key, value] of Object.entries(calendarSystems)) {
+  assert.equal(tigre[key], value, `${key}: exact reviewed Tigre calendar label`);
+  assert.notEqual(tigre[key], english[key], `${key}: no English fallback`);
+}
+assert.equal(new Set(Object.values(calendarSystems)).size,
+  Object.keys(calendarSystems).length, 'calendar choices remain distinct');
+
 const fillResult = spawnSync(process.execPath, [
   path.join(root, 'releases/translations/fill-translations.mjs'),
   '--list',

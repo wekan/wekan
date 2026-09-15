@@ -140124,5 +140124,124 @@
     "before": "Japanese",
     "after": "Jaappaaniyaa wodiyaa qoodaa",
     "reason": "2026-09-15: Replace the remaining incomplete English Wolaytta calendar seeds with the already attested wodiyaa qoodaa calendar family. Preserve Jalali/Persia, Buddhist, Chinese, Coptic, Hebrew, Indian national and Japanese identities; distinguish calculated civil and star/astronomical starting points from Saudi moon sighting. Proper-name adaptations and complete technical compounds remain low confidence."
+  },
+  {
+    "locale": "tig",
+    "key": "calendar-system",
+    "before": "Kalendar sistem (data görünüşü)",
+    "after": "ንዛም አወርሕት (ተመር ራኣው)",
+    "reason": "2026-09-15: Replace Azerbaijani, English and incomplete calendar labels with a coordinated Tigre draft. The BeitTigreAI English–Tigre corpus directly glosses the full calendar expression and independently attests Tigre date, view, calculation, astronomy, country and religious terms. Preserve every calendar identity and distinguish civil/astronomical starting points from Saudi moon sighting. Full compounds, technical loans and proper-name spellings remain low confidence pending fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "ጃላሊ — አምዕል ለልተዐለብ እቱ ወድና አወርሕት (ፋርስ)",
+    "reason": "2026-09-15: Replace Azerbaijani, English and incomplete calendar labels with a coordinated Tigre draft. The BeitTigreAI English–Tigre corpus directly glosses the full calendar expression and independently attests Tigre date, view, calculation, astronomy, country and religious terms. Preserve every calendar identity and distinguish civil/astronomical starting points from Saudi moon sighting. Full compounds, technical loans and proper-name spellings remain low confidence pending fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "ቡድሂስት — አምዕል ለልተዐለብ እቱ ወድና አወርሕት",
+    "reason": "2026-09-15: Replace Azerbaijani, English and incomplete calendar labels with a coordinated Tigre draft. The BeitTigreAI English–Tigre corpus directly glosses the full calendar expression and independently attests Tigre date, view, calculation, astronomy, country and religious terms. Preserve every calendar identity and distinguish civil/astronomical starting points from Saudi moon sighting. Full compounds, technical loans and proper-name spellings remain low confidence pending fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "ቻይነ — አምዕል ለልተዐለብ እቱ ወድና አወርሕት",
+    "reason": "2026-09-15: Replace Azerbaijani, English and incomplete calendar labels with a coordinated Tigre draft. The BeitTigreAI English–Tigre corpus directly glosses the full calendar expression and independently attests Tigre date, view, calculation, astronomy, country and religious terms. Preserve every calendar identity and distinguish civil/astronomical starting points from Saudi moon sighting. Full compounds, technical loans and proper-name spellings remain low confidence pending fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "ቆብጢ — አምዕል ለልተዐለብ እቱ ወድና አወርሕት",
+    "reason": "2026-09-15: Replace Azerbaijani, English and incomplete calendar labels with a coordinated Tigre draft. The BeitTigreAI English–Tigre corpus directly glosses the full calendar expression and independently attests Tigre date, view, calculation, astronomy, country and religious terms. Preserve every calendar identity and distinguish civil/astronomical starting points from Saudi moon sighting. Full compounds, technical loans and proper-name spellings remain low confidence pending fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "calendar-system-dangi",
+    "before": "Dangi (Korean)",
+    "after": "ዳንጊ — አምዕል ለልተዐለብ እቱ ወድና አወርሕት (ኮርየ)",
+    "reason": "2026-09-15: Replace Azerbaijani, English and incomplete calendar labels with a coordinated Tigre draft. The BeitTigreAI English–Tigre corpus directly glosses the full calendar expression and independently attests Tigre date, view, calculation, astronomy, country and religious terms. Preserve every calendar identity and distinguish civil/astronomical starting points from Saudi moon sighting. Full compounds, technical loans and proper-name spellings remain low confidence pending fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "calendar-system-ethioaa",
+    "before": "Ethiopic Amete Alem",
+    "after": "ኢትዮጵያ ዓመተ ዓለም — አምዕል ለልተዐለብ እቱ ወድና አወርሕት",
+    "reason": "2026-09-15: Replace Azerbaijani, English and incomplete calendar labels with a coordinated Tigre draft. The BeitTigreAI English–Tigre corpus directly glosses the full calendar expression and independently attests Tigre date, view, calculation, astronomy, country and religious terms. Preserve every calendar identity and distinguish civil/astronomical starting points from Saudi moon sighting. Full compounds, technical loans and proper-name spellings remain low confidence pending fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "calendar-system-ethiopic",
+    "before": "Ethiopic",
+    "after": "ኢትዮጵያ — አምዕል ለልተዐለብ እቱ ወድና አወርሕት",
+    "reason": "2026-09-15: Replace Azerbaijani, English and incomplete calendar labels with a coordinated Tigre draft. The BeitTigreAI English–Tigre corpus directly glosses the full calendar expression and independently attests Tigre date, view, calculation, astronomy, country and religious terms. Preserve every calendar identity and distinguish civil/astronomical starting points from Saudi moon sighting. Full compounds, technical loans and proper-name spellings remain low confidence pending fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "ያሁድ — አምዕል ለልተዐለብ እቱ ወድና አወርሕት",
+    "reason": "2026-09-15: Replace Azerbaijani, English and incomplete calendar labels with a coordinated Tigre draft. The BeitTigreAI English–Tigre corpus directly glosses the full calendar expression and independently attests Tigre date, view, calculation, astronomy, country and religious terms. Preserve every calendar identity and distinguish civil/astronomical starting points from Saudi moon sighting. Full compounds, technical loans and proper-name spellings remain low confidence pending fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "ህንድ ወጠናይ — አምዕል ለልተዐለብ እቱ ወድና አወርሕት",
+    "reason": "2026-09-15: Replace Azerbaijani, English and incomplete calendar labels with a coordinated Tigre draft. The BeitTigreAI English–Tigre corpus directly glosses the full calendar expression and independently attests Tigre date, view, calculation, astronomy, country and religious terms. Preserve every calendar identity and distinguish civil/astronomical starting points from Saudi moon sighting. Full compounds, technical loans and proper-name spellings remain low confidence pending fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "calendar-system-islamic",
+    "before": "Islamic",
+    "after": "ሂጅሪ — አምዕል ለልተዐለብ እቱ ወድና አወርሕት",
+    "reason": "2026-09-15: Replace Azerbaijani, English and incomplete calendar labels with a coordinated Tigre draft. The BeitTigreAI English–Tigre corpus directly glosses the full calendar expression and independently attests Tigre date, view, calculation, astronomy, country and religious terms. Preserve every calendar identity and distinguish civil/astronomical starting points from Saudi moon sighting. Full compounds, technical loans and proper-name spellings remain low confidence pending fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "ሂጅሪ — አምዕል ለልተዐለብ እቱ ወድና አወርሕት (ሕሳብ፣ ሲቪል መትጀምሮ)",
+    "reason": "2026-09-15: Replace Azerbaijani, English and incomplete calendar labels with a coordinated Tigre draft. The BeitTigreAI English–Tigre corpus directly glosses the full calendar expression and independently attests Tigre date, view, calculation, astronomy, country and religious terms. Preserve every calendar identity and distinguish civil/astronomical starting points from Saudi moon sighting. Full compounds, technical loans and proper-name spellings remain low confidence pending fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "ሂጅሪ — አምዕል ለልተዐለብ እቱ ወድና አወርሕት (ስዑድያ፣ ወርሕ ረኤ)",
+    "reason": "2026-09-15: Replace Azerbaijani, English and incomplete calendar labels with a coordinated Tigre draft. The BeitTigreAI English–Tigre corpus directly glosses the full calendar expression and independently attests Tigre date, view, calculation, astronomy, country and religious terms. Preserve every calendar identity and distinguish civil/astronomical starting points from Saudi moon sighting. Full compounds, technical loans and proper-name spellings remain low confidence pending fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "ሂጅሪ — አምዕል ለልተዐለብ እቱ ወድና አወርሕት (ሕሳብ፣ ከዋክብ ዐስተር መትጀምሮ)",
+    "reason": "2026-09-15: Replace Azerbaijani, English and incomplete calendar labels with a coordinated Tigre draft. The BeitTigreAI English–Tigre corpus directly glosses the full calendar expression and independently attests Tigre date, view, calculation, astronomy, country and religious terms. Preserve every calendar identity and distinguish civil/astronomical starting points from Saudi moon sighting. Full compounds, technical loans and proper-name spellings remain low confidence pending fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "calendar-system-islamic-umalqura",
+    "before": "Islamic Umm al-Qura",
+    "after": "ሂጅሪ — አምዕል ለልተዐለብ እቱ ወድና አወርሕት (ኡም አል-ቁራ)",
+    "reason": "2026-09-15: Replace Azerbaijani, English and incomplete calendar labels with a coordinated Tigre draft. The BeitTigreAI English–Tigre corpus directly glosses the full calendar expression and independently attests Tigre date, view, calculation, astronomy, country and religious terms. Preserve every calendar identity and distinguish civil/astronomical starting points from Saudi moon sighting. Full compounds, technical loans and proper-name spellings remain low confidence pending fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "ጃፓን — አምዕል ለልተዐለብ እቱ ወድና አወርሕት",
+    "reason": "2026-09-15: Replace Azerbaijani, English and incomplete calendar labels with a coordinated Tigre draft. The BeitTigreAI English–Tigre corpus directly glosses the full calendar expression and independently attests Tigre date, view, calculation, astronomy, country and religious terms. Preserve every calendar identity and distinguish civil/astronomical starting points from Saudi moon sighting. Full compounds, technical loans and proper-name spellings remain low confidence pending fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "calendar-system-roc",
+    "before": "Republic of China",
+    "after": "ሚንጉዎ — አምዕል ለልተዐለብ እቱ ወድና አወርሕት (ሲን)",
+    "reason": "2026-09-15: Replace Azerbaijani, English and incomplete calendar labels with a coordinated Tigre draft. The BeitTigreAI English–Tigre corpus directly glosses the full calendar expression and independently attests Tigre date, view, calculation, astronomy, country and religious terms. Preserve every calendar identity and distinguish civil/astronomical starting points from Saudi moon sighting. Full compounds, technical loans and proper-name spellings remain low confidence pending fluent review."
   }
 ]
