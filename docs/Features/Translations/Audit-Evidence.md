@@ -31542,3 +31542,35 @@ falls from 150 to 139. The original 20,081 classifications do not
 change. No live UI test or remote write occurred. A broader review of
 Mandarin-seeded prose elsewhere in Wu and Cantonese remains required;
 this batch verifies this one source-semantic key only.
+
+### 2026-09-15 — Nordic, Baltic and other list-width lower bounds
+
+Source commit `6d94f4edb` repairs 28 distinct locale messages: Danish,
+Estonian, Basque, Finnish, Faroese, Irish, Scottish Gaelic, Hungarian,
+Indonesian, Icelandic, Georgian, Kazakh, Kyrgyz, Lithuanian, Latvian,
+Mongolian, Norwegian Bokmål, Slovak, Swedish, Turkish, Albanian,
+Bulgarian, Belarusian, Armenian, Macedonian, North Sami, Tajik and
+Maltese. Each old value still said “greater than 270”; the new
+statement uses a whole-number minimum of 200 pixels. Lower-bound
+phrases in related local keys include `mindst`, `vähemalt`, `vähintään`,
+`í minsta lagi`, `ar a laghad`, `co-dhiù`, `setidaknya`, `кемінде`,
+`кеминде`, `bent`, `vismaz`, `дор хаяж`, `minst`, `aspoň`, `en az`,
+`поне`, `не менш`, `առնվազն`, `најмалку` and `unnimusat`.
+Maltese previously held an English sentence. Its local width labels
+already use `wisa'`; a [Maltese mathematics glossary](https://nla.gov.mt/wp-content/uploads/2023/12/Glossarju_bilingwi_ta_termini_tal-matematika_is-snin_bikrin_u_tal-primarja_2022.pdf)
+and [official Maltese text](https://www.parlament.mt/media/104880/bill-119-constitution-of-malta-and-various-laws.pdf)
+attest `numru sħiħ` and `mill-inqas`. The full Maltese clause, North
+Sami numeric morphology, Georgian sentence order and Latvian case
+remain low confidence pending native review; numeric semantics and
+literal pixel units are established. The focused test verifies all 28
+integer/lower-bound phrases, absence of 270, exact ledger after-values,
+one row per key, explicit low-confidence notes and runtime Maltese
+lookup. Old Kazakh, Kyrgyz and Tajik progress suites expected 270;
+those assertions now verify their native inclusive rule. The Latvian
+regression suite no longer freezes a count that excludes legitimate
+later repairs; it verifies the original 403 records remain, keys are
+unique and every `after` equals the local value. Focused, related
+language, 234-locale completeness, audit-progress, correction-ledger
+and changelog checks pass. Ledger grows from 22,028 to 22,056; stale
+list-width queue falls from 139 to 111. Original 20,081 classifications
+remain unchanged. No live UI test or remote write occurred.
