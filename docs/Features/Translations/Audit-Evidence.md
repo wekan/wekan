@@ -31079,3 +31079,16 @@ inventories. Raw overlap falls to 392; after 22 attested shared forms, 370
 remain unclassified. Forty-five raw matches contain at least 20 characters
 and 11 contain at least 35. Surrounding clauses remain subject to fluent
 review. No remote write occurred.
+
+
+### 2026-09-15 — Tigre Label, Organization and Team nouns
+
+Source commit `242c1f27b` repairs nine true Label contexts, three
+Organization contexts and one singular Team context with independently
+corpus-attested nouns already reviewed in the ledger. Dependency icons,
+checkbox marks, token prefixes and plural Team forms remain excluded because
+they require different senses or unverified morphology. Focused exact and
+negative checks pass with all 21,157 correction records and 234 locale
+inventories. Raw overlap falls to 379; after 22 attested shared forms, 357
+remain unclassified. Forty-three raw matches contain at least 20 characters
+and 11 contain at least 35. No remote write occurred.

@@ -620,3 +620,13 @@ and Enter meanings remain distinct. Exact and negative tests cover every
 value; all 21,144 correction records and 234 locale inventories pass. Raw
 overlap falls to 392, with 22 attested shared forms and 370 unclassified.
 Surrounding grammar remains open to fluent review. No remote write ran.
+
+
+## Tigre Label, Organization and Team nouns repaired — 2026-09-15
+
+Source commit `242c1f27b` replaces 13 Tigrinya-seeded nouns in semantically
+matched Label, Organization and singular Team controls. Exact and negative
+tests preserve the excluded icon, checkbox, token-prefix and plural senses.
+All 21,157 correction records and 234 locale inventories pass. Raw overlap
+falls to 379, with 22 attested shared forms and 357 unclassified. Surrounding
+grammar remains open to fluent review. No remote write ran.

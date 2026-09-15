@@ -2080,6 +2080,16 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/242c1f27b">Repair Tigre label, organization and team terms.</a></summary>
+
+Replace 13 copied Tigrinya nouns in semantically matched Label, Organization
+and singular Team controls while preserving distinct icon and checkbox senses.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8b6c21ff9">Repair repeated Tigre interface components.</a></summary>
 
 Replace 32 copied Tigrinya Change, Show, Import, All, Size, Path and User
