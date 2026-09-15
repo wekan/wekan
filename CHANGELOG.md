@@ -1451,6 +1451,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9e0680331">Replace wrong-language Veps CPU usage and load labels.</a></summary>
+
+Preserve current versus generic CPU usage and average-load distinction.
+Full computing terminology remains under review. Four focused files
+pass (35 checks); no live CPU UI ran.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

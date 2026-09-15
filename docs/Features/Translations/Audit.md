@@ -16,15 +16,15 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `e8826e71a` — replace three
-unflagged Finnish/Tshivenda loading and migration-status values with Veps
-drafts. Preserve active/inactive work and temporary login/CPU warning.
-Four focused files pass (34 checks). Ledger 19,950; original pending
-126/restored 4 unchanged. Full grammar and indicator/CPU terminology
-remain low confidence; broader flagged/unflagged review stays open.
+Latest translation fix: **2026-09-15**, `9e0680331` — replace three
+unflagged Tshivenda/Finnish CPU usage/load labels with Veps wording.
+Preserve current versus generic usage and average-load distinction.
+Four focused files pass (35 checks). Ledger 19,953; original pending
+126/restored 4 unchanged. Full computing grammar and CPU-core vocabulary
+remain under review; broader flagged/unflagged repairs are still open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **19,950** exact before/after values, including unflagged
+records contain **19,953** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

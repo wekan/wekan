@@ -30158,3 +30158,21 @@ foreign-language rejection, temporary condition and active/inactive contrast,
 plus full token/key inventories. No live status/login UI ran.
 Ledger 19,950; pending 126/restored 4 unchanged. Summary acknowledgment,
 backup scope, CPU labels and wider earlier uncertain review stay in scope.
+
+
+2026-09-15 — `9e0680331`: cpu-usage-current, cpu-usage and
+cpu-load-average wrong-language values replaced with Veps drafts.
+Reuse memory-usage Kävutand and OS_Loadavg keskmäine radmär. Native
+MediaWiki poolcounter-usage-error attests Kävutamižen and nügüd' current
+wording independently; source rechecked today:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json
+Read adminProblems.jade: current percent, core count and loadAverage are
+separate displays. CPU usage must not be equated with average system load.
+Full acronym case and computing load compound remain LOW CONFIDENCE;
+existing local terminology is consistency evidence, not native fluency proof.
+Four focused files pass (35 checks), including foreign-language rejection,
+current qualifier and load/usage distinction plus all token/key inventories.
+No live CPU UI ran. Ledger 19,953; pending 126/restored 4 unchanged.
+CPU-cores/suffix still need native computing-core evidence. Do not use
+MediaWiki Südäinviga/internal-error to claim processor-core attestation.
+Backup/progress acknowledgment and wider prior uncertain review remain open.
