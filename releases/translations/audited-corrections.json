@@ -148006,5 +148006,96 @@
     "before": "ዝኣትዉ ተጠቀምቲ ስሞም ሕባእ",
     "after": "ዝኣትዉ መትነፍዕያም ስሞም ሕባእ",
     "reason": "2026-09-15: Replace a Tigrinya-seeded users component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "deleteLabelPopup-title",
+    "before": "ምልክት ይደምሰስ?",
+    "after": "እሻረት ይደምሰስ?",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded label noun in semantically matched controls with the independently corpus-attested Tigre term already reviewed in the correction ledger. Exclude icon, checkbox, token-prefix and unverified plural senses."
+  },
+  {
+    "locale": "tig",
+    "key": "filter-labels-label",
+    "before": "ብምልክት ኣጻሪ",
+    "after": "ብእሻረት ኣጻሪ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded label noun in semantically matched controls with the independently corpus-attested Tigre term already reviewed in the correction ledger. Exclude icon, checkbox, token-prefix and unverified plural senses."
+  },
+  {
+    "locale": "tig",
+    "key": "filter-label-excluded",
+    "before": "ነዚ ምልክት ምግላል",
+    "after": "ነዚ እሻረት ምግላል",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded label noun in semantically matched controls with the independently corpus-attested Tigre term already reviewed in the correction ledger. Exclude icon, checkbox, token-prefix and unverified plural senses."
+  },
+  {
+    "locale": "tig",
+    "key": "label-default",
+    "before": "ምልክት %s (ነባሪ)",
+    "after": "እሻረት %s (ነባሪ)",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded label noun in semantically matched controls with the independently corpus-attested Tigre term already reviewed in the correction ledger. Exclude icon, checkbox, token-prefix and unverified plural senses."
+  },
+  {
+    "locale": "tig",
+    "key": "r-d-add-label",
+    "before": "ምልክት ወስኽ",
+    "after": "እሻረት ወስኽ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded label noun in semantically matched controls with the independently corpus-attested Tigre term already reviewed in the correction ledger. Exclude icon, checkbox, token-prefix and unverified plural senses."
+  },
+  {
+    "locale": "tig",
+    "key": "label-not-found",
+    "before": "ምልክት '%s' ኣይተረኽበን።",
+    "after": "እሻረት '%s' ኣይተረኽበን።",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded label noun in semantically matched controls with the independently corpus-attested Tigre term already reviewed in the correction ledger. Exclude icon, checkbox, token-prefix and unverified plural senses."
+  },
+  {
+    "locale": "tig",
+    "key": "label-color-not-found",
+    "before": "ሕብሪ ምልክት %s ኣይተረኽበን።",
+    "after": "ሕብሪ እሻረት %s ኣይተረኽበን።",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded label noun in semantically matched controls with the independently corpus-attested Tigre term already reviewed in the correction ledger. Exclude icon, checkbox, token-prefix and unverified plural senses."
+  },
+  {
+    "locale": "tig",
+    "key": "label-colors",
+    "before": "ሕብርታት ምልክት",
+    "after": "ሕብርታት እሻረት",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded label noun in semantically matched controls with the independently corpus-attested Tigre term already reviewed in the correction ledger. Exclude icon, checkbox, token-prefix and unverified plural senses."
+  },
+  {
+    "locale": "tig",
+    "key": "label-names",
+    "before": "ስማት ምልክት",
+    "after": "ስሜታት እሻረት",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded label noun in semantically matched controls with the independently corpus-attested Tigre term already reviewed in the correction ledger. Exclude icon, checkbox, token-prefix and unverified plural senses."
+  },
+  {
+    "locale": "tig",
+    "key": "removeBoardOrgPopup-title",
+    "before": "ውድብ ኣውጽእ",
+    "after": "መነዘመት ኣውጽእ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded organization noun in semantically matched controls with the independently corpus-attested Tigre term already reviewed in the correction ledger. Exclude icon, checkbox, token-prefix and unverified plural senses."
+  },
+  {
+    "locale": "tig",
+    "key": "org-tenant",
+    "before": "ብዙሕ ተኻራዪ፦ እዚ ውድብ ከም ተኻራዪ",
+    "after": "ብዙሕ ተኻራዪ፦ እዚ መነዘመት ከም ተኻራዪ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded organization noun in semantically matched controls with the independently corpus-attested Tigre term already reviewed in the correction ledger. Exclude icon, checkbox, token-prefix and unverified plural senses."
+  },
+  {
+    "locale": "tig",
+    "key": "org-name-not-found",
+    "before": "ውድብ '%s' ኣይተረኽበን።",
+    "after": "መነዘመት '%s' ኣይተረኽበን።",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded organization noun in semantically matched controls with the independently corpus-attested Tigre term already reviewed in the correction ledger. Exclude icon, checkbox, token-prefix and unverified plural senses."
+  },
+  {
+    "locale": "tig",
+    "key": "removeBoardTeamPopup-title",
+    "before": "ጉጅለ ኣውጽእ",
+    "after": "ፈሪቅ ኣውጽእ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded team noun in semantically matched controls with the independently corpus-attested Tigre term already reviewed in the correction ledger. Exclude icon, checkbox, token-prefix and unverified plural senses."
   }
 ]
