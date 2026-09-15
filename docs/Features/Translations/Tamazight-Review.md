@@ -1,5 +1,26 @@
 # Standard Moroccan Tamazight reference review
 
+## Board settings and color popups, 2026-09-15 (`87c049571`)
+
+Eight unflagged Arabic board, visibility, watch and color popup
+labels are repaired. `boardChangeTitlePopup-title` exactly
+reuses native `rename-board`; three choose-a-color titles
+exactly reuse `select-color`. The visibility control and popup
+are byte-identical; native visibility, watching, set and color
+components replace the other Arabic phrases.
+
+Full visibility/watch/set-color command grammar remains
+**low confidence** pending fluent review. The focused test
+checks source keys, native components, duplicate popup/control
+wording and absence of Arabic seeds; exact-ledger and 234-locale
+checks pass. Arabic-script values fall from 149 to 141.
+
+The Arabic `unset-color` still serves both color-removal
+buttons and general setting-status text. One replacement
+phrase cannot convey both contexts clearly, so this key
+requires a separate UI/source-key review. Original flagged
+finding classifications are unchanged.
+
 ## Board-background controls, 2026-09-15 (`79d58098f`)
 
 Nine unflagged Arabic color/image controls and popup titles are

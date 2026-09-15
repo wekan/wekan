@@ -1,5 +1,12 @@
 # Detailed translation audit evidence
 
+2026-09-15 (`87c049571`): repaired eight unflagged Arabic
+Tamazight board settings and color popup labels. Rename-board
+and choose-color titles reuse exact native labels; full command
+grammar remains low confidence. `unset-color` requires a
+context-aware repair. Exact ledger now 22,259; Arabic-script
+review queue 141. Focused and 234-locale checks pass.
+
 2026-09-15 (`79d58098f`): repaired nine unflagged Arabic
 Tamazight board-background color/image controls and popup
 titles, reusing native UI terms and retaining technical URL.
