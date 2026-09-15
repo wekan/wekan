@@ -1850,6 +1850,16 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/77e08a8f6">Repair Tigre Azure menu paths.</a></summary>
+
+Use Tigre Account and Show forms in two Azure paths while preserving every
+vendor menu token and separator.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e17bb2b5e">Repair native-catalogue Veps interface terms.</a></summary>
 
 Replace 31 Finnish-seeded labels through exact English-source matching with

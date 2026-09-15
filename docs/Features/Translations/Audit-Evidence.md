@@ -30789,3 +30789,11 @@ coordinated Tigre corpus terminology. A focused negative test covers every
 former seed; all 20,789 correction records and all 234 locale inventories
 pass. Exact overlap falls to 744, leaving 731 unclassified after 13 attested
 shared forms. No remote write occurred.
+
+### 2026-09-15 — Tigre Azure menu paths
+
+Source commit `77e08a8f61` repairs two long Azure paths without translating
+vendor-controlled tokens. Exact and negative checks cover both paths; all
+20,791 corrections and 234 locale inventories pass. Exact overlap falls to
+742, leaving 729 unclassified after 13 attested shared forms. No remote write
+occurred.

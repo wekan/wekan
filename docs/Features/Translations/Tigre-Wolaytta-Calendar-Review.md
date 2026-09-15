@@ -311,3 +311,12 @@ Focused checks preserve every selected value and reject every former seed. All
 20,789 correction records and all 234 locale inventories pass. Exact overlap
 falls from 776 to 744; after 13 attested shared forms, 731 remain unclassified.
 Composed UI phrases remain open to fluent style review. No remote write ran.
+
+## Tigre Azure menu paths repaired — 2026-09-15
+
+Source commit `77e08a8f61` replaces the translated Account and Show fragments
+in two long Azure menu paths with corpus-attested Tigre while preserving every
+vendor token and separator. Focused checks cover the exact paths, all 20,791
+corrections and 234 locale inventories. Exact overlap falls to 742; 729 remain
+unclassified after 13 attested shared forms, including 84 values of at least
+20 characters and 18 of at least 35. No remote write ran.

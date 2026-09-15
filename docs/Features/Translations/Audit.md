@@ -16,22 +16,21 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `2530126f27` — replace 32
-repeated Tigrinya-seeded Tigre UI families after the 94 lexical repairs in
-`f27cb82ca6` and `62956f2819`. Status, color actions, templates, creation,
-weekly/monthly intervals, team, week, weight and size now use coordinated Tigre
-corpus terminology; ledger 20,789. The earlier Finnish-seeded Veps review
-remains complete with no unclassified match.
+Latest translation fix: **2026-09-15**, `77e08a8f61` — repair two long
+Azure menu paths after the 32-family batch `2530126f27`. Vendor menu tokens and
+separators remain exact while the translated Account and Show fragments now use
+corpus-attested Tigre; ledger 20,791. The Finnish-seeded Veps review remains
+complete with no unclassified match.
 
 The tracked Tigre calendar queue being empty does not certify the locale. Of
-2,592 non-English Tigre values, 744 are byte-for-byte identical to Tigrinya;
-13 are corpus-attested shared terms and 731 remain unclassified, including 86
+2,592 non-English Tigre values, 742 are byte-for-byte identical to Tigrinya;
+13 are corpus-attested shared terms and 729 remain unclassified, including 84
 values of at least 20 characters and 18 of at least 35 characters. This is an
 explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **20,789** exact before/after values, including unflagged
+records contain **20,791** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
