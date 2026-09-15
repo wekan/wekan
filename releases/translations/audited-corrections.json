@@ -139739,5 +139739,12 @@
     "before": "Tshifhinga tsha maḓuvha a mabammbiro o khetheaho u sumbedza nṱha ha bammbi",
     "after": "Päivmäriden keskust kävutajan märitud päivmär-pöudoiš, miččed oma märitud ozutada lugetižen ülähäl",
     "reason": "Replace Tshivenda with direct Veps date-range draft. Rendered dictionary page 367 attests keskust and aigan keskust for time interval; preserve date custom fields marked for list top. Full compound/case/list-top grammar remains low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "sum-of-number-fields",
+    "before": "Nzhengeledzo ya masia a khontḓo dza dziṅwalo dzi sumbedzwaho nṱha ha lushaka",
+    "after": "Kävutajan märitud lugu-pöudoiden luguiden ližaduz, miččed oma märitud ozutada lugetižen ülähäl",
+    "reason": "Replace Tshivenda with Veps numeric-field addition draft. Rendered dictionary page 419 directly attests luguiden ližaduz for addition of numbers; preserve custom number fields marked for list top. Full compound/case/list-top grammar remains low confidence."
   }
 ]

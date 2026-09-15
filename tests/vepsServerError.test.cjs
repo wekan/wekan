@@ -334,3 +334,14 @@ test("Veps list date range retains date fields and list-top selection", () => {
  const code=fs.readFileSync("client/components/lists/listHeader.js","utf8");
  assert.match(code,/stats.earliest === stats.latest/);
 });
+
+test("Veps numeric-field total uses attested number-addition wording", () => {
+ const data=JSON.parse(fs.readFileSync("imports/i18n/data/ve-PP.i18n.json","utf8"));
+ assert.match(data["sum-of-number-fields"],/lugu-pöudoiden luguiden ližaduz/);
+ assert.match(data["sum-of-number-fields"],/märitud ozutada lugetižen ülähäl$/);
+ assert.doesNotMatch(data["sum-of-number-fields"],/Nzhengeledzo|khontḓo|dziṅwalo|lushaka/i);
+ assert.notEqual(data["sum-of-number-fields"],data["date-range-of-fields"]);
+ const code=fs.readFileSync("client/components/lists/listHeader.js","utf8");
+ assert.match(code,/numberFieldsSumTooltip/);
+ assert.match(code,/numberFieldStats/);
+});
