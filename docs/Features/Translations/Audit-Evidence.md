@@ -30982,3 +30982,13 @@ former-seed checks pass with all 20,986 correction records and 234 locale
 inventories. Raw non-English overlap falls to 550; 530 remain unclassified
 after 20 attested shared forms. Destination compounds remain open to fluent
 review. No remote write occurred.
+
+### 2026-09-15 — Tigre Name controls
+
+Source commit `002f8bc7b` repairs four Full Name, Location name, Webhook Name
+and Version-Name labels. The BeitTigreAI corpus directly gives `ስሜት` for Name
+and uses it in a complete Full Name sentence; earlier records independently
+establish Location and Version while Webhook remains literal. Focused exact
+and former-seed checks pass with all 20,990 correction records and 234 locale
+inventories. Raw non-English overlap falls to 546; 526 remain unclassified
+after 20 attested shared forms. No remote write occurred.

@@ -535,3 +535,13 @@ Focused exact and negative checks cover every value; all 20,986 correction
 records and 234 locale inventories pass. Raw non-English overlap falls to 550,
 with 20 attested shared forms and 530 unclassified. Destination compound order
 remains open to fluent review. No remote write ran.
+
+## Tigre Name controls repaired — 2026-09-15
+
+Source commit `002f8bc7b` replaces the Tigrinya Name noun in four compound
+labels. The BeitTigreAI corpus gives exact `ስሜት` and uses it in a complete Full
+Name sentence; separately reviewed Tigre Location and Version terms complete
+the compounds while Webhook remains literal. Focused exact and negative checks
+cover every value; all 20,990 correction records and 234 locale inventories
+pass. Raw non-English overlap falls to 546, with 20 attested shared forms and
+526 unclassified. No remote write ran.
