@@ -639,6 +639,22 @@ the Markdown commit as the template.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**Developer tooling** - Mirror linked files.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f7da598ad">Stop using archive.org for mirror linked files</a>. Thanks to xet7.</summary>
+
+Repository mirrors now download public issue and comment links only from their
+live URLs. Missing links are reported, and transient failures preserve any
+existing local files. The mirror linked-file tests cover successful, missing
+and failed downloads without a historical fallback.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v11.82 2026-09-16 WeKan ® release
 
 **In short:** Release preparation now checks translation-language metadata
