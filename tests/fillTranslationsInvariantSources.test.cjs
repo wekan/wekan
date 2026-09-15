@@ -57,6 +57,28 @@ try {
 } finally { fs.rmSync(fixture, { recursive: true, force: true }); }
 assert.ok(!Object.hasOwn(list('ve-PP'), 'server'));
 assert.ok(!Object.hasOwn(list('ca@valencia'), 'errors'));
+assert.deepStrictEqual(list('zgh'), {}, 'reviewed zgh search keywords are complete');
+const syntaxFixture = fs.mkdtempSync(path.join(ROOT, '.tools/tmp/zgh-syntax-terms-'));
+try {
+  const syntaxData = path.join(syntaxFixture, 'imports/i18n/data');
+  fs.mkdirSync(syntaxData, { recursive: true });
+  const english = { 'operator-due': 'due', sentence: 'The board is unavailable' };
+  for (const locale of ['en', 'zgh', 'xx']) {
+    fs.writeFileSync(path.join(syntaxData, `${locale}.i18n.json`), JSON.stringify(english));
+  }
+  const syntaxList = locale => JSON.parse(childProcess.execFileSync(node,
+    [script, '--list', locale], { cwd: syntaxFixture, encoding: 'utf8' }));
+  assert.deepStrictEqual(syntaxList('zgh'), { sentence: english.sentence },
+    'zgh syntax exemption does not hide ordinary untranslated prose');
+  assert.deepStrictEqual(syntaxList('xx'), english,
+    'the zgh parser keyword is not exempted in another locale');
+  const proposed = path.join(syntaxFixture, 'proposed.json');
+  fs.writeFileSync(proposed, JSON.stringify({ 'operator-due': 'Unreviewed alias', sentence: 'Native sentence' }));
+  childProcess.execFileSync(node, [script, '--apply', 'zgh', proposed], { cwd: syntaxFixture });
+  const after = JSON.parse(fs.readFileSync(path.join(syntaxData, 'zgh.i18n.json'), 'utf8'));
+  assert.strictEqual(after['operator-due'], 'due', 'fill cannot overwrite reviewed parser code');
+  assert.strictEqual(after.sentence, 'Native sentence', 'ordinary prose still fills');
+} finally { fs.rmSync(syntaxFixture, { recursive: true, force: true }); }
 const source = require('fs').readFileSync(script, 'utf8');
 assert.doesNotMatch(source, /\/__[a-zA-Z]+__\/\.test/, 'sentences containing placeholders remain translatable');
-console.log('fillTranslationsInvariantSources: 13 tests passed');
+console.log('fillTranslationsInvariantSources: native terms and zgh syntax checks passed');

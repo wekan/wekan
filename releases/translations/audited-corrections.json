@@ -155461,5 +155461,110 @@
     "before": "وصف",
     "after": "ⴰⴳⵍⴰⵎ",
     "reason": "Replace Arabic parser operator with local Tamazight description noun ⴰⴳⵍⴰⵎ."
+  },
+  {
+    "locale": "zgh",
+    "key": "operator-assignee",
+    "before": "personne assignée",
+    "after": "assignee",
+    "reason": "Replace unparseable French multiword operator with portable single-word assignee syntax. Keep native multiword assignee prose in its separate display field; native one-word alias remains open to fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "operator-due",
+    "before": "échéance",
+    "after": "due",
+    "reason": "Replace French operator with portable one-word due search code; local native Due Date display phrase has spaces and cannot serve as current parser operator. A native one-word alias remains open."
+  },
+  {
+    "locale": "zgh",
+    "key": "operator-modified",
+    "before": "modifiée",
+    "after": "modified",
+    "reason": "Replace French inflected operator with stable single-word modified search code; native one-word equivalent needs review."
+  },
+  {
+    "locale": "zgh",
+    "key": "operator-has",
+    "before": "a",
+    "after": "has",
+    "reason": "Replace French verb a with stable one-word has existence-check search code; native one-word equivalent needs review."
+  },
+  {
+    "locale": "zgh",
+    "key": "operator-debug",
+    "before": "débogage",
+    "after": "debug",
+    "reason": "Replace French technical operator with portable debug search code, matching the debugger predicate category."
+  },
+  {
+    "locale": "zgh",
+    "key": "predicate-archived",
+    "before": "archivée",
+    "after": "ⴰⵔⵛⵉⴼ",
+    "reason": "Replace French archived status seed with local Tamazight archive term ⴰⵔⵛⵉⴼ; full predicate-as-status wording low confidence pending native review."
+  },
+  {
+    "locale": "zgh",
+    "key": "predicate-open",
+    "before": "ouverte",
+    "after": "ⵔⵥⵎ",
+    "reason": "Replace French open status seed with local Tamazight Open term ⵔⵥⵎ; imperative versus status nuance low confidence pending native review."
+  },
+  {
+    "locale": "zgh",
+    "key": "predicate-ended",
+    "before": "انتهى",
+    "after": "ⵜⵉⴳⵉⵔⴰ",
+    "reason": "Replace Arabic end-date predicate seed with local Tamazight end term ⵜⵉⴳⵉⵔⴰ, aligned with predicate-end and search instruction. Ended-versus-has-end-date nuance low confidence pending native review."
+  },
+  {
+    "locale": "zgh",
+    "key": "predicate-quarter",
+    "before": "trimestre",
+    "after": "quarter",
+    "reason": "Replace French interval code with portable quarter search keyword; a verified native one-word quarter term remains open."
+  },
+  {
+    "locale": "zgh",
+    "key": "predicate-due",
+    "before": "échéance",
+    "after": "due",
+    "reason": "Replace French due predicate with portable single-word due keyword, aligned with operator-due; verified native one-word form remains open."
+  },
+  {
+    "locale": "zgh",
+    "key": "predicate-modified",
+    "before": "modifiée",
+    "after": "modified",
+    "reason": "Replace French modified predicate with portable single-word modified keyword, aligned with operator-modified; verified native one-word form remains open."
+  },
+  {
+    "locale": "zgh",
+    "key": "predicate-description",
+    "before": "وصف",
+    "after": "ⴰⴳⵍⴰⵎ",
+    "reason": "Replace Arabic description predicate with local Tamazight ⴰⴳⵍⴰⵎ, aligned with the native operator-description term."
+  },
+  {
+    "locale": "zgh",
+    "key": "predicate-assignee",
+    "before": "personne assignée",
+    "after": "assignee",
+    "reason": "Replace French multiword assignee predicate with portable single-word assignee search keyword; native display prose remains in the separate assignee field."
+  },
+  {
+    "locale": "zgh",
+    "key": "predicate-private",
+    "before": "privé",
+    "after": "ⵓⵙⵍⵉⴳ",
+    "reason": "Replace French private predicate with the established local Tamazight private label ⵓⵙⵍⵉⴳ."
+  },
+  {
+    "locale": "zgh",
+    "key": "predicate-selector",
+    "before": "sélecteur",
+    "after": "selector",
+    "reason": "Replace French technical Mongo selector term with portable selector debug keyword; native one-word software term remains open."
   }
 ]

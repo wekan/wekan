@@ -100,6 +100,11 @@ const LOCALE_INVARIANTS = {
   // Same spelling as English does not make a native plural untranslated.
   'ca@valencia': new Set(['errors']),
   sq: new Set(['color-indigo', 'color-magenta', 'email', 'normal', 'private']),
+  // These are reviewed search-parser keywords, not untranslated display prose.
+  // Keep the exception per zgh key so English sentences remain fillable.
+  zgh: new Set(['operator-assignee', 'operator-due', 'operator-modified',
+    'operator-has', 'operator-debug', 'predicate-quarter', 'predicate-due',
+    'predicate-modified', 'predicate-assignee', 'predicate-selector']),
 };
 
 // Exact reviewed shared terms must not be offered for machine filling again.
