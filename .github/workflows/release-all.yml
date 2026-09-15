@@ -3900,6 +3900,11 @@ jobs:
           # continuation comments out the rest of the joined line, leaving
           # `docker buildx build` with no platforms and no tags. This block is a
           # shell script like any other, and it was written the wrong way first.
+          # Build once for Docker Hub and GHCR, then copy the published manifest
+          # to Quay in the next step. Quay can switch to read-only mode after
+          # this expensive build starts; a single --push across all three
+          # registries then reports the whole job failed even when the first
+          # two received a complete image.
           # ONE IMAGE NAME, on three registries. wekan-ondra and wekan-gantt-gpl
           # are SNAP names - they exist because a snap name cannot be changed once
           # people have installed it - and there is nothing for them to be as
@@ -3921,8 +3926,6 @@ jobs:
             --build-arg VERSION=${VERSION} \
             -t wekanteam/wekan:v${VERSION} \
             -t wekanteam/wekan:latest \
-            -t quay.io/wekan/wekan:v${VERSION} \
-            -t quay.io/wekan/wekan:latest \
             -t ghcr.io/wekan/wekan:v${VERSION} \
             -t ghcr.io/wekan/wekan:latest \
             --push \
@@ -3960,8 +3963,7 @@ jobs:
           # the image deliberately dropped.
           want="${WANT}"
           rc=0
-          for image in "wekanteam/wekan:v${VERSION}" "quay.io/wekan/wekan:v${VERSION}" \
-                       "ghcr.io/wekan/wekan:v${VERSION}"; do
+          for image in "wekanteam/wekan:v${VERSION}" "ghcr.io/wekan/wekan:v${VERSION}"; do
             # The format MUST carry the CPU variant. buildx builds linux/arm/v7,
             # but the registry records that as architecture "arm" with variant
             # "v7" in a SEPARATE field - so an OS/Architecture-only format prints
@@ -3989,6 +3991,45 @@ jobs:
             echo "OK: $image carries:$got"
           done
           exit $rc
+
+      - name: Copy published manifest to Quay
+        run: |
+          set -uo pipefail
+          # imagetools copies the existing multi-platform manifest without
+          # rebuilding every architecture. A Quay-wide read-only outage is
+          # temporary and affects every user; keep the completed publications
+          # on Docker Hub and GHCR. Any other refusal remains a real failure.
+          if output="$(docker buildx imagetools create \
+            -t "quay.io/wekan/wekan:v${VERSION}" \
+            -t "quay.io/wekan/wekan:latest" \
+            "ghcr.io/wekan/wekan:v${VERSION}" 2>&1)"; then
+            printf '%s\n' "$output"
+            echo "QUAY_PUBLISHED=true" >> "$GITHUB_ENV"
+          else
+            printf '%s\n' "$output"
+            if printf '%s' "$output" | grep -qi 'System is currently read-only.*write operations are currently suspended'; then
+              echo "::warning::Quay is in read-only mode; Docker Hub and GHCR were published and verified. Re-run this Docker job when Quay resumes writes to copy the same release manifest."
+              echo "QUAY_PUBLISHED=false" >> "$GITHUB_ENV"
+            else
+              echo "::error::Could not copy the published manifest to Quay; this is not the registry's read-only outage."
+              exit 1
+            fi
+          fi
+
+      - name: Verify Quay manifest platforms
+        if: env.QUAY_PUBLISHED == 'true'
+        run: |
+          set -euo pipefail
+          image="quay.io/wekan/wekan:v${VERSION}"
+          got="$(docker buildx imagetools inspect "$image" --format '{{range .Manifest.Manifests}}{{.Platform.OS}}/{{.Platform.Architecture}}{{if .Platform.Variant}}/{{.Platform.Variant}}{{end}} {{end}}')"
+          got="$(printf '%s' "$got" | sed 's#/v8 # #g')"
+          for plat in $WANT; do
+            case " $got " in
+              *" $plat "*) ;;
+              *) echo "::error::$image has no $plat in its manifest (it has:$got)."; exit 1 ;;
+            esac
+          done
+          echo "OK: $image carries:$got"
 
       # PUSHED IS NOT THE SAME AS PULLABLE BY ANYONE.
       #
@@ -4055,10 +4096,12 @@ jobs:
           }
           # The variant names are commented out with the -t lines they went with;
           # nothing pushes them, so nothing checks them.
-          for image in "wekanteam/wekan:v${VERSION}" "quay.io/wekan/wekan:v${VERSION}" \
-                       "ghcr.io/wekan/wekan:v${VERSION}"; do
+          for image in "wekanteam/wekan:v${VERSION}" "ghcr.io/wekan/wekan:v${VERSION}"; do
             anon_check "$image"
           done
+          if [ "${QUAY_PUBLISHED:-false}" = true ]; then
+            anon_check "quay.io/wekan/wekan:v${VERSION}"
+          fi
           exit $rc
 
       # Always, as the last step: the run summary then answers "what worked and what
