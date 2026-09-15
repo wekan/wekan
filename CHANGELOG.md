@@ -692,6 +692,18 @@ failures pass focused reruns; the complete matrix is being rerun.
 
 </details>
 
+**Developer tooling** - Board title viewer UI coverage.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/929326ba2">Exercise board title viewers through visible controls</a>. Thanks to xet7.</summary>
+
+Open card details through the card link and choose views from
+the visible Board View popup. All 24 title-viewer cases pass
+sequentially in Chromium across formatted, plain-links and
+plain-source security settings.
+
+</details>
+
 **Translations** - Tamazight, Tigre and multilingual list-width repairs.
 
 <details>
