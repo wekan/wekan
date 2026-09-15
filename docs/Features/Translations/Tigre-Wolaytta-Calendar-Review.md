@@ -468,3 +468,15 @@ independently uses `መክዘን` in its data-storage description. Focused exact
 negative checks cover all four values; all 20,933 correction records and 234
 locale inventories pass. Raw overlap falls to 600, with 20 attested shared
 forms and 580 unclassified. No remote write ran.
+
+## Ledger-grounded Tigre compounds repaired — 2026-09-15
+
+Source commit `0651f745b` replaces 17 compact Tigrinya-seeded labels for public
+boards, announcements, administrators, organizations, members, roles/status,
+search, templates, source/status/delete board, new users, job description and
+file path. Every content term was independently corpus-attested and reviewed
+in an earlier correction; this batch reuses that ledger evidence instead of
+inventing new vocabulary. Focused exact and negative checks cover all values;
+all 20,950 correction records and 234 locale inventories pass. Raw overlap
+falls to 583, with 20 attested shared forms and 563 unclassified. Complete
+compound order remains open to fluent review. No remote write ran.

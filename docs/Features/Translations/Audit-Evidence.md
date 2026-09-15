@@ -30922,3 +30922,12 @@ the native Tigre Wikidata interface supply the Storage spelling. Focused exact
 and former-seed checks pass with all 20,933 correction records and 234 locale
 inventories. Raw overlap falls to 600; 580 remain unclassified after 20
 attested shared forms. No remote write occurred.
+
+### 2026-09-15 — Ledger-grounded Tigre compounds
+
+Source commit `0651f745b` repairs 17 compact interface labels using only Tigre
+terms independently established in earlier corpus-reviewed correction records.
+Focused exact and former-seed checks pass with all 20,950 correction records
+and 234 locale inventories. Raw overlap falls to 583; 563 remain unclassified
+after 20 attested shared forms. Complete compound order remains open to fluent
+review. No remote write occurred.
