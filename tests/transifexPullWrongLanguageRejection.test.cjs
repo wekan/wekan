@@ -22,11 +22,13 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 const rejected = {
   ace: {
     'card-comments-more': ['Lainnya', 'Leubeh'],
-    'text-note-text': ['Teks', 'Teuks'],
-    'ldap-test-connection-success': ['Koneksi sukses', 'Sambongan seuemah'],
-    'no-assignee': ['tiada penerima tugas', 'Hana nyang geutanyong'],
+    // Later direct Acehnese review replaced the draft Teuks with attested
+    // Naseukah (see Audit-Evidence.md); the Indonesian Teks stays rejected.
+    'text-note-text': ['Teks', 'Naseukah'],
+    'ldap-test-connection-success': ['Koneksi sukses', 'Sambongan meuhasé'],
+    'no-assignee': ['tiada penerima tugas', 'Hana nyang geubri buët'],
     'no-label': ['Tidak ada label', 'Hana label'],
-    'due-today': ['Tamat Hari ini', 'Jitôh uroe nyoe'],
+    'due-today': ['Tamat Hari ini', 'Bataih watèë uroe nyoe'],
   },
   ar: { 'due-today': ['مقتضی امروز', 'مستحق اليوم'], 'no-assignee': ['منتصب‌نشده', 'لا يوجد مُكلَّف'] },
   'ar-DZ': { 'due-today': ['مقتضی امروز', 'مستحق اليوم'], 'no-assignee': ['منتصب‌نشده', 'لا يوجد مُكلَّف'] },
@@ -47,8 +49,8 @@ const rejected = {
   'ca@valencia': { 'text-note-text': ['Texto', 'Text lliure'] },
   eo: { 'twoFactorCode-cancel': ['Cancelar', 'Nuligi'] },
   tk_TM: { 'twoFactorCode-cancel': ['Elatyr', 'Ýatyr'] },
-  'uz-AR': { 'twoFactorCode-cancel': ['Bekor qilish', 'بیکر قیلیش'] },
-  've-PP': { 'twoFactorCode-cancel': ['Peruuta', "Hül'gäta"] },
+  'uz-AR': { 'twoFactorCode-cancel': ['Bekor qilish', 'بیکار قیلیش'] },
+  've-PP': { 'twoFactorCode-cancel': ['Peruuta', 'Heitä'] },
 };
 
 test('rejected wrong-language values are not present and the expected value is', () => {

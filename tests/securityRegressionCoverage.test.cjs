@@ -61,12 +61,14 @@ const GUARDED = {
   avatarmimebleed: ['tests/avatarLegacyAttachSwimlaneBleed.test.cjs'],
   boardbleed: ['tests/crossBoardParentCardLeak.test.cjs'],
   calendarbleed: ['tests/calendarbleed.test.cjs'],
-  casbleed: ['tests/securityMeifukun.test.cjs'],
+  casaccountmergebleed: ['tests/canaryCoverage.test.cjs'],
+  casracebleed: ['tests/securityMeifukun.test.cjs'],
   checklistbleed: ['server/lib/tests/checklistbleed.security.tests.js'],
   checklistwritebleed: ['tests/restSecurityAdvisories.test.cjs'],
   claimbleed: ['tests/securityAdvisories20260826.test.cjs'],
   clonebleed: ['server/lib/tests/clonebleed.security.tests.js'],
   commentbleed: ['tests/restCommentDeleteAcl.test.cjs'],
+  commentboundarybleed: ['tests/commentCardBoundary.test.cjs'],
   commentwritebleed: ['tests/restSecurityAdvisories.test.cjs'],
   cookietokenbleed: ['tests/httpOnlySessionCookie.test.cjs'],
   crashbleed: ['tests/exportTokenGuard.test.cjs'],
@@ -82,6 +84,8 @@ const GUARDED = {
     'tests/importBleed.test.cjs',
     'tests/playwright/specs/42-import-bleed.e2e.js',
   ],
+  invitationboardbleed: ['tests/invitationBoardPermission.test.cjs'],
+  inviteprofilebleed: ['tests/invitationProfileGuard.test.cjs'],
   // Moved up from RECORDED: the guard is repo-wide rather than per-site - every
   // place that folds random bytes onto an alphabet has to reject the bytes that
   // would bias it, and every file that makes a secret has to use a cryptographic
@@ -92,6 +96,7 @@ const GUARDED = {
   invitebleed: ['tests/securityMeifukun.test.cjs'],
   jambleed: ['tests/lockoutPerSourceAddress.test.cjs'],
   livebleed: ['tests/followbleed.test.cjs', 'tests/securityMeifukun.test.cjs'],
+  linkedwritebleed: ['tests/linkedWritePolicy.test.cjs'],
   legacyattachbleed: ['tests/avatarLegacyAttachSwimlaneBleed.test.cjs'],
   lockoutbleed: [
     'tests/loginFailureDecision.test.cjs',
@@ -101,14 +106,18 @@ const GUARDED = {
   ],
   metricsbleed: ['tests/securityMeifukun.test.cjs'],
   mailtitlebleed: ['tests/notificationEmailHtmlSafety.test.cjs'],
+  manageboardbleed: ['tests/restBoardManagementAcl.test.cjs'],
   membershipbleed: ['tests/securityAdvisories20260826.test.cjs'],
   mimebleed: ['server/lib/tests/fileValidationBypass.security.tests.js'],
+  mimestoragebleed: ['server/lib/tests/fileValidationBypass.security.tests.js'],
   miniprofilebleed: ['tests/securityAdvisories20260825.test.cjs'],
   oidcbleed: ['tests/securityMeifukun.test.cjs'],
+  mutationbleed: ['tests/boardMutationGuard.test.cjs'],
   parentbleed: ['tests/crossBoardParentCardLeak.test.cjs'],
   ownerbleed: ['tests/restSecurityAdvisories.test.cjs'],
   passbleed: ['tests/exportExcelCardContainment.test.cjs'],
   pathbleed: ['tests/avatarVersionPathTraversal.test.cjs'],
+  filepathbleed: ['tests/canaryCoverage.test.cjs'],
   patternbleed: ['tests/noIdentityReplacement.test.cjs'],
   proxybleed: ['server/lib/tests/proxybleed.security.tests.js'],
   positionhistorybleed: ['tests/securityAdvisories20260825.test.cjs'],
@@ -123,6 +132,7 @@ const GUARDED = {
   scannerbleed: ['tests/scannerBleed.test.cjs'],
   rolebleed: ['tests/restSecurityAdvisories.test.cjs'],
   rulebleed: ['tests/ruleCrossBoardAuthorization.test.cjs'],
+  rulebuttonbleed: ['tests/buttonRulePermission.test.cjs'],
   searchbleed: ['tests/globalSearchSelectorAuthorization.test.cjs'],
   sheetcolorbleed: ['tests/xlsxTabColorCssInjection.test.cjs'],
   sortbleed: ['server/lib/tests/boards.security.tests.js'],
@@ -131,6 +141,7 @@ const GUARDED = {
   signupbleed: ['tests/restRegisterRespectsSetting.test.cjs'],
   stalebleed: ['tests/restApiIdorBatch.test.cjs'],
   subtaskexportbleed: ['tests/securityAdvisories20260825.test.cjs'],
+  subtaskdepositbleed: ['tests/subtaskDepositSecurity.test.cjs'],
   swimlanebleed: ['tests/avatarLegacyAttachSwimlaneBleed.test.cjs'],
   tenantbleed: ['tests/tenantbleed.test.cjs'],
   tokenauditbleed: ['tests/restSecurityAdvisories.test.cjs'],
@@ -138,6 +149,7 @@ const GUARDED = {
   webhookbleed: ['server/lib/tests/dnsbleed.security.tests.js'],
   usersearchbleed: ['tests/securityAdvisories20260825.test.cjs'],
   wherebleed: ['tests/selectorGuard.test.cjs'],
+  visibilitybleed: ['tests/boardPrivateOnlyMethod.test.cjs'],
   zipbleed: ['tests/zipbleed.test.cjs'],
   wipebleed: ['tests/attachmentAvatarSecurityAdvisories.test.cjs'],
   uploadpathbleed: ['tests/attachmentAvatarSecurityAdvisories.test.cjs'],
@@ -152,7 +164,7 @@ const GUARDED = {
   // these stay candidates for a real regression test. It is stronger than
   // nothing, which is what they had.
   escapebleed: ['tests/canaryCoverage.test.cjs'],
-  filebleed: ['tests/canaryCoverage.test.cjs'],
+  filenamebleed: ['tests/canaryCoverage.test.cjs'],
   inputbleed: ['tests/canaryCoverage.test.cjs'],
   spacebleed: ['tests/canaryCoverage.test.cjs'],
 };
@@ -282,7 +294,7 @@ test('the whole published list is accounted for', () => {
   // when a new one is published, and put it in GUARDED or RECORDED at the same
   // time; the two assertions together are what make "every published
   // vulnerability is accounted for" a fact rather than a hope.
-  assert.strictEqual(total, 98, 'the Hall of Fame and this list disagree on how many there are');
+  assert.strictEqual(total, 110, 'the Hall of Fame and this list disagree on how many there are');
 });
 
 test('the companion Hall of Fame names match the inventory when available', () => {

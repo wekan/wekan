@@ -1,5 +1,5 @@
 /* eslint-env mocha */
-// MimeBleed - https://wekan.fi/hall-of-fame/mimebleed/
+// MimeBleed and MimeStorageBleed - upload-side MIME and active-content guards.
 // Named for tests/securityRegressionCoverage.test.cjs, which checks the published
 // Hall of Fame list against the tests that guard it - a test that does not say
 // which vulnerability it belongs to cannot be checked against that list.

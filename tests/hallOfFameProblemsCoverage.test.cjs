@@ -80,6 +80,8 @@ const DELIBERATE = {
   SheetColorBleed: 'the fix canonicalizes workbook color data while rendering every legitimate XLSX preview; '
     + 'there is no upload-time refusal or reliable way to distinguish an intentionally malicious malformed color '
     + 'from a damaged workbook without misattributing the viewer as the attacker',
+  CasRaceBleed: 'the fix binds validated CAS data to each credential token during every legitimate CAS login; '
+    + 'no operation is refused and logging these logins would report normal authentication as an attack',
 };
 
 // Predates the rule and has not been judged yet. May shrink; must never grow.

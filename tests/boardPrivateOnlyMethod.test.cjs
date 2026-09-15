@@ -1,4 +1,5 @@
 'use strict';
+// Hall of Fame regression coverage: VisibilityBleed.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const source = fs.readFileSync(require('node:path').join(__dirname, '../server/models/boards.js'), 'utf8');

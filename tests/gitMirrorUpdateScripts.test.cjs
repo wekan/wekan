@@ -31,13 +31,14 @@ test('Windows discovers its checkout from the script, including the documented D
   assert.ok(batch.includes('for %%I in ("%~dp0..") do set "WEKAN_ROOT=%%~fI"'));
 });
 
-test('both launchers export once and dispatch each active target', () => {
+test('both launchers delegate to one menu that exports once and dispatches active targets', () => {
   const menu = read('tools/mirror-menu.mjs');
   assert.ok(shell.includes('mirror-menu.mjs'));
   assert.ok(batch.includes('mirror-menu.mjs'));
   assert.ok(menu.includes('--export-source'));
-  assert.ok(menu.includes('mirror-${target}.sh'));
-  assert.ok(menu.includes('mirror-${target}.bat'));
+  assert.ok(menu.includes("for (const target of settings.mirrors) await execute"));
+  assert.ok(menu.includes("'--git-only'"));
+  assert.ok(menu.includes('`${target}.txt`'), 'each target gets its own log');
   assert.ok(menu.includes('--snapshot'));
   const engine = read('tools/mirror-active-forges.mjs');
   assert.ok(engine.includes("'fetch', 'origin'"), 'existing Git cache fetches new commits');

@@ -68,7 +68,7 @@ const CANARIES = {
     what: 'tried to move a checklist item into a board they cannot write to',
   },
   'attachment.version-path': {
-    key: 'authz.file-path',
+    key: 'authz.attachment-file-path',
     what: 'tried to write the on-disk path of an attachment',
   },
   'avatar.version-path': {

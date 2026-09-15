@@ -22,10 +22,11 @@ const fillResult = spawnSync(process.execPath, [
   'sc',
 ], { cwd: root, encoding: 'utf8' });
 assert.equal(fillResult.status, 0, fillResult.stderr);
-// Magenta terminology is still explicitly awaiting language review in the audit.
-// Preserve that known uncertainty while refusing any additional English gaps.
-assert.deepEqual(JSON.parse(fillResult.stdout), { 'color-magenta': 'magenta' },
-  'only the documented Sardinian color review remains unresolved');
+// The earlier magenta uncertainty was resolved with attested Sardinian
+// "fùcsia" in commit 04711b646. No English-valued gaps remain.
+assert.deepEqual(JSON.parse(fillResult.stdout), {},
+  'Sardinian now has no remaining English-valued gaps');
+assert.equal(sardinian['color-magenta'], 'fùcsia');
 
 for (const [key, value] of Object.entries(sardinian)) {
   assert.deepEqual(tokens(value), tokens(english[key]),
@@ -35,7 +36,7 @@ for (const [key, value] of Object.entries(sardinian)) {
 }
 
 // Agiunghe is the newer local Sardinian add form (also used by sc.wiktionary.org).
-// Preserve valid wording while keeping the unresolved magenta review explicit.
+// Preserve valid wording alongside the repaired colour term.
 assert.equal(sardinian.add, 'Agiunghe');
 assert.equal(sardinian.board, 'Tàula');
 assert.equal(sardinian.card, 'Carta');

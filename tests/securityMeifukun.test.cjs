@@ -83,7 +83,7 @@ check('#3 …and downloads through fetchSafe, never a bare redirect-following fe
   );
 });
 
-// ── #4 CAS login global user-data race — CasBleed ───────────────────────────
+// ── #4 CAS login global user-data race — CasRaceBleed ───────────────────────
 check('#4 CAS stores user data per token, not in a module global', () => {
   const src = read('packages/wekan-accounts-cas/cas_server.js');
   assert.ok(!/^\s*let _userData\b/m.test(src), 'the module-global _userData must be gone');

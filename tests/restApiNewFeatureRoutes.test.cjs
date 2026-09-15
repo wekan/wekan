@@ -244,11 +244,12 @@ test('GET /api/boards/:boardId/cardSettings has an @operation block and needs bo
   });
 });
 
-test('PUT /api/boards/:boardId/cardSettings has an @operation block and needs board write access', () => {
+test('PUT /api/boards/:boardId/cardSettings needs board admin rather than ordinary write access', () => {
   const { doc } = pinRoute('server/models/boards.js', 'put', '/api/boards/:boardId/cardSettings',
     'update_board_card_settings', {
-      auth: /Authentication\.checkBoardWriteAccess\(req\.userId, id\)/,
+      auth: /Authentication\.checkBoardAdmin\(req\.userId, id\)/,
       body: [/code: 400/, /toBool\(req\.body\[key\]\)/],
+      not: [/Authentication\.checkBoardWriteAccess\(req\.userId, id\)/],
     });
   assert.match(doc, /@param \{number\} \[cardAgingDays1\]/);
 });

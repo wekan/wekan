@@ -36,7 +36,8 @@ test('Basque named controls and saved descriptions keep the demonstrative last',
       .not.toContain('kontrol-zerrenda hau Demo');
     db.updateOne('users', { _id: adminUser.id }, { $set: { 'profile.language': 'en' } });
     await page.reload();
-    await loginWithToken(page, adminUser.id, adminUser.token);
+    // Reload keeps this page's HttpOnly session cookie. Logging in with the
+    // same fixture token again would replace that session unnecessarily.
     await navigateInApp(page, `/b/${board.boardId}/${board.slug}/rules`);
     await page.locator('#ruleTitle').fill('English unchanged');
     await page.locator('.js-goto-trigger').click();

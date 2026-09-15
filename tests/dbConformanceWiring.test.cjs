@@ -230,11 +230,11 @@ test('a FerretDB that will not start says why, in the output', () => {
 
 test('results are written where every other test run writes them', () => {
   const sh = read('releases/db-conformance.sh');
-  // .tools/log/<datetime>/ of its own, unless a larger run (EVERYTHING) already
-  // named one in WEKAN_LOGDIR - then the whole run stays in that directory.
-  // WEKAN_LOG_ROOT remains an override for CI and callers that need another root.
-  assert.ok(/LOGDIR="\$\{WEKAN_LOGDIR:-\$WEKAN_LOG_ROOT\/\$RUN_TS\}"/.test(sh),
-    'log/<datetime>/ under WEKAN_LOG_ROOT, or the directory the caller named');
+  // Standalone runs use an operation-specific directory; EVERYTHING supplies
+  // WEKAN_LOGDIR so its database-conformance results stay with that run.
+  // WEKAN_LOG_ROOT remains an override for CI and other callers.
+  assert.ok(/LOGDIR="\$\{WEKAN_LOGDIR:-\$WEKAN_LOG_ROOT\/test-db-conformance\/\$RUN_TS\}"/.test(sh),
+    'operation/<datetime>/ under WEKAN_LOG_ROOT, or the directory the caller named');
   assert.ok(/WEKAN_LOG_ROOT="\.tools\/log"/.test(sh),
     '.tools/log is the standalone default');
   assert.ok(/date '\+%Y-%m-%d_%H-%M-%S'/.test(sh), 'the same datetime format as build.sh');

@@ -47,16 +47,21 @@ assert.match(
   'cardDetails.jade must have a js-link-card-to-board menu item using the linkCardToBoardPopup-title key',
 );
 
-// It appears in both the canModifyCard and the read-only/worker menu copies
-// of the popup (cardDetailsActionsPopup renders the actions twice, once per
-// permission branch), same as js-copy-card.
+// Linking writes a pointer into the source card and a mirror into the
+// destination board, so the source must be writable. Copy card is allowed
+// in both permission branches; Link to board belongs only in canModifyCard.
 const menuOccurrences = (cardDetailsJade.match(/a\.js-link-card-to-board\n/g) || []).length;
 const copyCardOccurrences = (cardDetailsJade.match(/a\.js-copy-card\n/g) || []).length;
 assert.equal(
   menuOccurrences,
-  copyCardOccurrences,
-  'the link-to-board entry must appear in the menu exactly as many times as Copy card does',
+  1,
+  'the link-to-board entry must appear once in the writable source branch',
 );
+assert.equal(copyCardOccurrences, 2, 'copy remains available in both menu branches');
+const writableMenu = cardDetailsJade.slice(cardDetailsJade.indexOf('    if canModifyCard\n'));
+assert.match(writableMenu, /a\.js-link-card-to-board\n/);
+assert.doesNotMatch(cardDetailsJade.slice(0, cardDetailsJade.indexOf('    if canModifyCard\n')),
+  /a\.js-link-card-to-board\n/, 'non-writing users must not see a linking action');
 
 // --- 3. The popup template reuses the existing board/swimlane/list picker -
 assert.match(

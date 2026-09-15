@@ -32,7 +32,7 @@ const CATALOG = {
   'authz.board':     { category: 'authz', bleed: 'BoardBleed', severity: 'high', cwe: 'CWE-863' },
   'authz.position-history': { category: 'authz', bleed: 'PositionHistoryBleed', severity: 'high', cwe: 'CWE-639' },
   'auth-race.cas':   { category: 'auth-race', bleed: 'CasBleed', severity: 'high', cwe: 'CWE-362' },
-  'authn.cas-link':  { category: 'authn', bleed: 'CasBleed', severity: 'medium', cwe: 'CWE-287' },
+  'authn.cas-link':  { category: 'authn', bleed: 'CasAccountMergeBleed', severity: 'medium', cwe: 'CWE-287' },
   // A Google/GitHub/Facebook/… login whose email matches an account made by
   // another method, while OAUTH_PROVIDERS_MERGE_EXISTING_USERS is off: the same
   // takeover shape as CasBleed and OIDC's GHSA-mp7g-hj5q-gxhq, refused and recorded.
@@ -49,8 +49,8 @@ const CATALOG = {
   // passwords wrong from one place, which is the attempt this is meant to see.
   'brute.lockout':   { category: 'brute-force', bleed: 'JamBleed', severity: 'high', cwe: 'CWE-307' },
   'injection.shell': { category: 'injection', bleed: 'ScannerBleed', severity: 'high', cwe: 'CWE-78' },
-  'file.mime':       { category: 'file', bleed: 'MimeBleed', severity: 'high', cwe: 'CWE-434' },
-  'file.name':       { category: 'file', bleed: 'FileBleed', severity: 'medium', cwe: 'CWE-73' },
+  'file.mime':       { category: 'file', bleed: 'MimeStorageBleed', severity: 'high', cwe: 'CWE-434' },
+  'file.name':       { category: 'file', bleed: 'FileNameBleed', severity: 'medium', cwe: 'CWE-79' },
   'file.sanitize':   { category: 'file', bleed: 'FileBleed', severity: 'info', cwe: 'CWE-73' },
   'file.content':    { category: 'file', bleed: 'FileBleed', severity: 'medium', cwe: 'CWE-79' },
   'file.malware':    { category: 'file', bleed: 'MalwareBleed', severity: 'high', cwe: 'CWE-509' },
@@ -68,6 +68,7 @@ const CATALOG = {
   'authz.checklist': { category: 'authz', bleed: 'ChecklistBleed', severity: 'high', cwe: 'CWE-863' },
   'authz.comment':   { category: 'authz', bleed: 'CommentBleed', severity: 'medium', cwe: 'CWE-639' },
   'authz.file-path': { category: 'authz', bleed: 'PathBleed', severity: 'high', cwe: 'CWE-22' },
+  'authz.attachment-file-path': { category: 'authz', bleed: 'FilePathBleed', severity: 'high', cwe: 'CWE-22' },
   // Unauthenticated DDP Methods Allow Instance-Wide Deletion of Attachments
   // and Avatars: ostrio:files registers its OWN _FilesCollectionRemove_<name>
   // method, gated only by allowClientCode, which never went through
