@@ -177,7 +177,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **22,166** exact before/after values, including unflagged
+records contain **22,181** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -205,18 +205,12 @@ placeholders, JSON examples and key order; they do not establish language
 quality. Correct-language human translations remain preferred. No external
 translation service is used, and no remote push was performed.
 
-New unflagged source-semantic queue: **11 locale values** still express
-the old 270 list-width rule. The actual shared minimum is 200; three
-Persian-digit values, 23 Romance/Germanic variants and 22 further variants
-plus 33 native lower-bound, 11 Chinese-variant, 28 Eurasian, 20
-Romance/Celtic, 24 Asian, 12 African/Kurdish/Yiddish and nine
-African/Pacific, ten native/mixed-seed, ten native-minimum and ten
-wrong-language/obsolete and five Serbian/regional values are recorded.
-Aliases follow their
-tracked files, so one corrected file may resolve two visible codes. This
-queue is outside the 20,081
-original flagged rows and must be repaired in their declared languages,
-preserving useful native wording while correcting the inclusive threshold.
+The unflagged source-semantic list-width queue is **closed**: a full
+scan of all 234 locale error values finds **zero** old 270 thresholds.
+The actual shared minimum is 200. Detailed evidence records every
+repair wave and canonical-file alias; this queue was outside the
+20,081 original flagged rows. Native review of low-confidence full
+clauses and broader wrong-language seeds remains open.
 
 - [Tamazight](Tamazight-Review.md): wrong-language prose, 98 records with
   invalidated Tuareg provenance, adapted grammar and software terminology.
