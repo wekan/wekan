@@ -641,7 +641,13 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**New features** - Custom logos.
+**In short:** **Custom logos** appear directly on login and board pages, and site
+admins can upload them to Default Storage. Repository mirroring now checks
+linked files at their live URLs.
+
+This release adds the following new feature:
+
+**The Admin Panel** - custom logos for login and board pages.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/593cab591">Load custom logos first and upload them to Default Storage</a>. Thanks to xet7.</summary>
@@ -657,7 +663,9 @@ run because no local WeKan server was available.
 
 </details>
 
-**Developer tooling** - Mirror linked files.
+and has the following developer-tooling fix:
+
+**Repository mirrors** - linked files use their live sources.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f7da598ad">Stop using archive.org for mirror linked files</a>. Thanks to xet7.</summary>
