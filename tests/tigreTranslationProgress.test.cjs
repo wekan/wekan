@@ -96,7 +96,7 @@ assert.match(tigre['list-width-error-message'], /270/);
 assert.equal(tigre['fixed-list-width'], 'ንኩሎም ዝርዝራት ሓደ ግፍሒ');
 assert.match(tigre['set-swimlane-height-value'], /ፒክሰል/);
 assert.equal(tigre['convertChecklistItemToCardPopup-title'],
-  'ናብ ካርድ ቀይር');
+  'ዲብ ወረቀት ካርድ ተቅዪር');
 assert.deepEqual(tokens(tigre['and-n-other-card']), ['__count__']);
 assert.deepEqual(tokens(tigre['and-n-other-card_plural']), ['__count__']);
 assert.deepEqual(tokens(tigre['avatar-too-big']), ['__size__']);

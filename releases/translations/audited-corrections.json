@@ -147145,5 +147145,222 @@
     "before": "ዓቐን (ባይት)",
     "after": "ቅያስ (ባይት)",
     "reason": "2026-09-15: Replace Tigrinya-seeded components in compact configuration labels with Tigre terms independently attested and already reviewed in the correction ledger. Preserve literal protocol, platform and unit identifiers; retain unchanged compound components for later fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "map-to-existing-user-search",
+    "before": "ኩሎም ተጠቀምቲ ብስም፣ ስም ተጠቃሚ ወይ ኢመይል ድለ",
+    "after": "ክሎም መትነፍዕያም እብ ስሜት፣ ስሜት መትነፍዓይ ዎክ ሀዬኒ ኢመይል ፈትሽ",
+    "reason": "2026-09-15: Replace multiple Tigrinya-seeded components with independently corpus-attested Tigre terms already reviewed in the correction ledger. Preserve literal product, format, protocol, numeric and placeholder tokens. Any unchanged surrounding grammar remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "r-remove-all-labels",
+    "before": "ኩሎም ምልክታት ካብ ካርድ ኣወግድ",
+    "after": "ክሎም እሻራት ምን ወረቀት ካርድ ወኬ",
+    "reason": "2026-09-15: Replace multiple Tigrinya-seeded components with independently corpus-attested Tigre terms already reviewed in the correction ledger. Preserve literal product, format, protocol, numeric and placeholder tokens. Any unchanged surrounding grammar remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "leave-board",
+    "before": "ካብ ሰሌዳ ውጻእ",
+    "after": "ምን ምዱድ ፈጊር",
+    "reason": "2026-09-15: Replace multiple Tigrinya-seeded components with independently corpus-attested Tigre terms already reviewed in the correction ledger. Preserve literal product, format, protocol, numeric and placeholder tokens. Any unchanged surrounding grammar remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "linkCardToNewBoard",
+    "before": "ሰሌዳ ፍጠር (ካርድ)",
+    "after": "ምዱድ ኽለቅ (ምን እሊ ወረቀት ካርድ)",
+    "reason": "2026-09-15: Replace multiple Tigrinya-seeded components with independently corpus-attested Tigre terms already reviewed in the correction ledger. Preserve literal product, format, protocol, numeric and placeholder tokens. Any unchanged surrounding grammar remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "backup-day-of-week",
+    "before": "መዓልቲ ሰሙን (ሰሙናዊ)",
+    "after": "ምዕል እስቡዕ (ኩሉ እስቡዕ)",
+    "reason": "2026-09-15: Replace multiple Tigrinya-seeded components with independently corpus-attested Tigre terms already reviewed in the correction ledger. Preserve literal product, format, protocol, numeric and placeholder tokens. Any unchanged surrounding grammar remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "start-day-of-week",
+    "before": "መጀመርታ መዓልቲ ሰሙን ኣቐምጥ",
+    "after": "መበገሲት ምዕል እስቡዕ ኣቐምጥ",
+    "reason": "2026-09-15: Replace multiple Tigrinya-seeded components with independently corpus-attested Tigre terms already reviewed in the correction ledger. Preserve literal product, format, protocol, numeric and placeholder tokens. Any unchanged surrounding grammar remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "backup-day-of-month",
+    "before": "መዓልቲ ወርሒ (ወርሓዊ፣ 1-28)",
+    "after": "ምዕል ወርሕ (ኩሉ ወርሕ፣ 1-28)",
+    "reason": "2026-09-15: Replace multiple Tigrinya-seeded components with independently corpus-attested Tigre terms already reviewed in the correction ledger. Preserve literal product, format, protocol, numeric and placeholder tokens. Any unchanged surrounding grammar remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "accounts-lockout-known-users",
+    "before": "ቅንብራት ንዝፍለጡ ተጠቀምቲ (ቅኑዕ ስም ተጠቃሚ፣ ጌጋ መሕለፊ ቃል)",
+    "after": "ቅንብራት ንዝፍለጡ መትነፍዕያም (ቅኑዕ ስሜት መትነፍዓይ፣ ጌጋ መሕለፊ ቃል)",
+    "reason": "2026-09-15: Replace multiple Tigrinya-seeded components with independently corpus-attested Tigre terms already reviewed in the correction ledger. Preserve literal product, format, protocol, numeric and placeholder tokens. Any unchanged surrounding grammar remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "editLabelPopup-title",
+    "before": "ምልክት ቀይር",
+    "after": "እሻረት ተቅዪር",
+    "reason": "2026-09-15: Replace multiple Tigrinya-seeded components with independently corpus-attested Tigre terms already reviewed in the correction ledger. Preserve literal product, format, protocol, numeric and placeholder tokens. Any unchanged surrounding grammar remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "convertChecklistItemToCardPopup-title",
+    "before": "ናብ ካርድ ቀይር",
+    "after": "ዲብ ወረቀት ካርድ ተቅዪር",
+    "reason": "2026-09-15: Replace multiple Tigrinya-seeded components with independently corpus-attested Tigre terms already reviewed in the correction ledger. Preserve literal product, format, protocol, numeric and placeholder tokens. Any unchanged surrounding grammar remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "editCardSpentTimePopup-title",
+    "before": "ዝወጸ ግዜ ቀይር",
+    "after": "ዝወጸ ጊዜ ተቅዪር",
+    "reason": "2026-09-15: Replace multiple Tigrinya-seeded components with independently corpus-attested Tigre terms already reviewed in the correction ledger. Preserve literal product, format, protocol, numeric and placeholder tokens. Any unchanged surrounding grammar remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "roles-status-invite",
+    "before": "ናብ ሰሌዳ ዓድም",
+    "after": "ዲብ ምዱድ ዐዝም",
+    "reason": "2026-09-15: Replace multiple Tigrinya-seeded components with independently corpus-attested Tigre terms already reviewed in the correction ledger. Preserve literal product, format, protocol, numeric and placeholder tokens. Any unchanged surrounding grammar remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "change-card-parent",
+    "before": "ወላዲ ካርድ ቀይር",
+    "after": "ወላዲ ወረቀት ካርድ ተቅዪር",
+    "reason": "2026-09-15: Replace multiple Tigrinya-seeded components with independently corpus-attested Tigre terms already reviewed in the correction ledger. Preserve literal product, format, protocol, numeric and placeholder tokens. Any unchanged surrounding grammar remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "r-schedule-on-weekday",
+    "before": "ኣብ መዓልቲ ሰሙን",
+    "after": "ዲብ ምዕል እስቡዕ",
+    "reason": "2026-09-15: Replace multiple Tigrinya-seeded components with independently corpus-attested Tigre terms already reviewed in the correction ledger. Preserve literal product, format, protocol, numeric and placeholder tokens. Any unchanged surrounding grammar remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "r-schedule-on-day",
+    "before": "ኣብ መዓልቲ ወርሒ",
+    "after": "ዲብ ምዕል ወርሕ",
+    "reason": "2026-09-15: Replace multiple Tigrinya-seeded components with independently corpus-attested Tigre terms already reviewed in the correction ledger. Preserve literal product, format, protocol, numeric and placeholder tokens. Any unchanged surrounding grammar remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "display-card-creator",
+    "before": "ፈጣሪ ካርድ ኣርኢ",
+    "after": "ማሀዛይ ወረቀት ካርድ ኣርኤ",
+    "reason": "2026-09-15: Replace multiple Tigrinya-seeded components with independently corpus-attested Tigre terms already reviewed in the correction ledger. Preserve literal product, format, protocol, numeric and placeholder tokens. Any unchanged surrounding grammar remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "custom-public-desc",
+    "before": "ብጁ ህዝባዊ መግለጺ",
+    "after": "ብጁ ናይ ገቢል ዋስፎ",
+    "reason": "2026-09-15: Replace multiple Tigrinya-seeded components with independently corpus-attested Tigre terms already reviewed in the correction ledger. Preserve literal product, format, protocol, numeric and placeholder tokens. Any unchanged surrounding grammar remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "attachment-limit-mode-max-size",
+    "before": "ዝለዓለ ዓቐን ፋይል",
+    "after": "ዝለዓለ ቅያስ ፈይል",
+    "reason": "2026-09-15: Replace multiple Tigrinya-seeded components with independently corpus-attested Tigre terms already reviewed in the correction ledger. Preserve literal product, format, protocol, numeric and placeholder tokens. Any unchanged surrounding grammar remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "email-templates-invite-body",
+    "before": "ዓድም ኢመይል ጽሑፍ",
+    "after": "ዐዝም ኢመይል ክቱብ",
+    "reason": "2026-09-15: Replace multiple Tigrinya-seeded components with independently corpus-attested Tigre terms already reviewed in the correction ledger. Preserve literal product, format, protocol, numeric and placeholder tokens. Any unchanged surrounding grammar remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "filesystem-size",
+    "before": "ዓቐን ስርዓተ ፋይል",
+    "after": "ቅያስ ስርዓም ፈይል",
+    "reason": "2026-09-15: Replace multiple Tigrinya-seeded components with independently corpus-attested Tigre terms already reviewed in the correction ledger. Preserve literal product, format, protocol, numeric and placeholder tokens. Any unchanged surrounding grammar remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "spent-time-hours",
+    "before": "ዝወጸ ግዜ (ሰዓታት)",
+    "after": "ዝወጸ ጊዜ (ሰዐታት)",
+    "reason": "2026-09-15: Replace multiple Tigrinya-seeded components with independently corpus-attested Tigre terms already reviewed in the correction ledger. Preserve literal product, format, protocol, numeric and placeholder tokens. Any unchanged surrounding grammar remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "import-usernames",
+    "before": "ስማት ተጠቀምቲ ኣእቱ",
+    "after": "ስሜታት መትነፍዕያም አምጸአ",
+    "reason": "2026-09-15: Replace multiple Tigrinya-seeded components with independently corpus-attested Tigre terms already reviewed in the correction ledger. Preserve literal product, format, protocol, numeric and placeholder tokens. Any unchanged surrounding grammar remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "filesystem-storage",
+    "before": "መኽዘን ስርዓተ ፋይል",
+    "after": "መክዘን ስርዓም ፈይል",
+    "reason": "2026-09-15: Replace multiple Tigrinya-seeded components with independently corpus-attested Tigre terms already reviewed in the correction ledger. Preserve literal product, format, protocol, numeric and placeholder tokens. Any unchanged surrounding grammar remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "text-background-color",
+    "before": "ሕብሪ ድሕረ ባይታ ጽሑፍ",
+    "after": "ሕብር ለሀላ መበገሲ ክቱብ",
+    "reason": "2026-09-15: Replace multiple Tigrinya-seeded components with independently corpus-attested Tigre terms already reviewed in the correction ledger. Preserve literal product, format, protocol, numeric and placeholder tokens. Any unchanged surrounding grammar remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "description-on-minicard",
+    "before": "መግለጺ ኣብ ንኡስ ካርድ",
+    "after": "ዋስፎ ዲብ ንኡስ ወረቀት ካርድ",
+    "reason": "2026-09-15: Replace multiple Tigrinya-seeded components with independently corpus-attested Tigre terms already reviewed in the correction ledger. Preserve literal product, format, protocol, numeric and placeholder tokens. Any unchanged surrounding grammar remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "list-sync-username-placeholder",
+    "before": "ስም ተጠቃሚ (ኣይግዱድን)",
+    "after": "ስሜት መትነፍዓይ (ኣይግዱድን)",
+    "reason": "2026-09-15: Replace multiple Tigrinya-seeded components with independently corpus-attested Tigre terms already reviewed in the correction ledger. Preserve literal product, format, protocol, numeric and placeholder tokens. Any unchanged surrounding grammar remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "error-orgname-taken",
+    "before": "እዚ ስም ውድብ ድሮ ተወሲዱ",
+    "after": "እዚ ስሜት መነዘመት ድሮ ተወሲዱ",
+    "reason": "2026-09-15: Replace multiple Tigrinya-seeded components with independently corpus-attested Tigre terms already reviewed in the correction ledger. Preserve literal product, format, protocol, numeric and placeholder tokens. Any unchanged surrounding grammar remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "error-teamname-taken",
+    "before": "እዚ ስም ጉጅለ ድሮ ተወሲዱ",
+    "after": "እዚ ስሜት ፈሪቅ ድሮ ተወሲዱ",
+    "reason": "2026-09-15: Replace multiple Tigrinya-seeded components with independently corpus-attested Tigre terms already reviewed in the correction ledger. Preserve literal product, format, protocol, numeric and placeholder tokens. Any unchanged surrounding grammar remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "error-username-taken",
+    "before": "እዚ ስም ተጠቃሚ ድሮ ተወሲዱ",
+    "after": "እዚ ስሜት መትነፍዓይ ድሮ ተወሲዱ",
+    "reason": "2026-09-15: Replace multiple Tigrinya-seeded components with independently corpus-attested Tigre terms already reviewed in the correction ledger. Preserve literal product, format, protocol, numeric and placeholder tokens. Any unchanged surrounding grammar remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "import-json-file",
+    "before": "ወይ ፋይል Trello JSON ምረጽ",
+    "after": "ዎክ ሀዬኒ ፈይል Trello JSON ሕረ",
+    "reason": "2026-09-15: Replace multiple Tigrinya-seeded components with independently corpus-attested Tigre terms already reviewed in the correction ledger. Preserve literal product, format, protocol, numeric and placeholder tokens. Any unchanged surrounding grammar remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "show-week-of-year",
+    "before": "ሰሙን ዓመት ኣርኢ (ISO 8601)",
+    "after": "እስቡዕ ሰነት ኣርኤ (ISO 8601)",
+    "reason": "2026-09-15: Replace multiple Tigrinya-seeded components with independently corpus-attested Tigre terms already reviewed in the correction ledger. Preserve literal product, format, protocol, numeric and placeholder tokens. Any unchanged surrounding grammar remains subject to fluent review."
   }
 ]
