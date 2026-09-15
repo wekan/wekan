@@ -295,3 +295,14 @@ test("Veps CPU labels preserve current usage versus average load", () => {
  assert.notEqual(data["cpu-load-average"],data["cpu-usage"]);
  assert.match(fs.readFileSync("client/components/settings/adminProblems.jade","utf8"),/cpu-load-average.*loadAverage/);
 });
+
+test("Veps problem acknowledgment preserves checked areas and count reset", () => {
+ const data=JSON.parse(fs.readFileSync("imports/i18n/data/ve-PP.i18n.json","utf8"));
+ for(const key of ["problems","new-problems","no-new-problems","acknowledge","problems-summary-help"]) assert.doesNotMatch(data[key],/vhuleme|vhuswa|Ṱanganedza|Swaya/i);
+ assert.equal(data.acknowledge,"Vahvištoita");
+ assert.match(data["problems-summary-help"],/Znamoiče.*tarkištadud.*paina "Vahvištoita".*udiden problemiden lugumär nollaks/);
+ assert.match(data["no-new-problems"],/^Ei ole/);
+ const code=fs.readFileSync("client/components/settings/problemsSummary.js","utf8");
+ assert.match(code,/js-problem-check:checked/);
+ assert.match(code,/acknowledgeEventLog/);
+});

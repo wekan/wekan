@@ -139669,5 +139669,40 @@
     "before": "muelo wa mushumo",
     "after": "Keskmäine radmär",
     "reason": "Replace Tshivenda/Finnish CPU labels using existing Veps usage vocabulary and OS load-average terminology. Preserve current qualifier versus generic usage and average-load distinction. Full computing compounds/case remain low confidence; core terminology still under review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "problems",
+    "before": "Vhuleme",
+    "after": "Problemad",
+    "reason": "Replace Tshivenda problem-summary labels and acknowledgment instructions with direct Veps drafts. Preserve reviewed/checked areas and resetting new-problem count rather than repairing/deleting problems. Native problem, confirm/click/count vocabulary; full plural/case and acknowledgment grammar remain low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "new-problems",
+    "before": "vhuleme vhuswa",
+    "after": "uded problemad",
+    "reason": "Replace Tshivenda problem-summary labels and acknowledgment instructions with direct Veps drafts. Preserve reviewed/checked areas and resetting new-problem count rather than repairing/deleting problems. Native problem, confirm/click/count vocabulary; full plural/case and acknowledgment grammar remain low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "no-new-problems",
+    "before": "A hu na vhuleme vhuswa.",
+    "after": "Ei ole udid problemoid.",
+    "reason": "Replace Tshivenda problem-summary labels and acknowledgment instructions with direct Veps drafts. Preserve reviewed/checked areas and resetting new-problem count rather than repairing/deleting problems. Native problem, confirm/click/count vocabulary; full plural/case and acknowledgment grammar remain low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "acknowledge",
+    "before": "Ṱanganedza",
+    "after": "Vahvištoita",
+    "reason": "Replace Tshivenda problem-summary labels and acknowledgment instructions with direct Veps drafts. Preserve reviewed/checked areas and resetting new-problem count rather than repairing/deleting problems. Native problem, confirm/click/count vocabulary; full plural/case and acknowledgment grammar remain low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "problems-summary-help",
+    "before": "Swaya zwipiḓa zwa vhuleme zwe na zwi sedzulusa, nga murahu ni puṱedze Ṱanganedza u itela u vhuyisela mbalo ya vhuleme vhuswa.",
+    "after": "Znamoiče problemiden alad, miččid sinä oled tarkištadud, a jäl'ghe paina \"Vahvištoita\", miše panda nende udiden problemiden lugumär nollaks.",
+    "reason": "Replace Tshivenda problem-summary labels and acknowledgment instructions with direct Veps drafts. Preserve reviewed/checked areas and resetting new-problem count rather than repairing/deleting problems. Native problem, confirm/click/count vocabulary; full plural/case and acknowledgment grammar remain low confidence."
   }
 ]
