@@ -30805,3 +30805,10 @@ roots and regular plurals. Focused exact and negative checks pass with all
 20,810 correction records and 234 locale inventories. Exact overlap falls to
 723, leaving 710 unclassified after 13 attested shared forms. No remote write
 occurred.
+
+### 2026-09-15 — Additional shared Tigre terms
+
+Review commit `b2caad45b7` adds exact retention coverage for red, phase, three
+Default controls and translation after checking their attested Tigre corpus
+senses against each UI context. Raw overlap remains 723; 19 matches are now
+proven shared forms and 704 remain unclassified. No remote write occurred.

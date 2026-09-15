@@ -330,3 +330,12 @@ checks reject every former seed; all 20,810 correction records and 234 locale
 inventories pass. Exact overlap falls to 723, leaving 710 unclassified after
 13 attested shared forms. Derived plurals remain open to fluent review. No
 remote write ran.
+
+## Additional shared Tigre terms reviewed — 2026-09-15
+
+Review commit `b2caad45b7` retains six further exact Tigre/Tigrinya matches.
+The BeitTigreAI corpus directly supports the existing red/crimson, phase/grade,
+Default/common and translation/interpretation senses in their specific UI
+contexts. The focused test now distinguishes 19 proven shared values from the
+remaining overlap. Raw overlap stays 723, while the unclassified set falls to
+704. The acceptance does not extend to related phrases. No remote write ran.

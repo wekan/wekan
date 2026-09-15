@@ -1870,6 +1870,16 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b2caad45b">Retain additional shared Tigre terms.</a></summary>
+
+Record direct corpus evidence for six valid Tigre/Tigrinya cognates in their
+specific red, phase, Default and translation controls.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e17bb2b5e">Repair native-catalogue Veps interface terms.</a></summary>
 
 Replace 31 Finnish-seeded labels through exact English-source matching with
