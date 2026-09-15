@@ -53,7 +53,8 @@ assert.match(sotho['allboards.edit-workspace-icon'], /markdown/);
 assert.equal(sotho['workspaceActionsPopup-title'],
   'Dipeakanyo tša lefelo la mošomo');
 assert.deepEqual(tokens(sotho['activity-dueDate']), ['%s', '%s']);
-assert.match(sotho['list-width-error-message'], /270/);
+assert.match(sotho['list-width-error-message'], /palotlalo ya bonyane dipiksele tše 200/);
+assert.doesNotMatch(sotho['list-width-error-message'], /270/);
 assert.match(sotho['set-swimlane-height-value'], /dipiksele/);
 assert.equal(sotho['add-members'], 'Oketša maloko');
 assert.deepEqual(tokens(sotho['and-n-other-card']), ['__count__']);

@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "پانی دابنێ",
   "set-list-width": "پانی دابنێ",
   "set-list-width-value": "پانی لیست (پیکسڵ)",
-  "list-width-error-message": "پانی لیست دەبێت ژمارەیەکی تەواو و گەورەتر لە 270 بێت",
+  "list-width-error-message": "پانی لیست دەبێت ژمارەیەکی تەواوی لانی کەم 200 پیکسڵ بێت",
   "list-width-shared-note": "ئەم پانییە لەگەڵ هەموو کەسێک لەم تەختەیە هاوبەشە.",
   "list-width-personal-note": "ئەم پانییە تەنها بۆ تۆیە.",
   "personal-list-width": "پانی تایبەتی لیستەکان",

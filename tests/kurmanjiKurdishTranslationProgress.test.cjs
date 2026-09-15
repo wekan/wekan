@@ -56,7 +56,8 @@ assert.match(kurmanji['archive-permanent-delete-disabled-hint'],
   /Panela rêveber.*Rêveberê Giştî/);
 assert.match(kurmanji['home-board-empty'], /yek depo/);
 assert.deepEqual(tokens(kurmanji['activity-dueDate']), ['%s', '%s']);
-assert.match(kurmanji['list-width-error-message'], /270/);
+assert.match(kurmanji['list-width-error-message'], /hejmareke tam a herî kêm 200 pîksel/);
+assert.doesNotMatch(kurmanji['list-width-error-message'], /270/);
 assert.equal(kurmanji['set-swimlane-height'],
   'Bilindahiya rêçê saz bike');
 assert.match(kurmanji['keyboard-shortcuts-enabled'], /klavyeyê/);

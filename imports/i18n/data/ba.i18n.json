@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Киңлекте билдәләргә",
   "set-list-width": "Киңлекте билдәләргә",
   "set-list-width-value": "Исемлек киңлеге (пикселдәр)",
-  "list-width-error-message": "Исемлек киңлеге 270-тән ҙурыраҡ бөтөн һан булырға тейеш",
+  "list-width-error-message": "Исемлек киңлеге кәм тигәндә 200 пиксел булған бөтөн һан булырға тейеш",
   "list-width-shared-note": "Был киңлек ошо таҡталағы бөтәһе менән уртаҡ.",
   "list-width-personal-note": "Был киңлек тик һеҙҙең өсөн.",
   "personal-list-width": "Шәхси исемлек киңлектәре",

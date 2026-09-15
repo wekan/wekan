@@ -55,7 +55,8 @@ assert.match(malagasy['allboards.edit-workspace-icon'], /markdown/);
 assert.equal(malagasy['workspaceActionsPopup-title'],
   'Fikirana toeram-piasana');
 assert.deepEqual(tokens(malagasy['activity-dueDate']), ['%s', '%s']);
-assert.match(malagasy['list-width-error-message'], /270/);
+assert.match(malagasy['list-width-error-message'], /isa feno farafahakeliny 200 piksel/);
+assert.doesNotMatch(malagasy['list-width-error-message'], /270/);
 assert.match(malagasy['set-list-width-value'], /piksel/);
 assert.match(malagasy['set-swimlane-height-value'], /piksel/);
 assert.equal(malagasy['add-checklist'], 'Ampio lisitra fanamarinana');

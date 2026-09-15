@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Farito ny sakany",
   "set-list-width": "Farito ny sakany",
   "set-list-width-value": "Sakan'ny lisitra (piksel)",
-  "list-width-error-message": "Tsy maintsy isa feno mihoatra ny 270 ny sakan'ny lisitra",
+  "list-width-error-message": "Tsy maintsy isa feno farafahakeliny 200 piksel ny sakan'ny lisitra",
   "list-width-shared-note": "Ity sakany ity dia zaraina amin'ny olona rehetra ato amin'ity solaitra ity.",
   "list-width-personal-note": "Ho anao ihany ity sakany ity.",
   "personal-list-width": "Sakan'ny lisitra manokana",

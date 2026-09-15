@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Deji ballaca",
   "set-list-width": "Deji ballaca",
   "set-list-width-value": "Ballaca liiska (pixels)",
-  "list-width-error-message": "Ballaca liisku waa inuu noqdaa tiro dhan oo ka weyn 270",
+  "list-width-error-message": "Ballaca liisku waa inuu noqdaa tiro dhan oo ugu yaraan 200 pixels ah",
   "list-width-shared-note": "Ballacan waxaa lala wadaagaa qof kasta oo sabuuraddan jooga.",
   "list-width-personal-note": "Ballacan adiga oo keliya ayuu kuu gaar yahay.",
   "personal-list-width": "Ballacyada liiska ee gaarka ah",
