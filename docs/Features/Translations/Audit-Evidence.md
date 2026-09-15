@@ -30559,6 +30559,38 @@ and key inventories. Original audit counts are 15,830 corrected, 73 pending and
 four restored; the Tigre tracked row is complete. No live selector ran and no
 remote write occurred.
 
+### 2026-09-15 — Serbian setting semantics and regional width rules
+
+Source commit `beddec7cb` repairs thirteen Serbian list-width UI
+values and the obsolete error message in Venetian, Veps, Twi and
+Tongan. Serbian's old popup, toggle, notes and error repeatedly used
+“case-flow section” and “capture width” for an ordinary WeKan list.
+Other current Serbian UI strings already use “листа” for the same
+board element; the new controls use that noun throughout. Their
+error also states an integer width of at least 200 pixels. The
+shared note still addresses everyone on the board, while the
+personal note and fixed-width note still apply only to the member.
+
+Venetian `almanco` and Veps `vähemba` appear in their own local
+minimum examples, and the existing width/pixel labels supply the
+other nouns. Twi `tɛtrɛtɛ`, `nɔma a ɛyɛ mu` and `anyɛ yie koraa no`
+are present in [New York State's bilingual mathematics resources](https://docs.steinhardt.nyu.edu/pdfs/metrocenter/atn293/elemath/elementary_math_twi.pdf)
+and [the advanced glossary](https://resources.finalsite.net/images/v1722944119/baldwink12nyus/wjjl2lzjzckay7nmkmoq/hs_algebra2_trig_twi.pdf).
+Tongan `fālahi` is attested in
+[Unicode CLDR](https://www.unicode.org/cldr/cldr-aux/charts/34/delta/to.html)
+and `mataʻi fika` as a whole number in
+[Tongan mathematics research](https://erme.site/wp-content/uploads/2021/06/18-ETC4_Proceedings-Complete.pdf).
+The Venetian, Veps, Twi and Tongan complete clauses remain low
+confidence pending native grammar review; term evidence is stronger
+than full-sentence evidence. The focused suite checks all thirteen
+Serbian values for absence of the misleading legal metaphor,
+shared/personal behavior, the four regional native terms, the
+inclusive 200 boundary, exact ledger rows and Serbian runtime
+lookup. Ledger integrity and 234-locale completeness pass. Records
+rise from 22,149 to 22,166; old-threshold locale values fall from 16
+to 11. Original 20,081 audit-row classifications remain unchanged.
+No live UI test or remote write occurred.
+
 A whole-file comparison found 917 of Tigre's 2,592 non-English values are
 byte-for-byte identical to Tigrinya, including long clauses. Basic current date
 forms also conflict with the distinct Tigre forms in the cited phrasebook and

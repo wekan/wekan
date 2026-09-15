@@ -656,6 +656,17 @@ This release includes the following features and fixes:
 **Translations** - Tamazight, Tigre and multilingual list-width repairs.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/beddec7cb">Repair Serbian list-width controls and four locale rules</a>. Thanks to xet7.</summary>
+
+Use “листа” consistently across the Serbian list-width popup,
+notes, toggles and error. Correct the obsolete threshold in
+Venetian, Veps, Twi and Tongan. Focused UI-string, Serbian runtime,
+ledger and inventory checks pass; four complete regional clauses
+remain under native grammar review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3eaeac9e7">Repair ten wrong-language and obsolete list-width values</a>. Thanks to xet7.</summary>
 
 Replace ten obsolete greater-than-270 messages with inclusive 200-pixel
