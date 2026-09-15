@@ -155370,5 +155370,96 @@
     "before": "خطوط السباحة",
     "after": "ⵉⴱⵔⵉⴷⵏ",
     "reason": "Replace Arabic view label with Tifinagh plural of local Ibriden swimlane/path term, aligned with local singular ⵓⴱⵔⵉⴷ in board activities. Swimlane metaphor as path remains low confidence pending native UI review."
+  },
+  {
+    "locale": "zgh",
+    "key": "operator-board",
+    "before": "لوح",
+    "after": "ⵜⴰⴼⵍⵡⵉⵜ",
+    "reason": "Replace Arabic parser operator with local Tamazight board noun; Tifinagh letters are accepted by the query parser. Full search-instruction context remains under UI review."
+  },
+  {
+    "locale": "zgh",
+    "key": "operator-board-abbrev",
+    "before": "ب",
+    "after": "b",
+    "reason": "Replace Arabic letter with stable ASCII b search alias, matching the English code and avoiding a locale-specific keyboard requirement."
+  },
+  {
+    "locale": "zgh",
+    "key": "operator-swimlane",
+    "before": "couloir",
+    "after": "ⴰⴱⵔⵉⴷ",
+    "reason": "Replace French parser operator with Tifinagh form of local swimlane/path noun. The path metaphor remains low confidence pending native UI review."
+  },
+  {
+    "locale": "zgh",
+    "key": "operator-swimlane-abbrev",
+    "before": "c",
+    "after": "s",
+    "reason": "Replace French c with stable ASCII s search alias, matching the canonical operator code and avoiding alias ambiguity."
+  },
+  {
+    "locale": "zgh",
+    "key": "operator-list-abbrev",
+    "before": "ق",
+    "after": "l",
+    "reason": "Replace Arabic letter with stable ASCII l search alias, matching the English code and avoiding a locale-specific keyboard requirement."
+  },
+  {
+    "locale": "zgh",
+    "key": "operator-member-abbrev",
+    "before": "ع",
+    "after": "m",
+    "reason": "Replace Arabic letter with stable ASCII m search alias, matching the English code and avoiding a locale-specific keyboard requirement."
+  },
+  {
+    "locale": "zgh",
+    "key": "operator-creator",
+    "before": "créateur",
+    "after": "ⴰⵎⵙⵏⴼⵍⵓⵍ",
+    "reason": "Replace French parser operator with the existing Tamazight Creator noun ⴰⵎⵙⵏⴼⵍⵓⵍ."
+  },
+  {
+    "locale": "zgh",
+    "key": "operator-status",
+    "before": "statut",
+    "after": "ⴰⴷⴷⴰⴷ",
+    "reason": "Replace French parser operator with local Tamazight status noun ⴰⴷⴷⴰⴷ used in the invalid-status message."
+  },
+  {
+    "locale": "zgh",
+    "key": "operator-sort",
+    "before": "tri",
+    "after": "ⴰⴼⵔⴰⵏ",
+    "reason": "Replace French parser operator with local Tamazight sort noun ⴰⴼⵔⴰⵏ used in the invalid-sort message."
+  },
+  {
+    "locale": "zgh",
+    "key": "operator-limit",
+    "before": "limite",
+    "after": "ⴰⵡⵜⵜⵓ",
+    "reason": "Replace French parser operator with local Tamazight limit noun ⴰⵡⵜⵜⵓ used in the invalid-limit message."
+  },
+  {
+    "locale": "zgh",
+    "key": "operator-org",
+    "before": "organisation",
+    "after": "ⵜⵓⴷⴷⵙⴰ",
+    "reason": "Replace French parser operator with local Tamazight organization noun ⵜⵓⴷⴷⵙⴰ used in the organization-not-found message."
+  },
+  {
+    "locale": "zgh",
+    "key": "operator-title",
+    "before": "Titre",
+    "after": "ⴰⵣⵡⵍ",
+    "reason": "Replace French parser operator with local Tamazight title noun ⴰⵣⵡⵍ used in board-title labels."
+  },
+  {
+    "locale": "zgh",
+    "key": "operator-description",
+    "before": "وصف",
+    "after": "ⴰⴳⵍⴰⵎ",
+    "reason": "Replace Arabic parser operator with local Tamazight description noun ⴰⴳⵍⴰⵎ."
   }
 ]
