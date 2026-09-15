@@ -6,7 +6,7 @@ const { loginWithToken } = require('../helpers/auth');
 test('versioned avatar prefix renders an authenticated CollectionFS image', async ({ page, user }) => {
   const id = db.uid('legacyAvatar');
   const gridId = new ObjectId();
-  const image = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aZ1sAAAAASUVORK5CYII=', 'base64');
+  const image = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=', 'base64');
   db.insertOne('cfs.avatars.filerecord', {
     _id: id, userId: user.id,
     original: { name: 'avatar.png', type: 'image/png', size: image.length },
