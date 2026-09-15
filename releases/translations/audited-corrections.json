@@ -146270,5 +146270,54 @@
     "before": "ቦታ ወስኽ",
     "after": "አካን ወስክ",
     "reason": "Replace the Tigrinya-seeded Add location label with the corpus-attested Tigre location noun and imperative Add, preserving the corpus object-verb order."
+  },
+  {
+    "locale": "tig",
+    "key": "export",
+    "before": "ኣውጽእ",
+    "after": "አግዕዞ",
+    "reason": "Replace the Tigrinya-seeded Export family with the Tigre action attested in the exact software-context corpus entry Export pages, reusing the independently established Tigre list and board nouns."
+  },
+  {
+    "locale": "tig",
+    "key": "exportChartPopup-title",
+    "before": "ኣውጽእ",
+    "after": "አግዕዞ",
+    "reason": "Replace the Tigrinya-seeded Export family with the Tigre action attested in the exact software-context corpus entry Export pages, reusing the independently established Tigre list and board nouns."
+  },
+  {
+    "locale": "tig",
+    "key": "r-export",
+    "before": "ኣውጽእ",
+    "after": "አግዕዞ",
+    "reason": "Replace the Tigrinya-seeded Export family with the Tigre action attested in the exact software-context corpus entry Export pages, reusing the independently established Tigre list and board nouns."
+  },
+  {
+    "locale": "tig",
+    "key": "exportListPopup-title",
+    "before": "ዝርዝር ኣውጽእ",
+    "after": "ዝርዝር አግዕዞ",
+    "reason": "Replace the Tigrinya-seeded Export family with the Tigre action attested in the exact software-context corpus entry Export pages, reusing the independently established Tigre list and board nouns."
+  },
+  {
+    "locale": "tig",
+    "key": "export-list",
+    "before": "ዝርዝር ኣውጽእ",
+    "after": "ዝርዝር አግዕዞ",
+    "reason": "Replace the Tigrinya-seeded Export family with the Tigre action attested in the exact software-context corpus entry Export pages, reusing the independently established Tigre list and board nouns."
+  },
+  {
+    "locale": "tig",
+    "key": "export-board",
+    "before": "ሰሌዳ ኣውጽእ",
+    "after": "ምዱድ አግዕዞ",
+    "reason": "Replace the Tigrinya-seeded Export family with the Tigre action attested in the exact software-context corpus entry Export pages, reusing the independently established Tigre list and board nouns."
+  },
+  {
+    "locale": "tig",
+    "key": "exportBoardPopup-title",
+    "before": "ሰሌዳ ኣውጽእ",
+    "after": "ምዱድ አግዕዞ",
+    "reason": "Replace the Tigrinya-seeded Export family with the Tigre action attested in the exact software-context corpus entry Export pages, reusing the independently established Tigre list and board nouns."
   }
 ]
