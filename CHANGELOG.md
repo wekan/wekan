@@ -2080,6 +2080,17 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5d53aa990">Correct Tigre plurals using corpus evidence.</a></summary>
+
+Use attested Files, Names and Organizations plurals in 28 Tigre values.
+Retain the legitimately shared File spelling and reconcile the correction
+ledger and regression tests; all 46 Tigre suites pass.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/009d7f832">Repair Tigre Star and Break terminology.</a></summary>
 
 Use corpus-attested Tigre singular and irregular plural Star forms in board,

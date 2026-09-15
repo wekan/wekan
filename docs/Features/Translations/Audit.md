@@ -16,21 +16,25 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `009d7f832` — repair 20 Tigre
-Star controls and rating-count plurals plus the Pomodoro Break label using
-corpus-attested forms. The source commit also refreshes older exact-value
-Tigre tests for prior ledger-confirmed Board, Card, Name, Label and File
-repairs; all 45 Tigre suites now pass. The Veps seed review remains complete.
+Latest translation fix: **2026-09-15**, `5d53aa990` — replace 28
+provisional Tigre Files, Names and Organizations plural contexts with
+forms attested in corpus sentences. Eight File values return to their
+original, now corpus-supported spelling; their no-op correction records
+were removed. All 46 Tigre suites pass. Team, Button and Collection
+plurals still lack direct corpus evidence, and full mixed clauses remain
+under review. The Veps seed review remains complete.
 
 The tracked Tigre calendar queue being empty does not certify the locale. Of
-2,592 non-English Tigre values, 229 are byte-for-byte identical to Tigrinya;
-22 are corpus-attested shared terms and 207 remain unclassified, including 21
-values of at least 20 characters and 6 of at least 35 characters. This is an
+2,592 non-English Tigre values, 233 are byte-for-byte identical to Tigrinya;
+22 complete forms are corpus-attested shared terms and 211 full values remain
+unclassified, including 23 of at least 20 characters and 6 of at least 35.
+Four newly matching File phrases have a corpus-attested noun, but their full
+clauses still need review. This is an
 explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **21,905** exact before/after values, including unflagged
+records contain **21,897** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

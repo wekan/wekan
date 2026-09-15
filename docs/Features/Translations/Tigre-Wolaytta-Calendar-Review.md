@@ -816,3 +816,22 @@ now pass. Sequential corrections are consolidated by key, leaving 21,905
 final verified records. All 234 locale inventories pass. Raw exact overlap
 falls to 229, with 22 attested shared and 207 unclassified; 21 matches
 contain at least 20 characters and 6 at least 35. No remote write occurred.
+
+### 2026-09-15 — Corpus-attested Tigre plural follow-up
+
+Source commit `5d53aa990` replaces 18 provisional File plural occurrences
+with `ፋይላት`, attested in Tigre file-management commands; three
+provisional Names plurals with `አስማይ`, attested in independent names
+sentences; and seven Organizations plurals with `መነዘማት`, attested in
+a social-organizations sentence. Singular File `ፈይል` remains separately
+attested. Eight File values return to their original value, so their
+no-op correction records are removed, leaving 21,897 final records. The
+unflagged source batch corrects prior low-confidence morphology rather than
+changing the 20,081 original audit-row classifications. The focused
+source-sense guard, all 46 Tigre suites, placeholder and JSON checks, and
+234 locale inventories pass. Raw exact overlap rises from 229 to 233 as
+four File phrases now match Tigrinya again; the corpus supports the shared
+noun, but their complete clauses remain unclassified. Thus 22 complete
+forms are attested shared and 211 full values remain unclassified, including
+23 raw matches at least 20 characters and 6 at least 35. Team, Button and
+Collection plurals remain low confidence. No remote write occurred.
