@@ -155601,5 +155601,33 @@
     "before": "الفرز قيد التشغيل",
     "after": "ⴰⵔ ⵉⵙⵡⵓⵔⵉ ⵓⴼⵔⴰⵏ",
     "reason": "Replace Arabic sort-active status with local Tamazight filter-on status pattern and sort noun; masculine agreement remains low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "active",
+    "before": "نشط",
+    "after": "ⵢⴻⵔⵎⴷⴻⵏ",
+    "reason": "Replace Arabic active label with the native active component already used in local active person, team and organization labels; isolated adjective usage remains low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "admin-people-filter-active",
+    "before": "نشط",
+    "after": "ⵢⴻⵔⵎⴷⴻⵏ",
+    "reason": "Replace Arabic active-person filter value with the existing native active-person adjective; standalone filter agreement remains low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "admin-people-filter-inactive",
+    "before": "Désactivé",
+    "after": "ⵡⴰⵔ ⴰⵔⵎⵓⴷ",
+    "reason": "Replace French inactive-person filter value with the native inactive-member qualifier; exact status semantics remain low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "admin-people-active-status",
+    "before": "Statut actif",
+    "after": "ⴰⴷⴷⴰⴷ ⵢⴻⵔⵎⴷⴻⵏ",
+    "reason": "Replace French active-status heading with local status and active-person terms; complete compound grammar remains low confidence."
   }
 ]
