@@ -314,6 +314,8 @@ const corpusAttestedSharedTerms = {
   history: 'ታሪኽ',
   page: 'ገጽ',
   error: 'ጌጋ',
+  accounts: 'ሕሳባት',
+  errors: 'ጌጋታት',
 };
 for (const [key, value] of Object.entries(corpusAttestedSharedTerms)) {
   assert.equal(tigre[key], value, `${key}: corpus-attested shared Tigre term`);
