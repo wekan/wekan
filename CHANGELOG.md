@@ -646,12 +646,23 @@ cancellation of upload or renaming. Watch text covers boards
 and cards. Search help clarifies case-insensitive matching. Regression checks
 preserve placeholders and verify source wiring;
 full contextual grammar remains under native review.
-Tigre S3 help, an authentication error and a PDF fallback warning replace
-English and Tigrinya drafts. Their complete compounds remain under review.
+Tigre S3 help, Trello credentials, an authentication error and a PDF
+fallback warning replace English and Tigrinya drafts. Complete compounds
+remain under native review.
 
 This release includes the following features and fixes:
 
-**Translations** - Tamazight activity and rules; Tigre S3 and warnings.
+**Translations** - Tamazight activity and rules; Tigre S3, Trello and warnings.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6909fb85e">Repair Tigre Trello key and S3 File plural</a>. Thanks to xet7.</summary>
+
+Use a Tigre corpus key noun across seven Trello credential messages,
+including the prompt for both values. Restore the corpus-attested File
+plural in S3 bucket help. All 50 Tigre suites pass; complete Trello
+compounds remain under native review.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/78f2c9bf7">Repair Tigre PDF preview warning</a>. Thanks to xet7.</summary>

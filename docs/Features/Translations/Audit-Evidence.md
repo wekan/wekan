@@ -31386,3 +31386,26 @@ counts remain 15,880 corrected and 4,201 retained. Non-English exact
 Tigre/Tigrinya overlap falls from 232 to 231 (22 attested shared, 209
 unclassified); 21 matches are at least 20 characters and 4 at least 35.
 No live UI test or remote write occurred.
+
+### 2026-09-15 — Tigre Trello credentials and S3 File plural follow-up
+
+Source commit `6909fb85e` applies `መፍቲሕ` to seven Trello credential
+contexts. The [BeitTigreAI Tigre–English phrasebook](https://beittigre.github.io/tigre-multilingual-dictionaries/english/index.html)
+attests this key noun in “You need a key” and attests `ክልኢቶም` for
+both, `ኣተ` for enter and `ዐይብከ` in a please sentence. The formerly
+byte-identical Tigrinya required-credentials prompt becomes
+`ዐይብከ፡ መፍቲሕ Trello API ወ token ክልኢቶም ኣተ።`.
+Preserve `Trello API`, `token`, `.json` and the key URL literally.
+The complete Trello prompt and other compound word orders are assembled,
+not attested verbatim, and remain low confidence pending fluent review.
+Four prior correction records are consolidated; three new rows cover the
+token help, required prompt and saved message, giving 21,924 final records.
+The same source commit corrects S3 bucket help from provisional `ፈይላት`
+to corpus-attested `ፋይላት`; its prior English-to-Tigre ledger record is
+updated in place. That defect was found by running the full Tigre suites.
+Focused UI-wiring, literal, source and runtime checks pass, as do all 50
+Tigre suites, correction-ledger checks and 234 locale inventories. Original
+audit-row counts remain 15,880 corrected and 4,201 retained. Exact
+non-English Tigre/Tigrinya overlap falls from 231 to 230 (22 attested
+shared, 208 unclassified); 20 matches are at least 20 characters and 3 at
+least 35. No live UI test or remote write occurred.

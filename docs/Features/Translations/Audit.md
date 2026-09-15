@@ -16,23 +16,23 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `78f2c9bf7` — replace a long PDF
-preview warning copied exactly from Tigrinya with a Tigre draft. The
-phrasebook attests its device, preview, unavailable, instead, download and
-try terms; full sentence grammar remains low confidence. Authentication
-error repair `36c2148ec` and S3 fill `970d9e664` retain their review limits.
+Latest translation fix: **2026-09-15**, `6909fb85e` — use a corpus-attested
+Tigre key noun in seven Trello credential contexts, including the prompt to
+enter both API values. Correct the S3 bucket help to the corpus-attested File
+plural. All 50 Tigre suites pass; Trello compound order remains low confidence.
+Earlier PDF warning repair `78f2c9bf7` retains its review limit.
 
 The tracked Tigre calendar queue being empty does not certify the locale. Of
-2,613 non-English Tigre values, 231 are byte-for-byte identical to Tigrinya;
-22 complete forms are corpus-attested shared terms and 209 full values remain
-unclassified, including 21 of at least 20 characters and 4 of at least 35.
+2,613 non-English Tigre values, 230 are byte-for-byte identical to Tigrinya;
+22 complete forms are corpus-attested shared terms and 208 full values remain
+unclassified, including 20 of at least 20 characters and 3 of at least 35.
 Four newly matching File phrases have a corpus-attested noun, but their full
 clauses still need review. This is an
 explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **21,921** exact before/after values, including unflagged
+records contain **21,924** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

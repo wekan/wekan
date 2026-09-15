@@ -867,3 +867,14 @@ The attachment Jade key, source/fallback meaning, seed, ledger and runtime
 test pass. Ledger 21,921; exact non-English overlap 231 (22 attested shared,
 209 unclassified), with 21 matches at least 20 characters and 4 at least
 35. No live UI test or remote write occurred.
+
+### 2026-09-15 — Tigre Trello key and S3 plural follow-up
+
+`6909fb85e` replaces seven Trello API key nouns with the corpus-attested
+`መፍቲሕ`. The required prompt also uses attested please, both and enter
+forms; its complete order remains a draft for native review. The prior S3
+bucket-help File plural is corrected to corpus-attested `ፋይላት`, and its
+ledger row is consolidated. All 50 Tigre suites pass, including the plural
+guard that found the earlier S3 defect. Ledger 21,924; exact non-English
+overlap 230 (22 attested shared, 208 unclassified), with 20 matches at
+least 20 characters and 3 at least 35. No live UI test or remote write.
