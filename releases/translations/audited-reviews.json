@@ -25180,5 +25180,29 @@
     "key": "text-contains-trigger-label",
     "value": "Titirausiq ujjirumaguvit",
     "reason": "2026-09-15: Retain the existing correct-language Qaliujaaqpait Roman-orthography Inuktitut value. Government of Northwest Territories orthography guidance and Pirurvik Nunavut language resources explicitly recognize both Qaliujaaqpait Roman orthography and Qaniujaaqpait syllabics for Inuktitut. Latin script alone is therefore not a wrong-language or wrong-script defect. This acceptance preserves the exact existing value; semantic fluency and live browser behavior remain separate broader review items."
+  },
+  {
+    "locale": "eu",
+    "key": "r-when-the-label",
+    "value": "Etiketa hau",
+    "reason": "2026-09-15: Retain the restored Basque named-subject fragment after checking its actual rule-builder composition. The production templates place the user-selected name before this fragment for Basque, yielding forms such as [Demo] Etiketa hau; the following action supplies the temporal -enean clause, so a separate When word is not missing. Etiketa, kide, kontrol-zerrenda and kontrol-zerrendako elementu are established local nouns, and hau follows the named noun phrase. Existing production-method tests also verify the saved-description order. This acceptance is limited to these composed UI fragments; broader style and live browser behavior remain separate review items."
+  },
+  {
+    "locale": "eu",
+    "key": "r-when-the-member",
+    "value": "Kide hau",
+    "reason": "2026-09-15: Retain the restored Basque named-subject fragment after checking its actual rule-builder composition. The production templates place the user-selected name before this fragment for Basque, yielding forms such as [Demo] Etiketa hau; the following action supplies the temporal -enean clause, so a separate When word is not missing. Etiketa, kide, kontrol-zerrenda and kontrol-zerrendako elementu are established local nouns, and hau follows the named noun phrase. Existing production-method tests also verify the saved-description order. This acceptance is limited to these composed UI fragments; broader style and live browser behavior remain separate review items."
+  },
+  {
+    "locale": "eu",
+    "key": "r-when-the-checklist",
+    "value": "Kontrol-zerrenda hau",
+    "reason": "2026-09-15: Retain the restored Basque named-subject fragment after checking its actual rule-builder composition. The production templates place the user-selected name before this fragment for Basque, yielding forms such as [Demo] Etiketa hau; the following action supplies the temporal -enean clause, so a separate When word is not missing. Etiketa, kide, kontrol-zerrenda and kontrol-zerrendako elementu are established local nouns, and hau follows the named noun phrase. Existing production-method tests also verify the saved-description order. This acceptance is limited to these composed UI fragments; broader style and live browser behavior remain separate review items."
+  },
+  {
+    "locale": "eu",
+    "key": "r-when-the-item",
+    "value": "Kontrol-zerrendako elementu hau",
+    "reason": "2026-09-15: Retain the restored Basque named-subject fragment after checking its actual rule-builder composition. The production templates place the user-selected name before this fragment for Basque, yielding forms such as [Demo] Etiketa hau; the following action supplies the temporal -enean clause, so a separate When word is not missing. Etiketa, kide, kontrol-zerrenda and kontrol-zerrendako elementu are established local nouns, and hau follows the named noun phrase. Existing production-method tests also verify the saved-description order. This acceptance is limited to these composed UI fragments; broader style and live browser behavior remain separate review items."
   }
 ]

@@ -170,3 +170,17 @@ for (const key of ['r-when-the-label', 'r-when-the-member', 'r-when-the-assignee
   require('node:assert/strict').equal(assigneeData['r-when-the-assignee'], 'Esleitutako erabiltzaile hau');
   require('node:assert/strict').notEqual(assigneeData['r-when-the-assignee'], 'Esleitu hau');
 }
+
+// The four restored named-subject fragments are deliberately postposed after
+// the selected name; their following action supplies the temporal -enean.
+for (const [key, noun] of [
+  ['r-when-the-label', 'Etiketa hau'],
+  ['r-when-the-member', 'Kide hau'],
+  ['r-when-the-checklist', 'Kontrol-zerrenda hau'],
+  ['r-when-the-item', 'Kontrol-zerrendako elementu hau'],
+]) {
+  assert.equal(eu[key], noun);
+  assert.match(`[Demo] ${eu[key]} ${eu['r-checked']}`,
+    /^\[Demo\] .+ hau (?:Markatzen|Desmarkatzen|Osatzen) denean$/);
+  assert.doesNotMatch(eu[key], /Cuando|When/);
+}

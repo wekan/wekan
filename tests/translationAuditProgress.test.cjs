@@ -38,17 +38,23 @@ const assert = require('node:assert/strict');
   assert.equal(updateAuditSummary(updated, summary, 12345, '2026-09-13'), updated, 'refresh is idempotent');
   assert.ok(updated.includes(report.match(/Latest translation fix:.*$/m)[0]), 'refresh preserves reviewed fix details and commit hash');
   assert.throws(() => updateAuditSummary('', summary, 0, '2026-09-13'), /Missing summary row/);
-  const staleReport = report.replace(/^(\| zgh — [^|]+ \| )\d+( \|)$/m, '$1999$2');
+  const staleReport = report.replace('| --- | ---: |\n\nRemaining review',
+    '| --- | ---: |\n| zgh — Standard Moroccan Tamazight | 999 |\n\nRemaining review');
   const refreshed = updateAuditSummary(staleReport, summary, 12345, '2026-09-13', result);
-  assert.match(refreshed, new RegExp(`\\| zgh — [^|]+ \\| ${result.pendingByLocale.zgh} \\|`));
+  assert.doesNotMatch(refreshed, /\| zgh —/, 'resolved locales disappear from the table');
   assert.equal(updateAuditSummary(refreshed, summary, 12345, '2026-09-13', result), refreshed);
-  const changed = { ...result, pendingByLocale: { ...result.pendingByLocale, zgh: 1, lv: 2 } };
-  const changedSummary = { ...summary, pending: summary.pending - result.pendingByLocale.zgh + 3 };
+  const changed = {
+    ...result,
+    pendingByLocale: { zgh: 1, lv: 2 },
+    rows: [...result.rows,
+      { locale: 'zgh', language: 'Standard Moroccan Tamazight' },
+      { locale: 'lv', language: 'Latvian' }],
+  };
+  const changedSummary = { ...summary, pending: 3 };
   const withNewLocale = updateAuditSummary(report, changedSummary, 12345, '2026-09-13', changed);
   assert.match(withNewLocale, /\| lv — Latvian \| 2 \|/);
-  const withoutLocale = { ...result, pendingByLocale: { ...result.pendingByLocale } };
-  delete withoutLocale.pendingByLocale.zgh;
-  const removed = updateAuditSummary(report, { ...summary, pending: summary.pending - result.pendingByLocale.zgh },
+  const withoutLocale = { ...changed, pendingByLocale: { lv: 2 } };
+  const removed = updateAuditSummary(withNewLocale, { ...summary, pending: 2 },
     12345, '2026-09-13', withoutLocale);
   assert.doesNotMatch(removed, /\| zgh —/);
   assert.throws(() => updateAuditSummary(report, summary, 0, '2026-09-13', changed), /do not reconcile/);
