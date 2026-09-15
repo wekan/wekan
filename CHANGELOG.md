@@ -2000,6 +2000,16 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b8ebfc67e">Repair Tigre speed and storage terms.</a></summary>
+
+Replace four Tigrinya-specific Speed and Storage spellings with independently
+attested Tigre forms.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e17bb2b5e">Repair native-catalogue Veps interface terms.</a></summary>
 
 Replace 31 Finnish-seeded labels through exact English-source matching with

@@ -30913,3 +30913,12 @@ former-seed checks pass with all 20,929 correction records and 234 locale
 inventories. Raw overlap falls to 604; 584 remain unclassified after 20
 attested shared forms. Descriptive Font terminology and complete compound order
 remain open to fluent review. No remote write occurred.
+
+### 2026-09-15 — Tigre Speed and Storage controls
+
+Source commit `b8ebfc67e` repairs four Speed and Storage controls. A complete
+corpus sentence supplies the speed stem; both a corpus warehouse sentence and
+the native Tigre Wikidata interface supply the Storage spelling. Focused exact
+and former-seed checks pass with all 20,933 correction records and 234 locale
+inventories. Raw overlap falls to 600; 580 remain unclassified after 20
+attested shared forms. No remote write occurred.

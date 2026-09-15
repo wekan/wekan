@@ -457,3 +457,14 @@ Change commands. Focused exact and negative checks cover every value; all
 to 604, with 20 attested shared forms and 584 unclassified. The descriptive
 Font term and complete compound order remain open to fluent review. No remote
 write ran.
+
+## Tigre Speed and Storage controls repaired — 2026-09-15
+
+Source commit `b8ebfc67e` replaces four Tigrinya-specific Speed and Storage
+spellings. The BeitTigreAI corpus uses the `ሸፋገት` stem in a complete full-
+speed sentence and `መክዘን` in a warehouse sentence. The
+[native Tigre Wikidata welcome page](https://www.wikidata.org/wiki/Wikidata:Main_Page/Welcome/tig)
+independently uses `መክዘን` in its data-storage description. Focused exact and
+negative checks cover all four values; all 20,933 correction records and 234
+locale inventories pass. Raw overlap falls to 600, with 20 attested shared
+forms and 580 unclassified. No remote write ran.
