@@ -457,3 +457,24 @@ assert.match(locales.zgh.Node_memory_usage_heap_total, /Node.*ⴰⵇⵓⴷⴷⵉ
 assert.match(locales.zgh['export-card-excel-no-disk-space'], /Excel.*ⵓⴹⴱⵙⵉ/);
 assert.match(locales.zgh['sign-in-to-upload'], /ⴽⵛⵎ.*ⵜⵙⴽⵜⵔⴷ/);
 assert.match(locales.zgh['upload-repository'], /ⵙⴽⵜⵔ.*ⵙⵏⴼⵍ/);
+
+for (const key of [
+  'app-is-offline', 'dueCardsViewChange-choice-all-description',
+  'automatic-linked-url-schemes', 'bucket-example', 'public-desc',
+]) {
+  const prose = locales.zgh[key]
+    .replaceAll('URL', '').replaceAll('Google', '');
+  assert.doesNotMatch(prose, /[\u0600-\u06ff]|[A-Za-zÀ-ÿ]{4,}/,
+    `${key}: no Arabic or French prose remains`);
+  assert.match(locales.zgh[key], /[\u2d30-\u2d7f]/,
+    `${key}: Standard Moroccan Tamazight script`);
+}
+assert.match(locales.zgh['dueCardsViewChange-choice-all-description'], /\*[^*]+\*/);
+assert.match(locales.zgh['automatic-linked-url-schemes'], /URL.*URL/);
+assert.match(locales.zgh['public-desc'], /Google.*ⵖⴰⵙ/);
+for (const literal of ['markdown-kanban', 'Obsidian Kanban', '## Isem n tebdart', '- [ ]', '- [x]']) {
+  assert.ok(locales.zgh['import-board-instruction-markdown'].includes(literal),
+    `import-board-instruction-markdown: preserves ${literal}`);
+}
+assert.match(locales.zgh['import-board-instruction-markdown'], /tixxamin n usenqed.*tikarḍiwin yeldin/,
+  'plain bullet lists import as open cards');

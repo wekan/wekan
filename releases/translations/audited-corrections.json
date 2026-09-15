@@ -140439,5 +140439,47 @@
     "before": "Téléverser/Mettre à jour le dépôt",
     "after": "ⵙⴽⵜⵔ/ⵙⵏⴼⵍ ⴰⵎⵙⴽⴰⵔ",
     "reason": "2026-09-15: Replace four French diagnostics and repository actions with Standard Moroccan Tamazight drafts. Reuse existing memory usage, total size, heap, export, Excel, free disk space, sign-in, upload and update vocabulary. The allocated-heap and software-repository compounds remain low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "app-is-offline",
+    "before": "Chargement en cours, veuillez patienter. Vous risquez de perdre des données si vous rechargez la page. Si le chargement échoue, veuillez vérifier que le serveur n'est pas arrêté.",
+    "after": "ⴰⵙⵙⴰⵍⵉ, ⵜⵜⵔⴰⵊⴰ. ⴰⵍⵙ ⴰⵙⵙⴰⵍⵉ ⵏ ⵜⵙⵏⴰ ⵔⴰⴷ ⵉⵙⴽⵔ ⴰⵙⵔⵓⵙ ⵏ ⵉⵙⴼⴽⴰ. ⵎⴽ ⵓⵔ ⵉⴷⴷⵉ ⵓⵙⵙⴰⵍⵉ, ⵙⵙⵉⴷⴷ ⵎⴰⵙ ⵓⵔ ⵉⵃⴱⵙ ⵓⵎⴰⴽⴽⴰⵢ ⴰⵙⵏⵎⴰⵍⴰⵢ.",
+    "reason": "2026-09-15: Replace five Arabic/French Tamazight values and complete one correct-language Roman Tamazight instruction that omitted plain bullet-list import behavior. Reuse established loading, data, server, due-date, permission, public-board, link, search, edit and card vocabulary; preserve Markdown syntax, Obsidian Kanban, URL and Google literals. Full URL-scheme, bucket and longer sentence grammar remain low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "dueCardsViewChange-choice-all-description",
+    "before": "Visualise toutes les cartes incomplètes avec une date *échue* pour lesquelles l'utilisateur possède les droits",
+    "after": "ⵉⵙⵙⴽⵏ ⵎⴰⵕⵕⴰ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵓⵔ ⵉⴽⵎⵉⵍⵏ ⵍⵍⵉ ⴷⴰⵔ ⵓⵙⴰⴽⵓⴷ *ⴰⵎⴳⴳⴰⵔⵓ* ⵙⴳ ⵜⴼⵍⵡⵉⵏ ⵏⵏⴰ ⵖⴼ ⴷⴰⵔ ⵓⵏⵙⵙⵎⵔⵙ ⵜⴰⵙⵔⵉⵃⵜ.",
+    "reason": "2026-09-15: Replace five Arabic/French Tamazight values and complete one correct-language Roman Tamazight instruction that omitted plain bullet-list import behavior. Reuse established loading, data, server, due-date, permission, public-board, link, search, edit and card vocabulary; preserve Markdown syntax, Obsidian Kanban, URL and Google literals. Full URL-scheme, bucket and longer sentence grammar remain low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "automatic-linked-url-schemes",
+    "before": "Schémas d'URL personnalisés qui devraient être automatiquement cliquables. Un schéma d'URL par ligne",
+    "after": "ⵉⵙⵖⴰⵏ URL ⵉⵥⵍⵉⵏ ⵏⵏⴰ ⵉⵇⵇⴰⵏ ⴰⴷ ⵜⵜⵓⵙⵙⵉⵜⵏ ⵙ ⵓⵡⵓⵔⵎⴰⵏ. ⵢⴰⵏ ⵓⵙⵖⵏ URL ⴳ ⵢⴰⵍ ⵉⵣⵉⵔⵉⴳ",
+    "reason": "2026-09-15: Replace five Arabic/French Tamazight values and complete one correct-language Roman Tamazight instruction that omitted plain bullet-list import behavior. Reuse established loading, data, server, due-date, permission, public-board, link, search, edit and card vocabulary; preserve Markdown syntax, Obsidian Kanban, URL and Google literals. Full URL-scheme, bucket and longer sentence grammar remain low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "bucket-example",
+    "before": "Comme « Liste d'envies  » par exemple",
+    "after": "ⴰⵎ «ⵜⴰⵍⴳⴰⵎⵜ ⵏ ⵓⴱⵓⵛⴽⵉⵜ» ⵉ ⵓⵎⴷⵢⴰ",
+    "reason": "2026-09-15: Replace five Arabic/French Tamazight values and complete one correct-language Roman Tamazight instruction that omitted plain bullet-list import behavior. Reuse established loading, data, server, due-date, permission, public-board, link, search, edit and card vocabulary; preserve Markdown syntax, Obsidian Kanban, URL and Google literals. Full URL-scheme, bucket and longer sentence grammar remain low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "import-board-instruction-markdown",
+    "before": "Sers tabdart n twuriwin s markdown (tanila i seqdacen ifecka n markdown-kanban am Obsidian Kanban): iɣwan \"## Isem n tebdart\", s iferdisen \"- [ ]\"/\"- [x]\" ddaw-s. Iɣwan ad ttuɣalen d tibdarin, iferdisen ad ttuɣalen d tikarḍiwin.",
+    "after": "Sers tabdart n twuriwin s markdown (tanila i seqdacen ifecka n markdown-kanban am Obsidian Kanban): iɣwan \"## Isem n tebdart\", s iferdisen \"- [ ]\"/\"- [x]\" ddaw-s. Iɣwan ad ttuɣalen d tibdarin, iferdisen ad ttuɣalen d tikarḍiwin. Tabdart tafessast s yiferdisen war tixxamin n usenqed ula d nettat tettwakter am tikarḍiwin yeldin.",
+    "reason": "2026-09-15: Replace five Arabic/French Tamazight values and complete one correct-language Roman Tamazight instruction that omitted plain bullet-list import behavior. Reuse established loading, data, server, due-date, permission, public-board, link, search, edit and card vocabulary; preserve Markdown syntax, Obsidian Kanban, URL and Google literals. Full URL-scheme, bucket and longer sentence grammar remain low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "public-desc",
+    "before": "هذه اللوحة عامة: مرئية لكلّ من يحصل على الرابط ، و هي مرئية أيضا  في محركات البحث مثل جوجل. التعديل مسموح به للأعضاء فقط.",
+    "after": "ⵜⴰⴼⵍⵡⵉⵜ ⴰⴷ ⵜⴳⴰ ⵜⴰⴳⴷⵓⴷⴰⵏⵜ. ⵜⵜⵡⴰⵙⴽⴰⵏ ⵉ ⴽⵓ ⵢⴰⵏ ⴷⴰⵔ ⵓⵙⵖⵏ, ⵔⴰⴷ ⵜⴱⴰⵏ ⴳ ⵉⵎⴰⵙⵙⵏ ⵏ ⵓⵔⵣⵣⵓ ⴰⵎ Google. ⵖⴰⵙ ⵎⴷⴷⵏ ⵜⵜⵓⵔⵏⴰⵏ ⵖⵔ ⵜⴼⵍⵡⵉⵜ ⴰⴷ ⵣⵎⵔⵏ ⴰⴷ ⵜⵜ ⵙⵏⴼⵍⵏ.",
+    "reason": "2026-09-15: Replace five Arabic/French Tamazight values and complete one correct-language Roman Tamazight instruction that omitted plain bullet-list import behavior. Reuse established loading, data, server, due-date, permission, public-board, link, search, edit and card vocabulary; preserve Markdown syntax, Obsidian Kanban, URL and Google literals. Full URL-scheme, bucket and longer sentence grammar remain low confidence pending fluent review."
   }
 ]
