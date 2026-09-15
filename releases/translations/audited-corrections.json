@@ -139767,5 +139767,19 @@
     "before": "`__operator_number__:<number>` - amakhadi anenombolo yekhadi engu-*<number>*",
     "after": "`__operator_number__:<number>` - kartad, miččiden kartan nomer om *<number>*",
     "reason": "Replace Zulu card-number search labels with Veps. Existing Veps UI uses kart for card, the native number label Lugu, and the established card-sorting phrase nomeran mödhe for an identifier; preserve the literal <number> examples and __operator_number__ placeholder. Full relative-clause grammar remains low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "summary",
+    "before": "Manweledzo",
+    "after": "Lühüd südäimišt",
+    "reason": "Replace Tshivenda with the native Veps MediaWiki Summary label Lühüd südäimišt, omitting the source field-label colon because this WeKan value is an h1 page heading."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "problems-status-title",
+    "before": "Tilanne",
+    "after": "Olo",
+    "reason": "Replace Finnish with the exact existing WeKan Veps generic status label Olo; the Problems template uses it as the status subsection heading."
   }
 ]

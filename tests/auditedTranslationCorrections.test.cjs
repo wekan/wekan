@@ -2869,6 +2869,11 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   );
   assert.equal(cache['ve-PP']['operator-number'], cache['ve-PP'].number.toLowerCase());
   assert.match(cache['ve-PP']['card-sorting-by-number'], /Kartoiden.*nomeran mödhe/);
+  assert.equal(cache['ve-PP'].summary, 'Lühüd südäimišt');
+  assert.equal(cache['ve-PP']['problems-status-title'], cache['ve-PP'].status);
+  assert.equal(cache['ve-PP']['problems-status-title'], 'Olo');
+  assert.doesNotMatch(cache['ve-PP'].summary, /Manweledzo/);
+  assert.doesNotMatch(cache['ve-PP']['problems-status-title'], /Tilanne/);
   assert.equal(vepsTranslator.t('MongoDB_storage_engine'), 'MongoDB kaičusen motor');
   assert.doesNotMatch(vepsTranslator.t('MongoDB_storage_engine'), /tallennusmoottori/);
   assert.equal(vepsTranslator.t('zoom-in'), 'Surenda');
