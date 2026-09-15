@@ -144639,5 +144639,642 @@
     "before": "Protokolla",
     "after": "Protokol",
     "reason": "Replace the remaining Finnish-seeded search, report, status, storage or migration text with a Veps draft using established locale vocabulary; preserve placeholders, syntax tokens and product identifiers."
+  },
+  {
+    "locale": "tig",
+    "key": "allboards.workspace-color",
+    "before": "ሕብሪ",
+    "after": "ሕብር",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "admin-announcement",
+    "before": "ምልክታ",
+    "after": "አዋጅ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "board-view-timeline-now",
+    "before": "ሕጂ",
+    "after": "አዜ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "card-comments-more",
+    "before": "ተወሳኺ",
+    "after": "ዚያደት",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "card-start",
+    "before": "ጀምር",
+    "after": "አንብት",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "vote-against",
+    "before": "ተቓዊሙ",
+    "after": "ድድ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "userPopup-title",
+    "before": "ኣባል",
+    "after": "መሕበር",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "cardMemberPopup-title",
+    "before": "ኣባል",
+    "after": "መሕበር",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "cards-count-one",
+    "before": "ካርድ",
+    "after": "ወረቀት ካርድ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "cardType-card",
+    "before": "ካርድ",
+    "after": "ወረቀት ካርድ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "theme-category",
+    "before": "ምድብ",
+    "after": "መንሹር",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "theme-category-dark",
+    "before": "ጸልማት",
+    "after": "ጽልመት",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "font-size-large",
+    "before": "ዓቢ",
+    "after": "ገዚፍ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "close",
+    "before": "ዕጾ",
+    "after": "ድባእ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "color-blue",
+    "before": "ሰማያዊ",
+    "after": "አዝረቁ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "color-crimson",
+    "before": "ደማዊ ቀይ",
+    "after": "ቀይሕ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "color-gold",
+    "before": "ወርቃዊ",
+    "after": "ደሀብ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "color-gray",
+    "before": "ሓሙኽሽታይ",
+    "after": "ጨዓይ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "color-lime",
+    "before": "ላይም",
+    "after": "ኖረት",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "searchElementPopup-title",
+    "before": "ድለ",
+    "after": "ፈትሽ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "custom-field-currency",
+    "before": "ባጤራ",
+    "after": "ግሩሽ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "custom-field-dropdown-none",
+    "before": "(የለን)",
+    "after": "(ወላ ገለ)",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "custom-field-dropdown-unknown",
+    "before": "(ዘይተፈልጠ)",
+    "after": "(ለይትኣመራ)",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "custom-field-number",
+    "before": "ቁጽሪ",
+    "after": "ዕልብ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "delete",
+    "before": "ደምስስ",
+    "after": "ምሳሕ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "description",
+    "before": "መግለጺ",
+    "after": "ዋስፎ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "download",
+    "before": "ኣውርድ",
+    "after": "ጸዐን",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "email-address",
+    "before": "ናይ ኢመይል ኣድራሻ",
+    "after": "ዕንዋን ኢመይል",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "export-card-excel-free",
+    "before": "ነጻ",
+    "after": "ሐራ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "log-in",
+    "before": "እቶ",
+    "after": "እተው",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "loginPopup-title",
+    "before": "እቶ",
+    "after": "እተው",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "name",
+    "before": "ስም",
+    "after": "ስሜት",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "or",
+    "before": "ወይ",
+    "after": "ዎክ ሀዬኒ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "search",
+    "before": "ድለ",
+    "after": "ፈትሽ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "subscribe",
+    "before": "ተመዝገብ",
+    "after": "አሽተርክ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "pomodoro-work",
+    "before": "ስራ",
+    "after": "ሽቄ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "what-to-do",
+    "before": "እንታይ ክትገብር ትደሊ?",
+    "after": "ሚ እግል ትውዴ ቱ?",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "send-from",
+    "before": "ካብ",
+    "after": "ምን",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "no-name",
+    "before": "(ዘይተፈልጠ)",
+    "after": "(ለይትኣመራ)",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "package",
+    "before": "ጥቕላል",
+    "after": "ጥብለል",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "yes",
+    "before": "እወ",
+    "after": "አይወ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "active",
+    "before": "ንጡፍ",
+    "after": "ህርኩት",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "card-end",
+    "before": "መወዳእታ",
+    "after": "መከለሲ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "r-when",
+    "before": "መዓስ",
+    "after": "ሚዶል",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "r-board",
+    "before": "ሰሌዳ",
+    "after": "ምዱድ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "r-run",
+    "before": "ኣስርሕ",
+    "after": "ሰዔ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "r-sort-name",
+    "before": "ስም",
+    "after": "ስሜት",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "r-name",
+    "before": "ስም",
+    "after": "ስሜት",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "r-card",
+    "before": "ካርድ",
+    "after": "ወረቀት ካርድ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "r-member",
+    "before": "ኣባል",
+    "after": "መሕበር",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "r-check",
+    "before": "ምልክት ግበር",
+    "after": "ግናሕ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "r-df-start-at",
+    "before": "መጀመርታ",
+    "after": "መበገሲት",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "r-df-end-at",
+    "before": "መወዳእታ",
+    "after": "መከለሲ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "passwordless-email",
+    "before": "ኣድራሻ ኢመይል",
+    "after": "ዕንዋን ኢመይል",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "new",
+    "before": "ሓድሽ",
+    "after": "ሐዲስ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "help",
+    "before": "ሓገዝ",
+    "after": "ሰዳየት",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "owner",
+    "before": "ዋና",
+    "after": "በዐል-ማል",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "card",
+    "before": "ካርድ",
+    "after": "ወረቀት ካርድ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "board",
+    "before": "ሰሌዳ",
+    "after": "ምዱድ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "operator-board",
+    "before": "ሰሌዳ",
+    "after": "ምዱድ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "operator-member",
+    "before": "ኣባል",
+    "after": "መሕበር",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "operator-creator",
+    "before": "ፈጣሪ",
+    "after": "ማሀዛይ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "operator-comment",
+    "before": "ርእይቶ",
+    "after": "ረአይ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "operator-description",
+    "before": "መግለጺ",
+    "after": "ዋስፎ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "predicate-description",
+    "before": "መግለጺ",
+    "after": "ዋስፎ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "predicate-start",
+    "before": "መጀመርታ",
+    "after": "መበገሲት",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "predicate-end",
+    "before": "መወዳእታ",
+    "after": "መከለሲ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "predicate-member",
+    "before": "ኣባል",
+    "after": "መሕበር",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "next-page",
+    "before": "ዝቕጽል ገጽ",
+    "after": "ገጽ ላትተለ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "dependency-color",
+    "before": "ሕብሪ",
+    "after": "ሕብር",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "creator",
+    "before": "ፈጣሪ",
+    "after": "ማሀዛይ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "reason",
+    "before": "ምኽንያት",
+    "after": "ሰበብ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "copied",
+    "before": "ተቐዲሑ!",
+    "after": "ነቅል።",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "move-scope",
+    "before": "ኣዛውር",
+    "after": "ኣግዕዝ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "move-progress-file",
+    "before": "ፋይል",
+    "after": "ፈይል",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "checklist-reset-interval-daily",
+    "before": "መዓልታዊ",
+    "after": "ክል ዮማይ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "card-recurrence-interval-daily",
+    "before": "መዓልታዊ",
+    "after": "ክል ዮማይ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "admin-people-filter-show",
+    "before": "ኣርኢ፦",
+    "after": "ኣርኤ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "admin-people-filter-active",
+    "before": "ንጡፍ",
+    "after": "ህርኩት",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "idle",
+    "before": "ዘይንጡፍ",
+    "after": "ከስላን",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "storage-read",
+    "before": "ኣንብብ",
+    "after": "ቅረእ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "backup-frequency-off",
+    "before": "ጠፊኡ",
+    "after": "ጎፍ ከደን",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "backup-frequency-daily",
+    "before": "መዓልታዊ",
+    "after": "ክል ዮማይ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "start",
+    "before": "ጀምር",
+    "after": "አንብት",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "stop",
+    "before": "ኣቋርጽ",
+    "after": "ከሬ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "create-account",
+    "before": "መለያ ፍጠር",
+    "after": "ሕሳብ ፍትሕ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "login",
+    "before": "ምእታው",
+    "after": "መእተዪ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "file",
+    "before": "ፋይል",
+    "after": "ፈይል",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "log",
+    "before": "መዝገብ",
+    "after": "ደብተር",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "event-category",
+    "before": "ምድብ",
+    "after": "መንሹር",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "list-sync-last-synced-never",
+    "before": "ፈጺሙ",
+    "after": "ወለ ሐቴ ዶል",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
   }
 ]
