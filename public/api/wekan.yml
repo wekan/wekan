@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v11.79
+  version: v11.80
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -6746,6 +6746,9 @@ definitions:
         description: |
            the title of the checklist
         type: string
+      dueAt:
+        type: string
+        x-nullable: true
       finishedAt:
         description: |
            When was the checklist finished
