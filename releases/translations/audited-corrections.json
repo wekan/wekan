@@ -155041,5 +155041,124 @@
     "before": "Lis width must stap wan integer greater than 270",
     "after": "Waed blong lis i mas wan ful namba ≥ 200 piksel",
     "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "sr",
+    "key": "setListWidthPopup-title",
+    "before": "Захват дела тока",
+    "after": "Подеси ширину листе",
+    "reason": "Replace case-flow legal metaphor with the generic list-width setting used elsewhere in Serbian WeKan; the error also states the inclusive 200-pixel whole-number minimum."
+  },
+  {
+    "locale": "sr",
+    "key": "set-list-width",
+    "before": "Рашири захват",
+    "after": "Подеси ширину листе",
+    "reason": "Replace case-flow legal metaphor with the generic list-width setting used elsewhere in Serbian WeKan; the error also states the inclusive 200-pixel whole-number minimum."
+  },
+  {
+    "locale": "sr",
+    "key": "set-list-width-value",
+    "before": "Ширина захвата дела тока",
+    "after": "Ширина листе (пиксели)",
+    "reason": "Replace case-flow legal metaphor with the generic list-width setting used elsewhere in Serbian WeKan; the error also states the inclusive 200-pixel whole-number minimum."
+  },
+  {
+    "locale": "sr",
+    "key": "list-width-error-message",
+    "before": "Ширина захвата дела тока поступка мора бити цео број већи од 270",
+    "after": "Ширина листе мора бити цео број од најмање 200 пиксела",
+    "reason": "Replace case-flow legal metaphor with the generic list-width setting used elsewhere in Serbian WeKan; the error also states the inclusive 200-pixel whole-number minimum."
+  },
+  {
+    "locale": "sr",
+    "key": "list-width-shared-note",
+    "before": "Ова ширина захвата биће наметнута за све кориснике ових списа.",
+    "after": "Ова ширина је заједничка за све кориснике ове табле.",
+    "reason": "Replace case-flow legal metaphor with the generic list-width setting used elsewhere in Serbian WeKan; the error also states the inclusive 200-pixel whole-number minimum."
+  },
+  {
+    "locale": "sr",
+    "key": "list-width-personal-note",
+    "before": "Ова ширина захвата се примењује само у вашем случају.",
+    "after": "Ова ширина важи само за вас.",
+    "reason": "Replace case-flow legal metaphor with the generic list-width setting used elsewhere in Serbian WeKan; the error also states the inclusive 200-pixel whole-number minimum."
+  },
+  {
+    "locale": "sr",
+    "key": "personal-list-width",
+    "before": "Корисник бира вредност за захват тока",
+    "after": "Лична ширина листе",
+    "reason": "Replace case-flow legal metaphor with the generic list-width setting used elsewhere in Serbian WeKan; the error also states the inclusive 200-pixel whole-number minimum."
+  },
+  {
+    "locale": "sr",
+    "key": "personal-list-width-description",
+    "before": "У овом стању сваки корисник задржава сопствену ширину захвата дела тока у супротном захвати су заједнички за све кориснике списа.",
+    "after": "Када је укључено, сваки корисник чува своју ширину листе. Када је искључено, ширина је заједничка за све кориснике табле.",
+    "reason": "Replace case-flow legal metaphor with the generic list-width setting used elsewhere in Serbian WeKan; the error also states the inclusive 200-pixel whole-number minimum."
+  },
+  {
+    "locale": "sr",
+    "key": "fixed-list-width",
+    "before": "Исти захват за све делове тока",
+    "after": "Иста ширина за све листе",
+    "reason": "Replace case-flow legal metaphor with the generic list-width setting used elsewhere in Serbian WeKan; the error also states the inclusive 200-pixel whole-number minimum."
+  },
+  {
+    "locale": "sr",
+    "key": "click-to-enable-fixed-list-width",
+    "before": "Не примењује се иста ширина за сваки део тока. Притисните да промените овакво стање.",
+    "after": "Иста ширина за све листе је искључена. Кликните да је укључите.",
+    "reason": "Replace case-flow legal metaphor with the generic list-width setting used elsewhere in Serbian WeKan; the error also states the inclusive 200-pixel whole-number minimum."
+  },
+  {
+    "locale": "sr",
+    "key": "click-to-disable-fixed-list-width",
+    "before": "Примењује се иста ширина за сваки део тока. Притисните да промените овакво стање.",
+    "after": "Иста ширина за све листе је укључена. Кликните да је искључите.",
+    "reason": "Replace case-flow legal metaphor with the generic list-width setting used elsewhere in Serbian WeKan; the error also states the inclusive 200-pixel whole-number minimum."
+  },
+  {
+    "locale": "sr",
+    "key": "fixed-list-width-note",
+    "before": "У овом стању сви делови имају исти захват а промена ширине једног дела тока мења ширину и свих осталих. Ова поставка се примењује само у вашем случају.",
+    "after": "Када је укључено, све листе имају исту ширину, а промена ширине једне листе мења све. Ово подешавање важи само за вас.",
+    "reason": "Replace case-flow legal metaphor with the generic list-width setting used elsewhere in Serbian WeKan; the error also states the inclusive 200-pixel whole-number minimum."
+  },
+  {
+    "locale": "sr",
+    "key": "listWidthErrorPopup-title",
+    "before": "Вредност је ван дозвољеног опсега",
+    "after": "Грешка ширине листе",
+    "reason": "Replace case-flow legal metaphor with the generic list-width setting used elsewhere in Serbian WeKan; the error also states the inclusive 200-pixel whole-number minimum."
+  },
+  {
+    "locale": "ve-CC",
+    "key": "list-width-error-message",
+    "before": "La łarghesa de la lista ga da esser un intiero pì grando de 270",
+    "after": "La łarghesa de la lista ga da esser un intiero de almanco 200 pixel",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "list-width-error-message",
+    "before": "Listan levuz pidab olda kogonaine luk, suremb mi 270",
+    "after": "Listan levuz pidab olda kogonaine luk, vähemba 200 piksel'ad",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "ak",
+    "key": "list-width-error-message",
+    "before": "Nhyehyɛe width must be an integer greater than 270",
+    "after": "Nhyehyɛe tɛtrɛtɛ ɛsɛ sɛ ɛyɛ nɔma a ɛyɛ mu, anyɛ yie koraa no 200 piksel",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "to",
+    "key": "list-width-error-message",
+    "before": "Faka-Tonga: lisi width must be an integer greater than 270",
+    "after": "Ko e fālahi ʻo e lisi kuo pau ke mataʻi fika ≥ 200 pikiseli",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
   }
 ]

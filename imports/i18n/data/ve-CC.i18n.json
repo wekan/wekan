@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Imposta łarghesa",
   "set-list-width": "Imposta łarghesa",
   "set-list-width-value": "Łarghesa de la lista (pixel)",
-  "list-width-error-message": "La łarghesa de la lista ga da esser un intiero pì grando de 270",
+  "list-width-error-message": "La łarghesa de la lista ga da esser un intiero de almanco 200 pixel",
   "list-width-shared-note": "Sta łarghesa la xe condivisa co tuti su sta bacheca.",
   "list-width-personal-note": "Sta łarghesa la xe soło par ti.",
   "personal-list-width": "Łarghese personali de le liste",

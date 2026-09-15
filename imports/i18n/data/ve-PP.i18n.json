@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Pane levuz",
   "set-list-width": "Pane levuz",
   "set-list-width-value": "Listan levuz (piksel'ad)",
-  "list-width-error-message": "Listan levuz pidab olda kogonaine luk, suremb mi 270",
+  "list-width-error-message": "Listan levuz pidab olda kogonaine luk, vähemba 200 piksel'ad",
   "list-width-shared-note": "Nece levuz om jagetud kaikiden ke necil laudal.",
   "list-width-personal-note": "Nece levuz om vaiše sinei.",
   "personal-list-width": "Personaližed listoiden levused",
