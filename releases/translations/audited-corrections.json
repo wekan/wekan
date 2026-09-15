@@ -155265,5 +155265,12 @@
     "before": "Wolayttatto: Mazgabaa width must be an integer greater than 270",
     "after": "Mazgabaa aaho qoodaa ≥ 200 pixels koshshiyo",
     "reason": "Replace English requirement seed and obsolete strict 270 bound with Wolaytta broad, count and necessary words plus inclusive 200-pixel criterion. Whole-number and technical width senses low-confidence pending native grammar review."
+  },
+  {
+    "locale": "tig",
+    "key": "DDP_transport",
+    "before": "መጓዓዝያ DDP (DDP_TRANSPORT)",
+    "after": "መዋሰላት DDP (DDP_TRANSPORT)",
+    "reason": "Replace exact Tigrinya-copied transport noun with BeitTigreAI corpus headword glossed transport; preserve technical DDP and DDP_TRANSPORT identifiers. Short UI phrase low-confidence pending native grammar review."
   }
 ]

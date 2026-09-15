@@ -1116,7 +1116,7 @@
   "FerretDB_commit": "መለለዪ ለውጢ FerretDB",
   "Reactivity_mode": "ኩነታት ምላሽ (changeStreams / oplog / polling)",
   "Reactivity_order": "ቅደም ተኸተል ምላሽ (METEOR_REACTIVITY_ORDER)",
-  "DDP_transport": "መጓዓዝያ DDP (DDP_TRANSPORT)",
+  "DDP_transport": "መዋሰላት DDP (DDP_TRANSPORT)",
   "MongoDB_version": "MongoDB compatible version",
   "MongoDB_storage_engine": "MongoDB storage engine",
   "MongoDB_Oplog_enabled": "MongoDB Oplog enabled",
