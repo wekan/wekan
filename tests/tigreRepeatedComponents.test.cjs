@@ -23,7 +23,7 @@ const reviewed = {
   "migration-batch-size": "ቅያስ ጉጅለ",
   "subtext-with-full-path": "ንኡስ ጽሑፍ ምስ ምሉእ ገበይ",
   "avatars-path": "ገበይ ስእልታት መንነት",
-  "avatars-path-description": "ፈይላት ስእሊ መንነት ዝዕቀቡሉ ገበይ",
+  "avatars-path-description": "ፋይላት ስእሊ መንነት ዝዕቀቡሉ ገበይ",
   "mapImportedMemberPopup-title": "ምስ ዘሎ መትነፍዓይ ኣዛምድ",
   "map-to-existing-user": "ምስ ዘሎ መትነፍዓይ ኣዛምድ",
   "map-to-existing-user-no-results": "ዝሰማማዕ መትነፍዓይ ኣይተረኽበን።",

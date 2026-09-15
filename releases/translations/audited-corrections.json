@@ -147297,8 +147297,8 @@
     "locale": "tig",
     "key": "import-usernames",
     "before": "ስማት ተጠቀምቲ ኣእቱ",
-    "after": "ስሜታት መትነፍዕያም አምጸአ",
-    "reason": "2026-09-15: Replace multiple Tigrinya-seeded components with independently corpus-attested Tigre terms already reviewed in the correction ledger. Preserve literal product, format, protocol, numeric and placeholder tokens. Any unchanged surrounding grammar remains subject to fluent review."
+    "after": "አስማይ መትነፍዕያም አምጸአ",
+    "reason": "2026-09-15: Replace multiple Tigrinya-seeded components with independently corpus-attested Tigre terms already reviewed in the correction ledger. Preserve literal product, format, protocol, numeric and placeholder tokens. Any unchanged surrounding grammar remains subject to fluent review. Corpus follow-up plural repair: Independent corpus sentences directly attest Tigre አስማይ for Names, including people’s names. Replace prior provisional Names plural only in matching English source sense."
   },
   {
     "locale": "tig",
@@ -147906,8 +147906,8 @@
     "locale": "tig",
     "key": "avatars-path-description",
     "before": "ፋይላት ስእሊ መንነት ዝዕቀቡሉ መንገዲ",
-    "after": "ፈይላት ስእሊ መንነት ዝዕቀቡሉ ገበይ",
-    "reason": "2026-09-15: Replace a Tigrinya-seeded path component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review. Follow-up full-locale English source-sense repair: File: ፋይላት → ፈይላት. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review."
+    "after": "ፋይላት ስእሊ መንነት ዝዕቀቡሉ ገበይ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded path component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review. Follow-up full-locale English source-sense repair: File: ፋይላት → ፈይላት. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review. Corpus follow-up plural repair: Repeated corpus file-management commands directly attest Tigre ፋይላት for Files; this spelling is legitimately shared with Tigrinya. Replace prior provisional Files plural only in matching English source sense."
   },
   {
     "locale": "tig",
@@ -148067,8 +148067,8 @@
     "locale": "tig",
     "key": "label-names",
     "before": "ስማት ምልክት",
-    "after": "ስሜታት እሻረት",
-    "reason": "2026-09-15: Replace a Tigrinya-seeded label noun in semantically matched controls with the independently corpus-attested Tigre term already reviewed in the correction ledger. Exclude icon, checkbox, token-prefix and unverified plural senses."
+    "after": "አስማይ እሻረት",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded label noun in semantically matched controls with the independently corpus-attested Tigre term already reviewed in the correction ledger. Exclude icon, checkbox, token-prefix and unverified plural senses. Corpus follow-up plural repair: Independent corpus sentences directly attest Tigre አስማይ for Names, including people’s names. Replace prior provisional Names plural only in matching English source sense."
   },
   {
     "locale": "tig",
@@ -148676,8 +148676,8 @@
     "locale": "tig",
     "key": "backup-scope-description",
     "before": "ምሉእ ኣገልግሎት፣ ወይ ሓደ ውድብ። ምትሕልላፍ ውድብ ሰሌዳታቱን ኵሉ ኣብኦም ዘሎን፣ ተለጠፍቲ እውን ይሓዝ፤ መለያታት ተጠቀምትን ቅንብራት ኣገልግሎትን ግን ኣይሓዝን፣ ኵሎም ውድባት ስለ ዝካፈልዎም። ምትሕልላፍ ውድብ ምምላስ ናብተን እቲ ውድብ ዝውንነን ሰሌዳታት ጥራይ ይጽሕፍ።",
-    "after": "ምሉእ ኣገልግሎት፣ ወይ ሓደ መነዘመት። ምትሕልላፍ መነዘመት ምዱድታቱን ኵሉ ኣብኦም ዘሎን፣ ተለጠፍቲ እውን ይሓዝ፤ ሕሳባት ተጠቀምትን ቅንብራት ኣገልግሎትን ግን ኣይሓዝን፣ ኵሎም መነዘመታት ስለ ዝካፈልዎም። ምትሕልላፍ መነዘመት ምምላስ ናብተን እቲ መነዘመት ዝውንነን ምዱዳት ጥራይ ይጽሕፍ።",
-    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution. Follow-up 2026-09-15: Replace remaining embedded Tigrinya Board and Card nouns with corpus-attested Tigre singular/plural forms, restricted to English Board/Card senses. Preserve placeholders and surrounding clauses; exclude Clipboard uses and guard already-correct Tigre Card compounds against duplication. Follow-up full-locale English source-sense repair: Organization: ውድባት → መነዘመታት; Organization: ውድብ → መነዘመት. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review."
+    "after": "ምሉእ ኣገልግሎት፣ ወይ ሓደ መነዘመት። ምትሕልላፍ መነዘመት ምዱድታቱን ኵሉ ኣብኦም ዘሎን፣ ተለጠፍቲ እውን ይሓዝ፤ ሕሳባት ተጠቀምትን ቅንብራት ኣገልግሎትን ግን ኣይሓዝን፣ ኵሎም መነዘማት ስለ ዝካፈልዎም። ምትሕልላፍ መነዘመት ምምላስ ናብተን እቲ መነዘመት ዝውንነን ምዱዳት ጥራይ ይጽሕፍ።",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution. Follow-up 2026-09-15: Replace remaining embedded Tigrinya Board and Card nouns with corpus-attested Tigre singular/plural forms, restricted to English Board/Card senses. Preserve placeholders and surrounding clauses; exclude Clipboard uses and guard already-correct Tigre Card compounds against duplication. Follow-up full-locale English source-sense repair: Organization: ውድባት → መነዘመታት; Organization: ውድብ → መነዘመት. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review. Corpus follow-up plural repair: Corpus sentence about social organizations directly attests Tigre መነዘማት. The distributive all-organizations phrase in backup scope also uses this plural. Replace prior provisional Organizations plural only in matching English source sense."
   },
   {
     "locale": "tig",
@@ -149278,8 +149278,8 @@
     "locale": "tig",
     "key": "calculate-file-counts",
     "before": "ብዝሒ ፋይላት ኣስል",
-    "after": "ዐደድ ፈይላት ኣስል",
-    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation. Follow-up full-locale English source-sense repair: File: ፋይላት → ፈይላት. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review."
+    "after": "ዐደድ ፋይላት ኣስል",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation. Follow-up full-locale English source-sense repair: File: ፋይላት → ፈይላት. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review. Corpus follow-up plural repair: Repeated corpus file-management commands directly attest Tigre ፋይላት for Files; this spelling is legitimately shared with Tigrinya. Replace prior provisional Files plural only in matching English source sense."
   },
   {
     "locale": "tig",
@@ -149360,20 +149360,6 @@
   },
   {
     "locale": "tig",
-    "key": "import-trello-zip-too-many-files",
-    "before": "እቲ .zip ንምእታው ኣዝዮም ብዙሓት ፋይላት ኣለዉዎ።",
-    "after": "እቲ .zip ንምእታው ኣዝዮም ብዙሓት ፈይላት ኣለዉዎ።",
-    "reason": "2026-09-15: Replace exact Tigrinya Files, Address, Visibility, Format, First and Usage components with Tigre forms already established by reviewed corrections. The regular plural Address form is low confidence pending fluent review; preserve placeholders, product names and punctuation."
-  },
-  {
-    "locale": "tig",
-    "key": "uploading-files",
-    "before": "ፋይላት ይስቀሉ ኣለዉ",
-    "after": "ፈይላት ይስቀሉ ኣለዉ",
-    "reason": "2026-09-15: Replace exact Tigrinya Files, Address, Visibility, Format, First and Usage components with Tigre forms already established by reviewed corrections. The regular plural Address form is low confidence pending fluent review; preserve placeholders, product names and punctuation."
-  },
-  {
-    "locale": "tig",
     "key": "email-addresses",
     "before": "ኣድራሻታት ኢመይል",
     "after": "ዕንዋንታት ኢመይል",
@@ -149402,13 +149388,6 @@
   },
   {
     "locale": "tig",
-    "key": "filesReportTitle",
-    "before": "ጸብጻብ ፋይላት",
-    "after": "ጸብጻብ ፈይላት",
-    "reason": "2026-09-15: Replace exact Tigrinya Files, Address, Visibility, Format, First and Usage components with Tigre forms already established by reviewed corrections. The regular plural Address form is low confidence pending fluent review; preserve placeholders, product names and punctuation."
-  },
-  {
-    "locale": "tig",
     "key": "office-first-seen",
     "before": "መጀመርታ ዝተራእየሉ",
     "after": "መበገሲት ዝተራእየሉ",
@@ -149426,13 +149405,6 @@
     "key": "sandstorm-disk-usage",
     "before": "ኣጠቓቕማ ዲስክ",
     "after": "መትነፍዒት ዲስክ",
-    "reason": "2026-09-15: Replace exact Tigrinya Files, Address, Visibility, Format, First and Usage components with Tigre forms already established by reviewed corrections. The regular plural Address form is low confidence pending fluent review; preserve placeholders, product names and punctuation."
-  },
-  {
-    "locale": "tig",
-    "key": "azure-container-description",
-    "before": "ፋይላት ዝዕቀቡሉ blob container።",
-    "after": "ፈይላት ዝዕቀቡሉ blob container።",
     "reason": "2026-09-15: Replace exact Tigrinya Files, Address, Visibility, Format, First and Usage components with Tigre forms already established by reviewed corrections. The regular plural Address form is low confidence pending fluent review; preserve placeholders, product names and punctuation."
   },
   {
@@ -149537,8 +149509,8 @@
     "locale": "tig",
     "key": "org-number",
     "before": "ብዝሒ ውድባት፦ ",
-    "after": "ዐደድ መነዘመታት፦ ",
-    "reason": "2026-09-15: Replace exact Tigrinya At, Remove, Sign In, All, Delete, Failed, Count, Organization and Team components with established Tigre forms in matching short controls. Organization and Team plurals are regular derived forms marked low confidence pending fluent review; preserve placeholders and punctuation."
+    "after": "ዐደድ መነዘማት፦ ",
+    "reason": "2026-09-15: Replace exact Tigrinya At, Remove, Sign In, All, Delete, Failed, Count, Organization and Team components with established Tigre forms in matching short controls. Organization and Team plurals are regular derived forms marked low confidence pending fluent review; preserve placeholders and punctuation. Corpus follow-up plural repair: Corpus sentence about social organizations directly attests Tigre መነዘማት. The distributive all-organizations phrase in backup scope also uses this plural. Replace prior provisional Organizations plural only in matching English source sense."
   },
   {
     "locale": "tig",
@@ -150629,15 +150601,15 @@
     "locale": "tig",
     "key": "import-trello-zip-file-hint",
     "before": "ሓደ ወይ ብዙሕ ፋይላት .json ሰሌዳን ተለጠፍቶምን ኣብ ንኡሳት ማህደር board-name ዝሓዘ .zip (ካብ Trello Card Attachments Downloader)። ኩሎም ሰሌዳታት ይኣትዉ።",
-    "after": "ሓደ ወይ ብዙሕ ፈይላት .json ምዱድን ተለጠፍቶምን ኣብ ንኡሳት ማህደር board-name ዝሓዘ .zip (ካብ Trello Card Attachments Downloader)። ኩሎም ምዱዳት ይኣትዉ።",
-    "reason": "2026-09-15: Replace remaining embedded Tigrinya Board and Card nouns with corpus-attested Tigre singular/plural forms, restricted to English Board/Card senses. Preserve placeholders and surrounding clauses; exclude Clipboard uses and guard already-correct Tigre Card compounds against duplication. Follow-up full-locale English source-sense repair: File: ፋይላት → ፈይላት. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review."
+    "after": "ሓደ ወይ ብዙሕ ፋይላት .json ምዱድን ተለጠፍቶምን ኣብ ንኡሳት ማህደር board-name ዝሓዘ .zip (ካብ Trello Card Attachments Downloader)። ኩሎም ምዱዳት ይኣትዉ።",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Board and Card nouns with corpus-attested Tigre singular/plural forms, restricted to English Board/Card senses. Preserve placeholders and surrounding clauses; exclude Clipboard uses and guard already-correct Tigre Card compounds against duplication. Follow-up full-locale English source-sense repair: File: ፋይላት → ፈይላት. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review. Corpus follow-up plural repair: Repeated corpus file-management commands directly attest Tigre ፋይላት for Files; this spelling is legitimately shared with Tigrinya. Replace prior provisional Files plural only in matching English source sense."
   },
   {
     "locale": "tig",
     "key": "import-trello-zip-no-boards",
     "before": "ኣብቲ .zip ፋይላት .json ሰሌዳ Trello ኣይተረኽቡን።",
-    "after": "ኣብቲ .zip ፈይላት .json ምዱድ Trello ኣይተረኽቡን።",
-    "reason": "2026-09-15: Replace remaining embedded Tigrinya Board and Card nouns with corpus-attested Tigre singular/plural forms, restricted to English Board/Card senses. Preserve placeholders and surrounding clauses; exclude Clipboard uses and guard already-correct Tigre Card compounds against duplication. Follow-up full-locale English source-sense repair: File: ፋይላት → ፈይላት. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review."
+    "after": "ኣብቲ .zip ፋይላት .json ምዱድ Trello ኣይተረኽቡን።",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Board and Card nouns with corpus-attested Tigre singular/plural forms, restricted to English Board/Card senses. Preserve placeholders and surrounding clauses; exclude Clipboard uses and guard already-correct Tigre Card compounds against duplication. Follow-up full-locale English source-sense repair: File: ፋይላት → ፈይላት. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review. Corpus follow-up plural repair: Repeated corpus file-management commands directly attest Tigre ፋይላት for Files; this spelling is legitimately shared with Tigrinya. Replace prior provisional Files plural only in matching English source sense."
   },
   {
     "locale": "tig",
@@ -151882,8 +151854,8 @@
     "locale": "tig",
     "key": "import-board-zip",
     "before": "ፋይላት JSON ሰሌዳን ንኡሳን ማህደራት ስም ሰሌዳ ምስ ተለጠፍቲን ዘለዎ .zip ፋይል ወስኽ",
-    "after": "ፈይላት JSON ምዱድን ንኡሳን ማህደራት ስሜት ምዱድ ምስ ተለጠፍቲን ዘለዎ .zip ፈይል ወስኽ",
-    "reason": "2026-09-15: Replace remaining embedded Tigrinya Board and Card nouns with corpus-attested Tigre singular/plural forms, restricted to English Board/Card senses. Preserve placeholders and surrounding clauses; exclude Clipboard uses and guard already-correct Tigre Card compounds against duplication. Follow-up full-locale English source-sense repair: File: ፋይላት → ፈይላት; File: ፋይል → ፈይል; Name: ስም → ስሜት. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review."
+    "after": "ፋይላት JSON ምዱድን ንኡሳን ማህደራት ስሜት ምዱድ ምስ ተለጠፍቲን ዘለዎ .zip ፈይል ወስኽ",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Board and Card nouns with corpus-attested Tigre singular/plural forms, restricted to English Board/Card senses. Preserve placeholders and surrounding clauses; exclude Clipboard uses and guard already-correct Tigre Card compounds against duplication. Follow-up full-locale English source-sense repair: File: ፋይላት → ፈይላት; File: ፋይል → ፈይል; Name: ስም → ስሜት. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review. Corpus follow-up plural repair: Repeated corpus file-management commands directly attest Tigre ፋይላት for Files; this spelling is legitimately shared with Tigrinya. Replace prior provisional Files plural only in matching English source sense."
   },
   {
     "locale": "tig",
@@ -152722,8 +152694,8 @@
     "locale": "tig",
     "key": "shared-templates-select-scope",
     "before": "ዝተኻፈሉ ቅርጽታት ንምርኣይ ኣብ ላዕሊ ወሰን (ውድባት፣ ጉጅለታት ወይ ዶሜናት) ምረጽ።",
-    "after": "ዝተኻፈሉ ቅርጽታት ንምርኣይ ኣብ ላዕሊ ወሰን (መነዘመታት፣ ፈሪቃት ወይ ዶሜናት) ምረጽ።",
-    "reason": "Follow-up full-locale English source-sense repair: Organization: ውድባት → መነዘመታት; Team: ጉጅለታት → ፈሪቃት. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review."
+    "after": "ዝተኻፈሉ ቅርጽታት ንምርኣይ ኣብ ላዕሊ ወሰን (መነዘማት፣ ፈሪቃት ወይ ዶሜናት) ምረጽ።",
+    "reason": "Follow-up full-locale English source-sense repair: Organization: ውድባት → መነዘመታት; Team: ጉጅለታት → ፈሪቃት. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review. Corpus follow-up plural repair: Corpus sentence about social organizations directly attests Tigre መነዘማት. The distributive all-organizations phrase in backup scope also uses this plural. Replace prior provisional Organizations plural only in matching English source sense."
   },
   {
     "locale": "tig",
@@ -152876,22 +152848,22 @@
     "locale": "tig",
     "key": "add-organizations",
     "before": "ውድባት ወስኽ",
-    "after": "መነዘመታት ወስኽ",
-    "reason": "Follow-up full-locale English source-sense repair: Organization: ውድባት → መነዘመታት. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review."
+    "after": "መነዘማት ወስኽ",
+    "reason": "Follow-up full-locale English source-sense repair: Organization: ውድባት → መነዘመታት. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review. Corpus follow-up plural repair: Corpus sentence about social organizations directly attests Tigre መነዘማት. The distributive all-organizations phrase in backup scope also uses this plural. Replace prior provisional Organizations plural only in matching English source sense."
   },
   {
     "locale": "tig",
     "key": "add-organizations-label",
     "before": "ዝተወሰኹ ውድባት ኣብ ታሕቲ ይርኣዩ፦",
-    "after": "ዝተወሰኹ መነዘመታት ኣብ ታሕቲ ይርኣዩ፦",
-    "reason": "Follow-up full-locale English source-sense repair: Organization: ውድባት → መነዘመታት. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review."
+    "after": "ዝተወሰኹ መነዘማት ኣብ ታሕቲ ይርኣዩ፦",
+    "reason": "Follow-up full-locale English source-sense repair: Organization: ውድባት → መነዘመታት. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review. Corpus follow-up plural repair: Corpus sentence about social organizations directly attests Tigre መነዘማት. The distributive all-organizations phrase in backup scope also uses this plural. Replace prior provisional Organizations plural only in matching English source sense."
   },
   {
     "locale": "tig",
     "key": "to-create-organizations-contact-admin",
     "before": "ውድባት ንምፍጣር በጃኻ ንኣመሓዳሪ ተወከስ።",
-    "after": "መነዘመታት ንምፍጣር በጃኻ ንኣመሓዳሪ ተወከስ።",
-    "reason": "Follow-up full-locale English source-sense repair: Organization: ውድባት → መነዘመታት. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review."
+    "after": "መነዘማት ንምፍጣር በጃኻ ንኣመሓዳሪ ተወከስ።",
+    "reason": "Follow-up full-locale English source-sense repair: Organization: ውድባት → መነዘመታት. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review. Corpus follow-up plural repair: Corpus sentence about social organizations directly attests Tigre መነዘማት. The distributive all-organizations phrase in backup scope also uses this plural. Replace prior provisional Organizations plural only in matching English source sense."
   },
   {
     "locale": "tig",
@@ -152911,8 +152883,8 @@
     "locale": "tig",
     "key": "mongodb-compact-description",
     "before": "ፋይላት ካብ MongoDB GridFS ድሕሪ ምዝውዋሮም፣ ፋይል ቤት ውሂብ ኣብ ዲስክ ብኣውቶማቲክ ኣይንእስን። Compact ምስራሕ ውሂብ ስብስብ ዳግማይ ብምጽሓፍ ነጻ ቦታ ይመልስ። እዚ ድሕሪ ምዝውዋር ብዙሓት ፋይላት ምውድኡ ጥራይ ኣስርሖ።",
-    "after": "ፈይላት ካብ MongoDB GridFS ድሕሪ ምዝውዋሮም፣ ፈይል ቤት ውሂብ ኣብ ዲስክ ብኣውቶማቲክ ኣይንእስን። Compact ምስራሕ ውሂብ ስብስብ ዳግማይ ብምጽሓፍ ነጻ ቦታ ይመልስ። እዚ ድሕሪ ምዝውዋር ብዙሓት ፈይላት ምውድኡ ጥራይ ኣስርሖ።",
-    "reason": "Follow-up full-locale English source-sense repair: File: ፋይላት → ፈይላት; File: ፋይል → ፈይል. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review."
+    "after": "ፋይላት ካብ MongoDB GridFS ድሕሪ ምዝውዋሮም፣ ፈይል ቤት ውሂብ ኣብ ዲስክ ብኣውቶማቲክ ኣይንእስን። Compact ምስራሕ ውሂብ ስብስብ ዳግማይ ብምጽሓፍ ነጻ ቦታ ይመልስ። እዚ ድሕሪ ምዝውዋር ብዙሓት ፋይላት ምውድኡ ጥራይ ኣስርሖ።",
+    "reason": "Follow-up full-locale English source-sense repair: File: ፋይላት → ፈይላት; File: ፋይል → ፈይል. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review. Corpus follow-up plural repair: Repeated corpus file-management commands directly attest Tigre ፋይላት for Files; this spelling is legitimately shared with Tigrinya. Replace prior provisional Files plural only in matching English source sense."
   },
   {
     "locale": "tig",
@@ -153051,8 +153023,8 @@
     "locale": "tig",
     "key": "attachments-path-description",
     "before": "ተለጠፍቲ ፋይላት ዝዕቀቡሉ መንገዲ",
-    "after": "ተለጠፍቲ ፈይላት ዝዕቀቡሉ ገበይ",
-    "reason": "Follow-up full-locale English source-sense repair: File: ፋይላት → ፈይላት; Path: መንገዲ → ገበይ. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review."
+    "after": "ተለጠፍቲ ፋይላት ዝዕቀቡሉ ገበይ",
+    "reason": "Follow-up full-locale English source-sense repair: File: ፋይላት → ፈይላት; Path: መንገዲ → ገበይ. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review. Corpus follow-up plural repair: Repeated corpus file-management commands directly attest Tigre ፋይላት for Files; this spelling is legitimately shared with Tigrinya. Replace prior provisional Files plural only in matching English source sense."
   },
   {
     "locale": "tig",
@@ -153063,13 +153035,6 @@
   },
   {
     "locale": "tig",
-    "key": "sandstorm-migration-description",
-    "before": "WeKan ኣብ ውሽጢ Sandstorm grain ምስ ዝሰርሕ፣ ኣረጊት MongoDB 3 ቤት ውሂቡ ኣብ ቀዳማይ ምጅማር ናብ FerretDB v1 (SQLite) ይዛወር፣ ተለጠፍትን ስእልታት መንነትን ድማ ካብ ቤት ውሂብ ናብ ማህደራት files/attachmentsን files/avatarsን ናይቲ grain ይዛወሩ። እዚ ምዝውዋር እንተተዓዊቱን ኣረጋውያን ጥረ MongoDB ፋይላት ኣብ grain ክንደይ ቦታ ዲስክ ከም ዝጥቀሙን የርኢ፣ ቦታ ንምልቃቕ ክትድምስሶም ድማ የኽእለካ።",
-    "after": "WeKan ኣብ ውሽጢ Sandstorm grain ምስ ዝሰርሕ፣ ኣረጊት MongoDB 3 ቤት ውሂቡ ኣብ ቀዳማይ ምጅማር ናብ FerretDB v1 (SQLite) ይዛወር፣ ተለጠፍትን ስእልታት መንነትን ድማ ካብ ቤት ውሂብ ናብ ማህደራት files/attachmentsን files/avatarsን ናይቲ grain ይዛወሩ። እዚ ምዝውዋር እንተተዓዊቱን ኣረጋውያን ጥረ MongoDB ፈይላት ኣብ grain ክንደይ ቦታ ዲስክ ከም ዝጥቀሙን የርኢ፣ ቦታ ንምልቃቕ ክትድምስሶም ድማ የኽእለካ።",
-    "reason": "Follow-up full-locale English source-sense repair: File: ፋይላት → ፈይላት. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review."
-  },
-  {
-    "locale": "tig",
     "key": "sandstorm-migration-status",
     "before": "ኩነታት ምዝውዋር",
     "after": "ሓላት ምዝውዋር",
@@ -153077,45 +153042,24 @@
   },
   {
     "locale": "tig",
-    "key": "sandstorm-raw-mongodb",
-    "before": "ጥረ MongoDB 3 ፋይላት ቤት ውሂብ",
-    "after": "ጥረ MongoDB 3 ፈይላት ቤት ውሂብ",
-    "reason": "Follow-up full-locale English source-sense repair: File: ፋይላት → ፈይላት. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review."
-  },
-  {
-    "locale": "tig",
-    "key": "sandstorm-delete-raw-mongodb",
-    "before": "ጥረ MongoDB ፋይላት ቤት ውሂብ ደምስስ",
-    "after": "ጥረ MongoDB ፈይላት ቤት ውሂብ ደምስስ",
-    "reason": "Follow-up full-locale English source-sense repair: File: ፋይላት → ፈይላት. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review."
-  },
-  {
-    "locale": "tig",
     "key": "sandstorm-delete-raw-mongodb-description",
     "before": "ዕዉት ምዝውዋር ድሕሪ ምውድኡ ውሂብ ኣብ FerretDBን ስርዓተ ፋይልን ይነብር፣ ስለዚ ኣረጋውያን ጥረ MongoDB 3 ፋይላት ቤት ውሂብ ቦታ grain ዲስክ ንምልቃቕ ክድምሰሱ ይኽእሉ። እዚ ክምለስ ኣይከኣልን።",
-    "after": "ዕዉት ምዝውዋር ድሕሪ ምውድኡ ውሂብ ኣብ FerretDBን ስርዓተ ፈይልን ይነብር፣ ስለዚ ኣረጋውያን ጥረ MongoDB 3 ፈይላት ቤት ውሂብ ቦታ grain ዲስክ ንምልቃቕ ክድምሰሱ ይኽእሉ። እዚ ክምለስ ኣይከኣልን።",
-    "reason": "Follow-up full-locale English source-sense repair: File: ፋይላት → ፈይላት; File: ፋይል → ፈይል. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review."
+    "after": "ዕዉት ምዝውዋር ድሕሪ ምውድኡ ውሂብ ኣብ FerretDBን ስርዓተ ፈይልን ይነብር፣ ስለዚ ኣረጋውያን ጥረ MongoDB 3 ፋይላት ቤት ውሂብ ቦታ grain ዲስክ ንምልቃቕ ክድምሰሱ ይኽእሉ። እዚ ክምለስ ኣይከኣልን።",
+    "reason": "Follow-up full-locale English source-sense repair: File: ፋይላት → ፈይላት; File: ፋይል → ፈይል. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review. Corpus follow-up plural repair: Repeated corpus file-management commands directly attest Tigre ፋይላት for Files; this spelling is legitimately shared with Tigrinya. Replace prior provisional Files plural only in matching English source sense."
   },
   {
     "locale": "tig",
     "key": "sandstorm-delete-raw-mongodb-confirm",
     "before": "ቦታ ዲስክ ንምልቃቕ ጥረ MongoDB 3 ፋይላት ቤት ውሂብ ይደምሰሱ? ውሂብ ድሮ ናብ FerretDBን ስርዓተ ፋይልን ተዛዊሩ። እዚ ክምለስ ኣይከኣልን።",
-    "after": "ቦታ ዲስክ ንምልቃቕ ጥረ MongoDB 3 ፈይላት ቤት ውሂብ ይደምሰሱ? ውሂብ ድሮ ናብ FerretDBን ስርዓተ ፈይልን ተዛዊሩ። እዚ ክምለስ ኣይከኣልን።",
-    "reason": "Follow-up full-locale English source-sense repair: File: ፋይላት → ፈይላት; File: ፋይል → ፈይል. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review."
-  },
-  {
-    "locale": "tig",
-    "key": "sandstorm-raw-mongodb-deleted",
-    "before": "ጥረ MongoDB ፋይላት ቤት ውሂብ ተደምሲሶም፣ ዝተለቐቐ",
-    "after": "ጥረ MongoDB ፈይላት ቤት ውሂብ ተደምሲሶም፣ ዝተለቐቐ",
-    "reason": "Follow-up full-locale English source-sense repair: File: ፋይላት → ፈይላት. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review."
+    "after": "ቦታ ዲስክ ንምልቃቕ ጥረ MongoDB 3 ፋይላት ቤት ውሂብ ይደምሰሱ? ውሂብ ድሮ ናብ FerretDBን ስርዓተ ፈይልን ተዛዊሩ። እዚ ክምለስ ኣይከኣልን።",
+    "reason": "Follow-up full-locale English source-sense repair: File: ፋይላት → ፈይላት; File: ፋይል → ፈይል. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review. Corpus follow-up plural repair: Repeated corpus file-management commands directly attest Tigre ፋይላት for Files; this spelling is legitimately shared with Tigrinya. Replace prior provisional Files plural only in matching English source sense."
   },
   {
     "locale": "tig",
     "key": "disable-import-avatars-description",
     "before": "ምስ ዝኽእል፣ ስእልታት መንነት ፈጺሞም ኣይኣትዉን። እዚ ንWeKan JSON፣ Trelloን ካብ LDAP፣ OIDC/OAuth2 ዝመጽእ ምስምማዕን ይሽፍን። ስማትን ካልእ ውሂብን ይኣትዉ። ነባሪ ጠፊኡ እዩ።",
-    "after": "ምስ ዝኽእል፣ ስእልታት መንነት ፈጺሞም ኣይኣትዉን። እዚ ንWeKan JSON፣ Trelloን ካብ LDAP፣ OIDC/OAuth2 ዝመጽእ ምስሜትማዕን ይሽፍን። ስሜታትን ካልእ ውሂብን ይኣትዉ። ነባሪ ጠፊኡ እዩ።",
-    "reason": "Follow-up full-locale English source-sense repair: Name: ስማት → ስሜታት; Name: ስም → ስሜት. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review."
+    "after": "ምስ ዝኽእል፣ ስእልታት መንነት ፈጺሞም ኣይኣትዉን። እዚ ንWeKan JSON፣ Trelloን ካብ LDAP፣ OIDC/OAuth2 ዝመጽእ ምስሜትማዕን ይሽፍን። አስማይን ካልእ ውሂብን ይኣትዉ። ነባሪ ጠፊኡ እዩ።",
+    "reason": "Follow-up full-locale English source-sense repair: Name: ስማት → ስሜታት; Name: ስም → ስሜት. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review. Corpus follow-up plural repair: Independent corpus sentences directly attest Tigre አስማይ for Names, including people’s names. Replace prior provisional Names plural only in matching English source sense."
   },
   {
     "locale": "tig",
@@ -153128,8 +153072,8 @@
     "locale": "tig",
     "key": "gcs-bucket-description",
     "before": "ፋይላት ዝዕቀቡሉ ስም ባልዲ Cloud Storage።",
-    "after": "ፈይላት ዝዕቀቡሉ ስሜት ባልዲ Cloud Storage።",
-    "reason": "Follow-up full-locale English source-sense repair: File: ፋይላት → ፈይላት; Name: ስም → ስሜት. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review."
+    "after": "ፋይላት ዝዕቀቡሉ ስሜት ባልዲ Cloud Storage።",
+    "reason": "Follow-up full-locale English source-sense repair: File: ፋይላት → ፈይላት; Name: ስም → ስሜት. Established Tigre terminology replaces Tigrinya components; derived plural forms remain low confidence pending fluent review. Corpus follow-up plural repair: Repeated corpus file-management commands directly attest Tigre ፋይላት for Files; this spelling is legitimately shared with Tigrinya. Replace prior provisional Files plural only in matching English source sense."
   },
   {
     "locale": "tig",
@@ -153219,8 +153163,8 @@
     "locale": "tig",
     "key": "organizations",
     "before": "ትካላት",
-    "after": "መነዘመታት",
-    "reason": "Follow-up full-locale Organization repair: replace the missed Tigrinya plural with the regular plural of corpus-attested Tigre መነዘመት. Plural morphology remains low confidence pending fluent review."
+    "after": "መነዘማት",
+    "reason": "Follow-up full-locale Organization repair: replace the missed Tigrinya plural with the regular plural of corpus-attested Tigre መነዘመት. Plural morphology remains low confidence pending fluent review. Corpus follow-up plural repair: Corpus sentence about social organizations directly attests Tigre መነዘማት. The distributive all-organizations phrase in backup scope also uses this plural. Replace prior provisional Organizations plural only in matching English source sense."
   },
   {
     "locale": "tig",

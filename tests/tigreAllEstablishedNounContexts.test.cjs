@@ -8,7 +8,7 @@ const read = code => JSON.parse(fs.readFileSync(
 const english = read('en');
 const tigre = read('tig');
 const families = [
-  { name: 'File', source: /\bfiles?\b/i, old: /ፋይል|ፋይላት/u },
+  { name: 'File', source: /\bfile\b/i, old: /ፋይል/u },
   { name: 'User', source: /\busers?\b/i, old: /ተጠቃሚ|ተጠቀምቲ/u },
   { name: 'Name', source: /\bnames?\b/i, old: /ስም|ስማት/u },
   { name: 'Label', source: /\blabels?\b/i, old: /ምልክት|ምልክታት/u },

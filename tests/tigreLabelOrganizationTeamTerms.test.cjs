@@ -14,7 +14,7 @@ const reviewed = {
   "label-not-found": "እሻረት '%s' ኣይተረኽበን።",
   "label-color-not-found": "ሕብር እሻረት %s ኣይተረኽበን።",
   "label-colors": "ሕብርታት እሻረት",
-  "label-names": "ስሜታት እሻረት",
+  "label-names": "አስማይ እሻረት",
   "removeBoardOrgPopup-title": "መነዘመት ኣውጽእ",
   "org-tenant": "ብዙሕ ተኻራዪ፦ እዚ መነዘመት ከም ተኻራዪ",
   "org-name-not-found": "መነዘመት '%s' ኣይተረኽበን።",

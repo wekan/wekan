@@ -32,7 +32,7 @@ const reviewed = {
   "email-templates-invite-body": "ዐዝም ኢመይል ክቱብ",
   "filesystem-size": "ቅያስ ስርዓም ፈይል",
   "spent-time-hours": "ዝወጸ ጊዜ (ሰዐታት)",
-  "import-usernames": "ስሜታት መትነፍዕያም አምጸአ",
+  "import-usernames": "አስማይ መትነፍዕያም አምጸአ",
   "filesystem-storage": "መክዘን ስርዓም ፈይል",
   "text-background-color": "ሕብር ለሀላ መበገሲ ክቱብ",
   "description-on-minicard": "ዋስፎ ዲብ ንኡስ ወረቀት ካርድ",

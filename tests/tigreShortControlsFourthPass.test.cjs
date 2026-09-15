@@ -26,7 +26,7 @@ const reviewed = {
   'ldap-test-connection-error': 'ርክብ ፈሽለ: %s',
   'mongodb-compact-error': 'Compact ፈሽለ፦',
   'list-sync-now-error': 'ምስምማዕ ፈሽለ: %s',
-  'org-number': 'ዐደድ መነዘመታት፦ ',
+  'org-number': "ዐደድ መነዘማት፦ ",
   'team-number': 'ዐደድ ፈሪቃት፦ ',
   'people-number': 'ዐደድ ሰባት፦ ',
 };
