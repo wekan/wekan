@@ -31142,3 +31142,18 @@ inventories. Raw overlap falls to 326; after 22 attested shared forms, 304
 remain unclassified. Thirty-three raw matches contain at least 20 characters
 and seven contain at least 35. Surrounding clauses remain subject to fluent
 review. No remote write occurred.
+
+
+### 2026-09-15 — Embedded Tigre Account, Storage and Description terms
+
+Source commit `eb1add1f2` repairs 60 context-matched values that retained a
+known Tigrinya component inside otherwise nonidentical Tigre clauses. Account
+inflections now derive from `ሕሳብ`, Storage and Repository use
+`መክዘን`, and Description/Profile contexts use `ዋስፎ`. Two Web
+Manifest values are excluded because their English source does not mean
+Description. Six sequential repairs are consolidated into their existing
+ledger records, leaving 21,264 verified final corrections. The focused test
+checks 121 applicable contexts; all 234 locale inventories pass. Raw overlap
+falls to 323, with 22 attested shared forms and 301 unclassified. Thirty-three
+raw matches contain at least 20 characters and seven contain at least 35. No
+remote write occurred.

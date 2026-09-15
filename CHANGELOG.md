@@ -2080,6 +2080,16 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/eb1add1f2">Repair embedded Tigre account, storage and description terms.</a></summary>
+
+Replace remaining copied Tigrinya Account inflections, Storage/Repository
+spellings and Description components inside 60 Tigre values.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8296c12a5">Repair Tigre account, storage and template terms.</a></summary>
 
 Replace 17 copied Tigrinya Account, Storage and Templates components with
