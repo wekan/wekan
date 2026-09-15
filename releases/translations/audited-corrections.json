@@ -146051,8 +146051,8 @@
     "locale": "tig",
     "key": "due-date",
     "before": "መወዳእታ ዕለት",
-    "after": "ተመር መከለሲ",
-    "reason": "Replace a Tigrinya-seeded compound with coordinated Tigre roots already established by direct corpus evidence; preserve unit parentheses, punctuation and technical identifiers."
+    "after": "አምዐል መዋዕድ",
+    "reason": "2026-09-15: Replace Tigrinya-seeded date controls with coordinated Tigre terminology. The BeitTigreAI corpus directly attests date, due, deadline, start, end, voting, received and change forms; multiword UI compounds retain their source distinctions and remain subject to fluent review."
   },
   {
     "locale": "tig",
@@ -146697,5 +146697,61 @@
     "before": "ዝርዝር ኣባላት ሰሌዳ",
     "after": "ዝርዝር አባላት ምዱድ",
     "reason": "Replace a Tigrinya-seeded member compound with the explicit Tigre Member/Members pair and independently reviewed Tigre control terms; retain complete phrase order for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "card-due",
+    "before": "መወዳእታ",
+    "after": "ሐዞት",
+    "reason": "2026-09-15: Replace Tigrinya-seeded date controls with coordinated Tigre terminology. The BeitTigreAI corpus directly attests date, due, deadline, start, end, voting, received and change forms; multiword UI compounds retain their source distinctions and remain subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "cardCustomField-datePopup-title",
+    "before": "ዕለት ቀይር",
+    "after": "ተመር ተቅዪር",
+    "reason": "2026-09-15: Replace Tigrinya-seeded date controls with coordinated Tigre terminology. The BeitTigreAI corpus directly attests date, due, deadline, start, end, voting, received and change forms; multiword UI compounds retain their source distinctions and remain subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "editVoteEndDatePopup-title",
+    "before": "ዕለት መወዳእታ ድምጺ ቀይር",
+    "after": "ተመር መከለሲ ሕርያን ተቅዪር",
+    "reason": "2026-09-15: Replace Tigrinya-seeded date controls with coordinated Tigre terminology. The BeitTigreAI corpus directly attests date, due, deadline, start, end, voting, received and change forms; multiword UI compounds retain their source distinctions and remain subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "editPokerEndDatePopup-title",
+    "before": "ዕለት መወዳእታ ድምጺ Planning Poker ቀይር",
+    "after": "ተመር መከለሲ ሕርያን Planning Poker ተቅዪር",
+    "reason": "2026-09-15: Replace Tigrinya-seeded date controls with coordinated Tigre terminology. The BeitTigreAI corpus directly attests date, due, deadline, start, end, voting, received and change forms; multiword UI compounds retain their source distinctions and remain subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "editCardStartDatePopup-title",
+    "before": "ዕለት ምጅማር ቀይር",
+    "after": "ተመር መበገሲት ተቅዪር",
+    "reason": "2026-09-15: Replace Tigrinya-seeded date controls with coordinated Tigre terminology. The BeitTigreAI corpus directly attests date, due, deadline, start, end, voting, received and change forms; multiword UI compounds retain their source distinctions and remain subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "editCardDueDatePopup-title",
+    "before": "መወዳእታ ዕለት ቀይር",
+    "after": "አምዐል መዋዕድ ተቅዪር",
+    "reason": "2026-09-15: Replace Tigrinya-seeded date controls with coordinated Tigre terminology. The BeitTigreAI corpus directly attests date, due, deadline, start, end, voting, received and change forms; multiword UI compounds retain their source distinctions and remain subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "editCardReceivedDatePopup-title",
+    "before": "ዕለት ምቕባል ቀይር",
+    "after": "ተመር በጽሐ ተቅዪር",
+    "reason": "2026-09-15: Replace Tigrinya-seeded date controls with coordinated Tigre terminology. The BeitTigreAI corpus directly attests date, due, deadline, start, end, voting, received and change forms; multiword UI compounds retain their source distinctions and remain subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "editCardEndDatePopup-title",
+    "before": "ዕለት መወዳእታ ቀይር",
+    "after": "ተመር መከለሲ ተቅዪር",
+    "reason": "2026-09-15: Replace Tigrinya-seeded date controls with coordinated Tigre terminology. The BeitTigreAI corpus directly attests date, due, deadline, start, end, voting, received and change forms; multiword UI compounds retain their source distinctions and remain subject to fluent review."
   }
 ]

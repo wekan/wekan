@@ -11,7 +11,7 @@ const assert=require('node:assert/strict');const fs=require('node:fs');const pat
   "create-task": "ሹቁል ኽለቅ",
   "text-color": "ሕብር ክቱብ",
   "total-size": "ጅሙዕ ቅያስ",
-  "due-date": "ተመር መከለሲ",
+  "due-date": "አምዐል መዋዕድ",
   "gantt-view-half-day": "ፍርቂ ምዕል",
   "filter-no-label": "እሻረት የለን",
   "myCardsSortChange-choice-board": "እብ ምዱድ",
