@@ -148501,15 +148501,15 @@
     "locale": "tig",
     "key": "edit-profile",
     "before": "መግለጺ መንነት ኣርም",
-    "after": "ዋስፎ መንነት ኣርም",
-    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+    "after": "ዋስፎ መንነት አስነ",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution. Follow-up 2026-09-15: Replace copied Tigrinya Edit and singular Template components in matching English UI senses with the exact Tigre corpus forms አስነ and ሞደል; preserve surrounding clauses, product names, placeholders and punctuation."
   },
   {
     "locale": "tig",
     "key": "editProfilePopup-title",
     "before": "መግለጺ መንነት ኣርም",
-    "after": "ዋስፎ መንነት ኣርም",
-    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+    "after": "ዋስፎ መንነት አስነ",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution. Follow-up 2026-09-15: Replace copied Tigrinya Edit and singular Template components in matching English UI senses with the exact Tigre corpus forms አስነ and ሞደል; preserve surrounding clauses, product names, placeholders and punctuation."
   },
   {
     "locale": "tig",
@@ -148846,5 +148846,208 @@
     "before": "ብዙሕ ዝፈሸሉ ፈተነታት ምእታው ስለ ዝተገብሩ መለያ ንግዚኡ ተዓጽዩ። በጃኻ ጸኒሕካ ደጊምካ ፈትን።",
     "after": "ብዙሕ ዝፈሸሉ ፈተነታት ምእታው ስለ ዝተገብሩ ሕሳብ ንግዚኡ ተዓጽዩ። በጃኻ ጸኒሕካ ደጊምካ ፈትን።",
     "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "allboards.edit-workspace",
+    "before": "ቦታ ዕዮ ኣርም",
+    "after": "ቦታ ዕዮ አስነ",
+    "reason": "2026-09-15: Replace copied Tigrinya Edit and singular Template components in matching English UI senses with the exact Tigre corpus forms አስነ and ሞደል; preserve surrounding clauses, product names, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "set-default-board-template",
+    "before": "ከም ቀዳማይ ሰሌዳ ኣብነት ግበሮ (ሓድሽ ሰሌዳ ክፍጠር ከሎ ብቐጥታ ይትግበር)",
+    "after": "ከም ቀዳማይ ሰሌዳ ሞደል ግበሮ (ሓድሽ ሰሌዳ ክፍጠር ከሎ ብቐጥታ ይትግበር)",
+    "reason": "2026-09-15: Replace copied Tigrinya Edit and singular Template components in matching English UI senses with the exact Tigre corpus forms አስነ and ሞደል; preserve surrounding clauses, product names, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "unset-default-board-template",
+    "before": "ቀዳማይ ኣብነት ሰሌዳ ኣወግድ",
+    "after": "ቀዳማይ ሞደል ሰሌዳ ኣወግድ",
+    "reason": "2026-09-15: Replace copied Tigrinya Edit and singular Template components in matching English UI senses with the exact Tigre corpus forms አስነ and ሞደል; preserve surrounding clauses, product names, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "add-template",
+    "before": "ኣብነት ወስክ",
+    "after": "ሞደል ወስክ",
+    "reason": "2026-09-15: Replace copied Tigrinya Edit and singular Template components in matching English UI senses with the exact Tigre corpus forms አስነ and ሞደል; preserve surrounding clauses, product names, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "template",
+    "before": "ኣብነት",
+    "after": "ሞደል",
+    "reason": "2026-09-15: Replace copied Tigrinya Edit and singular Template components in matching English UI senses with the exact Tigre corpus forms አስነ and ሞደል; preserve surrounding clauses, product names, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "template-container",
+    "before": "መትሓዚ ኣብነት",
+    "after": "መትሓዚ ሞደል",
+    "reason": "2026-09-15: Replace copied Tigrinya Edit and singular Template components in matching English UI senses with the exact Tigre corpus forms አስነ and ሞደል; preserve surrounding clauses, product names, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "add-template-container",
+    "before": "መትሓዚ ኣብነት ወስክ",
+    "after": "መትሓዚ ሞደል ወስክ",
+    "reason": "2026-09-15: Replace copied Tigrinya Edit and singular Template components in matching English UI senses with the exact Tigre corpus forms አስነ and ሞደል; preserve surrounding clauses, product names, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "card-edit-attachments",
+    "before": "ተለጠፍቲ ኣርም",
+    "after": "ተለጠፍቲ አስነ",
+    "reason": "2026-09-15: Replace copied Tigrinya Edit and singular Template components in matching English UI senses with the exact Tigre corpus forms አስነ and ሞደል; preserve surrounding clauses, product names, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "card-edit-custom-fields",
+    "before": "ብሕታዊ ሜዳታት ኣርም",
+    "after": "ብሕታዊ ሜዳታት አስነ",
+    "reason": "2026-09-15: Replace copied Tigrinya Edit and singular Template components in matching English UI senses with the exact Tigre corpus forms አስነ and ሞደል; preserve surrounding clauses, product names, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "card-edit-labels",
+    "before": "ምልክታት ኣርም",
+    "after": "ምልክታት አስነ",
+    "reason": "2026-09-15: Replace copied Tigrinya Edit and singular Template components in matching English UI senses with the exact Tigre corpus forms አስነ and ሞደል; preserve surrounding clauses, product names, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "card-edit-members",
+    "before": "ኣባላት ኣርም",
+    "after": "ኣባላት አስነ",
+    "reason": "2026-09-15: Replace copied Tigrinya Edit and singular Template components in matching English UI senses with the exact Tigre corpus forms አስነ and ሞደል; preserve surrounding clauses, product names, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "cardCustomFieldsPopup-title",
+    "before": "ብሕታዊ ሜዳታት ኣርም",
+    "after": "ብሕታዊ ሜዳታት አስነ",
+    "reason": "2026-09-15: Replace copied Tigrinya Edit and singular Template components in matching English UI senses with the exact Tigre corpus forms አስነ and ሞደል; preserve surrounding clauses, product names, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "card-edit-voting",
+    "before": "ድምጺ ምሃብ ኣርም",
+    "after": "ድምጺ ምሃብ አስነ",
+    "reason": "2026-09-15: Replace copied Tigrinya Edit and singular Template components in matching English UI senses with the exact Tigre corpus forms አስነ and ሞደል; preserve surrounding clauses, product names, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "card-edit-planning-poker",
+    "before": "Planning Poker ኣርም",
+    "after": "Planning Poker አስነ",
+    "reason": "2026-09-15: Replace copied Tigrinya Edit and singular Template components in matching English UI senses with the exact Tigre corpus forms አስነ and ሞደል; preserve surrounding clauses, product names, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "dependencyLinePopup-title",
+    "before": "ጽግዕተኛነት ኣርም",
+    "after": "ጽግዕተኛነት አስነ",
+    "reason": "2026-09-15: Replace copied Tigrinya Edit and singular Template components in matching English UI senses with the exact Tigre corpus forms አስነ and ሞደል; preserve surrounding clauses, product names, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "cardTemplatePopup-title",
+    "before": "ኣብነት ፍጠር",
+    "after": "ሞደል ፍጠር",
+    "reason": "2026-09-15: Replace copied Tigrinya Edit and singular Template components in matching English UI senses with the exact Tigre corpus forms አስነ and ሞደል; preserve surrounding clauses, product names, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "save-card-as-template",
+    "before": "ከም ኣብነት ኣቐምጥ",
+    "after": "ከም ሞደል ኣቐምጥ",
+    "reason": "2026-09-15: Replace copied Tigrinya Edit and singular Template components in matching English UI senses with the exact Tigre corpus forms አስነ and ሞደል; preserve surrounding clauses, product names, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "copyManyCardsPopup-title",
+    "before": "ኣብነት ናብ ብዙሓት ካርድታት ቅዳሕ",
+    "after": "ሞደል ናብ ብዙሓት ካርድታት ቅዳሕ",
+    "reason": "2026-09-15: Replace copied Tigrinya Edit and singular Template components in matching English UI senses with the exact Tigre corpus forms አስነ and ሞደል; preserve surrounding clauses, product names, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "createTemplateContainerPopup-title",
+    "before": "መትሓዚ ኣብነት ወስክ",
+    "after": "መትሓዚ ሞደል ወስክ",
+    "reason": "2026-09-15: Replace copied Tigrinya Edit and singular Template components in matching English UI senses with the exact Tigre corpus forms አስነ and ሞደል; preserve surrounding clauses, product names, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "edit",
+    "before": "ኣርም",
+    "after": "አስነ",
+    "reason": "2026-09-15: Replace copied Tigrinya Edit and singular Template components in matching English UI senses with the exact Tigre corpus forms አስነ and ሞደል; preserve surrounding clauses, product names, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "edit-wip-limit",
+    "before": "ደረት WIP ኣርም",
+    "after": "ደረት WIP አስነ",
+    "reason": "2026-09-15: Replace copied Tigrinya Edit and singular Template components in matching English UI senses with the exact Tigre corpus forms አስነ and ሞደል; preserve surrounding clauses, product names, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "editCustomFieldPopup-title",
+    "before": "ሜዳ ኣርም",
+    "after": "ሜዳ አስነ",
+    "reason": "2026-09-15: Replace copied Tigrinya Edit and singular Template components in matching English UI senses with the exact Tigre corpus forms አስነ and ሞደል; preserve surrounding clauses, product names, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "editNotificationPopup-title",
+    "before": "ምልክታ ኣርም",
+    "after": "ምልክታ አስነ",
+    "reason": "2026-09-15: Replace copied Tigrinya Edit and singular Template components in matching English UI senses with the exact Tigre corpus forms አስነ and ሞደል; preserve surrounding clauses, product names, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "normal-assigned-only-desc",
+    "before": "ዝተመደቡ ካርድታት ጥራይ ይረኣዩ። ከም ንቡር ተጠቃሚ ኣርም።",
+    "after": "ዝተመደቡ ካርድታት ጥራይ ይረኣዩ። ከም ንቡር ተጠቃሚ አስነ።",
+    "reason": "2026-09-15: Replace copied Tigrinya Edit and singular Template components in matching English UI senses with the exact Tigre corpus forms አስነ and ሞደል; preserve surrounding clauses, product names, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "external-link-pattern-url",
+    "before": "ኣብነት URL ({number} ተጠቐም)",
+    "after": "ሞደል URL ({number} ተጠቐም)",
+    "reason": "2026-09-15: Replace copied Tigrinya Edit and singular Template components in matching English UI senses with the exact Tigre corpus forms አስነ and ሞደል; preserve surrounding clauses, product names, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "r-edit-rule",
+    "before": "ደንቢ ኣርም",
+    "after": "ደንቢ አስነ",
+    "reason": "2026-09-15: Replace copied Tigrinya Edit and singular Template components in matching English UI senses with the exact Tigre corpus forms አስነ and ሞደል; preserve surrounding clauses, product names, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "r-edit-rule-trigger-action",
+    "before": "ደንቢ ኣርም (መበገሲ/ትግባር)",
+    "after": "ደንቢ አስነ (መበገሲ/ትግባር)",
+    "reason": "2026-09-15: Replace copied Tigrinya Edit and singular Template components in matching English UI senses with the exact Tigre corpus forms አስነ and ሞደል; preserve surrounding clauses, product names, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "copyChecklistFromTemplate",
+    "before": "ናይ ምርመራ ዝርዝር ቅዳሕ - ኣብነት",
+    "after": "ናይ ምርመራ ዝርዝር ቅዳሕ - ሞደል",
+    "reason": "2026-09-15: Replace copied Tigrinya Edit and singular Template components in matching English UI senses with the exact Tigre corpus forms አስነ and ሞደል; preserve surrounding clauses, product names, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "copyChecklistFromTemplatePopup-title",
+    "before": "ናይ ምርመራ ዝርዝር ቅዳሕ - ኣብነት",
+    "after": "ናይ ምርመራ ዝርዝር ቅዳሕ - ሞደል",
+    "reason": "2026-09-15: Replace copied Tigrinya Edit and singular Template components in matching English UI senses with the exact Tigre corpus forms አስነ and ሞደል; preserve surrounding clauses, product names, placeholders and punctuation."
   }
 ]
