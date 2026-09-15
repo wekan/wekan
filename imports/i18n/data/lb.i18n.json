@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Setze Breite",
   "set-list-width": "Setze Breite",
   "set-list-width-value": "Breite den Lëscht (Pixel)",
-  "list-width-error-message": "Breite den Lëscht muss eng ganze Zahl größer als 270 sein",
+  "list-width-error-message": "D'Breet vun der Lëscht muss eng ganz Zuel vu mindestens 200 Pixel sinn.",
   "list-width-shared-note": "Dës Breite gëtt mat allen op dem Board geteilt.",
   "list-width-personal-note": "Dës Breite gilt nëmmen fir dich.",
   "personal-list-width": "Presönliche Listenbreite",

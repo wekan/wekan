@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Latine: Set width",
   "set-list-width": "Latine: Set width",
   "set-list-width-value": "Latine: Index width (pixels)",
-  "list-width-error-message": "Latine: Index width debet esse an integer greater than 270",
+  "list-width-error-message": "Latitudo indicis debet esse numerus integer saltem 200 pixelorum.",
   "list-width-shared-note": "Latine: Hoc width est shared cum everyone adest hoc tabula.",
   "list-width-personal-note": "Latine: Hoc width est tantum for tu.",
   "personal-list-width": "Latine: Personal index widths",

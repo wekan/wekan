@@ -56,7 +56,8 @@ assert.match(cornish['archive-permanent-delete-disabled-hint'],
 assert.match(cornish['archive-permanent-delete-disabled-hint'],
   /Enable permanent delete for Global Admin/);
 assert.deepEqual(tokens(cornish['activity-dueDate']), ['%s', '%s']);
-assert.match(cornish['list-width-error-message'], /270/);
+assert.match(cornish['list-width-error-message'], /ledander an rol.*niver kowal ≥ 200 picselow/);
+assert.doesNotMatch(cornish['list-width-error-message'], /270/);
 assert.match(cornish['set-swimlane-height-value'], /picselow/);
 assert.equal(cornish['add-checklist'], 'Keworra rol checkya');
 assert.equal(cornish['add-members'], 'Keworra eseli');

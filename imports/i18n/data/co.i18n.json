@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Imposta larghezza",
   "set-list-width": "Imposta larghezza",
   "set-list-width-value": "Larghezza lista (pixel)",
-  "list-width-error-message": "La larghezza di a lista deve essere un numero intero maggiore di 270",
+  "list-width-error-message": "A larghezza di a lista deve esse un numeru interu d'almenu 200 pixel.",
   "list-width-shared-note": "Questa larghezza è condivisa cù tutti gli utilizatori di questa tavula.",
   "list-width-personal-note": "Questa larghezza è solu per te.",
   "personal-list-width": "Larghezze personali di e liste",

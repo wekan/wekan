@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Definir la largor",
   "set-list-width": "Definir la largor",
   "set-list-width-value": "Largor de la tièra (pixèls)",
-  "list-width-error-message": "La largor de la tièra deu èsser un entièr superior a 270",
+  "list-width-error-message": "La largor de la tièra deu èsser un entièr d'almens 200 pixèls.",
   "list-width-shared-note": "Aquesta largor es partejada amb totes sus aqueste tablèu.",
   "list-width-personal-note": "Aquesta largor es pas que per vos.",
   "personal-list-width": "Largors de tièra personalas",

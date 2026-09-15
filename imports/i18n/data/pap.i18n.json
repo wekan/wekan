@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Estableser ancho",
   "set-list-width": "Estableser ancho",
   "set-list-width-value": "Ancho di e lista (píxeles)",
-  "list-width-error-message": "E ancho di e lista mester ser un entero mayor ku 270",
+  "list-width-error-message": "E ancho di e lista mester ser un entero di na e ménos 200 píxeles.",
   "list-width-shared-note": "E ancho se comparte ku tur e miembronan di e tabla.",
   "list-width-personal-note": "E ancho ta solamente pa ti.",
   "personal-list-width": "Anchos di lista personales",

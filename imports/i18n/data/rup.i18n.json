@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Bagã lãrdzimea",
   "set-list-width": "Bagã lãrdzimea",
   "set-list-width-value": "Lãrdzimea ali listã (pixeli)",
-  "list-width-error-message": "Lãrdzimea ali listã lipseashti s-hibã un numir ãntreg ma mari di 270",
+  "list-width-error-message": "Lãrdzimea ali listã lipseashti s-hibã un numir ãntreg di minimum 200 pixeli.",
   "list-width-shared-note": "Aestã lãrdzimi easti idyea trã tuts membrilj ali tabelã.",
   "list-width-personal-note": "Aestã lãrdzimi easti mash trã tini.",
   "personal-list-width": "Lãrdzimi personali a listilor",

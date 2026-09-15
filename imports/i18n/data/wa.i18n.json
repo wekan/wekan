@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Defini l' lårdjeur",
   "set-list-width": "Defini l' lårdjeur",
   "set-list-width-value": "Lårdjeur del djîveye (picsels)",
-  "list-width-error-message": "Li lårdjeur del djîveye doet esse on nombe etîr pus grand ki 270",
+  "list-width-error-message": "Li lårdjeur del djîveye doet esse on nombe etîr di å moens 200 picsels.",
   "list-width-shared-note": "Cisse lårdjeur la est pårtajheye avou tos les cis sol tåvlea.",
   "list-width-personal-note": "Cisse lårdjeur la n' est ki po vos.",
   "personal-list-width": "Lårdjeurs des djîveyes da vosse",

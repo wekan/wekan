@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Settya ledander",
   "set-list-width": "Settya ledander",
   "set-list-width-value": "Ledander an rol (picselow)",
-  "list-width-error-message": "Res yw dhe ledander an rol bos niver kowal moy es 270",
+  "list-width-error-message": "Res yw dhe ledander an rol bos niver kowal ≥ 200 picselow.",
   "list-width-shared-note": "An ledander ma yw kevrennys gans pubonan war an estyllen ma.",
   "list-width-personal-note": "An ledander ma yw rag ty hepken.",
   "personal-list-width": "Ledanderyow rol personel",

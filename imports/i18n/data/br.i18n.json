@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Termeniñ al ledander",
   "set-list-width": "Termeniñ al ledander",
   "set-list-width-value": "Ledander ar roll (piksel)",
-  "list-width-error-message": "Ledander ar roll a rank bezañ un niver anterin brasoc'h eget 270",
+  "list-width-error-message": "Ledander ar roll a rank bezañ un niver anterin, 200 piksel da nebeutañ.",
   "list-width-shared-note": "Rannet eo al ledander-mañ gant an holl dud war an daolenn-mañ.",
   "list-width-personal-note": "Evidoc'h hepken emañ al ledander-mañ.",
   "personal-list-width": "Ledander personel ar rolloù",

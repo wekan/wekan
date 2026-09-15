@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Establecer ancho",
   "set-list-width": "Establecer ancho",
   "set-list-width-value": "Amplaria d’a lista (pixels)",
-  "list-width-error-message": "L’amplaria d’a lista ha de estar un entero mayor que 270",
+  "list-width-error-message": "L’amplaria d’a lista ha d’estar un entero ≥ 200 pixels.",
   "list-width-shared-note": "Iste ancho se comparte con totz os miembros de iste tablero.",
   "list-width-personal-note": "Iste ancho es solo ta ti.",
   "personal-list-width": "Amplarias de lista personals",

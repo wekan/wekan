@@ -45314,8 +45314,8 @@
     "locale": "an",
     "key": "list-width-error-message",
     "before": "El ancho de la lista debe ser un entero mayor que 270",
-    "after": "L’amplaria d’a lista ha de estar un entero mayor que 270",
-    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+    "after": "L’amplaria d’a lista ha d’estar un entero ≥ 200 pixels.",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples. Follow-up: Correct obsolete >270 rule to inclusive 200-pixel integer minimum using local/native terms; Italian or English seed replaced where present. Full clause remains low-confidence pending native grammar review."
   },
   {
     "locale": "an",
@@ -154390,5 +154390,138 @@
     "before": "Lista width must be an integer greater than 270",
     "after": "Il-wisa' tal-lista trid tkun numru sħiħ ta' mill-inqas 200 pixel.",
     "reason": "Correct obsolete >270 rule to actual inclusive 200-pixel integer minimum with local vocabulary. Full clause remains low-confidence pending native grammar review."
+  },
+  {
+    "locale": "ast-ES",
+    "key": "list-width-error-message",
+    "before": "L'anchor de la lista tien de ser un enteru mayor que 270",
+    "after": "L'anchor de la lista tien de ser un enteru de polo menos 200 píxeles.",
+    "reason": "Correct obsolete >270 rule to inclusive 200-pixel integer minimum using local/native terms; Italian or English seed replaced where present."
+  },
+  {
+    "locale": "co",
+    "key": "list-width-error-message",
+    "before": "La larghezza di a lista deve essere un numero intero maggiore di 270",
+    "after": "A larghezza di a lista deve esse un numeru interu d'almenu 200 pixel.",
+    "reason": "Correct obsolete >270 rule to inclusive 200-pixel integer minimum using local/native terms; Italian or English seed replaced where present."
+  },
+  {
+    "locale": "fur",
+    "key": "list-width-error-message",
+    "before": "La larghezza de lista deve essere un numero intero maggioris di 270",
+    "after": "La largjece de liste e à di jessi un numar intîr di almancul 200 pixel.",
+    "reason": "Correct obsolete >270 rule to inclusive 200-pixel integer minimum using local/native terms; Italian or English seed replaced where present."
+  },
+  {
+    "locale": "lld",
+    "key": "list-width-error-message",
+    "before": "La larghezza dla lista deve essere un numero intero maggiores di 270",
+    "after": "La larghezza dla lista mëss ester n numer intríek da almanco 200 pixel.",
+    "reason": "Correct obsolete >270 rule to inclusive 200-pixel integer minimum using local/native terms; Italian or English seed replaced where present. Full clause remains low-confidence pending native grammar review."
+  },
+  {
+    "locale": "nap",
+    "key": "list-width-error-message",
+    "before": "La larghezza d' 'a lista deve essere un numero intero maggiore di 270",
+    "after": "A larghezza d'a lista adda essere 'nu numero intero 'e almeno 200 pixel.",
+    "reason": "Correct obsolete >270 rule to inclusive 200-pixel integer minimum using local/native terms; Italian or English seed replaced where present. Full clause remains low-confidence pending native grammar review."
+  },
+  {
+    "locale": "rm",
+    "key": "list-width-error-message",
+    "before": "La larghezza da la glista deve essere un numero intero maggiores di 270",
+    "after": "La ladezza da la glista sto esser in dumber entir d'almain 200 pixels.",
+    "reason": "Correct obsolete >270 rule to inclusive 200-pixel integer minimum using local/native terms; Italian or English seed replaced where present. Full clause remains low-confidence pending native grammar review."
+  },
+  {
+    "locale": "rup",
+    "key": "list-width-error-message",
+    "before": "Lãrdzimea ali listã lipseashti s-hibã un numir ãntreg ma mari di 270",
+    "after": "Lãrdzimea ali listã lipseashti s-hibã un numir ãntreg di minimum 200 pixeli.",
+    "reason": "Correct obsolete >270 rule to inclusive 200-pixel integer minimum using local/native terms; Italian or English seed replaced where present. Full clause remains low-confidence pending native grammar review."
+  },
+  {
+    "locale": "sc",
+    "key": "list-width-error-message",
+    "before": "Sa largària de sa lista depet èssere unu nùmeru intreu prus mannu de 270",
+    "after": "Sa largària de sa lista depet èssere unu nùmeru intreu, a su mancu 200 pixel.",
+    "reason": "Correct obsolete >270 rule to inclusive 200-pixel integer minimum using local/native terms; Italian or English seed replaced where present."
+  },
+  {
+    "locale": "scn",
+    "key": "list-width-error-message",
+    "before": "La larghezza dâ lista deve èssiri nu numero intero maggiore di 270",
+    "after": "La larghezza dâ lista havi a èssiri un nùmmiru nteru di almenu 200 pixel.",
+    "reason": "Correct obsolete >270 rule to inclusive 200-pixel integer minimum using local/native terms; Italian or English seed replaced where present."
+  },
+  {
+    "locale": "oc",
+    "key": "list-width-error-message",
+    "before": "La largor de la tièra deu èsser un entièr superior a 270",
+    "after": "La largor de la tièra deu èsser un entièr d'almens 200 pixèls.",
+    "reason": "Correct obsolete >270 rule to inclusive 200-pixel integer minimum using local/native terms; Italian or English seed replaced where present."
+  },
+  {
+    "locale": "pap",
+    "key": "list-width-error-message",
+    "before": "E ancho di e lista mester ser un entero mayor ku 270",
+    "after": "E ancho di e lista mester ser un entero di na e ménos 200 píxeles.",
+    "reason": "Correct obsolete >270 rule to inclusive 200-pixel integer minimum using local/native terms; Italian or English seed replaced where present. Full clause remains low-confidence pending native grammar review."
+  },
+  {
+    "locale": "lb",
+    "key": "list-width-error-message",
+    "before": "Breite den Lëscht muss eng ganze Zahl größer als 270 sein",
+    "after": "D'Breet vun der Lëscht muss eng ganz Zuel vu mindestens 200 Pixel sinn.",
+    "reason": "Correct obsolete >270 rule to inclusive 200-pixel integer minimum using local/native terms; Italian or English seed replaced where present."
+  },
+  {
+    "locale": "wa",
+    "key": "list-width-error-message",
+    "before": "Li lårdjeur del djîveye doet esse on nombe etîr pus grand ki 270",
+    "after": "Li lårdjeur del djîveye doet esse on nombe etîr di å moens 200 picsels.",
+    "reason": "Correct obsolete >270 rule to inclusive 200-pixel integer minimum using local/native terms; Italian or English seed replaced where present."
+  },
+  {
+    "locale": "ht",
+    "key": "list-width-error-message",
+    "before": "Lajè lis la dwe yon nonb antye ki pi gran pase 270",
+    "after": "Lajè lis la dwe yon nonb antye omwen 200 piksèl.",
+    "reason": "Correct obsolete >270 rule to inclusive 200-pixel integer minimum using local/native terms; Italian or English seed replaced where present."
+  },
+  {
+    "locale": "eo",
+    "key": "list-width-error-message",
+    "before": "Listlarĝo devas esti entjero pli granda ol 270",
+    "after": "Listlarĝo devas esti entjero de almenaŭ 200 rastrumeroj.",
+    "reason": "Correct obsolete >270 rule to inclusive 200-pixel integer minimum using local/native terms; Italian or English seed replaced where present."
+  },
+  {
+    "locale": "la",
+    "key": "list-width-error-message",
+    "before": "Latine: Index width debet esse an integer greater than 270",
+    "after": "Latitudo indicis debet esse numerus integer saltem 200 pixelorum.",
+    "reason": "Correct obsolete >270 rule to inclusive 200-pixel integer minimum using local/native terms; Italian or English seed replaced where present. Full clause remains low-confidence pending native grammar review."
+  },
+  {
+    "locale": "gv",
+    "key": "list-width-error-message",
+    "before": "Shegin da lheead y rolley ve slane-earroo ny smoo na 270",
+    "after": "Shegin da lheead y rolley ve slane-earroo ≥ 200 pixellyn.",
+    "reason": "Correct obsolete >270 rule to inclusive 200-pixel integer minimum using local/native terms; Italian or English seed replaced where present. Full clause remains low-confidence pending native grammar review."
+  },
+  {
+    "locale": "br",
+    "key": "list-width-error-message",
+    "before": "Ledander ar roll a rank bezañ un niver anterin brasoc'h eget 270",
+    "after": "Ledander ar roll a rank bezañ un niver anterin, 200 piksel da nebeutañ.",
+    "reason": "Correct obsolete >270 rule to inclusive 200-pixel integer minimum using local/native terms; Italian or English seed replaced where present. Full clause remains low-confidence pending native grammar review."
+  },
+  {
+    "locale": "kw",
+    "key": "list-width-error-message",
+    "before": "Res yw dhe ledander an rol bos niver kowal moy es 270",
+    "after": "Res yw dhe ledander an rol bos niver kowal ≥ 200 picselow.",
+    "reason": "Correct obsolete >270 rule to inclusive 200-pixel integer minimum using local/native terms; Italian or English seed replaced where present. Full clause remains low-confidence pending native grammar review."
   }
 ]

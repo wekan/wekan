@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Agordi larĝon",
   "set-list-width": "Agordi larĝon",
   "set-list-width-value": "Listlarĝo (rastrumeroj)",
-  "list-width-error-message": "Listlarĝo devas esti entjero pli granda ol 270",
+  "list-width-error-message": "Listlarĝo devas esti entjero de almenaŭ 200 rastrumeroj.",
   "list-width-shared-note": "Ĉi tiu larĝo estas komuna por ĉiuj en ĉi tiu tabulo.",
   "list-width-personal-note": "Ĉi tiu larĝo estas nur por vi.",
   "personal-list-width": "Personaj listlarĝoj",
