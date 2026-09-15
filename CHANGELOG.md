@@ -647,7 +647,8 @@ values. Three Arabic common labels now use native Tamazight comment,
 link and email-address terms; five popup/copy labels reuse native
 control wording. Six shared UI labels reuse native import, invite, unknown,
 type, size and restore terms. Admin Panel version labels now use a native
-Tamazight noun. Rules distinguish states from actions, and deletion warnings
+Tamazight noun; its version-check button and failure text use local
+check/number terms. Rules distinguish states from actions, and deletion warnings
 name irreversible effects. Import, PDF, administrator and filename
 messages retain their conditions. Tigre help and error drafts replace
 English and Tigrinya. The list-width popup states its 200-pixel
@@ -721,6 +722,16 @@ plain-source security settings.
 </details>
 
 **Translations** - Tamazight, Tigre and multilingual list-width repairs.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ff5a286b5">Replace mixed Tamazight version-check messages</a>. Thanks to xet7.</summary>
+
+The Admin Panel's Check Version button and failure text use native
+check, version and number terms instead of French/Arabic shorthand.
+Focused, ledger and 234-locale checks pass; the complete error clause
+awaits fluent grammar review.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/413b4ef40">Use native Tamazight version noun in Admin Panel</a>. Thanks to xet7.</summary>

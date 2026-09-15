@@ -16,7 +16,16 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `413b4ef40` — replace five
+Latest translation fix: **2026-09-15**, `ff5a286b5` — replace the mixed
+French/Arabic Tamazight Check Version button and failure message.
+The verb `ⵙⵙⵉⴷⴻⴷ` is glossed as “check” in a Tamazight verb list;
+the version noun is independently attested in MediaWiki, and the
+number/could-not terms reuse local phrases. Focused UI-key, exact-ledger,
+token and 234-locale checks pass. The full failure clause is **low
+confidence** pending native grammar review. Ledger: **22,294**; zgh has
+**109** Arabic-script values awaiting classification.
+
+Earlier translation fix: **2026-09-15**, `413b4ef40` — replace five
 Tamazight Admin Panel version labels with the native `ⵜⵓⵏⵖⵉⵍⵜ`
 version noun attested in MediaWiki's Standard Moroccan Tamazight locale.
 The Meteor, MongoDB, FerretDB and Node proper names remain exact;
@@ -359,7 +368,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **22,292** exact before/after values, including unflagged
+records contain **22,294** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -398,7 +407,7 @@ clauses and broader wrong-language seeds remains open.
   invalidated Tuareg provenance, adapted grammar and software terminology.
   Email Addresses now uses IRCAM-attested `ansiwn` but its complete
   software compound remains open to native review.
-  Arabic-script values have fallen from 181 to 111 across these batches;
+  Arabic-script values have fallen from 181 to 109 across these batches;
   this count
   includes possible intentional symbols and is a review queue, not a
   count of proven wrong-language strings.

@@ -1,5 +1,22 @@
 # Standard Moroccan Tamazight reference review
 
+## Check Version button and failure message, 2026-09-15 (`ff5a286b5`)
+
+The Admin Panel button and its offline/timeout/error fallback no longer
+use mixed French and Arabic shorthand. The
+[Tamazight verb list](https://huggingface.co/datasets/Tamazight/Tamazight-Verbs/blob/main/Tamazight%20Verbs.tsv)
+glosses `ⵙⵙⵉⴷⴻⴷ` as “check” (distinct from `ⵙⵙⵉⴷⴷ`, “light up”).
+The version noun remains the
+[MediaWiki zgh locale's](https://github.com/wikimedia/mediawiki/blob/master/languages/i18n/zgh.json)
+`ⵜⵓⵏⵖⵉⵍⵜ`; the number noun and could-not construction already occur
+in the WeKan locale. The complete failure clause and verb inflection
+are **low confidence** pending native review, although all semantic
+components are individually supported.
+
+Focused source-wiring, exact-ledger, token and 234-locale checks pass.
+Arabic-script values fall from 111 to 109; remaining version-name and
+broader wrong-language values still need classification.
+
 ## Admin Panel version terminology, 2026-09-15 (`413b4ef40`)
 
 The native Standard Moroccan Tamazight MediaWiki locale uses
@@ -12,8 +29,9 @@ qualifier. The exact compound grammar needs native review.
 
 Focused production-source, token and correction-ledger checks pass;
 all 234 locale files remain complete. Arabic-script values fall from
-113 to 111. The adjacent Check Version button, its error message and
-other version-name terminology still mix languages and need review.
+113 to 111. The adjacent Check Version button and error message were
+repaired in `ff5a286b5`; their full grammar and other version-name
+terminology still need review.
 
 ## Shared UI labels, 2026-09-15 (`63da3d3c9`)
 
