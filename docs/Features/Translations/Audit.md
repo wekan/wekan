@@ -16,7 +16,18 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `ada7e3533` — replace nine
+Latest translation fix: **2026-09-15**, `79d58098f` — replace nine
+Arabic Tamazight board-background color/image controls and popup
+titles. Local native change-color, upload-background image,
+add/remove and board-backdrop terms are reused; `URL` stays
+technical. The previous board title said “screen background”;
+the new title says board background. Full image/backdrop compound
+grammar remains low confidence. Focused positive/negative,
+ledger and 234-locale checks pass. Ledger: **22,251**.
+The zgh file has **149** Arabic-script values awaiting
+semantic classification.
+
+Earlier translation fix: **2026-09-15**, `ada7e3533` — replace nine
 Arabic/French Tamazight activity and show/notify messages. The
 production UI uses `activity-sent` for a restored card and
 `activity-excluded` for board-member removal, so those messages
@@ -283,7 +294,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **22,242** exact before/after values, including unflagged
+records contain **22,251** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -321,7 +332,7 @@ clauses and broader wrong-language seeds remains open.
 - [Tamazight](Tamazight-Review.md): wrong-language prose, 98 records with
   invalidated Tuareg provenance, adapted grammar and software terminology.
   Arabic `email-addresses` and its precise native plural remain open.
-  Arabic-script values have fallen from 181 to 158 across these batches;
+  Arabic-script values have fallen from 181 to 149 across these batches;
   this count
   includes possible intentional symbols and is a review queue, not a
   count of proven wrong-language strings.

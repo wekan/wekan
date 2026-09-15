@@ -656,6 +656,17 @@ This release includes the following features and fixes:
 **Translations** - Tamazight, Tigre and multilingual list-width repairs.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/79d58098f">Repair Tamazight board background controls</a>. Thanks to xet7.</summary>
+
+Replace nine Arabic board color/image controls and popup
+titles with local native terms. The popup names the board
+backdrop rather than the screen; technical URL remains.
+Compound grammar remains under fluent review; focused,
+ledger and inventory checks pass.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ada7e3533">Repair Tamazight activity messages</a>. Thanks to xet7.</summary>
 
 Replace nine Arabic/French activity and show/notify messages

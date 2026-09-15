@@ -1,5 +1,24 @@
 # Standard Moroccan Tamazight reference review
 
+## Board-background controls, 2026-09-15 (`79d58098f`)
+
+Nine unflagged Arabic color/image controls and popup titles are
+repaired from existing native zgh terms. Change color exactly
+reuses `ⴱⴻⴷⴷⴻⵍ ⵉⵏⵉ`; background image reuses the noun in
+`upload-background`. Add/remove commands use `ⵔⵏⵓ` and `ⴽⴽⵙ`.
+The board-background popup title now names the board backdrop,
+using `ⴰⴳⴰⵍⵉⵙ` found in local set-as-background wording,
+instead of the former Arabic “screen background.” Technical
+`URL` is retained for the field. Duplicate popup/control labels
+are byte-identical.
+
+The complete background-image and board-backdrop phrases remain
+**low confidence** for Standard Moroccan Tamazight grammar.
+The focused test checks native components, duplicate UI labels,
+and absence of Arabic seeds; exact-ledger and 234-locale checks
+pass. Arabic-script values fall from 158 to 149. Original
+flagged finding classifications are unchanged.
+
 ## Activity messages and production context, 2026-09-15 (`ada7e3533`)
 
 Nine unflagged Arabic/French messages are repaired. The activity

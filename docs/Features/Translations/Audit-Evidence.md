@@ -1,5 +1,12 @@
 # Detailed translation audit evidence
 
+2026-09-15 (`79d58098f`): repaired nine unflagged Arabic
+Tamazight board-background color/image controls and popup
+titles, reusing native UI terms and retaining technical URL.
+Image/backdrop compound grammar remains low confidence.
+Exact ledger now 22,251; Arabic-script review queue 149.
+Focused and 234-locale checks pass.
+
 2026-09-15 (`ada7e3533`): repaired nine unflagged Tamazight
 activity/show/notify messages from Arabic or French. Production
 activity types confirm restore-to-board and member-removal
