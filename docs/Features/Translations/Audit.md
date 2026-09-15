@@ -16,7 +16,18 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `c365e2cf6` — repair 13
+Latest translation fix: **2026-09-15**, `32c2d9575` — repair 15
+Tamazight search operators and predicates. Ten reviewed one-word
+search codes remain portable; native short status and description
+terms replace French/Arabic seeds. Exact zgh fill exceptions protect
+the codes while ordinary English prose still appears as missing.
+Status nuances need fluent review. Focused, fill-negative, ledger and
+234-locale checks pass. Ledger: **22,224**. The zgh file has **171**
+Arabic-script values awaiting semantic classification. Two existing
+native multiword operator names remain unparseable by the current
+search grammar; they need a compatible parser/UI solution.
+
+Earlier translation fix: **2026-09-15**, `c365e2cf6` — repair 13
 Tamazight search-operator values seeded in Arabic or French. Native
 full names reuse local terms; short syntax aliases use portable
 `b`, `s`, `l` and `m` without collisions. The swimlane/path term
@@ -237,7 +248,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **22,209** exact before/after values, including unflagged
+records contain **22,224** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -275,7 +286,7 @@ clauses and broader wrong-language seeds remains open.
 - [Tamazight](Tamazight-Review.md): wrong-language prose, 98 records with
   invalidated Tuareg provenance, adapted grammar and software terminology.
   Arabic `email-addresses` and its precise native plural remain open.
-  Arabic-script values have fallen from 181 to 173 across these batches;
+  Arabic-script values have fallen from 181 to 171 across these batches;
   this count
   includes possible intentional symbols and is a review queue, not a
   count of proven wrong-language strings.

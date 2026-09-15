@@ -1,5 +1,16 @@
 # Detailed translation audit evidence
 
+2026-09-15 (`32c2d9575`): repaired 15 unflagged French/Arabic zgh
+search operators and predicates. Ten precise one-word parser codes
+remain equal to English and are protected by exact zgh fill exceptions;
+negative fixtures prove ordinary zgh prose and other locales remain
+fillable. Native description/private terms and archive/open/end
+status drafts replace wrong-language seeds; status nuance remains
+low confidence. Two earlier correct-language multiword operator terms
+are still unparseable and need a parser/UI path that preserves them.
+Focused, related-search, fill-negative, ledger and 234-locale checks
+pass. Ledger 22,224; Arabic-script values 171. No remote write.
+
 2026-09-15 (`c365e2cf6`): repaired 13 unflagged Tamazight search
 operator names and aliases. Production parser source confirms locale
 values are real query aliases, so the short codes use collision-free

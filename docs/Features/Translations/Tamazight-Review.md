@@ -1,5 +1,32 @@
 # Standard Moroccan Tamazight reference review
 
+## Search predicate and syntax review, 2026-09-15 (`32c2d9575`)
+
+Fifteen French/Arabic operator and predicate values are repaired.
+Ten one-word syntax terms use stable search codes `assignee`, `due`,
+`modified`, `has`, `debug`, `quarter` and `selector` where available
+native display wording is multiword or lacks a verified one-word term.
+Their **exact zgh keys only** are exempted from fill detection;
+a negative fixture proves ordinary English prose in zgh and the
+same keyword in another locale still appear as missing and can be
+filled. Existing native assignee display prose remains intact.
+
+Native `ⴰⴳⵍⴰⵎ` description and `ⵓⵙⵍⵉⴳ` private match other
+zgh labels. `ⴰⵔⵛⵉⴼ`, `ⵔⵥⵎ` and `ⵜⵉⴳⵉⵔⴰ` replace French/Arabic
+archived, open and ended status seeds. Their **status versus noun
+or imperative nuance is low confidence** pending fluent review.
+The ended predicate checks for an end date; the local end noun
+is reused, but the full qualifier is not proved by that noun.
+
+The parser currently starts an operator with one Unicode word.
+Existing correct-language `operator-attachment-text` and
+`operator-checklist-text` are multiword values, so they are not
+parseable as written in search help. This remains a separate
+compatibility repair: preserve the native phrases and provide
+a parseable UI/syntax path. Focused, related-search, fill-negative,
+ledger and 234-locale checks pass for this batch. Arabic-script
+values fall from 173 to 171. Original flagged counts unchanged.
+
 ## Search operator names and aliases, 2026-09-15 (`c365e2cf6`)
 
 The production [query parser](../../../config/query-classes.js) maps

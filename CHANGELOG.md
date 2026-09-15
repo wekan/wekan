@@ -656,6 +656,17 @@ This release includes the following features and fixes:
 **Translations** - Tamazight, Tigre and multilingual list-width repairs.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/32c2d9575">Repair Tamazight search predicates</a>. Thanks to xet7.</summary>
+
+Replace 15 French/Arabic operator and predicate seeds with native
+short terms or portable one-word syntax codes. Exact fill exceptions
+protect the codes and leave prose fillable. Status nuance and two
+existing multiword operators remain under review; focused, ledger
+and inventory checks pass.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c365e2cf6">Repair Tamazight search operators</a>. Thanks to xet7.</summary>
 
 Replace Arabic and French operator names with native search terms.
