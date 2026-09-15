@@ -155580,5 +155580,26 @@
     "before": "الخالق على بطاقة صغيرة",
     "after": "ⴰⵎⵙⵏⴼⵍⵓⵍ ⵖⴼ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵥⵢⴰⵏⵜ",
     "reason": "Replace Arabic minicard creator label with native creator and existing minicard/on-card terms; complete phrase grammar remains low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "filter-hide-empty",
+    "before": "Cacher les listes vides",
+    "after": "ⴼⴼⵔ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵓⵔ ⴳⵉⵙⵏⵜ ⵜⵍⵍⵉ ⵜⴰⴽⴰⵕⴹⴰ",
+    "reason": "Replace French hide-empty-lists label with local Tamazight hide, plural list and lists-without-cards wording; full assembled clause remains low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "set-filter",
+    "before": "Définir un filtre",
+    "after": "ⵙⵔⵙ ⵜⴰⵎⵣⵉⵣⴷⴳⵜ",
+    "reason": "Replace French set-filter label with local Tamazight set verb and filter noun; complete command wording remains low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "sort-is-on",
+    "before": "الفرز قيد التشغيل",
+    "after": "ⴰⵔ ⵉⵙⵡⵓⵔⵉ ⵓⴼⵔⴰⵏ",
+    "reason": "Replace Arabic sort-active status with local Tamazight filter-on status pattern and sort noun; masculine agreement remains low confidence."
   }
 ]
