@@ -147782,5 +147782,229 @@
     "before": "ሰሌዳ ይቕየር ኣሎ",
     "after": "ምዱድ ይቕየር ኣሎ",
     "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
+  },
+  {
+    "locale": "tig",
+    "key": "boardChangeWatchPopup-title",
+    "before": "ምክትታል ቀይር",
+    "after": "ምክትታል ተቅዪር",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded change component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "convert-to-markdown",
+    "before": "ናብ markdown ቀይር",
+    "after": "ዲብ markdown ተቅዪር",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded change component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "step-convert-shared-lists",
+    "before": "ዝተኻፈሉ ዝርዝራት ቀይር",
+    "after": "ዝተኻፈሉ ዝርዝራት ተቅዪር",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded change component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "show-parent-in-minicard",
+    "before": "ወላዲ ኣብ ንኡስ ካርድ ኣርኢ፦",
+    "after": "ወላዲ ዲብ ንኡስ ወረቀት ካርድ ኣርኤ፦",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded show component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "display-authentication-method",
+    "before": "ኣገባብ ምርግጋጽ መንነት ኣርኢ",
+    "after": "ኣገባብ ምርግጋጽ መንነት ኣርኤ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded show component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "show-subtasks-field",
+    "before": "ዓውዲ ንኡሳን ዕማማት ኣርኢ",
+    "after": "ዓውዲ ንኡሳን ዕማማት ኣርኤ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded show component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "importDependenciesPopup-title",
+    "before": "ጽግዕተኛነታት ኣእቱ",
+    "after": "ጽግዕተኛነታት አምጸአ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded import component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "trello-api-import",
+    "before": "ብመፍትሕን tokenን API ብቐጥታ ካብ Trello ኣእቱ",
+    "after": "ብመፍትሕን tokenን API ብቐጥታ ካብ Trello አምጸአ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded import component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "import-source-heading",
+    "before": "ካብዚ ኣእቱ፦",
+    "after": "ካብዚ አምጸአ፦",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded import component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "see-all-starred-items",
+    "before": "ኩሎም ኮኾብ ዝተገብረሎም ኣቕንዖት ርአ",
+    "after": "ክሎም ኮኾብ ዝተገብረሎም ኣቕንዖት ርአ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded all component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "delete-all-notifications",
+    "before": "ኩሎም ምልክታታት ደምስስ",
+    "after": "ክሎም ምልክታታት ደምስስ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded all component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "delete-duplicate-lists-confirm",
+    "before": "ርግጸኛ ዲኻ? እዚ ሓደ ስም ዘለዎምን ካርድ ዘይሓዙን ኩሎም ተደጋገምቲ ዝርዝራት ክድምስስ እዩ።",
+    "after": "ርግጸኛ ዲኻ? እዚ ሓደ ስም ዘለዎምን ካርድ ዘይሓዙን ክሎም ተደጋገምቲ ዝርዝራት ክድምስስ እዩ።",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded all component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "Node_memory_usage_rss",
+    "before": "ኣጠቓቕማ መዘክር Node፦ ዓቐን ነባሪ ስብስብ",
+    "after": "ኣጠቓቕማ መዘክር Node፦ ቅያስ ነባሪ ስብስብ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded size component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "gridfs-size",
+    "before": "ዓቐን GridFS",
+    "after": "ቅያስ GridFS",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded size component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "migration-batch-size",
+    "before": "ዓቐን ጉጅለ",
+    "after": "ቅያስ ጉጅለ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded size component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "subtext-with-full-path",
+    "before": "ንኡስ ጽሑፍ ምስ ምሉእ መንገዲ",
+    "after": "ንኡስ ጽሑፍ ምስ ምሉእ ገበይ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded path component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "avatars-path",
+    "before": "መንገዲ ስእልታት መንነት",
+    "after": "ገበይ ስእልታት መንነት",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded path component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "avatars-path-description",
+    "before": "ፋይላት ስእሊ መንነት ዝዕቀቡሉ መንገዲ",
+    "after": "ፋይላት ስእሊ መንነት ዝዕቀቡሉ ገበይ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded path component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "mapImportedMemberPopup-title",
+    "before": "ምስ ዘሎ ተጠቃሚ ኣዛምድ",
+    "after": "ምስ ዘሎ መትነፍዓይ ኣዛምድ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded user component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "map-to-existing-user",
+    "before": "ምስ ዘሎ ተጠቃሚ ኣዛምድ",
+    "after": "ምስ ዘሎ መትነፍዓይ ኣዛምድ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded user component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "map-to-existing-user-no-results",
+    "before": "ዝሰማማዕ ተጠቃሚ ኣይተረኽበን።",
+    "after": "ዝሰማማዕ መትነፍዓይ ኣይተረኽበን።",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded user component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "error-user-doesNotExist",
+    "before": "እዚ ተጠቃሚ የለን",
+    "after": "እዚ መትነፍዓይ የለን",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded user component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "error-user-notCreated",
+    "before": "እዚ ተጠቃሚ ኣይተፈጥረን",
+    "after": "እዚ መትነፍዓይ ኣይተፈጥረን",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded user component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "deleted-user",
+    "before": "ዝተደምሰሰ ተጠቃሚ",
+    "after": "ዝተደምሰሰ መትነፍዓይ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded user component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "accounts-allowUserDelete",
+    "before": "ተጠቃሚ መለያኡ ባዕሉ ይደምስስ",
+    "after": "መትነፍዓይ መለያኡ ባዕሉ ይደምስስ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded user component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "user-username-not-found",
+    "before": "ስም ተጠቃሚ '%s' ኣይተረኽበን።",
+    "after": "ስሜት መትነፍዓይ '%s' ኣይተረኽበን።",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded user component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "username-password-required",
+    "before": "ስም ተጠቃሚን መሕለፊ ቃልን የድልዩ",
+    "after": "ስሜት መትነፍዓይን መሕለፊ ቃልን የድልዩ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded user component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "user-exists",
+    "before": "ተጠቃሚ ድሮ ኣሎ",
+    "after": "መትነፍዓይ ድሮ ኣሎ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded user component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "userAnonymizePopup-title",
+    "before": "ዝኣትዉ ተጠቀምቲ ስሞም ሕባእ",
+    "after": "ዝኣትዉ መትነፍዕያም ስሞም ሕባእ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded users component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "support-info-only-for-logged-in-users",
+    "before": "ሓበሬታ ደገፍ ንዝኣተዉ ተጠቀምቲ ጥራይ እዩ።",
+    "after": "ሓበሬታ ደገፍ ንዝኣተዉ መትነፍዕያም ጥራይ እዩ።",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded users component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "anonymize-import-users",
+    "before": "ዝኣትዉ ተጠቀምቲ ስሞም ሕባእ",
+    "after": "ዝኣትዉ መትነፍዕያም ስሞም ሕባእ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded users component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "anonymize-account",
+    "before": "ዝኣትዉ ተጠቀምቲ ስሞም ሕባእ",
+    "after": "ዝኣትዉ መትነፍዕያም ስሞም ሕባእ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded users component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review."
   }
 ]
