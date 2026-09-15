@@ -30704,3 +30704,16 @@ all 234 locale inventories.
 Raw Finnish overlap falls from 540 to 509 values; 504 remain unclassified after
 the five proven shared forms. Longer product-specific phrases have no exact
 catalogue match and remain under review. No remote write occurred.
+
+### 2026-09-15 — Veps lexical interface terms
+
+Source commit `c67a91a41` replaces another 29 Finnish-seeded values whose
+complete English source has a single headword in the English Wiktionary Veps
+lexical dataset. The batch includes colors, weekdays, computer/home/people,
+board/rule terminology, subject/action/support, time, duration and weight.
+Focused checks preserve exact selected forms and reject their Finnish seeds;
+all 20,193 corrections and 234 locale inventories pass.
+
+Raw Finnish overlap falls from 509 to 480. Six exact shared forms are now
+independently attested, leaving 474 unclassified. Inflected and
+product-specific clauses still require contextual review. No remote write ran.

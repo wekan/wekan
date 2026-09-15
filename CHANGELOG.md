@@ -1829,6 +1829,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c67a91a41">Repair lexical Veps interface terms.</a></summary>
+
+Replace 29 Finnish-seeded colors, weekdays and common interface terms with
+exact Veps lexical entries. Focused checks preserve 60 repaired terms and six
+independently attested forms shared with Finnish; broader review continues.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

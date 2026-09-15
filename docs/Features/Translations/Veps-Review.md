@@ -1222,3 +1222,16 @@ inventories. Raw Finnish overlap falls from 540 to 509 values; subtracting the
 five explicitly attested shared forms leaves 504 unclassified. Exact catalogue
 matching does not establish translations for longer product-specific phrases,
 which remain in scope. No live UI test or remote write ran.
+
+2026-09-15 — `c67a91a41`: repaired 29 further Finnish-seeded terms through
+exact English-gloss matching with the English Wiktionary Veps lexical dataset.
+This supplies colors, weekdays and common interface nouns without deriving
+them from Finnish. Existing activity prose independently confirms `laud` for
+board. Queue joins the explicit shared set because both languages and the
+Veps dictionary use `jono`.
+
+Five focused files pass for 60 exact repairs, six shared forms, all 20,193
+correction records and all 234 locale inventories. Raw Finnish overlap falls
+from 509 to 480, leaving 474 unclassified after the six attested shared forms.
+Longer and inflected product phrases remain under review. No live UI test or
+remote write ran.

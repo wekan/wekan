@@ -16,13 +16,13 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `e17bb2b5e` — replace 31 unflagged
-Finnish-seeded Veps interface values with complete translations from the
-native MediaWiki catalogue whose English sources match WeKan labels. The same
-review retains five forms attested in both languages. Five focused files pass;
-ledger 20,164. Finnish overlap falls from 540 to 509 values, with 504 still
-unclassified. Tigre source commit `0e9418960` and review `5b2c5942e` reduce its
-unclassified Tigrinya overlap from 917 to 857.
+Latest translation fix: **2026-09-15**, `c67a91a41` — replace 29 more
+Finnish-seeded Veps color, weekday and common interface values with exact
+English-gloss headwords from the Veps Wiktionary lexical dataset. Together
+with native-catalogue commit `e17bb2b5e`, five focused files pass and ledger
+20,193. Finnish overlap falls from 540 to 480 values; six independently
+attested shared forms leave 474 unclassified. Tigre source `0e9418960` and
+review `5b2c5942e` reduce its unclassified Tigrinya overlap from 917 to 857.
 
 The tracked Tigre calendar queue being empty does not certify the locale. Of
 2,592 non-English Tigre values, 870 are byte-for-byte identical to Tigrinya;
@@ -67,7 +67,7 @@ translation service is used, and no remote push was performed.
   [Quechua](Quechua-Review.md) and [Aromanian](Aromanian-Review.md): calendar
   qualifiers, complete compounds and native terminology.
 - [Basque](Basque-Review.md): broader full phrases and browser spec 88
-  (Chromium passed). [Veps](Veps-Review.md): 504 unclassified Finnish matches;
+  (Chromium passed). [Veps](Veps-Review.md): 474 unclassified Finnish matches;
   literal filter examples must be preserved.
 - [Uzbek Arabic](Uzbek-Arabic-Review.md): indexed cancellation evidence needs
   full-source and native orthographic verification (`b433730e3`).
