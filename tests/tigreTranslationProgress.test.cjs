@@ -223,7 +223,7 @@ assert.deepEqual(tokens(tigre['r-import-unmapped']), ['__count__']);
 assert.match(tigre['r-import-workflow-note'], /n8n.*Node-RED.*WeKan/);
 assert.match(tigre['r-schedule-weekday'], /ሰኑይ–ዓርቢ/);
 assert.match(tigre['r-for-n-days'], /N/);
-assert.equal(tigre['r-trigger'], 'መበገሲ');
+assert.equal(tigre['r-trigger'], 'መንሸጢ');
 assert.equal(tigre['r-action'], 'ትግባር');
 
 assert.equal(tigre['r-archived'], 'ናብ መዕቀቢ ተዛወረ');

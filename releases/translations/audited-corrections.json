@@ -145668,5 +145668,33 @@
     "before": "ስእልታት መንነት",
     "after": "ተምሳላት መንነት",
     "reason": "Replace a repeated Tigrinya-seeded UI noun with a Tigre corpus-attested noun or its regular plural, keeping one term across related controls."
+  },
+  {
+    "locale": "tig",
+    "key": "task",
+    "before": "ዕማም",
+    "after": "ሹቁል",
+    "reason": "Replace a Tigrinya-seeded value whose corpus sense conflicts with the UI with the Tigre work, sorting, person or causation root attested in complete corpus sentences."
+  },
+  {
+    "locale": "tig",
+    "key": "operator-sort",
+    "before": "ስርዓት",
+    "after": "ስርዓም",
+    "reason": "Replace a Tigrinya-seeded value whose corpus sense conflicts with the UI with the Tigre work, sorting, person or causation root attested in complete corpus sentences."
+  },
+  {
+    "locale": "tig",
+    "key": "person",
+    "before": "ሰብ",
+    "after": "ነፈር",
+    "reason": "Replace a Tigrinya-seeded value whose corpus sense conflicts with the UI with the Tigre work, sorting, person or causation root attested in complete corpus sentences."
+  },
+  {
+    "locale": "tig",
+    "key": "r-trigger",
+    "before": "መበገሲ",
+    "after": "መንሸጢ",
+    "reason": "Replace a Tigrinya-seeded value whose corpus sense conflicts with the UI with the Tigre work, sorting, person or causation root attested in complete corpus sentences."
   }
 ]
