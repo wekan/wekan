@@ -37,6 +37,27 @@ test('release preflight accepts real Upcoming entries and rejects missing/empty/
   }
 });
 
+test('release preflight requires translation language metadata before tagging', () => {
+  const dir = fs.mkdtempSync(path.join(tmpRoot, 'release-language-preflight-'));
+  try {
+    const file = path.join(dir, 'CHANGELOG.md');
+    const group = '**Translations** - Locale repairs.\n\n';
+    for (const [notes, valid] of [
+      [upcoming + group + entry, false],
+      [upcoming + group + '**Languages updated:** Veps, Tigre\n\n' + entry, true],
+      [upcoming + group + entry + '\n**Languages updated:** Veps\n', false],
+    ]) {
+      fs.writeFileSync(file, notes);
+      const result = spawnSync('bash', [checker, file], { encoding: 'utf8' });
+      assert.equal(result.status, valid ? 0 : 1, result.stderr);
+      if (!valid) assert.match(result.stderr, /Languages updated/);
+      assert.equal(fs.readFileSync(file, 'utf8'), notes);
+    }
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
 test('release notes are checked before tools, hash repairs, version overrides or remote commands', () => {
   const source = fs.readFileSync(path.join(root, 'releases/release-all.sh'), 'utf8');
   const guard = source.indexOf('bash "$REPO_DIR/releases/check-upcoming-release.sh"');

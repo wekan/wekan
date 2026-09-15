@@ -16,3 +16,16 @@ if ! awk '
   echo "Add Upcoming release notes before running releases/release-all.sh." >&2
   exit 1
 fi
+
+# A translation group without its language list fails later, after the release
+# tag is already created. Catch it in this read-only local preflight instead.
+if ! awk '
+  /^# / { active = ($0 ~ /^# Upcoming WeKan ® release[[:space:]]*$/); waiting = 0 }
+  active && /^\*\*Translations\*\* - / { groups++; waiting = 1; next }
+  active && waiting && /^\*\*Languages updated:\*\* [^[:space:]]/ { listed++; waiting = 0; next }
+  active && waiting && (/^<details>/ || /^\*\*[^*]+\*\* - /) { waiting = 0 }
+  END { exit !(groups == listed) }
+' "$changelog"; then
+  echo "Error: Upcoming Translations group needs '**Languages updated:**' followed by comma-separated full language names." >&2
+  exit 1
+fi
