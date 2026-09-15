@@ -1,5 +1,6 @@
 #!/bin/sh
-# Explicit maintainer operation: overwrite remote translations from local files.
+# Explicit maintainer operation: upload local files, excluding human-owned
+# PR #6695 targets whose newer remote values must remain authoritative.
 set -eu
 translation_script_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 translation_repo_dir=$(CDPATH= cd -- "$translation_script_dir/../.." && pwd)

@@ -7,6 +7,10 @@ import { api, readConfig, localLanguages, readToken } from './sync-transifex-lan
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const wait = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds));
+// PR #6695 brought these files from human Transifex work. Whole-file target
+// uploads could replace newer remote human strings with local direct fills.
+const HUMAN_OWNED_FILES = new Set(Object.keys(JSON.parse(fs.readFileSync(
+  path.join(root, 'releases/translations/pr6695-superseded-translations.json'), 'utf8'))));
 
 export function retryingRequest(request, { sleep = wait, log = console.log, maxAttempts = 6 } = {}) {
   return async (method, url, body) => {
@@ -76,7 +80,7 @@ export async function uploadFile({ request, resource, language, content, source 
 export async function pushTranslations({ config, languages, request, readContent, log = console.log, sleep = wait }) {
   const resource = `o:${config.org}:p:${config.project}:r:${config.resource}`;
   const project = `o:${config.org}:p:${config.project}`;
-  const failures = [], succeeded = [];
+  const failures = [], succeeded = [], skipped = [];
   let source;
   // English is the source upload; all regional English files are target uploads.
   try {
@@ -111,6 +115,11 @@ export async function pushTranslations({ config, languages, request, readContent
     log(`[tx] could not list project languages: ${error.message}; trying each language`);
   }
   for (const language of languages) {
+    if (HUMAN_OWNED_FILES.has(language.file)) {
+      skipped.push({ ...language, reason: 'Human translations from PR #6695; target upload skipped' });
+      log(`[tx] skipping ${language.code} (${language.file}.i18n.json): preserving remote human translations`);
+      continue;
+    }
     try {
       const file = `imports/i18n/data/${language.file}.i18n.json`;
       const content = readContent(file);
@@ -148,7 +157,7 @@ export async function pushTranslations({ config, languages, request, readContent
       log(`[tx] FAILED ${language.code} (${language.file}.i18n.json): ${error.message}`);
     }
   }
-  return { succeeded, failures };
+  return { succeeded, failures, skipped };
 }
 
 export async function languageSupportReport({ request, languages, result }) {
@@ -188,6 +197,7 @@ export function printUploadSummary(result, log = console.log) {
   };
   log(`\n[tx] ${result.succeeded.length} uploaded; ${result.failures.length} failed`);
   section('Languages successfully pushed', result.succeeded, row => `${row.code}\t${row.file}${row.source ? '\t(source)' : ''}`);
+  section('Human-owned languages protected from whole-file upload', result.skipped || [], row => `${row.code}\t${row.file}\t${row.reason}`);
   section('Languages whose uploads did not work', result.failures, row => `${row.code}\t${row.file}\t${row.reason}`);
   const support = result.languageSupport;
   if (support.catalogueError) log(`[tx] Language support could not be verified: ${support.catalogueError}; no languages classified as unsupported`);
@@ -218,7 +228,7 @@ async function main() {
   const args = process.argv.slice(2);
   if (args.some(arg => !['--dry-run', '--help'].includes(arg))) throw new Error('Usage: push-all-translations.sh [--dry-run]');
   if (args.includes('--help')) {
-    console.log('Usage: releases/translations/push-all-translations.sh [--dry-run]\nForce-upload source and every local translation; add missing project languages.\nCredentials: TX_TOKEN or ~/.transifexrc. NODE_BIN selects the Node executable.');
+    console.log('Usage: releases/translations/push-all-translations.sh [--dry-run]\nForce-upload source and local translations except human-owned PR #6695 files; add missing project languages.\nCredentials: TX_TOKEN or ~/.transifexrc. NODE_BIN selects the Node executable.');
     return;
   }
   process.chdir(root);
@@ -237,6 +247,7 @@ async function main() {
       try { validateTranslation(fs.readFileSync(`imports/i18n/data/${language.file}.i18n.json`, 'utf8'), source); }
       catch (error) { failures.push({ ...language, reason: error.message }); }
       console.log(`${language.file}.i18n.json -> ${language.code}`);
+      if (HUMAN_OWNED_FILES.has(language.file)) console.log(`  protected human translations: target upload skipped`);
     }
     console.log(`[tx] dry run: ${languages.length} targets and source ${config.sourceLanguage}; no network requests`);
     for (const failure of failures) console.error(`[tx] invalid ${failure.file}.i18n.json: ${failure.reason}`);

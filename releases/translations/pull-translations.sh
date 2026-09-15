@@ -1,4 +1,15 @@
-#cd ~/repos/wekan
+#!/bin/sh
+set -eu
+
+translation_repo_dir=$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)
+cd "$translation_repo_dir"
+mkdir -p .tools/tmp
+export TMPDIR="$translation_repo_dir/.tools/tmp"
+translation_node=${NODE_BIN:-node}
+if ! command -v "$translation_node" >/dev/null 2>&1; then
+  echo "[i18n] $translation_node is required before pulling; refusing to overwrite local human translations without the merge." >&2
+  exit 1
+fi
 
 # Pull all languages from Transifex. NOTE: -f (force) OVERWRITES the local
 # imports/i18n/data/<lang>.i18n.json files with whatever Transifex currently has —
@@ -9,7 +20,7 @@
 # Preserve every local value, including uncommitted direct fills, before tx
 # overwrites the files. The merge uses this snapshot only as a fallback for
 # keys Transifex still returns as English.
-before_dir=$(mktemp -d "${TMPDIR:-/tmp}/wekan-i18n-before-pull.XXXXXX")
+before_dir=$(mktemp -d "$TMPDIR/wekan-i18n-before-pull.XXXXXX")
 trap 'rm -rf "$before_dir"' EXIT HUP INT TERM
 cp -a imports/i18n/data/. "$before_dir/"
 
@@ -17,9 +28,9 @@ cp -a imports/i18n/data/. "$before_dir/"
 
 # After pulling, find the language files where a previously-translated string
 # reverted to English (untranslated on Transifex). Needs node + git.
-if command -v node >/dev/null 2>&1; then
+if command -v "$translation_node" >/dev/null 2>&1; then
   # Human-readable report for the log (which strings reverted to English on the pull).
-  node releases/translations/report-english-regressions.mjs --before-dir "$before_dir" || true
+  "$translation_node" releases/translations/report-english-regressions.mjs --before-dir "$before_dir" || true
 
   # Per-KEY merge — the policy: never overwrite a human translation with a machine
   # (English) one, but always keep the newest Transifex translations. For every
@@ -39,15 +50,15 @@ if command -v node >/dev/null 2>&1; then
   # when Transifex has only English, the pre-pull local value is restored.
   # Never push here: the fallback may be a direct machine/LLM fill, and without
   # provenance metadata it must not be uploaded as if it were human.
-  node releases/translations/merge-translations.mjs --before-dir "$before_dir"
+  "$translation_node" releases/translations/merge-translations.mjs --before-dir "$before_dir"
   # Transifex can return its protected-token markers (for example @PH0@)
   # literally. Restore the corresponding source code/HTML tokens while keeping
   # the surrounding human translation.
-  node releases/translations/repair-machine-placeholders.mjs --apply
+  "$translation_node" releases/translations/repair-machine-placeholders.mjs --apply
   # Some known bad Transifex values can only be recognized after @PH markers
   # become their real tokens. Restore the reviewed pre-fill human values last,
   # while leaving every newer valid human translation untouched.
-  node releases/translations/restore-pre-machine-humans.mjs --apply
+  "$translation_node" releases/translations/restore-pre-machine-humans.mjs --apply
 
   # After the merge, the ONLY English-valued strings left are placeholders untranslated
   # everywhere (incl. every string of a language that has no translation at all). Those are
@@ -60,9 +71,7 @@ if command -v node >/dev/null 2>&1; then
   # translation, and these filled strings stay LOCAL — they are NOT pushed to Transifex, so
   # they can never masquerade as human there. List what remains across all languages with:
   echo "[i18n] remaining untranslated strings per language (translate + fill-translations.mjs, no service):"
-  node releases/translations/fill-translations.mjs --missing || true
-else
-  echo "[i18n] node not found - skipping the merge + English-regression report."
+  "$translation_node" releases/translations/fill-translations.mjs --missing || true
 fi
 
 # https://developers.transifex.com/docs/cli

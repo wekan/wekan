@@ -73,6 +73,9 @@ const KNOWN_WRONG_VALUES = {
     'globalSearch-instructions-operator-assignee': '`__operator_assignee__:<username>` - ​​amakhadi apho *<username>* ngumsebenzi *',
   },
 };
+// PR #6695 replaced these machine values with human Transifex translations.
+// A stale Transifex resource must not replace a correct pre-pull local value.
+const PR_6695_SUPERSEDED = readFile('releases/translations/pr6695-superseded-translations.json') || {};
 
 // Language data files the pull changed (working tree vs HEAD), excluding English.
 let changed = [];
@@ -118,7 +121,8 @@ for (const f of changed) {
     // If its placeholders are malformed, prefer the valid pre-pull local translation.
     if (typeof enV === 'string' && newV !== enV) {
       const knownWrongLanguage = wrongLanguageDocs.some(doc => doc[key] === newV)
-        || KNOWN_WRONG_VALUES[lang]?.[key] === newV;
+        || KNOWN_WRONG_VALUES[lang]?.[key] === newV
+        || PR_6695_SUPERSEDED[lang]?.[key] === newV;
       if (knownWrongLanguage && typeof oldV === 'string') {
         newJson[key] = oldV;
         if (oldV !== newV) restored += 1;

@@ -10,7 +10,7 @@ const source = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.
 // These are the values replaced by the human Transifex translations in PR #6695.
 // Keep the superseded values as negative fixtures so newer human edits remain valid.
 const superseded = JSON.parse(fs.readFileSync(
-  path.join(__dirname, 'fixtures/pr6695SupersededTranslations.json')));
+  path.join(root, 'releases/translations/pr6695-superseded-translations.json')));
 const tempRoot = path.join(root, '.tools/tmp/pr6695-human-translations');
 fs.mkdirSync(tempRoot, { recursive: true });
 
