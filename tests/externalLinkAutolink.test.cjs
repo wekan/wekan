@@ -189,9 +189,15 @@ test('the markdown package escapes both "\\\\" and "]" in a card title, in that 
 
 test('editor.js keeps the bridge in sync with the setting, like alwaysShowCodeAsText', () => {
   const editor = read('client/components/main/editor.js');
-  const occurrences = editor.match(/Markdown\.externalLinkPattern\.set\(/g) || [];
-  assert.ok(occurrences.length >= 2,
-    'both the same-render-pass helper and the startup autorun must push the setting in');
+  const setter = editor.match(/Markdown\.externalLinkPattern\.set\(/g) || [];
+  const syncCalls = editor.match(/^\s+syncMarkdownExternalLinkPattern\(setting\);$/gm) || [];
+  assert.strictEqual(setter.length, 1,
+    'one guarded setter prevents an object-identity reactive render loop');
+  assert.strictEqual(syncCalls.length, 2,
+    'both the same-render-pass helper and startup autorun must call the guarded sync');
+  assert.ok(editor.includes('current?.prefix !== pattern.prefix') &&
+    editor.includes('current?.urlTemplate !== pattern.urlTemplate'),
+  'unchanged pattern values must not invalidate the viewer');
   assert.ok(/setting && setting\.externalLinkPatternPrefix/.test(editor));
   assert.ok(/setting && setting\.externalLinkPatternUrl/.test(editor));
 });
