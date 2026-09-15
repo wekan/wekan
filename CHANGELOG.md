@@ -1530,6 +1530,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/052937ff0">Repair Veps Problems-page headings.</a></summary>
+
+Replace Tshivenda Summary with an attested native Veps heading and Finnish
+Status with the locale's existing Veps status label. Four focused files pass
+(40 checks); the expanded Veps candidate review remains active.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

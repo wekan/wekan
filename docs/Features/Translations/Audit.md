@@ -16,17 +16,16 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `21e43e8b5` — replace three
-unflagged Zulu card-number search values with Veps. Existing Veps `kart`,
-the numeric label `Lugu`, and established `nomeran mödhe` identifier wording
-supply the terminology; literal `<number>` examples and `__operator_number__`
-remain exact. Four focused files pass (40 checks). Ledger 19,967; original
-pending 126/restored 4 unchanged. The full relative-clause grammar remains
-low confidence; a bounded scan also found 117 distinctive Tshivenda and 25
-distinctive Finnish candidates, so broader Veps review stays open.
+Latest translation fix: **2026-09-15**, `052937ff0` — replace the
+Veps Problems-page summary and status headings. Native Veps MediaWiki directly
+supplies `Lühüd südäimišt` for Summary, and WeKan's existing generic `status`
+value supplies `Olo`. Four focused files pass (40 checks). Ledger 19,969;
+original pending 126/restored 4 unchanged. The bounded scan found 117
+distinctive Tshivenda and 25 distinctive Finnish candidates, so broader Veps
+review stays open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **19,967** exact before/after values, including unflagged
+records contain **19,969** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

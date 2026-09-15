@@ -1050,3 +1050,17 @@ records, newer-value preservation, search substitution, wrong-language
 rejection and all 234 locale token/key inventories. No live search UI ran.
 Original pending remains 126 and restored remains 4; broader candidate and
 prior low-confidence review remains active.
+
+2026-09-15 — `052937ff0`: repaired the Veps Problems-page headings.
+The h1 `summary` was Tshivenda and the h2 `problems-status-title` was Finnish.
+The current native Veps MediaWiki catalogue directly supplies `Lühüd
+südäimišt:` for its Summary form label; WeKan uses the same words without the
+source-specific colon for its h1 page heading. The existing WeKan Veps
+`status` value is exactly `Olo`, so the Problems status subsection now reuses
+it rather than introducing another synonym. Template inspection confirms both
+keys are headings in `client/components/settings/problemsSummary.jade`.
+Four focused files pass (40 checks): 19,969 correction records, exact values,
+negative wrong-language checks, newer-value preservation and all 234 locale
+token/key inventories. No live Problems page ran. Original pending remains
+126 and restored remains 4; broader candidate and prior low-confidence review
+remains active.
