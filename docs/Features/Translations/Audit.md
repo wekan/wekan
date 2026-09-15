@@ -30,11 +30,10 @@ source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
 Latest terminology review: **2026-09-15** —
-[Veps rendered dictionary](Veps-Review.md): button entry is now visually
-verified as tack/clothing fastener. Exclude those words and the door-key
-entry as keyboard terminology evidence. Four coordinated shortcut messages
-remain open, including the unflagged Finnish title. No locale edit or count
-change; broader review continues.
+[Veps event severity](Veps-Review.md): dictionary kova has a severe sense;
+tärged is important and selʹged is sober/serious, unsuitable substitutes
+for the severity-level column. Native severity noun and computing context
+remain open. No locale edit or count change; broader review continues.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:

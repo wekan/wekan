@@ -914,3 +914,24 @@ foreign-language rejection, attachment/shared-data clauses and restore
 restriction plus complete token/key inventories. No live backup UI ran.
 Ledger 19,961; original pending 126/restored 4 unchanged. CPU-core/severity,
 number/date-range and full prior uncertain review remain in scope.
+
+
+2026-09-15 — event-severity terminology review (no locale changes).
+Read adminProblems.js column: r.severity is distinct from category/action/
+detail. models/eventLog.js schema documents info|low|medium|high|critical.
+Severity must not become generic importance, seriousness of demeanor,
+or physical weight. Cached lexicon candidates were checked by individual
+sense: tärged important; selʹged sober (serious); jüged heavy; kova harsh,
+severe. Opened current Wiktionary Veps section, not Finnish homonym:
+https://en.wiktionary.org/wiki/kova#Veps
+It includes harsh/severe and references Zajceva/Mullonen 2007 entries
+жёсткий, жестокий, ожесточённый, сильный, суровый, твёрдый, чёрствый.
+Its adjective is real evidence; it does not attest a noun for event
+severity. Do not invent Kovuz or import Finnish vakavuus without native
+noun/context evidence. Next lexical action: inspect the referenced native
+dictionary severe/harsh entries and derived nouns or corpus severity use.
+This review rules out earlier tempting importance/sober substitutions
+and narrows the search to the appropriate severe sense. event-severity
+Tshivenda remains unrepaired and explicitly in scope. Audit ledger and
+original queue counts unchanged: 19,961 records, pending 126/restored 4.
+No live UI or translation validation test is claimed for this research.
