@@ -31516,3 +31516,29 @@ was aligned and its suite passes. The correction ledger grows from
 21,984 to 22,017. The stale visible list-width queue falls from 184
 to 150, including the resolved Khmer alias. Original 20,081 rows stay
 classified; no live UI test or remote write occurred.
+
+### 2026-09-15 — Chinese-variant list-width meanings
+
+Source commit `0b0349d34` repairs 11 distinct locale JSON values: six
+Simplified Mandarin/Chinese files (`cmn`, `zh`, `zh-CN`, `zh-GB`,
+`zh-Hans`, `zh_SG`), three Traditional Chinese files (`zh-HK`,
+`zh-Hant`, `zh-TW`), Wu (`wuu-Hans`) and Cantonese (`yue_CN`).
+All used the obsolete “greater than 270” rule; Wu and Cantonese also
+copied the identical Mandarin sentence even though their locale tags
+name different languages. Standard Chinese variants now use their
+existing list/width/pixel and integer vocabulary with an inclusive
+200-pixel minimum. Wu now uses the existing file's `个` particle and
+`起码` for the lower bound; [native Shanghai writing](https://xmwb.xinmin.cn/html/2017-03/19/content_27_4.htm)
+attests `起码也要`, but the complete technical clause has not been
+reviewed by a Wu speaker. Cantonese now uses locally existing `嘅`,
+`闊度` and `係`; [Unicode's Cantonese Simplified data](https://www.unicode.org/cldr/charts/40/delta/yue_Hans.html)
+attests `像素`. The complete Cantonese clause remains low confidence.
+The focused test checks exact variants, native terms, dialect divergence,
+explicit low-confidence ledger reasons, inclusive 200, absence of old
+270, all eleven correction records and runtime Traditional Chinese
+lookup. Chinese report-token, 234-locale inventory, audit-progress and
+22,028-record correction-ledger checks pass. The stale list-width queue
+falls from 150 to 139. The original 20,081 classifications do not
+change. No live UI test or remote write occurred. A broader review of
+Mandarin-seeded prose elsewhere in Wu and Cantonese remains required;
+this batch verifies this one source-semantic key only.

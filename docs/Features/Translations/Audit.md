@@ -16,7 +16,15 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `212a46c07` — repair 33 Azerbaijani,
+Latest translation fix: **2026-09-15**, `0b0349d34` — repair six Simplified
+Mandarin, three Traditional Chinese, one Wu and one Cantonese
+list-width messages. The Wu and Cantonese values replace Mandarin-seeded
+sentences with dialect words, but their complete clauses remain low
+confidence pending native review. The inclusive 200-pixel and integer
+rule, exact values, ledger records and runtime Traditional Chinese lookup
+pass. Remaining stale list-width values: **139**.
+
+Earlier translation fix: **2026-09-15**, `212a46c07` — repair 33 Azerbaijani,
 Catalan, Uzbek Latin, Greek, Welsh, Romanian, Slovenian, Vietnamese,
 Afrikaans, Frisian, Galician, Hindi, Malay, Bosnian/Croatian and Khmer
 list-width values. The Khmer `km-KH` alias follows tracked `km_KH`.
@@ -47,7 +55,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **22,017** exact before/after values, including unflagged
+records contain **22,028** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -75,10 +83,11 @@ placeholders, JSON examples and key order; they do not establish language
 quality. Correct-language human translations remain preferred. No external
 translation service is used, and no remote push was performed.
 
-New unflagged source-semantic queue: **150 locale values** still express
+New unflagged source-semantic queue: **139 locale values** still express
 the old 270 list-width rule. The actual shared minimum is 200; three
 Persian-digit values, 23 Romance/Germanic variants and 22 further variants
-plus 33 newly repaired distinct files are recorded. Aliases follow their
+plus 33 native lower-bound and 11 Chinese-variant files are recorded.
+Aliases follow their
 tracked files, so one corrected file may resolve two visible codes. This
 queue is outside the 20,081
 original flagged rows and must be repaired in their declared languages,

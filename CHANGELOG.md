@@ -653,7 +653,18 @@ remain under native review.
 
 This release includes the following features and fixes:
 
-**Translations** - Tamazight, Tigre and native list-width rule repairs.
+**Translations** - Tamazight, Tigre and Chinese list-width rule repairs.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0b0349d34">Repair eleven Chinese-variant list-width values</a>. Thanks to xet7.</summary>
+
+Correct six Simplified Mandarin and three Traditional Chinese values.
+Wu and Cantonese replace Mandarin-seeded text with dialect terms while
+stating the same inclusive 200-pixel integer rule; full dialect phrasing
+remains under native review. Variant, runtime, ledger and inventory
+checks pass, with remaining locales recorded in the audit.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/212a46c07">Repair 33 native list-width translations</a>. Thanks to xet7.</summary>
