@@ -153550,5 +153550,26 @@
     "before": "ግፍሒ ዝርዝር ካብ 270 ዝዓቢ ምሉእ ቁጽሪ ክኸውን ኣለዎ",
     "after": "ግፍሒ ዝርዝር ምሉእ ዕልብ (ፒክሰል) ≥ 200 ላዝም።",
     "reason": "2026-09-15 Tigre width validation repair: correct obsolete exact Tigrinya clause and current-rule mismatch. Corpus attests ግፍሒ (width), ምሉእ (whole), ዕልብ (number) and ላዝም (must); ≥ 200 expresses the exact inclusive minimum. Full technical phrase remains low confidence pending native review. Popup now rejects fractional/non-numeric input and derives the 200 minimum from shared source."
+  },
+  {
+    "locale": "fa",
+    "key": "list-width-error-message",
+    "before": "عرض لیست باید عددی صحیح و بزرگ‌تر از ۲۷۰ باشد",
+    "after": "عرض لیست باید عددی صحیح و حداقل ۲۰۰ پیکسل باشد",
+    "reason": "2026-09-15 stale list-width rule repair: replace Persian-digit ۲۷۰ and strictly-greater condition with declared-language whole-number/inclusive-at-least-۲۰۰-pixel wording. Reuse existing local Persian حداقل / Uzbek Arabic کمیده, پۇتون سان and پیکسل terminology. Preserve native numeral style. Uzbek Arabic full sentence order remains low confidence pending native review."
+  },
+  {
+    "locale": "fa-IR",
+    "key": "list-width-error-message",
+    "before": "عرض لیست باید عددی صحیح و بزرگ‌تر از ۲۷۰ باشد",
+    "after": "عرض لیست باید عددی صحیح و حداقل ۲۰۰ پیکسل باشد",
+    "reason": "2026-09-15 stale list-width rule repair: replace Persian-digit ۲۷۰ and strictly-greater condition with declared-language whole-number/inclusive-at-least-۲۰۰-pixel wording. Reuse existing local Persian حداقل / Uzbek Arabic کمیده, پۇتون سان and پیکسل terminology. Preserve native numeral style. Uzbek Arabic full sentence order remains low confidence pending native review."
+  },
+  {
+    "locale": "uz-AR",
+    "key": "list-width-error-message",
+    "before": "رۉیخت کینگ‌لیگی ۲۷۰ دن کتته پۇتون سان بۉلیشی کیرک",
+    "after": "رۉیخت کینگ‌لیگی کمیده ۲۰۰ پیکسل بۉلگن پۇتون سان بۉلیشی کیرک",
+    "reason": "2026-09-15 stale list-width rule repair: replace Persian-digit ۲۷۰ and strictly-greater condition with declared-language whole-number/inclusive-at-least-۲۰۰-pixel wording. Reuse existing local Persian حداقل / Uzbek Arabic کمیده, پۇتون سان and پیکسل terminology. Preserve native numeral style. Uzbek Arabic full sentence order remains low confidence pending native review."
   }
 ]

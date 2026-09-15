@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "تنظیم عرض",
   "set-list-width": "تنظیم عرض",
   "set-list-width-value": "عرض لیست (پیکسل)",
-  "list-width-error-message": "عرض لیست باید عددی صحیح و بزرگ‌تر از ۲۷۰ باشد",
+  "list-width-error-message": "عرض لیست باید عددی صحیح و حداقل ۲۰۰ پیکسل باشد",
   "list-width-shared-note": "این عرض با همه اعضای این برد به اشتراک گذاشته می‌شود.",
   "list-width-personal-note": "این عرض فقط برای شماست.",
   "personal-list-width": "عرض لیست شخصی",
