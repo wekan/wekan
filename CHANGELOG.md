@@ -638,6 +638,8 @@ the Markdown commit as the template.
 
 **In short:** Docker images reach Docker Hub and GHCR even while Quay
 refuses writes; Quay receives the published manifest when available.
+Markdown security settings now apply to viewers; canonical avatar URLs
+serve authenticated legacy images. Board View UI regressions are repaired.
 Security Problems now use distinct names for CAS account merge,
 attachment path, filename and stored MIME refusals.
 Tamazight rule, popup, warning and activity text replaces wrong-language
@@ -663,7 +665,7 @@ the complete node run passes 1,152 suites with no failures.
 
 </details>
 
-**Bug fixes** - Docker registry outage handling.
+**Bug fixes** - Docker registry, markdown viewer and avatar routing.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e6685eb0b">Keep Docker publication available during Quay read-only outages</a>. Thanks to xet7.</summary>
@@ -673,6 +675,20 @@ copy its published manifest to Quay. A Quay-wide read-only
 outage warns while the available registries stay published;
 other refusals still fail. Mocked shell, YAML and Docker guards
 pass. Live registry publishing remains a maintainer step.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fb66fa95c">Restore markdown security settings and legacy avatar downloads</a>. Thanks to xet7.</summary>
+
+Export the Meteor markdown renderer so the Admin Panel raw-source
+and link settings reach card, activity and view titles. Avoid
+repeated reactive invalidation during viewer rendering. Keep
+canonical avatar URLs on WeKan's guarded current-and-legacy route
+instead of Meteor-Files' broad download middleware. Repair browser
+flows for visible Board View and list menus, REST Bearer auth,
+fixture IDs and post-reload navigation. All 19 observed Chromium
+failures pass focused reruns; the complete matrix is being rerun.
 
 </details>
 
