@@ -146753,5 +146753,47 @@
     "before": "ዕለት መወዳእታ ቀይር",
     "after": "ተመር መከለሲ ተቅዪር",
     "reason": "2026-09-15: Replace Tigrinya-seeded date controls with coordinated Tigre terminology. The BeitTigreAI corpus directly attests date, due, deadline, start, end, voting, received and change forms; multiword UI compounds retain their source distinctions and remain subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "all-boards-hide",
+    "before": "ኩሎም ሰሌዳታት፦ ሕባእ",
+    "after": "ክሎም ምዱዳት፦ ሕባዕ",
+    "reason": "2026-09-15: Replace Tigrinya-seeded board selection, visibility and select-all controls with Tigre forms. The BeitTigreAI corpus directly attests Select all rows, Select a file, Hide and Show phrases; board/card/list/page terms were established by earlier corpus review. Complete compound order remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "show-at-all-boards-page",
+    "before": "ኣብ ገጽ ኩሎም ሰሌዳታት ኣርኢ",
+    "after": "እት ገጽ ክሎም ምዱዳት ኣርኤ",
+    "reason": "2026-09-15: Replace Tigrinya-seeded board selection, visibility and select-all controls with Tigre forms. The BeitTigreAI corpus directly attests Select all rows, Select a file, Hide and Show phrases; board/card/list/page terms were established by earlier corpus review. Complete compound order remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "select-all",
+    "before": "ኩሉ ምረጽ",
+    "after": "ኵሉ ሕረ",
+    "reason": "2026-09-15: Replace Tigrinya-seeded board selection, visibility and select-all controls with Tigre forms. The BeitTigreAI corpus directly attests Select all rows, Select a file, Hide and Show phrases; board/card/list/page terms were established by earlier corpus review. Complete compound order remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "r-select-all",
+    "before": "ኩሉ ምረጽ",
+    "after": "ኵሉ ሕረ",
+    "reason": "2026-09-15: Replace Tigrinya-seeded board selection, visibility and select-all controls with Tigre forms. The BeitTigreAI corpus directly attests Select all rows, Select a file, Hide and Show phrases; board/card/list/page terms were established by earlier corpus review. Complete compound order remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "list-select-cards",
+    "before": "ኩሎም ካርድታት እዚ ዝርዝር ምረጽ",
+    "after": "ክሎም ወረቀት ካርዳት እሊ ዝርዝር ሕረ",
+    "reason": "2026-09-15: Replace Tigrinya-seeded board selection, visibility and select-all controls with Tigre forms. The BeitTigreAI corpus directly attests Select all rows, Select a file, Hide and Show phrases; board/card/list/page terms were established by earlier corpus review. Complete compound order remains subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "select-board",
+    "before": "ሰሌዳ ምረጽ",
+    "after": "ምዱድ ሕረ",
+    "reason": "2026-09-15: Replace Tigrinya-seeded board selection, visibility and select-all controls with Tigre forms. The BeitTigreAI corpus directly attests Select all rows, Select a file, Hide and Show phrases; board/card/list/page terms were established by earlier corpus review. Complete compound order remains subject to fluent review."
   }
 ]
