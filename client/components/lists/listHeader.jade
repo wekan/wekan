@@ -413,7 +413,7 @@ template(name="setListColorPopup")
       label(for="listColorWheel") {{_ 'custom-color'}}
       input.js-list-color-wheel#listColorWheel(type="color" value=currentColorHex title="{{_ 'custom-color'}}")
     button.primary.confirm.js-submit {{_ 'save'}}
-    button.js-remove-color.negate.wide.right {{_ 'unset-color'}}
+    button.js-remove-color.negate.wide.right {{_ 'remove-btn'}}
 
 //- List sync settings (docs/Features/ImportExport/Sync.md). UI wiring only -
   calls the EXISTING setListSyncSource/hasListSyncCredential/syncListNow

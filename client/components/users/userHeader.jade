@@ -295,7 +295,7 @@ template(name="changeFontPopup")
     label {{_ 'text-color'}}
     .color-wheel-wrap
       input.js-ui-text-color(type="color" value=textColorHex title="{{_ 'text-color'}}")
-      a.js-reset-text-color(class="{{#unless hasTextColor}}disabled{{/unless}}") {{_ 'unset-color'}}
+      a.js-reset-text-color(class="{{#unless hasTextColor}}disabled{{/unless}}") {{_ 'remove-btn'}}
 
 template(name="changeSettingsPopup")
   ul.pop-over-list

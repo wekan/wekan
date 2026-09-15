@@ -914,6 +914,22 @@ test('Tamazight numeric total tooltip describes only display-enabled fields', as
   }
 });
 
+test('Tamazight card color removal uses an action label while Unset stays a status', async ({ boardPage, board, user }) => {
+  const locale = require('../../../imports/i18n/data/zgh.i18n.json');
+  db.updateOne('users', { _id: user.id }, { $set: { 'profile.language': 'zgh' } });
+  await boardPage.reload();
+  await loginWithToken(boardPage, user.id, user.token);
+  await openBoard(boardPage, board.boardId, board.slug);
+  await new BoardPage(boardPage).clickCard(board.listIds[0], 'Alpha Card');
+  await boardPage.locator('.card-details .js-open-card-details-menu').first().click();
+  await boardPage.locator('.pop-over .js-set-card-color').click();
+  const popup = boardPage.locator('.pop-over[data-popup="setCardColorPopup"]');
+  const remove = popup.locator('button.js-remove-color');
+  await expect(remove).toHaveText(locale['remove-btn']);
+  await expect(remove).not.toHaveText(locale['unset-color']);
+  await expect(remove).not.toHaveText(/[\u0600-\u06ff]/u);
+});
+
 test('#6694 multi-selection adds labels and members to a mixed selection', async ({ boardPage, board, user }) => {
   const labelId = db.uid('bulk-label');
   db.updateOne('boards', { _id: board.boardId }, { $push: { labels: { _id: labelId, name: 'Bulk regression label', color: 'green' } } });

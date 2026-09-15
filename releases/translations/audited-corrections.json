@@ -155811,5 +155811,12 @@
     "before": "تعديل وضوح الرؤية",
     "after": "ⵙⵏⴼⵍ ⵜⴰⵏⵏⴰⵢⵜ",
     "reason": "Replace Arabic change-visibility control with the same native wording as its popup title."
+  },
+  {
+    "locale": "zgh",
+    "key": "unset-color",
+    "before": "غير محدد",
+    "after": "ⵓⵔ ⵢⴻⵜⵜⵡⴰⵙⵔⴻⵙ ⴰⵔⴰ",
+    "reason": "Replace Arabic generic Unset status with native not-set wording from cloud-secret-none; UI removal buttons now use already-translated removal action keys instead of this status key."
   }
 ]
