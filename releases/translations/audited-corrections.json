@@ -155965,5 +155965,47 @@
     "before": "حذف العضو ?",
     "after": "ⴽⴽⵙ ⴰⴳⵎⴰⵎ?",
     "reason": "Match the native Remove Member action while preserving the question prompt."
+  },
+  {
+    "locale": "zgh",
+    "key": "import-board-c",
+    "before": "استيراد لوحة",
+    "after": "ⵙⴽⵛⵎ ⵜⴰⴼⵍⵡⵉⵜ",
+    "reason": "Reuse the native board-import command in the sidebar."
+  },
+  {
+    "locale": "zgh",
+    "key": "invite-people",
+    "before": "الناس المدعوين",
+    "after": "ⵄⵔⴻⴹ ⵉⵎⴷⴰⵏⴻⵏ",
+    "reason": "Reuse the native invite-people action for the header and People settings."
+  },
+  {
+    "locale": "zgh",
+    "key": "no-name",
+    "before": "(غير معروف)",
+    "after": "(ⴰⵔⵓⵙⵙⵉⵏ)",
+    "reason": "Reuse the native parenthesized unknown label in search-result cards."
+  },
+  {
+    "locale": "zgh",
+    "key": "stats-scope",
+    "before": "النوع",
+    "after": "ⴰⵏⴰⵡ",
+    "reason": "Reuse the native Type label in storage statistics."
+  },
+  {
+    "locale": "zgh",
+    "key": "size",
+    "before": "حجم",
+    "after": "ⵜⵉⴷⴷⵉ",
+    "reason": "Reuse the native attachment Size noun in file statistics."
+  },
+  {
+    "locale": "zgh",
+    "key": "backup-restore",
+    "before": "استعادة",
+    "after": "ⵙⵙⵓⴽⵏ",
+    "reason": "Reuse the native Restore action for backup restore controls."
   }
 ]
