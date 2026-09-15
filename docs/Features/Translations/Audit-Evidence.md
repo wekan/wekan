@@ -31768,6 +31768,28 @@ rises from 22,130 to 22,140; stale list-width values fall from 36 to
 26. Original 20,081 audit-row classifications remain unchanged. No
 live UI test or remote write occurred.
 
+### 2026-09-15 — Hawaiian, Klingon and Inuktitut list-width bounds
+
+Source commit `c18780d5b` replaces three obsolete strict
+greater-than-270 messages with the inclusive `≥ 200` rule. Hawaiian's
+old value contained repeated pseudo-language words; its replacement
+uses `laulā` for width and `helu piha` for a whole number. The former
+is attested in an
+[English-Hawaiian dictionary](https://upload.wikimedia.org/wikipedia/commons/f/f2/An_English-Hawaiian_dictionary%3B_with_various_useful_tables-_prepared_for_the_use_of_Hawaiian-English_schools_%28IA_ahy2563.0001.001.umich.edu%29.pdf),
+and the latter in
+[Hawaiian mathematics vocabulary](https://aokaiapuni.weebly.com/uploads/2/7/0/1/27011744/ccss_pilihelu_papa6.pdf).
+Klingon retains `tetlh 'ab`, `mI' naQ` and `poQlu'`, dropping the
+English integer gloss and the strict greater-than term. Inuktitut
+retains the syllabic width and number-requirement words, dropping
+the old greater-than suffix. The full syntax of all three clauses
+remains low confidence pending native review; `pixels`/`pixel`
+remains a technical unit. The focused suite checks native terms,
+inclusive bound, no old strict comparator, exact ledger rows and
+Hawaiian runtime lookup. Ledger integrity and 234-locale completeness
+pass. Records rise from 22,169 to 22,172; old-threshold queue falls
+from 8 to 5. Broader mixed-language content in these files is still
+open. No live UI test or remote write occurred.
+
 ### 2026-09-15 — Nahuatl, Volapük and Tamazight list-width bounds
 
 Source commit `bb2d2dfeb` replaces three obsolete strict

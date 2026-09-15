@@ -656,6 +656,15 @@ This release includes the following features and fixes:
 **Translations** - Tamazight, Tigre and multilingual list-width repairs.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c18780d5b">Correct three more native list-width bounds</a>. Thanks to xet7.</summary>
+
+Hawaiian, Klingon and Inuktitut list-width errors now show the
+inclusive 200-pixel minimum. Focused, runtime, ledger and inventory
+checks pass; full clauses remain under native grammar review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/bb2d2dfeb">Correct three native list-width minimum messages</a>. Thanks to xet7.</summary>
 
 Nahuatl, Volapük and Tamazight now describe the inclusive 200-pixel

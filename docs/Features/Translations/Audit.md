@@ -16,7 +16,15 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `bb2d2dfeb` — correct the
+Latest translation fix: **2026-09-15**, `c18780d5b` — correct
+Hawaiian, Klingon and Inuktitut list-width errors using inclusive
+200-pixel bounds. The Hawaiian value replaces corrupt pseudo-language
+seeds with attested width and whole-number words. Focused, runtime,
+ledger and 234-locale completeness checks pass; complete clauses
+remain low confidence pending native grammar review. Correction
+ledger: **22,172**; stale list-width values: **5**.
+
+Earlier translation fix: **2026-09-15**, `bb2d2dfeb` — correct the
 obsolete list-width minimum in Nahuatl, Volapük and Tamazight,
 retaining their local list, width and number words. The focused,
 Nahuatl progress, runtime, ledger and 234-locale checks pass.
