@@ -156098,5 +156098,19 @@
     "before": "حذف من البطاقة",
     "after": "ⴽⴽⵙ ⵙⴳ ⵜⴽⴰⵕⴹⴰ",
     "reason": "Reuse the Remove Member command and native from-card phrase for the assignee removal action."
+  },
+  {
+    "locale": "zgh",
+    "key": "link-card",
+    "before": "ربط هذه البطاقة",
+    "after": "ⴰⵙⵖⵏ ⵖⵔ ⵜⴽⴰⵕⴹⴰ ⴰⴷ",
+    "reason": "The Card More popup labels a read-only URL, so reuse the native Link to this search URL wording with the card noun."
+  },
+  {
+    "locale": "zgh",
+    "key": "link-list",
+    "before": "رابط إلى هذه القائمة",
+    "after": "ⴰⵙⵖⵏ ⵖⵔ ⵜⴱⴷⴰⵔⵜ ⴰⴷ",
+    "reason": "The List More popup labels a read-only URL, so reuse the native Link to this search URL wording with the list noun."
   }
 ]
