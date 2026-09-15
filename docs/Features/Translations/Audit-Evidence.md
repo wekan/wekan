@@ -31768,6 +31768,34 @@ rises from 22,130 to 22,140; stale list-width values fall from 36 to
 26. Original 20,081 audit-row classifications remain unchanged. No
 live UI test or remote write occurred.
 
+### 2026-09-15 — Final obsolete list-width messages
+
+Source commit `31a238d91` repairs Cherokee and Wolaytta. Cherokee's
+old error described a width greater than 270 and combined native
+number/real/amount words. The replacement retains its list-width,
+number and required terms, adds `ᎬᏩᏃᏍᏓ` for whole from a
+[Cherokee lexicon entry](https://kaikki.org/dictionary/Cherokee/meaning/%E1%8E%AC/%E1%8E%AC%E1%8F%A9/%E1%8E%AC%E1%8F%A9%E1%8F%83%E1%8F%93.html),
+and states the inclusive `≥ 200 pixels` rule. The mathematical
+integer sense and complete Cherokee grammar are not verified.
+Wolaytta's old label and error contained English `width`, `must be`
+and `integer` prose. `Aaho` for wide is attested in a
+[native-captioned image](https://commons.wikimedia.org/wiki/File:Daamota_Soore.jpg),
+and `qoodaa` is used for count in a
+[Wolaytta article](https://incubator.wikimedia.org/wiki/Wp/wal/Wolayttattuwa).
+`Koshshiyo` is used for needed in
+[Wolaytta reading material](https://www.jw.org/wal/laybreriyaa/maxeeteta/wp20110201/Geeshsha-Ayyaanaa-medhanau-Go%EA%9E%8Cettidoogaa/).
+These support the component words only: `aaho` is broad rather than
+an independently verified exact linear-width term, and `qoodaa`
+may not itself say “integer.” The full Wolaytta clause remains low
+confidence pending native semantic and grammar review. Focused
+checks verify both rules, exact ledger rows and Cherokee runtime
+lookup. Ledger integrity and all 234 locale files pass. A full scan
+of every locale's `list-width-error-message` finds no remaining 270
+threshold. Ledger records rise from 22,178 to 22,181; this source-rule
+queue falls from 2 to 0. Broader English and wrong-language seeding,
+and uncertain full clauses across locales, remain open. No live UI
+test or remote write occurred.
+
 ### 2026-09-15 — Xitsonga list-width seed repair
 
 Source commit `21319c523` replaces the `mhaka`-repeated popup

@@ -656,6 +656,16 @@ This release includes the following features and fixes:
 **Translations** - Tamazight, Tigre and multilingual list-width repairs.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/31a238d91">Correct Cherokee and Wolaytta list-width bounds</a>. Thanks to xet7.</summary>
+
+The final two obsolete error messages now use the inclusive
+200-pixel minimum, and Wolaytta's width label drops its English
+seed. Focused, runtime, ledger and inventory checks pass; exact
+technical and complete native clauses remain under review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/21319c523">Replace corrupt Tsonga list-width seeds</a>. Thanks to xet7.</summary>
 
 Replace repeated `mhaka` seeds in the Xitsonga width label and

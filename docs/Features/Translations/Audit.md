@@ -16,7 +16,17 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `21319c523` — replace the
+Latest translation fix: **2026-09-15**, `31a238d91` — repair the
+last two obsolete list-width errors in Cherokee and Wolaytta,
+plus Wolaytta's English width label. The focused, Cherokee runtime,
+ledger, 234-locale and full old-threshold scan pass. Correction
+ledger: **22,181**; stale list-width values: **0**. Cherokee's
+mathematical whole-number use and Wolaytta's precise technical width
+and count terms remain low confidence pending native review. This
+closes the old-threshold queue, **not** the broader wrong-language
+and seeded-value audit.
+
+Earlier translation fix: **2026-09-15**, `21319c523` — replace the
 corrupt Xitsonga list-width label and error with native width,
 list and whole-number terms plus the inclusive 200-pixel rule.
 Focused, runtime, ledger and 234-locale checks pass. The singular
