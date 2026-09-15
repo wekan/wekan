@@ -30691,3 +30691,16 @@ its intentional equality with Tigrinya.
 The raw overlap therefore stays at 870 while the unclassified subset falls to
 857. The acceptance covers only Who, Clear, black, Email, List, Hour, Open,
 History, Page and Error entries with exact evidence. No remote write occurred.
+
+### 2026-09-15 — Native-catalogue Veps interface terms
+
+Source commit `e17bb2b5e` replaces 31 Finnish-seeded Veps values through exact
+English-source matching against the native MediaWiki Veps catalogue. Five
+forms that remain identical to Finnish are explicitly retained because that
+catalogue independently supplies the same Veps form. Five focused files pass
+for exact values, negative Finnish equality, all 20,164 correction records and
+all 234 locale inventories.
+
+Raw Finnish overlap falls from 540 to 509 values; 504 remain unclassified after
+the five proven shared forms. Longer product-specific phrases have no exact
+catalogue match and remain under review. No remote write occurred.

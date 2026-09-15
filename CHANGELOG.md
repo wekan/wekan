@@ -1818,6 +1818,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e17bb2b5e">Repair native-catalogue Veps interface terms.</a></summary>
+
+Replace 31 Finnish-seeded labels through exact English-source matching with
+the native MediaWiki Veps catalogue. Focused checks also preserve five terms
+independently attested as valid in both languages; broader review continues.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

@@ -1207,3 +1207,18 @@ prose is rejected; 19,990 correction records and all 234 locale inventories
 verify. No live filter UI ran. The original tracked Veps queue is complete:
 overall pending 118, no Veps row, restored four unchanged. Broader unflagged and
 all prior low-confidence Veps wording remain in scope.
+
+2026-09-15 — `e17bb2b5e`: repaired 31 additional unflagged Finnish-seeded
+interface values through exact English-source matching against the native
+MediaWiki Veps catalogue. The batch covers actions, visibility, defaults,
+password, file metadata, login, preview, import, message/description, paging,
+history, confirmation, rename, collapse, details, user and view labels. Five
+unchanged Name/No forms are separately locked because the same native
+catalogue attests the byte-identical Veps forms.
+
+Five focused files pass: exact selected values, Finnish-seed rejection, all
+20,164 correction records, newer-value preservation and all 234 locale
+inventories. Raw Finnish overlap falls from 540 to 509 values; subtracting the
+five explicitly attested shared forms leaves 504 unclassified. Exact catalogue
+matching does not establish translations for longer product-specific phrases,
+which remain in scope. No live UI test or remote write ran.
