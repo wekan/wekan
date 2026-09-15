@@ -31105,3 +31105,15 @@ Focused exact and negative checks pass with all 21,167 correction records and
 forms, 347 remain unclassified. Forty-three raw matches contain at least 20
 characters and 11 contain at least 35. Surrounding clauses remain subject to
 fluent review. No remote write occurred.
+
+
+### 2026-09-15 — Tigre outcome and account terms
+
+Source commit `c91e56a50` repairs four Failed forms with corpus `ፈሽለ`,
+three Succeeded/Successful forms with `ተዐወተ`, Registration with
+`ተስጂል`, and Private with `ብሕት`. Each sense is independently attested
+in complete Tigre corpus entries. Focused exact and negative checks pass with
+all 21,176 correction records and 234 locale inventories. Raw overlap falls
+to 360; after 22 attested shared forms, 338 remain unclassified. Forty-three
+raw matches contain at least 20 characters and 11 contain at least 35.
+Surrounding clauses remain subject to fluent review. No remote write occurred.

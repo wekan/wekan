@@ -640,3 +640,13 @@ Hour nouns but use Tigre prepositions. Exact and negative tests cover all ten
 values; all 21,167 correction records and 234 locale inventories pass. Raw
 overlap falls to 369, with 22 attested shared forms and 347 unclassified.
 Surrounding grammar remains open to fluent review. No remote write ran.
+
+
+## Tigre outcome and account terms repaired — 2026-09-15
+
+Source commit `c91e56a50` replaces nine Tigrinya-seeded Failed,
+Succeeded/Successful, Registration and Private forms with sense-matched Tigre
+corpus forms. Exact and negative tests cover all values; all 21,176 correction
+records and 234 locale inventories pass. Raw overlap falls to 360, with 22
+attested shared forms and 338 unclassified. Surrounding grammar remains open
+to fluent review. No remote write ran.
