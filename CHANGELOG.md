@@ -639,6 +639,28 @@ the Markdown commit as the template.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** Release preparation now checks translation-language metadata
+before tagging, so an incomplete language list is caught locally.
+
+This release includes the following developer-tooling fix:
+
+**Developer tooling** - Release-note preflight.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7489120eb">Check translation language lists before tagging</a>. Thanks to xet7.</summary>
+
+The v11.81 tag was created before release-note validation found missing
+language metadata. The prepared v11.81 notes now include the full list
+of changed languages, and the local Upcoming preflight rejects a
+Translations group without that list. The release-notes command and
+focused preflight tests pass.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v11.81 2026-09-16 WeKan ® release
 
 **In short:** Docker images reach Docker Hub and GHCR even while Quay
@@ -731,7 +753,8 @@ database conformance, and FerretDB unit, vet and integration pass.
 
 </details>
 
-**Developer tooling** - Board title viewer UI and translation protection coverage.
+**Developer tooling** - Board title viewer UI and translation
+protection coverage.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3865c3fde">Avoid incomplete escaping in Veps sync test</a>. Thanks to xet7.</summary>
@@ -793,7 +816,8 @@ records. Focused audit and translation checks pass.
 
 </details>
 
-**Translations** - Human Traditional Chinese, Tamazight, Tigre and multilingual list-width repairs.
+**Translations** - Human Traditional Chinese, Tamazight, Tigre and
+multilingual list-width repairs.
 
 **Languages updated:** Acehnese, Afrikaans, Akan, Albanian, Amharic, Arabic, Aragonese, Armenian, Aromanian, Assamese, Asturian, Aymara, Azerbaijani, Bambara, Bangla, Bashkir, Basque, Belarusian, Bhojpuri, Bislama, Bosnian, Breton, Bulgarian, Buriat, Burmese, Cantonese, Catalan, Central Kurdish, Cherokee, Chinese, Chuvash, Cornish, Corsican, Croatian, Czech, Danish, Dutch, Dzongkha, English, Esperanto, Estonian, Ewe, Faroese, Fijian, Filipino, Finnish, Flemish, French, Friulian, Fula, Galician, Ganda, Georgian, German, Greek, Guarani, Gujarati, Haitian Creole, Hausa, Hawaiian, Hebrew, Hindi, Hungarian, Icelandic, Igbo, Indonesian, Inuktitut, Irish, Italian, Japanese, Javanese, Kalaallisut, Kannada, Kashmiri, Kashubian, Kazakh, Khmer, Kinyarwanda, Klingon, Konkani, Korean, Kurdish, Kyrgyz, Ladin, Latin, Latvian, Lithuanian, Luxembourgish, Macedonian, Maithili, Malagasy, Malay, Malayalam, Maltese, Manx, Marathi, Mongolian, Moroccan Arabic, Māori, Nahuatl, Neapolitan, Nepali, North Ndebele, Northern Sami, Northern Sotho, Norwegian Bokmål, Nyanja, Occitan, Odia, Oromo, Papiamento, Pashto, Persian, Polish, Portuguese, Punjabi, Quechua, Romanian, Romansh, Rundi, Russian, Samoan, Sardinian, Scottish Gaelic, Serbian, Shona, Sicilian, Silesian, Sindhi, Sinhala, Slovak, Slovenian, Somali, Southern Sotho, Spanish, Standard Moroccan Tamazight, Swahili, Swati, Swedish, Tajik, Tamil, Tatar, Telugu, Thai, Tibetan, Tigre, Tigrinya, Tok Pisin, Tongan, Tsonga, Tswana, Turkish, Turkmen, Ukrainian, Upper Sorbian, Urdu, Uyghur, Uzbek, Valencian, Venda, Veps, Vietnamese, Volapük, Walloon, Waray, Welsh, Western Frisian, Wolaytta, Wolof, Wu Chinese, Xhosa, Yakut, Yiddish, Yoruba, Zulu
 
