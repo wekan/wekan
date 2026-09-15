@@ -656,6 +656,16 @@ This release includes the following features and fixes:
 **Translations** - Tamazight, Tigre and multilingual list-width repairs.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/6f14c9a8c">Repair Tigre slate-blue wording</a>. Thanks to xet7.</summary>
+
+Replace its copied Tigrinya blue word with a corpus-glossed Tigre term.
+Keep independently attested red and black labels despite their shared
+spelling. The slate compound needs fluent review; focused, ledger and
+inventory checks pass.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/de0cc0ce4">Repair copied Tigre dark-green label</a>. Thanks to xet7.</summary>
 
 Use Tigre corpus terms for dark and green in the color label.

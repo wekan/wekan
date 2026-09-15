@@ -1,5 +1,18 @@
 # Detailed translation audit evidence
 
+2026-09-15 (`6f14c9a8c`): repaired Tigre `color-slateblue` by replacing
+the copied Tigrinya blue component with the BeitTigreAI headword
+`አዝረቁ` glossed blue. The technical slate loan and compound remain
+low confidence pending fluent Tigre review. The identical red label
+`ቀይሕ` is retained: the Tigre corpus uses it in full red-color
+sentences. Identical black `ጸሊም` is retained: the corpus directly
+glosses it black. Both were already included in the 22 shared forms by
+review commits `b2caad45b7` and `5b2c5942e`; this review does not count
+them twice or change their correct local values. Focused positive/negative,
+ledger and all-234-locale checks pass. Ledger: 22,184; raw overlap:
+226, with 22 attested shared values and 204 unclassified. Other color
+loans and compounds remain subject to review; no remote write occurred.
+
 2026-09-15 (`de0cc0ce4`): repaired Tigre `color-darkgreen`, previously
 an exact Tigrinya copy. The BeitTigreAI English–Tigre corpus glosses
 `ጽልም` as dark and uses `አክደር` for green in color sentences.
