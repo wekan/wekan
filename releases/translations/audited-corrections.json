@@ -145297,5 +145297,229 @@
     "before": "ስም",
     "after": "ስሜት",
     "reason": "Replace a value copied from Tigrinya with the context-appropriate Tigre corpus result for the complete English source; use the established address and name senses."
+  },
+  {
+    "locale": "tig",
+    "key": "status",
+    "before": "ኩነታት",
+    "after": "ሓላት",
+    "reason": "Replace a Tigrinya-seeded repeated UI label with a Tigre term or coordinated compound built from exact BeitTigreAI corpus headwords for the complete concept."
+  },
+  {
+    "locale": "tig",
+    "key": "operator-status",
+    "before": "ኩነታት",
+    "after": "ሓላት",
+    "reason": "Replace a Tigrinya-seeded repeated UI label with a Tigre term or coordinated compound built from exact BeitTigreAI corpus headwords for the complete concept."
+  },
+  {
+    "locale": "tig",
+    "key": "accounts-lockout-status",
+    "before": "ኩነታት",
+    "after": "ሓላት",
+    "reason": "Replace a Tigrinya-seeded repeated UI label with a Tigre term or coordinated compound built from exact BeitTigreAI corpus headwords for the complete concept."
+  },
+  {
+    "locale": "tig",
+    "key": "migration-progress-status",
+    "before": "ኩነታት",
+    "after": "ሓላት",
+    "reason": "Replace a Tigrinya-seeded repeated UI label with a Tigre term or coordinated compound built from exact BeitTigreAI corpus headwords for the complete concept."
+  },
+  {
+    "locale": "tig",
+    "key": "problems-status-title",
+    "before": "ኩነታት",
+    "after": "ሓላት",
+    "reason": "Replace a Tigrinya-seeded repeated UI label with a Tigre term or coordinated compound built from exact BeitTigreAI corpus headwords for the complete concept."
+  },
+  {
+    "locale": "tig",
+    "key": "board-change-color",
+    "before": "ሕብሪ ቀይር",
+    "after": "ሕብር ተቅዪር",
+    "reason": "Replace a Tigrinya-seeded repeated UI label with a Tigre term or coordinated compound built from exact BeitTigreAI corpus headwords for the complete concept."
+  },
+  {
+    "locale": "tig",
+    "key": "changeColorPopup-title",
+    "before": "ሕብሪ ቀይር",
+    "after": "ሕብር ተቅዪር",
+    "reason": "Replace a Tigrinya-seeded repeated UI label with a Tigre term or coordinated compound built from exact BeitTigreAI corpus headwords for the complete concept."
+  },
+  {
+    "locale": "tig",
+    "key": "allBoardsChangeColorPopup-title",
+    "before": "ሕብሪ ቀይር",
+    "after": "ሕብር ተቅዪር",
+    "reason": "Replace a Tigrinya-seeded repeated UI label with a Tigre term or coordinated compound built from exact BeitTigreAI corpus headwords for the complete concept."
+  },
+  {
+    "locale": "tig",
+    "key": "change-color",
+    "before": "ሕብሪ ቀይር",
+    "after": "ሕብር ተቅዪር",
+    "reason": "Replace a Tigrinya-seeded repeated UI label with a Tigre term or coordinated compound built from exact BeitTigreAI corpus headwords for the complete concept."
+  },
+  {
+    "locale": "tig",
+    "key": "select-color",
+    "before": "ሕብሪ ምረጽ",
+    "after": "ሕሬ ሕብር",
+    "reason": "Replace a Tigrinya-seeded repeated UI label with a Tigre term or coordinated compound built from exact BeitTigreAI corpus headwords for the complete concept."
+  },
+  {
+    "locale": "tig",
+    "key": "setCardActionsColorPopup-title",
+    "before": "ሕብሪ ምረጽ",
+    "after": "ሕሬ ሕብር",
+    "reason": "Replace a Tigrinya-seeded repeated UI label with a Tigre term or coordinated compound built from exact BeitTigreAI corpus headwords for the complete concept."
+  },
+  {
+    "locale": "tig",
+    "key": "setSwimlaneColorPopup-title",
+    "before": "ሕብሪ ምረጽ",
+    "after": "ሕሬ ሕብር",
+    "reason": "Replace a Tigrinya-seeded repeated UI label with a Tigre term or coordinated compound built from exact BeitTigreAI corpus headwords for the complete concept."
+  },
+  {
+    "locale": "tig",
+    "key": "setListColorPopup-title",
+    "before": "ሕብሪ ምረጽ",
+    "after": "ሕሬ ሕብር",
+    "reason": "Replace a Tigrinya-seeded repeated UI label with a Tigre term or coordinated compound built from exact BeitTigreAI corpus headwords for the complete concept."
+  },
+  {
+    "locale": "tig",
+    "key": "weight",
+    "before": "ክብደት",
+    "after": "ሜዛን",
+    "reason": "Replace a Tigrinya-seeded repeated UI label with a Tigre term or coordinated compound built from exact BeitTigreAI corpus headwords for the complete concept."
+  },
+  {
+    "locale": "tig",
+    "key": "allboards.templates",
+    "before": "ኣብነታት",
+    "after": "ሞደላት",
+    "reason": "Replace a Tigrinya-seeded repeated UI label with a Tigre term or coordinated compound built from exact BeitTigreAI corpus headwords for the complete concept."
+  },
+  {
+    "locale": "tig",
+    "key": "templates",
+    "before": "ኣብነታት",
+    "after": "ሞደላት",
+    "reason": "Replace a Tigrinya-seeded repeated UI label with a Tigre term or coordinated compound built from exact BeitTigreAI corpus headwords for the complete concept."
+  },
+  {
+    "locale": "tig",
+    "key": "createBoardPopup-title",
+    "before": "ሰሌዳ ፍጠር",
+    "after": "ምዱድ ኽለቅ",
+    "reason": "Replace a Tigrinya-seeded repeated UI label with a Tigre term or coordinated compound built from exact BeitTigreAI corpus headwords for the complete concept."
+  },
+  {
+    "locale": "tig",
+    "key": "headerBarCreateBoardPopup-title",
+    "before": "ሰሌዳ ፍጠር",
+    "after": "ምዱድ ኽለቅ",
+    "reason": "Replace a Tigrinya-seeded repeated UI label with a Tigre term or coordinated compound built from exact BeitTigreAI corpus headwords for the complete concept."
+  },
+  {
+    "locale": "tig",
+    "key": "createLabelPopup-title",
+    "before": "ምልክት ፍጠር",
+    "after": "እሻረት ኽለቅ",
+    "reason": "Replace a Tigrinya-seeded repeated UI label with a Tigre term or coordinated compound built from exact BeitTigreAI corpus headwords for the complete concept."
+  },
+  {
+    "locale": "tig",
+    "key": "label-create",
+    "before": "ምልክት ፍጠር",
+    "after": "እሻረት ኽለቅ",
+    "reason": "Replace a Tigrinya-seeded repeated UI label with a Tigre term or coordinated compound built from exact BeitTigreAI corpus headwords for the complete concept."
+  },
+  {
+    "locale": "tig",
+    "key": "checklist-reset-interval-weekly",
+    "before": "ሰሙናዊ",
+    "after": "ኩሉ እስቡዕ",
+    "reason": "Replace a Tigrinya-seeded repeated UI label with a Tigre term or coordinated compound built from exact BeitTigreAI corpus headwords for the complete concept."
+  },
+  {
+    "locale": "tig",
+    "key": "card-recurrence-interval-weekly",
+    "before": "ሰሙናዊ",
+    "after": "ኩሉ እስቡዕ",
+    "reason": "Replace a Tigrinya-seeded repeated UI label with a Tigre term or coordinated compound built from exact BeitTigreAI corpus headwords for the complete concept."
+  },
+  {
+    "locale": "tig",
+    "key": "backup-frequency-weekly",
+    "before": "ሰሙናዊ",
+    "after": "ኩሉ እስቡዕ",
+    "reason": "Replace a Tigrinya-seeded repeated UI label with a Tigre term or coordinated compound built from exact BeitTigreAI corpus headwords for the complete concept."
+  },
+  {
+    "locale": "tig",
+    "key": "checklist-reset-interval-monthly",
+    "before": "ወርሓዊ",
+    "after": "ኩሉ ወርሕ",
+    "reason": "Replace a Tigrinya-seeded repeated UI label with a Tigre term or coordinated compound built from exact BeitTigreAI corpus headwords for the complete concept."
+  },
+  {
+    "locale": "tig",
+    "key": "card-recurrence-interval-monthly",
+    "before": "ወርሓዊ",
+    "after": "ኩሉ ወርሕ",
+    "reason": "Replace a Tigrinya-seeded repeated UI label with a Tigre term or coordinated compound built from exact BeitTigreAI corpus headwords for the complete concept."
+  },
+  {
+    "locale": "tig",
+    "key": "backup-frequency-monthly",
+    "before": "ወርሓዊ",
+    "after": "ኩሉ ወርሕ",
+    "reason": "Replace a Tigrinya-seeded repeated UI label with a Tigre term or coordinated compound built from exact BeitTigreAI corpus headwords for the complete concept."
+  },
+  {
+    "locale": "tig",
+    "key": "team",
+    "before": "ጉጅለ",
+    "after": "ፈሪቅ",
+    "reason": "Replace a Tigrinya-seeded repeated UI label with a Tigre term or coordinated compound built from exact BeitTigreAI corpus headwords for the complete concept."
+  },
+  {
+    "locale": "tig",
+    "key": "operator-team",
+    "before": "ጉጅለ",
+    "after": "ፈሪቅ",
+    "reason": "Replace a Tigrinya-seeded repeated UI label with a Tigre term or coordinated compound built from exact BeitTigreAI corpus headwords for the complete concept."
+  },
+  {
+    "locale": "tig",
+    "key": "week",
+    "before": "ሰሙን",
+    "after": "እስቡዕ",
+    "reason": "Replace a Tigrinya-seeded repeated UI label with a Tigre term or coordinated compound built from exact BeitTigreAI corpus headwords for the complete concept."
+  },
+  {
+    "locale": "tig",
+    "key": "predicate-week",
+    "before": "ሰሙን",
+    "after": "እስቡዕ",
+    "reason": "Replace a Tigrinya-seeded repeated UI label with a Tigre term or coordinated compound built from exact BeitTigreAI corpus headwords for the complete concept."
+  },
+  {
+    "locale": "tig",
+    "key": "export-card-attachment-size",
+    "before": "ዓቐን",
+    "after": "ቅያስ",
+    "reason": "Replace a Tigrinya-seeded repeated UI label with a Tigre term or coordinated compound built from exact BeitTigreAI corpus headwords for the complete concept."
+  },
+  {
+    "locale": "tig",
+    "key": "size",
+    "before": "ዓቐን",
+    "after": "ቅያስ",
+    "reason": "Replace a Tigrinya-seeded repeated UI label with a Tigre term or coordinated compound built from exact BeitTigreAI corpus headwords for the complete concept."
   }
 ]
