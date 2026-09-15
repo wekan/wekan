@@ -156056,5 +156056,47 @@
     "before": "Cocher الإصدار: Erreur.",
     "after": "ⵓⵔ ⵉⵣⵎⵉⵔ ⴰⵔⴰ ⴰⴷ ⵉⵙⵙⵉⴷⴻⴷ ⴰⵎⴹⴰⵏ ⵏ ⵜⵓⵏⵖⵉⵍⵜ.",
     "reason": "Replace mixed French/Arabic failure shorthand with the local could-not pattern, attested check/version terms and local number noun; full clause is low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "my-boards",
+    "before": "لوحاتي",
+    "after": "ⵜⵉⴼⵍⵡⵉⵏ ⵉⵏⵓ",
+    "reason": "Reuse the native board plural in All Boards and the my-attachments possessive for My Boards."
+  },
+  {
+    "locale": "zgh",
+    "key": "my-cards",
+    "before": "Mes Cartes",
+    "after": "ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵉⵏⵓ",
+    "reason": "Reuse the exact native My Cards noun phrase in shortcut-filter-my-cards."
+  },
+  {
+    "locale": "zgh",
+    "key": "to-boards",
+    "before": "إلى اللوحات",
+    "after": "ⵖⵔ ⵜⵉⴼⵍⵡⵉⵏ",
+    "reason": "Reuse the local direction marker and board plural for the invite-to-boards field."
+  },
+  {
+    "locale": "zgh",
+    "key": "close-board",
+    "before": "غلق اللوحة",
+    "after": "ⵔⴳⵍ ⵜⴰⴼⵍⵡⵉⵜ",
+    "reason": "Reuse the local Close command and native board noun."
+  },
+  {
+    "locale": "zgh",
+    "key": "remove-from-board",
+    "before": "حذف من اللوحة",
+    "after": "ⴽⴽⵙ ⵙⴳ ⵜⴼⵍⵡⵉⵜ",
+    "reason": "Reuse the Remove Member command and the local from-board phrase for the board-member action."
+  },
+  {
+    "locale": "zgh",
+    "key": "remove-member-from-card",
+    "before": "حذف من البطاقة",
+    "after": "ⴽⴽⵙ ⵙⴳ ⵜⴽⴰⵕⴹⴰ",
+    "reason": "Reuse the Remove Member command and native from-card phrase for the assignee removal action."
   }
 ]
