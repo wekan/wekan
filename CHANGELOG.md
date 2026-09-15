@@ -1684,6 +1684,18 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b5acfdaec">Complete Inuktitut calendar labels.</a></summary>
+
+Replace 15 Azerbaijani and incomplete English labels with the official
+Nunavut-attested calendar noun and existing syllabic UI vocabulary. Preserve
+all named systems and civil, astronomical and moon-sighting distinctions.
+Four focused files pass. Full compounds remain under native review.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

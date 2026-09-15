@@ -30579,3 +30579,18 @@ Four focused files pass for 4,197 unchanged acceptances, 20,035 corrections,
 placeholder/key invariants and all 234 locale inventories. Original pending is
 50, including 15 Inuktitut calendar labels; restored four unchanged. Semantic
 fluency and browser behavior remain broader review items. No remote write.
+
+### 2026-09-15 — Inuktitut calendar-system queue completed
+
+Source commit `b5acfdaec3` repairs all 15 remaining Inuktitut findings with the
+official Nunavut-attested `ᐅᓪᓗᖅᓯᐅᑎ` calendar noun and existing local
+syllabic method, date-display, table, beginning, national and viewing terms.
+Every named system remains distinct; the Hijri variants separately preserve
+civil, astronomical and moon-sighting behavior. Full compounds and proper-name
+adaptations remain low confidence pending fluent review.
+
+Four focused files pass for exact labels, all 20,050 correction records,
+runtime calendar IDs, newer-value preservation and all 234 locale inventories.
+Original counts are 15,845 corrected, 35 pending, 4,197 retained and four
+restored. The tracked Inuktitut row is complete. No live selector or remote
+write occurred.

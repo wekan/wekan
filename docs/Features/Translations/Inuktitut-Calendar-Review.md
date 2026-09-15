@@ -68,3 +68,20 @@ all 234 locale inventories. Original pending falls from 73 to 50, with 15
 Inuktitut calendar labels remaining; restored four unchanged. Semantic
 fluency and live browser behavior remain in the broader review. No remote
 write occurred.
+
+## Remaining calendar labels repaired — 2026-09-15
+
+Source commit `b5acfdaec3` repairs all 15 remaining Inuktitut findings. Every
+label uses the official Nunavut-attested `ᐅᓪᓗᖅᓯᐅᑎ` calendar noun. The heading
+uses existing local `ᐱᓕᕆᔾᔪᓯᖓ` method, `ᐅᓪᓗᖅ` date and `ᑕᑯᑎᑕᐅᔪᖅ`
+displayed vocabulary. Calendar identifiers remain recognizable. Existing
+syllabic table, beginning, national, space/science, month and seen vocabulary
+distinguishes calculated civil and astronomical starting points from Saudi
+moon sighting.
+
+**Low confidence:** complete technical compounds and proper-name adaptation
+remain under fluent review. Four focused files pass for exact labels, all
+20,050 correction records, distinct runtime calendar choices, newer-value
+preservation and all 234 locale token/key inventories. No live selector ran.
+Original pending is 35 with no Inuktitut row; restored four unchanged. No
+external translation service or remote write.
