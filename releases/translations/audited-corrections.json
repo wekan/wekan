@@ -144686,15 +144686,15 @@
     "locale": "tig",
     "key": "userPopup-title",
     "before": "ኣባል",
-    "after": "መሕበር",
-    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+    "after": "አባል",
+    "reason": "Replace the Tigrinya seed, and for five previously repaired values correct the earlier association sense, with the explicit BeitTigreAI Member/Members pair አባል/አባላት attested together in a corpus plural template."
   },
   {
     "locale": "tig",
     "key": "cardMemberPopup-title",
     "before": "ኣባል",
-    "after": "መሕበር",
-    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+    "after": "አባል",
+    "reason": "Replace the Tigrinya seed, and for five previously repaired values correct the earlier association sense, with the explicit BeitTigreAI Member/Members pair አባል/አባላት attested together in a corpus plural template."
   },
   {
     "locale": "tig",
@@ -144987,8 +144987,8 @@
     "locale": "tig",
     "key": "r-member",
     "before": "ኣባል",
-    "after": "መሕበር",
-    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+    "after": "አባል",
+    "reason": "Replace the Tigrinya seed, and for five previously repaired values correct the earlier association sense, with the explicit BeitTigreAI Member/Members pair አባል/አባላት attested together in a corpus plural template."
   },
   {
     "locale": "tig",
@@ -145064,8 +145064,8 @@
     "locale": "tig",
     "key": "operator-member",
     "before": "ኣባል",
-    "after": "መሕበር",
-    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+    "after": "አባል",
+    "reason": "Replace the Tigrinya seed, and for five previously repaired values correct the earlier association sense, with the explicit BeitTigreAI Member/Members pair አባል/አባላት attested together in a corpus plural template."
   },
   {
     "locale": "tig",
@@ -145113,8 +145113,8 @@
     "locale": "tig",
     "key": "predicate-member",
     "before": "ኣባል",
-    "after": "መሕበር",
-    "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+    "after": "አባል",
+    "reason": "Replace the Tigrinya seed, and for five previously repaired values correct the earlier association sense, with the explicit BeitTigreAI Member/Members pair አባል/አባላት attested together in a corpus plural template."
   },
   {
     "locale": "tig",
@@ -146158,5 +146158,19 @@
     "before": "እታ ሰሌዳ",
     "after": "ለምዱድ",
     "reason": "Replace a Tigrinya-seeded compound with coordinated Tigre roots already established by direct corpus evidence; preserve unit parentheses, punctuation and technical identifiers."
+  },
+  {
+    "locale": "tig",
+    "key": "cardMembersPopup-title",
+    "before": "ኣባላት",
+    "after": "አባላት",
+    "reason": "Replace the Tigrinya seed, and for five previously repaired values correct the earlier association sense, with the explicit BeitTigreAI Member/Members pair አባል/አባላት attested together in a corpus plural template."
+  },
+  {
+    "locale": "tig",
+    "key": "members",
+    "before": "ኣባላት",
+    "after": "አባላት",
+    "reason": "Replace the Tigrinya seed, and for five previously repaired values correct the earlier association sense, with the explicit BeitTigreAI Member/Members pair አባል/አባላት attested together in a corpus plural template."
   }
 ]
