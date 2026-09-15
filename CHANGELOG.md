@@ -1990,6 +1990,16 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e4ae5173f">Repair Tigre interface actions.</a></summary>
+
+Replace seven Tigrinya-seeded Font, Invite People and Change permissions
+controls with corpus-grounded Tigre terminology.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e17bb2b5e">Repair native-catalogue Veps interface terms.</a></summary>
 
 Replace 31 Finnish-seeded labels through exact English-source matching with

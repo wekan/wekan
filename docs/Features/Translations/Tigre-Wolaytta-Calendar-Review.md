@@ -446,3 +446,14 @@ negative checks cover every value; all 20,922 correction records and 234 locale
 inventories pass. Raw overlap falls to 611, with 20 attested shared forms and
 591 unclassified. Background compound order and the derived plural remain open
 to fluent review. No remote write ran.
+
+## Tigre Font, Invite and permissions controls repaired — 2026-09-15
+
+Source commit `e4ae5173f` replaces seven Tigrinya-seeded Font, Invite People and
+Change permissions controls. The BeitTigreAI corpus supplies Tigre form/shape,
+alphabet, people and permission nouns; complete sentences establish Invite and
+Change commands. Focused exact and negative checks cover every value; all
+20,929 correction records and 234 locale inventories pass. Raw overlap falls
+to 604, with 20 attested shared forms and 584 unclassified. The descriptive
+Font term and complete compound order remain open to fluent review. No remote
+write ran.

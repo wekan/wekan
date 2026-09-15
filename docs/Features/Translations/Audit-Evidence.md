@@ -30904,3 +30904,12 @@ correction records and 234 locale inventories. Raw overlap falls to 611; 591
 remain unclassified after 20 attested shared forms. Derived plural and complete
 background compound order remain open to fluent review. No remote write
 occurred.
+
+### 2026-09-15 — Tigre Font, Invite and permissions controls
+
+Source commit `e4ae5173f` repairs seven repeated Font, Invite People and Change
+permissions controls with corpus-attested Tigre components. Focused exact and
+former-seed checks pass with all 20,929 correction records and 234 locale
+inventories. Raw overlap falls to 604; 584 remain unclassified after 20
+attested shared forms. Descriptive Font terminology and complete compound order
+remain open to fluent review. No remote write occurred.
