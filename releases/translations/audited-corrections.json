@@ -155307,5 +155307,26 @@
     "before": "اخضر غامق",
     "after": "ⴰⵣⴳⵣⴰ ⴰⴱⵔⴽⴰⵏ",
     "reason": "Replace Arabic dark-green color seed with local native green term plus black/dark adjective attested in Moroccan Amazigh word list. The full shade compound and adjective order are low confidence pending fluent Standard Moroccan Tamazight review."
+  },
+  {
+    "locale": "zgh",
+    "key": "color-sky",
+    "before": "ciel",
+    "after": "ⵉⴳⵏⵏⴰ",
+    "reason": "Replace French sky label with ⵉⴳⵏⵏⴰ, directly glossed ciel in the IRCAM Moroccan Amazigh dictionary."
+  },
+  {
+    "locale": "zgh",
+    "key": "color-gold",
+    "before": "ذهبي",
+    "after": "ⵓⵔⵖ",
+    "reason": "Replace Arabic gold color seed with ⵓⵔⵖ, directly glossed or (gold) in the IRCAM dictionary. Metal noun as color-label use remains low confidence pending native style review."
+  },
+  {
+    "locale": "zgh",
+    "key": "color-silver",
+    "before": "فضي",
+    "after": "ⴰⵥⵔⴼ",
+    "reason": "Replace Arabic silver color seed with Moroccan Berber ⴰⵥⵔⴼ attested as silver in the Central Atlas Tamazight dictionary and Tashelhit references. Standard Moroccan spelling and metal noun as color-label use remain low confidence pending native review."
   }
 ]
