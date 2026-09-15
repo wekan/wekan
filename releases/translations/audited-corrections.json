@@ -146452,5 +146452,54 @@
     "before": "ድሕረ ባይታታት ሰሌዳ",
     "after": "መበገሲታት ምዱድ",
     "reason": "Replace the Tigrinya-seeded Board backgrounds label with the exact Tigre background noun and established board noun; retain the derived plural and compound order for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "changeFontPopup-title",
+    "before": "ቅርጺ ፊደል",
+    "after": "ሸክል ፊደል",
+    "reason": "Replace the Tigrinya-seeded Font description with Tigre form/shape and alphabet terms attested by the corpus; retain the descriptive compound for fluent terminology review."
+  },
+  {
+    "locale": "tig",
+    "key": "change-font",
+    "before": "ቅርጺ ፊደል",
+    "after": "ሸክል ፊደል",
+    "reason": "Replace the Tigrinya-seeded Font description with Tigre form/shape and alphabet terms attested by the corpus; retain the descriptive compound for fluent terminology review."
+  },
+  {
+    "locale": "tig",
+    "key": "font",
+    "before": "ቅርጺ ፊደል",
+    "after": "ሸክል ፊደል",
+    "reason": "Replace the Tigrinya-seeded Font description with Tigre form/shape and alphabet terms attested by the corpus; retain the descriptive compound for fluent terminology review."
+  },
+  {
+    "locale": "tig",
+    "key": "invitePeoplePopup-title",
+    "before": "ሰባት ዓድም",
+    "after": "አዳም ዐዝም",
+    "reason": "Replace the Tigrinya-seeded Invite People label with the exact Tigre people noun and already reviewed corpus-attested Invite imperative, preserving object-verb order."
+  },
+  {
+    "locale": "tig",
+    "key": "invite-people",
+    "before": "ሰባት ዓድም",
+    "after": "አዳም ዐዝም",
+    "reason": "Replace the Tigrinya-seeded Invite People label with the exact Tigre people noun and already reviewed corpus-attested Invite imperative, preserving object-verb order."
+  },
+  {
+    "locale": "tig",
+    "key": "change-permissions",
+    "before": "ፍቓዳት ቀይር",
+    "after": "እጃዝት ቀይር",
+    "reason": "Replace the Tigrinya-seeded Change permissions label with the exact Tigre permission noun from a complete UI message and the corpus-attested Change command."
+  },
+  {
+    "locale": "tig",
+    "key": "changePermissionsPopup-title",
+    "before": "ፍቓዳት ቀይር",
+    "after": "እጃዝት ቀይር",
+    "reason": "Replace the Tigrinya-seeded Change permissions label with the exact Tigre permission noun from a complete UI message and the corpus-attested Change command."
   }
 ]
