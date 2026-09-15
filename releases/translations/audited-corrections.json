@@ -146396,5 +146396,61 @@
     "before": "ዝተረፈ ግዜ",
     "after": "ለተርፈ ወቅት",
     "reason": "Replace the Tigrinya-seeded Remaining time compound with Tigre remaining and time forms attested together in complete corpus questions; retain the nominal label order for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "rename",
+    "before": "ስም ቀይር",
+    "after": "ስሜት ቀይር",
+    "reason": "Replace the Tigrinya-seeded Rename label with the exact Tigre name noun and change imperative attested in complete corpus name and command sentences."
+  },
+  {
+    "locale": "tig",
+    "key": "attachmentRenamePopup-title",
+    "before": "ስም ቀይር",
+    "after": "ስሜት ቀይር",
+    "reason": "Replace the Tigrinya-seeded Rename label with the exact Tigre name noun and change imperative attested in complete corpus name and command sentences."
+  },
+  {
+    "locale": "tig",
+    "key": "board-change-background-image",
+    "before": "ስእሊ ድሕረ ባይታ ቀይር",
+    "after": "ተምስል ለሀላ መበገሲ ቀይር",
+    "reason": "Replace the Tigrinya-seeded Change Background Image label with exact Tigre corpus image and background entries plus the attested change imperative; retain full compound order for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "boardChangeBackgroundImagePopup-title",
+    "before": "ስእሊ ድሕረ ባይታ ቀይር",
+    "after": "ተምስል ለሀላ መበገሲ ቀይር",
+    "reason": "Replace the Tigrinya-seeded Change Background Image label with exact Tigre corpus image and background entries plus the attested change imperative; retain full compound order for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "allBoardsChangeBackgroundImagePopup-title",
+    "before": "ስእሊ ድሕረ ባይታ ቀይር",
+    "after": "ተምስል ለሀላ መበገሲ ቀይር",
+    "reason": "Replace the Tigrinya-seeded Change Background Image label with exact Tigre corpus image and background entries plus the attested change imperative; retain full compound order for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "boardBackgroundsPopup-title",
+    "before": "ድሕረ ባይታታት ሰሌዳ",
+    "after": "መበገሲታት ምዱድ",
+    "reason": "Replace the Tigrinya-seeded Board backgrounds label with the exact Tigre background noun and established board noun; retain the derived plural and compound order for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "board-backgrounds",
+    "before": "ድሕረ ባይታታት ሰሌዳ",
+    "after": "መበገሲታት ምዱድ",
+    "reason": "Replace the Tigrinya-seeded Board backgrounds label with the exact Tigre background noun and established board noun; retain the derived plural and compound order for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "boardBackgrounds-title",
+    "before": "ድሕረ ባይታታት ሰሌዳ",
+    "after": "መበገሲታት ምዱድ",
+    "reason": "Replace the Tigrinya-seeded Board backgrounds label with the exact Tigre background noun and established board noun; retain the derived plural and compound order for fluent review."
   }
 ]
