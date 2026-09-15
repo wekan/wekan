@@ -30594,3 +30594,13 @@ runtime calendar IDs, newer-value preservation and all 234 locale inventories.
 Original counts are 15,845 corrected, 35 pending, 4,197 retained and four
 restored. The tracked Inuktitut row is complete. No live selector or remote
 write occurred.
+
+### 2026-09-15 — Tamazight tabular Hijri variants
+
+Source commit `10aa310033` replaces both English seeds with the established
+Islamic-calendar base, local calculation and beginning terms, and the defining
+Julian start dates: civil 622-07-16 and astronomical 622-07-15. This preserves
+the algorithm distinction without misusing a furniture-table noun. Full
+compounds remain low confidence. Four focused files pass for 20,052 corrections
+and all 234 locale inventories. Pending is 33 (Tamazight 32), restored four
+unchanged. No live selector or remote write.

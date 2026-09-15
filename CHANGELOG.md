@@ -1696,6 +1696,18 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/10aa31003">Translate Tamazight tabular Hijri labels.</a></summary>
+
+Replace two English seeds with calculated Islamic-calendar labels and exact,
+distinct Julian civil and astronomical start dates. Avoid the unrelated
+furniture-table noun. Four focused files pass; full compounds remain under
+native review.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

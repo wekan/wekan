@@ -3782,6 +3782,17 @@ sighting remains a separate unresolved qualifier.
 No translations or counts changed. Pending 157 original findings;
 Tamazight 64. No live calendar UI test ran; no remote writes were made.
 
+### Resolution — 2026-09-15
+
+Source commit `10aa310033` replaces both seeds using the established Islamic
+calendar base, local calculation `ⵓⵙⵉⴹⴻⵏ` and beginning `ⵜⵓⴷⴷⵎⴰ` terms.
+Rather than inventing a tabular adjective, it states the defining Julian start
+dates: civil 622-07-16 and astronomical 622-07-15. Exact tests preserve the
+shared calculated form and distinct epochs. Four focused files pass for all
+20,052 corrections and 234 locale inventories. Pending is 33 (Tamazight 32),
+restored four unchanged. Julian-name adaptation and full compounds remain low
+confidence; no live selector or remote write.
+
 
 ## Saudi sighting-calendar label — repair 2026-09-15
 

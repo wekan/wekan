@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-15**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,845 |
+| Corrected | 15,847 |
 | Restored pre-pull; awaiting validation | 4 |
 | Reviewed; retained unchanged | 4,197 |
-| Pending review or repair | 35 |
+| Pending review or repair | 33 |
 | Total tracked | 20,081 |
 
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
@@ -16,13 +16,11 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `b5acfdaec3` — replace all 15 remaining
-Inuktitut calendar findings with the official Nunavut-attested
-`ᐅᓪᓗᖅᓯᐅᑎ` calendar noun and existing syllabic UI vocabulary. Every named
-system remains distinct, including civil, astronomical and moon-sighting
-Hijri variants. Four focused files pass; ledger 20,050, original pending 35
-(Inuktitut tracked queue complete), restored 4 unchanged. Full compounds and
-proper-name adaptations remain low confidence.
+Latest translation fix: **2026-09-15**, `10aa310033` — replace Tamazight's two
+English tabular Hijri seeds with calculated-calendar labels and their exact,
+distinct Julian start dates. This avoids misusing the dictionary furniture-
+table noun. Four focused files pass; ledger 20,052, original pending 33
+(Tamazight 32), restored 4 unchanged. Full compounds remain low confidence.
 
 The tracked Tigre calendar queue being empty does not certify the locale. Of
 2,592 non-English Tigre values, 917 are byte-for-byte identical to Tigrinya,
@@ -31,7 +29,7 @@ Tigre-specific sources use different forms. This is now an explicit broader
 wrong-language review item and must be resolved before the full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **20,050** exact before/after values, including unflagged
+records contain **20,052** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -51,7 +49,7 @@ restored values still await full native clause validation.
 
 | Pending locale | Findings |
 | --- | ---: |
-| zgh — Standard Moroccan Tamazight | 34 |
+| zgh — Standard Moroccan Tamazight | 32 |
 | rup — Aromanian | 1 |
 
 Remaining review includes all restored, unflagged and prior low-confidence
