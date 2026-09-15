@@ -62,7 +62,7 @@ WebApp.handlers.use('/site.webmanifest', async (req, res, next) => {
   return next();
 });
 
-WebApp.handlers.use('/.well-known/assetlinks.json', async (req, res, next) => {
+const serveAssetLinks = async (req, res, next) => {
   if (req.method !== 'GET' && req.method !== 'HEAD') return next();
   const setting = await Settings.findOneAsync(
     {},
@@ -86,4 +86,8 @@ WebApp.handlers.use('/.well-known/assetlinks.json', async (req, res, next) => {
   }
 
   return next();
-});
+};
+
+// Keep the Android Digital Asset Links endpoint and serve the Admin Panel URL too.
+WebApp.handlers.use('/.well-known/assetlinks.json', serveAssetLinks);
+WebApp.handlers.use('/well-known/assetlinks.json', serveAssetLinks);
