@@ -639,7 +639,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v11.83 2026-09-16 WeKan ® release
 
 **In short:** **Custom logos** appear directly on login and board pages, and site
 admins can upload them to Default Storage. Repository mirroring now checks
