@@ -29,6 +29,11 @@ Template.userFormsLayout.onCreated(function () {
   const templateInstance = this;
   templateInstance.currentSetting = new ReactiveVar();
   templateInstance.isLoading = new ReactiveVar(false);
+  templateInstance.subscribe('setting', {
+    onReady() {
+      templateInstance.currentSetting.set(ReactiveCache.getCurrentSetting());
+    },
+  });
   // The Meteor accounts-* OAuth providers the server reports enabled (keys
   // only) and whether e-mailed one-time-code login is on; both are filled by
   // the getAuthenticationsEnabled call in onRendered.
@@ -64,12 +69,6 @@ Template.userFormsLayout.onCreated(function () {
       }
     });
 
-    Meteor.subscribe('setting', {
-      onReady() {
-        templateInstance.currentSetting.set(ReactiveCache.getCurrentSetting());
-        return this.stop();
-      },
-    });
   }
 });
 
@@ -272,6 +271,9 @@ Template.userFormsLayout.onDestroyed(() => {
 });
 
 Template.userFormsLayout.helpers({
+  logoSettingsReady() {
+    return Template.instance().subscriptionsReady();
+  },
   // One entry per enabled Meteor accounts-* provider: key, icon class and the
   // translated provider name for {{_ 'sign-in-with' label}}. No credential
   // ever reaches this list - the server sends keys only.

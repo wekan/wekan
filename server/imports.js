@@ -171,6 +171,7 @@ import '/server/statistics';
 // 5. Server — attachment handling
 // ----------------------------------------------------------------------------
 import '/server/attachmentApi';
+import '/server/siteLogoUpload';
 import '/server/attachmentMigration';
 import '/server/attachmentMigrationStatus';
 import '/server/attachmentBulkMove';

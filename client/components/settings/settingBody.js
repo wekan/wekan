@@ -947,6 +947,33 @@ function saveVisibilitySettings($set) {
 }
 
 Template.tableVisibilityModeSettings.events({
+  async 'change input.js-site-logo-upload'(event, tpl) {
+    const input = event.currentTarget;
+    const file = input.files?.[0];
+    if (!file) return;
+    const status = tpl.find('.js-site-logo-upload-status');
+    const kind = input.dataset.kind;
+    input.value = '';
+    if (file.size > 2 * 1024 * 1024 || !['image/png', 'image/jpeg', 'image/gif', 'image/webp'].includes(file.type)) {
+      if (status) status.textContent = 'Upload a PNG, JPEG, GIF or WebP image smaller than 2 MB';
+      return;
+    }
+    if (status) status.textContent = TAPi18n.__('upload') + '…';
+    try {
+      const base64 = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onerror = () => reject(reader.error);
+        reader.onload = () => resolve(String(reader.result).split(',')[1]);
+        reader.readAsDataURL(file);
+      });
+      const url = await Meteor.callAsync('uploadSiteLogo', kind, base64);
+      const field = tpl.find(kind === 'login' ? '#custom-login-logo-image-url' : '#custom-top-left-corner-logo-image-url');
+      if (field) field.value = url;
+      if (status) status.textContent = TAPi18n.__('save');
+    } catch (error) {
+      if (status) status.textContent = error.reason || error.message || 'Upload failed';
+    }
+  },
   // ── All Boards ────────────────────────────────────────────────────────────
   // Boards visibility, board activities, the two All Boards lists and the spinner.
   //

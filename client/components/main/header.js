@@ -66,6 +66,7 @@ Template.header.onCreated(function () {
   const templateInstance = this;
   templateInstance.currentSetting = new ReactiveVar();
   templateInstance.isLoading = new ReactiveVar(false);
+  templateInstance.subscribe('setting');
 
   // Publish the page's path so the browser tab can carry it too. Here rather
   // than in `Utils`, because this is the one place that already works it out
@@ -74,30 +75,11 @@ Template.header.onCreated(function () {
     headerPathVar.set(headerFullPath());
   });
 
-  Meteor.subscribe('setting', {
-    onReady() {
-      templateInstance.currentSetting.set(ReactiveCache.getCurrentSetting());
-      let currSetting = templateInstance.currentSetting.curValue;
-      if (
-        currSetting &&
-        currSetting !== undefined &&
-        currSetting.customLoginLogoImageUrl !== undefined &&
-        document.getElementById('headerIsSettingDatabaseCallDone') != null
-      )
-        document.getElementById(
-          'headerIsSettingDatabaseCallDone',
-        ).style.display = 'none';
-      else if (
-        document.getElementById('headerIsSettingDatabaseCallDone') != null
-      )
-        document.getElementById(
-          'headerIsSettingDatabaseCallDone',
-        ).style.display = 'block';
-      return this.stop();
-    },
-  });
 });
 Template.header.helpers({
+  logoSettingsReady() {
+    return Template.instance().subscriptionsReady();
+  },
   // The page's title, beside the house icon. A board's own title wherever there
   // is a board; otherwise the page's, by route name. Two helpers rather than
   // one string, because a translated title has to go through {{_ }} and a board

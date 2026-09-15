@@ -1541,10 +1541,6 @@ body.mobile-mode #header-quick-access .allBoards {
   margin: 7px;
   padding: 0;
 }
-#headerIsSettingDatabaseCallDone {
-  display: none;
-}
-
 /* ── Small screens: home ICON only, never the "All Boards" label ─────────────
    This block is last in the file on purpose.
 

@@ -19,6 +19,8 @@ import { fileStoreStrategyFactory as avatarStoreFactory } from '/models/avatars.
 import { correctedNameForStoredFile } from '/models/lib/fileTypeCorrection';
 const { sanitizeDownloadFileName } = require('/imports/lib/fileNameDisplay');
 import Boards from '/models/boards';
+import Settings from '/models/settings';
+const {isActiveSiteLogo} = require('/models/lib/siteLogo');
 import { getAttachmentWithBackwardCompatibility, getOldAttachmentStream } from '/models/lib/attachmentBackwardCompatibility';
 import { canReadBoard } from '/models/lib/boardVisibility';
 import fs from 'fs';
@@ -571,20 +573,30 @@ if (Meteor.isServer) {
         return;
       }
 
-      // Check permissions
-      const board = await ReactiveCache.getBoard(attachment.meta.boardId);
-      if (!board) {
-        res.writeHead(404);
-        res.end('Board not found');
-        return;
-      }
-
-      // Enforce cookie/header/query-based auth for private boards
-      const authorized = await isAuthorizedForBoard(req, board);
-      if (!authorized) {
-        res.writeHead(403);
-        res.end('Access denied');
-        return;
+      // The currently configured site logo must be readable on the login
+      // page, before a user can authenticate. No other attachment is public
+      // through this exception, including an older replaced logo.
+      const siteLogo = attachment.meta?.source === 'site-logo';
+      if (siteLogo) {
+        const setting = await Settings.findOneAsync();
+        if (!isActiveSiteLogo(attachment, setting, fileId)) {
+          res.writeHead(404);
+          res.end('Logo not found');
+          return;
+        }
+      } else {
+        const board = await ReactiveCache.getBoard(attachment.meta.boardId);
+        if (!board) {
+          res.writeHead(404);
+          res.end('Board not found');
+          return;
+        }
+        const authorized = await isAuthorizedForBoard(req, board);
+        if (!authorized) {
+          res.writeHead(403);
+          res.end('Access denied');
+          return;
+        }
       }
 
       // Lazy upgrade: only touch old metadata when an authorized request is

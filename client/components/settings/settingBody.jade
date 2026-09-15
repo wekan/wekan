@@ -487,6 +487,7 @@ template(name='tableVisibilityModeSettings')
         .title {{_ 'custom-login-logo-image-url'}}
         .form-group
           input.wekan-form-control#custom-login-logo-image-url(type="text", placeholder="" value="{{currentSetting.customLoginLogoImageUrl}}")
+          input.js-site-logo-upload(type="file" data-kind="login" accept="image/png,image/jpeg,image/gif,image/webp" aria-label="{{_ 'upload'}} {{_ 'custom-login-logo-image-url'}}")
       li.tableVisibilityMode-form
         .title {{_ 'custom-login-logo-link-url'}}
         .form-group
@@ -499,6 +500,9 @@ template(name='tableVisibilityModeSettings')
         .title {{_ 'custom-top-left-corner-logo-image-url'}}
         .form-group
           input.wekan-form-control#custom-top-left-corner-logo-image-url(type="text", placeholder="" value="{{currentSetting.customTopLeftCornerLogoImageUrl}}")
+          input.js-site-logo-upload(type="file" data-kind="header" accept="image/png,image/jpeg,image/gif,image/webp" aria-label="{{_ 'upload'}} {{_ 'custom-top-left-corner-logo-image-url'}}")
+      li.tableVisibilityMode-form
+        span.js-site-logo-upload-status(role="status" aria-live="polite")
       li.tableVisibilityMode-form
         .title {{_ 'custom-top-left-corner-logo-link-url'}}
         .form-group
