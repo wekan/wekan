@@ -2080,6 +2080,16 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0eac733cd">Repair corpus-supported Tigre exact controls.</a></summary>
+
+Replace Tigrinya Website, Special, Buttons and Collections values with
+Tigre corpus-grounded terms; mark derived plurals for fluent review.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/0ef3ca6dd">Repair missed Tigre Organizations control.</a></summary>
 
 Replace the remaining exact Tigrinya Organizations plural and extend the

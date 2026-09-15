@@ -31250,3 +31250,15 @@ form. All 21,889 corrections and 234 locale inventories pass. Raw exact
 overlap falls to 243, with 22 attested shared forms and 221 unclassified; 25
 raw matches contain at least 20 characters and 6 contain at least 35. The
 plural remains low confidence pending fluent review. No remote write occurred.
+
+### 2026-09-15 — Corpus-supported Tigre exact controls
+
+Source commit `0eac733cd` repairs four values still exactly equal to
+Tigrinya. Corpus website sentences use `መውቅዕ`, and a Special page
+sentence uses `ፍንቱይ`. Corpus headwords attest Button `ሰድፈት`
+and Collection `አከቦት`; their regular plural UI forms are derived and
+remain low confidence pending fluent review. Matching English source-sense
+and exact-result guards pass. All 21,893 correction records and 234 locale
+inventories pass. Raw exact overlap falls to 239, with 22 attested shared
+forms and 217 unclassified; 25 raw matches contain at least 20 characters
+and 6 contain at least 35. No remote write occurred.
