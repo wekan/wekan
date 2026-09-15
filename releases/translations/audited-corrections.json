@@ -145535,5 +145535,138 @@
     "before": "Azure Portal → Storage accounts → መለያኻ → Security + networking → Access keys → key1 → Show → Key።",
     "after": "Azure Portal → Storage accounts → ሕሳብከ → Security + networking → Access keys → key1 → ኣርኤ → Key።",
     "reason": "Replace the Tigrinya possessive and action in an Azure menu path with corpus-attested Tigre Account and Show forms while preserving every vendor menu token and separator."
+  },
+  {
+    "locale": "tig",
+    "key": "text-note-text",
+    "before": "ጽሑፍ",
+    "after": "ክቱብ",
+    "reason": "Replace a repeated Tigrinya-seeded UI noun with a Tigre corpus-attested noun or its regular plural, keeping one term across related controls."
+  },
+  {
+    "locale": "tig",
+    "key": "custom-field-text",
+    "before": "ጽሑፍ",
+    "after": "ክቱብ",
+    "reason": "Replace a repeated Tigrinya-seeded UI noun with a Tigre corpus-attested noun or its regular plural, keeping one term across related controls."
+  },
+  {
+    "locale": "tig",
+    "key": "text",
+    "before": "ጽሑፍ",
+    "after": "ክቱብ",
+    "reason": "Replace a repeated Tigrinya-seeded UI noun with a Tigre corpus-attested noun or its regular plural, keeping one term across related controls."
+  },
+  {
+    "locale": "tig",
+    "key": "text-note-title",
+    "before": "ኣርእስቲ",
+    "after": "አርእስ",
+    "reason": "Replace a repeated Tigrinya-seeded UI noun with a Tigre corpus-attested noun or its regular plural, keeping one term across related controls."
+  },
+  {
+    "locale": "tig",
+    "key": "operator-title",
+    "before": "ኣርእስቲ",
+    "after": "አርእስ",
+    "reason": "Replace a repeated Tigrinya-seeded UI noun with a Tigre corpus-attested noun or its regular plural, keeping one term across related controls."
+  },
+  {
+    "locale": "tig",
+    "key": "move-source",
+    "before": "ምንጪ",
+    "after": "መበገሲ",
+    "reason": "Replace a repeated Tigrinya-seeded UI noun with a Tigre corpus-attested noun or its regular plural, keeping one term across related controls."
+  },
+  {
+    "locale": "tig",
+    "key": "event-source",
+    "before": "ምንጪ",
+    "after": "መበገሲ",
+    "reason": "Replace a repeated Tigrinya-seeded UI noun with a Tigre corpus-attested noun or its regular plural, keeping one term across related controls."
+  },
+  {
+    "locale": "tig",
+    "key": "list-sync-source-type",
+    "before": "ምንጪ",
+    "after": "መበገሲ",
+    "reason": "Replace a repeated Tigrinya-seeded UI noun with a Tigre corpus-attested noun or its regular plural, keeping one term across related controls."
+  },
+  {
+    "locale": "tig",
+    "key": "support",
+    "before": "ደገፍ",
+    "after": "ሰዳየት",
+    "reason": "Replace a repeated Tigrinya-seeded UI noun with a Tigre corpus-attested noun or its regular plural, keeping one term across related controls."
+  },
+  {
+    "locale": "tig",
+    "key": "supportPopup-title",
+    "before": "ደገፍ",
+    "after": "ሰዳየት",
+    "reason": "Replace a repeated Tigrinya-seeded UI noun with a Tigre corpus-attested noun or its regular plural, keeping one term across related controls."
+  },
+  {
+    "locale": "tig",
+    "key": "public",
+    "before": "ህዝባዊ",
+    "after": "ናይ ገቢል",
+    "reason": "Replace a repeated Tigrinya-seeded UI noun with a Tigre corpus-attested noun or its regular plural, keeping one term across related controls."
+  },
+  {
+    "locale": "tig",
+    "key": "predicate-public",
+    "before": "ህዝባዊ",
+    "after": "ናይ ገቢል",
+    "reason": "Replace a repeated Tigrinya-seeded UI noun with a Tigre corpus-attested noun or its regular plural, keeping one term across related controls."
+  },
+  {
+    "locale": "tig",
+    "key": "boards",
+    "before": "ሰሌዳታት",
+    "after": "ምዱዳት",
+    "reason": "Replace a repeated Tigrinya-seeded UI noun with a Tigre corpus-attested noun or its regular plural, keeping one term across related controls."
+  },
+  {
+    "locale": "tig",
+    "key": "myCardsViewChange-choice-boards",
+    "before": "ሰሌዳታት",
+    "after": "ምዱዳት",
+    "reason": "Replace a repeated Tigrinya-seeded UI noun with a Tigre corpus-attested noun or its regular plural, keeping one term across related controls."
+  },
+  {
+    "locale": "tig",
+    "key": "cardLabelsPopup-title",
+    "before": "ምልክታት",
+    "after": "እሻራት",
+    "reason": "Replace a repeated Tigrinya-seeded UI noun with a Tigre corpus-attested noun or its regular plural, keeping one term across related controls."
+  },
+  {
+    "locale": "tig",
+    "key": "labels",
+    "before": "ምልክታት",
+    "after": "እሻራት",
+    "reason": "Replace a repeated Tigrinya-seeded UI noun with a Tigre corpus-attested noun or its regular plural, keeping one term across related controls."
+  },
+  {
+    "locale": "tig",
+    "key": "avatars-upload-blocked-label",
+    "before": "ስእልታት መንነት",
+    "after": "ተምሳላት መንነት",
+    "reason": "Replace a repeated Tigrinya-seeded UI noun with a Tigre corpus-attested noun or its regular plural, keeping one term across related controls."
+  },
+  {
+    "locale": "tig",
+    "key": "move-scope-avatars",
+    "before": "ስእልታት መንነት",
+    "after": "ተምሳላት መንነት",
+    "reason": "Replace a repeated Tigrinya-seeded UI noun with a Tigre corpus-attested noun or its regular plural, keeping one term across related controls."
+  },
+  {
+    "locale": "tig",
+    "key": "avatars",
+    "before": "ስእልታት መንነት",
+    "after": "ተምሳላት መንነት",
+    "reason": "Replace a repeated Tigrinya-seeded UI noun with a Tigre corpus-attested noun or its regular plural, keeping one term across related controls."
   }
 ]
