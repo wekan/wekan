@@ -47,3 +47,11 @@ assert.deepEqual(tokens(aromanian['act-deleteCard']),
   ['__board__', '__card__', '__list__', '__swimlane__']);
 
 console.log('aromanianTranslationProgress: complete locale passed');
+
+assert.equal(aromanian['color-magenta'], 'arosh-vinjit',
+  'magenta uses the locale-established Aromanian red-violet components');
+assert.notEqual(aromanian['color-magenta'], english['color-magenta'],
+  'magenta is no longer an English placeholder');
+assert.match(aromanian['color-magenta'], new RegExp(
+  `^${aromanian['color-red']}-${aromanian['color-purple']}$`),
+  'magenta stays composed from the current red and purple labels');
