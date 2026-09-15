@@ -16,16 +16,15 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `f18a925c2` — replace Aromanian's
-English-valued `magenta` with `arosh-vinjit`, composed from its existing red
-and purple labels and independently attested Aromanian color components.
-Source commit `ee9228ab6` clears the remaining Tamazight migration family.
-Six focused files pass; ledger 20,086. The original audit now has zero pending
-rows. Both the color compound and Tamazight technical prose remain under
-native review.
+Latest translation fix: **2026-09-15**, `9ab9215c6` — replace 12 unflagged
+Tigre date, day, month and weekday values copied from Tigrinya with forms from
+the 58,298-entry BeitTigreAI English–Tigre corpus. Four focused files pass;
+ledger 20,098. The original audit remains fully classified, while broader
+Tigre–Tigrinya overlap falls from 917 to 905 values, including 143 long clauses
+still requiring phrase-level review.
 
 The tracked Tigre calendar queue being empty does not certify the locale. Of
-2,592 non-English Tigre values, 917 are byte-for-byte identical to Tigrinya,
+2,592 non-English Tigre values, 905 are byte-for-byte identical to Tigrinya,
 including long clauses; several basic date words also match Tigrinya while
 Tigre-specific sources use different forms. This is now an explicit broader
 wrong-language review item and must be resolved before the full audit closes.

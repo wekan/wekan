@@ -30653,3 +30653,16 @@ corrected and 4,201 retained, with zero pending and zero restored. The ledger
 contains 20,086 exact changes, including unflagged repairs. Six focused suites
 pass. Broader unflagged, whole-locale and prior low-confidence review remains
 open; no remote write occurred.
+
+### 2026-09-15 — Tigre basic date vocabulary
+
+Source commit `9ab9215c6` replaces 12 unflagged Date, Day, Month and weekday
+values copied from Tigrinya. The downloaded 58,298-entry BeitTigreAI
+English–Tigre corpus directly supplies every selected form, and the Tigre
+glibc locale independently corroborates weekday distinctions. Four focused
+files pass for exact values, negative Tigrinya equality, all 20,098 correction
+records and all 234 locale inventories.
+
+Measured exact non-English Tigre–Tigrinya overlap falls from 917 to 905 values;
+143 long identical clauses remain. This is concrete progress on the broader
+unflagged review, not whole-locale certification. No remote write occurred.

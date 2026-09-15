@@ -1785,6 +1785,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9ab9215c6">Repair Tigre basic date vocabulary.</a></summary>
+
+Replace 12 Date, Day, Month and weekday values copied from Tigrinya with
+corpus-backed Tigre forms. Focused checks keep date/day semantics distinct and
+reject the Tigrinya seeds. Broader whole-locale review continues.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

@@ -228,3 +228,19 @@ Tigre phrasebook and glibc locale use distinct forms such as `ወርሕ` and
 `ኣረርባዓ`. These are broader unflagged wrong-language candidates and remain
 open; completing the 17-row detector queue is not a claim of whole-file Tigre
 fluency.
+
+## Tigre basic date vocabulary repaired — 2026-09-15
+
+Source commit `9ab9215c6` replaces 12 unflagged values copied byte-for-byte
+from Tigrinya: the two Date labels, Day, both Month labels and seven weekdays.
+The 58,298-entry BeitTigreAI English–Tigre corpus directly returns `ተመር`,
+`ምዕል`, `ወርሕ` and the selected weekday forms; the Tigre glibc locale
+independently corroborates weekday distinctions. Date and day remain distinct,
+and the same month noun is used for the search predicate.
+
+Four focused files pass for exact forms, negative Tigrinya equality, all
+20,098 correction records and all 234 locale inventories. Exact non-English
+Tigre–Tigrinya overlap falls from 917 to 905 values; all 143 long identical
+clauses still require phrase-level review. Corpus alternatives may reflect
+regional variation, so the selected forms remain open to fluent review. No
+live calendar UI test or remote write ran.
