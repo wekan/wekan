@@ -648,7 +648,8 @@ link and email-address terms; five popup/copy labels reuse native
 control wording. Six shared UI labels reuse native import, invite, unknown,
 type, size and restore terms. Admin Panel version labels now use a native
 Tamazight noun; its version-check button and failure text use local
-check/number terms. Rules distinguish states from actions, and deletion warnings
+check/number terms. Board/card headings and removal actions use native
+local components. Rules distinguish states from actions, and deletion warnings
 name irreversible effects. Import, PDF, administrator and filename
 messages retain their conditions. Tigre help and error drafts replace
 English and Tigrinya. The list-width popup states its 200-pixel
@@ -722,6 +723,16 @@ plain-source security settings.
 </details>
 
 **Translations** - Tamazight, Tigre and multilingual list-width repairs.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/18a11d121">Repair Tamazight board/card headings and actions</a>. Thanks to xet7.</summary>
+
+My Boards, My Cards, To boards, Close Board and two member-removal
+labels replace Arabic/French seeds with native local terms. Focused
+source, token, ledger and 234-locale checks pass; the full compounds
+still await fluent review.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ff5a286b5">Replace mixed Tamazight version-check messages</a>. Thanks to xet7.</summary>

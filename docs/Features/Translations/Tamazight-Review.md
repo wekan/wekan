@@ -1,5 +1,22 @@
 # Standard Moroccan Tamazight reference review
 
+## Board/card headings and removal actions, 2026-09-15 (`18a11d121`)
+
+My Boards and My Cards now combine native plurals with the existing
+possessive `ⵉⵏⵓ`; My Cards exactly matches the shortcut-filter phrase.
+To boards uses the local direction marker `ⵖⵔ`, Close Board the local
+close verb `ⵔⴳⵍ`, and the board/card member-removal actions the local
+Remove Member verb `ⴽⴽⵙ` and from marker `ⵙⴳ`. The board/card nouns
+come from existing WeKan phrases. The full constructions remain
+**low confidence** for native grammatical review.
+
+The focused test verifies source tokens, exact correction records and
+active My Cards, invitation and member-removal controls. My Boards
+and Close Board are present as locale keys but were not found in the
+current active templates. All 234 locales remain structurally complete;
+Arabic-script values fall from 109 to 104. Other wrong-language values
+need individual semantic review.
+
 ## Check Version button and failure message, 2026-09-15 (`ff5a286b5`)
 
 The Admin Panel button and its offline/timeout/error fallback no longer
