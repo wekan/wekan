@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Nastaviť šírku",
   "set-list-width": "Nastaviť šírku",
   "set-list-width-value": "Šírka zoznamu (pixely)",
-  "list-width-error-message": "Šírka zoznamu musí byť celé číslo väčšie ako 270",
+  "list-width-error-message": "Šírka zoznamu musí byť celé číslo aspoň 200 pixelov.",
   "list-width-shared-note": "Táto šírka je zdieľaná so všetkými na tejto nástenke.",
   "list-width-personal-note": "Táto šírka je len pre vás.",
   "personal-list-width": "Osobné šírky zoznamov",

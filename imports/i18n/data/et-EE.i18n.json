@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Määra laius",
   "set-list-width": "Määra laius",
   "set-list-width-value": "Nimekirja laius (pikslites)",
-  "list-width-error-message": "Nimekirja laius peab olema täisarv, mis on suurem kui 270",
+  "list-width-error-message": "Nimekirja laius peab olema täisarv vähemalt 200 pikslit.",
   "list-width-shared-note": "See laius on jagatud kõigi selle tahvli kasutajatega.",
   "list-width-personal-note": "See laius on ainult sinu jaoks.",
   "personal-list-width": "Isiklikud nimekirjade laiused",

@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Szélesség beállítása",
   "set-list-width": "Szélesség beállítása",
   "set-list-width-value": "Lista szélessége (pixel)",
-  "list-width-error-message": "A lista szélességének 270-nél nagyobb egész számnak kell lennie",
+  "list-width-error-message": "A lista szélességének legalább 200 pixeles egész számnak kell lennie.",
   "list-width-shared-note": "Ezt a szélességet a tábla minden tagja megosztva látja.",
   "list-width-personal-note": "Ez a szélesség csak neked szól.",
   "personal-list-width": "Személyes lista szélességek",

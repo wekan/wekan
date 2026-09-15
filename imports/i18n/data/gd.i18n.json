@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Suidhich leud",
   "set-list-width": "Suidhich leud",
   "set-list-width-value": "Leud na liosta (piogsailean)",
-  "list-width-error-message": "Feumaidh leud na liosta a bhith na shlàn-àireamh nas motha na 270",
+  "list-width-error-message": "Feumaidh leud na liosta a bhith na shlàn-àireamh, co-dhiù 200 piogsailean.",
   "list-width-shared-note": "Tha an leud seo air a cho-roinneadh leis a h-uile duine air a' bhòrd seo.",
   "list-width-personal-note": "Tha an leud seo dhut fhèin a-mhàin.",
   "personal-list-width": "Leudan liosta pearsanta",

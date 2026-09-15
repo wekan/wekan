@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Таъини паҳноӣ",
   "set-list-width": "Таъини паҳноӣ",
   "set-list-width-value": "Паҳноии рӯйхат (пиксел)",
-  "list-width-error-message": "Паҳноии рӯйхат бояд адади бутуни аз 270 калон бошад",
+  "list-width-error-message": "Паҳноии рӯйхат бояд адади бутуни на камтар аз 200 пиксел бошад.",
   "list-width-shared-note": "Ин паҳноӣ бо ҳама дар ин тахта муштарак аст.",
   "list-width-personal-note": "Ин паҳноӣ танҳо барои шумост.",
   "personal-list-width": "Паҳноиҳои шахсии рӯйхат",

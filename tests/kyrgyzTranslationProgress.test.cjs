@@ -54,7 +54,8 @@ assert.match(kyrgyz['allboards.edit-workspace-icon'], /markdown/);
 assert.equal(kyrgyz['workspaceActionsPopup-title'],
   'Иш мейкиндигинин жөндөөлөрү');
 assert.deepEqual(tokens(kyrgyz['activity-dueDate']), ['%s', '%s']);
-assert.match(kyrgyz['list-width-error-message'], /270/);
+assert.match(kyrgyz['list-width-error-message'], /кеминде 200 пиксел.*бүтүн сан/);
+assert.doesNotMatch(kyrgyz['list-width-error-message'], /270/);
 assert.match(kyrgyz['set-swimlane-height-value'], /пиксел/);
 assert.equal(kyrgyz['add-checklist'], 'Текшерүү тизмесин кошуу');
 assert.deepEqual(tokens(kyrgyz['and-n-other-card']), ['__count__']);

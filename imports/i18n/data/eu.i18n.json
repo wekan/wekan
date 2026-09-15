@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Ezarri zabalera",
   "set-list-width": "Ezarri zabalera",
   "set-list-width-value": "Zerrendaren zabalera (pixelak)",
-  "list-width-error-message": "Zerrendaren zabalerak 270 baino handiagoa den zenbaki osoa izan behar du",
+  "list-width-error-message": "Zerrendaren zabalerak gutxienez 200 pixeleko zenbaki osoa izan behar du.",
   "list-width-shared-note": "Zabalera hau arbel honetako guztiekin partekatzen da.",
   "list-width-personal-note": "Zabalera hau zuretzat soilik da.",
   "personal-list-width": "Zerrenden zabalera pertsonalak",

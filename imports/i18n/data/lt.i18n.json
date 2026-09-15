@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Nustatyti plotį",
   "set-list-width": "Nustatyti plotį",
   "set-list-width-value": "Sąrašo plotis (pikseliais)",
-  "list-width-error-message": "Sąrašo plotis turi būti sveikasis skaičius, didesnis nei 270",
+  "list-width-error-message": "Sąrašo plotis turi būti sveikasis skaičius, bent 200 pikselių.",
   "list-width-shared-note": "Šis plotis bendras visiems šios lentos nariams.",
   "list-width-personal-note": "Šis plotis skirtas tik jums.",
   "personal-list-width": "Asmeniniai sąrašų pločiai",

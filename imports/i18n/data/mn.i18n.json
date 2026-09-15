@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Өргөн тохируулах",
   "set-list-width": "Өргөн тохируулах",
   "set-list-width-value": "Жагсаалтын өргөн (пиксел)",
-  "list-width-error-message": "Жагсаалтын өргөн нь 270-аас их бүхэл тоо байх ёстой",
+  "list-width-error-message": "Жагсаалтын өргөн нь дор хаяж 200 пикселийн бүхэл тоо байх ёстой.",
   "list-width-shared-note": "Энэ өргөн нь энэ самбар дээрх бүх хүнтэй хуваалцагдана.",
   "list-width-personal-note": "Энэ өргөн зөвхөн танд зориулагдсан.",
   "personal-list-width": "Хувийн жагсаалтын өргөн",

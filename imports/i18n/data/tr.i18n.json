@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Genişliği ayarla",
   "set-list-width": "Genişliği ayarla",
   "set-list-width-value": "Liste genişliği (piksel)",
-  "list-width-error-message": "Liste genişliği 270'ten büyük bir tam sayı olmalıdır",
+  "list-width-error-message": "Liste genişliği en az 200 piksel olan bir tam sayı olmalıdır.",
   "list-width-shared-note": "Bu genişlik bu panodaki herkesle paylaşılır.",
   "list-width-personal-note": "Bu genişlik yalnızca sizin içindir.",
   "personal-list-width": "Kişisel liste genişlikleri",

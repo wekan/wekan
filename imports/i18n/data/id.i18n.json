@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Setel lebar",
   "set-list-width": "Setel lebar",
   "set-list-width-value": "Lebar daftar (piksel)",
-  "list-width-error-message": "Lebar daftar harus berupa bilangan bulat lebih dari 270",
+  "list-width-error-message": "Lebar daftar harus berupa bilangan bulat setidaknya 200 piksel.",
   "list-width-shared-note": "Lebar ini dibagikan dengan semua orang di papan ini.",
   "list-width-personal-note": "Lebar ini hanya untuk Anda.",
   "personal-list-width": "Lebar daftar pribadi",

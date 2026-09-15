@@ -44,7 +44,8 @@ assert.equal(kazakh['allboards.workspaces'], 'Жұмыс кеңістіктер�
 assert.equal(kazakh['workspace-settings'], 'Жұмыс кеңістігінің параметрлері');
 assert.equal(kazakh['home-board-badge'],
   'Басты тақта (кіргеннен кейін ашылады)');
-assert.match(kazakh['list-width-error-message'], /270/);
+assert.match(kazakh['list-width-error-message'], /кемінде 200 пиксель.*бүтін сан/);
+assert.doesNotMatch(kazakh['list-width-error-message'], /270/);
 assert.equal(kazakh['add-checklist'], 'Тексеру тізімін қосу');
 assert.deepEqual(tokens(kazakh['avatar-too-big']), ['__size__']);
 assert.equal(kazakh['board-not-found'], 'Тақта табылмады');

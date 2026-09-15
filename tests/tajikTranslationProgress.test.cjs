@@ -58,7 +58,8 @@ assert.deepEqual(tokens(tajik['activity-checklist-completed-card']),
 assert.equal(tajik['allboards.workspaces'], 'Фазоҳои корӣ');
 assert.match(tajik['allboards.edit-workspace-icon'], /markdown/);
 assert.deepEqual(tokens(tajik['activity-dueDate']), ['%s', '%s']);
-assert.match(tajik['list-width-error-message'], /270/);
+assert.match(tajik['list-width-error-message'], /адади бутуни.*на камтар аз 200 пиксел/);
+assert.doesNotMatch(tajik['list-width-error-message'], /270/);
 assert.equal(tajik['fixed-list-width'],
   'Паҳноии яксон барои ҳамаи рӯйхатҳо');
 assert.match(tajik['set-swimlane-height-value'], /пиксел/);

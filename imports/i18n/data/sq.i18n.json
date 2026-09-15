@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Cakto gjerësinë",
   "set-list-width": "Cakto gjerësinë",
   "set-list-width-value": "Gjerësia e listës (pikselë)",
-  "list-width-error-message": "Gjerësia e listës duhet të jetë numër i plotë më i madh se 270",
+  "list-width-error-message": "Gjerësia e listës duhet të jetë numër i plotë prej të paktën 200 pikselësh.",
   "list-width-shared-note": "Kjo gjerësi ndahet me të gjithë në këtë tabelë.",
   "list-width-personal-note": "Kjo gjerësi është vetëm për ty.",
   "personal-list-width": "Gjerësi personale të listave",

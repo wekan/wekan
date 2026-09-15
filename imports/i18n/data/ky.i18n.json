@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Туурасын коюу",
   "set-list-width": "Туурасын коюу",
   "set-list-width-value": "Тизменин туурасы (пиксел)",
-  "list-width-error-message": "Тизменин туурасы 270тен чоң бүтүн сан болушу керек",
+  "list-width-error-message": "Тизменин туурасы кеминде 200 пиксел болгон бүтүн сан болушу керек.",
   "list-width-shared-note": "Бул туура ушул тактадагы бардык адамдар менен бөлүшүлөт.",
   "list-width-personal-note": "Бул туура сиз үчүн гана.",
   "personal-list-width": "Жеке тизме тууралары",

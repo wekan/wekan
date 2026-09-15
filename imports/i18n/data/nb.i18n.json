@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Angi bredde",
   "set-list-width": "Angi bredde",
   "set-list-width-value": "Listebredde (piksler)",
-  "list-width-error-message": "Listebredden må være et heltall større enn 270",
+  "list-width-error-message": "Listebredden må være et heltall på minst 200 piksler.",
   "list-width-shared-note": "Denne bredden deles med alle på denne tavlen.",
   "list-width-personal-note": "Denne bredden gjelder bare for deg.",
   "personal-list-width": "Personlige listebredder",

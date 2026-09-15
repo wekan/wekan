@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Енін орнату",
   "set-list-width": "Енін орнату",
   "set-list-width-value": "Тізім ені (пиксель)",
-  "list-width-error-message": "Тізім ені 270-тен үлкен бүтін сан болуы керек",
+  "list-width-error-message": "Тізім ені кемінде 200 пиксель болатын бүтін сан болуы керек.",
   "list-width-shared-note": "Бұл ен осы тақтадағы барлығына ортақ.",
   "list-width-personal-note": "Бұл ен тек сізге арналған.",
   "personal-list-width": "Жеке тізім ендері",

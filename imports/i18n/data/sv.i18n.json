@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Ange bredd",
   "set-list-width": "Ange bredd",
   "set-list-width-value": "Listbredd (pixlar)",
-  "list-width-error-message": "Listbredden måste vara ett heltal större än 270",
+  "list-width-error-message": "Listbredden måste vara ett heltal på minst 200 pixlar.",
   "list-width-shared-note": "Den här bredden delas med alla på den här tavlan.",
   "list-width-personal-note": "Den här bredden gäller endast för dig.",
   "personal-list-width": "Personliga listbredder",

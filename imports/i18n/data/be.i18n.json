@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Задаць шырыню",
   "set-list-width": "Задаць шырыню",
   "set-list-width-value": "Шырыня спіса (пікселі)",
-  "list-width-error-message": "Шырыня спіса павінна быць цэлым лікам больш за 270",
+  "list-width-error-message": "Шырыня спіса павінна быць цэлым лікам не менш за 200 пікселяў.",
   "list-width-shared-note": "Гэтая шырыня агульная для ўсіх на гэтай дошцы.",
   "list-width-personal-note": "Гэтая шырыня толькі для вас.",
   "personal-list-width": "Асабістая шырыня спісаў",

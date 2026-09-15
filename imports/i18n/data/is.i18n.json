@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Stilla breidd",
   "set-list-width": "Stilla breidd",
   "set-list-width-value": "Breidd lista (dílar)",
-  "list-width-error-message": "Breidd lista verður að vera heil tala stærri en 270",
+  "list-width-error-message": "Breidd lista verður að vera heil tala, að minnsta kosti 200 dílar.",
   "list-width-shared-note": "Þessari breidd er deilt með öllum á töflunni.",
   "list-width-personal-note": "Þessi breidd er aðeins fyrir þig.",
   "personal-list-width": "Persónulegar listabreiddir",

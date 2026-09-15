@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "სიგანის დაყენება",
   "set-list-width": "სიგანის დაყენება",
   "set-list-width-value": "სიის სიგანე (პიქსელი)",
-  "list-width-error-message": "სიის სიგანე უნდა იყოს 270-ზე მეტი მთელი რიცხვი",
+  "list-width-error-message": "სიის სიგანე უნდა იყოს მთელი რიცხვი, მინიმუმ 200 პიქსელი.",
   "list-width-shared-note": "ეს სიგანე საერთოა ამ დაფის ყველა წევრისთვის.",
   "list-width-personal-note": "ეს სიგანე მხოლოდ თქვენთვისაა.",
   "personal-list-width": "პირადი სიის სიგანეები",

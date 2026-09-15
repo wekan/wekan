@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Mearrit govdodaga",
   "set-list-width": "Mearrit govdodaga",
   "set-list-width-value": "Listtu govdodat (piksealat)",
-  "list-width-error-message": "Listtu govdodat ferte leat ollislohku mii lea stuorit go 270",
+  "list-width-error-message": "Listtu govdodat ferte leat ollislohku, unnimusat 200 pikseala.",
   "list-width-shared-note": "Dát govdodat juhkkojuvvo buohkaiguin dán távvalis.",
   "list-width-personal-note": "Dát govdodat lea dušše dutnje.",
   "personal-list-width": "Persovnnalaš listogovdodagat",

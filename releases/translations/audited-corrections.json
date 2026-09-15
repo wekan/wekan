@@ -154194,5 +154194,201 @@
     "before": "列表宽度必须为大于 270 的整数",
     "after": "列表嘅闊度至少要 200 像素，而且要係整數。",
     "reason": "Replace Mandarin-seeded >270 rule with provisional Cantonese 嘅, 闊度 and 係; complete Cantonese sentence remains low-confidence pending native review."
+  },
+  {
+    "locale": "da",
+    "key": "list-width-error-message",
+    "before": "Listebredden skal være et heltal større end 270",
+    "after": "Listebredden skal være et heltal på mindst 200 pixels.",
+    "reason": "Correct obsolete >270 rule to actual inclusive 200-pixel integer minimum with local vocabulary."
+  },
+  {
+    "locale": "et-EE",
+    "key": "list-width-error-message",
+    "before": "Nimekirja laius peab olema täisarv, mis on suurem kui 270",
+    "after": "Nimekirja laius peab olema täisarv vähemalt 200 pikslit.",
+    "reason": "Correct obsolete >270 rule to actual inclusive 200-pixel integer minimum with local vocabulary."
+  },
+  {
+    "locale": "eu",
+    "key": "list-width-error-message",
+    "before": "Zerrendaren zabalerak 270 baino handiagoa den zenbaki osoa izan behar du",
+    "after": "Zerrendaren zabalerak gutxienez 200 pixeleko zenbaki osoa izan behar du.",
+    "reason": "Correct obsolete >270 rule to actual inclusive 200-pixel integer minimum with local vocabulary."
+  },
+  {
+    "locale": "fi",
+    "key": "list-width-error-message",
+    "before": "Listan leveyden täytyy olla kokonaisluku, joka on suurempi kuin 270",
+    "after": "Listan leveyden on oltava kokonaisluku, vähintään 200 pikseliä.",
+    "reason": "Correct obsolete >270 rule to actual inclusive 200-pixel integer minimum with local vocabulary."
+  },
+  {
+    "locale": "fo",
+    "key": "list-width-error-message",
+    "before": "Listabreiddin skal vera eitt heilt tal størri enn 270",
+    "after": "Listabreiddin skal vera eitt heilt tal, í minsta lagi 200 myndpunkt.",
+    "reason": "Correct obsolete >270 rule to actual inclusive 200-pixel integer minimum with local vocabulary."
+  },
+  {
+    "locale": "ga",
+    "key": "list-width-error-message",
+    "before": "Caithfidh leithead an liosta a bheith ina shlánuimhir níos mó ná 270",
+    "after": "Caithfidh leithead an liosta a bheith ina shlánuimhir de 200 picteilín ar a laghad.",
+    "reason": "Correct obsolete >270 rule to actual inclusive 200-pixel integer minimum with local vocabulary."
+  },
+  {
+    "locale": "gd",
+    "key": "list-width-error-message",
+    "before": "Feumaidh leud na liosta a bhith na shlàn-àireamh nas motha na 270",
+    "after": "Feumaidh leud na liosta a bhith na shlàn-àireamh, co-dhiù 200 piogsailean.",
+    "reason": "Correct obsolete >270 rule to actual inclusive 200-pixel integer minimum with local vocabulary."
+  },
+  {
+    "locale": "hu",
+    "key": "list-width-error-message",
+    "before": "A lista szélességének 270-nél nagyobb egész számnak kell lennie",
+    "after": "A lista szélességének legalább 200 pixeles egész számnak kell lennie.",
+    "reason": "Correct obsolete >270 rule to actual inclusive 200-pixel integer minimum with local vocabulary."
+  },
+  {
+    "locale": "id",
+    "key": "list-width-error-message",
+    "before": "Lebar daftar harus berupa bilangan bulat lebih dari 270",
+    "after": "Lebar daftar harus berupa bilangan bulat setidaknya 200 piksel.",
+    "reason": "Correct obsolete >270 rule to actual inclusive 200-pixel integer minimum with local vocabulary."
+  },
+  {
+    "locale": "is",
+    "key": "list-width-error-message",
+    "before": "Breidd lista verður að vera heil tala stærri en 270",
+    "after": "Breidd lista verður að vera heil tala, að minnsta kosti 200 dílar.",
+    "reason": "Correct obsolete >270 rule to actual inclusive 200-pixel integer minimum with local vocabulary."
+  },
+  {
+    "locale": "ka",
+    "key": "list-width-error-message",
+    "before": "სიის სიგანე უნდა იყოს 270-ზე მეტი მთელი რიცხვი",
+    "after": "სიის სიგანე უნდა იყოს მთელი რიცხვი, მინიმუმ 200 პიქსელი.",
+    "reason": "Correct obsolete >270 rule to actual inclusive 200-pixel integer minimum with local vocabulary. Full clause remains low-confidence pending native grammar review."
+  },
+  {
+    "locale": "kk",
+    "key": "list-width-error-message",
+    "before": "Тізім ені 270-тен үлкен бүтін сан болуы керек",
+    "after": "Тізім ені кемінде 200 пиксель болатын бүтін сан болуы керек.",
+    "reason": "Correct obsolete >270 rule to actual inclusive 200-pixel integer minimum with local vocabulary."
+  },
+  {
+    "locale": "ky",
+    "key": "list-width-error-message",
+    "before": "Тизменин туурасы 270тен чоң бүтүн сан болушу керек",
+    "after": "Тизменин туурасы кеминде 200 пиксел болгон бүтүн сан болушу керек.",
+    "reason": "Correct obsolete >270 rule to actual inclusive 200-pixel integer minimum with local vocabulary."
+  },
+  {
+    "locale": "lt",
+    "key": "list-width-error-message",
+    "before": "Sąrašo plotis turi būti sveikasis skaičius, didesnis nei 270",
+    "after": "Sąrašo plotis turi būti sveikasis skaičius, bent 200 pikselių.",
+    "reason": "Correct obsolete >270 rule to actual inclusive 200-pixel integer minimum with local vocabulary."
+  },
+  {
+    "locale": "lv",
+    "key": "list-width-error-message",
+    "before": "Saraksta platumam jābūt veselam skaitlim, lielākam par 270",
+    "after": "Saraksta platumam jābūt veselam skaitlim, vismaz 200 pikseļiem.",
+    "reason": "Correct obsolete >270 rule to actual inclusive 200-pixel integer minimum with local vocabulary. Full clause remains low-confidence pending native grammar review."
+  },
+  {
+    "locale": "mn",
+    "key": "list-width-error-message",
+    "before": "Жагсаалтын өргөн нь 270-аас их бүхэл тоо байх ёстой",
+    "after": "Жагсаалтын өргөн нь дор хаяж 200 пикселийн бүхэл тоо байх ёстой.",
+    "reason": "Correct obsolete >270 rule to actual inclusive 200-pixel integer minimum with local vocabulary."
+  },
+  {
+    "locale": "nb",
+    "key": "list-width-error-message",
+    "before": "Listebredden må være et heltall større enn 270",
+    "after": "Listebredden må være et heltall på minst 200 piksler.",
+    "reason": "Correct obsolete >270 rule to actual inclusive 200-pixel integer minimum with local vocabulary."
+  },
+  {
+    "locale": "sk",
+    "key": "list-width-error-message",
+    "before": "Šírka zoznamu musí byť celé číslo väčšie ako 270",
+    "after": "Šírka zoznamu musí byť celé číslo aspoň 200 pixelov.",
+    "reason": "Correct obsolete >270 rule to actual inclusive 200-pixel integer minimum with local vocabulary."
+  },
+  {
+    "locale": "sv",
+    "key": "list-width-error-message",
+    "before": "Listbredden måste vara ett heltal större än 270",
+    "after": "Listbredden måste vara ett heltal på minst 200 pixlar.",
+    "reason": "Correct obsolete >270 rule to actual inclusive 200-pixel integer minimum with local vocabulary."
+  },
+  {
+    "locale": "tr",
+    "key": "list-width-error-message",
+    "before": "Liste genişliği 270'ten büyük bir tam sayı olmalıdır",
+    "after": "Liste genişliği en az 200 piksel olan bir tam sayı olmalıdır.",
+    "reason": "Correct obsolete >270 rule to actual inclusive 200-pixel integer minimum with local vocabulary."
+  },
+  {
+    "locale": "sq",
+    "key": "list-width-error-message",
+    "before": "Gjerësia e listës duhet të jetë numër i plotë më i madh se 270",
+    "after": "Gjerësia e listës duhet të jetë numër i plotë prej të paktën 200 pikselësh.",
+    "reason": "Correct obsolete >270 rule to actual inclusive 200-pixel integer minimum with local vocabulary."
+  },
+  {
+    "locale": "bg",
+    "key": "list-width-error-message",
+    "before": "Ширината на списъка трябва да е цяло число, по-голямо от 270",
+    "after": "Ширината на списъка трябва да е цяло число от поне 200 пиксела.",
+    "reason": "Correct obsolete >270 rule to actual inclusive 200-pixel integer minimum with local vocabulary."
+  },
+  {
+    "locale": "be",
+    "key": "list-width-error-message",
+    "before": "Шырыня спіса павінна быць цэлым лікам больш за 270",
+    "after": "Шырыня спіса павінна быць цэлым лікам не менш за 200 пікселяў.",
+    "reason": "Correct obsolete >270 rule to actual inclusive 200-pixel integer minimum with local vocabulary."
+  },
+  {
+    "locale": "hy",
+    "key": "list-width-error-message",
+    "before": "Ցուցակի լայնությունը պետք է լինի 270-ից մեծ ամբողջ թիվ",
+    "after": "Ցուցակի լայնությունը պետք է լինի ամբողջ թիվ՝ առնվազն 200 պիքսել։",
+    "reason": "Correct obsolete >270 rule to actual inclusive 200-pixel integer minimum with local vocabulary."
+  },
+  {
+    "locale": "mk",
+    "key": "list-width-error-message",
+    "before": "Ширината на листата мора да биде цел број поголем од 270",
+    "after": "Ширината на листата мора да биде цел број од најмалку 200 пиксели.",
+    "reason": "Correct obsolete >270 rule to actual inclusive 200-pixel integer minimum with local vocabulary."
+  },
+  {
+    "locale": "se",
+    "key": "list-width-error-message",
+    "before": "Listtu govdodat ferte leat ollislohku mii lea stuorit go 270",
+    "after": "Listtu govdodat ferte leat ollislohku, unnimusat 200 pikseala.",
+    "reason": "Correct obsolete >270 rule to actual inclusive 200-pixel integer minimum with local vocabulary. Full clause remains low-confidence pending native grammar review."
+  },
+  {
+    "locale": "tg",
+    "key": "list-width-error-message",
+    "before": "Паҳноии рӯйхат бояд адади бутуни аз 270 калон бошад",
+    "after": "Паҳноии рӯйхат бояд адади бутуни на камтар аз 200 пиксел бошад.",
+    "reason": "Correct obsolete >270 rule to actual inclusive 200-pixel integer minimum with local vocabulary."
+  },
+  {
+    "locale": "mt",
+    "key": "list-width-error-message",
+    "before": "Lista width must be an integer greater than 270",
+    "after": "Il-wisa' tal-lista trid tkun numru sħiħ ta' mill-inqas 200 pixel.",
+    "reason": "Correct obsolete >270 rule to actual inclusive 200-pixel integer minimum with local vocabulary. Full clause remains low-confidence pending native grammar review."
   }
 ]

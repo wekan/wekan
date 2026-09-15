@@ -7,7 +7,11 @@ const sprintf = require('i18next-sprintf-postprocessor');
 const root = path.resolve(__dirname, '..');
 const lv = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/lv.i18n.json'), 'utf8'));
 const records = JSON.parse(fs.readFileSync(path.join(root, 'releases/translations/audited-corrections.json'), 'utf8')).filter(row => row.locale === 'lv');
-assert.equal(records.length, 403, '402 wording corrections plus the earlier JSON example repair');
+assert.ok(records.length >= 403,
+  'retain the 402 wording corrections and earlier JSON example repair');
+assert.equal(new Set(records.map(row => row.key)).size, records.length,
+  'later semantic repairs keep one correction record per key');
+for (const row of records) assert.equal(row.after, lv[row.key], row.key);
 for (const row of records) assert.doesNotMatch(row.after, /pridė|kortelės|sąrašo|vartotoj|jungtis/i, row.key);
 assert.equal(lv['custom-field-stringtemplate-format'], 'Formāts (izmantojiet %{value} kā vietturi)');
 assert.match(lv['globalSearch-instructions-notes-2'], /\*VAI\*/);
