@@ -1,5 +1,20 @@
 # Standard Moroccan Tamazight reference review
 
+## Admin Panel version terminology, 2026-09-15 (`413b4ef40`)
+
+The native Standard Moroccan Tamazight MediaWiki locale uses
+`ⵜⵓⵏⵖⵉⵍⵜ` in its Version page and version-required messages:
+[MediaWiki zgh locale](https://github.com/wikimedia/mediawiki/blob/master/languages/i18n/zgh.json).
+The WeKan, Meteor, MongoDB, FerretDB and Node version rows now use
+that noun instead of Arabic, French or a different local noun.
+Product names are preserved, as is the existing MongoDB compatibility
+qualifier. The exact compound grammar needs native review.
+
+Focused production-source, token and correction-ledger checks pass;
+all 234 locale files remain complete. Arabic-script values fall from
+113 to 111. The adjacent Check Version button, its error message and
+other version-name terminology still mix languages and need review.
+
 ## Shared UI labels, 2026-09-15 (`63da3d3c9`)
 
 Six Arabic-seeded labels outside the original findings now reuse native

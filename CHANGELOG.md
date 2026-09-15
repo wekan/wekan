@@ -646,7 +646,8 @@ Tamazight rule, popup, warning and activity text replaces wrong-language
 values. Three Arabic common labels now use native Tamazight comment,
 link and email-address terms; five popup/copy labels reuse native
 control wording. Six shared UI labels reuse native import, invite, unknown,
-type, size and restore terms. Rules distinguish states from actions, and deletion warnings
+type, size and restore terms. Admin Panel version labels now use a native
+Tamazight noun. Rules distinguish states from actions, and deletion warnings
 name irreversible effects. Import, PDF, administrator and filename
 messages retain their conditions. Tigre help and error drafts replace
 English and Tigrinya. The list-width popup states its 200-pixel
@@ -720,6 +721,17 @@ plain-source security settings.
 </details>
 
 **Translations** - Tamazight, Tigre and multilingual list-width repairs.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/413b4ef40">Use native Tamazight version noun in Admin Panel</a>. Thanks to xet7.</summary>
+
+WeKan, Meteor, MongoDB, FerretDB and Node version labels reuse a
+Standard Moroccan Tamazight version noun attested in MediaWiki.
+Proper names and MongoDB's compatibility qualifier remain intact.
+Focused, ledger and 234-locale checks pass; full compound wording
+still needs fluent review.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/63da3d3c9">Reuse native Tamazight shared UI labels</a>. Thanks to xet7.</summary>
