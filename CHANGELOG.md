@@ -2080,6 +2080,16 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/6b78c88cb">Repair Tigre Endpoint terminology.</a></summary>
+
+Use the existing technical Endpoint term in three API/S3 contexts instead of
+translating it as a temporal end.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/0eac733cd">Repair corpus-supported Tigre exact controls.</a></summary>
 
 Replace Tigrinya Website, Special, Buttons and Collections values with

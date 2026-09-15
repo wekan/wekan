@@ -788,3 +788,16 @@ and exact-result guards pass. All 21,893 correction records and 234 locale
 inventories pass. Raw exact overlap falls to 239, with 22 attested shared
 forms and 217 unclassified; 25 raw matches contain at least 20 characters
 and 6 contain at least 35. No remote write occurred.
+
+### 2026-09-15 — Tigre Endpoint meaning repair
+
+Source commit `6b78c88cb` repairs three API/S3 contexts where the Tigrinya
+seed rendered technical Endpoint as a temporal end. Existing S3 fields
+already keep `Endpoint`, so the replacement uses that local technical term.
+The API report phrase and S3 help text remain mixed-language and require
+full-clause fluent review; this fix only resolves the demonstrable noun-sense
+error. One sequential correction is consolidated by key, leaving 21,895
+verified final correction records. Source-sense and negative tests pass with
+all 234 locale inventories. Raw exact overlap falls to 238, with 22 attested
+shared forms and 216 unclassified; 25 raw matches contain at least 20
+characters and 6 contain at least 35. No remote write occurred.
