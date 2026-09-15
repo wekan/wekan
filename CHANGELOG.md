@@ -1541,6 +1541,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8a66f4c74">Repair Veps voting-side labels.</a></summary>
+
+Replace four Finnish participant and action labels using rendered native Veps
+voting, defense and opposition references. Four focused files pass (40 checks).
+Derived participant wording remains under native review.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

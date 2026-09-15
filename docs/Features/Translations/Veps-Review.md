@@ -1064,3 +1064,20 @@ negative wrong-language checks, newer-value preservation and all 234 locale
 token/key inventories. No live Problems page ran. Original pending remains
 126 and restored remains 4; broader candidate and prior low-confidence review
 remains active.
+
+2026-09-15 — `8a66f4c74`: repaired four Finnish voting-side values in
+Veps. Visually inspected the Zajceva/Mullonen dictionary scans cached as
+`.tools/tmp/veps-native-source/voting-100.png`, `voting-331.png` and
+`voting-370.png`. Printed page 100 directly attests `änestamine` and
+`änestada`; page 331 attests `tugeta` and `tugi`; page 370 directly attests
+`vastustai (-jan, -jid)` for opponent, `vastustada` for oppose, and the
+oppositional adverb/construction. Additional rendered/extracted entries attest
+`polestada` for defending oneself, a position, freedom or ecology. The voting
+buttons now use directly attested infinitives `Polestada` and `Vastustada`.
+Popup headings use the corresponding participant plurals `Polestajad` and
+`Vastustajad`; their derivation, especially Proponents → `Polestajad`, remains
+LOW CONFIDENCE and needs native contextual review. Four focused files pass
+(40 checks): 19,973 correction records, distinct positive/negative sides,
+wrong-language rejection, newer-value preservation and all 234 locale token/key
+inventories. No live voting UI ran. Original pending remains 126 and restored
+remains 4; broader candidate and prior low-confidence review remains active.
