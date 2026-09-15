@@ -636,22 +636,30 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**In short:** Tamazight rule, shortcut and warning text replaces wrong-language
-values. Rule labels retain state and action distinctions; deletion warnings
-retain irreversibility and affected content. Import mapping text uses the
-attested check verb. Checklist compounds use an attested verification noun.
-Import, PDF and administrator
-messages preserve their conditions and alternatives. Filename warnings retain
-cancellation of upload or renaming. Watch text covers boards
-and cards. Search help clarifies case-insensitive matching. Regression checks
-preserve placeholders and verify source wiring;
-full contextual grammar remains under native review.
-Tigre S3 help, Trello credentials, an authentication error and a PDF
-fallback warning replace English and Tigrinya drafts. The list-width popup
-now states and enforces its 200-pixel whole-number rule. Complete compounds
-remain under native review.
+**In short:** Docker images reach Docker Hub and GHCR even while Quay
+refuses writes; Quay receives the published manifest when available.
+Tamazight rule, popup, warning and activity text replaces wrong-language
+values. Rules distinguish states from actions, and deletion warnings
+name irreversible effects. Import, PDF, administrator and filename
+messages retain their conditions. Tigre help and error drafts replace
+English and Tigrinya. The list-width popup states its 200-pixel
+whole-number rule. Regression checks preserve placeholders and source
+wiring; complete Tamazight grammar remains under native review.
 
 This release includes the following features and fixes:
+
+**Bug fixes** - Docker registry outage handling.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e6685eb0b">Keep Docker publication available during Quay read-only outages</a>. Thanks to xet7.</summary>
+
+Build the multi-arch image once for Docker Hub and GHCR, then
+copy its published manifest to Quay. A Quay-wide read-only
+outage warns while the available registries stay published;
+other refusals still fail. Mocked shell, YAML and Docker guards
+pass. Live registry publishing remains a maintainer step.
+
+</details>
 
 **Translations** - Tamazight, Tigre and multilingual list-width repairs.
 

@@ -33,9 +33,12 @@ const callbacks = [];
 const startup = [];
 const selections = [];
 let languageChange;
+const helpers = {};
 const client = fs.readFileSync(path.join(__dirname, '../client/lib/i18n.js'), 'utf8').replace(/^import .*;$/gm, '');
 vm.runInNewContext(client, {
-  require: () => ({preferredLanguage}),
+  require: name => name.endsWith('/browserLanguage') ? {preferredLanguage}
+    : require('../imports/i18n/ruleGrammar'),
+  Template: {registerHelper(name, helper) {helpers[name] = helper;}},
   Meteor: {startup(callback) {startup.push(callback);}},
   Tracker: {autorun(callback) {callbacks.push(callback); callback();}},
   ReactiveCache: {getCurrentUser: () => profile},
@@ -43,6 +46,8 @@ vm.runInNewContext(client, {
   navigator:browser, window:{addEventListener(name, callback) {assert.equal(name,'languagechange'); languageChange=callback;}},
   console,
 });
+assert.equal(typeof helpers.ruleTriggerCopula, 'function');
+assert.equal(typeof helpers.ruleNameBeforeSubject, 'function');
 startup.forEach(callback => callback());
 assert.equal(selections.at(-1), 'fr-CA');
 profile = {profile:{language:'de'}};
