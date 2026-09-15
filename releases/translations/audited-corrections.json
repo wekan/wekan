@@ -139886,5 +139886,12 @@
     "before": "Näytä kenttien summa listan yläosassa",
     "after": "Ozuta pöudoiden luguiden ližaduz lugetižen ülähäl",
     "reason": "2026-09-15: Replace Finnish with a Veps numeric-sum/list-top control label. The control renders only for number and currency fields; reuse the primary-dictionary-attested luguiden ližaduz from the existing numeric-total tooltip plus established show, field and list-top wording. Full assembled case grammar remains low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "enable-vertical-scrollbars",
+    "before": "Ota pystysuuntaiset vierityspalkit käyttöön",
+    "after": "Pane päle vertikaližed skrolindan čurad",
+    "reason": "2026-09-15: Replace Finnish with an explicit Veps vertical-scrollbar draft. The setting controls scrollbar visibility on board, list, card and sidebar containers; use the primary-dictionary-attested vertical adjective plus existing enable, scrolling and UI-bar terminology. The assembled scrollbar compound remains low confidence."
   }
 ]

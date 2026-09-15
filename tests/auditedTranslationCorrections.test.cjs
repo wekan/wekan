@@ -2954,6 +2954,20 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(customFieldForm, /isTypeNotSelected 'number'[\s\S]*showSum-field-on-list/);
   const sumLogic = fs.readFileSync(path.join(root, 'client/components/lists/listHeader.js'), 'utf8');
   assert.match(sumLogic, /TAPi18n\.__\('sum-of-number-fields'\)/);
+  assert.equal(cache['ve-PP']['enable-vertical-scrollbars'], 'Pane päle vertikaližed skrolindan čurad');
+  assert.doesNotMatch(cache['ve-PP']['enable-vertical-scrollbars'], /Ota|pystysuuntaiset|vierityspalkit|käyttöön/);
+  assert.match(cache['ve-PP']['enable-vertical-scrollbars'], /^Pane päle.*vertikaližed.*skrolindan čurad$/);
+  const sidebarTemplate = fs.readFileSync(path.join(root, 'client/components/sidebar/sidebar.jade'), 'utf8');
+  assert.match(sidebarTemplate, /js-vertical-scrollbars-toggle\(title="\{\{_ 'enable-vertical-scrollbars'\}\}"\)/);
+  assert.match(sidebarTemplate, /span \{\{_ 'enable-vertical-scrollbars'\}\}/);
+  for (const template of [
+    'client/components/boards/boardBody.jade',
+    'client/components/cards/cardDetails.jade',
+    'client/components/lists/listBody.jade',
+    'client/components/sidebar/sidebar.jade',
+  ]) {
+    assert.match(fs.readFileSync(path.join(root, template), 'utf8'), /unless isVerticalScrollbars.*no-scrollbars/, template);
+  }
   assert.equal(vepsTranslator.t('MongoDB_storage_engine'), 'MongoDB kaičusen motor');
   assert.doesNotMatch(vepsTranslator.t('MongoDB_storage_engine'), /tallennusmoottori/);
   assert.equal(vepsTranslator.t('zoom-in'), 'Surenda');

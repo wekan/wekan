@@ -642,7 +642,7 @@
   "email-sent": "Email-kirjeine om oigetud",
   "email-verifyEmail-subject": "Vahvištoita ičeiž email-počtan adres saital __siteName__",
   "email-verifyEmail-text": "Tervhen __user__,\n\nMiše vahvištoitta sinun akkauntan email-počtan adresad, paina alemba anttud tarkendust.\n\n__url__\n\nSpasib.",
-  "enable-vertical-scrollbars": "Ota pystysuuntaiset vierityspalkit käyttöön",
+  "enable-vertical-scrollbars": "Pane päle vertikaližed skrolindan čurad",
   "enable-wip-limit": "Avaida WIP-röun",
   "error-board-doesNotExist": "Nece laud ei ole",
   "error-board-notAdmin": "Sinun pidab olda necen laudan administrator, miše tehta necidä.",
