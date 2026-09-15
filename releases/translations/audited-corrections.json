@@ -156007,5 +156007,40 @@
     "before": "استعادة",
     "after": "ⵙⵙⵓⴽⵏ",
     "reason": "Reuse the native Restore action for backup restore controls."
+  },
+  {
+    "locale": "zgh",
+    "key": "info",
+    "before": "الإصدار",
+    "after": "ⵜⵓⵏⵖⵉⵍⵜ",
+    "reason": "Use the Standard Moroccan Tamazight version noun attested in MediaWiki for the WeKan version row."
+  },
+  {
+    "locale": "zgh",
+    "key": "Meteor_version",
+    "before": "Version de Meteor",
+    "after": "ⵜⵓⵏⵖⵉⵍⵜ ⵏ Meteor",
+    "reason": "Use the attested native version noun; keep Meteor as a proper product name."
+  },
+  {
+    "locale": "zgh",
+    "key": "MongoDB_version",
+    "before": "ⵜⴰⵎⵉⵔⴰⵏⵜ ⵢⴻⵎⵚⴰⴷⴰⵏ ⴷ MongoDB",
+    "after": "ⵜⵓⵏⵖⵉⵍⵜ ⵢⴻⵎⵚⴰⴷⴰⵏ ⴷ MongoDB",
+    "reason": "Replace the version noun while preserving the local compatible qualifier and product name."
+  },
+  {
+    "locale": "zgh",
+    "key": "FerretDB_version",
+    "before": "ⵜⴰⵎⵉⵔⴰⵏⵜ ⵏ FerretDB",
+    "after": "ⵜⵓⵏⵖⵉⵍⵜ ⵏ FerretDB",
+    "reason": "Use the attested version noun; keep FerretDB as a proper product name."
+  },
+  {
+    "locale": "zgh",
+    "key": "Node_version",
+    "before": "إصدار النود",
+    "after": "ⵜⵓⵏⵖⵉⵍⵜ ⵏ Node",
+    "reason": "Use the attested version noun; keep Node as a proper product name."
   }
 ]
