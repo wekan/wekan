@@ -155286,5 +155286,12 @@
     "before": "ስሌት ሰማያዊ",
     "after": "ስሌት አዝረቁ",
     "reason": "Replace Tigrinya blue component in exact copied slate-blue label with BeitTigreAI Tigre headword አዝረቁ glossed blue. Keep technical slate loan from local label; whole compound and slate loan remain low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "email-address",
+    "before": "Adresse de courriel",
+    "after": "ⴰⵏⵙⴰ ⵏ ⵉⵎⴰⵢⵍ",
+    "reason": "Replace French email-address placeholder with Standard Moroccan Tamazight phrase. Native MediaWiki zgh createacct-email-ph directly uses ⴰⵏⵙⴰ ⵏ ⵉⵎⴰⵢⵍ for email address, preserving both address and email. The separate plural label remains unreviewed."
   }
 ]
