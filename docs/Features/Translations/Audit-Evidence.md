@@ -31655,3 +31655,27 @@ obsolete rule. Ledger integrity and 234-locale completeness pass.
 Correction-ledger records rise from 22,099 to 22,111; remaining stale
 list-width values fall from 67 to 55. The original 20,081 audit-row
 classifications remain unchanged. No live UI test or remote write occurred.
+
+### 2026-09-15 — Southern African and Pacific list-width lower bounds
+
+Source commit `3bf6a4c82` repairs nine values: Northern Ndebele, Swati,
+Tswana, Kinyarwanda, Xhosa, Southern Sotho, Samoan, Yoruba and Māori.
+The former values required an integer greater than 270; the new values
+state a whole-number width of at least 200 pixels. Northern Ndebele,
+Swati, Xhosa, Southern Sotho, Samoan and Yoruba minimum expressions
+already occur in related local UI strings. Tswana `bonnye` appears in
+[South African mathematics terminology](https://www.education.gov.za/Portals/0/Documents/MTbBE/mttbe%20terminology/Setswana%20Grade%204%20and%205%20Mathematics%20Terminology.pdf?ver=2025-11-06-164434-480),
+Kinyarwanda `nibura` in a
+[bilingual dictionary](https://historical.fmcusa.org/wp-content/uploads/Dictionary_LoRes_Kinyarwanda-English-English-Kinyarwanda.pdf),
+and Māori `i te iti rawa` in a
+[New Zealand government text](https://www.govt.nz/assets/Documents/Family-and-whanau/Registry-office-ceremony-marriage-vows.pdf).
+The Kinyarwanda, Xhosa, Yoruba and Māori complete clauses remain low
+confidence pending native grammar review; term evidence does not certify
+full sentence fluency. The focused suite checks inclusive native phrase
+inventories, absence of 270, one exact ledger row per locale, uncertainty
+notes and runtime Samoan lookup. Northern Ndebele, Tswana and Māori
+progress suites now test the current rule. Ledger integrity and
+234-locale completeness pass. Correction ledger rises from 22,111 to
+22,120; the remaining list-width queue falls from 55 to 46. Original
+20,081 audit-row classifications are unchanged. No live UI test or
+remote write occurred.
