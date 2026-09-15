@@ -92,7 +92,7 @@ assert.equal(tigre['allboards.workspaces'], 'ቦታታት ዕዮ');
 assert.match(tigre['allboards.edit-workspace-icon'], /markdown/);
 assert.deepEqual(tokens(tigre['activity-dueDate']), ['%s', '%s']);
 assert.match(tigre['archive-permanent-delete-disabled-hint'], /ፓነል/);
-assert.match(tigre['list-width-error-message'], /270/);
+assert.match(tigre['list-width-error-message'], /200/);
 assert.equal(tigre['fixed-list-width'], 'ንኩሎም ዝርዝራት ሓደ ግፍሒ');
 assert.match(tigre['set-swimlane-height-value'], /ፒክሰል/);
 assert.equal(tigre['convertChecklistItemToCardPopup-title'],

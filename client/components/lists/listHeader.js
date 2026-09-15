@@ -23,6 +23,7 @@ import {
 import {
   DEFAULT_LIST_WIDTH,
   MIN_LIST_WIDTH,
+  parseListWidthInput,
   normalizeListWidth,
 } from '/models/lib/listWidth';
 // List sync (docs/Features/ImportExport/Sync.md): UI wiring only, calls the
@@ -1094,6 +1095,9 @@ function setAnonFixedListWidth(boardId, width) {
 }
 
 Template.setListWidthPopup.helpers({
+  listWidthMinimum() {
+    return MIN_LIST_WIDTH;
+  },
   listWidthValue() {
     const list = Template.currentData();
     // #5729 In fixed width mode the input edits the single per-board value.
@@ -1188,9 +1192,9 @@ Template.setListWidthPopup.events({
   'click .list-width-apply'(event, tpl) {
     const list = Template.currentData();
     const boardId = list.boardId;
-    const width = parseInt(tpl.$('.list-width-value').val(), 10);
+    const width = parseListWidthInput(tpl.$('.list-width-value').val());
 
-    if (!width || width < MIN_LIST_WIDTH) {
+    if (width === null) {
       tpl.$('.list-width-error').click();
       return;
     }

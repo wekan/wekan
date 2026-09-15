@@ -384,7 +384,7 @@ template(name="setListWidthPopup")
     unless isAutoWidth
       label {{_ 'set-list-width-value'}}
         p
-          input.list-width-value(type="number" value="{{ listWidthValue }}" min="270")
+          input.list-width-value(type="number" value="{{ listWidthValue }}" min="{{ listWidthMinimum }}" step="1")
           input.list-width-apply(type="submit" value="{{_ 'apply'}}")
           input.list-width-error
     if canChangeAutoWidth
@@ -398,7 +398,7 @@ template(name="setListWidthPopup")
 
 template(name="listWidthErrorPopup")
   .list-width-invalid
-    p {{_ 'list-width-error-message'}} '&gt;=270'
+    p {{_ 'list-width-error-message'}}
     button.full.js-back-view(type="submit") {{_ 'cancel'}}
 
 template(name="setListColorPopup")

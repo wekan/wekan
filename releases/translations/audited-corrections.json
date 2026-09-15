@@ -153466,5 +153466,89 @@
     "before": "መፍትሕን tokenን Trello API ተዓቂቦም። ዳግም ከየእተኻዮም ቦታታት ዕዮ ክትዝርዝር ትኽእል።",
     "after": "መፍቲሕን tokenን Trello API ተዓቂቦም። ዳግም ከየእተኻዮም ቦታታት ዕዮ ክትዝርዝር ትኽእል።",
     "reason": "2026-09-15 Tigre Trello key noun review: BeitTigreAI phrasebook attests መፍቲሕ for key. Apply to the Trello credential family while preserving token, Trello API, .json and URL literals. Full compound grammar remains low confidence. The required prompt also uses corpus-attested ዐይብከ (please), ክልኢቶም (both) and ኣተ (enter), with composed word order pending fluent review."
+  },
+  {
+    "locale": "en-BR",
+    "key": "list-width-error-message",
+    "before": "List width must be an integer greater than 270",
+    "after": "List width must be a whole number of at least 200 pixels",
+    "reason": "2026-09-15 English regional source-sync repair: reflect the Set Width popup shared minimum of 200 whole pixels instead of the outdated greater-than-270 text. Exact English source placeholder only; locale code preserved."
+  },
+  {
+    "locale": "en-DE",
+    "key": "list-width-error-message",
+    "before": "List width must be an integer greater than 270",
+    "after": "List width must be a whole number of at least 200 pixels",
+    "reason": "2026-09-15 English regional source-sync repair: reflect the Set Width popup shared minimum of 200 whole pixels instead of the outdated greater-than-270 text. Exact English source placeholder only; locale code preserved."
+  },
+  {
+    "locale": "en-GB",
+    "key": "list-width-error-message",
+    "before": "List width must be an integer greater than 270",
+    "after": "List width must be a whole number of at least 200 pixels",
+    "reason": "2026-09-15 English regional source-sync repair: reflect the Set Width popup shared minimum of 200 whole pixels instead of the outdated greater-than-270 text. Exact English source placeholder only; locale code preserved."
+  },
+  {
+    "locale": "en-IT",
+    "key": "list-width-error-message",
+    "before": "List width must be an integer greater than 270",
+    "after": "List width must be a whole number of at least 200 pixels",
+    "reason": "2026-09-15 English regional source-sync repair: reflect the Set Width popup shared minimum of 200 whole pixels instead of the outdated greater-than-270 text. Exact English source placeholder only; locale code preserved."
+  },
+  {
+    "locale": "en-MY",
+    "key": "list-width-error-message",
+    "before": "List width must be an integer greater than 270",
+    "after": "List width must be a whole number of at least 200 pixels",
+    "reason": "2026-09-15 English regional source-sync repair: reflect the Set Width popup shared minimum of 200 whole pixels instead of the outdated greater-than-270 text. Exact English source placeholder only; locale code preserved."
+  },
+  {
+    "locale": "en-YS",
+    "key": "list-width-error-message",
+    "before": "List width must be an integer greater than 270",
+    "after": "List width must be a whole number of at least 200 pixels",
+    "reason": "2026-09-15 English regional source-sync repair: reflect the Set Width popup shared minimum of 200 whole pixels instead of the outdated greater-than-270 text. Exact English source placeholder only; locale code preserved."
+  },
+  {
+    "locale": "en_AU",
+    "key": "list-width-error-message",
+    "before": "List width must be an integer greater than 270",
+    "after": "List width must be a whole number of at least 200 pixels",
+    "reason": "2026-09-15 English regional source-sync repair: reflect the Set Width popup shared minimum of 200 whole pixels instead of the outdated greater-than-270 text. Exact English source placeholder only; locale code preserved."
+  },
+  {
+    "locale": "en_ID",
+    "key": "list-width-error-message",
+    "before": "List width must be an integer greater than 270",
+    "after": "List width must be a whole number of at least 200 pixels",
+    "reason": "2026-09-15 English regional source-sync repair: reflect the Set Width popup shared minimum of 200 whole pixels instead of the outdated greater-than-270 text. Exact English source placeholder only; locale code preserved."
+  },
+  {
+    "locale": "en_SG",
+    "key": "list-width-error-message",
+    "before": "List width must be an integer greater than 270",
+    "after": "List width must be a whole number of at least 200 pixels",
+    "reason": "2026-09-15 English regional source-sync repair: reflect the Set Width popup shared minimum of 200 whole pixels instead of the outdated greater-than-270 text. Exact English source placeholder only; locale code preserved."
+  },
+  {
+    "locale": "en_TR",
+    "key": "list-width-error-message",
+    "before": "List width must be an integer greater than 270",
+    "after": "List width must be a whole number of at least 200 pixels",
+    "reason": "2026-09-15 English regional source-sync repair: reflect the Set Width popup shared minimum of 200 whole pixels instead of the outdated greater-than-270 text. Exact English source placeholder only; locale code preserved."
+  },
+  {
+    "locale": "en_ZA",
+    "key": "list-width-error-message",
+    "before": "List width must be an integer greater than 270",
+    "after": "List width must be a whole number of at least 200 pixels",
+    "reason": "2026-09-15 English regional source-sync repair: reflect the Set Width popup shared minimum of 200 whole pixels instead of the outdated greater-than-270 text. Exact English source placeholder only; locale code preserved."
+  },
+  {
+    "locale": "tig",
+    "key": "list-width-error-message",
+    "before": "ግፍሒ ዝርዝር ካብ 270 ዝዓቢ ምሉእ ቁጽሪ ክኸውን ኣለዎ",
+    "after": "ግፍሒ ዝርዝር ምሉእ ዕልብ (ፒክሰል) ≥ 200 ላዝም።",
+    "reason": "2026-09-15 Tigre width validation repair: correct obsolete exact Tigrinya clause and current-rule mismatch. Corpus attests ግፍሒ (width), ምሉእ (whole), ዕልብ (number) and ላዝም (must); ≥ 200 expresses the exact inclusive minimum. Full technical phrase remains low confidence pending native review. Popup now rejects fractional/non-numeric input and derives the 200 minimum from shared source."
   }
 ]

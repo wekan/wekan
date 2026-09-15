@@ -44,6 +44,14 @@ function isValidListWidth(width) {
   );
 }
 
+// The Set Width popup accepts whole pixel values. Parsing with parseInt would
+// silently turn a decimal such as 200.9 into 200, or accept trailing prose.
+function parseListWidthInput(raw) {
+  if (typeof raw !== 'string' || !/^\d+$/.test(raw.trim())) return null;
+  const width = Number(raw.trim());
+  return Number.isSafeInteger(width) && width >= MIN_LIST_WIDTH ? width : null;
+}
+
 // Normalize a stored width: return it when valid, otherwise the fallback
 // (the board-wide default unless the caller supplies another).
 function normalizeListWidth(width, fallback = DEFAULT_LIST_WIDTH) {
@@ -85,6 +93,7 @@ export {
   DEFAULT_LIST_WIDTH,
   MIN_LIST_WIDTH,
   isValidListWidth,
+  parseListWidthInput,
   normalizeListWidth,
   resolveListWidth,
 };
