@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-15**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,785 |
+| Corrected | 15,786 |
 | Restored pre-pull; awaiting validation | 4 |
 | Reviewed; retained unchanged | 4,174 |
-| Pending review or repair | 118 |
+| Pending review or repair | 117 |
 | Total tracked | 20,081 |
 
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
@@ -16,15 +16,15 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `7bc3b73b0` — replace the final tracked
-Finnish Veps paragraph with an advanced-filter draft. Parser and language checks
-preserve every executable operator, field/value, quote, escape, grouping and
-regex example exactly. Six focused files pass (42 checks), including 14/14
-parser cases. Ledger 19,990; original pending 118 (Veps queue complete),
-restored 4 unchanged. The assembled technical prose remains low confidence.
+Latest translation fix: **2026-09-15**, `52836b241` — replace Ewe's incomplete
+English tabular-Islamic label with a calculation-and-epoch draft. A university
+Basic Ewe reference directly attests `akɔ́nta` for calculation and native Ewe
+texts attest `gɔmedzedze` for beginning. Four focused files pass; ledger 19,991,
+original pending 117 (Ewe queue complete), restored 4 unchanged. `astronomi` and
+the assembled technical phrase remain low confidence.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **19,990** exact before/after values, including unflagged
+records contain **19,991** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -48,7 +48,6 @@ restored values still await full native clause validation.
 | nah — Nahuatl | 17 |
 | tig — Tigre | 17 |
 | wal — Wolaytta | 10 |
-| ee — Ewe | 1 |
 | rup — Aromanian | 1 |
 
 Remaining review includes all restored, unflagged and prior low-confidence

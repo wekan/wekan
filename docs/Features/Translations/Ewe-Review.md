@@ -27,3 +27,21 @@ examples do not establish that technical meaning. Next research must seek
 native computational-table and reference-date terminology, then compose
 and review the full label. Preserve correct existing translations and all
 placeholders. No locale value or classification was changed by this review.
+
+## Tabular astronomical label repaired — 2026-09-15
+
+Source commit `52836b241` replaces incomplete English `Islamic tabular` with
+`Hijri kalenda (akɔ́nta dzi, astronomi ƒe gɔmedzedze)`. The University of
+Cologne's Basic Ewe reference directly attests `akɔ́nta` as calculation and
+native Ewe texts independently attest `gɔmedzedze` as beginning. This describes
+the calculated tabular method without misusing the noun for furniture and
+retains an astronomical starting point distinct from the civil epoch and the
+moon-sighting Saudi variant.
+
+No checked native source supplies a settled astronomy term, so `astronomi` is
+a transparent technical loan and the assembled phrase remains LOW CONFIDENCE
+pending native contextual review. Four focused files pass: 19,991 exact
+correction records, distinct calendar variants, registry binding, newer-value
+preservation and all 234 locale token/key inventories. No live calendar picker
+ran. The tracked Ewe queue is complete: overall pending 117, no Ewe row,
+restored four unchanged. Broader uncertain review continues.

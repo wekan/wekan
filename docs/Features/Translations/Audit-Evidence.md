@@ -30495,3 +30495,18 @@ actions; popup, route and literal-key bindings; and all 234 locale inventories.
 No live shortcut UI ran. The syntax-bearing advanced-filter paragraph is the
 last tracked Veps finding; broader unflagged and prior uncertain review
 continues. No external translation service or remote push.
+
+### 2026-09-15 — Ewe calculated Hijri astronomical epoch
+
+Source commit `52836b241` repairs Ewe's sole tracked finding; ledger 19,991,
+corrected tracked rows 15,786, pending 117 with no Ewe row, restored four
+unchanged. Replace incomplete English `Islamic tabular` with an Ewe Hijri label
+that retains both calculation and the astronomical starting point. Basic Ewe
+directly attests `akɔ́nta` for calculation and native Ewe texts attest
+`gɔmedzedze` for beginning. The technical astronomy loan and complete phrase
+remain LOW CONFIDENCE.
+
+Four focused files pass: exact ledger values/tokens/order and newer-human
+preservation, distinct civil/tabular/sighting variants, calendar registry
+binding and all 234 locale inventories. No live calendar picker ran. Broader
+uncertain review continues; no external translation service or remote push.

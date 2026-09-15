@@ -1623,6 +1623,18 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/52836b241">Complete Ewe tabular Hijri calendar label.</a></summary>
+
+Replace an incomplete English label with an Ewe calculation-and-astronomical-
+epoch draft, preserving its distinction from civil and moon-sighting variants.
+Four focused files pass. The technical construction remains under native
+review.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
