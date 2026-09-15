@@ -274,3 +274,13 @@ test("Veps forecasts preserve completion, velocity and date distinctions", () =>
  assert.match(code,/!forecast.projectedDate/);
  assert.match(code,/average: forecast.averagePerBucket/);
 });
+
+test("Veps migration status retains temporary login and CPU warning", () => {
+ const data=JSON.parse(fs.readFileSync("imports/i18n/data/ve-PP.i18n.json","utf8"));
+ for(const key of ["loading","problems-in-progress-help","problems-none-in-progress"]) assert.doesNotMatch(data[key],/Ladataan|odota|pfulutshedzo|lugisa|khou|swikela/);
+ assert.match(data.loading,/ole hüvä, varasta/);
+ assert.match(data["problems-in-progress-help"],/radaba nügüd'.*Sistemaha tulend voib olda hidas/);
+ assert.match(data["problems-in-progress-help"],/Pidab tulda sistemaha.*Ladind, ole hüvä, varasta.*kuni.*CPU-nagruz vähendub/);
+ assert.match(data["problems-none-in-progress"],/ei rada/);
+ assert.notEqual(data["problems-in-progress-help"],data["problems-none-in-progress"]);
+});

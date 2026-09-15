@@ -139627,5 +139627,26 @@
     "before": "Nga luvhilo lwa zwino lwa makhadi a __average__ nga vhege, makhadi a __remaining__ o vulwaho a fanela u fhedza nga __date__.",
     "after": "Jäl'gmäižen aigan tempan __average__ kartad/nedal mödhe __remaining__ völ lopmatomad kartad pidaižiba olda loptud __date__ päivähäsai.",
     "reason": "Replace Tshivenda forecast prose with direct Veps drafts. Preserve zero remaining, no recent completions, weekly average and conditional projected date; exact placeholders intact. Full recency, projection and count/case grammar remain low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "loading",
+    "before": "Ladataan, odota hetki.",
+    "after": "Ladind, ole hüvä, varasta.",
+    "reason": "Replace Finnish/Tshivenda loading and migration-status prose with direct Veps drafts. Preserve active/inactive distinction, possible login delay/error/spinner until completion and CPU load falls. Full grammar and spinner/CPU computing terms remain low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "problems-in-progress-help",
+    "before": "Idzi pfulutshedzo kana u lugisa zwi khou shuma zwino. U dzhena hu nga vha ho lenga, kana ha sumbedza «Ni fanela u dzhena» kana «I khou laiswa, lindelani», u swikela zwi tshi fhela nahone CPU i tshi tsa.",
+    "after": "Necid migracijad libo kohendamised radaba nügüd'. Sistemaha tulend voib olda hidas libo ozutada \"Pidab tulda sistemaha\" libo \"Ladind, ole hüvä, varasta\" ladindan indikator, kuni ned loptadas da CPU-nagruz vähendub.",
+    "reason": "Replace Finnish/Tshivenda loading and migration-status prose with direct Veps drafts. Preserve active/inactive distinction, possible login delay/error/spinner until completion and CPU load falls. Full grammar and spinner/CPU computing terms remain low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "problems-none-in-progress",
+    "before": "A hu na pfulutshedzo kana u lugisa zwi khou shuma.",
+    "after": "Migracijad libo kohendamised nügüd' ei rada.",
+    "reason": "Replace Finnish/Tshivenda loading and migration-status prose with direct Veps drafts. Preserve active/inactive distinction, possible login delay/error/spinner until completion and CPU load falls. Full grammar and spinner/CPU computing terms remain low confidence."
   }
 ]
