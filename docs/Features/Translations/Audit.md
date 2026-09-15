@@ -16,21 +16,21 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `77e08a8f61` — repair two long
-Azure menu paths after the 32-family batch `2530126f27`. Vendor menu tokens and
-separators remain exact while the translated Account and Show fragments now use
-corpus-attested Tigre; ledger 20,791. The Finnish-seeded Veps review remains
-complete with no unclassified match.
+Latest translation fix: **2026-09-15**, `f9b716fd61` — replace 19
+repeated Tigrinya-seeded Tigre nouns after Azure-path repair `77e08a8f61`. Text,
+title, source, support, public, boards, labels and avatars now use coordinated
+corpus-attested roots and regular plurals; ledger 20,810. The Finnish-seeded
+Veps review remains complete with no unclassified match.
 
 The tracked Tigre calendar queue being empty does not certify the locale. Of
-2,592 non-English Tigre values, 742 are byte-for-byte identical to Tigrinya;
-13 are corpus-attested shared terms and 729 remain unclassified, including 84
+2,592 non-English Tigre values, 723 are byte-for-byte identical to Tigrinya;
+13 are corpus-attested shared terms and 710 remain unclassified, including 84
 values of at least 20 characters and 18 of at least 35 characters. This is an
 explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **20,791** exact before/after values, including unflagged
+records contain **20,810** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

@@ -30797,3 +30797,11 @@ vendor-controlled tokens. Exact and negative checks cover both paths; all
 20,791 corrections and 234 locale inventories pass. Exact overlap falls to
 742, leaving 729 unclassified after 13 attested shared forms. No remote write
 occurred.
+
+### 2026-09-15 — Repeated Tigre interface nouns
+
+Source commit `f9b716fd61` repairs 19 repeated noun labels using Tigre corpus
+roots and regular plurals. Focused exact and negative checks pass with all
+20,810 correction records and 234 locale inventories. Exact overlap falls to
+723, leaving 710 unclassified after 13 attested shared forms. No remote write
+occurred.

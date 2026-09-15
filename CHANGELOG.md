@@ -1860,6 +1860,16 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f9b716fd6">Repair repeated Tigre interface nouns.</a></summary>
+
+Use consistent Tigre corpus roots for text, title, source, support, public,
+boards, labels and avatars across related controls.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e17bb2b5e">Repair native-catalogue Veps interface terms.</a></summary>
 
 Replace 31 Finnish-seeded labels through exact English-source matching with

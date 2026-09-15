@@ -320,3 +320,13 @@ vendor token and separator. Focused checks cover the exact paths, all 20,791
 corrections and 234 locale inventories. Exact overlap falls to 742; 729 remain
 unclassified after 13 attested shared forms, including 84 values of at least
 20 characters and 18 of at least 35. No remote write ran.
+
+## Repeated Tigre interface nouns repaired — 2026-09-15
+
+Source commit `f9b716fd61` replaces 19 repeated Tigrinya-seeded nouns for
+text, title, source, support, public, boards, labels and avatars. Exact Tigre
+corpus roots and regular plurals are reused across related controls. Focused
+checks reject every former seed; all 20,810 correction records and 234 locale
+inventories pass. Exact overlap falls to 723, leaving 710 unclassified after
+13 attested shared forms. Derived plurals remain open to fluent review. No
+remote write ran.
