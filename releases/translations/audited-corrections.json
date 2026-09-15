@@ -149357,5 +149357,89 @@
     "before": "ምስምማዕ ኣቋርጽ",
     "after": "ምስምማዕ ከሬ",
     "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "import-trello-zip-too-many-files",
+    "before": "እቲ .zip ንምእታው ኣዝዮም ብዙሓት ፋይላት ኣለዉዎ።",
+    "after": "እቲ .zip ንምእታው ኣዝዮም ብዙሓት ፈይላት ኣለዉዎ።",
+    "reason": "2026-09-15: Replace exact Tigrinya Files, Address, Visibility, Format, First and Usage components with Tigre forms already established by reviewed corrections. The regular plural Address form is low confidence pending fluent review; preserve placeholders, product names and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "uploading-files",
+    "before": "ፋይላት ይስቀሉ ኣለዉ",
+    "after": "ፈይላት ይስቀሉ ኣለዉ",
+    "reason": "2026-09-15: Replace exact Tigrinya Files, Address, Visibility, Format, First and Usage components with Tigre forms already established by reviewed corrections. The regular plural Address form is low confidence pending fluent review; preserve placeholders, product names and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "email-addresses",
+    "before": "ኣድራሻታት ኢመይል",
+    "after": "ዕንዋንታት ኢመይል",
+    "reason": "2026-09-15: Replace exact Tigrinya Files, Address, Visibility, Format, First and Usage components with Tigre forms already established by reviewed corrections. The regular plural Address form is low confidence pending fluent review; preserve placeholders, product names and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "visibility",
+    "before": "ርኡይነት",
+    "after": "ርእየት",
+    "reason": "2026-09-15: Replace exact Tigrinya Files, Address, Visibility, Format, First and Usage components with Tigre forms already established by reviewed corrections. The regular plural Address form is low confidence pending fluent review; preserve placeholders, product names and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "r-workflow-format",
+    "before": "ቅርጺ",
+    "after": "ሸክል",
+    "reason": "2026-09-15: Replace exact Tigrinya Files, Address, Visibility, Format, First and Usage components with Tigre forms already established by reviewed corrections. The regular plural Address form is low confidence pending fluent review; preserve placeholders, product names and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "custom-field-stringtemplate-format",
+    "before": "ቅርጺ (%{value} ከም መተካእታ ተጠቐም)",
+    "after": "ሸክል (%{value} ከም መተካእታ ተጠቐም)",
+    "reason": "2026-09-15: Replace exact Tigrinya Files, Address, Visibility, Format, First and Usage components with Tigre forms already established by reviewed corrections. The regular plural Address form is low confidence pending fluent review; preserve placeholders, product names and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "filesReportTitle",
+    "before": "ጸብጻብ ፋይላት",
+    "after": "ጸብጻብ ፈይላት",
+    "reason": "2026-09-15: Replace exact Tigrinya Files, Address, Visibility, Format, First and Usage components with Tigre forms already established by reviewed corrections. The regular plural Address form is low confidence pending fluent review; preserve placeholders, product names and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "office-first-seen",
+    "before": "መጀመርታ ዝተራእየሉ",
+    "after": "መበገሲት ዝተራእየሉ",
+    "reason": "2026-09-15: Replace exact Tigrinya Files, Address, Visibility, Format, First and Usage components with Tigre forms already established by reviewed corrections. The regular plural Address form is low confidence pending fluent review; preserve placeholders, product names and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "api-first-called",
+    "before": "መጀመርታ ዝተጸውዐሉ",
+    "after": "መበገሲት ዝተጸውዐሉ",
+    "reason": "2026-09-15: Replace exact Tigrinya Files, Address, Visibility, Format, First and Usage components with Tigre forms already established by reviewed corrections. The regular plural Address form is low confidence pending fluent review; preserve placeholders, product names and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "sandstorm-disk-usage",
+    "before": "ኣጠቓቕማ ዲስክ",
+    "after": "መትነፍዒት ዲስክ",
+    "reason": "2026-09-15: Replace exact Tigrinya Files, Address, Visibility, Format, First and Usage components with Tigre forms already established by reviewed corrections. The regular plural Address form is low confidence pending fluent review; preserve placeholders, product names and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "azure-container-description",
+    "before": "ፋይላት ዝዕቀቡሉ blob container።",
+    "after": "ፈይላት ዝዕቀቡሉ blob container።",
+    "reason": "2026-09-15: Replace exact Tigrinya Files, Address, Visibility, Format, First and Usage components with Tigre forms already established by reviewed corrections. The regular plural Address form is low confidence pending fluent review; preserve placeholders, product names and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "memory-usage",
+    "before": "ኣጠቓቕማ መዘክር",
+    "after": "መትነፍዒት መዘክር",
+    "reason": "2026-09-15: Replace exact Tigrinya Files, Address, Visibility, Format, First and Usage components with Tigre forms already established by reviewed corrections. The regular plural Address form is low confidence pending fluent review; preserve placeholders, product names and punctuation."
   }
 ]
