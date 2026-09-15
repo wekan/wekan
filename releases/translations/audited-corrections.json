@@ -141349,5 +141349,901 @@
     "before": "Paino",
     "after": "Jügu",
     "reason": "Replace a Finnish-seeded value with the Veps headword returned for the complete English source by the English Wiktionary Veps lexical dataset; normalize capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "activities",
+    "before": "Toimet",
+    "after": "Tegendad",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "add-attachment",
+    "before": "Lisää liite",
+    "after": "Ližada tartutadud fail",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "add-board",
+    "before": "Lisää taulu",
+    "after": "Ližada laud",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "add-card",
+    "before": "Lisää kortti",
+    "after": "Ližada kart",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "addListPopup-title",
+    "before": "Lisää lista",
+    "after": "Ližada lugetiž",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "add-list",
+    "before": "Lisää lista",
+    "after": "Ližada lugetiž",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "add-after-list",
+    "before": "Lisää listan jälkeen",
+    "after": "Ližada lugetižen jäl'ghe",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "add-swimlane",
+    "before": "Lisää uimarata",
+    "after": "Ližada ujundšoid",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "add-members",
+    "before": "Lisää jäseniä",
+    "after": "Ližada ühtnikad",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "addMemberPopup-title",
+    "before": "Lisää jäseniä",
+    "after": "Ližada ühtnikad",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "memberPopup-title",
+    "before": "Jäsenasetukset",
+    "after": "Ühtnikan valičused",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "apply",
+    "before": "Käytä",
+    "after": "Kävuta",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "restore-board",
+    "before": "Palauta taulu",
+    "after": "Endišta laud",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "no-archived-boards",
+    "before": "Ei tauluja Arkistossa.",
+    "after": "Arhivas ei ole laudoid.",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "attachmentDeletePopup-title",
+    "before": "Poista liitetiedosto?",
+    "after": "Heitä tartutadud fail?",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board-change-color",
+    "before": "Muokkaa väriä",
+    "after": "Vajehta muju",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board-change-background-image",
+    "before": "Vaihda taustakuva",
+    "after": "Vajehta tagakuva",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "add-background-image",
+    "before": "Lisää taustakuva",
+    "after": "Ližada tagakuva",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "remove-background-image",
+    "before": "Poista taustakuva",
+    "after": "Heitä tagakuva",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board-info-on-my-boards",
+    "before": "Kaikki taulut asetukset",
+    "after": "Kaikiden laudoiden valičused",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "boardInfoOnMyBoardsPopup-title",
+    "before": "Kaikki taulut asetukset",
+    "after": "Kaikiden laudoiden valičused",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "boardInfoOnMyBoards-title",
+    "before": "Kaikki taulut asetukset",
+    "after": "Kaikiden laudoiden valičused",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board_members",
+    "before": "Kaikki taulun jäsenet",
+    "after": "Kaik laudan ühtnikad",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board-not-found",
+    "before": "Taulua ei löytynyt",
+    "after": "Laud ei ole löutud",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "boardChangeColorPopup-title",
+    "before": "Muokkaa taulun taustaa",
+    "after": "Vajehta laudan tagakuva",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "boardChangeBackgroundImagePopup-title",
+    "before": "Vaihda taustakuva",
+    "after": "Vajehta tagakuva",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "allBoardsChangeColorPopup-title",
+    "before": "Muokkaa väriä",
+    "after": "Vajehta muju",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "allBoardsChangeBackgroundImagePopup-title",
+    "before": "Vaihda taustakuva",
+    "after": "Vajehta tagakuva",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "boardChangeTitlePopup-title",
+    "before": "Nimeä taulu uudelleen",
+    "after": "Anda laudale uz’ nimi",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "boardChangeWatchPopup-title",
+    "before": "Muokkaa seuraamista",
+    "after": "Vajehta kaceluz",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "boardChangeViewPopup-title",
+    "before": "Taulunäkymä",
+    "after": "Laudan nägo",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "boards",
+    "before": "Taulut",
+    "after": "Laudad",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "calendar-previous-month-label",
+    "before": "Edellinen kuukausi",
+    "after": "Edeline ku",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "calendar-next-month-label",
+    "before": "Seuraava kuukausi",
+    "after": "Uz’ ku",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "listArchivePopup-title",
+    "before": "Arkistoi lista?",
+    "after": "Sirdä lugetiž arhivaha?",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "swimlaneArchivePopup-title",
+    "before": "Arkistoi uimarata?",
+    "after": "Sirdä ujundšoid arhivaha?",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card-spent",
+    "before": "Käytetty aika",
+    "after": "Kävutadud aig",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card-edit-attachments",
+    "before": "Muokkaa liitetiedostoja",
+    "after": "Vajehta tartutadud failoid",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card-edit-labels",
+    "before": "Muokkaa nimilappuja",
+    "after": "Vajehta znamoid",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card-edit-members",
+    "before": "Muokkaa jäseniä",
+    "after": "Vajehta ühtnikoid",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cardAttachmentsPopup-title",
+    "before": "Liitä mistä",
+    "after": "Ližada fail",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cardCustomField-datePopup-title",
+    "before": "Muokkaa päivää",
+    "after": "Vajehta päivmär",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "set-estimation",
+    "before": "Aseta arvio",
+    "after": "Pane arvoi",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cardDeletePopup-title",
+    "before": "Poista kortti?",
+    "after": "Heitä kart?",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cardArchivePopup-title",
+    "before": "Arkistoi kortti?",
+    "after": "Sirdä kart arhivaha?",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cardDetailsActionsPopup-title",
+    "before": "Korttitoimet",
+    "after": "Kartan tegendad",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cardAssigneePopup-title",
+    "before": "Käsittelijä",
+    "after": "Märitud kävutai",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cardLabelsPopup-title",
+    "before": "Nimilaput",
+    "after": "Znamad",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cardMembersPopup-title",
+    "before": "Jäsenet",
+    "after": "Ühtnikad",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cardTemplatePopup-title",
+    "before": "Luo malli",
+    "after": "Tege vilitez",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cards-count",
+    "before": "Korttia",
+    "after": "Kartad",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cards-count-one",
+    "before": "Kortti",
+    "after": "Kart",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cardType-card",
+    "before": "Kortti",
+    "after": "Kart",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cardType-linkedCard",
+    "before": "Linkitetty kortti",
+    "after": "Sidotud kart",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cardType-linkedBoard",
+    "before": "Linkitetty taulu",
+    "after": "Sidotud laud",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "change-permissions",
+    "before": "Muokkaa oikeuksia",
+    "after": "Vajehta oigused",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "change-settings",
+    "before": "Muokkaa asetuksia",
+    "after": "Vajehta valičused",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "text-note-text",
+    "before": "Teksti",
+    "after": "Tekst",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "changeLanguagePopup-title",
+    "before": "Vaihda kieltä",
+    "after": "Vajehta kel’",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "changePermissionsPopup-title",
+    "before": "Muokkaa oikeuksia",
+    "after": "Vajehta oigused",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "changeSettingsPopup-title",
+    "before": "Muokkaa asetuksia",
+    "after": "Vajehta valičused",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "close-card",
+    "before": "Sulje kortti",
+    "after": "Saubata kart",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "deleteCommentPopup-title",
+    "before": "Poista kommentti?",
+    "after": "Heitä sel’genzoituz?",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "linkCardPopup-title",
+    "before": "Linkitä kortti",
+    "after": "Sido kart",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "copyCardPopup-title",
+    "before": "Kopioi kortti",
+    "after": "Kopirui kart",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "copyListPopup-title",
+    "before": "Kopioi lista",
+    "after": "Kopirui lugetiž",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "createBoardPopup-title",
+    "before": "Luo taulu",
+    "after": "Tege laud",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "chooseBoardSourcePopup-title",
+    "before": "Tuo taulu",
+    "after": "To laud",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "createLabelPopup-title",
+    "before": "Luo nimilappu",
+    "after": "Tege znam",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "createCustomField",
+    "before": "Luo kenttä",
+    "after": "Tege pöud",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "createCustomFieldPopup-title",
+    "before": "Luo kenttä",
+    "after": "Tege pöud",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "deleteLabelPopup-title",
+    "before": "Poista nimilappu?",
+    "after": "Heitä znam?",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "editCustomFieldPopup-title",
+    "before": "Muokkaa kenttää",
+    "after": "Vajehta pöud",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "addReactionPopup-title",
+    "before": "Lisää reaktio",
+    "after": "Ližada reakcii",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "editLabelPopup-title",
+    "before": "Muokkaa nimilappua",
+    "after": "Vajehta znam",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "export-card",
+    "before": "Vie kortti",
+    "after": "Ve kart",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "export-card-pdf",
+    "before": "Vie kortti PDF",
+    "after": "Ve kart PDF-failaha",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "export-card-excel",
+    "before": "Vie kortti Excel",
+    "after": "Ve kart Excel-failaha",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "exportBoardPopup-title",
+    "before": "Vie taulu",
+    "after": "Ve laud",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "exportCardPopup-title",
+    "before": "Vie kortti",
+    "after": "Ve kart",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "sorted",
+    "before": "Lajiteltu",
+    "after": "Järgendatud",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "remove-sort",
+    "before": "Poista lajittelu",
+    "after": "Heitä järgenduz",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "list-sort-by",
+    "before": "Lajittele lista:",
+    "after": "Järgenda lugetiž:",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "filter-clear",
+    "before": "Poista suodatin",
+    "after": "Heitä puhtastim",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "filter-show-archive",
+    "before": "Näytä arkistoidut listat",
+    "after": "Ozuta arhiv-azjad",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "filter-on",
+    "before": "Suodatus on päällä",
+    "after": "Puhtastim om päl",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "show-activities",
+    "before": "Näytä toimet",
+    "after": "Ozuta tegendad",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "headerBarCreateBoardPopup-title",
+    "before": "Luo taulu",
+    "after": "Tege laud",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "import-board",
+    "before": "tuo taulu",
+    "after": "to laud",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "import-board-c",
+    "before": "Tuo taulu",
+    "after": "To laud",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "label-create",
+    "before": "Luo nimilappu",
+    "after": "Tege znam",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "link-card",
+    "before": "Linkki tähän korttiin",
+    "after": "Link necile kartale",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "linkCardToBoardPopup-title",
+    "before": "Linkki tähän Tauluin",
+    "after": "Link laudale",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "set-color-list",
+    "before": "Aseta väri",
+    "after": "Pane muju",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "listActionPopup-title",
+    "before": "Listatoimet",
+    "after": "Lugetižen tegendad",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "swimlaneActionPopup-title",
+    "before": "Uimarata-toimet",
+    "after": "Ujundšoidun tegendad",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "swimlaneAddPopup-title",
+    "before": "Lisää uimarata alle",
+    "after": "Ližada ujundšoid alaha",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "link-list",
+    "before": "Linkki tähän listaan",
+    "after": "Link necile lugetišele",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "swimlanes",
+    "before": "Uimaradat",
+    "after": "Ujundšoidud",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "memberMenuPopup-title",
+    "before": "Jäsenasetukset",
+    "after": "Ühtnikan valičused",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "move-selection",
+    "before": "Siirrä valinta",
+    "after": "Sirdä valičuz",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "copy-selection",
+    "before": "Kopioi valinta",
+    "after": "Kopirui valičuz",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "moveCardPopup-title",
+    "before": "Siirrä kortti",
+    "after": "Sirdä kart",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "moveListPopup-title",
+    "before": "Siirrä lista",
+    "after": "Sirdä lugetiž",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "moveCardToBottom-title",
+    "before": "Siirrä alimmaiseksi",
+    "after": "Sirdä lophu",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "moveCardToTop-title",
+    "before": "Siirrä ylimmäiseksi",
+    "after": "Sirdä augotišehe",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "moveSelectionPopup-title",
+    "before": "Siirrä valinta",
+    "after": "Sirdä valičuz",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "copySelectionPopup-title",
+    "before": "Kopioi valinta",
+    "after": "Kopirui valičuz",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "selection-color",
+    "before": "Valinnan väri",
+    "after": "Valičuzan muju",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "my-boards",
+    "before": "Tauluni",
+    "after": "Minun laudad",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "no-archived-cards",
+    "before": "Ei kortteja Arkistossa.",
+    "after": "Arhivas ei ole kartoid.",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "no-archived-lists",
+    "before": "Ei listoja Arkistossa.",
+    "after": "Arhivas ei ole lugetižid.",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "remove-from-board",
+    "before": "Poista taululta",
+    "after": "Heitä laudaspäi",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "listDeletePopup-title",
+    "before": "Poista lista?",
+    "after": "Heitä lugetiž?",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "remove-member",
+    "before": "Poista jäsen",
+    "after": "Heitä ühtnik",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "remove-member-from-card",
+    "before": "Poista kortilta",
+    "after": "Heitä kartaspäi",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "removeMemberPopup-title",
+    "before": "Poista jäsen?",
+    "after": "Heitä ühtnik?",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "rename-board",
+    "before": "Nimeä taulu uudelleen",
+    "after": "Anda laudale uz’ nimi",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "select-color",
+    "before": "Valitse väri",
+    "after": "Valiče muju",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "select-board",
+    "before": "Valitse taulu",
+    "after": "Valiče laud",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "starred-boards",
+    "before": "Tähdellä merkatut taulut",
+    "after": "Tähtaižed laudad",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "this-board",
+    "before": "tämä taulu",
+    "after": "nece laud",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "this-card",
+    "before": "tämä kortti",
+    "after": "nece kart",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "view-it",
+    "before": "Näytä se",
+    "after": "Kacu sidä",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "go-to-board",
+    "before": "Mene taululle",
+    "after": "Mäne laudale",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "admin-panel",
+    "before": "Hallintapaneeli",
+    "after": "Administratoran panel’",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "invite",
+    "before": "Kutsu",
+    "after": "Kucu",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "invite-people",
+    "before": "Kutsu ihmisiä",
+    "after": "Kucu ristitud",
+    "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
   }
 ]
