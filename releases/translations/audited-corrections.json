@@ -156042,5 +156042,19 @@
     "before": "إصدار النود",
     "after": "ⵜⵓⵏⵖⵉⵍⵜ ⵏ Node",
     "reason": "Use the attested version noun; keep Node as a proper product name."
+  },
+  {
+    "locale": "zgh",
+    "key": "check-version",
+    "before": "Cocher الإصدار",
+    "after": "ⵙⵙⵉⴷⴻⴷ ⵜⵓⵏⵖⵉⵍⵜ",
+    "reason": "Use Tamazight-Verbs attested check verb and MediaWiki-attested version noun on the on-demand version button; full imperative register needs native review."
+  },
+  {
+    "locale": "zgh",
+    "key": "version-check-failed",
+    "before": "Cocher الإصدار: Erreur.",
+    "after": "ⵓⵔ ⵉⵣⵎⵉⵔ ⴰⵔⴰ ⴰⴷ ⵉⵙⵙⵉⴷⴻⴷ ⴰⵎⴹⴰⵏ ⵏ ⵜⵓⵏⵖⵉⵍⵜ.",
+    "reason": "Replace mixed French/Arabic failure shorthand with the local could-not pattern, attested check/version terms and local number noun; full clause is low confidence."
   }
 ]
