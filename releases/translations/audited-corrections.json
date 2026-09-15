@@ -155909,5 +155909,26 @@
     "before": "إنشاء لوحة",
     "after": "ⵙⵏⵓⵍⴼⵓ ⵜⴰⴼⵍⵡⵉⵜ",
     "reason": "Replace Arabic header-bar create-board title with the same native phrase as the create-board popup."
+  },
+  {
+    "locale": "zgh",
+    "key": "comments",
+    "before": "تعليقات",
+    "after": "ⵉⵖⴼⴰⵡⴰⵍⵏ",
+    "reason": "Replace Arabic Comments with the established plural in the native card-comments translation."
+  },
+  {
+    "locale": "zgh",
+    "key": "link",
+    "before": "رابط",
+    "after": "ⴰⵙⵖⵏ",
+    "reason": "Replace Arabic Link with the established native link noun used in card-link and search-link labels."
+  },
+  {
+    "locale": "zgh",
+    "key": "email-addresses",
+    "before": "عناوين البريد الإلكتروني",
+    "after": "ⴰⵏⵙⵉⵡⵏ ⵏ ⵉⵎⴰⵢⵍ",
+    "reason": "Replace Arabic Email Addresses using IRCAM-attested ansiwn plural and the already-local email noun."
   }
 ]
