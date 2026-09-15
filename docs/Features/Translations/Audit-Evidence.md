@@ -30717,3 +30717,17 @@ all 20,193 corrections and 234 locale inventories pass.
 Raw Finnish overlap falls from 509 to 480. Six exact shared forms are now
 independently attested, leaving 474 unclassified. Inflected and
 product-specific clauses still require contextual review. No remote write ran.
+
+### 2026-09-15 — Veps board interface families
+
+Source commit `a222bad2d` replaces 128 Finnish-seeded board, card, list,
+swimlane, member, label, settings, archive and CRUD labels. The compositions
+reuse action and object vocabulary already established in independently
+translated Veps values, preserving each source action, object and punctuation.
+Six focused files pass for exact family values, negative Finnish equality, all
+20,321 correction records and all 234 locale inventories.
+
+Raw Finnish overlap falls from 480 to 352. Six forms are independently attested
+as shared, leaving 346 unclassified. Complete composed labels remain open to
+fluent style review, and unrelated product clauses remain in scope. No live UI
+test or remote write ran.

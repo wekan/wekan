@@ -1235,3 +1235,16 @@ correction records and all 234 locale inventories. Raw Finnish overlap falls
 from 509 to 480, leaving 474 unclassified after the six attested shared forms.
 Longer and inflected product phrases remain under review. No live UI test or
 remote write ran.
+
+2026-09-15 — `a222bad2d`: repaired 128 coordinated board-interface values.
+Native text already in this locale consistently supplies `Ližada`, `Vajehta`,
+`Heitä`, `Tege`, `Kopirui`, `Sirdä`, `Valiče`, `Ozuta`, `laud`, `kart`,
+`lugetiž`, `ujundšoid`, `ühtnik`, `znam`, `tartutadud fail`, `valičused` and
+`arhiv`. These forms replace Finnish across related board/card/list/swimlane,
+member/label, settings/archive, create/edit/delete/copy/move/select families.
+
+Six focused files pass for all 128 exact values, action/object distinctions,
+Finnish-seed rejection, all 20,321 correction records and all 234 locale
+inventories. Raw Finnish overlap falls from 480 to 352, leaving 346
+unclassified after six attested shared forms. Complete composed labels remain
+open to fluent style review. No live UI test or remote write ran.

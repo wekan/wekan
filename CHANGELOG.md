@@ -1840,6 +1840,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a222bad2d">Repair Veps board interface families.</a></summary>
+
+Replace 128 Finnish-seeded board, card, list, swimlane, member, label,
+settings, archive and CRUD labels using established Veps vocabulary. Focused
+checks keep related actions and objects consistent; broader review continues.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
