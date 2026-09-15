@@ -2080,6 +2080,16 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8b6c21ff9">Repair repeated Tigre interface components.</a></summary>
+
+Replace 32 copied Tigrinya Change, Show, Import, All, Size, Path and User
+components while retaining the separate Enter-field meaning.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/1196bebaa">Repair Tigre board terms.</a></summary>
 
 Replace 31 copied Tigrinya Board singular, plural and possessive components

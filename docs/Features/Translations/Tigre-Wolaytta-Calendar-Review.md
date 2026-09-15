@@ -610,3 +610,13 @@ semantic rewriting. All 21,112 correction records and 234 locale inventories
 pass. Raw overlap falls to 424, with 22 attested shared forms and 402
 unclassified. Surrounding grammar remains open to fluent review. No remote
 write ran.
+
+
+## Repeated Tigre interface components repaired — 2026-09-15
+
+Source commit `8b6c21ff9` replaces 32 Tigrinya-seeded Change, Show, Import,
+All, Size, Path and User/Users components with established Tigre forms. Import
+and Enter meanings remain distinct. Exact and negative tests cover every
+value; all 21,144 correction records and 234 locale inventories pass. Raw
+overlap falls to 392, with 22 attested shared forms and 370 unclassified.
+Surrounding grammar remains open to fluent review. No remote write ran.

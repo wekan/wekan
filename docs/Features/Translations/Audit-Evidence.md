@@ -31066,3 +31066,16 @@ Focused exact and negative checks pass with all 21,112 correction records and
 234 locale inventories. Raw overlap falls to 424; after 22 attested shared
 forms, 402 remain unclassified. Fifty-three raw matches contain at least 20
 characters and 13 contain at least 35. No remote write occurred.
+
+
+### 2026-09-15 — Repeated Tigre interface components
+
+Source commit `8b6c21ff9` repairs 32 labels across Change, Show, Import, All,
+Size, Path and User/Users families using independently corpus-attested terms
+already reviewed in the correction ledger. Import replacements are limited to
+Import contexts; three Enter-field uses remain unchanged. Focused exact and
+former-seed checks pass with all 21,144 correction records and 234 locale
+inventories. Raw overlap falls to 392; after 22 attested shared forms, 370
+remain unclassified. Forty-five raw matches contain at least 20 characters
+and 11 contain at least 35. Surrounding clauses remain subject to fluent
+review. No remote write occurred.
