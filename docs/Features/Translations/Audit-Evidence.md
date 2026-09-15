@@ -31768,6 +31768,27 @@ rises from 22,130 to 22,140; stale list-width values fall from 36 to
 26. Original 20,081 audit-row classifications remain unchanged. No
 live UI test or remote write occurred.
 
+### 2026-09-15 — Nahuatl, Volapük and Tamazight list-width bounds
+
+Source commit `bb2d2dfeb` replaces three obsolete strict
+greater-than-270 messages with an inclusive `≥ 200` minimum. The
+Nahuatl string retains `Tocatlahtolli ipatlahuacayo` and
+`tlapoualli`; the latter is listed as a counting term in the
+[Gran Diccionario Náhuatl](https://gdn.iib.unam.mx/diccionario/tlapohualli).
+The Volapük string retains the local `Liseda bredot` and `intant`.
+The Tamazight string retains the local Tifinagh width and whole-number
+terms and uses the pixel spelling already present in its related UI
+label. The operator avoids accidentally treating exactly 200 as
+invalid. None of these sources independently verifies the full
+sentence grammar, so all three remain low confidence for native
+review. The focused suite checks native terms, threshold, wrong strict
+comparison, exact ledger row and Nahuatl runtime lookup; the older
+Nahuatl progress suite now checks the live rule. Ledger integrity and
+234-locale completeness pass. Ledger records rise from 22,166 to
+22,169; old-threshold queue falls from 11 to 8. Broader mixed-language
+content in these files is still open. No live UI test or remote write
+occurred.
+
 ### 2026-09-15 — Wrong-language list-width seeds and primary terms
 
 Source commit `3eaeac9e7` repairs ten locale values: Moroccan Arabic,

@@ -656,6 +656,16 @@ This release includes the following features and fixes:
 **Translations** - Tamazight, Tigre and multilingual list-width repairs.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/bb2d2dfeb">Correct three native list-width minimum messages</a>. Thanks to xet7.</summary>
+
+Nahuatl, Volapük and Tamazight now describe the inclusive 200-pixel
+minimum in their list-width errors. Focused, Nahuatl progress,
+runtime, ledger and inventory checks pass; complete clauses remain
+under native grammar review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/beddec7cb">Repair Serbian list-width controls and four locale rules</a>. Thanks to xet7.</summary>
 
 Use “листа” consistently across the Serbian list-width popup,

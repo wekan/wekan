@@ -16,7 +16,14 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `beddec7cb` — repair Serbian
+Latest translation fix: **2026-09-15**, `bb2d2dfeb` — correct the
+obsolete list-width minimum in Nahuatl, Volapük and Tamazight,
+retaining their local list, width and number words. The focused,
+Nahuatl progress, runtime, ledger and 234-locale checks pass.
+All three full clauses remain low confidence pending native grammar
+review. Correction ledger: **22,169**; stale list-width values: **8**.
+
+Earlier translation fix: **2026-09-15**, `beddec7cb` — repair Serbian
 list-width controls as one consistent “листа” setting, plus the
 obsolete error messages in Venetian, Veps, Twi and Tongan. The four
 regional complete clauses remain low confidence pending native
