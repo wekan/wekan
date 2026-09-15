@@ -16,21 +16,21 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `9ab9215c6` — replace 12 unflagged
-Tigre date, day, month and weekday values copied from Tigrinya with forms from
-the 58,298-entry BeitTigreAI English–Tigre corpus. Four focused files pass;
-ledger 20,098. The original audit remains fully classified, while broader
-Tigre–Tigrinya overlap falls from 917 to 905 values, including 143 long clauses
-still requiring phrase-level review.
+Latest translation fix: **2026-09-15**, `0e9418960` — replace 35 unflagged
+Tigre navigation, view, action, color and field labels copied from Tigrinya
+with entries from the 58,298-entry BeitTigreAI English–Tigre corpus. Four
+focused files pass; ledger 20,133. The original audit remains fully classified,
+while broader Tigre–Tigrinya overlap falls from 917 to 870 values. Of those,
+86 contain at least 20 characters and still require phrase-level review.
 
 The tracked Tigre calendar queue being empty does not certify the locale. Of
-2,592 non-English Tigre values, 905 are byte-for-byte identical to Tigrinya,
+2,592 non-English Tigre values, 870 are byte-for-byte identical to Tigrinya,
 including long clauses; several basic date words also match Tigrinya while
 Tigre-specific sources use different forms. This is now an explicit broader
 wrong-language review item and must be resolved before the full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **20,086** exact before/after values, including unflagged
+records contain **20,133** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

@@ -1796,6 +1796,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0e9418960">Repair corpus-backed Tigre interface terms.</a></summary>
+
+Replace 35 navigation, board-view, action, color and field labels copied from
+Tigrinya with Tigre corpus entries. Focused checks preserve exact values and
+reject the copied seeds; broader phrase review continues.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

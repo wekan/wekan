@@ -30666,3 +30666,17 @@ records and all 234 locale inventories.
 Measured exact non-English Tigre–Tigrinya overlap falls from 917 to 905 values;
 143 long identical clauses remain. This is concrete progress on the broader
 unflagged review, not whole-locale certification. No remote write occurred.
+
+### 2026-09-15 — Tigre corpus-backed interface terms
+
+Source commit `0e9418960` replaces 35 additional navigation, view, action,
+color and field values copied from Tigrinya. Every replacement is returned by
+the BeitTigreAI English–Tigre corpus for the matching English source; terminal
+sentence punctuation is omitted where it does not belong in a short UI label.
+Four focused files pass for exact selected values, negative Tigrinya equality,
+all 20,133 correction records and all 234 locale inventories.
+
+Exact non-English Tigre–Tigrinya overlap falls from 905 to 870 values. Of
+those, 86 contain at least 20 characters and 18 contain at least 35 characters.
+These remain open because a corpus headword does not by itself translate a
+long product-specific clause. No remote write occurred.

@@ -244,3 +244,19 @@ Tigre–Tigrinya overlap falls from 917 to 905 values; all 143 long identical
 clauses still require phrase-level review. Corpus alternatives may reflect
 regional variation, so the selected forms remain open to fluent review. No
 live calendar UI test or remote write ran.
+
+## Tigre corpus-backed interface terms repaired — 2026-09-15
+
+Source commit `0e9418960` replaces 35 additional unflagged values copied
+byte-for-byte from Tigrinya. The BeitTigreAI English–Tigre corpus directly
+returns the selected navigation, board-view, action, color, preview, field and
+account vocabulary for the matching English source. Terminal punctuation that
+belongs to corpus sentences rather than short UI labels is omitted.
+
+Four focused files pass for exact selected forms, negative Tigrinya equality,
+all 20,133 correction records and all 234 locale inventories. Exact
+non-English Tigre–Tigrinya overlap falls from 905 to 870 values. Of those, 86
+contain at least 20 characters and 18 contain at least 35 characters; these
+still require phrase-level evidence. Short corpus glosses can be polysemous,
+so the selected UI senses remain open to fluent review. No live UI test or
+remote write ran.
