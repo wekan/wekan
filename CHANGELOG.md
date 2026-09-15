@@ -639,7 +639,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v11.82 2026-09-16 WeKan ® release
 
 **In short:** Release preparation now checks translation-language metadata
 before tagging, so an incomplete language list is caught locally.
