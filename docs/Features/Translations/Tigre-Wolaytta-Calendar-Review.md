@@ -714,3 +714,16 @@ leaving 21,337 verified final corrections. Focused exact and negative checks
 and all 234 locale inventories pass. Raw overlap falls to 275, with 22
 attested shared forms and 253 unclassified. Twenty-eight raw matches contain
 at least 20 characters and six contain at least 35. No remote write ran.
+
+
+## Third Tigre context-reuse pass — 2026-09-15
+
+Source commit `088b01587` repairs 12 exact Tigrinya copies in Files,
+Address, Visibility, Format, First and Usage contexts with Tigre terms already
+established by reviewed corrections. The regular plural Address form remains
+low confidence pending fluent review. Focused exact and negative checks
+preserve `.zip`, `%{value}` and product literals; all 21,349 final
+correction records and 234 locale inventories pass. Raw overlap falls to 263,
+with 22 attested shared forms and 241 unclassified. Twenty-five raw matches
+contain at least 20 characters and six contain at least 35. No remote write
+ran.

@@ -16,22 +16,22 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `45a568aea` — repair 44 exact
-Tigrinya copies by reusing independently established Tigre components in
-matching UI senses. Unverified plural morphology and ambiguous senses remain
-excluded. Ledger 21,337; complete clauses remain subject to fluent review.
-The preceding Edit/Template batch is `e50072bc3`. The Veps seed review
-remains complete.
+Latest translation fix: **2026-09-15**, `088b01587` — repair 12 exact
+Tigrinya Files, Address, Visibility, Format, First and Usage components with
+established Tigre forms. The derived Address plural is explicitly
+low-confidence. Ledger 21,349; complete clauses remain subject to fluent
+review. The preceding ledger-reuse batch is `45a568aea`. The Veps seed
+review remains complete.
 
 The tracked Tigre calendar queue being empty does not certify the locale. Of
-2,592 non-English Tigre values, 275 are byte-for-byte identical to Tigrinya;
-22 are corpus-attested shared terms and 253 remain unclassified, including 28
+2,592 non-English Tigre values, 263 are byte-for-byte identical to Tigrinya;
+22 are corpus-attested shared terms and 241 remain unclassified, including 25
 values of at least 20 characters and 6 of at least 35 characters. This is an
 explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **21,337** exact before/after values, including unflagged
+records contain **21,349** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

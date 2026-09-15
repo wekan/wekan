@@ -2080,6 +2080,16 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/088b01587">Repair additional Tigre interface terms.</a></summary>
+
+Use established Tigre Files, Address, Visibility, Format, First and Usage
+terms in 12 remaining exact-copy contexts.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/45a568aea">Reuse reviewed Tigre terms in remaining controls.</a></summary>
 
 Repair 44 exact Tigrinya copies by reusing established Tigre terms only in
