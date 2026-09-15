@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 
 if [ $# -ne 1 ]
   then
@@ -88,7 +89,7 @@ fi
 echo "  OK: No Go buildinfo binaries found"
 '
 
-echo "=== Step 3: Checks passed - building and pushing multi-arch image to registries ==="
+echo "=== Step 3: Checks passed - building and pushing multi-arch image to Docker Hub and GHCR ==="
 # --provenance=mode=max: full build provenance (SLSA), matching release-all.yml.
 # The local --load build above gets none - the docker exporter cannot carry
 # attestations - so only this pushing build has it.
@@ -102,14 +103,30 @@ ${DOCKER} buildx build \
   --platform linux/amd64,linux/arm64 \
   -t wekanteam/wekan:v${VERSION} \
   -t wekanteam/wekan:latest \
-  -t quay.io/wekan/wekan:v${VERSION} \
-  -t quay.io/wekan/wekan:latest \
   -t ghcr.io/wekan/wekan:v${VERSION} \
   -t ghcr.io/wekan/wekan:latest \
   --push \
   .
 
+# Copy the published manifest to Quay separately. Its read-only outages must
+# not undo a completed Docker Hub/GHCR build; other Quay errors still fail.
+if quay_output="$(${DOCKER} buildx imagetools create \
+  -t "quay.io/wekan/wekan:v${VERSION}" \
+  -t "quay.io/wekan/wekan:latest" \
+  "ghcr.io/wekan/wekan:v${VERSION}" 2>&1)"; then
+  printf '%s\n' "$quay_output"
+  echo "Quay manifest published"
+else
+  printf '%s\n' "$quay_output" >&2
+  if printf '%s' "$quay_output" | grep -qi 'System is currently read-only.*write operations are currently suspended'; then
+    echo "Quay is read-only; Docker Hub and GHCR were published. Re-run the Quay manifest copy when writes resume." >&2
+  else
+    echo "Could not copy the published manifest to Quay." >&2
+    exit 1
+  fi
+fi
+
 echo "=== Step 4: Cleanup local check image ==="
 ${DOCKER} rmi "${CHECK_IMAGE}" || true
 
-echo "=== All done: v${VERSION} pushed to all registries ==="
+echo "=== All done: v${VERSION} published to Docker Hub and GHCR ==="
