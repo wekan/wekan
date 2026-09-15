@@ -145521,5 +145521,19 @@
     "before": "ዓቐን",
     "after": "ቅያስ",
     "reason": "Replace a Tigrinya-seeded repeated UI label with a Tigre term or coordinated compound built from exact BeitTigreAI corpus headwords for the complete concept."
+  },
+  {
+    "locale": "tig",
+    "key": "azure-connection-string-menu-path",
+    "before": "Azure Portal → Storage accounts → መለያኻ → Security + networking → Access keys → key1 → Connection string → Show።",
+    "after": "Azure Portal → Storage accounts → ሕሳብከ → Security + networking → Access keys → key1 → Connection string → ኣርኤ።",
+    "reason": "Replace the Tigrinya possessive and action in an Azure menu path with corpus-attested Tigre Account and Show forms while preserving every vendor menu token and separator."
+  },
+  {
+    "locale": "tig",
+    "key": "azure-account-key-menu-path",
+    "before": "Azure Portal → Storage accounts → መለያኻ → Security + networking → Access keys → key1 → Show → Key።",
+    "after": "Azure Portal → Storage accounts → ሕሳብከ → Security + networking → Access keys → key1 → ኣርኤ → Key።",
+    "reason": "Replace the Tigrinya possessive and action in an Azure menu path with corpus-attested Tigre Account and Show forms while preserving every vendor menu token and separator."
   }
 ]
