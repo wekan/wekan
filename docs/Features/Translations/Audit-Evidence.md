@@ -31735,3 +31735,38 @@ rule. Ledger integrity and 234-locale completeness pass. The ledger
 rises from 22,130 to 22,140; stale list-width values fall from 36 to
 26. Original 20,081 audit-row classifications remain unchanged. No
 live UI test or remote write occurred.
+
+### 2026-09-15 — Wrong-language list-width seeds and primary terms
+
+Source commit `3eaeac9e7` repairs ten locale values: Moroccan Arabic,
+Tatar, Upper Sorbian, Kashubian, Silesian, Pulaar, Wolof, Greenlandic,
+Luganda and Bislama. Every old value required a width greater than
+270; the replacement states an inclusive 200-pixel whole-number
+minimum. Tatar's old value was Turkish written in Cyrillic;
+Upper Sorbian's was Czech-seeded; Luganda and Bislama carried English
+requirement clauses. The Moroccan Arabic replacement draws on the
+local Darija `خاص` and `ليستة` vocabulary. The Tatar `бөтен сан` and
+`кимендә` are attested in
+[Kazan Federal University mathematics text](https://mon.tatarstan.ru/file/pub/pub_4421921.pdf),
+Upper Sorbian `cyła ličba` in
+[LibreOffice's Upper Sorbian help](https://help.libreoffice.org/latest/hsb/text/sbasic/shared/03/sf_dialogcontrol.html),
+Greenlandic `kisitsit ilivitsoq` in
+[Oqaasileriffik's terminology decision](https://oqaasileriffik.gl/2021/08/18/oqaasiliortut-2021-8/),
+and Bislama `ful namba` in
+[Vanuatu education material](https://moet.gov.vu/docs/textbooks/Matematiks_2017.pdf).
+Greenlandic `minnerpaamik` is attested in
+[a Greenlandic university report](https://www.uni.gl/media/5167894/greenlandic_perspectives_climate_change_report_greenlandic_highres.pdf),
+though this UI value uses `≥ 200` to avoid uncertain suffixes.
+Pulaar, Wolof, Kashubian and Silesian replacements retain useful
+native width and number words from local strings. All ten complete
+clauses remain low confidence pending native grammar review. The
+focused suite checks each native phrase, the inclusive threshold,
+absence of 270 and English rule words, one final ledger row per locale,
+uncertainty notes and runtime Tatar lookup. Greenlandic's older suite
+now checks the actual rule. Ledger integrity and 234-locale
+completeness pass. The prior Silesian correction row was consolidated,
+so records rise from 22,140 to 22,149 for ten changed values;
+remaining old-threshold values fall from 26 to 16. The original
+20,081 audit-row classifications remain unchanged. Broader seeded
+prose in those locale files still needs review. No live UI test or
+remote write occurred.

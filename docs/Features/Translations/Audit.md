@@ -16,7 +16,18 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `92ea2a0f0` — repair ten
+Latest translation fix: **2026-09-15**, `3eaeac9e7` — repair ten
+Moroccan Arabic, Tatar, Upper Sorbian, Kashubian, Silesian, Pulaar,
+Wolof, Greenlandic, Luganda and Bislama list-width values. Tatar,
+Upper Sorbian, Luganda and Bislama source sentences used Turkish,
+Czech or English requirement prose. All ten complete clauses remain
+low confidence pending native grammar review; wider wrong-language
+seeding remains open. Focused, runtime, Greenlandic progress, ledger
+and 234-locale completeness checks pass. One earlier Silesian ledger
+row was consolidated: **22,149** records; stale list-width values:
+**16**.
+
+Earlier translation fix: **2026-09-15**, `92ea2a0f0` — repair ten
 Acehnese, Bambara, Ewe, Venda, Turkmen, Waray, Nyanja, Sakha,
 Chuvash and Urdu list-width messages. Urdu's English transliteration
 is replaced by Urdu prose. Seven complete clauses remain low
@@ -117,7 +128,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **22,140** exact before/after values, including unflagged
+records contain **22,149** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -145,14 +156,13 @@ placeholders, JSON examples and key order; they do not establish language
 quality. Correct-language human translations remain preferred. No external
 translation service is used, and no remote push was performed.
 
-New unflagged source-semantic queue: **26 locale values** still express
+New unflagged source-semantic queue: **16 locale values** still express
 the old 270 list-width rule. The actual shared minimum is 200; three
 Persian-digit values, 23 Romance/Germanic variants and 22 further variants
 plus 33 native lower-bound, 11 Chinese-variant, 28 Eurasian, 20
 Romance/Celtic, 24 Asian, 12 African/Kurdish/Yiddish and nine
-African/Pacific, ten native/mixed-seed and ten native-minimum values
-are recorded.
-Aliases follow their
+African/Pacific, ten native/mixed-seed, ten native-minimum and ten
+wrong-language/obsolete values are recorded. Aliases follow their
 tracked files, so one corrected file may resolve two visible codes. This
 queue is outside the 20,081
 original flagged rows and must be repaired in their declared languages,
