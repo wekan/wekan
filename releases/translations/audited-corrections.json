@@ -146900,5 +146900,33 @@
     "before": "Excel CSV/TSV ኣእቱ",
     "after": "Excel CSV/TSV አምጸአ",
     "reason": "2026-09-15: Replace Tigrinya-seeded Import controls with the Tigre verb directly glossed as to import in the BeitTigreAI corpus. Reuse separately reviewed Tigre board, card and list nouns; preserve Trello, Excel and CSV/TSV identifiers. Destination compounds remain subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "fullname",
+    "before": "ምሉእ ስም",
+    "after": "ምሉእ ስሜት",
+    "reason": "2026-09-15: Replace the Tigrinya name noun in four compound labels with the exact Tigre Name entry from the BeitTigreAI corpus. Full Name is independently attested in a complete Tigre sentence; reuse reviewed Tigre Location and Version terms and preserve the Webhook identifier."
+  },
+  {
+    "locale": "tig",
+    "key": "location-name",
+    "before": "ስም ቦታ",
+    "after": "ስሜት አካን",
+    "reason": "2026-09-15: Replace the Tigrinya name noun in four compound labels with the exact Tigre Name entry from the BeitTigreAI corpus. Full Name is independently attested in a complete Tigre sentence; reuse reviewed Tigre Location and Version terms and preserve the Webhook identifier."
+  },
+  {
+    "locale": "tig",
+    "key": "webhook-title",
+    "before": "ስም Webhook",
+    "after": "ስሜት Webhook",
+    "reason": "2026-09-15: Replace the Tigrinya name noun in four compound labels with the exact Tigre Name entry from the BeitTigreAI corpus. Full Name is independently attested in a complete Tigre sentence; reuse reviewed Tigre Location and Version terms and preserve the Webhook identifier."
+  },
+  {
+    "locale": "tig",
+    "key": "version-name",
+    "before": "ስም-ስሪት",
+    "after": "ስሜት-ስሪት",
+    "reason": "2026-09-15: Replace the Tigrinya name noun in four compound labels with the exact Tigre Name entry from the BeitTigreAI corpus. Full Name is independently attested in a complete Tigre sentence; reuse reviewed Tigre Location and Version terms and preserve the Webhook identifier."
   }
 ]
