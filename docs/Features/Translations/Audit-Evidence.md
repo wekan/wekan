@@ -31016,3 +31016,14 @@ and 234 locale inventories. Raw non-English overlap falls to 484; after 20
 attested shared forms, 464 remain unclassified. Of the raw matches, 76 contain
 at least 20 characters and 15 contain at least 35 characters. Unchanged
 surrounding grammar remains subject to fluent review. No remote write occurred.
+
+
+### 2026-09-15 — Shared Tigre account and error plurals
+
+Review commit `a69ed2325` retains Accounts (`ሕሳባት`) and Errors
+(`ጌጋታት`) despite byte-identical Tigrinya values. The BeitTigreAI corpus
+contains the exact Accounts form in a complete “Cannot create accounts”
+sentence and the exact Errors form in several native plural-fault sentences.
+The raw overlap remains 484 while the independently attested shared set grows
+to 22 and the unclassified subset falls to 462. Focused and structural checks
+pass; no remote write occurred.

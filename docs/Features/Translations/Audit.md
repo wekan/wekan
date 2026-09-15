@@ -25,7 +25,7 @@ complete.
 
 The tracked Tigre calendar queue being empty does not certify the locale. Of
 2,592 non-English Tigre values, 484 are byte-for-byte identical to Tigrinya;
-20 are corpus-attested shared terms and 464 remain unclassified, including 76
+22 are corpus-attested shared terms and 462 remain unclassified, including 76
 values of at least 20 characters and 15 of at least 35 characters. This is an
 explicit broader wrong-language review item and must be resolved before the
 full audit closes.
@@ -36,7 +36,9 @@ repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
-Latest terminology review: **2026-09-15**, `2ecd74637` — retain the final four
+Latest unchanged-value review: **2026-09-15**, `a69ed2325` — retain the
+Tigre Accounts and Errors plurals after exact corpus sentences independently
+attest both forms. The prior terminology review is **2026-09-15**, `2ecd74637` — retain the final four
 restored Basque named-subject fragments after checking actual rule-builder and
 saved-description composition. The selected name precedes the noun phrase and
 the following action supplies the temporal clause. All 20,081 original rows

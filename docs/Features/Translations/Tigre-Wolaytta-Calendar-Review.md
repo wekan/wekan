@@ -569,3 +569,12 @@ literal. Focused exact and negative checks cover every value; all 21,052
 correction records and 234 locale inventories pass. Raw non-English overlap
 falls to 484, with 20 attested shared forms and 464 unclassified. Unchanged
 surrounding grammar remains open to fluent review. No remote write ran.
+
+
+## Shared Tigre account and error plurals reviewed — 2026-09-15
+
+Review commit `a69ed2325` retains Accounts (`ሕሳባት`) and Errors
+(`ጌጋታት`) as valid Tigre forms shared byte-for-byte with Tigrinya. Exact
+corpus sentences independently attest both plural senses. The focused test now
+locks the intentional equality. Raw overlap remains 484, with 22 attested
+shared forms and 462 unclassified. No remote write ran.

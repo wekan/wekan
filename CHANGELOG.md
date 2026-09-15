@@ -2080,6 +2080,16 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a69ed2325">Retain attested Tigre account and error plurals.</a></summary>
+
+Preserve two byte-identical Tigre and Tigrinya plurals after independent Tigre
+corpus sentences establish the matching Accounts and Errors senses.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f64f9c98d">Repair multi-component Tigre labels.</a></summary>
 
 Replace copied Tigrinya components in 31 user, board, card, date, label, file
