@@ -30885,3 +30885,12 @@ attested degree/level and severely forms; its full compound grammar remains low
 confidence. Focused negative checks pass with all 20,906 correction records and
 234 locale inventories. Raw overlap falls to 627; 607 remain unclassified after
 20 attested shared forms. No remote write occurred.
+
+### 2026-09-15 — Tigre status controls
+
+Source commit `b4586ba97` repairs eight Overall progress, CPU usage, Card
+loading and Remaining time controls using corpus-attested Tigre components and
+an established card noun. CPU stays exact. Focused exact and former-seed checks
+pass with all 20,914 correction records and 234 locale inventories. Raw overlap
+falls to 619; 599 remain unclassified after 20 attested shared forms. Complete
+compound order remains open to fluent review. No remote write occurred.

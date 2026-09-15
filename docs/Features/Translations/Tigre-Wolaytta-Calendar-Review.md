@@ -424,3 +424,14 @@ grammar remains LOW CONFIDENCE pending fluent review. Focused checks reject
 the former seed; all 20,906 correction records and 234 locale inventories
 pass. Raw overlap falls to 627, with 20 attested shared forms and 607
 unclassified. No remote write ran.
+
+## Tigre status controls repaired — 2026-09-15
+
+Source commit `b4586ba97` replaces eight Tigrinya-seeded Overall progress, CPU
+usage, Card loading and Remaining time controls. The BeitTigreAI corpus directly
+supplies overall, progress, usage, Loading results, time and remaining forms;
+the established Tigre card noun is reused and CPU remains unchanged. Focused
+exact and negative checks cover all values; all 20,914 correction records and
+234 locale inventories pass. Raw overlap falls to 619, with 20 attested shared
+forms and 599 unclassified. Complete compound order remains open to fluent
+review. No remote write ran.
