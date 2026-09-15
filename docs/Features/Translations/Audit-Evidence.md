@@ -31409,3 +31409,30 @@ audit-row counts remain 15,880 corrected and 4,201 retained. Exact
 non-English Tigre/Tigrinya overlap falls from 231 to 230 (22 attested
 shared, 208 unclassified); 20 matches are at least 20 characters and 3 at
 least 35. No live UI test or remote write occurred.
+
+### 2026-09-15 — List-width source and Tigre rule mismatch
+
+Source commit `68d679c6c` resolves a source/UI discrepancy discovered while
+reviewing a long exact Tigre/Tigrinya value. `MIN_LIST_WIDTH` in
+`models/lib/listWidth.js` is 200, while English still said “greater than
+270” and 243 locale messages carried the stale ASCII `270` threshold.
+The popup input specified `min="270"`,
+and its error markup appended `>=270`. Three more locale values contained
+Persian-digit `۲۷۰`, so all 246 values were stale. The handler also used
+`parseInt`, accepting decimals by truncation. The popup now derives its
+input minimum from shared code, has step 1 and rejects non-integer strings,
+including decimals and trailing text. The error popup no longer appends a
+second hardcoded rule. English source now states a whole-number minimum of
+200 pixels; 11 English regional copies follow it. The Tigre draft uses
+corpus-attested `ግፍሒ` (width), `ምሉእ` (whole), `ዕልብ` (number) and
+`ላዝም` (must), with `≥ 200` preserving the inclusive boundary. Complete
+Tigre rule syntax remains low confidence pending fluent review. The
+remaining 233 non-English locale messages still express the old threshold;
+they are an explicit unflagged queue separate from the original 20,081
+classified rows. This source batch adds 12 final correction records,
+raising the ledger to 21,936. The boundary parser, source/UI wiring,
+English-region parity, full 50-suite Tigre run, correction-ledger checks
+and 234 locale inventories pass. Exact non-English Tigre/Tigrinya overlap
+falls from 230 to 229 (22 attested shared, 207 unclassified); 19 matches
+are at least 20 characters and 2 at least 35. No live UI test or remote
+write occurred.

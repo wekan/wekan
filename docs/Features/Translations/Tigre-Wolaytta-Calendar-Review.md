@@ -878,3 +878,14 @@ ledger row is consolidated. All 50 Tigre suites pass, including the plural
 guard that found the earlier S3 defect. Ledger 21,924; exact non-English
 overlap 230 (22 attested shared, 208 unclassified), with 20 matches at
 least 20 characters and 3 at least 35. No live UI test or remote write.
+
+### 2026-09-15 — Tigre list-width rule and source correction
+
+`68d679c6c` replaces the exact Tigrinya-copied validation clause with a
+Tigre draft using corpus-supported width, whole and number terms. Its
+`≥ 200` notation matches the shared minimum and whole-number popup parser;
+full syntax remains low confidence. The source/UI discrepancy affects 233
+other locale messages and is tracked in the short audit. All 50 Tigre suites
+pass. Ledger 21,936; exact non-English overlap 229 (22 attested shared,
+207 unclassified), with 19 matches at least 20 characters and 2 at least
+35. No live UI test or remote write occurred.

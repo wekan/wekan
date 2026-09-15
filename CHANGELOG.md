@@ -647,12 +647,23 @@ and cards. Search help clarifies case-insensitive matching. Regression checks
 preserve placeholders and verify source wiring;
 full contextual grammar remains under native review.
 Tigre S3 help, Trello credentials, an authentication error and a PDF
-fallback warning replace English and Tigrinya drafts. Complete compounds
+fallback warning replace English and Tigrinya drafts. The list-width popup
+now states and enforces its 200-pixel whole-number rule. Complete compounds
 remain under native review.
 
 This release includes the following features and fixes:
 
-**Translations** - Tamazight activity and rules; Tigre S3, Trello and warnings.
+**Translations** - Tamazight activity and rules; Tigre settings and warnings.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/68d679c6c">Correct list-width rule and first locale messages</a>. Thanks to xet7.</summary>
+
+The Set Width popup now advertises the shared 200-pixel minimum and rejects
+fractional or trailing-text values instead of truncating them. Correct the
+English source, its 11 regional copies and Tigre wording. Boundary, UI
+wiring, locale and ledger checks pass; other stale locales remain in audit.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6909fb85e">Repair Tigre Trello key and S3 File plural</a>. Thanks to xet7.</summary>
