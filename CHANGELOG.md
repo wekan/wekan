@@ -1564,6 +1564,18 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/09b62ffa4">Repair Veps accessibility translations.</a></summary>
+
+Replace five Finnish labels and messages with one consistent Veps “access for
+everyone” family across navigation, settings fields and the public empty state.
+Four focused files pass (40 checks). The descriptive term remains under native
+review because no dedicated accessibility noun was found.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

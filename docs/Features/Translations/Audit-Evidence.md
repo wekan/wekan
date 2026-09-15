@@ -30404,3 +30404,22 @@ newer-human preservation, wrong-language and stale fragments, behavior and
 source bindings, plus all 234 locale inventories. No live UI ran. The assembled
 technical prose remains LOW CONFIDENCE; broader Veps and prior uncertain review
 continues. No external translation service or remote push.
+
+### 2026-09-15 — Complete Veps accessibility family
+
+Source commit `09b62ffa4`: five Finnish values repaired, including two tracked
+findings and three unflagged companion labels. Ledger 19,983; corrected tracked
+rows 15,779; pending 124 (Veps 6); restored four unchanged. UI source inspection
+separates navigation/page naming, enabled toggle, editable title/content fields,
+their public fallbacks and the disabled-page empty state.
+
+No dedicated accessibility noun was found in the checked native Veps MediaWiki
+catalogue. Use a consistent descriptive “access for everyone” family built from
+existing native everyone/access, page, enabled, title, content, information,
+not-yet and added vocabulary. Component evidence does not attest the full
+technical term, so all five remain LOW CONFIDENCE for native contextual review.
+Four focused files pass (40 checks): exact ledger values/tokens/order and
+idempotency, newer-human preservation, five role distinctions, Finnish-fragment
+rejection, source bindings and all 234 locale inventories. No live UI ran. The
+broader Veps and prior uncertain review continues; no external translation
+service or remote push.

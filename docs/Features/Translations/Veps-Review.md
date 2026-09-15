@@ -1107,3 +1107,27 @@ all 234 locale token/key inventories. No live Problems or Board Status UI ran.
 The complete assembled technical description remains LOW CONFIDENCE and needs
 native contextual review. Original pending remains 126 and restored remains 4;
 the broader candidate and prior low-confidence review remains active.
+
+2026-09-15 — `09b62ffa4`: repaired the complete five-key Finnish
+accessibility family, including three unflagged values. Source inspection shows
+`accessibility` labels the sidebar, page title and Admin navigation;
+`accessibility-page-enabled` is the Admin toggle; title/content name separate
+editable fields and provide public-page fallbacks; and the not-added-yet text is
+the disabled public empty state. Fixing only the two original findings would
+have left the same page internally inconsistent.
+
+The checked native MediaWiki catalogue provides no dedicated accessibility
+noun. The replacement therefore uses the transparent descriptive family
+`Jogahižen pästand` (“access for everyone”). Its components and each surrounding
+role reuse existing Veps values: `jogahine`/`jogahižen`, `Pästand`, `lehtpol'`,
+`om päl`, `pälkirjutez`, `südäimuz`, `tedod`, `ei ole völ`, and `ližatud`.
+This evidence establishes the components and UI distinctions, not an attested
+complete accessibility term. The family remains LOW CONFIDENCE pending native
+contextual review.
+
+Four focused files pass (40 checks): 19,983 correction records, five distinct
+roles, Finnish-fragment rejection, settings/public-page bindings,
+newer-translation preservation and all 234 locale token/key inventories. No
+live Admin or public accessibility page ran. Two tracked findings are now
+corrected: overall pending 124, Veps 6, restored 4. The unflagged scan and all
+prior low-confidence wording remain in scope.
