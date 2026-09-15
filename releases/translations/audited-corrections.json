@@ -140929,5 +140929,222 @@
     "before": "ባህርያት",
     "after": "ክትምዬት",
     "reason": "Replace a value copied from Tigrinya with the Tigre headword or phrase returned for the English source by the BeitTigreAI English–Tigre corpus; omit corpus punctuation that does not belong in the UI label."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "actions",
+    "before": "Toimet",
+    "after": "Tegendad",
+    "reason": "Replace a Finnish-seeded value with a complete Veps translation from the native MediaWiki catalogue whose English source matches this WeKan label; normalize initial capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "boardChangeVisibilityPopup-title",
+    "before": "Muokkaa näkyvyyttä",
+    "after": "Vajehta nägubut",
+    "reason": "Replace a Finnish-seeded value with a complete Veps translation from the native MediaWiki catalogue whose English source matches this WeKan label; normalize initial capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "font-size-default",
+    "before": "Oletus",
+    "after": "Sanumata",
+    "reason": "Replace a Finnish-seeded value with a complete Veps translation from the native MediaWiki catalogue whose English source matches this WeKan label; normalize initial capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "changePasswordPopup-title",
+    "before": "Vaihda salasana",
+    "after": "Vajehta peitsana",
+    "reason": "Replace a Finnish-seeded value with a complete Veps translation from the native MediaWiki catalogue whose English source matches this WeKan label; normalize initial capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "current",
+    "before": "nykyinen",
+    "after": "Nügüdläine",
+    "reason": "Replace a Finnish-seeded value with a complete Veps translation from the native MediaWiki catalogue whose English source matches this WeKan label; normalize initial capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "discard",
+    "before": "Hylkää",
+    "after": "Heitä",
+    "reason": "Replace a Finnish-seeded value with a complete Veps translation from the native MediaWiki catalogue whose English source matches this WeKan label; normalize initial capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "export-card-attachment-filename",
+    "before": "Tiedostonimi",
+    "after": "Failan nimi",
+    "reason": "Replace a Finnish-seeded value with a complete Veps translation from the native MediaWiki catalogue whose English source matches this WeKan label; normalize initial capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "export-card-attachment-size",
+    "before": "Koko",
+    "after": "Suruz’",
+    "reason": "Replace a Finnish-seeded value with a complete Veps translation from the native MediaWiki catalogue whose English source matches this WeKan label; normalize initial capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "loginPopup-title",
+    "before": "Kirjaudu sisään",
+    "after": "Tule sistemaha",
+    "reason": "Replace a Finnish-seeded value with a complete Veps translation from the native MediaWiki catalogue whose English source matches this WeKan label; normalize initial capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "preview",
+    "before": "Esikatsele",
+    "after": "Ezikacund",
+    "reason": "Replace a Finnish-seeded value with a complete Veps translation from the native MediaWiki catalogue whose English source matches this WeKan label; normalize initial capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "previewAttachedImagePopup-title",
+    "before": "Esikatsele",
+    "after": "Ezikacund",
+    "reason": "Replace a Finnish-seeded value with a complete Veps translation from the native MediaWiki catalogue whose English source matches this WeKan label; normalize initial capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "previewClipboardImagePopup-title",
+    "before": "Esikatsele",
+    "after": "Ezikacund",
+    "reason": "Replace a Finnish-seeded value with a complete Veps translation from the native MediaWiki catalogue whose English source matches this WeKan label; normalize initial capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "unwatch",
+    "before": "Lopeta seuraaminen",
+    "after": "Ala kacu",
+    "reason": "Replace a Finnish-seeded value with a complete Veps translation from the native MediaWiki catalogue whose English source matches this WeKan label; normalize initial capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "welcome-list2",
+    "before": "Edistynyt",
+    "after": "Nügüd’aigaline",
+    "reason": "Replace a Finnish-seeded value with a complete Veps translation from the native MediaWiki catalogue whose English source matches this WeKan label; normalize initial capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "default",
+    "before": "Oletus",
+    "after": "Sanumata",
+    "reason": "Replace a Finnish-seeded value with a complete Veps translation from the native MediaWiki catalogue whose English source matches this WeKan label; normalize initial capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "defaultdefault",
+    "before": "Oletus",
+    "after": "Sanumata",
+    "reason": "Replace a Finnish-seeded value with a complete Veps translation from the native MediaWiki catalogue whose English source matches this WeKan label; normalize initial capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-import",
+    "before": "Tuo",
+    "after": "To",
+    "reason": "Replace a Finnish-seeded value with a complete Veps translation from the native MediaWiki catalogue whose English source matches this WeKan label; normalize initial capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-d-send-email-message",
+    "before": "viesti",
+    "after": "Kirjeine",
+    "reason": "Replace a Finnish-seeded value with a complete Veps translation from the native MediaWiki catalogue whose English source matches this WeKan label; normalize initial capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "operator-description",
+    "before": "kuvaus",
+    "after": "Kirjutuz",
+    "reason": "Replace a Finnish-seeded value with a complete Veps translation from the native MediaWiki catalogue whose English source matches this WeKan label; normalize initial capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "predicate-all",
+    "before": "kaikki",
+    "after": "kaik",
+    "reason": "Replace a Finnish-seeded value with a complete Veps translation from the native MediaWiki catalogue whose English source matches this WeKan label; normalize initial capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "next-page",
+    "before": "Seuraava sivu",
+    "after": "uz' lehtpol'",
+    "reason": "Replace a Finnish-seeded value with a complete Veps translation from the native MediaWiki catalogue whose English source matches this WeKan label; normalize initial capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "previous-page",
+    "before": "Edellinen sivu",
+    "after": "enzne lehtpol'",
+    "reason": "Replace a Finnish-seeded value with a complete Veps translation from the native MediaWiki catalogue whose English source matches this WeKan label; normalize initial capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "history",
+    "before": "Historia",
+    "after": "Istorii",
+    "reason": "Replace a Finnish-seeded value with a complete Veps translation from the native MediaWiki catalogue whose English source matches this WeKan label; normalize initial capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "confirm-btn",
+    "before": "Varmista",
+    "after": "Vahvištoita",
+    "reason": "Replace a Finnish-seeded value with a complete Veps translation from the native MediaWiki catalogue whose English source matches this WeKan label; normalize initial capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "move-progress-file",
+    "before": "Tiedosto",
+    "after": "Fail",
+    "reason": "Replace a Finnish-seeded value with a complete Veps translation from the native MediaWiki catalogue whose English source matches this WeKan label; normalize initial capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "attachmentRenamePopup-title",
+    "before": "Nimeä uudelleen",
+    "after": "Anda uz' nimi",
+    "reason": "Replace a Finnish-seeded value with a complete Veps translation from the native MediaWiki catalogue whose English source matches this WeKan label; normalize initial capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "change-visibility",
+    "before": "Muokkaa näkyvyyttä",
+    "after": "Vajehta nägubut",
+    "reason": "Replace a Finnish-seeded value with a complete Veps translation from the native MediaWiki catalogue whose English source matches this WeKan label; normalize initial capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "collapse",
+    "before": "Pienennä",
+    "after": "Saubata",
+    "reason": "Replace a Finnish-seeded value with a complete Veps translation from the native MediaWiki catalogue whose English source matches this WeKan label; normalize initial capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cron-error-details",
+    "before": "Yksityiskohdat",
+    "after": "Ližatedod",
+    "reason": "Replace a Finnish-seeded value with a complete Veps translation from the native MediaWiki catalogue whose English source matches this WeKan label; normalize initial capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "anonymized-user",
+    "before": "käyttäjä",
+    "after": "Kävutai",
+    "reason": "Replace a Finnish-seeded value with a complete Veps translation from the native MediaWiki catalogue whose English source matches this WeKan label; normalize initial capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "view",
+    "before": "Näkymä",
+    "after": "Kacu",
+    "reason": "Replace a Finnish-seeded value with a complete Veps translation from the native MediaWiki catalogue whose English source matches this WeKan label; normalize initial capitalization for its UI role."
   }
 ]
