@@ -656,6 +656,16 @@ This release includes the following features and fixes:
 **Translations** - Tamazight, Tigre and multilingual list-width repairs.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ae76ba79d">Use corpus Tigre noun for DDP transport</a>. Thanks to xet7.</summary>
+
+Replace the Tigrinya-copied transport noun in the Tigre DDP label
+with a corpus-glossed Tigre term. Keep the literal DDP identifier.
+Focused, runtime, ledger and inventory checks pass; the complete
+phrase remains under native review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/31a238d91">Correct Cherokee and Wolaytta list-width bounds</a>. Thanks to xet7.</summary>
 
 The final two obsolete error messages now use the inclusive

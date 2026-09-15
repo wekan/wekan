@@ -31768,6 +31768,28 @@ rises from 22,130 to 22,140; stale list-width values fall from 36 to
 26. Original 20,081 audit-row classifications remain unchanged. No
 live UI test or remote write occurred.
 
+### 2026-09-15 — Tigre DDP transport corpus review
+
+Source commit `ae76ba79d` replaces the exact Tigrinya-copied noun
+in `DDP_transport` with Tigre `መዋሰላት`, which the
+[BeitTigreAI parallel dictionary](https://beittigre.github.io/tigre-multilingual-dictionaries/english/)
+glosses as “transport.” The technical `DDP` and
+`DDP_TRANSPORT` identifiers remain unchanged. The downloaded
+58,298-entry dictionary was cross-checked against all current
+non-English Tigre/Tigrinya exact overlaps: 19 exact dictionary
+headwords were found, all already among the previously reviewed
+short shared forms; it supplies no new verbatim full-clause retention.
+That does not prove the longer matches are wrong, only that exact
+dictionary matching cannot certify them. The UI's complete noun
+phrase remains low confidence pending native grammar review.
+Focused checks verify the English source sense, Tigre result,
+Tigrinya difference, literal identifier, ledger row and runtime
+lookup. Ledger and all 234 locale inventory checks pass. Records
+rise from 22,181 to 22,182; exact overlap falls from 229 to 228,
+with 22 reviewed shared and 206 still unclassified. Broader
+wrong-language and complete-clause work remains open. No live UI
+test or remote write occurred.
+
 ### 2026-09-15 — Final obsolete list-width messages
 
 Source commit `31a238d91` repairs Cherokee and Wolaytta. Cherokee's
