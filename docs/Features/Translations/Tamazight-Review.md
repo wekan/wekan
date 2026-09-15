@@ -4383,3 +4383,23 @@ remain low confidence pending fluent review. Four focused suites pass for
 exact values, negative French prose after preserving `Node` and `Excel`, and
 all 234 locale inventories. Ledger 20,063; corrected 15,857, pending 23
 (zgh 22, rup 1), restored four unchanged. No live UI test or remote write ran.
+
+
+2026-09-15 — `36c8afc8e`: repair five Arabic/French board and offline values,
+and complete the correct-language Roman Tamazight Markdown-import instruction
+with its omitted plain-bullet behavior. Preserve all Markdown examples,
+Obsidian Kanban, URL and Google literals. Four focused suites pass; full URL
+scheme, bucket and long-sentence grammar remain low confidence.
+
+2026-09-15 — `a11978016`: replace three French global-search instructions.
+Every operator placeholder, backtick, `<n>`, quoted value and `list:Blocked`
+example remains exact. Four focused suites pass; explanatory operator grammar
+remains low confidence pending fluent review.
+
+2026-09-15 — `ee9228ab6`: replace all thirteen remaining French member-mapping
+and board-migration values with one consistent Tamazight vocabulary. Preserve
+`URL`, `ID`, `swimlaneId` and `listId` literally and keep every confirmation a
+question. Four focused suites pass. Full technical compounds and longer
+mapping/confirmation grammar remain low confidence. This clears the original
+Tamazight audit queue; it does not certify the whole locale or earlier draft
+compounds. No live UI test or remote write ran.

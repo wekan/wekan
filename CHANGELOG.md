@@ -1731,6 +1731,60 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/36c8afc8e">Repair Tamazight board and import guidance.</a></summary>
+
+Replace Arabic or French offline, Due Cards, URL, bucket and public-board text,
+and complete the Roman Tamazight Markdown-import instruction. Preserve all
+syntax and product literals. Longer phrasing remains under native review.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a11978016">Repair Tamazight global search guidance.</a></summary>
+
+Replace three French search instructions while preserving every operator,
+placeholder, quoted example and Markdown delimiter. Explanatory grammar
+remains under native review.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ee9228ab6">Complete tracked Tamazight migration translations.</a></summary>
+
+Replace the final thirteen French member-mapping and board-migration values.
+Preserve URL and database field identifiers and verify confirmation questions.
+Long technical clauses remain under native review.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f18a925c2">Translate the Aromanian magenta color label.</a></summary>
+
+Replace the English placeholder with a red-violet compound built from attested
+Aromanian color components. The exact compound remains under native review.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2ecd74637">Complete restored Basque rule translation review.</a></summary>
+
+Retain four named-subject fragments after checking production rule-builder and
+saved-description order. The original audit now has no pending or restored
+rows; broader full-locale review continues.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

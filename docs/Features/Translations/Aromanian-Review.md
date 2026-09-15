@@ -75,3 +75,19 @@ No locale/ledger/count change: original pending 177, Aromanian 1, restored
 4. The newer dictionary search closes the previous unexecuted source check,
 while actual magenta attestation remains open. Broader review continues.
 No remote writes.
+
+## Descriptive magenta repair — 2026-09-15
+
+Source commit `f18a925c2` replaces the English-valued `magenta` with
+`arosh-vinjit`, a transparent red-violet description. The locale already uses
+`arosh` for red and `vinjit` for purple. The Aromanian Wiktionary entries
+independently attest `rosh`/`arosh` as red and `vinit`/`vinjit` as a
+violet-blue color; the 2023 field study identifies the same color domain.
+Magenta is a reddish-purple color, so the compound distinguishes it from both
+component labels without claiming an unattested dedicated loanword.
+
+No source directly attests the exact compound, so it remains low confidence
+pending native review. Four focused suites pass for the exact composition,
+negative English placeholder and all 234 locale inventories. Ledger 20,086;
+the original audit has zero pending rows and zero restored rows after the
+separate Basque review. No browser test or remote write ran.

@@ -16,12 +16,13 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `3d79d5ca5` — replace four French
-Tamazight diagnostic and repository-action values. The repairs reuse existing
-memory, heap, total size, export, disk-space, sign-in, upload and update terms.
-Four focused files pass; ledger 20,063, original pending 23 (Tamazight 22,
-Aromanian 1), restored 4 unchanged. Allocated-heap and software-repository
-compounds remain low confidence.
+Latest translation fix: **2026-09-15**, `f18a925c2` — replace Aromanian's
+English-valued `magenta` with `arosh-vinjit`, composed from its existing red
+and purple labels and independently attested Aromanian color components.
+Source commit `ee9228ab6` clears the remaining Tamazight migration family.
+Six focused files pass; ledger 20,086. The original audit now has zero pending
+rows. Both the color compound and Tamazight technical prose remain under
+native review.
 
 The tracked Tigre calendar queue being empty does not certify the locale. Of
 2,592 non-English Tigre values, 917 are byte-for-byte identical to Tigrinya,
@@ -35,24 +36,23 @@ repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
-Latest terminology review: **2026-09-15** —
-[Inuktitut Roman orthography](Inuktitut-Calendar-Review.md), source commit
-`a0eeee9d63`: retain 23 values after official sources confirmed that both
-Qaliujaaqpait Roman orthography and Qaniujaaqpait syllabics are valid for
-Inuktitut. Reviewed unchanged is now 4,197 and pending is 50; 15 Inuktitut
-calendar labels remain.
+Latest terminology review: **2026-09-15**, `2ecd74637` — retain the final four
+restored Basque named-subject fragments after checking actual rule-builder and
+saved-description composition. The selected name precedes the noun phrase and
+the following action supplies the temporal clause. All 20,081 original rows
+are now classified: 15,880 corrected and 4,201 retained, with zero restored or
+pending.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:
 `946e1a29b` retains generic Basque member/attachment subjects. Named Basque
-DOM and saved-description repairs are `1e4411183` and `0c51a3261`; four
-restored values still await full native clause validation.
+DOM and saved-description repairs are `1e4411183` and `0c51a3261`.
 
 | Pending locale | Findings |
 | --- | ---: |
 
-Remaining review includes all restored, unflagged and prior low-confidence
-values, not just this pending table. Structural checks preserve exact English
+Remaining review includes unflagged and prior low-confidence values beyond
+this now-empty pending table. Structural checks preserve exact English
 placeholders, JSON examples and key order; they do not establish language
 quality. Correct-language human translations remain preferred. No external
 translation service is used, and no remote push was performed.
@@ -64,9 +64,9 @@ translation service is used, and no remote push was performed.
 - [Inuktitut](Inuktitut-Calendar-Review.md), [Nahuatl](Nahuatl-Review.md),
   [Tigre/Wolaytta](Tigre-Wolaytta-Calendar-Review.md),
   [Quechua](Quechua-Review.md) and [Aromanian](Aromanian-Review.md): calendar
-  qualifiers, complete compounds, native terminology and magenta attestation.
-- [Basque](Basque-Review.md): named subjects, full phrases and browser spec
-  88 (Chromium passed; full native clauses open). [Veps](Veps-Review.md):
+  qualifiers, complete compounds and native terminology.
+- [Basque](Basque-Review.md): broader full phrases and browser spec 88
+  (Chromium passed). [Veps](Veps-Review.md):
   remaining Finnish prose;
   literal filter examples must be preserved.
 - [Uzbek Arabic](Uzbek-Arabic-Review.md): indexed cancellation evidence needs

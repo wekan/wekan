@@ -30630,3 +30630,26 @@ Four focused files pass for all 20,063 correction records, negative French
 prose after preserving `Node` and `Excel`, and all 234 locale inventories.
 Original counts are 15,857 corrected, 23 pending (Tamazight 22, Aromanian 1),
 4,197 retained and four restored. No live UI test or remote write occurred.
+
+### 2026-09-15 — Original flagged and restored queues classified
+
+Source commits `36c8afc8e`, `a11978016` and `ee9228ab6` repair the final 22
+Tamazight findings. They cover offline/public/Due Cards guidance, complete
+Markdown import behavior, global-search operators, member mapping and the
+board-migration family. Tests preserve every Markdown/operator/field literal
+and reject remaining Arabic or French prose. Full technical compounds and
+long sentences remain low confidence pending native review.
+
+Source commit `f18a925c2` replaces Aromanian's English-valued `magenta` with
+`arosh-vinjit`, composed from the locale's red and purple labels. Independent
+Aromanian lexical pages attest both components, but no source directly attests
+the compound; it remains low confidence.
+
+Review commit `2ecd74637` retains the final four restored Basque named-subject
+fragments after production-template and saved-description composition review.
+The selected name precedes the noun phrase and the following action supplies
+the temporal clause. All 20,081 original rows are now classified: 15,880
+corrected and 4,201 retained, with zero pending and zero restored. The ledger
+contains 20,086 exact changes, including unflagged repairs. Six focused suites
+pass. Broader unflagged, whole-locale and prior low-confidence review remains
+open; no remote write occurred.

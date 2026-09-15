@@ -70,6 +70,21 @@ the same key, so any replacement must also compose with both noun contexts.
 No value is changed or accepted in this review. Runtime and browser checks
 remain separate requirements.
 
+## Final restored named-subject fragments — 2026-09-15
+
+Review commit `2ecd74637` retains `Etiketa hau`, `Kide hau`,
+`Kontrol-zerrenda hau` and `Kontrol-zerrendako elementu hau`. Production
+templates deliberately place the selected name before these fragments for
+Basque, while the following action supplies the temporal `-enean` clause.
+Production-method tests verify the same order in saved descriptions. The
+restored Basque values are therefore preferable to the pulled Spanish values.
+
+Six focused suites pass for exact composition, negative Spanish/English text,
+all 4,201 unchanged acceptances, all 20,086 corrections and all 234 locale
+inventories. The four restored rows are now reviewed; original restored and
+pending counts are both zero. This review does not claim general native style
+or live browser execution. No remote write ran.
+
 ## 2026-09-14 — S3 technical loan retained (5bf97e219)
 
 [Native ZIUR Basque technical specification](https://www.contratacion.euskadi.eus/webkpe00-kpeperfi/es/contenidos/anuncio_contratacion/expjaso33672/es_doc/adjuntos/pliego_bases_tecnicas2.pdf)
