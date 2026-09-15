@@ -1496,6 +1496,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/046830b35">Replace wrong-language Veps list date range description.</a></summary>
+
+Preserve custom date fields marked for list top using a native interval
+noun. Full draft grammar remains under review. Four focused files pass
+(39 checks); no live date-range UI ran.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

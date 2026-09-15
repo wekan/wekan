@@ -30298,3 +30298,19 @@ severity/category/detail labels, code binding and all token/key inventories.
 These checks do not validate technical fluency. No live event UI ran.
 Ledger 19,962; original pending 126/restored 4 unchanged. CPU-core terms,
 number/date-range and full broader uncertain review remain in scope.
+
+
+2026-09-15 — `046830b35`: date-range-of-fields Tshivenda replaced with
+Veps draft preserving dates, custom fields and list-top marking. Read
+listHeader.js earliest/latest formatting; this is not numeric summation.
+Rendered and visually read primary dictionary page 367 (PDF index 366):
+промежуток keskust (-an, -id), time interval aigan keskust, two-year
+interval kaks’vozne keskust. Evidence cache interval-367.png. The noun
+is directly attested; full date/custom-field compound and list-top cases
+remain LOW CONFIDENCE, not a validated native whole phrase.
+Primary dictionary linked from https://en.wiktionary.org/wiki/kova#Veps
+Native MediaWiki and existing Päivmär/custom-fields provide other bases.
+Four focused files pass (39 checks), including date-field/top-selection
+qualifiers, wrong-language rejection and complete token/key inventories.
+No live date-range UI ran. Ledger 19,963; pending 126/restored 4 unchanged.
+Numeric-sum terminology and full prior uncertain review remain open.
