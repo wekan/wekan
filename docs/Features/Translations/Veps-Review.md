@@ -1261,3 +1261,17 @@ placeholder preservation, all 20,486 correction records and all 234 locale
 inventories. Raw Finnish overlap falls from 352 to 187, leaving 181
 unclassified after six attested shared forms. Full assembled grammar stays
 open to fluent review. No live UI test or remote write ran.
+
+2026-09-15 — `a4ec295ff`: completed the Finnish-seeded review. The final 177
+search, report, status, storage and migration values now use Veps drafts built
+from the checked lexical sources and vocabulary already established in this
+locale. Placeholder inventories, HTML tags, parser examples, product names,
+IDs and storage-provider names remain exact.
+
+Ten raw matches remain and are all explicitly reviewed: `Nimi`, `Ei`, `Jono`,
+`Minä` and `Repo` are independently native Veps forms; rule/display duplicates
+reuse those forms; and `r-of`/`of` are intentional slash separators rather
+than Finnish prose. The focused test compares the complete residual overlap to
+this closed set, so no Finnish match is unclassified. Eight focused files pass
+for all 20,663 corrections and all 234 locale inventories. Full draft style
+remains open to fluent improvement. No live UI test or remote write ran.

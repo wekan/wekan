@@ -16,13 +16,13 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `4caef872b` — replace 165 coordinated
-Finnish-seeded Veps account, email, profile, status, color, rules and settings
-values. Compositions reuse native lexical sources and established locale
-vocabulary while preserving placeholders and product literals. Seven focused
-files pass; ledger 20,486. Finnish overlap falls from 540 to 187 values, with
-six attested shared forms and 181 unclassified. Tigre source `0e9418960` and
-review `5b2c5942e` reduce its unclassified Tigrinya overlap from 917 to 857.
+Latest translation fix: **2026-09-15**, `a4ec295ff` — complete the
+Finnish-seeded Veps review by replacing the final 177 search, report, status,
+storage and migration values. Ten remaining byte-identical forms are now
+individually covered as native cognates or intentional slash syntax. Eight
+focused files pass; ledger 20,663. No Finnish match remains unclassified.
+Tigre source `0e9418960` and review `5b2c5942e` reduce its unclassified
+Tigrinya overlap from 917 to 857.
 
 The tracked Tigre calendar queue being empty does not certify the locale. Of
 2,592 non-English Tigre values, 870 are byte-for-byte identical to Tigrinya;
@@ -67,7 +67,7 @@ translation service is used, and no remote push was performed.
   [Quechua](Quechua-Review.md) and [Aromanian](Aromanian-Review.md): calendar
   qualifiers, complete compounds and native terminology.
 - [Basque](Basque-Review.md): broader full phrases and browser spec 88
-  (Chromium passed). [Veps](Veps-Review.md): 181 unclassified Finnish matches;
+  (Chromium passed). [Veps](Veps-Review.md): Finnish-seeded review complete;
   literal filter examples must be preserved.
 - [Uzbek Arabic](Uzbek-Arabic-Review.md): indexed cancellation evidence needs
   full-source and native orthographic verification (`b433730e3`).

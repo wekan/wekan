@@ -30745,3 +30745,17 @@ Raw Finnish overlap falls from 352 to 187; after six attested shared forms, 181
 remain unclassified. Full composed grammar remains open to fluent review, and
 unrelated migration/report phrases remain in scope. No live UI test or remote
 write ran.
+
+### 2026-09-15 — Finnish-seeded Veps review completed
+
+Source commit `a4ec295ff` replaces the final 177 Finnish-seeded Veps search,
+report, status, storage and migration values. It also extends exact review
+coverage to ten unchanged values: native cognates for Name, No, Queue, Me and
+Repository, plus rule/display Name variants and two intentional slash
+separators. Eight focused files pass for all 20,663 correction records, exact
+placeholder inventories and all 234 locale inventories.
+
+The raw overlap is ten and the test requires it to equal the explicit shared
+set exactly, leaving zero unclassified Finnish matches. Complete draft grammar
+remains open to fluent improvement, but the wrong-language seed defect is
+closed. No live UI test or remote write ran.

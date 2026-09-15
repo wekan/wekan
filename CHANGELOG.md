@@ -1862,6 +1862,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a4ec295ff">Complete Finnish-seeded Veps translation review.</a></summary>
+
+Replace the final 177 Finnish-seeded search, report, status, storage and
+migration values. Exact checks classify every remaining match as an attested
+native cognate or intentional slash syntax and preserve all placeholders.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
