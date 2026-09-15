@@ -30829,3 +30829,12 @@ attested in complete BeitTigreAI corpus sentences. Focused exact and negative
 checks pass with all 20,831 correction records and 234 locale inventories.
 Exact overlap falls to 702; 683 remain unclassified after 19 attested shared
 forms. No remote write occurred.
+
+### 2026-09-15 — Tigre operational terms
+
+Source commit `a268d6167a` repairs 22 operational labels with Tigre forms
+attested in complete corpus sentences; review `fa6cbd1666` retains Seconds as
+a directly attested shared form. Focused exact and negative checks pass with
+all 20,853 correction records and 234 locale inventories. Raw overlap falls to
+680; 660 remain unclassified after 20 attested shared forms. No remote write
+occurred.

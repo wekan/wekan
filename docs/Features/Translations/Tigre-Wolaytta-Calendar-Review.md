@@ -358,3 +358,14 @@ pink, days, path, year, role, table, white, reply, small, notes, hours, count,
 tests and today. Focused checks reject every former seed; all 20,831 corrections
 and 234 locale inventories pass. Exact overlap falls to 702, with 19 shared
 forms and 683 unclassified. No remote write ran.
+
+## Tigre operational terms repaired — 2026-09-15
+
+Source commit `a268d6167a` replaces 22 operational labels using distinct
+Tigre corpus forms for accept, limits, silver/yellow, invite, finish, upload,
+voting, worker, control, cleanup, minutes, reports/requests, computer, security,
+attempts, previous, problems, progress and schedule. Review `fa6cbd1666` retains
+the exact Seconds form after direct corpus attestation. Focused checks reject
+every former seed; all 20,853 corrections and 234 locale inventories pass. Raw
+overlap falls to 680, with 20 shared forms and 660 unclassified. Regular plurals
+remain open to fluent review. No remote write ran.

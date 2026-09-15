@@ -1900,6 +1900,26 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a268d6167">Repair Tigre operational terms.</a></summary>
+
+Replace 22 Tigrinya-seeded operational labels with distinct Tigre corpus forms
+covering actions, limits, work, reports, security and progress.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fa6cbd166">Retain the shared Tigre seconds term.</a></summary>
+
+Keep the existing Seconds label after direct Tigre corpus attestation proves
+that its equality with Tigrinya is a valid cognate.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e17bb2b5e">Repair native-catalogue Veps interface terms.</a></summary>
 
 Replace 31 Finnish-seeded labels through exact English-source matching with
