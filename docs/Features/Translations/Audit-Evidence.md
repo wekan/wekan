@@ -30280,3 +30280,21 @@ Event schema info|low|medium|high|critical remains the actual semantic
 requirement. No locale edit or count change: ledger 19,961, original
 pending 126/restored 4. Severity remains wrong-language and in scope.
 Audit consistency check passes; no live UI ran.
+
+
+2026-09-15 — `91d0cbf5e`: event-severity Tshivenda replaced with
+Kovuden korktuz’ as a direct Veps severity-level draft. Rendered primary
+dictionary page 442 supplies kovuz’ (-den), hardness/firmness including
+judgments; page 475 supplies abstract korktuz’ level distinct from pind
+water level. Native adjective kova has harsh/severe sense. These support
+morphological bases, not independently attested computing usage:
+https://en.wiktionary.org/wiki/kova#Veps
+The harshness/firmness-to-event-severity analogy and whole compound remain
+LOW CONFIDENCE and require further lexical/context review. Do not certify
+this as native standard terminology or equate it with risk/importance.
+Actual adminProblems severity column and eventLog levels remain unchanged.
+Four focused files pass (38 checks): foreign-text rejection, distinct
+severity/category/detail labels, code binding and all token/key inventories.
+These checks do not validate technical fluency. No live event UI ran.
+Ledger 19,962; original pending 126/restored 4 unchanged. CPU-core terms,
+number/date-range and full broader uncertain review remain in scope.

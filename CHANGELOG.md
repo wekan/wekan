@@ -1485,6 +1485,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/91d0cbf5e">Replace wrong-language Veps event severity label.</a></summary>
+
+Use verified native noun forms in a severity-level draft. Complete
+technical terminology remains low confidence and under review.
+Four focused files pass (38 checks); no live event UI ran.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
