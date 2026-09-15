@@ -1,6 +1,7 @@
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { loginWithToken, openBoard } = require('../helpers/auth');
+const BoardPage = require('../pages/BoardPage');
 
 // These tests change instance-wide policies and restore them after each case.
 test.describe.configure({ mode: 'serial' });
@@ -37,9 +38,12 @@ for (const view of [
         }
         await loginWithToken(page, user.id, user.token);
         await openBoard(page, board.boardId, board.slug);
-        if (view.menu) await page.locator(view.menu).first().click();
+        if (view.menu) {
+          await page.locator('.js-toggle-board-view').first().click();
+          await page.locator(`.pop-over ${view.menu}`).click();
+        }
         if (['opened card', 'opened card List dropdown'].includes(view.name)) {
-          await page.locator('.minicard').filter({ hasText: 'Demo' }).first().click();
+          await new BoardPage(page).clickCard(board.listIds[0], 'Demo');
         }
         if (['control chart', 'cumulative flow'].includes(view.name)) {
           await expect(page.locator('.stats-view-title > .viewer')).toBeVisible();
