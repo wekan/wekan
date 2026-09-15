@@ -139893,5 +139893,33 @@
     "before": "Ota pystysuuntaiset vierityspalkit käyttöön",
     "after": "Pane päle vertikaližed skrolindan čurad",
     "reason": "2026-09-15: Replace Finnish with an explicit Veps vertical-scrollbar draft. The setting controls scrollbar visibility on board, list, card and sidebar containers; use the primary-dictionary-attested vertical adjective plus existing enable, scrolling and UI-bar terminology. The assembled scrollbar compound remains low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "keyboard-shortcuts",
+    "before": "Pikanäppäimet",
+    "after": "Klaviaturan käskud",
+    "reason": "2026-09-15: Replace the coordinated Finnish keyboard-shortcut family with a transparent Veps keyboard-command draft. Reuse existing käskud command vocabulary and enabled/disabled/opposite-click actions; preserve the distinct route-opening action and literal ? binding. A dedicated native shortcut term was not established, so the technical label and assembled cases remain low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "keyboard-shortcuts-enabled",
+    "before": "Pikanäppäimet käytössä. Klikkaa poistaaksesi käytöstä.",
+    "after": "Klaviaturan käskud oma päl. Painda sammutandaks.",
+    "reason": "2026-09-15: Replace the coordinated Finnish keyboard-shortcut family with a transparent Veps keyboard-command draft. Reuse existing käskud command vocabulary and enabled/disabled/opposite-click actions; preserve the distinct route-opening action and literal ? binding. A dedicated native shortcut term was not established, so the technical label and assembled cases remain low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "keyboard-shortcuts-disabled",
+    "before": "Pikanäppäimet poistettu käytöstä. Klikkaa ottaaksesi käyttöön.",
+    "after": "Klaviaturan käskud oma sammutadud. Painda pälepanendaks.",
+    "reason": "2026-09-15: Replace the coordinated Finnish keyboard-shortcut family with a transparent Veps keyboard-command draft. Reuse existing käskud command vocabulary and enabled/disabled/opposite-click actions; preserve the distinct route-opening action and literal ? binding. A dedicated native shortcut term was not established, so the technical label and assembled cases remain low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "shortcut-show-shortcuts",
+    "before": "Tuo esiin tämä pikavalintalista",
+    "after": "Ozuta nece klaviaturan käskuiden lugetiž",
+    "reason": "2026-09-15: Replace the coordinated Finnish keyboard-shortcut family with a transparent Veps keyboard-command draft. Reuse existing käskud command vocabulary and enabled/disabled/opposite-click actions; preserve the distinct route-opening action and literal ? binding. A dedicated native shortcut term was not established, so the technical label and assembled cases remain low confidence."
   }
 ]

@@ -2968,6 +2968,26 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   ]) {
     assert.match(fs.readFileSync(path.join(root, template), 'utf8'), /unless isVerticalScrollbars.*no-scrollbars/, template);
   }
+  const vepsKeyboardCommands = {
+    'keyboard-shortcuts': 'Klaviaturan käskud',
+    'keyboard-shortcuts-enabled': 'Klaviaturan käskud oma päl. Painda sammutandaks.',
+    'keyboard-shortcuts-disabled': 'Klaviaturan käskud oma sammutadud. Painda pälepanendaks.',
+    'shortcut-show-shortcuts': 'Ozuta nece klaviaturan käskuiden lugetiž',
+  };
+  for (const [key, value] of Object.entries(vepsKeyboardCommands)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.doesNotMatch(value, /Pikanäppäimet|käytössä|Klikkaa|poistaaksesi|käyttöön|Tuo esiin|pikavalintalista/, key);
+  }
+  assert.match(cache['ve-PP']['keyboard-shortcuts-enabled'], /oma päl.*Painda sammutandaks\.$/);
+  assert.match(cache['ve-PP']['keyboard-shortcuts-disabled'], /oma sammutadud.*Painda pälepanendaks\.$/);
+  assert.notEqual(cache['ve-PP']['keyboard-shortcuts-enabled'], cache['ve-PP']['keyboard-shortcuts-disabled']);
+  assert.match(cache['ve-PP']['shortcut-show-shortcuts'], /^Ozuta.*käskuiden lugetiž$/);
+  const shortcutsTemplate = fs.readFileSync(path.join(root, 'client/components/main/keyboardShortcuts.jade'), 'utf8');
+  const keyboardLogic = fs.readFileSync(path.join(root, 'client/lib/keyboard.js'), 'utf8');
+  assert.match(sidebarTemplate, /js-shortcuts\(title="\{\{_ 'keyboard-shortcuts' \}\}"\)/);
+  assert.match(sidebarTemplate, /isKeyboardShortcuts.*keyboard-shortcuts-enabled.*keyboard-shortcuts-disabled/);
+  assert.match(shortcutsTemplate, /\{\{_ 'keyboard-shortcuts'\}\}/);
+  assert.match(keyboardLogic, /keys: \['\?'\],[\s\S]*action: 'shortcut-show-shortcuts'/);
   assert.equal(vepsTranslator.t('MongoDB_storage_engine'), 'MongoDB kaičusen motor');
   assert.doesNotMatch(vepsTranslator.t('MongoDB_storage_engine'), /tallennusmoottori/);
   assert.equal(vepsTranslator.t('zoom-in'), 'Surenda');
