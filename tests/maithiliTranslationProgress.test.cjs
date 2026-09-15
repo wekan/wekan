@@ -57,7 +57,8 @@ assert.equal(maithili['allboards.workspaces'], 'कार्यस्थान')
 assert.match(maithili['allboards.edit-workspace-icon'], /markdown/);
 assert.equal(maithili['workspaceActionsPopup-title'], 'कार्यस्थान सेटिंग');
 assert.deepEqual(tokens(maithili['activity-dueDate']), ['%s', '%s']);
-assert.match(maithili['list-width-error-message'], /270/);
+assert.match(maithili['list-width-error-message'], /कम सँ कम 200 पिक्सेलक पूर्णांक/);
+assert.doesNotMatch(maithili['list-width-error-message'], /270/);
 assert.match(maithili['set-list-width-value'], /पिक्सेल/);
 assert.match(maithili['set-swimlane-height-value'], /पिक्सेल/);
 assert.equal(maithili['add-checklist'], 'जाँचसूची जोड़ू');

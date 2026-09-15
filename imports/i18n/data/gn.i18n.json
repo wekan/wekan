@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Emoĩ ipekue",
   "set-list-width": "Emoĩ ipekue",
   "set-list-width-value": "Ysaja ipekue (píxel)",
-  "list-width-error-message": "Ysaja ipekue ha'eva'erã papapy oĩmbáva ha tuichavéva 270-gui",
+  "list-width-error-message": "Ysaja ipekue ha'eva'erã papapy oĩmbáva ≥ 200 píxel",
   "list-width-shared-note": "Ko ipekue oñemboja'o opavave ko peteĩcha reheguáva ndive.",
   "list-width-personal-note": "Ko ipekue nde añoite rehegua.",
   "personal-list-width": "Ysaja ipekue ñemomba'e",

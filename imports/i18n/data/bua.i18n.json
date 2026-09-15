@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Үргэниие тохируулха",
   "set-list-width": "Үргэниие тохируулха",
   "set-list-width-value": "Жагсаалтын үргэн (пиксель)",
-  "list-width-error-message": "Жагсаалтын үргэн 270-һаа ехэ бүхэли тоо байха ёһотой",
+  "list-width-error-message": "Жагсаалтын үргэн 200 пиксельһээ бага бэшэ бүхэли тоо байха ёһотой",
   "list-width-shared-note": "Энэ үргэн тус самбар дээрэхи бүхы хүнүүдтэ адли байна.",
   "list-width-personal-note": "Энэ үргэн гансал танда хабаатай.",
   "personal-list-width": "Жагсаалтын хубиин үргэнүүд",

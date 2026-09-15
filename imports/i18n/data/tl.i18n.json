@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Itakda lapad",
   "set-list-width": "Itakda lapad",
   "set-list-width-value": "listahan lapad (pixels)",
-  "list-width-error-message": "listahan lapad dapat maging an integer greater than 270",
+  "list-width-error-message": "Ang lapad ng listahan ay dapat buong bilang na hindi bababa sa 200 pixels",
   "list-width-shared-note": "Ito lapad ay ibinahagi kasama ang everyone dito sa pisara.",
   "list-width-personal-note": "Ito lapad ay lamang para sa ikaw.",
   "personal-list-width": "Personal listahan widths",

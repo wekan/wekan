@@ -154838,5 +154838,75 @@
     "before": "Me noho te whānui rārangi hei tau tōpū nui ake i te 270",
     "after": "Me noho te whānui rārangi hei tau tōpū, i te iti rawa 200 pika",
     "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "bua",
+    "key": "list-width-error-message",
+    "before": "Жагсаалтын үргэн 270-һаа ехэ бүхэли тоо байха ёһотой",
+    "after": "Жагсаалтын үргэн 200 пиксельһээ бага бэшэ бүхэли тоо байха ёһотой",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "fj",
+    "key": "list-width-error-message",
+    "before": "Na raba ni lisi me dua na naba taucoko e levu cake mai na 270",
+    "after": "Na raba ni lisi me dua na naba taucoko ≥ 200 pixels",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "kok",
+    "key": "list-width-error-message",
+    "before": "वळेरीची रुंदाय 270 परस व्हड पूर्णांक आसपाक जाय",
+    "after": "वळेरीची रुंदाय उण्यांत उणें 200 पिक्सेलांचो पूर्णांक आसपाक जाय",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "gn",
+    "key": "list-width-error-message",
+    "before": "Ysaja ipekue ha'eva'erã papapy oĩmbáva ha tuichavéva 270-gui",
+    "after": "Ysaja ipekue ha'eva'erã papapy oĩmbáva ≥ 200 píxel",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "mai",
+    "key": "list-width-error-message",
+    "before": "सूचीक चौड़ाइ 270 सँ पैघ पूर्णांक होबाक चाही",
+    "after": "सूचीक चौड़ाइ कम सँ कम 200 पिक्सेलक पूर्णांक होबाक चाही",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording."
+  },
+  {
+    "locale": "tpi",
+    "key": "list-width-error-message",
+    "before": "Brait bilong lis i mas wanpela namba i winim 270",
+    "after": "Brait bilong lis i mas wanpela namba olgeta ≥ 200 piksel",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "rn",
+    "key": "list-width-error-message",
+    "before": "Ubugari bw'urutonde butegerezwa kuba igitigiri cuzuye kiruta 270",
+    "after": "Ubugari bw'urutonde butegerezwa kuba igitigiri cuzuye ≥ 200 pixels",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "tl",
+    "key": "list-width-error-message",
+    "before": "listahan lapad dapat maging an integer greater than 270",
+    "after": "Ang lapad ng listahan ay dapat buong bilang na hindi bababa sa 200 pixels",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording."
+  },
+  {
+    "locale": "sn",
+    "key": "list-width-error-message",
+    "before": "rondedzero width anofanira iva an integer greater than 270",
+    "after": "Upamhi hwerondedzero hunofanira kuva nhamba yakazara ye kanenge 200 pixels",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "ig",
+    "key": "list-width-error-message",
+    "before": "Obosara ndepụta ga-abụ integer karịrị 270",
+    "after": "Obosara ndepụta ga-abụ ọnụọgụ zuru ezu nke opekata mpe 200 pikselụ",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
   }
 ]

@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Lesia na raba",
   "set-list-width": "Lesia na raba",
   "set-list-width-value": "Raba ni lisi (pixels)",
-  "list-width-error-message": "Na raba ni lisi me dua na naba taucoko e levu cake mai na 270",
+  "list-width-error-message": "Na raba ni lisi me dua na naba taucoko ≥ 200 pixels",
   "list-width-shared-note": "Na raba oqo e wasei vei ira kece ena vola oqo.",
   "list-width-personal-note": "Na raba oqo e nomu ga.",
   "personal-list-width": "Raba ni lisi yadua",

@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Debe obosara",
   "set-list-width": "Debe obosara",
   "set-list-width-value": "Obosara ndepụta (pikselụ)",
-  "list-width-error-message": "Obosara ndepụta ga-abụ integer karịrị 270",
+  "list-width-error-message": "Obosara ndepụta ga-abụ ọnụọgụ zuru ezu nke opekata mpe 200 pikselụ",
   "list-width-shared-note": "A na-ekekọrịta obosara a na onye ọ bụla nọ na bọọdụ a.",
   "list-width-personal-note": "Obosara a bụ naanị maka gị.",
   "personal-list-width": "Obosara ndepụta nkeonwe",

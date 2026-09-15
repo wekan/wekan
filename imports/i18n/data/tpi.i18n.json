@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Makim brait",
   "set-list-width": "Makim brait",
   "set-list-width-value": "Brait bilong lis (piksel)",
-  "list-width-error-message": "Brait bilong lis i mas wanpela namba i winim 270",
+  "list-width-error-message": "Brait bilong lis i mas wanpela namba olgeta ≥ 200 piksel",
   "list-width-shared-note": "Olgeta man long dispela bot i lukim dispela brait.",
   "list-width-personal-note": "Dispela brait em bilong yu tasol.",
   "personal-list-width": "Brait bilong lis bilong yu yet",
