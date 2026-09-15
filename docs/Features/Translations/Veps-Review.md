@@ -935,3 +935,24 @@ and narrows the search to the appropriate severe sense. event-severity
 Tshivenda remains unrepaired and explicitly in scope. Audit ledger and
 original queue counts unchanged: 19,961 records, pending 126/restored 4.
 No live UI or translation validation test is claimed for this research.
+
+
+2026-09-15 — rendered primary dictionary follow-up for event severity.
+Cached russian-veps-pages.jsonl search located kovuz’ on page 442.
+Rendered PDF page index 441 and visually inspected the actual page:
+.tools/tmp/veps-native-source/hardness-442.png (local evidence cache).
+The entry твёрдость reads kovuz’ (-den, -t), with soil hardness ma kovuz’
+and firmness of judgments mel’pidoiden kovuz’. Thus the noun is attested,
+including its terminal apostrophe and oblique stem. Correct the earlier
+research uncertainty: noun existence is resolved, not an invented Kovuz.
+Primary Zajceva/Mullonen 2007 Russian–Veps dictionary linked from:
+https://en.wiktionary.org/wiki/kova#Veps
+The actual scanned entry is hardness/firmness, not security-event severity.
+Its figurative example establishes nonphysical firmness, still not a
+severity-level label for info/low/medium/high/critical. Do not broaden
+this evidence into a claim that the technical label is validated.
+Next action is to compare level/degree constructions or native event-risk
+terminology; spelling uncertainty alone no longer blocks that comparison.
+No locale edit; event-severity remains wrong-language and within scope.
+Ledger 19,961, original pending 126/restored 4 unchanged. Full translation
+review remains active. Audit-progress consistency check passes; no live UI.

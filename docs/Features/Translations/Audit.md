@@ -30,10 +30,10 @@ source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
 Latest terminology review: **2026-09-15** —
-[Veps event severity](Veps-Review.md): dictionary kova has a severe sense;
-tärged is important and selʹged is sober/serious, unsuitable substitutes
-for the severity-level column. Native severity noun and computing context
-remain open. No locale edit or count change; broader review continues.
+[Veps rendered severity candidate](Veps-Review.md): dictionary page 442
+confirms kovuz’ as hardness/firmness, with figurative judgments example.
+This resolves the noun's existence/spelling, but not event-severity use.
+No locale edit/count change; native computing terminology remains open.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:
