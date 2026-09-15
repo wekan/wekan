@@ -146172,5 +146172,103 @@
     "before": "ኣባላት",
     "after": "አባላት",
     "reason": "Replace the Tigrinya seed, and for five previously repaired values correct the earlier association sense, with the explicit BeitTigreAI Member/Members pair አባል/አባላት attested together in a corpus plural template."
+  },
+  {
+    "locale": "tig",
+    "key": "admin",
+    "before": "ኣመሓዳሪ",
+    "after": "ሓክም",
+    "reason": "Replace the Tigrinya-seeded Admin label with the exact BeitTigreAI Tigre corpus entry glossed judge/administrator."
+  },
+  {
+    "locale": "tig",
+    "key": "impersonation-admin",
+    "before": "ኣመሓዳሪ",
+    "after": "ሓክም",
+    "reason": "Replace the Tigrinya-seeded Admin label with the exact BeitTigreAI Tigre corpus entry glossed judge/administrator."
+  },
+  {
+    "locale": "tig",
+    "key": "orgAdminsPopup-title",
+    "before": "ኣመሓደርቲ ውድብ",
+    "after": "መዳይር መነዘመት",
+    "reason": "Replace the Tigrinya-seeded Organization Admins label with the corpus-attested Tigre plural Administrators and organization nouns."
+  },
+  {
+    "locale": "tig",
+    "key": "org-admins",
+    "before": "ኣመሓደርቲ ውድብ",
+    "after": "መዳይር መነዘመት",
+    "reason": "Replace the Tigrinya-seeded Organization Admins label with the corpus-attested Tigre plural Administrators and organization nouns."
+  },
+  {
+    "locale": "tig",
+    "key": "confirm-btn",
+    "before": "ኣረጋግጽ",
+    "after": "ኣክድ",
+    "reason": "Replace the Tigrinya-seeded Confirm/Verify labels with the Tigre imperative attested in the complete corpus phrases Confirm password and Verify your identity."
+  },
+  {
+    "locale": "tig",
+    "key": "confirm",
+    "before": "ኣረጋግጽ",
+    "after": "ኣክድ",
+    "reason": "Replace the Tigrinya-seeded Confirm/Verify labels with the Tigre imperative attested in the complete corpus phrases Confirm password and Verify your identity."
+  },
+  {
+    "locale": "tig",
+    "key": "twoFactorCode-submit",
+    "before": "ኣረጋግጽ",
+    "after": "ኣክድ",
+    "reason": "Replace the Tigrinya-seeded Confirm/Verify labels with the Tigre imperative attested in the complete corpus phrases Confirm password and Verify your identity."
+  },
+  {
+    "locale": "tig",
+    "key": "export-card-attachment-type",
+    "before": "ዓይነት",
+    "after": "ዐይነት",
+    "reason": "Replace the Tigrinya-seeded Type spelling with the Tigre noun used in complete corpus sentences about different text and vehicle types."
+  },
+  {
+    "locale": "tig",
+    "key": "type",
+    "before": "ዓይነት",
+    "after": "ዐይነት",
+    "reason": "Replace the Tigrinya-seeded Type spelling with the Tigre noun used in complete corpus sentences about different text and vehicle types."
+  },
+  {
+    "locale": "tig",
+    "key": "stats-scope",
+    "before": "ዓይነት",
+    "after": "ዐይነት",
+    "reason": "Replace the Tigrinya-seeded Type spelling with the Tigre noun used in complete corpus sentences about different text and vehicle types."
+  },
+  {
+    "locale": "tig",
+    "key": "location",
+    "before": "ቦታ",
+    "after": "አካን",
+    "reason": "Replace the Tigrinya-seeded Location label with the Tigre noun attested in three complete corpus sentences."
+  },
+  {
+    "locale": "tig",
+    "key": "office-location",
+    "before": "ቦታ",
+    "after": "አካን",
+    "reason": "Replace the Tigrinya-seeded Location label with the Tigre noun attested in three complete corpus sentences."
+  },
+  {
+    "locale": "tig",
+    "key": "add-location",
+    "before": "ቦታ ወስኽ",
+    "after": "አካን ወስክ",
+    "reason": "Replace the Tigrinya-seeded Add location label with the corpus-attested Tigre location noun and imperative Add, preserving the corpus object-verb order."
+  },
+  {
+    "locale": "tig",
+    "key": "cardLocationsPopup-title",
+    "before": "ቦታ ወስኽ",
+    "after": "አካን ወስክ",
+    "reason": "Replace the Tigrinya-seeded Add location label with the corpus-attested Tigre location noun and imperative Add, preserving the corpus object-verb order."
   }
 ]
