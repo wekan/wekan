@@ -653,7 +653,18 @@ remain under native review.
 
 This release includes the following features and fixes:
 
-**Translations** - Tamazight, Tigre and Asian list-width repairs.
+**Translations** - Tamazight, Tigre and multilingual list-width repairs.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/74e6deabe">Repair twelve African, Kurdish and Yiddish list-width values</a>. Thanks to xet7.</summary>
+
+Replace obsolete greater-than-270 messages with inclusive 200-pixel
+whole-number wording in 12 locale files. Four older progress suites now
+check the current rule. Focused, runtime, ledger and locale inventory
+checks pass; Central Kurdish and Yiddish complete clauses remain under
+native grammar review.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8cc659ac9">Repair 24 Asian list-width values</a>. Thanks to xet7.</summary>

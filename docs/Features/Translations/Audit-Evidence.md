@@ -31633,3 +31633,25 @@ audit-progress checks pass. Ledger grows from 22,075 to 22,099;
 stale list-width queue falls from 91 to 67. The original 20,081
 audit-row classifications remain unchanged. No live UI test or
 remote write occurred.
+### 2026-09-15 — African, Kurdish and Yiddish list-width lower bounds
+
+Source commit `74e6deabe` repairs 12 locale values: Bashkir, Hausa,
+Kurmanji Kurdish, Malagasy, Northern Sotho, Oromo, Somali, Swahili,
+Zulu and South African Zulu, Central Kurdish and Yiddish. Their prior
+sentences required an integer greater than 270; the new values require
+an integer width of at least 200 pixels. Related locale strings already
+use the native minimum and number terms `кәм тигәндә` / `бөтөн һан`,
+`aƙalla` / `cikakkiyar lamba`, `herî kêm` / `hejmareke tam`,
+`farafahakeliny` / `isa feno`, `bonyane` / `palotlalo`,
+`yoo xiqqaate` / `lakkoofsa guutuu`, `ugu yaraan` / `tiro dhan`,
+`angalau` / `nambari kamili`, and `okungenani` /
+`yinombolo ephelele`. Central Kurdish and Yiddish whole-number terms
+are local, but their complete clauses remain low confidence pending
+native grammar review. The Zulu variant retains identical wording.
+The focused suite verifies the native terms, absence of obsolete 270,
+one ledger row per locale, exact final values, uncertainty notes and
+runtime Swahili lookup. Four older progress suites no longer assert the
+obsolete rule. Ledger integrity and 234-locale completeness pass.
+Correction-ledger records rise from 22,099 to 22,111; remaining stale
+list-width values fall from 67 to 55. The original 20,081 audit-row
+classifications remain unchanged. No live UI test or remote write occurred.
