@@ -139844,5 +139844,40 @@
     "before": "Laškan kartoiden ladind om eksperimentaline: kartoiden lugijad i WIP-rajad oma tarkad, no Kalendar/Tablic/Gantt-nägud i mnog-valind ozutaba vaiše nenäd kartad, kudambad om jo ladidud. Lada avoinad laudad uzin necen vajehtandan jäl'ghe.",
     "after": "Laškan kartoiden ladind om eksperimentaline: kartoiden lugijad i WIP-rajad oma tarkad, no Kalendar/Tablic/Gantt-nägud i äi valičuz ozutaba vaiše nenäd kartad, kudambad om jo ladidud. Lada avoinad laudad uzin necen vajehtandan jäl'ghe.",
     "reason": "2026-09-15: Replace two Tshivenda labels, remove an obsolete default suffix, update stale all/lazy prose to the automatic above-threshold behavior, and replace the Russian multi-select hybrid. Reuse existing Veps card/loading, automatic, mode, threshold, memory, configure, force and multi-selection terminology; preserve literal mode values and both environment-variable names. The assembled technical description remains low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "accessibility",
+    "before": "Saavutettavuus",
+    "after": "Jogahižen pästand",
+    "reason": "2026-09-15: Replace the complete Finnish accessibility family with a transparent Veps 'access for everyone' draft. Reuse directly attested existing Veps everyone/access, page, enabled, title, content, information, not-yet and added wording, and preserve each key's distinct Admin/public-page role. No dedicated native accessibility noun was found; the assembled terminology remains low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "accessibility-page-enabled",
+    "before": "Saavutettavuus sivu käytössä",
+    "after": "Jogahižen pästandan lehtpol' om päl",
+    "reason": "2026-09-15: Replace the complete Finnish accessibility family with a transparent Veps 'access for everyone' draft. Reuse directly attested existing Veps everyone/access, page, enabled, title, content, information, not-yet and added wording, and preserve each key's distinct Admin/public-page role. No dedicated native accessibility noun was found; the assembled terminology remains low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "accessibility-info-not-added-yet",
+    "before": "Saavutettavuus tietoja ei ole lisätty vielä",
+    "after": "Jogahižen pästandan tedoid ei ole völ ližatud",
+    "reason": "2026-09-15: Replace the complete Finnish accessibility family with a transparent Veps 'access for everyone' draft. Reuse directly attested existing Veps everyone/access, page, enabled, title, content, information, not-yet and added wording, and preserve each key's distinct Admin/public-page role. No dedicated native accessibility noun was found; the assembled terminology remains low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "accessibility-title",
+    "before": "Saavutettavuus otsikko",
+    "after": "Jogahižen pästandan pälkirjutez",
+    "reason": "2026-09-15: Replace the complete Finnish accessibility family with a transparent Veps 'access for everyone' draft. Reuse directly attested existing Veps everyone/access, page, enabled, title, content, information, not-yet and added wording, and preserve each key's distinct Admin/public-page role. No dedicated native accessibility noun was found; the assembled terminology remains low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "accessibility-content",
+    "before": "Saavutettavuus sisältö",
+    "after": "Jogahižen pästandan südäimuz",
+    "reason": "2026-09-15: Replace the complete Finnish accessibility family with a transparent Veps 'access for everyone' draft. Reuse directly attested existing Veps everyone/access, page, enabled, title, content, information, not-yet and added wording, and preserve each key's distinct Admin/public-page role. No dedicated native accessibility noun was found; the assembled terminology remains low confidence."
   }
 ]

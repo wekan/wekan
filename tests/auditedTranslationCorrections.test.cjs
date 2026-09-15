@@ -2915,6 +2915,32 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
   assert.match(boardStatusView, /\{\{_ 'board-status-loading-mode'\}\}/);
   assert.match(boardStatusLogic, /TAPi18n\.__\('cards-loading-(?:lazy|all)'\)/);
   assert.match(boardStatusLogic, /TAPi18n\.__\('cards-loading-auto'\)/);
+  const vepsAccessibility = {
+    accessibility: 'Jogahižen pästand',
+    'accessibility-page-enabled': "Jogahižen pästandan lehtpol' om päl",
+    'accessibility-info-not-added-yet': 'Jogahižen pästandan tedoid ei ole völ ližatud',
+    'accessibility-title': 'Jogahižen pästandan pälkirjutez',
+    'accessibility-content': 'Jogahižen pästandan südäimuz',
+  };
+  for (const [key, value] of Object.entries(vepsAccessibility)) {
+    assert.equal(cache['ve-PP'][key], value, key);
+    assert.doesNotMatch(value, /Saavutettavuus|sivu käytössä|tietoja ei ole lisätty|otsikko|sisältö/, key);
+    assert.match(value, /^Jogahižen pästand/);
+  }
+  assert.equal(new Set(Object.values(vepsAccessibility)).size, 5, 'preserve every accessibility UI role');
+  assert.match(cache['ve-PP']['accessibility-page-enabled'], /lehtpol'.*om päl$/);
+  assert.match(cache['ve-PP']['accessibility-info-not-added-yet'], /tedoid.*ei ole völ ližatud$/);
+  assert.match(cache['ve-PP']['accessibility-title'], /pälkirjutez$/);
+  assert.match(cache['ve-PP']['accessibility-content'], /südäimuz$/);
+  const accessibilitySettings = fs.readFileSync(path.join(root, 'client/components/settings/settingBody.jade'), 'utf8');
+  const accessibilityPage = fs.readFileSync(path.join(root, 'client/components/main/accessibility.jade'), 'utf8');
+  const accessibilityLogic = fs.readFileSync(path.join(root, 'client/components/main/accessibility.js'), 'utf8');
+  for (const key of ['accessibility', 'accessibility-page-enabled', 'accessibility-title', 'accessibility-content']) {
+    assert.match(accessibilitySettings, new RegExp(`\\{\\{_ '${key}'\\}\\}`), `${key} is bound in Admin Settings`);
+  }
+  assert.match(accessibilityPage, /\{\{_ 'accessibility-info-not-added-yet'\}\}/);
+  assert.match(accessibilityLogic, /TAPi18n\.__\('accessibility-title'\)/);
+  assert.match(accessibilityLogic, /TAPi18n\.__\('accessibility-content'\)/);
   assert.equal(vepsTranslator.t('MongoDB_storage_engine'), 'MongoDB kaičusen motor');
   assert.doesNotMatch(vepsTranslator.t('MongoDB_storage_engine'), /tallennusmoottori/);
   assert.equal(vepsTranslator.t('zoom-in'), 'Surenda');
