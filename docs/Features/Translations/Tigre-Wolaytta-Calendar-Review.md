@@ -650,3 +650,13 @@ corpus forms. Exact and negative tests cover all values; all 21,176 correction
 records and 234 locale inventories pass. Raw overlap falls to 360, with 22
 attested shared forms and 338 unclassified. Surrounding grammar remains open
 to fluent review. No remote write ran.
+
+
+## Remaining Tigre Card terms repaired — 2026-09-15
+
+Source commit `c73362aae` replaces all 17 remaining Tigrinya Card singular,
+plural and possessive components with established Tigre forms. Exact and
+negative tests preserve surrounding long-clause text, tokens, numbers and
+punctuation. All 21,193 correction records and 234 locale inventories pass.
+Raw overlap falls to 343, with 22 attested shared forms and 321 unclassified.
+Complete clause grammar remains open to fluent review. No remote write ran.

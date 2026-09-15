@@ -2080,6 +2080,16 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c73362aae">Repair remaining Tigre card terms.</a></summary>
+
+Replace all 17 remaining copied Tigrinya Card components with established
+Tigre singular, plural and possessive forms.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c91e56a50">Repair Tigre outcome and account terms.</a></summary>
 
 Replace nine copied Tigrinya Failed, Succeeded, Registration and Private

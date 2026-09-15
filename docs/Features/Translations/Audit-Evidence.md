@@ -31117,3 +31117,15 @@ all 21,176 correction records and 234 locale inventories. Raw overlap falls
 to 360; after 22 attested shared forms, 338 remain unclassified. Forty-three
 raw matches contain at least 20 characters and 11 contain at least 35.
 Surrounding clauses remain subject to fluent review. No remote write occurred.
+
+
+### 2026-09-15 — Remaining Tigre Card terms
+
+Source commit `c73362aae` replaces all 17 remaining Tigrinya singular,
+plural and possessive Card components with established Tigre
+`ወረቀት ካርድ` and `ወረቀት ካርዳት` forms. Surrounding long-clause text,
+quoted tokens, numbers and punctuation stay intact for separate fluent review.
+Focused exact and negative checks pass with all 21,193 correction records and
+234 locale inventories. Raw overlap falls to 343; after 22 attested shared
+forms, 321 remain unclassified. Thirty-eight raw matches contain at least 20
+characters and eight contain at least 35. No remote write occurred.
