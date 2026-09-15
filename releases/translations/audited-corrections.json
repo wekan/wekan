@@ -141146,5 +141146,208 @@
     "before": "Näkymä",
     "after": "Kacu",
     "reason": "Replace a Finnish-seeded value with a complete Veps translation from the native MediaWiki catalogue whose English source matches this WeKan label; normalize initial capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "color-gold",
+    "before": "kulta",
+    "after": "kuld",
+    "reason": "Replace a Finnish-seeded value with the Veps headword returned for the complete English source by the English Wiktionary Veps lexical dataset; normalize capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "color-pink",
+    "before": "vaaleanpunainen",
+    "after": "ruza",
+    "reason": "Replace a Finnish-seeded value with the Veps headword returned for the complete English source by the English Wiktionary Veps lexical dataset; normalize capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "color-silver",
+    "before": "hopea",
+    "after": "hobed",
+    "reason": "Replace a Finnish-seeded value with the Veps headword returned for the complete English source by the English Wiktionary Veps lexical dataset; normalize capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "color-sky",
+    "before": "taivas",
+    "after": "taivaz",
+    "reason": "Replace a Finnish-seeded value with the Veps headword returned for the complete English source by the English Wiktionary Veps lexical dataset; normalize capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "computer",
+    "before": "Tietokone",
+    "after": "Tedomašin",
+    "reason": "Replace a Finnish-seeded value with the Veps headword returned for the complete English source by the English Wiktionary Veps lexical dataset; normalize capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "home",
+    "before": "Koti",
+    "after": "Pertʹ",
+    "reason": "Replace a Finnish-seeded value with the Veps headword returned for the complete English source by the English Wiktionary Veps lexical dataset; normalize capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "or",
+    "before": "tai",
+    "after": "vai",
+    "reason": "Replace a Finnish-seeded value with the Veps headword returned for the complete English source by the English Wiktionary Veps lexical dataset; normalize capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "people",
+    "before": "Ihmiset",
+    "after": "Rahvaz",
+    "reason": "Replace a Finnish-seeded value with the Veps headword returned for the complete English source by the English Wiktionary Veps lexical dataset; normalize capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-board",
+    "before": "Taulu",
+    "after": "laud",
+    "reason": "Replace a Finnish-seeded value with the Veps headword returned for the complete English source by the English Wiktionary Veps lexical dataset; normalize capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-subject",
+    "before": "aihe",
+    "after": "azj",
+    "reason": "Replace a Finnish-seeded value with the Veps headword returned for the complete English source by the English Wiktionary Veps lexical dataset; normalize capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-d-send-email-subject",
+    "before": "aihe",
+    "after": "azj",
+    "reason": "Replace a Finnish-seeded value with the Veps headword returned for the complete English source by the English Wiktionary Veps lexical dataset; normalize capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-df-end-at",
+    "before": "loppuu",
+    "after": "lop",
+    "reason": "Replace a Finnish-seeded value with the Veps headword returned for the complete English source by the English Wiktionary Veps lexical dataset; normalize capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "monday",
+    "before": "Maanantai",
+    "after": "Ezmärg",
+    "reason": "Replace a Finnish-seeded value with the Veps headword returned for the complete English source by the English Wiktionary Veps lexical dataset; normalize capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "tuesday",
+    "before": "Tiistai",
+    "after": "Tožnarg",
+    "reason": "Replace a Finnish-seeded value with the Veps headword returned for the complete English source by the English Wiktionary Veps lexical dataset; normalize capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "wednesday",
+    "before": "Keskiviikko",
+    "after": "Koumanzʹpäiv",
+    "reason": "Replace a Finnish-seeded value with the Veps headword returned for the complete English source by the English Wiktionary Veps lexical dataset; normalize capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "thursday",
+    "before": "Torstai",
+    "after": "Nellänzʹpäiv",
+    "reason": "Replace a Finnish-seeded value with the Veps headword returned for the complete English source by the English Wiktionary Veps lexical dataset; normalize capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "friday",
+    "before": "Perjantai",
+    "after": "Pätnič",
+    "reason": "Replace a Finnish-seeded value with the Veps headword returned for the complete English source by the English Wiktionary Veps lexical dataset; normalize capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "saturday",
+    "before": "Lauantai",
+    "after": "Sobat",
+    "reason": "Replace a Finnish-seeded value with the Veps headword returned for the complete English source by the English Wiktionary Veps lexical dataset; normalize capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "sunday",
+    "before": "Sunnuntai",
+    "after": "Pühäpäiv",
+    "reason": "Replace a Finnish-seeded value with the Veps headword returned for the complete English source by the English Wiktionary Veps lexical dataset; normalize capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "task",
+    "before": "Tehtävä",
+    "after": "Tego",
+    "reason": "Replace a Finnish-seeded value with the Veps headword returned for the complete English source by the English Wiktionary Veps lexical dataset; normalize capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "operator-team",
+    "before": "tiimi",
+    "after": "jouk",
+    "reason": "Replace a Finnish-seeded value with the Veps headword returned for the complete English source by the English Wiktionary Veps lexical dataset; normalize capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "office-people",
+    "before": "Ihmiset",
+    "after": "Rahvaz",
+    "reason": "Replace a Finnish-seeded value with the Veps headword returned for the complete English source by the English Wiktionary Veps lexical dataset; normalize capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "subject",
+    "before": "Aihe",
+    "after": "Azj",
+    "reason": "Replace a Finnish-seeded value with the Veps headword returned for the complete English source by the English Wiktionary Veps lexical dataset; normalize capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "action",
+    "before": "Toimi",
+    "after": "Tego",
+    "reason": "Replace a Finnish-seeded value with the Veps headword returned for the complete English source by the English Wiktionary Veps lexical dataset; normalize capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "support",
+    "before": "Tuki",
+    "after": "Tugi",
+    "reason": "Replace a Finnish-seeded value with the Veps headword returned for the complete English source by the English Wiktionary Veps lexical dataset; normalize capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "supportPopup-title",
+    "before": "Tuki",
+    "after": "Tugi",
+    "reason": "Replace a Finnish-seeded value with the Veps headword returned for the complete English source by the English Wiktionary Veps lexical dataset; normalize capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cron-error-time",
+    "before": "Aika",
+    "after": "Aig",
+    "reason": "Replace a Finnish-seeded value with the Veps headword returned for the complete English source by the English Wiktionary Veps lexical dataset; normalize capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "duration",
+    "before": "Kesto",
+    "after": "Piduzʹ",
+    "reason": "Replace a Finnish-seeded value with the Veps headword returned for the complete English source by the English Wiktionary Veps lexical dataset; normalize capitalization for its UI role."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "weight",
+    "before": "Paino",
+    "after": "Jügu",
+    "reason": "Replace a Finnish-seeded value with the Veps headword returned for the complete English source by the English Wiktionary Veps lexical dataset; normalize capitalization for its UI role."
   }
 ]

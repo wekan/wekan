@@ -44,7 +44,43 @@ for (const [key, value] of Object.entries(terms)) {
   assert.equal(veps[key], value, `${key}: exact native MediaWiki Veps value`);
   assert.notEqual(veps[key], finnish[key], `${key}: Finnish seed removed`);
 }
+const lexicalTerms = {
+  'color-gold': 'kuld',
+  'color-pink': 'ruza',
+  'color-silver': 'hobed',
+  'color-sky': 'taivaz',
+  computer: 'Tedomašin',
+  home: 'Pertʹ',
+  or: 'vai',
+  people: 'Rahvaz',
+  'r-board': 'laud',
+  'r-subject': 'azj',
+  'r-d-send-email-subject': 'azj',
+  'r-df-end-at': 'lop',
+  monday: 'Ezmärg',
+  tuesday: 'Tožnarg',
+  wednesday: 'Koumanzʹpäiv',
+  thursday: 'Nellänzʹpäiv',
+  friday: 'Pätnič',
+  saturday: 'Sobat',
+  sunday: 'Pühäpäiv',
+  task: 'Tego',
+  'operator-team': 'jouk',
+  'office-people': 'Rahvaz',
+  subject: 'Azj',
+  action: 'Tego',
+  support: 'Tugi',
+  'supportPopup-title': 'Tugi',
+  'cron-error-time': 'Aig',
+  duration: 'Piduzʹ',
+  weight: 'Jügu',
+};
+for (const [key, value] of Object.entries(lexicalTerms)) {
+  assert.equal(veps[key], value, `${key}: exact Veps lexical value`);
+  assert.notEqual(veps[key], finnish[key], `${key}: Finnish seed removed`);
+}
 const sharedTerms = {
+  queue: 'Jono',
   name: 'Nimi',
   no: 'Ei',
   'r-sort-name': 'nimi',
@@ -55,4 +91,4 @@ for (const [key, value] of Object.entries(sharedTerms)) {
   assert.equal(veps[key], value, `${key}: attested shared Veps term`);
   assert.equal(finnish[key], value, `${key}: intentionally shared with Finnish`);
 }
-console.log(`vepsMediaWikiTerms: ${Object.keys(terms).length} repairs and ${Object.keys(sharedTerms).length} shared terms passed`);
+console.log(`vepsMediaWikiTerms: ${Object.keys(terms).length + Object.keys(lexicalTerms).length} repairs and ${Object.keys(sharedTerms).length} shared terms passed`);
