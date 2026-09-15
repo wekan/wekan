@@ -435,3 +435,14 @@ exact and negative checks cover all values; all 20,914 correction records and
 234 locale inventories pass. Raw overlap falls to 619, with 20 attested shared
 forms and 599 unclassified. Complete compound order remains open to fluent
 review. No remote write ran.
+
+## Tigre visual and Rename controls repaired — 2026-09-15
+
+Source commit `f1b12cc66` replaces eight Tigrinya-seeded Rename, Change
+Background Image and Board backgrounds controls. Complete corpus sentences
+attest the Tigre name noun and change command; separate exact entries supply
+image and background. The established board noun is reused. Focused exact and
+negative checks cover every value; all 20,922 correction records and 234 locale
+inventories pass. Raw overlap falls to 611, with 20 attested shared forms and
+591 unclassified. Background compound order and the derived plural remain open
+to fluent review. No remote write ran.

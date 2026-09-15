@@ -30894,3 +30894,13 @@ an established card noun. CPU stays exact. Focused exact and former-seed checks
 pass with all 20,914 correction records and 234 locale inventories. Raw overlap
 falls to 619; 599 remain unclassified after 20 attested shared forms. Complete
 compound order remains open to fluent review. No remote write occurred.
+
+### 2026-09-15 — Tigre visual and Rename controls
+
+Source commit `f1b12cc66` repairs eight Rename and board-background controls
+using corpus-attested name, change, image and background terms plus the already
+reviewed board noun. Focused exact and former-seed checks pass with all 20,922
+correction records and 234 locale inventories. Raw overlap falls to 611; 591
+remain unclassified after 20 attested shared forms. Derived plural and complete
+background compound order remain open to fluent review. No remote write
+occurred.
