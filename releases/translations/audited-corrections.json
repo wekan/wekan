@@ -153277,5 +153277,12 @@
     "before": "%s ኮኾባት",
     "after": "%s ከዋክብ",
     "reason": "Tigre Star plural review: BeitTigreAI corpus sentences directly attest ከዋክብ for stars. Preserve %s rating count placeholder."
+  },
+  {
+    "locale": "zgh",
+    "key": "act-withDue",
+    "before": "__list__/__card__ rappel d'échéance [__board__]",
+    "after": "__list__/__card__ ⵉⵙⴽⵜⵉⵏ ⵏ ⵓⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ [__board__]",
+    "reason": "2026-09-15 unflagged wrong-language repair: replace French rappel d’échéance with Standard Moroccan Tamazight. IRCAM primary terminology attests askti “reminder”; the existing act-newDue provides the due-date compound. The plural ⵉⵙⴽⵜⵉⵏ is a low-confidence regular adaptation pending fluent review. Preserve __list__, __card__, __board__, slash and square brackets. English source says reminders although activities.js selects this key for a prior dueAt value rather than reminder delivery; source-behavior discrepancy remains separate."
   }
 ]

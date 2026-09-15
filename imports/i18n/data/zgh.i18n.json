@@ -1524,7 +1524,7 @@
   "pastdue": "ⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ ⴰⴷ %s ⵉⵣⵔⵉ",
   "duenow": "ⴰⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ ⴰⵎⵉⵔⴰⵏ %s ⵉⴳⴰ ⴰⵙⵙⴰ",
   "act-newDue": "__list__/__card__ ⴷⴰⵔⵙ ⴰⵙⴽⵜⵉ ⴰⵎⵣⵡⴰⵔⵓ ⵏ ⵓⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ [__board__]",
-  "act-withDue": "__list__/__card__ rappel d'échéance [__board__]",
+  "act-withDue": "__list__/__card__ ⵉⵙⴽⵜⵉⵏ ⵏ ⵓⵙⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ [__board__]",
   "act-almostdue": "ⵉⵙⵙⴽⵯⵜⵉ ⵎⴰⵙ ⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ (__timeValue__) ⵏ __card__ ⴰⵔ ⵉⵜⵜⴰⴷⵙ",
   "act-pastdue": "ⵉⵙⵙⴽⵯⵜⵉ ⵎⴰⵙ ⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ (__timeValue__) ⵏ __card__ ⵉⵣⵔⵉ",
   "act-duenow": "ⵉⵙⵙⴽⵯⵜⵉ ⵎⴰⵙ ⴰⴽⵓⴷ ⴰⵎⴳⴳⴰⵔⵓ (__timeValue__) ⵏ __card__ ⵉⴳⴰ ⵖⵉⵍⴰ",
