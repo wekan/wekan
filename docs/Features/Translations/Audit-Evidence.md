@@ -30423,3 +30423,21 @@ idempotency, newer-human preservation, five role distinctions, Finnish-fragment
 rejection, source bindings and all 234 locale inventories. No live UI ran. The
 broader Veps and prior uncertain review continues; no external translation
 service or remote push.
+
+### 2026-09-15 — Veps numeric-field sum control
+
+Source commit `1b35cd8b4` repairs tracked `showSum-field-on-list`; ledger 19,984,
+corrected tracked rows 15,780, pending 123 (Veps 5), restored four unchanged.
+The custom-field form binds the control only for currency and number fields,
+and the list header computes their numeric total while date fields use a
+separate range. Reuse the rendered dictionary's direct `luguiden ližaduz`
+numerical-addition evidence and the established show/field/list-top wording
+already present in the numeric-total tooltip. This avoids substituting a prose
+summary verb or inventing an unattested sum-result noun.
+
+Four focused files pass (40 checks): exact ledger values/tokens/order,
+idempotency and newer-human preservation; Finnish rejection; arithmetic versus
+date-range distinction; both form bindings and the list-total binding; and all
+234 locale inventories. No live UI ran. Full assembled compound/case grammar
+remains LOW CONFIDENCE; broader Veps and prior uncertain review continues. No
+external translation service or remote push.

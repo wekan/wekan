@@ -1131,3 +1131,20 @@ newer-translation preservation and all 234 locale token/key inventories. No
 live Admin or public accessibility page ran. Two tracked findings are now
 corrected: overall pending 124, Veps 6, restored 4. The unflagged scan and all
 prior low-confidence wording remain in scope.
+
+2026-09-15 — `1b35cd8b4`: repaired tracked `showSum-field-on-list`, replacing
+the Finnish sentence with `Ozuta pöudoiden luguiden ližaduz lugetižen ülähäl`.
+The custom-field form renders this checkbox only for currency and number fields,
+and listHeader computes the numeric total; date fields use a separately named
+range. This source boundary makes the primary dictionary's `luguiden ližaduz`
+(numerical addition, rendered page 419) suitable here without asserting an
+unattested standalone result noun. Reuse the same arithmetic phrase from the
+already repaired `sum-of-number-fields`, plus existing show, fields and list-top
+wording. Full compound/case grammar remains LOW CONFIDENCE.
+
+Four focused files pass (40 checks): 19,984 correction records, negative Finnish
+terms, arithmetic/date-range distinction, both currency/number form bindings,
+the list total binding, newer-value preservation and all 234 locale token/key
+inventories. No live custom-field popup ran. One tracked finding is resolved:
+overall pending 123, Veps 5, restored 4. Broader Veps and prior low-confidence
+review remains active.

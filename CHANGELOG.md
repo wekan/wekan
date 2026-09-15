@@ -1576,6 +1576,18 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1b35cd8b4">Repair Veps numeric-field sum control.</a></summary>
+
+Replace the Finnish checkbox label with the dictionary-attested arithmetic
+addition and established list-top terminology used by its numeric-total tooltip.
+Four focused files pass (40 checks). Full compound grammar remains under native
+review.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
