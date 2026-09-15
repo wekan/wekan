@@ -1,5 +1,15 @@
 # Detailed translation audit evidence
 
+2026-09-15 (`c365e2cf6`): repaired 13 unflagged Tamazight search
+operator names and aliases. Production parser source confirms locale
+values are real query aliases, so the short codes use collision-free
+portable `b`, `s`, `l` and `m`; full names reuse local Tifinagh nouns.
+The swimlane/path metaphor still needs fluent UI review. Focused
+positive/negative, parser-source, related-search, ledger and 234-locale
+checks pass. Records rise to 22,209; zgh Arabic-script values fall
+from 178 to 173. The rest remain for semantic classification, not
+automatic blanket replacement. No remote write occurred.
+
 2026-09-15 (`d1c4a7290`): repaired six unflagged Tamazight board,
 page, list and swimlane labels seeded in Arabic or French. Existing
 native nouns and gender-aware missing patterns supply the draft;

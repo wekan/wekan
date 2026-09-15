@@ -1,5 +1,25 @@
 # Standard Moroccan Tamazight reference review
 
+## Search operator names and aliases, 2026-09-15 (`c365e2cf6`)
+
+The production [query parser](../../../config/query-classes.js) maps
+translated `operator-*` values to search predicates. It accepts
+Tifinagh letters in full operator names, and its short aliases are
+syntax codes. Thirteen Arabic or French values are repaired.
+Full names for board, swimlane, creator, status, sort, limit,
+organization, title and description reuse native zgh terms already
+present in board controls or invalid-predicate messages. The four
+short `b`, `s`, `l` and `m` aliases match English portable codes and
+avoid an Arabic-keyboard requirement. All short aliases in the zgh
+file are distinct; `#` and `@` retain their label/user meanings.
+
+The swimlane-as-path metaphor and its complete UI meaning remain
+**low confidence** pending fluent review. Focused source, alias
+collision, related search, ledger and 234-locale checks pass.
+Arabic-script values fall from 178 to 173; the count includes
+possible intentional abbreviations and symbols. Original flagged
+finding classifications remain unchanged.
+
 ## Board and missing-state labels, 2026-09-15 (`d1c4a7290`)
 
 Three Arabic and three French values are repaired from existing zgh

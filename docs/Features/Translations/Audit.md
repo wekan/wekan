@@ -16,13 +16,21 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `d1c4a7290` — replace six
+Latest translation fix: **2026-09-15**, `c365e2cf6` — repair 13
+Tamazight search-operator values seeded in Arabic or French. Native
+full names reuse local terms; short syntax aliases use portable
+`b`, `s`, `l` and `m` without collisions. The swimlane/path term
+still needs fluent UI review. Focused parser-source, related-search,
+ledger and 234-locale checks pass. Ledger: **22,209**. The zgh file
+has **173** Arabic-script values awaiting semantic classification.
+
+Earlier translation fix: **2026-09-15**, `d1c4a7290` — replace six
 Arabic/French Tamazight board, page, list and swimlane labels with
 locally established native terms. Exact `%s` placeholders survive.
 Complete sentence grammar and the path/swimlane metaphor remain low
 confidence pending native review. Focused, ledger and 234-locale
-checks pass. Ledger: **22,196**. The zgh file still contains **178**
-Arabic-script values; each needs semantic classification, including
+checks pass. Ledger: **22,196** at that commit. The zgh file then
+contained **178** Arabic-script values needing classification, including
 possible intentional abbreviations and symbols.
 
 Earlier translation fix: **2026-09-15**, `e114ffde8` — replace French
@@ -229,7 +237,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **22,196** exact before/after values, including unflagged
+records contain **22,209** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -267,7 +275,8 @@ clauses and broader wrong-language seeds remains open.
 - [Tamazight](Tamazight-Review.md): wrong-language prose, 98 records with
   invalidated Tuareg provenance, adapted grammar and software terminology.
   Arabic `email-addresses` and its precise native plural remain open.
-  Arabic-script values fall from 181 to 178 in this batch; this count
+  Arabic-script values have fallen from 181 to 173 across these batches;
+  this count
   includes possible intentional symbols and is a review queue, not a
   count of proven wrong-language strings.
   Active migration stage IDs bypass translations; removed migrations must

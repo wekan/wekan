@@ -656,6 +656,15 @@ This release includes the following features and fixes:
 **Translations** - Tamazight, Tigre and multilingual list-width repairs.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c365e2cf6">Repair Tamazight search operators</a>. Thanks to xet7.</summary>
+
+Replace Arabic and French operator names with native search terms.
+Keep the short aliases portable and collision-free. Focused parser,
+ledger and inventory checks pass; the swimlane term needs native review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d1c4a7290">Repair Tamazight board and missing labels</a>. Thanks to xet7.</summary>
 
 Replace six Arabic and French board, page, list and swimlane labels
