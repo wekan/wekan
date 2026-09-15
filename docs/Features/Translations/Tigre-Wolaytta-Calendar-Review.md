@@ -801,3 +801,18 @@ verified final correction records. Source-sense and negative tests pass with
 all 234 locale inventories. Raw exact overlap falls to 238, with 22 attested
 shared forms and 216 unclassified; 25 raw matches contain at least 20
 characters and 6 contain at least 35. No remote write occurred.
+
+### 2026-09-15 — Tigre Star and Break corpus review
+
+Source commit `009d7f832` replaces Tigrinya-seeded Star spelling in 19
+Star/Starred/Unstar controls with corpus-attested Tigre `ኮከብ`. The
+rating count uses the corpus-attested irregular plural `ከዋክብ`, retaining
+`%s`. Pomodoro Break uses `ዕርፍቲ`, attested in a Tigre short-break
+sentence. English source-sense guards cover all 20 Star noun contexts and
+preserve Starred Pages' separate adjectival wording. The commit refreshes
+ledger-confirmed exact-value expectations left stale by earlier Board,
+Card, Name, Label, Size, File and Account repairs; all 45 Tigre suites
+now pass. Sequential corrections are consolidated by key, leaving 21,905
+final verified records. All 234 locale inventories pass. Raw exact overlap
+falls to 229, with 22 attested shared and 207 unclassified; 21 matches
+contain at least 20 characters and 6 at least 35. No remote write occurred.

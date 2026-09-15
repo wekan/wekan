@@ -2080,6 +2080,17 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/009d7f832">Repair Tigre Star and Break terminology.</a></summary>
+
+Use corpus-attested Tigre singular and irregular plural Star forms in board,
+page, list and card controls, plus the attested Pomodoro Break form. Refresh
+ledger-confirmed older Tigre tests; all 45 Tigre suites pass.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/6b78c88cb">Repair Tigre Endpoint terminology.</a></summary>
 
 Use the existing technical Endpoint term in three API/S3 contexts instead of

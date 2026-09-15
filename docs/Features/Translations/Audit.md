@@ -16,22 +16,21 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `6b78c88cb` — repair three Tigre
-API/S3 Endpoint contexts that had called a technical endpoint an “end”. The
-existing S3 fields establish `Endpoint` as WeKan’s technical label. The
-preceding four corpus-grounded exact controls are `0eac733cd`; their Button
-and Collection plurals remain low confidence pending fluent review. The Veps
-seed review remains complete.
+Latest translation fix: **2026-09-15**, `009d7f832` — repair 20 Tigre
+Star controls and rating-count plurals plus the Pomodoro Break label using
+corpus-attested forms. The source commit also refreshes older exact-value
+Tigre tests for prior ledger-confirmed Board, Card, Name, Label and File
+repairs; all 45 Tigre suites now pass. The Veps seed review remains complete.
 
 The tracked Tigre calendar queue being empty does not certify the locale. Of
-2,592 non-English Tigre values, 238 are byte-for-byte identical to Tigrinya;
-22 are corpus-attested shared terms and 216 remain unclassified, including 25
+2,592 non-English Tigre values, 229 are byte-for-byte identical to Tigrinya;
+22 are corpus-attested shared terms and 207 remain unclassified, including 21
 values of at least 20 characters and 6 of at least 35 characters. This is an
 explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **21,895** exact before/after values, including unflagged
+records contain **21,905** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
