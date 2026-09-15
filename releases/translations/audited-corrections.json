@@ -154908,5 +154908,75 @@
     "before": "Obosara ndepụta ga-abụ integer karịrị 270",
     "after": "Obosara ndepụta ga-abụ ọnụọgụ zuru ezu nke opekata mpe 200 pikselụ",
     "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "ace",
+    "key": "list-width-error-message",
+    "before": "Leubar senarai musti angka bulat nyang leubeh rayeuk nibak 270",
+    "after": "Leubar senarai musti angka bulat nyang sikureueng 200 piksel",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording."
+  },
+  {
+    "locale": "bm",
+    "key": "list-width-error-message",
+    "before": "Lisiti bonya ka kan ka kɛ hakɛtilennen ye min ka bon 270 ye",
+    "after": "Lisiti bonya ka kan ka kɛ hakɛtilennen ye min ka kɛ hali 200 pikɛsɛli ye",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "ee",
+    "key": "list-width-error-message",
+    "before": "Xexlẽdzesi ƒe kekeme anye blibo si le 270 dzi",
+    "after": "Xexlẽdzesi ƒe kekeme anye blibo si le 200 pixels ya teti",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "ve",
+    "key": "list-width-error-message",
+    "before": "Vhuphara ha mutevhe vhu tea u vha nomboro yo fhelelaho khulwane u fhira 270",
+    "after": "Vhuphara ha mutevhe vhu tea u vha nomboro yo fhelelaho ya mapikisele a si fhasi ha 200",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording."
+  },
+  {
+    "locale": "tk_TM",
+    "key": "list-width-error-message",
+    "before": "Sanawyň giňligi 270-den uly bitewi san bolmaly",
+    "after": "Sanawyň giňligi azyndan 200 piksel bolan bitewi san bolmaly",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording."
+  },
+  {
+    "locale": "wa-RR",
+    "key": "list-width-error-message",
+    "before": "An gilapadon han lista kinahanglan integer nga labaw ha 270",
+    "after": "An gilapadon han lista kinahanglan bug-os nga numero nga pinakagutiay 200 pixels",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "ny",
+    "key": "list-width-error-message",
+    "before": "M'lifupi mwa mndandanda uyenera kukhala nambala yathunthu yoposa 270",
+    "after": "M'lifupi mwa mndandanda uyenera kukhala nambala yathunthu ya mapikiselo 200 kapena kuposerapo",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "sah",
+    "key": "list-width-error-message",
+    "before": "Испииһэк кэтитэ 270-тэн улахан бүтүн чыыһыла буолуохтаах",
+    "after": "Испииһэк кэтитэ бүтүн чыыһыла ≥ 200 пиксел буолуохтаах",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "cv",
+    "key": "list-width-error-message",
+    "before": "Список сарлӑкӗ 270рен пысӑк пӗтӗм хисеп пулмалла",
+    "after": "Список сарлӑкӗ пӗтӗм хисеп ≥ 200 пиксель пулмалла",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "ur",
+    "key": "list-width-error-message",
+    "before": "فہرست ویدتہ موست بے ان ینتےگےر گرےاتےر تہان 270",
+    "after": "فہرست کی چوڑائی کم از کم 200 پکسل کا مکمل عدد ہونی چاہیے",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
   }
 ]

@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Giňligi düzüň",
   "set-list-width": "Giňligi düzüň",
   "set-list-width-value": "Sanawyň giňligi (piksel)",
-  "list-width-error-message": "Sanawyň giňligi 270-den uly bitewi san bolmaly",
+  "list-width-error-message": "Sanawyň giňligi azyndan 200 piksel bolan bitewi san bolmaly",
   "list-width-shared-note": "Bu giňlik bu tagtadaky hemmeler bilen paýlaşylýar.",
   "list-width-personal-note": "Bu giňlik diňe siziň üçin.",
   "personal-list-width": "Şahsy sanaw giňlikleri",

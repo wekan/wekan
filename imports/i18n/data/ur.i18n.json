@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "سےت ویدتہ",
   "set-list-width": "سےت ویدتہ",
   "set-list-width-value": "فہرست ویدتہ (پیکسےلس)",
-  "list-width-error-message": "فہرست ویدتہ موست بے ان ینتےگےر گرےاتےر تہان 270",
+  "list-width-error-message": "فہرست کی چوڑائی کم از کم 200 پکسل کا مکمل عدد ہونی چاہیے",
   "list-width-shared-note": "تہیس ویدتہ ہے سہارےد کے ساتھ ےوےریونے پر تہیس بورڈ.",
   "list-width-personal-note": "تہیس ویدتہ ہے صرف فور آپ.",
   "personal-list-width": "پےرسونال فہرست ویدتہس",

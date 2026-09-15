@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Сарлӑк лартас",
   "set-list-width": "Сарлӑк лартас",
   "set-list-width-value": "Список сарлӑкӗ (пиксельсем)",
-  "list-width-error-message": "Список сарлӑкӗ 270рен пысӑк пӗтӗм хисеп пулмалла",
+  "list-width-error-message": "Список сарлӑкӗ пӗтӗм хисеп ≥ 200 пиксель пулмалла",
   "list-width-shared-note": "Ҫак сарлӑк ҫак хӑмари пуриншӗн те пӗр.",
   "list-width-personal-note": "Ҫак сарлӑк сирӗншӗн кӑна.",
   "personal-list-width": "Списокӑн харпӑрлӑ сарлӑкӗсем",

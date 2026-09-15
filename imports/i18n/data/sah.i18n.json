@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Кэтитин туруор",
   "set-list-width": "Кэтитин туруор",
   "set-list-width-value": "Испииһэк кэтитэ (пиксел)",
-  "list-width-error-message": "Испииһэк кэтитэ 270-тэн улахан бүтүн чыыһыла буолуохтаах",
+  "list-width-error-message": "Испииһэк кэтитэ бүтүн чыыһыла ≥ 200 пиксел буолуохтаах",
   "list-width-shared-note": "Бу кэтит бу дуоска бары кыттыылаахтарыгар биир.",
   "list-width-personal-note": "Бу кэтит эн эрэ туһугар.",
   "personal-list-width": "Испииһэктэр туспа кэтиттэрэ",

@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Igtakda an gilapadon",
   "set-list-width": "Igtakda an gilapadon",
   "set-list-width-value": "Gilapadon han lista (pixels)",
-  "list-width-error-message": "An gilapadon han lista kinahanglan integer nga labaw ha 270",
+  "list-width-error-message": "An gilapadon han lista kinahanglan bug-os nga numero nga pinakagutiay 200 pixels",
   "list-width-shared-note": "Ini nga gilapadon ginsasarosaro han ngatanan dinhi nga board.",
   "list-width-personal-note": "Ini nga gilapadon para la ha imo.",
   "personal-list-width": "Personal nga mga gilapadon han lista",

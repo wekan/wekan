@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Ikani m'lifupi",
   "set-list-width": "Ikani m'lifupi",
   "set-list-width-value": "M'lifupi mwa mndandanda (mapikiselo)",
-  "list-width-error-message": "M'lifupi mwa mndandanda uyenera kukhala nambala yathunthu yoposa 270",
+  "list-width-error-message": "M'lifupi mwa mndandanda uyenera kukhala nambala yathunthu ya mapikiselo 200 kapena kuposerapo",
   "list-width-shared-note": "M'lifupi uwu amagawidwa ndi aliyense pa bolodi ili.",
   "list-width-personal-note": "M'lifupi uwu ndi wanu nokha.",
   "personal-list-width": "M'lifupi mwa mindandanda ya munthu payekha",

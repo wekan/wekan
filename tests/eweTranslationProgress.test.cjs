@@ -84,7 +84,8 @@ assert.deepEqual(tokens(ewe['activity-checklist-completed-card']), [
 ]);
 assert.match(ewe['allboards.edit-workspace-icon'], /markdown/);
 assert.deepEqual(tokens(ewe['activity-dueDate']), ['%s', '%s']);
-assert.match(ewe['list-width-error-message'], /270/);
+assert.match(ewe['list-width-error-message'], /blibo si le 200 pixels ya teti/);
+assert.doesNotMatch(ewe['list-width-error-message'], /270/);
 assert.match(ewe['set-swimlane-height'], /tsiƒuƒu/);
 assert.match(ewe['convertChecklistItemToCardPopup-title'], /kaɖi/);
 assert.deepEqual(tokens(ewe['and-n-other-card']), ['__count__']);
