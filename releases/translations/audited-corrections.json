@@ -145276,5 +145276,26 @@
     "before": "ፈጺሙ",
     "after": "ወለ ሐቴ ዶል",
     "reason": "Replace a value copied from Tigrinya with the Tigre headword or short phrase returned for the complete English source by the BeitTigreAI corpus; select the UI sense and omit sentence punctuation where appropriate."
+  },
+  {
+    "locale": "tig",
+    "key": "location-address",
+    "before": "ኣድራሻ",
+    "after": "ዕንዋን",
+    "reason": "Replace a value copied from Tigrinya with the context-appropriate Tigre corpus result for the complete English source; use the established address and name senses."
+  },
+  {
+    "locale": "tig",
+    "key": "office-address",
+    "before": "ኣድራሻ",
+    "after": "ዕንዋን",
+    "reason": "Replace a value copied from Tigrinya with the context-appropriate Tigre corpus result for the complete English source; use the established address and name senses."
+  },
+  {
+    "locale": "tig",
+    "key": "event-bleed",
+    "before": "ስም",
+    "after": "ስሜት",
+    "reason": "Replace a value copied from Tigrinya with the context-appropriate Tigre corpus result for the complete English source; use the established address and name senses."
   }
 ]

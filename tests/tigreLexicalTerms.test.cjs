@@ -16,6 +16,9 @@ const readLocale = code =>
 const tigre = readLocale('tig');
 const tigrinya = readLocale('ti');
 const terms = {
+  "location-address": "ዕንዋን",
+  "office-address": "ዕንዋን",
+  "event-bleed": "ስሜት",
   "allboards.workspace-color": "ሕብር",
   "admin-announcement": "አዋጅ",
   "board-view-timeline-now": "አዜ",
