@@ -145969,5 +145969,194 @@
     "before": "መደብ",
     "after": "ጀድወል",
     "reason": "Replace a Tigrinya-seeded operational label with the distinct Tigre action or noun attested in complete BeitTigreAI corpus sentences; apply regular plural morphology where the UI source is plural."
+  },
+  {
+    "locale": "tig",
+    "key": "r-unit-days",
+    "before": "መዓልቲ(ታት)",
+    "after": "ምዕል(አምዕል)",
+    "reason": "Replace a Tigrinya-seeded compound with coordinated Tigre roots already established by direct corpus evidence; preserve unit parentheses, punctuation and technical identifiers."
+  },
+  {
+    "locale": "tig",
+    "key": "r-unit-hours",
+    "before": "ሰዓት(ታት)",
+    "after": "ሰዐት(ሰዐታት)",
+    "reason": "Replace a Tigrinya-seeded compound with coordinated Tigre roots already established by direct corpus evidence; preserve unit parentheses, punctuation and technical identifiers."
+  },
+  {
+    "locale": "tig",
+    "key": "r-unit-weeks",
+    "before": "ሰሙን(ናት)",
+    "after": "እስቡዕ(እስቡዓት)",
+    "reason": "Replace a Tigrinya-seeded compound with coordinated Tigre roots already established by direct corpus evidence; preserve unit parentheses, punctuation and technical identifiers."
+  },
+  {
+    "locale": "tig",
+    "key": "r-unit-months",
+    "before": "ወርሒ(ታት)",
+    "after": "ወርሕ(አወርሕት)",
+    "reason": "Replace a Tigrinya-seeded compound with coordinated Tigre roots already established by direct corpus evidence; preserve unit parentheses, punctuation and technical identifiers."
+  },
+  {
+    "locale": "tig",
+    "key": "r-unit-minutes",
+    "before": "ደቒቕ(ቓይቕ)",
+    "after": "ደቂቀት(ደቃይቅ)",
+    "reason": "Replace a Tigrinya-seeded compound with coordinated Tigre roots already established by direct corpus evidence; preserve unit parentheses, punctuation and technical identifiers."
+  },
+  {
+    "locale": "tig",
+    "key": "card-id",
+    "before": "መለለዪ ካርድ",
+    "after": "መለለዪ ወረቀት ካርድ",
+    "reason": "Replace a Tigrinya-seeded compound with coordinated Tigre roots already established by direct corpus evidence; preserve unit parentheses, punctuation and technical identifiers."
+  },
+  {
+    "locale": "tig",
+    "key": "board-id",
+    "before": "መለለዪ ሰሌዳ",
+    "after": "መለለዪ ምዱድ",
+    "reason": "Replace a Tigrinya-seeded compound with coordinated Tigre roots already established by direct corpus evidence; preserve unit parentheses, punctuation and technical identifiers."
+  },
+  {
+    "locale": "tig",
+    "key": "job-name",
+    "before": "ስም ዕማም",
+    "after": "ስሜት ሹቁል",
+    "reason": "Replace a Tigrinya-seeded compound with coordinated Tigre roots already established by direct corpus evidence; preserve unit parentheses, punctuation and technical identifiers."
+  },
+  {
+    "locale": "tig",
+    "key": "create-task",
+    "before": "ዕማም ፍጠር",
+    "after": "ሹቁል ኽለቅ",
+    "reason": "Replace a Tigrinya-seeded compound with coordinated Tigre roots already established by direct corpus evidence; preserve unit parentheses, punctuation and technical identifiers."
+  },
+  {
+    "locale": "tig",
+    "key": "text-color",
+    "before": "ሕብሪ ጽሑፍ",
+    "after": "ሕብር ክቱብ",
+    "reason": "Replace a Tigrinya-seeded compound with coordinated Tigre roots already established by direct corpus evidence; preserve unit parentheses, punctuation and technical identifiers."
+  },
+  {
+    "locale": "tig",
+    "key": "total-size",
+    "before": "ጠቕላላ ዓቐን",
+    "after": "ጅሙዕ ቅያስ",
+    "reason": "Replace a Tigrinya-seeded compound with coordinated Tigre roots already established by direct corpus evidence; preserve unit parentheses, punctuation and technical identifiers."
+  },
+  {
+    "locale": "tig",
+    "key": "due-date",
+    "before": "መወዳእታ ዕለት",
+    "after": "ተመር መከለሲ",
+    "reason": "Replace a Tigrinya-seeded compound with coordinated Tigre roots already established by direct corpus evidence; preserve unit parentheses, punctuation and technical identifiers."
+  },
+  {
+    "locale": "tig",
+    "key": "gantt-view-half-day",
+    "before": "ፍርቂ መዓልቲ",
+    "after": "ፍርቂ ምዕል",
+    "reason": "Replace a Tigrinya-seeded compound with coordinated Tigre roots already established by direct corpus evidence; preserve unit parentheses, punctuation and technical identifiers."
+  },
+  {
+    "locale": "tig",
+    "key": "filter-no-label",
+    "before": "ምልክት የለን",
+    "after": "እሻረት የለን",
+    "reason": "Replace a Tigrinya-seeded compound with coordinated Tigre roots already established by direct corpus evidence; preserve unit parentheses, punctuation and technical identifiers."
+  },
+  {
+    "locale": "tig",
+    "key": "myCardsSortChange-choice-board",
+    "before": "ብሰሌዳ",
+    "after": "እብ ምዱድ",
+    "reason": "Replace a Tigrinya-seeded compound with coordinated Tigre roots already established by direct corpus evidence; preserve unit parentheses, punctuation and technical identifiers."
+  },
+  {
+    "locale": "tig",
+    "key": "all-boards",
+    "before": "ኩሎም ሰሌዳታት",
+    "after": "ክሎም ምዱዳት",
+    "reason": "Replace a Tigrinya-seeded compound with coordinated Tigre roots already established by direct corpus evidence; preserve unit parentheses, punctuation and technical identifiers."
+  },
+  {
+    "locale": "tig",
+    "key": "close-card",
+    "before": "ካርድ ዕጾ",
+    "after": "ወረቀት ካርድ ድባእ",
+    "reason": "Replace a Tigrinya-seeded compound with coordinated Tigre roots already established by direct corpus evidence; preserve unit parentheses, punctuation and technical identifiers."
+  },
+  {
+    "locale": "tig",
+    "key": "close-board",
+    "before": "ሰሌዳ ዕጾ",
+    "after": "ምዱድ ድባእ",
+    "reason": "Replace a Tigrinya-seeded compound with coordinated Tigre roots already established by direct corpus evidence; preserve unit parentheses, punctuation and technical identifiers."
+  },
+  {
+    "locale": "tig",
+    "key": "copyCardPopup-title",
+    "before": "ካርድ ቅዳሕ",
+    "after": "ወረቀት ካርድ ነቅል",
+    "reason": "Replace a Tigrinya-seeded compound with coordinated Tigre roots already established by direct corpus evidence; preserve unit parentheses, punctuation and technical identifiers."
+  },
+  {
+    "locale": "tig",
+    "key": "copyListPopup-title",
+    "before": "ዝርዝር ቅዳሕ",
+    "after": "ዝርዝር ነቅል",
+    "reason": "Replace a Tigrinya-seeded compound with coordinated Tigre roots already established by direct corpus evidence; preserve unit parentheses, punctuation and technical identifiers."
+  },
+  {
+    "locale": "tig",
+    "key": "sort-cards",
+    "before": "ካርድታት ስርዕ",
+    "after": "ወረቀት ካርዳት ስርዓም",
+    "reason": "Replace a Tigrinya-seeded compound with coordinated Tigre roots already established by direct corpus evidence; preserve unit parentheses, punctuation and technical identifiers."
+  },
+  {
+    "locale": "tig",
+    "key": "cardsSortPopup-title",
+    "before": "ካርድታት ስርዕ",
+    "after": "ወረቀት ካርዳት ስርዓም",
+    "reason": "Replace a Tigrinya-seeded compound with coordinated Tigre roots already established by direct corpus evidence; preserve unit parentheses, punctuation and technical identifiers."
+  },
+  {
+    "locale": "tig",
+    "key": "listsortPopup-title",
+    "before": "ዝርዝር ስራዕ",
+    "after": "ዝርዝር ስርዓም",
+    "reason": "Replace a Tigrinya-seeded compound with coordinated Tigre roots already established by direct corpus evidence; preserve unit parentheses, punctuation and technical identifiers."
+  },
+  {
+    "locale": "tig",
+    "key": "r-list-name",
+    "before": "ስም ዝርዝር",
+    "after": "ስሜት ዝርዝር",
+    "reason": "Replace a Tigrinya-seeded compound with coordinated Tigre roots already established by direct corpus evidence; preserve unit parentheses, punctuation and technical identifiers."
+  },
+  {
+    "locale": "tig",
+    "key": "r-in-list",
+    "before": "ኣብ ዝርዝር",
+    "after": "እት ዝርዝር",
+    "reason": "Replace a Tigrinya-seeded compound with coordinated Tigre roots already established by direct corpus evidence; preserve unit parentheses, punctuation and technical identifiers."
+  },
+  {
+    "locale": "tig",
+    "key": "this-card",
+    "before": "እዚ ካርድ",
+    "after": "እሊ ወረቀት ካርድ",
+    "reason": "Replace a Tigrinya-seeded compound with coordinated Tigre roots already established by direct corpus evidence; preserve unit parentheses, punctuation and technical identifiers."
+  },
+  {
+    "locale": "tig",
+    "key": "r-the-board",
+    "before": "እታ ሰሌዳ",
+    "after": "ለምዱድ",
+    "reason": "Replace a Tigrinya-seeded compound with coordinated Tigre roots already established by direct corpus evidence; preserve unit parentheses, punctuation and technical identifiers."
   }
 ]
