@@ -1148,3 +1148,19 @@ the list total binding, newer-value preservation and all 234 locale token/key
 inventories. No live custom-field popup ran. One tracked finding is resolved:
 overall pending 123, Veps 5, restored 4. Broader Veps and prior low-confidence
 review remains active.
+
+2026-09-15 — `b82d5761e`: repaired tracked `enable-vertical-scrollbars`,
+replacing Finnish with `Pane päle vertikaližed skrolindan čurad`. Source review
+shows the user-profile toggle adds or removes `no-scrollbars` on board, list,
+card-detail and sidebar containers; the label therefore retains scrollbar
+visibility rather than claiming that scrolling itself is enabled. The rendered
+primary dictionary page 60 directly attests `vertikaline`; existing Veps values
+supply `Pane päle`, `skrolind` and the UI-bar noun `čura`. Those components do
+not attest the complete compound, which remains LOW CONFIDENCE.
+
+Four focused files pass (40 checks): 19,985 correction records, Finnish-term
+rejection, vertical/scrollbar wording, visible toggle binding, all four affected
+template scopes, newer-value preservation and all 234 locale token/key
+inventories. No live board/sidebar toggle ran. One tracked finding is resolved:
+overall pending 122, Veps 4, restored 4. Broader Veps and prior low-confidence
+review remains active.

@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-15**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,780 |
+| Corrected | 15,781 |
 | Restored pre-pull; awaiting validation | 4 |
 | Reviewed; retained unchanged | 4,174 |
-| Pending review or repair | 123 |
+| Pending review or repair | 122 |
 | Total tracked | 20,081 |
 
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
@@ -16,16 +16,16 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `1b35cd8b4` — replace the Finnish
-Veps field-sum checkbox with the same primary-dictionary-attested arithmetic
-addition and established list-top terminology as the numeric-total tooltip.
-Source confirms the control is limited to number and currency fields. Four
-focused files pass (40 checks). Ledger 19,984; original pending 123 (Veps 5),
-restored 4 unchanged. Full compound/case grammar remains low confidence and the
-broader Veps review stays open.
+Latest translation fix: **2026-09-15**, `b82d5761e` — replace the Finnish
+Veps vertical-scrollbar control with a draft using the directly attested
+vertical adjective and existing enable, scrolling and UI-bar terms. Source
+confirms it controls scrollbar visibility across board, list, card and sidebar
+containers. Four focused files pass (40 checks). Ledger 19,985; original pending
+122 (Veps 4), restored 4 unchanged. The assembled compound remains low
+confidence and the broader Veps review stays open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **19,984** exact before/after values, including unflagged
+records contain **19,985** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -49,7 +49,7 @@ restored values still await full native clause validation.
 | nah — Nahuatl | 17 |
 | tig — Tigre | 17 |
 | wal — Wolaytta | 10 |
-| ve-PP — Veps | 5 |
+| ve-PP — Veps | 4 |
 | ee — Ewe | 1 |
 | rup — Aromanian | 1 |
 

@@ -30441,3 +30441,19 @@ date-range distinction; both form bindings and the list-total binding; and all
 234 locale inventories. No live UI ran. Full assembled compound/case grammar
 remains LOW CONFIDENCE; broader Veps and prior uncertain review continues. No
 external translation service or remote push.
+
+### 2026-09-15 — Veps vertical-scrollbar control
+
+Source commit `b82d5761e` repairs tracked `enable-vertical-scrollbars`; ledger
+19,985, corrected tracked rows 15,781, pending 122 (Veps 4), restored four
+unchanged. The profile toggle changes `no-scrollbars` across board, list, card
+and sidebar templates, so the translation retains scrollbar visibility rather
+than merely saying scrolling. Use the rendered primary dictionary's attested
+vertical adjective and existing Veps enable, scrolling and UI-bar vocabulary.
+The complete compound is LOW CONFIDENCE pending native contextual review.
+
+Four focused files pass (40 checks): exact ledger values/tokens/order,
+idempotency and newer-human preservation; Finnish rejection; visible toggle and
+four affected template bindings; and all 234 locale inventories. No live UI ran.
+Broader Veps and prior uncertain review continues. No external translation
+service or remote push.

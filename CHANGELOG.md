@@ -1588,6 +1588,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b82d5761e">Repair Veps vertical-scrollbar control.</a></summary>
+
+Replace the Finnish toggle label with a Veps draft that preserves vertical
+scrollbar visibility and verify its board, list, card and sidebar scope. Four
+focused files pass (40 checks). The compound remains under native review.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
