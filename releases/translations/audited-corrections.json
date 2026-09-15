@@ -155629,5 +155629,68 @@
     "before": "Statut actif",
     "after": "ⴰⴷⴷⴰⴷ ⵢⴻⵔⵎⴷⴻⵏ",
     "reason": "Replace French active-status heading with local status and active-person terms; complete compound grammar remains low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "act-activity-notify",
+    "before": "اشعار النشاط",
+    "after": "ⵉⵍⵖⴰ ⵏ ⵓⵔⵎⵓⴷ",
+    "reason": "Replace Arabic activity-notification label with native notification and activity nouns from local email-template help; compound grammar remains low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "activity-created",
+    "before": "أنشأ %s",
+    "after": "ⵉⵙⵏⵓⵍⴼⴰ %s",
+    "reason": "Replace Arabic board-created activity with native create verb from local board/custom-field activity messages; preserve %s."
+  },
+  {
+    "locale": "zgh",
+    "key": "activity-excluded",
+    "before": "استبعاد %s عن %s",
+    "after": "ⵉⴽⴽⵙ %s ⵙⴳ %s",
+    "reason": "Replace Arabic member-excluded activity with native remove-from wording used for board member removal; preserve two %s tokens."
+  },
+  {
+    "locale": "zgh",
+    "key": "activity-moved",
+    "before": "تم نقل %s من %s إلى %s",
+    "after": "ⵉⵙⵎⵓⵜⵜⵉ %s ⵙⴳ %s ⵖⵔ %s",
+    "reason": "Replace Arabic card-moved activity with native move/from/to wording in local card-move templates; preserve three %s tokens."
+  },
+  {
+    "locale": "zgh",
+    "key": "activity-on",
+    "before": "على %s",
+    "after": "ⴳ %s",
+    "reason": "Replace Arabic comment-on-card phrase with native on-card preposition from local comment templates; preserve %s."
+  },
+  {
+    "locale": "zgh",
+    "key": "activity-removed",
+    "before": "حذف %s إلى %s",
+    "after": "ⵉⴽⴽⵙ %s ⵙⴳ %s",
+    "reason": "Replace Arabic removed-from activity, whose old preposition meant to, with native remove/from wording; preserve two %s tokens."
+  },
+  {
+    "locale": "zgh",
+    "key": "activity-sent",
+    "before": "إرسال %s إلى %s",
+    "after": "ⵉⵙⵙⵓⴽⵏ %s ⵖⵔ %s",
+    "reason": "Replace Arabic sent activity with native restored-to wording: the production activity template uses this key for restored cards; preserve two %s tokens."
+  },
+  {
+    "locale": "zgh",
+    "key": "activity-editComment",
+    "before": "commentaire modifié %s",
+    "after": "ⵉⵙⵏⴼⵍ ⴰⵖⴼⴰⵡⴰⵍ %s",
+    "reason": "Replace French edited-comment activity with local native edit and comment terms; preserve %s."
+  },
+  {
+    "locale": "zgh",
+    "key": "show-activities",
+    "before": "عرض الأنشطة",
+    "after": "ⵙⴽⵏ ⵜⵉⴳⴰⵡⵉⵏ",
+    "reason": "Replace Arabic show-activities control with local native show verb and activities noun."
   }
 ]
