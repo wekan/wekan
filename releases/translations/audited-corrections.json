@@ -149049,5 +149049,313 @@
     "before": "ናይ ምርመራ ዝርዝር ቅዳሕ - ኣብነት",
     "after": "ናይ ምርመራ ዝርዝር ቅዳሕ - ሞደል",
     "reason": "2026-09-15: Replace copied Tigrinya Edit and singular Template components in matching English UI senses with the exact Tigre corpus forms አስነ and ሞደል; preserve surrounding clauses, product names, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "comment-in-reply-to",
+    "before": "መልሲ ን",
+    "after": "ምብላስ ን",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "assign-member",
+    "before": "ኣባል መድብ",
+    "after": "አባል መድብ",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "cardStartVotingPopup-title",
+    "before": "ድምጺ ምሃብ ጀምር",
+    "after": "ድምጺ ምሃብ አንብት",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "cardStartPlanningPokerPopup-title",
+    "before": "Planning Poker ጀምር",
+    "after": "Planning Poker አንብት",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "pomodoro-start",
+    "before": "ፖሞዶሮ ጀምር",
+    "after": "ፖሞዶሮ አንብት",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "card-aging-days",
+    "before": "ድሕሪ መዓልታት ኣደብዝዝ (3 ደረጃታት)፦",
+    "after": "ድሕሪ አምዕል ኣደብዝዝ (3 ደረጃታት)፦",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "r-days-before",
+    "before": "መዓልታት ቅድሚ",
+    "after": "አምዕል ቅድሚ",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "r-days-after",
+    "before": "መዓልታት ድሕሪ",
+    "after": "አምዕል ድሕሪ",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "copy-text-to-clipboard",
+    "before": "ጽሑፍ ናብ ሰሌዳ ቅዳሕ ቅዳሕ",
+    "after": "ክቱብ ናብ ሰሌዳ ቅዳሕ ቅዳሕ",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "text-contains-trigger-label",
+    "before": "ዝድለ ጽሑፍ",
+    "after": "ፈትሽ ክቱብ",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "edit-checklist-items-as-text",
+    "before": "ከም ጽሑፍ ኣርትዕ",
+    "after": "ከም ክቱብ ኣርትዕ",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "custom-field-currency-option",
+    "before": "ኮድ ባጤራ",
+    "after": "ኮድ ግሩሽ",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "email-invite",
+    "before": "ብኢመይል ዓድም",
+    "after": "ብኢመይል ዐዝም",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "import-trello-zip-too-large",
+    "before": "እቲ .zip ንምእታው ኣዝዩ ዓቢ እዩ።",
+    "after": "እቲ .zip ንምእታው ኣዝዩ ገዚፍ እዩ።",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "trello-api-key",
+    "before": "መፍትሕ Trello API (ካብ https://trello.com/app-key)",
+    "after": "መፍትሕ Trello API (ምን https://trello.com/app-key)",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "trello-import-progress",
+    "before": "ምዕባለ ምእታው",
+    "after": "ዐቦት ምእታው",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "upload-avatar",
+    "before": "ስእሊ መንነት ስቐል",
+    "after": "ስእሊ መንነት ጸዐን",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "upload-background",
+    "before": "ስእሊ ድሕረ ባይታ ስቐል",
+    "after": "ስእሊ ድሕረ ባይታ ጸዐን",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "to-boards",
+    "before": "ናብ ሰሌዳ(ታት)",
+    "after": "ናብ ምዱድ(ምዱዳት)",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "email-templates-invite-subject",
+    "before": "ዓድም ኢመይል ኣርእስቲ",
+    "after": "ዐዝም ኢመይል ኣርእስ፡",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "new-outgoing-webhook",
+    "before": "ሓድሽ ወጻኢ Webhook",
+    "after": "ሐዲስ ወጻኢ Webhook",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "delete-duplicate-lists",
+    "before": "ተደጋገምቲ ዝርዝራት ደምስስ",
+    "after": "ተደጋገምቲ ዝርዝራት ምሳሕ",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "r-drop-trigger",
+    "before": "መበገሲ ኣብዚ ኣንብር",
+    "after": "መንሸጢ ኣብዚ ኣንብር",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "r-set-scheduled-triggers",
+    "before": "ዝተመደቡ መበገሲታት",
+    "after": "ዝተመደቡ መንሸጢታት",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "r-when-scheduled",
+    "before": "ብመደብ",
+    "after": "ብጀድወል",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "authentication-type",
+    "before": "ዓይነት ምርግጋጽ መንነት",
+    "after": "ዐይነት ምርግጋጽ መንነት",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "operator-status-invalid",
+    "before": "'%s' ቅቡል ኩነታት ኣይኮነን",
+    "after": "'%s' ቅቡል ሓላት ኣይኮነን",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "sort-boards-title-asc",
+    "before": "ኣርእስቲ (A → Z)",
+    "after": "አርእስ (A → Z)",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "sort-boards-title-desc",
+    "before": "ኣርእስቲ (Z → A)",
+    "after": "አርእስ (Z → A)",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "dependency-type",
+    "before": "ዓይነት ዝምድና",
+    "after": "ዐይነት ዝምድና",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "new-problems",
+    "before": "ሓደስቲ ጸገማት",
+    "after": "ሓደስቲ መሻክል",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "no-new-problems",
+    "before": "ሓድሽ ጸገም የለን።",
+    "after": "ሐዲስ ጸገም የለን።",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "calculate-file-counts",
+    "before": "ብዝሒ ፋይላት ኣስል",
+    "after": "ዐደድ ፋይላት ኣስል",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "calculating-counts",
+    "before": "ብዝሒ ይሕሰብ ኣሎ...",
+    "after": "ዐደድ ይሕሰብ ኣሎ...",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "mongodb-compact-run",
+    "before": "MongoDB Compact ኣስርሕ",
+    "after": "MongoDB Compact ሰዔ",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "support-info-not-added-yet",
+    "before": "ሓበሬታ ደገፍ ገና ኣይተወሰኸን",
+    "after": "ሓበሬታ ሰዳየት ገና ኣይተወሰኸን",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "support-content",
+    "before": "ትሕዝቶ ደገፍ",
+    "after": "ትሕዝቶ ሰዳየት",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "accessibility-title",
+    "before": "ኣርእስቲ ተበጻሕነት",
+    "after": "አርእስ ተበጻሕነት",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "admin-people-last-active",
+    "before": "ናይ መወዳእታ ንጡፍ",
+    "after": "ናይ መወዳእታ ህርኩት",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "step-create-missing-lists",
+    "before": "ዝጎደሉ ዝርዝራት ፍጠር",
+    "after": "ዝጎደሉ ዝርዝራት ኽለቅ",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "days-old",
+    "before": "ዕድመ ብመዓልቲ",
+    "after": "ዕድመ ብምዕል",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "login-allow",
+    "before": "ምእታው፦ ፍቐድ",
+    "after": "መእተዪ፦ ፍቐድ",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "more-options",
+    "before": "ተወሳኺ ኣማራጺታት",
+    "after": "ዚያደት ኣማራጺታት",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "list-sync-clear",
+    "before": "ምስምማዕ ኣቋርጽ",
+    "after": "ምስምማዕ ከሬ",
+    "reason": "2026-09-15: Replace an exact Tigrinya seed by reusing independently corpus-attested Tigre components already established in the correction ledger. Restrict each substitution to its matching English sense and preserve literals, placeholders and punctuation."
   }
 ]
