@@ -1429,6 +1429,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/201f8d0a4">Replace wrong-language Veps chart forecast messages.</a></summary>
+
+Preserve completed and missing-velocity states, weekly pace and conditional
+completion date. Full projection and count grammar remains under review.
+Four focused files pass (33 checks); no live chart UI ran.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

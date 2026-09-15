@@ -30120,3 +30120,22 @@ unresolved/automatic-limit clauses and actual result bindings. No live
 repair UI ran. Ledger 19,944; pending 126/restored 4 unchanged. Remaining
 problem summary/progress, backup/forecast and full earlier uncertain wording
 remain within the full repair scope.
+
+
+2026-09-15 — `201f8d0a4`: three wrong-language chart-forecast messages
+replaced with direct Veps drafts. Read boardCharts.js forecast helper:
+remaining zero selects completed branch, absent projectedDate selects
+no-velocity branch, otherwise remaining/averagePerBucket/projectedDate
+populate the conditional forecast. Preserve __remaining__, __average__,
+__date__ exactly, weekly unit, recent-time qualifier and conditional outcome.
+Existing local lopmatoi/loptud, Nedal, Päivmär and Arvosteldud wording
+supply base vocabulary. Native MediaWiki jäl'gmäine/latest and completion
+vocabulary were rechecked today:
+https://raw.githubusercontent.com/wikimedia/mediawiki/master/languages/i18n/vep.json
+Complete projection clauses, recent-time paraphrase, deadline case and
+count agreement remain LOW CONFIDENCE. No fully attested sentence claim.
+Four focused files pass (33 checks), including negative wrong-language,
+three distinct outcomes, actual forecast bindings and all token inventories.
+No live chart UI ran. Ledger 19,947; pending 126/restored 4 unchanged.
+Remaining backup, problems, CPU/severity, number/date-range wording and
+broader prior uncertain review remain within the full repair scope.
