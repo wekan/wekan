@@ -31455,3 +31455,20 @@ i18next runtime output. Ledger rises to 21,939. Original 20,081 audit-row
 classifications are unchanged. Stale list-width locale queue falls from
 233 to 230; all remaining messages use ASCII 270. No live UI test or
 remote write occurred.
+
+### 2026-09-15 — German and Romance list-width rule variants
+
+Source commit `e6895b3de` repairs 23 values: four German, nine Spanish,
+five French, one Italian and four Portuguese variants. Each value keeps
+its locale's existing width and integer vocabulary while replacing the
+obsolete “greater than 270” rule with an inclusive minimum of 200 pixels.
+Portuguese (Brazil) keeps its “deve ser” style; Portuguese and Portugal
+variants keep “tem de ser”. Regional siblings already had identical local
+messages, so they remain consistent after the source-semantic correction.
+A focused test checks all 23 exact values, integer and inclusive-minimum
+phrases, absence of stale strict comparisons, one ledger row per locale
+and runtime Spanish lookup. Related German, French, Italian, Spanish and
+Portuguese suites, correction-ledger checks and 234-locale inventory checks
+pass. Ledger rises from 21,939 to 21,962; the unflagged stale list-width
+queue falls from 230 to 207. Original 20,081 audit-row classifications
+remain unchanged. No live UI test or remote write occurred.

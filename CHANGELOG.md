@@ -656,6 +656,16 @@ This release includes the following features and fixes:
 **Translations** - Tamazight, Tigre and list-width rule repairs.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e6895b3de">Repair 23 list-width translations</a>. Thanks to xet7.</summary>
+
+Correct German, Spanish, French, Italian and Portuguese variants to state
+the whole-number minimum of 200 pixels. Keep native width terminology
+and regional style. Focused, related-language, ledger and inventory checks
+pass; remaining stale locales are tracked in the audit.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/196bc49df">Repair Persian-digit list-width translations</a>. Thanks to xet7.</summary>
 
 Correct Persian, Persian (Iran) and Uzbek Arabic messages from the obsolete
