@@ -645,7 +645,8 @@ attachment path, filename and stored MIME refusals.
 Tamazight rule, popup, warning and activity text replaces wrong-language
 values. Three Arabic common labels now use native Tamazight comment,
 link and email-address terms; five popup/copy labels reuse native
-control wording. Rules distinguish states from actions, and deletion warnings
+control wording. Six shared UI labels reuse native import, invite, unknown,
+type, size and restore terms. Rules distinguish states from actions, and deletion warnings
 name irreversible effects. Import, PDF, administrator and filename
 messages retain their conditions. Tigre help and error drafts replace
 English and Tigrinya. The list-width popup states its 200-pixel
@@ -719,6 +720,16 @@ plain-source security settings.
 </details>
 
 **Translations** - Tamazight, Tigre and multilingual list-width repairs.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/63da3d3c9">Reuse native Tamazight shared UI labels</a>. Thanks to xet7.</summary>
+
+Import Board, Invite People, Unknown, Type, Size and Restore replace
+Arabic-seeded text with native terms already used in the locale. Focused
+source, token, ledger and 234-locale checks pass; remaining native
+wording needs fluent review.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e11a2654c">Align Tamazight popup and copy-link labels</a>. Thanks to xet7.</summary>

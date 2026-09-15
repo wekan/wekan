@@ -1,5 +1,16 @@
 # Standard Moroccan Tamazight reference review
 
+## Shared UI labels, 2026-09-15 (`63da3d3c9`)
+
+Six Arabic-seeded labels outside the original findings now reuse native
+terms already present in the locale: Import Board, Invite People, Unknown,
+Type, Size and Restore. English source meanings match case-insensitively.
+These labels occur in the sidebar, user header, result cards and attachment
+settings; the focused test checks those live template references, exact
+ledger entries and unchanged source tokens. All 234 locale files remain
+structurally complete. Arabic-script values fall from 119 to 113. Full
+native wording and remaining Arabic-script values need individual review.
+
 ## Member/action popup labels and Copy Link, 2026-09-15 (`e11a2654c`)
 
 Five Arabic labels outside the original findings are repaired.
