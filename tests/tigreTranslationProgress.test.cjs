@@ -294,6 +294,12 @@ for (const [key, value] of Object.entries(corpusBackedUiTerms)) {
 // forms occur verbatim as Tigre headwords for the matching English gloss in
 // the BeitTigreAI corpus, so retaining them is an explicit reviewed decision.
 const corpusAttestedSharedTerms = {
+  'color-red': 'ቀይሕ',
+  'database-migration-phase': 'ደረጃ',
+  'font-size-default': 'ነባሪ',
+  default: 'ነባሪ',
+  defaultdefault: 'ነባሪ',
+  translation: 'ትርጉም',
   'poker-result-who': 'መን',
   'theme-category-clear': 'ንጹር',
   'color-black': 'ጸሊም',
