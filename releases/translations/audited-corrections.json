@@ -147565,5 +147565,222 @@
     "before": "ንመኽዘን ፋይል AWS S3 ወይ MinIO ተጠቐም",
     "after": "ንመኽዘን ፈይል AWS S3 ወይ MinIO ተጠቐም",
     "reason": "2026-09-15: Replace the remaining Tigrinya File spelling inside longer Tigre clauses with the corpus-attested Tigre term already reviewed in the correction ledger. Preserve all surrounding wording and literal format, API, service and product identifiers for separate review."
+  },
+  {
+    "locale": "tig",
+    "key": "multi-selection-active",
+    "before": "ሰሌዳታት ንምምራጽ ሳጹናት ምልክት ጠውቕ",
+    "after": "ምዱዳት ንምምራጽ ሳጹናት ምልክት ጠውቕ",
+    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
+  },
+  {
+    "locale": "tig",
+    "key": "no-boards-selected",
+    "before": "ዝመረጽካዮ ሰሌዳ የለን።",
+    "after": "ዝመረጽካዮ ምዱድ የለን።",
+    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
+  },
+  {
+    "locale": "tig",
+    "key": "select-only-one-board",
+    "before": "በጃኻ ሓደ ሰሌዳ ጥራይ ምረጽ",
+    "after": "በጃኻ ሓደ ምዱድ ጥራይ ምረጽ",
+    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
+  },
+  {
+    "locale": "tig",
+    "key": "set-selected-unstarred",
+    "before": "ካብ ዝተመርጹ ሰሌዳታት ኮኾብ ኣልዕል",
+    "after": "ካብ ዝተመርጹ ምዱዳት ኮኾብ ኣልዕል",
+    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
+  },
+  {
+    "locale": "tig",
+    "key": "board-creation-admin-only",
+    "before": "ኣመሓደርቲ ጥራይ ሓድሽ ሰሌዳ ክፈጥሩ ይኽእሉ",
+    "after": "ኣመሓደርቲ ጥራይ ሓድሽ ምዱድ ክፈጥሩ ይኽእሉ",
+    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
+  },
+  {
+    "locale": "tig",
+    "key": "restore-board",
+    "before": "ሰሌዳ መልስ",
+    "after": "ምዱድ መልስ",
+    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
+  },
+  {
+    "locale": "tig",
+    "key": "board-not-found",
+    "before": "ሰሌዳ ኣይተረኽበን",
+    "after": "ምዱድ ኣይተረኽበን",
+    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
+  },
+  {
+    "locale": "tig",
+    "key": "board-public-info",
+    "before": "እዚ ሰሌዳ <strong>ህዝባዊ</strong> ክኸውን እዩ።",
+    "after": "እዚ ምዱድ <strong>ህዝባዊ</strong> ክኸውን እዩ።",
+    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
+  },
+  {
+    "locale": "tig",
+    "key": "boardChangeColorPopup-title",
+    "before": "ድሕረ ባይታ ሰሌዳ ቀይር",
+    "after": "ድሕረ ባይታ ምዱድ ቀይር",
+    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
+  },
+  {
+    "locale": "tig",
+    "key": "board-view-multiboard-cal",
+    "before": "ዓውደ ኣዋርሕ (ኩሎም ሰሌዳታት)",
+    "after": "ዓውደ ኣዋርሕ (ኩሎም ምዱዳት)",
+    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
+  },
+  {
+    "locale": "tig",
+    "key": "bookmarksPopup-title",
+    "before": "ኮኾብ ዝተገብረሎም ሰሌዳታት",
+    "after": "ኮኾብ ዝተገብረሎም ምዱዳት",
+    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
+  },
+  {
+    "locale": "tig",
+    "key": "click-to-star",
+    "before": "ነዚ ሰሌዳ ኮኾብ ንምግባር ጠውቕ።",
+    "after": "ነዚ ምዱድ ኮኾብ ንምግባር ጠውቕ።",
+    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
+  },
+  {
+    "locale": "tig",
+    "key": "click-to-unstar",
+    "before": "ካብዚ ሰሌዳ ኮኾብ ንምልዓል ጠውቕ።",
+    "after": "ካብዚ ምዱድ ኮኾብ ንምልዓል ጠውቕ።",
+    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
+  },
+  {
+    "locale": "tig",
+    "key": "header-logo-title",
+    "before": "ናብ ገጽ ሰሌዳታትካ ተመለስ።",
+    "after": "ናብ ገጽ ምዱዳትካ ተመለስ።",
+    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
+  },
+  {
+    "locale": "tig",
+    "key": "my-boards",
+    "before": "ሰሌዳታተይ",
+    "after": "ምዱዳተይ",
+    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
+  },
+  {
+    "locale": "tig",
+    "key": "custom-public-desc-placeholder",
+    "before": "ነባሪ ንምጥቃም ባዶ ግደፎ ህዝባዊ ናይ ሰሌዳ መግለጺ",
+    "after": "ነባሪ ንምጥቃም ባዶ ግደፎ ህዝባዊ ናይ ምዱድ መግለጺ",
+    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
+  },
+  {
+    "locale": "tig",
+    "key": "go-to-board",
+    "before": "ናብ ሰሌዳ ኪድ",
+    "after": "ናብ ምዱድ ኪድ",
+    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
+  },
+  {
+    "locale": "tig",
+    "key": "tableVisibilityMode",
+    "before": "ርኡይነት ሰሌዳታት",
+    "after": "ርኡይነት ምዱዳት",
+    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
+  },
+  {
+    "locale": "tig",
+    "key": "r-board-button",
+    "before": "መልጎም ሰሌዳ",
+    "after": "መልጎም ምዱድ",
+    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
+  },
+  {
+    "locale": "tig",
+    "key": "cloneBoardPopup-title",
+    "before": "ሰሌዳ ይንቀል ዶ?",
+    "after": "ምዱድ ይንቀል ዶ?",
+    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
+  },
+  {
+    "locale": "tig",
+    "key": "allow-invite-to-board",
+    "before": "ናብ ሰሌዳ ምዕዳም ፍቐድ",
+    "after": "ናብ ምዱድ ምዕዳም ፍቐድ",
+    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
+  },
+  {
+    "locale": "tig",
+    "key": "roles-status-manage",
+    "before": "ቅንብራት ሰሌዳ",
+    "after": "ቅንብራት ምዱድ",
+    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
+  },
+  {
+    "locale": "tig",
+    "key": "roles-status-empty",
+    "before": "ተራታት ሰሌዳ የለዉን።",
+    "after": "ተራታት ምዱድ የለዉን።",
+    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
+  },
+  {
+    "locale": "tig",
+    "key": "sort-boards",
+    "before": "ሰሌዳታት ስርዕ",
+    "after": "ምዱዳት ስርዕ",
+    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
+  },
+  {
+    "locale": "tig",
+    "key": "set-as-active",
+    "before": "ከም ድሕረ ባይታ ሰሌዳ ኣቐምጥ",
+    "after": "ከም ድሕረ ባይታ ምዱድ ኣቐምጥ",
+    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
+  },
+  {
+    "locale": "tig",
+    "key": "board-activities",
+    "before": "ንጥፈታት ሰሌዳ",
+    "after": "ንጥፈታት ምዱድ",
+    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
+  },
+  {
+    "locale": "tig",
+    "key": "boardsReportTitle",
+    "before": "ጸብጻብ ሰሌዳታት",
+    "after": "ጸብጻብ ምዱዳት",
+    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
+  },
+  {
+    "locale": "tig",
+    "key": "board-cleanup-scheduled",
+    "before": "ምጽራይ ሰሌዳ ብዓወት ተመዲቡ",
+    "after": "ምጽራይ ምዱድ ብዓወት ተመዲቡ",
+    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
+  },
+  {
+    "locale": "tig",
+    "key": "schedule-board-cleanup",
+    "before": "ምጽራይ ሰሌዳ መድብ",
+    "after": "ምጽራይ ምዱድ መድብ",
+    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
+  },
+  {
+    "locale": "tig",
+    "key": "step-scan-users",
+    "before": "ስእልታት መንነት ኣባላት ሰሌዳ ይምርመሩ ኣለዉ",
+    "after": "ስእልታት መንነት ኣባላት ምዱድ ይምርመሩ ኣለዉ",
+    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
+  },
+  {
+    "locale": "tig",
+    "key": "converting-board",
+    "before": "ሰሌዳ ይቕየር ኣሎ",
+    "after": "ምዱድ ይቕየር ኣሎ",
+    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
   }
 ]
