@@ -142245,5 +142245,1160 @@
     "before": "Kutsu ihmisiä",
     "after": "Kucu ristitud",
     "reason": "Replace Finnish-seeded UI text with a Veps composition using established action and object vocabulary already present in this locale; preserve the source action, object and punctuation."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "accept",
+    "before": "Hyväksy",
+    "after": "Ota",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "allboards.starred",
+    "before": "Suosikki",
+    "after": "Tähtaižed",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "allboards.remaining",
+    "before": "Jäljellä",
+    "after": "Jäliž",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "setSwimlaneHeightPopup-title",
+    "before": "Aseta uimaradan korkeus",
+    "after": "Pane ujundšoidun korktuz’",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "set-swimlane-height",
+    "before": "Aseta uimaradan korkeus",
+    "after": "Pane ujundšoidun korktuz’",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "convertChecklistItemToCardPopup-title",
+    "before": "Muuta kortiksi",
+    "after": "Tege kartaks",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "and-n-other-card",
+    "before": "Ja __count__ muu kortti",
+    "after": "Da __count__ toiž kart",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "and-n-other-card_plural",
+    "before": "Ja __count__ muuta korttia",
+    "after": "Da __count__ toižta kartad",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "attached",
+    "before": "liitetty",
+    "after": "Tartutadud",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board-background-image-url",
+    "before": "Taustakuvan URL",
+    "after": "Tagakuvan URL",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "board-nb-stars",
+    "before": "%s tähteä",
+    "after": "%s tähtast",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "adminChangeAvatarPopup-title",
+    "before": "Muokkaa profiilikuvaa",
+    "after": "Vajehta kävutajan kuva",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "casSignIn",
+    "before": "CAS-kirjautuminen",
+    "after": "Tule sistemaha CAS:n abul",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "samlSignIn",
+    "before": "SAML-kirjautuminen",
+    "after": "Tule sistemaha SAML:n abul",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "changeAvatarPopup-title",
+    "before": "Muokkaa profiilikuvaa",
+    "after": "Vajehta kävutajan kuva",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "deleteAvatarPopup-title",
+    "before": "Poista profiilikuva?",
+    "after": "Heitä kävutajan kuva?",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "color-crimson",
+    "before": "karmiininpunainen",
+    "after": "veripunai",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "color-darkgreen",
+    "before": "tummanvihreä",
+    "after": "pimed vihand",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "color-indigo",
+    "before": "syvän sininen",
+    "after": "indigon muju",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "color-mistyrose",
+    "before": "vaaleanpunainen ruusu",
+    "after": "kelme ruza",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "color-navy",
+    "before": "laivastonsininen",
+    "after": "pimed sinine",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "color-paleturquoise",
+    "before": "vaalean turkoosi",
+    "after": "kelme turkuaz",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "color-peachpuff",
+    "before": "persikanpunainen",
+    "after": "persikan muju",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "color-plum",
+    "before": "luumunvärinen",
+    "after": "slivan muju",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "color-purple",
+    "before": "violetti",
+    "after": "purpur",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "color-saddlebrown",
+    "before": "satulanruskea",
+    "after": "satulan bur",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "color-slateblue",
+    "before": "liuskekivi sininen",
+    "after": "slate-sinine",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "unset-color",
+    "before": "Poista asetus",
+    "after": "Heitä valičuz",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "worker",
+    "before": "Työntekijä",
+    "after": "Tegii",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "createTemplateContainerPopup-title",
+    "before": "Lisää mallikontti",
+    "after": "Ližada vilitez-konteiner",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-field-currency",
+    "before": "Valuutta",
+    "after": "Valüt",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-field-currency-option",
+    "before": "Valuutta koodi",
+    "after": "Valütan kod",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "date-format",
+    "before": "Päivämäärämuoto",
+    "after": "Päivmäran format",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "decline",
+    "before": "Kieltäydy",
+    "after": "Hül’gäta",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "default-avatar",
+    "before": "Oletusprofiilikuva",
+    "after": "Sanumata kävutajan kuva",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "edit-profile",
+    "before": "Muokkaa profiilia",
+    "after": "Vajehta profili",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "editCardSpentTimePopup-title",
+    "before": "Muuta käytettyä aikaa",
+    "after": "Vajehta kävutadud aig",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "editNotificationPopup-title",
+    "before": "Muokkaa ilmoituksia",
+    "after": "Vajehta tedotuz",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "editProfilePopup-title",
+    "before": "Muokkaa profiilia",
+    "after": "Vajehta profili",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "email-invite-subject",
+    "before": "__inviter__ lähetti sinulle kutsun",
+    "after": "__inviter__ kutsub sindai",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "push-invite-title",
+    "before": "__inviter__ lähetti sinulle kutsun",
+    "after": "__inviter__ kutsub sindai",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "export-ical-feed",
+    "before": "Kalenteri (iCal)",
+    "after": "Kalendar'-virduz (iCal)",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "export-card-attachment-type",
+    "before": "Tyyppi",
+    "after": "Tip",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "export-card-attachment-uploaded-by",
+    "before": "Uppaaja",
+    "after": "Ladinai",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "export-card-attachment-uploaded-at",
+    "before": "Upattu",
+    "after": "Ladind aig",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "export-card-attachment-image-previews",
+    "before": "Kuvien esikatselut",
+    "after": "Kuvien ezikacundad",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "export-card-excel-free",
+    "before": "vapaana",
+    "after": "joudai",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "export-card-excel-needed",
+    "before": "tarvitaan",
+    "after": "tarbiž",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "list-label-modifiedAt",
+    "before": "Viimeinen käyttöaika",
+    "after": "Jäl’gmäine pästandaig",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "list-label-title",
+    "before": "Listan nimi",
+    "after": "Lugetižen nimi",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "filter-to-selection",
+    "before": "Suodata valintaan",
+    "after": "Puhtasta valičuzha",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "fullname",
+    "before": "Koko nimi",
+    "after": "Täuz’ nimi",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "header-logo-title",
+    "before": "Palaa taulut sivullesi.",
+    "after": "Pörte laudoiden lehtpolele.",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "impersonate-user",
+    "before": "Esiinny käyttäjänä",
+    "after": "Tegoiže kut toiž kävutai",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "import-map-members",
+    "before": "Vastaavat jäsenet",
+    "after": "Ühtenzoita ühtnikad",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "importMapMembersAddPopup-title",
+    "before": "Valitse käyttäjä",
+    "after": "Valiče ühtnik",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "initials",
+    "before": "Nimikirjaimet",
+    "after": "Algkirjamed",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "joined",
+    "before": "liittyi",
+    "after": "ühtnui",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "label-default",
+    "before": "%s nimilappu (oletus)",
+    "after": "%s znam (sanumata)",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "settingsUserPopup-title",
+    "before": "Käyttäjäasetukset",
+    "after": "Kävutajan valičused",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "settingsTeamPopup-title",
+    "before": "Tiimiasetukset",
+    "after": "Joukun valičused",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "settingsOrgPopup-title",
+    "before": "Organisaatioasetukset",
+    "after": "Organizacijan valičused",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "listImportCardPopup-title",
+    "before": "Tuo Trello-kortti",
+    "after": "To Trello-kart",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "listImportCardsTsvPopup-title",
+    "before": "Tuo Excel CSV/TSV",
+    "after": "To Excel CSV/TSV",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "muted",
+    "before": "Vaimennettu",
+    "after": "Vaigendanuded",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "page-not-found",
+    "before": "Sivua ei löytynyt.",
+    "after": "Lehtpol’ ei ole löutud.",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "participating",
+    "before": "Osallistutaan",
+    "after": "Ozanottai",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "profile",
+    "before": "Profiili",
+    "after": "Profil",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "signupPopup-title",
+    "before": "Luo tili",
+    "after": "Tege akkaunt",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "subscribe",
+    "before": "Tilaa",
+    "after": "Tilata",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "overtime-hours",
+    "before": "Ylityö (tuntia)",
+    "after": "Ližatö (časud)",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "overtime",
+    "before": "Ylityö",
+    "after": "Ližatö",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "pomodoro",
+    "before": "Pomodoro (Aika)",
+    "after": "Pomodoro-aig",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "has-overtime-cards",
+    "before": "Sisältää ylityökortteja",
+    "after": "Om ližatö-kartoid",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "tracking",
+    "before": "Ilmoitukset",
+    "after": "Kaceluz",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "import-usernames",
+    "before": "Tuo käyttäjänimet",
+    "after": "To kävutajiden nimed",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "welcome-board",
+    "before": "Tervetuloa-taulu",
+    "after": "Tervhtulendan laud",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "welcome-swimlane",
+    "before": "Merkkipaalu 1",
+    "after": "Verst 1",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "welcome-list1",
+    "before": "Perusasiat",
+    "after": "Pohjad",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "registration",
+    "before": "Rekisteröinti",
+    "after": "Registracii",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "to-boards",
+    "before": "Taulu(i)lle",
+    "after": "Laudoile",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "send-from",
+    "before": "Lähettäjä",
+    "after": "Kenespäi",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "email-templates-title",
+    "before": "Sähköposti Mallit",
+    "after": "Email-vilitezad",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "email-templates-invite-subject",
+    "before": "Kutsu Sähköposti Aihe",
+    "after": "Kucundan emailan azj",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "email-templates-invite-body",
+    "before": "Kutsu Sähköposti Teksti",
+    "after": "Kucundan emailan tekst",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "email-templates-activity-subject",
+    "before": "Toiminta Sähköposti Aihe",
+    "after": "Tegendan tedotusen emailan azj",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "email-invite-register-subject",
+    "before": "__inviter__ lähetti sinulle kutsun",
+    "after": "__inviter__ kutsub sindai",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "outgoingWebhooksPopup-title",
+    "before": "Lähtevät Webkoukut",
+    "after": "Lähtejad webhukad",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "boardCardTitlePopup-title",
+    "before": "Kortin otsikkosuodatin",
+    "after": "Kartan pälkirjutezen puhtastim",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "no-name",
+    "before": "(Tuntematon)",
+    "after": "(Tundmatoi)",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "Node_version",
+    "before": "Node-versio",
+    "after": "Node-versii",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "Meteor_version",
+    "before": "Meteor-versio",
+    "after": "Meteor-versii",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "MongoDB_Oplog_enabled",
+    "before": "MongoDB Oplog käytössä",
+    "after": "MongoDB Oplog om päl",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "tableVisibilityMode",
+    "before": "Taulujen näkyvyys",
+    "after": "Laudoiden nägubuz",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "createdAt",
+    "before": "Luotu",
+    "after": "Tehtud",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "modifiedAt",
+    "before": "Muokattu",
+    "after": "Vajehtadud",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "verified",
+    "before": "Varmistettu",
+    "after": "Tarkštatud",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "active-team",
+    "before": "Aktiivinen tiimi",
+    "after": "Aktivine jouk",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "active-org",
+    "before": "Aktiivinen organisaatio",
+    "after": "Aktivine organizacii",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "active-person",
+    "before": "Aktiivinen henkilö",
+    "after": "Aktivine ristitud",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "setCardColorPopup-title",
+    "before": "Aseta väri",
+    "after": "Pane muju",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "setSelectionColorPopup-title",
+    "before": "Aseta valinnan väri",
+    "after": "Pane valičuzan muju",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "setCardActionsColorPopup-title",
+    "before": "Valitse väri",
+    "after": "Valiče muju",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "setSwimlaneColorPopup-title",
+    "before": "Valitse väri",
+    "after": "Valiče muju",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "setListColorPopup-title",
+    "before": "Valitse väri",
+    "after": "Valiče muju",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "assigned-by",
+    "before": "Tehtävänantaja",
+    "after": "Märii",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "requested-by",
+    "before": "Pyytäjä",
+    "after": "Pakičii",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "boardDeletePopup-title",
+    "before": "Poista taulu?",
+    "after": "Heitä laud?",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "delete-board",
+    "before": "Poista taulu",
+    "after": "Heitä laud",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "card-settings",
+    "before": "Kortin asetukset",
+    "after": "Kartan sändod",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "minicard-settings",
+    "before": "Minikortin asetukset",
+    "after": "Minikartan sändod",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "boardSubtaskSettingsPopup-title",
+    "before": "Alitehtävä-asetukset",
+    "after": "Alategendoiden sändod",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "boardCardSettingsPopup-title",
+    "before": "Kortin asetukset",
+    "after": "Kartan sändod",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "boardMinicardSettingsPopup-title",
+    "before": "Minikortin asetukset",
+    "after": "Minikartan sändod",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "description-on-minicard",
+    "before": "Kuvaus minikortilla",
+    "after": "Kuvadand minikartal",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "source-board",
+    "before": "Lähdetaulu",
+    "after": "Lähtelaud",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-add-trigger",
+    "before": "Lisää liipaisin",
+    "after": "Ližada käivitai",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-board-rules",
+    "before": "Taulusäännöt",
+    "after": "Laudan pravilad",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-view-rule",
+    "before": "Näytä sääntö",
+    "after": "Kacu pravil",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-new-rule-name",
+    "before": "Uuden säännön otsikko",
+    "after": "Uden pravilan pälkirjutez",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-no-rules",
+    "before": "Ei sääntöjä",
+    "after": "Praviloid ei ole",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-trigger",
+    "before": "Liipaisin",
+    "after": "Käivitai",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "set-filter",
+    "before": "Aseta suodatin",
+    "after": "Pane puhtastim",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-top-of",
+    "before": "Ylimmäiseksi",
+    "after": "Augotiš",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-bottom-of",
+    "before": "Alimmaiseksi",
+    "after": "Lop",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-set-color",
+    "before": "Aseta väriksi",
+    "after": "Pane mujuks",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-to",
+    "before": "vastaanottajalle",
+    "after": "kenele",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-rule-details",
+    "before": "Säännön yksityiskohdat",
+    "after": "Pravilan ližatedod",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-d-send-email-to",
+    "before": "vastaanottajalle",
+    "after": "kenele",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-in-swimlane",
+    "before": "uimaradalla",
+    "after": "ujundšoidul",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-by",
+    "before": "mennessä",
+    "after": "aighasai",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-swimlane-name",
+    "before": "uimaradan nimi",
+    "after": "ujundšoidun nimi",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-set",
+    "before": "Aseta",
+    "after": "Pane",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-update",
+    "before": "Päivitä",
+    "after": "Udišta",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-datefield",
+    "before": "päivämäärä kenttä",
+    "after": "päivmär-pöud",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-df-start-at",
+    "before": "alkaa",
+    "after": "augotiž",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-to-current-datetime",
+    "before": "nykyiseen päivään/aikaan",
+    "after": "nügüdläižele päevmärele/aigale",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-remove-value-from",
+    "before": "Poista arvo kohteesta",
+    "after": "Heitä znamoičend",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "r-link-card",
+    "before": "Linkitä kortti",
+    "after": "Sido kart",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "authentication-method",
+    "before": "Kirjautumistapa",
+    "after": "Autentifikacijan metod",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "authentication-type",
+    "before": "Kirjautumistyyppi",
+    "after": "Autentifikacijan tip",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "custom-product-name",
+    "before": "Mukautettu tuotenimi",
+    "after": "Ičemäne produktan nimi",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "layout",
+    "before": "Ulkoasu",
+    "after": "Asetuz",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "hide-logo",
+    "before": "Piilota Logo",
+    "after": "Peitä logo",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "display-authentication-method",
+    "before": "Näytä kirjautumistapa",
+    "after": "Ozuta autentifikacijan metod",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "default-authentication-method",
+    "before": "Oletuskirjautumistapa",
+    "after": "Sanumata autentifikacijan metod",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "people-number",
+    "before": "Ihmisten määrä on:",
+    "after": "Ristituden lugumär om:",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "swimlaneDeletePopup-title",
+    "before": "Poista uimarata?",
+    "after": "Heitä ujundšoid?",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "restore-all",
+    "before": "Palauta kaikki",
+    "after": "Endišta kaik",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "previous_as",
+    "before": "viimeksi oli",
+    "after": "edeline oli",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "no-assignee",
+    "before": "Ei käsittelijää",
+    "after": "Märitud kävutajad ei ole",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "no-label",
+    "before": "Ei nimilappua",
+    "after": "Znamad ei ole",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "cardAssigneesPopup-title",
+    "before": "Käsittelijä",
+    "after": "Märitud kävutai",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "editOrgPopup-title",
+    "before": "Muokkaa organisaatiota",
+    "after": "Vajehta organizacii",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "editTeamPopup-title",
+    "before": "Muokkaa tiimiä",
+    "after": "Vajehta jouk",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "editUserPopup-title",
+    "before": "Muokkaa käyttäjää",
+    "after": "Vajehta kävutai",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "newUserPopup-title",
+    "before": "Uusi käyttäjä",
+    "after": "Uz’ kävutai",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "last-modified-at",
+    "before": "Viimeksi muokattu",
+    "after": "Jäl’gmäižikš vajehtadud",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "last-activity",
+    "before": "Viimeisin toiminta",
+    "after": "Jäl’gmäine tegenda",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "create-task",
+    "before": "Luo tehtävä",
+    "after": "Tege tegomäär",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "displayName",
+    "before": "Näyttönimi",
+    "after": "Nägub nimi",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "shortName",
+    "before": "Lyhyt nimi",
+    "after": "Lühüd nimi",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "website",
+    "before": "Verkkosivusto",
+    "after": "Web-lehtpol’",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "person",
+    "before": "Henkilö",
+    "after": "Ristitud",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "my-cards",
+    "before": "Korttini",
+    "after": "Minun kartad",
+    "reason": "Replace Finnish-seeded UI text with a Veps draft composed from native lexical sources and established vocabulary in this locale; preserve placeholders, product literals and UI semantics."
   }
 ]
