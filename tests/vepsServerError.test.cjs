@@ -261,3 +261,16 @@ test("Veps repair results preserve counters and unresolved failures", () => {
  assert.match(code,/fixed, unfixable/);
  assert.match(code,/restored, remaining/);
 });
+
+test("Veps forecasts preserve completion, velocity and date distinctions", () => {
+ const data=JSON.parse(fs.readFileSync("imports/i18n/data/ve-PP.i18n.json","utf8"));
+ for(const key of ["chart-forecast-none-remaining","chart-forecast-no-velocity","chart-forecast-projected"]) assert.doesNotMatch(data[key],/makhadi|fhedza|lavhelesa|luvhilo/i);
+ assert.match(data["chart-forecast-none-remaining"],/kaik kartad oma loptud/);
+ assert.match(data["chart-forecast-no-velocity"],/__remaining__.*ei ole jäl'gmäižes aigas loptud/);
+ assert.match(data["chart-forecast-projected"],/__average__ kartad\/nedal.*__remaining__.*pidaižiba.*__date__/);
+ assert.notEqual(data["chart-forecast-none-remaining"],data["chart-forecast-no-velocity"]);
+ const code=fs.readFileSync("client/components/boards/charts/boardCharts.js","utf8");
+ assert.match(code,/forecast.remaining === 0/);
+ assert.match(code,/!forecast.projectedDate/);
+ assert.match(code,/average: forecast.averagePerBucket/);
+});

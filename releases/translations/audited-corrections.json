@@ -139606,5 +139606,26 @@
     "before": "Mirole ya __restored__ yo vhuyedzwa. __remaining__ a i athu u vhuyedzwa.",
     "after": "Endištadud __restored__ lugetižid. __remaining__ ei sa endištada.",
     "reason": "Replace Tshivenda repair/restore messages with direct Veps drafts from existing kohenda/endišta/card/list/board vocabulary. Preserve exact result counters, missing-board and automatic-repair limits. Full count/case/passive grammar remains low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "chart-forecast-none-remaining",
+    "before": "A huna tshi salaho u lavhelesa - makhadi oṱhe o fhedza.",
+    "after": "Ei ole lopmatomid kartoid, miččiden lopun päivmär arvostelda — kaik kartad oma loptud.",
+    "reason": "Replace Tshivenda forecast prose with direct Veps drafts. Preserve zero remaining, no recent completions, weekly average and conditional projected date; exact placeholders intact. Full recency, projection and count/case grammar remain low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "chart-forecast-no-velocity",
+    "before": "Hu kha ḓi vha na makhadi a __remaining__ o vulwaho; a huna u fhedza ha zwenezwino u itela u lavhelesa datumu.",
+    "after": "__remaining__ kartad oma völ lopmatomad; ei ole jäl'gmäižes aigas loptud kartoid, miččiden mödhe arvostelda päivmär.",
+    "reason": "Replace Tshivenda forecast prose with direct Veps drafts. Preserve zero remaining, no recent completions, weekly average and conditional projected date; exact placeholders intact. Full recency, projection and count/case grammar remain low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "chart-forecast-projected",
+    "before": "Nga luvhilo lwa zwino lwa makhadi a __average__ nga vhege, makhadi a __remaining__ o vulwaho a fanela u fhedza nga __date__.",
+    "after": "Jäl'gmäižen aigan tempan __average__ kartad/nedal mödhe __remaining__ völ lopmatomad kartad pidaižiba olda loptud __date__ päivähäsai.",
+    "reason": "Replace Tshivenda forecast prose with direct Veps drafts. Preserve zero remaining, no recent completions, weekly average and conditional projected date; exact placeholders intact. Full recency, projection and count/case grammar remain low confidence."
   }
 ]
