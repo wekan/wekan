@@ -153221,5 +153221,33 @@
     "before": "ትካላት",
     "after": "መነዘመታት",
     "reason": "Follow-up full-locale Organization repair: replace the missed Tigrinya plural with the regular plural of corpus-attested Tigre መነዘመት. Plural morphology remains low confidence pending fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "website",
+    "before": "መርበብ ሓበሬታ",
+    "after": "መውቅዕ",
+    "reason": "Exact Tigre/Tigrinya overlap review: Corpus sentence uses መውቅዕ for website. Replace Tigrinya seed for matching English sense."
+  },
+  {
+    "locale": "tig",
+    "key": "theme-category-special",
+    "before": "ፍሉይ",
+    "after": "ፍንቱይ",
+    "reason": "Exact Tigre/Tigrinya overlap review: Corpus Special page sentence uses ፍንቱይ. Replace Tigrinya seed for matching English sense."
+  },
+  {
+    "locale": "tig",
+    "key": "r-set-button-triggers",
+    "before": "መልጎማት",
+    "after": "ሰድፈታት",
+    "reason": "Exact Tigre/Tigrinya overlap review: Corpus headword ሰድፈት means button; regular plural is low confidence pending fluent review. Replace Tigrinya seed for matching English sense."
+  },
+  {
+    "locale": "tig",
+    "key": "collections",
+    "before": "ስብስባት",
+    "after": "አከቦታት",
+    "reason": "Exact Tigre/Tigrinya overlap review: Corpus headword አከቦት means Collection; regular plural is low confidence pending fluent review. Replace Tigrinya seed for matching English sense."
   }
 ]
