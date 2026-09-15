@@ -140502,5 +140502,96 @@
     "before": "`__operator_limit__:<n>` - où *<n>* est un entier positif exprimant le nombre de cartes à afficher par page.",
     "after": "`__operator_limit__:<n>` - ⵎⴰⵏⵉ *<n>* ⵉⴳⴰ ⴰⵎⴹⴰⵏ ⵓⵎⵉⴹ ⴰⵔⴰⵜⴰⵏ ⵉⵎⵎⴰⵍⵏ ⵎⵏⵛⴽ ⵏ ⵜⴽⴰⵕⴹⵉⵡⵉⵏ ⴰⴷ ⵜⵜⵓⵙⴽⴰⵏⵏⵜ ⴳ ⵢⴰⵍ ⵜⴰⵙⵏⴰ.",
     "reason": "2026-09-15: Replace three French global-search help values with Standard Moroccan Tamazight drafts. Preserve every source operator placeholder, backtick, <n>, quoted example, wildcard markup and the list:Blocked example exactly. Reuse existing search, result, list, card, page, day, number and current-period vocabulary. Full operator and integer explanatory grammar remains low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "fix-all-file-urls-migration-description",
+    "before": "Met à jour toutes les URL des pièces jointes de ce tableau pour utiliser le bon backend de stockage et corrige les références de fichiers cassées.",
+    "after": "ⵉⵙⵏⴼⵍ ⵎⴰⵕⵕⴰ URL ⵏ ⵜⵉⵙⵉⵡⴰⵢ ⵏ ⵉⴼⴰⵢⵍⵓⵜⵏ ⴳ ⵜⴼⵍⵡⵉⵜ ⴰⴷ ⴰⴼⴰⴷ ⴰⴷ ⵙⵙⵎⵔⵙⵏ ⴰⵃⵔⴰⵣ ⵉⵎⵖⵓⴷⴰ, ⵉⵙⵖⵜⵓ ⵉⵎⴰⵜⴰⵔⵏ ⵏ ⵉⴼⴰⵢⵍⵓⵜⵏ ⵉⵔⵥⴰⵏ.",
+    "reason": "2026-09-15: Replace all thirteen remaining French Tamazight member-mapping and board-migration values with consistent Standard Moroccan Tamazight drafts. Reuse established mapping, real user, member, role, permission, file, attachment, avatar, URL, storage, repair, migration, archive, swimlane, list and card terms. Preserve URL, ID, swimlaneId and listId literals. Full technical compounds and longer mapping/confirmation grammar remain low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "fix-avatar-urls-migration-description",
+    "before": "Mets à jour les URLs d'avatar des participants du tableau pour utiliser le bon gestionnaire de stockage et corriger les références défaillantes d'avatar ",
+    "after": "ⵉⵙⵏⴼⵍ URL ⵏ ⵜⵡⵍⴰⴼⵉⵏ ⵏ ⵉⴳⵎⴰⵎⵏ ⵏ ⵜⴼⵍⵡⵉⵜ ⴰⴼⴰⴷ ⴰⴷ ⵙⵙⵎⵔⵙⵏ ⴰⵃⵔⴰⵣ ⵉⵎⵖⵓⴷⴰ, ⵉⵙⵖⵜⵓ ⵉⵎⴰⵜⴰⵔⵏ ⵏ ⵜⵡⵍⴰⴼⵉⵏ ⵉⵔⵥⴰⵏ.",
+    "reason": "2026-09-15: Replace all thirteen remaining French Tamazight member-mapping and board-migration values with consistent Standard Moroccan Tamazight drafts. Reuse established mapping, real user, member, role, permission, file, attachment, avatar, URL, storage, repair, migration, archive, swimlane, list and card terms. Preserve URL, ID, swimlaneId and listId literals. Full technical compounds and longer mapping/confirmation grammar remain low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "map-to-existing-user-desc",
+    "before": "Choisissez l'utilisateur réel que ce membre (virtuel) importé est en réalité. Ses cartes, commentaires et activités passent à cet utilisateur. Cherchez pour trouver n'importe qui ; un utilisateur qui n'est pas encore sur ce tableau est ajouté avec le rôle propre du membre importé, si bien que la correspondance ne peut jamais accorder plus de droits que l'import n'en a donnés.",
+    "after": "ⴼⵔⵏ ⴰⵏⵙⵙⵎⵔⵙ ⵏ ⵜⵉⴷⵜ ⵍⵍⵉ ⵉⴳⴰ ⵓⴳⵎⴰⵎ (ⴰⴼⵉⵔⵜⵓⴰⵍ) ⵉⵜⵜⵓⴽⵜⵔⵏ. ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ, ⵉⵅⴼⴰⵡⴰⵍⵏ ⴷ ⵓⵎⵙⴰⵡⴰⴹ ⵏⵏⵙ ⴰⴷ ⵜⵜⵓⵙⵎⵓⵜⵜⵢⵏ ⵖⵔ ⵓⵏⵙⵙⵎⵔⵙ ⴰⴷ. ⵔⵣⵓ ⴰⴼⴰⴷ ⴰⴷ ⵜⴰⴼⴷ ⴽⵓ ⵢⴰⵏ; ⴰⵏⵙⵙⵎⵔⵙ ⵓⵔ ⵉⵍⵍⵉⵏ ⵖⵉⵍⴰⴷ ⴳ ⵜⴼⵍⵡⵉⵜ ⴰⴷ ⵉⵜⵜⵓⵔⵏⵓ ⵙ ⵜⵎⵍⴰⵙⵜ ⵏ ⵓⴳⵎⴰⵎ ⵉⵜⵜⵓⴽⵜⵔⵏ, ⴰⴼⴰⴷ ⵓⵔ ⵉⵣⵎⵔ ⵓⵙⵏⴰⵙ ⴰⴷ ⵉⴼⴽ ⵜⵉⵙⵔⴰⴳ ⵓⴳⴳⴰⵔ ⵏ ⵓⴽⵜⴰⵔ.",
+    "reason": "2026-09-15: Replace all thirteen remaining French Tamazight member-mapping and board-migration values with consistent Standard Moroccan Tamazight drafts. Reuse established mapping, real user, member, role, permission, file, attachment, avatar, URL, storage, repair, migration, archive, swimlane, list and card terms. Preserve URL, ID, swimlaneId and listId literals. Full technical compounds and longer mapping/confirmation grammar remain low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "map-to-existing-user-none",
+    "before": "Il n'y a pas encore d'autres membres réels sur ce tableau. Cherchez ci-dessus pour trouver n'importe quel utilisateur.",
+    "after": "ⵓⵔ ⵍⵍⵉⵏ ⵉⴳⵎⴰⵎⵏ ⵏ ⵜⵉⴷⵜ ⵢⴰⴹⵏ ⴳ ⵜⴼⵍⵡⵉⵜ ⴰⴷ ⵖⵉⵍⴰⴷ. ⵔⵣⵓ ⴳ ⵓⴼⵍⵍⴰ ⴰⴼⴰⴷ ⴰⴷ ⵜⴰⴼⴷ ⴽⵓ ⴰⵏⵙⵙⵎⵔⵙ.",
+    "reason": "2026-09-15: Replace all thirteen remaining French Tamazight member-mapping and board-migration values with consistent Standard Moroccan Tamazight drafts. Reuse established mapping, real user, member, role, permission, file, attachment, avatar, URL, storage, repair, migration, archive, swimlane, list and card terms. Preserve URL, ID, swimlaneId and listId literals. Full technical compounds and longer mapping/confirmation grammar remain low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "run-comprehensive-migration-confirm",
+    "before": "Cette opération effectuera une migration complète pour vérifier et corriger l'intégrité des données du tableau. Cela peut prendre quelques instants. Continuer ?",
+    "after": "ⴰⴷ ⵉⵙⴽⵔ ⵓⵙⵎⵓⵜⵜⵢ ⴰⵎⴰⵜⴰⵢ ⴰⵙⵙⵉⴷⴷ ⴷ ⵓⵙⵖⵜⵓ ⵏ ⵜⴰⵢⴰⵏⵜ ⵏ ⵉⵙⴼⴽⴰ ⵏ ⵜⴼⵍⵡⵉⵜ. ⵉⵣⵎⵔ ⴰⴷ ⵢⴰⵡⵉ ⴽⵔⴰ ⵏ ⵉⵎⵉⴽⴽⵏ. ⵙⵏⵎⴰⵍⴰ?",
+    "reason": "2026-09-15: Replace all thirteen remaining French Tamazight member-mapping and board-migration values with consistent Standard Moroccan Tamazight drafts. Reuse established mapping, real user, member, role, permission, file, attachment, avatar, URL, storage, repair, migration, archive, swimlane, list and card terms. Preserve URL, ID, swimlaneId and listId literals. Full technical compounds and longer mapping/confirmation grammar remain low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "run-fix-all-file-urls-migration-confirm",
+    "before": "Cette opération mettra à jour toutes les URL des pièces jointes de ce tableau pour utiliser le bon backend de stockage. Continuer ?",
+    "after": "ⴰⴷ ⵉⵙⵏⴼⵍ ⵎⴰⵕⵕⴰ URL ⵏ ⵜⵉⵙⵉⵡⴰⵢ ⵏ ⵉⴼⴰⵢⵍⵓⵜⵏ ⴳ ⵜⴼⵍⵡⵉⵜ ⴰⴷ ⴰⴼⴰⴷ ⴰⴷ ⵙⵙⵎⵔⵙⵏ ⴰⵃⵔⴰⵣ ⵉⵎⵖⵓⴷⴰ. ⵙⵏⵎⴰⵍⴰ?",
+    "reason": "2026-09-15: Replace all thirteen remaining French Tamazight member-mapping and board-migration values with consistent Standard Moroccan Tamazight drafts. Reuse established mapping, real user, member, role, permission, file, attachment, avatar, URL, storage, repair, migration, archive, swimlane, list and card terms. Preserve URL, ID, swimlaneId and listId literals. Full technical compounds and longer mapping/confirmation grammar remain low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "run-fix-avatar-urls-migration-confirm",
+    "before": "Cette opération mettra à jour les URL des avatars des participants du tableau pour utiliser le bon backend de stockage. Continuer ?",
+    "after": "ⴰⴷ ⵉⵙⵏⴼⵍ URL ⵏ ⵜⵡⵍⴰⴼⵉⵏ ⵏ ⵉⴳⵎⴰⵎⵏ ⵏ ⵜⴼⵍⵡⵉⵜ ⴰⴼⴰⴷ ⴰⴷ ⵙⵙⵎⵔⵙⵏ ⴰⵃⵔⴰⵣ ⵉⵎⵖⵓⴷⴰ. ⵙⵏⵎⴰⵍⴰ?",
+    "reason": "2026-09-15: Replace all thirteen remaining French Tamazight member-mapping and board-migration values with consistent Standard Moroccan Tamazight drafts. Reuse established mapping, real user, member, role, permission, file, attachment, avatar, URL, storage, repair, migration, archive, swimlane, list and card terms. Preserve URL, ID, swimlaneId and listId literals. Full technical compounds and longer mapping/confirmation grammar remain low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "restore-all-archived-migration-description",
+    "before": "Restaure tous les couloirs, listes et cartes archivés. Corrige automatiquement les swimlaneId ou listId manquants pour rendre les éléments visibles.",
+    "after": "ⵉⵔⴰⵔ ⴷ ⵎⴰⵕⵕⴰ ⵉⴱⵔⴷⴰⵏ, ⵜⵉⵍⴳⴰⵎⵉⵏ ⴷ ⵜⴽⴰⵕⴹⵉⵡⵉⵏ ⵉⵜⵜⵓⵙⵎⵓⵜⵜⵢⵏ ⵖⵔ ⵓⵔⵛⵉⴼ. ⵉⵙⵖⵜⵓ ⵙ ⵓⵡⵓⵔⵎⴰⵏ swimlaneId ⵏⵖ listId ⵉⵅⵚⵚⴰⵏ ⴰⴼⴰⴷ ⴰⴷ ⵜⵜⵓⵙⴽⴰⵏⵏ ⵉⴼⵔⴷⵉⵙⵏ.",
+    "reason": "2026-09-15: Replace all thirteen remaining French Tamazight member-mapping and board-migration values with consistent Standard Moroccan Tamazight drafts. Reuse established mapping, real user, member, role, permission, file, attachment, avatar, URL, storage, repair, migration, archive, swimlane, list and card terms. Preserve URL, ID, swimlaneId and listId literals. Full technical compounds and longer mapping/confirmation grammar remain low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "restore-lost-cards-migration-description",
+    "before": "Recherche et restaure les cartes et listes avec un swimlaneId ou listId manquant. Crée un couloir 'Cartes perdues' pour rendre tous les éléments perdus à nouveau visibles.",
+    "after": "ⵉⵔⵣⵣⵓ ⵉⵔⴰⵔ ⴷ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⴷ ⵜⵍⴳⴰⵎⵉⵏ ⵍⵍⵉ ⵉⵅⵚⵚⴰ swimlaneId ⵏⵖ listId. ⵉⵙⵏⵓⵍⴼⵓ ⴰⴱⵔⵉⴷ «ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵜⵉⵎⵏⵉⴷⵉⵏ» ⴰⴼⴰⴷ ⴰⴷ ⵉⵙⵙⴽⵏ ⴷⴰⵖ ⵎⴰⵕⵕⴰ ⵉⴼⵔⴷⵉⵙⵏ ⵉⵎⵏⵉⴷⵉⵏ.",
+    "reason": "2026-09-15: Replace all thirteen remaining French Tamazight member-mapping and board-migration values with consistent Standard Moroccan Tamazight drafts. Reuse established mapping, real user, member, role, permission, file, attachment, avatar, URL, storage, repair, migration, archive, swimlane, list and card terms. Preserve URL, ID, swimlaneId and listId literals. Full technical compounds and longer mapping/confirmation grammar remain low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "run-restore-all-archived-migration-confirm",
+    "before": "Cette opération restaurera TOUS les couloirs, listes et cartes archivés, les rendant à nouveau visibles. Les éléments avec des identifiants manquants seront automatiquement corrigés. Cette action ne peut pas être facilement annulée. Continuer ?",
+    "after": "ⴰⴷ ⵉⵔⴰⵔ ⴷ ⵎⴰⵕⵕⴰ ⵉⴱⵔⴷⴰⵏ, ⵜⵉⵍⴳⴰⵎⵉⵏ ⴷ ⵜⴽⴰⵕⴹⵉⵡⵉⵏ ⵉⵜⵜⵓⵙⵎⵓⵜⵜⵢⵏ ⵖⵔ ⵓⵔⵛⵉⴼ, ⵉⵙⵙⴽⵏ ⵜⵏ ⴷⴰⵖ. ⵎⴰⵕⵕⴰ ⵉⴼⵔⴷⵉⵙⵏ ⵍⵍⵉ ⵉⵅⵚⵚⴰ ID ⴰⴷ ⵜⵜⵓⵙⵖⵜⴰⵏ ⵙ ⵓⵡⵓⵔⵎⴰⵏ. ⵓⵔ ⵉⴼⵙⵓⵙ ⵓⵔⴰⵔ ⵏ ⵓⵙⵏⴼⵍ ⴰⴷ. ⵙⵏⵎⴰⵍⴰ?",
+    "reason": "2026-09-15: Replace all thirteen remaining French Tamazight member-mapping and board-migration values with consistent Standard Moroccan Tamazight drafts. Reuse established mapping, real user, member, role, permission, file, attachment, avatar, URL, storage, repair, migration, archive, swimlane, list and card terms. Preserve URL, ID, swimlaneId and listId literals. Full technical compounds and longer mapping/confirmation grammar remain low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "run-restore-lost-cards-migration-confirm",
+    "before": "Cette opération créera un couloir « Cartes perdues » et restaurera toutes les cartes et listes avec un swimlaneId ou listId manquant. Cela n'affecte que les éléments non archivés. Continuer ?",
+    "after": "ⴰⴷ ⵉⵙⵏⵓⵍⴼⵓ ⴰⴱⵔⵉⴷ «ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵜⵉⵎⵏⵉⴷⵉⵏ» ⵉⵔⴰⵔ ⴷ ⵎⴰⵕⵕⴰ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⴷ ⵜⵍⴳⴰⵎⵉⵏ ⵍⵍⵉ ⵉⵅⵚⵚⴰ swimlaneId ⵏⵖ listId. ⴰⴷ ⵉⵙⵏⴼⵍ ⵖⴰⵙ ⵉⴼⵔⴷⵉⵙⵏ ⵓⵔ ⵉⵜⵜⵓⵙⵎⵓⵜⵜⵢⵏ ⵖⵔ ⵓⵔⵛⵉⴼ. ⵙⵏⵎⴰⵍⴰ?",
+    "reason": "2026-09-15: Replace all thirteen remaining French Tamazight member-mapping and board-migration values with consistent Standard Moroccan Tamazight drafts. Reuse established mapping, real user, member, role, permission, file, attachment, avatar, URL, storage, repair, migration, archive, swimlane, list and card terms. Preserve URL, ID, swimlaneId and listId literals. Full technical compounds and longer mapping/confirmation grammar remain low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "step-ensure-lost-cards-swimlane",
+    "before": "Assurer le couloir des cartes perdues",
+    "after": "ⵙⵙⵉⴷⴷ ⴰⴱⵔⵉⴷ ⵏ «ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ ⵜⵉⵎⵏⵉⴷⵉⵏ»",
+    "reason": "2026-09-15: Replace all thirteen remaining French Tamazight member-mapping and board-migration values with consistent Standard Moroccan Tamazight drafts. Reuse established mapping, real user, member, role, permission, file, attachment, avatar, URL, storage, repair, migration, archive, swimlane, list and card terms. Preserve URL, ID, swimlaneId and listId literals. Full technical compounds and longer mapping/confirmation grammar remain low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "step-ensure-per-swimlane-lists",
+    "before": "Assurer les listes par couloir",
+    "after": "ⵙⵙⵉⴷⴷ ⵜⵉⵍⴳⴰⵎⵉⵏ ⵉ ⵢⴰⵍ ⵓⴱⵔⵉⴷ",
+    "reason": "2026-09-15: Replace all thirteen remaining French Tamazight member-mapping and board-migration values with consistent Standard Moroccan Tamazight drafts. Reuse established mapping, real user, member, role, permission, file, attachment, avatar, URL, storage, repair, migration, archive, swimlane, list and card terms. Preserve URL, ID, swimlaneId and listId literals. Full technical compounds and longer mapping/confirmation grammar remain low confidence pending fluent review."
   }
 ]

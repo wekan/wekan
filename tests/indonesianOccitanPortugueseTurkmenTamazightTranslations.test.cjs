@@ -504,3 +504,42 @@ for (const literal of ['`__operator_limit__:<n>`', '*<n>*']) {
   assert.ok(locales.zgh['globalSearch-instructions-operator-limit'].includes(literal),
     `global search limit preserves ${literal}`);
 }
+
+const zghMigrationKeys = [
+  'fix-all-file-urls-migration-description',
+  'fix-avatar-urls-migration-description',
+  'map-to-existing-user-desc', 'map-to-existing-user-none',
+  'run-comprehensive-migration-confirm',
+  'run-fix-all-file-urls-migration-confirm',
+  'run-fix-avatar-urls-migration-confirm',
+  'restore-all-archived-migration-description',
+  'restore-lost-cards-migration-description',
+  'run-restore-all-archived-migration-confirm',
+  'run-restore-lost-cards-migration-confirm',
+  'step-ensure-lost-cards-swimlane',
+  'step-ensure-per-swimlane-lists',
+];
+for (const key of zghMigrationKeys) {
+  const prose = locales.zgh[key]
+    .replaceAll('URL', '').replaceAll('ID', '')
+    .replaceAll('swimlaneId', '').replaceAll('listId', '');
+  assert.doesNotMatch(prose, /[A-Za-zÀ-ÿ]{4,}/,
+    `${key}: no French prose remains outside technical literals`);
+  assert.match(locales.zgh[key], /[\u2d30-\u2d7f]/,
+    `${key}: Standard Moroccan Tamazight script`);
+}
+for (const key of [
+  'restore-all-archived-migration-description',
+  'restore-lost-cards-migration-description',
+  'run-restore-lost-cards-migration-confirm',
+]) {
+  assert.match(locales.zgh[key], /swimlaneId.*listId/,
+    `${key}: preserves both field identifiers`);
+}
+for (const key of [
+  'run-comprehensive-migration-confirm',
+  'run-fix-all-file-urls-migration-confirm',
+  'run-fix-avatar-urls-migration-confirm',
+  'run-restore-all-archived-migration-confirm',
+  'run-restore-lost-cards-migration-confirm',
+]) assert.match(locales.zgh[key], /\?$/, `${key}: remains a confirmation question`);
