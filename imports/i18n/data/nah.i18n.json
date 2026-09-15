@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Xiclalili patlahuacayotl",
   "set-list-width": "Xiclalili patlahuacayotl",
   "set-list-width-value": "Tocatlahtolli ipatlahuacayo (pixels)",
-  "list-width-error-message": "Tocatlahtolli ipatlahuacayo monequi ce tlapoualli hueyi achi 270",
+  "list-width-error-message": "Tocatlahtolli ipatlahuacayo monequi ce tlapoualli ≥ 200 pixels",
   "list-width-shared-note": "Inin patlahuacayotl moxeloa ica mochi tlacatl ipan inin huapalli.",
   "list-width-personal-note": "Inin patlahuacayotl zan para tehhuatl.",
   "personal-list-width": "Tocatlahtolli ipatlahuacayo sesen tlacatl",

@@ -155160,5 +155160,26 @@
     "before": "Faka-Tonga: lisi width must be an integer greater than 270",
     "after": "Ko e fālahi ʻo e lisi kuo pau ke mataʻi fika ≥ 200 pikiseli",
     "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "nah",
+    "key": "list-width-error-message",
+    "before": "Tocatlahtolli ipatlahuacayo monequi ce tlapoualli hueyi achi 270",
+    "after": "Tocatlahtolli ipatlahuacayo monequi ce tlapoualli ≥ 200 pixels",
+    "reason": "Retain native list-width and number words; replace obsolete strict greater-than-270 with inclusive 200-pixel minimum. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "vo",
+    "key": "list-width-error-message",
+    "before": "Liseda bredot muton binön intant gretikum ka 270",
+    "after": "Liseda bredot muton binön intant: ≥ 200 pixels",
+    "reason": "Retain native list-width and integer words; replace obsolete strict greater-than-270 with inclusive 200-pixel minimum. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "zgh",
+    "key": "list-width-error-message",
+    "before": "ⵜⴻⵀⵔⵉ ⵏ ⵓⵎⵓⵖ ⵉⵍⴰⵇ ⴰⴷ ⵜⵉⵍⵉ ⴷ ⵓⵎⵎⵉⴷ ⵓⴳⴰⵔ ⵏ 270",
+    "after": "ⵜⴻⵀⵔⵉ ⵏ ⵓⵎⵓⵖ ⵉⵍⴰⵇ ⴰⴷ ⵜⵉⵍⵉ ⴷ ⵓⵎⵎⵉⴷ ≥ 200 ⵉⵒⵉⴽⵙⵉⵍⴻⵏ",
+    "reason": "Retain native list-width and whole-number words; replace obsolete strict greater-than-270 with inclusive 200-pixel minimum and the locale's existing pixel spelling. Complete clause low-confidence pending native grammar review."
   }
 ]

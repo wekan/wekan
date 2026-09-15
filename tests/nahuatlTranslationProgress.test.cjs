@@ -53,7 +53,8 @@ assert.equal(nahuatl['allboards.workspaces'], 'Tequitiloyan');
 assert.match(nahuatl['allboards.edit-workspace-icon'], /markdown/);
 assert.deepEqual(tokens(nahuatl['activity-dueDate']), ['%s', '%s']);
 assert.match(nahuatl['set-list-width-value'], /pixels/);
-assert.match(nahuatl['list-width-error-message'], /270/);
+assert.match(nahuatl['list-width-error-message'], /≥ 200 pixels/);
+assert.doesNotMatch(nahuatl['list-width-error-message'], /270|hueyi achi 200/);
 assert.match(nahuatl['set-swimlane-height-value'], /pixels/);
 assert.equal(nahuatl['add-checklist'],
   'Xicaquiti tlanextiliztocatlahtolli');
