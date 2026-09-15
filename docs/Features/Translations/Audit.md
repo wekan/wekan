@@ -16,22 +16,21 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `c73362aae` — replace the
-remaining 17 Tigrinya singular, plural and possessive Card components with
-corpus-attested Tigre forms, including long clauses while preserving their
-surrounding text. Ledger 21,193; complete clauses remain subject to fluent
-review. The preceding outcome/account batch is `c91e56a50`. The Veps seed
-review remains complete.
+Latest translation fix: **2026-09-15**, `8296c12a5` — replace 17 exact
+Tigrinya Account, Storage and Templates components with corpus-attested Tigre
+forms while preserving surrounding clauses and literals. Ledger 21,210;
+complete clauses remain subject to fluent review. The preceding Card batch is
+`c73362aae`. The Veps seed review remains complete.
 
 The tracked Tigre calendar queue being empty does not certify the locale. Of
-2,592 non-English Tigre values, 343 are byte-for-byte identical to Tigrinya;
-22 are corpus-attested shared terms and 321 remain unclassified, including 38
-values of at least 20 characters and 8 of at least 35 characters. This is an
+2,592 non-English Tigre values, 326 are byte-for-byte identical to Tigrinya;
+22 are corpus-attested shared terms and 304 remain unclassified, including 33
+values of at least 20 characters and 7 of at least 35 characters. This is an
 explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **21,193** exact before/after values, including unflagged
+records contain **21,210** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

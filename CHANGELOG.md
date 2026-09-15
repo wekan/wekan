@@ -2080,6 +2080,16 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8296c12a5">Repair Tigre account, storage and template terms.</a></summary>
+
+Replace 17 copied Tigrinya Account, Storage and Templates components with
+established Tigre terminology.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c73362aae">Repair remaining Tigre card terms.</a></summary>
 
 Replace all 17 remaining copied Tigrinya Card components with established

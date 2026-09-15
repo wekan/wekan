@@ -660,3 +660,16 @@ negative tests preserve surrounding long-clause text, tokens, numbers and
 punctuation. All 21,193 correction records and 234 locale inventories pass.
 Raw overlap falls to 343, with 22 attested shared forms and 321 unclassified.
 Complete clause grammar remains open to fluent review. No remote write ran.
+
+
+## Tigre Account, Storage and Templates terms repaired — 2026-09-15
+
+Source commit `8296c12a5` replaces eight exact Tigrinya Account components,
+five Storage components and four Templates components with established Tigre
+`ሕሳብ`, `መክዘን` and `ሞደላት` forms. The Azure account-name phrase
+also reuses the reviewed Tigre Name compound. Exact and negative tests cover
+all values; all 21,210 correction records and 234 locale inventories pass.
+Raw overlap falls to 326, with 22 attested shared forms and 304 unclassified.
+Thirty-three raw matches contain at least 20 characters and seven contain at
+least 35. Complete clause grammar remains open to fluent review. No remote
+write ran.

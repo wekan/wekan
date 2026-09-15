@@ -31129,3 +31129,16 @@ Focused exact and negative checks pass with all 21,193 correction records and
 234 locale inventories. Raw overlap falls to 343; after 22 attested shared
 forms, 321 remain unclassified. Thirty-eight raw matches contain at least 20
 characters and eight contain at least 35. No remote write occurred.
+
+
+### 2026-09-15 — Tigre Account, Storage and Templates terms
+
+Source commit `8296c12a5` replaces eight exact Tigrinya Account components,
+five Storage components and four Templates components with established Tigre
+`ሕሳብ`, `መክዘን` and `ሞደላት` forms. The Azure account-name phrase
+also uses the previously reviewed Tigre Name compound. Focused exact and
+negative checks pass with all 21,210 correction records and 234 locale
+inventories. Raw overlap falls to 326; after 22 attested shared forms, 304
+remain unclassified. Thirty-three raw matches contain at least 20 characters
+and seven contain at least 35. Surrounding clauses remain subject to fluent
+review. No remote write occurred.
