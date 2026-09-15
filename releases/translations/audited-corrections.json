@@ -155692,5 +155692,68 @@
     "before": "عرض الأنشطة",
     "after": "ⵙⴽⵏ ⵜⵉⴳⴰⵡⵉⵏ",
     "reason": "Replace Arabic show-activities control with local native show verb and activities noun."
+  },
+  {
+    "locale": "zgh",
+    "key": "board-change-color",
+    "before": "تغيير اللومr",
+    "after": "ⴱⴻⴷⴷⴻⵍ ⵉⵏⵉ",
+    "reason": "Replace Arabic/malformed board color control with the existing native change-color label."
+  },
+  {
+    "locale": "zgh",
+    "key": "board-change-background-image",
+    "before": "تغيير صورة الخلفية",
+    "after": "ⴱⴻⴷⴷⴻⵍ ⵜⵓⴳⵏⴰ ⵏ ⴷⴻⴼⴼⵉⵔ",
+    "reason": "Replace Arabic background-image control with native change verb and upload-background image term; compound grammar remains low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "board-background-image-url",
+    "before": "عنوان URL لصورة الخلفية",
+    "after": "URL ⵏ ⵜⵓⴳⵏⴰ ⵏ ⴷⴻⴼⴼⵉⵔ",
+    "reason": "Replace Arabic background-image URL label with native background-image phrase while preserving technical URL."
+  },
+  {
+    "locale": "zgh",
+    "key": "add-background-image",
+    "before": "إضافة صورة الخلفية",
+    "after": "ⵔⵏⵓ ⵜⵓⴳⵏⴰ ⵏ ⴷⴻⴼⴼⵉⵔ",
+    "reason": "Replace Arabic add-background-image command with existing native add verb and image/background noun; complete command grammar remains low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "remove-background-image",
+    "before": "إزالة صورة الخلفية",
+    "after": "ⴽⴽⵙ ⵜⵓⴳⵏⴰ ⵏ ⴷⴻⴼⴼⵉⵔ",
+    "reason": "Replace Arabic remove-background-image command with existing native remove verb and image/background noun; complete command grammar remains low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "boardChangeColorPopup-title",
+    "before": "تعديل خلفية الشاشة",
+    "after": "ⴱⴻⴷⴷⴻⵍ ⴰⴳⴰⵍⵉⵙ ⵏ ⴷⴻⴼⴼⵉⵔ ⵏ ⵜⴼⵍⵡⵉⵜ",
+    "reason": "Replace Arabic screen-background title with local native board-background phrase: the popup changes board background, not screen background; full compound remains low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "boardChangeBackgroundImagePopup-title",
+    "before": "تغيير صورة الخلفية",
+    "after": "ⴱⴻⴷⴷⴻⵍ ⵜⵓⴳⵏⴰ ⵏ ⴷⴻⴼⴼⵉⵔ",
+    "reason": "Replace Arabic background-image popup title with the same native phrase as the board control."
+  },
+  {
+    "locale": "zgh",
+    "key": "allBoardsChangeColorPopup-title",
+    "before": "تغيير اللومr",
+    "after": "ⴱⴻⴷⴷⴻⵍ ⵉⵏⵉ",
+    "reason": "Replace malformed Arabic all-boards color popup title with existing native change-color label."
+  },
+  {
+    "locale": "zgh",
+    "key": "allBoardsChangeBackgroundImagePopup-title",
+    "before": "تغيير صورة الخلفية",
+    "after": "ⴱⴻⴷⴷⴻⵍ ⵜⵓⴳⵏⴰ ⵏ ⴷⴻⴼⴼⵉⵔ",
+    "reason": "Replace Arabic all-boards background-image popup title with the same native phrase as the board control."
   }
 ]
