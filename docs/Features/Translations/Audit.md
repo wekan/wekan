@@ -16,7 +16,16 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `3bf6a4c82` — repair nine
+Latest translation fix: **2026-09-15**, `9c1388a49` — repair ten
+Buryat, Fijian, Konkani, Guarani, Maithili, Tok Pisin, Kirundi,
+Tagalog, Shona and Igbo list-width messages. Three values contained
+English-seeded requirement prose; replacements use native width and
+whole-number wording. Eight complete clauses remain low confidence
+pending native grammar review. Focused, runtime, ledger and 234-locale
+completeness checks pass. Correction ledger: **22,130**; stale
+list-width values: **36**.
+
+Earlier translation fix: **2026-09-15**, `3bf6a4c82` — repair nine
 Northern Ndebele, Swati, Tswana, Kinyarwanda, Xhosa, Southern Sotho,
 Samoan, Yoruba and Māori list-width messages. Native whole-number and
 minimum wording replaces the old rule. Kinyarwanda, Xhosa, Yoruba and
@@ -99,7 +108,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **22,120** exact before/after values, including unflagged
+records contain **22,130** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -127,12 +136,12 @@ placeholders, JSON examples and key order; they do not establish language
 quality. Correct-language human translations remain preferred. No external
 translation service is used, and no remote push was performed.
 
-New unflagged source-semantic queue: **46 locale values** still express
+New unflagged source-semantic queue: **36 locale values** still express
 the old 270 list-width rule. The actual shared minimum is 200; three
 Persian-digit values, 23 Romance/Germanic variants and 22 further variants
 plus 33 native lower-bound, 11 Chinese-variant, 28 Eurasian, 20
 Romance/Celtic, 24 Asian, 12 African/Kurdish/Yiddish and nine
-African/Pacific values are recorded.
+African/Pacific and ten native/mixed-seed values are recorded.
 Aliases follow their
 tracked files, so one corrected file may resolve two visible codes. This
 queue is outside the 20,081

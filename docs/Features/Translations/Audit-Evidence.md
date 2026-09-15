@@ -31679,3 +31679,35 @@ progress suites now test the current rule. Ledger integrity and
 22,120; the remaining list-width queue falls from 55 to 46. Original
 20,081 audit-row classifications are unchanged. No live UI test or
 remote write occurred.
+
+### 2026-09-15 — Native and mixed-seed list-width repair
+
+Source commit `9c1388a49` repairs ten locale values: Buryat, Fijian,
+Konkani, Guarani, Maithili, Tok Pisin, Kirundi, Tagalog, Shona and
+Igbo. All old values required a whole number greater than 270; the
+replacements state an inclusive 200-pixel whole-number minimum. The
+Tagalog, Shona and Igbo source values carried substantial English
+requirement prose; all three replacements are in their declared
+languages. Fijian, Guarani, Tok Pisin and Kirundi use `≥ 200` so the
+boundary is explicit without guessing a complete comparison clause.
+Maithili `कम सँ कम` is used in
+[Maithili examination text](https://www.sanskritiias.com/uploaded_files/previous-year-paper-literature/2018/maithali-literature-I.pdf),
+Konkani `उण्यांत उणें` in a
+[Konkani example](https://www.learnwitholiver.com/main/show-picture-flashcard-details.php?id=347&lang=konkani),
+Tagalog `buong bilang` in
+[Wiktionary](https://en.wiktionary.org/wiki/buong_bilang),
+Shona `kanenge` in a
+[bilingual dictionary](https://admin.opentran.net/pdf/upload/sn-en.pdf),
+and Igbo `opekata mpe` in
+[Igbo instructional material](https://www.dozro.com/zul/typing-test-igbo).
+The Buryat, Fijian, Konkani, Guarani, Tok Pisin, Kirundi, Shona and
+Igbo complete clauses remain low confidence pending native grammar
+review. Term evidence and the explicit threshold do not certify full
+sentence fluency. The focused suite checks native term inventories,
+absence of 270 and English rule words, one exact ledger row per locale,
+uncertainty notes and runtime Tagalog lookup. The Maithili progress
+suite now tests the current rule. Ledger integrity and 234-locale
+completeness pass. Correction ledger rises from 22,120 to 22,130;
+remaining old-threshold list-width values fall from 46 to 36. Original
+20,081 audit-row classifications remain unchanged. No live UI test or
+remote write occurred.
