@@ -753,3 +753,16 @@ pass. Raw exact-overlap metrics remain 247 total, 22 attested shared and 225
 unclassified because prior batches had already repaired exact Board/Card
 copies. Twenty-five raw matches contain at least 20 characters and six contain
 at least 35. No remote write ran.
+
+### 2026-09-15 — Full-locale Tigre established noun families
+
+Source commit `08e7092c3` repairs 193 values containing Tigrinya File, User,
+Name, Label, Organization, Team, Path, Status, Size, Color or Count components.
+English source-sense guards cover 385 applicable contexts while preserving
+unrelated Icon and Clipboard meanings. Sequential changes are consolidated by
+key, leaving 21,888 verified final correction records. Derived File, Name,
+Organization and Team plurals remain low confidence pending fluent review.
+The focused context guard, locale-wide placeholder and HTML checks, and all
+234 locale inventories pass. Raw exact overlap falls to 244 total, with 22
+attested shared forms and 222 unclassified; 25 raw matches contain at least 20
+characters and 6 contain at least 35. No remote write occurred.

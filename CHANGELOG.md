@@ -2080,6 +2080,17 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/08e7092c3">Repair established Tigre noun families throughout.</a></summary>
+
+Replace Tigrinya File, User, Name, Label, Organization, Team, Path, Status,
+Size, Color and Count components across all 193 matching Tigre values, with
+context guards for unrelated meanings.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/83546ed24">Repair Tigre board and card terms throughout.</a></summary>
 
 Replace embedded Tigrinya Board and Card nouns in 407 Tigre values while
