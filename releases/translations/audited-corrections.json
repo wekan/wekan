@@ -146319,5 +146319,26 @@
     "before": "ሰሌዳ ኣውጽእ",
     "after": "ምዱድ አግዕዞ",
     "reason": "Replace the Tigrinya-seeded Export family with the Tigre action attested in the exact software-context corpus entry Export pages, reusing the independently established Tigre list and board nouns."
+  },
+  {
+    "locale": "tig",
+    "key": "recovery-severity",
+    "before": "ክብደት",
+    "after": "ደረጀት ክብድት",
+    "reason": "Replace the Tigrinya-seeded physical-weight noun with a transparent Tigre severity-level compound built from corpus-attested degree/level and severely forms; retain low-confidence compound grammar for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "cron-error-severity",
+    "before": "ክብደት",
+    "after": "ደረጀት ክብድት",
+    "reason": "Replace the Tigrinya-seeded physical-weight noun with a transparent Tigre severity-level compound built from corpus-attested degree/level and severely forms; retain low-confidence compound grammar for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "event-severity",
+    "before": "ክብደት",
+    "after": "ደረጀት ክብድት",
+    "reason": "Replace the Tigrinya-seeded physical-weight noun with a transparent Tigre severity-level compound built from corpus-attested degree/level and severely forms; retain low-confidence compound grammar for fluent review."
   }
 ]

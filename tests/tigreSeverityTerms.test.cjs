@@ -1,0 +1,2 @@
+'use strict';
+const assert=require('node:assert/strict');const fs=require('node:fs');const path=require('node:path');const root=path.resolve(__dirname,'..');const read=c=>JSON.parse(fs.readFileSync(path.join(root,`imports/i18n/data/${c}.i18n.json`),'utf8'));const tig=read('tig'),ti=read('ti');for(const key of ['recovery-severity','cron-error-severity','event-severity']){assert.equal(tig[key],'ደረጀት ክብድት');assert.notEqual(tig[key],ti[key]);assert.notEqual(tig[key],'ክብደት');}console.log('Checked three Tigre Severity controls.');
