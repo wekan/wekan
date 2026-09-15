@@ -589,3 +589,13 @@ remain intact. Focused exact and negative checks cover every value; all 21,073
 correction records and 234 locale inventories pass. Raw non-English overlap
 falls to 463, with 22 attested shared forms and 441 unclassified. Surrounding
 grammar remains open to fluent review. No remote write ran.
+
+
+## Tigre File terms in longer clauses repaired — 2026-09-15
+
+Source commit `71a15613c` replaces the remaining eight Tigrinya File
+spellings inside longer clauses with established Tigre `ፈይል`. Format, API,
+service and product identifiers stay literal. Exact and negative tests cover
+every value; all 21,081 correction records and 234 locale inventories pass.
+Raw overlap falls to 455, with 22 attested shared forms and 433 unclassified.
+Complete clause grammar remains open to fluent review. No remote write ran.

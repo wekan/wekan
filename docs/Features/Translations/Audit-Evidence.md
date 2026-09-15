@@ -31041,3 +31041,15 @@ non-English overlap falls to 463; after 22 attested shared forms, 441 remain
 unclassified. Seventy raw matches contain at least 20 characters and 15
 contain at least 35. Surrounding grammar remains subject to fluent review. No
 remote write occurred.
+
+
+### 2026-09-15 — Tigre File terms in longer clauses
+
+Source commit `71a15613c` replaces the final eight Tigrinya File spellings
+inside longer Tigre clauses with corpus-attested `ፈይል`. Surrounding wording
+is preserved for separate fluent review, as are .zip, API, MongoDB, GridFS,
+AWS S3 and MinIO identifiers. Focused exact and negative checks pass with all
+21,081 correction records and 234 locale inventories. Raw overlap falls to
+455; after 22 attested shared forms, 433 remain unclassified. Sixty-two raw
+matches contain at least 20 characters and 14 contain at least 35. No remote
+write occurred.

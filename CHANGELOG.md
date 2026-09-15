@@ -2080,6 +2080,16 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/71a15613c">Repair Tigre file terms in longer clauses.</a></summary>
+
+Replace the remaining eight copied Tigrinya File spellings with established
+Tigre terminology while preserving surrounding clauses and identifiers.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8560f3d7c">Repair Tigre card and file terms.</a></summary>
 
 Replace 21 copied Tigrinya Card and File components with established Tigre

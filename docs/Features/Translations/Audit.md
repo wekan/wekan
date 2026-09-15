@@ -16,22 +16,22 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `8560f3d7c` — replace the
-remaining singular Tigrinya Card component in 16 Tigre labels and the
-Tigrinya File component in five compact labels with corpus-attested Tigre
-terms. Ledger 21,073; surrounding grammar remains subject to fluent review.
-The preceding multi-component batch is `f64f9c98d`. The Veps seed review
-remains complete.
+Latest translation fix: **2026-09-15**, `71a15613c` — replace the
+remaining Tigrinya File spelling inside eight longer Tigre clauses while
+preserving surrounding text and literal format, API, service and product
+identifiers. Ledger 21,081; complete clauses remain subject to fluent review.
+The preceding Card/File batch is `8560f3d7c`. The Veps seed review remains
+complete.
 
 The tracked Tigre calendar queue being empty does not certify the locale. Of
-2,592 non-English Tigre values, 463 are byte-for-byte identical to Tigrinya;
-22 are corpus-attested shared terms and 441 remain unclassified, including 70
-values of at least 20 characters and 15 of at least 35 characters. This is an
+2,592 non-English Tigre values, 455 are byte-for-byte identical to Tigrinya;
+22 are corpus-attested shared terms and 433 remain unclassified, including 62
+values of at least 20 characters and 14 of at least 35 characters. This is an
 explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **21,073** exact before/after values, including unflagged
+records contain **21,081** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
