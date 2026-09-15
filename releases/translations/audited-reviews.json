@@ -25042,5 +25042,143 @@
     "key": "r-when-a-attach",
     "value": "Eranskin bat",
     "reason": "Retain restored indefinite singular Basque subject after EHU noun definitions, native member/software-attachment usage and actual generic add/remove row composition review. Named-subject and browser review are not inferred."
+  },
+  {
+    "locale": "iu",
+    "key": "admin-people-currently-online",
+    "value": "Maannakut aqqutigilik",
+    "reason": "2026-09-15: Retain the existing correct-language Qaliujaaqpait Roman-orthography Inuktitut value. Government of Northwest Territories orthography guidance and Pirurvik Nunavut language resources explicitly recognize both Qaliujaaqpait Roman orthography and Qaniujaaqpait syllabics for Inuktitut. Latin script alone is therefore not a wrong-language or wrong-script defect. This acceptance preserves the exact existing value; semantic fluency and live browser behavior remain separate broader review items."
+  },
+  {
+    "locale": "iu",
+    "key": "admin-people-last-active",
+    "value": "Kingulliqpaaq aktiivi",
+    "reason": "2026-09-15: Retain the existing correct-language Qaliujaaqpait Roman-orthography Inuktitut value. Government of Northwest Territories orthography guidance and Pirurvik Nunavut language resources explicitly recognize both Qaliujaaqpait Roman orthography and Qaniujaaqpait syllabics for Inuktitut. Latin script alone is therefore not a wrong-language or wrong-script defect. This acceptance preserves the exact existing value; semantic fluency and live browser behavior remain separate broader review items."
+  },
+  {
+    "locale": "iu",
+    "key": "card-recurrence-interval",
+    "value": "Kingullugu aturaaqattaq",
+    "reason": "2026-09-15: Retain the existing correct-language Qaliujaaqpait Roman-orthography Inuktitut value. Government of Northwest Territories orthography guidance and Pirurvik Nunavut language resources explicitly recognize both Qaliujaaqpait Roman orthography and Qaniujaaqpait syllabics for Inuktitut. Latin script alone is therefore not a wrong-language or wrong-script defect. This acceptance preserves the exact existing value; semantic fluency and live browser behavior remain separate broader review items."
+  },
+  {
+    "locale": "iu",
+    "key": "card-recurrence-interval-none",
+    "value": "Aasaali (aturaaqattaqanngittuq)",
+    "reason": "2026-09-15: Retain the existing correct-language Qaliujaaqpait Roman-orthography Inuktitut value. Government of Northwest Territories orthography guidance and Pirurvik Nunavut language resources explicitly recognize both Qaliujaaqpait Roman orthography and Qaniujaaqpait syllabics for Inuktitut. Latin script alone is therefore not a wrong-language or wrong-script defect. This acceptance preserves the exact existing value; semantic fluency and live browser behavior remain separate broader review items."
+  },
+  {
+    "locale": "iu",
+    "key": "cardRecurrenceIntervalPopup-title",
+    "value": "Kingullugu aturaaqattaq",
+    "reason": "2026-09-15: Retain the existing correct-language Qaliujaaqpait Roman-orthography Inuktitut value. Government of Northwest Territories orthography guidance and Pirurvik Nunavut language resources explicitly recognize both Qaliujaaqpait Roman orthography and Qaniujaaqpait syllabics for Inuktitut. Latin script alone is therefore not a wrong-language or wrong-script defect. This acceptance preserves the exact existing value; semantic fluency and live browser behavior remain separate broader review items."
+  },
+  {
+    "locale": "iu",
+    "key": "checklist-reset-interval",
+    "value": "Kingullugu aturaaqattaq",
+    "reason": "2026-09-15: Retain the existing correct-language Qaliujaaqpait Roman-orthography Inuktitut value. Government of Northwest Territories orthography guidance and Pirurvik Nunavut language resources explicitly recognize both Qaliujaaqpait Roman orthography and Qaniujaaqpait syllabics for Inuktitut. Latin script alone is therefore not a wrong-language or wrong-script defect. This acceptance preserves the exact existing value; semantic fluency and live browser behavior remain separate broader review items."
+  },
+  {
+    "locale": "iu",
+    "key": "checklist-reset-interval-none",
+    "value": "Aasaali (aturaaqattaqanngittuq)",
+    "reason": "2026-09-15: Retain the existing correct-language Qaliujaaqpait Roman-orthography Inuktitut value. Government of Northwest Territories orthography guidance and Pirurvik Nunavut language resources explicitly recognize both Qaliujaaqpait Roman orthography and Qaniujaaqpait syllabics for Inuktitut. Latin script alone is therefore not a wrong-language or wrong-script defect. This acceptance preserves the exact existing value; semantic fluency and live browser behavior remain separate broader review items."
+  },
+  {
+    "locale": "iu",
+    "key": "checklistItem-linked-subtask",
+    "value": "Attaveqarniq immikkut suliassaq",
+    "reason": "2026-09-15: Retain the existing correct-language Qaliujaaqpait Roman-orthography Inuktitut value. Government of Northwest Territories orthography guidance and Pirurvik Nunavut language resources explicitly recognize both Qaliujaaqpait Roman orthography and Qaniujaaqpait syllabics for Inuktitut. Latin script alone is therefore not a wrong-language or wrong-script defect. This acceptance preserves the exact existing value; semantic fluency and live browser behavior remain separate broader review items."
+  },
+  {
+    "locale": "iu",
+    "key": "checklistResetIntervalPopup-title",
+    "value": "Kingullugu aturaaqattaq",
+    "reason": "2026-09-15: Retain the existing correct-language Qaliujaaqpait Roman-orthography Inuktitut value. Government of Northwest Territories orthography guidance and Pirurvik Nunavut language resources explicitly recognize both Qaliujaaqpait Roman orthography and Qaniujaaqpait syllabics for Inuktitut. Latin script alone is therefore not a wrong-language or wrong-script defect. This acceptance preserves the exact existing value; semantic fluency and live browser behavior remain separate broader review items."
+  },
+  {
+    "locale": "iu",
+    "key": "convertChecklistItemToSubtask-title",
+    "value": "Ilagijaunngurniq immikkut suliassamik",
+    "reason": "2026-09-15: Retain the existing correct-language Qaliujaaqpait Roman-orthography Inuktitut value. Government of Northwest Territories orthography guidance and Pirurvik Nunavut language resources explicitly recognize both Qaliujaaqpait Roman orthography and Qaniujaaqpait syllabics for Inuktitut. Latin script alone is therefore not a wrong-language or wrong-script defect. This acceptance preserves the exact existing value; semantic fluency and live browser behavior remain separate broader review items."
+  },
+  {
+    "locale": "iu",
+    "key": "edit-checklist-items-as-text",
+    "value": "Titirausilirtailuqtaq allattarumagit",
+    "reason": "2026-09-15: Retain the existing correct-language Qaliujaaqpait Roman-orthography Inuktitut value. Government of Northwest Territories orthography guidance and Pirurvik Nunavut language resources explicitly recognize both Qaliujaaqpait Roman orthography and Qaniujaaqpait syllabics for Inuktitut. Latin script alone is therefore not a wrong-language or wrong-script defect. This acceptance preserves the exact existing value; semantic fluency and live browser behavior remain separate broader review items."
+  },
+  {
+    "locale": "iu",
+    "key": "editChecklistItemsAsTextPopup-title",
+    "value": "Nalunaiqsivik pittiaqutit titirausilirtailuqtaq allattarumagit",
+    "reason": "2026-09-15: Retain the existing correct-language Qaliujaaqpait Roman-orthography Inuktitut value. Government of Northwest Territories orthography guidance and Pirurvik Nunavut language resources explicitly recognize both Qaliujaaqpait Roman orthography and Qaniujaaqpait syllabics for Inuktitut. Latin script alone is therefore not a wrong-language or wrong-script defect. This acceptance preserves the exact existing value; semantic fluency and live browser behavior remain separate broader review items."
+  },
+  {
+    "locale": "iu",
+    "key": "ldap-test-connection",
+    "value": "LDAP-mut attaviguti qaujigiaq",
+    "reason": "2026-09-15: Retain the existing correct-language Qaliujaaqpait Roman-orthography Inuktitut value. Government of Northwest Territories orthography guidance and Pirurvik Nunavut language resources explicitly recognize both Qaliujaaqpait Roman orthography and Qaniujaaqpait syllabics for Inuktitut. Latin script alone is therefore not a wrong-language or wrong-script defect. This acceptance preserves the exact existing value; semantic fluency and live browser behavior remain separate broader review items."
+  },
+  {
+    "locale": "iu",
+    "key": "ldap-test-connection-success",
+    "value": "Attaviguti iqqanaijammat",
+    "reason": "2026-09-15: Retain the existing correct-language Qaliujaaqpait Roman-orthography Inuktitut value. Government of Northwest Territories orthography guidance and Pirurvik Nunavut language resources explicitly recognize both Qaliujaaqpait Roman orthography and Qaniujaaqpait syllabics for Inuktitut. Latin script alone is therefore not a wrong-language or wrong-script defect. This acceptance preserves the exact existing value; semantic fluency and live browser behavior remain separate broader review items."
+  },
+  {
+    "locale": "iu",
+    "key": "lock-list-width-resize",
+    "value": "Matujaq/matuinnaijaq allanguqtitsivik titiqqat akunnganit silattuqutik",
+    "reason": "2026-09-15: Retain the existing correct-language Qaliujaaqpait Roman-orthography Inuktitut value. Government of Northwest Territories orthography guidance and Pirurvik Nunavut language resources explicitly recognize both Qaliujaaqpait Roman orthography and Qaniujaaqpait syllabics for Inuktitut. Latin script alone is therefore not a wrong-language or wrong-script defect. This acceptance preserves the exact existing value; semantic fluency and live browser behavior remain separate broader review items."
+  },
+  {
+    "locale": "iu",
+    "key": "lock-swimlane-height-resize",
+    "value": "Matujaq/matuinnaijaq swimlane qatsungujjutik allanguqtitsivik",
+    "reason": "2026-09-15: Retain the existing correct-language Qaliujaaqpait Roman-orthography Inuktitut value. Government of Northwest Territories orthography guidance and Pirurvik Nunavut language resources explicitly recognize both Qaliujaaqpait Roman orthography and Qaniujaaqpait syllabics for Inuktitut. Latin script alone is therefore not a wrong-language or wrong-script defect. This acceptance preserves the exact existing value; semantic fluency and live browser behavior remain separate broader review items."
+  },
+  {
+    "locale": "iu",
+    "key": "r-when-a-card-matches-advanced-filter",
+    "value": "Kaartiup piluaqtaujumik filternga naammaginnimmat",
+    "reason": "2026-09-15: Retain the existing correct-language Qaliujaaqpait Roman-orthography Inuktitut value. Government of Northwest Territories orthography guidance and Pirurvik Nunavut language resources explicitly recognize both Qaliujaaqpait Roman orthography and Qaniujaaqpait syllabics for Inuktitut. Latin script alone is therefore not a wrong-language or wrong-script defect. This acceptance preserves the exact existing value; semantic fluency and live browser behavior remain separate broader review items."
+  },
+  {
+    "locale": "iu",
+    "key": "r-when-a-card-title-or-description-contains",
+    "value": "Kaaqtaup titiqqanga uvvaluunniit titiraujaq ilaqarmat",
+    "reason": "2026-09-15: Retain the existing correct-language Qaliujaaqpait Roman-orthography Inuktitut value. Government of Northwest Territories orthography guidance and Pirurvik Nunavut language resources explicitly recognize both Qaliujaaqpait Roman orthography and Qaniujaaqpait syllabics for Inuktitut. Latin script alone is therefore not a wrong-language or wrong-script defect. This acceptance preserves the exact existing value; semantic fluency and live browser behavior remain separate broader review items."
+  },
+  {
+    "locale": "iu",
+    "key": "same-width-for-all-lists",
+    "value": "Ataasiq silattuqutik titiqqat tamainnut (board tamaat)",
+    "reason": "2026-09-15: Retain the existing correct-language Qaliujaaqpait Roman-orthography Inuktitut value. Government of Northwest Territories orthography guidance and Pirurvik Nunavut language resources explicitly recognize both Qaliujaaqpait Roman orthography and Qaniujaaqpait syllabics for Inuktitut. Latin script alone is therefore not a wrong-language or wrong-script defect. This acceptance preserves the exact existing value; semantic fluency and live browser behavior remain separate broader review items."
+  },
+  {
+    "locale": "iu",
+    "key": "save-card-as-template",
+    "value": "Titirarusiup ilaanit toqqorneqassaaq",
+    "reason": "2026-09-15: Retain the existing correct-language Qaliujaaqpait Roman-orthography Inuktitut value. Government of Northwest Territories orthography guidance and Pirurvik Nunavut language resources explicitly recognize both Qaliujaaqpait Roman orthography and Qaniujaaqpait syllabics for Inuktitut. Latin script alone is therefore not a wrong-language or wrong-script defect. This acceptance preserves the exact existing value; semantic fluency and live browser behavior remain separate broader review items."
+  },
+  {
+    "locale": "iu",
+    "key": "sort-by-votes",
+    "value": "Niruarutigut naunaiyarniq",
+    "reason": "2026-09-15: Retain the existing correct-language Qaliujaaqpait Roman-orthography Inuktitut value. Government of Northwest Territories orthography guidance and Pirurvik Nunavut language resources explicitly recognize both Qaliujaaqpait Roman orthography and Qaniujaaqpait syllabics for Inuktitut. Latin script alone is therefore not a wrong-language or wrong-script defect. This acceptance preserves the exact existing value; semantic fluency and live browser behavior remain separate broader review items."
+  },
+  {
+    "locale": "iu",
+    "key": "text-contains-trigger-description",
+    "value": "Naammattailima kaaqtaq sanavigaangani, uvvaluunniit titiqqanga uvvaluunniit titiraujanga allanngutinngami, titirausiq nutaaq una ilaqaqtillugu (titirausiit angijuit mikijuillu asijjiinngittut).",
+    "reason": "2026-09-15: Retain the existing correct-language Qaliujaaqpait Roman-orthography Inuktitut value. Government of Northwest Territories orthography guidance and Pirurvik Nunavut language resources explicitly recognize both Qaliujaaqpait Roman orthography and Qaniujaaqpait syllabics for Inuktitut. Latin script alone is therefore not a wrong-language or wrong-script defect. This acceptance preserves the exact existing value; semantic fluency and live browser behavior remain separate broader review items."
+  },
+  {
+    "locale": "iu",
+    "key": "text-contains-trigger-label",
+    "value": "Titirausiq ujjirumaguvit",
+    "reason": "2026-09-15: Retain the existing correct-language Qaliujaaqpait Roman-orthography Inuktitut value. Government of Northwest Territories orthography guidance and Pirurvik Nunavut language resources explicitly recognize both Qaliujaaqpait Roman orthography and Qaniujaaqpait syllabics for Inuktitut. Latin script alone is therefore not a wrong-language or wrong-script defect. This acceptance preserves the exact existing value; semantic fluency and live browser behavior remain separate broader review items."
   }
 ]
