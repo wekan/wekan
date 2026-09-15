@@ -155755,5 +155755,61 @@
     "before": "تغيير صورة الخلفية",
     "after": "ⴱⴻⴷⴷⴻⵍ ⵜⵓⴳⵏⴰ ⵏ ⴷⴻⴼⴼⵉⵔ",
     "reason": "Replace Arabic all-boards background-image popup title with the same native phrase as the board control."
+  },
+  {
+    "locale": "zgh",
+    "key": "boardChangeTitlePopup-title",
+    "before": "إعادة تسمية اللوحة",
+    "after": "ⴰⵍⵙ ⵉ ⵉⵙⵎ ⵏ ⵜⴼⵍⵡⵉⵜ",
+    "reason": "Replace Arabic rename-board popup title with the established local native rename-board label."
+  },
+  {
+    "locale": "zgh",
+    "key": "boardChangeVisibilityPopup-title",
+    "before": "تعديل وضوح الرؤية",
+    "after": "ⵙⵏⴼⵍ ⵜⴰⵏⵏⴰⵢⵜ",
+    "reason": "Replace Arabic change-visibility popup title with local native change verb and visibility noun; complete command grammar remains low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "boardChangeWatchPopup-title",
+    "before": "تغيير المتابعة",
+    "after": "ⵙⵏⴼⵍ ⴰⵎⴰⵜⵔ",
+    "reason": "Replace Arabic change-watch popup title with local native change verb and watch noun; complete command grammar remains low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "setCardColorPopup-title",
+    "before": "حدد اللون",
+    "after": "ⵙⵔⵙ ⵉⵏⵉ",
+    "reason": "Replace Arabic set-card-color popup title with local native set and color terms; complete command grammar remains low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "setCardActionsColorPopup-title",
+    "before": "اختر لوناً",
+    "after": "ⵙⵜⵉ ⴽⵔⴰ ⵏ ⵓⴽⵍⵓ",
+    "reason": "Replace Arabic choose-a-color popup title with the established native select-color label."
+  },
+  {
+    "locale": "zgh",
+    "key": "setSwimlaneColorPopup-title",
+    "before": "اختر لوناً",
+    "after": "ⵙⵜⵉ ⴽⵔⴰ ⵏ ⵓⴽⵍⵓ",
+    "reason": "Replace Arabic choose-a-color swimlane popup title with the established native select-color label."
+  },
+  {
+    "locale": "zgh",
+    "key": "setListColorPopup-title",
+    "before": "اختر لوناً",
+    "after": "ⵙⵜⵉ ⴽⵔⴰ ⵏ ⵓⴽⵍⵓ",
+    "reason": "Replace Arabic choose-a-color list popup title with the established native select-color label."
+  },
+  {
+    "locale": "zgh",
+    "key": "change-visibility",
+    "before": "تعديل وضوح الرؤية",
+    "after": "ⵙⵏⴼⵍ ⵜⴰⵏⵏⴰⵢⵜ",
+    "reason": "Replace Arabic change-visibility control with the same native wording as its popup title."
   }
 ]
