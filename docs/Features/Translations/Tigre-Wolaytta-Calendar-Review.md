@@ -578,3 +578,14 @@ Review commit `a69ed2325` retains Accounts (`ሕሳባት`) and Errors
 corpus sentences independently attest both plural senses. The focused test now
 locks the intentional equality. Raw overlap remains 484, with 22 attested
 shared forms and 462 unclassified. No remote write ran.
+
+
+## Tigre Card and File terms repaired — 2026-09-15
+
+Source commit `8560f3d7c` replaces singular Tigrinya Card components in 16
+labels and File components in five compact labels with established Tigre
+`ወረቀት ካርድ`, `ፈይል` and `ስርዓም`. Literal product and extension names
+remain intact. Focused exact and negative checks cover every value; all 21,073
+correction records and 234 locale inventories pass. Raw non-English overlap
+falls to 463, with 22 attested shared forms and 441 unclassified. Surrounding
+grammar remains open to fluent review. No remote write ran.

@@ -31027,3 +31027,17 @@ sentence and the exact Errors form in several native plural-fault sentences.
 The raw overlap remains 484 while the independently attested shared set grows
 to 22 and the unclassified subset falls to 462. Focused and structural checks
 pass; no remote write occurred.
+
+
+### 2026-09-15 — Tigre Card and File terms
+
+Source commit `8560f3d7c` replaces the remaining singular Tigrinya Card
+component in 16 Tigre labels and the Tigrinya File component in five compact
+labels. The replacements reuse corpus-attested `ወረቀት ካርድ`, `ፈይል` and
+`ስርዓም` already reviewed in the correction ledger; Excel, Trello, GridFS
+and filename extensions stay literal. Focused exact and former-seed checks
+pass with all 21,073 correction records and 234 locale inventories. Raw
+non-English overlap falls to 463; after 22 attested shared forms, 441 remain
+unclassified. Seventy raw matches contain at least 20 characters and 15
+contain at least 35. Surrounding grammar remains subject to fluent review. No
+remote write occurred.

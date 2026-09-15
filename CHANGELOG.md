@@ -2080,6 +2080,16 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8560f3d7c">Repair Tigre card and file terms.</a></summary>
+
+Replace 21 copied Tigrinya Card and File components with established Tigre
+terms while preserving product names, extensions and surrounding context.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a69ed2325">Retain attested Tigre account and error plurals.</a></summary>
 
 Preserve two byte-identical Tigre and Tigrinya plurals after independent Tigre
