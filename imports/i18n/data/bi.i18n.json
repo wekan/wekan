@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Tok blong sistem: Set width",
   "set-list-width": "Tok blong sistem: Set width",
   "set-list-width-value": "Lis width (pixels)",
-  "list-width-error-message": "Lis width must stap wan integer greater than 270",
+  "list-width-error-message": "Waed blong lis i mas wan ful namba ≥ 200 piksel",
   "list-width-shared-note": "Dispela width i shared wetem everyone long dispela bod.",
   "list-width-personal-note": "Dispela width i nomo blong you.",
   "personal-list-width": "Personal lis widths",

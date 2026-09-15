@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Ustaw szerokość — pò kaszëbskù",
   "set-list-width": "Ustaw szerokość — pò kaszëbskù",
   "set-list-width-value": "Szerokość lëstë (piksele)",
-  "list-width-error-message": "Szerokość lëstë musi być liczbą całkowitą większą niż 270",
+  "list-width-error-message": "Szërokòsc lëstë mùszi bëc cëłkòwitą lëczbą ≥ 200 pikselów",
   "list-width-shared-note": "Ta szerokość jest wspòlna dla wszëtczich na tej tôblëcë.",
   "list-width-personal-note": "Ta szerokość jest tylko dla Ciebie. — pò kaszëbskù",
   "personal-list-width": "Osobiste szerokości lëstòw",

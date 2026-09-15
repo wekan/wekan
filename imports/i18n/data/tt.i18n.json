@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Генишлиги айарла",
   "set-list-width": "Генишлиги айарла",
   "set-list-width-value": "исемлек генишлиги (пиксел)",
-  "list-width-error-message": "исемлек генишлиги 270'тен бүйүк бир там сайы олмалыдыр",
+  "list-width-error-message": "Исемлек киңлеге кимендә 200 пиксель булган бөтен сан булырга тиеш",
   "list-width-shared-note": "Бу генишлик бу тактадаки һеркесле пайлашылыр.",
   "list-width-personal-note": "Бу генишлик йалнызҗа срөхсәт ичйөкләп ал.",
   "personal-list-width": "Кишисел исемлек генишликлери",

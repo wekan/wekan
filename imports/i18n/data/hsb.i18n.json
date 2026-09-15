@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Naztavit šířku",
   "set-list-width": "Naztavit šířku",
   "set-list-width-value": "Šířka lizćinau (pixely)",
-  "list-width-error-message": "Šířka lizćinau muzí být celé čízlo větší něž 270",
+  "list-width-error-message": "Šěrokosć lisćiny dyrbi cyła ličba ≥ 200 pikselow być",
   "list-width-shared-note": "Tuta šířka je zdílená ze všemi na tomto tablu.",
   "list-width-personal-note": "Tuta šířka je pouze za váz.",
   "personal-list-width": "Ozobní šířky lizćinaů",

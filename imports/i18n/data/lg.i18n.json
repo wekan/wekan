@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Teeka bugazi",
   "set-list-width": "Teeka bugazi",
   "set-list-width-value": "Lukalala bugazi (pixels)",
-  "list-width-error-message": "Lukalala bugazi kiteekwa ba integer greater than 270",
+  "list-width-error-message": "Lukalala bugazi kiteekwa kuba ennamba ennambilila ≥ 200 pixels",
   "list-width-shared-note": "Kino bugazi kiri kigabiddwa na everyone ku kino lubaawo.",
   "list-width-personal-note": "Kino bugazi kiri kyokka ku lwa ggwe.",
   "personal-list-width": "Ky'obuntu lukalala widths",

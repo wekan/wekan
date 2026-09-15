@@ -43,7 +43,8 @@ assert.deepEqual(tokens(greenlandic['act-moveCardToOtherBoard']),
 assert.equal(greenlandic['workspace-settings'],
   'Suliffiup aaqqissugaanera');
 assert.equal(greenlandic['allboards.workspace-color'], 'Qalipaat');
-assert.match(greenlandic['list-width-error-message'], /270/);
+assert.match(greenlandic['list-width-error-message'], /kisitsit ilivitsoq ≥ 200 pixelit/);
+assert.doesNotMatch(greenlandic['list-width-error-message'], /270/);
 assert.equal(greenlandic['add-checklist'],
   'Misissuiffiusumik allattorsimaffik ilannguguk');
 assert.deepEqual(tokens(greenlandic['avatar-too-big']), ['__size__']);

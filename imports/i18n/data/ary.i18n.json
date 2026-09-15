@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "تعيين العرض",
   "set-list-width": "تعيين العرض",
   "set-list-width-value": "عرض القائمة (بالبكسل)",
-  "list-width-error-message": "يجب أن يكون عرض القائمة عدداً صحيحاً أكبر من 270",
+  "list-width-error-message": "خاص عرض الليستة يكون عدد صحيح، 200 بكسل على الأقل",
   "list-width-shared-note": "يتم مشاركة هذا العرض مع الجميع في هذه اللوحة.",
   "list-width-personal-note": "هذا العرض خاص بك فقط.",
   "personal-list-width": "عروض القوائم الشخصية",

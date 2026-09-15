@@ -68848,8 +68848,8 @@
     "locale": "szl",
     "key": "list-width-error-message",
     "before": "Szerokość listy musi być liczbą całkowitą większą niż 270",
-    "after": "Szyrokość listy musi być cołkowitōm liczbōm wiynkszōm jak 270",
-    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples."
+    "after": "Szyrokość listy musi być cołkowitōm liczbōm ≥ 200 pikseli",
+    "reason": "Correct audited foreign-language wording after contextual review; preserve source tokens and examples. Consolidated later 200-pixel repair. Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
   },
   {
     "locale": "szl",
@@ -154977,6 +154977,69 @@
     "key": "list-width-error-message",
     "before": "فہرست ویدتہ موست بے ان ینتےگےر گرےاتےر تہان 270",
     "after": "فہرست کی چوڑائی کم از کم 200 پکسل کا مکمل عدد ہونی چاہیے",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "ary",
+    "key": "list-width-error-message",
+    "before": "يجب أن يكون عرض القائمة عدداً صحيحاً أكبر من 270",
+    "after": "خاص عرض الليستة يكون عدد صحيح، 200 بكسل على الأقل",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "tt",
+    "key": "list-width-error-message",
+    "before": "исемлек генишлиги 270'тен бүйүк бир там сайы олмалыдыр",
+    "after": "Исемлек киңлеге кимендә 200 пиксель булган бөтен сан булырга тиеш",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "hsb",
+    "key": "list-width-error-message",
+    "before": "Šířka lizćinau muzí být celé čízlo větší něž 270",
+    "after": "Šěrokosć lisćiny dyrbi cyła ličba ≥ 200 pikselow być",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "csb",
+    "key": "list-width-error-message",
+    "before": "Szerokość lëstë musi być liczbą całkowitą większą niż 270",
+    "after": "Szërokòsc lëstë mùszi bëc cëłkòwitą lëczbą ≥ 200 pikselów",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "ff",
+    "key": "list-width-error-message",
+    "before": "Yaajugol doggol foti wonde limre timmunde ɓurnde 270",
+    "after": "Yaajugol doggol foti wonde limre timmunde ≥ 200 piksel",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "wo",
+    "key": "list-width-error-message",
+    "before": "Yaatuwaay bu liis war naa doon lim bu mat bu ëpp 270",
+    "after": "Yaatuwaay bu liis war naa doon lim bu mat ≥ 200 pixels",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "kl",
+    "key": "list-width-error-message",
+    "before": "Allattorsimaffiup silissusia kisitsisaasariaqarpoq 270-imit annerusoq",
+    "after": "Allattorsimaffiup silissusia kisitsit ilivitsoq ≥ 200 pixelit",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "lg",
+    "key": "list-width-error-message",
+    "before": "Lukalala bugazi kiteekwa ba integer greater than 270",
+    "after": "Lukalala bugazi kiteekwa kuba ennamba ennambilila ≥ 200 pixels",
+    "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "bi",
+    "key": "list-width-error-message",
+    "before": "Lis width must stap wan integer greater than 270",
+    "after": "Waed blong lis i mas wan ful namba ≥ 200 piksel",
     "reason": "Replace obsolete greater-than-270 list-width requirement with native whole-number and inclusive 200-pixel minimum wording. Complete clause low-confidence pending native grammar review."
   }
 ]

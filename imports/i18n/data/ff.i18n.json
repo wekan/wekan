@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Teel yaajugol",
   "set-list-width": "Teel yaajugol",
   "set-list-width-value": "Yaajugol doggol (piksel)",
-  "list-width-error-message": "Yaajugol doggol foti wonde limre timmunde ɓurnde 270",
+  "list-width-error-message": "Yaajugol doggol foti wonde limre timmunde ≥ 200 piksel",
   "list-width-shared-note": "Yaajugol ngol renndinaama e kala neɗɗo e alluwal ngal.",
   "list-width-personal-note": "Yaajugol ngol ko maa tan.",
   "personal-list-width": "Yaajugol doggol keeriiɗe",

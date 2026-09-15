@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Silissuseq inissiguk",
   "set-list-width": "Silissuseq inissiguk",
   "set-list-width-value": "Allattorsimaffiup silissusia (pixelit)",
-  "list-width-error-message": "Allattorsimaffiup silissusia kisitsisaasariaqarpoq 270-imit annerusoq",
+  "list-width-error-message": "Allattorsimaffiup silissusia kisitsit ilivitsoq ≥ 200 pixelit",
   "list-width-shared-note": "Silissuseq taanna ilisarnaammi matumani tamanut atorneqassaaq.",
   "list-width-personal-note": "Silissuseq taanna illit kisivit atussavat.",
   "personal-list-width": "Allattorsimaffiit nammineq silissusaat",
