@@ -1,5 +1,22 @@
 # Standard Moroccan Tamazight reference review
 
+## Filter and sort controls, 2026-09-15 (`65c667419`)
+
+Three unflagged wrong-language controls are repaired:
+`filter-hide-empty` was French, `set-filter` was French, and
+`sort-is-on` was Arabic. The hide command uses the local
+`ⴼⴼⵔ`; the plural list and lists-without-cards clause comes
+from the duplicate-empty-list migration. The set-filter command
+uses local `ⵙⵔⵙ` and `ⵜⴰⵎⵣⵉⵣⴷⴳⵜ`; sort-active adapts the
+existing filter-active sentence and `ⴰⴼⵔⴰⵏ` sort noun.
+
+These complete assembled sentences, including the masculine
+agreement in sort-active, remain **low confidence** pending fluent
+review. The components have independent local uses. Focused
+positive/negative, exact-ledger and 234-locale checks pass.
+Arabic-script review values fall from 169 to 168; original
+flagged finding classifications are unchanged.
+
 ## Creator labels, 2026-09-15 (`bea96680e`)
 
 The mixed French/Arabic `filter-creator-label` and Arabic

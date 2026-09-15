@@ -1,5 +1,11 @@
 # Detailed translation audit evidence
 
+2026-09-15 (`65c667419`): repaired three unflagged Tamazight
+filter/sort controls seeded in French or Arabic. Exact ledger now
+22,229; Arabic-script review queue 168. Full sentence grammar
+and sort-status agreement are low confidence. Focused and
+234-locale checks pass.
+
 2026-09-15 (`bea96680e`): repaired two unflagged Tamazight creator
 filter/minicard labels using local native terms. Exact ledger now
 22,226; Arabic-script review queue 169. Full phrase grammar is low
