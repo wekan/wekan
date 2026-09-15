@@ -1,5 +1,23 @@
 # Standard Moroccan Tamazight reference review
 
+## Native pink and adapted dark-green, 2026-09-15 (`06678678d`)
+
+The [IRCAM Moroccan Amazigh dictionary](https://biblio.ircam.ma/pmb/uploads/publications/177.pdf)
+directly glosses `ⴰⵣⵡⴰⵡⴰⵖ` as `rose (couleur)`. WeKan's French
+`color-pink` is replaced by that color word, avoiding the flower sense.
+Arabic `color-darkgreen` is replaced by a draft combining the existing
+native green `ⴰⵣⴳⵣⴰ` and dark/black `ⴰⴱⵔⴽⴰⵏ`, which is also used
+for WeKan's black label and appears in a [Moroccan Amazigh word list](https://www.amazigh.online/dictionary).
+The complete shade compound and adjective order remain **low confidence**
+pending fluent Standard Moroccan Tamazight review; the component senses
+alone do not certify the full phrase. Focused positive/negative, ledger
+and 234-locale checks pass. Both repairs were unflagged and leave the
+original 20,081 finding classifications unchanged.
+
+The plural email-addresses placeholder remains Arabic. Indexed
+`ⵜⵉⵏⵙⵉⵡⵉⵏ` examples mix regional uses and unrelated software
+contexts, so they do not prove the Moroccan plural of `ⵜⴰⵏⵙⴰ`.
+
 ## Email-address placeholder, 2026-09-15 (`ce5092966`)
 
 The local `email-address` search-member placeholder was French,

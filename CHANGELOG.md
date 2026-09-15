@@ -656,6 +656,15 @@ This release includes the following features and fixes:
 **Translations** - Tamazight, Tigre and multilingual list-width repairs.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/06678678d">Repair Tamazight color labels</a>. Thanks to xet7.</summary>
+
+Replace French pink with IRCAM's native color word and Arabic
+dark-green with native components. The full dark-green compound
+needs fluent review; focused, ledger and inventory checks pass.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ce5092966">Use native Tamazight email-address label</a>. Thanks to xet7.</summary>
 
 Replace French in the member-search placeholder with an attested

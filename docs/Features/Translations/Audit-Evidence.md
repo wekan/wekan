@@ -1,5 +1,15 @@
 # Detailed translation audit evidence
 
+2026-09-15 (`06678678d`): corrected two unflagged wrong-language
+Tamazight color values. IRCAM directly glosses `ⴰⵣⵡⴰⵡⴰⵖ` as
+pink color; the local French `rose` is replaced. Arabic dark-green
+becomes a draft with native green and dark/black components. Complete
+shade grammar remains low confidence. The Arabic email-addresses plural
+still needs a reliable Moroccan plural; indexed regional and software
+uses of a similar form were not accepted as proof. Focused, ledger
+and 234-locale checks pass; records rise to 22,187. Flagged-row counts
+remain unchanged. No remote write occurred.
+
 2026-09-15 (`ce5092966`): replaced French Tamazight `email-address`
 with `ⴰⵏⵙⴰ ⵏ ⵉⵎⴰⵢⵍ`, directly used in native MediaWiki zgh
 email-address input prompts. Member-search templates consume this key,
