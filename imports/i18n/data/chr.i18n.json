@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "ᎾᏯᏍᏗ ᎦᏟᏌᏅ",
   "set-list-width": "ᎾᏯᏍᏗ ᎦᏟᏌᏅ",
   "set-list-width-value": "ᏗᎪᏪᎵ ᎾᏯᏍᏗ (ᏗᏑᏰᏍᏗ ᏗᎦᏟᏌᏅ)",
-  "list-width-error-message": "ᏗᎪᏪᎵ ᎾᏯᏍᏗ 270 ᎤᏟ ᎢᎦᎢ ᎤᏙᎯᏳ ᎠᏎᎸ ᎨᏎᏍᏗ",
+  "list-width-error-message": "ᏗᎪᏪᎵ ᎾᏯᏍᏗ: ᎢᎦᎢ ᎬᏩᏃᏍᏓ ≥ 200 pixels ᎨᏎᏍᏗ",
   "list-width-shared-note": "ᎯᎠ ᎾᏯᏍᏗ ᏂᎦᏛ ᎯᎠ ᎦᏍᎩᎸ ᎠᏂᏯᎢ ᏓᏂᏙᎾᎥ.",
   "list-width-personal-note": "ᎯᎠ ᎾᏯᏍᏗ ᏂᎯᏉ ᏣᏤᎵ.",
   "personal-list-width": "ᎤᏩᏒ ᏗᎪᏪᎵ ᏗᎾᏯᏍᏗ",

@@ -155244,5 +155244,26 @@
     "before": "nxaxamelo mhaka mhaka mhaka an mhaka mhaka mhaka 270",
     "after": "Vuanami bya nxaxamelo byi fanele ku va holinamba ≥ 200 pixels",
     "reason": "Replace repeated meaningless seed with Xitsonga width, list, whole-number and requirement terms; state inclusive 200-pixel minimum. Singular holinamba derived from education plural tiholinamba; complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "chr",
+    "key": "list-width-error-message",
+    "before": "ᏗᎪᏪᎵ ᎾᏯᏍᏗ 270 ᎤᏟ ᎢᎦᎢ ᎤᏙᎯᏳ ᎠᏎᎸ ᎨᏎᏍᏗ",
+    "after": "ᏗᎪᏪᎵ ᎾᏯᏍᏗ: ᎢᎦᎢ ᎬᏩᏃᏍᏓ ≥ 200 pixels ᎨᏎᏍᏗ",
+    "reason": "Retain Cherokee list-width, number and required terms; replace real/amount draft with dictionary-listed whole adjective and inclusive 200-pixel bound. Mathematical use and complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "wal",
+    "key": "set-list-width-value",
+    "before": "Wolayttatto: Mazgabaa width (pixels)",
+    "after": "Mazgabaa aaho (pixels)",
+    "reason": "Replace English width seed with attested Wolaytta aaho (wide), retaining local list term. Exact technical width sense low-confidence pending native grammar review."
+  },
+  {
+    "locale": "wal",
+    "key": "list-width-error-message",
+    "before": "Wolayttatto: Mazgabaa width must be an integer greater than 270",
+    "after": "Mazgabaa aaho qoodaa ≥ 200 pixels koshshiyo",
+    "reason": "Replace English requirement seed and obsolete strict 270 bound with Wolaytta broad, count and necessary words plus inclusive 200-pixel criterion. Whole-number and technical width senses low-confidence pending native grammar review."
   }
 ]
