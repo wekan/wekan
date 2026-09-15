@@ -70,3 +70,38 @@ assert.equal(wolaytta['calendar-system'], 'Wodiyaa qoodaa maaraa (gallassaa bess
 assert.notEqual(wolaytta['calendar-system'], wolaytta.calendar);
 assert.doesNotMatch(wolaytta['calendar-system'], /Kalendar|görünüşü/);
 assert.match(require('node:fs').readFileSync(require('node:path').join(root, 'client/components/users/userHeader.jade'), 'utf8'), /{{_ 'calendar-system'}}/);
+
+const remainingCalendarLabels = {
+  'calendar-system-jalali': 'Jalali wodiyaa qoodaa (Persiyaa)',
+  'calendar-system-buddhist': 'Buddhistiyaa wodiyaa qoodaa',
+  'calendar-system-chinese': 'Chaaynaa wodiyaa qoodaa',
+  'calendar-system-coptic': 'Qophiya wodiyaa qoodaa',
+  'calendar-system-hebrew': 'Ibraawistta wodiyaa qoodaa',
+  'calendar-system-indian': 'Indiyaa kawotettaa wodiyaa qoodaa',
+  'calendar-system-islamic-civil':
+    'Hijri wodiyaa qoodaa (qoodettiya, kawotettaa doomethaa)',
+  'calendar-system-islamic-rgsa':
+    'Hijri wodiyaa qoodaa (Saudi Arabia, aginaa be7aa)',
+  'calendar-system-islamic-tbla':
+    'Hijri wodiyaa qoodaa (qoodettiya, xoolliyaa doomethaa)',
+  'calendar-system-japanese': 'Jaappaaniyaa wodiyaa qoodaa',
+};
+for (const [key, value] of Object.entries(remainingCalendarLabels)) {
+  assert.equal(wolaytta[key], value, key);
+  assert.doesNotMatch(value,
+    /^Buddhist$|^Chinese$|^Coptic$|^Hebrew$|^Indian national$|^Islamic|^Japanese$/,
+    key);
+}
+assert.notEqual(wolaytta['calendar-system-islamic-civil'],
+  wolaytta['calendar-system-islamic-tbla']);
+assert.match(wolaytta['calendar-system-islamic-civil'],
+  /qoodettiya.*kawotettaa doomethaa/);
+assert.match(wolaytta['calendar-system-islamic-tbla'],
+  /qoodettiya.*xoolliyaa doomethaa/);
+assert.match(wolaytta['calendar-system-islamic-rgsa'], /aginaa be7aa/);
+const calendarSystemsSource = fs.readFileSync(
+  path.join(root, 'imports/lib/calendarSystems.js'), 'utf8');
+for (const key of Object.keys(remainingCalendarLabels)) {
+  const id = key.slice('calendar-system-'.length);
+  assert.match(calendarSystemsSource, new RegExp(`'${id}'`), key);
+}

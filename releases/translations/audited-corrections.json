@@ -140054,5 +140054,75 @@
     "before": "Republic of China",
     "after": "Minguo tonalli tlapohualiztli (China República)",
     "reason": "2026-09-15: Replace the Azerbaijani, English and incomplete calendar labels with a coordinated Nahuatl modern-date-reckoning draft. Avoid tonalpohualli and xiuhpohualli because scholarship attests them as specific historical counts, not generic modern calendars. Preserve all calendar identities and distinguish civil/astronomical starting points, calculation, moon sighting, countries and named variants. Entity/technical loans and assembled compounds remain low confidence."
+  },
+  {
+    "locale": "wal",
+    "key": "calendar-system-jalali",
+    "before": "Jalali (Fars)",
+    "after": "Jalali wodiyaa qoodaa (Persiyaa)",
+    "reason": "2026-09-15: Replace the remaining incomplete English Wolaytta calendar seeds with the already attested wodiyaa qoodaa calendar family. Preserve Jalali/Persia, Buddhist, Chinese, Coptic, Hebrew, Indian national and Japanese identities; distinguish calculated civil and star/astronomical starting points from Saudi moon sighting. Proper-name adaptations and complete technical compounds remain low confidence."
+  },
+  {
+    "locale": "wal",
+    "key": "calendar-system-buddhist",
+    "before": "Buddhist",
+    "after": "Buddhistiyaa wodiyaa qoodaa",
+    "reason": "2026-09-15: Replace the remaining incomplete English Wolaytta calendar seeds with the already attested wodiyaa qoodaa calendar family. Preserve Jalali/Persia, Buddhist, Chinese, Coptic, Hebrew, Indian national and Japanese identities; distinguish calculated civil and star/astronomical starting points from Saudi moon sighting. Proper-name adaptations and complete technical compounds remain low confidence."
+  },
+  {
+    "locale": "wal",
+    "key": "calendar-system-chinese",
+    "before": "Chinese",
+    "after": "Chaaynaa wodiyaa qoodaa",
+    "reason": "2026-09-15: Replace the remaining incomplete English Wolaytta calendar seeds with the already attested wodiyaa qoodaa calendar family. Preserve Jalali/Persia, Buddhist, Chinese, Coptic, Hebrew, Indian national and Japanese identities; distinguish calculated civil and star/astronomical starting points from Saudi moon sighting. Proper-name adaptations and complete technical compounds remain low confidence."
+  },
+  {
+    "locale": "wal",
+    "key": "calendar-system-coptic",
+    "before": "Coptic",
+    "after": "Qophiya wodiyaa qoodaa",
+    "reason": "2026-09-15: Replace the remaining incomplete English Wolaytta calendar seeds with the already attested wodiyaa qoodaa calendar family. Preserve Jalali/Persia, Buddhist, Chinese, Coptic, Hebrew, Indian national and Japanese identities; distinguish calculated civil and star/astronomical starting points from Saudi moon sighting. Proper-name adaptations and complete technical compounds remain low confidence."
+  },
+  {
+    "locale": "wal",
+    "key": "calendar-system-hebrew",
+    "before": "Hebrew",
+    "after": "Ibraawistta wodiyaa qoodaa",
+    "reason": "2026-09-15: Replace the remaining incomplete English Wolaytta calendar seeds with the already attested wodiyaa qoodaa calendar family. Preserve Jalali/Persia, Buddhist, Chinese, Coptic, Hebrew, Indian national and Japanese identities; distinguish calculated civil and star/astronomical starting points from Saudi moon sighting. Proper-name adaptations and complete technical compounds remain low confidence."
+  },
+  {
+    "locale": "wal",
+    "key": "calendar-system-indian",
+    "before": "Indian national",
+    "after": "Indiyaa kawotettaa wodiyaa qoodaa",
+    "reason": "2026-09-15: Replace the remaining incomplete English Wolaytta calendar seeds with the already attested wodiyaa qoodaa calendar family. Preserve Jalali/Persia, Buddhist, Chinese, Coptic, Hebrew, Indian national and Japanese identities; distinguish calculated civil and star/astronomical starting points from Saudi moon sighting. Proper-name adaptations and complete technical compounds remain low confidence."
+  },
+  {
+    "locale": "wal",
+    "key": "calendar-system-islamic-civil",
+    "before": "Islamic civil",
+    "after": "Hijri wodiyaa qoodaa (qoodettiya, kawotettaa doomethaa)",
+    "reason": "2026-09-15: Replace the remaining incomplete English Wolaytta calendar seeds with the already attested wodiyaa qoodaa calendar family. Preserve Jalali/Persia, Buddhist, Chinese, Coptic, Hebrew, Indian national and Japanese identities; distinguish calculated civil and star/astronomical starting points from Saudi moon sighting. Proper-name adaptations and complete technical compounds remain low confidence."
+  },
+  {
+    "locale": "wal",
+    "key": "calendar-system-islamic-rgsa",
+    "before": "Islamic (Saudi Arabia)",
+    "after": "Hijri wodiyaa qoodaa (Saudi Arabia, aginaa be7aa)",
+    "reason": "2026-09-15: Replace the remaining incomplete English Wolaytta calendar seeds with the already attested wodiyaa qoodaa calendar family. Preserve Jalali/Persia, Buddhist, Chinese, Coptic, Hebrew, Indian national and Japanese identities; distinguish calculated civil and star/astronomical starting points from Saudi moon sighting. Proper-name adaptations and complete technical compounds remain low confidence."
+  },
+  {
+    "locale": "wal",
+    "key": "calendar-system-islamic-tbla",
+    "before": "Islamic tabular",
+    "after": "Hijri wodiyaa qoodaa (qoodettiya, xoolliyaa doomethaa)",
+    "reason": "2026-09-15: Replace the remaining incomplete English Wolaytta calendar seeds with the already attested wodiyaa qoodaa calendar family. Preserve Jalali/Persia, Buddhist, Chinese, Coptic, Hebrew, Indian national and Japanese identities; distinguish calculated civil and star/astronomical starting points from Saudi moon sighting. Proper-name adaptations and complete technical compounds remain low confidence."
+  },
+  {
+    "locale": "wal",
+    "key": "calendar-system-japanese",
+    "before": "Japanese",
+    "after": "Jaappaaniyaa wodiyaa qoodaa",
+    "reason": "2026-09-15: Replace the remaining incomplete English Wolaytta calendar seeds with the already attested wodiyaa qoodaa calendar family. Preserve Jalali/Persia, Buddhist, Chinese, Coptic, Hebrew, Indian national and Japanese identities; distinguish calculated civil and star/astronomical starting points from Saudi moon sighting. Proper-name adaptations and complete technical compounds remain low confidence."
   }
 ]
