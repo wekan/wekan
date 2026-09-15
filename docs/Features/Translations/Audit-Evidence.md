@@ -31436,3 +31436,22 @@ and 234 locale inventories pass. Exact non-English Tigre/Tigrinya overlap
 falls from 230 to 229 (22 attested shared, 207 unclassified); 19 matches
 are at least 20 characters and 2 at least 35. No live UI test or remote
 write occurred.
+
+### 2026-09-15 — Persian-digit list-width locale repairs
+
+Source commit `196bc49df` repairs the three values that expressed the
+obsolete 270 threshold with Persian digits: `fa`, `fa-IR` and `uz-AR`.
+Persian now says `عرض لیست باید عددی صحیح و حداقل ۲۰۰ پیکسل باشد`,
+preserving its existing list-width, integer, at-least and pixel vocabulary.
+Uzbek Arabic now says
+`رۉیخت کینگ‌لیگی کمیده ۲۰۰ پیکسل بۉلگن پۇتون سان بۉلیشی کیرک`,
+using terms already present in that file; an
+[Uzbek Arabic-script news article](https://8am.media/uz/arrests-of-soldiers-and-journalists-taliban-widened-the-crackdown/)
+independently uses `کمیده` with a numeric lower bound. Complete Uzbek
+sentence order remains low confidence pending native review. The focused
+test checks source meaning, exact locale strings, native digits, absence
+of old threshold, integer/inclusive-minimum terms, correction records and
+i18next runtime output. Ledger rises to 21,939. Original 20,081 audit-row
+classifications are unchanged. Stale list-width locale queue falls from
+233 to 230; all remaining messages use ASCII 270. No live UI test or
+remote write occurred.

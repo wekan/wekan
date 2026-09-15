@@ -16,11 +16,11 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `68d679c6c` — align the list-width
-popup, English source, 11 English regional copies and Tigre message with the
-shared 200-pixel whole-number minimum. The popup rejects decimals and stale
-`270` markup. Tigre rule syntax remains low confidence. Earlier Trello/S3
-repair `6909fb85e` retains its recorded compound-review limit.
+Latest translation fix: **2026-09-15**, `196bc49df` — repair Persian,
+Persian (Iran) and Uzbek Arabic list-width rules using native `۲۰۰` numerals,
+integer wording and an inclusive minimum. Uzbek Arabic sentence order still
+needs native review. Source/popup correction `68d679c6c` sets the 200-pixel
+rule and rejects decimals.
 
 The tracked Tigre calendar queue being empty does not certify the locale. Of
 2,613 non-English Tigre values, 229 are byte-for-byte identical to Tigrinya;
@@ -32,7 +32,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **21,936** exact before/after values, including unflagged
+records contain **21,939** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -60,9 +60,9 @@ placeholders, JSON examples and key order; they do not establish language
 quality. Correct-language human translations remain preferred. No external
 translation service is used, and no remote push was performed.
 
-New unflagged source-semantic queue: **233 locale values** still say the
-list-width rule is greater than 270, including three written with Persian
-digits. The actual shared minimum is 200. These are outside the 20,081
+New unflagged source-semantic queue: **230 locale values** still express
+the old 270 list-width rule. The actual shared minimum is 200; three
+Persian-digit values were repaired in `196bc49df`. These are outside the 20,081
 original flagged rows and must be repaired in their declared languages,
 preserving useful native wording while correcting the inclusive threshold.
 

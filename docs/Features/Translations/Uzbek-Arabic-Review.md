@@ -18,3 +18,12 @@ alif negative and accidental-Latin replacement checks are added. The member
 2FA cancel action retains its cancellation meaning. Browser verification
 has not run. This is a repair of one restored original finding, not a claim
 that all Arabic-script Uzbek translations have been audited successfully.
+
+Reviewed **2026-09-15**, source commit `196bc49df`: the list-width error
+now uses the file's existing `کمیده` (at least), `پۇتون سان` (whole
+number), `پیکسل` and Persian-digit `۲۰۰` terms. A published
+[Uzbek Arabic-script article](https://8am.media/uz/arrests-of-soldiers-and-journalists-taliban-widened-the-crackdown/)
+independently uses `کمیده` with a numeric lower bound. The complete
+validation sentence remains low confidence pending native review. Exact
+value, stale-threshold negative, source-sense, ledger and runtime checks
+pass. No live UI test or remote write occurred.

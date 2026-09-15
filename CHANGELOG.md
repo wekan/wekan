@@ -653,7 +653,17 @@ remain under native review.
 
 This release includes the following features and fixes:
 
-**Translations** - Tamazight activity and rules; Tigre settings and warnings.
+**Translations** - Tamazight, Tigre and list-width rule repairs.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/196bc49df">Repair Persian-digit list-width translations</a>. Thanks to xet7.</summary>
+
+Correct Persian, Persian (Iran) and Uzbek Arabic messages from the obsolete
+270 threshold to a whole-number minimum of 200 pixels. Keep native numerals
+and established local words. Focused, runtime and ledger checks pass;
+Uzbek Arabic sentence order remains under native review.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/68d679c6c">Correct list-width rule and first locale messages</a>. Thanks to xet7.</summary>
