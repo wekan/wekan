@@ -557,3 +557,15 @@ exact and negative checks cover every value; all 21,021 correction records and
 234 locale inventories pass. Raw non-English overlap falls to 515, with 20
 attested shared forms and 495 unclassified. Unchanged phrase components remain
 open to fluent review. No remote write ran.
+
+
+## Multi-component Tigre labels repaired — 2026-09-15
+
+Source commit `f64f9c98d` replaces Tigrinya-seeded components in 31 labels
+for users, names, boards, cards, dates, labels, files, invitations and related
+controls. Each replacement reuses independently corpus-attested Tigre terms
+already established in the correction ledger. Trello, JSON and ISO 8601 stay
+literal. Focused exact and negative checks cover every value; all 21,052
+correction records and 234 locale inventories pass. Raw non-English overlap
+falls to 484, with 20 attested shared forms and 464 unclassified. Unchanged
+surrounding grammar remains open to fluent review. No remote write ran.

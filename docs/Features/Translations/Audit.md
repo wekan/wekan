@@ -16,21 +16,22 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `fc6139745` — repair 31 compact Tigre
-configuration labels by consistently reusing independently attested terms for
-names, dates, sizes, addresses, status, support, security, cards, boards and
-system data. Ledger 21,021; the preceding Name-control batch is `002f8bc7b`.
-The Veps seed review remains complete.
+Latest translation fix: **2026-09-15**, `f64f9c98d` — repair 31 multi-component
+Tigre labels for users, names, boards, cards, dates, labels, files, invitations
+and related controls by reusing independently attested terminology. Ledger
+21,052; unchanged surrounding grammar remains subject to fluent review. The
+preceding compact-label batch is `fc6139745`. The Veps seed review remains
+complete.
 
 The tracked Tigre calendar queue being empty does not certify the locale. Of
-2,592 non-English Tigre values, 515 are byte-for-byte identical to Tigrinya;
-20 are corpus-attested shared terms and 495 remain unclassified, including 84
-values of at least 20 characters and 18 of at least 35 characters. This is an
+2,592 non-English Tigre values, 484 are byte-for-byte identical to Tigrinya;
+20 are corpus-attested shared terms and 464 remain unclassified, including 76
+values of at least 20 characters and 15 of at least 35 characters. This is an
 explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **21,021** exact before/after values, including unflagged
+records contain **21,052** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

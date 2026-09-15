@@ -31003,3 +31003,16 @@ seed checks pass with all 21,021 correction records and 234 locale inventories.
 Raw non-English overlap falls to 515; 495 remain unclassified after 20 attested
 shared forms. Unchanged compound components remain open to fluent review. No
 remote write occurred.
+
+
+### 2026-09-15 — Multi-component Tigre labels
+
+Source commit `f64f9c98d` repairs 31 labels covering users, names, boards,
+cards, dates, labels, files, invitations and related controls. Every replaced
+component reuses independently corpus-attested Tigre terminology already
+reviewed in the correction ledger; Trello, JSON and ISO 8601 remain literal.
+Focused exact and former-seed checks pass with all 21,052 correction records
+and 234 locale inventories. Raw non-English overlap falls to 484; after 20
+attested shared forms, 464 remain unclassified. Of the raw matches, 76 contain
+at least 20 characters and 15 contain at least 35 characters. Unchanged
+surrounding grammar remains subject to fluent review. No remote write occurred.

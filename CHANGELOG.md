@@ -2080,6 +2080,16 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f64f9c98d">Repair multi-component Tigre labels.</a></summary>
+
+Replace copied Tigrinya components in 31 user, board, card, date, label, file
+and invitation controls with previously attested Tigre terminology.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/fc6139745">Repair compact Tigre terminology.</a></summary>
 
 Replace copied Tigrinya components in 31 configuration labels with consistent,
