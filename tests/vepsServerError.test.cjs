@@ -306,3 +306,12 @@ test("Veps problem acknowledgment preserves checked areas and count reset", () =
  assert.match(code,/js-problem-check:checked/);
  assert.match(code,/acknowledgeEventLog/);
 });
+
+test("Veps backup scope retains shared-data exclusions and restore boundary", () => {
+ const data=JSON.parse(fs.readFileSync("imports/i18n/data/ve-PP.i18n.json","utf8"));
+ for(const key of ["backup-scope","backup-scope-instance","backup-scope-description"]) assert.doesNotMatch(data[key],/Vhuhulwane|yoṱhe|tshiimiswa|dzibodo|vhashumisi/i);
+ assert.equal(data["backup-scope-instance"],"Kaik WeKan-sistem");
+ assert.match(data["backup-scope-description"],/tartutadud failad.*ei ole kävutajiden akkauntoid libo sisteman valičusid/);
+ assert.match(data["backup-scope-description"],/kirjutab vaiše laudoile.*necen organizacijan/);
+ assert.notEqual(data["backup-scope"],data["backup-scope-instance"]);
+});

@@ -139704,5 +139704,26 @@
     "before": "Swaya zwipiḓa zwa vhuleme zwe na zwi sedzulusa, nga murahu ni puṱedze Ṱanganedza u itela u vhuyisela mbalo ya vhuleme vhuswa.",
     "after": "Znamoiče problemiden alad, miččid sinä oled tarkištadud, a jäl'ghe paina \"Vahvištoita\", miše panda nende udiden problemiden lugumär nollaks.",
     "reason": "Replace Tshivenda problem-summary labels and acknowledgment instructions with direct Veps drafts. Preserve reviewed/checked areas and resetting new-problem count rather than repairing/deleting problems. Native problem, confirm/click/count vocabulary; full plural/case and acknowledgment grammar remain low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "backup-scope",
+    "before": "Vhuhulwane ha bakapu",
+    "after": "Varmkopijan rajad",
+    "reason": "Replace Tshivenda backup scope with direct Veps drafts. Preserve whole-instance/one-organization choice, boards and attachments, exclusion of shared accounts/settings and organization-owned restore restriction. Whole-system paraphrase and full grammar remain low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "backup-scope-instance",
+    "before": "Seva yoṱhe",
+    "after": "Kaik WeKan-sistem",
+    "reason": "Replace Tshivenda backup scope with direct Veps drafts. Preserve whole-instance/one-organization choice, boards and attachments, exclusion of shared accounts/settings and organization-owned restore restriction. Whole-system paraphrase and full grammar remain low confidence."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "backup-scope-description",
+    "before": "Seva yoṱhe, kana tshiimiswa tshithihi. Bakapu ya tshiimiswa i na dzibodo dzatsho na zwoṱhe zwi re khadzo, na zwiṱaṱisi zwa idzo bodo — fhedzi a hu na akhaunthu dza vhashumisi kana mavhonele a seva, ngauri zwenezwo zwi shumiswa nga zwiimiswa zwoṱhe. U vusulusa bakapu ya tshiimiswa zwi ṅwala fhedzi kha dzibodo dza tshenetsho tshiimiswa.",
+    "after": "Kaik WeKan-sistem libo üks' organizacii. Organizacijan varmkopijas oma sen laudad da kaik niil, mugažo nende laudoiden tartutadud failad — no ei ole kävutajiden akkauntoid libo sisteman valičusid, sikš miše kaik organizacijad kävutaba neid ühteži. Organizacijan varmkopijan endištamine kirjutab vaiše laudoile, miččed oma necen organizacijan.",
+    "reason": "Replace Tshivenda backup scope with direct Veps drafts. Preserve whole-instance/one-organization choice, boards and attachments, exclusion of shared accounts/settings and organization-owned restore restriction. Whole-system paraphrase and full grammar remain low confidence."
   }
 ]
