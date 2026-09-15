@@ -290,6 +290,30 @@ for (const [key, value] of Object.entries(corpusBackedUiTerms)) {
     `${key}: no copied Tigrinya value`);
 }
 
+// Identical Ethiopic text is not by itself evidence of a Tigrinya seed. These
+// forms occur verbatim as Tigre headwords for the matching English gloss in
+// the BeitTigreAI corpus, so retaining them is an explicit reviewed decision.
+const corpusAttestedSharedTerms = {
+  'poker-result-who': 'መን',
+  'theme-category-clear': 'ንጹር',
+  'color-black': 'ጸሊም',
+  email: 'ኢመይል',
+  'r-list': 'ዝርዝር',
+  'gantt-view-hour': 'ሰዓት',
+  list: 'ዝርዝር',
+  'operator-list': 'ዝርዝር',
+  'predicate-open': 'ክፉት',
+  open: 'ክፉት',
+  history: 'ታሪኽ',
+  page: 'ገጽ',
+  error: 'ጌጋ',
+};
+for (const [key, value] of Object.entries(corpusAttestedSharedTerms)) {
+  assert.equal(tigre[key], value, `${key}: corpus-attested shared Tigre term`);
+  assert.equal(tigrinya[key], value,
+    `${key}: reviewed as legitimately shared with Tigrinya`);
+}
+
 assert.match(tigre['invalid-domain'], /example\.com/);
 assert.deepEqual(tokens(tigre['board-title-not-found']),
   tokens(english['board-title-not-found']));
