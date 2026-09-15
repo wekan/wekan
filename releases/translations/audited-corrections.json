@@ -155230,5 +155230,19 @@
     "before": "Kay willaymi: Sinri widthta mustta beta anta integerta greaterta thanta 270",
     "after": "Listapa patan: hunt'a yupay ≥ 200 pixels kanan",
     "reason": "Replace English-seeded rule with local Quechua width phrase and documented whole-number term; state inclusive 200-pixel minimum. Complete clause low-confidence pending native grammar review and dialect fit."
+  },
+  {
+    "locale": "ts",
+    "key": "set-list-width-value",
+    "before": "nxaxamelo mhaka (mhaka)",
+    "after": "Vuanami bya nxaxamelo (pixels)",
+    "reason": "Replace repeated meaningless seed with official Xitsonga width and list terms. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "ts",
+    "key": "list-width-error-message",
+    "before": "nxaxamelo mhaka mhaka mhaka an mhaka mhaka mhaka 270",
+    "after": "Vuanami bya nxaxamelo byi fanele ku va holinamba ≥ 200 pixels",
+    "reason": "Replace repeated meaningless seed with Xitsonga width, list, whole-number and requirement terms; state inclusive 200-pixel minimum. Singular holinamba derived from education plural tiholinamba; complete clause low-confidence pending native grammar review."
   }
 ]
