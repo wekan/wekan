@@ -140411,5 +140411,33 @@
     "before": "تبقى كل بطاقة تنقر عليها مفتوحة في نافذتها الخاصة. عند إيقاف هذا الخيار، يؤدي النقر على بطاقة إلى إغلاق البطاقة المفتوحة.",
     "after": "ⵃⴹⵓ ⵢⴰⵍ ⵜⴰⴽⴰⵕⴹⴰ ⵜⵙⵙⵉⵜⴷ ⵖⵉⴼⵙ ⵜⵔⵥⵎ ⴳ ⵓⵙⴼⴰⵢⵍⵓ ⵏⵏⵙ. ⵎⴽ ⵉⵏⵙⴰ ⵓⴼⵔⴰⵏ ⴰⴷ, ⴰⵙⵙⵉⵜ ⵖⴼ ⵜⴽⴰⵕⴹⴰ ⴰⴷ ⵢⵔⴳⵍ ⵜⵉⵏⵏⴰ ⵉⵔⵥⵎⵏ.",
     "reason": "2026-09-15: Replace Arabic/French accessibility, label-action, scrollbar, ZIP-import and multi-card-window values with Standard Moroccan Tamazight drafts. Reuse existing access-for-all, page, enabled, information, add, label, action, file, board, attachment, open/close and card vocabulary; preserve .zip and JSON literals. Full accessibility, scrollbar and window compounds remain low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "Node_memory_usage_heap_total",
+    "before": "Utilisation mémoire de Node : taille totale du tas alloué",
+    "after": "ⴰⵙⵎⵔⵙ ⵏ ⵜⵎⴽⵜⵉⵜ ⵏ Node: ⴰⵇⵓⴷⴷⵉ ⴰⵎⴰⵜⴰⵢ ⵏ ⵓⴳⵓⴷⵉ ⵉⵜⵜⵓⴼⴽⴰⵏ",
+    "reason": "2026-09-15: Replace four French diagnostics and repository actions with Standard Moroccan Tamazight drafts. Reuse existing memory usage, total size, heap, export, Excel, free disk space, sign-in, upload and update vocabulary. The allocated-heap and software-repository compounds remain low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "export-card-excel-no-disk-space",
+    "before": "Impossible d'exporter vers Excel : espace disque insuffisant",
+    "after": "ⵓⵔ ⵉⵣⵎⵉⵔ ⴰⴷ ⵉⵙⵙⵉⴼⴹ ⵖⵔ Excel: ⵓⵔ ⵉⴽⴼⵉ ⵓⴷⵖⴰⵔ ⵉⵍⵍⴰⵏ ⵉⵍⴻⵍⵍⵉ ⴳ ⵓⴹⴱⵙⵉ",
+    "reason": "2026-09-15: Replace four French diagnostics and repository actions with Standard Moroccan Tamazight drafts. Reuse existing memory usage, total size, heap, export, Excel, free disk space, sign-in, upload and update vocabulary. The allocated-heap and software-repository compounds remain low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "sign-in-to-upload",
+    "before": "Connectez-vous pour téléverser des dépôts",
+    "after": "ⴽⵛⵎ ⴰⴼⴰⴷ ⴰⴷ ⵜⵙⴽⵜⵔⴷ ⵉⵎⵙⴽⴰⵔⵏ",
+    "reason": "2026-09-15: Replace four French diagnostics and repository actions with Standard Moroccan Tamazight drafts. Reuse existing memory usage, total size, heap, export, Excel, free disk space, sign-in, upload and update vocabulary. The allocated-heap and software-repository compounds remain low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "upload-repository",
+    "before": "Téléverser/Mettre à jour le dépôt",
+    "after": "ⵙⴽⵜⵔ/ⵙⵏⴼⵍ ⴰⵎⵙⴽⴰⵔ",
+    "reason": "2026-09-15: Replace four French diagnostics and repository actions with Standard Moroccan Tamazight drafts. Reuse existing memory usage, total size, heap, export, Excel, free disk space, sign-in, upload and update vocabulary. The allocated-heap and software-repository compounds remain low confidence pending fluent review."
   }
 ]

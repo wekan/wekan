@@ -442,3 +442,18 @@ for (const key of [
 }
 assert.match(locales.zgh['import-board-zip'], /\.zip.*JSON/);
 assert.match(locales.zgh['open-many-cards-at-once-description'], /ⵜⴰⴽⴰⵕⴹⴰ.*ⵜⵔⵥⵎ.*ⵢⵔⴳⵍ/);
+
+for (const key of [
+  'Node_memory_usage_heap_total', 'export-card-excel-no-disk-space',
+  'sign-in-to-upload', 'upload-repository',
+]) {
+  const prose = locales.zgh[key].replaceAll('Node', '').replaceAll('Excel', '');
+  assert.doesNotMatch(prose, /[A-Za-zÀ-ÿ]{4,}/,
+    `${key}: no French prose remains`);
+  assert.match(locales.zgh[key], /[\u2d30-\u2d7f]/,
+    `${key}: Standard Moroccan Tamazight script`);
+}
+assert.match(locales.zgh.Node_memory_usage_heap_total, /Node.*ⴰⵇⵓⴷⴷⵉ.*ⵓⴳⵓⴷⵉ/);
+assert.match(locales.zgh['export-card-excel-no-disk-space'], /Excel.*ⵓⴹⴱⵙⵉ/);
+assert.match(locales.zgh['sign-in-to-upload'], /ⴽⵛⵎ.*ⵜⵙⴽⵜⵔⴷ/);
+assert.match(locales.zgh['upload-repository'], /ⵙⴽⵜⵔ.*ⵙⵏⴼⵍ/);
