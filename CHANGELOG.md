@@ -1960,6 +1960,16 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e27abadf6">Repair Tigre severity controls.</a></summary>
+
+Replace physical-weight wording in three Severity controls with a corpus-
+grounded severity-level compound.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e17bb2b5e">Repair native-catalogue Veps interface terms.</a></summary>
 
 Replace 31 Finnish-seeded labels through exact English-source matching with
