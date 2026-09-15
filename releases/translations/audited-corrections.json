@@ -140481,5 +140481,26 @@
     "before": "هذه اللوحة عامة: مرئية لكلّ من يحصل على الرابط ، و هي مرئية أيضا  في محركات البحث مثل جوجل. التعديل مسموح به للأعضاء فقط.",
     "after": "ⵜⴰⴼⵍⵡⵉⵜ ⴰⴷ ⵜⴳⴰ ⵜⴰⴳⴷⵓⴷⴰⵏⵜ. ⵜⵜⵡⴰⵙⴽⴰⵏ ⵉ ⴽⵓ ⵢⴰⵏ ⴷⴰⵔ ⵓⵙⵖⵏ, ⵔⴰⴷ ⵜⴱⴰⵏ ⴳ ⵉⵎⴰⵙⵙⵏ ⵏ ⵓⵔⵣⵣⵓ ⴰⵎ Google. ⵖⴰⵙ ⵎⴷⴷⵏ ⵜⵜⵓⵔⵏⴰⵏ ⵖⵔ ⵜⴼⵍⵡⵉⵜ ⴰⴷ ⵣⵎⵔⵏ ⴰⴷ ⵜⵜ ⵙⵏⴼⵍⵏ.",
     "reason": "2026-09-15: Replace five Arabic/French Tamazight values and complete one correct-language Roman Tamazight instruction that omitted plain bullet-list import behavior. Reuse established loading, data, server, due-date, permission, public-board, link, search, edit and card vocabulary; preserve Markdown syntax, Obsidian Kanban, URL and Google literals. Full URL-scheme, bucket and longer sentence grammar remain low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "globalSearch-instructions-description",
+    "before": "Les recherches peuvent inclure des opérateurs pour affiner le résultat. Les opérateurs sont précisés en écrivant l'opérateur suivi d'une valeur séparé par un deux-point. Par exemple, une spécification comme `liste:Bloqué` limiterait le résultat aux cartes qui contiennent une liste appelée *Bloqué*. Si la valeur contient des espaces ou des caractères spéciaux, elle doit être entourée d'apostrophes (par ex. `__operator_list__:\"À valider\"`).",
+    "after": "ⵉⵣⵎⵔ ⵓⵔⵣⵣⵓ ⴰⴷ ⵉⵙⵙⵎⵔⵙ ⵉⵎⵙⴽⵉⵔⵏ ⴰⴼⴰⴷ ⴰⴷ ⵉⵙⵙⴷⵓⵙ ⵉⴳⵎⴰⴹ. ⵜⵜⵓⵙⴱⴷⴷⵏ ⵉⵎⵙⴽⵉⵔⵏ ⵙ ⵜⵉⵔⵔⴰ ⵏ ⵉⵙⵎ ⵏ ⵓⵎⵙⴽⵉⵔ ⴷ ⵓⵜⵉⴳ ⵜⵜⵓⴼⵔⴰⵇⵏ ⵙ ⵜⵏⵇⵇⵉⴹⵜ. ⵉ ⵓⵎⴷⵢⴰ, `list:Blocked` ⴰⴷ ⵉⵙⴱⴷⴷ ⵓⵔⵣⵣⵓ ⵖⴼ ⵜⴽⴰⵕⴹⵉⵡⵉⵏ ⵉⵍⵍⴰⵏ ⴳ ⵜⵍⴳⴰⵎⵜ ⵙ ⵉⵙⵎ *Blocked*. ⵎⴽ ⵉⵍⵍⴰⵏ ⵉⵎⵏⴰⴷⵏ ⵏⵖ ⵉⵙⴽⴽⵉⵍⵏ ⵉⵥⵍⵉⵏ ⴳ ⵓⵜⵉⴳ, ⵉⵇⵇⴰⵏ ⴰⴷ ⵉⵍⵉ ⴳ ⵜⵙⴽⴽⴰⵔⵉⵏ (ⴰⵎ `__operator_list__:\"To Review\"`).",
+    "reason": "2026-09-15: Replace three French global-search help values with Standard Moroccan Tamazight drafts. Preserve every source operator placeholder, backtick, <n>, quoted example, wildcard markup and the list:Blocked example exactly. Reuse existing search, result, list, card, page, day, number and current-period vocabulary. Full operator and integer explanatory grammar remains low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "globalSearch-instructions-notes-3-2",
+    "before": "Les durées en jours peuvent être précisées soit par un entier positif ou négatif soit en utilisant `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` ou `__predicate_year__` pour la période courante.",
+    "after": "ⵉⵣⵎⵔ ⵓⵙⵙⴰⵏ ⴰⴷ ⵜⵜⵓⵙⴱⴷⴷⵏ ⵙ ⵓⵎⴹⴰⵏ ⵓⵎⵉⴹ ⴰⵔⴰⵜⴰⵏ ⵏⵖ ⴰⵎⴰⵣⵉⵔ, ⵏⵖ ⵙ `__predicate_week__`, `__predicate_month__`, `__predicate_quarter__` ⵏⵖ `__predicate_year__` ⵉ ⵓⵣⵎⵣ ⴰⵎⵉⵔⴰⵏ.",
+    "reason": "2026-09-15: Replace three French global-search help values with Standard Moroccan Tamazight drafts. Preserve every source operator placeholder, backtick, <n>, quoted example, wildcard markup and the list:Blocked example exactly. Reuse existing search, result, list, card, page, day, number and current-period vocabulary. Full operator and integer explanatory grammar remains low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "globalSearch-instructions-operator-limit",
+    "before": "`__operator_limit__:<n>` - où *<n>* est un entier positif exprimant le nombre de cartes à afficher par page.",
+    "after": "`__operator_limit__:<n>` - ⵎⴰⵏⵉ *<n>* ⵉⴳⴰ ⴰⵎⴹⴰⵏ ⵓⵎⵉⴹ ⴰⵔⴰⵜⴰⵏ ⵉⵎⵎⴰⵍⵏ ⵎⵏⵛⴽ ⵏ ⵜⴽⴰⵕⴹⵉⵡⵉⵏ ⴰⴷ ⵜⵜⵓⵙⴽⴰⵏⵏⵜ ⴳ ⵢⴰⵍ ⵜⴰⵙⵏⴰ.",
+    "reason": "2026-09-15: Replace three French global-search help values with Standard Moroccan Tamazight drafts. Preserve every source operator placeholder, backtick, <n>, quoted example, wildcard markup and the list:Blocked example exactly. Reuse existing search, result, list, card, page, day, number and current-period vocabulary. Full operator and integer explanatory grammar remains low confidence pending fluent review."
   }
 ]

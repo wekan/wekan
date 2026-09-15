@@ -478,3 +478,29 @@ for (const literal of ['markdown-kanban', 'Obsidian Kanban', '## Isem n tebdart'
 }
 assert.match(locales.zgh['import-board-instruction-markdown'], /tixxamin n usenqed.*tikarḍiwin yeldin/,
   'plain bullet lists import as open cards');
+
+for (const key of [
+  'globalSearch-instructions-description',
+  'globalSearch-instructions-notes-3-2',
+  'globalSearch-instructions-operator-limit',
+]) {
+  const prose = locales.zgh[key]
+    .replaceAll('list:Blocked', '').replaceAll('Blocked', '')
+    .replaceAll('To Review', '').replace(/__[A-Za-z0-9_]+__/g, '');
+  assert.doesNotMatch(prose, /[A-Za-zÀ-ÿ]{4,}/,
+    `${key}: no French prose remains outside literal examples`);
+  assert.match(locales.zgh[key], /[\u2d30-\u2d7f]/,
+    `${key}: Standard Moroccan Tamazight script`);
+}
+for (const literal of ['list:Blocked', '*Blocked*', '`__operator_list__:"To Review"`']) {
+  assert.ok(locales.zgh['globalSearch-instructions-description'].includes(literal),
+    `global search description preserves ${literal}`);
+}
+for (const literal of ['`__predicate_week__`', '`__predicate_month__`', '`__predicate_quarter__`', '`__predicate_year__`']) {
+  assert.ok(locales.zgh['globalSearch-instructions-notes-3-2'].includes(literal),
+    `global search period note preserves ${literal}`);
+}
+for (const literal of ['`__operator_limit__:<n>`', '*<n>*']) {
+  assert.ok(locales.zgh['globalSearch-instructions-operator-limit'].includes(literal),
+    `global search limit preserves ${literal}`);
+}
