@@ -148599,8 +148599,8 @@
     "locale": "tig",
     "key": "api-report-desc",
     "before": "ኣየኖት መወዳእታታት REST API ብመንን ክንደይ ግዜን ከም ዝጥቀሙ። ንነፍሲ ወከፍ መለያን መወዳእታን ሓደ መስመር፣ ምስቲ ዝሽፍኖ ግዜ፤ ንነፍሲ ወከፍ ሕቶ መስመር ኣይኮነን።",
-    "after": "ኣየኖት መወዳእታታት REST API ብመንን ክንደይ ግዜን ከም ዝጥቀሙ። ንነፍሲ ወከፍ ሕሳብን መወዳእታን ሓደ መስመር፣ ምስቲ ዝሽፍኖ ግዜ፤ ንነፍሲ ወከፍ ሕቶ መስመር ኣይኮነን።",
-    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+    "after": "ኣየኖት Endpoints REST API ብመንን ክንደይ ግዜን ከም ዝጥቀሙ። ንነፍሲ ወከፍ ሕሳብን Endpointን ሓደ መስመር፣ ምስቲ ዝሽፍኖ ግዜ፤ ንነፍሲ ወከፍ ሕቶ መስመር ኣይኮነን።",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution. Tigre technical terminology repair: English source means an API/S3 Endpoint, not a temporal end. Retain the established WeKan Endpoint technical label already used in S3 translation fields."
   },
   {
     "locale": "tig",
@@ -153249,5 +153249,19 @@
     "before": "ስብስባት",
     "after": "አከቦታት",
     "reason": "Exact Tigre/Tigrinya overlap review: Corpus headword አከቦት means Collection; regular plural is low confidence pending fluent review. Replace Tigrinya seed for matching English sense."
+  },
+  {
+    "locale": "tig",
+    "key": "s3-endpoint-menu-path",
+    "before": "AWS፦ ጥራዩ ግደፎ (መወዳእታ ዞባ ይጥቀም)። ምስ S3 ዝሰማማዕ፦ Endpoint URL ካብ MinIO / Cloudflare R2 / Backblaze B2 / Wasabi / DigitalOcean Spaces console።",
+    "after": "AWS፦ ጥራዩ ግደፎ (Endpoint ዞባ ይጥቀም)። ምስ S3 ዝሰማማዕ፦ Endpoint URL ካብ MinIO / Cloudflare R2 / Backblaze B2 / Wasabi / DigitalOcean Spaces console።",
+    "reason": "Tigre technical terminology repair: English source means an API/S3 Endpoint, not a temporal end. Retain the established WeKan Endpoint technical label already used in S3 translation fields."
+  },
+  {
+    "locale": "tig",
+    "key": "api-endpoints",
+    "before": "መወዳእታታት API",
+    "after": "Endpoints API",
+    "reason": "Tigre technical terminology repair: English source means an API/S3 Endpoint, not a temporal end. Retain the established WeKan Endpoint technical label already used in S3 translation fields."
   }
 ]
