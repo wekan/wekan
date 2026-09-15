@@ -1647,6 +1647,18 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e97f8fb20">Complete Wolaytta calendar-system labels.</a></summary>
+
+Replace ten English seeds with the attested Wolaytta calendar-noun family.
+Preserve named systems, calculated civil and astronomical starting points, and
+Saudi moon sighting. Four focused files pass. Technical compounds remain under
+native review.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

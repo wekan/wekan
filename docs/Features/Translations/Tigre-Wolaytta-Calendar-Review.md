@@ -180,3 +180,20 @@ a populated dictionary entry, rather than copying another language's
 spelling. No locale value or acceptance changed. Pending 196 (Wolaytta
 10), restored 4 and ledger 19,792 unchanged. All broader uncertain reviews
 remain open. No remote push.
+
+## Wolaytta remaining calendar family repaired — 2026-09-15
+
+Source commit `e97f8fb20` replaces the ten remaining English/incomplete labels,
+completing the tracked Wolaytta calendar queue. Reuse the independently attested
+`wodiyaa qoodaa` calendar noun from the earlier Gifaataa source. Preserve
+Jalali/Persia, Buddhist, Chinese, Coptic, Hebrew, Indian national and Japanese
+identities. The Hijri variants separately retain calculated civil and
+star/astronomical starting points and Saudi moon sighting.
+
+The proper-name adaptations, moon-seeing phrase and complete civil/astronomical
+compounds remain LOW CONFIDENCE pending native contextual review. Four focused
+files pass: 20,018 exact correction records, exact labels, every runtime
+calendar ID, distinct epoch/sighting variants, English-seed rejection,
+newer-value preservation and all 234 locale token/key inventories. No live
+calendar selector ran. Overall pending is 90 with no Wolaytta row; restored four
+unchanged. Broader uncertain and unflagged review continues; no remote push.

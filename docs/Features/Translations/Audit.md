@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-15**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,803 |
+| Corrected | 15,813 |
 | Restored pre-pull; awaiting validation | 4 |
 | Reviewed; retained unchanged | 4,174 |
-| Pending review or repair | 100 |
+| Pending review or repair | 90 |
 | Total tracked | 20,081 |
 
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
@@ -16,16 +16,15 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `56ce505d0` — replace all 17 tracked
-Nahuatl calendar labels with a coordinated modern date-reckoning family. The
-repair avoids historically specific sacred calendar names and preserves each
-calendar identity, calculation, civil/astronomical starting points and moon
-sighting. Four focused files pass; ledger 20,008, original pending 100 (Nahuatl
-queue complete), restored 4 unchanged. Entity loans and compounds remain low
-confidence.
+Latest translation fix: **2026-09-15**, `e97f8fb20` — replace Wolaytta's ten
+remaining English calendar seeds with the attested `wodiyaa qoodaa` family.
+Named systems, calculated civil/astronomical starting points and Saudi moon
+sighting remain distinct. Four focused files pass; ledger 20,018, original
+pending 90 (Wolaytta queue complete), restored 4 unchanged. Proper-name
+adaptations and assembled technical compounds remain low confidence.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **20,008** exact before/after values, including unflagged
+records contain **20,018** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -47,7 +46,6 @@ restored values still await full native clause validation.
 | iu — Inuktitut | 38 |
 | zgh — Standard Moroccan Tamazight | 34 |
 | tig — Tigre | 17 |
-| wal — Wolaytta | 10 |
 | rup — Aromanian | 1 |
 
 Remaining review includes all restored, unflagged and prior low-confidence

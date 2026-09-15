@@ -30527,3 +30527,17 @@ ledger values/tokens/order and newer-human preservation, all runtime IDs,
 variant distinctions and all 234 locale inventories. No live calendar picker
 ran. Broader uncertain review continues; no external translation service or
 remote push.
+
+### 2026-09-15 — Wolaytta remaining calendar-system family
+
+Source commit `e97f8fb20` repairs all ten remaining tracked Wolaytta findings;
+ledger 20,018, corrected tracked rows 15,813, pending 90 with no Wolaytta row,
+restored four unchanged. Extend the independently attested `wodiyaa qoodaa`
+calendar noun across the remaining named systems. Preserve calculated civil
+versus star/astronomical starting points and Saudi moon sighting.
+
+Proper-name adaptations and complete technical compounds remain LOW CONFIDENCE.
+Four focused files pass: exact ledger values/tokens/order and newer-human
+preservation, all runtime IDs, variant distinctions, English-seed rejection and
+all 234 locale inventories. No live selector ran. Broader uncertain review
+continues; no external translation service or remote push.
