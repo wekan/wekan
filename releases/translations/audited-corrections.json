@@ -146823,5 +146823,82 @@
     "before": "ውጻእ",
     "after": "ፈጊር",
     "reason": "2026-09-15: Replace a Tigrinya-seeded value by reusing the unique complete Tigre replacement already established for the same source wording in the audited correction ledger; retain compound order where present for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "import",
+    "before": "ኣእቱ",
+    "after": "አምጸአ",
+    "reason": "2026-09-15: Replace Tigrinya-seeded Import controls with the Tigre verb directly glossed as to import in the BeitTigreAI corpus. Reuse separately reviewed Tigre board, card and list nouns; preserve Trello, Excel and CSV/TSV identifiers. Destination compounds remain subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "r-import",
+    "before": "ኣእቱ",
+    "after": "አምጸአ",
+    "reason": "2026-09-15: Replace Tigrinya-seeded Import controls with the Tigre verb directly glossed as to import in the BeitTigreAI corpus. Reuse separately reviewed Tigre board, card and list nouns; preserve Trello, Excel and CSV/TSV identifiers. Destination compounds remain subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "r-import-target",
+    "before": "ናብዚ ኣእቱ",
+    "after": "ዲብ እሊ አምጸአ",
+    "reason": "2026-09-15: Replace Tigrinya-seeded Import controls with the Tigre verb directly glossed as to import in the BeitTigreAI corpus. Reuse separately reviewed Tigre board, card and list nouns; preserve Trello, Excel and CSV/TSV identifiers. Destination compounds remain subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "importListPopup-title",
+    "before": "ዝርዝር ኣእቱ",
+    "after": "ዝርዝር አምጸአ",
+    "reason": "2026-09-15: Replace Tigrinya-seeded Import controls with the Tigre verb directly glossed as to import in the BeitTigreAI corpus. Reuse separately reviewed Tigre board, card and list nouns; preserve Trello, Excel and CSV/TSV identifiers. Destination compounds remain subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "importCardPopup-title",
+    "before": "ካርድ ኣእቱ",
+    "after": "ወረቀት ካርድ አምጸአ",
+    "reason": "2026-09-15: Replace Tigrinya-seeded Import controls with the Tigre verb directly glossed as to import in the BeitTigreAI corpus. Reuse separately reviewed Tigre board, card and list nouns; preserve Trello, Excel and CSV/TSV identifiers. Destination compounds remain subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "importBoardIntoPopup-title",
+    "before": "ናብ ሰሌዳ ኣእቱ",
+    "after": "ዲብ ምዱድ አምጸአ",
+    "reason": "2026-09-15: Replace Tigrinya-seeded Import controls with the Tigre verb directly glossed as to import in the BeitTigreAI corpus. Reuse separately reviewed Tigre board, card and list nouns; preserve Trello, Excel and CSV/TSV identifiers. Destination compounds remain subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "chooseBoardSourcePopup-title",
+    "before": "ሰሌዳ ኣእቱ",
+    "after": "ምዱድ አምጸአ",
+    "reason": "2026-09-15: Replace Tigrinya-seeded Import controls with the Tigre verb directly glossed as to import in the BeitTigreAI corpus. Reuse separately reviewed Tigre board, card and list nouns; preserve Trello, Excel and CSV/TSV identifiers. Destination compounds remain subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "import-board",
+    "before": "ሰሌዳ ኣእቱ",
+    "after": "ምዱድ አምጸአ",
+    "reason": "2026-09-15: Replace Tigrinya-seeded Import controls with the Tigre verb directly glossed as to import in the BeitTigreAI corpus. Reuse separately reviewed Tigre board, card and list nouns; preserve Trello, Excel and CSV/TSV identifiers. Destination compounds remain subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "import-board-c",
+    "before": "ሰሌዳ ኣእቱ",
+    "after": "ምዱድ አምጸአ",
+    "reason": "2026-09-15: Replace Tigrinya-seeded Import controls with the Tigre verb directly glossed as to import in the BeitTigreAI corpus. Reuse separately reviewed Tigre board, card and list nouns; preserve Trello, Excel and CSV/TSV identifiers. Destination compounds remain subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "listImportCardPopup-title",
+    "before": "ካርድ Trello ኣእቱ",
+    "after": "ወረቀት ካርድ Trello አምጸአ",
+    "reason": "2026-09-15: Replace Tigrinya-seeded Import controls with the Tigre verb directly glossed as to import in the BeitTigreAI corpus. Reuse separately reviewed Tigre board, card and list nouns; preserve Trello, Excel and CSV/TSV identifiers. Destination compounds remain subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "listImportCardsTsvPopup-title",
+    "before": "Excel CSV/TSV ኣእቱ",
+    "after": "Excel CSV/TSV አምጸአ",
+    "reason": "2026-09-15: Replace Tigrinya-seeded Import controls with the Tigre verb directly glossed as to import in the BeitTigreAI corpus. Reuse separately reviewed Tigre board, card and list nouns; preserve Trello, Excel and CSV/TSV identifiers. Destination compounds remain subject to fluent review."
   }
 ]
