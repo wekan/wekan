@@ -16,7 +16,15 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `32c2d9575` — repair 15
+Latest translation fix: **2026-09-15**, `bea96680e` — replace two
+mixed French/Arabic and Arabic Tamazight creator labels in the
+filter and minicard settings with native local creator, filter and
+minicard terms. Complete phrase grammar remains low confidence.
+Focused positive/negative, ledger and 234-locale checks pass.
+Ledger: **22,226**. The zgh file has **169** Arabic-script values
+awaiting semantic classification.
+
+Earlier translation fix: **2026-09-15**, `32c2d9575` — repair 15
 Tamazight search operators and predicates. Ten reviewed one-word
 search codes remain portable; native short status and description
 terms replace French/Arabic seeds. Exact zgh fill exceptions protect
@@ -248,7 +256,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **22,224** exact before/after values, including unflagged
+records contain **22,226** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -286,7 +294,7 @@ clauses and broader wrong-language seeds remains open.
 - [Tamazight](Tamazight-Review.md): wrong-language prose, 98 records with
   invalidated Tuareg provenance, adapted grammar and software terminology.
   Arabic `email-addresses` and its precise native plural remain open.
-  Arabic-script values have fallen from 181 to 171 across these batches;
+  Arabic-script values have fallen from 181 to 169 across these batches;
   this count
   includes possible intentional symbols and is a review queue, not a
   count of proven wrong-language strings.

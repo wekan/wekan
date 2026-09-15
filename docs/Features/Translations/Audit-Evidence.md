@@ -1,5 +1,10 @@
 # Detailed translation audit evidence
 
+2026-09-15 (`bea96680e`): repaired two unflagged Tamazight creator
+filter/minicard labels using local native terms. Exact ledger now
+22,226; Arabic-script review queue 169. Full phrase grammar is low
+confidence pending fluent review. Focused and 234-locale tests pass.
+
 2026-09-15 (`32c2d9575`): repaired 15 unflagged French/Arabic zgh
 search operators and predicates. Ten precise one-word parser codes
 remain equal to English and are protected by exact zgh fill exceptions;

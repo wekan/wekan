@@ -1,5 +1,19 @@
 # Standard Moroccan Tamazight reference review
 
+## Creator labels, 2026-09-15 (`bea96680e`)
+
+The mixed French/Arabic `filter-creator-label` and Arabic
+`creator-on-minicard` were outside the original flagged queue.
+Both now use the local native `ⴰⵎⵙⵏⴼⵍⵓⵍ` creator label, the
+existing filter `ⵣⵉⵣⴷⵉⴳ`, and the established minicard
+`ⵖⴼ ⵜⴽⴰⵕⴹⴰ ⵜⴰⵎⵥⵢⴰⵏⵜ` location phrase.
+The assembled genitive and minicard sentence grammar remain
+**low confidence** pending fluent review; the native component
+terms are independently present in WeKan's zgh labels.
+Focused positive/negative, exact-ledger and 234-locale checks pass.
+Arabic-script values fall from 171 to 169; original flagged
+finding classifications are unchanged.
+
 ## Search predicate and syntax review, 2026-09-15 (`32c2d9575`)
 
 Fifteen French/Arabic operator and predicate values are repaired.
