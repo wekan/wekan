@@ -30838,3 +30838,11 @@ a directly attested shared form. Focused exact and negative checks pass with
 all 20,853 correction records and 234 locale inventories. Raw overlap falls to
 680; 660 remain unclassified after 20 attested shared forms. No remote write
 occurred.
+
+### 2026-09-15 — Tigre interface compounds
+
+Source commit `6f25928145` repairs 27 time-unit and interface compounds with
+Tigre roots established by prior corpus evidence. Focused checks preserve the
+unit syntax and reject every former seed; all 20,880 correction records and
+234 locale inventories pass. Raw overlap falls to 653; 633 remain unclassified
+after 20 attested shared forms. No remote write occurred.

@@ -1920,6 +1920,16 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/6f2592814">Repair Tigre interface compounds.</a></summary>
+
+Replace 27 Tigrinya-seeded time-unit and interface compounds by consistently
+reusing corpus-established Tigre roots.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e17bb2b5e">Repair native-catalogue Veps interface terms.</a></summary>
 
 Replace 31 Finnish-seeded labels through exact English-source matching with

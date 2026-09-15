@@ -369,3 +369,13 @@ the exact Seconds form after direct corpus attestation. Focused checks reject
 every former seed; all 20,853 corrections and 234 locale inventories pass. Raw
 overlap falls to 680, with 20 shared forms and 660 unclassified. Regular plurals
 remain open to fluent review. No remote write ran.
+
+## Tigre interface compounds repaired — 2026-09-15
+
+Source commit `6f25928145` replaces 27 time-unit and interface compounds by
+reusing corpus-established Tigre card, board, task, name, text, color, size,
+close, copy and sort roots. Parenthesized singular/plural unit syntax, technical
+identifiers and punctuation stay exact. Focused checks reject every former
+seed; all 20,880 corrections and 234 locale inventories pass. Raw overlap falls
+to 653, with 20 shared forms and 633 unclassified. Compound word order and
+derived plurals remain open to fluent review. No remote write ran.
