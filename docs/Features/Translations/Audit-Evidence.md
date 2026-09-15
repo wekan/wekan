@@ -30565,3 +30565,17 @@ forms also conflict with the distinct Tigre forms in the cited phrasebook and
 glibc sources. This broader unflagged wrong-language review remains open and is
 now stated explicitly in the summary; clearing the 17 original rows does not
 certify the locale.
+
+### 2026-09-15 — Inuktitut Roman-orthography findings retained
+
+Source commit `a0eeee9d63` retains 23 correct-language values after official
+territorial guidance and Nunavut-based Pirurvik resources confirmed that
+Qaliujaaqpait Roman orthography and Qaniujaaqpait syllabics are both valid
+Inuktitut writing systems. The detector's Latin-script signal was insufficient
+evidence of an error, so no transliteration or semantic rewrite was made.
+Exact unchanged records preserve every reviewed value.
+
+Four focused files pass for 4,197 unchanged acceptances, 20,035 corrections,
+placeholder/key invariants and all 234 locale inventories. Original pending is
+50, including 15 Inuktitut calendar labels; restored four unchanged. Semantic
+fluency and browser behavior remain broader review items. No remote write.

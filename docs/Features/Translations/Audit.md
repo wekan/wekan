@@ -6,8 +6,8 @@ Audit date: **2026-09-12**. Last updated: **2026-09-15**.
 | --- | ---: |
 | Corrected | 15,830 |
 | Restored pre-pull; awaiting validation | 4 |
-| Reviewed; retained unchanged | 4,174 |
-| Pending review or repair | 73 |
+| Reviewed; retained unchanged | 4,197 |
+| Pending review or repair | 50 |
 | Total tracked | 20,081 |
 
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
@@ -36,10 +36,11 @@ source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
 
 Latest terminology review: **2026-09-15** —
-[Veps rendered level candidate](Veps-Review.md): dictionary page 475
-attests korktuz’ for abstract level, distinct from water-level pind.
-This supplies a possible severity-level construction; the full technical
-phrase remains unverified. No locale/count change; review continues.
+[Inuktitut Roman orthography](Inuktitut-Calendar-Review.md), source commit
+`a0eeee9d63`: retain 23 values after official sources confirmed that both
+Qaliujaaqpait Roman orthography and Qaniujaaqpait syllabics are valid for
+Inuktitut. Reviewed unchanged is now 4,197 and pending is 50; 15 Inuktitut
+calendar labels remain.
 
 Recent repairs also cover Quechua calendar/day labels, Tamazight intervals,
 migration wording and computer-server terminology. Latest unchanged review:
@@ -49,8 +50,8 @@ restored values still await full native clause validation.
 
 | Pending locale | Findings |
 | --- | ---: |
-| iu — Inuktitut | 38 |
 | zgh — Standard Moroccan Tamazight | 34 |
+| iu — Inuktitut | 15 |
 | rup — Aromanian | 1 |
 
 Remaining review includes all restored, unflagged and prior low-confidence

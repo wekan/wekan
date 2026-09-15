@@ -1672,6 +1672,18 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a0eeee9d6">Retain valid Roman Inuktitut translations.</a></summary>
+
+Review 23 script findings against official territorial and Nunavut language
+guidance. Preserve the correct-language Qaliujaaqpait values because Roman
+orthography and Qaniujaaqpait syllabics are both valid Inuktitut writing
+systems. Four focused files pass.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 
