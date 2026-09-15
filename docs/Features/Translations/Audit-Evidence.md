@@ -30992,3 +30992,14 @@ establish Location and Version while Webhook remains literal. Focused exact
 and former-seed checks pass with all 20,990 correction records and 234 locale
 inventories. Raw non-English overlap falls to 546; 526 remain unclassified
 after 20 attested shared forms. No remote write occurred.
+
+### 2026-09-15 — Compact Tigre terminology
+
+Source commit `fc6139745` repairs 31 configuration labels by consistently
+reusing independently attested Tigre terms for names, dates, sizes, addresses,
+status, support, security, cards, boards and system data. Literal CPU, OS, IP,
+IPv4, IPv6, TLS and byte identifiers remain intact. Focused exact and former-
+seed checks pass with all 21,021 correction records and 234 locale inventories.
+Raw non-English overlap falls to 515; 495 remain unclassified after 20 attested
+shared forms. Unchanged compound components remain open to fluent review. No
+remote write occurred.

@@ -545,3 +545,15 @@ the compounds while Webhook remains literal. Focused exact and negative checks
 cover every value; all 20,990 correction records and 234 locale inventories
 pass. Raw non-English overlap falls to 546, with 20 attested shared forms and
 526 unclassified. No remote write ran.
+
+## Compact Tigre terminology repaired — 2026-09-15
+
+Source commit `fc6139745` replaces Tigrinya-seeded components in 31 compact
+configuration labels. Every replacement reuses independently attested Tigre
+terminology already established in the correction ledger, covering names,
+dates, sizes, addresses, status, support, security, cards, boards and system
+data. CPU, OS, IP, IPv4, IPv6, TLS and byte remain literal identifiers. Focused
+exact and negative checks cover every value; all 21,021 correction records and
+234 locale inventories pass. Raw non-English overlap falls to 515, with 20
+attested shared forms and 495 unclassified. Unchanged phrase components remain
+open to fluent review. No remote write ran.

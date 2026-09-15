@@ -2080,6 +2080,16 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/fc6139745">Repair compact Tigre terminology.</a></summary>
+
+Replace copied Tigrinya components in 31 configuration labels with consistent,
+previously attested Tigre interface terms.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e17bb2b5e">Repair native-catalogue Veps interface terms.</a></summary>
 
 Replace 31 Finnish-seeded labels through exact English-source matching with
