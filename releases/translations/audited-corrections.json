@@ -155818,5 +155818,96 @@
     "before": "غير محدد",
     "after": "ⵓⵔ ⵢⴻⵜⵜⵡⴰⵙⵔⴻⵙ ⴰⵔⴰ",
     "reason": "Replace Arabic generic Unset status with native not-set wording from cloud-secret-none; UI removal buttons now use already-translated removal action keys instead of this status key."
+  },
+  {
+    "locale": "zgh",
+    "key": "boardInfoOnMyBoardsPopup-title",
+    "before": "جميع إعدادات اللوحات",
+    "after": "ⵜⵉⵙⵖⴰⵍ ⵏ ⵜⴼⵍⵡⵉⵏ ⴰⴽⴽⵯ",
+    "reason": "Replace Arabic all-boards settings popup title with local native settings and all-boards terms; full compound grammar remains low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "boardInfoOnMyBoards-title",
+    "before": "جميع إعدادات اللوحات",
+    "after": "ⵜⵉⵙⵖⴰⵍ ⵏ ⵜⴼⵍⵡⵉⵏ ⴰⴽⴽⵯ",
+    "reason": "Replace Arabic all-boards settings title with the same native phrase as its popup title."
+  },
+  {
+    "locale": "zgh",
+    "key": "cardCustomFieldsPopup-title",
+    "before": "تعديل الحقل المعدل",
+    "after": "ⵙⵏⴼⵍ ⵉⴳⵔⴰⵏ ⵉⵥⵍⵉⵏ",
+    "reason": "Replace Arabic wrong singular/modified-field wording with native edit and plural custom-field terms already used in the local filter."
+  },
+  {
+    "locale": "zgh",
+    "key": "changeLanguagePopup-title",
+    "before": "تغيير اللغة",
+    "after": "ⵙⵏⴼⵍ ⵜⵓⵜⵍⴰⵢⵜ",
+    "reason": "Replace Arabic change-language title with native change verb and local language noun."
+  },
+  {
+    "locale": "zgh",
+    "key": "changeSettingsPopup-title",
+    "before": "تغيير الاعدادات",
+    "after": "ⵙⵏⴼⵍ ⵜⵉⵙⵖⴰⵍ",
+    "reason": "Replace Arabic change-settings popup title with the exact existing local native change-settings label."
+  },
+  {
+    "locale": "zgh",
+    "key": "copyCardPopup-title",
+    "before": "نسخ البطاقة",
+    "after": "ⵙⵙⵏⵖⵍ ⵜⴰⴽⴰⵕⴹⴰ",
+    "reason": "Replace Arabic copy-card title with local native copy verb and card noun from copy-card-link and card labels."
+  },
+  {
+    "locale": "zgh",
+    "key": "createBoardPopup-title",
+    "before": "إنشاء لوحة",
+    "after": "ⵙⵏⵓⵍⴼⵓ ⵜⴰⴼⵍⵡⵉⵜ",
+    "reason": "Replace Arabic create-board popup title with native create-label imperative and board noun; complete command grammar remains low confidence."
+  },
+  {
+    "locale": "zgh",
+    "key": "chooseBoardSourcePopup-title",
+    "before": "استيراد لوحة",
+    "after": "ⵙⴽⵛⵎ ⵜⴰⴼⵍⵡⵉⵜ",
+    "reason": "Replace Arabic import-board popup title with the exact local native import-board label."
+  },
+  {
+    "locale": "zgh",
+    "key": "createLabelPopup-title",
+    "before": "إنشاء علامة",
+    "after": "ⵙⵏⵓⵍⴼⵓ ⴰⵔⵛⵓⵎ",
+    "reason": "Replace Arabic create-label popup title with the exact local native label-create label."
+  },
+  {
+    "locale": "zgh",
+    "key": "editLabelPopup-title",
+    "before": "تعديل العلامة",
+    "after": "ⵙⵏⴼⵍ ⴰⵔⵛⵓⵎ",
+    "reason": "Replace Arabic edit-label popup title with native edit verb and label noun from local card-edit-labels and label diagnostics."
+  },
+  {
+    "locale": "zgh",
+    "key": "editNotificationPopup-title",
+    "before": "تصحيح الإشعار",
+    "after": "ⵙⵏⴼⵍ ⵜⴰⵏⵖⵎⵉⵙⵜ",
+    "reason": "Replace Arabic edit-notification title, which said correct, with native edit verb and singular notification noun from local member-removal prose."
+  },
+  {
+    "locale": "zgh",
+    "key": "editProfilePopup-title",
+    "before": "تعديل الملف الشخصي",
+    "after": "ⵙⵏⴼⵍ ⵉⴼⵔⵙ",
+    "reason": "Replace Arabic edit-profile popup title with the exact existing native edit-profile label."
+  },
+  {
+    "locale": "zgh",
+    "key": "headerBarCreateBoardPopup-title",
+    "before": "إنشاء لوحة",
+    "after": "ⵙⵏⵓⵍⴼⵓ ⵜⴰⴼⵍⵡⵉⵜ",
+    "reason": "Replace Arabic header-bar create-board title with the same native phrase as the create-board popup."
   }
 ]
