@@ -147549,22 +147549,22 @@
     "locale": "tig",
     "key": "gcs-key-filename",
     "before": "መንገዲ ፋይል መፍትሕ መለያ ኣገልግሎት",
-    "after": "መንገዲ ፈይል መፍትሕ መለያ ኣገልግሎት",
-    "reason": "2026-09-15: Replace the remaining Tigrinya File spelling inside longer Tigre clauses with the corpus-attested Tigre term already reviewed in the correction ledger. Preserve all surrounding wording and literal format, API, service and product identifiers for separate review."
+    "after": "መንገዲ ፈይል መፍትሕ ሕሳብ ኣገልግሎት",
+    "reason": "2026-09-15: Replace the remaining Tigrinya File spelling inside longer Tigre clauses with the corpus-attested Tigre term already reviewed in the correction ledger. Preserve all surrounding wording and literal format, API, service and product identifiers for separate review. Follow-up 2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
   },
   {
     "locale": "tig",
     "key": "gridfs-enabled-description",
     "before": "ንመኽዘን ፋይል MongoDB GridFS ተጠቐም",
-    "after": "ንመኽዘን ፈይል MongoDB GridFS ተጠቐም",
-    "reason": "2026-09-15: Replace the remaining Tigrinya File spelling inside longer Tigre clauses with the corpus-attested Tigre term already reviewed in the correction ledger. Preserve all surrounding wording and literal format, API, service and product identifiers for separate review."
+    "after": "ንመክዘን ፈይል MongoDB GridFS ተጠቐም",
+    "reason": "2026-09-15: Replace the remaining Tigrinya File spelling inside longer Tigre clauses with the corpus-attested Tigre term already reviewed in the correction ledger. Preserve all surrounding wording and literal format, API, service and product identifiers for separate review. Follow-up 2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
   },
   {
     "locale": "tig",
     "key": "s3-enabled-description",
     "before": "ንመኽዘን ፋይል AWS S3 ወይ MinIO ተጠቐም",
-    "after": "ንመኽዘን ፈይል AWS S3 ወይ MinIO ተጠቐም",
-    "reason": "2026-09-15: Replace the remaining Tigrinya File spelling inside longer Tigre clauses with the corpus-attested Tigre term already reviewed in the correction ledger. Preserve all surrounding wording and literal format, API, service and product identifiers for separate review."
+    "after": "ንመክዘን ፈይል AWS S3 ወይ MinIO ተጠቐም",
+    "reason": "2026-09-15: Replace the remaining Tigrinya File spelling inside longer Tigre clauses with the corpus-attested Tigre term already reviewed in the correction ledger. Preserve all surrounding wording and literal format, API, service and product identifiers for separate review. Follow-up 2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
   },
   {
     "locale": "tig",
@@ -147675,8 +147675,8 @@
     "locale": "tig",
     "key": "custom-public-desc-placeholder",
     "before": "ነባሪ ንምጥቃም ባዶ ግደፎ ህዝባዊ ናይ ሰሌዳ መግለጺ",
-    "after": "ነባሪ ንምጥቃም ባዶ ግደፎ ህዝባዊ ናይ ምዱድ መግለጺ",
-    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting."
+    "after": "ነባሪ ንምጥቃም ባዶ ግደፎ ህዝባዊ ናይ ምዱድ ዋስፎ",
+    "reason": "2026-09-15: Replace the Tigrinya Board singular, plural or possessive component with corpus-attested Tigre Board forms already reviewed in the correction ledger. Preserve surrounding grammar, HTML and punctuation for separate fluent review; exclude clipboard and parenthesized-number cases that require semantic rewriting. Follow-up 2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
   },
   {
     "locale": "tig",
@@ -147955,8 +147955,8 @@
     "locale": "tig",
     "key": "accounts-allowUserDelete",
     "before": "ተጠቃሚ መለያኡ ባዕሉ ይደምስስ",
-    "after": "መትነፍዓይ መለያኡ ባዕሉ ይደምስስ",
-    "reason": "2026-09-15: Replace a Tigrinya-seeded user component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review."
+    "after": "መትነፍዓይ ሕሳቡ ባዕሉ ይደምስስ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded user component with independently corpus-attested Tigre terminology already reviewed in the correction ledger. Preserve surrounding grammar, placeholders and literal identifiers for separate fluent review. Follow-up 2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
   },
   {
     "locale": "tig",
@@ -148186,8 +148186,8 @@
     "locale": "tig",
     "key": "account-creation-failed",
     "before": "መለያ ምፍጣር ፈሺሉ",
-    "after": "መለያ ምፍጣር ፈሽለ",
-    "reason": "2026-09-15: Replace a Tigrinya-seeded failed form with a sense-matched Tigre form independently attested in complete corpus entries. Preserve surrounding connection, account and Import wording for separate fluent review."
+    "after": "ሕሳብ ምፍጣር ፈሽለ",
+    "reason": "2026-09-15: Replace a Tigrinya-seeded failed form with a sense-matched Tigre form independently attested in complete corpus entries. Preserve surrounding connection, account and Import wording for separate fluent review. Follow-up 2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
   },
   {
     "locale": "tig",
@@ -148468,5 +148468,383 @@
     "before": "ዝተኻፈሉ ኣብነታት",
     "after": "ዝተኻፈሉ ሞደላት",
     "reason": "2026-09-15: Replace exact Tigrinya Account, Storage and Templates components with corpus-attested Tigre terms already established by reviewed correction-ledger entries; preserve surrounding wording, literals and punctuation."
+  },
+  {
+    "locale": "tig",
+    "key": "activity-changedDescription",
+    "before": "መግለጺ %s ቀየረ",
+    "after": "ዋስፎ %s ቀየረ",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "board-view-timeline-restore-confirm",
+    "before": "እዚ ኣርእስቲ፣ መግለጺ፣ ዝርዝር፣ መለለዪ፣ ኣባላትን ናይ መወዳእታ ዕለትን ናብቲ ዝረኣየ ዋጋታት ክምለስ እዩ። ገለን ኣይክድምሰስን እዩ። ቀጽል?",
+    "after": "እዚ ኣርእስቲ፣ ዋስፎ፣ ዝርዝር፣ መለለዪ፣ ኣባላትን ናይ መወዳእታ ዕለትን ናብቲ ዝረኣየ ዋጋታት ክምለስ እዩ። ገለን ኣይክድምሰስን እዩ። ቀጽል?",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "userDeletePopup-title",
+    "before": "መለያ ደምስስ",
+    "after": "ሕሳብ ደምስስ",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "copyManyCardsPopup-format",
+    "before": "[ {\"title\": \"ኣርእስት ቀዳማይ ካርድ\", \"description\":\"መግለጺ ቀዳማይ ካርድ\"}, {\"title\":\"ኣርእስት ካልኣይ ካርድ\",\"description\":\"መግለጺ ካልኣይ ካርድ\"},{\"title\":\"ኣርእስት መወዳእታ ካርድ\",\"description\":\"መግለጺ መወዳእታ ካርድ\"} ]",
+    "after": "[ {\"title\": \"ኣርእስት ቀዳማይ ካርድ\", \"description\":\"ዋስፎ ቀዳማይ ካርድ\"}, {\"title\":\"ኣርእስት ካልኣይ ካርድ\",\"description\":\"ዋስፎ ካልኣይ ካርድ\"},{\"title\":\"ኣርእስት መወዳእታ ካርድ\",\"description\":\"ዋስፎ መወዳእታ ካርድ\"} ]",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "edit-profile",
+    "before": "መግለጺ መንነት ኣርም",
+    "after": "ዋስፎ መንነት ኣርም",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "editProfilePopup-title",
+    "before": "መግለጺ መንነት ኣርም",
+    "after": "ዋስፎ መንነት ኣርም",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "email-enrollAccount-subject",
+    "before": "መለያ ኣብ __siteName__ ተፈጢሩልካ",
+    "after": "ሕሳብ ኣብ __siteName__ ተፈጢሩልካ",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "email-verifyEmail-text",
+    "before": "ሰላም __user__፣\n\nኢመይል መለያኻ ንምርግጋጽ፣ ኣብ ታሕቲ ዘሎ መራኸቢ ጥራይ ጠውቕ።\n\n__url__\n\nየቐንየልና።",
+    "after": "ሰላም __user__፣\n\nኢመይል ሕሳብካ ንምርግጋጽ፣ ኣብ ታሕቲ ዘሎ መራኸቢ ጥራይ ጠውቕ።\n\n__url__\n\nየቐንየልና።",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "error-user-disabled",
+    "before": "እዚ መለያ ተጠቃሚ ተዓጽዩ",
+    "after": "እዚ ሕሳብ ተጠቃሚ ተዓጽዩ",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "profile",
+    "before": "መግለጺ ስብ",
+    "after": "ዋስፎ ስብ",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "custom-private-desc",
+    "before": "ብጁ ናይ ውልቂ መግለጺ",
+    "after": "ብጁ ናይ ውልቂ ዋስፎ",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "custom-private-desc-placeholder",
+    "before": "ነባሪ ንምጥቃም ባዶ ግደፎ ናይ ውልቂ ናይ ሰሌዳ መግለጺ",
+    "after": "ነባሪ ንምጥቃም ባዶ ግደፎ ናይ ውልቂ ናይ ሰሌዳ ዋስፎ",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "rescue-card-description",
+    "before": "ዘይተዓቀበ መግለጺ ካርድ ቅድሚ ምዕጻው መድሓኒ መዛረቢ ኣርኢ",
+    "after": "ዘይተዓቀበ ዋስፎ ካርድ ቅድሚ ምዕጻው መድሓኒ መዛረቢ ኣርኢ",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "rescue-card-description-dialogue",
+    "before": "እዋናዊ መግለጺ ካርድ ብለውጥታትካ ይተካእ?",
+    "after": "እዋናዊ ዋስፎ ካርድ ብለውጥታትካ ይተካእ?",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "unsaved-description",
+    "before": "ዘይተዓቀበ መግለጺ ኣለካ።",
+    "after": "ዘይተዓቀበ ዋስፎ ኣለካ።",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "delete-user-confirm-popup",
+    "before": "ነዚ መለያ ክትድምስሶ ርግጸኛ ዲኻ? ምልሶ የለን።",
+    "after": "ነዚ ሕሳብ ክትድምስሶ ርግጸኛ ዲኻ? ምልሶ የለን።",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "submit-on-enter-description",
+    "before": "ምስ ዝኽእል፣ Enter ምጽቃጥ ኣርእስቲ ካርድ፣ መግለጺን ካልኦት ኣርታዕቲን ይዕቅብ፤ Shift+Enter ሓድሽ መስመር የእቱ። ምስ ዝጠፍእ፣ Ctrl/Cmd+Enter ይዕቅብ፣ Enter ሓድሽ መስመር የእቱ።",
+    "after": "ምስ ዝኽእል፣ Enter ምጽቃጥ ኣርእስቲ ካርድ፣ ዋስፎን ካልኦት ኣርታዕቲን ይዕቅብ፤ Shift+Enter ሓድሽ መስመር የእቱ። ምስ ዝጠፍእ፣ Ctrl/Cmd+Enter ይዕቅብ፣ Enter ሓድሽ መስመር የእቱ።",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "addmore-detail",
+    "before": "ዝርዝር መግለጺ ወስኽ",
+    "after": "ዝርዝር ዋስፎ ወስኽ",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "api-report-desc",
+    "before": "ኣየኖት መወዳእታታት REST API ብመንን ክንደይ ግዜን ከም ዝጥቀሙ። ንነፍሲ ወከፍ መለያን መወዳእታን ሓደ መስመር፣ ምስቲ ዝሽፍኖ ግዜ፤ ንነፍሲ ወከፍ ሕቶ መስመር ኣይኮነን።",
+    "after": "ኣየኖት መወዳእታታት REST API ብመንን ክንደይ ግዜን ከም ዝጥቀሙ። ንነፍሲ ወከፍ ሕሳብን መወዳእታን ሓደ መስመር፣ ምስቲ ዝሽፍኖ ግዜ፤ ንነፍሲ ወከፍ ሕቶ መስመር ኣይኮነን።",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "move-attachments-none-found",
+    "before": "ኣብቲ ዝተመርጸ መኽዘን ምንጪ ዝተዓቀበ የለን፣ ስለዚ ዝዛወር የለን።",
+    "after": "ኣብቲ ዝተመርጸ መክዘን ምንጪ ዝተዓቀበ የለን፣ ስለዚ ዝዛወር የለን።",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "move-storage-all",
+    "before": "ኵሎም ንምንባብ ዝኽእሉ መኽዘናት",
+    "after": "ኵሎም ንምንባብ ዝኽእሉ መክዘናት",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "default-save-storage-description",
+    "before": "ሓደስቲ ዝስቀሉ ተለጠፍቲ ዝዕቀቡሉ መኽዘን ምረጽ።",
+    "after": "ሓደስቲ ዝስቀሉ ተለጠፍቲ ዝዕቀቡሉ መክዘን ምረጽ።",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "default-save-storage-save-failed",
+    "before": "ነባሪ መኽዘን ምዕቃብ ኣይተዓቀበን",
+    "after": "ነባሪ መክዘን ምዕቃብ ኣይተዓቀበን",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "attachment-storage-configuration",
+    "before": "ቅንብር መኽዘን ተለጠፍቲ",
+    "after": "ቅንብር መክዘን ተለጠፍቲ",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "filesystem-path-description",
+    "before": "መሰረታዊ መንገዲ መኽዘን ፋይል",
+    "after": "መሰረታዊ መንገዲ መክዘን ፋይል",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "filesystem-enabled",
+    "before": "መኽዘን ስርዓተ ፋይል ነቒሑ",
+    "after": "መክዘን ስርዓተ ፋይል ነቒሑ",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "filesystem-disabled",
+    "before": "መኽዘን ስርዓተ ፋይል ጠፊኡ",
+    "after": "መክዘን ስርዓተ ፋይል ጠፊኡ",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "filesystem-enabled-description",
+    "before": "ንመኽዘን ፋይል ናይ ከባቢ ስርዓተ ፋይል ተጠቐም",
+    "after": "ንመክዘን ፋይል ናይ ከባቢ ስርዓተ ፋይል ተጠቐም",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "backup-description",
+    "before": "ተለጠፍቲ፣ ስእልታት መንነትን/ወይ ውሂብን ኣቐምጥ። .zip ብቐጥታ ናብ ዝተመርጸ መኽዘን ይውሕዝ፣ ግዝያዊ ፋይል የለን። መኽዘናት ደበና (S3/MinIO፣ Azure፣ GCS) ኣብ ትሮታቶም ዝተቐናበሩ መረጋገጺታት ይጥቀሙ።",
+    "after": "ተለጠፍቲ፣ ስእልታት መንነትን/ወይ ውሂብን ኣቐምጥ። .zip ብቐጥታ ናብ ዝተመርጸ መክዘን ይውሕዝ፣ ግዝያዊ ፋይል የለን። መክዘናት ደበና (S3/MinIO፣ Azure፣ GCS) ኣብ ትሮታቶም ዝተቐናበሩ መረጋገጺታት ይጥቀሙ።",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "backup-scope-description",
+    "before": "ምሉእ ኣገልግሎት፣ ወይ ሓደ ውድብ። ምትሕልላፍ ውድብ ሰሌዳታቱን ኵሉ ኣብኦም ዘሎን፣ ተለጠፍቲ እውን ይሓዝ፤ መለያታት ተጠቀምትን ቅንብራት ኣገልግሎትን ግን ኣይሓዝን፣ ኵሎም ውድባት ስለ ዝካፈልዎም። ምትሕልላፍ ውድብ ምምላስ ናብተን እቲ ውድብ ዝውንነን ሰሌዳታት ጥራይ ይጽሕፍ።",
+    "after": "ምሉእ ኣገልግሎት፣ ወይ ሓደ ውድብ። ምትሕልላፍ ውድብ ሰሌዳታቱን ኵሉ ኣብኦም ዘሎን፣ ተለጠፍቲ እውን ይሓዝ፤ ሕሳባት ተጠቀምትን ቅንብራት ኣገልግሎትን ግን ኣይሓዝን፣ ኵሎም ውድባት ስለ ዝካፈልዎም። ምትሕልላፍ ውድብ ምምላስ ናብተን እቲ ውድብ ዝውንነን ሰሌዳታት ጥራይ ይጽሕፍ።",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "gcs-key-filename-description",
+    "before": "ኣማራጺ፦ መንገዲ ፋይል መፍትሕ JSON መለያ ኣገልግሎት ኣብ ኣገልጋሊ።",
+    "after": "ኣማራጺ፦ መንገዲ ፋይል መፍትሕ JSON ሕሳብ ኣገልግሎት ኣብ ኣገልጋሊ።",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "gcs-credentials-description",
+    "before": "ኣማራጺ፦ መፍትሕ JSON መለያ ኣገልግሎት ኣብዚ ለጥፍ። ፋይል መፍትሕ ወይ ነባሪ መረጋገጺታት ንምጥቃም ጥራዩ ግደፎ።",
+    "after": "ኣማራጺ፦ መፍትሕ JSON ሕሳብ ኣገልግሎት ኣብዚ ለጥፍ። ፋይል መፍትሕ ወይ ነባሪ መረጋገጺታት ንምጥቃም ጥራዩ ግደፎ።",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "gcs-permissions-note",
+    "before": "ንመለያ ኣገልግሎት WeKan ኣብ ባልዲ ናይ ምንባብን ምጽሓፍን ፍቓድ ሃብ፦ Google Cloud Console → Cloud Storage → Buckets → ባልዲኻ → Permissions → Grant access። ኣብ \"New principals\" ኢመይል መለያ ኣገልግሎት፣ ዋጋ \"client_email\" ካብ መፍትሕ JSON፣ ለጥፍ፣ ድሕሪኡ \"Storage Object Admin\" ምረጽን Save ግበርን።",
+    "after": "ንሕሳብ ኣገልግሎት WeKan ኣብ ባልዲ ናይ ምንባብን ምጽሓፍን ፍቓድ ሃብ፦ Google Cloud Console → Cloud Storage → Buckets → ባልዲኻ → Permissions → Grant access። ኣብ \"New principals\" ኢመይል ሕሳብ ኣገልግሎት፣ ዋጋ \"client_email\" ካብ መፍትሕ JSON፣ ለጥፍ፣ ድሕሪኡ \"Storage Object Admin\" ምረጽን Save ግበርን።",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "azure-account-name-menu-path",
+    "before": "Azure Portal → Storage accounts → መለያኻ → ኣብ ላዕሊ ዝርአ ስም (ኣብ Security + networking → Access keys → Storage account name እውን)።",
+    "after": "Azure Portal → Storage accounts → ሕሳብካ → ኣብ ላዕሊ ዝርአ ስም (ኣብ Security + networking → Access keys → Storage account name እውን)።",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "azure-container-menu-path",
+    "before": "Azure Portal → Storage accounts → መለያኻ → Data storage → Containers → መትሓዚኻ (ወይ + Container ንምፍጣር)።",
+    "after": "Azure Portal → Storage accounts → ሕሳብካ → Data storage → Containers → መትሓዚኻ (ወይ + Container ንምፍጣር)።",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "gcs-key-filename-menu-path",
+    "before": "ኣብ ኣገልጋሊ WeKan ዝወረደ ፋይል መፍትሕ JSON መለያ ኣገልግሎት ዘለዎ መንገዲ። ነዚ ተጠቐም ወይ JSON ኣብ ታሕቲ ለጥፍ።",
+    "after": "ኣብ ኣገልጋሊ WeKan ዝወረደ ፋይል መፍትሕ JSON ሕሳብ ኣገልግሎት ዘለዎ መንገዲ። ነዚ ተጠቐም ወይ JSON ኣብ ታሕቲ ለጥፍ።",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "gcs-credentials-menu-path",
+    "before": "Google Cloud Console → IAM & Admin → Service accounts → መለያ ኣገልግሎትካ → Keys → Add key → Create new key → JSON → Create። ትሕዝቶኡ ኣብዚ ለጥፍ፣ ወይ ፋይሉ ዓቂብካ መንገዱ ኣብ ላዕሊ ኣቐምጥ።",
+    "after": "Google Cloud Console → IAM & Admin → Service accounts → ሕሳብ ኣገልግሎትካ → Keys → Add key → Create new key → JSON → Create። ትሕዝቶኡ ኣብዚ ለጥፍ፣ ወይ ፋይሉ ዓቂብካ መንገዱ ኣብ ላዕሊ ኣቐምጥ።",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "cloud-settings-save-failed",
+    "before": "ቅንብራት መኽዘን ምዕቃብ ፈሺሉ",
+    "after": "ቅንብራት መክዘን ምዕቃብ ፈሺሉ",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "gridfs-move-collectionfs-note",
+    "before": "ተለጠፍትን ስእልታት መንነትን ክርኣዩ ካብ CollectionFS ናብ ዝኾነ ካልእ መኽዘን ኣዛውሮም።",
+    "after": "ተለጠፍትን ስእልታት መንነትን ክርኣዩ ካብ CollectionFS ናብ ዝኾነ ካልእ መክዘን ኣዛውሮም።",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "writable-path-description",
+    "before": "መሰረታዊ መንገዲ ማህደር መኽዘን ፋይል",
+    "after": "መሰረታዊ መንገዲ ማህደር መክዘን ፋይል",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "fix-avatar-urls-migration-description",
+    "before": "URL ስእልታት መንነት ኣባላት ሰሌዳ ቅኑዕ መኽዘን ክጥቀሙ የሐድስ፣ ዝተበላሸዉ መወከሲታት ድማ የዐሪ።",
+    "after": "URL ስእልታት መንነት ኣባላት ሰሌዳ ቅኑዕ መክዘን ክጥቀሙ የሐድስ፣ ዝተበላሸዉ መወከሲታት ድማ የዐሪ።",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "fix-all-file-urls-migration-description",
+    "before": "ኵሎም URL ተለጠፍቲ ፋይል ኣብዚ ሰሌዳ ቅኑዕ መኽዘን ክጥቀሙ የሐድስ፣ ዝተበላሸዉ መወከሲታት ድማ የዐሪ።",
+    "after": "ኵሎም URL ተለጠፍቲ ፋይል ኣብዚ ሰሌዳ ቅኑዕ መክዘን ክጥቀሙ የሐድስ፣ ዝተበላሸዉ መወከሲታት ድማ የዐሪ።",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "run-fix-avatar-urls-migration-confirm",
+    "before": "እዚ URL ስእልታት መንነት ኣባላት ሰሌዳ ቅኑዕ መኽዘን ክጥቀሙ የሐድስ። ይቕጽል?",
+    "after": "እዚ URL ስእልታት መንነት ኣባላት ሰሌዳ ቅኑዕ መክዘን ክጥቀሙ የሐድስ። ይቕጽል?",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "run-fix-all-file-urls-migration-confirm",
+    "before": "እዚ ኵሎም URL ተለጠፍቲ ፋይል ኣብዚ ሰሌዳ ቅኑዕ መኽዘን ክጥቀሙ የሐድስ። ይቕጽል?",
+    "after": "እዚ ኵሎም URL ተለጠፍቲ ፋይል ኣብዚ ሰሌዳ ቅኑዕ መክዘን ክጥቀሙ የሐድስ። ይቕጽል?",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "storage-distribution",
+    "before": "ስርጭት መኽዘን",
+    "after": "ስርጭት መክዘን",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "available-repositories",
+    "before": "ዘለዉ መኽዘናት ኮድ",
+    "after": "ዘለዉ መክዘናት ኮድ",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "repositories",
+    "before": "መኽዘናት ኮድ",
+    "after": "መክዘናት ኮድ",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "repository",
+    "before": "መኽዘን ኮድ",
+    "after": "መክዘን ኮድ",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "repository-name",
+    "before": "ስም መኽዘን ኮድ",
+    "after": "ስም መክዘን ኮድ",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "no-repositories",
+    "before": "መኽዘን ኮድ ኣይተረኽበን",
+    "after": "መክዘን ኮድ ኣይተረኽበን",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "create-repository",
+    "before": "መኽዘን ኮድ ፍጠር",
+    "after": "መክዘን ኮድ ፍጠር",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "upload-repository",
+    "before": "መኽዘን ኮድ ስቐል/ኣሐድስ",
+    "after": "መክዘን ኮድ ስቐል/ኣሐድስ",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "sign-in-to-upload",
+    "before": "መኽዘናት ኮድ ንምስቃል እቶ",
+    "after": "መክዘናት ኮድ ንምስቃል እቶ",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
+  },
+  {
+    "locale": "tig",
+    "key": "account-locked",
+    "before": "ብዙሕ ዝፈሸሉ ፈተነታት ምእታው ስለ ዝተገብሩ መለያ ንግዚኡ ተዓጽዩ። በጃኻ ጸኒሕካ ደጊምካ ፈትን።",
+    "after": "ብዙሕ ዝፈሸሉ ፈተነታት ምእታው ስለ ዝተገብሩ ሕሳብ ንግዚኡ ተዓጽዩ። በጃኻ ጸኒሕካ ደጊምካ ፈትን።",
+    "reason": "2026-09-15: Replace remaining embedded Tigrinya Account inflections, Storage/Repository spelling and Description components with established corpus-attested Tigre terms. Preserve source literals, placeholders, punctuation and surrounding clause text; exclude Web Manifest senses from the Description substitution."
   }
 ]
