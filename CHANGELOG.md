@@ -641,6 +641,22 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
+**New features** - Custom logos.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/593cab591">Load custom logos first and upload them to Default Storage</a>. Thanks to xet7.</summary>
+
+The login page and board header wait for the Visibility settings before showing
+a logo, so a configured image does not flash the stock WeKan logo first. Site
+admins can keep using an image URL or upload a PNG, JPEG, GIF or WebP image
+through Admin Panel / Settings / Visibility. Uploaded logos use Default Storage,
+and only the currently configured logo is public on the login page. Unit tests
+cover accepted and rejected images and public access; the Jade compiler passes.
+A Playwright regression test is registered and syntax-checked, but could not
+run because no local WeKan server was available.
+
+</details>
+
 **Developer tooling** - Mirror linked files.
 
 <details>
