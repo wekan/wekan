@@ -139732,5 +139732,12 @@
     "before": "Vhukuma",
     "after": "Kovuden korktuz’",
     "reason": "Replace Tshivenda with direct Veps severity-level draft using rendered dictionary kovuz’ (-den) and abstract level korktuz’. Harshness/firmness-to-event-severity analogy and full compound remain low confidence, not attested computing terminology."
+  },
+  {
+    "locale": "ve-PP",
+    "key": "date-range-of-fields",
+    "before": "Tshifhinga tsha maḓuvha a mabammbiro o khetheaho u sumbedza nṱha ha bammbi",
+    "after": "Päivmäriden keskust kävutajan märitud päivmär-pöudoiš, miččed oma märitud ozutada lugetižen ülähäl",
+    "reason": "Replace Tshivenda with direct Veps date-range draft. Rendered dictionary page 367 attests keskust and aigan keskust for time interval; preserve date custom fields marked for list top. Full compound/case/list-top grammar remains low confidence."
   }
 ]

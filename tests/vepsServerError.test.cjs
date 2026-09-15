@@ -325,3 +325,12 @@ test("Veps event severity replaces foreign text with a distinct level draft", ()
  const code=fs.readFileSync("client/components/settings/adminProblems.js","utf8");
  assert.match(code,/labelKey: 'event-severity', value: r => r.severity/);
 });
+
+test("Veps list date range retains date fields and list-top selection", () => {
+ const data=JSON.parse(fs.readFileSync("imports/i18n/data/ve-PP.i18n.json","utf8"));
+ assert.match(data["date-range-of-fields"],/^Päivmäriden keskust.*kävutajan märitud päivmär-pöudoiš.*märitud ozutada lugetižen/);
+ assert.doesNotMatch(data["date-range-of-fields"],/Tshifhinga|maḓuvha|bammbi/);
+ assert.notEqual(data["date-range-of-fields"],data["sum-of-number-fields"]);
+ const code=fs.readFileSync("client/components/lists/listHeader.js","utf8");
+ assert.match(code,/stats.earliest === stats.latest/);
+});
