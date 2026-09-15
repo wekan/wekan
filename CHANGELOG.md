@@ -2060,6 +2060,16 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b8bbd8fa3">Repair Tigre import controls.</a></summary>
+
+Replace copied Tigrinya wording in eleven general, board, list, card and rule
+Import controls with corpus-grounded Tigre terminology.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e17bb2b5e">Repair native-catalogue Veps interface terms.</a></summary>
 
 Replace 31 Finnish-seeded labels through exact English-source matching with

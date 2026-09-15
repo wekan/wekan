@@ -524,3 +524,14 @@ Not Active and Logout. Focused exact and negative checks cover every value; all
 20,975 correction records and 234 locale inventories pass. Raw non-English
 overlap falls to 561, with 20 attested shared forms and 541 unclassified. No
 remote write ran.
+
+## Tigre Import controls repaired — 2026-09-15
+
+Source commit `b8bbd8fa3` replaces eleven Tigrinya-seeded general, board, list,
+card and rule Import controls. The BeitTigreAI corpus explicitly gives
+`አምጸአ` for “to import”; independently reviewed Tigre Board, Card and List
+terms complete the labels while Trello, Excel and CSV/TSV stay literal.
+Focused exact and negative checks cover every value; all 20,986 correction
+records and 234 locale inventories pass. Raw non-English overlap falls to 550,
+with 20 attested shared forms and 530 unclassified. Destination compound order
+remains open to fluent review. No remote write ran.

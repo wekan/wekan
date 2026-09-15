@@ -30971,3 +30971,14 @@ reviewed evidence without extending it to a different meaning. Focused exact
 and former-seed checks pass with all 20,975 correction records and 234 locale
 inventories. Raw non-English overlap falls to 561; 541 remain unclassified
 after 20 attested shared forms. No remote write occurred.
+
+### 2026-09-15 — Tigre Import controls
+
+Source commit `b8bbd8fa3` repairs eleven general, board, list, card and rule
+Import controls. The BeitTigreAI corpus explicitly glosses `አምጸአ` as “to
+import”; earlier reviewed records supply Board, Card and List. Trello, Excel
+and CSV/TSV remain literal product and format identifiers. Focused exact and
+former-seed checks pass with all 20,986 correction records and 234 locale
+inventories. Raw non-English overlap falls to 550; 530 remain unclassified
+after 20 attested shared forms. Destination compounds remain open to fluent
+review. No remote write occurred.
