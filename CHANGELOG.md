@@ -2080,6 +2080,16 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0ef3ca6dd">Repair missed Tigre Organizations control.</a></summary>
+
+Replace the remaining exact Tigrinya Organizations plural and extend the
+full-locale regression guard to reject it.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/08e7092c3">Repair established Tigre noun families throughout.</a></summary>
 
 Replace Tigrinya File, User, Name, Label, Organization, Team, Path, Status,

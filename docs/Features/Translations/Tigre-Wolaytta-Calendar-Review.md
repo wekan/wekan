@@ -766,3 +766,13 @@ The focused context guard, locale-wide placeholder and HTML checks, and all
 234 locale inventories pass. Raw exact overlap falls to 244 total, with 22
 attested shared forms and 222 unclassified; 25 raw matches contain at least 20
 characters and 6 contain at least 35. No remote write occurred.
+
+### 2026-09-15 — Missed Tigre Organizations control
+
+Source commit `0ef3ca6dd` replaces the remaining exact Tigrinya Organizations
+plural with the provisional regular plural of corpus-attested Tigre
+`መነዘመት`. The full-locale Organization guard now rejects this third old
+form. All 21,889 corrections and 234 locale inventories pass. Raw exact
+overlap falls to 243, with 22 attested shared forms and 221 unclassified; 25
+raw matches contain at least 20 characters and 6 contain at least 35. The
+plural remains low confidence pending fluent review. No remote write occurred.
