@@ -1507,6 +1507,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7c17acd34">Replace wrong-language Veps numeric total description.</a></summary>
+
+Use an attested native phrase for addition of numbers and preserve custom
+number fields marked for list top. Surrounding grammar remains under review.
+Four focused files pass (40 checks); no live tooltip UI ran.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

@@ -1013,3 +1013,21 @@ Four focused files pass (39 checks), including date-field/top-selection
 qualifiers, wrong-language rejection and complete token/key inventories.
 No live date-range UI ran. Ledger 19,963; pending 126/restored 4 unchanged.
 Numeric-sum terminology and full prior uncertain review remain open.
+
+
+2026-09-15 — `7c17acd34`: sum-of-number-fields Tshivenda replaced with
+Veps draft. Read listHeader.js numberFieldsSumTooltip/numberFieldStats:
+this is the ∑ total for number-type custom fields flagged for list top,
+not the date earliest/latest range. Rendered and visually read primary
+Zajceva/Mullonen dictionary page 419, PDF index 418:
+сложение ližaduz’ (-sen, -st, -sid); сложение чисел luguiden ližaduz.
+Evidence cache: .tools/tmp/veps-native-source/addition-419.png.
+Thus the core arithmetic phrase is directly attested, resolving the earlier
+sum-noun gap. Kävutajan märitud lugu-pöudod and list-top clause reuse local
+vocabulary; their compound/case grammar remains LOW CONFIDENCE and is not
+covered by the dictionary phrase. Primary dictionary source is referenced
+from https://en.wiktionary.org/wiki/kova#Veps
+Four focused files pass (40 checks), including wrong-language rejection,
+sum/date-range distinction, actual helper binding and all token inventories.
+No live tooltip UI ran. Ledger 19,964; pending 126/restored 4 unchanged.
+CPU-core terminology and full broader prior uncertain review remain open.

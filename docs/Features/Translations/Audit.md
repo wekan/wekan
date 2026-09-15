@@ -16,14 +16,15 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `046830b35` — replace unflagged
-Tshivenda list date-range tooltip using rendered native time-interval noun.
-Preserve custom date fields marked for list top. Four focused files pass
-(39 checks). Ledger 19,963; original pending 126/restored 4 unchanged.
-Full compound/case grammar remains low confidence; broader review stays open.
+Latest translation fix: **2026-09-15**, `7c17acd34` — replace unflagged
+Tshivenda numeric-field total tooltip using directly attested Veps
+luguiden ližaduz (addition of numbers). Preserve custom number fields
+marked for list top. Four focused files pass (40 checks). Ledger 19,964;
+original pending 126/restored 4 unchanged. Surrounding compound/case
+grammar remains low confidence; broader review stays open.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **19,963** exact before/after values, including unflagged
+records contain **19,964** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
