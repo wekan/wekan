@@ -31472,3 +31472,24 @@ Portuguese suites, correction-ledger checks and 234-locale inventory checks
 pass. Ledger rises from 21,939 to 21,962; the unflagged stale list-width
 queue falls from 230 to 207. Original 20,081 audit-row classifications
 remain unchanged. No live UI test or remote write occurred.
+
+### 2026-09-15 — Further multilingual list-width rule variants
+
+Source commit `d6e6c558d` repairs 22 distinct JSON locale values: Arabic
+(`ar`, `ar-DZ`, `ar-EG`), Hebrew (2), Russian (3), Ukrainian (2),
+Japanese (3), Korean (2), Polish (2), Czech (2) and Dutch/Flemish (3).
+The `ru-RU` language picker code loads `ru-RU.i18n.json`, an alias to
+tracked `ru_RU.i18n.json`; no duplicate correction row was recorded.
+Each repair retains its existing list-width and integer terms while
+replacing “greater than 270” with an inclusive minimum of 200 pixels.
+The Arabic regional values already shared Standard Arabic wording;
+Moroccan Arabic `ary` was not copied into this group and still needs
+its own review. A focused test checks exact locale strings, inclusive
+and integer wording, absence of the obsolete threshold, alias parity,
+one correction row per distinct JSON file and runtime Russian lookup.
+Correction-ledger integrity, 234-locale completeness, audit progress,
+Dutch, Flemish, Czech/related-language and changelog gates pass.
+The correction ledger grows from 21,962 to 21,984 and the unflagged
+stale list-width queue falls from 207 to 184, including the resolved
+`ru-RU` alias. The original 20,081
+classified rows remain unchanged. No live UI test or remote write occurred.

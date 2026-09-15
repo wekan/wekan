@@ -653,7 +653,18 @@ remain under native review.
 
 This release includes the following features and fixes:
 
-**Translations** - Tamazight, Tigre and list-width rule repairs.
+**Translations** - Tamazight, Tigre and multilingual list-width rule repairs.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d6e6c558d">Repair 22 multilingual list-width translations</a>. Thanks to xet7.</summary>
+
+Correct Arabic, Hebrew, Russian, Ukrainian, Japanese, Korean, Polish,
+Czech and Dutch messages to state the inclusive 200-pixel whole-number
+minimum. The Russian regional alias shares its tracked translation file.
+Focused, runtime, ledger and inventory checks pass; remaining locales
+are tracked in the audit.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e6895b3de">Repair 23 list-width translations</a>. Thanks to xet7.</summary>

@@ -16,7 +16,14 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `e6895b3de` — repair 23 German,
+Latest translation fix: **2026-09-15**, `d6e6c558d` — repair 22 Arabic,
+Hebrew, Russian, Ukrainian, Japanese, Korean, Polish, Czech and Dutch
+list-width values. Russian `ru-RU` resolves to the tracked `ru_RU` file,
+so it needs no second ledger row. Focused, runtime, ledger and inventory
+checks pass. Previous 23-variant Romance/Germanic repair `e6895b3de` and
+Persian-digit repair `196bc49df` remain in detailed evidence.
+
+Earlier translation fix: **2026-09-15**, `e6895b3de` — repair 23 German,
 Spanish, French, Italian and Portuguese list-width variants with native
 whole-number and inclusive-200-pixel wording. Focused and related-language
 suites pass. Persian-digit repairs `196bc49df` and source/popup correction
@@ -32,7 +39,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **21,962** exact before/after values, including unflagged
+records contain **21,984** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -60,9 +67,10 @@ placeholders, JSON examples and key order; they do not establish language
 quality. Correct-language human translations remain preferred. No external
 translation service is used, and no remote push was performed.
 
-New unflagged source-semantic queue: **207 locale values** still express
+New unflagged source-semantic queue: **184 locale values** still express
 the old 270 list-width rule. The actual shared minimum is 200; three
-Persian-digit values and 23 common-language variants were repaired. This
+Persian-digit values, 23 Romance/Germanic variants and 22 further variants
+were repaired (23 picker codes because `ru-RU` aliases `ru_RU`). This
 queue is outside the 20,081
 original flagged rows and must be repaired in their declared languages,
 preserving useful native wording while correcting the inclusive threshold.
