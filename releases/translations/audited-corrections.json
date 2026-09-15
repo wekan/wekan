@@ -146928,5 +146928,222 @@
     "before": "ስም-ስሪት",
     "after": "ስሜት-ስሪት",
     "reason": "2026-09-15: Replace the Tigrinya name noun in four compound labels with the exact Tigre Name entry from the BeitTigreAI corpus. Full Name is independently attested in a complete Tigre sentence; reuse reviewed Tigre Location and Version terms and preserve the Webhook identifier."
+  },
+  {
+    "locale": "tig",
+    "key": "accounts-allowUserNameChange",
+    "before": "ለውጢ ስም ተጠቃሚ",
+    "after": "ለውጢ ስሜት መትነፍዓይ",
+    "reason": "2026-09-15: Replace Tigrinya-seeded components in compact configuration labels with Tigre terms independently attested and already reviewed in the correction ledger. Preserve literal protocol, platform and unit identifiers; retain unchanged compound components for later fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "active-person",
+    "before": "ንጡፍ ሰብ",
+    "after": "ህርኩት ነፈር",
+    "reason": "2026-09-15: Replace Tigrinya-seeded components in compact configuration labels with Tigre terms independently attested and already reviewed in the correction ledger. Preserve literal protocol, platform and unit identifiers; retain unchanged compound components for later fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "help-request",
+    "before": "ሕቶ ሓገዝ",
+    "after": "ሱአል ሰዳየት",
+    "reason": "2026-09-15: Replace Tigrinya-seeded components in compact configuration labels with Tigre terms independently attested and already reviewed in the correction ledger. Preserve literal protocol, platform and unit identifiers; retain unchanged compound components for later fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "shortName",
+    "before": "ሓጺር ስም",
+    "after": "ሓጺር ስሜት",
+    "reason": "2026-09-15: Replace Tigrinya-seeded components in compact configuration labels with Tigre terms independently attested and already reviewed in the correction ledger. Preserve literal protocol, platform and unit identifiers; retain unchanged compound components for later fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "event-ip",
+    "before": "ኣድራሻ IP",
+    "after": "ዕንዋን IP",
+    "reason": "2026-09-15: Replace Tigrinya-seeded components in compact configuration labels with Tigre terms independently attested and already reviewed in the correction ledger. Preserve literal protocol, platform and unit identifiers; retain unchanged compound components for later fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "event-ipv4",
+    "before": "ኣድራሻ IPv4",
+    "after": "ዕንዋን IPv4",
+    "reason": "2026-09-15: Replace Tigrinya-seeded components in compact configuration labels with Tigre terms independently attested and already reviewed in the correction ledger. Preserve literal protocol, platform and unit identifiers; retain unchanged compound components for later fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "event-ipv6",
+    "before": "ኣድራሻ IPv6",
+    "after": "ዕንዋን IPv6",
+    "reason": "2026-09-15: Replace Tigrinya-seeded components in compact configuration labels with Tigre terms independently attested and already reviewed in the correction ledger. Preserve literal protocol, platform and unit identifiers; retain unchanged compound components for later fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "parent-card",
+    "before": "ወላዲ ካርድ",
+    "after": "ወላዲ ወረቀት ካርድ",
+    "reason": "2026-09-15: Replace Tigrinya-seeded components in compact configuration labels with Tigre terms independently attested and already reviewed in the correction ledger. Preserve literal protocol, platform and unit identifiers; retain unchanged compound components for later fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "roadmap-no-cards",
+    "before": "ካርድ የለን።",
+    "after": "ወረቀት ካርድ የለን።",
+    "reason": "2026-09-15: Replace Tigrinya-seeded components in compact configuration labels with Tigre terms independently attested and already reviewed in the correction ledger. Preserve literal protocol, platform and unit identifiers; retain unchanged compound components for later fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "calendar-previous-month-label",
+    "before": "ዝሓለፈ ወርሒ",
+    "after": "ቀዳሚት ወርሕ",
+    "reason": "2026-09-15: Replace Tigrinya-seeded components in compact configuration labels with Tigre terms independently attested and already reviewed in the correction ledger. Preserve literal protocol, platform and unit identifiers; retain unchanged compound components for later fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "calendar-next-month-label",
+    "before": "ዝቕጽል ወርሒ",
+    "after": "ዝቕጽል ወርሕ",
+    "reason": "2026-09-15: Replace Tigrinya-seeded components in compact configuration labels with Tigre terms independently attested and already reviewed in the correction ledger. Preserve literal protocol, platform and unit identifiers; retain unchanged compound components for later fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "date-format",
+    "before": "ቅርጺ ዕለት",
+    "after": "ቅርጺ ተመር",
+    "reason": "2026-09-15: Replace Tigrinya-seeded components in compact configuration labels with Tigre terms independently attested and already reviewed in the correction ledger. Preserve literal protocol, platform and unit identifiers; retain unchanged compound components for later fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "font-size",
+    "before": "ዓቐን ፊደል",
+    "after": "ቅያስ ፊደል",
+    "reason": "2026-09-15: Replace Tigrinya-seeded components in compact configuration labels with Tigre terms independently attested and already reviewed in the correction ledger. Preserve literal protocol, platform and unit identifiers; retain unchanged compound components for later fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "selection-color",
+    "before": "ሕብሪ ምርጫ",
+    "after": "ሕብር ምርጫ",
+    "reason": "2026-09-15: Replace Tigrinya-seeded components in compact configuration labels with Tigre terms independently attested and already reviewed in the correction ledger. Preserve literal protocol, platform and unit identifiers; retain unchanged compound components for later fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "r-datefield",
+    "before": "ዓውዲ ዕለት",
+    "after": "ዓውዲ ተመር",
+    "reason": "2026-09-15: Replace Tigrinya-seeded components in compact configuration labels with Tigre terms independently attested and already reviewed in the correction ledger. Preserve literal protocol, platform and unit identifiers; retain unchanged compound components for later fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "custom-color",
+    "before": "ብሕታዊ ሕብሪ",
+    "after": "ብሕታዊ ሕብር",
+    "reason": "2026-09-15: Replace Tigrinya-seeded components in compact configuration labels with Tigre terms independently attested and already reviewed in the correction ledger. Preserve literal protocol, platform and unit identifiers; retain unchanged compound components for later fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "translation-text",
+    "before": "ጽሑፍ ትርጉም",
+    "after": "ክቱብ ትርጉም",
+    "reason": "2026-09-15: Replace Tigrinya-seeded components in compact configuration labels with Tigre terms independently attested and already reviewed in the correction ledger. Preserve literal protocol, platform and unit identifiers; retain unchanged compound components for later fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "cron-error-message",
+    "before": "መልእኽቲ ጌጋ",
+    "after": "ልእከት ጌጋ",
+    "reason": "2026-09-15: Replace Tigrinya-seeded components in compact configuration labels with Tigre terms independently attested and already reviewed in the correction ledger. Preserve literal protocol, platform and unit identifiers; retain unchanged compound components for later fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "step-progress",
+    "before": "ምዕባለ ደረጃ",
+    "after": "ዐቦት ደረጃ",
+    "reason": "2026-09-15: Replace Tigrinya-seeded components in compact configuration labels with Tigre terms independently attested and already reviewed in the correction ledger. Preserve literal protocol, platform and unit identifiers; retain unchanged compound components for later fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "smtp-tls",
+    "before": "ደገፍ TLS",
+    "after": "ሰዳየት TLS",
+    "reason": "2026-09-15: Replace Tigrinya-seeded components in compact configuration labels with Tigre terms independently attested and already reviewed in the correction ledger. Preserve literal protocol, platform and unit identifiers; retain unchanged compound components for later fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "job-queue",
+    "before": "ሪጋ ዕማም",
+    "after": "ሪጋ ሹቁል",
+    "reason": "2026-09-15: Replace Tigrinya-seeded components in compact configuration labels with Tigre terms independently attested and already reviewed in the correction ledger. Preserve literal protocol, platform and unit identifiers; retain unchanged compound components for later fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "admin-people-active-status",
+    "before": "ኩነታት ንጥፈት",
+    "after": "ሓላት ንጥፈት",
+    "reason": "2026-09-15: Replace Tigrinya-seeded components in compact configuration labels with Tigre terms independently attested and already reviewed in the correction ledger. Preserve literal protocol, platform and unit identifiers; retain unchanged compound components for later fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "securityReportTitle",
+    "before": "ጸብጻብ ድሕነት",
+    "after": "ጸብጻብ አምን",
+    "reason": "2026-09-15: Replace Tigrinya-seeded components in compact configuration labels with Tigre terms independently attested and already reviewed in the correction ledger. Preserve literal protocol, platform and unit identifiers; retain unchanged compound components for later fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "board-title",
+    "before": "ኣርእስቲ ሰሌዳ",
+    "after": "ኣርእስቲ ምዱድ",
+    "reason": "2026-09-15: Replace Tigrinya-seeded components in compact configuration labels with Tigre terms independently attested and already reviewed in the correction ledger. Preserve literal protocol, platform and unit identifiers; retain unchanged compound components for later fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "support-title",
+    "before": "ኣርእስቲ ደገፍ",
+    "after": "ኣርእስቲ ሰዳየት",
+    "reason": "2026-09-15: Replace Tigrinya-seeded components in compact configuration labels with Tigre terms independently attested and already reviewed in the correction ledger. Preserve literal protocol, platform and unit identifiers; retain unchanged compound components for later fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "Database_type",
+    "before": "ዓይነት ዳታቤዝ",
+    "after": "ዐይነት ዳታቤዝ",
+    "reason": "2026-09-15: Replace Tigrinya-seeded components in compact configuration labels with Tigre terms independently attested and already reviewed in the correction ledger. Preserve literal protocol, platform and unit identifiers; retain unchanged compound components for later fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "OS_Type",
+    "before": "ዓይነት OS",
+    "after": "ዐይነት OS",
+    "reason": "2026-09-15: Replace Tigrinya-seeded components in compact configuration labels with Tigre terms independently attested and already reviewed in the correction ledger. Preserve literal protocol, platform and unit identifiers; retain unchanged compound components for later fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "OS_Freemem",
+    "before": "ነጻ መዘክር OS",
+    "after": "ሐራ መዘክር OS",
+    "reason": "2026-09-15: Replace Tigrinya-seeded components in compact configuration labels with Tigre terms independently attested and already reviewed in the correction ledger. Preserve literal protocol, platform and unit identifiers; retain unchanged compound components for later fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "OS_Cpus",
+    "before": "ብዝሒ CPU ናይ OS",
+    "after": "ዐደድ CPU ናይ OS",
+    "reason": "2026-09-15: Replace Tigrinya-seeded components in compact configuration labels with Tigre terms independently attested and already reviewed in the correction ledger. Preserve literal protocol, platform and unit identifiers; retain unchanged compound components for later fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "system-resources",
+    "before": "ጸጋታት ስርዓት",
+    "after": "ጸጋታት ስርዓም",
+    "reason": "2026-09-15: Replace Tigrinya-seeded components in compact configuration labels with Tigre terms independently attested and already reviewed in the correction ledger. Preserve literal protocol, platform and unit identifiers; retain unchanged compound components for later fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "size-bytes",
+    "before": "ዓቐን (ባይት)",
+    "after": "ቅያስ (ባይት)",
+    "reason": "2026-09-15: Replace Tigrinya-seeded components in compact configuration labels with Tigre terms independently attested and already reviewed in the correction ledger. Preserve literal protocol, platform and unit identifiers; retain unchanged compound components for later fluent review."
   }
 ]

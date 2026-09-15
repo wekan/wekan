@@ -213,7 +213,7 @@ assert.match(tigre['checklist-count-on-minicard'], /0\/0/);
 assert.match(tigre['checklist-count'], /0\/0/);
 assert.equal(tigre['delete-all-notifications-confirm'],
   'ኩሎም ምልክታታት ክትድምስስ ርግጸኛ ዲኻ? እዚ ትግባር ክምለስ ኣይክእልን።');
-assert.equal(tigre['parent-card'], 'ወላዲ ካርድ');
+assert.equal(tigre['parent-card'], 'ወላዲ ወረቀት ካርድ');
 assert.deepEqual(tokens(tigre['activity-set-customfield']), ['%s', '%s', '%s']);
 assert.deepEqual(tokens(tigre['r-w-every-day-at']), ['__time__']);
 assert.deepEqual(tokens(tigre['r-import-done']), ['__count__']);
