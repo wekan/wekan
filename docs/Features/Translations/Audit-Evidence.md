@@ -1,5 +1,11 @@
 # Detailed translation audit evidence
 
+2026-09-15 (`79e5a93b4`): repaired 13 unflagged Arabic
+Tamazight common popup titles using native local terms.
+Complete phrase grammar remains low confidence. Focused,
+ledger and 234-locale checks pass. Exact ledger now 22,273;
+Arabic-script review queue 127.
+
 2026-09-15 (`f0ceb8d72`): separated six removal buttons from
 the shared `unset-color` status using existing translated action
 keys. zgh's Arabic status becomes local native not-set prose.

@@ -16,7 +16,16 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `f0ceb8d72` — separate the
+Latest translation fix: **2026-09-15**, `79e5a93b4` — replace 13
+Arabic Tamazight common popup titles with local native board,
+card, label, language, settings, notification and profile terms.
+The full phrases remain low confidence pending fluent review.
+Focused positive/negative, ledger and 234-locale checks pass.
+Ledger: **22,273**. The zgh file has **127** Arabic-script
+values awaiting classification. The original flagged table is
+unchanged because these titles were outside that queue.
+
+Earlier translation fix: **2026-09-15**, `f0ceb8d72` — separate the
 shared `unset-color` status from six UI removal buttons. Every
 locale already has generic `remove-btn` and specific
 `remove-background-image` action keys, so the buttons use those;
@@ -352,7 +361,7 @@ clauses and broader wrong-language seeds remains open.
 - [Tamazight](Tamazight-Review.md): wrong-language prose, 98 records with
   invalidated Tuareg provenance, adapted grammar and software terminology.
   Arabic `email-addresses` and its precise native plural remain open.
-  Arabic-script values have fallen from 181 to 140 across these batches;
+  Arabic-script values have fallen from 181 to 127 across these batches;
   this count
   includes possible intentional symbols and is a review queue, not a
   count of proven wrong-language strings.

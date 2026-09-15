@@ -1,5 +1,19 @@
 # Standard Moroccan Tamazight reference review
 
+## Common popup titles, 2026-09-15 (`79e5a93b4`)
+
+Thirteen unflagged popup titles formerly in Arabic now use
+native local Tamazight board, card, label, language, settings,
+notification and profile terms. The settings, label creation,
+profile edit and import-board titles reuse exact existing
+labels. Full board-information and create/edit phrase grammar
+remains **low confidence** pending fluent review.
+
+Focused positive and wrong-language negative assertions,
+ledger and 234-locale completeness checks pass. Arabic-script
+values fall from 140 to 127. Original flagged findings are
+unchanged; permissions and link actions still need review.
+
 ## Unset status and removal action contexts, 2026-09-15 (`f0ceb8d72`)
 
 The Arabic `unset-color` key was used for both status displays

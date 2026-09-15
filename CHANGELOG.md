@@ -656,6 +656,15 @@ This release includes the following features and fixes:
 **Translations** - Tamazight, Tigre and multilingual list-width repairs.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/79e5a93b4">Repair Tamazight common popup titles</a>. Thanks to xet7.</summary>
+
+Replace 13 Arabic popup titles with native local board,
+card, label and member-setting terms. Focused, ledger and
+all-locale checks pass; full phrase grammar needs fluent review.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f0ceb8d72">Separate translated removal actions from Unset status</a>. Thanks to xet7.</summary>
 
 Color and image removal buttons use existing translated
