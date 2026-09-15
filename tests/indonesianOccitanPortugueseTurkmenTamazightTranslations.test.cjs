@@ -428,3 +428,17 @@ for (const [key, epoch] of [
 }
 assert.notEqual(locales.zgh['calendar-system-islamic-civil'],
   locales.zgh['calendar-system-islamic-tbla']);
+
+for (const key of [
+  'accessibility', 'accessibility-page-enabled',
+  'accessibility-info-not-added-yet', 'disambiguateMultiLabelPopup-title',
+  'enable-vertical-scrollbars', 'import-board-zip',
+  'open-many-cards-at-once-description',
+]) {
+  assert.doesNotMatch(locales.zgh[key], /[\u0600-\u06ff]/,
+    `${key}: no Arabic seed remains`);
+  assert.match(locales.zgh[key], /[\u2d30-\u2d7f]/,
+    `${key}: Standard Moroccan Tamazight script`);
+}
+assert.match(locales.zgh['import-board-zip'], /\.zip.*JSON/);
+assert.match(locales.zgh['open-many-cards-at-once-description'], /ⵜⴰⴽⴰⵕⴹⴰ.*ⵜⵔⵥⵎ.*ⵢⵔⴳⵍ/);

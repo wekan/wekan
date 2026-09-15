@@ -140362,5 +140362,54 @@
     "before": "Islamic tabular",
     "after": "ⴰⵙⵎⵍⵓⵙⵙⴰⵏ ⵏ ⵍⵉⵙⵍⴰⵎ (ⵙ ⵓⵙⵉⴹⴻⵏ, ⵜⵓⴷⴷⵎⴰ ⵏ Julian: 622-07-15)",
     "reason": "2026-09-15: Replace the two English tabular Hijri seeds without misusing the dictionary furniture-table noun. Reuse the existing Islamic-calendar label and attested/local calculation and beginning terms, then state the defining Julian epoch dates explicitly: civil 622-07-16 and astronomical 622-07-15. This preserves the algorithm distinction. Julian-name adaptation and complete technical compounds remain low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "accessibility",
+    "before": "Accessibilité",
+    "after": "ⴰⵏⴽⵛⵓⵎ ⵉ ⴽⵓⵍⵍⵓ",
+    "reason": "2026-09-15: Replace Arabic/French accessibility, label-action, scrollbar, ZIP-import and multi-card-window values with Standard Moroccan Tamazight drafts. Reuse existing access-for-all, page, enabled, information, add, label, action, file, board, attachment, open/close and card vocabulary; preserve .zip and JSON literals. Full accessibility, scrollbar and window compounds remain low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "accessibility-page-enabled",
+    "before": "تم تمكين صفحة إمكانية الوصول",
+    "after": "ⵜⴰⵙⵏⴰ ⵏ ⵓⵏⴽⵛⵓⵎ ⵉ ⴽⵓⵍⵍⵓ ⵜⵜⵓⵔⵎⴷ",
+    "reason": "2026-09-15: Replace Arabic/French accessibility, label-action, scrollbar, ZIP-import and multi-card-window values with Standard Moroccan Tamazight drafts. Reuse existing access-for-all, page, enabled, information, add, label, action, file, board, attachment, open/close and card vocabulary; preserve .zip and JSON literals. Full accessibility, scrollbar and window compounds remain low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "accessibility-info-not-added-yet",
+    "before": "L'information d'accessibilité n'a pas encore été ajoutée",
+    "after": "ⵓⵔⵜⴰ ⵜⵜⵓⵔⵏⴰⵏ ⵉⵏⵖⵎⵉⵙⵏ ⵏ ⵓⵏⴽⵛⵓⵎ ⵉ ⴽⵓⵍⵍⵓ",
+    "reason": "2026-09-15: Replace Arabic/French accessibility, label-action, scrollbar, ZIP-import and multi-card-window values with Standard Moroccan Tamazight drafts. Reuse existing access-for-all, page, enabled, information, add, label, action, file, board, attachment, open/close and card vocabulary; preserve .zip and JSON literals. Full accessibility, scrollbar and window compounds remain low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "disambiguateMultiLabelPopup-title",
+    "before": "تحديد الإجراء على العلامة",
+    "after": "ⵙⵙⴼⵔⵓ ⵜⵉⴳⴰⵡⵜ ⵏ ⵓⵔⵛⵓⵎ",
+    "reason": "2026-09-15: Replace Arabic/French accessibility, label-action, scrollbar, ZIP-import and multi-card-window values with Standard Moroccan Tamazight drafts. Reuse existing access-for-all, page, enabled, information, add, label, action, file, board, attachment, open/close and card vocabulary; preserve .zip and JSON literals. Full accessibility, scrollbar and window compounds remain low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "enable-vertical-scrollbars",
+    "before": "تمكين أشرطة التمرير العمودية",
+    "after": "ⵔⵎⴷ ⵜⵉⵙⴳⴰⵔ ⵜⵉⴱⴷⴷⴰⴷⵉⵏ ⵏ ⵓⴷⵔⵓⵔ",
+    "reason": "2026-09-15: Replace Arabic/French accessibility, label-action, scrollbar, ZIP-import and multi-card-window values with Standard Moroccan Tamazight drafts. Reuse existing access-for-all, page, enabled, information, add, label, action, file, board, attachment, open/close and card vocabulary; preserve .zip and JSON literals. Full accessibility, scrollbar and window compounds remain low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "import-board-zip",
+    "before": "أضف ملف .zip الذي يحتوي على ملفات JSON الخاصة باللوحة، ودلائل فرعية لأسماء اللوحة مع المرفقات",
+    "after": "ⵔⵏⵓ ⵜⴰⴼⴰⵢⵍⵓⵜ .zip ⵉⵍⵍⴰⵏ ⴷⵉⴳⵙ ⵉⴼⴰⵢⵍⵓⵜⵏ JSON ⵏ ⵜⴼⵍⵡⵉⵜ ⴷ ⵉⴼⵔⴷⵉⵙⵏ ⵙ ⵉⵙⵎⴰⵡⵏ ⵏ ⵜⴼⵍⵡⵉⵏ ⴷ ⵜⵉⵙⵉⵡⴰⵢ ⵢⵔⵏⴰⵏ",
+    "reason": "2026-09-15: Replace Arabic/French accessibility, label-action, scrollbar, ZIP-import and multi-card-window values with Standard Moroccan Tamazight drafts. Reuse existing access-for-all, page, enabled, information, add, label, action, file, board, attachment, open/close and card vocabulary; preserve .zip and JSON literals. Full accessibility, scrollbar and window compounds remain low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "open-many-cards-at-once-description",
+    "before": "تبقى كل بطاقة تنقر عليها مفتوحة في نافذتها الخاصة. عند إيقاف هذا الخيار، يؤدي النقر على بطاقة إلى إغلاق البطاقة المفتوحة.",
+    "after": "ⵃⴹⵓ ⵢⴰⵍ ⵜⴰⴽⴰⵕⴹⴰ ⵜⵙⵙⵉⵜⴷ ⵖⵉⴼⵙ ⵜⵔⵥⵎ ⴳ ⵓⵙⴼⴰⵢⵍⵓ ⵏⵏⵙ. ⵎⴽ ⵉⵏⵙⴰ ⵓⴼⵔⴰⵏ ⴰⴷ, ⴰⵙⵙⵉⵜ ⵖⴼ ⵜⴽⴰⵕⴹⴰ ⴰⴷ ⵢⵔⴳⵍ ⵜⵉⵏⵏⴰ ⵉⵔⵥⵎⵏ.",
+    "reason": "2026-09-15: Replace Arabic/French accessibility, label-action, scrollbar, ZIP-import and multi-card-window values with Standard Moroccan Tamazight drafts. Reuse existing access-for-all, page, enabled, information, add, label, action, file, board, attachment, open/close and card vocabulary; preserve .zip and JSON literals. Full accessibility, scrollbar and window compounds remain low confidence pending fluent review."
   }
 ]
