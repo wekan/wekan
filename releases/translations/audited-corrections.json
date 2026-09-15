@@ -155930,5 +155930,40 @@
     "before": "عناوين البريد الإلكتروني",
     "after": "ⴰⵏⵙⵉⵡⵏ ⵏ ⵉⵎⴰⵢⵍ",
     "reason": "Replace Arabic Email Addresses using IRCAM-attested ansiwn plural and the already-local email noun."
+  },
+  {
+    "locale": "zgh",
+    "key": "copy-link-to-clipboard",
+    "before": "نسخ الرابط إلى الحافظة",
+    "after": "ⵙⵙⵏⵖⵍ ⴰⵙⵖⵏ ⵖⵔ «ⵖⴼ ⵓⴼⵓⵙ»",
+    "reason": "Use the native copy, link and clipboard components from existing card/text copy actions."
+  },
+  {
+    "locale": "zgh",
+    "key": "leaveBoardPopup-title",
+    "before": "مغادرة اللوحة ؟",
+    "after": "ⴼⴼⵖ ⵙⴳ ⵜⴼⵍⵡⵉⵜ?",
+    "reason": "Match the native Leave Board action while preserving the question prompt."
+  },
+  {
+    "locale": "zgh",
+    "key": "memberMenuPopup-title",
+    "before": "أفضليات الأعضاء",
+    "after": "ⵜⵉⵙⵖⴰⵍ ⵏ ⵓⴳⵎⴰⵎ",
+    "reason": "Reuse the existing Member Settings popup title exactly."
+  },
+  {
+    "locale": "zgh",
+    "key": "moveCardPopup-title",
+    "before": "نقل البطاقة",
+    "after": "ⵙⵎⵓⵜⵜⵉ ⵜⴰⴽⴰⵕⴹⴰ",
+    "reason": "Reuse the native Move Card phrase from the card movement action."
+  },
+  {
+    "locale": "zgh",
+    "key": "removeMemberPopup-title",
+    "before": "حذف العضو ?",
+    "after": "ⴽⴽⵙ ⴰⴳⵎⴰⵎ?",
+    "reason": "Match the native Remove Member action while preserving the question prompt."
   }
 ]
