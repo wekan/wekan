@@ -148097,5 +148097,75 @@
     "before": "ጉጅለ ኣውጽእ",
     "after": "ፈሪቅ ኣውጽእ",
     "reason": "2026-09-15: Replace a Tigrinya-seeded team noun in semantically matched controls with the independently corpus-attested Tigre term already reviewed in the correction ledger. Exclude icon, checkbox, token-prefix and unverified plural senses."
+  },
+  {
+    "locale": "tig",
+    "key": "board-view-timeline",
+    "before": "መስመር ግዜ",
+    "after": "መስመር ወቅት",
+    "reason": "2026-09-15: Replace the Tigrinya Time spelling, absent from the Tigre corpus, with corpus-attested Tigre Time already reviewed in the correction ledger. Preserve literal OS and HH:MM identifiers and surrounding grammar for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "board-view-cycle-time",
+    "before": "ናይ ዑደት ግዜ",
+    "after": "ናይ ዑደት ወቅት",
+    "reason": "2026-09-15: Replace the Tigrinya Time spelling, absent from the Tigre corpus, with corpus-attested Tigre Time already reviewed in the correction ledger. Preserve literal OS and HH:MM identifiers and surrounding grammar for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "board-view-lead-time",
+    "before": "ናይ ምብጻሕ ግዜ",
+    "after": "ናይ ምብጻሕ ወቅት",
+    "reason": "2026-09-15: Replace the Tigrinya Time spelling, absent from the Tigre corpus, with corpus-attested Tigre Time already reviewed in the correction ledger. Preserve literal OS and HH:MM identifiers and surrounding grammar for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "OS_Uptime",
+    "before": "ግዜ ስራሕ OS",
+    "after": "ወቅት ስራሕ OS",
+    "reason": "2026-09-15: Replace the Tigrinya Time spelling, absent from the Tigre corpus, with corpus-attested Tigre Time already reviewed in the correction ledger. Preserve literal OS and HH:MM identifiers and surrounding grammar for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "backup-time",
+    "before": "ግዜ (HH:MM)",
+    "after": "ወቅት (HH:MM)",
+    "reason": "2026-09-15: Replace the Tigrinya Time spelling, absent from the Tigre corpus, with corpus-attested Tigre Time already reviewed in the correction ledger. Preserve literal OS and HH:MM identifiers and surrounding grammar for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "backup-datetime",
+    "before": "ዕለትን ግዜን",
+    "after": "ዕለትን ወቅትን",
+    "reason": "2026-09-15: Replace the Tigrinya Time spelling, absent from the Tigre corpus, with corpus-attested Tigre Time already reviewed in the correction ledger. Preserve literal OS and HH:MM identifiers and surrounding grammar for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "estimated-time-remaining",
+    "before": "ግምታዊ ዝተረፈ ግዜ",
+    "after": "ግምታዊ ዝተረፈ ወቅት",
+    "reason": "2026-09-15: Replace the Tigrinya Time spelling, absent from the Tigre corpus, with corpus-attested Tigre Time already reviewed in the correction ledger. Preserve literal OS and HH:MM identifiers and surrounding grammar for separate fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "filter-dates-label",
+    "before": "ብዕለት ኣጻሪ",
+    "after": "እብ ዕለት ኣጻሪ",
+    "reason": "2026-09-15: Preserve corpus-attested Tigre Date or Hour nouns while replacing the Tigrinya preposition with independently attested Tigre by/on forms. Remaining control grammar stays open to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "r-schedule-on-date",
+    "before": "ኣብ ዕለት",
+    "after": "ዲብ ዕለት",
+    "reason": "2026-09-15: Preserve corpus-attested Tigre Date or Hour nouns while replacing the Tigrinya preposition with independently attested Tigre by/on forms. Remaining control grammar stays open to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "r-schedule-at-time",
+    "before": "ኣብ ሰዓት",
+    "after": "ዲብ ሰዓት",
+    "reason": "2026-09-15: Preserve corpus-attested Tigre Date or Hour nouns while replacing the Tigrinya preposition with independently attested Tigre by/on forms. Remaining control grammar stays open to fluent review."
   }
 ]
