@@ -1930,6 +1930,16 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2bb4b88cb">Correct Tigre member terminology.</a></summary>
+
+Use the corpus Member/Members pair across seven controls and replace an earlier
+association-sense choice.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e17bb2b5e">Repair native-catalogue Veps interface terms.</a></summary>
 
 Replace 31 Finnish-seeded labels through exact English-source matching with

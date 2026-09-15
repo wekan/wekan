@@ -16,21 +16,21 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `6f25928145` — replace 27
-Tigrinya-seeded Tigre time-unit and interface compounds by consistently reusing
-corpus-established card, board, task, name, text, color, size, close, copy and
-sort roots. Unit parentheses, punctuation and identifiers remain exact; ledger
-20,880. The Veps seed review remains complete.
+Latest translation fix: **2026-09-15**, `2bb4b88cb5` — correct five
+earlier Tigre Member labels that used the association sense and repair two
+remaining plural controls. The explicit corpus plural template now supplies
+`አባል`/`አባላት` consistently. Ledger 20,882; the previous compound batch is
+`6f25928145`. The Veps seed review remains complete.
 
 The tracked Tigre calendar queue being empty does not certify the locale. Of
-2,592 non-English Tigre values, 653 are byte-for-byte identical to Tigrinya;
-20 are corpus-attested shared terms and 633 remain unclassified, including 84
+2,592 non-English Tigre values, 651 are byte-for-byte identical to Tigrinya;
+20 are corpus-attested shared terms and 631 remain unclassified, including 84
 values of at least 20 characters and 18 of at least 35 characters. This is an
 explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **20,880** exact before/after values, including unflagged
+records contain **20,882** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.

@@ -30846,3 +30846,12 @@ Tigre roots established by prior corpus evidence. Focused checks preserve the
 unit syntax and reject every former seed; all 20,880 correction records and
 234 locale inventories pass. Raw overlap falls to 653; 633 remain unclassified
 after 20 attested shared forms. No remote write occurred.
+
+### 2026-09-15 — Tigre member terminology correction
+
+Source commit `2bb4b88cb5` replaces the earlier association sense with the
+explicit corpus Member/Members pair `አባል`/`አባላት` in five repaired and two
+previously seeded controls. The earlier ledger records are corrected in place
+so every audited after-value still equals current source. All 20,882 correction
+records and 234 locale inventories pass. Raw overlap falls to 651; 631 remain
+unclassified after 20 attested shared forms. No remote write occurred.

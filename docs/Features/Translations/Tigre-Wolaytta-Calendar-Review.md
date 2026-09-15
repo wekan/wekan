@@ -379,3 +379,13 @@ identifiers and punctuation stay exact. Focused checks reject every former
 seed; all 20,880 corrections and 234 locale inventories pass. Raw overlap falls
 to 653, with 20 shared forms and 633 unclassified. Compound word order and
 derived plurals remain open to fluent review. No remote write ran.
+
+## Tigre member terminology corrected — 2026-09-15
+
+Source commit `2bb4b88cb5` corrects an earlier lexical choice: the corpus form
+`መሕበር` names an association, while an explicit BeitTigreAI plural template
+gives `አባል`/`አባላት` for Member/Members. Five earlier repaired values are
+corrected in place and two remaining plural controls are repaired. Focused
+checks cover all seven values and reject the association sense; all 20,882
+correction records and 234 locale inventories pass. Raw overlap falls to 651,
+with 20 shared forms and 631 unclassified. No remote write ran.
