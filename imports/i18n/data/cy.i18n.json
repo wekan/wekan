@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Gosod lled",
   "set-list-width": "Gosod lled",
   "set-list-width-value": "Lled y rhestr (picseli)",
-  "list-width-error-message": "Rhaid i led y rhestr fod yn gyfanrif sy'n fwy na 270",
+  "list-width-error-message": "Rhaid i led y rhestr fod yn gyfanrif o leiaf 200 picseli.",
   "list-width-shared-note": "Rhennir y lled hwn â phawb ar y bwrdd hwn.",
   "list-width-personal-note": "Mae'r lled hwn ar eich cyfer chi yn unig.",
   "personal-list-width": "Lledau rhestr personol",

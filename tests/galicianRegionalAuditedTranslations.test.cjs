@@ -31,7 +31,8 @@ assert.match(data['checklistItemDeletePopup-title'], /o elemento da lista/);
 assert.notEqual(data['checklistItemDeletePopup-title'], data['checklistDeletePopup-title']);
 assert.match(data['comment-assigned-only-desc'], /Só son visibles as tarxetas asignadas.*Só pode comentar/);
 assert.match(data['comment-not-found'], /tarxeta cun comentario/);
-assert.match(data['close-board-pop'], /restaurar o taboleiro.*botón «Arquivo».*cabeceira de inicio/);
+assert.match(data['close-board-pop'], /restaurar o taboleiro.*«Arquivo».*páxina «Todos os taboleiros»/);
+assert.doesNotMatch(data['close-board-pop'], /cabeceira de inicio|botón «Arquivo»/);
 
 assert.match(data['card-delete-pop'], /Todas as accións.*non poderás reabrir.*Non se pode desfacer/);
 assert.match(data['card-delete-suggest-archive'], /Arquivo.*conservar a actividade/);

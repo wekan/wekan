@@ -153886,5 +153886,236 @@
     "before": "De lijstbreedte moet een geheel getal groter dan 270 zijn",
     "after": "De lijstbreedte moet een geheel getal van ten minste 200 pixels zijn.",
     "reason": "Restore the actual inclusive 200-pixel whole-number minimum using existing locale terminology; old >270 rule was stale."
+  },
+  {
+    "locale": "az",
+    "key": "list-width-error-message",
+    "before": "Siyahı eni 270-dən böyük tam ədəd olmalıdır",
+    "after": "Siyahı eni ən azı 200 piksel olan tam ədəd olmalıdır.",
+    "reason": "Replace obsolete >270 rule with the actual inclusive 200-pixel integer minimum using this locale’s existing width, number and lower-bound wording."
+  },
+  {
+    "locale": "az-AZ",
+    "key": "list-width-error-message",
+    "before": "Siyahı eni 270-dən böyük tam ədəd olmalıdır",
+    "after": "Siyahı eni ən azı 200 piksel olan tam ədəd olmalıdır.",
+    "reason": "Replace obsolete >270 rule with the actual inclusive 200-pixel integer minimum using this locale’s existing width, number and lower-bound wording."
+  },
+  {
+    "locale": "az-LA",
+    "key": "list-width-error-message",
+    "before": "Siyahı eni 270-dən böyük tam ədəd olmalıdır",
+    "after": "Siyahı eni ən azı 200 piksel olan tam ədəd olmalıdır.",
+    "reason": "Replace obsolete >270 rule with the actual inclusive 200-pixel integer minimum using this locale’s existing width, number and lower-bound wording."
+  },
+  {
+    "locale": "ca",
+    "key": "list-width-error-message",
+    "before": "L'amplada de la llista ha de ser un enter més gran que 270",
+    "after": "L'amplada de la llista ha de ser un nombre enter d'almenys 200 píxels.",
+    "reason": "Replace obsolete >270 rule with the actual inclusive 200-pixel integer minimum using this locale’s existing width, number and lower-bound wording."
+  },
+  {
+    "locale": "ca_ES",
+    "key": "list-width-error-message",
+    "before": "L'amplada de la llista ha de ser un enter més gran que 270",
+    "after": "L'amplada de la llista ha de ser un nombre enter d'almenys 200 píxels.",
+    "reason": "Replace obsolete >270 rule with the actual inclusive 200-pixel integer minimum using this locale’s existing width, number and lower-bound wording."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "list-width-error-message",
+    "before": "L'amplada de la llista ha de ser un enter més gran que 270",
+    "after": "L'amplada de la llista ha de ser un nombre enter d'almenys 200 píxels.",
+    "reason": "Replace obsolete >270 rule with the actual inclusive 200-pixel integer minimum using this locale’s existing width, number and lower-bound wording."
+  },
+  {
+    "locale": "uz",
+    "key": "list-width-error-message",
+    "before": "Roʻyxat kengligi 270 dan katta butun son boʻlishi kerak",
+    "after": "Roʻyxat kengligi kamida 200 piksel boʻlgan butun son boʻlishi kerak.",
+    "reason": "Replace obsolete >270 rule with the actual inclusive 200-pixel integer minimum using this locale’s existing width, number and lower-bound wording."
+  },
+  {
+    "locale": "uz-UZ",
+    "key": "list-width-error-message",
+    "before": "Roʻyxat kengligi 270 dan katta butun son boʻlishi kerak",
+    "after": "Roʻyxat kengligi kamida 200 piksel boʻlgan butun son boʻlishi kerak.",
+    "reason": "Replace obsolete >270 rule with the actual inclusive 200-pixel integer minimum using this locale’s existing width, number and lower-bound wording."
+  },
+  {
+    "locale": "uz-LA",
+    "key": "list-width-error-message",
+    "before": "Roʻyxat kengligi 270 dan katta butun son boʻlishi kerak",
+    "after": "Roʻyxat kengligi kamida 200 piksel boʻlgan butun son boʻlishi kerak.",
+    "reason": "Replace obsolete >270 rule with the actual inclusive 200-pixel integer minimum using this locale’s existing width, number and lower-bound wording."
+  },
+  {
+    "locale": "el",
+    "key": "list-width-error-message",
+    "before": "Το πλάτος της λίστας πρέπει να είναι ακέραιος μεγαλύτερος από 270",
+    "after": "Το πλάτος της λίστας πρέπει να είναι ακέραιος αριθμός τουλάχιστον 200 pixels.",
+    "reason": "Replace obsolete >270 rule with the actual inclusive 200-pixel integer minimum using this locale’s existing width, number and lower-bound wording."
+  },
+  {
+    "locale": "el-GR",
+    "key": "list-width-error-message",
+    "before": "Το πλάτος της λίστας πρέπει να είναι ακέραιος μεγαλύτερος από 270",
+    "after": "Το πλάτος της λίστας πρέπει να είναι ακέραιος αριθμός τουλάχιστον 200 pixels.",
+    "reason": "Replace obsolete >270 rule with the actual inclusive 200-pixel integer minimum using this locale’s existing width, number and lower-bound wording."
+  },
+  {
+    "locale": "cy",
+    "key": "list-width-error-message",
+    "before": "Rhaid i led y rhestr fod yn gyfanrif sy'n fwy na 270",
+    "after": "Rhaid i led y rhestr fod yn gyfanrif o leiaf 200 picseli.",
+    "reason": "Replace obsolete >270 rule with the actual inclusive 200-pixel integer minimum using this locale’s existing width, number and lower-bound wording."
+  },
+  {
+    "locale": "cy-GB",
+    "key": "list-width-error-message",
+    "before": "Rhaid i led y rhestr fod yn gyfanrif sy'n fwy na 270",
+    "after": "Rhaid i led y rhestr fod yn gyfanrif o leiaf 200 picseli.",
+    "reason": "Replace obsolete >270 rule with the actual inclusive 200-pixel integer minimum using this locale’s existing width, number and lower-bound wording."
+  },
+  {
+    "locale": "ro",
+    "key": "list-width-error-message",
+    "before": "Lățimea listei trebuie să fie un număr întreg mai mare decât 270",
+    "after": "Lățimea listei trebuie să fie un număr întreg de cel puțin 200 de pixeli.",
+    "reason": "Replace obsolete >270 rule with the actual inclusive 200-pixel integer minimum using this locale’s existing width, number and lower-bound wording."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "list-width-error-message",
+    "before": "Lățimea listei trebuie să fie un număr întreg mai mare decât 270",
+    "after": "Lățimea listei trebuie să fie un număr întreg de cel puțin 200 de pixeli.",
+    "reason": "Replace obsolete >270 rule with the actual inclusive 200-pixel integer minimum using this locale’s existing width, number and lower-bound wording."
+  },
+  {
+    "locale": "sl",
+    "key": "list-width-error-message",
+    "before": "Širina seznama mora biti celo število, večje od 270",
+    "after": "Širina seznama mora biti celo število vsaj 200 slikovnih pik.",
+    "reason": "Replace obsolete >270 rule with the actual inclusive 200-pixel integer minimum using this locale’s existing width, number and lower-bound wording."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "list-width-error-message",
+    "before": "Širina seznama mora biti celo število, večje od 270",
+    "after": "Širina seznama mora biti celo število vsaj 200 slikovnih pik.",
+    "reason": "Replace obsolete >270 rule with the actual inclusive 200-pixel integer minimum using this locale’s existing width, number and lower-bound wording."
+  },
+  {
+    "locale": "vi",
+    "key": "list-width-error-message",
+    "before": "Chiều rộng danh sách phải là số nguyên lớn hơn 270",
+    "after": "Chiều rộng danh sách phải là số nguyên ít nhất 200 pixel.",
+    "reason": "Replace obsolete >270 rule with the actual inclusive 200-pixel integer minimum using this locale’s existing width, number and lower-bound wording."
+  },
+  {
+    "locale": "vi-VN",
+    "key": "list-width-error-message",
+    "before": "Chiều rộng danh sách phải là số nguyên lớn hơn 270",
+    "after": "Chiều rộng danh sách phải là số nguyên ít nhất 200 pixel.",
+    "reason": "Replace obsolete >270 rule with the actual inclusive 200-pixel integer minimum using this locale’s existing width, number and lower-bound wording."
+  },
+  {
+    "locale": "af",
+    "key": "list-width-error-message",
+    "before": "Lyswydte moet 'n heelgetal groter as 270 wees",
+    "after": "Lyswydte moet 'n heelgetal van ten minste 200 pixels wees.",
+    "reason": "Replace obsolete >270 rule with the actual inclusive 200-pixel integer minimum using this locale’s existing width, number and lower-bound wording."
+  },
+  {
+    "locale": "af_ZA",
+    "key": "list-width-error-message",
+    "before": "Lyswydte moet 'n heelgetal groter as 270 wees",
+    "after": "Lyswydte moet 'n heelgetal van ten minste 200 pixels wees.",
+    "reason": "Replace obsolete >270 rule with the actual inclusive 200-pixel integer minimum using this locale’s existing width, number and lower-bound wording."
+  },
+  {
+    "locale": "fy",
+    "key": "list-width-error-message",
+    "before": "Listbreedte moat in hiel getal grutter as 270 wêze",
+    "after": "Listbreedte moat in hiel getal fan op syn minst 200 piksels wêze.",
+    "reason": "Replace obsolete >270 rule with the actual inclusive 200-pixel integer minimum using this locale’s existing width, number and lower-bound wording."
+  },
+  {
+    "locale": "fy-NL",
+    "key": "list-width-error-message",
+    "before": "Listbreedte moat in hiel getal grutter as 270 wêze",
+    "after": "Listbreedte moat in hiel getal fan op syn minst 200 piksels wêze.",
+    "reason": "Replace obsolete >270 rule with the actual inclusive 200-pixel integer minimum using this locale’s existing width, number and lower-bound wording."
+  },
+  {
+    "locale": "gl",
+    "key": "list-width-error-message",
+    "before": "A largura da lista debe ser un número enteiro maior que 270",
+    "after": "A largura da lista debe ser un número enteiro de polo menos 200 píxeles.",
+    "reason": "Replace obsolete >270 rule with the actual inclusive 200-pixel integer minimum using this locale’s existing width, number and lower-bound wording."
+  },
+  {
+    "locale": "gl-ES",
+    "key": "list-width-error-message",
+    "before": "A largura da lista debe ser un número enteiro maior que 270",
+    "after": "A largura da lista debe ser un número enteiro de polo menos 200 píxeles.",
+    "reason": "Replace obsolete >270 rule with the actual inclusive 200-pixel integer minimum using this locale’s existing width, number and lower-bound wording."
+  },
+  {
+    "locale": "hi",
+    "key": "list-width-error-message",
+    "before": "सूची चौड़ाई 270 से बड़ी एक पूर्णांक होनी चाहिए",
+    "after": "सूची की चौड़ाई कम से कम 200 पिक्सेल की पूर्णांक संख्या होनी चाहिए।",
+    "reason": "Replace obsolete >270 rule with the actual inclusive 200-pixel integer minimum using this locale’s existing width, number and lower-bound wording."
+  },
+  {
+    "locale": "hi-IN",
+    "key": "list-width-error-message",
+    "before": "सूची चौड़ाई 270 से बड़ी एक पूर्णांक होनी चाहिए",
+    "after": "सूची की चौड़ाई कम से कम 200 पिक्सेल की पूर्णांक संख्या होनी चाहिए।",
+    "reason": "Replace obsolete >270 rule with the actual inclusive 200-pixel integer minimum using this locale’s existing width, number and lower-bound wording."
+  },
+  {
+    "locale": "ms",
+    "key": "list-width-error-message",
+    "before": "Lebar senarai mestilah integer yang lebih besar daripada 270",
+    "after": "Lebar senarai mestilah nombor bulat sekurang-kurangnya 200 piksel.",
+    "reason": "Replace obsolete >270 rule with the actual inclusive 200-pixel integer minimum using this locale’s existing width, number and lower-bound wording."
+  },
+  {
+    "locale": "ms-MY",
+    "key": "list-width-error-message",
+    "before": "Lebar senarai mestilah integer yang lebih besar daripada 270",
+    "after": "Lebar senarai mestilah nombor bulat sekurang-kurangnya 200 piksel.",
+    "reason": "Replace obsolete >270 rule with the actual inclusive 200-pixel integer minimum using this locale’s existing width, number and lower-bound wording."
+  },
+  {
+    "locale": "bs",
+    "key": "list-width-error-message",
+    "before": "Širina liste mora biti cijeli broj veći od 270",
+    "after": "Širina liste mora biti cijeli broj od najmanje 200 piksela.",
+    "reason": "Replace obsolete >270 rule with the actual inclusive 200-pixel integer minimum using this locale’s existing width, number and lower-bound wording."
+  },
+  {
+    "locale": "hr",
+    "key": "list-width-error-message",
+    "before": "Širina liste mora biti cijeli broj veći od 270",
+    "after": "Širina liste mora biti cijeli broj od najmanje 200 piksela.",
+    "reason": "Replace obsolete >270 rule with the actual inclusive 200-pixel integer minimum using this locale’s existing width, number and lower-bound wording."
+  },
+  {
+    "locale": "km",
+    "key": "list-width-error-message",
+    "before": "ទទឹងបញ្ជីត្រូវតែជាចំនួនគត់ធំជាង 270",
+    "after": "ទទឹងបញ្ជីត្រូវតែជាចំនួនគត់យ៉ាងហោចណាស់ 200 ភីកសែល។",
+    "reason": "Replace obsolete >270 rule with the actual inclusive 200-pixel integer minimum using this locale’s existing width, number and lower-bound wording."
+  },
+  {
+    "locale": "km_KH",
+    "key": "list-width-error-message",
+    "before": "ទទឹងបញ្ជីត្រូវតែជាចំនួនគត់ធំជាង 270",
+    "after": "ទទឹងបញ្ជីត្រូវតែជាចំនួនគត់យ៉ាងហោចណាស់ 200 ភីកសែល។",
+    "reason": "Replace obsolete >270 rule with the actual inclusive 200-pixel integer minimum using this locale’s existing width, number and lower-bound wording."
   }
 ]

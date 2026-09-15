@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Eni təyin et",
   "set-list-width": "Eni təyin et",
   "set-list-width-value": "Siyahı eni (piksel)",
-  "list-width-error-message": "Siyahı eni 270-dən böyük tam ədəd olmalıdır",
+  "list-width-error-message": "Siyahı eni ən azı 200 piksel olan tam ədəd olmalıdır.",
   "list-width-shared-note": "Bu en bu lövhədəki hər kəslə paylaşılır.",
   "list-width-personal-note": "Bu en yalnız sizin üçündür.",
   "personal-list-width": "Şəxsi siyahı enləri",

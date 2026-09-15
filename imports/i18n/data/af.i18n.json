@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Stel wydte",
   "set-list-width": "Stel wydte",
   "set-list-width-value": "Lyswydte (pixels)",
-  "list-width-error-message": "Lyswydte moet 'n heelgetal groter as 270 wees",
+  "list-width-error-message": "Lyswydte moet 'n heelgetal van ten minste 200 pixels wees.",
   "list-width-shared-note": "Hierdie wydte word met almal op hierdie bord gedeel.",
   "list-width-personal-note": "Hierdie wydte is net vir jou.",
   "personal-list-width": "Persoonlike lyswydtes",

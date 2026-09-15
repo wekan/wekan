@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Breedte ynstelle",
   "set-list-width": "Breedte ynstelle",
   "set-list-width-value": "Listbreedte (piksels)",
-  "list-width-error-message": "Listbreedte moat in hiel getal grutter as 270 wêze",
+  "list-width-error-message": "Listbreedte moat in hiel getal fan op syn minst 200 piksels wêze.",
   "list-width-shared-note": "Dizze breedte wurdt dield mei elkenien op dit board.",
   "list-width-personal-note": "Dizze breedte is allinnich foar jo.",
   "personal-list-width": "Persoanlike listbreedtes",

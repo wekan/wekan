@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "កំណត់ទទឹង",
   "set-list-width": "កំណត់ទទឹង",
   "set-list-width-value": "ទទឹងបញ្ជី (ភីកសែល)",
-  "list-width-error-message": "ទទឹងបញ្ជីត្រូវតែជាចំនួនគត់ធំជាង 270",
+  "list-width-error-message": "ទទឹងបញ្ជីត្រូវតែជាចំនួនគត់យ៉ាងហោចណាស់ 200 ភីកសែល។",
   "list-width-shared-note": "ទទឹងនេះត្រូវបានចែករំលែកជាមួយអ្នករាល់គ្នានៅលើក្តារនេះ។",
   "list-width-personal-note": "ទទឹងនេះសម្រាប់តែអ្នកប៉ុណ្ណោះ។",
   "personal-list-width": "ទទឹងបញ្ជីផ្ទាល់ខ្លួន",

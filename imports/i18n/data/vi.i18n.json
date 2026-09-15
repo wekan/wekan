@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Đặt chiều rộng",
   "set-list-width": "Đặt chiều rộng",
   "set-list-width-value": "Chiều rộng danh sách (pixel)",
-  "list-width-error-message": "Chiều rộng danh sách phải là số nguyên lớn hơn 270",
+  "list-width-error-message": "Chiều rộng danh sách phải là số nguyên ít nhất 200 pixel.",
   "list-width-shared-note": "Chiều rộng này được chia sẻ với tất cả mọi người trên bảng này.",
   "list-width-personal-note": "Chiều rộng này chỉ dành cho bạn.",
   "personal-list-width": "Chiều rộng danh sách cá nhân",

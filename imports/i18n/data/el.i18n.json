@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Ορισμός πλάτους",
   "set-list-width": "Ορισμός πλάτους",
   "set-list-width-value": "Πλάτος λίστας (pixels)",
-  "list-width-error-message": "Το πλάτος της λίστας πρέπει να είναι ακέραιος μεγαλύτερος από 270",
+  "list-width-error-message": "Το πλάτος της λίστας πρέπει να είναι ακέραιος αριθμός τουλάχιστον 200 pixels.",
   "list-width-shared-note": "Αυτό το πλάτος είναι κοινό για όλους σε αυτόν τον πίνακα.",
   "list-width-personal-note": "Αυτό το πλάτος είναι μόνο για εσάς.",
   "personal-list-width": "Προσωπικά πλάτη λιστών",

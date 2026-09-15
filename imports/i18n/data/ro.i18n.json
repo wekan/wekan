@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Setează lățimea",
   "set-list-width": "Setează lățimea",
   "set-list-width-value": "Lățimea listei (pixeli)",
-  "list-width-error-message": "Lățimea listei trebuie să fie un număr întreg mai mare decât 270",
+  "list-width-error-message": "Lățimea listei trebuie să fie un număr întreg de cel puțin 200 de pixeli.",
   "list-width-shared-note": "Această lățime este comună pentru toți membrii acestui panou.",
   "list-width-personal-note": "Această lățime este doar pentru tine.",
   "personal-list-width": "Lățimi personale ale listelor",

@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Tetapkan lebar",
   "set-list-width": "Tetapkan lebar",
   "set-list-width-value": "Lebar senarai (piksel)",
-  "list-width-error-message": "Lebar senarai mestilah integer yang lebih besar daripada 270",
+  "list-width-error-message": "Lebar senarai mestilah nombor bulat sekurang-kurangnya 200 piksel.",
   "list-width-shared-note": "Lebar ini dikongsi dengan semua orang di papan ini.",
   "list-width-personal-note": "Lebar ini hanya untuk anda.",
   "personal-list-width": "Lebar senarai peribadi",

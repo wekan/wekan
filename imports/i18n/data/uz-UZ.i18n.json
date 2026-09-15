@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Kenglikni oʻrnatish",
   "set-list-width": "Kenglikni oʻrnatish",
   "set-list-width-value": "Roʻyxat kengligi (piksel)",
-  "list-width-error-message": "Roʻyxat kengligi 270 dan katta butun son boʻlishi kerak",
+  "list-width-error-message": "Roʻyxat kengligi kamida 200 piksel boʻlgan butun son boʻlishi kerak.",
   "list-width-shared-note": "Bu kenglik ushbu taxtadagi hamma bilan boʻlishiladi.",
   "list-width-personal-note": "Bu kenglik faqat siz uchun.",
   "personal-list-width": "Shaxsiy roʻyxat kengliklari",

@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Estableix l'amplada",
   "set-list-width": "Estableix l'amplada",
   "set-list-width-value": "Amplada de la llista (píxels)",
-  "list-width-error-message": "L'amplada de la llista ha de ser un enter més gran que 270",
+  "list-width-error-message": "L'amplada de la llista ha de ser un nombre enter d'almenys 200 píxels.",
   "list-width-shared-note": "Aquesta amplada es comparteix amb tothom en aquest tauler.",
   "list-width-personal-note": "Aquesta amplada és només per a vós.",
   "personal-list-width": "Amplades de llista personals",

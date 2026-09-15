@@ -135,7 +135,7 @@
   "setListWidthPopup-title": "Postavi širinu",
   "set-list-width": "Postavi širinu",
   "set-list-width-value": "Širina liste (pikseli)",
-  "list-width-error-message": "Širina liste mora biti cijeli broj veći od 270",
+  "list-width-error-message": "Širina liste mora biti cijeli broj od najmanje 200 piksela.",
   "list-width-shared-note": "Ova širina dijeli se sa svima na ovoj ploči.",
   "list-width-personal-note": "Ova širina vrijedi samo za vas.",
   "personal-list-width": "Osobne širine listi",
