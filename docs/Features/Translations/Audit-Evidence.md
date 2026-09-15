@@ -30951,3 +30951,13 @@ Focused exact and former-seed checks pass with all 20,965 correction records
 and 234 locale inventories. Raw non-English overlap falls to 571; 551 remain
 unclassified after 20 attested shared forms. Complete compound order remains
 open to fluent review. No remote write occurred.
+
+### 2026-09-15 — Tigre selection controls
+
+Source commit `a6dd320fd` repairs six board-selection, show/hide and select-all
+controls. Complete corpus examples directly establish Select all rows, Select
+a file, Hide and Show; earlier reviewed records supply the board, card, list
+and page nouns. Focused exact and former-seed checks pass with all 20,971
+correction records and 234 locale inventories. Raw non-English overlap falls
+to 565; 545 remain unclassified after 20 attested shared forms. Complete
+compound order remains open to fluent review. No remote write occurred.

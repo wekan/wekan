@@ -2040,6 +2040,16 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a6dd320fd">Repair Tigre selection controls.</a></summary>
+
+Replace copied Tigrinya wording in six board selection, show/hide and
+select-all controls with corpus-grounded Tigre terminology.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e17bb2b5e">Repair native-catalogue Veps interface terms.</a></summary>
 
 Replace 31 Finnish-seeded labels through exact English-source matching with

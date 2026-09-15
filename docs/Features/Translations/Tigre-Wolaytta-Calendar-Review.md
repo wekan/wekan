@@ -503,3 +503,14 @@ negative checks cover every value; all 20,965 correction records and 234
 locale inventories pass. Raw non-English overlap falls to 571, with 20
 attested shared forms and 551 unclassified. Complete phrase order remains open
 to fluent review. No remote write ran.
+
+## Tigre selection controls repaired — 2026-09-15
+
+Source commit `a6dd320fd` replaces six Tigrinya-seeded board-selection,
+show/hide and select-all controls. The BeitTigreAI corpus directly attests
+Select all rows, Select a file, Hide and Show forms; established Tigre Board,
+Card, List and Page terms complete the UI labels. Focused exact and negative
+checks cover every value; all 20,971 correction records and 234 locale
+inventories pass. Raw non-English overlap falls to 565, with 20 attested shared
+forms and 545 unclassified. Complete phrase order remains open to fluent
+review. No remote write ran.
