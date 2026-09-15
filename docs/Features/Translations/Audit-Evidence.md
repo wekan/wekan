@@ -31574,3 +31574,33 @@ language, 234-locale completeness, audit-progress, correction-ledger
 and changelog checks pass. Ledger grows from 22,028 to 22,056; stale
 list-width queue falls from 139 to 111. Original 20,081 classifications
 remain unchanged. No live UI test or remote write occurred.
+
+### 2026-09-15 — Romance and Celtic list-width lower bounds
+
+Source commit `0fe4ecb48` repairs 20 distinct locale values:
+Aragonese, Asturian, Corsican, Friulian, Ladin, Neapolitan, Romansh,
+Aromanian, Sardinian, Sicilian, Occitan, Papiamento, Luxembourgish,
+Walloon, Haitian Creole, Esperanto, Latin, Manx, Breton and Cornish.
+Each old value stated “greater than 270”; the replacement states an
+inclusive integer minimum of 200 pixels. Several old clauses were
+partly Italian or English despite non-Italian/non-English locale tags.
+Friulian uses `largjece de liste` from the local width label and
+`numar intîr`, a term [attested in Friulian writing](https://www.castfvg.it/articoli/paleoastronomia/patat_003.pdf).
+Sardinian `a su mancu` is attested by [SardegnaCultura](https://www.sardegnacultura.it/sc/articulu/cagliari-exma-exhibiting-and-moving-arts),
+and `nùmeru intreu` in [Sardinian technical prose](https://www.sardumatica.net/node/32). Sicilian
+`almenu` is documented in a [native Sicilian glossary](https://cdnc.heyzine.com/flip-book/pdf/24c6c891fd0b26b94b0d4d65692d9e68c156c7ea.pdf).
+The complete Aragonese, Ladin, Neapolitan, Romansh, Aromanian,
+Papiamento, Latin, Manx, Breton and Cornish clauses remain low
+confidence pending native grammar review. Aragonese and Cornish use
+`≥ 200` rather than guessing an unattested full comparative form.
+The focused suite checks all 20 native width/integer/pixel phrases,
+absence of 270, one ledger row per locale, explicit low-confidence
+notes and runtime Esperanto lookup. Aragonese and Cornish older suites
+expected 270; they now test their inclusive boundary. Ledger integrity,
+234-locale completeness, audit-progress and related-language checks
+pass. The earlier Aragonese row's final `after` was updated rather
+than duplicated, so the ledger grows from 22,056 to 22,075 (19 new
+records for 20 changed values). The stale list-width queue falls from
+111 to 91. Original 20,081 classifications remain unchanged. No live
+UI test or remote write occurred. The broader wrong-language review
+of Italian-seeded regional files remains open beyond this key.

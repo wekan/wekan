@@ -653,7 +653,18 @@ remain under native review.
 
 This release includes the following features and fixes:
 
-**Translations** - Tamazight, Tigre and multilingual list-width repairs.
+**Translations** - Tamazight, Tigre and regional list-width repairs.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0fe4ecb48">Repair 20 Romance and Celtic list-width values</a>. Thanks to xet7.</summary>
+
+Replace obsolete list-width wording in 20 locales with an inclusive
+200-pixel integer rule. Correct Italian and English seeded clauses
+where present, and update Aragonese and Cornish regression checks.
+Focused, language, ledger and inventory checks pass. Ten full clauses
+remain under native grammar review.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6d94f4edb">Repair 28 list-width locale values</a>. Thanks to xet7.</summary>
