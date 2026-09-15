@@ -155328,5 +155328,47 @@
     "before": "فضي",
     "after": "ⴰⵥⵔⴼ",
     "reason": "Replace Arabic silver color seed with Moroccan Berber ⴰⵥⵔⴼ attested as silver in the Central Atlas Tamazight dictionary and Tashelhit references. Standard Moroccan spelling and metal noun as color-label use remain low confidence pending native review."
+  },
+  {
+    "locale": "zgh",
+    "key": "board-not-found",
+    "before": "لوحة مفقودة",
+    "after": "ⵓⵔ ⵜⵍⵍⵉ ⵜⴰⴼⵍⵡⵉⵜ",
+    "reason": "Replace Arabic missing-board state with local Tamazight board noun and feminine does-not-exist pattern used in similar local messages. Full sentence grammar low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "page-not-found",
+    "before": "صفحة غير موجودة",
+    "after": "ⵓⵔ ⵜⵍⵍⵉ ⵜⴰⵙⵏⴰ",
+    "reason": "Replace Arabic missing-page state with local Tamazight page noun and feminine does-not-exist pattern. Full sentence grammar low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "board-title-not-found",
+    "before": "Tableau '%s' non trouvé.",
+    "after": "ⵓⵔ ⵜⵍⵍⵉ ⵜⴰⴼⵍⵡⵉⵜ '%s'.",
+    "reason": "Replace French named-board diagnostic with local Tamazight board noun and feminine missing pattern; preserve the exact %s token. Full clause grammar low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "swimlane-title-not-found",
+    "before": "Couloir '%s' non trouvé.",
+    "after": "ⵓⵔ ⵉⵍⵍⴰ ⵓⴱⵔⵉⴷ '%s'.",
+    "reason": "Replace French named-swimlane diagnostic with local Tamazight path/swimlane noun and masculine missing pattern; preserve exact %s. Full clause grammar low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "list-title-not-found",
+    "before": "Liste '%s' non trouvée.",
+    "after": "ⵓⵔ ⵜⵍⵍⵉ ⵜⴰⵍⴳⴰⵎⵜ '%s'.",
+    "reason": "Replace French named-list diagnostic with local add-list and activity Tamazight list noun; preserve exact %s. List terminology and full clause grammar remain low confidence pending fluent review."
+  },
+  {
+    "locale": "zgh",
+    "key": "board-view-swimlanes",
+    "before": "خطوط السباحة",
+    "after": "ⵉⴱⵔⵉⴷⵏ",
+    "reason": "Replace Arabic view label with Tifinagh plural of local Ibriden swimlane/path term, aligned with local singular ⵓⴱⵔⵉⴷ in board activities. Swimlane metaphor as path remains low confidence pending native UI review."
   }
 ]
