@@ -140684,5 +140684,250 @@
     "before": "ወርሒ",
     "after": "ወርሕ",
     "reason": "2026-09-15: Replace twelve unflagged basic date/day/month/weekday values copied byte-for-byte from Tigrinya with Tigre-specific forms directly returned by the 58,298-entry BeitTigreAI English–Tigre corpus. The Tigre glibc locale independently corroborates weekday distinctions. Preserve date versus day meaning and apply the same month noun to the search predicate. Corpus alternatives can encode regional variation; these selected forms remain subject to fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "boardChangeVisibilityPopup-title",
+    "before": "ርኡይነት ቀይር",
+    "after": "ርእየት ቀይር",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or phrase returned for the English source by the BeitTigreAI English–Tigre corpus; omit corpus punctuation that does not belong in the UI label."
+  },
+  {
+    "locale": "tig",
+    "key": "change-visibility",
+    "before": "ርኡይነት ቀይር",
+    "after": "ርእየት ቀይር",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or phrase returned for the English source by the BeitTigreAI English–Tigre corpus; omit corpus punctuation that does not belong in the UI label."
+  },
+  {
+    "locale": "tig",
+    "key": "board-view-cal",
+    "before": "ዓውደ ኣዋርሕ",
+    "after": "አምዕል ለልተዐለብ እቱ ወድና አወርሕት",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or phrase returned for the English source by the BeitTigreAI English–Tigre corpus; omit corpus punctuation that does not belong in the UI label."
+  },
+  {
+    "locale": "tig",
+    "key": "calendar",
+    "before": "ዓውደ ኣዋርሕ",
+    "after": "አምዕል ለልተዐለብ እቱ ወድና አወርሕት",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or phrase returned for the English source by the BeitTigreAI English–Tigre corpus; omit corpus punctuation that does not belong in the UI label."
+  },
+  {
+    "locale": "tig",
+    "key": "board-view-collapse",
+    "before": "ዓጽፍ",
+    "after": "ኣክብ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or phrase returned for the English source by the BeitTigreAI English–Tigre corpus; omit corpus punctuation that does not belong in the UI label."
+  },
+  {
+    "locale": "tig",
+    "key": "collapse",
+    "before": "ዓጽፍ",
+    "after": "ኣክብ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or phrase returned for the English source by the BeitTigreAI English–Tigre corpus; omit corpus punctuation that does not belong in the UI label."
+  },
+  {
+    "locale": "tig",
+    "key": "board-view-stats",
+    "before": "ስታቲስቲክስ",
+    "after": "አትዐለቦት",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or phrase returned for the English source by the BeitTigreAI English–Tigre corpus; omit corpus punctuation that does not belong in the UI label."
+  },
+  {
+    "locale": "tig",
+    "key": "board-view-time",
+    "before": "ግዜ",
+    "after": "ወቅት",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or phrase returned for the English source by the BeitTigreAI English–Tigre corpus; omit corpus punctuation that does not belong in the UI label."
+  },
+  {
+    "locale": "tig",
+    "key": "change",
+    "before": "ቀይር",
+    "after": "ተቅዪር",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or phrase returned for the English source by the BeitTigreAI English–Tigre corpus; omit corpus punctuation that does not belong in the UI label."
+  },
+  {
+    "locale": "tig",
+    "key": "color-green",
+    "before": "ቀጠልያ",
+    "after": "ሰዐር-ሰዕሮ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or phrase returned for the English source by the BeitTigreAI English–Tigre corpus; omit corpus punctuation that does not belong in the UI label."
+  },
+  {
+    "locale": "tig",
+    "key": "color-navy",
+    "before": "ጸሊም ሰማያዊ",
+    "after": "ኔቪ ቅዋት-በሐር",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or phrase returned for the English source by the BeitTigreAI English–Tigre corpus; omit corpus punctuation that does not belong in the UI label."
+  },
+  {
+    "locale": "tig",
+    "key": "color-orange",
+    "before": "ኣራንሾኒ",
+    "after": "ኣራንሺ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or phrase returned for the English source by the BeitTigreAI English–Tigre corpus; omit corpus punctuation that does not belong in the UI label."
+  },
+  {
+    "locale": "tig",
+    "key": "create",
+    "before": "ፍጠር",
+    "after": "ኽለቅ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or phrase returned for the English source by the BeitTigreAI English–Tigre corpus; omit corpus punctuation that does not belong in the UI label."
+  },
+  {
+    "locale": "tig",
+    "key": "discard",
+    "before": "ኣወግድ",
+    "after": "ወኬ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or phrase returned for the English source by the BeitTigreAI English–Tigre corpus; omit corpus punctuation that does not belong in the UI label."
+  },
+  {
+    "locale": "tig",
+    "key": "export-card-attachment-filename",
+    "before": "ስም ፋይል",
+    "after": "ስሜት ፋይል",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or phrase returned for the English source by the BeitTigreAI English–Tigre corpus; omit corpus punctuation that does not belong in the UI label."
+  },
+  {
+    "locale": "tig",
+    "key": "log-out",
+    "before": "ውጻእ",
+    "after": "ፈጊር",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or phrase returned for the English source by the BeitTigreAI English–Tigre corpus; omit corpus punctuation that does not belong in the UI label."
+  },
+  {
+    "locale": "tig",
+    "key": "preview",
+    "before": "ቅድመ ርእይቶ",
+    "after": "ርእየት-ሰልፍ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or phrase returned for the English source by the BeitTigreAI English–Tigre corpus; omit corpus punctuation that does not belong in the UI label."
+  },
+  {
+    "locale": "tig",
+    "key": "previewAttachedImagePopup-title",
+    "before": "ቅድመ ርእይቶ",
+    "after": "ርእየት-ሰልፍ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or phrase returned for the English source by the BeitTigreAI English–Tigre corpus; omit corpus punctuation that does not belong in the UI label."
+  },
+  {
+    "locale": "tig",
+    "key": "previewClipboardImagePopup-title",
+    "before": "ቅድመ ርእይቶ",
+    "after": "ርእየት-ሰልፍ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or phrase returned for the English source by the BeitTigreAI English–Tigre corpus; omit corpus punctuation that does not belong in the UI label."
+  },
+  {
+    "locale": "tig",
+    "key": "r-label",
+    "before": "ምልክት",
+    "after": "ናይ እተአመሮት እሻረት",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or phrase returned for the English source by the BeitTigreAI English–Tigre corpus; omit corpus punctuation that does not belong in the UI label."
+  },
+  {
+    "locale": "tig",
+    "key": "operator-label",
+    "before": "ምልክት",
+    "after": "ናይ እተአመሮት እሻረት",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or phrase returned for the English source by the BeitTigreAI English–Tigre corpus; omit corpus punctuation that does not belong in the UI label."
+  },
+  {
+    "locale": "tig",
+    "key": "r-subject",
+    "before": "ኣርእስቲ",
+    "after": "ኣርእስ፡",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or phrase returned for the English source by the BeitTigreAI English–Tigre corpus; omit corpus punctuation that does not belong in the UI label."
+  },
+  {
+    "locale": "tig",
+    "key": "r-d-send-email-subject",
+    "before": "ኣርእስቲ",
+    "after": "ኣርእስ፡",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or phrase returned for the English source by the BeitTigreAI English–Tigre corpus; omit corpus punctuation that does not belong in the UI label."
+  },
+  {
+    "locale": "tig",
+    "key": "subject",
+    "before": "ኣርእስቲ",
+    "after": "ኣርእስ፡",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or phrase returned for the English source by the BeitTigreAI English–Tigre corpus; omit corpus punctuation that does not belong in the UI label."
+  },
+  {
+    "locale": "tig",
+    "key": "r-d-send-email-message",
+    "before": "መልእኽቲ",
+    "after": "ልእከት",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or phrase returned for the English source by the BeitTigreAI English–Tigre corpus; omit corpus punctuation that does not belong in the UI label."
+  },
+  {
+    "locale": "tig",
+    "key": "error-undefined",
+    "before": "ገለ ነገር ተጋግዩ",
+    "after": "ገለ ጸገም እትረከባ ሃላ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or phrase returned for the English source by the BeitTigreAI English–Tigre corpus; omit corpus punctuation that does not belong in the UI label."
+  },
+  {
+    "locale": "tig",
+    "key": "domain-user-count",
+    "before": "ተጠቀምቲ",
+    "after": "መትነፍዕያም",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or phrase returned for the English source by the BeitTigreAI English–Tigre corpus; omit corpus punctuation that does not belong in the UI label."
+  },
+  {
+    "locale": "tig",
+    "key": "operator-user",
+    "before": "ተጠቃሚ",
+    "after": "መትነፍዓይ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or phrase returned for the English source by the BeitTigreAI English–Tigre corpus; omit corpus punctuation that does not belong in the UI label."
+  },
+  {
+    "locale": "tig",
+    "key": "anonymized-user",
+    "before": "ተጠቃሚ",
+    "after": "መትነፍዓይ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or phrase returned for the English source by the BeitTigreAI English–Tigre corpus; omit corpus punctuation that does not belong in the UI label."
+  },
+  {
+    "locale": "tig",
+    "key": "previous-page",
+    "before": "ዝሓለፈ ገጽ",
+    "after": "ቀዳሚት ገጽ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or phrase returned for the English source by the BeitTigreAI English–Tigre corpus; omit corpus punctuation that does not belong in the UI label."
+  },
+  {
+    "locale": "tig",
+    "key": "location-latitude",
+    "before": "ኬክሮስ",
+    "after": "ላቲትዩድ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or phrase returned for the English source by the BeitTigreAI English–Tigre corpus; omit corpus punctuation that does not belong in the UI label."
+  },
+  {
+    "locale": "tig",
+    "key": "recovery-event",
+    "before": "ፍጻመ",
+    "after": "ሓላት ለገብእ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or phrase returned for the English source by the BeitTigreAI English–Tigre corpus; omit corpus punctuation that does not belong in the UI label."
+  },
+  {
+    "locale": "tig",
+    "key": "register",
+    "before": "ተመዝገብ",
+    "after": "ሰጅል።",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or phrase returned for the English source by the BeitTigreAI English–Tigre corpus; omit corpus punctuation that does not belong in the UI label."
+  },
+  {
+    "locale": "tig",
+    "key": "azure-account-name",
+    "before": "ስም መለያ",
+    "after": "ስሜት ሕሳብ",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or phrase returned for the English source by the BeitTigreAI English–Tigre corpus; omit corpus punctuation that does not belong in the UI label."
+  },
+  {
+    "locale": "tig",
+    "key": "features",
+    "before": "ባህርያት",
+    "after": "ክትምዬት",
+    "reason": "Replace a value copied from Tigrinya with the Tigre headword or phrase returned for the English source by the BeitTigreAI English–Tigre corpus; omit corpus punctuation that does not belong in the UI label."
   }
 ]

@@ -10,6 +10,7 @@ const readLocale = code => JSON.parse(fs.readFileSync(
 ));
 const english = readLocale('en');
 const tigre = readLocale('tig');
+const tigrinya = readLocale('ti');
 const tokens = value => [...value.matchAll(
   /__[A-Za-z0-9_]+__|%[A-Za-z]|%{[A-Za-z0-9]+}|{{[A-Za-z0-9]+}}/g,
 )].map(([token]) => token).sort();
@@ -245,6 +246,49 @@ assert.deepEqual([
   tigre.monday, tigre.tuesday, tigre.wednesday, tigre.thursday,
   tigre.friday, tigre.saturday, tigre.sunday,
 ], ['አትኒን', 'አተሉት', 'አረቡዕ', 'ከሚሽ', 'ጅምዐት', 'ሰንበት ንኢሽ', 'ሰምበት ዓባይ']);
+
+const corpusBackedUiTerms = {
+  'boardChangeVisibilityPopup-title': 'ርእየት ቀይር',
+  'change-visibility': 'ርእየት ቀይር',
+  'board-view-cal': tigreCalendar,
+  calendar: tigreCalendar,
+  'board-view-collapse': 'ኣክብ',
+  collapse: 'ኣክብ',
+  'board-view-stats': 'አትዐለቦት',
+  'board-view-time': 'ወቅት',
+  change: 'ተቅዪር',
+  'color-green': 'ሰዐር-ሰዕሮ',
+  'color-navy': 'ኔቪ ቅዋት-በሐር',
+  'color-orange': 'ኣራንሺ',
+  create: 'ኽለቅ',
+  discard: 'ወኬ',
+  'export-card-attachment-filename': 'ስሜት ፋይል',
+  'log-out': 'ፈጊር',
+  preview: 'ርእየት-ሰልፍ',
+  'previewAttachedImagePopup-title': 'ርእየት-ሰልፍ',
+  'previewClipboardImagePopup-title': 'ርእየት-ሰልፍ',
+  'r-label': 'ናይ እተአመሮት እሻረት',
+  'operator-label': 'ናይ እተአመሮት እሻረት',
+  'r-subject': 'ኣርእስ፡',
+  'r-d-send-email-subject': 'ኣርእስ፡',
+  subject: 'ኣርእስ፡',
+  'r-d-send-email-message': 'ልእከት',
+  'error-undefined': 'ገለ ጸገም እትረከባ ሃላ',
+  'domain-user-count': 'መትነፍዕያም',
+  'operator-user': 'መትነፍዓይ',
+  'anonymized-user': 'መትነፍዓይ',
+  'previous-page': 'ቀዳሚት ገጽ',
+  'location-latitude': 'ላቲትዩድ',
+  'recovery-event': 'ሓላት ለገብእ',
+  register: 'ሰጅል።',
+  'azure-account-name': 'ስሜት ሕሳብ',
+  features: 'ክትምዬት',
+};
+for (const [key, value] of Object.entries(corpusBackedUiTerms)) {
+  assert.equal(tigre[key], value, `${key}: exact corpus-backed Tigre value`);
+  assert.notEqual(tigre[key], tigrinya[key],
+    `${key}: no copied Tigrinya value`);
+}
 
 assert.match(tigre['invalid-domain'], /example\.com/);
 assert.deepEqual(tokens(tigre['board-title-not-found']),
