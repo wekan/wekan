@@ -389,3 +389,16 @@ corrected in place and two remaining plural controls are repaired. Focused
 checks cover all seven values and reject the association sense; all 20,882
 correction records and 234 locale inventories pass. Raw overlap falls to 651,
 with 20 shared forms and 631 unclassified. No remote write ran.
+
+## Tigre administrative and location controls repaired — 2026-09-15
+
+Source commit `9f5f2d1db` replaces 14 Tigrinya-seeded controls. Direct
+BeitTigreAI entries supply `ሓክም` for administrator, `መዳይር` for
+administrators, `መነዘመት` for organization, `አካን` for location and
+`ዐይነት` for the noun type. Complete corpus phrases supply the imperative
+`ኣክድ` in both Confirm password and Verify your identity, and object-verb
+Add examples supply `ወስክ`. Organization Admins and Add location are composed
+from those attested parts and retain that stated limitation pending fluent
+review. Focused exact and negative checks cover all 14 controls; all 20,896
+correction records and 234 locale inventories pass. Raw overlap falls to 637,
+with 20 attested shared forms and 617 unclassified. No remote write ran.

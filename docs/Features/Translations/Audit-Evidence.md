@@ -30855,3 +30855,14 @@ previously seeded controls. The earlier ledger records are corrected in place
 so every audited after-value still equals current source. All 20,882 correction
 records and 234 locale inventories pass. Raw overlap falls to 651; 631 remain
 unclassified after 20 attested shared forms. No remote write occurred.
+
+### 2026-09-15 — Tigre administrative and location controls
+
+Source commit `9f5f2d1db` repairs 14 Admin, Organization Admins, Confirm/Verify,
+Type, Location and Add location controls with independently attested Tigre
+corpus terms. Complete phrases establish the confirmation/verification verb,
+the type and location nouns, and the object-verb order for Add; the two
+compound labels remain explicitly open to fluent grammar review. Focused exact
+and former-seed checks pass with all 20,896 correction records and 234 locale
+inventories. Raw overlap falls to 637; 617 remain unclassified after 20
+attested shared forms. No remote write occurred.

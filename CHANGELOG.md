@@ -1940,6 +1940,16 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9f5f2d1db">Repair Tigre administrative and location controls.</a></summary>
+
+Replace 14 Tigrinya-seeded Admin, confirmation, type and location controls with
+corpus-attested Tigre terminology.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e17bb2b5e">Repair native-catalogue Veps interface terms.</a></summary>
 
 Replace 31 Finnish-seeded labels through exact English-source matching with
