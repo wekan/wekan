@@ -2080,6 +2080,16 @@ Thanks to xet7 !
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/83546ed24">Repair Tigre board and card terms throughout.</a></summary>
+
+Replace embedded Tigrinya Board and Card nouns in 407 Tigre values while
+preserving Clipboard wording and existing Tigre compounds.
+
+Thanks to xet7 !
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/40a20207b">Repair Tigre short interface controls.</a></summary>
 
 Use established Tigre terms in 16 At, Remove, Sign In, All, Delete, Failed

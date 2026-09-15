@@ -739,3 +739,17 @@ tokens; all 21,365 correction records and 234 locale inventories pass. Raw
 overlap falls to 247, with 22 attested shared forms and 225 unclassified.
 Twenty-five raw matches contain at least 20 characters and six contain at
 least 35. No remote write ran.
+
+
+## Full-locale Tigre Board and Card components repaired — 2026-09-15
+
+Source commit `83546ed24` replaces remaining embedded Tigrinya Board and
+Card nouns in 407 otherwise nonidentical Tigre values. English source-sense
+filters cover 316 Board and 300 Card contexts; negative guards preserve
+Clipboard wording and prevent duplicate Tigre Card prefixes. Existing
+sequential repairs are consolidated by key, leaving 21,757 verified final
+corrections. Placeholder and HTML inventories and all 234 locale inventories
+pass. Raw exact-overlap metrics remain 247 total, 22 attested shared and 225
+unclassified because prior batches had already repaired exact Board/Card
+copies. Twenty-five raw matches contain at least 20 characters and six contain
+at least 35. No remote write ran.
