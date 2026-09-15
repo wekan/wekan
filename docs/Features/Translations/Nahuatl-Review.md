@@ -29,3 +29,25 @@ with this locale's dialect and spelling, translate the missing distinctions,
 and document any provisional compounds. Then verify placeholder inventories,
 calendar-option wiring and browser rendering. Existing English/Azerbaijani
 values remain repairs to do; reference uncertainty is not a reason to omit them.
+
+## Modern calendar labels repaired — 2026-09-15
+
+Source commit `56ce505d0` replaces all 17 Azerbaijani, English and incomplete
+calendar labels with a coordinated `tonalli tlapohualiztli` modern
+date-reckoning family. UNAM's terminology evidence shows that `tonalpohualli`,
+`xiuhtlapohualli` and related names identify particular historical counts, so
+the generic software selector deliberately does not reuse them.
+
+The repaired family retains Jalali/Persia, Buddhist, Chinese, Coptic,
+Dangi/Korea, Ethiopic/Amete Alem, Hebrew, Indian national, Hijri, Umm al-Qura,
+Japanese and Minguo/Republic of China identities. The Hijri labels separately
+retain calculated civil and astronomical starting points and Saudi moon
+sighting. Entity names, modern technical vocabulary and the assembled generic
+compound remain LOW CONFIDENCE pending native contextual review.
+
+Four focused files pass: 20,008 exact correction records, all 17 exact labels,
+negative historical/foreign names, every runtime calendar ID, distinct Hijri
+variants, newer-value preservation and all 234 locale token/key inventories.
+No live calendar picker ran. The tracked Nahuatl queue is complete: overall
+pending 100, no Nahuatl row, restored four unchanged. Broader uncertain review
+continues.

@@ -1635,6 +1635,18 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/56ce505d0">Translate Nahuatl calendar-system labels.</a></summary>
+
+Replace 17 Azerbaijani, English and incomplete labels with a coordinated modern
+date-reckoning family. Preserve every named calendar, country, epoch and
+moon-sighting distinction. Four focused files pass. Modern compounds remain
+under native review.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

@@ -30510,3 +30510,20 @@ Four focused files pass: exact ledger values/tokens/order and newer-human
 preservation, distinct civil/tabular/sighting variants, calendar registry
 binding and all 234 locale inventories. No live calendar picker ran. Broader
 uncertain review continues; no external translation service or remote push.
+
+### 2026-09-15 — Nahuatl modern calendar-system family
+
+Source commit `56ce505d0` repairs all 17 tracked Nahuatl findings; ledger 20,008,
+corrected tracked rows 15,803, pending 100 with no Nahuatl row, restored four
+unchanged. Replace Azerbaijani, English and incomplete labels with a coordinated
+modern date-reckoning family. UNAM evidence reserves the familiar Nahuatl
+calendar names for specific historical counts, so do not misapply them to every
+Intl calendar.
+
+The labels preserve every named calendar and country, calculated civil versus
+astronomical starting points, Saudi moon sighting, and Umm al-Qura. Entity loans
+and complete compounds remain LOW CONFIDENCE. Four focused files pass: exact
+ledger values/tokens/order and newer-human preservation, all runtime IDs,
+variant distinctions and all 234 locale inventories. No live calendar picker
+ran. Broader uncertain review continues; no external translation service or
+remote push.

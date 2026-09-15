@@ -4,10 +4,10 @@ Audit date: **2026-09-12**. Last updated: **2026-09-15**.
 
 | Status | Flagged keys |
 | --- | ---: |
-| Corrected | 15,786 |
+| Corrected | 15,803 |
 | Restored pre-pull; awaiting validation | 4 |
 | Reviewed; retained unchanged | 4,174 |
-| Pending review or repair | 117 |
+| Pending review or repair | 100 |
 | Total tracked | 20,081 |
 
 Summary consolidated **2026-09-14**, local commit `75b0a015b`. Locale counts
@@ -16,15 +16,16 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `52836b241` — replace Ewe's incomplete
-English tabular-Islamic label with a calculation-and-epoch draft. A university
-Basic Ewe reference directly attests `akɔ́nta` for calculation and native Ewe
-texts attest `gɔmedzedze` for beginning. Four focused files pass; ledger 19,991,
-original pending 117 (Ewe queue complete), restored 4 unchanged. `astronomi` and
-the assembled technical phrase remain low confidence.
+Latest translation fix: **2026-09-15**, `56ce505d0` — replace all 17 tracked
+Nahuatl calendar labels with a coordinated modern date-reckoning family. The
+repair avoids historically specific sacred calendar names and preserves each
+calendar identity, calculation, civil/astronomical starting points and moon
+sighting. Four focused files pass; ledger 20,008, original pending 100 (Nahuatl
+queue complete), restored 4 unchanged. Entity loans and compounds remain low
+confidence.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **19,991** exact before/after values, including unflagged
+records contain **20,008** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -45,7 +46,6 @@ restored values still await full native clause validation.
 | --- | ---: |
 | iu — Inuktitut | 38 |
 | zgh — Standard Moroccan Tamazight | 34 |
-| nah — Nahuatl | 17 |
 | tig — Tigre | 17 |
 | wal — Wolaytta | 10 |
 | rup — Aromanian | 1 |
