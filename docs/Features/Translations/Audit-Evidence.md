@@ -1,5 +1,12 @@
 # Detailed translation audit evidence
 
+2026-09-15 (`ada7e3533`): repaired nine unflagged Tamazight
+activity/show/notify messages from Arabic or French. Production
+activity types confirm restore-to-board and member-removal
+meanings. `%s` counts retained. Native full clauses remain
+low confidence. Exact ledger now 22,242; Arabic-script review
+queue 158. Focused and 234-locale checks pass.
+
 2026-09-15 (`f10daf2ae`): repaired four unflagged Tamazight
 active, inactive and admin status labels seeded in Arabic/French.
 Local native components are reused; isolated adjective and

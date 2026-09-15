@@ -16,7 +16,18 @@ Updater fix **2026-09-14**, `9c7a845a3`: `audit-progress.mjs --update-summary`
 refreshes both tables together, including added/resolved locales, and rejects
 inconsistent totals. Dated fix notes and uncertain classifications survive.
 
-Latest translation fix: **2026-09-15**, `f10daf2ae` — replace four
+Latest translation fix: **2026-09-15**, `ada7e3533` — replace nine
+Arabic/French Tamazight activity and show/notify messages. The
+production UI uses `activity-sent` for a restored card and
+`activity-excluded` for board-member removal, so those messages
+now use the locale's native restore/remove verbs. Exact `%s`
+tokens remain. Full clause grammar and the activity-notification
+compound need fluent review. Focused production-source,
+positive/negative, ledger and 234-locale checks pass.
+Ledger: **22,242**. The zgh file has **158** Arabic-script
+values awaiting semantic classification.
+
+Earlier translation fix: **2026-09-15**, `f10daf2ae` — replace four
 Arabic/French Tamazight active, inactive and admin status labels.
 The replacements reuse native active-person, inactive-member and
 status terms; isolated adjectives and full compound grammar remain
@@ -272,7 +283,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **22,233** exact before/after values, including unflagged
+records contain **22,242** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -310,7 +321,7 @@ clauses and broader wrong-language seeds remains open.
 - [Tamazight](Tamazight-Review.md): wrong-language prose, 98 records with
   invalidated Tuareg provenance, adapted grammar and software terminology.
   Arabic `email-addresses` and its precise native plural remain open.
-  Arabic-script values have fallen from 181 to 166 across these batches;
+  Arabic-script values have fallen from 181 to 158 across these batches;
   this count
   includes possible intentional symbols and is a review queue, not a
   count of proven wrong-language strings.

@@ -1,5 +1,27 @@
 # Standard Moroccan Tamazight reference review
 
+## Activity messages and production context, 2026-09-15 (`ada7e3533`)
+
+Nine unflagged Arabic/French messages are repaired. The activity
+UI uses `activity-sent` only when restoring a card to a board;
+its replacement therefore uses the native `act-restoredCard`
+verb. `activity-excluded` is used for removing a board member,
+so it uses the same remove/from pattern as native member-removal
+messages. Create, move, comment edit, comment-on-card, show and
+notification messages reuse native local activity and UI terms.
+The earlier Arabic `activity-removed` also used the wrong
+preposition (“to”) for English “from”; it now uses `ⵙⴳ`.
+
+All `%s` tokens retain their exact count. The focused test
+checks the actual production activity types, positive native
+components and negative wrong-language seeds. Exact-ledger and
+234-locale checks pass. The notification compound and complete
+activity clauses remain **low confidence** pending fluent review.
+`activity-joined`/`activity-unjoined` still have Arabic seeds;
+their native membership verbs need separate verification.
+Arabic-script values fall from 166 to 158. Original flagged
+finding categories remain unchanged.
+
 ## Admin active and inactive labels, 2026-09-15 (`f10daf2ae`)
 
 Four unflagged wrong-language labels are repaired: `active` and
