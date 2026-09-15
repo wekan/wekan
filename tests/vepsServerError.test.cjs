@@ -186,7 +186,8 @@ test("Veps sync instructions retain periodic and immediate checks", () => {
  assert.match(value,/Udišta nece lugetiž ulkopoližespäi trekeraspäi/);
  assert.match(value,/Fonan rad tarkištab sidä kaiku 15 minutan taga/);
  assert.match(value,/aigad varastamata/);
- assert.ok(value.includes(data["list-sync-now"].replace("'","’")));
+ assert.match(data["list-sync-now"], /'$/);
+ assert.ok(value.includes(`${data["list-sync-now"].slice(0, -1)}’`));
  assert.doesNotMatch(value,/Vhambadzanani|Mushumo|sedzulusa/i);
  assert.match(fs.readFileSync("server/listSync.js","utf8"),/every 15 minutes/);
 });
