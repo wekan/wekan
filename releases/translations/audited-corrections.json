@@ -155202,5 +155202,33 @@
     "before": "ᑎᑎᖅᑲᓕᐊᑉ ᓴᓂᒧᑦ ᐊᖏᓂᖓ 270-ᒥᑦ ᐊᖏᓂᖅᓴᐅᔪᒥᒃ ᑭᓯᑦᓯᐅᑎᐅᔭᕆᐊᓕᒃ",
     "after": "ᑎᑎᖅᑲᓕᐊᑉ ᓴᓂᒧᑦ ᐊᖏᓂᖓ: ᑭᓯᑦᓯᐅᑎᐅᔭᕆᐊᓕᒃ ≥ 200 pixels",
     "reason": "Retain Inuktitut width and number requirement terms; replace obsolete strict greater-than-270 with inclusive 200-pixel bound. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "ay",
+    "key": "set-list-width-value",
+    "before": "lista ancho (pixels)",
+    "after": "Suti siqina irwaqapa (pixels)",
+    "reason": "Replace Spanish list and width words with Aymara suti siqi and irwaqa from education vocabulary. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "ay",
+    "key": "list-width-error-message",
+    "before": "lista ancho must be an integer greater than 270",
+    "after": "Suti siqina irwaqapa: pachpa jakhu ≥ 200 pixels wakisiwa",
+    "reason": "Replace Spanish/English seeded rule with Aymara list, width, integer and required words; state inclusive 200-pixel minimum. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "qu",
+    "key": "set-list-width-value",
+    "before": "Kay willaymi: Sinri widthta (pixelsta)",
+    "after": "Listapa patan (pixels)",
+    "reason": "Replace English-seeded width label with the native list-width phrase already used in related Quechua UI strings. Complete clause low-confidence pending native grammar review."
+  },
+  {
+    "locale": "qu",
+    "key": "list-width-error-message",
+    "before": "Kay willaymi: Sinri widthta mustta beta anta integerta greaterta thanta 270",
+    "after": "Listapa patan: hunt'a yupay ≥ 200 pixels kanan",
+    "reason": "Replace English-seeded rule with local Quechua width phrase and documented whole-number term; state inclusive 200-pixel minimum. Complete clause low-confidence pending native grammar review and dialect fit."
   }
 ]
