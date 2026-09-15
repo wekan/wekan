@@ -21,10 +21,13 @@ Tigre navigation, view, action, color and field labels copied from Tigrinya
 with entries from the 58,298-entry BeitTigreAI English–Tigre corpus. Four
 focused files pass; ledger 20,133. The original audit remains fully classified,
 while broader Tigre–Tigrinya overlap falls from 917 to 870 values. Of those,
-86 contain at least 20 characters and still require phrase-level review.
+13 short terms are independently attested as valid in both languages; 857
+remain unclassified, including 86 values of at least 20 characters that need
+phrase-level review. Review commit `5b2c5942e` preserves the shared terms.
 
 The tracked Tigre calendar queue being empty does not certify the locale. Of
-2,592 non-English Tigre values, 870 are byte-for-byte identical to Tigrinya,
+2,592 non-English Tigre values, 870 are byte-for-byte identical to Tigrinya;
+13 are corpus-attested shared terms and 857 remain unclassified,
 including long clauses; several basic date words also match Tigrinya while
 Tigre-specific sources use different forms. This is now an explicit broader
 wrong-language review item and must be resolved before the full audit closes.

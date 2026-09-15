@@ -260,3 +260,16 @@ contain at least 20 characters and 18 contain at least 35 characters; these
 still require phrase-level evidence. Short corpus glosses can be polysemous,
 so the selected UI senses remain open to fluent review. No live UI test or
 remote write ran.
+
+## Shared Tigre and Tigrinya terms reviewed — 2026-09-15
+
+Review commit `5b2c5942e` explicitly retains 13 byte-identical values for Who,
+Clear, black, Email, List, Hour, Open, History, Page and Error. The
+BeitTigreAI corpus contains each exact Ethiopic form under the corresponding
+English gloss, so script equality alone is not a defect for these entries.
+The focused test locks both the Tigre value and the intentional equality.
+
+The measured overlap remains 870 because accepted values are unchanged, but
+the unclassified set falls to 857. This acceptance is limited to exact
+headword evidence and does not certify related phrases or the locale as a
+whole. No live UI test or remote write ran.

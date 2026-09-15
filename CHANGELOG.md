@@ -1807,6 +1807,17 @@ Thanks to xet7 !
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5b2c5942e">Record corpus-attested shared Tigre terms.</a></summary>
+
+Retain 13 Tigre values that validly match Tigrinya because the Tigre corpus
+independently attests each exact form for the same English gloss. Focused
+checks distinguish reviewed shared vocabulary from unclassified overlap.
+
+Thanks to xet7 !
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their
 translations.
 

@@ -30680,3 +30680,14 @@ Exact non-English Tigre–Tigrinya overlap falls from 905 to 870 values. Of
 those, 86 contain at least 20 characters and 18 contain at least 35 characters.
 These remain open because a corpus headword does not by itself translate a
 long product-specific clause. No remote write occurred.
+
+### 2026-09-15 — Corpus-attested shared Tigre terms
+
+Review commit `5b2c5942e` retains 13 byte-identical Tigre/Tigrinya terms. For
+each matching English source, the BeitTigreAI corpus contains the exact
+Ethiopic value as a Tigre headword. Focused checks preserve both the value and
+its intentional equality with Tigrinya.
+
+The raw overlap therefore stays at 870 while the unclassified subset falls to
+857. The acceptance covers only Who, Clear, black, Email, List, Hour, Open,
+History, Page and Error entries with exact evidence. No remote write occurred.
