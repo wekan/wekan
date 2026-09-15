@@ -300,6 +300,7 @@ const corpusAttestedSharedTerms = {
   default: 'ነባሪ',
   defaultdefault: 'ነባሪ',
   translation: 'ትርጉም',
+  seconds: 'ካልኢታት',
   'poker-result-who': 'መን',
   'theme-category-clear': 'ንጹር',
   'color-black': 'ጸሊም',
