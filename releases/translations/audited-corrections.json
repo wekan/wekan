@@ -146340,5 +146340,61 @@
     "before": "ክብደት",
     "after": "ደረጀት ክብድት",
     "reason": "Replace the Tigrinya-seeded physical-weight noun with a transparent Tigre severity-level compound built from corpus-attested degree/level and severely forms; retain low-confidence compound grammar for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "migration-progress-overall",
+    "before": "ጠቕላላ ምዕባለ",
+    "after": "ዐም ተቀድም",
+    "reason": "Replace the Tigrinya-seeded Overall Progress compound with exact Tigre corpus forms for overall and progress."
+  },
+  {
+    "locale": "tig",
+    "key": "overall-progress",
+    "before": "ጠቕላላ ምዕባለ",
+    "after": "ዐም ተቀድም",
+    "reason": "Replace the Tigrinya-seeded Overall Progress compound with exact Tigre corpus forms for overall and progress."
+  },
+  {
+    "locale": "tig",
+    "key": "cpuReportTitle",
+    "before": "ኣጠቓቕማ CPU",
+    "after": "CPU መትነፍዒት",
+    "reason": "Replace the Tigrinya-seeded CPU Usage compound with the exact Tigre usage noun attested in File usage and Usage error, preserving the technical CPU token."
+  },
+  {
+    "locale": "tig",
+    "key": "cpu-usage",
+    "before": "ኣጠቓቕማ CPU",
+    "after": "CPU መትነፍዒት",
+    "reason": "Replace the Tigrinya-seeded CPU Usage compound with the exact Tigre usage noun attested in File usage and Usage error, preserving the technical CPU token."
+  },
+  {
+    "locale": "tig",
+    "key": "board-status-loading-mode",
+    "before": "ምጽዓን ካርድ",
+    "after": "ወረቀት ካርዳት ልትጻዓን",
+    "reason": "Replace the Tigrinya-seeded Card loading compound with the established Tigre card noun and the loading form attested in the complete software phrase Loading results."
+  },
+  {
+    "locale": "tig",
+    "key": "cards-loading",
+    "before": "ምጽዓን ካርድ",
+    "after": "ወረቀት ካርዳት ልትጻዓን",
+    "reason": "Replace the Tigrinya-seeded Card loading compound with the established Tigre card noun and the loading form attested in the complete software phrase Loading results."
+  },
+  {
+    "locale": "tig",
+    "key": "remaining_time",
+    "before": "ዝተረፈ ግዜ",
+    "after": "ለተርፈ ወቅት",
+    "reason": "Replace the Tigrinya-seeded Remaining time compound with Tigre remaining and time forms attested together in complete corpus questions; retain the nominal label order for fluent review."
+  },
+  {
+    "locale": "tig",
+    "key": "accounts-lockout-remaining-time",
+    "before": "ዝተረፈ ግዜ",
+    "after": "ለተርፈ ወቅት",
+    "reason": "Replace the Tigrinya-seeded Remaining time compound with Tigre remaining and time forms attested together in complete corpus questions; retain the nominal label order for fluent review."
   }
 ]
