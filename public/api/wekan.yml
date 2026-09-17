@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v11.84
+  version: v11.85
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -7436,6 +7436,16 @@ definitions:
         enum:
           - all
           - lazy
+        x-nullable: true
+      hideDateFormat:
+        type: boolean
+        x-nullable: true
+      globalDateFormat:
+        type: string
+        enum:
+          - yyyy-mm-dd
+          - dd-mm-yyyy
+          - mm-dd-yyyy
         x-nullable: true
       hideBoardMemberList:
         type: boolean
