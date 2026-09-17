@@ -737,6 +737,21 @@ snap's database and the result there are confirmed.
 
 </details>
 
+and has the following developer-tooling fix:
+
+**Regression tests** - preserve reviewed translations and card visibility.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5dd0b11f7">Align historical translation repairs and card visibility guards</a>. Thanks to xet7.</summary>
+
+Historical repair records retain the newer reviewed Traditional Chinese
+wording. The read-only requester and assigner guard follows its conditional
+branch after optional field grouping changes, while still rejecting missing
+avatars. All 1,169 Node suites pass, including translation token, idempotency,
+and newer-human-translation protection checks.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v11.83 2026-09-16 WeKan ® release
