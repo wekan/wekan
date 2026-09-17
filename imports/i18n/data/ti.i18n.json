@@ -597,6 +597,7 @@
   "custom-fields": "ብሕታዊ ሜዳታት",
   "date": "ዕለት",
   "date-format": "ቅርጺ ዕለት",
+  "date-format-for-everyone": "ቅርጺ ዕለት ንኹሉ",
   "date-format-yyyy-mm-dd": "YYYY-MM-DD",
   "date-format-dd-mm-yyyy": "DD-MM-YYYY",
   "date-format-mm-dd-yyyy": "MM-DD-YYYY",

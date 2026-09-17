@@ -597,6 +597,7 @@
   "custom-fields": "Omörite meýdanlar",
   "date": "Sene",
   "date-format": "Sene formaty",
+  "date-format-for-everyone": "Hemmeler üçin sene formaty",
   "date-format-yyyy-mm-dd": "YYYY-MM-DD (ýyl-aý-gün)",
   "date-format-dd-mm-yyyy": "DD-MM-YYYY (gün-aý-ýyl)",
   "date-format-mm-dd-yyyy": "MM-DD-YYYY (aý-gün-ýyl)",

@@ -250,6 +250,15 @@ Settings.attachSchema(
       optional: true,
       allowedValues: ['all', 'lazy'],
     },
+    hideDateFormat: {
+      type: Boolean,
+      optional: true,
+    },
+    globalDateFormat: {
+      type: String,
+      optional: true,
+      allowedValues: ['YYYY-MM-DD', 'DD-MM-YYYY', 'MM-DD-YYYY'],
+    },
     hideBoardMemberList: {
       type: Boolean,
       optional: true,

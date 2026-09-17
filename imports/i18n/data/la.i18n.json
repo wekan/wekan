@@ -597,6 +597,7 @@
   "custom-fields": "Campi proprii",
   "date": "Dies",
   "date-format": "Latine: Dies Format",
+  "date-format-for-everyone": "Forma diei omnibus",
   "date-format-yyyy-mm-dd": "Latine: YYYY-MM-DD",
   "date-format-dd-mm-yyyy": "Latine: DD-MM-YYYY",
   "date-format-mm-dd-yyyy": "Latine: MM-DD-YYYY",

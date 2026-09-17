@@ -597,6 +597,7 @@
   "custom-fields": "Sérsniðnir reitir",
   "date": "Dagsetning",
   "date-format": "Dagsetningarsnið",
+  "date-format-for-everyone": "Dagsetningarsnið fyrir alla",
   "date-format-yyyy-mm-dd": "YYYY-MM-DD",
   "date-format-dd-mm-yyyy": "DD-MM-YYYY",
   "date-format-mm-dd-yyyy": "MM-DD-YYYY",

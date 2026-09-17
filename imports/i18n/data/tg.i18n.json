@@ -597,6 +597,7 @@
   "custom-fields": "Майдонҳои фармоишӣ",
   "date": "Сана",
   "date-format": "Қолаби сана",
+  "date-format-for-everyone": "Қолаби сана барои ҳама",
   "date-format-yyyy-mm-dd": "YYYY-MM-DD",
   "date-format-dd-mm-yyyy": "DD-MM-YYYY",
   "date-format-mm-dd-yyyy": "MM-DD-YYYY",

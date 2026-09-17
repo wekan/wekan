@@ -597,6 +597,7 @@
   "custom-fields": "Egyéni mezők",
   "date": "Dátum",
   "date-format": "Dátumformátum",
+  "date-format-for-everyone": "Dátumformátum mindenkinek",
   "date-format-yyyy-mm-dd": "ÉÉÉÉ-HH-NN",
   "date-format-dd-mm-yyyy": "NN-HH-ÉÉÉÉ",
   "date-format-mm-dd-yyyy": "HH-NN-ÉÉÉÉ",

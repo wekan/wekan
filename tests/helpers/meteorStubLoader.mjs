@@ -67,6 +67,9 @@ const STUBS = {
 };
 
 export async function resolve(specifier, context, nextResolve) {
+  if (specifier === '/models/lib/dateFormatPolicy') {
+    return nextResolve(new URL('../../models/lib/dateFormatPolicy.js', import.meta.url).href, context);
+  }
   if (Object.prototype.hasOwnProperty.call(STUBS, specifier)) {
     return { url: `meteor-stub:${specifier}`, shortCircuit: true };
   }

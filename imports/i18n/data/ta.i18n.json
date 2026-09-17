@@ -597,6 +597,7 @@
   "custom-fields": "தனிப்பயன் புலங்கள்",
   "date": "நாள்",
   "date-format": "தேதி வடிவம்",
+  "date-format-for-everyone": "அனைவருக்குமான தேதி வடிவம்",
   "date-format-yyyy-mm-dd": "YYYY-MM-DD (ஆண்டு-மாதம்-நாள்)",
   "date-format-dd-mm-yyyy": "DD-MM-YYYY (நாள்-மாதம்-ஆண்டு)",
   "date-format-mm-dd-yyyy": "MM-DD-YYYY (மாதம்-நாள்-ஆண்டு)",

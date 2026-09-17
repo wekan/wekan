@@ -597,6 +597,7 @@
   "custom-fields": "Собствени полета",
   "date": "Дата",
   "date-format": "Запис",
+  "date-format-for-everyone": "Формат на датата за всички",
   "date-format-yyyy-mm-dd": "година-месец-дан",
   "date-format-dd-mm-yyyy": "дан-месец-година",
   "date-format-mm-dd-yyyy": "месец-дан-година",

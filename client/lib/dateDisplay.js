@@ -1,3 +1,4 @@
+const { resolveDateFormat } = require('/models/lib/dateFormatPolicy');
 import { ReactiveCache } from '/imports/reactiveCache';
 import { formatDateByUserPreference } from '/imports/lib/dateUtils';
 import { formatJalaliDate, gregorianToJalali } from '/imports/lib/jalaliDate';
@@ -5,21 +6,26 @@ import { TAPi18n } from '/imports/i18n';
 const { CALENDAR_SYSTEMS, formatNativeCalendarDate, nativeCalendarParts } = require('/imports/lib/calendarSystems');
 const { calendarMonthRange, shiftedDay } = require('/imports/lib/calendarMonth');
 
+export function isDateFormatForced() {
+  return !!ReactiveCache.getCurrentSetting()?.hideDateFormat;
+}
+
 export function dateDisplayPreferences() {
+  const setting = ReactiveCache.getCurrentSetting();
   const user = ReactiveCache.getCurrentUser();
   if (user) {
     return {
       calendarSystem: user.getCalendarSystem ? user.getCalendarSystem() : 'gregorian',
-      dateFormat: user.getDateFormat ? user.getDateFormat() : 'YYYY-MM-DD',
+      dateFormat: resolveDateFormat(user.getDateFormat ? user.getDateFormat() : null, setting),
     };
   }
   try {
     return {
       calendarSystem: window.localStorage.getItem('calendarSystem') || 'gregorian',
-      dateFormat: window.localStorage.getItem('dateFormat') || 'YYYY-MM-DD',
+      dateFormat: resolveDateFormat(window.localStorage.getItem('dateFormat'), setting),
     };
   } catch (error) {
-    return { calendarSystem: 'gregorian', dateFormat: 'YYYY-MM-DD' };
+    return { calendarSystem: 'gregorian', dateFormat: resolveDateFormat(null, setting) };
   }
 }
 
@@ -46,7 +52,7 @@ export function formatDateForDisplay(date, includeTime = true, gregorianFormatte
     );
     if (system) return text || '';
   }
-  return gregorianFormatter
+  return gregorianFormatter && !isDateFormatForced()
     ? gregorianFormatter(value)
     : formatDateByUserPreference(value, dateFormat, includeTime);
 }

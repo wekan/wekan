@@ -597,6 +597,7 @@
   "custom-fields": "কাস্টম ক্ষেত্র",
   "date": "তারিখ",
   "date-format": "তারিখের বিন্যাস",
+  "date-format-for-everyone": "সবার জন্য তারিখের বিন্যাস",
   "date-format-yyyy-mm-dd": "YYYY-MM-DD",
   "date-format-dd-mm-yyyy": "DD-MM-YYYY",
   "date-format-mm-dd-yyyy": "MM-DD-YYYY",

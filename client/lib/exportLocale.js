@@ -1,3 +1,4 @@
+const { resolveDateFormat } = require('/models/lib/dateFormatPolicy');
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 
@@ -44,12 +45,13 @@ export function browserTimezone() {
 // back to, which the server cannot see at all. An export of a card should print
 // its dates the way the card prints them.
 export function cardDateFormat() {
+  const setting = ReactiveCache.getCurrentSetting();
   try {
     const currentUser = ReactiveCache.getCurrentUser();
-    if (currentUser) return currentUser.getDateFormat();
-    return window.localStorage.getItem('dateFormat') || 'YYYY-MM-DD';
+    if (currentUser) return resolveDateFormat(currentUser.getDateFormat(), setting);
+    return resolveDateFormat(window.localStorage.getItem('dateFormat'), setting);
   } catch (error) {
-    return 'YYYY-MM-DD';
+    return resolveDateFormat(null, setting);
   }
 }
 

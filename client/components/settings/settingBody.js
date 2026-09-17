@@ -901,6 +901,9 @@ Template.setting.events({
 });
 
 Template.tableVisibilityModeSettings.helpers({
+  isGlobalDateFormat(format) {
+    return (ReactiveCache.getCurrentSetting()?.globalDateFormat || 'YYYY-MM-DD') === format;
+  },
   // Multitenancy option D: every group of this pane except "Change color" writes
   // the INSTANCE settings, so only the site admin is shown them.
   isSiteAdmin() {
@@ -1009,10 +1012,14 @@ Template.tableVisibilityModeSettings.events({
       ['#hide-board-activities', 'hideBoardActivitiesOnAllBoards'],
       ['#hide-card-counter-list', 'hideCardCounterList'],
       ['#hide-board-member-list', 'hideBoardMemberList'],
+      ['#hide-date-format', 'hideDateFormat'],
     ]) {
       if ($(selector).length) {
         $set[key] = $(selector).hasClass('is-checked');
       }
+    }
+    if ($('#global-date-format').length) {
+      $set.globalDateFormat = visibilityText('#global-date-format');
     }
     if ($('#spinnerName').length) {
       $set.spinnerName = visibilityText('#spinnerName');

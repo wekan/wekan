@@ -7,6 +7,7 @@ import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 import { Accounts } from 'meteor/accounts-base';
 import { TAPi18n } from '/imports/i18n';
+import { cardDateFormat } from '/client/lib/exportLocale';
 
 // ONE url builder for every chart export, every view. There used to be five
 // copies of this (gantt.js, frappeGantt.js, dhtmlxGantt.js, timeView.js,
@@ -18,12 +19,11 @@ export function chartExportUrl(chartKey, format) {
   const boardId = Session.get('currentBoard');
   if (!boardId || !chartKey) return '';
   const path = format === 'PDF' ? 'exportPDF' : 'exportExcel';
-  const user = Meteor.user();
   const params = new URLSearchParams({
     authToken: Accounts._storedLoginToken() || '',
     lang: TAPi18n.getLanguage ? TAPi18n.getLanguage() : 'en',
     tz: Intl.DateTimeFormat().resolvedOptions().timeZone || '',
-    dateFormat: (user && user.profile && user.profile.dateFormat) || 'YYYY-MM-DD',
+    dateFormat: cardDateFormat(),
   });
   return `/api/boards/${boardId}/charts/${chartKey}/${path}?${params.toString()}`;
 }

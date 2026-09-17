@@ -597,6 +597,7 @@
   "custom-fields": "Придружене рубрике",
   "date": "Датум",
   "date-format": "Запис",
+  "date-format-for-everyone": "Формат датума за све",
   "date-format-yyyy-mm-dd": "година-месец-дан",
   "date-format-dd-mm-yyyy": "дан-месец-година",
   "date-format-mm-dd-yyyy": "месец-дан-година",

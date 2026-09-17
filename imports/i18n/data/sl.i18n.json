@@ -597,6 +597,7 @@
   "custom-fields": "Poljubna polja",
   "date": "Datum",
   "date-format": "Запис",
+  "date-format-for-everyone": "Oblika datuma za vse",
   "date-format-yyyy-mm-dd": "YYYY-MM-DD",
   "date-format-dd-mm-yyyy": "DD-MM-YYYY",
   "date-format-mm-dd-yyyy": "MM-DD-YYYY",

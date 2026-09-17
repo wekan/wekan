@@ -597,6 +597,7 @@
   "custom-fields": "Imimandla yesiko",
   "date": "Umhla",
   "date-format": "UkuFomatha Umhla",
+  "date-format-for-everyone": "Ifomathi yomhla yomntu wonke",
   "date-format-yyyy-mm-dd": "YYYY-MM-DD (unyaka-inyanga-usuku)",
   "date-format-dd-mm-yyyy": "DD-MM-YYYY (usuku-inyanga-unyaka)",
   "date-format-mm-dd-yyyy": "MM-DD-YYYY (inyanga-usuku-unyaka)",

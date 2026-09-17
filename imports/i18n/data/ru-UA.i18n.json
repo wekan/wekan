@@ -597,6 +597,7 @@
   "custom-fields": "Настраиваемые поля",
   "date": "Дата",
   "date-format": "Формат даты",
+  "date-format-for-everyone": "Формат даты для всех",
   "date-format-yyyy-mm-dd": "ГГГГ-ММ-ДД",
   "date-format-dd-mm-yyyy": "ДД-ММ-ГГГГ",
   "date-format-mm-dd-yyyy": "ММ-ДД-ГГГГ",

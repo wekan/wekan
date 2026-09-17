@@ -316,8 +316,10 @@ test('the Date Format selector is inside its open section', () => {
   assert.ok(group.indexOf('cardSectionHeader(section="date-format"')
     < group.indexOf('select.js-date-format-selector'),
     'under the section heading');
-  assert.ok(/if isSectionOpen "date-format"\n\s+\.card-details-item-content/.test(group),
-    'and shown whenever that section is open - the only thing that hides it');
+  // #6703 adds the admin override as a second gate; collapsing the section
+  // must still hide the personal selector when the override is disabled.
+  assert.ok(/if isSectionOpen "date-format"\n\s+unless isDateFormatForced\n\s+\.card-details-item-content/.test(group),
+    'shown only in the open section when the admin override is disabled');
 });
 
 test('Members comes first in its group, then Assignee, then Creator', () => {

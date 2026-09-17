@@ -1,3 +1,4 @@
+import { resolveDateFormat } from '/models/lib/dateFormatPolicy';
 import { Blaze } from 'meteor/blaze';
 import { Tracker } from 'meteor/tracker';
 import { ReactiveCache } from '/imports/reactiveCache';
@@ -410,7 +411,7 @@ class AdvancedFilter {
         user && typeof user.getDateFormat === 'function'
           ? user.getDateFormat()
           : 'YYYY-MM-DD';
-      dayFirst = /^D/.test(dateFormat);
+      dayFirst = /^D/.test(resolveDateFormat(dateFormat, ReactiveCache.getCurrentSetting()));
     } catch (error) {
       dayFirst = false;
     }

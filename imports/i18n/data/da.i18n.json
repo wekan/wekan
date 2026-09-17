@@ -597,6 +597,7 @@
   "custom-fields": "Brugerdefinerede felter",
   "date": "Dato",
   "date-format": "Datoformat",
+  "date-format-for-everyone": "Datoformat for alle",
   "date-format-yyyy-mm-dd": "ÅÅÅÅ-MM-DD",
   "date-format-dd-mm-yyyy": "DD-MM-ÅÅÅÅ",
   "date-format-mm-dd-yyyy": "MM-DD-ÅÅÅÅ",

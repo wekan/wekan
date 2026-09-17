@@ -597,6 +597,7 @@
   "custom-fields": "Trường tùy chỉnh",
   "date": "Ngày",
   "date-format": "Format Tarikh",
+  "date-format-for-everyone": "Định dạng ngày cho mọi người",
   "date-format-yyyy-mm-dd": "TTTT-BB-HH",
   "date-format-dd-mm-yyyy": "HH-BB-TTTT",
   "date-format-mm-dd-yyyy": "BB-HH-TTTT",

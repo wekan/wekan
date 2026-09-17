@@ -597,6 +597,7 @@
   "custom-fields": "Kolom khusus",
   "date": "Tanggal",
   "date-format": "Format Tanggal",
+  "date-format-for-everyone": "Format tanggal kanggo kabeh wong",
   "date-format-yyyy-mm-dd": "YYYY-MM-DD",
   "date-format-dd-mm-yyyy": "DD-MM-YYYY",
   "date-format-mm-dd-yyyy": "MM-DD-YYYY",

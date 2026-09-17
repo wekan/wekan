@@ -597,6 +597,7 @@
   "custom-fields": "Vlastní pole",
   "date": "Dátum",
   "date-format": "Formát dátumu",
+  "date-format-for-everyone": "Formát dátumu pre všetkých",
   "date-format-yyyy-mm-dd": "RRRR-MM-DD",
   "date-format-dd-mm-yyyy": "DD-MM-RRRR",
   "date-format-mm-dd-yyyy": "MM-DD-RRRR",

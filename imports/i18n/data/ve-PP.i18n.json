@@ -597,6 +597,7 @@
   "custom-fields": "Kävutajan märitud pöudod",
   "date": "Päivmär",
   "date-format": "Päivmäran format",
+  "date-format-for-everyone": "Päivmäran format kaikile",
   "date-format-yyyy-mm-dd": "YYYY-MM-DD",
   "date-format-dd-mm-yyyy": "DD-MM-YYYY",
   "date-format-mm-dd-yyyy": "MM-DD-YYYY",

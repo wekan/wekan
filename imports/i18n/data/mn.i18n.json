@@ -597,6 +597,7 @@
   "custom-fields": "Тусгай талбарууд",
   "date": "Огноо",
   "date-format": "Огнооны формат",
+  "date-format-for-everyone": "Бүх хүнд зориулсан огнооны формат",
   "date-format-yyyy-mm-dd": "YYYY-MM-DD (жил-сар-өдөр)",
   "date-format-dd-mm-yyyy": "DD-MM-YYYY (өдөр-сар-жил)",
   "date-format-mm-dd-yyyy": "MM-DD-YYYY (сар-өдөр-жил)",

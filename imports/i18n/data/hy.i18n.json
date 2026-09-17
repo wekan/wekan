@@ -597,6 +597,7 @@
   "custom-fields": "Պատվերով դաշտեր",
   "date": "Ամսաթիվ",
   "date-format": "Ամսաթվի ձևաչափ",
+  "date-format-for-everyone": "Ամսաթվի ձևաչափ բոլորի համար",
   "date-format-yyyy-mm-dd": "YYYY-MM-DD (տարի-ամիս-օր)",
   "date-format-dd-mm-yyyy": "DD-MM-YYYY (օր-ամիս-տարի)",
   "date-format-mm-dd-yyyy": "MM-DD-YYYY (ամիս-օր-տարի)",

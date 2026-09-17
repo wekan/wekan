@@ -19,6 +19,12 @@ Each row is ticked when the thing is **hidden**.
   setting, read once by the feed, so turning it off restores each board's own value.
 - **Card counter list** — hide the per-list card counts on All Boards.
 - **Board member list** — hide the member avatars on All Boards.
+- **Date Format for everyone** — check this and choose `YYYY-MM-DD`,
+  `DD-MM-YYYY`, or `MM-DD-YYYY`, then save. Cards use that format for members
+  and anonymous viewers, overriding personal date-format preferences. Opened
+  cards show **Date** instead of **Date Format** and hide the format dropdown.
+  Unchecking restores personal formats; stored dates and calendar choices
+  are unchanged.
 - **Wait Spinner** — which spinner is shown while something loads. See
   [Wait Spinners](../../Troubleshooting/Wait-Spinners.md).
 

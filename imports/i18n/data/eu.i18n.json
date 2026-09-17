@@ -597,6 +597,7 @@
   "custom-fields": "Eremu pertsonalizatuak",
   "date": "Data",
   "date-format": "Data-formatua",
+  "date-format-for-everyone": "Data-formatua guztientzat",
   "date-format-yyyy-mm-dd": "UUUU-HH-EE",
   "date-format-dd-mm-yyyy": "EE-HH-UUUU",
   "date-format-mm-dd-yyyy": "HH-EE-UUUU",

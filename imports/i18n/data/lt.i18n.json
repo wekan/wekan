@@ -597,6 +597,7 @@
   "custom-fields": "Pasirinktiniai laukai",
   "date": "Data",
   "date-format": "Datos formatas",
+  "date-format-for-everyone": "Datos formatas visiems",
   "date-format-yyyy-mm-dd": "MMMM-MM-DD",
   "date-format-dd-mm-yyyy": "DD-MM-MMMM",
   "date-format-mm-dd-yyyy": "MM-DD-MMMM",

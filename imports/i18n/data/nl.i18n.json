@@ -597,6 +597,7 @@
   "custom-fields": "Maatwerkvelden",
   "date": "Datum",
   "date-format": "Datumformaat",
+  "date-format-for-everyone": "Datumnotatie voor iedereen",
   "date-format-yyyy-mm-dd": "JJJJ-MM-DD",
   "date-format-dd-mm-yyyy": "DD-MM-JJJJ",
   "date-format-mm-dd-yyyy": "MM-DD-JJJJ",

@@ -597,6 +597,7 @@
   "custom-fields": "فیلدهای شخصی",
   "date": "تاریخ",
   "date-format": "قالب تاریخ",
+  "date-format-for-everyone": "قالب تاریخ برای همه",
   "date-format-yyyy-mm-dd": "YYYY-MM-DD",
   "date-format-dd-mm-yyyy": "DD-MM-YYYY",
   "date-format-mm-dd-yyyy": "MM-DD-YYYY",

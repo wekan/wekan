@@ -597,6 +597,7 @@
   "custom-fields": "కస్టమ్ ఫీల్డ్స్",
   "date": "తేదీ",
   "date-format": "తేదీ ఫార్మాట్",
+  "date-format-for-everyone": "అందరికీ తేదీ ఆకృతి",
   "date-format-yyyy-mm-dd": "YYYY-MM-DD (సంవత్సరం-నెల-రోజు)",
   "date-format-dd-mm-yyyy": "DD-MM-YYYY (రోజు-నెల-సంవత్సరం)",
   "date-format-mm-dd-yyyy": "MM-DD-YYYY (నెల-రోజు-సంవత్సరం)",

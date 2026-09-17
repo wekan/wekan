@@ -1,3 +1,4 @@
+import { dateDisplayPreferences, isDateFormatForced } from '/client/lib/dateDisplay';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { ReactiveDict } from 'meteor/reactive-dict';
@@ -1106,6 +1107,7 @@ Template.cardDetails.events({
     }
   },
   'change .js-date-format-selector'(event) {
+    if (isDateFormatForced()) return;
     const dateFormat = event.target.value;
     if (Meteor.userId()) {
       Meteor.call('changeDateFormat', dateFormat);
@@ -1535,13 +1537,11 @@ Template.cardDetails.events({
 // function: isDateFormat" the instant that section rendered and broke
 // opening the card popup entirely. Registered globally, like isSectionOpen
 // just below, so every template can see it.
+Template.registerHelper('isDateFormatForced', isDateFormatForced);
+Template.registerHelper('dateSectionLabel', () => isDateFormatForced() ? 'date' : 'date-format');
+
 Template.registerHelper('isDateFormat', function isDateFormat(format) {
-  const currentUser = ReactiveCache.getCurrentUser();
-  if (!currentUser) {
-    const stored = window.localStorage.getItem('dateFormat') || 'YYYY-MM-DD';
-    return format === stored;
-  }
-  return currentUser.getDateFormat() === format;
+  return dateDisplayPreferences().dateFormat === format;
 });
 
 Template.cardDetails.helpers({

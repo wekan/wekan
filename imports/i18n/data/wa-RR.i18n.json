@@ -597,6 +597,7 @@
   "custom-fields": "Mga Custom Field",
   "date": "Petsa",
   "date-format": "Pormat han Petsa",
+  "date-format-for-everyone": "Pormat han petsa para ha ngatanan",
   "date-format-yyyy-mm-dd": "AAAA-MM-JJ",
   "date-format-dd-mm-yyyy": "JJ-MM-AAAA",
   "date-format-mm-dd-yyyy": "MM-JJ-AAAA",

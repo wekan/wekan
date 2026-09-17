@@ -597,6 +597,7 @@
   "custom-fields": "მომხმარებლის ველი",
   "date": "თარიღი",
   "date-format": "თარიღის ფორმატი",
+  "date-format-for-everyone": "თარიღის ფორმატი ყველასთვის",
   "date-format-yyyy-mm-dd": "YYYY-MM-DD (წელი-თვე-დღე)",
   "date-format-dd-mm-yyyy": "DD-MM-YYYY (დღე-თვე-წელი)",
   "date-format-mm-dd-yyyy": "MM-DD-YYYY (თვე-დღე-წელი)",

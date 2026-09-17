@@ -330,13 +330,14 @@ template(name="cardFieldSectionDates")
         .card-details-group-body
           if currentBoard.hasAnyAllowsDate
             .card-details-item.card-details-item-date-format
-              +cardSectionHeader(section="date-format" icon="fa-calendar" label="date-format" noRule=true)
+              +cardSectionHeader(section="date-format" icon="fa-calendar" label=dateSectionLabel noRule=true)
               if isSectionOpen "date-format"
-                .card-details-item-content
-                  select.js-date-format-selector
-                    option(value="YYYY-MM-DD" selected="{{#if isDateFormat 'YYYY-MM-DD'}}selected{{/if}}") {{_ 'date-format-yyyy-mm-dd'}}
-                    option(value="DD-MM-YYYY" selected="{{#if isDateFormat 'DD-MM-YYYY'}}selected{{/if}}") {{_ 'date-format-dd-mm-yyyy'}}
-                    option(value="MM-DD-YYYY" selected="{{#if isDateFormat 'MM-DD-YYYY'}}selected{{/if}}") {{_ 'date-format-mm-dd-yyyy'}}
+                unless isDateFormatForced
+                  .card-details-item-content
+                    select.js-date-format-selector
+                      option(value="YYYY-MM-DD" selected="{{#if isDateFormat 'YYYY-MM-DD'}}selected{{/if}}") {{_ 'date-format-yyyy-mm-dd'}}
+                      option(value="DD-MM-YYYY" selected="{{#if isDateFormat 'DD-MM-YYYY'}}selected{{/if}}") {{_ 'date-format-dd-mm-yyyy'}}
+                      option(value="MM-DD-YYYY" selected="{{#if isDateFormat 'MM-DD-YYYY'}}selected{{/if}}") {{_ 'date-format-mm-dd-yyyy'}}
 
           if isSectionOpen "date-format"
             each field in orderedDatesFields

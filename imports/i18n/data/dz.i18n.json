@@ -597,6 +597,7 @@
   "custom-fields": "རང་སྒྲིག་ས་སྒོ།",
   "date": "ཚེས།",
   "date-format": "ཚེས་གྲངས་རྩ་སྒྲིག",
+  "date-format-for-everyone": "ག་ར་གི་དོན་ལུ་ཚེས་གྲངས་རྩ་སྒྲིག",
   "date-format-yyyy-mm-dd": "YYYY-MM-DD",
   "date-format-dd-mm-yyyy": "DD-MM-YYYY",
   "date-format-mm-dd-yyyy": "MM-DD-YYYY",

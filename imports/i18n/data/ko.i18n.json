@@ -597,6 +597,7 @@
   "custom-fields": "사용자정의 항목",
   "date": "날짜",
   "date-format": "날짜 형식",
+  "date-format-for-everyone": "모든 사용자의 날짜 형식",
   "date-format-yyyy-mm-dd": "연-월-일",
   "date-format-dd-mm-yyyy": "일-월-연",
   "date-format-mm-dd-yyyy": "월-일-연",

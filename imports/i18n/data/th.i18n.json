@@ -597,6 +597,7 @@
   "custom-fields": "ฟิลด์ที่กำหนดเอง",
   "date": "วันที่",
   "date-format": "รูปแบบวันที่",
+  "date-format-for-everyone": "รูปแบบวันที่สำหรับทุกคน",
   "date-format-yyyy-mm-dd": "YYYY-MM-DD (ปี-เดือน-วัน)",
   "date-format-dd-mm-yyyy": "DD-MM-YYYY (วัน-เดือน-ปี)",
   "date-format-mm-dd-yyyy": "MM-DD-YYYY (เดือน-วัน-ปี)",

@@ -597,6 +597,7 @@
   "custom-fields": "Maes Custom",
   "date": "Dyddiad",
   "date-format": "Fformat Dyddiad",
+  "date-format-for-everyone": "Fformat dyddiad i bawb",
   "date-format-yyyy-mm-dd": "BBBB-MM-DD",
   "date-format-dd-mm-yyyy": "DD-MM-BBBB",
   "date-format-mm-dd-yyyy": "MM-DD-BBBB",

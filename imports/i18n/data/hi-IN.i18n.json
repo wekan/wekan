@@ -597,6 +597,7 @@
   "custom-fields": "प्रचलन  क्षेत्र",
   "date": "दिनांक",
   "date-format": "तिथि प्रारूप",
+  "date-format-for-everyone": "सभी के लिए तिथि प्रारूप",
   "date-format-yyyy-mm-dd": "YYYY-MM-DD (वर्ष-माह-दिन)",
   "date-format-dd-mm-yyyy": "DD-MM-YYYY (दिन-माह-वर्ष)",
   "date-format-mm-dd-yyyy": "MM-DD-YYYY (माह-दिन-वर्ष)",

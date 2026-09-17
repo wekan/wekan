@@ -597,6 +597,7 @@
   "custom-fields": "Viwanja Maalum",
   "date": "Tarehe",
   "date-format": "Umbizo la Tarehe",
+  "date-format-for-everyone": "Umbizo la tarehe kwa kila mtu",
   "date-format-yyyy-mm-dd": "YYYY-MM-DD (mwaka-mwezi-siku)",
   "date-format-dd-mm-yyyy": "DD-MM-YYYY (siku-mwezi-mwaka)",
   "date-format-mm-dd-yyyy": "MM-DD-YYYY (mwezi-siku-mwaka)",

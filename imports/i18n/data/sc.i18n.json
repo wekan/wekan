@@ -597,6 +597,7 @@
   "custom-fields": "Campos personalizados",
   "date": "Data",
   "date-format": "Formadu de sa data",
+  "date-format-for-everyone": "Formadu de sa data pro totus",
   "date-format-yyyy-mm-dd": "AAAA-MM-DD",
   "date-format-dd-mm-yyyy": "DD-MM-AAAA",
   "date-format-mm-dd-yyyy": "MM-DD-AAAA",

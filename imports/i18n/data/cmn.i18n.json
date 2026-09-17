@@ -597,6 +597,7 @@
   "custom-fields": "自定义字段",
   "date": "日期",
   "date-format": "日期格式",
+  "date-format-for-everyone": "所有人的日期格式",
   "date-format-yyyy-mm-dd": "年-月-日",
   "date-format-dd-mm-yyyy": "日-月-年",
   "date-format-mm-dd-yyyy": "月-日-年",

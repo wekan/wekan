@@ -597,6 +597,7 @@
   "custom-fields": "Mukautetut kentät",
   "date": "Päivämäärä",
   "date-format": "Päivämäärämuoto",
+  "date-format-for-everyone": "Päivämäärän muoto kaikille",
   "date-format-yyyy-mm-dd": "VVVV-KK-PP",
   "date-format-dd-mm-yyyy": "PP-KK-VVVV",
   "date-format-mm-dd-yyyy": "KK-PP-VVVV",

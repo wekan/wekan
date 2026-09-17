@@ -597,6 +597,7 @@
   "custom-fields": "ځانګړي ډګرونه",
   "date": "نېټه",
   "date-format": "د نېټې بڼه",
+  "date-format-for-everyone": "د ټولو لپاره د نېټې بڼه",
   "date-format-yyyy-mm-dd": "YYYY-MM-DD",
   "date-format-dd-mm-yyyy": "DD-MM-YYYY",
   "date-format-mm-dd-yyyy": "MM-DD-YYYY",

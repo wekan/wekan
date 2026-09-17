@@ -597,6 +597,7 @@
   "custom-fields": "Champs personnalisés",
   "date": "Date du calendrier",
   "date-format": "Format de la date",
+  "date-format-for-everyone": "Format de date pour tout le monde",
   "date-format-yyyy-mm-dd": "AAAA-MM-JJ",
   "date-format-dd-mm-yyyy": "JJ-MM-AAAA",
   "date-format-mm-dd-yyyy": "MM-JJ-AAAA",

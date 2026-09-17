@@ -64,6 +64,8 @@ const SETTING_FIELDS = {
   hideLogo: 1,
   hideCardCounterList: 1,
   hideBoardMemberList: 1,
+  hideDateFormat: 1,
+  globalDateFormat: 1,
   cardsLoading: 1,
   customLoginLogoImageUrl: 1,
   customLoginLogoLinkUrl: 1,

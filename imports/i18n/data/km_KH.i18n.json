@@ -597,6 +597,7 @@
   "custom-fields": "វាលផ្ទាល់ខ្លួន",
   "date": "កាលបរិច្ឆេទ",
   "date-format": "ទម្រង់កាលបរិច្ឆេទ",
+  "date-format-for-everyone": "ទម្រង់កាលបរិច្ឆេទសម្រាប់អ្នកគ្រប់គ្នា",
   "date-format-yyyy-mm-dd": "YYYY-MM-DD (ឆ្នាំ-ខែ-ថ្ងៃ)",
   "date-format-dd-mm-yyyy": "DD-MM-YYYY (ថ្ងៃ-ខែ-ឆ្នាំ)",
   "date-format-mm-dd-yyyy": "MM-DD-YYYY (ខែ-ថ្ងៃ-ឆ្នាំ)",

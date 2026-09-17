@@ -597,6 +597,7 @@
   "custom-fields": "Goobo gaar ah",
   "date": "Taariikh",
   "date-format": "Qaabka Taariikhda",
+  "date-format-for-everyone": "Qaabka taariikhda ee qof walba",
   "date-format-yyyy-mm-dd": "YYYY-MM-DD",
   "date-format-dd-mm-yyyy": "DD-MM-YYYY",
   "date-format-mm-dd-yyyy": "MM-DD-YYYY",

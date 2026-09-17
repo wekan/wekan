@@ -597,6 +597,7 @@
   "custom-fields": "စိတ်ကြိုက်အကွက်များ",
   "date": "ရက်စွဲ",
   "date-format": "ရက်စွဲပုံစံ",
+  "date-format-for-everyone": "လူတိုင်းအတွက် ရက်စွဲပုံစံ",
   "date-format-yyyy-mm-dd": "YYYY-MM-DD",
   "date-format-dd-mm-yyyy": "DD-MM-YYYY",
   "date-format-mm-dd-yyyy": "MM-DD-YYYY",

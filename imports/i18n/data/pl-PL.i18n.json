@@ -597,6 +597,7 @@
   "custom-fields": "Niestandardowe pola",
   "date": "Data",
   "date-format": "Format daty",
+  "date-format-for-everyone": "Format daty dla wszystkich",
   "date-format-yyyy-mm-dd": "YYYY-MM-DD",
   "date-format-dd-mm-yyyy": "DD-MM-YYYY",
   "date-format-mm-dd-yyyy": "MM-DD-YYYY",

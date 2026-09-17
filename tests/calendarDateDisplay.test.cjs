@@ -10,17 +10,18 @@ const read = file => fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
 (async () => {
   const { formatDateByUserPreference } = await import('../imports/lib/dateUtils.js');
   const { formatJalaliDate, gregorianToJalali } = await import('../imports/lib/jalaliDate.js');
+  let setting = {};
   let profile = { calendar: 'gregorian', format: 'YYYY-MM-DD' };
   let storage = { calendarSystem: 'jalali', dateFormat: 'DD-MM-YYYY' };
   const context = {
-    ReactiveCache: { getCurrentUser: () => profile && ({
+    ReactiveCache: { getCurrentSetting: () => setting, getCurrentUser: () => profile && ({
       getCalendarSystem: () => profile.calendar,
       getDateFormat: () => profile.format,
     }) },
     window: { localStorage: { getItem: key => storage[key] } },
     TAPi18n: { getLanguage: () => 'en', __: key => key },
     formatDateByUserPreference, formatJalaliDate, gregorianToJalali,
-    require: name => name.endsWith('calendarMonth') ? require('../imports/lib/calendarMonth') : calendars, Date, Intl,
+    require: name => name.endsWith('dateFormatPolicy') ? require('../models/lib/dateFormatPolicy') : name.endsWith('calendarMonth') ? require('../imports/lib/calendarMonth') : calendars, Date, Intl,
   };
   const source = read('client/lib/dateDisplay.js');
   vm.runInNewContext(source.replace(/^import .*;\n/gm, '').replace(/export function/g, 'function'), context);
@@ -29,6 +30,12 @@ const read = file => fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
   const timestamp = date.getTime();
   assert.equal(display(date), '2026-03-21 09:05');
   assert.equal(display(date, false, () => 'old Gregorian text'), 'old Gregorian text');
+  setting = { hideDateFormat: true, globalDateFormat: 'DD-MM-YYYY' };
+  assert.equal(display(date, false), '21-03-2026', 'admin overrides a saved user format');
+  assert.equal(display(date, false, () => 'old Gregorian text'), '21-03-2026', 'legacy display callbacks cannot bypass the override');
+  assert.equal(profile.format, 'YYYY-MM-DD', 'saved preference remains intact');
+  setting.hideDateFormat = false;
+  assert.equal(display(date, false), '2026-03-21', 'disabling restores the user preference');
   profile.calendar = 'jalali';
   assert.equal(display(date), '1405-01-01 09:05');
   assert.equal(display(date, false, () => 'must not append Gregorian'), '1405-01-01');
@@ -39,6 +46,11 @@ const read = file => fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
   assert.notEqual(display(new Date(5000, 0, 1), false, () => 'Gregorian must not appear'), 'Gregorian must not appear');
   profile = null;
   assert.equal(display(date, false), '01-01-1405', 'anonymous setting is honored');
+  setting = { hideDateFormat: true, globalDateFormat: 'MM-DD-YYYY' };
+  assert.equal(display(date, false), '01-01-1405', 'global order also applies to anonymous calendars');
+  storage.calendarSystem = 'gregorian';
+  assert.equal(display(date, false), '03-21-2026', 'anonymous local preference is overridden');
+  setting.hideDateFormat = false;
   context.window.localStorage.getItem = () => { throw new Error('storage blocked'); };
   assert.equal(display(date, false), '2026-03-21');
 

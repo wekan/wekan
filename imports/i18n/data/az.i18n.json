@@ -597,6 +597,7 @@
   "custom-fields": "Fərdi Sahələr",
   "date": "Tarix",
   "date-format": "Tarix Format",
+  "date-format-for-everyone": "Hamı üçün tarix formatı",
   "date-format-yyyy-mm-dd": "YYYY-AA-GG",
   "date-format-dd-mm-yyyy": "GG-AA-İYYY",
   "date-format-mm-dd-yyyy": "AA-GG-İYYY",

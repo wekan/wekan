@@ -597,6 +597,7 @@
   "custom-fields": "ئىختىيارىي مەيدانلار",
   "date": "چېسلا",
   "date-format": "چېسلا فورماتى",
+  "date-format-for-everyone": "ھەممە ئادەم ئۈچۈن چېسلا فورماتى",
   "date-format-yyyy-mm-dd": "YYYY-MM-DD (يىل-ئاي-كۈن)",
   "date-format-dd-mm-yyyy": "DD-MM-YYYY (كۈن-ئاي-يىل)",
   "date-format-mm-dd-yyyy": "MM-DD-YYYY (ئاي-كۈن-يىل)",

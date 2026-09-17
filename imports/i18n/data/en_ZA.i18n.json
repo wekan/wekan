@@ -597,6 +597,7 @@
   "custom-fields": "Custom Fields",
   "date": "Date",
   "date-format": "Date Format",
+  "date-format-for-everyone": "Date Format for everyone",
   "date-format-yyyy-mm-dd": "YYYY-MM-DD",
   "date-format-dd-mm-yyyy": "DD-MM-YYYY",
   "date-format-mm-dd-yyyy": "MM-DD-YYYY",

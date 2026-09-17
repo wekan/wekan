@@ -597,6 +597,7 @@
   "custom-fields": "Ruangan Khas",
   "date": "Tarikh",
   "date-format": "Format Tarikh",
+  "date-format-for-everyone": "Format tarikh untuk semua orang",
   "date-format-yyyy-mm-dd": "TTTT-BB-HH",
   "date-format-dd-mm-yyyy": "HH-BB-TTTT",
   "date-format-mm-dd-yyyy": "BB-HH-TTTT",

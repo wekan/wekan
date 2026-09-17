@@ -597,6 +597,7 @@
   "custom-fields": "Vlastní pole",
   "date": "Datum",
   "date-format": "Formát data",
+  "date-format-for-everyone": "Formát data pro všechny",
   "date-format-yyyy-mm-dd": "YYYY-MM-DD",
   "date-format-dd-mm-yyyy": "DD-MM-YYYY",
   "date-format-mm-dd-yyyy": "MM-DD-YYYY",

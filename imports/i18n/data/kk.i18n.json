@@ -597,6 +597,7 @@
   "custom-fields": "Теңшелетін өрістер",
   "date": "Күні",
   "date-format": "Күн пішімі",
+  "date-format-for-everyone": "Барлығына арналған күн пішімі",
   "date-format-yyyy-mm-dd": "YYYY-MM-DD",
   "date-format-dd-mm-yyyy": "DD-MM-YYYY",
   "date-format-mm-dd-yyyy": "MM-DD-YYYY",

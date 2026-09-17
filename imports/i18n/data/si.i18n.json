@@ -597,6 +597,7 @@
   "custom-fields": "අභිරුචි ක්ෂේත්‍ර",
   "date": "දිනය",
   "date-format": "දින ආකෘතිය",
+  "date-format-for-everyone": "සියලු දෙනා සඳහා දින ආකෘතිය",
   "date-format-yyyy-mm-dd": "YYYY-MM-DD",
   "date-format-dd-mm-yyyy": "DD-MM-YYYY",
   "date-format-mm-dd-yyyy": "MM-DD-YYYY",
