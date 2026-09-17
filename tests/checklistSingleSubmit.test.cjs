@@ -11,8 +11,8 @@ const vm = require('node:vm');
     Template: { currentData: () => ({ cardId: 'card', position: 'top' }) },
     ReactiveCache: { getCard: () => ({ isLinkedCard: () => false, firstChecklist: () => null }) },
     Utils: { calculateIndexData: () => ({ base: 0 }) },
-    Checklists: { insertAsync: () => { inserts++; return new Promise((resolve, reject) => { finish = { resolve, reject }; }); } },
-    Popup: { open: () => () => { failures++; } },
+    Checklists: { insert: (doc, callback) => { inserts++; finish = { resolve: id => callback(null, id), reject: error => callback(error) }; } },
+    alert: () => { failures++; },
     setTimeout() {},
   };
   const submit = vm.runInNewContext(`({${handler}})['submit .js-add-checklist']`, context);

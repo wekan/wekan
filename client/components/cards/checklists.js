@@ -246,10 +246,17 @@ Template.checklists.events({
     if (title) {
       form.dataset.submitting = 'true';
       try {
-        await Checklists.insertAsync({ cardId, title, sort: sortIndex });
+        // Keep the client insert path used by this form; wait for the server
+        // acknowledgement before accepting another submission.
+        await new Promise((resolve, reject) => {
+          Checklists.insert({ cardId, title, sort: sortIndex }, (error, id) => {
+            if (error) reject(error);
+            else resolve(id);
+          });
+        });
       } catch (error) {
         delete form.dataset.submitting;
-        Popup.open('error').call({ error }, event);
+        alert(error.reason || error.message || TAPi18n.__('server-error'));
         return;
       }
       textarea.value = '';
