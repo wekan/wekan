@@ -770,6 +770,17 @@ Template.registerHelper('isCurrentListId', function isCurrentListId(listId) {
   Template.registerHelper('orderedVoteAndPokerFields', sectionHelper('voteAndPoker'));
 }
 
+Template.cardFieldSectionSort.helpers({
+  hasVisibleSortFields() {
+    const board = this.board();
+    return !!(board && (
+      board.allowsCardSortingByNumber || board.allowsShowLists ||
+      board.allowsFlowtime || board.allowsPomodoro ||
+      (board.allowsSpentTime && this.getSpentTime())
+    ));
+  },
+});
+
 Template.cardDetails.helpers({
   // #4448: the order the reorderable card-detail sections (Labels, Dates,
   // Members, Dependencies, Sort, Custom Fields, Vote/Poker, Description)
