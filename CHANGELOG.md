@@ -653,7 +653,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v11.84 2026-09-17 WeKan ® release
 
 **In short:** Notification subscriptions and settings work at their intended
 scope, hidden card fields no longer leave empty sections, WIP groups can be
