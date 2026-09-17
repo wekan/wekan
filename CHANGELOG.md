@@ -653,7 +653,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v11.85 2026-09-17 WeKan ® release
 
 **In short:** Admins can select one date format for everyone and hide the
 personal date-format selector on cards.
