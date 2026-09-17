@@ -3006,25 +3006,22 @@ Boards.helpers({
   },
 
   async updateWipLimitGroup(groupId, fields = {}) {
-    const $set = {};
-    if (Array.isArray(fields.listIds)) {
-      $set['wipLimitGroups.$.listIds'] = fields.listIds;
+    if (Meteor.isClient) {
+      return Meteor.callAsync('updateWipLimitGroup', this._id, groupId, fields);
     }
-    if (Number.isFinite(fields.limit) && fields.limit > 0) {
-      $set['wipLimitGroups.$.limit'] = fields.limit;
-    }
-    if (typeof fields.name === 'string') {
-      $set['wipLimitGroups.$.name'] = fields.name;
-    }
-    if (typeof fields.enabled === 'boolean') {
-      $set['wipLimitGroups.$.enabled'] = fields.enabled;
-    }
-    if (Object.keys($set).length === 0) {
-      return 0;
-    }
-    return await Boards.updateAsync(
-      { _id: this._id, 'wipLimitGroups._id': groupId },
-      { $set },
+    const changes = {};
+    if (Array.isArray(fields.listIds)) changes.listIds = fields.listIds;
+    if (Number.isFinite(fields.limit) && fields.limit > 0) changes.limit = fields.limit;
+    if (typeof fields.name === 'string') changes.name = fields.name;
+    if (typeof fields.enabled === 'boolean') changes.enabled = fields.enabled;
+    const groups = this.getWipLimitGroups();
+    if (!Object.keys(changes).length || !groups.some(group => group._id === groupId)) return 0;
+    // Compare the existing array to avoid overwriting a concurrent edit. This
+    // also works on database backends without positional array updates.
+    return Boards.updateAsync(
+      { _id: this._id, wipLimitGroups: groups },
+      { $set: { wipLimitGroups: groups.map(group =>
+        group._id === groupId ? { ...group, ...changes } : group) } },
     );
   },
 

@@ -27,3 +27,21 @@ test('#6699 WIP groups allow mouse and keyboard selection and persist editing', 
   await expect.poll(() => db.findOne('boards', { _id: board.boardId }).wipLimitGroups[0].listIds.sort())
     .toEqual([board.listIds[0], board.listIds[2]].sort());
 });
+
+test('#6699 rejects invalid lists and unauthorized group edits', async ({ boardPage: page, board, user2 }) => {
+  const { loginWithToken } = require('../helpers/auth');
+  const group = { _id: 'protected-group', name: '', listIds: board.listIds.slice(0, 2), limit: 1, enabled: true };
+  db.updateOne('boards', { _id: board.boardId }, { $set: { wipLimitGroups: [group] } });
+  const invoke = fields => page.evaluate(async ({ boardId, fields }) => {
+    try {
+      await Meteor.callAsync('updateWipLimitGroup', boardId, 'protected-group', fields);
+      return 'accepted';
+    } catch (error) { return error.error; }
+  }, { boardId: board.boardId, fields });
+  expect(await invoke({ listIds: [board.listIds[0], 'foreign-list'] })).toBe('invalid-lists');
+  expect(await invoke({ limit: 0 })).toBe('invalid-limit');
+  expect(await invoke({ unexpected: true })).not.toBe('accepted');
+  await loginWithToken(page, user2.id, user2.token);
+  expect(await invoke({ enabled: false })).toBe('not-authorized');
+  expect(db.findOne('boards', { _id: board.boardId }).wipLimitGroups).toEqual([group]);
+});
