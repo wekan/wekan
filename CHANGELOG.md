@@ -653,6 +653,37 @@ the Markdown commit as the template.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** Admins can select one date format for everyone and hide the
+personal date-format selector on cards.
+
+This release adds the following new feature:
+
+**Date display** - one format for members and guests.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/46607d4299">Add an admin date format override for everyone</a>. Thanks to Mathia2 and xet7.</summary>
+
+Admin Panel / Settings / Visibility / All Boards: Hide now has a Date Format
+for everyone checkbox and format dropdown between Board member list and Wait
+Spinner. Enabling it overrides personal date formats, changes the opened
+card heading to Date, and hides its format dropdown. Disabling it restores
+personal preferences without changing stored dates or calendar choices.
+Browser export requests and date filters use the same selected format.
+
+Positive and negative tests cover all supported formats, guest preferences,
+admin permissions, invalid values, and restoration when disabled. The new
+browser test and 17 existing calendar tests pass in Chromium, Firefox and
+WebKit. The application builds, and the 1,171 Node suites are verified,
+including the updated collapse test rerun. The new label is translated in
+all locales; lower-confidence translations are identified in the commit.
+Fixes #6703.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v11.84 2026-09-17 WeKan ® release
 
 **In short:** Notification subscriptions and settings work at their intended
