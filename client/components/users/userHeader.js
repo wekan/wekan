@@ -93,7 +93,7 @@ Template.memberMenuPopup.events({
   'click .js-change-color': Popup.open('changeColor'),
   'click .js-open-notification-settings': Popup.open('notificationSettings', {
     titleKey: 'notifications',
-    scope: 'member',
+    dataContext: { scope: 'member' },
   }),
   'click .js-change-font': Popup.open('changeFont'),
   'click .js-change-avatar': Popup.open('changeAvatar'),

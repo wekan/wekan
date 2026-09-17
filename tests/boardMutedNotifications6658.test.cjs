@@ -40,6 +40,23 @@ assert.deepEqual(
 );
 
 assert.deepEqual(
+  boardNotificationRecipients(
+    ['muted', 'default-muted', 'inactive', 'not-a-member', 'tracking'],
+    members,
+    boardWatchers,
+    ['muted', 'default-muted', 'inactive', 'not-a-member'],
+  ),
+  ['muted', 'default-muted', 'tracking'],
+  'Explicit list/card subscriptions survive board mute but never bypass membership',
+);
+
+assert.deepEqual(
+  boardNotificationRecipients(['muted'], members, boardWatchers, ['default-muted']),
+  [],
+  'An unrelated subscription does not nominate a recipient or unmute assignments',
+);
+
+assert.deepEqual(
   boardNotificationRecipients(undefined, undefined, undefined),
   [],
   'missing board data cannot accidentally notify anyone',

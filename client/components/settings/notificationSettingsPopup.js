@@ -35,10 +35,10 @@ function currentValue(scope, service) {
 
 Template.notificationSettingsPopup.helpers({
   isAdminScope() {
-    return Template.currentData().scope === 'admin';
+    return Template.instance().data.scope === 'admin';
   },
   notifyServiceRows() {
-    const scope = Template.currentData().scope;
+    const scope = Template.instance().data.scope;
     return Object.keys(NOTIFICATION_SERVICES).map(service => {
       const value = currentValue(scope, service);
       return {
@@ -60,7 +60,7 @@ Template.notificationSettingsPopup.events({
     const service = target.dataset.service;
     const rawValue = target.dataset.value;
     const value = rawValue === 'true' ? true : rawValue === 'false' ? false : null;
-    const scope = Template.currentData().scope;
+    const scope = instance.data.scope;
 
     if (scope === 'admin') {
       // Inherit is not offered at admin scope - it IS the base default - so

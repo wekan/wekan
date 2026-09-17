@@ -19,19 +19,19 @@ template(name="notificationSettingsPopup")
           | {{_ labelKey}}
         .notification-settings-popup-options
           if isAdminScope
-            a.flex.js-notify-option(data-service="{{service}}" data-value="true" class="{{#if onSelected}}is-checked{{/if}}")
-              .materialCheckBox
+            a.flex.js-notify-option(data-service="{{service}}" data-value="true")
+              .materialCheckBox(class="{{#if onSelected}}is-checked{{/if}}")
               span {{_ 'yes'}}
-            a.flex.js-notify-option(data-service="{{service}}" data-value="false" class="{{#if offSelected}}is-checked{{/if}}")
-              .materialCheckBox
+            a.flex.js-notify-option(data-service="{{service}}" data-value="false")
+              .materialCheckBox(class="{{#if offSelected}}is-checked{{/if}}")
               span {{_ 'no'}}
           else
-            a.flex.js-notify-option(data-service="{{service}}" data-value="" class="{{#if inheritSelected}}is-checked{{/if}}")
-              .materialCheckBox
+            a.flex.js-notify-option(data-service="{{service}}" data-value="")
+              .materialCheckBox(class="{{#if inheritSelected}}is-checked{{/if}}")
               span {{_ 'default'}}
-            a.flex.js-notify-option(data-service="{{service}}" data-value="true" class="{{#if onSelected}}is-checked{{/if}}")
-              .materialCheckBox
+            a.flex.js-notify-option(data-service="{{service}}" data-value="true")
+              .materialCheckBox(class="{{#if onSelected}}is-checked{{/if}}")
               span {{_ 'yes'}}
-            a.flex.js-notify-option(data-service="{{service}}" data-value="false" class="{{#if offSelected}}is-checked{{/if}}")
-              .materialCheckBox
+            a.flex.js-notify-option(data-service="{{service}}" data-value="false")
+              .materialCheckBox(class="{{#if offSelected}}is-checked{{/if}}")
               span {{_ 'no'}}

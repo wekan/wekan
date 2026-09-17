@@ -68,6 +68,7 @@ Activities.after.insert(async (userId, doc) => {
   const activity = Activities._transform(doc);
   let participants = [];
   let watchers = [];
+  const scopedWatchers = new Set();
   let title = 'act-activity-notify';
   const board = activity.boardId
     ? (await ReactiveCache.getBoard(activity.boardId)) || (await Boards.findOneAsync(activity.boardId))
@@ -124,6 +125,7 @@ Activities.after.insert(async (userId, doc) => {
     const list = await activity.list();
     if (list) {
       if (list.watchers !== undefined) {
+        (list.watchers || []).forEach(id => scopedWatchers.add(id));
         watchers = [...new Set([...watchers, ...(list.watchers || [])])];
       }
       params.list = normalizeActivityText(list.title);
@@ -134,6 +136,7 @@ Activities.after.insert(async (userId, doc) => {
   if (activity.oldListId) {
     const oldList = await activity.oldList();
     if (oldList) {
+      (oldList.watchers || []).forEach(id => scopedWatchers.add(id));
       watchers = [...new Set([...watchers, ...(oldList.watchers || [])])];
       params.oldList = normalizeActivityText(oldList.title);
       params.oldListId = activity.oldListId;
@@ -163,6 +166,7 @@ Activities.after.insert(async (userId, doc) => {
         ...(card.assignees || []),
       ])];
       watchers = [...new Set([...watchers, ...(card.watchers || [])])];
+      (card.watchers || []).forEach(id => scopedWatchers.add(id));
       params.card = normalizeActivityText(card.title);
       title = ACTIVITY_NOTIFICATION_TITLE.CARD;
       if (typeof card.absoluteUrl === 'function') {
@@ -396,14 +400,14 @@ Activities.after.insert(async (userId, doc) => {
       }
     }
 
-    // #6658: Muted is the board's final notification boundary. Direct
-    // assignment (#5833), mentions, list/card watchers and BIGEVENTS_PATTERN
-    // may nominate a recipient, but none may override that recipient's board
-    // watch level. No watcher entry also means the default `muted` level.
+    // #6658: mute board-wide notifications, while honoring an explicit
+    // subscription to this list/card. Assignment and mentions alone do not
+    // opt a muted board member back in.
     watchers = boardNotificationRecipients(
       watchers,
       board.members,
       board.watchers,
+      [...scopedWatchers],
     );
   }
 

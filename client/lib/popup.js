@@ -116,7 +116,7 @@ window.Popup = new (class {
         title: self._getTitle(popupName, openOptions.titleKey),
         depth: self._stack.length,
         offset: self._getOffset(openerElement, popupName),
-        dataContext: (this && this.currentData && this.currentData()) || (options && options.dataContextIfCurrentDataIsUndefined) || this,
+        dataContext: openOptions.dataContext || (this && this.currentData && this.currentData()) || (options && options.dataContextIfCurrentDataIsUndefined) || this,
       });
 
       const $contentWrapper = $('.content-wrapper')

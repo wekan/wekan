@@ -529,7 +529,7 @@ Template.boardMenuPopup.events({
   'click .js-change-background-image': Popup.open('boardChangeBackgroundImage'),
   'click .js-open-notification-settings': Popup.open('notificationSettings', {
     titleKey: 'notifications',
-    scope: 'board',
+    dataContext: { scope: 'board' },
   }),
   'click .js-board-info-on-my-boards': Popup.open('boardInfoOnMyBoards'),
   'click .js-change-language': Popup.open('changeLanguage'),
