@@ -22,7 +22,7 @@ template(name="myAttachments")
                       = list.title
                   each card in list.myAttachmentCards
                     .my-attachments-card-wrapper
-                      a.my-attachments-card-title.js-my-attachment-card(href=card.originRelativeUrl)
+                      a.my-attachments-card-title.js-my-attachment-card(href=card.originRelativeUrl data-card-id=card._id data-board-id=card.boardId)
                         i.fa.fa-external-link
                         = card.title
                       .attachment-gallery.my-attachments-gallery

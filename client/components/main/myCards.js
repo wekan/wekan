@@ -184,11 +184,12 @@ Template.myCards.events({
   // tableView.js (Board Table view) already use: subscribe the popup-only
   // publication, then open the shared `cardDetails` popup template.
   'click .js-minicard'(evt) {
+    if (evt.button !== 0 || evt.ctrlKey || evt.metaKey || evt.shiftKey || evt.altKey) return;
+    // `each card in ...` binds a lexical variable, not a Blaze data context.
+    // Read the identifiers from the link even when its child was clicked (#6702).
+    const { cardId, boardId } = evt.currentTarget.dataset;
+    if (!cardId || !boardId) return;
     evt.preventDefault();
-    const card = Blaze.getData(evt.currentTarget);
-    if (!card || !card._id) return;
-    const cardId = card._id;
-    const boardId = card.boardId;
     Meteor.subscribe('popupCardData', cardId, {
       onReady() {
         Session.set('popupCardId', cardId);

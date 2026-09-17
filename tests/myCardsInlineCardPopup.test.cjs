@@ -56,7 +56,7 @@ test('the My Cards board-view minicard link carries the js-minicard hook', () =>
   // carry the class the click handler below delegates on.
   assert.match(
     myCardsJade,
-    /a\.minicard-wrapper\.js-minicard\(href=card\.originRelativeUrl\)/,
+    /a\.minicard-wrapper\.js-minicard\(href=card\.originRelativeUrl\s+data-card-id=card\._id\s+data-board-id=card\.boardId\)/,
     'expected the card link in myCards.jade to carry the .js-minicard class',
   );
 });
