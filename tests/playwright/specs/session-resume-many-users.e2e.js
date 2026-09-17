@@ -19,7 +19,7 @@ test('#6701 restores a session with 1600 LDAP users without publishing the direc
     const started = Date.now();
     await page.reload({ waitUntil: 'domcontentloaded' });
     await expect.poll(() => page.evaluate(() => (
-      typeof Meteor !== 'undefined' && Meteor.userId() && !Meteor.loggingIn()
+      typeof Meteor !== 'undefined' && !Meteor.loggingIn() && Meteor.userId()
     ))).toBe(user.id);
     expect(Date.now() - started).toBeLessThan(15_000);
     expect(await page.evaluate(prefix => Meteor.users.find({ _id: { $regex: `^${prefix}` } }).count(), prefix)).toBe(0);
@@ -29,7 +29,7 @@ test('#6701 restores a session with 1600 LDAP users without publishing the direc
     const afterSync = Date.now();
     await page.reload({ waitUntil: 'domcontentloaded' });
     await expect.poll(() => page.evaluate(() => (
-      typeof Meteor !== 'undefined' && Meteor.userId() && !Meteor.loggingIn()
+      typeof Meteor !== 'undefined' && !Meteor.loggingIn() && Meteor.userId()
     ))).toBe(user.id);
     expect(Date.now() - afterSync).toBeLessThan(15_000);
     await page.context().clearCookies();
