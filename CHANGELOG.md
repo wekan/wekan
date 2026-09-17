@@ -658,6 +658,7 @@ the Markdown commit as the template.
 **In short:** Notification subscriptions and settings work at their intended
 scope, hidden card fields no longer leave empty sections, WIP groups can be
 selected and edited, and a checklist submission creates one checklist.
+My Cards and My Attachments open the selected card in a popup again.
 FerretDB oplog fixes address a reproduced cause of slow session restoration;
 confirmation of the database in #6701 is still needed.
 
@@ -688,6 +689,21 @@ Dates, Members and Sort render their whole group only when a visible field is
 available. Disabling the fields removes the empty heading and horizontal line;
 reenabling a field restores its group. Unit and browser tests cover both
 states and the conditional spent-time field. Fixes #6696.
+
+</details>
+
+**Personal lists** - open the selected card in place.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d01b3a3d9">Restore card popups on My Cards and My Attachments</a>. Thanks to Mathia2 and xet7.</summary>
+
+Links pass their card and board identifiers explicitly: named `each` loops
+do not change the outer Blaze data context. Clicking a card or its nested
+content opens the correct popup without leaving the list. Modified clicks
+keep native link behavior. Unit tests cover incorrect outer contexts,
+missing identifiers and modified clicks. Browser tests open two cards in
+sequence on both pages and pass in Chromium, Firefox and WebKit with polling
+reactivity. Fixes #6702.
 
 </details>
 
