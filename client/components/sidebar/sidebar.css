@@ -765,4 +765,23 @@ body.sidebar-resizing-active {
 .pop-over-list-subheading + .pop-over-list {
   margin-top: 0;
 }
+/* #6699: this editor uses real, labelled checkboxes. Undo all three parts
+   of forms.css's material-checkbox hiding rule in this popup only. */
+.wip-limit-groups input[type="checkbox"] {
+  display: inline-block;
+  visibility: visible;
+  position: static;
+  inset-inline-start: auto;
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  margin-inline-end: 6px;
+  appearance: auto;
+  cursor: pointer;
+}
+
+.wip-limit-groups label.flex {
+  align-items: center;
+  cursor: pointer;
+}
 

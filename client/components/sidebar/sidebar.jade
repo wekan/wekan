@@ -702,7 +702,7 @@ template(name="wipLimitGroupsPopup")
         .wip-limit-group-name
           input.js-wip-limit-group-name(type="text" value="{{name}}" placeholder="{{_ 'wip-limit-group-name-placeholder'}}")
         .wip-limit-group-lists
-          each ../boardLists
+          each boardLists
             label.flex
               input.js-wip-limit-group-list-toggle(type="checkbox" data-list-id="{{_id}}" checked="{{isListInGroup _id ../listIds}}")
               | {{title}}
