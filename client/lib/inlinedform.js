@@ -83,6 +83,10 @@ Template.inlinedForm.events({
     // in Member Settings submits on plain Enter (Shift+Enter for a newline).
     const submitOnEnter = !!ReactiveCache.getCurrentUser()?.hasSubmitOnEnter?.();
     if (isSubmitKey(evt, { submitOnEnter })) {
+      // #6700: the enclosing checklist has its own Enter handler. A handled
+      // submit key must not bubble to it and create a second document.
+      evt.preventDefault();
+      evt.stopPropagation();
       tpl.find('button[type=submit]').click();
     }
   },
