@@ -46,7 +46,21 @@ test.describe('Notifications & activity log', () => {
 
     await assignUser2();
     await page.waitForTimeout(2_000);
-    expect(db.findOne('users', { _id: user2.id })?.notifications || []).toHaveLength(0);
+    expect(db.findOne('users', { _id: user2.id })?.profile?.notifications || []).toHaveLength(0);
+  });
+
+  test('#6658 explicit list watching receives comments on a muted board', async ({ page, user, user2, board }) => {
+    const { openBoard } = require('../helpers/auth');
+    db.addBoardMember({ boardId: board.boardId, userId: user2.id });
+    db.updateOne('boards', { _id: board.boardId }, { $set: { watchers: [] } });
+    db.updateOne('lists', { _id: board.listIds[0] }, { $set: { watchers: [user2.id] } });
+    await loginWithToken(page, user.id, user.token);
+    await openBoard(page, board.boardId, board.slug);
+    await new BoardPage(page).clickCard(board.listIds[0], 'Alpha Card');
+    const cp = new CardPage(page);
+    await cp.waitForOpen();
+    await cp.addComment('Scoped subscription survives board mute');
+    await expect.poll(() => (db.findOne('users', { _id: user2.id })?.profile?.notifications || []).length).toBeGreaterThan(0);
   });
 
   test('#1658 opening a card Activities section shows its persisted history', async ({
