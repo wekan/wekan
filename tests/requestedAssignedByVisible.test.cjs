@@ -29,7 +29,12 @@ test('each read-only branch shows its own selected people and optional text', ()
     ['assigned-by', 'getAssigners', 'getAssignedBy'],
   ]) {
     const block = jade.slice(jade.indexOf(`| {{_ '${label}'}}`));
-    const readOnly = block.slice(block.indexOf('\n                  else\n'), 1600);
+    // Grouping optional fields under Members (#6696) changed indentation.
+    // Match the else belonging to canModifyCard, not the nested editor's else
+    // or a fixed column/character count that changes with the surrounding UI.
+    const branch = block.match(/\n( +)if canModifyCard\n[\s\S]*?\n\1else\n((?:(?:\1 +[^\n]*|)\n)+)/);
+    assert.ok(branch, `${label} read-only branch`);
+    const readOnly = branch[2];
     assert.ok(new RegExp(`each userId in ${people}`).test(readOnly), `${label} avatars`);
     assert.ok(new RegExp(`if ${text}[\\s\\S]*= ${text}`).test(readOnly), `${label} text`);
   }

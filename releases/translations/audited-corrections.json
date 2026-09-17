@@ -1081,15 +1081,15 @@
     "locale": "zh-Hant",
     "key": "admin-only-field",
     "before": "仅董事会管理员可见",
-    "after": "仅看板管理员可见",
-    "reason": "Use kanban board terminology instead of corporate board of directors."
+    "after": "僅看板管理員可見",
+    "reason": "Use kanban board terminology instead of corporate board of directors. Preserve the newer reviewed Traditional Chinese wording from PR #6695."
   },
   {
     "locale": "zh-TW",
     "key": "admin-only-field",
     "before": "仅董事会管理员可见",
-    "after": "仅看板管理员可见",
-    "reason": "Use kanban board terminology instead of corporate board of directors."
+    "after": "僅看板管理員可見",
+    "reason": "Use kanban board terminology instead of corporate board of directors. Preserve the newer reviewed Traditional Chinese wording from PR #6695."
   },
   {
     "locale": "zh",
@@ -3146,8 +3146,8 @@
     "locale": "zh-TW",
     "key": "calendar-system-islamic-rgsa",
     "before": "Islamic (Saudi Arabia)",
-    "after": "伊斯蘭新月曆",
-    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology."
+    "after": "伊斯蘭曆（沙烏地阿拉伯，目視法）",
+    "reason": "Replace untranslated/foreign calendar name with target-language Unicode CLDR 48.2 terminology. Preserve the newer reviewed Traditional Chinese wording from PR #6695."
   },
   {
     "locale": "zh_SG",
