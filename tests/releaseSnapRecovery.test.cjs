@@ -22,6 +22,8 @@ function remote(scenario, arch = 'armhf') {
 fixture="$FIXTURE_ROOT"
 export TMPDIR="$fixture" GITHUB_OUTPUT="$fixture/output" VERSION=11.85
 mkdir -p "$fixture/.tools/tmp/snap-launchpad-source"
+mkdir -p "$fixture/releases"
+printf '#!/usr/bin/env bash\nsnapcraft "$@"\n' > "$fixture/releases/snapcraft-remote-compat.sh"
 count="$fixture/count"
 timeout() { printf '%s\\n' "$*" >> "$fixture/calls"; shift 2; "$@"; }
 sleep() { :; }
@@ -40,6 +42,8 @@ snapcraft() {
  [ "$SCENARIO" != cleanup ] || return 1
  return 0
 }
+export fixture count
+export -f snapcraft
 ` + source.replaceAll('${{ matrix.arch }}', arch)
       // Redirect only the workflow's log/cache paths into the fixture. Never
       // change HOME or let this test touch a real Snapcraft cache/credentials.
@@ -73,7 +77,7 @@ test('all Launchpad architectures stop waiting cleanly without claiming a build'
     const result = remote('pending', arch);
     assert.equal(result.status, 0, arch);
     assert.equal(result.calls.length, 1);
-    assert.match(result.calls[0], /--kill-after=30s \d+s snapcraft remote-build/);
+    assert.match(result.calls[0], /--kill-after=30s \d+s bash .*snapcraft-remote-compat.sh remote-build/);
     assert.doesNotMatch(result.calls[0], /--foreground/);
     assert.match(result.output, /pending=true/);
     assert.doesNotMatch(result.output, /built=true/);
@@ -81,7 +85,7 @@ test('all Launchpad architectures stop waiting cleanly without claiming a build'
 });
 test('the total wait budget decreases across retries', () => {
   const result = remote('budget');
-  const seconds = result.calls.map(call => Number(call.match(/ (\d+)s snapcraft/)[1]));
+  const seconds = result.calls.map(call => Number(call.match(/ (\d+)s bash/)[1]));
   assert.ok(seconds[1] < seconds[0], result.calls.join('\n'));
   assert.match(result.output, /pending=true/);
 });

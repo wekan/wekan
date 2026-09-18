@@ -4597,6 +4597,7 @@ jobs:
           # queue (v11.85 ppc64el/s390x), and TLS recovery must not reset the budget.
           deadline=$((SECONDS + 18000))
           export TMPDIR="$PWD/.tools/tmp"
+          remote_wrapper="$PWD/releases/snapcraft-remote-compat.sh"
           remote_source="$PWD/.tools/tmp/snap-launchpad-source"
           remote_log="$PWD/.tools/tmp/remote-build-attempt.log"
           run_remote_build() {
@@ -4606,7 +4607,7 @@ jobs:
             # cancel the remote build; a later run can recover the same recipe.
             (
               cd "$remote_source" || { echo "::error::Prepared Launchpad source is missing: $remote_source" >&2; exit 1; }
-              timeout --kill-after=30s "${remaining}s" snapcraft remote-build --launchpad-accept-public-upload \
+              timeout --kill-after=30s "${remaining}s" bash "$remote_wrapper" remote-build --launchpad-accept-public-upload \
                 --build-for ${{ matrix.arch }} "$@"
             ) 2>&1 | tee "$remote_log"
             local remote_rc=${PIPESTATUS[0]}
@@ -4659,7 +4660,7 @@ jobs:
               exit 0
             fi
             if [ "$rc" -eq 0 ] && [ "${#snaps[@]}" -gt 0 ]; then
-              echo "::warning::Attempt $i produced ${snaps[0]}, but it is not a usable snap (see above). Deleting it and building again rather than handing it to the Snap Store."
+              echo "::warning::Attempt $i produced ${snaps[0]}, but it is not a usable snap (see above). Refusing to publish it; recovery must retrieve a valid artifact."
             fi
             if [ "$rc" -eq 0 ]; then
               echo "Attempt $i: snapcraft exited 0 but produced NO .snap for ${{ matrix.arch }} - the Launchpad build did not finish (a 'Stopped' build downloads logs and no artifact). Everything in the directory:"

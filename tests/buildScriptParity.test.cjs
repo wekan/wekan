@@ -192,6 +192,7 @@ test('every script in releases/ is reachable from BOTH menus', () => {
   // Deliberately not in the Releases menu, each for a stated reason. A script
   // added here must be given one.
   const SKIP = {
+    'snapcraft-remote-compat.sh': 'internal Launchpad workflow launcher using the installed Snapcraft runtime',
     'github-release-upload.sh': 'internal release-workflow helper: bounded upload of already-built assets, called by Snap attachment steps',
     'prepare-launchpad-source.sh': 'internal release-workflow helper: prepares the isolated per-architecture source for snap-launchpad',
     'debug-speed-ferretdb.sh': 'diagnostic launcher: starts only an instrumented '

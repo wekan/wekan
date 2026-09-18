@@ -176,6 +176,21 @@ tree into its cache. Hosted reruns use the same checkout path. Each snapshot
 includes its architecture so parallel matrix jobs have distinct recipes.
 Downloaded snaps and logs move out before another recovery attempt.
 
+The v11.86 logs in `wekan28` exposed three failures inside Snapcraft 9.0.1:
+recovery looked up a personal repository although submission used the Launchpad
+project, recipe creation raced indexing of the newly pushed `main` ref, and a
+successful PPC64EL build downloaded only 2,043 bytes before deleting its recipe.
+`releases/snapcraft-remote-compat.sh` runs a narrow compatibility wrapper with
+the installed snap's interpreter and environment; it does not alter installed
+libraries. Only remote builds use it. Recovery includes the project in its
+repository lookup. Recipe creation retries the specific missing `git_ref`
+response for at most fifteen minutes, within the existing five-hour budget;
+other errors still propagate. Downloads must have the SquashFS magic and meet
+the existing 50 MiB minimum before Snapcraft can clean up the remote build.
+Three invalid downloads raise an error and retain the build for recovery.
+These overrides should be removed when the installed upstream implementation
+fixes the corresponding behavior.
+
 Native and Launchpad snap attachments use the same bounded helper: at most
 three ten-minute uploads, with a one-minute read-back that checks every
 artifact's name and byte size. These retries do not rebuild the snap or
@@ -193,6 +208,8 @@ Upstream references:
 - [Snapcraft remote build and recovery](https://documentation.ubuntu.com/snapcraft/8.14/explanation/remote-build/)
 - [Remote command recovery versus submission](https://github.com/canonical/craft-application/blob/6.4.0/craft_application/commands/remote.py)
 - [Project-file hashing](https://github.com/canonical/craft-application/blob/6.4.0/craft_application/remote/utils.py)
+- [Repository lookup, recipe creation and artifact downloads](https://github.com/canonical/craft-application/blob/6.4.0/craft_application/services/remotebuild.py)
+- [Snapcraft 9.0.1 interpreter and application environment](https://github.com/canonical/snapcraft/blob/9.0.1/snap/snapcraft.yaml)
 
 ### Historical note
 

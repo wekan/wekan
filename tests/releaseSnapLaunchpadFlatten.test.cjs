@@ -30,7 +30,7 @@ function projectHash(dir) {
 }
 test('Launchpad prepares a complete isolated source before running remote-build', () => {
   assert.ok(body.indexOf('actions/checkout@') < body.indexOf('bash releases/prepare-launchpad-source.sh'));
-  assert.ok(body.indexOf('bash releases/prepare-launchpad-source.sh') < body.indexOf('snapcraft remote-build --launchpad-accept-public-upload'));
+  assert.ok(body.indexOf('bash releases/prepare-launchpad-source.sh') < body.indexOf('bash "$remote_wrapper" remote-build --launchpad-accept-public-upload'));
   assert.match(body, /fetch-depth: 0/);
   assert.match(body, /cd "\$remote_source"/);
   assert.match(body, /tee "\$remote_log"/);
