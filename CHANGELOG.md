@@ -653,6 +653,40 @@ the Markdown commit as the template.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** Launchpad Snap builds recover the correct repository, wait for
+new refs to become available, and retain completed builds when downloads fail.
+
+This release fixes the following build and release tooling:
+
+**Snap builds** - repository recovery and reliable artifact retrieval.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/29bd491e8">Fix Launchpad recovery, ref indexing and artifact downloads</a>. Thanks to xet7.</summary>
+
+The v11.86 build logs showed recovery looking up the wrong repository,
+recipe creation racing Launchpad's indexing of `main`, and a successful
+PPC64EL build downloading an unusable 2,043-byte artifact before cleanup
+deleted the remote recipe.
+
+Remote builds now use a compatibility wrapper inside Snapcraft's installed
+environment. Recovery looks up the project repository, recipe creation
+retries the specific missing-ref response for up to fifteen minutes, and
+invalid snap downloads retry before cleanup. Repeated invalid downloads
+retain the remote build for recovery. The existing five-hour total wait
+budget remains in effect.
+
+All 1,173 Node test files passed sequentially, including positive and
+negative regression tests for repository lookup, delayed refs, bounded
+retries, incomplete downloads and launcher arguments. Actionlint and shell
+and Python syntax checks passed. Remote services were mocked; live
+Launchpad builds and publication remain for a human-run release job.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v11.86 2026-09-18 WeKan ® release
 
 **In short:** Interrupted Snap builds recover their existing Launchpad work,
