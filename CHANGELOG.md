@@ -653,7 +653,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v11.86 2026-09-18 WeKan ® release
 
 **In short:** Interrupted Snap builds recover their existing Launchpad work,
 and GitHub snap attachments retry within bounded time limits.
