@@ -653,6 +653,40 @@ the Markdown commit as the template.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** Interrupted Snap builds recover their existing Launchpad work,
+and GitHub snap attachments retry within bounded time limits.
+
+This release fixes the following build and release tooling:
+
+**Snap builds** - recovery and release attachments.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bc5881ff9">Recover interrupted Snap builds and bound release attachments</a>. Thanks to xet7.</summary>
+
+The v11.85 logs showed ARMHF losing its Launchpad polling connection,
+PPC64EL and S390X waiting until GitHub cancelled their jobs, and an AMD64
+snap published to the Snap Store but stalled while attaching to GitHub.
+
+Launchpad retries now recover an existing recipe and share one five-hour
+wait budget across all attempts and architectures. An isolated source
+snapshot keeps Git metadata, logs and downloads outside Snapcraft's project
+hash, while architecture-specific content keeps matrix recipes separate.
+Only an explicitly missing recipe or repository permits a new submission.
+Queued work remains unfinished rather than being reported as a built snap.
+
+Snap attachments use bounded retries and verify remote names and sizes.
+Regression tests cover recovery, credentials, timeouts, invalid artifacts,
+stable snapshots and attachment failures with mocked network commands.
+The 1,172 Node suites are verified, including two corrected guard reruns;
+workflow parsing, shell syntax and Actionlint also pass. Live Launchpad
+builds and publishing remain for a human-run release workflow to verify.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v11.85 2026-09-17 WeKan ® release
 
 **In short:** Admins can select one date format for everyone and hide the
