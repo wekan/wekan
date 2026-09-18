@@ -4387,18 +4387,7 @@ jobs:
           # one still upload cleanly.
           up=("$asset")
           [ -f "${asset}.sha256sum" ] && up+=("${asset}.sha256sum")
-          if ! gh release upload --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "${up[@]}" --clobber; then
-            echo "::error::Could not attach $asset to release v${VERSION}: the release must exist first (the release job), and GITHUB_TOKEN must be allowed to write releases here."
-            exit 1
-          fi
-          # Confirm from the OTHER side. An upload that reports success but leaves no
-          # asset behind is the failure nobody notices until a download 404s.
-          gh release view --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" --json assets --jq '.assets[].name' > release-assets.txt
-          if ! grep -qxF "$(basename "$asset")" release-assets.txt; then
-            echo "::error::$asset is not listed in release v${VERSION} although the upload reported success. Re-run this job."
-            exit 1
-          fi
-          echo "OK: $(basename "$asset") is attached to release v${VERSION} ($(($(wc -c < "$asset")/1024/1024)) MiB)."
+          bash releases/github-release-upload.sh "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "${up[@]}"
 
       # Always, as the last step: the run summary then answers "what worked and what
       # did not" for the whole release at a glance, instead of eighteen job logs. A
@@ -4455,7 +4444,7 @@ jobs:
     # never cancels the others - each publishes the moment it finishes.
     continue-on-error: true
     # GitHub's hosted-job ceiling is six hours. The remote command below stops
-    # waiting after five hours on riscv64 and leaves the queued Launchpad build
+    # waiting after five hours across all attempts and leaves the Launchpad build
     # alive, giving log collection and the summary a full hour to finish cleanly
     # instead of having GitHub cancel the job at 360 minutes.
     timeout-minutes: 360
@@ -4527,36 +4516,9 @@ jobs:
 
       - name: Flatten history so the Launchpad push stays small
         if: steps.bundle.outputs.available == 'true'
-        # snapcraft remote-build pushes the project's git repository to
-        # git.launchpad.net and builds it there. It rejects a SHALLOW clone
-        # (that is why the checkout above is fetch-depth: 0), but it does NOT
-        # need the history - and WeKan's full history is large enough that the
-        # push times out or is refused mid-upload:
-        #   Git operation failed with: Could not push 'HEAD' to
-        #   git.launchpad.net/.../+git/snapcraft-wekan-<hash>
-        # after ~4-5 minutes, three attempts running, which is how v10.55
-        # riscv64 and v10.64 ppc64el failed. Re-init the repo as ONE commit of
-        # the tagged tree: a COMPLETE repository (git rev-parse
-        # --is-shallow-repository is false, so remote-build accepts it), just
-        # without the history it pushes for nothing. The push is then the source
-        # tree (tens of MB) instead of the whole history (hundreds). The snap
-        # version comes from snapcraft.yaml (verified below), not git-describe,
-        # so dropping the history changes nothing about what is built.
-        run: |
-          set -euo pipefail
-          # remote-build derives its Launchpad recipe name from this commit.
-          # Preserve the tagged commit's timestamp so a re-run creates the SAME
-          # root commit and reconnects to the queued build instead of submitting
-          # another riscv64 build behind it.
-          snapshot_date="$(git show -s --format=%cI HEAD)"
-          rm -rf .git
-          git init -q
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          GIT_AUTHOR_DATE="$snapshot_date" GIT_COMMITTER_DATE="$snapshot_date" \
-            git commit -q -m "WeKan ${VERSION} snapshot for Launchpad remote-build"
-          echo "Re-initialised as one commit; shallow: $(git rev-parse --is-shallow-repository)"
+        # Snapcraft hashes the project files, not only its commit. Use a complete
+        # one-commit source tree with Git metadata/logs outside the hashed tree.
+        run: bash releases/prepare-launchpad-source.sh "${{ matrix.arch }}"
 
       - name: Install snapcraft
         if: steps.bundle.outputs.available == 'true'
@@ -4631,6 +4593,33 @@ jobs:
           }
           echo "built=false" >> "$GITHUB_OUTPUT"
           echo "pending=false" >> "$GITHUB_OUTPUT"
+          # A shared deadline, not five hours PER retry. Every architecture can
+          # queue (v11.85 ppc64el/s390x), and TLS recovery must not reset the budget.
+          deadline=$((SECONDS + 18000))
+          export TMPDIR="$PWD/.tools/tmp"
+          remote_source="$PWD/.tools/tmp/snap-launchpad-source"
+          remote_log="$PWD/.tools/tmp/remote-build-attempt.log"
+          run_remote_build() {
+            local remaining=$((deadline - SECONDS))
+            [ "$remaining" -gt 0 ] || return 124
+            # Isolate the local waiter, and kill it if it ignores TERM. Never
+            # cancel the remote build; a later run can recover the same recipe.
+            (
+              cd "$remote_source" || { echo "::error::Prepared Launchpad source is missing: $remote_source" >&2; exit 1; }
+              timeout --kill-after=30s "${remaining}s" snapcraft remote-build --launchpad-accept-public-upload \
+                --build-for ${{ matrix.arch }} "$@"
+            ) 2>&1 | tee "$remote_log"
+            local remote_rc=${PIPESTATUS[0]}
+            # Downloaded artifacts and build logs also change the project hash.
+            # Move them out before the next recovery attempt, keeping the logs
+            # where the existing diagnostics/artifact collection expect them.
+            local download
+            for download in "$remote_source"/*.snap "$remote_source"/snapcraft-wekan-*.txt; do
+              mv "$download" .
+            done
+            return "$remote_rc"
+          }
+
           attempts=3
           for i in $(seq 1 "$attempts"); do
             # A partial file from a previous attempt must not be mistaken for
@@ -4638,22 +4627,13 @@ jobs:
             # already has, so the truncated one would be uploaded again.
             rm -f wekan_${VERSION}_${{ matrix.arch }}*.snap *_${{ matrix.arch }}.snap
             echo "::group::Remote build ${{ matrix.arch }} attempt $i/$attempts"
-            if [ "${{ matrix.arch }}" = riscv64 ]; then
-              # Launchpad's riscv64 queue exceeded GitHub's six-hour job cap in
-              # v11.06. Stop only the LOCAL waiter after five hours; Launchpad
-              # keeps the named build, and the deterministic snapshot above lets
-              # a job re-run reconnect and download it when ready.
-              # Do not use --foreground here. GNU timeout then owns a separate
-              # process group and returns 124 to this shell when it expires.
-              # With --foreground, terminating snapcraft surfaced to Actions as
-              # "The operation was canceled", so the rc=124 pending branch
-              # below never ran and the otherwise healthy matrix leg was red.
-              timeout 300m snapcraft remote-build \
-                --launchpad-accept-public-upload \
-                --build-for ${{ matrix.arch }} && rc=0 || rc=$?
-            else
-              snapcraft remote-build --launchpad-accept-public-upload \
-                --build-for ${{ matrix.arch }} && rc=0 || rc=$?
+            # Always try recovery first, including a re-run of this matrix job.
+            # start_builds replaces the recipe; it does NOT resume polling after
+            # an SSL EOF. Only an explicitly absent recipe/repository permits a
+            # new submission. Authentication/network failures are not absence.
+            run_remote_build --recover && rc=0 || rc=$?
+            if [ "$rc" -ne 0 ] && grep -qE 'Could not find (snap recipe|repository at path)' "$remote_log"; then
+              run_remote_build && rc=0 || rc=$?
             fi
             echo "::endgroup::"
             # A real glob, so nullglob can empty it, plus any name Launchpad chose -
@@ -4673,9 +4653,9 @@ jobs:
               echo "built=true" >> "$GITHUB_OUTPUT"
               exit 0
             fi
-            if [ "${{ matrix.arch }}" = riscv64 ] && [ "$rc" -eq 124 ]; then
+            if [ "$rc" -eq 124 ] || [ "$SECONDS" -ge "$deadline" ]; then
               echo "pending=true" >> "$GITHUB_OUTPUT"
-              echo "::warning::Launchpad riscv64 is still queued after five hours. Ending the local wait cleanly; re-run this matrix job later to reconnect to the same build and publish its snap."
+              echo "::warning::Launchpad ${{ matrix.arch }} has not produced a snap within the five-hour wait budget. Ending the local wait cleanly; re-run this matrix job later to reconnect to the same build and publish its snap."
               exit 0
             fi
             if [ "$rc" -eq 0 ] && [ "${#snaps[@]}" -gt 0 ]; then
@@ -4718,12 +4698,12 @@ jobs:
               echo "::endgroup::"
             done
             if [ "$i" -lt "$attempts" ]; then
-              # Start the next attempt from nothing. snapcraft keeps a local
-              # clone of the Launchpad repository under ~/.cache, and a retry
-              # that reuses a half-pushed one repeats the same failure - which is
-              # what three identical attempts sixteen minutes apart look like.
-              echo "Clearing snapcraft's remote-build cache before retrying."
-              rm -rf "$HOME/.cache/snapcraft/remote-build"
+              # Clear a half-pushed clone only when submission never reached
+              # monitoring. A failed poll must keep the running build intact.
+              if ! grep -qE 'Monitoring build|Recovering build' "$remote_log"; then
+                echo "Clearing snapcraft's remote-build cache before retrying submission."
+                rm -rf "$HOME/.cache/snapcraft/remote-build"
+              fi
               echo "Retrying in 60s..."
               sleep 60
             fi
@@ -4805,7 +4785,7 @@ jobs:
           # good builds were reported as FAILED by the step that saves their logs.
           # The timestamp is worth keeping, so the colons become dashes rather
           # than the name being thrown away.
-          for f in snapcraft-wekan-*.txt "$HOME"/.local/state/snapcraft/log/*.log; do
+          for f in snapcraft-wekan-*.txt .tools/tmp/remote-build-attempt.log "$HOME"/.local/state/snapcraft/log/*.log; do
             [ -f "$f" ] || continue
             base="$(basename "$f")"
             cp -f "$f" "snap-logs/${base//:/-}" || true
@@ -4909,24 +4889,7 @@ jobs:
           # attaching, which is the half people download from.
           snaps=( $(printf '%s\n' wekan_${VERSION}_${{ matrix.arch }}*.snap *_${{ matrix.arch }}.snap | sort -u) )
           if [ "${#snaps[@]}" -gt 0 ] && [ -s "${snaps[0]}" ]; then
-            if ! gh release upload --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "${snaps[@]}" --clobber; then
-              echo "::error::Could not attach ${snaps[*]} to release v${VERSION}. The snap BUILT and was published to the Snap Store by the step above, so this is the attaching alone - the half people download from."
-              exit 1
-            fi
-            # Confirm from the OTHER side, the way the native snap job does: an
-            # upload that reports success but leaves no asset behind is the
-            # failure nobody notices until a download 404s. v10.91 lost three
-            # architectures from the Release while every job that lost one had
-            # already said the snap was built and published.
-            gh release view --repo "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" \
-              --json assets --jq '.assets[].name' > release-assets.txt
-            for snap in "${snaps[@]}"; do
-              if ! grep -qxF "$(basename "$snap")" release-assets.txt; then
-                echo "::error::$(basename "$snap") is not listed in release v${VERSION} although the upload reported success. Re-run this job."
-                exit 1
-              fi
-            done
-            echo "OK: ${snaps[*]} attached to release v${VERSION}."
+            bash releases/github-release-upload.sh "${GITHUB_REPOSITORY:-wekan/wekan}" "v${VERSION}" "${snaps[@]}"
           else
             echo "No ${{ matrix.arch }} snap to attach - the build produced none."
           fi
@@ -4935,14 +4898,14 @@ jobs:
       # did not" for the whole release at a glance, instead of eighteen job logs. A
       # step that failed has already printed an ::error:: saying why; this names the
       # job it was in.
-      - name: Say what a queued riscv64 build leaves behind
+      - name: Say what an unfinished ${{ matrix.arch }} build leaves behind
         if: steps.launchpad.outputs.pending == 'true'
         run: |
-          echo "::warning::snap-launchpad riscv64 is still queued on Launchpad; this Actions job stopped waiting cleanly before GitHub's cap."
+          echo "::warning::snap-launchpad ${{ matrix.arch }} is unfinished on Launchpad; this Actions job stopped waiting cleanly before GitHub's cap."
           echo "Re-run this matrix job after Launchpad finishes. Its deterministic snapshot reconnects to the same build, downloads the snap, and publishes it."
 
       # An unexpected job-level cancellation is distinct from the deliberate,
-      # clean riscv64 waiter timeout above.
+      # clean waiter timeout above.
       - name: Say what a cancelled ${{ matrix.arch }} job leaves behind
         if: cancelled()
         run: |

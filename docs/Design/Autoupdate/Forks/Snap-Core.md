@@ -121,7 +121,7 @@ The base snaps (`core*`):
 | Job | Arches | Mechanism | `core24`? |
 |---|---|---|---|
 | `snap-native` | `amd64`, `arm64` | `snapcore/action-build` on a **native** runner | Yes |
-| `snap-launchpad` | `ppc64el`, `s390x`, `riscv64` | `snapcraft remote-build` on Launchpad | Yes |
+| `snap-launchpad` | `ppc64el`, `s390x`, `riscv64`, `armhf` | `snapcraft remote-build` on Launchpad | Yes |
 
 (`snap-qemu`, which built `ppc64el` / `s390x` with
 `diddlesnaps/snapcraft-multiarch-action` under QEMU, is deleted: it caps at
@@ -139,20 +139,60 @@ not stay in `snap-qemu`. They build on Launchpad `remote-build` alongside
 `riscv64`:
 
 - `ppc64el` and `s390x` are in the `snap-launchpad` matrix
-  (`arch: [ppc64el, s390x, riscv64]`).
+  (`arch: [ppc64el, s390x, riscv64, armhf]`).
 - The `snap-qemu` job is deleted.
 
 The `snap-launchpad` job is more robust than the older Launchpad legs that were
 originally replaced by `snap-qemu`: it **requires the `.snap` file to exist,
 retries the remote build 3×, and only uploads when the file is present**, which
 guards the old "is not a valid file" (`snapcraft upload`, exit 64) failure. It is
-`continue-on-error` with `timeout-minutes: 180` and `fail-fast: false`, so a
+`continue-on-error` with `timeout-minutes: 360` and `fail-fast: false`, so a
 Launchpad queue of hours — the price of this path — can neither fail the release
 nor cancel another arch, and each arch publishes the moment it finishes.
 
 It needs **`LP_CREDENTIALS`** as well as `SNAP_AUTH`; its first step says by name
 if either is missing, and decodes `LP_CREDENTIALS` so an unusable value is one
 named line rather than an ordinary-looking build failure.
+
+### Recovering interrupted jobs
+
+The v11.85 logs in `wekan27` showed an ARMHF TLS EOF while polling Launchpad,
+PPC64EL and S390X queued until GitHub's six-hour cancellation, and an AMD64
+snap that published to the Snap Store but stalled while attaching to GitHub.
+
+Every Launchpad architecture now shares a five-hour local wait budget across
+all attempts. Exhausting it leaves the remote build running and reports an
+unfinished build, without claiming that a snap was produced. Re-run that
+matrix job after Launchpad finishes. Recovery uses `--recover`; a normal
+`remote-build` invocation replaces the recipe and submits a new build. Only
+an explicit missing recipe/repository response permits a new submission.
+Authentication and connection failures never trigger that fallback.
+
+The source snapshot lives in `.tools/tmp/snap-launchpad-source`, with Git
+metadata in a sibling directory and retry logs outside the snapshot.
+Snapcraft hashes **all project files**, so a deterministic commit alone is
+insufficient. The Git pointer remains absolute because Snapcraft copies the
+tree into its cache. Hosted reruns use the same checkout path. Each snapshot
+includes its architecture so parallel matrix jobs have distinct recipes.
+Downloaded snaps and logs move out before another recovery attempt.
+
+Native and Launchpad snap attachments use the same bounded helper: at most
+three ten-minute uploads, with a one-minute read-back that checks every
+artifact's name and byte size. These retries do not rebuild the snap or
+repeat the Snap Store publication.
+
+The regression tests execute snapshot preparation on a fixture repository
+and the workflow's actual retry shell with mocked network commands. They
+cover TLS recovery, missing recipes, authentication refusal, every queued
+architecture, decreasing time budgets, invalid downloads, cleanup failures,
+upload timeouts, and missing or wrong-size release assets. Live remote
+builds and publication must still be verified by a human-run release job.
+
+Upstream references:
+
+- [Snapcraft remote build and recovery](https://documentation.ubuntu.com/snapcraft/8.14/explanation/remote-build/)
+- [Remote command recovery versus submission](https://github.com/canonical/craft-application/blob/6.4.0/craft_application/commands/remote.py)
+- [Project-file hashing](https://github.com/canonical/craft-application/blob/6.4.0/craft_application/remote/utils.py)
 
 ### Historical note
 

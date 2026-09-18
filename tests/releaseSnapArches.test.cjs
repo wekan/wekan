@@ -161,11 +161,11 @@ test('a slow Launchpad arch can neither fail the release nor cancel another arch
     `timeout-minutes: ${timeout[1]} does not fit two attempts on a slow arch`);
   assert.ok(Number(timeout[1]) <= 360,
     `timeout-minutes: ${timeout[1]} is over GitHub's per-job ceiling`);
-  assert.ok(/timeout 300m snapcraft remote-build/.test(launchpad),
-    'riscv64 stops its local waiter before the six-hour hosted-job cancellation');
-  assert.ok(!/timeout --foreground 300m snapcraft remote-build/.test(launchpad),
+  assert.ok(/timeout --kill-after=30s/.test(launchpad) && /deadline=\$\(\(SECONDS \+ 18000\)\)/.test(launchpad),
+    'all architectures share a five-hour deadline across retries before the job cap');
+  assert.ok(!/timeout --foreground/.test(launchpad),
     'timeout must isolate the waiter so SIGTERM returns 124 instead of cancelling Actions');
-  assert.ok(/\[ "\$\{\{ matrix\.arch \}\}" = riscv64 \] && \[ "\$rc" -eq 124 \]/.test(launchpad),
+  assert.ok(/\[ "\$rc" -eq 124 \] \|\| \[ "\$SECONDS" -ge "\$deadline" \]/.test(launchpad),
     'the waiter timeout is recognized as queued work, not a failed build');
   assert.ok(/pending=true/.test(launchpad),
     'the clean timeout is exposed to the job summary');
@@ -296,13 +296,18 @@ test('a remote build that produced no .snap is a failure, not a silent success',
   // architectures that went missing had each said "built" and "published to the
   // Snap Store" in the same job.
   const attach = launchpad.slice(launchpad.indexOf('Attach the ${{ matrix.arch }} snap'));
-  assert.ok(/gh release view[\s\S]{0,200}--json assets/.test(attach),
-    'the attach step reads back the release assets');
-  assert.ok(/is not listed in release v\$\{VERSION\} although the upload reported success/.test(attach),
-    'and fails when its own snap is not among them');
+  // v11.85 moves this verification into the bounded retry helper so a stalled
+  // upload cannot prevent either validation or the job summary from running.
+  assert.ok(attach.includes('bash releases/github-release-upload.sh'),
+    'the attach step uses the bounded, verified uploader');
+  const uploader = read('releases/github-release-upload.sh');
+  assert.match(uploader, /gh release view[\s\S]{0,200}--json assets/);
+  assert.match(uploader, /missing or has the wrong size/);
+  assert.match(uploader, /exit 1/);
+
 });
 
-test('a queued riscv64 build cannot reach publish steps without an artifact', () => {
+test('an unfinished Launchpad build cannot reach publish steps without an artifact', () => {
   const launchpad = job('snap-launchpad');
   assert.ok(/id: launchpad/.test(launchpad), 'the build step exposes its outcome');
   for (const name of ['Push ${{ matrix.arch }} to the Snap Store', 'Attach the ${{ matrix.arch }} snap']) {

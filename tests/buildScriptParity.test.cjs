@@ -192,6 +192,8 @@ test('every script in releases/ is reachable from BOTH menus', () => {
   // Deliberately not in the Releases menu, each for a stated reason. A script
   // added here must be given one.
   const SKIP = {
+    'github-release-upload.sh': 'internal release-workflow helper: bounded upload of already-built assets, called by Snap attachment steps',
+    'prepare-launchpad-source.sh': 'internal release-workflow helper: prepares the isolated per-architecture source for snap-launchpad',
     'debug-speed-ferretdb.sh': 'diagnostic launcher: starts only an instrumented '
       + 'local FerretDB for a restore investigation, not a release action',
     'debug-speed-server.sh': 'diagnostic launcher: starts an instrumented local '

@@ -1,74 +1,74 @@
 'use strict';
-
-// Plain-Node guard for release-all.yml: the snap-launchpad job must flatten the
-// repository to a single COMPLETE commit before `snapcraft remote-build`.
-// Run: node tests/releaseSnapLaunchpadFlatten.test.cjs
-//
-// snapcraft remote-build pushes the project's git repository to git.launchpad.net
-// and builds it there. It rejects a SHALLOW clone (hence the checkout is
-// fetch-depth: 0), but WeKan's full history is large enough that the push times
-// out or is refused mid-upload - "Could not push 'HEAD' to git.launchpad.net/...
-// snapcraft-wekan-<hash>" after minutes, every retry (v10.55 riscv64, v10.64
-// ppc64el). Re-initing the repo as ONE commit of the tagged tree keeps it
-// COMPLETE (not shallow, so remote-build accepts it) while making the push the
-// source tree rather than the whole history. This pins that the flatten is there,
-// runs after the checkout and before the remote build, and really re-inits.
-
-const assert = require('assert');
-const fs = require('fs');
-const path = require('path');
-
-const repoRoot = path.resolve(__dirname, '..');
-const workflow = fs.readFileSync(
-  path.join(repoRoot, '.github/workflows/release-all.yml'), 'utf8',
-);
-
-function job(name) {
-  const start = workflow.indexOf(`\n  ${name}:\n`);
-  assert.notStrictEqual(start, -1, `release-all.yml has no ${name} job`);
-  const rest = workflow.slice(start + 1);
-  const next = rest.search(/\n  [a-z0-9-]+:\n/);
-  return next === -1 ? rest : rest.slice(0, next);
+// Exercise the actual snapshot preparation, including the project hash shape
+// used by craft-application.remote.utils._compute_hash (all files, even .git).
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const crypto = require('node:crypto');
+const { spawnSync } = require('node:child_process');
+const { test } = require('node:test');
+const root = path.resolve(__dirname, '..');
+const workflow = fs.readFileSync(path.join(root, '.github/workflows/release-all.yml'), 'utf8');
+const body = workflow.split('\n  snap-launchpad:\n')[1].split(/\n  [a-z0-9-]+:\n/)[0];
+const helper = path.join(root, 'releases/prepare-launchpad-source.sh');
+function run(cwd, cmd, args) {
+  const result = spawnSync(cmd, args, { cwd, encoding: 'utf8', env: { ...process.env, TMPDIR: path.join(root, '.tools/tmp') } });
+  assert.equal(result.status, 0, result.stderr);
+  return result.stdout.trim();
 }
-
-let passed = 0;
-function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
-
-const body = job('snap-launchpad');
-
-test('snap-launchpad flattens the repo to one complete commit', () => {
-  // The flatten re-inits the repository (drops history, keeps the tree).
-  assert.ok(/rm -rf \.git\s*[\s\S]{0,80}git init/.test(body),
-    'snap-launchpad must rm -rf .git and git init to drop the history it does not need');
-  assert.ok(/git add -A[\s\S]{0,200}git commit/.test(body),
-    'the flatten must commit the current tree as one commit');
+function projectHash(dir) {
+  const files = [];
+  function walk(at) {
+    for (const name of fs.readdirSync(at)) {
+      const file = path.join(at, name);
+      if (fs.statSync(file).isDirectory()) walk(file); else files.push(file);
+    }
+  }
+  walk(dir);
+  const hashes = files.sort().map(file => crypto.createHash('md5').update(fs.readFileSync(file)).digest('hex')).join('');
+  return crypto.createHash('md5').update(hashes).digest('hex');
+}
+test('Launchpad prepares a complete isolated source before running remote-build', () => {
+  assert.ok(body.indexOf('actions/checkout@') < body.indexOf('bash releases/prepare-launchpad-source.sh'));
+  assert.ok(body.indexOf('bash releases/prepare-launchpad-source.sh') < body.indexOf('snapcraft remote-build --launchpad-accept-public-upload'));
+  assert.match(body, /fetch-depth: 0/);
+  assert.match(body, /cd "\$remote_source"/);
+  assert.match(body, /tee "\$remote_log"/);
+  assert.match(body, /mv "\$download" \./);
 });
-
-test('the flattened commit is deterministic so a re-run reconnects', () => {
-  assert.ok(/snapshot_date="\$\(git show -s --format=%cI HEAD\)"/.test(body),
-    'the tagged commit timestamp is captured before history is removed');
-  assert.ok(/GIT_AUTHOR_DATE="\$snapshot_date" GIT_COMMITTER_DATE="\$snapshot_date"/.test(body),
-    'author and committer dates are fixed, or every re-run submits a new recipe');
+test('snapshot is complete, repeatable, architecture-specific and usable from Snapcraft cache', () => {
+  const tmp = path.join(root, '.tools/tmp'); fs.mkdirSync(tmp, { recursive: true });
+  const dir = fs.mkdtempSync(path.join(tmp, 'launchpad-source-test-'));
+  try {
+    run(dir, 'git', ['init', '-q']);
+    run(dir, 'git', ['config', 'user.name', 'Test Fixture']);
+    run(dir, 'git', ['config', 'user.email', 'fixture@example.invalid']);
+    fs.writeFileSync(path.join(dir, 'snapcraft.yaml'), 'name: wekan\nversion: 11.85\n');
+    fs.writeFileSync(path.join(dir, 'tracked.txt'), 'source');
+    run(dir, 'git', ['add', '.']); run(dir, 'git', ['commit', '-qm', 'fixture']);
+    fs.writeFileSync(path.join(dir, 'untracked.txt'), 'must not be uploaded');
+    run(dir, 'bash', [helper, 'armhf']);
+    const source = path.join(dir, '.tools/tmp/snap-launchpad-source');
+    assert.equal(run(source, 'git', ['rev-parse', '--is-shallow-repository']), 'false');
+    assert.equal(run(source, 'git', ['rev-list', '--count', 'HEAD']), '1');
+    assert.ok(fs.statSync(path.join(source, '.git')).isFile());
+    assert.ok(!fs.existsSync(path.join(source, 'untracked.txt')));
+    const hash = projectHash(source);
+    const commit = run(source, 'git', ['rev-parse', 'HEAD']);
+    run(source, 'git', ['status', '--porcelain']); // refreshes the external index
+    fs.writeFileSync(path.join(dir, '.tools/tmp/retry.log'), 'SSL EOF');
+    assert.equal(projectHash(source), hash);
+    // craft-application WorkTree.init_repo uses copytree, then GitRepo on it.
+    const cache = path.join(dir, 'cache'); fs.cpSync(source, cache, { recursive: true });
+    assert.equal(run(cache, 'git', ['status', '--porcelain']), '');
+    assert.equal(run(cache, 'git', ['rev-parse', 'HEAD']), commit);
+    run(dir, 'bash', [helper, 'armhf']);
+    assert.equal(projectHash(source), hash, 'same workspace/architecture must recover the same recipe');
+    assert.equal(run(source, 'git', ['rev-parse', 'HEAD']), commit);
+    run(dir, 'bash', [helper, 's390x']);
+    assert.notEqual(projectHash(source), hash, 'matrix legs must not replace one another');
+    const invalid = spawnSync('bash', [helper, 'invalid'], { cwd: dir, encoding: 'utf8' });
+    assert.equal(invalid.status, 2);
+    assert.equal(run(dir, 'git', ['log', '-1', '--format=%s']), 'fixture', 'original checkout unchanged');
+  } finally { fs.rmSync(dir, { recursive: true, force: true }); }
 });
-
-test('the flatten runs AFTER the checkout and BEFORE the remote build', () => {
-  const coIdx = body.indexOf('actions/checkout@');
-  const flattenIdx = body.search(/rm -rf \.git/);
-  // The actual invocation (with its flag), not the comment mentions of the name.
-  const buildIdx = body.indexOf('snapcraft remote-build --launchpad-accept-public-upload');
-  assert.ok(coIdx !== -1 && flattenIdx !== -1 && buildIdx !== -1,
-    'snap-launchpad must have a checkout, a flatten, and a remote-build');
-  assert.ok(coIdx < flattenIdx,
-    'the flatten must come after the checkout (it operates on the checked-out tree)');
-  assert.ok(flattenIdx < buildIdx,
-    'the flatten must come before snapcraft remote-build, or the push still carries the full history');
-});
-
-test('the checkout is still full-depth (remote-build rejects a shallow clone)', () => {
-  // The flatten needs a real repo to re-init; and a shallow checkout is what
-  // remote-build rejected in the first place. fetch-depth: 0 must remain.
-  assert.ok(/fetch-depth:\s*0/.test(body),
-    'the checkout must stay fetch-depth: 0 - a shallow clone is what remote-build rejects');
-});
-
-console.log(`\nreleaseSnapLaunchpadFlatten: all ${passed} tests passed`);
