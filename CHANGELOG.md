@@ -710,6 +710,36 @@ integration, WebKit run or screen-reader session is claimed.
 
 </details>
 
+**Markdown editor** - remove obsolete visual-editor code and configuration.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5ed9fc944">Remove the obsolete Summernote integration and editor setting</a>. Thanks to xet7.</summary>
+
+Removed `RICHER_CARD_COMMENT_EDITOR`, its Snap option, server setting bridge,
+unused editor initialization, upload/paste callbacks and editor-specific styles
+and selectors. Docker, Snap, Sandstorm, development containers, Windows and Unix
+launchers, build/test scripts and current documentation no longer advertise it.
+Released and archived changelog entries remain unchanged.
+
+WeKan edits Markdown in textareas. No existing WYSIWYG editor supports its full
+combination of Markdown, emoji, security requirements and other editing
+features. Mention suggestions, Markdown rendering, HTML-to-Markdown conversion
+and existing attachment links remain available. Notification emails use the
+shared escaped HTML formatter independently of editor settings; custom body
+templates retain their existing behavior.
+
+The <a href="https://github.com/wekan/wekan/blob/main/docs/Features/Markdown-Editor.md">Markdown editor documentation</a>
+describes the supported editor. Regression checks exercise per-template mention
+initialization, Markdown/emoji round trips, pasted-HTML safety, attachment links
+and escaped notification email output. A missing translation import in the
+attachment error handler was also corrected.
+
+A fresh Meteor build and six Chromium/Firefox checks passed. Shell syntax and
+platform YAML checks passed; native Windows, Snap and Sandstorm packages were
+not built in this Linux test environment.
+
+</details>
+
 This release fixes the following build and release tooling:
 
 **Snap builds** - repository recovery and reliable artifact retrieval.
