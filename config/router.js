@@ -53,6 +53,9 @@ function ensureSignedInUnlessSandstorm(context, redirect, stop) {
   if (isSandstorm) {
     return undefined;
   }
+  // An initial URL has no previously exited route. Remember it before the
+  // guard redirects so cookie resume can return here after authentication.
+  if (!Meteor.userId()) AccountsTemplates.setPrevPath(context.path);
   return AccountsTemplates.ensureSignedIn(context, redirect, stop);
 }
 

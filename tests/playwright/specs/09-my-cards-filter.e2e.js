@@ -28,7 +28,7 @@ test.describe('My Cards, filter & sort', () => {
     } else {
       // Navigate directly — myCards template renders .board-header-btn-container (from myCardsHeaderBar)
       // and optionally a .wrapper (when boards have cards).
-      await boardPage.goto(`${BASE_URL}/my-cards`, { waitUntil: 'networkidle' });
+      await boardPage.goto(`${BASE_URL}/my-cards`, { waitUntil: 'domcontentloaded' });
       // The page always renders the header bar with a board-title h1
       const content = boardPage.locator('.board-header-btn-container, .board-title, .wrapper').first();
       await expect(content).toBeVisible({ timeout: 10_000 });
@@ -42,15 +42,15 @@ test.describe('My Cards, filter & sort', () => {
 
     const { loginWithToken } = require('../helpers/auth');
     await loginWithToken(page, user.id, user.token);
-    await page.goto(`${BASE_URL}/my-cards`, { waitUntil: 'networkidle' });
+    await page.goto(`${BASE_URL}/my-cards`, { waitUntil: 'domcontentloaded' });
 
-    const alphaCard = page.locator('.minicard-title, .card-title').filter({ hasText: 'Alpha Card' });
-    if (await alphaCard.count() > 0) {
-      await expect(alphaCard.first()).toBeVisible({ timeout: 10_000 });
-    }
-    // Beta/Gamma (not assigned to user) should NOT appear
-    const betaCard = page.locator('.minicard-title, .card-title').filter({ hasText: 'Beta Card' });
-    await expect(betaCard).not.toBeVisible({ timeout: 3_000 }).catch(() => {});
+    await expect.poll(() => page.evaluate(() => Meteor.userId())).toBe(user.id);
+    await expect(page).toHaveURL(/\/my-cards(?:[?#]|$)/);
+    const cards = page.locator('.my-cards-card-wrapper .minicard-title, .my-cards-card-title-table');
+    await expect(cards.filter({ hasText: 'Alpha Card' })).toBeVisible({ timeout: 15_000 });
+    // Unassigned cards must not be included in either My Cards layout.
+    await expect(cards.filter({ hasText: 'Beta Card' })).toHaveCount(0);
+    await expect(cards.filter({ hasText: 'Gamma Card' })).toHaveCount(0);
   });
 
   test('filter by assignee shows only assigned cards on the board', async ({ boardPage, board, user }) => {
@@ -58,7 +58,7 @@ test.describe('My Cards, filter & sort', () => {
     // WeKan filter field (card.assignees vs card.members) will match.
     db.updateOne('cards', { boardId: board.boardId, title: 'Alpha Card' },
       { $set: { assignees: [user.id], members: [user.id] } });
-    await boardPage.reload({ waitUntil: 'networkidle' });
+    await boardPage.reload({ waitUntil: 'domcontentloaded' });
 
     const sp = new SearchPage(boardPage);
     await sp.openFilterSidebar();

@@ -1,5 +1,6 @@
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+const { loginRedirectTarget } = require('/imports/lib/loginRedirectTarget');
 const {
   decideTwoFactorLoginStep,
   isTwoFactorLoginStep,
@@ -128,12 +129,15 @@ AccountsTemplates.addFields([
 // getDisplayName() and by Blaze, so they translate regardless of when useraccounts
 // wires up per-template helpers. Username / email use the atTextInput override below.
 if (Meteor.isClient) {
-  // After ANY login that leaves the user on an auth page, go to All Boards. OAuth / OIDC
+  // After a login that leaves the user on an auth page, restore a guarded URL
+  // or go to All Boards. OAuth / OIDC
   // (the redirect login style) and resume-token logins do NOT go through onSubmitHook, so
   // after returning from the identity provider — e.g. "Login with Google" — the user stayed
   // on the sign-in route, which shows only the language selector ("Vaihda kieltä"), until a
   // manual page reload (#6512, the OAuth variant). Accounts.onLogin fires for EVERY login
-  // method (password, OAuth, resume) after Meteor.userId() is set, so navigate home here.
+  // method (password, OAuth, resume) after Meteor.userId() is set. A cookie
+  // resume may have reached sign-in through a protected initial URL, whose
+  // remembered path takes precedence over home.
   // Guarded to the auth routes so an auto-login on a deep-linked board URL is never
   // redirected away; password login also fires this, but by then onSubmitHook has already
   // navigated, so the route is no longer an auth route and this is a no-op.
@@ -144,7 +148,12 @@ if (Meteor.isClient) {
   if (Accounts && typeof Accounts.onLogin === 'function') {
     Accounts.onLogin(() => {
       if (AUTH_ROUTE_NAMES.has(FlowRouter.getRouteName())) {
-        FlowRouter.go('/');
+        // getPrevPath already includes ROOT_URL's prefix; redirect accepts that
+        // complete path, whereas go() would prepend the prefix a second time.
+        FlowRouter.redirect(loginRedirectTarget(
+          AccountsTemplates.redirectToPrevPath,
+          AccountsTemplates.getPrevPath(),
+        ));
       }
     });
   }
