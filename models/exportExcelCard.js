@@ -140,7 +140,8 @@ runOnServer(function() {
       // link - for a reader who is not logged in it lives in localStorage, which
       // this lookup cannot reach. The profile is the fallback, and only the
       // three formats formatDateByUserPreference understands are accepted.
-      const DATE_FORMATS = ['YYYY-MM-DD', 'DD-MM-YYYY', 'MM-DD-YYYY'];
+      const DATE_FORMATS = ['YYYY-MM-DD', 'DD-MM-YYYY', 'MM-DD-YYYY',
+      'YYYY-MM-DD-date-only', 'DD-MM-YYYY-date-only', 'MM-DD-YYYY-date-only'];
       const requestedFormat = req.query && req.query.dateFormat;
       const dateFormat = DATE_FORMATS.includes(requestedFormat)
         ? requestedFormat

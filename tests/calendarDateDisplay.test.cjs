@@ -28,6 +28,18 @@ const read = file => fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
   const display = context.formatDateForDisplay;
   const date = new Date(2026, 2, 21, 9, 5);
   const timestamp = date.getTime();
+  for (const calendar of ['gregorian', 'jalali', 'buddhist']) {
+    for (const format of ['YYYY-MM-DD', 'DD-MM-YYYY', 'MM-DD-YYYY']) {
+      profile = { calendar, format };
+      const expected = display(date, false);
+      profile.format = `${format}-date-only`;
+      assert.equal(display(date, true), expected, 'date-only preserves the chosen calendar and order');
+      assert.equal(display(date, true, () => 'unexpected time'), expected, 'legacy format callbacks cannot restore time');
+      assert.equal(date.getTime(), timestamp, 'display preferences never change stored timestamps');
+    }
+  }
+  profile = { calendar: 'gregorian', format: 'YYYY-MM-DD' };
+
   assert.equal(display(date), '2026-03-21 09:05');
   assert.equal(display(date, false, () => 'old Gregorian text'), 'old Gregorian text');
   setting = { hideDateFormat: true, globalDateFormat: 'DD-MM-YYYY' };

@@ -220,7 +220,7 @@ test('rowsForSide lists a side in its order, with the position-less rows under t
     assert.ok(CARD_SETTINGS_ROWS.find(row => row.key === key).card, 'working card-side settings remain');
   }
   assert.ok(!rows.includes('location'), 'a card-only row is not in the minicard list');
-  const card = rowsForSide('card', applyCardOrder(undefined)).map(r => r.key);
+  const card = rowsForSide('card', applyCardOrder(undefined)).filter(r => !r.card.after).map(r => r.key);
   assert.deepStrictEqual(card, DEFAULT_CARD_ORDER, 'the card list is exactly the card order');
   // Moving on one side reorders that list only.
   const moved = rowsForSide('minicard', moveMinicardKey(undefined, 'swimlaneName', 'up')).map(r => r.key);

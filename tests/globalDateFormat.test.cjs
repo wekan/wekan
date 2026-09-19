@@ -37,7 +37,8 @@ test('exports obey the same policy for users, guests and blocked local storage',
 test('setting is validated, published and saved beside the requested controls', () => {
   const schema = read('models/settings.js');
   assert.match(schema, /hideDateFormat: \{\s*type: Boolean/);
-  assert.match(schema, /globalDateFormat: \{[\s\S]*?allowedValues: \['YYYY-MM-DD', 'DD-MM-YYYY', 'MM-DD-YYYY'\]/);
+  const allowed = schema.match(/globalDateFormat: \{[\s\S]*?allowedValues: (\[[^\]]+\])/)[1];
+  assert.deepEqual(Array.from(vm.runInNewContext(allowed)), DATE_FORMATS);
   for (const key of ['hideDateFormat', 'globalDateFormat']) {
     assert.match(read('server/publications/settings.js'), new RegExp(`${key}: 1`));
     assert.ok(read('client/components/settings/settingBody.js').includes(key));

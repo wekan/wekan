@@ -179,7 +179,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 4px 0;
+  padding: calc(4px * min(1, var(--wekan-ui-font-scale, 1))) 0;
   border-bottom: 1px solid #eee;
 }
 

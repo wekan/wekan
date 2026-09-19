@@ -65,7 +65,7 @@ test('everything else in the template is wrapped in unless/if minicardCollapsed'
   assert.ok(foldStart > -1, 'the fold exists');
   const fold = jade.slice(foldStart);
   // Content that must be hidden when collapsed.
-  ['.dates', '.minicard-cover', '.minicard-upload-progress', 'if showLabels',
+  ['.dates', '.minicard-cover', '.minicard-upload-progress', '+minicardLabels(show=showLabels',
     'if showCustomFieldsOnMinicard', 'if showAssignee', 'if showMembers',
     'if showCreatorOnMinicard', 'if shouldShowChecklistAtMinicard', '.badges',
     'if shouldShowListOnMinicard', "$eq 'subtext-with-full-path'"]

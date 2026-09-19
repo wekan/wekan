@@ -188,11 +188,16 @@ function pad2(n) {
  * Format a Date (or ISO string) as a Jalali display string.
  * @param {Date|string} date
  * @param {string} [formatString] - 'YYYY-MM-DD' (default), 'DD-MM-YYYY',
- *   'MM-DD-YYYY', or 'named' for "1 فروردین 1405".
+ *   'MM-DD-YYYY', or 'named' for "1 فروردین 1405". A -date-only suffix
+ *   suppresses time regardless of includeTime.
  * @param {boolean} [includeTime]
  * @returns {string}
  */
 export function formatJalaliDate(date, formatString = 'YYYY-MM-DD', includeTime = false) {
+  if (typeof formatString === 'string' && formatString.endsWith('-date-only')) {
+    formatString = formatString.slice(0, -10);
+    includeTime = false;
+  }
   const d = date instanceof Date ? date : new Date(date);
   if (isNaN(d.getTime())) return '';
 

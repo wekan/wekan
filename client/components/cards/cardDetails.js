@@ -849,6 +849,10 @@ Template.cardDetails.helpers({
     return user && user.isVerticalScrollbars();
   },
 
+  checklistSectionOpen() {
+    return ReactiveCache.getBoard(this.boardId)?.allowsChecklistTitle === false || isCardSectionOpen('checklists');
+  },
+
   isLoaded() {
     return Template.instance().isLoaded;
   },

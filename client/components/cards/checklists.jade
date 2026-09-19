@@ -53,6 +53,10 @@ template(name="checklistDetail")
           title="{{#if checklistCollapsed}}{{_ 'expand-checklist'}}{{else}}{{_ 'collapse-checklist'}}{{/if}}"
           role="button" tabindex="0"
           aria-expanded="{{#if checklistCollapsed}}false{{else}}true{{/if}}")
+        unless $eq currentBoard.allowsChecklistDueDate false
+          unless checklist.getDue
+            if canModifyCard
+              +checklistDueDateAdd(checklist=checklist)
         if canModifyCard
           a.fa.fa-navicon.checklist-details-menu.js-open-checklist-details-menu(title="{{_ 'checklistActionsPopup-title'}}")
 
@@ -67,10 +71,9 @@ template(name="checklistDetail")
             +viewer
                 = checklist.title
 
-    if checklist.getDue
-      +checklistDueDate(checklist=checklist canModifyCard=canModifyCard)
-    else if canModifyCard
-      +checklistDueDateAdd(checklist=checklist)
+    unless $eq currentBoard.allowsChecklistDueDate false
+      if checklist.getDue
+        +checklistDueDate(checklist=checklist canModifyCard=canModifyCard)
 
     //- The progress bar stays visible when folded: it is the summary of what was
       folded away, so hiding it too would leave a title that says nothing.
@@ -340,9 +343,8 @@ template(name="checklistDueDate")
   +dateBadgeBody(canModifyCard=canModifyCard baseClass="card-date due-date checklist-due-date" showTitle=showTitle classes=classes showISODate=showISODate showDate=showDate showWeekOfYear=showWeekOfYear showWeek=showWeek)
 
 template(name="checklistDueDateAdd")
-  button.js-checklist-due-date(type="button" title="{{_ 'card-due'}}" role="button" tabindex="0")
+  button.js-checklist-due-date.checklist-due-date-add(type="button" title="{{_ 'card-due'}}" aria-label="{{_ 'card-due'}}")
     i.fa.fa-clock-o
-    | &nbsp;{{_ 'card-due'}}
 
 template(name="editChecklistDueDatePopup")
   +editDateForm(showDate=showDate showTime=showTime error=error datePicker=datePicker)

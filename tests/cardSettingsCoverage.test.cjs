@@ -311,7 +311,7 @@ test('the card layout\'s default order is the order cardDetails.jade renders (de
     return gatesOf(template(cardJade, name));
   });
   const tail = gatesOf(main.slice(leftAt));
-  const gateToKey = Object.fromEntries(cardRows.map(r => [r.card.field, r.key]));
+  const gateToKey = Object.fromEntries(cardRows.filter(r => !r.card.after).map(r => [r.card.field, r.key]));
   const fromTemplate = dedupe([...header, ...middle, ...tail]).map(g => gateToKey[g]).filter(Boolean);
   const fromLayout = DEFAULT_CARD_ORDER.filter(k => fromTemplate.includes(k));
   assert.deepStrictEqual(fromLayout, fromTemplate, 'DEFAULT_CARD_ORDER is the template order');
@@ -324,7 +324,7 @@ test('the card layout\'s default order is the order cardDetails.jade renders (de
 test('inside a card section the fields render through the ordered*Fields loop, in the layout\'s default order', () => {
   const loops = { labels: 'orderedLabelsFields', dates: 'orderedDatesFields', members: 'orderedMembersFields',
     sort: 'orderedSortFields', voteAndPoker: 'orderedVoteAndPokerFields' };
-  const gateToKey = Object.fromEntries(cardRows.map(r => [r.card.field, r.key]));
+  const gateToKey = Object.fromEntries(cardRows.filter(r => !r.card.after).map(r => [r.card.field, r.key]));
   for (const [section, helper] of Object.entries(loops)) {
     const name = `cardFieldSection${section.charAt(0).toUpperCase()}${section.slice(1)}`;
     const tpl = template(cardJade, name);

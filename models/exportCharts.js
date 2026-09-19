@@ -25,7 +25,8 @@ runOnServer(function() {
     } catch (e) { /* logging must never break the response */ }
   }
 
-  const DATE_FORMATS = ['YYYY-MM-DD', 'DD-MM-YYYY', 'MM-DD-YYYY'];
+  const DATE_FORMATS = ['YYYY-MM-DD', 'DD-MM-YYYY', 'MM-DD-YYYY',
+      'YYYY-MM-DD-date-only', 'DD-MM-YYYY-date-only', 'MM-DD-YYYY-date-only'];
   const exportLocale = async (req, user) => {
     let language = (user && user.profile && user.profile.language)
       || (req.query && req.query.lang) || 'en';

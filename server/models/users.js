@@ -1111,7 +1111,7 @@ Meteor.methods({
     check(dateFormat, String);
     const user = await ReactiveCache.getCurrentUser();
     if (!user) return;
-    user.setDateFormat(dateFormat);
+    return await user.setDateFormat(dateFormat);
   },
 
   // #4335: per-user, display-only Jalali (Persian/Solar Hijri) calendar

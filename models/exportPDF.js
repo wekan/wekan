@@ -14,7 +14,8 @@ runOnServer(function() {
     require('/models/lib/exportFields');
 
   // What formatDateByUserPreference understands, and nothing else.
-  const DATE_FORMATS = ['YYYY-MM-DD', 'DD-MM-YYYY', 'MM-DD-YYYY'];
+  const DATE_FORMATS = ['YYYY-MM-DD', 'DD-MM-YYYY', 'MM-DD-YYYY',
+      'YYYY-MM-DD-date-only', 'DD-MM-YYYY-date-only', 'MM-DD-YYYY-date-only'];
 
   // #1173: the popup's checkboxes, and - for the board export - which swimlane
   // or list was asked for, since those menus offer the same export.

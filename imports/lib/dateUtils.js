@@ -118,7 +118,8 @@ function dateParcelsIn(d, timeZone) {
 /**
  * Format a date according to user's preferred format
  * @param {Date|string} date - Date to format
- * @param {string} format - Format string (YYYY-MM-DD, DD-MM-YYYY, MM-DD-YYYY)
+ * @param {string} format - YYYY-MM-DD, DD-MM-YYYY, or MM-DD-YYYY;
+ *   append -date-only to suppress time regardless of includeTime.
  * @param {boolean} includeTime - Whether to include time (HH:MM)
  * @param {string} [timeZone] - IANA zone to render in; the process's own zone
  *   when omitted, which is what every client-side caller wants (#6586)
@@ -130,6 +131,10 @@ export function formatDateByUserPreference(
   includeTime = true,
   timeZone = '',
 ) {
+  if (typeof format === 'string' && format.endsWith('-date-only')) {
+    format = format.slice(0, -10);
+    includeTime = false;
+  }
   const d = toDate(date);
   if (isNaN(d.getTime())) return '';
 

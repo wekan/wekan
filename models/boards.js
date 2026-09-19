@@ -660,6 +660,22 @@ Boards.attachSchema(
       defaultValue: true,
     },
 
+    allowsMinicardCollapse: {
+      type: Boolean,
+      defaultValue: true,
+    },
+    labelsAboveTitleOnMinicard: {
+      type: Boolean,
+      defaultValue: false,
+    },
+    allowsChecklistDueDate: {
+      type: Boolean,
+      defaultValue: true,
+    },
+    allowsChecklistTitle: {
+      type: Boolean,
+      defaultValue: true,
+    },
     allowsChecklists: {
       /**
        * Does the board allows checklists?

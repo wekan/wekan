@@ -12,6 +12,7 @@
 //   icons          - Font Awesome classes drawn before the label
 //   label          - i18n keys, joined with a space (every one already exists;
 //                    the rows reuse the field's own name)
+//   labelSeparator - optional separator between translated label parts
 //   card           - { toggle, field } for the "Show on Card" column: the
 //                    click-handler class and the popup helper that says
 //                    whether it is checked. Absent when the card shows nothing
@@ -21,12 +22,21 @@
 //                    than the board's (sidebar.css .card-settings-row-personal);
 //                    `after` places a row that has NO element of its own on the
 //                    minicard (so no position in minicardFieldOrder) under the
-//                    row it modifies, with its arrows disabled.
+//                    row it modifies, with its arrows disabled. Card-side
+//                    modifiers use the same `after` property.
 //
 // Pure data (no Meteor) so tests/cardSettingsCoverage.test.cjs can check every
 // row against the templates, the handlers and the Boards schema.
 
 const CARD_SETTINGS_ROWS = [
+  { key: 'collapse', icons: ['fa-caret-down'], label: ['collapse'],
+    minicard: { toggle: 'js-field-minicard-collapse', field: 'allowsMinicardCollapse', after: 'dueComplete' } },
+  { key: 'labelsAboveTitle', icons: ['fa-arrow-up'], label: ['labels', 'title'], labelSeparator: ' ↑ ',
+    minicard: { toggle: 'js-field-labels-above-title', field: 'labelsAboveTitleOnMinicard', after: 'labels' } },
+  { key: 'checklistDueDate', icons: ['fa-clock-o'], label: ['checklists', 'card-due'],
+    card: { toggle: 'js-field-checklist-due-date', field: 'allowsChecklistDueDate', after: 'checklists' } },
+  { key: 'checklistTitle', icons: ['fa-check'], label: ['checklists', 'title'],
+    card: { toggle: 'js-field-checklist-title', field: 'allowsChecklistTitle', after: 'checklists' } },
   { key: 'dueComplete', icons: ['fa-check-square-o'], label: ['card-mark-complete'],
     card: { toggle: 'js-field-has-duecomplete', field: 'allowsDueComplete' },
     minicard: { toggle: 'js-field-has-duecomplete-on-minicard', field: 'allowsDueCompleteOnMinicard' } },

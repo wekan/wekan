@@ -38,12 +38,15 @@ template(name="minicard")
       fold on purpose - they must always be reachable, collapsed or not - and
       the title right after the caret is likewise unconditional: collapsed, the
       minicard shows only the caret and the title.
-    a.fa.minicard-collapse.js-collapse-minicard(
-      class="{{#if minicardCollapsed}}fa-caret-right{{else}}fa-caret-down{{/if}}"
-      title="{{#if minicardCollapsed}}{{_ 'uncollapse'}}{{else}}{{_ 'collapse'}}{{/if}}"
-      aria-label="{{#if minicardCollapsed}}{{_ 'uncollapse'}}{{else}}{{_ 'collapse'}}{{/if}}"
-      role="button" tabindex="0"
-      aria-expanded="{{#if minicardCollapsed}}false{{else}}true{{/if}}")
+    if showCollapseControl
+      a.fa.minicard-collapse.js-collapse-minicard(
+        class="{{#if minicardCollapsed}}fa-caret-right{{else}}fa-caret-down{{/if}}"
+        title="{{#if minicardCollapsed}}{{_ 'uncollapse'}}{{else}}{{_ 'collapse'}}{{/if}}"
+        aria-label="{{#if minicardCollapsed}}{{_ 'uncollapse'}}{{else}}{{_ 'collapse'}}{{/if}}"
+        role="button" tabindex="0"
+        aria-expanded="{{#if minicardCollapsed}}false{{else}}true{{/if}}")
+    if showLabelsAboveTitle
+      +minicardLabels(show=showLabels labels=labels hideText=hiddenMinicardLabelText)
     .minicard-title
       if $eq 'prefix-with-full-path' currentBoard.presentParentTask
         .parent-prefix
@@ -144,16 +147,8 @@ template(name="minicard")
               .minicard-cover(style="background-image: url('{{cover.link 'original'}}?dummyReloadAfterSessionEstablished={{sess}}');")
 
         if $eq section "labels"
-          if showLabels
-            if labels
-              .minicard-labels(class="{{#if hiddenMinicardLabelText}}minicard-labels-no-text{{/if}}")
-                each labels
-                  unless hiddenMinicardLabelText
-                    span.js-card-label.card-label(class="{{labelColorClass color}}" style="{{labelColorStyle color}}" title=name)
-                      +viewer
-                        = name
-                  if hiddenMinicardLabelText
-                    .minicard-label(class="{{labelColorClass color}}" style="{{labelColorStyle color}}" title="{{name}}")
+          unless labelsAboveTitle
+            +minicardLabels(show=showLabels labels=labels hideText=hiddenMinicardLabelText)
 
         if $eq section "customFields"
           if showCustomFieldsOnMinicard
@@ -403,3 +398,15 @@ template(name="minicardChecklist")
         else
           a.add-checklist-item.js-open-inlined-form(title="{{_ 'add-checklist-item'}}")
             i.fa.fa-plus
+
+template(name="minicardLabels")
+  if show
+    if labels
+      .minicard-labels(class="{{#if hideText}}minicard-labels-no-text{{/if}}")
+        each label in labels
+          unless hideText
+            span.js-card-label.card-label(class="{{labelColorClass label.color}}" style="{{labelColorStyle label.color}}" title=label.name)
+              +viewer
+                = label.name
+          if hideText
+            .minicard-label(class="{{labelColorClass label.color}}" style="{{labelColorStyle label.color}}" title="{{label.name}}")

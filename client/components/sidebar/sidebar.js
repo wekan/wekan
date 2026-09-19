@@ -1836,7 +1836,7 @@ function buildCardSettingsRows(side, data) {
         toggle: spec.toggle,
         checked: typeof helper === 'function' ? Boolean(helper.call(data)) : false,
         icons: row.icons,
-        title: row.label.map(k => TAPi18n.__(k)).join(' '),
+        title: row.label.map(k => TAPi18n.__(k)).join(row.labelSeparator || ' '),
         personal: Boolean(spec.personal),
         labelTextOverride: Boolean(spec.labelTextOverride),
         canMoveUp: positioned && canMove(stored, layout, row.key, 'up'),
@@ -1852,6 +1852,10 @@ function buildCardSettingsRows(side, data) {
 // allowsLabels}}` read, defaults and fallbacks included, without a second
 // copy of that logic. Registered at the end of the object.
 const boardCardSettingsHelpers = {
+  allowsMinicardCollapse() { return ReactiveCache.getBoard(Session.get('currentBoard'))?.allowsMinicardCollapse !== false; },
+  labelsAboveTitleOnMinicard() { return ReactiveCache.getBoard(Session.get('currentBoard'))?.labelsAboveTitleOnMinicard === true; },
+  allowsChecklistDueDate() { return ReactiveCache.getBoard(Session.get('currentBoard'))?.allowsChecklistDueDate !== false; },
+  allowsChecklistTitle() { return ReactiveCache.getBoard(Session.get('currentBoard'))?.allowsChecklistTitle !== false; },
   // Board Settings / Card Settings shows both columns - "Show on Card" and
   // "Show on Minicard" beside each other. The card's own menu and the
   // minicard's menu open the SAME popup asking for one of them, and the other
@@ -2544,6 +2548,26 @@ Template.boardCardSettingsPopup.events({
     evt.preventDefault();
     const newValue = !tpl.currentBoard.allowsDescriptionText;
     Boards.update(tpl.currentBoard._id, { $set: { allowsDescriptionText: newValue } });
+  },
+  'click .js-field-minicard-collapse'(evt, tpl) {
+    evt.preventDefault();
+    const value = tpl.currentBoard.allowsMinicardCollapse !== false;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsMinicardCollapse: !value } });
+  },
+  'click .js-field-labels-above-title'(evt, tpl) {
+    evt.preventDefault();
+    const value = tpl.currentBoard.labelsAboveTitleOnMinicard === true;
+    Boards.update(tpl.currentBoard._id, { $set: { labelsAboveTitleOnMinicard: !value } });
+  },
+  'click .js-field-checklist-due-date'(evt, tpl) {
+    evt.preventDefault();
+    const value = tpl.currentBoard.allowsChecklistDueDate !== false;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsChecklistDueDate: !value } });
+  },
+  'click .js-field-checklist-title'(evt, tpl) {
+    evt.preventDefault();
+    const value = tpl.currentBoard.allowsChecklistTitle !== false;
+    Boards.update(tpl.currentBoard._id, { $set: { allowsChecklistTitle: !value } });
   },
   'click .js-field-has-checklists'(evt, tpl) {
     evt.preventDefault();

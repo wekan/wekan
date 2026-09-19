@@ -41,8 +41,14 @@ function getMinicardFlag(board, onMinicardField, legacyField, defaultValue) {
 
 Template.minicard.helpers({
   // #1591: the whole-minicard fold, same shape as a list's collapsed() helper.
+  showCollapseControl() { return ReactiveCache.getBoard(this.boardId)?.allowsMinicardCollapse !== false; },
+  showLabelsAboveTitle() {
+    const board = ReactiveCache.getBoard(this.boardId);
+    return board?.labelsAboveTitleOnMinicard === true && (board.allowsMinicardCollapse === false || !Utils.getCardCollapseState(this));
+  },
+  labelsAboveTitle() { return ReactiveCache.getBoard(this.boardId)?.labelsAboveTitleOnMinicard === true; },
   minicardCollapsed() {
-    return Utils.getCardCollapseState(this);
+    return ReactiveCache.getBoard(this.boardId)?.allowsMinicardCollapse !== false && Utils.getCardCollapseState(this);
   },
   // The minicard's field order from Board Settings / Card's "Show on
   // Minicard" column (board.minicardFieldOrder): the sections top to bottom,

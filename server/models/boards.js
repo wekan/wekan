@@ -1210,6 +1210,11 @@ WebApp.handlers.put('/api/boards/:boardId/labels', async function(req, res) {
 // shown under Board Settings that control which fields/badges appear on cards and
 // minicards). Board-level only — per-user presentation settings are out of scope.
 const BOARD_CARD_SETTING_KEYS = [
+  'allowsMinicardCollapse',
+  'labelsAboveTitleOnMinicard',
+  'allowsChecklistDueDate',
+  'allowsChecklistTitle',
+
   'allowsCardCounterList',
   'cardAging',
   'allowsBoardMemberList',

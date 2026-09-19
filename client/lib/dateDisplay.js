@@ -52,7 +52,7 @@ export function formatDateForDisplay(date, includeTime = true, gregorianFormatte
     );
     if (system) return text || '';
   }
-  return gregorianFormatter && !isDateFormatForced()
+  return gregorianFormatter && !isDateFormatForced() && !dateFormat.endsWith('-date-only')
     ? gregorianFormatter(value)
     : formatDateByUserPreference(value, dateFormat, includeTime);
 }

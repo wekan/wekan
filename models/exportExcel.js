@@ -14,7 +14,8 @@ runOnServer(function() {
     require('/models/lib/exportFields');
 
   // What formatDateByUserPreference understands, and nothing else.
-  const DATE_FORMATS = ['YYYY-MM-DD', 'DD-MM-YYYY', 'MM-DD-YYYY'];
+  const DATE_FORMATS = ['YYYY-MM-DD', 'DD-MM-YYYY', 'MM-DD-YYYY',
+      'YYYY-MM-DD-date-only', 'DD-MM-YYYY-date-only', 'MM-DD-YYYY-date-only'];
 
   // The export the request asks for (#1173). `card-details` - every card in the
   // CARD export's layout - is what the popup ticks by default, and it needs an

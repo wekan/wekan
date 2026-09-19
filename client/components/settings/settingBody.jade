@@ -365,9 +365,12 @@ template(name='tableVisibilityModeSettings')
           .materialCheckBox#hide-date-format(class="{{#if currentSetting.hideDateFormat}}is-checked{{/if}}")
           span {{_ 'date-format-for-everyone'}}:
         select.wekan-form-control#global-date-format(aria-label="{{_ 'date-format-for-everyone'}}")
-          option(value="YYYY-MM-DD" selected="{{#if isGlobalDateFormat 'YYYY-MM-DD'}}selected{{/if}}") {{_ 'date-format-yyyy-mm-dd'}}
-          option(value="DD-MM-YYYY" selected="{{#if isGlobalDateFormat 'DD-MM-YYYY'}}selected{{/if}}") {{_ 'date-format-dd-mm-yyyy'}}
-          option(value="MM-DD-YYYY" selected="{{#if isGlobalDateFormat 'MM-DD-YYYY'}}selected{{/if}}") {{_ 'date-format-mm-dd-yyyy'}}
+          option(value="YYYY-MM-DD" selected="{{#if isGlobalDateFormat 'YYYY-MM-DD'}}selected{{/if}}") {{_ 'date-format-yyyy-mm-dd'}} · {{_ 'time'}}
+          option(value="DD-MM-YYYY" selected="{{#if isGlobalDateFormat 'DD-MM-YYYY'}}selected{{/if}}") {{_ 'date-format-dd-mm-yyyy'}} · {{_ 'time'}}
+          option(value="MM-DD-YYYY" selected="{{#if isGlobalDateFormat 'MM-DD-YYYY'}}selected{{/if}}") {{_ 'date-format-mm-dd-yyyy'}} · {{_ 'time'}}
+          option(value="YYYY-MM-DD-date-only" selected="{{#if isGlobalDateFormat 'YYYY-MM-DD-date-only'}}selected{{/if}}") {{_ 'date'}}: {{_ 'date-format-yyyy-mm-dd'}}
+          option(value="DD-MM-YYYY-date-only" selected="{{#if isGlobalDateFormat 'DD-MM-YYYY-date-only'}}selected{{/if}}") {{_ 'date'}}: {{_ 'date-format-dd-mm-yyyy'}}
+          option(value="MM-DD-YYYY-date-only" selected="{{#if isGlobalDateFormat 'MM-DD-YYYY-date-only'}}selected{{/if}}") {{_ 'date'}}: {{_ 'date-format-mm-dd-yyyy'}}
       li.tableVisibilityMode-form
         .title {{_ 'wait-spinner'}}
         +selectSpinnerName(spinnerName=currentSetting.spinnerName)

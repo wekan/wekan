@@ -1217,7 +1217,7 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
    gone with the grouping; a field that is its own section is a group of one. */
 .card-details .card-details-section-rule {
   width: 100%;
-  margin: 14px 0 6px 0;
+  margin: calc(14px * min(1, var(--wekan-ui-font-scale, 1))) 0 calc(6px * min(1, var(--wekan-ui-font-scale, 1))) 0;
 }
 .card-details h3.card-details-item-title.js-toggle-card-section {
   cursor: pointer;

@@ -128,7 +128,7 @@ test('a stored order that names only some fields keeps the pre-feature order for
 });
 
 test('Board Settings / Card lists both sides in the pre-feature order when nothing is stored', () => {
-  assert.deepStrictEqual(rowsForSide('card', applyCardOrder(undefined)).map(r => r.key), PRE_FEATURE_CARD_ORDER);
+  assert.deepStrictEqual(rowsForSide('card', applyCardOrder(undefined)).filter(r => !r.card.after).map(r => r.key), PRE_FEATURE_CARD_ORDER);
   // The minicard list is the same sequence with the position-less rows
   // (Labels text and its personal override, Requested by, Assigned by, List
   // title, Description title, Attachments) tucked under the row they modify.

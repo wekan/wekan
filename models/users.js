@@ -1053,7 +1053,8 @@ Users.attachSchema(
        */
       type: String,
       optional: true,
-      allowedValues: ['YYYY-MM-DD', 'DD-MM-YYYY', 'MM-DD-YYYY'],
+      allowedValues: ['YYYY-MM-DD', 'DD-MM-YYYY', 'MM-DD-YYYY',
+      'YYYY-MM-DD-date-only', 'DD-MM-YYYY-date-only', 'MM-DD-YYYY-date-only'],
       defaultValue: 'YYYY-MM-DD',
     },
     'profile.calendarSystem': {

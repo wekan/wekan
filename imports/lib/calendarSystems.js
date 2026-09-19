@@ -45,6 +45,10 @@ function nativeCalendarParts(date, calendar, locale = 'en') {
 }
 
 function formatNativeCalendarDate(date, calendar, dateFormat, includeTime, locale = 'en') {
+  if (typeof dateFormat === 'string' && dateFormat.endsWith('-date-only')) {
+    dateFormat = dateFormat.slice(0, -10);
+    includeTime = false;
+  }
   const parts = nativeCalendarParts(date, calendar, locale);
   if (!parts || !parts.year || !parts.month || !parts.day) return null;
   const year = parts.year;
