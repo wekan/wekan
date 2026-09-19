@@ -176,10 +176,10 @@ test.describe('Admin – user management', () => {
     await expect(errorMessage).toBeVisible({ timeout: 15_000 });
   });
 
-  test('sign-up tabs only through fields and Enter in the bottom field submits', async ({ page }) => {
+  test('sign-up tabs through fields and visibility buttons, and Enter in the bottom field submits', async ({ page }) => {
     const suffix = db.uniqueSuffix();
     const username = `keyboard_${suffix}`;
-    await page.goto(`${BASE_URL}/sign-up`, { waitUntil: 'networkidle' });
+    await page.goto(`${BASE_URL}/sign-up`, { waitUntil: 'domcontentloaded' });
 
     const fields = [
       page.locator('#at-field-username'),
@@ -191,24 +191,51 @@ test.describe('Admin – user management', () => {
       await expect(field).toBeVisible({ timeout: 10_000 });
     }
 
-    await fields[0].focus();
-    for (let index = 1; index < fields.length; index += 1) {
-      await page.keyboard.press('Tab');
-      await expect(fields[index]).toBeFocused();
-      await expect(page.locator('.password-toggle-btn').first()).not.toBeFocused();
-    }
+    let createdUser;
+    try {
+      await fields[0].fill(username);
+      await fields[1].fill(`${username}@wekan-test.invalid`);
+      await fields[2].fill('KeyboardTest@55!');
+      await fields[3].fill('KeyboardTest@55!');
+      await page.evaluate(() => {
+        window._authSubmitCount = 0;
+        document.querySelector('#at-field-username').form.addEventListener('submit', () => {
+          window._authSubmitCount += 1;
+        });
+      });
 
-    await fields[0].fill(username);
-    await fields[1].fill(`${username}@wekan-test.invalid`);
-    await fields[2].fill('KeyboardTest@55!');
-    await fields[3].fill('KeyboardTest@55!');
-    await fields[3].press('Enter');
+      // A05 deliberately restored keyboard access to reveal/hide controls.
+      // Both native buttons must activate without submitting a valid form.
+      const toggles = page.locator('.password-toggle-btn');
+      await expect(toggles).toHaveCount(2);
+      await fields[0].focus();
+      for (const control of [fields[1], fields[2], toggles.nth(0), fields[3], toggles.nth(1)]) {
+        await page.keyboard.press('Tab');
+        await expect(control).toBeFocused();
+        const toggleIndex = await control.evaluate(el =>
+          el.classList.contains('password-toggle-btn')
+            ? [...document.querySelectorAll('.password-toggle-btn')].indexOf(el)
+            : -1,
+        );
+        if (toggleIndex !== -1) {
+          await page.keyboard.press('Space');
+          await expect(fields[toggleIndex + 2]).toHaveAttribute('type', 'text');
+          await expect(control).toBeFocused();
+          await page.keyboard.press('Enter');
+          await expect(fields[toggleIndex + 2]).toHaveAttribute('type', 'password');
+          await expect(control).toBeFocused();
+          expect(await page.evaluate(() => window._authSubmitCount)).toBe(0);
+        }
+      }
 
-    let createdUser = null;
-    await expect.poll(() => {
+      await fields[3].press('Enter');
+      await expect.poll(() => {
+        createdUser = db.findOne('users', { username }, { _id: 1 });
+        return createdUser?._id;
+      }, { timeout: 15_000 }).toBeTruthy();
+    } finally {
       createdUser = db.findOne('users', { username }, { _id: 1 });
-      return createdUser?._id;
-    }, { timeout: 15_000 }).toBeTruthy();
-    if (createdUser?._id) db.cleanup({ userIds: [createdUser._id] });
+      if (createdUser?._id) db.cleanup({ userIds: [createdUser._id] });
+    }
   });
 });
