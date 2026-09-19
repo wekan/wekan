@@ -127,5 +127,7 @@ test('clean boards: smaller font presets reduce checklist and settings spacing',
   await expect(cp.root.locator('.checklist-title')).toHaveCSS('padding-top', '8px');
   const popup = await settings(page);
   await expect(popup.locator('.card-field-order-row').first()).toHaveCSS('padding-top', '3.2px');
-  await expect(popup.locator('.card-field-order-column-heading').first()).toHaveCSS('font-size', '9.6px');
+  // Firefox rounds computed font sizes to layout units (9.59375px for 9.6px).
+  await expect.poll(() => popup.locator('.card-field-order-column-heading').first()
+    .evaluate(el => parseFloat(getComputedStyle(el).fontSize))).toBeCloseTo(9.6, 1);
 });

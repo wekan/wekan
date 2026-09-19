@@ -658,7 +658,44 @@ the Markdown commit as the template.
 **In short:** Launchpad Snap builds recover the correct repository, wait for
 new refs to become available, and retain completed builds when downloads fail.
 Card dragging, comment mentions, destination dialogs, keyboard controls and
-scaled layouts gain regression-tested fixes.
+scaled layouts gain regression-tested fixes. Boards gain optional cleaner cards
+and date-only display.
+
+This release adds the following features:
+
+**Task board presentation** - optional cleaner cards and date-only display.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/16b1b307f">Add cleaner minicard and checklist options and date-only formats</a>. Thanks to xet7.</summary>
+
+Board Settings can hide the minicard collapse control, place labels above the
+minicard title, hide checklist due-date controls and hide the outer Checklists
+heading. Previously collapsed contents remain accessible when their control is
+hidden. These options preserve stored dates, label settings and existing
+defaults.
+Unset checklist due dates use a small, named clock beside the checklist title.
+
+Users and administrators can select date-only versions of the three date orders.
+The selected calendar and export format are respected without changing stored
+timestamps, reminders or date/time editing. Existing smaller-font presets also
+reduce checklist and Card Settings spacing.
+
+The <a href="https://github.com/wekan/wekan/blob/main/docs/Features/Clean-Task-Boards.md">clean task board guide</a>
+maps all eight supplied observations to new or existing behavior. Existing fixes
+for inline completion controls, disabled ordering arrows and the
+admin-controlled
+date selector are retained. Labels reuse existing translations.
+
+Regression coverage checks compatible defaults, saved collapsed states, label
+placement and visibility, board-admin permissions, checklist data retention,
+personal/admin date-only choices, multiple calendar systems and compact spacing.
+A fresh Meteor build passed. The full 1,177-suite Node run found one outdated
+collapse assertion; its updated suite passed on rerun. All ten browser scenarios
+passed across Chromium and Firefox after allowing browser font-size rounding.
+Browser checks used MongoDB; FerretDB, WebKit and native packages were not
+tested.
+
+</details>
 
 This release fixes the following bugs:
 

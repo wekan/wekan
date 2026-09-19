@@ -56,6 +56,21 @@ test('every named section has a caret header', () => {
 
 test('and its content is behind that section\'s own switch', () => {
   for (const section of SECTIONS) {
+    if (section === 'checklists') {
+      // A hidden heading must not leave previously collapsed content unreachable.
+      assert.ok(/if checklistSectionOpen/.test(jade));
+      const body = js.match(/checklistSectionOpen\(\) \{([\s\S]*?)\n  \}/)[1];
+      const open = new Function('ReactiveCache', 'isCardSectionOpen', body);
+      for (const allowsChecklistTitle of [undefined, true, false]) {
+        for (const saved of [false, true]) {
+          assert.strictEqual(open.call({ boardId: 'board' }, {
+            getBoard: id => { assert.strictEqual(id, 'board'); return { allowsChecklistTitle }; },
+          }, key => { assert.strictEqual(key, 'checklists'); return saved; }),
+          allowsChecklistTitle === false || saved);
+        }
+      }
+      continue;
+    }
     assert.ok(new RegExp(`isSectionOpen "${section}"`).test(jade),
       `${section} collapses`);
   }
