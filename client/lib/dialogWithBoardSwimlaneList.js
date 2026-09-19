@@ -3,6 +3,8 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { Utils } from '/client/lib/utils';
 import Boards from '/models/boards';
+import Swimlanes from '/models/swimlanes';
+import Lists from '/models/lists';
 
 /**
  * Helper class for popup dialogs that let users select a board, swimlane, and list.
@@ -107,8 +109,7 @@ export class BoardSwimlaneListDialog {
   /** sets the first swimlane id */
   setFirstSwimlaneId() {
     try {
-      const board = ReactiveCache.getBoard(this.selectedBoardId.get());
-      const swimlaneId = board?.swimlanes()[0]?._id || '';
+      const swimlaneId = this.swimlanes()[0]?._id || '';
       this.selectedSwimlaneId.set(swimlaneId);
     } catch (e) {}
   }
@@ -127,7 +128,7 @@ export class BoardSwimlaneListDialog {
   /** get lists filtered by board and swimlane */
   getListsForBoardSwimlane(boardId, swimlaneId) {
     if (!boardId) return [];
-    const board = ReactiveCache.getBoard(boardId);
+    const board = Boards.findOne(boardId);
     if (!board) return [];
 
     const selector = {
@@ -142,7 +143,7 @@ export class BoardSwimlaneListDialog {
       selector.swimlaneId = { $in: [swimlaneId, null, ''] };
     }
 
-    return ReactiveCache.getLists(selector, { sort: { sort: 1 } });
+    return Lists.find(selector, { sort: { sort: 1 } }).fetch();
   }
 
   /** returns if the board id was the last confirmed one */
@@ -206,8 +207,15 @@ export class BoardSwimlaneListDialog {
 
   /** returns all available swimlanes of the current board */
   swimlanes() {
-    const board = ReactiveCache.getBoard(this.selectedBoardId.get());
-    return board?.swimlanes() || [];
+    const boardId = this.selectedBoardId.get();
+    if (!boardId) return [];
+    // onReady runs before DataCache's invalidated computations necessarily
+    // flush. Read the subscription's current documents so an old empty cache
+    // cannot leave the selected swimlane blank and Done disabled indefinitely.
+    return Swimlanes.find(
+      { boardId, archived: false },
+      { sort: { sort: 1 } },
+    ).fetch();
   }
 
   /** returns all available lists of the current board */

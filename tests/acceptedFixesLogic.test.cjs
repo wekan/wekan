@@ -50,7 +50,13 @@ const i18n = { __: key => key };
     getList: q => q._id === `${q.boardId}-list` ? { cards: () => [{ _id: `${q.boardId}-card`, sort: 0 }] } : null,
     getLists: q => [{ _id: `${q.boardId}-list` }],
   };
-  const context = { ReactiveVar, ReactiveCache: cache, Utils: { getCurrentBoardId: () => 'A' }, TAPi18n: i18n };
+  const context = {
+    ReactiveVar, ReactiveCache: cache,
+    Boards: { findOne: id => id ? { _id: id } : null },
+    Swimlanes: { find: q => ({ fetch: () => [{ _id: `${q.boardId}-lane` }] }) },
+    Lists: { find: q => ({ fetch: () => [{ _id: `${q.boardId}-list` }] }) },
+    Utils: { getCurrentBoardId: () => 'A' }, TAPi18n: i18n,
+  };
   const Base = vm.runInNewContext(script('client/lib/dialogWithBoardSwimlaneList.js') + '\nBoardSwimlaneListDialog', context);
   const CardDialog = vm.runInNewContext(script('client/lib/dialogWithBoardSwimlaneListCard.js') + '\nBoardSwimlaneListCardDialog', { ...context, BoardSwimlaneListDialog: Base });
   for (const Class of [Base, CardDialog]) {
@@ -69,6 +75,19 @@ const i18n = { __: key => key };
     c.callbacks.onReady(); b.callbacks.onReady();
     assert.equal(dialog.selectedBoardId.get(), 'C');
     assert.equal(dialog.selectedListId.get(), 'C-list');
+    // A ready subscription already has documents even if the cached query
+    // has not rerun yet. Both selectors must use those fresh documents.
+    const oldBoard = cache.getBoard;
+    const oldLists = cache.getLists;
+    cache.getBoard = () => ({ swimlanes: () => [] });
+    cache.getLists = () => [];
+    dialog.getBoardData('fresh');
+    handles.at(-1).callbacks.onReady();
+    assert.equal(dialog.selectedSwimlaneId.get(), 'fresh-lane');
+    assert.equal(dialog.selectedListId.get(), 'fresh-list');
+    assert.equal(dialog.loading.get(), false);
+    cache.getBoard = oldBoard;
+    cache.getLists = oldLists;
     dialog.getBoardData('B'); const firstB = handles.at(-1);
     dialog.getBoardData('A');
     dialog.getBoardData('B'); const secondB = handles.at(-1);
