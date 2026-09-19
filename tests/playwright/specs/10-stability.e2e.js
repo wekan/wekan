@@ -51,7 +51,7 @@ test.describe('Stability & connectivity', () => {
     await cp.addComment('Persistence check comment');
 
     // Immediately reload
-    await boardPage.reload({ waitUntil: 'networkidle' });
+    await boardPage.reload({ waitUntil: 'domcontentloaded' });
     await bp.clickCard(listA, 'Alpha Card');
     await cp.waitForOpen();
 
@@ -153,7 +153,7 @@ test.describe('Stability & connectivity', () => {
 
   test('login link is visible on 5 consecutive fresh page loads', async ({ page }) => {
     for (let i = 0; i < 5; i++) {
-      await page.goto(`${BASE_URL}/sign-in`, { waitUntil: 'networkidle' });
+      await page.goto(`${BASE_URL}/sign-in`, { waitUntil: 'domcontentloaded' });
       const usernameInput = page.locator('#at-field-username_and_email');
       await expect(usernameInput).toBeVisible({ timeout: 10_000 });
     }

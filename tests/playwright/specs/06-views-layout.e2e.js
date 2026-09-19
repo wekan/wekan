@@ -116,7 +116,7 @@ test.describe('Views & layout', () => {
       modifiedAt: now,
       dateLastActivity: now,
     });
-    await boardPage.reload({ waitUntil: 'networkidle' });
+    await boardPage.reload({ waitUntil: 'domcontentloaded' });
 
     await bp.switchToSwimlanesView();
     const firstLane = boardPage.locator(`#swimlane-${board.swimlaneId}`);
@@ -131,7 +131,7 @@ test.describe('Views & layout', () => {
       () => db.findOne('users', { _id: user.id })?.profile?.boardView,
       { timeout: 10_000 },
     ).toBe('board-view-lists');
-    await boardPage.reload({ waitUntil: 'networkidle' });
+    await boardPage.reload({ waitUntil: 'domcontentloaded' });
     await expect(boardPage.locator('.list-group.js-lists')).toBeVisible();
     await expect(boardPage.locator('.js-swimlane')).toHaveCount(0);
 
@@ -212,7 +212,7 @@ test.describe('Views & layout', () => {
     const c = db.findOne('lists', { _id: listC });
     db.updateOne('lists', { _id: listA }, { $set: { sort: c.sort + 0.5 } });
 
-    await boardPage.reload({ waitUntil: 'networkidle' });
+    await boardPage.reload({ waitUntil: 'domcontentloaded' });
     await bp.switchToListView();
 
     // Firefox can apply the reactive reorder slightly later after reload.
@@ -230,7 +230,7 @@ test.describe('Views & layout', () => {
     expect(newOrder).not.toEqual(initialOrder);
 
     // After another reload it should still be the new order
-    await boardPage.reload({ waitUntil: 'networkidle' });
+    await boardPage.reload({ waitUntil: 'domcontentloaded' });
     await bp.switchToListView();
     const reloadedOrder = await readListOrder();
     expect(reloadedOrder).toEqual(newOrder);
