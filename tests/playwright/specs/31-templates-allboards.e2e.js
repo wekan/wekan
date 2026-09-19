@@ -388,7 +388,7 @@ test.describe('#2339 #5850 All Boards / Templates redesign', () => {
 
     try {
       await loginWithToken(page, user.id, user.token);
-      await page.goto(BASE_URL, { waitUntil: 'networkidle' });
+      await page.goto(BASE_URL, { waitUntil: 'domcontentloaded' });
       await page.waitForFunction(
         expected =>
           Meteor.user()?.profile?.templatesBoardId === expected,

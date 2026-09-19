@@ -45,7 +45,7 @@ async function boardNames(page) {
 // Open the All Boards page and switch to the "Remaining" sub-view, where boards
 // not assigned to a workspace (and not starred) appear.
 async function gotoRemaining(page) {
-  await page.goto(`${BASE_URL}/`, { waitUntil: 'networkidle' });
+  await page.goto(`${BASE_URL}/`, { waitUntil: 'domcontentloaded' });
   const remaining = page.locator('.js-select-menu[data-type="remaining"]');
   await remaining.first().waitFor({ timeout: 15_000 });
   await remaining.first().click();
@@ -157,7 +157,7 @@ test.describe('#5799 All Boards sort / search / pagination', () => {
 
     test('returns the correct sorted page and total; pages do not overlap', async ({ page, user }) => {
       await loginWithToken(page, user.id, user.token);
-      await page.goto(`${BASE_URL}/`, { waitUntil: 'networkidle' });
+      await page.goto(`${BASE_URL}/`, { waitUntil: 'domcontentloaded' });
 
       // Positive: page 1, perPage 10, title-asc → 10 ids, total >= 30.
       const p1 = await callMethod(page, 'getAllBoardsPage', {
@@ -187,7 +187,7 @@ test.describe('#5799 All Boards sort / search / pagination', () => {
 
     test('search narrows the total; a non-matching search returns nothing', async ({ page, user }) => {
       await loginWithToken(page, user.id, user.token);
-      await page.goto(`${BASE_URL}/`, { waitUntil: 'networkidle' });
+      await page.goto(`${BASE_URL}/`, { waitUntil: 'domcontentloaded' });
 
       // Positive: searching "Board 0" matches Board 01..09 (9 boards).
       const hit = await callMethod(page, 'getAllBoardsPage', {
@@ -209,7 +209,7 @@ test.describe('#5799 All Boards sort / search / pagination', () => {
       const other = db.seedBoard({ ownerId: user2.id, title: 'Secret User2 Board' });
       try {
         await loginWithToken(page, user.id, user.token);
-        await page.goto(`${BASE_URL}/`, { waitUntil: 'networkidle' });
+        await page.goto(`${BASE_URL}/`, { waitUntil: 'domcontentloaded' });
 
         const res = await callMethod(page, 'getAllBoardsPage', {
           search: 'Secret User2 Board', sortBy: 'title-asc', menu: 'remaining', page: 1, perPage: 100,
