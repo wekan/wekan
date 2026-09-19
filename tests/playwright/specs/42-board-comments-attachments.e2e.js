@@ -42,7 +42,7 @@ test.describe('Board publication – comments/attachments (#6480)', () => {
     ]);
 
     // Open the card (its minicard) so the card detail — with the comments — renders.
-    await boardPage.reload({ waitUntil: 'networkidle' });
+    await boardPage.reload({ waitUntil: 'domcontentloaded' });
     const bp = new BoardPage(boardPage);
     await bp.clickCard(board.listIds[0], 'Alpha Card');
 
@@ -72,7 +72,7 @@ test.describe('Board publication – comments/attachments (#6480)', () => {
       },
     ]);
 
-    await boardPage.reload({ waitUntil: 'networkidle' });
+    await boardPage.reload({ waitUntil: 'domcontentloaded' });
     const bp = new BoardPage(boardPage);
     await bp.clickCard(board.listIds[1], 'Beta Card');
 

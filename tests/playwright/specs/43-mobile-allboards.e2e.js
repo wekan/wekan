@@ -34,7 +34,7 @@ test.describe('All Boards – phone viewport (#6488)', () => {
     });
     try {
       await loginWithToken(page, adminUser.id, adminUser.token);
-      await page.goto(BASE_URL, { waitUntil: 'networkidle' });
+      await page.goto(BASE_URL, { waitUntil: 'domcontentloaded' });
 
       // Boards not dragged into a workspace appear under "Remaining".
       const remaining = page.locator('.menu-item').filter({ hasText: /remaining/i });

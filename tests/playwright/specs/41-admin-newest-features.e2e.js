@@ -221,8 +221,9 @@ test.describe('Admin – newest features', () => {
 
   test('Version release lookup rejects a non-admin caller', async ({ page, user }) => {
     await loginWithToken(page, user.id, user.token);
-    await page.goto(BASE_URL, { waitUntil: 'networkidle' });
+    await page.goto(BASE_URL, { waitUntil: 'domcontentloaded' });
     await waitForMeteor(page);
+    await page.waitForFunction(id => Meteor.userId() === id, user.id);
     const denied = await page.evaluate(async () => {
       try {
         await window.Meteor.callAsync('checkNewestVersions');
