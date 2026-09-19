@@ -24,7 +24,7 @@ test.describe('Voting & watchers', () => {
     // Enable vote on the card via MongoDB so the vote section renders
     db.updateOne('cards', { boardId: board.boardId, title: 'Alpha Card' },
       { $set: { 'vote.question': 'Approve this?', 'vote.public': true } });
-    await boardPage.reload({ waitUntil: 'networkidle' });
+    await boardPage.reload({ waitUntil: 'domcontentloaded' });
 
     const bp = new BoardPage(boardPage);
     const cp = new CardPage(boardPage);
@@ -50,7 +50,7 @@ test.describe('Voting & watchers', () => {
   test('negative vote button is clickable and registers the voted state', async ({ boardPage, board, user }) => {
     db.updateOne('cards', { boardId: board.boardId, title: 'Alpha Card' },
       { $set: { 'vote.question': 'Reject this?', 'vote.public': true } });
-    await boardPage.reload({ waitUntil: 'networkidle' });
+    await boardPage.reload({ waitUntil: 'domcontentloaded' });
 
     const bp = new BoardPage(boardPage);
     const cp = new CardPage(boardPage);
@@ -128,7 +128,7 @@ test.describe('Voting & watchers', () => {
     // Seed a card with an active vote question
     db.updateOne('cards', { boardId: board.boardId, title: 'Beta Card' },
       { $set: { 'vote.question': 'Ship it?', 'vote.public': true, 'vote.positive': [], 'vote.negative': [] } });
-    await boardPage.reload({ waitUntil: 'networkidle' });
+    await boardPage.reload({ waitUntil: 'domcontentloaded' });
 
     const bp = new BoardPage(boardPage);
     const cp = new CardPage(boardPage);
