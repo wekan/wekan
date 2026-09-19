@@ -26,9 +26,9 @@ export function createEscapeableTextComplete(element, strategies, options = {}) 
   // Merge default options
   const mergedOptions = {
     dropdown: {
-      className: 'textcomplete-dropdown',
+      className: 'dropdown-menu textcomplete-dropdown',
       maxCount: 10,
-      placement: 'bottom',
+      placement: 'auto',
       ...options.dropdown,
     },
   };

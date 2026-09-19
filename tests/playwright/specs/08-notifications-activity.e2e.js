@@ -14,7 +14,7 @@
 
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
-const { loginWithToken } = require('../helpers/auth');
+const { loginWithToken, openBoard } = require('../helpers/auth');
 const BoardPage = require('../pages/BoardPage');
 const CardPage = require('../pages/CardPage');
 
@@ -231,3 +231,55 @@ test.describe('Notifications & activity log', () => {
     await page2.close();
   });
 });
+
+for (const [authenticationMethod, richEditor] of [['password', false], ['ldap', false], ['ldap', true]]) {
+  test(`#6704 ${authenticationMethod} ${richEditor ? 'rich setting' : 'plain'} selects comment mention suggestions`, async ({
+    page: boardPage, board, user, user2,
+  }) => {
+    db.updateOne('users', { _id: user2.id }, {
+      $set: { authenticationMethod, 'profile.fullname': 'Mention Target' },
+    });
+    db.updateOne('boards', { _id: board.boardId }, {
+      $push: { members: { userId: user2.id, isActive: true, isAdmin: false } },
+    });
+    await loginWithToken(boardPage, user.id, user.token);
+    await openBoard(boardPage, board.boardId, board.slug);
+    const usesRich = await boardPage.evaluate(rich => {
+      Meteor.settings.public.RICHER_CARD_COMMENT_EDITOR = rich;
+      return rich && typeof $.fn.summernote === 'function';
+    }, richEditor);
+    const bp = new BoardPage(boardPage);
+    const cp = new CardPage(boardPage);
+    await bp.clickCard(board.listIds[0], 'Alpha Card');
+    await cp.waitForOpen();
+    const input = cp.root.locator(usesRich ? '.js-new-comment-form .note-editable' : 'textarea.js-new-comment-input');
+    const expectMention = () => usesRich
+      ? expect(input).toHaveText(`@${user2.username} (Mention Target)`)
+      : expect(input).toHaveValue(`@${user2.username} (Mention Target) `);
+    await input.fill(`@${user2.username}`);
+    const menu = boardPage.locator('.textcomplete-dropdown:visible');
+    const suggestion = menu.locator('.textcomplete-item').filter({ hasText: user2.username });
+    await expect(menu).toHaveCount(1);
+    await expect(suggestion).toBeVisible();
+    // Visibility alone misses the regression: the menu can exist behind the
+    // card. Require hit testing and a real, unforced pointer selection.
+    await expect.poll(() => suggestion.evaluate(el => {
+      const r = el.getBoundingClientRect();
+      return el.contains(document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2));
+    })).toBe(true);
+    await suggestion.click();
+    await expectMention();
+    await expect(cp.root).toBeVisible();
+    const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
+    expect(db.countDocuments('card_comments', { cardId: card._id })).toBe(0);
+    // A nonmatching username must not leave the previous user suggestion.
+    await input.fill('@no_such_board_member_6704');
+    await expect(menu.locator('.textcomplete-item').filter({ hasText: user2.username })).toHaveCount(0);
+    // Enter selects a fresh suggestion without submitting the comment.
+    await input.fill(`@${user2.username}`);
+    await expect(suggestion).toBeVisible();
+    await input.press('Enter');
+    await expectMention();
+    expect(db.countDocuments('card_comments', { cardId: card._id })).toBe(0);
+  });
+}

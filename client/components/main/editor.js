@@ -85,7 +85,11 @@ Template.editor.onRendered(function () {
       autosize($textarea);
       $textarea.escapeableTextComplete(mentions);
     };
-    if (Meteor.settings.public.RICHER_CARD_COMMENT_EDITOR === true || Meteor.settings.public.RICHER_CARD_COMMENT_EDITOR === 'true') {
+    // Some builds do not include Summernote. Keep the textarea and its
+    // mentions working even when the richer-editor setting is enabled. #6704
+    const useRichEditor = Meteor.settings.public.RICHER_CARD_COMMENT_EDITOR === true ||
+      Meteor.settings.public.RICHER_CARD_COMMENT_EDITOR === 'true';
+    if (useRichEditor && typeof $.fn.summernote === 'function') {
       const isSmall = Utils.isMiniScreen();
       const toolbar = isSmall
         ? [
@@ -144,13 +148,11 @@ Template.editor.onRendered(function () {
         output = output.replace(/(<a )/gi, '$1target=_ '); // always to new target
         return output;
       };
-      const editor = '.editor';
-      const selectors = [
-        `.js-new-description-form ${editor}`,
-        `.js-new-comment-form ${editor}`,
-        `.js-edit-comment ${editor}`,
-      ].join(','); // only new comment and edit comment
-      const inputs = $(selectors);
+      // The form belongs to the parent template. Find only this editor's
+      // inputs, then inspect their ancestors without reinitializing other
+      // open cards' editors. #6704
+      const forms = '.js-new-description-form, .js-new-comment-form, .js-edit-comment';
+      const inputs = tpl.$('.editor').filter((index, input) => $(input).closest(forms).length > 0);
       if (inputs.length === 0) {
         // only enable richereditor to new comment or edit comment no others
         enableTextarea();
@@ -305,7 +307,6 @@ Template.editor.onRendered(function () {
     } else {
       enableTextarea();
     }
-    enableTextarea();
 });
 
 Template.editor.events({

@@ -577,7 +577,24 @@ kbd {
   cursor: grabbing;
 }
 .textcomplete-dropdown {
-  z-index: 2000 !important;
+  /* The menu is attached to body, above both card windows (2001) and
+     card-detail popups (100000). #6704 */
+  z-index: 100001 !important;
+  background: #fff;
+  color: #333;
+  list-style: none;
+  margin: 0;
+  padding: 4px 0;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+.textcomplete-dropdown .textcomplete-item > span {
+  display: block;
+  padding: 4px 12px 4px 8px;
+  cursor: pointer;
+}
+.textcomplete-dropdown .textcomplete-item.active > span {
+  color: #fff;
 }
 .fa.fa-times-thin:before {
   content: '\00d7';
