@@ -804,6 +804,27 @@ Launchpad builds and publication remain for a human-run release job.
 
 </details>
 
+This release improves regression testing and documentation:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fd238d34c">Verify muted-board fixes through actual SMTP delivery</a>. Thanks to Nissulya and xet7.</summary>
+
+The earlier muted-assignment and scoped-subscription fixes for
+<a href="https://github.com/wekan/wekan/issues/6658">#6658</a> are already present.
+New browser regressions capture real SMTP submissions for watched boards,
+lists and cards, covering comments, title changes and new cards. Muted
+assignments, member email opt-outs and the actor's own changes stay silent.
+The notification guide now describes the actual channels, watch levels,
+settings precedence and delivery prerequisites.
+
+All ten SMTP scenarios and six existing tray/settings scenarios passed across
+Chromium and Firefox using the current Meteor bundle with MongoDB. Focused
+notification and recipient Node suites passed. The latest reported delivery
+failure was not reproduced; external inbox delivery and FerretDB runtime
+remain unverified.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v11.86 2026-09-18 WeKan ® release
