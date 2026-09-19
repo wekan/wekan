@@ -657,6 +657,58 @@ the Markdown commit as the template.
 
 **In short:** Launchpad Snap builds recover the correct repository, wait for
 new refs to become available, and retain completed builds when downloads fail.
+Card dragging, comment mentions, destination dialogs, keyboard controls and
+scaled layouts gain regression-tested fixes.
+
+This release fixes the following bugs:
+
+**Cards and comments** - restored dragging and mention suggestions.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/337f601852">Restore dragging after expanding collapsed lists</a>. Thanks to Nich01asFox and xet7.</summary>
+
+Expanded lists recreate their sortable behavior and dispose it when removed.
+Repeated collapse/expand cycles and reloads support dragging cards both into
+and out of the list. Fixes <a href="https://github.com/wekan/wekan/issues/6705">#6705</a>.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/193c799539">Restore visible, selectable comment mention suggestions</a>. Thanks to bbyszio and xet7.</summary>
+
+Comment editors initialize one correctly scoped autocomplete menu with visible
+placement above the card. The plain editor remains usable when the richer editor
+is unavailable. Fixes <a href="https://github.com/wekan/wekan/issues/6704">#6704</a>.
+
+</details>
+
+**Board usability** - implement the useful audited fixes with additional
+safeguards.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/896f1222b">Improve ordering, destination dialogs, keyboard controls and scaled layouts</a>. Thanks to xet7.</summary>
+
+Relative card insertion uses real gaps and handles tied ranks. Destination
+dialogs stop stale subscriptions, retain failed operations and protect against
+double submission. Checklist rules save strings, overtime waits for Save,
+translation search treats punctuation literally, and registered long language
+tags are accepted.
+
+Keyboard users can operate rule buttons, checklist rows, switches, password
+reveal and attachment previews. One shared viewer handles focus entry,
+containment and return. Popup and Gantt geometry scales with text, progress bars
+fit their tracks, and settings stack on narrow screens. Missing labels reuse
+existing translations.
+
+The <a href="https://github.com/wekan/wekan/blob/main/docs/Security/Fixes2026-09-18/Implementation.md">implementation report</a>
+records all 36 findings, revised proposals, tests and remaining validation
+limits.
+A fresh Meteor bundle and all 1,176 Node suites passed. Chromium and Firefox
+regression scenarios cover the compiled app with MongoDB; no FerretDB or live
+LDAP
+integration, WebKit run or screen-reader session is claimed.
+
+</details>
 
 This release fixes the following build and release tooling:
 
