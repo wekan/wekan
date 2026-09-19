@@ -29,7 +29,6 @@ services:
       - MONGO_URL=mongodb://wekandb-dev:27017/wekan
       - ROOT_URL=http://localhost:3000
       - WITH_API=true
-      - RICHER_CARD_COMMENT_EDITOR=true
       - BROWSER_POLICY_ENABLED=true
       - WRITABLE_PATH=/data
     depends_on:

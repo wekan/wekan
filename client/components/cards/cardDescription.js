@@ -4,7 +4,6 @@ const descriptionFormIsOpen = new ReactiveVar(false);
 
 Template.descriptionForm.onDestroyed(function () {
   descriptionFormIsOpen.set(false);
-  $('.note-popover').hide();
 });
 
 Template.descriptionForm.helpers({

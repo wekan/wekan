@@ -142,7 +142,7 @@ ensure_server() {
   log "Starting the WeKan bundle server on $WEKAN_TEST_URL from $bundle ..."
   (
     MONGO_URL="mongodb://127.0.0.1:$mongo_port/meteor" ROOT_URL="$WEKAN_TEST_URL" \
-    PORT="$port" WITH_API=true RICHER_CARD_COMMENT_EDITOR=false \
+    PORT="$port" WITH_API=true \
     "$node_bin" "$bundle/main.js"
   ) >>"$SESSION_DIR/wekan-server.log" 2>&1 &
   SERVER_PID=$!

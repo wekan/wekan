@@ -92,7 +92,7 @@ export PATH=$HOME/.meteor
 cd ~/wekan
 
 MONGO_URL=mongodb://ferret:DB_PASSWORD_GOES_HERE@127.0.0.1:27017/wekan \
-WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false \
+WRITABLE_PATH=.. WITH_API=true \
 ROOT_URL=https://wekan.example.com meteor run \
 --exclude-archs web.browser.legacy,web.cordova \
 --port 8080 2>&1 | tee ../wekan-log.`date +%s`.txt
@@ -122,7 +122,6 @@ ROOT_URL=https://boards.example.com
 WRITABLE_PATH=../files
 MONGO_URL=mongodb://ferret:DB_PASSWORD_GOES_HERE@127.0.0.1:27017/wekan
 WITH_API=true
-RICHER_CARD_COMMENT_EDITOR=false
 CARD_OPENED_WEBHOOK_ENABLED=false
 BIGEVENTS_PATTERN=NONE
 BROWSER_POLICY_ENABLED=true

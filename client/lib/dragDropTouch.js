@@ -31,7 +31,7 @@ const MOVE_CANCEL_PX = 10; // finger moving this far before the hold = a scroll
 // and jQuery-UI sortables (lists / swimlanes / cards) already have touch via
 // touch-punch, so leave them to it.
 const EXCLUDE =
-  'input, select, textarea, .note-editable, .ui-sortable, .ui-sortable-handle';
+  'input, select, textarea, .ui-sortable, .ui-sortable-handle';
 
 function draggableAncestor(el) {
   while (el && el !== document.body) {

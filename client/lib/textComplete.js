@@ -46,7 +46,7 @@ export function createEscapeableTextComplete(element, strategies, options = {}) 
   // handler (the form `submit`, the inlinedForm/minicard handlers, …) AND
   // prevent the default newline so the textcomplete `selected` action is the
   // only effect. `stopImmediatePropagation` also blocks other listeners bound
-  // to this same element (e.g. summernote in the richer editor).
+  // to this same textarea.
   element.addEventListener('keydown', (evt) => {
     const isTabOrEnter = evt.keyCode === 9 || evt.keyCode === 13;
     if (isTabOrEnter && !shouldSubmitOnEnter({ autocompleteOpen: dropdownMenuIsOpened })) {

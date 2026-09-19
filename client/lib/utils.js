@@ -764,12 +764,9 @@ export const Utils = {
       })
     );
   },
-  // Shared by every card attachment upload path — the card Attachments popup,
-  // the clipboard upload AND images uploaded inside card comments through the
-  // rich text editor (client/components/main/editor.js). Keeping the meta
-  // identical (same meta.cardId) is what makes comment attachments appear in
-  // the card's Attachments list (#3843); the actual logic lives in
-  // models/lib/attachmentMeta.js so it can be unit tested.
+  // Shared by the card Attachments popup and clipboard upload. The same
+  // meta.cardId keeps existing attachments referenced in comments visible
+  // in the card gallery, including linked cards (#3843).
   getCommonAttachmentMetaFrom(card) {
     return buildCardAttachmentMeta(card, id => ReactiveCache.getCard(id));
   },

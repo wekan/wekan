@@ -1491,7 +1491,6 @@ set "DDP_TRANSPORT=sockjs"
 set "DEBUG=true"
 set "WRITABLE_PATH=.."
 set "WITH_API=true"
-set "RICHER_CARD_COMMENT_EDITOR=false"
 exit /b 0
 
 :logdir
@@ -1827,11 +1826,10 @@ set "ROOT_URL=http://localhost:3000"
 set "PORT=3000"
 set "WRITABLE_PATH=%WRITABLE_ABS%"
 set "WITH_API=true"
-set "RICHER_CARD_COMMENT_EDITOR=false"
 set "DEFAULT_METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling"
 echo ==^> Starting the WeKan test server on http://localhost:3000 from .build\bundle ^(precompiled - no rebuild^).
 start "WekanTestServer" /MIN /D "%REPO%" cmd /c "(echo ===== WeKan test server [bundle node :3000 db :3001/meteor] started: %DATE% %TIME% =====) 1>%RUN_LOGDIR%\wekan-test-server.log 2>&1 & "%NODE_BIN%" "%REPO%\.build\bundle\main.js" 1>>%RUN_LOGDIR%\wekan-test-server.log 2>&1"
-set "MONGO_URL=" & set "ROOT_URL=" & set "PORT=" & set "WRITABLE_PATH=" & set "WITH_API=" & set "RICHER_CARD_COMMENT_EDITOR=" & set "DEFAULT_METEOR_REACTIVITY_ORDER="
+set "MONGO_URL=" & set "ROOT_URL=" & set "PORT=" & set "WRITABLE_PATH=" & set "WITH_API=" & set "DEFAULT_METEOR_REACTIVITY_ORDER="
 
 REM 6) Wait for :3000 to answer (bundle boots in seconds; curl-timeout poll).
 call :wait_server_ready

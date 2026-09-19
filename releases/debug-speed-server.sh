@@ -162,7 +162,6 @@ export PORT="$WEKAN_PORT"
 export DDP_TRANSPORT=sockjs
 export WRITABLE_PATH="${WRITABLE_PATH:-$WEKAN_DIR/.tools/debug-speed-files}"
 export WITH_API=true
-export RICHER_CARD_COMMENT_EDITOR=false
 export DEBUGSPEED_LOG_FILE="$LOG_DIR/wekan-debugspeed.jsonl"
 : >"$DEBUGSPEED_LOG_FILE"
 chmod 600 "$DEBUGSPEED_LOG_FILE"

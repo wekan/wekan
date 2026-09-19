@@ -67,7 +67,8 @@ failure is deliberately injected to test retention and retry.
   scenario/browser combinations across the runs.
 - The two reported issue regressions passed in both browsers: **eight checks**
   covering repeated list collapse/drag/reload (#6705), password and LDAP-shaped
-  account mention suggestions, and richer-editor fallback (#6704). These account
+  account mention suggestions (#6704), including a now-retired configuration
+  check. These account
   fixtures do not authenticate against an external LDAP server.
 - Long-tag creation, duplicate retention, literal search and unsupported-tag
   rejection passed in both browsers in a further **two checks**.

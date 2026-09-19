@@ -232,8 +232,8 @@ test.describe('Notifications & activity log', () => {
   });
 });
 
-for (const [authenticationMethod, richEditor] of [['password', false], ['ldap', false], ['ldap', true]]) {
-  test(`#6704 ${authenticationMethod} ${richEditor ? 'rich setting' : 'plain'} selects comment mention suggestions`, async ({
+for (const authenticationMethod of ['password', 'ldap']) {
+  test(`#6704 ${authenticationMethod} textarea selects comment mention suggestions`, async ({
     page: boardPage, board, user, user2,
   }) => {
     db.updateOne('users', { _id: user2.id }, {
@@ -244,18 +244,12 @@ for (const [authenticationMethod, richEditor] of [['password', false], ['ldap', 
     });
     await loginWithToken(boardPage, user.id, user.token);
     await openBoard(boardPage, board.boardId, board.slug);
-    const usesRich = await boardPage.evaluate(rich => {
-      Meteor.settings.public.RICHER_CARD_COMMENT_EDITOR = rich;
-      return rich && typeof $.fn.summernote === 'function';
-    }, richEditor);
     const bp = new BoardPage(boardPage);
     const cp = new CardPage(boardPage);
     await bp.clickCard(board.listIds[0], 'Alpha Card');
     await cp.waitForOpen();
-    const input = cp.root.locator(usesRich ? '.js-new-comment-form .note-editable' : 'textarea.js-new-comment-input');
-    const expectMention = () => usesRich
-      ? expect(input).toHaveText(`@${user2.username} (Mention Target)`)
-      : expect(input).toHaveValue(`@${user2.username} (Mention Target) `);
+    const input = cp.root.locator('textarea.js-new-comment-input');
+    const expectMention = () => expect(input).toHaveValue(`@${user2.username} (Mention Target) `);
     await input.fill(`@${user2.username}`);
     const menu = boardPage.locator('.textcomplete-dropdown:visible');
     const suggestion = menu.locator('.textcomplete-item').filter({ hasText: user2.username });
@@ -283,3 +277,23 @@ for (const [authenticationMethod, richEditor] of [['password', false], ['ldap', 
     expect(db.countDocuments('card_comments', { cardId: card._id })).toBe(0);
   });
 }
+
+test('textarea editing preserves Markdown and emoji without executing pasted HTML', async ({ boardPage: page, board }) => {
+  const bp = new BoardPage(page);
+  const cp = new CardPage(page);
+  await bp.clickCard(board.listIds[0], 'Alpha Card');
+  await cp.waitForOpen();
+  const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
+  const markdown = '**Bold** 😀 :smile:\n\n- [ ] Task\n\n```js\nconst value = "<tag>";\n```';
+  await cp.setDescription(markdown);
+  await expect.poll(() => db.findOne('cards', { _id: card._id }).description).toBe(markdown);
+  const comment = `${markdown}\n\n<img src=x onerror="window.editorInjected=true">`;
+  await cp.addComment(comment);
+  await expect.poll(() => db.countDocuments('card_comments', { cardId: card._id, text: comment })).toBe(1);
+  await expect(cp.comments().filter({ hasText: 'Bold' })).toBeVisible();
+  expect(await page.evaluate(() => window.editorInjected)).toBeUndefined();
+  await expect(cp.root.locator('textarea.js-new-comment-input')).toHaveValue('');
+  const pencil = cp.root.locator('a.js-open-inlined-form').filter({ has: page.locator('i.fa-pencil-square-o') }).first();
+  await pencil.click();
+  await expect(cp.root.locator('.js-card-description textarea.editor')).toHaveValue(markdown);
+});

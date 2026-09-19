@@ -69,7 +69,7 @@ GitHub Username | Chat Username | Location | Position | Details
 [JamborJan](https://github.com/JamborJan) | - | Universe | [Sandstorm](https://sandstorm.io) Developer | [Add bigger screenshots](https://github.com/wekan/wekan/pull/940)
 [nebulade](https://github.com/nebulade) | - | Germany | [Cloudron](https://cloudron.io) Developer | [Re-enable export](https://github.com/wekan/wekan/pull/1059)
 [kubiko](https://github.com/kubiko) | - | UK | [Canonical](https://www.canonical.com) Developer | [snap package](https://github.com/wekan/wekan-snap), [Adding snapcraft build support from source](https://github.com/wekan/wekan/pull/1091), [Use version scriptlet in snap](https://github.com/wekan/wekan/pull/1164)
-[whowillcare](https://github.com/whowillcare) | Universe | Contributor | Added WYSIWYG card comment editor that can be turned off with `sudo snap set wekan richer-card-comment-editor='false'`, Global webhook to Admin Panel, etc a lot of features.
+[whowillcare](https://github.com/whowillcare) | Universe | Contributor | Global webhook to Admin Panel, etc a lot of features.
 
 # Previous Team members
 

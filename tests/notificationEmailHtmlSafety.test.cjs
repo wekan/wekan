@@ -32,7 +32,7 @@ assert.equal(
 );
 assert.match(
   email,
-  /htmlEnabled\s*\n\s*\? buildHtmlNotificationLine\(\{/,
+  /bodyTemplate\s*\? text\s*:\s*buildHtmlNotificationLine\(\{/,
   'the HTML notification body must be built by the shared, escaping-aware helper',
 );
 assert.match(

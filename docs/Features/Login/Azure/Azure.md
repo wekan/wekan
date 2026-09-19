@@ -60,7 +60,6 @@ sudo snap set wekan oauth2-username-map='email'
 sudo snap set wekan oauth2-fullname-map='name'
 sudo snap set wekan oauth2-id-map='email'
 sudo snap set wekan port='3001'
-sudo snap set wekan richer-card-comment-editor='false'
 sudo snap set wekan root-url='https://boards.example.com'
 sudo snap set wekan with-api='true'
 ```

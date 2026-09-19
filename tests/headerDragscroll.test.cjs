@@ -98,7 +98,7 @@ test('form fields keep their own behaviour', () => {
   // The zoom-level input lives in the quick-access bar; dragging to select text in it
   // must not scroll the page instead.
   const excluded = /function isExcluded\([\s\S]*?\n}/.exec(mod)[0];
-  for (const sel of ['input', 'select', 'textarea', '.note-editable', '.nodragscroll']) {
+  for (const sel of ['input', 'select', 'textarea', '.nodragscroll']) {
     assert.ok(excluded.includes(sel), `${sel} must be excluded`);
   }
 });

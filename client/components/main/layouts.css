@@ -19,10 +19,6 @@ table, tbody, td, tfoot, th, thread, tr, tt, ul, var {
   font-size: 100%;
   vertical-align: baseline;
 }
-.note-popover .popover-content .note-color-palette div .note-color-btn,
-.panel-heading.note-toolbar .note-color-palette div .note-color-btn {
-  background: none;
-}
 a:focus {
   outline: unset;
   outline-offset: unset;

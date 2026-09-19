@@ -246,7 +246,6 @@ const myCommand :Spk.Manifest.Command = (
     (key = "WRITABLE_PATH", value = "/var/files"),
     (key = "RESULTS_PER_PAGE", value = ""),
     (key = "WITH_API", value = "true"),
-    (key = "RICHER_CARD_COMMENT_EDITOR", value="false"),
     (key = "CARD_OPENED_WEBHOOK_ENABLED", value="false"),
     (key = "NOTIFICATION_TRAY_AFTER_READ_DAYS_BEFORE_REMOVE", value=""),
     (key = "BIGEVENTS_PATTERN", value="NONE"),

@@ -150,7 +150,6 @@ jobs:
           PORT=3000 \
           WRITABLE_PATH="$PWD/wekan-writable" \
           WITH_API=true \
-          RICHER_CARD_COMMENT_EDITOR=false \
           node output/bundle/main.js > wekan-run.log 2>&1 &
           # The production server serves the client JS statically, so once :3000
           # responds the bundle is being served. Wait up to 10 minutes.
@@ -269,7 +268,6 @@ jobs:
           PORT=3000 \
           WRITABLE_PATH="$PWD/wekan-writable" \
           WITH_API=true \
-          RICHER_CARD_COMMENT_EDITOR=false \
           node output/bundle/main.js > wekan-run.log 2>&1 &
           for i in $(seq 1 60); do
             if curl -sf http://localhost:3000 > /dev/null; then

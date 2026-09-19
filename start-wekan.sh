@@ -205,9 +205,6 @@
       #export AVATARS_UPLOAD_MIME_TYPES="image/*"
       #export AVATARS_UPLOAD_MAX_SIZE=500000
       #---------------------------------------------------------------
-      # ==== RICH TEXT EDITOR IN CARD COMMENTS ====
-      # https://github.com/wekan/wekan/pull/2560
-      export RICHER_CARD_COMMENT_EDITOR=false
       #---------------------------------------------------------------
       # ==== CARD OPENED, SEND WEBHOOK MESSAGE ====
       export CARD_OPENED_WEBHOOK_ENABLED=false

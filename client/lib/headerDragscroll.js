@@ -40,7 +40,7 @@ function isExcluded(target) {
     target.closest &&
     // Form fields keep their own behaviour (the zoom-level input lives in the
     // quick-access bar), and `.nodragscroll` opts an element out explicitly.
-    target.closest('input, select, textarea, .note-editable, .nodragscroll')
+    target.closest('input, select, textarea, .nodragscroll')
   );
 }
 

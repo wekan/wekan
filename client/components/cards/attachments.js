@@ -1,3 +1,4 @@
+import { TAPi18n } from '/imports/i18n';
 import { trapTabKey } from '/client/lib/accessibility';
 import { formatDateForDisplay } from '/client/lib/dateDisplay';
 import { ReactiveCache } from '/imports/reactiveCache';

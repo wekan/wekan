@@ -4,57 +4,35 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
 
-// Execute the real render callback: one widget per editor, including the
-// textarea fallback when rich editing is enabled for a different field.
+// Execute the real render callback without an editor plugin or public setting.
+// Each template must initialize only its own textarea, exactly once.
 const source = fs.readFileSync('client/components/main/editor.js', 'utf8');
 const callbackSource = source.slice(source.indexOf('const specialHandles'), source.indexOf('Template.editor.events'));
-for (const [rich, eligible, pluginAvailable] of [
-  [false, false, true], [true, false, true], [true, true, true], [true, true, false],
-]) {
-  let render;
-  let plainWidgets = 0;
-  let richWidgets = 0;
-  let summernotes = 0;
-  const input = {};
-  const textarea = { escapeableTextComplete() { plainWidgets++; } };
-  const inputs = {
-    length: eligible ? 1 : 0,
-    attr: () => 'Comment',
-    index: () => 0,
-    each(fn) { if (eligible) fn(0, input); },
-  };
-  const context = {
-    Template: { editor: { onRendered(fn) { render = fn; } } },
-    Meteor: { settings: { public: { RICHER_CARD_COMMENT_EDITOR: rich } } },
-    Utils: { isMiniScreen: () => false },
-    autosize() {},
-    $(element) {
-      assert.equal(element, input, 'never initialize editors belonging to another template');
-      return {
-        closest: () => ({ length: eligible ? 1 : 0 }),
-        on() {},
-        summernote(options) {
-          summernotes++;
-          options.callbacks.onInit.call(input, {
-            editable: { escapeableTextComplete() { richWidgets++; } },
-          });
-        },
-      };
-    },
-  };
-  context.$.fn = pluginAvailable ? { summernote() {} } : {};
-  vm.runInNewContext(callbackSource, context);
-  render.call({ $(selector) {
-    return selector === 'textarea' ? textarea : {
-      filter(predicate) {
-        assert.equal(predicate(0, input), eligible);
-        return inputs;
-      },
-    };
-  } });
-  const usesRich = rich && eligible && pluginAvailable;
-  assert.equal(plainWidgets, usesRich ? 0 : 1, 'exactly one plain-text initializer, including the missing-plugin fallback');
-  assert.equal(richWidgets, usesRich ? 1 : 0);
-  assert.equal(summernotes, usesRich ? 1 : 0);
+let render;
+const sized = [];
+const initialized = [];
+vm.runInNewContext(callbackSource, {
+  Template: { editor: { onRendered(fn) { render = fn; } } },
+  autosize(element) { sized.push(element); },
+  Utils: { getCurrentBoard: () => ({ activeMembers: () => [{ userId: 'member' }, { userId: 'deleted' }] }) },
+  ReactiveCache: { getUser: id => id === 'member' ? { username: 'alice', profile: { fullname: 'Alice Example' } } : null },
+  memberMatchesTerm: (user, term) => !!user && user.username.includes(term),
+  TAPi18n: { __: key => `translated:${key}` },
+});
+for (const id of ['first-card', 'second-card']) {
+  const textarea = { id, escapeableTextComplete(strategies) { initialized.push({ id, strategies }); } };
+  render.call({ $(selector) { assert.equal(selector, 'textarea'); return textarea; } });
 }
-console.log('  ok - #6704 initializes each plain or rich mention editor once, within its own template');
+assert.deepEqual(sized.map(el => el.id), ['first-card', 'second-card']);
+assert.deepEqual(initialized.map(el => el.id), ['first-card', 'second-card']);
+const mention = initialized[0].strategies[0];
+let matches;
+mention.search('ali', results => { matches = results; });
+assert.equal(matches[0].username, 'alice');
+assert.equal(mention.replace(matches[0]), '@alice (Alice Example) ');
+assert.equal(mention.template(matches[0]), 'Alice Example (alice)');
+mention.search('missing', results => { matches = results; });
+assert.equal(matches.some(user => user.username === 'alice'), false);
+assert.equal(matches.length, 4, 'group mentions remain available without matching users');
+assert.equal(mention.template(matches[0]), `translated:${matches[0].username}`);
+console.log('  ok - #6704 initializes each textarea once and preserves user/group mention behavior');

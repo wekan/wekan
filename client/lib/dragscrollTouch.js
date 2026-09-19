@@ -33,7 +33,7 @@ function isExcluded(target) {
       // .js-list-handle) must be excluded too: those start a jQuery UI
       // sortable reorder via touch-punch, and hijacking the touch to scroll
       // here would block dragging the handle to reorder swimlanes/lists.
-      'input, select, textarea, .note-editable, .nodragscroll, .handle, .ui-sortable-handle',
+      'input, select, textarea, .nodragscroll, .handle, .ui-sortable-handle',
     )
   );
 }

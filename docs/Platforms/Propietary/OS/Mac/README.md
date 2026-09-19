@@ -69,11 +69,11 @@ arch -x86_64 meteor npm install --save @babel/runtime
 ```
 3a) Run Meteor on localhost port 4000:
 ```
-WRITABLE_PATH=.. WITH_API=true RICHER_CARD_COMMENT_EDITOR=false arch -x86_64 meteor --port 4000
+WRITABLE_PATH=.. WITH_API=true arch -x86_64 meteor --port 4000
 ```
 3b) Run Meteor on computer IP address on local network port 4000:
 ```
-WRITABLE_PATH=.. ROOT_URL=http://192.168.0.100:4000 PORT=4000 WITH_API=true RICHER_CARD_COMMENT_EDITOR=false arch -x86_64 meteor --port 4000
+WRITABLE_PATH=.. ROOT_URL=http://192.168.0.100:4000 PORT=4000 WITH_API=true arch -x86_64 meteor --port 4000
 ```
 
 ## Bundle for non-devepment use with start-wekan.sh

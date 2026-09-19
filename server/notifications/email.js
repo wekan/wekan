@@ -88,9 +88,6 @@ Meteor.startup(() => {
         lan,
       ));
       const existing = user.getEmailBuffer().length > 0;
-      const htmlEnabled =
-        Meteor.settings.public &&
-        Meteor.settings.public.RICHER_CARD_COMMENT_EDITOR !== false;
       const actorName = params.user || '';
       const descriptionText = TAPi18n.__(description, quoteParams, lan);
 
@@ -124,15 +121,13 @@ Meteor.startup(() => {
       user.addEmailBuffer(
         bodyTemplate
           ? text
-          : htmlEnabled
-          ? buildHtmlNotificationLine({
+          : buildHtmlNotificationLine({
               existing,
               subject,
               actorName,
               descriptionText,
               url: params.url,
-            })
-          : text,
+            }),
       );
 
       if (params.cardId) {

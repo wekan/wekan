@@ -67,7 +67,6 @@ Template.commentForm.onDestroyed(function () {
   // button, a route change); make sure the last keystrokes reach the draft.
   flushCommentDraftSave();
   commentFormIsOpen.set(false);
-  $('.note-popover').hide();
 });
 
 Template.commentForm.helpers({

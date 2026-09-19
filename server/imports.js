@@ -162,7 +162,6 @@ import '/server/header-login';
 import '/server/max-image-pixel';
 import '/server/max-size';
 import '/server/policy';
-import '/server/richer-editor-setting-helper';
 import '/server/saml';
 import '/server/spinner';
 import '/server/statistics';

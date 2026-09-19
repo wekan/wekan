@@ -6,25 +6,9 @@
 // an attachment added inside a card COMMENT must show up in the card's
 // Attachments list.
 //
-// How comment attachments work today: the rich comment editor
-// (client/components/main/editor.js, summernote onImageUpload) uploads the
-// file into the SAME Attachments FilesCollection as the card Attachments
-// popup, with `meta: Utils.getCommonAttachmentMetaFrom(currentCard)`. The
-// card's Attachments section (Template.attachmentGallery in
-// client/components/cards/attachments.js, and Cards.helpers.attachments in
-// models/cards.js) selects `{ 'meta.cardId': cardId }` with no further
-// filtering, so a comment upload is listed as long as its meta.cardId matches
-// the card. The shared meta builder is the pure
-// models/lib/attachmentMeta.js#buildCardAttachmentMeta, delegated to by
-// Utils.getCommonAttachmentMetaFrom.
-//
-// This test pins both halves of that invariant:
-//   1. behaviour: the meta built for a comment upload is matched by the
-//      gallery's meta.cardId selector (incl. the linked-card case), and
-//      non-card attachments (board backgrounds) are NOT;
-//   2. source guards: the comment editor really uses the shared builder and
-//      the gallery/model queries really key on meta.cardId without a
-//      meta.source exclusion.
+// Existing attachments referenced in comments remain in the card gallery.
+// The shared metadata builder links uploads to the real card, and gallery
+// queries use meta.cardId without excluding a historical upload source.
 //
 // Run: ELECTRON_RUN_AS_NODE=1 <node-or-code-binary> tests/commentAttachmentsList.test.cjs
 
@@ -37,7 +21,6 @@ const { buildCardAttachmentMeta } = await import('../models/lib/attachmentMeta.j
 const repoRoot = path.resolve(__dirname, '..');
 const read = rel => fs.readFileSync(path.join(repoRoot, rel), 'utf8');
 
-const editorSrc = read('client/components/main/editor.js');
 const gallerySrc = read('client/components/cards/attachments.js');
 const cardsModelSrc = read('models/cards.js');
 const utilsSrc = read('client/lib/utils.js');
@@ -116,20 +99,6 @@ test('comment upload on a LINKED card is listed on the REAL card', () => {
 });
 
 // --- SOURCE GUARDS: the real code paths still wire up this behaviour --------
-
-test('comment editor uploads into Attachments with the shared card meta', () => {
-  // client/components/main/editor.js (summernote onImageUpload) must store
-  // comment images in the Attachments FilesCollection with the common card
-  // meta — not inline base64, not a different meta shape.
-  const upload = editorSrc.match(
-    /onImageUpload\(files\)[\s\S]*?Attachments\.insertAsync\(\s*\{[\s\S]*?\}\s*,\s*false\s*,?\s*\)/,
-  );
-  assert.ok(upload, 'comment editor upload call found');
-  assert.ok(
-    /meta:\s*Utils\.getCommonAttachmentMetaFrom\(currentCard\)/.test(upload[0]),
-    'comment upload must pass Utils.getCommonAttachmentMetaFrom(currentCard) as meta',
-  );
-});
 
 test('Utils.getCommonAttachmentMetaFrom delegates to the shared builder', () => {
   assert.ok(

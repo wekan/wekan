@@ -7,7 +7,6 @@
       - DDP_TRANSPORT=sockjs
       - WRITABLE_PATH=/data
       - WITH_API=true
-      - RICHER_CARD_COMMENT_EDITOR=false
       - CARD_OPENED_WEBHOOK_ENABLED=false
       - BIGEVENTS_PATTERN=NONE
       - NODE_FLAGS=--max-old-space-size=16384

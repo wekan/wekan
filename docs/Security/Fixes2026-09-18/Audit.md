@@ -203,7 +203,6 @@ NODE_OPTIONS=--max-old-space-size=4096 .tools/.meteor/meteor build \
 
 The audit server used `ROOT_URL=http://localhost:3000`, `PORT=3000`,
 `MONGO_URL=mongodb://127.0.0.1:3001/meteor`, `WITH_API=true`,
-`RICHER_CARD_COMMENT_EDITOR=false`,
 `DEFAULT_METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling`, and an absolute
 `WRITABLE_PATH` ending in `.tools/tmp/fixes-audit-20260919/writable`.
 MongoDB used the task's separate `db` directory. Bundle server dependencies were
