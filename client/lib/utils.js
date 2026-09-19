@@ -1312,6 +1312,10 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
     }
   };
 
+  // A login or route change can render the bars long after startup timers ran.
+  // The header template calls this after Blaze has flushed those changes.
+  Utils.watchHeaderHeight = watchHeader;
+
   $(window).on('resize orientationchange', publishHeaderHeight);
   // The header is rendered by Blaze, so it may not exist yet at import time.
   if (document.readyState === 'loading') {

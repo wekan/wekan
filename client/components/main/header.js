@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
+import { Tracker } from 'meteor/tracker';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
@@ -76,6 +77,16 @@ Template.header.onCreated(function () {
   });
 
 });
+Template.header.onRendered(function () {
+  this.autorun(() => {
+    Meteor.userId();
+    FlowRouter.watchPathChange();
+    Tracker.afterFlush(() => {
+      if (!this.view.isDestroyed) Utils.watchHeaderHeight();
+    });
+  });
+});
+
 Template.header.helpers({
   logoSettingsReady() {
     return Template.instance().subscriptionsReady();

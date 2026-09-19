@@ -25,7 +25,7 @@ test.describe('Cards – open & view modes', () => {
     await boardPage.evaluate(() =>
       localStorage.setItem('wekan-mobile-mode', 'true'),
     );
-    await boardPage.reload({ waitUntil: 'networkidle' });
+    await boardPage.reload({ waitUntil: 'domcontentloaded' });
 
     await boardPage.locator('.js-open-search-view').click();
     await expect(boardPage.locator('.board-sidebar')).toHaveClass(/is-open/);

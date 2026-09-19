@@ -73,6 +73,58 @@ test('it survives the header not existing yet', () => {
     'and never on the server, where this file is also imported');
 });
 
+test('a header rendered after startup is measured and observed after Blaze flushes', () => {
+  const vm = require('vm');
+  const bars = {};
+  const observed = [];
+  const pending = [];
+  let height;
+  let rendered;
+  const context = {
+    Utils: {},
+    window: { ResizeObserver: true },
+    document: {
+      readyState: 'complete',
+      getElementById: id => bars[id],
+      documentElement: { style: { setProperty: (_key, value) => { height = value; } } },
+    },
+    ResizeObserver: class {
+      constructor(callback) { this.callback = callback; }
+      observe(el) { observed.push({ el, callback: this.callback }); }
+    },
+    $: () => ({ on() {} }),
+    setTimeout: callback => callback(),
+    Template: { header: { onRendered: callback => { rendered = callback; } } },
+    Meteor: { userId: () => 'late-login' },
+    FlowRouter: { watchPathChange() {} },
+    Tracker: { afterFlush: callback => pending.push(callback) },
+  };
+  const marker = utils.indexOf('--wekan-header-height: how tall');
+  vm.runInNewContext(utils.slice(utils.indexOf('if (typeof window', marker)), context);
+  assert.strictEqual(height, '0px', 'no header exists during startup');
+  const header = read('client/components/main/header.js');
+  const start = header.indexOf('Template.header.onRendered(');
+  vm.runInNewContext(header.slice(start, header.indexOf('Template.header.helpers(', start)), context);
+  const instance = { view: { isDestroyed: false }, autorun: callback => callback() };
+  rendered.call(instance);
+  let bottom = 168;
+  bars['header-quick-access'] = { getBoundingClientRect: () => ({ bottom }) };
+  pending.shift()();
+  assert.strictEqual(height, '168px');
+  assert.strictEqual(observed.length, 1);
+  bottom = 224;
+  observed[0].callback();
+  assert.strictEqual(height, '224px', 'wrapping updates the measured height');
+  rendered.call(instance);
+  pending.shift()();
+  assert.strictEqual(observed.length, 1, 'route changes do not duplicate observers');
+  rendered.call(instance);
+  instance.view.isDestroyed = true;
+  bottom = 999;
+  pending.shift()();
+  assert.strictEqual(height, '224px', 'destroyed templates do not measure stale DOM');
+});
+
 test('the notifications drawer starts below the header too', () => {
   // xet7: "1st top header bar, when Notifications popup is open at full width,
   // avatar icon should not be above Notifications popup X close popup window."
