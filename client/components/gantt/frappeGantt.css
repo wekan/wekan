@@ -3,6 +3,21 @@
   min-height: 80px;
 }
 
+.gantt-view .gantt-container {
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
+  line-height: calc(14.5px * var(--wekan-ui-font-scale, 1));
+}
+.gantt-view .gantt-container .lower-text {
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
+}
+.gantt-view .gantt-container .upper-text,
+.gantt-view .gantt-container .side-header * {
+  font-size: calc(14px * var(--wekan-ui-font-scale, 1));
+}
+.gantt-view .gantt .bar-label {
+  font-size: calc(13px * var(--wekan-ui-font-scale, 1));
+}
+
 .frappe-gantt-empty {
   color: #888;
 }

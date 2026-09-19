@@ -9,5 +9,5 @@ template(name="mailActions")
       textarea(id="email-msg")
       div.trigger-hint.trigger-hint-email-vars
         | {{_'r-email-vars-hint'}}
-    div.trigger-button.trigger-button-email.js-mail-action.js-goto-rules
-      i.fa.fa-plus
+    button.trigger-button.trigger-button-email.js-mail-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
+      i.fa.fa-plus(aria-hidden="true")

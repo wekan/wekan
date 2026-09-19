@@ -110,7 +110,7 @@ template(name="archivesSidebar")
     +spinner
 
 template(name="restoreArchivedCardToListPopup")
-  p {{_ 'no-list-found'}}, {{_ 'select-list'}}:
+  p {{_ 'error-list-doesNotExist'}}, {{_ 'list'}}:
   select.js-select-restore-target-list(autofocus)
     each availableLists
       option(value="{{_id}}" selected="{{#if isSelectedList _id}}selected{{/if}}") {{add @index 1}}. {{title}}
@@ -119,7 +119,7 @@ template(name="restoreArchivedCardToListPopup")
     button.primary.confirm.js-restore-card-to-list {{_ 'restore'}}
 
 template(name="restoreArchivedListToSwimlanePopup")
-  p {{_ 'no-swimlane-found'}}, {{_ 'select-swimlane'}}:
+  p {{_ 'no-results'}}, {{_ 'wip-limit-group-select-swimlane'}}:
   select.js-select-restore-target-swimlane(autofocus)
     each availableSwimlanes
       option(value="{{_id}}" selected="{{#if isSelectedSwimlane _id}}selected{{/if}}") {{add @index 1}}. {{isTitleDefault title}}

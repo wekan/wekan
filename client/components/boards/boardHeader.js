@@ -774,7 +774,7 @@ Template.cardsSortPopup.events({
       createdAt: 1,
     };
     setCardsSortBy(sortBy);
-    sortCardsBy.set(TAPi18n.__('date-created-newest-first'));
+    sortCardsBy.set(TAPi18n.__('created-at-newest-first'));
     Popup.back();
   },
   'click .js-sort-created-desc'() {
@@ -782,7 +782,7 @@ Template.cardsSortPopup.events({
       createdAt: -1,
     };
     setCardsSortBy(sortBy);
-    sortCardsBy.set(TAPi18n.__('date-created-oldest-first'));
+    sortCardsBy.set(TAPi18n.__('created-at-oldest-first'));
     Popup.back();
   },
   // #3050: float highest-voted cards to the top of each list. `votes` is not

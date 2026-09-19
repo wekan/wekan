@@ -15,10 +15,10 @@ template(name="checklists")
       .material-toggle-switch(title="{{_ 'hide-finished-checklist'}}")
         //span.toggle-switch-title
         if card.hideFinishedChecklistIfItemsAreHidden
-          input.toggle-switch(type="checkbox" id="toggleHideFinishedChecklist" checked="checked")
+          input.toggle-switch.js-toggle-hide-finished-checklist(type="checkbox" aria-label="{{_ 'hide-finished-checklist'}}" id="{{visibilitySwitchId}}" checked="checked")
         else
-          input.toggle-switch(type="checkbox" id="toggleHideFinishedChecklist")
-        label.toggle-label(for="toggleHideFinishedChecklist")
+          input.toggle-switch.js-toggle-hide-finished-checklist(type="checkbox" aria-label="{{_ 'hide-finished-checklist'}}" id="{{visibilitySwitchId}}")
+        label.toggle-label(for="{{visibilitySwitchId}}")
 
   .card-checklist-items
     each checklist in checklists
@@ -59,7 +59,7 @@ template(name="checklistDetail")
         if canModifyCard
           h4.title.js-open-inlined-form.is-editable
             if isTouchScreenOrShowDesktopDragHandles
-              span.fa.checklist-handle(class="fa-arrows" title="{{_ 'dragChecklist'}}")
+              span.fa.checklist-handle(class="fa-arrows" title="{{_ 'moveChecklist'}}")
             +viewer
               = checklist.title
         else
@@ -99,12 +99,12 @@ template(name="addChecklistItemForm")
     a.fa.fa-times-thin.js-close-inlined-form(title="{{_ 'close-add-checklist-item'}}")
     if showNewlineBecomesNewChecklistItem
       .material-toggle-switch(title="{{_ 'newlineBecomesNewChecklistItem'}}")
-        input.toggle-switch(type="checkbox" id="toggleNewlineBecomesNewChecklistItem")
+        input.toggle-switch(type="checkbox" aria-label="{{_ 'newlineBecomesNewChecklistItem'}}" id="toggleNewlineBecomesNewChecklistItem")
         label.toggle-label(for="toggleNewlineBecomesNewChecklistItem")
         | {{_ 'newLineNewItem'}}
       if $eq position 'top'
         .material-toggle-switch(title="{{_ 'newlineBecomesNewChecklistItemOriginOrder'}}")
-          input.toggle-switch(type="checkbox" id="toggleNewlineBecomesNewChecklistItemOriginOrder")
+          input.toggle-switch(type="checkbox" aria-label="{{_ 'newlineBecomesNewChecklistItemOriginOrder'}}" id="toggleNewlineBecomesNewChecklistItemOriginOrder")
           label.toggle-label(for="toggleNewlineBecomesNewChecklistItemOriginOrder")
           | {{_ 'originOrder'}}
 
@@ -165,7 +165,7 @@ template(name="checklistItems")
 
 template(name='checklistItemDetail')
   .js-checklist-item.checklist-item(class="{{#if item.isFinished }}is-checked{{#if checklist.isItemHidden item.isFinished}} invisible{{/if}}{{/if}}{{#if checklist.hideAllChecklistItems}} is-checked invisible{{/if}}"
-    role="checkbox" aria-checked="{{#if item.isFinished }}true{{else}}false{{/if}}" tabindex="0")
+    role="checkbox" aria-checked="{{#if item.isFinished }}true{{else}}false{{/if}}" aria-readonly="{{#if canCheckChecklistItem}}false{{else}}true{{/if}}" tabindex="{{#if canCheckChecklistItem}}0{{else}}-1{{/if}}")
     //- #3307: checking off an item is a lower bar than editing/deleting one - a
       Worker may do the former but not the latter, so the checkbox itself is
       gated on canCheckChecklistItem while everything else here still needs
@@ -177,7 +177,7 @@ template(name='checklistItemDetail')
       .materialCheckBox(class="{{#if item.isFinished }}is-checked{{/if}}")
     if canModifyCard
       if isTouchScreenOrShowDesktopDragHandles
-        span.fa.checklistitem-handle(class="fa-arrows" title="{{_ 'dragChecklistItem'}}")
+        span.fa.checklistitem-handle(class="fa-arrows" title="{{_ 'move-scope'}}")
       .item-title.js-open-inlined-form.is-editable(class="{{#if item.isFinished }}is-checked{{/if}}")
         +viewer
           = item.title
@@ -239,18 +239,18 @@ template(name="checklistActionsPopup")
         | {{_ "hideCheckedChecklistItems"}} ...
         .material-toggle-switch(title="{{_ 'hide-checked-items'}}")
           if checklist.hideCheckedState
-            input.toggle-switch(type="checkbox" id="toggleHideCheckedChecklistItems_{{checklist._id}}" checked="checked")
+            input.toggle-switch(type="checkbox" aria-label="{{_ 'hide-checked-items'}}" id="toggleHideCheckedChecklistItems_{{checklist._id}}" checked="checked")
           else
-            input.toggle-switch(type="checkbox" id="toggleHideCheckedChecklistItems_{{checklist._id}}")
+            input.toggle-switch(type="checkbox" aria-label="{{_ 'hide-checked-items'}}" id="toggleHideCheckedChecklistItems_{{checklist._id}}")
           label.toggle-label(for="toggleHideCheckedChecklistItems_{{checklist._id}}")
       a.js-hide-all-checklist-items
         i.fa.fa-ban
         | {{_ "hideAllChecklistItems"}} ...
         .material-toggle-switch(title="{{_ 'hideAllChecklistItems'}}")
           if checklist.hideAllChecklistItems
-            input.toggle-switch(type="checkbox" id="toggleHideAllChecklistItems_{{checklist._id}}" checked="checked")
+            input.toggle-switch(type="checkbox" aria-label="{{_ 'hideAllChecklistItems'}}" id="toggleHideAllChecklistItems_{{checklist._id}}" checked="checked")
           else
-            input.toggle-switch(type="checkbox" id="toggleHideAllChecklistItems_{{checklist._id}}")
+            input.toggle-switch(type="checkbox" aria-label="{{_ 'hideAllChecklistItems'}}" id="toggleHideAllChecklistItems_{{checklist._id}}")
           label.toggle-label(for="toggleHideAllChecklistItems_{{checklist._id}}")
       a.js-show-checklist-at-minicard
         i.fa.fa-th-list
@@ -261,9 +261,9 @@ template(name="checklistActionsPopup")
             because the board default (allowsChecklistsOnMinicard, on out of the
             box) put it there - reported by email.
           if shownAtMinicard
-            input.toggle-switch(type="checkbox" id="toggleShowChecklistAtMinicard_{{checklist._id}}" checked="checked")
+            input.toggle-switch(type="checkbox" aria-label="{{_ 'show-on-minicard'}}" id="toggleShowChecklistAtMinicard_{{checklist._id}}" checked="checked")
           else
-            input.toggle-switch(type="checkbox" id="toggleShowChecklistAtMinicard_{{checklist._id}}")
+            input.toggle-switch(type="checkbox" aria-label="{{_ 'show-on-minicard'}}" id="toggleShowChecklistAtMinicard_{{checklist._id}}")
           label.toggle-label(for="toggleShowChecklistAtMinicard_{{checklist._id}}")
 
 //- #3818 / #4729: pick this checklist's automatic-reset interval (or 'none' to

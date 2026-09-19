@@ -17,15 +17,15 @@ template(name="boardTriggers")
         | {{_'r-in-swimlane'}}
       div.trigger-dropdown
         input(id="create-swimlane-name",type=text,placeholder="{{_'r-swimlane-name'}}")
-      div.trigger-button.trigger-button-person.js-show-user-field
-        i.fa.fa-user
+      button.trigger-button.trigger-button-person.js-show-user-field(type="button" aria-label="{{_ 'username'}}")
+        i.fa.fa-user(aria-hidden="true")
       div.user-details.hide-element
         div.trigger-text
           | {{_'r-by'}}
         div.trigger-dropdown
           input(class="user-name",type=text,placeholder="{{_'username'}}")
-    div.trigger-button.js-add-create-trigger.js-goto-action
-      i.fa.fa-plus
+    button.trigger-button.js-add-create-trigger.js-goto-action(type="button" aria-label="{{_ 'r-add-trigger'}}")
+      i.fa.fa-plus(aria-hidden="true")
 
   div.trigger-item#trigger-three
     div.trigger-content
@@ -35,15 +35,15 @@ template(name="boardTriggers")
         i.fa.fa-search
       div.trigger-text
         | {{_'r-is-moved'}}
-      div.trigger-button.trigger-button-person.js-show-user-field
-        i.fa.fa-user
+      button.trigger-button.trigger-button-person.js-show-user-field(type="button" aria-label="{{_ 'username'}}")
+        i.fa.fa-user(aria-hidden="true")
       div.user-details.hide-element
         div.trigger-text
           | {{_'r-by'}}
         div.trigger-dropdown
           input(class="user-name",type=text,placeholder="{{_'username'}}")
-    div.trigger-button.js-add-gen-moved-trigger.js-goto-action
-      i.fa.fa-plus
+    button.trigger-button.js-add-gen-moved-trigger.js-goto-action(type="button" aria-label="{{_ 'r-add-trigger'}}")
+      i.fa.fa-plus(aria-hidden="true")
 
   div.trigger-item#trigger-four
     div.trigger-content
@@ -65,15 +65,15 @@ template(name="boardTriggers")
         | {{_'r-in-swimlane'}}
       div.trigger-dropdown
         input(id="create-swimlane-name-2",type=text,placeholder="{{_'r-swimlane-name'}}")
-      div.trigger-button.trigger-button-person.js-show-user-field
-        i.fa.fa-user
+      button.trigger-button.trigger-button-person.js-show-user-field(type="button" aria-label="{{_ 'username'}}")
+        i.fa.fa-user(aria-hidden="true")
       div.user-details.hide-element
         div.trigger-text
           | {{_'r-by'}}
         div.trigger-dropdown
           input(class="user-name",type=text,placeholder="{{_'username'}}")
-    div.trigger-button.js-add-moved-trigger.js-goto-action
-      i.fa.fa-plus
+    button.trigger-button.js-add-moved-trigger.js-goto-action(type="button" aria-label="{{_ 'r-add-trigger'}}")
+      i.fa.fa-plus(aria-hidden="true")
 
   div.trigger-item#trigger-five
     div.trigger-content
@@ -87,15 +87,15 @@ template(name="boardTriggers")
         select(id="arch-action")
           option(value="archived") {{_'r-archived'}}
           option(value="unarchived") {{_'r-unarchived'}}
-      div.trigger-button.trigger-button-person.js-show-user-field
-        i.fa.fa-user
+      button.trigger-button.trigger-button-person.js-show-user-field(type="button" aria-label="{{_ 'username'}}")
+        i.fa.fa-user(aria-hidden="true")
       div.user-details.hide-element
         div.trigger-text
           | {{_'r-by'}}
         div.trigger-dropdown
           input(class="user-name",type=text,placeholder="{{_'username'}}")
-    div.trigger-button.js-add-arch-trigger.js-goto-action
-      i.fa.fa-plus
+    button.trigger-button.js-add-arch-trigger.js-goto-action(type="button" aria-label="{{_ 'r-add-trigger'}}")
+      i.fa.fa-plus(aria-hidden="true")
 
   div.trigger-item
       div.trigger-content

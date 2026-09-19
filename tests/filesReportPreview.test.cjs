@@ -35,7 +35,9 @@ test('preview uses the card viewer and only the displayed report page', () => {
   const table = read('client/components/settings/tablePage.js');
   const attachments = read('client/components/cards/attachments.js');
   const reports = read('client/components/settings/adminProblems.jade');
-  assert.match(reports, /\+attachmentViewer/);
+  // F17: the shared layout owns one viewer for history, cards and reports.
+  assert.doesNotMatch(reports, /\+attachmentViewer/);
+  assert.match(read('client/components/main/layouts.jade'), /\+attachmentViewer/);
   assert.match(table, /openAttachmentSlideshow/);
   assert.match(table, /findAll\('\.js-table-page-attachment-preview'\)/);
   assert.doesNotMatch(table, /Attachments\.collection\.find/,

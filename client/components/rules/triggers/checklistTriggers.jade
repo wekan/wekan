@@ -9,15 +9,15 @@ template(name="checklistTriggers")
           option(value="removed") {{_'r-removed-from'}}
       div.trigger-text
         | {{_'r-a-card'}}
-      div.trigger-button.trigger-button-person.js-show-user-field
-        i.fa.fa-user
+      button.trigger-button.trigger-button-person.js-show-user-field(type="button" aria-label="{{_ 'username'}}")
+        i.fa.fa-user(aria-hidden="true")
       div.user-details.hide-element
         div.trigger-text
           | {{_'r-by'}}
         div.trigger-dropdown
           input(class="user-name",type=text,placeholder="{{_'username'}}")
-    div.trigger-button.js-add-gen-check-trigger.js-goto-action
-      i.fa.fa-plus
+    button.trigger-button.js-add-gen-check-trigger.js-goto-action(type="button" aria-label="{{_ 'r-add-trigger'}}")
+      i.fa.fa-plus(aria-hidden="true")
 
 
   div.trigger-item
@@ -38,15 +38,15 @@ template(name="checklistTriggers")
           option(value="removed") {{_'r-removed-from'}}
       div.trigger-text
         | {{_'r-a-card'}}
-      div.trigger-button.trigger-button-person.js-show-user-field
-        i.fa.fa-user
+      button.trigger-button.trigger-button-person.js-show-user-field(type="button" aria-label="{{_ 'username'}}")
+        i.fa.fa-user(aria-hidden="true")
       div.user-details.hide-element
         div.trigger-text
           | {{_'r-by'}}
         div.trigger-dropdown
           input(class="user-name",type=text,placeholder="{{_'username'}}")
-    div.trigger-button.js-add-spec-check-trigger.js-goto-action
-      i.fa.fa-plus
+    button.trigger-button.js-add-spec-check-trigger.js-goto-action(type="button" aria-label="{{_ 'r-add-trigger'}}")
+      i.fa.fa-plus(aria-hidden="true")
 
   div.trigger-item
     div.trigger-content
@@ -56,15 +56,15 @@ template(name="checklistTriggers")
         select(id="gen-comp-check-action")
           option(value="completed") {{_'r-completed'}}
           option(value="uncompleted") {{_'r-made-incomplete'}}
-      div.trigger-button.trigger-button-person.js-show-user-field
-        i.fa.fa-user
+      button.trigger-button.trigger-button-person.js-show-user-field(type="button" aria-label="{{_ 'username'}}")
+        i.fa.fa-user(aria-hidden="true")
       div.user-details.hide-element
         div.trigger-text
           | {{_'r-by'}}
         div.trigger-dropdown
           input(class="user-name",type=text,placeholder="{{_'username'}}")
-    div.trigger-button.js-add-gen-comp-trigger.js-goto-action
-      i.fa.fa-plus
+    button.trigger-button.js-add-gen-comp-trigger.js-goto-action(type="button" aria-label="{{_ 'r-add-trigger'}}")
+      i.fa.fa-plus(aria-hidden="true")
 
   div.trigger-item
     div.trigger-content
@@ -82,15 +82,15 @@ template(name="checklistTriggers")
         select(id="spec-comp-check-action")
           option(value="completed") {{_'r-completed'}}
           option(value="uncompleted") {{_'r-made-incomplete'}}
-      div.trigger-button.trigger-button-person.js-show-user-field
-        i.fa.fa-user
+      button.trigger-button.trigger-button-person.js-show-user-field(type="button" aria-label="{{_ 'username'}}")
+        i.fa.fa-user(aria-hidden="true")
       div.user-details.hide-element
         div.trigger-text
           | {{_'r-by'}}
         div.trigger-dropdown
           input(class="user-name",type=text,placeholder="{{_'username'}}")
-    div.trigger-button.js-add-spec-comp-trigger.js-goto-action
-      i.fa.fa-plus
+    button.trigger-button.js-add-spec-comp-trigger.js-goto-action(type="button" aria-label="{{_ 'r-add-trigger'}}")
+      i.fa.fa-plus(aria-hidden="true")
 
   div.trigger-item
     div.trigger-content
@@ -100,15 +100,15 @@ template(name="checklistTriggers")
         select(id="check-item-gen-action")
           option(value="checked") {{_'r-checked'}}
           option(value="unchecked") {{_'r-unchecked'}}
-      div.trigger-button.trigger-button-person.js-show-user-field
-        i.fa.fa-user
+      button.trigger-button.trigger-button-person.js-show-user-field(type="button" aria-label="{{_ 'username'}}")
+        i.fa.fa-user(aria-hidden="true")
       div.user-details.hide-element
         div.trigger-text
           | {{_'r-by'}}
         div.trigger-dropdown
           input(class="user-name",type=text,placeholder="{{_'username'}}")
-    div.trigger-button.js-add-gen-check-item-trigger.js-goto-action
-      i.fa.fa-plus
+    button.trigger-button.js-add-gen-check-item-trigger.js-goto-action(type="button" aria-label="{{_ 'r-add-trigger'}}")
+      i.fa.fa-plus(aria-hidden="true")
 
   div.trigger-item
     div.trigger-content
@@ -126,12 +126,12 @@ template(name="checklistTriggers")
         select(id="check-item-spec-action")
           option(value="checked") {{_'r-checked'}}
           option(value="unchecked") {{_'r-unchecked'}}
-      div.trigger-button.trigger-button-person.js-show-user-field
-        i.fa.fa-user
+      button.trigger-button.trigger-button-person.js-show-user-field(type="button" aria-label="{{_ 'username'}}")
+        i.fa.fa-user(aria-hidden="true")
       div.user-details.hide-element
         div.trigger-text
           | {{_'r-by'}}
         div.trigger-dropdown
           input(class="user-name",type=text,placeholder="{{_'username'}}")
-    div.trigger-button.js-add-spec-check-item-trigger.js-goto-action
-      i.fa.fa-plus
+    button.trigger-button.js-add-spec-check-item-trigger.js-goto-action(type="button" aria-label="{{_ 'r-add-trigger'}}")
+      i.fa.fa-plus(aria-hidden="true")

@@ -76,8 +76,8 @@ Template.checklistActions.events({
     const data = Template.currentData();
     const ruleName = data.ruleName.get();
     const trigger = data.triggerVar.get();
-    const checkItemName = tpl.find('#checkitem-name');
-    const checklistName = tpl.find('#checklist-name3');
+    const checkItemName = tpl.find('#checkitem-name').value;
+    const checklistName = tpl.find('#checklist-name3').value;
     const actionSelected = tpl.find('#check-item-action').value;
     const boardId = Session.get('currentBoard');
     const desc = Utils.getTriggerActionDesc(event, tpl);

@@ -67,7 +67,7 @@ Template.fullcalendar.onRendered(function () {
       instance.calendar = null;
     }
 
-    if (preservedViewType && !options.initialView) {
+    if (preservedViewType) {
       options.initialView = preservedViewType;
     }
     if (preservedDate && !options.initialDate) {

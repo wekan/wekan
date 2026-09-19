@@ -1,3 +1,4 @@
+import { TAPi18n } from '/imports/i18n';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { buildHeader, pageInfo, TABLE_PAGE_ROWS_PER_PAGE } from '/models/lib/tablePage';
 
@@ -52,7 +53,7 @@ Template.translationSettings.onCreated(function () {
     if (value === '') {
       this.findTranslationsOptions.set({});
     } else {
-      const regex = new RegExp(value, 'i');
+      const regex = new RegExp(value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
       this.findTranslationsOptions.set({
         $or: [
           { language: regex },
@@ -210,7 +211,9 @@ Template.newTranslationPopup.events({
         if (error) {
           const errorElement = error.error;
           if (errorElement === 'text-already-taken') {
-            textMessageElement.show();
+            textMessageElement.text(`${TAPi18n.__('editTranslationPopup-title')}: ${text} (${language})`).show();
+          } else {
+            textMessageElement.text(TAPi18n.__('server-error')).show();
           }
         } else {
           textMessageElement.hide();
@@ -218,7 +221,6 @@ Template.newTranslationPopup.events({
         }
       },
     );
-    Popup.back();
   },
 });
 

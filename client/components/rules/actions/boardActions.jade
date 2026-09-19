@@ -9,8 +9,8 @@ template(name="boardActions")
           option(value="bottom") {{_'r-bottom-of'}}
       div.trigger-text
         | {{_'r-its-list'}}
-    div.trigger-button.js-add-gen-move-action.js-goto-rules
-      i.fa.fa-plus
+    button.trigger-button.js-add-gen-move-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
+      i.fa.fa-plus(aria-hidden="true")
 
   div.trigger-item
     div.trigger-content
@@ -38,8 +38,8 @@ template(name="boardActions")
         | {{_'r-in-swimlane'}}
       div.trigger-dropdown
         input(id="swimlaneName",type=text,placeholder="{{_'r-name'}}")
-    div.trigger-button.js-add-spec-move-action.js-goto-rules
-      i.fa.fa-plus
+    button.trigger-button.js-add-spec-move-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
+      i.fa.fa-plus(aria-hidden="true")
 
   div.trigger-item
     div.trigger-content
@@ -49,8 +49,8 @@ template(name="boardActions")
           option(value="unarchive") {{_'r-unarchive'}}
       div.trigger-text
         | {{_'r-card'}}
-    div.trigger-button.js-add-arch-action.js-goto-rules
-      i.fa.fa-plus
+    button.trigger-button.js-add-arch-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
+      i.fa.fa-plus(aria-hidden="true")
 
   div.trigger-item
     div.trigger-content
@@ -58,8 +58,8 @@ template(name="boardActions")
         | {{_'r-add-swimlane'}}
       div.trigger-dropdown
         input(id="swimlane-name",type=text,placeholder="{{_'r-name'}}")
-    div.trigger-button.js-add-swimlane-action.js-goto-rules
-      i.fa.fa-plus
+    button.trigger-button.js-add-swimlane-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
+      i.fa.fa-plus(aria-hidden="true")
 
   div.trigger-item
     div.trigger-content
@@ -75,8 +75,8 @@ template(name="boardActions")
         | {{_'r-in-swimlane'}}
       div.trigger-dropdown
         input(id="swimlane-name2",type=text,placeholder="{{_'r-name'}}")
-    div.trigger-button.js-create-card-action.js-goto-rules
-      i.fa.fa-plus
+    button.trigger-button.js-create-card-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
+      i.fa.fa-plus(aria-hidden="true")
 
   div.trigger-item
     div.trigger-content
@@ -100,8 +100,8 @@ template(name="boardActions")
         | {{_'r-in-swimlane'}}
       div.trigger-dropdown
         input(id="swimlaneName-link",type=text,placeholder="{{_'r-name'}}")
-    div.trigger-button.js-link-card-action.js-goto-rules
-      i.fa.fa-plus
+    button.trigger-button.js-link-card-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
+      i.fa.fa-plus(aria-hidden="true")
 
   div.trigger-item
     div.trigger-content
@@ -117,8 +117,8 @@ template(name="boardActions")
           option(value="name") {{_'r-sort-name'}}
             option(value="created") {{_'createdAt'}}
             option(value="modified") {{_'modifiedAt'}}
-    div.trigger-button.js-sort-list-action.js-goto-rules
-      i.fa.fa-plus
+    button.trigger-button.js-sort-list-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
+      i.fa.fa-plus(aria-hidden="true")
 
   div.trigger-item
     div.trigger-content
@@ -130,8 +130,8 @@ template(name="boardActions")
         | {{_'r-in-list'}}
       div.trigger-dropdown
         input(id="moveall-to-list",type=text,placeholder="{{_'r-list-name'}}")
-    div.trigger-button.js-move-all-cards-action.js-goto-rules
-      i.fa.fa-plus
+    button.trigger-button.js-move-all-cards-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
+      i.fa.fa-plus(aria-hidden="true")
 
 
 

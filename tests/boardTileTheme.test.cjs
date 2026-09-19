@@ -306,7 +306,7 @@ test('no theme hides a popup header (negative)', () => {
   }
   const popup = read('client/components/main/popup.css');
   const at = popup.indexOf('.pop-over .header {');
-  assert.ok(/height: 41px/.test(popup.slice(at, popup.indexOf('}', at))),
+  assert.ok(/height: calc\(41px \* var\(--wekan-ui-font-scale, 1\)\)/.test(popup.slice(at, popup.indexOf('}', at))),
     'and the header every theme now shows is the shared one');
 });
 

@@ -1,3 +1,4 @@
+import { Random } from 'meteor/random';
 import { formatDateForDisplay } from '/client/lib/dateDisplay';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
@@ -205,7 +206,12 @@ Template.checklistDetail.events({
   },
 });
 
+Template.checklists.onCreated(function () {
+  this.visibilitySwitchId = `toggleHideFinishedChecklist_${Random.id()}`;
+});
+
 Template.checklists.helpers({
+  visibilitySwitchId() { return Template.instance().visibilitySwitchId; },
   checklists() {
     const card = ReactiveCache.getCard(this.cardId);
     if (!card || typeof card.checklists !== 'function') {
@@ -402,7 +408,7 @@ Template.checklists.events({
   'click .js-open-inlined-form'(event, tpl) {
     tpl.$('.js-close-inlined-form').click();
   },
-  'click #toggleHideFinishedChecklist'(event) {
+  'click .js-toggle-hide-finished-checklist'(event) {
     event.preventDefault();
     Template.currentData().card.toggleHideFinishedChecklist();
   },
@@ -609,6 +615,13 @@ Template.checklistItemDetail.helpers({
 });
 
 Template.checklistItemDetail.events({
+  'keydown .js-checklist-item'(event) {
+    if (event.target !== event.currentTarget || event.repeat || event.originalEvent?.repeat || ![' ', 'Enter'].includes(event.key)) return;
+    if (event.currentTarget.getAttribute('aria-readonly') === 'true') return;
+    event.preventDefault();
+    event.stopPropagation();
+    event.currentTarget.querySelector('.check-box-container')?.click();
+  },
   // #2422: open the checklist item's linked subtask card. Reuses the same
   // navigation guard subtasks.js uses for its own "View it" button, so a
   // subtask on another (not-yet-loaded) board resolves the same way.

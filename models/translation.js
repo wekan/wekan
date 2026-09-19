@@ -1,4 +1,5 @@
 import { Mongo } from 'meteor/mongo';
+import languages from '/imports/i18n/languages';
 const { SimpleSchema } = require('/imports/simpleSchema');
 
 const Translation = new Mongo.Collection('translation');
@@ -13,7 +14,8 @@ Translation.attachSchema(
        * the language
        */
       type: String,
-      max: 5,
+      max: 35,
+      allowedValues: [...new Set(Object.values(languages).map(language => language.tag))],
     },
     text: {
       /**

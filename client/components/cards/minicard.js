@@ -1,3 +1,4 @@
+import { relativeCardSort } from '/client/lib/relativeCardPosition';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { CustomFieldStringTemplate } from '/client/lib/customFields';
@@ -390,24 +391,21 @@ Template.minicard.helpers({
 
 // #459: accessible reordering — keyboard/screen-reader users can move a card up
 // or down within its list via sr-only buttons (no drag-and-drop required). The
-// move swaps the card's sort value with its neighbour in the same list+swimlane.
-function moveCardBy(card, delta) {
+// move inserts beside its neighbor in the same list+swimlane, repairing ties.
+async function moveCardBy(card, delta) {
   const siblings = ReactiveCache.getCards(
-    { listId: card.listId, swimlaneId: card.swimlaneId, archived: false },
-    { sort: { sort: 1 } },
+    { boardId: card.boardId, listId: card.listId, swimlaneId: card.swimlaneId, archived: false, deletedAt: null },
+    { sort: { sort: 1, _id: 1 } },
   );
   const idx = siblings.findIndex(c => c._id === card._id);
   const target = siblings[idx + delta];
   if (idx < 0 || !target) return;
-  // Capture both sort values before either update; the docs are reactive and
-  // card.sort would otherwise change after the first move.
-  const cardSort = card.sort;
-  const targetSort = target.sort;
-  // Persist through the card model's move() mutation — the canonical client
-  // path (e.g. editCardSortOrderPopup). A raw Cards.update of `sort` is the
-  // wrong path here and would be reverted.
-  card.move(card.boardId, card.swimlaneId, card.listId, targetSort);
-  target.move(target.boardId, target.swimlaneId, target.listId, cardSort);
+  try {
+    const sort = await relativeCardSort(target, delta < 0 ? 'above' : 'below', card._id);
+    await card.move(card.boardId, card.swimlaneId, card.listId, sort);
+  } catch (error) {
+    window.alert(error.reason || error.message || TAPi18n.__('server-error'));
+  }
 }
 
 Template.minicard.events({

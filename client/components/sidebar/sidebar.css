@@ -161,7 +161,7 @@
 
 .card-field-order-columns {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   column-gap: 18px;
   align-items: start;
 }
@@ -190,7 +190,7 @@
 
 .card-field-order-move.is-disabled {
   opacity: 0.3;
-  pointer-events: none;
+  cursor: not-allowed;
 }
 
 .card-field-order-label {
@@ -785,3 +785,10 @@ body.sidebar-resizing-active {
   cursor: pointer;
 }
 
+
+/* Stack the two settings columns without changing single-side desktop headings. */
+@media screen and (max-width: 800px) {
+  .card-field-order-columns { grid-template-columns: minmax(0, 1fr); }
+}
+.card-field-order-column { min-width: 0; }
+.card-field-order-label { overflow-wrap: anywhere; }

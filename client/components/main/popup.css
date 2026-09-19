@@ -39,7 +39,7 @@
    first row of a popup, and it must match the space beside it: `.content` has 18px of
    side padding, so 6 + 12 = 18 makes the top gap and the left gutter the same. */
 .pop-over .header {
-  height: 41px;
+  height: calc(41px * var(--wekan-ui-font-scale, 1));
   position: relative;
   margin-bottom: 6px;
   background: #f7f7f7;
@@ -141,7 +141,7 @@
 .pop-over[data-popup='memberMenuPopup'] > .content-wrapper {
   /* The header is out of the flow here, so its height is padding instead: 41px of
      header + its 1px bottom border + the same 6px gap every other popup has. */
-  padding-top: calc(41px + 1px + 6px);
+  padding-top: calc(41px * var(--wekan-ui-font-scale, 1) + 1px + 6px);
   box-sizing: border-box;
 }
 
@@ -883,7 +883,8 @@ html[dir='rtl'] .pop-over:has(.edit-date) > .js-date-popup-resize {
   width: 50px;
 }
 .pop-over.miniprofile .miniprofile-header .info {
-  margin: 0 0 0 64px;
+  margin: 0;
+  margin-inline-start: 64px;
   word-wrap: break-word;
 }
 .pop-over.miniprofile .miniprofile-header .info h3 a {
@@ -926,7 +927,7 @@ html[dir='rtl'] .pop-over:has(.edit-date) > .js-date-popup-resize {
        force. The fallback is the stock WeKan blue, so an unthemed instance is
        unchanged. */
     background: var(--theme-accent, #2980b9);
-    height: 48px;
+    height: calc(48px * var(--wekan-ui-font-scale, 1));
     padding: 0px 0px;
     border: 0px;
     margin: 0px 0px;
@@ -955,10 +956,10 @@ html[dir='rtl'] .pop-over:has(.edit-date) > .js-date-popup-resize {
   }
   .pop-over .content-wrapper {
     width: 100%;
-    height: calc(100% - 48px);
+    height: calc(100% - 48px * var(--wekan-ui-font-scale, 1));
     overflow-y: scroll;
     overflow-x: hidden;
-    margin: 48px 0px 0px 0px;
+    margin: calc(48px * var(--wekan-ui-font-scale, 1)) 0 0;
   }
   .pop-over .content-container {
     width: 100%;

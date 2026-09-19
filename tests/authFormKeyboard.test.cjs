@@ -9,10 +9,10 @@ const passwordTemplate = fs.readFileSync(
   'utf8',
 );
 
-assert.match(
+assert.doesNotMatch(
   passwordTemplate,
-  /button\.password-toggle-btn\.primary\(type="button" tabindex="-1"/,
-  'show/hide password controls must stay out of the sequential Tab order',
+  /button\.password-toggle-btn[^\n]*tabindex="-1"/,
+  'A05: reveal/hide is deliberately reachable in normal Tab order',
 );
 assert.doesNotMatch(
   passwordTemplate,

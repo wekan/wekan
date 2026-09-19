@@ -309,9 +309,17 @@
 /* #4990: the title text is the edit target. It is a block so that the whole
    line, not only the words, is that target: a click on the empty space after a
    short title is still a click on the title. */
+.minicard .minicard-title-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
 .minicard .minicard-title .minicard-title-text {
   display: block;
   position: relative;
+  flex: 1;
+  min-width: 0;
 }
 
 /* Direct title editing is disabled; the former editor styles are retained as
@@ -1070,11 +1078,8 @@
   display: inline-flex;
   align-items: center;
   vertical-align: middle;
-  /* Nudge down so the checkmark sits at the vertical middle of the title text
-     (the checked materialCheckBox is shifted up 4px by its own positioning). */
-  position: relative;
-  top: 4px;
-  margin-inline-end: 6px;
+  flex-shrink: 0;
+  margin-inline-end: 0;
   cursor: pointer;
 }
 

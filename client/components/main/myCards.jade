@@ -49,14 +49,14 @@ template(name="myCards")
             caption.sr-only {{_ 'my-cards'}}
             thead
               tr
-                th(scope="col") {{_ "Card"}}
-                th(scope="col") {{_ "List"}}
-                th(scope="col") {{_ "Board"}}
-                th(scope="col") {{_ "Swimlane"}}
+                th(scope="col") {{_ "card"}}
+                th(scope="col") {{_ "list"}}
+                th(scope="col") {{_ "board"}}
+                th(scope="col") {{_ "swimlane"}}
                 unless isMiniScreen
-                  th(scope="col") {{_ "Members"}}
-                  th(scope="col") {{_ "Labels"}}
-                  th(scope="col") {{_ "Due Date"}}
+                  th(scope="col") {{_ "members"}}
+                  th(scope="col") {{_ "labels"}}
+                  th(scope="col") {{_ "due-date"}}
             tbody
                 each board in myCardsList
                     each swimlane in board.mySwimlanes

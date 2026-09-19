@@ -39,8 +39,8 @@ template(name="scheduledTriggers")
         | {{_'r-of-cards-in-list'}}
       div.trigger-dropdown
         input#schedule-list-name(type=text placeholder="{{_'r-list-name'}}")
-    div.trigger-button.js-add-scheduled-trigger.js-goto-action
-      i.fa.fa-plus
+    button.trigger-button.js-add-scheduled-trigger.js-goto-action(type="button" aria-label="{{_ 'r-add-trigger'}}")
+      i.fa.fa-plus(aria-hidden="true")
 
   div.trigger-item#trigger-due
     div.trigger-content
@@ -59,8 +59,8 @@ template(name="scheduledTriggers")
         | {{_'r-schedule-at-time'}}
       div.trigger-dropdown
         +calendarTimeInput(inputId="due-time" value="09:00")
-    div.trigger-button.js-add-due-trigger.js-goto-action
-      i.fa.fa-plus
+    button.trigger-button.js-add-due-trigger.js-goto-action(type="button" aria-label="{{_ 'r-add-trigger'}}")
+      i.fa.fa-plus(aria-hidden="true")
 
   div.trigger-item#trigger-aging
     div.trigger-content
@@ -76,5 +76,5 @@ template(name="scheduledTriggers")
         | {{_'r-schedule-at-time'}}
       div.trigger-dropdown
         +calendarTimeInput(inputId="aging-time" value="09:00")
-    div.trigger-button.js-add-aging-trigger.js-goto-action
-      i.fa.fa-plus
+    button.trigger-button.js-add-aging-trigger.js-goto-action(type="button" aria-label="{{_ 'r-add-trigger'}}")
+      i.fa.fa-plus(aria-hidden="true")

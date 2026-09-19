@@ -45,33 +45,34 @@ template(name="minicard")
       role="button" tabindex="0"
       aria-expanded="{{#if minicardCollapsed}}false{{else}}true{{/if}}")
     .minicard-title
-      if showDueComplete
-        if canModifyCard
-          a.minicard-complete-toggle.js-toggle-card-complete(title="{{#if getDueComplete}}{{_ 'card-mark-incomplete'}}{{else}}{{_ 'card-mark-complete'}}{{/if}}")
-            .materialCheckBox(class="{{#if getDueComplete}}is-checked{{/if}}")
       if $eq 'prefix-with-full-path' currentBoard.presentParentTask
         .parent-prefix
           | {{ parentString ' > ' }}
       if $eq 'prefix-with-parent' currentBoard.presentParentTask
         .parent-prefix
           | {{ parentCardName }}
-      if isLinkedBoard
-        a.js-linked-link
-          span.linked-icon
-            i.fa.fa-folder
-      else if isLinkedCard
-        a.js-linked-link
-          span.linked-icon
-            i.fa.fa-id-card
-      if getArchived
-        span.linked-icon.linked-archived
-          i.fa.fa-archive
-      span.minicard-title-text
-        if showCardNumber
-          span.card-number
-            | ##{getCardNumber} &nbsp;
-        +viewer
-          = getTitle
+      .minicard-title-row
+        if showDueComplete
+          if canModifyCard
+            a.minicard-complete-toggle.js-toggle-card-complete(title="{{#if getDueComplete}}{{_ 'card-mark-incomplete'}}{{else}}{{_ 'card-mark-complete'}}{{/if}}")
+              .materialCheckBox(class="{{#if getDueComplete}}is-checked{{/if}}")
+        if isLinkedBoard
+          a.js-linked-link
+            span.linked-icon
+              i.fa.fa-folder
+        else if isLinkedCard
+          a.js-linked-link
+            span.linked-icon
+              i.fa.fa-id-card
+        if getArchived
+          span.linked-icon.linked-archived
+            i.fa.fa-archive
+        span.minicard-title-text
+          if showCardNumber
+            span.card-number
+              | ##{getCardNumber} &nbsp;
+          +viewer
+            = getTitle
     //- Everything under the title renders in the board's minicard order
       (Board Settings / Card, "Show on Minicard"; board.minicardFieldOrder,
       models/lib/cardFieldOrder.js): the sections top to bottom, and inside

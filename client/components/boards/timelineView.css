@@ -25,9 +25,9 @@
 }
 
 .timeline-view .timeline-marker.is-selected {
-  background: #29a3a3;
+  background: #187575;
   color: #fff;
-  border-color: #29a3a3;
+  border-color: #187575;
 }
 
 .timeline-view .timeline-view-asof {

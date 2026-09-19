@@ -2311,6 +2311,7 @@ Template.boardCardSettingsPopup.helpers(boardCardSettingsHelpers);
 // board's setter, which normalises it. models/lib/cardFieldOrder.js
 function moveCardSettingsRow(evt, direction) {
   evt.preventDefault();
+  if (evt.currentTarget.classList.contains('is-disabled')) return;
   const rowEl = evt.currentTarget.closest('.js-card-field-order-row');
   if (!rowEl) return;
   const { key, side } = rowEl.dataset;

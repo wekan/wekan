@@ -1,3 +1,5 @@
+import { Meteor } from 'meteor/meteor';
+import { fontScaleValue } from '/models/lib/uiFonts';
 import { titleViewerHtml, titleViewerSvgText } from '/client/lib/titleViewer';
 import { formatDateForDisplay, dateDisplayPreferences } from '/client/lib/dateDisplay';
 import { Template } from 'meteor/templating';
@@ -204,7 +206,13 @@ Template.frappeGanttView.onRendered(function() {
       // observer below re-translates them whenever they reappear.
       const viewModes = translatedViewModes(GanttLib);
       translateFrappeChrome(container, templateInstance);
+      const fontScale = Number(fontScaleValue(Meteor.user()?.profile?.uiFontSize) || 1);
       new GanttLib(container, tasks, {
+        // Scale geometry with SVG text, so the 150% preset still fits its bars
+        // and date headers rather than merely increasing the glyph sizes.
+        bar_height: 30 * fontScale,
+        upper_header_height: 45 * fontScale,
+        lower_header_height: 30 * fontScale,
         view_modes: viewModes,
         view_mode: viewModes.find(mode => mode._key === 'WEEK').name,
         // Month names in the header come from Intl.DateTimeFormat(language);

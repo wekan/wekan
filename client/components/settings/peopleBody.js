@@ -1,3 +1,4 @@
+import { accountOperationErrorKey } from '/client/lib/accountOperationError';
 import { formatDateForDisplay } from '/client/lib/dateDisplay';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
@@ -2587,16 +2588,7 @@ Template.settingsUserPopup.events({
         if (process.env.DEBUG === 'true') {
           console.error('Error removing user:', error);
         }
-        // Show error message to user
-        if (error.error === 'not-authorized') {
-          alert('You are not authorized to delete this user.');
-        } else if (error.error === 'user-not-found') {
-          alert('User not found.');
-        } else if (error.error === 'not-authorized' && error.reason === 'Cannot delete the last administrator') {
-          alert('Cannot delete the last administrator.');
-        } else {
-          alert('Error deleting user: ' + error.reason);
-        }
+        alert(TAPi18n.__(accountOperationErrorKey(error)));
       } else {
         if (process.env.DEBUG === 'true') {
           console.log('User deleted successfully:', result);
@@ -2619,13 +2611,7 @@ Template.settingsUserPopup.events({
         if (process.env.DEBUG === 'true') {
           console.error('Error anonymizing user:', error);
         }
-        if (error.error === 'not-authorized') {
-          alert('You are not authorized to anonymize this user.');
-        } else if (error.error === 'user-not-found') {
-          alert('User not found.');
-        } else {
-          alert('Error anonymizing user: ' + error.reason);
-        }
+        alert(TAPi18n.__(accountOperationErrorKey(error)));
       } else {
         if (process.env.DEBUG === 'true') {
           console.log('User anonymized successfully:', result);

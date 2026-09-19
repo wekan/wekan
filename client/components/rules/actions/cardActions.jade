@@ -15,8 +15,8 @@ template(name="cardActions")
           option(value="receivedAt") {{_'r-df-received-at'}}
       div.trigger-text
         | {{_'r-to-current-datetime'}}
-    div.trigger-button.js-set-date-action.js-goto-rules
-      i.fa.fa-plus
+    button.trigger-button.js-set-date-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
+      i.fa.fa-plus(aria-hidden="true")
 
   div.trigger-item
     div.trigger-content
@@ -29,8 +29,8 @@ template(name="cardActions")
           option(value="dueAt") {{_'r-df-due-at'}}
           option(value="endAt") {{_'r-df-end-at'}}
           option(value="receivedAt") {{_'r-df-received-at'}}
-    div.trigger-button.js-remove-datevalue-action.js-goto-rules
-      i.fa.fa-plus
+    button.trigger-button.js-remove-datevalue-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
+      i.fa.fa-plus(aria-hidden="true")
 
   div.trigger-item
     div.trigger-content
@@ -45,8 +45,8 @@ template(name="cardActions")
           each labels
             option(value="#{_id}")
               = name
-    div.trigger-button.js-add-label-action.js-goto-rules
-      i.fa.fa-plus
+    button.trigger-button.js-add-label-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
+      i.fa.fa-plus(aria-hidden="true")
 
   div.trigger-item
     div.trigger-content
@@ -58,29 +58,29 @@ template(name="cardActions")
         | {{_'r-member'}}
       div.trigger-dropdown
         input(id="member-name",type=text,placeholder="{{_'r-name'}}")
-    div.trigger-button.js-add-member-action.js-goto-rules
-      i.fa.fa-plus
+    button.trigger-button.js-add-member-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
+      i.fa.fa-plus(aria-hidden="true")
 
   div.trigger-item
     div.trigger-content
       div.trigger-text
         | {{_'r-add-actinguser-member'}}
-    div.trigger-button.js-add-actinguser-member-action.js-goto-rules
-      i.fa.fa-plus
+    button.trigger-button.js-add-actinguser-member-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
+      i.fa.fa-plus(aria-hidden="true")
 
   div.trigger-item
     div.trigger-content
       div.trigger-text
         | {{_'r-remove-all'}}
-    div.trigger-button.js-add-removeall-action.js-goto-rules
-      i.fa.fa-plus
+    button.trigger-button.js-add-removeall-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
+      i.fa.fa-plus(aria-hidden="true")
 
   div.trigger-item
     div.trigger-content
       div.trigger-text
         | {{_'r-remove-all-labels'}}
-    div.trigger-button.js-add-removealllabels-action.js-goto-rules
-      i.fa.fa-plus
+    button.trigger-button.js-add-removealllabels-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
+      i.fa.fa-plus(aria-hidden="true")
 
   div.trigger-item
     div.trigger-content
@@ -90,8 +90,8 @@ template(name="cardActions")
           id="color-action"
           class="card-details-{{cardColorButton}}")
           | {{_ cardColorButtonText }}
-    div.trigger-button.js-set-color-action.js-goto-rules
-      i.fa.fa-plus
+    button.trigger-button.js-set-color-action.js-goto-rules(type="button" aria-label="{{_ 'select-color'}}")
+      i.fa.fa-plus(aria-hidden="true")
 
   div.trigger-item
     div.trigger-content
@@ -99,8 +99,8 @@ template(name="cardActions")
         select(id="complete-action")
           option(value="markCardComplete") {{_'r-mark-complete'}}
           option(value="markCardIncomplete") {{_'r-mark-incomplete'}}
-    div.trigger-button.js-set-complete-action.js-goto-rules
-      i.fa.fa-plus
+    button.trigger-button.js-set-complete-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
+      i.fa.fa-plus(aria-hidden="true")
 
   div.trigger-item
     div.trigger-content
@@ -123,8 +123,8 @@ template(name="cardActions")
           option(value="months") {{_'r-unit-months'}}
       div.trigger-text
         | {{_'r-later'}}
-    div.trigger-button.js-set-reldate-action.js-goto-rules
-      i.fa.fa-plus
+    button.trigger-button.js-set-reldate-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
+      i.fa.fa-plus(aria-hidden="true")
 
 template(name="setCardActionsColorPopup")
   form.edit-label

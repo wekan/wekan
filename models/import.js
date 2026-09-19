@@ -242,7 +242,7 @@ Meteor.methods({
     }
 
     const creator = new WekanCreator(additionalData);
-    //data.title = `${data.title  } - ${  TAPi18n.__('copy-tag')}`;
+    //data.title = `${data.title  } - ${  TAPi18n.__('copyCardPopup-title')}`;
     data.title = `${data.title}`;
     return await creator.create(data, currentBoardId);
   },

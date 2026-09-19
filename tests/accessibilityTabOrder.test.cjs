@@ -68,8 +68,11 @@ test('links are naturally focusable and title tooltips become accessible names',
   assert.match(accessibility, /attributes\['aria-label'\] = attributes\.title/);
 });
 
-test('password visibility stays labelled but does not interrupt field Tab order', () => {
-  assert.match(password, /password-toggle-btn[^\n]*tabindex="-1"/);
+test('password visibility is keyboard reachable, labelled and never submits the form', () => {
+  // A05: users must be able to reveal/hide with a keyboard; deliberately
+  // replace the previous choice to skip this native button in field Tab order.
+  assert.doesNotMatch(password, /password-toggle-btn[^\n]*tabindex="-1"/);
+  assert.match(password, /button.password-toggle-btn[^\n]*type="button"/);
   assert.match(password, /aria-label="\{\{_ 'password'\}\}: \{\{_ 'visibility'\}\}"/);
   assert.strictEqual((password.match(/aria-hidden="true"/g) || []).length, 2);
 });

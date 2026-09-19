@@ -1,3 +1,4 @@
+import { accountOperationErrorKey } from '/client/lib/accountOperationError';
 import { languageFlags, languageLabelParts } from '/imports/i18n/languageFlags';
 const { availableCalendarSystems } = require('/imports/lib/calendarSystems');
 import { ReactiveCache } from '/imports/reactiveCache';
@@ -258,7 +259,7 @@ Template.editProfilePopup.events({
         if (process.env.DEBUG === 'true') {
           console.error('Error removing user:', error);
         }
-        alert('Error deleting account: ' + error.reason);
+        alert(TAPi18n.__(accountOperationErrorKey(error)));
       } else {
         if (process.env.DEBUG === 'true') {
           console.log('User deleted successfully:', result);
@@ -277,7 +278,7 @@ Template.editProfilePopup.events({
         if (process.env.DEBUG === 'true') {
           console.error('Error anonymizing user:', error);
         }
-        alert('Error anonymizing account: ' + error.reason);
+        alert(TAPi18n.__(accountOperationErrorKey(error)));
       } else {
         if (process.env.DEBUG === 'true') {
           console.log('User anonymized successfully:', result);

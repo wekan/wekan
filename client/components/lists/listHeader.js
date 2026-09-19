@@ -1,3 +1,4 @@
+import { relativePosition } from '/models/lib/relativePosition';
 import { formatDateForDisplay } from '/client/lib/dateDisplay';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Lists from '../../../models/lists';
@@ -342,24 +343,26 @@ Template.listHeader.onCreated(function () {
 });
 
 // #459: accessible reordering — move a list left/right via sr-only buttons by
-// swapping its sort value with the adjacent list (no drag-and-drop required).
-function moveListBy(list, delta) {
-  const siblings = ReactiveCache.getLists(
-    { boardId: list.boardId, archived: false },
-    { sort: { sort: 1 } },
-  );
+// inserting beside an adjacent visible list (no drag-and-drop required).
+async function moveListBy(list, delta) {
+  const swimlaneId = resolveContainerSwimlaneId(list);
+  const selector = { boardId: list.boardId, archived: false, deletedAt: null };
+  if (Utils.boardView() === 'board-view-swimlanes' && swimlaneId) {
+    selector.swimlaneId = { $in: [swimlaneId, null, ''] };
+  }
+  const siblings = ReactiveCache.getLists(selector, { sort: { sort: 1 } });
   const idx = siblings.findIndex(l => l._id === list._id);
   const target = siblings[idx + delta];
   if (idx < 0 || !target) return;
-  // Capture both sort values before either update; the docs are reactive and
-  // list.sort would otherwise change after the first update.
-  const listSort = list.sort;
-  const targetSort = target.sort;
-  // Lists are a server-restricted collection; persist the swap through the
-  // updateListSort method — the same path the drag-and-drop reorder uses. A raw
-  // client Lists.update of `sort` is reverted by the server.
-  Meteor.call('updateListSort', list._id, list.boardId, { sort: targetSort });
-  Meteor.call('updateListSort', target._id, target.boardId, { sort: listSort });
+  try {
+    const plan = relativePosition(siblings, target._id, delta < 0 ? 'above' : 'below', list._id);
+    for (const update of plan.updates) {
+      await Meteor.callAsync('updateListSort', update.id, list.boardId, { sort: update.sort });
+    }
+    await Meteor.callAsync('updateListSort', list._id, list.boardId, { sort: plan.sort });
+  } catch (error) {
+    window.alert(error.reason || error.message || TAPi18n.__('server-error'));
+  }
 }
 
 Template.listHeader.events({

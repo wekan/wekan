@@ -214,7 +214,11 @@ test('rowsForSide lists a side in its order, with the position-less rows under t
   assert.strictEqual(rows.indexOf('labelText'), rows.indexOf('labels') + 1);
   assert.strictEqual(rows.indexOf('labelTextPersonal'), rows.indexOf('labelText') + 1);
   assert.strictEqual(rows.indexOf('listTitle'), rows.indexOf('showLists') + 1);
-  assert.strictEqual(rows.indexOf('assignedBy'), rows.indexOf('requestedBy') + 1);
+  // F14: controls without rendered minicard fields must not promise an effect.
+  for (const key of ['assignedBy', 'requestedBy', 'descriptionTitle', 'attachments']) {
+    assert.ok(!rows.includes(key));
+    assert.ok(CARD_SETTINGS_ROWS.find(row => row.key === key).card, 'working card-side settings remain');
+  }
   assert.ok(!rows.includes('location'), 'a card-only row is not in the minicard list');
   const card = rowsForSide('card', applyCardOrder(undefined)).map(r => r.key);
   assert.deepStrictEqual(card, DEFAULT_CARD_ORDER, 'the card list is exactly the card order');

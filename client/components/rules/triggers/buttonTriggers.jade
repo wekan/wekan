@@ -9,5 +9,5 @@ template(name="buttonTriggers")
         select#button-type.js-button-type
           option(value="card" selected="selected") {{_'r-card-button'}}
           option(value="board") {{_'r-board-button'}}
-    div.trigger-button.js-add-button-trigger.js-goto-action
-      i.fa.fa-plus
+    button.trigger-button.js-add-button-trigger.js-goto-action(type="button" aria-label="{{_ 'r-add-trigger'}}")
+      i.fa.fa-plus(aria-hidden="true")

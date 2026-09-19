@@ -807,8 +807,21 @@ button.loud-text-button:hover {
 .toggle-switch:checked:disabled ~ .toggle-label:after {
   background-color: #bcbdbc;
 }
-.toggle-switch {
-  display: none;
+.material-toggle-switch input.toggle-switch[type="checkbox"] {
+  display: block;
+  visibility: visible;
+  position: absolute;
+  inset-inline-start: auto;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  clip-path: inset(50%);
+  overflow: hidden;
+}
+.material-toggle-switch .toggle-switch:focus-visible ~ .toggle-label {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
 }
 .toggle-switch-title {
   margin: 0 0.5em;

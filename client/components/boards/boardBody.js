@@ -476,7 +476,7 @@ Template.boardBody.onRendered(function () {
     el.setAttribute('role', 'button');
     // Short, descriptive label for favorite/star toggle
     if (el.classList.contains('js-favorite-toggle')) {
-      el.setAttribute('aria-label', TAPi18n.__('favorite-toggle-label'));
+      el.setAttribute('aria-label', `${TAPi18n.__('star-item')} / ${TAPi18n.__('unstar-item')}`);
     } else {
       el.setAttribute('aria-label', 'Toggle');
     }

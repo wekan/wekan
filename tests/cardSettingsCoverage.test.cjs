@@ -248,8 +248,11 @@ test('each list draws every row as [checkbox] [up] [down] icon label from the ta
 
 test('the arrows are keyboard-reachable buttons titled with the existing move keys', () => {
   for (const dir of ['up', 'down']) {
-    const re = new RegExp(`a\\.flex\\.card-field-order-move\\.js-card-field-order-${dir}\\(href="#" role="button"[^\\n]*title="\\{\\{_ 'card-field-order-move-${dir}'\\}\\}"`);
-    assert.match(popup, re, `${dir} arrow`);
+    const arrow = popup.split('\n').find(line => line.includes(`js-card-field-order-${dir}`));
+    assert.ok(arrow.includes('href="#" role="button"'), `${dir} remains keyboard reachable`);
+    assert.ok(arrow.includes('aria-disabled='), `${dir} announces unavailable moves`);
+    assert.ok(arrow.includes(`'card-field-order-move-${dir}'`));
+    assert.ok(arrow.includes("'r-rule-disabled'"), 'unavailable arrows explain their state');
     assert.ok(en[`card-field-order-move-${dir}`], `card-field-order-move-${dir} exists`);
   }
   assert.ok(sidebarCss.includes('.card-field-order-move.is-disabled'), 'a disabled arrow is styled as such');

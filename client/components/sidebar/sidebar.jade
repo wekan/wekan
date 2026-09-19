@@ -300,9 +300,9 @@ template(name="boardCardSettingsPopup")
             a.flex.card-field-order-toggle(class=row.toggle class="{{#if row.checked}}is-checked{{/if}}" title="{{row.title}}")
               i.fa(class="{{#if row.checked}}fa-check{{else}}fa-square-o{{/if}}")
             if canModifyBoard
-              a.flex.card-field-order-move.js-card-field-order-up(href="#" role="button" class="{{#unless row.canMoveUp}}is-disabled{{/unless}}" title="{{_ 'card-field-order-move-up'}}" aria-label="{{_ 'card-field-order-move-up'}}")
+              a.flex.card-field-order-move.js-card-field-order-up(href="#" role="button" class="{{#unless row.canMoveUp}}is-disabled{{/unless}}" aria-disabled="{{#if row.canMoveUp}}false{{else}}true{{/if}}" title="{{#if row.canMoveUp}}{{_ 'card-field-order-move-up'}}{{else}}{{_ 'r-rule-disabled'}}{{/if}}" aria-label="{{_ 'card-field-order-move-up'}}")
                 i.fa.fa-arrow-up
-              a.flex.card-field-order-move.js-card-field-order-down(href="#" role="button" class="{{#unless row.canMoveDown}}is-disabled{{/unless}}" title="{{_ 'card-field-order-move-down'}}" aria-label="{{_ 'card-field-order-move-down'}}")
+              a.flex.card-field-order-move.js-card-field-order-down(href="#" role="button" class="{{#unless row.canMoveDown}}is-disabled{{/unless}}" aria-disabled="{{#if row.canMoveDown}}false{{else}}true{{/if}}" title="{{#if row.canMoveDown}}{{_ 'card-field-order-move-down'}}{{else}}{{_ 'r-rule-disabled'}}{{/if}}" aria-label="{{_ 'card-field-order-move-down'}}")
                 i.fa.fa-arrow-down
             span.card-field-order-label
               each icon in row.icons
@@ -326,9 +326,9 @@ template(name="boardCardSettingsPopup")
             a.flex.card-field-order-toggle(class=row.toggle class="{{#if row.checked}}is-checked{{/if}}" title="{{row.title}}")
               i.fa(class="{{#if row.checked}}fa-check{{else}}fa-square-o{{/if}}")
             if canModifyBoard
-              a.flex.card-field-order-move.js-card-field-order-up(href="#" role="button" class="{{#unless row.canMoveUp}}is-disabled{{/unless}}" title="{{_ 'card-field-order-move-up'}}" aria-label="{{_ 'card-field-order-move-up'}}")
+              a.flex.card-field-order-move.js-card-field-order-up(href="#" role="button" class="{{#unless row.canMoveUp}}is-disabled{{/unless}}" aria-disabled="{{#if row.canMoveUp}}false{{else}}true{{/if}}" title="{{#if row.canMoveUp}}{{_ 'card-field-order-move-up'}}{{else}}{{_ 'r-rule-disabled'}}{{/if}}" aria-label="{{_ 'card-field-order-move-up'}}")
                 i.fa.fa-arrow-up
-              a.flex.card-field-order-move.js-card-field-order-down(href="#" role="button" class="{{#unless row.canMoveDown}}is-disabled{{/unless}}" title="{{_ 'card-field-order-move-down'}}" aria-label="{{_ 'card-field-order-move-down'}}")
+              a.flex.card-field-order-move.js-card-field-order-down(href="#" role="button" class="{{#unless row.canMoveDown}}is-disabled{{/unless}}" aria-disabled="{{#if row.canMoveDown}}false{{else}}true{{/if}}" title="{{#if row.canMoveDown}}{{_ 'card-field-order-move-down'}}{{else}}{{_ 'r-rule-disabled'}}{{/if}}" aria-label="{{_ 'card-field-order-move-down'}}")
                 i.fa.fa-arrow-down
             span.card-field-order-label
               each icon in row.icons

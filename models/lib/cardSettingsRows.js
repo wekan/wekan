@@ -77,11 +77,9 @@ const CARD_SETTINGS_ROWS = [
     card: { toggle: 'js-field-has-creator', field: 'allowsCreator' },
     minicard: { toggle: 'js-field-has-creator-on-minicard', field: 'allowsCreatorOnMinicard' } },
   { key: 'requestedBy', icons: ['fa-user', 'fa-plus'], label: ['requested-by'],
-    card: { toggle: 'js-field-has-requested-by', field: 'allowsRequestedBy' },
-    minicard: { toggle: 'js-field-has-requested-by-on-minicard', field: 'allowsRequestedByOnMinicard', after: 'creator' } },
+    card: { toggle: 'js-field-has-requested-by', field: 'allowsRequestedBy' } },
   { key: 'assignedBy', icons: ['fa-shopping-cart'], label: ['assigned-by'],
-    card: { toggle: 'js-field-has-assigned-by', field: 'allowsAssignedBy' },
-    minicard: { toggle: 'js-field-has-assigned-by-on-minicard', field: 'allowsAssignedByOnMinicard', after: 'requestedBy' } },
+    card: { toggle: 'js-field-has-assigned-by', field: 'allowsAssignedBy' } },
 
   { key: 'dependencies', icons: ['fa-link'], label: ['card-dependencies'],
     card: { toggle: 'js-field-has-dependencies', field: 'allowsDependencies' },
@@ -122,8 +120,7 @@ const CARD_SETTINGS_ROWS = [
     minicard: { toggle: 'js-field-has-poker-on-minicard', field: 'allowsPokerOnMinicard' } },
 
   { key: 'descriptionTitle', icons: ['fa-file-text-o'], label: ['description', 'title'],
-    card: { toggle: 'js-field-has-description-title', field: 'allowsDescriptionTitle' },
-    minicard: { toggle: 'js-field-has-description-title-on-minicard', field: 'allowsDescriptionTitleOnMinicard', after: 'descriptionText' } },
+    card: { toggle: 'js-field-has-description-title', field: 'allowsDescriptionTitle' } },
   { key: 'descriptionText', icons: ['fa-file-text-o'], label: ['description', 'custom-field-text'],
     card: { toggle: 'js-field-has-description-text', field: 'allowsDescriptionText' },
     minicard: { toggle: 'js-field-has-description-text-on-minicard', field: 'allowsDescriptionTextOnMinicard' } },
@@ -143,8 +140,7 @@ const CARD_SETTINGS_ROWS = [
   // On the minicard the attachment COUNT badge is the element; the Attachments
   // toggle there predates it and has no element of its own, so it follows.
   { key: 'attachments', icons: ['fa-paperclip'], label: ['attachments'],
-    card: { toggle: 'js-field-has-attachments', field: 'allowsAttachments' },
-    minicard: { toggle: 'js-field-has-attachments-on-minicard', field: 'allowsAttachmentsOnMinicard', after: 'attachmentCount' } },
+    card: { toggle: 'js-field-has-attachments', field: 'allowsAttachments' } },
   // #595 text notes: card only, nothing of them is on the minicard.
   { key: 'textNotes', icons: ['fa-file-text-o'], label: ['text-notes'],
     card: { toggle: 'js-field-has-text-notes', field: 'allowsTextNotes' } },

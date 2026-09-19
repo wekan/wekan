@@ -43,7 +43,8 @@ textarea.js-edit-checklist-item {
 .checklist-progress-bar-container .checklist-progress-bar .checklist-progress {
   color: #fff;
   background-color: #666;
-  padding: 0.01em 16px;
+  padding: 0;
+  box-sizing: border-box;
   border-radius: 16px;
   height: 100%;
 }
@@ -134,6 +135,8 @@ textarea.js-edit-checklist-item {
 }
 .checklist-item .item-title {
   flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 .checklist-item .item-title.is-checked {
   color: #8c8c8c;
@@ -143,7 +146,7 @@ textarea.js-edit-checklist-item {
 .checklist-item .item-title .viewer p {
   margin-bottom: 2px;
   display: block;
-  word-wrap: break-word;
+  overflow-wrap: anywhere;
   max-width: 420px;
 }
 .checklist-item span.fa.checklistitem-handle {

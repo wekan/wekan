@@ -9,6 +9,7 @@ function getCardId() {
 Template.editCardSpentTimePopup.onCreated(function () {
   this.error = new ReactiveVar('');
   this.card = Cards.findOne(getCardId());
+  this.overtime = new ReactiveVar(this.card?.getIsOvertime() || false);
 });
 
 Template.editCardSpentTimePopup.helpers({
@@ -19,8 +20,7 @@ Template.editCardSpentTimePopup.helpers({
     return Cards.findOne(getCardId());
   },
   getIsOvertime() {
-    const card = Cards.findOne(getCardId());
-    return card?.getIsOvertime ? card.getIsOvertime() : false;
+    return Template.instance().overtime.get();
   },
 });
 
@@ -32,10 +32,7 @@ Template.editCardSpentTimePopup.events({
     if (!card) return;
 
     const spentTime = parseFloat(evt.target.time.value);
-    let isOvertime = false;
-    if ($('#overtime').attr('class').indexOf('is-checked') >= 0) {
-      isOvertime = true;
-    }
+    const isOvertime = tpl.overtime.get();
     if (spentTime >= 0) {
       card.setSpentTime(spentTime);
       card.setIsOvertime(isOvertime);
@@ -53,12 +50,9 @@ Template.editCardSpentTimePopup.events({
     card.setIsOvertime(false);
     Popup.back();
   },
-  'click a.js-toggle-overtime'(evt) {
-    const card = Cards.findOne(getCardId());
-    if (!card) return;
-    card.setIsOvertime(!card.getIsOvertime());
-    $('#overtime .materialCheckBox').toggleClass('is-checked');
-    $('#overtime').toggleClass('is-checked');
+  'click a.js-toggle-overtime'(evt, tpl) {
+    evt.preventDefault();
+    tpl.overtime.set(!tpl.overtime.get());
   },
 });
 

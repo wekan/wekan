@@ -1,3 +1,4 @@
+import { trapTabKey } from '/client/lib/accessibility';
 import { formatDateForDisplay } from '/client/lib/dateDisplay';
 import { ReactiveCache } from '/imports/reactiveCache';
 import '/client/components/cards/attachments.jade';
@@ -21,6 +22,7 @@ import prettyMilliseconds from 'pretty-ms';
 // We store current card ID and the ID of currently opened attachment in a
 // global var. This is used so that we know what's the next attachment to open
 // when the user clicks on the prev/next button in the attachment viewer.
+let viewerOpener = null;
 let cardId = null;
 let openAttachmentId = null;
 let slideshowAttachmentIds = null;
@@ -29,14 +31,13 @@ let slideshowAttachmentIds = null;
 let touchStartCoords = null;
 let touchEndCoords = null;
 
-// Stores link to the attachment for which attachment actions popup was opened
-let attachmentActionsLink = null;
 let officePreview = null;
 let officePreviewAbortController = null;
 let officePreviewGeneration = 0;
 
 Template.attachmentGallery.events({
   'click .open-preview'(event) {
+    event.preventDefault();
 
     openAttachmentId = $(event.currentTarget).attr("data-attachment-id");
     cardId = $(event.currentTarget).attr("data-card-id");
@@ -51,9 +52,6 @@ Template.attachmentGallery.events({
     event.stopPropagation();
   },
   'click .js-open-attachment-menu': Popup.open('attachmentActions'),
-  'mouseover .js-open-attachment-menu'(event) { // For some reason I cannot combine handlers for "click .js-open-attachment-menu" and "mouseover .js-open-attachment-menu" events so this is a quick workaround.
-    attachmentActionsLink = event.currentTarget.getAttribute("data-attachment-link");
-  },
   'click .js-rename': Popup.open('attachmentRename'),
   // History.md §12.1: Delete is a SOFT delete, done by the server. The method
   // marks the attachment deleted, keeps the file, unsets the cover if this was
@@ -197,7 +195,10 @@ function openAttachmentViewer(attachmentId) {
   // Show the cleaned name: URL-decoded, homoglyphs folded, invisible characters
   // and exploit markup removed (plain text; .text() escapes, so never HTML).
   $('#attachment-name').text(cleanFileName(attachment.name));
+  const opening = !viewerOpener;
+  if (opening) viewerOpener = document.activeElement;
   $('#viewer-overlay').removeClass('hidden');
+  if (opening) document.getElementById('viewer-close')?.focus();
 }
 
 // Admin Panel / Files uses the same viewer as an opened card, but its next and
@@ -213,7 +214,7 @@ export function openAttachmentSlideshow(attachmentId, attachmentIds = []) {
   openAttachmentViewer(attachmentId);
 }
 
-function closeAttachmentViewer() {
+function closeAttachmentViewer(restoreFocus = true) {
   officePreviewGeneration++;
   if (officePreviewAbortController) {
     officePreviewAbortController.abort();
@@ -224,8 +225,8 @@ function closeAttachmentViewer() {
     officePreview = null;
   }
   const officeViewer = document.getElementById('office-viewer');
-  officeViewer.replaceChildren();
-  officeViewer.classList.add('hidden');
+  officeViewer?.replaceChildren();
+  officeViewer?.classList.add('hidden');
 
   $("#viewer-overlay").addClass("hidden");
 
@@ -239,19 +240,23 @@ function closeAttachmentViewer() {
   $("#txt-viewer").attr("data", "");
   $("#txt-viewer").addClass("hidden");
 
-  $("#video-viewer").get(0).pause(); // Stop playback
-  $("#video-viewer").get(0).currentTime = 0;
+  $("#video-viewer").get(0)?.pause(); // Stop playback
+  if ($("#video-viewer").get(0)) $("#video-viewer").get(0).currentTime = 0;
   $("#video-viewer").empty();
   $("#video-viewer").addClass("hidden");
 
-  $("#audio-viewer").get(0).pause(); // Stop playback
-  $("#audio-viewer").get(0).currentTime = 0;
+  $("#audio-viewer").get(0)?.pause(); // Stop playback
+  if ($("#audio-viewer").get(0)) $("#audio-viewer").get(0).currentTime = 0;
   $("#audio-viewer").empty();
   $("#audio-viewer").addClass("hidden");
+  if (restoreFocus) {
+    if (viewerOpener?.isConnected) viewerOpener.focus();
+    viewerOpener = null;
+  }
 }
 
 function openNextAttachment() {
-  closeAttachmentViewer();
+  closeAttachmentViewer(false);
 
     let i = 0;
     // Find an attachment that can be opened
@@ -268,7 +273,7 @@ function openNextAttachment() {
 }
 
 function openPrevAttachment() {
-  closeAttachmentViewer();
+  closeAttachmentViewer(false);
 
     let i = 0;
     // Find an attachment that can be opened
@@ -306,7 +311,20 @@ function processTouch(){
 
 }
 
+Template.attachmentViewer.onDestroyed(function () {
+  closeAttachmentViewer();
+});
+
 Template.attachmentViewer.events({
+  'keydown #viewer-overlay'(event) {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      event.stopPropagation();
+      closeAttachmentViewer();
+    } else {
+      trapTabKey(event);
+    }
+  },
   'touchstart #viewer-container'(event) {
     touchStartCoords = {
       x: event.changedTouches[0].screenX,
@@ -340,13 +358,16 @@ Template.attachmentViewer.events({
 
     closeAttachmentViewer();
   },
-  'click #viewer-close'() {
+  'click #viewer-close'(event) {
+    event.preventDefault();
     closeAttachmentViewer();
   },
-  'click #next-attachment'() {
+  'click #next-attachment'(event) {
+    event.preventDefault();
     openNextAttachment();
   },
-  'click #prev-attachment'() {
+  'click #prev-attachment'(event) {
+    event.preventDefault();
     openPrevAttachment();
   },
 });
@@ -641,9 +662,8 @@ Template.attachmentActionsPopup.helpers({
     return ret;
   },
   isBackgroundImage() {
-    //const currentBoard = Utils.getCurrentBoard();
-    //return currentBoard.backgroundImageURL === $(".attachment-thumbnail-img").attr("src");
-    return false;
+    const url = getAttachmentUrl(this);
+    return !!url && Utils.getCurrentBoard()?.backgroundImageURL === url;
   },
 });
 
@@ -656,20 +676,31 @@ Template.attachmentActionsPopup.events({
     ReactiveCache.getCard(this.meta.cardId).unsetCover();
     Popup.back();
   },
-  'click .js-add-background-image'(event) {
-    const currentBoard = Utils.getCurrentBoard();
-    currentBoard.setBackgroundImageURL(attachmentActionsLink);
-    Utils.setBackgroundImage(attachmentActionsLink);
-    Popup.back();
+  async 'click .js-add-background-image'(event) {
     event.preventDefault();
+    const currentBoard = Utils.getCurrentBoard();
+    const url = getAttachmentUrl(this);
+    if (!currentBoard || !url) return;
+    try {
+      if (await currentBoard.setBackgroundImageURL(url) === false) return;
+      Utils.setBackgroundImage(url);
+      Popup.back();
+    } catch (error) {
+      window.alert(TAPi18n.__('server-error'));
+    }
   },
-  'click .js-remove-background-image'(event) {
-    const currentBoard = Utils.getCurrentBoard();
-    currentBoard.setBackgroundImageURL("");
-    Utils.setBackgroundImage("");
-    Popup.back();
-    Utils.reload();
+  async 'click .js-remove-background-image'(event) {
     event.preventDefault();
+    const currentBoard = Utils.getCurrentBoard();
+    if (!currentBoard) return;
+    try {
+      if (await currentBoard.setBackgroundImageURL('') === false) return;
+      Utils.setBackgroundImage('');
+      Popup.back();
+      Utils.reload();
+    } catch (error) {
+      window.alert(TAPi18n.__('server-error'));
+    }
   },
 });
 

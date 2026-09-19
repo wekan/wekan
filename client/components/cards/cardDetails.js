@@ -1,3 +1,5 @@
+import { relativeCardSort } from '/client/lib/relativeCardPosition';
+import { Random } from 'meteor/random';
 import { dateDisplayPreferences, isDateFormatForced } from '/client/lib/dateDisplay';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
@@ -2129,6 +2131,7 @@ Template.editCardAssignerForm.events({
 // `each boards` the data context is a board, so a helper reaching into the
 // context for it would find nothing there.
 Template.cardDestinationPicker.onCreated(function () {
+  this.pickerId = Random.id();
   this.autorun(() => {
     const data = Template.currentData();
     this.dialog = data && data.dialog;
@@ -2136,6 +2139,12 @@ Template.cardDestinationPicker.onCreated(function () {
 });
 
 Template.cardDestinationPicker.helpers({
+  pickerFieldId(field) { return `${Template.instance().pickerId}-${field}`; },
+  destinationError() { return Template.instance().dialog.error.get(); },
+  destinationDisabled() {
+    const dialog = Template.instance().dialog;
+    return dialog.loading.get() || dialog.saving.get() || !dialog.selectedSwimlaneId.get() || !dialog.selectedListId.get();
+  },
   boards() {
     return Template.instance().dialog.boards();
   },
@@ -2197,7 +2206,9 @@ function registerCardDialogTemplate(templateName) {
 
   Template[templateName].events({
     async 'click .js-done'(event, tpl) {
+      event.preventDefault();
       const dialog = tpl.dialog;
+      if (dialog.loading.get() || dialog.saving.get()) return;
       // Read the target board/swimlane/list from the dialog's live reactive
       // selection rather than the DOM <select> elements.  A reactive re-render
       // (e.g. the boards() helper transiently returning [] while a 'board'
@@ -2214,11 +2225,19 @@ function registerCardDialogTemplate(templateName) {
         ? cardSelect.options[cardSelect.selectedIndex].value
         : null;
 
+      if (!boardId || !swimlaneId || !listId) return;
+      if (cardId && !dialog.cards().some(card => card._id === cardId)) return;
+      dialog.error.set('');
+      dialog.saving.set(true);
       const options = { boardId, swimlaneId, listId, cardId };
       try {
         await dialog.setDone(cardId, options);
       } catch (e) {
         console.error('Error in card dialog operation:', e);
+        dialog.error.set(e.reason || e.message || TAPi18n.__('server-error'));
+        return;
+      } finally {
+        dialog.saving.set(false);
       }
       Popup.back(2);
     },
@@ -2228,6 +2247,7 @@ function registerCardDialogTemplate(templateName) {
     'change .js-select-swimlanes'(event, tpl) {
       tpl.dialog.selectedSwimlaneId.set($(event.currentTarget).val());
       tpl.dialog.setFirstListId();
+      tpl.dialog.selectedCardId?.set('');
     },
     'change .js-select-lists'(event, tpl) {
       tpl.dialog.selectedListId.set($(event.currentTarget).val());
@@ -2270,12 +2290,7 @@ Template.moveCardPopup.onCreated(function () {
       if (cardId) {
         const targetCard = ReactiveCache.getCard(cardId);
         if (targetCard) {
-          const targetSort = targetCard.sort || 0;
-          if (position === 'above') {
-            sortIndex = targetSort - 0.5;
-          } else {
-            sortIndex = targetSort + 0.5;
-          }
+          sortIndex = await relativeCardSort(targetCard, position, card._id);
         }
       } else {
         const maxSort = await card.getMaxSort(options.listId, options.swimlaneId);
@@ -2324,12 +2339,7 @@ Template.copyCardPopup.onCreated(function () {
             if (cardId) {
               const targetCard = ReactiveCache.getCard(cardId);
               if (targetCard) {
-                const targetSort = targetCard.sort || 0;
-                if (position === 'above') {
-                  sortIndex = targetSort - 0.5;
-                } else {
-                  sortIndex = targetSort + 0.5;
-                }
+                sortIndex = await relativeCardSort(targetCard, position, newCard._id);
               }
             } else {
               const maxSort = await newCard.getMaxSort(options.listId, options.swimlaneId);
@@ -2378,8 +2388,7 @@ Template.linkCardToBoardPopup.onCreated(function () {
           if (cardId) {
             const targetCard = ReactiveCache.getCard(cardId);
             if (targetCard) {
-              const targetSort = targetCard.sort || 0;
-              sortIndex = position === 'above' ? targetSort - 0.5 : targetSort + 0.5;
+              sortIndex = await relativeCardSort(targetCard, position, newCard._id);
             }
           } else {
             const maxSort = await newCard.getMaxSort(options.listId, options.swimlaneId);
@@ -2425,12 +2434,7 @@ Template.convertChecklistItemToCardPopup.onCreated(function () {
         if (cardId) {
           const targetCard = ReactiveCache.getCard(cardId);
           if (targetCard) {
-            const targetSort = targetCard.sort || 0;
-            if (position === 'above') {
-              sortIndex = targetSort - 0.5;
-            } else {
-              sortIndex = targetSort + 0.5;
-            }
+            sortIndex = await relativeCardSort(targetCard, position, newCard._id);
           }
         } else {
           const maxSort = await newCard.getMaxSort(options.listId, options.swimlaneId);
@@ -2473,12 +2477,7 @@ Template.copyManyCardsPopup.onCreated(function () {
             if (cardId) {
               const targetCard = ReactiveCache.getCard(cardId);
               if (targetCard) {
-                const targetSort = targetCard.sort || 0;
-                if (position === 'above') {
-                  sortIndex = targetSort - 0.5;
-                } else {
-                  sortIndex = targetSort + 0.5;
-                }
+                sortIndex = await relativeCardSort(targetCard, position, newCard._id);
               }
             } else {
               const maxSort = await newCard.getMaxSort(options.listId, options.swimlaneId);
@@ -2486,6 +2485,7 @@ Template.copyManyCardsPopup.onCreated(function () {
             }
 
             await newCard.move(options.boardId, options.swimlaneId, options.listId, sortIndex);
+            if (position === 'below') cardId = newCardId;
           }
 
           // In case the filter is active we need to add the newly inserted card in

@@ -33,14 +33,14 @@ template(name="attachmentDeletePopup")
   button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
 
 template(name="attachmentViewer")
-  #viewer-overlay.hidden
+  #viewer-overlay.hidden(role="dialog" aria-modal="true" aria-labelledby="attachment-name")
     #viewer-top-bar
       span#attachment-name
-      a#viewer-close
+      button#viewer-close(type="button" aria-label="{{_ 'close'}}")
         i.fa.fa-times-thin
 
     #viewer-container
-      i.fa.fa-caret-left#prev-attachment
+      button.fa.fa-caret-left#prev-attachment(type="button" aria-label="{{_ 'previous'}}")
       #viewer-content
         img#image-viewer.hidden
         video#video-viewer.hidden(controls="true")
@@ -49,7 +49,7 @@ template(name="attachmentViewer")
           span.pdf-preview-error {{_ 'preview-pdf-not-supported' }}
         object#txt-viewer.hidden(type="text/plain")
         #office-viewer.hidden
-      i.fa.fa-caret-right#next-attachment
+      button.fa.fa-caret-right#next-attachment(type="button" aria-label="{{_ 'next'}}")
 
 template(name="attachmentGallery")
 
@@ -62,7 +62,7 @@ template(name="attachmentGallery")
     each attachments
 
       .attachment-item(class="{{#if isAttachmentMigrating _id}}migrating{{/if}}")
-        .attachment-thumbnail-container.open-preview(data-attachment-id="{{_id}}" data-card-id="{{ meta.cardId }}")
+        button.attachment-thumbnail-container.open-preview(type="button" aria-label="{{_ 'preview'}}: {{cleanFilename name}}" data-attachment-id="{{_id}}" data-card-id="{{ meta.cardId }}")
           if link
             if(isImage)
               img.attachment-thumbnail(src="{{link}}" title="{{cleanFilename name}}" alt="{{cleanFilename name}}")
@@ -109,7 +109,7 @@ template(name="attachmentGallery")
           .attachment-migration-overlay
             .migration-spinner
               i.fa.fa-cog.fa-spin
-            .migration-text {{_ 'migrating-attachment'}}
+            .migration-text {{_ 'attachment-migration'}}
 
 template(name="attachmentActionsPopup")
   ul.pop-over-list

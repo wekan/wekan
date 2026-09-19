@@ -46,6 +46,9 @@ hotkeys.filter = (event) => {
   if (currentElement instanceof HTMLInputElement || currentElement instanceof HTMLSelectElement || currentElement instanceof HTMLTextAreaElement)
     return false;
 
+  if (currentElement.closest('button, a[href], summary, [role="button"], [role="tab"], [role="checkbox"]'))
+    return false;
+
   // We can trigger events!
   return true;
 };
@@ -165,6 +168,7 @@ hotkeys(shiftNums, (event, handler) => {
   }
   const currentBoardId = Session.get('currentBoard');
   const board = ReactiveCache.getBoard(currentBoardId);
+  if (!board) return;
   const labels = board.labels;
   if (MultiSelection.isActive()) {
     const cardIds = MultiSelection.getSelectedCardIds();
@@ -188,6 +192,7 @@ hotkeys(nums, (event, handler) => {
     return;
   }
   const board = ReactiveCache.getBoard(currentBoardId);
+  if (!board) return;
   const labels = board.labels;
   if (MultiSelection.isActive() && ReactiveCache.getCurrentUser().isBoardMember()) {
     const cardIds = MultiSelection.getSelectedCardIds();

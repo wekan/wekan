@@ -31,6 +31,15 @@ export class BoardSwimlaneListDialog {
     this.selectedBoardId = new ReactiveVar(this.currentBoardId);
     this.selectedSwimlaneId = new ReactiveVar('');
     this.selectedListId = new ReactiveVar('');
+    this.loading = new ReactiveVar(true);
+    this.error = new ReactiveVar('');
+    this.saving = new ReactiveVar(false);
+    this._request = 0;
+    this.tpl.view?.onViewDestroyed(() => {
+      this._disposed = true;
+      this._request++;
+      this._boardSubscription?.stop();
+    });
     this.setOption(this.currentBoardId);
   }
 
@@ -99,7 +108,7 @@ export class BoardSwimlaneListDialog {
   setFirstSwimlaneId() {
     try {
       const board = ReactiveCache.getBoard(this.selectedBoardId.get());
-      const swimlaneId = board.swimlanes()[0]._id;
+      const swimlaneId = board?.swimlanes()[0]?._id || '';
       this.selectedSwimlaneId.set(swimlaneId);
     } catch (e) {}
   }
@@ -124,6 +133,7 @@ export class BoardSwimlaneListDialog {
     const selector = {
       boardId,
       archived: false,
+      deletedAt: null,
     };
 
     if (swimlaneId) {
@@ -197,7 +207,7 @@ export class BoardSwimlaneListDialog {
   /** returns all available swimlanes of the current board */
   swimlanes() {
     const board = ReactiveCache.getBoard(this.selectedBoardId.get());
-    return board.swimlanes();
+    return board?.swimlanes() || [];
   }
 
   /** returns all available lists of the current board */
@@ -233,16 +243,36 @@ export class BoardSwimlaneListDialog {
 
   /** get the board data from the server */
   getBoardData(boardId) {
-    const self = this;
-    Meteor.subscribe('board', boardId, false, {
-      onReady() {
-        const sameBoardId = self.selectedBoardId.get() == boardId;
-        self.selectedBoardId.set(boardId);
-
-        if (!sameBoardId) {
-          self.setFirstSwimlaneId();
-          self.setFirstListId();
+    const changed = this.selectedBoardId.get() !== boardId;
+    const request = ++this._request;
+    this._boardSubscription?.stop();
+    this.selectedBoardId.set(boardId);
+    this.loading.set(true);
+    this.error.set('');
+    if (changed) {
+      this.selectedSwimlaneId.set('');
+      this.selectedListId.set('');
+      this.selectedCardId?.set('');
+    }
+    if (!boardId) return;
+    this._boardSubscription = this.tpl.subscribe('board', boardId, false, {
+      onReady: () => {
+        if (this._disposed || request !== this._request) return;
+        const lanes = this.swimlanes();
+        if (!lanes.some(lane => lane._id === this.selectedSwimlaneId.get())) this.setFirstSwimlaneId();
+        if (!this.lists().some(list => list._id === this.selectedListId.get())) this.setFirstListId();
+        if (this.selectedCardId && !this.cards().some(card => card._id === this.selectedCardId.get())) {
+          this.selectedCardId.set('');
         }
+        this.loading.set(false);
+      },
+      onStop: error => {
+        if (this._disposed || request !== this._request || !error) return;
+        this.selectedSwimlaneId.set('');
+        this.selectedListId.set('');
+        this.selectedCardId?.set('');
+        this.error.set(TAPi18n.__('server-error'));
+        this.loading.set(false);
       },
     });
   }

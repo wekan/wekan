@@ -1,18 +1,18 @@
 template(name="bookmarks")
   .panel
-    h2 {{_ 'bookmarks'}}
+    h2 {{_ 'starred-boards'}}
     if currentUser
       if hasStarredBoards
         ul
           each starredBoards
             li
               a(href="{{pathFor 'board' id=_id slug=slug}}")= title
-              a.js-toggle-star(title="{{_ 'star-board-short-unstar'}}")
+              a.js-toggle-star(title="{{_ 'unstar-item'}}")
                 i.fa.fa-star
       else
-        p {{_ 'no-starred-boards'}}
+        p {{_ 'no-starred-items'}}
     else
-      p {{_ 'please-sign-in'}}
+      p {{_ 'log-in'}}
 
 // Desktop popup
 template(name="bookmarksPopup")
@@ -23,7 +23,7 @@ template(name="bookmarksPopup")
           a(href="{{pathFor 'board' id=_id slug=slug}}")
             i.fa.fa-star
             |  #{title}
-          a.js-toggle-star.right(title="{{_ 'star-board-short-unstar'}}")
+          a.js-toggle-star.right(title="{{_ 'unstar-item'}}")
             i.fa.fa-star
     else
-      li {{_ 'no-starred-boards'}}
+      li {{_ 'no-starred-items'}}

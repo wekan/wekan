@@ -1,4 +1,3 @@
-import { Meteor } from 'meteor/meteor';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { BoardSwimlaneListDialog } from '/client/lib/dialogWithBoardSwimlaneList';
@@ -10,7 +9,7 @@ import { BoardSwimlaneListDialog } from '/client/lib/dialogWithBoardSwimlaneList
 export class BoardSwimlaneListCardDialog extends BoardSwimlaneListDialog {
   constructor(tpl, callbacks = {}) {
     super(tpl, callbacks);
-    this.selectedCardId = new ReactiveVar('');
+    this.selectedCardId = new ReactiveVar(this.cardOption.cardId || '');
   }
 
   getDefaultOption() {
@@ -46,26 +45,7 @@ export class BoardSwimlaneListCardDialog extends BoardSwimlaneListDialog {
 
   /** returns if the card id was the last confirmed one */
   isDialogOptionCardId(cardId) {
-    return this.cardOption.cardId == cardId;
-  }
-
-  /** Override to also reset card id on board change */
-  getBoardData(boardId) {
-    const self = this;
-    Meteor.subscribe('board', boardId, false, {
-      onReady() {
-        const sameBoardId = self.selectedBoardId.get() == boardId;
-        self.selectedBoardId.set(boardId);
-
-        if (!sameBoardId) {
-          self.setFirstSwimlaneId();
-          self.setFirstListId();
-          if (self.selectedCardId) {
-            self.selectedCardId.set('');
-          }
-        }
-      },
-    });
+    return this.selectedCardId.get() === cardId;
   }
 
 }

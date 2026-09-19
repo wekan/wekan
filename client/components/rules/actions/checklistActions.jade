@@ -9,8 +9,8 @@ template(name="checklistActions")
         | {{_'r-checklist'}}
       div.trigger-dropdown
         input(id="checklist-name",type=text,placeholder="{{_'r-name'}}")
-    div.trigger-button.js-add-checklist-action.js-goto-rules
-      i.fa.fa-plus
+    button.trigger-button.js-add-checklist-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
+      i.fa.fa-plus(aria-hidden="true")
 
   div.trigger-item
     div.trigger-content
@@ -22,8 +22,8 @@ template(name="checklistActions")
         | {{_'r-items-check'}}
       div.trigger-dropdown
         input(id="checklist-name2",type=text,placeholder="{{_'r-name'}}")
-    div.trigger-button.js-add-checkall-action.js-goto-rules
-      i.fa.fa-plus
+    button.trigger-button.js-add-checkall-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
+      i.fa.fa-plus(aria-hidden="true")
 
 
   div.trigger-item
@@ -40,8 +40,8 @@ template(name="checklistActions")
         | {{_'r-of-checklist'}}
       div.trigger-dropdown
         input(id="checklist-name3",type=text,placeholder="{{_'r-name'}}")
-    div.trigger-button.js-add-check-item-action.js-goto-rules
-      i.fa.fa-plus
+    button.trigger-button.js-add-check-item-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
+      i.fa.fa-plus(aria-hidden="true")
 
   div.trigger-item
       div.trigger-content
@@ -53,8 +53,8 @@ template(name="checklistActions")
           | {{_'r-with-items'}}
         div.trigger-dropdown
           input(id="checklist-items",type=text,placeholder="{{_'r-items-list'}}")
-      div.trigger-button.js-add-checklist-items-action.js-goto-rules
-        i.fa.fa-plus
+      button.trigger-button.js-add-checklist-items-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
+        i.fa.fa-plus(aria-hidden="true")
 
   div.trigger-item
       div.trigger-content

@@ -65,11 +65,12 @@ test('the space above the first row equals the space beside it', () => {
 test('the member menu, whose header is out of the flow, reserves exactly the same', () => {
   const header = rule(popupCss, '.pop-over .header');
   const wrapper = rule(popupCss, ".pop-over[data-popup='memberMenuPopup'] > .content-wrapper");
-  const calc = /padding-top:\s*calc\(([^)]+)\)/.exec(wrapper);
+  assert.ok(wrapper.includes('41px * var(--wekan-ui-font-scale, 1)'), 'member header offset scales with its header');
+  const calc = /padding-top:\s*calc\(([^)]+)\)/.exec(wrapper.replace('41px * var(--wekan-ui-font-scale, 1)', '41px'));
   assert.ok(calc, 'it reserves the header height as padding');
   const sum = calc[1].split('+').reduce((a, t) => a + parseFloat(t), 0);
   // header height + its bottom border + the gap every other popup has.
-  const expected = px(header, 'height') + 1 + px(header, 'margin-bottom');
+  const expected = px(header.replace('height: calc(41px * var(--wekan-ui-font-scale, 1))', 'height: 41px'), 'height') + 1 + px(header, 'margin-bottom');
   assert.strictEqual(sum, expected,
     'the member menu must not be 10px lower than every other popup');
 });

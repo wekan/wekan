@@ -38,7 +38,7 @@ Template.boardActions.helpers({
 
   loadingBoardsLabel() {
     try {
-      const txt = TAPi18n.__('loading-boards');
+      const txt = TAPi18n.__('loading');
       if (txt && !txt.startsWith("key '")) return txt;
     } catch (e) {
       // ignore translation lookup errors

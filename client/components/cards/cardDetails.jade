@@ -3,8 +3,6 @@ template(name="cardDetailsPopup")
 
 template(name="cardDetails")
 
-  +attachmentViewer
-
   //- `card-details-with-handle` when drag handles are on, the same class the
     minicard carries for the same reason: with a handle, the title is all edit
     target; without one, half of it is what the window is dragged by.
@@ -28,7 +26,7 @@ template(name="cardDetails")
         +editCardTitleForm
       else
         unless isMiniScreen
-          a.card-collapse-toggle.js-card-collapse-toggle(title="{{_ 'collapse-card'}}")
+          a.card-collapse-toggle.js-card-collapse-toggle(title="{{_ 'collapse'}}")
             if cardCollapsed
               i.fa.fa-caret-right
             else
@@ -96,7 +94,7 @@ template(name="cardDetails")
             | &nbsp; &gt; &nbsp;
             a.js-parent-card(href=linkForCard) {{title}}
           // else
-            {{_ 'top-level-card'}}
+            {{_ 'card'}}
         if isLinkedCard
           a.linked-card-location.js-go-to-linked-card
             +viewer
@@ -1252,23 +1250,23 @@ template(name="exportCardPopup")
   which is the one holding the dialog. client/components/cards/cardDetails.js
 template(name="cardDestinationPicker")
   unless currentUser.isWorker
-    label {{_ 'boards'}}:
-    select.js-select-boards(autofocus)
+    label(for="{{pickerFieldId 'boards'}}") {{_ 'boards'}}:
+    select.js-select-boards(autofocus id="{{pickerFieldId 'boards'}}")
       each boards
         option(value="{{_id}}" selected="{{#if isSelectedBoardId _id}}selected{{/if}}") {{title}}
 
-  label {{_ 'swimlanes'}}:
-  select.js-select-swimlanes
+  label(for="{{pickerFieldId 'swimlanes'}}") {{_ 'swimlanes'}}:
+  select.js-select-swimlanes(id="{{pickerFieldId 'swimlanes'}}")
     each swimlanes
       option(value="{{_id}}" selected="{{#if isSelectedSwimlaneId _id}}selected{{/if}}") {{isTitleDefault title}}
 
-  label {{_ 'lists'}}:
-  select.js-select-lists
+  label(for="{{pickerFieldId 'lists'}}") {{_ 'lists'}}:
+  select.js-select-lists(id="{{pickerFieldId 'lists'}}")
     each lists
       option(value="{{_id}}" selected="{{#if isSelectedListId _id}}selected{{/if}}") {{title}}
 
-  label {{_ 'cards'}}:
-  select.js-select-cards
+  label(for="{{pickerFieldId 'cards'}}") {{_ 'cards'}}:
+  select.js-select-cards(id="{{pickerFieldId 'cards'}}")
     each cards
       option(value="{{_id}}" selected="{{#if isDialogOptionCardId _id}}selected{{/if}}") {{title}}
 
@@ -1279,8 +1277,11 @@ template(name="cardDestinationPicker")
     input(type="radio" name="position" value="below" id="position-below" style="display: inline")
     label(for="position-below") {{_ 'below-selected-card'}}
 
+  if destinationError
+    .warning.js-destination-error(role="alert") {{destinationError}}
+
   .edit-controls.clearfix
-    button.primary.confirm.js-done {{_ 'done'}}
+    button.primary.confirm.js-done(type="button" disabled=destinationDisabled) {{_ 'done'}}
 
 template(name="moveCardPopup")
   label(for='move-card-title') {{_ 'title'}}:

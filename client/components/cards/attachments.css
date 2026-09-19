@@ -44,9 +44,13 @@
 .attachment-details-container {
   display: block;
   flex-grow: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 .attachment-details {
   display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
   justify-content: space-between;
   margin-inline-end: 25px; /* Make sure the icons are not to far to the right */
 }
@@ -383,4 +387,18 @@
     flex-direction: row;
     margin-top: 10px;
   }
+}
+
+/* Native viewer controls retain the previous icon-only presentation. */
+#viewer-close, #prev-attachment, #next-attachment {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  padding: 0;
+}
+button.attachment-thumbnail-container {
+  padding: 0;
+  border: 0;
+  text-align: start;
+  font: inherit;
 }
