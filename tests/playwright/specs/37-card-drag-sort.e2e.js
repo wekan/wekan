@@ -577,3 +577,35 @@ test.describe('Card drag-sort reordering', () => {
     }
   });
 });
+
+// #6705: the list survives collapse, but its listBody and sortable DOM do not.
+test('#6705 expanded lists accept and release cards after repeated collapse and reload', async ({
+  boardPage, board,
+}) => {
+  const listA = () => boardPage.locator(`#js-list-${board.listIds[0]}`);
+  const listB = () => boardPage.locator(`#js-list-${board.listIds[1]}`);
+  const alphaId = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' })._id;
+  const beta = () => listB().locator('.js-minicard', { hasText: 'Beta Card' });
+  for (const reload of [false, true]) {
+    if (reload) {
+      await boardPage.reload({ waitUntil: 'domcontentloaded' });
+      await waitForMeteor(boardPage);
+      await expect(beta()).toBeVisible();
+    }
+    await listB().locator('.js-collapse').click();
+    await expect(listB()).toHaveClass(/list-collapsed/);
+    await expect(listB().locator('.js-minicards')).toHaveCount(0);
+    await listB().locator('.js-collapse').click();
+    await expect(beta()).toBeVisible();
+    await expect.poll(() => listB().locator('.js-minicards').evaluate(el =>
+      !!window.$(el).data('ui-sortable'))).toBe(true);
+    await dragCardOnto(boardPage, listA().locator('.js-minicard', { hasText: 'Alpha Card' }), beta());
+    await expect.poll(() => db.findOne('cards', { _id: alphaId }).listId).toBe(board.listIds[1]);
+    // Move a card OUT of the recreated body too, onto the untouched third list.
+    const gamma = boardPage.locator(`#js-list-${board.listIds[2]} .js-minicard`, { hasText: 'Gamma Card' });
+    await dragCardOnto(boardPage, listB().locator('.js-minicard', { hasText: 'Alpha Card' }), gamma);
+    await expect.poll(() => db.findOne('cards', { _id: alphaId }).listId).toBe(board.listIds[2]);
+    db.updateOne('cards', { _id: alphaId }, { $set: { listId: board.listIds[0] } });
+    await expect(listA().locator('.js-minicard', { hasText: 'Alpha Card' })).toBeVisible();
+  }
+});

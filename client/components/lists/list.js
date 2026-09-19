@@ -281,6 +281,13 @@ Template.list.onCreated(function () {
 // callback, we basically solve all issues related to reactive updates. A
 // comment below provides further details.
 Template.list.onRendered(function () {
+  this.initializeListResize();
+});
+
+// #6705: collapse removes listBody but keeps the parent list alive. Bind card
+// widgets and their reactive work to the body so expansion initializes the new
+// .js-minicards element, including lists that were collapsed on page load.
+Template.listBody.onRendered(function () {
   const boardBodyEl =
     this.firstNode?.parentElement?.closest?.('.board-body') ||
     document.querySelector('.board-body');
@@ -288,11 +295,10 @@ Template.list.onRendered(function () {
     boardBodyEl && Blaze.getView(boardBodyEl, 'Template.boardBody');
   const boardComponent = boardView?.templateInstance?.();
 
-  // Initialize list resize functionality immediately
-  this.initializeListResize();
-
   const itemsSelector = '.js-minicard:not(.placeholder, .js-card-composer)';
   const $cards = this.$('.js-minicards');
+  this.cardDragTargets = $cards;
+  this.cardDragDestroyed = false;
 
   // Destroy any existing sortable before re-initializing. Without this, a
   // re-render of the list (e.g. when a Card Details panel opens) binds a SECOND
@@ -668,6 +674,7 @@ Template.list.onRendered(function () {
     // .droppable() on initialized elements is an idempotent option refresh.
     ReactiveCache.getCards({ boardId: currentBoardId });
     Tracker.afterFlush(() => {
+      if (this.cardDragDestroyed) return;
       $cards.find(itemsSelector).droppable({
         hoverClass: 'draggable-hover-card',
         accept: '.js-member,.js-label',
@@ -686,6 +693,15 @@ Template.list.onRendered(function () {
       });
     });
   });
+});
+
+Template.listBody.onDestroyed(function () {
+  this.cardDragDestroyed = true;
+  const $cards = this.cardDragTargets;
+  if ($cards && ($cards.data('uiSortable') || $cards.data('sortable'))) {
+    $cards.sortable('destroy');
+  }
+  this.cardDragTargets = null;
 });
 
 // A board-wide list (no swimlaneId of its own) renders once per swimlane in
