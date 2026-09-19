@@ -5,7 +5,7 @@ const BASE_URL = process.env.WEKAN_BASE_URL || 'http://localhost:3000';
 test.use({ storageState: undefined });
 test('signed-out pages load the full layout without an unsolicited 2FA prompt', async ({ page }) => {
   const errors = [];
-  page.on('pageerror', error => errors.push(error.message));
+  page.on('pageerror', error => errors.push(error.stack || error.message));
   for (const route of ['sign-in', 'sign-up']) {
     await page.goto(`${BASE_URL}/${route}`);
     await expect(page.locator('.auth-layout').first()).toBeVisible();

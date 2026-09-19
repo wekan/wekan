@@ -35,8 +35,12 @@ hotkeys.filter = (event) => {
   if (window.getSelection().type === "Range")
     return false;
 
-  // Decide what the current element is
-  const currentElement = event.target || document.activeElement;
+  // Synthetic non-Latin keyboard events are dispatched on document, which has
+  // no element APIs. Keep filtering against the focused control in that case.
+  const currentElement = event.target instanceof Element
+    ? event.target
+    : document.activeElement;
+  if (!currentElement) return false;
 
   // If the current element is editable, we don't want to trigger an event
   if (currentElement.isContentEditable)
