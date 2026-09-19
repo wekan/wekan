@@ -192,43 +192,41 @@ test.describe('Notifications & activity log', () => {
     }
   });
 
-  test('notification indicator appears after being mentioned', async ({ page, user, user2, board }) => {
-    // user2 comments mentioning user
-    const { loginWithToken: login } = require('../helpers/auth');
-    const { openBoard } = require('../helpers/auth');
-
-    await login(page, user2.id, user2.token);
+  test('notification indicator appears after a watching member is mentioned', async ({ page, browser, user, user2, board }) => {
+    // #6658 deliberately makes an unwatched board muted. Opt this positive
+    // fixture into notifications; the muted-member regression above stays negative.
     db.addBoardMember({ boardId: board.boardId, userId: user2.id });
-    await openBoard(page, board.boardId, board.slug);
+    db.updateOne('boards', { _id: board.boardId }, {
+      $set: { watchers: [{ userId: user.id, level: 'tracking' }] },
+    });
 
-    const bp = new BoardPage(page);
-    const cp = new CardPage(page);
-    await bp.clickCard(board.listIds[0], 'Alpha Card');
-    await cp.waitForOpen();
-    await cp.addComment(`@${user.username} needs attention`);
-    await page.waitForTimeout(1_000);
+    // Separate cookie jars keep the author and recipient logged in concurrently.
+    const recipientContext = await browser.newContext();
+    try {
+      const recipient = await recipientContext.newPage();
+      await loginWithToken(recipient, user.id, user.token);
+      const indicator = recipient.locator('#notifications .notifications-drawer-toggle');
+      await expect(indicator).toBeVisible({ timeout: 10_000 });
+      await expect(indicator).not.toHaveClass(/alert/);
 
-    // Switch to user session to see notification
-    const page2 = await page.context().newPage();
-    await login(page2, user.id, user.token);
-    await page2.goto(process.env.WEKAN_BASE_URL || 'http://localhost:3000', { waitUntil: 'networkidle' });
+      await loginWithToken(page, user2.id, user2.token);
+      await openBoard(page, board.boardId, board.slug);
+      await new BoardPage(page).clickCard(board.listIds[0], 'Alpha Card');
+      const cp = new CardPage(page);
+      await cp.waitForOpen();
+      await cp.addComment(`@${user.username} needs attention`);
 
-    // The mentioned user's page renders the header bar, and the bell that would
-    // carry the notification is in it.
-    //
-    // `#header-quick-access`, not `header, #header`: the first header bar was
-    // rebuilt this release and there is no `<header>` element or `#header` id
-    // any more - the bar is `#header-quick-access[role=navigation]`, which is
-    // what specs 18 and 19 already address it by. The old locator matched
-    // nothing, so this asserted that a non-existent element was visible.
-    // docs/Features/Page/Header.md
-    const headerBar = page2.locator('#header-quick-access');
-    await expect(headerBar).toBeVisible({ timeout: 10_000 });
-    // The bell itself rather than a count: the count arrives asynchronously and
-    // an assertion on it would be timing, not behaviour.
-    await expect(headerBar.locator('#notifications .notifications-drawer-toggle'))
-      .toBeVisible({ timeout: 10_000 });
-    await page2.close();
+      await expect.poll(() =>
+        (db.findOne('users', { _id: user.id })?.profile?.notifications || [])
+          .filter(notification => !notification.read).length,
+      ).toBeGreaterThan(0);
+      await expect.poll(() => recipient.evaluate(() =>
+        (Meteor.user()?.profile?.notifications || []).filter(item => !item.read).length,
+      )).toBeGreaterThan(0);
+      await expect(indicator).toHaveClass(/alert/, { timeout: 15_000 });
+    } finally {
+      await recipientContext.close();
+    }
   });
 });
 

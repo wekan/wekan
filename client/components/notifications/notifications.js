@@ -14,7 +14,9 @@ Template.body.events({
 
 Template.notifications.helpers({
   unreadNotifications() {
-    const notifications = ReactiveCache.getCurrentUser().notifications();
+    // Activity details are subscribed only while the drawer is open. The bell
+    // must count the user's unread records before that subscription exists.
+    const notifications = ReactiveCache.getCurrentUser()?.profile?.notifications || [];
     const unreadNotifications = notifications.filter(v => !v.read);
     return unreadNotifications.length;
   },
