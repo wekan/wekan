@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v11.86
+  version: v11.87
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -5428,6 +5428,14 @@ definitions:
         description: |
            Does the board allows attachments on minicard?
         type: boolean
+      allowsMinicardCollapse:
+        type: boolean
+      labelsAboveTitleOnMinicard:
+        type: boolean
+      allowsChecklistDueDate:
+        type: boolean
+      allowsChecklistTitle:
+        type: boolean
       allowsChecklists:
         description: |
            Does the board allows checklists?
@@ -5895,6 +5903,10 @@ definitions:
       - allowsSubtasksOnMinicard
       - allowsAttachments
       - allowsAttachmentsOnMinicard
+      - allowsMinicardCollapse
+      - labelsAboveTitleOnMinicard
+      - allowsChecklistDueDate
+      - allowsChecklistTitle
       - allowsChecklists
       - allowsChecklistsOnMinicard
       - allowsChecklistCountBadgeOnMinicard
@@ -7446,6 +7458,9 @@ definitions:
           - yyyy-mm-dd
           - dd-mm-yyyy
           - mm-dd-yyyy
+          - yyyy-mm-dd-date-only
+          - dd-mm-yyyy-date-only
+          - mm-dd-yyyy-date-only
         x-nullable: true
       hideBoardMemberList:
         type: boolean
@@ -8329,6 +8344,9 @@ definitions:
           - yyyy-mm-dd
           - dd-mm-yyyy
           - mm-dd-yyyy
+          - yyyy-mm-dd-date-only
+          - dd-mm-yyyy-date-only
+          - mm-dd-yyyy-date-only
       calendarSystem:
         description: |
            Member-selected calendar for rendered dates and calendar inputs.
