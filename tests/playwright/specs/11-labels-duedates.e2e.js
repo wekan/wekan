@@ -39,7 +39,7 @@ test.describe('Labels & due dates', () => {
     db.updateOne('boards', { _id: board.boardId }, {
       $push: { labels: { _id: labelId, name: 'Dragged Label', color: 'green' } },
     });
-    await boardPage.reload({ waitUntil: 'networkidle' });
+    await boardPage.reload({ waitUntil: 'domcontentloaded' });
 
     const existing = db.findOne('cards', {
       boardId: board.boardId,
@@ -97,7 +97,7 @@ test.describe('Labels & due dates', () => {
         labelIds: [labelId],
       },
     });
-    await boardPage.reload({ waitUntil: 'networkidle' });
+    await boardPage.reload({ waitUntil: 'domcontentloaded' });
 
     const bp = new BoardPage(boardPage);
     const cp = new CardPage(boardPage);
@@ -181,7 +181,7 @@ test.describe('Labels & due dates', () => {
     db.updateOne('boards', { _id: board.boardId },
       { $push: { labels: { _id: labelId, name: 'SeededLabel', color: 'green' } } });
 
-    await boardPage.reload({ waitUntil: 'networkidle' });
+    await boardPage.reload({ waitUntil: 'domcontentloaded' });
     const bp = new BoardPage(boardPage);
     const cp = new CardPage(boardPage);
     const [listA] = board.listIds;
@@ -193,17 +193,11 @@ test.describe('Labels & due dates', () => {
     const pop = boardPage.locator('.js-pop-over');
     // Find the seeded label in the popup and click to apply it
     const labelItem = pop.locator('.js-select-label').filter({ hasText: 'SeededLabel' });
-    if (await labelItem.count() > 0) {
-      await labelItem.first().click();
-      await boardPage.waitForTimeout(600);
+    await expect(labelItem).toBeVisible();
+    await labelItem.click();
 
-      // The label badge should now appear in the card details
-      const labelBadge = cp.root.locator('.card-label').filter({ hasText: 'SeededLabel' });
-      await expect(labelBadge.first()).toBeVisible({ timeout: 5_000 });
-    } else {
-      // Label not yet visible in popup (reactive latency) — verify popup is still open
-      await expect(pop).toBeVisible({ timeout: 3_000 });
-    }
+    const labelBadge = cp.root.locator('.card-label').filter({ hasText: 'SeededLabel' });
+    await expect(labelBadge).toBeVisible({ timeout: 5_000 });
   });
 
   test('due date "+" button opens the date-editor popup', async ({ boardPage, board }) => {
@@ -265,7 +259,7 @@ test.describe('Labels & due dates', () => {
   test('changing an existing due date saves the replacement (#6607)', async ({ boardPage, board }) => {
     db.updateOne('cards', { boardId: board.boardId, title: 'Alpha Card' },
       { $set: { dueAt: new Date('2098-01-15T17:00:00') } });
-    await boardPage.reload({ waitUntil: 'networkidle' });
+    await boardPage.reload({ waitUntil: 'domcontentloaded' });
 
     const bp = new BoardPage(boardPage);
     const cp = new CardPage(boardPage);
@@ -382,7 +376,7 @@ test.describe('Labels & due dates', () => {
     const dueDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
     db.updateOne('cards', { boardId: board.boardId, title: 'Alpha Card' },
       { $set: { dueAt: dueDate } });
-    await boardPage.reload({ waitUntil: 'networkidle' });
+    await boardPage.reload({ waitUntil: 'domcontentloaded' });
 
     const bp = new BoardPage(boardPage);
     const cp = new CardPage(boardPage);
