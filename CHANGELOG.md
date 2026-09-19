@@ -653,7 +653,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v11.87 2026-09-19 WeKan ® release
 
 **In short:** Launchpad Snap builds recover the correct repository, wait for
 new refs to become available, and retain completed builds when downloads fail.
