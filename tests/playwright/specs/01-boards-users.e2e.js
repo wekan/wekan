@@ -32,7 +32,7 @@ test.describe('Boards – user membership', () => {
 
     // Log in as user2 and navigate to boards list
     await loginWithToken(page, user2.id, user2.token);
-    await page.goto(BASE_URL, { waitUntil: 'networkidle' });
+    await page.goto(BASE_URL, { waitUntil: 'domcontentloaded' });
 
     // WeKan business rule: boards that have not been dragged into a workspace always
     // appear under the "Remaining" section of the All Boards page. The page loads with
@@ -139,27 +139,25 @@ test.describe('Boards – user membership', () => {
   test('board admin can remove a member from the board', async ({ boardPage, board, user2 }) => {
     db.addBoardMember({ boardId: board.boardId, userId: user2.id });
 
-    await boardPage.reload({ waitUntil: 'networkidle' });
+    await boardPage.reload({ waitUntil: 'domcontentloaded' });
     const bp = new BoardPage(boardPage);
     await bp.openSidebar();
 
-    const memberEl = boardPage.locator('.membersWidget .member, .sidebar .member').filter({ hasText: user2.username }).first();
-    if (await memberEl.count() > 0) {
-      await memberEl.click();
-      await boardPage.locator('.js-pop-over').waitFor();
-      const removeBtn = boardPage.locator('.js-pop-over .js-remove-member, .js-pop-over .js-leave-member');
-      if (await removeBtn.count() > 0) {
-        await removeBtn.click();
-        // Confirm dialog if present
-        const confirmBtn = boardPage.locator('.js-pop-over button.negate, .js-confirm-remove');
-        if (await confirmBtn.count() > 0) await confirmBtn.click();
-        await boardPage.waitForTimeout(600);
-
-        const boardDoc = db.getBoard(board.boardId);
-        const member = boardDoc?.members?.find(m => m.userId === user2.id && m.isActive);
-        expect(member).toBeFalsy();
-      }
-    }
+    // SockJS may keep a request open indefinitely. Wait for the actual member
+    // controls instead of network silence, and require removal to happen.
+    const memberEl = boardPage.locator(`.board-sidebar a.js-member[title*="${user2.username}"]`);
+    await expect(memberEl).toBeVisible();
+    await memberEl.click();
+    const removeBtn = boardPage.locator('.js-pop-over a.js-remove-member');
+    await expect(removeBtn).toBeVisible();
+    await removeBtn.click();
+    const confirmBtn = boardPage.locator('.js-pop-over button.js-confirm');
+    await expect(confirmBtn).toBeVisible();
+    await confirmBtn.click();
+    await expect.poll(() => {
+      const member = db.getBoard(board.boardId)?.members?.find(m => m.userId === user2.id);
+      return member?.isActive;
+    }).toBe(false);
   });
 
   // #6479: the existing "can remove a member" test above only checks the DB, which is
@@ -168,7 +166,7 @@ test.describe('Boards – user membership', () => {
   // This test asserts the UI: the avatar must disappear from the sidebar member list.
   test('#6479: removing a member hides them from the sidebar member list, not just the DB', async ({ boardPage, board, user2 }) => {
     db.addBoardMember({ boardId: board.boardId, userId: user2.id });
-    await boardPage.reload({ waitUntil: 'networkidle' });
+    await boardPage.reload({ waitUntil: 'domcontentloaded' });
     const bp = new BoardPage(boardPage);
     await bp.openSidebar();
 
@@ -205,7 +203,7 @@ test.describe('Boards – user membership', () => {
   test('#6479 NEGATIVE: a non-admin member is not offered a remove option', async ({ page, board, user, user2 }) => {
     db.addBoardMember({ boardId: board.boardId, userId: user2.id, isAdmin: false });
     await loginWithToken(page, user2.id, user2.token);
-    await page.goto(`${BASE_URL}/b/${board.boardId}/${board.slug}`, { waitUntil: 'networkidle' });
+    await page.goto(`${BASE_URL}/b/${board.boardId}/${board.slug}`, { waitUntil: 'domcontentloaded' });
     const bp = new BoardPage(page);
     await bp.openSidebar();
 

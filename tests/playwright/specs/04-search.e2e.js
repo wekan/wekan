@@ -194,7 +194,7 @@ test.describe('Search', () => {
     db.updateOne('cards', { boardId: board.boardId, title: 'Alpha Card' },
       { $set: { labelIds: [labelId] } });
 
-    await boardPage.reload({ waitUntil: 'networkidle' });
+    await boardPage.reload({ waitUntil: 'domcontentloaded' });
 
     const sp = new SearchPage(boardPage);
     await sp.openFilterSidebar();
@@ -242,7 +242,7 @@ test.describe('Search', () => {
     db.updateMany('cards', { boardId: board.boardId }, { $set: { labelIds: [] } });
     db.updateOne('cards', { boardId: board.boardId, title: 'Alpha Card' },
       { $set: { labelIds: [labelId] } });
-    await boardPage.reload({ waitUntil: 'networkidle' });
+    await boardPage.reload({ waitUntil: 'domcontentloaded' });
 
     // A board-view change reloads the page and clears the in-memory Filter.
     // Enter Table view first, then activate the filter under test.
@@ -280,7 +280,7 @@ test.describe('Search', () => {
       { boardId: board.boardId, title: 'Alpha Card' },
       { $set: { title: longTitle } },
     );
-    await boardPage.reload({ waitUntil: 'networkidle' });
+    await boardPage.reload({ waitUntil: 'domcontentloaded' });
     await boardPage.locator('.js-toggle-board-view').first().click();
     await boardPage.locator('.pop-over .js-open-table-view').click();
 
@@ -298,7 +298,7 @@ test.describe('Search', () => {
 
     await boardPage.locator('.js-table-view-toggle-card-title-wrap').click();
     await expect(titleCell.locator('.viewer p')).toHaveCSS('white-space', 'normal');
-    await boardPage.reload({ waitUntil: 'networkidle' });
+    await boardPage.reload({ waitUntil: 'domcontentloaded' });
     await expect(
       boardPage.locator('.table-view-cell-card-title .viewer p').first(),
     ).toHaveCSS('white-space', 'normal');
@@ -356,7 +356,7 @@ test.describe('Search', () => {
       { boardId: board.boardId, title: 'Gamma Card' },
       { $set: { swimlaneId: secondSwimlaneId } },
     );
-    await boardPage.reload({ waitUntil: 'networkidle' });
+    await boardPage.reload({ waitUntil: 'domcontentloaded' });
     await boardPage.locator('.js-toggle-board-view').first().click();
     await boardPage.locator('.pop-over .js-open-table-view').click();
 
@@ -372,7 +372,7 @@ test.describe('Search', () => {
     await expect(boardPage.locator('.table-view-table tbody tr:not(.table-view-swimlane-group)'))
       .toHaveCount(3);
 
-    await boardPage.reload({ waitUntil: 'networkidle' });
+    await boardPage.reload({ waitUntil: 'domcontentloaded' });
     await expect(boardPage.locator('.table-view-swimlane-group')).toHaveCount(2);
     await expect(boardPage.locator('.js-table-view-toggle-swimlane-groups'))
       .toHaveAttribute('aria-pressed', 'true');
