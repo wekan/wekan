@@ -25,7 +25,7 @@ test.describe('Card members & description', () => {
     db.updateOne('cards', { boardId: board.boardId, title: 'Alpha Card' }, {
       $set: { requestedBy: 'Customer One', assignedBy: '' },
     });
-    await boardPage.reload({ waitUntil: 'networkidle' });
+    await boardPage.reload({ waitUntil: 'domcontentloaded' });
 
     const bp = new BoardPage(boardPage);
     const cp = new CardPage(boardPage);
@@ -153,7 +153,7 @@ test.describe('Card members & description', () => {
     // Seed a description directly via MongoDB
     db.updateOne('cards', { boardId: board.boardId, title: 'Alpha Card' },
       { $set: { description: 'Integration test description text' } });
-    await boardPage.reload({ waitUntil: 'networkidle' });
+    await boardPage.reload({ waitUntil: 'domcontentloaded' });
 
     const bp = new BoardPage(boardPage);
     const cp = new CardPage(boardPage);
