@@ -181,7 +181,7 @@ test('variant snap publication remains independent of repository syncing', () =>
     assert.ok(!/outputs\.sync/.test(step),
       `${what} must NOT depend on whether the repository can be pushed`);
   }
-  assert.ok(/release: stable,candidate,beta,edge/.test(publish),
+  assert.ok(/stable,candidate,beta,edge/.test(publish),
     'and it goes to all four channels, like the default wekan snap');
 
   assert.ok(!/Push the synced tree/.test(all),

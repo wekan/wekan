@@ -36,6 +36,7 @@ const read = rel => fs.readFileSync(path.join(repoRoot, rel), 'utf8');
 const TABLE = 'releases/provenance-table.sh';
 const RECORD = 'releases/record-provenance.sh';
 const RESOLVER = 'releases/ferretdb-latest-tag.sh';
+const SNAP_UPLOAD = 'releases/snap-upload-retry.sh';
 const WORKFLOW = '.github/workflows/release-all.yml';
 
 let passed = 0;
@@ -408,22 +409,38 @@ test('a store PROCESSING failure is retried; a rejected snap is not', () => {
   // Retrying must stay narrow. A rejected file, bad credentials or a missing
   // ACL will be rejected identically three times, and retrying those only
   // buries the one message that says what to fix.
-  const src = read(WORKFLOW);
-  const step = src.slice(src.indexOf('Uploading $f to the Snap Store'));
-  const upTo = step.slice(0, step.indexOf('- name:'));
+  const workflow = read(WORKFLOW);
+  const retry = read(SNAP_UPLOAD);
 
-  assert.ok(/Error checking upload uniqueness/.test(upTo),
+  assert.ok(/Error checking upload uniqueness/.test(retry),
     'the store-side processing failure is not recognised');
-  assert.ok(/up_attempts/.test(upTo) && /sleep/.test(upTo),
+  assert.ok(/attempts/.test(retry) && /sleep/.test(retry),
     'there is no retry with a backoff');
+  assert.ok(retry.includes('HTTP[ \\t]*500[ \\t]+Internal'),
+    'HTTP 500 variants must be treated as transient');
+  assert.ok(retry.includes('500[ \\t]+Internal'),
+    'plain 500 Internal Server Error variants must be treated as transient');
+  assert.ok(retry.includes('[ \\t]*500'),
+    '[500] Internal Server Error variants must be treated as transient');
+  const helperCalls = (
+    workflow.match(/bash releases\/snap-upload-retry\.sh "[^"]+" stable,candidate,beta,edge/g) || []
+  ).length;
+  assert.ok(helperCalls >= 3,
+    'all snap publishing paths (native, Launchpad and variants) must call the shared retry helper');
 
   // The classifier itself, applied to the messages that must NOT be retried.
-  const m = upTo.match(/grep -qiE '([^']+)'/);
+  const m = retry.match(/retryable_re='([^']+)'/);
   assert.ok(m, 'the retryable-error pattern is gone');
   const re = new RegExp(m[1], 'i');
   assert.ok(re.test('- binary_sha3_384: Error checking upload uniqueness.'),
     'the real v10.78 failure must be retried');
   assert.ok(re.test('Status: error while processing'));
+  assert.ok(re.test('Issue encountered while processing your request: [500] Internal Server Error.'),
+    'the armhf [500] store failure must be retried');
+  assert.ok(re.test('HTTP 500 Internal Server Error'),
+    'HTTP 500 wording variants must be retried');
+  assert.ok(re.test('500 Internal Server Error'),
+    'plain 500 wording variants must be retried');
   [
     'wekan_10.78_s390x.snap is not a valid file',
     'Credentials could not be parsed',
@@ -438,9 +455,7 @@ test('and it says the snap is fine when the store is not', () => {
   // the snap, and the message has to say so - otherwise the next person goes
   // looking through a build that succeeded.
   const src = read(WORKFLOW);
-  const step = src.slice(src.indexOf('Uploading $f to the Snap Store'));
-  const upTo = step.slice(0, step.indexOf('- name:'));
-  assert.ok(/Nothing in this repository needs to change/.test(upTo),
+  assert.ok(/Nothing in this repository needs to change/.test(src),
     'the give-up message must not send somebody debugging a good build');
 });
 
