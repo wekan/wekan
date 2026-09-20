@@ -653,7 +653,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v11.88 2026-09-20 WeKan ® release
 
 **In short:** Add a source-based development server using Meteor's bundled
 MongoDB. Fix mobile navigation, card destinations, login redirects, notification
