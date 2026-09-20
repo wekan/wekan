@@ -661,9 +661,41 @@ alerts and card closing. Expand serial browser coverage and stop test runs at
 the first failure when requested. Reject recurring wrong-language translations
 while preserving valid human updates. Reduce development startup warnings and
 clean up attachment test fixtures. Fix production document indexing and image
-dependency lookup, and include Docker MIME detection.
+dependency lookup, include Docker MIME detection, and add administrator file
+status checks with recovery evidence.
 
 This release adds the following features:
+
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1f5cb0d13">Check file status, incomplete metadata and recovery evidence in Problems</a>. Thanks to xet7.</summary>
+
+Files, Filesystem integrity and Recovery now have read-only check buttons above
+the pane contents, with progress, cancellation and a downloadable JSON summary.
+Checks cover missing or incomplete upload metadata, detected MIME types and
+extensions, missing/untracked files, size/hash differences, duplicate
+references,
+GridFS file/chunk inconsistencies, and possible renamed or moved files.
+
+Undo/change history, activities, recovery events and saved integrity baselines
+provide evidence for review. Missing fields can follow failed type detection or
+another interrupted finalization step, but the report does not invent a cause.
+No check repairs, renames or deletes files or database records. Possible matches
+remain candidates; incomplete coverage and unknown types are explicit.
+
+Type headers are inspected across the inventory before the remaining budget is
+used for full hashes. Administrator authorization, one scan per server process,
+read/time/result limits and a cooldown bound the work. Five focused Node suites
+and two browser scenarios pass in Chromium, Firefox and WebKit, including a
+wrongly named real PNG, incomplete metadata, summary download and non-admin
+rejection. Header-first content checks also pass in all three browsers.
+
+See [File status checks](docs/Features/Admin-Panel/Problems/File-status.md) for
+coverage and limits. Live cloud credentials, native Windows and a production
+deployment were not used for verification. Existing Upcoming entries retain
+their documented regression coverage.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b104edeef">Run Dev server nobuild from the current source checkout</a>. Thanks to xet7.</summary>
