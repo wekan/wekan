@@ -343,6 +343,9 @@ const PROBLEMS_MENU = [
 ];
 
 Template.adminProblems.helpers({
+  showFileStatusAudit() {
+    return ['report-files', 'report-integrity', 'report-recovery'].includes(Template.instance().activeReport.get());
+  },
   menuItems() {
     // The pane opens on Summary, before any menu click has set activeReport.
     return leftMenuData(PROBLEMS_MENU,
@@ -1273,5 +1276,74 @@ Template.officeReport.events({
       tmpl.page.set(1);
       tmpl.load();
     }
+  },
+});
+
+
+Template.fileStatusAudit.onCreated(function () {
+  this.result = new ReactiveVar(null);
+  this.error = new ReactiveVar('');
+  this.disposed = false;
+  this.polling = false;
+  this.refresh = () => {
+    if (this.disposed || this.polling) return;
+    this.polling = true;
+    Meteor.call('getFileStatusAudit', (error, result) => {
+      this.polling = false;
+      if (this.disposed) return;
+      if (error) this.error.set(error.reason || error.message);
+      else this.result.set(result);
+    });
+  };
+  this.refresh();
+  this.timer = Meteor.setInterval(this.refresh, 2000);
+});
+Template.fileStatusAudit.onDestroyed(function () {
+  this.disposed = true;
+  Meteor.clearInterval(this.timer);
+});
+Template.fileStatusAudit.helpers({
+  result() { return Template.instance().result.get(); },
+  running() { return Template.instance().result.get()?.state === 'running'; },
+  error() { return Template.instance().error.get(); },
+  totals() {
+    return Object.entries(Template.instance().result.get()?.totals || {}).map(([kind, count]) => ({ kind, count }));
+  },
+  findings() { return (Template.instance().result.get()?.findings || []).map(row => JSON.stringify(row, null, 2)); },
+  statusText() {
+    const result = Template.instance().result.get();
+    return result ? `${result.state} — ${result.phase} — ${new Date(result.startedAt).toLocaleString()}` : '';
+  },
+  countText() {
+    const c = Template.instance().result.get()?.counts;
+    return c ? `Records: ${c.records}; versions: ${c.versions}; disk files: ${c.diskFiles}; history rows: ${c.historyRows}; bytes inspected: ${c.bytesRead}` : '';
+  },
+});
+function startFileAudit(mode, instance) {
+  instance.error.set('');
+  Meteor.call('startFileStatusAudit', mode, error => {
+    if (instance.disposed) return;
+    if (error) instance.error.set(error.reason || error.message);
+    instance.refresh();
+  });
+}
+Template.fileStatusAudit.events({
+  'click .js-file-audit-download'(event, instance) {
+    event.preventDefault();
+    const report = instance.result.get();
+    if (!report) return;
+    const url = URL.createObjectURL(new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' }));
+    const link = document.createElement('a');
+    link.href = url; link.download = 'wekan-file-status.json'; link.click();
+    Meteor.setTimeout(() => URL.revokeObjectURL(url), 1000);
+  },
+  'click .js-file-audit-all'(event, instance) { event.preventDefault(); startFileAudit('all', instance); },
+  'click .js-file-audit-types'(event, instance) { event.preventDefault(); startFileAudit('types', instance); },
+  'click .js-file-audit-inventory'(event, instance) { event.preventDefault(); startFileAudit('inventory', instance); },
+  'click .js-file-audit-cancel'(event, instance) {
+    event.preventDefault();
+    Meteor.call('cancelFileStatusAudit', error => {
+      if (!instance.disposed && error) instance.error.set(error.reason || error.message);
+    });
   },
 });

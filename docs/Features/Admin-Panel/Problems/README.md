@@ -122,3 +122,6 @@ the address uses: `/admin/problems/<slug>`.
 17 of these 20 panes has no page of its own yet. A dash is a
 gap to fill, not a pane that does nothing - what the pane shows is described in
 this README until somebody writes it up.
+
+[File status checks](File-status.md): inspect missing files, incomplete upload
+metadata, detected types, storage references and available recovery evidence.

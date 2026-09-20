@@ -10,6 +10,8 @@ template(name="adminProblems")
           //- Every Admin Panel pane opens with the same heading, and it is the
           //- open menu entry's own label (docs/Features/Page/Left-Menu.md).
           +paneTitle(paneTitleData)
+          if showFileStatusAudit
+            +fileStatusAudit
           if loading.get
             +spinner
           else if isPane 'report-summary'
@@ -149,3 +151,44 @@ template(name="featuresNotifications")
         .materialCheckBox(class="{{#if disableWatch}}is-checked{{/if}}")
         span {{_ 'disable-watch'}}
       p.description {{_ 'disable-watch-description'}}
+
+//- Read-only storage diagnostics are shared by Files, Integrity and Recovery.
+template(name="fileStatusAudit")
+  section.file-status-audit(aria-label="File status checks")
+    p Check file contents, database metadata and recovery evidence. No files or records are changed.
+    .file-status-audit-actions
+      button.js-file-audit-all(type="button" disabled=running) Check files and history
+      button.js-file-audit-types(type="button" disabled=running) Check file types and extensions
+      button.js-file-audit-inventory(type="button" disabled=running) Check missing and untracked files
+      if running
+        button.js-file-audit-cancel(type="button") Cancel check
+      if result
+        button.js-file-audit-download(type="button") Download status summary
+    if error
+      p(role="alert") {{error}}
+    if result
+      .file-status-audit-result(role="status" aria-live="polite")
+        p {{statusText}}
+        p {{countText}}
+      if result.limitations
+        details
+          summary Coverage and limitations
+          ul
+            each result.limitations
+              li {{this}}
+      if totals
+        ul
+          each totals
+            li {{kind}}: {{count}}
+      details
+        summary Storage directories
+        ul
+          each result.roots
+            li {{path}} — {{status}} {{resolved}}
+      if result.findings
+        details
+          summary Findings (bounded sample; full counts above)
+          each findings
+            pre {{this}}
+      if result.omittedFindings
+        p Additional findings not displayed: {{result.omittedFindings}}

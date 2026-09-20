@@ -40,3 +40,7 @@
 .admin-cpu-current.admin-cpu-high .admin-cpu-percent {
   color: #b04632;
 }
+
+.file-status-audit { margin-bottom: 1rem; }
+.file-status-audit-actions { display: flex; flex-wrap: wrap; gap: .5rem; }
+.file-status-audit pre { white-space: pre-wrap; overflow-wrap: anywhere; }
