@@ -2833,25 +2833,25 @@ for _once in 1; do
 			echo "Linux";
 			case "$(_et_linux_family)" in
 				alpine)
-					sudo apk add --no-cache bash build-base git curl wget p7zip zip unzip npm
+					sudo apk add --no-cache bash build-base git curl wget p7zip zip unzip file npm
 					;;
 				arch)
-					sudo pacman -Sy --needed --noconfirm base-devel git curl wget p7zip zip unzip npm
+					sudo pacman -Sy --needed --noconfirm base-devel git curl wget p7zip zip unzip file npm
 					;;
 				fedora)
 					sudo dnf group install -y development-tools
-					sudo dnf install -y gcc gcc-c++ make git curl wget 7zip zip unzip npm
+					sudo dnf install -y gcc gcc-c++ make git curl wget 7zip zip unzip file npm
 					;;
 				rhel)
 					pm=dnf; command -v dnf >/dev/null 2>&1 || pm=yum
 					sudo "$pm" groupinstall -y "Development Tools"
-					sudo "$pm" install -y gcc gcc-c++ make git curl wget p7zip zip unzip npm
+					sudo "$pm" install -y gcc gcc-c++ make git curl wget p7zip zip unzip file npm
 					;;
 				debian)
 					sudo apt-get update
-					sudo apt-get install -y build-essential gcc g++ make git curl wget p7zip-full zip unzip unp npm
+					sudo apt-get install -y build-essential gcc g++ make git curl wget p7zip-full zip unzip unp file npm
 					;;
-				*) echo "Unsupported Linux distribution; install a C/C++ toolchain, git, curl, wget, 7zip, zip, unzip and npm." >&2; exit 1 ;;
+				*) echo "Unsupported Linux distribution; install a C/C++ toolchain, git, curl, wget, 7zip, zip, unzip, file and npm." >&2; exit 1 ;;
 			esac
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm
 			sudo npm -g install n

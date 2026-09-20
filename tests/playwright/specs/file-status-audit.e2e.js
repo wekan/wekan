@@ -42,12 +42,13 @@ test('File status audit reports incomplete upload metadata and restricts checks 
   } finally { db.deleteOne('attachments', { _id: id }); }
 });
 
-test('File status content checks detect a wrong extension without modifying the upload', async ({ page, adminUser, board }) => {
+for (const format of ['png', 'html']) {
+test(`File status content checks detect ${format} with a wrong extension without modifying the upload`, async ({ page, adminUser, board }) => {
   const fs = require('node:fs'), path = require('node:path');
   const id = db.uid('audittype');
   const directory = path.join(process.env.WEKAN_FILES_PATH, 'attachments');
   const filename = path.join(directory, `${id}.txt`);
-  const bytes = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aD1sAAAAASUVORK5CYII=', 'base64');
+  const bytes = format === 'html' ? Buffer.from('<!doctype html><html><body>MIME regression</body></html>') : Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aD1sAAAAASUVORK5CYII=', 'base64');
   fs.mkdirSync(directory, { recursive: true }); fs.writeFileSync(filename, bytes);
   try {
     await loginWithToken(page, adminUser.id, adminUser.token);
@@ -67,9 +68,10 @@ test('File status content checks detect a wrong extension without modifying the 
     await expect(page.locator('.file-status-audit-result')).toContainText(/completed|partial/, { timeout: 150000 });
     const report = await page.evaluate(() => window.Meteor.callAsync('getFileStatusAudit'));
     expect(report.mode).toBe('types');
-    expect(report.findings.some(row => row.id === id && row.kind === 'extension-mismatch' && row.detected === 'png')).toBe(true);
-    expect(report.findings.some(row => row.id === id && row.kind === 'mime-mismatch' && row.detected === 'image/png')).toBe(true);
+    expect(report.findings.some(row => row.id === id && row.kind === 'extension-mismatch' && row.detected === format)).toBe(true);
+    expect(report.findings.some(row => row.id === id && row.kind === 'mime-mismatch' && row.detected === (format === 'png' ? 'image/png' : 'text/html'))).toBe(true);
     expect(db.findOne('attachments', { _id: id }).extension).toBe('txt');
     expect(fs.readFileSync(filename).equals(bytes)).toBe(true);
   } finally { db.deleteOne('attachments', { _id: id }); fs.rmSync(filename, { force: true }); }
 });
+}

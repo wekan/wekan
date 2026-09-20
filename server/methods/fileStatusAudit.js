@@ -5,8 +5,8 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { fileStoreStrategyFactory as attachments } from '/models/attachments.server';
 import { fileStoreStrategyFactory as avatars } from '/models/avatars.server';
 import { isCloudConfigured } from '/models/lib/cloudStorage';
-import { execFile } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
+const { detectMimeBuffer } = require('/models/lib/mimeDetection');
 const { auditFiles } = require('/server/lib/fileStatusAudit');
 const { computeStoragePaths } = require('/models/lib/attachmentStoragePath');
 const { extension } = require('mime-types');
@@ -23,14 +23,8 @@ async function detect(buffer) {
     const result = await fileTypeFromBuffer(buffer);
     if (result) return result;
   } catch (_) { /* Text, truncated or unsupported format: try libmagic. */ }
-  return new Promise(resolve => {
-    const child = execFile('file', ['--mime-type', '-b', '-'], { timeout: 2000, maxBuffer: 4096 }, (error, stdout) => {
-      const mime = error ? null : stdout.trim();
-      resolve(mime ? { mime, ext: extension(mime) || null } : null);
-    });
-    child.stdin.on('error', () => {});
-    child.stdin.end(buffer.subarray(0, 65536));
-  });
+  const mime = await detectMimeBuffer(buffer);
+  return mime ? { mime, ext: extension(mime) || null } : null;
 }
 function remoteRead(coll, doc, version, storage) {
   if (!['gridfs', 's3', 'azure', 'gcs'].includes(storage)) throw Object.assign(new Error(), { code: 'UNSUPPORTED_STORAGE' });

@@ -70,6 +70,9 @@ run_with_timeout() {
     return $?
 }
 
+# Verify the architecture-independent engine and WASM/database asset before boot.
+run_with_timeout "$TIMEOUT" "$NODE_BIN" "$(dirname "$0")/verify-mime-runtime.cjs" "$BUNDLE" || exit 1
+
 log="$(mktemp)"
 trap 'rm -f "$log"' EXIT
 

@@ -1,16 +1,15 @@
 import { Meteor } from 'meteor/meteor';
-import { exec, execFile } from 'node:child_process';
+import { exec } from 'node:child_process';
 import { promisify } from 'node:util';
 import fs from 'fs';
+const { detectMimeFile } = require('./lib/mimeDetection');
 
-let asyncExecFile;
 let asyncExec;
 
 if (Meteor.isServer) {
-  asyncExecFile = promisify(execFile);
   // Shell-based exec, used only for the admin-configured external scanner
   // command line below (which intentionally contains an arbitrary command and
-  // a {file} placeholder). MIME detection uses asyncExecFile to avoid any shell.
+  // a {file} placeholder). Shared MIME detection uses execFile or bundled libmagic, never a shell.
   asyncExec = promisify(exec);
 }
 
@@ -56,38 +55,18 @@ export function looksLikeMalwareTestFile(text) {
   return false;
 }
 
-// Warn only once (per server process) that the `file` binary is unavailable, so
-// operators of minimal images notice that content-based MIME detection is degraded
-// without flooding the log on every upload.
-let fileBinaryUnavailableWarned = false;
+// Warn only once if neither the native nor bundled detector can read a file.
+// Missing system `file` alone is normal on portable/Windows installations.
+let mimeDetectionUnavailableWarned = false;
 
 async function detectMimeFromFile(filePath) {
   if (!Meteor.isServer) return undefined;
-
-  try {
-    // Use execFile instead of exec so no shell is spawned and the path is
-    // passed as a direct argument — this eliminates shell injection entirely.
-    const { stdout } = await asyncExecFile('file', ['--mime-type', '-b', String(filePath)]);
-    const mime = (stdout || '').trim().toLowerCase();
-    if (!mime) return undefined;
-    return { mime };
-  } catch (e) {
-    // The `file` command is missing (ENOENT, common on minimal Docker/Alpine
-    // images) or failed. GHSA-jhph-whx8-wq6p: previously this was silent and the
-    // caller then trusted the client-supplied MIME type, which let a spoofed
-    // "image/png" HTML file bypass the dangerous-content check (stored XSS). We
-    // now warn once, and the caller falls back to a dependency-free JS content
-    // sniff instead of trusting the client type.
-    if (!fileBinaryUnavailableWarned) {
-      fileBinaryUnavailableWarned = true;
-      console.warn(
-        "fileValidation: the 'file' command is unavailable (" +
-        ((e && (e.code || e.message)) || 'unknown error') +
-        "); falling back to JS content sniffing. Install the 'file' package for full MIME detection.",
-      );
-    }
+  const mime = await detectMimeFile(filePath);
+  if (mime) return { mime };
+  if (!mimeDetectionUnavailableWarned) {
+    mimeDetectionUnavailableWarned = true;
+    console.warn('fileValidation: MIME detection failed with both system file and bundled libmagic; falling back to JS content sniffing. Check file access and the installed runtime dependencies.');
   }
-
   return undefined;
 }
 

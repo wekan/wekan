@@ -82,7 +82,8 @@ check('detector streams only a small header to temp and always deletes it', () =
   const s = read('models/lib/fileTypeCorrection.js');
   assert.ok(/getReadStream/.test(s), 'reads via the storage strategy (any backend)');
   assert.ok(/HEADER_BYTES/.test(s) && /streamHeaderToTemp/.test(s), 'bounded header streaming');
-  assert.ok(/execFile\('file'/.test(s), 'detects type with the file command (no shell)');
+  assert.ok(/detectMimeFile/.test(s), 'uses shared native/portable libmagic detection');
+  assert.ok(/execFile\('file'/.test(read('models/lib/mimeDetection.js')), 'native file detection never uses a shell');
   assert.ok(/unlink\(tempPath\)/.test(s) && /finally/.test(s), 'temp file always deleted');
 });
 

@@ -4,7 +4,7 @@
 // primitive is streamHeaderToTemp(): it copies only the first N bytes of a stream
 // to a temp file (so a large file is never fully read) and cleans up the partial
 // file on error. Detection uses JavaScript `file-type` first and the `file`
-// binary as its fallback; both need a storage strategy, so
+// command or bundled portable libmagic as its fallback; both need a storage strategy, so
 // here we unit-test the bounded-header streaming and temp-dir handling directly.
 //
 // Run: node tests/fileTypeCorrection.test.cjs
@@ -45,7 +45,7 @@ async function check(name, fn) { await fn(); passed += 1; console.log('  ok -', 
     const source = fs.readFileSync(path.join(__dirname, '..', 'models', 'lib',
       'fileTypeCorrection.js'), 'utf8');
     assert.match(source, /import\('file-type'\)/);
-    assert.ok(source.indexOf("import('file-type')") < source.indexOf("execFile('file'"));
+    assert.ok(source.indexOf("import('file-type')") < source.indexOf("return detectMimeFile"));
     assert.strictEqual(require('../package.json').dependencies['file-type'], '^22.0.2');
   });
 

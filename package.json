@@ -111,7 +111,8 @@
     "sharp": "^0.35.4",
     "temml": "^0.13.3",
     "underscore": "^1.13.8",
-    "unzipper": "^0.12.5"
+    "unzipper": "^0.12.5",
+    "wasmagic": "1.0.10"
   },
   "overrides": {
     "sourcemap-codec": "npm:@jridgewell/sourcemap-codec@^1.4.15",

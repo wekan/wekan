@@ -680,6 +680,8 @@ parts:
             - wget
             - unzip
         stage-packages:
+            - file
+            - libmagic-mgc
             - libfontconfig1
         override-build: |
             set -eu

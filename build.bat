@@ -823,6 +823,8 @@ goto end
 REM ===========================================================================
 :install
 echo Installing WeKan dependencies for Windows.
+rem Full MIME detection uses the libmagic WASM engine/database installed by npm.
+rem No external file.exe installation is needed.
 echo This uses Chocolatey to install git, curl, Node.js LTS and MongoDB tools,
 echo then installs Meteor via npm.
 where choco >nul 2>&1

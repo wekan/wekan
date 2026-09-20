@@ -14,6 +14,7 @@ vm.runInNewContext(code, { module: moduleUnderTest, exports: {}, process, Buffer
   if (name === 'meteor/mongo') return { MongoInternals: { defaultRemoteCollectionDriver: () => ({ mongo: { db: {} } }) } };
   if (name === '/imports/reactiveCache') return { ReactiveCache: { getCurrentUser: async () => admin ? { isAdmin: true } : null } };
   if (name.endsWith('.server')) return { fileStoreStrategyFactory: { storagePath: '/configured/files' } };
+  if (name === '/models/lib/mimeDetection') return require('../models/lib/mimeDetection');
   if (name === '/models/lib/cloudStorage') return { isCloudConfigured: () => false };
   if (name === '/models/lib/attachmentStoragePath') return { computeStoragePaths: () => ({ writablePath: '/configured' }) };
   if (name === '/server/lib/fileStatusAudit') return { auditFiles: options => { starts++; return new Promise(resolve => { resolveScan = () => { options.report.state = 'completed'; resolve(); }; }); } };

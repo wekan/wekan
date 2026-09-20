@@ -11,11 +11,11 @@
 // (models/lib/fileStoreStrategy.js: getReadStream()/moveToStorage()), so it works
 // for every storage backend — filesystem, GridFS and cloud — without loading the
 // whole file into RAM: only a small header is streamed to WRITABLE_PATH/files/temp,
-// the `file` command detects the MIME type, and the temp file is deleted again.
+// file-type/native or bundled libmagic detects the MIME type, then the temp file is deleted.
 
 const fs = require('fs');
 const path = require('path');
-const { execFile } = require('child_process');
+const { detectMimeFile } = require('./mimeDetection');
 const { sanitizeUploadFileName, numberedName } = require('./uploadFileName');
 const { sanitizeFilename } = require('./filenameSanitizer');
 
@@ -104,16 +104,7 @@ async function detectedFileMime(filePath) {
   } catch (e) {
     // Detection failure must not prevent reading an existing stored file.
   }
-  return new Promise(resolve => {
-    execFile('file', ['--mime-type', '-b', String(filePath)], (err, stdout) => {
-      if (err) {
-        resolve(undefined);
-        return;
-      }
-      const m = String(stdout || '').trim().toLowerCase();
-      resolve(m || undefined);
-    });
-  });
+  return detectMimeFile(String(filePath));
 }
 
 // Detect the real MIME type of an existing stored file by streaming a small header

@@ -45,6 +45,8 @@ function fakeBundle(dir, mainJs) {
   const bundle = path.join(dir, 'bundle');
   fs.mkdirSync(bundle, { recursive: true });
   fs.writeFileSync(path.join(bundle, 'main.js'), mainJs);
+  fs.mkdirSync(path.join(bundle, 'programs/server/npm/node_modules'), { recursive: true });
+  fs.cpSync(path.join(ROOT, 'node_modules/wasmagic'), path.join(bundle, 'programs/server/npm/node_modules/wasmagic'), { recursive: true });
   return bundle;
 }
 

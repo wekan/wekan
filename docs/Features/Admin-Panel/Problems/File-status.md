@@ -82,6 +82,9 @@ that was never saved or recover bytes absent from accessible storage/backups.
 Reports contain administrator-only filenames, paths and identifiers. Review
 that information before sharing a downloaded report.
 
+MIME checks use the shared [native and portable libmagic detector](../../../DeveloperDocs/File-type-detection.md),
+including the bundled engine/database when the system `file` command is missing.
+
 ## Verification
 
 Five focused Node suites pass, including positive/negative metadata, history,
