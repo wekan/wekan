@@ -7,12 +7,12 @@ const read = code => JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/da
 const ledger = JSON.parse(fs.readFileSync(path.join(root, 'releases/translations/audited-corrections.json'), 'utf8'));
 const cases = [
   ['ay', /Suti siqina irwaqapa/u, /pachpa jakhu ≥ 200 pixels wakisiwa/u],
-  ['qu', /Listapa patan/u, /hunt'a yupay ≥ 200 pixels kanan/u],
+  ['qu', /Sinripa kinraynin/u, /hunt'a yupay ≥ 200 pixels kanan/u],
 ];
 for (const [code, label, rule] of cases) {
   const data = read(code);
   assert.match(data['set-list-width-value'], label, code);
-  assert.match(data['list-width-error-message'], label, code);
+  assert.match(data['list-width-error-message'], code === 'qu' ? /Listapa patan/u : label, code);
   assert.match(data['list-width-error-message'], rule, code);
   for (const key of ['set-list-width-value', 'list-width-error-message']) {
     assert.doesNotMatch(data[key], /270|greater than|must be|integer|widthta|lista ancho/u, `${code}/${key}`);

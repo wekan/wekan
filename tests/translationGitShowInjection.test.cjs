@@ -33,6 +33,11 @@ for (const script of scripts) {
     fs.mkdirSync(scriptDir, { recursive: true });
     fs.copyFileSync(path.join(root, 'releases/translations', script), path.join(scriptDir, script));
 
+    if (script === 'merge-translations.mjs') {
+      fs.copyFileSync(path.join(root, 'releases/translations/rejected-pull-values.json'),
+        path.join(scriptDir, 'rejected-pull-values.json'));
+    }
+
     const injectedMarker = path.join(temp, 'CODEQL_INJECTION_RAN');
     const hostileName = 'zz;touch CODEQL_INJECTION_RAN;.i18n.json';
     const hostileFile = path.join(data, hostileName);

@@ -51,6 +51,9 @@ if command -v "$translation_node" >/dev/null 2>&1; then
   # Never push here: the fallback may be a direct machine/LLM fill, and without
   # provenance metadata it must not be uploaded as if it were human.
   "$translation_node" releases/translations/merge-translations.mjs --before-dir "$before_dir"
+  # Reapply reviewed corrections only when the exact audited bad value recurs.
+  # Newer target-language wording never matches these old fingerprints.
+  "$translation_node" releases/translations/repair-audited-translations.mjs --apply
   # Transifex can return its protected-token markers (for example @PH0@)
   # literally. Restore the corresponding source code/HTML tokens while keeping
   # the surrounding human translation.

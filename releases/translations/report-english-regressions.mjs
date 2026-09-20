@@ -23,10 +23,9 @@ const EN_FILE = path.join(DATA_DIR, 'en.i18n.json');
 const beforeArg = process.argv.indexOf('--before-dir');
 const beforeDir = beforeArg >= 0 ? process.argv[beforeArg + 1] : null;
 
-// --files: machine-readable mode for the pull script's auto-heal loop. Print
-// ONLY the reverted language-file paths (one per line) to stdout, nothing else,
-// so the shell can `git checkout --` and re-push each. Exit 2 when there are
-// reverts (0 otherwise), like the human report.
+// --files: legacy read-only listing of files containing only English reverts.
+// The pull workflow now merges per key; it never restores or pushes whole files.
+// Exit 2 when there are reverts (0 otherwise), like the human report.
 const filesMode = process.argv.slice(2).includes('--files');
 
 function parse(text) { try { return JSON.parse(text); } catch { return null; } }
@@ -123,14 +122,15 @@ for (const r of report) {
   total += r.keys.length;
   const sample = r.keys.slice(0, 8).join(', ');
   const mixed = r.otherChanges > 0
-    ? `  [NOT auto-healed: also has ${r.otherChanges} non-revert change(s) — handle manually]`
+    ? `  [also has ${r.otherChanges} other change(s) — merge per key]`
     : '';
   console.log(`  ${r.file}  —  ${r.keys.length} string(s): ${sample}${r.keys.length > 8 ? ', …' : ''}${mixed}`);
 }
 console.log(`\n[i18n] ${report.length} language file(s), ${total} string(s) reverted to English.`);
 console.log(
   `[i18n] ${healable.length} file(s) are safe to auto-restore (all changes are reverts); ` +
-  `${report.length - healable.length} also have other changes and are left for manual handling.`,
+  `${report.length - healable.length} need a per-key merge to preserve other updates.`,
 );
+if (beforeDir) console.log('[i18n] Pre-merge report only: pull-translations.sh runs the per-key merge next.');
 // Non-zero exit so the pull script / CI can notice, but do not treat it as a hard failure.
 process.exit(2);

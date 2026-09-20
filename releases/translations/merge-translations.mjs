@@ -47,7 +47,7 @@ const gitShow = (ref, p) => {
 };
 
 const en = readFile(EN_FILE) || {};
-const tokenPattern = /__[A-Za-z0-9_-]+__|%(?:\d+\$)?[A-Za-z]/g;
+const tokenPattern = /__[A-Za-z0-9_-]+?__|%(?:\d+\$)?[A-Za-z]/g;
 const tokens = value => (typeof value === 'string' ? (value.match(tokenPattern) || []) : []).sort();
 const hasSourceTokens = (value, source) =>
   JSON.stringify(tokens(value)) === JSON.stringify(tokens(source));
@@ -73,6 +73,13 @@ const KNOWN_WRONG_VALUES = {
     'globalSearch-instructions-operator-assignee': '`__operator_assignee__:<username>` - ​​amakhadi apho *<username>* ngumsebenzi *',
   },
 };
+// Audited locale/key/value fingerprints, not a language detector. Exact matching
+// rejects the observed foreign text without blocking a future corrected human
+// value, shared loanwords, another script, or legitimate regional vocabulary.
+// Load beside this script, and fail if the protection data is missing/corrupt.
+const REJECTED_PULL_VALUES = JSON.parse(fs.readFileSync(
+  new URL('./rejected-pull-values.json', import.meta.url), 'utf8'));
+
 // PR #6695 replaced these machine values with human Transifex translations.
 // A stale Transifex resource must not replace a correct pre-pull local value.
 const PR_6695_SUPERSEDED = readFile('releases/translations/pr6695-superseded-translations.json') || {};
@@ -98,6 +105,8 @@ if (!changed.length) {
 
 let restoredTotal = 0;
 let filesTouched = 0;
+let rejectedTotal = 0;
+let missingFallbackTotal = 0;
 
 for (const f of changed) {
   const lang = path.basename(f, '.i18n.json');
@@ -110,48 +119,55 @@ for (const f of changed) {
   const wrongLanguageDocs = (WRONG_LANGUAGE_REFERENCES[lang] || [])
     .map(name => readFile(path.join(DATA_DIR, name)) || {});
 
+  const isRejected = (key, value) => typeof value === 'string' && (
+    wrongLanguageDocs.some(doc => doc[key] === value)
+    || KNOWN_WRONG_VALUES[lang]?.[key] === value
+    || REJECTED_PULL_VALUES[lang]?.[key] === value
+    || PR_6695_SUPERSEDED[lang]?.[key] === value
+  );
   let restored = 0;
+  let rejected = 0;
+  let missingFallback = 0;
   for (const key of Object.keys(newJson)) {
     const enV = en[key];
     const oldV = oldJson[key];
     const newV = newJson[key];
+    if (typeof newV !== 'string' || typeof enV !== 'string') continue;
 
-    if (typeof newV !== 'string') continue;
-    // Transifex gave a real translation with intact code tokens → keep the newest one.
-    // If its placeholders are malformed, prefer the valid pre-pull local translation.
-    if (typeof enV === 'string' && newV !== enV) {
-      const knownWrongLanguage = wrongLanguageDocs.some(doc => doc[key] === newV)
-        || KNOWN_WRONG_VALUES[lang]?.[key] === newV
-        || PR_6695_SUPERSEDED[lang]?.[key] === newV;
-      if (knownWrongLanguage && typeof oldV === 'string') {
-        newJson[key] = oldV;
-        if (oldV !== newV) restored += 1;
-        continue;
-      }
-      if (hasSourceTokens(newV, enV)) continue;
-      if (typeof oldV === 'string' && oldV !== enV && hasSourceTokens(oldV, enV)) {
-        newJson[key] = oldV;
-        if (oldV !== newV) restored += 1;
-      }
-      continue;
+    const invalidPull = isRejected(key, newV) || !hasSourceTokens(newV, enV);
+    // Never restore a known bad snapshot, including when the pull is English.
+    const validFallback = typeof oldV === 'string' && oldV !== enV
+      && !isRejected(key, oldV) && hasSourceTokens(oldV, enV);
+    if (invalidPull) {
+      rejected += 1;
+      if (!validFallback) missingFallback += 1;
     }
-    // Pull reverted this to English, but we had a real committed translation → restore.
-    if (typeof enV === 'string' && typeof oldV === 'string' && oldV !== enV) {
-      newJson[key] = oldV;
-      restored += 1;
+    if (invalidPull || newV === enV) {
+      const next = validFallback ? oldV : enV;
+      if (newV !== next) {
+        newJson[key] = next;
+        restored += 1;
+      }
     }
-    // else: missing everywhere → leave the English placeholder for the fill step.
+    // Every other value, including a newer correct human translation, wins.
+  }
+  rejectedTotal += rejected;
+  missingFallbackTotal += missingFallback;
+  if (rejected) {
+    process.stderr.write(`[i18n] merge: ${f} — rejected ${rejected} known-invalid value(s); ` +
+      `${missingFallback} need translation because no valid local fallback exists\n`);
   }
 
   if (restored) {
     fs.writeFileSync(f, JSON.stringify(newJson, null, 2) + '\n');
     restoredTotal += restored;
     filesTouched += 1;
-    process.stderr.write(`[i18n] merge: ${f} — restored ${restored} local fallback translation(s) where Transifex returned English\n`);
+    process.stderr.write(`[i18n] merge: ${f} — replaced ${restored} English or invalid pulled value(s) with local fallbacks or English placeholders\n`);
   }
 }
 
 process.stderr.write(
   `[i18n] merge: restored ${restoredTotal} string(s) across ${filesTouched} file(s); ` +
-  `Transifex translations preferred and local fallback values kept. Nothing was pushed.\n`,
+  `Valid Transifex translations preferred; rejected ${rejectedTotal} invalid value(s), ` +
+  `${missingFallbackTotal} without a valid local fallback. Nothing was pushed.\n`,
 );

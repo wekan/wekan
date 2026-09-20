@@ -12,12 +12,14 @@
  *   PUSH: pull-translations.sh contains no translation push. Without provenance, a
  *         restored local value must never be uploaded as if it were human.
  *
- * Pure logic re-implementation of the two merge/apply rules over synthetic data — no git,
- * no files, no network. Run: node releases/translations/verify-human-preference.mjs
+ * Basic rule examples plus the actual merge regression in an isolated local
+ * fixture; no network. Run: node releases/translations/verify-human-preference.mjs
  */
 
-// --- the merge rule (per key), copied 1:1 from merge-translations.mjs ---
+// Basic examples for valid values; the real CLI test below covers rejection.
 import fs from 'node:fs';
+import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 
 function mergeKey({ enV, oldV, newV }) {
   if (typeof newV !== 'string') return newV;              // untouched
@@ -95,6 +97,13 @@ check('known French-seeded locales are checked against pulled French',
   /br: \['fr\.i18n\.json'\].+zgh: \['fr\.i18n\.json'\]/s.test(mergeScript), true);
 check('same-language-script bad fingerprints do not block future corrected values',
   /const KNOWN_WRONG_VALUES/.test(mergeScript), true);
+
+const actualMerge = spawnSync(process.execPath,
+  [fileURLToPath(new URL('../../tests/transifexAuditedPullMerge.test.cjs', import.meta.url))],
+  { encoding: 'utf8' });
+if (actualMerge.status !== 0) console.error(actualMerge.stdout, actualMerge.stderr);
+check('actual merge preserves newer humans and rejects audited bad values and fallbacks',
+  actualMerge.status, 0);
 
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

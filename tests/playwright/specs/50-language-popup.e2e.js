@@ -82,3 +82,23 @@ test('missing profile language follows browser preferences; saved choice wins', 
   await boardPage.reload();
   await expect(boardPage.locator('html')).toHaveAttribute('lang','de');
 });
+
+for (const language of ['ve-PP', 'zgh']) {
+  test(`audited pull keeps target-language board controls (${language})`, async ({ boardPage, user }) => {
+    const db = require('../helpers/db');
+    const translations = JSON.parse(fs.readFileSync(path.resolve(__dirname,
+      `../../../imports/i18n/data/${language}.i18n.json`), 'utf8'));
+    db.updateOne('users', { _id: user.id }, { $set: { 'profile.language': language } });
+    await boardPage.reload({ waitUntil: 'domcontentloaded' });
+    await expect(boardPage.locator('html')).toHaveAttribute('lang', language);
+    const addList = boardPage.locator('.js-add-list-here').first();
+    await expect(addList).toBeVisible();
+    await expect(addList).toHaveAttribute('title', translations['add-list']);
+    if (language === 've-PP') await expect(addList).not.toHaveAttribute('title', 'Lisää lista');
+    await addList.click();
+    const input = boardPage.locator('.list-name-input:visible').first();
+    await expect(input).toBeVisible();
+    await expect(input).toHaveAttribute('placeholder', translations['add-list']);
+    await boardPage.keyboard.press('Escape');
+  });
+}

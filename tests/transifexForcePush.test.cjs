@@ -142,7 +142,8 @@ const root = path.resolve(__dirname, '..');
   assert.equal(network, 0, 'pagination cannot send credentials to another origin');
   const dry = cp.spawnSync('sh', [path.join(root, 'releases/translations/push-all-translations.sh'), '--dry-run'], { cwd: path.join(root, '.tools/tmp'), env: { ...process.env, NODE_BIN: process.execPath }, encoding: 'utf8' });
   assert.equal(dry.status, 0, dry.stderr);
-  assert.match(dry.stdout, /241 targets and source en; no network requests/);
+  assert.ok(dry.stdout.includes(`${localLanguages(config).length} targets and source en; no network requests`),
+    'dry-run count includes newly pulled locales and deduplicates mapped aliases');
   const statusPath = dry.stdout.match(/\[tx\] status log: (.+)\n/)[1];
   assert.match(path.basename(statusPath), /^push-all-translations_\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}(?:-\d+)?\.txt$/);
   assert.ok(fs.readFileSync(statusPath, 'utf8').endsWith(dry.stdout), 'terminal status is also saved');

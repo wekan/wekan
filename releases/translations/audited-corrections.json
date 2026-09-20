@@ -155221,8 +155221,8 @@
     "locale": "qu",
     "key": "set-list-width-value",
     "before": "Kay willaymi: Sinri widthta (pixelsta)",
-    "after": "Listapa patan (pixels)",
-    "reason": "Replace English-seeded width label with the native list-width phrase already used in related Quechua UI strings. Complete clause low-confidence pending native grammar review."
+    "after": "Sinripa kinraynin (pixels)",
+    "reason": "Use attested Quechua kinraynin for width, retaining sinri for list. Complete clause low-confidence pending native grammar review."
   },
   {
     "locale": "qu",

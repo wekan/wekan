@@ -32080,3 +32080,69 @@ remaining old-threshold values fall from 26 to 16. The original
 20,081 audit-row classifications remain unchanged. Broader seeded
 prose in those locale files still needs review. No live UI test or
 remote write occurred.
+
+## 2026-09-20: reject recurring wrong-language Transifex values
+
+Reviewed all 918 changed values in the twelve files left by the reported pull.
+The download succeeded, but non-English text was insufficient evidence of a
+valid target-language translation. Repaired 841 pulled values and retained all
+68 Persian and nine Portuguese updates. The new, untranslated `kn_IN` file was
+not part of this correction.
+
+| Locale | Repaired pulled values | Reason |
+| --- | ---: | --- |
+| ay | 1 | Spanish width label |
+| dz | 2 | English calendar labels |
+| ee | 1 | English calendar label |
+| iu | 15 | Foreign calendar labels replacing Inuktitut |
+| nah | 17 | Foreign calendar labels replacing Nahuatl |
+| qu | 1 | Quechua/English mixed width label |
+| sr | 12 | Exact recurrence of previously audited width mistranslations |
+| ts | 1 | Width and pixels replaced with the word for matter |
+| ve-PP | 621 | Finnish/Venda/Zulu contamination and three audited stale/mixed instructions |
+| zgh | 170 | Arabic/French/English contamination and audited noun/instruction regressions |
+
+The 49 Tifinagh checklist changes initially looked like target-language updates,
+but the existing audit records why they are wrong: `ssidd` means light, not
+verification. Keep the reviewed `tmnẓit` wording. Two version nouns and the Latin
+Amazigh Markdown instruction also matched exact previously corrected values;
+restore the attested version noun and the missing plain-bullet import sentence.
+Latin script alone is not grounds to reject an Amazigh translation. Serbian is
+indeed Serbian, but the exact width labels had already been corrected for meaning.
+The three Veps instructions likewise reintroduced mixed vocabulary or obsolete
+loading behavior. These corrections preserve the earlier audit evidence.
+
+For Quechua, replace the mixed width label with `Sinripa kinraynin (pixels)`;
+`kinraynin` is attested for width in the
+[Peruvian education ministry's mathematics vocabulary](https://formacionenservicio.minedu.gob.pe/sifods/centro-recurso/2022/Material-educativo/726.ITEM-56-VOCABULARIO-QUECHUA-CENTRAL-PDFWEB.pdf).
+The complete label remains low confidence pending native grammar review.
+Aymara and Tsonga recover their previously reviewed labels. For Tsonga,
+[the official terminology list](https://www.dsac.gov.za/sites/default/files/2023-11/natural-sciences-and-technology-for-grade-4-to-6.pdf)
+attests `vuanami` for width. Restoring a reviewed fallback is not a new claim of
+native-level quality for every restored sentence.
+
+`rejected-pull-values.json` records each rejected locale/key/value exactly.
+The merge rejects these values without banning whole scripts or languages,
+so corrected human wording still wins. Missing, already-rejected or malformed
+local fallbacks become explicit English placeholders rather than retaining bad
+text. Diagnostics distinguish invalid values from ordinary English fallbacks.
+The pull also invokes the existing audited-correction tool, which changes only
+exact historical bad values and preserves newer wording. Neither step pushes
+translations. The pre-merge report no longer falsely requests manual whole-file
+handling where the subsequent per-key merge is responsible for recovery.
+
+Placeholder parsing now treats `__start__-__end__` as two tokens. The executable
+merge regression replays all 841 rejected values, checks every restored token
+inventory and exercises newer valid human strings, same text in its legitimate
+locale, missing/corrupt snapshots and malformed placeholders. Browser coverage
+checks visible Veps and Tamazight Add List controls and their input placeholders.
+
+Validation: all eleven focused Node suites pass, including the 22,302-record
+correction-ledger checks, actual pull replay, prior Chinese human-preference
+protections, locale-specific width checks and Git filename-injection checks.
+The human-preference verifier now invokes the actual merge regression and passes
+all 21 checks. Both browser cases pass in Chromium, Firefox and WebKit. Chromium
+used source port 3000; after that server stopped during Firefox setup, the
+Firefox and WebKit checks ran against an isolated source server on 4000 with
+bundled MongoDB on 4001. No Transifex pull or push was performed for these tests.
+The upload-runner tests use mocks and explicit offline dry runs only.
