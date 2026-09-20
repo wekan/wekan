@@ -15,12 +15,15 @@ const inProgress = new Map();
 // searchable from the card search box.
 export const DocumentPreviews = new Mongo.Collection('documentPreviews');
 
+// Meteor runs release bundles from programs/server and installs application
+// dependencies in npm/node_modules. Start resolution there; Node also searches
+// the parent's node_modules, which supports a source checkout without npm/.
 function runtimeRequire(name) {
-  return createRequire(path.join(process.cwd(), 'package.json'))(name);
+  return createRequire(path.join(process.cwd(), 'npm', 'package.json'))(name);
 }
 
 function runtimeResolve(name) {
-  return createRequire(path.join(process.cwd(), 'package.json')).resolve(name);
+  return createRequire(path.join(process.cwd(), 'npm', 'package.json')).resolve(name);
 }
 
 // pdfjs-dist's Node "fake worker" fallback locates pdf.worker.mjs relative to

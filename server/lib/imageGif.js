@@ -8,9 +8,9 @@ export const IMAGE_MAX_EDGE = 1024;
 
 // Load the native image converter only when an image needs conversion.
 function loadSharpAtRuntime() {
-  // Resolve native optional dependencies from the application package. During
-  // development import.meta.url points below _build/, which has no node_modules.
-  const runtimeRequire = createRequire(path.join(process.cwd(), 'package.json'));
+  // Release application dependencies live under programs/server/npm/node_modules.
+  // Node's parent lookup also finds source-checkout node_modules in development.
+  const runtimeRequire = createRequire(path.join(process.cwd(), 'npm', 'package.json'));
   const packageName = ['sh', 'arp'].join('');
   return runtimeRequire(packageName);
 }
