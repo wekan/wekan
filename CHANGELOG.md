@@ -653,6 +653,233 @@ the Markdown commit as the template.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** Add a source-based development server using Meteor's bundled
+MongoDB. Fix mobile navigation, card destinations, login redirects, notification
+alerts and card closing. Expand serial browser coverage and stop test runs at
+the first failure when requested.
+
+This release adds the following features:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b104edeef">Run Dev server nobuild from the current source checkout</a>. Thanks to xet7.</summary>
+
+Both build menus offer **Dev server nobuild** immediately below **Dev server**,
+with the same URL and port options. The new loader uses the installed Meteor
+Node, packages and bundled development MongoDB. Application JavaScript and
+Blaze templates are transformed in memory, without copying an application to
+`.build/bundle` or using `_build` or `.meteor/local/build`.
+
+The database uses the next port, such as 3000/3001 or 4000/4001. The explicit
+27019 option also starts bundled development MongoDB. External database
+settings are replaced, occupied ports are refused, and source changes restart
+the process. Shutdown waits for the owned database port to close. The
+visualizer reports loaded source-module sizes.
+
+Positive and negative loader tests cover options, imports, source access,
+CommonJS strictness and port cleanup. Browser checks verify source-loaded
+sign-in, native fetch and rejection of private or invented imports. Runtime
+checks exercise custom ports, the 27019 option, occupied ports, source restarts
+and the visualizer. Native Windows execution remains unverified.
+
+See [Dev server nobuild](docs/DeveloperDocs/Dev-server-nobuild.md) for setup,
+commands, test results and the pinned Meteor private-API dependency.
+
+</details>
+
+This release fixes the following bugs:
+
+**Mobile navigation** - keep sidebar controls below the rendered header.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cbc6c20ba">Measure delayed headers after Blaze renders them</a>. Thanks to xet7.</summary>
+
+The header now measures its height after rendering and after login or route
+changes. A header appearing after the startup timers previously left the mobile
+Search back button underneath the page header. Resize tracking continues to
+handle wrapped controls.
+
+Regression coverage exercises delayed rendering, resize updates, repeated
+renders and destroyed templates. The mobile Search browser regression passes
+on the source development server in Chromium, Firefox and WebKit.
+
+</details>
+
+**Card destinations** - enable moves when the destination subscription is ready.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c06387746">Read current destination documents when selecting a board</a>. Thanks to xet7.</summary>
+
+A ready destination subscription could still read an old empty swimlane cache,
+leaving Done disabled even though the selector displayed the destination's
+swimlane. The picker now reads current swimlane and list documents directly.
+
+Regression coverage checks delayed cache refresh, stale subscription callbacks,
+rejected operations and swimlane list filtering. The cross-board move browser
+test verifies visibility and finite, unique card positions after the move.
+
+</details>
+
+**Notifications** - show unread alerts before the drawer is opened.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6d9a3a95b">Show the unread notification alert without loading drawer details</a>. Thanks to xet7.</summary>
+
+The bell previously counted only notifications whose activity details were
+already loaded, although those details are subscribed when the drawer opens.
+It now counts unread notification records directly, so new alerts appear while
+the drawer is closed. Drawer rendering keeps its existing orphan protection.
+
+Unit coverage checks unread, read and missing records. A browser regression uses
+separate author and recipient sessions, verifies the inactive bell before a
+mention, and waits for the watching recipient's unread record and live alert.
+
+</details>
+
+**Sign-in navigation** - preserve protected URLs during cookie login.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a171ac0cb">Restore the requested page after cookie authentication</a>. Thanks to xet7.</summary>
+
+Opening a protected URL such as My Cards could reach the sign-in guard before
+cookie login completed, then land on All Boards instead. The guard now remembers
+the initial path and the login hook restores it after authentication. Only local
+application paths are accepted, and deployment prefixes are retained through the
+router's redirect API. Sign-in checks and Sandstorm's platform-authenticated
+behavior remain in place.
+
+Unit coverage checks accepted and rejected redirect targets and guard behavior.
+The browser regression verifies direct My Cards navigation, inclusion of the
+assigned card and exclusion of unassigned cards. Cookie and Sandstorm regression
+checks also pass.
+
+</details>
+
+**Keyboard navigation** - handle synthetic events without losing focus guards.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4c40bbf9f">Use the focused control for document-targeted keyboard events</a>. Thanks to xet7.</summary>
+
+The non-Latin keyboard bridge dispatches events on the document. The shortcut
+filter previously called an element-only method on that target, causing errors
+when tabbing through signed-out pages. It now uses the focused element and
+safely rejects events with no focused control.
+
+Unit coverage preserves input, button, editable-content, selection and disabled
+shortcut guards, as well as Escape handling. The signed-out layout browser test
+passes without keyboard errors or an unsolicited two-factor prompt in all
+three browsers.
+
+</details>
+
+**Card closing** - tolerate a user profile still being published.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/970ac9dc5">Tolerate partial user profiles when closing cards</a>. Thanks to xet7.</summary>
+
+The card-close handler reads one user snapshot and checks whether its profile
+enables description recovery. A user arriving before its profile no longer
+throws while closing a card. Unit coverage exercises missing users/profiles,
+opt-in, unchanged drafts, saving and discarding. A browser regression removes
+the published profile and closes the card without errors in Chromium, Firefox
+and WebKit.
+
+</details>
+
+**Browser tests** - report failures and wait for usable controls.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/53b112c25">Make browser readiness checks report failures accurately</a>. Thanks to xet7.</summary>
+
+HTTP and HTTPS readiness checks now have a timeout and fail on connection or
+server errors instead of reporting a successful run with no browser tests.
+Membership and search regressions wait for document readiness and visible
+controls, avoiding idle-network waits on Meteor's persistent connection.
+The member-removal regression requires the removal controls and verifies the
+stored membership change.
+
+Positive and negative readiness checks pass, along with the affected membership,
+search and table-view tests on the source server in all three browsers.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/01e985a6d">Test keyboard-accessible password visibility buttons</a>. Thanks to xet7.</summary>
+
+The sign-up browser test now follows the adopted accessibility behavior: Tab
+reaches both password visibility buttons. Space and Enter reveal and hide the
+password without submitting the form or losing focus. Enter in the password
+confirmation field still submits registration. Test accounts are cleaned up
+even if an assertion fails. The regression passes in all three browsers.
+
+</details>
+
+- [Wait for rendered state in layout and stability regressions](https://github.com/wekan/wekan/commit/24629d175).
+  View changes, list order, immediate comment persistence and repeated sign-in
+  page loads pass without waiting for idle Meteor connections. Thanks to xet7.
+
+- [Require selected labels and wait for usable date controls](https://github.com/wekan/wekan/commit/e3273cd2b).
+  Label selection must display its badge; date-editor reloads wait for document
+  readiness and visible controls. The affected regressions pass in all three
+  browsers on the source development server. Thanks to xet7.
+
+- [Wait for voting controls instead of idle connections](https://github.com/wekan/wekan/commit/0a1ad00b8).
+  Positive and negative votes retain their stored-voter assertions, and the
+  visible vote count updates from zero to one. These regressions pass in
+  all three browsers on the source development server. Thanks to xet7.
+
+- [Wait for card fields after document-ready reloads](https://github.com/wekan/wekan/commit/8e9093154).
+  Requested By and Assigned By retain their accessible Add/Edit controls, and
+  description persistence remains asserted. The card members and description
+  group passes in all three browsers on the source server. Thanks to xet7.
+
+- [Wait for ready board views in template and pagination tests](https://github.com/wekan/wekan/commit/ef381207c).
+  Template copying, sorting, search and pagination retain their state and
+  permission assertions after document-ready navigation. The affected tests
+  pass in all three browsers on the source server. Thanks to xet7.
+
+- [Wait for authenticated controls in report and mobile regressions](https://github.com/wekan/wekan/commit/f50b4786f).
+  Version lookup waits for the non-admin session before checking its refusal.
+  Comment publication keeps positive and cross-board exclusion checks, and phone
+  boards keep invitation, column and scroll geometry assertions. The regressions
+  pass in all three browsers on the source server. Thanks to xet7.
+
+- [Exercise serial browser checks across all supported engines](https://github.com/wekan/wekan/commit/fc0c3c815).
+  Portable card-drag tests now run in Chromium, Firefox and WebKit. Serial runs
+  also check organization/team feature toggles in every browser. Keep drag
+  gestures inside the viewport and focus the comment textarea with a real click
+  before checking mention-menu hit targets. The swimlane popup must expose its
+  creation input. All affected tests pass in the three browsers; raw CDP touch
+  remains Chromium-only. Thanks to xet7.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b104edeef">Run EVERYTHING sequentially against the source development server</a>. Thanks to xet7.</summary>
+
+The source test menu uses localhost:3000 and bundled MongoDB on 3001. Server
+Mocha, Node suites, import and E2E regressions, Chromium, Firefox, WebKit,
+database conformance and FerretDB stages stop on failure when requested.
+Browser retries are disabled in this mode and the first failure trace is kept.
+Session-token checks parse test callbacks so separate parameterized tests do
+not falsely count as one shared session.
+
+Across sequential runs, fixes and focused reruns, 1,182 Node suites and 527
+server tests pass. Chromium passes 446 distinct cases; Firefox and WebKit each
+pass 445, excluding only the Chromium CDP raw-touch case. These include URL
+prefix checks. All 103 database cases agree on SQLite, PostgreSQL, MySQL and
+MariaDB; SAP HANA was not run on this CPU. One Firefox title-edit failure did
+not recur in a diagnostic and five repetitions; its cause remains unconfirmed.
+
+FerretDB's [stage bail handling](https://github.com/wekan/FerretDB/commit/34f9a857)
+and [intentional failure fixture](https://github.com/wekan/FerretDB/commit/ef094eeb)
+are fixed in its companion repository. Its unit, vet and sequential SQLite
+integration stages pass. Positive and negative runner, browser-selection,
+session-token and database-conformance wiring checks pass too.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v11.87 2026-09-19 WeKan ® release
 
 **In short:** Launchpad Snap builds recover the correct repository, wait for
