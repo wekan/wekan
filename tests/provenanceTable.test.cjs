@@ -416,16 +416,20 @@ test('a store PROCESSING failure is retried; a rejected snap is not', () => {
     'the store-side processing failure is not recognised');
   assert.ok(/attempts/.test(retry) && /sleep/.test(retry),
     'there is no retry with a backoff');
-  assert.ok(retry.includes('HTTP[ \\t]*500'),
+  assert.ok(retry.includes('HTTP[ \\t]*500[ \\t]+Internal'),
     'HTTP 500 variants must be treated as transient');
+  assert.ok(retry.includes('500[ \\t]+Internal'),
+    'plain 500 Internal Server Error variants must be treated as transient');
   assert.ok(retry.includes('[ \\t]*500'),
     '[500] Internal Server Error variants must be treated as transient');
-  const helperCalls = (workflow.match(/snap-upload-retry\.sh/g) || []).length;
+  const helperCalls = (
+    workflow.match(/bash releases\/snap-upload-retry\.sh "[^"]+" stable,candidate,beta,edge/g) || []
+  ).length;
   assert.ok(helperCalls >= 3,
     'all snap publishing paths (native, Launchpad and variants) must call the shared retry helper');
 
   // The classifier itself, applied to the messages that must NOT be retried.
-  const m = retry.match(/grep -qiE '([^']+)'/);
+  const m = retry.match(/retryable_re='([^']+)'/);
   assert.ok(m, 'the retryable-error pattern is gone');
   const re = new RegExp(m[1], 'i');
   assert.ok(re.test('- binary_sha3_384: Error checking upload uniqueness.'),
@@ -435,6 +439,8 @@ test('a store PROCESSING failure is retried; a rejected snap is not', () => {
     'the armhf [500] store failure must be retried');
   assert.ok(re.test('HTTP 500 Internal Server Error'),
     'HTTP 500 wording variants must be retried');
+  assert.ok(re.test('500 Internal Server Error'),
+    'plain 500 wording variants must be retried');
   [
     'wekan_10.78_s390x.snap is not a valid file',
     'Credentials could not be parsed',
