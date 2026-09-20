@@ -653,6 +653,24 @@ the Markdown commit as the template.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **GitHub release workflows** now keep Snap publication moving when
+the store returns temporary server errors, while still failing fast on invalid
+uploads and credential problems.
+
+This release fixes the following GitHub workflow issue:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/62cccae192b25d8557d9bf5f0e00b60fd0101045">Retry temporary Snap Store upload failures in release workflows</a>. Thanks to Copilot and xet7.</summary>
+
+Release workflows retry temporary Snap Store upload failures for native,
+Launchpad and variant publish paths, with bounded backoff and clear fail/stop
+rules. Permanent credential and authorization errors still fail immediately,
+while transient HTTP 500 failures now retry before final failure.
+
+</details>
+
 # v11.89 2026-09-20 WeKan ® release
 
 **In short:** **Snap Store** uploads now retry temporary server failures across
