@@ -655,19 +655,19 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**In short:** `CHANGELOG.md` now follows the AGENTS/CLAUDE changelog workflow for
-the next cycle by carrying a real Upcoming release note entry instead of leaving
-future edits to land in a published release section. The update records this
-documentation/process change in the same structure required for upcoming notes.
+**In short:** **GitHub release workflows** now keep Snap publication moving when
+the store returns temporary server errors, while still failing fast on invalid
+uploads and credential problems.
 
-This release updates the following documentation:
+This release fixes the following GitHub workflow issue:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/db2c782aec2e">Align Upcoming changelog notes with AGENTS.md workflow rules</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/62cccae192b25d8557d9bf5f0e00b60fd0101045">Retry temporary Snap Store upload failures in release workflows</a>. Thanks to Copilot and xet7.</summary>
 
-Documented the next release cycle directly in the Upcoming section with a compact
-summary and one linked entry, matching the required changelog structure and
-avoiding an empty placeholder section.
+Release workflows retry temporary Snap Store upload failures for native,
+Launchpad and variant publish paths, with bounded backoff and clear fail/stop
+rules. Permanent credential and authorization errors still fail immediately,
+while transient HTTP 500 failures now retry before final failure.
 
 </details>
 
