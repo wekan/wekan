@@ -5077,7 +5077,7 @@ jobs:
           # base: core24, grade: stable - so all four channels accept it, exactly
           # as they do for the default wekan snap.
           SNAP_UPLOAD_LABEL="${{ steps.build.outputs.snap }}" \
-          bash releases/snap-upload-retry.sh "${{ steps.build.outputs.snap }}" stable,candidate,beta,edge
+          bash "$GITHUB_WORKSPACE/wekan/releases/snap-upload-retry.sh" "${{ steps.build.outputs.snap }}" stable,candidate,beta,edge
 
       # Always, as the last step: the run summary then answers "what worked and what
       # did not" for the whole release at a glance, instead of eighteen job logs. A
