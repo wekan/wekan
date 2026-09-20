@@ -653,6 +653,36 @@ the Markdown commit as the template.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **Snap Store** uploads now retry temporary server failures across
+all release paths. Invalid files and credential failures still stop immediately.
+
+This release fixes the following release-tooling bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/62cccae192b25d8557d9bf5f0e00b60fd0101045">Retry temporary Snap Store upload failures</a>. Thanks to Copilot and xet7.</summary>
+
+Native, Launchpad and variant Snap uploads use one shared retry helper,
+including for HTTP 500 Internal Server Error responses. By default it tries
+three times, waiting 30 and then 60 seconds between attempts, and publishes to
+stable, candidate, beta and edge. Invalid files, unreadable credentials and
+authorization failures are not retried.
+
+The helper preserves Snapcraft's exit status and distinguishes exhausted
+temporary failures from rejected uploads. Temporary logs use unique files
+under `TMPDIR`, falling back to `.tools/tmp`, and are removed after use.
+This completes [#6708](https://github.com/wekan/wekan/pull/6708).
+
+Existing positive and negative regression checks cover retryable error wording,
+rejected uploads, shared helper use and all four release channels. These are
+release scripts with no application UI; live Snap Store uploads are not part
+of the local checks.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v11.88 2026-09-20 WeKan ® release
 
 **In short:** Add a source-based development server using Meteor's bundled
