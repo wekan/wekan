@@ -37,20 +37,15 @@ test.describe('Swimlanes', () => {
 
   test('swimlane action popup opens without JS errors', async ({ boardPage, board }) => {
     const errors = [];
-    boardPage.on('pageerror', e => errors.push(e.message));
+    boardPage.on('pageerror', e => errors.push(e.stack || e.message));
 
     // a.js-open-add-swimlane-menu — the "+" icon on each swimlane header
     const plusBtn = boardPage.locator('a.js-open-add-swimlane-menu').first();
-    if (await plusBtn.count() > 0) {
-      await plusBtn.click();
-      const pop = boardPage.locator('.js-pop-over');
-      await expect(pop).toBeVisible({ timeout: 6_000 });
-      // Popup being visible is sufficient proof it opened without crashing.
-      // (WeKan renders a hidden back-btn as the first element inside the popup.)
-    } else {
-      // Swimlane "+" icon not present (single-swimlane boards may hide it in some views)
-      await expect(boardPage.locator('.js-swimlane').first()).toBeVisible({ timeout: 5_000 });
-    }
+    await expect(plusBtn).toBeVisible();
+    await plusBtn.click();
+    const pop = boardPage.locator('.js-pop-over');
+    await expect(pop).toBeVisible({ timeout: 6_000 });
+    await expect(pop.locator('input.swimlane-name-input')).toBeVisible();
 
     const critical = errors.filter(
       e => !e.includes('ResizeObserver') && !e.includes('Non-Error promise rejection'),

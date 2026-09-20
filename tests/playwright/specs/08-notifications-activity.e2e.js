@@ -248,6 +248,9 @@ for (const authenticationMethod of ['password', 'ldap']) {
     await cp.waitForOpen();
     const input = cp.root.locator('textarea.js-new-comment-input');
     const expectMention = () => expect(input).toHaveValue(`@${user2.username} (Mention Target) `);
+    // fill() can focus an off-screen textarea without scrolling in WebKit.
+    // Start as a pointer user does so the menu's hit test uses visible content.
+    await input.click();
     await input.fill(`@${user2.username}`);
     const menu = boardPage.locator('.textcomplete-dropdown:visible');
     const suggestion = menu.locator('.textcomplete-item').filter({ hasText: user2.username });

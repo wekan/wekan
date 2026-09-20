@@ -31,9 +31,7 @@ test.describe('Card drag-sort reordering', () => {
   test('without drag handles, dragging from the title reorders the card', async ({
     loggedInPage,
     user,
-    browserName,
   }) => {
-    test.skip(browserName !== 'chromium', 'drag-sort harness validated on Chromium');
     const board = db.seedBoard({
       ownerId: user.id,
       title: 'TitleDragSurface',
@@ -68,9 +66,7 @@ test.describe('Card drag-sort reordering', () => {
   test('with drag handles, dragging from the handle reorders the card', async ({
     loggedInPage,
     user,
-    browserName,
   }) => {
-    test.skip(browserName !== 'chromium', 'drag-sort harness validated on Chromium');
     const board = db.seedBoard({
       ownerId: user.id,
       title: 'HandleDragSurface',
@@ -153,9 +149,7 @@ test.describe('Card drag-sort reordering', () => {
   test('#761 dragging toward the bottom scrolls the long list and accepts the drop', async ({
     loggedInPage,
     user,
-    browserName,
   }) => {
-    test.skip(browserName !== 'chromium', 'drag-sort harness validated on Chromium');
     const titles = Array.from({ length: 35 }, (_, i) => `Long Card ${i + 1}`);
     const board = db.seedBoard({
       ownerId: user.id,
@@ -191,7 +185,13 @@ test.describe('Card drag-sort reordering', () => {
         { steps: 4 },
       );
       const edgeX = bodyBox.x + bodyBox.width / 2;
-      const edgeY = bodyBox.y + bodyBox.height - 8;
+      // A list can extend slightly below the viewport (Firefox's scrollbars
+      // change its geometry). Keep the gesture at the visible bottom edge:
+      // moving outside the browser does not deliver list mousemove events.
+      const edgeY = Math.min(
+        bodyBox.y + bodyBox.height,
+        loggedInPage.viewportSize().height,
+      ) - 8;
       for (let i = 0; i < 45; i += 1) {
         await loggedInPage.mouse.move(edgeX + (i % 2), edgeY - (i % 2), {
           steps: 2,
@@ -295,12 +295,7 @@ test.describe('Card drag-sort reordering', () => {
   test('#6430 a cross-list drop never leaves its target visually empty', async ({
     loggedInPage,
     user,
-    browserName,
   }) => {
-    test.skip(
-      browserName !== 'chromium',
-      'drag-sort harness validated on Chromium',
-    );
     const board = db.seedBoard({
       ownerId: user.id,
       title: 'DragNoFlicker',
@@ -356,15 +351,7 @@ test.describe('Card drag-sort reordering', () => {
   test('#3826 cards that have a parent can be reordered and the new order persists', async ({
     loggedInPage,
     user,
-    browserName,
   }) => {
-    // The reorder logic is browser-independent; the jQuery-UI drag-sort harness
-    // is validated on Chromium. Scoped to Chromium so cross-browser drag-timing
-    // differences cannot flake the otherwise-green matrix.
-    test.skip(
-      browserName !== 'chromium',
-      'drag-sort harness validated on Chromium',
-    );
     // list 0 = parents, list 1 = sub-tasks (each given a parentId).
     const board = db.seedBoard({
       ownerId: user.id,
@@ -441,12 +428,7 @@ test.describe('Card drag-sort reordering', () => {
   test('#6558 dragging a card does not pan the lane or the board', async ({
     loggedInPage,
     user,
-    browserName,
   }) => {
-    test.skip(
-      browserName !== 'chromium',
-      'drag-sort harness validated on Chromium',
-    );
     // Enough lists that the lane overflows horizontally, which is the board the
     // report is about, and cards in several of them so one can be found away
     // from the edges.

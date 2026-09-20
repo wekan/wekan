@@ -39,12 +39,11 @@ test.describe('#4737/#5850 per-org/team feature toggle methods', () => {
   // browsers running these bulk tests concurrently clobber each other's rows
   // (one process sets all-true while another asserts all-false, and vice versa)
   // — a race no amount of unique per-test data can fix. The methods are
-  // browser-agnostic, so we run this spec in a single project (Chromium) only;
-  // Firefox/WebKit skip it. That removes the cross-process contention while
-  // keeping full coverage of the server logic.
+  // browser-agnostic, so parallel runs use Chromium only. EVERYTHING's strictly
+  // sequential mode can safely exercise the same behavior in every browser.
   test.beforeEach(({ browserName }) => {
     test.skip(
-      browserName !== 'chromium',
+      browserName !== 'chromium' && process.env.WEKAN_TEST_SERIAL !== '1',
       'server-method spec: single browser avoids cross-process global-write races',
     );
   });
