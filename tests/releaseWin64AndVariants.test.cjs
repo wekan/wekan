@@ -119,6 +119,14 @@ test('nothing in the verify step reads a listing through a PIPE', () => {
 });
 
 const variants = code(job('snap-variants'));
+const variantsJob = job('snap-variants');
+const variantStepOf = name => {
+  const at = variantsJob.indexOf(`- name: ${name}`);
+  assert.notStrictEqual(at, -1, `snap-variants has no step "${name}"`);
+  const rest = variantsJob.slice(at + 1);
+  const next = rest.indexOf('\n      - name:');
+  return next === -1 ? rest : rest.slice(0, next);
+};
 
 test('release-all calls the required repository update workflow', () => {
   const update = job('update-ondra-gantt-repos');
@@ -164,17 +172,8 @@ test('variant snap publication remains independent of repository syncing', () =>
   // three snaps. Keeping the GitHub repositories in step is a separate,
   // optional thing - it used to gate the entire job, so a token without push
   // rights meant no variant snaps at all (v10.48 and v10.49 published none).
-  const all = job('snap-variants');
-  const stepOf = name => {
-    const at = all.indexOf(`- name: ${name}`);
-    assert.notStrictEqual(at, -1, `snap-variants has no step "${name}"`);
-    const rest = all.slice(at + 1);
-    const next = rest.indexOf('\n      - name:');
-    return next === -1 ? rest : rest.slice(0, next);
-  };
-
-  const build = stepOf('Build the ${{ matrix.snapname }} snap (${{ matrix.arch }})');
-  const publish = stepOf('Publish ${{ matrix.snapname }} to the Snap Store (all channels)');
+  const build = variantStepOf('Build the ${{ matrix.snapname }} snap (${{ matrix.arch }})');
+  const publish = variantStepOf('Publish ${{ matrix.snapname }} to the Snap Store (all channels)');
   for (const [what, step] of [['the build', build], ['the publish', publish]]) {
     assert.ok(/steps\.guard\.outputs\.snap == 'true'/.test(step),
       `${what} runs whenever SNAP_AUTH is set`);
@@ -184,8 +183,19 @@ test('variant snap publication remains independent of repository syncing', () =>
   assert.ok(/stable,candidate,beta,edge/.test(publish),
     'and it goes to all four channels, like the default wekan snap');
 
-  assert.ok(!/Push the synced tree/.test(all),
+  assert.ok(!/Push the synced tree/.test(variantsJob),
     'repository pushes do not run redundantly inside the architecture matrix');
+});
+
+test('variant snap publication calls the upload helper from the checkout path', () => {
+  const checkout = variantStepOf('Checkout wekan at the release tag');
+  assert.ok(/path: wekan/.test(checkout),
+    'the variant job checks the release tag out under wekan/');
+
+  const publish = variantStepOf('Publish ${{ matrix.snapname }} to the Snap Store (all channels)');
+  assert.ok(/\$GITHUB_WORKSPACE\/wekan\/releases\/snap-upload-retry\.sh/.test(publish),
+    'the publish step must call the helper from the wekan/ checkout; releases/... at '
+    + 'the workspace root is absent in this job and fails with exit 127');
 });
 
 test('both variants are built for the two native architectures', () => {
@@ -198,7 +208,6 @@ test('both variants are built for the two native architectures', () => {
 });
 
 test('a variant build that produced the wrong snap is not published', () => {
-  const variantsJob = job('snap-variants');
   assert.ok(/is not a \$\{\{ matrix\.snapname \}\} snap/.test(variantsJob),
     'the built file name must start with the variant snap name - publishing a '
     + 'file called wekan_*.snap from here would overwrite the DEFAULT snap');
