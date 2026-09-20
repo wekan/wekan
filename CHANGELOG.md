@@ -660,7 +660,7 @@ latest release, so new work is recorded in the right place instead of being adde
 into already published notes. This keeps release preparation aligned with
 `AGENTS.md` and the documented `CHANGELOG.md` structure.
 
-This release updates the following documentation:
+This release preparation updates the following documentation:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/db2c782aec2e">Re-open the Upcoming changelog section for the next release cycle</a>. Thanks to xet7.</summary>
