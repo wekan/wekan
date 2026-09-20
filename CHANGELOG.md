@@ -659,7 +659,8 @@ the Markdown commit as the template.
 MongoDB. Fix mobile navigation, card destinations, login redirects, notification
 alerts and card closing. Expand serial browser coverage and stop test runs at
 the first failure when requested. Reject recurring wrong-language translations
-while preserving valid human updates.
+while preserving valid human updates. Reduce development startup warnings and
+clean up attachment test fixtures.
 
 This release adds the following features:
 
@@ -785,6 +786,30 @@ throws while closing a card. Unit coverage exercises missing users/profiles,
 opt-in, unchanged drafts, saving and discarding. A browser regression removes
 the published profile and closes the card without errors in Chromium, Firefox
 and WebKit.
+
+</details>
+
+**Development startup** - remove avoidable warnings and stale test metadata.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/721805b80">Cache package transforms and fix CAS URL parsing and test cleanup</a>. Thanks to xet7.</summary>
+
+Dev server nobuild caches Meteor package transformations under its per-port
+`.tools/dev-source` directory, removing uncached-compilation stack traces.
+Application code remains loaded from source. Both development menus default to
+quiet logging and preserve an explicitly supplied `DEBUG=true` setting.
+
+CAS middleware uses the standard URL API, preserving callback parameter
+encoding, deployment paths and custom HTTPS ports. Ambiguous callback tickets
+are rejected. Browser teardown removes its board attachment metadata, including
+fixtures with deliberately missing files, preventing false path-repair warnings.
+
+Six focused Node suites and nine sequential browser checks pass across Chromium,
+Firefox and WebKit. Live HTTP checks with deprecation tracing show neither the
+Babel cache warning nor the deprecated URL warning. The development database
+has no unresolved attachment versions after teardown. External CAS provider
+login and native Windows execution remain unverified. Existing Upcoming entries
+retain the regression coverage documented above and below.
 
 </details>
 
