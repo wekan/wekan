@@ -661,8 +661,9 @@ alerts and card closing. Expand serial browser coverage and stop test runs at
 the first failure when requested. Reject recurring wrong-language translations
 while preserving valid human updates. Reduce development startup warnings and
 clean up attachment test fixtures. Fix production document indexing and image
-dependency lookup, include Docker MIME detection, and add administrator file
-status checks with recovery evidence.
+dependency lookup, provide native or bundled libmagic MIME detection across
+server platforms, and add administrator file status checks with recovery
+evidence.
 
 This release adds the following features:
 
@@ -822,7 +823,34 @@ and WebKit.
 
 </details>
 
-**Attachment processing** - find runtime dependencies in release bundles.
+**Attachment processing** - find runtime dependencies and detect file types
+across platforms.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a990e7f20">Provide full MIME detection across server platforms</a>. Thanks to xet7.</summary>
+
+Uploads, extension correction and administrator file checks share native `file`
+detection with a bundled libmagic WASM engine and magic database when the
+command
+is unavailable. The portable fallback covers Windows, macOS, Linux, Docker, Snap
+and Sandstorm server bundles without a runtime download or separate Windows
+utility. Linux setup installs native `file`; Snap stages it and its magic
+database.
+The release smoke check rejects missing portable dependencies or WASM assets.
+
+Ten focused Node suites pass, including real detection without native `file`,
+concurrent initialization, isolated release layout, missing files/assets,
+packaging guards, upload safety checks and existing audit behavior. The HTML
+file-status browser check passes sequentially in Chromium, Firefox and WebKit
+against the source server on port 3000, preserving file contents and metadata.
+Native Windows/macOS execution, complete Docker/Snap/Sandstorm builds and
+production deployment were not performed. Other Upcoming changes retain their
+documented positive, negative and browser regression coverage.
+
+See [cross-platform file type
+detection](docs/DeveloperDocs/File-type-detection.md).
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9e1cf4c35">Fix document indexing and image dependency lookup in production</a>. Thanks to xet7.</summary>
