@@ -458,6 +458,7 @@ function addBoardMember({ boardId, userId, isAdmin = false }) {
 function cleanup({ boardIds = [], userIds = [] } = {}) {
   for (const boardId of boardIds) {
     runOps([
+      { collection: 'attachments', method: 'deleteMany', filter: { 'meta.boardId': boardId } },
       { collection: 'cards', method: 'deleteMany', filter: { boardId } },
       { collection: 'lists', method: 'deleteMany', filter: { boardId } },
       { collection: 'swimlanes', method: 'deleteMany', filter: { boardId } },

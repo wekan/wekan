@@ -8,6 +8,9 @@ fs.mkdirSync(state, {
   recursive: true
 });
 process.env.WEKAN_SOURCE_STATE = state;
+// Cache installed/local Meteor package transforms, never application bundles.
+process.env.BABEL_CACHE_DIR = path.join(state, 'package-cache');
+fs.mkdirSync(process.env.BABEL_CACHE_DIR, { recursive: true });
 require(path.join(tool, 'tools/tool-env/install-babel.js'));
 const { convertToStandardPath: standardPath } = require(path.join(tool, 'tools/static-assets/server/mini-files'));
 const {

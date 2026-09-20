@@ -93,36 +93,40 @@ test.describe('Attachments & links', () => {
     db.updateOne('boards', { _id: board.boardId }, { $set: { permission: 'public' } });
     fs.mkdirSync(path.dirname(storedPath), { recursive: true });
     fs.writeFileSync(storedPath, storedBytes);
-    db.insertOne('attachments', {
-      _id: attachmentId,
-      name: 'payload.html',
-      size: storedBytes.length,
-      type: 'text/html',
-      meta: {
-        boardId: board.boardId,
-        cardId: db.findCardIdByTitle({ boardId: board.boardId, title: 'Alpha Card' }),
-      },
-      versions: {
-        original: {
-          path: storedPath,
-          name: 'payload.html',
-          size: storedBytes.length,
-          type: 'text/html',
-          extension: 'html',
-          storage: 'fs',
+    try {
+      db.insertOne('attachments', {
+        _id: attachmentId,
+        name: 'payload.html',
+        size: storedBytes.length,
+        type: 'text/html',
+        meta: {
+          boardId: board.boardId,
+          cardId: db.findCardIdByTitle({ boardId: board.boardId, title: 'Alpha Card' }),
         },
-      },
-    });
+        versions: {
+          original: {
+            path: storedPath,
+            name: 'payload.html',
+            size: storedBytes.length,
+            type: 'text/html',
+            extension: 'html',
+            storage: 'fs',
+          },
+        },
+      });
 
-    const response = await boardPage.request.get(
-      `/cdn/storage/attachments/${attachmentId}/original/${attachmentId}.html`,
-    );
-    expect(response.status()).toBe(200);
-    expect(response.headers()['content-type']).toContain('application/octet-stream');
-    expect(response.headers()['content-disposition']).toMatch(/^attachment;/);
-    expect(response.headers()['x-content-type-options']).toBe('nosniff');
-    expect(response.headers()['content-security-policy']).toContain('sandbox');
-    fs.unlinkSync(storedPath);
+      const response = await boardPage.request.get(
+        `/cdn/storage/attachments/${attachmentId}/original/${attachmentId}.html`,
+      );
+      expect(response.status()).toBe(200);
+      expect(response.headers()['content-type']).toContain('application/octet-stream');
+      expect(response.headers()['content-disposition']).toMatch(/^attachment;/);
+      expect(response.headers()['x-content-type-options']).toBe('nosniff');
+      expect(response.headers()['content-security-policy']).toContain('sandbox');
+    } finally {
+      fs.rmSync(storedPath, { force: true });
+      db.deleteOne('attachments', { _id: attachmentId });
+    }
   });
 
   test('card description can contain a link that renders as a clickable anchor', async ({ boardPage, board }) => {

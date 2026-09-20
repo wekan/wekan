@@ -58,140 +58,144 @@ test.describe('Admin – newest features', () => {
     // Seed a board + card owned by the admin so the attachments are "accessible"
     // (the report restricts to attachments on cards the user can see).
     const board = await db.seedBoard({ ownerId: adminUser.id, title: 'Files Board', cardTitlesPerList: [['FilesCard']] });
-    const cardId = db.findCardIdByTitle({ boardId: board.boardId, title: 'FilesCard' });
-    // Seed sanity: the attachments' meta.cardId is this id; if it were null the report
-    // could never match them, so fail here with a clear message instead of "no table".
-    expect(cardId, 'seed: findCardIdByTitle must return the seeded card id').toBeTruthy();
-    const meta = { boardId: board.boardId, cardId };
-    const runId = db.uniqueSuffix();
-    // File display/download names are intentionally capped at 30 Amiga-visible
-    // characters. Keep the per-run prefix short enough that each sanitized
-    // suffix remains observable instead of being truncated away.
-    const marker = `f-${db.uniqueSuffix().slice(-16)}`;
-    const versions = { original: {} }; // Valid metadata, intentionally no stored binary.
-    await db.insertMany('attachments', [
-      { _id: `${runId}-normal`, name: `${marker}-normal-file.png`, size: 10, type: 'image/png', meta, versions },
-      { _id: `${runId}-encoded`, name: `${marker}-%D0%93%D1%80.png`, size: 20, type: 'image/png', meta, versions }, // -> "Гp.png" after confusable folding
-      { _id: `${runId}-invisible`, name: `${marker}-evil${ZW}.png`, size: 30, type: 'image/png', meta, versions },
-      { _id: `${runId}-homoglyph`, name: `${marker}-pаypal.png`, size: 40, type: 'image/png', meta, versions }, // Cyrillic a
-      { _id: `${runId}-exploit`, name: `${marker}-<script>x</script>note.png`, size: 50, type: 'image/png', meta, versions },
-    ]);
+    try {
+      const cardId = db.findCardIdByTitle({ boardId: board.boardId, title: 'FilesCard' });
+      // Seed sanity: the attachments' meta.cardId is this id; if it were null the report
+      // could never match them, so fail here with a clear message instead of "no table".
+      expect(cardId, 'seed: findCardIdByTitle must return the seeded card id').toBeTruthy();
+      const meta = { boardId: board.boardId, cardId };
+      const runId = db.uniqueSuffix();
+      // File display/download names are intentionally capped at 30 Amiga-visible
+      // characters. Keep the per-run prefix short enough that each sanitized
+      // suffix remains observable instead of being truncated away.
+      const marker = `f-${db.uniqueSuffix().slice(-16)}`;
+      const versions = { original: {} }; // Valid metadata, intentionally no stored binary.
+      await db.insertMany('attachments', [
+        { _id: `${runId}-normal`, name: `${marker}-normal-file.png`, size: 10, type: 'image/png', meta, versions },
+        { _id: `${runId}-encoded`, name: `${marker}-%D0%93%D1%80.png`, size: 20, type: 'image/png', meta, versions }, // -> "Гp.png" after confusable folding
+        { _id: `${runId}-invisible`, name: `${marker}-evil${ZW}.png`, size: 30, type: 'image/png', meta, versions },
+        { _id: `${runId}-homoglyph`, name: `${marker}-pаypal.png`, size: 40, type: 'image/png', meta, versions }, // Cyrillic a
+        { _id: `${runId}-exploit`, name: `${marker}-<script>x</script>note.png`, size: 50, type: 'image/png', meta, versions },
+      ]);
 
-    await loginWithToken(page, adminUser.id, adminUser.token);
-    // Straight to the pane by its own address. Every Admin Panel pane has one
-    // now - `/admin/problems/files` - so there is no need to land on the page
-    // and then click a menu row, and no race between the redirect from the old
-    // `/admin-reports` and the menu rendering.
-    // docs/Features/Page/Admin-Panel-URLs.md
-    await navigateInApp(page, '/admin/problems/files');
-    // The evaluate below reaches for `window.Meteor.callAsync`; `networkidle`
-    // only means the network went quiet, so Firefox got here with Meteor still
-    // undefined and the count came back as an error string.
-    await waitForMeteor(page);
+      await loginWithToken(page, adminUser.id, adminUser.token);
+      // Straight to the pane by its own address. Every Admin Panel pane has one
+      // now - `/admin/problems/files` - so there is no need to land on the page
+      // and then click a menu row, and no race between the redirect from the old
+      // `/admin-reports` and the menu rendering.
+      // docs/Features/Page/Admin-Panel-URLs.md
+      await navigateInApp(page, '/admin/problems/files');
+      // The evaluate below reaches for `window.Meteor.callAsync`; `networkidle`
+      // only means the network went quiet, so Firefox got here with Meteor still
+      // undefined and the count came back as an error string.
+      await waitForMeteor(page);
 
-    // Localize any failure: ask the SERVER directly whether it counts the seeded
-    // attachments (this method runs the SAME accessibleCardIds + meta.cardId query the
-    // report publication uses). If this is >= 5 but the table is still missing, it is a
-    // client-render problem; if it is 0 (or an error), the server query is the problem —
-    // so the failure message points straight at the layer instead of just "no table".
-    const serverCount = await page.evaluate(async () => {
-      try { return await window.Meteor.callAsync('getAttachmentsReportCount', ''); }
-      catch (e) { return `error: ${(e && e.message) || e}`; }
-    });
-    expect(serverCount, 'server getAttachmentsReportCount must see the seeded attachments')
-      .toBeGreaterThanOrEqual(5);
+      // Localize any failure: ask the SERVER directly whether it counts the seeded
+      // attachments (this method runs the SAME accessibleCardIds + meta.cardId query the
+      // report publication uses). If this is >= 5 but the table is still missing, it is a
+      // client-render problem; if it is 0 (or an error), the server query is the problem —
+      // so the failure message points straight at the layer instead of just "no table".
+      const serverCount = await page.evaluate(async () => {
+        try { return await window.Meteor.callAsync('getAttachmentsReportCount', ''); }
+        catch (e) { return `error: ${(e && e.message) || e}`; }
+      });
+      expect(serverCount, 'server getAttachmentsReportCount must see the seeded attachments')
+        .toBeGreaterThanOrEqual(5);
 
-    // The report renders our attachments.
-    const table = page.locator('table').first();
-    await expect(table).toBeVisible({ timeout: 15_000 });
+      // The report renders our attachments.
+      const table = page.locator('table').first();
+      await expect(table).toBeVisible({ timeout: 15_000 });
 
-    // Other browser projects share this database and global admins can see
-    // their rows. Restrict the report to this run before asserting all five
-    // names, so pagination cannot move the last seeded row to another page.
-    const search = page.locator('input.js-table-page-search');
-    await search.fill(marker);
-    await search.press('Enter');
+      // Other browser projects share this database and global admins can see
+      // their rows. Restrict the report to this run before asserting all five
+      // names, so pagination cannot move the last seeded row to another page.
+      const search = page.locator('input.js-table-page-search');
+      await search.fill(marker);
+      await search.press('Enter');
 
-    // WHICH half is missing, when the table draws its headers and then "No results".
-    //
-    // A row of this report needs TWO things to arrive over DDP, and the server
-    // count above proves only that the query finds them. The publication sends
-    // the page with this.added('attachments', ...) AND one small `report_pages`
-    // index document naming the ids of that page, in order; the pane renders
-    // that index and nothing else, because minimongo holds far more than the
-    // page (models/lib/reportPageIndex.js, reportPageResults in
-    // adminProblems.js). So an empty table means the rows did not arrive, or the
-    // index did not, or they disagree - three different bugs that all look like
-    // "element(s) not found".
-    //
-    // Read through Meteor's client stores rather than app globals, which the
-    // production bundle does not expose. Entirely defensive: any failure here
-    // leaves the diagnosis empty and the assertion below fails exactly as it
-    // would have anyway.
-    const diag = await page.evaluate(() => {
-      const countIn = name => {
+      // WHICH half is missing, when the table draws its headers and then "No results".
+      //
+      // A row of this report needs TWO things to arrive over DDP, and the server
+      // count above proves only that the query finds them. The publication sends
+      // the page with this.added('attachments', ...) AND one small `report_pages`
+      // index document naming the ids of that page, in order; the pane renders
+      // that index and nothing else, because minimongo holds far more than the
+      // page (models/lib/reportPageIndex.js, reportPageResults in
+      // adminProblems.js). So an empty table means the rows did not arrive, or the
+      // index did not, or they disagree - three different bugs that all look like
+      // "element(s) not found".
+      //
+      // Read through Meteor's client stores rather than app globals, which the
+      // production bundle does not expose. Entirely defensive: any failure here
+      // leaves the diagnosis empty and the assertion below fails exactly as it
+      // would have anyway.
+      const diag = await page.evaluate(() => {
+        const countIn = name => {
+          try {
+            const store = window.Meteor?.connection?._stores?.[name];
+            const coll = store && store._getCollection && store._getCollection();
+            return coll ? coll.find().count() : `no client store "${name}"`;
+          } catch (e) { return `error: ${(e && e.message) || e}`; }
+        };
+        let index;
         try {
-          const store = window.Meteor?.connection?._stores?.[name];
+          const store = window.Meteor?.connection?._stores?.report_pages;
           const coll = store && store._getCollection && store._getCollection();
-          return coll ? coll.find().count() : `no client store "${name}"`;
-        } catch (e) { return `error: ${(e && e.message) || e}`; }
-      };
-      let index;
-      try {
-        const store = window.Meteor?.connection?._stores?.report_pages;
-        const coll = store && store._getCollection && store._getCollection();
-        const doc = coll && coll.findOne('report-files');
-        index = doc ? `${(doc.ids || []).length} id(s)` : 'no report-files index doc';
-      } catch (e) { index = `error: ${(e && e.message) || e}`; }
-      return `attachments in minimongo: ${countIn('attachments')}; report_pages index: ${index}`;
-    }).catch(e => `diagnosis unavailable: ${(e && e.message) || e}`);
+          const doc = coll && coll.findOne('report-files');
+          index = doc ? `${(doc.ids || []).length} id(s)` : 'no report-files index doc';
+        } catch (e) { index = `error: ${(e && e.message) || e}`; }
+        return `attachments in minimongo: ${countIn('attachments')}; report_pages index: ${index}`;
+      }).catch(e => `diagnosis unavailable: ${(e && e.message) || e}`);
 
-    // URL-encoded name is DECODED for display (and the raw %-encoding is gone).
-    await expect(
-      table.getByText(`${marker}-Гp.png`),
-      `the Files report drew no usable row. ${diag}. ` +
-      'Rows but no index = publishReportPage did not send one; index but no rows = ' +
-      "this.added went to a collection the client does not have; neither = the " +
-      'publication returned early (the isAdmin check) or never ran.',
-    ).toBeVisible();
-    await expect(table.getByText('%D0%93%D1%80')).toHaveCount(0);
+      // URL-encoded name is DECODED for display (and the raw %-encoding is gone).
+      await expect(
+        table.getByText(`${marker}-Гp.png`),
+        `the Files report drew no usable row. ${diag}. ` +
+        'Rows but no index = publishReportPage did not send one; index but no rows = ' +
+        "this.added went to a collection the client does not have; neither = the " +
+        'publication returned early (the isAdmin check) or never ran.',
+      ).toBeVisible();
+      await expect(table.getByText('%D0%93%D1%80')).toHaveCount(0);
 
-    // Invisible character is REMOVED — the clean "evil.png" is shown, and the old
-    // red warning / inline description elements no longer exist.
-    await expect(table.getByText(`${marker}-evil.png`, { exact: false })).toBeVisible();
-    await expect(page.locator('.filename-invisible-warning')).toHaveCount(0);
-    await expect(page.locator('.invisible-char-desc')).toHaveCount(0);
-    await expect(page.locator('.js-files-invisible-filter')).toHaveCount(0);
-    await expect(page.locator('.admin-report-legend')).toHaveCount(0);
+      // Invisible character is REMOVED — the clean "evil.png" is shown, and the old
+      // red warning / inline description elements no longer exist.
+      await expect(table.getByText(`${marker}-evil.png`, { exact: false })).toBeVisible();
+      await expect(page.locator('.filename-invisible-warning')).toHaveCount(0);
+      await expect(page.locator('.invisible-char-desc')).toHaveCount(0);
+      await expect(page.locator('.js-files-invisible-filter')).toHaveCount(0);
+      await expect(page.locator('.admin-report-legend')).toHaveCount(0);
 
-    // Confusable homoglyph is folded to plain Latin ("paypal.png").
-    await expect(table.getByText(`${marker}-paypal.png`, { exact: false })).toBeVisible();
-    // Exploit markup is stripped while its harmless text content remains.
-    await expect(table.getByText(`${marker}-xnote.png`, { exact: false })).toBeVisible();
-    await expect(table.getByText('<script>')).toHaveCount(0);
+      // Confusable homoglyph is folded to plain Latin ("paypal.png").
+      await expect(table.getByText(`${marker}-paypal.png`, { exact: false })).toBeVisible();
+      // Exploit markup is stripped while its harmless text content remains.
+      await expect(table.getByText(`${marker}-xnote.png`, { exact: false })).toBeVisible();
+      await expect(table.getByText('<script>')).toHaveCount(0);
 
-    // Every file row starts with the same attachment affordances as an opened
-    // card: thumbnail/type tile, preview button and sanitized download link.
-    const encodedRow = table.locator('tr', { hasText: `${marker}-Гp.png` });
-    await expect(encodedRow.locator('.table-page-attachment-thumbnail')).toBeVisible();
-    await expect(encodedRow.locator('.js-table-page-attachment-preview')).toHaveCount(2);
-    const download = encodedRow.locator('.js-table-page-attachment-download');
-    await expect(download).toBeVisible();
-    await expect(download).toHaveAttribute('download', `${marker}-Гp.png`);
-    // Permanent deletion is off by default; no client-only button may expose it.
-    await expect(encodedRow.locator('.js-table-page-attachment-delete')).toHaveCount(0);
-    await encodedRow.locator('.table-page-attachment-preview').click();
-    await expect(page.locator('#viewer-overlay')).not.toHaveClass(/hidden/);
-    await page.locator('#viewer-close').click();
+      // Every file row starts with the same attachment affordances as an opened
+      // card: thumbnail/type tile, preview button and sanitized download link.
+      const encodedRow = table.locator('tr', { hasText: `${marker}-Гp.png` });
+      await expect(encodedRow.locator('.table-page-attachment-thumbnail')).toBeVisible();
+      await expect(encodedRow.locator('.js-table-page-attachment-preview')).toHaveCount(2);
+      const download = encodedRow.locator('.js-table-page-attachment-download');
+      await expect(download).toBeVisible();
+      await expect(download).toHaveAttribute('download', `${marker}-Гp.png`);
+      // Permanent deletion is off by default; no client-only button may expose it.
+      await expect(encodedRow.locator('.js-table-page-attachment-delete')).toHaveCount(0);
+      await encodedRow.locator('.table-page-attachment-preview').click();
+      await expect(page.locator('#viewer-overlay')).not.toHaveClass(/hidden/);
+      await page.locator('#viewer-close').click();
 
-    // NO Search button; the search field + pagination controls ARE present. Every
-    // report renders through the ONE shared table page now
-    // (docs/Features/Page/Table.md), so the controls carry the shared class names and
-    // the per-report ones are gone with the per-report markup.
-    await expect(page.locator('button.js-files-search-button')).toHaveCount(0);
-    await expect(page.locator('input.js-files-search-input')).toHaveCount(0);
-    await expect(page.locator('input.js-table-page-search')).toBeVisible();
-    await expect(page.locator('.table-page-pagination')).toBeVisible();
+      // NO Search button; the search field + pagination controls ARE present. Every
+      // report renders through the ONE shared table page now
+      // (docs/Features/Page/Table.md), so the controls carry the shared class names and
+      // the per-report ones are gone with the per-report markup.
+      await expect(page.locator('button.js-files-search-button')).toHaveCount(0);
+      await expect(page.locator('input.js-files-search-input')).toHaveCount(0);
+      await expect(page.locator('input.js-table-page-search')).toBeVisible();
+      await expect(page.locator('.table-page-pagination')).toBeVisible();
+    } finally {
+      db.cleanup({ boardIds: [board.boardId] });
+    }
   });
 
   test('Version page shows Reactivity mode + configured REACTIVITY_ORDER and DDP_TRANSPORT', async ({ page, adminUser }) => {

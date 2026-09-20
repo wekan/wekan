@@ -8,7 +8,10 @@ The source loader reads application JavaScript from the checkout (`models/`,
 Blaze/Jade templates and styles are served from source. It neither copies the
 application into `.build/bundle` nor uses `.meteor/local/build` or `_build`.
 Installed Meteor packages are linked in memory and local packages are read from
-`packages/`. This is a development runtime, not a production deployment format.
+`packages/`. Meteor package transformations use a persistent Babel cache at
+`.tools/dev-source/<app-port>/package-cache/`, avoiding repeated compilation
+and uncached-compilation stack traces. Application imports remain in memory.
+This is a development runtime, not a production deployment format.
 
 Install this checkout's dependencies and Meteor release using the build menu
 first. The launcher finds the matching installed Meteor toolchain under
@@ -35,6 +38,17 @@ error; the loader does not take over another database.
 The visualizer option reports loaded module sizes at
 `<ROOT_URL>/__source/visualizer`. These are source-module sizes after in-memory
 transformation, rather than sizes from a release bundle.
+
+Both development menus default to `DEBUG=false` to avoid verbose i18next
+initialization output. Set `DEBUG=true` before starting the menu when debugging
+is needed (`DEBUG=true ./build.sh`, or `set DEBUG=true` before `build.bat`).
+The warning and trace-warning menu options still control Node warnings.
+
+An unresolved attachment-path warning means database metadata refers to a file
+the repair step could not locate. Check the affected records and backups before
+removing anything. Browser tests now remove their attachment metadata during
+board teardown, including deliberately missing image fixtures. They must not
+leave false missing-file warnings in the development database.
 
 ## Tests
 
@@ -66,6 +80,16 @@ The loader uses private Meteor linking APIs from the pinned release. A Meteor
 upgrade therefore needs loader and browser verification too. Windows menu
 wiring can be checked on other operating systems, but native Windows runtime
 verification requires Windows.
+
+## Startup diagnostics verification (2026-09-20)
+
+Six focused Node suites pass for CAS URLs, source loading, build-menu options
+and attachment-fixture cleanup. Three affected browser cases pass sequentially
+in each of Chromium, Firefox and WebKit (nine passes). After teardown, the
+development database has no unresolved attachment versions. A live source
+server with deprecation tracing serves ordinary requests without Babel cache
+or `url.parse()` warnings and rejects duplicate CAS tickets with HTTP 400.
+An external CAS identity provider and native Windows execution were not tested.
 
 ## Verification on Linux arm64 (2026-09-20)
 

@@ -2983,7 +2983,7 @@ for _once in 1; do
 		#---------------------------------------------------------------------
 		# Logging of terminal output to console and to .tools/log/wekan-log.log at end of this line: 2>&1 | tee "$(one_log dev-server)"
 		#WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings"
-		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=sockjs DEBUG=true WRITABLE_PATH=.. WITH_API=true ROOT_URL=http://localhost:3000 "${DEV_COMMAND[@]}" --port 3000 2>&1 | tee "$(one_log dev-server)"
+		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=sockjs DEBUG="${DEBUG:-false}" WRITABLE_PATH=.. WITH_API=true ROOT_URL=http://localhost:3000 "${DEV_COMMAND[@]}" --port 3000 2>&1 | tee "$(one_log dev-server)"
 		#---------------------------------------------------------------------
 		break
 		;;
@@ -2995,7 +2995,7 @@ for _once in 1; do
                 #Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
                 #---------------------------------------------------------------------
                 # Logging of terminal output to console and to .tools/log/wekan-log.log at end of this line: 2>&1 | tee "$(one_log dev-server)"
-                DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=sockjs DEBUG=true WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings --max-old-space-size=$_heap_mb" WRITABLE_PATH=.. WITH_API=true ROOT_URL=http://localhost:3000 "${DEV_COMMAND[@]}" --port 3000 2>&1 | tee "$(one_log dev-server)"
+                DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=sockjs DEBUG="${DEBUG:-false}" WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings --max-old-space-size=$_heap_mb" WRITABLE_PATH=.. WITH_API=true ROOT_URL=http://localhost:3000 "${DEV_COMMAND[@]}" --port 3000 2>&1 | tee "$(one_log dev-server)"
                 #---------------------------------------------------------------------
                 break
                 ;;
@@ -3007,7 +3007,7 @@ for _once in 1; do
 		#---------------------------------------------------------------------
 		#Logging of terminal output to console and to .tools/log/wekan-log.log at end of this line: 2>&1 | tee "$(one_log dev-server)"
 		#WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings"
-		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=sockjs DEBUG=true WRITABLE_PATH=.. WITH_API=true ROOT_URL=http://localhost:3000 "${DEV_COMMAND[@]}" --port 3000 --extra-packages bundle-visualizer --production  2>&1 | tee "$(one_log dev-server)"
+		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=sockjs DEBUG="${DEBUG:-false}" WRITABLE_PATH=.. WITH_API=true ROOT_URL=http://localhost:3000 "${DEV_COMMAND[@]}" --port 3000 --extra-packages bundle-visualizer --production  2>&1 | tee "$(one_log dev-server)"
 		#---------------------------------------------------------------------
 		break
 		;;
@@ -3026,7 +3026,7 @@ for _once in 1; do
 		#---------------------------------------------------------------------
 		#Logging of terminal output to console and to .tools/log/wekan-log.log at end of this line: 2>&1 | tee "$(one_log dev-server)"
 		#WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings"
-		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=sockjs DEBUG=true WRITABLE_PATH=.. WITH_API=true ROOT_URL=http://$IPADDRESS:3000 "${DEV_COMMAND[@]}" --port 3000 2>&1 | tee "$(one_log dev-server)"
+		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=sockjs DEBUG="${DEBUG:-false}" WRITABLE_PATH=.. WITH_API=true ROOT_URL=http://$IPADDRESS:3000 "${DEV_COMMAND[@]}" --port 3000 2>&1 | tee "$(one_log dev-server)"
 		#---------------------------------------------------------------------
 		break
 		;;
@@ -3045,7 +3045,7 @@ for _once in 1; do
                 #---------------------------------------------------------------------
                 #Logging of terminal output to console and to .tools/log/wekan-log.log at end of this line: 2>&1 | tee "$(one_log dev-server)"
                 #WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings"
-                DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=sockjs DEBUG=true WEKAN_SOURCE_MONGO_PORT=27019 WEKAN_SOURCE_MONGO_DATABASE=wekan MONGO_URL=mongodb://127.0.0.1:27019/wekan WRITABLE_PATH=.. WITH_API=true ROOT_URL=http://$IPADDRESS:3000 "${DEV_COMMAND[@]}" --port 3000 2>&1 | tee "$(one_log dev-server)"
+                DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=sockjs DEBUG="${DEBUG:-false}" WEKAN_SOURCE_MONGO_PORT=27019 WEKAN_SOURCE_MONGO_DATABASE=wekan MONGO_URL=mongodb://127.0.0.1:27019/wekan WRITABLE_PATH=.. WITH_API=true ROOT_URL=http://$IPADDRESS:3000 "${DEV_COMMAND[@]}" --port 3000 2>&1 | tee "$(one_log dev-server)"
                 #---------------------------------------------------------------------
                 break
                 ;;
@@ -3059,7 +3059,7 @@ for _once in 1; do
 		# ROOT_URL differ. Logging of terminal output to console and to
 		# .tools/log/wekan-log.log at the end of the line: 2>&1 | tee "$(one_log dev-server)"
 		#---------------------------------------------------------------------
-		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=sockjs DEBUG=true WRITABLE_PATH=.. WITH_API=true ROOT_URL="$DEV_ROOT_URL" "${DEV_COMMAND[@]}" --port "$DEV_PORT" 2>&1 | tee "$(one_log dev-server)"
+		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=sockjs DEBUG="${DEBUG:-false}" WRITABLE_PATH=.. WITH_API=true ROOT_URL="$DEV_ROOT_URL" "${DEV_COMMAND[@]}" --port "$DEV_PORT" 2>&1 | tee "$(one_log dev-server)"
 		#---------------------------------------------------------------------
 		break
 		;;
@@ -3078,7 +3078,7 @@ for _once in 1; do
 		#---------------------------------------------------------------------
 		#Logging of terminal output to console and to .tools/log/wekan-log.log at end of this line: 2>&1 | tee "$(one_log dev-server)"
 		#WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings"
-		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=sockjs DEBUG=true WRITABLE_PATH=.. WITH_API=true ROOT_URL=http://$IPADDRESS:$PORT "${DEV_COMMAND[@]}" --port $PORT 2>&1 | tee "$(one_log dev-server)"
+		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=sockjs DEBUG="${DEBUG:-false}" WRITABLE_PATH=.. WITH_API=true ROOT_URL=http://$IPADDRESS:$PORT "${DEV_COMMAND[@]}" --port $PORT 2>&1 | tee "$(one_log dev-server)"
 		#---------------------------------------------------------------------
 		break
 		;;

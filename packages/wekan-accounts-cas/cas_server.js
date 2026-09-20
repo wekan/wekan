@@ -1,7 +1,8 @@
 "use strict";
 
 import https from 'https';
-import url from 'url';
+import { URL } from 'url';
+import { validationUrl, callbackUrl } from './cas_url';
 import xml2js from 'xml2js';
 
 // Library
@@ -17,31 +18,16 @@ class CAS {
       throw new Error('Required CAS option `service` missing.');
     }
 
-    const cas_url = url.parse(options.validate_url);
-    if (cas_url.protocol != 'https:' ) {
-      throw new Error('Only https CAS servers are supported.');
-    } else if (!cas_url.hostname) {
-      throw new Error('Option `validateUrl` must be a valid url like: https://example.com/cas/serviceValidate');
-    } else {
-      this.hostname = cas_url.host;
-      this.port = 443;// Should be 443 for https
-      this.validate_path = cas_url.pathname;
-    }
+    this.validateUrl = validationUrl(options.validate_url);
 
     this.service = options.service;
   }
 
   validate(ticket, callback) {
-    const httparams = {
-      host: this.hostname,
-      port: this.port,
-      path: url.format({
-        pathname: this.validate_path,
-        query: {ticket: ticket, service: this.service},
-      }),
-    };
-
-    https.get(httparams, (res) => {
+    const requestUrl = new URL(this.validateUrl);
+    requestUrl.searchParams.set('ticket', ticket);
+    requestUrl.searchParams.set('service', this.service);
+    https.get(requestUrl, (res) => {
       res.on('error', (e) => {
         console.log('error' + e);
         callback(e);
@@ -127,27 +113,14 @@ const middleware = (req, res, next) => {
   // the runner
   let redirectUrl;
   try {
-    const urlParsed = url.parse(req.url, true);
-
-    // Getting the ticket (if it's defined in GET-params)
-    // If no ticket, then request will continue down the default
-    // middlewares.
-    const query = urlParsed.query;
-    if (query == null) {
+    const callback = callbackUrl(req.url, Meteor.absoluteUrl());
+    if (!callback) {
       next();
       return;
     }
-    const ticket = query.ticket;
-    if (ticket == null) {
-      next();
-      return;
-    }
+    const { ticket, credentialToken, serviceUrl } = callback;
+    redirectUrl = serviceUrl;
 
-    const serviceUrl = Meteor.absoluteUrl(urlParsed.href.replace(/^\//g, '')).replace(/([&?])ticket=[^&]+[&]?/g, '$1').replace(/[?&]+$/g, '');
-    redirectUrl = serviceUrl;//.replace(/([&?])casToken=[^&]+[&]?/g, '$1').replace(/[?&]+$/g, '');
-
-    // get auth token
-    const credentialToken = query.casToken;
     if (!credentialToken) {
       end(res, redirectUrl);
       return;
@@ -160,7 +133,12 @@ const middleware = (req, res, next) => {
 
   } catch (err) {
     console.log("account-cas: unexpected error : " + err.message);
-    end(res, redirectUrl);
+    if (!redirectUrl) {
+      res.writeHead(400, { 'Content-Type': 'text/plain' });
+      res.end('Invalid CAS callback');
+    } else {
+      end(res, redirectUrl);
+    }
   }
 };
 

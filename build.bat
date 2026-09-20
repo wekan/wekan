@@ -1503,7 +1503,7 @@ exit /b 0
 REM Common dev-server environment (caller sets ROOT_URL afterwards).
 set "DEFAULT_METEOR_REACTIVITY_ORDER=changeStreams,oplog,polling"
 set "DDP_TRANSPORT=sockjs"
-set "DEBUG=true"
+if not defined DEBUG set "DEBUG=false"
 set "WRITABLE_PATH=.."
 set "WITH_API=true"
 exit /b 0

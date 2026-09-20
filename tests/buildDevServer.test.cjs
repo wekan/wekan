@@ -18,6 +18,24 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 
 console.log('buildDevServer:');
 
+test('development logging defaults to quiet and preserves an explicit DEBUG setting', () => {
+  const { execFileSync } = require('child_process');
+  const assignments = sh.match(/DDP_TRANSPORT=sockjs (DEBUG="[^"]+")/g);
+  assert.strictEqual(assignments.length, 7);
+  for (const assignment of assignments) {
+    for (const value of [undefined, 'true', 'false']) {
+      const env = { ...process.env };
+      delete env.DEBUG;
+      if (value !== undefined) env.DEBUG = value;
+      const actual = execFileSync('sh', ['-c', `${assignment} sh -c 'printf %s "$DEBUG"'`], { env, encoding: 'utf8' });
+      assert.strictEqual(actual, value || 'false');
+    }
+  }
+  const bat = fs.readFileSync(path.join(__dirname, '..', 'build.bat'), 'utf8');
+  assert.ok(bat.includes('if not defined DEBUG set "DEBUG=false"'));
+  assert.ok(!bat.includes('set "DEBUG=true"'));
+});
+
 test('the Dev server menu offers a custom port + ROOT_URL host', () => {
   assert.ok(sh.includes('CUSTOM PORT + SUBDOMAIN|Run Meteor for dev on a custom port and ROOT_URL host (asks)'),
     'menu entry is missing');
