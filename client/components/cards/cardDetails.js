@@ -2976,23 +2976,22 @@ EscapeActions.register(
   async () => {
     // if card description diverges from database due to editing
     // ask user whether changes should be applied
-    if (ReactiveCache.getCurrentUser()) {
-      if (ReactiveCache.getCurrentUser().profile.rescueCardDescription == true) {
-        const currentCard = getCurrentCardFromContext();
-        const cardDetailsElement = getCardDetailsElement(currentCard?._id);
-        const currentDescription = cardDetailsElement?.querySelector(
-          '.editor.js-new-description-input',
-        );
-        if (currentDescription?.value && currentCard && !(currentDescription.value === currentCard.getDescription())) {
-          if (confirm(TAPi18n.__('rescue-card-description-dialogue'))) {
-            await currentCard.setDescription(currentDescription.value);
-            // Save it!
-            console.log(currentDescription.value);
-            console.log("current description", currentCard.getDescription());
-          } else {
-            // Do nothing!
-            console.log('Description changes were not saved to the database.');
-          }
+    const currentUser = ReactiveCache.getCurrentUser();
+    if (currentUser?.profile?.rescueCardDescription === true) {
+      const currentCard = getCurrentCardFromContext();
+      const cardDetailsElement = getCardDetailsElement(currentCard?._id);
+      const currentDescription = cardDetailsElement?.querySelector(
+        '.editor.js-new-description-input',
+      );
+      if (currentDescription?.value && currentCard && !(currentDescription.value === currentCard.getDescription())) {
+        if (confirm(TAPi18n.__('rescue-card-description-dialogue'))) {
+          await currentCard.setDescription(currentDescription.value);
+          // Save it!
+          console.log(currentDescription.value);
+          console.log("current description", currentCard.getDescription());
+        } else {
+          // Do nothing!
+          console.log('Description changes were not saved to the database.');
         }
       }
     }
