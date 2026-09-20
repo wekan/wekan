@@ -655,19 +655,19 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**In short:** The changelog now has a fresh **Upcoming** section again after the
-latest release, so new work is recorded in the right place instead of being added
-into already published notes. This keeps release preparation aligned with
-`AGENTS.md` and the documented `CHANGELOG.md` structure.
+**In short:** `CHANGELOG.md` now follows the AGENTS/CLAUDE changelog workflow for
+the next cycle by carrying a real Upcoming release note entry instead of leaving
+future edits to land in a published release section. The update records this
+documentation/process change in the same structure required for upcoming notes.
 
-This release preparation updates the following documentation:
+This release updates the following documentation:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/db2c782aec2e">Re-open the Upcoming changelog section for the next release cycle</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/db2c782aec2e">Align Upcoming changelog notes with AGENTS.md workflow rules</a>. Thanks to xet7.</summary>
 
-Added `# Upcoming WeKan ® release` above the newest version section and provided a
-compact `**In short:**` summary plus one linked entry, matching the documented
-CHANGELOG structure and release-note preparation flow.
+Documented the next release cycle directly in the Upcoming section with a compact
+summary and one linked entry, matching the required changelog structure and
+avoiding an empty placeholder section.
 
 </details>
 
