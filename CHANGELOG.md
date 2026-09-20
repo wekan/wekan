@@ -660,7 +660,8 @@ MongoDB. Fix mobile navigation, card destinations, login redirects, notification
 alerts and card closing. Expand serial browser coverage and stop test runs at
 the first failure when requested. Reject recurring wrong-language translations
 while preserving valid human updates. Reduce development startup warnings and
-clean up attachment test fixtures.
+clean up attachment test fixtures. Fix production document indexing and image
+dependency lookup, and include Docker MIME detection.
 
 This release adds the following features:
 
@@ -786,6 +787,33 @@ throws while closing a card. Unit coverage exercises missing users/profiles,
 opt-in, unchanged drafts, saving and discarding. A browser regression removes
 the published profile and closes the card without errors in Chromium, Firefox
 and WebKit.
+
+</details>
+
+**Attachment processing** - find runtime dependencies in release bundles.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9e1cf4c35">Fix document indexing and image dependency lookup in production</a>. Thanks to xet7.</summary>
+
+Office uploads could succeed while search indexing failed with missing
+`fflate`. The package was present in `programs/server/npm/node_modules`, but
+the runtime lookup started above that directory. Document and image processing
+now search the release npm tree first, with parent lookup retaining source
+checkout support. This also fixes the lookup of PDF workers, PDF assets and
+the native image converter. Docker keeps the `file` utility installed for full
+MIME detection after build dependencies are removed.
+
+Six focused suites pass, covering actual XLSX/DOCX/PPTX text extraction,
+rejected archives, missing dependencies, PDF assets, image dependency lookup,
+Docker package retention and existing migration behavior. An isolated release
+container reproduces the old failure and passes corrected XLSX extraction and
+PDF asset resolution without checkout dependencies. These are server runtime
+changes; browser behavior is unchanged. A complete Docker image rebuild and
+production deployment were not performed.
+
+Unresolved production file versions and checklist rows whose cards no longer
+exist remain preserved. Their recovery needs the deployment's actual database,
+files and backups; this dependency fix does not claim to recover missing data.
 
 </details>
 
