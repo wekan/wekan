@@ -658,7 +658,8 @@ the Markdown commit as the template.
 **In short:** Add a source-based development server using Meteor's bundled
 MongoDB. Fix mobile navigation, card destinations, login redirects, notification
 alerts and card closing. Expand serial browser coverage and stop test runs at
-the first failure when requested.
+the first failure when requested. Reject recurring wrong-language translations
+while preserving valid human updates.
 
 This release adds the following features:
 
@@ -875,6 +876,38 @@ and [intentional failure fixture](https://github.com/wekan/FerretDB/commit/ef094
 are fixed in its companion repository. Its unit, vet and sequential SQLite
 integration stages pass. Positive and negative runner, browser-selection,
 session-token and database-conformance wiring checks pass too.
+
+</details>
+
+and improves the translation workflow:
+
+**Translations** - preserve reviewed wording when pulling updates.
+
+**Languages updated:** Aymara, Dzongkha, Ewe, Inuktitut, Nahuatl, Persian,
+Portuguese, Quechua, Serbian, Tsonga, Veps, Standard Moroccan Tamazight.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3e38abc0d">Reject recurring foreign-language and audited bad values from Transifex</a>. Thanks to xet7.</summary>
+
+Repair 841 pulled values while retaining 77 valid Persian and Portuguese
+updates.
+Exact locale/key/value checks reject the reviewed foreign text and previously
+corrected wording errors without preventing newer human translations. The pull
+also reapplies the existing audit's exact-value corrections. Invalid or missing
+fallbacks become English placeholders instead of keeping known bad text.
+
+Preserve separate adjacent placeholders such as `__start__-__end__`. Clarify
+that the English-regression report precedes the automatic per-key merge.
+A dry-run test now discovers the locale count instead of hard-coding it.
+
+Eleven focused Node suites pass, including all 22,302 audit records and replay
+of every rejected pulled value. The human-preference verifier passes 21 checks
+and exercises the actual merge. Visible Veps and Tamazight controls pass in
+Chromium, Firefox and WebKit. The Quechua width label uses an attested term;
+complete grammar remains low confidence pending native review.
+
+See [translation audit evidence](docs/Features/Translations/Audit-Evidence.md)
+for retained updates, rejected text, references and validation limits.
 
 </details>
 
