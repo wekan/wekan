@@ -25,12 +25,16 @@ test('the Dev server menu offers a custom port + ROOT_URL host', () => {
     'no case handler matches the menu entry');
 });
 
-test('the handler runs Meteor with the answers, not with hard-coded 3000', () => {
+test('both dev handlers use the selected command and the answered port', () => {
   const start = sh.indexOf('"Run Meteor for dev on a custom port and ROOT_URL host (asks)")');
   const body = sh.slice(start, sh.indexOf('\n\t\t;;', start));
+  // The shared menu now selects Meteor or the source loader before dispatch;
+  // both must still receive the same URL and port answers.
+  assert.ok(sh.includes('DEV_COMMAND=(meteor run)'));
+  assert.ok(sh.includes('DEV_COMMAND=(node "$WEKAN_DIR/scripts/dev-source/start.cjs")'));
   assert.ok(/ask_dev_url/.test(body), 'the handler asks for the port/host');
   assert.ok(/ROOT_URL="\$DEV_ROOT_URL"/.test(body), 'ROOT_URL comes from the answer');
-  assert.ok(/meteor run --port "\$DEV_PORT"/.test(body), 'the port comes from the answer');
+  assert.ok(body.includes('"${DEV_COMMAND[@]}" --port "$DEV_PORT"'), 'the port comes from the answer');
   assert.ok(/kill_meteor_on_port "\$DEV_PORT"/.test(body),
     'the chosen port is freed first, like the other dev options');
   // Comments may mention it; no COMMAND in the handler may pin it.

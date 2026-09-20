@@ -15,19 +15,28 @@ function findChromiumPath() {
 
   const home = os.homedir();
   const userCandidates = [];
+  // Use the executable selected by the installed Playwright version first.
+  // New ARM64 downloads use chrome-linux-arm64, not the old chrome-linux.
+  try {
+    userCandidates.push(require('../playwright/node_modules/playwright-core').chromium.executablePath());
+  } catch { /* Standalone installations can still use the caches below. */ }
 
   // Playwright revisions change regularly. Discover them instead of pinning a
   // cache revision that may be gone, and prefer the newest one. VS Code's
   // Flatpak cache is included because that is where its ARM64 Playwright
   // extension installs Chromium.
   for (const cache of [
+    process.env.PLAYWRIGHT_BROWSERS_PATH,
+    path.resolve(__dirname, '../../.tools/ms-playwright'),
     path.join(home, '.cache/ms-playwright'),
     path.join(home, '.var/app/com.visualstudio.code/cache/ms-playwright'),
-  ]) {
+  ].filter(Boolean)) {
     try {
       for (const revision of fs.readdirSync(cache).sort().reverse()) {
         if (!revision.startsWith('chromium-')) continue;
-        userCandidates.push(path.join(cache, revision, 'chrome-linux', 'chrome'));
+        for (const layout of ['chrome-linux', 'chrome-linux64', 'chrome-linux-arm64']) {
+          userCandidates.push(path.join(cache, revision, layout, 'chrome'));
+        }
       }
     } catch {}
   }

@@ -66,7 +66,7 @@ function discoverSuites() {
 }
 
 function main(argv) {
-  const bail = argv.includes('--bail');
+  const bail = argv.includes('--bail') || process.env.WEKAN_TEST_BAIL === '1';
   const list = argv.includes('--list');
   const filters = argv.filter(a => !a.startsWith('--'));
 

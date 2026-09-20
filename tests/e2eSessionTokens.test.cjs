@@ -20,6 +20,7 @@
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
+const { parseSync } = require('@swc/core');
 
 const repoRoot = path.resolve(__dirname, '..');
 const pw = f => fs.readFileSync(path.join(repoRoot, 'tests/playwright', f), 'utf8');
@@ -70,26 +71,61 @@ test('a second page gets a token of its own', () => {
   assert.ok(/\n  addResumeToken,/.test(db), 'and it is exported');
 });
 
+function walk(node, visit) {
+  if (!node || typeof node !== 'object') return;
+  visit(node);
+  for (const value of Object.values(node)) {
+    if (Array.isArray(value)) value.forEach(child => walk(child, visit));
+    else if (value && typeof value === 'object') walk(value, visit);
+  }
+}
+
+function tokenName(node) {
+  if (node?.type === 'Identifier') return node.value;
+  if (node?.type === 'MemberExpression' && node.property.type === 'Identifier') {
+    const parent = tokenName(node.object);
+    return parent && `${parent}.${node.property.value}`;
+  }
+  return null;
+}
+
+function duplicateTokens(source) {
+  const duplicates = [];
+  walk(parseSync(source, { syntax: 'ecmascript' }), node => {
+    if (node.type !== 'CallExpression' || !/^test(?:\.(?:only|skip))?$/.test(tokenName(node.callee) || '')) return;
+    const callback = node.arguments.at(-1)?.expression;
+    if (!['ArrowFunctionExpression', 'FunctionExpression'].includes(callback?.type)) return;
+    const counts = new Map();
+    walk(callback.body, call => {
+      if (call.type !== 'CallExpression' || !/^login\w*$/.test(tokenName(call.callee) || '')) return;
+      const token = tokenName(call.arguments[2]?.expression);
+      if (token?.endsWith('.token')) counts.set(token, (counts.get(token) || 0) + 1);
+    });
+    for (const [token, count] of counts) if (count > 1) duplicates.push(`${token} used for ${count} logins in one test`);
+  });
+  return duplicates;
+}
+
+test('parameterized tests have separate token scopes regardless of line layout', () => {
+  // The old line-splitting regex merged both SMTP test loops into one test.
+  assert.deepStrictEqual(duplicateTokens(`
+    for (const scope of ['board', 'card']) test(scope, async () => { await loginWithToken(page, user.id, user.token); });
+    for (const reason of ['muted']) test(reason, async () => { await loginWithToken(page, user.id, user.token); });
+  `), []);
+  assert.deepStrictEqual(duplicateTokens(`test('two pages', async () => {
+    await loginWithToken(page, user.id, user.token);
+    await loginWithToken(otherPage, user.id, user.token);
+  });`), ['user.token used for 2 logins in one test']);
+});
+
 test('no spec logs two pages in with the SAME token', () => {
-  // Two real browsers have two tokens. Sharing one means anything that ends
-  // one session ends the other, which is the failure above.
   const specsDir = path.join(repoRoot, 'tests/playwright/specs');
   const offenders = [];
   for (const file of fs.readdirSync(specsDir).filter(f => f.endsWith('.js'))) {
-    const src = fs.readFileSync(path.join(specsDir, file), 'utf8');
-    // Per test body: how many logins name the same `<something>.token`.
-    for (const body of src.split(/\n\s*test\(/)) {   // any indent: tests nest in describes
-      const tokens = (body.match(/login\w*\([^,]+,\s*[^,]+,\s*([\w.]+\.token)\b/g) || [])
-        .map(m => m.slice(m.lastIndexOf(' ') + 1));
-      const counts = {};
-      tokens.forEach(t => { counts[t] = (counts[t] || 0) + 1; });
-      Object.entries(counts).forEach(([t, n]) => {
-        if (n > 1) offenders.push(`${file}: ${t} used for ${n} logins in one test`);
-      });
-    }
+    const source = fs.readFileSync(path.join(specsDir, file), 'utf8');
+    offenders.push(...duplicateTokens(source).map(message => `${file}: ${message}`));
   }
-  assert.deepStrictEqual(offenders, [],
-    'use db.addResumeToken(userId) for the second page');
+  assert.deepStrictEqual(offenders, [], 'use db.addResumeToken(userId) for the second page');
 });
 
 test('the copy-link test opens its second tab the way a client renders', () => {

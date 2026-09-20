@@ -51,13 +51,30 @@ test("the runner installs local browsers and falls back per browser", () => {
 });
 
 
-test('local WebKit gets one fresh-worker retry for renderer internal errors', () => {
-  const config = fs.readFileSync(path.join(__dirname, 'playwright', 'playwright.config.js'), 'utf8');
-  assert.match(config, /!process\.env\.CI/);
-  assert.match(config, /candidates\.find\(project => project\.name === 'webkit'\)/);
-  assert.match(config, /webkitProject\.retries = 1/);
-  assert.match(config, /retries: process\.env\.CI \? 2 : 0/,
-    'CI must retain its existing two-retry policy');
+test('browser retry policy preserves normal runs and stops immediately in bail mode', () => {
+  const source = fs.readFileSync(path.join(__dirname, 'playwright', 'playwright.config.js'), 'utf8');
+  const vm = require('node:vm');
+  function config(env) {
+    const sandbox = {
+      module: { exports: {} }, __dirname: path.join(__dirname, 'playwright'),
+      process: { env: { WEKAN_PLAYWRIGHT_PROBE: '0', WEKAN_PLAYWRIGHT_ALL: '1', ...env } },
+      require: name => name === '@playwright/test'
+        ? { defineConfig: value => value, devices: {} } : require(name),
+    };
+    vm.runInNewContext(source, sandbox);
+    return sandbox.module.exports;
+  }
+  assert.strictEqual(config({}).projects.find(project => project.name === 'webkit').retries, 1);
+  assert.strictEqual(config({ CI: '1' }).retries, 2, 'normal CI retains its retries');
+  assert.strictEqual(config({}).use.trace, 'on-first-retry');
+  for (const CI of ['', '1']) {
+    const value = config({ CI, WEKAN_TEST_BAIL: '1' });
+    assert.strictEqual(value.retries, 0, 'bail stops at the first failure');
+    assert.strictEqual(value.maxFailures, 1);
+    assert.strictEqual(value.use.trace, 'retain-on-failure', 'first failure retains evidence without retrying');
+    assert.ok(value.projects.every(project => !project.retries), 'no project can override bail with a retry');
+    assert.deepStrictEqual(Array.from(value.projects, project => project.name), ['chromium', 'firefox', 'webkit']);
+  }
 });
 
 console.log(`\n${passed} tests passed`);

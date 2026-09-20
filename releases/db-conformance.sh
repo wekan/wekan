@@ -273,6 +273,14 @@ on_interrupt() {
 trap cleanup EXIT
 trap on_interrupt INT TERM
 
+# Leave cleanup to the EXIT trap, including a database that failed to start.
+stop_on_failure() {
+  if [ "${WEKAN_TEST_BAIL:-0}" = 1 ]; then
+    echo "Stopping after the first failed backend check; see $SUMMARY." >&2
+    exit 1
+  fi
+}
+
 for entry in "${BACKENDS[@]}"; do
   IFS='|' read -r name file service port handler <<< "$entry"
   log="$LOGDIR/db-conformance-$name.log"
@@ -291,6 +299,7 @@ for entry in "${BACKENDS[@]}"; do
     if [ -z "$image" ]; then
       echo "ERROR $name  no image found for service '$service' in $file"
       echo "ERROR $name  no image in $file" >> "$SUMMARY"
+      stop_on_failure
       continue
     fi
     printf 'Checking %-12s %-45s ' "$name" "$image"
@@ -302,6 +311,7 @@ for entry in "${BACKENDS[@]}"; do
          skipped=$((skipped + 1)); continue ;;
       *) echo "could not ask the registry - failing this backend"
          echo "ERROR $name  could not inspect $image (network? docker login?)" >> "$SUMMARY"
+         stop_on_failure
          continue ;;
     esac
   else
@@ -350,14 +360,14 @@ for entry in "${BACKENDS[@]}"; do
       start_db_container \
         -e POSTGRES_USER=ferretdb -e POSTGRES_PASSWORD=ferretdb_secret \
         -e POSTGRES_DB=ferretdb "$image" \
-        || { echo "ERROR $name  container did not start" >> "$SUMMARY"; continue; }
+        || { echo "ERROR $name  container did not start" >> "$SUMMARY"; stop_on_failure; continue; }
       url="postgres://ferretdb:ferretdb_secret@127.0.0.1:$hostport/ferretdb"
       ;;
     mysql)
       start_db_container \
         -e MYSQL_DATABASE=ferretdb -e MYSQL_USER=ferretdb -e MYSQL_PASSWORD=ferretdb_secret \
         -e MYSQL_ROOT_PASSWORD=ferretdb_root_secret "$image" \
-        || { echo "ERROR $name  container did not start" >> "$SUMMARY"; continue; }
+        || { echo "ERROR $name  container did not start" >> "$SUMMARY"; stop_on_failure; continue; }
       # root, for the same reason as the compose file: FerretDB CREATES a SQL
       # database per MongoDB database, which a per-database grant cannot allow.
       url="mysql://root:ferretdb_root_secret@127.0.0.1:$hostport/ferretdb"
@@ -366,7 +376,7 @@ for entry in "${BACKENDS[@]}"; do
       start_db_container \
         -e MARIADB_DATABASE=ferretdb -e MARIADB_USER=ferretdb -e MARIADB_PASSWORD=ferretdb_secret \
         -e MARIADB_ROOT_PASSWORD=ferretdb_root_secret "$image" \
-        || { echo "ERROR $name  container did not start" >> "$SUMMARY"; continue; }
+        || { echo "ERROR $name  container did not start" >> "$SUMMARY"; stop_on_failure; continue; }
       # root, for the same reason as the compose file: FerretDB CREATES a SQL
       # database per MongoDB database, which a per-database grant cannot allow.
       url="mysql://root:ferretdb_root_secret@127.0.0.1:$hostport/ferretdb"
@@ -380,7 +390,7 @@ for entry in "${BACKENDS[@]}"; do
         --ulimit nofile=1048576:1048576 \
         -v "$WEKAN_DIR/hana-config:/hana/password:ro" "$image" \
         --passwords-url file:///hana/password/password.json --agree-to-sap-license \
-        || { echo "ERROR $name  container did not start" >> "$SUMMARY"; continue; }
+        || { echo "ERROR $name  container did not start" >> "$SUMMARY"; stop_on_failure; continue; }
       url="hdb://SYSTEM:HXEHana1@127.0.0.1:$hostport?databaseName=HXE"
       ;;
   esac
@@ -407,6 +417,7 @@ for entry in "${BACKENDS[@]}"; do
       echo "ERROR $name: the database never became ready (see $log)"
       docker_exec logs "$CONTAINER" >>"$log" 2>&1
       echo "ERROR $name  database never ready" >> "$SUMMARY"
+      stop_on_failure
       docker_exec rm -f "$CONTAINER" >/dev/null 2>&1
       continue
     fi
@@ -451,6 +462,7 @@ for entry in "${BACKENDS[@]}"; do
     tail -n 15 "$log" 2>/dev/null | sed 's/^/  /'
     echo "---------------------------------"
     echo "ERROR $name  FerretDB did not start on this backend" >> "$SUMMARY"
+    stop_on_failure
     kill "$FERRET_PID" 2>/dev/null; FERRET_PID=""
     docker_exec rm -f "$CONTAINER" >/dev/null 2>&1
     continue
@@ -464,6 +476,7 @@ for entry in "${BACKENDS[@]}"; do
     ran=$((ran + 1)); echo "RAN   $name" >> "$SUMMARY"
   else
     echo "ERROR $name  the catalogue could not be run" >> "$SUMMARY"
+    stop_on_failure
   fi
 
   echo "---- $name: stopping ----"
@@ -473,6 +486,12 @@ for entry in "${BACKENDS[@]}"; do
     docker_exec rm -f "$CONTAINER" >/dev/null 2>&1
   fi
   echo
+  # Compare each completed backend before starting the next one in bail mode.
+  # Query errors are recorded results and may be a shared backend limitation.
+  if [ "${WEKAN_TEST_BAIL:-0}" = 1 ]; then
+    node tests/dbConformance/compare.cjs --dir "$LOGDIR" --reference sqlite 2>&1 | tee -a "$SUMMARY"
+    [ "${PIPESTATUS[0]}" -eq 0 ] || stop_on_failure
+  fi
 done
 
 echo "=========================================================================="

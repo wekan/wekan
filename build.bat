@@ -89,22 +89,24 @@ echo.
 echo ==================== WeKan ( Windows ) ====================
 echo   1^) Setup            ^(install dependencies, build^)
 echo   2^) Dev server       ^(meteor run variants^)
-echo   3^) Tests            ^(mocha, playwright, e2e, ...^)
-echo   4^) Docker           ^(start / follow logs / stop^)
-echo   5^) Releases         ^(release, snap, bundles, translations, ...^)
-echo   6^) CLI commands     ^(run any of them without the menu^)
-echo   7^) Tools            ^(save deps, forge tools, mirror^)
+echo   3^) Dev server nobuild ^(source loader + bundled MongoDB^)
+echo   4^) Tests            ^(mocha, playwright, e2e, ...^)
+echo   5^) Docker           ^(start / follow logs / stop^)
+echo   6^) Releases         ^(release, snap, bundles, translations, ...^)
+echo   7^) CLI commands     ^(run any of them without the menu^)
+echo   8^) Tools            ^(save deps, forge tools, mirror^)
 echo   0^) Quit
 echo ==========================================================
 set "choice="
 set /p "choice=Choose a category: "
 if "%choice%"=="1" goto menu_setup
 if "%choice%"=="2" goto menu_dev
-if "%choice%"=="3" goto menu_tests
-if "%choice%"=="4" goto menu_docker
-if "%choice%"=="5" goto menu_releases
-if "%choice%"=="6" goto menu_cli
-if "%choice%"=="7" goto menu_tools
+if "%choice%"=="3" goto menu_dev_nobuild
+if "%choice%"=="4" goto menu_tests
+if "%choice%"=="5" goto menu_docker
+if "%choice%"=="6" goto menu_releases
+if "%choice%"=="7" goto menu_cli
+if "%choice%"=="8" goto menu_tools
 if "%choice%"=="0" goto end
 echo invalid option
 goto menu
@@ -130,8 +132,17 @@ goto menu_setup
 
 REM ===========================================================================
 :menu_dev
+set "DEV_NOBUILD="
+set "DEV_MENU_TITLE=Dev server"
+goto menu_dev_options
+
+:menu_dev_nobuild
+set "DEV_NOBUILD=1"
+set "DEV_MENU_TITLE=Dev server nobuild"
+
+:menu_dev_options
 echo.
-echo -- Dev server --   ^(0 = Back^)
+echo == %DEV_MENU_TITLE% ==
 echo   1^) localhost:3000
 echo   2^) localhost:3000 + trace warnings
 echo   3^) localhost:3000 + bundle visualizer
@@ -151,7 +162,7 @@ if "%choice%"=="6" goto dev_customip
 if "%choice%"=="7" goto dev_customurl
 if "%choice%"=="8" goto dev_killall
 if "%choice%"=="0" goto menu
-goto menu_dev
+goto menu_dev_options
 
 REM ===========================================================================
 :menu_tests
@@ -177,6 +188,7 @@ echo  13^) Count tests by category
 echo  14^) All databases ^(sequential^): build newest FerretDB v1, run every query type
 echo       against every database with an image for this CPU, compare the answers
 echo  15^) Run all FerretDB tests - SEQUENTIAL ^(unit, vet, integration^)
+echo  16^) EVERYTHING source one by one ^(Dev server nobuild, all browsers^)
 set "choice="
 set /p "choice=Choose: "
 if "%choice%"=="1"  goto test_everything_two
@@ -194,6 +206,7 @@ if "%choice%"=="12" goto check_floating
 if "%choice%"=="13" goto count_tests
 if "%choice%"=="14" goto test_all_databases
 if "%choice%"=="15" goto test_ferretdb
+if "%choice%"=="16" goto test_everything_source
 if "%choice%"=="0"  goto menu
 goto menu_tests
 
@@ -980,6 +993,8 @@ call :detect_ip
 echo Your IP address is !IPADDRESS!
 call :set_dev_env
 set "MONGO_URL=mongodb://127.0.0.1:27019/wekan"
+set "WEKAN_SOURCE_MONGO_PORT=27019"
+set "WEKAN_SOURCE_MONGO_DATABASE=wekan"
 set "ROOT_URL=http://!IPADDRESS!:3000"
 call :runlog --port 3000
 goto end
@@ -1543,7 +1558,12 @@ call :logdir dev-server
 if errorlevel 1 exit /b 1
 set "WEKAN_SERVER_LOG=%LOG_DIRECTORY%\dev.txt"
 echo Log: %WEKAN_SERVER_LOG%
+if "%DEV_NOBUILD%"=="1" goto runlog_nobuild
 call meteor run %* 2>&1 | powershell -NoProfile -Command "$input | Tee-Object -FilePath $env:WEKAN_SERVER_LOG"
+exit /b 0
+
+:runlog_nobuild
+node "%REPO%\scripts\dev-source\start.cjs" %* 2>&1 | powershell -NoProfile -Command "$input | Tee-Object -FilePath $env:WEKAN_SERVER_LOG"
 exit /b 0
 
 :kill_meteor_on_port
@@ -1950,6 +1970,13 @@ bash -c "cd .tools/FerretDB && ./build.sh test-all"
 goto end
 
 REM ===========================================================================
+:test_everything_source
+set "WEKAN_TEST_SERVER_MODE=source"
+set "WEKAN_TEST_BAIL=1"
+set "WEKAN_PLAYWRIGHT_PROBE=0"
+set "WEKAN_EVERYTHING_MODE=sequential"
+goto test_everything
+
 :test_everything_two
 set "WEKAN_EVERYTHING_MODE=two-worker"
 goto test_everything

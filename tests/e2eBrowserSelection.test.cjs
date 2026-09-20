@@ -25,6 +25,32 @@ test('Playwright browser revisions are discovered instead of pinned', () => {
     'a cache revision disappears whenever Playwright updates');
 });
 
+test('the repository and explicit Playwright caches support current ARM64 layouts', () => {
+  const vm = require('node:vm');
+  const functionSource = source.slice(source.indexOf('function findChromiumPath()'), source.indexOf('\nconst CHROMIUM_PATH'));
+  const cache = path.join(path.sep, 'browser-cache');
+  const executable = path.join(cache, 'chromium-999', 'chrome-linux-arm64', 'chrome');
+  const elf = Buffer.alloc(20);
+  elf.write('\x7fELF', 0, 'ascii');
+  elf.writeUInt16LE(183, 18);
+  const fakeFs = {
+    constants: fs.constants,
+    readdirSync: directory => directory === cache ? ['chromium-999'] : [],
+    accessSync: file => { if (file !== executable) throw Error('missing'); },
+    openSync: () => 1,
+    readSync: (_fd, target) => elf.copy(target), closeSync: () => {},
+  };
+  const find = vm.runInNewContext(`(${functionSource})`, {
+    fs: fakeFs, path, Buffer, __dirname: path.join(__dirname, 'e2e'),
+    os: { homedir: () => path.join(path.sep, 'home') },
+    process: { env: { PLAYWRIGHT_BROWSERS_PATH: cache }, platform: 'linux', arch: 'arm64' },
+    require: () => { throw Error('standalone without Playwright module'); },
+  });
+  assert.strictEqual(find(), executable);
+  elf.writeUInt16LE(62, 18);
+  assert.notStrictEqual(find(), executable, 'an x86 binary in that directory is still rejected');
+});
+
 test('Linux ELF architecture must match Node before a browser is selected (negative)', () => {
   assert.match(source, /elf\.readUInt16LE\(18\)/);
   assert.match(source, /process\.arch === 'arm64' && machine === 183/);

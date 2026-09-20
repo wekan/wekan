@@ -405,4 +405,29 @@ test('backend and build failures cannot be hidden by successful comparisons or s
   }
 });
 
+test('bail mode exits at backend errors and compares before starting another backend', () => {
+  const { spawnSync } = require('node:child_process');
+  const sh = read('releases/db-conformance.sh');
+  assert.ok(read('build.sh').includes('FERRETDB_TEST_BAIL="${WEKAN_TEST_BAIL:-0}"'),
+    'EVERYTHING passes the same bail policy to the companion test runner');
+  const helper = sh.match(/^stop_on_failure\(\) \{[\s\S]*?^\}/m)[0];
+  for (const bail of ['0', '1']) {
+    const result = spawnSync('bash', ['-c', `${helper}\nstop_on_failure\necho continued`], {
+      encoding: 'utf8', env: { ...process.env, WEKAN_TEST_BAIL: bail, SUMMARY: 'fixture' },
+    });
+    assert.equal(result.status, bail === '1' ? 1 : 0);
+    assert.equal(result.stdout.includes('continued'), bail !== '1');
+  }
+  const loop = sh.slice(sh.indexOf('for entry in "${BACKENDS[@]}"; do'),
+    sh.indexOf('\necho "=========================================================================="',
+      sh.indexOf('for entry in "${BACKENDS[@]}"; do')));
+  const errors = loop.split('\n').filter(line => line.includes('echo "ERROR $name ') && line.includes('>> "$SUMMARY"'));
+  assert.ok(errors.length >= 8, 'cover all existing backend startup and catalogue errors');
+  for (const line of errors) {
+    const offset = loop.indexOf(line) + line.length;
+    assert.ok(line.includes('stop_on_failure') || /^\n\s*stop_on_failure/.test(loop.slice(offset)), line);
+  }
+  assert.match(loop, /node tests\/dbConformance\/compare\.cjs[\s\S]*PIPESTATUS\[0\][\s\S]*stop_on_failure/);
+});
+
 console.log(`\n${passed} tests passed`);

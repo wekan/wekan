@@ -33,8 +33,8 @@ if (process.env.WEBKIT_DISABLE_DMABUF_RENDERER === undefined) {
 // newer distros no longer provide, so it fails to launch with
 // "Host system is missing dependencies to run browsers". Rather than report
 // a whole project's worth of false failures, probe each browser once and skip
-// the ones that can't start (same spirit as global-setup skipping when WeKan
-// is not running).
+// the ones that can't start. EVERYTHING source mode disables this probe so all
+// requested browser projects must actually run.
 //
 // On CI we keep every browser so a genuinely broken browser fails loudly
 // instead of silently shrinking coverage; set WEKAN_PLAYWRIGHT_PROBE=1 to force
@@ -76,7 +76,7 @@ function browserProjects() {
   // report only "WebKit encountered an internal error". One local retry gets a
   // fresh Playwright worker/browser. A real application failure repeats and
   // still fails; CI keeps its broader two-retry policy below.
-  if (!process.env.CI) {
+  if (!process.env.CI && process.env.WEKAN_TEST_BAIL !== '1') {
     const webkitProject = candidates.find(project => project.name === 'webkit');
     if (webkitProject) webkitProject.retries = 1;
   }
@@ -111,13 +111,16 @@ module.exports = defineConfig({
   expect: { timeout: 15_000 },
   fullyParallel: false,
   workers: Math.max(1, Number(process.env.WEKAN_PLAYWRIGHT_WORKERS || 1)),
-  retries: process.env.CI ? 2 : 0,
+  maxFailures: process.env.WEKAN_TEST_BAIL === '1' ? 1 : undefined,
+  retries: process.env.WEKAN_TEST_BAIL === '1' ? 0 : process.env.CI ? 2 : 0,
   reporter: process.env.CI
     ? [['github'], ['html', { outputFolder: 'playwright-report', open: 'never' }]]
     : [['list'], ['html', { outputFolder: 'playwright-report', open: 'never' }]],
   use: {
     baseURL: BASE_URL,
-    trace: 'on-first-retry',
+    // Bail runs never retry; capture their first failure rather than losing
+    // the only event sequence that can explain an intermittent browser error.
+    trace: process.env.WEKAN_TEST_BAIL === '1' ? 'retain-on-failure' : 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'on-first-retry',
     actionTimeout: 15_000,

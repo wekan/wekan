@@ -492,8 +492,12 @@ test('build.bat cannot fail the same way', () => {
   // the whole run to bash rather than reimplementing it. The two ways a .bat
   // menu CAN break are covered by the numbering and label guards above; this
   // pins the structural reason it is not exposed to the build.sh failure.
-  const everything = bat.slice(bat.indexOf(':test_everything'));
-  assert.ok(/bash \.\/releases\/run-everything\.sh/.test(everything.slice(0, 1200)),
+  // Inspect the shared dispatch block, not a character window starting at the
+  // first variant label: adding the source variant must not move it off-screen.
+  const start = bat.indexOf('\n:test_everything\n');
+  assert.ok(start >= 0, 'the shared EVERYTHING label exists');
+  const everything = bat.slice(start, bat.indexOf('\nREM ===', start));
+  assert.ok(/bash \.\/releases\/run-everything\.sh/.test(everything),
     'the .bat EVERYTHING delegates to the shared script');
   for (const [choice, label] of [['1', 'two'], ['2', 'one'], ['3', 'all']]) {
     assert.ok(new RegExp(`if "%choice%"=="${choice}"\\s+goto test_everything_${label}`).test(bat),

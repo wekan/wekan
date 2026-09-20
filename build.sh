@@ -656,6 +656,10 @@ function run_playwright_docker(){
 		-e WEKAN_PLAYWRIGHT_PROJECT="$browser" \
 		-e WEKAN_PLAYWRIGHT_WORKERS="${WEKAN_PLAYWRIGHT_WORKERS:-1}" \
 		-e WEKAN_PLAYWRIGHT_PROBE=0 \
+		-e WEKAN_TEST_BAIL="${WEKAN_TEST_BAIL:-0}" \
+		-e WEKAN_TEST_SERIAL="${WEKAN_TEST_SERIAL:-0}" \
+		-e WEKAN_TEST_SERVER_MODE="${WEKAN_TEST_SERVER_MODE:-bundle}" \
+		-e WEKAN_TEST_SMTP_PORT="${WEKAN_TEST_SMTP_PORT:-}" \
 		-e PLAYWRIGHT_HTML_OPEN=never \
 		-e WEKAN_FILES_PATH=/wekan-files \
 		-e PLAYWRIGHT_JSON_OUTPUT_NAME="${PLAYWRIGHT_JSON_OUTPUT_NAME:-}" \
@@ -1016,6 +1020,8 @@ function run_all_tests(){
 		*) echo "ERROR: unknown EVERYTHING mode: $REQUESTED_MODE" >&2; return 2 ;;
 	esac
 	export WEKAN_PLAYWRIGHT_WORKERS="$PLAYWRIGHT_WORKERS"
+	export WEKAN_TEST_SERIAL=0
+	[ "$REQUESTED_MODE" = sequential ] && export WEKAN_TEST_SERIAL=1
 	local modeword
 	[ "$REQUESTED_MODE" = parallel ] && modeword="at once (concurrently)" || modeword="one stage at a time (${PLAYWRIGHT_WORKERS} Playwright worker(s))"
 	# The large heap at the top of this file is for compiling WeKan. Do not hand
@@ -1055,22 +1061,29 @@ function run_all_tests(){
 	# fails on code that is no longer in the working tree - the one thing a test
 	# run must never do. This used to build only when .build/bundle was missing,
 	# which is exactly the case where the bundle is present but old.
-	echo "==> Deleting .build and building WeKan before running the tests (always, so the tests run against the current source)."
-	build_wekan
-	if [ ! -d .build/bundle ]; then
-		echo "ERROR: .build/bundle is missing after building. Aborting the test run."
-		return 1
+	if [ "${WEKAN_TEST_SERVER_MODE:-bundle}" != source ]; then
+		echo "==> Deleting .build and building WeKan before running the tests (always, so the tests run against the current source)."
+		build_wekan
+		if [ ! -d .build/bundle ]; then
+			echo "ERROR: .build/bundle is missing after building. Aborting the test run."
+			return 1
+		fi
 	fi
 	if [ "$RUN_MODE" = parallel ]; then
 		echo "Running ALL tests against ONE WeKan server on http://localhost:3000 - all jobs run IN PARALLEL (concurrently). Needs plenty of RAM (fine on 32 GB)."
 	else
 		echo "Running ALL tests against ONE WeKan server on http://localhost:3000 - all jobs run SEQUENTIALLY (one at a time)."
 	fi
+	if [ "${WEKAN_TEST_SERVER_MODE:-bundle}" = source ]; then
+		echo "  :3000 - current source loaded by Node; Meteor's bundled development MongoDB on :3001."
+		echo "  Mocha runs first in the source process, then a fresh source process serves E2E and browsers."
+	else
 	echo "Two WeKan servers are involved (they do NOT run tests in parallel unless you chose parallel):"
 	echo "  :3000  - the PRECOMPILED .build/bundle run as a plain Node server (Meteor's mongod on :3001)"
 	echo "           - serves Node E2E + Playwright browser tests. Built fresh above, so the tests run against the current source."
 	echo "  :3100  - Mocha via 'meteor test' (its own .meteor/local-test build; the in-process server-side tests"
 	echo "           CANNOT run from a production bundle, so this one build is unavoidable)."
+	fi
 	echo "  Import regression is a plain Node script (no server, no MongoDB)."
 	SUMMARY=()
 	record() { SUMMARY+=("$1|$2|${3:-}"); }
@@ -1239,6 +1252,7 @@ function run_all_tests(){
 			[ "$jrc" = "0" ] && jst="PASS" || jst="FAIL"
 			jok=$(count_pass "$k" "$jlog"); jbad=$(count_fail "$k" "$jlog")
 			printf '    [%-4s] %-22s tests:%-4s fail:%s\n' "$jst" "$(label_of "$k")" "$jok" "$jbad"
+			if [ "${WEKAN_TEST_BAIL:-0}" = 1 ] && [ "$jrc" -ne 0 ]; then return "$jrc"; fi
 		fi
 	}
 
@@ -1278,6 +1292,33 @@ function run_all_tests(){
 		echo "    Port 3000 is now free."
 	fi
 
+	if [ "${WEKAN_TEST_SERVER_MODE:-bundle}" = source ]; then
+		export WEKAN_PLAYWRIGHT_PROBE=0
+		export WEKAN_TEST_SMTP_PORT="${WEKAN_TEST_SMTP_PORT:-2525}"
+		export MAIL_URL="smtp://127.0.0.1:$WEKAN_TEST_SMTP_PORT"
+		export EMAIL_NOTIFICATION_TIMEOUT=100
+		local WRITABLE_ABS="$WEKAN_DIR/.tools/test-writable"
+		mkdir -p "$WRITABLE_ABS/files"
+		export WEKAN_FILES_PATH_HOST="$WRITABLE_ABS/files"
+		export WEKAN_FILES_PATH="$WRITABLE_ABS/files"
+		export WEKAN_MONGO_URL="mongodb://127.0.0.1:3001/meteor"
+		local NODE_BIN="$(command -v node)"
+		local TAIL_PID=""
+		echo "==> Running Meteor server tests in the source-loaded Node process on :3000."
+		WEKAN_SOURCE_WATCH=0 ROOT_URL=http://localhost:3000 WRITABLE_PATH="$WRITABLE_ABS" WITH_API=true \
+		NODE_OPTIONS="$TEST_NODE_OPTIONS" "$NODE_BIN" scripts/dev-source/start.cjs --port 3000 --server-tests \
+		  2>&1 | tee "$RUN_LOGDIR/wekan-alltests-mocha.log"
+		local source_mocha_rc=${PIPESTATUS[0]}
+		if [ "$source_mocha_rc" -ne 0 ]; then return "$source_mocha_rc"; fi
+		echo 0 > "$STATDIR/mocha"
+		echo "==> Starting source-loaded WeKan :3000 and Meteor's development MongoDB :3001."
+		WEKAN_SOURCE_WATCH=0 ROOT_URL=http://localhost:3000 WRITABLE_PATH="$WRITABLE_ABS" WITH_API=true \
+		NODE_OPTIONS="$TEST_NODE_OPTIONS" "$NODE_BIN" scripts/dev-source/start.cjs --port 3000 \
+		  > "$RUN_LOGDIR/wekan-test-server.log" 2>&1 &
+		TEST_SERVER_PID=$!
+		tail -n 0 -f "$RUN_LOGDIR/wekan-test-server.log" &
+		TAIL_PID=$!
+	else
 	# Start the :3000 test server from the PRECOMPILED .build/bundle (NOT `meteor run`)
 	# so Node E2E + Playwright reuse the WeKan you already built with
 	# `meteor build .build --directory` — no recompile. The bundle is a plain Node
@@ -1432,6 +1473,8 @@ function run_all_tests(){
 	  NODE_OPTIONS="$TEST_NODE_OPTIONS" exec "$NODE_BIN" "$BUNDLE_DIR/main.js"; } >> "$RUN_LOGDIR/wekan-test-server.log" 2>&1 &
 	TEST_SERVER_PID=$!
 
+	fi
+
 	SERVER_READY=0
 	server_wait_start=$(date +%s)
 	server_wait_max=300
@@ -1446,16 +1489,16 @@ function run_all_tests(){
 	wait "$TAIL_PID" 2>/dev/null || true
 	echo "    -------------------------------------------------------------------"
 	if [ "$SERVER_READY" -eq 1 ]; then
-		echo "==> WeKan test server ready on http://localhost:3000 (precompiled bundle, no rebuild)."
+		echo "==> WeKan test server ready on http://localhost:3000 (${WEKAN_TEST_SERVER_MODE:-bundle} mode)."
 	fi
 
 	# Mocha and the import regression do not need the :3000 server; launch them
 	# now (after the server build is past, so they no longer compete with it),
 	# then the E2E and browser jobs below.
-	echo "==> Launching Mocha (separate .meteor/local-test build, port 3100), the node unit suites and the import regression, $modeword."
-	launch_job mocha
-	launch_job unit
-	launch_job import
+	echo "==> Running registered server, node and import suites, $modeword."
+	if [ "${WEKAN_TEST_SERVER_MODE:-bundle}" != source ]; then launch_job mocha || return $?; fi
+	launch_job unit || return $?
+	launch_job import || return $?
 
 	if [ "$SERVER_READY" -ne 1 ]; then
 		echo "FAIL: server did not become ready on http://localhost:3000 (see $RUN_LOGDIR/wekan-test-server.log)"
@@ -1468,10 +1511,10 @@ function run_all_tests(){
 	else
 		record PASS "Server startup"
 		# Server is up: add the server-facing jobs to the running set.
-		launch_job e2e
-		launch_job chromium
-		launch_job firefox
-		launch_job webkit
+		launch_job e2e || return $?
+		launch_job chromium || return $?
+		launch_job firefox || return $?
+		launch_job webkit || return $?
 		ALLKEYS="mocha unit import e2e chromium firefox webkit"
 	fi
 
@@ -1634,6 +1677,12 @@ function run_everything(){
 	local FERRET_GO_MEMORY_MB=$(( _mem_total_mb / 8 ))
 	[ "$FERRET_GO_MEMORY_MB" -gt 4096 ] && FERRET_GO_MEMORY_MB=4096
 	local FERRET_GOFLAGS="${WEKAN_FERRETDB_GOFLAGS:--p=$FERRET_GO_JOBS}"
+	if [ "$EVERYTHING_MODE" = sequential ]; then
+		FERRET_GOFLAGS="$FERRET_GOFLAGS -p=1 -parallel=1"
+	fi
+	if [ "${WEKAN_TEST_BAIL:-0}" = 1 ]; then
+		FERRET_GOFLAGS="$FERRET_GOFLAGS -failfast"
+	fi
 	local FERRET_GOMEMLIMIT="${WEKAN_FERRETDB_GOMEMLIMIT:-${FERRET_GO_MEMORY_MB}MiB}"
 	RUN_TS="$(date '+%Y-%m-%d_%H-%M-%S')"
 	RUN_LOGDIR="$(log_directory "test-everything-$EVERYTHING_MODE")" || return $?
@@ -1644,7 +1693,7 @@ function run_everything(){
 	echo "=============================================================================="
 	echo "EVERYTHING mode: $EVERYTHING_MODE. Logs: $RUN_LOGDIR/"
 	echo "  1/4  Floating-promises guard (seconds: the rule, and unawaited auth checks)"
-	echo "  2/4  WeKan's own tests       (builds the bundle, starts a server; mocha, the"
+	echo "  2/4  WeKan's own tests       (${WEKAN_TEST_SERVER_MODE:-bundle} server; mocha, the"
 	echo "                                node suites, import, node E2E, three browsers)"
 	echo "  3/4  Database conformance    (builds FerretDB, every database this CPU runs)"
 	echo "  4/4  FerretDB's own tests    (unit, vet, integration)"
@@ -1662,10 +1711,12 @@ function run_everything(){
 	# an hour of browser tests.
 	floating_promises_checks 2>&1 | tee "$RUN_LOGDIR/wekan-floating-promises.log"
 	guard_rc=${PIPESTATUS[0]}
+	if [ "${WEKAN_TEST_BAIL:-0}" = 1 ] && [ "$guard_rc" -ne 0 ]; then return "$guard_rc"; fi
 
 	echo
 	echo "### 2/4 WeKan tests ###########################################################"
 	run_all_tests "$EVERYTHING_MODE" || wekan_rc=$?
+	if [ "${WEKAN_TEST_BAIL:-0}" = 1 ] && [ "$wekan_rc" -ne 0 ]; then return "$wekan_rc"; fi
 
 	echo
 	echo "### 3/4 Database conformance ##################################################"
@@ -1675,6 +1726,7 @@ function run_everything(){
 	else
 		echo "ERROR: releases/db-conformance.sh is missing."; conf_rc=1
 	fi
+	if [ "${WEKAN_TEST_BAIL:-0}" = 1 ] && [ "$conf_rc" -ne 0 ]; then return "$conf_rc"; fi
 
 	echo
 	echo "### 4/4 FerretDB tests ########################################################"
@@ -1684,6 +1736,7 @@ function run_everything(){
 	ferret_dir="$(ensure_tool_repo FerretDB)" || ferret_dir=""
 	if [ -n "$ferret_dir" ] && [ -x "$ferret_dir/build.sh" ]; then
 		( cd "$ferret_dir" && WEKAN_LOGDIR="$RUN_LOGDIR" \
+			FERRETDB_TEST_BAIL="${WEKAN_TEST_BAIL:-0}" \
 			GOFLAGS="$FERRET_GOFLAGS" GOMEMLIMIT="$FERRET_GOMEMLIMIT" \
 			./build.sh test-all ) || ferret_rc=$?
 	else
@@ -2710,7 +2763,7 @@ esac
 opt=""
 while [ -z "$opt" ]; do
 	echo; echo "==================== WeKan ===================="
-	select cat in "Setup" "Dev server" "Tests" "Docker" "Releases" "CLI commands" "Tools" "Quit"; do
+	select cat in "Setup" "Dev server" "Dev server nobuild" "Tests" "Docker" "Releases" "CLI commands" "Tools" "Quit"; do
 		case $cat in
 			"Setup")
 				choose "Setup" \
@@ -2719,8 +2772,8 @@ while [ -z "$opt" ]; do
 					"Build WeKan development bundle|Build WeKan development bundle" \
 					"git pull|git pull: fetch, fast-forward or merge onto origin, repoint the CHANGELOG commit links the rebase moved, and preserve unresolved conflict state" \
 					"git push|git push: check the CHANGELOG commit links resolve before publishing them, push this branch to origin, and pull-then-retry once if origin moved meanwhile" ;;
-			"Dev server")
-				choose "Dev server" \
+			"Dev server"|"Dev server nobuild")
+				choose "$cat" \
 					"localhost:3000|Run Meteor for dev on http://localhost:3000" \
 					"localhost:3000 + trace warnings|Run Meteor for dev on http://localhost:3000 with trace warnings, and warnings using old Meteor API that will not exist in Meteor 3.0" \
 					"localhost:3000 + bundle visualizer|Run Meteor for dev on http://localhost:3000 with bundle visualizer" \
@@ -2734,6 +2787,7 @@ while [ -z "$opt" ]; do
 					"EVERYTHING two-worker|Run EVERYTHING with stages one by one and two Playwright workers per browser; database and FerretDB stages stay sequential; logs in log/<datetime>/" \
 					"EVERYTHING one by one|Run EVERYTHING one stage and one Playwright worker at a time for minimum RAM usage; database and FerretDB stages stay sequential; logs in log/<datetime>/" \
 					"EVERYTHING at once|Run EVERYTHING with the WeKan test jobs concurrently; database backends and FerretDB stages stay sequential; logs in log/<datetime>/" \
+					"EVERYTHING source one by one|Run EVERYTHING against Dev server nobuild on localhost:3000, one test at a time, all browsers" \
 					"Mocha (server-side)|Test Mocha unit + security + API-logic tests (server-side only, no browser)" \
 					"Import regression|Test import regression (tests/wekanCreator.import.test.js, fast, no server)" \
 					"Node E2E regressions|Test Node E2E regressions (tests/e2e/list-regressions.js, needs running server)" \
@@ -2762,8 +2816,17 @@ while [ -z "$opt" ]; do
 	done
 done
 
+# Both menus share their URL/port prompts and environment.
+DEV_COMMAND=(meteor run)
+if [ "$cat" = "Dev server nobuild" ]; then
+    DEV_COMMAND=(node "$WEKAN_DIR/scripts/dev-source/start.cjs")
+fi
 for _once in 1; do
     case "$opt" in
+        "Run EVERYTHING against Dev server nobuild on localhost:3000, one test at a time, all browsers")
+            WEKAN_TEST_SERVER_MODE=source WEKAN_TEST_BAIL=1 WEKAN_PLAYWRIGHT_PROBE=0 run_everything sequential
+            ;;
+
         "Install WeKan dependencies")
 
 		if [[ "$OSTYPE" == "linux-gnu" ]]; then
@@ -2920,7 +2983,7 @@ for _once in 1; do
 		#---------------------------------------------------------------------
 		# Logging of terminal output to console and to .tools/log/wekan-log.log at end of this line: 2>&1 | tee "$(one_log dev-server)"
 		#WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings"
-		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=sockjs DEBUG=true WRITABLE_PATH=.. WITH_API=true ROOT_URL=http://localhost:3000 meteor run --port 3000 2>&1 | tee "$(one_log dev-server)"
+		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=sockjs DEBUG=true WRITABLE_PATH=.. WITH_API=true ROOT_URL=http://localhost:3000 "${DEV_COMMAND[@]}" --port 3000 2>&1 | tee "$(one_log dev-server)"
 		#---------------------------------------------------------------------
 		break
 		;;
@@ -2932,7 +2995,7 @@ for _once in 1; do
                 #Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
                 #---------------------------------------------------------------------
                 # Logging of terminal output to console and to .tools/log/wekan-log.log at end of this line: 2>&1 | tee "$(one_log dev-server)"
-                DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=sockjs DEBUG=true WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings --max-old-space-size=$_heap_mb" WRITABLE_PATH=.. WITH_API=true ROOT_URL=http://localhost:3000 meteor run --port 3000 2>&1 | tee "$(one_log dev-server)"
+                DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=sockjs DEBUG=true WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings --max-old-space-size=$_heap_mb" WRITABLE_PATH=.. WITH_API=true ROOT_URL=http://localhost:3000 "${DEV_COMMAND[@]}" --port 3000 2>&1 | tee "$(one_log dev-server)"
                 #---------------------------------------------------------------------
                 break
                 ;;
@@ -2944,7 +3007,7 @@ for _once in 1; do
 		#---------------------------------------------------------------------
 		#Logging of terminal output to console and to .tools/log/wekan-log.log at end of this line: 2>&1 | tee "$(one_log dev-server)"
 		#WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings"
-		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=sockjs DEBUG=true WRITABLE_PATH=.. WITH_API=true ROOT_URL=http://localhost:3000 meteor run --port 3000 --extra-packages bundle-visualizer --production  2>&1 | tee "$(one_log dev-server)"
+		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=sockjs DEBUG=true WRITABLE_PATH=.. WITH_API=true ROOT_URL=http://localhost:3000 "${DEV_COMMAND[@]}" --port 3000 --extra-packages bundle-visualizer --production  2>&1 | tee "$(one_log dev-server)"
 		#---------------------------------------------------------------------
 		break
 		;;
@@ -2963,7 +3026,7 @@ for _once in 1; do
 		#---------------------------------------------------------------------
 		#Logging of terminal output to console and to .tools/log/wekan-log.log at end of this line: 2>&1 | tee "$(one_log dev-server)"
 		#WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings"
-		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=sockjs DEBUG=true WRITABLE_PATH=.. WITH_API=true ROOT_URL=http://$IPADDRESS:3000 meteor run --port 3000 2>&1 | tee "$(one_log dev-server)"
+		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=sockjs DEBUG=true WRITABLE_PATH=.. WITH_API=true ROOT_URL=http://$IPADDRESS:3000 "${DEV_COMMAND[@]}" --port 3000 2>&1 | tee "$(one_log dev-server)"
 		#---------------------------------------------------------------------
 		break
 		;;
@@ -2982,7 +3045,7 @@ for _once in 1; do
                 #---------------------------------------------------------------------
                 #Logging of terminal output to console and to .tools/log/wekan-log.log at end of this line: 2>&1 | tee "$(one_log dev-server)"
                 #WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings"
-                DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=sockjs DEBUG=true MONGO_URL=mongodb://127.0.0.1:27019/wekan WRITABLE_PATH=.. WITH_API=true ROOT_URL=http://$IPADDRESS:3000 meteor run --port 3000 2>&1 | tee "$(one_log dev-server)"
+                DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=sockjs DEBUG=true WEKAN_SOURCE_MONGO_PORT=27019 WEKAN_SOURCE_MONGO_DATABASE=wekan MONGO_URL=mongodb://127.0.0.1:27019/wekan WRITABLE_PATH=.. WITH_API=true ROOT_URL=http://$IPADDRESS:3000 "${DEV_COMMAND[@]}" --port 3000 2>&1 | tee "$(one_log dev-server)"
                 #---------------------------------------------------------------------
                 break
                 ;;
@@ -2996,7 +3059,7 @@ for _once in 1; do
 		# ROOT_URL differ. Logging of terminal output to console and to
 		# .tools/log/wekan-log.log at the end of the line: 2>&1 | tee "$(one_log dev-server)"
 		#---------------------------------------------------------------------
-		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=sockjs DEBUG=true WRITABLE_PATH=.. WITH_API=true ROOT_URL="$DEV_ROOT_URL" meteor run --port "$DEV_PORT" 2>&1 | tee "$(one_log dev-server)"
+		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=sockjs DEBUG=true WRITABLE_PATH=.. WITH_API=true ROOT_URL="$DEV_ROOT_URL" "${DEV_COMMAND[@]}" --port "$DEV_PORT" 2>&1 | tee "$(one_log dev-server)"
 		#---------------------------------------------------------------------
 		break
 		;;
@@ -3015,7 +3078,7 @@ for _once in 1; do
 		#---------------------------------------------------------------------
 		#Logging of terminal output to console and to .tools/log/wekan-log.log at end of this line: 2>&1 | tee "$(one_log dev-server)"
 		#WARN_WHEN_USING_OLD_API=true NODE_OPTIONS="--trace-warnings"
-		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=sockjs DEBUG=true WRITABLE_PATH=.. WITH_API=true ROOT_URL=http://$IPADDRESS:$PORT meteor run --port $PORT 2>&1 | tee "$(one_log dev-server)"
+		DEFAULT_METEOR_REACTIVITY_ORDER="changeStreams,oplog,polling" DDP_TRANSPORT=sockjs DEBUG=true WRITABLE_PATH=.. WITH_API=true ROOT_URL=http://$IPADDRESS:$PORT "${DEV_COMMAND[@]}" --port $PORT 2>&1 | tee "$(one_log dev-server)"
 		#---------------------------------------------------------------------
 		break
 		;;
