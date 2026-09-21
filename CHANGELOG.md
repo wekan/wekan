@@ -655,9 +655,22 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**In short:** **GitHub release workflows** now keep Snap publication moving when
-the store returns temporary server errors, while still failing fast on invalid
-uploads and credential problems.
+**In short:** WeKan's platform builds now target **Node.js 26.9.0** and
+**npm 12.0.2**. GitHub release workflows also keep Snap publication moving
+when the store returns temporary server errors, while still failing fast on
+invalid uploads and credential problems.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9b213cdf4">Update
+WeKan to Node.js 26 and npm 12</a>. Thanks to xet7.</summary>
+
+Pin the production Docker runtime to Node.js 26.9.0 and npm 12.0.2, move
+release workflows and local build paths to Node.js 26, and refresh active
+platform documentation and examples. The Meteor baseline is 3.6-beta.1.
+Source checks and release workflow tests pass; platform binaries remain for
+the GitHub workflows to build.
+
+</details>
 
 This release fixes the following GitHub workflow issue:
 
