@@ -12,7 +12,7 @@ Right click and download files 1-4:
 
 1. [wekan-11.90-win64.zip](https://github.com/wekan/wekan/releases/download/v11.90/wekan-11.90-win64.zip) or newest available at https://github.com/wekan/wekan/releases/
 
-2. [node.exe](https://nodejs.org/dist/latest-v24.x/win-x64/node.exe)
+2. [node.exe](https://nodejs.org/dist/latest-v26.x/win-x64/node.exe)
 
 3. [mongodb-windows-x86_64-7.0.34-signed.msi](https://fastdl.mongodb.org/windows/mongodb-windows-x86_64-7.0.34-signed.msi)
 

@@ -25,7 +25,7 @@ permissions:
   contents: write
 
 env:
-  NODE_VERSION: '24'
+  NODE_VERSION: '26'
 
 jobs:
   sandstorm:
@@ -41,6 +41,8 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
+      - name: Use npm 12.0.2
+        run: npm install --global npm@12.0.2
 
       - name: Enable unprivileged user namespaces (Ubuntu 24.04 restricts them)
         # Ubuntu 24.04's AppArmor defaults kernel.apparmor_restrict_unprivileged_userns=1,
@@ -64,9 +66,9 @@ jobs:
         # bundled one, so the Sandstorm install must be in place first.
         run: curl https://install.sandstorm.io | sudo bash -s -- -d
 
-      - name: Assemble modern meteor-spk.deps (Node 24 + FerretDB + Mongo 3.x CLIs)
+      - name: Assemble modern meteor-spk.deps (Node 26 + FerretDB + Mongo 3.x CLIs)
         # Base = upstream meteor-spk 0.6.0 from dl.sandstorm.io (has mongod 3.0 +
-        # niscud). build-deps.sh swaps in Node 24, adds FerretDB + the Mongo 3.x
+        # niscud). build-deps.sh swaps in Node 26, adds FerretDB + the Mongo 3.x
         # CLIs + the migration launcher/importer, keeps niscud, and swaps in the
         # modern sandstorm-http-bridge from the Sandstorm install above. No dependency
         # on the retired releases.wekan.team or the old projects.7z.

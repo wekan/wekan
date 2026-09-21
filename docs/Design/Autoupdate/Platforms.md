@@ -21,7 +21,7 @@ builds `ferretdb-<arch>` for sixteen targets, and that is the widest of the two
 lists. Every non-amd64, non-arm64 platform uses it: MongoDB ships no server for
 any of them.
 
-**Node.js 24** — three sources, tried **in this order** by the bundle job, which
+**Node.js 26** — three sources, tried **in this order** by the bundle job, which
 prints which one served:
 
 1. **Official** — <https://nodejs.org/dist/>

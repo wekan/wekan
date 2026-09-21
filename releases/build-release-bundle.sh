@@ -27,7 +27,7 @@
 #                             mac-arm64, mac-x64, win64, win32, win-arm64)
 #     WEKAN_BUNDLE_REFRESH=1  ignore the download cache and fetch again
 #     WEKAN_BUNDLE_SKIP_SMOKE=1  skip the boot check (it is the point; do not)
-#     NODE_VERSION            the Node MAJOR to embed, default 24 — the same
+#     NODE_VERSION            the Node MAJOR to embed, default 26 — the same
 #                             value .github/workflows/release-all.yml pins
 #
 # WHAT IT DOES NOT DO, on purpose: no zip, no checksum file, no provenance row,
@@ -52,7 +52,7 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT="$(cd "$HERE/.." && pwd)"
 BUNDLE="${1:-$ROOT/.build/bundle}"
 BUNDLE="$(cd "$(dirname "$BUNDLE")" 2>/dev/null && pwd)/$(basename "$BUNDLE")"
-NODE_VERSION="${NODE_VERSION:-24}"
+NODE_VERSION="${NODE_VERSION:-26}"
 CACHE_ROOT="${WEKAN_BUNDLE_CACHE:-$ROOT/.tools/bundle-binaries}"
 
 say()  { printf '\n==> %s\n' "$*"; }

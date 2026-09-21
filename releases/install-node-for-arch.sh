@@ -18,7 +18,7 @@
 # A file has no quoting layer to get wrong, and `bash -n` can check it.
 #
 # Environment (all set by the workflow):
-#   NODE_FULL   the exact version, e.g. v24.19.0
+#   NODE_FULL   the exact version, e.g. v26.9.0
 #   NODE_ARCH   what Node.js calls this CPU  (x86, armv7l, ppc64le, ...) - used
 #               only to name the amd64 npm tarball
 #   ARCH        what WeKan calls it          (i386, armhf, ppc64le, ...)

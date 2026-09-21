@@ -1,10 +1,10 @@
 name: Build meteor-spk bundle
 
 # Manually triggered. Assembles WeKan's modernized meteor-spk (the Sandstorm packaging
-# tool + its meteor-spk.deps: Node 24, FerretDB, the Mongo 3.x CLIs and the modern
+# tool + its meteor-spk.deps: Node 26, FerretDB, the Mongo 3.x CLIs and the modern
 # sandstorm-http-bridge) and zips it as meteor-spk-YYYY-MM-DD_HH_MM_SS.zip — the same kind
 # of self-contained meteor-spk bundle that https://github.com/sandstorm-io/meteor-spk
-# releases, but with WeKan's Node 24 / FerretDB deps baked in. Download it to `meteor-spk
+# releases, but with WeKan's Node 26 / FerretDB deps baked in. Download it to `meteor-spk
 # pack` WeKan (or any Meteor 3.x app) without re-running build-deps.sh each time.
 #
 #   gh workflow run meteor-spk.yml
@@ -25,7 +25,7 @@ permissions:
   contents: write
 
 env:
-  NODE_VERSION: '24'
+  NODE_VERSION: '26'
 
 jobs:
   meteor-spk:
@@ -39,6 +39,8 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
+      - name: Use npm 12.0.2
+        run: npm install --global npm@12.0.2
 
       - name: Enable unprivileged user namespaces (Ubuntu 24.04 restricts them)
         # Same as sandstorm.yml: Ubuntu 24.04's AppArmor blocks the unprivileged user
@@ -58,9 +60,9 @@ jobs:
         # must be installed first — same ordering as sandstorm.yml.
         run: curl https://install.sandstorm.io | sudo bash -s -- -d
 
-      - name: Assemble modern meteor-spk.deps (Node 24 + FerretDB + Mongo 3.x CLIs)
+      - name: Assemble modern meteor-spk.deps (Node 26 + FerretDB + Mongo 3.x CLIs)
         # Base = upstream meteor-spk 0.6.0 from dl.sandstorm.io; build-deps.sh swaps in
-        # Node 24, FerretDB, the Mongo 3.x CLIs, the migration launcher/importer, keeps
+        # Node 26, FerretDB, the Mongo 3.x CLIs, the migration launcher/importer, keeps
         # niscud, and swaps in the modern sandstorm-http-bridge. Produces
         # $HOME/projects/meteor-spk/meteor-spk-0.6.0 (the meteor-spk tool + deps).
         run: bash sandstorm-src/build-deps.sh

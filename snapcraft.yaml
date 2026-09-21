@@ -7,8 +7,8 @@
 # FOUR channels — stable, candidate, beta and edge. Every snap job does exactly
 # that (snap-native, snap-launchpad and snap-variants all publish
 # `stable,candidate,beta,edge`), for the default snap and for the wekan-ondra and
-# wekan-gantt-gpl variants alike. It ships the newest WeKan (Meteor 3.5,
-# Node.js 24, FerretDB v1, MongoDB 7, Caddy 2).
+# wekan-gantt-gpl variants alike. It ships the newest WeKan (Meteor 3.6-beta.1,
+# Node.js 26, FerretDB v1, MongoDB 7, Caddy 2).
 #
 # snapcraft-core26.yaml is the SAME WeKan on `base: core26`, kept for testing the
 # next base and NOT built by the release: core26 is still experimental, it
@@ -311,7 +311,7 @@ parts:
 
     # No mongosh part: WeKan no longer bundles the MongoDB Shell. All scripted DB
     # access (readiness, replica-set init, schema migration) uses the bundled
-    # Node.js 24 + the `mongodb` driver via $SNAP/bin/db-eval (see snap-src/bin).
+    # Node.js 26 + the `mongodb` driver via $SNAP/bin/db-eval (see snap-src/bin).
 
     # No separate mongotools part: the per-arch MongoDB Database Tools are already
     # embedded in the wekan-<arch>.zip bundle (built from wekan/mongo-tools-patches by

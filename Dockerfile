@@ -28,10 +28,10 @@ ENV BUILD_DEPS="apt-utils gnupg wget bzip2 g++ curl libarchive-tools build-essen
 ENV \
     DEBUG=false \
     DDP_TRANSPORT=sockjs \
-    NODE_VERSION=v24.21.0 \
-    METEOR_RELEASE=METEOR@3.6-beta.0 \
+    NODE_VERSION=v26.9.0 \
+    METEOR_RELEASE=METEOR@3.6-beta.1 \
     USE_EDGE=false \
-    NPM_VERSION=11.12.1 \
+    NPM_VERSION=12.0.2 \
     SRC_PATH=./ \
     WITH_API=true \
     MONGO_OPLOG_URL="" \

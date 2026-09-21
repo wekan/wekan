@@ -33,7 +33,7 @@ if [ "${DDP_TRANSPORT:-}" = "uws" ]; then
 fi
 export DDP_TRANSPORT="${DDP_TRANSPORT:-sockjs}"
 
-# Give V8 a deliberate share of the CONTAINER limit. Node 24's automatic
+# Give V8 a deliberate share of the CONTAINER limit. Node 26's automatic
 # cgroup heuristic capped a 1 GiB Helm pod at about 640 MiB; the server bundle
 # can cross that while linking and creating its startup indexes, so v10.96+
 # died before the first application log (#6606). Keep forty percent for native

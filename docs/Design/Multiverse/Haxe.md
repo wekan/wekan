@@ -60,7 +60,7 @@ but no equivalent that preserves WeKan's present behaviour.
 | Current WeKan dependency or facility | Haxe-side candidate | Compatibility and migration notes |
 | --- | --- | --- |
 | Meteor application platform | No single equivalent | Compose a server framework, client framework, transport, authentication and build pipeline. This is the central rewrite cost. |
-| Node.js 24 runtime | Haxe JavaScript + `hxnodejs`; or HashLink/hxcpp/JVM | JavaScript output retains Node/npm access. Native targets require replacements for every Node-specific dependency. |
+| Node.js 26 runtime | Haxe JavaScript + `hxnodejs`; or HashLink/hxcpp/JVM | JavaScript output retains Node/npm access. Native targets require replacements for every Node-specific dependency. |
 | Meteor methods | `tink_web`/`tink_http` RPC or a custom typed command API | Method names, argument validation, authorization, error codes and client simulation need an explicit compatibility layer. |
 | DDP over SockJS | Keep `sockjs-client` through JavaScript externs, or implement a typed WebSocket/HTTP transport | There is no Haxe equivalent of the complete DDP protocol. Reconnect, subscription state and method-result ordering require tests. |
 | Publications/subscriptions | Custom observable query service | Must preserve authorization, added/changed/removed messages, subscription teardown and reactive query updates. |

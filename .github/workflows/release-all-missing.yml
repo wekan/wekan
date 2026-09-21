@@ -54,7 +54,7 @@ permissions:
 
 env:
   # Must match release-all.yml: the Node.js major the bundles carry.
-  NODE_VERSION: '24'
+  NODE_VERSION: '26'
 
 # Never at the same time as a full release run, which would be uploading to the
 # same assets.

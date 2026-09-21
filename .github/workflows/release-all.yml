@@ -9,7 +9,7 @@ name: Release All Platforms
 #
 # WeKan's default database is MongoDB, which ships server binaries only for amd64
 # and arm64 (+ the win64/mac bundles). On every OTHER architecture that has a
-# Node.js 24 build — ppc64le, s390x, riscv64 — there is no MongoDB, so those
+# Node.js 26 build — ppc64le, s390x, riscv64 — there is no MongoDB, so those
 # bundles ship FerretDB v1 instead: the wekan/FerretDB fork with its embedded
 # pure-Go SQLite backend, which speaks the MongoDB wire protocol. FerretDB is
 # built + released SEPARATELY (wekan/FerretDB, its own build.sh) as individual
@@ -19,8 +19,8 @@ name: Release All Platforms
 # database=ferretdb`, or Docker env). Whichever backend is chosen binds the same
 # MongoDB port, so MONGO_URL is unchanged. ppc64le/s390x/riscv64 are now covered
 # by the Docker image as well (self-contained, FerretDB auto-started). riscv64
-# uses unofficial-builds.nodejs.org for Node 24. (armv7l/32-bit ARM is still not
-# built: there is NO Node.js 24 build for it anywhere, so nothing could run it.)
+# uses unofficial-builds.nodejs.org for Node 26. (armv7l/32-bit ARM is still not
+# built: there is NO Node.js 26 build for it anywhere, so nothing could run it.)
 #
 # This workflow does EVERYTHING for a release remotely (nothing is built or
 # pushed on the maintainer's machine), running jobs in parallel where possible:
@@ -136,12 +136,12 @@ permissions:
   contents: write
   packages: write
 
-# Node.js major version that Meteor 3.5 bundles. Used for native module
+# Node.js major version that Meteor 3.6-beta.1 bundles. Used for native module
 # rebuilds on every platform — it must match the amd64 build's Node ABI.
 env:
-  NODE_VERSION: '24'
+  NODE_VERSION: '26'
   # Authenticate the api.github.com calls that embed-verified-node.sh and
-  # check-arch-binaries.sh make to resolve the fork's newest v24.x tag. Without a
+  # check-arch-binaries.sh make to resolve the fork's newest v26.x tag. Without a
   # token those are UNauthenticated (60 requests/hour per IP, shared across all
   # runners), which 403-rate-limits intermittently — that is why one native embed
   # (e.g. mac-arm64) could fail the major→tag resolution while another (amd64,
@@ -174,6 +174,8 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
+      - name: Use npm 12.0.2
+        run: npm install --global npm@12.0.2
 
       - name: Install version-bump and docs build dependencies
         run: |
@@ -530,7 +532,7 @@ jobs:
           fi
 
   # ─── 2. Build amd64 bundle (full Meteor 3 build) ────────────────────────────
-  # Meteor 3.5 installer supports only Linux x86_64/aarch64, macOS, Windows.
+  # Meteor 3.6-beta.1 installer supports only Linux x86_64/aarch64, macOS, Windows.
   # The full Meteor build always runs here on x86_64; every other platform then
   # only rebuilds the native npm modules from this bundle.
   build-amd64:
@@ -564,6 +566,8 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
+      - name: Use npm 12.0.2
+        run: npm install --global npm@12.0.2
 
       - name: Install Meteor
         run: |
@@ -864,7 +868,7 @@ jobs:
         run: |
           unzip wekan-${VERSION}-amd64.zip
           # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
-          # which fails to compile on Node.js 24. Replace with bcrypt 6.0.0.
+          # which fails to compile on Node.js 26. Replace with bcrypt 6.0.0.
           BCRYPT_DIR="$(pwd)/bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
           if [ -d "$BCRYPT_DIR" ]; then
             rm -rf "$BCRYPT_DIR"
@@ -882,7 +886,7 @@ jobs:
             -v "$(pwd)/releases:/releases:ro" \
             -w /bundle/programs/server \
             node:${NODE_VERSION}-slim \
-            sh -c "bash /releases/apt-install.sh build-essential python3 && bash /releases/npm-retry.sh npm install && node /releases/prune-build-only-modules.mjs /bundle && node /releases/bump-bundle-npm-deps.mjs /bundle && node /releases/bundle-trim.mjs /bundle --transport sockjs --drop-legacy-client --trim-prebuilds --platform linux --arch arm64 && node /releases/prune-unreachable-npm.mjs /bundle"
+            sh -c "bash /releases/apt-install.sh build-essential python3 && npm install --global npm@12.0.2 && bash /releases/npm-retry.sh npm install && node /releases/prune-build-only-modules.mjs /bundle && node /releases/bump-bundle-npm-deps.mjs /bundle && node /releases/bundle-trim.mjs /bundle --transport sockjs --drop-legacy-client --trim-prebuilds --platform linux --arch arm64 && node /releases/prune-unreachable-npm.mjs /bundle"
 
       - name: Check the binaries the arm64 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'
@@ -894,7 +898,7 @@ jobs:
       - name: Embed Node.js + FerretDB (arm64) into the bundle
         if: steps.preflight.outputs.skip != 'true'
         # The launcher (start-wekan.sh) is inherited from the amd64 base bundle;
-        # swap bundle/node (runner is arm64 -> linux-arm64 Node 24) and bundle/ferretdb.
+        # swap bundle/node (runner is arm64 -> linux-arm64 Node 26) and bundle/ferretdb.
         run: |
           # Bundled Node.js: download the pinned Node ${NODE_VERSION} for
           # linux-arm64 from nodejs.org and VERIFY it. This job has no setup-node,
@@ -1221,6 +1225,8 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
+      - name: Use npm 12.0.2
+        run: npm install --global npm@12.0.2
 
       # Which Node.js this platform gets - and whether it is built at all.
       #
@@ -1256,7 +1262,7 @@ jobs:
         with:
           name: bundle-amd64
 
-      - name: Fix bcrypt for Node.js 24
+      - name: Fix bcrypt for Node.js 26
         if: steps.preflight.outputs.skip != 'true'
         shell: bash
         run: |
@@ -1271,7 +1277,7 @@ jobs:
           # Linux-only cpu-exec + qemu-user (#6458) make no sense on Windows.
           rm -f bundle/cpu-exec bundle/qemu-x86_64
           # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
-          # which fails to compile on Node.js 24. Replace with bcrypt 6.0.0.
+          # which fails to compile on Node.js 26. Replace with bcrypt 6.0.0.
           BCRYPT_DIR="$(pwd)/bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
           if [ -d "$BCRYPT_DIR" ]; then
             rm -rf "$BCRYPT_DIR"
@@ -1336,7 +1342,7 @@ jobs:
           # MongoDB Database Tools (Windows) built by wekan/mongo-tools-patches (pure Go),
           # one <tool>-win64.exe per tool from that repo's newest release — no
           # mongodb.com dependency. No mongosh: WeKan no longer bundles the MongoDB
-          # Shell; scripted DB access uses the bundled Node.js 24 + `mongodb` driver.
+          # Shell; scripted DB access uses the bundled Node.js 26 + `mongodb` driver.
           # (The Windows launcher, start-wekan.bat, is added by the FerretDB embed
           # step below from releases/ferretdb/start-wekan.bat.)
           BASE="https://github.com/wekan/mongo-tools-patches/releases/latest/download"
@@ -1351,7 +1357,7 @@ jobs:
         if: steps.preflight.outputs.skip != 'true'
         shell: bash
         # Make the Windows .zip self-contained: bundle node.exe (from the runner's
-        # win-x64 Node 24), ferretdb.exe (downloaded per-arch from the newest
+        # win-x64 Node 26), ferretdb.exe (downloaded per-arch from the newest
         # wekan/FerretDB release) and start-wekan.bat. FerretDB embedding is
         # tolerant: if the win64 asset is missing the bundle stays MongoDB-only
         # (start-wekan.bat then won't find ferretdb.exe).
@@ -1555,14 +1561,14 @@ jobs:
   # Build win32 (32-bit Windows) bundle.
   #
   # BEST-EFFORT, like mac-x64 and the exotic Linux arches: nodejs.org has no
-  # 32-bit Windows Node 24 at all (upstream removed the build in Node 23) and
+  # 32-bit Windows Node 26 at all (upstream removed the build in Node 23) and
   # unofficial-builds has none either, so this bundle's node.exe can only come
   # from wekan/node-patches. Until node-win32.exe is published there the preflight
   # SKIPS this job (a warning, not a red failure); it returns on its own the
   # release after it appears.
   #
   # The runner is 64-bit and the bundle is 32-bit. There is NO 32-bit Windows
-  # Node 24 to install (that is the whole reason the fork exists), so setup-node
+  # Node 26 to install (that is the whole reason the fork exists), so setup-node
   # runs the runner's normal x64 Node to DRIVE the build, and the native modules
   # (bcrypt) are cross-compiled to ia32 by passing npm_config_arch=ia32 in the
   # rebuild step below - node-gyp then fetches the ia32 headers and builds Win32
@@ -1596,6 +1602,8 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
+      - name: Use npm 12.0.2
+        run: npm install --global npm@12.0.2
 
       # Which Node.js this platform gets - and whether it is built at all.
       #
@@ -1631,7 +1639,7 @@ jobs:
         with:
           name: bundle-amd64
 
-      - name: Fix bcrypt for Node.js 24
+      - name: Fix bcrypt for Node.js 26
         if: steps.preflight.outputs.skip != 'true'
         shell: bash
         run: |
@@ -1646,7 +1654,7 @@ jobs:
           # Linux-only cpu-exec + qemu-user (#6458) make no sense on Windows.
           rm -f bundle/cpu-exec bundle/qemu-x86_64
           # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
-          # which fails to compile on Node.js 24. Replace with bcrypt 6.0.0.
+          # which fails to compile on Node.js 26. Replace with bcrypt 6.0.0.
           BCRYPT_DIR="$(pwd)/bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
           if [ -d "$BCRYPT_DIR" ]; then
             rm -rf "$BCRYPT_DIR"
@@ -1711,7 +1719,7 @@ jobs:
           # MongoDB Database Tools (Windows) built by wekan/mongo-tools-patches (pure Go),
           # one <tool>-win-arm64.exe per tool from that repo's newest release — no
           # mongodb.com dependency. No mongosh: WeKan no longer bundles the MongoDB
-          # Shell; scripted DB access uses the bundled Node.js 24 + `mongodb` driver.
+          # Shell; scripted DB access uses the bundled Node.js 26 + `mongodb` driver.
           # (The Windows launcher, start-wekan.bat, is added by the FerretDB embed
           # step below from releases/ferretdb/start-wekan.bat.)
           BASE="https://github.com/wekan/mongo-tools-patches/releases/latest/download"
@@ -1726,7 +1734,7 @@ jobs:
         if: steps.preflight.outputs.skip != 'true'
         shell: bash
         # Make the Windows .zip self-contained: bundle node.exe (from the runner's
-        # win-arm64 Node 24), ferretdb.exe (downloaded per-arch from the newest
+        # win-arm64 Node 26), ferretdb.exe (downloaded per-arch from the newest
         # wekan/FerretDB release) and start-wekan.bat. FerretDB embedding is
         # tolerant: if the win-arm64 asset is missing the bundle stays MongoDB-only
         # (start-wekan.bat then won't find ferretdb.exe).
@@ -1925,14 +1933,14 @@ jobs:
   # Build win32 (32-bit Windows) bundle.
   #
   # BEST-EFFORT, like mac-x64 and the exotic Linux arches: nodejs.org has no
-  # 32-bit Windows Node 24 at all (upstream removed the build in Node 23) and
+  # 32-bit Windows Node 26 at all (upstream removed the build in Node 23) and
   # unofficial-builds has none either, so this bundle's node.exe can only come
   # from wekan/node-patches. Until node-win32.exe is published there the preflight
   # SKIPS this job (a warning, not a red failure); it returns on its own the
   # release after it appears.
   #
   # The runner is 64-bit and the bundle is 32-bit. There is NO 32-bit Windows
-  # Node 24 to install (that is the whole reason the fork exists), so setup-node
+  # Node 26 to install (that is the whole reason the fork exists), so setup-node
   # runs the runner's normal x64 Node to DRIVE the build, and the native modules
   # (bcrypt) are cross-compiled to ia32 by passing npm_config_arch=ia32 in the
   # rebuild step below - node-gyp then fetches the ia32 headers and builds Win32
@@ -1949,12 +1957,14 @@ jobs:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
           path: src
 
-      # x64 Node (the runner's own): there is no 32-bit Windows Node 24 to
+      # x64 Node (the runner's own): there is no 32-bit Windows Node 26 to
       # install. It only DRIVES npm/node-gyp; the ia32 output comes from
       # npm_config_arch=ia32 in the rebuild step.
       - uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
+      - name: Use npm 12.0.2
+        run: npm install --global npm@12.0.2
 
       # Which Node.js this platform gets - and whether it is built at all.
       #
@@ -1992,7 +2002,7 @@ jobs:
         with:
           name: bundle-amd64
 
-      - name: Fix bcrypt for Node.js 24
+      - name: Fix bcrypt for Node.js 26
         if: steps.preflight.outputs.skip != 'true'
         shell: bash
         run: |
@@ -2006,7 +2016,7 @@ jobs:
                 bundle/mongoimport bundle/mongorestore bundle/mongostat bundle/mongotop
           rm -f bundle/cpu-exec bundle/qemu-x86_64
           # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
-          # which fails to compile on Node.js 24. Replace with bcrypt 6.0.0.
+          # which fails to compile on Node.js 26. Replace with bcrypt 6.0.0.
           BCRYPT_DIR="$(pwd)/bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
           if [ -d "$BCRYPT_DIR" ]; then
             rm -rf "$BCRYPT_DIR"
@@ -2270,6 +2280,8 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
+      - name: Use npm 12.0.2
+        run: npm install --global npm@12.0.2
 
       # Which Node.js this platform gets - and whether it is built at all.
       #
@@ -2314,7 +2326,7 @@ jobs:
           rm -f bundle/bsondump bundle/mongodump bundle/mongoexport bundle/mongofiles \
                 bundle/mongoimport bundle/mongorestore bundle/mongostat bundle/mongotop
           # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
-          # which fails to compile on Node.js 24. Replace with bcrypt 6.0.0.
+          # which fails to compile on Node.js 26. Replace with bcrypt 6.0.0.
           BCRYPT_DIR="$(pwd)/bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
           if [ -d "$BCRYPT_DIR" ]; then
             rm -rf "$BCRYPT_DIR"
@@ -2358,7 +2370,7 @@ jobs:
 
       - name: Embed Node.js + FerretDB (mac-arm64) into the bundle
         if: steps.preflight.outputs.skip != 'true'
-        # Bundle the macOS arm64 Node.js (runner's darwin-arm64 Node 24) and the
+        # Bundle the macOS arm64 Node.js (runner's darwin-arm64 Node 26) and the
         # macOS FerretDB binary, downloaded per-arch from the newest wekan/FerretDB
         # release. FerretDB is tolerant: if the mac-arm64 asset is missing the
         # bundle stays MongoDB-only (start-wekan.sh then won't find ferretdb).
@@ -2552,6 +2564,8 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
+      - name: Use npm 12.0.2
+        run: npm install --global npm@12.0.2
 
       # Does the fork publish node-mac-x64 for this version yet? WeKan's Node.js
       # comes only from the fork, so if it has not built this binary there is
@@ -2600,7 +2614,7 @@ jobs:
           rm -f bundle/bsondump bundle/mongodump bundle/mongoexport bundle/mongofiles \
                 bundle/mongoimport bundle/mongorestore bundle/mongostat bundle/mongotop
           # Fix: bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3
-          # which fails to compile on Node.js 24. Replace with bcrypt 6.0.0.
+          # which fails to compile on Node.js 26. Replace with bcrypt 6.0.0.
           BCRYPT_DIR="$(pwd)/bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
           if [ -d "$BCRYPT_DIR" ]; then
             rm -rf "$BCRYPT_DIR"
@@ -2780,7 +2794,7 @@ jobs:
   # Extra-architecture Linux bundles — every Linux arch wekan/FerretDB builds for
   # that has NO MongoDB server, so they ship FerretDB v1 as their database.
   #
-  # Each one needs a Node.js 24 for its CPU, and it comes from the three sources
+  # Each one needs a Node.js 26 for its CPU, and it comes from the three sources
   # in order: official nodejs.org (ppc64le, s390x), then
   # unofficial-builds.nodejs.org (riscv64, loong64), then wekan/node-patches
   # (i386, armhf, armv7 - what neither of the others builds). The preflight
@@ -2852,7 +2866,7 @@ jobs:
             ferretdb_arch: riscv64
             optional: true
           # i386 and armhf are the two 32-bit CPUs neither nodejs.org nor
-          # unofficial-builds publishes a Node 24 for - nodejs.org has no
+          # unofficial-builds publishes a Node 26 for - nodejs.org has no
           # linux-x86 build at all, and no armv7l one for this major - so their
           # Node.js can only come from wekan/node-patches. Until it is published
           # there the preflight SKIPS them (a warning, exit 0) instead of failing
@@ -3014,7 +3028,7 @@ jobs:
         run: |
           set -euo pipefail
           # bcrypt 5.0.1 (Meteor accounts-password) ships node-addon-api@3 which
-          # fails to compile on Node 24; the npm install inside the container
+          # fails to compile on Node 26; the npm install inside the container
           # compiles it (and any other native module) for the target arch.
           BCRYPT_DIR="$(pwd)/bundle/programs/server/npm/node_modules/meteor/accounts-password/node_modules/bcrypt"
           if [ -d "$BCRYPT_DIR" ]; then
@@ -3022,7 +3036,7 @@ jobs:
           fi
 
           # The official node:${NODE_VERSION} image publishes only amd64 and
-          # arm64, so `docker run --platform linux/s390x node:24-slim` fails with
+          # arm64, so `docker run --platform linux/s390x node:26-slim` fails with
           # "no matching manifest". Run a plain distribution image that does
           # publish this architecture and install Node.js inside it.
           echo "Using Node ${NODE_FULL} (${{ matrix.node_arch }}) for ${{ matrix.arch }}, from ${NODE_FROM}"
@@ -3264,6 +3278,8 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
+      - name: Use npm 12.0.2
+        run: npm install --global npm@12.0.2
 
       - name: Enable unprivileged user namespaces (Ubuntu 24.04 restricts them)
         # Ubuntu 24.04's AppArmor defaults kernel.apparmor_restrict_unprivileged_userns=1,
@@ -3296,9 +3312,9 @@ jobs:
           bash "$GITHUB_WORKSPACE/releases/fetch.sh" -o /tmp/install-sandstorm.sh https://install.sandstorm.io
           sudo bash /tmp/install-sandstorm.sh -d
 
-      - name: Assemble modern meteor-spk.deps (Node 24 + FerretDB + Mongo 3.x CLIs)
+      - name: Assemble modern meteor-spk.deps (Node 26 + FerretDB + Mongo 3.x CLIs)
         # Base = upstream meteor-spk 0.6.0 from dl.sandstorm.io (has mongod 3.0 +
-        # niscud). build-deps.sh swaps in Node 24, adds FerretDB + the Mongo 3.x
+        # niscud). build-deps.sh swaps in Node 26, adds FerretDB + the Mongo 3.x
         # CLIs + the migration launcher/importer, keeps niscud, and swaps in the
         # modern sandstorm-http-bridge from the Sandstorm install above. No dependency
         # on the retired releases.wekan.team or the old projects.7z.

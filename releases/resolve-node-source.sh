@@ -35,20 +35,20 @@
 #              translate it.
 #   major      the pinned Node MAJOR, e.g. 24 - then the NEWEST version any
 #              source has FOR THIS PLATFORM is chosen, walking back at most
-#              MAX_VERSIONS_BACK releases. A full version (v24.19.0) pins that
+#              MAX_VERSIONS_BACK releases. A full version (v26.9.0) pins that
 #              exact one and does not walk.
 #
 # Prints to STDOUT, on success, the lines a caller reads with `eval` or grep:
 #
 #   node_found=true
-#   node_full=v24.19.0                 the version that was found
+#   node_full=v26.9.0                 the version that was found
 #   node_from=nodejs.org               nodejs.org | unofficial-builds.nodejs.org |
 #                                      wekan/node-patches - the source's NAME, and
 #                                      exactly the string the provenance table
 #                                      shows, so the two cannot drift
 #   node_url=https://...               the exact file to download
 #   node_kind=tar.xz                   tar.xz | zip | binary - what that file IS
-#   node_member=node-v24.19.0-linux-x64/bin/node
+#   node_member=node-v26.9.0-linux-x64/bin/node
 #                                      the path INSIDE the archive that is the
 #                                      node executable; empty when kind=binary
 #   node_sha256=<hex>                  the published SHA256 OF THE FILE AT
@@ -140,7 +140,7 @@ esac
 # ── Which versions to try ─────────────────────────────────────────────────────
 #
 # A full version pins itself. A bare major is resolved against nodejs.org's own
-# index.json, which lists every release newest first - so "the newest v24.x" is
+# index.json, which lists every release newest first - so "the newest v26.x" is
 # whatever upstream says it is, and this needs no editing when 24.20.0 lands.
 # node-patches tags its releases with the exact upstream version it patched, so
 # one list of versions serves all three sources.
@@ -164,7 +164,7 @@ case "$want" in
     fi
     ;;
   *)
-    log "::error::'${want}' is not a Node major (24) or a version (v24.19.0)."
+    log "::error::'${want}' is not a Node major (24) or a version (v26.9.0)."
     exit 1
     ;;
 esac

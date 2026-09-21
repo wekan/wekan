@@ -9,7 +9,7 @@
 #                           (MongoDB Community Edition has no prebuilt builds for these arches)
 # Note: on any platform whose CPU lacks instructions required by MongoDB (e.g. AVX),
 #       mongodb-control automatically falls back to running via qemu-x86_64-static.
-#       Node.js 24 ships no linux-armv7l binary, so no Node URL is checked for armhf.
+#       Node.js 26 ships no linux-armv7l binary, so no Node URL is checked for armhf.
 #
 # Snap base:   core24 (Ubuntu 24.04 LTS — core26 is edge-only, not released yet)
 # Docker base: ubuntu:24.04 (current LTS, support until 2029;
@@ -61,15 +61,15 @@ for a in amd64 arm64 s390x ppc64le riscv64; do
 done
 echo ""
 
-echo "=== Node.js 24.17.0 (snap architectures with upstream Node builds) ==="
-check "Node.js 24.17.0  linux-x64     (amd64)" \
-  "https://nodejs.org/dist/v24.21.0/node-v24.21.0-linux-x64.tar.gz"
-check "Node.js 24.17.0  linux-arm64   (arm64)" \
-  "https://nodejs.org/dist/v24.21.0/node-v24.21.0-linux-arm64.tar.gz"
-check "Node.js 24.17.0  linux-s390x   (s390x)" \
-  "https://nodejs.org/dist/v24.21.0/node-v24.21.0-linux-s390x.tar.gz"
-check "Node.js 24.17.0  linux-ppc64le (ppc64el)" \
-  "https://nodejs.org/dist/v24.21.0/node-v24.21.0-linux-ppc64le.tar.gz"
+echo "=== Node.js 26.17.0 (snap architectures with upstream Node builds) ==="
+check "Node.js 26.17.0  linux-x64     (amd64)" \
+  "https://nodejs.org/dist/v26.9.0/node-v26.9.0-linux-x64.tar.gz"
+check "Node.js 26.17.0  linux-arm64   (arm64)" \
+  "https://nodejs.org/dist/v26.9.0/node-v26.9.0-linux-arm64.tar.gz"
+check "Node.js 26.17.0  linux-s390x   (s390x)" \
+  "https://nodejs.org/dist/v26.9.0/node-v26.9.0-linux-s390x.tar.gz"
+check "Node.js 26.17.0  linux-ppc64le (ppc64el)" \
+  "https://nodejs.org/dist/v26.9.0/node-v26.9.0-linux-ppc64le.tar.gz"
 echo ""
 
 echo "=== Results ==="

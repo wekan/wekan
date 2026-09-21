@@ -13,9 +13,9 @@ portable language.
 
 ## TL;DR
 
-- WeKan's **server** is Meteor 3, which runs **only on Node.js 24**. The browser
+- WeKan's **server** is Meteor 3, which runs **only on Node.js 26**. The browser
   client is architecture-independent. So the supported-architecture list is
-  exactly *"where is there a Node.js 24 build?"*.
+  exactly *"where is there a Node.js 26 build?"*.
 - The **database is not the bottleneck**: [FerretDB v1](https://github.com/wekan/FerretDB)
   (pure Go, SQLite backend, MongoDB wire protocol) cross-compiles to far more
   architectures than Node does.
@@ -36,20 +36,20 @@ Keep these separate — they have very different portability:
 | Layer | Technology | Portability |
 | --- | --- | --- |
 | Client | HTML/CSS/JS in the browser | Architecture-independent (runs wherever a browser runs) |
-| **Server** | **Meteor 3 → Node.js 24** | **Only where a Node.js 24 build exists** |
+| **Server** | **Meteor 3 → Node.js 26** | **Only where a Node.js 26 build exists** |
 | Database | MongoDB *or* FerretDB v1 (Go) | MongoDB: amd64/arm64 only. FerretDB: almost everything |
 
 Only the **server binary** (the Node.js runtime) constrains the architecture.
 
 ## Architecture support matrix
 
-"Node 24" is what limits WeKan; "FerretDB v1" shows the database is available
+"Node 26" is what limits WeKan; "FerretDB v1" shows the database is available
 well beyond that. Sources:
-[nodejs.org/dist/latest-v24.x](https://nodejs.org/dist/latest-v24.x/) (official),
+[nodejs.org/dist/latest-v26.x](https://nodejs.org/dist/latest-v26.x/) (official),
 [unofficial-builds.nodejs.org](https://unofficial-builds.nodejs.org/download/release/)
 (extra arches), and [wekan/FerretDB releases](https://github.com/wekan/FerretDB/releases).
 
-| Arch | Node.js 24 | MongoDB | FerretDB v1 | WeKan runs? |
+| Arch | Node.js 26 | MongoDB | FerretDB v1 | WeKan runs? |
 | --- | --- | --- | --- | --- |
 | amd64 (x64) | ✅ official | ✅ | ✅ | ✅ |
 | arm64 (aarch64) | ✅ official | ✅ | ✅ | ✅ |
@@ -74,7 +74,7 @@ unofficial-builds ship an `armv7l` tarball for v24, and NodeSource does not ship
 for `armhf`, but their versions lag behind 24.x and are their own (often musl)
 builds, not the portable glibc tarball WeKan's self-contained bundle embeds.
 
-→ The only way to get an `armhf`/`armv7l` WeKan bundle is to **compile Node 24
+→ The only way to get an `armhf`/`armv7l` WeKan bundle is to **compile Node 26
 from source** in CI (slow under emulation, Experimental tier, unsupported).
 
 ### Why `i386` (32-bit x86 Linux) is not supported
@@ -86,7 +86,7 @@ the WeKan server with.)
 
 ### Why `loong64` is not built in CI (even though binaries exist)
 
-LoongArch64 has both a Node 24 unofficial-builds binary **and** a FerretDB v1
+LoongArch64 has both a Node 26 unofficial-builds binary **and** a FerretDB v1
 binary, so in principle WeKan could run on it. But the release workflow cannot
 **build** the bundle/Docker image for it:
 
@@ -115,7 +115,7 @@ Swapping the engine does not run Meteor.
 
 | Engine / runtime | armhf / armv7 | i386 | Runs Meteor/WeKan? |
 | --- | --- | --- | --- |
-| **Node.js 24** (V8) | source-build only (exp.) | ❌ | — (current) |
+| **Node.js 26** (V8) | source-build only (exp.) | ❌ | — (current) |
 | **Deno** (V8, Rust) | ❌ x64/arm64 only | ❌ | ❌ |
 | **Bun** (JavaScriptCore, Zig) | ❌ x64/arm64 only | ❌ | ❌ |
 | **QuickJS** (Bellard, pure C) | ✅ any arch | ✅ | ❌ (no Node API / npm) |
@@ -173,7 +173,7 @@ FerretDB/MongoDB.
 
 | Option | Arch coverage | Effort | Fit for WeKan (web app) |
 | --- | --- | --- | --- |
-| Compile Node 24 from source (armv7 only) | + armv7 (not i386) | Medium, fragile, Experimental | Keeps Meteor; no rewrite |
+| Compile Node 26 from source (armv7 only) | + armv7 (not i386) | Medium, fragile, Experimental | Keeps Meteor; no rewrite |
 | **Go server** | Universal (like FerretDB) | Very large (full rewrite) | Best; static binary, native FerretDB |
 | QuickJS server | Universal | Very large | OK; keeps JS, small ecosystem |
 | Tcl/Tk | Universal (Tcl) | Very large | Poor; GUI/scripting, not a web stack |
@@ -181,10 +181,10 @@ FerretDB/MongoDB.
 ## Hardware / OS notes
 
 These are about the **FerretDB (Go) binary** on specific targets; remember the
-WeKan *server* still needs a Node.js 24 build, which is the actual blocker above.
+WeKan *server* still needs a Node.js 26 build, which is the actual blocker above.
 
 - **ODroid-U3 (ARMv7-A, Linux)** — FerretDB `armhf` (GOARM=7) runs fine. The
-  board has enough RAM for FerretDB v1; only the missing Node 24 `armhf` binary
+  board has enough RAM for FerretDB v1; only the missing Node 26 `armhf` binary
   stops WeKan itself.
 - **Raspberry Pi OS 32-bit** — FerretDB `armhf` (v7) runs on Pi 2/3/4 (ARMv7);
   Pi 1/Zero (ARMv6) need the `armel` (GOARM=5) binary. Again, the WeKan server is

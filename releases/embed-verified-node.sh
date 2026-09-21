@@ -29,9 +29,9 @@
 #
 # Prints, on success, shell-eval-able lines (also appended to $GITHUB_OUTPUT and
 # $GITHUB_ENV when set) so the caller can record provenance:
-#     node_full=v24.19.0
+#     node_full=v26.9.0
 #     node_from=official
-#     node_url=https://nodejs.org/dist/v24.21.0/node-v24.21.0-linux-x64.tar.xz
+#     node_url=https://nodejs.org/dist/v26.9.0/node-v26.9.0-linux-x64.tar.xz
 #     node_sha256=<hex of the file that was downloaded and verified>
 #
 # Exit status: 0 embedded, 3 NO source has a Node.js for this platform - the
@@ -42,7 +42,7 @@ set -uo pipefail
 
 dest="${1:?dest path is required}"
 platform="${2:?platform is required (e.g. amd64, win64, mac-arm64)}"
-version="${3:?version is required (the major 24, or a full v24.19.0)}"
+version="${3:?version is required (the major 24, or a full v26.9.0)}"
 
 here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 

@@ -140,7 +140,9 @@ jobs:
 
       - uses: actions/setup-node@v7
         with:
-          node-version: 24
+          node-version: 26
+      - name: Use npm 12.0.2
+        run: npm install --global npm@12.0.2
 
       - name: Work out which members cannot be virtual
         shell: pwsh

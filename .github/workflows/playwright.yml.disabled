@@ -20,10 +20,10 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - name: Setup Node 24
+      - name: Setup Node 26
         uses: actions/setup-node@v6
         with:
-          node-version: '24'
+          node-version: '26'
           cache: 'npm'
 
       - name: Cache Meteor installation
@@ -91,10 +91,10 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - name: Setup Node 24
+      - name: Setup Node 26
         uses: actions/setup-node@v6
         with:
-          node-version: '24'
+          node-version: '26'
           cache: 'npm'
 
       - name: Cache Meteor installation
@@ -219,10 +219,10 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - name: Setup Node 24
+      - name: Setup Node 26
         uses: actions/setup-node@v6
         with:
-          node-version: '24'
+          node-version: '26'
           cache: 'npm'
 
       - name: Cache Meteor installation

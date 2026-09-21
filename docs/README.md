@@ -25,7 +25,7 @@ Wekan is distributed under the [MIT License], allowing anyone to easily work wit
 
 # <a name="General"></a>General
 
-* WeKan Features: [Deep Dive Into WeKan](Design/Deep-Dive-Into-WeKan.md) (WeKan now runs on Meteor 3.x and Node.js 24.x)
+* WeKan Features: [Deep Dive Into WeKan](Design/Deep-Dive-Into-WeKan.md) (WeKan now runs on Meteor 3.x and Node.js 26.x)
 * [WeKan Roadmap kanban board](https://boards.wekan.team/b/D2SzJKZDS4Z48yeQH/wekan-open-source-kanban-board-with-mit-license) - board at Wekan demo
 * Future WeKan prototypes: [Multiverse WeKan Roadmap](Design/Multiverse/WeKan-Multiverse-Roadmap.md)
 * [Change Language](./Features/Translations/Change-Language.md)

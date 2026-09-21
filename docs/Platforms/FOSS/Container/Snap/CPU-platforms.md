@@ -19,7 +19,7 @@ and how the one-time MongoDB 3 → FerretDB v1 migration works.
 - **Every Snap platform includes the FerretDB v1 server and the MongoDB Database
   Tools** (`mongodump`, `mongorestore`, `mongofiles`, `mongoexport`, …), on every
   architecture.
-- **`mongosh` is NOT bundled at all.** WeKan already ships Node.js 24 and the
+- **`mongosh` is NOT bundled at all.** WeKan already ships Node.js 26 and the
   `mongodb` driver, and all scripted database access (readiness checks,
   replica-set init, schema migration) uses that via `$SNAP/bin/db-eval` instead of
   the MongoDB Shell. This removes a large, CVE-prone binary and works identically
@@ -52,7 +52,7 @@ is not always the Snap Store's name for the same hardware — see
 - **MongoDB 7 server (mongod)**: amd64/arm64 only (MongoDB ships no server for the others).
 - **MongoDB Database Tools**: every arch — WeKan builds them for all platforms from
   [wekan/mongo-tools-patches](https://github.com/wekan/mongo-tools-patches) (they are pure Go).
-- **mongosh**: not bundled on any arch — replaced by the bundled Node.js 24 +
+- **mongosh**: not bundled on any arch — replaced by the bundled Node.js 26 +
   `mongodb` driver (`$SNAP/bin/db-eval`).
 
 All architectures default new installs to FerretDB v1 with `DDP_TRANSPORT=sockjs`

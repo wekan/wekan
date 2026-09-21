@@ -94,9 +94,9 @@ Now when you go to **File -> Open Folder**:
 
 These were found already present in this sandboxed setup:
 
-- Node.js: `/home/wekan/repos/wekan/.tools/node-v24.19.0-linux-x64/bin/node`
-- npm: `/home/wekan/repos/wekan/.tools/node-v24.19.0-linux-x64/bin/npm`
-- npx: `/home/wekan/repos/wekan/.tools/node-v24.19.0-linux-x64/bin/npx`
+- Node.js: `/home/wekan/repos/wekan/.tools/node-v26.9.0-linux-x64/bin/node`
+- npm: `/home/wekan/repos/wekan/.tools/node-v26.9.0-linux-x64/bin/npm`
+- npx: `/home/wekan/repos/wekan/.tools/node-v26.9.0-linux-x64/bin/npx`
 - Meteor CLI symlink: `/home/wekan/.meteor/meteor`
 - Playwright Chromium binary: `/home/wekan/.var/app/com.vscodium.codium/cache/ms-playwright/chromium-1223/chrome-linux64/chrome`
 - Flatpak-provided chrome-sandbox binary (not SUID in this runtime): `/app/extra/vscode/chrome-sandbox`
@@ -109,7 +109,7 @@ Open VS Codium integrated terminal and run:
 cd /home/wekan/repos/wekan
 
 # 1) Use repo-local Node/npm/npx
-export PATH="$PWD/.tools/node-v24.19.0-linux-x64/bin:$PATH"
+export PATH="$PWD/.tools/node-v26.9.0-linux-x64/bin:$PATH"
 
 # 2) Use Meteor CLI installed at ~/.meteor (if present)
 export PATH="/home/wekan/.meteor:$PATH"
@@ -134,7 +134,7 @@ If `meteor` is missing first time, bootstrap it from local Node:
 
 ```bash
 cd /home/wekan/repos/wekan
-export PATH="$PWD/.tools/node-v24.19.0-linux-x64/bin:$PATH"
+export PATH="$PWD/.tools/node-v26.9.0-linux-x64/bin:$PATH"
 npx -y meteor
 export PATH="/home/wekan/.meteor:$PATH"
 ```
@@ -151,7 +151,7 @@ Install Playwright deps and run Chromium-only tests:
 
 ```bash
 cd /home/wekan/repos/wekan/tests/playwright
-export PATH="/home/wekan/repos/wekan/.tools/node-v24.19.0-linux-x64/bin:$PATH"
+export PATH="/home/wekan/repos/wekan/.tools/node-v26.9.0-linux-x64/bin:$PATH"
 unset CHROME_DEVEL_SANDBOX
 export PLAYWRIGHT_BROWSERS_PATH="/home/wekan/.var/app/com.vscodium.codium/cache/ms-playwright"
 
@@ -242,7 +242,7 @@ validated result:
 
 ```bash
 cd /home/wekan/repos/wekan/tests/playwright
-export PATH="/home/wekan/repos/wekan/.tools/node-v24.19.0-linux-x64/bin:$PATH"
+export PATH="/home/wekan/repos/wekan/.tools/node-v26.9.0-linux-x64/bin:$PATH"
 unset CHROME_DEVEL_SANDBOX
 
 node -e "(async()=>{const {chromium}=require('playwright');const b=await chromium.launch({headless:true,args:['--no-sandbox']});const p=await b.newPage();await p.goto('about:blank');console.log('PW_OK');await b.close();})().catch(e=>{console.error(e);process.exit(1);});"
@@ -408,10 +408,10 @@ Linux arch), install everything into the repo-local `.tools/` directory yourself
 
 IMPORTANT — use the SAME versions WeKan/FerretDB use, not whatever is newest:
 
-- Node.js: the exact `NODE_VERSION` from `Dockerfile` (currently `v24.19.0`).
-- npm: the `NPM_VERSION` from `Dockerfile` (currently `11.12.1`; the npm bundled with the
+- Node.js: the exact `NODE_VERSION` from `Dockerfile` (currently `v26.9.0`).
+- npm: the `NPM_VERSION` from `Dockerfile` (currently `12.0.2`; the npm bundled with the
   pinned Node is acceptable if pinning fails).
-- Meteor: the release in `.meteor/release` (currently `METEOR@3.5`).
+- Meteor: the release in `.meteor/release` (currently `METEOR@3.6-beta.1`).
 - Go (for FerretDB ONLY): the NEWEST Go release (`https://go.dev/VERSION?m=text`) — this
   is intentionally newer than `FerretDB/build.sh`'s pinned `GO_VERSION`.
 
@@ -423,17 +423,18 @@ cd /home/wekan/repos/wekan          # your repo path
 mkdir -p .tools && cd .tools
 A=arm64                              # or x64 for Node / amd64 for Go on x86_64
 # Node — EXACT Dockerfile NODE_VERSION:
-curl -fsSL -o node.tar.xz "https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-$A.tar.xz"
+curl -fsSL -o node.tar.xz "https://nodejs.org/dist/v26.9.0/node-v26.9.0-linux-$A.tar.xz"
 tar xf node.tar.xz && rm node.tar.xz
 # Go — NEWEST release, for building FerretDB:
 curl -fsSL -o go.tar.gz "https://go.dev/dl/$(curl -fsSL https://go.dev/VERSION?m=text|head -1).linux-$A.tar.gz"
 tar xf go.tar.gz && rm go.tar.gz
 cd ..
-export PATH="$PWD/.tools/node-v24.19.0-linux-$A/bin:$PWD/.tools/go/bin:$PATH"
+export PATH="$PWD/.tools/node-v26.9.0-linux-$A/bin:$PWD/.tools/go/bin:$PATH"
 node -v && go version
+npm install -g npm@12.0.2
 # Meteor — the release from .meteor/release, installed under HOME=.tools so it never
 # touches a read-only ~/.meteor:
-HOME="$PWD/.tools" sh -c 'curl -fsSL "https://install.meteor.com/?release=3.5" | sh'
+HOME="$PWD/.tools" sh -c 'curl -fsSL "https://install.meteor.com/?release=3.6-beta.1" | sh'
 export PATH="$PWD/.tools/.meteor:$PATH"
 ```
 
@@ -453,7 +454,7 @@ go test -short -tags=ferretdb_debug ./internal/... ./cmd/...   # all packages: o
 
 ```bash
 cd /home/wekan/repos/wekan
-export HOME="$PWD/.tools" PATH="$PWD/.tools/node-v24.19.0-linux-arm64/bin:$PWD/.tools/.meteor:$PATH"
+export HOME="$PWD/.tools" PATH="$PWD/.tools/node-v26.9.0-linux-arm64/bin:$PWD/.tools/.meteor:$PATH"
 export TOOL_NODE_FLAGS="--max-old-space-size=8192" NODE_OPTIONS="--max-old-space-size=8192"
 meteor npm install
 meteor build .build --directory                      # -> .build/bundle/main.js
@@ -464,7 +465,7 @@ npm install --prefix .build/bundle/programs/server   # server deps, needed to RU
 
 ```bash
 cd /home/wekan/repos/wekan
-export PATH="$PWD/.tools/node-v24.19.0-linux-arm64/bin:$PATH"
+export PATH="$PWD/.tools/node-v26.9.0-linux-arm64/bin:$PATH"
 npm run test:unit:node        # plain-node .cjs unit + negative tests (no DB/browser)
 npm run test:unit:node -- board   # only the suites whose path contains "board"
 node tests/run-node-suites.cjs --list   # what would run
@@ -491,7 +492,7 @@ DO_NOT_TRACK=1 ./FerretDB/bin/ferretdb --handler=sqlite --sqlite-url="file:$D/db
   --telemetry=disable --log-level=error &
 # 2) THEN WeKan (starting it before FerretDB is ready crashes on the users index —
 #    "Topology is closed" — see #6500):
-PATH="$T/node-v24.19.0-linux-arm64/bin:$PATH" MONGO_URL="mongodb://127.0.0.1:27017/wekan" \
+PATH="$T/node-v26.9.0-linux-arm64/bin:$PATH" MONGO_URL="mongodb://127.0.0.1:27017/wekan" \
   METEOR_REACTIVITY_ORDER="oplog,polling" \
   MONGO_OPLOG_URL="mongodb://127.0.0.1:27017/local?replicaSet=rs0" \
   PORT=8080 ROOT_URL="http://localhost:8080" WRITABLE_PATH="$D" \

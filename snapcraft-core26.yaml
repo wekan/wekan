@@ -7,7 +7,7 @@
 # requires `build-base: devel`, which forces `grade: devel`, and a devel-grade
 # snap is refused by the stable and candidate channels, so it can only go to beta
 # and edge. That is why the release stays on core24. It is otherwise the SAME newest WeKan
-# (Meteor 3.5, Node.js 24, FerretDB v1, MongoDB 7, Caddy 2) as snapcraft.yaml.
+# (Meteor 3.6-beta.1, Node.js 26, FerretDB v1, MongoDB 7, Caddy 2) as snapcraft.yaml.
 #
 # To build it: `cp snapcraft-core26.yaml snapcraft.yaml && snapcraft ...`.
 # Keep it in sync with snapcraft.yaml — the only intended differences are:
@@ -219,7 +219,7 @@ parts:
 
     # No mongosh part: WeKan no longer bundles the MongoDB Shell. All scripted DB
     # access (readiness, replica-set init, schema migration) uses the bundled
-    # Node.js 24 + the `mongodb` driver via $SNAP/bin/db-eval (see snap-src/bin).
+    # Node.js 26 + the `mongodb` driver via $SNAP/bin/db-eval (see snap-src/bin).
 
     # No separate mongotools part: the per-arch MongoDB Database Tools are already
     # embedded in the wekan-<arch>.zip bundle (built from wekan/mongo-tools-patches by

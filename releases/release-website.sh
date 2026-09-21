@@ -80,7 +80,7 @@ sedi "s|\(Node\.js \)[0-9][0-9]*\.[x0-9a-zA-Z.-]*|\1${NODE_VERSION}|g" $WEBDIR/i
 # and in the filename (node-vX.Y.Z-linux-<arch>.tar.*). Handle BOTH the OFFICIAL
 # nodejs.org build (amd64/arm64/s390x/ppc64le) and the UNOFFICIAL
 # unofficial-builds.nodejs.org build (riscv64, which nodejs.org has no binary for).
-# NODE_VERSION already includes the leading 'v' (e.g. v24.18.0). Patterns are
+# NODE_VERSION already includes the leading 'v' (e.g. v26.9.0). Patterns are
 # anchored to Node URLs/filenames, so no other version numbers are touched, and
 # they no-op if the page has no such links.
 sedi -E "s#(nodejs\.org/dist/)v[0-9]+\.[0-9]+\.[0-9]+#\1${NODE_VERSION}#g" $WEBDIR/install/index.html

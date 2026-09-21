@@ -355,7 +355,7 @@ int wmain(void) {
 
     /*
      * tar.exe (bsdtar) has shipped with Windows since 10 1803 and reads ZIP
-     * archives. Every Windows that can run this bundle's Node.js 24 is newer
+     * archives. Every Windows that can run this bundle's Node.js 26 is newer
      * than that, so a missing tar.exe is a broken Windows, not an old one.
      * --strip-components=1 drops the archive's leading "bundle/" so the
      * unpacked paths are no longer than the plain ZIP's. Only the members in

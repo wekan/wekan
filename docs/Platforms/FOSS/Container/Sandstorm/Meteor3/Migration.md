@@ -1,10 +1,10 @@
-# WeKan on Sandstorm — Meteor 3.5 / Node.js 24 build + MongoDB 3 → FerretDB migration
+# WeKan on Sandstorm — Meteor 3.6-beta.1 / Node.js 26 build + MongoDB 3 → FerretDB migration
 
 Status: **design / not yet implemented**. Nothing here has been built or run end‑to‑end
 in a grain yet — every step marked **TEST** must be verified against a real Sandstorm
 install (ideally a copy of an existing WeKan grain) before shipping.
 
-This document describes how to build a modern WeKan `.spk` (Meteor 3.5, Node.js 24) that
+This document describes how to build a modern WeKan `.spk` (Meteor 3.6-beta.1, Node.js 26) that
 replaces the packaged MongoDB 3.0 database with **FerretDB v1 (embedded SQLite)**, migrating
 any existing grain's MongoDB 3.0 data on first launch — reusing the exact migration logic the
 WeKan **snap** already ships.
@@ -18,7 +18,7 @@ built 2021‑10‑23). Its `meteor-spk.deps` payload is a 2015‑era design:
 
 | Component | meteor‑spk 0.6.0 ships | WeKan needs |
 |---|---|---|
-| `bin/node` | Node **14.17.5** (stock, from nodejs.org) | **Node 24.x** (Meteor 3.5) |
+| `bin/node` | Node **14.17.5** (stock, from nodejs.org) | **Node 26.x** (Meteor 3.6-beta.1) |
 | `bin/mongod` | MongoDB **3.0.7** (WiredTiger) | keep — read‑only migration source only |
 | `bin/niscud` | MongoDB **2.x** (Kenton's Niscu fork) | keep (niscu→3.0 migration) |
 | `lib/` | glibc **2.31** (Ubuntu 20.04) | regenerate on 22.04 (glibc 2.35) for node24/ferretdb |
@@ -31,13 +31,13 @@ can't even be dropped in without changing it.
 Note on the Node fork: `sandstorm-io/node` is **not** needed. It is frozen at Node 8.11.4
 (2018) and its only real patch is a V8 thread‑table optimization for **node‑fibers** — and
 Meteor 3 removed fibers entirely. meteor‑spk already ships **stock** upstream Node (0.6.0's
-`bin/node` is the official nodejs.org 14.17.5 build). Use stock **Node 24**.
+`bin/node` is the official nodejs.org 14.17.5 build). Use stock **Node 26**.
 
 ---
 
 ## 2. Target architecture
 
-Steady state after migration: WeKan (Node 24) talks to **FerretDB v1 (SQLite)** over the
+Steady state after migration: WeKan (Node 26) talks to **FerretDB v1 (SQLite)** over the
 MongoDB wire protocol — no MongoDB server runs at all. mongod 3.0 is used **once**, only to
 read an existing grain's old data during the one‑time migration.
 
@@ -67,16 +67,16 @@ Checked `sandstorm/src/sandstorm/seccomp-bpf/filter.s`. The grain seccomp filter
 allowlist whose **default action is `ENOSYS`, not SIGSYS‑kill**, so Go/glibc gracefully fall
 back on missing syscalls. Relevant results:
 
-- **Allowed** (needed by Node 24 / Go FerretDB): `getrandom`, `statfs`/`fstatfs`,
+- **Allowed** (needed by Node 26 / Go FerretDB): `getrandom`, `statfs`/`fstatfs`,
   `sched_getaffinity`, `clone`, `futex`, `epoll_*`, `eventfd2`, `fork`, `mmap`, `mprotect`.
 - **Denied → ENOSYS** (tolerated via fallback): `membarrier`, `rseq`, `clone3`, `restart_syscall`.
 
-Conclusion: a grain can run Node 24 + FerretDB (Go) + mongod 3.0 concurrently — the same
+Conclusion: a grain can run Node 26 + FerretDB (Go) + mongod 3.0 concurrently — the same
 multi‑process model the current build already uses for mongod+node. Nothing else is needed
 from the sandstorm platform repo.
 
-**TEST (highest risk):** Node 24's glibc uses `clone3` for thread creation and relies on the
-ENOSYS→`clone` fallback (glibc ≥ 2.34). Verify a trivial Node 24 grain spawns threads before
+**TEST (highest risk):** Node 26's glibc uses `clone3` for thread creation and relies on the
+ENOSYS→`clone` fallback (glibc ≥ 2.34). Verify a trivial Node 26 grain spawns threads before
 investing in the rest.
 
 ---
@@ -85,7 +85,7 @@ investing in the rest.
 
 Start from the 0.6.0 base, then:
 
-- **Replace** `bin/node` with **Node 24** — use the exact build from Meteor 3.5's dev bundle
+- **Replace** `bin/node` with **Node 26** — use the exact build from Meteor 3.6-beta.1's dev bundle
   (`meteor node -e "console.log(process.version)"`) so native‑addon ABIs match the WeKan bundle.
 - **Keep** `bin/mongod` (3.0.7) — read‑only migration source.
 - **Keep** `bin/niscud` (MongoDB 2.x) **and** the old bundled `node_modules/{mongodb,bson,
@@ -353,15 +353,15 @@ and refreshes.
 - **Base = upstream meteor‑spk 0.6.0**, downloaded from `https://dl.sandstorm.io/meteor-spk-0.6.0.tar.xz`.
   It already contains `bin/mongod` (3.0.7), `bin/niscud` (2.x) and the old `node_modules` the
   niscu→3.0 stage needs. **Nothing is needed from the old `projects.7z`** (it only holds
-  0.4.1/0.5.0/0.5.1, and its swapped node is ancient — we install Node 24 anyway). The dead
+  0.4.1/0.5.0/0.5.1, and its swapped node is ancient — we install Node 26 anyway). The dead
   `releases.wekan.team/dev/meteor-spk/projects.7z` fetch is removed.
 - The assembly script ([`sandstorm-src/build-deps.sh`](../../../../../../sandstorm-src/build-deps.sh))
-  modernizes `meteor-spk.deps`: swap in Node 24, add `ferretdb-amd64` (per-arch asset from the wekan/FerretDB release), add
+  modernizes `meteor-spk.deps`: swap in Node 26, add `ferretdb-amd64` (per-arch asset from the wekan/FerretDB release), add
   `migratemongo/{bin,lib}` (`mongoexport` + `mongo` + old libs), copy
   [`sandstorm-src/start.js`](../../../../../../sandstorm-src/start.js) → `meteor-spk.deps/start.js`
   and [`snap-src/bin/migrate-mongo3-to-ferretdb.mjs`](../../../../../../snap-src/bin/migrate-mongo3-to-ferretdb.mjs)
   → `meteor-spk.deps/`, **keep `niscud`**, and regenerate the lib tree with `gather-deps` on ubuntu‑24.04.
-- Fetch the extra binaries (Node 24, `ferretdb-amd64`, migratemongo CLIs) from **GitHub release
+- Fetch the extra binaries (Node 26, `ferretdb-amd64`, migratemongo CLIs) from **GitHub release
   assets** — `releases.wekan.team` no longer exists, so any required build files live on GitHub
   releases (e.g. `wekan/wekan` or a dedicated release).
 
@@ -369,7 +369,7 @@ and refreshes.
 
 ## 10. Risks & test checklist
 
-- [ ] **TEST** Node 24 threads under seccomp (clone3→clone ENOSYS fallback). *Highest risk.*
+- [ ] **TEST** Node 26 threads under seccomp (clone3→clone ENOSYS fallback). *Highest risk.*
 - [ ] **TEST** mongod 3.0.7 opens `/var/wiredTigerDb` inside the grain with the old libs.
 - [ ] **TEST** FerretDB (Go) starts and listens in the grain.
 - [ ] **TEST** full migration on a **copy** of a real old WeKan grain (text + attachments + avatars).

@@ -113,7 +113,7 @@ By working directly with WeKan ® you get the benefit of active maintenance and 
 
 ## Getting Started with Development
 
-The main branch uses Meteor 3.5 with Node.js 24.x.
+The main branch uses Meteor 3.6-beta.1 with Node.js 26.x.
 See [CHANGELOG.md](https://github.com/wekan/wekan/blob/main/CHANGELOG.md) for the latest runtime updates.
 
 To contribute, [create a fork](https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Build-and-Create-Pull-Request.md#2-create-fork-of-httpsgithubcomwekanwekan-at-github-web-page) and run `./build.sh` (or `./build.bat` on Windows) as detailed [here](https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Build-and-Create-Pull-Request.md#3-install-dependencies-build-wekan-and-run-the-dev-server). Once you're ready, please test your code and [submit a pull request (PR)](https://github.com/wekan/wekan/blob/main/docs/DeveloperDocs/Build-and-Create-Pull-Request.md#7-test).
@@ -127,7 +127,7 @@ Please refer to the [developer documentation](https://github.com/wekan/wekan/blo
 Before building WeKan from source, ensure you have:
 
 - **Git** - for cloning the repository
-- **Node.js 24.x** - WeKan requires Node.js 24.x
+- **Node.js 26.x** - WeKan requires Node.js 26.x
 - **Meteor** - the JavaScript framework WeKan is built with
 
 ### Building WeKan

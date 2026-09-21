@@ -2856,16 +2856,17 @@ for _once in 1; do
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm
 			sudo npm -g install n
 			sudo n "$_wekan_node_version"
+			sudo npm install -g npm@12.0.2
 			sudo npm -g install meteor --unsafe-perm
 			#sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
 		elif [[ "$OSTYPE" == "darwin"* ]]; then
 			echo "macOS"
-			# Node comes from nvm, not from Homebrew's node@24 keg.
+			# Node comes from nvm, not from Homebrew's node@26 keg.
 			#
-			# `brew install node@24` gives whatever 24.x Homebrew currently has
+			# `brew install node@26` gives whatever 26.x Homebrew currently has
 			# bottled - which trails nodejs.org - and, being keg-only, needs
-			# PATH, LDFLAGS and CPPFLAGS exported by hand. `nvm install 24`
-			# resolves to the NEWEST 24.x on nodejs.org every time it runs and
+			# PATH, LDFLAGS and CPPFLAGS exported by hand. `nvm install 26`
+			# resolves to the NEWEST 26.x on nodejs.org every time it runs and
 			# puts that on PATH itself, so this does not go stale the way a
 			# pinned version does. npm comes with the Node it installs, so
 			# there is no `brew install npm` either.
@@ -2891,10 +2892,11 @@ for _once in 1; do
 			# switch versions while it is set. The old Homebrew path set it, so
 			# clear it before installing anything.
 			npm config delete prefix >/dev/null 2>&1 || true
-			# The newest 24.x, and the default for every new shell.
-			nvm install 24
-			nvm alias default 24
-			nvm use 24
+			# The newest 26.x, and the default for every new shell.
+			nvm install 26
+			nvm alias default 26
+			nvm use 26
+			npm install -g npm@12.0.2
 			echo "Node $(node --version), npm $(npm --version)"
 			# Let new shells find nvm too. Its installer appends these itself,
 			# but only to the rc file it detects and only when IT did the
