@@ -6,12 +6,12 @@
 meteor-base@1.5.2
 
 # Build system
-ecmascript@0.19.2-beta360.0
+ecmascript@0.19.2-beta360.1
 standard-minifier-js@3.2.0
-rspack@1.4.0-beta360.0
+rspack@1.4.0-beta360.1
 # Declared explicitly because server/modernBrowsers.js imports it, to say that
 # Yandex Browser is modern and must not be served the legacy bundle (#6557).
-modern-browsers@0.2.3
+modern-browsers@0.2.4-beta360.1
 
 blaze@3.0.2
 
@@ -19,11 +19,11 @@ blaze@3.0.2
 aldeed:collection2
 aldeed:schema-index@4.0.0-beta.5
 reywood:publish-composite
-mongo@2.5.1
+mongo@2.5.2-beta360.1
 
 # Account system
-accounts-password@3.3.1
-accounts-2fa@3.1.0
+accounts-password@3.3.2-beta360.1
+accounts-2fa@3.1.1-beta360.1
 accounts-express@1.0.0
 communitypackages:core
 communitypackages:unstyled
@@ -39,18 +39,18 @@ wekan-oidc
 wekan-accounts-oidc
 
 # Utilities
-check@1.5.0
-random@1.2.2
-reactive-dict@1.3.2
-session@1.2.3
-tracker@1.3.4
+check@1.5.1-beta360.1
+random@1.2.3-beta360.1
+reactive-dict@1.3.3-beta360.1
+session@1.2.4-beta360.1
+tracker@1.3.5-beta360.1
 audit-argument-checks@1.0.8
 
 # UI components
 ostrio:i18n
 reactive-var@1.0.13
-shell-server@0.7.0
-email@3.2.0
+shell-server@0.7.1-beta360.1
+email@3.2.1-beta360.1
 dynamic-import@0.7.4
 wekan-markdown
 quave:synced-cron
@@ -59,17 +59,17 @@ ostrio:files
 # lmieulet:meteor-coverage
 meteortesting:mocha@3.0.0
 matb33:collection-hooks
-service-configuration@1.3.5
+service-configuration@1.3.6-beta360.1
 minifier-css@2.0.2
-ejson@1.2.0
-logging@1.3.6
+ejson@1.2.1-beta360.1
+logging@1.3.7-beta360.1
 wekan-fullcalendar
 wekan-fontawesome
-accounts-google@1.4.1
-accounts-github@1.5.1
-accounts-facebook@1.3.4
-accounts-twitter@1.5.2
-accounts-meteor-developer@1.5.1
-accounts-weibo@1.4.1
-accounts-meetup@1.5.1
-accounts-passwordless@3.1.1
+accounts-google@1.4.2-beta360.1
+accounts-github@1.5.2-beta360.1
+accounts-facebook@1.3.5-beta360.1
+accounts-twitter@1.5.3-beta360.1
+accounts-meteor-developer@1.5.2-beta360.1
+accounts-weibo@1.4.2-beta360.1
+accounts-meetup@1.5.2-beta360.1
+accounts-passwordless@3.1.2-beta360.1
