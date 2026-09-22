@@ -902,6 +902,69 @@ wrong-language and placeholder checks pass.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/47ea97810">Translate pulled Occitan interface strings</a>. Thanks to xet7.</summary>
+
+Replace French seed text and English pull placeholders with Occitan. Reuse
+reviewed terminology from GNOME, Mozilla, ownCloud, MediaWiki and Apertium,
+then preserve legitimate words shared with French. Completeness, token and
+pull-merge checks pass.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fb5adf635">Translate pulled Breton interface strings</a>. Thanks to xet7.</summary>
+
+Replace French seed text and English pull placeholders with Breton, using
+existing WeKan wording plus Mozilla, GNOME, MediaWiki and Apertium terminology.
+The follow-up <a href="https://github.com/wekan/wekan/commit/f0d6d48ef">spelling correction</a>
+keeps the tested Breton color name. Completeness, token and locale checks pass.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e87cf70be">Translate pulled Wolof interface strings</a>. Thanks to xet7.</summary>
+
+Replace French seed text and English pull placeholders with Wolof. Existing
+WeKan vocabulary and human Mozilla, Debian and MediaWiki catalogs guided this
+low-confidence direct fill. Completeness and token checks pass; native-speaker
+wording review remains welcome.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9c1e53fe6">Translate pulled Walloon interface strings</a>. Thanks to xet7.</summary>
+
+Replace French seed text and English pull placeholders with Walloon. GNOME,
+Debian and MediaWiki catalogs supplied reviewed terminology, and shared
+Walloon/French spellings remain protected during future pulls. Completeness,
+token and locale checks pass.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5b128a1c6">Translate pulled Volapük interface strings</a>. Thanks to xet7.</summary>
+
+Replace French seed text and English pull placeholders with Volapük, using
+existing WeKan wording, MediaWiki strings and published Volapük dictionaries.
+Remove Esperanto words found during review. Completeness and token checks pass;
+native-speaker wording review remains welcome.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8c4b292a9">Translate pulled Standard Moroccan Tamazight interface strings</a>. Thanks to xet7.</summary>
+
+Replace French seed text and English pull placeholders with Standard Moroccan
+Tamazight in Neo-Tifinagh, using existing WeKan and IRCAM terminology. The
+<a href="https://github.com/wekan/wekan/commit/caa58a39b">review follow-up</a>
+corrects the SMTP port label and preserves translated checklist examples. No
+Arabic-script values or malformed source tokens remain. Completeness, script,
+token and targeted locale checks pass; native-speaker wording review remains
+welcome.
+
+</details>
+
 # v11.89 2026-09-20 WeKan ® release
 
 **In short:** **Snap Store** uploads now retry temporary server failures across
