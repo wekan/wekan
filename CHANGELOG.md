@@ -656,9 +656,24 @@ the Markdown commit as the template.
 # Upcoming WeKan ® release
 
 **In short:** WeKan's platform builds now target **Node.js 26.9.0** and
-**npm 12.0.2**. GitHub release workflows also keep Snap publication moving
-when the store returns temporary server errors, while still failing fast on
-invalid uploads and credential problems.
+**npm 12.0.2**. GitHub release workflows also build separate macOS apps for
+Apple Silicon and Intel, and keep Snap publication moving when the store
+returns temporary server errors, while still failing fast on invalid uploads
+and credential problems.
+
+This release adds the following platform package:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b9ae16a44">Package separate macOS apps for Apple Silicon and Intel</a>. Thanks to xet7.</summary>
+
+Wrap each published Mac bundle in a draggable `.app` ZIP with bundled Node.js,
+FerretDB and Meteor 3 WeKan. Finder opens a Terminal window to run the server,
+with writable files under the user's Library. Release and missing-assets
+workflows build both architectures separately and smoke-test startup on their
+native GitHub runners. Local packaging checks passed for both architectures;
+the GitHub runner smoke tests remain to be run by the release workflows.
+
+</details>
 
 This release updates the following dependencies and platforms:
 
