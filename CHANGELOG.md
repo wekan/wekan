@@ -725,6 +725,17 @@ The persistence regression passes in Chromium after a full reload. Fixes
 This release fixes the following Admin Panel reports:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e8d9bf9f1">Pair IPv4 and IPv6 addresses with their locations</a>. Thanks to xet7.</summary>
+
+Admin address tables now show IPv4 address, Location, IPv6 address and IPv6
+location in that order. Each flag and city sits beside the address family
+present on its row; unavailable locations stay empty. API, event, Recovery,
+Offices and People login-location reports use the same four columns. Focused
+Node tests pass; the updated browser regression awaits a working browser host.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d43968d88">Clarify file scans and show location in address reports</a>. Thanks to xet7.</summary>
 
 Filesystem Integrity now says when a partial audit stopped before scanning
