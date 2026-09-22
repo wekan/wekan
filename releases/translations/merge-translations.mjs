@@ -65,6 +65,7 @@ const WRONG_LANGUAGE_REFERENCES = {
 const REVIEWED_SHARED_VALUES = {
   br: {
     'operator-board-abbrev': 't',
+    'color-gray': 'gris',
   },
   mn: {
     archives: 'Архив',
