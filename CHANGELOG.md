@@ -688,6 +688,19 @@ the GitHub workflows to build.
 
 </details>
 
+This release adds the following Admin Panel feature:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/23ed8d927">Show Meteor instrumentation in Admin Panel Problems</a>. Thanks to xet7.</summary>
+
+The new Instrumentation pane shows live method, publication and DDP connection
+counts, error counts and available timings from Meteor 3.6. Its admin-only,
+bounded counters are local to one server process and reset on restart. The
+report does not retain arguments, results, addresses or user identifiers.
+Meteor build, focused Node tests and the Chromium browser regression pass.
+
+</details>
+
 This release fixes the following board, card and list bugs:
 
 <details>
