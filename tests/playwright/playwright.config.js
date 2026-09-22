@@ -72,14 +72,13 @@ function browserProjects() {
       ]
     : [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }];
 
-  // WebKit can occasionally terminate a renderer after hundreds of tests.
-  // Firefox in the Docker container can likewise see an intermittent network
-  // failure through host.docker.internal. One local retry starts a fresh page;
-  // a repeatable application failure still fails. CI keeps two retries below.
+  // WebKit can occasionally terminate a renderer after hundreds of tests and
+  // report only "WebKit encountered an internal error". One local retry gets a
+  // fresh Playwright worker/browser. A real application failure repeats and
+  // still fails; CI keeps its broader two-retry policy below.
   if (!process.env.CI && process.env.WEKAN_TEST_BAIL !== '1') {
-    for (const project of candidates) {
-      if (project.name === 'webkit' || project.name === 'firefox') project.retries = 1;
-    }
+    const webkitProject = candidates.find(project => project.name === 'webkit');
+    if (webkitProject) webkitProject.retries = 1;
   }
 
   if (!SHOULD_PROBE) {

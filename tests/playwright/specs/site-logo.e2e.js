@@ -5,7 +5,7 @@ const {loginWithToken, openBoard} = require('../helpers/auth');
 const BASE_URL = process.env.WEKAN_BASE_URL || 'http://localhost:3000';
 const PIXEL = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9WHJ9S8AAAAASUVORK5CYII=';
 
-test('custom login and board logos load without requesting stock logos', async ({page, user, board}) => {
+test('custom login and board logos load without requesting stock logos', async ({page, user, board, browser}) => {
  const setting = db.findOne('settings', {});
  if (!setting) throw Error('Settings document missing');
  const previous = {
@@ -15,10 +15,23 @@ test('custom login and board logos load without requesting stock logos', async (
  };
  const stockRequests = [];
  page.on('request', request => {
-  if (/\/(?:wekan-logo\.svg|logo-header\.png)(?:\?|$)/.test(request.url())) stockRequests.push(request.url());
+  if (/\/(?:wekan-logo\.svg|logo-header\.png)(?:\?|$)/.test(request.url())) {
+   stockRequests.push({ url: request.url(), pageUrl: page.url() });
+  }
  });
  try {
   db.updateOne('settings', {_id:setting._id}, {$set:{customLoginLogoImageUrl:PIXEL, customTopLeftCornerLogoImageUrl:PIXEL, hideLogo:false}});
+  // Earlier specs change the same published setting. Let that reactive stream
+  // settle in a disposable context, then inspect a fresh context's first load
+  // so its asset cache cannot hide an accidental stock-logo request.
+  const warmupContext = await browser.newContext();
+  try {
+   const warmupPage = await warmupContext.newPage();
+   await warmupPage.goto(`${BASE_URL}/sign-in`, {waitUntil:'domcontentloaded'});
+   await expect(warmupPage.locator('.auth-layout img[src^="data:image/png"]')).toBeVisible();
+  } finally {
+   await warmupContext.close();
+  }
   await page.goto(`${BASE_URL}/sign-in`, {waitUntil:'domcontentloaded'});
   await expect(page.locator('.auth-layout img[src^="data:image/png"]')).toBeVisible();
   await expect(page.locator('.auth-layout img[src*="wekan-logo.svg"]')).toHaveCount(0);

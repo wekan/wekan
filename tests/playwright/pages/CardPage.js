@@ -363,23 +363,20 @@ class CardPage {
    * on the clipboard, which is the ABSOLUTE url - a relative path is only a
    * link inside this page.
    *
-   * Record the text passed to the Clipboard API. Firefox in the Playwright
-   * container treats host.docker.internal as an insecure origin and otherwise
-   * takes WeKan's execCommand fallback, which this test cannot read back.
-   * Supplying the API here checks the value sent by the click on every browser.
+   * Record the real Clipboard API call without reading the clipboard back.
+   * Firefox now runs through a localhost bridge, so it has a secure origin
+   * and uses the same Clipboard API path as Chromium.
    */
   async copyLink() {
     await this.page.evaluate(() => {
       window.__wekanCopied = null;
-      Object.defineProperty(navigator, 'clipboard', {
-        configurable: true,
-        value: {
-          writeText: text => {
-            window.__wekanCopied = text;
-            return Promise.resolve();
-          },
-        },
-      });
+      const real = navigator.clipboard && navigator.clipboard.writeText;
+      if (real) {
+        navigator.clipboard.writeText = text => {
+          window.__wekanCopied = text;
+          return real.call(navigator.clipboard, text).catch(() => {});
+        };
+      }
     });
     await this.openActionsMenu();
     const row = this.copyLinkRow();

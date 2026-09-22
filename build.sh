@@ -638,10 +638,17 @@ function run_playwright_docker(){
 	local image="mcr.microsoft.com/playwright:v${pwver}-noble"
 	local docker_base_url="${WEKAN_BASE_URL:-http://127.0.0.1:3000}"
 	local docker_mongo_url="${WEKAN_MONGO_URL:-mongodb://127.0.0.1:3001/meteor}"
+	local docker_host_proxy_port=""
 	# Docker Desktop on macOS keeps the host outside the container's loopback.
 	if [ "$(uname -s)" = Darwin ]; then
-		docker_base_url="${docker_base_url//127.0.0.1/host.docker.internal}"
-		docker_base_url="${docker_base_url//localhost/host.docker.internal}"
+		# Meteor's dynamic imports use ROOT_URL (localhost in the test server).
+		# Keep the browser on that same origin and bridge its loopback to the host.
+		# Browsing host.docker.internal while ROOT_URL is localhost makes Firefox
+		# fetch dynamic modules from the container's unreachable localhost.
+		if [[ "$docker_base_url" =~ ^http://(127\.0\.0\.1|localhost):([0-9]+)$ ]]; then
+			docker_host_proxy_port="${BASH_REMATCH[2]}"
+			docker_base_url="http://localhost:$docker_host_proxy_port"
+		fi
 		docker_mongo_url="${docker_mongo_url//127.0.0.1/host.docker.internal}"
 		docker_mongo_url="${docker_mongo_url//localhost/host.docker.internal}"
 	fi
@@ -660,6 +667,7 @@ function run_playwright_docker(){
 		-e HOME=/repo/.tools/tmp \
 		-e TMPDIR=/repo/.tools/tmp \
 		-e WEKAN_BASE_URL="$docker_base_url" \
+		-e WEKAN_DOCKER_HOST_PROXY_PORT="$docker_host_proxy_port" \
 		-e WEKAN_MONGO_URL="$docker_mongo_url" \
 		-e WEKAN_PLAYWRIGHT_ALL=1 \
 		-e WEKAN_PLAYWRIGHT_PROJECT="$browser" \
@@ -675,7 +683,21 @@ function run_playwright_docker(){
 		-v "$filesroot":/wekan-files \
 		-v "$reporoot":/repo -w /repo/tests/playwright \
 		"$image" \
-		sh -c 'export PATH=/repo/tests/playwright/node_modules/.bin:$PATH; exec npx playwright test --project="$0" "$@"' "$browser" "$@"
+		sh -c '
+			export PATH=/repo/tests/playwright/node_modules/.bin:$PATH
+			if [ -n "$WEKAN_DOCKER_HOST_PROXY_PORT" ]; then
+				node /repo/tests/playwright/helpers/docker-host-proxy.cjs &
+				proxy_pid=$!
+				trap '\''kill "$proxy_pid" 2>/dev/null || true; wait "$proxy_pid" 2>/dev/null || true'\'' EXIT
+				ready=0
+				for i in 1 2 3 4 5 6 7 8 9 10; do
+					if curl -fsS --max-time 3 -o /dev/null "$WEKAN_BASE_URL/sign-in"; then ready=1; break; fi
+					sleep 1
+				done
+				[ "$ready" -eq 1 ] || { echo "Local WeKan proxy did not become ready" >&2; exit 1; }
+			fi
+			npx playwright test --project="$0" "$@"
+		' "$browser" "$@"
 }
 
 # Run the older Puppeteer-based Node E2E regression suite in the same browser
