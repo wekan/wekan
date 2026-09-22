@@ -63,6 +63,9 @@ const WRONG_LANGUAGE_REFERENCES = {
 // These established Mongolian loanwords also occur verbatim in the Russian
 // resource. Exact reference equality alone cannot identify their language.
 const REVIEWED_SHARED_VALUES = {
+  br: {
+    'operator-board-abbrev': 't',
+  },
   mn: {
     archives: 'Архив',
     'text-note-text': 'Текст',

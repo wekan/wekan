@@ -108,6 +108,7 @@ const LOCALE_INVARIANTS = {
   // Shared technical and Romance words reviewed against the Occitan catalogs.
   oc: new Set(['allboards.workspace-color', 'pomodoro', 'oauth-provider-secret',
     'predicate-selector', 'dependency-color', 'errors', 'error']),
+  br: new Set(['pomodoro']),
 };
 
 // Exact reviewed shared terms must not be offered for machine filling again.
