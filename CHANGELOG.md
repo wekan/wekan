@@ -688,7 +688,18 @@ the GitHub workflows to build.
 
 </details>
 
-This release fixes the following card and list bugs:
+This release fixes the following board, card and list bugs:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a0c14a4c7">Keep public board favorites across reloads</a>. Thanks to nalilord and xet7.</summary>
+
+A logged-in reader's star on a public board they do not belong to now survives
+reload and appears in the Starred overview. Only starred public boards join the
+reader's board list, and a later change to private does not retain access.
+Focused Node tests and a real Chromium regression pass. Fixes
+<a href="https://github.com/wekan/wekan/issues/6713">#6713</a>.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0741a7847">Open linked card URLs in the current tab</a>. Thanks to carl-unique and xet7.</summary>
