@@ -660,9 +660,10 @@ the Markdown commit as the template.
 when the store returns temporary server errors, while still failing fast on
 invalid uploads and credential problems.
 
+This release updates the following dependencies and platforms:
+
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/9b213cdf4">Update
-WeKan to Node.js 26 and npm 12</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/9b213cdf4">Update WeKan to Node.js 26 and npm 12</a>. Thanks to xet7.</summary>
 
 Pin the production Docker runtime to Node.js 26.9.0 and npm 12.0.2, move
 release workflows and local build paths to Node.js 26, and refresh active
@@ -672,7 +673,22 @@ the GitHub workflows to build.
 
 </details>
 
-This release fixes the following GitHub workflow issue:
+This release fixes the following test and GitHub workflow issues:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ced5263a4">Repair macOS test and release workflow regressions</a>. Thanks to xet7.</summary>
+
+Give Docker browser tests a macOS host address, make the password visibility
+button explicitly reachable by Tab in WebKit, and use portable sed and file
+size commands in release helpers. Retry npm version installs, keep the
+Launchpad retry budget decreasing, and update regression guards for the
+current release workflow and Node.js 26. Remove an unused, all-English
+Kannada locale duplicate; the translated `kn` locale remains active.
+The Node suite ran all 1,189 suites; eight were rerun successfully after
+the sandbox blocked local test listeners. The full browser suite remains
+to be rerun on the host.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/62cccae192b25d8557d9bf5f0e00b60fd0101045">Retry temporary Snap Store upload failures in release workflows</a>. Thanks to Copilot and xet7.</summary>
