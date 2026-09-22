@@ -601,7 +601,7 @@ const PEOPLE_COLUMNS = [
 ];
 
 const LOGIN_LOCATION_COLUMNS = [
-  { labelKey: 'office-location', value: row => row.city },
+  { labelKey: 'office-location', value: row => row.city, flag: row => row.flag },
   { labelKey: 'event-ipv4', nowrap: true, value: row => row.ipv4 },
   { labelKey: 'event-ipv6', nowrap: true, value: row => row.ipv6 },
   { labelKey: 'office-first-seen', nowrap: true,
@@ -794,7 +794,7 @@ Template.people.helpers({
         String(value || '').toLowerCase().includes(term)));
     const info = pageInfo(all.length, tpl.loginLocationPage.get());
     const pageRows = all.slice((info.page - 1) * TABLE_PAGE_ROWS_PER_PAGE,
-      info.page * TABLE_PAGE_ROWS_PER_PAGE);
+      info.page * TABLE_PAGE_ROWS_PER_PAGE).map(row => ({ ...row, flag: country.flag }));
     return {
       searchTerm: tpl.loginLocationSearch.get(),
       actions: buildActions([{ id: 'back-from-login-locations', icon: 'fa-arrow-left',

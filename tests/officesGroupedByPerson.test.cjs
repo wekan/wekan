@@ -142,7 +142,7 @@ test('the report requests and renders separate IPv4 and IPv6 columns', () => {
 test('the server joins proxy locations without replacing per-person counts', () => {
   const source = read('server/methods/loginOffices.js');
   assert.ok(/const addresses = tallyList\(user\.loginAddresses\)/.test(source));
-  assert.ok(/location: doc\.location \|\| null/.test(source));
+  assert.ok(/location: doc\.location \|\| entry\.location \|\| null/.test(source));
   assert.ok(/logins: entry\.count \|\| 0/.test(source));
   assert.ok(/initials: initialsFor\(user\)/.test(source));
   assert.ok(/return \{ total, people: await peopleSummaries\(users\) \}/.test(source));
@@ -189,6 +189,16 @@ test('login-location methods are batched and tenant-scoped (negative)', () => {
 test('new logins retain their supplied location on the person-address tally', () => {
   const source = read('server/lib/loginTally.js');
   assert.ok(/if \(location\) \{[\s\S]*?loginAddresses\.entries\.\$\{key\}\.location`] = location/.test(source));
+});
+
+test('location is visible beside both address families when recorded', () => {
+  const server = read('server/methods/loginOffices.js');
+  const client = read('client/components/settings/adminProblems.js');
+  const people = read('client/components/settings/peopleBody.js');
+  assert.match(server, /location: doc\.location \|\| entry\.location \|\| null/);
+  assert.match(client, /value: d => \(d\.location \? locationLabel\(d\.location\)/);
+  assert.match(client, /flag: d => \(d\.location \? officeLabel\(d\.location\)\.flag/);
+  assert.match(people, /flag: row => row\.flag/);
 });
 
 console.log(`\nofficesGroupedByPerson: ${passed} tests passed`);

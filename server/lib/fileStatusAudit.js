@@ -5,7 +5,7 @@ const path = require('node:path');
 const crypto = require('node:crypto');
 const { ObjectId } = require('bson');
 const { isPathInsideBase } = require('../../models/lib/storagePathContainment');
-const LIMITS = { records: 20000, entries: 50000, history: 20000, findings: 500,
+const LIMITS = { records: 100000, versions: 250000, entries: 50000, history: 20000, findings: 500,
   milliseconds: 120000, bytes: 256 * 1024 * 1024, fileBytes: 32 * 1024 * 1024 };
 const errorCode = e => String(e?.code || e?.name || 'read-failed').slice(0, 80);
 function canonicalMime(value) {
@@ -20,7 +20,8 @@ async function auditFiles({ db, roots, writablePath, detect, remoteRead, mode = 
   const cap = { ...LIMITS, ...limits }, start = Date.now();
   Object.assign(report, { state: 'running', mode, startedAt: new Date(), phase: 'metadata',
     counts: { records: 0, versions: 0, diskFiles: 0, historyRows: 0, bytesRead: 0 },
-    totals: {}, findings: [], limitations: [], roots: [], omittedFindings: 0 });
+    totals: {}, findings: [], limitations: [], roots: [], omittedFindings: 0,
+    filesystemScanned: false });
   const note = text => { if (!report.limitations.includes(text)) report.limitations.push(text); };
   const finding = (kind, data = {}) => {
     report.totals[kind] = (report.totals[kind] || 0) + 1;
@@ -37,7 +38,7 @@ async function auditFiles({ db, roots, writablePath, detect, remoteRead, mode = 
     try {
       for await (const row of cursor) {
         check();
-        if (++count > limit) { note(`${collection}: record limit reached; results are partial.`); break; }
+        if (++count > limit) throw Object.assign(new Error(`${collection}: record limit reached`), { code: 'LIMIT' });
         await visit(row);
       }
     } finally { await cursor.close(); }
@@ -65,7 +66,7 @@ async function auditFiles({ db, roots, writablePath, detect, remoteRead, mode = 
           refs.push({ coll, doc, version: { path: doc.path, storage: 'fs', size: doc.size }, versionName: '(top-level only)' });
         }
         for (const [versionName, version] of Object.entries(doc.versions || {})) {
-          if (refs.length >= cap.records) throw Object.assign(new Error('Version limit reached'), { code: 'LIMIT' });
+          if (refs.length >= cap.versions) throw Object.assign(new Error('Version limit reached'), { code: 'LIMIT' });
           report.counts.versions++;
           if (!version || typeof version !== 'object') { finding('invalid-version', { collection: coll, id, version: versionName }); continue; }
           const missing = ['size', 'type', 'extension'].filter(field => version[field] === undefined || version[field] === null || version[field] === '');
@@ -169,6 +170,7 @@ async function auditFiles({ db, roots, writablePath, detect, remoteRead, mode = 
       note(`Legacy writable-directory check unavailable: ${errorCode(error)}.`);
     }
     report.counts.diskFiles = files.size;
+    report.filesystemScanned = true;
     const byBase = new Map(), byHash = new Map(), byIdentifier = new Map();
     for (const file of files.values()) {
       const b = basename(file.path), list = byBase.get(b) || []; list.push(file); byBase.set(b, list);

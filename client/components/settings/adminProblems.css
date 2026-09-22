@@ -43,4 +43,5 @@
 
 .file-status-audit { margin-bottom: 1rem; }
 .file-status-audit-actions { display: flex; flex-wrap: wrap; gap: .5rem; }
+.file-status-audit-actions button { margin: 0; min-height: 34px; }
 .file-status-audit pre { white-space: pre-wrap; overflow-wrap: anywhere; }

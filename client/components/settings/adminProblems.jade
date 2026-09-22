@@ -170,6 +170,8 @@ template(name="fileStatusAudit")
       .file-status-audit-result(role="status" aria-live="polite")
         p {{statusText}}
         p {{countText}}
+        if coverageText
+          p {{coverageText}}
       if result.limitations
         details
           summary Coverage and limitations

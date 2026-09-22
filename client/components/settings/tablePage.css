@@ -177,13 +177,12 @@
   text-align: end;
 }
 
-/* The one opt-out, per column from the column spec (the datetime columns). Two
-   classes plus !important, so it still beats the !important wrapping above - a
-   guarantee that cannot be opted out of on purpose is a bug of its own. */
+/* Legacy column specs mark dates and addresses with nowrap. They still wrap on
+   narrow tables: every displayed address and long line must remain readable. */
 .table-page-table .table-page-nowrap {
-  white-space: nowrap !important;
-  overflow-wrap: normal !important;
-  word-break: normal !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
 }
 
 /* Severity, coloured from the cell's own data attribute so the rule lives with
@@ -320,7 +319,6 @@
   padding: 0;
   border: 1px solid #ccc;
   border-radius: 3px;
-  background: transparent;
   overflow: hidden;
   cursor: pointer;
 }

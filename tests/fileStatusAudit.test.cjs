@@ -47,6 +47,7 @@ function database(data) {
   const options = { db: database(data), roots, writablePath: root, detect: async () => ({ mime: 'image/png', ext: 'png' }) };
   const result = await auditFiles(options);
   assert.equal(result.state, 'completed');
+  assert.equal(result.filesystemScanned, true);
   for (const kind of ['incomplete-metadata', 'detected-metadata-for-incomplete-record', 'missing-versions', 'incomplete-version', 'missing-owner-metadata', 'missing-or-unverified-file', 'possible-moved-or-renamed-file', 'file-without-live-reference', 'size-mismatch', 'mime-mismatch', 'extension-mismatch', 'checksum-mismatch', 'duplicate-file-reference', 'duplicate-content', 'integrity-baseline-differs', 'symlink-not-followed', 'gridfs-without-live-reference', 'gridfs-chunk-count-mismatch', 'gridfs-chunks-without-file-record']) assert.ok(result.totals[kind], kind);
   assert.ok(result.findings.some(row => row.kind === 'possible-moved-or-renamed-file' && row.id === 'lost' && row.path === renamed));
   assert.ok(result.findings.some(row => row.kind === 'possible-moved-or-renamed-file' && row.id === 'partial' && row.path === incomplete));
@@ -56,6 +57,16 @@ function database(data) {
   assert.equal(fs.readFileSync(good, 'utf8'), 'PNG fixture');
   const partial = await auditFiles({ ...options, limits: { entries: 1 } });
   assert.equal(partial.state, 'partial');
+  const manyVersions = await auditFiles({ ...options, limits: { versions: 1 } });
+  assert.equal(manyVersions.state, 'partial');
+  assert.ok(manyVersions.limitations.includes('Version limit reached'));
+  const tooManyRecords = await auditFiles({ ...options, limits: { records: 1 } });
+  assert.equal(tooManyRecords.state, 'partial');
+  assert.equal(tooManyRecords.counts.diskFiles, 0, 'a truncated record set must not produce false orphan-file findings');
+  assert.equal(tooManyRecords.filesystemScanned, false);
+  assert.ok(!tooManyRecords.totals['file-without-live-reference']);
+  assert.ok(require('../server/lib/fileStatusAudit').LIMITS.versions > require('../server/lib/fileStatusAudit').LIMITS.records,
+    'version cap must allow multiple versions per record');
   const bounded = await auditFiles({ ...options, limits: { findings: 1, bytes: 1 } });
   assert.equal(bounded.findings.length, 1); assert.ok(bounded.omittedFindings > 0); assert.equal(bounded.state, 'partial');
   const cancelled = await auditFiles({ ...options, cancelled: () => true });

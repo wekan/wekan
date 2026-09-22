@@ -853,6 +853,10 @@ test('the admin panel does not force ANY table wide', () => {
   const cells = /\.main-body table:not\(\.table-page-table\) td,\s*\n[^{]*\{([^}]*)\}/.exec(settings);
   assert.ok(cells && /white-space:\s*normal/.test(cells[1]) && /overflow-wrap/.test(cells[1]),
     'admin table cells wrap rather than push the table wide');
+  const shared = read('client/components/settings/tablePage.css');
+  const marked = /\.table-page-table \.table-page-nowrap \{([^}]*)\}/.exec(shared);
+  assert.ok(marked && /white-space:\s*normal/.test(marked[1]) && /overflow-wrap:\s*anywhere/.test(marked[1]),
+    'long dates and IP addresses wrap even when older column specs mark them nowrap');
   // ...and the panel no longer shows a scrollbar for content that fits.
   const body = /\.main-body \{([^}]*)\}/.exec(settings);
   assert.ok(/overflow-x:\s*auto/.test(body[1]),
@@ -1000,8 +1004,13 @@ test('action buttons are themed, not black', () => {
   const at = pager.indexOf('.table-page-controls button.js-table-page-action');
   assert.ok(at > 0, 'the action buttons must be themed with the rest of the row');
   const block = pager.slice(at);
-  assert.ok(/background:\s*var\(--theme-accent, #01628c\)/.test(block),
+  assert.ok(/background:\s*var\(--theme-accent-fill, var\(--theme-accent, #01628c\)\)/.test(block),
     'filled with the theme accent, WeKan blue as the fallback');
+  for (const selector of ['.file-status-audit .file-status-audit-actions button',
+    '.table-page .table-page-attachment-actions button', '.table-page .table-page-attachment-actions a',
+    '.table-page button.table-page-attachment-preview']) {
+    assert.ok(block.includes(selector), `${selector} must share the report action theme`);
+  }
   for (const state of [':hover', ':focus', ':active', ':active:hover']) {
     assert.ok(pager.includes(`.table-page-controls button.js-table-page-action${state}`),
       `every state must be spelled out - ${state} is missing, so forms.css wins there`);

@@ -1199,7 +1199,7 @@ const OFFICE_COLUMNS = [
   // says WHICH London.
   {
     labelKey: 'office-location', nowrap: true,
-    value: d => (d.locationLabel ? officeLabel(d.location).text : ''),
+    value: d => (d.location ? locationLabel(d.location) : d.locationLabel || ''),
     flag: d => (d.location ? officeLabel(d.location).flag : ''),
     // And clicking it asks which map to open it at - the same chooser a card's
     // location uses. Only when the CDN sent coordinates: buildRows drops a
@@ -1315,8 +1315,14 @@ Template.fileStatusAudit.helpers({
     return result ? `${result.state} — ${result.phase} — ${new Date(result.startedAt).toLocaleString()}` : '';
   },
   countText() {
-    const c = Template.instance().result.get()?.counts;
-    return c ? `Records: ${c.records}; versions: ${c.versions}; disk files: ${c.diskFiles}; history rows: ${c.historyRows}; bytes inspected: ${c.bytesRead}` : '';
+    const result = Template.instance().result.get();
+    const c = result?.counts;
+    return c ? `Records: ${c.records}; versions: ${c.versions}; disk files: ${result.filesystemScanned ? c.diskFiles : 'not scanned'}; history rows: ${c.historyRows}; bytes inspected: ${c.bytesRead}` : '';
+  },
+  coverageText() {
+    const result = Template.instance().result.get();
+    if (!result || result.state !== 'partial') return '';
+    return `Partial scan: ${(result.limitations || []).join(' ')} Unscanned files cannot be counted as missing or healthy.`;
   },
 });
 function startFileAudit(mode, instance) {

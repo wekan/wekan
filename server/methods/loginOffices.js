@@ -65,7 +65,7 @@ function personSummary(user, byAddress) {
         address: entry.value,
         ipv4: doc.ipv4 || (entry.family === 'ipv4' ? entry.value : ''),
         ipv6: doc.ipv6 || (entry.family === 'ipv6' ? entry.value : ''),
-        location: doc.location || null,
+        location: doc.location || entry.location || null,
         locationLabel: doc.locationLabel || '',
         logins: entry.count || 0,
         firstAt: entry.firstAt,
