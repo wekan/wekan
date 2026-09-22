@@ -131,6 +131,10 @@ const REVIEWED_SHARED_VALUES = {
     protocol: 'Protocole',
     'event-ip': 'Adresse IP',
   },
+  vo: {
+    'send-from': 'De',
+    'r-df-end-at': 'fin',
+  },
 };
 const KNOWN_WRONG_VALUES = {
   'cy-GB': {
