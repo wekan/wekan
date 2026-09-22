@@ -14,8 +14,7 @@ import ImpersonatedUsers from '/models/impersonatedUsers';
 import RecoveryEvents from '/models/recoveryEvents';
 import { Mongo } from 'meteor/mongo';
 import { adjacentPage, buildFilters, buildHeader, buildRows, docsByIds, pageInfo, TABLE_PAGE_ROWS_PER_PAGE } from '/models/lib/tablePage';
-// The flag and city an office row leads with (models/lib/geoHeaders.js).
-const { officeLabel } = require('/models/lib/geoHeaders');
+const { addressReportColumns } = require('/models/lib/addressReportColumns');
 const { officeRowsByPerson } = require('/models/lib/loginTally');
 import { ReportPages } from '/client/lib/reportPages';
 import { leftMenuData, paneTitle } from '/models/lib/leftMenu';
@@ -794,16 +793,7 @@ const REPORT_TABLES = {
       { labelKey: 'recovery-event', value: d => d.type },
       { label: 'User ID', value: d => d.userId },
       { labelKey: 'username', value: d => d.username },
-      { labelKey: 'event-ipv4', value: d => d.ipv4 },
-      { labelKey: 'event-ipv6', value: d => d.ipv6 },
-      {
-        labelKey: 'location',
-        value: d => {
-          const label = locationLabel(d.location);
-          const flag = countryFlag(d.location && d.location.country);
-          return [flag, label].filter(Boolean).join(' ');
-        },
-      },
+      ...addressReportColumns(),
       { labelKey: 'recovery-detail', value: d => d.detail },
     ],
   },
@@ -911,28 +901,13 @@ Template.eventStreamReport.onDestroyed(function () {
 // The event streams (Security, Speed, Tests, CPU usage) use the SAME shared
 // table page as the six reports - same markup, same controls, same layout - so
 // their only difference is these columns and the CPU status row.
-// FROM WHERE, in two columns rather than one. An instance reached over IPv6 and
-// one reached over IPv4 are different situations, and a single column that
-// sometimes holds one and sometimes the other cannot be scanned down.
+// FROM WHERE, with each address followed by its own location. An instance
+// reached over IPv6 and one reached over IPv4 are different situations.
 //
 // The fold writes `ipv4`/`ipv6` on every row now, but rows written BEFORE it did
 // have only `ip` - so the address is classified here as the fallback, and the
 // history displays correctly instead of showing two empty columns for everything
 // older than this change.
-const { classifyAddress } = require('/models/lib/ipAddress');
-const { countryFlag, locationLabel } = require('/models/lib/geoHeaders');
-const addressColumns = () => [
-  { labelKey: 'event-ipv4', nowrap: true, value: r => r.ipv4 || classifyAddress(r.ip).ipv4 || '' },
-  { labelKey: 'event-ipv6', nowrap: true, value: r => r.ipv6 || classifyAddress(r.ip).ipv6 || '' },
-];
-const locationColumn = () => ({
-  labelKey: 'location',
-  value: r => {
-    const label = locationLabel(r.location);
-    const flag = countryFlag(r.location && r.location.country);
-    return [flag, label].filter(Boolean).join(' ');
-  },
-});
 
 // The API stream is a USAGE report, not a problem report, so its columns are the
 // question it answers - who called what, how often, between when and when, from
@@ -954,8 +929,7 @@ const API_COLUMNS = [
   { labelKey: 'api-calls', align: 'end', value: r => r.count || 0 },
   { labelKey: 'api-first-called', nowrap: true, value: r => formatEventAt(r.firstAt) },
   { labelKey: 'api-last-called', nowrap: true, value: r => formatEventAt(r.at) },
-  ...addressColumns(),
-  locationColumn(),
+  ...addressReportColumns(),
 ];
 
 const EVENT_STREAM_COLUMNS = [
@@ -978,12 +952,11 @@ const EVENT_STREAM_COLUMNS = [
     value: r => r.username || userName(r.userId),
     userId: r => r.userId,
   },
-  // FROM WHERE, in the same two columns every report uses. Resolved with the
+  // FROM WHERE, in the same four columns every report uses. Resolved with the
   // same spoofing-safe rule as the login throttle - X-Forwarded-For only as far
   // as HTTP_FORWARDED_COUNT says to trust it - so neither can be written by
   // sending a header.
-  ...addressColumns(),
-  locationColumn(),
+  ...addressReportColumns(),
   // HOW MANY attempts this row stands for. A canary counts repeats inside its
   // window rather than writing one row each, so "1" is an ordinary event and a
   // larger number is a burst that was deliberately not written out in full
@@ -1203,24 +1176,7 @@ const OFFICE_COLUMNS = [
     }],
     value: () => '',
   },
-  { labelKey: 'event-ipv4', nowrap: true, value: d => d.ipv4 },
-  { labelKey: 'event-ipv6', nowrap: true, value: d => d.ipv6 },
-  // The flag and the city: an admin recognises "London" instantly and the flag
-  // says WHICH London.
-  {
-    labelKey: 'office-location', nowrap: true,
-    value: d => (d.location ? locationLabel(d.location) : d.locationLabel || ''),
-    flag: d => (d.location ? officeLabel(d.location).flag : ''),
-    // And clicking it asks which map to open it at - the same chooser a card's
-    // location uses. Only when the CDN sent coordinates: buildRows drops a
-    // location without them, so a row that has a country and no lat/lon is a
-    // label to read rather than a link that would search for the word.
-    location: d => (d.location && {
-      latitude: d.location.latitude,
-      longitude: d.location.longitude,
-      label: d.locationLabel || d.address || '',
-    }),
-  },
+  ...addressReportColumns({ map: true }),
   { labelKey: 'office-logins', align: 'end', value: d => d.logins },
   { labelKey: 'office-first-seen', nowrap: true, value: d => formatDate(d.firstAt) },
   { labelKey: 'office-last-seen', nowrap: true, value: d => formatDate(d.at) },

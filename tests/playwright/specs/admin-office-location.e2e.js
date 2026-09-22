@@ -23,6 +23,13 @@ test('Offices shows recorded flag and city and wraps a long IPv6 address', async
     const row = page.locator('.table-page-table tbody tr').filter({ hasText: address });
     await expect(row).toContainText('🇫🇮');
     await expect(row).toContainText('Helsinki');
+    const headers = await page.locator('.table-page-table thead th').allTextContents();
+    expect(headers.slice(1, 5).map(text => text.trim())).toEqual([
+      'IPv4 address', 'Location', 'IPv6 address', 'IPv6 location',
+    ]);
+    await expect(row.locator('td').nth(1)).toBeEmpty();
+    await expect(row.locator('td').nth(2)).toBeEmpty();
+    await expect(row.locator('td').nth(4)).toContainText('Helsinki');
     const wrapping = await row.locator('td').filter({ hasText: address }).evaluate(
       cell => ({ whiteSpace: getComputedStyle(cell).whiteSpace,
         overflowWrap: getComputedStyle(cell).overflowWrap }));

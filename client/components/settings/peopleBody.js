@@ -12,6 +12,7 @@ import { leftMenuData, paneTitle } from '/models/lib/leftMenu';
 // table, no search box and no pager, while Organizations, Teams and Domains -
 // which use neither function - drew theirs normally.
 import { adjacentPage, buildActions, buildFilters, buildHeader, buildRows, docsByIds, pageInfo, TABLE_PAGE_ROWS_PER_PAGE } from "/models/lib/tablePage";
+const { addressReportColumns } = require('/models/lib/addressReportColumns');
 import { avatarUpdateCounter } from '/client/components/users/avatarUpdateCounter';
 import { InfiniteScrolling } from '/client/lib/infiniteScrolling';
 import LockoutSettings from '/models/lockoutSettings';
@@ -601,9 +602,7 @@ const PEOPLE_COLUMNS = [
 ];
 
 const LOGIN_LOCATION_COLUMNS = [
-  { labelKey: 'office-location', value: row => row.city, flag: row => row.flag },
-  { labelKey: 'event-ipv4', nowrap: true, value: row => row.ipv4 },
-  { labelKey: 'event-ipv6', nowrap: true, value: row => row.ipv6 },
+  ...addressReportColumns(),
   { labelKey: 'office-first-seen', nowrap: true,
     value: row => (row.firstAt ? formatDateForDisplay(row.firstAt, true, value => value.toLocaleString()) : '') },
   { labelKey: 'office-last-seen', nowrap: true,

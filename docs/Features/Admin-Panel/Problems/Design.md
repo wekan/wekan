@@ -22,8 +22,8 @@ tests.
 | --- | --- | --- |
 | 1 | Summaries: one row per problem, not per event | **done** |
 | 2 | Per-actor tally inside the row: `username1 25, 100.100.100.100 30` | **done** |
-| 3 | IPv4 and IPv6 in their own columns, in every report | **done** |
-| 4 | An **API report**: username, API name, count, window, IPv4, IPv6 | **done** |
+| 3 | IPv4, Location, IPv6 and IPv6 location in that order, in every address report | **done** |
+| 4 | An **API report**: username, API name, count, window and those four address/location columns | **done** |
 | 5 | Per-address login tally on the user, shown in People | **done** |
 | 6 | Blocking the ACCOUNT, and increasing delays after a wrong password | **done** |
 
@@ -87,13 +87,15 @@ read out as `username1 25, 100.100.100.100 30`.
   the database work of the thing being made cheap, and under attack the same few
   actors repeat.
 
-## 3. IPv4 and IPv6 columns  *(in progress)*
+## 3. IPv4 and IPv6 columns  *(done)*
 
 `models/lib/ipAddress.js`. One request arrives from one address, so a row has
 one or the other — never both. Two columns is still right: somebody scanning for
 a `10.0.0.0/8` range and somebody scanning for a `/64` are looking for
 different-shaped things, and a mixed column makes both harder. A row leaves the
-other column empty.
+other address and location pair empty. The four columns are **IPv4 address,
+Location, IPv6 address, IPv6 location**. A recorded flag and city appear only
+beside the address family present on that row; missing geolocation stays empty.
 
 **The trap this exists for** is the IPv4-mapped IPv6 address. A dual-stack
 socket reports an IPv4 client as `::ffff:203.0.113.9`, so without unwrapping:
@@ -114,11 +116,11 @@ database streams all record addresses through the same fold.
 
 A new `api` stream and a table with columns:
 
-| Username | API | Count | Window | IPv4 | IPv6 |
-| --- | --- | --- | --- | --- | --- |
-| alice | `POST /api/boards` | 34 | 2026-02-02 … 2026-05-05 | 100.100.100.100 | |
-| alice | `GET /api/boards/:boardId` | 210 | 2026-02-02 … 2026-05-05 | 100.100.100.100 | |
-| | `POST /api/users` | 812 | 2026-05-04 … 2026-05-05 | | 2001:db8::1 |
+| Username | API | Count | Window | IPv4 address | Location | IPv6 address | IPv6 location |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| alice | `POST /api/boards` | 34 | 2026-02-02 … 2026-05-05 | 100.100.100.100 | 🇫🇮 Helsinki | | |
+| alice | `GET /api/boards/:boardId` | 210 | 2026-02-02 … 2026-05-05 | 100.100.100.100 | 🇫🇮 Helsinki | | |
+| | `POST /api/users` | 812 | 2026-05-04 … 2026-05-05 | | | 2001:db8::1 | 🇸🇪 Stockholm |
 
 The API name is the **route pattern**, which this document originally sketched
 as an operation name (`add-board`). The pattern is what the router already

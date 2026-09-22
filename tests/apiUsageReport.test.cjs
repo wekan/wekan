@@ -212,16 +212,15 @@ test('the pane reuses the shared report, with its own columns only', () => {
     'api-first-called', 'api-last-called']) {
     assert.ok(cols.includes(`'${key}'`), `the table must have a ${key} column`);
   }
-  // The two address columns are the pair every report uses, not a third copy of
+  // The four address/location columns are the group every report uses, not a third copy of
   // them - that is what makes "IPv4 and IPv6 wherever the address is known"
   // true of the whole page rather than of whichever report was edited last.
-  assert.ok(/\.\.\.addressColumns\(\)/.test(cols), 'the shared address pair');
-  const shared = /const addressColumns = \(\) => \[([\s\S]*?)\n\];/.exec(js);
-  assert.ok(shared, 'addressColumns must exist');
+  assert.ok(/\.\.\.addressReportColumns\(\)/.test(cols), 'the shared address and location columns');
+  const shared = read('models/lib/addressReportColumns.js');
   for (const key of ['event-ipv4', 'event-ipv6']) {
-    assert.ok(shared[1].includes(`'${key}'`), `it must have a ${key} column`);
+    assert.ok(shared.includes(`'${key}'`), `it must have a ${key} column`);
   }
-  assert.ok(/classifyAddress\(r\.ip\)/.test(shared[1]),
+  assert.ok(/classifyAddress\(row\.ip\)/.test(shared),
     'and fall back to classifying `ip`, so rows written before the split still display');
 });
 

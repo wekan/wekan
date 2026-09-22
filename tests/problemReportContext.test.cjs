@@ -34,9 +34,10 @@ test('schema, summary and UI retain separate addresses plus location', () => {
   assert.match(read('models/eventLog.js'), /location:\s*\{ type: Object/);
   assert.match(read('models/lib/eventLogSummary.js'), /'location'/);
   const ui = read('client/components/settings/adminProblems.js');
-  assert.match(ui, /countryFlag/);
-  assert.match(ui, /locationLabel/);
-  assert.match(ui, /locationColumn\(\)/);
+  assert.match(ui, /addressReportColumns\(\)/);
+  const columns = read('models/lib/addressReportColumns.js');
+  assert.match(columns, /countryFlag/);
+  assert.match(columns, /locationLabel/);
 });
 
 console.log(`\nproblemReportContext: ${passed} tests passed`);
