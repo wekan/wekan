@@ -691,15 +691,25 @@ the GitHub workflows to build.
 This release fixes the following test and GitHub workflow issues:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/95f0e045a">Keep Docker browser tests on Meteor localhost origin</a>. Thanks to xet7.</summary>
+
+On macOS, bridge the browser container's localhost to the host WeKan server.
+This keeps the browser origin equal to Meteor's `ROOT_URL`, so dynamic imports
+and the real Clipboard API work in Firefox. Wait for the custom settings to
+reach a disposable browser context before checking a fresh context's first
+logo request. With one worker and no retries, the eight previously failing
+Chromium cases and all 31 selected Firefox cases pass in real browsers.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5e7577e3d">Stabilize cross-browser test navigation and clipboard checks</a>. Thanks to xet7.</summary>
 
 Wait for export links to render before inspecting them, navigate directly to
-sign-in in the custom-logo test, and record Clipboard API writes in Firefox's
-container browser. Replace network-idle waits with document and app readiness
-checks in affected tests, retry intermittent local Firefox network failures,
-and register the macOS app packager as an internal workflow script in the
-build-script audit. Focused Node checks pass and all browser tests register;
-the full three-browser run remains to be repeated.
+sign-in in the custom-logo test, and replace network-idle waits with document
+and app readiness checks in affected tests. Register the macOS app packager as
+an internal workflow script in the build-script audit. Focused Node checks
+pass and all browser tests register; browser verification is recorded above.
 
 </details>
 
