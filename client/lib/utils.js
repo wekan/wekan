@@ -448,12 +448,10 @@ export const Utils = {
     }
 
     if (typeof stored === 'boolean') {
-      Session.setDefault(key, stored);
       return stored;
     }
 
     const fallback = typeof list.collapsed === 'boolean' ? list.collapsed : false;
-    Session.setDefault(key, fallback);
     return fallback;
   },
 
