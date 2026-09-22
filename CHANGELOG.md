@@ -877,6 +877,19 @@ has gained pending review items. Focused locale checks pass.
 
 </details>
 
+This release improves the Transifex translation pull:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bee69b103">Preserve reviewed Mongolian translations through pulls</a>. Thanks to xet7.</summary>
+
+Keep four established Mongolian loanwords even when the Russian resource uses
+the same spelling. Unreviewed French and Russian seed values still become
+English placeholders until translated into the target language. If a pull or
+repair step fails, restore the pre-pull locale snapshot so local human values
+survive. Focused merge and failed-pull regression tests pass.
+
+</details>
+
 # v11.89 2026-09-20 WeKan ® release
 
 **In short:** **Snap Store** uploads now retry temporary server failures across
