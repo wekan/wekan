@@ -722,6 +722,21 @@ The persistence regression passes in Chromium after a full reload. Fixes
 
 </details>
 
+This release fixes the following Admin Panel reports:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d43968d88">Clarify file scans and show location in address reports</a>. Thanks to xet7.</summary>
+
+Filesystem Integrity now says when a partial audit stopped before scanning
+storage, and larger inventories no longer stop at 20,000 versions. A truncated
+record scan stops before it can report false orphan files. Offices uses recorded
+login locations where available; the People location table shows the flag with
+the city. Admin report cells wrap long values, and file-audit and Files Report
+buttons follow the current theme. Focused Node tests pass; the new browser
+regression is ready for a host with a running WeKan server and Chromium.
+
+</details>
+
 This release fixes the following test and GitHub workflow issues:
 
 <details>
