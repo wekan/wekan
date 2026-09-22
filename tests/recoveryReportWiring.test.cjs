@@ -53,11 +53,13 @@ test('recovery rows retain IPv4, IPv6 and proxy location context', () => {
   assert.match(model, /location: opts\.location/);
   assert.match(audit, /locationFromHeaders\(connection\?\.httpHeaders\)/);
   const recovery = ui.slice(ui.lastIndexOf("'report-recovery':"));
+  assert.match(recovery, /\.\.\.addressReportColumns\(\)/);
+  const addressColumns = read('models/lib/addressReportColumns.js');
   for (const key of ['event-ipv4', 'event-ipv6', 'location']) {
-    assert.match(recovery, new RegExp(`labelKey: '${key}'`));
+    assert.match(addressColumns, new RegExp(`labelKey: '${key}'`));
   }
-  assert.match(recovery, /countryFlag/);
-  assert.match(recovery, /locationLabel/);
+  assert.match(addressColumns, /countryFlag/);
+  assert.match(addressColumns, /locationLabel/);
 });
 
 test('recordRecoveryEvent method is admin-gated', () => {

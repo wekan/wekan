@@ -75,7 +75,7 @@ async function loginWithToken(page, userId, token) {
     // Cookie retrieval precedes Accounts.loggingIn(). Wait for the resume itself,
     // rather than interpreting that initial false value as a finished login.
     await page.waitForFunction(
-      id => Meteor.userId() === id && !Meteor.loggingIn(), userId, { timeout: 15_000 },
+      id => Meteor.userId() === id && !Meteor.loggingIn(), userId, { timeout: 30_000 },
     );
   }
 

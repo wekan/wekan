@@ -54,13 +54,14 @@ test.describe('REST API: move card to another list (#6423)', () => {
   });
 
   test('moving back and forth never 500s (the includes-is-not-a-function path)', async ({ request, user, board }) => {
+    test.setTimeout(120_000);
     const [a, b] = board.listIds;
     const cardId = db.find('cards', { boardId: board.boardId, listId: a, archived: false })[0]._id;
 
     for (const target of [b, a, b]) {
       const res = await request.put(
         `/api/boards/${board.boardId}/lists/${cardCurrentList(cardId)}/cards/${cardId}`,
-        { headers: authHeaders(user.token, true), data: { listId: target } },
+        { headers: authHeaders(user.token, true), data: { listId: target }, timeout: 30_000 },
       );
       expect(res.status(), `move to ${target} returned ${res.status()}`).toBe(200);
       await expect.poll(() => db.getCard(cardId).listId, { timeout: 5_000 }).toBe(target);

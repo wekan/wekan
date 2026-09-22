@@ -398,7 +398,7 @@ class CardPage {
     // Try the "+" add button first; fall back to the existing date badge.
     const addBtn = this.root.locator('a.js-due-date').first();
     const badge  = this.root.locator('a.js-edit-date.card-date').first();
-    if (await addBtn.count() > 0) {
+    if (await addBtn.isVisible()) {
       await addBtn.click({ timeout: 10_000 });
     } else {
       await badge.click({ timeout: 10_000 });

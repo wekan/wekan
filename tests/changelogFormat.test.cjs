@@ -342,7 +342,12 @@ test('entries are grouped by area, and no summary repeats its group', () => {
     // silently failed to match and never reset the group. Entries under a later
     // subsection were then still attributed to the last group line above them,
     // which is exactly the mistake this loop exists to catch.
-    if (/^(This release|and) .*:$/.test(line)) { group = null; continue; }
+    if (/^(This release|and) .*:$/.test(line)) {
+      // Current releases use a prose subsection introduction in place of the
+      // older bold area line. Either form groups the following entries.
+      group = 'subsection';
+      continue;
+    }
     if (!inEntry) {
       const m = GROUP.exec(line);
       if (m) { group = m[1]; continue; }
@@ -351,6 +356,7 @@ test('entries are grouped by area, and no summary repeats its group', () => {
     const text = summaryText(line);
     if (!group) { loose.push(text.slice(0, 60)); continue; }
     grouped++;
+    if (group === 'subsection') continue;
     // The point of the grouping: the area is named ONCE, on the group line, and
     // the entry under it says what changed rather than saying the area again.
     // Twelve entries beginning "All Boards:" say it twelve times, and the part

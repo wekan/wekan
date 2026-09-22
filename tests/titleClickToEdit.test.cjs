@@ -64,8 +64,10 @@ test('#6639: links remain above no edit overlay and keep their own click', () =>
     'CSS cannot recreate the fixed overlay that swallowed short links');
   const viewerEvents = read('client/components/main/editor.js');
   const linkHandler = viewerEvents.slice(viewerEvents.indexOf("'click a'(event"));
-  assert.ok(/window\.open\(href, '_blank'\)/.test(linkHandler.slice(0, 1000)),
-    'the rendered link still opens its destination');
+  assert.ok(/FlowRouter\.go\(cardPath\)/.test(linkHandler.slice(0, 1000)),
+    'a linked card opens in the current tab');
+  assert.ok(/window\.open\(href, '_blank', 'noopener'\)/.test(linkHandler.slice(0, 1000)),
+    'an external link still opens its destination');
   assert.ok(/event\.stopPropagation\(\)/.test(linkHandler.slice(0, 1200)),
     'and its click never reaches the editable title container');
 });

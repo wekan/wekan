@@ -44,6 +44,7 @@ concurrency:
 jobs:
   release:
     runs-on: ubuntu-24.04
+    timeout-minutes: 10
     outputs:
       tag: ${{ steps.find.outputs.tag }}
       version: ${{ steps.find.outputs.version }}
@@ -168,6 +169,7 @@ jobs:
     needs: [release, build]
     if: ${{ !cancelled() && inputs.publish != false }}
     runs-on: ubuntu-24.04
+    timeout-minutes: 15
     steps:
       - uses: actions/download-artifact@v8
         continue-on-error: true

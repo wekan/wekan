@@ -123,7 +123,7 @@ the address uses: `/admin/problems/<slug>`.
 | Problems / Database problems | `database` | — |
 | Problems / Filesystem integrity | `integrity` | — |
 
-17 of these 20 panes has no page of its own yet. A dash is a
+17 of these 21 panes has no page of its own yet. A dash is a
 gap to fill, not a pane that does nothing - what the pane shows is described in
 this README until somebody writes it up.
 

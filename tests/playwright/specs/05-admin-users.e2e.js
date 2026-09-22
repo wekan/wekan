@@ -164,8 +164,8 @@ test.describe('Admin – user management', () => {
     const usernameInput = page.locator('#at-field-username_and_email');
     const passwordInput = page.locator('#at-field-password');
 
-    await usernameInput.focus();
-    await page.keyboard.press('Tab');
+    await waitForMeteor(page);
+    await usernameInput.press('Tab');
     await expect(passwordInput).toBeFocused();
     await expect(page.locator('.password-toggle-btn')).not.toBeFocused();
 

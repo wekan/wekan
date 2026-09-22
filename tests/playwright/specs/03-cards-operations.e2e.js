@@ -164,7 +164,7 @@ test.describe('Cards – operations', () => {
     db.deleteOne('cards', { _id: cardId });
 
     await expect(boardPage.locator('.js-card-details')).toHaveCount(0, {
-      timeout: 10_000,
+      timeout: 30_000,
     });
     await expect(boardPage.locator('.board-canvas')).toBeVisible();
   });

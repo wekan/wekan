@@ -13,7 +13,7 @@ test('Offices shows recorded flag and city and wraps a long IPv6 address', async
       firstAt: at, at, location },
   } });
   db.insertOne('loginAddresses', { _id: db.uid('office'), address, ipv6: address,
-    count: 2, firstAt: at, at, users: { entries: {} } });
+    location, count: 2, firstAt: at, at, users: { entries: {} } });
   try {
     await loginWithToken(page, adminUser.id, adminUser.token);
     await navigateInApp(page, '/admin/problems/office');
