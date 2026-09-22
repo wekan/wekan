@@ -284,6 +284,53 @@ const work = fs.mkdtempSync(path.join(process.env.TMPDIR, 'mirror-fixtures-'));
     const bad = (tool, args) => args.includes('status') ? ' M local-file\n' : run(tool, args);
     assert.throws(() => m.syncGit({ name: 'codeberg', url: 'git@codeberg.org:wekan/wekan' }, bad, () => true, work), /local changes; preserved/);
   });
+  await test('WeKan mirrors source refs from the existing checkout without a bare clone', () => {
+    const calls = [];
+    const run = (tool, args) => {
+      assert.equal(tool, 'git');
+      calls.push(args);
+      if (args.includes('for-each-ref')) {
+        return 'refs/mirror-source/github/heads/main\nrefs/mirror-source/github/heads/devel\nrefs/mirror-source/github/tags/v1\n';
+      }
+      return '';
+    };
+    assert.equal(m.syncGit({ name: 'gitlab', url: 'git@gitlab.com:wekan/wekan' },
+      run, () => false, work), undefined);
+    assert.ok(calls.some(args => args[0] === '-C' && args[1] === m.root
+      && args.includes('fetch') && args.includes('--prune') && args.includes('--no-tags')));
+    assert.ok(calls.some(args => args[0] === '-C' && args[1] === m.root
+      && args.includes('refs/mirror-source/github/heads/main:refs/heads/main')
+      && args.includes('refs/mirror-source/github/tags/v1:refs/tags/v1')));
+    assert.ok(!calls.some(args => args.includes('clone')));
+    assert.ok(!calls.flat().some(arg => arg === '--force' || arg === '--mirror'));
+  });
+  await test('WeKan divergence recovery still preserves destination main', () => {
+    const calls = [];
+    const run = (tool, args) => {
+      assert.equal(tool, 'git');
+      calls.push(args);
+      if (args.includes('for-each-ref')) {
+        return 'refs/mirror-source/github/heads/main\nrefs/mirror-source/github/heads/devel\nrefs/mirror-source/github/tags/v1\n';
+      }
+      if (args[1] === m.root && args.includes('push')
+        && args.includes('refs/mirror-source/github/heads/main:refs/heads/main')) {
+        throw new Error('non-fast-forward');
+      }
+      if (args.includes('status')) return '';
+      if (args.includes('symbolic-ref')) return 'main\n';
+      if (args.includes('config') && args.at(-1) === 'user.name') return 'Lauri Ojansivu\n';
+      if (args.includes('config') && args.at(-1) === 'user.email') return 'x@xet7.org\n';
+      return '';
+    };
+    m.syncGit({ name: 'codeberg', url: 'git@codeberg.org:wekan/wekan' },
+      run, () => false, work);
+    assert.equal(calls.filter(args => args.includes('merge') && args.includes('--no-edit')).length, 2);
+    assert.ok(calls.some(args => args.includes('HEAD:refs/heads/main')));
+    assert.ok(calls.some(args => args[1] === m.root
+      && args.includes('refs/mirror-source/github/heads/devel:refs/heads/devel')
+      && args.includes('refs/mirror-source/github/tags/v1:refs/tags/v1')));
+    assert.ok(!calls.some(args => args.includes('--mirror')));
+  });
   await test('per-mirror launchers share snapshot, forward preview and propagate errors without live commands', () => {
     const bin = path.join(work, 'bin'); fs.mkdirSync(bin);
     const recorder = path.join(work, 'commands.txt');
@@ -305,7 +352,7 @@ const work = fs.mkdtempSync(path.join(process.env.TMPDIR, 'mirror-fixtures-'));
     const bin = path.join(work, 'mock-main'); fs.mkdirSync(bin);
     const recorder = path.join(work, 'git.txt');
     for (const [name, contents] of [
-      ['git', '#!/bin/bash\nif [[ "$*" == *for-each-ref* ]]; then if [[ "$*" == *refs/mirror-source* ]]; then printf "refs/mirror-source/heads/main\\n"; else printf "refs/heads/main\\n"; fi; fi\nif [[ "$*" == *symbolic-ref* ]]; then printf "main\\n"; fi\nprintf "%s\\n" "$*" >> "$MIRROR_GIT_RECORDER"\n'],
+      ['git', '#!/bin/bash\nif [[ "$*" == *for-each-ref* ]]; then if [[ "$*" == *refs/mirror-source* ]]; then printf "refs/mirror-source/github/heads/main\\n"; else printf "refs/heads/main\\n"; fi; fi\nif [[ "$*" == *symbolic-ref* ]]; then printf "main\\n"; fi\nprintf "%s\\n" "$*" >> "$MIRROR_GIT_RECORDER"\n'],
       ['glab', '#!/bin/bash\nprintf "[]"\n'],
     ]) {
       const file = path.join(bin, name); fs.writeFileSync(file, contents); fs.chmodSync(file, 0o755);
@@ -316,9 +363,10 @@ const work = fs.mkdtempSync(path.join(process.env.TMPDIR, 'mirror-fixtures-'));
     try {
       assert.equal(result.status, 0, result.stdout + result.stderr);
       const git = fs.readFileSync(recorder, 'utf8');
-      assert.match(git, /clone --progress --mirror https:\/\/github\.com\/wekan\/wekan\.git/);
-      assert.match(git, /for-each-ref --format=%\(refname\) refs\/heads refs\/tags/);
-      assert.match(git, /push --progress git@gitlab.com:wekan\/wekan refs\/heads\/\*:refs\/heads\/\* refs\/tags\/\*:refs\/tags\/\*/);
+      assert.match(git, /-C .*\/wekan fetch --progress --prune --no-tags https:\/\/github\.com\/wekan\/wekan\.git/);
+      assert.doesNotMatch(git, /clone --progress --mirror/);
+      assert.match(git, /for-each-ref --format=%\(refname\) refs\/mirror-source\/github\/heads refs\/mirror-source\/github\/tags/);
+      assert.match(git, /push --progress git@gitlab.com:wekan\/wekan refs\/mirror-source\/github\/heads\/main:refs\/heads\/main/);
       assert.ok(!/--force|refs\/codex|--all/.test(git));
       const report = JSON.parse(fs.readFileSync(path.join(logdir, 'report.json'), 'utf8'));
       assert.ok(report.mirrors.gitlab.some(v => v.status === 'copied'));

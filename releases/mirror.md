@@ -568,10 +568,15 @@ no remote Git command is needed to run it.
 
 ### Existing Git checkout directories
 
-WeKan Git mirrors reuse `.tools/wekan-gitlab`, `.tools/wekan-codeberg` and
+For `wekan/wekan`, the source Git repository is this checkout. A sync fetches
+the selected source's branches and tags into `refs/mirror-source/<forge>/`;
+it does not move the working branch or clone `.tools/wekan-github-mirror.git`.
+That bare source directory, if left by an older run, is no longer used.
+
+Destination Git mirrors reuse `.tools/wekan-gitlab`, `.tools/wekan-codeberg` and
 `.tools/wekan-sourceforge`. Existing checkouts are checked for local changes
 and the default branch before fetching and merging. Source branch/tag refs
 are fetched separately; other source branches and tags remain available for
 synchronization. Content archives remain under `.tools/mirror/<host>/<owner>/<repo>`.
-New source Git caches live directly under `.tools`; other organizations use
+Other repositories may need source Git caches; those live under
 `.tools/mirror-git/<organization>/<repo>` to avoid checkout collisions.
