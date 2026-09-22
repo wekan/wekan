@@ -2,6 +2,20 @@
 
 <img src="MacStadium-developerlogo.png" width="20%" alt="Powered by MacStadium" />
 
+## WeKan macOS app
+
+Each GitHub release provides separate `WeKan-<version>-mac-arm64.app.zip` (Apple
+Silicon) and `WeKan-<version>-mac-amd64.app.zip` (Intel) downloads. Double-click
+the ZIP, drag the extracted WeKan app to Applications, then open it. A Terminal
+window starts the included Meteor 3 WeKan server with its bundled Node.js and
+FerretDB. Open `http://localhost:8080` in a browser. The database and writable
+files live in `~/Library/Application Support/WeKan`. Closing the Terminal window
+stops the server.
+
+These apps have ad hoc signatures and are not notarized. If macOS blocks the
+first launch, use Finder's Control-click → Open and confirm Open. Keep the app
+ZIP and its `.sha256sum` together when verifying a download.
+
 ## ChangeLog
 - Previously:
   - Below info about Wekan on Mac x64

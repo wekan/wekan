@@ -1185,6 +1185,17 @@ jobs:
       tag: v${{ needs.prepare.outputs.version }}
       publish: true
 
+  mac-app:
+    name: Mac apps
+    needs: [prepare, release, build-mac-arm64, build-mac-x64]
+    if: ${{ !cancelled() && needs.release.result == 'success' }}
+    uses: ./.github/workflows/mac.yml
+    permissions:
+      contents: write
+    with:
+      tag: v${{ needs.prepare.outputs.version }}
+      publish: true
+
   # The Windows single-file package wraps the win64 ZIP after that job has
   # attached it. windows.yml smoke-tests the final EXE, including the bundled
   # start-wekan.bat -> FerretDB SQLite + Node.js startup chain.

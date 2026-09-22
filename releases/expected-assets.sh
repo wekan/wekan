@@ -16,6 +16,7 @@
 #   extra      the six architectures nobody else builds for, repacked under
 #              QEMU by releases/repack-bundle-for-arch.sh.
 #   appimage   AppImage.yml
+#   mac        mac.yml
 #   windows    windows.yml
 #   flatpak    Flatpak.yml
 #   sandstorm  the .spk
@@ -61,6 +62,9 @@ done
 # with the display capitalisation.
 for arch in x86_64 aarch64; do
     echo "appimage ${arch} WeKan-${v}-${arch}.AppImage sums"
+done
+for arch in arm64 amd64; do
+    echo "mac ${arch} WeKan-${v}-mac-${arch}.app.zip sums"
 done
 for arch in x86_64 aarch64; do
     echo "flatpak ${arch} WeKan-${v}-${arch}.flatpak sums"

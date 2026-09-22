@@ -23,7 +23,7 @@ name: Release all missing
 # downloads the PUBLISHED wekan-<v>-amd64.zip and repacks it, so it can rebuild:
 #
 #   the six extra architectures  s390x ppc64le riscv64 i386 armhf loong64
-#   the AppImages and Flatpaks   by calling their own workflows
+#   the AppImages, Mac apps and Flatpaks by calling their own workflows
 #
 # It cannot rebuild amd64 itself (that is the Meteor build), nor arm64, win64
 # and mac-arm64 (each needs its own kind of runner and its own steps), nor the
@@ -71,6 +71,7 @@ jobs:
       version: ${{ steps.plan.outputs.version }}
       extra: ${{ steps.plan.outputs.extra }}
       appimage: ${{ steps.plan.outputs.appimage }}
+      mac: ${{ steps.plan.outputs.mac }}
       flatpak: ${{ steps.plan.outputs.flatpak }}
       windows: ${{ steps.plan.outputs.windows }}
       manual: ${{ steps.plan.outputs.manual }}
@@ -116,7 +117,7 @@ jobs:
           total="$(wc -l < missing.txt | tr -d ' ')"
           echo "total=$total" >> "$GITHUB_OUTPUT"
 
-          for kind in extra appimage flatpak windows; do
+          for kind in extra appimage mac flatpak windows; do
             sels="$(awk -v k="$kind" '$1 == k { print $2 }' missing.txt)"
             json="$(printf '%s\n' $sels | sed '/^$/d' | jq -R . | jq -sc .)"
             [ -n "$json" ] || json='[]'
@@ -274,6 +275,18 @@ jobs:
       publish: true
       only: ${{ needs.plan.outputs.appimage }}
 
+  mac:
+    name: Mac apps
+    needs: plan
+    if: ${{ needs.plan.outputs.mac != '[]' }}
+    uses: ./.github/workflows/mac.yml
+    permissions:
+      contents: write
+    with:
+      tag: v${{ needs.plan.outputs.version }}
+      publish: true
+      only: ${{ needs.plan.outputs.mac }}
+
   flatpak:
     name: Flatpaks
     needs: plan
@@ -400,7 +413,7 @@ jobs:
   done:
     timeout-minutes: 15
     name: what is still missing
-    needs: [plan, extra-arches, appimage, flatpak, charts]
+    needs: [plan, extra-arches, appimage, mac, flatpak, charts]
     if: ${{ !cancelled() }}
     runs-on: ubuntu-latest
     steps:
