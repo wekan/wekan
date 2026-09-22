@@ -688,6 +688,29 @@ the GitHub workflows to build.
 
 </details>
 
+This release fixes the following card and list bugs:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0741a7847">Open linked card URLs in the current tab</a>. Thanks to carl-unique and xet7.</summary>
+
+Card links inside Markdown viewers now use the current WeKan tab. The card
+details view waits for its card subscription before deciding the card has
+disappeared, so navigation does not close a card during loading. Internal link
+and real Chromium navigation tests pass. Fixes
+<a href="https://github.com/wekan/wekan/issues/6711">#6711</a>.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/773a1c2dd">Restore saved list collapse state after page reload</a>. Thanks to Nich01asFox and xet7.</summary>
+
+The list view now reads the saved per-user collapse value after the profile
+arrives instead of keeping an early expanded fallback in page session state.
+The persistence regression passes in Chromium after a full reload. Fixes
+<a href="https://github.com/wekan/wekan/issues/6712">#6712</a>.
+
+</details>
+
 This release fixes the following test and GitHub workflow issues:
 
 <details>
