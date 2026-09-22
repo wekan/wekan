@@ -70,4 +70,14 @@ function boardVisibilitySelectors({
   return selectors;
 }
 
-module.exports = { boardVisibilitySelectors };
+// A favorite is a user relationship only while the board remains public.
+// Requiring permission here prevents a stale star from restoring access to a
+// private board after its membership or share is revoked.
+function starredPublicBoardSelector(boardIds) {
+  const ids = Array.isArray(boardIds)
+    ? boardIds.filter(id => typeof id === 'string' && id)
+    : [];
+  return ids.length ? { _id: { $in: ids }, permission: 'public' } : null;
+}
+
+module.exports = { boardVisibilitySelectors, starredPublicBoardSelector };

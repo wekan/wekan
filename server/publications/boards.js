@@ -27,7 +27,7 @@ const {
   DEFAULT_LAZY_THRESHOLD,
 } = require('/models/lib/cardsLoading');
 const { boardCardScope, assignedOnlyCardScope } = require('/models/lib/boardCardScope');
-const { boardVisibilitySelectors } = require('/models/lib/boardVisibilitySelectors');
+const { boardVisibilitySelectors, starredPublicBoardSelector } = require('/models/lib/boardVisibilitySelectors');
 
 // Card-loading mode (Admin Panel / Features): 'all' ships every card/checklist to
 // minimongo; 'lazy' ships none (each list loads its visible window via the
@@ -62,6 +62,19 @@ const BOARD_LIST_FIELDS = {
   allowsCardCounterList: 1,
   allowsBoardMemberList: 1,
 };
+
+// The global relationship-only boards publication does not stream every public
+// board. A separate subscription follows the current user's starred IDs so a
+// public favorite stays available after leaving its own board publication.
+Meteor.publish('starredPublicBoards', function(boardIds) {
+  check(boardIds, [String]);
+  if (!this.userId) return this.ready();
+  const clause = starredPublicBoardSelector(boardIds);
+  if (!clause) return this.ready();
+  return Boards.find({ ...clause, archived: false, type: 'board' }, {
+    fields: BOARD_LIST_FIELDS,
+  });
+});
 
 publishComposite('boards', function() {
   const userId = this.userId;
@@ -396,6 +409,8 @@ Meteor.methods({
       emailDomains: user.emailDomains(),
       includePublic: false,
     });
+    const starredPublic = starredPublicBoardSelector(user.profile?.starredBoards);
+    if (starredPublic) clauses.push(starredPublic);
     const selector = {
       archived: false,
       type: search || menu === 'templates'

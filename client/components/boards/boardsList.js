@@ -3,6 +3,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { Session } from 'meteor/session';
 import { ReactiveVar } from 'meteor/reactive-var';
 const { notHelperBoardTitle } = require('/models/lib/helperBoards');
+const { starredPublicBoardSelector } = require('/models/lib/boardVisibilitySelectors');
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import getSlug from 'limax';
@@ -330,6 +331,7 @@ function isDragFromRemainingOrWorkspace(evt) {
 
 function menuItemCountOf(type) {
   const currentUser = ReactiveCache.getCurrentUser();
+  const starredPublic = starredPublicBoardSelector(currentUser?.profile?.starredBoards);
   const assignments =
     (currentUser &&
       currentUser.profile &&
@@ -341,7 +343,10 @@ function menuItemCountOf(type) {
     $and: [
       { archived: false },
       { type: { $in: ['board', 'template-container'] } },
-      { $or: [{ 'members.userId': Meteor.userId() }] },
+      { $or: [
+        { 'members.userId': Meteor.userId() },
+        ...(starredPublic ? [starredPublic] : []),
+      ] },
       { title: notHelperBoardTitle() },
     ],
   };
@@ -545,6 +550,9 @@ function boardsForView(tpl) {
       let teamsIds = teamIdsUserBelongs.split(',');
       membershipOrs.push({ 'teams.teamId': { $in: teamsIds } });
     }
+
+    const starredPublic = starredPublicBoardSelector(currUser?.profile?.starredBoards);
+    if (starredPublic) membershipOrs.push(starredPublic);
 
     // #5850: boards shared with the user's email domain.
     const emailDomains = currUser?.emailDomains?.() || [];

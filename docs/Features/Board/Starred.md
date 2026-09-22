@@ -24,6 +24,12 @@ A **board** is starred by id. That is the star that has always existed, it is
 shared with the board's other members' stars through the board's own counter,
 and on a board page it is the star the group draws.
 
+A logged-in reader can also star a **public board they do not belong to**. That
+board appears in their Starred overview and header menu after a reload. Only
+the starred public board is added to their board list; other public boards stay
+on the Public Boards page. If the owner makes it private, the old star does not
+grant access or keep it in Starred.
+
 A **page** is starred as a **bookmark**: a *relative URL* and a *title*. It has
 no id to star, and there is nothing on the page itself to hang a count from — a
 bookmark belongs to the one person who made it.

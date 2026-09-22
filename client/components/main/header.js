@@ -61,6 +61,10 @@ import '/client/lib/headerDragscroll';
 
 Meteor.subscribe('user-admin');
 Meteor.subscribe('boards');
+Tracker.autorun(() => {
+  const user = ReactiveCache.getCurrentUser();
+  Meteor.subscribe('starredPublicBoards', user?.profile?.starredBoards || []);
+});
 Meteor.subscribe('setting');
 Meteor.subscribe('announcements');
 Template.header.onCreated(function () {
