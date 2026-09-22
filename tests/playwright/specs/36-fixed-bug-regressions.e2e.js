@@ -102,7 +102,7 @@ test.describe('Fixed-bug regressions', () => {
       Session.set('sortBy', '');
     });
 
-    await boardPage.reload({ waitUntil: 'networkidle' });
+    await boardPage.reload({ waitUntil: 'domcontentloaded' });
     await waitForMeteor(boardPage);
 
     // The board header onCreated must restore the persisted sort into Session.

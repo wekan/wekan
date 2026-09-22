@@ -321,6 +321,8 @@ test('every script in releases/ is reachable from BOTH menus', () => {
     'snap-upload-retry.sh': 'an internal GitHub workflow helper for\n'
       + '      publishing built snaps; it needs a snap path and channels,\n'
       + '      so it is not an operator-facing build menu command',
+    'mac/package-app.sh': 'an internal GitHub workflow helper that wraps an\n'
+      + '      existing macOS bundle; it is not an operator-facing build menu command',
   };
 
   // These are explicit audit/internal helpers, not independent release-menu actions.

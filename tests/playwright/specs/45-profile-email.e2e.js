@@ -18,7 +18,7 @@ test.describe('Profile email', () => {
 
     try {
       await loginWithToken(page, user.id, user.token);
-      await page.goto(BASE_URL, { waitUntil: 'networkidle' });
+      await page.goto(BASE_URL, { waitUntil: 'domcontentloaded' });
       await page.locator('.js-open-header-member-menu').click();
       await page.locator('.js-pop-over .js-edit-profile').click();
 

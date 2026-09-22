@@ -196,14 +196,18 @@ test.describe('REST API: rules + card sub-resources + core CRUD', () => {
     await menu.click();
     await boardPage.locator('.js-export-board').click();
     const links = boardPage.locator('.export-board-pane-formats a[download]');
+    await expect(links.first()).toBeVisible();
     for (const withoutAttachments of [false, true]) {
-      const hrefs = await links.evaluateAll(elements => elements.map(element => element.href));
-      const href = hrefs.find(value => {
-        const url = new URL(value);
-        return url.pathname.endsWith('/export')
-          && (url.searchParams.get('attachments') === 'false') === withoutAttachments;
-      });
-      expect(href).toBeTruthy();
+      const findHref = async () => {
+        const hrefs = await links.evaluateAll(elements => elements.map(element => element.href));
+        return hrefs.find(value => {
+          const url = new URL(value);
+          return url.pathname.endsWith('/export')
+            && (url.searchParams.get('attachments') === 'false') === withoutAttachments;
+        });
+      };
+      await expect.poll(findHref).toBeTruthy();
+      const href = await findHref();
       const link = links.filter({ hasText: 'JSON' });
       const chosen = await link.evaluateAll((elements, target) =>
         elements.findIndex(element => element.href === target), href);

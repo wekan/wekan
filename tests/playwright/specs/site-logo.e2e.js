@@ -19,7 +19,7 @@ test('custom login and board logos load without requesting stock logos', async (
  });
  try {
   db.updateOne('settings', {_id:setting._id}, {$set:{customLoginLogoImageUrl:PIXEL, customTopLeftCornerLogoImageUrl:PIXEL, hideLogo:false}});
-  await page.goto(BASE_URL, {waitUntil:'domcontentloaded'});
+  await page.goto(`${BASE_URL}/sign-in`, {waitUntil:'domcontentloaded'});
   await expect(page.locator('.auth-layout img[src^="data:image/png"]')).toBeVisible();
   await expect(page.locator('.auth-layout img[src*="wekan-logo.svg"]')).toHaveCount(0);
   await loginWithToken(page, user.id, user.token);

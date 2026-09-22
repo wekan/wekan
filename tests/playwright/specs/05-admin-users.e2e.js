@@ -133,7 +133,8 @@ test.describe('Admin – user management', () => {
 
   test('non-admin user cannot access /people (admin-only)', async ({ page, user }) => {
     await loginWithToken(page, user.id, user.token);
-    await page.goto(`${BASE_URL}/people`, { waitUntil: 'networkidle' });
+    await page.goto(`${BASE_URL}/people`, { waitUntil: 'domcontentloaded' });
+    await waitForMeteor(page);
 
     // Non-admin sees "error-notAuthorized" message (peopleBody.jade: unless currentUser.isAdmin).
     // No td.username (people data rows) should be rendered.
@@ -143,14 +144,14 @@ test.describe('Admin – user management', () => {
   });
 
   test('login page sign-in link is visible and accessible', async ({ page }) => {
-    await page.goto(`${BASE_URL}/sign-in`, { waitUntil: 'networkidle' });
+    await page.goto(`${BASE_URL}/sign-in`, { waitUntil: 'domcontentloaded' });
     // The sign-in form or button must be present
     const form = page.locator('#at-field-username_and_email').locator('xpath=ancestor::form');
     await expect(form).toBeVisible({ timeout: 10_000 });
   });
 
   test('login page renders correctly on a fresh load', async ({ page }) => {
-    await page.goto(`${BASE_URL}/sign-in`, { waitUntil: 'networkidle' });
+    await page.goto(`${BASE_URL}/sign-in`, { waitUntil: 'domcontentloaded' });
     const usernameInput = page.locator('#at-field-username_and_email');
     const passwordInput = page.locator('#at-field-password');
 
@@ -159,7 +160,7 @@ test.describe('Admin – user management', () => {
   });
 
   test('sign-in tabs directly between fields and Enter in password submits', async ({ page }) => {
-    await page.goto(`${BASE_URL}/sign-in`, { waitUntil: 'networkidle' });
+    await page.goto(`${BASE_URL}/sign-in`, { waitUntil: 'domcontentloaded' });
     const usernameInput = page.locator('#at-field-username_and_email');
     const passwordInput = page.locator('#at-field-password');
 

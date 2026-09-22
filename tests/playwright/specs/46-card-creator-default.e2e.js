@@ -26,7 +26,7 @@ test.describe('#3823 legacy board creator visibility', () => {
         $unset: { allowsCreatorOnMinicard: '' },
       },
     );
-    await boardPage.reload({ waitUntil: 'networkidle' });
+    await boardPage.reload({ waitUntil: 'domcontentloaded' });
 
     const card = boardPage
       .locator('.js-minicard')

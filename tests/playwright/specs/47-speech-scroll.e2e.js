@@ -32,7 +32,7 @@ test.describe('#2499 focusable speech-scroll regions', () => {
     );
 
     await boardPage.setViewportSize({ width: 1000, height: 500 });
-    await boardPage.reload({ waitUntil: 'networkidle' });
+    await boardPage.reload({ waitUntil: 'domcontentloaded' });
 
     const listBody = boardPage
       .locator(`#js-list-${board.listIds[0]} .list-body`)
