@@ -350,6 +350,7 @@ Template.cardDetails.onCreated(function () {
   this.infiniteScrolling = new InfiniteScrolling();
   const openedCardId = this.data?._id;
   const openedBoardId = this.data?.boardId;
+  const cardSubscription = openedCardId ? this.subscribe('card', openedCardId) : null;
 
   // #3114: another client can delete/archive this card or move it to another
   // board. Minimongo then removed the data while the mobile details view kept
@@ -357,6 +358,9 @@ Template.cardDetails.onCreated(function () {
   // close every way it can be open as soon as it no longer belongs here.
   this.autorun(() => {
     if (!openedCardId || !openedBoardId) return;
+    // A same-tab card link can render the details before the destination card
+    // publication arrives. Only a ready subscription can prove it is gone.
+    if (!cardSubscription?.ready()) return;
     const card = ReactiveCache.getCard(openedCardId);
     if (!openCardIsUnavailable(card, openedBoardId)) return;
 

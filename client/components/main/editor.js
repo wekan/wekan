@@ -1,9 +1,11 @@
 import { ReactiveCache } from '/imports/reactiveCache';
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { findWhere } from '/imports/lib/collectionHelpers';
 import { TAPi18n } from '/imports/i18n';
 import { Markdown } from 'meteor/wekan-markdown';
 import { Utils } from '/client/lib/utils';
 import { memberMatchesTerm } from '/models/lib/memberAutocomplete';
+import { internalCardPath } from '/models/lib/internalCardLink';
 import autosize from 'autosize';
 var converter = require('@wekanteam/html-to-markdown');
 
@@ -291,10 +293,12 @@ Template.viewer.events({
     } else {
       const href = event.currentTarget.href;
       if (href) {
-        // Open links in current browser tab, changed from _blank to _self, and back to _blank:
-        // https://github.com/wekan/wekan/discussions/3534
-        //window.open(href, '_self');
-        window.open(href, '_blank');
+        const cardPath = internalCardPath(href, window.location.href);
+        if (cardPath) {
+          FlowRouter.go(cardPath);
+        } else {
+          window.open(href, '_blank', 'noopener');
+        }
       }
     }
     if (prevent) {
