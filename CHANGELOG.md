@@ -691,6 +691,19 @@ the GitHub workflows to build.
 This release fixes the following test and GitHub workflow issues:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5e7577e3d">Stabilize cross-browser test navigation and clipboard checks</a>. Thanks to xet7.</summary>
+
+Wait for export links to render before inspecting them, navigate directly to
+sign-in in the custom-logo test, and record Clipboard API writes in Firefox's
+container browser. Replace network-idle waits with document and app readiness
+checks in affected tests, retry intermittent local Firefox network failures,
+and register the macOS app packager as an internal workflow script in the
+build-script audit. Focused Node checks pass and all browser tests register;
+the full three-browser run remains to be repeated.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ced5263a4">Repair macOS test and release workflow regressions</a>. Thanks to xet7.</summary>
 
 Give Docker browser tests a macOS host address, make the password visibility
