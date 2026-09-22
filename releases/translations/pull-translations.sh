@@ -26,6 +26,16 @@ cp -a imports/i18n/data/. "$before_dir/"
 
 ../tx --config .tx/config pull -a -f
 
+# Transifex offers both Kannada (kn) and Kannada (India) (kn_IN). WeKan uses
+# the translated kn locale; an untranslated kn_IN pull is an exact copy of the
+# English source and is not a registered app language. Drop only that exact
+# duplicate, leaving a future real kn_IN translation available for review.
+if [ -f imports/i18n/data/kn_IN.i18n.json ] &&
+   cmp -s imports/i18n/data/kn_IN.i18n.json imports/i18n/data/en.i18n.json; then
+  rm imports/i18n/data/kn_IN.i18n.json
+  echo '[i18n] removed untranslated kn_IN duplicate; translated kn remains active'
+fi
+
 # After pulling, find the language files where a previously-translated string
 # reverted to English (untranslated on Transifex). Needs node + git.
 if command -v "$translation_node" >/dev/null 2>&1; then

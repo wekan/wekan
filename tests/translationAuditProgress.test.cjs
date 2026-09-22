@@ -38,10 +38,10 @@ const assert = require('node:assert/strict');
   assert.equal(updateAuditSummary(updated, summary, 12345, '2026-09-13'), updated, 'refresh is idempotent');
   assert.ok(updated.includes(report.match(/Latest translation fix:.*$/m)[0]), 'refresh preserves reviewed fix details and commit hash');
   assert.throws(() => updateAuditSummary('', summary, 0, '2026-09-13'), /Missing summary row/);
-  const staleReport = report.replace('| --- | ---: |\n\nRemaining review',
-    '| --- | ---: |\n| zgh — Standard Moroccan Tamazight | 999 |\n\nRemaining review');
+  const staleReport = report.replace(/(\| Pending locale \| Findings \|\n\| --- \| ---: \|\n)/,
+    '$1| lv — Latvian | 999 |\n');
   const refreshed = updateAuditSummary(staleReport, summary, 12345, '2026-09-13', result);
-  assert.doesNotMatch(refreshed, /\| zgh —/, 'resolved locales disappear from the table');
+  assert.doesNotMatch(refreshed, /\| lv —/, 'resolved locales disappear from the table');
   assert.equal(updateAuditSummary(refreshed, summary, 12345, '2026-09-13', result), refreshed);
   const changed = {
     ...result,
