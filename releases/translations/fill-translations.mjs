@@ -110,6 +110,7 @@ const LOCALE_INVARIANTS = {
     'predicate-selector', 'dependency-color', 'errors', 'error']),
   br: new Set(['pomodoro']),
   wo: new Set(['pomodoro']),
+  wa: new Set(['pomodoro']),
 };
 
 // Exact reviewed shared terms must not be offered for machine filling again.

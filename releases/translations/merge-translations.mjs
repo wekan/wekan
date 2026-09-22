@@ -114,6 +114,23 @@ const REVIEWED_SHARED_VALUES = {
   wo: {
     'operator-board-abbrev': 't',
   },
+  wa: {
+    'calendar-system-jalali': 'Jalali (persan)',
+    'color-purple': 'violet',
+    'color-white': 'blanc',
+    private: 'Privé',
+    'attachment-limits': 'Limites',
+    'r-is': 'est',
+    'operator-board-abbrev': 't',
+    'operator-swimlane-abbrev': 'c',
+    'operator-has': 'a',
+    'operator-limit': 'limite',
+    'location-address': 'Adresse',
+    'office-address': 'Adresse',
+    accessibility: 'Accessibilité',
+    protocol: 'Protocole',
+    'event-ip': 'Adresse IP',
+  },
 };
 const KNOWN_WRONG_VALUES = {
   'cy-GB': {
