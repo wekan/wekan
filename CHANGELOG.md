@@ -856,6 +856,27 @@ including an untracked all-English `kn_IN` file recreated after its removal.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d4ef9284b">Reuse the WeKan checkout for forge mirroring</a>. Thanks to xet7.</summary>
+
+Mirror sync fetches source branches and tags into private refs in this
+checkout, avoiding a second bare clone of WeKan under `.tools`. Other
+organization repositories can still use a source cache. Mock Git tests cover
+normal sync, divergence recovery and reuse of destination checkouts; no live
+mirror was run.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cb8fd6b86">Keep translated Kannada active after pulls</a>. Thanks to xet7.</summary>
+
+Remove `kn_IN` after a Transifex pull only when it exactly matches the English
+source; the translated `kn` locale stays active. Keep newer Colombian Spanish
+and Traditional Chinese wording, and let the audit test handle a locale that
+has gained pending review items. Focused locale checks pass.
+
+</details>
+
 # v11.89 2026-09-20 WeKan ® release
 
 **In short:** **Snap Store** uploads now retry temporary server failures across
