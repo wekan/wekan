@@ -21,7 +21,23 @@ fi
 # overwrites the files. The merge uses this snapshot only as a fallback for
 # keys Transifex still returns as English.
 before_dir=$(mktemp -d "$TMPDIR/wekan-i18n-before-pull.XXXXXX")
-trap 'rm -rf "$before_dir"' EXIT HUP INT TERM
+pull_complete=0
+cleanup_pull() {
+  pull_status=$?
+  if [ "$pull_complete" -ne 1 ]; then
+    # tx or a repair step may fail after overwriting some locale files. Restore
+    # the exact pre-pull snapshot so local human translations survive the error.
+    cp -a "$before_dir/." imports/i18n/data/ ||
+      echo "[i18n] could not restore all local translations from $before_dir" >&2
+    echo '[i18n] pull failed; restored pre-pull locale files' >&2
+  fi
+  rm -rf "$before_dir"
+  exit "$pull_status"
+}
+trap cleanup_pull 0
+trap 'exit 129' HUP
+trap 'exit 130' INT
+trap 'exit 143' TERM
 cp -a imports/i18n/data/. "$before_dir/"
 
 ../tx --config .tx/config pull -a -f
@@ -86,6 +102,7 @@ if command -v "$translation_node" >/dev/null 2>&1; then
   echo "[i18n] remaining untranslated strings per language (translate + fill-translations.mjs, no service):"
   "$translation_node" releases/translations/fill-translations.mjs --missing || true
 fi
+pull_complete=1
 
 # https://developers.transifex.com/docs/cli
 # New Go-based transifex client.

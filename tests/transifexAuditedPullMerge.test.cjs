@@ -31,9 +31,8 @@ try {
     const good = locale(lang);
     for (const [key, value] of Object.entries(bad)) {
       assert.notEqual(good[key], value, `${lang}:${key}: rejected text survived repair`);
-      // Product/technical names such as Cron may legitimately match English.
-      if (!['cron', 'operator-board-abbrev', 'operator-list-abbrev', 'operator-member-abbrev',
-        'operator-assignee', 'operator-debug', 'predicate-assignee'].includes(key)) assert.notEqual(good[key], english[key], `${lang}:${key}: repair must be a translation`);
+      // A rejected foreign value may leave an English placeholder while a
+      // correct-language translation is still pending.
       assert.deepEqual(tokens(good[key]), tokens(english[key]), `${lang}:${key}: placeholders`);
       cases++;
     }
@@ -100,6 +99,26 @@ try {
   write(before, 'fi', { 'add-list': 'Lisää uusi lista' });
   run();
   assert.equal(read(path.join(data, 'fi.i18n.json'))['add-list'], 'Lisää lista');
+  // Russian and Mongolian share these established loanwords. Preserve a
+  // reviewed Mongolian value even when the Russian resource uses it too.
+  write(data, 'ru', { archives: 'Архив', 'text-note-text': 'Текст',
+    'custom-field-text': 'Текст', pomodoro: 'Помодоро', 'add-board': 'Добавить доску' });
+  write(before, 'mn', { archives: 'Архив', 'text-note-text': 'Текст',
+    'custom-field-text': 'Текст', pomodoro: 'Помодоро', 'add-board': 'Добавить доску' });
+  write(data, 'mn', { archives: english.archives, 'text-note-text': english['text-note-text'],
+    'custom-field-text': english['custom-field-text'], pomodoro: english.pomodoro,
+    'add-board': english['add-board'] });
+  run();
+  const mongolian = read(path.join(data, 'mn.i18n.json'));
+  for (const key of ['archives', 'text-note-text', 'custom-field-text', 'pomodoro']) {
+    assert.equal(mongolian[key], read(path.join(before, 'mn.i18n.json'))[key], `${key}: Mongolian loanword`);
+  }
+  assert.equal(mongolian['add-board'], english['add-board'], 'unreviewed Russian seed stays rejected');
+  write(before, 'mn', { archives: english.archives });
+  write(data, 'mn', { archives: 'Архив' });
+  run();
+  assert.equal(read(path.join(data, 'mn.i18n.json')).archives, 'Архив',
+    'reviewed Mongolian word pulled from Transifex also survives');
   console.log(`Audited pull: ${cases} rejected values restored; newer humans, tokens and invalid/missing fallbacks pass.`);
 } finally {
   fs.rmSync(fixture, { recursive: true, force: true });

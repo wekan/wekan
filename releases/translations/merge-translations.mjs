@@ -60,6 +60,16 @@ const WRONG_LANGUAGE_REFERENCES = {
   br: ['fr.i18n.json'], oc: ['fr.i18n.json'], vo: ['fr.i18n.json'],
   wa: ['fr.i18n.json'], wo: ['fr.i18n.json'], zgh: ['fr.i18n.json'],
 };
+// These established Mongolian loanwords also occur verbatim in the Russian
+// resource. Exact reference equality alone cannot identify their language.
+const REVIEWED_SHARED_VALUES = {
+  mn: {
+    archives: 'Архив',
+    'text-note-text': 'Текст',
+    'custom-field-text': 'Текст',
+    pomodoro: 'Помодоро',
+  },
+};
 const KNOWN_WRONG_VALUES = {
   'cy-GB': {
     'board-public-info': 'Y bwrdd hwn fydd <strong>public</strong>.',
@@ -120,7 +130,8 @@ for (const f of changed) {
     .map(name => readFile(path.join(DATA_DIR, name)) || {});
 
   const isRejected = (key, value) => typeof value === 'string' && (
-    wrongLanguageDocs.some(doc => doc[key] === value)
+    (REVIEWED_SHARED_VALUES[lang]?.[key] !== value
+      && wrongLanguageDocs.some(doc => doc[key] === value))
     || KNOWN_WRONG_VALUES[lang]?.[key] === value
     || REJECTED_PULL_VALUES[lang]?.[key] === value
     || PR_6695_SUPERSEDED[lang]?.[key] === value
