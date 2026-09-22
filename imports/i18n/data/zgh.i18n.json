@@ -1073,7 +1073,7 @@
   "smtp-port-description": "Port ⵍⵍⵉ ⵉⵙⵙⵎⵔⵙ ⵓⵎⴰⴽⴽⴰⵢ ⴰⵙⵏⵎⴰⵍⴰⵢ SMTP ⵏⴽ ⵉ ⵓⵣⵏ ⵏ ⵜⵉⵎⵢⴰⵣⴰⵏⵉⵏ ⵜⵉⵍⵉⴽⵟⵕⵓⵏⵉⵜⵉⵏ.",
   "smtp-tls-description": "ⵙⵙⵔⴼⵓ ⴰⵙⵎⵔⵙ ⵏ TLS ⵉ ⵓⵎⴰⴽⴽⴰⵢ ⴰⵙⵏⵎⴰⵍⴰⵢ SMTP",
   "smtp-host": "ⴰⵎⴰⴽⴽⴰⵢ ⴰⵙⵏⵎⴰⵍⴰⵢ SMTP",
-  "smtp-port": "S3 ⵒⵓⵔⵜ",
+  "smtp-port": "Port SMTP",
   "smtp-username": "ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ",
   "smtp-password": "ⵜⴰⴳⵓⵔⵉ ⵏ ⵓⵣⵔⴰⵢ",
   "smtp-tls": "ⴰⵙⵎⵔⵙ ⵏ TLS",

@@ -134,8 +134,8 @@
   {
     "locale": "br",
     "key": "r-items-list",
-    "value": "item1, item2, item3",
-    "reason": "Reviewed in client/components/rules/actions/checklistActions.jade:55: this input placeholder demonstrates three arbitrary comma-separated checklist item names, not English prose. Spaces do not alter the example separator. Retain the existing illustrative identifiers."
+    "value": "elfenn1,elfenn2,elfenn3",
+    "reason": "The placeholder demonstrates three comma-separated checklist item names. Keep the translated target-language item nouns and the comma input syntax."
   },
   {
     "locale": "de-AT",
@@ -272,8 +272,8 @@
   {
     "locale": "oc",
     "key": "r-items-list",
-    "value": "item1, item2, item3",
-    "reason": "Reviewed in client/components/rules/actions/checklistActions.jade:55: this input placeholder demonstrates three arbitrary comma-separated checklist item names, not English prose. Spaces do not alter the example separator. Retain the existing illustrative identifiers."
+    "value": "element1,element2,element3",
+    "reason": "The placeholder demonstrates three comma-separated checklist item names. Keep the translated target-language item nouns and the comma input syntax."
   },
   {
     "locale": "sv",
@@ -314,8 +314,8 @@
   {
     "locale": "vo",
     "key": "r-items-list",
-    "value": "item1, item2, item3",
-    "reason": "Reviewed in client/components/rules/actions/checklistActions.jade:55: this input placeholder demonstrates three arbitrary comma-separated checklist item names, not English prose. Spaces do not alter the example separator. Retain the existing illustrative identifiers."
+    "value": "noteti1,noteti2,noteti3",
+    "reason": "The placeholder demonstrates three comma-separated checklist item names. Keep the translated target-language item nouns and the comma input syntax."
   },
   {
     "locale": "wa-RR",
@@ -326,20 +326,20 @@
   {
     "locale": "wa",
     "key": "r-items-list",
-    "value": "item1, item2, item3",
-    "reason": "Reviewed in client/components/rules/actions/checklistActions.jade:55: this input placeholder demonstrates three arbitrary comma-separated checklist item names, not English prose. Spaces do not alter the example separator. Retain the existing illustrative identifiers."
+    "value": "elemint1,elemint2,elemint3",
+    "reason": "The placeholder demonstrates three comma-separated checklist item names. Keep the translated target-language item nouns and the comma input syntax."
   },
   {
     "locale": "wo",
     "key": "r-items-list",
-    "value": "item1, item2, item3",
-    "reason": "Reviewed in client/components/rules/actions/checklistActions.jade:55: this input placeholder demonstrates three arbitrary comma-separated checklist item names, not English prose. Spaces do not alter the example separator. Retain the existing illustrative identifiers."
+    "value": "firi1,firi2,firi3",
+    "reason": "The placeholder demonstrates three comma-separated checklist item names. Keep the translated target-language item nouns and the comma input syntax."
   },
   {
     "locale": "zgh",
     "key": "r-items-list",
-    "value": "item1, item2, item3",
-    "reason": "Reviewed in client/components/rules/actions/checklistActions.jade:55: this input placeholder demonstrates three arbitrary comma-separated checklist item names, not English prose. Spaces do not alter the example separator. Retain the existing illustrative identifiers."
+    "value": "ⴰⴼⵔⵉⵙ1,ⴰⴼⵔⵉⵙ2,ⴰⴼⵔⵉⵙ3",
+    "reason": "The placeholder demonstrates three comma-separated checklist item names. Keep the translated target-language item nouns and the comma input syntax."
   },
   {
     "locale": "sk",
