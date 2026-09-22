@@ -845,6 +845,17 @@ while transient HTTP 500 failures now retry before final failure.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/19f740f50">Stabilize tests and macOS release jobs</a>. Thanks to xet7.</summary>
+
+Align linked-card, Recovery report and changelog checks with current code.
+Correct the Problems pane count. Give macOS release jobs time limits and make
+selected browser checks more reliable under load. Focused Chromium, Firefox
+and WebKit checks pass. The full Node run still exposes unfinished locale data,
+including an untracked all-English `kn_IN` file recreated after its removal.
+
+</details>
+
 # v11.89 2026-09-20 WeKan ® release
 
 **In short:** **Snap Store** uploads now retry temporary server failures across
