@@ -890,6 +890,18 @@ survive. Focused merge and failed-pull regression tests pass.
 
 </details>
 
+This release updates the following translations:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e39f2889d">Translate pulled Mongolian interface strings</a>. Thanks to xet7.</summary>
+
+Replace the pending English pull values for Mongolian with Mongolian wording,
+including automation rules, search controls, reports and account settings.
+Preserve source placeholders and existing Mongolian terminology. Focused
+wrong-language and placeholder checks pass.
+
+</details>
+
 # v11.89 2026-09-20 WeKan ® release
 
 **In short:** **Snap Store** uploads now retry temporary server failures across
