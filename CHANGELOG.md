@@ -737,6 +737,25 @@ regression is ready for a host with a running WeKan server and Chromium.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8e7369e0b">Use the current theme for default button states</a>. Thanks to xet7.</summary>
+
+Default buttons now use the same theme fill and WeKan blue fallback as the
+pagination controls, including focus and pressed states. Primary and
+destructive buttons keep their own styles. Theme regression tests pass.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ba4637e55">Show initials for missing impersonated users</a>. Thanks to xet7.</summary>
+
+Impersonation Report user cells now show initials even when the account is no
+longer available, while existing avatar images remain visible. User names
+have room to wrap inside the table. Focused Node tests pass; the browser
+regression is ready for a host with a running WeKan server and Chromium.
+
+</details>
+
 This release fixes the following test and GitHub workflow issues:
 
 <details>
