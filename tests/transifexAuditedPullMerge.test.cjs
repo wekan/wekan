@@ -119,6 +119,13 @@ try {
   run();
   assert.equal(read(path.join(data, 'mn.i18n.json')).archives, 'Архив',
     'reviewed Mongolian word pulled from Transifex also survives');
+  write(data, 'fr', { settings: 'Paramètres', 'add-board': 'Ajouter un tableau' });
+  write(before, 'oc', { settings: 'Paramètres', 'add-board': 'Ajouter un tableau' });
+  write(data, 'oc', { settings: english.settings, 'add-board': english['add-board'] });
+  run();
+  const occitan = read(path.join(data, 'oc.i18n.json'));
+  assert.equal(occitan.settings, 'Paramètres', 'reviewed shared Occitan word survives');
+  assert.equal(occitan['add-board'], english['add-board'], 'unreviewed French seed stays rejected');
   console.log(`Audited pull: ${cases} rejected values restored; newer humans, tokens and invalid/missing fallbacks pass.`);
 } finally {
   fs.rmSync(fixture, { recursive: true, force: true });

@@ -105,6 +105,9 @@ const LOCALE_INVARIANTS = {
   zgh: new Set(['operator-assignee', 'operator-due', 'operator-modified',
     'operator-has', 'operator-debug', 'predicate-quarter', 'predicate-due',
     'predicate-modified', 'predicate-assignee', 'predicate-selector']),
+  // Shared technical and Romance words reviewed against the Occitan catalogs.
+  oc: new Set(['allboards.workspace-color', 'pomodoro', 'oauth-provider-secret',
+    'predicate-selector', 'dependency-color', 'errors', 'error']),
 };
 
 // Exact reviewed shared terms must not be offered for machine filling again.
