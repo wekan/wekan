@@ -59,28 +59,36 @@ rm -f "$TARGET_DIR/.github/dependabot.yml" "$TARGET_DIR/.github/dependabot.yaml"
 
 cd "$TARGET_DIR"
 
+# BSD sed (macOS) and GNU sed both accept a named backup suffix.
+sed_compat() {
+  local expression="$1" file
+  shift
+  sed -i.wekan-sed-backup "$expression" "$@"
+  for file in "$@"; do rm -f "$file.wekan-sed-backup"; done
+}
+
 # Snap Store identity. Both bases must keep the variant name.
 for file in snapcraft.yaml snapcraft-core26.yaml; do
   [ -f "$file" ] || continue
-  sed -i "s/^name: wekan$/name: $VARIANT_NAME/" "$file"
-  sed -i "s/^title: Wekan$/title: $VARIANT_TITLE/" "$file"
-  sed -i "s|^source-code: https://github.com/wekan/wekan$|source-code: https://github.com/wekan/$VARIANT_NAME|" "$file"
+  sed_compat "s/^name: wekan$/name: $VARIANT_NAME/" "$file"
+  sed_compat "s/^title: Wekan$/title: $VARIANT_TITLE/" "$file"
+  sed_compat "s|^source-code: https://github.com/wekan/wekan$|source-code: https://github.com/wekan/$VARIANT_NAME|" "$file"
 done
 
 # npm package identity. Only the root package carries this exact name in these
 # files; dependency names such as @wekan/... remain untouched.
-sed -i "s/\"name\": \"wekan\"/\"name\": \"$VARIANT_NAME\"/g" package.json package-lock.json
-sed -i "s#github.com/wekan/wekan.git#github.com/wekan/$VARIANT_NAME.git#g" package.json
+sed_compat "s/\"name\": \"wekan\"/\"name\": \"$VARIANT_NAME\"/g" package.json package-lock.json
+sed_compat "s#github.com/wekan/wekan.git#github.com/wekan/$VARIANT_NAME.git#g" package.json
 
 # Container identity. The Dockerfile still downloads release bundles from the
 # canonical wekan/wekan repository, but images built FROM a variant repository
 # identify and publish that variant. Compose examples must pull the same name.
-sed -i "s#org.opencontainers.image.source=\"https://github.com/wekan/wekan\"#org.opencontainers.image.source=\"https://github.com/wekan/$VARIANT_NAME\"#" Dockerfile
+sed_compat "s#org.opencontainers.image.source=\"https://github.com/wekan/wekan\"#org.opencontainers.image.source=\"https://github.com/wekan/$VARIANT_NAME\"#" Dockerfile
 for file in docker-compose*.yml; do
   [ -f "$file" ] || continue
-  sed -i "s#ghcr.io/wekan/wekan:#ghcr.io/wekan/$VARIANT_NAME:#g" "$file"
-  sed -i "s#quay.io/wekan/wekan:#quay.io/wekan/$VARIANT_NAME:#g" "$file"
-  sed -i "s#wekanteam/wekan:#wekanteam/$VARIANT_NAME:#g" "$file"
+  sed_compat "s#ghcr.io/wekan/wekan:#ghcr.io/wekan/$VARIANT_NAME:#g" "$file"
+  sed_compat "s#quay.io/wekan/wekan:#quay.io/wekan/$VARIANT_NAME:#g" "$file"
+  sed_compat "s#wekanteam/wekan:#wekanteam/$VARIANT_NAME:#g" "$file"
 done
 
 # Fail closed: a successful sync may never leave a default package identity in

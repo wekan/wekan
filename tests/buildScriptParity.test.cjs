@@ -318,6 +318,9 @@ test('every script in releases/ is reachable from BOTH menus', () => {
       + '      a release build and is not an operator-facing menu command',
     'check-upcoming-release.sh': 'an internal release-all.sh preflight;\n'
       + '      the release launcher runs it before any release operation',
+    'snap-upload-retry.sh': 'an internal GitHub workflow helper for\n'
+      + '      publishing built snaps; it needs a snap path and channels,\n'
+      + '      so it is not an operator-facing build menu command',
   };
 
   // These are explicit audit/internal helpers, not independent release-menu actions.

@@ -1,7 +1,7 @@
 'use strict';
 
 // "Install WeKan dependencies" on macOS installs Node with nvm, and installs
-// the NEWEST 24.x rather than a version somebody has to remember to bump.
+// the NEWEST 26.x rather than a version somebody has to remember to bump.
 //
 // It used to be `brew install node@24`, which has two problems: Homebrew's
 // bottle trails nodejs.org, so "24" meant whatever Homebrew had built, and the
@@ -38,18 +38,18 @@ function test(name, fn) { tests.push([name, fn]); }
 console.log('macosNodeInstall:');
 
 test('Node comes from nvm', () => {
-  assert.ok(/nvm install 24\b/.test(code), 'it installs Node through nvm');
-  assert.ok(/nvm alias default 24\b/.test(code), 'and makes it the default for new shells');
-  assert.ok(/nvm use 24\b/.test(code), 'and uses it for the rest of this run');
+  assert.ok(/nvm install 26\b/.test(code), 'it installs Node through nvm');
+  assert.ok(/nvm alias default 26\b/.test(code), 'and makes it the default for new shells');
+  assert.ok(/nvm use 26\b/.test(code), 'and uses it for the rest of this run');
 });
 
-test('and the version asked for is the newest 24.x, not a pinned one', () => {
-  // `nvm install 24` resolves to the latest 24.x on nodejs.org every time it
-  // runs. `nvm install 24.18.1` would be correct for exactly as long as it
+test('and the version asked for is the newest 26.x, not a pinned one', () => {
+  // `nvm install 26` resolves to the latest 26.x on nodejs.org every time it
+  // runs. `nvm install 26.9.0` would be correct for exactly as long as it
   // takes Node to cut the next patch.
   const spec = code.match(/nvm install (\S+)/);
   assert.ok(spec, 'there must be an nvm install line');
-  assert.strictEqual(spec[1], '24', 'the major alone, so it never needs bumping');
+  assert.strictEqual(spec[1], '26', 'the major alone, so it never needs bumping');
   assert.ok(!/nvm install \d+\.\d+/.test(code), 'no pinned minor or patch');
 });
 
@@ -67,7 +67,7 @@ test('nvm is sourced before it is used', () => {
   // successful install.
   const sourced = code.indexOf('. "$NVM_DIR/nvm.sh"');
   assert.ok(sourced !== -1, 'nvm.sh must be sourced');
-  assert.ok(sourced < code.indexOf('nvm install 24'), 'before the first nvm call');
+  assert.ok(sourced < code.indexOf('nvm install 26'), 'before the first nvm call');
   assert.ok(/NVM_DIR="\$\{NVM_DIR:-\$HOME\/\.nvm\}"/.test(code),
     'and an NVM_DIR the caller already set must be honoured');
   assert.ok(/if ! command -v nvm/.test(code), 'a failed install is reported, not run into');

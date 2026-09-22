@@ -423,7 +423,7 @@ test('a store PROCESSING failure is retried; a rejected snap is not', () => {
   assert.ok(retry.includes('[ \\t]*500'),
     '[500] Internal Server Error variants must be treated as transient');
   const helperCalls = (
-    workflow.match(/bash releases\/snap-upload-retry\.sh "[^"]+" stable,candidate,beta,edge/g) || []
+    workflow.match(/bash (?:"\$GITHUB_WORKSPACE\/wekan\/)?releases\/snap-upload-retry\.sh"? "[^"]+" stable,candidate,beta,edge/g) || []
   ).length;
   assert.ok(helperCalls >= 3,
     'all snap publishing paths (native, Launchpad and variants) must call the shared retry helper');

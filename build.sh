@@ -636,9 +636,18 @@ function run_playwright_docker(){
 	pwver="$(node -e "console.log(require('$pwdir/node_modules/@playwright/test/package.json').version)" 2>/dev/null)"
 	[ -z "$pwver" ] && pwver="1.60.0"
 	local image="mcr.microsoft.com/playwright:v${pwver}-noble"
+	local docker_base_url="${WEKAN_BASE_URL:-http://127.0.0.1:3000}"
+	local docker_mongo_url="${WEKAN_MONGO_URL:-mongodb://127.0.0.1:3001/meteor}"
+	# Docker Desktop on macOS keeps the host outside the container's loopback.
+	if [ "$(uname -s)" = Darwin ]; then
+		docker_base_url="${docker_base_url//127.0.0.1/host.docker.internal}"
+		docker_base_url="${docker_base_url//localhost/host.docker.internal}"
+		docker_mongo_url="${docker_mongo_url//127.0.0.1/host.docker.internal}"
+		docker_mongo_url="${docker_mongo_url//localhost/host.docker.internal}"
+	fi
 	mkdir -p "$filesroot"
 	echo "Running Playwright $browser in Docker ($image)."
-	echo "Expecting WeKan at ${WEKAN_BASE_URL:-http://127.0.0.1:3000} (container uses --network host)."
+	echo "Expecting WeKan at $docker_base_url."
 	# Mount the whole repo so specs that reach the repo-root node_modules
 	# (e.g. @wekanteam/exceljs) and .tools resolve; run from tests/playwright.
 	# Run as the host user (--user) with a writable HOME so the container does
@@ -650,8 +659,8 @@ function run_playwright_docker(){
 		--user "$(id -u):$(id -g)" \
 		-e HOME=/repo/.tools/tmp \
 		-e TMPDIR=/repo/.tools/tmp \
-		-e WEKAN_BASE_URL="${WEKAN_BASE_URL:-http://127.0.0.1:3000}" \
-		-e WEKAN_MONGO_URL="${WEKAN_MONGO_URL:-mongodb://127.0.0.1:3001/meteor}" \
+		-e WEKAN_BASE_URL="$docker_base_url" \
+		-e WEKAN_MONGO_URL="$docker_mongo_url" \
 		-e WEKAN_PLAYWRIGHT_ALL=1 \
 		-e WEKAN_PLAYWRIGHT_PROJECT="$browser" \
 		-e WEKAN_PLAYWRIGHT_WORKERS="${WEKAN_PLAYWRIGHT_WORKERS:-1}" \

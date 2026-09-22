@@ -45,10 +45,10 @@ test('the JSDoc that broke the release still has its multi-line @param (the case
   assert.ok(/@param \{string\} chartKey one of dashboard, burndown, burnup, cumulativeFlow,\n\s*\* controlChart/.test(src));
 });
 
-test('the generated spec parses as YAML (python3 + PyYAML, when available)', () => {
-  const python = spawnSync('python3', ['-c', 'import yaml'], { encoding: 'utf8' });
+test('the generated spec parses as YAML (python3 + PyYAML and esprima, when available)', () => {
+  const python = spawnSync('python3', ['-c', 'import yaml, esprima'], { encoding: 'utf8' });
   if (python.status !== 0) {
-    console.log('    (python3 with PyYAML not available here - skipped; CI has it)');
+    console.log('    (python3 with PyYAML and esprima not available here - skipped; CI has them)');
     return;
   }
   const outDir = path.join(ROOT, '.tools', 'tmp', 'openapi-test');

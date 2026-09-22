@@ -350,7 +350,7 @@ test('every snap the release publishes is core24, and goes to all four channels'
   // only the matches that actually name a channel - a publish that lists too FEW
   // channels still names one, so nothing this guard is for slips through.
   const CHANNELS = ['stable', 'candidate', 'beta', 'edge'];
-  const publishes = [...code(workflow).matchAll(/(?:--release=|release:\s*|snap-upload-retry\.sh\s+"[^"]+"\s+)([a-z,]+)/g)]
+  const publishes = [...code(workflow).matchAll(/(?:--release=|release:\s*|snap-upload-retry\.sh"?\s+"[^"]+"\s+)([a-z,]+)/g)]
     .map(m => m[1])
     .filter(v => v.split(',').some(c => CHANNELS.includes(c)));
   assert.ok(publishes.length >= 3,

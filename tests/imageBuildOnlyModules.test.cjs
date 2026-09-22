@@ -90,8 +90,9 @@ test('every leg that installs programs/server prunes afterwards', () => {
   // A leg that installs and does not prune ships the tree again in its .zip.
   // `bash "$SRC/releases/npm-retry.sh" npm install` and the unquoted container
   // form; the bcrypt replacements use --ignore-scripts and are not these.
-  const installs = workflow.split('\n')
-    .filter(l => /npm-retry\.sh"? npm install/.test(l) && !/--ignore-scripts/.test(l));
+  const installs = workflow.split('\n').flatMap(line =>
+    [...line.matchAll(/npm-retry\.sh"? npm install(?: --global npm@[^ &]+)?/g)]
+      .filter(match => !match[0].includes('--global npm@') && !line.includes('--ignore-scripts')));
   assert.ok(installs.length >= 6, `expected the per-arch installs, found ${installs.length}`);
   const prunes = (workflow.match(/prune-build-only-modules\.mjs/g) || []).length;
   assert.ok(prunes >= installs.length - 1,

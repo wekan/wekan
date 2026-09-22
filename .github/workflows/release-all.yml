@@ -175,7 +175,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Use npm 12.0.2
-        run: npm install --global npm@12.0.2
+        run: bash releases/npm-retry.sh npm install --global npm@12.0.2
 
       - name: Install version-bump and docs build dependencies
         run: |
@@ -567,7 +567,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Use npm 12.0.2
-        run: npm install --global npm@12.0.2
+        run: bash releases/npm-retry.sh npm install --global npm@12.0.2
 
       - name: Install Meteor
         run: |
@@ -886,7 +886,7 @@ jobs:
             -v "$(pwd)/releases:/releases:ro" \
             -w /bundle/programs/server \
             node:${NODE_VERSION}-slim \
-            sh -c "bash /releases/apt-install.sh build-essential python3 && npm install --global npm@12.0.2 && bash /releases/npm-retry.sh npm install && node /releases/prune-build-only-modules.mjs /bundle && node /releases/bump-bundle-npm-deps.mjs /bundle && node /releases/bundle-trim.mjs /bundle --transport sockjs --drop-legacy-client --trim-prebuilds --platform linux --arch arm64 && node /releases/prune-unreachable-npm.mjs /bundle"
+            sh -c "bash /releases/apt-install.sh build-essential python3 && bash /releases/npm-retry.sh npm install --global npm@12.0.2 && bash /releases/npm-retry.sh npm install && node /releases/prune-build-only-modules.mjs /bundle && node /releases/bump-bundle-npm-deps.mjs /bundle && node /releases/bundle-trim.mjs /bundle --transport sockjs --drop-legacy-client --trim-prebuilds --platform linux --arch arm64 && node /releases/prune-unreachable-npm.mjs /bundle"
 
       - name: Check the binaries the arm64 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'
@@ -1226,7 +1226,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Use npm 12.0.2
-        run: npm install --global npm@12.0.2
+        run: bash releases/npm-retry.sh npm install --global npm@12.0.2
 
       # Which Node.js this platform gets - and whether it is built at all.
       #
@@ -1603,7 +1603,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Use npm 12.0.2
-        run: npm install --global npm@12.0.2
+        run: bash releases/npm-retry.sh npm install --global npm@12.0.2
 
       # Which Node.js this platform gets - and whether it is built at all.
       #
@@ -1964,7 +1964,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Use npm 12.0.2
-        run: npm install --global npm@12.0.2
+        run: bash releases/npm-retry.sh npm install --global npm@12.0.2
 
       # Which Node.js this platform gets - and whether it is built at all.
       #
@@ -2281,7 +2281,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Use npm 12.0.2
-        run: npm install --global npm@12.0.2
+        run: bash releases/npm-retry.sh npm install --global npm@12.0.2
 
       # Which Node.js this platform gets - and whether it is built at all.
       #
@@ -2565,7 +2565,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Use npm 12.0.2
-        run: npm install --global npm@12.0.2
+        run: bash releases/npm-retry.sh npm install --global npm@12.0.2
 
       # Does the fork publish node-mac-x64 for this version yet? WeKan's Node.js
       # comes only from the fork, so if it has not built this binary there is
@@ -3279,7 +3279,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Use npm 12.0.2
-        run: npm install --global npm@12.0.2
+        run: bash releases/npm-retry.sh npm install --global npm@12.0.2
 
       - name: Enable unprivileged user namespaces (Ubuntu 24.04 restricts them)
         # Ubuntu 24.04's AppArmor defaults kernel.apparmor_restrict_unprivileged_userns=1,
@@ -4602,8 +4602,8 @@ jobs:
           # truncated download or an error page, whatever its first four bytes.
           snap_ok() {   # <file>
             [ -f "$1" ] || return 1
-            [ "$(stat -c%s "$1")" -ge 52428800 ] || {
-              echo "$1 is only $(stat -c%s "$1") bytes - truncated."; return 1; }
+            [ "$(wc -c < "$1" | tr -d '[:space:]')" -ge 52428800 ] || {
+              echo "$1 is only $(wc -c < "$1" | tr -d '[:space:]') bytes - truncated."; return 1; }
             [ "$(head -c4 "$1")" = "hsqs" ] || {
               echo "$1 does not start with the squashfs magic 'hsqs' - it is not a snap."; return 1; }
           }
@@ -4612,12 +4612,19 @@ jobs:
           # A shared deadline, not five hours PER retry. Every architecture can
           # queue (v11.85 ppc64el/s390x), and TLS recovery must not reset the budget.
           deadline=$((SECONDS + 18000))
+          last_remaining=18001
           export TMPDIR="$PWD/.tools/tmp"
           remote_wrapper="$PWD/releases/snapcraft-remote-compat.sh"
           remote_source="$PWD/.tools/tmp/snap-launchpad-source"
           remote_log="$PWD/.tools/tmp/remote-build-attempt.log"
           run_remote_build() {
             local remaining=$((deadline - SECONDS))
+            # Bash SECONDS has one-second resolution. Consecutive retries can
+            # otherwise receive the same timeout despite consuming time.
+            if [ "$remaining" -ge "$last_remaining" ]; then
+              remaining=$((last_remaining - 1))
+            fi
+            last_remaining=$remaining
             [ "$remaining" -gt 0 ] || return 124
             # Isolate the local waiter, and kill it if it ignores TERM. Never
             # cancel the remote build; a later run can recover the same recipe.
@@ -4666,7 +4673,7 @@ jobs:
               if [ "$rc" -ne 0 ]; then
                 echo "::warning::snapcraft exited $rc during post-download cleanup, but ${snaps[0]} is a complete squashfs snap; keeping it."
               fi
-              echo "Remote build ${{ matrix.arch }} succeeded on attempt $i: ${snaps[*]} ($(stat -c%s "${snaps[0]}") bytes, squashfs)"
+              echo "Remote build ${{ matrix.arch }} succeeded on attempt $i: ${snaps[*]} ($(wc -c < "${snaps[0]}" | tr -d '[:space:]') bytes, squashfs)"
               echo "built=true" >> "$GITHUB_OUTPUT"
               exit 0
             fi
