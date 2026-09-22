@@ -661,6 +661,21 @@ Apple Silicon and Intel, and keep Snap publication moving when the store
 returns temporary server errors, while still failing fast on invalid uploads
 and credential problems.
 
+This release improves the following account security controls:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ab11bad21">Harden Meteor 3.6 passwordless account requests</a>. Thanks to xet7.</summary>
+
+Read Admin Panel OAuth and passwordless settings asynchronously so their
+server-side login guards use the saved values. Passwordless code requests now
+use the documented selector shape, cannot create an account when registration
+is closed, and have an additional five-per-minute source-address limit. Rate
+limit denials appear in Problems / Security Report. WeKan already enables
+Meteor's hardened HttpOnly cookie flow. Focused account/security tests and a
+Chromium regression for closed registration pass.
+
+</details>
+
 This release adds the following platform package:
 
 <details>
