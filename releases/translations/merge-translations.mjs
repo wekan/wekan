@@ -111,6 +111,9 @@ const REVIEWED_SHARED_VALUES = {
     login: 'Connexion',
     'event-bleed': 'Nom',
   },
+  wo: {
+    'operator-board-abbrev': 't',
+  },
 };
 const KNOWN_WRONG_VALUES = {
   'cy-GB': {
