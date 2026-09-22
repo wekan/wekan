@@ -414,7 +414,7 @@ Template.userFormsLayout.events({
     if (!email) return;
     showLoginError('');
     Accounts.requestLoginTokenForUser(
-      { selector: email, userData: { email, passwordless: true } },
+      { selector: { email }, userData: { email, passwordless: true } },
       (err) => {
         if (err) {
           showLoginError(err);

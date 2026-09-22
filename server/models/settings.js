@@ -826,7 +826,7 @@ Meteor.methods({
     return isApiEnabled();
   },
 
-  getAuthenticationsEnabled() {
+  async getAuthenticationsEnabled() {
     const enabled = {
       ldap: isLdapEnabled(),
       oauth2: isOauth2Enabled(),
@@ -838,10 +838,10 @@ Meteor.methods({
     // login form shows a button for each. Keys only - never a credential.
     try {
       const oauth = require('/server/lib/oauthProviders');
-      oauth.enabledOauthProviders().forEach(key => {
+      (await oauth.enabledOauthProviders()).forEach(key => {
         enabled[key] = true;
       });
-      enabled.passwordless = oauth.isPasswordlessLoginEnabled();
+      enabled.passwordless = await oauth.isPasswordlessLoginEnabled();
     } catch (e) {
       enabled.passwordless = false;
     }

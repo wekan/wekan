@@ -30,6 +30,9 @@ The **Summary** tab shows a **Status** overview at the top:
   (see **[Login-Problems.md](Login-Problems.md)**).
 
 Below that is the acknowledge list of the Security / Speed / Tests problem streams.
+The Security Report also records denied passwordless code requests after five
+requests per source address in one minute. Meteor's per-connection Accounts
+limit still applies independently.
 
 ## The menu, in two named groups
 

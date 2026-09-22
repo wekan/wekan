@@ -41,6 +41,9 @@ const CATALOG = {
   'brute.invite':    { category: 'brute-force', bleed: 'InviteBleed', severity: 'high', cwe: 'CWE-307' },
   'brute.login':     { category: 'brute-force', bleed: 'BruteBleed', severity: 'medium', cwe: 'CWE-307' },
   'brute.account-recovery': { category: 'brute-force', bleed: 'ResetBleed', severity: 'high', cwe: 'CWE-307' },
+  // Repeated one-time-code requests can flood mail or probe a passwordless
+  // login. Keep their report distinct from password recovery's ResetBleed.
+  'brute.passwordless-request': { category: 'brute-force', bleed: 'Passwordless', severity: 'high', cwe: 'CWE-307' },
   // GHSA-rf3w-rj48-jxcc: the known-user lockout counted every failure against
   // the USER, so anyone who knew a username could lock its owner out from every
   // address - and a correct password was refused while the lock held. The

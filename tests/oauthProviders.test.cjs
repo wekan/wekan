@@ -277,15 +277,15 @@ test('onCreateUser hands a provider login to onCreateProviderUser before the OID
 
 test('getAuthenticationsEnabled reports every enabled provider key and passwordless', () => {
   const fn = settings.slice(settings.indexOf('getAuthenticationsEnabled()'));
-  assert.match(fn, /oauth\.enabledOauthProviders\(\)\.forEach\(key => \{\s*\n\s*enabled\[key\] = true;/);
-  assert.match(fn, /enabled\.passwordless = oauth\.isPasswordlessLoginEnabled\(\);/);
+  assert.match(fn, /\(await oauth\.enabledOauthProviders\(\)\)\.forEach\(key => \{\s*\n\s*enabled\[key\] = true;/);
+  assert.match(fn, /enabled\.passwordless = await oauth\.isPasswordlessLoginEnabled\(\);/);
 });
 
 test('passwordless is gated server-side: the token request method and the login attempt both refuse while off', () => {
   assert.match(server, /handlers\.requestLoginTokenForUser = async function guardedRequestLoginTokenForUser/);
-  assert.match(server, /if \(!isPasswordlessLoginEnabled\(\)\) \{\s*\n\s*throw new Meteor\.Error\('passwordless-disabled'/);
-  assert.match(server, /options\.type === 'passwordless' && !isPasswordlessLoginEnabled\(\)/);
-  assert.match(server, /provider && !enabledOauthProviders\(\)\.includes\(provider\.key\)/);
+  assert.match(server, /if \(!await isPasswordlessLoginEnabled\(\)\) \{\s*\n\s*throw new Meteor\.Error\('passwordless-disabled'/);
+  assert.match(server, /options\.type === 'passwordless' && !await isPasswordlessLoginEnabled\(\)/);
+  assert.match(server, /provider && !\(await enabledOauthProviders\(\)\)\.includes\(provider\.key\)/);
 });
 
 // --------------------------------------------------------- the login form
@@ -309,7 +309,7 @@ test('the passwordless flow asks for the email, then the code, and logs in with 
   assert.match(jade, /input\.primary\(type="submit" value="\{\{_ 'passwordless-sign-in'\}\}"\)/);
   ['passwordless-login', 'passwordless-code-sent', 'passwordless-enter-code', 'passwordless-sign-in',
     'passwordless-email'].forEach(key => assert.ok(jade.includes(`{{_ '${key}'}}`), key));
-  assert.match(js, /Accounts\.requestLoginTokenForUser\(\s*\n?\s*\{ selector: email, userData: \{ email, passwordless: true \} \}/);
+  assert.match(js, /Accounts\.requestLoginTokenForUser\(\s*\n?\s*\{ selector: \{ email \}, userData: \{ email, passwordless: true \} \}/);
   assert.match(js, /Meteor\.passwordlessLoginWithToken\(email, code, \(err\) => \{/);
   assert.match(js, /templateInstance\.passwordlessStep\.set\('code'\)/);
 });
@@ -346,7 +346,7 @@ test('NEGATIVE: nothing the client loads reads or forwards a provider secret', (
     assert.ok(!/ServiceConfiguration/.test(code), 'the login form never reads ServiceConfiguration');
   });
   // The server hands out keys only.
-  const enabledFn = server.slice(server.indexOf('export function enabledOauthProviders'), server.indexOf('export function isPasswordlessLoginEnabled'));
+  const enabledFn = server.slice(server.indexOf('export async function enabledOauthProviders'), server.indexOf('export async function isPasswordlessLoginEnabled'));
   assert.ok(!/secret/.test(enabledFn), 'enabledOauthProviders() returns keys, not credentials');
   const authFn = settings.slice(settings.indexOf('getAuthenticationsEnabled()'), settings.indexOf('getOauthServerUrl()'));
   assert.ok(!/secret|clientId|appId|consumerKey/.test(authFn), 'getAuthenticationsEnabled carries no credential');
@@ -358,7 +358,7 @@ test('NEGATIVE: the resolved secret never leaves reconfigureOauthProviders', () 
   const code = server.replace(/\/\/.*$/gm, '').replace(/\/\*[\s\S]*?\*\//g, '');
   const calls = code.match(/resolveProviderConfig\b/g) || [];
   assert.strictEqual(calls.length, 2, 'one import, one call');
-  const fn = server.slice(server.indexOf('export async function reconfigureOauthProviders'), server.indexOf('export function enabledOauthProviders'));
+  const fn = server.slice(server.indexOf('export async function reconfigureOauthProviders'), server.indexOf('export async function enabledOauthProviders'));
   assert.match(fn, /resolveProviderConfig\(provider, admins\[provider\.key\], process\.env\)/);
   assert.ok(!/return config/.test(fn), 'the config with its secret is not returned');
 });

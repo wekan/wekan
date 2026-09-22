@@ -16,6 +16,10 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import Settings from '/models/settings';
 import { tripCanary } from '/server/lib/canary';
+import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
+import { check, Match } from 'meteor/check';
+const { guardPasswordlessPayload, recordPasswordlessLimitDenial } =
+  require('/models/lib/passwordlessRequestGuard.cjs');
 
 const {
   OAUTH_PROVIDERS,
@@ -34,9 +38,9 @@ const {
 // The two settings shared by every provider (`oauthProvidersLoginStyle`,
 // `oauthProvidersMergeExistingUsers`) live beside the sub-document; they are
 // folded into each provider's object so the pure resolver sees one shape.
-function adminProviders() {
+async function adminProviders() {
   try {
-    const setting = Settings.findOne({}) || {};
+    const setting = await Settings.findOneAsync({}) || {};
     const stored = setting.oauthProviders || {};
     const merged = {};
     for (const provider of OAUTH_PROVIDERS) {
@@ -56,9 +60,9 @@ function adminProviders() {
   }
 }
 
-function adminPasswordless() {
+async function adminPasswordless() {
   try {
-    return Settings.findOne({})?.passwordlessEnabled;
+    return (await Settings.findOneAsync({}))?.passwordlessEnabled;
   } catch (e) {
     return undefined;
   }
@@ -70,7 +74,7 @@ function adminPasswordless() {
  * and again by the Admin Panel after a save.
  */
 export async function reconfigureOauthProviders() {
-  const admins = adminProviders();
+  const admins = await adminProviders();
   const summary = { configured: [], removed: [] };
   for (const provider of OAUTH_PROVIDERS) {
     const config = resolveProviderConfig(provider, admins[provider.key], process.env);
@@ -100,13 +104,13 @@ export async function reconfigureOauthProviders() {
  * The catalog keys of the providers currently enabled (flag on, id and secret
  * present). Safe to hand to the client: keys only, never credentials.
  */
-export function enabledOauthProviders() {
-  return enabledProviderKeys(adminProviders(), process.env);
+export async function enabledOauthProviders() {
+  return enabledProviderKeys(await adminProviders(), process.env);
 }
 
 /** Whether e-mailed one-time-code login (accounts-passwordless) is on. */
-export function isPasswordlessLoginEnabled() {
-  return isPasswordlessEnabled(adminPasswordless(), process.env);
+export async function isPasswordlessLoginEnabled() {
+  return isPasswordlessEnabled(await adminPasswordless(), process.env);
 }
 
 /** The provider (catalog entry) that a freshly created user document came from. */
@@ -198,7 +202,7 @@ export async function onCreateProviderUser(options, user, provider) {
     ? await ReactiveCache.getUser({ 'emails.address': email })
     : undefined;
   const mergeAllowed = isMergeExistingUsersAllowed(
-    adminProviders()[provider.key],
+    (await adminProviders())[provider.key],
     process.env,
   );
   const decision = decideAccountConflict({
@@ -258,16 +262,28 @@ Meteor.startup(async () => {
     console.error('OAuth provider configuration failed:', e);
   }
 
+  // Meteor's default Accounts rule limits requests per connection. Add a
+  // source-address window as well, so opening fresh DDP connections cannot
+  // turn passwordless email into a mail flood. Report denials alongside the
+  // existing account-recovery rate-limit events in Problems / Security Report.
+  DDPRateLimiter.addRule(
+    { type: 'method', name: 'requestLoginTokenForUser', clientAddress() { return true; } },
+    5,
+    60 * 1000,
+    (result, input) => recordPasswordlessLimitDenial(result, input, event =>
+      require('/server/lib/securityLog').record(event)),
+  );
+
   // A provider whose configuration was removed cannot complete Meteor's OAuth
   // handshake anyway; this keeps a stale browser tab from logging in through
   // a provider that was switched off between the popup and the callback, and
   // refuses one-time-code logins while passwordless is off.
-  Accounts.validateLoginAttempt(options => {
-    if (options.type === 'passwordless' && !isPasswordlessLoginEnabled()) {
+  Accounts.validateLoginAttempt(async options => {
+    if (options.type === 'passwordless' && !await isPasswordlessLoginEnabled()) {
       throw new Meteor.Error('passwordless-disabled', 'Sign-in code login is not enabled');
     }
     const provider = providerByService(options.type);
-    if (provider && !enabledOauthProviders().includes(provider.key)) {
+    if (provider && !(await enabledOauthProviders()).includes(provider.key)) {
       throw new Meteor.Error('oauth-provider-disabled', 'This login method is not enabled');
     }
     return true;
@@ -279,11 +295,18 @@ Meteor.startup(async () => {
   const handlers = Meteor.server && Meteor.server.method_handlers;
   const original = handlers && handlers.requestLoginTokenForUser;
   if (typeof original === 'function') {
-    handlers.requestLoginTokenForUser = async function guardedRequestLoginTokenForUser(...args) {
-      if (!isPasswordlessLoginEnabled()) {
+    handlers.requestLoginTokenForUser = async function guardedRequestLoginTokenForUser(payload) {
+      // audit-argument-checks audits the outer DDP handler. The original
+      // method still performs the strict payload validation below this guard.
+      check(payload, Match.Any);
+      if (!await isPasswordlessLoginEnabled()) {
         throw new Meteor.Error('passwordless-disabled', 'Sign-in code login is not enabled');
       }
-      return original.apply(this, args);
+      // An admin who closed registration still lets existing users request a
+      // code. New accounts must not be created by this method, even through a
+      // custom DDP caller that passes userCreationDisabled: false.
+      const registrationClosed = (await Settings.findOneAsync({}))?.disableRegistration === true;
+      return original.call(this, guardPasswordlessPayload(payload, registrationClosed));
     };
   }
 });
