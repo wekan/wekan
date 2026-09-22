@@ -319,6 +319,7 @@ const PROBLEMS_MENU = [
   { id: 'report-speed', icon: 'fa-tachometer', labelKey: 'speedReportTitle' },
   { id: 'report-tests', icon: 'fa-flask', labelKey: 'testsReportTitle' },
   { id: 'report-cpu', icon: 'fa-tachometer', labelKey: 'cpuReportTitle' },
+  { id: 'report-instrumentation', icon: 'fa-line-chart', label: 'Instrumentation' },
   { id: 'report-broken', icon: 'fa-chain-broken', labelKey: 'broken-cards' },
   { id: 'report-files', icon: 'fa-paperclip', labelKey: 'filesReportTitle' },
   { id: 'report-rules', icon: 'fa-magic', labelKey: 'rulesReportTitle' },
@@ -519,7 +520,7 @@ function switchMenu(event, tmpl) {
 const SELF_LOADING_PANES = [
   'report-summary',
   'features-performance', 'features-security', 'features-delete', 'features-notifications',
-  'report-security', 'report-speed', 'report-tests', 'report-cpu',
+  'report-security', 'report-speed', 'report-tests', 'report-cpu', 'report-instrumentation',
   'report-database', 'report-integrity', 'report-office', 'report-api',
 ];
 
@@ -857,6 +858,87 @@ const EVENTS_PER_PAGE = TABLE_PAGE_ROWS_PER_PAGE;
 // (docs/Features/Page/Left-Menu.md), and PROBLEMS_MENU already carries these exact
 // i18n keys - securityReportTitle, speedReportTitle, testsReportTitle,
 // cpuReportTitle - so the words are unchanged and there is only one of them.
+
+const INSTRUMENTATION_COLUMNS = [
+  { label: 'Type', value: row => row.kind },
+  { label: 'Method or publication', value: row => row.name },
+  { label: 'Calls', align: 'end', value: row => row.calls },
+  { label: 'Completed', align: 'end', value: row => row.completed },
+  { label: 'Errors', align: 'end', value: row => row.errors },
+  { label: 'Avg ms', align: 'end', value: row => row.averageMs ?? '' },
+  { label: 'Max ms', align: 'end', value: row => row.maxMs ?? '' },
+];
+
+Template.instrumentationReport.onCreated(function () {
+  this.snapshot = new ReactiveVar(null);
+  this.error = new ReactiveVar('');
+  this.search = new ReactiveVar('');
+  this.page = new ReactiveVar(1);
+  this.load = () => Meteor.call('getInstrumentationReport', (error, snapshot) => {
+    if (error) this.error.set(error.reason || error.message || 'Unable to load instrumentation');
+    else {
+      this.error.set('');
+      this.snapshot.set(snapshot);
+    }
+  });
+  this.load();
+  this.timer = Meteor.setInterval(this.load, 5000);
+});
+
+Template.instrumentationReport.onDestroyed(function () {
+  Meteor.clearInterval(this.timer);
+});
+
+Template.instrumentationReport.helpers({
+  error() { return Template.instance().error.get(); },
+  tablePageData() {
+    const t = Template.instance();
+    const snapshot = t.snapshot.get();
+    const term = t.search.get().toLowerCase();
+    const all = (snapshot?.operations || []).filter(row =>
+      `${row.kind} ${row.name}`.toLowerCase().includes(term));
+    const info = pageInfo(all.length, t.page.get(), TABLE_PAGE_ROWS_PER_PAGE);
+    return {
+      header: buildHeader(INSTRUMENTATION_COLUMNS),
+      rows: buildRows(all.slice(info.skip, info.skip + info.limit), INSTRUMENTATION_COLUMNS),
+      rowCount: all.length,
+      total: all.length,
+      searchTerm: t.search.get(),
+      page: info.page,
+      totalPages: info.totalPages,
+      hasPrev: info.hasPrev,
+      hasNext: info.hasNext,
+      statusTemplate: snapshot ? 'instrumentationStatus' : null,
+      statusData: snapshot ? {
+        ...snapshot.connections,
+        startedAt: formatEventAt(snapshot.startedAt),
+      } : null,
+    };
+  },
+});
+
+Template.instrumentationReport.events({
+  'input .js-table-page-search'(event, t) {
+    t.search.set(event.currentTarget.value.trim());
+    t.page.set(1);
+  },
+  'click .js-table-page-prev'(event, t) {
+    event.preventDefault();
+    event.stopPropagation();
+    const term = t.search.get().toLowerCase();
+    const count = (t.snapshot.get()?.operations || []).filter(row =>
+      `${row.kind} ${row.name}`.toLowerCase().includes(term)).length;
+    t.page.set(adjacentPage(count, t.page.get(), -1, TABLE_PAGE_ROWS_PER_PAGE));
+  },
+  'click .js-table-page-next'(event, t) {
+    event.preventDefault();
+    event.stopPropagation();
+    const term = t.search.get().toLowerCase();
+    const count = (t.snapshot.get()?.operations || []).filter(row =>
+      `${row.kind} ${row.name}`.toLowerCase().includes(term)).length;
+    t.page.set(adjacentPage(count, t.page.get(), 1, TABLE_PAGE_ROWS_PER_PAGE));
+  },
+});
 
 Template.eventStreamReport.onCreated(function () {
   this.stream = this.data.stream;

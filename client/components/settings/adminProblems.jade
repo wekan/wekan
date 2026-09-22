@@ -32,6 +32,8 @@ template(name="adminProblems")
             +eventStreamReport(stream="tests")
           else if isPane 'report-cpu'
             +eventStreamReport(stream="cpu")
+          else if isPane 'report-instrumentation'
+            +instrumentationReport
           else if isPane 'report-database'
             +eventStreamReport(stream="database")
           else if isPane 'report-integrity'
@@ -53,6 +55,18 @@ template(name="eventStreamReport")
   //- page (docs/Features/Page/Table.md). CPU usage additionally passes the live
   //- figure as the status row between the title and the controls.
   +tablePage(tablePageData)
+
+template(name="instrumentationReport")
+  p.description Live measurements for this WeKan server process since startup. Refreshes every 5 seconds. Arguments, results, addresses and user identifiers are not stored. Values reset when the server restarts.
+  if error
+    p.error {{error}}
+  else
+    +tablePage(tablePageData)
+
+template(name="instrumentationStatus")
+  .admin-cpu-current
+    span DDP connections: {{active}} active, {{opened}} opened, {{closed}} closed
+    span.quiet  &middot; Started {{startedAt}}
 
 template(name="cpuCurrentStatus")
   .admin-cpu-current(class="{{#if high}}admin-cpu-high{{/if}}")

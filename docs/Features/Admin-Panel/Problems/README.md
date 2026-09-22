@@ -108,6 +108,7 @@ the address uses: `/admin/problems/<slug>`.
 | Problems / Speed | `speed` | — |
 | Problems / Tests | `tests` | — |
 | Problems / CPU usage | `cpu` | [CPU-usage.md](CPU-usage.md) |
+| Problems / Instrumentation | `instrumentation` | [Instrumentation.md](Instrumentation.md) |
 | Problems / Broken Cards | `broken-cards` | — |
 | Problems / Files Report | `files` | — |
 | Problems / Rules Report | `rules` | — |
