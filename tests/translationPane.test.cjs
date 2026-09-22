@@ -149,8 +149,8 @@ test('every method behind the popups is admin-only', () => {
 
 test('no black button background is left in this pane', () => {
   // This is the shape that would be inherited.
-  assert.ok(/button \{[\s\S]{0,120}background: var\(--theme-accent, #000\)/.test(forms),
-    'forms.css really does default a bare button to black');
+  assert.ok(/button \{[\s\S]{0,120}background: var\(--theme-accent-fill, var\(--theme-accent, #01628c\)\)/.test(forms),
+    'forms.css gives bare buttons the shared theme fill');
   // The pane has no button of its own any more - it searches on Enter, like every
   // table page - so it must carry no button rules at all, themed or not.
   assert.ok(!/searchTranslationButton/.test(css) && !/searchTranslationButton/.test(jade),

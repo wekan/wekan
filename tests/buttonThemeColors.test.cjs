@@ -19,8 +19,9 @@ console.log('buttonThemeColors:');
 
 check('forms.css: base button + primary buttons use var(--theme-accent)', () => {
   const css = read('client/components/forms/forms.css');
-  // base button background themed (default black preserved as fallback)
-  assert.ok(/background:\s*var\(--theme-accent, #000\)/.test(css), 'base button background must be themed');
+  // Base buttons use the same theme fill and blue fallback as pagination.
+  assert.ok(/background:\s*var\(--theme-accent-fill, var\(--theme-accent, #01628c\)\)/.test(css), 'base button background must be themed');
+  assert.ok(!/button:active:active\s*\{[^}]*#e6e6e6/.test(css), 'held buttons must not turn grey');
   // primary button themed
   assert.ok(/background:\s*var\(--theme-accent, #005377\)/.test(css), 'button.primary must be themed');
   assert.ok(/background:\s*var\(--theme-accent, #004766\)/.test(css), 'button.primary:hover must be themed');

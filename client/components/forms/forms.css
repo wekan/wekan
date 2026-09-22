@@ -130,8 +130,7 @@ textarea.editor {
 }
 input[type="submit"],
 button {
-  background: var(--theme-accent, #000);
-  background: linear-gradient(var(--theme-accent, #000), var(--theme-accent, #000));
+  background: var(--theme-accent-fill, var(--theme-accent, #01628c));
   border: none;
   cursor: pointer;
   display: inline-block;
@@ -150,14 +149,12 @@ input[type="submit"]:hover,
 button:hover,
 input[type="submit"]:focus,
 button:focus {
-  background: var(--theme-accent, #222);
-  background: linear-gradient(var(--theme-accent, #222), var(--theme-accent, #222));
+  background: var(--theme-accent-fill, var(--theme-accent, #01628c));
   color: #fff;
 }
 input[type="submit"]:active,
 button:active {
-  background: var(--theme-accent, #111);
-  background: linear-gradient(var(--theme-accent, #111), var(--theme-accent, #111));
+  background: var(--theme-accent-fill, var(--theme-accent, #01628c));
   box-shadow: inset 0 3px 6px rgba(0,0,0,0.3);
   color: #fff;
 }
@@ -167,8 +164,7 @@ input[type="submit"]:active:focus,
 button:active:focus,
 input[type="submit"]:active:active,
 button:active:active {
-  background: #e6e6e6;
-  background: linear-gradient(#e6e6e6, #e6e6e6);
+  background: var(--theme-accent-fill, var(--theme-accent, #01628c));
 }
 /* The submit button of a useraccounts form inside a popup is a `.primary` too.
    Member Settings / Change Password renders `+atForm(state='changePwd')`, whose
