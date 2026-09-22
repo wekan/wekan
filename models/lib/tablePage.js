@@ -133,6 +133,7 @@ export function buildRows(docs, columns, options = {}) {
         // the width, and these tables are wide. The name is the cell's title,
         // so hovering still identifies the account.
         userAvatarUrl: userId ? avatarUrlFor(userId) : '',
+        initials: typeof column.initials === 'function' ? (column.initials(doc) || '') : '',
         // SEVERAL people in one cell - the accounts that log in from an office.
         // Same rendering as a single user cell, repeated: initials or avatar,
         // the name as the title, and clicking one opens the Edit user popup.

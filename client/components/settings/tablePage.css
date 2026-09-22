@@ -291,6 +291,7 @@
   display: flex;
   align-items: flex-start;
   gap: 4px;
+  width: 100%;
   min-width: 0;
 }
 .table-page-single-person .member {
@@ -301,7 +302,7 @@
 .table-page-single-person-name {
   flex: 1 1 auto;
   min-width: 0;
-  white-space: normal;
+  white-space: normal !important;
   overflow-wrap: anywhere;
   word-break: break-word;
 }

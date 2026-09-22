@@ -80,6 +80,10 @@ test('a single-user cell shows a wrapping name beside its fixed avatar', () => {
   assert.ok(name && /overflow-wrap:\s*anywhere/.test(name[1])
     && /word-break:\s*break-word/.test(name[1]),
   'long usernames must wrap inside their table cell');
+  assert.match(jade, /\+userAvatarInitials\(userId=userId initials=initials\)/,
+    'a missing user document still gets supplied initials');
+  const reports = read('client/components/settings/adminProblems.js');
+  assert.match(reports, /labelKey: 'impersonation-user'[\s\S]{0,130}initials: d => userInitials\(d\.userId\)/);
 });
 
 test('and no Admin Panel template draws one anywhere else (negative)', () => {

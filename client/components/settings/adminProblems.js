@@ -617,6 +617,14 @@ function userName(userId) {
   return ReactiveCache.getUser(userId)?.username || userId;
 }
 
+function userInitials(userId) {
+  const user = userId && ReactiveCache.getUser(userId);
+  const display = user?.profile?.initials || user?.profile?.fullname
+    || user?.username || userId || '';
+  return String(display).trim().split(/\s+/).filter(Boolean)
+    .map(part => part[0]).join('').slice(0, 2).toUpperCase();
+}
+
 function formatDate(date) {
   return date ? formatDateForDisplay(date, true, value => value.toLocaleString()) : '';
 }
@@ -750,8 +758,10 @@ const REPORT_TABLES = {
     columns: [
       { labelKey: 'date', nowrap: true, value: d => formatDate(d.createdAt) },
       // Clicking a username opens the same "Edit user" popup as Admin Panel / People.
-      { labelKey: 'impersonation-admin', value: d => userName(d.adminId), userId: d => d.adminId },
-      { labelKey: 'impersonation-user', value: d => userName(d.userId), userId: d => d.userId },
+      { labelKey: 'impersonation-admin', value: d => userName(d.adminId), userId: d => d.adminId,
+        initials: d => userInitials(d.adminId) },
+      { labelKey: 'impersonation-user', value: d => userName(d.userId), userId: d => d.userId,
+        initials: d => userInitials(d.userId) },
       { labelKey: 'board', value: d => d.boardId },
       { labelKey: 'reason', value: d => d.reason },
     ],

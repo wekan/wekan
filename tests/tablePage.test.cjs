@@ -157,6 +157,14 @@ test('buildRows preserves supplied initials for users absent from client cache',
   assert.deepStrictEqual(row.cells[0].users.map(user => user.initials), ['LO']);
 });
 
+test('buildRows supplies initials to single-user cells with a safe empty fallback', () => {
+  const rows = lib.buildRows([{ uid: 'known' }, { uid: 'deleted' }], [{
+    labelKey: 'user', value: d => d.uid, userId: d => d.uid,
+    initials: d => d.uid === 'known' ? 'K' : undefined,
+  }]);
+  assert.deepStrictEqual(rows.map(row => row.cells[0].initials), ['K', '']);
+});
+
 test('buildRows survives junk input (negative)', () => {
   assert.deepStrictEqual(lib.buildRows(null, null), []);
   assert.deepStrictEqual(lib.buildRows(undefined, [{ label: 'A' }]), []);

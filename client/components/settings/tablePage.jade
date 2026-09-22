@@ -159,7 +159,7 @@ template(name="tablePage")
                           if userAvatarUrl
                             img.avatar.avatar-image(src="{{userAvatarUrl}}" alt="{{text}}")
                           else
-                            +userAvatarInitials(userId=userId)
+                            +userAvatarInitials(userId=userId initials=initials)
                         span.table-page-single-person-name {{text}}
                     else if location
                       a.js-table-page-map(href="#" data-latitude="{{location.latitude}}" data-longitude="{{location.longitude}}" data-label="{{location.label}}" title="{{_ 'location-open-map-at'}}")
