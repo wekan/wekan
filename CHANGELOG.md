@@ -655,13 +655,14 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**In short:** Create cards, lists and swimlanes from pasted lines, or keep
-one item with a multiline title. List and swimlane names retain line breaks.
+**In short:** Always-visible choices create cards, lists, swimlanes and boards
+from pasted lines, or keep one item with a multiline title. List and swimlane
+names retain line breaks.
 Scheduled full-instance backups now include database and file content.
 Admin Panel validation and menu-based feature/backup guides are documented.
 Meteor server bundles install with npm 12 without obsolete rebuild arguments.
 
-This release adds the following feature:
+This release adds the following features:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/552ac0855">Create cards, lists and swimlanes from pasted lines</a>. Thanks to AmigaAbattoir and xet7.</summary>
@@ -676,6 +677,23 @@ Line splitting, ordering, existing quick-add behavior and composer tests pass.
 A macOS ARM64 build and four Chromium tests against isolated FerretDB SQLite
 verify cards, inline lists, list popups, swimlanes and multiline renaming.
 Fixes <a href="https://github.com/wekan/wekan/issues/6714">#6714</a>.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cdc0722b1">Always show one-or-many creation choices, including boards</a>. Thanks to xet7.</summary>
+
+Show Add many lines as with one-item and many-item radio options directly
+below every card, list, swimlane and board title field, before typing. Default
+to one item; many-item creation skips blank lines. Board titles accept pasted
+lines and batch creation retains workspace, template and starring flows,
+prevents overlapping submissions and opens the last board after completion.
+Reuse translated item names; register the new labels with English fallbacks
+without replacing existing translations. Update the multiline feature guide.
+
+A macOS ARM64 build and five Chromium tests verify both choices for cards,
+inline and popup lists, swimlanes and boards. Unit checks cover blank titles,
+ordering, board batches, shared forms, locale placeholders and documentation.
 
 </details>
 
