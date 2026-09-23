@@ -763,6 +763,18 @@ The native macOS ARM64 build, focused tests and telemetry checks pass.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b87b0aca1">Clarify member Date Format status and grouping</a>. Thanks to xet7.</summary>
+
+Member Settings / Date now places the bold Member Settings: Date Format heading
+directly after the board status, without a horizontal rule. Below it, the
+checkbox label immediately switches between Disabled and Enabled, followed by
+the format dropdown. Add horizontal rules above week-start and calendar-system
+settings. Existing translations are reused. Focused tests, the macOS ARM64
+build, Chromium layout and override checks, and telemetry audits pass.
+
+</details>
+
 This release fixes the following sign-in bug:
 
 <details>
