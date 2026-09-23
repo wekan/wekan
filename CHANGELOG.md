@@ -799,7 +799,8 @@ pass. A fresh macOS ARM64 Meteor build and four Chromium regressions against
 isolated FerretDB SQLite passed, including error/retry, click/Enter routing,
 real session completion and password fallback. The UI tests control the
 directory callback; the reporter's external LDAPS server and Snap installation
-were not tested. See <a href="docs/DeveloperDocs/LDAP-6692.md">the investigation</a>.
+were not tested. See <a href="docs/DeveloperDocs/LDAP-6692.md">the
+investigation</a>.
 
 </details>
 
@@ -916,19 +917,24 @@ warnings remain; other platforms and hosted release workflows were not run.
 
 Release All and Release All Missing now require reviewed application source and
 check final bundles for known reporting implementations before packaging.
-Downloaded ZIPs and Docker, Snap, Sandstorm, AppImage and Mac payloads are checked
-too. Failures produce an error annotation and stop the affected build. Opt out of
+Downloaded ZIPs and Docker, Snap, Sandstorm, AppImage and Mac payloads are
+checked
+too. Failures produce an error annotation and stop the affected build. Opt out
+of
 Meteor's default build/run package-statistics reporting while preserving local
 instrumentation, security logging and metrics.
 
-Source, artifact, compressed-archive and workflow regression tests pass, including
-logging and instrumentation tests. Companion mongosh, Database Tools and FerretDB
+Source, artifact, compressed-archive and workflow regression tests pass,
+including
+logging and instrumentation tests. Companion mongosh, Database Tools and
+FerretDB
 builds enforce corresponding source/runtime/native checks; an unpatched stripped
 Database Tools binary was rejected as a negative control. The current Meteor
 bundle, patched tool binaries and a native FerretDB build passed their checks.
 A subsequent fresh macOS ARM64 Meteor build and production startup with bundled
 FerretDB SQLite passed, as did database-connected mongosh and Database Tools
-checks. Hosted releases and the full native platform matrix were not run. See the <a href="docs/DeveloperDocs/Release-Telemetry-Checks.md">audit
+checks. Hosted releases and the full native platform matrix were not run. See
+the <a href="docs/DeveloperDocs/Release-Telemetry-Checks.md">audit
 scope, limitations and update procedure</a>.
 
 </details>
@@ -1870,7 +1876,8 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 # v11.83 2026-09-16 WeKan ® release
 
-**In short:** **Custom logos** appear directly on login and board pages, and site
+**In short:** **Custom logos** appear directly on login and board pages, and
+site
 admins can upload them to Default Storage. Repository mirroring now checks
 linked files at their live URLs.
 
@@ -6479,7 +6486,8 @@ The empty wrongly placed Git directory was removed locally.
 
 </details>
 
-**Translations** - Swedish due dates, Valencian terminology and reviewed interface wording.
+**Translations** - Swedish due dates, Valencian terminology and reviewed
+interface wording.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/da6762a48">Repair Inuktitut named calendar labels</a>. Thanks to xet7.</summary>
@@ -7476,7 +7484,8 @@ pass; technical loans and broader regional language review remain open.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e4a846162">Repair Valencian checklist prose</a>. Thanks to xet7.</summary>
 
-Six ordinary rule/display labels now use existing localized checklist terminology
+Six ordinary rule/display labels now use existing localized checklist
+terminology
 instead of mixed English or joined words. Preserve line mapping, original order,
 all-item and finished-list scopes. Regression and correction checks pass;
 search tokens and broader language/browser verification remain under review.
@@ -7747,7 +7756,8 @@ their meanings. Review checks pass; remaining translation findings stay open.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/fbf809882">Validate Basque search and legal wording</a>. Thanks to xet7.</summary>
 
-Retained 41 correct search validation, sorting, report/status and legal/checklist
+Retained 41 correct search validation, sorting, report/status and
+legal/checklist
 labels. Positive-integer requirements, direction and placeholders remain intact.
 Borrowed ticket spelling and the remaining audit findings stay under review.
 
@@ -7765,7 +7775,8 @@ Idle and bucket wording remain under review. Exact review checks pass.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/12ba3ba1a">Validate Basque authentication and date activities</a>. Thanks to xet7.</summary>
 
-Retained 16 correct authentication, deletion/restoration and old/new date-activity
+Retained 16 correct authentication, deletion/restoration and old/new
+date-activity
 labels. Default versus displayed method, all-item scopes and source tokens
 remain intact. Exact review checks pass; remaining audit findings stay open.
 
@@ -7824,7 +7835,8 @@ Fixes #6692,
 Timeline, Time, Statistics, grouping and chart views use the full available
 board width instead of centered 900px or 1100px content caps. Content padding
 stays inside the available width. Regression tests cover the shared shells;
-a browser test checks Timeline, Time and Statistics at desktop and mobile widths.
+a browser test checks Timeline, Time and Statistics at desktop and mobile
+widths.
 
 
 </details>
@@ -8176,7 +8188,8 @@ pass; broader language and browser verification remains open.
 Four date-trigger conditions now preserve both setting and changing dates
 in Galician, replacing Portuguese wording. Retain 39 correct automation and
 HTML-placement values. Positive/negative regression and ledger checks pass;
-shared attachment/member participle agreement and browser validation remain open.
+shared attachment/member participle agreement and browser validation remain
+open.
 
 </details>
 
@@ -8487,7 +8500,8 @@ Exact review checks pass; broader language/browser review remains open.
 
 The completed tooltip now agrees with the feminine subtask noun. Retained
 29 correct migration-step, scheduling interval and monitoring labels.
-Exact correction, placeholder and review checks pass; browser review remains open.
+Exact correction, placeholder and review checks pass; browser review remains
+open.
 
 
 </details>
@@ -8805,7 +8819,8 @@ Thanks to Wenhao Wu, Southeast University and xet7 !
 
 </details>
 
-**Translations** - Tamazight interface and maintenance labels; Bambara, Fulah, Dzongkha and Ewe calendars.
+**Translations** - Tamazight interface and maintenance labels; Bambara, Fulah,
+Dzongkha and Ewe calendars.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7f24f8035">Retry transient upload status failures with visible progress</a></summary>
@@ -9265,7 +9280,8 @@ contains-nothing wording. Preserve duplicate and empty qualifiers and avoid
 private/double ambiguity. All 17,604 correction/rendering checks pass;
 546 original findings remain. Technical duplicate meaning is not established;
 derived passive, feminine-plural agreement and full labels remain low
-confidence and need further research. Wider language and browser review remain open.
+confidence and need further research. Wider language and browser review remain
+open.
 
 </details>
 
@@ -9289,7 +9305,8 @@ Adlam CLDR calendar names. Exact Adlam sources are retained in the ledger;
 Latin transcription and regional terminology remain low confidence pending
 native review. All 17,608 correction/rendering checks pass; 542 original
 findings remain, including three Fulah Hijri variant findings. Provisional
-variant text needs semantic review. Wider language and browser review remain open.
+variant text needs semantic review. Wider language and browser review remain
+open.
 
 </details>
 
@@ -9580,7 +9597,8 @@ CNAM bibliography. MC£ denotes Tuareg sources and MC denotes Mokrane
 Chemim’s lexicon; neither establishes Central Moroccan dialect attestation.
 Earlier attribution assumptions are invalid. Affected terminology and full
 wording require renewed review; locale values and pending counts are unchanged.
-All 17,646 correction/rendering checks pass structurally, without proving fluency.
+All 17,646 correction/rendering checks pass structurally, without proving
+fluency.
 
 </details>
 
@@ -9624,7 +9642,8 @@ Replace four Arabic/French voting labels, preserving question, edit and delete
 actions. Native component vocabulary supports provisional wording; election
 to card voting adaptation and complete phrases remain low confidence pending
 fluent review. All 17,652 correction/rendering checks pass. These unflagged
-repairs leave 510 original findings pending. Broader language validation continues.
+repairs leave 510 original findings pending. Broader language validation
+continues.
 
 </details>
 
@@ -9887,7 +9906,8 @@ findings remain pending, including 356 Tamazight findings.
 Replace two French Workspace Settings headings and the Arabic Close action,
 using native software terms. Complete workspace headings and bound forms
 remain low confidence and require fluent review. All 17,693 correction/rendering
-checks pass; 489 original findings remain pending, including 354 Tamazight findings.
+checks pass; 489 original findings remain pending, including 354 Tamazight
+findings.
 
 </details>
 
@@ -10001,8 +10021,10 @@ versus ordinary sign-in/authorization. No locale values or counts changed.
 
 Use native Calendar vocabulary and retain Minguo from the English source,
 avoiding generic Chinese language/calendar substitution. The full mixed-script
-name remains low confidence and needs fluent review. All 17,722 correction/rendering
-checks pass; 487 original findings remain pending, including 342 Tamazight findings.
+name remains low confidence and needs fluent review. All 17,722
+correction/rendering
+checks pass; 487 original findings remain pending, including 342 Tamazight
+findings.
 
 </details>
 
@@ -10503,7 +10525,8 @@ review. All 17,841 correction checks pass; 457 original findings remain pending.
 
 Align native count/item components preserving literal (0/0) and minicard
 scope. Small Card paraphrase and derived grammar remain low confidence for
-fluent review. All 17,842 correction checks pass; 457 original findings remain pending.
+fluent review. All 17,842 correction checks pass; 457 original findings remain
+pending.
 
 </details>
 
@@ -10551,7 +10574,8 @@ review. All 17,850 correction checks pass; 451 original findings remain pending.
 
 Record native legal supplementation usages without treating them as proof
 of past transitive checklist completion. Preserve low-confidence status and
-active-uncompletion distinction. No values/counts changed; correction checks pass.
+active-uncompletion distinction. No values/counts changed; correction checks
+pass.
 
 </details>
 
@@ -10579,7 +10603,8 @@ findings remain pending, including 313 Tamazight.
 
 Native Complete Login supplies stronger software completion evidence. Past
 actor form and full checklist grammar remain low confidence; custom-logo
-terminology remains unresolved. No values/counts changed; correction checks pass.
+terminology remains unresolved. No values/counts changed; correction checks
+pass.
 
 </details>
 
@@ -11186,7 +11211,8 @@ Live browser verification was not run.
 
 Replace two French values while preserving operator syntax, repeated username
 parameter and emphasis. Assignee-only versus member OR assignee scopes remain
-distinct. Native Username and local role paraphrases support provisional wording;
+distinct. Native Username and local role paraphrases support provisional
+wording;
 full grammar remains low confidence. All 18,038 correction checks pass;
 362 original findings remain pending, including 227 Tamazight. Live browser
 verification was not run.
@@ -11222,7 +11248,8 @@ verification was not run.
 
 Replace French preserving exact syntax and cards in swimlanes matching specified
 title. Native Matching/Title/Given components support provisional wording;
-swimlane adaptation and full grammar remain low confidence. All 18,044 correction
+swimlane adaptation and full grammar remain low confidence. All 18,044
+correction
 checks pass; 356 original findings remain pending, including 221 Tamazight.
 Days-ago-or-less findings and live browser verification remain open.
 
@@ -11231,7 +11258,8 @@ Days-ago-or-less findings and live browser verification remain open.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3ed703f5a">Repair Tamazight All search predicate</a>. Thanks to xet7.</summary>
 
-Replace Arabic All predicate with exact native Tamazight, preserving single-token
+Replace Arabic All predicate with exact native Tamazight, preserving
+single-token
 query format. Add exact-value and negative whitespace/colon regression checks.
 All 18,045 correction checks pass; original audit counts unchanged.
 Date-boundary wording and live browser verification remain open.
@@ -11296,7 +11324,11 @@ including 216 Tamazight. Live browser verification was not run.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d256aea92">Translation repair: Tamazight notification deletion confirmation.</a></summary>
 
-2026-09-14: Replace French confirmation and align notification terminology. Preserve all notifications and the unconditional inability to undo. Native component evidence is recorded; full confirmation and action agreement remain low confidence. All 18,061 correction checks pass. Audit summary updated; broader translation validation remains open.
+2026-09-14: Replace French confirmation and align notification terminology.
+Preserve all notifications and the unconditional inability to undo. Native
+component evidence is recorded; full confirmation and action agreement remain
+low confidence. All 18,061 correction checks pass. Audit summary updated;
+broader translation validation remains open.
 
 Thanks to xet7 !
 
@@ -11305,7 +11337,10 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/bf88de400">Translation repair: Tamazight permanent board deletion warning.</a></summary>
 
-2026-09-14: Replace French warning. Preserve all lists, cards, labels and activities, future deletion, inability to recover board contents and no undo. Native components are recorded; composed grammar remains low confidence. All 18,062 correction checks pass; broader language validation continues.
+2026-09-14: Replace French warning. Preserve all lists, cards, labels and
+activities, future deletion, inability to recover board contents and no undo.
+Native components are recorded; composed grammar remains low confidence. All
+18,062 correction checks pass; broader language validation continues.
 
 Thanks to xet7 !
 
@@ -11314,7 +11349,11 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2a486083b">Translation repair: Tamazight leave-board membership warning.</a></summary>
 
-2026-09-14: Replace Arabic label and French confirmation. Preserve board-title placeholder and future removal of the current user from all cards on this board. Native components are recorded; membership adaptation and full grammar remain low confidence. All 18,064 correction checks pass; broader language validation continues.
+2026-09-14: Replace Arabic label and French confirmation. Preserve board-title
+placeholder and future removal of the current user from all cards on this board.
+Native components are recorded; membership adaptation and full grammar remain
+low confidence. All 18,064 correction checks pass; broader language validation
+continues.
 
 Thanks to xet7 !
 
@@ -11323,7 +11362,10 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/df83b6543">Translation repair: Tamazight board import instructions.</a></summary>
 
-2026-09-14: Repair import instructions and matching Menu/Export Board labels. Preserve ordered navigation and copying text from the downloaded file. Native component evidence is recorded; derived morphology and full wording remain low confidence. All 18,067 correction checks pass; broader validation continues.
+2026-09-14: Repair import instructions and matching Menu/Export Board labels.
+Preserve ordered navigation and copying text from the downloaded file. Native
+component evidence is recorded; derived morphology and full wording remain low
+confidence. All 18,067 correction checks pass; broader validation continues.
 
 Thanks to xet7 !
 
@@ -11332,7 +11374,10 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8e8782eaa">Translation repair: Tamazight list-card archive instructions.</a></summary>
 
-2026-09-14: Replace French instructions, preserving all cards of this list removed from the board and their return via Menu > Archive. Native component evidence is recorded; full wording remains low confidence. All 18,068 correction checks pass; broader validation continues.
+2026-09-14: Replace French instructions, preserving all cards of this list
+removed from the board and their return via Menu > Archive. Native component
+evidence is recorded; full wording remains low confidence. All 18,068 correction
+checks pass; broader validation continues.
 
 Thanks to xet7 !
 
@@ -11341,7 +11386,10 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e5116be84">Translation repair: Tamazight imported-member user selection.</a></summary>
 
-2026-09-14: Replace French instruction, preserving your existing user to use as this member. Native component evidence recorded; derived existence and full wording remain low confidence. All 18,069 correction checks pass; broader validation continues.
+2026-09-14: Replace French instruction, preserving your existing user to use as
+this member. Native component evidence recorded; derived existence and full
+wording remain low confidence. All 18,069 correction checks pass; broader
+validation continues.
 
 Thanks to xet7 !
 
@@ -11350,7 +11398,10 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6600574f5">Translation repair: Tamazight checklist uncompletion activities.</a></summary>
 
-2026-09-14: Replace two wrong-language activities, preserving active undoing of completion and exact percent placeholders. Native Undo evidence recorded; derived morphology and full wording remain low confidence. All 18,071 correction checks pass; broader validation continues.
+2026-09-14: Replace two wrong-language activities, preserving active undoing of
+completion and exact percent placeholders. Native Undo evidence recorded;
+derived morphology and full wording remain low confidence. All 18,071 correction
+checks pass; broader validation continues.
 
 Thanks to xet7 !
 
@@ -11359,7 +11410,10 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2b685ef72">Translation repair: Tamazight card checklist completion activity.</a></summary>
 
-2026-09-14: Repair unflagged Kabyle-seeded wording, preserving active completion and all five exact location placeholders. Native completion evidence recorded; full grammar remains low confidence. All 18,072 correction checks pass; broader validation continues.
+2026-09-14: Repair unflagged Kabyle-seeded wording, preserving active completion
+and all five exact location placeholders. Native completion evidence recorded;
+full grammar remains low confidence. All 18,072 correction checks pass; broader
+validation continues.
 
 Thanks to xet7 !
 
@@ -11368,7 +11422,10 @@ Thanks to xet7 !
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d54c1674a">Translation repair: Tamazight imported-board member mapping.</a></summary>
 
-2026-09-14: Replace French instruction, preserving some members on your imported board and mapping selected members to your users. Native component evidence recorded; full grammar remains low confidence. All 18,073 correction checks pass; broader validation continues.
+2026-09-14: Replace French instruction, preserving some members on your imported
+board and mapping selected members to your users. Native component evidence
+recorded; full grammar remains low confidence. All 18,073 correction checks
+pass; broader validation continues.
 
 Thanks to xet7 !
 
@@ -11921,7 +11978,8 @@ live browser verification remain untested locally.
 
 </details>
 
-Thanks to above GitHub users for their contributions and xet7 for maintaining WeKan !
+Thanks to above GitHub users for their contributions and xet7 for maintaining
+WeKan !
 
 # v11.76 2026-09-14 WeKan ® release
 
@@ -12293,7 +12351,8 @@ open.
 
 </details>
 
-Thanks to above GitHub users for their contributions and xet7 for maintaining WeKan !
+Thanks to above GitHub users for their contributions and xet7 for maintaining
+WeKan !
 
 # v11.75 2026-09-14 WeKan ® release
 
@@ -12551,7 +12610,8 @@ an earlier paginated inventory. Save responses directly to the archive and
 preserve checkpoints when a parent fetch fails. Reuse the existing rate-limited
 API client. Print the mirror log path after sync/check menu commands, including
 failures, and at shell command exit, preserving the exit status. Offline disk
-collection, checkpoint, menu and launcher tests pass; no live remote sync was run.
+collection, checkpoint, menu and launcher tests pass; no live remote sync was
+run.
 
 </details>
 
@@ -13264,7 +13324,8 @@ Replace the English display name with the exact non-core Tongan CLDR label,
 distinct from existing civil and sighting variants. All 17,211 correction checks
 pass. CLDR marks this name unconfirmed, and an explicit astronomical-epoch
 qualifier still needs language research and fluent review. This is a provisional
-repair, not completed linguistic validation. Original pending findings total 746.
+repair, not completed linguistic validation. Original pending findings total
+746.
 Live browser verification was not run.
 
 </details>
@@ -13307,7 +13368,8 @@ browser verification was not run. Original pending findings remain at 748.
 Replace the Finnish label using Veps dictionary words for storage and engine,
 preserving the MongoDB name. All 17,206 exact correction/rendering checks pass.
 The composed technical label needs fluent review; live browser verification
-was not run. There are 748 pending original findings and wider validation remains
+was not run. There are 748 pending original findings and wider validation
+remains
 unfinished.
 
 </details>
@@ -13582,7 +13644,8 @@ restrictions. Local translation repairs preserve placeholders and warning
 meanings; the remaining audit has resumed and is tracked under **TODO Later**.
 Translation upload tooling and repository mirrors are updated, along with
 the Playwright test dependency. Meteor upgrades to 3.6-beta.0 with
-Rspack 2.2 and matching Docker metadata. Organization mirrors add configured namespaces,
+Rspack 2.2 and matching Docker metadata. Organization mirrors add configured
+namespaces,
 linked comment attachments and offline HTML/CSV archives.
 
 This release adds the following calendar and login features:
@@ -13940,7 +14003,8 @@ publications cannot hide it.
 test checks that subscriptions finish switching and failures propagate.
 Regression tests cover fallback precedence, pending choices, board visibility,
 list scoping and publication isolation; the browser test checks shared lists
-in two swimlanes before and after impersonation. The real partial-profile and impersonation browser regression passes in
+in two swimlanes before and after impersonation. The real partial-profile and
+impersonation browser regression passes in
 Chromium, Firefox and WebKit without retries. Full EVERYTHING verification
 is running against this change.
 
@@ -14069,7 +14133,8 @@ compiled verification is in progress.
 
 </details>
 
-**Source and test parity** - preserve current behavior and reject real regressions.
+**Source and test parity** - preserve current behavior and reject real
+regressions.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/cc2833cd0">Restore first-user CSS and hide unrequested 2FA prompts</a>. Thanks to xet7.</summary>
@@ -14128,7 +14193,8 @@ and updates the Meteor build dependencies:
 <summary><a href="https://github.com/wekan/wekan/commit/9e331e409">Show immediate mirror synchronization progress</a>. Thanks to xet7.</summary>
 
 Mirror synchronization announces source inventory, local archive and destination
-stages before starting work. Child stdout and stderr stream to the terminal, with
+stages before starting work. Child stdout and stderr stream to the terminal,
+with
 elapsed-time messages every 15 seconds during long stages. GitHub requests show
 the endpoint, page and retry attempt without exposing authentication headers.
 Existing rate-limit waits and bounded retries remain in effect.
@@ -14196,10 +14262,12 @@ and updates maintainer tooling:
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7af015a56">Save GitHub mirror data directly to disk and resume after interruption</a>. Thanks to xet7.</summary>
 
-Issues, pulls, comments, reviews and releases are saved as they arrive. Persistent
+Issues, pulls, comments, reviews and releases are saved as they arrive.
+Persistent
 page and destination checkpoints resume interrupted synchronization and avoid
 holding all source bodies in RAM. Partial inventories preserve unfetched items.
-Verification: 38 targeted Node tests and four Chromium/Firefox offline tests pass,
+Verification: 38 targeted Node tests and four Chromium/Firefox offline tests
+pass,
 including interruption, retry, attachment navigation and a bounded-heap fixture.
 
 </details>
@@ -14213,7 +14281,8 @@ manifest writable before updating node-gyp, matching the release workflow.
 Linux arm64 development and release builds pass; the prepared release passes
 its startup smoke check and includes Node.js, FerretDB, all eight MongoDB tools
 and the launcher. Thirteen targeted test entries pass, including failure
-handling and read-only manifest repair. Native Windows execution was unavailable.
+handling and read-only manifest repair. Native Windows execution was
+unavailable.
 Logs: .tools/log/build-dev-bundle/2026-09-14/00-25-50/dev.txt and
 .tools/log/build-release-bundle/2026-09-14/00-28-55/release.txt.
 The optional qemu-aarch64-static binary is absent on this host.
@@ -14237,7 +14306,8 @@ Windows execution and full Meteor builds were not rerun for this change.
 
 Development bundles stream to stdout and
 .tools/log/build-dev-bundle/YYYY-MM-DD/HH-MM-SS/dev.txt. Release bundles use
-.tools/log/build-release-bundle/YYYY-MM-DD/HH-MM-SS/release.txt. Every build gets
+.tools/log/build-release-bundle/YYYY-MM-DD/HH-MM-SS/release.txt. Every build
+gets
 a separate directory; same-second runs reserve a numeric suffix. EVERYTHING
 also retains its existing run-level log. Extends the
 <a href="https://github.com/wekan/wekan/commit/002e6faa7">build-type logging change</a>.
@@ -14250,7 +14320,8 @@ reported a successful development build before these logging changes.
 <summary><a href="https://github.com/wekan/wekan/commit/df4c049d5">Show dependency resolver commands and captured build output</a>. Thanks to xet7.</summary>
 
 Builds print Node module resolution and captured subprocess stdout/stderr to the
-terminal and build log. Preserve command status and callback results. The preceding
+terminal and build log. Preserve command status and callback results. The
+preceding
 <a href="https://github.com/wekan/wekan/commit/915971a89">build diagnostics change</a>
 adds npm verbose output, foreground lifecycle scripts and Meteor profiling.
 Verification: 10 targeted build test entries pass. A full Meteor build was not
@@ -14569,7 +14640,8 @@ Preserve count placeholders, minicard placement, unread/absent states and role
 labels. Actual production Query checks pass for the Veps comment operator with
 its apostrophe, quoted multiword searches and rejection of unknown operators.
 All 16,882 exact correction/runtime checks pass. There are 933 pending original
-findings, including 192 Veps findings. Composed relative-clause/count/case grammar
+findings, including 192 Veps findings. Composed relative-clause/count/case
+grammar
 is low confidence; fluent-speaker and browser verification remain pending.
 
 </details>
@@ -14636,7 +14708,8 @@ unflagged validation remain outstanding.
 Replace nine Finnish values, resolving seven original findings and two related
 unflagged errors. Preserve failed-only retries, paused-only continuation,
 empty queues, successful action responses, all-error clearing, and errors
-versus warnings. Existing native pause/completion/resume values remain unchanged.
+versus warnings. Existing native pause/completion/resume values remain
+unchanged.
 All 16,811 corrections and positive/negative runtime rendering and placeholder
 checks pass. There are 966 pending original findings, including 225 Veps
 findings. Composed failure-status grammar and plural/case forms need fluent-
@@ -14707,7 +14780,8 @@ continue confirmations, administrator-only access and start/pause/stop states.
 
 All 16,769 exact corrections and positive/negative rendering checks pass.
 The audit now has 14,845 corrected and 999 pending original findings, including
-258 Veps findings. Structure terminology, composed grammar, fluent-speaker review,
+258 Veps findings. Structure terminology, composed grammar, fluent-speaker
+review,
 restored/unflagged review and browser verification remain outstanding.
 
 </details>
@@ -14723,7 +14797,8 @@ examples with board-assigned-to-entity scope. Correct native organization labels
 and counts remain unchanged.
 
 All 16,749 exact corrections and positive/negative rendering checks pass.
-The audit now has 14,829 corrected and 1,015 pending original findings, including
+The audit now has 14,829 corrected and 1,015 pending original findings,
+including
 274 Veps findings. Composed organization/assignment grammar and inflections need
 fluent-speaker review; restored/unflagged and browser verification remain open.
 
@@ -14732,13 +14807,15 @@ fluent-speaker review; restored/unflagged and browser verification remain open.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d67d506b5">Repair Veps card windows, templates and loading guidance</a>. Thanks to xet7.</summary>
 
-Replace 15 Finnish/Venda values, including 11 related unflagged controls. Preserve
+Replace 15 Finnish/Venda values, including 11 related unflagged controls.
+Preserve
 each clicked card's own window versus closing the previous card when disabled,
 administrator permissions, refresh-causes-data-loss and server-running guidance,
 many-card template copying and separate card/list/board template types.
 
 All 16,726 exact corrections and positive/negative rendering checks pass.
-The audit now has 14,816 corrected and 1,028 pending original findings, including
+The audit now has 14,816 corrected and 1,028 pending original findings,
+including
 287 Veps findings. Composed UI grammar and container loan need fluent-speaker
 review; restored/unflagged and browser verification remain outstanding.
 
@@ -14753,7 +14830,8 @@ all-action deletion and custom-string deletion, counts, minicard add/remove
 directions and literal OIDC. Poker numbers remain unchanged.
 
 All 16,711 exact corrections and positive/negative rendering checks pass.
-The audit now has 14,812 corrected and 1,032 pending original findings, including
+The audit now has 14,812 corrected and 1,032 pending original findings,
+including
 291 Veps findings. Composed terms, planning-poker loan and inflections need
 fluent-speaker review; restored/unflagged and browser verification remain open.
 
@@ -14768,7 +14846,8 @@ temporary lockout and retry-later guidance, failure-count window in seconds,
 remaining time and only-locked/all-user distinctions.
 
 All 16,684 exact corrections and positive/negative rendering checks pass.
-The audit now has 14,798 corrected and 1,046 pending original findings, including
+The audit now has 14,798 corrected and 1,046 pending original findings,
+including
 305 Veps findings. Composed security terminology and inflections need
 fluent-speaker review; restored/unflagged and browser verification remain open.
 
@@ -14779,12 +14858,14 @@ fluent-speaker review; restored/unflagged and browser verification remain open.
 
 Replace 15 Finnish or mixed-language values, including three related unflagged
 controls. Preserve collaboration invitations, invitation codes, board names,
-literal URLs and line breaks. Distinguish password reset from email verification,
+literal URLs and line breaks. Distinguish password reset from email
+verification,
 retain account creation/sign-in and own-account deletion, and keep irreversible
 all-notification deletion warnings.
 
 All 16,670 exact corrections and positive/negative interpolation checks pass.
-The audit now has 14,792 corrected and 1,052 pending original findings, including
+The audit now has 14,792 corrected and 1,052 pending original findings,
+including
 311 Veps findings. Composed mail/account grammar and inflections need
 fluent-speaker review; restored/unflagged and browser verification remain open.
 
@@ -14799,9 +14880,12 @@ destination directions, archive/restore, completed/incomplete states, all-member
 removal and comma-separated three-item examples. Runtime tests check joined
 trigger fragments as well as individual labels.
 
-All 16,655 exact corrections and positive/negative runtime rendering checks pass.
-The audit now has 14,780 corrected and 1,064 pending original findings, including
-323 Veps findings. Composed UI grammar and derived participles need fluent-speaker
+All 16,655 exact corrections and positive/negative runtime rendering checks
+pass.
+The audit now has 14,780 corrected and 1,064 pending original findings,
+including
+323 Veps findings. Composed UI grammar and derived participles need
+fluent-speaker
 review; restored/unflagged review and browser verification remain outstanding.
 
 </details>
@@ -14809,15 +14893,20 @@ review; restored/unflagged review and browser verification remain outstanding.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/627b94378">Repair Veps archive warnings and checklist rules</a>. Thanks to xet7.</summary>
 
-Replace 34 Finnish/Venda values, including 21 related unflagged controls. Preserve
+Replace 34 Finnish/Venda values, including 21 related unflagged controls.
+Preserve
 permanent board-deletion losses, archive visibility context, export permission
-negation, Excel/PDF literals, all-versus-one checklist actions and member-versus-
+negation, Excel/PDF literals, all-versus-one checklist actions and
+member-versus-
 label removal. Number-key help describes assignment toggles and multi-selection
 label addition, retaining 1-9 and consistent multi-selection headings/actions.
 
-All 16,601 exact corrections and positive/negative runtime rendering checks pass.
-The audit now has 14,777 corrected and 1,067 pending original findings, including
-326 Veps findings. Composed technical wording and inflections need fluent-speaker
+All 16,601 exact corrections and positive/negative runtime rendering checks
+pass.
+The audit now has 14,777 corrected and 1,067 pending original findings,
+including
+326 Veps findings. Composed technical wording and inflections need
+fluent-speaker
 review; restored/unflagged review and browser verification remain outstanding.
 
 </details>
@@ -14825,14 +14914,18 @@ review; restored/unflagged review and browser verification remain outstanding.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/40f27e1fd">Repair Veps placement, filters and sidebar controls</a>. Thanks to xet7.</summary>
 
-Replace 23 Finnish/Venda values, including 13 related unflagged controls. Preserve
+Replace 23 Finnish/Venda values, including 13 related unflagged controls.
+Preserve
 card versus swimlane placement above/below, card-or-list filtering, separate
-member/assignee/creator filters, field-name display, show/hide toggles and search
+member/assignee/creator filters, field-name display, show/hide toggles and
+search
 across board titles, descriptions and custom fields. Correct Veps core labels
 remain unchanged.
 
-All 16,567 exact corrections and positive/negative runtime rendering checks pass.
-The audit now has 14,764 corrected and 1,080 pending original findings, including
+All 16,567 exact corrections and positive/negative runtime rendering checks
+pass.
+The audit now has 14,764 corrected and 1,080 pending original findings,
+including
 339 Veps findings. Composed sidebar terminology and inflections need
 fluent-speaker review. Restored/unflagged review and browser checks remain open.
 
@@ -14843,12 +14936,15 @@ fluent-speaker review. Restored/unflagged review and browser checks remain open.
 
 Replace nine Finnish display-setting values with Veps. Keep strict more-than
 thresholds, card and attachment counts, per-list scope, pixel units and positive
-integer validation. Preserve simultaneous card opening, all-board hidden activity
+integer validation. Preserve simultaneous card opening, all-board hidden
+activity
 scope and the one-line-to-one-checklist-item mapping. All Boards instructions
 match the translated navigation label.
 
-All 16,544 exact corrections and positive/negative runtime rendering checks pass.
-The audit now has 14,754 corrected and 1,090 pending original findings, including
+All 16,544 exact corrections and positive/negative runtime rendering checks
+pass.
+The audit now has 14,754 corrected and 1,090 pending original findings,
+including
 349 Veps findings. Composed terminology and inflections need fluent-speaker
 review; restored/unflagged values and browser verification remain outstanding.
 
@@ -14964,11 +15060,13 @@ record 14,651 corrected findings, 1,193 pending and 16,386 correction records.
 Repair 23 Finnish/Venda values, resolving ten original findings. Preserve field
 types, multi-select, field values/activity contexts and all-card irreversible
 deletion with history loss. Restore the literal %{value} placeholder, preserve
-HTML space entities and align generic/custom-field date labels. Exact correction,
+HTML space entities and align generic/custom-field date labels. Exact
+correction,
 source token, entity, key-order and actual i18next interpolation checks pass.
 Composed control terminology and UI inflections need fluent review. Audit and
 TODO Later now record 14,635 corrected findings, 1,209 pending and 16,363 exact
-correction records; restored-value and broader language/rendering reviews remain.
+correction records; restored-value and broader language/rendering reviews
+remain.
 
 </details>
 
@@ -14990,7 +15088,8 @@ corrected findings, 1,219 pending and 16,340 exact correction records.
 
 Repair 32 labels/messages using Veps dictionary and native MediaWiki evidence,
 resolving 22 original findings. Preserve attachment, label, comment, membership,
-archive, import, restore and card-move contexts and source/destination direction.
+archive, import, restore and card-move contexts and source/destination
+direction.
 Use dictionary-attested swimming/strip roots for the kanban swimlane metaphor.
 Exact correction, source token, key-order and actual i18next rendering checks
 with production underscore interpolation pass. Kanban metaphors, compounds and
@@ -15047,7 +15146,8 @@ Replace 18 Finnish labels/descriptions with dictionary-backed Veps, resolving
 seven original findings. Preserve protocol identifiers, secret credentials,
 storage distinctions and literal region code us-east-1; repair STMP to SMTP.
 Exact correction, source token, key-order and actual i18next rendering checks
-pass. Network loans, authentication terminology and UI grammar need fluent review.
+pass. Network loans, authentication terminology and UI grammar need fluent
+review.
 Audit progress records 14,581 corrected findings, 1,263 pending and 16,251 exact
 repair records. Translation repairs have resumed after the mirror interruption.
 
@@ -15059,7 +15159,8 @@ repair records. Translation repairs have resumed after the mirror interruption.
 Replace 20 Finnish values with dictionary-backed Veps, resolving 19 original
 findings. Preserve filesystem, MongoDB GridFS and S3 destinations, single/all
 attachment scope, AWS/MinIO identifiers, save outcomes and permanent deletion
-with no undo. Use native Sirdä for file transfer. Exact correction, source token,
+with no undo. Use native Sirdä for file transfer. Exact correction, source
+token,
 key-order and actual i18next rendering regressions pass. Composed technical
 terminology and UI grammar need fluent review. Audit progress records
 14,574 corrected findings, 1,270 pending and 16,233 exact repair records.
@@ -15094,20 +15195,24 @@ visibility and report unsupported native conversions instead of publishing it.
 Archive files under .tools/mirror/host/organization/repository, migrating the
 previous flat WeKan archive without overwriting existing or manual files.
 Download linked images, videos, other files and webpage HTML per comment, retain
-removed/replaced versions with timestamped old names, and attach files to the same
+removed/replaced versions with timestamped old names, and attach files to the
+same
 GitLab/Codeberg/SourceForge comments where supported. Comment directories have
 empty index.html files. Host, organization, repository, issue and release pages
 have offline HTML and CSV indexes; repository HTML can be rebuilt from CSV.
 
 Serialize and pace API/file requests, obey rate-limit/reset/retry headers on
 GitHub and each destination, persist cooldowns across processes, and bound
-retries. Git/SSH/SFTP respect saved cooldowns. Public GitHub REST reads work without
+retries. Git/SSH/SFTP respect saved cooldowns. Public GitHub REST reads work
+without
 a token or logged-in gh; unauthenticated Projects falls back to a public webpage
-snapshot while retaining earlier structured exports. Never forward API credentials
+snapshot while retaining earlier structured exports. Never forward API
+credentials
 to arbitrary prose links; linked downloads check and pin public DNS addresses.
 
 All 1,014 Node suites pass; final targeted regressions and 15 project query
-variants checked against GitHub's public schema pass. Static navigation and local
+variants checked against GitHub's public schema pass. Static navigation and
+local
 images pass in Chromium and Firefox. WebKit is registered and syntax-checked but
 cannot launch locally because ICU 74 is missing and Docker is unavailable.
 Native remote uploads/wiki initialization remain maintainer-run verification.
@@ -15178,7 +15283,8 @@ Restored translations and broader language validation remain outstanding.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e2338530c">Retain complete issue, pull request and release mirror files</a>. Thanks to xet7.</summary>
 
-Persist source metadata, comments, reviews, PR patches, GitHub-hosted attachments,
+Persist source metadata, comments, reviews, PR patches, GitHub-hosted
+attachments,
 release binaries and source archives in .tools/mirror/issues/1234,
 .tools/mirror/pulls/1234 and .tools/mirror/releases/10.00. Reruns add new files,
 reuse valid cached binaries and rename removed or changed versions to
@@ -15517,7 +15623,8 @@ Exact vocabulary, rejected English descriptors and all correction records pass.
 Replace Finnish color/year and Latvian name values with dictionary-attested
 Veps vocabulary. Preserve existing correct Veps name and Gantt-year labels.
 Positive vocabulary, rejected wrong-language seeds and all 16,047 correction
-records pass. These four unflagged repairs leave original pending counts unchanged.
+records pass. These four unflagged repairs leave original pending counts
+unchanged.
 
 </details>
 
@@ -15590,7 +15697,8 @@ Two Kashmiri calendar findings remain under review.
 
 Replace English and Italian seeds with Tibetan calendar labels, preserving
 proper names and Gregorian ISO week semantics. Distinguish civil/astronomical
-epochs and lunar sighting. Positive/negative vocabulary and correction tests pass.
+epochs and lunar sighting. Positive/negative vocabulary and correction tests
+pass.
 Member Settings browser coverage is added and syntax-checked, execution pending.
 Technical compositions and transliterations have low confidence.
 
@@ -15620,7 +15728,8 @@ in two default-board instructions. Vocabulary and exact correction checks pass.
 <summary><a href="https://github.com/wekan/wekan/commit/a98ae0474">Replace Finnish Veps alphabetical title label</a>. Thanks to xet7.</summary>
 
 Use attested Veps title and alphabet vocabulary. The compact sorting label has
-low confidence and needs fluent review. Positive/negative vocabulary checks pass.
+low confidence and needs fluent review. Positive/negative vocabulary checks
+pass.
 
 </details>
 
@@ -15723,7 +15832,8 @@ Transifex uploads were executed.
 
 and records the following translation repairs and documentation:
 
-**Locale files** - repair language, meaning and formatting while retaining evidence.
+**Locale files** - repair language, meaning and formatting while retaining
+evidence.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f6e2f742c">Record local translation repairs through the pause</a>. Thanks to xet7.</summary>
@@ -17759,7 +17869,8 @@ regression checks pass. This permission change has no application UI behavior.
 <summary><a href="https://github.com/wekan/wekan/commit/69e4d836c">Update existing Fossil repositories incrementally</a>. Thanks to xet7.</summary>
 
 Running `releases/fossil.sh` again adds new Git commits to the existing local
-repository with `--incremental`, without force overwrite or required marks files.
+repository with `--incremental`, without force overwrite or required marks
+files.
 A real Fossil 2.28 regression verifies retained history, new commits and no
 duplicates on repeated runs. Failure, namespace and Bash syntax checks pass.
 The Fossil guide documents repeat exports and invalid interrupted repositories.
@@ -17886,7 +17997,8 @@ controls and that it never offers cover or background.
 
 </details>
 
-**Board Settings** - card section toggles, field order, the Board View table, WIP Limit Groups under Swimlane, and the menu's order.
+**Board Settings** - card section toggles, field order, the Board View table,
+WIP Limit Groups under Swimlane, and the menu's order.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/970213010013529150101d3fd6c59f33eab542d4">A toggle for every card section and minicard badge, listed in card order</a>. Thanks to rmb82 and xet7.</summary>
@@ -18127,7 +18239,8 @@ user, so the permission checks and side effects are the ones the UI gets:
   of a stream (`limit`, `skip`, `search`), and
   `POST /api/admin/problems/:stream/acknowledge` the acknowledge button -
   all through the admin-only `eventLog*` methods the Admin Panel calls.
-- `GET /api/admin/oauth-providers`, `PUT /api/admin/oauth-providers/:providerKey`
+- `GET /api/admin/oauth-providers`,
+  `PUT /api/admin/oauth-providers/:providerKey`
   and `PUT /api/admin/passwordless` read and save the Admin Panel / People /
   Login provider settings; a secret is reported only as `{ source, hasValue }`.
 - `GET`/`PUT /api/boards/:boardId/cardFieldOrder` read and set the opened
@@ -18437,14 +18550,17 @@ Thanks to above GitHub users for their contributions and translators for their t
 full-featured **document preview** viewer, hardens the **HttpOnly login
 cookie**, and adds opt-in **two-factor authentication**. The **minicard**
 title moved to the top with a collapse caret, new **Group by Assignee**,
-**Bigboard** and **Multi Board Calendar** views join checklist bulk-editing, **Clone Board**
+**Bigboard** and **Multi Board Calendar** views join checklist bulk-editing,
+**Clone Board**
 card-skipping, Admin Panel People filtered **by Team**, **Rules** title
 validation and assignee triggers, and an **Admin only** custom-field flag
 that hides a field's value from non-admin board members.
 
-This release fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
+This release fixes the following SECURITY ISSUES found by GitHub CodeQL code
+scanning:
 
-**Markdown card-URL autolinking** - duplicated on purpose between app and package.
+**Markdown card-URL autolinking** - duplicated on purpose between app and
+package.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9cbf67ba7">Escape a backslash before escaping ']' in an autolinked card title, not only ']'</a>. Thanks to GitHub CodeQL and xet7.</summary>
@@ -18464,7 +18580,8 @@ comments, so no Admin Panel security-log entry applies.
 
 </details>
 
-**Test-only assertion bugs** - four findings inside the test suite's own logic, none reachable in production.
+**Test-only assertion bugs** - four findings inside the test suite's own logic,
+none reachable in production.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9cbf67ba7">Escape every regex meta-character when building a dynamic RegExp from a URL, not only '/'</a>. Thanks to GitHub CodeQL and xet7.</summary>
@@ -18544,7 +18661,8 @@ changed.
 
 and adds the following new features:
 
-**Notification Settings** - one place to turn tray/email notifications on or off.
+**Notification Settings** - one place to turn tray/email notifications on or
+off.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/bde66a5c7ddba955c7e6583304a1ca7274aaf8f4">Add a 3-tier Notification Settings popup to Member Settings, Board Settings and Admin Panel / People</a>. Thanks to xet7.</summary>
@@ -18881,7 +18999,8 @@ empty/null default.
 
 </details>
 
-**Member Settings** - the notification/editor toggles in the Member Settings popup.
+**Member Settings** - the notification/editor toggles in the Member Settings
+popup.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6e36dcabe5ca01dadd106b066ec21b7f954d4dd7">Added an audio ding when a checklist item is checked off</a>. Thanks to C0rn3j and xet7.</summary>
@@ -19182,7 +19301,8 @@ a different feature.
 
 </details>
 
-**Board filters** - the sidebar Filter panel and how a board can be opened already filtered.
+**Board filters** - the sidebar Filter panel and how a board can be opened
+already filtered.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/963b01ff5ba7edb9d0aacfbbce2b2647a578124d">A board can now be opened pre-filtered from its URL, e.g. ?assignee=johndoe</a>. Thanks to thrademaker and xet7.</summary>
@@ -19756,7 +19876,8 @@ users mechanism on top of it.
 
 </details>
 
-**Admin Panel / Settings / Visibility** - the instance-wide toggles under this pane.
+**Admin Panel / Settings / Visibility** - the instance-wide toggles under this
+pane.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/52972b3e4cacdc451e5840709f505e98db285913">Board creation can now be restricted to admins only</a>. Thanks to belf88 and xet7.</summary>
@@ -20731,7 +20852,8 @@ scope: flipping it from one list affects every list on the board.
 
 </details>
 
-**Labels** - the label popup opened from a card's Labels button and Board Settings.
+**Labels** - the label popup opened from a card's Labels button and Board
+Settings.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1af1d7ad3fcadbaeca0a52ef473552a775849f02">A label can now carry its own optional due date, so it doubles as a "milestone"</a>. Thanks to locnide and xet7.</summary>
@@ -20827,7 +20949,8 @@ verification was hand-rolled in this codebase (only imported from
 
 </details>
 
-**Calendar export** - a subscribable feed of a board's card dates for outside calendar apps.
+**Calendar export** - a subscribable feed of a board's card dates for outside
+calendar apps.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a49e9d70aa744944b3fdbb5d96ac8fb50033547d">Add a per-board iCal (.ics) export feed</a>. Thanks to xet7.</summary>
@@ -21343,7 +21466,8 @@ administrator be anonymized.
 
 **Sign in with Apple** - OIDC-shaped login with a JWT client secret.
 
-**OAuth2/OIDC login** - the generic provider client Keycloak, Authelia and now Apple share.
+**OAuth2/OIDC login** - the generic provider client Keycloak, Authelia and now
+Apple share.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/517bee3f0">Server-signed JWT client secret for OAuth2, enabling Sign in with Apple</a>. Thanks to xet7.</summary>
@@ -21386,7 +21510,8 @@ static-secret path is untouched.
 
 **REST API** - improvements to the HTTP API.
 
-**Checklists and comments** - editing them over the API, not just creating and deleting them.
+**Checklists and comments** - editing them over the API, not just creating and
+deleting them.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/099ab39dd">Add PUT endpoints for a checklist's title and a comment's text</a>. Thanks to mayjs and xet7.</summary>
@@ -21973,7 +22098,8 @@ decision.
 
 and fixes the following bugs:
 
-**The database** - the reported crash's WeKan-side cause, and its real cause documented.
+**The database** - the reported crash's WeKan-side cause, and its real cause
+documented.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/03ffb56a5">Index card_comment_reactions, and document why MongoDB's data directory must be on a local filesystem</a>. Thanks to xet7.</summary>
@@ -22062,7 +22188,8 @@ end-to-end against a real uploaded PDF.
 
 </details>
 
-**Login persistence** - the HttpOnly session cookie that keeps a login across browser restarts.
+**Login persistence** - the HttpOnly session cookie that keeps a login across
+browser restarts.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1e18c824d5950acf94e6fccd51f5c54dcbbcd09f">The HttpOnly login cookie now always gets a fallback expiry</a>. Thanks to markusst1982 and xet7.</summary>
@@ -22158,7 +22285,8 @@ CSS rule are reused unchanged.
 
 </details>
 
-**Outgoing webhooks** - the global and per-board webhook that posts card activity out.
+**Outgoing webhooks** - the global and per-board webhook that posts card
+activity out.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/691b096fafdd099da697aac895673683f36e3793">Confirmed the global webhook already fires when a card is edited, and pinned it with a regression test</a>. Thanks to Rishats and xet7.</summary>
@@ -22201,7 +22329,8 @@ message into a matching `#invite-people-infos` element added to
 
 </details>
 
-**User deletion** - the self-delete and admin-delete methods, and what they leave behind.
+**User deletion** - the self-delete and admin-delete methods, and what they
+leave behind.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c7bf50deb42d0c293c7db053261bde0f96ef71bd">Confirmed deleting a user already prunes their board/card references</a>. Thanks to unowen1939 and xet7.</summary>
@@ -22380,7 +22509,8 @@ same shape used by `resultCard.js` and `tableView.js`.
 
 </details>
 
-**Admin Panel and Public Boards** - inviting people, deleting a user, and viewing a public board while logged out.
+**Admin Panel and Public Boards** - inviting people, deleting a user, and
+viewing a public board while logged out.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2ccd70f45">Pinned Admin Panel invite/delete people and logged-out public board viewing with regression tests</a>. Thanks to Cupara and xet7.</summary>
@@ -22567,7 +22697,8 @@ case-insensitivity.
 
 </details>
 
-**Notification emails** - the HTML-formatted card/board activity notification email.
+**Notification emails** - the HTML-formatted card/board activity notification
+email.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b6da4ebe9652f42e8923aa24afc52eb4885f7b51">A card/board URL in an HTML notification email is now a real clickable link</a>. Thanks to papimla and xet7.</summary>
@@ -22591,7 +22722,8 @@ there.
 
 </details>
 
-**Card dates** - the Received/Start/Due/End date popup shared by every date field, a vote and a planning poker end date, and a date custom field.
+**Card dates** - the Received/Start/Due/End date popup shared by every date
+field, a vote and a planning poker end date, and a date custom field.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/fdc84e2e6">The time field now accepts an hour alone, and an empty time defaults to midnight instead of being rejected</a>. Thanks to fakaki and xet7.</summary>
@@ -22623,7 +22755,8 @@ to parse an actually-empty string directly.
 
 </details>
 
-**Template sharing** - the picker opened by the card/list/swimlane/board "from template" buttons.
+**Template sharing** - the picker opened by the card/list/swimlane/board "from
+template" buttons.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/07f6cda95e56c36fb38fa1a95e9ddeb1e60d661e">The template picker now also searches a template board shared by another member, not only the user's own</a>. Thanks to ADDAH-temp and xet7.</summary>
@@ -22651,7 +22784,8 @@ before.
 
 </details>
 
-**Card description and comments** - the markdown rendered from a card's description and comment text.
+**Card description and comments** - the markdown rendered from a card's
+description and comment text.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0aa1702c0">A "- [ ] Task" / "- [x] Done" checklist line now renders as a real checkbox, not literal HTML text</a>. Thanks to rodrigocipriani and xet7.</summary>
@@ -22691,7 +22825,8 @@ checkbox-only.
 
 </details>
 
-**Archive sidebar** - the sidebar tab that lists archived cards, lists and swimlanes.
+**Archive sidebar** - the sidebar tab that lists archived cards, lists and
+swimlanes.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5c77c86bb">An archived card now opens in the full card-detail popup, with a Restore action of its own</a>. Thanks to therampageradoagent and xet7.</summary>
@@ -22942,7 +23077,8 @@ the same convention `tests/trelloCreator.import.test.js` already uses.
 
 </details>
 
-**Test guards** - suites that read the source, brought up to date with deliberate changes, and new coverage.
+**Test guards** - suites that read the source, brought up to date with
+deliberate changes, and new coverage.
 
 - [Fix tests still referencing the renamed mirror scripts](https://github.com/wekan/wekan/commit/117edc33b). Thanks to xet7.
 - [Update seven node test-suite guards for legitimately-changed behavior](https://github.com/wekan/wekan/commit/404dad239) and [five more for intentional changes made the same day](https://github.com/wekan/wekan/commit/d8d3446cc). Thanks to xet7.
@@ -22957,7 +23093,8 @@ the same convention `tests/trelloCreator.import.test.js` already uses.
 
 and has the following documentation improvements:
 
-**Feature guides** - `docs/Features/` pages for existing or newly landed features.
+**Feature guides** - `docs/Features/` pages for existing or newly landed
+features.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/87c1e82ec7d2b9579fd3255a0a9cfc7a702ef38c">Added an example Authelia OAuth2/OIDC configuration alongside the existing Keycloak and Zitadel ones</a>. Thanks to tamaskan and xet7.</summary>
@@ -23035,10 +23172,12 @@ write access, versus the original table view's click-a-date-icon editing).
 Added six new pages read directly from the current code rather than
 guessed: `docs/Features/Lists/WipLimit/WIP-Limit-Groups.md` (Board Settings
 → WIP Limit Groups, `models/boards.js`'s `wipLimitGroups`, including the
-swimlane quick-select), `docs/Features/Cards/CustomFields/Custom-Field-Admin-Only-And-Order.md`
+swimlane quick-select),
+`docs/Features/Cards/CustomFields/Custom-Field-Admin-Only-And-Order.md`
 (the admin-only value-hiding flag and the sidebar drag-to-reorder `sort`
 field), `docs/Features/Board/Labels-Milestone-Due-Date.md` (a label's
-optional due date turning it into a milestone), `docs/Features/Cards/Checklists.md`
+optional due date turning it into a milestone),
+`docs/Features/Cards/Checklists.md`
 (the automatic daily/weekly/monthly reset interval and the bulk
 plain-text item editor), `docs/Features/Board/Card-Field-Display-Order.md`
 (reordering a card's Labels/Dates/Members/Custom Fields/Description
@@ -23090,7 +23229,8 @@ already-board/card-aware default rather than being needed for it.
 
 and closes the following already-fixed issues:
 
-**Closed issues** - reports already fixed by earlier work, closed with a reference to where.
+**Closed issues** - reports already fixed by earlier work, closed with a
+reference to where.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9ef7f4a07">Confirm #2498 (linked card's minicard cover) stays fixed</a>. Thanks to javen9881 and xet7.</summary>
@@ -23305,7 +23445,8 @@ startup in a homeless container user. No WeKan application code changed.
 
 This release updates the following bundled build tooling:
 
-**Node.js (node-patches)** - release-run diagnostics and a real PowerPC startup check.
+**Node.js (node-patches)** - release-run diagnostics and a real PowerPC startup
+check.
 
 <details>
 <summary><a href="https://github.com/wekan/node-patches/commit/985eed7">Warn when a platform's binary is missing from a completed release run</a>. Thanks to xet7.</summary>
@@ -23331,7 +23472,8 @@ reproduces the released failure and passes with official same-version Node.
 
 </details>
 
-**MongoDB Database Tools (mongo-tools-patches)** - upstream `master` tracking, Android ARM64, and a wider target matrix.
+**MongoDB Database Tools (mongo-tools-patches)** - upstream `master` tracking,
+Android ARM64, and a wider target matrix.
 
 <details>
 <summary><a href="https://github.com/wekan/mongo-tools-patches/commit/18b9af9">Build every currently supported native Go target</a>. Thanks to xet7.</summary>
@@ -23369,13 +23511,15 @@ limit, so adding platforms cannot create a predictably cancelled release.
 Upstream `mongodb/mongo-tools` was checked for an analytics client, a
 phone-home reporter, or a telemetry/DO_NOT_TRACK flag of its own, the same
 way wekan/mongosh-patches and this fork's FerretDB were checked before
-their telemetry was patched out - there is none. `tests/no-telemetry-upstream.sh`
+their telemetry was patched out - there is none.
+`tests/no-telemetry-upstream.sh`
 re-checks this against the current upstream ref so a future release that
 adds real telemetry is caught here instead of silently missed.
 
 </details>
 
-**mongosh (mongosh-patches)** - telemetry removed, and startup fixed in a homeless container user.
+**mongosh (mongosh-patches)** - telemetry removed, and startup fixed in a
+homeless container user.
 
 <details>
 <summary><a href="https://github.com/wekan/mongosh-patches/commit/e042127">Remove telemetry and fix startup errors in a homeless container user</a>. Thanks to xet7.</summary>
@@ -23573,7 +23717,8 @@ current.
 
 This release reverts the following change:
 
-**List and swimlane resizing** - restoring the popups and drag handles v11.62 removed.
+**List and swimlane resizing** - restoring the popups and drag handles v11.62
+removed.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/59bed92f3">Revert "Hardcode list width to 240px and remove the width/height set-value popups"</a>. Thanks to xet7.</summary>
@@ -23621,7 +23766,8 @@ each resize handle actually checks (and hides for) its lock.
 
 and fixes the following bug:
 
-**Collapsed lists** - the rotated title was not centered across the column width.
+**Collapsed lists** - the rotated title was not centered across the column
+width.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c543a3909">Keep a collapsed list's title near the caret, only centered horizontally</a>. Thanks to xet7.</summary>
@@ -23668,7 +23814,8 @@ and nothing outside it is, and both CSS rules.
 
 and fixes the following bug:
 
-**Collapsed lists** - the rotated title's x-position did not match the caret above it.
+**Collapsed lists** - the rotated title's x-position did not match the caret
+above it.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/afb6bc5cf">Fix collapsed list title x-position not matching the caret above it</a>. Thanks to xet7.</summary>
@@ -23781,7 +23928,8 @@ it - two lines doing the work of an empty one. It is now conditional on
 
 </details>
 
-**List Actions and Swimlane Actions** - two menu entries for things a drag already does.
+**List Actions and Swimlane Actions** - two menu entries for things a drag
+already does.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4374502a4">Hide List Actions / Set width and Swimlane Actions / Set Swimlane height</a>. Thanks to xet7.</summary>
@@ -23802,7 +23950,8 @@ a dangling `hr` (or an empty list) for a non-admin.
 
 and updates the following FerretDB v1 dependencies and fixes:
 
-**FerretDB v1** - infinity-value storage, a gRPC security fix, and current dependencies.
+**FerretDB v1** - infinity-value storage, a gRPC security fix, and current
+dependencies.
 
 <details>
 <summary><a href="https://github.com/wekan/FerretDB/commit/7bbc88c8">Allow storing Infinity/-Infinity doubles, matching MongoDB</a>. Thanks to xet7.</summary>
@@ -23926,7 +24075,8 @@ and the hard failure.
 
 and the following developer-tooling changes:
 
-**CHANGELOG.md** - the empty Upcoming placeholder, and where the binaries table sits.
+**CHANGELOG.md** - the empty Upcoming placeholder, and where the binaries table
+sits.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/83fa2d341">Stop leaving an empty Upcoming placeholder, move the binaries table to the end</a>. Thanks to xet7.</summary>
@@ -24307,7 +24457,8 @@ their translations.
 
 # v11.60 2026-09-08 WeKan ® release
 
-**In short:** **Logos and board backgrounds accept an external image URL again**,
+**In short:** **Logos and board backgrounds accept an external image URL
+again**,
 reverting the previous release's switch to upload-only, server-converted GIF
 storage, and a new **`test-menu.sh`** gives the repository an interactive test
 menu shaped exactly like `docs/Features`.
@@ -24351,7 +24502,8 @@ dedicated runner yet. Each run's starting command, log and any produced files
 # v11.58 2026-09-07 WeKan ® release
 
 Now that builds have been fixed, new release with those fixes included.
-Fixed are builds of FerretDB, node-patches, mongo-tools-patces and mongosh-patches.
+Fixed are builds of FerretDB, node-patches, mongo-tools-patces and
+mongosh-patches.
 
 # v11.56 2026-09-07 WeKan ® release
 
@@ -24380,11 +24532,13 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 # v11.55 2026-09-07 WeKan ® release
 
-**In short:** **Legacy HTML4 is reverted**, restoring the standard Meteor browser
+**In short:** **Legacy HTML4 is reverted**, restoring the standard Meteor
+browser
 interface. Local branding images, searchable document previews, browser lazy
 loading, translation updates and the session-upgrade fix remain. Meteor tests
 compile, and authentication forms follow keyboard order. Swimlane and card
-controls regain their previous colors, and upgraded sessions retain their profile
+controls regain their previous colors, and upgraded sessions retain their
+profile
 without a duplicate login.
 
 This release reverts Legacy HTML4 and retains the following changes:
@@ -24436,12 +24590,14 @@ Finnish rule-description wording. All three targeted color/session suites pass.
 <summary><a href="https://github.com/wekan/wekan/commit/828fc2d7186f485ce3df056849442f9cdcf5828d">Revert Legacy HTML4</a>. Thanks to xet7.</summary>
 
 Remove the Legacy HTML4 and Legacy Omi progressive browser interface, its
-cookieless sessions, page controllers, assets and parity refactors. Page requests
+cookieless sessions, page controllers, assets and parity refactors. Page
+requests
 again use the standard Meteor interface and the previous browser operations.
 The HTML4 design documents, paused-work backlog and feature tests are removed.
 
 Intervening translation updates, backup screenshots, session-upgrade repairs,
-cryptographic test identifiers, local image storage, searchable document previews
+cryptographic test identifiers, local image storage, searchable document
+previews
 and browser lazy loading remain. Shared GIF utilities now live in an independent
 image module so the retained image features have no HTML4 dependency.
 
@@ -24474,8 +24630,10 @@ duplicate ZIP library from returning, and cover the import/export paths.
 <summary><a href="https://github.com/wekan/wekan/commit/cda021ba2">Share the streaming ZIP reader with Trello imports</a>. Thanks to xet7.</summary>
 
 Trello package import no longer relies on an undeclared JSZip copy. It uses the
-same server-side `unzipper` reader as the bounded backup and scoped-import paths,
-while retaining path, entry-count, expanded-size and per-file limits. This leaves
+same server-side `unzipper` reader as the bounded backup and scoped-import
+paths,
+while retaining path, entry-count, expanded-size and per-file limits. This
+leaves
 `fflate` as the small lazy browser/document ZIP implementation and `unzipper` as
 the server reader for large streamed input.
 
@@ -24521,14 +24679,20 @@ board-authorized attachment-text search method. Embedded document images and PDF
 page imagery are converted to GIF; page controls browse the combined lightweight
 representation.
 
-Source bytes, decoded text, page count, archive entries and expanded OOXML data are
+Source bytes, decoded text, page count, archive entries and expanded OOXML data
+are
 all bounded. ZIP entries are streamed, malformed images do not suppress readable
 text, generated data is tied to the original checksum, and every manifest, image
-and search request repeats board-read authorization. The small conversion stack is
-MIT and Apache-2.0 only; no GPL, LibreOffice, Ghostscript, browser runtime or OCR
-dependency is added. Tests cover the storage split, authorization, regex escaping,
-selectable safe rendering, GIF routes, size limits, licenses and vulnerable-version
-exclusions. Sharp is updated to 0.35.4 so untrusted image decoding also receives the
+and search request repeats board-read authorization. The small conversion stack
+is
+MIT and Apache-2.0 only; no GPL, LibreOffice, Ghostscript, browser runtime or
+OCR
+dependency is added. Tests cover the storage split, authorization, regex
+escaping,
+selectable safe rendering, GIF routes, size limits, licenses and
+vulnerable-version
+exclusions. Sharp is updated to 0.35.4 so untrusted image decoding also receives
+the
 current libvips security fixes.
 
 </details>
@@ -24537,21 +24701,31 @@ current libvips security fixes.
 <summary><a href="https://github.com/wekan/wekan/commit/1b9080bad">Store branding and board background images locally as GIF</a>. Thanks to xet7.</summary>
 
 Admin Panel instance and Organization branding now offers image upload controls
-instead of editable external image URL fields. Every upload is authorized, bounded,
+instead of editable external image URL fields. Every upload is authorized,
+bounded,
 decoded and converted to GIF on the server before it is written to Admin Panel /
-Attachments / Default Storage. Direct REST and tenant-setting writes cannot restore
-an arbitrary image source URL. The separately configured logo click destination is
+Attachments / Default Storage. Direct REST and tenant-setting writes cannot
+restore
+an arbitrary image source URL. The separately configured logo click destination
+is
 unchanged.
 
-At startup, existing external login logos, header logos and board backgrounds are
-downloaded through the SSRF-safe fetcher, converted to GIF and atomically replaced
+At startup, existing external login logos, header logos and board backgrounds
+are
+downloaded through the SSRF-safe fetcher, converted to GIF and atomically
+replaced
 with internal URLs. A failed legacy download is removed immediately from client-
-visible data and retained only in an unpublished retry queue for the next startup.
-Board Settings likewise offers only upload, unset and the stored-background list;
+visible data and retained only in an unpublished retry queue for the next
+startup.
+Board Settings likewise offers only upload, unset and the stored-background
+list;
 new board backgrounds pass through a board-admin-checked GIF conversion method.
-Offline imports no longer activate third-party background URLs. Regression coverage
-checks authorization, input limits, SSRF-safe migration, Default Storage selection,
-GIF-only output, response hardening, hidden URL write paths, board-background upload
+Offline imports no longer activate third-party background URLs. Regression
+coverage
+checks authorization, input limits, SSRF-safe migration, Default Storage
+selection,
+GIF-only output, response hardening, hidden URL write paths, board-background
+upload
 and import behavior.
 
 </details>
@@ -24564,7 +24738,8 @@ and import behavior.
 Playwright readiness selects HTTPS for a public HTTPS test URL. The board
 non-member regression waits for the rendered denial and absence of the canvas,
 so the development server's persistent SockJS polling cannot cause a false
-network-idle timeout. The HTTPS guard and eight live Chromium/Firefox checks pass.
+network-idle timeout. The HTTPS guard and eight live Chromium/Firefox checks
+pass.
 
 </details>
 
@@ -24579,7 +24754,8 @@ boundaries.
 
 A source regression scans every Playwright helper and specification, requires
 the shared helper to remain CSPRNG-backed and refuses any executable
-`Math.random()` call. The retained files pass JavaScript syntax checks; the removed HTML4 browser
+`Math.random()` call. The retained files pass JavaScript syntax checks; the
+removed HTML4 browser
 specifications no longer form part of this coverage.
 
 </details>
@@ -24684,7 +24860,8 @@ conflicting semantic color classes.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ebb35af50">Match card chrome to title color</a>. Thanks to xet7.</summary>
 
-Opened-card collapse, close, maximize/minimize, menu, drag, zoom and display-mode
+Opened-card collapse, close, maximize/minimize, menu, drag, zoom and
+display-mode
 controls now inherit the same computed contrast color as the card title in all
 interaction states. Minicard titles, menus and drag handles use that same color;
 light palette colors now use the same black text as their opened cards, while
@@ -26423,7 +26600,8 @@ including 524 in Tajik.
 The thirty-second 50-value Tajik batch adds help requests, team and organization
 assignment, Node heap and memory diagnostics, legal notices and checklist move,
 copy and line-splitting actions. All values required translation. Tests retain
-Node, malloc, RSS and URL names and cover checklist movement and the line-to-item
+Node, malloc, RSS and URL names and cover checklist movement and the
+line-to-item
 relationship. This leaves 72,366 actionable values across 34 languages,
 including 574 in Tajik.
 
@@ -27344,9 +27522,11 @@ Albanian.
 
 **In short:** **Amiga-safe filenames** are sanitized before upload and whenever
 they are displayed or downloaded, retain content-correct application extensions,
-and avoid truncating through brackets. Existing stored names are corrected lazily
+and avoid truncating through brackets. Existing stored names are corrected
+lazily
 when read. **Problems reports** retain available usernames, separate IPv4/IPv6
-addresses, and proxy-provided country and city context. Security regression tests
+addresses, and proxy-provided country and city context. Security regression
+tests
 also avoid embedding incomplete sanitizer examples.
 
 This release fixes the following SECURITY ISSUES found by GitHub CodeQL code
@@ -27489,10 +27669,13 @@ are included instead of producing an empty C array. An empty manifest fails with
 its cause before compilation. Regression coverage checks both Windows paths and
 the fail-closed behavior.
 
-Ondra and Gantt repository synchronization now retains each variant's own Actions
+Ondra and Gantt repository synchronization now retains each variant's own
+Actions
 workflows instead of copying WeKan's release workflows. Their existing Contents
-token can therefore push ordinary source updates without the unrelated GitHub PAT
-`workflow` scope, and the variants cannot accidentally run the main release flow.
+token can therefore push ordinary source updates without the unrelated GitHub
+PAT
+`workflow` scope, and the variants cannot accidentally run the main release
+flow.
 
 </details>
 
@@ -27507,15 +27690,19 @@ GHSA-crq2-phg8-4xvg; CWE-79 and CWE-116). No script execution, response reading,
 credential access or authenticated state change was demonstrated.
 
 The vendored viewer now accepts only canonical `#RRGGBB` immediately before the
-CSS serialization boundary. Regression coverage retains a valid color and rejects
-the disclosure payload, short/alpha/named colors, non-hex input and empty values.
+CSS serialization boundary. Regression coverage retains a valid color and
+rejects
+the disclosure payload, short/alpha/named colors, non-hex input and empty
+values.
 The security inventory and Hall of Fame now account for all 94 published names.
 
 The same change resolves CodeQL alert 447 in a release-version test by comparing
 the exact expected Dockerfile string instead of constructing a partly escaped
-regular expression. That alert did not reach application runtime or untrusted data.
+regular expression. That alert did not reach application runtime or untrusted
+data.
 SheetColorBleed is normalized during an ordinary preview rather than refused, so
-there is no attributable attack-only event to report in Problems → Security; logging
+there is no attributable attack-only event to report in Problems → Security;
+logging
 the preview would falsely identify the viewer rather than the workbook uploader.
 
 </details>
@@ -27523,7 +27710,8 @@ the preview would falsely identify the viewer rather than the workbook uploader.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/506c2697a">Add verified recovery and low-load integrity audits</a>. Thanks to xet7.</summary>
 
-FerretDB launch paths now integrity-check SQLite before opening it, create staged,
+FerretDB launch paths now integrity-check SQLite before opening it, create
+staged,
 compressed and SHA-256-verified snapshots in the same data directory, check free
 space, restore latest then previous verified generations, and re-run a retained
 MongoDB migration when no snapshot survives. Snapshot manifests retain byte/hash
@@ -27531,15 +27719,20 @@ change evidence, and every outcome reaches Problems → Recovery.
 
 New change-history rows form a SHA-256 predecessor chain. Restore, undo and redo
 refuse changed, missing or forked history and report the available row, board,
-username and address evidence in Problems → Security. A low-load background audit
+username and address evidence in Problems → Security. A low-load background
+audit
 also checks whole chains. Regression tests prove there is no direct client
 publication, REST mutation API or collection write permission for history.
 
-The existing signed attachment/avatar inventory now also scans registered logs and
-recovery generations. Missing or changed files report expected and observed sizes
+The existing signed attachment/avatar inventory now also scans registered logs
+and
+recovery generations. Missing or changed files report expected and observed
+sizes
 and checksums in Problems → Security. CPU-intensive background audits wait for
-consecutive low samples, recheck load between paced operations and defer when the
-quiet window ends. Problems → Speed shows rolling minimum, average, maximum, sample
+consecutive low samples, recheck load between paced operations and defer when
+the
+quiet window ends. Problems → Speed shows rolling minimum, average, maximum,
+sample
 count and lowest-load time so the chosen maintenance window is visible.
 
 </details>
@@ -27579,10 +27772,12 @@ regression of half a pixel or more still fails.
 <summary><a href="https://github.com/wekan/wekan/commit/90158d501">Audit security coverage and recovery failure reporting</a>. Thanks to xet7.</summary>
 
 The Hall of Fame audit had been looking only in an obsolete companion-repository
-location, so it silently skipped the real `.tools/wekan.fi` catalog. The security
+location, so it silently skipped the real `.tools/wekan.fi` catalog. The
+security
 regression inventory also stopped at 62 vulnerabilities. It now accounts for all
 93 published names: 71 have named regression coverage and the remaining 22 older
-fixes are explicit gaps. Scanner command injection payloads have focused positive
+fixes are explicit gaps. Scanner command injection payloads have focused
+positive
 and negative coverage, and rejected scanner filenames appear as ScannerBleed in
 Admin Panel → Problems → Security. Response-only protections remain deliberately
 silent where normal use cannot be distinguished from an attack.
@@ -27642,8 +27837,10 @@ both sanitized and blocked attempts to retain attributable evidence in Problems
 generate the native launcher's required header. **Release version updates** now
 publish Meteor from its canonical build pin and stop before publishing if any
 release-critical version remains stale. **Git mirror updates** also work from
-WeKan's documented Linux, macOS and Windows checkout locations, keep every related
-clone below the active checkout's ignored `.tools` directory, and update existing
+WeKan's documented Linux, macOS and Windows checkout locations, keep every
+related
+clone below the active checkout's ignored `.tools` directory, and update
+existing
 mirrors on repeat runs.
 
 <details>
@@ -27668,12 +27865,14 @@ checks.
 WeKan v11.50 was built from `.meteor/release`, which contained
 `METEOR@3.5.2-rc.0`, but `wekan.fi/version.txt` reported `3.5.2-beta.0`. The
 website generator did not read the build pin; it read a duplicated
-`METEOR_RELEASE` value in `Dockerfile`, and that copy had not changed when Meteor
+`METEOR_RELEASE` value in `Dockerfile`, and that copy had not changed when
+Meteor
 advanced from beta to release candidate.
 
 The manifest now reads `.meteor/release` directly, while every release bump also
 synchronizes Docker's runtime metadata from that canonical file. Current Docker
-metadata is corrected to `3.5.2-rc.0`. Regression coverage deliberately gives the
+metadata is corrected to `3.5.2-rc.0`. Regression coverage deliberately gives
+the
 generator a stale beta Dockerfile beside an rc Meteor pin and verifies both
 `version.txt` and the install page publish the rc version.
 
@@ -27682,15 +27881,22 @@ generator a stale beta Dockerfile beside an rc Meteor pin and verifies both
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f2bb456be">The release workflow rejects every stale release-critical version</a>. Thanks to xet7.</summary>
 
-`release-all.yml` previously trusted that `version.sh` had found and rewritten every
-copy before committing the bump. A missed pattern could therefore pass silently and
-be consumed later by one platform or the website. The bump job now runs one shared,
-read-only consistency gate before its commit step. It verifies the WeKan version in
-`package.json`, both package-lock roots, Docker, Snap, Stacker and Sandstorm; every
+`release-all.yml` previously trusted that `version.sh` had found and rewritten
+every
+copy before committing the bump. A missed pattern could therefore pass silently
+and
+be consumed later by one platform or the website. The bump job now runs one
+shared,
+read-only consistency gate before its commit step. It verifies the WeKan version
+in
+`package.json`, both package-lock roots, Docker, Snap, Stacker and Sandstorm;
+every
 Snap bundle URL; and Docker's Meteor metadata against `.meteor/release`.
 
-Each mismatch produces a named Actions error and stops the workflow before the bump
-is pushed or any publishing job starts. Positive coverage runs the verifier against
+Each mismatch produces a named Actions error and stops the workflow before the
+bump
+is pushed or any publishing job starts. Positive coverage runs the verifier
+against
 the current checkout, while negative fixtures prove that stale Snap and Meteor
 values fail the release.
 
@@ -27701,17 +27907,25 @@ values fail the release.
 
 The Unix mirror script used a quoted `~/repos/wekan` path, whose tilde could not
 expand, and kept the entire update workflow inside the condition that created
-`.tools`; after the directory existed, later runs did nothing. It now derives the
-active checkout from the script location, working at `~/repos/wekan` on Linux and
-`~/Documents/repos/wekan` on macOS, and always keeps the GitLab and Codeberg mirror
-clones below that checkout's ignored `.tools` directory. Existing clones are updated
+`.tools`; after the directory existed, later runs did nothing. It now derives
+the
+active checkout from the script location, working at `~/repos/wekan` on Linux
+and
+`~/Documents/repos/wekan` on macOS, and always keeps the GitLab and Codeberg
+mirror
+clones below that checkout's ignored `.tools` directory. Existing clones are
+updated
 on every run, and a missing `upstream` remote is added safely.
 
 The matching Windows batch script uses
-`%USERPROFILE%\Downloads\repos\wekan\.tools`, checks every Git operation and performs
-the same clone, pull, upstream fetch, merge and push sequence. Non-network regression
-coverage pins all three checkout roots, both mirror destinations, repeat-run updates
-and the absence of the quoted-tilde fault. These remain human-run publishing scripts;
+`%USERPROFILE%\Downloads\repos\wekan\.tools`, checks every Git operation and
+performs
+the same clone, pull, upstream fetch, merge and push sequence. Non-network
+regression
+coverage pins all three checkout roots, both mirror destinations, repeat-run
+updates
+and the absence of the quoted-tilde fault. These remain human-run publishing
+scripts;
 the tests inspect them without contacting a remote.
 
 </details>
@@ -27755,7 +27969,8 @@ CodeQL alerts #442, #443, #444, #445 and #446.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b87082b3d">A file WeKan refuses to serve is no longer served by Meteor-Files instead</a>. Thanks to xet7.</summary>
 
-A Playwright spec found this, and it found more than it was asking about. *stored
+A Playwright spec found this, and it found more than it was asking about.
+*stored
 HTML is forced to a safe download on the original Meteor-Files route* expected
 `application/octet-stream` and got `text/html`, status 200 - a stored HTML
 attachment served inline, which is the stored XSS that
@@ -27972,7 +28187,8 @@ no id. The contributor pane had the same bug. Every field now goes through its
 loop variable.
 
 **The row could not be selected.** WeKan hides every bare checkbox app-wide -
-`forms.css`: `[type="checkbox"] { display: none }` - and draws `.materialCheckBox`
+`forms.css`: `[type="checkbox"] { display: none }` - and draws
+`.materialCheckBox`
 divs instead, so the real one here rendered 0x0. The row was visible, could
 never be ticked, and Restore stayed disabled with nothing that could enable it.
 
@@ -28234,13 +28450,19 @@ Safari-specific paint guards scoped to Mobile Mode.
 <summary><a href="https://github.com/wekan/wekan/commit/e7dde0db3">Mobile card and swimlane drag handles now keep their desktop alignment</a>. Thanks to xet7.</summary>
 
 The Mobile Mode minicard arrow was shifted six pixels away from the shared
-menu-and-handle control center. Mobile font scaling enlarged that error, leaving the
-arrow visibly to the side of the menu bars even though their touch targets had equal
-width. The shift is gone, so both glyph centers have the same x coordinate in every
+menu-and-handle control center. Mobile font scaling enlarged that error, leaving
+the
+arrow visibly to the side of the menu bars even though their touch targets had
+equal
+width. The shift is gone, so both glyph centers have the same x coordinate in
+every
 browser and direction. Swimlanes also no longer substitute a larger, separately
-positioned handle on touch devices; one compact logical-position handle is shared by
-Desktop and Mobile Modes on every device. A live Chromium regression compares the
-actual glyph centers and verifies the swimlane handle's x coordinate is unchanged
+positioned handle on touch devices; one compact logical-position handle is
+shared by
+Desktop and Mobile Modes on every device. A live Chromium regression compares
+the
+actual glyph centers and verifies the swimlane handle's x coordinate is
+unchanged
 when switching modes. Focused positive and negative source tests reject either
 device-specific positioning variant.
 
@@ -28266,27 +28488,42 @@ focused positive and negative source tests pin the template scope as well.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7968f522d">Opening a Mobile Mode list no longer resizes lists in other swimlanes</a>. Thanks to xet7.</summary>
 
-The compact list rows in every swimlane consulted the board's global selected-list
-state when choosing their header controls. Opening **List 1 at Swimlane 2** therefore
-made the still-visible rows in Swimlanes 1 and 3 switch to the expanded header shape,
-changing their height even though neither swimlane had been selected. A list header
-now switches shape only when its own ID is selected, so every other swimlane keeps
-the same controls and row heights. The live Chromium regression records every compact
-row height before opening the second swimlane's list and verifies the dimensions are
-unchanged afterward; focused positive and negative source coverage pins the ID scope.
+The compact list rows in every swimlane consulted the board's global
+selected-list
+state when choosing their header controls. Opening **List 1 at Swimlane 2**
+therefore
+made the still-visible rows in Swimlanes 1 and 3 switch to the expanded header
+shape,
+changing their height even though neither swimlane had been selected. A list
+header
+now switches shape only when its own ID is selected, so every other swimlane
+keeps
+the same controls and row heights. The live Chromium regression records every
+compact
+row height before opening the second swimlane's list and verifies the dimensions
+are
+unchanged afterward; focused positive and negative source coverage pins the ID
+scope.
 
 </details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/cb2dec9dd">Opening a Mobile Mode list no longer enlarges the top header</a>. Thanks to xet7.</summary>
 
-Selecting **List 1 at Swimlane 2** inserted the names of every board list into the
-quick-access header. On a narrow screen that list navigation consumed another row,
-made the blue top bar taller and moved the board content down. Mobile Mode already
-presents every list as a selectable row inside its swimlane, so the duplicate header
-list has been removed. The live Chromium regression verifies that the selected list's
-name is absent from the top bar and that the bar has exactly the same height before
-and after the list opens; focused negative coverage prevents the conditional list
+Selecting **List 1 at Swimlane 2** inserted the names of every board list into
+the
+quick-access header. On a narrow screen that list navigation consumed another
+row,
+made the blue top bar taller and moved the board content down. Mobile Mode
+already
+presents every list as a selectable row inside its swimlane, so the duplicate
+header
+list has been removed. The live Chromium regression verifies that the selected
+list's
+name is absent from the top bar and that the bar has exactly the same height
+before
+and after the list opens; focused negative coverage prevents the conditional
+list
 from returning to the header template.
 
 </details>
@@ -28761,7 +28998,8 @@ without restoring inline title editing.
 <summary><a href="https://github.com/wekan/wekan/commit/e5831f16b">Keep consistency checks aligned with release helpers and security names</a>. Thanks to xet7.</summary>
 
 The complete test rerun found four consistency failures rather than application
-failures. The new variant preparation helper now has its documented workflow-only
+failures. The new variant preparation helper now has its documented
+workflow-only
 menu exemption, and the variant design explicitly retains historical Docker tags
 without claiming that new variant images are published. Upcoming entries are
 grouped by their actual areas.
@@ -28816,7 +29054,8 @@ Croatian is the base with the documented Bosnian forms applied - *sedmica* for
 *hiljada* for *tisuća*, *historija* for *povijest*, and *tačka/tačno* for
 *točka/točno*. 29 strings needed one; the rest are identical in both standards.
 
-Two substitutions were REVERTED after reading the output, which is the part worth
+Two substitutions were REVERTED after reading the output, which is the part
+worth
 keeping: *poveznica* → *link* produced "iz ove linkove" and "iz bilo koje
 linkove na kartu", because *poveznice* is both nominative plural and genitive
 singular and one rule cannot be both. *Poveznica* is good Bosnian, so it stays -
@@ -29142,7 +29381,8 @@ section-title colours separate from this control.
 
 and improves the following developer tooling:
 
-**Board themes** - solid themes share structure while special designs stay explicit.
+**Board themes** - solid themes share structure while special designs stay
+explicit.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/cd10392306c014f8a3a6ecd6ac34fd55c6ed456b">Share ordinary board-theme CSS</a>. Thanks to xet7.</summary>
@@ -29168,7 +29408,8 @@ registry is 1,214 lines smaller.
 
 </details>
 
-**Pagination** - one bounded movement rule serves board and administration views.
+**Pagination** - one bounded movement rule serves board and administration
+views.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/eb0e347865bae598e7446e0bdc8a8f04c4afbac1">Share bounded page movement</a>. Thanks to xet7.</summary>
@@ -29206,7 +29447,8 @@ tests preserve their distinct ordering and malformed-input behavior.
 
 </details>
 
-**Retired models** - unreachable CollectionFS implementations no longer remain as source.
+**Retired models** - unreachable CollectionFS implementations no longer remain
+as source.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e37717d07c9d10a94df360fe9bc6bbc1a6479efc">Remove disabled CollectionFS models</a>. Thanks to xet7.</summary>
@@ -29268,7 +29510,8 @@ browser loads and are fetched only when a matching attachment opens.
 
 This release adds the following new feature:
 
-**Attachment viewer** - previews modern Office documents without activating their
+**Attachment viewer** - previews modern Office documents without activating
+their
 content or loading the viewer on ordinary board visits.
 
 <details>
@@ -29281,13 +29524,17 @@ has no install scripts or dependencies.
 
 Each format is dynamically imported only when a matching attachment opens. The
 production build confirms that viewer implementations, workers and WASM remain
-separate lazy assets instead of entering the initial browser bundle. Office files
+separate lazy assets instead of entering the initial browser bundle. Office
+files
 also remain download-only at the server response boundary.
 
 Authenticated attachment bytes are read through a bounded stream and rejected
-above 32 MiB even when `Content-Length` is absent or false. Parsing runs in worker
-mode with 32 MiB per-entry, 96 MiB expanded-package, 2,048-entry and 64 MiB decoded
-image budgets. Hyperlinks and remote Google Fonts are disabled, and navigation or
+above 32 MiB even when `Content-Length` is absent or false. Parsing runs in
+worker
+mode with 32 MiB per-entry, 96 MiB expanded-package, 2,048-entry and 64 MiB
+decoded
+image budgets. Hyperlinks and remote Google Fonts are disabled, and navigation
+or
 closing the overlay aborts downloads and destroys viewer resources. Positive,
 negative and UI tests cover recognition, disguised and legacy formats, limits,
 lazy imports, retained assets and cleanup.
@@ -29304,7 +29551,8 @@ release-candidate platform.
 
 This release updates the following dependency:
 
-- **Meteor 3.5.2-beta.0 → 3.5.2-rc.0** — advances the framework and its accounts,
+- **Meteor 3.5.2-beta.0 → 3.5.2-rc.0** — advances the framework and its
+  accounts,
   Babel, DDP, ECMAScript, minifier, MongoDB, npm-mongo, Rspack, tools-core and
   TypeScript packages to their release candidates, and updates
   [`@meteorjs/rspack` to 2.2.0-beta.1](https://github.com/wekan/wekan/commit/c7c8592eb584448112bb122003cddfec4e66fe42).
@@ -29314,17 +29562,23 @@ Thanks to Meteor developers and xet7.
 
 # v11.45 2026-09-03 WeKan ® release
 
-**In short:** WeKan updates **qs** to 6.16.0 throughout both the browser-side Node
-compatibility layer and the Rspack development-server dependency tree. The update
-closes two denial-of-service advisories while retaining the existing API, and also
-tightens array-limit enforcement, cycle detection, buffer checks and serialization.
+**In short:** WeKan updates **qs** to 6.16.0 throughout both the browser-side
+Node
+compatibility layer and the Rspack development-server dependency tree. The
+update
+closes two denial-of-service advisories while retaining the existing API, and
+also
+tightens array-limit enforcement, cycle detection, buffer checks and
+serialization.
 
 This release updates the following dependency:
 
 - **qs 6.15.3 → 6.16.0** — query-string parsing and serialization in the
-  browser-side Node compatibility stubs. The update enforces array limits on comma
+  browser-side Node compatibility stubs. The update enforces array limits on
+  comma
   groups, preserves cycle detection for empty arrays with own properties, safely
-  handles non-callable buffer constructors and corrects filtered dates and encoded
+  handles non-callable buffer constructors and corrects filtered dates and
+  encoded
   top-level dotted keys.
 - [**Express and body-parser use qs 6.16.0**](https://github.com/wekan/wekan/commit/b5f55584d1d2be7336abe3793c9207015b506cb0) — a scoped override moves Rspack's
   development-server dependency tree past
@@ -29340,8 +29594,10 @@ Thanks to dependabot and xet7.
 **In short:** **Isolated testing on Fedora and Ubuntu Asahi** can now keep the
 complete stack inside a dedicated ARM64 KVM guest. **FerretDB** retains its
 protocol-required SCRAM-SHA-1 compatibility exception and moves its builds,
-dependencies, MongoDB driver and gRPC tooling to Go 1.27-era versions. The **MongoDB
-Database Tools** build follows current upstream development and refreshes Go and all
+dependencies, MongoDB driver and gRPC tooling to Go 1.27-era versions. The
+**MongoDB
+Database Tools** build follows current upstream development and refreshes Go and
+all
 compatible dependencies for every commit-specific snapshot.
 
 This release improves developer tooling:
@@ -29381,12 +29637,15 @@ and updates the bundled database tooling:
 <details>
 <summary><a href="https://github.com/wekan/FerretDB/commit/70f5445e">The required SCRAM-SHA-1 digest keeps its scoped CodeQL exception</a>. Thanks to GitHub CodeQL and xet7.</summary>
 
-MongoDB's legacy SCRAM-SHA-1 protocol requires MD5 password preparation before its
+MongoDB's legacy SCRAM-SHA-1 protocol requires MD5 password preparation before
+its
 salted PBKDF2-SHA-1 derivation. Replacing that operation would reject compatible
 credentials rather than strengthen them, so the query-specific CodeQL and LGTM
 annotations are restored on that operation alone. A source regression keeps both
-annotations attached to the single digest, MongoDB-generated positive vectors retain
-interoperability coverage, and invalid salt and authentication cases remain covered.
+annotations attached to the single digest, MongoDB-generated positive vectors
+retain
+interoperability coverage, and invalid salt and authentication cases remain
+covered.
 New deployments should use SCRAM-SHA-256.
 
 </details>
@@ -29394,16 +29653,22 @@ New deployments should use SCRAM-SHA-256.
 <details>
 <summary><a href="https://github.com/wekan/FerretDB/commit/16066af4">Update dependencies and complete the Go 1.27 migration</a>. Thanks to dependabot and xet7.</summary>
 
-FerretDB's runtime, integration, tools and database-image dependency sets now move
+FerretDB's runtime, integration, tools and database-image dependency sets now
+move
 together with Go 1.27.0. The maintained wire library replaces removed document
-iteration, message-section decoding and logging interfaces while retaining MongoDB
+iteration, message-section decoding and logging interfaces while retaining
+MongoDB
 document sequences and IEEE-754 NaN handling. The MongoDB database image, Citus,
-OpenTelemetry, SAP HANA driver and resolved indirect dependencies are updated at the
+OpenTelemetry, SAP HANA driver and resolved indirect dependencies are updated at
+the
 same time.
 
-The test-event decoder accepts Go 1.27's new fields without accepting unknown input,
-and all root, integration, release and container build paths use the same Go version.
-Unit tests, vet, race-enabled tools tests, SQLite/TLS integration tests and a binary
+The test-event decoder accepts Go 1.27's new fields without accepting unknown
+input,
+and all root, integration, release and container build paths use the same Go
+version.
+Unit tests, vet, race-enabled tools tests, SQLite/TLS integration tests and a
+binary
 containing the SQLite, PostgreSQL, MySQL and HANA handlers passed.
 
 </details>
@@ -29411,9 +29676,11 @@ containing the SQLite, PostgreSQL, MySQL and HANA handlers passed.
 <details>
 <summary><a href="https://github.com/wekan/FerretDB/commit/448d31fb">Refresh the MongoDB v2 driver and gRPC dependencies</a>. Thanks to dependabot and xet7.</summary>
 
-The runtime and integration module graphs update the indirect MongoDB v2 driver from
+The runtime and integration module graphs update the indirect MongoDB v2 driver
+from
 2.2.2 to 2.4.2, while the tools graph updates gRPC from 1.83.0 to 1.83.1. Module
-checksums verify and the complete unit, vet and SQLite/TLS integration pipeline passes
+checksums verify and the complete unit, vet and SQLite/TLS integration pipeline
+passes
 with the refreshed dependency graphs.
 
 </details>
@@ -29423,17 +29690,24 @@ with the refreshed dependency graphs.
 <details>
 <summary><a href="https://github.com/wekan/mongo-tools-patches/commit/dbe8878">Build current upstream master with newest Go and dependencies</a>. Thanks to xet7.</summary>
 
-The Database Tools build now clones current upstream `master`, including fixes not yet
-present in a release, instead of resolving the newest `100.x` tag. Each source snapshot
-gets a `master-SHORT-COMMIT-HASH` release identity, while the full commit remains
-embedded in every binary and linked from its provenance notes, so fill-in builds cannot
+The Database Tools build now clones current upstream `master`, including fixes
+not yet
+present in a release, instead of resolving the newest `100.x` tag. Each source
+snapshot
+gets a `master-SHORT-COMMIT-HASH` release identity, while the full commit
+remains
+embedded in every binary and linked from its provenance notes, so fill-in builds
+cannot
 mix assets from different upstream revisions.
 
 The workflows install the newest stable Go, upgrade every compatible direct and
 transitive dependency used by the complete package graph, tidy the modules and
-regenerate `vendor/` before cross-compiling. Offline coverage checks ref selection,
-commit-derived identities, dependency steps, patch integrity and all 136 tool/target
-combinations. A real current-master preparation and focused options, `mongodump` and
+regenerate `vendor/` before cross-compiling. Offline coverage checks ref
+selection,
+commit-derived identities, dependency steps, patch integrity and all 136
+tool/target
+combinations. A real current-master preparation and focused options, `mongodump`
+and
 `mongorestore` tests pass with Go 1.27.
 
 </details>
@@ -29568,7 +29842,8 @@ The profile was updated on the server, but the popup, pagination and board grid
 continued reading a current-user document that was not guaranteed to be
 republished after the click. The chosen mode now has an immediate reactive
 client value, is shared by every sorting consumer, and rolls back if persistence
-fails. Browser coverage verifies both visible A→Z ordering and the stored profile
+fails. Browser coverage verifies both visible A→Z ordering and the stored
+profile
 choice, including the selected state when the popup is reopened.
 
 </details>

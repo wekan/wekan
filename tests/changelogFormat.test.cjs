@@ -190,10 +190,12 @@ test('lines are wrapped at 80 columns, links excepted', () => {
   const over = lines
     .map((line, i) => ({ line: i + 1, text: line }))
     .filter(l => l.text.length > 80 && !/https?:\/\//.test(l.text)
+      && !/\[[^\]]+\]\([^\s)]+\)/.test(l.text)
       && !l.text.startsWith('<summary>') && !l.text.startsWith('**Languages updated:** ')
       && l.text !== CLOSING);
-  // The remainder are deep-indented technical notes in old entries.
-  assert.ok(over.length <= 250,
+  // Relative Markdown links, like absolute URLs, must remain intact. All other
+  // prose is wrapped; do not let a growing allowance hide new formatting errors.
+  assert.strictEqual(over.length, 0,
     `${over.length} over-long lines without a link, e.g. line ${over[0] && over[0].line}`);
 });
 
