@@ -16,7 +16,7 @@ if [ -n "${ZSH_VERSION:-}" ]; then exec /bin/bash "$0" "$@"; fi
 #   2. Run (NO version number needed):
 #        ./releases/release-all.sh
 #      The script renames "# Upcoming ..." to the next version (always +1 minor)
-#      dated today. You can still override explicitly:
+#      dated today. You can also specify the same version pair explicitly:
 #        ./releases/release-all.sh 9.35 9.36       # PREVIOUS NEW
 #
 # What this script does locally (the only local steps):
@@ -25,7 +25,7 @@ if [ -n "${ZSH_VERSION:-}" ]; then exec /bin/bash "$0" "$@"; fi
 #      and the links would 404 once pushed. Each is remapped by commit subject.
 #   2. Determines PREVIOUS and NEW version automatically: renames the "# Upcoming
 #      WeKan ® release" heading to the next version. Missing or empty Upcoming notes
-#      stop the script. An explicit "PREVIOUS NEW" pair overrides the versions.
+#      stop the script. An explicit "PREVIOUS NEW" pair must match the next version.
 #   3. Commits and pushes pending changes (your CHANGELOG.md edit) to main so the
 #      workflow can read them.
 #   4. Triggers .github/workflows/release-all.yml.
@@ -74,12 +74,19 @@ ensure_tools git gh
 wekan_enc() { local v="${1#v}"; local M="${v%%.*}"; local m="${v#*.}"; m="${m%%.*}"; echo $(( 10#$M * 100 + 10#$m )); }
 wekan_dec() { printf '%d.%02d' $(( $1 / 100 )) $(( $1 % 100 )); }
 
-# The RELEASED versions from CHANGELOG.md ("# vNN.MM <date> ..." headings), newest
-# first. The "# Upcoming ..." heading has no version, so it is skipped.
-# Portable read loop instead of `mapfile` (a bash 4+ builtin absent from the
-# bash 3.2 that macOS ships), so this trigger runs on a stock Mac too.
-RELEASED=()
-while IFS= read -r line; do RELEASED+=("$line"); done < <(grep -oE '^# v[0-9]+\.[0-9]+ ' CHANGELOG.md | grep -oE '[0-9]+\.[0-9]+')
+# Check every version source before changing any files. A release can exist even
+# when its changelog heading was mistakenly left as Upcoming.
+LATEST="$(bash "$REPO_DIR/releases/latest-release-version.sh")"
+
+# An Upcoming section with real entries is mandatory, including explicit versions.
+OLD="$LATEST"
+NEW="$(wekan_dec $(( $(wekan_enc "$OLD") + 1 )) )"
+if [ -n "${1:-}" ] || [ -n "${2:-}" ] || [ "$#" -gt 2 ]; then
+  if [ "$#" -ne 2 ] || [ "${1#v}" != "$OLD" ] || [ "${2#v}" != "$NEW" ]; then
+    echo "Error: release must advance v$OLD to v$NEW; refusing stale or reused versions." >&2
+    exit 1
+  fi
+fi
 
 # ── Repoint stale commit links in the section about to be released ───────────
 # A rebase / amend / squash between writing a CHANGELOG bullet and releasing it
@@ -91,18 +98,6 @@ while IFS= read -r line; do RELEASED+=("$line"); done < <(grep -oE '^# v[0-9]+\.
 bash "$(dirname "$0")/fix-changelog-hashes.sh" || true
 
 # ── Determine PREVIOUS (OLD) and NEW version — no version argument needed ────
-# An Upcoming section with real entries is mandatory, including explicit versions.
-if [ -n "${1:-}" ] && [ -n "${2:-}" ]; then
-  OLD="${1#v}"
-  NEW="${2#v}"
-else
-  OLD="${RELEASED[0]:-}"
-  if [ -z "$OLD" ]; then
-    echo "Error: no released '# vNN.MM <date>' heading found in CHANGELOG.md." >&2
-    exit 1
-  fi
-  NEW="$(wekan_dec $(( $(wekan_enc "$OLD") + 1 )) )"
-fi
 DATE="$(date +%F)"
 echo "--- Renaming '# Upcoming WeKan ® release' -> '# v$NEW $DATE WeKan ® release' ---"
 _tmp="$(mktemp)"
@@ -111,8 +106,8 @@ sed "s|^# Upcoming WeKan ® release.*|# v$NEW $DATE WeKan ® release|" CHANGELOG
 # Do not open an empty Upcoming section. Add real notes before the next release.
 
 echo "=== WeKan remote release: v$OLD -> v$NEW ==="
-echo "    Previous version (from CHANGELOG.md): v$OLD"
-echo "    New version      (from CHANGELOG.md): v$NEW"
+echo "    Previous version (changelog, package and local/remote tags): v$OLD"
+echo "    New version: v$NEW"
 echo ""
 
 # ── Step 1: Push your pending CHANGELOG.md edit so the workflow can read it ──
