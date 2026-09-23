@@ -3,108 +3,122 @@
   "skills": {
     "meteor-accounts": {
       "source": "meteor/agent-skills",
-      "ref": "v1.1.0-beta.0",
+      "ref": "v1.1.0-beta.1",
       "sourceType": "github",
       "skillPath": "skills/meteor-accounts/SKILL.md",
-      "computedHash": "2516a25d17065d8a0e8e8587f71f8448e1f8713c7a32ba176df30cd2765d1bee"
+      "computedHash": "9f4a5f231d47c64a3d40a85a6d833e6ebef146afd3a15c9f0c63bf2e3f594475"
     },
     "meteor-blaze": {
       "source": "meteor/agent-skills",
-      "ref": "v1.1.0-beta.0",
+      "ref": "v1.1.0-beta.1",
       "sourceType": "github",
       "skillPath": "skills/meteor-blaze/SKILL.md",
       "computedHash": "1d86eb4b8f59726dece03cca6e118a6f3e145316e6d9884b66e0f55249f15471"
     },
     "meteor-cli-installation": {
       "source": "meteor/agent-skills",
-      "ref": "v1.1.0-beta.0",
+      "ref": "v1.1.0-beta.1",
       "sourceType": "github",
       "skillPath": "skills/meteor-cli-installation/SKILL.md",
       "computedHash": "eb00b82b4cdb1e476e093f48ea24d443aa9af5ee323ef7583cdc73cbcf5b09d6"
     },
     "meteor-community-packages": {
       "source": "meteor/agent-skills",
-      "ref": "v1.1.0-beta.0",
+      "ref": "v1.1.0-beta.1",
       "sourceType": "github",
       "skillPath": "skills/meteor-community-packages/SKILL.md",
       "computedHash": "596aabe692daaaf405d5718821589203586daeec83f62fefd0786be1eff01658"
     },
     "meteor-debugging": {
       "source": "meteor/agent-skills",
-      "ref": "v1.1.0-beta.0",
+      "ref": "v1.1.0-beta.1",
       "sourceType": "github",
       "skillPath": "skills/meteor-debugging/SKILL.md",
-      "computedHash": "7a9980433ab4713cee49feeb5ec3647599e29af35c4b4c0c98431238d590013e"
+      "computedHash": "ac58448281657d6d68eee8c8d793fb593fdc8dffc8e3ccbbae72fad24d19b74d"
     },
     "meteor-deployment": {
       "source": "meteor/agent-skills",
-      "ref": "v1.1.0-beta.0",
+      "ref": "v1.1.0-beta.1",
       "sourceType": "github",
       "skillPath": "skills/meteor-deployment/SKILL.md",
-      "computedHash": "4d8b5ee25483613d2255000ecee950a1ff1bb78c5247654076500d9a8d53bf0e"
+      "computedHash": "791d2ffa120290110074ca084e4722e68f92e6bece8a7755b6d7cc8d2f7a5d08"
     },
     "meteor-methods": {
       "source": "meteor/agent-skills",
-      "ref": "v1.1.0-beta.0",
+      "ref": "v1.1.0-beta.1",
       "sourceType": "github",
       "skillPath": "skills/meteor-methods/SKILL.md",
       "computedHash": "1db922aa63baae87ba2d665f4500ad5fc60de12749323ebb9bf86c6c8e66334a"
     },
     "meteor-modern-build-stack": {
       "source": "meteor/agent-skills",
-      "ref": "v1.1.0-beta.0",
+      "ref": "v1.1.0-beta.1",
       "sourceType": "github",
       "skillPath": "skills/meteor-modern-build-stack/SKILL.md",
-      "computedHash": "5b92f32d3b1306303d5ce7464aec2816918c5ebc11c1480296e6216f92089006"
+      "computedHash": "5bda6c1ed920a797bb1f42d91bc5dea3e78aefba1262b507fb3c51304b053f72"
     },
     "meteor-mongo-minimongo": {
       "source": "meteor/agent-skills",
-      "ref": "v1.1.0-beta.0",
+      "ref": "v1.1.0-beta.1",
       "sourceType": "github",
       "skillPath": "skills/meteor-mongo-minimongo/SKILL.md",
       "computedHash": "0434089103d99a82b6a65c15da0f2db832277d6fdecf8b5a541d73488dfe9c26"
     },
     "meteor-native": {
       "source": "meteor/agent-skills",
-      "ref": "v1.1.0-beta.0",
+      "ref": "v1.1.0-beta.1",
       "sourceType": "github",
       "skillPath": "skills/meteor-native/SKILL.md",
       "computedHash": "cee15a6c8a0cd1b213869532f5adcd8d1592dc133ef5fdebcb5d70dcb0f5d5da"
     },
     "meteor-pubsub": {
       "source": "meteor/agent-skills",
-      "ref": "v1.1.0-beta.0",
+      "ref": "v1.1.0-beta.1",
       "sourceType": "github",
       "skillPath": "skills/meteor-pubsub/SKILL.md",
-      "computedHash": "5e1953cb3e01dd192a096873ebfed57c173678bb08782642d38115d3621a9631"
+      "computedHash": "8d52e4a953bc7c37cf53e451d4b4ff1e01e19c6ecc6f43a7958483fd687a37cb"
+    },
+    "meteor-react": {
+      "source": "meteor/agent-skills",
+      "ref": "v1.1.0-beta.1",
+      "sourceType": "github",
+      "skillPath": "skills/meteor-react/SKILL.md",
+      "computedHash": "621c1fb9ab812eb933a2e4b32a9fc6e816aad671ac17024f3633a78f7993ccdf"
     },
     "meteor-security": {
       "source": "meteor/agent-skills",
-      "ref": "v1.1.0-beta.0",
+      "ref": "v1.1.0-beta.1",
       "sourceType": "github",
       "skillPath": "skills/meteor-security/SKILL.md",
-      "computedHash": "2fd8051dae775b26c99b2d72abba4b4c77b20d7a49eb82c3e72d26249b484094"
+      "computedHash": "dcfdbe07cc3f4f47e460f07ab33aa8cb543a85455ee03cb3fe1c6336aa9c052e"
     },
     "meteor-testing": {
       "source": "meteor/agent-skills",
-      "ref": "v1.1.0-beta.0",
+      "ref": "v1.1.0-beta.1",
       "sourceType": "github",
       "skillPath": "skills/meteor-testing/SKILL.md",
-      "computedHash": "972b36f4eade92b18a23d2c535d2dc1b039382507536f5f1c833855c44d37b7f"
+      "computedHash": "0be59150206542ba633bc59ad55083bf5830935c77d231d39cc3455f8f2be6a6"
+    },
+    "meteor-typescript": {
+      "source": "meteor/agent-skills",
+      "ref": "v1.1.0-beta.1",
+      "sourceType": "github",
+      "skillPath": "skills/meteor-typescript/SKILL.md",
+      "computedHash": "44231a07fb50c97104b3b6ae16589855ebfb6325b5aacac819512d7ad2824e66"
     },
     "migrate-to-meteor-3": {
       "source": "meteor/agent-skills",
-      "ref": "v1.1.0-beta.0",
+      "ref": "v1.1.0-beta.1",
       "sourceType": "github",
       "skillPath": "skills/migrate-to-meteor-3/SKILL.md",
-      "computedHash": "f0c966c3fba4bd34f123f2aa6436188311799d667ac4c27031b7891f98c2c295"
+      "computedHash": "8044b4a210c64d1c74480a0346e631252920bdf85aecee8ef3e1154c1fd47b88"
     },
     "migrate-to-rspack": {
       "source": "meteor/agent-skills",
-      "ref": "v1.1.0-beta.0",
+      "ref": "v1.1.0-beta.1",
       "sourceType": "github",
       "skillPath": "skills/migrate-to-rspack/SKILL.md",
-      "computedHash": "12457820ae65b30086ab2d528b1b48d9364b57cf31416c58aa29a2018ec2985f"
+      "computedHash": "a737adb53b8905cbf9f207dd3dbd6a6311884f238f2fcab6a7df58c88a692d8c"
     }
   }
 }
