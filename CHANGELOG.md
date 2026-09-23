@@ -751,6 +751,18 @@ and date-format hierarchy checks pass.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e217f1215">Move the ISO week-number toggle into Board Settings / Date</a>. Thanks to xet7.</summary>
+
+Show week of year (ISO 8601) now appears below Save and a horizontal rule in
+Board Settings / Date instead of the right sidebar. It keeps its existing
+immediate personal-preference behavior and translations. Browser checks verify
+its position and saved toggle state, and confirm that Member Settings / Date
+shows Date Format directly above week-start and calendar-system controls.
+The native macOS ARM64 build, focused tests and telemetry checks pass.
+
+</details>
+
 This release fixes the following sign-in bug:
 
 <details>
