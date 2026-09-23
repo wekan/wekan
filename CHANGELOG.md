@@ -703,7 +703,7 @@ the GitHub workflows to build.
 
 </details>
 
-This release adds the following Admin Panel feature:
+This release adds the following Admin Panel features:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/23ed8d927">Show Meteor instrumentation in Admin Panel Problems</a>. Thanks to xet7.</summary>
@@ -713,6 +713,28 @@ counts, error counts and available timings from Meteor 3.6. Its admin-only,
 bounded counters are local to one server process and reset on restart. The
 report does not retain arguments, results, addresses or user identifiers.
 Meteor build, focused Node tests and the Chromium browser regression pass.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/94b59bef0">Set date formats in global, board and member settings</a>. Thanks to xet7.</summary>
+
+Opened cards now call their date section Date and contain no format selector.
+Admin Panel / Settings / Visibility has a separate Date section and Save button.
+Board Settings / Date and Member Settings / Date open format popups: checked
+member settings override checked board settings, which override the enabled
+global default. Unchecking a scope preserves its saved value and inherits the
+next default. Guests inherit board and global settings.
+
+The board popup shows the global setting's enabled status and saved format; the
+member popup shows both global and board settings. All labels reuse existing
+translations, verified across 246 locales. Display, exports and ambiguous date
+filters share the hierarchy without changing timestamps or calendar selection.
+
+The native macOS ARM64 build, focused Node suites, source and bundle telemetry
+checks, and two Chromium date regressions pass. Two unrelated label/checklist
+browser cases fail identically on the pre-change bundle. See the
+<a href="docs/Features/Date-Format.md">date format settings guide</a>.
 
 </details>
 
