@@ -1,3 +1,5 @@
+import { Meteor } from 'meteor/meteor';
+
 let syncedCronConfigured = false;
 let syncedCronInstance = null;
 
@@ -41,3 +43,10 @@ export const SyncedCron = new Proxy(
     },
   },
 );
+
+// Configure before the package's startup hook creates its history collection.
+// Registration alone does not start timers (quave:synced-cron's add() only
+// schedules immediately once running). The removed migration bootstrap was the
+// last caller of startSyncedCron, leaving backups/rules registered but idle.
+configureSyncedCron();
+Meteor.startup(startSyncedCron);

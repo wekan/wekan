@@ -460,7 +460,6 @@ template(name="attachments")
           else if isBackupActive
             ul#attachment-backup-setting.setting-detail
               li
-                .description {{_ 'backup-description'}}
                 //- Multitenancy option D (D.8): WHAT is being backed up. The whole
                 //- instance (site admin only) or one Organization - its boards and
                 //- everything hanging off them, without accounts or instance
@@ -482,21 +481,21 @@ template(name="attachments")
                 //- between - like Announcement's "Active System-Wide Announcement".
                 .form-group.checkbox-row
                   a.flex.js-toggle-checkbox
-                    .materialCheckBox.js-backup-attachments.is-checked
+                    .materialCheckBox.js-backup-attachments(class="{{#if backupSelected 'attachments'}}is-checked{{/if}}")
                     span {{_ 'attachments'}}
                   a.flex.js-toggle-checkbox
-                    .materialCheckBox.js-backup-avatars.is-checked
+                    .materialCheckBox.js-backup-avatars(class="{{#if backupSelected 'avatars'}}is-checked{{/if}}")
                     span {{_ 'avatars'}}
                   a.flex.js-toggle-checkbox
-                    .materialCheckBox.js-backup-data.is-checked
+                    .materialCheckBox.js-backup-data(class="{{#if backupSelected 'data'}}is-checked{{/if}}")
                     span {{_ 'backup-data'}}
                 .form-group
                   label {{_ 'backup-storage'}}
                   select.wekan-form-control.js-backup-storage
-                    option(value="filesystem") {{_ 'filesystem-storage'}}
-                    option(value="s3") {{_ 's3-minio-storage'}}
-                    option(value="azure") {{_ 'azure-blob-storage'}}
-                    option(value="gcs") {{_ 'gcs-storage'}}
+                    option(value="filesystem" selected="{{backupStorageSelected 'filesystem'}}") {{_ 'filesystem-storage'}}
+                    option(value="s3" selected="{{backupStorageSelected 's3'}}") {{_ 's3-minio-storage'}}
+                    option(value="azure" selected="{{backupStorageSelected 'azure'}}") {{_ 'azure-blob-storage'}}
+                    option(value="gcs" selected="{{backupStorageSelected 'gcs'}}") {{_ 'gcs-storage'}}
                 .form-group
                   button.js-run-backup.btn.btn-primary(type="button" disabled=backupRunning) {{_ 'backup-now'}}
                 if backupStatus

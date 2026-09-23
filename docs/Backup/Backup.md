@@ -14,7 +14,7 @@ September 2026 interface; labels and available formats can change with releases.
 | Copy the stopped `files` directory | Local SQLite database, users, attachment records, local attachment and avatar files | [Copy to another server](#copy-a-ferretdbsqlite-installation) |
 | ZIP the stopped `files` directory | The same data, in a portable archive | [Archive the data directory](#archive-the-files-directory) |
 | ZIP the stopped installation directory | Data plus startup scripts and settings kept inside it | [Archive the whole installation](#archive-the-whole-installation) |
-| Admin Panel backup, now or scheduled | Selected local file content and text collections; see the coverage limits below | [Scheduled backups](#admin-panel-backup-and-schedules) |
+| Admin Panel backup, now or scheduled | All application collections and selected attachment/avatar versions; see coverage limits below | [Scheduled backups](#admin-panel-backup-and-schedules) |
 | Local or remote S3-compatible storage | A destination for archives or separately backed-up objects | [Storage alternatives](#s3-compatible-and-other-storage) |
 | Board, list, swimlane or card export | Selected content for exchange, rather than a complete server copy | [Export and import](#export-and-import-selected-content) |
 | MongoDB, Snap, Docker or Sandstorm backup | Deployment-specific data and settings | [Other deployments](#other-deployments-and-older-installations) |
@@ -97,9 +97,10 @@ Open **Admin Panel / Attachments / Backup**. This alternative runs while WeKan
 is online, as described in the issue.
 
 1. Choose **Whole instance** as a site administrator to include accounts and
-   instance settings in the text data. An Organization backup is limited to its
+   instance settings in the database data. An Organization backup is limited to its
    boards and excludes accounts, instance settings and Organization/Team records.
-2. Select **Attachments**, **Avatars** and/or **Data (text)**.
+2. Select all three: **Attachments**, **Avatars** and **Data (text)** for a full
+   application backup. A subset backs up only the selected categories.
 3. Choose **Save to storage**: filesystem, S3/MinIO, Azure or Google Cloud
    Storage, with credentials configured in the corresponding storage pane.
 4. Click **Backup now** and wait for completion, or choose daily, weekly or
@@ -114,26 +115,48 @@ is online, as described in the issue.
 Screenshot source:
 [xet7's backup screenshot in #6683](https://github.com/wekan/wekan/issues/6683#issuecomment-5604698350).
 
-### What this archive currently includes
+### What the repaired archive includes
 
-The implementation streams local `attachments` and `avatars` directories and
-exports other database collections as EJSON lines (`data/*.ndjson`). It excludes
-attachment/avatar metadata collections and GridFS file/chunk collections from
-**Data (text)**. It does not fetch every remote storage object. Thus a successful
-Admin Panel backup alone is **not a complete attachment-preserving migration**
-to an empty server. Keep a complete database backup and all storage content for
-that purpose, or use the stopped-directory method for local FerretDB/SQLite.
+Select **Whole instance**, **Attachments**, **Avatars** and **Data (text)** for
+all application database collections and every recorded attachment/avatar
+version. This includes accounts, settings, attachment/avatar metadata, GridFS
+collections and indexes. Database data uses BSON Extended JSON so binary data,
+ObjectIds, dates and large integers survive the round trip. File versions are
+read through the configured filesystem, GridFS or cloud reader and included in
+the archive. Restore writes their content to the destination filesystem and
+updates their metadata paths, so the source machine's absolute paths are not
+required. Selecting only a file category also includes that category's metadata.
 
-The online export reads collections sequentially; it is not an atomic snapshot
-of changes across the database and files. For a consistent server copy, stop
-writes and use the appropriate database/filesystem backup method.
+The manifest inventories the payloads and SHA-256 checksums. Restore checks
+all payloads before changing the destination. Missing source files, short reads,
+malformed archives and database write errors fail explicitly. A local archive
+appears in **List backups** only after it completes successfully.
 
-Filesystem archives are stored under
-`files/backup/YYYY/MM/DD/HH_MM_SS/backup.zip`; Organization archives add
-`org/<orgId>` below `backup`. Copy archives to independent storage. The current
-listing and restore functions use local archive paths. A cloud upload does not
-make its archive appear in the local list: retrieve it into the appropriate
-local backup tree before restoring and test that procedure on a separate server.
+This repairs the older archive format, which excluded attachment/avatar database
+records and GridFS collections. Older archives still have those coverage gaps;
+upgrading the app cannot add missing content to an already-created archive.
+Organization archives remain restricted to their own boards and are not a
+full-instance backup.
+
+The online export reads collections and files sequentially; it is not an atomic
+snapshot of concurrent writes. For a consistent point-in-time server copy, stop
+writes and use the appropriate database/filesystem backup method. Operating
+system users, service definitions, environment variables, external identity
+providers and unreferenced objects in cloud buckets are outside the application
+archive. Keep those separately. Archives contain account credentials and
+configured service secrets; give them the same access protection as the database.
+
+Filesystem archives live below `files/backup/YYYY/MM/DD/<time>/backup.zip`;
+the time directory includes a unique suffix to avoid overwriting another backup.
+Organization archives add `org/<orgId>` below `backup`. Copy archives to
+independent storage. The current listing and restore functions use local archive
+paths. For cloud archives, retrieve the ZIP into the appropriate local backup
+tree before restoring, and test the procedure on a separate server.
+
+Schedules use the **server's timezone**, which may differ from the browser or
+administrator's computer. Choose the time accordingly. The
+[Admin Panel validation report](../Features/Admin-Panel/Validation.md) records
+the repaired scheduler and the scope of the backup and storage tests.
 
 Read [backup scope and storage settings](../Features/Admin-Panel/Attachments/README.md)
 and [Organization isolation](../Design/Multitenancy/Multitenancy.md).

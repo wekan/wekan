@@ -32,7 +32,9 @@ const path = require('path');
 const ROOT = path.join(__dirname, '..');
 
 // Where plain-node suites live. Anything matching in these directories runs.
-const SUITE_DIRS = ['tests', 'tests/unit'];
+// Integration suites declare their required isolated service URI and report a
+// skip explicitly when it is absent. With that URI, they run in this flow too.
+const SUITE_DIRS = ['tests', 'tests/unit', 'tests/integration'];
 const SUITE_RE = /\.test\.(cjs|js)$/;
 
 // Files that look like a suite here but are not run by node, WITH the reason.

@@ -31,7 +31,7 @@ test('empty base does not crash', () => {
 
 // --- scheduleText -----------------------------------------------------------
 test('daily', () => {
-  assert.strictEqual(scheduleText({ frequency: 'daily', time: '04:00' }), 'every day at 04:00');
+  assert.strictEqual(scheduleText({ frequency: 'daily', time: '04:00' }), 'at 04:00');
 });
 test('weekly uses the given day', () => {
   assert.strictEqual(
@@ -55,14 +55,14 @@ test('monthly defaults to the 1st', () => {
   );
 });
 test('time defaults to 04:00 when missing', () => {
-  assert.strictEqual(scheduleText({ frequency: 'daily' }), 'every day at 04:00');
+  assert.strictEqual(scheduleText({ frequency: 'daily' }), 'at 04:00');
 });
 
 // --- NEGATIVE: unknown / absent frequency falls back to the daily form ------
 test('unknown frequency falls back to daily', () => {
-  assert.strictEqual(scheduleText({ frequency: 'off', time: '05:00' }), 'every day at 05:00');
-  assert.strictEqual(scheduleText({ time: '06:00' }), 'every day at 06:00');
-  assert.strictEqual(scheduleText({}), 'every day at 04:00');
+  assert.strictEqual(scheduleText({ frequency: 'off', time: '05:00' }), 'at 05:00');
+  assert.strictEqual(scheduleText({ time: '06:00' }), 'at 06:00');
+  assert.strictEqual(scheduleText({}), 'at 04:00');
 });
 
 console.log(`\nbackupPaths: ${passed} tests passed`);

@@ -79,7 +79,7 @@ atest('enabled daily schedule registers a cron via the async API', async () => {
   // schedule() must resolve through scheduleText for the stored doc
   const seen = [];
   cron.added.schedule({ text: (t) => { seen.push(t); return t; } });
-  assert.strictEqual(seen[0], 'every day at 04:00');
+  assert.strictEqual(seen[0], 'at 04:00');
 });
 
 atest('enabled weekly schedule uses the chosen day', async () => {
@@ -140,6 +140,25 @@ test('registerCron is async and every caller awaits it', () => {
   assert.ok(awaited.length >= 2, `expected registerCron() to be awaited by both callers, saw ${awaited.length}`);
   assert.ok(!/[^.\w]registerCron\(\);/.test(src.replace(/await registerCron\(\)/g, '')),
     'no caller may invoke registerCron() without awaiting it');
+});
+
+test('the actual shared scheduler is configured and started at app startup', () => {
+  const vm = require('node:vm');
+  const source = fs.readFileSync(path.join(__dirname, '../server/cron/syncedCron.js'), 'utf8')
+    .replace(/^import .*;$/gm, '').replace(/export /g, '');
+  const callbacks = [], calls = [];
+  const scheduler = { config: cfg => calls.push(['config', cfg]), start: () => calls.push(['start']) };
+  vm.runInNewContext(source, {
+    Meteor: { startup: fn => callbacks.push(fn) },
+    require: name => { assert.equal(name, 'meteor/quave:synced-cron'); return { SyncedCron: scheduler }; },
+  });
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0][0], 'config');
+  assert.equal(calls[0][1].collectionName, 'cronJobs');
+  assert.equal(calls[0][1].utc, false);
+  assert.equal(callbacks.length, 1);
+  callbacks[0]();
+  assert.deepEqual(calls.map(c => c[0]), ['config', 'start']);
 });
 
 (async () => {

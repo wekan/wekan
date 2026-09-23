@@ -9,9 +9,15 @@ import fs from 'fs';
 import path from 'path';
 import readline from 'readline';
 import { Readable } from 'stream';
+import { pipeline } from 'node:stream/promises';
+import { fileStoreStrategyFactory as attachmentFactory } from '/models/attachments.server';
+import { fileStoreStrategyFactory as avatarFactory } from '/models/avatars.server';
+import { isCloudConfigured } from '/models/lib/cloudStorage';
+const { appendInstanceBackup, inspectInstanceBackup, restoreInstanceBackup } =
+  require('/server/lib/fullBackup').createBackupTools(MongoInternals.NpmModule.BSON.EJSON);
 import { ZipArchive } from 'archiver';
 import unzipper from 'unzipper';
-const { filesRootFrom, scheduleText, safeEntryPath, safeCollectionName } =
+const { filesRootFrom, scheduleText, safeEntryPath, safeCollectionName, validateBackupOptions, validateBackupSchedule } =
   require('/models/lib/backupPaths');
 // Multitenancy option D (docs/Design/Multitenancy/Multitenancy.md, D.8): backing up
 // and restoring ONE Organization. Every decision - which collections, the selector
@@ -21,51 +27,13 @@ const { filesRootFrom, scheduleText, safeEntryPath, safeCollectionName } =
 import * as tenantBackup from '/models/lib/tenantBackup';
 import * as tenantAdmin from '/models/lib/tenantAdmin';
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Admin Panel / Attachments / Backup.
-//
-// Backs up any of: Attachments, Avatars, Data (text = all collections that are
-// NOT attachments/avatars) into
-//   backup/YYYY/MM/DD/HH_MM_SS/backup.zip
-// whose contents are
-//   YYYY_MM_DD-HH_MM_SS/attachments/…            (files, streamed from disk)
-//   YYYY_MM_DD-HH_MM_SS/avatars/…                (files, streamed from disk)
-//   YYYY_MM_DD-HH_MM_SS/data/<collection>.ndjson (one EJSON document per line)
-//
-// LOW MEMORY / STREAMING BY DESIGN — a board with thousands of cards or a 5 GB
-// attachment must not be loaded into RAM:
-//   * The zip is written with `archiver`, which STREAMS each attachment/avatar
-//     directly from disk (`archive.directory`) — never buffering a whole file.
-//   * Text data is streamed a DOCUMENT AT A TIME from a MongoDB cursor into the
-//     archive as NDJSON (one doc per line).
-//   * The archive is piped straight to the destination (a file, or an S3/Azure/GCS
-//     streaming upload) — no temp file, no whole-zip buffer.
-//   * Restore reads the zip with `unzipper` and streams each file entry straight
-//     to disk, and each data NDJSON entry LINE BY LINE into the database.
-//
-// Restore supports "add missing" (only insert docs/files not already present) or
-// "replace all". A schedule (daily/weekly/monthly) runs backups via synced-cron.
-// The selected storage is where the .zip is streamed (filesystem is fully
-// implemented; the cloud upload paths are not exercised end-to-end here).
-//
-// PER-TENANT (multitenancy option D, D.8): the same machinery with a SCOPE. With an
-// orgId, only that Organization's boards and everything hanging off them are
-// exported - no accounts, no instance settings, no org/team documents - into
-// <files>/backup/org/<orgId>/…, and a restore of such an archive may only write
-// documents that belong to boards the tenant really owns. A per-tenant Global Admin
-// may only ever use their own tenant's archives; the whole-instance scope stays
-// site-admin only.
-// ─────────────────────────────────────────────────────────────────────────────
+// Admin Panel / Attachments / Backup. Whole-instance archives use the
+// versioned BSON/file-stream format in server/lib/fullBackup.js. Organization
+// archives keep their restricted, legacy EJSON format and ownership checks.
+// Local archives become visible only after successful completion. Background
+// failures are kept in progress; they must not escape as unhandled rejections.
 
 const BackupSettings = new Mongo.Collection('backupSettings');
-
-// Collections that hold FILE data (attachments/avatars) — excluded from "Data".
-const FILE_COLLECTIONS = new Set([
-  'attachments', 'avatars',
-  'cfs.attachments.filerecord', 'cfs.avatars.filerecord',
-  'cfs_gridfs.attachments.files', 'cfs_gridfs.attachments.chunks',
-  'cfs_gridfs.avatars.files', 'cfs_gridfs.avatars.chunks',
-]);
 
 function filesRoot() {
   return filesRootFrom(process.env.WRITABLE_PATH || process.cwd());
@@ -175,9 +143,11 @@ async function* ndjsonOfSelector(db, coll, selector) {
 }
 
 async function doBackup(opts, storageName, orgId = null) {
-  setProgress({ running: true, phase: 'backup', detail: '', file: '', success: null, error: '' });
+  let activeArchive, localOutput, partialPath;
+  setProgress({ running: true, orgId, phase: 'backup', detail: '', file: '', success: null, error: '' });
   try {
     const t = nowParts();
+    t.s += `_${Date.now()}_${Math.random().toString(16).slice(2, 10)}`;
     const stamp = `${t.y}_${t.mo}_${t.da}-${t.h}_${t.mi}_${t.s}`;
     // <files>/backup/… for the instance, <files>/backup/org/<orgId>/… for a tenant,
     // so "which archives may this admin see" stays a path question (D.8).
@@ -187,7 +157,8 @@ async function doBackup(opts, storageName, orgId = null) {
     // archiver@8 is ESM: use the ZipArchive class instead of the old
     // archiver('zip', …) factory (which no longer exists).
     const archive = new ZipArchive({ zlib: { level: 6 } });
-    archive.on('warning', err => { if (err && err.code !== 'ENOENT') setProgress({ error: String(err.message || err) }); });
+    activeArchive = archive;
+    archive.on('warning', error => archive.emit('error', error));
 
     // Attach the destination BEFORE finalizing so nothing is buffered in RAM.
     setProgress({ phase: 'zipping', detail: storageName || 'filesystem' });
@@ -197,8 +168,10 @@ async function doBackup(opts, storageName, orgId = null) {
       const dir = path.join(filesRoot(), ...relativeDir.split('/'));
       fs.mkdirSync(dir, { recursive: true });   // the final backup dir, not a temp dir
       dest = path.join(dir, 'backup.zip');
-      const out = fs.createWriteStream(dest);
-      donePromise = new Promise((resolve, reject) => { out.on('close', resolve); out.on('error', reject); archive.on('error', reject); });
+      partialPath = dest + '.partial';
+      const out = fs.createWriteStream(partialPath, { flags: 'wx', mode: 0o600 });
+      localOutput = out;
+      donePromise = new Promise((resolve, reject) => { out.on('close', resolve); out.on('error', error => { reject(error); archive.emit('error', error); }); archive.on('error', reject); });
       archive.pipe(out);
       try { fs.writeFileSync(path.join(dir, 'meta.json'), JSON.stringify({ stamp, storage: 'filesystem', opts, orgId: orgId || null })); } catch (_) {}
     } else {
@@ -207,6 +180,8 @@ async function doBackup(opts, storageName, orgId = null) {
       donePromise = cloud.promise;
     }
 
+    // A background destination rejection must be observed even while reading entries.
+    donePromise.catch(() => {});
     const db = MongoInternals.defaultRemoteCollectionDriver().mongo.db;
 
     if (orgId) {
@@ -217,10 +192,8 @@ async function doBackup(opts, storageName, orgId = null) {
       const ctx = await tenantContext(db, orgId);
       if (opts.attachments && ctx.boardIds.length) {
         setProgress({ phase: 'attachments' });
-        // The instance backup streams the whole attachments directory; a tenant's
-        // files have to be picked one by one, from the attachment records of its
-        // own boards. Entry names match the instance form exactly, so restore
-        // reads both kinds of archive the same way.
+        // Legacy tenant archives include local files from their own boards.
+        // Their restricted format is separate from the full-instance archive.
         const cursor = db.collection('attachments')
           .find({ 'meta.boardId': { $in: ctx.boardIds } });
         for await (const doc of cursor) {
@@ -248,26 +221,28 @@ async function doBackup(opts, storageName, orgId = null) {
         }
       }
     } else {
-      // ── the whole instance ────────────────────────────────────────────────
-      // Add content — all streamed (directories from disk, data a doc at a time).
-      if (opts.attachments && fs.existsSync(attachmentsDir())) { setProgress({ phase: 'attachments' }); archive.directory(attachmentsDir(), `${stamp}/attachments`); }
-      if (opts.avatars && fs.existsSync(avatarsDir())) { setProgress({ phase: 'avatars' }); archive.directory(avatarsDir(), `${stamp}/avatars`); }
-      if (opts.data) {
-        setProgress({ phase: 'data' });
-        const names = (await db.listCollections().toArray()).map(c => c.name)
-          .filter(n => !FILE_COLLECTIONS.has(n) && !n.startsWith('system.'));
-        for (const n of names) {
-          setProgress({ detail: 'data: ' + n });
-          archive.append(Readable.from(ndjsonOfCollection(db, n)), { name: `${stamp}/data/${n}.ndjson` });
-        }
-      }
+      await appendInstanceBackup({ archive, db, opts, progress: setProgress,
+        readFileVersion: async (coll, doc, version) => {
+          const info = doc.versions[version];
+          const storage = info.storage || (info.meta?.gridFsFileId || doc.meta?.source === 'import' ? 'gridfs' : 'fs');
+          if (['s3', 'azure', 'gcs'].includes(storage) && !isCloudConfigured(storage)) {
+            throw new Error(`Backup source storage is not configured: ${storage}`);
+          }
+          const factory = coll === 'attachments' ? attachmentFactory : avatarFactory;
+          return factory.getFileStrategy(doc, version, storage)?.getReadStream();
+        },
+      });
     }
 
     await archive.finalize();
     await donePromise;
+    if (!storageName || storageName === 'filesystem') fs.renameSync(dest + '.partial', dest);
     setProgress({ phase: 'completed', file: dest, success: true });
     return dest;
   } catch (e) {
+    if (activeArchive) activeArchive.destroy();
+    if (localOutput) localOutput.destroy();
+    if (partialPath) fs.rmSync(partialPath, { force: true });
     setProgress({ phase: 'error', success: false, error: String(e && e.message ? e.message : e).slice(0, 500) });
     throw e;
   } finally {
@@ -283,7 +258,7 @@ async function readArchiveDocs(entryStream, onDoc) {
     const s = line.trim();
     if (!s) continue;
     let doc;
-    try { doc = EJSON.parse(s); } catch (_) { continue; }
+    doc = EJSON.parse(s);
     onDoc(doc);
   }
 }
@@ -296,16 +271,18 @@ async function restoreDataLines(entryStream, coll, mode, tenant = null) {
   const c = db.collection(coll);
   // A tenant restore must never empty a shared collection: "replace all" replaces
   // this tenant's documents, not everyone's.
-  if (mode === 'replace-all' && !tenant) { await c.deleteMany({}).catch(() => {}); }
+  if (mode === 'replace-all' && !tenant) { await c.deleteMany({}); }
   const rl = readline.createInterface({ input: entryStream, crlfDelay: Infinity });
   let batch = [];
   const flush = async () => {
     if (!batch.length) return;
     if (mode === 'add-missing') {
-      for (const d of batch) { try { await c.insertOne(d); } catch (_) { /* already present */ } }
+      for (const d of batch) {
+        if (!await c.findOne({ _id: d._id })) await c.insertOne(d);
+      }
     } else {
       const ops = batch.map(d => ({ replaceOne: { filter: { _id: d._id }, replacement: d, upsert: true } }));
-      try { await c.bulkWrite(ops, { ordered: false }); } catch (_) {}
+      await c.bulkWrite(ops, { ordered: false });
     }
     batch = [];
   };
@@ -314,7 +291,7 @@ async function restoreDataLines(entryStream, coll, mode, tenant = null) {
     const s = line.trim();
     if (!s) continue;
     let doc;
-    try { doc = EJSON.parse(s); } catch (_) { continue; }
+    doc = EJSON.parse(s);
     // The archive names the collection and carries the documents, and neither can
     // be trusted: an archive can be edited, and a per-tenant admin uploading one
     // must not be able to write into another tenant's boards.
@@ -327,8 +304,19 @@ async function restoreDataLines(entryStream, coll, mode, tenant = null) {
 }
 
 async function doRestore(zipPath, mode, orgId = null) {
-  setProgress({ running: true, phase: 'restore', detail: zipPath, success: null, error: '' });
+  setProgress({ running: true, orgId, phase: 'restore', detail: zipPath, success: null, error: '' });
   try {
+    const inspected = await inspectInstanceBackup(zipPath);
+    if (inspected) {
+      if (orgId) throw new Meteor.Error('not-authorized', 'Instance backup cannot be restored as an Organization');
+      const result = await restoreInstanceBackup({ inspected,
+        db: MongoInternals.defaultRemoteCollectionDriver().mongo.db,
+        filesRoot: filesRoot(), mode, progress: setProgress });
+      // Restoring backupSettings must also update the running scheduler.
+      await registerCron();
+      setProgress({ phase: 'completed', success: true, ...result });
+      return;
+    }
     // unzipper.Open reads the central directory, then streams each entry on
     // demand — a 5 GB attachment is piped straight to disk, never buffered.
     const directory = await unzipper.Open.file(zipPath);
@@ -404,9 +392,7 @@ async function doRestore(zipPath, mode, orgId = null) {
       if (mode === 'add-missing' && fs.existsSync(destPath)) continue;
       fs.mkdirSync(path.dirname(destPath), { recursive: true });
       setProgress({ detail: entry.path });
-      await new Promise((resolve, reject) => {
-        entry.stream().pipe(fs.createWriteStream(destPath)).on('finish', resolve).on('error', reject);
-      });
+      await pipeline(entry.stream(), fs.createWriteStream(destPath));
     }
     for (const entry of directory.files) {
       if (entry.type !== 'File') continue;
@@ -466,11 +452,15 @@ async function registerCron() {
   if (!s || !s.enabled || !s.frequency || s.frequency === 'off') return;
   SyncedCron.add({
     name: CRON_NAME,
-    schedule(parser) { return parser.text(scheduleText(s)); },
+    schedule(parser) {
+      const parsed = parser.text(scheduleText(s));
+      if (parsed.error !== -1) throw new Error('Invalid scheduled-backup expression');
+      return parsed;
+    },
     async job() {
       if (progress.running) return;
       try { await doBackup({ attachments: !!s.attachments, avatars: !!s.avatars, data: !!s.data }, s.storage || 'filesystem'); }
-      catch (e) { console.error('[backup] scheduled backup failed:', e); }
+      catch (e) { console.error('[backup] scheduled backup failed:', e); throw e; }
     },
   });
   console.log('[backup] scheduled:', scheduleText(s));
@@ -506,7 +496,14 @@ Meteor.methods({
     // A per-tenant admin polls the same progress: only one backup runs at a time,
     // and the phase/file it reports is the one they started.
     if (!tenantAdmin.canOpenAdminPanel(user)) return false;
-    return { ...progress };
+    if (!tenantAdmin.isSiteAdmin(user) &&
+        (!progress.orgId || !tenantAdmin.adminOrgIds(user).includes(progress.orgId))) {
+      return { running: progress.running, phase: progress.running ? 'busy' : 'idle' };
+    }
+    return { ...progress, schedulerRunning: !!SyncedCron.running,
+      serverTime: new Date().toISOString(),
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      nextRunAt: SyncedCron.nextScheduledAtDate(CRON_NAME) || null };
   },
   async runBackup(opts, storageName, orgId = null) {
     check(opts, Object);
@@ -515,7 +512,9 @@ Meteor.methods({
     const scope = await requireBackupScope(this.userId, orgId);
     if (progress.running) throw new Meteor.Error('already-running');
     if (!opts || (!opts.attachments && !opts.avatars && !opts.data)) throw new Meteor.Error('nothing-selected', 'Select at least one of Attachments, Avatars, Data.');
-    doBackup(opts, storageName, scope.orgId); // background; poll backupStatus
+    try { validateBackupOptions(opts, storageName || 'filesystem'); }
+    catch (error) { throw new Meteor.Error('invalid-backup-options', error.message); }
+    doBackup(opts, storageName, scope.orgId).catch(() => {}); // background; poll backupStatus
     return { started: true, orgId: scope.orgId };
   },
   async restoreBackup(zipPath, mode) {
@@ -534,12 +533,22 @@ Meteor.methods({
       backupPath: zipPath,
     })) throw new Meteor.Error('not-authorized');
     if (progress.running) throw new Meteor.Error('already-running');
+    const root = fs.realpathSync(backupRoot());
+    const real = fs.realpathSync(zipPath);
+    if (!real.startsWith(root + path.sep) || path.basename(real) !== 'backup.zip') {
+      throw new Meteor.Error('not-authorized', 'Restore must use a listed backup');
+    }
+    if (!tenantBackup.canUseBackupPath({ isSiteAdmin: tenantAdmin.isSiteAdmin(user),
+      adminOrgIds: tenantAdmin.adminOrgIds(user), backupPath: real })) {
+      throw new Meteor.Error('not-authorized');
+    }
+    zipPath = real;
     if (!zipPath || !fs.existsSync(zipPath)) throw new Meteor.Error('not-found', 'Backup file not found.');
     if (mode !== 'add-missing' && mode !== 'replace-all') throw new Meteor.Error('bad-mode');
     // The scope comes from the archive's own location, not from the caller: a
     // tenant archive is always restored as that tenant, even by the site admin, so
     // it can never write outside the Organization it was taken from.
-    doRestore(zipPath, mode, tenantBackup.orgIdOfBackupPath(zipPath));
+    doRestore(zipPath, mode, tenantBackup.orgIdOfBackupPath(zipPath)).catch(() => {});
     return { started: true };
   },
   async listBackups() {
@@ -565,6 +574,8 @@ Meteor.methods({
   async saveBackupSchedule(schedule) {
     check(schedule, Object);
     await requireAdmin();
+    try { validateBackupSchedule(schedule); }
+    catch (error) { throw new Meteor.Error('invalid-backup-schedule', error.message); }
     const doc = {
       _id: 'schedule',
       enabled: !!schedule.enabled,

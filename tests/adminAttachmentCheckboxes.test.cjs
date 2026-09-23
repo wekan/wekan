@@ -110,8 +110,8 @@ test('a click toggles the box, and what reads it asks for is-checked', () => {
 
 test('the Backup pane still asks for its three parts', () => {
   for (const cls of ['js-backup-attachments', 'js-backup-avatars', 'js-backup-data']) {
-    assert.ok(new RegExp(`\\.materialCheckBox\\.${cls}\\.is-checked`).test(jade),
-      `${cls} is a material checkbox, on by default`);
+    assert.ok(new RegExp(`\\.materialCheckBox\\.${cls}\\(class=".*backupSelected.*is-checked`).test(jade),
+      `${cls} is a material checkbox reflecting its saved selection`);
     assert.ok(new RegExp(`\\.${cls}'\\)\\.hasClass\\('is-checked'\\)`).test(js),
       `${cls} is read as a material checkbox`);
   }

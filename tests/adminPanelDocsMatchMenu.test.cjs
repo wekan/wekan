@@ -108,4 +108,14 @@ test('the gaps are counted, not hidden', () => {
   }
 });
 
+test('the implementation audit inventories every current pane without extra placeholders', () => {
+  const audit = fs.readFileSync(path.join(DOCS, 'Validation.md'), 'utf8');
+  for (const [page, folder] of PAGES) {
+    const section = audit.split(`## ${folder}\n`)[1]?.split('\n## ')[0];
+    assert.ok(section, `No audit section for ${folder}`);
+    const listed = [...section.matchAll(/\(`([\w-]+)`\)/g)].map(m => m[1]);
+    assert.deepStrictEqual(listed, panesOf(page), `${folder} audit must follow the live menu`);
+  }
+});
+
 console.log(`\nadminPanelDocsMatchMenu: ${passed} tests passed`);

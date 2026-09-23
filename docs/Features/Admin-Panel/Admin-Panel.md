@@ -92,3 +92,8 @@ Renames to know when following an older link: **Layout** is
 - [E-mail troubleshooting](../Email/Troubleshooting-Mail.md)
 - [Comment replies and editing restriction](../Cards/Comment-Replies-And-Editing-Restriction.md)
   — a board setting rather than an Admin Panel one, but often looked for here.
+
+## Implementation validation
+
+[Validation report](Validation.md): all 48 panes, backup fixes, test evidence
+and external-service verification limits.

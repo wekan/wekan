@@ -15,7 +15,7 @@ function filesRootFrom(base) {
 }
 
 // Build the synced-cron schedule text for a saved backup schedule.
-//   daily   -> "every day at HH:MM"
+//   daily   -> "at HH:MM" (Later rejects "every day at ...")
 //   weekly  -> "on <Day> at HH:MM"          (default Sunday)
 //   monthly -> "on the <N> day of the month at HH:MM"   (default 1)
 // Any other/absent frequency falls back to the daily form.
@@ -25,7 +25,7 @@ function scheduleText(s) {
   const at = `at ${hh}:${mm}`;
   if (settings.frequency === 'weekly') return `on ${settings.dayOfWeek || 'Sunday'} ${at}`;
   if (settings.frequency === 'monthly') return `on the ${settings.dayOfMonth || 1} day of the month ${at}`;
-  return `every day ${at}`;
+  return at;
 }
 
 // ZipBleed: resolve a path for ONE entry of a restored backup archive, and refuse
@@ -74,4 +74,25 @@ function safeCollectionName(name) {
     : null;
 }
 
-module.exports = { filesRootFrom, scheduleText, safeEntryPath, safeCollectionName };
+const BACKUP_STORAGES = ['filesystem', 's3', 'azure', 'gcs'];
+const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+function validateBackupOptions(options, storage, allowEmpty = false) {
+  if (!options || ['attachments', 'avatars', 'data'].some(k => typeof options[k] !== 'boolean')) {
+    throw new Error('Backup selections must be booleans');
+  }
+  if (!allowEmpty && !options.attachments && !options.avatars && !options.data) throw new Error('Select backup content');
+  if (!BACKUP_STORAGES.includes(storage)) throw new Error('Unknown backup storage');
+}
+function validateBackupSchedule(schedule) {
+  if (!schedule || typeof schedule.enabled !== 'boolean'
+      || !['off', 'daily', 'weekly', 'monthly'].includes(schedule.frequency)
+      || !/^(?:[01][0-9]|2[0-3]):[0-5][0-9]$/.test(schedule.time)
+      || !WEEKDAYS.includes(schedule.dayOfWeek)
+      || !Number.isInteger(schedule.dayOfMonth) || schedule.dayOfMonth < 1 || schedule.dayOfMonth > 28) {
+    throw new Error('Invalid backup schedule');
+  }
+  validateBackupOptions(schedule, schedule.storage, !schedule.enabled);
+  if (schedule.enabled === (schedule.frequency === 'off')) throw new Error('Inconsistent backup schedule');
+}
+
+module.exports = { filesRootFrom, scheduleText, safeEntryPath, safeCollectionName, validateBackupOptions, validateBackupSchedule };

@@ -525,6 +525,14 @@ function attachmentsMenu(user) {
 }
 
 Template.attachments.helpers({
+  backupSelected(field) {
+    const schedule = Template.instance().backupSchedule.get();
+    return !schedule || schedule[field] !== false;
+  },
+  backupStorageSelected(storage) {
+    return (Template.instance().backupSchedule.get()?.storage || 'filesystem') === storage;
+  },
+
   menuItems() {
     return leftMenuData(attachmentsMenu(ReactiveCache.getCurrentUser()),
       Template.instance().activeSection.get(), 'js-attachments-menu');
@@ -1011,13 +1019,15 @@ Template.attachments.events({
       storage: tpl.$('.js-backup-storage').val() || 'filesystem',
     };
     Meteor.call('saveBackupSchedule', schedule, (error, saved) => {
-      if (!error && saved) tpl.backupSchedule.set(saved);
+      if (error) tpl.backupStatus.set({ phase: 'error', error: error.reason || error.message, success: false });
+      else if (saved) tpl.backupSchedule.set(saved);
     });
   },
   'click .js-list-backups'(event, tpl) {
     event.preventDefault();
     Meteor.call('listBackups', (error, list) => {
-      if (!error) tpl.backupList.set(list || []);
+      if (error) tpl.backupStatus.set({ phase: 'error', error: error.reason || error.message, success: false });
+      else tpl.backupList.set(list || []);
     });
   },
   'change .js-backup-select'(event, tpl) {

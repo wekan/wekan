@@ -171,7 +171,7 @@ test('several checkboxes side by side are one row', () => {
   // Backup's three are material checkboxes now (see above), so the row holds
   // anchors rather than labels - what must not change is that they are ONE row.
   const jade = read('client/components/settings/attachments.jade');
-  assert.ok(/\.form-group\.checkbox-row\n(\s+a\.flex\.js-toggle-checkbox\n\s+\.materialCheckBox\.js-backup-\w+\.is-checked\n\s+span [^\n]*\n){3}/.test(jade),
+  assert.ok(/\.form-group\.checkbox-row\n(\s+a\.flex\.js-toggle-checkbox\n\s+\.materialCheckBox\.js-backup-\w+\(class="[^\n]*is-checked[^\n]*\n\s+span [^\n]*\n){3}/.test(jade),
     'the Backup include row is three material checkboxes in one row');
 });
 
