@@ -785,6 +785,25 @@ the validation report states these limits.
 
 </details>
 
+and fixes Firefox password login:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/79cd46558">Restore Firefox password login after registration</a>. Thanks to xet7.</summary>
+
+Firefox suppressed the password form's replayed submit event while the
+original native submission was still running, leaving users on Sign In with
+no error. Defer replay to the next event-loop task while blocking duplicate
+submissions. Retain existing password validation and two-factor handling.
+
+Reproduce the failure in Firefox 156.0.1 and verify the rebuilt macOS ARM64
+app: registration, wrong-password rejection, click and Enter login, and
+session resume after reload pass. Native-event regressions fail with the old
+handler and pass with the fix. Chromium password/TOTP, emailed-code and
+submit-event checks pass, along with focused positive and negative Node
+tests. Document the separate macOS Firefox test-launch limitation.
+
+</details>
+
 and fixes the following build issue:
 
 <details>
