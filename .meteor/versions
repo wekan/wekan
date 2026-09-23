@@ -91,6 +91,7 @@ ostrio:cstorage@4.0.1
 ostrio:files@3.0.1
 ostrio:flow-router-extra@3.15.3
 ostrio:i18n@3.2.1
+package-stats-opt-out@1.0.8
 promise@1.0.1-beta360.1
 quave:synced-cron@2.4.0
 raix:eventemitter@1.0.0

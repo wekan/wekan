@@ -53,6 +53,7 @@ permissions:
   contents: write
 
 env:
+  DO_NOT_TRACK: '1'
   # Must match release-all.yml: the Node.js major the bundles carry.
   NODE_VERSION: '26'
 
@@ -78,6 +79,10 @@ jobs:
       total: ${{ steps.plan.outputs.total }}
     steps:
       - uses: actions/checkout@v7
+
+      - name: Audit telemetry source before release work
+        shell: bash
+        run: python3 ./releases/check-telemetry.py --source .
 
       - id: plan
         env:
@@ -198,6 +203,10 @@ jobs:
           fi
 
       - uses: actions/checkout@v7
+
+      - name: Audit telemetry source before release work
+        shell: bash
+        run: python3 ./releases/check-telemetry.py --source .
 
       - name: Install dependencies
         if: ${{ steps.want.outputs.build == 'yes' }}
@@ -339,6 +348,10 @@ jobs:
         with:
           path: wekan
 
+      - name: Audit telemetry source before release work
+        shell: bash
+        run: python3 wekan/releases/check-telemetry.py --source wekan
+
       - name: Is a chart already published for this version?
         id: check
         env:
@@ -418,6 +431,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+      - name: Audit telemetry source before release work
+        shell: bash
+        run: python3 ./releases/check-telemetry.py --source .
+
       - env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           V: ${{ needs.plan.outputs.version }}

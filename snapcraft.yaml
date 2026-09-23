@@ -676,6 +676,7 @@ parts:
         # node_modules tree and repeat npm install on the slow exotic builder.
         plugin: nil
         build-packages:
+            - python3
             - ca-certificates
             - wget
             - unzip
@@ -708,6 +709,7 @@ parts:
             wget --tries=20 --waitretry=20 --retry-on-http-error=404,403,500,502,503 \
               "https://github.com/wekan/wekan/releases/download/v11.90/${WEKAN_ZIP}"
             unzip "${WEKAN_ZIP}"
+            python3 ../releases/check-telemetry.py --bundle bundle
             rm "${WEKAN_ZIP}"
             # Copy to Snap. Use the bundle's OWN arch-correct Node.js: the
             # wekan-<arch>.zip already ships the right node for this platform

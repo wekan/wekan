@@ -50,6 +50,7 @@ set -uo pipefail
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT="$(cd "$HERE/.." && pwd)"
+python3 "$ROOT/releases/check-telemetry.py" --source "$ROOT" || exit 1
 BUNDLE="${1:-$ROOT/.build/bundle}"
 BUNDLE="$(cd "$(dirname "$BUNDLE")" 2>/dev/null && pwd)/$(basename "$BUNDLE")"
 NODE_VERSION="${NODE_VERSION:-26}"
@@ -275,6 +276,8 @@ if [ -n "$QEMU_NAME" ]; then
         echo "    warning: $QEMU_SRC is not installed (apt install qemu-user-static), so this bundle has no $QEMU_NAME."
     fi
 fi
+
+python3 "$ROOT/releases/check-telemetry.py" --bundle "$BUNDLE" || exit 1
 
 # ── 4. Say what is there ─────────────────────────────────────────────────────
 say "6/6  done"

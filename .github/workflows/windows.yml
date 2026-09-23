@@ -137,6 +137,8 @@ jobs:
             }
           }
           Write-Host "$zip carries $($names.Count) entries."
+          python releases/check-telemetry.py --archive $zip
+          if ($LASTEXITCODE -ne 0) { throw 'Telemetry audit rejected the Windows bundle.' }
 
       - uses: actions/setup-node@v7
         with:

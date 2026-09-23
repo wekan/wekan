@@ -177,6 +177,7 @@ jobs:
             fi
           done
           chmod +x bundle/node bundle/ferretdb bundle/start-wekan.sh
+          python3 releases/check-telemetry.py --bundle bundle
           du -sh bundle
 
       # flatpak-builder is for building from source. The bundle IS the build, so

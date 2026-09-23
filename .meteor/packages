@@ -74,3 +74,6 @@ accounts-weibo@1.4.2-beta360.1
 accounts-meetup@1.5.2-beta360.1
 accounts-passwordless@3.1.2-beta360.1
 instrumentation
+
+# Prevent Meteor build/run tools from sending application package statistics.
+package-stats-opt-out@1.0.8

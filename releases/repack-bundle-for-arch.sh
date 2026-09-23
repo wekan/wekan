@@ -147,6 +147,7 @@ touch bundle/.ferretdb-default
 # ── The zip, and whether it is one that works ────────────────────────────────
 zip="wekan-${VERSION}-${ARCH}.zip"
 rm -f "$zip"
+python3 "$(dirname "${BASH_SOURCE[0]}")/check-telemetry.py" --bundle bundle || exit 1
 zip -r "$zip" bundle
 
 # A zip that EXISTS is not a zip that WORKS, and the log should say which of the

@@ -224,6 +224,7 @@ COPY --chmod=755 releases/resolve-node-source.sh /tmp/resolve-node-source.sh
 # The two travel together: without this line the resolve step dies on the first
 # lookup. tests/releaseDownloads.test.cjs pins the pair.
 COPY --chmod=755 releases/fetch.sh /tmp/fetch.sh
+COPY --chmod=755 releases/check-telemetry.py /tmp/check-telemetry.py
 # The bundle's `npm install` leaves node-gyp's whole tree - 83 of the 120
 # packages in programs/server/node_modules - in a bundle that compiles nothing at
 # run time, and a scan of the published image reads it as what it is. The same
@@ -388,6 +389,7 @@ node /tmp/bundle-trim.mjs ./bundle --transport sockjs --drop-legacy-client
 # And the npm tree rspack cannot tree-shake, because Atmosphere packages load it
 # through Npm.require(). Only what it can prove nothing requires.
 node /tmp/prune-unreachable-npm.mjs ./bundle
+python3 /tmp/check-telemetry.py --bundle ./bundle
 mv /home/wekan/app/bundle /build
 
 # The .zip bundle now ships a self-contained launcher + its own Node.js for the

@@ -102,6 +102,7 @@ echo "==> [4/7] FerretDB v1 (amd64) at deps root"
 FERRETDB_URL="${FERRETDB_URL:-https://github.com/wekan/FerretDB/releases/latest/download/ferretdb-amd64}"
 bash "$FETCH" -o "$DEPS/ferretdb" "$FERRETDB_URL"
 chmod +x "$DEPS/ferretdb"
+python3 "$REPO/releases/check-telemetry.py" --kind ferretdb "$DEPS/ferretdb"
 
 # NOTE: the modern MongoDB Database Tools (wekan/mongo-tools-patches: mongodump, mongorestore,
 # …) are intentionally NOT bundled in the Sandstorm .spk. They are ~300 MB and are

@@ -23,6 +23,8 @@ for file in node ferretdb; do
   }
 done
 
+python3 "$(dirname "$0")/../check-telemetry.py" --bundle "$source_bundle"
+
 mkdir -p "$output"
 output="$(cd "$output" && pwd -P)"
 name="WeKan-${version}-mac-${arch}"

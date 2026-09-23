@@ -139,6 +139,7 @@ permissions:
 # Node.js major version that Meteor 3.6-beta.1 bundles. Used for native module
 # rebuilds on every platform — it must match the amd64 build's Node ABI.
 env:
+  DO_NOT_TRACK: '1'
   NODE_VERSION: '26'
   # Authenticate the api.github.com calls that embed-verified-node.sh and
   # check-arch-binaries.sh make to resolve the fork's newest v26.x tag. Without a
@@ -170,6 +171,10 @@ jobs:
         with:
           ref: main
           fetch-depth: 0
+
+      - name: Audit telemetry source before release work
+        shell: bash
+        run: python3 ./releases/check-telemetry.py --source .
 
       - uses: actions/setup-node@v7
         with:
@@ -255,6 +260,10 @@ jobs:
         with:
           ref: main
           fetch-depth: 0
+
+      - name: Audit telemetry source before release work
+        shell: bash
+        run: python3 ./releases/check-telemetry.py --source .
 
       - name: Normalise version from input
         id: version
@@ -364,6 +373,10 @@ jobs:
           ref: main
           path: wekan
 
+      - name: Audit telemetry source before release work
+        shell: bash
+        run: python3 wekan/releases/check-telemetry.py --source wekan
+
       - name: Checkout wekan.fi website repo
         uses: actions/checkout@v7
         with:
@@ -469,6 +482,10 @@ jobs:
           ref: main
           path: wekan
 
+      - name: Audit telemetry source before release work
+        shell: bash
+        run: python3 wekan/releases/check-telemetry.py --source wekan
+
       - name: Checkout wekan/charts repo (main + gh-pages)
         uses: actions/checkout@v7
         with:
@@ -545,6 +562,10 @@ jobs:
       - uses: actions/checkout@v7
         with:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
+
+      - name: Audit telemetry source before release work
+        shell: bash
+        run: python3 ./releases/check-telemetry.py --source .
 
       - name: Cache Meteor installation
         uses: actions/cache@v6
@@ -707,6 +728,7 @@ jobs:
       - name: Create amd64 zip
         run: |
           cd .build
+          python3 "$GITHUB_WORKSPACE/releases/check-telemetry.py" --bundle bundle
           zip -r wekan-${VERSION}-amd64.zip bundle
           # A checksum beside the bundle, so a download can be checked.
           sha256sum "wekan-${VERSION}-amd64.zip" > "wekan-${VERSION}-amd64.zip.sha256sum"
@@ -830,6 +852,10 @@ jobs:
         with:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
 
+      - name: Audit telemetry source before release work
+        shell: bash
+        run: python3 ./releases/check-telemetry.py --source .
+
       - name: Install dependencies
         run: |
           bash "$GITHUB_WORKSPACE/releases/apt-install.sh" build-essential g++ make python3 curl unzip zip xz-utils qemu-user-static
@@ -941,6 +967,7 @@ jobs:
       - name: Create arm64 zip
         if: steps.preflight.outputs.skip != 'true'
         run: |
+          python3 "$GITHUB_WORKSPACE/releases/check-telemetry.py" --bundle bundle
           zip -r wekan-${VERSION}-arm64.zip bundle
           # A checksum beside the bundle, so a download can be checked.
           sha256sum "wekan-${VERSION}-arm64.zip" > "wekan-${VERSION}-arm64.zip.sha256sum"
@@ -1052,6 +1079,10 @@ jobs:
       - uses: actions/checkout@v7
         with:
           ref: main
+
+      - name: Audit telemetry source before release work
+        shell: bash
+        run: python3 ./releases/check-telemetry.py --source .
 
       - name: Download all bundles
         uses: actions/download-artifact@v8
@@ -1232,6 +1263,10 @@ jobs:
         with:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
           path: src
+
+      - name: Audit telemetry source before release work
+        shell: bash
+        run: python3 src/releases/check-telemetry.py --source src
 
       - uses: actions/setup-node@v7
         with:
@@ -1440,7 +1475,10 @@ jobs:
       - name: Create win64 zip
         if: steps.preflight.outputs.skip != 'true'
         shell: cmd
-        run: 7z a wekan-%VERSION%-win64.zip bundle
+        run: |
+          python src/releases/check-telemetry.py --bundle bundle
+          if errorlevel 1 exit /b 1
+          7z a wekan-%VERSION%-win64.zip bundle
 
       - name: Verify the win64 zip
         if: steps.preflight.outputs.skip != 'true'
@@ -1609,6 +1647,10 @@ jobs:
         with:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
           path: src
+
+      - name: Audit telemetry source before release work
+        shell: bash
+        run: python3 src/releases/check-telemetry.py --source src
 
       - uses: actions/setup-node@v7
         with:
@@ -1812,7 +1854,10 @@ jobs:
       - name: Create win-arm64 zip
         if: steps.preflight.outputs.skip != 'true'
         shell: cmd
-        run: 7z a wekan-%VERSION%-win-arm64.zip bundle
+        run: |
+          python src/releases/check-telemetry.py --bundle bundle
+          if errorlevel 1 exit /b 1
+          7z a wekan-%VERSION%-win-arm64.zip bundle
 
       - name: Verify the win-arm64 zip
         if: steps.preflight.outputs.skip != 'true'
@@ -1971,6 +2016,10 @@ jobs:
       # x64 Node (the runner's own): there is no 32-bit Windows Node 26 to
       # install. It only DRIVES npm/node-gyp; the ia32 output comes from
       # npm_config_arch=ia32 in the rebuild step.
+      - name: Audit telemetry source before release work
+        shell: bash
+        run: python3 src/releases/check-telemetry.py --source src
+
       - uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
@@ -2177,7 +2226,10 @@ jobs:
       - name: Create win32 zip
         if: steps.preflight.outputs.skip != 'true'
         shell: cmd
-        run: 7z a wekan-%VERSION%-win32.zip bundle
+        run: |
+          python src/releases/check-telemetry.py --bundle bundle
+          if errorlevel 1 exit /b 1
+          7z a wekan-%VERSION%-win32.zip bundle
 
       - name: Verify the win32 zip
         if: steps.preflight.outputs.skip != 'true'
@@ -2287,6 +2339,10 @@ jobs:
       - uses: actions/checkout@v7
         with:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
+
+      - name: Audit telemetry source before release work
+        shell: bash
+        run: python3 ./releases/check-telemetry.py --source .
 
       - uses: actions/setup-node@v7
         with:
@@ -2440,6 +2496,7 @@ jobs:
       - name: Create mac-arm64 zip
         if: steps.preflight.outputs.skip != 'true'
         run: |
+          python3 "$GITHUB_WORKSPACE/releases/check-telemetry.py" --bundle bundle
           zip -r wekan-${VERSION}-mac-arm64.zip bundle
           # A checksum beside the bundle, so a download can be checked. macOS has
           # no `sha256sum` (that is a GNU coreutils name); `shasum -a 256` is the
@@ -2571,6 +2628,10 @@ jobs:
       - uses: actions/checkout@v7
         with:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
+
+      - name: Audit telemetry source before release work
+        shell: bash
+        run: python3 ./releases/check-telemetry.py --source .
 
       - uses: actions/setup-node@v7
         with:
@@ -2723,6 +2784,7 @@ jobs:
       - name: Create mac-x64 zip
         if: steps.preflight.outputs.skip != 'true'
         run: |
+          python3 "$GITHUB_WORKSPACE/releases/check-telemetry.py" --bundle bundle
           zip -r wekan-${VERSION}-mac-x64.zip bundle
           shasum -a 256 "wekan-${VERSION}-mac-x64.zip" > "wekan-${VERSION}-mac-x64.zip.sha256sum"
           cat "wekan-${VERSION}-mac-x64.zip.sha256sum"
@@ -2971,6 +3033,10 @@ jobs:
       # actions/checkout cleans the workspace and would remove the bundle.
       - uses: actions/checkout@v7
 
+      - name: Audit telemetry source before release work
+        shell: bash
+        run: python3 ./releases/check-telemetry.py --source .
+
       - name: Install dependencies
         run: |
           bash "$GITHUB_WORKSPACE/releases/apt-install.sh" curl unzip zip
@@ -3130,6 +3196,7 @@ jobs:
       - name: Create ${{ matrix.arch }} zip
         if: steps.preflight.outputs.skip != 'true'
         run: |
+          python3 "$GITHUB_WORKSPACE/releases/check-telemetry.py" --bundle bundle
           zip -r wekan-${VERSION}-${{ matrix.arch }}.zip bundle
           # A zip that EXISTS is not a zip that WORKS, and the log should say which of the
           # two this is. The size answers "was the bundle directory empty when it was
@@ -3285,6 +3352,10 @@ jobs:
       - uses: actions/checkout@v7
         with:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
+
+      - name: Audit telemetry source before release work
+        shell: bash
+        run: python3 ./releases/check-telemetry.py --source .
 
       - uses: actions/setup-node@v7
         with:
@@ -3491,6 +3562,7 @@ jobs:
             echo "::error::meteor-spk pack failed (exit $pack_rc). The sizes above are what it tried to pack; Sandstorm's limit is 1 GiB uncompressed across .meteor-spk/deps and .meteor-spk/bundle together."
             exit "$pack_rc"
           fi
+          python3 releases/check-telemetry.py --bundle .meteor-spk/bundle
           # Report the packed size and warn if it exceeds Cloudflare's 100 MB upload
           # cap (a proxied browser upload to a Cloudflare-fronted Sandstorm 413s above
           # this; install via a DNS-only host / SSH tunnel, or trim further).
@@ -3640,6 +3712,10 @@ jobs:
       - uses: actions/checkout@v7
         with:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
+
+      - name: Audit telemetry source before release work
+        shell: bash
+        run: python3 ./releases/check-telemetry.py --source .
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v4
@@ -4328,6 +4404,10 @@ jobs:
         with:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
 
+      - name: Audit telemetry source before release work
+        shell: bash
+        run: python3 ./releases/check-telemetry.py --source .
+
       - name: Verify snapcraft.yaml version matches the release
         # snapcraft.yaml's `version:` names the produced file (wekan_<version>_<arch>.snap).
         # Assert it matches the tag so a stale version fails fast here.
@@ -4540,6 +4620,10 @@ jobs:
           # remote-build (Launchpad) rejects shallow clones, so fetch full history
           # here; the next step then replaces it with a small COMPLETE history.
           fetch-depth: 0
+
+      - name: Audit telemetry source before release work
+        shell: bash
+        run: python3 ./releases/check-telemetry.py --source .
 
       - name: Flatten history so the Launchpad push stays small
         if: steps.bundle.outputs.available == 'true'
@@ -5049,6 +5133,10 @@ jobs:
           ref: refs/tags/v${{ needs.prepare.outputs.version }}
           path: wekan
 
+      - name: Audit telemetry source before release work
+        shell: bash
+        run: python3 wekan/releases/check-telemetry.py --source wekan
+
       - name: Build the ${{ matrix.snapname }} tree from wekan
         id: tree
         if: steps.guard.outputs.snap == 'true'
@@ -5379,6 +5467,10 @@ jobs:
       - uses: actions/checkout@v7
         with:
           ref: main
+
+      - name: Audit telemetry source before release work
+        shell: bash
+        run: python3 ./releases/check-telemetry.py --source .
 
       - uses: actions/download-artifact@v8
         continue-on-error: true
