@@ -653,7 +653,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v11.93 2026-09-24 WeKan ® release
 
 **In short:** Login error responses no longer disclose internal stack traces,
 and the local identity test server rejects expensive or malformed OAuth
