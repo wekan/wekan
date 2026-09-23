@@ -1,0 +1,40 @@
+{
+  "data": [
+    {
+      "gid": "1",
+      "resource_type": "task",
+      "name": "Audit task – Å 中文",
+      "notes": "First line: café, comma, and \"quotes\".\nSecond line: 日本語.",
+      "completed": false,
+      "due_on": "2026-09-30",
+      "memberships": [
+        {
+          "project": {
+            "gid": "2",
+            "name": "Audit Asana"
+          },
+          "section": {
+            "gid": "3",
+            "name": "Audit list"
+          }
+        }
+      ],
+      "tags": [
+        {
+          "gid": "4",
+          "name": "Audit label"
+        }
+      ],
+      "attachments": [
+        {
+          "gid": "5",
+          "resource_type": "attachment",
+          "name": "audit.txt",
+          "resource_subtype": "asana"
+        }
+      ],
+      "num_subtasks": 1
+    }
+  ],
+  "next_page": null
+}

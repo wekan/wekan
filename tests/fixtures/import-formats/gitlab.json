@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "iid": 1,
+    "project_id": 1,
+    "title": "Audit task – Å 中文",
+    "description": "First line: café, comma, and \"quotes\".\nSecond line: 日本語.",
+    "state": "opened",
+    "labels": [
+      "Audit label"
+    ],
+    "author": {
+      "username": "dummy"
+    },
+    "assignees": [],
+    "due_date": "2026-09-30",
+    "user_notes_count": 1,
+    "web_url": "https://example.invalid/issues/1"
+  }
+]

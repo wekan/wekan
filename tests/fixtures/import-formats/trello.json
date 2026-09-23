@@ -1,0 +1,92 @@
+{
+  "id": "65a000000000000000000003",
+  "name": "Audit Trello",
+  "desc": "Board description",
+  "closed": false,
+  "prefs": {
+    "permissionLevel": "private",
+    "backgroundColor": "#0079bf"
+  },
+  "members": [],
+  "memberships": [],
+  "labels": [
+    {
+      "id": "label1",
+      "name": "Audit label",
+      "color": "green"
+    }
+  ],
+  "lists": [
+    {
+      "id": "65a000000000000000000002",
+      "name": "Audit list",
+      "closed": false,
+      "pos": 1
+    }
+  ],
+  "cards": [
+    {
+      "id": "65a000000000000000000001",
+      "idList": "65a000000000000000000002",
+      "name": "Audit task – Å 中文",
+      "desc": "First line: café, comma, and \"quotes\".\nSecond line: 日本語.",
+      "closed": false,
+      "pos": 1,
+      "idMembers": [],
+      "idLabels": [
+        "label1"
+      ],
+      "due": "2026-09-30T12:34:56.000Z",
+      "dueComplete": false,
+      "dateLastActivity": "2026-09-30T12:34:56.000Z",
+      "idChecklists": [
+        "check1"
+      ],
+      "attachments": [
+        {
+          "id": "file1",
+          "name": "audit.txt",
+          "fileName": "audit.txt",
+          "mimeType": "text/plain",
+          "bytes": 25,
+          "url": "https://trello.com/1/cards/65a000000000000000000001/attachments/file1/download/audit.txt",
+          "isUpload": true
+        }
+      ]
+    }
+  ],
+  "checklists": [
+    {
+      "id": "check1",
+      "idCard": "65a000000000000000000001",
+      "name": "Audit checklist",
+      "checkItems": [
+        {
+          "id": "item1",
+          "name": "Audit step",
+          "state": "complete",
+          "pos": 1
+        }
+      ],
+      "pos": 1
+    }
+  ],
+  "actions": [
+    {
+      "id": "action1",
+      "type": "commentCard",
+      "date": "2026-09-30T12:34:56.000Z",
+      "data": {
+        "card": {
+          "id": "65a000000000000000000001"
+        },
+        "text": "Audit comment"
+      },
+      "memberCreator": {
+        "id": "member1",
+        "username": "dummy"
+      },
+      "idMemberCreator": "member1"
+    }
+  ]
+}

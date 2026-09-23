@@ -1,0 +1,46 @@
+{
+  "board": {
+    "name": "Audit Kanboard"
+  },
+  "columns": [
+    {
+      "id": "1",
+      "title": "Audit list",
+      "position": "1"
+    }
+  ],
+  "swimlanes": [
+    {
+      "id": "1",
+      "name": "Default"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "1",
+      "title": "Audit task – Å 中文",
+      "description": "First line: café, comma, and \"quotes\".\nSecond line: 日本語.",
+      "column_id": "1",
+      "column_name": "Audit list",
+      "swimlane_id": "1",
+      "swimlane_name": "Default",
+      "date_due": "1790771696",
+      "tags": [
+        "Audit label"
+      ],
+      "comments": [
+        {
+          "comment": "Audit comment"
+        }
+      ],
+      "files": [
+        {
+          "id": "1",
+          "name": "audit.txt",
+          "path": "tasks/audit.txt",
+          "size": 25
+        }
+      ]
+    }
+  ]
+}

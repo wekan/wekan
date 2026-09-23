@@ -8,6 +8,7 @@ import { BOARD_COLORS, CARD_COLORS, SWIMLANE_COLORS } from '/models/metadata/col
 import Users from '/models/users';
 import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerator';
 import { planImportedBoardMember } from '/models/lib/importedBoardMemberPlan';
+import { importedAttachmentsByCard } from '/models/lib/importedAttachmentsByCard';
 import { importedCardDates } from '/models/lib/importedCardDates';
 import { importedBoardPermission } from '/models/lib/importedBoardPermission';
 import {
@@ -962,29 +963,9 @@ export class WekanCreator {
   }
 
   parseActivities(wekanBoard) {
+    this.attachments = importedAttachmentsByCard(wekanBoard);
     wekanBoard.activities.forEach(activity => {
       switch (activity.activityType) {
-        case 'addAttachment': {
-          // We have to be cautious, because the attachment could have been removed later.
-          // In that case Wekan still reports its addition, but removes its 'url' field.
-          // So we test for that
-          const wekanAttachment = wekanBoard.attachments.filter(attachment => {
-            return attachment._id === activity.attachmentId;
-          })[0];
-
-          if (typeof wekanAttachment !== 'undefined' && wekanAttachment) {
-            if (wekanAttachment.url || wekanAttachment.file) {
-              // we cannot actually create the Wekan attachment, because we don't yet
-              // have the cards to attach it to, so we store it in the instance variable.
-              const wekanCardId = activity.cardId;
-              if (!this.attachments[wekanCardId]) {
-                this.attachments[wekanCardId] = [];
-              }
-              this.attachments[wekanCardId].push(wekanAttachment);
-            }
-          }
-          break;
-        }
         case 'addComment': {
           const wekanComment = wekanBoard.comments.filter(comment => {
             return comment._id === activity.commentId;

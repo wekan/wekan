@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { importedTableRows } from './lib/importedTableRows';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Activities from '/models/activities';
 import Boards from './boards';
@@ -391,6 +392,7 @@ export class CsvCreator {
   }
 
   async create(board, currentBoardId) {
+    board = importedTableRows(board);
     const isSandstorm =
       Meteor.settings &&
       Meteor.settings.public &&

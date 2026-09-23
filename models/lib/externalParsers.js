@@ -1,3 +1,22 @@
+// Jira Cloud v3 descriptions use Atlassian Document Format, not strings.
+// Preserve readable text and block boundaries; rich source formatting is not
+// treated as trusted HTML. Input has already passed the import security boundary.
+export function adfPlainText(value) {
+  if (typeof value === 'string') return value;
+  if (!value || typeof value !== 'object') return '';
+  const walk = node => {
+    if (!node || typeof node !== 'object') return '';
+    if (node.type === 'text') return typeof node.text === 'string' ? node.text : '';
+    if (node.type === 'hardBreak') return '\n';
+    if (node.type === 'mention' || node.type === 'emoji') return node.attrs?.text || '';
+    if (node.type === 'inlineCard') return node.attrs?.url || '';
+    const text = (Array.isArray(node.content) ? node.content : []).map(walk).join('');
+    return ['paragraph', 'heading', 'listItem', 'codeBlock', 'tableRow'].includes(node.type)
+      ? text.replace(/\n+$/, '') + '\n' : text;
+  };
+  return walk(value).replace(/\n+$/, '');
+}
+
 // Parsers that normalize exports/API responses from other tools into the common
 // "Kanboard shape" { board, columns, swimlanes, tasks } that KanboardCreator
 // consumes. Each is best-effort and tolerant of missing fields.
@@ -333,7 +352,7 @@ export function parseJira(data) {
       externalId: issue.key,
       title: [issue.key ? `[${issue.key}]` : null, fields.summary]
         .filter(Boolean).join(' ') || 'Imported issue',
-      description: typeof fields.description === 'string' ? fields.description : '',
+      description: adfPlainText(fields.description),
       column_name: (fields.status && fields.status.name) || 'Imported',
       swimlane_name: 'Default',
       date_due: fields.duedate,

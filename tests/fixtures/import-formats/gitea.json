@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "number": 1,
+    "title": "Audit task – Å 中文",
+    "body": "First line: café, comma, and \"quotes\".\nSecond line: 日本語.",
+    "state": "open",
+    "state_reason": null,
+    "user": {
+      "login": "dummy"
+    },
+    "assignee": null,
+    "assignees": [],
+    "labels": [
+      {
+        "id": 1,
+        "name": "Audit label",
+        "color": "00ff00"
+      }
+    ],
+    "milestone": {
+      "title": "Audit milestone",
+      "due_on": "2026-09-30T12:34:56.000Z"
+    },
+    "comments": 1,
+    "comments_url": "https://example.invalid/comments",
+    "html_url": "https://example.invalid/issues/1"
+  }
+]

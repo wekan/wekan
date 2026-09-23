@@ -1664,6 +1664,21 @@ const TEAM_FEATURE_METHODS = {
   teamSyncMembersFromAuth: 'setTeamSyncMembersFromAuth',
 };
 
+// The header is its own template, so its controls need their own handler.
+Template.orgFeatureHeader.events({
+  async 'click .js-org-feature-all'(event, tpl) {
+    event.preventDefault();
+    const field = event.currentTarget.getAttribute('data-feature');
+    if (!ORG_FEATURE_METHODS[field]) return;
+    const value = event.currentTarget.getAttribute('data-value') === 'true';
+    // Preserve rapid select/unselect clicks while an earlier save is pending.
+    tpl.saving = (tpl.saving || Promise.resolve())
+      .then(() => Meteor.callAsync('setAllOrgsFeature', field, value))
+      .catch(error => window.alert(error.reason || error.message));
+    await tpl.saving;
+  },
+});
+
 Template.orgRow.events({
   'click a.edit-org': Popup.open('editOrg'),
   'click a.more-settings-org': Popup.open('settingsOrg'),

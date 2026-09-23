@@ -192,7 +192,8 @@ Meteor.methods({
   async setAllOrgsFeature(field, value) {
     check(field, String);
     check(value, Boolean);
-    if (await callerIsAdmin(this.userId)) {
+    if (!(await callerIsAdmin(this.userId))) throw new Meteor.Error('not-authorized');
+    {
       const allowed = [
         'orgSharedTemplates',
         'orgPropagateMembersToBoards',

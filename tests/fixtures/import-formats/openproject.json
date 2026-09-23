@@ -1,0 +1,43 @@
+{
+  "_type": "Collection",
+  "total": 1,
+  "count": 1,
+  "pageSize": 100,
+  "offset": 1,
+  "_embedded": {
+    "elements": [
+      {
+        "_type": "WorkPackage",
+        "id": 1,
+        "subject": "Audit task – Å 中文",
+        "description": {
+          "format": "markdown",
+          "raw": "First line: café, comma, and \"quotes\".\nSecond line: 日本語.",
+          "html": "<p>Dummy</p>"
+        },
+        "dueDate": "2026-09-30",
+        "_links": {
+          "status": {
+            "href": "/api/v3/statuses/1",
+            "title": "Audit list"
+          },
+          "attachments": {
+            "href": "/api/v3/work_packages/1/attachments"
+          }
+        },
+        "_embedded": {
+          "attachments": {
+            "_type": "Collection",
+            "elements": [
+              {
+                "id": 1,
+                "fileName": "audit.txt",
+                "fileSize": 25
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

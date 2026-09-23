@@ -1,3 +1,4 @@
+import { adfPlainText } from './lib/externalParsers';
 import { Meteor } from 'meteor/meteor';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Activities from '/models/activities';
@@ -153,7 +154,7 @@ export class JiraCreator {
         archived: false,
         boardId,
         dateLastActivity: this._now(),
-        description: typeof fields.description === 'string' ? fields.description : '',
+        description: adfPlainText(fields.description),
         listId: this.lists[statusName],
         swimlaneId: this.swimlane,
         sort: -1,

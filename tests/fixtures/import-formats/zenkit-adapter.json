@@ -1,0 +1,19 @@
+{
+  "title": "Audit Zenkit adapter",
+  "stages": [
+    {
+      "name": "Audit list"
+    }
+  ],
+  "items": [
+    {
+      "title": "Audit task – Å 中文",
+      "description": "First line: café, comma, and \"quotes\".\nSecond line: 日本語.",
+      "stage_name": "Audit list",
+      "due": "2026-09-30",
+      "tags": [
+        "Audit label"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "isLast": true,
+  "issues": [
+    {
+      "id": "10001",
+      "key": "AUDIT-1",
+      "fields": {
+        "summary": "Audit task – Å 中文",
+        "description": {
+          "type": "doc",
+          "version": 1,
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "First line: café, comma, and \"quotes\"."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Second line: 日本語."
+                }
+              ]
+            }
+          ]
+        },
+        "status": {
+          "name": "Audit list"
+        },
+        "project": {
+          "name": "Audit Jira"
+        },
+        "labels": [
+          "Audit label"
+        ],
+        "duedate": "2026-09-30",
+        "reporter": {
+          "accountId": "dummy",
+          "displayName": "Dummy Reporter"
+        },
+        "comment": {
+          "comments": [
+            {
+              "id": "10002",
+              "body": {
+                "type": "doc",
+                "version": 1,
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Audit comment"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "attachment": [
+          {
+            "id": "10003",
+            "filename": "audit.txt",
+            "size": 25,
+            "mimeType": "text/plain",
+            "content": "https://example.invalid/audit.txt"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "id": 1,
+  "title": "Audit Deck",
+  "color": "0082c9",
+  "archived": false,
+  "stacks": [
+    {
+      "id": 1,
+      "title": "Audit list",
+      "order": 0,
+      "cards": [
+        {
+          "id": 1,
+          "title": "Audit task – Å 中文",
+          "description": "First line: café, comma, and \"quotes\".\nSecond line: 日本語.",
+          "type": "plain",
+          "order": 0,
+          "duedate": "2026-09-30T12:34:56.000Z",
+          "labels": [
+            {
+              "title": "Audit label",
+              "color": "0082c9"
+            }
+          ],
+          "attachments": [
+            {
+              "id": 1,
+              "type": "file",
+              "data": "audit.txt"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

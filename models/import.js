@@ -1,3 +1,4 @@
+import { validateImportSourceShape } from './lib/importSourceShape';
 import { requireBoardMutation } from '/models/lib/boardMutationGuard';
 import { Meteor } from 'meteor/meteor';
 import { ReactiveCache } from '/imports/reactiveCache';
@@ -83,6 +84,8 @@ Meteor.methods({
     }
     // Admin Panel / Features / Security: master switch to disable all import.
     await assertImportEnabled();
+    try { validateImportSourceShape(importSource, board); }
+    catch (error) { throw new Meteor.Error('invalid-import-format', error.message); }
     let creator;
     let importedBoard = sanitizeImported(board, importSource, this);
     switch (importSource) {
