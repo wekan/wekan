@@ -1,0 +1,14 @@
+{
+  "repo": "wekan/wekan",
+  "kind": "wekan",
+  "branch": "main",
+  "upcoming": "# Upcoming WeKan \u00ae release",
+  "audits": [
+    [
+      "python3",
+      "releases/check-telemetry.py",
+      "--source",
+      "."
+    ]
+  ]
+}

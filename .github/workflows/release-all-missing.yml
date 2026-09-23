@@ -25,7 +25,11 @@ name: Release all missing
 #   the six extra architectures  s390x ppc64le riscv64 i386 armhf loong64
 #   the AppImages, Mac apps and Flatpaks by calling their own workflows
 #
-# It cannot rebuild amd64 itself (that is the Meteor build), nor arm64, win64
+# The recover job first retries failed jobs from the matching named full-release
+# run, including native builds, Docker, snap and website. Successful jobs are
+# preserved. The asset planner below then fills packaging gaps.
+#
+# The asset planner alone cannot rebuild amd64 itself (that is the Meteor build), nor arm64, win64
 # and mac-arm64 (each needs its own kind of runner and its own steps), nor the
 # Sandstorm .spk. When one of those is missing it says so and names
 # release-all.yml, rather than pretending.
@@ -51,6 +55,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 env:
   DO_NOT_TRACK: '1'
@@ -64,7 +69,25 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v7
+      - name: Require reviewed dependencies before recovery
+        run: python3 releases/remote-release.py --audit
+      - name: Retry failed jobs of the matching full release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+          V="$VERSION"
+          [ -n "$V" ] || V="$(gh release view --json tagName --jq .tagName)"
+          python3 releases/retry-failed-release.py "$V"
+
   plan:
+    needs: recover
     timeout-minutes: 15
     name: what the release is missing
     runs-on: ubuntu-latest
@@ -79,6 +102,10 @@ jobs:
       total: ${{ steps.plan.outputs.total }}
     steps:
       - uses: actions/checkout@v7
+
+      - name: Require reviewed dependencies before release work
+        shell: bash
+        run: python3 releases/remote-release.py --audit
 
       - name: Audit telemetry source before release work
         shell: bash
@@ -158,7 +185,8 @@ jobs:
       - name: Say plainly what this run will not do
         if: ${{ steps.plan.outputs.manual != '' }}
         run: |
-          echo "::warning::v${{ steps.plan.outputs.version }} is missing ${{ steps.plan.outputs.manual }}, which this workflow cannot build: amd64 is the Meteor build, arm64/win64/mac-arm64 each need their own runner, and the Sandstorm .spk is signed. Run release-all.yml for those."
+          echo "::error::v${{ steps.plan.outputs.version }} still lacks ${{ steps.plan.outputs.manual }} after recovery. Inspect the matching full-release run; older unnamed runs need their failed jobs retried manually."
+          exit 1
 
   # The six architectures nobody else builds for, repacked from the PUBLISHED
   # amd64 bundle - which is what makes this possible without a Meteor build.

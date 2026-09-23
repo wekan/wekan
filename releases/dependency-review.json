@@ -1,0 +1,20 @@
+{
+  "scope": "Dependency metadata change gate; complements source review and existing telemetry tests. Never refresh automatically during release.",
+  "files": {
+    ".meteor/packages": "99a5ff10f8a6f00c2d7e18e2740f60577c8fe5e76a5be18cee8aa6a0a409220f",
+    ".meteor/release": "2ca4981b8f94adfef6ceaf7c3eaf0e3fbd3d1a685b0e3e95dcc2fc5b8809c734",
+    ".meteor/versions": "ab4675a8133d09ef366422742135f500c2ceec45f6f5dcf3ecdd13f44d3a65df",
+    "npm-packages/meteor-jade-loader/lib/vendor/jade/package-lock.json": "03a31230576e63149c11c76939c36b34aaa99f701f40650cab8882b9452ef589",
+    "npm-packages/meteor-jade-loader/lib/vendor/jade/package.json": "d582fa8827c92654b7899d95882a8856221d02d2549315080f7d26a77888517e",
+    "npm-packages/meteor-jade-loader/package-lock.json": "8965e2a2a8f990320d21f521db4acdc7df2a4ac8f24c1436c18cf484fa5a523b",
+    "npm-packages/meteor-jade-loader/package.json": "ba40adcdff806384cdb570ebd2d1b7214f59e011650c5c840b50ca4d104a7872",
+    "npm-packages/office-open-xml-viewer/package.json": "d5e88b8c909740febcca00392e4bc060daec8b5d438821f8bfbd7aa361754185",
+    "package-lock.json": "27f95759a34eca707cc26cea8b36fe38bea8e0954342af50ad553061f8a5e23a",
+    "package.json": "0cf89d0737ab0fd28fee868ea1793087071976f3cdbed6fb35d1e5fbd8ecc540",
+    "packages/wekan-accounts-lockout/package.json": "5607684d64421ff2c9cbbf61e72d9406e2554d5372dcc324fbbebc458fc71251",
+    "packages/wekan-fontawesome/fontawesome-free/package.json": "4342a56c37942c3e6fde445901c332e266c57ca587cfd30699e35f3af8908727",
+    "releases/package.json": "565399d704206b2de710cfa5b2bb2f9638743adb37b4258c106743dc26dbe8e5",
+    "tests/playwright/package-lock.json": "106b6b07aae06ed5dc4a9de764841ddcacb36a2fa39f6e97b93f23373361622c",
+    "tests/playwright/package.json": "2075f6a1e43c09b3bc5e132baa3e0d616521be26425d48ed9e697dba017e6e3c"
+  }
+}

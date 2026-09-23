@@ -263,56 +263,58 @@ REM Release notes: In short, Security, translation languages, thanks and changel
 REM Binary provenance stays in build artifacts.
 echo.
 echo -- Releases / Release --   ^(0 = Back^)
-echo   1^) Release ALL platforms: push CHANGELOG, trigger release-all.yml
-echo   2^) Release ^(older local flow^), for one version
-echo   3^) Show the version numbers this checkout would release
-echo   4^) Show the CHANGELOG of the release being prepared
-echo   5^) Rebuild the API docs ^(wekan.yml + wekan.html^)
-echo   6^) Rebuild a release that already exists
-echo   7^) Prepare the release directory for one version
-echo   8^) Collect the built bundles for one version
-echo   9^) Link the newest bundle as wekan-latest
-echo   10^) Move an old release out of the download directory
-echo   11^) Clean up after a release
-echo   12^) Publish the Helm chart in wekan/charts
-echo   13^) Update wekan.fi with the new version and API docs
-echo   14^) Publish the npm packages xet7 maintains
-echo   15^) Check every download URL snapcraft.yaml uses
-echo   16^) Clone all release-related repositories
-echo   17^) Create the GitHub Actions secrets a release needs
-echo   18^) Add a git tag for a release
-echo   19^) Delete a git tag, locally and on the remote
-echo   20^) Move the 'stable' tag to HEAD
-echo   21^) Release the wekan-ondra / wekan-gantt-gpl variants, part 1
-echo   22^) Release the wekan-ondra / wekan-gantt-gpl variants, part 2
-echo   23^) Report ^(or repair^) the Helm chart index for past releases
-echo   24^) Rebuild the Helm index.yaml from the chart packages
+echo   1^) Release All: audit, commit, push and build with Actions
+echo   2^) Release All Missing
+echo   3^) Release ^(older local flow^), for one version
+echo   4^) Show the version numbers this checkout would release
+echo   5^) Show the CHANGELOG of the release being prepared
+echo   6^) Rebuild the API docs ^(wekan.yml + wekan.html^)
+echo   7^) Rebuild a release that already exists
+echo   8^) Prepare the release directory for one version
+echo   9^) Collect the built bundles for one version
+echo   10^) Link the newest bundle as wekan-latest
+echo   11^) Move an old release out of the download directory
+echo   12^) Clean up after a release
+echo   13^) Publish the Helm chart in wekan/charts
+echo   14^) Update wekan.fi with the new version and API docs
+echo   15^) Publish the npm packages xet7 maintains
+echo   16^) Check every download URL snapcraft.yaml uses
+echo   17^) Clone all release-related repositories
+echo   18^) Create the GitHub Actions secrets a release needs
+echo   19^) Add a git tag for a release
+echo   20^) Delete a git tag, locally and on the remote
+echo   21^) Move the 'stable' tag to HEAD
+echo   22^) Release the wekan-ondra / wekan-gantt-gpl variants, part 1
+echo   23^) Release the wekan-ondra / wekan-gantt-gpl variants, part 2
+echo   24^) Report ^(or repair^) the Helm chart index for past releases
+echo   25^) Rebuild the Helm index.yaml from the chart packages
 set "choice="
 set /p "choice=Choose: "
 if "%choice%"=="1" call :rel_run "releases/release-all.sh" ""
-if "%choice%"=="2" call :rel_run "releases/release.sh" "WeKan version, e.g. 10.50"
-if "%choice%"=="3" call :rel_run "releases/version.sh" ""
-if "%choice%"=="4" call :rel_run "releases/changelog.sh" ""
-if "%choice%"=="5" call :rel_run "releases/rebuild-docs.sh" ""
-if "%choice%"=="6" call :rel_run "releases/rebuild-release.sh" ""
-if "%choice%"=="7" call :rel_run "releases/rel.sh" "WeKan version, e.g. 10.50"
-if "%choice%"=="8" call :rel_run "releases/release-bundle.sh" "WeKan version, e.g. 10.50"
-if "%choice%"=="9" call :rel_run "releases/release-ln.sh" "WeKan version, e.g. 10.50"
-if "%choice%"=="10" call :rel_run "releases/release-x2.sh" "WeKan version, e.g. 10.50"
-if "%choice%"=="11" call :rel_run "releases/release-cleanup.sh" "WeKan version, e.g. 10.50"
-if "%choice%"=="12" call :rel_run "releases/release-charts.sh" ""
-if "%choice%"=="13" call :rel_run "releases/release-website.sh" ""
-if "%choice%"=="14" call :rel_run "releases/npm-publish.sh" ""
-if "%choice%"=="15" call :rel_run "releases/test-download-urls.sh" ""
-if "%choice%"=="16" call :rel_run "releases/clone-release-repos.sh" ""
-if "%choice%"=="17" call :rel_run "releases/create-github-secrets.sh" ""
-if "%choice%"=="18" call :rel_run "releases/add-tag.sh" "Version tag, e.g. v10.50"
-if "%choice%"=="19" call :rel_run "releases/delete-tag.sh" "Version tag, e.g. v10.50"
-if "%choice%"=="20" call :rel_cmd "git tag --force stable HEAD && git push --tags --force && git push --follow-tags" ""
-if "%choice%"=="21" call :rel_run "releases/release-ondra-1.sh" ""
-if "%choice%"=="22" call :rel_run "releases/release-ondra-2.sh" ""
-if "%choice%"=="23" call :rel_run "releases/backfill-charts.sh" ""
-if "%choice%"=="24" call :rel_run "releases/reindex-charts.py" ""
+if "%choice%"=="2" call :rel_run "releases/release-all-missing.sh" ""
+if "%choice%"=="3" call :rel_run "releases/release.sh" "WeKan version, e.g. 10.50"
+if "%choice%"=="4" call :rel_run "releases/version.sh" ""
+if "%choice%"=="5" call :rel_run "releases/changelog.sh" ""
+if "%choice%"=="6" call :rel_run "releases/rebuild-docs.sh" ""
+if "%choice%"=="7" call :rel_run "releases/rebuild-release.sh" ""
+if "%choice%"=="8" call :rel_run "releases/rel.sh" "WeKan version, e.g. 10.50"
+if "%choice%"=="9" call :rel_run "releases/release-bundle.sh" "WeKan version, e.g. 10.50"
+if "%choice%"=="10" call :rel_run "releases/release-ln.sh" "WeKan version, e.g. 10.50"
+if "%choice%"=="11" call :rel_run "releases/release-x2.sh" "WeKan version, e.g. 10.50"
+if "%choice%"=="12" call :rel_run "releases/release-cleanup.sh" "WeKan version, e.g. 10.50"
+if "%choice%"=="13" call :rel_run "releases/release-charts.sh" ""
+if "%choice%"=="14" call :rel_run "releases/release-website.sh" ""
+if "%choice%"=="15" call :rel_run "releases/npm-publish.sh" ""
+if "%choice%"=="16" call :rel_run "releases/test-download-urls.sh" ""
+if "%choice%"=="17" call :rel_run "releases/clone-release-repos.sh" ""
+if "%choice%"=="18" call :rel_run "releases/create-github-secrets.sh" ""
+if "%choice%"=="19" call :rel_run "releases/add-tag.sh" "Version tag, e.g. v10.50"
+if "%choice%"=="20" call :rel_run "releases/delete-tag.sh" "Version tag, e.g. v10.50"
+if "%choice%"=="21" call :rel_cmd "git tag --force stable HEAD && git push --tags --force && git push --follow-tags" ""
+if "%choice%"=="22" call :rel_run "releases/release-ondra-1.sh" ""
+if "%choice%"=="23" call :rel_run "releases/release-ondra-2.sh" ""
+if "%choice%"=="24" call :rel_run "releases/backfill-charts.sh" ""
+if "%choice%"=="25" call :rel_run "releases/reindex-charts.py" ""
 if "%choice%"=="0" goto menu_releases
 goto rel_release
 
@@ -570,7 +572,8 @@ echo Linux only and are in build.sh instead.
 goto :eof
 
 :cli_list
-echo   release-all                        Release ALL platforms: push CHANGELOG, trigger release-all.yml
+echo   release-all-missing                Complete missing outputs of an existing release
+echo   release-all                        Release All: audit, commit, push and build with Actions
 echo   release                            Release ^(older local flow^), for one version   ^<WeKan version, e.g. 10.50^>
 echo   version                            Show the version numbers this checkout would release
 echo   changelog                          Show the CHANGELOG of the release being prepared
@@ -655,6 +658,7 @@ set "ARGS=%*"
 call set "ARGS=%%ARGS:*%K%=%%"
 set "CMD="
 set "SHCMD="
+if /I "%K%"=="release-all-missing" (set "CMD=bash releases/release-all-missing.sh" ^& goto cli_go)
 if /I "%K%"=="release-all" (set "CMD=bash releases/release-all.sh" ^& goto cli_go)
 if /I "%K%"=="release" (set "CMD=bash releases/release.sh" ^& goto cli_go)
 if /I "%K%"=="version" (set "CMD=bash releases/version.sh" ^& goto cli_go)

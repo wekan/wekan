@@ -54,6 +54,8 @@ if [ -n "${ZSH_VERSION:-}" ]; then exec /bin/bash "$0" "$@"; fi
 # documented in, and can be created with: ./releases/create-github-secrets.sh
 
 set -e
+CHECK_ONLY=false
+if [ "${1:-}" = --check ]; then CHECK_ONLY=true; shift; fi
 
 # Check release notes before installing tools, changing files or contacting forges.
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
@@ -66,9 +68,18 @@ export TMPDIR="$REPO_DIR/.tools/tmp"
 # The workflows repeat this gate against their own checkout.
 python3 "$REPO_DIR/releases/check-telemetry.py" --source "$REPO_DIR"
 
+python3 "$REPO_DIR/releases/remote-release.py" --audit
+[ "$(git branch --show-current)" = main ] || { echo "Error: Release from main only." >&2; exit 1; }
+
+case "$(git remote get-url origin)" in
+  git@github.com:wekan/wekan.git|https://github.com/wekan/wekan.git|https://github.com/wekan/wekan) ;;
+  *) echo 'Error: origin must point to wekan/wekan.' >&2; exit 1 ;;
+esac
+
 # Install the tools this trigger needs if missing.
 . "$REPO_DIR/releases/ensure-tools.sh"
 ensure_tools git gh
+gh auth status
 
 # ── Version helpers ─────────────────────────────────────────────────────────
 # WeKan versions are NN.MM with a 2-digit minor. Encode NN.MM as the integer
@@ -90,6 +101,11 @@ if [ -n "${1:-}" ] || [ -n "${2:-}" ] || [ "$#" -gt 2 ]; then
     echo "Error: release must advance v$OLD to v$NEW; refusing stale or reused versions." >&2
     exit 1
   fi
+fi
+
+if [ "$CHECK_ONLY" = true ]; then
+  echo "Release preflight passed: v$OLD -> v$NEW"
+  exit 0
 fi
 
 # ── Repoint stale commit links in the section about to be released ───────────
@@ -117,7 +133,7 @@ echo ""
 # ── Step 1: Push your pending CHANGELOG.md edit so the workflow can read it ──
 # This is the only thing built/changed on your machine. version bumps, docs,
 # builds and cross-repo updates all happen remotely in GitHub Actions.
-if ! git diff --quiet || ! git diff --cached --quiet; then
+if [ -n "$(git status --porcelain)" ]; then
   echo "--- Committing and pushing pending changes (e.g. CHANGELOG.md) ---"
   git add --all
   git commit -m "Prepare v$NEW release"
@@ -127,13 +143,13 @@ LOCAL=$(git rev-parse HEAD)
 REMOTE=$(git rev-parse @{upstream} 2>/dev/null || echo "")
 if [ "$LOCAL" != "$REMOTE" ]; then
   echo "--- Pushing to remote ---"
-  git push
+  git push origin HEAD:refs/heads/main
 fi
 echo ""
 
 # ── Step 2: Trigger the GitHub Actions release workflow ─────────────────────
 echo "--- Triggering GitHub Actions release workflow (release-all.yml) ---"
-gh workflow run release-all.yml \
+gh workflow run release-all.yml --repo wekan/wekan --ref main \
   -f old_version="$OLD" \
   -f new_version="$NEW"
 echo ""

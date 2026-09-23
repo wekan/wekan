@@ -1,4 +1,5 @@
 name: Release All Platforms
+run-name: Release v${{ inputs.new_version }}
 
 # Triggered manually via GitHub CLI or the Actions UI.
 # Usage:
@@ -172,6 +173,10 @@ jobs:
           ref: main
           fetch-depth: 0
 
+      - name: Require reviewed dependencies before release work
+        shell: bash
+        run: python3 releases/remote-release.py --audit
+
       - name: Audit telemetry source before release work
         shell: bash
         run: python3 ./releases/check-telemetry.py --source .
@@ -191,11 +196,15 @@ jobs:
           # Builds fetch dependencies from upstream themselves, so skip the slow
           # pre-download of Node/MongoDB tarballs that the local flow does.
           RELEASE_SKIP_DEP_DOWNLOAD: '1'
+          RELEASE_KEEP_DEPENDENCIES: '1'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           ./releases/version.sh "${{ inputs.old_version }}" "${{ inputs.new_version }}"
           ./releases/rebuild-docs.sh "${{ inputs.new_version }}"
+
+      - name: Recheck dependency review after version preparation
+        run: python3 releases/remote-release.py --audit
 
       - name: Verify every release version reference
         run: |

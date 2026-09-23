@@ -146,7 +146,16 @@ ensure_cache_or_download() {
   local filename="$1"
   local upstream_url="$2"
 
-  if [ "${USE_LOCAL_DEP_VERSIONS:-0}" = "1" ]; then
+  if [ "${RELEASE_KEEP_DEPENDENCIES:-0}" = "1" ]; then
+    # A release changes the application version, not its reviewed dependencies.
+    # Dependency updates belong in a separate reviewed change before preflight.
+    NEW_NODE=$(sed -nE 's/.*NODE_VERSION=v?([0-9]+\.[0-9]+\.[0-9]+).*/\1/p' Dockerfile | head -1)
+    MONGO_VER=$(get_current_version_from_file snapcraft.yaml 'mongodb-linux-\$\{MONGO_ARCH\}-ubuntu2204-[0-9]+\.[0-9]+\.[0-9]+' | sed -E 's/.*-ubuntu2204-//')
+    [[ "$NEW_NODE" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ && "$MONGO_VER" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || {
+      echo 'Error: reviewed runtime dependency versions are missing.' >&2
+      exit 1
+    }
+  elif [ "${USE_LOCAL_DEP_VERSIONS:-0}" = "1" ]; then
     if [ -f "$DOWNLOAD_DIR/$filename" ]; then
       echo "[DOWNLOAD] Using local file: $DOWNLOAD_DIR/$filename"
       return 0
