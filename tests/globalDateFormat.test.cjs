@@ -95,3 +95,12 @@ test('week-of-year toggle is below the board Date editor and its rule', () => {
   assert.doesNotMatch(read('client/components/sidebar/sidebar.jade'), /js-show-week-of-year-toggle/);
   assert.match(read('client/components/forms/dateFormatSettings.js'), /Template.boardDateSettingsPopup.events/);
 });
+
+test('member format status and separators match the grouped Date layout', () => {
+  const jade = read('client/components/forms/dateFormatSettings.jade');
+  assert.match(jade, /unless isMember\s+hr\s+form.js-date-format-form/);
+  assert.match(jade, /strong.js-member-date-format-heading.*memberMenuPopup-title.*date-format/);
+  assert.match(jade, /if isMember\s+hr\s+label.bold.clear/);
+  assert.match(jade, /hr\s+label.bold.clear\s+i.fa.fa-calendar-check-o/);
+  assert.match(read('client/components/forms/dateFormatSettings.js'), /overrideDraft.set\(event.currentTarget.checked\)/);
+});

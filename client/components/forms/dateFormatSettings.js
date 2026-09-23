@@ -13,6 +13,7 @@ Template.dateFormatEditor.onCreated(function () {
   this.boardId = Utils.getCurrentBoard()?._id;
   this.error = new ReactiveVar('');
   this.saving = new ReactiveVar(false);
+  this.overrideDraft = new ReactiveVar(null);
 });
 
 function preference(instance) {
@@ -72,7 +73,10 @@ Template.dateFormatEditor.helpers({
     const id = Template.instance().boardId;
     return formatLabel(id && ReactiveCache.getBoard(id)?.dateFormat);
   },
-  enabled() { return !!preference(Template.instance())?.dateFormatOverride; },
+  enabled() {
+    const instance = Template.instance();
+    return instance.overrideDraft.get() ?? !!preference(instance)?.dateFormatOverride;
+  },
   error() { return Template.instance().error.get(); },
   saving() { return Template.instance().saving.get(); },
   formats() {
@@ -82,6 +86,9 @@ Template.dateFormatEditor.helpers({
 });
 
 Template.dateFormatEditor.events({
+  'change .js-date-format-override'(event, instance) {
+    instance.overrideDraft.set(event.currentTarget.checked);
+  },
   async 'submit .js-date-format-form'(event, instance) {
     event.preventDefault();
     if (instance.saving.get()) return;

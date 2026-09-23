@@ -28,15 +28,26 @@ template(name="dateFormatEditor")
           else
             span {{_ 'r-rule-disabled'}}
           | : {{boardFormat}}
-    hr
+    unless isMember
+      hr
   form.js-date-format-form
-    label
+    if isMember
+      strong.js-member-date-format-heading {{_ 'memberMenuPopup-title'}}: {{_ 'date-format'}}
+    label.flex
       input.js-date-format-override(type="checkbox" checked=enabled)
-      | {{_ 'date-format'}}
+      if isMember
+        span.js-member-date-format-enabled
+          if enabled
+            | {{_ 'r-rule-enabled'}}
+          else
+            | {{_ 'r-rule-disabled'}}
+      else
+        | {{_ 'date-format'}}
     select.js-date-format-select(aria-label="{{_ 'date-format'}}")
       each formats
         option(value=value selected=selected) {{label}}
     if isMember
+      hr
       label.bold.clear
         i.fa.fa-calendar
         | {{_ 'start-day-of-week'}}
@@ -46,6 +57,7 @@ template(name="dateFormatEditor")
             option(selected="true", value="#{day.value}") #{day.name}
           else
             option(value="#{day.value}") #{day.name}
+      hr
       label.bold.clear
         i.fa.fa-calendar-check-o
         | {{_ 'calendar-system'}}

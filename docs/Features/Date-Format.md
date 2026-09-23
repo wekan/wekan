@@ -16,6 +16,10 @@ Below the board Date popup’s Save button and horizontal rule, Show week of yea
 The board popup shows whether the global format is enabled and its saved value.
 The member popup shows the global and current board statuses and saved values,
 including disabled settings. Outside a board, the board override is disabled.
+The bold Member Settings: Date Format heading follows the board status directly,
+without a rule. Its checkbox shows Enabled or Disabled immediately, above the
+format dropdown. Horizontal rules separate the following settings.
+
 Below Date Format, the member popup also contains Set day of the week start and
 Calendar system (date display). Save applies all three selections. These controls
 are no longer under Change Settings. The summaries and controls use existing

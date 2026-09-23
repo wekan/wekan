@@ -111,6 +111,11 @@ test('Date settings cascade from global to board to member through their own con
     await expect(page.locator('.js-pop-over .content:not(.no-height) .js-board-date-format-status')).toContainText(/Enabled\s*:\s*YYYY-MM-DD/);
     editor = page.locator('.js-pop-over .content:not(.no-height) .js-date-format-form');
     await expect(editor.locator('.js-date-format-select')).toBeVisible();
+    await expect(editor.locator('.js-member-date-format-heading')).toHaveText('Member Settings: Date Format');
+    await expect(editor.locator('.js-member-date-format-enabled')).toHaveText('Disabled');
+    await expect(page.locator('.js-pop-over .content:not(.no-height) .date-format-inherited hr')).toHaveCount(0);
+    await expect(editor.locator('hr')).toHaveCount(2);
+
     const formatBox = await editor.locator('.js-date-format-select').boundingBox();
     const weekStartBox = await editor.locator('#start-day-of-week').boundingBox();
     const calendarBox = await editor.locator('#calendar-system').boundingBox();
@@ -119,11 +124,13 @@ test('Date settings cascade from global to board to member through their own con
 
     await editor.locator('.js-date-format-select').selectOption('MM-DD-YYYY');
     await editor.locator('.js-date-format-override').check();
+    await expect(editor.locator('.js-member-date-format-enabled')).toHaveText('Enabled');
     await editor.locator('button[type="submit"]').click();
     await expect(miniDate).toContainText('03-21-2026');
     await page.locator('.js-pop-over .content:not(.no-height) .js-member-date-settings').click();
     await expect(editor.locator('.js-date-format-override')).toBeChecked();
     await editor.locator('.js-date-format-override').uncheck();
+    await expect(editor.locator('.js-member-date-format-enabled')).toHaveText('Disabled');
     await editor.locator('button[type="submit"]').click();
     await expect(miniDate).toContainText('2026-03-21');
     await page.evaluate(() => Popup.close());
