@@ -21,7 +21,7 @@ metadata:
   area: migration
   tagline: "Migrate an existing Meteor 3 app to the Rspack bundler integration (`mainModule`, replacing legacy build plugins with loaders)."
   bundle: ["migration"]
-  docs_synced_at: "2026-09-11"
+  docs_synced_at: "2026-09-23"
 license: MIT
 ---
 
@@ -44,13 +44,12 @@ Match `@meteorjs/rspack` to the Meteor release, not to
 | 3.5.1 | `1.2.0` | `2.1.0` | Revised client polyfills and extension discovery. |
 | 3.5.2 | `1.3.0` | `2.2.0` | Dependency diagnostics, mode isolation, full-app/TLA and cache fixes. |
 | 3.6-beta.0 | `1.4.0-beta360.0` | `3.0.0-beta.1` | Rspack 2.2.0 and workspace-aware installs. |
+| 3.6-beta.1 | `1.4.0-beta360.1` | `3.0.0-beta.2` | TypeScript rebuild-loop fix; Node 26.8.2. |
 
-The Atmosphere, Meteor npm integration, and Rspack core package versions are
-independent. Inspect `.meteor/versions`, `package.json`, and the lockfile.
-Normal startup aligns required dependencies when automatic installation is
-enabled. Review and commit those changes. Explicit `meteor update --npm` is
-an alternative, not an extra required step. Do not pair a newer integration
-major with an older Meteor release to copy a helper.
+Inspect `.meteor/versions`, `package.json`, and the lockfile: Atmosphere,
+Meteor npm integration and Rspack core versions are independent. With automatic
+installs enabled, startup aligns dependencies; review and commit the changes.
+`meteor update --npm` is an alternative. Keep the release pairing.
 
 Already using Rspack? For the Meteor 3.6 beta upgrade, follow
 [Rspack 1 to 2](references/rspack-2-upgrade.md) and its toolchain checks.
@@ -175,7 +174,7 @@ See `references/framework-and-css.md`.
 | `zodern:melte` (Svelte)   | Official Rspack Svelte loader.                                       |
 | `jorgenvatle:vite` (Vue/Solid) | Native Rspack Vue/Solid loaders.                                |
 | `babel-plugin-react-compiler` | SWC on the 3.6 beta pairing; earlier integrations retain Babel. See framework reference. |
-| `zodern:types`            | Still compatible. Keep it.                                           |
+| `zodern:types` | Keep the working declaration provider during bundler migration; beta.1 native adoption is a separate explicit choice. |
 
 Plugins acting only on Atmosphere package files can stay. Plugins acting on
 app-folder files (entry folder excluded) must move to Rspack.

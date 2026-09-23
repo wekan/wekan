@@ -7,10 +7,10 @@ description: >
   dropping a Promise, a read API receiving update modifiers, async allow/deny,
   an Iron Router controller not running, "Method stub took too long",
   Atmosphere resolution, Express 5 WebApp handlers, lost async context,
-  rawCollection callbacks, meteor/* TypeScript types, useTracker, and
+  rawCollection callbacks, TypeScript declaration failures during upgrades, useTracker, and
   useSubscribe. Use this skill when the user asks about upgrading Meteor,
-  async caller propagation, iterators with await, zodern:types, or replacing
-  and forking packages.
+  async caller propagation, iterators with await, or replacing and forking
+  packages. Standalone declarations and type-checking belong to meteor-typescript.
 metadata:
   author: meteor
   kind: knowledge
@@ -18,7 +18,7 @@ metadata:
   area: migration
   tagline: "Migrate a Meteor 2.x app to 3.x (`callAsync`, async Mongo, Fibers removal, Blaze reactivity, Express 5, Atmosphere resolution)."
   bundle: ["migration"]
-  docs_synced_at: "2026-08-25"
+  docs_synced_at: "2026-09-23"
 license: MIT
 ---
 
@@ -64,8 +64,12 @@ in phases. Do not flip the framework version flag first.
    not inside the invoked handler. Verify invocation context before and after
    `await`. See `references/publications.md` and
    `references/other-breaking-changes.md`.
-10. For TypeScript projects, install `zodern:types` and update
-    `tsconfig.json`. See `references/typescript-migration.md`.
+10. For TypeScript projects, inspect the target release and existing declaration
+    provider. Keep working `@types/meteor` or `zodern:types` setups. Meteor
+    3.6-beta.1 adds explicit native opt-in through `meteor types`; earlier
+    releases retain the legacy workflow. See
+    `references/typescript-migration.md`, then use `meteor-typescript` for
+    provider changes and checking.
 11. For React projects, decide whether to adopt the Suspense-aware
     `react-meteor-data` import. See `references/react-migration.md`, then use
     `meteor-react` for current hook, scaffold, and build guidance.

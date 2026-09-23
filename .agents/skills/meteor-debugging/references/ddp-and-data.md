@@ -58,6 +58,14 @@ the first divergence is a change-stream observer replay. `mongo@2.5.1` in
 3.5.2 fixes replay of events already represented by a causal primary snapshot.
 Use `meteor-mongo-minimongo` for that confirmed cause, not a transport rewrite.
 
+Meteor 3.6-beta.1 adds two narrower fixes. Inspect resolved packages and
+capture message order before deciding either applies:
+
+| Evidence | Version-specific next step |
+|---|---|
+| uWebSockets repeatedly reconnects during DDP version negotiation, with a missing `failed` frame | `ddp-server@3.4.1-beta360.1` flushes queued frames before closing. Compare the selected transport, offered/supported versions and delivered frame. Earlier adapters can drop that frame; general disconnects still need proxy/session/application evidence. |
+| `Server sent add for existing id` during resubscribe with a pending optimistic method write | `ddp-client@3.4.2-beta360.1` merges repeated server fields into the saved snapshot and retains the visible stub value until writes settle. Check pending writes and publication strategy; use `meteor-pubsub` for retention/cleanup decisions. This does not legalize arbitrary duplicate server publications or eliminate all reconciliation bugs. |
+
 ## Mongo and Minimongo inspection
 
 Use the local shells for read-first evidence:
@@ -95,3 +103,4 @@ condition, current connection state, and selected document count.
 ---
 Source: https://github.com/meteor/meteor/blob/devel/v3-docs/docs/performance/ddp-transport.md
 Source: https://github.com/meteor/meteor/blob/devel/v3-docs/docs/generators/changelog/versions/3.5.2.md
+Source: https://github.com/meteor/meteor/blob/devel/v3-docs/docs/generators/changelog/versions/3.6.0.md

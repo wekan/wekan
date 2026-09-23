@@ -18,7 +18,7 @@ metadata:
   area: testing
   tagline: "Set up and write Meteor 3 tests (`meteortesting:mocha`, async signatures, methods/publications, Playwright/Cypress E2E)."
   bundle: ["fullstack"]
-  docs_synced_at: "2026-09-11"
+  docs_synced_at: "2026-09-23"
 license: MIT
 ---
 

@@ -17,7 +17,7 @@ metadata:
   area: auth
   tagline: "Wire up authentication in Meteor 3 (accounts-password, OAuth providers, 2FA, passwordless, email verification)."
   bundle: ["fullstack"]
-  docs_synced_at: "2026-09-08"
+  docs_synced_at: "2026-09-23"
 license: MIT
 ---
 
@@ -116,14 +116,19 @@ Meteor.startup(() => {
 
 After restart and login, `Meteor.loginToken*` no longer appears in
 `localStorage`; the browser receives an HttpOnly `meteor_login_token`
-cookie. Each tab keeps its own in-memory credentials.
+cookie. Each tab keeps its own in-memory credentials. DDP authentication still
+reads the resume token into memory; this does not protect it from a malicious
+script already executing in the application origin.
 
 With `accounts-base@3.3.1` (Meteor 3.5.2), the server handles cookie endpoints
 only when it is opted in too. A client-only setting can therefore produce an
 HTML response or 404 from later handlers. The `/set` body limit is 4096 bytes;
 larger requests return HTTP 413. See
 [cookie endpoint troubleshooting](references/http-only-cookies.md) for the
-routes, version boundary, and diagnostic checks.
+routes, version boundary, and diagnostic checks. Meteor 3.6-beta.1's
+`accounts-base@3.4.0-beta360.1` also requires trusted origins and valid tokens,
+uses `SameSite=Strict`, and adds a separate per-address endpoint rate limit.
+Review custom callers and cross-site entry flows before upgrading.
 
 ## OAuth (Google example)
 
@@ -221,7 +226,11 @@ Set `userCreationDisabled: true` for sign-in-only flows. Configure
 `tokenSequenceLength`, `loginTokenExpirationHours`, and the
 `Accounts.emailTemplates.sendLoginToken` template on the server. Treat the
 token-request method as an abuse-sensitive endpoint and rate-limit repeated
-requests.
+requests. With Meteor 3.6-beta.1's `accounts-passwordless@3.1.2-beta360.1`
+and `accounts-base@3.4.0-beta360.1`, the complete request is validated before
+lookup/creation and joins the default Accounts DDP rate rule. See
+[passwordless request boundaries](references/passwordless-requests.md)
+for custom callers and earlier packages.
 
 ## 2FA
 

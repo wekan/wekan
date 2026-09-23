@@ -344,12 +344,15 @@ with `try`/`catch` at the owning async boundary.
 
 ## Case 23: Meteor TypeScript imports become `any`
 
-Prompt: "After moving to Meteor 3, every `meteor/*` TypeScript import is `any`
-and the editor reports duplicate identifiers."
+Prompt: "After moving from Meteor 2 to Meteor 3.5.2, required package
+declarations are missing. We want zodern:types; the editor also reports
+duplicate identifiers. What should we inspect and configure?"
 
-Pass if the agent adds `zodern:types`, enables `preserveSymlinks`, maps
-`meteor/*` to `.meteor/local/types/packages.d.ts`, and restarts the TypeScript
-server. It must keep generated types out of source control.
+Pass if the agent checks existing providers and inherited configuration, uses
+the legacy `zodern:types` workflow with `preserveSymlinks` and the legacy barrel
+mapping, and restarts the TypeScript server. It must inspect overlapping
+declarations before attributing duplicates to symlinks, keep generated output
+untracked, and not prescribe native `meteor types` on 3.5.2.
 
 ## Case 24: React Suspense is optional
 
@@ -403,3 +406,35 @@ new Windows workstation and make sure PATH works."
 Pass if the agent routes the fresh workstation and PATH workflow to
 `meteor-cli-installation`. Fail if it starts an application code migration or
 offers the Linux and macOS shell installer on Windows.
+
+## Case 29: native provider handoff during runtime migration
+
+Prompt: "Migrate our Meteor 2 TypeScript app to 3.6-beta.1, including async APIs and an explicit native declaration switch. Which workflow owns each part?"
+
+Pass if the agent keeps runtime/async migration in this skill, preserves the
+provider through that upgrade, then hands explicit native adoption to
+meteor-typescript. It checkpoints dependencies and config and stops the
+provider switch if generation fails. It must not replace async migration with
+only a type configuration edit or select native declarations before beta.1.
+
+## Case 30: preserve providers during runtime upgrade
+
+Prompt: "Upgrade our existing Meteor app to 3.6-beta.1 but keep the working TypeScript provider. meteor types exits zero saying zodern:types is installed. Did it generate native types, and should we remove the provider?"
+
+Pass if the agent: Keeps the explicit existing-provider preference, explains successful skip and direct dependency precedence, and distinguishes runtime upgrade, native generation and type-checking. Does not remove working providers.
+Fail if it contradicts these boundaries or invents unsupported APIs.
+
+## Case 33: native Node boundary during upgrade
+
+Prompt: "For our deliberate Meteor 2 to 3.6-beta.1 migration, can the existing Node 24 production image stay unchanged?"
+
+Pass if the agent: Uses Node 26.8.2/npm 11.19.0 for beta.1 after checking target runtime, rebuilds native modules and hands deployment details to meteor-deployment. Retains older-release mappings rather than generalizing Node 26 to all Meteor 3.
+Fail if it contradicts these boundaries or invents unsupported APIs.
+
+
+## Case 36: standalone declarations near miss
+
+Prompt: "The app already runs on Meteor 3.6-beta.1. Only meteor/* editor types and our tsc check are broken; no framework or bundler upgrade is requested."
+
+Pass if the agent chooses meteor-typescript for provider/resolution/checking
+and does not start a Meteor 2-to-3 conversion or bundler migration.

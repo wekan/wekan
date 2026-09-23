@@ -276,3 +276,52 @@ Prompt: "A Meteor 3.5.2 local Atmosphere package keeps reinstalling npm dependen
 
 Pass if the agent: Checks actual tool and shrinkwrap instead of attributing new behavior to 3.5.2, proposes a controlled reproduction and only an authorized paired upgrade, and preserves local data.
 Fail if it contradicts these boundaries or invents unsupported commands.
+
+## Case 31: lifecycle observation
+
+Prompt: "Our Meteor 3.6-beta.1 methods are slow and subscriptions sometimes never become ready. Show temporary supported lifecycle instrumentation without monkey-patching Meteor or collecting payloads."
+
+Pass if the agent: Selects meteor-debugging, checks instrumentation package version, imports only server-side, registers relevant method/publication events and correlates invocation traceId. Keeps capture off, uses durationMs/phase and stop handles, and does not claim an installed APM backend.
+Fail if it contradicts these boundaries or invents unsupported APIs.
+
+## Case 32: instrumentation is not authorization
+
+Prompt: "On Meteor 3.6-beta.1, can a method.start listener throw to reject unauthorized calls and await a database audit write before the method proceeds?"
+
+Pass if the agent: States listeners are read-only, best-effort and never awaited; throws/rejections cannot enforce access or durable writes. Routes authorization to method/security guidance and keeps required work in the actual handler.
+Fail if it contradicts these boundaries or invents unsupported APIs.
+
+## Case 33: preview privacy and scope
+
+Prompt: "With instrumentation 0.0.1-beta360.1, enable previews for an app method and a publication with the same name. Will configureMethod redact both, and can it expose login tokens for debugging?"
+
+Pass if the agent: Distinguishes per-method projection from publication global capture policy, bounded previews from secret redaction, and the Accounts denylist from app-specific privacy. Does not expose tokens; explains safe field projection and cleanup/disable controls.
+Fail if it contradicts these boundaries or invents unsupported APIs.
+
+## Case 34: older lifecycle near miss
+
+Prompt: "We must keep Meteor 3.5.2. Add the new core Instrumentation method/publication listeners to investigate a slow method."
+
+Pass if the agent: States the beta.1 availability boundary, retains targeted redacted logs or existing compatible instrumentation, and does not add unavailable core hooks or force a release upgrade.
+Fail if it contradicts these boundaries or invents unsupported APIs.
+
+## Case 35: TypeScript server restart loop
+
+Prompt: "On Meteor 3.6-beta.0 our TypeScript Rspack server restarts continuously without app edits. Would deleting the generated build marker or ignoring _build fix it? Which beta.1 packages and checks matter?"
+
+Pass if the agent: Rejects generated-file edits and handoff ignores. Checks paired rspack 1.4.0-beta360.1/@meteorjs/rspack 3.0.0-beta.2, observes generated-only churn and hashes, then validates one restart for a successful source rebuild plus compile failure/recovery preserving the last good entry.
+Fail if it contradicts these boundaries or invents unsupported APIs.
+
+## Case 36: host-prefixed port and inspector output
+
+Prompt: "On Meteor 3.6-beta.1, can we keep --port localhost:3060 with Rspack? Beta.0 produced NaN and ERR_SOCKET_BAD_PORT. Also --inspect no longer prints the full Rspack config."
+
+Pass if the agent: Checks tools-core 1.4.0-beta360.1 numeric port parsing and paired npm integration, preserves valid host syntax, and uses --verbose for full configuration while distinguishing server inspection from build diagnostics.
+Fail if it contradicts these boundaries or invents unsupported APIs.
+
+## Case 37: uWS negotiation loop
+
+Prompt: "Our uWebSockets DDP connection repeatedly reconnects during version negotiation and never receives the failed frame. Is there a Meteor 3.6-beta.1 fix, and does it fix all reconnects?"
+
+Pass if the agent: Checks selected transport and frame sequence, identifies ddp-server 3.4.1-beta360.1 graceful flush/close, and does not generalize to all proxy/session/application disconnects or immediately replace transport.
+Fail if it contradicts these boundaries or invents unsupported APIs.

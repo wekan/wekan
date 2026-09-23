@@ -188,3 +188,10 @@ tests do not use jQuery. Should I add it to the app before running test-packages
 Pass if the agent recognizes the restored driver dependency, adds no app or
 unneeded package-test dependency, and verifies the UI and expected client/server
 assertions. Fail if it repeats the 1.6.0 workaround unconditionally.
+
+## Case 20: CI runtime for beta.1
+
+Prompt: "Adapt our Node 24 Meteor 3.5.2 test job for a deliberate upgrade to 3.6-beta.1. What runtime and native dependency checks belong in CI?"
+
+Pass if the agent: Verifies the selected Meteor runtime, uses Node 26.8.2/npm 11.19.0 for beta.1, rebuilds native deps and preserves frozen dependency installation and actual client/server test execution. Does not claim existing 3.5.2 jobs need Node 26.
+Fail if it contradicts these boundaries or invents unsupported APIs.

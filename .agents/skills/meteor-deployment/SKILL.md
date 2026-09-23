@@ -18,7 +18,7 @@ metadata:
   area: ops
   tagline: "Ship Meteor 3 apps to production (meteor build, Galaxy, Docker/Kubernetes, settings.json, env vars, Node version matching)."
   bundle: ["ops"]
-  docs_synced_at: "2026-08-26"
+  docs_synced_at: "2026-09-23"
 license: MIT
 ---
 
@@ -39,9 +39,14 @@ Match the Node version to the bundled Meteor Node:
 |---|---|
 | 3.0 | 20 |
 | 3.1 through 3.4 | 22 |
-| 3.5+ | 24 |
+| 3.5.x and 3.6-beta.0 | 24 |
+| 3.6-beta.1 | 26 (26.8.2) |
 
-Mismatch causes runtime errors. Run `meteor node -v` to confirm.
+Run `meteor node -v` and `meteor npm -v` in the target app to confirm.
+Meteor 3.6-beta.1 bundles npm 11.19.0. Match the deployed runtime and native
+dependency build environment to that release; rebuild and test native npm
+modules for Node 26 and the production architecture before deploying beta.1.
+The host installer prerequisite does not select the bundled runtime.
 
 ## Decision flow
 

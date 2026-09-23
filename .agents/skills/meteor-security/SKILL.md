@@ -16,7 +16,7 @@ metadata:
   area: security
   tagline: "Audit and harden Meteor 3 apps (`check()` coverage, `this.userId` guards, browser-policy CSP, rate limits, oauth-encryption)."
   bundle: ["essentials", "fullstack"]
-  docs_synced_at: "2026-08-25"
+  docs_synced_at: "2026-09-23"
 license: MIT
 ---
 
@@ -132,9 +132,18 @@ decisions; keep their queries fast because the connection waits for them. On
 Meteor 3.0 through 3.4, matchers must stay synchronous. Use a fixed rule,
 precomputed synchronous state, or upgrade rather than awaiting Mongo there.
 
-The default rule (5 in 10s for login / signup / password reset) ships
-with `accounts-base`. Remove with `Accounts.removeDefaultRateLimit()`
-only if you replace it.
+The default rule (5 in 10s per matched method per DDP connection for login / signup / password
+reset) ships with `accounts-base`. Meteor 3.6-beta.1's
+`accounts-base@3.4.0-beta360.1` also matches `requestLoginTokenForUser`;
+`accounts-passwordless@3.1.2-beta360.1` validates its complete payload before
+lookup/creation. Inspect both package versions on older apps. Remove the
+default rule with `Accounts.removeDefaultRateLimit()` only if you replace it.
+
+For cookie hardening on `accounts-base@3.4.0-beta360.1`, use `meteor-accounts`:
+trusted origins, valid tokens, no-store responses and `SameSite=Strict` have
+specific migration checks. Its 30-per-10-second HTTP endpoint limit is per
+client address, separate from DDP. HttpOnly storage does not stop active
+same-origin XSS from obtaining the resume token used for DDP authentication.
 
 ## OAuth secret encryption
 

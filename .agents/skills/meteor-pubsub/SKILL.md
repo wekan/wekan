@@ -14,7 +14,7 @@ metadata:
   area: data
   tagline: "Author and debug publications/subscriptions (publish strategies, low-level `added/changed/removed`, authorization, reactive joins)."
   bundle: ["essentials", "fullstack"]
-  docs_synced_at: "2026-08-25"
+  docs_synced_at: "2026-09-23"
 license: MIT
 ---
 

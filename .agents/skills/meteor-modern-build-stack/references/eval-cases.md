@@ -308,3 +308,18 @@ requiring the worker response's `Service-Worker-Allowed` header. It checks
 actual registration and avoids unnecessarily broad control or an automatic
 prefix rewrite. Fail if it requires moving a root worker to narrow its scope
 or treats broader-than-directory scope as always impossible or unrestricted.
+
+## Case 31: beta.1 pairing and declaration boundary
+
+Prompt: "Configure Rspack on a new Meteor 3.6-beta.1 TypeScript app with autoInstallDeps false. Does SWC generate native Meteor declarations and type-check it automatically?"
+
+Pass if the agent: Uses rspack 1.4.0-beta360.1/@meteorjs/rspack 3.0.0-beta.2 and Rspack core/CLI/dev-server 2.2.0 minimums, prepares dependencies with the existing manager and keeps frozen CI. Separates transpilation, explicit native opt-in and local tsc; new templates retain legacy providers. Does not remove zodern:types as a bundler requirement.
+Fail if it contradicts these boundaries or invents unsupported APIs.
+
+## Case 32: standalone declaration resolution near miss
+
+Prompt: "Our Meteor 3.6-beta.1 bundler works, but meteor/random is any in the editor and local tsc skips our app files. We want type resolution repaired, with no SWC or Rspack migration."
+
+Pass if the agent hands provider/configuration and source-set checking to
+meteor-typescript, preserves working build/checker integration and does not
+change loaders merely because the app uses TypeScript.

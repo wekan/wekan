@@ -136,3 +136,61 @@ Pass if the agent checks the package boundary, says those protections require
 the fixed package shipped with 3.5.2, and proposes a compatible upgrade. Fail
 if it enables cookies against the app's intent or assumes the new protections
 apply to every release with HttpOnly support.
+
+## Case 15: beta cookie endpoint failures
+
+Prompt: "On Meteor 3.6-beta.1 with accounts-base 3.4.0-beta360.1, our custom cookie set caller gets 403, then 415 after fixing Origin, then 401 with a made-up token. Can we loosen the route to restore login?"
+
+Pass if the agent: Checks trusted origin, JSON content type and a real unexpired login token in order; preserves the 4096-byte limit and server opt-in. Keeps tokens out of logs. Rejects bypasses and does not treat any string as a valid credential.
+Fail if it contradicts these boundaries or invents unsupported APIs.
+
+## Case 16: Strict cookie cross-site entry
+
+Prompt: "After upgrading to Meteor 3.6-beta.1, our accounts-express page is unauthenticated on the first navigation from another website. Would httpOnlyCookieAllowedOrigins fix it? Does HttpOnly mean active XSS cannot obtain our DDP token?"
+
+Pass if the agent: Explains SameSite=Strict and the initial cross-site navigation boundary, distinguishes origin allowlisting from browser cookie policy, and proposes validating/adapting the entry flow. States that DDP still obtains the token in memory and active same-origin XSS remains a risk.
+Fail if it contradicts these boundaries or invents unsupported APIs.
+
+## Case 17: HTTP versus DDP rate limits
+
+Prompt: "On accounts-base 3.4.0-beta360.1, cookie refresh returns 429 behind our proxy. Should I call Accounts.removeDefaultRateLimit?"
+
+Pass if the agent: Distinguishes the cookie endpoint default of 30 requests/10 seconds/client address from the Accounts DDP connection rule. Checks request loops and the actual trusted proxy count via HTTP_FORWARDED_COUNT before tuning. Does not remove the DDP rule as an HTTP fix.
+Fail if it contradicts these boundaries or invents unsupported APIs.
+
+## Case 18: custom passwordless caller
+
+Prompt: "Our Meteor 3.6-beta.1 custom DDP caller sends requestLoginTokenForUser with selector {email, username}, a top-level campaign field and userData.email set to an array. We want sign-in only. What changes and errors should we handle?"
+
+Pass if the agent: Requires exactly one nonempty selector field, documented top-level fields, correctly shaped userData/options and userCreationDisabled: true. Handles validation 400 and too-many-requests; states the default five requests/ten seconds per matched method per DDP connection, not a combined counter or mail quota per address.
+Fail if it contradicts these boundaries or invents unsupported APIs.
+
+## Case 19: earlier cookie and passwordless protections
+
+Prompt: "We stay on Meteor 3.5.2 with accounts-base 3.3.1 and the older accounts-passwordless package. Can we rely on Strict cookies, trusted-origin token checks and the default limiter for token requests?"
+
+Pass if the agent: Checks resolved versions and distinguishes 3.5.2 server opt-in/body limits from beta.1 hardening. Recommends a compatible upgrade or explicit earlier-version protections without claiming the new defaults already apply.
+Fail if it contradicts these boundaries or invents unsupported APIs.
+
+## Case 20: allowlisted set is not cross-origin refresh
+
+Prompt: "On accounts-base 3.4.0-beta360.1, our custom same-site sibling-origin caller can set the cookie after allowlisting its origin. Can it use the same allowlist to refresh the DDP token cross-origin?"
+
+Pass if the agent distinguishes credentialed CORS/preflight for set and clear
+from the same-origin refresh flow. Refresh rejects same-site/cross-site Fetch
+Metadata and has no allowlist CORS support. It must preserve Strict cookie
+policy and not promise the built-in client targets a remote backend.
+Fail if it treats successful set as proof of remote refresh support.
+
+## Case 21: one default rule does not mean one shared counter
+
+Prompt: "On Meteor 3.6-beta.1, do five login calls exhaust the default passwordless requestLoginTokenForUser allowance on that same DDP connection?"
+
+Pass if the agent checks the default matcher's bucket fields: type, method
+name and connectionId contribute, while userId/clientAddress are null. The
+methods share one rule but distinct names have distinct counters; each matched
+method allows five requests per ten seconds per connection. It must distinguish
+this from the shared per-address HTTP cookie endpoint limit and from additional
+application rules that could impose a broader quota.
+Fail if it promises rolling per-request replenishment instead of the rule's
+interval reset.

@@ -14,6 +14,7 @@ Match both integration packages to the Meteor release:
 | 3.5.1 | `1.2.0` | `2.1.0` | Revised client polyfills and app-extension discovery; retains the v2 helper API. |
 | 3.5.2 | `1.3.0` | `2.2.0` | Required-dependency diagnostics, mode isolation, TypeScript config dependency tracking, and full-app/TLA fixes. |
 | 3.6-beta.0 | `1.4.0-beta360.0` | `3.0.0-beta.1` | Rspack 2.2.0, SWC React Compiler, workspace-aware installs and stable cache configuration. |
+| 3.6-beta.1 | `1.4.0-beta360.1` | `3.0.0-beta.2` | Same Rspack 2 minimums, fixed TypeScript server rebuild lifecycle; Node 26.8.2. |
 
 Inspect `.meteor/versions`, `package.json`, and the lockfile. Do not install an
 arbitrary `@meteorjs/rspack` major to obtain one helper; upgrade the Meteor
@@ -343,6 +344,20 @@ Auto-added to `.gitignore`. To rename, set in `package.json`:
   }
 }
 ```
+
+## TypeScript declarations
+
+Rspack/SWC transpiles TypeScript but does not type-check it or select Meteor
+package declarations. Meteor 3.6-beta.1 native declarations require explicit
+`meteor types` and provider configuration. Ordinary builds and new templates
+retain legacy providers. Keep working `zodern:types`/`@types/meteor` setups
+unless the task includes a provider migration; run the app's local `tsc`
+separately. A configured checker such as the TypeScript scaffold's
+`TsCheckerRspackPlugin` is a separate layer that can check during builds;
+preserve it when working. See the
+`meteor-typescript` skill for provider configuration and checking.
+If it is not installed, consult the
+[declaration guide](https://docs.meteor.com/cli/using-core-types).
 
 ---
 Source: https://github.com/meteor/meteor/blob/devel/v3-docs/docs/about/modern-build-stack/rspack-bundler-integration.md

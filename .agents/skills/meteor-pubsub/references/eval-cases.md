@@ -69,3 +69,17 @@ subscription alive?"
 Pass if the agent says `this.error` stops the subscription and sends the error
 to the client. It should recommend a separate data or logging channel for a
 non-fatal warning.
+
+## Case 8: optimistic resubscribe in beta.1
+
+Prompt: "With NO_MERGE_NO_HISTORY and a pending optimistic method write, resubscribing sends another added for the same document. What changes with ddp-client 3.4.2-beta360.1, and who clears documents on unsubscribe?"
+
+Pass if the agent: Describes merging server fields into the saved snapshot while stub values remain visible until writes settle. Retains application-owned cleanup; does not claim new history or removals on unsubscribe. Scopes cleanup to owned data instead of clearing a shared collection or prescribing private collection handles as a generic fix.
+Fail if it contradicts these boundaries or invents unsupported APIs.
+
+## Case 9: earlier optimistic duplicate add
+
+Prompt: "Our Meteor 3.5.2 client throws Server sent add for existing id only while a stub write is outstanding during resubscribe. Is duplicate-added tolerance already guaranteed on this version?"
+
+Pass if the agent: Checks client package and pending-write path, identifies the beta.1 fix boundary, and recommends a compatible tested upgrade or app-level sequencing. Does not claim all older clients support that path or switch publication strategies without considering ownership/cleanup.
+Fail if it contradicts these boundaries or invents unsupported APIs.

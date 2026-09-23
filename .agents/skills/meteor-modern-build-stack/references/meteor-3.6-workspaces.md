@@ -1,16 +1,17 @@
 # Meteor 3.6 dependencies and workspaces
 
 These decisions start with Meteor 3.6, verified on `3.6-beta.0` with
-`rspack@1.4.0-beta360.0` and `tools-core@1.4.0-beta360.0`. Earlier 3.x releases
+`rspack@1.4.0-beta360.0` and `tools-core@1.4.0-beta360.0`. Beta.1 uses
+`rspack@1.4.0-beta360.1` and `tools-core@1.4.0-beta360.1`. Earlier 3.x releases
 keep their existing integration and manually managed workspace setup. Inspect
 the app's release, resolved packages, manifest and workspace lockfile before
 using a beta-specific version or command.
 
 ## Rspack 2 dependency set
 
-| Package | Minimum selected by 3.6-beta.0 | Dependency category |
+| Package | Minimum selected by 3.6 beta | Dependency category |
 |---|---|---|
-| `@meteorjs/rspack` | `3.0.0-beta.1` | Development |
+| `@meteorjs/rspack` | `3.0.0-beta.1` on beta.0; `3.0.0-beta.2` on beta.1 | Development |
 | `@rspack/core`, `@rspack/cli`, `@rspack/dev-server` | `2.2.0` each | Development |
 | `@swc/core` | `1.15.32` | Development |
 | `@rsdoctor/rspack-plugin` | `1.5.9` | Development |

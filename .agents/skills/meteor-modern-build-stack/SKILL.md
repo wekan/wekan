@@ -3,8 +3,8 @@ name: meteor-modern-build-stack
 description: >
   Use when configuring or tuning the Meteor 3 modern build stack: SWC
   transpiler, SWC-based minifier, modern @parcel/watcher, web-arch skipping
-  in development, .meteorignore, and the Rspack bundler integration via the
-  rspack Atmosphere package. Triggers on package.json "meteor": { "modern":
+  in development, .meteorignore, and Rspack integration.
+  Triggers on package.json "meteor": { "modern":
   true }, .swcrc, swc.config.js, [Transpiler] Used Babel Fallback logs,
   rspack.config.js, rspack.config.ts, defineConfig from @meteorjs/rspack, Meteor.compileWith*
   helpers, Meteor.extendConfig, Meteor.extendSwcConfig vs Meteor.replaceSwcConfig,
@@ -12,9 +12,10 @@ description: >
   Meteor.enablePortableBuild, HtmlRspackPlugin customization,
   RSPACK_DEVSERVER_PORT, TOOL_NODE_FLAGS, pnpm workspaces, Rspack 2,
   skeleton selection, PWA, Workbox and service-worker build setup.
-  Use this skill when the user asks about SWC vs Babel or Rspack configuration.
+  Use this skill when asked about SWC vs Babel or Rspack configuration.
   Route existing-app bundler migration to migrate-to-rspack, Blaze PWA
-  scaffolding to meteor-blaze, and jam:offline data to meteor-community-packages.
+  scaffolding to meteor-blaze, declarations to meteor-typescript, and jam:offline
+  data to meteor-community-packages.
 metadata:
   author: meteor
   kind: knowledge
@@ -22,7 +23,7 @@ metadata:
   area: build
   tagline: "Configure the Meteor 3 modern build stack (SWC transpiler/minifier, `@parcel/watcher`, web-arch skipping, Rspack integration)."
   bundle: ["essentials"]
-  docs_synced_at: "2026-09-11"
+  docs_synced_at: "2026-09-23"
 license: MIT
 ---
 
@@ -100,11 +101,16 @@ final bundle. Requires entry points in `package.json` and no nested imports
 in app code. To migrate an existing app, use the `migrate-to-rspack` skill.
 
 Inspect `.meteor/versions`, `package.json`, and the lockfile. Meteor
-3.6-beta.0 pairs `rspack@1.4.0-beta360.0`, `@meteorjs/rspack@3.0.0-beta.1`
-and Rspack 2.2.0; 3.5.2 retains the 1.3.0/2.2.0 integration pairing.
-See [release pairings](references/rspack-config.md) and
-[3.6 dependencies and workspaces](references/meteor-3.6-workspaces.md).
-For Rspack 1-to-2 config migration, use `migrate-to-rspack`.
+3.6-beta.1 pairs `rspack@1.4.0-beta360.1`, `@meteorjs/rspack@3.0.0-beta.2`
+and Rspack 2.2.0. Beta.0 retains 1.4.0-beta360.0/3.0.0-beta.1; 3.5.2
+retains the 1.3.0/2.2.0 integration pairing.
+See [pairings](references/rspack-config.md) and
+[dependencies/workspaces](references/meteor-3.6-workspaces.md).
+For migration, use `migrate-to-rspack`.
+
+Rspack transpiles TypeScript. Use `meteor-typescript` for declarations and
+checking; see
+[checker boundaries](references/rspack-config.md#typescript-declarations).
 
 ## Scaffolds, PWA and offline behavior
 

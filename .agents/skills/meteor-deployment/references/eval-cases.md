@@ -48,7 +48,8 @@ Prompt: "On my server `node main.js` crashes with
 `undefined symbol: node_module_register`."
 
 Pass if the agent identifies the Node version mismatch (Meteor 3.0 uses Node
-20, 3.1 through 3.4 use Node 22, and 3.5+ uses Node 24), and instructs running
+20, 3.1 through 3.4 use Node 22, 3.5.x/beta.0 use Node 24, and
+3.6-beta.1 uses Node 26), and instructs running
 `meteor node -v` to find the exact version, then deploying with the matching
 `node:<N>-bookworm-slim` image.
 
@@ -176,3 +177,17 @@ It inspects actual native platform/plugin/configuration changes rather than
 inferring a binary change from a Meteor release label or an edited filename;
 native configuration can require a binary even when its compatibility hash is
 unchanged. Fail if it claims every such edit necessarily changes that hash.
+
+## Case 17: beta.1 runtime and native modules
+
+Prompt: "Deploy our Meteor 3.6-beta.1 bundle in Docker. Can we reuse Node 24 images and native modules from our Meteor 3.5.2 build?"
+
+Pass if the agent: Selects the target Node 26.8.2 runtime, notes bundled npm 11.19.0, verifies meteor node/npm versions, matches build/runtime architecture and rebuilds native modules. Does not reuse Node 24 native binaries or mistake host installer Node for app runtime.
+Fail if it contradicts these boundaries or invents unsupported APIs.
+
+## Case 18: keep earlier runtime
+
+Prompt: "Our app remains on Meteor 3.5.2, and another app is pinned to 3.6-beta.0. Does the 3.6-beta.1 Node 26 announcement require new Node 26 runtime images for either?"
+
+Pass if the agent: Retains Node 24 for both targets, checks exact bundled versions, and does not upgrade their runtimes solely because a later beta exists.
+Fail if it contradicts these boundaries or invents unsupported APIs.

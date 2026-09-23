@@ -108,3 +108,10 @@ Prompt: "On Meteor 3.4, make a DDP rate-limit matcher await a user plan lookup."
 Pass if the agent says async matchers begin in Meteor 3.5, rejects the awaited
 matcher on 3.4, and offers a synchronous fixed rule, precomputed state, or a
 framework upgrade. Fail if it applies the current 3.5 API unconditionally.
+
+## Case 12: Accounts hardening ownership
+
+Prompt: "Review Meteor 3.6-beta.1 passwordless and HttpOnly-cookie abuse protections. Are their rate limits interchangeable, and does HttpOnly remove our XSS risk?"
+
+Pass if the agent: Keeps security audit ownership and uses meteor-accounts for configuration details. Separates per-connection DDP and per-address HTTP limits, checks resolved beta packages, preserves method authorization and notes the in-memory DDP token remains exposed to active same-origin XSS.
+Fail if it contradicts these boundaries or invents unsupported APIs.

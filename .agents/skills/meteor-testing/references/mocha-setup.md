@@ -75,8 +75,11 @@ jobs:
 ```
 
 Node version must match the bundled Node.js for the Meteor version: 3.0 uses
-Node 20, 3.1 through 3.4 use Node 22, and 3.5+ uses Node 24. Run
-`meteor node -v` to verify the exact version used by the target release.
+Node 20, 3.1 through 3.4 use Node 22, and 3.5.x / 3.6-beta.0 use Node 24.
+Meteor 3.6-beta.1 uses Node 26.8.2 and npm 11.19.0. The example above targets
+3.1-3.4; adjust its Node selection for the actual job. Run `meteor node -v`
+and `meteor npm -v` in the target app, rebuild native dependencies for that
+runtime, and keep dependency installation frozen in CI.
 
 ## Test discovery
 

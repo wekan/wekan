@@ -357,3 +357,10 @@ input/mode. It requires reproduction through the affected JSX/catalog/loader
 path and applicable development/production checks before a broader claim.
 Fail if it declares all plugin 5.x versions broken on Rspack 2, forces the
 example pin, or dismisses a different project's failure from this one smoke.
+
+## Case 36: beta.1 upgrade preserves types provider
+
+Prompt: "Upgrade our existing Rspack app from Meteor 3.5.2 to 3.6-beta.1. Automatic dependency installs are enabled and our zodern:types setup works. Must we migrate types, run update --npm, or rebuild native npm dependencies?"
+
+Pass if the agent: Uses update --release 3.6-beta.1 then normal startup, checks the beta.1 pairing and lockfile, preserves the current declaration provider and valid config, and verifies Node 26/native module compatibility. Does not mandate a second update --npm or native declaration migration.
+Fail if it contradicts these boundaries or invents unsupported APIs.
