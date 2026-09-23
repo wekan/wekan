@@ -14,7 +14,9 @@ const read = file => fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
   let profile = { calendar: 'gregorian', format: 'YYYY-MM-DD' };
   let storage = { calendarSystem: 'jalali', dateFormat: 'DD-MM-YYYY' };
   const context = {
+    Utils: { getCurrentBoard: () => null },
     ReactiveCache: { getCurrentSetting: () => setting, getCurrentUser: () => profile && ({
+      profile: { dateFormatOverride: profile.override !== false },
       getCalendarSystem: () => profile.calendar,
       getDateFormat: () => profile.format,
     }) },
@@ -41,6 +43,7 @@ const read = file => fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
   profile = { calendar: 'gregorian', format: 'YYYY-MM-DD' };
 
   assert.equal(display(date), '2026-03-21 09:05');
+  profile.override = false;
   assert.equal(display(date, false, () => 'old Gregorian text'), 'old Gregorian text');
   setting = { hideDateFormat: true, globalDateFormat: 'DD-MM-YYYY' };
   assert.equal(display(date, false), '21-03-2026', 'admin overrides a saved user format');
@@ -48,6 +51,7 @@ const read = file => fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
   assert.equal(profile.format, 'YYYY-MM-DD', 'saved preference remains intact');
   setting.hideDateFormat = false;
   assert.equal(display(date, false), '2026-03-21', 'disabling restores the user preference');
+  profile.override = true;
   profile.calendar = 'jalali';
   assert.equal(display(date), '1405-01-01 09:05');
   assert.equal(display(date, false, () => 'must not append Gregorian'), '1405-01-01');
@@ -57,7 +61,7 @@ const read = file => fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
   for (const invalid of [null, undefined, '', 'invalid']) assert.equal(display(invalid), '');
   assert.notEqual(display(new Date(5000, 0, 1), false, () => 'Gregorian must not appear'), 'Gregorian must not appear');
   profile = null;
-  assert.equal(display(date, false), '01-01-1405', 'anonymous setting is honored');
+  assert.equal(display(date, false), '1405-01-01', 'anonymous calendar is honored without a member override');
   setting = { hideDateFormat: true, globalDateFormat: 'MM-DD-YYYY' };
   assert.equal(display(date, false), '01-01-1405', 'global order also applies to anonymous calendars');
   storage.calendarSystem = 'gregorian';
@@ -68,6 +72,7 @@ const read = file => fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
 
   profile = { calendar: 'gregorian', format: 'YYYY-MM-DD' };
   assert.equal(Object.keys(context.calendarDateDisplayOptions()).length, 0);
+  profile.override = true;
   profile.calendar = 'jalali';
   const options = context.calendarDateDisplayOptions();
   assert.equal(options.dayCellContent({ date }), '1');

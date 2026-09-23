@@ -1,3 +1,4 @@
+import { Utils } from '/client/lib/utils';
 const { resolveDateFormat } = require('/models/lib/dateFormatPolicy');
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
@@ -22,9 +23,8 @@ import { TAPi18n } from '/imports/i18n';
 // PDF exports now do the same.
 //
 // The DATE FORMAT is the third, and the reason is the same shape: the opened
-// card renders its dates with the reader's `dateFormat` preference, and for a
-// reader who is not logged in that preference lives in localStorage - a place
-// the server has no access to. An export that printed 2026-08-14 for a card
+// card renders dates using the enabled member, board or global preference.
+// An export that printed 2026-08-14 for a card
 // showing 14-08-2026 would be the same card in two formats.
 //
 // All three are best-effort: an old runtime with no Intl, a language that is not
@@ -39,19 +39,16 @@ export function browserTimezone() {
   }
 }
 
-// The date format the OPENED CARD is showing, worked out exactly as
-// client/components/cards/cardDate.js works it out - the profile's setting, and
-// for a reader who is not logged in the localStorage value the card view falls
-// back to, which the server cannot see at all. An export of a card should print
-// its dates the way the card prints them.
+// Match the card's enabled member > board > global date-format preference.
 export function cardDateFormat() {
   const setting = ReactiveCache.getCurrentSetting();
+  const board = Utils.getCurrentBoard();
   try {
     const currentUser = ReactiveCache.getCurrentUser();
-    if (currentUser) return resolveDateFormat(currentUser.getDateFormat(), setting);
-    return resolveDateFormat(window.localStorage.getItem('dateFormat'), setting);
+    if (currentUser) return resolveDateFormat(currentUser.getDateFormat(), setting, board, currentUser.profile?.dateFormatOverride);
+    return resolveDateFormat(null, setting, board);
   } catch (error) {
-    return resolveDateFormat(null, setting);
+    return resolveDateFormat(null, setting, board);
   }
 }
 

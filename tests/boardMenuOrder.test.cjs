@@ -62,6 +62,7 @@ const EXPECTED = [
   'hr',
   'js-open-board-view-settings',
   'js-open-board-swimlane-settings',
+  'js-open-board-date-settings',
   'js-open-board-list-settings',
   'js-open-board-card-settings',
   'hr',
@@ -112,6 +113,7 @@ test('the reorder kept every guard (negative: nothing became visible to more peo
   assert.deepStrictEqual(guardsOf('js-change-background-image'), [admin]);
   assert.deepStrictEqual(guardsOf('js-open-board-view-settings'), ['if currentUser', admin]);
   assert.deepStrictEqual(guardsOf('js-open-board-swimlane-settings'), ['if currentUser', admin]);
+  assert.deepStrictEqual(guardsOf('js-open-board-date-settings'), ['if currentUser', admin]);
   assert.deepStrictEqual(guardsOf('js-open-board-list-settings'), ['if currentUser', admin]);
   assert.deepStrictEqual(guardsOf('js-open-board-card-settings'), ['if currentUser'],
     'Card stays open to any board member for its personal Labels text row');
@@ -139,7 +141,7 @@ test('the docs draw the same order', () => {
     .filter(Boolean);
   assert.deepStrictEqual(names, [
     'Rules', 'Change color', 'Change Background Image', 'hr',
-    'Board View', 'Swimlane', 'List', 'Card', 'hr',
+    'Board View', 'Swimlane', 'Date', 'List', 'Card', 'hr',
     'Export', 'Import', 'Notifications', 'Outgoing Webhooks', 'hr',
     'Archived items', 'Move Board to Archive',
   ], 'the diagram lists the entries and rules in the menu\'s order');

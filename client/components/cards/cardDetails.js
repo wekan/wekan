@@ -1,6 +1,5 @@
 import { relativeCardSort } from '/client/lib/relativeCardPosition';
 import { Random } from 'meteor/random';
-import { dateDisplayPreferences, isDateFormatForced } from '/client/lib/dateDisplay';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { ReactiveDict } from 'meteor/reactive-dict';
@@ -1116,15 +1115,6 @@ Template.cardDetails.events({
       Utils.goBoardId(boardId);
     }
   },
-  'change .js-date-format-selector'(event) {
-    if (isDateFormatForced()) return;
-    const dateFormat = event.target.value;
-    if (Meteor.userId()) {
-      Meteor.call('changeDateFormat', dateFormat);
-    } else {
-      window.localStorage.setItem('dateFormat', dateFormat);
-    }
-  },
   'click .js-open-card-details-menu': Popup.open('cardDetailsActions'),
   // Mobile: switch to desktop popup view (maximize)
   'click .js-mobile-switch-to-desktop'(event) {
@@ -1541,18 +1531,6 @@ Template.cardDetails.events({
   },
 });
 
-// isDateFormat is used by cardFieldSectionDates.jade's date-format
-// selector, a SEPARATE template from cardDetails - a template-local helper
-// (Template.cardDetails.helpers) is invisible there, which threw "No such
-// function: isDateFormat" the instant that section rendered and broke
-// opening the card popup entirely. Registered globally, like isSectionOpen
-// just below, so every template can see it.
-Template.registerHelper('isDateFormatForced', isDateFormatForced);
-Template.registerHelper('dateSectionLabel', () => isDateFormatForced() ? 'date' : 'date-format');
-
-Template.registerHelper('isDateFormat', function isDateFormat(format) {
-  return dateDisplayPreferences().dateFormat === format;
-});
 
 Template.cardDetails.helpers({
   isPopup() {

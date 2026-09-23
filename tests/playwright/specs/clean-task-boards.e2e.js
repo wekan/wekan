@@ -94,7 +94,7 @@ test('clean boards: personal and forced date-only formats suppress time without 
     await loginWithToken(page, user.id, user.token); await openBoard(page, board.boardId, board.slug);
     await new BoardPage(page).clickCard(board.listIds[0], 'Alpha Card');
     const cp = new CardPage(page); await cp.waitForOpen();
-    await cp.root.locator('.js-date-format-selector').selectOption('YYYY-MM-DD-date-only');
+    await page.evaluate(() => Meteor.callAsync('changeDateFormat', 'YYYY-MM-DD-date-only', true));
     await expect.poll(() => db.findOne('users', { _id: user.id }).profile.dateFormat).toBe('YYYY-MM-DD-date-only');
     await expect(cp.root.locator('.due-date time').first()).toContainText('2026-09-21');
     await expect(cp.root.locator('.due-date time').first()).not.toContainText(/\d{1,2}:\d{2}/);
@@ -103,9 +103,10 @@ test('clean boards: personal and forced date-only formats suppress time without 
     });
     expect(invalid).toBe(true);
     await loginWithToken(admin, adminUser.id, adminUser.token); await navigateInApp(admin, '/admin/settings/visibility');
+    await page.evaluate(() => Meteor.callAsync('changeDateFormat', 'YYYY-MM-DD-date-only', false));
     await admin.locator('#global-date-format').selectOption('DD-MM-YYYY-date-only');
-    await admin.locator('#hide-date-format').click();
-    await admin.locator('.js-visibility-all-boards-save').click();
+    await admin.locator('#global-date-format-enabled').click();
+    await admin.locator('.js-visibility-date-save').click();
     await expect(cp.root.locator('.js-date-format-selector')).toHaveCount(0);
     await expect(cp.root.locator('.due-date time').first()).toContainText('21-09-2026');
     await expect(cp.root.locator('.due-date time').first()).not.toContainText(/\d{1,2}:\d{2}/);

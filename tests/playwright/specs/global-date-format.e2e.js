@@ -5,7 +5,7 @@ const { loginWithToken, openBoard, navigateInApp } = require('../helpers/auth');
 const BoardPage = require('../pages/BoardPage');
 const CardPage = require('../pages/CardPage');
 
-test('#6703 admin date format overrides members and guests and restores preferences when disabled', async ({ page, browser, user, adminUser, board }) => {
+test('Date settings cascade from global to board to member through their own controls', async ({ page, browser, user, adminUser, board }) => {
   const setting = db.findOne('settings', {});
   const previous = { hideDateFormat: setting.hideDateFormat, globalDateFormat: setting.globalDateFormat };
   const adminContext = await browser.newContext();
@@ -15,27 +15,29 @@ test('#6703 admin date format overrides members and guests and restores preferen
   const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
   const dueAt = new Date('2026-03-21T12:00:00Z');
   try {
-    db.updateOne('settings', { _id: setting._id }, { $set: { hideDateFormat: false, globalDateFormat: 'YYYY-MM-DD' } });
+    await loginWithToken(admin, adminUser.id, adminUser.token);
+    await admin.evaluate(id => Meteor.callAsync('/settings/update', { _id: id }, { $set: { hideDateFormat: false, globalDateFormat: 'YYYY-MM-DD' } }), setting._id);
     db.updateOne('boards', { _id: board.boardId }, { $set: { permission: 'public' } });
-    db.updateOne('users', { _id: user.id }, { $set: { 'profile.dateFormat': 'MM-DD-YYYY' } });
+    db.updateOne('users', { _id: user.id }, { $set: { 'profile.dateFormat': 'MM-DD-YYYY', 'profile.dateFormatOverride': false } });
     db.updateOne('cards', { _id: card._id }, { $set: { dueAt } });
     await loginWithToken(page, user.id, user.token);
     await openBoard(page, board.boardId, board.slug);
     const bp = new BoardPage(page);
     const miniDate = bp.minicard(board.listIds[0], 'Alpha Card').locator('.due-date time').first();
-    await expect(miniDate).toContainText('03-21-2026');
+    await expect(miniDate).toContainText('2026-03-21');
     await bp.clickCard(board.listIds[0], 'Alpha Card');
     const cp = new CardPage(page);
     await cp.waitForOpen();
     const heading = cp.root.locator('[data-section="date-format"]');
-    await expect(heading).toHaveText('Date Format');
-    await expect(cp.root.locator('.js-date-format-selector')).toHaveValue('MM-DD-YYYY');
+    await expect(heading).toHaveText('Date');
+    await expect(cp.root.locator('.js-date-format-selector')).toHaveCount(0);
 
-    await loginWithToken(admin, adminUser.id, adminUser.token);
     await navigateInApp(admin, '/admin/settings/visibility');
+    const logoChecked = await admin.locator('#hide-logo').evaluate(el => el.classList.contains('is-checked'));
     await admin.locator('#global-date-format').selectOption('DD-MM-YYYY');
-    await admin.locator('#hide-date-format').click();
-    await admin.locator('.js-visibility-all-boards-save').click();
+    await admin.locator('#global-date-format-enabled').click();
+    expect(await admin.locator('#hide-logo').evaluate(el => el.classList.contains('is-checked'))).toBe(logoChecked);
+    await admin.locator('.js-visibility-date-save').click();
     await expect.poll(() => db.findOne('settings', { _id: setting._id }).globalDateFormat).toBe('DD-MM-YYYY');
     await expect.poll(() => db.findOne('settings', { _id: setting._id }).hideDateFormat).toBe(true);
     await expect(heading).toHaveText('Date');
@@ -62,7 +64,7 @@ test('#6703 admin date format overrides members and guests and restores preferen
     await admin.reload();
     await admin.waitForFunction(() => typeof Meteor !== 'undefined' && Meteor.user()?.isAdmin && !Meteor.loggingIn());
     await navigateInApp(admin, '/admin/settings/visibility');
-    await expect(admin.locator('#hide-date-format')).toHaveClass(/is-checked/);
+    await expect(admin.locator('#global-date-format-enabled')).toHaveClass(/is-checked/);
     await expect(admin.locator('#global-date-format')).toHaveValue('DD-MM-YYYY');
     await guest.addInitScript(() => localStorage.setItem('dateFormat', 'YYYY-MM-DD'));
     await openBoard(guest, board.boardId, board.slug);
@@ -72,11 +74,66 @@ test('#6703 admin date format overrides members and guests and restores preferen
     await expect(new CardPage(guest).root.locator('[data-section="date-format"]')).toHaveText('Date');
     await expect(guest.locator('.js-date-format-selector')).toHaveCount(0);
 
-    await admin.locator('#hide-date-format').click();
-    await admin.locator('.js-visibility-all-boards-save').click();
-    await expect(heading).toHaveText('Date Format');
-    await expect(cp.root.locator('.js-date-format-selector')).toHaveValue('MM-DD-YYYY');
+    // Board Settings / Date: checked overrides the global default, including guests.
+    await page.evaluate(() => Popup.close());
+    await bp.openSidebar();
+    await page.locator('.js-open-board-menu').click();
+    await page.locator('.js-pop-over .js-open-board-date-settings').click();
+    await expect(page.locator('.js-pop-over .js-global-date-format-status')).toContainText(/Enabled\s*:\s*DD-MM-YYYY/);
+    await expect(page.locator('.js-pop-over .js-board-date-format-status')).toHaveCount(0);
+    let editor = page.locator('.js-pop-over .js-date-format-form');
+    await editor.locator('.js-date-format-select').selectOption('YYYY-MM-DD-date-only');
+    await editor.locator('.js-date-format-override').check();
+    await editor.locator('button[type="submit"]').click();
+    await expect.poll(() => db.findOne('boards', { _id: board.boardId }).dateFormatOverride).toBe(true);
+    await expect(miniDate).toContainText('2026-03-21');
+    await expect(miniDate).not.toContainText(/\d{1,2}:\d{2}/);
+    await expect(guestBoard.minicard(board.listIds[0], 'Alpha Card').locator('.due-date time').first()).toContainText('2026-03-21');
+
+    // Member Settings / Date overrides both defaults only while checked.
+    await page.evaluate(() => Popup.close());
+    await page.locator('.js-open-header-member-menu').first().click();
+    await page.locator('.js-pop-over .js-change-settings').click();
+    await page.locator('.js-pop-over .js-member-date-settings').click();
+    await expect(page.locator('.js-pop-over .js-global-date-format-status')).toContainText(/Enabled\s*:\s*DD-MM-YYYY/);
+    await expect(page.locator('.js-pop-over .js-board-date-format-status')).toContainText(/Enabled\s*:\s*YYYY-MM-DD/);
+    editor = page.locator('.js-pop-over .js-date-format-form');
+    await editor.locator('.js-date-format-select').selectOption('MM-DD-YYYY');
+    await editor.locator('.js-date-format-override').check();
+    await editor.locator('button[type="submit"]').click();
     await expect(miniDate).toContainText('03-21-2026');
+    await page.locator('.js-pop-over .js-member-date-settings').click();
+    await expect(editor.locator('.js-date-format-override')).toBeChecked();
+    await editor.locator('.js-date-format-override').uncheck();
+    await editor.locator('button[type="submit"]').click();
+    await expect(miniDate).toContainText('2026-03-21');
+    await page.evaluate(() => Popup.close());
+    await page.evaluate(id => Meteor.callAsync('setBoardDateFormat', id, 'YYYY-MM-DD-date-only', false), board.boardId);
+    await expect(miniDate).toContainText('21-03-2026');
+    // Both guests and signed-in non-members are rejected, and invalid formats fail.
+    for (const target of [guest, admin]) {
+      const rejected = await target.evaluate(async id => {
+        try { await Meteor.callAsync('setBoardDateFormat', id, 'MM-DD-YYYY', true); return false; }
+        catch { return true; }
+      }, board.boardId);
+      expect(rejected).toBe(true);
+    }
+    for (const method of ['setBoardDateFormat', 'changeDateFormat']) {
+      const rejected = await page.evaluate(async ({method, id}) => {
+        try { await Meteor.callAsync(method, ...(method === 'setBoardDateFormat' ? [id] : []), 'invalid', true); return false; }
+        catch { return true; }
+      }, {method, id: board.boardId});
+      expect(rejected).toBe(true);
+    }
+    await admin.locator('#global-date-format-enabled').click();
+    await admin.locator('.js-visibility-date-save').click();
+    await expect(miniDate).toContainText('2026-03-21');
+    await expect(heading).toHaveText('Date');
+    await page.locator('.js-open-header-member-menu').first().click();
+    await page.locator('.js-pop-over .js-change-settings').click();
+    await page.locator('.js-pop-over .js-member-date-settings').click();
+    await expect(page.locator('.js-pop-over .js-global-date-format-status')).toContainText(/Disabled\s*:\s*DD-MM-YYYY/);
+    await expect(page.locator('.js-pop-over .js-board-date-format-status')).toContainText(/Disabled\s*:\s*YYYY-MM-DD/);
     expect(db.getCard(card._id).dueAt).toBe(dueAt.toISOString());
   } finally {
     const $set = {}, $unset = {};

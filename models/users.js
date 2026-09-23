@@ -1047,6 +1047,7 @@ Users.attachSchema(
       type: Boolean,
       defaultValue: true,
     },
+    'profile.dateFormatOverride': { type: Boolean, optional: true },
     'profile.dateFormat': {
       /**
        * User-specified date format for displaying dates (includes time HH:MM).
@@ -2677,8 +2678,8 @@ Users.helpers({
     return await Users.updateAsync(this._id, { $set: { 'profile.startDayOfWeek': startDay } });
   },
 
-  async setDateFormat(dateFormat) {
-    return await Users.updateAsync(this._id, { $set: { 'profile.dateFormat': dateFormat } });
+  async setDateFormat(dateFormat, override) {
+    return await Users.updateAsync(this._id, { $set: { 'profile.dateFormat': dateFormat, 'profile.dateFormatOverride': override } });
   },
 
   async setCalendarSystem(calendarSystem) {

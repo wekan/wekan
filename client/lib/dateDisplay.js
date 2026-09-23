@@ -1,3 +1,4 @@
+import { Utils } from '/client/lib/utils';
 const { resolveDateFormat } = require('/models/lib/dateFormatPolicy');
 import { ReactiveCache } from '/imports/reactiveCache';
 import { formatDateByUserPreference } from '/imports/lib/dateUtils';
@@ -6,26 +7,28 @@ import { TAPi18n } from '/imports/i18n';
 const { CALENDAR_SYSTEMS, formatNativeCalendarDate, nativeCalendarParts } = require('/imports/lib/calendarSystems');
 const { calendarMonthRange, shiftedDay } = require('/imports/lib/calendarMonth');
 
-export function isDateFormatForced() {
-  return !!ReactiveCache.getCurrentSetting()?.hideDateFormat;
+export function hasDateFormatPreference() {
+  return !!(ReactiveCache.getCurrentUser()?.profile?.dateFormatOverride ||
+    Utils.getCurrentBoard()?.dateFormatOverride || ReactiveCache.getCurrentSetting()?.hideDateFormat);
 }
 
 export function dateDisplayPreferences() {
   const setting = ReactiveCache.getCurrentSetting();
   const user = ReactiveCache.getCurrentUser();
+  const board = Utils.getCurrentBoard();
   if (user) {
     return {
       calendarSystem: user.getCalendarSystem ? user.getCalendarSystem() : 'gregorian',
-      dateFormat: resolveDateFormat(user.getDateFormat ? user.getDateFormat() : null, setting),
+      dateFormat: resolveDateFormat(user.getDateFormat ? user.getDateFormat() : null, setting, board, user.profile?.dateFormatOverride),
     };
   }
   try {
     return {
       calendarSystem: window.localStorage.getItem('calendarSystem') || 'gregorian',
-      dateFormat: resolveDateFormat(window.localStorage.getItem('dateFormat'), setting),
+      dateFormat: resolveDateFormat(null, setting, board),
     };
   } catch (error) {
-    return { calendarSystem: 'gregorian', dateFormat: resolveDateFormat(null, setting) };
+    return { calendarSystem: 'gregorian', dateFormat: resolveDateFormat(null, setting, board) };
   }
 }
 
@@ -52,7 +55,7 @@ export function formatDateForDisplay(date, includeTime = true, gregorianFormatte
     );
     if (system) return text || '';
   }
-  return gregorianFormatter && !isDateFormatForced() && !dateFormat.endsWith('-date-only')
+  return gregorianFormatter && !hasDateFormatPreference() && !dateFormat.endsWith('-date-only')
     ? gregorianFormatter(value)
     : formatDateByUserPreference(value, dateFormat, includeTime);
 }

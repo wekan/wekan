@@ -1,4 +1,4 @@
-import { resolveDateFormat } from '/models/lib/dateFormatPolicy';
+import { dateDisplayPreferences } from '/client/lib/dateDisplay';
 import { Blaze } from 'meteor/blaze';
 import { Tracker } from 'meteor/tracker';
 import { ReactiveCache } from '/imports/reactiveCache';
@@ -406,12 +406,7 @@ class AdvancedFilter {
     // as 6 April, otherwise it is read month-first as 4 June.
     let dayFirst = false;
     try {
-      const user = ReactiveCache.getCurrentUser();
-      const dateFormat =
-        user && typeof user.getDateFormat === 'function'
-          ? user.getDateFormat()
-          : 'YYYY-MM-DD';
-      dayFirst = /^D/.test(resolveDateFormat(dateFormat, ReactiveCache.getCurrentSetting()));
+      dayFirst = /^D/.test(dateDisplayPreferences().dateFormat);
     } catch (error) {
       dayFirst = false;
     }

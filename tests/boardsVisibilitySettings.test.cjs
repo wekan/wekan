@@ -141,7 +141,7 @@ test('each section of Visibility has its own Save, above its rule', () => {
   // One Save for the whole pane meant pressing Save in one group also wrote
   // whatever was half-typed in another. Every section ends with its own button.
   const pane = boardsVisibility;
-  const buttons = ['js-visibility-all-boards-save', 'js-visibility-url-save',
+  const buttons = ['js-visibility-all-boards-save', 'js-visibility-date-save', 'js-visibility-url-save',
     'js-visibility-product-name-save', 'js-visibility-logo-save'];
   for (const cls of buttons) {
     assert.ok(pane.includes(cls), `${cls} must be in the pane`);
@@ -233,7 +233,7 @@ test('Visibility is named groups, in order, and nothing was dropped', () => {
   // "<prefix>NNNN" tokens to an external issue tracker) right after the URL
   // group and before the product name group.
   assert.deepStrictEqual(groups,
-    ['all-boards-hide', 'settings-group-url', 'external-link-pattern',
+    ['all-boards-hide', 'date', 'settings-group-url', 'external-link-pattern',
       'custom-product-name', 'change-color', 'settings-group-logo'],
     'the groups, top to bottom');
   // Product name holds ONE field, so its group title IS that field's label - with

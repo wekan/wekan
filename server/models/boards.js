@@ -130,6 +130,16 @@ const foreachRemovedMember = (doc, modifier, callback) => {
 };
 
 Meteor.methods({
+  async setBoardDateFormat(boardId, dateFormat, override) {
+    check(boardId, String);
+    check(dateFormat, String);
+    check(override, Boolean);
+    const board = await ReactiveCache.getBoard(boardId);
+    if (!this.userId || !board || !allowIsBoardAdmin(this.userId, board)) {
+      throw new Meteor.Error('not-authorized');
+    }
+    return Boards.updateAsync(boardId, { $set: { dateFormat, dateFormatOverride: override } });
+  },
   async createBoardWithInitialSwimlanes(payload) {
     check(
       payload,

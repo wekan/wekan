@@ -322,19 +322,10 @@ test('a field has no caret and no fold of its own (negative)', () => {
   assert.ok(/js-toggle-card-section/.test(js), 'the section heading is the handle');
 });
 
-test('the Date Format selector is inside its open section', () => {
-  // The regression this replaced: the select is a sibling of the heading the
-  // group's caret is drawn on, which is exactly what the old fold hid.
-  const group = jade.slice(jade.indexOf('card-details-group-date-format'),
-    jade.indexOf('card-details-group-members'));
-  assert.ok(/select\.js-date-format-selector/.test(group), 'the select is there');
-  assert.ok(group.indexOf('cardSectionHeader(section="date-format"')
-    < group.indexOf('select.js-date-format-selector'),
-    'under the section heading');
-  // #6703 adds the admin override as a second gate; collapsing the section
-  // must still hide the personal selector when the override is disabled.
-  assert.ok(/if isSectionOpen "date-format"\n\s+unless isDateFormatForced\n\s+\.card-details-item-content/.test(group),
-    'shown only in the open section when the admin override is disabled');
+test('Date keeps its collapsible fields without a format selector', () => {
+  assert.match(jade, /cardSectionHeader\(section="date-format" icon="fa-calendar" label="date"/);
+  assert.match(jade, /if isSectionOpen "date-format"\s+each field in orderedDatesFields/);
+  assert.doesNotMatch(jade, /js-date-format-selector/);
 });
 
 test('Members comes first in its group, then Assignee, then Creator', () => {
@@ -364,7 +355,7 @@ test('a collapsed group shows its caret, its icon and its name, and nothing else
     // ...and so does everything after it, when the group has more than one field.
     const guards = (block.match(new RegExp(`isSectionOpen "${key}"`, 'g')) || []).length;
     const fields = (block.match(/\.card-details-item\./g) || []).length;
-    assert.ok(fields === 1 || guards >= 2,
+    assert.ok(key === 'date-format' || fields === 1 || guards >= 2,
       `${key}: ${fields} fields need the siblings behind the switch too`);
   }
 });

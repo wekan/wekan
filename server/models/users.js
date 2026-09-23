@@ -1107,11 +1107,12 @@ Meteor.methods({
     (await ReactiveCache.getCurrentUser()).setStartDayOfWeek(startDay);
   },
 
-  async changeDateFormat(dateFormat) {
+  async changeDateFormat(dateFormat, override = true) {
+    check(override, Boolean);
     check(dateFormat, String);
     const user = await ReactiveCache.getCurrentUser();
-    if (!user) return;
-    return await user.setDateFormat(dateFormat);
+    if (!user) throw new Meteor.Error('not-authorized');
+    return await user.setDateFormat(dateFormat, override);
   },
 
   // #4335: per-user, display-only Jalali (Persian/Solar Hijri) calendar

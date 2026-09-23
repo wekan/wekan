@@ -34,7 +34,7 @@ test('every helper used by a cardFieldSection*/cardDetailsActionsPopup template 
   const src = fs.readFileSync(
     path.join(ROOT, 'client', 'components', 'cards', 'cardDetails.js'), 'utf8');
   const names = [
-    'isDateFormat', 'canShowCustomFieldsOnCard', 'stickers', 'isWatching',
+    'canShowCustomFieldsOnCard', 'stickers', 'isWatching',
     'dueDateChangeCount', 'getLocations', 'getDependencyCards',
     'customFieldsGrid', 'showActivities', 'showVotingButtons',
     'showPlanningPokerButtons', 'currentSwimlaneListsSorted', 'isCurrentListId',
@@ -64,7 +64,7 @@ test('none of those globally-registered names are ALSO duplicated inside Templat
   }
   const localBlock = src.slice(localBlockStart, end);
   const globalNames = [
-    'isDateFormat', 'canShowCustomFieldsOnCard', 'stickers', 'isWatching',
+    'canShowCustomFieldsOnCard', 'stickers', 'isWatching',
     'dueDateChangeCount', 'getLocations', 'getDependencyCards',
     'customFieldsGrid', 'showActivities', 'showVotingButtons',
     'showPlanningPokerButtons', 'currentSwimlaneListsSorted', 'isCurrentListId',
@@ -76,10 +76,10 @@ test('none of those globally-registered names are ALSO duplicated inside Templat
     + `shadowing the global one for cardDetails itself: ${shadowed.join(', ')}`);
 });
 
-test('cardFieldSectionDates.jade\'s date-format selector still calls isDateFormat', () => {
+test('the card date section no longer needs a format selector helper', () => {
   const jade = fs.readFileSync(
     path.join(ROOT, 'client', 'components', 'cards', 'cardDetails.jade'), 'utf8');
-  assert.ok(/isDateFormat 'YYYY-MM-DD'/.test(jade));
+  assert.doesNotMatch(jade, /isDateFormat|js-date-format-selector/);
 });
 
 console.log(`\ncardFieldSectionHelperScope: ${passed} tests passed`);

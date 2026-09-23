@@ -987,9 +987,16 @@ Template.tableVisibilityModeSettings.events({
   // off restores every board's own value.
   // Tick a box without saving: the group's own Save writes them together, the way
   // the Yes/No pairs these replace behaved.
-  'click a.js-toggle-all-boards-hide, click a.js-toggle-hide-logo'(event) {
+  'click a.js-toggle-all-boards-hide, click a.js-toggle-hide-logo, click a.js-toggle-date-format'(event) {
     event.preventDefault();
     $(event.currentTarget).find('.materialCheckBox').toggleClass('is-checked');
+  },
+
+  'click button.js-visibility-date-save'(event, instance) {
+    saveVisibilitySettings({
+      hideDateFormat: instance.$('#global-date-format-enabled').hasClass('is-checked'),
+      globalDateFormat: instance.$('#global-date-format').val(),
+    });
   },
 
   'click button.js-visibility-all-boards-save'() {
@@ -1012,14 +1019,10 @@ Template.tableVisibilityModeSettings.events({
       ['#hide-board-activities', 'hideBoardActivitiesOnAllBoards'],
       ['#hide-card-counter-list', 'hideCardCounterList'],
       ['#hide-board-member-list', 'hideBoardMemberList'],
-      ['#hide-date-format', 'hideDateFormat'],
     ]) {
       if ($(selector).length) {
         $set[key] = $(selector).hasClass('is-checked');
       }
-    }
-    if ($('#global-date-format').length) {
-      $set.globalDateFormat = visibilityText('#global-date-format');
     }
     if ($('#spinnerName').length) {
       $set.spinnerName = visibilityText('#spinnerName');

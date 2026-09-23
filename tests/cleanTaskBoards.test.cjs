@@ -33,7 +33,7 @@ board.allowsMinicardCollapse = true;
 assert.equal(helper.call({ boardId: 'board' }), true);
 collapsed = false;
 assert.equal(helper.call({ boardId: 'board' }), false);
-for (const fmt of DATE_FORMATS) assert.equal(resolveDateFormat(fmt, {}), fmt);
+for (const fmt of DATE_FORMATS) assert.equal(resolveDateFormat(fmt, {}, null, true), fmt);
 assert.equal(resolveDateFormat('unsupported', {}), 'YYYY-MM-DD');
 assert.equal(resolveDateFormat('YYYY-MM-DD-date-only', { hideDateFormat: true, globalDateFormat: 'DD-MM-YYYY-date-only' }), 'DD-MM-YYYY-date-only');
 console.log('cleanTaskBoards: compatible defaults, modifier rows, collapse recovery and date format validation passed');

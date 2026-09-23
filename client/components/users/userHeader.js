@@ -1,3 +1,4 @@
+import '/client/components/forms/dateFormatSettings';
 import { accountOperationErrorKey } from '/client/lib/accountOperationError';
 import { languageFlags, languageLabelParts } from '/imports/i18n/languageFlags';
 const { availableCalendarSystems } = require('/imports/lib/calendarSystems');
@@ -515,6 +516,7 @@ Template.changeSettingsPopup.helpers({
 });
 
 Template.changeSettingsPopup.events({
+  'click .js-member-date-settings': Popup.open('memberDateSettings', { titleKey: 'date' }),
   'keypress/paste #show-cards-count-at'() {
     let keyCode = event.keyCode;
     let charCode = String.fromCharCode(keyCode);

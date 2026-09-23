@@ -1,4 +1,4 @@
-/* Date Format Selector */
+/* Date section */
 .card-details-item-date-format {
   margin-bottom: 12px;
 }
@@ -9,23 +9,6 @@
   margin-bottom: 6px;
   color: #333;
   letter-spacing: 0.03em;
-}
-
-.card-details-item-date-format .js-date-format-selector {
-  width: 100%;
-  padding: 9px 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #fff;
-  font-size: calc(15px * var(--wekan-ui-font-scale, 1));
-  cursor: pointer;
-  transition: border-color 0.15s, box-shadow 0.15s;
-}
-
-.card-details-item-date-format .js-date-format-selector:focus {
-  outline: none;
-  border-color: #007cba;
-  box-shadow: 0 0 0 2px rgba(0, 124, 186, 0.2);
 }
 
 .assignee {

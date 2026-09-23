@@ -1,0 +1,36 @@
+template(name="boardDateSettingsPopup")
+  +dateFormatEditor(scope="board")
+
+template(name="memberDateSettingsPopup")
+  +dateFormatEditor(scope="member")
+
+template(name="dateFormatEditor")
+  .date-format-inherited
+    .js-global-date-format-status
+      strong {{_ 'date-format-for-everyone'}}
+      p
+        if globalEnabled
+          span {{_ 'r-rule-enabled'}}
+        else
+          span {{_ 'r-rule-disabled'}}
+        | : {{globalFormat}}
+    if isMember
+      .js-board-date-format-status
+        strong {{_ 'board'}}: {{_ 'date-format'}}
+        p
+          if boardEnabled
+            span {{_ 'r-rule-enabled'}}
+          else
+            span {{_ 'r-rule-disabled'}}
+          | : {{boardFormat}}
+    hr
+  form.js-date-format-form
+    label
+      input.js-date-format-override(type="checkbox" checked=enabled)
+      | {{_ 'date-format'}}
+    select.js-date-format-select(aria-label="{{_ 'date-format'}}")
+      each formats
+        option(value=value selected=selected) {{label}}
+    if error
+      p.error {{error}}
+    button.primary(type="submit" disabled=saving) {{_ 'save'}}

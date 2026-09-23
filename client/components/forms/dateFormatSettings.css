@@ -1,0 +1,12 @@
+/* This popup uses labelled native checkboxes, not hidden material inputs. */
+.js-date-format-form input[type="checkbox"] {
+  display: inline-block;
+  visibility: visible;
+  position: static;
+  inset-inline-start: auto;
+  width: 16px;
+  height: 16px;
+  margin-inline-end: 6px;
+  appearance: auto;
+  cursor: pointer;
+}

@@ -1308,6 +1308,8 @@ Boards.attachSchema(
       defaultValue: true,
     },
 
+    dateFormatOverride: { type: Boolean, optional: true },
+    dateFormat: { type: String, optional: true, allowedValues: require('/models/lib/dateFormatPolicy').DATE_FORMATS },
     allowsStartDate: {
       /**
        * Does the board allows start date?

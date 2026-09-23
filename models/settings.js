@@ -250,6 +250,7 @@ Settings.attachSchema(
       optional: true,
       allowedValues: ['all', 'lazy'],
     },
+    // Legacy persisted name: enables the global date-format default.
     hideDateFormat: {
       type: Boolean,
       optional: true,

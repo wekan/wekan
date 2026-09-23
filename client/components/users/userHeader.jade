@@ -300,6 +300,10 @@ template(name="changeFontPopup")
 template(name="changeSettingsPopup")
   ul.pop-over-list
     li
+      a.js-member-date-settings
+        i.fa.fa-calendar
+        | {{_ 'date'}}
+    li
       a.js-toggle-desktop-drag-handles
         i.fa.fa-arrows
         | {{_ 'show-desktop-drag-handles'}}
