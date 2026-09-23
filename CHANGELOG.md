@@ -653,6 +653,55 @@ the Markdown commit as the template.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** Login error responses no longer disclose internal stack traces,
+and the local identity test server rejects expensive or malformed OAuth
+headers. The reviewed **telemetry release gate** accepts the current source
+and now checks locally before release changes are made.
+
+This release fixes SECURITY ISSUES found by GitHub CodeQL and source review:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4d2951ae2">Bound OAuth fixture parsing and hide login exception details</a>. Thanks to GitHub CodeQL and xet7.</summary>
+
+Fix alerts #543 and #544 in the loopback-only login integration server:
+bound and anchor OAuth-header parsing, reject duplicates and malformed
+encodings, and return generic HTTP errors. Sibling-source review also removes
+the stack-trace response from the shipped Sandstorm login endpoint.
+The fixture is not a production OAuth service. See
+[AuthTraceBleed](https://wekan.fi/hall-of-fame/authtracebleed/).
+
+Five positive/negative security tests and ten live Chromium OAuth/Sandstorm
+checks pass, including signed requests, rejected signatures, malformed
+headers, successful proxy login and opaque failures. Tracked-source guards
+check for the vulnerable scanner and direct HTTP stack-trace sinks. Hosted
+CodeQL has not been rerun. No Problems category is added: the fixture runs
+outside WeKan, and generic exception-response filtering does not distinguish
+attacks from operational errors.
+
+</details>
+
+and fixes release preflight:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4d2951ae2">Refresh reviewed telemetry inventory and detect stale reviews locally</a>. Thanks to xet7.</summary>
+
+The release bump job stopped because 46 changed runtime files were absent
+from the reviewed telemetry inventory. Review their outbound behavior and
+refresh the hashes while retaining source and binary gates. Add the same
+source check before release-all.sh changes notes or makes remote writes,
+and include the actual checkout in the telemetry regression suite.
+
+A macOS ARM64 build, the 1,577-file source audit, the 42,926-file bundle scan
+and six release/preflight tests pass. Logging and operator-configured
+integrations remain available. Later source changes still require review;
+the gate does not automatically approve them. No hosted release was run.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v11.92 2026-09-23 WeKan ® release
 
 **In short:** Always-visible, translated choices create cards, lists,
