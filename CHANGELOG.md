@@ -653,13 +653,11 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# v11.90 2026-09-23 WeKan ® release
+# Upcoming WeKan ® release
 
 **In short:** WeKan's platform builds now target **Node.js 26.9.0** and
 **npm 12.0.2**. GitHub release workflows also build separate macOS apps for
-Apple Silicon and Intel, and keep Snap publication moving when the store
-returns temporary server errors, while still failing fast on invalid uploads
-and credential problems.
+Apple Silicon and Intel.
 
 This release improves the following account security controls:
 
@@ -887,6 +885,18 @@ regression is ready for a host with a running WeKan server and Chromium.
 This release fixes the following test and GitHub workflow issues:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/160e5635b">Prevent reusing an existing release version</a>. Thanks to xet7.</summary>
+
+Choose the next version from the newest changelog, package version and local
+or remote release tag. Refuse stale explicit versions and stop if remote tags
+cannot be checked, before editing notes or publishing. Restore the September
+20 v11.90 notes and keep subsequent changes in Upcoming for v11.91. Regression
+tests cover stale headings, missing local tags, version rollover, explicit
+arguments and remote failures without publishing anything.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5779499ef">Fix npm 12 production installs and validate native macOS ARM64 builds</a>. Thanks to xet7.</summary>
 
 Allow Meteor's commit-pinned source-map-support tarball through a validated,
@@ -958,16 +968,6 @@ Kannada locale duplicate; the translated `kn` locale remains active.
 The Node suite ran all 1,189 suites; eight were rerun successfully after
 the sandbox blocked local test listeners. The full browser suite remains
 to be rerun on the host.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/62cccae192b25d8557d9bf5f0e00b60fd0101045">Retry temporary Snap Store upload failures in release workflows</a>. Thanks to Copilot and xet7.</summary>
-
-Release workflows retry temporary Snap Store upload failures for native,
-Launchpad and variant publish paths, with bounded backoff and clear fail/stop
-rules. Permanent credential and authorization errors still fail immediately,
-while transient HTTP 500 failures now retry before final failure.
 
 </details>
 
@@ -1088,6 +1088,24 @@ corrects the SMTP port label and preserves translated checklist examples. No
 Arabic-script values or malformed source tokens remain. Completeness, script,
 token and targeted locale checks pass; native-speaker wording review remains
 welcome.
+
+</details>
+
+# v11.90 2026-09-20 WeKan ® release
+
+**In short:** **GitHub release workflows** now keep Snap publication moving when
+the store returns temporary server errors, while still failing fast on invalid
+uploads and credential problems.
+
+This release fixes the following GitHub workflow issue:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/62cccae192b25d8557d9bf5f0e00b60fd0101045">Retry temporary Snap Store upload failures in release workflows</a>. Thanks to Copilot and xet7.</summary>
+
+Release workflows retry temporary Snap Store upload failures for native,
+Launchpad and variant publish paths, with bounded backoff and clear fail/stop
+rules. Permanent credential and authorization errors still fail immediately,
+while transient HTTP 500 failures now retry before final failure.
 
 </details>
 
