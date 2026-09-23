@@ -738,6 +738,19 @@ browser cases fail identically on the pre-change bundle. See the
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e13f4f6c2">Group member date preferences directly under Date</a>. Thanks to xet7.</summary>
+
+Member Settings now opens Date directly, with Date Format followed by Set day
+of the week start and Calendar system (date display). Remove these controls
+from Change Settings. Save captures all three selections before profile updates
+and waits for week-start persistence; saving Change Settings leaves them alone.
+Existing translations are reused. The native macOS ARM64 build, focused Node
+suites, telemetry checks and ten Chromium menu, persistence, translated-calendar
+and date-format hierarchy checks pass.
+
+</details>
+
 This release fixes the following sign-in bug:
 
 <details>
