@@ -109,3 +109,23 @@ Template.dateFormatEditor.events({
     }
   },
 });
+
+Template.boardDateSettingsPopup.helpers({
+  isShowWeekOfYear() {
+    const user = ReactiveCache.getCurrentUser();
+    if (!user) return window.localStorage.getItem('showWeekOfYear') === 'true';
+    return user.isShowWeekOfYear();
+  },
+});
+
+Template.boardDateSettingsPopup.events({
+  'click .js-show-week-of-year-toggle'() {
+    const user = ReactiveCache.getCurrentUser();
+    if (user) {
+      user.toggleShowWeekOfYear();
+    } else {
+      const current = window.localStorage.getItem('showWeekOfYear') === 'true';
+      window.localStorage.setItem('showWeekOfYear', String(!current));
+    }
+  },
+});

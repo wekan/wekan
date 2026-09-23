@@ -10,6 +10,9 @@ Uncheck a setting and save to inherit the next enabled default. The selected
 value remains saved for later use. Without an enabled setting, dates use the
 normal year-month-day default and existing locale-specific displays.
 
+Below the board Date popup’s Save button and horizontal rule, Show week of year
+(ISO 8601) toggles your existing week-number display preference immediately.
+
 The board popup shows whether the global format is enabled and its saved value.
 The member popup shows the global and current board statuses and saved values,
 including disabled settings. Outside a board, the board override is disabled.

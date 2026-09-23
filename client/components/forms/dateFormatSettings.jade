@@ -1,5 +1,10 @@
 template(name="boardDateSettingsPopup")
   +dateFormatEditor(scope="board")
+  hr
+  ul.show-week-of-year-toggle
+    a.flex.js-show-week-of-year-toggle(title="{{_ 'show-week-of-year'}}")
+      i.fa(class="{{#if isShowWeekOfYear}}fa-check{{else}}fa-square-o{{/if}}")
+      span {{_ 'show-week-of-year'}}
 
 template(name="memberDateSettingsPopup")
   +dateFormatEditor(scope="member")

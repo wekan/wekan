@@ -88,3 +88,10 @@ test('member Date is a direct menu entry and owns the calendar controls', () => 
   const save = read('client/components/users/userHeader.js').split("'click .js-apply-user-settings'")[1].split('// #5778')[0];
   assert.doesNotMatch(save, /changeStartDayOfWeek|changeCalendarSystem/);
 });
+
+test('week-of-year toggle is below the board Date editor and its rule', () => {
+  const popup = read('client/components/forms/dateFormatSettings.jade').split('template(name="memberDateSettingsPopup")')[0];
+  assert.match(popup, /dateFormatEditor\(scope="board"\)\s+hr\s+ul.show-week-of-year-toggle/);
+  assert.doesNotMatch(read('client/components/sidebar/sidebar.jade'), /js-show-week-of-year-toggle/);
+  assert.match(read('client/components/forms/dateFormatSettings.js'), /Template.boardDateSettingsPopup.events/);
+});

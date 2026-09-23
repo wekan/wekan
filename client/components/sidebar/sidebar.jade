@@ -48,10 +48,6 @@ template(name='homeSidebar')
       a.flex.js-vertical-scrollbars-toggle(title="{{_ 'enable-vertical-scrollbars'}}")
         i.fa(class="{{#if isVerticalScrollbars}}fa-check{{else}}fa-square-o{{/if}}")
         span {{_ 'enable-vertical-scrollbars'}}
-  ul#cards.show-week-of-year-toggle
-    a.flex.js-show-week-of-year-toggle(title="{{_ 'show-week-of-year'}}")
-      i.fa(class="{{#if isShowWeekOfYear}}fa-check{{else}}fa-square-o{{/if}}")
-      span {{_ 'show-week-of-year'}}
   hr
   if currentUser.isBoardAdmin
     //- A caret in front of the heading, like every collapsible section of an

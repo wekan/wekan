@@ -82,6 +82,18 @@ test('Date settings cascade from global to board to member through their own con
     await expect(page.locator('.js-pop-over .content:not(.no-height) .js-global-date-format-status')).toContainText(/Enabled\s*:\s*DD-MM-YYYY/);
     await expect(page.locator('.js-pop-over .content:not(.no-height) .js-board-date-format-status')).toHaveCount(0);
     let editor = page.locator('.js-pop-over .content:not(.no-height) .js-date-format-form');
+    const weekToggle = page.locator('.js-pop-over .content:not(.no-height) .js-show-week-of-year-toggle');
+    await expect(weekToggle).toBeVisible();
+    await expect(page.locator('.board-sidebar .js-show-week-of-year-toggle')).toHaveCount(0);
+    const saveBox = await editor.locator('button[type="submit"]').boundingBox();
+    const weekBox = await weekToggle.boundingBox();
+    expect(weekBox.y).toBeGreaterThan(saveBox.y + saveBox.height);
+    const previousWeek = db.findOne('users', { _id: user.id }).profile.showWeekOfYear;
+    await weekToggle.click();
+    await expect.poll(() => db.findOne('users', { _id: user.id }).profile.showWeekOfYear).toBe(!previousWeek);
+    await weekToggle.click();
+    await expect.poll(() => db.findOne('users', { _id: user.id }).profile.showWeekOfYear).toBe(previousWeek);
+
     await expect(editor.locator('#start-day-of-week, #calendar-system')).toHaveCount(0);
     await editor.locator('.js-date-format-select').selectOption('YYYY-MM-DD-date-only');
     await editor.locator('.js-date-format-override').check();
@@ -98,6 +110,13 @@ test('Date settings cascade from global to board to member through their own con
     await expect(page.locator('.js-pop-over .content:not(.no-height) .js-global-date-format-status')).toContainText(/Enabled\s*:\s*DD-MM-YYYY/);
     await expect(page.locator('.js-pop-over .content:not(.no-height) .js-board-date-format-status')).toContainText(/Enabled\s*:\s*YYYY-MM-DD/);
     editor = page.locator('.js-pop-over .content:not(.no-height) .js-date-format-form');
+    await expect(editor.locator('.js-date-format-select')).toBeVisible();
+    const formatBox = await editor.locator('.js-date-format-select').boundingBox();
+    const weekStartBox = await editor.locator('#start-day-of-week').boundingBox();
+    const calendarBox = await editor.locator('#calendar-system').boundingBox();
+    expect(formatBox.y + formatBox.height).toBeLessThan(weekStartBox.y);
+    expect(weekStartBox.y + weekStartBox.height).toBeLessThan(calendarBox.y);
+
     await editor.locator('.js-date-format-select').selectOption('MM-DD-YYYY');
     await editor.locator('.js-date-format-override').check();
     await editor.locator('button[type="submit"]').click();
