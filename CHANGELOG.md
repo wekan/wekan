@@ -655,8 +655,27 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**In short:** Meteor server bundles install with npm 12 without rejecting
-obsolete rebuild arguments.
+**In short:** Create cards, lists and swimlanes from pasted lines, or keep
+one item with a multiline title. List and swimlane names retain line breaks.
+Meteor server bundles install with npm 12 without obsolete rebuild arguments.
+
+This release adds the following feature:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/552ac0855">Create cards, lists and swimlanes from pasted lines</a>. Thanks to AmigaAbattoir and xet7.</summary>
+
+When a new title has multiple nonempty lines, choose one multiline item or
+one item per line. Keep pasted order, ignore blank lines in batch mode, reuse
+the existing translated labels and prevent overlapping submissions. Card
+creation retains its labels, members and other options. List and swimlane
+names use multiline editors and preserve line breaks in their headers.
+
+Line splitting, ordering, existing quick-add behavior and composer tests pass.
+A macOS ARM64 build and four Chromium tests against isolated FerretDB SQLite
+verify cards, inline lists, list popups, swimlanes and multiline renaming.
+Fixes <a href="https://github.com/wekan/wekan/issues/6714">#6714</a>.
+
+</details>
 
 This release fixes the following build issue:
 
