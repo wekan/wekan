@@ -657,6 +657,8 @@ the Markdown commit as the template.
 
 **In short:** Create cards, lists and swimlanes from pasted lines, or keep
 one item with a multiline title. List and swimlane names retain line breaks.
+Scheduled full-instance backups now include database and file content.
+Admin Panel validation and menu-based feature/backup guides are documented.
 Meteor server bundles install with npm 12 without obsolete rebuild arguments.
 
 This release adds the following feature:
@@ -677,7 +679,30 @@ Fixes <a href="https://github.com/wekan/wekan/issues/6714">#6714</a>.
 
 </details>
 
-This release fixes the following build issue:
+and fixes scheduled full-instance backups:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/58d856363">Repair full backups and validate Admin Panel features</a>. Thanks to markusst1982 and xet7.</summary>
+
+Start the shared scheduler and replace the invalid daily schedule expression.
+Whole-instance archives preserve all application collections, BSON values,
+indexes and selected attachment/avatar versions, including their metadata.
+Use Meteor's database driver for BSON compatibility. Validate checksums and file
+references before restore, rebase file paths and report database/file failures.
+Reload saved selections and reject invalid schedules. Organization archives
+remain restricted; online backups are sequential, not atomic snapshots.
+
+A macOS ARM64 build passes an actual scheduled backup, database/file restore
+and authenticated attachment/avatar downloads. Nine real FerretDB round-trip
+and failure checks, the bundled scheduler parser check, 70 focused Node suites
+and 24 Chromium checks pass. Every Admin Panel pane has an implementation
+inventory and all 48 routes render. External identity, mail and cloud services,
+device installation and two-database migration need deployment-specific tests;
+the validation report states these limits.
+
+</details>
+
+and fixes the following build issue:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d17dadcf7">Fix Meteor bundle rebuilds with npm 12</a>. Thanks to xet7.</summary>
@@ -693,6 +718,21 @@ Reproduce the failure with npm 12.0.2 and the generated Meteor rebuild scripts,
 then verify an offline install and an allowed lifecycle script succeed after
 preparation. Policy, invalid-path, idempotence, custom-flag, read-only-file and
 release wiring regressions pass. The hosted build matrix was not rerun.
+
+</details>
+
+and updates the feature and backup documentation:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/953d8f7c1">Match feature guides to menus and document backup alternatives</a>. Thanks to markusst1982 and xet7.</summary>
+
+Organize feature guides by the current Header, All Boards, Member Settings,
+Right Sidebar, Board Settings, Cards, Lists and Swimlanes menus. Document the
+newest September features and preserve old paths with forwarding pages.
+
+Add the backup alternatives from issue #6683, descriptive screenshot filenames
+and relative links between deployment, storage, export/import and backup guides.
+Menu-inventory and local documentation-link checks pass.
 
 </details>
 
