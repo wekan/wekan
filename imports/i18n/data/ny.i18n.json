@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Kukugwirizanitsa…",
   "list-sync-now-success": "Kugwirizanitsa kwatha bwino.",
   "list-sync-now-error": "Kugwirizanitsa kwalephera: %s",
-  "list-sync-clear": "Siyani kugwirizanitsa"
+  "list-sync-clear": "Siyani kugwirizanitsa",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

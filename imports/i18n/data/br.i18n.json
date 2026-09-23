@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "O c'houbredañ…",
   "list-sync-now-success": "Goubredet mat.",
   "list-sync-now-error": "C'hwitet eo ar goubredañ: %s",
-  "list-sync-clear": "Paouez gant ar goubredañ"
+  "list-sync-clear": "Paouez gant ar goubredañ",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

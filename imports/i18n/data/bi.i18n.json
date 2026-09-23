@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "I stap sinkronaes…",
   "list-sync-now-success": "Sinkronaes i finis gud.",
   "list-sync-now-error": "Sinkronaes i no wok: %s",
-  "list-sync-clear": "Stopem sinkronaes"
+  "list-sync-clear": "Stopem sinkronaes",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

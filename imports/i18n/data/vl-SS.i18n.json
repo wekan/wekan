@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "I khou syncwa…",
   "list-sync-now-success": "Sync yo fheliswa zwavhuḓi.",
   "list-sync-now-error": "Sync a yo shumi: %s",
-  "list-sync-clear": "Imisa sync"
+  "list-sync-clear": "Imisa sync",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "מסנכרן…",
   "list-sync-now-success": "הסנכרון הושלם בהצלחה.",
   "list-sync-now-error": "הסנכרון נכשל: %s",
-  "list-sync-clear": "עצור סנכרון"
+  "list-sync-clear": "עצור סנכרון",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

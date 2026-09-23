@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Notiek sinhronizācija…",
   "list-sync-now-success": "Sinhronizācija veiksmīgi pabeigta.",
   "list-sync-now-error": "Sinhronizācija neizdevās: %s",
-  "list-sync-clear": "Apturēt sinhronizāciju"
+  "list-sync-clear": "Apturēt sinhronizāciju",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

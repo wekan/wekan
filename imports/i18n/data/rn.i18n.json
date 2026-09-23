@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Birahuzwa…",
   "list-sync-now-success": "Guhuza kwarangiye neza.",
   "list-sync-now-error": "Guhuza ntibyakunze: %s",
-  "list-sync-clear": "Hagarika guhuza"
+  "list-sync-clear": "Hagarika guhuza",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

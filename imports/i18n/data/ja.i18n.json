@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "同期中…",
   "list-sync-now-success": "同期が正常に完了しました。",
   "list-sync-now-error": "同期に失敗しました: %s",
-  "list-sync-clear": "同期を停止"
+  "list-sync-clear": "同期を停止",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

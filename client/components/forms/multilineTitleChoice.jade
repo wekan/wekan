@@ -1,8 +1,9 @@
 template(name="multilineTitleChoice")
-  .multiline-title-choice
-    if multiple
-      label
-        | {{_ 'add'}}
-        select.js-multiline-title-mode
-          option(value="one") 1 {{_ singular}}
-          option(value="separate") {{lineCount}} {{_ plural}}
+  fieldset.multiline-title-choice
+    legend {{_ 'add-many-lines-as'}}
+    label
+      input.js-multiline-title-mode(type="radio" name=groupName value="one" checked)
+      | 1 {{_ singular}}
+    label
+      input.js-multiline-title-mode(type="radio" name=groupName value="separate")
+      | {{_ 'many-items' items=(_ plural)}}

@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Kutsinhana…",
   "list-sync-now-success": "Sync yapera zvakanaka.",
   "list-sync-now-error": "Sync yakundikana: %s",
-  "list-sync-clear": "Mira kutsinhana"
+  "list-sync-clear": "Mira kutsinhana",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

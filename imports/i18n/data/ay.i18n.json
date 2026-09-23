@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Ch'amanchaski…",
   "list-sync-now-success": "Ch'amanchäwix walikiw tukuyata.",
   "list-sync-now-error": "Ch'amanchäwix pantjata: %s",
-  "list-sync-clear": "Ch'amanchäwi jark'aña"
+  "list-sync-clear": "Ch'amanchäwi jark'aña",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Sinkronon…",
   "list-sync-now-success": "Sinkron finon gudiko.",
   "list-sync-now-error": "Sinkron falöl: %s",
-  "list-sync-clear": "Nulükön sinkron"
+  "list-sync-clear": "Nulükön sinkron",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

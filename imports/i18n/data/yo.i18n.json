@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Ń muṣiṣẹ́pọ̀…",
   "list-sync-now-success": "Muṣiṣẹ́pọ̀ parí ní àṣeyọrí.",
   "list-sync-now-error": "Muṣiṣẹ́pọ̀ kùnà: %s",
-  "list-sync-clear": "Dá muṣiṣẹ́pọ̀ dúró"
+  "list-sync-clear": "Dá muṣiṣẹ́pọ̀ dúró",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

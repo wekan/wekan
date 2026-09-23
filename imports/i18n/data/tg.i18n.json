@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Ҳамоҳанг мешавад…",
   "list-sync-now-success": "Ҳамоҳангсозӣ бомуваффақият анҷом ёфт.",
   "list-sync-now-error": "Ҳамоҳангсозӣ ноком шуд: %s",
-  "list-sync-clear": "Ҳамоҳангсозиро қатъ кунед"
+  "list-sync-clear": "Ҳамоҳангсозиро қатъ кунед",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

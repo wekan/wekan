@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "So sincronizant…",
   "list-sync-now-success": "Sincronizåcion comifåt.",
   "list-sync-now-error": "L' sincronizåcion a fwait berwete: %s",
-  "list-sync-clear": "Djoker li sincronizåcion"
+  "list-sync-clear": "Djoker li sincronizåcion",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

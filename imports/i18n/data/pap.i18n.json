@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Ta sinkronisando…",
   "list-sync-now-success": "Sinkronisashon a kompletá kon éksito.",
   "list-sync-now-error": "Sinkronisashon a fracasá: %s",
-  "list-sync-clear": "Stòp sinkronisashon"
+  "list-sync-clear": "Stòp sinkronisashon",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

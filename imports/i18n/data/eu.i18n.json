@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Sinkronizatzen…",
   "list-sync-now-success": "Sinkronizazioa ondo osatu da.",
   "list-sync-now-error": "Sinkronizazioak huts egin du: %s",
-  "list-sync-clear": "Gelditu sinkronizazioa"
+  "list-sync-clear": "Gelditu sinkronizazioa",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

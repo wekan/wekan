@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "በማመሳሰል ላይ…",
   "list-sync-now-success": "ማመሳሰል በተሳካ ሁኔታ ተጠናቋል።",
   "list-sync-now-error": "ማመሳሰል አልተሳካም፦ %s",
-  "list-sync-clear": "ማመሳሰልን አቁም"
+  "list-sync-clear": "ማመሳሰልን አቁም",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

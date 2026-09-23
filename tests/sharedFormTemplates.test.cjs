@@ -82,7 +82,7 @@ test('the list destination picker is written once', () => {
 
 test('the create board form is written once', () => {
   assert.ok(/template\(name="createBoardForm"\)/.test(boardJade), 'one template');
-  assert.strictEqual((boardJade.match(/input\.js-new-board-title/g) || []).length, 1,
+  assert.strictEqual((boardJade.match(/textarea\.js-new-board-title/g) || []).length, 1,
     'the title field exists in exactly one place');
   for (const tpl of ['createBoard', 'createBoardPopup', 'headerBarCreateBoardPopup',
     'createTemplateContainerPopup']) {
@@ -121,7 +121,7 @@ test('the popups keep their own state and handlers (negative)', () => {
   }
   assert.ok(/Template\.createBoardForm\.events\(\{[\s\S]*async submit\(event, tpl\)/
     .test(boardJs), 'the rendered form owns its submit event');
-  assert.ok(/const owner = createBoardOwner\(tpl\);[\s\S]{0,200}createBoardSubmit\(owner, event\)/
+  assert.ok(/const owner = createBoardOwner\(tpl\);[\s\S]{0,200}createBoardSubmit\(owner, event, starAfterCreate\)/
     .test(boardJs), 'the form submits through its explicitly passed owner');
   assert.ok(!/Template\.createBoard(?:Popup)?\.events\(createBoardEvents/.test(boardJs),
     'parent templates do not rely on child events bubbling');

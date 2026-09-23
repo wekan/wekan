@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Kyesigika…",
   "list-sync-now-success": "Okwesigika kuwedde bulungi.",
   "list-sync-now-error": "Okwesigika kulemye: %s",
-  "list-sync-clear": "Kkomya okwesigika"
+  "list-sync-clear": "Kkomya okwesigika",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

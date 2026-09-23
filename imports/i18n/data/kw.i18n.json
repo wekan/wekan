@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Ow syncya…",
   "list-sync-now-success": "Sync yw gorfennys yn ta.",
   "list-sync-now-error": "Sync a fyllys: %s",
-  "list-sync-clear": "Hedhi sync"
+  "list-sync-clear": "Hedhi sync",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

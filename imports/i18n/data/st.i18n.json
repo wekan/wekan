@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "E a tumellana…",
   "list-sync-now-success": "Tumellano e phethilwe ka katleho.",
   "list-sync-now-error": "Tumellano e hlolehile: %s",
-  "list-sync-clear": "Emisa tumellano"
+  "list-sync-clear": "Emisa tumellano",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

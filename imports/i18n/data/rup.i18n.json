@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Sincronizeadzã…",
   "list-sync-now-success": "Sincronizarea bitisi cu bun.",
   "list-sync-now-error": "Sincronizarea nu ahurhi: %s",
-  "list-sync-clear": "Curmã sincronizarea"
+  "list-sync-clear": "Curmã sincronizarea",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

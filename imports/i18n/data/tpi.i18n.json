@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "I sink…",
   "list-sync-now-success": "Sink i pinis gutpela.",
   "list-sync-now-error": "Sink i pundaun: %s",
-  "list-sync-clear": "Pasim sink"
+  "list-sync-clear": "Pasim sink",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

@@ -27,7 +27,7 @@ test('batch positions preserve pasted order at top, bottom, between neighbours a
   assert.deepEqual(titleSortIndexes(0, 1, 0), []);
 });
 test('all creation paths share the choice; editing names uses textareas', () => {
-  for (const file of ['lists/listBody', 'lists/listHeader', 'swimlanes/swimlanes', 'swimlanes/swimlaneHeader']) {
+  for (const file of ['boards/boardHeader', 'lists/listBody', 'lists/listHeader', 'swimlanes/swimlanes', 'swimlanes/swimlaneHeader']) {
     assert.match(fs.readFileSync(path.join(root, `client/components/${file}.jade`), 'utf8'), /\+multilineTitleChoice/);
     assert.match(fs.readFileSync(path.join(root, `client/components/${file}.js`), 'utf8'), /titlesFromComposer/);
   }
@@ -35,5 +35,63 @@ test('all creation paths share the choice; editing names uses textareas', () => 
     const jade = fs.readFileSync(path.join(root, `client/components/${file}.jade`), 'utf8');
     assert.match(jade, /textarea\.list-name-input/);
     assert.doesNotMatch(jade, /input\.(?:list|swimlane)-name-input/);
+  }
+});
+
+test('the choice is always visible with isolated radio groups and a one-item default', () => {
+  const jade = fs.readFileSync(path.join(root, 'client/components/forms/multilineTitleChoice.jade'), 'utf8');
+  const js = fs.readFileSync(path.join(root, 'client/components/forms/multilineTitleChoice.js'), 'utf8');
+  assert.doesNotMatch(jade, /if multiple|select\./);
+  assert.match(jade, /value="one" checked/);
+  assert.match(jade, /value="separate"/);
+  assert.match(js, /Random.id\(\)/);
+  assert.match(js, /js-multiline-title-mode:checked/);
+});
+
+test('board batches serialize creation, share settings and reject overlapping or empty submissions', async () => {
+  const vm = require('node:vm');
+  const src = fs.readFileSync(path.join(root, 'client/components/boards/boardHeader.js'), 'utf8');
+  const fn = src.slice(src.indexOf('async function createBoardSubmit('), src.indexOf('async function createOneBoard('));
+  const calls = [], navigations = [], stars = [];
+  const session = new Map([['createBoardAsTemplate', true], ['createBoardInWorkspace', 'workspace']]);
+  const button = { disabled: false };
+  const input = { value: 'First\nSecond' };
+  const event = { preventDefault() {}, currentTarget: { querySelector: s => s === '[type=submit]' ? button : input } };
+  let id = null, release;
+  const waiting = new Promise(resolve => { release = resolve; });
+  const owner = { boardId: { get: () => id } };
+  const context = vm.createContext({
+    titlesFromComposer: el => el.value.trim() ? el.value.split('\n') : [],
+    Session: { get: k => session.get(k), set: (k,v) => session.set(k,v) },
+    createOneBoard: async (_owner,title,template,workspace) => {
+      calls.push({ title, template, workspace }); await waiting; id = title;
+    },
+    Meteor: { callAsync: async (_method, boardId) => stars.push(boardId) },
+    FlowRouter: { go: (_route, args) => navigations.push(args) },
+    getSlug: s => s.toLowerCase(), console, window: { alert: msg => assert.fail(msg) },
+  });
+  vm.runInContext(fn, context);
+  const running = context.createBoardSubmit(owner, event, true);
+  assert.equal(button.disabled, true);
+  await context.createBoardSubmit(owner, event, true);
+  assert.equal(calls.length, 1);
+  release(); await running;
+  assert.deepEqual(calls.map(c => c.title), ['First', 'Second']);
+  assert.ok(calls.every(c => c.template && c.workspace === 'workspace'));
+  assert.deepEqual(stars, ['First', 'Second']);
+  assert.equal(navigations.length, 1);
+  assert.equal(navigations[0].id, 'Second');
+  assert.equal(button.disabled, false);
+  input.value = '  ';
+  await context.createBoardSubmit(owner, event);
+  assert.equal(calls.length, 2);
+});
+
+test('creation labels keep the item placeholder in every locale', () => {
+  const directory = path.join(root, 'imports/i18n/data');
+  for (const name of fs.readdirSync(directory).filter(n => n.endsWith('.i18n.json'))) {
+    const strings = JSON.parse(fs.readFileSync(path.join(directory, name), 'utf8'));
+    assert.ok(strings['add-many-lines-as'].trim(), name);
+    assert.deepEqual(strings['many-items'].match(/__\w+__/g), ['__items__'], name);
   }
 });

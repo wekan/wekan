@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "كيتزامن…",
   "list-sync-now-success": "المزامنة كملات بنجاح.",
   "list-sync-now-error": "المزامنة فشلات: %s",
-  "list-sync-clear": "وقف المزامنة"
+  "list-sync-clear": "وقف المزامنة",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

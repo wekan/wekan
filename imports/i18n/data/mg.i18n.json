@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Mampifanaraka…",
   "list-sync-now-success": "Vita soa aman-tsara ny fampifanarahana.",
   "list-sync-now-error": "Tsy nahomby ny fampifanarahana: %s",
-  "list-sync-clear": "Atsaharo ny fampifanarahana"
+  "list-sync-clear": "Atsaharo ny fampifanarahana",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

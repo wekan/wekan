@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Neneuhcatoc…",
   "list-sync-now-success": "Neneuhcayotl otlan cualli.",
   "list-sync-now-error": "Neneuhcayotl ahmo ohuelic: %s",
-  "list-sync-clear": "Xiccahua neneuhcayotl"
+  "list-sync-clear": "Xiccahua neneuhcayotl",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

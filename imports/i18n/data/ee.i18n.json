@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Ele ɖeka wɔm…",
   "list-sync-now-success": "Wɔɖeka wu enu nyuie.",
   "list-sync-now-error": "Wɔɖeka mewɔ dɔ o: %s",
-  "list-sync-clear": "Tɔ wɔɖeka"
+  "list-sync-clear": "Tɔ wɔɖeka",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

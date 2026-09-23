@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Senkronîze dibe…",
   "list-sync-now-success": "Senkronîzasyon bi serkeftî qediya.",
   "list-sync-now-error": "Senkronîzasyon şikest: %s",
-  "list-sync-clear": "Senkronîzasyonê rawestîne"
+  "list-sync-clear": "Senkronîzasyonê rawestîne",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Synchrōnizacyjŏ…",
   "list-sync-now-success": "Synchrōnizacyjŏ zakōńczōnŏ ôgibnie.",
   "list-sync-now-error": "Synchrōnizacyjŏ niy podarziła sie: %s",
-  "list-sync-clear": "Zastow synchrōnizacyjŏ"
+  "list-sync-clear": "Zastow synchrōnizacyjŏ",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

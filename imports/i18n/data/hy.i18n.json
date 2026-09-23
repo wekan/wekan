@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Համաժամացում…",
   "list-sync-now-success": "Համաժամացումը հաջողությամբ ավարտվեց։",
   "list-sync-now-error": "Համաժամացումը ձախողվեց՝ %s",
-  "list-sync-clear": "Դադարեցնել համաժամացումը"
+  "list-sync-clear": "Դադարեցնել համաժամացումը",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

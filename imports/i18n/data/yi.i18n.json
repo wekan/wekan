@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "סינכראָניזירט זיך…",
   "list-sync-now-success": "סינכראָניזאַציע איז געלונגען.",
   "list-sync-now-error": "סינכראָניזאַציע איז נישט געלונגען: %s",
-  "list-sync-clear": "אויפֿהערן סינכראָניזירן"
+  "list-sync-clear": "אויפֿהערן סינכראָניזירן",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

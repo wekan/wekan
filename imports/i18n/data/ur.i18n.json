@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "ہم وقت ہو رہا ہے…",
   "list-sync-now-success": "ہم وقت سازی کامیابی سے مکمل ہوئی۔",
   "list-sync-now-error": "ہم وقت سازی ناکام ہوئی: %s",
-  "list-sync-clear": "ہم وقت سازی روکیں"
+  "list-sync-clear": "ہم وقت سازی روکیں",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

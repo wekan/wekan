@@ -181,7 +181,8 @@ template(name="createBoardForm")
   form
     label
       | {{_ 'title'}}
-      input.js-new-board-title(type="text" placeholder="{{_ 'bucket-example'}}" autofocus required)
+      textarea.js-new-board-title(rows="3" placeholder="{{_ 'bucket-example'}}" autofocus required)
+    +multilineTitleChoice(selector=".js-new-board-title" singular="board" plural="boards")
     if visibilityMenuIsOpen
       +boardVisibilityList
     else

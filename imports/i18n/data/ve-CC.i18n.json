@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "I khou vhambadzanya…",
   "list-sync-now-success": "U vhambadzanya ho fhedza zwavhuḓi.",
   "list-sync-now-error": "U vhambadzanya ho ngo bvelela: %s",
-  "list-sync-clear": "Litshani u vhambadzanya"
+  "list-sync-clear": "Litshani u vhambadzanya",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

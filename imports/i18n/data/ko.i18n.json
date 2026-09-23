@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "동기화 중…",
   "list-sync-now-success": "동기화가 완료되었습니다.",
   "list-sync-now-error": "동기화 실패: %s",
-  "list-sync-clear": "동기화 중지"
+  "list-sync-clear": "동기화 중지",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

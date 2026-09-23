@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Oñemoĩjojahína…",
   "list-sync-now-success": "Ñemoĩjoja oñemohu'ã porã.",
   "list-sync-now-error": "Ñemoĩjoja ojavy: %s",
-  "list-sync-clear": "Emboyke ñemoĩjoja"
+  "list-sync-clear": "Emboyke ñemoĩjoja",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

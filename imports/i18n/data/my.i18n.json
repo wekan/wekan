@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "စင့်ခ်လုပ်နေသည်…",
   "list-sync-now-success": "စင့်ခ်ခြင်း အောင်မြင်စွာ ပြီးစီးပါပြီ။",
   "list-sync-now-error": "စင့်ခ်ခြင်း မအောင်မြင်ပါ: %s",
-  "list-sync-clear": "စင့်ခ်ခြင်းကို ရပ်ရန်"
+  "list-sync-clear": "စင့်ခ်ခြင်းကို ရပ်ရန်",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

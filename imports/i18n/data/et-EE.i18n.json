@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Sünkroonimine…",
   "list-sync-now-success": "Sünkroonimine õnnestus.",
   "list-sync-now-error": "Sünkroonimine ebaõnnestus: %s",
-  "list-sync-clear": "Peata sünkroonimine"
+  "list-sync-clear": "Peata sünkroonimine",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

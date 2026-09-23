@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "rurmoHtaH…",
   "list-sync-now-success": "rurmoH Qapla'.",
   "list-sync-now-error": "rurmoH luj: %s",
-  "list-sync-clear": "rurmoH mev"
+  "list-sync-clear": "rurmoH mev",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

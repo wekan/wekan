@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Ap senkwonize…",
   "list-sync-now-success": "Senkwonizasyon fini avèk siksè.",
   "list-sync-now-error": "Senkwonizasyon echwe: %s",
-  "list-sync-clear": "Sispann senkwonize"
+  "list-sync-clear": "Sispann senkwonize",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

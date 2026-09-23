@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Samstillar…",
   "list-sync-now-success": "Samstilling lokin væl.",
   "list-sync-now-error": "Samstilling miseydnaðist: %s",
-  "list-sync-clear": "Steðga samstilling"
+  "list-sync-clear": "Steðga samstilling",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

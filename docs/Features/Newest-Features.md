@@ -7,7 +7,7 @@ current source. Check your installed release before expecting the newest UI.
 
 | Feature | Where to find it | Instructions |
 | --- | --- | --- |
-| Paste several cards, lists or swimlanes; keep multiline names | Each creation form's Add chooser | [Multiline creation](Editor/Multiline.md) |
+| Paste several cards, lists, swimlanes or boards; keep multiline names | Always-visible creation radio options | [Multiline creation](Editor/Multiline.md) |
 | Global, board and personal date-format overrides | Admin Visibility / Date; Board Settings / Date; Member Settings / Date | [Date settings](Member-Settings/Date/README.md) |
 | Calendar system and first weekday | Member Settings / Date, below Date Format | [Calendars](Member-Settings/Date/Calendar-Systems.md) and [week start](Member-Settings/Date/Day-of-week-start.md) |
 | Week numbers | Board Settings / Date, below Save | [Board Date](Right-Sidebar/Board-Settings/Date.md) |

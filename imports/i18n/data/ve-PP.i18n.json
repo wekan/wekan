@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Sinhronirund…",
   "list-sync-now-success": "Sinhronirund om hüvin loptud.",
   "list-sync-now-error": "Sinhronirundan viga: %s",
-  "list-sync-clear": "Seižuta sinhronirund"
+  "list-sync-clear": "Seižuta sinhronirund",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

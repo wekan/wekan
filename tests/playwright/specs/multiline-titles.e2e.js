@@ -8,13 +8,15 @@ test('#6714 cards offer one multiline title or separate cards in paste order', a
   const list = board.listIds[0];
   await bp.openAddCardTop(list);
   const form = bp.list(list).locator('form').filter({ has: page.locator('textarea.js-card-title') });
+  await expect(form.locator('.multiline-title-choice')).toBeVisible();
   await form.locator('textarea.js-card-title').fill('First\n\nSecond\nThird');
-  await expect(form.locator('.js-multiline-title-mode option')).toHaveText(['1 Card', '3 Cards']);
-  await form.locator('.js-multiline-title-mode').selectOption('separate');
+  await expect(form.locator('.multiline-title-choice label')).toHaveText(['1 Card', 'Many Cards']);
+  await form.locator('.js-multiline-title-mode[value=separate]').check();
   await form.locator('button[type=submit]').click();
   await expect.poll(() => db.find('cards', { boardId: board.boardId, listId: list }).filter(c => ['First', 'Second', 'Third'].includes(c.title)).sort((a,b) => a.sort-b.sort).map(c => c.title)).toEqual(['First', 'Second', 'Third']);
+  await expect(form.locator('.multiline-title-choice')).toBeVisible();
   await form.locator('textarea.js-card-title').fill('One\nmultiline card');
-  await form.locator('.js-multiline-title-mode').selectOption('one');
+  await form.locator('.js-multiline-title-mode[value=one]').check();
   await form.locator('button[type=submit]').click();
   await expect.poll(() => db.find('cards', { boardId: board.boardId, title: 'One\nmultiline card' }).length).toBe(1);
 });
@@ -22,12 +24,14 @@ test('#6714 cards offer one multiline title or separate cards in paste order', a
 test('#6714 lists create individually or retain multiline names and allow editing', async ({ boardPage: page, board }) => {
   await page.locator(`#js-list-${board.listIds[0]} .js-add-list-here`).click();
   const form = page.locator('.js-add-list-inline-form');
+  await expect(form.locator('.multiline-title-choice')).toBeVisible();
   await form.locator('textarea.list-name-input').fill('Pasted A\nPasted B');
-  await form.locator('.js-multiline-title-mode').selectOption('separate');
+  await form.locator('.js-multiline-title-mode[value=separate]').check();
   await form.locator('button[type=submit]').click();
   await expect.poll(() => db.find('lists', { boardId: board.boardId }).filter(l => /^Pasted [AB]$/.test(l.title)).sort((a,b) => a.sort-b.sort).map(l => l.title)).toEqual(['Pasted A', 'Pasted B']);
+  await expect(form.locator('.multiline-title-choice')).toBeVisible();
   await form.locator('textarea.list-name-input').fill('Two\nlines');
-  await form.locator('.js-multiline-title-mode').selectOption('one');
+  await form.locator('.js-multiline-title-mode[value=one]').check();
   await form.locator('button[type=submit]').click();
   await expect.poll(() => db.find('lists', { boardId: board.boardId, title: 'Two\nlines' }).length).toBe(1);
   const list = db.findOne('lists', { boardId: board.boardId, title: 'Two\nlines' });
@@ -45,15 +49,17 @@ test('#6714 swimlanes create in paste order or preserve a multiline name', async
   const opener = page.locator('.js-open-add-swimlane-menu').first();
   await opener.click();
   let form = page.locator('.js-pop-over form');
+  await expect(form.locator('.multiline-title-choice')).toBeVisible();
   await form.locator('textarea.swimlane-name-input').fill('Lane A\nLane B');
-  await form.locator('.js-multiline-title-mode').selectOption('separate');
+  await form.locator('.js-multiline-title-mode[value=separate]').check();
   await form.locator('button[type=submit]').click();
   await expect.poll(() => db.find('swimlanes', { boardId: board.boardId }).filter(l => /^Lane [AB]$/.test(l.title)).sort((a,b) => a.sort-b.sort).map(l => l.title)).toEqual(['Lane A', 'Lane B']);
   await expect(page.locator('textarea.swimlane-name-input')).toHaveCount(0);
   await opener.click();
   form = page.locator('.js-pop-over form');
+  await expect(form.locator('.multiline-title-choice')).toBeVisible();
   await form.locator('textarea.swimlane-name-input').fill('Lane\nwith lines');
-  await form.locator('.js-multiline-title-mode').selectOption('one');
+  await form.locator('.js-multiline-title-mode[value=one]').check();
   await form.locator('button[type=submit]').click();
   await expect.poll(() => db.find('swimlanes', { boardId: board.boardId, title: 'Lane\nwith lines' }).length).toBe(1);
   const lane = db.findOne('swimlanes', { boardId: board.boardId, title: 'Lane\nwith lines' });
@@ -74,10 +80,38 @@ test('#6714 list popup offers the same bulk choice without creating blank lists'
   await bp.openListMenu(board.listIds[0]);
   await page.locator('.js-pop-over .js-add-list').click();
   const form = page.locator('.js-add-list-form');
+  await expect(form.locator('.multiline-title-choice')).toBeVisible();
   await form.locator('textarea.list-name-input').fill('Popup A\n\nPopup B');
-  await expect(form.locator('.js-multiline-title-mode option')).toHaveText(['1 List', '2 Lists']);
-  await form.locator('.js-multiline-title-mode').selectOption('separate');
+  await expect(form.locator('.multiline-title-choice label')).toHaveText(['1 List', 'Many Lists']);
+  await form.locator('.js-multiline-title-mode[value=separate]').check();
   await form.locator('button[type=submit]').click();
   await expect.poll(() => db.find('lists', { boardId: board.boardId }).filter(l => /^Popup [AB]$/.test(l.title)).sort((a,b) => a.sort-b.sort).map(l => l.title)).toEqual(['Popup A', 'Popup B']);
   expect(db.find('lists', { boardId: board.boardId, title: '' })).toEqual([]);
+});
+
+
+test('boards always show the choice and create one or many from the title', async ({ boardPage: page }) => {
+  const created = [];
+  const suffix = db.uniqueSuffix();
+  try {
+    await page.locator('#header-new-board-icon').click();
+    let form = page.locator('.js-pop-over form').filter({ has: page.locator('.js-new-board-title') });
+    await expect(form.locator('.multiline-title-choice label')).toHaveText(['1 Board', 'Many Boards']);
+    await expect(form.locator('[value=one]')).toBeChecked();
+    const titles = [`Batch A ${suffix}`, `Batch B ${suffix}`];
+    await form.locator('.js-new-board-title').fill(titles.join('\n\n'));
+    await form.locator('[value=separate]').check();
+    await form.locator('[type=submit]').click();
+    await expect.poll(() => db.find('boards', { title: { $in: titles } }).length).toBe(2);
+    created.push(...db.find('boards', { title: { $in: titles } }).map(b => b._id));
+    await expect(page).toHaveURL(new RegExp(`/b/${created[created.length - 1]}/`));
+    await page.locator('#header-new-board-icon').click();
+    form = page.locator('.js-pop-over form').filter({ has: page.locator('.js-new-board-title') });
+    await expect(form.locator('[value=one]')).toBeChecked();
+    const title = `One ${suffix}\nmultiline board`;
+    await form.locator('.js-new-board-title').fill(title);
+    await form.locator('[type=submit]').click();
+    await expect.poll(() => db.find('boards', { title }).length).toBe(1);
+    created.push(db.findOne('boards', { title })._id);
+  } finally { db.cleanup({ boardIds: created }); }
 });

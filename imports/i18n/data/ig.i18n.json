@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Na-ahazi…",
   "list-sync-now-success": "Nhazi gasịrị nke ọma.",
   "list-sync-now-error": "Nhazi dara: %s",
-  "list-sync-clear": "Kwụsị nhazi"
+  "list-sync-clear": "Kwụsị nhazi",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

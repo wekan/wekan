@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "O loo faatutusaina…",
   "list-sync-now-success": "Ua manuia ona uma le faatutusaina.",
   "list-sync-now-error": "Ua le manuia le faatutusaina: %s",
-  "list-sync-clear": "Taofia le faatutusaina"
+  "list-sync-clear": "Taofia le faatutusaina",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

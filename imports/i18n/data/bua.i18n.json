@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Тэгшэлэгдэжэ байна…",
   "list-sync-now-success": "Тэгшэлгэ hайнаар дүүрэбэ.",
   "list-sync-now-error": "Тэгшэлгэ бүтэбэгүй: %s",
-  "list-sync-clear": "Тэгшэлгэ зогсооха"
+  "list-sync-clear": "Тэгшэлгэ зогсооха",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

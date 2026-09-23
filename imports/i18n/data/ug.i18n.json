@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "قەدەمداشلاۋاتىدۇ…",
   "list-sync-now-success": "قەدەمداشلاش مۇۋەپپەقىيەتلىك تاماملاندى.",
   "list-sync-now-error": "قەدەمداشلاش مەغلۇپ بولدى: %s",
-  "list-sync-clear": "قەدەمداشلاشنى توختىتىش"
+  "list-sync-clear": "قەدەمداشلاشنى توختىتىش",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

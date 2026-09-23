@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Синхрондалуда…",
   "list-sync-now-success": "Синхрондау сәтті аяқталды.",
   "list-sync-now-error": "Синхрондау сәтсіз аяқталды: %s",
-  "list-sync-clear": "Синхрондауды тоқтату"
+  "list-sync-clear": "Синхрондауды тоқтату",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Se sincronizează…",
   "list-sync-now-success": "Sincronizare finalizată cu succes.",
   "list-sync-now-error": "Sincronizare eșuată: %s",
-  "list-sync-clear": "Oprește sincronizarea"
+  "list-sync-clear": "Oprește sincronizarea",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Ɛreboa mu…",
   "list-sync-now-success": "Boa mu no yɛɛ yiye.",
   "list-sync-now-error": "Boa mu no anyɛ yiye: %s",
-  "list-sync-clear": "Gyae boa mu"
+  "list-sync-clear": "Gyae boa mu",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

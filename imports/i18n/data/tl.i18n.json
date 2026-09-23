@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Nagsi-sync…",
   "list-sync-now-success": "Matagumpay na natapos ang pag-sync.",
   "list-sync-now-error": "Nabigo ang pag-sync: %s",
-  "list-sync-clear": "Ihinto ang pag-sync"
+  "list-sync-clear": "Ihinto ang pag-sync",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "سنک گژھان…",
   "list-sync-now-success": "سنک کامیابی سٟتِؠ مکمل.",
   "list-sync-now-error": "سنک ناکام: %s",
-  "list-sync-clear": "سنک بند کریو"
+  "list-sync-clear": "سنک بند کریو",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

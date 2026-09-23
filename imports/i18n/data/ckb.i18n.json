@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "هاوکات دەکرێت…",
   "list-sync-now-success": "هاوکاتکردن بە سەرکەوتوویی تەواوبوو.",
   "list-sync-now-error": "هاوکاتکردن شکستی هێنا: %s",
-  "list-sync-clear": "هاوکاتکردن ڕابگرە"
+  "list-sync-clear": "هاوکاتکردن ڕابگرە",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

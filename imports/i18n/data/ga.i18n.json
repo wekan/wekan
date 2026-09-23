@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Ag sioncronú…",
   "list-sync-now-success": "D'éirigh leis an sioncronú.",
   "list-sync-now-error": "Theip ar an sioncronú: %s",
-  "list-sync-clear": "Stop an sioncronú"
+  "list-sync-clear": "Stop an sioncronú",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Sincronizzazione…",
   "list-sync-now-success": "Sincronizzazione completata con successo.",
   "list-sync-now-error": "Sincronizzazione non riuscita: %s",
-  "list-sync-clear": "Interrompi sincronizzazione"
+  "list-sync-clear": "Interrompi sincronizzazione",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

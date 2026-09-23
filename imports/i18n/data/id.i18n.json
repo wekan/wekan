@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Menyinkronkan…",
   "list-sync-now-success": "Sinkronisasi berhasil diselesaikan.",
   "list-sync-now-error": "Sinkronisasi gagal: %s",
-  "list-sync-clear": "Hentikan sinkronisasi"
+  "list-sync-clear": "Hentikan sinkronisasi",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Sinxronlaşdırılır…",
   "list-sync-now-success": "Sinxronlaşdırma uğurla tamamlandı.",
   "list-sync-now-error": "Sinxronlaşdırma alınmadı: %s",
-  "list-sync-clear": "Sinxronlaşdırmanı dayandır"
+  "list-sync-clear": "Sinxronlaşdırmanı dayandır",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

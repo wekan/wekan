@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Yettwasizwer…",
   "list-sync-now-success": "Amsizwer yekfa akken iwata.",
   "list-sync-now-error": "Amsizwer ur yeddi ara: %s",
-  "list-sync-clear": "Seḥbes amsizwer"
+  "list-sync-clear": "Seḥbes amsizwer",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

@@ -1,3 +1,4 @@
+import { titlesFromComposer } from '/client/components/forms/multilineTitleChoice';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
@@ -419,18 +420,42 @@ function createBoardHelpers() {
   };
 }
 
-async function createBoardSubmit(tpl, event) {
+async function createBoardSubmit(tpl, event, starAfterCreate = false) {
   event.preventDefault();
-  const titleInput = event.currentTarget.querySelector('.js-new-board-title');
-  if (!titleInput) return;
-  const title = titleInput.value;
+  if (tpl.creatingBoards) return;
+  const form = event.currentTarget;
+  const titleInput = form.querySelector('.js-new-board-title');
+  const titles = titlesFromComposer(titleInput);
+  if (!titles.length) return;
+  const addTemplateContainer = Session.get('createBoardAsTemplate') === true;
+  const spaceId = Session.get('createBoardInWorkspace');
+  tpl.creatingBoards = true;
+  const submit = form.querySelector('[type=submit]');
+  if (submit) submit.disabled = true;
+  try {
+    for (const title of titles) {
+      await createOneBoard(tpl, title, addTemplateContainer, spaceId);
+      if (starAfterCreate) await Meteor.callAsync('toggleBoardStar', tpl.boardId.get());
+    }
+    Session.set('createBoardAsTemplate', false);
+    Session.set('createBoardInWorkspace', null);
+    FlowRouter.go('board', { id: tpl.boardId.get(), slug: getSlug(titles[titles.length - 1]) || 'board' });
+  } catch (error) {
+    console.error(error);
+    window.alert(error.reason || error.message);
+  } finally {
+    tpl.creatingBoards = false;
+    if (submit) submit.disabled = false;
+  }
+}
+
+async function createOneBoard(tpl, title, addTemplateContainer, spaceId) {
+  tpl.boardId.set(null);
   const slug = getSlug(title) || 'board';
 
   // #5850: template boards are created via the dedicated "Add Template Board"
   // flow (createTemplateContainerPopup), signalled by this Session flag, rather
-  // than a checkbox on the generic Create Board popup. Consume it immediately.
-  const addTemplateContainer = Session.get('createBoardAsTemplate') === true;
-  Session.set('createBoardAsTemplate', false);
+  // than a checkbox on the generic Create Board popup. Share it across the batch.
   if (addTemplateContainer) {
     tpl.boardId.set(
       await Meteor.callAsync('createBoardWithInitialSwimlanes', {
@@ -448,16 +473,9 @@ async function createBoardSubmit(tpl, event) {
     );
 
     // Assign to space if one was selected
-    const spaceId = Session.get('createBoardInWorkspace');
     if (spaceId) {
-      Meteor.call('assignBoardToWorkspace', tpl.boardId.get(), spaceId, (err) => {
-        if (err) console.error('Error assigning board to space:', err);
-      });
-      Session.set('createBoardInWorkspace', null); // Clear after use
+      await Meteor.callAsync('assignBoardToWorkspace', tpl.boardId.get(), spaceId);
     }
-
-    FlowRouter.go('board', { id: tpl.boardId.get(), slug });
-
   } else {
     const visibility = tpl.visibility.get();
 
@@ -511,15 +529,9 @@ async function createBoardSubmit(tpl, event) {
     }
 
     // Assign to space if one was selected
-    const spaceId = Session.get('createBoardInWorkspace');
     if (spaceId) {
-      Meteor.call('assignBoardToWorkspace', tpl.boardId.get(), spaceId, (err) => {
-        if (err) console.error('Error assigning board to space:', err);
-      });
-      Session.set('createBoardInWorkspace', null); // Clear after use
+      await Meteor.callAsync('assignBoardToWorkspace', tpl.boardId.get(), spaceId);
     }
-
-    FlowRouter.go('board', { id: tpl.boardId.get(), slug });
   }
 }
 
@@ -544,10 +556,7 @@ Template.createBoardForm.events({
   async submit(event, tpl) {
     const owner = createBoardOwner(tpl);
     const starAfterCreate = tpl.data.starAfterCreate === true;
-    await createBoardSubmit(owner, event);
-    if (starAfterCreate) {
-      await Meteor.callAsync('toggleBoardStar', owner.boardId.get());
-    }
+    await createBoardSubmit(owner, event, starAfterCreate);
   },
   'click .js-import-board': Popup.open('chooseBoardSource'),
   'click .js-board-template': Popup.open('searchElement'),

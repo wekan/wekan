@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Inasawazisha…",
   "list-sync-now-success": "Usawazishaji umekamilika kwa mafanikio.",
   "list-sync-now-error": "Usawazishaji umeshindwa: %s",
-  "list-sync-clear": "Simamisha usawazishaji"
+  "list-sync-clear": "Simamisha usawazishaji",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

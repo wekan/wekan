@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Ginssees…",
   "list-sync-now-success": "Ginssoy lo77idi polettis.",
   "list-sync-now-error": "Ginssoy xayis: %s",
-  "list-sync-clear": "Ginssuwaa aggisa"
+  "list-sync-clear": "Ginssuwaa aggisa",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Qed tiġi sinkronizzata…",
   "list-sync-now-success": "Is-sinkronizzazzjoni tlestiet b'suċċess.",
   "list-sync-now-error": "Is-sinkronizzazzjoni falliet: %s",
-  "list-sync-clear": "Waqqaf is-sinkronizzazzjoni"
+  "list-sync-clear": "Waqqaf is-sinkronizzazzjoni",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

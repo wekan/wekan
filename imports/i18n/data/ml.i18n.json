@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "സമന്വയിപ്പിക്കുന്നു…",
   "list-sync-now-success": "സമന്വയം വിജയകരമായി പൂർത്തിയായി.",
   "list-sync-now-error": "സമന്വയം പരാജയപ്പെട്ടു: %s",
-  "list-sync-clear": "സമന്വയം നിർത്തുക"
+  "list-sync-clear": "സമന്വയം നിർത്തുക",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

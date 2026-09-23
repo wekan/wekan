@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Bɛ bɛnkanni na…",
   "list-sync-now-success": "Bɛnkanni banna ka ɲɛ.",
   "list-sync-now-error": "Bɛnkanni ma se ka ban: %s",
-  "list-sync-clear": "Bɛnkanni dabila"
+  "list-sync-clear": "Bɛnkanni dabila",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

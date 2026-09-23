@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "در حال همگام‌سازی…",
   "list-sync-now-success": "همگام‌سازی با موفقیت انجام شد.",
   "list-sync-now-error": "همگام‌سازی ناموفق بود: %s",
-  "list-sync-clear": "توقف همگام‌سازی"
+  "list-sync-clear": "توقف همگام‌سازی",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Yi fambisana…",
   "list-sync-now-success": "Fambisana yi humelele kahle.",
   "list-sync-now-error": "Fambisana yi tsandzekile: %s",
-  "list-sync-clear": "Yima fambisana"
+  "list-sync-clear": "Yima fambisana",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

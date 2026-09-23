@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Teungoh sync…",
   "list-sync-now-success": "Sync ka trep ngon gét.",
   "list-sync-now-error": "Sync gagai: %s",
-  "list-sync-clear": "Peuhenti sync"
+  "list-sync-clear": "Peuhenti sync",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

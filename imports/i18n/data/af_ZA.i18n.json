@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Sinkroniseer…",
   "list-sync-now-success": "Sinkronisasie suksesvol voltooi.",
   "list-sync-now-error": "Sinkronisasie het misluk: %s",
-  "list-sync-clear": "Stop sinkronisasie"
+  "list-sync-clear": "Stop sinkronisasie",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

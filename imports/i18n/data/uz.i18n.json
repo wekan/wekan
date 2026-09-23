@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Sinxronlanmoqda…",
   "list-sync-now-success": "Sinxronlash muvaffaqiyatli yakunlandi.",
   "list-sync-now-error": "Sinxronlash amalga oshmadi: %s",
-  "list-sync-clear": "Sinxronlashni to'xtatish"
+  "list-sync-clear": "Sinxronlashni to'xtatish",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

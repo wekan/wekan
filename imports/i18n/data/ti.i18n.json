@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "ይሳመም ኣሎ…",
   "list-sync-now-success": "ምስምማዕ ብዓወት ተዛዚሙ።",
   "list-sync-now-error": "ምስምማዕ ኣይተዓወተን: %s",
-  "list-sync-clear": "ምስምማዕ ኣቋርጽ"
+  "list-sync-clear": "ምስምማዕ ኣቋርጽ",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

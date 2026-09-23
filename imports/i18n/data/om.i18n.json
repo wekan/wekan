@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Wal-simsiisaa jira…",
   "list-sync-now-success": "Wal-simsiisni milkaa'inaan xumurameera.",
   "list-sync-now-error": "Wal-simsiisni hin milkoofne: %s",
-  "list-sync-clear": "Wal-simsiisa dhaabi"
+  "list-sync-clear": "Wal-simsiisa dhaabi",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

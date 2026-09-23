@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "མཐུན་སྒྲིག་བཞིན་པ…",
   "list-sync-now-success": "མཐུན་སྒྲིག་ལེགས་འགྲུབ་ཟིན།",
   "list-sync-now-error": "མཐུན་སྒྲིག་མ་འགྲུབ: %s",
-  "list-sync-clear": "མཐུན་སྒྲིག་མཚམས་འཇོག"
+  "list-sync-clear": "མཐུན་སྒྲིག་མཚམས་འཇོག",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Iyavumelanisa…",
   "list-sync-now-success": "Ukuvumelanisa kuphumelele.",
   "list-sync-now-error": "Ukuvumelanisa akuphumelelanga: %s",
-  "list-sync-clear": "Yeka ukuvumelanisa"
+  "list-sync-clear": "Yeka ukuvumelanisa",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

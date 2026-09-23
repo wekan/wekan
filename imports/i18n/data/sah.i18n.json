@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Тэннэнэр…",
   "list-sync-now-success": "Тэннэрии табыгастаахтык бүттэ.",
   "list-sync-now-error": "Тэннэрии табыллыбатах: %s",
-  "list-sync-clear": "Тэннэрии тохтот"
+  "list-sync-clear": "Тэннэрии тохтот",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

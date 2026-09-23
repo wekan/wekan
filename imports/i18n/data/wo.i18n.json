@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Muy sync…",
   "list-sync-now-success": "Sync bi jeexal na bu baax.",
   "list-sync-now-error": "Sync bi dafa yàkkamti: %s",
-  "list-sync-clear": "Taxaw sync"
+  "list-sync-clear": "Taxaw sync",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

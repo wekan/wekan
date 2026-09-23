@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Синхрончлож байна…",
   "list-sync-now-success": "Синхрончлол амжилттай дууслаа.",
   "list-sync-now-error": "Синхрончлол амжилтгүй боллоо: %s",
-  "list-sync-clear": "Синхрончлолыг зогсоох"
+  "list-sync-clear": "Синхрончлолыг зогсоох",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

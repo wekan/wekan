@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Sinchronizuojama…",
   "list-sync-now-success": "Sinchronizavimas sėkmingai baigtas.",
   "list-sync-now-error": "Sinchronizavimas nepavyko: %s",
-  "list-sync-clear": "Sustabdyti sinchronizavimą"
+  "list-sync-clear": "Sustabdyti sinchronizavimą",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

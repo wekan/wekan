@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Syncemin…",
   "list-sync-now-success": "Sync gerges lihkostuvai.",
   "list-sync-now-error": "Sync ii lihkostuvvan: %s",
-  "list-sync-clear": "Bissehit syncema"
+  "list-sync-clear": "Bissehit syncema",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

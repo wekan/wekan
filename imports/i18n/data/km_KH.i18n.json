@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "កំពុងធ្វើសមកាលកម្ម…",
   "list-sync-now-success": "ការធ្វើសមកាលកម្មបានជោគជ័យ។",
   "list-sync-now-error": "ការធ្វើសមកាលកម្មបានបរាជ័យ៖ %s",
-  "list-sync-clear": "បញ្ឈប់ការធ្វើសមកាលកម្ម"
+  "list-sync-clear": "បញ្ឈប់ការធ្វើសមកាលកម្ម",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

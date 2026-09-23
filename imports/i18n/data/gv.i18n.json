@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Coardailagh…",
   "list-sync-now-success": "Coardailys jeant dy foaysagh.",
   "list-sync-now-error": "Coardailys er n'chyndaa foddey: %s",
-  "list-sync-clear": "Cur mow y choardailys"
+  "list-sync-clear": "Cur mow y choardailys",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Sinkronizacija…",
   "list-sync-now-success": "Sinkronizacija uspješno dovršena.",
   "list-sync-now-error": "Sinkronizacija nije uspjela: %s",
-  "list-sync-clear": "Zaustavi sinkronizaciju"
+  "list-sync-clear": "Zaustavi sinkronizaciju",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

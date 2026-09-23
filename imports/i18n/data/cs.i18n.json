@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Synchronizace…",
   "list-sync-now-success": "Synchronizace úspěšně dokončena.",
   "list-sync-now-error": "Synchronizace se nezdařila: %s",
-  "list-sync-clear": "Zastavit synchronizaci"
+  "list-sync-clear": "Zastavit synchronizaci",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

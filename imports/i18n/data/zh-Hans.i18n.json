@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "正在同步…",
   "list-sync-now-success": "同步已成功完成。",
   "list-sync-now-error": "同步失败：%s",
-  "list-sync-clear": "停止同步"
+  "list-sync-clear": "停止同步",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

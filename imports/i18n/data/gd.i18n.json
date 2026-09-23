@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "A' sioncronachadh…",
   "list-sync-now-success": "Chaidh an sioncronachadh a choileanadh.",
   "list-sync-now-error": "Dh'fhàillig an sioncronachadh: %s",
-  "list-sync-clear": "Sguir dhen t-sioncronachadh"
+  "list-sync-clear": "Sguir dhen t-sioncronachadh",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

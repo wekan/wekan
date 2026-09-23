@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Sincronitzant…",
   "list-sync-now-success": "Sincronització completada correctament.",
   "list-sync-now-error": "Ha fallat la sincronització: %s",
-  "list-sync-clear": "Atura la sincronització"
+  "list-sync-clear": "Atura la sincronització",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "Szinkronizálás…",
   "list-sync-now-success": "A szinkronizálás sikeresen befejeződött.",
   "list-sync-now-error": "A szinkronizálás sikertelen: %s",
-  "list-sync-clear": "Szinkronizálás leállítása"
+  "list-sync-clear": "Szinkronizálás leállítása",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }

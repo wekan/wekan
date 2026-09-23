@@ -2696,5 +2696,7 @@
   "list-sync-now-pending": "ஒத்திசைக்கிறது…",
   "list-sync-now-success": "ஒத்திசைவு வெற்றிகரமாக முடிந்தது.",
   "list-sync-now-error": "ஒத்திசைவு தோல்வியடைந்தது: %s",
-  "list-sync-clear": "ஒத்திசைவை நிறுத்து"
+  "list-sync-clear": "ஒத்திசைவை நிறுத்து",
+  "add-many-lines-as": "Add many lines as:",
+  "many-items": "Many __items__"
 }
