@@ -775,6 +775,16 @@ build, Chromium layout and override checks, and telemetry audits pass.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/63238a687">Align the Date Format checkbox and status label</a>. Thanks to xet7.</summary>
+
+Member Settings / Date now centers Disabled or Enabled beside the checkbox.
+Remove inherited text-field height, padding and margins so the native checkbox
+stays 16px high. The macOS ARM64 build and Chromium geometry checks pass for
+both checkbox states, together with the existing date-format regressions.
+
+</details>
+
 This release fixes the following sign-in bug:
 
 <details>
