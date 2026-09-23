@@ -20,6 +20,8 @@ mkdir -p .tools/tmp
 export TMPDIR="$PWD/.tools/tmp"
 node tests/integration/login-providers/run.cjs .build/bundle
 node tests/integration/login-providers/run.cjs .build/bundle --sandstorm
+# Select another installed Playwright browser:
+WEKAN_PLAYWRIGHT_PROJECT=firefox node tests/integration/login-providers/run.cjs .build/bundle
 ```
 
 The runner uses random loopback ports and separate writable directories under
@@ -81,6 +83,34 @@ are printed at the beginning of each log. Earlier diagnostic runs are retained
 separately and include the failures that led to the fixes below.
 
 ## Defects exposed by the tests
+
+### Firefox password submission — 2026-09-23
+
+Firefox 156.0.1 on macOS 27 reproduced successful registration followed by
+a password login that stayed on the sign-in page without an error. The login
+capture handler replayed `submit` in a Promise continuation while Firefox
+was still processing the original native submission. Firefox suppressed that
+second event, so the useraccounts password handler never received it.
+Deferring the replay to the next event-loop task fixes the ordering while
+retaining validation, two-factor handling and duplicate-submission protection.
+
+The credential-free `password-submit-event.e2e.js` regression uses actual
+button clicks and Enter presses. Native Firefox tests fail with the old
+handler and pass with the fixed handler for both actions. A rebuilt app also
+passes real registration, wrong-password rejection, click and Enter login,
+and session resume after reload. Chromium passes the event regressions and
+the password/TOTP and emailed-code integration tests. Focused Node tests
+cover deferred replay, duplicate submissions, provider errors and 2FA states.
+
+On this macOS 27 machine, direct Playwright Firefox startup fails before
+loading WeKan with `Could not find profile folder`. Native Firefox was
+launched through LaunchServices with a separate disposable profile and
+driven through its WebDriver BiDi endpoint using the installed Puppeteer.
+The unrelated startup limitation is described in
+[Mozilla bug 2062988](https://bugzilla.mozilla.org/show_bug.cgi?id=2062988).
+This verification does not claim the entire provider suite ran in Firefox.
+
+### Earlier provider integration repairs
 
 - An unset optional LDAP field map crashed a successful directory login.
 - OAuth2 configuration prevented CAS and SAML configuration from loading.

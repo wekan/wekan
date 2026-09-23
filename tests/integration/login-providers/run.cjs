@@ -8,6 +8,8 @@ const { smtpSink } = require('../../playwright/helpers/smtpSink');
 const root = path.resolve(__dirname, '../../..');
 const bundle = path.resolve(process.argv[2] || '.build/bundle');
 const sandstorm = process.argv.includes('--sandstorm');
+const browser = process.env.WEKAN_PLAYWRIGHT_PROJECT || 'chromium';
+if (!['chromium', 'firefox', 'webkit'].includes(browser)) throw Error('Unsupported WEKAN_PLAYWRIGHT_PROJECT');
 async function port() { const server = net.createServer(); await new Promise(r => server.listen(0, '127.0.0.1', r)); const n = server.address().port; await new Promise(r => server.close(r)); return n; }
 (async () => {
   if (!fs.existsSync(path.join(bundle, 'start-wekan.sh'))) throw Error('Pass a prepared local bundle with start-wekan.sh and FerretDB');
@@ -50,7 +52,7 @@ async function port() { const server = net.createServer(); await new Promise(r =
       await new Promise(r => setTimeout(r, 1000));
     }
     if (!ready) throw Error('Application startup timeout');
-    const child = spawn(process.execPath, [root + '/tests/playwright/node_modules/@playwright/test/cli.js', 'test', '--config', root + '/tests/playwright/playwright.config.js', sandstorm ? 'identity-sandstorm.e2e.js' : 'identity-providers.e2e.js', '--project=chromium', '--workers=1', '--retries=0', '--reporter=line', '--output=' + work + '/results', ...(process.env.IDENTITY_GREP ? ['--grep', process.env.IDENTITY_GREP] : [])], {
+    const child = spawn(process.execPath, [root + '/tests/playwright/node_modules/@playwright/test/cli.js', 'test', '--config', root + '/tests/playwright/playwright.config.js', sandstorm ? 'identity-sandstorm.e2e.js' : 'identity-providers.e2e.js', '--project=' + browser, '--workers=1', '--retries=0', '--reporter=line', '--output=' + work + '/results', ...(process.env.IDENTITY_GREP ? ['--grep', process.env.IDENTITY_GREP] : [])], {
       cwd: root, stdio: 'inherit', env: { ...process.env, TMPDIR: work, WEKAN_BASE_URL: base, WEKAN_MONGO_URL: `mongodb://127.0.0.1:${dbPort}/wekan`, WEKAN_TEST_IDENTITY_URL: provider.url,
         WEKAN_TEST_SAML_CERT: certificate, WEKAN_TEST_SANDSTORM: sandstorm ? '1' : '0', WEKAN_PLAYWRIGHT_PROBE: '0', PLAYWRIGHT_BROWSERS_PATH: root + '/.tools/ms-playwright' },
     });

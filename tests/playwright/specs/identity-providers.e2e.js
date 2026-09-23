@@ -186,9 +186,11 @@ test.describe('local password, TOTP and emailed one-time code', () => {
     return session(page);
   }
   async function logout(page) { await page.evaluate(() => new Promise(resolve => Meteor.logout(resolve))); await signIn(page); }
-  async function password(page, value) {
+  async function password(page, value, enter = false) {
     await page.locator('#at-field-username_and_email').fill('alice.password');
-    await page.locator('#at-field-password').fill(value); await page.locator('#at-btn').click();
+    await page.locator('#at-field-password').fill(value);
+    if (enter) await page.locator('#at-field-password').press('Enter');
+    else await page.locator('#at-btn').click();
   }
   function totp(secret) {
     const crypto = require('node:crypto');
@@ -203,6 +205,10 @@ test.describe('local password, TOTP and emailed one-time code', () => {
     const id = await create(page, 'alice.password'); await logout(page);
     await password(page, 'incorrect-password'); await expect(page.locator('#login-error-message')).not.toBeEmpty(); expect(await session(page)).toBeNull();
     await password(page, 'Alice-local-password-42!'); await expect.poll(() => session(page)).toBe(id);
+    await page.reload(); await waitForMeteor(page);
+    await expect.poll(() => session(page)).toBe(id);
+    await logout(page); await password(page, 'Alice-local-password-42!', true);
+    await expect.poll(() => session(page)).toBe(id);
     const activation = await page.evaluate(() => Meteor.callAsync('generate2faActivationQrCode', 'WeKan fixture'));
     await page.evaluate(code => Meteor.callAsync('enableUser2fa', code), totp(activation.secret));
     await logout(page); await password(page, 'Alice-local-password-42!');

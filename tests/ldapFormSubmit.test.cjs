@@ -61,6 +61,18 @@ test('empty credentials use original form validation', async () => {
   await f.handler(f.event());
   assert.deepEqual(f.calls, [true, false, 'password']);
 });
+test('password replay waits beyond microtasks and rejects duplicate submissions while queued', async () => {
+  const f = await fixture({ resolveMethod: () => 'password' });
+  const pending = f.handler(f.event());
+  await Promise.resolve();
+  await Promise.resolve();
+  assert.deepEqual(f.calls, [true], 'must not replay during the native submit dispatch');
+  const duplicate = f.event();
+  await f.handler(duplicate);
+  assert.equal(duplicate.prevented, true);
+  await pending;
+  assert.deepEqual(f.calls, [true, false, 'password']);
+});
 test('registration and unrelated forms are not intercepted', async () => {
   const f = await fixture({ isSignIn: () => false });
   const event = f.event(); await f.handler(event);

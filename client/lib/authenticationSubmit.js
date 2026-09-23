@@ -17,6 +17,11 @@ function createAuthenticationSubmitHandler({
       setBusy(true);
       const method = username && password ? await resolveMethod(username) : 'password';
       if (!['ldap', 'saml', 'cas'].includes(method)) {
+        // Firefox suppresses a second submit event on the same form until the
+        // original native dispatch finishes. A resolved Promise only yields to
+        // microtasks, which still run inside that dispatch in Firefox. Replay
+        // in the next task, keeping duplicate submissions blocked until then.
+        await new Promise(resolve => setTimeout(resolve, 0));
         // Let useraccounts retain its validation, normalization and 2FA flow.
         setBusy(false);
         replayingPassword = true;
