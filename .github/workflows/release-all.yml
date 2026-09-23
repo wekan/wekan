@@ -606,6 +606,7 @@ jobs:
 
       - name: Install server npm modules
         run: |
+          node releases/prepare-bundle-npm.mjs .build/bundle
           cd .build/bundle/programs/server
           # BEFORE the first install: Meteor pins programs/server's node-gyp to
           # the one inside the Meteor tool (10.2.0 in 3.5.2), which cannot see

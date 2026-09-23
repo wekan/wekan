@@ -70,6 +70,28 @@ class ReleaseTelemetry(unittest.TestCase):
             with self.assertRaises(ValueError):
                 audit.audit_source(root, policy)
 
+    def test_generated_rspack_files_are_artifacts_not_source(self):
+        policy = json.loads((ROOT / 'releases/telemetry-source.json').read_text())
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            for name in policy['roots']:
+                (root / name).mkdir(parents=True)
+            for name in policy['files']:
+                path = root / name
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text('{}' if name.endswith('.json') else 'source')
+            before = audit.snapshot(root, policy)
+            for name in ('public/build-assets', 'public/build-chunks'):
+                folder = root / name
+                folder.mkdir()
+                artifact = folder / 'generated.js'
+                artifact.write_text('api.segment.io/v1/')
+                self.assertEqual(audit.snapshot(root, policy), before)
+                with self.assertRaisesRegex(ValueError, 'Telemetry implementation remains'):
+                    audit.scan_file(artifact, 'wekan')
+            (root / 'public/new.js').write_text('unreviewed runtime code')
+            self.assertNotEqual(audit.snapshot(root, policy), before)
+
     def test_bundle_and_compressed_archive(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp) / 'bundle'

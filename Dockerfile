@@ -225,6 +225,7 @@ COPY --chmod=755 releases/resolve-node-source.sh /tmp/resolve-node-source.sh
 # lookup. tests/releaseDownloads.test.cjs pins the pair.
 COPY --chmod=755 releases/fetch.sh /tmp/fetch.sh
 COPY --chmod=755 releases/check-telemetry.py /tmp/check-telemetry.py
+COPY --chmod=755 releases/prepare-bundle-npm.mjs /tmp/prepare-bundle-npm.mjs
 # The bundle's `npm install` leaves node-gyp's whole tree - 83 of the 120
 # packages in programs/server/node_modules - in a bundle that compiles nothing at
 # run time, and a scan of the published image reads it as what it is. The same
@@ -373,6 +374,7 @@ wget --tries=20 --waitretry=20 --retry-on-http-error=404,403,500,502,503 "${WEKA
   || { echo "Failed to download ${WEKAN_ZIP_URL} after retries"; exit 8; }
 unzip "wekan-${VERSION}-${WEKAN_ARCH}.zip"
 rm "wekan-${VERSION}-${WEKAN_ARCH}.zip"
+node /tmp/prepare-bundle-npm.mjs ./bundle
 npm install --prefix ./bundle/programs/server
 # node-gyp and @mapbox/node-pre-gyp compiled nothing here - every native module
 # in the bundle is a prebuilt .node - and nothing in boot.js reaches them. Their

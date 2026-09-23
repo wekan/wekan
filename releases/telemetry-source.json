@@ -19,7 +19,9 @@
     "packages/wekan-fontawesome/fontawesome-free/metadata",
     "imports/i18n/data",
     "public/api/wekan.html",
-    "public/api/wekan.yml"
+    "public/api/wekan.yml",
+    "public/build-assets",
+    "public/build-chunks"
   ],
   "normalizeAppVersion": true,
   "reviewed": {

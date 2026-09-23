@@ -56,7 +56,8 @@ auto-approve switch.
 
 WeKan's release-only application version fields and text line endings are
 normalized. Translation data, generated API reference files, Font Awesome
-metadata and Meteor's generated `.npm` directories are excluded from the source
+metadata, Rspack's generated `public/build-assets` and `public/build-chunks`,
+and Meteor's generated `.npm` directories are excluded from the source
 inventory; final bundles are scanned including dependencies. The manifest lists
 the exact scope. FerretDB records its source and pinned Go module metadata;
 mongosh and Database Tools retain their own upstream/vendor audit inventories.
@@ -76,7 +77,15 @@ compiled eval/REPL network-guard tests. A stripped Database Tools binary rebuilt
 rejected by the native gate. Meteor statistics opt-out was verified against the
 installed tool source using a fake connection and a reporting control case.
 No hosted release or publication was run.
-A complete new Meteor build and every native cross-platform build were not run.
+A subsequent clean macOS ARM64 validation rebuilt Meteor's production bundle,
+mongosh, FerretDB and all eight Database Tools. mongosh CRUD passed against both
+MongoDB and FerretDB; Database Tools passed import/export, dump/restore, BSON,
+GridFS, mongostat and mongotop checks against an isolated MongoDB. WeKan served
+HTTP successfully against FerretDB, including the bundled launcher's SQLite
+startup. npm 12's default rejection of Meteor's pinned source-map-support URL
+was fixed with a validated bundle-local `allow-remote=root` setting. The local
+bundle uses Meteor's portable ARM64 Node 26.8.2; the initial external-runtime
+startup used Homebrew Node 26.9.0. Cross-platform builds were not run.
 
 Artifact checks detect known removed reporting implementations and endpoints.
 They cannot prove arbitrary machine code never transmits data, or detect every
