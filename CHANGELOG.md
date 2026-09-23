@@ -653,7 +653,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v11.92 2026-09-23 WeKan ® release
 
 **In short:** Always-visible, translated choices create cards, lists,
 swimlanes and boards from pasted lines, or keep one item with a multiline
