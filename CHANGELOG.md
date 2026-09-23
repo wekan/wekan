@@ -798,6 +798,27 @@ regression is ready for a host with a running WeKan server and Chromium.
 This release fixes the following test and GitHub workflow issues:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7f781be34">Stop release builds on telemetry regressions</a>. Thanks to xet7.</summary>
+
+Release All and Release All Missing now require reviewed application source and
+check final bundles for known reporting implementations before packaging.
+Downloaded ZIPs and Docker, Snap, Sandstorm, AppImage and Mac payloads are checked
+too. Failures produce an error annotation and stop the affected build. Opt out of
+Meteor's default build/run package-statistics reporting while preserving local
+instrumentation, security logging and metrics.
+
+Source, artifact, compressed-archive and workflow regression tests pass, including
+logging and instrumentation tests. Companion mongosh, Database Tools and FerretDB
+builds enforce corresponding source/runtime/native checks; an unpatched stripped
+Database Tools binary was rejected as a negative control. The current Meteor
+bundle, patched tool binaries and a native FerretDB build passed their checks.
+Hosted releases, a new complete Meteor build and the full native platform matrix
+were not run. See the <a href="docs/DeveloperDocs/Release-Telemetry-Checks.md">audit
+scope, limitations and update procedure</a>.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/95f0e045a">Keep Docker browser tests on Meteor localhost origin</a>. Thanks to xet7.</summary>
 
 On macOS, bridge the browser container's localhost to the host WeKan server.
