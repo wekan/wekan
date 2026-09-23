@@ -653,7 +653,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v11.91 2026-09-23 WeKan ® release
 
 **In short:** WeKan's platform builds now target **Node.js 26.9.0** and
 **npm 12.0.2**. GitHub release workflows also build separate macOS apps for
