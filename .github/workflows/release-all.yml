@@ -173,7 +173,7 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: Require reviewed dependencies before release work
+      - name: Check dependency risk indicators before release work
         shell: bash
         run: python3 releases/remote-release.py --audit
 

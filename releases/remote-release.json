@@ -10,5 +10,11 @@
       "--source",
       "."
     ]
+  ],
+  "indicatorCommand": [
+    "python3",
+    "releases/risk-audit.py",
+    "--source",
+    "."
   ]
 }

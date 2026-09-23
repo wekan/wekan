@@ -45,14 +45,14 @@ for explicitly configured authentication requests; their presence alone is not
 a default background reporter. Native Database Tools have the stricter SDK
 header-removal policy from their patch, which is checked on their executables.
 
-## Updating reviewed source
+## Source fingerprints and automated indicators
 
-`releases/telemetry-source.json` records WeKan runtime source and dependency
-inputs. FerretDB uses `build/ferretdb/telemetry-source.json`. Changes, additions and
-deletions require reviewing default outbound behavior and dependencies before
-refreshing the `reviewed` map with `snapshot(root, policy)` from the adjacent
-`check-telemetry.py`. Commit that review with the source change. There is no CI
-auto-approve switch.
+`releases/telemetry-source.json` and FerretDB's matching inventory provide
+historical fingerprints. Ordinary changes, additions and deletions now warn;
+no comprehensive AI or manual review is required before building. The automated
+indicator checker separately blocks known telemetry/security hashes, new
+suspicious keywords and new URL literals. Legitimate additions can be allowed
+through the indicator baseline configuration. Builds never silently rewrite it.
 
 WeKan's release-only application version fields and text line endings are
 normalized. Translation data, generated API reference files, Font Awesome
@@ -120,3 +120,13 @@ They cannot prove arbitrary machine code never transmits data, or detect every
 possible encoded/new reporter. Reviewed source inventories, locked dependency
 inputs and behavior tests complement those checks. Do not treat a clean strings
 scan alone as approval of an unknown binary.
+
+
+## Automated indicators instead of mandatory whole-source review
+
+Source fingerprint drift is now informational. Release menus and workflows use
+`releases/risk-audit.py` to stop on known telemetry/security hashes, newly added
+suspicious keyword occurrences and new URL literals. Existing artifact signatures
+and telemetry-removal/runtime checks remain active. Local logging is retained.
+These are best-effort checks, not comprehensive verification or an AI approval
+requirement. See [release menus and indicator configuration](../../releases/README-release.md).

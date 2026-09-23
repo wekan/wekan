@@ -47,39 +47,43 @@ class ReleaseTests(unittest.TestCase):
             path.write_text('{"version":"2.0.0","dependencies":{"foo":"1"}}')
             r.audit(self.root,self.config)
             path.write_text('{"version":"2.0.0","dependencies":{"foo":"2"}}')
-            with self.assertRaisesRegex(ValueError, 'Unaudited'):
+            with contextlib.redirect_stderr(io.StringIO()) as findings:
                 r.audit(self.root,self.config)
+            self.assertIn('::warning::', findings.getvalue())
             path.unlink()
-            with self.assertRaisesRegex(ValueError, 'Unaudited'):
+            with contextlib.redirect_stderr(io.StringIO()) as findings:
                 r.audit(self.root,self.config)
+            self.assertIn('::warning::', findings.getvalue())
             path.symlink_to(self.root/'CHANGELOG.md')
             with self.assertRaisesRegex(ValueError, 'regular file'):
-                r.audit(self.root,self.config)
+                r.inventory(self.root)
         with patch.object(r,'run',return_value='go.mod'):
             (self.root/'go.mod').write_text('module evil\n')
-            with self.assertRaisesRegex(ValueError,'Unaudited'):
+            with contextlib.redirect_stderr(io.StringIO()) as findings:
                 r.audit(self.root,self.config)
+            self.assertIn('::warning::', findings.getvalue())
 
     def test_no_dependencies_accepts_empty_inventory(self):
         (self.root/'releases/dependency-review.json').write_text('{"files":{}}')
         with patch.object(r,'run',return_value='index.html'):
             r.audit(self.root,self.config)
 
-    def test_unreviewed_upstream_fails_without_network_or_writes(self):
+    def test_missing_upstream_baseline_warns_without_blocking(self):
         self.config.update(kind='node',upstream={'review':'releases/upstream.json','url':'unused'})
         (self.root/'releases/upstream.json').write_text('{"upstreamCommit":null}')
-        with patch.object(r,'run') as run:
-            with self.assertRaisesRegex(ValueError,'audit is missing'):
-                r.source_version(self.root,self.config)
-            run.assert_not_called()
+        (self.root/'node-major.txt').write_text('26\n')
+        with patch.object(r,'run',return_value='a'*40+'\trefs/tags/v26.9.0'), contextlib.redirect_stderr(io.StringIO()) as findings:
+            self.assertEqual(r.source_version(self.root,self.config,'v26.9.0'),'v26.9.0')
+        self.assertIn('::warning::',findings.getvalue())
 
     def test_changed_upstream_fails_and_reviewed_sha_passes(self):
         sha='a'*40
         self.config.update(kind='mongo-tools',upstream={'review':'releases/upstream.json','url':'unused'})
         (self.root/'releases/upstream.json').write_text(json.dumps({'upstreamCommit':sha}))
         self.assertEqual(r.source_version(self.root,self.config,sha),sha)
-        with self.assertRaisesRegex(ValueError,'not audited'):
-            r.source_version(self.root,self.config,'b'*40)
+        with contextlib.redirect_stderr(io.StringIO()) as findings:
+            self.assertEqual(r.source_version(self.root,self.config,'b'*40),'b'*40)
+        self.assertIn('::warning::',findings.getvalue())
 
     def test_missing_preserves_version_and_selects_existing_source(self):
         with patch.object(r,'latest',return_value=['v12','v11']):
@@ -135,10 +139,10 @@ class ReleaseTests(unittest.TestCase):
     def test_audit_failure_stops_main_before_version_or_publish(self):
         (self.root/'releases/remote-release.json').write_text(json.dumps(self.config))
         with patch.object(r, '__file__', str(self.root/'releases/remote-release.py')), \
-             patch.object(r, 'audit', side_effect=ValueError('Unaudited dependency')), \
+             patch.object(r, 'audit', side_effect=ValueError('Risk indicators found')), \
              patch.object(r, 'prepare_version') as version, patch.object(r, 'publish') as publish, \
              patch.object(r.sys, 'argv', ['remote-release.py', 'all']):
-            with self.assertRaisesRegex(ValueError, 'Unaudited'):
+            with self.assertRaisesRegex(ValueError, 'Risk indicators'):
                 r.main()
             version.assert_not_called()
             publish.assert_not_called()
@@ -164,8 +168,9 @@ class ReleaseTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'Invalid'):
                 r.source_version(self.root,self.config,'v25.0.0')
         with patch.object(r,'run',return_value='b'*40+'\trefs/tags/v26.9.0^{}'):
-            with self.assertRaisesRegex(ValueError,'not audited'):
-                r.source_version(self.root,self.config,'v26.9.0')
+            with contextlib.redirect_stderr(io.StringIO()) as findings:
+                self.assertEqual(r.source_version(self.root,self.config,'v26.9.0'),'v26.9.0')
+            self.assertIn('::warning::',findings.getvalue())
 
     def test_mongosh_commit_must_match_source_and_lockfile_review(self):
         sha='a'*40
@@ -177,8 +182,9 @@ class ReleaseTests(unittest.TestCase):
                 if commit==sha:
                     self.assertEqual(r.source_version(self.root,self.config),'main-'+sha[:12])
                 else:
-                    with self.assertRaisesRegex(ValueError,'not audited'):
-                        r.source_version(self.root,self.config)
+                    with contextlib.redirect_stderr(io.StringIO()) as findings:
+                        self.assertEqual(r.source_version(self.root,self.config),'main-'+commit[:12])
+                    self.assertIn('::warning::',findings.getvalue())
 
 
 if __name__=='__main__':

@@ -1,53 +1,61 @@
-# Release menus and dependency review
+# Release menus and automated dependency checks
 
 Run `./build.sh` or `build.bat` and select **Release All** or
-**Release All Missing**. WeKan lists these under Releases / Release.
-The same commands are available as `build.sh release-all` and
+**Release All Missing**. WeKan lists them under Releases / Release.
+The commands are also available as `build.sh release-all` and
 `build.sh release-all-missing` (or `build.bat` on Windows).
-Windows uses Git Bash; install Python 3, Git and GitHub CLI on PATH.
-Authenticate GitHub CLI before releasing.
+Windows uses Git Bash; Python 3, Git and authenticated GitHub CLI must be on PATH.
 
-Release All requires a nonempty Upcoming section, checks dependency reviews,
-prepares the release heading/version, commits **all nonignored changes**
-(including untracked files), pushes the default branch, and dispatches Actions.
-Builds, release assets and website publication run in Actions.
-Never put secrets or generated build output in nonignored files.
+Release All requires a nonempty Upcoming section, runs automated checks,
+prepares the next release heading/version, commits all nonignored changes
+including new files, pushes the default branch, and dispatches Actions.
+Builds and publication run in Actions. Release All Missing keeps the existing
+version and notes, commits pending changes, and retries failed or missing outputs.
+It selects the latest published release or accepts an explicit release version.
+No new Upcoming section is needed merely to complete an existing release.
 
-Release All Missing keeps the selected existing release version and Upcoming
-notes unchanged. It retries missing/failed outputs and preserves complete
-outputs. It uses the latest published release by default, or takes an explicit
-release version. Existing release notes suffice if no new Upcoming exists;
-completing a release does not require inventing new release notes.
+Use `./build.sh release-all --check` or `./build.sh release-all-missing --check`
+for a preflight without commits, pushes or dispatch. Version resolution can
+contact GitHub. `python3 releases/remote-release.py --audit` runs local checks.
 
-For a read-only preflight, use `./build.sh release-all --check` or
-`./build.sh release-all-missing --check`. Preflight may contact GitHub to resolve
-versions and verify upstream references, but does not commit, push or dispatch.
-`python3 releases/remote-release.py --audit` checks local dependency metadata
-and configured source audits without contacting a forge.
+Dependency checks are **best effort**, not a requirement for AI approval or an
+exhaustive manual review. Ordinary changed hashes and missing historical review
+records are informational. Builds stop on detected indicators:
 
-`releases/dependency-review.json` records the current dependency metadata
-baseline. Added, changed, deleted or symlinked manifests and lockfiles fail
-closed, including nonignored untracked files that would be committed. Release
-number changes are normalized; dependency versions and lock resolutions are not.
-This is a change-review gate, not a vulnerability database or a claim that every
-existing dependency is vulnerability-free. Existing telemetry source and binary
-checks remain mandatory where available. No release command refreshes reviews.
+- A file or artifact matches a known telemetry/security hash.
+- Source introduces suspicious keyword occurrences beyond its existing baseline.
+- Source contains a new HTTP(S) URL literal outside its URL allowlist.
+- Existing artifact signature checks find known telemetry implementations.
 
-When the gate fails, review the dependency diff and upstream source, fix unsafe
-behavior, run positive/negative and relevant runtime tests, and explicitly update
-the review record in the reviewed change. Do not approve an inventory merely
-because it builds. The standalone launcher copies have identical logic and
-`python3 -B tests/remoteRelease.test.py` tests with all remote writes mocked.
+The checks report affected paths and indicator types. URL query strings and
+credentials are not printed. Normal local logging and baseline-compatible code
+remain allowed. Standard npm and Go registry URLs are dependency transport and
+are excluded from the new-URL rule. Patch inputs inspect added lines, so removing
+telemetry does not itself trigger a warning about the deleted reporting code.
 
-The dispatch pins the repository and default branch, following the
-[GitHub CLI workflow-run interface](https://cli.github.com/manual/gh_workflow_run).
-A failed commit or push prevents dispatch. If dispatch fails after a push,
-use the missing workflow if the release already exists, or retry dispatch
-manually with the prepared version; do not prepare another new release merely to retry a failed job.
+`risk-baseline.json` holds comparison data; `dependency-review.json` is retained
+as an informational metadata fingerprint list. A missing initial URL baseline
+warns instead of blocking everything; known hashes and keyword checks still run.
+Binary URL comparisons are supported when `artifactUrls` is configured; other
+binary checks use known hashes and telemetry signatures. These heuristics can
+have false positives and cannot prove the absence of arbitrary reporting code.
 
-WeKan retains its existing next-version and changelog validation helpers.
-Missing releases first retry failed jobs of the matching full-release workflow,
-then fill remaining packaging gaps. Failed-job retries preserve successful jobs.
-Legacy runs are matched through their release preparation commit; if no matching
-run exists and native assets are absent, the workflow fails with an explicit
-message instead of claiming completion. Hosted retries need Actions write access.
+Fix unwanted reporting when detected. Legitimate URLs/keywords can be configured
+in the baseline without AI approval. To explicitly record expected source data:
+`python3 releases/risk-audit.py --source . --record-baseline`.
+Do not baseline unwanted reporting. Patch repositories use a separate
+`upstream-risk-baseline.json` for their upstream source; pass it with `--policy`.
+Release commands never silently update these baselines to hide findings.
+
+Run `python3 -B tests/remoteRelease.test.py` and
+`python3 -B tests/riskAudit.test.py` for offline positive and negative tests.
+Release writes are mocked. Dispatch uses an explicit repository and branch,
+following the [GitHub CLI interface](https://cli.github.com/manual/gh_workflow_run).
+A failed commit or push prevents dispatch. If dispatch fails after pushing,
+retry that prepared version rather than incrementing again.
+
+WeKan keeps runtime dependency versions during Actions version preparation.
+Missing builds first retry failed jobs of the matching full-release run, then
+fill packaging gaps. Legacy runs are matched through their preparation commit.
+If native assets remain missing and no matching run exists, the workflow reports
+an error instead of claiming completion. Successful jobs are not rerun.

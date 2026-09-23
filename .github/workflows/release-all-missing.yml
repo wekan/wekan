@@ -74,7 +74,7 @@ jobs:
     timeout-minutes: 360
     steps:
       - uses: actions/checkout@v7
-      - name: Require reviewed dependencies before recovery
+      - name: Check dependency risk indicators before recovery
         run: python3 releases/remote-release.py --audit
       - name: Retry failed jobs of the matching full release
         env:
@@ -103,7 +103,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - name: Require reviewed dependencies before release work
+      - name: Check dependency risk indicators before release work
         shell: bash
         run: python3 releases/remote-release.py --audit
 
