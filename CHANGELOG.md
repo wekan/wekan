@@ -655,9 +655,9 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**In short:** Always-visible choices create cards, lists, swimlanes and boards
-from pasted lines, or keep one item with a multiline title. List and swimlane
-names retain line breaks.
+**In short:** Always-visible, translated choices create cards, lists,
+swimlanes and boards from pasted lines, or keep one item with a multiline
+title. List and swimlane names retain line breaks.
 Scheduled full-instance backups now include database and file content.
 Admin Panel validation and menu-based feature/backup guides are documented.
 Meteor server bundles install with npm 12 without obsolete rebuild arguments.
@@ -827,6 +827,24 @@ newest September features and preserve old paths with forwarding pages.
 Add the backup alternatives from issue #6683, descriptive screenshot filenames
 and relative links between deployment, storage, export/import and backup guides.
 Menu-inventory and local documentation-link checks pass.
+
+</details>
+
+and updates translations:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d97b6a85e">Translate multiline creation choices in every language</a>. Thanks to xet7.</summary>
+
+Translate Add many lines as and Many items in all 232 non-English locales.
+Reuse existing board, card, list and swimlane names, preserving their
+translations and the exact interpolation placeholder. Keep English variants
+unchanged. Record vocabulary references and languages needing fluent review
+in docs/Features/Translations/Multiline-Creation-Review.md.
+
+Eight focused Node tests and 21 human-preference checks pass. A macOS ARM64
+build passes nine Chromium tests, including Finnish, French, Japanese and
+Hebrew labels, RTL layout and all four item creation flows. Locale-wide
+positive and negative tests check interpolation, completeness and key order.
 
 </details>
 
