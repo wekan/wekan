@@ -11,6 +11,8 @@ if [ $# -ne 2 ]; then
   exit 1
 fi
 
+set -euo pipefail
+
 OLD="$1"
 NEW="$2"
 

@@ -84,7 +84,9 @@ def inspect(root, policy):
             if count > old.get('keywords', {}).get(keyword, 0):
                 findings.append(name + ': new suspicious keyword ' + keyword)
         for url in entry['urls']:
-            if initialized and url not in known_urls:
+            allowed = any(re.fullmatch(pattern, url) for pattern in
+                          policy.get('allowUrlPatternsByFile', {}).get(name, []))
+            if initialized and url not in known_urls and not allowed:
                 # Do not expose query strings or credentials in logs.
                 from urllib.parse import urlsplit
                 parsed = urlsplit(url)

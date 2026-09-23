@@ -127,7 +127,7 @@ def source_version(root, config, requested=''):
         record = {}
     approved = record.get('upstreamCommit') or ''
     if config['kind'] == 'node':
-        version = requested or run(root, 'bash', 'releases/newest-release.sh', str(root))
+        version = requested or run(root, 'bash', 'releases/newest-release.sh', '.')
         major = (root / 'node-major.txt').read_text().strip()
         if not re.fullmatch(r'v' + re.escape(major) + r'\.\d+\.\d+', version):
             raise ValueError('Invalid Node release tag')

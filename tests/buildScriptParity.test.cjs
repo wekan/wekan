@@ -192,6 +192,7 @@ test('every script in releases/ is reachable from BOTH menus', () => {
   // Deliberately not in the Releases menu, each for a stated reason. A script
   // added here must be given one.
   const SKIP = {
+    'use-release-npm.sh': 'internal helper installs the checked-out release npm version',
     'latest-release-version.sh': 'read-only version resolver called by release-all.sh',
     'prepare-bundle-npm.mjs': 'internal bundle package normalization called before npm install',
     'snapcraft-remote-compat.sh': 'internal Launchpad workflow launcher using the installed Snapcraft runtime',

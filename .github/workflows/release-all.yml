@@ -184,8 +184,8 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
-      - name: Use npm 12.0.2
-        run: bash releases/npm-retry.sh npm install --global npm@12.0.2
+      - name: Use release npm version
+        run: bash releases/use-release-npm.sh
 
       - name: Install version-bump and docs build dependencies
         run: |
@@ -196,7 +196,6 @@ jobs:
           # Builds fetch dependencies from upstream themselves, so skip the slow
           # pre-download of Node/MongoDB tarballs that the local flow does.
           RELEASE_SKIP_DEP_DOWNLOAD: '1'
-          RELEASE_KEEP_DEPENDENCIES: '1'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -596,8 +595,8 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
-      - name: Use npm 12.0.2
-        run: bash releases/npm-retry.sh npm install --global npm@12.0.2
+      - name: Use release npm version
+        run: bash releases/use-release-npm.sh
 
       - name: Install Meteor
         run: |
@@ -920,9 +919,10 @@ jobs:
           docker run --rm --platform linux/arm64 \
             -v "$(pwd)/bundle:/bundle" \
             -v "$(pwd)/releases:/releases:ro" \
+            -v "$(pwd)/Dockerfile:/Dockerfile:ro" \
             -w /bundle/programs/server \
             node:${NODE_VERSION}-slim \
-            sh -c "bash /releases/apt-install.sh build-essential python3 && bash /releases/npm-retry.sh npm install --global npm@12.0.2 && bash /releases/npm-retry.sh npm install && node /releases/prune-build-only-modules.mjs /bundle && node /releases/bump-bundle-npm-deps.mjs /bundle && node /releases/bundle-trim.mjs /bundle --transport sockjs --drop-legacy-client --trim-prebuilds --platform linux --arch arm64 && node /releases/prune-unreachable-npm.mjs /bundle"
+            sh -c "bash /releases/apt-install.sh build-essential python3 && bash /releases/use-release-npm.sh && bash /releases/npm-retry.sh npm install && node /releases/prune-build-only-modules.mjs /bundle && node /releases/bump-bundle-npm-deps.mjs /bundle && node /releases/bundle-trim.mjs /bundle --transport sockjs --drop-legacy-client --trim-prebuilds --platform linux --arch arm64 && node /releases/prune-unreachable-npm.mjs /bundle"
 
       - name: Check the binaries the arm64 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'
@@ -1281,8 +1281,8 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
-      - name: Use npm 12.0.2
-        run: bash releases/npm-retry.sh npm install --global npm@12.0.2
+      - name: Use release npm version
+        run: bash src/releases/use-release-npm.sh
 
       # Which Node.js this platform gets - and whether it is built at all.
       #
@@ -1665,8 +1665,8 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
-      - name: Use npm 12.0.2
-        run: bash releases/npm-retry.sh npm install --global npm@12.0.2
+      - name: Use release npm version
+        run: bash src/releases/use-release-npm.sh
 
       # Which Node.js this platform gets - and whether it is built at all.
       #
@@ -2033,8 +2033,8 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
-      - name: Use npm 12.0.2
-        run: bash releases/npm-retry.sh npm install --global npm@12.0.2
+      - name: Use release npm version
+        run: bash src/releases/use-release-npm.sh
 
       # Which Node.js this platform gets - and whether it is built at all.
       #
@@ -2357,8 +2357,8 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
-      - name: Use npm 12.0.2
-        run: bash releases/npm-retry.sh npm install --global npm@12.0.2
+      - name: Use release npm version
+        run: bash releases/use-release-npm.sh
 
       # Which Node.js this platform gets - and whether it is built at all.
       #
@@ -2646,8 +2646,8 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
-      - name: Use npm 12.0.2
-        run: bash releases/npm-retry.sh npm install --global npm@12.0.2
+      - name: Use release npm version
+        run: bash releases/use-release-npm.sh
 
       # Does the fork publish node-mac-x64 for this version yet? WeKan's Node.js
       # comes only from the fork, so if it has not built this binary there is
@@ -3370,8 +3370,8 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
-      - name: Use npm 12.0.2
-        run: bash releases/npm-retry.sh npm install --global npm@12.0.2
+      - name: Use release npm version
+        run: bash releases/use-release-npm.sh
 
       - name: Enable unprivileged user namespaces (Ubuntu 24.04 restricts them)
         # Ubuntu 24.04's AppArmor defaults kernel.apparmor_restrict_unprivileged_userns=1,

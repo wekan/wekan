@@ -27,6 +27,18 @@ class RiskAudit(unittest.TestCase):
             self.file.write_text(text)
             with self.assertRaisesRegex(ValueError,expected) as result:r.inspect(self.root,self.policy)
             self.assertNotIn('secret=',str(result.exception))
+    def test_version_url_allowance_is_limited_to_exact_file_and_host(self):
+        self.policy['allowUrlPatternsByFile'] = {'main.js': [r'https://nodejs\.org/dist/v26\.\d+\.\d+/']}
+        self.file.write_text('fetch("https://nodejs.org/dist/v26.100.0/")')
+        r.inspect(self.root, self.policy)
+        (self.root/'other.js').write_text(self.file.read_text())
+        with self.assertRaisesRegex(ValueError, 'other.js'): r.inspect(self.root, self.policy)
+        (self.root/'other.js').unlink()
+        for url in ['https://evil.example/dist/v26.100.0/', 'https://nodejs.org/dist/v26.100.0/?report=1',
+                    'https://nodejs.org/dist/v27.0.0/']:
+            self.file.write_text('fetch("'+url+'")')
+            with self.assertRaisesRegex(ValueError, 'new URL'): r.inspect(self.root, self.policy)
+
     def test_known_bad_hash_always_blocks_source_or_binary(self):
         self.policy['denyHashes']=[hashlib.sha256(self.file.read_bytes()).hexdigest()]
         with self.assertRaisesRegex(ValueError,'hash'):r.inspect(self.root,self.policy)

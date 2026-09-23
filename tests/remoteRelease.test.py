@@ -104,6 +104,18 @@ class ReleaseTests(unittest.TestCase):
             self.assertEqual(r.source_version(self.root,self.config,'v26.9.0'),'v26.9.0')
         self.assertIn('::warning::',findings.getvalue())
 
+    def test_node_resolver_uses_shell_relative_path_on_windows(self):
+        self.config.update(kind='node', upstream={'review':'releases/upstream.json','url':'unused'})
+        (self.root/'releases/upstream.json').write_text('{"upstreamCommit":null}')
+        (self.root/'node-major.txt').write_text('26\n')
+        def invoke(root, *args):
+            if args[0] == 'bash':
+                self.assertEqual(args, ('bash', 'releases/newest-release.sh', '.'))
+                return 'v26.10.0'
+            return 'a'*40+'\trefs/tags/v26.10.0'
+        with patch.object(r, 'run', side_effect=invoke), contextlib.redirect_stderr(io.StringIO()):
+            self.assertEqual(r.source_version(self.root, self.config), 'v26.10.0')
+
     def test_changed_upstream_fails_and_reviewed_sha_passes(self):
         sha='a'*40
         self.config.update(kind='mongo-tools',upstream={'review':'releases/upstream.json','url':'unused'})

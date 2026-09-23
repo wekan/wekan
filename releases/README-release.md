@@ -41,7 +41,9 @@ binary checks use known hashes and telemetry signatures. These heuristics can
 have false positives and cannot prove the absence of arbitrary reporting code.
 
 Fix unwanted reporting when detected. Legitimate URLs/keywords can be configured
-in the baseline without AI approval. To explicitly record expected source data:
+in the baseline without AI approval. `allowUrlPatternsByFile` optionally permits
+full-match URL patterns in named files only; keep hosts and paths specific.
+The website uses this for Node 26 version-directory links on its install page. To explicitly record expected source data:
 `python3 releases/risk-audit.py --source . --record-baseline`.
 Do not baseline unwanted reporting. Patch repositories use a separate
 `upstream-risk-baseline.json` for their upstream source; pass it with `--policy`.
@@ -54,7 +56,16 @@ following the [GitHub CLI interface](https://cli.github.com/manual/gh_workflow_r
 A failed commit or push prevents dispatch. If dispatch fails after pushing,
 retry that prepared version rather than incrementing again.
 
-WeKan keeps runtime dependency versions during Actions version preparation.
+WeKan resolves the latest stable Node.js 26.x, MongoDB 7.0.x and npm 12.x
+from official Node.js, MongoDB and npm metadata during Actions version preparation.
+Both Linux amd64 and arm64 archives must be listed and reachable. MongoDB rapid
+release series such as 7.3 are excluded. A metadata or artifact failure stops
+before version files are changed. Ordinary updates still pass the subsequent
+risk audit. Meteor follows `.meteor/release`; FerretDB uses its latest published
+fork release. The website manifest reports these actual release selections.
+`python3 releases/dependency-versions.py` prints the current selections without
+changing files or publishing. `USE_LOCAL_DEP_VERSIONS=1` retains offline cache mode;
+`RELEASE_SKIP_DEP_DOWNLOAD=1` skips tarball caching, not version discovery.
 Missing builds first retry failed jobs of the matching full-release run, then
 fill packaging gaps. Legacy runs are matched through their preparation commit.
 If native assets remain missing and no matching run exists, the workflow reports
