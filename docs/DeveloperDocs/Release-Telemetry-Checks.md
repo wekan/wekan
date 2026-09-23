@@ -64,6 +64,34 @@ mongosh and Database Tools retain their own upstream/vendor audit inventories.
 
 ## Verification and limits
 
+### Source review after the September 23 release failure
+
+The saved `wekan2` release log stops in the bump job's source gate, before
+building. Its reviewed inventory predates 46 changed runtime files. Compared
+with the inventory at `63238a687`, the reviewed changes are:
+
+- Multiline board/card/list/swimlane composers and CSS: local display, parsing
+  and normal application mutations; no external reporting destination.
+- Import parsing, file associations and Trello policy checks: local conversion
+  and existing user-requested import paths; no new background reporter.
+- Full backups and scheduler startup: local database/file streams by default.
+  Cloud destinations still require saved operator configuration; schedules
+  must be explicitly enabled. Cron history and progress remain local.
+- Login adapters, field mapping, code consumption and Firefox submit timing:
+  authentication against configured identity providers and local account
+  state, not analytics. Sandstorm failures now return a generic response.
+- Admin Panel bulk feature settings: authenticated application mutations.
+
+Dependency manifests did not change. Refresh the 1,577-file inventory after
+that review, retaining its scope and exclusions and all source/binary gates.
+The release telemetry suite now also audits the actual checkout, so omitted
+reviews fail locally before the workflow's bump job. Source-drift and known
+reporter rejection tests continue to exercise the failure path. This refresh
+does not automatically approve later source changes.
+The human-run `release-all.sh` launcher also checks source before repairing
+commit links, renaming release notes or making remote writes. The workflows
+retain their independent checks; the launcher does not refresh the inventory.
+
 Run `node --test tests/releaseTelemetry.test.cjs tests/securityLog.test.cjs`
 with `TMPDIR` under `.tools/tmp`. The tests cover positive local logging cases,
 source drift, native signatures, compressed archive members (including chunk

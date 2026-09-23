@@ -6,6 +6,13 @@ const path = require('node:path');
 const root = path.resolve(__dirname, '..');
 const read = f => readFileSync(path.join(root, f), 'utf8');
 
+test('current checkout has a reviewed telemetry source inventory', () => {
+  const result = spawnSync('python3', ['-B', 'releases/check-telemetry.py', '--source', '.'], {
+    cwd: root, encoding: 'utf8',
+  });
+  assert.equal(result.status, 0, result.stdout + result.stderr);
+});
+
 test('source and binary telemetry gates reject regressions while preserving local logging', () => {
   const result = spawnSync('python3', ['-B', 'tests/release-telemetry.py'], {
     cwd: root, encoding: 'utf8',
@@ -13,6 +20,13 @@ test('source and binary telemetry gates reject regressions while preserving loca
   assert.equal(result.status, 0, result.stdout + result.stderr);
 });
 test('both releases and every repack path enforce the gates', () => {
+  const launcher = read('releases/release-all.sh');
+  const preflight = launcher.indexOf('python3 "$REPO_DIR/releases/check-telemetry.py" --source "$REPO_DIR"');
+  assert.ok(preflight > 0);
+  for (const later of ['ensure_tools git gh', 'bash "$(dirname "$0")/fix-changelog-hashes.sh"',
+    'git add --all', '\n  git push', 'gh workflow run']) {
+    assert.ok(launcher.indexOf(later) > preflight, `${later} must follow the source audit`);
+  }
   for (const file of ['release-all.yml', 'release-all-missing.yml']) {
     assert.match(read('.github/workflows/' + file), /check-telemetry.py --source/);
   }

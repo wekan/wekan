@@ -62,6 +62,10 @@ bash "$REPO_DIR/releases/check-upcoming-release.sh" "$REPO_DIR/CHANGELOG.md"
 mkdir -p "$REPO_DIR/.tools/tmp"
 export TMPDIR="$REPO_DIR/.tools/tmp"
 
+# Refuse stale source reviews before changing release notes or publishing.
+# The workflows repeat this gate against their own checkout.
+python3 "$REPO_DIR/releases/check-telemetry.py" --source "$REPO_DIR"
+
 # Install the tools this trigger needs if missing.
 . "$REPO_DIR/releases/ensure-tools.sh"
 ensure_tools git gh

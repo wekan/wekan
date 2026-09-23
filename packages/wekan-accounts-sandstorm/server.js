@@ -199,7 +199,9 @@ if (__meteor_runtime_config__.SANDSTORM) {
       res.writeHead(500, {
         "Content-Type": "text/plain"
       });
-      res.end(err.stack);
+      // Do not expose server paths, exception messages or request data through
+      // the trusted-proxy login endpoint's error response.
+      res.end("Sandstorm login failed");
     }
   };
 }

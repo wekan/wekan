@@ -24,7 +24,15 @@ test.describe('Sandstorm trusted-proxy handshake', () => {
   });
   test('unmatched proxy token cannot establish an identity', async ({ request }) => {
     const result = await request.post('/.sandstorm-login', { headers: { 'Content-Type': 'application/x-sandstorm-login-token', 'x-sandstorm-user-id': 'forged-unmatched' }, data: 'not-a-pending-ddp-token' });
-    expect(result.status()).not.toBe(200);
+    expect(result.status()).toBe(500);
+    expect(await result.text()).toBe('Sandstorm login failed');
     expect(db.findOne('users', { 'services.sandstorm.id': 'forged-unmatched' })).toBeNull();
+  });
+  test('malformed proxy request does not disclose exception details', async ({ request }) => {
+    const result = await request.post('/.sandstorm-login', {
+      headers: { 'Content-Type': 'text/plain' }, data: 'private-request-marker',
+    });
+    expect(result.status()).toBe(500);
+    expect(await result.text()).toBe('Sandstorm login failed');
   });
 });

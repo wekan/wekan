@@ -4,6 +4,7 @@ const crypto = require('node:crypto');
 const zlib = require('node:zlib');
 const { SignedXml } = require('xml-crypto');
 const { startLdap } = require('./ldap.cjs');
+const { parseOAuthHeader } = require('./oauth-header.cjs');
 const esc = value => String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;' })[c]);
 module.exports.startProvider = async ({ privateKey, certificate }) => {
   const state = { mode: 'allow', user: 'alice', events: [], codes: new Map(), tokens: new Map(), tickets: new Map() };
@@ -70,7 +71,9 @@ module.exports.startProvider = async ({ privateKey, certificate }) => {
         return res.end(`<form method="post" action="${esc(acs)}"><input name="SAMLResponse" value="${Buffer.from(xml).toString('base64')}"><input name="RelayState" value="${esc(params.get('RelayState'))}"></form><script>document.forms[0].submit()</script>`);
       }
       if (url.pathname.startsWith('/social/api.twitter.com/')) {
-        const oauth = Object.fromEntries([...String(req.headers.authorization || '').matchAll(/(oauth_\w+)="([^"]*)"/g)].map(match => [match[1], decodeURIComponent(match[2])]));
+        let oauth;
+        try { oauth = parseOAuthHeader(req.headers.authorization); }
+        catch (_) { return json({ error: 'invalid_oauth_header' }, 400); }
         const path = url.pathname.replace('/social/api.twitter.com', '');
         const tokenSecret = path.endsWith('/access_token') ? 'fixture-request-secret' : path.includes('verify_credentials') ? 'fixture-access-secret' : '';
         const encode = value => encodeURIComponent(value).replace(/[!'()*]/g, c => '%' + c.charCodeAt(0).toString(16).toUpperCase());
@@ -111,7 +114,12 @@ module.exports.startProvider = async ({ privateKey, certificate }) => {
       if (path.endsWith('/api/v1/identity')) return json({ id: profile.id, ...profile, emails: [{ address: email, verified: true }] });
       if (path.endsWith('/2/members')) return json({ results: [profile] });
       return json(profile);
-    } catch (error) { res.writeHead(500); res.end(String(error.stack)); }
+    } catch (_) {
+      // Even a loopback-only test server must not return local paths, stack
+      // traces or request-derived exception messages to an HTTP caller.
+      res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
+      res.end('Identity fixture request failed');
+    }
   });
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
   return { state, ldapPort: ldap.port, url: `http://127.0.0.1:${server.address().port}`,
