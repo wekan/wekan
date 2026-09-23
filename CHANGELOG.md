@@ -661,6 +661,42 @@ names retain line breaks.
 Scheduled full-instance backups now include database and file content.
 Admin Panel validation and menu-based feature/backup guides are documented.
 Meteor server bundles install with npm 12 without obsolete rebuild arguments.
+Local identity-server tests repair login flows and prevent sign-in code reuse.
+
+This release fixes login security and compatibility issues:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4f7d28637">Prevent sign-in code reuse and verify real login provider exchanges</a>. Thanks to xet7.</summary>
+
+Require consumption of an emailed sign-in code before issuing a session when
+Meteor's positional email update leaves the token in the database. Compare
+the validated token generation, reject reuse or replacement, and verify the
+email using its numeric array index. Reproduced with local FerretDB; this
+application guard does not fix general database positional-update behavior.
+
+Fix LDAP login with an unset optional field map, simultaneous OAuth2/CAS/SAML
+configuration, the SAML certificate option and SAML/Sandstorm display names.
+Keep the Blaze instance across asynchronous login-settings callbacks so the
+provider buttons and passwordless form appear. Hide duplicate social buttons.
+Report CAS callbacks and retain invalid-TOTP errors after counting failures,
+without bypassing lockout limits.
+
+Add minimal local LDAP, OAuth2/OIDC, OAuth1, SAML, CAS and SMTP servers. Drive
+the real login forms and adapters, inspect protocol requests, stored identity
+fields and returned sessions, and reject wrong credentials, refused tokens,
+invalid SAML responses and consumed email codes. Cover LDAP REST login,
+trusted-proxy headers, Sandstorm, password login and two-factor retries.
+
+A rebuilt macOS ARM64 bundle passes 31 login checks and 3 Sandstorm checks in
+Chromium, with no retries. Seven additional social-provider runs verify exact
+profile values. Focused Node regressions, documentation links and menu
+inventory checks pass. Live vendor accounts, external TLS/mail delivery,
+LDAP StartTLS, MongoDB and other browsers were not tested. Deployment
+coverage and repeatable commands are in docs/Features/Login/Testing.md.
+Existing Upcoming entries retain the regression audit documented below;
+unresolved menu-baseline failures are not counted as fixed by these checks.
+
+</details>
 
 This release fixes import policy enforcement and audits menu behavior:
 
