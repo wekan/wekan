@@ -1,6 +1,8 @@
 # Menu implementation audit
 
-Audit started 2026-09-23 against the local macOS ARM64 bundle and FerretDB.
+Audit run on 2026-09-23 against local macOS ARM64 bundles and FerretDB.
+The full baseline had 405 passes and 55 failures; see the
+[detailed run results](Menu-Audit-Results.md) for every failing test.
 This is an implementation and test inventory, **not a declaration that every
 menu feature works**. A handler, a translated label or a documentation page
 alone does not establish working behavior.

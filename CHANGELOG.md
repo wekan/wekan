@@ -662,6 +662,35 @@ Scheduled full-instance backups now include database and file content.
 Admin Panel validation and menu-based feature/backup guides are documented.
 Meteor server bundles install with npm 12 without obsolete rebuild arguments.
 
+This release fixes import policy enforcement and audits menu behavior:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9289edc3e">Audit menu implementations and repair import policy and data loss</a>. Thanks to xet7.</summary>
+
+Make Trello HTTP JSON and ZIP imports honor the Admin Panel import-disable
+switch and shared transfer validation. Reject wrong-shaped import documents
+before creating boards. Preserve Jira Cloud v3 ADF description text and WeKan
+attachments whose activity history is absent. Ignore wholly empty CSV rows
+without dropping rows containing zero or other data. Connect Organizations
+select-all/unselect-all controls and queue rapid clicks in order.
+
+Add documented dummy format fixtures, malformed-input and authorization
+checks, Unicode/multiline text, labels and dates, external export menu links
+and an exact-byte Trello ZIP to WeKan JSON export/re-import regression. Audit
+418 static menu action selectors, reject newly disconnected actions and repair a
+stale cross-board move test selector. Document coverage and native-format
+limitations instead of treating partial adapters as full backups.
+
+A macOS ARM64 build with FerretDB passes 30 new Chromium checks, the corrected
+cross-board move regression and focused Node suites. The baseline browser
+audit has 405 passes, 55 failures, 8 skips and 2 tests not run. One failure
+is fixed; the remainder require individual investigation. External comments,
+files and advanced fields are not preserved by every adapter; whole-board
+WeKan ZIP import, Asana bulk exports and native Zenkit compatibility remain
+unverified or incomplete. The menu audit records these gaps explicitly.
+
+</details>
+
 This release adds the following features:
 
 <details>

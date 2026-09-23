@@ -24,6 +24,12 @@ for (const source of sources) {
       expect(cards[0].title).toContain(expected.title);
       for (const line of expected.description.split('\n')) expect(cards[0].description).toContain(line);
       await expect(page.locator('.minicard-title').first()).toContainText(expected.title);
+      expect(new Date(cards[0].dueAt).toISOString().slice(0, 10)).toBe('2026-09-30');
+      if (source !== 'openproject') {
+        const board = db.findOne('boards', { _id: boardId });
+        const labels = board.labels.filter(label => cards[0].labelIds.includes(label._id));
+        expect(labels.map(label => label.name)).toContain(expected.label);
+      }
       // Record full-content evidence rather than calling a title-only import lossless.
       await info.attach('preservation.json', { contentType: 'application/json', body: Buffer.from(JSON.stringify({
         source, cards: cards.length, comments: db.find('card_comments', { boardId }).length,
@@ -84,6 +90,9 @@ test('Trello ZIP imports comment, checklist and exact attachment bytes; JSON rou
     const restored = page.url().match(/\/b\/([^/]+)/)[1]; boardIds.push(restored);
     expect(db.find('card_comments', { boardId: restored }).map(c => c.text)).toContain(expected.comment);
     expect(db.find('checklistItems', { boardId: restored })).toHaveLength(1);
+    const restoredCard = db.findOne('cards', { boardId: restored });
+    expect(restoredCard.title).toBe(expected.title);
+    expect(restoredCard.description).toBe(expected.description);
     const again = await page.request.get(`/api/boards/${restored}/export?authToken=${encodeURIComponent(user.token)}`);
     expect(again.status()).toBe(200);
     expect(Buffer.from((await again.json()).attachments[0].file, 'base64')).toEqual(bytes);
