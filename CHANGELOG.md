@@ -702,6 +702,17 @@ later source changes stop a build. No hosted release was run.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/83fb620c4d12f9c3da28de49448d4e0d46eba5d8">Accept valid GitHub SSH origins in release launchers</a>. Thanks to xet7.</summary>
+
+Release All and Release All Missing accept HTTPS and SSH clone URLs
+with or without .git, including git@github.com:wekan/wekan.
+Incorrect repositories and lookalike hosts still stop the release.
+Offline positive and negative launcher tests and source audits pass;
+no hosted release was run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/a048569b8">Add release menus and automated dependency risk checks</a>. Thanks to xet7.</summary>
 
 All six repositories provide Release All and Release All Missing in build.sh
