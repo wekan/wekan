@@ -702,6 +702,32 @@ later source changes stop a build. No hosted release was run.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7392a364ba2f4b2877024df520847076cd1ccd19">Update release runtime discovery and fix Windows source resolution</a>. Thanks to xet7.</summary>
+
+Resolve stable Node.js 26.x, MongoDB 7.0.x and npm 12.x from official
+release metadata. Require both amd64 and arm64 archives and verify
+availability before editing versions. Exclude MongoDB rapid releases;
+remove the misplaced dependency-preservation switch and guessed-version
+probing from the active update path. Keep Meteor tied to the app pin.
+
+Propagate selections through Docker, snap references and the website
+manifest/install page. Build jobs install the selected npm version,
+including Windows checkouts under src. Fix shell-variable matching in
+artifact links and macOS Stackerfile editing. Stop website publication
+on failed updates. Keep post-update risk checks; scoped URL patterns
+allow only configured version links. Fix the shared Windows Node source
+resolver by passing a shell-relative checkout path.
+
+Real version-script fixtures cover propagation and failure before edits.
+Release, website, menu, version-consistency and indicator regressions
+pass, as do companion launcher and Node workflow tests. Live metadata
+and four archive HEAD requests pass. This changes build tooling, with
+no new application UI. Native Windows builds and hosted publication
+were not run; existing Upcoming feature coverage remains unchanged.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/83fb620c4d12f9c3da28de49448d4e0d46eba5d8">Accept valid GitHub SSH origins in release launchers</a>. Thanks to xet7.</summary>
 
 Release All and Release All Missing accept HTTPS and SSH clone URLs
