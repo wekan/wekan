@@ -716,6 +716,26 @@ Meteor build, focused Node tests and the Chromium browser regression pass.
 
 </details>
 
+This release fixes the following sign-in bug:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b4459a79e">Fix duplicate LDAP login submissions and silently discarded errors</a>. Thanks to Nissulya and xet7.</summary>
+
+Cancel form submission before the asynchronous authentication-method lookup so
+one click or Enter press cannot start both password and LDAP login. Keep the
+form mounted, reject duplicate pending submissions, display provider errors
+without redirecting, and use normal session-aware completion after success.
+Local password validation and 2FA continue through the original form handler.
+
+Seven focused tests and the related LDAP, redirect, 2FA and telemetry suites
+pass. A fresh macOS ARM64 Meteor build and four Chromium regressions against
+isolated FerretDB SQLite passed, including error/retry, click/Enter routing,
+real session completion and password fallback. The UI tests control the
+directory callback; the reporter's external LDAPS server and Snap installation
+were not tested. See <a href="docs/DeveloperDocs/LDAP-6692.md">the investigation</a>.
+
+</details>
+
 This release fixes the following board, card and list bugs:
 
 <details>
