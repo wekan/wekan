@@ -27,6 +27,15 @@ def run(root, *args):
     return subprocess.check_output(args, cwd=root, text=True).strip()
 
 
+def valid_origin(remote, repo):
+    """Accept exact GitHub HTTPS and SSH clone URLs, with optional .git."""
+    return remote in {
+        prefix + repo + suffix
+        for prefix in ('https://github.com/', 'git@github.com:', 'ssh://git@github.com/')
+        for suffix in ('', '.git')
+    }
+
+
 def inventory(root):
     # Includes untracked, non-ignored manifests: git add --all would publish them.
     names = run(root, 'git', 'ls-files', '-z', '--cached', '--others', '--exclude-standard').split('\0')
@@ -236,9 +245,7 @@ def main():
     if run(root, 'git', 'branch', '--show-current') != config['branch']:
         raise ValueError('Release from ' + config['branch'] + ' only.')
     remote = run(root, 'git', 'remote', 'get-url', 'origin')
-    if remote not in ['https://github.com/' + config['repo'] + '.git',
-                      'https://github.com/' + config['repo'],
-                      'git@github.com:' + config['repo'] + '.git']:
+    if not valid_origin(remote, config['repo']):
         raise ValueError('origin must point to ' + config['repo'])
     if run(root, 'git', 'diff', '--name-only', '--diff-filter=U'):
         raise ValueError('Resolve merge conflicts before releasing.')

@@ -4,6 +4,7 @@ import contextlib
 import importlib.util
 import io
 import json
+import subprocess
 from pathlib import Path
 import tempfile
 import unittest
@@ -28,6 +29,33 @@ class ReleaseTests(unittest.TestCase):
 
     def tearDown(self):
         self.tmp.cleanup()
+
+    def test_origin_url_formats(self):
+        repo = json.loads((ROOT / 'releases/remote-release.json').read_text())['repo']
+        accepted = [prefix + repo + suffix
+                    for prefix in ('https://github.com/', 'git@github.com:', 'ssh://git@github.com/')
+                    for suffix in ('', '.git')]
+        rejected = ['', 'https://github.com.evil/' + repo,
+                    'https://github.com/' + repo + '-other.git',
+                    'git@github.com:another/repository.git',
+                    'ssh://git@github.com.evil/' + repo,
+                    'https://github.com/' + repo + '/extra',
+                    'https://github.com/' + repo + '.git?redirect=other',
+                    'https://github.com@evil/' + repo]
+        for remote in accepted + rejected:
+            with self.subTest(remote=remote):
+                self.assertEqual(r.valid_origin(remote, repo), remote in accepted)
+                if repo == 'wekan/wekan':
+                    # Exercise the real shell gate without running release actions.
+                    source = (ROOT / 'releases/release-all.sh').read_text()
+                    start = source.index('case "$(git remote get-url origin)" in')
+                    gate = source[start:source.index('esac', start) + 4]
+                    result = subprocess.run(['bash', '-c',
+                        'git() { printf "%s" "$TEST_ORIGIN"; }; ' + gate],
+                        env={**r.os.environ, 'TEST_ORIGIN': remote}, capture_output=True)
+                    self.assertEqual(result.returncode == 0, remote in accepted)
+                    if remote in rejected:
+                        self.assertIn(b'origin must point to wekan/wekan', result.stderr)
 
     def test_real_notes_required_and_unchanged(self):
         self.assertEqual(r.notes(self.root, self.config), self.text)

@@ -72,7 +72,9 @@ python3 "$REPO_DIR/releases/remote-release.py" --audit
 [ "$(git branch --show-current)" = main ] || { echo "Error: Release from main only." >&2; exit 1; }
 
 case "$(git remote get-url origin)" in
-  git@github.com:wekan/wekan.git|https://github.com/wekan/wekan.git|https://github.com/wekan/wekan) ;;
+  git@github.com:wekan/wekan|git@github.com:wekan/wekan.git|\
+  ssh://git@github.com/wekan/wekan|ssh://git@github.com/wekan/wekan.git|\
+  https://github.com/wekan/wekan.git|https://github.com/wekan/wekan) ;;
   *) echo 'Error: origin must point to wekan/wekan.' >&2; exit 1 ;;
 esac
 
