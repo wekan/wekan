@@ -544,3 +544,8 @@ networks:
   wekan-tier:
     driver: bridge
 ```
+
+## Integration tests
+
+See [local login protocol tests](Testing.md) for example identities, actual
+request/response checks, failure cases and deployment limitations.

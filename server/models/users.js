@@ -1860,6 +1860,11 @@ Accounts.onCreateUser(async (options, user) => {
   // server/lib/oauthProviders.js with the same fail-closed linking rule as
   // OIDC below. An existing account comes back ready to return; a brand-new
   // one falls through to the ordinary registration checks further down.
+  // Sandstorm supplies its trusted display name in options, like Meteor's
+  // social adapters. Our onCreateUser hook must copy it explicitly.
+  if (user.services?.sandstorm) {
+    user.profile = { ...(user.profile || {}), fullname: options.profile?.fullname || user.services.sandstorm.name };
+  }
   const oauthProvider = providerOfUser(user);
   if (oauthProvider) {
     const created = await onCreateProviderUser(options, user, oauthProvider);

@@ -92,3 +92,10 @@ a reproduction. This table preserves the failing assertions as follow-up work.
 See [implementation findings](Menu-Implementation-Audit.md) for repaired defects,
 source-inventory limits and import/export format gaps. The existing browser
 harness is documented in [test setup](../Security/Sandboxes/vscodium/README.md).
+
+## Login protocol follow-up
+
+The [local login audit](Login/Testing.md) adds real LDAP, OAuth, SAML, CAS,
+SMTP, proxy and Sandstorm exchanges, including positive and rejected logins.
+Its focused passing results do not erase the unrelated baseline failures
+above or certify live external identity-provider deployments.

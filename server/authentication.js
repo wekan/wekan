@@ -204,7 +204,8 @@ Meteor.startup(() => {
           // OAUTH2_REQUEST_PERMISSIONS || 'openid profile email',
         },
         );
-    } else if (
+    }
+    if (
       process.env.CAS_ENABLED === 'true' ||
       process.env.CAS_ENABLED === true
     ) {
@@ -228,7 +229,8 @@ Meteor.startup(() => {
           },
         },
       );
-    } else if (
+    }
+    if (
       process.env.SAML_ENABLED === 'true' ||
       process.env.SAML_ENABLED === true
     ) {

@@ -55,7 +55,7 @@ async function getSaml() {
   _samlInstance = new SAML({
     entryPoint: config.entryPoint,
     issuer: config.issuer,
-    cert: config.cert,
+    idpCert: config.cert,
     callbackUrl: Meteor.absoluteUrl(`_saml/validate/${provider}`),
     identifierFormat:
       config.identifierFormat ||
@@ -189,7 +189,7 @@ Accounts.registerLoginHandler(async (options) => {
     emails: email ? [{ address: email, verified: true }] : [],
     createdAt: new Date(),
     profile: {
-      name: profile.displayName || profile.cn || username,
+      fullname: profile.displayName || profile.cn || username,
       email,
     },
     active: true,

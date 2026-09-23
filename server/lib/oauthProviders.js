@@ -282,6 +282,13 @@ Meteor.startup(async () => {
     if (options.type === 'passwordless' && !await isPasswordlessLoginEnabled()) {
       throw new Meteor.Error('passwordless-disabled', 'Sign-in code login is not enabled');
     }
+    if (options.type === 'passwordless' && options.allowed && !options.error) {
+      const { consumePasswordlessToken } = require('/server/lib/passwordlessTokenConsumption.cjs');
+      const consumed = await consumePasswordlessToken(
+        options.user, options.methodArguments?.[0]?.selector, Meteor.users.rawCollection(),
+      );
+      if (!consumed) throw new Meteor.Error('passwordless-code-consumed', 'Sign-in code is no longer valid');
+    }
     const provider = providerByService(options.type);
     if (provider && !(await enabledOauthProviders()).includes(provider.key)) {
       throw new Meteor.Error('oauth-provider-disabled', 'This login method is not enabled');

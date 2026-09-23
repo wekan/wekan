@@ -96,3 +96,8 @@ Wekan serverside code is at:
 - https://github.com/github/securitylab
 
 
+
+## Integration tests
+
+See [local login protocol tests](Testing.md) for example identities, actual
+request/response checks, failure cases and deployment limitations.

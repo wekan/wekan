@@ -73,7 +73,8 @@ Template.userFormsLayout.onCreated(function () {
   }
 });
 
-Template.userFormsLayout.onRendered(() => {
+Template.userFormsLayout.onRendered(function () {
+  const instance = this;
   // Login / register pages scroll on <body>; enable drag-to-scroll there so the
   // gesture works the same as on the board swimlanes view.
   enablePageDragscroll();
@@ -152,8 +153,7 @@ Template.userFormsLayout.onRendered(() => {
     // enabled provider, and the form renders one .js-oauth-provider button
     // per key from the catalog (models/lib/oauthProviders.js). Passwordless
     // (e-mailed one-time code) gets its own small form.
-    const instance = Template.instance();
-    if (instance) {
+    if (!instance.view.isDestroyed) {
       instance.enabledOauthProviders.set(
         OAUTH_PROVIDERS.filter(p => enabledAuthenticationMethods.indexOf(p.key) !== -1).map(
           p => p.key,

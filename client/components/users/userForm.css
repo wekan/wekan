@@ -190,3 +190,10 @@ body.mobile-mode.userform-layout {
     overflow-x: hidden;
   }
 }
+
+/* The catalog buttons in userFormsLayout own provider errors and navigation.
+   Hide the duplicate buttons supplied by useraccounts; retain its OIDC button. */
+.userform-layout :is(#at-google, #at-github, #at-facebook, #at-twitter,
+  #at-meteor-developer, #at-weibo, #at-meetup) {
+  display: none;
+}

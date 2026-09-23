@@ -77,3 +77,8 @@ rejected.
   `snap set wekan header-login-id=X-Auth-User header-login-trusted-ips=10.0.0.2`.
 - The matching environment-variable examples are in `docker-compose.yml`,
   `start-wekan.sh` and `start-wekan.bat`.
+
+## Integration tests
+
+See [local login protocol tests](Testing.md) for example identities, actual
+request/response checks, failure cases and deployment limitations.

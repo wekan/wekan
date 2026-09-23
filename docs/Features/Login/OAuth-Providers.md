@@ -158,3 +158,8 @@ see [REST API](../../API/REST-API.md#admin-panel-oauth-login-providers-and-passw
 - [Passwordless](Passwordless.md) for the one-time code by email
 - [Google login](Google-login.md), the older Google notes
 - [Disable Password Login](Disable-Password-Login.md)
+
+## Integration tests
+
+See [local login protocol tests](Testing.md) for example identities, actual
+request/response checks, failure cases and deployment limitations.

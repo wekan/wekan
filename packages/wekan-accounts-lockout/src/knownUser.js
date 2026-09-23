@@ -212,6 +212,9 @@ class KnownUser {
       } catch (e) { /* reporting must never break the lockout */ }
       return KnownUser.tooManyAttempts(decision.secondsRemaining);
     }
+    // Count invalid second factors, but retain the code the UI needs to retry.
+    // Active lockouts and backoff above still take precedence.
+    if (loginInfo.error?.error === 'invalid-2fa-code') throw loginInfo.error;
     return KnownUser.incorrectPassword(
       decision.failedAttempts,
       decision.maxAttemptsAllowed,

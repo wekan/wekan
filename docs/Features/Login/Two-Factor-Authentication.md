@@ -55,3 +55,8 @@ member menu.
 - Not available when logged in via Sandstorm or via an OAuth2 provider
   (Google/Azure/OIDC/etc. logins manage their own second factor, if any) -
   the menu entry only appears for password-based accounts.
+
+## Integration tests
+
+See [local login protocol tests](Testing.md) for example identities, actual
+request/response checks, failure cases and deployment limitations.

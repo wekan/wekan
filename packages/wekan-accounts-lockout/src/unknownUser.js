@@ -156,6 +156,9 @@ class UnknownUser {
       duration = duration > 1 ? duration : 1;
       return UnknownUser.tooManyAttempts(duration);
     }
+    // Count invalid second factors, but retain the code the UI needs to retry.
+    // Active lockouts and backoff above still take precedence.
+    if (loginInfo.error?.error === 'invalid-2fa-code') throw loginInfo.error;
     return UnknownUser.userNotFound(
       failedAttempts,
       maxAttemptsAllowed,

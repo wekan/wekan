@@ -60,3 +60,8 @@ all, also set `PASSWORD_LOGIN_ENABLED=false`
 - [OAuth Providers](OAuth-Providers.md): Google, GitHub, Facebook, Twitter,
   Meteor Developer, Weibo, Meetup
 - [Forgot Password](Forgot-Password.md), which uses the same outgoing email
+
+## Integration tests
+
+See [local login protocol tests](Testing.md) for example identities, actual
+request/response checks, failure cases and deployment limitations.

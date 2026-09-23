@@ -151,7 +151,7 @@ export function getLdapUserUniqueID(ldapUser) {
 
 export function getDataToSyncUserData(ldapUser, user) {
   const syncUserData = LDAP.settings_get('LDAP_SYNC_USER_DATA');
-  const syncUserDataFieldMap = LDAP.settings_get('LDAP_SYNC_USER_DATA_FIELDMAP').trim();
+  const syncUserDataFieldMap = (LDAP.settings_get('LDAP_SYNC_USER_DATA_FIELDMAP') || '').trim();
 
   const userData = {};
 
