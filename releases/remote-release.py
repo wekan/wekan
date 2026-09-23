@@ -76,9 +76,24 @@ def audit(root, config):
             warnings.append('Dependency fingerprints changed: ' + ', '.join(changes))
         for name in actual:
             text = (root / name).read_text(errors='replace')
-            keywords = sorted(set(re.findall(r'(?i)telemetry|segment|mixpanel|amplitude|posthog|sentry', text)))
-            if keywords:
-                warnings.append('Dependency keyword hints in ' + name + ': ' + ', '.join(keywords))
+            known = expected.get('knownKeywordMatches', {}).get(name, {})
+            accepted = set(known.get('lines', [])) if known.get('reason') else set()
+            known_count = 0
+            unknown = set()
+            for line in text.splitlines():
+                keywords = re.findall(r'(?i)telemetry|segment|mixpanel|amplitude|posthog|sentry', line)
+                if not keywords:
+                    continue
+                if line.strip() in accepted:
+                    known_count += 1
+                else:
+                    unknown.update(word.lower() for word in keywords)
+            if known_count:
+                print(f'Info: {name}: {known_count} known dependency keyword matches '
+                      f'(false positives for default outbound reporting). {known["reason"]}', flush=True)
+            if unknown:
+                warnings.append('New/unclassified dependency keyword hints in ' + name + ': ' + ', '.join(sorted(unknown)))
+
     except (ValueError, OSError, KeyError, subprocess.CalledProcessError) as error:
         warnings.append('Dependency inventory unavailable: ' + str(error))
     for command in config.get('audits', []):

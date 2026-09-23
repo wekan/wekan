@@ -91,6 +91,29 @@ class ReleaseTests(unittest.TestCase):
                 r.audit(self.root,self.config)
             self.assertIn('::warning::', findings.getvalue())
 
+    def test_known_dependency_matches_are_info_but_new_matches_warn(self):
+        line = 'go.opentelemetry.io/otel v1.46.0'
+        path = self.root/'go.mod'
+        path.write_text(line+'\n')
+        with patch.object(r, 'run', return_value='go.mod'):
+            policy = {'files':r.inventory(self.root), 'knownKeywordMatches':{
+                'go.mod':{'reason':'Optional tracing; no default exporter.', 'lines':[line]}}}
+            (self.root/'releases/dependency-review.json').write_text(json.dumps(policy))
+            with contextlib.redirect_stdout(io.StringIO()) as info, contextlib.redirect_stderr(io.StringIO()) as warnings:
+                r.audit(self.root, self.config)
+            self.assertIn('known dependency keyword matches', info.getvalue())
+            self.assertNotIn('::warning::', warnings.getvalue())
+            for changed in [line.replace('1.46.0','1.47.0'), line+'\nexample.org/telemetry v1.0.0']:
+                path.write_text(changed+'\n')
+                with contextlib.redirect_stderr(io.StringIO()) as warnings:
+                    r.audit(self.root, self.config)
+                self.assertIn('New/unclassified dependency keyword', warnings.getvalue())
+            path.write_text(line+'\n')
+            self.config['indicatorCommand'] = ['indicator-test']
+            with patch.object(r.subprocess, 'run', return_value=type('Result', (), {'returncode':1})()):
+                with self.assertRaisesRegex(ValueError, 'risk indicators'):
+                    r.audit(self.root, self.config)
+
     def test_no_dependencies_accepts_empty_inventory(self):
         (self.root/'releases/dependency-review.json').write_text('{"files":{}}')
         with patch.object(r,'run',return_value='index.html'):
