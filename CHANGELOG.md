@@ -702,6 +702,20 @@ later source changes stop a build. No hosted release was run.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c7111728bb0a96f073ce3753078d7d6850fc363a">Distinguish known dependency keyword false positives from new findings</a>. Thanks to xet7.</summary>
+
+Report documented, exact dependency keyword matches as known false
+positives for default outbound reporting. New or changed matches remain
+unclassified warnings for review. Independent source and binary risk
+checks remain active. Current dependency inventories have no matches
+requiring new exemptions. Positive and negative launcher tests, risk
+tests and offline audits pass across all six release repositories.
+This changes release logs only; no application UI or hosted release
+was exercised. Existing Upcoming regression coverage is retained.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7392a364ba2f4b2877024df520847076cd1ccd19">Update release runtime discovery and fix Windows source resolution</a>. Thanks to xet7.</summary>
 
 Resolve stable Node.js 26.x, MongoDB 7.0.x and npm 12.x from official
