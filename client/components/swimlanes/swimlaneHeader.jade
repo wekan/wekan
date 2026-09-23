@@ -43,7 +43,7 @@ template(name="swimlaneFixedHeader")
 
 template(name="editSwimlaneTitleForm")
   .list-composer
-    input.list-name-input.full-line(type="text" value="{{isTitleDefault title}}" autofocus)
+    textarea.list-name-input.full-line(rows="2" autofocus dir="auto") {{isTitleDefault title}}
     .edit-controls.clearfix
       button.primary.confirm(type="submit") {{_ 'save'}}
       a.js-close-inlined-form
@@ -138,8 +138,9 @@ template(name="swimlaneAddPopup")
       unless currentUser.isReadOnly
         unless currentUser.isReadAssignedOnly
           form
-            input.swimlane-name-input.full-line(type="text" placeholder="{{_ 'add-swimlane'}}"
+            textarea.swimlane-name-input.full-line(rows="2" dir="auto" placeholder="{{_ 'add-swimlane'}}"
               autocomplete="off" autofocus)
+            +multilineTitleChoice(selector=".swimlane-name-input" singular="swimlane" plural="swimlanes")
             .edit-controls.clearfix
               button.primary.confirm(type="submit") {{_ 'add'}}
               unless currentBoard.isTemplatesBoard

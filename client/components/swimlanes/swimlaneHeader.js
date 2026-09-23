@@ -1,3 +1,5 @@
+import { titleSortIndexes } from '/models/lib/multilineTitles';
+import { titlesFromComposer } from '/client/components/forms/multilineTitleChoice';
 import { TAPi18n } from '/imports/i18n';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { SWIMLANE_COLORS } from '/models/metadata/colors';
@@ -160,31 +162,42 @@ Template.swimlaneAddPopup.events({
     const currentBoard = Utils.getCurrentBoard();
     const nextSwimlane = currentBoard.nextSwimlane(tpl.currentSwimlane);
     const titleInput = tpl.find('.swimlane-name-input');
-    const title = titleInput.value.trim();
-    const sortValue = calculateIndexData(
-      tpl.currentSwimlane,
-      nextSwimlane,
-      1,
-    );
+    const titles = titlesFromComposer(titleInput);
+    if (!titles.length || tpl.creatingSwimlanes) return;
+    const indexes = titleSortIndexes(tpl.currentSwimlane?.sort, nextSwimlane?.sort, titles.length);
     const swimlaneType = currentBoard.isTemplatesBoard()
       ? 'template-swimlane'
       : 'swimlane';
 
-    if (title) {
-      await Swimlanes.insertAsync({
-        title,
-        boardId: Session.get('currentBoard'),
-        sort: sortValue.base || 0,
-        type: swimlaneType,
-      });
+    tpl.creatingSwimlanes = true;
+    titleInput.disabled = true;
+    let created = 0;
+    try {
+      for (const title of titles) {
+        await Swimlanes.insertAsync({
+          title,
+          boardId: Session.get('currentBoard'),
+          sort: indexes[created],
+          type: swimlaneType,
+        });
 
+        created += 1;
+      }
       titleInput.value = '';
       titleInput.focus();
+      Popup.back();
+    } catch (error) {
+      titleInput.value = titles.slice(created).join('\n');
+      console.error('Failed to create swimlane:', error);
+    } finally {
+      tpl.creatingSwimlanes = false;
+      titleInput.disabled = false;
+      titleInput.focus();
+      titleInput.dispatchEvent(new Event('input', { bubbles: true }));
     }
     // XXX ideally, we should move the popup to the newly
     // created swimlane so a user can add more than one swimlane
     // with a minimum of interactions
-    Popup.back();
   },
   'click .js-swimlane-template': Popup.open('searchElement'),
 });

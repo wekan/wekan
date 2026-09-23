@@ -1,3 +1,4 @@
+import { titlesFromComposer } from '/client/components/forms/multilineTitleChoice';
 import { relativePosition } from '/models/lib/relativePosition';
 import { formatDateForDisplay } from '/client/lib/dateDisplay';
 import { ReactiveCache } from '/imports/reactiveCache';
@@ -1284,12 +1285,12 @@ Template.addListPopup.events({
     evt.preventDefault();
 
     const titleInput = tpl.find('.list-name-input');
-    const title = titleInput?.value.trim();
+    const titles = titlesFromComposer(titleInput);
 
-    if (!title) return;
+    if (!titles.length || tpl.creatingLists) return;
 
     const positionInput = tpl.find('.list-position-input');
-    const afterListId =
+    let afterListId =
       positionInput && positionInput.value ? positionInput.value.trim() : null;
     const nextListId =
       positionInput &&
@@ -1302,18 +1303,30 @@ Template.addListPopup.events({
       (tpl.currentSwimlane && tpl.currentSwimlane._id) ||
       null;
 
+    tpl.creatingLists = true;
+    titleInput.disabled = true;
+    let created = 0;
     try {
-      await Meteor.callAsync('createListAfter', {
-        title,
-        boardId: Session.get('currentBoard'),
-        swimlaneId: targetSwimlaneId,
-        afterListId,
-        nextListId,
-        type: 'list',
-      });
+      for (const title of titles) {
+        afterListId = await Meteor.callAsync('createListAfter', {
+          title,
+          boardId: Session.get('currentBoard'),
+          swimlaneId: targetSwimlaneId,
+          afterListId,
+          nextListId,
+          type: 'list',
+        });
+        created += 1;
+      }
       Popup.back();
     } catch (error) {
+      titleInput.value = titles.slice(created).join('\n');
       console.error('Failed to create list after selected list:', error);
+    } finally {
+      tpl.creatingLists = false;
+      titleInput.disabled = false;
+      titleInput.focus();
+      titleInput.dispatchEvent(new Event('input', { bubbles: true }));
     }
   },
   'click .js-list-template': Popup.open('searchElement'),

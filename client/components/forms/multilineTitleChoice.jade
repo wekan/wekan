@@ -1,0 +1,8 @@
+template(name="multilineTitleChoice")
+  .multiline-title-choice
+    if multiple
+      label
+        | {{_ 'add'}}
+        select.js-multiline-title-mode
+          option(value="one") 1 {{_ singular}}
+          option(value="separate") {{lineCount}} {{_ plural}}

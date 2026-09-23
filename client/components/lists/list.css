@@ -212,7 +212,7 @@ body.mobile-mode [id^="swimlane-"] .list[style*="--list-width"]:not(.list-collap
 /* Ensure title text doesn't cause height changes for all lists */
 .list-header .list-header-name {
   /* Allow text wrapping to flow below buttons */
-  white-space: normal !important;
+  white-space: pre-wrap !important;
   /* Ensure proper line height */
   line-height: 1.2 !important;
   /* Ensure it doesn't overflow horizontally */
@@ -417,7 +417,7 @@ body.mobile-mode [id^="swimlane-"] .list[style*="--list-width"]:not(.list-collap
 .list.list-collapsed .list-header .list-rotated h2.list-header-name {
   text-align: center;
   overflow: hidden;
-  white-space: normal;
+  white-space: pre-wrap;
   display: block !important;
   font-size: calc(12px * var(--wekan-ui-font-scale, 1));
   line-height: 1.2;
@@ -1342,7 +1342,7 @@ form.inlined-form .list-composer {
 
 .list:not(.mobile-view):not(.list-collapsed) .list-header .list-header-name {
   /* Permit wrapping and full visibility */
-  white-space: normal !important;
+  white-space: pre-wrap !important;
   overflow: visible !important;
   text-overflow: clip !important;
   display: block !important;
@@ -1517,7 +1517,7 @@ form.inlined-form .list-composer {
   margin: 0 !important;
   max-height: 100% !important;
   padding: 2px 0 !important;
-  white-space: normal !important;
+  white-space: pre-wrap !important;
   overflow: hidden !important;
   transform: none !important;
   writing-mode: vertical-lr !important;
@@ -1743,4 +1743,13 @@ form.inlined-form .list-composer {
 
 .list-sync-paused {
   color: #999;
+}
+
+/* Preserve explicit title line breaks just like minicard titles. */
+.list .list-header .list-header-name,
+.list .list-header .list-header-name .viewer,
+.list .list-header .list-header-name .viewer p,
+.list.list-collapsed .list-header .list-rotated h2.list-header-name {
+  white-space: pre-wrap !important;
+  overflow-wrap: anywhere;
 }

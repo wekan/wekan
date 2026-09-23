@@ -85,7 +85,7 @@ assert.match(addCardBody, /formComponent\.assignees\?\.get\(\)/,
 
 const cardFieldsStart = addCardBody.indexOf('const cardFields = {');
 assert.notEqual(cardFieldsStart, -1);
-const insertCallStart = addCardBody.indexOf('Cards.insert(cardFields)', cardFieldsStart);
+const insertCallStart = addCardBody.indexOf('Cards.insertAsync(cardFields)', cardFieldsStart);
 assert.notEqual(insertCallStart, -1);
 const insertSetup = addCardBody.slice(cardFieldsStart, insertCallStart);
 

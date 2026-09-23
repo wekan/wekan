@@ -1,3 +1,5 @@
+import { titleSortIndexes } from '/models/lib/multilineTitles';
+import { titlesFromComposer } from '/client/components/forms/multilineTitleChoice';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
@@ -176,153 +178,171 @@ Template.listBody.onCreated(function () {
     }
     const textarea = $(submittedForm).find('textarea.js-card-title');
     const position = Blaze.getData(submittedForm)?.position;
-    const rawTitle = textarea.val().trim();
-    // #3986: a leading "[LabelName] " prefix on the typed title applies (and,
-    // if needed, creates) that label instead of becoming part of the card
-    // title - e.g. "[Fedora] Do a thing" creates "Do a thing" labeled
-    // "Fedora". Only a single bracket prefix at the very start is parsed.
-    const { title, labelName: quickAddLabelName } = parseQuickAddCardLabel(rawTitle);
+    if (this.creatingCards) return;
+    const titles = titlesFromComposer(textarea[0]);
+    const indexes = titleSortIndexes(
+      position === 'bottom' && lastCardDom ? Blaze.getData(lastCardDom).sort : null,
+      position === 'top' && firstCardDom ? Blaze.getData(firstCardDom).sort : null,
+      titles.length,
+    );
+    this.creatingCards = true;
+    textarea[0].disabled = true;
+    let titleIndex = 0;
+    try {
+      for (const rawTitle of titles) {
+        // #3986: a leading "[LabelName] " prefix on the typed title applies (and,
+        // if needed, creates) that label instead of becoming part of the card
+        // title - e.g. "[Fedora] Do a thing" creates "Do a thing" labeled
+        // "Fedora". Only a single bracket prefix at the very start is parsed.
+        const { title, labelName: quickAddLabelName } = parseQuickAddCardLabel(rawTitle);
 
-    let sortIndex;
-    if (position === 'top') {
-      sortIndex = Utils.calculateIndex(null, firstCardDom).base;
-    } else if (position === 'bottom') {
-      sortIndex = Utils.calculateIndex(lastCardDom, null).base;
-    }
+        const sortIndex = indexes[titleIndex];
 
-    const formComponent = this.cardFormComponent(submittedForm);
-    if (!formComponent) {
-      return;
-    }
-    const members = formComponent.members.get();
-    let labelIds = formComponent.labels.get();
-    const customFields = formComponent.customFields.get();
-    // #3967: "More options" lets a few common fields be filled in as part of
-    // THIS SAME Cards.insert call, rather than as separate Cards.update calls
-    // right after creation. Each Cards.update fires its own watcher
-    // notification email (server/models/activities.js reacts to every
-    // Activities insert), so a card created with its description/due
-    // date/assignees already set produces exactly one "card created"
-    // notification instead of one email per field the user would otherwise
-    // set afterward.
-    const description = formComponent.description?.get().trim() || '';
-    const dueAtValue = formComponent.dueAt?.get() || '';
-    const dueAt = dueAtValue ? new Date(dueAtValue) : undefined;
-    const assignees = formComponent.assignees?.get() || [];
-
-    const data = this.data;
-    if (!data) {
-      return;
-    }
-    const board = data.board();
-    let linkedId = '';
-    let swimlaneId = '';
-    let cardType = 'cardType-card';
-    if (title) {
-      // Clear the textarea immediately so the next card starts empty,
-      // before any async operations that would leave the old text visible.
-      textarea.val('').focus();
-      autosize.update(textarea);
-
-      // #3986: resolve the "[LabelName] " bracket prefix (if any) against the
-      // board's labels - match an existing label by name case-insensitively,
-      // or create one (with the same default-color pick as the "Add label"
-      // popup) when no label with that name exists yet.
-      if (quickAddLabelName) {
-        let quickAddLabelId = findExistingLabelIdByName(board.labels, quickAddLabelName);
-        if (!quickAddLabelId) {
-          quickAddLabelId = Random.id(6);
-          const color = pickDefaultLabelColor(board.labels, LABEL_COLORS);
-          await Boards.updateAsync(board._id, {
-            $push: { labels: { _id: quickAddLabelId, name: quickAddLabelName, color } },
-          });
+        const formComponent = this.cardFormComponent(submittedForm);
+        if (!formComponent) {
+          return;
         }
-        if (labelIds.indexOf(quickAddLabelId) === -1) {
-          labelIds = [...labelIds, quickAddLabelId];
-        }
-      }
+        const members = formComponent.members.get();
+        let labelIds = formComponent.labels.get();
+        const customFields = formComponent.customFields.get();
+        // #3967: "More options" lets a few common fields be filled in as part of
+        // THIS SAME Cards.insert call, rather than as separate Cards.update calls
+        // right after creation. Each Cards.update fires its own watcher
+        // notification email (server/models/activities.js reacts to every
+        // Activities insert), so a card created with its description/due
+        // date/assignees already set produces exactly one "card created"
+        // notification instead of one email per field the user would otherwise
+        // set afterward.
+        const description = formComponent.description?.get().trim() || '';
+        const dueAtValue = formComponent.dueAt?.get() || '';
+        const dueAt = dueAtValue ? new Date(dueAtValue) : undefined;
+        const assignees = formComponent.assignees?.get() || [];
 
-      if (board.isTemplatesBoard()) {
-        const swimlaneEl = this.$('.js-minicards').closest('.swimlane').get(0);
-        swimlaneId = swimlaneEl && Blaze.getData(swimlaneEl)?._id; // Always swimlanes view
-        const swimlane = ReactiveCache.getSwimlane(swimlaneId);
-        // If this is the card templates swimlane, insert a card template
-        if (swimlane.isCardTemplatesSwimlane()) cardType = 'template-card';
-        // If this is the board templates swimlane, insert a board template and a linked card
-        else if (swimlane.isBoardTemplatesSwimlane()) {
-          linkedId = await Boards.insertAsync({
+        const data = this.data;
+        if (!data) {
+          return;
+        }
+        const board = data.board();
+        let linkedId = '';
+        let swimlaneId = '';
+        let cardType = 'cardType-card';
+        if (title) {
+          // Clear the textarea immediately so the next card starts empty,
+          // before any async operations that would leave the old text visible.
+          textarea.val('').focus();
+          autosize.update(textarea);
+
+          // #3986: resolve the "[LabelName] " bracket prefix (if any) against the
+          // board's labels - match an existing label by name case-insensitively,
+          // or create one (with the same default-color pick as the "Add label"
+          // popup) when no label with that name exists yet.
+          if (quickAddLabelName) {
+            let quickAddLabelId = findExistingLabelIdByName(board.labels, quickAddLabelName);
+            if (!quickAddLabelId) {
+              quickAddLabelId = Random.id(6);
+              const color = pickDefaultLabelColor(board.labels, LABEL_COLORS);
+              await Boards.updateAsync(board._id, {
+                $push: { labels: { _id: quickAddLabelId, name: quickAddLabelName, color } },
+              });
+            }
+            if (labelIds.indexOf(quickAddLabelId) === -1) {
+              labelIds = [...labelIds, quickAddLabelId];
+            }
+          }
+
+          if (board.isTemplatesBoard()) {
+            const swimlaneEl = this.$('.js-minicards').closest('.swimlane').get(0);
+            swimlaneId = swimlaneEl && Blaze.getData(swimlaneEl)?._id; // Always swimlanes view
+            const swimlane = ReactiveCache.getSwimlane(swimlaneId);
+            // If this is the card templates swimlane, insert a card template
+            if (swimlane.isCardTemplatesSwimlane()) cardType = 'template-card';
+            // If this is the board templates swimlane, insert a board template and a linked card
+            else if (swimlane.isBoardTemplatesSwimlane()) {
+              linkedId = await Boards.insertAsync({
+                title,
+                slug: getSlug(title) || 'board',
+                permission: 'private',
+                type: 'template-board',
+              });
+              const defaultTitle = TAPi18n.__('default');
+              await Swimlanes.insertAsync({
+                title: typeof defaultTitle === 'string' ? defaultTitle : 'Default',
+                boardId: linkedId,
+              });
+              cardType = 'cardType-linkedBoard';
+            }
+          } else if (Utils.boardView() === 'board-view-swimlanes') {
+            const swimlaneEl2 = this.$('.js-minicards').closest('.swimlane').get(0);
+            swimlaneId = swimlaneEl2 && Blaze.getData(swimlaneEl2)?._id;
+          }
+          else if (
+            Utils.boardView() === 'board-view-lists' ||
+            Utils.boardView() === 'board-view-cal' ||
+            !Utils.boardView()
+          ) {
+            swimlaneId = data.swimlaneId || board.getDefaultSwimline()._id;
+          }
+
+          const nextCardNumber = await board.getNextCardNumber();
+
+          const cardFields = {
             title,
-            slug: getSlug(title) || 'board',
-            permission: 'private',
-            type: 'template-board',
-          });
-          const defaultTitle = TAPi18n.__('default');
-          await Swimlanes.insertAsync({
-            title: typeof defaultTitle === 'string' ? defaultTitle : 'Default',
-            boardId: linkedId,
-          });
-          cardType = 'cardType-linkedBoard';
+            members,
+            labelIds,
+            customFields,
+            listId: data._id,
+            boardId: board._id,
+            sort: sortIndex,
+            swimlaneId,
+            type: cardType,
+            cardNumber: nextCardNumber,
+            linkedId,
+          };
+          // #3967: only add these when actually filled in via "More options", so a
+          // plain quick-add card keeps behaving exactly as before.
+          if (description) {
+            cardFields.description = description;
+          }
+          if (dueAt && !isNaN(dueAt.getTime())) {
+            cardFields.dueAt = dueAt;
+          }
+          if (assignees.length) {
+            cardFields.assignees = assignees;
+          }
+          const _id = await Cards.insertAsync(cardFields);
+          titleIndex += 1;
+
+          // if the displayed card count is less than the total cards in the list,
+          // we need to increment the displayed card count to prevent the spinner
+          // to appear
+          const cardCount = data
+            .cards(this.idOrNull(swimlaneId))
+            .length;
+          if (this.cardlimit.get() < cardCount) {
+            this.cardlimit.set(this.cardlimit.get() + InfiniteScrollIter);
+          }
+
+          // In case the filter is active we need to add the newly inserted card in
+          // the list of exceptions -- cards that are not filtered. Otherwise the
+          // card will disappear instantly.
+          // See https://github.com/wekan/wekan/issues/80
+          Filter.addException(_id);
+
+          // We keep the form opened and scroll to it.
+          if (position === 'bottom') {
+            this.scrollToBottom();
+          }
         }
-      } else if (Utils.boardView() === 'board-view-swimlanes') {
-        const swimlaneEl2 = this.$('.js-minicards').closest('.swimlane').get(0);
-        swimlaneId = swimlaneEl2 && Blaze.getData(swimlaneEl2)?._id;
       }
-      else if (
-        Utils.boardView() === 'board-view-lists' ||
-        Utils.boardView() === 'board-view-cal' ||
-        !Utils.boardView()
-      ) {
-        swimlaneId = data.swimlaneId || board.getDefaultSwimline()._id;
-      }
-
-      const nextCardNumber = await board.getNextCardNumber();
-
-      const cardFields = {
-        title,
-        members,
-        labelIds,
-        customFields,
-        listId: data._id,
-        boardId: board._id,
-        sort: sortIndex,
-        swimlaneId,
-        type: cardType,
-        cardNumber: nextCardNumber,
-        linkedId,
-      };
-      // #3967: only add these when actually filled in via "More options", so a
-      // plain quick-add card keeps behaving exactly as before.
-      if (description) {
-        cardFields.description = description;
-      }
-      if (dueAt && !isNaN(dueAt.getTime())) {
-        cardFields.dueAt = dueAt;
-      }
-      if (assignees.length) {
-        cardFields.assignees = assignees;
-      }
-      const _id = Cards.insert(cardFields);
-
-      // if the displayed card count is less than the total cards in the list,
-      // we need to increment the displayed card count to prevent the spinner
-      // to appear
-      const cardCount = data
-        .cards(this.idOrNull(swimlaneId))
-        .length;
-      if (this.cardlimit.get() < cardCount) {
-        this.cardlimit.set(this.cardlimit.get() + InfiniteScrollIter);
-      }
-
-      // In case the filter is active we need to add the newly inserted card in
-      // the list of exceptions -- cards that are not filtered. Otherwise the
-      // card will disappear instantly.
-      // See https://github.com/wekan/wekan/issues/80
-      Filter.addException(_id);
-
-      // We keep the form opened and scroll to it.
-      if (position === 'bottom') {
-        this.scrollToBottom();
-      }
+    } catch (error) {
+      textarea.val(titles.slice(titleIndex).join('\n'));
+      autosize.update(textarea);
+      throw error;
+    } finally {
+      this.creatingCards = false;
+      textarea[0].disabled = false;
+      textarea[0].focus();
+      textarea[0].dispatchEvent(new Event('input', { bubbles: true }));
     }
   };
 

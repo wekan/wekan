@@ -14,6 +14,12 @@ across all swimlanes — see
 
 ## Add, archive, restore and delete lists
 
+Paste multiple lines into the new list name to choose between one list
+with a multiline name and a separate list for each nonempty line. Select
+the desired count in **Add**, then save. Separate items keep the pasted order.
+You can also keep or edit line breaks when renaming a list.
+
+
 - **Add** a list with the list composer at the side of the board.
 - **Archive** a list to hide it without deleting it; archived lists can be restored.
 - **Delete** a list permanently (deleting cannot be undone — this requires extra

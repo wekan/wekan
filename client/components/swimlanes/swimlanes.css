@@ -435,3 +435,11 @@ body.swimlane-resizing-active * {
     animation: none;
   }
 }
+
+/* A swimlane name can contain explicit line breaks. */
+.swimlane .swimlane-header-wrap .swimlane-header,
+.swimlane .swimlane-header-wrap .swimlane-header .viewer,
+.swimlane .swimlane-header-wrap .swimlane-header .viewer p {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}

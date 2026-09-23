@@ -1,3 +1,4 @@
+import { titlesFromComposer } from '/client/components/forms/multilineTitleChoice';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { once } from '/imports/lib/collectionHelpers';
 import {
@@ -950,8 +951,8 @@ Template.addListInline.events({
   async submit(evt, tpl) {
     evt.preventDefault();
     const titleInput = tpl.find('.list-name-input');
-    const title = titleInput?.value.trim();
-    if (!title) return;
+    const titles = titlesFromComposer(titleInput);
+    if (!titles.length || tpl.creatingLists) return;
 
     // Position: honour the explicit "add after list" selector when present
     // (its options mirror the swimlane's lists, defaulting to the one whose
@@ -969,24 +970,36 @@ Template.addListInline.events({
       afterListId = Session.get('wekan-add-list-after') || null;
     }
 
+    tpl.creatingLists = true;
+    titleInput.disabled = true;
+    let created = 0;
     try {
-      await Meteor.callAsync('createListAfter', {
-        title,
-        boardId: Session.get('currentBoard'),
-        // The header button records the swimlane the list is displayed in; the
-        // empty-swimlane composer falls back to its own swimlane data context.
-        swimlaneId: Session.get('wekan-add-list-swimlane') || tpl.currentSwimlane?._id,
-        afterListId,
-        nextListId,
-        type: 'list',
-      });
+      for (const title of titles) {
+        afterListId = await Meteor.callAsync('createListAfter', {
+          title,
+          boardId: Session.get('currentBoard'),
+          // The header button records the swimlane the list is displayed in; the
+          // empty-swimlane composer falls back to its own swimlane data context.
+          swimlaneId: Session.get('wekan-add-list-swimlane') || tpl.currentSwimlane?._id,
+          afterListId,
+          nextListId,
+          type: 'list',
+        });
+        created += 1;
+      }
       titleInput.value = '';
       titleInput.focus();
       // Empty-state flow: the swimlane now has a list, so drop the empty-composer
       // flag — if it becomes empty again the + button (not the form) shows first.
       Session.set('wekan-add-list-empty', null);
     } catch (error) {
+      titleInput.value = titles.slice(created).join('\n');
       console.error('Failed to create list:', error);
+    } finally {
+      tpl.creatingLists = false;
+      titleInput.disabled = false;
+      titleInput.focus();
+      titleInput.dispatchEvent(new Event('input', { bubbles: true }));
     }
   },
   // Restore the "or template" option: create the list from a template.

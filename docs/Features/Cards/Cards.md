@@ -113,3 +113,12 @@ Filter the board by member, label, due date, and more to focus on a subset of ca
 - [Markdown](../Editor/Markdown/Markdown.md), [Emoji](../Editor/Emoji.md), [Multiline](../Editor/Multiline.md), [Numbered text](../Editor/Numbered-text.md), [LaTeX](../Editor/LaTeX.md)
 - [Due Date](../Date/Due-Date.md), [Time Tracking](../Date/Time-Tracking.md)
 - [Drag and Drop on Mobile and Desktop](../DragDrop/Drag-Drop.md)
+
+
+## Create cards from multiple lines
+
+Paste or type multiple lines into the new-card title. The **Add** selector
+offers one card with the full multiline title or one card per nonempty line.
+Choose the desired count and click **Add**. Separate cards keep the pasted
+order, and each receives the selected members, labels and other card options.
+The same choice is available when creating lists and swimlanes.

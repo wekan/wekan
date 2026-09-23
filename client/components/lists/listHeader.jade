@@ -156,7 +156,7 @@ template(name="listHeader")
 
 template(name="editListTitleForm")
   .list-composer
-    input.list-name-input.full-line(type="text" value=title autofocus)
+    textarea.list-name-input.full-line(rows="2" autofocus dir="auto") {{title}}
     .edit-controls.clearfix
       button.primary.confirm(type="submit") {{_ 'save'}}
       a.js-close-inlined-form
@@ -502,7 +502,8 @@ template(name="moveListPopup")
 
 template(name="addListPopup")
   form.js-add-list-form
-    input.list-name-input.full-line(type="text" placeholder="{{_ 'add-list'}}" autocomplete="off" autofocus)
+    textarea.list-name-input.full-line(rows="2" dir="auto" placeholder="{{_ 'add-list'}}" autocomplete="off" autofocus)
+    +multilineTitleChoice(selector=".list-name-input" singular="list" plural="lists")
     if currentSwimlaneData
       if swimlaneLists.length
         label {{_ 'add-after-list'}}

@@ -112,8 +112,9 @@ template(name="addListInline")
   .list.list-composer.js-list-composer.js-add-list-inline(class="{{#if isMiniScreen}}mini-list{{/if}}")
     .list-header-add
       form.js-add-list-inline-form
-        input.list-name-input.full-line(type="text" placeholder="{{_ 'add-list'}}"
+        textarea.list-name-input.full-line(rows="2" dir="auto" placeholder="{{_ 'add-list'}}"
           autocomplete="off" autofocus)
+        +multilineTitleChoice(selector=".list-name-input" singular="list" plural="lists")
         //- #6465 follow-up: restore the previous "add after which list"
         //- position selector, pre-selecting the list whose header button opened
         //- this composer, so the position can still be chosen explicitly.

@@ -5,6 +5,12 @@ Swimlanes divide a Kanban board into horizontal bands.  Each lane can represent 
 The **same lists (columns) appear in every swimlane** — lists are board-wide, not per-swimlane.  A swimlane groups the cards in its band; each card sits in one list (column) and one swimlane (band).  (An earlier experiment with per-swimlane lists was reverted; see [Lists](../Lists/Lists.md).)  
 
 ## To Add Swimlanes
+
+Paste multiple lines into the new swimlane name to choose between one swimlane
+with a multiline name and a separate swimlane for each nonempty line. Select
+the desired count in **Add**, then save. Separate items keep the pasted order.
+You can also keep or edit line breaks when renaming a swimlane.
+
 Click the **`Lists`** button (near the top right) to switch to the Swimlanes view. The **`Add Swimlane`** button is at far right of the lists.  You may have to scroll horizontally to the right and minimize the righthand sidebar to see it.
 
 ## To Rename Swimlanes
