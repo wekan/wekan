@@ -63,13 +63,13 @@ echo ""
 
 echo "=== Node.js 26.17.0 (snap architectures with upstream Node builds) ==="
 check "Node.js 26.17.0  linux-x64     (amd64)" \
-  "https://nodejs.org/dist/v26.9.0/node-v26.9.0-linux-x64.tar.gz"
+  "https://nodejs.org/dist/v26.10.0/node-v26.10.0-linux-x64.tar.gz"
 check "Node.js 26.17.0  linux-arm64   (arm64)" \
-  "https://nodejs.org/dist/v26.9.0/node-v26.9.0-linux-arm64.tar.gz"
+  "https://nodejs.org/dist/v26.10.0/node-v26.10.0-linux-arm64.tar.gz"
 check "Node.js 26.17.0  linux-s390x   (s390x)" \
-  "https://nodejs.org/dist/v26.9.0/node-v26.9.0-linux-s390x.tar.gz"
+  "https://nodejs.org/dist/v26.10.0/node-v26.10.0-linux-s390x.tar.gz"
 check "Node.js 26.17.0  linux-ppc64le (ppc64el)" \
-  "https://nodejs.org/dist/v26.9.0/node-v26.9.0-linux-ppc64le.tar.gz"
+  "https://nodejs.org/dist/v26.10.0/node-v26.10.0-linux-ppc64le.tar.gz"
 echo ""
 
 echo "=== Results ==="

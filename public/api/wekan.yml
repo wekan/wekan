@@ -5785,6 +5785,13 @@ definitions:
         description: |
            Does the board allows received date on minicard?
         type: boolean
+      dateFormatOverride:
+        type: boolean
+        x-nullable: true
+      dateFormat:
+        type: string
+        enum:
+        x-nullable: true
       allowsStartDate:
         description: |
            Does the board allows start date?
@@ -8335,6 +8342,8 @@ definitions:
       showWeekOfYear:
         description: |
            User-specified state of week-of-year in date displays.
+        type: boolean
+      dateFormatOverride:
         type: boolean
       dateFormat:
         description: |
