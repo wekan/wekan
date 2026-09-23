@@ -82,12 +82,11 @@ with the inventory at `63238a687`, the reviewed changes are:
   state, not analytics. Sandstorm failures now return a generic response.
 - Admin Panel bulk feature settings: authenticated application mutations.
 
-Dependency manifests did not change. Refresh the 1,577-file inventory after
-that review, retaining its scope and exclusions and all source/binary gates.
-The release telemetry suite now also audits the actual checkout, so omitted
-reviews fail locally before the workflow's bump job. Source-drift and known
-reporter rejection tests continue to exercise the failure path. This refresh
-does not automatically approve later source changes.
+Dependency manifests did not change in that repair, which refreshed the
+1,577-file inventory. Current release checks still examine the actual checkout,
+but source fingerprint drift is informational. Automated risk indicators, rather
+than a missing comprehensive review, now determine whether a build stops.
+Tests cover both nonblocking drift and rejection of concrete indicators.
 The human-run `release-all.sh` launcher also checks source before repairing
 commit links, renaming release notes or making remote writes. The workflows
 retain their independent checks; the launcher does not refresh the inventory.

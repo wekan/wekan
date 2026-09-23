@@ -657,8 +657,9 @@ the Markdown commit as the template.
 
 **In short:** Login error responses no longer disclose internal stack traces,
 and the local identity test server rejects expensive or malformed OAuth
-headers. The reviewed **telemetry release gate** accepts the current source
-and now checks locally before release changes are made.
+headers. **Release All** and **Release All Missing** now share shell and
+Windows menus across the six repositories. Automated dependency checks stop
+on detected risk indicators; ordinary hash changes need no AI approval.
 
 This release fixes SECURITY ISSUES found by GitHub CodeQL and source review:
 
@@ -695,8 +696,34 @@ and include the actual checkout in the telemetry regression suite.
 
 A macOS ARM64 build, the 1,577-file source audit, the 42,926-file bundle scan
 and six release/preflight tests pass. Logging and operator-configured
-integrations remain available. Later source changes still require review;
-the gate does not automatically approve them. No hosted release was run.
+integrations remain available. Automated indicators now govern whether
+later source changes stop a build. No hosted release was run.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a048569b8">Add release menus and automated dependency risk checks</a>. Thanks to xet7.</summary>
+
+All six repositories provide Release All and Release All Missing in build.sh
+and build.bat. Full releases validate Upcoming notes, prepare the version,
+commit pending tracked and new files, push the default branch and dispatch
+Actions. Missing releases keep their version and retry failed or absent
+outputs; completing a release needs no new Upcoming section. WeKan also
+recovers failed jobs of its matching full-release run before filling gaps.
+
+Checks compare hashes, suspicious keywords and URL literals. Ordinary hash
+changes and missing historical reviews only warn; known telemetry/security
+hashes, new suspicious keywords or new URLs stop builds with file-specific
+evidence. Existing artifact and runtime telemetry checks remain. No whole
+source review or AI approval is required; legitimate indicators can be
+allowed through baseline configuration. Local logging remains available.
+
+Offline tests cover successful release preparation, missing-release version
+preservation, commit/push failures, nonblocking hash drift and blocking risk
+indicators. Menu parity, workflow syntax and existing release regressions
+pass. MongoDB Tools regenerates its locked vendor tree and passes SDK checks.
+Windows batch launchers are checked from source; Windows execution and hosted
+publication were not run. See releases/README-release.md for usage and limits.
 
 </details>
 
