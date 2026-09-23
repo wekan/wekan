@@ -28,7 +28,7 @@ ENV BUILD_DEPS="apt-utils gnupg wget bzip2 g++ curl libarchive-tools build-essen
 ENV \
     DEBUG=false \
     DDP_TRANSPORT=sockjs \
-    NODE_VERSION=v26.9.0 \
+    NODE_VERSION=v26.10.0 \
     METEOR_RELEASE=METEOR@3.6-beta.1 \
     USE_EDGE=false \
     NPM_VERSION=12.0.2 \
