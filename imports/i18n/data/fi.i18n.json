@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Synkronointi valmistui onnistuneesti.",
   "list-sync-now-error": "Synkronointi epäonnistui: %s",
   "list-sync-clear": "Lopeta synkronointi",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Lisää useita rivejä muodossa:",
+  "many-items": "__items__ (useita)"
 }

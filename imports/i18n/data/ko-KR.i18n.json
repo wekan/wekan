@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "동기화가 완료되었습니다.",
   "list-sync-now-error": "동기화 실패: %s",
   "list-sync-clear": "동기화 중지",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "여러 줄을 다음으로 추가:",
+  "many-items": "여러 __items__"
 }

@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "سنک کامیابی سٟتِؠ مکمل.",
   "list-sync-now-error": "سنک ناکام: %s",
   "list-sync-clear": "سنک بند کریو",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "واریاہ سطر یتھ کٔنۍ شامل کریو:",
+  "many-items": "واریاہ __items__"
 }

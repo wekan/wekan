@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "სინქრონიზაცია წარმატებით დასრულდა.",
   "list-sync-now-error": "სინქრონიზაცია ვერ მოხერხდა: %s",
   "list-sync-clear": "სინქრონიზაციის შეჩერება",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "რამდენიმე სტრიქონის დამატება როგორც:",
+  "many-items": "რამდენიმე __items__"
 }

@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "ምስምማዕ ብዓወት ተወዲኡ።",
   "list-sync-now-error": "ምስምማዕ ፈሽለ: %s",
   "list-sync-clear": "ምስምማዕ ከሬ",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "ብዙሕ መስመር ከምዚ ወስክ፦",
+  "many-items": "ብዙሕ __items__"
 }

@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "ᎢᏧᎳᎭ ᏗᏱᎬᏙᏗ ᎣᏍᏛ ᎤᎵᏰᎢᎶᏒ.",
   "list-sync-now-error": "ᎢᏧᎳᎭ ᏗᏱᎬᏙᏗ ᎥᏝ ᎤᎵᏰᎢᎶᏗ: %s",
   "list-sync-clear": "ᎢᏧᎳᎭ ᏗᏱᎬᏙᏗ ᎠᏲᏍᏗ",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "ᎤᏣᏘ ᎪᏪᎵ ᎦᏙᎯ ᎯᏟᏌ ᎯᎠ ᎢᏳᏍᏗ:",
+  "many-items": "ᎤᏣᏘ __items__"
 }

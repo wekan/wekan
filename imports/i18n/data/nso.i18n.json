@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Kopantšho e feditšwe gabotse.",
   "list-sync-now-error": "Kopantšho e paletšwe: %s",
   "list-sync-clear": "Emiša kopantšho",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Oketša methalo ye mentši bjalo ka:",
+  "many-items": "__items__ (tše dintši)"
 }

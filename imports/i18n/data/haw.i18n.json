@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Ua pau pono ka hoʻonui like ʻana.",
   "list-sync-now-error": "Ua hāʻule ka hoʻonui like: %s",
   "list-sync-clear": "E hoʻōki i ka hoʻonui like",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Hoʻohui i nā lālani he nui ma ke ʻano he:",
+  "many-items": "__items__ he nui"
 }

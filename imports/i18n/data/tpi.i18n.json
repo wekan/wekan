@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Sink i pinis gutpela.",
   "list-sync-now-error": "Sink i pundaun: %s",
   "list-sync-clear": "Pasim sink",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Putim planti lain olsem:",
+  "many-items": "Planti __items__"
 }

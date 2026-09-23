@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "rurmoH Qapla'.",
   "list-sync-now-error": "rurmoH luj: %s",
   "list-sync-clear": "rurmoH mev",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "tlheghmey law' tIchel; chovnatlh yIwIv:",
+  "many-items": "__items__ law'"
 }

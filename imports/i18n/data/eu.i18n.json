@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Sinkronizazioa ondo osatu da.",
   "list-sync-now-error": "Sinkronizazioak huts egin du: %s",
   "list-sync-clear": "Gelditu sinkronizazioa",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Gehitu hainbat lerro honela:",
+  "many-items": "Hainbat __items__"
 }

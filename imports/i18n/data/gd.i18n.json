@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Chaidh an sioncronachadh a choileanadh.",
   "list-sync-now-error": "Dh'fhàillig an sioncronachadh: %s",
   "list-sync-clear": "Sguir dhen t-sioncronachadh",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Cuir iomadh loidhne ris mar:",
+  "many-items": "__items__ (iomadh)"
 }

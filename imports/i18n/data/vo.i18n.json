@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Sinkron finon gudiko.",
   "list-sync-now-error": "Sinkron falöl: %s",
   "list-sync-clear": "Nulükön sinkron",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Läükön lienis mödik as:",
+  "many-items": "__items__ mödik"
 }

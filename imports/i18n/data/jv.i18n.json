@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Sinkronisasi rampung kanthi sukses.",
   "list-sync-now-error": "Sinkronisasi gagal: %s",
   "list-sync-clear": "Mungkasi sinkronisasi",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Tambah sawetara larik minangka:",
+  "many-items": "Sawetara __items__"
 }

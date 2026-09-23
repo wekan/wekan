@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Sincronizarea bitisi cu bun.",
   "list-sync-now-error": "Sincronizarea nu ahurhi: %s",
   "list-sync-clear": "Curmã sincronizarea",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Adavgã ma multe linii ca:",
+  "many-items": "Ma multe __items__"
 }

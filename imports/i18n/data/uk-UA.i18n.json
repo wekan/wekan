@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Синхронізацію успішно завершено.",
   "list-sync-now-error": "Помилка синхронізації: %s",
   "list-sync-clear": "Зупинити синхронізацію",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Додати кілька рядків як:",
+  "many-items": "__items__ (кілька)"
 }

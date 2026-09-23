@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Sinxronlash muvaffaqiyatli yakunlandi.",
   "list-sync-now-error": "Sinxronlash amalga oshmadi: %s",
   "list-sync-clear": "Sinxronlashni to'xtatish",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "بیر نیچه قطارنی قویداگیچه قوشینگ:",
+  "many-items": "بیر نیچه __items__"
 }

@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Usawazishaji umekamilika kwa mafanikio.",
   "list-sync-now-error": "Usawazishaji umeshindwa: %s",
   "list-sync-clear": "Simamisha usawazishaji",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Ongeza mistari mingi kama:",
+  "many-items": "__items__ (nyingi)"
 }

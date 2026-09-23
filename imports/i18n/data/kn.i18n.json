@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "ಸಿಂಕ್ ಯಶಸ್ವಿಯಾಗಿ ಪೂರ್ಣಗೊಂಡಿದೆ.",
   "list-sync-now-error": "ಸಿಂಕ್ ವಿಫಲವಾಗಿದೆ: %s",
   "list-sync-clear": "ಸಿಂಕ್ ನಿಲ್ಲಿಸಿ",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "ಹಲವು ಸಾಲುಗಳನ್ನು ಈ ರೀತಿಯಾಗಿ ಸೇರಿಸಿ:",
+  "many-items": "ಹಲವು __items__"
 }

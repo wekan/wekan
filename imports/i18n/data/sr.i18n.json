@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Синхронизација успешно завршена.",
   "list-sync-now-error": "Синхронизација није успела: %s",
   "list-sync-clear": "Заустави синхронизацију",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Додај више редова као:",
+  "many-items": "__items__ (више)"
 }

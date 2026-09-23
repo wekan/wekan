@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Ukuvumelanisa kuphumelele.",
   "list-sync-now-error": "Ukuvumelanisa kwehlulekile: %s",
   "list-sync-clear": "Misa ukuvumelanisa",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Engeza imigqa eminingi njenge:",
+  "many-items": "__items__ (eziningi)"
 }

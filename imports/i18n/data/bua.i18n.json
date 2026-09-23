@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Тэгшэлгэ hайнаар дүүрэбэ.",
   "list-sync-now-error": "Тэгшэлгэ бүтэбэгүй: %s",
   "list-sync-clear": "Тэгшэлгэ зогсооха",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Олон мүр иигэжэ нэмэхэ:",
+  "many-items": "Олон __items__"
 }

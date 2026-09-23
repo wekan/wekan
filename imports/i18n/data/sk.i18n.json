@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Synchronizácia úspešne dokončená.",
   "list-sync-now-error": "Synchronizácia zlyhala: %s",
   "list-sync-clear": "Zastaviť synchronizáciu",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Pridať viac riadkov ako:",
+  "many-items": "__items__ (viac)"
 }

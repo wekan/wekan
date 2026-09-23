@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Sync yapera zvakanaka.",
   "list-sync-now-error": "Sync yakundikana: %s",
   "list-sync-clear": "Mira kutsinhana",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Wedzera mitsetse yakawanda se:",
+  "many-items": "__items__ (zvakawanda)"
 }

@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "سنڪ ڪاميابيءَ سان مڪمل ٿي ويو.",
   "list-sync-now-error": "سنڪ ناڪام ٿيو: %s",
   "list-sync-clear": "سنڪ روڪيو",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "گهڻيون سٽون هن ريت شامل ڪريو:",
+  "many-items": "گهڻا __items__"
 }

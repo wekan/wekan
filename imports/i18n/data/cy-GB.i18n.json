@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Cydweddu wedi'i gwblhau'n llwyddiannus.",
   "list-sync-now-error": "Methodd y cydweddu: %s",
   "list-sync-clear": "Atal cydweddu",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Ychwanegu sawl llinell fel:",
+  "many-items": "__items__ (lluosog)"
 }

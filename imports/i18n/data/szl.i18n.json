@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Synchrōnizacyjŏ zakōńczōnŏ ôgibnie.",
   "list-sync-now-error": "Synchrōnizacyjŏ niy podarziła sie: %s",
   "list-sync-clear": "Zastow synchrōnizacyjŏ",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Przidać mockã linijek jako:",
+  "many-items": "__items__ (mocka)"
 }

@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Isku-dhejinta si guul leh ayaa loo dhammeeyay.",
   "list-sync-now-error": "Isku-dhejintu way fashilantay: %s",
   "list-sync-clear": "Jooji isku-dhejinta",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Ku dar sadar badan sida:",
+  "many-items": "__items__ badan"
 }

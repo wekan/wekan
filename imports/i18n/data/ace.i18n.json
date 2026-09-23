@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Sync ka trep ngon gét.",
   "list-sync-now-error": "Sync gagai: %s",
   "list-sync-clear": "Peuhenti sync",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Tamah le baris sabagai:",
+  "many-items": "Le __items__"
 }

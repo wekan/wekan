@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Ο συγχρονισμός ολοκληρώθηκε με επιτυχία.",
   "list-sync-now-error": "Ο συγχρονισμός απέτυχε: %s",
   "list-sync-clear": "Διακοπή συγχρονισμού",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Προσθήκη πολλών γραμμών ως:",
+  "many-items": "__items__ (πολλά)"
 }

@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Ҳамоҳангсозӣ бомуваффақият анҷом ёфт.",
   "list-sync-now-error": "Ҳамоҳангсозӣ ноком шуд: %s",
   "list-sync-clear": "Ҳамоҳангсозиро қатъ кунед",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Якчанд сатрро чунин илова кунед:",
+  "many-items": "Якчанд __items__"
 }

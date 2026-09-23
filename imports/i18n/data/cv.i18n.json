@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Синхронлав ӑнӑҫлӑ пӗтрӗ.",
   "list-sync-now-error": "Синхронлав пулмарӗ: %s",
   "list-sync-clear": "Синхронлава чарас",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Нумай йӗрне ҫапла хушас:",
+  "many-items": "Нумай __items__"
 }

@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Sinhronirund om hüvin loptud.",
   "list-sync-now-error": "Sinhronirundan viga: %s",
   "list-sync-clear": "Seižuta sinhronirund",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Ližata äi rivid kut:",
+  "many-items": "__items__ (äi)"
 }

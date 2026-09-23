@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Sync bi jeexal na bu baax.",
   "list-sync-now-error": "Sync bi dafa yàkkamti: %s",
   "list-sync-clear": "Taxaw sync",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Yokk ay rëdd yu bari ni:",
+  "many-items": "__items__ yu bari"
 }

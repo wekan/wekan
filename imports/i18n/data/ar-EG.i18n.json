@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "اكتملت المزامنة بنجاح.",
   "list-sync-now-error": "فشلت المزامنة: %s",
   "list-sync-clear": "إيقاف المزامنة",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "أضف عدة أسطر على شكل:",
+  "many-items": "__items__ متعددة"
 }

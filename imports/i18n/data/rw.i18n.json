@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Guhuza byarangiye neza.",
   "list-sync-now-error": "Guhuza byananiranye: %s",
   "list-sync-clear": "Hagarika guhuza",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Ongeraho imirongo myinshi nka:",
+  "many-items": "__items__ (byinshi)"
 }

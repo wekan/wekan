@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "མཐུན་སྒྲིག་ལེགས་འགྲུབ་ཟིན།",
   "list-sync-now-error": "མཐུན་སྒྲིག་མ་འགྲུབ: %s",
   "list-sync-clear": "མཐུན་སྒྲིག་མཚམས་འཇོག",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "ཐིག་མང་པོ་འདི་ལྟར་སྣོན།",
+  "many-items": "__items__ མང་པོ།"
 }

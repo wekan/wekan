@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "සමමුහුර්තකරණය සාර්ථකව සම්පූර්ණ විය.",
   "list-sync-now-error": "සමමුහුර්තකරණය අසාර්ථක විය: %s",
   "list-sync-clear": "සමමුහුර්තකරණය නවත්වන්න",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "පේළි කිහිපයක් මෙලෙස එක් කරන්න:",
+  "many-items": "__items__ කිහිපයක්"
 }

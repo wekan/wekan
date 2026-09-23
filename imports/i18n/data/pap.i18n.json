@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Sinkronisashon a kompletá kon éksito.",
   "list-sync-now-error": "Sinkronisashon a fracasá: %s",
   "list-sync-clear": "Stòp sinkronisashon",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Agregá varios liña komo:",
+  "many-items": "Varios __items__"
 }

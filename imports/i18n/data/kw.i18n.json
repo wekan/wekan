@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Sync yw gorfennys yn ta.",
   "list-sync-now-error": "Sync a fyllys: %s",
   "list-sync-clear": "Hedhi sync",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Keworra lies linenn avel:",
+  "many-items": "Lies __items__"
 }

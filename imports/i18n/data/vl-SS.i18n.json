@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Sync yo fheliswa zwavhuḓi.",
   "list-sync-now-error": "Sync a yo shumi: %s",
   "list-sync-clear": "Imisa sync",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Meerdere regels toevoegen als:",
+  "many-items": "Meerdere __items__"
 }

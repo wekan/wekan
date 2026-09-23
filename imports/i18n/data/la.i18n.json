@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Synchronizatio prospere finita est.",
   "list-sync-now-error": "Synchronizatio defecit: %s",
   "list-sync-clear": "Siste synchronizationem",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Plures lineas adde ut:",
+  "many-items": "__items__ (plura)"
 }

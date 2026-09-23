@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "सिंक्रोनाइज सफलतापूर्वक सम्पन्न भयो।",
   "list-sync-now-error": "सिंक्रोनाइज असफल भयो: %s",
   "list-sync-clear": "सिंक्रोनाइज रोक्नुहोस्",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "धेरै पङ्क्तिहरू यसरी थप्नुहोस्:",
+  "many-items": "धेरै __items__"
 }

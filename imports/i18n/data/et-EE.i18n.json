@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Sünkroonimine õnnestus.",
   "list-sync-now-error": "Sünkroonimine ebaõnnestus: %s",
   "list-sync-clear": "Peata sünkroonimine",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Lisa mitu rida järgmiselt:",
+  "many-items": "__items__ (mitu)"
 }

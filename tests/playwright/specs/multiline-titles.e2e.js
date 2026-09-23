@@ -3,6 +3,30 @@ const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const BoardPage = require('../pages/BoardPage');
 
+for (const language of ['fi', 'fr', 'ja', 'he']) {
+  test(`creation choices render translated labels in ${language}`, async ({ boardPage: page, board }) => {
+    const strings = require(`../../../imports/i18n/data/${language}.i18n.json`);
+    await page.evaluate(language => new Promise((resolve, reject) => {
+      Meteor.call('setLanguage', language, error => error ? reject(error) : resolve());
+    }), language);
+    const bp = new BoardPage(page);
+    await bp.openAddCardTop(board.listIds[0]);
+    const form = bp.list(board.listIds[0]).locator('form').filter({ has: page.locator('textarea.js-card-title') });
+    await expect(form.locator('legend')).toHaveText(strings['add-many-lines-as']);
+    await expect(form.locator('.multiline-title-choice label')).toHaveText([
+      `1 ${strings.card}`, strings['many-items'].replace('__items__', strings.cards),
+    ]);
+    await expect(form.locator('.multiline-title-choice')).not.toContainText('__items__');
+    await expect(form.locator('.multiline-title-choice')).not.toContainText('Many Cards');
+    await expect(page.locator('html')).toHaveAttribute('dir', language === 'he' ? 'rtl' : 'ltr');
+    await form.locator('textarea.js-card-title').fill('Localized A\nLocalized B');
+    await form.locator('.js-multiline-title-mode[value=separate]').check();
+    await form.locator('button[type=submit]').click();
+    await expect.poll(() => db.find('cards', { boardId: board.boardId })
+      .filter(c => /^Localized [AB]$/.test(c.title)).length).toBe(2);
+  });
+}
+
 test('#6714 cards offer one multiline title or separate cards in paste order', async ({ boardPage: page, board }) => {
   const bp = new BoardPage(page);
   const list = board.listIds[0];

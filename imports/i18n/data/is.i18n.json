@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Samstilling tókst.",
   "list-sync-now-error": "Samstilling mistókst: %s",
   "list-sync-clear": "Stöðva samstillingu",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Bæta við mörgum línum sem:",
+  "many-items": "__items__ (mörg)"
 }

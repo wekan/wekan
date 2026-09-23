@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "La sincronisaziun è success cun success.",
   "list-sync-now-error": "La sincronisaziun n'è betg reussida: %s",
   "list-sync-clear": "Chalar la sincronisaziun",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Agiuntar pliras lingias sco:",
+  "many-items": "__items__ (plirs)"
 }

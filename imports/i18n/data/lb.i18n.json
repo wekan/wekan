@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Synchroniséierung erfollegräich ofgeschloss.",
   "list-sync-now-error": "Synchroniséierung feelgeschloen: %s",
   "list-sync-clear": "Synchroniséierung stoppen",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Méi Zeilen derbäisetzen als:",
+  "many-items": "Méi __items__"
 }

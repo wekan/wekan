@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Sa vakaotia vinaka na vakaisoqosoqo.",
   "list-sync-now-error": "Sa sega na vakaisoqosoqo: %s",
   "list-sync-clear": "Tarova na vakaisoqosoqo",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Kuria e vica na laini me:",
+  "many-items": "E levu na __items__"
 }

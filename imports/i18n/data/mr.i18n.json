@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "सिंक यशस्वीरित्या पूर्ण झाले.",
   "list-sync-now-error": "सिंक अयशस्वी झाले: %s",
   "list-sync-clear": "सिंक थांबवा",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "अनेक ओळी या स्वरूपात जोडा:",
+  "many-items": "अनेक __items__"
 }

@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "An kammala daidaitawa cikin nasara.",
   "list-sync-now-error": "Daidaitawa ta kasa: %s",
   "list-sync-clear": "Dakatar da daidaitawa",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Ƙara layuka da yawa a matsayin:",
+  "many-items": "__items__ da yawa"
 }

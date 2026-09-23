@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Sincronizazion completade cun sucès.",
   "list-sync-now-error": "Sincronizazion falide: %s",
   "list-sync-clear": "Ferme la sincronizazion",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Zonte plui riis come:",
+  "many-items": "__items__ (plui)"
 }

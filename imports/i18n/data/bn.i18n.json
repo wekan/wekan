@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "সিঙ্ক সফলভাবে সম্পন্ন হয়েছে।",
   "list-sync-now-error": "সিঙ্ক ব্যর্থ হয়েছে: %s",
   "list-sync-clear": "সিঙ্ক বন্ধ করুন",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "একাধিক লাইন যোগ করুন এইভাবে:",
+  "many-items": "একাধিক __items__"
 }

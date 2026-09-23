@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "同期が正常に完了しました。",
   "list-sync-now-error": "同期に失敗しました: %s",
   "list-sync-clear": "同期を停止",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "複数行を次の形式で追加：",
+  "many-items": "複数の__items__"
 }

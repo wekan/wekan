@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Fottitingol timmii no moƴƴiri.",
   "list-sync-now-error": "Fottitingol yeddaama: %s",
   "list-sync-clear": "Haaytu fottitingol",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Ɓeydu gorɗi keewɗi no:",
+  "many-items": "__items__ (keewɗi)"
 }

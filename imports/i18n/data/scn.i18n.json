@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Sincronizzazzioni cumpletata cu succersu.",
   "list-sync-now-error": "Sincronizzazzioni falluta: %s",
   "list-sync-clear": "Ferma sincronizzazzioni",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Aggiunci cchiù righi comu:",
+  "many-items": "Cchiù __items__"
 }

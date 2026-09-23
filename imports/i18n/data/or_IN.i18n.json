@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "ସିଙ୍କ ସଫଳତାର ସହ ସମ୍ପୂର୍ଣ୍ଣ ହେଲା।",
   "list-sync-now-error": "ସିଙ୍କ ବିଫଳ ହେଲା: %s",
   "list-sync-clear": "ସିଙ୍କ ବନ୍ଦ କରନ୍ତୁ",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "ଏକାଧିକ ଧାଡ଼ି ଏହିପରି ଯୋଡ଼ନ୍ତୁ:",
+  "many-items": "ଏକାଧିକ __items__"
 }

@@ -87,11 +87,40 @@ test('board batches serialize creation, share settings and reject overlapping or
   assert.equal(calls.length, 2);
 });
 
-test('creation labels keep the item placeholder in every locale', () => {
+function validateCreationLabels(strings, english, isEnglish, name) {
+  for (const key of ['add-many-lines-as', 'many-items']) {
+    assert.equal(typeof strings[key], 'string', `${name}: ${key}`);
+    assert.ok(strings[key].trim(), `${name}: ${key}`);
+    assert.deepEqual(strings[key].match(/__[^\s]+?__|%(?:\d+\$)?[A-Za-z]/g) || [],
+      english[key].match(/__[^\s]+?__|%(?:\d+\$)?[A-Za-z]/g) || [], `${name}: ${key} tokens`);
+    if (isEnglish) assert.equal(strings[key], english[key], name);
+    else assert.notEqual(strings[key], english[key], `${name}: ${key} untranslated`);
+  }
+}
+
+test('creation labels are translated with exact tokens and key order in every locale', async () => {
   const directory = path.join(root, 'imports/i18n/data');
+  const english = JSON.parse(fs.readFileSync(path.join(directory, 'en.i18n.json'), 'utf8'));
+  const i18n = require('i18next').createInstance();
+  await i18n.init({ lng: 'test', fallbackLng: false,
+    interpolation: { prefix: '__', suffix: '__', escapeValue: false } });
   for (const name of fs.readdirSync(directory).filter(n => n.endsWith('.i18n.json'))) {
     const strings = JSON.parse(fs.readFileSync(path.join(directory, name), 'utf8'));
-    assert.ok(strings['add-many-lines-as'].trim(), name);
-    assert.deepEqual(strings['many-items'].match(/__\w+__/g), ['__items__'], name);
+    validateCreationLabels(strings, english, /^en(?:[-_.])/.test(name), name);
+    assert.deepEqual(Object.keys(strings), Object.keys(english), name);
+    i18n.addResourceBundle('test', 'translation', strings, true, true);
+    for (const noun of ['boards', 'cards', 'lists', 'swimlanes']) {
+      assert.equal(i18n.t('many-items', { items: i18n.t(noun) }),
+        strings['many-items'].replace('__items__', strings[noun]), `${name}: ${noun}`);
+    }
   }
+});
+
+test('creation translation validation rejects fallbacks and damaged interpolation', () => {
+  const english = { 'add-many-lines-as': 'Add many lines as:', 'many-items': 'Many __items__' };
+  const translated = { 'add-many-lines-as': 'Lisää useita rivejä muodossa:', 'many-items': '__items__ (useita)' };
+  for (const bad of ['', 'Many __items__', 'Useita', '__kohteet__', '__items__ __items__', '__items__ %s']) {
+    assert.throws(() => validateCreationLabels({ ...translated, 'many-items': bad }, english, false, 'fi'));
+  }
+  assert.throws(() => validateCreationLabels({ ...translated, 'add-many-lines-as': english['add-many-lines-as'] }, english, false, 'fi'));
 });

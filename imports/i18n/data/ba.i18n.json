@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Синхронлау уңышлы тамамланды.",
   "list-sync-now-error": "Синхронлау уңышһыҙ: %s",
   "list-sync-clear": "Синхронлауҙы туҡтатырға",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Бер нисә юлды ошолай өҫтәргә:",
+  "many-items": "Бер нисә __items__"
 }

@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "I angitu te tukutahinga.",
   "list-sync-now-error": "I rahua te tukutahinga: %s",
   "list-sync-clear": "Whakamutua te tukutahinga",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Tāpirihia ngā rārangi maha hei:",
+  "many-items": "__items__ maha"
 }

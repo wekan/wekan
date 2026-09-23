@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Syngronisaasje slagge.",
   "list-sync-now-error": "Syngronisaasje mislearre: %s",
   "list-sync-clear": "Stopje mei syngronisearjen",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Foegje meardere rigels ta as:",
+  "many-items": "Meardere __items__"
 }

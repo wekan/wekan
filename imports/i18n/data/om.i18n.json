@@ -2697,6 +2697,6 @@
   "list-sync-now-success": "Wal-simsiisni milkaa'inaan xumurameera.",
   "list-sync-now-error": "Wal-simsiisni hin milkoofne: %s",
   "list-sync-clear": "Wal-simsiisa dhaabi",
-  "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "add-many-lines-as": "Sararoota hedduu akka kanaatti dabali:",
+  "many-items": "__items__ hedduu"
 }
