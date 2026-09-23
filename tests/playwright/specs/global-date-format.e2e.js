@@ -78,10 +78,11 @@ test('Date settings cascade from global to board to member through their own con
     await page.evaluate(() => Popup.close());
     await bp.openSidebar();
     await page.locator('.js-open-board-menu').click();
-    await page.locator('.js-pop-over .js-open-board-date-settings').click();
-    await expect(page.locator('.js-pop-over .js-global-date-format-status')).toContainText(/Enabled\s*:\s*DD-MM-YYYY/);
-    await expect(page.locator('.js-pop-over .js-board-date-format-status')).toHaveCount(0);
-    let editor = page.locator('.js-pop-over .js-date-format-form');
+    await page.locator('.js-pop-over .content:not(.no-height) .js-open-board-date-settings').click();
+    await expect(page.locator('.js-pop-over .content:not(.no-height) .js-global-date-format-status')).toContainText(/Enabled\s*:\s*DD-MM-YYYY/);
+    await expect(page.locator('.js-pop-over .content:not(.no-height) .js-board-date-format-status')).toHaveCount(0);
+    let editor = page.locator('.js-pop-over .content:not(.no-height) .js-date-format-form');
+    await expect(editor.locator('#start-day-of-week, #calendar-system')).toHaveCount(0);
     await editor.locator('.js-date-format-select').selectOption('YYYY-MM-DD-date-only');
     await editor.locator('.js-date-format-override').check();
     await editor.locator('button[type="submit"]').click();
@@ -93,16 +94,15 @@ test('Date settings cascade from global to board to member through their own con
     // Member Settings / Date overrides both defaults only while checked.
     await page.evaluate(() => Popup.close());
     await page.locator('.js-open-header-member-menu').first().click();
-    await page.locator('.js-pop-over .js-change-settings').click();
-    await page.locator('.js-pop-over .js-member-date-settings').click();
-    await expect(page.locator('.js-pop-over .js-global-date-format-status')).toContainText(/Enabled\s*:\s*DD-MM-YYYY/);
-    await expect(page.locator('.js-pop-over .js-board-date-format-status')).toContainText(/Enabled\s*:\s*YYYY-MM-DD/);
-    editor = page.locator('.js-pop-over .js-date-format-form');
+    await page.locator('.js-pop-over .content:not(.no-height) .js-member-date-settings').click();
+    await expect(page.locator('.js-pop-over .content:not(.no-height) .js-global-date-format-status')).toContainText(/Enabled\s*:\s*DD-MM-YYYY/);
+    await expect(page.locator('.js-pop-over .content:not(.no-height) .js-board-date-format-status')).toContainText(/Enabled\s*:\s*YYYY-MM-DD/);
+    editor = page.locator('.js-pop-over .content:not(.no-height) .js-date-format-form');
     await editor.locator('.js-date-format-select').selectOption('MM-DD-YYYY');
     await editor.locator('.js-date-format-override').check();
     await editor.locator('button[type="submit"]').click();
     await expect(miniDate).toContainText('03-21-2026');
-    await page.locator('.js-pop-over .js-member-date-settings').click();
+    await page.locator('.js-pop-over .content:not(.no-height) .js-member-date-settings').click();
     await expect(editor.locator('.js-date-format-override')).toBeChecked();
     await editor.locator('.js-date-format-override').uncheck();
     await editor.locator('button[type="submit"]').click();
@@ -130,10 +130,9 @@ test('Date settings cascade from global to board to member through their own con
     await expect(miniDate).toContainText('2026-03-21');
     await expect(heading).toHaveText('Date');
     await page.locator('.js-open-header-member-menu').first().click();
-    await page.locator('.js-pop-over .js-change-settings').click();
-    await page.locator('.js-pop-over .js-member-date-settings').click();
-    await expect(page.locator('.js-pop-over .js-global-date-format-status')).toContainText(/Disabled\s*:\s*DD-MM-YYYY/);
-    await expect(page.locator('.js-pop-over .js-board-date-format-status')).toContainText(/Disabled\s*:\s*YYYY-MM-DD/);
+    await page.locator('.js-pop-over .content:not(.no-height) .js-member-date-settings').click();
+    await expect(page.locator('.js-pop-over .content:not(.no-height) .js-global-date-format-status')).toContainText(/Disabled\s*:\s*DD-MM-YYYY/);
+    await expect(page.locator('.js-pop-over .content:not(.no-height) .js-board-date-format-status')).toContainText(/Disabled\s*:\s*YYYY-MM-DD/);
     expect(db.getCard(card._id).dueAt).toBe(dueAt.toISOString());
   } finally {
     const $set = {}, $unset = {};

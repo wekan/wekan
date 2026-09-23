@@ -13,7 +13,10 @@ normal year-month-day default and existing locale-specific displays.
 The board popup shows whether the global format is enabled and its saved value.
 The member popup shows the global and current board statuses and saved values,
 including disabled settings. Outside a board, the board override is disabled.
-These summaries and controls use existing translations.
+Below Date Format, the member popup also contains Set day of the week start and
+Calendar system (date display). Save applies all three selections. These controls
+are no longer under Change Settings. The summaries and controls use existing
+translations.
 
 Each scope supports year-month-day, day-month-year and month-day-year, with or
 without time. The preference affects displayed dates, date exports and ambiguous

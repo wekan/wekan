@@ -155,18 +155,30 @@ test('Member Settings offers supported calendars and displays only the saved sel
   const badge = bp.minicard(board.listIds[0], 'Alpha Card').locator('.due-date time').first();
   await expect(badge).toContainText('2026-03-21');
   await page.locator('.js-open-header-member-menu').first().click();
-  await page.locator('.js-pop-over .js-change-settings').click();
-  const selector = page.locator('.js-pop-over #calendar-system');
+  await page.locator('.js-pop-over .content:not(.no-height) .js-member-date-settings').click();
+  const selector = page.locator('.js-pop-over .content:not(.no-height) #calendar-system');
   await expect(selector).toHaveValue('gregorian');
   for (const name of ['jalali', 'hebrew', 'japanese', 'buddhist']) {
     await expect(selector.locator(`option[value="${name}"]`)).toHaveCount(1);
   }
+  await page.locator('.js-pop-over .content:not(.no-height) #start-day-of-week').selectOption('1');
   await selector.selectOption('buddhist');
-  await page.locator('.js-pop-over .js-apply-user-settings').click();
+  await page.locator('.js-pop-over .content:not(.no-height) .js-date-format-form button[type="submit"]').click();
   await expect.poll(() => db.findOne('users', { _id: user.id }).profile.calendarSystem).toBe('buddhist');
   await expect(badge).toContainText('2569');
   await expect(badge).not.toContainText('2026-03-21');
   await expect(badge).not.toContainText('1405');
+  await expect.poll(() => db.findOne('users', { _id: user.id }).profile.startDayOfWeek).toBe(1);
+  await page.locator('.js-pop-over .content:not(.no-height) .js-member-date-settings').click();
+  await expect(page.locator('.js-pop-over .content:not(.no-height) #start-day-of-week')).toHaveValue('1');
+  await expect(selector).toHaveValue('buddhist');
+  await page.evaluate(() => Popup.back());
+  await page.locator('.js-pop-over .content:not(.no-height) .js-change-settings').click();
+  await expect(page.locator('.js-pop-over .content:not(.no-height) #start-day-of-week, .js-pop-over .content:not(.no-height) #calendar-system, .js-pop-over .content:not(.no-height) .js-member-date-settings')).toHaveCount(0);
+  await page.locator('.js-pop-over .content:not(.no-height) .js-apply-user-settings').click();
+  expect(db.findOne('users', { _id: user.id }).profile.startDayOfWeek).toBe(1);
+  expect(db.findOne('users', { _id: user.id }).profile.calendarSystem).toBe('buddhist');
+
 });
 
 for (const [viewPreference, calendarId] of [
@@ -283,8 +295,8 @@ test('Arabic Member Settings shows translated calendar options after the transla
   await loginWithToken(page, user.id, user.token);
   await openBoard(page, board.boardId, board.slug);
   await page.locator('.js-open-header-member-menu').first().click();
-  await page.locator('.js-pop-over .js-change-settings').click();
-  const selector = page.locator('.js-pop-over #calendar-system');
+  await page.locator('.js-pop-over .content:not(.no-height) .js-member-date-settings').click();
+  const selector = page.locator('.js-pop-over .content:not(.no-height) #calendar-system');
   await expect(selector).toBeVisible();
   await expect(selector.locator('option[value="buddhist"]')).not.toHaveText('Buddhist');
   await expect(selector.locator('option[value="chinese"]')).not.toHaveText('Chinese');
@@ -296,8 +308,8 @@ test('Latvian Member Settings shows repaired calendar terminology', async ({ pag
   await loginWithToken(page, user.id, user.token);
   await openBoard(page, board.boardId, board.slug);
   await page.locator('.js-open-header-member-menu').first().click();
-  await page.locator('.js-pop-over .js-change-settings').click();
-  const selector = page.locator('.js-pop-over #calendar-system');
+  await page.locator('.js-pop-over .content:not(.no-height) .js-member-date-settings').click();
+  const selector = page.locator('.js-pop-over .content:not(.no-height) #calendar-system');
   await expect(selector).toBeVisible();
   await expectCalendarOption(page, selector, 'islamic-rgsa', 'Hidžras kalendārs (Saūda Arābija, pēc novērojumiem)');
   await expectCalendarOption(page, selector, 'islamic-tbla', 'Hidžras kalendārs (tabulārs, astronomiskā epoha)');
@@ -309,8 +321,8 @@ for (const language of ['ro', 'ro-RO']) {
     await loginWithToken(page, user.id, user.token);
     await openBoard(page, board.boardId, board.slug);
     await page.locator('.js-open-header-member-menu').first().click();
-    await page.locator('.js-pop-over .js-change-settings').click();
-    const selector = page.locator('.js-pop-over #calendar-system');
+    await page.locator('.js-pop-over .content:not(.no-height) .js-member-date-settings').click();
+    const selector = page.locator('.js-pop-over .content:not(.no-height) #calendar-system');
     await expect(selector).toBeVisible();
     await expectCalendarOption(page, selector, 'islamic-rgsa', 'Calendar Hijri (Arabia Saudită, observarea lunii)');
     await expectCalendarOption(page, selector, 'islamic-tbla', 'Calendar Hijri (tabular, epocă astronomică)');
@@ -329,8 +341,8 @@ for (const [language, sighting, tabular] of [
     await loginWithToken(page, user.id, user.token);
     await openBoard(page, board.boardId, board.slug);
     await page.locator('.js-open-header-member-menu').first().click();
-    await page.locator('.js-pop-over .js-change-settings').click();
-    const selector = page.locator('.js-pop-over #calendar-system');
+    await page.locator('.js-pop-over .content:not(.no-height) .js-member-date-settings').click();
+    const selector = page.locator('.js-pop-over .content:not(.no-height) #calendar-system');
     await expect(selector).toBeVisible();
     await expectCalendarOption(page, selector, 'islamic-rgsa', sighting);
     await expectCalendarOption(page, selector, 'islamic-tbla', tabular);
@@ -344,8 +356,8 @@ test('Greenlandic Member Settings shows the repaired Indian national calendar la
   await loginWithToken(page, user.id, user.token);
   await openBoard(page, board.boardId, board.slug);
   await page.locator('.js-open-header-member-menu').first().click();
-  await page.locator('.js-pop-over .js-change-settings').click();
-  const selector = page.locator('.js-pop-over #calendar-system');
+  await page.locator('.js-pop-over .content:not(.no-height) .js-member-date-settings').click();
+  const selector = page.locator('.js-pop-over .content:not(.no-height) #calendar-system');
   await expect(selector).toBeVisible();
   await expectCalendarOption(page, selector, 'indian', 'Indiap nuna tamakkerlugu ullorsiutaa');
   await expect(selector).not.toContainText('Indian national');

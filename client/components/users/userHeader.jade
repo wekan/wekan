@@ -84,6 +84,10 @@ template(name="memberMenuPopup")
             i.fa.fa-user
             | {{_ 'edit-profile'}}
       li
+        a.js-member-date-settings
+          i.fa.fa-calendar
+          | {{_ 'date'}}
+      li
         a.js-change-settings
           i.fa.fa-cog
           | {{_ 'change-settings'}}
@@ -300,10 +304,6 @@ template(name="changeFontPopup")
 template(name="changeSettingsPopup")
   ul.pop-over-list
     li
-      a.js-member-date-settings
-        i.fa.fa-calendar
-        | {{_ 'date'}}
-    li
       a.js-toggle-desktop-drag-handles
         i.fa.fa-arrows
         | {{_ 'show-desktop-drag-handles'}}
@@ -338,26 +338,6 @@ template(name="changeSettingsPopup")
           i.fa.fa-sort-numeric-asc
           | {{_ 'show-cards-minimum-count'}}
         input#show-cards-count-at.inline-input.left(type="number" value="#{showCardsCountAt}" min="-1")
-        label.bold.clear
-          i.fa.fa-calendar
-          | {{_ 'start-day-of-week'}}
-        select#start-day-of-week.inline-input.left
-          each day in weekDays startDayOfWeek
-            if day.isSelected
-              option(selected="true", value="#{day.value}") #{day.name}
-            else
-              option(value="#{day.value}") #{day.name}
-        label.bold.clear
-          i.fa.fa-calendar-check-o
-          | {{_ 'calendar-system'}}
-        //- #4335: display-only toggle. Dates stay stored as Gregorian; this
-        //- only changes how dates are RENDERED.
-        select#calendar-system.inline-input.left
-          each system in calendarSystems
-            if system.isSelected
-              option(selected="true", value="#{system.value}") #{system.name}
-            else
-              option(value="#{system.value}") #{system.name}
         label.bold.clear
           | {{_ 'card-settings'}}
         //- #6465: the checkbox and its label are ONE row, built the way every

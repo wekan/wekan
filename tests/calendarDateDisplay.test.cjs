@@ -154,7 +154,7 @@ const read = file => fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
   assert.match(read('models/users.js'), /allowedValues: CALENDAR_SYSTEM_IDS/);
   assert.match(read('server/models/users.js'), /CALENDAR_SYSTEM_IDS.includes\(calendarSystem\)/);
   assert.match(read('server/models/users.js'), /return await user.setCalendarSystem\(calendarSystem\)/);
-  assert.match(read('client/components/users/userHeader.js'), /availableCalendarSystems\(\)/);
+  assert.match(read('client/components/forms/dateFormatSettings.js'), /availableCalendarSystems\(\)/);
 
   const english = JSON.parse(read('imports/i18n/data/en.i18n.json'));
   for (const system of calendars.CALENDAR_SYSTEMS) assert.ok(english[system.labelKey]);

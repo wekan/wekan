@@ -76,3 +76,15 @@ test('date popup labels reuse translations available in every locale', () => {
   }
   assert.match(read('client/components/boards/charts/exportChart.js'), /dateFormat: cardDateFormat\(\)/);
 });
+
+test('member Date is a direct menu entry and owns the calendar controls', () => {
+  const header = read('client/components/users/userHeader.jade');
+  assert.ok(header.slice(0, header.indexOf('template(name="changeSettingsPopup")')).includes('a.js-member-date-settings'));
+  const oldPopup = header.split('template(name="changeSettingsPopup")')[1].split('template(name="userDeletePopup")')[0];
+  assert.doesNotMatch(oldPopup, /js-member-date-settings|start-day-of-week|calendar-system/);
+  const editor = read('client/components/forms/dateFormatSettings.jade');
+  assert.ok(editor.indexOf('select.js-date-format-select') < editor.indexOf('select#start-day-of-week'));
+  assert.ok(editor.indexOf('select#start-day-of-week') < editor.indexOf('select#calendar-system'));
+  const save = read('client/components/users/userHeader.js').split("'click .js-apply-user-settings'")[1].split('// #5778')[0];
+  assert.doesNotMatch(save, /changeStartDayOfWeek|changeCalendarSystem/);
+});

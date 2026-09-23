@@ -1,7 +1,6 @@
 import '/client/components/forms/dateFormatSettings';
 import { accountOperationErrorKey } from '/client/lib/accountOperationError';
 import { languageFlags, languageLabelParts } from '/imports/i18n/languageFlags';
-const { availableCalendarSystems } = require('/imports/lib/calendarSystems');
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
@@ -91,6 +90,7 @@ Template.memberMenuPopup.events({
   },
   'click .js-invite-people': Popup.open('invitePeople'),
   'click .js-edit-profile': Popup.open('editProfile'),
+  'click .js-member-date-settings': Popup.open('memberDateSettings', { titleKey: 'date' }),
   'click .js-change-settings': Popup.open('changeSettings'),
   'click .js-change-color': Popup.open('changeColor'),
   'click .js-open-notification-settings': Popup.open('notificationSettings', {
@@ -480,43 +480,10 @@ Template.changeSettingsPopup.helpers({
       return window.localStorage.getItem('limitToShowCardsCount');
     }
   },
-  weekDays(startDay) {
-    return [
-      TAPi18n.__('sunday'),
-      TAPi18n.__('monday'),
-      TAPi18n.__('tuesday'),
-      TAPi18n.__('wednesday'),
-      TAPi18n.__('thursday'),
-      TAPi18n.__('friday'),
-      TAPi18n.__('saturday'),
-    ].map(function(day, index) {
-      return { name: day, value: index, isSelected: index === startDay };
-    });
-  },
-  startDayOfWeek() {
-    const currentUser = ReactiveCache.getCurrentUser();
-    if (currentUser) {
-      return currentUser.getStartDayOfWeek();
-    } else {
-      return window.localStorage.getItem('startDayOfWeek');
-    }
-  },
-  // Supported calendar choices are independent of the interface language.
-  calendarSystems() {
-    const currentUser = ReactiveCache.getCurrentUser();
-    const current = currentUser
-      ? currentUser.getCalendarSystem()
-      : window.localStorage.getItem('calendarSystem') || 'gregorian';
-    return availableCalendarSystems().map(system => ({
-      ...system,
-      name: TAPi18n.__(system.labelKey),
-      isSelected: system.value === current,
-    }));
-  },
+
 });
 
 Template.changeSettingsPopup.events({
-  'click .js-member-date-settings': Popup.open('memberDateSettings', { titleKey: 'date' }),
   'keypress/paste #show-cards-count-at'() {
     let keyCode = event.keyCode;
     let charCode = String.fromCharCode(keyCode);
@@ -567,10 +534,6 @@ Template.changeSettingsPopup.events({
       templateInstance.$('#show-cards-count-at').val(),
       10,
     );
-    const startDay = parseInt(
-      templateInstance.$('#start-day-of-week').val(),
-      10,
-    );
     const currentUser = ReactiveCache.getCurrentUser();
     if (isNaN(minLimit) || minLimit < -1) {
       minLimit = -1;
@@ -580,21 +543,6 @@ Template.changeSettingsPopup.events({
         Meteor.call('changeLimitToShowCardsCount', minLimit);
       } else {
         window.localStorage.setItem('limitToShowCardsCount', minLimit);
-      }
-    }
-    if (!isNaN(startDay)) {
-      if (currentUser) {
-        Meteor.call('changeStartDayOfWeek', startDay);
-      } else {
-        window.localStorage.setItem('startDayOfWeek', startDay);
-      }
-    }
-    const calendarSystem = templateInstance.$('#calendar-system').val();
-    if (calendarSystem) {
-      if (currentUser) {
-        Meteor.call('changeCalendarSystem', calendarSystem);
-      } else {
-        window.localStorage.setItem('calendarSystem', calendarSystem);
       }
     }
     Popup.back();

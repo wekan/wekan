@@ -1104,7 +1104,9 @@ Meteor.methods({
 
   async changeStartDayOfWeek(startDay) {
     check(startDay, Number);
-    (await ReactiveCache.getCurrentUser()).setStartDayOfWeek(startDay);
+    const user = await ReactiveCache.getCurrentUser();
+    if (!user) throw new Meteor.Error('not-authorized');
+    return await user.setStartDayOfWeek(startDay);
   },
 
   async changeDateFormat(dateFormat, override = true) {
