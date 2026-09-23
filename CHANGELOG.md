@@ -804,6 +804,17 @@ release wiring regressions pass. The hosted build matrix was not rerun.
 
 </details>
 
+and updates developer tooling:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b22d17331">Update the Meteor skills lockfile</a>. Thanks to Meteor developers and xet7.</summary>
+
+Update Meteor skill references from v1.1.0-beta.0 to v1.1.0-beta.1 and refresh
+content hashes in skills-lock.json. Add locked entries for Meteor React
+and TypeScript.
+
+</details>
+
 and updates the feature and backup documentation:
 
 <details>
