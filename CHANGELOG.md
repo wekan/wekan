@@ -653,6 +653,32 @@ the Markdown commit as the template.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** Meteor server bundles install with npm 12 without rejecting
+obsolete rebuild arguments.
+
+This release fixes the following build issue:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d17dadcf7">Fix Meteor bundle rebuilds with npm 12</a>. Thanks to xet7.</summary>
+
+Remove Meteor's default `--update-binary` argument before the server install:
+npm 12 rejects that node-pre-gyp option as an unknown npm flag. Keep rebuilds,
+custom rebuild flags and lifecycle execution. Give bundle rebuild projects an
+explicit install-script policy for argon2, bcrypt and useragent-ng; keep other
+dependency scripts blocked. The shared preparation helper already runs before
+release, local and Docker server installs.
+
+Reproduce the failure with npm 12.0.2 and the generated Meteor rebuild scripts,
+then verify an offline install and an allowed lifecycle script succeed after
+preparation. Policy, invalid-path, idempotence, custom-flag, read-only-file and
+release wiring regressions pass. The hosted build matrix was not rerun.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v11.91 2026-09-23 WeKan ® release
 
 **In short:** WeKan's platform builds now target **Node.js 26.9.0** and
