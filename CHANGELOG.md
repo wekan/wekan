@@ -827,8 +827,9 @@ logging and instrumentation tests. Companion mongosh, Database Tools and FerretD
 builds enforce corresponding source/runtime/native checks; an unpatched stripped
 Database Tools binary was rejected as a negative control. The current Meteor
 bundle, patched tool binaries and a native FerretDB build passed their checks.
-Hosted releases, a new complete Meteor build and the full native platform matrix
-were not run. See the <a href="docs/DeveloperDocs/Release-Telemetry-Checks.md">audit
+A subsequent fresh macOS ARM64 Meteor build and production startup with bundled
+FerretDB SQLite passed, as did database-connected mongosh and Database Tools
+checks. Hosted releases and the full native platform matrix were not run. See the <a href="docs/DeveloperDocs/Release-Telemetry-Checks.md">audit
 scope, limitations and update procedure</a>.
 
 </details>
