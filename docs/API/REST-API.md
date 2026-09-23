@@ -382,7 +382,7 @@ Returns the order in effect, in the same shape as `GET`.
 
 Which entries of the **Board View** menu a board offers and which one it
 opens in, separately for when the board is public and when it is private, and
-the order the menu lists them in - the [Board View settings](../Features/Board/Board-View-Settings.md)
+the order the menu lists them in - the [Board View settings](../Features/Right-Sidebar/Board-Settings/Board-View.md)
 popup over the API. Both endpoints answer the state in effect, the way the
 menu renders it: every view key exactly once with both `showOnPublic` and
 `showOnPrivate` explicit (a board that never opened the popup shows every

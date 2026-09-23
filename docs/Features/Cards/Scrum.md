@@ -46,7 +46,7 @@ outside WeKan:
   visible side by side, and the numeric custom-field sum badge described
   above is naturally scoped per swimlane, so several sprint rows on the
   same board each show their own point total. See
-  [Swimlanes](../Board/Swimlanes.md).
+  [Swimlanes](../Swimlanes/Swimlanes.md).
 
 Either way, [Card Dependencies ("Red Strings")](../Editor/RedStrings/RedStrings.md)
 and [Linked Cards](Linked-Cards.md) can connect a story on a sprint board

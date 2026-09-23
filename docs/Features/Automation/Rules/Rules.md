@@ -209,5 +209,5 @@ python3 api.py addrule BOARDID 'On create -> top' \
 ## Related
 
 - [IFTTT and Rules](../IFTTT/IFTTT.md)
-- [Cards](../../Cards/Cards.md), [Swimlanes](../../Board/Swimlanes.md)
+- [Cards](../../Cards/Cards.md), [Swimlanes](../../Swimlanes/Swimlanes.md)
 - [REST API](../../../API/REST-API.md)

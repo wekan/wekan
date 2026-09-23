@@ -134,7 +134,7 @@ test('each group is its own ul, and a rule never follows a rule (negative)', () 
 });
 
 test('the docs draw the same order', () => {
-  const doc = read('docs/Features/Board/Board-View-Settings.md');
+  const doc = read('docs/Features/Right-Sidebar/Board-Settings/Board-View.md');
   const diagram = doc.slice(doc.indexOf('┌─ Sidebar'), doc.indexOf('└', doc.indexOf('┌─ Sidebar')));
   const names = diagram.split('\n').slice(2)
     .map(l => (/^[│\s─]+$/.test(l) ? 'hr' : l.replace(/[│▸<-]|here/g, '').trim()))

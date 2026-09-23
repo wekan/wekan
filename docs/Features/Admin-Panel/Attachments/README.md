@@ -7,6 +7,8 @@ in-progress backup shows its status.
 
 ## Backup
 
+See [Backup.md](Backup.md) for screenshots, restore steps and coverage limits.
+
 Take a backup now — attachments, avatars and the database, each a checkbox — choose
 where it is written, and schedule it (daily, weekly on a chosen day, or monthly on a
 chosen date, at a chosen time). **List backups** shows what exists; a backup can be
@@ -94,7 +96,7 @@ the address uses: `/admin/attachments/<slug>`.
 
 | Menu path | URL slug | Page |
 | --- | --- | --- |
-| Attachments / Backup | `backup` | — |
+| Attachments / Backup | `backup` | [Backup.md](Backup.md) |
 | Attachments / Move Attachment | `move` | — |
 | Attachments / Default Save Storage | `default-save-storage` | — |
 | Attachments / Limits | `limits` | — |
@@ -105,6 +107,6 @@ the address uses: `/admin/attachments/<slug>`.
 | Attachments / Google Cloud Storage | `gcs` | — |
 | Attachments / Database migration | `database-migration` | — |
 
-10 of these 10 panes has no page of its own yet. A dash is a
+9 of these 10 panes has no page of its own yet. A dash is a
 gap to fill, not a pane that does nothing - what the pane shows is described in
 this README until somebody writes it up.

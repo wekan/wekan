@@ -14,5 +14,5 @@ popup renders at all three levels (`notificationSettingsPopup`); this is the
 
 ## Related
 
-- [Member Settings notifications](../../Members/Notification-Settings.md), the same
+- [Member Settings notifications](../../Member-Settings/Notifications.md), the same
   popup at the member scope, with the board and admin overrides it can fall back to.

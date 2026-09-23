@@ -1,113 +1,48 @@
-# WeKan Features
+# WeKan features by menu
 
-This page is an index of WeKan features. It used to be one long page; it has been
-split into focused topic pages under [`docs/Features/`](.).
+Find a feature by where you use it. Menu labels below are the English labels;
+visibility depends on your role, the board and the site's settings.
 
-Not every feature from the [CHANGELOG](../../CHANGELOG.md)
-is documented yet — contributions are welcome.
+| Where in WeKan | Documentation |
+| --- | --- |
+| Top header | [Header](Header/README.md): navigation, notifications and board controls |
+| All Boards | [All Boards](All-Boards/README.md): boards, workspaces, public and starred items |
+| Top-right username / Member Settings | [Member Settings](Member-Settings/README.md): personal pages, Date, appearance, notifications and account settings |
+| Right sidebar | [Right Sidebar](Right-Sidebar/README.md): members, labels, activities and shortcuts |
+| Right sidebar / Board Settings | [Board Settings](Right-Sidebar/Board-Settings/README.md): board appearance, views, dates, lists, cards, import/export and archive |
+| Swimlane header and menu | [Swimlanes](Swimlanes/Swimlanes.md) |
+| List header and menu | [Lists](Lists/Lists.md) |
+| Minicard and opened card | [Cards](Cards/README.md) |
+| Admin Panel | [Admin Panel](Admin-Panel/Admin-Panel.md): Settings, People, Attachments and Problems |
+| Login page | [Login settings](Admin-Panel/People/Login.md) and [passwordless login](Login/Passwordless.md) |
 
-## Kanban basics
+## Newest features
 
-- [Boards](Board/Boards/Boards.md) — board list, star/watch, board menu, restore archived
-  boards, full-screen / standalone app mode.
-- [Lists](Lists/Lists.md) — add, archive, restore and delete lists.
-- [Cards](Cards/Cards.md) — description, labels, checklists, attachments, comments,
-  markdown, dates, drag-and-drop images, multi-selection, filtered views.
-- [Swimlanes](Board/Swimlanes.md)
-- [Board View settings](Board/Board-View-Settings.md) — which Board View menu entries a
-  public / private board offers, and which one it opens in.
-- [WIP Limits](Lists/WipLimit/WipLimit.md)
-- [Members and Permissions](Members/Members.md)
-- [Templates](Board/Templates.md)
-- [Shared Templates (Admin view)](Board/Templates.md#shared-templates-admin-view)
-- [Archive and Delete](Board/Archive-and-Delete.md)
-- [Keyboard Shortcuts](Keyboard-Shortcuts/Keyboard-Shortcuts.md)
-- [Accessibility](Accessibility/Accessibility.md)
-- [Rules (Automation)](Automation/Rules/Rules.md)
-- [Card Dependencies — "Red Strings" / PI Program Board](Editor/RedStrings/RedStrings.md)
+[September 2026 feature guide](Newest-Features.md) links the month's additions
+and the current Upcoming features to their instructions. For release status,
+fixes and version details, use the [changelog](../../CHANGELOG.md).
 
-## Card content and formatting
+## Shared reference guides
 
-- [Card Cover Image](Cards/Cover/Cover.md)
-- [Stickers](Cards/Stickers/Stickers.md)
-- [Card Locations](Cards/Locations/Locations.md)
-- [Attachments and File Storage](Cards/Attachments/Attachments.md)
-- [Board Background Images](Board/Board-Backgrounds/Board-Backgrounds.md)
-- [Custom Fields](Cards/CustomFields/CustomFields.md)
-- [Subtasks](Cards/Subtasks.md)
-- [Linked Cards](Cards/Linked-Cards.md)
-- [Markdown](Editor/Markdown/Markdown.md), [Emoji](Editor/Emoji.md), [Multiline](Editor/Multiline.md),
-  [Numbered text](Editor/Numbered-text.md), [LaTeX](Editor/LaTeX.md)
-- [Drag and Drop on Mobile and Desktop](./DragDrop/Drag-Drop.md)
-- [Right-to-Left (RTL) UI](Editor/RTL/RTL.md)
+These topics are used from several menus, so their detailed references stay in
+shared directories:
 
-## Planning and time
+- [Accessibility](Accessibility/Accessibility.md) and [keyboard shortcuts](Keyboard-Shortcuts/Keyboard-Shortcuts.md)
+- [Markdown](Editor/Markdown/Markdown.md), [multiline creation](Editor/Multiline.md),
+  [emoji](Editor/Emoji.md), [LaTeX](Editor/LaTeX.md) and [RTL](Editor/RTL/RTL.md)
+- [Drag and drop](DragDrop/Drag-Drop.md), [multi-selection](Page/Multi-Selection.md)
+  and [board/item links](Page/Board-Item-Links.md)
+- [Import/export format coverage](ImportExport/Format-Coverage.md),
+  [sync](ImportExport/Sync.md) and [integrations](ImportExport/Integrations/Integrations.md)
+- [Rules](Automation/Rules/Rules.md) and [outgoing webhooks](Webhooks/Discord/Outgoing-Webhook-to-Discord.md)
+- [Calendar](Date/Calendar.md), [time tracking](Date/Time-Tracking.md),
+  [Gantt](Reports/Gantt.md) and [report charts](Reports/Charts/Board-Report-Charts.md)
+- [Members](Members/Members.md), [roles](Members/Roles.md) and [templates](Board/Templates.md)
+- [Backup and restore](../Backup/Backup.md), [REST API](../API/REST-API.md)
+  and [platforms](../Platforms)
+- [Translation](Translations/Translations.md), [themes](Theme/Theme.md),
+  [logs](Troubleshooting/Logs.md) and [loading problems](Troubleshooting/If-board-does-not-open-and-keeps-loading.md)
 
-- [Due Date](./Date/Due-Date.md)
-- [Time Tracking](./Date/Time-Tracking.md)
-- [Calendar](./Date/Calendar.md)
-- [Gantt Chart](Reports/Gantt.md)
-- [Planning Poker](Cards/Planning-Poker.md)
-- [Burndown and Velocity Chart](Reports/Burndown-and-Velocity-Chart.md)
-
-## Administration
-
-- [Admin Panel](Admin-Panel/Admin-Panel.md) — every pane, one page per menu entry
-- [Allow private boards only: Disable Public Boards](Admin-Panel/Settings/Visibility.md)
-- [SMTP e-mail settings](Admin-Panel/People/E-mail.md)
-- [Login / Authentication methods](../README.md#LoginAuth) — LDAP, OAuth2, SAML,
-  Keycloak, Google, Azure, and more.
-- [Metrics](Reports/Metrics.md), [Logs](Troubleshooting/Logs.md), [Stats](Reports/Stats/Stats.md)
-- [Cleanup](Cleanup/Cleanup.md)
-- [Python based features](Editor/Python.md)
-
-## Import and Export
-
-- [Import / Export / Sync](./ImportExport/Sync.md)
-- [From Trello](./ImportExport/Trello/trello/Migrating-from-Trello.md),
-  [Jira](./ImportExport/Jira/Jira.md), [Asana](./ImportExport/Asana/Asana.md),
-  [Zenkit](./ImportExport/ZenKit/ZenKit.md), [CSV/TSV](./ImportExport/CSV/CSV.md)
-- [Export board](https://github.com/wekan/wekan/pull/1059). If the Export menu is
-  not visible, [set yourself as board admin](https://github.com/wekan/wekan/issues/1060).
-- Working with big boards: [JSON tools, copying files to clipboard](https://github.com/wekan/wekan/issues/610#issuecomment-310862951)
-
-## Integrations
-
-- [REST API](../API/REST-API.md) and [API docs](https://wekan.fi/docs/)
-- [Webhooks](./Webhooks/Receiving-Webhooks.md) — per-board events; configure at the
-  board right sidebar / Board Settings / Webhooks. See also
-  [Outgoing Webhook to Discord/Slack/Rocket.Chat](./Webhooks/Discord/Outgoing-Webhook-to-Discord.md).
-- [IFTTT](Automation/IFTTT/IFTTT.md)
-- [Integrations](./ImportExport/Integrations/Integrations.md)
-
-## Translations
-
-- [Translate WeKan at Transifex](https://app.transifex.com/wekan/)
-- [Translations](./Translations/Translations.md),
-  [Customize Translations](./Translations/Customize-Translations.md),
-  [Change Language](./Translations/Change-Language.md)
-
-![Wekan translations screenshot](./Translations/screenshot-change-language.png)
-
-## Versions of Meteor and Node
-
-WeKan tracks current Meteor and Node.js releases. As of WeKan 8.75 and newer it uses
-**Meteor 3.6-beta.1** and **Node.js 26.x**, with **MongoDB 7.x (or 6.x)** or
-[FerretDB2/PostgreSQL](../Databases/FerretDB/2/PostgreSQL.md). WeKan 8.43 upgraded to
-Meteor 3.x. For the exact versions of each release, see the
-[CHANGELOG](../../CHANGELOG.md).
-
-## Roadmap and feature requests
-
-Many features that were once on the wishlist — Custom Fields, Subtasks, Swimlanes,
-Gantt charts, WIP limits, voting on cards, board templates and checklist templates —
-are now implemented (see the topic pages above).
-
-- [WeKan Roadmap kanban board](https://boards.wekan.team/b/D2SzJKZDS4Z48yeQH/wekan-open-source-kanban-board-with-mit-license)
-- [Multiverse WeKan Roadmap](../Design/Multiverse/WeKan-Multiverse-Roadmap.md)
-- [Feature requests](https://github.com/wekan/wekan/issues?utf8=%E2%9C%93&q=is%3Aissue%20is%3Aopen%20feature)
-
-## More
-
-- [Platforms](../Platforms)
-- [Integrations](./ImportExport/Integrations/Integrations.md)
+Menu-owned guides live under the matching menu directory. Old locations retain
+forwarding pages so existing documentation links can still find the guide.
+Shared reference directories are topic names, not additional application menus.

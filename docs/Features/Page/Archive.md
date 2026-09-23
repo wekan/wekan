@@ -89,5 +89,5 @@ the setting or selection and retry.
 
 ## Related
 
-- [All Boards](All-Boards.md) — one of the four places it is reached from
+- [All Boards](../All-Boards/All-Boards.md) — one of the four places it is reached from
 - [The Table page design](Table.md) — the rows-per-page it shares

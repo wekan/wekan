@@ -1,7 +1,7 @@
 ### Create card
 
 Choose the calendar in Member Settings. See
-[calendar systems and accessible date/time selection](./Calendar-Systems.md).
+[calendar systems and accessible date/time selection](../Member-Settings/Date/Calendar-Systems.md).
 
 At Calendar View, on Month when you click a date it will ask you if you want to create a new card and give its name. It then creates at first swimlane and at first list the card with the due date that it got from the date you clicked.
 
@@ -17,7 +17,7 @@ https://user-images.githubusercontent.com/70445835/184324324-b4bd466e-6873-4eef-
 ## <a name="Time"></a>Time
 
 * [Due Date](./Due-Date.md)
-* [Day of week start](./Day-of-week-start.md)
+* [Day of week start](../Member-Settings/Date/Day-of-week-start.md)
 
 ## What features are missing
 

@@ -20,7 +20,7 @@ is selected.
 ## Changing the language
 
 Use the language selector on the login page, or your member settings, to switch
-languages. See [Change Language](../../Translations/Change-Language.md).
+languages. See [Change Language](../../Member-Settings/Change-Language.md).
 
 ## Related
 

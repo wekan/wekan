@@ -72,5 +72,5 @@ Ghostscript, a headless browser and OCR/Tesseract are not installed.
 
 - [Rclone: store attachments to cloud storage like S3, MinIO, etc.](../../../Backup/Rclone/Rclone.md)
 - [Card Cover Image](../Cover/Cover.md)
-- [Board Background Images](../../Board/Board-Backgrounds/Board-Backgrounds.md)
+- [Board Background Images](../../Right-Sidebar/Board-Settings/Background-Image.md)
 - [Backup and Restore](../../../Backup/Backup.md)

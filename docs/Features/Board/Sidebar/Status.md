@@ -46,5 +46,5 @@ it stays cheap even on a large board). Any member who can see the board can open
 
 - [Admin Panel / Problems / Performance → card loading (automatic/adaptive)](../../Admin-Panel/Problems/README.md)
 - [Members and permissions](../../Members/Members.md)
-- [Swimlanes](../Swimlanes.md) · [Lists](../../Lists/Lists.md) ·
+- [Swimlanes](../../Swimlanes/Swimlanes.md) · [Lists](../../Lists/Lists.md) ·
   [Cards](../../Cards/Cards.md) · [Custom fields](../../Cards/CustomFields/CustomFields.md)

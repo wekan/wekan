@@ -116,5 +116,5 @@ into a chat or an email, and a relative path is only a link inside this page.
 
 ## Related
 
-- [The header](Header.md) — where the card's copy button used to be
+- [The header](../Header/Header.md) — where the card's copy button used to be
 - [Archive](Archive.md) — the other page a board menu row navigates to

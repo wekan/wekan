@@ -1,3 +1,202 @@
+# Backup and restore
+
+Choose the backup according to what you need to recover. To copy a complete
+FerretDB/SQLite installation, including users and attachments, use a stopped
+copy of its data and settings. A board export has a smaller scope.
+
+The alternatives below collect the advice and screenshots in
+[Backup and Restore, issue #6683](https://github.com/wekan/wekan/issues/6683),
+reported by markusst1982 and explained by xet7. The screenshot shows the
+September 2026 interface; labels and available formats can change with releases.
+
+| Alternative | What it preserves | Guide |
+| --- | --- | --- |
+| Copy the stopped `files` directory | Local SQLite database, users, attachment records, local attachment and avatar files | [Copy to another server](#copy-a-ferretdbsqlite-installation) |
+| ZIP the stopped `files` directory | The same data, in a portable archive | [Archive the data directory](#archive-the-files-directory) |
+| ZIP the stopped installation directory | Data plus startup scripts and settings kept inside it | [Archive the whole installation](#archive-the-whole-installation) |
+| Admin Panel backup, now or scheduled | Selected local file content and text collections; see the coverage limits below | [Scheduled backups](#admin-panel-backup-and-schedules) |
+| Local or remote S3-compatible storage | A destination for archives or separately backed-up objects | [Storage alternatives](#s3-compatible-and-other-storage) |
+| Board, list, swimlane or card export | Selected content for exchange, rather than a complete server copy | [Export and import](#export-and-import-selected-content) |
+| MongoDB, Snap, Docker or Sandstorm backup | Deployment-specific data and settings | [Other deployments](#other-deployments-and-older-installations) |
+
+## Copy a FerretDB/SQLite installation
+
+Find the actual `WRITABLE_PATH` in your startup configuration. A common layout is:
+
+```text
+<WRITABLE_PATH>/
+  files/
+    attachments/
+    avatars/
+    db/
+      wekan.sqlite
+    app/
+    tmp/
+```
+
+Some installations set `WRITABLE_PATH` directly to the `files` directory,
+including Snap. In that case, do not append another `files`. Database names and
+locations can differ: check FerretDB's SQLite URL too. Copy the whole database
+directory, not just the example `wekan.sqlite` file.
+
+1. Stop WeKan, FerretDB and any other processes writing to these directories.
+   For raw SQLite copies, stopping only the web application is insufficient.
+2. Copy the complete `files` directory to a separate backup location or server.
+   Keep database files and local attachments/avatars from the same stopped copy.
+   Also save startup scripts, environment settings and any data outside this tree.
+3. Restart the source after the copy finishes successfully.
+4. On the destination, keep its services stopped and preserve its existing data
+   separately before installing the copied directory. Do not merge two raw
+   database directories or overwrite a database while it is running.
+5. Set the destination `WRITABLE_PATH`, SQLite URL, ownership and permissions for
+   the service account. Adjust host-specific settings such as `ROOT_URL`.
+6. Start FerretDB, then WeKan. Test an existing login, boards, cards, attachment
+   downloads and avatars before using the restored installation.
+
+This copies user accounts because they are in the database. It does not copy
+files stored in external buckets, mounted paths outside the copied tree, or a
+separate MongoDB/PostgreSQL database. Back those up separately. See
+[FerretDB v1 with SQLite](../Databases/FerretDB/1/README.md),
+[attachment storage](../Features/Admin-Panel/Attachments/README.md) and
+[upgrade procedures](Upgrade.md).
+
+## Archive the files directory
+
+After stopping the writers as above, run this from the parent of `files`.
+Choose an archive name that does not already exist:
+
+```bash
+zip -r wekan-files-backup-2026-09-23.zip files
+unzip -t wekan-files-backup-2026-09-23.zip
+```
+
+Store the archive outside `files`, so it cannot include itself. Restart the
+source after archiving. To restore, extract into a separate staging directory,
+then follow the destination steps above. An archive integrity check confirms
+that the ZIP can be read; a restore test confirms that the installation works.
+
+## Archive the whole installation
+
+If `/home/wekan` contains the data, startup scripts and settings, the issue
+recommends backing up that whole directory as root. Stop all writers first:
+
+```bash
+cd /home
+sudo zip -r wekan-installation-backup-2026-09-23.zip wekan
+sudo unzip -t wekan-installation-backup-2026-09-23.zip
+```
+
+Restart after the archive succeeds. Use the same staged restore procedure as
+for `files`, and verify permissions before starting the destination. Include
+service definitions or configuration stored elsewhere separately. A ZIP is not
+a machine image and may not preserve every filesystem attribute.
+
+## Admin Panel backup and schedules
+
+Open **Admin Panel / Attachments / Backup**. This alternative runs while WeKan
+is online, as described in the issue.
+
+1. Choose **Whole instance** as a site administrator to include accounts and
+   instance settings in the text data. An Organization backup is limited to its
+   boards and excludes accounts, instance settings and Organization/Team records.
+2. Select **Attachments**, **Avatars** and/or **Data (text)**.
+3. Choose **Save to storage**: filesystem, S3/MinIO, Azure or Google Cloud
+   Storage, with credentials configured in the corresponding storage pane.
+4. Click **Backup now** and wait for completion, or choose daily, weekly or
+   monthly scheduling, the time and day, then **Save**. Scheduling is site-wide
+   and available to site administrators.
+5. For filesystem archives, **List backups** lists the archives available to
+   your scope. Restore can add missing entries or replace entries. Replacing
+   instance data clears each restored collection before importing its contents.
+
+![Admin Panel backup scope, file and data checkboxes, destination, schedule and restore controls](admin-panel-attachments-backup-schedule-and-storage.png)
+
+Screenshot source:
+[xet7's backup screenshot in #6683](https://github.com/wekan/wekan/issues/6683#issuecomment-5604698350).
+
+### What this archive currently includes
+
+The implementation streams local `attachments` and `avatars` directories and
+exports other database collections as EJSON lines (`data/*.ndjson`). It excludes
+attachment/avatar metadata collections and GridFS file/chunk collections from
+**Data (text)**. It does not fetch every remote storage object. Thus a successful
+Admin Panel backup alone is **not a complete attachment-preserving migration**
+to an empty server. Keep a complete database backup and all storage content for
+that purpose, or use the stopped-directory method for local FerretDB/SQLite.
+
+The online export reads collections sequentially; it is not an atomic snapshot
+of changes across the database and files. For a consistent server copy, stop
+writes and use the appropriate database/filesystem backup method.
+
+Filesystem archives are stored under
+`files/backup/YYYY/MM/DD/HH_MM_SS/backup.zip`; Organization archives add
+`org/<orgId>` below `backup`. Copy archives to independent storage. The current
+listing and restore functions use local archive paths. A cloud upload does not
+make its archive appear in the local list: retrieve it into the appropriate
+local backup tree before restoring and test that procedure on a separate server.
+
+Read [backup scope and storage settings](../Features/Admin-Panel/Attachments/README.md)
+and [Organization isolation](../Design/Multitenancy/Multitenancy.md).
+
+## S3-compatible and other storage
+
+The issue links to [wekan/minio-metadata](https://github.com/wekan/minio-metadata)
+for S3-compatible, on-premises alternatives. Configure the chosen service in
+**Admin Panel / Attachments / S3/MinIO Storage**. Keeping archives in another
+bucket or machine protects against losing the original disk; moving attachments
+to that storage is a separate operation and does not itself create a backup.
+
+![Move Attachment pane showing attachment and avatar scope, source and destination storage](admin-panel-move-attachments-storage-destination.png)
+
+The [Rclone guide](Rclone/Rclone.md) describes a mounted-storage alternative.
+Its older screenshots and version-specific upgrade examples are historical;
+current native backend settings are in the
+[Attachments menu guide](../Features/Admin-Panel/Attachments/README.md).
+After a move or restore, use [file status checks](../Features/Admin-Panel/Problems/File-status.md)
+to inspect missing files and metadata. These checks report findings; they do not
+replace missing bytes or create a backup.
+
+## Export and import selected content
+
+Use **Right sidebar / Board Settings / Export** for a board, or **Export** in a
+list, swimlane or card menu. Choose the content and format. Export/import
+availability depends on permissions and the instance's security settings.
+These exports do not preserve all user accounts, credentials or site settings.
+
+![Board export with content checkboxes and available formats](board-export-formats-and-content-selection.png)
+
+![List export with content checkboxes and available formats](list-export-formats-and-content-selection.png)
+
+![Swimlane export with content checkboxes and available formats](swimlane-export-formats-and-content-selection.png)
+
+![Card export with content checkboxes and available formats](card-export-formats-and-content-selection.png)
+
+Use **Import** from board creation or the appropriate existing board/item menu.
+Select the matching input format; an Admin Panel backup ZIP and a board-export
+ZIP are different archives with different restore entry points.
+
+![Board import choices including WeKan JSON and ZIP and external application formats](board-import-supported-formats.png)
+
+See [format coverage and round-trip limits](../Features/ImportExport/Format-Coverage.md),
+[importing a previous WeKan export](../Features/ImportExport/WeKan/From-Previous-Export.md),
+[CSV/TSV](../Features/ImportExport/CSV/CSV.md),
+[features by menu](../Features/Features.md) and the [REST API](../API/REST-API.md).
+The export/import/move screenshots above are the companion images already
+referenced by the issue's link to `docs/Backup`.
+
+## Other deployments and older installations
+
+The sections below retain older deployment-specific procedures. Select them
+by database backend, not just by the packaging name: MongoDB dump/restore
+examples do not back up a FerretDB SQLite directory or external file storage.
+
+- [Docker MongoDB export](../Platforms/FOSS/Container/Docker/Export-Docker-Mongo-Data.md)
+- [Snap backup and restore](../Platforms/FOSS/Container/Snap/Backup-and-restore.md)
+- [Sandstorm grain export](../Platforms/FOSS/Container/Sandstorm/Export-from-Wekan-Sandstorm-grain-.zip-file.md)
+- [Upgrade](Upgrade.md) and [MongoDB repair](Repair-MongoDB.md)
+
+---
+
 # Backup Sandstorm
 
 1. Please first backup your Sandstorm https://docs.sandstorm.io/en/latest/administering/backups/

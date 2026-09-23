@@ -1,8 +1,8 @@
 # Admin Panel
 
 Everything an admin can configure or inspect for the whole instance. Open it from
-your member menu (top right) when you are an admin; every page checks
-`currentUser.isAdmin`.
+your member menu (top right). Site administrators have instance-wide access;
+Organization administrators have access only to their permitted scope.
 
 **The directory you are in mirrors the menu.** A menu path is a docs path:
 Admin Panel / Settings / Visibility is
@@ -35,6 +35,7 @@ Who may sign in, who they belong to, and what they may do.
 | --- | --- |
 | Admin Panel / People / Login | [Login.md](People/Login.md) |
 | Admin Panel / People / E-mail | [E-mail.md](People/E-mail.md) |
+| Admin Panel / People / Notifications | [Notifications.md](People/Notifications.md) |
 | Admin Panel / People / Domains | [Domains.md](People/Domains.md) |
 | Admin Panel / People / Organizations | [Organizations.md](People/Organizations.md) |
 | Admin Panel / People / Teams | [Teams.md](People/Teams.md) |

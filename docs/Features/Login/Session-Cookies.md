@@ -11,5 +11,5 @@ a prefixed board preserves the signed-in user and member preferences.
 Root deployments retain Meteor's native cookie methods.
 
 This works on-premise without Internet access and adds no dependency.
-See [calendar preferences](../Date/Calendar-Systems.md) and
+See [calendar preferences](../Member-Settings/Date/Calendar-Systems.md) and
 [header login](Header-Login.md) for related behavior.

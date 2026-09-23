@@ -1,78 +1,38 @@
 # Lists
 
-**Lists** are the columns of a board. Cards move between lists as work progresses.
+Lists are the columns that contain cards. In Swimlanes view, a list can belong
+to a particular swimlane; legacy shared lists can appear across swimlanes. A
+card has both a list and a swimlane. Moving or copying a list lets you choose
+a destination rather than assuming that every list is shared everywhere.
 
-**Lists are board-wide (shared across swimlanes).** A list is shared across the
-whole board: the same lists (columns) appear in **every swimlane**, and a card
-belongs to **one list and one swimlane** (the swimlane is its horizontal band).
-WeKan does **not** have per-swimlane lists — an earlier experiment that gave each
-swimlane its own lists (#4049) was reverted, because it duplicated columns per
-swimlane and moved cards unexpectedly. If a list ever gets bound to a single
-swimlane (so it disappears from the others), the board-open repair re-shares it
-across all swimlanes — see
-[Repairs](../Admin-Panel/Problems/Repairs.md).
+## Create and rename
 
-## Add, archive, restore and delete lists
+Use **+** in a list header or **Add List** in its menu to create a list after
+that list. An empty board or swimlane has a **+** for its first list.
 
-Paste multiple lines into the new list name to choose between one list
-with a multiline name and a separate list for each nonempty line. Select
-the desired count in **Add**, then save. Separate items keep the pasted order.
-You can also keep or edit line breaks when renaming a list.
+Paste several lines into the name field. The **Add** chooser defaults to one
+list with a multiline name; choose the multiple-list count to create a list
+for each nonempty line, in pasted order. For example, `Todo`, `Doing` and `Done`
+on separate lines can become three lists. Click **Save** to create them.
+Click a list title to rename it; line breaks are retained in the header.
+See [multiline creation](../Editor/Multiline.md).
 
+## Menu and layout
 
-- **Add** a list with the list composer at the side of the board.
-- **Archive** a list to hide it without deleting it; archived lists can be restored.
-- **Delete** a list permanently (deleting cannot be undone — this requires extra
-  clicks by design, see the tip below).
+The list menu provides links/history, export/import, adding cards at the top
+or bottom, adding a list, watching, and permitted move/copy/archive actions.
+Collapse a list using its header caret; the preference is personal and survives
+a reload. Expand it with the same control.
 
-![Wekan list archive screenshot](../Login/screenshot-member-settings-archive.png)
+Drag the resize handle between lists when resizing is allowed. Board-wide
+resize locking and same-width controls are in
+[Board Settings / List](../Right-Sidebar/Board-Settings/List.md).
+There is no **Set width** row in the current list menu.
 
-> **Tip:** Normally you archive a card so you can restore it later. If you want to
-> delete many cards faster, drag them to a new list and delete that list. Deleting
-> cannot be undone — the extra clicks are by design. Previously there was an
-> easily-clicked delete button and people deleted important lists by accident; that
-> was fixed.
+Archive content to put it away, then use Board Settings / Archived Items to
+restore it. Permanent deletion has separate permissions and confirmation;
+see [Archive and Delete](../Board/Archive-and-Delete.md).
 
-## List width
-
-Each list has a single width. You can change it in two ways:
-
-- **Drag** the resize handle on the right edge of a list, or
-- open the list menu → **Set width** and type a width in pixels (minimum 270).
-
-### Shared vs personal widths (#6409)
-
-A board setting controls who a width change affects. Open the board's
-**"Show at all boards page"** settings (board sidebar) and toggle
-**Personal list widths**:
-
-- **Off (default) — Shared:** the width is stored on the list itself
-  (`lists.width`) and is the same layout for **everyone** on the board. Only
-  members with **write access** can change it (read-only / comment-only members
-  do not see the resize handle). The width travels with the board when you
-  **export/import** it.
-- **On — Personal:** each user keeps **their own** widths (saved in their user
-  profile, or in the browser's localStorage when not logged in). A user's
-  personal width falls back to the shared width, then to the default (272 px),
-  when they have not set their own.
-
-### Auto-width
-
-Instead of a fixed width, you can make lists **fit their content** (auto-width):
-open the list menu → **Set width** → the **Auto list width** toggle. Auto-width
-applies to all lists on the board and follows the same scope as fixed widths:
-
-- in **Shared** mode it is a per-board setting (changed by members with write
-  access, the same for everyone), and
-- in **Personal** mode it is per-user.
-
-While auto-width is on, the fixed-width input and the drag handle are hidden.
-
-The previous per-list "min width / max width" pixel options were removed: a list
-now has one clear width (fixed or auto) that reliably persists across reloads.
-
-## Related
-
-- [WIP Limits](WipLimit/WipLimit.md)
-- [Swimlanes](../Board/Swimlanes.md)
-- [Archive and Delete](../Board/Archive-and-Delete.md)
+- [Per-list WIP limits](WipLimit/WipLimit.md)
+- [Shared WIP Limit Groups](WipLimit/WIP-Limit-Groups.md)
+- [Swimlanes](../Swimlanes/Swimlanes.md)

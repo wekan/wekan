@@ -50,8 +50,9 @@ unsafe or noisy:
   ([#5820](https://github.com/wekan/wekan/issues/5820)).
 
 **Reports** — Security Report, Impersonation Report, Performance, Speed, Tests, CPU
-usage, Broken Cards, Files Report, Rules Report, Boards Report, Cards Report and
-Recovery. Every one is the same shared [table page](../../../Features/Page/Table.md):
+usage, Instrumentation, Broken Cards, Files Report, Rules Report, Boards Report,
+Cards Report, Recovery, Offices, API, Database problems and Filesystem integrity.
+Report tables use the shared [table page](../../../Features/Page/Table.md):
 a search box, the total, `page X / N`, prev/next, and one page of rows fetched from
 the server at a time. **Performance** sits with the Speed / Tests / CPU usage streams
 it configures: card loading is automatic per board size, with
@@ -113,17 +114,17 @@ the address uses: `/admin/problems/<slug>`.
 | Problems / CPU usage | `cpu` | [CPU-usage.md](CPU-usage.md) |
 | Problems / Instrumentation | `instrumentation` | [Instrumentation.md](Instrumentation.md) |
 | Problems / Broken Cards | `broken-cards` | — |
-| Problems / Files Report | `files` | — |
+| Problems / Files Report | `files` | [File-status.md](File-status.md) |
 | Problems / Rules Report | `rules` | — |
 | Problems / Boards Report | `boards` | — |
 | Problems / Cards Report | `cards` | — |
 | Problems / Recovery | `recovery` | [Recovery.md](Recovery.md) |
-| Problems / Offices | `office` | — |
+| Problems / Offices | `office` | [Offices.md](Offices.md) |
 | Problems / API | `api` | [API.md](API.md) |
 | Problems / Database problems | `database` | — |
 | Problems / Filesystem integrity | `integrity` | — |
 
-17 of these 21 panes has no page of its own yet. A dash is a
+15 of these 21 panes has no page of its own yet. A dash is a
 gap to fill, not a pane that does nothing - what the pane shows is described in
 this README until somebody writes it up.
 
