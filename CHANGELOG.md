@@ -798,6 +798,21 @@ regression is ready for a host with a running WeKan server and Chromium.
 This release fixes the following test and GitHub workflow issues:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5779499ef">Fix npm 12 production installs and validate native macOS ARM64 builds</a>. Thanks to xet7.</summary>
+
+Allow Meteor's commit-pinned source-map-support tarball through a validated,
+bundle-local npm policy before dependency installation. Keep generated Rspack
+assets outside the source inventory while still scanning all shipped files.
+Fresh local builds of WeKan, mongosh, FerretDB and all eight MongoDB Database
+Tools passed startup checks. Database checks covered CRUD, import/export,
+dump/restore, BSON, GridFS and status tools; WeKan served HTTP with bundled
+FerretDB SQLite. Source and artifact telemetry gates and focused positive and
+negative regression tests passed. Nonfatal compiler and experimental Node
+warnings remain; other platforms and hosted release workflows were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7f781be34">Stop release builds on telemetry regressions</a>. Thanks to xet7.</summary>
 
 Release All and Release All Missing now require reviewed application source and
