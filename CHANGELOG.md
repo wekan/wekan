@@ -659,7 +659,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v11.98 2026-09-24 WeKan ® release
 
 **In short:** **Snap builds** recover from stale package URLs during
 stage-package downloads as well as base setup. Recovery refreshes the container
