@@ -55,6 +55,27 @@ https://wekan.fi/status/
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2016d15f2">Preview ZIP contents from cards and Files Report</a>. Thanks to xet7.</summary>
+
+Click a ZIP attachment preview to see the filenames and folder paths inside
+it. Cards and Files Report use the same viewer, including nested paths and
+Unicode filenames. Closing the viewer cancels its pending download.
+
+Reuse the installed fflate parser without extracting or inflating entries.
+Names are plain text, never executable markup or extraction paths. Preview
+sources are limited to 32 MiB and archives to 2,048 entries; larger archives
+remain downloadable. ZIP and Office previews share bounded stream reading.
+
+Eight focused Node suites pass, covering archive listing, empty and invalid
+archives, resource limits, inert names, denied reads and cancellation. A fresh
+Meteor build and eight Chromium/Firefox checks pass, including ZIP preview
+from both Files Report and an opened card. Existing Office, image, PDF and
+private attachment download checks also pass, retaining regression coverage
+for the other Upcoming changes.
+
+</details>
+
+<details>
 <summary>TODO Later</summary>
 
 <details>
@@ -664,8 +685,9 @@ the Markdown commit as the template.
 **In short:** **Files Report previews and downloads** work for site
 administrators even when they are not members of the attachment's private
 board. Preview and download controls also fit within narrow table cells.
+**ZIP previews** list archive contents from Files Report and opened cards.
 
-This release fixes the following attachment report issues:
+This release adds ZIP previews and fixes attachment report issues:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f03463e7d">Fix Files Report attachment previews and downloads</a>. Thanks to xet7.</summary>
