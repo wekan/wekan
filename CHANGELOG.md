@@ -659,6 +659,32 @@ the Markdown commit as the template.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **Snap builds** recover from stale package URLs during
+stage-package downloads as well as base setup. Recovery refreshes the container
+and retries once, while unrelated failures remain fatal.
+
+This release fixes the following Snap builds:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/494fa0cd0">Recover stage-package download failures in Snap builds</a>. Thanks to xet7.</summary>
+
+The v11.97 wekan-ondra amd64 build received a libcurl4t64 package 404 while
+fetching stage-packages. The previous recovery handled only base provisioning
+and rejected this later failure. Identify the managed build instance from
+Snapcraft's LXC execution log and refresh its APT indexes, which craft-parts
+also uses for stage packages. Preserve downloaded packages, build state and
+the container's running/stopped state.
+
+Four focused Snap suites pass, including eight Python cases covering base and
+stage failures, ambiguous or missing instances, unrelated errors and failed
+refreshes. Hosted LXD builds have not been rerun from this Mac checkout.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v11.97 2026-09-24 WeKan ® release
 
 **In short:** **Release preparation** checks changelog summaries before changing
