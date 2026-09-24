@@ -91,7 +91,7 @@
     "filesize": "^11.0.22",
     "frappe-gantt": "^1.2.2",
     "glob": "^13.0.6",
-    "hotkeys-js": "^4.0.7",
+    "hotkeys-js": "^4.0.8",
     "htmlparser2": "^10.1.0",
     "i18next": "^26.4.1",
     "i18next-sprintf-postprocessor": "^0.2.2",
