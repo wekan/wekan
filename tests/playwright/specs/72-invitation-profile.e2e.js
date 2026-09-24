@@ -27,3 +27,25 @@ test('removed member cannot forge an invitation and reactivate membership', asyn
     db.updateOne('boards', { _id: board.boardId }, { $set: { members: original.members } });
   }
 });
+
+for (const action of ['accept', 'decline']) {
+  test(`existing session can ${action} a sidebar invitation without an account block`, async ({ page, user, board }) => {
+    db.updateOne('users', { _id: user.id }, {
+      $addToSet: { 'profile.invitedBoards': board.boardId },
+    });
+    await page.goto(`${BASE_URL}/sign-in`);
+    await waitForMeteor(page);
+    await loginWithToken(page, user.id, user.token);
+    await page.goto(`${BASE_URL}/b/${board.boardId}/${board.slug}`);
+    await waitForMeteor(page);
+    await page.locator(`.js-member-invite-${action}`).click();
+    await expect.poll(() => db.findOne('users', { _id: user.id }).profile.invitedBoards || [])
+      .not.toContain(board.boardId);
+    const account = db.findOne('users', { _id: user.id });
+    expect(account.loginDisabled).not.toBe(true);
+    expect(account.services && account.services.securityBlock).toBeUndefined();
+    expect(db.find('eventlog', { stream: 'security', bleed: 'InviteProfileBleed', userId: user.id })).toHaveLength(0);
+    const member = db.getBoard(board.boardId).members.find(entry => entry.userId === user.id);
+    expect(Boolean(member && member.isActive)).toBe(action === 'accept');
+  });
+}

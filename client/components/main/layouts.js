@@ -566,6 +566,9 @@ function getAuthenticationMethod(
 }
 
 function getUserAuthenticationMethod(defaultAuthenticationMethod, match) {
+  // The metadata publication requires authentication. The sign-in form must
+  // use the configured default instead of issuing an unauthorized subscription.
+  if (!Meteor.userId()) return Promise.resolve(defaultAuthenticationMethod);
   return new Promise((resolve) => {
     try {
       Meteor.subscribe('user-authenticationMethod', match, {

@@ -276,6 +276,7 @@ Meteor.methods({
 
   async quitBoard(boardId) {
     check(boardId, String);
+    if (!this.userId) throw new Meteor.Error('error-notAuthorized');
     const board = await ReactiveCache.getBoard(boardId);
     if (!board) {
       throw new Meteor.Error('error-board-doesNotExist');
@@ -312,6 +313,7 @@ Meteor.methods({
 
   async acceptInvite(boardId) {
     check(boardId, String);
+    if (!this.userId) throw new Meteor.Error('error-notAuthorized');
     const board = await ReactiveCache.getBoard(boardId);
     if (!board) {
       throw new Meteor.Error('error-board-doesNotExist');

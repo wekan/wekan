@@ -1108,13 +1108,13 @@ Template.membersWidget.events({
   },
   'click .js-member-invite-accept'() {
     const boardId = Session.get('currentBoard');
-    ReactiveCache.getCurrentUser().removeInvite(boardId);
+    Meteor.call('acceptInvite', boardId);
   },
   'click .js-member-invite-decline'() {
     const boardId = Session.get('currentBoard');
     Meteor.call('quitBoard', boardId, (err, ret) => {
       if (!err && ret) {
-        ReactiveCache.getCurrentUser().removeInvite(boardId);
+        // quitBoard already clears the invitation on the server.
         FlowRouter.go('home');
       }
     });
