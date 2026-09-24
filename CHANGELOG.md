@@ -669,6 +669,8 @@ This release improves the following menu:
   Keep the board-admin restriction and existing Date popup. Menu order,
   permission guards and matching documentation checks pass.
 
+- [Match Swimlane and List settings icons to the header Board View menu](https://github.com/wekan/wekan/commit/41c3508e6). Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v11.94 2026-09-24 WeKan ® release
