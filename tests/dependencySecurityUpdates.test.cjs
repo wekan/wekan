@@ -45,3 +45,11 @@ test('Dependabot no longer excludes build-tool security updates', () => {
     assert.ok(!config.includes(`dependency-name: "${name}"`), name);
   }
 });
+
+test('the locked S3 client satisfies the upload library peer dependency', () => {
+  const upload = lock.packages['node_modules/@aws-sdk/lib-storage'];
+  const client = lock.packages['node_modules/@aws-sdk/client-s3'];
+  const required = upload.peerDependencies['@aws-sdk/client-s3'];
+  assert.ok(semver.satisfies(client.version, required), `${client.version} must satisfy ${required}`);
+  assert.ok(semver.satisfies(client.version, manifest.dependencies['@aws-sdk/client-s3']));
+});
