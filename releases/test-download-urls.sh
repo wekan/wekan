@@ -38,9 +38,9 @@ check() {
 
 echo "=== MongoDB 7.0.14 (amd64 and arm64 native; amd64 also used via QEMU for armhf/s390x/ppc64el) ==="
 check "MongoDB 7.0.14  amd64 (x86_64, ubuntu2204)" \
-  "https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-7.3.4.tgz"
+  "https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-7.0.43.tgz"
 check "MongoDB 7.0.14  arm64 (aarch64, ubuntu2204)" \
-  "https://fastdl.mongodb.org/linux/mongodb-linux-aarch64-ubuntu2204-7.3.4.tgz"
+  "https://fastdl.mongodb.org/linux/mongodb-linux-aarch64-ubuntu2204-7.0.43.tgz"
 echo "  NOTE  MongoDB Community has no prebuilt builds for s390x, ppc64le, or arm/v7."
 echo "        The amd64 binary above is also used on those arches via qemu-x86_64-static."
 echo ""
