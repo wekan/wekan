@@ -9,12 +9,15 @@ const tmpRoot = path.join(root, '.tools/tmp');
 fs.mkdirSync(tmpRoot, { recursive: true });
 const checker = path.join(root, 'releases/check-upcoming-release.sh');
 const entry = '<details>\n<summary><a href="https://github.com/wekan/wekan/commit/1234567">Fix build</a></summary>\n</details>\n';
-const upcoming = '# Upcoming WeKan ® release\n';
+const upcoming = '# Upcoming WeKan ® release\n\n**In short:** Fix build preparation.\n\n';
 
 test('release preflight accepts real Upcoming entries and rejects missing/empty/duplicate notes', () => {
   const dir = fs.mkdtempSync(path.join(tmpRoot, 'release-preflight-'));
   try {
     for (const [text, valid] of [
+      [upcoming.replace('**In short:** Fix build preparation.', '') + entry, false],
+      [upcoming.replace('Fix build preparation.', '   ') + entry, false],
+      ['# Upcoming WeKan ® release\n' + entry + '# v11.75 date\n**In short:** Older summary.\n', false],
       [upcoming + entry + '# v11.75 2026-09-14 WeKan ® release\n', true],
       ['# v11.75 2026-09-14 WeKan ® release\n' + entry, false],
       [upcoming + '\n# v11.75 2026-09-14 WeKan ® release\n' + entry, false],

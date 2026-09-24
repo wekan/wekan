@@ -661,6 +661,10 @@ the Markdown commit as the template.
 
 # v11.96 2026-09-24 WeKan ® release
 
+**In short:** **Snap builds** recover from stale Ubuntu package indexes by
+refreshing the failed managed container and retrying once. Unrelated build
+errors remain fatal.
+
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4913f4abb">Recover Snap builds from stale Ubuntu package indexes</a>. Thanks to xet7.</summary>
 

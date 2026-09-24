@@ -17,6 +17,17 @@ if ! awk '
   exit 1
 fi
 
+# A missing summary stopped v11.96 only after version bumping and tagging.
+# Require actual text on the summary line, inside Upcoming (not an older release).
+if ! awk '
+  /^# / { active = ($0 ~ /^# Upcoming WeKan ® release[[:space:]]*$/) }
+  active && /^\*\*In short:\*\* [^[:space:]]/ { summary++ }
+  END { exit !(summary == 1) }
+' "$changelog"; then
+  echo "Error: Upcoming release needs one nonempty '**In short:**' summary." >&2
+  exit 1
+fi
+
 # A translation group without its language list fails later, after the release
 # tag is already created. Catch it in this read-only local preflight instead.
 if ! awk '

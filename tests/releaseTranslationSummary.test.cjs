@@ -34,6 +34,9 @@ try {
   const missing = run(intro + translations.replace('**Languages updated:** Galician, Esperanto, Galician\n', '') + other);
   assert.notEqual(missing.status, 0);
   assert.match(missing.stderr, /Translations group needs/);
+  const missingSummary = run(intro.replace('**In short:** Summary.\n\n', '') + other);
+  assert.notEqual(missingSummary.status, 0);
+  assert.match(missingSummary.stderr, /needs an \*\*In short:\*\* summary/);
   const selected = run(intro + translations + other + '\n# v2.00 2026-09-14 WeKan ® release\n\n**In short:** Version-specific summary.\n', '2.00');
   assert.equal(selected.status, 0, selected.stderr);
   assert.match(selected.stdout, /Version-specific/);
@@ -43,6 +46,18 @@ try {
   assert.equal(security.status, 0, security.stderr);
   assert.match(security.stdout, /Security fix retained|wrapped security prose/);
   assert.doesNotMatch(security.stdout, /Keep non-translation detail|Private translation details/);
+  // Exercise the real notes that blocked all platform builds in v11.96.
+  const changelog = fs.readFileSync(path.join(root, 'CHANGELOG.md'), 'utf8');
+  const newest = changelog.match(/^# v([0-9]+\.[0-9]+) /m)[1];
+  const repaired = run(changelog, newest);
+  assert.equal(repaired.status, 0, repaired.stderr);
+  assert.match(repaired.stdout, /## In short\n\n\S/);
+  const workflow = fs.readFileSync(path.join(root, '.github/workflows/release-all.yml'), 'utf8');
+  const bump = workflow.split('\n  bump:\n')[1].split(/\n  [\w-]+:\n/)[0];
+  assert.ok(bump.indexOf('bash releases/release-notes.sh') < bump.indexOf('./releases/version.sh'));
+  assert.match(bump, /RELEASE_VERSION: \$\{\{ inputs.new_version \}\}/);
+  const prepare = workflow.split('\n  prepare:\n')[1].split(/\n  [\w-]+:\n/)[0];
+  assert.ok(prepare.indexOf('bash releases/release-notes.sh') < prepare.indexOf('git tag -a'));
   console.log('releaseTranslationSummary: languages only, nested details removed, only requested sections retained, explicit metadata required, headings anchored');
 } finally {
   fs.rmSync(dir, { recursive: true, force: true });

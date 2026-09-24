@@ -173,6 +173,14 @@ jobs:
           ref: main
           fetch-depth: 0
 
+      - name: Validate release notes before changing versions
+        env:
+          RELEASE_VERSION: ${{ inputs.new_version }}
+        run: |
+          mkdir -p "$GITHUB_WORKSPACE/.tools/tmp"
+          export TMPDIR="$GITHUB_WORKSPACE/.tools/tmp"
+          bash releases/release-notes.sh "${RELEASE_VERSION#v}" > /dev/null
+
       - name: Check dependency risk indicators before release work
         shell: bash
         run: python3 releases/remote-release.py --audit
@@ -280,18 +288,6 @@ jobs:
           VERSION="${VERSION#v}"
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
-      - name: Create and push tag v${{ steps.version.outputs.version }}
-        run: |
-          VERSION="${{ steps.version.outputs.version }}"
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if git rev-parse "v$VERSION" >/dev/null 2>&1; then
-            echo "Tag v$VERSION already exists, leaving it as is."
-          else
-            git tag -a "v$VERSION" -m "v$VERSION"
-            git push origin "v$VERSION"
-          fi
-
       # The notes are validated HERE, where a missing CHANGELOG section is still
       # cheap to fix, but they are NOT carried to the release job as a job
       # output. They were, and it broke v10.92: 172,458 characters reached the
@@ -306,6 +302,18 @@ jobs:
           VERSION="${{ steps.version.outputs.version }}"
           bash releases/release-notes.sh "$VERSION" > release-notes-body.md
           echo "OK: release notes are $(wc -l < release-notes-body.md) lines / $(wc -c < release-notes-body.md) characters."
+
+      - name: Create and push tag v${{ steps.version.outputs.version }}
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git rev-parse "v$VERSION" >/dev/null 2>&1; then
+            echo "Tag v$VERSION already exists, leaving it as is."
+          else
+            git tag -a "v$VERSION" -m "v$VERSION"
+            git push origin "v$VERSION"
+          fi
 
       # Always, as the last step: the run summary then answers "what worked and what
       # did not" for the whole release at a glance, instead of eighteen job logs. A
