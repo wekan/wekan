@@ -4452,8 +4452,31 @@ jobs:
       - name: Build the ${{ matrix.arch }} snap natively
         # Runs on a native ${{ matrix.arch }} GitHub runner, so snapcraft builds the
         # platform whose `build-on` matches this host — no Launchpad, no emulation.
-        id: build
+        id: build-first
+        continue-on-error: true
         uses: snapcore/action-build@v1
+        with:
+          snapcraft-args: pack
+
+      - name: Refresh stale managed APT indexes after a package 404
+        if: steps.build-first.outcome == 'failure'
+        run: sudo -u "$(id -un)" -E python3 "$GITHUB_WORKSPACE/releases/snap-refresh-managed-apt.py"
+
+      - name: Retry Snapcraft once after refreshing its base instance
+        id: build-retry
+        if: steps.build-first.outcome == 'failure'
+        uses: snapcore/action-build@v1
+        with:
+          snapcraft-args: pack
+
+      - name: Select the successful Snap artifact
+        id: build
+        env:
+          BUILT_SNAP: ${{ steps.build-first.outputs.snap || steps.build-retry.outputs.snap }}
+        run: |
+          test -n "$BUILT_SNAP"
+          test -f "$BUILT_SNAP"
+          echo "snap=$BUILT_SNAP" >> "$GITHUB_OUTPUT"
 
       - name: Verify the built snap is ${{ matrix.arch }}
         run: |
@@ -5179,11 +5202,35 @@ jobs:
           echo "${{ matrix.snapname }} ${{ matrix.arch }}: snapcraft.yaml is $(grep -m1 '^name:' snapcraft.yaml), $(grep -m1 '^version:' snapcraft.yaml), $(grep -m1 '^base:' snapcraft.yaml)."
 
       - name: Build the ${{ matrix.snapname }} snap (${{ matrix.arch }})
-        id: build
+        id: build-first
+        continue-on-error: true
         if: steps.guard.outputs.snap == 'true'
         uses: snapcore/action-build@v1
         with:
+          snapcraft-args: pack
           path: variant
+
+      - name: Refresh stale managed APT indexes after a package 404
+        if: steps.build-first.outcome == 'failure'
+        run: sudo -u "$(id -un)" -E python3 "$GITHUB_WORKSPACE/wekan/releases/snap-refresh-managed-apt.py"
+
+      - name: Retry Snapcraft once after refreshing its base instance
+        id: build-retry
+        if: steps.build-first.outcome == 'failure'
+        uses: snapcore/action-build@v1
+        with:
+          snapcraft-args: pack
+          path: variant
+
+      - name: Select the successful Snap artifact
+        id: build
+        if: steps.guard.outputs.snap == 'true'
+        env:
+          BUILT_SNAP: ${{ steps.build-first.outputs.snap || steps.build-retry.outputs.snap }}
+        run: |
+          test -n "$BUILT_SNAP"
+          test -f "$BUILT_SNAP"
+          echo "snap=$BUILT_SNAP" >> "$GITHUB_OUTPUT"
 
       - name: Verify the built snap is ${{ matrix.snapname }}
         if: steps.guard.outputs.snap == 'true'
