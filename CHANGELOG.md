@@ -659,7 +659,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v12.00 2026-09-25 WeKan ® release
 
 **In short:** **Dependency installation** works again after the S3 upload
 library update. The recent Dependabot merges have a documented security and
