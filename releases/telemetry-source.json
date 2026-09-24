@@ -355,7 +355,7 @@
     "client/components/settings/translationBody.jade": "7bc9283343b38e627cce21e06b6e3a157d37fee504b23cd71ef56c7fcb7d9ca1",
     "client/components/settings/translationBody.js": "79e1745cae264a0321e063f7e53df11d2eefd8c66802b4b18d3a3b3983de3475",
     "client/components/sidebar/sidebar.css": "6d5987dbf6b0ef57bd33e47a622297f551b03d688c10a2bbd708cba9b2e1408f",
-    "client/components/sidebar/sidebar.jade": "fc71b2fb882e201ea5574670dc7d7aa2df6d5fbae44ee402c7822ee0f03b01a8",
+    "client/components/sidebar/sidebar.jade": "7b4caf83492941570dd74ffd599f3a7f42dd0cb4e492c9c1e86986bb0dcc6804",
     "client/components/sidebar/sidebar.js": "241c995c4509f11b46dc46a4bf89178e9289b61de0d4ce93787dae0231b475da",
     "client/components/sidebar/sidebarArchives.jade": "168e7d57cccb31687d89042badb18df3f169f3e743b163250488cde7c428d625",
     "client/components/sidebar/sidebarArchives.js": "46ce7fd20cf038d954502529890e63ff137a048bc80f20a90cf4b29b5dc8b4bc",
