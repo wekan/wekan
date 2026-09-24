@@ -128,6 +128,7 @@ jobs:
           grep -q "WeKan-${VERSION}-mac-${MAC_ARCH}.app/Contents/MacOS/WeKan" "$TMPDIR/app-contents.txt"
 
       - name: Smoke test Node.js, FerretDB and Meteor
+        timeout-minutes: 5
         if: ${{ env.BUILD_THIS == 'true' && steps.bundle.outputs.available == 'true' }}
         env:
           VERSION: ${{ needs.release.outputs.version }}
@@ -139,21 +140,16 @@ jobs:
           export WRITABLE_PATH="$PWD/.tools/tmp/mac-smoke-data"
           export PORT=18900 ROOT_URL=http://127.0.0.1:18900
           export FERRETDB_LISTEN_ADDR=127.0.0.1:28900
-          "$command" > "$PWD/.tools/tmp/mac-smoke.log" 2>&1 &
-          pid=$!
-          trap 'kill "$pid" 2>/dev/null || true; wait "$pid" 2>/dev/null || true' EXIT
-          ready=false
-          for _ in $(seq 1 90); do
-            if curl -fsS -o /dev/null "$ROOT_URL/sign-in"; then ready=true; break; fi
-            kill -0 "$pid" 2>/dev/null || break
-            sleep 2
-          done
-          if [ "$ready" != true ]; then
-            echo "::error::The bundled Mac app did not start WeKan with FerretDB."
-            tail -n 100 "$PWD/.tools/tmp/mac-smoke.log"
-            exit 1
-          fi
-          echo "WeKan answered through bundled Node.js and FerretDB."
+          python3 releases/mac/smoke-app.py "$command" "$ROOT_URL/sign-in" \
+            "$PWD/.tools/tmp/mac-smoke.log"
+
+      - name: Keep Mac smoke log
+        uses: actions/upload-artifact@v7
+        if: ${{ always() && env.BUILD_THIS == 'true' && steps.bundle.outputs.available == 'true' }}
+        with:
+          name: mac-smoke-${{ matrix.arch }}
+          path: .tools/tmp/mac-smoke.log
+          if-no-files-found: ignore
 
       - uses: actions/upload-artifact@v7
         if: ${{ env.BUILD_THIS == 'true' && steps.bundle.outputs.available == 'true' }}

@@ -49,3 +49,14 @@ test('macOS can list a ditto-created app ZIP and reject a missing ZIP', { skip: 
     assert.notEqual(spawnSync('unzip', ['-Z1', 'missing.zip'], { cwd: dir }).status, 0);
   } finally { fs.rmSync(dir, { recursive: true, force: true }); }
 });
+
+test('Mac smoke test stops the whole app group without an unbounded wait', { skip: process.platform === 'win32' }, () => {
+  const { spawnSync } = require('node:child_process');
+  const workflow = read('.github/workflows/mac.yml');
+  assert.match(workflow, /python3 releases\/mac\/smoke-app.py/);
+  assert.doesNotMatch(workflow, /trap 'kill.*wait/);
+  const result = spawnSync('python3', ['-B', 'tests/mac-smoke-app.py'], {
+    cwd: root, encoding: 'utf8', timeout: 10000,
+  });
+  assert.equal(result.status, 0, result.stdout + result.stderr);
+});
