@@ -102,11 +102,17 @@ for pat in patterns:
             heading = f"v{version} {date.today().isoformat()} WeKan ® release"
         anchor = re.sub(r"[^\w\s-]", "", heading.lower())
         anchor = re.sub(r"\s", "-", anchor)
-        output = ["## In short\n\n" + summary.group(1).strip(),
-                  "## Security\n\n" + ("\n\n".join(security) if security else "No security changes."),
-                  "## Translations\n\n" + ("\n".join("- " + name for name in sorted(languages, key=str.casefold)) if languages else "No translation updates."),
-                  "Thanks to above GitHub users for their contributions and translators for their translations.",
-                  f"[More details at ChangeLog](https://github.com/wekan/wekan/blob/main/CHANGELOG.md#{anchor})"]
+        output = ["## In short\n\n" + summary.group(1).strip()]
+        if security:
+            output.append("## Security\n\n" + "\n\n".join(security))
+        if languages:
+            output.append("## Translations\n\n" + "\n".join(
+                "- " + name for name in sorted(languages, key=str.casefold)))
+        output.extend([
+            "Thanks to above GitHub users for their contributions" +
+            (" and translators for their translations." if languages else "."),
+            f"[More details at ChangeLog](https://github.com/wekan/wekan/blob/main/CHANGELOG.md#{anchor})",
+        ])
         print("\n\n".join(output))
         sys.exit(0)
 # Neither section exists. Print nothing; the caller turns that into an error
