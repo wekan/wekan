@@ -702,6 +702,12 @@ unchanged commit; it is separate from the runtime-library changes.
 
 </details>
 
+**Board Settings** - menu order.
+
+- [Move Date directly below Change Background Image](https://github.com/wekan/wekan/commit/d71973fc4). Thanks to xet7.
+  Keep the board-admin restriction and existing Date popup. Menu order,
+  permission guards and matching documentation checks pass.
+
 **Board invitations and login** - use authorized server operations.
 
 <details>
