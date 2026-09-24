@@ -661,7 +661,9 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**In short:** **Board Settings** places Date directly below Change Background Image.
+**In short:** **Mac app builds** finish their smoke tests without hanging during
+shutdown. **Board Settings** places Date below Change Background Image and
+uses matching Swimlane and List icons.
 
 This release improves the following menu:
 
@@ -670,6 +672,25 @@ This release improves the following menu:
   permission guards and matching documentation checks pass.
 
 - [Match Swimlane and List settings icons to the header Board View menu](https://github.com/wekan/wekan/commit/41c3508e6). Thanks to xet7.
+
+and fixes release verification:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6568268b2">Finish Mac smoke tests after successful startup</a>. Thanks to xet7.</summary>
+
+Both arm64 and amd64 apps answered HTTP successfully in v11.94, then their
+smoke-test EXIT trap hung waiting for the launcher after signaling only that
+process. Start the app in an isolated process group and terminate the group,
+with a bounded grace period and forced cleanup for surviving children. HTTP
+probes and the workflow step also have deadlines; smoke logs are retained as
+artifacts on success or failure.
+
+Mac packaging tests pass locally in about three seconds. They cover real HTTP
+success, rejection and a server that never answers, early application exit,
+probe exceptions, and a launcher waiting for a TERM-resistant child. Hosted
+arm64/amd64 release jobs have not been rerun or published from this checkout.
+
+</details>
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
