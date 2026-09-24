@@ -263,8 +263,8 @@ useradd --user-group --system --create-home --home-dir /home/wekan wekan
 apt-get update --assume-yes
 apt-get upgrade --assume-yes
 apt-get install --assume-yes --no-install-recommends ${BUILD_DEPS}
-# Runtime MIME detection: keep this outside BUILD_DEPS so cleanup retains it.
-apt-get install --assume-yes --no-install-recommends file
+# Runtime MIME detection and Node.js atomic operations survive build cleanup.
+apt-get install --assume-yes --no-install-recommends file libatomic1
 
 # Multi-arch mapping: Docker TARGETARCH -> WeKan's own platform name, which is
 # both the bundle .zip's name and what resolve-node-source.sh is asked about.

@@ -69,7 +69,7 @@ echo "==> [3/7] Refresh runtime libs for Node 24 + FerretDB (host glibc 2.35 on 
 HOSTLIB=/usr/lib/x86_64-linux-gnu
 mkdir -p "$DEPS/lib/x86_64-linux-gnu"
 for so in libstdc++.so.6 libgcc_s.so.1 libc.so.6 libm.so.6 libdl.so.2 \
-          libpthread.so.0 librt.so.1 libz.so.1; do
+          libpthread.so.0 librt.so.1 libz.so.1 libatomic.so.1; do
   src="$(readlink -f "$HOSTLIB/$so" 2>/dev/null || true)"
   # --remove-destination: the meteor-spk 0.6.0 base ships some of these as
   # DANGLING symlinks (e.g. libstdc++.so.6 -> a lib that no longer exists), and
@@ -77,6 +77,10 @@ for so in libstdc++.so.6 libgcc_s.so.1 libc.so.6 libm.so.6 libdl.so.2 \
   # existing destination (symlink included) first, then copy the host's real lib.
   [ -f "$src" ] && cp -fL --remove-destination "$src" "$DEPS/lib/x86_64-linux-gnu/$so"
 done
+# libatomic is mandatory for Node 26, even when it was present only on the host.
+[ -f "$DEPS/lib/x86_64-linux-gnu/libatomic.so.1" ] || { echo "missing libatomic1" >&2; exit 1; }
+mkdir -p "$DEPS/usr/share/doc/libatomic1"
+cp -L /usr/share/doc/libatomic1/copyright "$DEPS/usr/share/doc/libatomic1/"
 # CRITICAL: the dynamic loader (ld-linux) MUST come from the SAME glibc as the
 # libc.so.6 copied above. libc and ld.so share a GLIBC_PRIVATE ABI: a glibc 2.39
 # libc.so.6 asks the loader for `_dl_audit_symbind_alt` (added to ld.so in glibc

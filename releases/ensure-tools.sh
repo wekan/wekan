@@ -222,7 +222,7 @@ ensure_build_toolchain() {
     linux:arch) sudo pacman -Sy --needed --noconfirm base-devel python curl wget p7zip zip unzip ;;
     linux:fedora) sudo dnf group install -y development-tools; sudo dnf install -y gcc gcc-c++ make python3 curl wget 7zip zip unzip ;;
     linux:rhel) pm=dnf; _et_have dnf || pm=yum; sudo "$pm" groupinstall -y "Development Tools"; sudo "$pm" install -y gcc gcc-c++ make python3 curl wget p7zip zip unzip ;;
-    linux:debian) sudo apt-get update; sudo apt-get install -y build-essential g++ make python3 curl wget p7zip-full zip unzip ;;
+    linux:debian) sudo apt-get update; sudo apt-get install -y libatomic1 build-essential g++ make python3 curl wget p7zip-full zip unzip ;;
     macos:*) _et_brew_ensure; brew install make python curl wget sevenzip zip ;;
     *) echo "Unsupported platform: install a C/C++ toolchain, Python 3, curl, wget, 7zip, zip and unzip." >&2; return 1 ;;
   esac

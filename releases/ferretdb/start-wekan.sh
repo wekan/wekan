@@ -35,6 +35,10 @@ fi
 export DDP_TRANSPORT="${DDP_TRANSPORT:-sockjs}"
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
+# ZIP, AppImage and Flatpak launches use the target library shipped beside Node.
+if [ -d "$DIR/node-runtime" ]; then
+  export LD_LIBRARY_PATH="$DIR/node-runtime${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+fi
 
 # Bundled Node.js, falling back to a node on PATH if the bundled one is absent.
 NODE="$DIR/node"

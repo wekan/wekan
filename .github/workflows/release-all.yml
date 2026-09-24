@@ -590,7 +590,7 @@ jobs:
 
       - name: Install system dependencies
         run: |
-          bash "$GITHUB_WORKSPACE/releases/apt-install.sh" build-essential g++ make python3 curl wget zip unzip xz-utils qemu-user-static
+          bash "$GITHUB_WORKSPACE/releases/apt-install.sh" libatomic1 build-essential g++ make python3 curl wget zip unzip xz-utils qemu-user-static
 
       - uses: actions/setup-node@v7
         with:
@@ -867,7 +867,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          bash "$GITHUB_WORKSPACE/releases/apt-install.sh" build-essential g++ make python3 curl unzip zip xz-utils qemu-user-static
+          bash "$GITHUB_WORKSPACE/releases/apt-install.sh" libatomic1 build-essential g++ make python3 curl unzip zip xz-utils qemu-user-static
 
       # Which Node.js this platform gets - and whether it is built at all.
       #
@@ -922,7 +922,7 @@ jobs:
             -v "$(pwd)/Dockerfile:/Dockerfile:ro" \
             -w /bundle/programs/server \
             node:${NODE_VERSION}-slim \
-            sh -c "bash /releases/apt-install.sh build-essential python3 && bash /releases/use-release-npm.sh && bash /releases/npm-retry.sh npm install && node /releases/prune-build-only-modules.mjs /bundle && node /releases/bump-bundle-npm-deps.mjs /bundle && node /releases/bundle-trim.mjs /bundle --transport sockjs --drop-legacy-client --trim-prebuilds --platform linux --arch arm64 && node /releases/prune-unreachable-npm.mjs /bundle"
+            sh -c "bash /releases/apt-install.sh libatomic1 build-essential python3 && bash /releases/use-release-npm.sh && bash /releases/npm-retry.sh npm install && node /releases/prune-build-only-modules.mjs /bundle && node /releases/bump-bundle-npm-deps.mjs /bundle && node /releases/bundle-trim.mjs /bundle --transport sockjs --drop-legacy-client --trim-prebuilds --platform linux --arch arm64 && node /releases/prune-unreachable-npm.mjs /bundle"
 
       - name: Check the binaries the arm64 bundle needs exist
         if: steps.preflight.outputs.skip != 'true'
@@ -3385,7 +3385,7 @@ jobs:
 
       - name: Install system dependencies and Meteor
         run: |
-          bash "$GITHUB_WORKSPACE/releases/apt-install.sh" p7zip-full wget curl build-essential g++ make python3 unzip xz-utils git qemu-user-static
+          bash "$GITHUB_WORKSPACE/releases/apt-install.sh" p7zip-full wget curl libatomic1 build-essential g++ make python3 unzip xz-utils git qemu-user-static
           if [ ! -f "$HOME/.meteor/meteor" ]; then
             # Downloaded, then run: a `curl | sh` cannot be retried, because
             # by the time the download fails sh is already half way through it.

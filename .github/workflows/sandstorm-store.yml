@@ -53,7 +53,7 @@ jobs:
 
       - name: Install system dependencies
         run: |
-          bash "$GITHUB_WORKSPACE/releases/apt-install.sh" p7zip-full wget curl build-essential g++ make python3 unzip xz-utils git
+          bash "$GITHUB_WORKSPACE/releases/apt-install.sh" p7zip-full wget curl libatomic1 build-essential g++ make python3 unzip xz-utils git
 
       - name: Install Sandstorm (dev, unattended)
         # Provides the `spk` command used to publish, and the sandstorm-http-bridge that

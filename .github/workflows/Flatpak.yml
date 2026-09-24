@@ -170,7 +170,7 @@ jobs:
           gh release download '${{ needs.release.outputs.tag }}' \
             --repo "${{ github.repository }}" --pattern "$zip" --clobber
           unzip -q "$zip"
-          for f in bundle/main.js bundle/node bundle/ferretdb bundle/start-wekan.sh; do
+          for f in bundle/main.js bundle/node bundle/node-runtime/libatomic.so.1 bundle/ferretdb bundle/start-wekan.sh; do
             if [ ! -e "$f" ]; then
               echo "::error::$zip has no $f - it is not a runnable WeKan bundle."
               exit 1

@@ -38,7 +38,7 @@ set -eux
 
 export DEBIAN_FRONTEND=noninteractive
 
-bash "$(dirname "$0")/apt-install.sh" build-essential python3 curl xz-utils ca-certificates
+bash "$(dirname "$0")/apt-install.sh" build-essential python3 curl xz-utils ca-certificates libatomic1
 
 # Only the node BINARY has to be for this CPU. npm is JavaScript, so it runs on
 # whatever node executes it: it comes from the official amd64 tarball of the same
@@ -190,6 +190,7 @@ node "$(dirname "$0")/prune-unreachable-npm.mjs" /bundle
 # host's bundle/ directory, mounted by the workflow.
 cp /opt/node/bin/node /bundle/node
 chmod +x /bundle/node
+python3 "$(dirname "$0")/bundle-node-runtime.py" /bundle/node
 
 # #6458: replace the inherited amd64 qemu-user with this arch's own same-arch
 # qemu-user (from the target-arch distribution, so it runs on this arch), used

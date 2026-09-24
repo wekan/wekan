@@ -211,7 +211,7 @@ jobs:
           unzip -q "$zip"
           # A zip that exists is not a bundle that runs; these are the two files
           # the AppImage is built around.
-          for f in bundle/main.js bundle/node bundle/ferretdb bundle/start-wekan.sh; do
+          for f in bundle/main.js bundle/node bundle/node-runtime/libatomic.so.1 bundle/ferretdb bundle/start-wekan.sh; do
             if [ ! -e "$f" ]; then
               echo "::error::$zip has no $f - it is not a runnable WeKan bundle."
               exit 1
@@ -392,7 +392,7 @@ jobs:
           # misclassified that missing loader as an application startup bug.
           # AppDir is the exact tree just packed, so this also avoids extracting
           # the large image merely to make the capability decision.
-          if ! AppDir/usr/lib/wekan/bundle/node --version >/dev/null 2>&1; then
+          if ! LD_LIBRARY_PATH="$PWD/AppDir/usr/lib/wekan/bundle/node-runtime${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}" AppDir/usr/lib/wekan/bundle/node --version >/dev/null 2>&1; then
             echo "::warning::this runner cannot execute the bundled ${{ matrix.appimage_arch }} Node binary, so the AppImage was packed but not started. It is uploaded unchecked."
             exit 0
           fi

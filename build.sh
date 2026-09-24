@@ -2881,7 +2881,7 @@ for _once in 1; do
 					;;
 				debian)
 					sudo apt-get update
-					sudo apt-get install -y build-essential gcc g++ make git curl wget p7zip-full zip unzip unp file npm
+					sudo apt-get install -y libatomic1 build-essential gcc g++ make git curl wget p7zip-full zip unzip unp file npm
 					;;
 				*) echo "Unsupported Linux distribution; install a C/C++ toolchain, git, curl, wget, 7zip, zip, unzip, file and npm." >&2; exit 1 ;;
 			esac

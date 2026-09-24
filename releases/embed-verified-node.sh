@@ -151,6 +151,13 @@ case "$dest" in
   *)     chmod +x "$dest" ;;
 esac
 
+# A platform bundle also carries Node's Linux runtime library. This runs on
+# native builders; emulated builds use install-node-for-arch.sh inside the target.
+case "$platform" in
+  *win*|*mac*|*darwin*) rm -rf "$(dirname "$dest")/node-runtime" ;;
+  *) python3 "$here/bundle-node-runtime.py" "$dest" || exit 1 ;;
+esac
+
 echo "Embedded Node.js ${node_full} for ${platform} from ${node_from} (${node_url}), verified SHA256 ${node_sha256} -> ${dest}" >&2
 
 printf 'node_full=%s\n'   "$node_full"
