@@ -661,7 +661,7 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**In short:** **Snap** includes the library needed by its Node.js runtime.
+**In short:** **Linux packages** include the library needed by Node.js.
 **Board invitations** no longer disable accounts through a rejected client
 write, and signed-out login avoids a protected metadata subscription.
 **Release packaging** fixes Mac archive verification, Docker scanning and
@@ -669,7 +669,7 @@ foreign native addons inherited by platform bundles.
 
 This release fixes the following bugs:
 
-**Snap** - restore startup with the bundled Node.js runtime.
+**Linux packages** - restore startup with the bundled Node.js runtime.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d55b2d3e8">Include the missing libatomic runtime library</a>. Thanks to Nissulya, PetitManchot and xet7.</summary>
@@ -679,6 +679,26 @@ inside confinement, independently of libraries installed on the host.
 Regression checks cover runtime staging and reject removal during packaging.
 The waiting-for-database HTTP regression also passes. A deployed Linux Snap
 was not available on this macOS host.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/54ce3015e">Carry libatomic through every Linux packaging path</a>. Thanks to Nissulya, PetitManchot and xet7.</summary>
+
+Docker retains libatomic1 after build-tool cleanup. Linux ZIP builders copy a
+library matching Node's ELF architecture into node-runtime, including license
+files, and the shared launcher adds that directory to its library search path.
+AppImage and Flatpak inherit it and reject input ZIPs that lack the dependency.
+Sandstorm includes libatomic in its private library tree. Native and emulated
+builders install the package explicitly; Windows and macOS repacks remove
+inherited Linux runtime files.
+
+Eight focused suites pass, including positive and negative library-selection
+fixtures for eight architectures. An offline Linux container also packaged a
+real Node executable and successfully loaded the copied library. Shell syntax
+checks pass. Full release builds were not run. A broader local-bundle parity
+suite reports a pre-existing missing use-release-npm.sh call, reproduced on the
+unchanged commit; it is separate from the runtime-library changes.
 
 </details>
 
