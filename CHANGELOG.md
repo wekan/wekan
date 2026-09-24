@@ -659,7 +659,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v11.97 2026-09-24 WeKan ® release
 
 **In short:** **Release preparation** checks changelog summaries before changing
 versions or creating tags. The missing v11.96 summary is restored so release
