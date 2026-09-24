@@ -659,7 +659,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v11.94 2026-09-24 WeKan ® release
 
 **In short:** **Linux packages** include the library needed by Node.js.
 **Board invitations** no longer disable accounts through a rejected client
