@@ -659,6 +659,18 @@ the Markdown commit as the template.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **Board Settings** places Date directly below Change Background Image.
+
+This release improves the following menu:
+
+- [Move Date directly below Change Background Image](https://github.com/wekan/wekan/commit/d71973fc4). Thanks to xet7.
+  Keep the board-admin restriction and existing Date popup. Menu order,
+  permission guards and matching documentation checks pass.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v11.94 2026-09-24 WeKan ® release
 
 **In short:** **Linux packages** include the library needed by Node.js.
@@ -701,12 +713,6 @@ suite reports a pre-existing missing use-release-npm.sh call, reproduced on the
 unchanged commit; it is separate from the runtime-library changes.
 
 </details>
-
-**Board Settings** - menu order.
-
-- [Move Date directly below Change Background Image](https://github.com/wekan/wekan/commit/d71973fc4). Thanks to xet7.
-  Keep the board-admin restriction and existing Date popup. Menu order,
-  permission guards and matching documentation checks pass.
 
 **Board invitations and login** - use authorized server operations.
 
