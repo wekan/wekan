@@ -44,8 +44,13 @@ TEXT = {'.js', '.mjs', '.cjs', '.json', '.html', '.wasm', '.node', '.go', '.ts',
 @lru_cache(maxsize=1)
 def known_bad_hashes():
     hashes = set()
-    for policy_path in (Path(__file__).with_name('risk-baseline.json'),
-                        Path(__file__).resolve().parents[2] / 'releases/risk-baseline.json'):
+    script = Path(__file__).resolve()
+    candidates = [script.with_name('risk-baseline.json')]
+    # Docker copies this script to /tmp; it has only two parent directories.
+    # Retain the nested build/ferretdb checkout fallback when that parent exists.
+    if len(script.parents) > 2:
+        candidates.append(script.parents[2] / 'releases/risk-baseline.json')
+    for policy_path in candidates:
         if policy_path.is_file():
             hashes.update(json.loads(policy_path.read_text()).get('denyHashes', []))
     return hashes

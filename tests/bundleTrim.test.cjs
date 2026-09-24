@@ -477,4 +477,26 @@ test('build-amd64 does not trim prebuilds, the per-platform jobs do', () => {
   }
 });
 
+
+for (const [platform, arch, remove] of [['linux', 'arm64', true], ['win32', 'x64', true],
+  ['darwin', 'arm64', true], ['linux', 'x64', false]]) {
+  test(`inherited ELF build cannot shadow ${platform}/${arch} prebuild`, dir => {
+    const bundle = prebuildBundle(dir);
+    const elf = Buffer.alloc(64);
+    elf.write('\x7fELF', 0, 'binary');
+    elf[4] = 2; elf[5] = 1; elf.writeUInt16LE(62, 18);
+    for (const mode of ['Release', 'Debug']) {
+      const folder = path.join(bundle, BCRYPT, 'build', mode);
+      fs.mkdirSync(folder, { recursive: true });
+      fs.writeFileSync(path.join(folder, 'bcrypt.node'), elf);
+      fs.writeFileSync(path.join(folder, 'native.node'), 'non-ELF native output');
+    }
+    trim(bundle, ['--trim-prebuilds', '--platform', platform, '--arch', arch]);
+    for (const mode of ['Release', 'Debug']) {
+      assert.equal(exists(bundle, `${BCRYPT}/build/${mode}/bcrypt.node`), !remove);
+      assert.ok(exists(bundle, `${BCRYPT}/build/${mode}/native.node`));
+    }
+  });
+}
+
 console.log(`\nbundleTrim: ${passed} tests passed`);

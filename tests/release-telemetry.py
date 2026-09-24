@@ -7,6 +7,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 import zipfile
 sys.dont_write_bytecode = True
 ROOT = Path(__file__).resolve().parents[1]
@@ -19,6 +20,19 @@ spec.loader.exec_module(audit)
 
 
 class ReleaseTelemetry(unittest.TestCase):
+    def test_shallow_copy_reads_sibling_policy_without_index_error(self):
+        for location in ('/check-telemetry.py', '/tmp/check-telemetry.py'):
+            with patch.object(audit, '__file__', location), \
+                 patch.object(Path, 'is_file', return_value=True), \
+                 patch.object(Path, 'read_text', return_value='{"denyHashes":["denied"]}'):
+                audit.known_bad_hashes.cache_clear()
+                self.assertEqual(audit.known_bad_hashes(), {'denied'})
+            with patch.object(audit, '__file__', location), \
+                 patch.object(Path, 'is_file', return_value=False):
+                audit.known_bad_hashes.cache_clear()
+                self.assertEqual(audit.known_bad_hashes(), set())
+        audit.known_bad_hashes.cache_clear()
+
     def test_artifacts_reject_reporters_preserve_logging(self):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / 'binary'

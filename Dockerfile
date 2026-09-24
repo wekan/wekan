@@ -225,6 +225,7 @@ COPY --chmod=755 releases/resolve-node-source.sh /tmp/resolve-node-source.sh
 # lookup. tests/releaseDownloads.test.cjs pins the pair.
 COPY --chmod=755 releases/fetch.sh /tmp/fetch.sh
 COPY --chmod=755 releases/check-telemetry.py /tmp/check-telemetry.py
+COPY releases/risk-baseline.json /tmp/risk-baseline.json
 COPY --chmod=755 releases/prepare-bundle-npm.mjs /tmp/prepare-bundle-npm.mjs
 # The bundle's `npm install` leaves node-gyp's whole tree - 83 of the 120
 # packages in programs/server/node_modules - in a bundle that compiles nothing at

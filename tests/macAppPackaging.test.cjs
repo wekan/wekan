@@ -27,3 +27,25 @@ test('both Mac app architectures are released and can be rebuilt if missing', ()
     assert.ok(assets.includes(`mac ${arch} WeKan-99.1-mac-${arch}.app.zip sums`));
   }
 });
+
+test('Mac workflow lists the ZIP using a supported archive command', () => {
+  const mac = read('.github/workflows/mac.yml');
+  assert.doesNotMatch(mac, /ditto -t/);
+  assert.match(mac, /unzip -Z1 "dist\/WeKan-\$\{VERSION\}-mac-\$\{MAC_ARCH\}\.app\.zip"/);
+});
+
+test('macOS can list a ditto-created app ZIP and reject a missing ZIP', { skip: process.platform !== 'darwin' }, () => {
+  const fs = require('node:fs');
+  const os = require('node:os');
+  const { spawnSync } = require('node:child_process');
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'wekan-mac-zip-'));
+  try {
+    const app = 'WeKan-test-mac-arm64.app';
+    fs.mkdirSync(path.join(dir, app, 'Contents/MacOS'), { recursive: true });
+    fs.writeFileSync(path.join(dir, app, 'Contents/MacOS/WeKan'), '#!/bin/sh\n');
+    execFileSync('ditto', ['-c', '-k', '--keepParent', app, 'app.zip'], { cwd: dir });
+    const listing = execFileSync('unzip', ['-Z1', 'app.zip'], { cwd: dir, encoding: 'utf8' });
+    assert.ok(listing.split('\n').includes(`${app}/Contents/MacOS/WeKan`));
+    assert.notEqual(spawnSync('unzip', ['-Z1', 'missing.zip'], { cwd: dir }).status, 0);
+  } finally { fs.rmSync(dir, { recursive: true, force: true }); }
+});

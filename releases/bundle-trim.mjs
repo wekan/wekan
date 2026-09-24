@@ -68,7 +68,7 @@ import {
   readdirSync, statSync, unlinkSync, existsSync, rmSync, readFileSync, writeFileSync,
   chmodSync,
 } from 'fs';
-import { join, basename } from 'path';
+import { join, basename, dirname } from 'path';
 
 const argv = process.argv.slice(2);
 const bundle = argv.find(a => !a.startsWith('--'));
@@ -215,6 +215,26 @@ if (flag('trim-prebuilds')) {
       console.log(`bundle-trim: ${dir} has no ${platform}-${arch} addon; left untouched`);
       prebuildsUntouched += 1;
       continue;
+    }
+
+    // Derived bundles inherit Linux/amd64 build output. node-gyp-build tries
+    // build/Release and build/Debug BEFORE the correct prebuild, without checking
+    // the binary's architecture. Drop only positively identified foreign ELF
+    // addons, and only after finding a target prebuild. Native rebuilds survive.
+    const elfMachine = { ia32: 3, x64: 62, arm: 40, arm64: 183,
+      ppc64: 21, s390x: 22, riscv64: 243 }[arch];
+    for (const mode of ['Release', 'Debug']) {
+      const buildDir = join(dirname(dir), 'build', mode);
+      if (!existsSync(buildDir)) continue;
+      for (const entry of readdirSync(buildDir, { withFileTypes: true })) {
+        if (!entry.isFile() || !entry.name.endsWith('.node')) continue;
+        const file = join(buildDir, entry.name);
+        const bytes = readFileSync(file);
+        if (bytes.length < 20 || bytes.toString('hex', 0, 4) !== '7f454c46') continue;
+        if (bytes[5] !== 1 && bytes[5] !== 2) continue;
+        const machine = bytes[5] === 1 ? bytes.readUInt16LE(18) : bytes.readUInt16BE(18);
+        if (platform !== 'linux' || (elfMachine && machine !== elfMachine)) drop(file);
+      }
     }
 
     for (const name of children) {

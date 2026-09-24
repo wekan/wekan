@@ -124,7 +124,7 @@ jobs:
           mkdir -p "$PWD/.tools/tmp"
           export TMPDIR="$PWD/.tools/tmp"
           bash releases/mac/package-app.sh payload/bundle "$VERSION" "$MAC_ARCH" dist
-          ditto -t -k "dist/WeKan-${VERSION}-mac-${MAC_ARCH}.app.zip" > "$TMPDIR/app-contents.txt"
+          unzip -Z1 "dist/WeKan-${VERSION}-mac-${MAC_ARCH}.app.zip" > "$TMPDIR/app-contents.txt"
           grep -q "WeKan-${VERSION}-mac-${MAC_ARCH}.app/Contents/MacOS/WeKan" "$TMPDIR/app-contents.txt"
 
       - name: Smoke test Node.js, FerretDB and Meteor
