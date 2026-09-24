@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@meteorjs/rspack": "^3.0.0-beta.2",
-    "@rsdoctor/rspack-plugin": "^1.5.9",
+    "@rsdoctor/rspack-plugin": "^1.6.4",
     "@rspack/cli": "^2.2.0",
     "@rspack/core": "^2.2.0",
     "@rspack/dev-server": "^2.2.0",
@@ -102,7 +102,7 @@
     "markdown-it-emoji": "^3.0.0",
     "markdown-it-math": "^6.0.0",
     "meteor-accounts-t9n": "^2.6.0",
-    "meteor-node-stubs": "file:npm-packages/meteor-node-stubs",
+    "meteor-node-stubs": "^1.2.30",
     "papaparse": "^5.5.4",
     "pdfjs-dist": "~6.2.108",
     "pdfkit": "^0.20.2",
