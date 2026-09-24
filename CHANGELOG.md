@@ -659,6 +659,25 @@ the Markdown commit as the template.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4913f4abb">Recover Snap builds from stale Ubuntu package indexes</a>. Thanks to xet7.</summary>
+
+The wekan-ondra amd64 build failed while provisioning Snapcraft's managed base:
+an obsolete libexpat1-dev package URL returned HTTP 404. For native and variant
+Snap builds, refresh APT indexes inside the identified failed LXD base and retry
+once. Restore the container's original running/stopped state; unrelated errors,
+failed refreshes and failed retries remain fatal.
+
+Six focused test suites pass, including package-error detection, container state
+restoration, refresh failures and workflow integration. Workflow YAML parses.
+The hosted Snapcraft/LXD build has not been rerun from this Mac checkout.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v11.95 2026-09-24 WeKan ® release
 
 **In short:** **Mac app builds** finish their smoke tests without hanging during
