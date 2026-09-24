@@ -659,7 +659,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v11.95 2026-09-24 WeKan ® release
 
 **In short:** **Mac app builds** finish their smoke tests without hanging during
 shutdown. **Board Settings** places Date below Change Background Image and
