@@ -52,7 +52,7 @@ let attachmentKindFix;
     assert.deepStrictEqual(attachmentKind(uploaded), {
       extension: 'jpg', type: 'image/jpeg',
       isImage: true, isVideo: false, isAudio: false,
-      isPDF: false, isJSON: false, isText: false, isOffice: false,
+      isPDF: false, isJSON: false, isText: false, isOffice: false, isZIP: false,
     });
     // ...and nothing to repair.
     assert.strictEqual(attachmentKindFix(uploaded), null);
@@ -73,7 +73,7 @@ let attachmentKindFix;
       ['a.mp4', 'isVideo'], ['a.webm', 'isVideo'], ['a.mov', 'isVideo'],
       ['a.mp3', 'isAudio'], ['a.ogg', 'isAudio'], ['a.flac', 'isAudio'],
       ['a.pdf', 'isPDF'], ['a.json', 'isJSON'], ['a.txt', 'isText'],
-      ['a.docx', 'isOffice'], ['a.xlsx', 'isOffice'], ['a.pptx', 'isOffice'],
+      ['a.zip', 'isZIP'], ['a.docx', 'isOffice'], ['a.xlsx', 'isOffice'], ['a.pptx', 'isOffice'],
     ];
     for (const [name, expected] of cases) {
       const kind = attachmentKind({ name });

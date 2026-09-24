@@ -48,6 +48,7 @@ template(name="attachmentViewer")
         object#pdf-viewer.hidden(type="application/pdf")
           span.pdf-preview-error {{_ 'preview-pdf-not-supported' }}
         object#txt-viewer.hidden(type="text/plain")
+        #zip-viewer.hidden(aria-live="polite")
         #office-viewer.hidden
       button.fa.fa-caret-right#next-attachment(type="button" aria-label="{{_ 'next'}}")
 

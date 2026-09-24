@@ -7,6 +7,7 @@ import { attachmentKind } from '/models/lib/attachmentKind';
 import { liveAttachments } from '/models/lib/attachmentSoftDelete';
 import DOMPurify from 'dompurify';
 import { sanitizeHTML, sanitizeText } from '/imports/lib/secureDOMPurify';
+import { openZipAttachment } from '/client/lib/zipAttachmentViewer';
 import { openOfficeAttachment } from '/client/lib/officeAttachmentViewer';
 import uploadProgressManager from '../../lib/uploadProgressManager';
 import { attachmentMigrationManager } from '/client/lib/attachmentMigrationManager';
@@ -32,6 +33,7 @@ let slideshowAttachmentIds = null;
 let touchStartCoords = null;
 let touchEndCoords = null;
 
+let zipPreviewAbortController = null;
 let officePreview = null;
 let officePreviewAbortController = null;
 let officePreviewGeneration = 0;
@@ -110,6 +112,7 @@ function attachmentCanBeOpened(attachment) {
     kind.isText ||
     kind.isJSON ||
     kind.isOffice ||
+    kind.isZIP ||
     kind.isVideo ||
     kind.isAudio
   );
@@ -166,6 +169,21 @@ function openAttachmentViewer(attachmentId) {
       $("#txt-viewer").attr("data", getAttachmentUrl(attachment));
       $("#txt-viewer").removeClass("hidden");
       break;
+    case (kind.isZIP): {
+      const container = document.getElementById('zip-viewer');
+      zipPreviewAbortController = new AbortController();
+      const { signal } = zipPreviewAbortController;
+      container.classList.remove('hidden');
+      container.textContent = TAPi18n.__('loading');
+      openZipAttachment({ container, signal, size: attachment.size,
+        url: getAttachmentUrl(attachment), emptyMessage: TAPi18n.__('no-results') })
+        .catch(error => {
+          if (signal.aborted) return;
+          container.textContent = TAPi18n.__('error');
+          console.error('Could not preview ZIP attachment:', error);
+        });
+      break;
+    }
     case (kind.isOffice): {
       const generation = ++officePreviewGeneration;
       const container = document.getElementById('office-viewer');
@@ -216,6 +234,11 @@ export function openAttachmentSlideshow(attachmentId, attachmentIds = []) {
 }
 
 function closeAttachmentViewer(restoreFocus = true) {
+  zipPreviewAbortController?.abort();
+  zipPreviewAbortController = null;
+  const zipViewer = document.getElementById('zip-viewer');
+  zipViewer?.replaceChildren();
+  zipViewer?.classList.add('hidden');
   officePreviewGeneration++;
   if (officePreviewAbortController) {
     officePreviewAbortController.abort();

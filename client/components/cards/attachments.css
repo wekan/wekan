@@ -322,6 +322,21 @@
   height: 100%;
   overflow: hidden;
 }
+#zip-viewer {
+  background: white;
+  color: #222;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  padding: 1em;
+  box-sizing: border-box;
+  text-align: start;
+  overflow-wrap: anywhere;
+}
+#zip-viewer li {
+  padding: 0.3em;
+  white-space: pre-wrap;
+}
 .pdf-preview-error {
   margin-top: 180px;
   display: block;
@@ -361,6 +376,7 @@
       100vh - 155px
     ); /* Full height - height of top and bottom bars */
   }
+  #zip-viewer,
   #txt-viewer,
   #office-viewer {
     width: 100%;

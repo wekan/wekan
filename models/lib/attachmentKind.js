@@ -40,6 +40,7 @@ const EXTENSION_MIME = {
   m4v: 'video/x-m4v', mkv: 'video/x-matroska', avi: 'video/x-msvideo',
   mp3: 'audio/mpeg', ogg: 'audio/ogg', oga: 'audio/ogg', wav: 'audio/wav',
   flac: 'audio/flac', m4a: 'audio/mp4', aac: 'audio/aac', opus: 'audio/opus',
+  zip: 'application/zip',
   pdf: 'application/pdf', json: 'application/json',
   txt: 'text/plain', md: 'text/markdown', csv: 'text/csv', log: 'text/plain',
   ini: 'text/plain', conf: 'text/plain', yml: 'text/yaml', yaml: 'text/yaml',
@@ -108,6 +109,8 @@ function attachmentKind(doc) {
     isJSON: flag(doc && doc.isJSON, type === 'application/json' || (!stated && extension === 'json')),
     isText: flag(doc && doc.isText,
       type.startsWith('text/') || byName(TEXT_EXTENSIONS)),
+    isZIP: ['application/zip', 'application/x-zip-compressed'].includes(type) ||
+      (extension === 'zip' && (!stated || type === 'application/octet-stream')),
     isOffice: OFFICE_EXTENSIONS.includes(extension) &&
       (!stated || type.startsWith('application/vnd.openxmlformats-officedocument.')),
   };
