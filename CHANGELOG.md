@@ -659,6 +659,38 @@ the Markdown commit as the template.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **Dependency installation** works again after the S3 upload
+library update. The recent Dependabot merges have a documented security and
+telemetry review, with focused regression checks for the repaired dependency
+pair.
+
+This release fixes the following dependency compatibility:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/670ae80ff">Align the S3 client with its upload library</a>. Thanks to xet7.</summary>
+
+lib-storage 3.1137.0 requires client-s3 3.1137.0 or newer, but the merged
+lockfile retained client-s3 3.1127.0. npm stopped with ERESOLVE before the
+WeKan tests could build. The missing MongoDB driver also stopped database
+conformance before any queries ran. Update the direct client to 3.1137.0,
+regenerate the lockfile and check the peer requirement in a regression test.
+
+The [dependency review](docs/Security/Dependabot-2026-09-24.md) records the
+scope, findings and limitations for the six merged Dependabot updates and
+this repair. Archive checksums match and npm reports no known advisories;
+the indicator-driven review found no telemetry implementation. These checks
+do not prove the absence of unknown vulnerabilities.
+
+Six focused suites, dependency installation and npm ci dry-run pass. S3 upload
+construction and MongoDB driver loading pass without service requests. The
+full Meteor/browser and database-conformance suites still need rerunning.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v11.99 2026-09-24 WeKan ® release
 
 **In short:** **Developer tooling** updates Rsdoctor to fix source disclosure
