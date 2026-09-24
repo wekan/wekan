@@ -659,7 +659,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v11.99 2026-09-24 WeKan ® release
 
 **In short:** **Developer tooling** updates Rsdoctor to fix source disclosure
 through its report server. **Dependency updates** work again with published
