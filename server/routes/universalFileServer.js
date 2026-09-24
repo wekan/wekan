@@ -441,7 +441,7 @@ if (Meteor.isServer) {
       const hashed = Accounts._hashLoginToken(rawToken);
       return await Meteor.users.findOneAsync(
         { 'services.resume.loginTokens.hashedToken': hashed },
-        { fields: { _id: 1 } },
+        { fields: { _id: 1, isAdmin: 1, loginDisabled: 1 } },
       );
     } catch (e) {
       // In case accounts-base is not available or any error occurs
@@ -453,9 +453,9 @@ if (Meteor.isServer) {
   }
 
   /**
-   * Authorization helper for board-bound files
+   * Authorization helper for attachment downloads (including Files Report)
    * - Public boards: allow
-   * - Private boards: require valid user who is a member
+   * - Private boards: require an active member or an enabled site administrator
    */
   async function isAuthorizedForBoard(req, board) {
     try {
@@ -464,6 +464,9 @@ if (Meteor.isServer) {
       if (isSandstormRequest(req)) return true;
       const token = extractLoginToken(req);
       const user = token ? await getUserFromToken(token) : null;
+      // Files Report already publishes every attachment to site administrators.
+      // Keep this exception local to attachment routes, not general board reads.
+      if (user?.isAdmin === true && user.loginDisabled !== true) return true;
       return canReadBoard(user && user._id, board);
     } catch (e) {
       if (process.env.DEBUG === 'true') {

@@ -309,6 +309,7 @@
 
 .table-page-attachment {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 6px;
   min-width: 0;
@@ -316,7 +317,9 @@
 .table-page-attachment-preview {
   width: 56px;
   height: 44px;
-  flex: 0 0 56px;
+  flex: 0 1 56px;
+  min-width: 0;
+  max-width: 100%;
   padding: 0;
   border: 1px solid #ccc;
   border-radius: 3px;
@@ -340,6 +343,8 @@
 }
 .table-page-attachment-actions {
   display: flex;
+  flex-wrap: wrap;
+  max-width: 100%;
   gap: 4px;
 }
 .table-page-attachment-actions button,
