@@ -680,7 +680,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v12.01 2026-09-25 WeKan ® release
 
 **In short:** **Files Report previews and downloads** work for site
 administrators even when they are not members of the attachment's private
