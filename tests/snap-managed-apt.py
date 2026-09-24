@@ -15,6 +15,13 @@ LOG = ("Failed to install packages.\n* Command that failed: 'lxc --project snapc
        "* Command standard error output: b'E: Failed to fetch "
        "http://security.ubuntu.com/ubuntu/pool/main/e/expat/"
        "libexpat1-dev_2.6.1-2ubuntu0.6_amd64.deb  404  Not Found [IP: 91.189.91.83 80]\\n'")
+BUILD = 'snapcraft-wekan-ondra-amd64-123456'
+STAGE_LOG = (LOG.split('* Command standard error')[0]
+             + 'Executing in container: /snap/bin/lxc --project snapcraft exec local:' + BUILD
+             + ' --cwd /root/project --mode non-interactive -- env CRAFT_MANAGED_MODE=1 snapcraft pack\n'
+             "Failed to fetch package: The item '/root/.cache/snapcraft/download/"
+             "libcurl4t64_8.5.0-2ubuntu10.15_amd64.deb' could not be fetched: "
+             '404  Not Found [IP: 91.189.91.82 80].\nFailed to run snapcraft in instance\n')
 
 
 class RecoveryTests(unittest.TestCase):
@@ -29,7 +36,17 @@ class RecoveryTests(unittest.TestCase):
             with self.subTest(log=log), self.assertRaises(ValueError):
                 recovery.failed_instance(log)
 
-    def exercise(self, status='Stopped', fail=False, name=NAME):
+    def test_stage_failure_selects_project_not_base(self):
+        self.assertEqual(recovery.failed_instance(STAGE_LOG), BUILD)
+        self.assertEqual(recovery.failed_instance(STAGE_LOG.replace('\n', '\\n')), BUILD)
+        for text in [STAGE_LOG.replace('404', '403'),
+                     STAGE_LOG.replace(BUILD, 'other-container'),
+                     STAGE_LOG + '\nlxc --project snapcraft exec local:snapcraft-other-123 -- env',
+                     STAGE_LOG.replace('Failed to run snapcraft in instance', '')]:
+            with self.subTest(text=text), self.assertRaises(ValueError):
+                recovery.failed_instance(text)
+
+    def exercise(self, status='Stopped', fail=False, name=NAME, log=LOG):
         calls = []
         def run(args, **kwargs):
             self.assertEqual(args[:3], ['lxc', '--project', 'snapcraft'])
@@ -44,12 +61,12 @@ class RecoveryTests(unittest.TestCase):
         with patch.object(recovery.subprocess, 'run', side_effect=run):
             if fail:
                 with self.assertRaises(subprocess.CalledProcessError):
-                    recovery.refresh(LOG)
-            elif name != NAME or status == 'Frozen':
+                    recovery.refresh(log)
+            elif name != recovery.failed_instance(log) or status == 'Frozen':
                 with self.assertRaises(ValueError):
-                    recovery.refresh(LOG)
+                    recovery.refresh(log)
             else:
-                recovery.refresh(LOG)
+                recovery.refresh(log)
         return calls
 
     def test_stopped_instance_is_restored(self):
@@ -61,6 +78,12 @@ class RecoveryTests(unittest.TestCase):
 
     def test_running_instance_stays_running(self):
         self.assertEqual([c[0] for c in self.exercise('Running')], ['list', 'exec'])
+
+    def test_stage_refresh_and_failure_restore_project_state(self):
+        for fail in [False, True]:
+            calls = self.exercise(name=BUILD, log=STAGE_LOG, fail=fail)
+            self.assertEqual([c[0] for c in calls], ['list', 'start', 'exec', 'stop'])
+            self.assertTrue(all(c[1] == 'local:' + BUILD for c in calls))
 
     def test_update_failure_is_fatal_and_restores_state(self):
         self.assertEqual([c[0] for c in self.exercise(fail=True)], ['list', 'start', 'exec', 'stop'])
