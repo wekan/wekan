@@ -135,6 +135,7 @@ echo "    the same steps as .github/workflows/release-all.yml, without the zip"
 # Verbatim from the workflow's "Install server npm modules" step, in its order.
 # The order is not arbitrary: bump-bundle-npm-deps raises what Meteor's own
 # packages bundle, and both trims measure the tree the bump left.
+bash "$ROOT/releases/use-release-npm.sh" || fail "release npm installation failed."
 node "$ROOT/releases/prepare-bundle-npm.mjs" "$BUNDLE" || fail "bundle npm policy preparation failed."
 say "1/6  bump-bundle-node-gyp + npm install + prune-build-only + bump-bundle-npm-deps"
 # BEFORE the install, as in the workflow: Meteor pins programs/server's

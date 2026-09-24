@@ -5,12 +5,12 @@ const root = path.resolve(__dirname, '..');
 const read = locale => JSON.parse(fs.readFileSync(path.join(root, `imports/i18n/data/${locale}.i18n.json`)));
 const en = read('en');
 const keys = ['date-format-yyyy-mm-dd', 'date-format-dd-mm-yyyy', 'date-format-mm-dd-yyyy'];
-const jade = fs.readFileSync(path.join(root, 'client/components/cards/cardDetails.jade'), 'utf8');
+const { DATE_FORMATS } = require('../models/lib/dateFormatPolicy');
 for (const locale of ['ak', 'bs', 'sl', 'sl_SI', 'br', 'zgh']) {
   const values = read(locale);
   for (const key of keys) {
     assert.equal(values[key], en[key]);
-    assert.ok(jade.includes(`option(value="${values[key]}"`), 'label matches a selectable format');
+    assert.ok(DATE_FORMATS.includes(values[key]), 'label matches a selectable format');
     assert.doesNotMatch(values[key], /Nsɛm|година|месец|дан|AAAA|JJ/);
   }
   assert.equal(new Set(keys.map(key => values[key])).size, 3);

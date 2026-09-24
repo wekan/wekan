@@ -9,6 +9,9 @@
 // is a no-op so the module can load without a running Meteor app.
 
 const STUBS = {
+  '/client/lib/dateDisplay': `
+    export const dateDisplayPreferences = () => ({ dateFormat: 'YYYY-MM-DD', calendarSystem: 'gregorian' });
+  `,
   'meteor/blaze': `
     export const Blaze = { registerHelper() {} };
   `,

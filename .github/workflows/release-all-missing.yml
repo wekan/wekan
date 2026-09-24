@@ -83,7 +83,7 @@ jobs:
         run: |
           set -euo pipefail
           V="$VERSION"
-          [ -n "$V" ] || V="$(gh release view --json tagName --jq .tagName)"
+          [ -n "$V" ] || V="$(gh release view --repo "$GITHUB_REPOSITORY" --json tagName --jq .tagName)"
           python3 releases/retry-failed-release.py "$V"
 
   plan:

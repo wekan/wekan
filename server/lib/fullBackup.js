@@ -30,7 +30,7 @@ function fileName(coll, id, version) {
   return `files/${coll}/${crypto.createHash('sha256')
     .update(`${coll}\0${idKey(id)}\0${version}`).digest('hex')}`;
 }
-function inside(root, relative) {
+function safeEntryPath(root, relative) {
   if (!relative || relative.includes('\\') || relative.includes('\0')
       || relative.split('/').some(p => !p || p === '.' || p === '..')
       || path.isAbsolute(relative)) throw new Error('Unsafe backup path');
@@ -40,7 +40,7 @@ function inside(root, relative) {
 }
 // Do not follow existing destination symlinks while installing archive content.
 function prepareDestination(root, relative) {
-  const target = inside(root, relative);
+  const target = safeEntryPath(root, relative);
   fs.mkdirSync(root, { recursive: true });
   let current = path.resolve(root);
   for (const segment of relative.split('/')) {
@@ -164,7 +164,7 @@ async function inspectInstanceBackup(zipPath) {
   const entries = new Map();
   for (const entry of zip.files) {
     if (entry.type !== 'File') throw new Error('Unexpected backup directory entry');
-    inside('/backup', entry.path);
+    safeEntryPath('/backup', entry.path);
     if (entries.has(entry.path)) throw new Error('Duplicate archive entry');
     entries.set(entry.path, entry);
   }
@@ -226,7 +226,7 @@ function relocate(doc, coll, files, root) {
   for (const item of versions) {
     const version = doc.versions && doc.versions[item.version];
     if (!version) throw new Error('File version missing from backup metadata');
-    version.path = inside(root, item.path.replace(/^files\//, ''));
+    version.path = safeEntryPath(root, item.path.replace(/^files\//, ''));
     version.storage = 'fs';
     version.meta = { ...(version.meta || {}) };
     for (const key of ['gridFsFileId', 'cloudPath', 'cloudKey', 's3', 'azure', 'gcs']) delete version.meta[key];

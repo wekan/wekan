@@ -192,10 +192,10 @@ test('a server-built export never silently prints the SERVER zone', () => {
 
 test('the client sends zone, language and the card\'s own date format', () => {
   assert.ok(/resolvedOptions\(\)\.timeZone/.test(exportLocale), 'the IANA zone');
-  assert.ok(/getDateFormat\(\)/.test(exportLocale)
-    && /localStorage\.getItem\('dateFormat'\)/.test(exportLocale),
-    'the date format the opened card is showing - including the localStorage '
-    + 'fallback a logged-out reader has, which no server-side lookup can reach');
+  assert.ok(/resolveDateFormat\(currentUser.getDateFormat\(\), setting, board, currentUser.profile\?\.dateFormatOverride\)/.test(exportLocale),
+    'exports resolve the enabled member, board and global preference');
+  assert.ok(/resolveDateFormat\(null, setting, board\)/.test(exportLocale),
+    'logged-out readers use the same board/global policy as the card');
   assert.ok(/TAPi18n\.getLanguage\(\)/.test(exportLocale), 'and the active UI language');
   assert.ok(/navigator\.languages/.test(exportLocale) && /navigator\.language/.test(exportLocale),
     'falling back to the browser language when the UI has not selected one');

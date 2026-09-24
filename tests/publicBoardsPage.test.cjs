@@ -11,7 +11,7 @@
 // and some of it offered actions the visitor has no rights to - Multi-Selection
 // offered to archive boards they do not own.
 //
-// Design: docs/Features/Page/Public.md, which is docs/Features/Page/Table.md.
+// Design: docs/Features/All-Boards/Public.md, which is docs/Features/Page/Table.md.
 
 const assert = require('assert');
 const fs = require('fs');
@@ -26,7 +26,7 @@ const js = read('client/components/boards/publicBoards.js');
 const css = read('client/components/boards/publicBoards.css');
 const router = read('config/router.js');
 const publications = read('server/publications/boards.js');
-const design = read('docs/Features/Page/Public.md');
+const design = read('docs/Features/All-Boards/Public.md');
 
 let passed = 0;
 function test(name, fn) {

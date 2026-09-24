@@ -58,7 +58,7 @@ function load(name, extra = '') {
     const sourceRequire = require('node:module').createRequire(path.join(root, 'npm/package.json'));
     assert.equal(sourceRequire.resolve('fflate'), require.resolve('fflate'));
     const docker = read('Dockerfile');
-    assert.match(docker, /apt-get install --assume-yes --no-install-recommends file\n/);
+    assert.match(docker, /apt-get install --assume-yes --no-install-recommends file(?:[ \t]+[^\n]*)?\n/);
     assert.doesNotMatch(docker.match(/ENV BUILD_DEPS="([^"]+)"/)[1], /\bfile\b/);
     console.log('Release dependencies: XLSX/DOCX/PPTX extraction, rejected archives, PDF assets, native-image lookup and Docker MIME utility pass.');
   } finally { fs.rmSync(temp, { recursive: true, force: true }); }

@@ -315,7 +315,7 @@ test('the server refuses what it should, and checks before anything else', () =>
 });
 
 test('the design doc is there and says what all of it does', () => {
-  const doc = read('docs/Features/Board/Starred.md');
+  const doc = read('docs/Features/All-Boards/Starred.md');
   for (const phrase of ['bookmark', 'relative', 'Product name - All Boards / Remaining',
     'template-container', '--theme-accent', 'moveStarredPage', 'caret',
     'toggleStarredPage']) {

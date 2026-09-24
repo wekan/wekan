@@ -1,3 +1,4 @@
+// AuthTraceBleed: bounded OAuth parsing and opaque HTTP authentication errors.
 'use strict';
 const { test } = require('node:test');
 const assert = require('node:assert/strict');

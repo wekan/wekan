@@ -45,7 +45,7 @@ test.describe('Swimlanes', () => {
     await plusBtn.click();
     const pop = boardPage.locator('.js-pop-over');
     await expect(pop).toBeVisible({ timeout: 6_000 });
-    await expect(pop.locator('input.swimlane-name-input')).toBeVisible();
+    await expect(pop.locator('textarea.swimlane-name-input')).toBeVisible();
 
     const critical = errors.filter(
       e => !e.includes('ResizeObserver') && !e.includes('Non-Error promise rejection'),
@@ -97,7 +97,7 @@ test.describe('Swimlanes', () => {
         await boardPage.waitForTimeout(400);
 
         // swimlaneAddPopup: fill in the name and submit
-        const nameInput = boardPage.locator('input.swimlane-name-input').first();
+        const nameInput = boardPage.locator('textarea.swimlane-name-input').first();
         if (await nameInput.count() > 0) {
           await nameInput.fill('New Test Swimlane');
           await boardPage.locator('.js-pop-over button.primary, .js-pop-over button[type=submit]').first().click();

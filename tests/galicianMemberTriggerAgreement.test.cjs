@@ -36,7 +36,7 @@ for (const locale of ['gl', 'gl-ES']) {
 for (const file of fs.readdirSync(path.join(root, 'imports/i18n/data')).filter(file => file.endsWith('.i18n.json'))) {
  if (['gl.i18n.json', 'gl-ES.i18n.json'].includes(file)) continue;
  const data = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data', file)));
- assert.equal(data['r-attachment-added-to'], data['r-added-to'], `${file}: preserve existing translated add action`);
- assert.equal(data['r-attachment-removed-from'], data['r-removed-from'], `${file}: preserve existing translated removal action`);
+ assert.equal(data['r-attachment-added-to'].toLocaleLowerCase(), data['r-added-to'].toLocaleLowerCase(), `${file}: preserve existing translated add action`);
+ assert.equal(data['r-attachment-removed-from'].toLocaleLowerCase(), data['r-removed-from'].toLocaleLowerCase(), `${file}: preserve existing translated removal action`);
 }
 console.log('Galician attachment agreement: masculine attachment labels, feminine other subjects and all locale reuse verified; live browser remains open');

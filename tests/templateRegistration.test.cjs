@@ -1,7 +1,7 @@
 'use strict';
 
 // A .jade file is not picked up by being on disk. Every one of them has to be
-// imported from a `client/features/*.js` list, and a template that is not
+// reachable from the client entry imports, and a template that is not
 // imported is "No such template: <name>" the moment something renders it -
 // which is how `headerBarControls.jade` shipped: the file existed, both header
 // bars included `+headerSearchButton`, and All Boards threw on render.
@@ -37,7 +37,23 @@ const importSources = [
     .filter(f => f.endsWith('.js'))
     .map(f => `client/${f}`),
 ];
-const allImports = importSources.map(read).join('\n');
+// Follow application imports, including relative component-owned templates.
+const reachable = new Set();
+function visit(file) {
+  if (reachable.has(file)) return;
+  reachable.add(file);
+  if (!file.endsWith('.js')) return;
+  for (const match of read(file).matchAll(/(?:import\s+(?:[^;'"\n]*?\s+from\s+)?|export\s+[^;'"\n]*?\s+from\s+)["']([^"']+)["']/g)) {
+    const specifier = match[1];
+    if (!specifier.startsWith('/') && !specifier.startsWith('.')) continue;
+    const target = specifier.startsWith('/') ? specifier.slice(1)
+      : path.posix.normalize(path.posix.join(path.posix.dirname(file), specifier));
+    const resolved = [target, `${target}.js`].find(candidate =>
+      fs.existsSync(path.join(ROOT, candidate)) && fs.statSync(path.join(ROOT, candidate)).isFile());
+    if (resolved) visit(resolved);
+  }
+}
+importSources.forEach(visit);
 
 let passed = 0;
 const tests = [];
@@ -46,7 +62,7 @@ function test(name, fn) { tests.push([name, fn]); }
 console.log('templateRegistration:');
 
 test('every .jade under client/components is imported', () => {
-  const missing = jadeFiles.filter(f => !allImports.includes(`'/${f}'`));
+  const missing = jadeFiles.filter(f => !reachable.has(f));
   assert.deepStrictEqual(missing, [],
     `these compile to nothing and their templates do not exist at runtime: ${missing.join(', ')}`);
 });
@@ -106,7 +122,7 @@ test('the shared header controls are gone, with the bars they were for', () => {
   // shared, it is indirection.
   assert.ok(!fs.existsSync(path.join(ROOT, 'client/components/boards/headerBarControls.jade')),
     'the file must be gone');
-  assert.ok(!allImports.includes('headerBarControls'), 'and nothing may import it');
+  assert.ok(![...reachable].some(file => file.includes('headerBarControls')), 'and nothing may import it');
   const boardJade = read('client/components/boards/boardHeader.jade');
   assert.ok(/js-open-search-view/.test(boardJade), 'the board draws Search itself');
   assert.ok(/js-multiselection-activate/.test(boardJade), 'and Multi-Selection');

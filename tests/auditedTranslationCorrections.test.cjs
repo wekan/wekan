@@ -15,7 +15,11 @@ const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%
     assert.ok(!seen.has(identity), identity);
     seen.add(identity);
     const data = cache[row.locale] ||= read(`imports/i18n/data/${row.locale}.i18n.json`);
-    assert.equal(data[row.key], row.after, identity);
+    // A later correct-language translation may supersede the historical repair.
+    const newer = identity === 'zh-TW:list-width-error-message'
+      ? '清單寬度必須為至少 200 畫素的整數' : row.after;
+    assert.equal(data[row.key], newer, identity);
+    assert.deepEqual(tokens(data[row.key]), tokens(english[row.key]), identity);
     assert.deepEqual(tokens(row.after), tokens(english[row.key]), identity);
     assert.ok(row.after.trim(), identity);
     assert.notEqual(row.before, row.after, identity);

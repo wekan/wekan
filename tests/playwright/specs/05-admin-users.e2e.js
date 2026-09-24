@@ -165,6 +165,8 @@ test.describe('Admin – user management', () => {
     const passwordInput = page.locator('#at-field-password');
 
     await waitForMeteor(page);
+    // press() does not wait for visibility; enter the rendered form first.
+    await usernameInput.click();
     await usernameInput.press('Tab');
     await expect(passwordInput).toBeFocused();
     await expect(page.locator('.password-toggle-btn')).not.toBeFocused();

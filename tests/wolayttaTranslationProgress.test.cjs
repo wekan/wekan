@@ -69,7 +69,7 @@ assert.doesNotMatch(wolaytta['calendar-system-islamic'] + wolaytta['calendar-sys
 assert.equal(wolaytta['calendar-system'], 'Wodiyaa qoodaa maaraa (gallassaa bessiyoogaa)');
 assert.notEqual(wolaytta['calendar-system'], wolaytta.calendar);
 assert.doesNotMatch(wolaytta['calendar-system'], /Kalendar|görünüşü/);
-assert.match(require('node:fs').readFileSync(require('node:path').join(root, 'client/components/users/userHeader.jade'), 'utf8'), /{{_ 'calendar-system'}}/);
+assert.match(require('node:fs').readFileSync(require('node:path').join(root, 'client/components/forms/dateFormatSettings.jade'), 'utf8'), /{{_ 'calendar-system'}}/);
 
 const remainingCalendarLabels = {
   'calendar-system-jalali': 'Jalali wodiyaa qoodaa (Persiyaa)',

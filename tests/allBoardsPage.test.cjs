@@ -9,7 +9,7 @@
 // only the title. Two rows of controls on one page, one styled like the board
 // header of the Swimlanes view and one not.
 //
-// Design: docs/Features/Page/All-Boards.md
+// Design: docs/Features/All-Boards/All-Boards.md
 
 const assert = require('assert');
 const fs = require('fs');
@@ -20,7 +20,7 @@ const read = rel => fs.readFileSync(path.join(ROOT, rel), 'utf8');
 
 const jade = read('client/components/boards/boardsList.jade');
 const js = read('client/components/boards/boardsList.js');
-const design = read('docs/Features/Page/All-Boards.md');
+const design = read('docs/Features/All-Boards/All-Boards.md');
 // The All Boards sidebar: Search and Multi-Selection open it, and the actions on
 // a selection live in it.
 const sidebar = read('client/components/boards/allBoardsSidebar.jade');

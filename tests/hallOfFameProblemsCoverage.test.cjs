@@ -46,6 +46,8 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 // response CARRIED, or only takes effect at build time, so there is no attempt to
 // attribute - not merely when nobody has written the key yet.
 const DELIBERATE = {
+  AuthTraceBleed: 'the OAuth fixture is outside the application; opaque Sandstorm error responses '
+    + 'do not distinguish attacks from operational authentication failures',
   HashBleed: 'every call to that endpoint is a legitimate admin call; the fault was '
     + 'in what the answer CARRIED, so a log line would fire on normal use and say '
     + 'nothing about an attacker (GHSA-6qpx-x7vr-p9w6, and securityCategories.js '
