@@ -680,6 +680,30 @@ the Markdown commit as the template.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **Release notes** omit Security and Translations sections when
+there are no changes in those categories.
+
+This release improves generated release notes:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3163ccfc1">Omit empty release-note sections</a>. Thanks to xet7.</summary>
+
+Only include Security and Translations when the selected release contains
+entries for them. Remove the empty-category placeholder sentences and omit
+translator credits when no languages were updated. Keep the summary and
+ChangeLog link, and preserve populated security and translation sections.
+
+The release-note regression suite verifies all four combinations of present
+and absent sections, version selection, retained details and language lists.
+Shell syntax validation also passes. This is the only Upcoming change and
+requires no application UI changes.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.01 2026-09-25 WeKan ® release
 
 **In short:** **Files Report previews and downloads** work for site
