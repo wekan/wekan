@@ -659,7 +659,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v11.96 2026-09-24 WeKan ® release
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4913f4abb">Recover Snap builds from stale Ubuntu package indexes</a>. Thanks to xet7.</summary>
