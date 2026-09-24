@@ -19,10 +19,10 @@ Board admins only - same restriction as Swimlane and List.
 │  Rules                       │
 │  Change color                │
 │  Change Background Image     │
+│  Date                        │
 │  ────────────────────────    │
 │  ▸ Board View        <- here │
 │  Swimlane                    │
-│  Date                        │
 │  List                        │
 │  Card                        │
 │  ────────────────────────    │

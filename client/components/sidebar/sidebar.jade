@@ -464,7 +464,7 @@ template(name="outgoingWebhooksPopup")
     input.primary.wide(type="submit" value="{{_ 'create'}}")
 
 //- Board Settings, top to bottom, in four groups divided by a rule:
-    Rules, Change color, Change Background Image | Board View, Swimlane,
+    Rules, Change color, Change Background Image, Date | Board View, Swimlane,
     List, Card | Export, Import, Notifications, Outgoing Webhooks |
     Archived items, Move Board to Archive. The first group is what the board
     IS, the second how it is drawn, the third what goes in and out of it,
@@ -491,6 +491,10 @@ template(name="boardMenuPopup")
         a.js-change-background-image
           i.fa.fa-picture-o
           | {{_ 'board-change-background-image'}}
+      li
+        a.js-open-board-date-settings(title="{{_ 'date'}}")
+          i.fa.fa-calendar
+          | {{_ 'date'}}
       //- "Board backgrounds" was here. It was the list of pictures uploaded to
         this board, and that list is drawn inside Change Background Image now -
         under the upload that adds to it - so a second entry to the same list
@@ -537,10 +541,6 @@ template(name="boardMenuPopup")
           a.js-open-board-swimlane-settings(title="{{_ 'swimlane'}}")
             i.fa.fa-bars
             | {{_ 'swimlane'}}
-        li
-          a.js-open-board-date-settings(title="{{_ 'date'}}")
-            i.fa.fa-calendar
-            | {{_ 'date'}}
         li
           a.js-open-board-list-settings(title="{{_ 'list'}}")
             i.fa.fa-list
