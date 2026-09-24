@@ -659,6 +659,36 @@ the Markdown commit as the template.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **Developer tooling** updates Rsdoctor to fix source disclosure
+through its report server. **Dependency updates** work again with published
+Meteor Node stubs and restored Dependabot coverage for build tools.
+
+This release improves the following security hardening:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1f5692db3">Patch Rsdoctor and restore dependency updates</a>. Thanks to xet7.</summary>
+
+Update Rsdoctor from 1.5.9 to 1.6.4 for
+[CVE-2026-61782](https://github.com/advisories/GHSA-jmg2-rcxh-w8q3).
+The affected report server can expose source and build metadata when using
+the development bundle visualizer; it is not enabled in production builds.
+
+Replace the deleted local meteor-node-stubs reference with published 1.2.30.
+The missing local manifest prevented Dependabot from preparing security
+updates. Remove the obsolete Meteor 3.5 build-tool exclusions now that WeKan
+uses Meteor 3.6 and Rspack 2.
+
+Five dependency tests pass, including tracked local manifests, patched
+versions and update configuration. npm install and npm ci dry-run succeed;
+Rspack 2.2.0 compiles a smoke fixture with Rsdoctor 1.6.4. Dependabot YAML
+parses. A full Meteor build and hosted Dependabot run were not performed.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v11.98 2026-09-24 WeKan ® release
 
 **In short:** **Snap builds** recover from stale package URLs during
