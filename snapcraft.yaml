@@ -684,6 +684,9 @@ parts:
             - file
             - libmagic-mgc
             - libfontconfig1
+            # Node.js 26 needs libatomic.so.1 at runtime, including on amd64.
+            # A library installed on the host is not available inside the snap.
+            - libatomic1
         override-build: |
             set -eu
             case "${CRAFT_ARCH_BUILD_FOR}" in

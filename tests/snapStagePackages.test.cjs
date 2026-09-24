@@ -107,6 +107,21 @@ test('snapcraft.yaml declares stage-packages at all', () => {
     `expected the mongodb part's package list, found ${pkgs.length}`);
 });
 
+test('#6715: every WeKan snap stages Node.js libatomic as a runtime dependency', () => {
+  for (const file of CADDY_FILES) {
+    const source = fs.readFileSync(path.join(repoRoot, file), 'utf8');
+    const parts = source.slice(source.indexOf('\nparts:\n'));
+    const wekan = parts.match(/^    wekan:\n([\s\S]*?)(?=^    \S|$(?![\s\S]))/m);
+    assert.ok(wekan, `${file}: missing WeKan part`);
+    const staged = wekan[1].match(/        stage-packages:\n((?:            .*\n)+)/);
+    assert.ok(staged, `${file}: missing runtime packages`);
+    assert.match(staged[1], /^            - libatomic1$/m,
+      `${file}: build-packages or host libraries do not satisfy Node's runtime dependency`);
+    assert.doesNotMatch(wekan[1], /^\s*- -.*libatomic/m,
+      `${file}: the runtime library must survive staging and priming`);
+  }
+});
+
 test('THE BUG: no stage-package is a pre-t64 name armhf cannot resolve', () => {
   const pkgs = stagePackages();
   const broken = pkgs.filter(p => T64_RENAMED[p]);

@@ -272,6 +272,8 @@ parts:
             - unzip
         stage-packages:
             - libfontconfig1
+            # Keep Node.js runtime dependencies in sync with core24 (#6715).
+            - libatomic1
         override-build: |
             set -eu
             case "${CRAFT_ARCH_BUILD_FOR}" in
