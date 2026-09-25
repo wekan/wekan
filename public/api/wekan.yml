@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v12.02
+  version: v12.03
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -5428,6 +5428,18 @@ definitions:
         description: |
            Does the board allows attachments on minicard?
         type: boolean
+      allowsSwimlaneDragging:
+        type: boolean
+      allowsListDragging:
+        type: boolean
+      allowsCardDragging:
+        type: boolean
+      allowsChecklistDragging:
+        type: boolean
+      allowsChecklistItemDragging:
+        type: boolean
+      allowsSubtaskDragging:
+        type: boolean
       allowsMinicardCollapse:
         type: boolean
       labelsAboveTitleOnMinicard:
@@ -5910,6 +5922,12 @@ definitions:
       - allowsSubtasksOnMinicard
       - allowsAttachments
       - allowsAttachmentsOnMinicard
+      - allowsSwimlaneDragging
+      - allowsListDragging
+      - allowsCardDragging
+      - allowsChecklistDragging
+      - allowsChecklistItemDragging
+      - allowsSubtaskDragging
       - allowsMinicardCollapse
       - labelsAboveTitleOnMinicard
       - allowsChecklistDueDate
