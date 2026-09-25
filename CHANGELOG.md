@@ -682,11 +682,33 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**In short:** **Mixed multi-selection** moves lists, swimlanes, cards and
+**In short:** **Board drag settings** independently enable dragging for each
+object type. **Mixed multi-selection** moves lists, swimlanes, cards and
 checklist content together, including folded containers. **Minicard checklists**
 show progress and support item reordering and transfers across lists and
 swimlanes. **Checklist drag-and-drop** saves the new item order and matches the
 visible drop placeholder.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7950979cb">Choose which objects can be dragged on each board</a>. Thanks to xet7.</summary>
+
+Board Settings / Swimlane, List and Card settings have a shared Draggable column.
+Swimlanes, lists, cards, checklists, checklist items and subtasks default to checked,
+including existing boards. Board administrators can uncheck each independently;
+the settings persist for the whole board, separately from personal drag handles.
+
+Ordinary sorting responds immediately. Disabled checklist items cannot fall through
+to dragging their parent card, and mixed selections cannot drag a disabled selected
+object. Explicit menu moves remain available. Disabling swimlane reordering retains
+the container needed for cross-swimlane card transfers.
+
+Four new Chromium cases cover saved settings, independent switches, authorization,
+rejected mixed drags and disabling/re-enabling checklist-item dragging on minicards
+and opened cards with handles on and off. Together with existing mixed-selection,
+collapsed-container and checklist suites, 26 distinct Chromium cases pass. Thirteen
+focused Node suites and the Meteor build pass.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b0c8acc98">Move mixed selections of cards, lists, swimlanes and checklist content</a>. Thanks to xet7.</summary>
