@@ -683,7 +683,7 @@ the Markdown commit as the template.
 # Upcoming WeKan ® release
 
 **In short:** **Checklist drag-and-drop** saves the new item order instead of
-returning the item to its original position.
+returning the item to its original position, and matches the visible drop placeholder.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/cb4d29b01">Fix checklist item reordering</a>. Thanks to AmigaAbattoir and xet7.</summary>
@@ -697,6 +697,22 @@ Regression tests cover first, middle, last and cross-checklist positions, plus
 card drops. Chromium verifies real dragging, database order and persistence after
 reload; all seven existing checklist browser tests also pass. The Meteor build
 and eleven checklist-to-card checks pass.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7afbce763">Match checklist drops to the visible placeholder</a>. Thanks to AmigaAbattoir and xet7.</summary>
+
+The first reorder repair still missed neighboring rows inside inline-form
+wrappers. Read all real destination rows in document order, excluding the helper
+clone and placeholder, before calculating the saved position. This prevents a
+middle drop from landing farther down the checklist.
+
+Chromium reproduces the reported sequence with items 2, 3, 1, 4, 45: move 45 to
+the top, then to the third-position placeholder. Both drag-handle preferences
+failed before this repair and pass afterward, including database order and
+reload persistence. Wrapped-row unit regressions, checklist-to-card checks and
+the Meteor build also pass. Follow-up to [#6723](https://github.com/wekan/wekan/issues/6723).
 
 </details>
 
