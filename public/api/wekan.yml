@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v12.01
+  version: v12.02
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -7585,6 +7585,9 @@ definitions:
         x-nullable: true
       supportPageText:
         type: string
+        x-nullable: true
+      saml:
+        type: object
         x-nullable: true
       ldap:
         $ref: "#/definitions/SettingsLdap"
