@@ -682,9 +682,36 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**In short:** **Minicard checklists** show progress and support item reordering
-and transfers between checklists across lists and swimlanes. **Checklist drag-and-drop** saves the new item order instead of
-returning the item to its original position, and matches the visible drop placeholder.
+**In short:** **Mixed multi-selection** moves lists, swimlanes, cards and
+checklist content together, including folded containers. **Minicard checklists**
+show progress and support item reordering and transfers across lists and
+swimlanes. **Checklist drag-and-drop** saves the new item order and matches the
+visible drop placeholder.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b0c8acc98">Move mixed selections of cards, lists, swimlanes and checklist content</a>. Thanks to xet7.</summary>
+
+Multi-Selection adds matching left-side checkboxes to list and swimlane headers,
+minicard checklists and checklist items. Mix object types in one selection and
+move them together by dragging or by choosing another board and destination
+position. Selected parents carry their children once. Checklist content dropped
+onto a list goes into one new destination card.
+
+Folded sources, folded destinations and hidden selected items keep their correct
+parents, including board-wide lists repeated in several swimlanes. Dropping onto
+a folded swimlane retains that swimlane in the destination picker and asks for
+the missing list. Keep selection checkboxes separate from collapse controls.
+
+The shared server move path checks both boards and every selected object before
+writing, rejects moving targets and preserves card metadata through existing
+move helpers. Moving a swimlane updates its parent before moving cards, avoiding
+an unintended move into the destination board's default swimlane.
+
+Twenty-two Chromium cases cover mixed moves, permissions, cross-board positions,
+collapsed containers, shared lists and existing checklist dragging. Eleven
+focused Node suites and the Meteor build pass.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b65b45e52">Show checklist progress and support item dragging on minicards</a>. Thanks to xet7.</summary>
