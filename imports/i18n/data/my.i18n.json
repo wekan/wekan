@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "စင့်ခ်ခြင်း မအောင်မြင်ပါ: %s",
   "list-sync-clear": "စင့်ခ်ခြင်းကို ရပ်ရန်",
   "add-many-lines-as": "စာကြောင်းများကို အောက်ပါအတိုင်း ထည့်ပါ:",
-  "many-items": "__items__ အများအပြား"
+  "many-items": "__items__ အများအပြား",
+  "draggable": "Draggable"
 }

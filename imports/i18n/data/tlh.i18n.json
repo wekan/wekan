@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "rurmoH luj: %s",
   "list-sync-clear": "rurmoH mev",
   "add-many-lines-as": "tlheghmey law' tIchel; chovnatlh yIwIv:",
-  "many-items": "__items__ law'"
+  "many-items": "__items__ law'",
+  "draggable": "Draggable"
 }

@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "ஒத்திசைவு தோல்வியடைந்தது: %s",
   "list-sync-clear": "ஒத்திசைவை நிறுத்து",
   "add-many-lines-as": "பல வரிகளை இவ்வாறு சேர்க்கவும்:",
-  "many-items": "பல __items__"
+  "many-items": "பல __items__",
+  "draggable": "Draggable"
 }

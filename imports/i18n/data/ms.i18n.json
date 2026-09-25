@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Penyegerakan gagal: %s",
   "list-sync-clear": "Hentikan penyegerakan",
   "add-many-lines-as": "Tambah beberapa baris sebagai:",
-  "many-items": "Beberapa __items__"
+  "many-items": "Beberapa __items__",
+  "draggable": "Draggable"
 }

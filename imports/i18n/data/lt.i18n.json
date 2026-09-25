@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Sinchronizavimas nepavyko: %s",
   "list-sync-clear": "Sustabdyti sinchronizavimą",
   "add-many-lines-as": "Pridėti kelias eilutes kaip:",
-  "many-items": "__items__ (kelios)"
+  "many-items": "__items__ (kelios)",
+  "draggable": "Draggable"
 }

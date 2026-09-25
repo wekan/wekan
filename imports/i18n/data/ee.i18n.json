@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Wɔɖeka mewɔ dɔ o: %s",
   "list-sync-clear": "Tɔ wɔɖeka",
   "add-many-lines-as": "Tsɔ fli geɖe kpe ɖe eŋu abe:",
-  "many-items": "__items__ geɖe"
+  "many-items": "__items__ geɖe",
+  "draggable": "Draggable"
 }

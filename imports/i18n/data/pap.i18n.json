@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Sinkronisashon a fracasá: %s",
   "list-sync-clear": "Stòp sinkronisashon",
   "add-many-lines-as": "Agregá varios liña komo:",
-  "many-items": "Varios __items__"
+  "many-items": "Varios __items__",
+  "draggable": "Draggable"
 }

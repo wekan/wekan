@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Sinkronisasie het misluk: %s",
   "list-sync-clear": "Stop sinkronisasie",
   "add-many-lines-as": "Voeg veelvuldige reëls by as:",
-  "many-items": "Veelvuldige __items__"
+  "many-items": "Veelvuldige __items__",
+  "draggable": "Draggable"
 }

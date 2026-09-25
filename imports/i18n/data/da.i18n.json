@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Synkronisering mislykkedes: %s",
   "list-sync-clear": "Stop synkronisering",
   "add-many-lines-as": "Tilføj flere linjer som:",
-  "many-items": "Flere __items__"
+  "many-items": "Flere __items__",
+  "draggable": "Kan trækkes"
 }

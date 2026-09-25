@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Синхрончлол амжилтгүй боллоо: %s",
   "list-sync-clear": "Синхрончлолыг зогсоох",
   "add-many-lines-as": "Олон мөрийг дараах байдлаар нэмэх:",
-  "many-items": "Олон __items__"
+  "many-items": "Олон __items__",
+  "draggable": "Draggable"
 }

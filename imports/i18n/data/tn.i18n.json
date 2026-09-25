@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Tsamaisano e paletswe: %s",
   "list-sync-clear": "Emisa tsamaisano",
   "add-many-lines-as": "Tsenya mela e mentsi jaaka:",
-  "many-items": "__items__ (tse dintsi)"
+  "many-items": "__items__ (tse dintsi)",
+  "draggable": "Draggable"
 }

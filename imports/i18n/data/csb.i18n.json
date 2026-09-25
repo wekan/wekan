@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Synchronizacëjô nie ùdała sã: %s",
   "list-sync-clear": "Zatrzëmôj synchro",
   "add-many-lines-as": "Dodac wiele rézów jakno:",
-  "many-items": "__items__ (wiele)"
+  "many-items": "__items__ (wiele)",
+  "draggable": "Draggable"
 }

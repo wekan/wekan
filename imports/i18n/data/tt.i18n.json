@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Синхронлау уңышсыз: %s",
   "list-sync-clear": "Синхронлауны туктату",
   "add-many-lines-as": "Берничә юлны болай өстәү:",
-  "many-items": "Берничә __items__"
+  "many-items": "Берничә __items__",
+  "draggable": "Draggable"
 }

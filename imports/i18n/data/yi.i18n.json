@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "סינכראָניזאַציע איז נישט געלונגען: %s",
   "list-sync-clear": "אויפֿהערן סינכראָניזירן",
   "add-many-lines-as": "לייג צו עטלעכע שורות ווי:",
-  "many-items": "עטלעכע __items__"
+  "many-items": "עטלעכע __items__",
+  "draggable": "Draggable"
 }

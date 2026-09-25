@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Synchrōnizacyjŏ niy podarziła sie: %s",
   "list-sync-clear": "Zastow synchrōnizacyjŏ",
   "add-many-lines-as": "Przidać mockã linijek jako:",
-  "many-items": "__items__ (mocka)"
+  "many-items": "__items__ (mocka)",
+  "draggable": "Draggable"
 }

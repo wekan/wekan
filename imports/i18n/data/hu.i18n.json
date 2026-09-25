@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "A szinkronizálás sikertelen: %s",
   "list-sync-clear": "Szinkronizálás leállítása",
   "add-many-lines-as": "Több sor hozzáadása a következőként:",
-  "many-items": "__items__ (több)"
+  "many-items": "__items__ (több)",
+  "draggable": "Draggable"
 }

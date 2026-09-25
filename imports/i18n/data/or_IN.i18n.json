@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "ସିଙ୍କ ବିଫଳ ହେଲା: %s",
   "list-sync-clear": "ସିଙ୍କ ବନ୍ଦ କରନ୍ତୁ",
   "add-many-lines-as": "ଏକାଧିକ ଧାଡ଼ି ଏହିପରି ଯୋଡ଼ନ୍ତୁ:",
-  "many-items": "ଏକାଧିକ __items__"
+  "many-items": "ଏକାଧିକ __items__",
+  "draggable": "Draggable"
 }

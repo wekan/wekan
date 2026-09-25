@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "ਸਿੰਕ ਅਸਫਲ ਰਿਹਾ: %s",
   "list-sync-clear": "ਸਿੰਕ ਬੰਦ ਕਰੋ",
   "add-many-lines-as": "ਕਈ ਲਾਈਨਾਂ ਇਸ ਤਰ੍ਹਾਂ ਸ਼ਾਮਲ ਕਰੋ:",
-  "many-items": "ਕਈ __items__"
+  "many-items": "ਕਈ __items__",
+  "draggable": "Draggable"
 }

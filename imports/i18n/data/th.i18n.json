@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "ซิงค์ล้มเหลว: %s",
   "list-sync-clear": "หยุดการซิงค์",
   "add-many-lines-as": "เพิ่มหลายบรรทัดเป็น:",
-  "many-items": "__items__หลายรายการ"
+  "many-items": "__items__หลายรายการ",
+  "draggable": "Draggable"
 }

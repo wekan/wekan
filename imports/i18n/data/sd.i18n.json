@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "سنڪ ناڪام ٿيو: %s",
   "list-sync-clear": "سنڪ روڪيو",
   "add-many-lines-as": "گهڻيون سٽون هن ريت شامل ڪريو:",
-  "many-items": "گهڻا __items__"
+  "many-items": "گهڻا __items__",
+  "draggable": "Draggable"
 }

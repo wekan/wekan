@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Sync gagai: %s",
   "list-sync-clear": "Peuhenti sync",
   "add-many-lines-as": "Tamah le baris sabagai:",
-  "many-items": "Le __items__"
+  "many-items": "Le __items__",
+  "draggable": "Draggable"
 }

@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Synchronizacija je so njeporadźiła: %s",
   "list-sync-clear": "Synchronizaciju zastajić",
   "add-many-lines-as": "Wjacore linki přidać jako:",
-  "many-items": "__items__ (wjacore)"
+  "many-items": "__items__ (wjacore)",
+  "draggable": "Draggable"
 }

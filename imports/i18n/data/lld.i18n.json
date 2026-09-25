@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Sincronisazion falida: %s",
   "list-sync-clear": "Fermëia la sincronisazion",
   "add-many-lines-as": "Ajonté plu righes coche:",
-  "many-items": "Plu __items__"
+  "many-items": "Plu __items__",
+  "draggable": "Draggable"
 }

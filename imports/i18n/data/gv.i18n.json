@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Coardailys er n'chyndaa foddey: %s",
   "list-sync-clear": "Cur mow y choardailys",
   "add-many-lines-as": "Cur ymmodee linnaghyn rish myr:",
-  "many-items": "Ymmodee __items__"
+  "many-items": "Ymmodee __items__",
+  "draggable": "Draggable"
 }

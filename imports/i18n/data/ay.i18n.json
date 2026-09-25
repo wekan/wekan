@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Ch'amanchäwix pantjata: %s",
   "list-sync-clear": "Ch'amanchäwi jark'aña",
   "add-many-lines-as": "Walja siqinaka akham yapam:",
-  "many-items": "Walja __items__"
+  "many-items": "Walja __items__",
+  "draggable": "Draggable"
 }

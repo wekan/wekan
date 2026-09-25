@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Muṣiṣẹ́pọ̀ kùnà: %s",
   "list-sync-clear": "Dá muṣiṣẹ́pọ̀ dúró",
   "add-many-lines-as": "Fi ọ̀pọ̀ ìlà kún un gẹ́gẹ́ bí:",
-  "many-items": "Ọ̀pọ̀ __items__"
+  "many-items": "Ọ̀pọ̀ __items__",
+  "draggable": "Draggable"
 }

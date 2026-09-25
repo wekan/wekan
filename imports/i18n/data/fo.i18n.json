@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Samstilling miseydnaðist: %s",
   "list-sync-clear": "Steðga samstilling",
   "add-many-lines-as": "Legg fleiri reglur afturat sum:",
-  "many-items": "Fleiri __items__"
+  "many-items": "Fleiri __items__",
+  "draggable": "Draggable"
 }

@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "فشلت المزامنة: %s",
   "list-sync-clear": "إيقاف المزامنة",
   "add-many-lines-as": "أضف عدة أسطر على شكل:",
-  "many-items": "__items__ متعددة"
+  "many-items": "__items__ متعددة",
+  "draggable": "قابل للسحب"
 }

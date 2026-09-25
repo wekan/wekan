@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Тэгшэлгэ бүтэбэгүй: %s",
   "list-sync-clear": "Тэгшэлгэ зогсооха",
   "add-many-lines-as": "Олон мүр иигэжэ нэмэхэ:",
-  "many-items": "Олон __items__"
+  "many-items": "Олон __items__",
+  "draggable": "Draggable"
 }

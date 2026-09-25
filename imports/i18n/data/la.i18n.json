@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Synchronizatio defecit: %s",
   "list-sync-clear": "Siste synchronizationem",
   "add-many-lines-as": "Plures lineas adde ut:",
-  "many-items": "__items__ (plura)"
+  "many-items": "__items__ (plura)",
+  "draggable": "Draggable"
 }

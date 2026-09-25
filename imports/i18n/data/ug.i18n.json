@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "قەدەمداشلاش مەغلۇپ بولدى: %s",
   "list-sync-clear": "قەدەمداشلاشنى توختىتىش",
   "add-many-lines-as": "بىرنەچچە قۇرنى مۇنداق قوشۇڭ:",
-  "many-items": "بىرنەچچە __items__"
+  "many-items": "بىرنەچچە __items__",
+  "draggable": "Draggable"
 }

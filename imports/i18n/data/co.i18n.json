@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Sincronizazione fallita: %s",
   "list-sync-clear": "Fermà a sincronizazione",
   "add-many-lines-as": "Aghjunghje parechje righe cum'è:",
-  "many-items": "__items__ (parechji)"
+  "many-items": "__items__ (parechji)",
+  "draggable": "Draggable"
 }

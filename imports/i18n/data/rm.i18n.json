@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "La sincronisaziun n'è betg reussida: %s",
   "list-sync-clear": "Chalar la sincronisaziun",
   "add-many-lines-as": "Agiuntar pliras lingias sco:",
-  "many-items": "__items__ (plirs)"
+  "many-items": "__items__ (plirs)",
+  "draggable": "Draggable"
 }

@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Синхронизацията се провали: %s",
   "list-sync-clear": "Спри синхронизацията",
   "add-many-lines-as": "Добавяне на няколко реда като:",
-  "many-items": "Няколко __items__"
+  "many-items": "Няколко __items__",
+  "draggable": "Draggable"
 }

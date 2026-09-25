@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "ምስምማዕ ኣይተዓወተን: %s",
   "list-sync-clear": "ምስምማዕ ኣቋርጽ",
   "add-many-lines-as": "ብዙሓት መስመራት ከምዚ ወስኽ፦",
-  "many-items": "ብዙሓት __items__"
+  "many-items": "ብዙሓት __items__",
+  "draggable": "Draggable"
 }

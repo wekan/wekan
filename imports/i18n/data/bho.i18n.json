@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "सिंक असफल भइल: %s",
   "list-sync-clear": "सिंक बंद करीं",
   "add-many-lines-as": "कई लाइन अइसन जोड़ीं:",
-  "many-items": "कई __items__"
+  "many-items": "कई __items__",
+  "draggable": "Draggable"
 }

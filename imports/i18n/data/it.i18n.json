@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Sincronizzazione non riuscita: %s",
   "list-sync-clear": "Interrompi sincronizzazione",
   "add-many-lines-as": "Aggiungi più righe come:",
-  "many-items": "Più __items__"
+  "many-items": "Più __items__",
+  "draggable": "Trascinabile"
 }

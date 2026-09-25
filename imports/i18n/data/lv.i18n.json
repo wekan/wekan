@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Sinhronizācija neizdevās: %s",
   "list-sync-clear": "Apturēt sinhronizāciju",
   "add-many-lines-as": "Pievienot vairākas rindas kā:",
-  "many-items": "__items__ (vairāki)"
+  "many-items": "__items__ (vairāki)",
+  "draggable": "Draggable"
 }

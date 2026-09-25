@@ -149,7 +149,7 @@ Template.checklistSortableItems.onRendered(function () {
   tpl.autorun(() => {
     const $itemsDom = $(tpl.itemsDom);
     if ($itemsDom.data('uiSortable') || $itemsDom.data('sortable')) {
-      $(tpl.itemsDom).sortable('option', 'disabled', !userIsMember());
+      $(tpl.itemsDom).sortable('option', 'disabled', !userIsMember() || !Utils.canDragBoardObject('item'));
       $(tpl.itemsDom).sortable('option', 'handle',
         Utils.isTouchScreenOrShowDesktopDragHandles() ? 'span.fa.checklistitem-handle' : false);
     }

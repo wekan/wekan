@@ -591,13 +591,13 @@ Template.cardDetails.onRendered(function () {
       $checklistsDom.data('uiSortable') ||
       $checklistsDom.data('sortable')
     ) {
-      $checklistsDom.sortable('option', 'disabled', disabled);
+      $checklistsDom.sortable('option', 'disabled', disabled || !Utils.canDragBoardObject('checklist'));
       if (Utils.isTouchScreenOrShowDesktopDragHandles()) {
         $checklistsDom.sortable({ handle: '.checklist-handle' });
       }
     }
     if ($subtasksDom.data('uiSortable') || $subtasksDom.data('sortable')) {
-      $subtasksDom.sortable('option', 'disabled', disabled);
+      $subtasksDom.sortable('option', 'disabled', disabled || !Utils.canDragBoardObject('subtask'));
     }
   });
 });

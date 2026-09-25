@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "ការធ្វើសមកាលកម្មបានបរាជ័យ៖ %s",
   "list-sync-clear": "បញ្ឈប់ការធ្វើសមកាលកម្ម",
   "add-many-lines-as": "បន្ថែមបន្ទាត់ច្រើនជា៖",
-  "many-items": "__items__ ច្រើន"
+  "many-items": "__items__ ច្រើន",
+  "draggable": "Draggable"
 }

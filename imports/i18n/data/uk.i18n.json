@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Помилка синхронізації: %s",
   "list-sync-clear": "Зупинити синхронізацію",
   "add-many-lines-as": "Додати кілька рядків як:",
-  "many-items": "__items__ (кілька)"
+  "many-items": "__items__ (кілька)",
+  "draggable": "Можна перетягувати"
 }

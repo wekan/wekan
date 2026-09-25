@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Đồng bộ thất bại: %s",
   "list-sync-clear": "Dừng đồng bộ",
   "add-many-lines-as": "Thêm nhiều dòng dưới dạng:",
-  "many-items": "Nhiều __items__"
+  "many-items": "Nhiều __items__",
+  "draggable": "Draggable"
 }

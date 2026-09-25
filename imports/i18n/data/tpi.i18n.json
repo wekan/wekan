@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Sink i pundaun: %s",
   "list-sync-clear": "Pasim sink",
   "add-many-lines-as": "Putim planti lain olsem:",
-  "many-items": "Planti __items__"
+  "many-items": "Planti __items__",
+  "draggable": "Draggable"
 }

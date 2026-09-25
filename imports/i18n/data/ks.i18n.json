@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "سنک ناکام: %s",
   "list-sync-clear": "سنک بند کریو",
   "add-many-lines-as": "واریاہ سطر یتھ کٔنۍ شامل کریو:",
-  "many-items": "واریاہ __items__"
+  "many-items": "واریاہ __items__",
+  "draggable": "Draggable"
 }

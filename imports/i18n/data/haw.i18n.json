@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Ua hāʻule ka hoʻonui like: %s",
   "list-sync-clear": "E hoʻōki i ka hoʻonui like",
   "add-many-lines-as": "Hoʻohui i nā lālani he nui ma ke ʻano he:",
-  "many-items": "__items__ he nui"
+  "many-items": "__items__ he nui",
+  "draggable": "Draggable"
 }

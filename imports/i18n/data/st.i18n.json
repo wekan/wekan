@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Tumellano e hlolehile: %s",
   "list-sync-clear": "Emisa tumellano",
   "add-many-lines-as": "Eketsa mela e mengata e le:",
-  "many-items": "__items__ (tse ngata)"
+  "many-items": "__items__ (tse ngata)",
+  "draggable": "Draggable"
 }

@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Sync failed: %s",
   "list-sync-clear": "Stop syncing",
   "add-many-lines-as": "Add many lines as:",
-  "many-items": "Many __items__"
+  "many-items": "Many __items__",
+  "draggable": "Draggable"
 }

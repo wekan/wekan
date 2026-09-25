@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "L' sincronizåcion a fwait berwete: %s",
   "list-sync-clear": "Djoker li sincronizåcion",
   "add-many-lines-as": "Radjouter sacwantès royes come:",
-  "many-items": "__items__ (sacwants)"
+  "many-items": "__items__ (sacwants)",
+  "draggable": "Draggable"
 }

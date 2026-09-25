@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "सिंक्रोनाइज असफल भयो: %s",
   "list-sync-clear": "सिंक्रोनाइज रोक्नुहोस्",
   "add-many-lines-as": "धेरै पङ्क्तिहरू यसरी थप्नुहोस्:",
-  "many-items": "धेरै __items__"
+  "many-items": "धेरै __items__",
+  "draggable": "Draggable"
 }

@@ -748,6 +748,7 @@ Template.boardBody.onRendered(function () {
       // could not reorder swimlanes. canModifyCard() is the client write-access
       // predicate (board member, not comment-only / worker / read-only), matching
       // the server's allowIsBoardMemberWithWriteAccess.
+      $swimlanesDom.sortable('option', 'items', Utils.canDragBoardObject('swimlane') ? '.swimlane:not(.placeholder)' : '.no-draggable-swimlanes');
       $swimlanesDom.sortable(
         'option',
         'disabled',

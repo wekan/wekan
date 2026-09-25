@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Synkronointi epäonnistui: %s",
   "list-sync-clear": "Lopeta synkronointi",
   "add-many-lines-as": "Lisää useita rivejä muodossa:",
-  "many-items": "__items__ (useita)"
+  "many-items": "__items__ (useita)",
+  "draggable": "Vedettävissä"
 }

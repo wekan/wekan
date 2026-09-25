@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "U vhambadzanya ho ngo bvelela: %s",
   "list-sync-clear": "Litshani u vhambadzanya",
   "add-many-lines-as": "Engedzani mitaladzi minzhi sa:",
-  "many-items": "__items__ (zwinzhi)"
+  "many-items": "__items__ (zwinzhi)",
+  "draggable": "Draggable"
 }

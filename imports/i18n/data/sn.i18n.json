@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Sync yakundikana: %s",
   "list-sync-clear": "Mira kutsinhana",
   "add-many-lines-as": "Wedzera mitsetse yakawanda se:",
-  "many-items": "__items__ (zvakawanda)"
+  "many-items": "__items__ (zvakawanda)",
+  "draggable": "Draggable"
 }

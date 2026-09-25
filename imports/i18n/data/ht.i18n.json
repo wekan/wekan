@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Senkwonizasyon echwe: %s",
   "list-sync-clear": "Sispann senkwonize",
   "add-many-lines-as": "Ajoute plizyè liy kòm:",
-  "many-items": "Plizyè __items__"
+  "many-items": "Plizyè __items__",
+  "draggable": "Draggable"
 }

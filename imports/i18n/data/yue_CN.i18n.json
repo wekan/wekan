@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "同步失败：%s",
   "list-sync-clear": "停止同步",
   "add-many-lines-as": "將多行加做：",
-  "many-items": "多個__items__"
+  "many-items": "多個__items__",
+  "draggable": "Draggable"
 }

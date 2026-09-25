@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Тэннэрии табыллыбатах: %s",
   "list-sync-clear": "Тэннэрии тохтот",
   "add-many-lines-as": "Элбэх устуруоканы маннык эбэр:",
-  "many-items": "Элбэх __items__"
+  "many-items": "Элбэх __items__",
+  "draggable": "Draggable"
 }

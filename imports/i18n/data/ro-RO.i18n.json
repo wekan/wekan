@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Sincronizare eșuată: %s",
   "list-sync-clear": "Oprește sincronizarea",
   "add-many-lines-as": "Adaugă mai multe rânduri ca:",
-  "many-items": "Mai multe __items__"
+  "many-items": "Mai multe __items__",
+  "draggable": "Draggable"
 }

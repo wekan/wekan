@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Sincronijhaedje raté: %s",
   "list-sync-clear": "Arester li sincronijhaedje",
   "add-many-lines-as": "Idugang an damu nga linya sugad hin:",
-  "many-items": "Damu nga __items__"
+  "many-items": "Damu nga __items__",
+  "draggable": "Draggable"
 }

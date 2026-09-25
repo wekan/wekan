@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Samstilling mistókst: %s",
   "list-sync-clear": "Stöðva samstillingu",
   "add-many-lines-as": "Bæta við mörgum línum sem:",
-  "many-items": "__items__ (mörg)"
+  "many-items": "__items__ (mörg)",
+  "draggable": "Draggable"
 }

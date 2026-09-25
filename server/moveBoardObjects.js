@@ -7,6 +7,8 @@ import Cards from '/models/cards';
 import Checklists from '/models/checklists';
 import ChecklistItems from '/models/checklistItems';
 import Activities from '/models/activities';
+import { allowIsBoardAdminOrSiteAdmin } from '/server/lib/utils';
+const { DRAG_SETTINGS, canDragSelection } = require('/models/lib/boardDragging');
 import { requireBoardMutation } from '/models/lib/boardMutationGuard';
 const { memberCan } = require('/models/lib/boardRoleCapabilities');
 const { selectionRoots, kinds } = require('/models/lib/structuralSelection');
@@ -57,6 +59,14 @@ async function positionGroup(kind, ids, selector, anchor, after) {
   for (let i = 0; i < order.length; i++) await collection.updateAsync(order[i], { $set: { sort: i } });
 }
 Meteor.methods({
+  async setBoardDragging(boardId, kind, enabled) {
+    check(boardId, String); check(kind, String); check(enabled, Boolean);
+    const setting = DRAG_SETTINGS.find(entry => entry.kind === kind);
+    if (!setting) throw new Meteor.Error('invalid-setting');
+    const board = await Boards.findOneAsync(boardId);
+    if (!this.userId || !board || !(await allowIsBoardAdminOrSiteAdmin(this.userId, board))) throw new Meteor.Error('not-authorized');
+    return Boards.updateAsync(boardId, { $set: { [setting.field]: enabled } });
+  },
   async structuralMoveOptions(target) {
     check(target, targetShape);
     if (!this.userId) throw new Meteor.Error('not-authorized');
@@ -72,10 +82,12 @@ Meteor.methods({
     if (target.checklistId && await Checklists.findOneAsync({ _id: target.checklistId, boardId: target.boardId })) result.itemId = await projected(ChecklistItems, { checklistId: target.checklistId });
     return result;
   },
-  async moveBoardObjects(sourceBoardId, selection, target) {
+  async moveBoardObjects(sourceBoardId, selection, target, options = {}) {
+    check(options, { drag: Match.Optional(Boolean) });
     check(sourceBoardId, String); check(selection, [{ kind: String, id: String }]); check(target, targetShape);
     if (!selection.length || selection.length > 200 || selection.some(entry => !kinds.includes(entry.kind))) throw new Meteor.Error('invalid-selection');
-    await boardAccess(this.userId, sourceBoardId);
+    const sourceBoard = await boardAccess(this.userId, sourceBoardId);
+    if (options.drag && !canDragSelection(sourceBoard, selection)) throw new Meteor.Error('drag-disabled');
     const dest = await destination(this.userId, target);
     const entries = [];
     for (const entry of selection) {

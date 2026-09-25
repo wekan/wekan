@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Sync mana atikunchu: %s",
   "list-sync-clear": "Syncta sayachiy",
   "add-many-lines-as": "Achka siqikunata kayhinata yapay:",
-  "many-items": "Achka __items__"
+  "many-items": "Achka __items__",
+  "draggable": "Draggable"
 }

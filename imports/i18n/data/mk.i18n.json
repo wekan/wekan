@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Синхронизацијата не успеа: %s",
   "list-sync-clear": "Запри ја синхронизацијата",
   "add-many-lines-as": "Додај повеќе редови како:",
-  "many-items": "Повеќе __items__"
+  "many-items": "Повеќе __items__",
+  "draggable": "Draggable"
 }

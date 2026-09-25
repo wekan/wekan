@@ -386,7 +386,7 @@ function initSortable(boardComponent, $listsDom) {
       // read-only / comment-only members could drag lists, firing a server
       // write that is denied with `403 Access denied` (and the list snaps
       // back). The two other list sortables already gate on canModifyBoard().
-      disabled: !Utils.canModifyBoard(),
+      disabled: !Utils.canModifyBoard() || !Utils.canDragBoardObject('list'),
       start(evt, ui) {
         ui.helper.css('z-index', 1000);
         ui.placeholder.height(ui.helper.height());
@@ -486,7 +486,7 @@ Template.swimlane.onRendered(function () {
         placeholder: 'list placeholder',
         distance: 7,
         handle: handleSelector,
-        disabled: !Utils.canModifyBoard(),
+        disabled: !Utils.canModifyBoard() || !Utils.canDragBoardObject('list'),
         dropOnEmpty: true,
         start(evt, ui) {
           ui.helper.css('z-index', 1000);
@@ -510,6 +510,7 @@ Template.swimlane.onRendered(function () {
         if ($parent.data('uiSortable') || $parent.data('sortable')) {
           try {
             $parent.sortable('option', 'handle', newHandle);
+            $parent.sortable('option', 'disabled', !Utils.canModifyBoard() || !Utils.canDragBoardObject('list'));
           } catch (e) {}
         }
       });
@@ -1108,7 +1109,7 @@ Template.listsGroup.onRendered(function () {
         placeholder: 'list placeholder',
         distance: 7,
         handle: handleSelector,
-        disabled: !Utils.canModifyBoard(),
+        disabled: !Utils.canModifyBoard() || !Utils.canDragBoardObject('list'),
         dropOnEmpty: true,
         start(evt, ui) {
           ui.helper.css('z-index', 1000);
@@ -1132,6 +1133,7 @@ Template.listsGroup.onRendered(function () {
         if ($parent.data('uiSortable') || $parent.data('sortable')) {
           try {
             $parent.sortable('option', 'handle', newHandle);
+            $parent.sortable('option', 'disabled', !Utils.canModifyBoard() || !Utils.canDragBoardObject('list'));
           } catch (e) {}
         }
       });

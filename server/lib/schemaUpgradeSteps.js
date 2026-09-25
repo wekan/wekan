@@ -123,6 +123,13 @@ function resetState(appVersion) {
 // and hides existing text (descriptions, checklists, comments, attachments).
 // Kept in sync with models/boards.js by tests/schemaUpgradeSteps.test.cjs.
 const BOARD_ALLOWS_TRUE_DEFAULTS = [
+  'allowsSwimlaneDragging',
+  'allowsListDragging',
+  'allowsCardDragging',
+  'allowsChecklistDragging',
+  'allowsChecklistItemDragging',
+  'allowsSubtaskDragging',
+
   'allowsMinicardCollapse',
   'allowsChecklistDueDate',
   'allowsChecklistTitle',

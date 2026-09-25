@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Sinkronizimi dështoi: %s",
   "list-sync-clear": "Ndalo sinkronizimin",
   "add-many-lines-as": "Shto disa rreshta si:",
-  "many-items": "Disa __items__"
+  "many-items": "Disa __items__",
+  "draggable": "Draggable"
 }

@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Tsy nahomby ny fampifanarahana: %s",
   "list-sync-clear": "Atsaharo ny fampifanarahana",
   "add-many-lines-as": "Ampio andalana maro ho:",
-  "many-items": "__items__ maro"
+  "many-items": "__items__ maro",
+  "draggable": "Draggable"
 }

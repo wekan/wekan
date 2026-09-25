@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Sinkron falöl: %s",
   "list-sync-clear": "Nulükön sinkron",
   "add-many-lines-as": "Läükön lienis mödik as:",
-  "many-items": "__items__ mödik"
+  "many-items": "__items__ mödik",
+  "draggable": "Draggable"
 }

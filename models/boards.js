@@ -660,6 +660,12 @@ Boards.attachSchema(
       defaultValue: true,
     },
 
+    allowsSwimlaneDragging: { type: Boolean, defaultValue: true },
+    allowsListDragging: { type: Boolean, defaultValue: true },
+    allowsCardDragging: { type: Boolean, defaultValue: true },
+    allowsChecklistDragging: { type: Boolean, defaultValue: true },
+    allowsChecklistItemDragging: { type: Boolean, defaultValue: true },
+    allowsSubtaskDragging: { type: Boolean, defaultValue: true },
     allowsMinicardCollapse: {
       type: Boolean,
       defaultValue: true,

@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Synchronisierung fehlgeschlagen: %s",
   "list-sync-clear": "Synchronisierung beenden",
   "add-many-lines-as": "Mehrere Zeilen hinzufügen als:",
-  "many-items": "Mehrere __items__"
+  "many-items": "Mehrere __items__",
+  "draggable": "Ziehbar"
 }

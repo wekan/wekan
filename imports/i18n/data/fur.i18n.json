@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Sincronizazion falide: %s",
   "list-sync-clear": "Ferme la sincronizazion",
   "add-many-lines-as": "Zonte plui riis come:",
-  "many-items": "__items__ (plui)"
+  "many-items": "__items__ (plui)",
+  "draggable": "Draggable"
 }

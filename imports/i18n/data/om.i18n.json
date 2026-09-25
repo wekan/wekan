@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Wal-simsiisni hin milkoofne: %s",
   "list-sync-clear": "Wal-simsiisa dhaabi",
   "add-many-lines-as": "Sararoota hedduu akka kanaatti dabali:",
-  "many-items": "__items__ hedduu"
+  "many-items": "__items__ hedduu",
+  "draggable": "Draggable"
 }

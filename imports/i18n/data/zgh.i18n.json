@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Amsizwer ur yeddi ara: %s",
   "list-sync-clear": "Seḥbes amsizwer",
   "add-many-lines-as": "ⵔⵏⵓ ⵎⵏⵏⴰⵡ ⵏ ⵉⵣⵔⵉⵔⵏ ⴰⵎ:",
-  "many-items": "ⵎⵏⵏⴰⵡ ⵏ __items__"
+  "many-items": "ⵎⵏⵏⴰⵡ ⵏ __items__",
+  "draggable": "Draggable"
 }

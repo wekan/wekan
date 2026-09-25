@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Sinhronlama başa barmady: %s",
   "list-sync-clear": "Sinhronlamany bes et",
   "add-many-lines-as": "Birnäçe setiri şeýle goş:",
-  "many-items": "Birnäçe __items__"
+  "many-items": "Birnäçe __items__",
+  "draggable": "Draggable"
 }

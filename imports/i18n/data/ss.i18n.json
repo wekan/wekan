@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Kuvumelanisa kwehlulekile: %s",
   "list-sync-clear": "Yekisa kuvumelanisa",
   "add-many-lines-as": "Ngeta imigca leminyenti njenge:",
-  "many-items": "__items__ (lokunyenti)"
+  "many-items": "__items__ (lokunyenti)",
+  "draggable": "Draggable"
 }

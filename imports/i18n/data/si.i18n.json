@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "සමමුහුර්තකරණය අසාර්ථක විය: %s",
   "list-sync-clear": "සමමුහුර්තකරණය නවත්වන්න",
   "add-many-lines-as": "පේළි කිහිපයක් මෙලෙස එක් කරන්න:",
-  "many-items": "__items__ කිහිපයක්"
+  "many-items": "__items__ කිහිපයක්",
+  "draggable": "Draggable"
 }

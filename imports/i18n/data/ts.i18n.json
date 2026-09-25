@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Fambisana yi tsandzekile: %s",
   "list-sync-clear": "Yima fambisana",
   "add-many-lines-as": "Engetela tilayini to tala tani hi:",
-  "many-items": "__items__ (swo tala)"
+  "many-items": "__items__ (swo tala)",
+  "draggable": "Draggable"
 }

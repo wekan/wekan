@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Theip ar an sioncronú: %s",
   "list-sync-clear": "Stop an sioncronú",
   "add-many-lines-as": "Cuir línte iomadúla leis mar:",
-  "many-items": "__items__ (iolracha)"
+  "many-items": "__items__ (iolracha)",
+  "draggable": "Draggable"
 }

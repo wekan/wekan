@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "ማመሳሰል አልተሳካም፦ %s",
   "list-sync-clear": "ማመሳሰልን አቁም",
   "add-many-lines-as": "ብዙ መስመሮችን እንደዚህ ጨምር፦",
-  "many-items": "ብዙ __items__"
+  "many-items": "ብዙ __items__",
+  "draggable": "Draggable"
 }

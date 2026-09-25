@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "同期に失敗しました: %s",
   "list-sync-clear": "同期を停止",
   "add-many-lines-as": "複数行を次の形式で追加：",
-  "many-items": "複数の__items__"
+  "many-items": "複数の__items__",
+  "draggable": "Draggable"
 }

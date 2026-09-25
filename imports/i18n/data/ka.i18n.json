@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "სინქრონიზაცია ვერ მოხერხდა: %s",
   "list-sync-clear": "სინქრონიზაციის შეჩერება",
   "add-many-lines-as": "რამდენიმე სტრიქონის დამატება როგორც:",
-  "many-items": "რამდენიმე __items__"
+  "many-items": "რამდენიმე __items__",
+  "draggable": "Draggable"
 }

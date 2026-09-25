@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Ñemoĩjoja ojavy: %s",
   "list-sync-clear": "Emboyke ñemoĩjoja",
   "add-many-lines-as": "Embojoapy heta tairenda péicha:",
-  "many-items": "Heta __items__"
+  "many-items": "Heta __items__",
+  "draggable": "Draggable"
 }

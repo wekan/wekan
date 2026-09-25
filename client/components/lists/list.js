@@ -654,7 +654,7 @@ Template.listBody.onRendered(function () {
         'option',
         'disabled',
         // Disable drag-dropping when user is not member
-        !Utils.canModifyBoard(),
+        !Utils.canModifyBoard() || !Utils.canDragBoardObject('card'),
         // Not disable drag-dropping while in multi-selection mode
         // MultiSelection.isActive() || !Utils.canModifyBoard(),
       );

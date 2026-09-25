@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Methodd y cydweddu: %s",
   "list-sync-clear": "Atal cydweddu",
   "add-many-lines-as": "Ychwanegu sawl llinell fel:",
-  "many-items": "__items__ (lluosog)"
+  "many-items": "__items__ (lluosog)",
+  "draggable": "Draggable"
 }

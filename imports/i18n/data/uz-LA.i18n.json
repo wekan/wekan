@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Sinxronlash amalga oshmadi: %s",
   "list-sync-clear": "Sinxronlashni to'xtatish",
   "add-many-lines-as": "Bir nechta qatorni quyidagicha qoʻshing:",
-  "many-items": "Bir nechta __items__"
+  "many-items": "Bir nechta __items__",
+  "draggable": "Draggable"
 }

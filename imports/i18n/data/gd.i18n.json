@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Dh'fhàillig an sioncronachadh: %s",
   "list-sync-clear": "Sguir dhen t-sioncronachadh",
   "add-many-lines-as": "Cuir iomadh loidhne ris mar:",
-  "many-items": "__items__ (iomadh)"
+  "many-items": "__items__ (iomadh)",
+  "draggable": "Draggable"
 }

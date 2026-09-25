@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Ο συγχρονισμός απέτυχε: %s",
   "list-sync-clear": "Διακοπή συγχρονισμού",
   "add-many-lines-as": "Προσθήκη πολλών γραμμών ως:",
-  "many-items": "__items__ (πολλά)"
+  "many-items": "__items__ (πολλά)",
+  "draggable": "Draggable"
 }

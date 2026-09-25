@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Sinkronisasi gagal: %s",
   "list-sync-clear": "Mungkasi sinkronisasi",
   "add-many-lines-as": "Tambah sawetara larik minangka:",
-  "many-items": "Sawetara __items__"
+  "many-items": "Sawetara __items__",
+  "draggable": "Draggable"
 }

@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Sinxronlaşdırma alınmadı: %s",
   "list-sync-clear": "Sinxronlaşdırmanı dayandır",
   "add-many-lines-as": "Bir neçə sətri belə əlavə et:",
-  "many-items": "Bir neçə __items__"
+  "many-items": "Bir neçə __items__",
+  "draggable": "Draggable"
 }

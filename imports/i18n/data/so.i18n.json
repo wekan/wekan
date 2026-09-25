@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Isku-dhejintu way fashilantay: %s",
   "list-sync-clear": "Jooji isku-dhejinta",
   "add-many-lines-as": "Ku dar sadar badan sida:",
-  "many-items": "__items__ badan"
+  "many-items": "__items__ badan",
+  "draggable": "Draggable"
 }

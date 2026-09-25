@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Ukuvumelanisa akuphumelelanga: %s",
   "list-sync-clear": "Yeka ukuvumelanisa",
   "add-many-lines-as": "Yongeza imigca emininzi njenge:",
-  "many-items": "__items__ (ezininzi)"
+  "many-items": "__items__ (ezininzi)",
+  "draggable": "Draggable"
 }

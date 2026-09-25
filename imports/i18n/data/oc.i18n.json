@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Sincronizacion fracassada : %s",
   "list-sync-clear": "Arrestar la sincronizacion",
   "add-many-lines-as": "Apondre mantuna linha coma:",
-  "many-items": "__items__ (mantuns)"
+  "many-items": "__items__ (mantuns)",
+  "draggable": "Draggable"
 }

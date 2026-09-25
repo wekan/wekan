@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Fetuʻutaki kuo hala: %s",
   "list-sync-clear": "Taʻofi ʻa e fetuʻutaki",
   "add-many-lines-as": "Tānaki ha ngaahi laine lahi ko e:",
-  "many-items": "__items__ lahi"
+  "many-items": "__items__ lahi",
+  "draggable": "Draggable"
 }

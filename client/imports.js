@@ -113,3 +113,5 @@ import '/client/features/swimlanes';
 import '/client/00-startup';
 
 import '/client/components/main/structuralSelection';
+
+import '/client/components/main/boardDragSettings';

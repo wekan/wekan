@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Ua le manuia le faatutusaina: %s",
   "list-sync-clear": "Taofia le faatutusaina",
   "add-many-lines-as": "Faaopoopo laina e tele e pei o:",
-  "many-items": "__items__ e tele"
+  "many-items": "__items__ e tele",
+  "draggable": "Draggable"
 }

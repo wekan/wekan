@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Sync ii lihkostuvvan: %s",
   "list-sync-clear": "Bissehit syncema",
   "add-many-lines-as": "Lasit máŋga ráiddu ná:",
-  "many-items": "__items__ (máŋga)"
+  "many-items": "__items__ (máŋga)",
+  "draggable": "Draggable"
 }

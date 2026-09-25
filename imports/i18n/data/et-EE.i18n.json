@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Sünkroonimine ebaõnnestus: %s",
   "list-sync-clear": "Peata sünkroonimine",
   "add-many-lines-as": "Lisa mitu rida järgmiselt:",
-  "many-items": "__items__ (mitu)"
+  "many-items": "__items__ (mitu)",
+  "draggable": "Draggable"
 }

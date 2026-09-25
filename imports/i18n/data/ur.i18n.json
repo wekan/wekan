@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "ہم وقت سازی ناکام ہوئی: %s",
   "list-sync-clear": "ہم وقت سازی روکیں",
   "add-many-lines-as": "کئی سطریں اس طرح شامل کریں:",
-  "many-items": "کئی __items__"
+  "many-items": "کئی __items__",
+  "draggable": "Draggable"
 }

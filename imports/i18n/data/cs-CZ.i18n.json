@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Synchronizace se nezdařila: %s",
   "list-sync-clear": "Zastavit synchronizaci",
   "add-many-lines-as": "Přidat více řádků jako:",
-  "many-items": "__items__ (více)"
+  "many-items": "__items__ (více)",
+  "draggable": "Draggable"
 }

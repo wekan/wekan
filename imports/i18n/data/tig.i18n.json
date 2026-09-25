@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "ምስምማዕ ፈሽለ: %s",
   "list-sync-clear": "ምስምማዕ ከሬ",
   "add-many-lines-as": "ብዙሕ መስመር ከምዚ ወስክ፦",
-  "many-items": "ብዙሕ __items__"
+  "many-items": "ብዙሕ __items__",
+  "draggable": "Draggable"
 }

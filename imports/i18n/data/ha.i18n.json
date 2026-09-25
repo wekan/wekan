@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Daidaitawa ta kasa: %s",
   "list-sync-clear": "Dakatar da daidaitawa",
   "add-many-lines-as": "Ƙara layuka da yawa a matsayin:",
-  "many-items": "__items__ da yawa"
+  "many-items": "__items__ da yawa",
+  "draggable": "Draggable"
 }

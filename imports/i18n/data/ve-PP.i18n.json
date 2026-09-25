@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Sinhronirundan viga: %s",
   "list-sync-clear": "Seižuta sinhronirund",
   "add-many-lines-as": "Ližata äi rivid kut:",
-  "many-items": "__items__ (äi)"
+  "many-items": "__items__ (äi)",
+  "draggable": "Draggable"
 }

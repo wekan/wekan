@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "U vhambadzanya ho ngo bvelela: %s",
   "list-sync-clear": "Litshani u vhambadzanya",
   "add-many-lines-as": "Zonta pì righe come:",
-  "many-items": "Pì __items__"
+  "many-items": "Pì __items__",
+  "draggable": "Draggable"
 }

@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Nhazi dara: %s",
   "list-sync-clear": "Kwụsị nhazi",
   "add-many-lines-as": "Tinye ọtụtụ ahịrị dịka:",
-  "many-items": "Ọtụtụ __items__"
+  "many-items": "Ọtụtụ __items__",
+  "draggable": "Draggable"
 }

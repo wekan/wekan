@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Синхронлав пулмарӗ: %s",
   "list-sync-clear": "Синхронлава чарас",
   "add-many-lines-as": "Нумай йӗрне ҫапла хушас:",
-  "many-items": "Нумай __items__"
+  "many-items": "Нумай __items__",
+  "draggable": "Draggable"
 }

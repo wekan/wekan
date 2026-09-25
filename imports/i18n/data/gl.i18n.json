@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Fallou a sincronización: %s",
   "list-sync-clear": "Deter sincronización",
   "add-many-lines-as": "Engadir varias liñas como:",
-  "many-items": "__items__ múltiples"
+  "many-items": "__items__ múltiples",
+  "draggable": "Draggable"
 }

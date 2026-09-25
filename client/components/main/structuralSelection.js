@@ -3,6 +3,8 @@ import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Session } from 'meteor/session';
 import { TAPi18n } from '/imports/i18n';
+import { Utils } from '/client/lib/utils';
+const { canDragSelection } = require('/models/lib/boardDragging');
 import { MultiSelection } from '/client/lib/multiSelection';
 import './structuralSelection.jade';
 import './structuralSelection.css';
@@ -63,7 +65,7 @@ Template.moveObjectsPopup.events({
 // card-only sortables remain responsible when no structural object is selected.
 import { ReactiveCache } from '/imports/reactiveCache';
 const entitySelectors = [
-  ['item', '.js-checklist-item'], ['checklist', '.minicard-checklist'],
+  ['item', '.js-checklist-item'], ['checklist', '.minicard-checklist, .js-checklist'],
   ['card', '.js-minicard'], ['list', '.js-list'], ['swimlane', '.js-swimlane-header'],
 ];
 function entityAt(element) {
@@ -89,12 +91,21 @@ function targetFor(entity) {
 Meteor.startup(() => {
   let drag;
   document.addEventListener('mousedown', event => {
+    // Disabled nested objects must not fall through to an ancestor sortable.
+    if (!event.target.closest('input,textarea,button,select,.materialCheckBox')) {
+      const entity = entityAt(event.target);
+      const kind = event.target.closest('.js-subtasks') ? 'subtask' : entity?.kind;
+      if (kind && !Utils.canDragBoardObject(kind)) {
+        event.stopImmediatePropagation(); return;
+      }
+    }
     if (event.button !== 0 || !MultiSelection.isActive() || !MultiSelection.hasObjects() ||
         event.target.closest('input,textarea,button,select,.materialCheckBox')) return;
     const entity = entityAt(event.target);
     if (!entity || !(entity.kind === 'card' ? MultiSelection.isSelected(entity.doc._id)
       : MultiSelection.isObjectSelected(entity.kind, entity.doc._id))) return;
     event.stopImmediatePropagation(); event.preventDefault();
+    if (!canDragSelection(ReactiveCache.getBoard(Session.get('currentBoard')), MultiSelection.mixedSelection())) return;
     drag = { x: event.clientX, y: event.clientY, selection: MultiSelection.mixedSelection() };
   }, true);
   document.addEventListener('mousemove', event => {
@@ -121,7 +132,7 @@ Meteor.startup(() => {
     const bounds = completed.target.node.getBoundingClientRect();
     destination.position = event.clientY < bounds.y + bounds.height / 2 ? 'before' : 'after';
     try {
-      await Meteor.callAsync('moveBoardObjects', Session.get('currentBoard'), completed.selection, destination);
+      await Meteor.callAsync('moveBoardObjects', Session.get('currentBoard'), completed.selection, destination, { drag: true });
       MultiSelection.reset();
     } catch (error) {
       // The picker allows correcting incomplete destinations, including a new

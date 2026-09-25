@@ -1,0 +1,14 @@
+.board-drag-settings { width: 100%; margin-bottom: 16px; }
+.board-drag-settings th { text-align: start; }
+.board-drag-settings th:last-child, .board-drag-settings td:last-child { text-align: center; }
+.board-drag-settings input[type=checkbox] { width: auto; min-height: 0; margin: 4px; }
+.board-drag-settings input[type=checkbox] {
+  display: inline-block;
+  visibility: visible;
+  position: static;
+  inset-inline-start: auto;
+  width: 16px;
+  height: 16px;
+  appearance: auto;
+  transform: none;
+}

@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Fottitingol yeddaama: %s",
   "list-sync-clear": "Haaytu fottitingol",
   "add-many-lines-as": "Ɓeydu gorɗi keewɗi no:",
-  "many-items": "__items__ (keewɗi)"
+  "many-items": "__items__ (keewɗi)",
+  "draggable": "Draggable"
 }

@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "C'hwitet eo ar goubredañ: %s",
   "list-sync-clear": "Paouez gant ar goubredañ",
   "add-many-lines-as": "Ouzhpennañ meur a linenn evel:",
-  "many-items": "__items__ (meur a hini)"
+  "many-items": "__items__ (meur a hini)",
+  "draggable": "Draggable"
 }

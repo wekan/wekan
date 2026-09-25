@@ -286,6 +286,7 @@ template(name="boardInfoOnMyBoardsPopup")
   `role="button"`, titled with the existing move-up/move-down keys.
   client/components/sidebar/sidebar.js, tests/cardSettingsCoverage.test.cjs
 template(name="boardCardSettingsPopup")
+  +boardDragSettings(section="card")
   form.board-card-settings(class=settingsSideClass)
     h4.card-field-order-heading {{_ 'card-field-order'}}
     .card-field-order-columns
@@ -654,6 +655,7 @@ template(name="boardViewSettingsPopup")
   used to be a header icon (#6680); it lives here now, with the rest of a
   board's settings. client/components/swimlanes/swimlanes.js
 template(name="boardSwimlaneSettingsPopup")
+  +boardDragSettings(section="swimlane")
   form.board-swimlane-settings
     div.check-div
       a.flex.js-toggle-swimlane-height-resize-lock(title="{{_ 'lock-swimlane-height-resize'}}" class="{{#if isSwimlaneHeightResizeLocked}}is-checked{{/if}}")
@@ -677,6 +679,7 @@ template(name="boardSwimlaneSettingsPopup")
   shared-width value - this is only the two board-wide switches.
   client/components/lists/list.js
 template(name="boardListSettingsPopup")
+  +boardDragSettings(section="list")
   form.board-list-settings
     div.check-div
       a.flex.js-toggle-list-width-resize-lock(title="{{_ 'lock-list-width-resize'}}" class="{{#if isListWidthResizeLocked}}is-checked{{/if}}")

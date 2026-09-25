@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Sync a fyllys: %s",
   "list-sync-clear": "Hedhi sync",
   "add-many-lines-as": "Keworra lies linenn avel:",
-  "many-items": "Lies __items__"
+  "many-items": "Lies __items__",
+  "draggable": "Draggable"
 }

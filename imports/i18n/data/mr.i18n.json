@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "सिंक अयशस्वी झाले: %s",
   "list-sync-clear": "सिंक थांबवा",
   "add-many-lines-as": "अनेक ओळी या स्वरूपात जोडा:",
-  "many-items": "अनेक __items__"
+  "many-items": "अनेक __items__",
+  "draggable": "Draggable"
 }

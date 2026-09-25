@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Sinxronlash amalga oshmadi: %s",
   "list-sync-clear": "Sinxronlashni to'xtatish",
   "add-many-lines-as": "بیر نیچه قطارنی قویداگیچه قوشینگ:",
-  "many-items": "بیر نیچه __items__"
+  "many-items": "بیر نیچه __items__",
+  "draggable": "Draggable"
 }

@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Is-sinkronizzazzjoni falliet: %s",
   "list-sync-clear": "Waqqaf is-sinkronizzazzjoni",
   "add-many-lines-as": "Żid diversi linji bħala:",
-  "many-items": "Diversi __items__"
+  "many-items": "Diversi __items__",
+  "draggable": "Draggable"
 }

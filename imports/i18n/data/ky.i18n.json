@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Синхрондоштуруу ишке ашкан жок: %s",
   "list-sync-clear": "Синхрондоштурууну токтотуу",
   "add-many-lines-as": "Бир нече сапты мындай кошуу:",
-  "many-items": "Бир нече __items__"
+  "many-items": "Бир нече __items__",
+  "draggable": "Draggable"
 }

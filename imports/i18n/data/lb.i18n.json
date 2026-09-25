@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Synchroniséierung feelgeschloen: %s",
   "list-sync-clear": "Synchroniséierung stoppen",
   "add-many-lines-as": "Méi Zeilen derbäisetzen als:",
-  "many-items": "Méi __items__"
+  "many-items": "Méi __items__",
+  "draggable": "Draggable"
 }

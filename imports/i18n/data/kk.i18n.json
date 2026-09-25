@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Синхрондау сәтсіз аяқталды: %s",
   "list-sync-clear": "Синхрондауды тоқтату",
   "add-many-lines-as": "Бірнеше жолды мына түрде қосу:",
-  "many-items": "Бірнеше __items__"
+  "many-items": "Бірнеше __items__",
+  "draggable": "Draggable"
 }

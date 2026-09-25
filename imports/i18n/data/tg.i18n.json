@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Ҳамоҳангсозӣ ноком шуд: %s",
   "list-sync-clear": "Ҳамоҳангсозиро қатъ кунед",
   "add-many-lines-as": "Якчанд сатрро чунин илова кунед:",
-  "many-items": "Якчанд __items__"
+  "many-items": "Якчанд __items__",
+  "draggable": "Draggable"
 }

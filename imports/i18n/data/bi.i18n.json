@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Sinkronaes i no wok: %s",
   "list-sync-clear": "Stopem sinkronaes",
   "add-many-lines-as": "Adem plante laen olsem:",
-  "many-items": "Plante __items__"
+  "many-items": "Plante __items__",
+  "draggable": "Draggable"
 }

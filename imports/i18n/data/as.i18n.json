@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "ছিংক বিফল হ'ল: %s",
   "list-sync-clear": "ছিংক বন্ধ কৰক",
   "add-many-lines-as": "একাধিক শাৰী এইদৰে যোগ কৰক:",
-  "many-items": "একাধিক __items__"
+  "many-items": "একাধিক __items__",
+  "draggable": "Draggable"
 }

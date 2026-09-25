@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Naligiisitsineq kukkunerpoq: %s",
   "list-sync-clear": "Naligiisitsineq unitsigit",
   "add-many-lines-as": "Titarnit arlallit ima ilanngukkit:",
-  "many-items": "__items__ arlallit"
+  "many-items": "__items__ arlallit",
+  "draggable": "Draggable"
 }

@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Kopantšho e paletšwe: %s",
   "list-sync-clear": "Emiša kopantšho",
   "add-many-lines-as": "Oketša methalo ye mentši bjalo ka:",
-  "many-items": "__items__ (tše dintši)"
+  "many-items": "__items__ (tše dintši)",
+  "draggable": "Draggable"
 }

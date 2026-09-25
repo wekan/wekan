@@ -1,0 +1,14 @@
+template(name="boardDragSettings")
+  table.board-drag-settings
+    thead
+      tr
+        th {{_ 'name'}}
+        th {{_ 'draggable'}}
+    tbody
+      each rows
+        tr
+          td= title
+          td
+            input.js-board-drag-setting(type="checkbox" data-kind=kind checked=enabled disabled=disabled aria-label=title)
+  if error.get
+    .warning {{error.get}}

@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Boa mu no anyɛ yiye: %s",
   "list-sync-clear": "Gyae boa mu",
   "add-many-lines-as": "Fa nsensanee pii ka ho sɛ:",
-  "many-items": "__items__ pii"
+  "many-items": "__items__ pii",
+  "draggable": "Draggable"
 }

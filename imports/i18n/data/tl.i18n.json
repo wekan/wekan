@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Nabigo ang pag-sync: %s",
   "list-sync-clear": "Ihinto ang pag-sync",
   "add-many-lines-as": "Magdagdag ng maraming linya bilang:",
-  "many-items": "Maraming __items__"
+  "many-items": "Maraming __items__",
+  "draggable": "Draggable"
 }

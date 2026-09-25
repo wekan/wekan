@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Համաժամացումը ձախողվեց՝ %s",
   "list-sync-clear": "Դադարեցնել համաժամացումը",
   "add-many-lines-as": "Ավելացնել մի քանի տող որպես՝",
-  "many-items": "Մի քանի __items__"
+  "many-items": "Մի քանի __items__",
+  "draggable": "Draggable"
 }

@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Kugwirizanitsa kwalephera: %s",
   "list-sync-clear": "Siyani kugwirizanitsa",
   "add-many-lines-as": "Onjezani mizere yambiri ngati:",
-  "many-items": "__items__ (zambiri)"
+  "many-items": "__items__ (zambiri)",
+  "draggable": "Draggable"
 }

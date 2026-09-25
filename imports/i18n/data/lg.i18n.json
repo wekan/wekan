@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Okwesigika kulemye: %s",
   "list-sync-clear": "Kkomya okwesigika",
   "add-many-lines-as": "Yongerako ennyiriri nnyingi nga:",
-  "many-items": "__items__ (bingi)"
+  "many-items": "__items__ (bingi)",
+  "draggable": "Draggable"
 }

@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Sinkronigo malsukcesis: %s",
   "list-sync-clear": "Ĉesigi sinkronigon",
   "add-many-lines-as": "Aldoni plurajn liniojn kiel:",
-  "many-items": "Pluraj __items__"
+  "many-items": "Pluraj __items__",
+  "draggable": "Draggable"
 }

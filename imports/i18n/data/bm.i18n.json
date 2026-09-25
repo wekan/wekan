@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Bɛnkanni ma se ka ban: %s",
   "list-sync-clear": "Bɛnkanni dabila",
   "add-many-lines-as": "Sɛbɛnni sira caman fara a kan nin cogo in na:",
-  "many-items": "__items__ caman"
+  "many-items": "__items__ caman",
+  "draggable": "Draggable"
 }

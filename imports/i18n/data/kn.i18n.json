@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "ಸಿಂಕ್ ವಿಫಲವಾಗಿದೆ: %s",
   "list-sync-clear": "ಸಿಂಕ್ ನಿಲ್ಲಿಸಿ",
   "add-many-lines-as": "ಹಲವು ಸಾಲುಗಳನ್ನು ಈ ರೀತಿಯಾಗಿ ಸೇರಿಸಿ:",
-  "many-items": "ಹಲವು __items__"
+  "many-items": "ಹಲವು __items__",
+  "draggable": "Draggable"
 }

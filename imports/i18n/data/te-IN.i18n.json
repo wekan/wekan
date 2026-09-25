@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "సమకాలీకరణ విఫలమైంది: %s",
   "list-sync-clear": "సమకాలీకరణను ఆపండి",
   "add-many-lines-as": "అనేక పంక్తులను ఇలా జోడించండి:",
-  "many-items": "అనేక __items__"
+  "many-items": "అనేక __items__",
+  "draggable": "Draggable"
 }

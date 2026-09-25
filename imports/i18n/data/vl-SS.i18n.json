@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Sync a yo shumi: %s",
   "list-sync-clear": "Imisa sync",
   "add-many-lines-as": "Meerdere regels toevoegen als:",
-  "many-items": "Meerdere __items__"
+  "many-items": "Meerdere __items__",
+  "draggable": "Draggable"
 }

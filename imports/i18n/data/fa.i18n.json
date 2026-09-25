@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "همگام‌سازی ناموفق بود: %s",
   "list-sync-clear": "توقف همگام‌سازی",
   "add-many-lines-as": "چندین خط را اضافه کنید به‌صورت:",
-  "many-items": "چندین __items__"
+  "many-items": "چندین __items__",
+  "draggable": "Draggable"
 }

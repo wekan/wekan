@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Sincronizatzione fallida: %s",
   "list-sync-clear": "Firma sa sincronizatzione",
   "add-many-lines-as": "Agiunghe prus rigas comente:",
-  "many-items": "Prus __items__"
+  "many-items": "Prus __items__",
+  "draggable": "Draggable"
 }

@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "المزامنة فشلات: %s",
   "list-sync-clear": "وقف المزامنة",
   "add-many-lines-as": "زيد سطور بزاف على شكل:",
-  "many-items": "__items__ بزاف"
+  "many-items": "__items__ بزاف",
+  "draggable": "Draggable"
 }

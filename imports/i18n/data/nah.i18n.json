@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Neneuhcayotl ahmo ohuelic: %s",
   "list-sync-clear": "Xiccahua neneuhcayotl",
   "add-many-lines-as": "Xicaquiti miyac pantli iuhquin:",
-  "many-items": "Miyac __items__"
+  "many-items": "Miyac __items__",
+  "draggable": "Draggable"
 }

@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "സമന്വയം പരാജയപ്പെട്ടു: %s",
   "list-sync-clear": "സമന്വയം നിർത്തുക",
   "add-many-lines-as": "ഒന്നിലധികം വരികൾ ഇങ്ങനെ ചേർക്കുക:",
-  "many-items": "ഒന്നിലധികം __items__"
+  "many-items": "ഒന്നിലധികം __items__",
+  "draggable": "Draggable"
 }

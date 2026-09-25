@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Guhuza byananiranye: %s",
   "list-sync-clear": "Hagarika guhuza",
   "add-many-lines-as": "Ongeraho imirongo myinshi nka:",
-  "many-items": "__items__ (byinshi)"
+  "many-items": "__items__ (byinshi)",
+  "draggable": "Draggable"
 }

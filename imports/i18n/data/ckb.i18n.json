@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "هاوکاتکردن شکستی هێنا: %s",
   "list-sync-clear": "هاوکاتکردن ڕابگرە",
   "add-many-lines-as": "چەند دێڕێک زیاد بکە وەک:",
-  "many-items": "چەندین __items__"
+  "many-items": "چەندین __items__",
+  "draggable": "Draggable"
 }

@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Usawazishaji umeshindwa: %s",
   "list-sync-clear": "Simamisha usawazishaji",
   "add-many-lines-as": "Ongeza mistari mingi kama:",
-  "many-items": "__items__ (nyingi)"
+  "many-items": "__items__ (nyingi)",
+  "draggable": "Draggable"
 }

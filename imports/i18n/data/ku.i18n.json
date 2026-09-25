@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Senkronîzasyon şikest: %s",
   "list-sync-clear": "Senkronîzasyonê rawestîne",
   "add-many-lines-as": "Çend rêzan wekî vê zêde bike:",
-  "many-items": "Çend __items__"
+  "many-items": "Çend __items__",
+  "draggable": "Draggable"
 }

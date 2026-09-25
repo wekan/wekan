@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Ginssoy xayis: %s",
   "list-sync-clear": "Ginssuwaa aggisa",
   "add-many-lines-as": "Daro yafarata hagaadan gujja:",
-  "many-items": "Daro __items__"
+  "many-items": "Daro __items__",
+  "draggable": "Draggable"
 }

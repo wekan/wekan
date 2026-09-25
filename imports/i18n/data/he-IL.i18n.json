@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "הסנכרון נכשל: %s",
   "list-sync-clear": "עצור סנכרון",
   "add-many-lines-as": "הוספת מספר שורות בתור:",
-  "many-items": "__items__ (מרובים)"
+  "many-items": "__items__ (מרובים)",
+  "draggable": "Draggable"
 }

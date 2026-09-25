@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "མཐུན་སྒྲིག་མ་འགྲུབ: %s",
   "list-sync-clear": "མཐུན་སྒྲིག་མཚམས་འཇོག",
   "add-many-lines-as": "ཐིག་མང་པོ་འདི་ལྟར་སྣོན།",
-  "many-items": "__items__ མང་པོ།"
+  "many-items": "__items__ མང་པོ།",
+  "draggable": "Draggable"
 }

@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "همغږي ناکامه شوه: %s",
   "list-sync-clear": "همغږي ودرول",
   "add-many-lines-as": "څو کرښې په دې بڼه ورزیاتې کړئ:",
-  "many-items": "څو __items__"
+  "many-items": "څو __items__",
+  "draggable": "Draggable"
 }

@@ -19,7 +19,12 @@ const LEFT_MENU_COLLAPSED_KEY = 'leftMenuCollapsed';
 const LEFT_MENU_WIDTH_KEY = 'leftMenuWidth';
 const pendingBoardView = new ReactiveVar(null);
 
+const { canDrag } = require('/models/lib/boardDragging');
+
 export const Utils = {
+  canDragBoardObject(kind, boardId = Session.get('currentBoard')) {
+    return canDrag(ReactiveCache.getBoard(boardId), kind);
+  },
   async setBackgroundImage(url) {
     const currentBoard = Utils.getCurrentBoard();
     const bg = computeBoardBackground(currentBoard);

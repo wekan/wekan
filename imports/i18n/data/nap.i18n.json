@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Sincronizzazione fallùta: %s",
   "list-sync-clear": "Ferma 'a sincronizzazione",
   "add-many-lines-as": "Azzecca cchiù righe comme:",
-  "many-items": "Cchiù __items__"
+  "many-items": "Cchiù __items__",
+  "draggable": "Draggable"
 }

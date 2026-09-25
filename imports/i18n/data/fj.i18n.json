@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Sa sega na vakaisoqosoqo: %s",
   "list-sync-clear": "Tarova na vakaisoqosoqo",
   "add-many-lines-as": "Kuria e vica na laini me:",
-  "many-items": "E levu na __items__"
+  "many-items": "E levu na __items__",
+  "draggable": "Draggable"
 }

@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "I rahua te tukutahinga: %s",
   "list-sync-clear": "Whakamutua te tukutahinga",
   "add-many-lines-as": "Tāpirihia ngā rārangi maha hei:",
-  "many-items": "__items__ maha"
+  "many-items": "__items__ maha",
+  "draggable": "Draggable"
 }

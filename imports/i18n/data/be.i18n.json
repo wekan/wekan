@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Сінхранізацыя не ўдалася: %s",
   "list-sync-clear": "Спыніць сінхранізацыю",
   "add-many-lines-as": "Дадаць некалькі радкоў як:",
-  "many-items": "__items__ (некалькі)"
+  "many-items": "__items__ (некалькі)",
+  "draggable": "Draggable"
 }

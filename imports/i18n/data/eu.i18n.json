@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Sinkronizazioak huts egin du: %s",
   "list-sync-clear": "Gelditu sinkronizazioa",
   "add-many-lines-as": "Gehitu hainbat lerro honela:",
-  "many-items": "Hainbat __items__"
+  "many-items": "Hainbat __items__",
+  "draggable": "Draggable"
 }

@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "सिंक अपेस जालो: %s",
   "list-sync-clear": "सिंक बंद करात",
   "add-many-lines-as": "जायत्यो वळी अशें जोडात:",
-  "many-items": "जायतीं __items__"
+  "many-items": "जायतीं __items__",
+  "draggable": "Draggable"
 }

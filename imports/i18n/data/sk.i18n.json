@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Synchronizácia zlyhala: %s",
   "list-sync-clear": "Zastaviť synchronizáciu",
   "add-many-lines-as": "Pridať viac riadkov ako:",
-  "many-items": "__items__ (viac)"
+  "many-items": "__items__ (viac)",
+  "draggable": "Draggable"
 }

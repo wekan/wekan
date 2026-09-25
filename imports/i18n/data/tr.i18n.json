@@ -2698,5 +2698,6 @@
   "list-sync-now-error": "Senkronizasyon başarısız oldu: %s",
   "list-sync-clear": "Senkronizasyonu durdur",
   "add-many-lines-as": "Birden çok satırı şu şekilde ekle:",
-  "many-items": "Birden çok __items__"
+  "many-items": "Birden çok __items__",
+  "draggable": "Sürüklenebilir"
 }
