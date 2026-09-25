@@ -20,7 +20,17 @@ button.js-structural-selection:focus-visible { outline: 2px solid currentColor; 
   color: #333;
   border: 2px solid #216694;
   pointer-events: none;
+  min-width: 160px;
+  max-width: 280px;
+  border-radius: 5px;
+  transform: rotate(-3deg);
+  transform-origin: top left;
+  box-shadow: 3px 4px 0 #ddd, 6px 8px 0 #bbb, 0 8px 18px #0004;
 }
+.structural-drag-count { font-weight: bold; margin-bottom: 4px; }
+.structural-drag-name { display: flex; gap: 8px; padding: 4px; }
+.structural-drag-name span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.structural-drag-name .fa { flex: 0 0 16px; }
 .structural-drop-target { outline: 2px dashed #216694; }
 /* Header checkboxes occupy the left margin, without adding a header row. */
 .js-list-header > button.js-structural-selection {

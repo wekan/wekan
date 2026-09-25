@@ -46,3 +46,39 @@ assert.equal(state.hasObjects(), false);
 state.reset();
 assert.equal(state.isSelected('card'), false);
 console.log('structuralSelection: board scoping, mixed Shift selection, toggle and reset passed');
+
+// A lane's empty body is a drop target, but not a new swimlane drag handle.
+const dragSource = fs.readFileSync('client/components/main/structuralSelection.js', 'utf8');
+const entityCode = dragSource.slice(dragSource.indexOf('const entitySelectors'), dragSource.indexOf('Meteor.startup'));
+const laneNode = { doc: { _id: 'destination-lane' } };
+const listNode = { doc: { _id: 'target-list', swimlaneId: 'destination-lane' } };
+const bodyElement = { closest: selector => selector === '.js-swimlane' ? laneNode : null };
+const listElement = { closest: selector => selector === '.js-list' ? listNode : selector === '.js-swimlane' ? laneNode : null };
+const resolver = vm.runInNewContext(`${entityCode}\n({entityAt,targetFor})`, {
+  Blaze: { getData: node => node.doc }, Session: { get: () => 'board' },
+});
+assert.equal(resolver.entityAt(bodyElement), null);
+assert.equal(resolver.entityAt(bodyElement, true).doc._id, 'destination-lane');
+assert.equal(resolver.targetFor(resolver.entityAt(bodyElement,true)).swimlaneId, 'destination-lane');
+assert.equal(resolver.entityAt(listElement,true).kind, 'list');
+assert.equal(resolver.entityAt({closest:()=>null},true), null);
+console.log('structuralSelection: empty lane drop, header-only drag start and nested-target precedence passed');
+
+const previewDocument = { createElement(tag) {
+  return { tag, children: [], append(...nodes) { this.children.push(...nodes); }, setAttribute() {} };
+} };
+const buildPreview = vm.runInNewContext(`${entityCode}\ncreateDragPreview;`, {
+  document: previewDocument,
+  ReactiveCache: {
+    getList: id => ({title:id === 'a' ? '<img src=x onerror=alert(1)>' : 'Second list'}),
+    getCard: () => ({title:'A selected card'}),
+  },
+});
+const preview = buildPreview([{kind:'list',id:'a'},{kind:'list',id:'b'},{kind:'card',id:'c'}]);
+assert.equal(preview.children[0].textContent, '3');
+assert.equal(preview.children[1].children[1].textContent, '<img src=x onerror=alert(1)>');
+assert.equal(preview.children[1].children[1].tag, 'span');
+assert.equal(preview.children[2].children[1].textContent, 'Second list');
+assert.equal(preview.children[3].children[1].textContent, 'A selected card');
+assert.equal(buildPreview(Array.from({length:10},()=>({kind:'list',id:'b'}))).children.at(-1).textContent, '+2');
+console.log('structuralSelection: named mixed preview, literal title text and bounded large selections passed');

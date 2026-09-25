@@ -68,13 +68,20 @@ const entitySelectors = [
   ['item', '.js-checklist-item'], ['checklist', '.minicard-checklist, .js-checklist'],
   ['card', '.js-minicard'], ['list', '.js-list'], ['swimlane', '.js-swimlane-header'],
 ];
-function entityAt(element) {
+function entityAt(element, dropTarget = false) {
   for (const [kind, selector] of entitySelectors) {
     const node = element?.closest(selector);
     if (!node) continue;
     const data = Blaze.getData(node);
     const doc = kind === 'item' ? data?.item : kind === 'checklist' ? data?.checklist : data;
     if (doc?._id) return { kind, doc, node };
+  }
+  // Empty lane space has no list/card ancestor. Accept it on drop, while
+  // retaining the header-only start target for dragging a selected swimlane.
+  if (dropTarget) {
+    const node = element?.closest('.js-swimlane');
+    const doc = node && Blaze.getData(node);
+    if (doc?._id) return { kind: 'swimlane', doc, node };
   }
   return null;
 }
@@ -87,6 +94,40 @@ function targetFor(entity) {
   if (kind === 'list') { target.listId = doc._id; target.swimlaneId ||= doc.swimlaneId || Blaze.getData(entity.node.closest('.js-swimlane'))?._id; }
   if (kind === 'swimlane') target.swimlaneId = doc._id;
   return target;
+}
+// Render names as text, never clone interactive controls or insert title HTML.
+function createDragPreview(selection) {
+  const preview = document.createElement('div');
+  preview.className = 'structural-drag-preview';
+  const count = document.createElement('div');
+  count.className = 'structural-drag-count';
+  count.textContent = String(selection.length);
+  preview.append(count);
+  const types = {
+    swimlane: ['getSwimlane', 'fa-bars'], list: ['getList', 'fa-list'],
+    card: ['getCard', 'fa-sticky-note-o'], checklist: ['getChecklist', 'fa-check-square-o'],
+    item: ['getChecklistItem', 'fa-check'],
+  };
+  for (const entry of selection.slice(0, 8)) {
+    const type = types[entry.kind];
+    if (!type) continue;
+    const doc = ReactiveCache[type[0]](entry.id);
+    const row = document.createElement('div');
+    row.className = 'structural-drag-name';
+    const icon = document.createElement('i');
+    icon.className = `fa ${type[1]}`;
+    icon.setAttribute('aria-hidden', 'true');
+    const name = document.createElement('span');
+    name.textContent = doc?.title || entry.id;
+    row.append(icon, name);
+    preview.append(row);
+  }
+  if (selection.length > 8) {
+    const more = document.createElement('div');
+    more.textContent = `+${selection.length - 8}`;
+    preview.append(more);
+  }
+  return preview;
 }
 Meteor.startup(() => {
   let drag;
@@ -112,13 +153,13 @@ Meteor.startup(() => {
     if (!drag) return;
     if (!drag.preview && Math.hypot(event.clientX - drag.x, event.clientY - drag.y) < 7) return;
     if (!drag.preview) {
-      drag.preview = document.createElement('div'); drag.preview.className = 'structural-drag-preview';
-      drag.preview.textContent = `${drag.selection.length}`; document.body.append(drag.preview);
+      drag.preview = createDragPreview(drag.selection);
+      document.body.append(drag.preview);
     }
     event.preventDefault();
     drag.preview.style.left = `${event.clientX + 12}px`; drag.preview.style.top = `${event.clientY + 12}px`;
     drag.target?.node.classList.remove('structural-drop-target');
-    drag.target = entityAt(document.elementFromPoint(event.clientX, event.clientY));
+    drag.target = entityAt(document.elementFromPoint(event.clientX, event.clientY), true);
     drag.target?.node.classList.add('structural-drop-target');
   }, true);
   document.addEventListener('mouseup', async event => {
