@@ -680,7 +680,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v12.02 2026-09-25 WeKan ® release
 
 **In short:** **Admin Panel / People** opens Email and provides separate login
 settings, including SAML environment overrides, metadata and logout configuration.
