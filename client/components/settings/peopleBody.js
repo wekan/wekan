@@ -1764,22 +1764,16 @@ Template.peopleRow.events({
       else
         document.getElementById("divAddOrRemoveTeam").style.display = 'none';
   },
-  'click .js-toggle-active-status': function(ev) {
+  'click .js-toggle-active-status': async function(ev) {
       ev.preventDefault();
-      const userId = this.userId || this.user?._id;
+      const userId = ev.currentTarget.dataset.userId || this.userId || this.user?._id;
       const user = ReactiveCache.getUser(userId);
-
       if (!user) return;
-
-      // Toggle loginDisabled status
-      const isActive = !(user.loginDisabled === true);
-
-      // Update the user's active status
-      Users.update(userId, {
-        $set: {
-          loginDisabled: isActive
-        }
-      });
+      try {
+        await Meteor.callAsync('editUser', userId, { loginDisabled: !user.loginDisabled });
+      } catch (error) {
+        window.alert(error.reason || error.message);
+      }
   },
   'click .js-toggle-lock-status': function(ev){
       ev.preventDefault();

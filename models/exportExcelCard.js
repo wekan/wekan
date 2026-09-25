@@ -96,10 +96,7 @@ runOnServer(function() {
           return;
         }
 
-        const hashToken = Accounts._hashLoginToken(loginToken);
-        user = await ReactiveCache.getUser({
-          'services.resume.loginTokens.hashedToken': hashToken,
-        });
+        user = await require('/server/lib/activeUser').activeUserByToken(loginToken, 'exportExcelCard', req);
         if (!user) {
           res.writeHead(401, { 'Content-Type': 'text/plain; charset=utf-8' });
           res.end('Invalid token');

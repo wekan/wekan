@@ -44,7 +44,7 @@ test('every token lookup is followed by a null check, in every export model', ()
   const unguarded = [];
   for (const file of FILES) {
     const src = read(file);
-    const lookup = /user = await ReactiveCache\.getUser\(\{\s*'services\.resume\.loginTokens\.hashedToken':[^}]*\}\);/g;
+    const lookup = /user = await require\([^\n]+\)\.activeUserByToken\([^;]+\);/g;
     for (const m of lookup.exec ? [...src.matchAll(lookup)] : []) {
       const after = src.slice(m.index + m[0].length, m.index + m[0].length + 400);
       const line = src.slice(0, m.index).split('\n').length;
@@ -73,7 +73,7 @@ test('nothing dereferences the user before the guard', () => {
   for (const file of FILES) {
     const src = read(file);
     let searchFrom = 0;
-    for (const m of src.matchAll(/'services\.resume\.loginTokens\.hashedToken'/g)) {
+    for (const m of src.matchAll(/activeUserByToken/g)) {
       const rest = src.slice(m.index, m.index + 600);
       const guardAt = rest.indexOf('if (!user)');
       const useAt = rest.indexOf('user._id');

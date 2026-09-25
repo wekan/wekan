@@ -191,13 +191,8 @@ Accounts.registerLoginHandler('ldap', async function(loginRequest) {
 
       log_info('Logging user');
 
-      const stampedToken = Accounts._generateStampedLoginToken();
-      const update_data = {
-        $push: {
-          'services.resume.loginTokens': Accounts._hashStampedToken(stampedToken),
-        },
-      };
-
+      // Return the verified identity only. Meteor's DDP login pipeline (or the
+      // REST caller) validates account status before issuing a session token.
       if (LDAP.settings_get('LDAP_SYNC_ADMIN_STATUS') === true) {
         log_debug('Updating admin status');
         // #6540: trimmed, case-insensitive, and an empty configured list never
@@ -222,8 +217,6 @@ Accounts.registerLoginHandler('ldap', async function(loginRequest) {
       // #4737: sync LDAP groups as Organizations/Teams at login too (default off).
       await syncUserGroupsToOrgsTeamsSafe(ldap, ldapUser, user._id);
 
-      await Meteor.users.updateAsync({ _id: user._id }, update_data);
-
       await syncUserData(user, ldapUser);
 
       if (LDAP.settings_get('LDAP_LOGIN_FALLBACK') === true) {
@@ -232,7 +225,6 @@ Accounts.registerLoginHandler('ldap', async function(loginRequest) {
 
       return {
         userId: user._id,
-        token: stampedToken.token,
       };
     }
 

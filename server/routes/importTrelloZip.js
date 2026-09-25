@@ -1,7 +1,6 @@
 import { WebApp } from 'meteor/webapp';
 import { Meteor } from 'meteor/meteor';
 import { DDP } from 'meteor/ddp';
-import { Accounts } from 'meteor/accounts-base';
 import { TrelloCreator } from '/models/trelloCreator';
 import { assertImportEnabled } from '/models/lib/importExportSecurity';
 import { validateImportSourceShape } from '/models/lib/importSourceShape';
@@ -56,11 +55,7 @@ function extractLoginToken(req) {
 async function getUserIdFromToken(rawToken) {
   if (!rawToken || typeof rawToken !== 'string' || rawToken.length < 10) return null;
   try {
-    const hashed = Accounts._hashLoginToken(rawToken);
-    const user = await Meteor.users.findOneAsync(
-      { 'services.resume.loginTokens.hashedToken': hashed },
-      { fields: { _id: 1 } },
-    );
+    const user = await require('/server/lib/activeUser').activeUserByToken(rawToken, 'importTrelloZip');
     return user ? user._id : null;
   } catch (e) {
     return null;

@@ -41,6 +41,7 @@ describe('attachmentApi auth context', function () {
   });
 
   it('prefers req.userId when accounts-express already authenticated the request', async function () {
+    findOneAsyncStub = sinon.stub(Meteor.users, 'findOneAsync').resolves({ _id: 'express-user' });
     const userId = await authenticateApiRequest({ userId: 'express-user', headers: {} });
     expect(userId).to.equal('express-user');
   });
@@ -55,7 +56,7 @@ describe('attachmentApi auth context', function () {
     process.env.HEADER_LOGIN_TRUSTED_PROXIES = '127.0.0.1';
 
     findOneAsyncStub = sinon.stub(Meteor.users, 'findOneAsync');
-    findOneAsyncStub.onFirstCall().resolves({ _id: 'header-user-id' });
+    findOneAsyncStub.resolves({ _id: 'header-user-id' });
 
     const userId = await authenticateApiRequest({
       headers: {
@@ -68,7 +69,7 @@ describe('attachmentApi auth context', function () {
     });
 
     expect(userId).to.equal('header-user-id');
-    expect(findOneAsyncStub.calledOnce).to.equal(true);
+    expect(findOneAsyncStub.calledTwice).to.equal(true);
   });
 
   it('rejects untrusted source when trusted IP allowlist is configured', async function () {

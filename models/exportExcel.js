@@ -98,10 +98,7 @@ runOnServer(function() {
         return;
       }
 
-      const hashToken = Accounts._hashLoginToken(loginToken);
-      user = await ReactiveCache.getUser({
-        'services.resume.loginTokens.hashedToken': hashToken,
-      });
+      user = await require('/server/lib/activeUser').activeUserByToken(loginToken, 'exportExcel', req);
       if (!user) {
         // GHSA-3gcg-g6rf-w2rx - see the note in models/export.js: an unknown token
         // answers `undefined`, and dereferencing it crashed the server.

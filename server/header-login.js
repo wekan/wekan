@@ -13,13 +13,9 @@ async function issueLoginTokenCookies(userId, req, res) {
   }
 
   const stampedToken = Accounts._generateStampedLoginToken();
-  const hashedToken = Accounts._hashStampedToken(stampedToken);
   const tokenExpires = Accounts._tokenExpiration(stampedToken.when);
 
-  await Meteor.users.updateAsync(
-    { _id: userId },
-    { $push: { 'services.resume.loginTokens': hashedToken } },
-  );
+  await require('/server/lib/activeUser').insertActiveLoginToken(userId, stampedToken);
 
   const cookieBase = ['Path=/', 'SameSite=Lax', 'HttpOnly'];
   if (req?.headers?.['x-forwarded-proto'] === 'https' || req?.socket?.encrypted) {

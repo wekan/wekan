@@ -61,10 +61,7 @@ runOnServer(function() {
         res.end('Invalid token');
         return { board: null };
       }
-      const hashToken = Accounts._hashLoginToken(loginToken);
-      const user = await ReactiveCache.getUser({
-        'services.resume.loginTokens.hashedToken': hashToken,
-      });
+      const user = await require('/server/lib/activeUser').activeUserByToken(loginToken, 'exportCharts', req);
       if (!user) {
         res.writeHead(401, { 'Content-Type': 'text/plain; charset=utf-8' });
         res.end('Invalid token');

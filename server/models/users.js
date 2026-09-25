@@ -1,5 +1,8 @@
 const { CALENDAR_SYSTEM_IDS } = require('/imports/lib/calendarSystems');
 import { Meteor } from 'meteor/meteor';
+// Only the authorized server method can populate this creation context.
+const adminCreation = new Meteor.EnvironmentVariable();
+
 import { WebApp } from 'meteor/webapp';
 import { Accounts } from 'meteor/accounts-base';
 import { Email } from 'meteor/email';
@@ -458,7 +461,7 @@ Meteor.methods({
     }
 
     const currentUser = await ReactiveCache.getUser(currentUserId);
-    if (!currentUser || !currentUser.isAdmin) {
+    if (!currentUser || !currentUser.isAdmin || currentUser.loginDisabled) {
       throw new Meteor.Error('not-authorized', 'Only administrators can edit other users');
     }
 
@@ -470,8 +473,14 @@ Meteor.methods({
     const updateObject = {};
     if (updateData.fullname !== undefined) updateObject['profile.fullname'] = updateData.fullname;
     if (updateData.initials !== undefined) updateObject['profile.initials'] = updateData.initials;
-    if (updateData.isAdmin !== undefined) updateObject.isAdmin = updateData.isAdmin;
-    if (updateData.loginDisabled !== undefined) updateObject.loginDisabled = updateData.loginDisabled;
+    if (updateData.isAdmin !== undefined) {
+      check(updateData.isAdmin, Boolean);
+      updateObject.isAdmin = updateData.isAdmin;
+    }
+    if (updateData.loginDisabled !== undefined) {
+      check(updateData.loginDisabled, Boolean);
+      updateObject.loginDisabled = updateData.loginDisabled;
+    }
     if (updateData.authenticationMethod !== undefined) {
       updateObject.authenticationMethod = updateData.authenticationMethod;
     }
@@ -1355,41 +1364,27 @@ Meteor.methods({
     ) {
       return false;
     }
-    if ((await ReactiveCache.getCurrentUser())?.isAdmin) {
-      const nUsersWithUsername = (await ReactiveCache.getUsers({ username })).length;
-      const nUsersWithEmail = (await ReactiveCache.getUsers({ email })).length;
-      if (nUsersWithUsername > 0) {
-        throw new Meteor.Error('username-already-taken');
-      } else if (nUsersWithEmail > 0) {
-        throw new Meteor.Error('email-already-taken');
-      } else {
-        Accounts.createUser({
-          username,
-          password,
-          isAdmin,
-          isActive,
-          email: email.toLowerCase(),
-          from: 'admin',
-        });
-        const user =
-          (await ReactiveCache.getUser(username)) ||
-          (await ReactiveCache.getUser({ username }));
-        if (user) {
-          await Users.updateAsync(user._id, {
-            $set: {
-              'profile.fullname': fullname,
-              importUsernames,
-              'profile.initials': initials,
-              orgs: userOrgsArray,
-              teams: userTeamsArray,
-            },
-          });
-          // #4593: a user created directly into team(s) must gain membership of
-          // the boards those teams are assigned to, like the teams' existing
-          // members already have.
-          await addUserToTeamBoards(user._id, [], userTeamsArray);
-        }
+    const creator = await ReactiveCache.getCurrentUser();
+    if (!creator?.isAdmin || creator.loginDisabled) {
+      throw new Meteor.Error('not-authorized', 'Only administrators can create users');
+    }
+    const nUsersWithUsername = (await ReactiveCache.getUsers({ username })).length;
+    const nUsersWithEmail = (await ReactiveCache.getUsers({ 'emails.address': email.toLowerCase() })).length;
+    if (nUsersWithUsername > 0) {
+      throw new Meteor.Error('username-already-taken');
+    } else if (nUsersWithEmail > 0) {
+      throw new Meteor.Error('email-already-taken');
+    } else {
+      if (!['true', 'false'].includes(isAdmin) || !['true', 'false'].includes(isActive)) {
+        throw new Meteor.Error('invalid-parameters');
       }
+      // The form's Active select uses true for No (loginDisabled).
+      const id = await adminCreation.withValue({
+        isAdmin: isAdmin === 'true', loginDisabled: isActive === 'true',
+        fullname, initials, importUsernames, orgs: userOrgsArray, teams: userTeamsArray,
+      }, () => Accounts.createUserAsync({ username, password, email: email.toLowerCase(), from: 'admin' }));
+      await addUserToTeamBoards(id, [], userTeamsArray);
+      return id;
     }
   },
 
@@ -1848,6 +1843,15 @@ Accounts.onCreateUser(async (options, user) => {
     { fields: { _id: 1 } },
   );
   user.isAdmin = !existingUser;
+  const creation = adminCreation.get();
+  if (creation) {
+    user.isAdmin = creation.isAdmin;
+    user.loginDisabled = creation.loginDisabled;
+    user.profile = { ...user.profile, fullname: creation.fullname, initials: creation.initials };
+    user.importUsernames = creation.importUsernames;
+    user.orgs = creation.orgs;
+    user.teams = creation.teams;
+  }
 
   // A custom login handler is allowed to supply a valid user document without
   // a `services` object. WeKan's CAS handler does exactly that: its verified
@@ -2441,9 +2445,9 @@ WebApp.handlers.put('/api/users/:userId', async function(req, res) {
         }
       } else {
         if (action === 'disableLogin' && id !== req.userId) {
-          await Users.updateAsync({ _id: id }, { $set: { loginDisabled: true, 'services.resume.loginTokens': '' } });
+          await Users.updateAsync({ _id: id }, { $set: { loginDisabled: true, 'services.resume.loginTokens': [] } });
         } else if (action === 'enableLogin') {
-          await Users.updateAsync({ _id: id }, { $set: { loginDisabled: '' } });
+          await Users.updateAsync({ _id: id }, { $set: { loginDisabled: false } });
         }
         data = withoutSecrets(await ReactiveCache.getUser(id));
       }
@@ -2668,7 +2672,7 @@ WebApp.handlers.post('/api/createtoken/:userId', async function(req, res) {
       userId: id,
       reason: `restCreateToken: ${reason.slice(0, 500)}`,
     });
-    await Accounts._insertLoginToken(id, token);
+    await require('/server/lib/activeUser').insertActiveLoginToken(id, token);
 
     sendJsonResult(res, {
       code: 200,
@@ -2698,7 +2702,7 @@ WebApp.handlers.post('/api/deletetoken', async function(req, res) {
       check(userId, String);
       await Users.updateAsync(
         { _id: userId },
-        { $set: { 'services.resume.loginTokens': '' } },
+        { $set: { 'services.resume.loginTokens': [] } },
       );
       data.message = `Delete all token from user: ${userId}`;
     }
@@ -3147,4 +3151,17 @@ WebApp.handlers.get('/api/admin/domains', async function(req, res) {
   } catch (error) {
     sendJsonResult(res, publicErrorData(error));
   }
+});
+
+// Atomically invalidate tokens on application updates; Accounts observes their
+// removal and closes existing DDP connections. The observer also repairs old
+// disabled accounts and catches direct database writes or racing DDP logins.
+Users.before.update(function(userId, doc, fields, modifier) {
+  require('/server/lib/activeUser').revokeDisabledTokensModifier(modifier);
+});
+Meteor.startup(async () => {
+  const revoke = id => require('/server/lib/activeUser').revokeDisabledTokens(id)
+    .catch(error => console.error('Could not revoke disabled account tokens:', error.message));
+  await Users.find({ loginDisabled: true, 'services.resume.loginTokens.0': { $exists: true } },
+    { fields: { _id: 1 } }).observeChangesAsync({ added: revoke });
 });

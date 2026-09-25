@@ -209,7 +209,7 @@ test('#4593 wiring: editUser adds the user to their newly-gained teams\' boards'
 
 test('#4593 wiring: creating a user directly into team(s) also adds their boards', () => {
   // The admin "add user" path that seeds teams must propagate board membership too.
-  assert.ok(/addUserToTeamBoards\(user\._id, \[\], userTeamsArray\)/.test(usersSrc),
+  assert.ok(/addUserToTeamBoards\(id, \[\], userTeamsArray\)/.test(usersSrc),
     'the create-with-teams path must call addUserToTeamBoards');
 });
 

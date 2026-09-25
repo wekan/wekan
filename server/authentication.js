@@ -111,7 +111,7 @@ export const Authentication = {
 Meteor.startup(() => {
   Accounts.validateLoginAttempt(function(options) {
     const user = options.user || {};
-    return !user.loginDisabled;
+    return !options.user || require('/server/lib/activeUser').allowActiveUser(user, 'ddp-login');
   });
 
   // #4419 (Severity:Security): after a user is migrated from local password

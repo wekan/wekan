@@ -28,7 +28,6 @@
 // third copy.
 
 import { Meteor } from 'meteor/meteor';
-import { Accounts } from 'meteor/accounts-base';
 
 export function parseCookies(req) {
   const header = req && req.headers && req.headers.cookie;
@@ -110,11 +109,7 @@ export async function getUserIdFromRequest(req) {
     }
     const raw = extractLoginToken(req);
     if (!raw || typeof raw !== 'string' || raw.length < 10) return null;
-    const hashed = Accounts._hashLoginToken(raw);
-    const user = await Meteor.users.findOneAsync(
-      { 'services.resume.loginTokens.hashedToken': hashed },
-      { fields: { _id: 1 } },
-    );
+    const user = await require('/server/lib/activeUser').activeUserByToken(raw, 'requestUser');
     return user ? user._id : null;
   } catch (error) {
     if (process.env.DEBUG === 'true') {

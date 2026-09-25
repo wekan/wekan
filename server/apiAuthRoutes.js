@@ -173,7 +173,7 @@ WebApp.handlers.post('/users/login', async function (req, res) {
       result = await Accounts._checkPasswordAsync(user, options.password);
     }
 
-    if (!result || result.error || !result.userId || !user) {
+    if (!result || result.error || !result.userId || !require('/server/lib/activeUser').allowActiveUser(user, 'rest-login', req)) {
       restLoginThrottle.recordFailure(clientKey, now);
       throw uniformLoginError();
     }
@@ -199,7 +199,7 @@ WebApp.handlers.post('/users/login', async function (req, res) {
     const stampedLoginToken = Accounts._generateStampedLoginToken();
     check(stampedLoginToken, { token: String, when: Date });
 
-    await Accounts._insertLoginToken(result.userId, stampedLoginToken);
+    await require('/server/lib/activeUser').insertActiveLoginToken(result.userId, stampedLoginToken);
 
     const tokenExpiration = Accounts._tokenExpiration(stampedLoginToken.when);
     check(tokenExpiration, Date);
@@ -342,7 +342,7 @@ WebApp.handlers.post('/users/register', async function (req, res) {
     const stampedLoginToken = Accounts._generateStampedLoginToken();
     check(stampedLoginToken, { token: String, when: Date });
 
-    await Accounts._insertLoginToken(userId, stampedLoginToken);
+    await require('/server/lib/activeUser').insertActiveLoginToken(userId, stampedLoginToken);
 
     const tokenExpiration = Accounts._tokenExpiration(stampedLoginToken.when);
     check(tokenExpiration, Date);

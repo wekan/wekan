@@ -2,8 +2,6 @@
 // Replaces communitypackages:json-routes middleware chain.
 // Must be imported before model files that register API routes.
 
-const { Meteor } = require('meteor/meteor');
-const { Accounts } = require('meteor/accounts-base');
 const { WebApp } = require('meteor/webapp');
 const { safeJsonStringify } = require('/server/lib/apiResponseHelpers');
 
@@ -69,11 +67,7 @@ WebApp.handlers.use(function parseBearerToken(req, res, next) {
 WebApp.handlers.use(async function authenticateByToken(req, res, next) {
   if (req.authToken) {
     try {
-      const hashedToken = Accounts._hashLoginToken(req.authToken);
-      const user = await Meteor.users.findOneAsync(
-        { 'services.resume.loginTokens.hashedToken': hashedToken },
-        { fields: { _id: 1 } },
-      );
+      const user = await require('/server/lib/activeUser').activeUserByToken(req.authToken, 'apiMiddleware', req);
       if (user) {
         req.userId = user._id;
       }

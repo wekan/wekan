@@ -107,10 +107,7 @@ runOnServer(function () {
         answer(400, { error: 'Bad request' });
         return;
       }
-      const hashToken = Accounts._hashLoginToken(loginToken);
-      user = await ReactiveCache.getUser({
-        'services.resume.loginTokens.hashedToken': hashToken,
-      });
+      user = await require('/server/lib/activeUser').activeUserByToken(loginToken, 'importZip', req);
       if (!user) {
         answer(401, { error: 'Invalid token' });
         return;

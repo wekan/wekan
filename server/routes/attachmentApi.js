@@ -1,5 +1,4 @@
 import { Meteor } from 'meteor/meteor';
-import { Accounts } from 'meteor/accounts-base';
 import { WebApp } from 'meteor/webapp';
 import { createAuthMiddleware } from 'meteor/accounts-express';
 import { ReactiveCache } from '/imports/reactiveCache';
@@ -100,13 +99,17 @@ async function getApiTransferLimits() {
 async function authenticateApiRequest(req) {
   // Preferred path: accounts-express middleware populated authenticated user context.
   if (req?.userId) {
-    return req.userId;
+    const user = await require('/server/lib/activeUser').activeUserById(req.userId, 'attachment', req);
+    if (!user) throw new Meteor.Error('unauthorized', 'Invalid credentials');
+    return user._id;
   }
 
   // Optional header-login path for trusted upstream SSO proxies.
   const headerLoginUserId = await findOrCreateHeaderLoginUser(req);
   if (headerLoginUserId) {
-    return headerLoginUserId;
+    const user = await require('/server/lib/activeUser').activeUserById(headerLoginUserId, 'attachment', req);
+    if (!user) throw new Meteor.Error('unauthorized', 'Invalid credentials');
+    return user._id;
   }
 
   // Legacy path kept for backward compatibility.
@@ -117,14 +120,8 @@ async function authenticateApiRequest(req) {
     throw new Meteor.Error('unauthorized', 'Missing X-User-Id or X-Auth-Token headers');
   }
 
-  // Hash the token and validate against stored login tokens
-  const hashedToken = Accounts._hashLoginToken(authToken);
-  const user = await Meteor.users.findOneAsync({
-    _id: userId,
-    'services.resume.loginTokens.hashedToken': hashedToken,
-  });
-
-  if (!user) {
+  const user = await require('/server/lib/activeUser').activeUserByToken(authToken, 'attachment', req);
+  if (!user || user._id !== userId) {
     throw new Meteor.Error('unauthorized', 'Invalid credentials');
   }
 
@@ -163,7 +160,18 @@ async function userHasBoardWriteAccess(board, userId) {
 }
 
 // Upload attachment endpoint
-WebApp.handlers.use('/api', createAuthMiddleware());
+const accountsExpressAuth = createAuthMiddleware();
+WebApp.handlers.use('/api', function activeAccountsExpressAuth(req, res, next) {
+  return accountsExpressAuth(req, res, error => {
+    if (error) return next(error);
+    if (!req.userId) return next();
+    require('/server/lib/activeUser').activeUserById(req.userId, 'api-session', req)
+      .then(user => {
+        if (!user) return sendErrorResponse(res, 401, 'Invalid credentials');
+        return next();
+      }).catch(next);
+  });
+});
 
 WebApp.handlers.use('/api/attachment/upload', async (req, res, next) => {
     if (req.method !== 'POST') {

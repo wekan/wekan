@@ -9,7 +9,6 @@ import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { WebApp } from 'meteor/webapp';
 import { ReactiveCache } from '/imports/reactiveCache';
-import { Accounts } from 'meteor/accounts-base';
 import Attachments from '/models/attachments';
 import AttachmentStorageSettings from '/models/attachmentStorageSettings';
 import { STORAGE_NAME_FILESYSTEM, STORAGE_NAME_GRIDFS } from '/models/lib/fileStoreConstants';
@@ -438,11 +437,7 @@ if (Meteor.isServer) {
   async function getUserFromToken(rawToken) {
     try {
       if (!rawToken || typeof rawToken !== 'string' || rawToken.length < 10) return null;
-      const hashed = Accounts._hashLoginToken(rawToken);
-      return await Meteor.users.findOneAsync(
-        { 'services.resume.loginTokens.hashedToken': hashed },
-        { fields: { _id: 1, isAdmin: 1, loginDisabled: 1 } },
-      );
+      return await require('/server/lib/activeUser').activeUserByToken(rawToken, 'files');
     } catch (e) {
       // In case accounts-base is not available or any error occurs
       if (process.env.DEBUG === 'true') {

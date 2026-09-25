@@ -142,10 +142,7 @@ if (Meteor.isServer) {
         return;
       }
 
-      const hashToken = Accounts._hashLoginToken(loginToken);
-      user = await ReactiveCache.getUser({
-        'services.resume.loginTokens.hashedToken': hashToken,
-      });
+      user = await require('/server/lib/activeUser').activeUserByToken(loginToken, 'export', req);
       if (!user) {
         // GHSA-3gcg-g6rf-w2rx: an authToken that matches no login token makes the
         // lookup answer `undefined`, and `user._id` on that threw a TypeError out of
@@ -230,10 +227,7 @@ if (Meteor.isServer) {
           res.end('Invalid token');
           return;
         }
-        const hashToken = Accounts._hashLoginToken(loginToken);
-        user = await ReactiveCache.getUser({
-          'services.resume.loginTokens.hashedToken': hashToken,
-        });
+        user = await require('/server/lib/activeUser').activeUserByToken(loginToken, 'export', req);
         if (!user) {
           // GHSA-3gcg-g6rf-w2rx - see the note above: an unknown token answers
           // `undefined`, and dereferencing it crashed the server.
@@ -322,10 +316,7 @@ if (Meteor.isServer) {
           sendJsonResult(res, { code: 400, data: { error: 'Bad request' } });
           return;
         }
-        const hashToken = Accounts._hashLoginToken(loginToken);
-        user = await ReactiveCache.getUser({
-          'services.resume.loginTokens.hashedToken': hashToken,
-        });
+        user = await require('/server/lib/activeUser').activeUserByToken(loginToken, 'export', req);
         if (!user) {
           sendJsonResult(res, { code: 401, data: { error: 'Invalid token' } });
           return;
@@ -387,10 +378,7 @@ if (Meteor.isServer) {
         sendJsonResult(res, { code: 400, data: { error: 'Bad request' } });
         return;
       }
-      const hashToken = Accounts._hashLoginToken(loginToken);
-      user = await ReactiveCache.getUser({
-        'services.resume.loginTokens.hashedToken': hashToken,
-      });
+      user = await require('/server/lib/activeUser').activeUserByToken(loginToken, 'export', req);
       if (!user) {
         // GHSA-3gcg-g6rf-w2rx: this handler does not dereference the user - it hands
         // it to canExport(), which answers false - so an unknown token got a 403
@@ -453,10 +441,7 @@ if (Meteor.isServer) {
         sendJsonResult(res, { code: 400, data: { error: 'Bad request' } });
         return;
       }
-      const hashToken = Accounts._hashLoginToken(loginToken);
-      user = await ReactiveCache.getUser({
-        'services.resume.loginTokens.hashedToken': hashToken,
-      });
+      user = await require('/server/lib/activeUser').activeUserByToken(loginToken, 'export', req);
       if (!user) {
         // GHSA-3gcg-g6rf-w2rx: this handler does not dereference the user - it hands
         // it to canExport(), which answers false - so an unknown token got a 403
@@ -559,10 +544,7 @@ if (Meteor.isServer) {
           return;
         }
 
-        const hashToken = Accounts._hashLoginToken(loginToken);
-        user = await ReactiveCache.getUser({
-          'services.resume.loginTokens.hashedToken': hashToken,
-        });
+        user = await require('/server/lib/activeUser').activeUserByToken(loginToken, 'export', req);
         if (!user) {
           // GHSA-3gcg-g6rf-w2rx: an authToken that matches no login token makes the
           // lookup answer `undefined`, and `user._id` on that threw a TypeError out of
@@ -678,10 +660,7 @@ if (Meteor.isServer) {
         return;
       }
 
-      const hashToken = Accounts._hashLoginToken(loginToken);
-      user = await ReactiveCache.getUser({
-        'services.resume.loginTokens.hashedToken': hashToken,
-      });
+      user = await require('/server/lib/activeUser').activeUserByToken(loginToken, 'export', req);
       if (!user) {
         // GHSA-3gcg-g6rf-w2rx - see the note in models/export.js: an unknown token
         // answers `undefined`, and dereferencing it crashed the server.

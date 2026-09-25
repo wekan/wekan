@@ -83,7 +83,7 @@ test('it reads the four places a request can carry a token', () => {
       `${source} is one of the ways WeKan's own client sends it; missing one ` +
       `means avatars work in some contexts and not others, which is the bug`);
   }
-  assert.ok(/Accounts\._hashLoginToken/.test(body),
+  assert.ok(body.includes('activeUserByToken') && /Accounts\._hashLoginToken/.test(code(read('server/lib/activeUser.js'))),
     'the stored token is hashed, so the raw one has to be hashed to match');
 });
 

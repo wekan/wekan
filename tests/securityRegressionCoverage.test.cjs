@@ -56,6 +56,7 @@ const NOT_COVERAGE = new Set([
 // GUARDED: vulnerability -> the suite(s) that name it.
 // ─────────────────────────────────────────────────────────────────────────────
 const GUARDED = {
+  inactivebleed: ['tests/inactiveAccountSecurity.test.cjs'],
   authtracebleed: ['tests/loginProviderSecurity.test.cjs'],
   assignedbleed: ['tests/assignedbleed.test.cjs'],
   authorbleed: ['tests/restApiIdorBatch.test.cjs'],
@@ -295,7 +296,7 @@ test('the whole published list is accounted for', () => {
   // when a new one is published, and put it in GUARDED or RECORDED at the same
   // time; the two assertions together are what make "every published
   // vulnerability is accounted for" a fact rather than a hope.
-  assert.strictEqual(total, 111, 'the Hall of Fame and this list disagree on how many there are');
+  assert.strictEqual(total, 112, 'the Hall of Fame and this list disagree on how many there are');
 });
 
 test('the companion Hall of Fame names match the inventory when available', () => {
