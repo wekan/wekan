@@ -90,14 +90,13 @@ function initSorting(items) {
       const checklistData = Blaze.getData(checklistDomElement);
       const checklistItem = checklistData.item;
 
-      items.sortable('cancel');
-
       // #3294: dropped onto a list rather than back into a checklist -
       // create a new card from the item's text instead of reordering. The
       // original checklist item is left exactly as it was (see
       // buildCardFromChecklistItem's scope note - this never marks it done).
       const dropTarget = resolveListDropTarget(evt);
       if (dropTarget) {
+        items.sortable('cancel');
         const maxSort = ReactiveCache.getCards({
           listId: dropTarget.list._id,
         }).reduce((max, c) => Math.max(max, c.sort || 0), 0);
@@ -126,6 +125,9 @@ function initSorting(items) {
       const nItems = 1;
       const sortIndex = calculateIndexData(prevItem, nextItem, nItems);
 
+      // Read the destination and neighbors before cancel restores the original
+      // DOM order (#6723). Blaze then renders the persisted move.
+      items.sortable('cancel');
       checklistItem.move(checklistId, sortIndex.base);
     },
   });
