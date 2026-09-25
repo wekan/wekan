@@ -69,6 +69,7 @@ const ADMIN_PAGES = {
     defaultSlug: 'email',
     panes: {
       login: 'registration-setting',
+      saml: 'saml-setting',
       ldap: 'ldap-setting',
       oauth: 'oauth-setting',
       passwordless: 'passwordless-setting',
@@ -167,6 +168,7 @@ const ADMIN_PANE_TITLES = {
   },
   people: {
     login: { titleKey: 'login' },
+    saml: { title: 'SAML' },
     ldap: { titleKey: 'ldap' },
     oauth: { titleKey: 'oauth-providers-title' },
     passwordless: { titleKey: 'passwordless-title' },

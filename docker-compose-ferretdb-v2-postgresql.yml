@@ -779,6 +779,7 @@ services:
       #- SAML_IDENTIFIER_FORMAT=
       #- SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE=
       #- SAML_ATTRIBUTES=
+      #- SAML_MERGE_EXISTING_USERS=false
       #---------------------------------------------------------------------
       # Login with Meteor accounts providers, see docs/Features/Login/OAuth-Providers.md
       # and docs/Features/Login/Passwordless.md. Every one of these can be overridden

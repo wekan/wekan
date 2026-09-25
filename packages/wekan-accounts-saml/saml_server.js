@@ -39,7 +39,7 @@ function readFileSetting(name) {
 
 async function getSaml() {
   const config = await getSamlServiceConfig();
-  if (!config || !config.entryPoint || !config.issuer || !config.cert) {
+  if (!config || config.enabled === false || !config.entryPoint || !config.issuer || !config.cert) {
     return { saml: null, config: null };
   }
 
@@ -62,8 +62,8 @@ async function getSaml() {
       'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress',
     privateKey,
     publicCert,
-    // Logout is handled separately via idpSLORedirectURL if/when WeKan wires
-    // up SLO; keep assertion signing requirements at the library default.
+    logoutUrl: config.idpSLORedirectURL || undefined,
+    logoutCallbackUrl: Meteor.absoluteUrl(`_saml/logout/${provider}`),
     wantAssertionsSigned: false,
   });
   _samlInstanceCacheKey = cacheKey;
@@ -96,13 +96,30 @@ const sendError = (res, message) => {
   );
 };
 
+// Public SP metadata contains no private key or user information.
+WebApp.connectHandlers.use('/_saml/config', (req, res) => {
+  (async () => {
+    try {
+      const { saml, config } = await getSaml();
+      if (req.method !== 'GET' || !saml || req.url.split('?')[0] !== `/${config.provider || 'default'}`) {
+        res.writeHead(404); res.end(); return;
+      }
+      const xml = saml.generateServiceProviderMetadata(null, readFileSetting(config.publicCertFile) || null);
+      res.writeHead(200, { 'Content-Type': 'application/samlmetadata+xml', 'X-Content-Type-Options': 'nosniff' });
+      res.end(xml);
+    } catch (error) {
+      res.writeHead(500); res.end('SAML metadata unavailable');
+    }
+  })();
+});
+
 WebApp.connectHandlers.use('/_saml/authorize', (req, res) => {
   (async () => {
     try {
       const urlParsed = new URL(req.url, Meteor.absoluteUrl());
       const provider = urlParsed.searchParams.get('provider') || 'default';
       const credentialToken = urlParsed.searchParams.get('credentialToken');
-      const { saml } = await getSaml();
+      const { saml, config } = await getSaml();
       if (!saml || !credentialToken) {
         sendError(res, 'SAML is not configured');
         return;
@@ -110,7 +127,7 @@ WebApp.connectHandlers.use('/_saml/authorize', (req, res) => {
       const redirectUrl = await saml.getAuthorizeUrlAsync(
         credentialToken,
         undefined,
-        { additionalParams: { provider } },
+        { additionalParams: { provider: config.provider || provider } },
       );
       res.writeHead(302, { Location: redirectUrl });
       res.end();
@@ -167,6 +184,8 @@ Accounts.registerLoginHandler(async (options) => {
   const profile = (result && result.profile) || {};
   const config = await getSamlServiceConfig();
 
+  if (!config || config.enabled === false) throw new Meteor.Error('saml-disabled');
+
   const identifierFormat =
     (config && config.identifierFormat) ||
     'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress';
@@ -200,7 +219,7 @@ Accounts.registerLoginHandler(async (options) => {
   let user = await Meteor.users.findOneAsync({ username: userOptions.username });
   if (user) {
     const isSamlAccount = user.authenticationMethod === 'saml';
-    const mergeAllowed = process.env.SAML_MERGE_EXISTING_USERS === 'true';
+    const mergeAllowed = config?.mergeExistingUsers === true;
     if (!isSamlAccount && !mergeAllowed) {
       try {
         // A local Meteor package cannot import app-tree code (see
@@ -226,5 +245,40 @@ Accounts.registerLoginHandler(async (options) => {
     user = await Meteor.users.findOneAsync(userId);
   }
 
+  await Meteor.users.updateAsync(user._id, { $set: { 'services.saml': {
+    nameID: profile.nameID, nameIDFormat: profile.nameIDFormat,
+    sessionIndex: profile.sessionIndex,
+  } } });
   return { userId: user._id };
+});
+
+// SP-initiated logout. The callback only validates the IdP response; it never
+// logs out an account named by a request from the browser.
+Meteor.methods({
+  async getSamlLogoutUrl() {
+    const user = await Meteor.userAsync();
+    if (!user || user.authenticationMethod !== 'saml' || !user.services?.saml?.nameID) return null;
+    const { saml, config } = await getSaml();
+    if (!saml || !config.idpSLORedirectURL) return null;
+    return saml.getLogoutUrlAsync(user.services.saml, '', {});
+  },
+});
+WebApp.connectHandlers.use('/_saml/logout', (req, res) => {
+  const handle = async () => {
+    try {
+      const { saml, config } = await getSaml();
+      const url = new URL(req.url, Meteor.absoluteUrl());
+      if (!saml || url.pathname !== `/${config.provider || 'default'}`) throw new Error('Not configured');
+      const data = req.method === 'GET' ? Object.fromEntries(url.searchParams) : req.body || {};
+      if (!data.SAMLResponse || data.SAMLRequest) throw new Error('Expected logout response');
+      const result = req.method === 'GET'
+        ? await saml.validateRedirectAsync(data, url.search.slice(1))
+        : await saml.validatePostResponseAsync(data);
+      if (!result.loggedOut) throw new Error('Expected logout response');
+      res.writeHead(302, { Location: Meteor.absoluteUrl() }); res.end();
+    } catch (error) { res.writeHead(400); res.end('Invalid SAML logout response'); }
+  };
+  if (req.method === 'POST') urlEncodedParser(req, res, () => { void handle(); });
+  else if (req.method === 'GET') void handle();
+  else { res.writeHead(405); res.end(); }
 });

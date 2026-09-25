@@ -10,7 +10,7 @@ test('People opens Email and lists separate authentication panes after Shared te
   const ids = await page.locator('.side-menu a.js-left-menu-item').evaluateAll(items => items.map(item => item.dataset.id));
   expect(ids[0]).toBe('email-setting');
   expect(ids.slice(ids.indexOf('templates-setting'))).toEqual([
-    'templates-setting', 'registration-setting', 'ldap-setting', 'oauth-setting', 'passwordless-setting',
+    'templates-setting', 'registration-setting', 'saml-setting', 'ldap-setting', 'oauth-setting', 'passwordless-setting',
   ]);
   const panes = [
     ['registration-setting', 'login', '.js-toggle-registration'],

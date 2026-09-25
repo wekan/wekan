@@ -60,6 +60,7 @@ OAuth providers and Passwordless login each have their own menu entry.
 | `/admin/people/roles` | Roles | `roles-setting` |
 | `/admin/people/shared-templates` | Shared templates | `templates-setting` |
 | `/admin/people/login` | Login | `registration-setting` |
+| `/admin/people/saml` | SAML | `saml-setting` |
 | `/admin/people/ldap` | LDAP | `ldap-setting` |
 | `/admin/people/oauth` | OAuth providers | `oauth-setting` |
 | `/admin/people/passwordless` | Passwordless login | `passwordless-setting` |

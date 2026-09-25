@@ -1,3 +1,5 @@
+import './authProviderSettings';
+const { SAML_FIELDS } = require('/models/lib/samlConfig');
 import { accountOperationErrorKey } from '/client/lib/accountOperationError';
 import { formatDateForDisplay } from '/client/lib/dateDisplay';
 import { ReactiveCache } from '/imports/reactiveCache';
@@ -528,6 +530,7 @@ function peopleMenu(user) {
     { id: 'roles-setting', icon: 'fa-key', labelKey: 'roles' },
     { id: 'templates-setting', icon: 'fa-clone', labelKey: 'shared-templates' },
     { id: 'registration-setting', icon: 'fa-key', labelKey: 'login', emoji: true },
+    { id: 'saml-setting', icon: 'fa-key', label: 'SAML' },
     { id: 'ldap-setting', icon: 'fa-sitemap', labelKey: 'ldap' },
     { id: 'oauth-setting', icon: 'fa-key', labelKey: 'oauth-providers-title' },
     { id: 'passwordless-setting', icon: 'fa-unlock-alt', labelKey: 'passwordless-title' },
@@ -822,6 +825,8 @@ Template.people.helpers({
   loading() {
     return Template.instance().loading;
   },
+  samlSetting() { return Template.instance().activeMenuId.get() === 'saml-setting'; },
+  samlSettingsData() { return { fields: SAML_FIELDS, loadMethod: 'getSamlConfigSources', saveMethod: 'saveSamlSettings' }; },
   authenticationSection() {
     return {
       'ldap-setting': 'ldap',

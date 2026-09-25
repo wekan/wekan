@@ -29,6 +29,30 @@ back to `/_saml/validate` (WeKan's Assertion Consumer Service URL -
 service's callback URL with the IdP. This mirrors the existing CAS
 popup-based login flow (`packages/wekan-accounts-cas`).
 
+## Admin Panel overrides and logout
+
+Site administrators can open **Admin Panel / People / SAML** at
+`/admin/people/saml`. The shared settings form shows environment variable names
+and the source of each effective value. Saved values override the environment;
+blank fields and the Default boolean choice restore environment/default values.
+Saving applies the configuration without a server restart. Disabling SAML removes
+its service configuration and prevents pending credentials from completing login.
+
+The page lists the assertion consumer, logout callback and public metadata URLs.
+Register `/_saml/config/<SAML_PROVIDER>` as the metadata endpoint where supported.
+When `SAML_IDPSLO_REDIRECTURL` is configured, signing out a SAML user first obtains
+a logout request, ends the local session, then navigates to the identity provider.
+The callback accepts validated logout responses; IdP-initiated logout requests
+are not supported. Protocol validation uses the existing MIT-licensed node-saml
+library. Metadata contains no private keys.
+
+`SAML_MERGE_EXISTING_USERS` defaults to `false`. Enabling it allows SAML identities
+to match existing non-SAML usernames, so use it only with a trusted, controlled
+identity mapping. Its Admin Panel override follows the same precedence rules.
+
+Configuration and route tests and Chromium settings tests cover this integration.
+End-to-end interoperability with a live identity provider still requires testing.
+
 ## Related Meteor SAML code / prior art
 
 - New: https://forums.meteor.com/t/meteor-and-saml/61561
@@ -67,17 +91,8 @@ The SSO Wall of Shame:
 
 [SAML settings commit](https://github.com/wekan/wekan/commit/214c86cc22f4c721a79ec0a4a4f3bbd90d673f93)
 
-Currently has code from https://github.com/steffow/meteor-accounts-saml/ copied to `wekan/packages/meteor-accounts-saml`
-
-Does not yet have [fixes from RocketChat SAML](https://github.com/RocketChat/Rocket.Chat/tree/develop/app/meteor-accounts-saml)
-
-Please add pull requests if it does not work.
-
-Wekan clientside code is at `wekan/client/components/main/layouts.*`
-
-Wekan serverside code is at:
-- `wekan/server/authentication.js` at bottom
-- `wekan/packages/meteor-accounts-saml/*`
+The maintained implementation is in `packages/wekan-accounts-saml/`;
+configuration is in `server/saml.js` and `models/lib/samlConfig.js`.
 
 ## Gitea
 

@@ -671,7 +671,7 @@ echo -e "SAML Cert."
 echo -e "\t$ snap set $SNAP_INSTANCE_NAME saml-cert=''"
 echo -e "\n"
 echo -e "SAML IDPS LO Redirect URL."
-echo -e "\t$ snap set $SNAP_INSTANCE_NAME saml-ispslo-redirecturl=''"
+echo -e "\t$ snap set $SNAP_INSTANCE_NAME saml-idpslo-redirecturl=''"
 echo -e "\n"
 echo -e "SAML Private Keyfile."
 echo -e "\t$ snap set $SNAP_INSTANCE_NAME saml-private-keyfile=''"
@@ -802,3 +802,6 @@ do
 done
 
 echo -e "\n!!!! Some changes result in restart of some or all services, use with caution !!!!!"
+
+echo "SAML overrides: Admin Panel / People / SAML (blank restores environment defaults)."
+echo "snap set $SNAP_INSTANCE_NAME saml-merge-existing-users=false"

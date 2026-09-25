@@ -1,0 +1,29 @@
+//- A catalog-driven override form. Empty values inherit the environment/default.
+template(name="authProviderSettings")
+  if currentUser.isAdmin
+    if error.get
+      .warning {{error.get}}
+    if loaded.get
+      form.js-auth-provider-settings
+        ul.setting-detail
+          each fields
+            li.accounts-form
+              label(for="auth-{{key}}")= envVar
+              .form-group
+                if booleanField
+                  select.wekan-form-control.js-auth-config-field(id="auth-{{key}}" data-key="{{key}}" data-boolean="true")
+                    option(value="" selected=inherit) {{_ 'default'}}
+                    option(value="true" selected=enabled) {{_ 'yes'}}
+                    option(value="false" selected=disabled) {{_ 'no'}}
+                else if multiline
+                  textarea.wekan-form-control.js-auth-config-field(id="auth-{{key}}" data-key="{{key}}" rows="5" placeholder="{{effective}}")= value
+                else
+                  input.wekan-form-control.js-auth-config-field(id="auth-{{key}}" data-key="{{key}}" type="text" value="{{value}}" placeholder="{{effective}}")
+                span.ldap-source-badge= sourceLabel
+          li
+            button.primary(type="submit" disabled=busy.get) {{_ 'save'}}
+        each urls
+          p
+            a(href="{{url}}" target="_blank" rel="noopener noreferrer")= url
+    else
+      +spinner

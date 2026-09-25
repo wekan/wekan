@@ -103,9 +103,21 @@ Template.memberMenuPopup.events({
   'click .js-two-factor-auth': Popup.open('twoFactorAuth'),
   'click .js-change-language': Popup.open('changeLanguage'),
   'click .js-support': Popup.open('support'),
-  'click .js-logout'(event) {
+  async 'click .js-logout'(event) {
     event.preventDefault();
-
+    if (Meteor.user()?.authenticationMethod === 'saml') {
+      try {
+        const url = await Meteor.callAsync('getSamlLogoutUrl');
+        if (url) {
+          Meteor.logout(error => {
+            if (!error) window.location.assign(url);
+          });
+          return;
+        }
+      } catch (error) {
+        console.error('Could not start SAML logout:', error);
+      }
+    }
     AccountsTemplates.logout();
   },
   'click .js-go-setting'() {

@@ -35,31 +35,15 @@ function test(name, fn) {
   console.log('  ok -', name);
 }
 
-test('SAML_ENABLED reads the same true-string/true-boolean pattern as other providers', () => {
-  assert.match(
-    authentication,
-    /process\.env\.SAML_ENABLED === 'true' \|\|\s*\n\s*process\.env\.SAML_ENABLED === true/,
-  );
-});
-
-test('the SAML service configuration is written to ServiceConfiguration.configurations', () => {
-  assert.match(authentication, /\{ service: 'saml' \}/);
-  for (const field of [
-    'provider:', 'entryPoint:', 'issuer:', 'cert:', 'idpSLORedirectURL:',
-    'privateKeyFile:', 'publicCertFile:', 'identifierFormat:',
-    'localProfileMatchAttribute:', 'attributesSAML:',
-  ]) {
-    assert.ok(authentication.includes(field), `SAML config must set ${field}`);
-  }
-});
-
-test('getAuthenticationsEnabled reports saml, gated by isSamlEnabled()', () => {
-  assert.match(settings, /function isSamlEnabled\(\)\s*{\s*\n\s*return\s*\(\s*\n?\s*process\.env\.SAML_ENABLED === 'true' \|\| process\.env\.SAML_ENABLED === true/);
-  // The map is built in a local before it is returned, because the Meteor
-  // accounts-* providers and passwordless are added to it after the four fixed
-  // methods (server/lib/oauthProviders.js); the saml entry is still gated on
-  // isSamlEnabled() alone.
-  assert.match(settings, /getAuthenticationsEnabled\(\)\s*{\s*\n\s*const enabled\s*=\s*{[^}]*saml: isSamlEnabled\(\)/);
+test('SAML uses the shared environment/Admin Panel resolver and awaited runtime configuration', () => {
+  const runtime = read('server/saml.js');
+  const { resolveSamlConfig, SAML_FIELDS } = require('../models/lib/samlConfig');
+  assert.strictEqual(resolveSamlConfig({}, { SAML_ENABLED: 'true' }).config.enabled, true);
+  assert.strictEqual(resolveSamlConfig({ enabled: false }, { SAML_ENABLED: 'true' }).config.enabled, false);
+  assert.match(runtime, /await ServiceConfiguration.configurations.upsertAsync/);
+  assert.match(runtime, /await ServiceConfiguration.configurations.removeAsync/);
+  assert.match(settings, /saml: await isSamlEnabled\(\)/);
+  for (const field of SAML_FIELDS) assert.ok(dockerCompose.includes(`${field.envVar}=`));
 });
 
 test('the SAML package depends on the verified-MIT @node-saml/node-saml library, not a hand-rolled implementation', () => {
@@ -91,7 +75,7 @@ test('a login attempt without a stored, validated credential is rejected', () =>
 
 test('SAML still refuses silent takeover of a non-SAML username', () => {
   assert.match(samlServer, /const isSamlAccount = user\.authenticationMethod === 'saml'/);
-  assert.match(samlServer, /const mergeAllowed = process\.env\.SAML_MERGE_EXISTING_USERS === 'true'/);
+  assert.match(samlServer, /const mergeAllowed = config\?\.mergeExistingUsers === true/);
   assert.match(samlServer, /throw new Meteor\.Error\(\s*\n?\s*'saml-account-conflict'/);
 });
 
@@ -103,7 +87,7 @@ test('Meteor.loginWithSaml opens the authorize popup and exchanges a credential 
 
 test('the login button only renders visibly when SAML is enabled (same conditional-render pattern as OAuth2)', () => {
   // Button starts hidden in markup...
-  assert.match(layoutsJade, /button#at-saml\.hide\(type="button"\)/);
+  assert.match(layoutsJade, /button#at-saml\.primary\.hide\(type="button"\)/);
   // ...and only the getAuthenticationsEnabled('saml') branch removes .hide,
   // mirroring the existing oauth2 gate (`.indexOf('oauth2') !== -1`) already
   // used for `.at-oauth`.
@@ -118,17 +102,6 @@ test('clicking the SAML button calls Meteor.loginWithSaml with the configured pr
 
 test('the wekan-accounts-saml package is registered in .meteor/packages', () => {
   assert.match(packagesFile, /^wekan-accounts-saml$/m);
-});
-
-test('docker-compose.yml documents all SAML_* env vars the server code reads', () => {
-  const envVars = [...authentication.matchAll(/process\.env\.(SAML_[A-Z_]+)/g)].map(m => m[1]);
-  assert.ok(envVars.length > 0, 'expected to find SAML_* env vars in server/authentication.js');
-  for (const envVar of new Set(envVars)) {
-    assert.ok(
-      dockerCompose.includes(`${envVar}=`),
-      `docker-compose.yml must document ${envVar}`,
-    );
-  }
 });
 
 test('en.i18n.json has the samlSignIn login-button string used by the jade template', () => {

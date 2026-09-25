@@ -97,6 +97,19 @@ services:
       - METEOR_SETTINGS={"packages":{"ddp-server":{"uws":{"port":5001,"host":"127.0.0.1"}}}}
       - WRITABLE_PATH=/data
       - WITH_API=true
+      # SAML overrides: Admin Panel / People / SAML
+      #- SAML_ENABLED=false
+      #- SAML_PROVIDER=
+      #- SAML_ENTRYPOINT=
+      #- SAML_ISSUER=
+      #- SAML_CERT=
+      #- SAML_IDPSLO_REDIRECTURL=
+      #- SAML_PRIVATE_KEYFILE=
+      #- SAML_PUBLIC_CERTFILE=
+      #- SAML_IDENTIFIER_FORMAT=
+      #- SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE=
+      #- SAML_ATTRIBUTES=
+      #- SAML_MERGE_EXISTING_USERS=false
     volumes:
       - wekan-tenant1-data:/data
 
@@ -121,6 +134,19 @@ services:
       - METEOR_SETTINGS={"packages":{"ddp-server":{"uws":{"port":5002,"host":"127.0.0.1"}}}}
       - WRITABLE_PATH=/data
       - WITH_API=true
+      # SAML overrides: Admin Panel / People / SAML
+      #- SAML_ENABLED=false
+      #- SAML_PROVIDER=
+      #- SAML_ENTRYPOINT=
+      #- SAML_ISSUER=
+      #- SAML_CERT=
+      #- SAML_IDPSLO_REDIRECTURL=
+      #- SAML_PRIVATE_KEYFILE=
+      #- SAML_PUBLIC_CERTFILE=
+      #- SAML_IDENTIFIER_FORMAT=
+      #- SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE=
+      #- SAML_ATTRIBUTES=
+      #- SAML_MERGE_EXISTING_USERS=false
     volumes:
       - wekan-tenant2-data:/data
 

@@ -213,10 +213,9 @@ function isCasEnabled() {
   return process.env.CAS_ENABLED === 'true' || process.env.CAS_ENABLED === true;
 }
 
-function isSamlEnabled() {
-  return (
-    process.env.SAML_ENABLED === 'true' || process.env.SAML_ENABLED === true
-  );
+async function isSamlEnabled() {
+  const { samlConfiguration } = require('/server/saml');
+  return (await samlConfiguration()).config.enabled;
 }
 
 function isApiEnabled() {
@@ -831,7 +830,7 @@ Meteor.methods({
       ldap: isLdapEnabled(),
       oauth2: isOauth2Enabled(),
       cas: isCasEnabled(),
-      saml: isSamlEnabled(),
+      saml: await isSamlEnabled(),
     };
     // Meteor's own accounts-* providers and accounts-passwordless
     // (server/lib/oauthProviders.js): one key per enabled provider, so the

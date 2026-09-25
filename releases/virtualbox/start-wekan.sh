@@ -422,6 +422,7 @@
       #export SAML_IDENTIFIER_FORMAT=
       #export SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE=
       #export SAML_ATTRIBUTES=
+      #export SAML_MERGE_EXISTING_USERS=false
       #---------------------------------------------------------------------
       # Login with Meteor accounts providers, see docs/Features/Login/OAuth-Providers.md
       # and docs/Features/Login/Passwordless.md. Every one of these can be overridden

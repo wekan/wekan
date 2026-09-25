@@ -476,6 +476,7 @@ Settings.attachSchema(
     // published to the client (see server/publications/settings.js) - only
     // `ldap.bindPasswordSet` (a boolean) is, so the Admin Panel can show "a
     // password is configured" without ever sending the password itself.
+    saml: { type: Object, optional: true, blackbox: true },
     ldap: {
       type: Object,
       optional: true,
