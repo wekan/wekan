@@ -70,7 +70,7 @@ template(name="userFormsLayout")
             input.primary(type="submit" value="{{_ 'twoFactorCode-submit'}}")
             button#two-factor-code-cancel.js-two-factor-code-cancel(type="button") {{_ 'twoFactorCode-cancel'}}
         +Template.dynamic(template=content)
-        button#at-saml.hide(type="button")
+        button#at-saml.primary.hide(type="button")
           i.fa.fa-key
           | {{_ 'samlSignIn'}}
         // One button per Meteor accounts-* OAuth provider the server reports

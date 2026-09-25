@@ -86,10 +86,17 @@ body.mobile-mode .auth-layout .auth-dialog .at-form .password-input-container .p
   aspect-ratio: auto;
   width: 100%;
 }
+/* Package-provided and standalone authentication actions share Login colors. */
+.auth-layout .auth-dialog button.primary,
+.auth-layout .auth-dialog input.primary[type="submit"],
 .auth-layout .auth-dialog .at-form button {
   width: 100%;
   background: #216694;
   color: #fff;
+}
+.auth-layout .auth-dialog button.primary .fa,
+.auth-layout .auth-dialog .at-form button .fa {
+  color: inherit;
 }
 .auth-layout .auth-dialog .at-form .at-title {
   background: #f7f7f7;
