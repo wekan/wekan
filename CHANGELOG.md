@@ -55,22 +55,6 @@ https://wekan.fi/status/
 
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/ecdae60a8">Separate People login sections and open Email by default</a>. Thanks to xet7.</summary>
-
-Move Login below Shared templates, followed by LDAP, OAuth providers and
-Passwordless login. Each entry has its own URL and displays only its own
-settings, reusing the existing authentication controls and handlers. Opening
-Admin Panel / People selects Email. Tenant administrators retain their scoped
-menu without these site-wide settings.
-
-Eight focused Node suites and a fresh Meteor build pass. A Chromium check
-verifies the default Email pane, menu order, isolated controls and reloads of
-all four authentication URLs. Permission tests include the new pane IDs.
-The existing Upcoming release-note regression coverage also passes.
-
-</details>
-
-<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2016d15f2">Preview ZIP contents from cards and Files Report</a>. Thanks to xet7.</summary>
 
 Click a ZIP attachment preview to see the filenames and folder paths inside
@@ -698,25 +682,45 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**In short:** **Release notes** omit Security and Translations sections when
-there are no changes in those categories. **Admin Panel / People** opens on
-Email and offers separate Login, LDAP, OAuth providers and Passwordless login
-entries below Shared templates. **SSO** no longer automatically retries failed
-OIDC callbacks indefinitely.
+**In short:** **Admin Panel / People** opens Email and provides separate login
+settings, including SAML environment overrides, metadata and logout configuration.
+**SSO** stops automatically retrying failed OIDC callbacks. **Login buttons** share
+blue backgrounds and white text/icons. **Release notes** omit empty categories.
 
-This release improves People navigation and generated release notes:
+This release adds SAML administration and improves login behavior and navigation:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/3163ccfc1">Omit empty release-note sections</a>. Thanks to xet7.</summary>
+<summary><a href="https://github.com/wekan/wekan/commit/05f1f0a03">Configure SAML in Admin Panel / People</a>. Thanks to xet7.</summary>
 
-Only include Security and Translations when the selected release contains
-entries for them. Remove the empty-category placeholder sentences and omit
-translator credits when no languages were updated. Keep the summary and
-ChangeLog link, and preserve populated security and translation sections.
+Add a SAML menu entry and reusable catalog-driven authentication settings form.
+Site administrators can override environment settings, see each value's source,
+and restore environment/default values by clearing an override. Apply saves
+without restarting; disabling SAML removes its service configuration and rejects
+pending logins. Keep configuration out of ordinary settings publications.
 
-The release-note regression suite verifies all four combinations of present
-and absent sections, version selection, retained details and language lists.
-Shell syntax validation also passes.
+Expose service-provider metadata and callback URLs, and add service-provider
+initiated logout through the existing MIT-licensed node-saml library. Accept
+validated logout responses; IdP-initiated logout requests are not supported.
+Document account merging as an explicit opt-in and include its environment setting
+in platform configurations, including Snap, Docker and launch scripts.
+
+Verified configuration precedence, rejected inputs, platform coverage, metadata
+and logout route delegation and rejection paths. Chromium verifies settings
+save/reset and non-admin denial. The Meteor build passed. Live identity-provider
+login/logout interoperability remains unverified; this does not claim to fix the
+reported SAML popup completion problem or add other authentication providers.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ecdae60a8">Separate People authentication settings and open Email by default</a>. Thanks to xet7.</summary>
+
+Admin Panel / People opens Email first. Move Login, LDAP, OAuth providers and
+Passwordless to separate left-menu entries below Shared templates, retaining
+shared settings templates and direct routes. SAML follows Login with this release.
+
+Regression coverage verifies route resolution, site-admin restrictions and
+handlers. Chromium verifies menu order, separate panes and selection after reload.
 
 </details>
 
@@ -742,6 +746,20 @@ SAML and other authentication actions use the same blue background as Login,
 with white text and icons. Share the styling between package-provided buttons
 and standalone provider actions. A Chromium regression verifies normal and
 hover colors for SAML and both kinds of provider button.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3163ccfc1">Omit empty release-note sections</a>. Thanks to xet7.</summary>
+
+Only include Security and Translations when the selected release contains
+entries for them. Remove the empty-category placeholder sentences and omit
+translator credits when no languages were updated. Keep the summary and
+ChangeLog link, and preserve populated security and translation sections.
+
+The release-note regression suite verifies all four combinations of present
+and absent sections, version selection, retained details and language lists.
+Shell syntax validation also passes.
 
 </details>
 
