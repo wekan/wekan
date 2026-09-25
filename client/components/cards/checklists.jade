@@ -77,11 +77,7 @@ template(name="checklistDetail")
 
     //- The progress bar stays visible when folded: it is the summary of what was
       folded away, so hiding it too would leave a title that says nothing.
-    if $gt finishedPercent 0
-      .checklist-progress-bar-container
-        .checklist-progress-text {{finishedPercent}}%
-        .checklist-progress-bar
-          .checklist-progress(style="width:{{finishedPercent}}%")
+    +checklistProgress(checklist=checklist)
     unless checklistCollapsed
       +checklistItems(checklist = checklist card = card)
 
@@ -153,7 +149,7 @@ template(name="checklistItems")
       else
         a.add-checklist-item.js-open-inlined-form(title="{{_ 'add-checklist-item'}}")
           i.fa.fa-plus
-  .checklist-items.js-checklist-items
+  +checklistSortableItems(checklist=checklist card=card)
     each item in checklist.items
       +inlinedForm(classNames="js-edit-checklist-item" item = item checklist = checklist)
         +editChecklistItemForm(type = 'item' item = item checklist = checklist)
@@ -348,3 +344,15 @@ template(name="checklistDueDateAdd")
 
 template(name="editChecklistDueDatePopup")
   +editDateForm(showDate=showDate showTime=showTime error=error datePicker=datePicker)
+
+//- Shared by opened cards and minicards; owns sortable lifecycle.
+template(name="checklistSortableItems")
+  .checklist-items.js-checklist-items.nodragscroll
+    +Template.contentBlock
+
+template(name="checklistProgress")
+  if $gt finishedPercent 0
+    .checklist-progress-bar-container
+      .checklist-progress-text {{finishedPercent}}%
+      .checklist-progress-bar(role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow=finishedPercent aria-label=checklist.title)
+        .checklist-progress(style="width:{{finishedPercent}}%")

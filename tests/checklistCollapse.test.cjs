@@ -122,7 +122,7 @@ test('the caret says which way it goes, and to a screen reader too', () => {
 test('folding hides the items and keeps the progress bar', () => {
   assert.ok(/unless checklistCollapsed\s*\n\s*\+checklistItems/.test(jade),
     'the items are what gets folded away');
-  const progressAt = jade.indexOf('.checklist-progress-bar-container');
+  const progressAt = jade.indexOf('+checklistProgress(checklist=checklist)');
   const unlessAt = jade.indexOf('unless checklistCollapsed');
   assert.ok(progressAt !== -1 && progressAt < unlessAt,
     'the progress bar stays: it is the summary of what was folded, so hiding it ' +
@@ -177,7 +177,7 @@ test('both labels exist in English', () => {
 test('the minicard has the same caret, under the same key', () => {
   assert.ok(/js-collapse-checklist/.test(minicardJade),
     'a checklist shown on a minicard must fold there too');
-  assert.ok(/unless checklistCollapsed\s*\n\s*\.checklist-items/.test(minicardJade),
+  assert.ok(/unless checklistCollapsed\s*\n\s*\+checklistSortableItems/.test(minicardJade),
     'and folding must hide its items');
   const at = minicardJs.indexOf("'click .js-collapse-checklist'");
   assert.notStrictEqual(at, -1, 'the minicard needs its own handler');

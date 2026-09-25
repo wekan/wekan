@@ -50,7 +50,7 @@ function resolveListDropTarget(evt) {
   const x = pageX - window.scrollX;
   const y = pageY - window.scrollY;
   const el = document.elementFromPoint(x, y);
-  if (!el) return null;
+  if (!el || $(el).closest('.js-checklist-items').length) return null;
   const $minicards = $(el).closest('.js-minicards');
   if (!$minicards.length) return null;
   const list = Blaze.getData($minicards.get(0));
@@ -133,7 +133,7 @@ function initSorting(items) {
   });
 }
 
-Template.checklistDetail.onRendered(function () {
+Template.checklistSortableItems.onRendered(function () {
   const tpl = this;
   tpl.itemsDom = this.$('.js-checklist-items');
   initSorting(tpl.itemsDom);
@@ -150,21 +150,21 @@ Template.checklistDetail.onRendered(function () {
     const $itemsDom = $(tpl.itemsDom);
     if ($itemsDom.data('uiSortable') || $itemsDom.data('sortable')) {
       $(tpl.itemsDom).sortable('option', 'disabled', !userIsMember());
-      if (Utils.isTouchScreenOrShowDesktopDragHandles()) {
-        $(tpl.itemsDom).sortable({
-          handle: 'span.fa.checklistitem-handle',
-        });
-      }
+      $(tpl.itemsDom).sortable('option', 'handle',
+        Utils.isTouchScreenOrShowDesktopDragHandles() ? 'span.fa.checklistitem-handle' : false);
     }
   });
 });
 
+Template.checklistSortableItems.onDestroyed(function () {
+  if (this.itemsDom?.data('uiSortable')) this.itemsDom.sortable('destroy');
+});
+
+Template.checklistProgress.helpers({
+  finishedPercent() { return this.checklist.finishedPercent(); },
+});
+
 Template.checklistDetail.helpers({
-  /** returns the finished percent of the checklist */
-  finishedPercent() {
-    const ret = this.checklist.finishedPercent();
-    return ret;
-  },
   /** #1591: is this checklist folded for THIS user?
    *
    * Per-user, keyed by card and checklist, exactly like collapsed lists and

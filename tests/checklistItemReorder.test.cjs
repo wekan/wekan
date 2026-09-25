@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
 const source = fs.readFileSync('client/components/cards/checklists.js', 'utf8');
-const init = source.slice(source.indexOf('function initSorting('), source.indexOf('Template.checklistDetail.onRendered'));
+const init = source.slice(source.indexOf('function initSorting('), source.indexOf('Template.checklistSortableItems.onRendered'));
 function drop({ destination = 'source', prev = null, next = null, list = false } = {}) {
   let handler, cancelled = false, moved, inserted;
   const original = { checklist: { _id: 'source' } };
