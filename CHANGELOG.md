@@ -682,8 +682,28 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**In short:** **Checklist drag-and-drop** saves the new item order instead of
+**In short:** **Minicard checklists** show progress and support item reordering
+and transfers between checklists across lists and swimlanes. **Checklist drag-and-drop** saves the new item order instead of
 returning the item to its original position, and matches the visible drop placeholder.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b65b45e52">Show checklist progress and support item dragging on minicards</a>. Thanks to xet7.</summary>
+
+Minicard checklists share the opened-card percentage and progress bar, keeping
+progress visible while folded. Reuse one sortable component in both views,
+including initialization after unfolding and the drag-handle preference.
+
+Items can be reordered within a minicard checklist or moved to another card's
+checklist across lists and swimlanes. An internal checklist drop no longer looks
+like a drop on the enclosing board list, which would create an extra card.
+
+Six Chromium cases cover opened-card sorting, minicard progress and sorting,
+and cross-list/cross-swimlane transfers with handles both enabled and disabled.
+They verify persistence after reload, the destination card/checklist and no extra
+card creation. Focused reorder, drop-target, collapse, visibility and conversion
+checks and the Meteor build pass.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/cb4d29b01">Fix checklist item reordering</a>. Thanks to AmigaAbattoir and xet7.</summary>
