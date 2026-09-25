@@ -55,6 +55,25 @@ https://wekan.fi/status/
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f772663e5">Fix multi-list swimlane drops and show tilted named drag previews</a>. Thanks to xet7.</summary>
+
+Dragging selected lists onto the empty area of another swimlane now moves them
+and their cards there. Previously only the swimlane header was recognized as a
+destination. Keep nested list/card targets and header-only swimlane drag starts.
+
+Multi-Selection dragging shows a tilted stack with the selected objects' names
+and icons, alongside the count. Render titles as literal text, including mixed
+object selections, and limit large previews to eight names plus a remaining count.
+
+Six Chromium cases move two lists via swimlane bodies or headers, including
+collapsed sources/destinations, with handles on and off. Check the named tilted
+preview, list order, card parents and persistence after reload. Three existing
+mixed-selection browser cases, three focused Node suites and the Meteor build
+also pass. The empty-body case was reproduced failing before the fix.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2016d15f2">Preview ZIP contents from cards and Files Report</a>. Thanks to xet7.</summary>
 
 Click a ZIP attachment preview to see the filenames and folder paths inside
