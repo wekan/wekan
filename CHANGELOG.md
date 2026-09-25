@@ -55,6 +55,22 @@ https://wekan.fi/status/
 
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ecdae60a8">Separate People login sections and open Email by default</a>. Thanks to xet7.</summary>
+
+Move Login below Shared templates, followed by LDAP, OAuth providers and
+Passwordless login. Each entry has its own URL and displays only its own
+settings, reusing the existing authentication controls and handlers. Opening
+Admin Panel / People selects Email. Tenant administrators retain their scoped
+menu without these site-wide settings.
+
+Eight focused Node suites and a fresh Meteor build pass. A Chromium check
+verifies the default Email pane, menu order, isolated controls and reloads of
+all four authentication URLs. Permission tests include the new pane IDs.
+The existing Upcoming release-note regression coverage also passes.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2016d15f2">Preview ZIP contents from cards and Files Report</a>. Thanks to xet7.</summary>
 
 Click a ZIP attachment preview to see the filenames and folder paths inside
@@ -683,9 +699,11 @@ the Markdown commit as the template.
 # Upcoming WeKan ® release
 
 **In short:** **Release notes** omit Security and Translations sections when
-there are no changes in those categories.
+there are no changes in those categories. **Admin Panel / People** opens on
+Email and offers separate Login, LDAP, OAuth providers and Passwordless login
+entries below Shared templates.
 
-This release improves generated release notes:
+This release improves People navigation and generated release notes:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3163ccfc1">Omit empty release-note sections</a>. Thanks to xet7.</summary>
@@ -697,8 +715,7 @@ ChangeLog link, and preserve populated security and translation sections.
 
 The release-note regression suite verifies all four combinations of present
 and absent sections, version selection, retained details and language lists.
-Shell syntax validation also passes. This is the only Upcoming change and
-requires no application UI changes.
+Shell syntax validation also passes.
 
 </details>
 
