@@ -699,7 +699,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v12.04 2026-09-26 WeKan ® release
 
 **In short:** **InactiveBleed** is fixed: disabled accounts cannot obtain new
 sessions through REST or keep using revoked credentials. People account
