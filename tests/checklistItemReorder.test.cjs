@@ -10,11 +10,16 @@ function drop({ destination = 'source', prev = null, next = null, list = false }
   const target = { checklist: { _id: destination } };
   const item = { title: 'Task', move(id, sort) { assert.ok(cancelled); moved = { id, sort }; } };
   const get = data => ({ get: () => data });
+  const node = { item };
   const ui = { item: {
-    get: () => ({ item }),
-    parents: () => get(cancelled ? original : target),
-    prev: () => get(cancelled ? undefined : prev && { item: prev }),
-    next: () => get(cancelled ? { item: { sort: 1 } } : next && { item: next }),
+    get: () => node,
+    parents: () => ({ ...get(cancelled ? original : target), find: () => {
+      const nodes = cancelled ? [node, { item: { sort: 1 } }]
+        : [...(prev ? [{ item: prev }] : []), node, ...(next ? [{ item: next }] : [])];
+      return { length: nodes.length, get: i => nodes[i], index: n => nodes.indexOf(n) };
+    } }),
+    prev: () => get(undefined), // wrapper, not a direct sibling row
+    next: () => get(undefined),
   } };
   const items = { sortable(arg) { if (arg === 'cancel') cancelled = true; else handler = arg.stop; } };
   vm.runInNewContext(init + '\ninitSorting(items);', {

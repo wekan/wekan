@@ -114,14 +114,14 @@ function initSorting(items) {
 
       const parent = ui.item.parents('.js-checklist-items');
       const checklistId = Blaze.getData(parent.get(0)).checklist._id;
-      let prevItem = ui.item.prev('.js-checklist-item').get(0);
-      if (prevItem) {
-        prevItem = Blaze.getData(prevItem).item;
-      }
-      let nextItem = ui.item.next('.js-checklist-item').get(0);
-      if (nextItem) {
-        nextItem = Blaze.getData(nextItem).item;
-      }
+      // Inline-form wrappers use display: contents: visual neighbors are not
+      // necessarily DOM siblings. Walk all real rows in destination order,
+      // excluding the helper clone and placeholder left by jQuery UI.
+      const rows = parent.find('.js-checklist-item:not(.ui-sortable-helper):not(.placeholder)');
+      const index = rows.index(checklistDomElement);
+      const prevItem = index > 0 ? Blaze.getData(rows.get(index - 1)).item : null;
+      const nextItem = index >= 0 && index + 1 < rows.length
+        ? Blaze.getData(rows.get(index + 1)).item : null;
       const nItems = 1;
       const sortIndex = calculateIndexData(prevItem, nextItem, nItems);
 
