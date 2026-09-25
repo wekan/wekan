@@ -734,15 +734,15 @@ test('Admin Panel / People renders the shared menu from data', () => {
     assert.ok(pageJs.includes(extra), `${extra} must still run on its pane`);
   }
   // Active row from state, not from a hand-toggled class. The page opens on the
-  // FIRST entry of the menu this user actually has: Login for the site admin, as
+  // FIRST entry of the menu this user actually has: Email for the site admin, as
   // before - and Organizations for an Organization's own admin, who has no Login
   // pane (multitenancy option D). One helper decides both, so the open pane and the
   // highlighted row can never disagree.
   assert.ok(/function firstPeoplePaneId\(user\)/.test(pageJs),
     'the first pane of the user\'s own menu');
-  assert.ok(/activeMenuId = new ReactiveVar\('registration-setting'\)/.test(pageJs),
+  assert.ok(/activeMenuId = new ReactiveVar\('email-setting'\)/.test(pageJs),
     'the open pane is state, and starts on the first entry in the menu');
-  assert.ok(/registrationSetting = new ReactiveVar\(true\)/.test(pageJs),
+  assert.ok(/emailSetting = new ReactiveVar\(true\)/.test(pageJs),
     'and that pane is the one whose var starts true');
   assert.ok(/orgSetting = new ReactiveVar\(false\)/.test(pageJs),
     'the pane that used to open first must no longer also start true');

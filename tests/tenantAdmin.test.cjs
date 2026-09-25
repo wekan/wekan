@@ -178,6 +178,9 @@ const PEOPLE_MENU = [
   { id: 'locked-users-setting' },
   { id: 'roles-setting' },
   { id: 'templates-setting' },
+  { id: 'ldap-setting' },
+  { id: 'oauth-setting' },
+  { id: 'passwordless-setting' },
 ];
 
 test('the site admin keeps the whole People menu', () => {
@@ -192,7 +195,8 @@ test('a per-tenant admin gets Organizations and People, in menu order', () => {
 test('the instance-wide People panes are not offered to a per-tenant admin', () => {
   const ids = t.tenantAdminPeopleMenu(PEOPLE_MENU, ADMIN_A).map(i => i.id);
   ['registration-setting', 'email-setting', 'domains-setting', 'team-setting',
-    'locked-users-setting', 'roles-setting', 'templates-setting'].forEach(id => {
+    'locked-users-setting', 'roles-setting', 'templates-setting',
+    'ldap-setting', 'oauth-setting', 'passwordless-setting'].forEach(id => {
     assert.ok(!ids.includes(id), `${id} is instance-wide and must not be offered`);
   });
 });

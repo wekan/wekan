@@ -885,6 +885,12 @@ const accountAccessHelpers = {
 };
 // Both panes show account-access settings, so both need these helpers.
 Template.general.helpers(accountAccessHelpers);
+Template.general.helpers({
+  isAuthenticationSection(section) {
+    return ReactiveCache.getCurrentUser()?.isAdmin === true &&
+      (Template.currentData()?.section || 'login') === section;
+  },
+});
 Template.email.helpers(accountAccessHelpers);
 Template.setting.helpers(accountAccessHelpers);
 

@@ -66,9 +66,12 @@ const ADMIN_PAGES = {
     base: '/admin/people',
     legacyBase: '/people',
     routeName: 'people',
-    defaultSlug: 'people',
+    defaultSlug: 'email',
     panes: {
       login: 'registration-setting',
+      ldap: 'ldap-setting',
+      oauth: 'oauth-setting',
+      passwordless: 'passwordless-setting',
       email: 'email-setting',
       notifications: 'notify-setting',
       domains: 'domains-setting',
@@ -164,6 +167,9 @@ const ADMIN_PANE_TITLES = {
   },
   people: {
     login: { titleKey: 'login' },
+    ldap: { titleKey: 'ldap' },
+    oauth: { titleKey: 'oauth-providers-title' },
+    passwordless: { titleKey: 'passwordless-title' },
     email: { titleKey: 'email' },
     notifications: { titleKey: 'notifications' },
     domains: { titleKey: 'domains' },

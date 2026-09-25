@@ -144,10 +144,10 @@ test('the resolver gives the Admin Panel precedence over the env var, and report
 
 test('the jade section shows a source badge beside every field and only a secret status', () => {
   const jade = read('client/components/settings/settingBody.jade');
-  const at = jade.indexOf("{{_ 'oauth-providers-title'}}");
+  const at = jade.indexOf('if isAuthenticationSection "oauth"');
   assert.ok(at !== -1, 'the section exists');
   const section = jade.slice(at, jade.indexOf("template(name='email')", at));
-  assert.ok(/if currentUser\.isAdmin/.test(jade.slice(at - 400, at)), 'rendered for admins only');
+  assert.match(read('client/components/settings/settingBody.js'), /isAuthenticationSection\(section\) \{\s*return ReactiveCache.getCurrentUser\(\)\?\.isAdmin === true/, 'rendered for admins only');
   assert.ok(/each oauthProviderList/.test(section), 'one block per catalog provider');
   assert.ok(/ldap-source-badge\s+\(\{\{oauthProviderSourceLabel key 'enabled'\}\}\)/.test(section), 'badge on enabled');
   assert.ok(/ldap-source-badge\s+\(\{\{oauthProviderSourceLabel key 'id'\}\}\)/.test(section), 'badge on the id');
@@ -160,7 +160,7 @@ test('the jade section shows a source badge beside every field and only a secret
   }
   for (const key of ['oauth-providers-hint', 'oauth-provider-client-id', 'oauth-provider-secret',
     'oauth-providers-login-style', 'oauth-providers-merge-existing-users',
-    'passwordless-title', 'passwordless-enabled', 'passwordless-hint']) {
+    'passwordless-enabled', 'passwordless-hint']) {
     assert.ok(section.includes(`{{_ '${key}'}}`), `i18n key ${key} used`);
   }
 });

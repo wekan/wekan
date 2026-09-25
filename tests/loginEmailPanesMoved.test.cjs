@@ -62,7 +62,7 @@ const EMAIL_HANDLERS = ['click a.js-toggle-tls', 'click button.js-save',
 
 console.log('loginEmailPanesMoved:');
 
-test('People lists Login and E-mail above Organizations', () => {
+test('People lists E-mail first and separate login sections below Shared templates', () => {
   // peopleMenu(user) takes the current user since multitenancy option D: an
   // Organization's own admin gets the same menu, shorter.
   const menu = peopleJs.slice(peopleJs.indexOf('function peopleMenu(user)'),
@@ -70,8 +70,10 @@ test('People lists Login and E-mail above Organizations', () => {
   const at = id => menu.indexOf(`id: '${id}'`);
   assert.ok(at('registration-setting') > -1, 'Login is a People menu entry');
   assert.ok(at('email-setting') > -1, 'and so is E-mail');
-  assert.ok(at('registration-setting') < at('email-setting'), 'Login first');
-  assert.ok(at('email-setting') < at('org-setting'), 'both above Organizations');
+  assert.ok(at('email-setting') < at('registration-setting'), 'Email before Login');
+  const sections = ['templates-setting', 'registration-setting', 'ldap-setting', 'oauth-setting', 'passwordless-setting'];
+  sections.slice(1).forEach((id, index) => assert.ok(at(id) > at(sections[index]), id));
+  assert.ok(at('email-setting') < at('org-setting'), 'Email above Organizations');
   // Unchanged ids and i18n keys, so no pane lost its translations in the move.
   assert.ok(/id: 'registration-setting'[^}]*labelKey: 'login'/.test(menu));
   assert.ok(/id: 'email-setting'[^}]*labelKey: 'email'/.test(menu));

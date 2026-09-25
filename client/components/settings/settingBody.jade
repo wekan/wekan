@@ -47,68 +47,69 @@ template(name="webhookSettings")
 //- global and its handlers sit beside the other settings handlers in settingBody.js.
 template(name="general")
   ul#registration-setting.setting-detail
-    li
-      h2.admin-pane-group-title {{_ 'login-allow'}}
-    //- Every row in this group is a checkbox that is TICKED when the thing is
-    //- allowed, under a title that says "Allow" once. Two of them are stored the
-    //- other way round - `disableForgotPassword` and `disableRegistration` are
-    //- "disable" flags - so the markup asks `unless`. Only the display is inverted;
-    //- the stored fields and their handlers are unchanged.
-    li
-      a.flex.js-toggle-forgot-password
-        .materialCheckBox(class="{{#unless currentSetting.disableForgotPassword}}is-checked{{/unless}}")
+    if isAuthenticationSection "login"
+      li
+        h2.admin-pane-group-title {{_ 'login-allow'}}
+      //- Every row in this group is a checkbox that is TICKED when the thing is
+      //- allowed, under a title that says "Allow" once. Two of them are stored the
+      //- other way round - `disableForgotPassword` and `disableRegistration` are
+      //- "disable" flags - so the markup asks `unless`. Only the display is inverted;
+      //- the stored fields and their handlers are unchanged.
+      li
+        a.flex.js-toggle-forgot-password
+          .materialCheckBox(class="{{#unless currentSetting.disableForgotPassword}}is-checked{{/unless}}")
 
-        span {{_ 'forgot-password'}}
-    li
-      a.flex.js-toggle-registration
-        .materialCheckBox(class="{{#unless currentSetting.disableRegistration}}is-checked{{/unless}}")
+          span {{_ 'forgot-password'}}
+      li
+        a.flex.js-toggle-registration
+          .materialCheckBox(class="{{#unless currentSetting.disableRegistration}}is-checked{{/unless}}")
 
-        span {{_ 'self-registration'}}
-    li
-      a.flex.js-toggle-username-change
-        .materialCheckBox(class="{{#if allowUserNameChange}}is-checked{{/if}}")
+          span {{_ 'self-registration'}}
+      li
+        a.flex.js-toggle-username-change
+          .materialCheckBox(class="{{#if allowUserNameChange}}is-checked{{/if}}")
 
-        span {{_ 'accounts-allowUserNameChange'}}
-    li
-      a.flex.js-toggle-user-delete
-        .materialCheckBox(class="{{#if allowUserDelete}}is-checked{{/if}}")
+          span {{_ 'accounts-allowUserNameChange'}}
+      li
+        a.flex.js-toggle-user-delete
+          .materialCheckBox(class="{{#if allowUserDelete}}is-checked{{/if}}")
 
-        span {{_ 'accounts-allowUserDelete'}}
-    li
-      a.flex.js-toggle-display-authentication-method
-        .materialCheckBox(class="{{#if currentSetting.displayAuthenticationMethod}}is-checked{{/if}}")
+          span {{_ 'accounts-allowUserDelete'}}
+      li
+        a.flex.js-toggle-display-authentication-method
+          .materialCheckBox(class="{{#if currentSetting.displayAuthenticationMethod}}is-checked{{/if}}")
 
-        span {{_ 'display-authentication-method'}}
+          span {{_ 'display-authentication-method'}}
 
-    li.admin-pane-group-separator
-      hr
-    li
-      .invite-people(class="{{#if currentSetting.disableRegistration}}{{else}}hide{{/if}}")
-        ul
-          li
-            .title {{_ 'invite-people'}}
-            textarea#email-to-invite.wekan-form-control(rows='5', placeholder="{{_ 'email-addresses'}}")
-          li
-            .title {{_ 'to-boards'}}
-            .bg-white
-              each boards
-                a.option.flex.js-toggle-board-choose(id= _id)
-                  .materialCheckBox(data-id= _id)
+      li.admin-pane-group-separator
+        hr
+      li
+        .invite-people(class="{{#if currentSetting.disableRegistration}}{{else}}hide{{/if}}")
+          ul
+            li
+              .title {{_ 'invite-people'}}
+              textarea#email-to-invite.wekan-form-control(rows='5', placeholder="{{_ 'email-addresses'}}")
+            li
+              .title {{_ 'to-boards'}}
+              .bg-white
+                each boards
+                  a.option.flex.js-toggle-board-choose(id= _id)
+                    .materialCheckBox(data-id= _id)
 
-                  span= title
+                    span= title
 
-          li
-            button.js-email-invite.primary {{_ 'invite'}}
-          li
-            #invite-people-infos
-    li.accounts-form
-      .title {{_ 'default-authentication-method'}}
-      +selectAuthenticationMethod(authenticationMethod=currentSetting.defaultAuthenticationMethod)
-    li.accounts-form
-      .title {{_ 'oidc-button-text'}}
-      .form-group
-        input.wekan-form-control#oidcBtnTextvalue(type="text", placeholder="" value="{{currentSetting.oidcBtnText}}")
-      button.js-account-access-save.primary {{_ 'save'}}
+            li
+              button.js-email-invite.primary {{_ 'invite'}}
+            li
+              #invite-people-infos
+      li.accounts-form
+        .title {{_ 'default-authentication-method'}}
+        +selectAuthenticationMethod(authenticationMethod=currentSetting.defaultAuthenticationMethod)
+      li.accounts-form
+        .title {{_ 'oidc-button-text'}}
+        .form-group
+          input.wekan-form-control#oidcBtnTextvalue(type="text", placeholder="" value="{{currentSetting.oidcBtnText}}")
+        button.js-account-access-save.primary {{_ 'save'}}
 
     //- Admin Panel override of the LDAP_* environment variables (maintainer
     //- request: "Add all settings from environment variables to Admin Panel
@@ -119,11 +120,7 @@ template(name="general")
     //- which one is currently in effect; nothing here ever shows the bind
     //- password itself (client/components/settings/settingBody.js only ever
     //- receives a boolean "is a password configured").
-    if currentUser.isAdmin
-      li.admin-pane-group-separator
-        hr
-      li
-        h2.admin-pane-group-title {{_ 'ldap'}}
+    if isAuthenticationSection "ldap"
       li.accounts-form
         a.flex.js-toggle-ldap-enabled
           .materialCheckBox(class="{{#if currentSetting.ldap.enabled}}is-checked{{/if}}")
@@ -154,11 +151,7 @@ template(name="general")
     //- the source in effect, and the secret is never shown - the client only
     //- ever receives "a secret is set" (see server/models/settings.js
     //- saveOauthProviderSettings/getOauthProviderConfigSources).
-    if currentUser.isAdmin
-      li.admin-pane-group-separator
-        hr
-      li
-        h2.admin-pane-group-title {{_ 'oauth-providers-title'}}
+    if isAuthenticationSection "oauth"
       li.accounts-form
         .description {{_ 'oauth-providers-hint'}}
       each oauthProviderList
@@ -192,10 +185,7 @@ template(name="general")
       li.accounts-form
         button.js-oauth-shared-save.primary {{_ 'save'}}
 
-      li.admin-pane-group-separator
-        hr
-      li
-        h2.admin-pane-group-title {{_ 'passwordless-title'}}
+    if isAuthenticationSection "passwordless"
       li.accounts-form
         .description {{_ 'passwordless-hint'}}
         a.flex.js-toggle-passwordless-enabled

@@ -110,9 +110,9 @@ Template.people.onCreated(function () {
 
   this.error = new ReactiveVar('');
   this.loading = new ReactiveVar(false);
-  // The page opens on Login, the first entry of the menu - as it always did.
-  this.registrationSetting = new ReactiveVar(true);
-  this.emailSetting = new ReactiveVar(false);
+  // The page opens on E-mail, the first entry of the site admin menu.
+  this.registrationSetting = new ReactiveVar(false);
+  this.emailSetting = new ReactiveVar(true);
   // Admin-level default for the 3-tier Notification Settings system, see
   // models/lib/notificationSettings.js.
   this.notifySetting = new ReactiveVar(false);
@@ -365,10 +365,10 @@ Template.people.onCreated(function () {
     this.peoplePage.set(1);
   };
 
-  // Which pane is open. The seven booleans below are derived from it; the shared
+  // Which pane is open. The pane helpers are derived from it; the shared
   // left menu (docs/Features/Page/Left-Menu.md) renders the active row from it, so
   // the menu no longer has to be highlighted by hand.
-  this.activeMenuId = new ReactiveVar('registration-setting');
+  this.activeMenuId = new ReactiveVar('email-setting');
 
   // Multitenancy option D (D.7): an Organization's own admin has no Login pane, so
   // the page opens on the first entry of the menu THEY have - Organizations.
@@ -384,6 +384,8 @@ Template.people.onCreated(function () {
     const openPaneId = firstPeoplePaneId(user);
     if (openPaneId === 'registration-setting') return;
     this.registrationSetting.set(false);
+    this.emailSetting.set(openPaneId === 'email-setting');
+    this.notifySetting.set(openPaneId === 'notify-setting');
     this.orgSetting.set(openPaneId === 'org-setting');
     this.peopleSetting.set(openPaneId === 'people-setting');
     this.activeMenuId.set(openPaneId);
@@ -509,10 +511,6 @@ function peopleMenu(user) {
   const isSandstorm =
     Meteor.settings && Meteor.settings.public && Meteor.settings.public.sandstorm;
   const items = [
-    // Moved here from Admin Panel / Settings: both panes are about the people who can
-    // sign in and how they are reached, which is what this page is for. The ids and
-    // i18n keys are unchanged, so every existing translation still applies.
-    { id: 'registration-setting', icon: 'fa-key', labelKey: 'login', emoji: true },
     // No e-mail settings on Sandstorm; a null entry is dropped, not rendered empty.
     isSandstorm ? null : { id: 'email-setting', icon: 'fa-envelope', labelKey: 'email', emoji: true },
     // Admin-level default for the 3-tier Notification Settings system (see
@@ -529,6 +527,10 @@ function peopleMenu(user) {
     { id: 'locked-users-setting', icon: 'fa-lock', labelKey: 'accounts-lockout-locked-users', iconWrapCls: 'text-red' },
     { id: 'roles-setting', icon: 'fa-key', labelKey: 'roles' },
     { id: 'templates-setting', icon: 'fa-clone', labelKey: 'shared-templates' },
+    { id: 'registration-setting', icon: 'fa-key', labelKey: 'login', emoji: true },
+    { id: 'ldap-setting', icon: 'fa-sitemap', labelKey: 'ldap' },
+    { id: 'oauth-setting', icon: 'fa-key', labelKey: 'oauth-providers-title' },
+    { id: 'passwordless-setting', icon: 'fa-unlock-alt', labelKey: 'passwordless-title' },
   ];
   // Multitenancy option D (docs/Design/Multitenancy/Multitenancy.md, D.7): a
   // PER-TENANT Global Admin gets the same menu, shorter - only the panes that are
@@ -819,6 +821,13 @@ Template.people.helpers({
   },
   loading() {
     return Template.instance().loading;
+  },
+  authenticationSection() {
+    return {
+      'ldap-setting': 'ldap',
+      'oauth-setting': 'oauth',
+      'passwordless-setting': 'passwordless',
+    }[Template.instance().activeMenuId.get()];
   },
   registrationSetting() {
     return Template.instance().registrationSetting;

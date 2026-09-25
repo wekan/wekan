@@ -151,6 +151,7 @@ test('every pane is named in the URL, the default one included', () => {
   }
   // The examples xet7 asked for, verbatim.
   assert.strictEqual(adminPath('settings', 'version-setting'), '/admin/settings/version');
+  assert.strictEqual(ADMIN_PAGES.people.defaultSlug, 'email');
   assert.strictEqual(adminPath('people', 'registration-setting'), '/admin/people/login');
   assert.strictEqual(adminPath('settings', 'tableVisibilityMode-setting'), '/admin/settings/visibility');
   assert.strictEqual(adminPath('settings', 'webhook-setting'), '/admin/settings/global-webhooks');

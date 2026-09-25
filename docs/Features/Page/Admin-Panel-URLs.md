@@ -45,10 +45,12 @@ The bare `/admin/settings` still resolves; it *redirects* to
 
 ## People — `/admin/people`
 
+Opening People selects Email by default. Below Shared templates, Login, LDAP,
+OAuth providers and Passwordless login each have their own menu entry.
+
 | URL | Pane | Pane id |
 | --- | --- | --- |
 | `/admin/people/people` | People | `people-setting` |
-| `/admin/people/login` | Login | `registration-setting` |
 | `/admin/people/email` | Email | `email-setting` |
 | `/admin/people/notifications` | Notifications | `notify-setting` |
 | `/admin/people/domains` | Domains | `domains-setting` |
@@ -57,6 +59,10 @@ The bare `/admin/settings` still resolves; it *redirects* to
 | `/admin/people/locked-users` | Locked Users | `locked-users-setting` |
 | `/admin/people/roles` | Roles | `roles-setting` |
 | `/admin/people/shared-templates` | Shared templates | `templates-setting` |
+| `/admin/people/login` | Login | `registration-setting` |
+| `/admin/people/ldap` | LDAP | `ldap-setting` |
+| `/admin/people/oauth` | OAuth providers | `oauth-setting` |
+| `/admin/people/passwordless` | Passwordless login | `passwordless-setting` |
 
 ## Problems — `/admin/problems`
 
