@@ -699,6 +699,47 @@ the Markdown commit as the template.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **InactiveBleed** is fixed: disabled accounts cannot obtain new
+sessions through REST or keep using revoked credentials. People account
+creation and the Active control now enforce the administrator's chosen status.
+
+This release fixes the following CRITICAL SECURITY ISSUE of
+[InactiveBleed](https://wekan.fi/hall-of-fame/inactivebleed/):
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c3caf87a1">Enforce account deactivation across authentication and existing sessions</a>. Thanks to esbrito81 and xet7.</summary>
+
+REST login, API authentication, private attachment reads and uploads, imports
+and exports now share an active-account check. REST and header-login token
+issuance test account status atomically; LDAP leaves token issuance to the
+validated login pipeline. Disabling an account clears its tokens and Meteor
+disconnects the sessions observing them. A startup observer also revokes tokens
+on existing disabled accounts and direct database updates. Reactivation does
+not restore old tokens. Anonymous public-board access remains public; already
+authorized operations are not rolled back.
+
+People's Active control uses the administrator-only method and reports errors.
+Admin-created users receive their active status, administrator flag, profile,
+organizations and teams before insertion, through a trusted server context.
+Creation is awaited and ordinary users cannot invoke the admin creation method.
+Attributable disabled-account authentication attempts are summarized as
+InactiveBleed in Admin Panel / Problems.
+
+Upcoming regression audit: positive and negative Node tests cover authentication,
+atomic issuance, revocation, logging failure, attachment contexts and a source
+sweep across server, models, imports, packages and client code. The affected
+HTTP, LDAP, export, team-membership and security-catalog suites pass. A Meteor
+build and three Chromium tests pass, covering inactive creation, REST and DDP
+login, old Bearer/cookie/legacy upload credentials, live-session disconnection,
+direct database deactivation, reactivation, People toggles and admin-only
+account creation. Live LDAP and the FerretDB matrix were not exercised.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.03 2026-09-26 WeKan ® release
 
 **In short:** **Board drag settings** independently enable dragging for each
