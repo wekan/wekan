@@ -699,7 +699,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v12.03 2026-09-26 WeKan ® release
 
 **In short:** **Board drag settings** independently enable dragging for each
 object type. **Mixed multi-selection** moves lists, swimlanes, cards and
