@@ -701,7 +701,8 @@ the Markdown commit as the template.
 **In short:** **Release notes** omit Security and Translations sections when
 there are no changes in those categories. **Admin Panel / People** opens on
 Email and offers separate Login, LDAP, OAuth providers and Passwordless login
-entries below Shared templates.
+entries below Shared templates. **SSO** no longer automatically retries failed
+OIDC callbacks indefinitely.
 
 This release improves People navigation and generated release notes:
 
@@ -716,6 +717,31 @@ ChangeLog link, and preserve populated security and translation sections.
 The release-note regression suite verifies all four combinations of present
 and absent sections, version selection, retained details and language lists.
 Shell syntax validation also passes.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8263734f5">Stop repeated automatic OIDC login after a failed callback</a>. Thanks to Alishara and xet7.</summary>
+
+Keep the automatic-login guard after failed login attempts so an unsuccessful
+SSO callback does not repeatedly redirect to the identity provider. Recheck
+login state when the settings response arrives, and require writable session
+storage before automatic navigation. Manual sign-in remains available.
+Fixes [#6722](https://github.com/wekan/wekan/issues/6722).
+
+Verified with eight executable redirect regressions, the OAuth login-style and
+OIDC state-isolation suites, and a Chromium callback-reload regression. The
+reporter's Microsoft Entra configuration was not available for end-to-end testing.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9dd295079">Use consistent authentication button colors</a>. Thanks to xet7.</summary>
+
+SAML and other authentication actions use the same blue background as Login,
+with white text and icons. Share the styling between package-provided buttons
+and standalone provider actions. A Chromium regression verifies normal and
+hover colors for SAML and both kinds of provider button.
 
 </details>
 
