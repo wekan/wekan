@@ -690,6 +690,22 @@ swimlanes. **Checklist drag-and-drop** saves the new item order and matches the
 visible drop placeholder.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/43b0daf14">Select or unselect all settings in a board settings column</a>. Thanks to xet7.</summary>
+
+Board Settings / Swimlane, List and Card offer Select all and Unselect all for
+each settings column: Draggable, the swimlane/list options, Show on Minicard and
+Show on Card. A shared component sets the column in one board-admin-authorized
+update. Repeated clicks keep the requested state; other columns, other boards,
+field order and personal overrides remain unchanged.
+
+Four Chromium cases cover all seven columns, both actions, repeated clicks,
+reload persistence, board isolation and rejected non-admin or invalid requests.
+The four existing drag-settings browser cases, three focused Node suites and
+the Meteor build also pass.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7950979cb">Choose which objects can be dragged on each board</a>. Thanks to xet7.</summary>
 
 Board Settings / Swimlane, List and Card settings have a shared Draggable column.
