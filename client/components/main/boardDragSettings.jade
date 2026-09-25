@@ -3,7 +3,9 @@ template(name="boardDragSettings")
     thead
       tr
         th {{_ 'name'}}
-        th {{_ 'draggable'}}
+        th
+          | {{_ 'draggable'}}
+          +boardSettingsColumnActions(section=section column="draggable")
     tbody
       each rows
         tr

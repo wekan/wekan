@@ -292,6 +292,7 @@ template(name="boardCardSettingsPopup")
     .card-field-order-columns
       .card-field-order-column.card-field-order-column-minicard
         h4.card-field-order-column-heading {{_ 'show-on-minicard'}}
+        +boardSettingsColumnActions(section="card" column="minicard")
         each row in minicardSettingsRows
           .card-field-order-row.js-card-field-order-row(class="{{#if row.personal}}card-settings-row-personal{{/if}}" data-key="{{row.key}}" data-side="minicard")
             a.flex.card-field-order-toggle(class=row.toggle class="{{#if row.checked}}is-checked{{/if}}" title="{{row.title}}")
@@ -318,6 +319,7 @@ template(name="boardCardSettingsPopup")
                   | &nbsp;({{_ 'label-text-follows-board'}})
       .card-field-order-column.card-field-order-column-card
         h4.card-field-order-column-heading {{_ 'show-on-card'}}
+        +boardSettingsColumnActions(section="card" column="card")
         each row in cardSettingsRows
           .card-field-order-row.js-card-field-order-row(data-key="{{row.key}}" data-side="card")
             a.flex.card-field-order-toggle(class=row.toggle class="{{#if row.checked}}is-checked{{/if}}" title="{{row.title}}")
@@ -657,6 +659,7 @@ template(name="boardViewSettingsPopup")
 template(name="boardSwimlaneSettingsPopup")
   +boardDragSettings(section="swimlane")
   form.board-swimlane-settings
+    +boardSettingsColumnActions(section="swimlane" column="settings")
     div.check-div
       a.flex.js-toggle-swimlane-height-resize-lock(title="{{_ 'lock-swimlane-height-resize'}}" class="{{#if isSwimlaneHeightResizeLocked}}is-checked{{/if}}")
         i.fa(class="{{#if isSwimlaneHeightResizeLocked}}fa-check{{else}}fa-square-o{{/if}}")
@@ -681,6 +684,7 @@ template(name="boardSwimlaneSettingsPopup")
 template(name="boardListSettingsPopup")
   +boardDragSettings(section="list")
   form.board-list-settings
+    +boardSettingsColumnActions(section="list" column="settings")
     div.check-div
       a.flex.js-toggle-list-width-resize-lock(title="{{_ 'lock-list-width-resize'}}" class="{{#if isListWidthResizeLocked}}is-checked{{/if}}")
         i.fa(class="{{#if isListWidthResizeLocked}}fa-check{{else}}fa-square-o{{/if}}")

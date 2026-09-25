@@ -1,0 +1,14 @@
+.board-settings-column-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 4px 0 8px;
+}
+.board-settings-column-actions button {
+  width: auto;
+  min-height: 28px;
+  margin: 0;
+  padding: 3px 6px;
+  font-size: 12px;
+}
+.board-settings-column-actions .warning { flex-basis: 100%; }

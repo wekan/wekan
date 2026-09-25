@@ -1,0 +1,7 @@
+template(name="boardSettingsColumnActions")
+  if canSetColumn
+    .board-settings-column-actions(data-section=section data-column=column)
+      button.js-set-settings-column(type="button" data-enabled="true" disabled=busy) {{_ 'select-all'}}
+      button.js-set-settings-column(type="button" data-enabled="false" disabled=busy) {{_ 'unselect-all'}}
+      if error
+        .warning(role="alert") {{error}}

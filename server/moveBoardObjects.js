@@ -8,6 +8,7 @@ import Checklists from '/models/checklists';
 import ChecklistItems from '/models/checklistItems';
 import Activities from '/models/activities';
 import { allowIsBoardAdminOrSiteAdmin } from '/server/lib/utils';
+const { columnModifier } = require('/models/lib/boardSettingsColumns');
 const { DRAG_SETTINGS, canDragSelection } = require('/models/lib/boardDragging');
 import { requireBoardMutation } from '/models/lib/boardMutationGuard';
 const { memberCan } = require('/models/lib/boardRoleCapabilities');
@@ -59,6 +60,14 @@ async function positionGroup(kind, ids, selector, anchor, after) {
   for (let i = 0; i < order.length; i++) await collection.updateAsync(order[i], { $set: { sort: i } });
 }
 Meteor.methods({
+  async setBoardSettingsColumn(boardId, section, column, enabled) {
+    check(boardId, String); check(section, String); check(column, String); check(enabled, Boolean);
+    const modifier = columnModifier(section, column, enabled);
+    if (!modifier) throw new Meteor.Error('invalid-setting');
+    const board = await Boards.findOneAsync(boardId);
+    if (!this.userId || !board || !(await allowIsBoardAdminOrSiteAdmin(this.userId, board))) throw new Meteor.Error('not-authorized');
+    return Boards.updateAsync(boardId, modifier);
+  },
   async setBoardDragging(boardId, kind, enabled) {
     check(boardId, String); check(kind, String); check(enabled, Boolean);
     const setting = DRAG_SETTINGS.find(entry => entry.kind === kind);
