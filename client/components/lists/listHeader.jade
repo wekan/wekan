@@ -6,6 +6,7 @@ template(name="listHeader")
     class="{{#if limitToShowCardsCount}}list-header-card-count{{/if}}"
     class=colorClass
     style=colorStyle)
+    +structuralSelectionCheckbox(kind="list" id=_id label=title)
     //- #459: keyboard/screen-reader list reordering (visually hidden, focusable).
     .list-move-buttons.sr-only
       a.js-list-move-left(href="#" role="button" aria-label="{{_ 'move-list-left'}}") {{_ 'move-list-left'}}

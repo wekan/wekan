@@ -396,3 +396,5 @@ import '/sandstorm';
 
 import '/server/methods/fileStatusAudit';
 import '/server/methods/instrumentationReport';
+
+import '/server/moveBoardObjects';

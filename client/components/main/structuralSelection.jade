@@ -1,0 +1,19 @@
+template(name="structuralSelectionCheckbox")
+  if MultiSelection.isActive
+    if canModifyBoard
+      button.materialCheckBox.multi-selection-checkbox.js-structural-selection(type="button" class="{{#if selected}}is-checked{{/if}}" role="checkbox" aria-checked=selected aria-label=label data-kind=kind data-id=id)
+
+template(name="moveObjectsPopup")
+  h3 {{_ 'move-selection'}}
+  if error.get
+    .warning {{error.get}}
+  each fields
+    label= label
+    select.js-object-destination(data-field=key)
+      option(value="")= emptyLabel
+      each options
+        option(value=_id selected=selected)= title
+  select.js-object-position(aria-label="{{_ 'move-selection'}}")
+    option(value="before") ↑
+    option(value="after") ↓
+  button.primary.js-move-objects(disabled=busy.get) {{_ 'move-selection'}}

@@ -165,6 +165,7 @@ template(name="checklistItems")
 template(name='checklistItemDetail')
   .js-checklist-item.checklist-item(class="{{#if item.isFinished }}is-checked{{#if checklist.isItemHidden item.isFinished}} invisible{{/if}}{{/if}}{{#if checklist.hideAllChecklistItems}} is-checked invisible{{/if}}"
     role="checkbox" aria-checked="{{#if item.isFinished }}true{{else}}false{{/if}}" aria-readonly="{{#if canCheckChecklistItem}}false{{else}}true{{/if}}" tabindex="{{#if canCheckChecklistItem}}0{{else}}-1{{/if}}")
+    +structuralSelectionCheckbox(kind="item" id=item._id label=item.title)
     //- #3307: checking off an item is a lower bar than editing/deleting one - a
       Worker may do the former but not the latter, so the checkbox itself is
       gated on canCheckChecklistItem while everything else here still needs

@@ -339,7 +339,9 @@ Template.multiselectionSidebar.events({
       popup.call(this, evt);
     }
   },
-  'click .js-move-selection': Popup.open('moveSelection'),
+  'click .js-move-selection'(event) {
+    Popup.open(MultiSelection.hasObjects() ? 'moveObjects' : 'moveSelection').call(this, event);
+  },
   'click .js-copy-selection': Popup.open('copySelection'),
   'click .js-selection-color': Popup.open('setSelectionColor'),
   async 'click .js-archive-selection'() {

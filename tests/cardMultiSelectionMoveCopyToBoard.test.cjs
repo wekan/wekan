@@ -34,7 +34,15 @@ console.log('cardMultiSelectionMoveCopyToBoard:');
 test('the multiselection sidebar exposes explicit Move/Copy selection actions', () => {
   assert.match(jade, /a\.sidebar-btn\.js-move-selection/);
   assert.match(jade, /a\.sidebar-btn\.js-copy-selection/);
-  assert.match(client, /'click \.js-move-selection': Popup\.open\('moveSelection'\)/);
+  const handler = client.match(/'click \.js-move-selection'\(event\) \{([\s\S]*?)\n  \}/)[1];
+  for (const mixed of [false, true]) {
+    let opened;
+    require('node:vm').runInNewContext(handler, {
+      event: {}, MultiSelection: { hasObjects: () => mixed },
+      Popup: { open(name) { opened = name; return () => {}; } },
+    });
+    assert.equal(opened, mixed ? 'moveObjects' : 'moveSelection');
+  }
   assert.match(client, /'click \.js-copy-selection': Popup\.open\('copySelection'\)/);
 });
 

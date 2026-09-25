@@ -368,6 +368,7 @@ template(name="editCardSortOrderPopup")
 template(name="minicardChecklist")
   .minicard-checklist
     .checklist-header
+      +structuralSelectionCheckbox(kind="checklist" id=checklist._id label=checklist.title)
       //- #1591: the same caret as on the opened card, and the same stored key,
         so folding a checklist folds it in both places.
       a.fa.checklist-collapse.js-collapse-checklist(

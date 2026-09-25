@@ -198,54 +198,60 @@ template(name="filterSidebar")
       span {{_ 'filter-to-selection'}}
 
 template(name="multiselectionSidebar")
-  h3
-    i.fa.fa-tag
-    | {{_ 'multi-selection-label'}}
-  ul.sidebar-list
-    each currentBoard.labels
-      li
-        a.name.js-toggle-label-multiselection
-          span.card-label.square(class="{{labelColorClass color}}" style="{{labelColorStyle color}}")
-          span.sidebar-list-item-description
-            if name
-              = name
-            else
-              span.quiet {{_ "label-default" (_ (concat "color-" color))}}
-          if allSelectedElementHave 'label' _id
-            i.fa.fa-check
-          else if someSelectedElementHave 'label' _id
-            | ⋯
-  hr
-  h3
-    i.fa.fa-users
-    | {{_ 'multi-selection-member'}}
-  ul.sidebar-list
-    each currentBoard.activeMembers
-      with getUser userId
-        li(class="{{#if Filter.members.isSelected _id}}active{{/if}}")
-          a.name.js-toggle-member-multiselection
-            +userAvatar(userId=this._id)
+  if MultiSelection.hasObjects
+    if canModifyBoard
+      a.sidebar-btn.js-move-selection
+        i.fa.fa-upload
+        span {{_ 'move-selection'}}
+  else
+    h3
+      i.fa.fa-tag
+      | {{_ 'multi-selection-label'}}
+    ul.sidebar-list
+      each currentBoard.labels
+        li
+          a.name.js-toggle-label-multiselection
+            span.card-label.square(class="{{labelColorClass color}}" style="{{labelColorStyle color}}")
             span.sidebar-list-item-description
-              = profile.fullname
-              | (<span class="username">{{ username }}</span>)
-            if allSelectedElementHave 'member' _id
+              if name
+                = name
+              else
+                span.quiet {{_ "label-default" (_ (concat "color-" color))}}
+            if allSelectedElementHave 'label' _id
               i.fa.fa-check
-            else if someSelectedElementHave 'member' _id
+            else if someSelectedElementHave 'label' _id
               | ⋯
-  if currentUser.isBoardAdmin
     hr
-    a.sidebar-btn.js-selection-color
-      i.fa.fa-paint-brush
-      span {{_ 'selection-color'}}
-    a.sidebar-btn.js-copy-selection
-      i.fa.fa-clipboard
-      span {{_ 'copy-selection'}}
-    a.sidebar-btn.js-move-selection
-      i.fa.fa-upload
-      span {{_ 'move-selection'}}
-    a.sidebar-btn.js-archive-selection
-      i.fa.fa-archive
-      span {{_ 'archive-selection'}}
+    h3
+      i.fa.fa-users
+      | {{_ 'multi-selection-member'}}
+    ul.sidebar-list
+      each currentBoard.activeMembers
+        with getUser userId
+          li(class="{{#if Filter.members.isSelected _id}}active{{/if}}")
+            a.name.js-toggle-member-multiselection
+              +userAvatar(userId=this._id)
+              span.sidebar-list-item-description
+                = profile.fullname
+                | (<span class="username">{{ username }}</span>)
+              if allSelectedElementHave 'member' _id
+                i.fa.fa-check
+              else if someSelectedElementHave 'member' _id
+                | ⋯
+    if currentUser.isBoardAdmin
+      hr
+      a.sidebar-btn.js-selection-color
+        i.fa.fa-paint-brush
+        span {{_ 'selection-color'}}
+      a.sidebar-btn.js-copy-selection
+        i.fa.fa-clipboard
+        span {{_ 'copy-selection'}}
+      a.sidebar-btn.js-move-selection
+        i.fa.fa-upload
+        span {{_ 'move-selection'}}
+      a.sidebar-btn.js-archive-selection
+        i.fa.fa-archive
+        span {{_ 'archive-selection'}}
 
 template(name="disambiguateMultiLabelPopup")
   p {{_ 'what-to-do'}}

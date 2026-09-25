@@ -71,6 +71,28 @@ export const MultiSelection = {
   sidebarView: 'multiselection',
 
   _selectedCards: new ReactiveVar([]),
+  _selectedObjects: new ReactiveVar([]),
+
+  objectSelection() {
+    const boardId = Session.get('currentBoard');
+    return this._selectedObjects.get().filter(entry => entry.boardId === boardId);
+  },
+  hasObjects() { return this.objectSelection().length > 0; },
+  isObjectSelected(kind, id) {
+    return this.objectSelection().some(entry => entry.kind === kind && entry.id === id);
+  },
+  toggleObject(kind, id, boardId) {
+    if (!this.isActive()) this.activate();
+    const entries = this.objectSelection();
+    const index = entries.findIndex(entry => entry.kind === kind && entry.id === id);
+    if (index >= 0) entries.splice(index, 1);
+    else entries.push({ kind, id, boardId });
+    this._selectedObjects.set(entries);
+  },
+  mixedSelection() {
+    return [...this.objectSelection().map(({ kind, id }) => ({ kind, id })),
+      ...ReactiveCache.getCards(this.getMongoSelector()).map(card => ({ kind: 'card', id: card._id }))];
+  },
 
   _isActive: new ReactiveVar(false),
 
@@ -80,6 +102,7 @@ export const MultiSelection = {
 
   reset() {
     this._selectedCards.set([]);
+    this._selectedObjects.set([]);
   },
 
   getMongoSelector() {
@@ -147,7 +170,7 @@ export const MultiSelection = {
 
   toggleRange(cardId) {
     const selectedCards = this._selectedCards.get();
-    this.reset();
+    this._selectedCards.set([]);
     if (!this.isActive() || selectedCards.length === 0) {
       this.toggle(cardId);
     } else {
@@ -204,6 +227,6 @@ EscapeActions.register(
     return MultiSelection.isActive();
   },
   {
-    noClickEscapeOn: '.js-minicard,.js-board-sidebar-content',
+    noClickEscapeOn: '.js-minicard,.js-board-sidebar-content,.js-list-header,.js-swimlane-header,.js-structural-selection',
   },
 );
