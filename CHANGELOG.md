@@ -680,6 +680,28 @@ the Markdown commit as the template.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** **Checklist drag-and-drop** saves the new item order instead of
+returning the item to its original position.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cb4d29b01">Fix checklist item reordering</a>. Thanks to AmigaAbattoir and xet7.</summary>
+
+Read the destination checklist and neighboring items before restoring the DOM
+for Blaze. Previously, restoration happened first, so dropping an item saved its
+original position. Preserve checklist-to-list card creation.
+Fixes [#6723](https://github.com/wekan/wekan/issues/6723).
+
+Regression tests cover first, middle, last and cross-checklist positions, plus
+card drops. Chromium verifies real dragging, database order and persistence after
+reload; all seven existing checklist browser tests also pass. The Meteor build
+and eleven checklist-to-card checks pass.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.02 2026-09-25 WeKan ® release
 
 **In short:** **Admin Panel / People** opens Email and provides separate login
