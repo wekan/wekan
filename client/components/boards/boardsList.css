@@ -2258,11 +2258,3 @@ body.has-theme-board-tiles .board-list > li.js-board .board-list-card-count {
   white-space: normal;
   word-break: break-word;
 }
-.board-list .js-board-tile-menu {
-  position: absolute;
-  bottom: 4px;
-  inset-inline-end: 4px;
-  z-index: 2;
-  padding: 4px 8px;
-  margin: 0;
-}

@@ -1858,7 +1858,6 @@ Template.boardList.events({
   // below) that asks for confirmation AND whether cards should be skipped.
   // The actual copyBoard call, and the redirect to the new board, moved into
   // that popup's own submit handler; this stays a plain Popup.open.
-  'click .js-board-tile-menu': Popup.open('boardTileActions', { titleKey: 'actions' }),
   'click .js-clone-board': Popup.open('cloneBoard'),
   'click .js-archive-board'(evt) {
     if (confirm(TAPi18n.__('archive-board-confirm'))) {
@@ -2463,19 +2462,6 @@ Template.boardsSortPopup.events({
 Template.cloneBoardPopup.helpers({
   boardTitle() {
     return this && this.title;
-  },
-});
-
-// A popup owns its events; it is rendered outside the All Boards template.
-Template.boardTileActionsPopup.events({
-  'click .js-clone-board': Popup.open('cloneBoard'),
-  'click .js-archive-board'(event) {
-    event.preventDefault();
-    if (!confirm(TAPi18n.__('archive-board-confirm'))) return;
-    Meteor.call('archiveBoard', this._id, error => {
-      if (error) alert(error.reason || error.message);
-      else Popup.close();
-    });
   },
 });
 

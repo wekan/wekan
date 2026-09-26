@@ -408,8 +408,9 @@ controls have their own lists in [Search](../Page/Search.md) and
 
 ## Archive or duplicate a board
 
-On an active board tile, board administrators can open **Actions (☰)**.
-**Move Board to Archive** asks for confirmation. **Duplicate Board** opens the
-existing confirmation popup, including its option to omit cards. Cancelling
-leaves the board unchanged. The server still requires the existing board-admin
-permission for these operations; showing a menu does not grant access.
+In the right sidebar's Multi-selection actions, **Duplicate Board** copies
+selected boards with their cards. Directly below it, **Duplicate Board — Without
+cards** copies the selected boards' structure without cards. Both actions ask
+for confirmation and use the existing board-administrator permission checks.
+Board tiles have no Actions hamburger menu; use the multiselection sidebar to
+archive selected boards.

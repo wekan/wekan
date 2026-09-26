@@ -227,6 +227,7 @@ Template.allBoardsMultiSelectionSidebar.events({
   },
   'click .js-duplicate-selected-boards'(evt) {
     evt.preventDefault();
+    const withoutCards = evt.currentTarget.dataset.withoutCards === 'true';
     const selectedBoards = selectedBoardIdsOrWarn();
     if (!selectedBoards) return;
     if (
@@ -242,6 +243,7 @@ Template.allBoardsMultiSelectionSidebar.events({
               sort: ReactiveCache.getBoards({ archived: false }).length,
               type: 'board',
               title: board.title,
+              withoutCards,
             },
             (err) => {
               if (err) console.error(err);

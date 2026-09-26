@@ -110,6 +110,9 @@ template(name="allBoardsMultiSelectionSidebar")
       a.sidebar-btn.js-duplicate-selected-boards
         i.fa.fa-clipboard
         span {{_ 'duplicate-board'}}
+      a.sidebar-btn.js-duplicate-selected-boards.js-duplicate-selected-boards-without-cards(data-without-cards="true")
+        i.fa.fa-clipboard
+        span {{_ 'duplicate-board'}} — {{_ 'clone-board-without-cards'}}
   hr
   a.sidebar-btn.js-multiselection-reset
     i.fa.fa-times-thin
