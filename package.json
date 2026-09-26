@@ -41,7 +41,7 @@
     "@rsdoctor/rspack-plugin": "^1.6.4",
     "@rspack/cli": "^2.2.7",
     "@rspack/core": "^2.2.6",
-    "@rspack/dev-server": "^2.2.0",
+    "@rspack/dev-server": "^2.2.1",
     "@swc/core": "^1.15.32",
     "@typescript-eslint/eslint-plugin": "^8.70.1",
     "@typescript-eslint/parser": "^8.65.0",
