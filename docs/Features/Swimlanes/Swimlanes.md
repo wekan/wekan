@@ -23,3 +23,10 @@ the board administrator has not locked resizing.
   resize locking and WIP Limit Groups
 - [Lists](../Lists/Lists.md): create a first list with the empty lane's **+**
 - [Archive and Delete](../Board/Archive-and-Delete.md)
+
+## Insert above or below
+
+Use the swimlane header **+**, or **Swimlane Actions → Add Swimlane**.
+The existing popup offers **Above selected swimlane** and **Below selected
+swimlane**, with Below selected by default. Multiple titles retain their order
+between the selected lane and its neighbor. Board write permissions still apply.

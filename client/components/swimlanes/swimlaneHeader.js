@@ -31,7 +31,7 @@ Template.swimlaneHeader.events({
     swimlaneHeaderCollapsed(!swimlaneHeaderCollapsed());
   },
   'click .js-open-swimlane-menu': Popup.open('swimlaneAction'),
-  'click .js-open-add-swimlane-menu': Popup.open('swimlaneAdd'),
+  'click .js-open-add-swimlane-menu': Popup.open('swimlaneAdd', { titleKey: 'add-swimlane' }),
   async submit(event, tpl) {
     event.preventDefault();
     const newTitle = tpl.$('.list-name-input').val().trim();
@@ -120,7 +120,7 @@ Template.swimlaneActionPopup.events({
   },
   'click .js-export-swimlane': Popup.open('exportSwimlane'),
   'click .js-import-swimlane': Popup.open('importSwimlane'),
-  'click .js-add-swimlane': Popup.open('swimlaneAdd'),
+  'click .js-add-swimlane': Popup.open('swimlaneAdd', { titleKey: 'add-swimlane' }),
   'click .js-add-list-from-swimlane': Popup.open('addList'),
   'click .js-set-swimlane-color': Popup.open('setSwimlaneColor'),
   'click .js-set-swimlane-height': Popup.open('setSwimlaneHeight'),
@@ -160,11 +160,17 @@ Template.swimlaneAddPopup.events({
   async submit(event, tpl) {
     event.preventDefault();
     const currentBoard = Utils.getCurrentBoard();
-    const nextSwimlane = currentBoard.nextSwimlane(tpl.currentSwimlane);
+    const above = tpl.find('.js-swimlane-placement:checked')?.value === 'above';
+    const lanes = currentBoard.swimlanes();
+    const currentIndex = lanes.findIndex(lane => lane._id === tpl.currentSwimlane?._id);
+    // The empty-board composer has a board context rather than a swimlane.
+    const insertionIndex = currentIndex < 0 ? lanes.length : currentIndex + (above ? 0 : 1);
+    const previous = lanes[insertionIndex - 1];
+    const next = lanes[insertionIndex];
     const titleInput = tpl.find('.swimlane-name-input');
     const titles = titlesFromComposer(titleInput);
     if (!titles.length || tpl.creatingSwimlanes) return;
-    const indexes = titleSortIndexes(tpl.currentSwimlane?.sort, nextSwimlane?.sort, titles.length);
+    const indexes = titleSortIndexes(previous?.sort, next?.sort, titles.length);
     const swimlaneType = currentBoard.isTemplatesBoard()
       ? 'template-swimlane'
       : 'swimlane';

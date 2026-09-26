@@ -405,3 +405,11 @@ controls have their own lists in [Search](../Page/Search.md) and
 - [Public Boards](Public.md) — the other board table, read-only
 - [Workspaces](Workspaces.md) — the tree in the left menu: folding, nesting and the drag
 - [Left menu](../Page/Left-Menu.md)
+
+## Archive or duplicate a board
+
+On an active board tile, board administrators can open **Actions (☰)**.
+**Move Board to Archive** asks for confirmation. **Duplicate Board** opens the
+existing confirmation popup, including its option to omit cards. Cancelling
+leaves the board unchanged. The server still requires the existing board-admin
+permission for these operations; showing a menu does not grant access.

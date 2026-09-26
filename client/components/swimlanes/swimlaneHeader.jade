@@ -139,6 +139,12 @@ template(name="swimlaneAddPopup")
       unless currentUser.isReadOnly
         unless currentUser.isReadAssignedOnly
           form
+            label
+              input.js-swimlane-placement(type="radio" name="swimlane-placement" value="below" checked)
+              | {{_ 'below-selected-swimlane'}}
+            label
+              input.js-swimlane-placement(type="radio" name="swimlane-placement" value="above")
+              | {{_ 'above-selected-swimlane'}}
             textarea.swimlane-name-input.full-line(rows="2" dir="auto" placeholder="{{_ 'add-swimlane'}}"
               autocomplete="off" autofocus)
             +multilineTitleChoice(selector=".swimlane-name-input" singular="swimlane" plural="swimlanes")

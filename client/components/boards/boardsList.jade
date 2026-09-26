@@ -328,6 +328,17 @@ template(name="boardList")
                           i.fa(class="fa-star{{#unless isStarred}}-o{{/unless}}")
                       //- #2220 Home-board toggle is disabled: the icon and the
                       //- set-default-board action are intentionally not rendered.
+                      unless archived
+                        if isAdministrable
+                          button.js-board-tile-menu(type="button" title="{{_ 'actions'}}" aria-label="{{_ 'actions'}}")
+                            i.fa.fa-bars
+
+template(name="boardTileActionsPopup")
+  ul.pop-over-list
+    li
+      a.js-clone-board {{_ 'duplicate-board'}}
+    li
+      a.js-archive-board {{_ 'archive-board'}}
 
 template(name="cloneBoardPopup")
   form.js-clone-board-form
