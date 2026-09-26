@@ -632,6 +632,34 @@ the Markdown commit as the template.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** Board multiselection can duplicate selected boards without their
+cards. The new action sits directly below Duplicate Board in the right sidebar,
+and board tiles no longer show an Actions hamburger menu.
+
+This release adds the following features:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5dbb9167f">Move card-free board duplication to multiselection</a>. Thanks to xet7.</summary>
+
+Remove the hamburger Actions menu from board tiles. In the All Boards right
+sidebar's Multi-selection actions, place Duplicate Board — Without cards
+immediately below Duplicate Board. Reuse the selected-board guard, confirmation
+and existing copyBoard option; archive remains in the multiselection sidebar.
+Update the All Boards documentation to describe the final menu locations.
+
+Five Chromium scenarios and five focused Node suites pass, covering two-board
+copies with and without cards, cancellation, preserved source cards, absent tile
+menus, denied non-admin writes and existing swimlane placement. Browser tests
+ran against edited source on a separate port from the prebuilt local bundle.
+No new permission rules or dependencies were introduced. Other browser engines
+were not run.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.05 2026-09-27 WeKan ® release
 
 **In short:** Five new **flow analytics** pages add Aging WIP, blocker analysis,
