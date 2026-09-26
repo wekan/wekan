@@ -12,6 +12,7 @@ import Swimlanes from '/models/swimlanes';
 import Attachments from '/models/attachments';
 import ChangeHistory from '/models/changeHistory';
 import { attachmentContentAction } from '/models/lib/attachmentSoftDelete';
+import { listLifecyclePlan } from '/models/lib/listLifecycleRestore';
 import {
   softDeleteAttachment,
   restoreAttachment,
@@ -186,16 +187,12 @@ async function applyListContent(row, content) {
     return true;
   }
   if (row.group === 'lifecycle' && content && content.deleted !== undefined) {
-    // A soft delete and its restore are the same row read in two directions.
-    if (content && content.deleted === true) {
-      await Lists.updateAsync(list._id, {
-        $set: { deletedAt: content.deletedAt || new Date(), deletedBy: row.userId },
-      });
-    } else {
-      await Lists.updateAsync(list._id, {
-        $set: { deletedAt: null, deletedBy: null },
-      });
+    const plan = listLifecyclePlan(list, row, content);
+    if (!plan) return false;
+    if (plan.cards) {
+      await Cards.updateAsync(plan.cards, structuredClone(plan.modifier), { multi: true });
     }
+    await Lists.updateAsync(list._id, plan.modifier);
     return true;
   }
   return applyFieldContent(Lists, row, content);
@@ -275,6 +272,15 @@ async function currentContentOf(row) {
   if (!collection) return null;
   const doc = await collection.findOneAsync(row.entityId);
   if (!doc) return null;
+
+  if (row.entityType === 'list' && row.group === 'lifecycle') {
+    return {
+      deleted: Boolean(doc.deletedAt),
+      deletedAt: doc.deletedAt || null,
+      deleteBatchId: doc.deleteBatchId || row.newContent?.deleteBatchId ||
+        row.previousContent?.deleteBatchId || row.batchId || null,
+    };
+  }
 
   if (row.group === 'position') {
     const position = {};

@@ -61,8 +61,8 @@ async function softRemoveList({ userId, list }) {
     entityId: list._id,
     group: 'lifecycle',
     changeType: 'removed',
-    previousContent: { deleted: false },
-    newContent: { deleted: true, deletedAt: at },
+    previousContent: { deleted: false, deleteBatchId: batchId },
+    newContent: { deleted: true, deletedAt: at, deleteBatchId: batchId },
     userId,
     batchId,
   });
@@ -133,8 +133,8 @@ Meteor.methods({
       entityId: list._id,
       group: 'lifecycle',
       changeType: 'added',
-      previousContent: { deleted: true, deletedAt: list.deletedAt },
-      newContent: { deleted: false },
+      previousContent: { deleted: true, deletedAt: list.deletedAt, deleteBatchId: batchId },
+      newContent: { deleted: false, deleteBatchId: batchId },
       userId: this.userId,
       batchId,
     });

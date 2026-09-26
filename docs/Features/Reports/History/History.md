@@ -22,6 +22,12 @@ view, Member settings, `Activities`, `userPositionHistory`, `docs/Features/Undo/
 >   hook it also catches the REST API, the importers and the rules engine, none
 >   of which go through the client setters. Moves and the list soft delete record
 >   themselves, as one change each, rather than as several field edits.
+> * **List deletion batches** — undo/restore clears the deletion markers from
+>   the list and the cards deleted with it. Redo reapplies the deletion to live
+>   cards in that list. Cards deleted independently retain their own batch and
+>   are not revived by list undo. Queries remain scoped to the same board/list;
+>   moving a list to another board makes its old lifecycle row inapplicable.
+>   Permanent purges cannot be undone.
 > * **The read side and restore** — `server/models/changeHistory.js`:
 >   `changeHistory.page`, `.restore` (dual re-logging, oldest-to-newest, one
 >   batch), `.undoLast` and `.redoLast`.
