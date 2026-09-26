@@ -382,12 +382,6 @@ whether it is one feature or several; it bundles per-org/team/board label
 expansion, granular board roles, LDAP-group-driven auto-labeling and
 permission inheritance, none of which is a filter change - needs it split
 into separate, concretely-scoped issues before any one part is buildable),
-[#2044](https://github.com/wekan/wekan/issues/2044) (an AND/OR toggle for
-the whole filter panel - today every active filter field is combined with
-implicit AND, and the fields within one SetFilter with OR; switching that
-per-panel, or per-field, is a real change to `Filter._getMongoSelector()`'s
-selector-building shape, not an additive filter, and needs a decision on
-what the toggle should scope: the whole panel, or one field at a time),
 [#1915](https://github.com/wekan/wekan/issues/1915) (hide cards by a date -
 largely already covered by the existing `Filter.dueAt` past/today/tomorrow/
 this-week/next-week/no-date states; the remaining gap is filtering by
@@ -409,11 +403,6 @@ tag - dated 2017; labels are already filterable and `Filter.dueAt` covers
 due-date ranges, but "moved on a specific date" would need a per-activity
 date filter, not a card-field one, since a card has no single "last moved"
 field today),
-[#3361](https://github.com/wekan/wekan/issues/3361) (a filter for the
-Calendar/Multi Board Calendar view - whether the sidebar `Filter` already
-scopes what those views draw needs checking against the LIVE calendar
-rendering, which is runtime UI state this sandbox cannot verify by reading
-source alone),
 [#572](https://github.com/wekan/wekan/issues/572) (label add/remove as its own
 controllable Notification Settings option - the activity feed entry it asks
 for already exists (`models/cards.js`'s `cardLabels()` hook logs
@@ -651,7 +640,9 @@ Excel exports. Dependency edits, undo/redo and optional move reasons now
 provide a timestamped history for reports. Time reports show hour adjustments
 by author, and deleting cards or checklists preserves their activity trail.
 Linked cards can mirror cards on the same board. List deletion undo now
-restores the cards deleted with the list.
+restores the cards deleted with the list. Board tiles gain confirmed actions,
+swimlanes gain placement choices, and filters gain label AND/OR selection.
+New-card titles survive closing the composer as private drafts.
 
 This release adds the following features:
 
@@ -713,6 +704,35 @@ the format test also passes after the overlong prose was rewrapped.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5ed4268a6">Add swimlane placement and board tile actions</a>. Thanks to bentiss and xet7.</summary>
+
+Fix #2131 and #2644. Choose above or below the current swimlane in its Add
+Swimlane dialog. Board administrators can duplicate or archive an active board
+from its tile Actions menu, using confirmations and existing permission checks.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6be31f5a2">Add label AND/OR filtering and retain filter text</a>. Thanks to Trunkslike, TheBigBloodyB, Roemer and xet7.</summary>
+
+Fix #2044 and #3361. Select AND or OR for included labels in the board Filter
+panel; excluded labels keep their existing meaning. Reopening the panel retains
+list, title and advanced text. Verify card filtering in Calendar grid and agenda
+views; the separate multi-board calendar remains outside this board filter.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c7e19a324">Preserve private new-card title drafts</a>. Thanks to TutloTutlo and xet7.</summary>
+
+Fix #810. Restore unsaved titles when reopening the same list/swimlane composer.
+Reuse owner-scoped unsaved edits, keep top and bottom composers separate, and
+clear successfully inserted titles. Local typing takes precedence over a late
+subscription result. Other users cannot read or overwrite these drafts.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3b3f7ebd7">Allow linked-card mirrors on the same board</a>. Thanks to RinTheCatato, mohamed-aziz-chamakh and xet7.</summary>
 
 Fix #5683: the Link picker and server method now accept a real source card on
@@ -769,6 +789,30 @@ The Meteor app compiled and ran with the documented API flag enabled. External
 identity providers and the FerretDB backend matrix were not tested. Existing
 Upcoming feature coverage remains recorded above; the shared History changes
 also passed the affected chart and time-report regressions.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5b07274c3">Audit all open issues and verify board view controls</a>. Thanks to sebastianha and xet7.</summary>
+
+Triage all 140 open issues and record each finding and outstanding
+verification in the [full issue
+inventory](docs/DeveloperDocs/All-Open-Issues-Audit-2026-09-27.md). Verify
+existing minicard swimlane names (#1748) and board-specific view visibility
+(#2107). Remove completed filter requests from TODO Later. The other 133
+requests remain outstanding; triage does not imply their implementation or
+reproduction.
+
+Upcoming regression coverage remains recorded in the entries above. For this
+batch, 15 focused Node suites and ten Chromium scenarios pass, including
+actual menu actions, calendar filtering, draft restoration and denied
+unauthorized writes. The Meteor app compiles and runs. No dependencies or
+server permission rules were added. The full Node run is not green: 136 of
+1,233 suites failed; the new tile RTL issue was fixed and its suite passes,
+and the socket-restricted API suite passes with socket access. The audit
+records the remaining failures, including baseline fixture failures and
+translation-completeness checks. Other browser engines and the live FerretDB
+matrix were not tested.
 
 </details>
 
