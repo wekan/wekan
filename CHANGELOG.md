@@ -632,7 +632,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v12.06 2026-09-27 WeKan ® release
 
 **In short:** Board multiselection can duplicate selected boards without their
 cards. The new action sits directly below Duplicate Board in the right sidebar,
