@@ -1336,3 +1336,9 @@ body.mobile-mode .card-details .card-details-header .close-card-details-mobile-w
 .card-details-list-options [role="option"] { padding: 0.5em; cursor: pointer; }
 .card-details-list-options [aria-selected="true"] { font-weight: bold; }
 .card-details-list-options [role="option"]:focus { outline: 2px solid currentColor; outline-offset: -2px; }
+
+/* Measure at the normal size, but paint only once beside the source minicard.
+   Popup, mobile and maximized cards retain their own initial geometry. */
+body.desktop-mode .card-details.card-details-position-pending:not(.card-details-popup):not(.card-details-maximized) {
+  visibility: hidden;
+}

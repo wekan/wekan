@@ -53,7 +53,7 @@ const place = (anchor, opts = {}) => placeCardDetailsX({
 
 console.log('cardDetailsPlacement:');
 
-// ── the side with more room wins ────────────────────────────────────────────
+// ── the preferred side wins when it fits ────────────────────────────────────────────
 
 test('a card in the first list opens to its RIGHT, next to the card', () => {
   // The whole point of #6465: this used to be docked at x≈1392 (the end edge),
@@ -72,11 +72,11 @@ test('a card in the last list opens to its LEFT', () => {
   assert.strictEqual(out.left + out.width, anchor.left - GAP, 'butting up to the card');
 });
 
-test('the side is chosen by which has MORE room, not by a fixed edge', () => {
-  // Just left of centre: more room on the right.
-  assert.strictEqual(place(minicard(800)).side, 'right');
-  // Just right of centre: more room on the left.
-  assert.strictEqual(place(minicard(1000)).side, 'left');
+test('prefer the reading direction even when the other side has more room', () => {
+  assert.strictEqual(place(minicard(1000)).side, 'right');
+  assert.strictEqual(place(minicard(650), { rtl: true }).side, 'left');
+  assert.strictEqual(place(minicard(1600)).side, 'left');
+  assert.strictEqual(place(minicard(20), { rtl: true }).side, 'right');
 });
 
 test('an exact tie is broken towards the reading direction', () => {
@@ -199,12 +199,21 @@ test('neither the module nor its caller writes a vertical position', () => {
 
 test('it runs when a card is opened, and again when the viewport changes', () => {
   const js = read('client/components/cards/cardDetails.js');
-  assert.ok(/Tracker\.afterFlush\(\(\) => anchorCardDetailsX\(/.test(js),
+  assert.ok(/Tracker\.afterFlush\(\(\) => \{\s*const element = \$cardDetails\.get\(0\);\s*try \{\s*anchorCardDetailsX\(element\)/.test(js),
     'placed after the flush that renders it, so the measured width is the real one');
   assert.ok(/addEventListener\('resize'/.test(js) && /anchorAllCardDetailsX\(\)/.test(js),
     'and re-placed on resize — a viewport that shrank is the other way to lose it');
   assert.ok(/requestAnimationFrame/.test(js),
     'coalesced into a frame: a window drag-resize fires resize continuously');
+});
+
+test('desktop cards stay unpainted until initial placement, including fallback paths', () => {
+  const jade = read('client/components/cards/cardDetails.jade');
+  const css = read('client/components/cards/cardDetails.css');
+  const js = read('client/components/cards/cardDetails.js');
+  assert.match(jade, /section\.card-details[^\n]*\.card-details-position-pending\(/);
+  assert.match(css, /body\.desktop-mode \.card-details\.card-details-position-pending:not\(\.card-details-popup\):not\(\.card-details-maximized\) \{\s*visibility: hidden;/);
+  assert.match(js, /anchorCardDetailsX\(element\);\s*\} finally \{[\s\S]*?element\.classList\.remove\('card-details-position-pending'\)/);
 });
 
 test('the bottom-right handle can make the opened card wider or narrower', () => {

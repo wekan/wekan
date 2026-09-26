@@ -1,7 +1,7 @@
 'use strict';
 
 // Where, horizontally, the desktop card-details window belongs: beside the
-// minicard it was opened from, on whichever side has more room, and always
+// minicard it was opened from, preferring the reading direction, and always
 // entirely inside the viewport.
 //
 // #6465 asked for the 6.09 behaviour back — "notice how the card info docks
@@ -26,8 +26,7 @@ const MARGIN = 8;
 // anchor:        the minicard's viewport rectangle — { left, right } is enough.
 // panelWidth:    the width the window has right now, from the stylesheet.
 // viewportWidth: the visible width, i.e. the window's inner width.
-// rtl:           only breaks an exact tie, towards the reading direction's start
-//                edge, so a tie looks deliberate rather than arbitrary.
+// rtl:           prefer left in RTL, right in LTR; flip when that side cannot fit.
 //
 // Returns { left, width, side }: the inline geometry to apply, in viewport
 // coordinates. `side` is which side of the minicard was chosen and is reported
@@ -65,7 +64,9 @@ function placeCardDetailsX({
   const roomLeft = (anchor.left - gap) - margin;
 
   let side;
-  if (roomRight > roomLeft) side = 'right';
+  if (!rtl && roomRight >= width) side = 'right';
+  else if (rtl && roomLeft >= width) side = 'left';
+  else if (roomRight > roomLeft) side = 'right';
   else if (roomLeft > roomRight) side = 'left';
   else side = rtl ? 'left' : 'right';
 
