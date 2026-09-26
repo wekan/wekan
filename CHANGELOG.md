@@ -699,6 +699,75 @@ the Markdown commit as the template.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** Five new **flow analytics** pages add Aging WIP, blocker analysis,
+Monte Carlo forecasts, XmR and size-versus-cycle-time charts, with PDF and
+Excel exports. Dependency edits, undo/redo and optional move reasons now
+provide a timestamped history for reports. Time reports show hour adjustments
+by author, and deleting cards or checklists preserves their activity trail.
+
+This release adds the following features:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0b411b547">Add five flow reports and reversible dependency history</a>. Thanks to sojournerc and xet7.</summary>
+
+Add five pages at the bottom of Board View. Reuse card dates, Activities,
+Planning Poker, numeric custom fields, card dependencies and universal History.
+Blocker episodes have stage-specific start/end timestamps; unknown older
+starts stay unknown. Monte Carlo supports both completion-date and capacity
+forecasts, with bounded inputs and reproducible sampling. XmR includes
+individuals and moving-range plots. Every page has accessible data tables and
+PDF/Excel exports using the same calculations and selected parameters.
+
+Reuse the existing MIT-licensed Chart.js through dynamic imports and existing
+server exporters. No new package or external analytics service is required.
+Record dependency additions, removals and property changes in History, with
+validated undo/redo. Localize the new labels using existing locale vocabulary,
+with full explanatory text in English and Finnish and compact glossary/formula
+labels elsewhere; those compact combinations need human language review.
+Existing translations are preserved. Document data sources and limitations in
+[Flow analytics](docs/Features/Reports/Charts/Flow-Analytics.md).
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6d99ad73c">Preserve time records and add reversible move reasons</a>. Thanks to ladistrupl, zombah and xet7.</summary>
+
+Keep card/checklist activity after deletion and retain card snapshots for
+historical reports. Add optional move reasons in the Move Card dialog and an
+opt-in Card Settings prompt. Record complete positions through the shared
+history hook and authenticated direct REST edits. Undo/redo appends reversal
+checkpoints for chart replay while keeping those checkpoints out of the undo
+stack. Time shows timestamped hour adjustments and corrections by their author,
+with matching PDF/Excel exports; shared totals are not treated as individual
+work sessions. REST accepts a zero-hour correction. Dependency cleanup on
+cross-board moves also uses the history hooks.
+
+Audit the open time-related requests against the existing implementation in
+[Time issue audit](docs/Features/Reports/Charts/Time-Issue-Audit.md). Exact inline
+activity timestamps and checklist completion events already exist; retain them
+and add browser regressions. The broader checklist/calendar request remains
+open. Previously purged history cannot be reconstructed, and removal snapshots
+do not restore permanently deleted child documents or attachment files.
+
+Upcoming regression audit: 43 focused Node suites pass, covering calculation
+and export parity, invalid/missing data, board boundaries, dependency restore,
+position history, correction attribution, retained blocker episodes, worker
+permissions, locale keys/placeholders and existing checklist/activity behavior.
+Fifteen Chromium scenarios pass across the chart, time-history and REST-move
+suites, including real PDF/Excel downloads, undo/redo, preserved card/checklist
+activity, exact timestamps and unauthorized requests. The local Meteor app
+compiled and ran. Full-platform and FerretDB integration suites were not run.
+The repository-wide translation-completeness check still reports pre-existing
+English placeholders outside these changes; the new-label checks pass.
+Changelog link/archive checks and the read-only release-note preflight pass;
+the format test reports 20 unchanged overlong lines in existing sections.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.04 2026-09-26 WeKan ® release
 
 **In short:** **InactiveBleed** is fixed: disabled accounts cannot obtain new
