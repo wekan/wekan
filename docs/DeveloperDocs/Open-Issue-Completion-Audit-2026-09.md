@@ -133,6 +133,9 @@ are not browser tests. No application code or dependency changed. Browser tests,
 a live SAML identity provider, LDAP deployments and database conformance were
 not rerun for this documentation audit. No new tests duplicate existing coverage.
 
+Changelog link and archive checks also pass. The format check still fails on
+20 pre-existing overlong lines; their text is identical to the pre-audit baseline.
+
 Additional passing suites beyond those named above: `listMoveSwimlane` and
 `addExistingCardAsSubtask3626`. Their passing does not alone establish that every
 comment in the broader related requests has been satisfied.

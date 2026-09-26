@@ -709,6 +709,23 @@ the format test reports 20 unchanged overlong lines in existing sections.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/374e03e99">Audit completed issues and refresh TODO Later</a>. Thanks to Meeques, Somantiq, javen9881, matrixes, bastos77, therampagerado, sfahrenholz, Gobliins and xet7.</summary>
+
+Check the 159-open-issue snapshot and record source/test evidence for ten
+already implemented requests. Add their closing keywords, remove seven stale
+backlog entries, narrow partially implemented requests and correct two unrelated
+issue references. Retain deployment investigations and unverified wider scope.
+See the [completion audit](docs/DeveloperDocs/Open-Issue-Completion-Audit-2026-09.md)
+for the decisions and the remaining issue inventory.
+
+All 28 selected Node regression suites pass, including negative cases and UI
+source guards. No application code changes; browser and live identity-provider
+tests were not rerun for this documentation audit. The existing Upcoming feature
+coverage is recorded above; this entry adds no new runtime behavior.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.04 2026-09-26 WeKan ® release
