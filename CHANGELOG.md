@@ -767,6 +767,24 @@ entries; this layout adjustment adds no new mutation or permission rules.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b97090221">Open cards directly beside their minicards</a>. Thanks to xet7.</summary>
+
+Place desktop card windows before their first visible frame, eliminating the
+initial flash at the screen edge. Prefer right in LTR and left in RTL when that
+side fits; otherwise use the other side. If neither side fits, keep the window
+inside the viewport. Preserve user-dragged positions and separate mobile,
+maximized and popup geometry.
+
+Eight Chromium scenarios pass: first-frame placement on preferred and fallback
+sides in both directions, plus all four date save/delete position regressions.
+Four focused Node suites pass, including geometry, initial visibility, board
+refresh readiness and RTL checks. The opening regression fails before the fix.
+Existing Upcoming coverage is recorded in the other entries. Other browser
+engines were not run; this client layout change adds no permission rules.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f5878134a">Keep card windows still when saving dates</a>. Thanks to xet7.</summary>
 
 Saving or removing Received, Start, Due or End refreshed the board subscription,
