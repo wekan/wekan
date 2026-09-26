@@ -223,10 +223,15 @@ Template.board.onCreated(function () {
     // otherwise those child cursors are only recalculated after a page reload.
     const subscriptionGeneration =
       Session.get('boardSubscriptionGeneration') || 0;
-    if (!currentBoardId) {
+    // A same-board refresh must not tear down boardBody and its open card
+    // windows. Date saves refresh this publication to pick up stored values;
+    // toggling readiness off recreates each window at its default dock before
+    // anchoring it again. A different board still starts behind the spinner.
+    if (this.subscriptionBoardId !== currentBoardId) {
+      this.subscriptionBoardId = currentBoardId;
       this.isBoardReady.set(false);
-      return;
     }
+    if (!currentBoardId) return;
 
     const handle = Meteor.subscribe(
       'board',
@@ -238,7 +243,7 @@ Template.board.onCreated(function () {
     // per board by size; the flag drives isLazyCards(boardId). #6480.
     Meteor.subscribe('boardCardsLoadingMode', currentBoardId);
     const ready = handle.ready();
-    this.isBoardReady.set(ready);
+    if (ready) this.isBoardReady.set(true);
 
     if (ready) {
       // Run outside the computation so this autorun depends only on the board
