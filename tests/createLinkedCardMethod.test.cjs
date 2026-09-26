@@ -50,12 +50,12 @@ test('#6613: the server validates every link coordinate before inserting', () =>
   assert.match(method, /await Cards\.insertAsync\(/);
 });
 
-test('#6613 negative: same-board, template, and link-pointer targets are refused', () => {
+test('#5683: allow same-board sources while refusing archived, template and pointer targets', () => {
   const method = server.slice(
     server.indexOf('async createLinkedCard('),
     server.indexOf('// #6608:'),
   );
-  assert.match(method, /sourceCard\.boardId === boardId/);
+  assert.doesNotMatch(method, /sourceCard\.boardId === boardId/);
   assert.match(method, /sourceCard\.archived === true/);
   for (const type of ['template-card', 'cardType-linkedCard', 'cardType-linkedBoard']) {
     assert.ok(method.includes(`sourceCard.type === '${type}'`));

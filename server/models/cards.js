@@ -167,7 +167,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized');
     }
     if (
-      sourceCard.boardId === boardId ||
+      sourceCard.linkedId ||
       sourceCard.archived === true ||
       destinationList.archived === true ||
       destinationSwimlane.archived === true ||

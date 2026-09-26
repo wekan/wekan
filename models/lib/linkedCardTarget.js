@@ -10,8 +10,8 @@
 // freeze"). Mirrors the #3328 parent/subtask cycle guard, but for linkedId.
 //
 // Rule: a link target must be a REAL card (not a linked card, linked board, or
-// template card), must not be one of the linking board's own cards (self / same
-// board), and must not already link back to one of them (direct mutual link).
+// template card). A new mirror can point at a real card on its own board
+// without creating a cycle. The picker excludes sources already mirrored.
 
 const LINK_TYPES = new Set(['cardType-linkedCard', 'cardType-linkedBoard']);
 
@@ -21,17 +21,17 @@ function isLinkPointerCard(card) {
   return !!card && LINK_TYPES.has(card.type);
 }
 
-// Whether `target` may be linked from the board whose real card ids are
-// `ownRealCardIds` (Card.getRealId() of every card already on that board).
-function isLinkableCardTarget(target, ownRealCardIds = []) {
+// `mirroredRealCardIds` contains only sources of existing mirrors, not all
+// real cards on the destination board.
+function isLinkableCardTarget(target, mirroredRealCardIds = []) {
   if (!target || !target._id) return false;
   // No chains of links, and no template cards.
   if (isLinkPointerCard(target) || target.type === 'template-card') return false;
-  const own = ownRealCardIds instanceof Set ? ownRealCardIds : new Set(ownRealCardIds);
-  // Not one of our own cards (self / same-board link).
-  if (own.has(target._id)) return false;
-  // Not a card that already links back to one of our cards (direct mutual link).
-  if (target.linkedId && own.has(target.linkedId)) return false;
+  const mirrored = mirroredRealCardIds instanceof Set
+    ? mirroredRealCardIds : new Set(mirroredRealCardIds);
+  if (mirrored.has(target._id)) return false;
+  // Even a malformed normal card must not carry another link pointer.
+  if (target.linkedId) return false;
   return true;
 }
 

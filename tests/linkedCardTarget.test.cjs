@@ -24,7 +24,7 @@ function test(name, fn) {
   console.log('  ok -', name);
 }
 
-const OWN = ['A1', 'A2']; // real ids of the linking board's own cards
+const MIRRORED = ['A1', 'A2']; // source ids already mirrored on the destination board
 
 // --- isLinkPointerCard ------------------------------------------------------
 test('isLinkPointerCard: linked card and linked board are pointers', () => {
@@ -40,40 +40,44 @@ test('isLinkPointerCard: a normal card is not a pointer', () => {
 // --- POSITIVE: a real, unrelated card on another board is linkable ----------
 test('POSITIVE: a normal card on another board is a valid link target', () => {
   const target = { _id: 'B1', type: 'cardType-card', boardId: 'boardB' };
-  assert.strictEqual(isLinkableCardTarget(target, OWN), true);
+  assert.strictEqual(isLinkableCardTarget(target, MIRRORED), true);
 });
 
-test('POSITIVE: accepts a Set of own ids too', () => {
+test('POSITIVE: accepts a Set of mirrored source ids too', () => {
   const target = { _id: 'B1', type: 'cardType-card' };
-  assert.strictEqual(isLinkableCardTarget(target, new Set(OWN)), true);
+  assert.strictEqual(isLinkableCardTarget(target, new Set(MIRRORED)), true);
 });
 
 // --- NEGATIVE: the #5808 configurations must be refused ---------------------
 test('NEGATIVE: cannot link to an existing linked card (no chains of links)', () => {
   const linkedCard = { _id: 'L1', type: 'cardType-linkedCard', linkedId: 'X9' };
-  assert.strictEqual(isLinkableCardTarget(linkedCard, OWN), false);
+  assert.strictEqual(isLinkableCardTarget(linkedCard, MIRRORED), false);
 });
 
 test('NEGATIVE: cannot link to a linked board', () => {
   const linkedBoard = { _id: 'LB1', type: 'cardType-linkedBoard', linkedId: 'brd' };
-  assert.strictEqual(isLinkableCardTarget(linkedBoard, OWN), false);
+  assert.strictEqual(isLinkableCardTarget(linkedBoard, MIRRORED), false);
 });
 
-test('NEGATIVE: cannot link to one of our own cards (self / same board)', () => {
-  const own = { _id: 'A1', type: 'cardType-card' };
-  assert.strictEqual(isLinkableCardTarget(own, OWN), false);
+test('#5683: a same-board real card can be mirrored', () => {
+  const own = { _id: 'A1', type: 'cardType-card', boardId: 'boardA' };
+  assert.strictEqual(isLinkableCardTarget(own), true);
+});
+
+test('NEGATIVE: an already mirrored source is excluded from the picker', () => {
+  assert.strictEqual(isLinkableCardTarget({ _id: 'A1', type: 'cardType-card' }, MIRRORED), false);
 });
 
 test('NEGATIVE: cannot link to a card that links back to one of our cards (mutual)', () => {
   // Target is a real-ish card whose linkedId points at our card A2 → mutual loop.
   const backLink = { _id: 'B7', type: 'cardType-card', linkedId: 'A2' };
-  assert.strictEqual(isLinkableCardTarget(backLink, OWN), false);
+  assert.strictEqual(isLinkableCardTarget(backLink, MIRRORED), false);
 });
 
 test('NEGATIVE: cannot link to a template card, or to nothing', () => {
-  assert.strictEqual(isLinkableCardTarget({ _id: 'T1', type: 'template-card' }, OWN), false);
-  assert.strictEqual(isLinkableCardTarget(undefined, OWN), false);
-  assert.strictEqual(isLinkableCardTarget({ type: 'cardType-card' }, OWN), false); // no _id
+  assert.strictEqual(isLinkableCardTarget({ _id: 'T1', type: 'template-card' }, MIRRORED), false);
+  assert.strictEqual(isLinkableCardTarget(undefined, MIRRORED), false);
+  assert.strictEqual(isLinkableCardTarget({ type: 'cardType-card' }, MIRRORED), false); // no _id
 });
 
 console.log(`\n${passed} passing`);

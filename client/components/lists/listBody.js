@@ -1089,7 +1089,6 @@ Template.linkCardPopup.helpers({
       {
         archived: false,
         'members.userId': Meteor.userId(),
-        _id: { $ne: Session.get('currentBoard') },
         type: 'board',
       },
       {
@@ -1142,11 +1141,14 @@ Template.linkCardPopup.helpers({
     if (!tpl.board) {
       return [];
     }
-    const ownCardsIds = tpl.board.cards().map(card => card.getRealId());
+    // A mirror is a new card, so pointing at a real card on this board cannot
+    // create a self-link. Only exclude sources we already mirror (#5683).
+    const mirroredCardIds = tpl.board.cards()
+      .filter(card => card.type === 'cardType-linkedCard')
+      .map(card => card.linkedId);
     const selector = {
       archived: false,
-      linkedId: { $nin: ownCardsIds },
-      _id: { $nin: ownCardsIds },
+      _id: { $nin: mirroredCardIds },
       // #5808: never offer an existing linked card/board as a link target —
       // linking to one builds a chain of linkedId pointers that renders the
       // card inaccessible. Only real cards may be linked.
@@ -1210,8 +1212,8 @@ Template.linkCardPopup.events({
     const linkedId = tpl.$('.js-select-cards').val();
     if (!linkedId) {
       const boardId = tpl.$('.js-select-boards').val();
-      // No board and no card selected: nothing to link.
-      if (!boardId) {
+      // No source selected, or a whole-board self-link: nothing to link.
+      if (!boardId || boardId === tpl.boardId) {
         Popup.back();
         return;
       }
@@ -1241,8 +1243,10 @@ Template.linkCardPopup.events({
     // the cards inaccessible. The <select> already filters these out, but its
     // options can be stale, so re-check the resolved target here.
     const targetCard = ReactiveCache.getCard(linkedId);
-    const ownCardsIds = tpl.board.cards().map(card => card.getRealId());
-    if (!isLinkableCardTarget(targetCard, ownCardsIds)) {
+    const mirroredCardIds = tpl.board.cards()
+      .filter(card => card.type === 'cardType-linkedCard')
+      .map(card => card.linkedId);
+    if (!isLinkableCardTarget(targetCard, mirroredCardIds)) {
       alert(TAPi18n.__('error-linked-card-not-allowed'));
       Popup.back();
       return;
@@ -1273,6 +1277,7 @@ Template.linkCardPopup.events({
     evt.preventDefault();
     const impBoardId = tpl.$('.js-select-boards').val();
     if (
+      impBoardId === tpl.boardId ||
       !impBoardId ||
       ReactiveCache.getCard({ linkedId: impBoardId, archived: false })
     ) {
