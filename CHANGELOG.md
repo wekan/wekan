@@ -756,6 +756,24 @@ from read-only members. Permanent purges remain irreversible.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f5878134a">Keep card windows still when saving dates</a>. Thanks to xet7.</summary>
+
+Saving or removing Received, Start, Due or End refreshed the board subscription,
+briefly destroyed its view, and rebuilt the open card at its default dock before
+anchoring it again. Keep the same board mounted during refresh; navigating to
+another board still resets readiness. Retain the date refresh and all existing
+publication permissions.
+
+Four Chromium regressions verify saved and removed dates, badge updates, window
+identity and position across rendered frames. The save regression fails before
+the fix. Six focused Node suites pass, covering initial loading, navigation,
+date validation and card placement. Existing Upcoming coverage is recorded in
+the other entries; this change adds no server mutation or permission rules.
+The live FerretDB matrix and other browser engines were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/374e03e99">Audit completed issues and refresh TODO Later</a>. Thanks to Meeques, Somantiq, javen9881, matrixes, bastos77, therampagerado, sfahrenholz, Gobliins and xet7.</summary>
 
 Check the 159-open-issue snapshot and record source/test evidence for ten
