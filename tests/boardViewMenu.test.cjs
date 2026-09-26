@@ -57,6 +57,11 @@ const VIEWS = [
   { view: 'board-view-throughput-histogram', jsClass: 'js-open-throughput-histogram-view', icon: 'fa-columns', template: 'throughputHistogramView', helper: 'isViewThroughputHistogram', chart: true },
   { view: 'board-view-wip-run', jsClass: 'js-open-wip-run-view', icon: 'fa-flag-checkered', template: 'wipRunView', helper: 'isViewWipRun', chart: true },
   { view: 'board-view-pulse', jsClass: 'js-open-pulse-view', icon: 'fa-heartbeat', template: 'pulseView', helper: 'isViewPulse', chart: true },
+  { view: 'board-view-aging-wip', jsClass: 'js-open-aging-wip-view', icon: 'fa-hourglass-half', template: 'agingWipView', helper: 'isViewAgingWip', chart: true },
+  { view: 'board-view-blocker-analysis', jsClass: 'js-open-blocker-analysis-view', icon: 'fa-ban', template: 'blockerAnalysisView', helper: 'isViewBlockerAnalysis', chart: true },
+  { view: 'board-view-monte-carlo', jsClass: 'js-open-monte-carlo-view', icon: 'fa-random', template: 'monteCarloView', helper: 'isViewMonteCarlo', chart: true },
+  { view: 'board-view-process-behavior', jsClass: 'js-open-process-behavior-view', icon: 'fa-line-chart', template: 'processBehaviorView', helper: 'isViewProcessBehavior', chart: true },
+  { view: 'board-view-size-cycle-time', jsClass: 'js-open-size-cycle-time-view', icon: 'fa-braille', template: 'sizeCycleTimeView', helper: 'isViewSizeCycleTime', chart: true },
 ];
 
 // Between Table and Calendar, between Timeline and Statistics, between
@@ -198,7 +203,7 @@ test('the shared chart view calls the board-scoped boardChartData server method 
   const boardChartsJs = read('client/components/boards/charts/boardCharts.js');
   const boardsPublications = read('server/publications/boards.js');
   assert.match(boardChartsJs, /Meteor\.call\('boardChartData', boardId, chartKey/);
-  assert.match(boardsPublications, /async boardChartData\(boardId, chartKey\)/);
+  assert.match(boardsPublications, /async boardChartData\(boardId, chartKey, options = \{\}\)/);
   assert.match(boardsPublications, /board\.isVisibleBy\(\{ _id: this\.userId \}\)/);
   // The PDF/Excel export moved into the one shared "Export" popup
   // (exportChart.js builds the URL for every chart view; see

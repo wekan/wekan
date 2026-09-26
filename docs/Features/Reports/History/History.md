@@ -521,3 +521,12 @@ Decided (maintainer, 2026-09). These are rules, not proposals; the tests under
   popup/table state on the template instance / `ReactiveDict`.
 - **Pagination/search/selection as pure functions** (à la `models/lib/undoRedoSelection.js`) so the
   logic is unit-testable without the Meteor/Blaze runtime.
+
+## Dependency history for flow reports
+
+The card field map also records `cardDependencies`, including dependencies on
+newly inserted cards. This uses the existing timestamped before/after rows and
+restore mechanism. [Blocker Analysis](../Charts/Flow-Analytics.md) replays those
+rows together with date, lifecycle and position history to derive per-stage
+blocked intervals. No second history collection is introduced. Links created
+before recording began retain unknown starts instead of fabricated dates.

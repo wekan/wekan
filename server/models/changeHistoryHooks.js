@@ -183,6 +183,14 @@ Meteor.startup(() => {
     });
   }
 
+  // Imports and templates may create a card with dependencies already set.
+  // Record only that missing field through the same diff/undo mechanism.
+  Cards.after.insert(async (userId, doc) => {
+    if (doc.cardDependencies?.length) {
+      await recordUpdate('card', userId || doc.userId, doc, ['cardDependencies'], { cardDependencies: [] });
+    }
+  });
+
   // Sub-entities a card can gain and lose. Cards, lists and swimlanes are not
   // here: their creation and deletion are already recorded where they happen
   // (Card.move, the list soft delete), with the batch ids that tie a container

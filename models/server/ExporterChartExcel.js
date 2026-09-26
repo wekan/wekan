@@ -9,8 +9,9 @@ const { chartExportRows } = require('/models/lib/chartExportRows');
 // card Excel exports use (models/server/ExporterExcelBoard.js), a bold header
 // row, one row of data per line.
 class ExporterChartExcel {
-  constructor(boardId, chartKey, userLanguage) {
+  constructor(boardId, chartKey, userLanguage, options = {}) {
     this._boardId = boardId;
+    this.options = options;
     this._chartKey = chartKey;
     this.userLanguage = userLanguage || 'en';
   }
@@ -35,9 +36,12 @@ class ExporterChartExcel {
       res.end('Board not found');
       return;
     }
-    const data = await loadBoardChartData(this._boardId, this._chartKey);
+    const data = await loadBoardChartData(this._boardId, this._chartKey, this.options);
     const { title, headers, rows } = chartExportRows(
       this._chartKey, data || {}, (key, fallback) => this.__(key, fallback));
+    const details = require('/models/lib/flowAnalyticsRows').flowDetailRows(
+      this._chartKey, data || {}, (key, fallback) => this.__(key, fallback));
+    if (details.rows.length) rows.push([], details.headers, ...details.rows);
 
     const workbook = createWorkbook();
     workbook.creator = board.title;

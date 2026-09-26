@@ -307,7 +307,7 @@ test('moveBoardView moves one step, and the first up / last down / unknown are n
   const down = bvs.moveBoardView(up, 'board-view-lists', 'down');
   assert.deepStrictEqual(down, all, 'and back');
   assert.deepStrictEqual(bvs.moveBoardView(undefined, 'board-view-swimlanes', 'up'), all, 'first item up');
-  assert.deepStrictEqual(bvs.moveBoardView(undefined, 'board-view-pulse', 'down'), all, 'last item down');
+  assert.deepStrictEqual(bvs.moveBoardView(undefined, 'board-view-size-cycle-time', 'down'), all, 'last item down');
   assert.deepStrictEqual(bvs.moveBoardView(undefined, 'board-view-nope', 'up'), all, 'unknown');
   // Once the unknown key is dropped Pulse IS the first row, so its up is a no-op.
   assert.deepStrictEqual(bvs.moveBoardView(['board-view-nope', 'board-view-pulse'], 'board-view-pulse', 'up'),
@@ -385,6 +385,12 @@ const PRE_FEATURE_MENU = [
   'board-view-throughput-histogram',
   'board-view-wip-run',
   'board-view-pulse',
+  // Flow analytics extends the original order at its bottom.
+  'board-view-aging-wip',
+  'board-view-blocker-analysis',
+  'board-view-monte-carlo',
+  'board-view-process-behavior',
+  'board-view-size-cycle-time',
 ];
 const bvsSrc = read('models/lib/boardViewSettings.js');
 const PRE_FEATURE_ORDER = PRE_FEATURE_MENU.filter(k => k !== 'hr');
@@ -394,7 +400,7 @@ const PRE_FEATURE_HR_AFTER = PRE_FEATURE_MENU
 
 test('the default order is the pre-feature menu order (525bcab1b), literally', () => {
   assert.deepStrictEqual(bvs.DEFAULT_BOARD_VIEW_ORDER, PRE_FEATURE_ORDER);
-  assert.strictEqual(PRE_FEATURE_ORDER.length, 25);
+  assert.strictEqual(PRE_FEATURE_ORDER.length, 30);
   // The literal in the model is a list of its own, not a slice of the table
   // (negative: re-sorting BOARD_VIEWS must not be able to change the default).
   assert.match(bvsSrc, /const DEFAULT_BOARD_VIEW_ORDER = \[\n\s*'board-view-swimlanes',/);

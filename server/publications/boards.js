@@ -1381,15 +1381,22 @@ Meteor.methods({
   // WIP-Run), computed board-scoped as requested. The calculation itself is pure
   // (models/lib/chartCalculations.js, unit-tested there); this method's job is
   // only to load the plain records a chart needs and hand them off.
-  async boardChartData(boardId, chartKey) {
+  async boardChartData(boardId, chartKey, options = {}) {
     check(boardId, String);
     check(chartKey, String);
+    check(options, Object);
     const board = await ReactiveCache.getBoard(boardId);
     if (!board || !board.isVisibleBy({ _id: this.userId })) {
       throw new Meteor.Error('not-authorized');
     }
     const { loadBoardChartData } = require('/server/lib/boardChartData');
-    const data = await loadBoardChartData(boardId, chartKey);
+    let data;
+    try {
+      data = await loadBoardChartData(boardId, chartKey, options);
+    } catch (error) {
+      if (/^Invalid /.test(error.message)) throw new Meteor.Error('bad-request', error.message);
+      throw error;
+    }
     if (!data) throw new Meteor.Error('bad-request', 'unknown chartKey');
     return data;
   },

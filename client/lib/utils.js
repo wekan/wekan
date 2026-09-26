@@ -332,6 +332,11 @@ export const Utils = {
         'board-view-throughput-histogram',
         'board-view-wip-run',
         'board-view-pulse',
+        'board-view-aging-wip',
+        'board-view-blocker-analysis',
+        'board-view-monte-carlo',
+        'board-view-process-behavior',
+        'board-view-size-cycle-time',
       ].includes(view)
     ) {
       window.localStorage.setItem('boardView', view); //true
@@ -417,6 +422,11 @@ export const Utils = {
         'board-view-throughput-histogram',
         'board-view-wip-run',
         'board-view-pulse',
+        'board-view-aging-wip',
+        'board-view-blocker-analysis',
+        'board-view-monte-carlo',
+        'board-view-process-behavior',
+        'board-view-size-cycle-time',
       ].includes(window.localStorage.getItem('boardView'))
     ) {
       return window.localStorage.getItem('boardView');

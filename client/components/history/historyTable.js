@@ -44,6 +44,7 @@ const GROUP_KEYS = {
   attachments: 'attachments',
   comments: 'comments',
   customFields: 'custom-fields',
+  dependencies: 'card-dependencies',
   position: 'sort',
 };
 

@@ -158,6 +158,17 @@ async function applyCardContent(row, content) {
     );
     return true;
   }
+  if (content?.field === 'cardDependencies') {
+    // History can outlive a target or a move to another board. Undo must not
+    // resurrect a dangling/cross-board edge that the ordinary editor rejects.
+    const { validDependencyRestore } = require('/models/lib/flowHistory');
+    const current = await Cards.findOneAsync(row.entityId);
+    const ids = Array.isArray(content.value) ? content.value.map(dep => dep?.cardId).filter(Boolean) : [];
+    const targets = ids.length ? await Cards.find({ _id: { $in: ids }, boardId: current.boardId }).fetchAsync() : [];
+    if (!validDependencyRestore(current, content.value, targets)) {
+      throw new Meteor.Error('invalid-dependency', 'A dependency target is no longer on this board');
+    }
+  }
   return applyFieldContent(Cards, row, content);
 }
 

@@ -825,6 +825,11 @@ Users.attachSchema(
         'board-view-throughput-histogram',
         'board-view-wip-run',
         'board-view-pulse',
+        'board-view-aging-wip',
+        'board-view-blocker-analysis',
+        'board-view-monte-carlo',
+        'board-view-process-behavior',
+        'board-view-size-cycle-time',
       ],
     },
     'profile.listSortBy': {

@@ -4,18 +4,47 @@ template(name="boardChartView")
       .stats-view-title
         +viewer
           | {{ chartTitle }}
-      .chart-export-buttons
+      .chart-export-buttons(data-report-options="{{reportOptionsJson}}")
         a.chart-export-button.js-export-chart(href="#" data-chart-key="{{chartKey}}")
           i.fa.fa-share-square-o
           | {{_ 'export'}}
 
-      if isLoading
+      if flowNote
+        p.chart-method-note {{flowNote}}
+      if isMonteCarlo
+        form.js-flow-options.chart-options
+          label
+            | {{_ 'flow-target-count'}}
+            input(type="number" name="targetCount" min="1" max="10000" required value="{{reportOptions.targetCount}}")
+          label
+            | {{_ 'flow-target-date'}}
+            input(type="date" name="targetDate" required value="{{reportOptions.targetDate}}")
+          label
+            | {{_ 'flow-history-days'}}
+            input(type="number" name="historyDays" min="7" max="365" required value="{{reportOptions.historyDays}}")
+          button(type="submit") {{_ 'apply'}}
+      if isSizeCycleTime
+        form.js-flow-options.chart-options
+          label
+            | {{_ 'flow-size-source'}}
+            select(name="sizeField")
+              option(value="poker" selected="{{sizeSelected 'poker'}}") {{_ 'poker-question'}}
+              each field in sizeFields
+                option(value="{{field._id}}" selected="{{sizeSelected field._id}}") {{field.name}}
+          button(type="submit") {{_ 'apply'}}
+
+      if hasError
+        p.chart-error(role="alert") {{_ 'flow-error'}}
+      else if isLoading
         p.stats-view-placeholder-note {{_ 'loading'}}
       else if hasNoData
         p.stats-view-placeholder-note {{_ 'no-results'}}
       else
         .chart-canvas-wrapper
-          canvas.js-chart-canvas
+          canvas.js-chart-canvas(role="img" aria-label="{{chartTitle}}")
+        if hasSecondaryChart
+          .chart-canvas-wrapper
+            canvas.js-chart-secondary(role="img" aria-label="{{chartTitle}}")
 
         if forecastNote
           p.stats-view-placeholder-note.chart-forecast-note {{ forecastNote }}
@@ -34,3 +63,19 @@ template(name="boardChartView")
                   td
                     +viewer
                       = cell
+
+      if detailTable.rows.length
+        details.chart-details
+          summary {{_ 'flow-details'}}
+          table.stats-view-table.chart-data-table
+            thead
+              tr
+                each header in detailTable.headers
+                  th= header
+            tbody
+              each row in detailTable.rows
+                tr
+                  each cell in row
+                    td
+                      +viewer
+                        = cell

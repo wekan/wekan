@@ -8,6 +8,12 @@
 const { translateGroupLabel, formatRemainingTime } = require('./chartCalculations');
 
 const CHART_TITLE_KEYS = {
+  agingWip: ['board-view-aging-wip', 'Aging WIP'],
+  blockerAnalysis: ['board-view-blocker-analysis', 'Blocker Analysis'],
+  monteCarlo: ['board-view-monte-carlo', 'Monte Carlo Forecasts'],
+  processBehavior: ['board-view-process-behavior', 'Process Behavior (XmR)'],
+  sizeCycleTime: ['board-view-size-cycle-time', 'Work Item Size vs. Cycle Time'],
+
   dashboard: ['board-view-dashboard', 'Dashboard'],
   burndown: ['board-view-burndown', 'Burndown'],
   burnup: ['board-view-burnup', 'Burnup'],
@@ -34,6 +40,9 @@ function round(value) {
 
 function chartExportRows(chartKey, data, translate = (key, fallback) => fallback) {
   const title = chartTitle(chartKey, translate);
+  if (['agingWip', 'blockerAnalysis', 'monteCarlo', 'processBehavior', 'sizeCycleTime'].includes(chartKey)) {
+    return { title, ...require('./flowAnalyticsRows').flowAnalyticsRows(chartKey, data, translate) };
+  }
 
   if (chartKey === 'cumulativeFlow') {
     const listTitles = data.lists.map(list => list.title);

@@ -8,6 +8,13 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import { Utils } from '/client/lib/utils';
 const { chartExportRows } = require('/models/lib/chartExportRows');
 const { translateGroupLabel } = require('/models/lib/chartCalculations');
+const FLOW_KEYS = ['agingWip', 'blockerAnalysis', 'monteCarlo', 'processBehavior', 'sizeCycleTime'];
+const { flowDetailRows } = require('/models/lib/flowAnalyticsRows');
+let flowRenderer;
+function loadFlowRenderer() {
+  if (!flowRenderer) flowRenderer = import('./flowChartConfig').catch(error => { flowRenderer = null; throw error; });
+  return flowRenderer;
+}
 
 // Shared by the 10 chart views registered in chartPlaceholderViews.jade: reads
 // `boardChartData` (server/publications/boards.js) for whichever `chartKey`
@@ -19,6 +26,11 @@ const { translateGroupLabel } = require('/models/lib/chartCalculations');
 // docs/Features/Reports/charts.tsv for what each chartKey means.
 Template.boardChartView.onCreated(function() {
   this.chartData = new ReactiveVar(null);
+  this.options = new ReactiveVar({});
+  this.error = new ReactiveVar(false);
+  this.requestId = 0;
+  this.secondaryChart = null;
+  this.renderVersion = 0;
   this.loading = new ReactiveVar(true);
   this.chartJsInstance = null;
   this.destroyed = false;
@@ -26,9 +38,15 @@ Template.boardChartView.onCreated(function() {
     const boardId = Session.get('currentBoard');
     const chartKey = Template.currentData().chartKey;
     if (!boardId || !chartKey) return;
+    const options = this.options.get();
+    const requestId = ++this.requestId;
     this.loading.set(true);
-    Meteor.call('boardChartData', boardId, chartKey, (err, res) => {
+    this.error.set(false);
+    this.chartData.set(null);
+    Meteor.call('boardChartData', boardId, chartKey, options, (err, res) => {
+      if (this.destroyed || requestId !== this.requestId) return;
       this.loading.set(false);
+      this.error.set(!!err);
       if (!err) this.chartData.set(res);
     });
   });
@@ -36,6 +54,7 @@ Template.boardChartView.onCreated(function() {
 
 Template.boardChartView.onDestroyed(function() {
   this.destroyed = true;
+  if (this.secondaryChart) this.secondaryChart.destroy();
   if (this.chartJsInstance) {
     this.chartJsInstance.destroy();
     this.chartJsInstance = null;
@@ -43,6 +62,17 @@ Template.boardChartView.onDestroyed(function() {
 });
 
 Template.boardChartView.events({
+  'submit .js-flow-options'(event, instance) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    if (!form.reportValidity()) return;
+    const options = {};
+    ['targetCount', 'targetDate', 'historyDays', 'sizeField'].forEach(key => {
+      const field = form.elements.namedItem(key);
+      if (field) options[key] = field.value;
+    });
+    instance.options.set(options);
+  },
   'mousedown .stats-view'(event) {
     event.stopPropagation();
   },
@@ -94,7 +124,8 @@ function computeBarRows(chartKey, data) {
 let ChartJsPromise = null;
 function loadChartJs() {
   if (!ChartJsPromise) {
-    ChartJsPromise = import('chart.js/auto').then(mod => mod.Chart || mod.default || mod);
+    ChartJsPromise = import('chart.js/auto').then(mod => mod.Chart || mod.default || mod)
+      .catch(error => { ChartJsPromise = null; throw error; });
   }
   return ChartJsPromise;
 }
@@ -102,7 +133,8 @@ function loadChartJs() {
 Template.boardChartView.onRendered(function() {
   const templateInstance = this;
 
-  loadChartJs().then(Chart => {
+  const advanced = FLOW_KEYS.includes(Template.currentData().chartKey);
+  Promise.all([loadChartJs(), advanced ? loadFlowRenderer() : null]).then(([Chart, renderer]) => {
     if (templateInstance.destroyed) return;
     templateInstance.autorun(() => {
       // Read the data context HERE, inside the autorun: Tracker.afterFlush
@@ -112,7 +144,10 @@ Template.boardChartView.onRendered(function() {
       const data = Template.currentData();
       const chartKey = data.chartKey;
       const titleKey = data.titleKey;
-      const rows = computeBarRows(chartKey, templateInstance.chartData.get());
+      const chartData = templateInstance.chartData.get();
+      const rows = computeBarRows(chartKey, chartData);
+      const configs = renderer ? renderer.flowChartConfigs(chartKey, chartData, key => TAPi18n.__(key), titleViewerText) : null;
+      const renderVersion = ++templateInstance.renderVersion;
       // Canvas accepts text, not HTML. Preserve viewer text and emoji while
       // tracking policies before the nonreactive afterFlush callback.
       const labels = rows.map(row => titleViewerText(row.label));
@@ -127,11 +162,22 @@ Template.boardChartView.onRendered(function() {
       // canvas area stays empty (#Dashboard-charts-invisible).
       Tracker.afterFlush(() => {
         if (templateInstance.destroyed) return;
+        if (renderVersion !== templateInstance.renderVersion) return;
+        if (templateInstance.secondaryChart) {
+          templateInstance.secondaryChart.destroy();
+          templateInstance.secondaryChart = null;
+        }
         const canvas = templateInstance.find('.js-chart-canvas');
         if (!canvas) return;
         if (templateInstance.chartJsInstance) {
           templateInstance.chartJsInstance.destroy();
           templateInstance.chartJsInstance = null;
+        }
+        if (configs) {
+          if (configs[0]) templateInstance.chartJsInstance = new Chart(canvas, configs[0]);
+          const secondary = templateInstance.find('.js-chart-secondary');
+          if (configs[1] && secondary) templateInstance.secondaryChart = new Chart(secondary, configs[1]);
+          return;
         }
         if (!rows.length) return;
         templateInstance.chartJsInstance = new Chart(canvas, {
@@ -154,11 +200,27 @@ Template.boardChartView.onRendered(function() {
       });
     });
   }).catch(error => {
-    console.error('Could not load Chart.js:', error);
+    if (!templateInstance.destroyed) templateInstance.error.set(true);
+    console.error('Could not load chart:', error);
   });
 });
 
 Template.boardChartView.helpers({
+  hasError() { return Template.instance().error.get(); },
+  isMonteCarlo() { return Template.currentData().chartKey === 'monteCarlo'; },
+  isSizeCycleTime() { return Template.currentData().chartKey === 'sizeCycleTime'; },
+  hasSecondaryChart() { return ['monteCarlo', 'processBehavior'].includes(Template.currentData().chartKey); },
+  reportOptions() { return Template.instance().chartData.get()?.options || {}; },
+  reportOptionsJson() { return JSON.stringify(Template.instance().chartData.get()?.options || {}); },
+  sizeFields() { return Template.instance().chartData.get()?.sizeFields || []; },
+  sizeSelected(id) { return Template.instance().chartData.get()?.options.sizeField === id; },
+  flowNote() {
+    const key = Template.currentData().chartKey;
+    return FLOW_KEYS.includes(key) ? TAPi18n.__(`flow-note-${key}`) : null;
+  },
+  detailTable() {
+    return flowDetailRows(Template.currentData().chartKey, Template.instance().chartData.get() || {}, key => TAPi18n.__(key));
+  },
   chartTitle() {
     return TAPi18n.__(Template.currentData().titleKey);
   },

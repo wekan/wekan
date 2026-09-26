@@ -15,7 +15,7 @@ import { cardDateFormat } from '/client/lib/exportLocale';
 // / "Export to Excel" links; a query parameter added to one was missing from
 // the other four. models/exportCharts.js serves
 // /api/boards/:boardId/charts/:chartKey/exportPDF and .../exportExcel.
-export function chartExportUrl(chartKey, format) {
+export function chartExportUrl(chartKey, format, options = {}) {
   const boardId = Session.get('currentBoard');
   if (!boardId || !chartKey) return '';
   const path = format === 'PDF' ? 'exportPDF' : 'exportExcel';
@@ -24,6 +24,9 @@ export function chartExportUrl(chartKey, format) {
     lang: TAPi18n.getLanguage ? TAPi18n.getLanguage() : 'en',
     tz: Intl.DateTimeFormat().resolvedOptions().timeZone || '',
     dateFormat: cardDateFormat(),
+  });
+  ['targetCount', 'targetDate', 'historyDays', 'sizeField'].forEach(key => {
+    if (options[key] !== undefined) params.set(key, options[key]);
   });
   return `/api/boards/${boardId}/charts/${chartKey}/${path}?${params.toString()}`;
 }
@@ -40,7 +43,7 @@ Template.exportChartPopup.helpers({
     const chartKey = Template.currentData().chartKey;
     return CHART_EXPORT_FORMATS.map(entry => ({
       ...entry,
-      url: chartExportUrl(chartKey, entry.format),
+      url: chartExportUrl(chartKey, entry.format, Template.currentData().options || {}),
     }));
   },
 });
@@ -53,6 +56,8 @@ Meteor.startup(() => {
   $(document).on('click', '.js-export-chart', function (evt) {
     evt.preventDefault();
     const chartKey = evt.currentTarget.getAttribute('data-chart-key');
-    Popup.open('exportChart').call({ chartKey }, evt);
+    const holder = evt.currentTarget.closest('[data-report-options]');
+    const options = holder ? JSON.parse(holder.getAttribute('data-report-options') || '{}') : {};
+    Popup.open('exportChart').call({ chartKey, options }, evt);
   });
 });

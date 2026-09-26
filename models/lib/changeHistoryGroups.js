@@ -38,6 +38,7 @@ const CARD_FIELDS = {
   spentTime: 'dates',
   isOvertime: 'dates',
   customFields: 'customFields',
+  cardDependencies: 'dependencies',
   color: 'title',
   vote: 'customFields',
   poker: 'customFields',
@@ -208,8 +209,10 @@ function diffFields(entityType, previous, next, fieldNames) {
   for (const field of fields) {
     const group = groupForField(entityType, field);
     if (!group) continue;
-    const before = previous ? previous[field] : undefined;
-    const after = next ? next[field] : undefined;
+    const before = field === 'cardDependencies' ? (previous?.[field] || [])
+      : previous ? previous[field] : undefined;
+    const after = field === 'cardDependencies' ? (next?.[field] || [])
+      : next ? next[field] : undefined;
     if (!changed(before, after)) continue;
 
     const previousContent = contentForField(field, before);

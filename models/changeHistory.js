@@ -31,7 +31,7 @@ export const ENTITY_TYPES = [
 export const GROUPS = [
   'title', 'description', 'labels', 'members', 'assignees', 'dates',
   'checklists', 'subtasks', 'attachments', 'comments', 'customFields',
-  'position', 'lifecycle',
+  'position', 'lifecycle', 'dependencies',
 ];
 
 /* A small closed set, each with an i18n key `history-change-<type>`. */

@@ -45,6 +45,11 @@ const BOARD_VIEWS = [
   { view: 'board-view-throughput-histogram', labelKey: 'board-view-throughput-histogram', icon: 'fa-columns' },
   { view: 'board-view-wip-run', labelKey: 'board-view-wip-run', icon: 'fa-flag-checkered' },
   { view: 'board-view-pulse', labelKey: 'board-view-pulse', icon: 'fa-heartbeat' },
+  { view: 'board-view-aging-wip', labelKey: 'board-view-aging-wip', icon: 'fa-hourglass-half' },
+  { view: 'board-view-blocker-analysis', labelKey: 'board-view-blocker-analysis', icon: 'fa-ban' },
+  { view: 'board-view-monte-carlo', labelKey: 'board-view-monte-carlo', icon: 'fa-random' },
+  { view: 'board-view-process-behavior', labelKey: 'board-view-process-behavior', icon: 'fa-line-chart' },
+  { view: 'board-view-size-cycle-time', labelKey: 'board-view-size-cycle-time', icon: 'fa-braille' },
 ];
 
 const DEFAULT_BOARD_VIEW = 'board-view-swimlanes';
@@ -86,6 +91,11 @@ const DEFAULT_BOARD_VIEW_ORDER = [
   'board-view-throughput-histogram',
   'board-view-wip-run',
   'board-view-pulse',
+  'board-view-aging-wip',
+  'board-view-blocker-analysis',
+  'board-view-monte-carlo',
+  'board-view-process-behavior',
+  'board-view-size-cycle-time',
 ];
 
 // After which entries the menu draws a separator - the same six `hr`s the

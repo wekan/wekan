@@ -19,8 +19,9 @@ async function unicodeFonts() {
 // buildUnicodePdf/buildPdfBuffer), just a title bar plus a header row and data
 // rows instead of a card's sections.
 class ExporterChartPDF {
-  constructor(boardId, chartKey, userLanguage, timezone, dateFormat) {
+  constructor(boardId, chartKey, userLanguage, timezone, dateFormat, options = {}) {
     this._boardId = boardId;
+    this.options = options;
     this._chartKey = chartKey;
     this.userLanguage = userLanguage || 'en';
     this.timezone = timezone || '';
@@ -55,9 +56,12 @@ class ExporterChartPDF {
       res.end('Board not found');
       return;
     }
-    const data = await loadBoardChartData(this._boardId, this._chartKey);
+    const data = await loadBoardChartData(this._boardId, this._chartKey, this.options);
     const { title, headers, rows } = chartExportRows(
       this._chartKey, data || {}, (key, fallback) => this.__(key, fallback));
+    const details = require('/models/lib/flowAnalyticsRows').flowDetailRows(
+      this._chartKey, data || {}, (key, fallback) => this.__(key, fallback));
+    if (details.rows.length) rows.push([], details.headers, ...details.rows);
 
     // One tableRow per header/data row: fixed column widths, one line each,
     // so a long card title clips instead of pushing its dates off the line.

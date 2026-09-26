@@ -90,6 +90,16 @@ template(name="boardBody")
           +throughputHistogramView
         else if isViewWipRun
           +wipRunView
+        else if isViewAgingWip
+          +agingWipView
+        else if isViewBlockerAnalysis
+          +blockerAnalysisView
+        else if isViewMonteCarlo
+          +monteCarloView
+        else if isViewProcessBehavior
+          +processBehaviorView
+        else if isViewSizeCycleTime
+          +sizeCycleTimeView
         else if isViewPulse
           +pulseView
         else

@@ -7,6 +7,7 @@ const CHART_KEYS = new Set([
   'dashboard', 'burndown', 'burnup', 'cumulativeFlow', 'controlChart',
   'cycleTime', 'flowEfficiency', 'leadTime', 'throughputHistogram', 'wipRun',
   'gantt', 'time', 'pulse',
+  'agingWip', 'blockerAnalysis', 'monteCarlo', 'processBehavior', 'sizeCycleTime',
 ]);
 
 runOnServer(function() {
@@ -106,7 +107,7 @@ runOnServer(function() {
     const { board, user } = await authenticate(req, res);
     if (!board) return;
     const { language, timezone, dateFormat } = await exportLocale(req, user);
-    const exporter = new ExporterChartPDF(board._id, req.params.chartKey, language, timezone, dateFormat);
+    const exporter = new ExporterChartPDF(board._id, req.params.chartKey, language, timezone, dateFormat, req.query);
     if (await exporter.canExport(user)) {
       await exporter.build(res);
     } else {
@@ -137,7 +138,7 @@ runOnServer(function() {
     const { board, user } = await authenticate(req, res);
     if (!board) return;
     const { language } = await exportLocale(req, user);
-    const exporter = new ExporterChartExcel(board._id, req.params.chartKey, language);
+    const exporter = new ExporterChartExcel(board._id, req.params.chartKey, language, req.query);
     if (await exporter.canExport(user)) {
       await exporter.build(res);
     } else {

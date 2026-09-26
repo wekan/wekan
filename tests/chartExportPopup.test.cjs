@@ -57,7 +57,7 @@ test('no view keeps its own copy of the export URL builder (negative)', () => {
     assert.ok(!/ExportUrl\(format\)|exportUrl\(format\)/.test(read(rel)), `${rel} still builds its own export URL`);
   }
   const shared = read('client/components/boards/charts/exportChart.js');
-  assert.ok(/export function chartExportUrl\(chartKey, format\)/.test(shared));
+  assert.ok(/export function chartExportUrl\(chartKey, format, options = \{\}\)/.test(shared));
   assert.ok(/\/api\/boards\/\$\{boardId\}\/charts\/\$\{chartKey\}\/\$\{path\}/.test(shared));
 });
 
@@ -67,7 +67,7 @@ test('the popup offers PDF and Excel like the board export popup and is register
   assert.ok(/ul\.pop-over-list/.test(jade) && /a\(href="\{\{url\}\}" download\)/.test(jade));
   const js = read('client/components/boards/charts/exportChart.js');
   assert.ok(/fa-file-pdf-o.*label: 'PDF'/.test(js) && /fa-file-excel-o.*label: 'Excel'/.test(js));
-  assert.ok(/Popup\.open\('exportChart'\)\.call\(\{ chartKey \}, evt\)/.test(js));
+  assert.ok(/Popup\.open\('exportChart'\)\.call\(\{ chartKey, options \}, evt\)/.test(js));
   assert.ok(read('client/features/boards.js').includes("import '/client/components/boards/charts/exportChart.js';"),
     'the component must be imported into the client bundle');
 });

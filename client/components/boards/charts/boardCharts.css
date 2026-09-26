@@ -43,3 +43,17 @@
   border-bottom: 2px solid #dbdbdb;
   padding: 6px 4px;
 }
+
+.chart-options {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.chart-options label { display: flex; flex-direction: column; gap: 4px; }
+.chart-options input, .chart-options select { width: auto; min-width: 140px; }
+.chart-method-note { margin-bottom: 16px; line-height: 1.5; }
+.chart-error { color: #b52e20; }
+.chart-details { margin-top: 20px; overflow-x: auto; }
+.chart-details summary { cursor: pointer; }

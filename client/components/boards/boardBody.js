@@ -910,6 +910,26 @@ Template.boardBody.helpers({
     return Utils.boardView() === 'board-view-wip-run';
   },
 
+  isViewAgingWip() {
+    return Utils.boardView() === 'board-view-aging-wip';
+  },
+
+  isViewBlockerAnalysis() {
+    return Utils.boardView() === 'board-view-blocker-analysis';
+  },
+
+  isViewMonteCarlo() {
+    return Utils.boardView() === 'board-view-monte-carlo';
+  },
+
+  isViewProcessBehavior() {
+    return Utils.boardView() === 'board-view-process-behavior';
+  },
+
+  isViewSizeCycleTime() {
+    return Utils.boardView() === 'board-view-size-cycle-time';
+  },
+
   isViewPulse() {
     return Utils.boardView() === 'board-view-pulse';
   },

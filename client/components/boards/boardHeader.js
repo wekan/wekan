@@ -383,6 +383,26 @@ Template.boardChangeViewPopup.events({
     Utils.setBoardView('board-view-wip-run');
     Popup.back();
   },
+  'click .js-open-aging-wip-view'() {
+    Utils.setBoardView('board-view-aging-wip');
+    Popup.back();
+  },
+  'click .js-open-blocker-analysis-view'() {
+    Utils.setBoardView('board-view-blocker-analysis');
+    Popup.back();
+  },
+  'click .js-open-monte-carlo-view'() {
+    Utils.setBoardView('board-view-monte-carlo');
+    Popup.back();
+  },
+  'click .js-open-process-behavior-view'() {
+    Utils.setBoardView('board-view-process-behavior');
+    Popup.back();
+  },
+  'click .js-open-size-cycle-time-view'() {
+    Utils.setBoardView('board-view-size-cycle-time');
+    Popup.back();
+  },
   'click .js-open-pulse-view'() {
     Utils.setBoardView('board-view-pulse');
     Popup.back();
@@ -849,6 +869,11 @@ Template.boardViewMenu.helpers({
       'board-view-throughput-histogram': 'board-view-throughput-histogram',
       'board-view-wip-run': 'board-view-wip-run',
       'board-view-pulse': 'board-view-pulse',
+      'board-view-aging-wip': 'board-view-aging-wip',
+      'board-view-blocker-analysis': 'board-view-blocker-analysis',
+      'board-view-monte-carlo': 'board-view-monte-carlo',
+      'board-view-process-behavior': 'board-view-process-behavior',
+      'board-view-size-cycle-time': 'board-view-size-cycle-time',
     };
     return TAPi18n.__(names[Utils.boardView()] || 'board-view');
   },
