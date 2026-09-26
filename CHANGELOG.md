@@ -63,7 +63,8 @@ destination. Keep nested list/card targets and header-only swimlane drag starts.
 
 Multi-Selection dragging shows a tilted stack with the selected objects' names
 and icons, alongside the count. Render titles as literal text, including mixed
-object selections, and limit large previews to eight names plus a remaining count.
+object selections, and limit large previews to eight names plus a remaining
+count.
 
 Six Chromium cases move two lists via swimlane bodies or headers, including
 collapsed sources/destinations, with handles on and off. Check the named tilted
@@ -756,14 +757,15 @@ Creation is awaited and ordinary users cannot invoke the admin creation method.
 Attributable disabled-account authentication attempts are summarized as
 InactiveBleed in Admin Panel / Problems.
 
-Upcoming regression audit: positive and negative Node tests cover authentication,
-atomic issuance, revocation, logging failure, attachment contexts and a source
-sweep across server, models, imports, packages and client code. The affected
-HTTP, LDAP, export, team-membership and security-catalog suites pass. A Meteor
-build and three Chromium tests pass, covering inactive creation, REST and DDP
-login, old Bearer/cookie/legacy upload credentials, live-session disconnection,
-direct database deactivation, reactivation, People toggles and admin-only
-account creation. Live LDAP and the FerretDB matrix were not exercised.
+Upcoming regression audit: positive and negative Node tests cover
+authentication, atomic issuance, revocation, logging failure, attachment
+contexts and a source sweep across server, models, imports, packages and
+client code. The affected HTTP, LDAP, export, team-membership and
+security-catalog suites pass. A Meteor build and three Chromium tests pass,
+covering inactive creation, REST and DDP login, old Bearer/cookie/legacy
+upload credentials, live-session disconnection, direct database deactivation,
+reactivation, People toggles and admin-only account creation. Live LDAP and
+the FerretDB matrix were not exercised.
 
 </details>
 
@@ -797,21 +799,24 @@ the Meteor build also pass.
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7950979cb">Choose which objects can be dragged on each board</a>. Thanks to xet7.</summary>
 
-Board Settings / Swimlane, List and Card settings have a shared Draggable column.
-Swimlanes, lists, cards, checklists, checklist items and subtasks default to checked,
-including existing boards. Board administrators can uncheck each independently;
-the settings persist for the whole board, separately from personal drag handles.
+Board Settings / Swimlane, List and Card settings have a shared Draggable
+column. Swimlanes, lists, cards, checklists, checklist items and subtasks
+default to checked, including existing boards. Board administrators can
+uncheck each independently; the settings persist for the whole board,
+separately from personal drag handles.
 
-Ordinary sorting responds immediately. Disabled checklist items cannot fall through
-to dragging their parent card, and mixed selections cannot drag a disabled selected
-object. Explicit menu moves remain available. Disabling swimlane reordering retains
-the container needed for cross-swimlane card transfers.
+Ordinary sorting responds immediately. Disabled checklist items cannot fall
+through to dragging their parent card, and mixed selections cannot drag a
+disabled selected object. Explicit menu moves remain available. Disabling
+swimlane reordering retains the container needed for cross-swimlane card
+transfers.
 
-Four new Chromium cases cover saved settings, independent switches, authorization,
-rejected mixed drags and disabling/re-enabling checklist-item dragging on minicards
-and opened cards with handles on and off. Together with existing mixed-selection,
-collapsed-container and checklist suites, 26 distinct Chromium cases pass. Thirteen
-focused Node suites and the Meteor build pass.
+Four new Chromium cases cover saved settings, independent switches,
+authorization, rejected mixed drags and disabling/re-enabling checklist-item
+dragging on minicards and opened cards with handles on and off. Together with
+existing mixed-selection, collapsed-container and checklist suites, 26
+distinct Chromium cases pass. Thirteen focused Node suites and the Meteor
+build pass.
 
 </details>
 
@@ -852,10 +857,10 @@ checklist across lists and swimlanes. An internal checklist drop no longer looks
 like a drop on the enclosing board list, which would create an extra card.
 
 Six Chromium cases cover opened-card sorting, minicard progress and sorting,
-and cross-list/cross-swimlane transfers with handles both enabled and disabled.
-They verify persistence after reload, the destination card/checklist and no extra
-card creation. Focused reorder, drop-target, collapse, visibility and conversion
-checks and the Meteor build pass.
+and cross-list/cross-swimlane transfers with handles both enabled and
+disabled. They verify persistence after reload, the destination card/checklist
+and no extra card creation. Focused reorder, drop-target, collapse, visibility
+and conversion checks and the Meteor build pass.
 
 </details>
 
@@ -868,9 +873,9 @@ original position. Preserve checklist-to-list card creation.
 Fixes [#6723](https://github.com/wekan/wekan/issues/6723).
 
 Regression tests cover first, middle, last and cross-checklist positions, plus
-card drops. Chromium verifies real dragging, database order and persistence after
-reload; all seven existing checklist browser tests also pass. The Meteor build
-and eleven checklist-to-card checks pass.
+card drops. Chromium verifies real dragging, database order and persistence
+after reload; all seven existing checklist browser tests also pass. The Meteor
+build and eleven checklist-to-card checks pass.
 
 </details>
 
@@ -895,11 +900,13 @@ Thanks to above GitHub users for their contributions and translators for their t
 # v12.02 2026-09-25 WeKan ® release
 
 **In short:** **Admin Panel / People** opens Email and provides separate login
-settings, including SAML environment overrides, metadata and logout configuration.
-**SSO** stops automatically retrying failed OIDC callbacks. **Login buttons** share
-blue backgrounds and white text/icons. **Release notes** omit empty categories.
+settings, including SAML environment overrides, metadata and logout
+configuration. **SSO** stops automatically retrying failed OIDC callbacks.
+**Login buttons** share blue backgrounds and white text/icons. **Release
+notes** omit empty categories.
 
-This release adds SAML administration and improves login behavior and navigation:
+This release adds SAML administration and improves login behavior and
+navigation:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/05f1f0a03">Configure SAML in Admin Panel / People</a>. Thanks to xet7.</summary>
@@ -913,8 +920,8 @@ pending logins. Keep configuration out of ordinary settings publications.
 Expose service-provider metadata and callback URLs, and add service-provider
 initiated logout through the existing MIT-licensed node-saml library. Accept
 validated logout responses; IdP-initiated logout requests are not supported.
-Document account merging as an explicit opt-in and include its environment setting
-in platform configurations, including Snap, Docker and launch scripts.
+Document account merging as an explicit opt-in and include its environment
+setting in platform configurations, including Snap, Docker and launch scripts.
 
 Verified configuration precedence, rejected inputs, platform coverage, metadata
 and logout route delegation and rejection paths. Chromium verifies settings
@@ -929,10 +936,12 @@ reported SAML popup completion problem or add other authentication providers.
 
 Admin Panel / People opens Email first. Move Login, LDAP, OAuth providers and
 Passwordless to separate left-menu entries below Shared templates, retaining
-shared settings templates and direct routes. SAML follows Login with this release.
+shared settings templates and direct routes. SAML follows Login with this
+release.
 
 Regression coverage verifies route resolution, site-admin restrictions and
-handlers. Chromium verifies menu order, separate panes and selection after reload.
+handlers. Chromium verifies menu order, separate panes and selection after
+reload.
 
 </details>
 
@@ -947,7 +956,8 @@ Fixes [#6722](https://github.com/wekan/wekan/issues/6722).
 
 Verified with eight executable redirect regressions, the OAuth login-style and
 OIDC state-isolation suites, and a Chromium callback-reload regression. The
-reporter's Microsoft Entra configuration was not available for end-to-end testing.
+reporter's Microsoft Entra configuration was not available for end-to-end
+testing.
 
 </details>
 
