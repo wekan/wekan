@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Girêdayîbûn: Dîrokçe → Dest pê bike / Dawî. Dest pê bike (nenas): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Dîrokçe. roj: UTC; 0 ✓. 50%, 70%, 85%, 95%. Kart ≥; Demdirêjî ≤. Sînor: 3650 roj.",
   "flow-note-processBehavior": "XmR: Dema çerxê; Dest pê bike → Qediya. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Hejmar. Y: Dema çerxê (roj). (nenas): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Hejmar. Y: Dema çerxê (roj). (nenas): —.",
+  "move-reason": "Kartê bar bike — Danasîn",
+  "ask-move-reason": "Kartê bar bike → Danasîn?",
+  "time-adjustments": "saet — Δ — Navê bikarhêner",
+  "time-adjustment-note": "Dîrokçe: Δ saet; Navê bikarhêner ≠ Berpirsyar."
 }

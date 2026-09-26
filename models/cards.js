@@ -513,6 +513,7 @@ Cards.attachSchema(
         },
       }),
     },
+    lastMoveReason: { type: String, optional: true, max: 1000, defaultValue: '' },
     spentTime: {
       /**
        * How much time has been spent on this
@@ -936,36 +937,6 @@ Cards.attachSchema(
   }),
 );
 
-/*
- * Append one card change to the universal history
- * (docs/Features/Reports/History/History.md §5).
- *
- * Lazy require, deliberately: this file is isomorphic and the collection is
- * only written on the server, so the module is not pulled into the client
- * bundle. Best-effort by contract - a history failure must never fail the edit
- * it describes - and never gated on `typeof X !== 'undefined'`, which is the
- * guard that made the position history record nothing at all (#6478).
- */
-async function recordCardChange(card, change) {
-  if (!Meteor.isServer) return;
-  const userId = typeof Meteor.userId === 'function' ? Meteor.userId() : null;
-  if (!userId) return;
-  try {
-    const ChangeHistory = require('/models/changeHistory').default;
-    await ChangeHistory.record({
-      boardId: card.boardId,
-      swimlaneId: card.swimlaneId,
-      listId: card.listId,
-      cardId: card._id,
-      entityType: 'card',
-      entityId: card._id,
-      userId,
-      ...change,
-    });
-  } catch (error) {
-    console.warn('changeHistory: failed to record a card change:', error && error.message);
-  }
-}
 
 Cards.helpers({
   /** Kanboard-style whole-card recurrence: set (or clear, with 'none') this
@@ -2959,7 +2930,7 @@ Cards.helpers({
     return this.move(boardId, swimlaneId, listId, sort);
   },
 
-  async move(boardId, swimlaneId, listId, sort = null) {
+  async move(boardId, swimlaneId, listId, sort = null, moveReason) {
     const previousState = {
       boardId: this.boardId,
       swimlaneId: this.swimlaneId,
@@ -2979,6 +2950,16 @@ Cards.helpers({
     // so it does not run the move hooks/activities or trigger a reactive re-render.
     if (Object.keys(mutatedFields).length === 0) {
       return;
+    }
+
+    if (this.listId !== listId || this.boardId !== boardId) {
+      if (Meteor.isClient && moveReason === undefined) {
+        const sourceBoard = ReactiveCache.getBoard(this.boardId);
+        if (sourceBoard?.askForMoveReason) {
+          moveReason = window.prompt(require('/imports/i18n').TAPi18n.__('move-reason'), '') || '';
+        }
+      }
+      mutatedFields.lastMoveReason = typeof moveReason === 'string' ? moveReason.trim().slice(0, 1000) : '';
     }
 
     if (this.boardId !== boardId) {
@@ -3064,17 +3045,8 @@ Cards.helpers({
         // Both stores during the transition (History.md §4, "keep
         // userPositionHistory writing during transition"): the new one is what
         // Ctrl+Z reads now, the old one stays until its rows are migrated.
-        await recordCardChange(this, {
-          group: 'position',
-          changeType: 'moved',
-          previousContent: previousState,
-          newContent: {
-            boardId,
-            swimlaneId,
-            listId,
-            sort: sort !== null ? sort : this.sort,
-          },
-        });
+        // Universal History is recorded by the collection hook for every
+        // write path. Keep only the legacy position store during transition.
         const UserPositionHistory = require('/models/userPositionHistory').default;
         UserPositionHistory.trackChange({
           userId: Meteor.userId(),
@@ -3672,6 +3644,7 @@ async function cardMove(
     await Activities.insertAsync({
       userId,
       activityType: 'moveCardBoard',
+      moveReason: doc.lastMoveReason || '',
       boardName: newBoard.title,
       boardId: doc.boardId,
       oldBoardId,
@@ -3691,6 +3664,7 @@ async function cardMove(
       userId,
       oldListId,
       activityType: 'moveCard',
+      moveReason: doc.lastMoveReason || '',
       // Old/shared-list boards can momentarily update a card before the target
       // list/swimlane reaches this cache. Activity logging must not make the
       // otherwise-valid move fail (#6614).
@@ -3931,22 +3905,23 @@ async function cardCreation(userId, doc) {
 }
 
 async function cardRemover(userId, doc) {
-  // Performance (#3252 / #5322): when a whole card is permanently deleted, remove
-  // its checklist items, checklists and comments with `.direct` so their
-  // per-document before.remove hooks do NOT run. Those hooks only log/clean up
-  // activities (e.g. a "removedChecklistItem" activity per item) — pure churn
-  // here, since the activities are not viewable once the card is gone — and
-  // firing them once per child is the main cause of the activity-insert /
-  // notification / publication storm (and high CPU) when deleting or archiving
-  // many cards at once. All of the card's activities are instead cleaned up in a
-  // single bulk operation below, which also removes the activities that were
-  // previously left orphaned on a card delete. The card's own `deleteCard`
-  // activity is inserted by Cards.before.remove AFTER this function runs, so it
-  // is preserved (and its outgoing-webhook still fires).
+  // Keep timestamped Activities for board reports (#1598). Remove children
+  // directly to avoid one notification/history write per child (#3252/#5322).
+  // The card deletion itself gets one snapshot and the normal delete activity.
   await ChecklistItems.direct.removeAsync({ cardId: doc._id });
   await Checklists.direct.removeAsync({ cardId: doc._id });
   await CardComments.direct.removeAsync({ cardId: doc._id });
-  await Activities.direct.removeAsync({ cardId: doc._id });
+  // #1598: keep the timestamped board activity trail after deleting its card.
+  // A single snapshot preserves report inputs without per-child hook storms.
+  if (userId) {
+    const ChangeHistory = require('/models/changeHistory').default;
+    await ChangeHistory.record({
+      boardId: doc.boardId, listId: doc.listId, swimlaneId: doc.swimlaneId,
+      cardId: doc._id, entityType: 'card', entityId: doc._id,
+      group: 'lifecycle', changeType: 'removed', userId,
+      previousContent: { document: JSON.parse(JSON.stringify(doc)) }, newContent: null,
+    });
+  }
   // Subcards go through the hooked remove so each subcard's own children cascade
   // and its delete activity / webhook fire.
   await Cards.removeAsync({ parentId: doc._id });

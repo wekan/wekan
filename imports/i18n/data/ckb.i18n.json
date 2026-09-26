@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "پشتبەستەکان: مێژوو → دەستپێکردن / کۆتایی. دەستپێکردن (نەناسراو): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × مێژوو. ڕۆژ: UTC; 0 ✓. 50%, 70%, 85%, 95%. کارتەکان ≥; ماوە ≤. سنوورەکان: 3650 ڕۆژ.",
   "flow-note-processBehavior": "XmR: کاتی سووڕ; دەستپێکردن → تەواوکراو. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / ژمارە. Y: کاتی سووڕ (ڕۆژ). (نەناسراو): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / ژمارە. Y: کاتی سووڕ (ڕۆژ). (نەناسراو): —.",
+  "move-reason": "گواستنەوەی کارت — وەسف",
+  "ask-move-reason": "گواستنەوەی کارت → وەسف?",
+  "time-adjustments": "کاتژمێر — Δ — ناوی بەکارهێنەر",
+  "time-adjustment-note": "مێژوو: Δ کاتژمێر; ناوی بەکارهێنەر ≠ بەرپرسان."
 }

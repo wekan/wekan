@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Dipendencis: Cronologjie → Scomence / Fin. Scomence (no cognossût): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Cronologjie. dîs: UTC; 0 ✓. 50%, 70%, 85%, 95%. Cjartis ≥; Durade ≤. Limits: 3650 dîs.",
   "flow-note-processBehavior": "XmR: Timp di ciclo; Scomence → Completât/a. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Par furlan: Planning Poker / Numar. Y: Timp di ciclo (dîs). (no cognossût): —."
+  "flow-note-sizeCycleTime": "X: Par furlan: Planning Poker / Numar. Y: Timp di ciclo (dîs). (no cognossût): —.",
+  "move-reason": "Sposte la cjarte — Descrizion",
+  "ask-move-reason": "Sposte la cjarte → Descrizion?",
+  "time-adjustments": "oris — Δ — Non utent",
+  "time-adjustment-note": "Cronologjie: Δ oris; Non utent ≠ Assegnâts."
 }

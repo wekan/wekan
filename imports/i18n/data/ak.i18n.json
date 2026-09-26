@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Nsɛm a ɛfa dwumadi yi ho: Histanaay → Fi ase / Nsɛm a ɛfa dwumadi yi ho. Fi ase Nsɛm a ɛfa dwumadi yi ho: —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Histanaay. Nsɛm a ɛfa dwumadi yi ho: UTC; 0 ✓. 50%, 70%, 85%, 95%. Kaad ahodoɔ ≥; Nsɛm a ɛfa dwumadi yi ho ≤. Nsɛm a ɛfa dwumadi yi ho: 3650 Nsɛm a ɛfa dwumadi yi ho.",
   "flow-note-processBehavior": "XmR: Ntwaho berɛ; Fi ase → Awie. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Nsɛm a ɛfa dwumadi yi ho / Nsɛm a ɛfa dwumadi yi ho. Y: Ntwaho berɛ (Nsɛm a ɛfa dwumadi yi ho). Nsɛm a ɛfa dwumadi yi ho: —."
+  "flow-note-sizeCycleTime": "X: Nsɛm a ɛfa dwumadi yi ho / Nsɛm a ɛfa dwumadi yi ho. Y: Ntwaho berɛ (Nsɛm a ɛfa dwumadi yi ho). Nsɛm a ɛfa dwumadi yi ho: —.",
+  "move-reason": "Fa kaad no kɔ baabi — Nkyerɛkyerɛmu",
+  "ask-move-reason": "Fa kaad no kɔ baabi → Nkyerɛkyerɛmu?",
+  "time-adjustments": "Nsɛm a ɛfa dwumadi yi ho — Δ — Dwumadini din",
+  "time-adjustment-note": "Histanaay: Δ Nsɛm a ɛfa dwumadi yi ho; Dwumadini din ≠ Wɔn a wɔde adwuma ama wɔn."
 }

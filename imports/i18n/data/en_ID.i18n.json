@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Dependencies: History → Start / End. Start (unknown): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × History. days: UTC; 0 ✓. 50%, 70%, 85%, 95%. Cards ≥; Duration ≤. Limits: 3650 days.",
   "flow-note-processBehavior": "XmR: Cycle Time; Start → Completed. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Number. Y: Cycle Time (days). (unknown): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Number. Y: Cycle Time (days). (unknown): —.",
+  "move-reason": "Move Card — Description",
+  "ask-move-reason": "Move Card → Description?",
+  "time-adjustments": "hours — Δ — Username",
+  "time-adjustment-note": "History: Δ hours; Username ≠ Assignees."
 }

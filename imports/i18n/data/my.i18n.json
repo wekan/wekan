@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "မှီခိုမှုများ: မှတ်တမ်း → စတင် / ပြီးဆုံး. စတင် (မသိ): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × မှတ်တမ်း. ရက်များ: UTC; 0 ✓. 50%, 70%, 85%, 95%. ကတ်များ ≥; ကြာချိန် ≤. ကန့်သတ်ချက်များ: 3650 ရက်များ.",
   "flow-note-processBehavior": "XmR: ကွင်းဆက်ချိန်; စတင် → ပြီးစီးပြီး. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / ကိန်းဂဏန်း. Y: ကွင်းဆက်ချိန် (ရက်များ). (မသိ): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / ကိန်းဂဏန်း. Y: ကွင်းဆက်ချိန် (ရက်များ). (မသိ): —.",
+  "move-reason": "ကတ်ကို ရွှေ့ရန် — ဖော်ပြချက်",
+  "ask-move-reason": "ကတ်ကို ရွှေ့ရန် → ဖော်ပြချက်?",
+  "time-adjustments": "နာရီများ — Δ — အသုံးပြုသူအမည်",
+  "time-adjustment-note": "မှတ်တမ်း: Δ နာရီများ; အသုံးပြုသူအမည် ≠ တာဝန်ခံများ."
 }

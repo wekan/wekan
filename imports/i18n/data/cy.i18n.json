@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Dibyniaethau: Hanes → Cychwyn / Diwedd. Cychwyn (anhysbys): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Hanes. dyddiau: UTC; 0 ✓. 50%, 70%, 85%, 95%. Cardiau ≥; Hyd ≤. Terfynau: 3650 dyddiau.",
   "flow-note-processBehavior": "XmR: Amser cylchred; Cychwyn → Cwblhawyd. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Cynllunio Poker / Rhif. Y: Amser cylchred (dyddiau). (anhysbys): —."
+  "flow-note-sizeCycleTime": "X: Cynllunio Poker / Rhif. Y: Amser cylchred (dyddiau). (anhysbys): —.",
+  "move-reason": "Cerdyn Symud — Disgrifiad",
+  "ask-move-reason": "Cerdyn Symud → Disgrifiad?",
+  "time-adjustments": "oriau — Δ — Enw defnyddiwr",
+  "time-adjustment-note": "Hanes: Δ oriau; Enw defnyddiwr ≠ Aseinwyr."
 }

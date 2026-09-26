@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Dependencies (mu Luganda): History (mu Luganda) → Tandika / End (mu Luganda). Tandika (unknown) (mu Luganda): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × History (mu Luganda). nnaku: UTC; 0 ✓. 50%, 70%, 85%, 95%. Amakaadi ≥; Duration (mu Luganda) ≤. Limits (mu Luganda): 3650 nnaku.",
   "flow-note-processBehavior": "XmR: Muda wa Mzunguko; Tandika → Kiwedde. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker (mu Luganda) / Namba. Y: Muda wa Mzunguko (nnaku). (unknown) (mu Luganda): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker (mu Luganda) / Namba. Y: Muda wa Mzunguko (nnaku). (unknown) (mu Luganda): —.",
+  "move-reason": "Simbula ekaadi — Ennyonyola",
+  "ask-move-reason": "Simbula ekaadi → Ennyonyola?",
+  "time-adjustments": "hours (mu Luganda) — Δ — Erinnya ly'omukozesa",
+  "time-adjustment-note": "History (mu Luganda): Δ hours (mu Luganda); Erinnya ly'omukozesa ≠ Abaweereddwa omulimu."
 }

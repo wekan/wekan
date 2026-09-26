@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Ҫыхӑнулӑхсем: Истори → Пуҫлас / Пӗтӗм. Пуҫлас (паллӑ мар): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Истори. кун: UTC; 0 ✓. 50%, 70%, 85%, 95%. Карточкӑсем ≥; Тӑршшӗ ≤. Чикӗсем: 3650 кун.",
   "flow-note-processBehavior": "XmR: Цикл вăхăчĕ; Пуҫлас → Пӗтнӗ. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Хисеп. Y: Цикл вăхăчĕ (кун). (паллӑ мар): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Хисеп. Y: Цикл вăхăчĕ (кун). (паллӑ мар): —.",
+  "move-reason": "Карточкӑна куҫарас — Ӑнлантару",
+  "ask-move-reason": "Карточкӑна куҫарас → Ӑнлантару?",
+  "time-adjustments": "сехет — Δ — Усӑҫӑ ячӗ",
+  "time-adjustment-note": "Истори: Δ сехет; Усӑҫӑ ячӗ ≠ Яваплисем."
 }

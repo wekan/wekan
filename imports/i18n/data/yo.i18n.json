@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Awọn igbẹkẹle: Itan → Bẹrẹ / Ipari. Bẹrẹ (aimọ): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Itan. awọn ọjọ: UTC; 0 ✓. 50%, 70%, 85%, 95%. Awọn kaadi ≥; Iye akoko ≤. Awọn opin: 3650 awọn ọjọ.",
   "flow-note-processBehavior": "XmR: Àkókò Ìyípo; Bẹrẹ → Ti pari. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: poka igbogun / Nọmba. Y: Àkókò Ìyípo (awọn ọjọ). (aimọ): —."
+  "flow-note-sizeCycleTime": "X: poka igbogun / Nọmba. Y: Àkókò Ìyípo (awọn ọjọ). (aimọ): —.",
+  "move-reason": "Gbe Kaadi — Apejuwe",
+  "ask-move-reason": "Gbe Kaadi → Apejuwe?",
+  "time-adjustments": "wakati — Δ — Orukọ olumulo",
+  "time-adjustment-note": "Itan: Δ wakati; Orukọ olumulo ≠ Awọn ayanfunni."
 }

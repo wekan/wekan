@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "निर्भरता: इतिहास → शुरू करू / समाप्ति. शुरू करू (अज्ञात): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × इतिहास. दिन: UTC; 0 ✓. 50%, 70%, 85%, 95%. कार्ड ≥; अवधि ≤. सीमा: 3650 दिन.",
   "flow-note-processBehavior": "XmR: चक्र समय; शुरू करू → पूर्ण भेल. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / संख्या. Y: चक्र समय (दिन). (अज्ञात): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / संख्या. Y: चक्र समय (दिन). (अज्ञात): —.",
+  "move-reason": "कार्ड घसकाउ — विवरण",
+  "ask-move-reason": "कार्ड घसकाउ → विवरण?",
+  "time-adjustments": "घंटा — Δ — प्रयोगकर्ता नाम",
+  "time-adjustment-note": "इतिहास: Δ घंटा; प्रयोगकर्ता नाम ≠ उत्तरदायी लोकनि."
 }

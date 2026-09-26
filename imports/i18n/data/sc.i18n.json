@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Dipendenze: Cronologia → Cumintza / Fine. Cumintza (disconnotu): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Cronologia. giorni: UTC; 0 ✓. 50%, 70%, 85%, 95%. Cartas ≥; Durada ≤. Limiti: 3650 giorni.",
   "flow-note-processBehavior": "XmR: Tempus de ciclu; Cumintza → Completadu/a. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Nùmeru. Y: Tempus de ciclu (giorni). (disconnotu): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Nùmeru. Y: Tempus de ciclu (giorni). (disconnotu): —.",
+  "move-reason": "Move sa carta — Descritzione",
+  "ask-move-reason": "Move sa carta → Descritzione?",
+  "time-adjustments": "ore — Δ — Nùmene de s'utente",
+  "time-adjustment-note": "Cronologia: Δ ore; Nùmene de s'utente ≠ Assignados."
 }

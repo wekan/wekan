@@ -2733,8 +2733,12 @@
   "flow-error": "Could not load the report. Check the values and try again.",
   "flow-details": "Underlying history",
   "flow-note-agingWip": "Open cards: days since entering the current stage. Red bars exceed its historical 85th percentile (at least five stays). Missing entry history is unknown.",
-  "flow-note-blockerAnalysis": "Dependency history gives blocker start/end times per stage. Older links may have unknown starts. Removed cards and missing history cannot be reconstructed. Overlapping causes count separately.",
+  "flow-note-blockerAnalysis": "Dependency history gives blocker start/end times per stage. Older links may have unknown starts. Deleted cards require retained history snapshots. Overlapping causes count separately.",
   "flow-note-monteCarlo": "2,000 trials sample full UTC calendar days, including zero-throughput days. Dates are upper-tail forecasts; counts are lower-tail commitments. Assumes similar future throughput; not a guarantee. Maximum horizon: 3,650 days. No completions means no forecast.",
   "flow-note-processBehavior": "Cycle time uses Start, falling back to creation, and End, falling back to archive. XmR shows individuals and successive differences, with mean and natural process limits; at least two valid completions are required.",
-  "flow-note-sizeCycleTime": "Current Planning Poker estimate or one numeric custom field versus completed cycle time in days. Missing estimates and invalid dates are omitted. Start falls back to creation; End falls back to archive."
+  "flow-note-sizeCycleTime": "Current Planning Poker estimate or one numeric custom field versus completed cycle time in days. Missing estimates and invalid dates are omitted. Start falls back to creation; End falls back to archive.",
+  "move-reason": "Move reason (optional)",
+  "ask-move-reason": "Ask for a reason when moving cards",
+  "time-adjustments": "Time adjustments by author",
+  "time-adjustment-note": "Changes to recorded hours, grouped by the person editing the total. These are not individual work sessions. Negative values are corrections. Earlier unrecorded time cannot be attributed."
 }

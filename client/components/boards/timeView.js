@@ -43,6 +43,8 @@ Template.timeView.events({
 });
 
 Template.timeView.helpers({
+  timeAdjustmentGroups() { return Template.instance().breakdown.get()?.adjustments?.groups || []; },
+  timeAdjustmentEntries() { return Template.instance().breakdown.get()?.adjustments?.entries || []; },
   cardsWithTimeSpent() { return statsNum('cardsWithTimeSpent'); },
   overtimeCards() { return statsNum('overtimeCards'); },
   timeSpentTotal() {

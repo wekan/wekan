@@ -111,6 +111,8 @@ test('dependency edits appear in History and undo/redo restores the edge', async
   expect(row.createdAt).toBeTruthy();
   await page.evaluate(boardId => Meteor.callAsync('changeHistory.undoLast', boardId), board.boardId);
   await expect.poll(() => db.getCard(source._id).cardDependencies || []).toEqual([]);
+  const afterUndo = await page.evaluate(boardId => Meteor.callAsync('boardChartData', boardId, 'blockerAnalysis'), board.boardId);
+  expect(afterUndo.episodes.every(episode => episode.endAt)).toBe(true);
   await page.evaluate(boardId => Meteor.callAsync('changeHistory.redoLast', boardId), board.boardId);
   await expect.poll(() => (db.getCard(source._id).cardDependencies || []).map(dep => dep.cardId)).toContain(target._id);
   await page.locator(`.js-remove-dependency[data-target-id="${target._id}"]`).click();

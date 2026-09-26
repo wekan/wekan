@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Kay willaymi: Dependenciesta: Kay willaymi: Historyta → Qallariy / Kay willaymi: Endta. Qallariy Kay willaymi: (unknownta): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Kay willaymi: Historyta. Kay willaymi: P'unchawkuna: UTC; 0 ✓. 50%, 70%, 85%, 95%. Kartakuna ≥; Kay willaymi: Durationta ≤. Kay willaymi: Limitsta: 3650 Kay willaymi: P'unchawkuna.",
   "flow-note-processBehavior": "XmR: Muyuy pacha; Qallariy → Kay willaymi: Tukusqa. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Kay willaymi: Planningta Pokerta / Kay willaymi: Numberta. Y: Muyuy pacha (Kay willaymi: P'unchawkuna). Kay willaymi: (unknownta): —."
+  "flow-note-sizeCycleTime": "X: Kay willaymi: Planningta Pokerta / Kay willaymi: Numberta. Y: Muyuy pacha (Kay willaymi: P'unchawkuna). Kay willaymi: (unknownta): —.",
+  "move-reason": "Kartata astay — Willakuy",
+  "ask-move-reason": "Kartata astay → Willakuy?",
+  "time-adjustments": "Kay willaymi: hoursta — Δ — Llamkaqpa sutin",
+  "time-adjustment-note": "Kay willaymi: Historyta: Δ Kay willaymi: hoursta; Llamkaqpa sutin ≠ Ruranapaq churasqakuna."
 }

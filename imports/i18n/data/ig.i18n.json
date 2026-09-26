@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Ndabere: Akụkọ ihe mere eme → Bido / Ọgwụgwụ. Bido (amaghi ama): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Akụkọ ihe mere eme. ụbọchị: UTC; 0 ✓. 50%, 70%, 85%, 95%. Kaadị ≥; Ogologo oge ≤. Oke: 3650 ụbọchị.",
   "flow-note-processBehavior": "XmR: Oge Okirikiri; Bido → Emechara. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Ịmepụta egwuregwu ịgba chaa chaa / Nọmba. Y: Oge Okirikiri (ụbọchị). (amaghi ama): —."
+  "flow-note-sizeCycleTime": "X: Ịmepụta egwuregwu ịgba chaa chaa / Nọmba. Y: Oge Okirikiri (ụbọchị). (amaghi ama): —.",
+  "move-reason": "Bugharịa Kaadị — Nkọwa",
+  "ask-move-reason": "Bugharịa Kaadị → Nkọwa?",
+  "time-adjustments": "elekere — Δ — Aha njirimara",
+  "time-adjustment-note": "Akụkọ ihe mere eme: Δ elekere; Aha njirimara ≠ Ndị ọrụ."
 }

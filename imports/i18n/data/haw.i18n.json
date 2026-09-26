@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "kepenakenakieka: mōʻaukala → Hoʻomaka / enaka. Hoʻomaka (unakanowana): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × mōʻaukala. nā lā: UTC; 0 ✓. 50%, 70%, 85%, 95%. Nā kāleka ≥; kulakiona ≤. limikaka: 3650 nā lā.",
   "flow-note-processBehavior": "XmR: Manawa pōʻai; Hoʻomaka → pau. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: palananinaka pokela / numapela. Y: Manawa pōʻai (nā lā). (unakanowana): —."
+  "flow-note-sizeCycleTime": "X: palananinaka pokela / numapela. Y: Manawa pōʻai (nā lā). (unakanowana): —.",
+  "move-reason": "Hoʻoneʻe i ke kāleka — Wehewehe",
+  "ask-move-reason": "Hoʻoneʻe i ke kāleka → Wehewehe?",
+  "time-adjustments": "nā hola — Δ — Inoa mea hoʻohana",
+  "time-adjustment-note": "mōʻaukala: Δ nā hola; Inoa mea hoʻohana ≠ Nā mea i hāʻawi ʻia."
 }

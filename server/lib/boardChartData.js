@@ -51,10 +51,10 @@ export async function loadBoardChartData(boardId, chartKey, options = {}) {
         { boardId, activityType: { $in: ['createCard', 'moveCard', 'moveCardBoard', 'archivedCard', 'restoredCard'] } },
         { fields: { cardId: 1, listId: 1, oldListId: 1, createdAt: 1, activityType: 1 } },
       ).fetchAsync() : [],
-      ['agingWip', 'blockerAnalysis'].includes(chartKey) ? ChangeHistory.find(
+      ChangeHistory.find(
         { boardId, entityType: 'card', group: { $in: ['position', 'dates', 'lifecycle', 'dependencies'] } },
         { fields: { entityType: 1, entityId: 1, group: 1, previousContent: 1, newContent: 1, createdAt: 1 } },
-      ).fetchAsync() : [],
+      ).fetchAsync(),
       chartKey === 'sizeCycleTime' ? ReactiveCache.getCustomFields({ boardIds: boardId, type: 'number' }) : [],
     ]);
     // Universal position history also covers restores. Its newer position
@@ -63,7 +63,8 @@ export async function loadBoardChartData(boardId, chartKey, options = {}) {
       events.push({ cardId: row.entityId, listId: row.newContent?.listId,
         oldListId: row.previousContent?.listId, createdAt: row.createdAt, activityType: 'moveCard' });
     }
-    return computeFlowAnalytics(chartKey, allCards, lists, events, fields, options, new Date(), history);
+    const { withRemovedCards } = require('/models/lib/timeHistory');
+    return computeFlowAnalytics(chartKey, withRemovedCards(allCards, history, boardId), lists, events, fields, options, new Date(), history);
   }
 
   const firstCreatedAt = allCards.reduce(
@@ -134,7 +135,10 @@ export async function loadBoardChartData(boardId, chartKey, options = {}) {
 
   if (chartKey === 'dashboard' || chartKey === 'time' || chartKey === 'groupByAssignee') {
     const usersById = {};
-    const userIds = new Set();
+    const adjustmentsHistory = chartKey === 'time'
+      ? await require('/models/changeHistory').default.find({ boardId, entityType: 'card',
+        $or: [{ 'newContent.field': 'spentTime' }, { 'previousContent.field': 'spentTime' }, { group: 'lifecycle' }] }).fetchAsync() : [];
+    const userIds = new Set(adjustmentsHistory.map(row => row.userId).filter(Boolean));
     allCards.forEach(card => (card.assignees || []).forEach(id => userIds.add(id)));
     await Promise.all([...userIds].map(async id => {
       usersById[id] = await ReactiveCache.getUser({ _id: id });
@@ -146,7 +150,10 @@ export async function loadBoardChartData(boardId, chartKey, options = {}) {
       // how many hours, and which cards those hours went to. Matches the
       // Time view's own "archived: false" summary above it.
       const activeCards = allCards.filter(card => !card.archived);
+      const { timeAdjustments, withRemovedCards } = require('/models/lib/timeHistory');
+      const titles = new Map(withRemovedCards(allCards, adjustmentsHistory, boardId).map(card => [card._id, card.title]));
       return {
+        adjustments: timeAdjustments(adjustmentsHistory, nameOf, id => titles.get(id) || id),
         byAssignee: computeTimeByGroup(activeCards, card =>
           (card.assignees || []).map(id => ({ key: id, label: nameOf(id) })), NO_ASSIGNEE_GROUP),
         byCard: computeTimeByCard(activeCards),

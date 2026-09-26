@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "अवलंबनां: इतिहास → सुरू करचें / सोंपप. सुरू करचें (अज्ञात): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × इतिहास. दीस: UTC; 0 ✓. 50%, 70%, 85%, 95%. कार्डां ≥; कालावधी ≤. मर्यादा: 3650 दीस.",
   "flow-note-processBehavior": "XmR: चक्र समय; सुरू करचें → पुराय जालें. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / क्रमांक. Y: चक्र समय (दीस). (अज्ञात): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / क्रमांक. Y: चक्र समय (दीस). (अज्ञात): —.",
+  "move-reason": "कार्ड हालोवचें — विवरण",
+  "ask-move-reason": "कार्ड हालोवचें → विवरण?",
+  "time-adjustments": "वरां — Δ — वापरपी नांव",
+  "time-adjustment-note": "इतिहास: Δ वरां; वापरपी नांव ≠ जापसालदार."
 }

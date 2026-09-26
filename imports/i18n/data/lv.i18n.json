@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Atkarības: Istorija → Sākt / Beigas. Sākt (nav zināms): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Istorija. dienas: UTC; 0 ✓. 50%, 70%, 85%, 95%. Kartiņas ≥; Trukmė ≤. Ierobežojumi: 3650 dienas.",
   "flow-note-processBehavior": "XmR: Cikla laiks; Sākt → Pabeigts. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Pokerio planavimas / Skaits. Y: Cikla laiks (dienas). (nav zināms): —."
+  "flow-note-sizeCycleTime": "X: Pokerio planavimas / Skaits. Y: Cikla laiks (dienas). (nav zināms): —.",
+  "move-reason": "Pārvietot kartiņu — Apraksts",
+  "ask-move-reason": "Pārvietot kartiņu → Apraksts?",
+  "time-adjustments": "stundas — Δ — Lietotājvārds",
+  "time-adjustment-note": "Istorija: Δ stundas; Lietotājvārds ≠ Perėmėjai."
 }

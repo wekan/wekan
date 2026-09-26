@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Залежнасці: Гісторыя → Пачатак / Заканчэнне. Пачатак (невядома): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Гісторыя. дзён: UTC; 0 ✓. 50%, 70%, 85%, 95%. Карткі ≥; Працягласць ≤. Ліміты: 3650 дзён.",
   "flow-note-processBehavior": "XmR: Час цыклу; Пачатак → Завершана. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Лік. Y: Час цыклу (дзён). (невядома): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Лік. Y: Час цыклу (дзён). (невядома): —.",
+  "move-reason": "Перамясціць картку — Апісанне",
+  "ask-move-reason": "Перамясціць картку → Апісанне?",
+  "time-adjustments": "гадзін — Δ — Імя карыстальніка",
+  "time-adjustment-note": "Гісторыя: Δ гадзін; Імя карыстальніка ≠ Прызначаныя."
 }

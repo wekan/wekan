@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Ditshepetšano: Histori → Thoma / Mafelelo. Thoma (ga e tsebje): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Histori. matšatši: UTC; 0 ✓. 50%, 70%, 85%, 95%. Dikarata ≥; Nako ≤. Mellwane: 3650 matšatši.",
   "flow-note-processBehavior": "XmR: Nako ya potologo; Thoma → E phethilwe. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Palo. Y: Nako ya potologo (matšatši). (ga e tsebje): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Palo. Y: Nako ya potologo (matšatši). (ga e tsebje): —.",
+  "move-reason": "Šuthiša karata — Tlhalošo",
+  "ask-move-reason": "Šuthiša karata → Tlhalošo?",
+  "time-adjustments": "diiri — Δ — Leina la mošomiši",
+  "time-adjustment-note": "Histori: Δ diiri; Leina la mošomiši ≠ Bao ba filwego mošomo."
 }

@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Dilo tse di ikaegileng: Hisetori → Simolola / Bofelo. Simolola (ga go itsiwe): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Hisetori. malatsi: UTC; 0 ✓. 50%, 70%, 85%, 95%. Dikarata ≥; Tshedimosetso: Duration ≤. Ditekanyetso: 3650 malatsi.",
   "flow-note-processBehavior": "XmR: Nako ya sekgetlho; Simolola → E feditswe. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Palo. Y: Nako ya sekgetlho (malatsi). (ga go itsiwe): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Palo. Y: Nako ya sekgetlho (malatsi). (ga go itsiwe): —.",
+  "move-reason": "Suthisa karata — Tlhaloso",
+  "ask-move-reason": "Suthisa karata → Tlhaloso?",
+  "time-adjustments": "diura — Δ — Leina la modirisi",
+  "time-adjustment-note": "Hisetori: Δ diura; Leina la modirisi ≠ Ba ba neetsweng tiro."
 }

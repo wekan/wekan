@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Dependéncias: Istoric → Debuta / Fin. Debuta (desconegut): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Istoric. jorns: UTC; 0 ✓. 50%, 70%, 85%, 95%. Cartas ≥; Durada ≤. Limits dels pèças juntas: 3650 jorns.",
   "flow-note-processBehavior": "XmR: Temps de cicle; Debuta → Acabada. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Pòquer de planificacion / Numèro. Y: Temps de cicle (jorns). (desconegut): —."
+  "flow-note-sizeCycleTime": "X: Pòquer de planificacion / Numèro. Y: Temps de cicle (jorns). (desconegut): —.",
+  "move-reason": "Bolegar la carta — Descripcion",
+  "ask-move-reason": "Bolegar la carta → Descripcion?",
+  "time-adjustments": "oras — Δ — Nom d’utilizaire",
+  "time-adjustment-note": "Istoric: Δ oras; Nom d’utilizaire ≠ Responsables."
 }

@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "انحصار: تاريخچه → شروع / پڇاڙي. شروع (اڻڄاتل): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × تاريخچه. ڏينهن: UTC; 0 ✓. 50%, 70%, 85%, 95%. ڪارڊ ≥; مدو ≤. حدون: 3650 ڏينهن.",
   "flow-note-processBehavior": "XmR: چڪر جو وقت; شروع → مڪمل ٿيل. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / انگ. Y: چڪر جو وقت (ڏينهن). (اڻڄاتل): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / انگ. Y: چڪر جو وقت (ڏينهن). (اڻڄاتل): —.",
+  "move-reason": "ڪارڊ منتقل ڪريو — تفصيل",
+  "ask-move-reason": "ڪارڊ منتقل ڪريو → تفصيل?",
+  "time-adjustments": "ڪلاڪ — Δ — استعمال ڪندڙ جو نالو",
+  "time-adjustment-note": "تاريخچه: Δ ڪلاڪ; استعمال ڪندڙ جو نالو ≠ ذميوار."
 }

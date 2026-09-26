@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Priklausomybės: Istorija → Pradėti / Pabaiga. Pradėti (nežinoma): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Istorija. dienų: UTC; 0 ✓. 50%, 70%, 85%, 95%. Kortelės ≥; Trukmė ≤. Ribos: 3650 dienų.",
   "flow-note-processBehavior": "XmR: Ciklo laikas; Pradėti → Baigta. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Pokerio planavimas / Skaičius. Y: Ciklo laikas (dienų). (nežinoma): —."
+  "flow-note-sizeCycleTime": "X: Pokerio planavimas / Skaičius. Y: Ciklo laikas (dienų). (nežinoma): —.",
+  "move-reason": "Perkelti kortelę — Aprašymas",
+  "ask-move-reason": "Perkelti kortelę → Aprašymas?",
+  "time-adjustments": "valandų — Δ — Vartotojo vardas",
+  "time-adjustment-note": "Istorija: Δ valandų; Vartotojo vardas ≠ Perėmėjai."
 }

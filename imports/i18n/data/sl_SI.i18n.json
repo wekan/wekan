@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Odvisnosti: Историја → Začetek / Konec. Začetek (neznano): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Историја. dnevi: UTC; 0 ✓. 50%, 70%, 85%, 95%. Kartic ≥; Трајање ≤. Omejitve: 3650 dnevi.",
   "flow-note-processBehavior": "XmR: Čas cikla; Začetek → zaključen. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Играмо карте / Število. Y: Čas cikla (dnevi). (neznano): —."
+  "flow-note-sizeCycleTime": "X: Играмо карте / Število. Y: Čas cikla (dnevi). (neznano): —.",
+  "move-reason": "Premakni kartico — Opis",
+  "ask-move-reason": "Premakni kartico → Opis?",
+  "time-adjustments": "ure — Δ — Up. ime",
+  "time-adjustment-note": "Историја: Δ ure; Up. ime ≠ Dodeljene osebe."
 }

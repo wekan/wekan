@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Riippuvused: Istorii → Augotiž / Lop. Augotiž (tundmatoi): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Istorii. päiväd: UTC; 0 ✓. 50%, 70%, 85%, 95%. Kartad ≥; Piduzʹ ≤. Rajad: 3650 päiväd.",
   "flow-note-processBehavior": "XmR: Tshifhinga tsha tshiimo; Augotiž → Loptud. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planan poker / Lugu. Y: Tshifhinga tsha tshiimo (päiväd). (tundmatoi): —."
+  "flow-note-sizeCycleTime": "X: Planan poker / Lugu. Y: Tshifhinga tsha tshiimo (päiväd). (tundmatoi): —.",
+  "move-reason": "Sirdä kart — Kirjutuz",
+  "ask-move-reason": "Sirdä kart → Kirjutuz?",
+  "time-adjustments": "časud — Δ — Kävutajan nimi",
+  "time-adjustment-note": "Istorii: Δ časud; Kävutajan nimi ≠ Märitud kävutajad."
 }

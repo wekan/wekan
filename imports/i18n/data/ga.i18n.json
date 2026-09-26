@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Spleáchais: Stair → Tosaigh / Deireadh. Tosaigh (anaithnid): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Stair. laethanta: UTC; 0 ✓. 50%, 70%, 85%, 95%. Cártaí ≥; Fad ≤. Teorainneacha: 3650 laethanta.",
   "flow-note-processBehavior": "XmR: Am timthrialla; Tosaigh → Críochnaithe. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Uimhir. Y: Am timthrialla (laethanta). (anaithnid): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Uimhir. Y: Am timthrialla (laethanta). (anaithnid): —.",
+  "move-reason": "Bog an cárta — Cur síos",
+  "ask-move-reason": "Bog an cárta → Cur síos?",
+  "time-adjustments": "uaireanta — Δ — Ainm úsáideora",
+  "time-adjustment-note": "Stair: Δ uaireanta; Ainm úsáideora ≠ Sannaithe."
 }

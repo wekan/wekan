@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "依赖: 历史 → 开始 / 结尾. 开始 （未知）: —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × 历史. 天: UTC; 0 ✓. 50%, 70%, 85%, 95%. 牌 ≥; 期间 ≤. 限制: 3650 天.",
   "flow-note-processBehavior": "XmR: 周期时间; 开始 → 完全的. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: 规划扑克 / 数字. Y: 周期时间 (天). （未知）: —."
+  "flow-note-sizeCycleTime": "X: 规划扑克 / 数字. Y: 周期时间 (天). （未知）: —.",
+  "move-reason": "移动卡 — 描述",
+  "ask-move-reason": "移动卡 → 描述?",
+  "time-adjustments": "小时 — Δ — 用户名",
+  "time-adjustment-note": "历史: Δ 小时; 用户名 ≠ 受让人."
 }

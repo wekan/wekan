@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Dipendenze: Cronologia → Accumincia / Fine. Accumincia (sconosciuto): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Cronologia. giorni: UTC; 0 ✓. 50%, 70%, 85%, 95%. Carti ≥; Durata ≤. Limiti: 3650 giorni.",
   "flow-note-processBehavior": "XmR: Tempu di ciclu; Accumincia → Completato/a. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Numero. Y: Tempu di ciclu (giorni). (sconosciuto): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Numero. Y: Tempu di ciclu (giorni). (sconosciuto): —.",
+  "move-reason": "Spusta la carta — Discrizzioni",
+  "ask-move-reason": "Spusta la carta → Discrizzioni?",
+  "time-adjustments": "ore — Δ — Nomu di l'utenti",
+  "time-adjustment-note": "Cronologia: Δ ore; Nomu di l'utenti ≠ Assignati."
 }

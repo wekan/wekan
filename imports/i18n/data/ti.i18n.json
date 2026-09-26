@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "ጽግዕተኛነታት: ታሪኽ → ጀምር / መወዳእታ. ጀምር (ዘይተፈልጠ): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × ታሪኽ. መዓልታት: UTC; 0 ✓. 50%, 70%, 85%, 95%. ካርዳት ≥; ግዜ ≤. ደረታት: 3650 መዓልታት.",
   "flow-note-processBehavior": "XmR: ናይ ዑደት ግዜ; ጀምር → ተዛዚሙ. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / ቁጽሪ. Y: ናይ ዑደት ግዜ (መዓልታት). (ዘይተፈልጠ): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / ቁጽሪ. Y: ናይ ዑደት ግዜ (መዓልታት). (ዘይተፈልጠ): —.",
+  "move-reason": "ካርድ ኣንቀሳቕስ — መግለጺ",
+  "ask-move-reason": "ካርድ ኣንቀሳቕስ → መግለጺ?",
+  "time-adjustments": "ሰዓታት — Δ — ስም ተጠቃሚ",
+  "time-adjustment-note": "ታሪኽ: Δ ሰዓታት; ስም ተጠቃሚ ≠ ሓለፍቲ."
 }

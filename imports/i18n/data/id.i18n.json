@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Dependensi: Sejarah → Mulai / Berakhir. Mulai (tidak diketahui): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Sejarah. hari: UTC; 0 ✓. 50%, 70%, 85%, 95%. Daftar Kartu ≥; Durasi ≤. Batas: 3650 hari.",
   "flow-note-processBehavior": "XmR: Waktu Siklus; Mulai → Lengkap. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Poker Perancangan / Nombor. Y: Waktu Siklus (hari). (tidak diketahui): —."
+  "flow-note-sizeCycleTime": "X: Poker Perancangan / Nombor. Y: Waktu Siklus (hari). (tidak diketahui): —.",
+  "move-reason": "Pindahkan kartu — Deskripsi",
+  "ask-move-reason": "Pindahkan kartu → Deskripsi?",
+  "time-adjustments": "m — Δ — Nama Pengguna",
+  "time-adjustment-note": "Sejarah: Δ m; Nama Pengguna ≠ Penerima tugas."
 }

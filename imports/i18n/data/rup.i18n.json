@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Dependentse: Cronologia → Ãnchisiri / Fine. Ãnchisiri (nicunuscut): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Cronologia. giorni: UTC; 0 ✓. 50%, 70%, 85%, 95%. Cãrtsã ≥; Duración ≤. Limite: 3650 giorni.",
   "flow-note-processBehavior": "XmR: Chiro di ciclu; Ãnchisiri → Completato/a. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Numir. Y: Chiro di ciclu (giorni). (nicunuscut): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Numir. Y: Chiro di ciclu (giorni). (nicunuscut): —.",
+  "move-reason": "Mutã cartea — Discriiri",
+  "ask-move-reason": "Mutã cartea → Discriiri?",
+  "time-adjustments": "ore — Δ — Numa di ufilisitor",
+  "time-adjustment-note": "Cronologia: Δ ore; Numa di ufilisitor ≠ Responsabilj."
 }

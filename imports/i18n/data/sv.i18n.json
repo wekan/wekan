@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Beroenden: Historik → Påbörjades / Avslutades. Påbörjades (okänd): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Historik. dagar: UTC; 0 ✓. 50%, 70%, 85%, 95%. Kort ≥; Varaktighet ≤. Gränser: 3650 dagar.",
   "flow-note-processBehavior": "XmR: Cykeltid; Påbörjades → Avslutad. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planeringspoker / Nummer. Y: Cykeltid (dagar). (okänd): —."
+  "flow-note-sizeCycleTime": "X: Planeringspoker / Nummer. Y: Cykeltid (dagar). (okänd): —.",
+  "move-reason": "Flytta kort — Beskrivning",
+  "ask-move-reason": "Flytta kort → Beskrivning?",
+  "time-adjustments": "timmar — Δ — Användarnamn",
+  "time-adjustment-note": "Historik: Δ timmar; Användarnamn ≠ Tilldelade."
 }

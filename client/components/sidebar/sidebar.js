@@ -1840,6 +1840,8 @@ function buildCardSettingsRows(side, data) {
 // allowsLabels}}` read, defaults and fallbacks included, without a second
 // copy of that logic. Registered at the end of the object.
 const boardCardSettingsHelpers = {
+  askForMoveReason() { return Template.instance().currentBoard.askForMoveReason; },
+
   allowsMinicardCollapse() { return ReactiveCache.getBoard(Session.get('currentBoard'))?.allowsMinicardCollapse !== false; },
   labelsAboveTitleOnMinicard() { return ReactiveCache.getBoard(Session.get('currentBoard'))?.labelsAboveTitleOnMinicard === true; },
   allowsChecklistDueDate() { return ReactiveCache.getBoard(Session.get('currentBoard'))?.allowsChecklistDueDate !== false; },
@@ -2318,6 +2320,15 @@ function moveCardSettingsRow(evt, direction) {
 }
 
 Template.boardCardSettingsPopup.events({
+  async 'click .js-ask-move-reason'(evt, tpl) {
+    evt.preventDefault();
+    const value = !tpl.currentBoard.askForMoveReason;
+    await tpl.currentBoard.setAskForMoveReason(value);
+    tpl.currentBoard.askForMoveReason = value;
+    tpl.$('.js-ask-move-reason').toggleClass('is-checked', value);
+    tpl.$('.js-ask-move-reason i').toggleClass('fa-check', value).toggleClass('fa-square-o', !value);
+  },
+
   'click .js-card-field-order-up'(evt) {
     moveCardSettingsRow(evt, 'up');
   },

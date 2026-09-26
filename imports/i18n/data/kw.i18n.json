@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Omgemmysow: Istori → Dalleth / Diwedh. Dalleth (anaswonnys): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Istori. dedhyow: UTC; 0 ✓. 50%, 70%, 85%, 95%. Kartennow ≥; Pesyans ≤. Finwethow: 3650 dedhyow.",
   "flow-note-processBehavior": "XmR: Termyn kylghyek; Dalleth → Gorfenwys. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Niver. Y: Termyn kylghyek (dedhyow). (anaswonnys): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Niver. Y: Termyn kylghyek (dedhyow). (anaswonnys): —.",
+  "move-reason": "Gwaya an garten — Deskrifans",
+  "ask-move-reason": "Gwaya an garten → Deskrifans?",
+  "time-adjustments": "ourys — Δ — Hanow devnydhyer",
+  "time-adjustment-note": "Istori: Δ ourys; Hanow devnydhyer ≠ Apoyntysi."
 }

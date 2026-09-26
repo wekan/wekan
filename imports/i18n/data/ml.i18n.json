@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "ആശ്രിതത്വങ്ങൾ: ചരിത്രം → ആരംഭം / അവസാനം. ആരംഭം (അജ്ഞാതം): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × ചരിത്രം. ദിവസങ്ങൾ: UTC; 0 ✓. 50%, 70%, 85%, 95%. കാർഡുകൾ ≥; ദൈർഘ്യം ≤. പരിധികൾ: 3650 ദിവസങ്ങൾ.",
   "flow-note-processBehavior": "XmR: ചക്ര സമയം; ആരംഭം → പൂർത്തിയായി. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / സംഖ്യ. Y: ചക്ര സമയം (ദിവസങ്ങൾ). (അജ്ഞാതം): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / സംഖ്യ. Y: ചക്ര സമയം (ദിവസങ്ങൾ). (അജ്ഞാതം): —.",
+  "move-reason": "കാർഡ് നീക്കുക — വിവരണം",
+  "ask-move-reason": "കാർഡ് നീക്കുക → വിവരണം?",
+  "time-adjustments": "മണിക്കൂറുകൾ — Δ — ഉപയോക്തൃനാമം",
+  "time-adjustment-note": "ചരിത്രം: Δ മണിക്കൂറുകൾ; ഉപയോക്തൃനാമം ≠ ചുമതലപ്പെട്ടവർ."
 }

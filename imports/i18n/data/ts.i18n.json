@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Hi Xitsonga: mhaka: matimu → Sungula / mahetelelo. Sungula Hi Xitsonga: (mhaka): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × matimu. masiku: UTC; 0 ✓. 50%, 70%, 85%, 95%. Tikhadi ≥; Hi Xitsonga: mhaka ≤. Hi Xitsonga: mhaka: 3650 masiku.",
   "flow-note-processBehavior": "XmR: Sikhatsi somjikelezo; Sungula → hetisiwile. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Hi Xitsonga: mhaka mhaka / Hi Xitsonga: mhaka. Y: Sikhatsi somjikelezo (masiku). Hi Xitsonga: (mhaka): —."
+  "flow-note-sizeCycleTime": "X: Hi Xitsonga: mhaka mhaka / Hi Xitsonga: mhaka. Y: Sikhatsi somjikelezo (masiku). Hi Xitsonga: (mhaka): —.",
+  "move-reason": "Rhurhisa khadi — Nhlamuselo",
+  "ask-move-reason": "Rhurhisa khadi → Nhlamuselo?",
+  "time-adjustments": "Hi Xitsonga: mhaka — Δ — Vito ro tirhisa",
+  "time-adjustment-note": "matimu: Δ Hi Xitsonga: mhaka; Vito ro tirhisa ≠ Lava nyikiweke ntirho."
 }

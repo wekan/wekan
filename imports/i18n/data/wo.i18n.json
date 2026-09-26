@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Wéeroo yi: Jaar jaar → Tambali / Jeex. Tambali (xameesul): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Jaar jaar. fan: UTC; 0 ✓. 50%, 70%, 85%, 95%. Karta yi ≥; Diir ≤. Dig yi: 3650 fan.",
   "flow-note-processBehavior": "XmR: Waxtu tour; Tambali → Parou. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Lim. Y: Waxtu tour (fan). (xameesul): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Lim. Y: Waxtu tour (fan). (xameesul): —.",
+  "move-reason": "Yóbbu karta — Melokaan",
+  "ask-move-reason": "Yóbbu karta → Melokaan?",
+  "time-adjustments": "waxtu — Δ — Turu jëfandikukat bi",
+  "time-adjustment-note": "Jaar jaar: Δ waxtu; Turu jëfandikukat bi ≠ Ñi ñu sas."
 }

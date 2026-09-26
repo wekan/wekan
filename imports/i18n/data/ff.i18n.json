@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Jokkondire: Aslol → Fuɗɗo / Timmoode. Fuɗɗo (anndaaka): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Aslol. balɗe: UTC; 0 ✓. 50%, 70%, 85%, 95%. Karte ≥; Juuteendi ≤. Keeri: 3650 balɗe.",
   "flow-note-processBehavior": "XmR: Saanga cakugol; Fuɗɗo → Timmii. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Limre. Y: Saanga cakugol (balɗe). (anndaaka): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Limre. Y: Saanga cakugol (balɗe). (anndaaka): —.",
+  "move-reason": "Eggin kartal — Sifaa",
+  "ask-move-reason": "Eggin kartal → Sifaa?",
+  "time-adjustments": "waktuji — Δ — Innde kuutorɗo",
+  "time-adjustment-note": "Aslol: Δ waktuji; Innde kuutorɗo ≠ Halfinaaɓe."
 }

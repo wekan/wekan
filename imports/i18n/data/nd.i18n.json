@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Ukuncika: Umlando → Qalisa / Ukuphela. Qalisa (akwaziwa): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Umlando. izinsuku: UTC; 0 ✓. 50%, 70%, 85%, 95%. Amakhadi ≥; Ubude besikhathi ≤. Imikhawulo: 3650 izinsuku.",
   "flow-note-processBehavior": "XmR: Nguva yeMazano; Qalisa → Kuqediwe. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Inombolo. Y: Nguva yeMazano (izinsuku). (akwaziwa): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Inombolo. Y: Nguva yeMazano (izinsuku). (akwaziwa): —.",
+  "move-reason": "Thuthela ikhadi — Incazelo",
+  "ask-move-reason": "Thuthela ikhadi → Incazelo?",
+  "time-adjustments": "amahora — Δ — Ibizo lomsebenzisi",
+  "time-adjustment-note": "Umlando: Δ amahora; Ibizo lomsebenzisi ≠ Abanikwe umsebenzi."
 }

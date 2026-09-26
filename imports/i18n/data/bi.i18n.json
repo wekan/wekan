@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Tok blong sistem: Dependencies: Tok blong sistem: History → Statem / En. Statem Tok blong sistem: (unknown): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Tok blong sistem: History. Tok blong sistem: days: UTC; 0 ✓. 50%, 70%, 85%, 95%. Ol kad ≥; Tok blong sistem: Duration ≤. Tok blong sistem: Limits: 3650 Tok blong sistem: days.",
   "flow-note-processBehavior": "XmR: Taim bilong sakel; Statem → Finis. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Tok blong sistem: Planning Poker / Tok blong sistem: Number. Y: Taim bilong sakel (Tok blong sistem: days). Tok blong sistem: (unknown): —."
+  "flow-note-sizeCycleTime": "X: Tok blong sistem: Planning Poker / Tok blong sistem: Number. Y: Taim bilong sakel (Tok blong sistem: days). Tok blong sistem: (unknown): —.",
+  "move-reason": "Muvum kad — Stori",
+  "ask-move-reason": "Muvum kad → Stori?",
+  "time-adjustments": "Tok blong sistem: hours — Δ — Nem blong yusa",
+  "time-adjustment-note": "Tok blong sistem: History: Δ Tok blong sistem: hours; Nem blong yusa ≠ Ol man we i gat wok."
 }

@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Varësitë: Historiku → Fillo / Përfundimi. Fillo (e panjohur): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Historiku. ditë: UTC; 0 ✓. 50%, 70%, 85%, 95%. Karta ≥; Kohëzgjatja ≤. Kufijtë: 3650 ditë.",
   "flow-note-processBehavior": "XmR: Koha e ciklit; Fillo → Përfunduar. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Numër. Y: Koha e ciklit (ditë). (e panjohur): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Numër. Y: Koha e ciklit (ditë). (e panjohur): —.",
+  "move-reason": "Zhvendos kartën — Përshkrimi",
+  "ask-move-reason": "Zhvendos kartën → Përshkrimi?",
+  "time-adjustments": "orë — Δ — Emri i përdoruesit",
+  "time-adjustment-note": "Historiku: Δ orë; Emri i përdoruesit ≠ Të caktuarit."
 }

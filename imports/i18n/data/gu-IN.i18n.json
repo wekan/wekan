@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "અવલંબનો: ઈતિહાસ → શરૂ કરો / અંત. શરૂ કરો (અજ્ઞાત): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × ઈતિહાસ. દિવસો: UTC; 0 ✓. 50%, 70%, 85%, 95%. કાર્ડ્સ ≥; અવધિ ≤. મર્યાદાઓ: 3650 દિવસો.",
   "flow-note-processBehavior": "XmR: ચક્ર સમય; શરૂ કરો → પૂર્ણ થયું. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: આયોજન પોકર / નંબર. Y: ચક્ર સમય (દિવસો). (અજ્ઞાત): —."
+  "flow-note-sizeCycleTime": "X: આયોજન પોકર / નંબર. Y: ચક્ર સમય (દિવસો). (અજ્ઞાત): —.",
+  "move-reason": "કાર્ડ ખસેડો — વર્ણન",
+  "ask-move-reason": "કાર્ડ ખસેડો → વર્ણન?",
+  "time-adjustments": "કલાક — Δ — વપરાશકર્તા નામ",
+  "time-adjustment-note": "ઈતિહાસ: Δ કલાક; વપરાશકર્તા નામ ≠ સોંપણીઓ."
 }

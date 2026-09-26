@@ -1236,6 +1236,7 @@ const BOARD_CARD_SETTING_KEYS = [
 
   'allowsCardCounterList',
   'cardAging',
+  'askForMoveReason',
   'allowsBoardMemberList',
   'allowsShowLists',
   'allowsAttachments',

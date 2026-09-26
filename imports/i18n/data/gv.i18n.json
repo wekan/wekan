@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Crogheydyssyn: Shennaghys → Toshiaght / Jerrey. Toshiaght (neu-enney): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Shennaghys. laghyn: UTC; 0 ✓. 50%, 70%, 85%, 95%. Kaartyn ≥; Foddeeaght ≤. Eallaghyn: 3650 laghyn.",
   "flow-note-processBehavior": "XmR: Traa yn chylch; Toshiaght → Cooilleenit. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Earroo. Y: Traa yn chylch (laghyn). (neu-enney): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Earroo. Y: Traa yn chylch (laghyn). (neu-enney): —.",
+  "move-reason": "Gleashagh y kaart — Coontey",
+  "ask-move-reason": "Gleashagh y kaart → Coontey?",
+  "time-adjustments": "ooraghyn — Δ — Ennym ymmydeyr",
+  "time-adjustment-note": "Shennaghys: Δ ooraghyn; Ennym ymmydeyr ≠ Currit daue."
 }

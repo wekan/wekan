@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Ku-tiirsanaanta: Taariikh → Bilow / Dhammaad. Bilow (aan la aqoon): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Taariikh. maalmood: UTC; 0 ✓. 50%, 70%, 85%, 95%. Kaararka ≥; Muddada ≤. Xaddidaadaha: 3650 maalmood.",
   "flow-note-processBehavior": "XmR: Waqtiga Wareega; Bilow → Dhammaystiran. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Tiro. Y: Waqtiga Wareega (maalmood). (aan la aqoon): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Tiro. Y: Waqtiga Wareega (maalmood). (aan la aqoon): —.",
+  "move-reason": "U wareeji kaarka — Sharaxaad",
+  "ask-move-reason": "U wareeji kaarka → Sharaxaad?",
+  "time-adjustments": "saacadood — Δ — Magaca isticmaalaha",
+  "time-adjustment-note": "Taariikh: Δ saacadood; Magaca isticmaalaha ≠ Loo xilsaaray."
 }

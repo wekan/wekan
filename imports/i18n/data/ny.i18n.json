@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Zodalirana: Mbiri → Yambani / Mapeto. Yambani (sichikudziwika): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Mbiri. masiku: UTC; 0 ✓. 50%, 70%, 85%, 95%. Makhadi ≥; Kutalika kwa nthawi ≤. Malire: 3650 masiku.",
   "flow-note-processBehavior": "XmR: Nthawi ya kuzungulira; Yambani → Zamalizidwa. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Nambala. Y: Nthawi ya kuzungulira (masiku). (sichikudziwika): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Nambala. Y: Nthawi ya kuzungulira (masiku). (sichikudziwika): —.",
+  "move-reason": "Sunthirani khadi — Kufotokoza",
+  "ask-move-reason": "Sunthirani khadi → Kufotokoza?",
+  "time-adjustments": "maola — Δ — Dzina logwiritsa ntchito",
+  "time-adjustment-note": "Mbiri: Δ maola; Dzina logwiritsa ntchito ≠ Operekedwa ntchito."
 }

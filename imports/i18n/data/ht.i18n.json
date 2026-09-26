@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Depandans: Istorik → Kòmanse / Fen. Kòmanse (enkoni): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Istorik. jou: UTC; 0 ✓. 50%, 70%, 85%, 95%. Kat yo ≥; Dire ≤. Limit: 3650 jou.",
   "flow-note-processBehavior": "XmR: Tan sik; Kòmanse → Fini. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Nimewo. Y: Tan sik (jou). (enkoni): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Nimewo. Y: Tan sik (jou). (enkoni): —.",
+  "move-reason": "Deplase kat la — Deskripsyon",
+  "ask-move-reason": "Deplase kat la → Deskripsyon?",
+  "time-adjustments": "èdtan — Δ — Non itilizatè",
+  "time-adjustment-note": "Istorik: Δ èdtan; Non itilizatè ≠ Responsab yo."
 }

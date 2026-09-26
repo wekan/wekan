@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Faalagolagoga: Talafaasolopito → Amata / Faaiu. Amata (lē iloa): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Talafaasolopito. aso: UTC; 0 ✓. 50%, 70%, 85%, 95%. Pepa ≥; Umi ≤. Tapulaa: 3650 aso.",
   "flow-note-processBehavior": "XmR: Taimi o le taamilosaga; Amata → Ua Mae'a. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Numera. Y: Taimi o le taamilosaga (aso). (lē iloa): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Numera. Y: Taimi o le taamilosaga (aso). (lē iloa): —.",
+  "move-reason": "Sii le pepa — Faamatalaga",
+  "ask-move-reason": "Sii le pepa → Faamatalaga?",
+  "time-adjustments": "itula — Δ — Igoa o le tagata faaaoga",
+  "time-adjustment-note": "Talafaasolopito: Δ itula; Igoa o le tagata faaaoga ≠ E tofia i ai."
 }

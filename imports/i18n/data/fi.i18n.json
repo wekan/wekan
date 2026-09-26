@@ -2733,8 +2733,12 @@
   "flow-error": "Raporttia ei voitu ladata. Tarkista arvot ja yritä uudelleen.",
   "flow-details": "Laskennan historiatiedot",
   "flow-note-agingWip": "Avoimet kortit: päivät nykyiseen työvaiheeseen saapumisesta. Punainen pylväs ylittää vaiheen historiallisen 85. prosenttipisteen (vähintään viisi havaintoa). Puuttuva saapumisaika on tuntematon.",
-  "flow-note-blockerAnalysis": "Riippuvuushistoria antaa esteiden alku- ja loppuajat työvaiheittain. Vanhojen riippuvuuksien alku voi olla tuntematon. Poistettuja kortteja ja puuttuvaa historiaa ei voida palauttaa laskentaan. Päällekkäiset syyt lasketaan erikseen.",
+  "flow-note-blockerAnalysis": "Riippuvuushistoria antaa esteiden alku- ja loppuajat työvaiheittain. Vanhojen riippuvuuksien alku voi olla tuntematon. Poistetut kortit vaativat säilyneen historiatallenteen. Päällekkäiset syyt lasketaan erikseen.",
   "flow-note-monteCarlo": "2 000 simulointia käyttää kokonaisia UTC-kalenteripäiviä, myös nollapäiviä. Päivämäärät ovat ylärajaennusteita ja korttimäärät alarajoja. Ennuste olettaa samanlaisen tulevan valmistumistahdin, eikä ole takuu. Enimmäisjakso on 3 650 päivää. Ilman valmistumisia ei ole ennustetta.",
   "flow-note-processBehavior": "Läpimenoaika alkaa aloituksesta tai sen puuttuessa luonnista ja päättyy valmistumiseen tai arkistointiin. XmR näyttää yksittäiset ajat, peräkkäiset erot, keskiarvot ja luonnolliset vaihtelurajat. Tarvitaan vähintään kaksi kelvollista valmistumista.",
-  "flow-note-sizeCycleTime": "Nykyinen suunnittelupokerin arvio tai yksi numerokenttä verrattuna valmistuneen kortin läpimenoaikaan. Puuttuvat arviot ja virheelliset päivämäärät jätetään pois. Aloitusajan puuttuessa käytetään luontiaikaa ja loppuajan puuttuessa arkistointiaikaa."
+  "flow-note-sizeCycleTime": "Nykyinen suunnittelupokerin arvio tai yksi numerokenttä verrattuna valmistuneen kortin läpimenoaikaan. Puuttuvat arviot ja virheelliset päivämäärät jätetään pois. Aloitusajan puuttuessa käytetään luontiaikaa ja loppuajan puuttuessa arkistointiaikaa.",
+  "move-reason": "Siirron syy (valinnainen)",
+  "ask-move-reason": "Kysy syy korttia siirrettäessä",
+  "time-adjustments": "Tuntimuutokset tekijöittäin",
+  "time-adjustment-note": "Kirjattujen tuntien muutokset summan muokkaajan mukaan. Nämä eivät ole yksittäisiä työjaksoja. Negatiiviset luvut ovat korjauksia. Aiemman kirjaamattoman ajan tekijää ei voida päätellä."
 }

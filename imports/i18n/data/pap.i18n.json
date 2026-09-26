@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Dependensias: Historial → Kuminsá / Finalizado. Kuminsá (desconosido): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Historial. dianan: UTC; 0 ✓. 50%, 70%, 85%, 95%. Karchinan ≥; Durashon ≤. Límites: 3650 dianan.",
   "flow-note-processBehavior": "XmR: Tempu di siklo; Kuminsá → Kompletá. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Número. Y: Tempu di siklo (dianan). (desconosido): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Número. Y: Tempu di siklo (dianan). (desconosido): —.",
+  "move-reason": "Move e karchi — Deskripshon",
+  "ask-move-reason": "Move e karchi → Deskripshon?",
+  "time-adjustments": "horas — Δ — Nòmber di usuario",
+  "time-adjustment-note": "Historial: Δ horas; Nòmber di usuario ≠ Enkargánan."
 }

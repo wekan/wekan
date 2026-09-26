@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Ngā Whirinakitanga: Hītori → Tīmata / Mutunga. Tīmata (tē mōhiotia): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Hītori. ngā rā: UTC; 0 ✓. 50%, 70%, 85%, 95%. Ngā kāri ≥; Roa ≤. Ngā Tepe: 3650 ngā rā.",
   "flow-note-processBehavior": "XmR: Wā huringa; Tīmata → Kua Oti. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Tau. Y: Wā huringa (ngā rā). (tē mōhiotia): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Tau. Y: Wā huringa (ngā rā). (tē mōhiotia): —.",
+  "move-reason": "Nekehia te kāri — Whakaahuatanga",
+  "ask-move-reason": "Nekehia te kāri → Whakaahuatanga?",
+  "time-adjustments": "ngā hāora — Δ — Ingoa kaiwhakamahi",
+  "time-adjustment-note": "Hītori: Δ ngā hāora; Ingoa kaiwhakamahi ≠ Ngā kaiwhiwhi mahi."
 }

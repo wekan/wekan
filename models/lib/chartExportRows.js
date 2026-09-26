@@ -177,6 +177,7 @@ function chartExportRows(chartKey, data, translate = (key, fallback) => fallback
         ...section(translate('board-status-remaining-time-total', 'Remaining time until due'),
           [[translate('board-status-remaining-time-total', 'Remaining time until due'),
             formatRemainingTime(data.remaining, translate)]]),
+        ...section(translate('time-adjustments', 'Time adjustments by author'), (data.adjustments?.groups || []).map(group => [group.label, group.hours])),
         ...section(translate('assignees', 'Assignees'), data.byAssignee.map(group =>
           [translateGroupLabel(group.label, translate), group.hours])),
         ...section(translate('card', 'Card'), data.byCard.map(card =>

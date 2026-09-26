@@ -288,6 +288,10 @@ template(name="boardInfoOnMyBoardsPopup")
 template(name="boardCardSettingsPopup")
   +boardDragSettings(section="card")
   form.board-card-settings(class=settingsSideClass)
+    div.check-div
+      a.flex.js-ask-move-reason(class="{{#if askForMoveReason}}is-checked{{/if}}")
+        i.fa(class="{{#if askForMoveReason}}fa-check{{else}}fa-square-o{{/if}}")
+        span {{_ 'ask-move-reason'}}
     h4.card-field-order-heading {{_ 'card-field-order'}}
     .card-field-order-columns
       .card-field-order-column.card-field-order-column-minicard

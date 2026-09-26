@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Ofhinklikheden: Skiednis → Begjin / Ein. Begjin (ûnbekend): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Skiednis. dagen: UTC; 0 ✓. 50%, 70%, 85%, 95%. Kaarten ≥; Doer ≤. Limiten: 3650 dagen.",
   "flow-note-processBehavior": "XmR: Cyklustiid; Begjin → Foltôge. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning poker / Nûmer. Y: Cyklustiid (dagen). (ûnbekend): —."
+  "flow-note-sizeCycleTime": "X: Planning poker / Nûmer. Y: Cyklustiid (dagen). (ûnbekend): —.",
+  "move-reason": "Kaart ferpleatse — Beskriuwing",
+  "ask-move-reason": "Kaart ferpleatse → Beskriuwing?",
+  "time-adjustments": "oeren — Δ — Brûkersnamme",
+  "time-adjustment-note": "Skiednis: Δ oeren; Brûkersnamme ≠ Oanwêzigen."
 }

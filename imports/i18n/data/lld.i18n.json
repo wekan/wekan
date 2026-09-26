@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Dipendenze: Cronologia → Scomencé / Fine. Scomencé (sconosciuto): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Cronologia. dis: UTC; 0 ✓. 50%, 70%, 85%, 95%. Ciartes ≥; Durata ≤. Limiti: 3650 dis.",
   "flow-note-processBehavior": "XmR: Tëmp de zycl; Scomencé → Completé/a. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Stimazion Planning Poker / Numero. Y: Tëmp de zycl (dis). (sconosciuto): —."
+  "flow-note-sizeCycleTime": "X: Stimazion Planning Poker / Numero. Y: Tëmp de zycl (dis). (sconosciuto): —.",
+  "move-reason": "Sposté la ciarta — Descrizion",
+  "ask-move-reason": "Sposté la ciarta → Descrizion?",
+  "time-adjustments": "ores — Δ — Inom de utent",
+  "time-adjustment-note": "Cronologia: Δ ores; Inom de utent ≠ Assegnés."
 }

@@ -205,6 +205,10 @@ template(name="activity")
       else if(currentData.timeValue)
         | {{_ activity.activityType currentData.timeValue}}
 
+      if currentData.moveReason
+        p.activity-move-reason
+          | {{_ 'reason'}}: {{currentData.moveReason}}
+
       if($neq mode 'none')
         div(title=activity.createdAt).activity-meta
           //- Issue #4757: same permalink pattern as the comment timestamp in

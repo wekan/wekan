@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Sõltuvused: Ajalugu → Algus / Lõpp. Algus (tundmatu): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Ajalugu. päevad: UTC; 0 ✓. 50%, 70%, 85%, 95%. Kaardid ≥; Kestus ≤. Piirangud: 3650 päevad.",
   "flow-note-processBehavior": "XmR: Tsükli aeg; Algus → Lõpetatud. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Pokkerite planeerimine / Arv. Y: Tsükli aeg (päevad). (tundmatu): —."
+  "flow-note-sizeCycleTime": "X: Pokkerite planeerimine / Arv. Y: Tsükli aeg (päevad). (tundmatu): —.",
+  "move-reason": "Liikumiskaart — Kirjeldus",
+  "ask-move-reason": "Liikumiskaart → Kirjeldus?",
+  "time-adjustments": "tundi — Δ — Kasutajanimi",
+  "time-adjustment-note": "Ajalugu: Δ tundi; Kasutajanimi ≠ Vastutajad."
 }

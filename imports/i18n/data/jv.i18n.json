@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Katergantungan: Riwayat → Wiwit / Pungkasan. Wiwit (ora dingerteni): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Riwayat. dina: UTC; 0 ✓. 50%, 70%, 85%, 95%. Kertu-kertu ≥; Suwéné ≤. Wates: 3650 dina.",
   "flow-note-processBehavior": "XmR: Wektu Siklus; Wiwit → Rampung. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Wilangan. Y: Wektu Siklus (dina). (ora dingerteni): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Wilangan. Y: Wektu Siklus (dina). (ora dingerteni): —.",
+  "move-reason": "Pindhah kertu — Katrangan",
+  "ask-move-reason": "Pindhah kertu → Katrangan?",
+  "time-adjustments": "jam — Δ — Jeneng panganggo",
+  "time-adjustment-note": "Riwayat: Δ jam; Jeneng panganggo ≠ Sing ditugasi."
 }

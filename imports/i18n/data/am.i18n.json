@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "ጥገኞች: ታሪክ → ጀምር / መጨረሻ. ጀምር (ያልታወቀ): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × ታሪክ. ቀናት: UTC; 0 ✓. 50%, 70%, 85%, 95%. ካርዶች ≥; ቆይታ ≤. ገደቦች: 3650 ቀናት.",
   "flow-note-processBehavior": "XmR: የዑደት ጊዜ; ጀምር → ተጠናቋል. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / ቁጥር. Y: የዑደት ጊዜ (ቀናት). (ያልታወቀ): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / ቁጥር. Y: የዑደት ጊዜ (ቀናት). (ያልታወቀ): —.",
+  "move-reason": "ካርድ አንቀሳቅስ — መግለጫ",
+  "ask-move-reason": "ካርድ አንቀሳቅስ → መግለጫ?",
+  "time-adjustments": "ሰዓታት — Δ — የተጠቃሚ ስም",
+  "time-adjustment-note": "ታሪክ: Δ ሰዓታት; የተጠቃሚ ስም ≠ ኃላፊዎች."
 }

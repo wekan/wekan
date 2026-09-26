@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Baglylyklar: Taryh → Başla / Ahyry. Başla (näbelli): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Taryh. günler: UTC; 0 ✓. 50%, 70%, 85%, 95%. Kartlar ≥; Dowamlylygy ≤. Çäklendirmeler: 3650 günler.",
   "flow-note-processBehavior": "XmR: Sikl wagty; Başla → Tamamlandy. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Poker meýilnamalaşdyrmak / San. Y: Sikl wagty (günler). (näbelli): —."
+  "flow-note-sizeCycleTime": "X: Poker meýilnamalaşdyrmak / San. Y: Sikl wagty (günler). (näbelli): —.",
+  "move-reason": "Kart göçüriň — Düşündiriş",
+  "ask-move-reason": "Kart göçüriň → Düşündiriş?",
+  "time-adjustments": "sagat — Δ — Ulanyjy ady",
+  "time-adjustment-note": "Taryh: Δ sagat; Ulanyjy ady ≠ Bellenenler."
 }

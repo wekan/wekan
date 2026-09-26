@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Mendekotasunak: Historia → Hasiera / Amaiera. Hasiera (ezezaguna): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Historia. egun: UTC; 0 ✓. 50%, 70%, 85%, 95%. Txartelak ≥; Iraupena ≤. Mugak: 3650 egun.",
   "flow-note-processBehavior": "XmR: Zikloaren denbora; Hasiera → Osatua. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planifikazio Pokerra / Zenbakia. Y: Zikloaren denbora (egun). (ezezaguna): —."
+  "flow-note-sizeCycleTime": "X: Planifikazio Pokerra / Zenbakia. Y: Zikloaren denbora (egun). (ezezaguna): —.",
+  "move-reason": "Lekuz aldatu txartela — Deskripzioa",
+  "ask-move-reason": "Lekuz aldatu txartela → Deskripzioa?",
+  "time-adjustments": "ordu — Δ — Erabiltzaile-izena",
+  "time-adjustment-note": "Historia: Δ ordu; Erabiltzaile-izena ≠ Esleitutakoak."
 }

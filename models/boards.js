@@ -541,6 +541,7 @@ Boards.attachSchema(
       type: Boolean,
       defaultValue: false,
     },
+    askForMoveReason: { type: Boolean, defaultValue: false },
     cardAging: {
       /**
        * #3984: Visually fade cards that have not been touched for a while
@@ -3069,6 +3070,9 @@ Boards.helpers({
     return await Boards.updateAsync(this._id, { $set: { allowsCardCounterList } });
   },
 
+  async setAskForMoveReason(askForMoveReason) {
+    return Boards.updateAsync(this._id, { $set: { askForMoveReason } });
+  },
   async setCardAging(cardAging) {
     return await Boards.updateAsync(this._id, { $set: { cardAging } });
   },

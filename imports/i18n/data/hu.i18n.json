@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Függőségek: Történet → Kezdés / Befejezés. Kezdés (ismeretlen): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Történet. nap: UTC; 0 ✓. 50%, 70%, 85%, 95%. Kártyák ≥; Időtartam ≤. Korlátok: 3650 nap.",
   "flow-note-processBehavior": "XmR: Ciklusidő; Kezdés → Kész. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Tervezőpóker / Szám. Y: Ciklusidő (nap). (ismeretlen): —."
+  "flow-note-sizeCycleTime": "X: Tervezőpóker / Szám. Y: Ciklusidő (nap). (ismeretlen): —.",
+  "move-reason": "Kártya áthelyezése — Leírás",
+  "ask-move-reason": "Kártya áthelyezése → Leírás?",
+  "time-adjustments": "óra — Δ — Felhasználónév",
+  "time-adjustment-note": "Történet: Δ óra; Felhasználónév ≠ Felelősök."
 }

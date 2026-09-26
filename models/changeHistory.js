@@ -141,6 +141,7 @@ ChangeHistory.record = async function record(options) {
     batchId = null,
     restoredFromId = null,
     restoredByUserId = null,
+    isCheckpoint = false,
   } = options || {};
 
   // A row nobody can attribute or locate is not history, it is noise.
@@ -153,7 +154,7 @@ ChangeHistory.record = async function record(options) {
     // an undone change that has since been superseded must never be redoable
     // back over the newer work. Retain and flag the rows so the integrity chain
     // remains auditable without allowing redo to resurrect stale content.
-    if (changeType !== 'restored') {
+    if (changeType !== 'restored' && !isCheckpoint) {
       await ChangeHistory.updateAsync(
         { userId, boardId, undone: true },
         { $set: { superseded: true } },
@@ -179,7 +180,7 @@ ChangeHistory.record = async function record(options) {
       userId,
       undone: false,
       undoneAt: null,
-      isCheckpoint: false,
+      isCheckpoint,
       batchId,
       restoredFromId,
       restoredByUserId,

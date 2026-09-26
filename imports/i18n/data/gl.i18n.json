@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Dependencias: Historial → Inicio / Fim. Inicio (descoñecido): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Historial. días: UTC; 0 ✓. 50%, 70%, 85%, 95%. Tarxetas ≥; Duración ≤. Límites: 3650 días.",
   "flow-note-processBehavior": "XmR: Tempo de ciclo; Inicio → Completada. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Póquer de planificación / Número. Y: Tempo de ciclo (días). (descoñecido): —."
+  "flow-note-sizeCycleTime": "X: Póquer de planificación / Número. Y: Tempo de ciclo (días). (descoñecido): —.",
+  "move-reason": "Mover tarxeta — Descrición",
+  "ask-move-reason": "Mover tarxeta → Descrición?",
+  "time-adjustments": "horas — Δ — Nome de usuario",
+  "time-adjustment-note": "Historial: Δ horas; Nome de usuario ≠ Asignados."
 }

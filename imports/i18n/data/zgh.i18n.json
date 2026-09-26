@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "ⵜⵉⵎⵢⴰⴹⴰⴼⵉⵏ: ⴰⵎⵣⵔⵓⵢ → ⵜⵓⴷⴷⵎⴰ / ⵜⵉⴳⵉⵔⴰ. ⵜⵓⴷⴷⵎⴰ (ⴰⵔⵓⵙⵙⵉⵏ): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × ⴰⵎⵣⵔⵓⵢ. ⵓⵙⵙⴰⵏ: UTC; 0 ✓. 50%, 70%, 85%, 95%. Tikarḍiwin ≥; ⴰⵣⵎⵣ ≤. ⵜⵉⵍⵉⵙⴰ: 3650 ⵓⵙⵙⴰⵏ.",
   "flow-note-processBehavior": "XmR: ⴰⴽⵓⴷ ⵏ ⵓⵎⵢⴰⵡⴰⴹ; ⵜⵓⴷⴷⵎⴰ → ⵉⵙⵎⴷ. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / ⴰⵎⴹⴰⵏ. Y: ⴰⴽⵓⴷ ⵏ ⵓⵎⵢⴰⵡⴰⴹ (ⵓⵙⵙⴰⵏ). (ⴰⵔⵓⵙⵙⵉⵏ): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / ⴰⵎⴹⴰⵏ. Y: ⴰⴽⵓⴷ ⵏ ⵓⵎⵢⴰⵡⴰⴹ (ⵓⵙⵙⴰⵏ). (ⴰⵔⵓⵙⵙⵉⵏ): —.",
+  "move-reason": "ⵙⵎⵓⵜⵜⵉ ⵜⴰⴽⴰⵕⴹⴰ — ⴰⴳⵍⴰⵎ",
+  "ask-move-reason": "ⵙⵎⵓⵜⵜⵉ ⵜⴰⴽⴰⵕⴹⴰ → ⴰⴳⵍⴰⵎ?",
+  "time-adjustments": "ⵜⵉⵙⵔⴰⴳⵉⵏ — Δ — ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ",
+  "time-adjustment-note": "ⴰⵎⵣⵔⵓⵢ: Δ ⵜⵉⵙⵔⴰⴳⵉⵏ; ⵉⵙⵎ ⵏ ⵓⵏⵙⵙⵎⵔⵙ ≠ ⵉⴼⴳⴰⵏⵏ ⵉ ⵎⵉ ⵜⵜⵓⴼⴽⴰⵏⵜ ⵜⵉⴽⴰⵕⴹⵉⵡⵉⵏ."
 }

@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Afhængigheder: Historik → Påbegynd / Slut. Påbegynd (ukendt): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Historik. dage: UTC; 0 ✓. 50%, 70%, 85%, 95%. Kort ≥; Varighed ≤. Grænser: 3650 dage.",
   "flow-note-processBehavior": "XmR: Cyklustid; Påbegynd → Fuldført. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Rangering / Tal. Y: Cyklustid (dage). (ukendt): —."
+  "flow-note-sizeCycleTime": "X: Rangering / Tal. Y: Cyklustid (dage). (ukendt): —.",
+  "move-reason": "Flyt kort — Beskrivelse",
+  "ask-move-reason": "Flyt kort → Beskrivelse?",
+  "time-adjustments": "timer — Δ — Brugernavn",
+  "time-adjustment-note": "Historik: Δ timer; Brugernavn ≠ Tildelte."
 }

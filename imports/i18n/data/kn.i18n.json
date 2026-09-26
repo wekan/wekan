@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "ಅವಲಂಬನೆಗಳು: ಇತಿಹಾಸ → ಪ್ರಾರಂಭ / ಅಂತ್ಯ. ಪ್ರಾರಂಭ (ತಿಳಿದಿಲ್ಲ): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × ಇತಿಹಾಸ. ದಿನಗಳು: UTC; 0 ✓. 50%, 70%, 85%, 95%. ಕಾರ್ಡ್‌ಗಳು ≥; ಅವಧಿ ≤. ಮಿತಿಗಳು: 3650 ದಿನಗಳು.",
   "flow-note-processBehavior": "XmR: ಚಕ್ರ ಸಮಯ; ಪ್ರಾರಂಭ → ಪೂರ್ಣಗೊಂಡಿದೆ. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / ಸಂಖ್ಯೆ. Y: ಚಕ್ರ ಸಮಯ (ದಿನಗಳು). (ತಿಳಿದಿಲ್ಲ): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / ಸಂಖ್ಯೆ. Y: ಚಕ್ರ ಸಮಯ (ದಿನಗಳು). (ತಿಳಿದಿಲ್ಲ): —.",
+  "move-reason": "ಕಾರ್ಡ್ ಸರಿಸಿ — ವಿವರಣೆ",
+  "ask-move-reason": "ಕಾರ್ಡ್ ಸರಿಸಿ → ವಿವರಣೆ?",
+  "time-adjustments": "ಗಂಟೆಗಳು — Δ — ಬಳಕೆದಾರ ಹೆಸರು",
+  "time-adjustment-note": "ಇತಿಹಾಸ: Δ ಗಂಟೆಗಳು; ಬಳಕೆದಾರ ಹೆಸರು ≠ ನಿಯೋಜಿತರು."
 }

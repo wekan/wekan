@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Бәйлелектәр: Тарих → Башлау / Тамамланыу. Башлау (билдәһеҙ): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Тарих. көн: UTC; 0 ✓. 50%, 70%, 85%, 95%. Карточкалар ≥; Дауамлылыҡ ≤. Сикләүҙәр: 3650 көн.",
   "flow-note-processBehavior": "XmR: Цикл ваҡыты; Башлау → Тамамланды. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Һан. Y: Цикл ваҡыты (көн). (билдәһеҙ): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Һан. Y: Цикл ваҡыты (көн). (билдәһеҙ): —.",
+  "move-reason": "Карточканы күсереү — Тасуирлама",
+  "ask-move-reason": "Карточканы күсереү → Тасуирлама?",
+  "time-adjustments": "сәғәт — Δ — Ҡулланыусы исеме",
+  "time-adjustment-note": "Тарих: Δ сәғәт; Ҡулланыусы исеме ≠ Яуаплылар."
 }

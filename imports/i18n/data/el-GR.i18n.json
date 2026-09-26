@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Εξαρτήσεις: Ιστορικό → Έναρξη / Τέλος. Έναρξη (άγνωστο): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Ιστορικό. ημέρες: UTC; 0 ✓. 50%, 70%, 85%, 95%. Κάρτες ≥; Διάρκεια ≤. Όρια: 3650 ημέρες.",
   "flow-note-processBehavior": "XmR: Χρόνος κύκλου; Έναρξη → Ολοκληρώθηκε. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning poker / Αριθμός. Y: Χρόνος κύκλου (ημέρες). (άγνωστο): —."
+  "flow-note-sizeCycleTime": "X: Planning poker / Αριθμός. Y: Χρόνος κύκλου (ημέρες). (άγνωστο): —.",
+  "move-reason": "Μετακίνηση Κάρτας — Περιγραφή",
+  "ask-move-reason": "Μετακίνηση Κάρτας → Περιγραφή?",
+  "time-adjustments": "ώρες — Δ — Όνομα Χρήστη",
+  "time-adjustment-note": "Ιστορικό: Δ ώρες; Όνομα Χρήστη ≠ Υπεύθυνοι."
 }

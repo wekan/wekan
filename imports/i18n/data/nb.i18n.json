@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Avhengigheter: Historikk → Begynn kortet / Avslutt. Begynn kortet (ukjent): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Historikk. dager: UTC; 0 ✓. 50%, 70%, 85%, 95%. Kort ≥; Varighet ≤. Grenser: 3650 dager.",
   "flow-note-processBehavior": "XmR: Syklustid; Begynn kortet → Gjennomført. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Rangering / Nummer. Y: Syklustid (dager). (ukjent): —."
+  "flow-note-sizeCycleTime": "X: Rangering / Nummer. Y: Syklustid (dager). (ukjent): —.",
+  "move-reason": "Flytt Kort — Beskrivelse",
+  "ask-move-reason": "Flytt Kort → Beskrivelse?",
+  "time-adjustments": "timer — Δ — Brukernavn",
+  "time-adjustment-note": "Historikk: Δ timer; Brukernavn ≠ Tildelte."
 }

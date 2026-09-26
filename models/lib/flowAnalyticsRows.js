@@ -38,6 +38,10 @@ function flowAnalyticsRows(key, data, translate = (key, fallback) => fallback) {
 }
 
 function flowDetailRows(key, data, t = (key, fallback) => fallback) {
+  if (key === 'time') return {
+    headers: [t('date', 'Date'), t('card', 'Card'), t('username', 'Author'), `Δ ${t('hours', 'Hours')}`, t('hours', 'Hours')],
+    rows: (data.adjustments?.entries || []).map(row => [new Date(row.at), row.title, row.author, row.hours, row.total]),
+  };
   if (key === 'blockerAnalysis') return {
     headers: [t('flow-blocker', 'Blocker'), t('card', 'Card'), t('list', 'List'), t('card-start', 'Start'), t('card-end', 'End'), t('days', 'Days')],
     rows: (data.episodes || []).map(p => [p.blocker, p.title, p.list || p.listId,

@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Bogʻliqliklar: Tarix → Boshlash / Oxiri. Boshlash (noma'lum): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Tarix. kunlar: UTC; 0 ✓. 50%, 70%, 85%, 95%. Kartalar ≥; Davomiyligi ≤. Cheklovlar: 3650 kunlar.",
   "flow-note-processBehavior": "XmR: Sikl vaqti; Boshlash → Bajarildi. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Pokerni rejalashtirish / Raqam. Y: Sikl vaqti (kunlar). (noma'lum): —."
+  "flow-note-sizeCycleTime": "X: Pokerni rejalashtirish / Raqam. Y: Sikl vaqti (kunlar). (noma'lum): —.",
+  "move-reason": "Kartani ko'chirish — Tavsif",
+  "ask-move-reason": "Kartani ko'chirish → Tavsif?",
+  "time-adjustments": "soat — Δ — Foydalanuvchi nomi",
+  "time-adjustment-note": "Tarix: Δ soat; Foydalanuvchi nomi ≠ Tayinlovchilar."
 }

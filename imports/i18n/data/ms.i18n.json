@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Kebergantungan: Sejarah → Mula / tamat. Mula (tidak diketahui): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Sejarah. hari: UTC; 0 ✓. 50%, 70%, 85%, 95%. Kad ≥; Tempoh ≤. Had: 3650 hari.",
   "flow-note-processBehavior": "XmR: Masa Kitaran; Mula → Lengkap. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Poker Perancangan / Nombor. Y: Masa Kitaran (hari). (tidak diketahui): —."
+  "flow-note-sizeCycleTime": "X: Poker Perancangan / Nombor. Y: Masa Kitaran (hari). (tidak diketahui): —.",
+  "move-reason": "Pindah Kad — Penerangan",
+  "ask-move-reason": "Pindah Kad → Penerangan?",
+  "time-adjustments": "ja — Δ — Nama Pengguna",
+  "time-adjustment-note": "Sejarah: Δ ja; Nama Pengguna ≠ Penerima Tugas."
 }

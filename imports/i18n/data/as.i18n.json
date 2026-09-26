@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "নিৰ্ভৰশীলতাসমূহ: ইতিহাস → আৰম্ভ / শেষ. আৰম্ভ (অজ্ঞাত): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × ইতিহাস. দিন: UTC; 0 ✓. 50%, 70%, 85%, 95%. কাৰ্ডসমূহ ≥; সময়কাল ≤. সীমাসমূহ: 3650 দিন.",
   "flow-note-processBehavior": "XmR: চক্ৰ সময়; আৰম্ভ → সম্পূৰ্ণ কৰা. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / সংখ্যা. Y: চক্ৰ সময় (দিন). (অজ্ঞাত): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / সংখ্যা. Y: চক্ৰ সময় (দিন). (অজ্ঞাত): —.",
+  "move-reason": "কাৰ্ড স্থানান্তৰ কৰক — বিৱৰণ",
+  "ask-move-reason": "কাৰ্ড স্থানান্তৰ কৰক → বিৱৰণ?",
+  "time-adjustments": "ঘণ্টা — Δ — ব্যৱহাৰকাৰীৰ নাম",
+  "time-adjustment-note": "ইতিহাস: Δ ঘণ্টা; ব্যৱহাৰকাৰীৰ নাম ≠ দায়িত্বপ্ৰাপ্তসকল."
 }

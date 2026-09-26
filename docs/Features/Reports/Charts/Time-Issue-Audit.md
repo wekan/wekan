@@ -30,3 +30,23 @@ and the Time view use that same field. No second timer or timesheet store is
 introduced. Database query support is not the missing feature here: the new
 reports use plain board-scoped reads and pure calculations, rather than new
 aggregation operators requiring a FerretDB implementation.
+
+## Implemented missing pieces of #1598
+
+- Keep card and checklist Activities when their source item is deleted. Their
+  stored titles and timestamps remain visible from the board activity feed.
+  Keep a card-removal snapshot in the existing universal History for reports;
+  deleting the whole board still follows the normal board purge policy.
+- Add an optional **Move: Reason** field to the existing Move Card dialog and
+  an **Ask for move reason** board card setting. When enabled, ordinary
+  interactive list moves ask for an optional reason. Automation can supply a
+  reason without a dialog. The reason is recorded with the move, not inferred
+  from a comment or another field. Skipping a reason is allowed.
+- Record whole positions centrally in the existing collection history hook.
+  The old server-only `Card.move` logger missed direct client collection moves
+  and REST updates. One combined position row also keeps its reason attached
+  to the move and makes undo/redo restore the pair together.
+- Extend the existing Time view with timestamped `spentTime` adjustments grouped
+  by the history author. This is explicitly an adjustment audit, not a claim
+  that the person editing the total personally performed all of the work.
+  Existing card and assignee totals remain available, and exports include both.

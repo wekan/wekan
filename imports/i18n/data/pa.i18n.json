@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "ਨਿਰਭਰਤਾਵਾਂ: ਇਤਿਹਾਸ → ਸ਼ੁਰੂ ਕਰੋ / ਅੰਤ. ਸ਼ੁਰੂ ਕਰੋ (ਅਣਜਾਣ): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × ਇਤਿਹਾਸ. ਦਿਨ: UTC; 0 ✓. 50%, 70%, 85%, 95%. ਕਾਰਡ ≥; ਮਿਆਦ ≤. ਸੀਮਾਵਾਂ: 3650 ਦਿਨ.",
   "flow-note-processBehavior": "XmR: ਚੱਕਰ ਸਮਾਂ; ਸ਼ੁਰੂ ਕਰੋ → ਪੂਰਾ ਹੋਇਆ. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: ਯੋਜਨਾ ਪੋਕਰ / ਨੰਬਰ. Y: ਚੱਕਰ ਸਮਾਂ (ਦਿਨ). (ਅਣਜਾਣ): —."
+  "flow-note-sizeCycleTime": "X: ਯੋਜਨਾ ਪੋਕਰ / ਨੰਬਰ. Y: ਚੱਕਰ ਸਮਾਂ (ਦਿਨ). (ਅਣਜਾਣ): —.",
+  "move-reason": "ਮੂਵ ਕਾਰਡ — ਵਰਣਨ",
+  "ask-move-reason": "ਮੂਵ ਕਾਰਡ → ਵਰਣਨ?",
+  "time-adjustments": "ਘੰਟੇ — Δ — ਯੂਜ਼ਰਨੇਮ",
+  "time-adjustment-note": "ਇਤਿਹਾਸ: Δ ਘੰਟੇ; ਯੂਜ਼ਰਨੇਮ ≠ ਸੌਂਪੇ ਗਏ."
 }

@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Utegemezi: Historia → Anza / Mwisho. Anza (haijulikani): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Historia. siku: UTC; 0 ✓. 50%, 70%, 85%, 95%. Kadi ≥; Muda ≤. Vikomo: 3650 siku.",
   "flow-note-processBehavior": "XmR: Muda wa Mzunguko; Anza → Imekamilika. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Kupanga Poker / Nambari. Y: Muda wa Mzunguko (siku). (haijulikani): —."
+  "flow-note-sizeCycleTime": "X: Kupanga Poker / Nambari. Y: Muda wa Mzunguko (siku). (haijulikani): —.",
+  "move-reason": "Hamisha Kadi — Maelezo",
+  "ask-move-reason": "Hamisha Kadi → Maelezo?",
+  "time-adjustments": "masaa — Δ — Jina la mtumiaji",
+  "time-adjustment-note": "Historia: Δ masaa; Jina la mtumiaji ≠ Waliokabidhiwa."
 }

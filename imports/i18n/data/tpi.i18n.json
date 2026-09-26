@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Toksave: Dependencies: Toksave: History → Statim / Toksave: End. Statim Toksave: (unknown): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Toksave: History. Toksave: days: UTC; 0 ✓. 50%, 70%, 85%, 95%. Ol kat ≥; Toksave: Duration ≤. Toksave: Limits: 3650 Toksave: days.",
   "flow-note-processBehavior": "XmR: Taim bilong sakel; Statim → Pinis. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Toksave: Number. Y: Taim bilong sakel (Toksave: days). Toksave: (unknown): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Toksave: Number. Y: Taim bilong sakel (Toksave: days). Toksave: (unknown): —.",
+  "move-reason": "Muvim kat — Stori",
+  "ask-move-reason": "Muvim kat → Stori?",
+  "time-adjustments": "Toksave: hours — Δ — Nem bilong yusa",
+  "time-adjustment-note": "Toksave: History: Δ Toksave: hours; Nem bilong yusa ≠ Ol man i gat wok."
 }

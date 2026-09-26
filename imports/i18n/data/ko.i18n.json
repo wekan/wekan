@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "종속성: 이력 → 시작일 / 종료일. 시작일 (알수없음): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × 이력. 일: UTC; 0 ✓. 50%, 70%, 85%, 95%. 카드 ≥; 소요 시간 ≤. 제한: 3650 일.",
   "flow-note-processBehavior": "XmR: 사이클 타임; 시작일 → 완료. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: 플래닝 포커 / 숫자. Y: 사이클 타임 (일). (알수없음): —."
+  "flow-note-sizeCycleTime": "X: 플래닝 포커 / 숫자. Y: 사이클 타임 (일). (알수없음): —.",
+  "move-reason": "카드 이동 — 설명",
+  "ask-move-reason": "카드 이동 → 설명?",
+  "time-adjustments": "시간 — Δ — 아이디",
+  "time-adjustment-note": "이력: Δ 시간; 아이디 ≠ 담당자."
 }

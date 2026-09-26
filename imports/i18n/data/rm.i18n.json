@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Dipendenze: Cronologia → Cumenzar / Fine. Cumenzar (sconosciuto): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Cronologia. dis: UTC; 0 ✓. 50%, 70%, 85%, 95%. Cartas ≥; Durata ≤. Limiti: 3650 dis.",
   "flow-note-processBehavior": "XmR: Temp da cikel; Cumenzar → Completé/a. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Numero. Y: Temp da cikel (dis). (sconosciuto): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Numero. Y: Temp da cikel (dis). (sconosciuto): —.",
+  "move-reason": "Spustar la carta — Descripziun",
+  "ask-move-reason": "Spustar la carta → Descripziun?",
+  "time-adjustments": "ores — Δ — Num d'utilisader",
+  "time-adjustment-note": "Cronologia: Δ ores; Num d'utilisader ≠ Incumbensads."
 }

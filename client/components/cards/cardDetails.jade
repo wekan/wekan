@@ -1280,6 +1280,8 @@ template(name="cardDestinationPicker")
 template(name="moveCardPopup")
   label(for='move-card-title') {{_ 'title'}}:
   input#move-card-title.full-line(type="text" value="{{getTitle}}" autofocus)
+  label(for="move-card-reason") {{_ "move-reason"}}
+  textarea#move-card-reason.full-line(maxlength="1000")
   +cardDestinationPicker(dialog=dialog)
   div
     input#js-leave-link-at-origin(type="checkbox")

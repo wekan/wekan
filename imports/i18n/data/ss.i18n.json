@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Kuncika: Umlandvo → Calisa / Siphetfo. Calisa (akwatiwa): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Umlandvo. emalanga: UTC; 0 ✓. 50%, 70%, 85%, 95%. Emakhadi ≥; Sikhatsi lesitsatsiwe ≤. Imikhawulo: 3650 emalanga.",
   "flow-note-processBehavior": "XmR: Sikhatsi somjikelezo; Calisa → Kuphelile. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Inombolo. Y: Sikhatsi somjikelezo (emalanga). (akwatiwa): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Inombolo. Y: Sikhatsi somjikelezo (emalanga). (akwatiwa): —.",
+  "move-reason": "Khweshisa likhadi — Inchazelo",
+  "ask-move-reason": "Khweshisa likhadi → Inchazelo?",
+  "time-adjustments": "ema-awa — Δ — Ligama lemsebentisi",
+  "time-adjustment-note": "Umlandvo: Δ ema-awa; Ligama lemsebentisi ≠ Labanikwe umsebenti."
 }

@@ -5,6 +5,7 @@ const path = require('node:path');
 const dir = path.join(__dirname, '../imports/i18n/data');
 const en = JSON.parse(fs.readFileSync(path.join(dir, 'en.i18n.json')));
 const keys = Object.keys(en).filter(key => key.startsWith('flow-') || [
+  'move-reason', 'ask-move-reason', 'time-adjustments', 'time-adjustment-note',
   'board-view-aging-wip', 'board-view-blocker-analysis', 'board-view-monte-carlo',
   'board-view-process-behavior', 'board-view-size-cycle-time',
 ].includes(key));

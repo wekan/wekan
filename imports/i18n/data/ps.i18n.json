@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "اړتياوې: مخينه → پيل / پای. پيل (ناپېژندل شوی): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × مخينه. ورځې: UTC; 0 ✓. 50%, 70%, 85%, 95%. کارتونه ≥; موده ≤. حدونه: 3650 ورځې.",
   "flow-note-processBehavior": "XmR: دورې وخت; پيل → بشپړ شو. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / شمېر. Y: دورې وخت (ورځې). (ناپېژندل شوی): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / شمېر. Y: دورې وخت (ورځې). (ناپېژندل شوی): —.",
+  "move-reason": "کارت لېږدول — تشريح",
+  "ask-move-reason": "کارت لېږدول → تشريح?",
+  "time-adjustments": "ساعتونه — Δ — کارن نوم",
+  "time-adjustment-note": "مخينه: Δ ساعتونه; کارن نوم ≠ ګمارل شوي."
 }

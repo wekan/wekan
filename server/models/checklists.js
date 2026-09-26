@@ -120,12 +120,7 @@ Checklists.after.insert(async (userId, doc) => {
 
 Checklists.before.remove(async (userId, doc) => {
   try {
-    const activities = await ReactiveCache.getActivities({ checklistId: doc._id });
-    if (activities) {
-      for (const activity of activities) {
-        await Activities.removeAsync(activity._id);
-      }
-    }
+    // #1598: keep the checklist's timestamped activity trail.
     // When a whole list/card is deleted, the parent card may already be gone by
     // the time its checklists are removed (cascade delete). Skip the activity
     // then instead of dereferencing an undefined card, which would throw an

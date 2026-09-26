@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Kuatia'i joajuha kuéra: Tembiasakue → Eñepyrũ / Paha. Eñepyrũ (ojeikuaa'ỹva): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Tembiasakue. ára: UTC; 0 ✓. 50%, 70%, 85%, 95%. Kuatia'ikuéra ≥; Pukukue ≤. Pahakuéra: 3650 ára.",
   "flow-note-processBehavior": "XmR: Jehasa ára; Eñepyrũ → Opámava. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Papapy. Y: Jehasa ára (ára). (ojeikuaa'ỹva): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Papapy. Y: Jehasa ára (ára). (ojeikuaa'ỹva): —.",
+  "move-reason": "Emyanda kuatia'i — Ñemombe'u",
+  "ask-move-reason": "Emyanda kuatia'i → Ñemombe'u?",
+  "time-adjustments": "aravo — Δ — Puruhára réra",
+  "time-adjustment-note": "Tembiasakue: Δ aravo; Puruhára réra ≠ Omba'apótava kuéra."
 }

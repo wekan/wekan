@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Afhankelijkheden: Historie → Begin / Einde. Begin (onbekend): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Historie. dagen: UTC; 0 ✓. 50%, 70%, 85%, 95%. Kaarten ≥; Duur ≤. Limieten: 3650 dagen.",
   "flow-note-processBehavior": "XmR: Thời gian chu kỳ; Begin → Afgewerkt. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Aantal. Y: Thời gian chu kỳ (dagen). (onbekend): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Aantal. Y: Thời gian chu kỳ (dagen). (onbekend): —.",
+  "move-reason": "Verplaats kaart — Beschrijving",
+  "ask-move-reason": "Verplaats kaart → Beschrijving?",
+  "time-adjustments": "uren — Δ — Gebruikersnaam",
+  "time-adjustment-note": "Historie: Δ uren; Gebruikersnaam ≠ Toegewezen personen."
 }

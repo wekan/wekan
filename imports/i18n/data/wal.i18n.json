@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Wolayttatto: Dependencies: Wolayttatto: History → Doomma / Wolayttatto: End. Doomma Wolayttatto: (unknown): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Wolayttatto: History. Wolayttatto: days: UTC; 0 ✓. 50%, 70%, 85%, 95%. Kaardiyata ≥; Wolayttatto: Duration ≤. Wolayttatto: Limits: 3650 Wolayttatto: days.",
   "flow-note-processBehavior": "XmR: የዑደት ጊዜ; Doomma → Wolayttatto: Polettiis. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Wolayttatto: Number. Y: የዑደት ጊዜ (Wolayttatto: days). Wolayttatto: (unknown): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Wolayttatto: Number. Y: የዑደት ጊዜ (Wolayttatto: days). Wolayttatto: (unknown): —.",
+  "move-reason": "Kaardiyaa laammissa — Qonccissuwaa",
+  "ask-move-reason": "Kaardiyaa laammissa → Qonccissuwaa?",
+  "time-adjustments": "Wolayttatto: hours — Δ — Oosanchchaa sunttaa",
+  "time-adjustment-note": "Wolayttatto: History: Δ Wolayttatto: hours; Oosanchchaa sunttaa ≠ Oosoy imettidoogeeta."
 }

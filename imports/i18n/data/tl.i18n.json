@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Mga pagkakaugnay: Kasaysayan → Simula / Wakas. Simula (hindi alam): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Kasaysayan. mga araw: UTC; 0 ✓. 50%, 70%, 85%, 95%. Mga kard ≥; Tagal ≤. Mga limitasyon: 3650 mga araw.",
   "flow-note-processBehavior": "XmR: Oras ng Siklo; Simula → Nakumpleto. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Bilang. Y: Oras ng Siklo (mga araw). (hindi alam): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Bilang. Y: Oras ng Siklo (mga araw). (hindi alam): —.",
+  "move-reason": "Ilipat ang kard — Paglalarawan",
+  "ask-move-reason": "Ilipat ang kard → Paglalarawan?",
+  "time-adjustments": "mga oras — Δ — pangalan ng gumagamit",
+  "time-adjustment-note": "Kasaysayan: Δ mga oras; pangalan ng gumagamit ≠ Mga nakatalaga."
 }

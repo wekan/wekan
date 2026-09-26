@@ -78,34 +78,6 @@ function stageHistory(cards, lists, events, now) {
   }).sort((a, b) => (b.ageDays ?? -1) - (a.ageDays ?? -1));
 }
 
-function blockerGroups(cards, stages) {
-  const cardMap = new Map(cards.map(card => [card._id, card]));
-  const stageMap = new Map(stages.map(row => [row.cardId, row]));
-  const groups = new Map();
-  for (const source of cards) {
-    for (const dep of source.cardDependencies || []) {
-      if (!dep || !['blocks', 'is-blocked-by'].includes(dep.type)) continue;
-      const target = cardMap.get(dep.cardId);
-      if (!target || source._id === target._id) continue;
-      const [cause, affected] = dep.type === 'blocks' ? [source, target] : [target, source];
-      if (!open(cause) || !open(affected)) continue;
-      const group = groups.get(cause._id) || { cardId: cause._id, title: cause.title, affected: new Map() };
-      group.affected.set(affected._id, { title: affected.title, stage: stageMap.get(affected._id) });
-      groups.set(cause._id, group);
-    }
-  }
-  return [...groups.values()].map(group => {
-    const affected = [...group.affected.values()];
-    const ages = affected.map(row => row.stage?.ageDays).filter(value => value != null);
-    return {
-      cardId: group.cardId, title: group.title, count: affected.length,
-      cards: affected.map(row => row.title).join(', '),
-      lists: [...new Set(affected.map(row => row.stage?.list).filter(Boolean))].join(', '),
-      meanAge: ages.length ? mean(ages) : null, maxAge: ages.length ? Math.max(...ages) : null,
-    };
-  }).sort((a, b) => b.count - a.count || (b.maxAge || 0) - (a.maxAge || 0));
-}
-
 // Replay the EXISTING universal history. Rewind current values first, then
 // apply every immutable row (including undo/restore rows) in time order.
 // Missing starts stay unknown; never infer blocked duration from card age.
@@ -114,11 +86,14 @@ function blockerEpisodes(cards, history, now) {
   const relevant = new Set(['cardDependencies', 'endAt', 'archivedAt', 'archived', 'deletedAt']);
   const rows = history.filter(row => row.entityType === 'card' && states.has(row.entityId)
     && Number.isFinite(ms(row.createdAt)) && ms(row.createdAt) <= ms(now)
-    && (row.group === 'position' || relevant.has(row.newContent?.field || row.previousContent?.field)))
+    && (row.group === 'position' || (row.group === 'lifecycle' && row.previousContent?.document) || relevant.has(row.newContent?.field || row.previousContent?.field)))
     .sort((a, b) => ms(a.createdAt) - ms(b.createdAt));
   function apply(row, content) {
     const state = states.get(row.entityId);
-    if (row.group === 'position') {
+    if (row.group === 'lifecycle' && row.previousContent?.document) {
+      if (content?.document) Object.assign(state, content.document, { deletedAt: content.document.deletedAt || null });
+      else state.deletedAt = new Date(row.createdAt);
+    } else if (row.group === 'position') {
       if (content?.listId) state.listId = content.listId;
       if (content?.boardId) state.boardId = content.boardId;
     } else {
@@ -289,5 +264,5 @@ function computeFlowAnalytics(chartKey, cards, lists, events, fields, input, now
   throw new Error('Unknown chart');
 }
 
-module.exports = { FLOW_CHART_KEYS, flowOptions, computeFlowAnalytics, stageHistory, blockerGroups,
+module.exports = { FLOW_CHART_KEYS, flowOptions, computeFlowAnalytics, stageHistory,
   cyclePoints, processBehavior, monteCarlo, quantile, round, blockerEpisodes, historicalBlockerGroups };

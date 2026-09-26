@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Dipendenze: Cronologia → Inizio / Fine. Inizio (sconosciuto): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Cronologia. giorni: UTC; 0 ✓. 50%, 70%, 85%, 95%. Schede ≥; Durata ≤. Limiti: 3650 giorni.",
   "flow-note-processBehavior": "XmR: Tempo di ciclo; Inizio → Completato/a. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Numero. Y: Tempo di ciclo (giorni). (sconosciuto): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Numero. Y: Tempo di ciclo (giorni). (sconosciuto): —.",
+  "move-reason": "Sposta scheda — Descrizione",
+  "ask-move-reason": "Sposta scheda → Descrizione?",
+  "time-adjustments": "ore — Δ — Nome utente",
+  "time-adjustment-note": "Cronologia: Δ ore; Nome utente ≠ Assegnatari."
 }

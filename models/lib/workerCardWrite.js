@@ -46,6 +46,7 @@ const MOVE_FIELDS = new Set([
   'listId',
   'swimlaneId',
   'sort',
+  'lastMoveReason',
   // Written alongside a move by the client and by Cards.before.update.
   'dateLastActivity',
   'modifiedAt',
@@ -63,6 +64,7 @@ function moveOnly(payload) {
   if (!isPlainObject(payload)) return false;
   const keys = Object.keys(payload);
   if (keys.length === 0) return false;
+  if (keys.includes('lastMoveReason') && !keys.some(field => ['listId', 'swimlaneId', 'sort'].includes(field))) return false;
   return keys.every(field => MOVE_FIELDS.has(field));
 }
 

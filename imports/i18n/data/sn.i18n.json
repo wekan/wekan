@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Mashoko echiShona: Dependencies: nhoroondo → Tanga / Mashoko echiShona: End. Tanga Mashoko echiShona: (unknown): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × nhoroondo. mazuva: UTC; 0 ✓. 50%, 70%, 85%, 95%. Makadhi ≥; Mashoko echiShona: Duration ≤. Mashoko echiShona: Limits: 3650 mazuva.",
   "flow-note-processBehavior": "XmR: Nguva yeMazano; Tanga → zvapedzwa. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Mashoko echiShona: Planning Poker / Mashoko echiShona: Number. Y: Nguva yeMazano (mazuva). Mashoko echiShona: (unknown): —."
+  "flow-note-sizeCycleTime": "X: Mashoko echiShona: Planning Poker / Mashoko echiShona: Number. Y: Nguva yeMazano (mazuva). Mashoko echiShona: (unknown): —.",
+  "move-reason": "Fambisa kadhi — Tsanangudzo",
+  "ask-move-reason": "Fambisa kadhi → Tsanangudzo?",
+  "time-adjustments": "Mashoko echiShona: hours — Δ — Zita rekushandisa",
+  "time-adjustment-note": "nhoroondo: Δ Mashoko echiShona: hours; Zita rekushandisa ≠ Vapiwa basa."
 }

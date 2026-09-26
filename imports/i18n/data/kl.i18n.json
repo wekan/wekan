@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Attuumassutit: Oqaluttuarisaanera → Aallartiguk / Naammassiffik. Aallartiguk (ilisimaneqanngilaq): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Oqaluttuarisaanera. ullut: UTC; 0 ✓. 50%, 70%, 85%, 95%. Kortsit ≥; Sivisussuseq ≤. Killiliissutit: 3650 ullut.",
   "flow-note-processBehavior": "XmR: Ataavartitsinermi piffissaq; Aallartiguk → Naammassineqarpoq. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Kisitsineq. Y: Ataavartitsinermi piffissaq (ullut). (ilisimaneqanngilaq): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Kisitsineq. Y: Ataavartitsinermi piffissaq (ullut). (ilisimaneqanngilaq): —.",
+  "move-reason": "Kortsi nuuguk — Nassuiaat",
+  "ask-move-reason": "Kortsi nuuguk → Nassuiaat?",
+  "time-adjustments": "akunnerit — Δ — Atuisup aqqa",
+  "time-adjustment-note": "Oqaluttuarisaanera: Δ akunnerit; Atuisup aqqa ≠ Akisussaasut."
 }

@@ -22,15 +22,9 @@ import { diffFields } from '/models/lib/changeHistoryGroups';
 // setters, so a per-setter rollout would have recorded a description edited in
 // the UI and silently missed the same edit made over the API.
 //
-// What is deliberately NOT here:
-//   * card MOVES — Card.move records those itself, as one change with the whole
-//     before/after position. Diffing fields would report a single drag as up to
-//     four separate edits (boardId, swimlaneId, listId, sort), which is both
-//     wrong in the table and unusable for undo.
-//   * list soft delete/restore — server/models/lists.js records those with the
-//     batchId that ties a list to the cards deleted with it.
-// Both are excluded by models/lib/changeHistoryGroups.js rather than here, so
-// the exclusions are testable without Meteor.
+// Card moves use one whole position snapshot, including the move reason.
+// List soft delete/restore retains its own batch-aware recorder.
+// REST endpoints using .direct explicitly call recordUpdate after their writes.
 
 /*
  * Where a row sits, so the container scopes can find it (History.md §6). Each
@@ -103,6 +97,11 @@ async function recordUpdate(entityType, userId, doc, fieldNames, previous) {
   if (isRecordingSuppressed()) return;
   try {
     const changes = diffFields(entityType, previous || {}, doc, fieldNames);
+    if (entityType === 'card') {
+      const { positionChange } = require('/models/lib/timeHistory');
+      const position = positionChange(previous || {}, doc, fieldNames);
+      if (position) changes.push(position);
+    }
     if (changes.length === 0) return;
     const where = await locate(entityType, doc);
     if (!where || !where.boardId) return;
@@ -193,7 +192,7 @@ Meteor.startup(() => {
 
   // Sub-entities a card can gain and lose. Cards, lists and swimlanes are not
   // here: their creation and deletion are already recorded where they happen
-  // (Card.move, the list soft delete), with the batch ids that tie a container
+  // (cardRemover, the list soft delete), with the batch ids that tie a container
   // to its contents.
   const lifecycles = [
     [Checklists, 'checklist'],

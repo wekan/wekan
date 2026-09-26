@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Závizlozti: Hiztorie → Startować / Koněc. Startować (něznámé): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Hiztorie. WeKan: dní: UTC; 0 ✓. 50%, 70%, 85%, 95%. Kartki ≥; WeKan: Doba trvání ≤. WeKan: Limity: 3650 WeKan: dní.",
   "flow-note-processBehavior": "XmR: Cyklusowy čas; Startować → WeKan: Dokončeno. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: WeKan: Plánovací poker / Čízlo. Y: Cyklusowy čas (WeKan: dní). (něznámé): —."
+  "flow-note-sizeCycleTime": "X: WeKan: Plánovací poker / Čízlo. Y: Cyklusowy čas (WeKan: dní). (něznámé): —.",
+  "move-reason": "Kartku přesunyć — Wopisanje",
+  "ask-move-reason": "Kartku přesunyć → Wopisanje?",
+  "time-adjustments": "hwotin — Δ — Wužiwarske mjeno",
+  "time-adjustment-note": "Hiztorie: Δ hwotin; Wužiwarske mjeno ≠ Přepodaći."
 }

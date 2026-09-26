@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Amasano y'amakarata: Amateka → Tangura / Iherezo. Tangura (ntibizwi): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Amateka. imisi: UTC; 0 ✓. 50%, 70%, 85%, 95%. Amakarata ≥; Ikiringo ≤. Imipaka: 3650 imisi.",
   "flow-note-processBehavior": "XmR: Igihe c'urucari; Tangura → Vyarangiye. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Igitigiri. Y: Igihe c'urucari (imisi). (ntibizwi): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Igitigiri. Y: Igihe c'urucari (imisi). (ntibizwi): —.",
+  "move-reason": "Kwimura ikarata — Insiguro",
+  "ask-move-reason": "Kwimura ikarata → Insiguro?",
+  "time-adjustments": "amasaha — Δ — Izina ry'ukoresha",
+  "time-adjustment-note": "Amateka: Δ amasaha; Izina ry'ukoresha ≠ Abahawe igikorwa."
 }

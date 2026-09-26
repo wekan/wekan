@@ -155,6 +155,7 @@ async function applyCardContent(row, content) {
       content.swimlaneId,
       content.listId,
       content.sort,
+      content.lastMoveReason || '',
     );
     return true;
   }
@@ -277,7 +278,7 @@ async function currentContentOf(row) {
 
   if (row.group === 'position') {
     const position = {};
-    for (const key of ['boardId', 'swimlaneId', 'listId', 'sort']) {
+    for (const key of ['boardId', 'swimlaneId', 'listId', 'sort', 'lastMoveReason']) {
       if (doc[key] !== undefined) position[key] = doc[key];
     }
     return Object.keys(position).length ? position : null;
@@ -331,6 +332,17 @@ async function applyRow(row, direction) {
 // ---- the read method ---------------------------------------------------------
 
 const MAX_PAGE_SIZE = 200;
+
+// Undo/redo are real timestamped transitions too. Checkpoints preserve the
+// report timeline while staying out of the undo stack and preserving redo.
+async function recordReversal(row, userId, before) {
+  await ChangeHistory.record({
+    boardId: row.boardId, swimlaneId: row.swimlaneId, listId: row.listId, cardId: row.cardId,
+    entityType: row.entityType, entityId: row.entityId, group: row.group,
+    changeType: 'restored', previousContent: before, newContent: await currentContentOf(row),
+    userId, restoredFromId: row._id, restoredByUserId: userId, isCheckpoint: true,
+  });
+}
 
 Meteor.methods({
   /*
@@ -491,18 +503,20 @@ Meteor.methods({
     await requireBoardWrite(this.userId, boardId);
 
     const candidates = await ChangeHistory.find(
-      { userId: this.userId, boardId, undone: false },
+      { userId: this.userId, boardId, undone: false, isCheckpoint: { $ne: true } },
       { sort: { createdAt: -1 }, limit: 50 },
     ).fetchAsync();
     const row = pickUndo(candidates);
     if (!row) return { undone: false };
     await requireHistoryIntegrity(row, this);
 
+    const before = await currentContentOf(row);
     const applied = await applyRow(row, 'undo');
     if (!applied) return { undone: false, reason: 'not-applicable' };
     await ChangeHistory.updateAsync(row._id, {
       $set: { undone: true, undoneAt: new Date() },
     });
+    await recordReversal(row, this.userId, before);
     return {
       undone: true,
       entityType: row.entityType,
@@ -519,18 +533,20 @@ Meteor.methods({
     await requireBoardWrite(this.userId, boardId);
 
     const candidates = await ChangeHistory.find(
-      { userId: this.userId, boardId, undone: true },
+      { userId: this.userId, boardId, undone: true, isCheckpoint: { $ne: true } },
       { sort: { undoneAt: -1 }, limit: 50 },
     ).fetchAsync();
     const row = pickRedo(candidates);
     if (!row) return { redone: false };
     await requireHistoryIntegrity(row, this);
 
+    const before = await currentContentOf(row);
     const applied = await applyRow(row, 'redo');
     if (!applied) return { redone: false, reason: 'not-applicable' };
     await ChangeHistory.updateAsync(row._id, {
       $set: { undone: false, undoneAt: null },
     });
+    await recordReversal(row, this.userId, before);
     return {
       redone: true,
       entityType: row.entityType,

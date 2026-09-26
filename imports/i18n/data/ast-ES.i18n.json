@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Dependencies de la tarxeta: Historial → Comienza / Finalizado. Comienza (desconocido): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Historial. días: UTC; 0 ✓. 50%, 70%, 85%, 95%. Tarjetas ≥; Duración ≤. Llímites: 3650 días.",
   "flow-note-processBehavior": "XmR: Tiempu de ciclu; Comienza → Completada. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planificació de pòquer / Número. Y: Tiempu de ciclu (días). (desconocido): —."
+  "flow-note-sizeCycleTime": "X: Planificació de pòquer / Número. Y: Tiempu de ciclu (días). (desconocido): —.",
+  "move-reason": "Mover la tarjeta — Descripción",
+  "ask-move-reason": "Mover la tarjeta → Descripción?",
+  "time-adjustments": "horas — Δ — Nombre de usuario",
+  "time-adjustment-note": "Historial: Δ horas; Nombre de usuario ≠ Asignaos."
 }

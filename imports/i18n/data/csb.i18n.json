@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Zależności — pò kaszëbskù: Historia — pò kaszëbskù → Zaczãc / Koniec — pò kaszëbskù. Zaczãc (nieznany) — pò kaszëbskù: —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Historia — pò kaszëbskù. dni — pò kaszëbskù: UTC; 0 ✓. 50%, 70%, 85%, 95%. Kôrtë ≥; Czas trwania — pò kaszëbskù ≤. Limity — pò kaszëbskù: 3650 dni — pò kaszëbskù.",
   "flow-note-processBehavior": "XmR: Czas cyklu; Zaczãc → ukończona — pò kaszëbskù. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker — pò kaszëbskù / Numer — pò kaszëbskù. Y: Czas cyklu (dni — pò kaszëbskù). (nieznany) — pò kaszëbskù: —."
+  "flow-note-sizeCycleTime": "X: Planning Poker — pò kaszëbskù / Numer — pò kaszëbskù. Y: Czas cyklu (dni — pò kaszëbskù). (nieznany) — pò kaszëbskù: —.",
+  "move-reason": "Przeniesc kôrtã — Òpisënk",
+  "ask-move-reason": "Przeniesc kôrtã → Òpisënk?",
+  "time-adjustments": "godzin — pò kaszëbskù — Δ — Miono brëkòwnika",
+  "time-adjustment-note": "Historia — pò kaszëbskù: Δ godzin — pò kaszëbskù; Miono brëkòwnika ≠ Òdpòwiedzalnicë."
 }

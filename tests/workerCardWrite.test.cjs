@@ -119,7 +119,7 @@ test('junk never becomes permission (negative)', () => {
 
 test('the writable set is small, and says so', () => {
   assert.deepStrictEqual([...WORKER_WRITABLE_FIELDS].sort(),
-    ['assignees', 'dateLastActivity', 'listId', 'modifiedAt', 'sort', 'swimlaneId'],
+    ['assignees', 'dateLastActivity', 'lastMoveReason', 'listId', 'modifiedAt', 'sort', 'swimlaneId'],
     'every addition to this list is a decision about what a Worker may change');
 });
 

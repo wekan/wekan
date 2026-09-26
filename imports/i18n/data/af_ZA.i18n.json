@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Afhanklikhede: Geskiedenis → Begin / Einde. Begin (onbekend): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Geskiedenis. dae: UTC; 0 ✓. 50%, 70%, 85%, 95%. Kaarte ≥; Duur ≤. Limiete: 3650 dae.",
   "flow-note-processBehavior": "XmR: Sikluslyd; Begin → Voltooi. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Beplan poker / Nommer. Y: Sikluslyd (dae). (onbekend): —."
+  "flow-note-sizeCycleTime": "X: Beplan poker / Nommer. Y: Sikluslyd (dae). (onbekend): —.",
+  "move-reason": "Beweeg kaart — Beskrywing",
+  "ask-move-reason": "Beweeg kaart → Beskrywing?",
+  "time-adjustments": "ure — Δ — Gebruikersnaam",
+  "time-adjustment-note": "Geskiedenis: Δ ure; Gebruikersnaam ≠ Toegewers."
 }

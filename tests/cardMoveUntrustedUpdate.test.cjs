@@ -146,9 +146,8 @@ test('the inbound cleanup happens server-side, on a real board change', () => {
     && /cardDependencies: doc\._id/.test(hook),
     'both dependency shapes must be pulled - legacy rows hold bare id strings, '
     + 'which normalizeDependencies hides on read');
-  assert.ok(/Cards\.direct\.updateAsync/.test(hook),
-    'via .direct, like the checklist re-sync beside it: this is a cleanup on '
-    + 'other documents, not an edit to re-run the hooks for');
+  assert.ok(/Cards\.updateAsync/.test(hook),
+    'dependency cleanup uses the history hooks, including its removal timestamps');
 });
 
 test('the REST route cannot leave a card pointing at another board', () => {

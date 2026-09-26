@@ -15,4 +15,9 @@ function validDependencyRestore(card, dependencies, targets) {
       && ['related-to', 'blocks', 'is-blocked-by', 'fixes', 'is-fixed-by'].includes(dep.type);
   });
 }
-module.exports = { validDependencyRestore };
+function dependencySummary(dependencies, titleOf = id => id, translate = key => key) {
+  if (!dependencies.length) return '—';
+  return dependencies.map(dep => typeof dep === 'string' ? titleOf(dep)
+    : `${translate(`dependency-type-${dep.type}`)}: ${titleOf(dep.cardId)}`).join('; ');
+}
+module.exports = { validDependencyRestore, dependencySummary };

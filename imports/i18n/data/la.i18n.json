@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Latine: Dependencies: Latine: Historia → Incipe / Latine: End. Incipe Latine: (ignotum): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Latine: Historia. Latine: dies: UTC; 0 ✓. 50%, 70%, 85%, 95%. Chartae ≥; Latine: Duration ≤. Latine: Limits: 3650 Latine: dies.",
   "flow-note-processBehavior": "XmR: Tempus cycli; Incipe → Latine: Perfectum. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Latine: Planning Poker / Latine: Numerus. Y: Tempus cycli (Latine: dies). Latine: (ignotum): —."
+  "flow-note-sizeCycleTime": "X: Latine: Planning Poker / Latine: Numerus. Y: Tempus cycli (Latine: dies). Latine: (ignotum): —.",
+  "move-reason": "Chartam move — Descriptio",
+  "ask-move-reason": "Chartam move → Descriptio?",
+  "time-adjustments": "Latine: horae — Δ — Nomen usoris",
+  "time-adjustment-note": "Latine: Historia: Δ Latine: horae; Nomen usoris ≠ Delegati."
 }

@@ -109,6 +109,10 @@ function summarise(row) {
   // An emptied field has no text to show; an em dash reads as "nothing here" in
   // every language, which a translated word would have needed 197 files to do.
   if (content.value === null) return '—';
+  if (content.field === 'cardDependencies' && Array.isArray(content.value)) {
+    return require('/models/lib/flowHistory').dependencySummary(content.value,
+      id => ReactiveCache.getCard(id)?.title || id, key => TAPi18n.__(key));
+  }
   if (Array.isArray(content.value)) return content.value.join(', ');
   if (content.isDate) return formatDateForDisplay(content.value, true, formatDateTime);
   if (typeof content.value === 'number' || typeof content.value === 'boolean') {

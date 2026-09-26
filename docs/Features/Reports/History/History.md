@@ -530,3 +530,36 @@ restore mechanism. [Blocker Analysis](../Charts/Flow-Analytics.md) replays those
 rows together with date, lifecycle and position history to derive per-stage
 blocked intervals. No second history collection is introduced. Links created
 before recording began retain unknown starts instead of fabricated dates.
+
+
+### Move reasons and retained time records (#1598)
+
+Card moves now record one whole position in the central collection update hook,
+including `lastMoveReason`. Direct REST card updates call that same recorder
+with their authenticated before/after documents. Undo and redo restore the
+position and reason together. **Board Settings → Card Settings → Ask for a
+reason when moving cards** enables an optional prompt for interactive list
+moves. The Move Card dialog always offers the optional reason field. REST
+card updates accept `moveReason` alongside the destination; reasons are trimmed
+and limited to 1,000 characters. Automated moves do not display a prompt.
+
+Deleting a card, checklist or checklist item keeps its timestamped Activities
+in the board feed. A card deletion also stores its last document in a lifecycle
+History row, for historical chart inputs. This does not make permanent card
+removal reversible: child documents and attachment bytes are not restored by
+that snapshot. Previously purged activity cannot be recovered. Whole-board
+purging keeps its existing retention behavior.
+
+**Board View → Time** adds an adjustment audit: each recorded `spentTime`
+change, its exact timestamp, card, author, delta and resulting total, plus
+net adjustments grouped by author. PDF/Excel exports include the same rows.
+Negative deltas represent corrections; setting the total to zero is supported
+through REST as well as the existing editor. These are changes to a shared
+counter, not evidence of individual work sessions. The existing current-card
+and current-assignee totals keep their meaning. Older totals with no change
+history cannot be attributed retrospectively.
+
+Undo/redo also append timestamped reversal checkpoints to History. These rows
+remain outside the undo stack, but reports replay them so reversing a dependency
+or hour adjustment does not leave the chart showing the pre-undo state. Restore
+provenance rows are counted once in the time audit, under the restoring author.

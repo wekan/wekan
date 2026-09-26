@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Dependències: Història → Comença / Final. Comença (desconegut): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Història. dies: UTC; 0 ✓. 50%, 70%, 85%, 95%. Fitxes ≥; Durada ≤. Límits: 3650 dies.",
   "flow-note-processBehavior": "XmR: Temps de cicle; Comença → Completat. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planificació de pòquer / Número. Y: Temps de cicle (dies). (desconegut): —."
+  "flow-note-sizeCycleTime": "X: Planificació de pòquer / Número. Y: Temps de cicle (dies). (desconegut): —.",
+  "move-reason": "Moure fitxa — Descripció",
+  "ask-move-reason": "Moure fitxa → Descripció?",
+  "time-adjustments": "hores — Δ — Nom d'usuari",
+  "time-adjustment-note": "Història: Δ hores; Nom d'usuari ≠ Assignats."
 }

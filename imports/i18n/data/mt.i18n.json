@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Traduzzjoni Maltija: Dependencies: Traduzzjoni Maltija: History → Ibda / Traduzzjoni Maltija: End. Ibda Traduzzjoni Maltija: (unknown): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Traduzzjoni Maltija: History. jiem: UTC; 0 ✓. 50%, 70%, 85%, 95%. Karti ≥; Traduzzjoni Maltija: Duration ≤. Traduzzjoni Maltija: Limits: 3650 jiem.",
   "flow-note-processBehavior": "XmR: Tempo di ciclo; Ibda → Traduzzjoni Maltija: Completed. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Numru. Y: Tempo di ciclo (jiem). Traduzzjoni Maltija: (unknown): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Numru. Y: Tempo di ciclo (jiem). Traduzzjoni Maltija: (unknown): —.",
+  "move-reason": "Mexxi l-karta — Deskrizzjoni",
+  "ask-move-reason": "Mexxi l-karta → Deskrizzjoni?",
+  "time-adjustments": "Traduzzjoni Maltija: hours — Δ — Isem tal-utent",
+  "time-adjustment-note": "Traduzzjoni Maltija: History: Δ Traduzzjoni Maltija: hours; Isem tal-utent ≠ Assenjati."
 }

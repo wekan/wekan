@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Závislosti: Historie → Začátek / Konec. Začátek (neznámé): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Historie. dní: UTC; 0 ✓. 50%, 70%, 85%, 95%. Karty ≥; Doba trvání ≤. Limity: 3650 dní.",
   "flow-note-processBehavior": "XmR: Doba cyklu; Začátek → Dokončeno. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Plánovací poker / Číslo. Y: Doba cyklu (dní). (neznámé): —."
+  "flow-note-sizeCycleTime": "X: Plánovací poker / Číslo. Y: Doba cyklu (dní). (neznámé): —.",
+  "move-reason": "Přesunout kartu — Popis",
+  "ask-move-reason": "Přesunout kartu → Popis?",
+  "time-adjustments": "hodin — Δ — Uživatelské jméno",
+  "time-adjustment-note": "Historie: Δ hodin; Uživatelské jméno ≠ Řešitelé."
 }

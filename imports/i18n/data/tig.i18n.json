@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "ጽግዕተኛታት: ታሪኽ → አንብት / መከለሲ. አንብት (ለይትኣመራ): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × ታሪኽ. አምዕል: UTC; 0 ✓. 50%, 70%, 85%, 95%. ወረቀት ካርዳት ≥; ግዜ ቆይታ ≤. ሕዱዳት: 3650 አምዕል.",
   "flow-note-processBehavior": "XmR: ናይ ዑደት ወቅት; አንብት → ተወዲኡ. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / ዕልብ. Y: ናይ ዑደት ወቅት (አምዕል). (ለይትኣመራ): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / ዕልብ. Y: ናይ ዑደት ወቅት (አምዕል). (ለይትኣመራ): —.",
+  "move-reason": "ወረቀት ካርድ ኣንቀሳቕስ — ዋስፎ",
+  "ask-move-reason": "ወረቀት ካርድ ኣንቀሳቕስ → ዋስፎ?",
+  "time-adjustments": "ሰዐታት — Δ — ስም ተጠቃማይ",
+  "time-adjustment-note": "ታሪኽ: Δ ሰዐታት; ስም ተጠቃማይ ≠ ሓለፍቲ."
 }

@@ -111,8 +111,8 @@ test('a card move is recorded once, as a move, not as four field edits', () => {
       `${field} must be excluded, or one drag becomes four rows`);
     assert.equal(groupForField('card', field), null);
   }
-  assert.match(cards, /group: 'position'/,
-    'Card.move records the whole move itself, as one change');
+  assert.match(read('server/models/changeHistoryHooks.js'), /positionChange/,
+    'The central hook records one complete position snapshot');
 });
 
 test('list moves, deletes and restores are recorded too', () => {
@@ -135,7 +135,7 @@ test('every recorded row carries the ids its scopes filter on', () => {
       assert.match(call, /boardId/, `${name}: a row with no boardId is in no board's history`);
     }
   }
-  const helper = cards.slice(cards.indexOf('async function recordCardChange'));
+  const helper = read('server/models/changeHistoryHooks.js');
   for (const column of ['boardId', 'swimlaneId', 'listId', 'cardId']) {
     assert.match(helper, new RegExp(`${column}:`),
       `a card row must carry ${column} or it drops out of that scope's view`);

@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Тутулуктаахтар: Устуоруйа → Саҕалаа / Бүтүү. Саҕалаа (биллибэт): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Устуоруйа. хонук: UTC; 0 ✓. 50%, 70%, 85%, 95%. Карточкалар ≥; Уһуна ≤. Хааччахтар: 3650 хонук.",
   "flow-note-processBehavior": "XmR: Цикл кэмэ; Саҕалаа → Бүтэриллибит. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Чыыһыла. Y: Цикл кэмэ (хонук). (биллибэт): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Чыыһыла. Y: Цикл кэмэ (хонук). (биллибэт): —.",
+  "move-reason": "Карточканы көһөрөр — Быһаарыы",
+  "ask-move-reason": "Карточканы көһөрөр → Быһаарыы?",
+  "time-adjustments": "чаас — Δ — Туттааччы аата",
+  "time-adjustment-note": "Устуоруйа: Δ чаас; Туттааччы аата ≠ Эппиэттииллэр."
 }

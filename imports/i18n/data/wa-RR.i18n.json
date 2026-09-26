@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Mga Dependency: Kasaysayan → Sugod / Katapusan. Sugod (diri kilala): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Kasaysayan. adlaw: UTC; 0 ✓. 50%, 70%, 85%, 95%. Mga Card ≥; Kaiha ≤. Mga Limit: 3650 adlaw.",
   "flow-note-processBehavior": "XmR: Tins d' cycle; Sugod → Tapos. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning poker / Numero. Y: Tins d' cycle (adlaw). (diri kilala): —."
+  "flow-note-sizeCycleTime": "X: Planning poker / Numero. Y: Tins d' cycle (adlaw). (diri kilala): —.",
+  "move-reason": "Ibalhin an Card — Deskripsyon",
+  "ask-move-reason": "Ibalhin an Card → Deskripsyon?",
+  "time-adjustments": "oras — Δ — Nom d'utilisateur",
+  "time-adjustment-note": "Kasaysayan: Δ oras; Nom d'utilisateur ≠ Mga Gin-asignaran."
 }

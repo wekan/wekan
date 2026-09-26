@@ -58,3 +58,32 @@ template(name="timeView")
                     if isOvertime
                       |  ({{_ 'overtime'}})
                   td {{hours}}
+      .stats-view-section.time-adjustments
+        h2.stats-view-heading {{_ 'time-adjustments'}}
+        p {{_ 'time-adjustment-note'}}
+        table.stats-view-table.chart-data-table
+          thead
+            tr
+              th {{_ 'username'}}
+              th {{_ 'hours'}}
+          tbody
+            each timeAdjustmentGroups
+              tr
+                td {{label}}
+                td {{hours}}
+        table.stats-view-table.chart-data-table
+          thead
+            tr
+              th {{_ 'date'}}
+              th {{_ 'card'}}
+              th {{_ 'username'}}
+              th Δ {{_ 'hours'}}
+              th {{_ 'hours'}}
+          tbody
+            each timeAdjustmentEntries
+              tr
+                td {{displayDate at}}
+                td {{title}}
+                td {{author}}
+                td {{hours}}
+                td {{total}}

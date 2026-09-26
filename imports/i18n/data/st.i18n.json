@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Dikamano: Nalane → Qala / Pheletso. Qala (ha e tsejwe): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Nalane. matsatsi: UTC; 0 ✓. 50%, 70%, 85%, 95%. Dikarete ≥; Nako ≤. Meedi: 3650 matsatsi.",
   "flow-note-processBehavior": "XmR: Nako ea potoloho; Qala → E phethilwe. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Nomoro. Y: Nako ea potoloho (matsatsi). (ha e tsejwe): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Nomoro. Y: Nako ea potoloho (matsatsi). (ha e tsejwe): —.",
+  "move-reason": "Falatsa karete — Tlhaloso",
+  "ask-move-reason": "Falatsa karete → Tlhaloso?",
+  "time-adjustments": "dihora — Δ — Lebitso la mosebedisi",
+  "time-adjustment-note": "Nalane: Δ dihora; Lebitso la mosebedisi ≠ Ba abetsoeng."
 }

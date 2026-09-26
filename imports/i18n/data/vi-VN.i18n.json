@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Phụ thuộc: Sejarah → Bắt đầu / Kết thúc. Bắt đầu (không xác định): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Sejarah. ngày: UTC; 0 ✓. 50%, 70%, 85%, 95%. Thẻ ≥; Thời lượng ≤. Giới hạn: 3650 ngày.",
   "flow-note-processBehavior": "XmR: Thời gian chu kỳ; Bắt đầu → Đã hoàn thành. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Poker Perancangan / Số. Y: Thời gian chu kỳ (ngày). (không xác định): —."
+  "flow-note-sizeCycleTime": "X: Poker Perancangan / Số. Y: Thời gian chu kỳ (ngày). (không xác định): —.",
+  "move-reason": "Di chuyển Thẻ — Mô tả",
+  "ask-move-reason": "Di chuyển Thẻ → Mô tả?",
+  "time-adjustments": "giờ — Δ — Tài khoản",
+  "time-adjustment-note": "Sejarah: Δ giờ; Tài khoản ≠ Người được giao."
 }

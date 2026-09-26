@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "පරායත්තතා: ඉතිහාසය → ආරම්භය / අවසන්. ආරම්භය (නොදනී): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × ඉතිහාසය. දින: UTC; 0 ✓. 50%, 70%, 85%, 95%. කාඩ්පත් ≥; කාලසීමාව ≤. සීමා: 3650 දින.",
   "flow-note-processBehavior": "XmR: චක්‍ර කාලය; ආරම්භය → සම්පූර්ණයි. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / සංඛ්‍යාව. Y: චක්‍ර කාලය (දින). (නොදනී): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / සංඛ්‍යාව. Y: චක්‍ර කාලය (දින). (නොදනී): —.",
+  "move-reason": "කාඩ්පත ගෙනයන්න — විස්තරය",
+  "ask-move-reason": "කාඩ්පත ගෙනයන්න → විස්තරය?",
+  "time-adjustments": "පැය — Δ — පරිශීලක නාමය",
+  "time-adjustment-note": "ඉතිහාසය: Δ පැය; පරිශීලක නාමය ≠ පවරන ලද අය."
 }

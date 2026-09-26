@@ -949,8 +949,8 @@ Cards.after.update(async (userId, doc, fieldNames) => {
 //
 // Server-side the selector is allowed, and this covers every path that moves a
 // card - the client helper, the REST API, and import - rather than only the one
-// that happened to call the model helper. .direct like the hook above: this is a
-// denormalization cleanup on other documents, not an edit anyone is watching.
+// that happened to call the model helper. Dependency cleanup uses hooked writes so its before/after values also
+// reach universal History and blocker reports.
 //
 // Two pulls, because an entry may be either shape: dependencies are stored as
 // { cardId, type, color, icon } objects, and data written before #3392's rewrite
@@ -960,12 +960,12 @@ Cards.after.update(async function(userId, doc, fieldNames) {
   if (!fieldNames.includes('boardId')) return;
   const oldBoardId = (this.previous || {}).boardId;
   if (!oldBoardId || oldBoardId === doc.boardId) return;
-  await Cards.direct.updateAsync(
+  await Cards.updateAsync(
     { boardId: oldBoardId, 'cardDependencies.cardId': doc._id },
     { $pull: { cardDependencies: { cardId: doc._id } } },
     { multi: true },
   );
-  await Cards.direct.updateAsync(
+  await Cards.updateAsync(
     { boardId: oldBoardId, cardDependencies: doc._id },
     { $pull: { cardDependencies: doc._id } },
     { multi: true },
@@ -1130,6 +1130,23 @@ Cards.before.update(async (userId, doc, fieldNames, modifier) => {
     listId: card.listId,
     swimlaneId: card.swimlaneId,
   });
+});
+
+// Clear stale move reasons on every entry path, including REST and rules.
+Cards.before.update((userId, doc, fieldNames, modifier) => {
+  const set = modifier.$set;
+  if (set && ((set.listId && set.listId !== doc.listId) || (set.boardId && set.boardId !== doc.boardId))) {
+    const reason = typeof set.lastMoveReason === 'string' ? set.lastMoveReason.trim().slice(0, 1000) : '';
+    // SimpleSchema cleans an empty string into $unset before this hook.
+    // Never send both operators for the same path when undo clears a reason.
+    if (reason) {
+      set.lastMoveReason = reason;
+      if (modifier.$unset) delete modifier.$unset.lastMoveReason;
+    } else {
+      delete set.lastMoveReason;
+      modifier.$unset = { ...modifier.$unset, lastMoveReason: '' };
+    }
+  }
 });
 
 Cards.before.remove(async (userId, doc) => {
@@ -1515,9 +1532,11 @@ WebApp.handlers.put(
     // API contract is unchanged: full move uses newBoardId/newSwimlaneId/
     // newListId, a same-board move uses listId/swimlaneId.
     const moveParams = normalizeMoveParams(req.body);
+    const moveReason = typeof req.body.moveReason === 'string' ? req.body.moveReason.trim().slice(0, 1000) : '';
     const { newBoardId, newSwimlaneId, newListId } = moveParams;
     let updated = false;
     await Authentication.checkBoardWriteAccess(req.userId, paramBoardId);
+    const beforeEdit = await Cards.findOneAsync({ _id: paramCardId, boardId: paramBoardId, listId: paramListId });
 
     if (req.body.title) {
       const newTitle =
@@ -1656,10 +1675,15 @@ WebApp.handlers.put(
         updated = true;
       }
     }
-    if (req.body.spentTime) {
+    if (req.body.spentTime !== undefined) {
+      const hours = Number(req.body.spentTime);
+      if (!Number.isFinite(hours) || hours < 0) {
+        sendJsonResult(res, { code: 400, data: { error: 'Invalid spentTime' } });
+        return;
+      }
       await Cards.direct.updateAsync(
         { _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
-        { $set: { spentTime: req.body.spentTime } },
+        { $set: { spentTime: hours } },
       );
       updated = true;
     }
@@ -1775,7 +1799,7 @@ WebApp.handlers.put(
       const topSort = computeTopSort((destSiblings || []).map(c => c.sort));
       await Cards.direct.updateAsync(
         { _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
-        { $set: { listId: destListId, sort: topSort } },
+        { $set: { listId: destListId, sort: topSort, lastMoveReason: moveReason } },
       );
       updated = true;
 
@@ -1821,12 +1845,12 @@ WebApp.handlers.put(
       const topSort = computeTopSort((destSiblings || []).map(c => c.sort));
       await Cards.direct.updateAsync(
         { _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
-        { $set: { boardId: newBoardId, swimlaneId: newSwimlaneId, listId: newListId, sort: topSort } },
+        { $set: { boardId: newBoardId, swimlaneId: newSwimlaneId, listId: newListId, sort: topSort, lastMoveReason: moveReason } },
       );
       updated = true;
 
       const card = await ReactiveCache.getCard(paramCardId);
-      await cardMove(req.userId, card, ['boardId', 'swimlaneId', 'listId'], newListId, newSwimlaneId, newBoardId);
+      await cardMove(req.userId, card, ['boardId', 'swimlaneId', 'listId'], paramListId, beforeEdit?.swimlaneId, paramBoardId);
     }
     // Issue #5546: archive / de-archive a card. The selector intentionally does
     // NOT pin listId: a caller who only wants to set archived=false cannot
@@ -1890,6 +1914,16 @@ WebApp.handlers.put(
     if (!updated) {
       sendJsonResult(res, { code: 404, data: { message: 'Error' } });
       return;
+    }
+
+    // These legacy REST writes use .direct and bypass collection hooks.
+    // Record their authenticated before/after diff in the same History store.
+    if (beforeEdit) {
+      const afterEdit = await Cards.findOneAsync(paramCardId);
+      if (afterEdit) {
+        const { recordUpdate } = require('/server/models/changeHistoryHooks');
+        await recordUpdate('card', req.userId, afterEdit, [...new Set([...Object.keys(beforeEdit), ...Object.keys(afterEdit)])], beforeEdit);
+      }
     }
 
     sendJsonResult(res, { code: 200, data: { _id: paramCardId } });

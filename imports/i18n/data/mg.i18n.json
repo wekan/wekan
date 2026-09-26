@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Fiankinana: Tantara → Hanomboka / Fiafarana. Hanomboka (tsy fantatra): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Tantara. andro: UTC; 0 ✓. 50%, 70%, 85%, 95%. Karatra ≥; Faharetana ≤. Fetra: 3650 andro.",
   "flow-note-processBehavior": "XmR: Fotoam-potoana; Hanomboka → Vita. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Isa. Y: Fotoam-potoana (andro). (tsy fantatra): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Isa. Y: Fotoam-potoana (andro). (tsy fantatra): —.",
+  "move-reason": "Hamindra ny karatra — Famaritana",
+  "ask-move-reason": "Hamindra ny karatra → Famaritana?",
+  "time-adjustments": "ora — Δ — Anaram-pikambana",
+  "time-adjustment-note": "Tantara: Δ ora; Anaram-pikambana ≠ Voatendry."
 }

@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Dependances: Istwere → Enonder / Difén. Enonder (onbekend): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Istwere. djoûs: UTC; 0 ✓. 50%, 70%, 85%, 95%. Cåtes ≥; Tins ≤. Limites: 3650 djoûs.",
   "flow-note-processBehavior": "XmR: Tins d' cycle; Enonder → Fini. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Nombro. Y: Tins d' cycle (djoûs). (onbekend): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Nombro. Y: Tins d' cycle (djoûs). (onbekend): —.",
+  "move-reason": "Mintrepond la căte — Discrijhaedje",
+  "ask-move-reason": "Mintrepond la căte → Discrijhaedje?",
+  "time-adjustments": "eures — Δ — Nume uzeu",
+  "time-adjustment-note": "Istwere: Δ eures; Nume uzeu ≠ Personnes assignées."
 }

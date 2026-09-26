@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Aymar aruna: Dependencies: Nayra sarawi → Qalltaña / tukuya. Qalltaña Aymar aruna: (unknown): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Nayra sarawi. urunaka: UTC; 0 ✓. 50%, 70%, 85%, 95%. Kartanaka ≥; Aymar aruna: Duration ≤. Aymar aruna: Limits: 3650 urunaka.",
   "flow-note-processBehavior": "XmR: Muyu pacha; Qalltaña → tukuyata. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / jakhu. Y: Muyu pacha (urunaka). Aymar aruna: (unknown): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / jakhu. Y: Muyu pacha (urunaka). Aymar aruna: (unknown): —.",
+  "move-reason": "Karta apaña — Qhananchawi",
+  "ask-move-reason": "Karta apaña → Qhananchawi?",
+  "time-adjustments": "horanaka — Δ — Apnaqirin sutipa",
+  "time-adjustment-note": "Nayra sarawi: Δ horanaka; Apnaqirin sutipa ≠ Lurañataki churatanaka."
 }

@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Dependense: Cronologia → Inizio / Fine. Inizio (sconosciuto): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Cronologia. giorni: UTC; 0 ✓. 50%, 70%, 85%, 95%. Schede ≥; Duración ≤. Limiti: 3650 giorni.",
   "flow-note-processBehavior": "XmR: Tshifhinga tsha tshiimo; Inizio → Completato/a. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Ukuhlela Poker / Numero. Y: Tshifhinga tsha tshiimo (giorni). (sconosciuto): —."
+  "flow-note-sizeCycleTime": "X: Ukuhlela Poker / Numero. Y: Tshifhinga tsha tshiimo (giorni). (sconosciuto): —.",
+  "move-reason": "Sposta scheda — Descrizione",
+  "ask-move-reason": "Sposta scheda → Descrizione?",
+  "time-adjustments": "ore — Δ — Nombre de usuario",
+  "time-adjustment-note": "Cronologia: Δ ore; Nombre de usuario ≠ Asegnatari."
 }

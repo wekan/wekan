@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "التبعيات: تاريخ → بداية / پایان. بداية (ناشناخته): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × تاريخ. أيام: UTC; 0 ✓. 50%, 70%, 85%, 95%. بطاقات ≥; المدة ≤. الحدود: 3650 أيام.",
   "flow-note-processBehavior": "XmR: وقت الدورة; بداية → تمام شده. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: بوكر التخطيط / رقم. Y: وقت الدورة (أيام). (ناشناخته): —."
+  "flow-note-sizeCycleTime": "X: بوكر التخطيط / رقم. Y: وقت الدورة (أيام). (ناشناخته): —.",
+  "move-reason": "نقل البطاقة — وصف",
+  "ask-move-reason": "نقل البطاقة → وصف?",
+  "time-adjustments": "الساعات — Δ — اسم المستخدم",
+  "time-adjustment-note": "تاريخ: Δ الساعات; اسم المستخدم ≠ المكلَّفون."
 }

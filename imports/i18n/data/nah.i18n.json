@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Tlaneltoquiliztin: Yehuacayotl → Xicpehualti / Tlantzonzaliztli. Xicpehualti (amo mixmati): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Yehuacayotl. tonaltin: UTC; 0 ✓. 50%, 70%, 85%, 95%. Amatlapaltin ≥; Huehcahuiliztli ≤. Nepantlaliztin: 3650 tonaltin.",
   "flow-note-processBehavior": "XmR: Tonalli ilhuiyotl; Xicpehualti → Otlantoc. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Tlapoualli. Y: Tonalli ilhuiyotl (tonaltin). (amo mixmati): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Tlapoualli. Y: Tonalli ilhuiyotl (tonaltin). (amo mixmati): —.",
+  "move-reason": "Xicolini amatlapalli — Tlahtolli",
+  "ask-move-reason": "Xicolini amatlapalli → Tlahtolli?",
+  "time-adjustments": "horas — Δ — Tequitini itoca",
+  "time-adjustment-note": "Yehuacayotl: Δ horas; Tequitini itoca ≠ Tlanahuatiltin."
 }

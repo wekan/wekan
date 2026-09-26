@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "rarmey: mIwmey vorgh → Début / bertlham. Début (Sovlu'be'): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × mIwmey vorgh. jajmey: UTC; 0 ✓. 50%, 70%, 85%, 95%. 'echletHommey ≥; poH nI'qu'ghach ≤. veHmey: 3650 jajmey.",
   "flow-note-processBehavior": "XmR: cha'DIch poH; Début → ta'lu'pu'. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Qu' nabmeH Poker / mI'. Y: cha'DIch poH (jajmey). (Sovlu'be'): —."
+  "flow-note-sizeCycleTime": "X: Qu' nabmeH Poker / mI'. Y: cha'DIch poH (jajmey). (Sovlu'be'): —.",
+  "move-reason": "'echletHom vIHmoH — QIjmeH De'",
+  "ask-move-reason": "'echletHom vIHmoH → QIjmeH De'?",
+  "time-adjustments": "rep — Δ — lo'wI' pong",
+  "time-adjustment-note": "mIwmey vorgh: Δ rep; lo'wI' pong ≠ Intervenants."
 }

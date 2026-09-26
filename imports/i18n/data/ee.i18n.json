@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Kaɖi ƒe nudzidzedzewo: Ŋutinya → Dze egɔme / Nuwuwu. Dze egɔme (womenya o): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Ŋutinya. ŋkekewo: UTC; 0 ✓. 50%, 70%, 85%, 95%. Agbalẽviwo ≥; Ɣeyiɣi didime ≤. Seƒoƒowo: 3650 ŋkekewo.",
   "flow-note-processBehavior": "XmR: Trɔtrɔzɔzɔ ɣeyiɣi; Dze egɔme → Wowu enu. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Xexlẽme. Y: Trɔtrɔzɔzɔ ɣeyiɣi (ŋkekewo). (womenya o): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Xexlẽme. Y: Trɔtrɔzɔzɔ ɣeyiɣi (ŋkekewo). (womenya o): —.",
+  "move-reason": "Ʋu agbalẽvi la — Numeɖeɖe",
+  "ask-move-reason": "Ʋu agbalẽvi la → Numeɖeɖe?",
+  "time-adjustments": "gaƒoƒowo — Δ — Zãla ŋkɔ",
+  "time-adjustment-note": "Ŋutinya: Δ gaƒoƒowo; Zãla ŋkɔ ≠ Ame siwo wotsɔ dɔ na."
 }

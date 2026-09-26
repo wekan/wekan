@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Faka-Tonga: Dependencies: Faka-Tonga: History → Kamata / Faka-Tonga: End. Kamata Faka-Tonga: (unknown): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Faka-Tonga: History. Faka-Tonga: days: UTC; 0 ✓. 50%, 70%, 85%, 95%. Ngaahi kaati ≥; Faka-Tonga: Duration ≤. Faka-Tonga: Limits: 3650 Faka-Tonga: days.",
   "flow-note-processBehavior": "XmR: Taimi sīkalasi; Kamata → Faka-Tonga: Completed. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Faka-Tonga: Planning Poker / Faka-Tonga: Number. Y: Taimi sīkalasi (Faka-Tonga: days). Faka-Tonga: (unknown): —."
+  "flow-note-sizeCycleTime": "X: Faka-Tonga: Planning Poker / Faka-Tonga: Number. Y: Taimi sīkalasi (Faka-Tonga: days). Faka-Tonga: (unknown): —.",
+  "move-reason": "Hiki ʻa e kaati — Fakamatala",
+  "ask-move-reason": "Hiki ʻa e kaati → Fakamatala?",
+  "time-adjustments": "Faka-Tonga: hours — Δ — Hingoa ʻo e tokotaha ngāue",
+  "time-adjustment-note": "Faka-Tonga: History: Δ Faka-Tonga: hours; Hingoa ʻo e tokotaha ngāue ≠ Kuo tuku ki ai."
 }

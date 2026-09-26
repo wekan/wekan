@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Sorjavašvuođat: Historjá → Álgge / Loahppa. Álgge (amas): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Historjá. beivvit: UTC; 0 ✓. 50%, 70%, 85%, 95%. Goarttat ≥; Bisttolašvuohta ≤. Rájit: 3650 beivvit.",
   "flow-note-processBehavior": "XmR: Läpimenoaika; Álgge → Geargan. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Lohku. Y: Läpimenoaika (beivvit). (amas): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Lohku. Y: Läpimenoaika (beivvit). (amas): —.",
+  "move-reason": "Sirdde goartta — Válddahus",
+  "ask-move-reason": "Sirdde goartta → Válddahus?",
+  "time-adjustments": "diimmut — Δ — Geavaheaddjinamma",
+  "time-adjustment-note": "Historjá: Δ diimmut; Geavaheaddjinamma ≠ Ovddasvástideaddjit."
 }

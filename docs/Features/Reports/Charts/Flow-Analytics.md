@@ -30,7 +30,11 @@ is needed. The missing stored information is **dependency changes**: add
 values and `createdAt` provide blocker start/end events, including removal,
 reopening and dependency-type changes. Capture dependencies on newly inserted
 cards too. Existing history already supplies completion, archive and position
-changes. Reads never alter a board or fabricate a historical timestamp.
+changes. Whole position changes are now recorded centrally for both client
+and server moves, including reasons; direct REST writes explicitly record
+the same diff. Deletion snapshots preserve historical chart inputs.
+See [the time issue audit](Time-Issue-Audit.md) for the additional optional
+move-reason setting and time-adjustment report. Reads never alter a board or fabricate a historical timestamp.
 
 ## Aging WIP
 
@@ -59,15 +63,16 @@ self-links and targets outside the current board are excluded.
 The detailed table includes blocker, affected card, list, start, end and elapsed
 days. A still-open episode runs to the report time. Dependencies that predate
 recorded history have an **unknown start** and do not contribute invented days.
-Removed cards or history gaps cannot be reconstructed from current board data;
-the report states this limitation. Overlapping causes contribute separate
+New card deletions retain a snapshot in universal History, so their prior
+episodes remain reportable. Cards purged before snapshots were recorded and
+history gaps cannot be reconstructed. Overlapping causes contribute separate
 card-days per cause, so sums across causes are not unique wall-clock downtime.
 
 ## Monte Carlo Forecasts
 
 Choose a target number of cards, a target date and a historical window of 7–365
 calendar days (default 90). Use full UTC days before today, including days with
-zero completions; exclude days before the earliest current board card. Sample
+zero completions; exclude days before the earliest board card with retained data. Sample
 that daily throughput with replacement in 2,000 trials.
 
 Show 50%, 70%, 85% and 95% confidence results for both questions:

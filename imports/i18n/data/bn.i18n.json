@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "নির্ভরতা: ইতিহাস → শুরু / শেষ. শুরু (অজানা): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × ইতিহাস. দিন: UTC; 0 ✓. 50%, 70%, 85%, 95%. কার্ডসমূহ ≥; সময়কাল ≤. সীমা: 3650 দিন.",
   "flow-note-processBehavior": "XmR: চক্র সময়; শুরু → সম্পন্ন. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / সংখ্যা. Y: চক্র সময় (দিন). (অজানা): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / সংখ্যা. Y: চক্র সময় (দিন). (অজানা): —.",
+  "move-reason": "কার্ড সরান — বিবরণ",
+  "ask-move-reason": "কার্ড সরান → বিবরণ?",
+  "time-adjustments": "ঘণ্টা — Δ — ব্যবহারকারীর নাম",
+  "time-adjustment-note": "ইতিহাস: Δ ঘণ্টা; ব্যবহারকারীর নাম ≠ দায়িত্বপ্রাপ্তগণ."
 }

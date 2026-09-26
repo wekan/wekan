@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "依存関係: 履歴 → 開始 / 終了. 開始 (不明): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × 履歴. 日: UTC; 0 ✓. 50%, 70%, 85%, 95%. カード ≥; 所要時間 ≤. 制限: 3650 日.",
   "flow-note-processBehavior": "XmR: サイクルタイム; 開始 → 完了した時. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: プランニングポーカー / 数値. Y: サイクルタイム (日). (不明): —."
+  "flow-note-sizeCycleTime": "X: プランニングポーカー / 数値. Y: サイクルタイム (日). (不明): —.",
+  "move-reason": "カードの移動 — 詳細",
+  "ask-move-reason": "カードの移動 → 詳細?",
+  "time-adjustments": "時間 — Δ — ユーザー名",
+  "time-adjustment-note": "履歴: Δ 時間; ユーザー名 ≠ 担当者."
 }

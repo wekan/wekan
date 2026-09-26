@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "תלויות: היסטוריה → התחלה / סיום. התחלה (לא ידוע): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × היסטוריה. ימים: UTC; 0 ✓. 50%, 70%, 85%, 95%. כרטיסים ≥; משך ≤. מגבלות: 3650 ימים.",
   "flow-note-processBehavior": "XmR: זמן מחזור; התחלה → הושלמה. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: פוקר תכנון / מספר. Y: זמן מחזור (ימים). (לא ידוע): —."
+  "flow-note-sizeCycleTime": "X: פוקר תכנון / מספר. Y: זמן מחזור (ימים). (לא ידוע): —.",
+  "move-reason": "העברת כרטיס — תיאור",
+  "ask-move-reason": "העברת כרטיס → תיאור?",
+  "time-adjustments": "שעות — Δ — שם משתמש",
+  "time-adjustment-note": "היסטוריה: Δ שעות; שם משתמש ≠ גורמים אחראים."
 }

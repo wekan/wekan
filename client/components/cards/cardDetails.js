@@ -2283,7 +2283,8 @@ Template.moveCardPopup.onCreated(function () {
         sortIndex = (typeof maxSort === 'number' && !Number.isNaN(maxSort)) ? maxSort + 1 : 0;
       }
 
-      await card.move(options.boardId, options.swimlaneId, options.listId, sortIndex);
+      await card.move(options.boardId, options.swimlaneId, options.listId, sortIndex,
+        tpl.$('#move-card-reason').val() || '');
       if (title && title !== card.title) {
         await card.setTitle(title);
       }

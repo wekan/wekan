@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Iixhomekekiso: Imbali → Qala / Isiphelo. Qala (akwaziwa): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Imbali. iintsuku: UTC; 0 ✓. 50%, 70%, 85%, 95%. Amakhadi ≥; Ubude bexesha ≤. Imida: 3650 iintsuku.",
   "flow-note-processBehavior": "XmR: Ixesha lomjikelo; Qala → Igqityiwe. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Ukucwangcisa Poker / Inani. Y: Ixesha lomjikelo (iintsuku). (akwaziwa): —."
+  "flow-note-sizeCycleTime": "X: Ukucwangcisa Poker / Inani. Y: Ixesha lomjikelo (iintsuku). (akwaziwa): —.",
+  "move-reason": "Hambisa iKhadi — Inkcazo",
+  "ask-move-reason": "Hambisa iKhadi → Inkcazo?",
+  "time-adjustments": "iiyure — Δ — Igama lomsebenzisi",
+  "time-adjustment-note": "Imbali: Δ iiyure; Igama lomsebenzisi ≠ Abathunyiweyo."
 }

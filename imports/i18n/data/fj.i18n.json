@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Veivakararavi: iTukutuku Makawa → Tekivu / Cava. Tekivu (sega ni kilai): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × iTukutuku Makawa. siga: UTC; 0 ✓. 50%, 70%, 85%, 95%. Kadi ≥; Balavu ni Gauna ≤. iYalayala: 3650 siga.",
   "flow-note-processBehavior": "XmR: Gauna ni icatau; Tekivu → Sa oti. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Naba. Y: Gauna ni icatau (siga). (sega ni kilai): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Naba. Y: Gauna ni icatau (siga). (sega ni kilai): —.",
+  "move-reason": "Toso na kadi — Vakamacala",
+  "ask-move-reason": "Toso na kadi → Vakamacala?",
+  "time-adjustments": "aua — Δ — Yaca ni dauvakayagataka",
+  "time-adjustment-note": "iTukutuku Makawa: Δ aua; Yaca ni dauvakayagataka ≠ O ira era lesi kina."
 }

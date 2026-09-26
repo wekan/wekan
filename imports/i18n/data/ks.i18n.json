@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "انحصار: سابقہٕ → شروع کریو / ختم. شروع کریو (نامعلوم): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × سابقہٕ. دۄہ: UTC; 0 ✓. 50%, 70%, 85%, 95%. کارڈ ≥; مدت ≤. حد: 3650 دۄہ.",
   "flow-note-processBehavior": "XmR: سائیکل وقت; شروع کریو → مکمل گٔے. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / عدد. Y: سائیکل وقت (دۄہ). (نامعلوم): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / عدد. Y: سائیکل وقت (دۄہ). (نامعلوم): —.",
+  "move-reason": "کارڈ منتقل کریو — تفصیل",
+  "ask-move-reason": "کارڈ منتقل کریو → تفصیل?",
+  "time-adjustments": "گھنٹہٕ — Δ — استعمال کرن والٕک ناو",
+  "time-adjustment-note": "سابقہٕ: Δ گھنٹہٕ; استعمال کرن والٕک ناو ≠ ذمہ دار."
 }

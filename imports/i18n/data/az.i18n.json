@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Asılılıqlar: Tarix → Başlayın / Son. Başlayın (naməlum): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Tarix. günlər: UTC; 0 ✓. 50%, 70%, 85%, 95%. Kartlar ≥; Müddət ≤. Limitlər: 3650 günlər.",
   "flow-note-processBehavior": "XmR: Dövr vaxtı; Başlayın → Tamamlandı. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planlaşdırma Poker / Nömrə. Y: Dövr vaxtı (günlər). (naməlum): —."
+  "flow-note-sizeCycleTime": "X: Planlaşdırma Poker / Nömrə. Y: Dövr vaxtı (günlər). (naməlum): —.",
+  "move-reason": "Kartı köçürün — Təsvir",
+  "ask-move-reason": "Kartı köçürün → Təsvir?",
+  "time-adjustments": "saat — Δ — İstifadəçi adı",
+  "time-adjustment-note": "Tarix: Δ saat; İstifadəçi adı ≠ Təyin edilmiş şəxslər."
 }

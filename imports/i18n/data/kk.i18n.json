@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Тәуелділіктер: Тарих → Бастау / Аяқталуы. Бастау (белгісіз): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Тарих. күн: UTC; 0 ✓. 50%, 70%, 85%, 95%. Карточкалар ≥; Ұзақтығы ≤. Шектер: 3650 күн.",
   "flow-note-processBehavior": "XmR: Цикл уақыты; Бастау → Аяқталды. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Сан. Y: Цикл уақыты (күн). (белгісіз): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Сан. Y: Цикл уақыты (күн). (белгісіз): —.",
+  "move-reason": "Карточканы жылжыту — Сипаттама",
+  "ask-move-reason": "Карточканы жылжыту → Сипаттама?",
+  "time-adjustments": "сағат — Δ — Пайдаланушы аты",
+  "time-adjustment-note": "Тарих: Δ сағат; Пайдаланушы аты ≠ Жауаптылар."
 }

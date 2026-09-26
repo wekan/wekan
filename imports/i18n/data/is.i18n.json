@@ -2736,5 +2736,9 @@
   "flow-note-blockerAnalysis": "Tengsl: Ferill → Byrja / Lok. Byrja (óþekkt): —.",
   "flow-note-monteCarlo": "Monte Carlo: 2000 × Ferill. dagar: UTC; 0 ✓. 50%, 70%, 85%, 95%. Spjöld ≥; Tímalengd ≤. Mörk: 3650 dagar.",
   "flow-note-processBehavior": "XmR: Lotutími; Byrja → Lokið. n ≥ 2. X: x̄ ± 3 × MR̄ / 1.128; MR: 0…3.267 × MR̄.",
-  "flow-note-sizeCycleTime": "X: Planning Poker / Tala. Y: Lotutími (dagar). (óþekkt): —."
+  "flow-note-sizeCycleTime": "X: Planning Poker / Tala. Y: Lotutími (dagar). (óþekkt): —.",
+  "move-reason": "Færa spjald — Lýsing",
+  "ask-move-reason": "Færa spjald → Lýsing?",
+  "time-adjustments": "klukkustundir — Δ — Notandanafn",
+  "time-adjustment-note": "Ferill: Δ klukkustundir; Notandanafn ≠ Ábyrgðaraðilar."
 }

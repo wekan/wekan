@@ -175,9 +175,9 @@ export async function itemCreation(userId, doc) {
 }
 
 export async function itemRemover(userId, doc) {
-  await Activities.removeAsync({
-    checklistItemId: doc._id,
-  });
+  // #1598: retain checked/unchecked activity with its stored item title.
+  // Universal History records the item removal separately.
+  return undefined;
 }
 
 export async function publishCheckActivity(userId, doc) {
