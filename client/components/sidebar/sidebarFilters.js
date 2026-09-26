@@ -17,6 +17,13 @@ Template.filterSidebar.helpers({
   },
 });
 
+Template.filterSidebar.events({
+  'change .js-label-filter-mode'(event) {
+    Filter.labelIds.setMode(event.currentTarget.value);
+    Filter.resetExceptions();
+  },
+});
+
 // ────────────────────────────────────────────────────────────────────────────
 // Clicking outside the filter panel closes it.
 //

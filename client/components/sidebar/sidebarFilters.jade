@@ -9,16 +9,19 @@ template(name="filterSidebar")
     | {{_ 'list-filter-label'}}
   ul.sidebar-list
     form.js-list-filter
-      input(type="text")
+      input(type="text" value=Filter.lists.value)
   hr
   h3
     i.fa.fa-list
     | {{_ 'filter-card-title-label'}}
-  input.js-field-card-filter(type="text")
+  input.js-field-card-filter(type="text" value=Filter.title.value)
   hr
   h3
     i.fa.fa-tag
     | {{_ 'filter-labels-label'}}
+  select.js-label-filter-mode(aria-label="{{_ 'filter-labels-label'}}")
+    option(value="or" selected="{{#if $eq Filter.labelIds.mode 'or'}}selected{{/if}}") OR
+    option(value="and" selected="{{#if $eq Filter.labelIds.mode 'and'}}selected{{/if}}") AND
   ul.sidebar-list
     li(class="{{#if Filter.labelIds.isSelected undefined}}active{{/if}}")
           a.name.js-toggle-label-filter(data-filter-id="__none__")
@@ -186,7 +189,7 @@ template(name="filterSidebar")
           i.fa.fa-check
   hr
   h3 {{_ 'advanced-filter-label'}}
-  input.js-field-advanced-filter(type="text")
+  input.js-field-advanced-filter(type="text" value=Filter.advanced.value)
   span {{_ 'advanced-filter-description'}}
   if Filter.isActive
     hr

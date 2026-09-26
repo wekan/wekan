@@ -219,6 +219,11 @@ class StringFilter {
     this._dep.changed();
   }
 
+  value() {
+    this._dep.depend();
+    return this._filter;
+  }
+
   reset() {
     this._filter = '';
     this._dep.changed();
@@ -335,6 +340,40 @@ class SetFilter {
   }
 }
 
+// Label combinations are a display filter, never an authorization selector.
+class LabelFilter extends SetFilter {
+  constructor() {
+    super();
+    this._mode = 'or';
+  }
+
+  mode() {
+    this._dep.depend();
+    return this._mode;
+  }
+
+  setMode(mode) {
+    if (mode !== 'and' && mode !== 'or') return;
+    this._mode = mode;
+    this._dep.changed();
+  }
+
+  reset() {
+    this._mode = 'or';
+    super.reset();
+  }
+
+  _getMongoSelector() {
+    this._dep.depend();
+    // "No label" remains an independent alternative through the existing
+    // empty selector. Requiring undefined alongside actual IDs matches none.
+    const selected = this._selectedElements.filter(id => id !== undefined);
+    return this._mode === 'and' && selected.length
+      ? { $all: selected }
+      : super._getMongoSelector();
+  }
+}
+
 // Advanced filter forms a MongoSelector from a users String.
 // Build by: Ignatz 19.05.2018 (github feuerball11)
 class AdvancedFilter {
@@ -347,6 +386,11 @@ class AdvancedFilter {
   set(str) {
     this._filter = str;
     this._dep.changed();
+  }
+
+  value() {
+    this._dep.depend();
+    return this._filter;
   }
 
   reset() {
@@ -458,7 +502,7 @@ export const Filter = {
   // XXX I would like to rename this field into `labels` to be consistent with
   // the rest of the schema, but we need to set some migrations architecture
   // before changing the schema.
-  labelIds: new SetFilter(),
+  labelIds: new LabelFilter(),
   // #2886: labels the user clicked a THIRD time — cards carrying one of
   // these are excluded even if they also match `labelIds`. Kept as a
   // separate SetFilter (mirroring `labelIds`'s API/shape) rather than a
