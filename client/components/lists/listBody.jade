@@ -3,7 +3,7 @@ template(name="listBody")
     role="region" tabindex="0" aria-label="{{_ 'list'}}: {{title}}")
     .minicards.clearfix.js-minicards(class="{{#if reachedWipLimit}}js-list-full{{/if}}")
       +inlinedForm(autoclose=false position="top")
-        +addCardForm(listId=_id position="top")
+        +addCardForm(listId=_id swimlaneId=containerSwimlaneId position="top")
       ul.sidebar-list
         each customFieldsSum
           li
@@ -28,13 +28,13 @@ template(name="listBody")
         +spinnerList
       if canSeeAddCard
         +inlinedForm(autoclose=false position="bottom")
-          +addCardForm(listId=_id position="bottom")
+          +addCardForm(listId=_id swimlaneId=containerSwimlaneId position="bottom")
         else
           a.open-minicard-composer.js-card-composer.js-open-inlined-form(title="{{_ 'add-card-to-bottom-of-list'}}")
             i.fa.fa-plus
             | {{_ 'add-card'}}
       +inlinedForm(autoclose=false position="bottom")
-        +addCardForm(listId=_id position="bottom")
+        +addCardForm(listId=_id swimlaneId=containerSwimlaneId position="bottom")
 
 template(name="spinnerList")
   .sk-spinner.sk-spinner-list(

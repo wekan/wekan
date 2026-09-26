@@ -122,3 +122,12 @@ offers one card with the full multiline title or one card per nonempty line.
 Choose the desired count and click **Add**. Separate cards keep the pasted
 order, and each receives the selected members, labels and other card options.
 The same choice is available when creating lists and swimlanes.
+
+## Unsaved new-card titles
+
+Closing an Add Card composer preserves its unsaved title for the same user,
+list, swimlane and top/bottom position. Reopening that composer restores the
+text. A successful creation clears the saved title; a partially failed batch
+retains the remaining titles. Drafts use the existing private draft storage,
+so another board member cannot read or overwrite them. This saves title text,
+not the optional labels, members or More options fields.

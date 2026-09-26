@@ -12,6 +12,7 @@ import Swimlanes from '/models/swimlanes';
 import { Filter } from '/client/lib/filter';
 import { MultiSelection } from '/client/lib/multiSelection';
 import { Utils } from '/client/lib/utils';
+import { UnsavedEdits } from '/client/lib/unsavedEdits';
 import { isLinkableCardTarget } from '/models/lib/linkedCardTarget';
 import { listCardsSelector } from '/models/lib/swimlaneFilter';
 import { sortWithIdTiebreaker } from '/models/lib/cardSortTiebreaker';
@@ -311,6 +312,7 @@ Template.listBody.onCreated(function () {
           }
           const _id = await Cards.insertAsync(cardFields);
           titleIndex += 1;
+          formComponent.saveTitleDraft(titles.slice(titleIndex).join('\n'));
 
           // if the displayed card count is less than the total cards in the list,
           // we need to increment the displayed card count to prevent the spinner
@@ -826,6 +828,22 @@ function automaticCustomFieldsForCurrentBoard() {
 }
 
 Template.addCardForm.onCreated(function () {
+  this.subscribe('unsaved-edits');
+  const data = Template.currentData();
+  this.titleDraftKey = {
+    fieldName: `newCardTitle:${data.swimlaneId || ''}:${data.position || ''}`,
+    docId: data.listId,
+  };
+  this.titleDraftOwner = Meteor.userId();
+  this.titleDraftEdited = false;
+  this.saveTitleDraft = value => {
+    clearTimeout(this.titleDraftTimer);
+    this.titleDraftPending = undefined;
+    // A logout or impersonation must not save a previous user's draft.
+    if (!this.titleDraftOwner || Meteor.userId() !== this.titleDraftOwner) return;
+    if (value.trim()) UnsavedEdits.set(this.titleDraftKey, value);
+    else UnsavedEdits.reset(this.titleDraftKey);
+  };
   this.labels = new ReactiveVar([]);
   this.members = new ReactiveVar([]);
   this.customFields = new ReactiveVar([]);
@@ -926,6 +944,12 @@ Template.addCardForm.helpers({
 });
 
 Template.addCardForm.events({
+  'input .js-card-title'(event, tpl) {
+    tpl.titleDraftEdited = true;
+    tpl.titleDraftPending = event.currentTarget.value;
+    clearTimeout(tpl.titleDraftTimer);
+    tpl.titleDraftTimer = setTimeout(() => tpl.saveTitleDraft(tpl.titleDraftPending || ''), 300);
+  },
   keydown(evt, tpl) {
     tpl.pressKey(evt);
   },
@@ -950,6 +974,12 @@ Template.addCardForm.events({
 Template.addCardForm.onRendered(function () {
   const tpl = this;
   const $textarea = this.$('textarea');
+
+  this.autorun(() => {
+    if (!this.subscriptionsReady() || this.titleDraftEdited) return;
+    this.$('.js-card-title').val(UnsavedEdits.get(this.titleDraftKey));
+    autosize.update(this.$('.js-card-title'));
+  });
 
   autosize($textarea);
 
@@ -1035,6 +1065,11 @@ Template.addCardForm.onRendered(function () {
       */
     },
   );
+});
+
+Template.addCardForm.onDestroyed(function () {
+  clearTimeout(this.titleDraftTimer);
+  if (this.titleDraftPending !== undefined) this.saveTitleDraft(this.titleDraftPending);
 });
 
 Template.linkCardPopup.onCreated(function () {
