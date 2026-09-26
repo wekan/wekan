@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v12.04
+  version: v12.05
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -5365,6 +5365,8 @@ definitions:
         description: |
            Show card counter per list
         type: boolean
+      askForMoveReason:
+        type: boolean
       cardAging:
         description: |
            #3984: Visually fade cards that have not been touched for a while
@@ -5911,6 +5913,7 @@ definitions:
       - permission
       - color
       - allowsCardCounterList
+      - askForMoveReason
       - cardAging
       - showDependencies
       - cardAgingDays1
@@ -6419,6 +6422,9 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/CardsLocations"
+        x-nullable: true
+      lastMoveReason:
+        type: string
         x-nullable: true
       spentTime:
         description: |
@@ -8224,6 +8230,11 @@ definitions:
           - board-view-throughput-histogram
           - board-view-wip-run
           - board-view-pulse
+          - board-view-aging-wip
+          - board-view-blocker-analysis
+          - board-view-monte-carlo
+          - board-view-process-behavior
+          - board-view-size-cycle-time
       listSortBy:
         description: |
            default sort list for user
