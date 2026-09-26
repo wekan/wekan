@@ -632,7 +632,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v12.05 2026-09-27 WeKan ® release
 
 **In short:** Five new **flow analytics** pages add Aging WIP, blocker analysis,
 Monte Carlo forecasts, XmR and size-versus-cycle-time charts, with PDF and
