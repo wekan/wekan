@@ -1,5 +1,8 @@
 # Open-issue audit follow-up — 2026-09-27
 
+See the later [full 140-issue inventory](All-Open-Issues-Audit-2026-09-27.md)
+for additional fixes and a disposition for every remaining open issue.
+
 The refreshed GitHub snapshot contained 149 open issues, excluding pull
 requests. It matches the remaining inventory in the
 [previous audit](Open-Issue-Completion-Audit-2026-09.md). Candidate issue bodies
