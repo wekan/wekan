@@ -767,6 +767,23 @@ entries; this layout adjustment adds no new mutation or permission rules.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d962b6047">Apply theme colors to flow chart action buttons</a>. Thanks to xet7.</summary>
+
+Use the shared primary-button styling for the Monte Carlo and size-versus-cycle
+option forms. Their action buttons inherit the current theme's background and
+white text, including custom colors, hover and keyboard focus states. Export
+controls retain the same shared styling as the existing chart pages.
+
+Four Chromium theme scenarios and five focused Node suites pass, covering both
+forms in blue, red, dark and custom themes. The additional forecast regression
+failed because its export link omitted the selected forecast parameters; that
+separate export issue remains outstanding. Existing Upcoming coverage is
+recorded in the other entries. No dependencies or permission rules changed.
+Other browser engines were not run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b97090221">Open cards directly beside their minicards</a>. Thanks to xet7.</summary>
 
 Place desktop card windows before their first visible frame, eliminating the
