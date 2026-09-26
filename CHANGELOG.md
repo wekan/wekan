@@ -52,49 +52,6 @@ https://wekan.fi/status/
 
 </details>
 
-
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/f772663e5">Fix multi-list swimlane drops and show tilted named drag previews</a>. Thanks to xet7.</summary>
-
-Dragging selected lists onto the empty area of another swimlane now moves them
-and their cards there. Previously only the swimlane header was recognized as a
-destination. Keep nested list/card targets and header-only swimlane drag starts.
-
-Multi-Selection dragging shows a tilted stack with the selected objects' names
-and icons, alongside the count. Render titles as literal text, including mixed
-object selections, and limit large previews to eight names plus a remaining
-count.
-
-Six Chromium cases move two lists via swimlane bodies or headers, including
-collapsed sources/destinations, with handles on and off. Check the named tilted
-preview, list order, card parents and persistence after reload. Three existing
-mixed-selection browser cases, three focused Node suites and the Meteor build
-also pass. The empty-body case was reproduced failing before the fix.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/2016d15f2">Preview ZIP contents from cards and Files Report</a>. Thanks to xet7.</summary>
-
-Click a ZIP attachment preview to see the filenames and folder paths inside
-it. Cards and Files Report use the same viewer, including nested paths and
-Unicode filenames. Closing the viewer cancels its pending download.
-
-Reuse the installed fflate parser without extracting or inflating entries.
-Names are plain text, never executable markup or extraction paths. Preview
-sources are limited to 32 MiB and archives to 2,048 entries; larger archives
-remain downloadable. ZIP and Office previews share bounded stream reading.
-
-Eight focused Node suites pass, covering archive listing, empty and invalid
-archives, resource limits, inert names, denied reads and cancellation. A fresh
-Meteor build and eight Chromium/Firefox checks pass, including ZIP preview
-from both Files Report and an opened card. Existing Office, image, PDF and
-private attachment download checks also pass, retaining regression coverage
-for the other Upcoming changes.
-
-</details>
-
 <details>
 <summary>TODO Later</summary>
 
@@ -1046,6 +1003,26 @@ and conversion checks and the Meteor build pass.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/f772663e5">Fix multi-list swimlane drops and show tilted named drag previews</a>. Thanks to xet7.</summary>
+
+Dragging selected lists onto the empty area of another swimlane now moves them
+and their cards there. Previously only the swimlane header was recognized as a
+destination. Keep nested list/card targets and header-only swimlane drag starts.
+
+Multi-Selection dragging shows a tilted stack with the selected objects' names
+and icons, alongside the count. Render titles as literal text, including mixed
+object selections, and limit large previews to eight names plus a remaining
+count.
+
+Six Chromium cases move two lists via swimlane bodies or headers, including
+collapsed sources/destinations, with handles on and off. Check the named tilted
+preview, list order, card parents and persistence after reload. Three existing
+mixed-selection browser cases, three focused Node suites and the Meteor build
+also pass. The empty-body case was reproduced failing before the fix.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/cb4d29b01">Fix checklist item reordering</a>. Thanks to AmigaAbattoir and xet7.</summary>
 
 Read the destination checklist and neighboring items before restoring the DOM
@@ -1176,6 +1153,27 @@ board. Preview and download controls also fit within narrow table cells.
 **ZIP previews** list archive contents from Files Report and opened cards.
 
 This release adds ZIP previews and fixes attachment report issues:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2016d15f2">Preview ZIP contents from cards and Files Report</a>. Thanks to xet7.</summary>
+
+Click a ZIP attachment preview to see the filenames and folder paths inside
+it. Cards and Files Report use the same viewer, including nested paths and
+Unicode filenames. Closing the viewer cancels its pending download.
+
+Reuse the installed fflate parser without extracting or inflating entries.
+Names are plain text, never executable markup or extraction paths. Preview
+sources are limited to 32 MiB and archives to 2,048 entries; larger archives
+remain downloadable. ZIP and Office previews share bounded stream reading.
+
+Eight focused Node suites pass, covering archive listing, empty and invalid
+archives, resource limits, inert names, denied reads and cancellation. A fresh
+Meteor build and eight Chromium/Firefox checks pass, including ZIP preview
+from both Files Report and an opened card. Existing Office, image, PDF and
+private attachment download checks also pass, retaining regression coverage
+for the other Upcoming changes.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f03463e7d">Fix Files Report attachment previews and downloads</a>. Thanks to xet7.</summary>

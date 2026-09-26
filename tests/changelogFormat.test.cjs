@@ -148,6 +148,15 @@ test('no long URL is shown as visible text', () => {
     `${bare.length} long bare URLs: ${bare.slice(0, 3).join(' | ')}`);
 });
 
+test('Status contains no completed release entries, including before TODO Later', () => {
+  const end = lines.findIndex(line => /^# (?:v\d|Upcoming WeKan)/.test(line));
+  assert.ok(end > todoAt);
+  for (const block of ALL.filter(block => block.line < end)) {
+    assert.doesNotMatch(block.summary, /Thanks to |wekan\/commit\//,
+      `line ${block.line}: completed work belongs under its release, not Status`);
+  }
+});
+
 test('TODO Later says what is NOT done, and thanks nobody for it', () => {
   const start = todoAt;
   // The backlog ends at whatever comes next: the not-yet-released section when
