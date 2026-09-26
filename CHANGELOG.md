@@ -244,26 +244,6 @@ under review with unchanged counts.
 </details>
 
 <details>
-<summary>Designed and written down, not built - one feature across several places, where half of it would be worse than none.</summary>
-
-**Requested By and Assigned By become people.** They are free TEXT today, and
-should keep that field AND gain member fields of the same kind Assignees has - a
-user picked from a popup, shown as an avatar or initials - on the card, in both
-exports and through every import. The shape is written down in
-[Requested-Assigned-By.md](docs/Features/Cards/Requested-Assigned-By.md):
-mirror `assignees` exactly (`requesters`, `assigners` as `[String]`, named after
-what WeKan already calls them internally), keep the two strings beside them, and
-give Members, Assignees, Requested By and Assigned By ONE template - they are
-the same control written four times. The avatar itself needs nothing new: it is
-`+userAvatar` in a `.member` box, which is what the board sidebar, the cards,
-Admin Panel / People and Admin Panel / Problems all already use. Not started
-because it is one feature across five places - schema, the card, the picker
-popups, both exports and the import round trip - and half of it landed is worse
-than none of it: a card would show a person that an export drops.
-
-</details>
-
-<details>
 <summary>Need specific infrastructure / a running server stack we cannot reproduce here (left for environment owners).</summary>
 
 [#3318](https://github.com/wekan/wekan/issues/3318) (outgoing webhooks from a
@@ -352,14 +332,7 @@ selectivity), verifiable only with live `EXPLAIN` on each engine.
 <details>
 <summary>Feature requests / behaviour-by-design rather than bugs.</summary>
 
-[#2204](https://github.com/wekan/wekan/issues/2204) (restrict permanent delete
-to the Admin role), [#5081](https://github.com/wekan/wekan/issues/5081)
-(redesign the owner/member/assignee avatar layout on mini cards — a UI proposal;
-@xet7 asked for a PR), [#1213](https://github.com/wekan/wekan/issues/1213)
-(copy-card resets comment authorship/date — the visible card items are
-activities recorded as the copying user at copy time; changing this is a design
-decision @xet7 raised, not a clear bug),
-[#5213](https://github.com/wekan/wekan/issues/5213) (notification/webhook
+[#5323](https://github.com/wekan/wekan/issues/5323) (notification/webhook
 reminder on a card's due date with a per-board offset — labelled Feature; the
 built-in due-date reminder already exists (`NOTIFY_DUE_DAYS_BEFORE_AND_AFTER`,
 improved in #3192), so the remaining ask is the per-board offset UI + a webhook
@@ -369,8 +342,8 @@ trigger the rule engine does not have today — every existing trigger fires on
 an immediate event, not a future point in time),
 [#4294](https://github.com/wekan/wekan/issues/4294) (rule actions should
 support a limited set of variables, e.g. assigning a card to its creator by
-default — every action field is a literal value today; resolving one from
-the triggering event needs a small templating layer in
+default — the acting-user member option and email variables already exist, but
+arbitrary variable-valued action fields still need a templating contract in
 `server/rulesHelper.js`'s action runner, a new kind of field),
 [#4294](https://github.com/wekan/wekan/issues/4294) (a rule should be able to
 combine multiple triggers/actions instead of one of each — `models/rules.js`
@@ -378,15 +351,13 @@ ties a rule to exactly one `triggerId`/`actionId`; supporting several is a
 schema change, not a UI fix, and needs a decision on how a multi-trigger rule
 matches: any trigger, or all of them; [#2953](https://github.com/wekan/wekan/issues/2953)
 asks for the same thing),
-[#4160](https://github.com/wekan/wekan/issues/4160) (rule "move card" action
-has Copy/Link siblings requested — the copy/link-card flow used by the manual
-card menu is a different code path from `server/rulesHelper.js`'s action
-runner; wiring it in as a new rule action is a real feature, not a small
-addition),
+[#4160](https://github.com/wekan/wekan/issues/4160) (a rule Copy Card action
+is still missing; Link Card already exists in `server/rulesHelper.js` and its
+rule-action UI, so only the copy portion remains deferred),
 [#3235](https://github.com/wekan/wekan/issues/3235) (rule action to copy a
 card to another board and list — same underlying gap as #4160, plus needs a
 board/list picker in the rule-action UI),
-[#3838](https://github.com/wekan/wekan/issues/3838) (rule email action should
+[#2713](https://github.com/wekan/wekan/issues/2713) (rule email action should
 support attachments — `client/components/rules/actions/mailActions.js` and
 its server-side sender only handle a plain templated body today; attaching a
 card's files means streaming them through the mailer, a scope change to the
@@ -463,13 +434,11 @@ Researched against WeKan's actual current code (not assumed) to find what is
 genuinely still missing after this session's landed work, then scoped down
 to the smallest well-understood piece (card recurrence, added above) rather
 than a shallow pass across all five tools. What is investigated but deferred:
-**Jira Server/DC named issue-link types** (blocks/is blocked
-by/duplicates/relates to, as a typed relationship on
-`Cards.cardDependencies`, distinct from the existing untyped
-dependency/subtask/parent-child mechanism - needs a link-type enum, a
-reciprocal-link UI decision, and touches the Gantt/Roadmap views that already
-read `cardDependencies`, so it is a schema-and-three-views change, not an
-additive field). **Jira issue TYPES** (Bug/Task/Story/Epic as a first-class
+**Jira Server/DC duplicate issue links** remain deferred. Typed relationships
+already exist in `models/metadata/dependencies.js`: related-to, blocks,
+is-blocked-by, fixes and is-fixed-by, with reciprocal display and configurable
+line colors/icons. A dedicated duplicates/is-duplicated-by relationship is
+still missing. **Jira issue TYPES** (Bug/Task/Story/Epic as a first-class
 card attribute with its own icon set and swimlane-per-epic grouping - the
 existing custom-field mechanism can represent the VALUE but not the icon/
 swimlane-grouping behaviour Jira gives a type, so this needs a decision on
@@ -478,10 +447,7 @@ any UI is worth writing). **Kanboard color-coded categories** (a per-board
 tag distinct from labels, used for at-a-glance visual grouping rather than
 filtering - overlaps enough with labels that it needs a maintainer decision
 on whether it is a genuinely separate concept or a label-color affordance
-that already exists). **Trello-style card-aging visual indicator** (a
-minicard opacity/border fade the longer a card sits without activity -
-needs a decision on the staleness threshold and whether it is board-
-configurable, plus a minicard rendering change touching every board view).
+that already exists).
 **Nextcloud Deck auto-archival after N days of inactivity** (overlaps the
 card-recurrence scan job's shape closely enough to reuse
 `SyncedCron`/`models/lib/*Schedule.js` once built, but is a separate
@@ -493,20 +459,9 @@ not for a missing on-premise capability.
 </details>
 
 <details>
-<summary>Carried from a fix that went as far as it could without a new dependency.</summary>
+<summary>Attachment-board upgrade report needs affected data or runtime logs.</summary>
 
-[#6586](https://github.com/wekan/wekan/issues/6586) has two parts left. The PDF
-export now writes Windows-1252, which covers the Western European letters the
-report was about and transliterates the rest of the Latin script - but a
-Cyrillic, Greek, Hebrew, Arabic or CJK board still exports as `?`, because the
-base-14 PDF fonts have no glyphs for them. Fixing that means EMBEDDING a Unicode
-font: a TrueType binary in the repository (DejaVu Sans is about half a
-megabyte), plus glyph-id mapping, a widths array and a ToUnicode CMap in the
-writer. That is a dependency decision rather than a bug fix. The same issue also
-asks for the markdown-flavoured export to be offered as a `.md` file in its own
-right, which is a new export format, not a change to this one.
-
-An upgrade report by email has one more: after a 6.09 to 10.85 dump-and-restore,
+An upgrade report by email: after a 6.09 to 10.85 dump-and-restore,
 one board that has attachments loads forever - "it only loads and shows nothing:
 no cards, nothing but the loading animation" - while every other board on the
 same instance is fine. The attached `snap logs wekan.mongodb` is mongod startup
@@ -525,18 +480,6 @@ webhook — card title/description edits ALREADY reach the global webhook via
 from #3619/#5482; a single consolidated `act-editCard` action needs a decision
 on which fields count and whether it supplements or replaces the existing
 per-field events, to avoid duplicate webhook deliveries),
-[#6580](https://github.com/wekan/wekan/issues/6580) (CHANGELOG.md is 43,748
-lines and 2.02 MB, over the size at which GitHub refuses to render it — its
-Blame tab answers *"we can't show files that are this big"* and the file view
-truncates. Splitting it by year was tried and abandoned: git records no move,
-so a plain `git blame` on a per-year file credits every line to the commit that
-split it, and only `git blame -C` reaches the real history — which editors do
-not pass by default. That traded working local blame on eleven years of entries
-for a smaller file, and local blame is worth more. Reverting a split does not
-undo it either: the restored lines blame to the revert, so the only clean way
-back is to not land it. Any fix needs a way to shrink the file that keeps `git
-blame` working with no flag — or a decision that the trade is acceptable after
-all),
 [#2509](https://github.com/wekan/wekan/issues/2509) (a "customized card
 style" - the report is a single line plus a screenshot with areas marked in
 blue that is not accessible from here, and it names no concrete visual
