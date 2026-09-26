@@ -756,6 +756,17 @@ from read-only members. Permanent purges remain irreversible.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/be6cc9d63">Align Add Swimlane placement choices</a>. Thanks to xet7.</summary>
+
+Move the above/below choices below the swimlane name input and align each radio
+button to the left of its label. Two Chromium scenarios verify the rendered
+layout, both insertion positions and read-only restrictions. Swimlane placement
+and RTL Node suites pass. Existing Upcoming coverage is recorded in the other
+entries; this layout adjustment adds no new mutation or permission rules.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/f5878134a">Keep card windows still when saving dates</a>. Thanks to xet7.</summary>
 
 Saving or removing Received, Start, Due or End refreshed the board subscription,
