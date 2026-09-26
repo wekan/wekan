@@ -443,3 +443,17 @@ body.swimlane-resizing-active * {
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
+
+/* Keep placement controls beside their text, below the new swimlane title. */
+.swimlane-placement-option {
+  display: flex;
+  direction: ltr;
+  align-items: center;
+  gap: 8px;
+}
+.swimlane-placement-option input[type="radio"] {
+  flex: 0 0 auto;
+  width: auto;
+  min-height: 0;
+  margin: 0;
+}

@@ -11,6 +11,14 @@ test('#2131: insert above and below from the existing swimlane popup', async ({ 
     await lane.locator('.js-open-add-swimlane-menu').click();
     const popup = page.locator('.js-pop-over');
     await expect(popup.locator('.js-swimlane-placement[value="below"]')).toBeChecked();
+    const inputBounds = await popup.locator('.swimlane-name-input').boundingBox();
+    for (const option of await popup.locator('.swimlane-placement-option').all()) {
+      const radio = await option.locator('input').boundingBox();
+      const label = await option.locator('span').boundingBox();
+      expect(radio.y).toBeGreaterThanOrEqual(inputBounds.y + inputBounds.height);
+      expect(label.x).toBeGreaterThanOrEqual(radio.x + radio.width);
+      expect(Math.abs((radio.y + radio.height / 2) - (label.y + label.height / 2))).toBeLessThan(2);
+    }
     await popup.locator(`.js-swimlane-placement[value="${placement}"]`).check();
     await popup.locator('.swimlane-name-input').fill(`Inserted ${placement}`);
     await popup.locator('button[type="submit"]').click();
