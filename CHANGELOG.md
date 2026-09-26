@@ -650,6 +650,8 @@ Monte Carlo forecasts, XmR and size-versus-cycle-time charts, with PDF and
 Excel exports. Dependency edits, undo/redo and optional move reasons now
 provide a timestamped history for reports. Time reports show hour adjustments
 by author, and deleting cards or checklists preserves their activity trail.
+Linked cards can mirror cards on the same board. List deletion undo now
+restores the cards deleted with the list.
 
 This release adds the following features:
 
@@ -706,7 +708,30 @@ compiled and ran. Full-platform and FerretDB integration suites were not run.
 The repository-wide translation-completeness check still reports pre-existing
 English placeholders outside these changes; the new-label checks pass.
 Changelog link/archive checks and the read-only release-note preflight pass;
-the format test reports 20 unchanged overlong lines in existing sections.
+the format test also passes after the overlong prose was rewrapped.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3b3f7ebd7">Allow linked-card mirrors on the same board</a>. Thanks to RinTheCatato, mohamed-aziz-chamakh and xet7.</summary>
+
+Fix #5683: the Link picker and server method now accept a real source card on
+the destination board. Reuse the existing shared label data and setters.
+Retain permission checks, reject linked pointers and templates, and prevent
+whole-board self-links through both confirmation buttons. Browser tests verify
+live label updates in both directions and unchanged cross-board behavior.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/08a164661">Undo list deletion together with its cards</a>. Thanks to rawwerks and xet7.</summary>
+
+Fix #1023: History undo restored the list but left its cards marked deleted.
+Restore the same board/list deletion batch and preserve independently deleted
+cards. Redo marks live cards again. Keep the batch in lifecycle snapshots and
+refuse old lifecycle rows after a list moves to another board. Browser tests
+check persisted state through undo, redo and undo again, plus rejected writes
+from read-only members. Permanent purges remain irreversible.
 
 </details>
 
@@ -724,6 +749,26 @@ All 28 selected Node regression suites pass, including negative cases and UI
 source guards. No application code changes; browser and live identity-provider
 tests were not rerun for this documentation audit. The existing Upcoming feature
 coverage is recorded above; this entry adds no new runtime behavior.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4ce5cb992">Verify seven more completed issue requests</a>. Thanks to RowhamD, Usernameisalreadytaken99, rptl, czinkos, bhueck, Vida444, xefladrero and xet7.</summary>
+
+Record existing implementations for OIDC logout, case-insensitive mentions,
+remote mobile card closure, alphabetical member selection, bulk card colors,
+existing-card subtasks and minicard field visibility. Add executable logout-hook
+and browser regressions. Retain partial requests whose complete UI or behavior
+could not be verified; see the
+[follow-up audit](docs/DeveloperDocs/Open-Issue-Audit-2026-09-27.md).
+
+All 31 focused Node suites and 27 distinct Chromium scenarios pass. This
+includes deletion-batch boundaries, rejected writes, same- and cross-board
+links, and the existing flow/time-history reports with real PDF/Excel exports.
+The Meteor app compiled and ran with the documented API flag enabled. External
+identity providers and the FerretDB backend matrix were not tested. Existing
+Upcoming feature coverage remains recorded above; the shared History changes
+also passed the affected chart and time-report regressions.
 
 </details>
 
