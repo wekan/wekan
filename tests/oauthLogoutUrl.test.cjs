@@ -169,4 +169,37 @@ test('redirectUri is percent-encoded (RFC-compliant query parameter)', () => {
   assert.ok(!url.includes('?board=1&x=y'));
 });
 
+// #5061: execute the actual client hook as well as the URL builder.
+const fs = require('fs');
+const path = require('path');
+const accounts = fs.readFileSync(path.join(__dirname, '../config/accounts.js'), 'utf8');
+const logoutHook = accounts.match(/onLogoutHook\(\) \{([\s\S]*?)\n  \},\n\}\);/);
+assert.ok(logoutHook, 'the configured logout hook exists');
+const runLogout = new Function('oauthLogoutUrl', 'oidcRedirectionEnabled',
+  'oauthServerUrl', 'oauthDashboardUrl', 'window', 'FlowRouter', logoutHook[1]);
+
+test('#5061: configured end-session redirect takes priority over provider home', () => {
+  const window = {};
+  const url = buildOauthLogoutUrl({ endpoint: '/realms/test/protocol/openid-connect/logout',
+    serverUrl: 'https://id.example.com', clientId: 'wekan', redirectUri: 'https://wekan.example.com/' });
+  runLogout(url, true, 'https://id.example.com', '/dashboard', window, {});
+  assert.strictEqual(window.location, url);
+});
+
+test('#5061 negative: an unset endpoint retains ordinary local logout', () => {
+  const window = {};
+  const routes = [];
+  runLogout('', false, '', '', window, {
+    getRouteName: () => 'board', go: route => routes.push(route),
+  });
+  assert.deepStrictEqual(routes, ['home']);
+  assert.strictEqual(window.location, undefined);
+});
+
+test('#5061: environment configuration reaches the browser logout hook', () => {
+  const settings = fs.readFileSync(path.join(__dirname, '../server/models/settings.js'), 'utf8');
+  assert.match(settings, /getOauthLogoutUrl\(\)[\s\S]*?endpoint: process\.env\.OAUTH2_LOGOUT_ENDPOINT/);
+  assert.match(accounts, /Meteor\.call\('getOauthLogoutUrl',[\s\S]*?oauthLogoutUrl = result/);
+});
+
 console.log(`oauthLogoutUrl.test.cjs: ${passed} passed`);

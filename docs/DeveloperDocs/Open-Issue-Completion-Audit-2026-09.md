@@ -1,5 +1,9 @@
 # Open-issue completion audit — 2026-09-26
 
+See the [2026-09-27 follow-up](Open-Issue-Audit-2026-09-27.md) for additional
+verified completions and two reproduced fixes. The inventory below records
+the earlier snapshot, rather than current GitHub status.
+
 The live GitHub snapshot contained 159 open issues (pull requests excluded).
 Issue descriptions were triaged and candidate closure threads were read with all
 comments. The ten decisions below were checked against current application

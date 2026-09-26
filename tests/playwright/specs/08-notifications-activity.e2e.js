@@ -231,7 +231,7 @@ test.describe('Notifications & activity log', () => {
 });
 
 for (const authenticationMethod of ['password', 'ldap']) {
-  test(`#6704 ${authenticationMethod} textarea selects comment mention suggestions`, async ({
+  test(`#6704 #1938 ${authenticationMethod} textarea selects case-insensitive comment mentions`, async ({
     page: boardPage, board, user, user2,
   }) => {
     db.updateOne('users', { _id: user2.id }, {
@@ -251,7 +251,7 @@ for (const authenticationMethod of ['password', 'ldap']) {
     // fill() can focus an off-screen textarea without scrolling in WebKit.
     // Start as a pointer user does so the menu's hit test uses visible content.
     await input.click();
-    await input.fill(`@${user2.username}`);
+    await input.fill(`@${user2.username.toUpperCase()}`);
     const menu = boardPage.locator('.textcomplete-dropdown:visible');
     const suggestion = menu.locator('.textcomplete-item').filter({ hasText: user2.username });
     await expect(menu).toHaveCount(1);
