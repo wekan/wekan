@@ -17,6 +17,10 @@ test('daily Scrum observations retain measured estimates and obey assigned-card 
     db.updateOne('cards', { _id: cards[1]._id }, { $set: { 'poker.estimation': 999 } });
     for (const card of cards) await call(page, 'scrum.updateCard', board.boardId, card._id, { sprintId: sprint._id }, 0);
     await call(page, 'scrum.startSprint', board.boardId, sprint._id, sprint.revision);
+    db.updateOne('scrumSprints', { _id: sprint._id }, { $set: { scrumImportPending: true } });
+    expect((await call(page, 'scrum.getDailyHistory', board.boardId, sprint._id)).rows).toHaveLength(0);
+    expect(db.find('scrumDailySnapshots', { boardId: board.boardId })).toHaveLength(0);
+    db.updateOne('scrumSprints', { _id: sprint._id }, { $unset: { scrumImportPending: '' } });
     const history = await call(page, 'scrum.getDailyHistory', board.boardId, sprint._id);
     expect(history.rows).toHaveLength(1);
     expect(history.rows[0]).toMatchObject({ consistency: 'observed', scope: { count: 3, estimate: 1002, unknown: 1 } });

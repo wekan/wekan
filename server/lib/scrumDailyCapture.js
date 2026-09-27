@@ -1,10 +1,13 @@
 const { createHash } = require('node:crypto');
 const { sprintSnapshot, DEFAULT_SCRUM_SETTINGS } = require('../../models/lib/scrum');
+function dailyObservationId(sprintId, startedAt, day) {
+  return createHash('sha256').update(JSON.stringify([sprintId, new Date(startedAt).toISOString(), day])).digest('hex');
+}
 
 // Observations are recorded at their actual capture time. Never backfill a
 // missing day with today's state or replace an earlier observation on retry.
 async function captureDailySprint({ sprint, cards, lists, snapshots, at = new Date() }) {
-  if (sprint.state !== 'active' || !sprint.startSnapshot) return { skipped: true };
+  if (sprint.scrumImportPending || sprint.state !== 'active' || !sprint.startSnapshot) return { skipped: true };
   const start = new Date(sprint.startSnapshot.at);
   if (!Number.isFinite(start.getTime()) || !Number.isFinite(at.getTime()) || at < start) {
     throw new Error('Invalid daily Scrum observation timestamp');
@@ -21,7 +24,7 @@ async function captureDailySprint({ sprint, cards, lists, snapshots, at = new Da
     workingDays: policy.workingDays || DEFAULT_SCRUM_SETTINGS.workingDays };
   const day = at.toISOString().slice(0, 10);
   const epoch = start.toISOString();
-  const _id = createHash('sha256').update(JSON.stringify([sprint._id, epoch, day])).digest('hex');
+  const _id = dailyObservationId(sprint._id, epoch, day);
   const document = { _id, boardId: sprint.boardId, sprintId: sprint._id,
     startedAt: start, day, capturedAt: at, consistency: 'observed',
     snapshot: sprintSnapshot(cards, settings, lists, at) };
@@ -35,4 +38,4 @@ async function captureDailySprint({ sprint, cards, lists, snapshots, at = new Da
   }
 }
 
-module.exports = { captureDailySprint };
+module.exports = { captureDailySprint, dailyObservationId };

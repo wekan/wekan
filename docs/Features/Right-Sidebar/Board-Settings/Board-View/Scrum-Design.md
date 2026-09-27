@@ -158,7 +158,8 @@ and flags truncation. Capture limits each sprint to 10,000 cards and each board
 to 10,000 lists; exceeding a limit leaves a gap rather than saving partial data.
 Board deletion removes the observations. Full-instance backups include the
 collection through the normal collection inventory; native board transfer and
-history transport do not yet carry it. Sprint Report now displays the observed
+duplication now carry daily observations too. General History/undo transport
+remains pending. Sprint Report now displays the observed
 daily scope, remaining work and completed work as bars, with exact timestamps,
 metric selection and partial/empty/truncated states. Missing days are not
 connected or interpolated. The section's Excel/PDF exports use the same reader
@@ -197,10 +198,26 @@ cards. Sprint/release references on moved cards and swimlanes, their lifecycle
 coordination and History restoration still need integration.
 
 Implementation checkpoint: `models/lib/scrumTransfer.js` now defines and tests
-the `wekan-scrum-1` data contract and destination-ID remapping. It covers board
+the `wekan-scrum-2` data contract and destination-ID remapping. Version 1 files
+remain importable and receive no invented daily observations. Version 2 files
+require a reader that understands version 2; older importers reject them.
+The contract covers board
 settings, sprint/release/event records, lifecycle snapshots and optional item
 metadata. Missing transferred cards or historical actors produce explicit
 loss entries; reduced snapshots are marked partial and their totals recalculated.
+Daily observations retain their real timestamps, UTC day, start epoch, policy
+and measured cards. Old restart epochs survive transfer without being merged
+into the currently selected sprint epoch. Sprint, card, list and estimate-field
+IDs are remapped; imported observation IDs use the same deterministic identity
+as the collector. Invalid timestamps, duplicate daily identities and mismatched
+policies within the current epoch are rejected. Native transfers are bounded
+to 10,000 observations and 100,000 observed card rows in total; larger histories
+fail explicitly instead of being truncated silently. The export scans stored
+observations with a one-document cursor batch before applying scope filters.
+Imported sprints remain marked pending until cards, observations and settings
+are saved. The collector skips them and export refuses unfinished imports.
+Interrupted imports retain that marker; recovery/rollback of the overall
+multi-document import is still unfinished.
 Unknown fields (including permission fields and recovery checkpoints), invalid
 dates, inconsistent totals, foreign planning references and ID collisions fail
 validation. Destination maps are supplied by the importer, never by file input.

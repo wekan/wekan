@@ -18,12 +18,17 @@ test('native export carries Scrum records and scopes snapshots and selected fiel
   const cards=db.find('cards',{boardId:board.boardId});
   for(const card of cards)await call(page,'scrum.updateCard',board.boardId,card._id,{sprintId:sprint._id},0);
   const active=await call(page,'scrum.startSprint',board.boardId,sprint._id,sprint.revision);
+  await call(page,'scrum.getDailyHistory',board.boardId,sprint._id);
   await call(page,'scrum.closeSprint',board.boardId,sprint._id,active.revision,null);
   await call(page,'scrum.saveEvent',board.boardId,null,{kind:'review',name:'Review export',sprintId:sprint._id,startsAt:'2026-09-30T09:00:00Z',followUpCardIds:cards.map(c=>c._id)},null);
   const url=`/api/boards/${board.boardId}/export?authToken=${encodeURIComponent(user.token)}`;
   const fullResponse=await request.get(url);expect(fullResponse.status()).toBe(200);
-  const full=await fullResponse.json();expect(full.scrumTransfer.format).toBe('wekan-scrum-1');
+  const full=await fullResponse.json();expect(full.scrumTransfer.format).toBe('wekan-scrum-2');
   expect(full.scrumTransfer.sprints).toHaveLength(2);expect(full.scrumTransferLosses).toEqual([]);
+  expect(full.scrumTransfer.dailyObservations).toHaveLength(1);
+  expect(full.scrumTransfer.dailyObservations[0].snapshot.cards).toHaveLength(3);
+  expect(full.scrumTransfer.dailyObservations[0]._id).toBeUndefined();
+  expect(full.scrumTransfer.dailyObservations[0].boardId).toBeUndefined();
   const closed=full.scrumTransfer.sprints.find(s=>s._id===sprint._id);
   expect(closed.closeSnapshot.cards).toHaveLength(3);expect(closed.rolloverPending).toBeUndefined();expect(closed.closedFromRevision).toBeUndefined();
   expect(closed.revision).toBeUndefined();expect(closed.boardId).toBeUndefined();
@@ -32,6 +37,8 @@ test('native export carries Scrum records and scopes snapshots and selected fiel
   expect(scoped.scrumTransfer.sprints.some(s=>s._id===unrelated._id)).toBe(false);
   expect(scoped.scrumTransfer.sprints[0].closeSnapshot.cards).toHaveLength(1);
   expect(scoped.scrumTransfer.sprints[0].closeSnapshot.partial).toBe(true);
+  expect(scoped.scrumTransfer.dailyObservations[0].snapshot.cards.map(c=>c.cardId)).toEqual([cards[0]._id]);
+  expect(scoped.scrumTransfer.dailyObservations[0].snapshot.partial).toBe(true);
   expect(scoped.scrumTransfer.events[0].followUpCardIds).toEqual([cards[0]._id]);
   expect(scoped.scrumTransferLosses.length).toBeGreaterThan(0);
   const omittedResponse=await request.get(`${url}&fields=board-header,description`);expect(omittedResponse.status()).toBe(200);
@@ -41,5 +48,5 @@ test('native export carries Scrum records and scopes snapshots and selected fiel
   const partialResponse=await request.get(`${url}&fields=scrum`);expect(partialResponse.status()).toBe(200);
   const partial=await partialResponse.json();
   expect(partial.scrumTransferLosses).toContainEqual({path:'customFields',sourceId:'omitted-estimate-field',reason:'estimate-field-not-exported'});
- }finally{for(const collection of ['scrumSprints','scrumReleases','scrumEvents'])db.deleteMany(collection,{boardId:board.boardId});}
+ }finally{for(const collection of ['scrumSprints','scrumReleases','scrumEvents','scrumDailySnapshots'])db.deleteMany(collection,{boardId:board.boardId});}
 });

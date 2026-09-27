@@ -5,6 +5,7 @@ import Swimlanes from '/models/swimlanes';
 import ScrumSprints from '/models/scrumSprints';
 import ScrumReleases from '/models/scrumReleases';
 import ScrumEvents from '/models/scrumEvents';
+import ScrumDailySnapshots from '/models/scrumDailySnapshots';
 import ScrumHistoryPending from './scrumHistoryPending';
 const { normalizeScrumTransfer, SCRUM_TRANSFER_FORMAT } = require('/models/lib/scrumTransfer');
 
@@ -20,7 +21,7 @@ export async function exportScrumTransfer(boardId, cardIds, listIds, swimlaneIds
   ]);
   if (!board) throw new Error('Board no longer exists');
   if (!board.scrum && !cards.length && !lists.length && !swimlanes.length && !sprints.length && !releases.length && !events.length) return null;
-  if (await ScrumHistoryPending.findOneAsync(boardId) || sprints.some(s => s.rolloverPending?.length)) {
+  if (await ScrumHistoryPending.findOneAsync(boardId) || sprints.some(s => s.scrumImportPending || s.rolloverPending?.length)) {
     throw new Error('Finish the pending Scrum operation before exporting');
   }
   const sprintIds = new Set(); const releaseIds = new Set();
@@ -40,7 +41,7 @@ export async function exportScrumTransfer(boardId, cardIds, listIds, swimlaneIds
   const visibleCards = new Set(cardIds); const visibleLists = new Set(listIds);
   const losses = [];
   const clean = record => {
-    const { boardId: ignoredBoard, revision, rolloverPending, closedFromRevision, ...data } = record;
+    const { boardId: ignoredBoard, revision, rolloverPending, closedFromRevision, scrumImportPending, ...data } = record;
     return data;
   };
   const metadata = rows => rows.map(row => ({ _id: row._id, scrum: row.scrum }));
@@ -48,17 +49,34 @@ export async function exportScrumTransfer(boardId, cardIds, listIds, swimlaneIds
     sprints: sprints.filter(s => !scoped || sprintIds.has(s._id)).map(clean),
     releases: releases.filter(r => !scoped || releaseIds.has(r._id)).map(clean),
     events: events.filter(e => !scoped || sprintIds.has(e.sprintId)).map(clean) };
-  for (const sprint of transfer.sprints) for (const key of ['startSnapshot', 'closeSnapshot']) {
-    if (!sprint[key]) continue;
-    const snapshot = sprint[key];
+  function filterSnapshot(snapshot, path) {
     snapshot.cards = snapshot.cards.filter(card => {
       if (visibleCards.has(card.cardId) && visibleLists.has(card.listId)) return true;
-      losses.push({ path: `sprints.${sprint._id}.${key}`, sourceId: card.cardId, reason: 'card-or-list-not-exported' });
+      losses.push({ path, sourceId: card.cardId, reason: 'card-or-list-not-exported' });
       snapshot.partial = true; return false;
     });
     snapshot.missingEstimates = snapshot.cards.filter(c => c.estimate === null).length;
     snapshot.totalEstimate = snapshot.cards.reduce((sum, c) => sum + (c.estimate ?? 0), 0);
   }
+  for (const sprint of transfer.sprints) for (const key of ['startSnapshot', 'closeSnapshot']) {
+    if (sprint[key]) filterSnapshot(sprint[key], `sprints.${sprint._id}.${key}`);
+  }
+  transfer.dailyObservations = [];
+  let observedCards = 0;
+  const cursor = ScrumDailySnapshots.rawCollection().find({ boardId,
+    sprintId: { $in: transfer.sprints.map(sprint => sprint._id) } },
+  { sort: { capturedAt: 1, _id: 1 }, limit: 10001, batchSize: 1 });
+  try {
+    for await (const row of cursor) {
+      observedCards += row.snapshot.cards.length;
+      if (transfer.dailyObservations.length >= 10000 || observedCards > 100000) {
+        throw new Error('Daily Scrum history exceeds the native transfer limit');
+      }
+      filterSnapshot(row.snapshot, `dailyObservations.${row.sprintId}.${row.day}`);
+      const { sprintId, startedAt, day, capturedAt, snapshot, consistency } = row;
+      transfer.dailyObservations.push({ sprintId, startedAt, day, capturedAt, snapshot, consistency });
+    }
+  } finally { await cursor.close(); }
   for (const event of transfer.events) event.followUpCardIds = (event.followUpCardIds || []).filter(id => {
     if (visibleCards.has(id)) return true;
     losses.push({ path: `events.${event._id}.followUpCardIds`, sourceId: id, reason: 'card-not-exported' }); return false;
@@ -66,6 +84,7 @@ export async function exportScrumTransfer(boardId, cardIds, listIds, swimlaneIds
   if (!includeCustomFields) {
     const references = new Set([transfer.settings.estimateCustomFieldId,
       ...transfer.sprints.flatMap(s => [s.startSnapshot?.estimateCustomFieldId, s.closeSnapshot?.estimateCustomFieldId]),
+      ...transfer.dailyObservations.map(row => row.snapshot.estimateCustomFieldId),
     ].filter(Boolean));
     for (const sourceId of references) losses.push({ path: 'customFields', sourceId, reason: 'estimate-field-not-exported' });
   }

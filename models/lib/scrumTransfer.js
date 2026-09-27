@@ -3,7 +3,7 @@
 // Shared data contract for native transfer, duplication and external adapters.
 // Authorization, ID allocation and database writes belong to the caller.
 const { normalizeScrumSettings, normalizeScrumMetadata, normalizeScrumRecord } = require('./scrum');
-const FORMAT = 'wekan-scrum-1';
+const FORMAT = 'wekan-scrum-2';
 const own = (value, key) => Object.prototype.hasOwnProperty.call(value, key);
 const fail = message => { throw new Error(`Invalid Scrum transfer: ${message}`); };
 function object(value, keys) {
@@ -100,8 +100,9 @@ function unique(values) {
   return values;
 }
 function normalizeScrumTransfer(value) {
-  object(value, ['format', 'settings', 'sprints', 'releases', 'events', 'cards', 'lists', 'swimlanes']);
-  if (value.format !== FORMAT) fail('unsupported version');
+  object(value, ['format', 'settings', 'sprints', 'releases', 'events', 'cards', 'lists', 'swimlanes', 'dailyObservations']);
+  if (![FORMAT, 'wekan-scrum-1'].includes(value.format)) fail('unsupported version');
+  if (value.format === 'wekan-scrum-1' && own(value, 'dailyObservations')) fail('daily observations require version 2');
   const result = { format: FORMAT, settings: normalizeScrumSettings(value.settings) };
   if (result.settings.estimateSource === 'customField' && !result.settings.estimateCustomFieldId) fail('estimate field is required');
   for (const [plural, kind] of [['sprints','sprint'],['releases','release'],['events','event']]) {
@@ -117,6 +118,30 @@ function normalizeScrumTransfer(value) {
     }));
   }
   const sprintIds = new Set(result.sprints.map(row => row._id));
+  const sprintById = new Map(result.sprints.map(row => [row._id, row]));
+  const observations = new Set();
+  let observedCards = 0;
+  result.dailyObservations = rows(own(value, 'dailyObservations') ? value.dailyObservations : []).map(row => {
+    object(row, ['sprintId', 'startedAt', 'day', 'capturedAt', 'snapshot', 'consistency']);
+    const sprintId = id(row.sprintId);
+    if (!sprintIds.has(sprintId)) fail('foreign daily observation sprint');
+    const startedAt = date(row.startedAt), capturedAt = date(row.capturedAt);
+    const snap = snapshot(row.snapshot);
+    const current = sprintById.get(sprintId).startSnapshot;
+    if (current && current.at.getTime() === startedAt.getTime()) {
+      for (const key of ['unit', 'estimateSource', 'estimateCustomFieldId', 'completionPolicy']) {
+        if (snap[key] !== current[key]) fail(`incompatible daily observation ${key}`);
+      }
+    }
+    observedCards += snap.cards.length;
+    if (observedCards > 100000) fail('daily observation card limit exceeded');
+    if (row.consistency !== 'observed' || startedAt > capturedAt ||
+      snap.at.getTime() !== capturedAt.getTime() || row.day !== capturedAt.toISOString().slice(0, 10)) fail('inconsistent daily observation');
+    const key = JSON.stringify([sprintId, startedAt.toISOString(), row.day]);
+    if (observations.has(key)) fail('duplicate daily observation');
+    observations.add(key);
+    return { sprintId, startedAt, day: row.day, capturedAt, snapshot: snap, consistency: 'observed' };
+  });
   const releaseIds = new Set(result.releases.map(row => row._id));
   function present(ids, value) { if (value != null && !ids.has(value)) fail(`foreign planning reference ${value}`); }
   for (const row of [...result.events, ...result.cards.map(row => row.scrum), ...result.swimlanes.map(row => row.scrum)]) {
@@ -157,6 +182,18 @@ function remapScrumTransfer(value, maps) {
     }
     if (meta.pastSprintIds) meta.pastSprintIds = meta.pastSprintIds.map(sourceId => ref('sprints', sourceId, `${path}.pastSprintIds`));
   }
+  function remapSnapshot(snap, path) {
+    const beforeCount = snap.cards.length;
+    snap.estimateCustomFieldId = ref('customFields', snap.estimateCustomFieldId, `${path}.estimateCustomFieldId`);
+    snap.cards = snap.cards.flatMap(card => {
+      const cardId = ref('cards', card.cardId, `${path}.cards`, true);
+      if (!cardId) return [];
+      return [{ ...card, cardId, listId: ref('lists', card.listId, `${path}.listId`) }];
+    });
+    if (beforeCount !== snap.cards.length) snap.partial = true;
+    snap.missingEstimates = snap.cards.filter(card => card.estimate === null).length;
+    snap.totalEstimate = snap.cards.reduce((sum, card) => sum + (card.estimate ?? 0), 0);
+  }
   const settings = result.settings;
   for (const key of ['productOwnerId', 'scrumMasterId']) if (own(settings, key)) settings[key] = ref('users', settings[key], `settings.${key}`, true);
   if (settings.developerIds) settings.developerIds = [...new Set(settings.developerIds.map(sourceId => ref('users', sourceId, 'settings.developerIds', true)).filter(Boolean))];
@@ -173,19 +210,15 @@ function remapScrumTransfer(value, maps) {
       if (own(row, 'rolloverSprintId')) row.rolloverSprintId = ref('sprints', row.rolloverSprintId, `${path}.rolloverSprintId`);
       if (row.followUpCardIds) row.followUpCardIds = [...new Set(row.followUpCardIds.map(sourceId => ref('cards', sourceId, `${path}.followUpCardIds`, true)).filter(Boolean))];
       for (const key of ['startSnapshot','closeSnapshot']) if (row[key]) {
-        const snap = row[key]; const beforeCount = snap.cards.length;
-        snap.estimateCustomFieldId = ref('customFields', snap.estimateCustomFieldId, `${path}.${key}.estimateCustomFieldId`);
-        snap.cards = snap.cards.flatMap(card => {
-          const cardId = ref('cards', card.cardId, `${path}.${key}.cards`, true);
-          if (!cardId) return [];
-          return [{ ...card, cardId, listId: ref('lists', card.listId, `${path}.${key}.listId`) }];
-        });
-        if (beforeCount !== snap.cards.length) snap.partial = true;
-        snap.missingEstimates = snap.cards.filter(card => card.estimate === null).length;
-        snap.totalEstimate = snap.cards.reduce((sum, card) => sum + (card.estimate ?? 0), 0);
+        remapSnapshot(row[key], `${path}.${key}`);
       }
     }
     unique(result[plural]);
+  }
+  for (const row of result.dailyObservations) {
+    const path = `dailyObservations.${row.sprintId}.${row.day}`;
+    row.sprintId = ref('sprints', row.sprintId, `${path}.sprintId`);
+    remapSnapshot(row.snapshot, `${path}.snapshot`);
   }
   for (const plural of ['cards','lists','swimlanes']) {
     result[plural] = result[plural].flatMap(row => {

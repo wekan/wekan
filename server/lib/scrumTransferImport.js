@@ -7,6 +7,8 @@ import Swimlanes from '/models/swimlanes';
 import ScrumSprints from '/models/scrumSprints';
 import ScrumReleases from '/models/scrumReleases';
 import ScrumEvents from '/models/scrumEvents';
+import ScrumDailySnapshots from '/models/scrumDailySnapshots';
+const { dailyObservationId } = require('/server/lib/scrumDailyCapture');
 const { normalizeScrumTransfer, remapScrumTransfer, normalizeScrumTransferLosses } = require('/models/lib/scrumTransfer');
 
 function inputMap(rows) {
@@ -24,6 +26,7 @@ export function validateScrumImport(board) {
     remapScrumTransfer(transfer, maps);
     const estimateIds = new Set([transfer.settings.estimateCustomFieldId,
       ...transfer.sprints.flatMap(s => [s.startSnapshot?.estimateCustomFieldId,s.closeSnapshot?.estimateCustomFieldId]),
+      ...transfer.dailyObservations.map(row => row.snapshot.estimateCustomFieldId),
     ].filter(Boolean));
     for (const id of estimateIds) if (!(board.customFields || []).some(field => field._id === id && field.type === 'number')) {
       throw new Error('Scrum estimates require a numeric custom field in the imported file');
@@ -48,7 +51,8 @@ export async function importScrumTransfer(creator, source, boardId) {
     for (const record of transfer[key]) {
       const provenance = record.provenance || { system: 'wekan', recordId: sourceIds.get(record._id),
         ...(typeof source._id === 'string' && source._id.length <= 500 ? { projectId: source._id } : {}) };
-      await collection.insertAsync({ ...record, provenance, boardId, revision: 1 });
+      await collection.insertAsync({ ...record, provenance, boardId, revision: 1,
+        ...(key === 'sprints' ? { scrumImportPending: true } : {}) });
     }
   }
   for (const [key, collection] of [['cards',Cards],['lists',Lists],['swimlanes',Swimlanes]]) {
@@ -58,6 +62,14 @@ export async function importScrumTransfer(creator, source, boardId) {
       }
     }
   }
+  for (const row of transfer.dailyObservations) {
+    await ScrumDailySnapshots.insertAsync({ ...row, boardId,
+      _id: dailyObservationId(row.sprintId, row.startedAt, row.day) });
+  }
   const report = [...normalizeScrumTransferLosses(source.scrumTransferLosses), ...losses];
   await Boards.direct.updateAsync(boardId, { $set: { scrum: transfer.settings, scrumRevision: 1, scrumImportLosses: report } });
+  // A collector must never record a half-imported active sprint. Interrupted
+  // imports keep this marker and cannot be exported as complete transfers.
+  await ScrumSprints.updateAsync({ boardId, _id: { $in: transfer.sprints.map(row => row._id) } },
+    { $unset: { scrumImportPending: '' } }, { multi: true });
 }

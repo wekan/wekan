@@ -14,6 +14,55 @@ function fixture(){
   lists:[{_id:'l',scrum:{category:'done'}}],swimlanes:[{_id:'w',scrum:{sprintId:'s',releaseId:'r',purpose:'Team'}}]};
 }
 function maps(){return Object.fromEntries(Object.entries({sprints:['s','next'],releases:['r'],events:['e'],cards:['c1','c2'],lists:['l'],swimlanes:['w'],customFields:['cf'],users:['u']}).map(([kind,ids])=>[kind,new Map(ids.map(id=>[id,`new-${id}`]))]));}
+function withDaily() {
+ const source=fixture();
+ source.dailyObservations=[{sprintId:'s',startedAt:source.sprints[0].startedAt,
+  capturedAt:'2026-09-01T12:00:00Z',day:'2026-09-01',consistency:'observed',
+  snapshot:{...structuredClone(source.sprints[0].startSnapshot),at:'2026-09-01T12:00:00Z'}}];
+ return source;
+}
+test('version 2 daily history remaps references and retains measurements and old epochs',()=>{
+ const source=withDaily();const before=structuredClone(source);
+ source.dailyObservations.push({...structuredClone(source.dailyObservations[0]),startedAt:'2026-08-01T10:00:00Z'});
+ const {transfer,losses}=remapScrumTransfer(source,maps());
+ assert.equal(transfer.format,'wekan-scrum-2');assert.deepEqual(losses,[]);
+ const row=transfer.dailyObservations[0];
+ assert.equal(row.sprintId,'new-s');assert.equal(row.snapshot.cards[0].cardId,'new-c1');
+ assert.equal(row.snapshot.cards[0].listId,'new-l');assert.equal(row.snapshot.estimateCustomFieldId,'new-cf');
+ assert.equal(row.snapshot.cards[0].estimate,0);assert.equal(row.snapshot.cards[1].estimate,null);
+ assert.equal(row.capturedAt.toISOString(),'2026-09-01T12:00:00.000Z');
+ assert.equal(transfer.dailyObservations[1].startedAt.toISOString(),'2026-08-01T10:00:00.000Z');
+ assert.deepEqual(source.dailyObservations[0],before.dailyObservations[0]);
+ assert.deepEqual(normalizeScrumTransfer(JSON.parse(JSON.stringify(transfer))),transfer);
+ const destination=maps();destination.cards.delete('c2');
+ const partial=remapScrumTransfer(withDaily(),destination);
+ assert.equal(partial.transfer.dailyObservations[0].snapshot.partial,true);
+ assert.equal(partial.transfer.dailyObservations[0].snapshot.missingEstimates,0);
+ assert.ok(partial.losses.some(row=>row.path.startsWith('dailyObservations.')&&row.sourceId==='c2'));
+});
+test('old native payloads upgrade without inventing observations; malformed observations fail',()=>{
+ const old=fixture();old.format='wekan-scrum-1';
+ assert.deepEqual(normalizeScrumTransfer(old).dailyObservations,[]);
+ for(const change of [
+  s=>s.format='wekan-scrum-1',s=>s.dailyObservations=null,
+  s=>s.dailyObservations[0].sprintId='foreign',
+  s=>s.dailyObservations[0].day='2026-09-02',
+  s=>s.dailyObservations[0].startedAt='2026-09-02T10:00:00Z',
+  s=>s.dailyObservations[0].snapshot.at='2026-09-01T10:00:00Z',
+  s=>s.dailyObservations[0].snapshot.unit='hours',
+  s=>s.dailyObservations[0].consistency='transactional',
+  s=>s.dailyObservations[0].boardId='foreign',
+  s=>s.dailyObservations.push(structuredClone(s.dailyObservations[0])),
+  s=>s.dailyObservations=Array(10001).fill(s.dailyObservations[0]),
+ ]){const source=withDaily();change(source);assert.throws(()=>normalizeScrumTransfer(source),/Invalid Scrum transfer/);}
+ const large=withDaily();
+ const sample=large.dailyObservations[0];
+ sample.snapshot.cards=Array.from({length:10000},(_,index)=>({cardId:`card-${index}`,listId:'l',estimate:0,done:false,archived:false}));
+ sample.snapshot.missingEstimates=0;
+ large.dailyObservations=Array.from({length:11},(_,index)=>({...sample,
+  startedAt:`2026-08-${String(index+1).padStart(2,'0')}T10:00:00Z`}));
+ assert.throws(()=>normalizeScrumTransfer(large),/daily observation card limit/);
+});
 test('native sprint snapshots agree with lifecycle timestamps and state',()=>{
  for(const change of [
   s=>s.startSnapshot.at='2026-08-31T10:00:00Z',

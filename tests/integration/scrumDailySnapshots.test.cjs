@@ -19,6 +19,8 @@ test('daily Scrum observations survive retries without inventing missing days', 
   const sprint = { _id: 'sprint', boardId: 'board', state: 'active',
     startSnapshot: sprintSnapshot(cards, DEFAULT_SCRUM_SETTINGS, [], start) };
   const input = { sprint, cards, lists: [], snapshots, at: start };
+  assert.equal((await captureDailySprint({ ...input, sprint: { ...sprint, scrumImportPending: true } })).skipped, true);
+  assert.equal(await collection.countDocuments({}), 0);
   const results = await Promise.all([captureDailySprint(input), captureDailySprint(input)]);
   assert.equal(results.filter(result => result.captured).length, 1);
   const changed = structuredClone(cards); changed[0].poker.estimation = 8; changed[0].dueComplete = true;

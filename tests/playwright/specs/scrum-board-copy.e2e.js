@@ -2,7 +2,7 @@
 const {test,expect}=require('../fixtures');const db=require('../helpers/db');
 const {loginWithToken,openBoard}=require('../helpers/auth');
 const call=(page,method,...args)=>page.evaluate(async({method,args})=>{try{return await Meteor.callAsync(method,...args);}catch(error){throw new Error(`${error.error}: ${error.reason||error.message}`);}},{method,args});
-function clean(boardId){for(const collection of ['scrumSprints','scrumReleases','scrumEvents'])db.deleteMany(collection,{boardId});db.cleanup({boardIds:[boardId]});}
+function clean(boardId){for(const collection of ['scrumSprints','scrumReleases','scrumEvents','scrumDailySnapshots'])db.deleteMany(collection,{boardId});db.cleanup({boardIds:[boardId]});}
 test('board duplication remaps Scrum planning and metadata and can omit Scrum entirely',async({page,user,board})=>{
  const copies=[];
  try{
@@ -15,6 +15,7 @@ test('board duplication remaps Scrum planning and metadata and can omit Scrum en
   await call(page,'scrum.updateSwimlane',board.boardId,board.swimlaneId,{sprintId:sprint._id,releaseId:release._id,purpose:'Copied team'},0);
   await call(page,'scrum.updateList',board.boardId,card.listId,{category:'doing'},0);
   const active=await call(page,'scrum.startSprint',board.boardId,sprint._id,sprint.revision);
+  await call(page,'scrum.getDailyHistory',board.boardId,sprint._id);
   await call(page,'scrum.closeSprint',board.boardId,sprint._id,active.revision,null);
   const copy=await call(page,'copyBoard',board.boardId,{});copies.push(copy);
   const copiedSprint=db.findOne('scrumSprints',{boardId:copy});expect(copiedSprint._id).not.toBe(sprint._id);
@@ -25,12 +26,19 @@ test('board duplication remaps Scrum planning and metadata and can omit Scrum en
   expect(copiedCard.scrum.releaseId).toBe(db.findOne('scrumReleases',{boardId:copy})._id);
   expect(copiedSprint.closeSnapshot.cards[0].cardId).toBe(copiedCard._id);
   expect(copiedSprint.closeSnapshot.cards[0].listId).toBe(copiedCard.listId);
+  const copiedObservation=db.findOne('scrumDailySnapshots',{boardId:copy});
+  expect(copiedObservation.sprintId).toBe(copiedSprint._id);
+  expect(copiedObservation.snapshot.cards[0].cardId).toBe(copiedCard._id);
+  expect(copiedObservation.snapshot.cards[0].listId).toBe(copiedCard.listId);
+  const {dailyObservationId}=require('../../../server/lib/scrumDailyCapture');
+  expect(copiedObservation._id).toBe(dailyObservationId(copiedSprint._id,copiedObservation.startedAt,copiedObservation.day));
   expect(db.findOne('lists',{_id:copiedCard.listId}).scrum.category).toBe('doing');
   const lane=db.findOne('swimlanes',{_id:copiedCard.swimlaneId});expect(lane.scrum.sprintId).toBe(copiedSprint._id);
   expect(db.find('changeHistory',{boardId:copy,entityType:'scrum'})).toHaveLength(0);
   expect(db.findOne('cards',{_id:card._id}).scrum.pastSprintIds).toEqual([sprint._id]);
   const omitted=await call(page,'copyBoard',board.boardId,{copyOptions:{scrum:false}});copies.push(omitted);
   expect(db.find('scrumSprints',{boardId:omitted})).toHaveLength(0);
+  expect(db.find('scrumDailySnapshots',{boardId:omitted})).toHaveLength(0);
   expect(db.findOne('boards',{_id:omitted}).scrum).toBeUndefined();
   for(const item of db.find('cards',{boardId:omitted}))expect(item.scrum).toBeUndefined();
   for(const item of db.find('swimlanes',{boardId:omitted}))expect(item.scrum).toBeUndefined();
@@ -38,10 +46,12 @@ test('board duplication remaps Scrum planning and metadata and can omit Scrum en
   expect(db.find('cards',{boardId:structure})).toHaveLength(0);
   expect(db.findOne('scrumSprints',{boardId:structure}).closeSnapshot.partial).toBe(true);
   expect(db.findOne('scrumSprints',{boardId:structure}).closeSnapshot.cards).toEqual([]);
+  expect(db.findOne('scrumDailySnapshots',{boardId:structure}).snapshot.partial).toBe(true);
+  expect(db.findOne('scrumDailySnapshots',{boardId:structure}).snapshot.cards).toEqual([]);
   const copiedBoard=db.findOne('boards',{_id:structure});
   await openBoard(page,structure,copiedBoard.slug);
   await page.locator('.js-toggle-board-view').first().click();
   await page.locator('.pop-over .js-open-velocity-view').click();
   await expect(page.locator('.scrum-table')).toContainText('This sprint contains only part of the original snapshot.');
- }finally{for(const id of copies)clean(id);for(const collection of ['scrumSprints','scrumReleases','scrumEvents'])db.deleteMany(collection,{boardId:board.boardId});}
+ }finally{for(const id of copies)clean(id);for(const collection of ['scrumSprints','scrumReleases','scrumEvents','scrumDailySnapshots'])db.deleteMany(collection,{boardId:board.boardId});}
 });

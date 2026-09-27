@@ -9,6 +9,7 @@ import ScrumDailySnapshots from '/models/scrumDailySnapshots';
 const { captureDailySprint } = require('/server/lib/scrumDailyCapture');
 
 export async function captureOneSprint(sprint) {
+  if (sprint.scrumImportPending) return { skipped: true };
   if (sprint.state !== 'active') return { skipped: true };
   if (!sprint.startSnapshot) return { skipped: true };
   const at = new Date(), day = at.toISOString().slice(0, 10);
