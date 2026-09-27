@@ -108,6 +108,13 @@ test('retry after Scrum undo finalization does not undo an older row or duplicat
   // Recreate the durable state immediately before checkpoint cleanup.
   db.insertOne('scrumHistoryPending',dates({_id:board.boardId,rowId:row._id,direction:'undo',userId:user.id,
     operationId:checkpoint.batchId,content:row.previousContent,before:row.newContent,revisions:[revision]}));
+  expect(checkpoint._id).toMatch(/^scrum-restore-[a-f0-9]{64}$/);
+  // A matching operation ID must not acknowledge damaged timeline evidence.
+  db.updateOne('changeHistory',{_id:checkpoint._id},{$set:{integrityHash:'damaged'}});
+  await expect(call(page,'changeHistory.undoLast',board.boardId)).rejects.toThrow(/scrum-history-pending/);
+  expect(db.findOne('scrumHistoryPending',{_id:board.boardId})).not.toBe(null);
+  expect(db.find('changeHistory',{boardId:board.boardId}).length).toBe(count);
+  db.updateOne('changeHistory',{_id:checkpoint._id},{$set:{integrityHash:checkpoint.integrityHash}});
   expect((await call(page,'changeHistory.undoLast',board.boardId)).undone).toBe(true);
   expect(db.find('changeHistory',{boardId:board.boardId}).length).toBe(count);
   expect(db.findOne('cards',{_id:card._id}).scrumRevision).toBe(appliedRevision);

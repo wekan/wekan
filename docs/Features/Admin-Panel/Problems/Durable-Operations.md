@@ -155,3 +155,19 @@ under stable identities before acknowledging a unit; simply seeing the new card
 values cannot prove all hooks completed. Aggregate multi-update counts also do
 not identify individual successful rows. Full replay integration remains unfinished
 at this boundary, not declared finished by moving hooks to `after.update`.
+
+### Scrum History restoration acknowledgements
+
+Scrum restore/undo/redo keeps its pending journal until each affected author's
+restoration event is acknowledged. These events now use a deterministic row ID
+from the board, journal operation and author. A retry validates the stored event's
+immutable contents and integrity hash before accepting it, including legacy
+random-ID events from an already pending operation. It retains the original
+creation timestamp and chain link. A lost insert acknowledgement or concurrent
+retry is accepted only after reading back the exact intended event.
+
+A failed write or mismatched/damaged event leaves the journal pending. Ordinary
+History writes retain their best-effort contract; this strict writer applies only
+to Scrum restoration. It does not make the original Scrum mutation and History
+atomic, serialize independent writers to the board's integrity chain, or provide
+startup replay. Those remain separate durability requirements.
