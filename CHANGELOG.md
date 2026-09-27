@@ -279,6 +279,11 @@ then share recovery retention and verified cleanup. Missing, changed or
 oversized effects and attempts to resume without their validator are refused.
 The History validator also binds its rows to the exact card step and
 operation effect ID.
+Activity notification and webhook payloads now preserve zero, false, empty
+text and explicit null, while absent values remain omitted. This fixes lost
+zero estimates and unchecked custom-field values. SMTP and HTTP-serialization
+tests cover the values; durable delivery still needs a replacement for the
+current fire-and-forget webhooks and timed email buffer.
 History field snapshots now preserve nested dates, including date-valued
 custom fields alongside mapped estimates. JSON transport and restoration retain
 Date types without interpreting date-looking text. Existing rows whose dates
@@ -1490,6 +1495,30 @@ the pre-existing overlong line in released v12.07.
 This verification and cleanup sequence is not a cross-document transaction.
 Coordinated fencing of in-flight writers, atomic original writes/History and
 automatic startup replay remain in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/68dcb02d1">Preserve zero and false in activity deliveries</a>. Thanks to xet7.</summary>
+
+Activity notification parameters and outgoing webhook attribute selection
+previously discarded numeric zero, boolean false and empty text. Preserve
+these values and explicit null, while leaving undefined/absent values omitted.
+Custom-field notifications can now report zero estimates and unchecked values;
+configured before/after text attributes retain an explicitly cleared string.
+Existing webhook attribute selection and nonblocking delivery stay in place.
+
+Thirteen notification/webhook Node suites pass. Tests execute the activity hook
+and outgoing method to inspect notification parameters and serialized HTTP
+bodies, including ordinary/configured/two-way attribute handling and omitted
+values. All eight Chromium scenarios pass with a local-only SMTP capture:
+delivered custom-field emails retain zero and false, board/list/card watching
+still works, muted/disabled recipients remain excluded, and Jira estimate Sync
+passes. No email was relayed externally. The offline audit passes with advisory
+fingerprints; other Upcoming regression evidence remains recorded.
+
+Persistent notification jobs, webhook acknowledgements and restart recovery
+remain unfinished. This fixes payload fidelity, not durable delivery.
 
 </details>
 
