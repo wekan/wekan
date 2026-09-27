@@ -129,8 +129,11 @@ unfinished, alongside broader History/undo transport.
 Imports now stage private per-document write plans with stable destination IDs
 and exact before/after values before applying Scrum changes. Conditional writes
 reject changed or moved targets. A board checkpoint covers preparation and
-marker cleanup, including imports with no sprint records. Coordinated replay,
-rollback and recovery of partial staging are still unfinished.
+marker cleanup, including imports with no sprint records. An offline maintenance
+command now validates and continues complete stored Scrum plans with all writers
+stopped. It uses non-expiring recovery claims and resumes interrupted cleanup.
+Online coordinated replay, rollback and incomplete staging remain unfinished;
+the command does not recover the other native board-import stages.
 Marked incomplete imports also block Scrum edits, History writes and report
 exports, with a visible warning. This does not lock ordinary board/card edits
 or provide automatic import resume/rollback.
@@ -790,6 +793,31 @@ contents were not changed.
 </details>
 
 and improves daily Scrum reporting:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3b2bb2335">Continue complete stored import plans during offline maintenance</a>. Thanks to xet7.</summary>
+
+The new maintenance command defaults to read-only inspection. With all WeKan
+and other database writers stopped, it can continue the Scrum segment using
+the stored destination IDs. Validate the full plan and every target before
+writing; reject missing, foreign, duplicate or changed targets. Recognize a
+write whose acknowledgement was lost without creating duplicate records.
+
+Complete preparing plans can be sealed; partial plans remain refused.
+Non-expiring claims prevent competing recovery callers. Failures retain the
+claim until the operator verifies its owner has stopped and clears its exact
+token. A cleaning phase continues interrupted private-plan removal without
+replaying data writes. The result identifies its scope as Scrum, not the whole
+board import. See the [maintenance guide](docs/Features/ImportExport/Scrum-Import-Recovery.md).
+
+Three Node suites pass, including real MongoDB failure injection, competing
+callers, partial marker cleanup, interrupted plan cleanup, argument validation
+and the actual CLI. The final CLI rerun confirms its explicit Scrum scope.
+The release audit passes with advisory warnings. FerretDB was not tested.
+Online recovery, rollback, partial-staging reconstruction and the other board
+import stages remain pending.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/db5ecc802">Preserve interrupted import plans and reject changed destination data</a>. Thanks to xet7.</summary>
