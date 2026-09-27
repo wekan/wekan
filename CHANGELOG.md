@@ -90,13 +90,13 @@ A cause specific to MongoDB or legacy data has not been established.
 </details>
 
 <details>
-<summary>Development paused for release: handoff of unfinished work.</summary>
+<summary>Scrum and Sync resumed; remaining development handoff.</summary>
 
-All implementation, translation and audit work is paused at the maintainer's
-request on 2026-09-27. Resume only when requested. No subagents are running.
-The working tree was clean before this documentation handoff; completed changes
-already have feature/fix-specific local commits and Upcoming entries. Nothing
-was pushed, and no release/version changes were made by this handoff.
+Scrum and Sync development resumed at the maintainer's request on 2026-09-27
+after the release pause. Other implementation, translation and audit queues
+retain their separate checkpoints below. The original pause handoff recorded
+a clean working tree and local feature/fix commits; it made no remote writes
+or release/version changes. Current progress is recorded in Upcoming.
 
 **Scrum:** Product Backlog, Sprints, release/event editors, optional hidden
 metadata, team/calendar settings, commitment/result snapshots, Sprint Report
@@ -109,20 +109,24 @@ list categories survive new destination containers during moves. Remaining:
 daily scope history and burndown, atomic original writes/History, large-board
 limits, complete cross-board move/reference/undo coordination, standalone
 planning-record mapping, existing-board scoped import and History transport.
-Some earlier design paragraphs still describe now-implemented copy/estimate
-work as pending; reconcile them with the linked commits before resuming.
+The design now records the implemented explicit Jira estimate-field mapping;
+automatic schema discovery remains pending.
 See the [Scrum design](docs/Features/Right-Sidebar/Board-Settings/Board-View/Scrum-Design.md).
 
 **External Scrum data and Sync:** Jira time totals, issue types, explicit status
 categories and explicitly selected numeric estimate fields now import/export
 through existing fields. Native copies retain the estimate mappings. Sync
 offers title/description/spent-time selection and controls for creating and
-archiving cards, with existing authorization and local-change checks.
+archiving cards, with existing authorization and local-change checks. Card
+mappings and credentials now include provider/server/project identity. Source
+switches preserve old cards, require the new source's credential and reject
+unidentifiable legacy mappings. Save existing settings once to bind their
+legacy mappings and credential before resuming Sync.
 Remaining: external sprint histories without invented snapshots, multiple
 release assignments, epic relationships, automatic field/schema mapping,
 Trello and other Scrum adapters, mapping previews/loss reporting, planning and
-estimate Sync, project-scoped source identity, credential/source-switch
-boundaries, atomic concurrent jobs and conflict-resolution UI.
+estimate Sync, atomic concurrent jobs and configuration/credential changes,
+and conflict-resolution UI. Changes during card writes remain nontransactional.
 See [Jira](docs/Features/ImportExport/Jira/Jira.md) and
 [Sync](docs/Features/ImportExport/Sync.md).
 
@@ -710,6 +714,40 @@ the Markdown commit as the template.
 
 </details>
 </details>
+
+# Upcoming WeKan ® release
+
+**In short:** **Sync** keeps card mappings and credentials tied to their source
+project. Changing projects preserves the previous project's cards and requires
+a credential for the new source.
+
+This release improves list synchronization:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/75a312809">Keep Sync mappings and credentials scoped to their source project</a>. Thanks to xet7.</summary>
+
+Bind card mappings and credentials to provider, normalized server URL and
+project. Overlapping issue IDs remain separate; source-absence archival affects
+only the current source. Copies omit Sync identity. Source switches and clears
+retain the old cards' identity, and stale fetched configurations cannot begin
+reconciliation or overwrite the new configuration's status.
+
+Save existing Sync settings once after upgrading to bind legacy cards and
+credentials. Unknown legacy sources require a new list. Changing source
+requires entering its credential; missing or mismatched credentials produce an
+actionable popup error without fetching. Concurrent jobs and configuration
+writes remain nontransactional and stay in TODO Later.
+
+Nine focused Node suites and nine Chromium scenarios pass on local
+Meteor/MongoDB, using an HTTP provider fixture. Positive and negative coverage
+includes overlapping IDs, scoped archival, credential replacement, legacy
+adoption, unknown sources, reconnects, malformed URLs and board permissions.
+The local release audit passes. Live providers, FerretDB and other browsers
+were not tested. Update the Sync guide, Scrum design and resumption checkpoint.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.08 2026-09-27 WeKan ® release
 
