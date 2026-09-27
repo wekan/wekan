@@ -115,8 +115,11 @@ History supports revision checks, compound recovery checkpoints and undo/redo.
 Native whole-board export/import and duplication remap planning records and
 snapshots, validate lifecycle/policy consistency, and report reduced data.
 Standalone copies preserve applicable metadata and drop foreign references;
-list categories survive new destination containers during moves. Remaining:
-daily scope history and burndown, atomic original writes/History, large-board
+list categories survive new destination containers during moves.
+Daily observations now preserve the first measured state of each UTC day;
+the scoped reader reports unknown estimates, partial results and truncation.
+Remaining: event-complete scope history, burndown UI and exports,
+atomic original writes/History, large-board
 limits, complete cross-board move/reference/undo coordination, standalone
 planning-record mapping, existing-board scoped import and History transport.
 The design now records the implemented explicit Jira estimate-field mapping;
@@ -738,14 +741,42 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**In short:** **Sync** keeps card mappings and credentials tied to their source
-project. Changing projects preserves the previous project's cards and requires
-a credential for the new source. Concurrent creation attempts no longer create
-duplicate new Sync cards.
-Sync runs and settings saves also share a renewable per-list reservation.
-Settings and their private credential version activate together.
+**In short:** **Sync** keeps source projects separate and coordinates concurrent
+runs and settings changes, including private credentials. **Scrum** now records
+daily observations with permission-scoped history reads as a foundation for
+historical reports; the burndown interface remains unfinished.
 
-This release improves list synchronization:
+This release adds the following reporting foundation:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/be5842616">Record daily Scrum observations without inventing missing history</a>. Thanks to xet7.</summary>
+
+Collect active sprints every 15 minutes and retain the first observation of each
+UTC day. History reads can collect today's observation too. Retries and
+concurrent collectors cannot overwrite the recorded state. Restarted sprints
+use separate series. Missing days stay absent; unknown estimates stay distinct
+from zero. Observations use the recorded sprint policy and actual capture time.
+
+The private history reader enforces board and assigned-card access, reports
+partial data and streams at most 366 recent observations with a truncation flag.
+Capture rejects more than 10,000 cards or lists instead of saving partial data.
+Board deletion removes the observations.
+
+Nine focused Node suites pass, including real MongoDB retry/concurrency tests;
+the optional separate DDP lifecycle suite is skipped. Four Chromium scenarios
+pass on local Meteor/MongoDB, covering observation retention, authorization,
+bounded history, read-only access and the existing scoped chart/Excel export.
+The local release audit passes with advisory fingerprint warnings. Earlier
+Sync regression results remain recorded below. FerretDB, Firefox, WebKit and
+the scheduled collector's full 15-minute interval were not tested.
+
+These are observed reads, not transactional snapshots or an event-complete log.
+Burndown UI, exports, event-level replay and native history transport remain
+in TODO Later. The known released-entry changelog format failure remains.
+
+</details>
+
+and improves list synchronization:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/81876bfa3">Keep Sync settings and credentials consistent across interrupted saves</a>. Thanks to xet7.</summary>
