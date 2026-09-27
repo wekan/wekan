@@ -339,6 +339,10 @@ Template.createCustomFieldPopup.events({
       if (data.type === 'number' && ['original', 'remaining'].includes(editing.settings?.jiraTimeField)) {
         data.settings.jiraTimeField = editing.settings.jiraTimeField;
       }
+      if (data.type === 'number' && editing.settings?.jiraEstimateFieldId) {
+        data.settings.jiraEstimateFieldId = editing.settings.jiraEstimateFieldId;
+        data.settings.jiraEstimateUnit = editing.settings.jiraEstimateUnit;
+      }
       CustomFields.update(currentData._id, { $set: data });
     }
 

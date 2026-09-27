@@ -2,6 +2,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { formatMarkdownKanban } from './markdownKanbanFormat';
 const { jiraTimeTrackingExport } = require('./jiraTimeTracking');
 const { jiraScrumMetadataExport } = require('./jiraScrumMetadata');
+const { jiraEstimateExportMapping, jiraEstimateExportValue } = require('./jiraEstimateMapping');
 
 // Generalized export: collect a WeKan board into a neutral intermediate, then a
 // per-format formatter emits the target platform's JSON shape. This mirrors the
@@ -38,7 +39,9 @@ async function collect(boardId, fields, format) {
   const wanted = fields && fields.length ? new Set(fields) : null;
   const timeFields = format === 'jira' && (!wanted || wanted.has('custom-fields'))
     ? await ReactiveCache.getCustomFields({ boardIds: boardId, type: 'number' }) : [];
+  const estimateMapping = format === 'jira' ? jiraEstimateExportMapping(timeFields, wanted) : null;
   const items = cards.map(c => ({
+    ...(format === 'jira' ? { jiraEstimate: jiraEstimateExportValue(c, estimateMapping) } : {}),
     ...(format === 'jira' ? { timetracking: jiraTimeTrackingExport(c, timeFields, wanted) } : {}),
     ...(format === 'jira' ? { jiraScrum: jiraScrumMetadataExport(c, listRecords.get(c.listId), wanted) } : {}),
     cardId: c._id,
@@ -51,7 +54,8 @@ async function collect(boardId, fields, format) {
     labelIds: c.labelIds || [],
     labels: (c.labelIds || []).map(id => labelById[id]).filter(Boolean),
   }));
-  return { board, lists, swimlanes, items: items.map(item => gateItem(item, wanted)) };
+  return { board, lists, swimlanes, jiraEstimateMapping: estimateMapping,
+    items: items.map(item => gateItem(item, wanted)) };
 }
 
 // A WeKan list maps to a "closed" issue state when its name looks terminal.
@@ -130,8 +134,12 @@ const formatters = {
     actions: [],
   }),
   // Jira issues collection (round-trips with WeKan's Jira import).
-  jira: ({ board, items }) => ({
+  jira: ({ board, items, jiraEstimateMapping }) => ({
     board: { name: board.title },
+    ...(jiraEstimateMapping ? {
+      wekanScrumMapping: { estimateFieldId: jiraEstimateMapping.estimateFieldId, estimateUnit: jiraEstimateMapping.estimateUnit },
+      schema: { [jiraEstimateMapping.estimateFieldId]: { type: 'number' } },
+    } : {}),
     issues: items.map((i, idx) => ({
       key: `WEKAN-${idx + 1}`,
       fields: {
@@ -139,6 +147,7 @@ const formatters = {
         description: i.description,
         status: { name: i.listTitle, ...(i.jiraScrum?.statusCategory ? { statusCategory: i.jiraScrum.statusCategory } : {}) },
         ...(i.jiraScrum?.issuetype ? { issuetype: i.jiraScrum.issuetype } : {}),
+        ...(i.jiraEstimate || {}),
         labels: i.labels,
         duedate: i.dueAt,
         ...(Object.keys(i.timetracking || {}).length ? { timetracking: i.timetracking } : {}),

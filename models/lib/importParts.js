@@ -32,6 +32,7 @@ function pruneImportDocument(doc, fields) {
     return doc;
   }
   const wanted = new Set(fields);
+  if (!wanted.has('scrum') || !wanted.has('custom-fields')) delete doc.wekanScrumMapping;
   // Jira time tracking is nested in issues rather than top-level customFields.
   // Prune both supported representations so fallback fields cannot restore a
   // value the user explicitly excluded in the existing import selector.

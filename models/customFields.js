@@ -49,6 +49,8 @@ CustomFields.attachSchema(
     'settings.jiraTimeField': {
       type: String, optional: true, allowedValues: ['original', 'remaining'],
     },
+    'settings.jiraEstimateFieldId': { type: String, optional: true, regEx: /^customfield_\d{1,20}$/ },
+    'settings.jiraEstimateUnit': { type: String, optional: true, max: 80 },
     'settings.currencyCode': {
       type: String,
       optional: true,

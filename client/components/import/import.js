@@ -277,6 +277,11 @@ Template.import.onCreated(function () {
       this.setError('');
 
       // Trello: remember the target personal-workspace name for finishImport.
+      if (dataSource === 'jira') {
+        const estimateFieldId = this.find('.js-jira-estimate-field')?.value.trim();
+        if (estimateFieldId) dataObject.wekanScrumMapping = { estimateFieldId,
+          estimateUnit: this.find('.js-jira-estimate-unit')?.value.trim() };
+      }
       this.workspaceName = '';
       if (dataSource === 'trello') {
         const wsEl = this.find('.js-import-workspace-name');
@@ -529,6 +534,7 @@ Template.importTextarea.helpers({
   isExcelImport() {
     return Session.get('importSource') === 'excel';
   },
+  isJiraImport() { return Session.get('importSource') === 'jira'; },
 });
 
 Template.importTextarea.events({

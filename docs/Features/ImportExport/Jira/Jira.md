@@ -35,6 +35,25 @@ the original numeric seconds. This preserves time totals, not
 individual worklog entries or all Jira Scrum data.
 
 
+## Explicit Scrum estimate mapping
+
+On the Jira import page, optionally enter the numeric estimate field ID
+(for example `customfield_10016`) and its unit (for example `points`). Both
+Scrum and Custom Fields must be selected. The importer uses this exact field,
+never a guessed field name or a fixed installation-specific field number.
+It creates one hidden numeric custom field and selects it as the board's Scrum
+estimate source. Scrum remains disabled and its optional fields remain hidden.
+
+The JSON equivalent is `wekanScrumMapping: { estimateFieldId:
+"customfield_10016", estimateUnit: "points" }` at the document root.
+Missing/null estimates stay unknown and explicit zero is preserved. Non-numeric,
+negative or excessive values fail before board creation. The selected field must
+occur in the issues or have a numeric entry in the root `schema`; an included
+schema entry must declare it numeric. Jira export retains the original field ID
+and mapping. Native export and board duplication retain the custom-field markers
+and remap the local estimate field. Duplicate export mappings are omitted.
+This mapping does not reconstruct historical sprint estimates or enable Sync.
+
 ## Scrum issue types and workflow categories
 
 The Jira importer maps `fields.issuetype.name` to the existing hidden Scrum
@@ -56,8 +75,8 @@ the imported file; missing keys cannot resolve to JavaScript object properties.
 
 These mappings follow the [Jira issue field representation](https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-issues/)
 and [stable status category keys](https://docs.atlassian.com/DAC/javadoc/jira/reference/com/atlassian/jira/issue/status/category/StatusCategory.html).
-Sprint snapshots, multiple fix versions, epic relationships and configurable
-story-point field mappings remain separate implementation work. In particular,
+Sprint snapshots, multiple fix versions, epic relationships and
+automatic schema mapping remain separate implementation work. In particular,
 an external sprint's current membership cannot reconstruct its original
 commitment snapshot. Native WeKan export retains imported issue types and list
 categories through the existing Scrum transfer format.

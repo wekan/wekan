@@ -52,6 +52,11 @@ template(name="importTextarea")
     else
       textarea.js-import-json(id='import-textarea' placeholder="{{_ importPlaceHolder}}" autofocus)
         | {{jsonText}}
+    if isJiraImport
+      label(for='jira-estimate-field') Jira: {{_ 'scrum-estimate'}} / {{_ 'custom-field'}}
+      input.js-jira-estimate-field(id='jira-estimate-field' type='text' placeholder='customfield_10016' maxlength='32')
+      label(for='jira-estimate-unit') {{_ 'scrum-estimate-unit'}}
+      input.js-jira-estimate-unit(id='jira-estimate-unit' type='text' maxlength='80')
     if isWekanImport
       //- #1173: a WeKan export can be a .json or a .zip - the .zip is the one to
         use when a board's attachments are too large to sit inside one JSON
