@@ -148,8 +148,8 @@ assignment invalidates an old preview. Restricted previews omit all other
 cards, including their identifiers. New shared conflict status uses generic text.
 Permissions and assignment scope are checked again after fetching. Scheduled
 Sync and manual runs by unrestricted writers retain full-list behavior.
-Archive/subtask conflicts and moved-card creation conflicts still require
-manual repair. This does not make the whole Sync run transactional or fence
+Moved-card creation conflicts still require manual repair. This does not make
+the whole Sync run transactional or fence
 already-issued card writes after lease loss. New UI strings are English source
 entries with the normal English fallback; translation filling remains outside
 the current work queue.
@@ -175,6 +175,26 @@ Assigned-only writers see only their assigned group members. A duplicate that
 is visible only across different users' assignments needs an unrestricted
 writer to review the full group. This repair does not merge card contents,
 choose arbitrary replacement IDs or resolve moved-card creation collisions.
+
+### Keep a parent whose archival is blocked
+
+When the source item disappears but active subcards outside the archive plan
+remain, Sync stops before applying the normal reconciliation plan. The popup
+offers **Keep this card local** for the affected parent. This removes only its
+Sync mapping and baseline. The parent stays intact, and no subcard is edited,
+archived, detached or deleted by this action.
+
+The choice refetches the source and checks that the same parent still has an
+archive conflict. A returned source item, removed blocker, changed parent or
+disabled archival invalidates the old preview. Subcard identifiers and content
+are not returned in the preview. Assigned-only writers can resolve their own
+assigned parents, with the assignment checked in the conditional write; full
+list reconciliation remains disabled for those callers.
+
+Sync retries afterward. Independently synced subcards retain their own source
+rules. If the source item later returns, the existing stable-ID collision guard
+preserves the detached local parent and may report a creation conflict; automatic
+replacement of moved or detached cards remains pending.
 
 ### Source identity and switching projects
 

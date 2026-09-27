@@ -2,6 +2,12 @@ const { createHash } = require('node:crypto');
 const { compareSyncCardIds } = require('../../models/lib/listSyncTextMerge');
 
 function describeSyncConflict(conflict, card, task, list, sourceKey, cards = []) {
+  if (conflict.field === 'archive' && card) {
+    const fingerprint = createHash('sha256').update(JSON.stringify([
+      list._id, list.boardId, list.syncRevision, sourceKey, conflict.field, card,
+    ])).digest('hex');
+    return { ...conflict, archive: true, local: [card.title || '', card.description || ''].filter(Boolean).join('\n\n'), fingerprint };
+  }
   if (conflict.field === 'syncExternalId') {
     const group = cards.filter(row => String(row.syncExternalId) === conflict.externalId).sort(compareSyncCardIds);
     if (!card || group.length < 2 || group[0]._id === card._id) return conflict;
@@ -28,7 +34,7 @@ function planSyncConflictResolution(conflicts, cards, tasks, list, sourceKey, re
   const card = cards.find(row => row._id === resolution.cardId);
   const task = conflict && tasks.find(row => String(row.externalId) === conflict.externalId);
   const preview = conflict && describeSyncConflict(conflict, card, task, list, sourceKey, cards);
-  if (preview?.duplicate) {
+  if (preview?.duplicate || preview?.archive) {
     if (preview.fingerprint !== resolution.fingerprint || resolution.choice !== 'detach') return null;
     return { card, changes: {}, unset: { syncExternalId: '', syncSourceType: '', syncSourceKey: '', syncLastSource: '' } };
   }

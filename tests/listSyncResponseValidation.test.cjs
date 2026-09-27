@@ -205,6 +205,35 @@ test('active subtasks outside the archive plan prevent all card writes',async()=
  assert.match(result.error,/active subtask/);assert.deepEqual(cardWrites,[]);
 });
 
+test('archive conflicts can retain a parent locally without exposing or changing its subtasks',async()=>{
+ const parent={_id:'parent',syncExternalId:'MISSING',syncSourceType:'jira',syncSourceKey:sourceKey,
+  title:'Keep parent',description:'Keep description',archived:false,syncLastSource:{title:'Keep parent'}};
+ const child={_id:'private-child',title:'Hidden child text'};
+ const execute=(options={},tasks=[],blocker=child,operations={},card=parent,count=1)=>run({issues:[]},()=>({tasks}),[card],count,blocker,undefined,operations,sourceKey,true,undefined,options);
+ const preview=await execute({previewConflicts:true});
+ assert.equal(preview.cardWrites.length,0);
+ const conflict=preview.result.conflicts[0];assert.equal(conflict.archive,true);assert.equal(conflict.cardId,'parent');
+ assert.doesNotMatch(JSON.stringify(preview.result),/private-child|Hidden child text/);
+ const resolution={cardId:conflict.cardId,field:conflict.field,fingerprint:conflict.fingerprint,choice:'detach'};
+ const result=await execute({resolution});assert.equal(result.result.resolved,true);assert.equal(result.cardWrites.length,1);
+ assert.equal(result.cardWrites[0].selector._id,'parent');
+ assert.deepEqual(Object.keys(result.cardWrites[0].modifier.$set),['dateLastActivity']);
+ assert.deepEqual(Object.keys(result.cardWrites[0].modifier.$unset).sort(),['syncExternalId','syncLastSource','syncSourceKey','syncSourceType']);
+ for(const [tasks,blocker,operations,card] of [
+  [[{externalId:'MISSING',title:'Keep parent'}],child,{},parent],
+  [[],null,{},parent], [[],child,{archiveCards:false},parent],
+  [[],child,{}, {...parent,title:'Edited parent'}], [[],child,{}, {...parent,archived:true}],
+ ]){
+  const stale=await execute({resolution},tasks,blocker,operations,card);
+  assert.match(stale.result.error,/conflict changed/);assert.equal(stale.cardWrites.length,0);
+ }
+ const scoped={previewConflicts:true,assertConflictAccess:async()=>({assignees:{$in:['member']}})};
+ const own=await execute(scoped);assert.equal(own.result.reviewOnly,true);assert.equal(own.result.conflicts[0].archive,true);
+ assert.deepEqual(own.listWrites,[]);assert.deepEqual(own.cardWrites,[]);
+ const lost=await execute({...scoped,resolution},[],child,{},parent,0);
+ assert.match(lost.result.error,/card changed/);assert.deepEqual(lost.cardWrites[0].selector.$and[1],{assignees:{$in:['member']}});
+});
+
 test('excluded source text is not updated or added to new-card baselines',async()=>{
  const {result,cardWrites}=await run({issues:[]},()=>({tasks:[{externalId:'NEW',title:'Remote',description:'Remote body'}]}),[],1,null,[]);
  assert.equal(result.created,1);assert.equal(cardWrites[0].insert.title,'Imported item');

@@ -190,6 +190,58 @@ test('duplicate mappings become local cards without content loss and stale group
   } finally { db.deleteMany('listSyncCredentials', { listId }); }
 });
 
+for (const restricted of [false, true]) test(`archive conflict keeps the parent local and leaves subtasks intact (${restricted ? 'assigned-only' : 'unrestricted'})`, async ({ page, user, board }) => {
+  const listId = db.find('lists', { boardId: board.boardId })[0]._id;
+  const members = db.findOne('boards', { _id: board.boardId }).members;
+  const projectKey = restricted ? 'ARCHIVE_SCOPED' : 'ARCHIVE_ALL';
+  await loginWithToken(page, user.id, user.token);
+  await openBoard(page, board.boardId, board.slug);
+  try {
+    await call(page, 'setListSyncSource', listId, { type: 'jira', url: base, projectKey, token: 'archive-test-token' });
+    await call(page, 'syncListNow', listId);
+    const parent = db.findOne('cards', { listId, syncExternalId: 'SAME-1' });
+    db.updateOne('cards', { _id: parent._id }, { $set: { assignees: [user.id] } });
+    const child = { ...parent, _id: `child-${parent._id}`, parentId: parent._id,
+      title: 'Private subcard title', description: 'Private subcard text', assignees: [] };
+    for (const key of ['syncExternalId', 'syncSourceType', 'syncSourceKey', 'syncLastSource']) delete child[key];
+    db.insertOne('cards', child);
+    const childBefore = db.findOne('cards', { _id: child._id });
+    if (restricted) db.updateOne('boards', { _id: board.boardId }, { $set: { members: members.map(member => member.userId === user.id
+      ? { ...member, isAdmin: false, isNormalAssignedOnly: true } : member) } });
+    emptyProjects.add(projectKey);
+    const preview = await call(page, 'syncListNow', listId);
+    expect(preview.conflicts[0]).toMatchObject({ archive: true, cardId: parent._id });
+    expect(JSON.stringify(preview)).not.toContain(child._id);
+    expect(JSON.stringify(preview)).not.toContain('Private subcard');
+    await openSync(page, listId);
+    await page.locator('.js-list-sync-now').click();
+    await expect(page.locator('.list-sync-conflict')).toContainText('Archive blocked by active subcards');
+    // The upstream item returned after the displayed preview: detaching must
+    // not silently use an outdated source-absence decision.
+    emptyProjects.delete(projectKey);
+    await page.locator('.js-resolve-sync-conflict[data-choice="detach"]').click();
+    await expect(page.locator('.pop-over .list-sync-now-error')).toContainText('conflict changed');
+    expect(db.findOne('cards', { _id: parent._id }).syncExternalId).toBe('SAME-1');
+    emptyProjects.add(projectKey);
+    await page.locator('.js-list-sync-now').click();
+    await expect(page.locator('.list-sync-conflict')).toContainText('Archive blocked by active subcards');
+    await page.locator('.js-resolve-sync-conflict[data-choice="detach"]').click();
+    await expect(page.locator('.pop-over .list-sync-now-success')).toBeVisible();
+    const after = db.findOne('cards', { _id: parent._id });
+    expect(after.title).toBe(parent.title); expect(after.archived).toBe(false);
+    expect(after.assignees).toEqual([user.id]);
+    expect(after.syncExternalId).toBeUndefined(); expect(after.syncLastSource).toBeUndefined();
+    expect(db.findOne('cards', { _id: child._id })).toEqual(childBefore);
+    expect((await call(page, 'syncListNow', listId)).error).toBeUndefined();
+    expect(db.findOne('cards', { _id: parent._id }).archived).toBe(false);
+    expect(db.findOne('cards', { _id: child._id })).toEqual(childBefore);
+  } finally {
+    emptyProjects.delete(projectKey);
+    db.updateOne('boards', { _id: board.boardId }, { $set: { members } });
+    db.deleteMany('listSyncCredentials', { listId });
+  }
+});
+
 test('assigned-only writers resolve their own conflicts without reading or changing other Sync cards', async ({ page, user, board }) => {
   const listId = db.find('lists', { boardId: board.boardId })[0]._id;
   const members = db.findOne('boards', { _id: board.boardId }).members;

@@ -138,7 +138,7 @@ Meteor.methods({
 
   async resolveListSyncConflict(listId, resolution) {
     check(listId, String);
-    check(resolution, { cardId: String, field: Match.OneOf('title', 'description', 'spentTime', 'syncExternalId'),
+    check(resolution, { cardId: String, field: Match.OneOf('title', 'description', 'spentTime', 'syncExternalId', 'archive'),
       choice: Match.OneOf('local', 'source', 'detach'), fingerprint: String });
     if (!/^[a-f0-9]{64}$/.test(resolution.fingerprint)) throw new Meteor.Error('invalid-sync-conflict');
     const list = await Lists.findOneAsync(listId);

@@ -3527,5 +3527,8 @@
   "sync-conflict-duplicate": "Duplicate Sync mapping",
   "sync-conflict-keep-mapping": "This card will stay synced",
   "sync-conflict-detach": "Keep duplicate as a local card",
-  "sync-conflict-detach-hint": "Remove only this duplicate’s Sync mapping. Its content stays in WeKan."
+  "sync-conflict-detach-hint": "Remove only this duplicate’s Sync mapping. Its content stays in WeKan.",
+  "sync-conflict-archive": "Archive blocked by active subcards",
+  "sync-conflict-archive-hint": "The source item is gone, but active subcards prevent archival. Keep this card locally by removing its Sync mapping. Subcards are not changed.",
+  "sync-conflict-keep-card-local": "Keep this card local"
 }

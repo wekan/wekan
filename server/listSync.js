@@ -126,8 +126,22 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
   }));
 
   const merge = planSyncTextMerge(externalTasks, existingCards);
+  const plan = merge.conflicts.length ? null : planListSyncReconcile({ externalTasks: merge.tasks, existingCards });
+  const archiveConflicts = [];
+  if (plan) {
+    if (source.createCards === false) plan.toCreate = [];
+    if (source.archiveCards === false) plan.toArchive = [];
+    const byId = new Map(existingCards.map(card => [card._id, card]));
+    // Inspect before any writes, including for assigned-only review. Do not
+    // reveal subtask identifiers/content: only the visible parent is returned.
+    for (const cardId of plan.toArchive) {
+      if (await Cards.findOneAsync({ parentId: cardId, archived: { $ne: true }, _id: { $nin: plan.toArchive } },
+        { fields: { _id: 1 } })) archiveConflicts.push({ cardId, externalId: String(byId.get(cardId).syncExternalId), field: 'archive' });
+    }
+  }
+  const conflicts = merge.conflicts.length ? merge.conflicts : archiveConflicts;
   if (resolution) {
-    const plan = planSyncConflictResolution(merge.conflicts, existingCards, externalTasks, list, sourceKey, resolution);
+    const plan = planSyncConflictResolution(conflicts, existingCards, externalTasks, list, sourceKey, resolution);
     if (!plan) return { error: 'This conflict changed. Run Sync again to review the current values.' };
     const currentScope = assertConflictAccess ? await assertConflictAccess() : null;
     await assertCurrent();
@@ -139,12 +153,14 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
       { $set: { ...plan.changes, dateLastActivity: new Date() }, ...(plan.unset ? { $unset: plan.unset } : {}) });
     return changed ? { resolved: true } : { error: 'The card changed. Run Sync again to review the current values.' };
   }
-  if (merge.conflicts.length) {
+  if (conflicts.length) {
     // This status is published with the list, including to assigned-only
     // members. Put card identifiers and values only in the scoped response.
-    const error = merge.conflicts.some(row => row.field === 'syncExternalId')
-      ? 'Duplicate local Sync identity. Resolve duplicate card mappings before retrying.'
-      : 'Sync text conflict. Review the conflicting values in the Sync popup.';
+    const error = archiveConflicts.length
+      ? 'Sync archive conflict: an active subtask is not in the source archive plan.'
+      : conflicts.some(row => row.field === 'syncExternalId')
+        ? 'Duplicate local Sync identity. Resolve duplicate card mappings before retrying.'
+        : 'Sync text conflict. Review the conflicting values in the Sync popup.';
     await assertCurrent();
     if (!conflictScope) await Lists.updateAsync(listSelector, { $set: { 'syncSource.lastSyncError': error } });
     const cardsById = new Map(existingCards.map(card => [card._id, card]));
@@ -153,31 +169,16 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
       const currentScope = await assertConflictAccess();
       if (JSON.stringify(currentScope) !== JSON.stringify(conflictScope)) return { error: 'Your card access changed. Run Sync again.' };
     }
-    return { error, reviewOnly: !!conflictScope, conflicts: merge.conflicts.slice(0, 50).map(conflict => previewConflicts ? describeSyncConflict(conflict,
+    return { error, reviewOnly: !!conflictScope, conflicts: conflicts.slice(0, 50).map(conflict => previewConflicts ? describeSyncConflict(conflict,
       cardsById.get(conflict.cardId), tasksById.get(conflict.externalId), list, sourceKey, existingCards) : conflict) };
   }
   if (conflictScope) return { reviewOnly: true, conflicts: [] };
-  const plan = planListSyncReconcile({ externalTasks: merge.tasks, existingCards });
-  // Apply operation selection before preflight, writes and result counts.
-  // Missing switches retain the behavior of existing configurations.
-  if (source.createCards === false) plan.toCreate = [];
-  if (source.archiveCards === false) plan.toArchive = [];
   const updatesByCard = new Map(plan.toUpdate.map(row => [row.cardId, row]));
   const existingById = new Map(existingCards.map(card => [card._id, card]));
   for (const [cardId, baseline] of merge.baselines) {
     let update = updatesByCard.get(cardId);
     if (!update) { update = { cardId, changes: {} }; plan.toUpdate.push(update); }
     update.changes.syncLastSource = baseline;
-  }
-
-  // Do not recursively archive independent local work through a synced parent.
-  for (const cardId of plan.toArchive) {
-    if (await Cards.findOneAsync({ parentId: cardId, archived: { $ne: true }, _id: { $nin: plan.toArchive } })) {
-      const error = 'Sync archive conflict: an active subtask is not in the source archive plan.';
-      await assertCurrent();
-      await Lists.updateAsync(listSelector, { $set: { 'syncSource.lastSyncError': error } });
-      return { error };
-    }
   }
 
   const board = await Boards.findOneAsync(list.boardId);
