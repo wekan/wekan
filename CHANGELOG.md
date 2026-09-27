@@ -261,6 +261,8 @@ Real MongoDB and Chromium cover multiple fields, missing fields and inequality.
 Grouped filters and whole-expression negation now use valid database selectors.
 Incomplete expressions are rejected before rule queries; sidebar fallback and
 left-to-right logical order are covered in Node, MongoDB and Chromium tests.
+Numeric conditions now retain decimal boundaries and reject partial numeric
+strings; currency-filter and rule regressions cover fractional values.
 Writes across documents are not transactional; concurrent-write recovery and
 failed-creation orphan cleanup
 still require work. The combined checkpoint passed 45 Node runner checks and
@@ -989,6 +991,30 @@ source/dependency audit passes with advisory warnings. Four changelog suites
 pass; the existing released v12.07 line-length failure remains. Other browsers
 and FerretDB were not exercised. Durable rule delivery and transactions remain
 in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/43bf737e3">Preserve decimal boundaries in filters and rules</a>. Thanks to xet7.</summary>
+
+Integer-prefix conversion truncated decimal estimates and currency thresholds:
+a greater-than 2.5 rule compared against 2 instead. Parse complete finite
+decimal tokens, preserving fractional values, signs and exponent notation.
+Do not coerce literal text such as 2hours to 2 or add NaN to equality queries.
+Text and dropdown equality remain supported; invalid numeric ranges are
+rejected before queries and retain the sidebar's last valid filter.
+
+Four Node suites pass, including real MongoDB fractional, negative, exponent
+and text comparisons alongside existing date and grouped-filter checks. Four
+Chromium scenarios pass. The currency scenario updates real card values to
+2.25, 2.5 and 2.75, checks strict rule boundaries, rejects a malformed numeric
+rule and exercises equality, inequality, all ranges and exponent notation in
+the sidebar. Existing mapped-estimate Sync and checkbox activity tests pass.
+
+The offline source/dependency audit passes with advisory warnings. Four
+changelog suites pass; the existing released v12.07 line-length failure remains.
+Other browsers and FerretDB were not exercised. Durable rule delivery and
+transactional changes remain in TODO Later.
 
 </details>
 
