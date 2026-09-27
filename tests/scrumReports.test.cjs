@@ -24,7 +24,7 @@ test('Excel and PDF rows retain numeric unknown counts without substituting zero
  const {chartExportRows}=require('../models/lib/chartExportRows');
  const report=sprintReport({name:'Sprint 1',startSnapshot:{unit:'points',cards:[{cardId:'x',estimate:null}]},closeSnapshot:{unit:'points',cards:[{cardId:'x',estimate:null,done:true}]}});
  const table=chartExportRows('scrumVelocity',{reports:[report]});
- assert.equal(table.headers.length,18);
+ assert.equal(table.headers.length,24);
  assert.deepEqual(table.rows[0].slice(0,8),['Sprint 1','points',1,0,1,1,0,1]);
  assert.equal(chartExportRows('scrumSprint',{reports:[]}).rows.length,0);
 });
@@ -114,8 +114,8 @@ test('planned working days use the recorded UTC calendar, preserving unknown and
  const report=sprintReport({plannedStart:'2026-09-21',plannedEnd:'2026-09-27',startSnapshot:{workingDays:[1,3,5],cards:[]},closeSnapshot:{workingDays:[1,2,3,4,5],cards:[]}});
  assert.equal(report.plannedWorkingDays,3);
  const {chartExportRows}=require('../models/lib/chartExportRows');
- assert.equal(chartExportRows('scrumSprint',{reports:[report]}).rows[0].at(-1),3);
- assert.equal(chartExportRows('scrumSprint',{reports:[sprintReport({})]}).rows[0].at(-1),'');
+ assert.equal(chartExportRows('scrumSprint',{reports:[report]}).rows[0][17],3);
+ assert.equal(chartExportRows('scrumSprint',{reports:[sprintReport({})]}).rows[0][17],'');
 });
 
 test('snapshot calendar is copied independently from current settings',()=>{
@@ -124,4 +124,39 @@ test('snapshot calendar is copied independently from current settings',()=>{
  const snapshot=sprintSnapshot([],settings,[]);
  settings.workingDays.push(7);
  assert.deepEqual(snapshot.workingDays,[1,3,5]);
+});
+
+test('exports preserve policy context and completed original commitment estimates',()=>{
+ const {chartExportRows}=require('../models/lib/chartExportRows');
+ const report=sprintReport({name:'Context',startSnapshot:{cards:[{cardId:'original',estimate:2},{cardId:'unknown',estimate:null}]},closeSnapshot:{estimateSource:'customField',estimateCustomFieldId:'field-id',completionPolicy:'doneLists',cards:[{cardId:'original',estimate:8,done:true},{cardId:'unknown',estimate:5,done:true},{cardId:'added',estimate:10,done:true}]}});
+ for(const key of ['scrumSprint','scrumVelocity']){
+  const table=chartExportRows(key,{reports:[report]});
+  assert.equal(table.headers.length,table.rows[0].length);
+  assert.deepEqual(table.rows[0].slice(18),['customField','field-id','doneLists',2,2,1]);
+  assert.equal(report.completed.estimate,23);
+ }
+ const legacy=chartExportRows('scrumSprint',{reports:[sprintReport({})]}).rows[0];
+ assert.deepEqual(legacy.slice(18,21),['','','']);
+});
+
+test('Scrum PDF renders every metric as wrapped labels while other charts keep tables',async()=>{
+ const fs=require('node:fs');
+ const {line,tableRow,wrapTextBlock,TEXT_WIDTH}=await import('../models/lib/pdfDocument.js');
+ const source=fs.readFileSync('models/server/ExporterChartPDF.js','utf8');
+ const start=source.indexOf("    if (['scrumVelocity', 'scrumSprint'].includes(this._chartKey)) {");
+ const end=source.indexOf('    if (!rows.length)',start);
+ assert.ok(start>=0&&end>start);
+ const render=new Function('headers','rows','lines','line','tableRow','wrapTextBlock',source.slice(start,end)+';return lines;');
+ const headers=['Sprint','Completion policy','Unknown estimate'];
+ const rows=[['A long sprint name '.repeat(15),'doneLists',0]];
+ for(const key of ['scrumVelocity','scrumSprint']){
+  const result=render.call({_chartKey:key},headers,rows,[],line,tableRow,wrapTextBlock);
+  assert.ok(result.every(row=>!row.tableCells));
+  assert.ok(result.every(row=>!row.text||row.text.length<=TEXT_WIDTH));
+  assert.ok(result.some(row=>row.text==='Completion policy: doneLists'));
+  assert.ok(result.some(row=>row.text==='Unknown estimate: 0'));
+  assert.ok(result.filter(row=>row.bold).length>1);
+ }
+ const other=render.call({_chartKey:'burndown'},headers,rows,[],line,tableRow,wrapTextBlock);
+ assert.equal(other.length,2);assert.equal(other[0].tableHeader,true);
 });

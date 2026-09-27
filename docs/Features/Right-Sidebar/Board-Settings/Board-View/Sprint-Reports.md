@@ -15,6 +15,14 @@ see. Those partial reports must not be treated as whole-team totals.
 
 The Export action uses the existing chart export popup and produces Excel or
 PDF with the same report data and requesting user's access restrictions.
+Exports retain the snapshot estimate source, custom-field identifier and
+completion policy as stable identifiers. They also include the count, original
+estimate total and unknown-estimate count for completed original commitments.
+That subtotal excludes work added after sprint start and uses start estimates,
+whereas the general completed total uses close-snapshot estimates. These columns
+make changing estimates and unlike completion policies visible outside WeKan.
+Excel uses columns. PDF prints wrapped labelled values for each sprint so the
+wide set of metrics does not get clipped into narrow columns.
 Historical daily burndown integration remains work listed in
 [the Scrum design](Scrum-Design.md).
 

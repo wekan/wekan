@@ -62,6 +62,11 @@ test('Scrum menus plan work, retain closed snapshots and export Excel/PDF',async
   const workbook=new Excel.Workbook();await workbook.xlsx.load(await excel.body());
   expect(workbook.worksheets[0].getCell('A3').value).toBe('Browser sprint');
   expect(workbook.worksheets[0].getCell('R3').value).toBe(4);
+  expect(workbook.worksheets[0].getCell('S3').value).toBe('poker');
+  expect(workbook.worksheets[0].getCell('U3').value).toBe('dueComplete');
+  expect(workbook.worksheets[0].getCell('V3').value).toBe(1);
+  expect(workbook.worksheets[0].getCell('W3').value).toBe(3);
+  expect(workbook.worksheets[0].getCell('X3').value).toBe(0);
   const pdf=await request.get(`/api/boards/${board.boardId}/charts/scrumSprint/exportPDF?authToken=${encodeURIComponent(user.token)}&sprintId=${sprint._id}`);
   expect(pdf.status()).toBe(200);expect((await pdf.body()).subarray(0,4).toString()).toBe('%PDF');
   await view(page,'sprint-report');
