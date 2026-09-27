@@ -643,6 +643,21 @@ recorded positive, negative and UI regression coverage.
 Also adds the following feature:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/539aef4aa">Save rule configuration changes in reversible board history</a>. Thanks to xet7.</summary>
+
+Rule creation, edits, enabled state and deletion record snapshots containing
+the rule, trigger and action. Compound edits produce one history entry.
+Existing History can undo, redo and restore these changes; restoration checks
+current board-admin access and action destination permissions. Stale undo
+requests cannot overwrite another administrator's newer configuration.
+
+Three Chromium scenarios cover lifecycle undo/redo, ordinary-member rejection
+and conflicting edits. Existing history, rule and undo suites also pass.
+This reuses board history rather than adding an independent audit store.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d273b86ed">Edit IFTTT rules with locally loaded Blockly blocks</a>. Thanks to xet7.</summary>
 
 Board administrators can drag, edit and save rule blocks using the existing
