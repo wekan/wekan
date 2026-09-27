@@ -138,11 +138,15 @@ Creation conflicts stop the run and appear in the existing Sync popup.
 Scheduled/manual Sync and settings saves now share renewable per-list database
 reservations. Competing requests report busy; expired reservations can be
 reclaimed, and the previous owner stops at its next ownership check.
+Settings and an immutable private credential version now activate through one
+conditional list update. Interrupted saves retain the old or new pair; stale
+saves and delayed cleanup cannot replace a newer configuration's credential.
 Remaining: external sprint histories without invented snapshots, multiple
 release assignments, epic relationships, automatic field/schema mapping,
 Trello and other Scrum adapters, mapping previews/loss reporting, planning and
-estimate Sync, durable restart checkpoints, fencing of in-flight writes after
-lease loss, atomic concurrent jobs and configuration/credential changes,
+estimate Sync, durable restart checkpoints, fencing of in-flight card writes
+after lease loss, atomic multi-card reconciliation, safe automatic cleanup of
+unselected credential versions after interrupted saves,
 and conflict-resolution UI. Changes during card writes remain nontransactional.
 See [Jira](docs/Features/ImportExport/Jira/Jira.md) and
 [Sync](docs/Features/ImportExport/Sync.md).
@@ -739,8 +743,36 @@ project. Changing projects preserves the previous project's cards and requires
 a credential for the new source. Concurrent creation attempts no longer create
 duplicate new Sync cards.
 Sync runs and settings saves also share a renewable per-list reservation.
+Settings and their private credential version activate together.
 
 This release improves list synchronization:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/81876bfa3">Keep Sync settings and credentials consistent across interrupted saves</a>. Thanks to xet7.</summary>
+
+Stage each credential as an immutable private version, then select that version
+and the public settings together in one conditional list update. A stop before
+activation retains the previous pair; a stop afterward leaves the new pair
+usable even when cleanup or acknowledgement fails. Clearing advances the
+revision too, so an older save cannot match a previous empty configuration.
+Cleanup targets the superseded version only. Readers never adopt an unfinished
+credential save as a fallback. Adopt legacy credentials on a same-source save.
+
+Thirteen focused Node suites pass with real MongoDB tests enabled, including
+injected interruptions before/after activation, lost acknowledgement, concurrent
+writers, delayed clear cleanup, stale saves and missing versions. Twelve
+Chromium scenarios pass, including source switching, legacy adoption, settings
+exclusion, moved-card recovery, permissions and ignoring an unfinished token.
+Existing Upcoming regression coverage and the local release audit pass.
+FerretDB, Firefox, WebKit and live providers were not tested. The pre-existing
+released-entry changelog format failure remains.
+
+Upgrade all processes that save Sync settings together; older code does not
+honor immutable credential revisions. Automatic cleanup of unselected versions
+left by interrupted saves, durable reconciliation checkpoints and atomic card
+writes remain in TODO Later.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4d8ce7754">Coordinate Sync runs and settings saves across server processes</a>. Thanks to xet7.</summary>
@@ -761,9 +793,10 @@ passes separately. Existing Upcoming behavior retains its regression coverage.
 The local release audit passes. FerretDB, Firefox, WebKit and live providers
 were not tested. The known released-entry changelog format failure remains.
 
-This is not a durable job queue or a multi-document transaction. Recovery from
-partial settings/credential writes, fencing already-issued writes after lease
-loss and persisted reconciliation checkpoints remain in TODO Later.
+This is not a durable job queue or a multi-document transaction. Fencing
+already-issued card writes after lease loss and persisted reconciliation
+checkpoints remain in TODO Later. Credential activation recovery is covered by
+the later settings-version change above.
 
 </details>
 
