@@ -198,6 +198,12 @@ so a recreated list cannot activate an old token or lose its new one to delayed
 cleanup. Malformed or exhausted counters are repaired by the sweep or an
 ordinary settings save. Unselected malformed versions are retired by identity;
 all writers must upgrade together.
+Scheduled Sync now runs as the account that saved the selected private
+credential version. Fresh account and full-list permission checks run before
+fetching and at guarded writes, and normal hooks receive that author. Existing
+configurations require one settings save to authorize scheduling; missing,
+disabled or no-longer-authorized accounts stop with a visible Sync error.
+This supplies attribution and access checks, not durable event completion.
 The Sync popup now compares conflicting title, description and spent-time
 values. Board writers can retain the local value or select the source value;
 fresh comparisons and conditional writes reject stale choices. Assigned-only
@@ -1470,6 +1476,34 @@ the pre-existing overlong line in released v12.07.
 This verification and cleanup sequence is not a cross-document transaction.
 Coordinated fencing of in-flight writers, atomic original writes/History and
 automatic startup replay remain in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a00c009ba">Attribute scheduled Sync to its authorizing account</a>. Thanks to xet7.</summary>
+
+Store the authenticated settings saver's ID in the immutable private credential
+version. Scheduled Sync enters that user's context so normal History and
+activity hooks have an author. Before fetching and at guarded writes, recheck
+that the account exists, login is enabled and current board permissions allow
+full-list writes. Assigned-only access cannot authorize a scheduled full-list
+run. Clients cannot supply another author through the settings method.
+
+After upgrading, save existing Sync settings once to authorize scheduling.
+Versions without an author stop and display a Sync error. Removed/disabled
+accounts and revoked permissions also stop; saving with an authorized account
+resumes scheduled work. Manual runs retain their current invoking-user checks.
+Stable version selection keeps the author and token together across saves.
+
+Twenty-one focused Sync Node suites pass with MongoDB. Production-path tests
+verify attributed writes, missing/disabled/revoked accounts and revocation
+during fetching; the real database checks the private saved author. All
+twenty-five Sync Chromium scenarios pass, including settings persistence and
+rejection of a client-selected author. The offline audit passes with advisory
+fingerprints. Existing Upcoming regression evidence remains with its entries.
+
+These checks do not fence in-flight writes or make History, card mutations,
+activities and notification delivery atomic. Durable integration remains open.
 
 </details>
 
