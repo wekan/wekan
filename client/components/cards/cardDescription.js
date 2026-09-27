@@ -22,13 +22,6 @@ Template.descriptionForm.events({
     // warning does not stick around after saving.
     UnsavedEdits.reset({ fieldName: 'cardDescription', docId: this._id });
   },
-  // Pressing Ctrl+Enter should submit the form
-  'keydown form textarea'(evt, tpl) {
-    if (evt.keyCode === 13 && (evt.metaKey || evt.ctrlKey)) {
-      const submitButton = tpl.find('button[type=submit]');
-      if (submitButton) {
-        submitButton.click();
-      }
-    }
-  },
+  // Keyboard submission belongs to the enclosing inlinedCardDescription,
+  // which owns the Save button; this nested template contains only the editor.
 });

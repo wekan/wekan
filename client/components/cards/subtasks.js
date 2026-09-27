@@ -1,3 +1,4 @@
+import { isSubmitKey } from '/models/lib/editorSubmitKey';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import Cards from '/models/cards';
@@ -90,11 +91,11 @@ Template.subtasks.events({
   'click .js-add-existing-subtask'(event, tpl) {
     Popup.open('addExistingSubtask').call(this, event);
   },
-  keydown(event) {
-    //If user press enter key inside a form, submit it
-    //Unless the user is also holding down the 'shift' key
-    if (event.keyCode === 13 && !event.shiftKey) {
+  'keydown textarea'(event) {
+    // Follow the shared editor shortcut, leaving newline keys untouched.
+    if (isSubmitKey(event, { submitOnEnter: !!ReactiveCache.getCurrentUser()?.hasSubmitOnEnter?.() })) {
       event.preventDefault();
+      event.stopPropagation();
       const $form = $(event.currentTarget).closest('form');
       $form.find('button[type=submit]').click();
     }

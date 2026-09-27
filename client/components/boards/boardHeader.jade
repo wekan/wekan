@@ -247,7 +247,7 @@ template(name="boardChangeTitlePopup")
   form
     label
       | {{_ 'title'}}
-      input.js-board-name(type="text" value=title autofocus dir="auto")
+      textarea.js-board-name(rows="2" autofocus dir="auto")= title
     label
       | {{_ 'description'}}
       textarea.js-board-desc(dir="auto")= description

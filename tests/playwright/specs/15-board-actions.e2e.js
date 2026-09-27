@@ -131,7 +131,7 @@ test.describe('Board-level actions', () => {
     const pop = boardPage.locator('.js-pop-over');
     await expect(pop).toBeVisible();
     const renamedTitle = `Renamed ${board.boardId}`;
-    await pop.locator('input.js-board-name').fill(renamedTitle);
+    await pop.locator('.js-board-name').fill(renamedTitle);
     await pop.locator('input[type=submit]').click();
     await expect.poll(() => db.findOne('boards', { _id: board.boardId }).title)
       .toBe(renamedTitle);

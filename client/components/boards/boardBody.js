@@ -1388,7 +1388,7 @@ Template.calendarView.helpers({
         modalElement.setAttribute('role', 'dialog');
         modalElement.innerHTML = `
         <div class="modal-dialog justify-content-center align-items-center" role="document">
-          <div class="modal-content">
+          <div class="modal-content" data-editor-scope>
             <div class="modal-header">
               <h5 class="modal-title">${TAPi18n.__('r-create-card')}</h5>
               <button type="button" class="close calendar-create-close" data-dismiss="modal" aria-label="Close">
@@ -1396,7 +1396,7 @@ Template.calendarView.helpers({
               </button>
             </div>
             <div class="modal-body text-center">
-              <input type="text" class="form-control" id="card-title-input" placeholder="">
+              <textarea rows="2" class="form-control" id="card-title-input" data-editor-submit="#create-card-button"></textarea>
             </div>
             <div class="modal-footer">
               <button type="button" class="primary confirm" id="create-card-button">${TAPi18n.__('add-card')}</button>

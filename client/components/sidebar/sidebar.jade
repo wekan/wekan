@@ -449,7 +449,7 @@ template(name="outgoingWebhooksPopup")
       a.flex.js-toggle-webhook-enabled
         .materialCheckBox(class="{{#unless enabled}}is-checked{{/unless}}")
         span {{_ 'disable-webhook'}}
-      input.js-outgoing-webhooks-title(placeholder="{{_ 'webhook-title'}}" type="text" name="title" value=title)
+      textarea.js-outgoing-webhooks-title(rows="2" placeholder="{{_ 'webhook-title'}}" name="title")= title
       input.js-outgoing-webhooks-url(type="text" name="url" value=url)
       input.js-outgoing-webhooks-token(placeholder="{{_ 'webhook-token' }}" type="text" value=token name="token")
       select.js-outgoing-webhooks-type(name="type")
@@ -462,7 +462,7 @@ template(name="outgoingWebhooksPopup")
       input(type="hidden" value=_id name="id")
       input.primary.wide(type="submit" value="{{_ 'save'}}")
   form.integration-form
-    input.js-outgoing-webhooks-title(placeholder="{{_ 'webhook-title'}}" type="text" name="title")
+    textarea.js-outgoing-webhooks-title(rows="2" placeholder="{{_ 'webhook-title'}}" name="title")
     input.js-outgoing-webhooks-url(placeholder="{{_ 'URL' }}" type="text" name="url")
     input.js-outgoing-webhooks-token(placeholder="{{_ 'webhook-token' }}" type="text" name="token")
     select.js-outgoing-webhooks-type(name="type")
@@ -711,7 +711,7 @@ template(name="wipLimitGroupsPopup")
     each wipLimitGroups
       form.wip-limit-group(data-id="{{_id}}")
         .wip-limit-group-name
-          input.js-wip-limit-group-name(type="text" value="{{name}}" placeholder="{{_ 'wip-limit-group-name-placeholder'}}")
+          textarea.js-wip-limit-group-name(rows="2"  placeholder="{{_ 'wip-limit-group-name-placeholder'}}")= name
         .wip-limit-group-lists
           each boardLists
             label.flex

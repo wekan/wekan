@@ -84,6 +84,15 @@ test('submitOnEnter defaults off: explicit false and omitted both require Ctrl/C
   assert.strictEqual(isSubmitKey({ keyCode: 13 }), false);
 });
 
+test('composition, consumed autocomplete events and non-Enter keys never submit', () => {
+  for (const submitOnEnter of [false, true]) {
+    for (const extra of [{ isComposing: true }, { originalEvent: { isComposing: true } },
+      { keyCode: 229 }, { defaultPrevented: true }, { isDefaultPrevented: () => true }]) {
+      assert.equal(isSubmitKey({ key: 'Enter', ctrlKey: true, ...extra }, { submitOnEnter }), false);
+    }
+  }
+});
+
 console.log(`\n${passed} tests passed`);
 
 })().catch(e => { console.error(e); process.exit(1); });

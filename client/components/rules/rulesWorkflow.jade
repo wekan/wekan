@@ -25,8 +25,8 @@ template(name="rulesWorkflow")
               a.workflow-slot-clear.js-clear-then(title="{{_ 'r-remove'}}") &#10005;
           else
             span.workflow-slot-placeholder {{_ 'r-action'}}: {{_ 'r-drop-action'}}
-      .workflow-builder-controls
-        input.js-workflow-rule-title(type=text placeholder="{{_ 'r-new-rule-name'}}")
+      .workflow-builder-controls(data-editor-scope)
+        textarea.js-workflow-rule-title(rows="2" data-editor-submit=".js-create-workflow-rule" placeholder="{{_ 'r-new-rule-name'}}")
         button.primary.js-create-workflow-rule(disabled=createDisabled)
           i.fa.fa-plus
           | {{_ 'r-add-rule'}}

@@ -1,5 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import Rules from '/models/rules';
+import { isSubmitKey } from '/models/lib/editorSubmitKey';
 
 function boardRuleIds() {
   const boardId = Session.get('currentBoard');
@@ -90,7 +91,9 @@ Template.rulesList.events({
     tpl.editingRuleId.set(this._id);
   },
   'keydown .js-edit-rule-input'(event, tpl) {
-    if (event.key === 'Enter') {
+    if (isSubmitKey(event, { submitOnEnter: !!ReactiveCache.getCurrentUser()?.hasSubmitOnEnter?.() })) {
+      event.preventDefault();
+      event.stopPropagation();
       const title = event.currentTarget.value.trim();
       if (title) Rules.update(this._id, { $set: { title } });
       tpl.editingRuleId.set(null);

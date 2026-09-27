@@ -19,7 +19,10 @@
 // Meteor-free and unit tested. The caller passes the current user's preference
 // as opts.submitOnEnter so this stays a pure function.
 function isSubmitKey(event, opts = {}) {
-  if (!event) return false;
+  // Enter used to finish an IME composition or select a mention is not Save.
+  if (!event || event.defaultPrevented || event.isComposing ||
+      event.originalEvent?.isComposing || event.keyCode === 229 ||
+      event.isDefaultPrevented?.()) return false;
   const isEnter = event.keyCode === 13 || event.key === 'Enter';
   if (!isEnter) return false;
   if (opts.submitOnEnter) {

@@ -491,14 +491,14 @@ template(name="addWorkspacePopup")
   form.js-add-workspace-form
     label
       | {{_ 'allboards.add-workspace-prompt'}}
-      input.js-new-workspace-name(type="text" autocomplete="off" autofocus required)
+      textarea.js-new-workspace-name(rows="2" autocomplete="off" autofocus required)
     input.primary.wide(type="submit" value="{{_ 'allboards.add-workspace'}}")
 
 template(name="workspaceActionsPopup")
   form.workspace-actions-form.js-workspace-actions-form(data-id="{{id}}")
     label
       | {{_ 'allboards.edit-workspace-name'}}
-      input.js-workspace-name(type="text" value="{{workspaceName}}" required)
+      textarea.js-workspace-name(rows="2" required)= workspaceName
     label
       | {{_ 'allboards.edit-workspace-icon'}}
       input.js-workspace-icon(type="text" value="{{workspaceIcon}}")
@@ -507,7 +507,7 @@ template(name="workspaceActionsPopup")
   form.workspace-subspace-form.js-workspace-subspace-form(data-id="{{id}}")
     label
       | {{_ 'allboards.add-subworkspace-prompt'}}
-      input.js-subworkspace-name(type="text")
+      textarea.js-subworkspace-name(rows="2")
     button.primary.wide(type="submit") {{_ 'allboards.add-subworkspace'}}
   hr
   .workspace-delete-block

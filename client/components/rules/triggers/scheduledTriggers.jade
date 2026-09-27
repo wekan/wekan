@@ -1,5 +1,5 @@
 template(name="scheduledTriggers")
-  div.trigger-item#trigger-scheduled
+  div.trigger-item#trigger-scheduled(data-editor-scope)
     div.trigger-content
       div.trigger-text
         | {{_'r-when-scheduled'}}
@@ -38,7 +38,7 @@ template(name="scheduledTriggers")
       div.trigger-text
         | {{_'r-of-cards-in-list'}}
       div.trigger-dropdown
-        input#schedule-list-name(type=text placeholder="{{_'r-list-name'}}")
+        textarea#schedule-list-name(rows="2" data-editor-submit=".js-goto-action, .js-goto-rules" placeholder="{{_'r-list-name'}}")
     button.trigger-button.js-add-scheduled-trigger.js-goto-action(type="button" aria-label="{{_ 'r-add-trigger'}}")
       i.fa.fa-plus(aria-hidden="true")
 
@@ -62,12 +62,12 @@ template(name="scheduledTriggers")
     button.trigger-button.js-add-due-trigger.js-goto-action(type="button" aria-label="{{_ 'r-add-trigger'}}")
       i.fa.fa-plus(aria-hidden="true")
 
-  div.trigger-item#trigger-aging
+  div.trigger-item#trigger-aging(data-editor-scope)
     div.trigger-content
       div.trigger-text
         | {{_'r-when-card-in-list'}}
       div.trigger-dropdown
-        input#aging-list-name(type=text placeholder="{{_'r-list-name'}}")
+        textarea#aging-list-name(rows="2" data-editor-submit=".js-goto-action, .js-goto-rules" placeholder="{{_'r-list-name'}}")
       div.trigger-text
         | {{_'r-for-n-days'}}
       div.trigger-dropdown

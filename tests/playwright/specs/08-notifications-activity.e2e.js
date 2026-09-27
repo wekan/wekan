@@ -240,6 +240,7 @@ for (const authenticationMethod of ['password', 'ldap']) {
     db.updateOne('boards', { _id: board.boardId }, {
       $push: { members: { userId: user2.id, isActive: true, isAdmin: false } },
     });
+    db.updateOne('users', { _id: user.id }, { $set: { 'profile.submitOnEnter': true } });
     await loginWithToken(boardPage, user.id, user.token);
     await openBoard(boardPage, board.boardId, board.slug);
     const bp = new BoardPage(boardPage);

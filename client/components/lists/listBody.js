@@ -1,3 +1,4 @@
+import { isSubmitKey } from '/models/lib/editorSubmitKey';
 import { titleSortIndexes } from '/models/lib/multilineTitles';
 import { titlesFromComposer } from '/client/components/forms/multilineTitleChoice';
 import { ReactiveCache } from '/imports/reactiveCache';
@@ -871,9 +872,10 @@ Template.addCardForm.onCreated(function () {
   };
 
   this.pressKey = (evt) => {
-    // Pressing Enter should submit the card
-    if (evt.keyCode === 13 && !evt.shiftKey) {
+    // The current user preference determines whether Enter submits.
+    if (isSubmitKey(evt, { submitOnEnter: !!ReactiveCache.getCurrentUser()?.hasSubmitOnEnter?.() })) {
       evt.preventDefault();
+      evt.stopPropagation();
       const $form = $(evt.currentTarget).closest('form');
       // XXX For some reason $form.submit() does not work (it's probably a bug
       // of blaze-component related to the fact that the submit event is non-

@@ -44,7 +44,7 @@ template(name="editTranslationPopup")
       input.js-translation-text(type="text" value=translation.text required readonly)
     label
       | {{_ 'translation-text'}}
-      input.js-translation-translation-text(type="text" value=translation.translationText)
+      textarea.js-translation-translation-text(rows="2")= translation.translationText
     hr
     div.buttonsContainer
       input.primary.wide(type="submit" value="{{_ 'save'}}")
@@ -61,7 +61,7 @@ template(name="newTranslationPopup")
       input.js-translation-text(type="text" value="" required)
     label
       | {{_ 'translation-text'}}
-      input.js-translation-translation-text(type="text" value="")
+      textarea.js-translation-translation-text(rows="2")
     hr
     div.buttonsContainer
       input.primary.wide(type="submit" value="{{_ 'save'}}")

@@ -12,7 +12,7 @@ template(name="boardActions")
     button.trigger-button.js-add-gen-move-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
       i.fa.fa-plus(aria-hidden="true")
 
-  div.trigger-item
+  div.trigger-item(data-editor-scope)
     div.trigger-content
       div.trigger-text
         | {{_'r-move-card-to'}}
@@ -33,11 +33,11 @@ template(name="boardActions")
       div.trigger-text
         | {{_'r-in-list'}}
       div.trigger-dropdown
-        input(id="listName",type=text,placeholder="{{_'r-name'}}")
+        textarea(rows="2" data-editor-submit=".js-goto-action, .js-goto-rules" id="listName",placeholder="{{_'r-name'}}")
       div.trigger-text
         | {{_'r-in-swimlane'}}
       div.trigger-dropdown
-        input(id="swimlaneName",type=text,placeholder="{{_'r-name'}}")
+        textarea(rows="2" data-editor-submit=".js-goto-action, .js-goto-rules" id="swimlaneName",placeholder="{{_'r-name'}}")
     button.trigger-button.js-add-spec-move-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
       i.fa.fa-plus(aria-hidden="true")
 
@@ -52,33 +52,33 @@ template(name="boardActions")
     button.trigger-button.js-add-arch-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
       i.fa.fa-plus(aria-hidden="true")
 
-  div.trigger-item
+  div.trigger-item(data-editor-scope)
     div.trigger-content
       div.trigger-text
         | {{_'r-add-swimlane'}}
       div.trigger-dropdown
-        input(id="swimlane-name",type=text,placeholder="{{_'r-name'}}")
+        textarea(rows="2" data-editor-submit=".js-goto-action, .js-goto-rules" id="swimlane-name",placeholder="{{_'r-name'}}")
     button.trigger-button.js-add-swimlane-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
       i.fa.fa-plus(aria-hidden="true")
 
-  div.trigger-item
+  div.trigger-item(data-editor-scope)
     div.trigger-content
       div.trigger-text
         | {{_'r-create-card'}}
       div.trigger-dropdown
-        input(id="card-name",type=text,placeholder="{{_'r-name'}}")
+        textarea(rows="2" data-editor-submit=".js-goto-action, .js-goto-rules" id="card-name",placeholder="{{_'r-name'}}")
       div.trigger-text
         | {{_'r-in-list'}}
       div.trigger-dropdown
-        input(id="list-name",type=text,placeholder="{{_'r-name'}}")
+        textarea(rows="2" data-editor-submit=".js-goto-action, .js-goto-rules" id="list-name",placeholder="{{_'r-name'}}")
       div.trigger-text
         | {{_'r-in-swimlane'}}
       div.trigger-dropdown
-        input(id="swimlane-name2",type=text,placeholder="{{_'r-name'}}")
+        textarea(rows="2" data-editor-submit=".js-goto-action, .js-goto-rules" id="swimlane-name2",placeholder="{{_'r-name'}}")
     button.trigger-button.js-create-card-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
       i.fa.fa-plus(aria-hidden="true")
 
-  div.trigger-item
+  div.trigger-item(data-editor-scope)
     div.trigger-content
       div.trigger-text
         | {{_'r-link-card'}}
@@ -95,20 +95,20 @@ template(name="boardActions")
       div.trigger-text
         | {{_'r-in-list'}}
       div.trigger-dropdown
-        input(id="listName-link",type=text,placeholder="{{_'r-name'}}")
+        textarea(rows="2" data-editor-submit=".js-goto-action, .js-goto-rules" id="listName-link",placeholder="{{_'r-name'}}")
       div.trigger-text
         | {{_'r-in-swimlane'}}
       div.trigger-dropdown
-        input(id="swimlaneName-link",type=text,placeholder="{{_'r-name'}}")
+        textarea(rows="2" data-editor-submit=".js-goto-action, .js-goto-rules" id="swimlaneName-link",placeholder="{{_'r-name'}}")
     button.trigger-button.js-link-card-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
       i.fa.fa-plus(aria-hidden="true")
 
-  div.trigger-item
+  div.trigger-item(data-editor-scope)
     div.trigger-content
       div.trigger-text
         | {{_'r-sort-list'}}
       div.trigger-dropdown
-        input(id="sort-list-name",type=text,placeholder="{{_'r-list-name'}}")
+        textarea(rows="2" data-editor-submit=".js-goto-action, .js-goto-rules" id="sort-list-name",placeholder="{{_'r-list-name'}}")
       div.trigger-text
         | {{_'r-sort-by'}}
       div.trigger-dropdown
@@ -120,16 +120,16 @@ template(name="boardActions")
     button.trigger-button.js-sort-list-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
       i.fa.fa-plus(aria-hidden="true")
 
-  div.trigger-item
+  div.trigger-item(data-editor-scope)
     div.trigger-content
       div.trigger-text
         | {{_'r-move-all-cards'}}
       div.trigger-dropdown
-        input(id="moveall-from-list",type=text,placeholder="{{_'r-list-name'}}")
+        textarea(rows="2" data-editor-submit=".js-goto-action, .js-goto-rules" id="moveall-from-list",placeholder="{{_'r-list-name'}}")
       div.trigger-text
         | {{_'r-in-list'}}
       div.trigger-dropdown
-        input(id="moveall-to-list",type=text,placeholder="{{_'r-list-name'}}")
+        textarea(rows="2" data-editor-submit=".js-goto-action, .js-goto-rules" id="moveall-to-list",placeholder="{{_'r-list-name'}}")
     button.trigger-button.js-move-all-cards-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
       i.fa.fa-plus(aria-hidden="true")
 

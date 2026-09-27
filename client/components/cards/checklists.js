@@ -1,3 +1,4 @@
+import { isSubmitKey } from '/models/lib/editorSubmitKey';
 import { Random } from 'meteor/random';
 import { formatDateForDisplay } from '/client/lib/dateDisplay';
 import { ReactiveCache } from '/imports/reactiveCache';
@@ -415,10 +416,10 @@ Template.checklists.events({
     Template.currentData().card.toggleHideFinishedChecklist();
   },
   'keydown textarea.js-add-checklist-item'(event) {
-    //If user press enter key inside a form, submit it
-    //Unless the user is also holding down the 'shift' key
-    if (event.keyCode === 13 && !event.shiftKey) {
+    // Follow the shared editor shortcut, leaving newline keys untouched.
+    if (isSubmitKey(event, { submitOnEnter: !!ReactiveCache.getCurrentUser()?.hasSubmitOnEnter?.() })) {
       event.preventDefault();
+      event.stopPropagation();
       const $form = $(event.currentTarget).closest('form');
       $form.find('button[type=submit]').click();
     }

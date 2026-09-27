@@ -26,7 +26,7 @@ template(name="rulesList")
           input.js-rule-select(type="checkbox" data-rule-id="{{_id}}" checked=isSelected)
           p
             if isEditing
-              input.js-edit-rule-input(type=text value="{{title}}" autofocus)
+              textarea.js-edit-rule-input(rows="2" autofocus)= title
             else
               = title
           div.rules-btns-group
@@ -53,9 +53,9 @@ template(name="rulesList")
       else
         li.no-items-message {{_ 'r-no-rules' }}
     if canAdmin
-      div.rules-add
+      div.rules-add(data-editor-scope)
         button.primary.wide.rules-add-trigger.js-goto-trigger(type="submit")
           i.fa.fa-plus
           | {{_ 'r-add-rule'}}
-        input(type=text,placeholder="{{_ 'r-new-rule-name' }}",id="ruleTitle")
+        textarea(rows="2" data-editor-submit=".js-goto-trigger" placeholder="{{_ 'r-new-rule-name' }}" id="ruleTitle")
         p.rules-field-error-message.js-rule-title-error.hide-element {{_ 'r-rule-title-required'}}

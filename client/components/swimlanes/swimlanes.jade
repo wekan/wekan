@@ -142,7 +142,7 @@ template(name="addListInline")
   rather than `input#...`, because a literal id cannot hold a mustache.
 template(name="swimlaneDestinationPicker")
   label(for="{{titleId}}") {{_ 'title'}}:
-  input.full-line(id="{{titleId}}" type="text" value="{{title}}" autofocus)
+  textarea.full-line(data-editor-submit=".js-done" rows="2" id="{{titleId}}" autofocus)= title
   label {{_ 'boards'}}:
   select.js-select-boards(autofocus)
     each toBoard in toBoards

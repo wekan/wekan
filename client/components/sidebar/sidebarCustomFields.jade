@@ -29,9 +29,9 @@ template(name="createCustomFieldPopup")
         label
             | {{_ 'name'}}
             unless _id
-                input.js-field-name(type="text" autofocus)
+                textarea.js-field-name(rows="2" autofocus)
             else
-                input.js-field-name(type="text" value=name)
+                textarea.js-field-name(rows="2")= name
 
         label
             | {{_ 'type'}}

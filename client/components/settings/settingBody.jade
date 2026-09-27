@@ -88,7 +88,7 @@ template(name="general")
           ul
             li
               .title {{_ 'invite-people'}}
-              textarea#email-to-invite.wekan-form-control(rows='5', placeholder="{{_ 'email-addresses'}}")
+              textarea#email-to-invite.wekan-form-control(data-editor-submit=".js-email-invite" rows='5', placeholder="{{_ 'email-addresses'}}")
             li
               .title {{_ 'to-boards'}}
               .bg-white
@@ -263,7 +263,7 @@ template(name='email')
       .title {{_ 'email-templates-invite-body'}}
       .description {{_ 'email-templates-invite-vars-hint'}}
       .form-group
-        textarea.wekan-form-control#email-template-invite-body(rows="4")= currentSetting.inviteEmailBodyTemplate
+        textarea.wekan-form-control#email-template-invite-body(data-editor-submit=".js-email-templates-save" rows="4")= currentSetting.inviteEmailBodyTemplate
     li.smtp-form
       .title {{_ 'email-templates-activity-subject'}}
       .description {{_ 'email-templates-activity-vars-hint'}}
@@ -273,7 +273,7 @@ template(name='email')
       .title {{_ 'email-templates-activity-body'}}
       .description {{_ 'email-templates-activity-vars-hint'}}
       .form-group
-        textarea.wekan-form-control#email-template-activity-body(rows="4")= currentSetting.activityEmailBodyTemplate
+        textarea.wekan-form-control#email-template-activity-body(data-editor-submit=".js-email-templates-save" rows="4")= currentSetting.activityEmailBodyTemplate
     li
       button.js-email-templates-save.primary {{_ 'save'}}
 
@@ -361,11 +361,11 @@ template(name='tableVisibilityModeSettings')
       li.tableVisibilityMode-form
         .title {{_ 'custom-private-desc'}}
         .form-group
-          input.wekan-form-control#custom-private-board-desc(type="text", placeholder="{{_ 'custom-private-desc-placeholder'}}" value="{{currentSetting.customPrivateBoardDesc}}")
+          textarea.wekan-form-control#custom-private-board-desc(data-editor-submit=".js-visibility-all-boards-save" rows="2" placeholder="{{_ 'custom-private-desc-placeholder'}}")= currentSetting.customPrivateBoardDesc
       li.tableVisibilityMode-form
         .title {{_ 'custom-public-desc'}}
         .form-group
-          input.wekan-form-control#custom-public-board-desc(type="text", placeholder="{{_ 'custom-public-desc-placeholder'}}" value="{{currentSetting.customPublicBoardDesc}}")
+          textarea.wekan-form-control#custom-public-board-desc(data-editor-submit=".js-visibility-all-boards-save" rows="2" placeholder="{{_ 'custom-public-desc-placeholder'}}")= currentSetting.customPublicBoardDesc
       li
         //- One Save per section, at its end, above the rule that closes it. It writes
         //- this section's fields and nothing else, so saving one group can never
@@ -410,10 +410,10 @@ template(name='tableVisibilityModeSettings')
                 span {{_ 'public'}}
             li
               .title {{_ 'support-title'}}
-              textarea#support-title.wekan-form-control= currentSetting.supportTitle
+              textarea#support-title.wekan-form-control(data-editor-submit=".js-visibility-url-save")= currentSetting.supportTitle
             li
               .title {{_ 'support-content'}}
-              textarea#support-page-text.wekan-form-control= currentSetting.supportPageText
+              textarea#support-page-text.wekan-form-control(data-editor-submit=".js-visibility-url-save")= currentSetting.supportPageText
       li.tableVisibilityMode-form
         .title {{_ 'custom-help-link-url'}}
         .form-group
@@ -425,7 +425,7 @@ template(name='tableVisibilityModeSettings')
       li.tableVisibilityMode-form
         .title {{_ 'automatic-linked-url-schemes'}}
         .form-group
-          textarea#automatic-linked-url-schemes.wekan-form-control= currentSetting.automaticLinkedUrlSchemes
+          textarea#automatic-linked-url-schemes.wekan-form-control(data-editor-submit=".js-visibility-url-save")= currentSetting.automaticLinkedUrlSchemes
       li
         button.js-visibility-url-save.primary {{_ 'save'}}
 
@@ -457,7 +457,7 @@ template(name='tableVisibilityModeSettings')
         h2.admin-pane-group-title {{_ 'custom-product-name'}}
       li.tableVisibilityMode-form
         .form-group
-          input.wekan-form-control#product-name(type="text", placeholder="" value="{{currentSetting.productName}}")
+          textarea.wekan-form-control#product-name(data-editor-submit=".js-visibility-product-name-save" rows="2" placeholder="")= currentSetting.productName
       li
         button.js-visibility-product-name-save.primary {{_ 'save'}}
 
@@ -502,7 +502,7 @@ template(name='tableVisibilityModeSettings')
       li.tableVisibilityMode-form
         .title {{_ 'text-below-custom-login-logo'}}
         .form-group
-          textarea#text-below-custom-login-logo.wekan-form-control= currentSetting.textBelowCustomLoginLogo
+          textarea#text-below-custom-login-logo.wekan-form-control(data-editor-submit=".js-visibility-logo-save")= currentSetting.textBelowCustomLoginLogo
       li.tableVisibilityMode-form
         .title {{_ 'custom-top-left-corner-logo-image-url'}}
         .form-group
@@ -533,7 +533,7 @@ template(name='announcementSettings')
         ul
           li
             .title {{_ 'admin-announcement-title'}}
-            textarea#admin-announcement.wekan-form-control= currentAnnouncements.body
+            textarea#admin-announcement.wekan-form-control(data-editor-submit=".js-announcement-save")= currentAnnouncements.body
           li
             button.js-announcement-save.primary {{_ 'save'}}
 
@@ -551,10 +551,10 @@ template(name='accessibilitySettings')
         ul
           li
             .title {{_ 'accessibility-title'}}
-            textarea#admin-accessibility-title.wekan-form-control= currentAccessibility.title
+            textarea#admin-accessibility-title.wekan-form-control(data-editor-submit=".js-accessibility-save")= currentAccessibility.title
           li
             .title {{_ 'accessibility-content'}}
-            textarea#admin-accessibility-content.wekan-form-control= currentAccessibility.body
+            textarea#admin-accessibility-content.wekan-form-control(data-editor-submit=".js-accessibility-save")= currentAccessibility.body
           li
             button.js-accessibility-save.primary {{_ 'save'}}
 
@@ -569,10 +569,10 @@ template(name='pwaSettings')
         ul
           li
             .title {{_ 'custom-head-meta-tags'}}
-            textarea#custom-head-meta.wekan-form-control= customHeadMetaTagsValue
+            textarea#custom-head-meta.wekan-form-control(data-editor-submit=".js-custom-head-save")= customHeadMetaTagsValue
           li
             .title {{_ 'custom-head-link-tags'}}
-            textarea#custom-head-links.wekan-form-control= customHeadLinkTagsValue
+            textarea#custom-head-links.wekan-form-control(data-editor-submit=".js-custom-head-save")= customHeadLinkTagsValue
           li
             a.flex.js-toggle-custom-manifest
               .materialCheckBox(class="{{#if currentSetting.customManifestEnabled}}is-checked{{/if}}")
@@ -580,7 +580,7 @@ template(name='pwaSettings')
           li
             .custom-manifest-settings(class="{{#if currentSetting.customManifestEnabled}}{{else}}hide{{/if}}")
               .title {{_ 'custom-head-manifest-content'}}
-              textarea#custom-manifest-content.wekan-form-control= customManifestContentValue
+              textarea#custom-manifest-content.wekan-form-control(data-editor-submit=".js-custom-head-save")= customManifestContentValue
           li
             button.js-custom-head-save.primary {{_ 'save'}}
     li
@@ -592,7 +592,7 @@ template(name='pwaSettings')
         ul
           li
             .title {{_ 'custom-assetlinks-content'}}
-            textarea#custom-assetlinks-content.wekan-form-control= customAssetLinksContentValue
+            textarea#custom-assetlinks-content.wekan-form-control(data-editor-submit=".js-custom-assetlinks-save")= customAssetLinksContentValue
           li
             button.js-custom-assetlinks-save.primary {{_ 'save'}}
 template(name='selectAuthenticationMethod')

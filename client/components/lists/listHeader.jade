@@ -493,12 +493,12 @@ template(name="listDestinationPicker")
 
 template(name="copyListPopup")
   label(for='copy-list-title') {{_ 'title'}}:
-  input#copy-list-title.full-line(type="text" value="{{title}}" autofocus)
+  textarea#copy-list-title.full-line(data-editor-submit=".js-done" rows="2" autofocus)= title
   +listDestinationPicker(dialog=dialog)
 
 template(name="moveListPopup")
   label(for='move-list-title') {{_ 'title'}}:
-  input#move-list-title.full-line(type="text" value="{{title}}" autofocus)
+  textarea#move-list-title.full-line(data-editor-submit=".js-done" rows="2" autofocus)= title
   +listDestinationPicker(dialog=dialog)
 
 template(name="addListPopup")

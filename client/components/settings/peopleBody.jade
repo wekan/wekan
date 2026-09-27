@@ -314,12 +314,12 @@ template(name="editOrgPopup")
     label.hide.orgId(type="text" value=org._id)
     label
       | {{_ 'displayName'}}
-      input.js-orgDisplayName(type="text" value=org.orgDisplayName required)
+      textarea.js-orgDisplayName(rows="2" required)= org.orgDisplayName
       span.error.hide.orgname-taken
         | {{_ 'error-orgname-taken'}}
     label
       | {{_ 'description'}}
-      input.js-orgDesc(type="text" value=org.orgDesc required)
+      textarea.js-orgDesc(rows="2" required)= org.orgDesc
     label
       | {{_ 'shortName'}}
       input.js-orgShortName(type="text" value=org.orgShortName required)
@@ -348,7 +348,7 @@ template(name="editOrgPopup")
     span.form-text.text-muted {{_ 'org-domains-description'}}
     label
       | {{_ 'custom-product-name'}}
-      input.js-orgProductName(type="text" value=org.orgProductName)
+      textarea.js-orgProductName(rows="2")= org.orgProductName
     label
       | {{_ 'custom-login-logo-image-url'}}
       input.js-orgCustomLoginLogoImageUrl(type="text" value=org.orgCustomLoginLogoImageUrl)
@@ -357,7 +357,7 @@ template(name="editOrgPopup")
       input.js-orgCustomLoginLogoLinkUrl(type="text" value=org.orgCustomLoginLogoLinkUrl)
     label
       | {{_ 'text-below-custom-login-logo'}}
-      input.js-orgTextBelowCustomLoginLogo(type="text" value=org.orgTextBelowCustomLoginLogo)
+      textarea.js-orgTextBelowCustomLoginLogo(rows="2")= org.orgTextBelowCustomLoginLogo
     label
       | {{_ 'custom-top-left-corner-logo-image-url'}}
       input.js-orgCustomTopLeftCornerLogoImageUrl(type="text" value=org.orgCustomTopLeftCornerLogoImageUrl)
@@ -407,12 +407,12 @@ template(name="editTeamPopup")
     label.hide.teamId(type="text" value=team._id)
     label
       | {{_ 'displayName'}}
-      input.js-teamDisplayName(type="text" value=team.teamDisplayName required)
+      textarea.js-teamDisplayName(rows="2" required)= team.teamDisplayName
       span.error.hide.teamname-taken
         | {{_ 'error-teamname-taken'}}
     label
       | {{_ 'description'}}
-      input.js-teamDesc(type="text" value=team.teamDesc required)
+      textarea.js-teamDesc(rows="2" required)= team.teamDesc
     label
       | {{_ 'shortName'}}
       input.js-teamShortName(type="text" value=team.teamShortName required)
@@ -441,7 +441,7 @@ template(name="editUserPopup")
         input.js-profile-username(type="text" value=user.username required)
     label
       | {{_ 'fullname'}}
-      input.js-profile-fullname(type="text" value=user.profile.fullname required)
+      textarea.js-profile-fullname(rows="2" required)= user.profile.fullname
     label
       | {{_ 'initials'}}
       input.js-profile-initials(type="text" value=user.profile.initials)
@@ -516,10 +516,10 @@ template(name="newOrgPopup")
     //label.hide.userId(type="text" value=user._id)
     label
       | {{_ 'displayName'}}
-      input.js-orgDisplayName(type="text" value="" required)
+      textarea.js-orgDisplayName(rows="2" required)
     label
       | {{_ 'description'}}
-      input.js-orgDesc(type="text" value="" required)
+      textarea.js-orgDesc(rows="2" required)
     label
       | {{_ 'shortName'}}
       input.js-orgShortName(type="text" value="" required)
@@ -543,10 +543,10 @@ template(name="newTeamPopup")
     //label.hide.teamId(type="text" value=team._id)
     label
       | {{_ 'displayName'}}
-      input.js-teamDisplayName(type="text" value="" required)
+      textarea.js-teamDisplayName(rows="2" required)
     label
       | {{_ 'description'}}
-      input.js-teamDesc(type="text" value="" required)
+      textarea.js-teamDesc(rows="2" required)
     label
       | {{_ 'shortName'}}
       input.js-teamShortName(type="text" value="" required)
@@ -585,7 +585,7 @@ template(name="newUserPopup")
     //label.hide.userId(type="text" value=user._id)
     label
       | {{_ 'fullname'}}
-      input.js-profile-fullname(type="text" value="" required)
+      textarea.js-profile-fullname(rows="2" required)
     label
       | {{_ 'username'}}
       span.error.hide.username-taken

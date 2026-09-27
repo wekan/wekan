@@ -20,13 +20,13 @@ template(name="checklistTriggers")
       i.fa.fa-plus(aria-hidden="true")
 
 
-  div.trigger-item
+  div.trigger-item(data-editor-scope)
     div.trigger-content
       unless ruleNameBeforeSubject
         div.trigger-text
           | {{_'r-when-the-checklist'}}
       div.trigger-dropdown
-        input(id="check-name",type=text,placeholder="{{_'r-name'}}")
+        textarea(rows="2" data-editor-submit=".js-goto-action, .js-goto-rules" id="check-name",placeholder="{{_'r-name'}}")
       if ruleNameBeforeSubject
         div.trigger-text
           | {{_'r-when-the-checklist'}}
@@ -66,13 +66,13 @@ template(name="checklistTriggers")
     button.trigger-button.js-add-gen-comp-trigger.js-goto-action(type="button" aria-label="{{_ 'r-add-trigger'}}")
       i.fa.fa-plus(aria-hidden="true")
 
-  div.trigger-item
+  div.trigger-item(data-editor-scope)
     div.trigger-content
       unless ruleNameBeforeSubject
         div.trigger-text
           | {{_'r-when-the-checklist'}}
       div.trigger-dropdown
-        input(id="spec-comp-check-name",type=text,placeholder="{{_'r-name'}}")
+        textarea(rows="2" data-editor-submit=".js-goto-action, .js-goto-rules" id="spec-comp-check-name",placeholder="{{_'r-name'}}")
       if ruleNameBeforeSubject
         div.trigger-text
           | {{_'r-when-the-checklist'}}
@@ -110,13 +110,13 @@ template(name="checklistTriggers")
     button.trigger-button.js-add-gen-check-item-trigger.js-goto-action(type="button" aria-label="{{_ 'r-add-trigger'}}")
       i.fa.fa-plus(aria-hidden="true")
 
-  div.trigger-item
+  div.trigger-item(data-editor-scope)
     div.trigger-content
       unless ruleNameBeforeSubject
         div.trigger-text
           | {{_'r-when-the-item'}}
       div.trigger-dropdown
-        input(id="check-item-name",type=text,placeholder="{{_'r-name'}}")
+        textarea(rows="2" data-editor-submit=".js-goto-action, .js-goto-rules" id="check-item-name",placeholder="{{_'r-name'}}")
       if ruleNameBeforeSubject
         div.trigger-text
           | {{_'r-when-the-item'}}

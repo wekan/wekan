@@ -52,7 +52,7 @@ test.describe('Admin – user management', () => {
     await expect(page.locator('.js-pop-over input.js-profile-username')).toBeVisible({ timeout: 5_000 });
 
     // Change the fullname (display name) — this IS persisted via editUser Meteor call
-    const fullnameInput = page.locator('.js-pop-over input.js-profile-fullname');
+    const fullnameInput = page.locator('.js-pop-over .js-profile-fullname');
     await fullnameInput.fill('Renamed Display Name');
 
     // Save — editUserPopup submits via input[type=submit]

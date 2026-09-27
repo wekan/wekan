@@ -42,6 +42,7 @@ import '/config/search-const';
 // 6. Client library files
 // ----------------------------------------------------------------------------
 import '/client/lib/accessibility';
+import '/client/lib/editorSubmit';
 import '/client/lib/attachmentMigrationManager';
 import '/client/lib/autofocus';
 import '/client/lib/boardConverter';

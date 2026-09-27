@@ -71,7 +71,7 @@ template(name="importTextarea")
         input.js-import-zip-file(id='import-zip-file' type="file" accept=".zip,application/zip")
       p.import-file-row
         label(for='import-workspace-name') {{_ 'import-trello-workspace'}}
-        input.js-import-workspace-name(id='import-workspace-name' type="text" placeholder="{{_ 'import-trello-workspace-placeholder'}}")
+        textarea.js-import-workspace-name(rows="2" id='import-workspace-name' placeholder="{{_ 'import-trello-workspace-placeholder'}}")
     input.primary.wide(type="submit" value="{{_ 'import'}}")
     button.primary.wide.js-import-without-mapping(type="button") {{_ 'import-without-mapping-members'}}
   if isTrelloImport

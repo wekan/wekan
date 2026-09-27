@@ -190,3 +190,16 @@ two *different* ends, whose solid end is the accent everything outside a board
 reads. A slide theme with a flat bar is a flat theme filed in the wrong drawer,
 and that is not hypothetical: clearblue's own first bar was flat until it was
 fixed.
+
+## Button foregrounds
+
+Ordinary filled buttons use the theme accent and white text. Clean Light's pale
+ordinary buttons use dark text; primary and destructive buttons retain their own
+paired foreground/background rules. The typography reset in `layouts.css` uses
+`:where(...)` for its neutral text color so it cannot overwrite a button's color
+when stylesheets load in a different order. Button typography still follows the
+member's font settings.
+
+`button-theme-foreground.e2e.js` checks the Swimlane, List and Card settings
+buttons in normal, hover, focus and active states; `chart-button-theme.e2e.js`
+checks primary actions and custom theme colors on chart pages.

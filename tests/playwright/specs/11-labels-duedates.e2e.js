@@ -145,7 +145,7 @@ test.describe('Labels & due dates', () => {
     await boardPage.waitForTimeout(500);
 
     // createLabelPopup: fill name and pick a color
-    const nameInput = pop.locator('input.js-label-name, input#labelName');
+    const nameInput = pop.locator('.js-label-name, input#labelName');
     if (await nameInput.count() > 0) {
       await nameInput.fill('TestLabel');
       // Pick the first palette color

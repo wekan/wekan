@@ -1,3 +1,4 @@
+import { isSubmitKey } from '/models/lib/editorSubmitKey';
 import { ReactiveCache } from '/imports/reactiveCache';
 import CardComments, { canEditComment, resolveParentId } from '/models/cardComments';
 import { groupCommentsByThread } from '/imports/lib/commentThreading';
@@ -139,9 +140,11 @@ Template.commentForm.events({
     evt.preventDefault();
     replyToCommentId.set('');
   },
-  // Pressing Ctrl+Enter should submit the form
+  // Follow the same submit-key preference as other multiline editors.
   'keydown form textarea'(evt, tpl) {
-    if (evt.keyCode === 13 && (evt.metaKey || evt.ctrlKey)) {
+    if (isSubmitKey(evt, { submitOnEnter: !!ReactiveCache.getCurrentUser()?.hasSubmitOnEnter?.() })) {
+      evt.preventDefault();
+      evt.stopPropagation();
       tpl.find('button[type=submit]').click();
     }
   },

@@ -194,7 +194,6 @@ button {
   font-family: Roboto, Poppins, "Helvetica Neue", Arial, Helvetica, sans-serif;
   font-size: calc(14px * var(--wekan-ui-font-scale, 1));
   line-height: calc(18px * var(--wekan-ui-font-scale, 1));
-  color: #4d4d4d;
   /* Improve text rendering */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -202,6 +201,12 @@ button {
   -webkit-user-select: text;
   user-select: text;
 }
+/* Base text color must not override the themed foreground of buttons when
+   this typography sheet loads after forms.css. Keep this reset low-specificity. */
+:where(html, body, input, select, textarea, button) {
+  color: #4d4d4d;
+}
+
 html {
   font-size: 100%;
   max-height: 100%;

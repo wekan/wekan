@@ -1650,6 +1650,8 @@ Template.inlinedCardDescription.events({
     // "submit on Enter" in Member Settings (Shift+Enter then makes a newline).
     const submitOnEnter = !!ReactiveCache.getCurrentUser()?.hasSubmitOnEnter?.();
     if (isSubmitKey(evt, { submitOnEnter })) {
+      evt.preventDefault();
+      evt.stopPropagation();
       tpl.find('button[type=submit]').click();
     }
   },
@@ -1858,7 +1860,9 @@ Template.editCardTitleForm.events({
     // the pre-#4236 fast title-editing workflow (#6480 email feedback).
     const submitOnEnter = !!ReactiveCache.getCurrentUser()?.hasSubmitOnEnter?.();
     if (isSubmitKey(event, { submitOnEnter })) {
-      $('.js-submit-edit-card-title-form').click();
+      event.preventDefault();
+      event.stopPropagation();
+      event.currentTarget.closest('form')?.querySelector('.js-submit-edit-card-title-form')?.click();
     }
   },
 });
@@ -2098,28 +2102,9 @@ Template.editCardRequesterForm.onRendered(function () {
   autosize(this.$('.js-edit-card-requester'));
 });
 
-Template.editCardRequesterForm.events({
-  'keydown .js-edit-card-requester'(event) {
-    // If enter key was pressed, submit the data
-    if (event.keyCode === 13) {
-      $('.js-submit-edit-card-requester-form').click();
-    }
-  },
-});
-
 Template.editCardAssignerForm.onRendered(function () {
   autosize(this.$('.js-edit-card-assigner'));
 });
-
-Template.editCardAssignerForm.events({
-  'keydown .js-edit-card-assigner'(event) {
-    // If enter key was pressed, submit the data
-    if (event.keyCode === 13) {
-      $('.js-submit-edit-card-assigner-form').click();
-    }
-  },
-});
-
 
 // The four selects of the move/copy dialogs, in one template. The dialog comes
 // from the popup that includes it and is kept on THIS instance: inside

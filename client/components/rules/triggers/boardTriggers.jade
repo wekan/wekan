@@ -1,5 +1,5 @@
 template(name="boardTriggers")
-  div.trigger-item#trigger-two
+  div.trigger-item#trigger-two(data-editor-scope)
     div.trigger-content
       div.trigger-text
         | {{_'r-when-a-card'}}
@@ -12,11 +12,11 @@ template(name="boardTriggers")
       div.trigger-text
         | {{_'r-list'}}
       div.trigger-dropdown
-        input(id="create-list-name",type=text,placeholder="{{_'r-list-name'}}")
+        textarea(rows="2" data-editor-submit=".js-goto-action, .js-goto-rules" id="create-list-name",placeholder="{{_'r-list-name'}}")
       div.trigger-text
         | {{_'r-in-swimlane'}}
       div.trigger-dropdown
-        input(id="create-swimlane-name",type=text,placeholder="{{_'r-swimlane-name'}}")
+        textarea(rows="2" data-editor-submit=".js-goto-action, .js-goto-rules" id="create-swimlane-name",placeholder="{{_'r-swimlane-name'}}")
       button.trigger-button.trigger-button-person.js-show-user-field(type="button" aria-label="{{_ 'username'}}")
         i.fa.fa-user(aria-hidden="true")
       div.user-details.hide-element
@@ -45,7 +45,7 @@ template(name="boardTriggers")
     button.trigger-button.js-add-gen-moved-trigger.js-goto-action(type="button" aria-label="{{_ 'r-add-trigger'}}")
       i.fa.fa-plus(aria-hidden="true")
 
-  div.trigger-item#trigger-four
+  div.trigger-item#trigger-four(data-editor-scope)
     div.trigger-content
       div.trigger-text
         | {{_'r-when-a-card'}}
@@ -60,11 +60,11 @@ template(name="boardTriggers")
       div.trigger-text
         | {{_'r-list'}}
       div.trigger-dropdown
-        input(id="move-list-name",type=text,placeholder="{{_'r-list-name'}}")
+        textarea(rows="2" data-editor-submit=".js-goto-action, .js-goto-rules" id="move-list-name",placeholder="{{_'r-list-name'}}")
       div.trigger-text
         | {{_'r-in-swimlane'}}
       div.trigger-dropdown
-        input(id="create-swimlane-name-2",type=text,placeholder="{{_'r-swimlane-name'}}")
+        textarea(rows="2" data-editor-submit=".js-goto-action, .js-goto-rules" id="create-swimlane-name-2",placeholder="{{_'r-swimlane-name'}}")
       button.trigger-button.trigger-button-person.js-show-user-field(type="button" aria-label="{{_ 'username'}}")
         i.fa.fa-user(aria-hidden="true")
       div.user-details.hide-element

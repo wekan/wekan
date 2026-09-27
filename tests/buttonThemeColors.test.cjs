@@ -122,3 +122,14 @@ check('calendar controls share every theme submit rule without becoming submit b
 });
 
 console.log(`\n${passed} passed`);
+
+check('typography reset cannot overwrite filled button foregrounds', () => {
+  const css = read('client/components/main/layouts.css');
+  const group = css.slice(css.indexOf('html,\nbody,\ninput,'), css.indexOf('html {', css.indexOf('html,\nbody,\ninput,')));
+  const typography = group.slice(0, group.indexOf('}'));
+  assert.doesNotMatch(typography, /\bcolor\s*:/);
+  assert.match(group, /:where\(html, body, input, select, textarea, button\)\s*\{\s*color: #4d4d4d;/);
+  const forms = read('client/components/forms/forms.css');
+  assert.match(forms, /color: var\(--theme-button-text, #fff\)/);
+  assert.match(forms, /\.board-color-cleanlight\s*\{\s*--theme-button-text: #1a1a1a;/);
+});

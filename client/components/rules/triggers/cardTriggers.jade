@@ -179,12 +179,12 @@ template(name="cardTriggers")
     button.trigger-button.js-add-advanced-filter-trigger.js-goto-action(type="button" aria-label="{{_ 'r-add-trigger'}}")
       i.fa.fa-plus(aria-hidden="true")
 
-  div.trigger-item(title="{{_'text-contains-trigger-description'}}")
+  div.trigger-item(data-editor-scope title="{{_'text-contains-trigger-description'}}")
     div.trigger-content
       div.trigger-text
         | {{_'r-when-a-card-title-or-description-contains'}}
       div.trigger-dropdown
-        input(class="text-contains-trigger-value",type=text,placeholder="{{_'text-contains-trigger-label'}}")
+        textarea(rows="2" data-editor-submit=".js-goto-action, .js-goto-rules" class="text-contains-trigger-value",placeholder="{{_'text-contains-trigger-label'}}")
     button.trigger-button.js-add-text-contains-trigger.js-goto-action(type="button" aria-label="{{_ 'r-add-trigger'}}")
       i.fa.fa-plus(aria-hidden="true")
 

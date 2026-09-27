@@ -1,12 +1,12 @@
 template(name="mailActions")
-  div.trigger-item.trigger-item-mail
+  div.trigger-item.trigger-item-mail(data-editor-scope)
     div.trigger-content.trigger-content-mail
       div.trigger-text.trigger-text-email
         | {{_'r-send-email'}}
       div.trigger-dropdown-mail
         input(id="email-to",type=text,placeholder="{{_'r-to'}}")
       input(id="email-subject",type=text,placeholder="{{_'r-subject'}}")
-      textarea(id="email-msg")
+      textarea(id="email-msg" data-editor-submit=".js-mail-action")
       div.trigger-hint.trigger-hint-email-vars
         | {{_'r-email-vars-hint'}}
     button.trigger-button.trigger-button-email.js-mail-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")

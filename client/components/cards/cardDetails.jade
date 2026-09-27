@@ -980,14 +980,14 @@ template(name="editCardTitleForm")
     button.primary.confirm.js-submit-edit-card-title-form(type="submit") {{_ 'save'}}
 
 template(name="editCardRequesterForm")
-  input.js-edit-card-requester(type='text' autofocus value=getRequestedBy dir="auto")
+  textarea.js-edit-card-requester(rows='1' autofocus dir="auto")= getRequestedBy
   .edit-controls.clearfix
     button.primary.confirm.js-submit-edit-card-requester-form(type="submit") {{_ 'save'}}
     a.js-close-inlined-form
       i.fa.fa-times-thin
 
 template(name="editCardAssignerForm")
-  input.js-edit-card-assigner(type='text' autofocus value=getAssignedBy dir="auto")
+  textarea.js-edit-card-assigner(rows='1' autofocus dir="auto")= getAssignedBy
   .edit-controls.clearfix
     button.primary.confirm.js-submit-edit-card-assigner-form(type="submit") {{_ 'save'}}
     a.js-close-inlined-form
@@ -1279,9 +1279,9 @@ template(name="cardDestinationPicker")
 
 template(name="moveCardPopup")
   label(for='move-card-title') {{_ 'title'}}:
-  input#move-card-title.full-line(type="text" value="{{getTitle}}" autofocus)
+  textarea#move-card-title.full-line(data-editor-submit=".js-done" autofocus)= getTitle
   label(for="move-card-reason") {{_ "move-reason"}}
-  textarea#move-card-reason.full-line(maxlength="1000")
+  textarea#move-card-reason.full-line(data-editor-submit=".js-done" maxlength="1000")
   +cardDestinationPicker(dialog=dialog)
   div
     input#js-leave-link-at-origin(type="checkbox")
@@ -1289,7 +1289,7 @@ template(name="moveCardPopup")
 
 template(name="copyCardPopup")
   label(for='copy-card-title') {{_ 'title'}}:
-  textarea#copy-card-title.minicard-composer-textarea.js-card-title(autofocus)
+  textarea#copy-card-title.minicard-composer-textarea.js-card-title(data-editor-submit=".js-done" autofocus)
     = getTitle
   +cardDestinationPicker(dialog=dialog)
 
@@ -1298,13 +1298,13 @@ template(name="linkCardToBoardPopup")
 
 template(name="copyManyCardsPopup")
   label(for='copy-checklist-cards-title') {{_ 'copyManyCardsPopup-instructions'}}:
-  textarea#copy-card-title.minicard-composer-textarea.js-card-title(autofocus)
+  textarea#copy-card-title.minicard-composer-textarea.js-card-title(data-editor-submit=".js-done" autofocus)
     | {{_ 'copyManyCardsPopup-format'}}
   +cardDestinationPicker(dialog=dialog)
 
 template(name="convertChecklistItemToCardPopup")
   label(for='convert-checklist-item-to-card-title') {{_ 'title'}}:
-  textarea#copy-card-title.minicard-composer-textarea.js-card-title(autofocus)
+  textarea#copy-card-title.minicard-composer-textarea.js-card-title(data-editor-submit=".js-done" autofocus)
     = item.title
   +cardDestinationPicker(dialog=dialog)
 
@@ -1451,7 +1451,7 @@ template(name="cardMorePopup")
 template(name="createBoardFromCardPopup")
   form.js-create-board-from-card-form
     label {{_ 'name'}}
-    input.js-create-board-from-card-title.inline-input(type="text" value="{{ cardTitle }}" autofocus="autofocus")
+    textarea.js-create-board-from-card-title.inline-input(rows="2" autofocus="autofocus")= cardTitle
     button.primary.confirm.js-submit {{_ 'linkCardToNewBoard'}}
 
 template(name="setCardColorPopup")
@@ -1489,7 +1489,7 @@ template(name="cardStartVotingPopup")
   form.edit-vote-question
     .fields
       label(for="vote") {{_ 'vote-question'}}
-      input.js-vote-field#vote(type="text" name="vote" value="{{getVoteQuestion}}" autofocus disabled="{{#if getVoteQuestion}}disabled{{/if}}")
+      textarea.js-vote-field#vote(rows="2" name="vote" autofocus disabled="{{#if getVoteQuestion}}disabled{{/if}}")= getVoteQuestion
       .check-div
         a.flex(class="{{#if getVoteQuestion}}is-disabled{{else}}js-toggle-vote-allow-non-members{{/if}}")
           .materialCheckBox#vote-allow-non-members(name="vote-allow-non-members" class="{{#if voteAllowNonBoardMembers}}is-checked{{/if}}")
@@ -1570,10 +1570,10 @@ template(name="cardLocationsPopup")
     hr
     label
       | {{_ 'location-name'}}
-      input.js-location-name(type="text" value="{{location.name}}")
+      textarea.js-location-name(rows="2")= location.name
     label
       | {{_ 'location-address'}}
-      input.js-location-address(type="text" value="{{location.address}}")
+      textarea.js-location-address(rows="2")= location.address
     label
       | {{_ 'location-latitude'}}
       input.js-location-latitude(type="number" step="any" value="{{location.latitude}}")

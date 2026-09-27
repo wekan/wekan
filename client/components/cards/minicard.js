@@ -1,3 +1,4 @@
+import { isSubmitKey } from '/models/lib/editorSubmitKey';
 import { relativeCardSort } from '/client/lib/relativeCardPosition';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
@@ -734,8 +735,9 @@ Template.minicardChecklist.events({
     }
   }),
   'keydown textarea.js-add-checklist-item'(event) {
-    if (event.keyCode === 13 && !event.shiftKey) {
+    if (isSubmitKey(event, { submitOnEnter: !!ReactiveCache.getCurrentUser()?.hasSubmitOnEnter?.() })) {
       event.preventDefault();
+      event.stopPropagation();
       const $form = $(event.currentTarget).closest('form');
       $form.find('button[type=submit]').click();
     }

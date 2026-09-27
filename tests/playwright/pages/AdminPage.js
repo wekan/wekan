@@ -116,7 +116,7 @@ class AdminPage {
     // editUserPopup has required fields (fullname). If the user was seeded
     // without a fullname the browser's HTML5 validation blocks submission.
     // Ensure the field is non-empty before saving.
-    const fullnameInput = this.page.locator('.js-pop-over input.js-profile-fullname');
+    const fullnameInput = this.page.locator('.js-pop-over .js-profile-fullname');
     const currentFullname = await fullnameInput.inputValue().catch(() => '');
     if (!currentFullname.trim()) {
       await fullnameInput.fill(username);

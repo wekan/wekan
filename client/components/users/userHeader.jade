@@ -145,7 +145,7 @@ template(name="invitePeoplePopup")
         ul
           li
             .title {{_ 'invite-people'}}
-            textarea#email-to-invite.wekan-form-control(rows='5', placeholder="{{_ 'email-addresses'}}")
+            textarea#email-to-invite.wekan-form-control(data-editor-submit=".js-email-invite" rows='5', placeholder="{{_ 'email-addresses'}}")
           li
             .title {{_ 'to-boards'}}
             .bg-white
@@ -162,7 +162,7 @@ template(name="editProfilePopup")
   form
     label
       | {{_ 'fullname'}}
-      input.js-profile-fullname(type="text" value=profile.fullname autofocus)
+      textarea.js-profile-fullname(rows="2" autofocus)= profile.fullname
     label
       | {{_ 'username'}}
       span.error.hide.username-taken

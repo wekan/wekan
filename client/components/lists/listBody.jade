@@ -134,7 +134,7 @@ template(name="searchElementPopup")
   form
     label
       | {{_ 'title'}}
-      input.js-element-title(type="text" placeholder="{{_ 'title'}}" autofocus required dir="auto")
+      textarea.js-element-title(rows="2" placeholder="{{_ 'title'}}" autofocus required dir="auto")
   unless isTemplateSearch
     label {{_ 'boards'}}:
     .link-board-wrapper

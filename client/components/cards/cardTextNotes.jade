@@ -22,7 +22,7 @@ template(name="cardTextNotes")
 template(name="cardTextNoteEditPopup")
   form.js-card-text-note-edit-form
     label {{_ 'text-note-title'}}
-    input.js-card-text-note-title-input(type="text" value="{{title}}" dir="auto" autofocus)
+    textarea.js-card-text-note-title-input(rows="2"  dir="auto" autofocus)= title
     label {{_ 'text-note-text'}}
     +editor(class="js-card-text-note-text-input")
       = text

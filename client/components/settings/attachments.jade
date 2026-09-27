@@ -423,7 +423,7 @@ template(name="attachments")
                 .form-group
                   label Service account key (JSON)
                   small.form-text.cloud-input-label-tr {{_ 'gcs-credentials'}}
-                  textarea.wekan-form-control#gcs-credentials(rows="4" placeholder=cloudSecretPlaceholder.gcs.credentials)
+                  textarea.wekan-form-control#gcs-credentials(data-editor-submit=".js-save-cloud-settings" rows="4" placeholder=cloudSecretPlaceholder.gcs.credentials)
                   small.form-text.cloud-input-example { "type": "service_account", "project_id": "my-gcp-project", "client_email": "wekan@my-gcp-project.iam.gserviceaccount.com", "private_key": "-----BEGIN PRIVATE KEY-----..." }
                   small.form-text.cloud-input-desc Optional: paste the service account JSON key. Leave blank to use the key file or default credentials.
                   small.form-text.cloud-input-desc {{_ 'gcs-credentials-description'}}
