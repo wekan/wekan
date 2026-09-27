@@ -296,6 +296,11 @@ Incomplete expressions are rejected before rule queries; sidebar fallback and
 left-to-right logical order are covered in Node, MongoDB and Chromium tests.
 Numeric conditions now retain decimal boundaries and reject partial numeric
 strings; currency-filter and rule regressions cover fractional values.
+History pagination now streams rows through bounded permission batches instead
+of fetching the complete scope into memory. Search, exact totals, contributors
+and final-page clamping retain their semantics; assigned-only checks fetch only
+card IDs in the batch. Scope scans and author counts still scale with history
+size, and concurrent writes/access changes do not form a consistent snapshot.
 Writes across documents are not transactional; concurrent-write recovery and
 failed-creation orphan cleanup
 still require work. The combined checkpoint passed 45 Node runner checks and
@@ -1465,6 +1470,31 @@ the pre-existing overlong line in released v12.07.
 This verification and cleanup sequence is not a cross-document transaction.
 Coordinated fencing of in-flight writers, atomic original writes/History and
 automatic startup replay remain in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6465fd28e">Stream History pagination in bounded batches</a>. Thanks to xet7.</summary>
+
+History page requests no longer materialize the full scope before filtering.
+Read database rows in batches of 100, check current visibility before search
+and counting, and retain only the requested/final pages and contributor counts.
+Assigned-only permission checks load just the card IDs in each batch. Cursors
+close on success and failure; empty results and out-of-range pages keep the
+shared paginator's behavior. Existing newest-first database indexes remain used.
+
+Six focused Node suites pass, including thousand-row paging, exact final pages,
+permission-before-search ordering and cursor closure after failures. The two
+affected scanner/access suites also pass after the final batch-bound change.
+All fourteen History/Scrum Chromium scenarios pass. A 215-row fixture spans
+several batches, excludes hidden cards from 54 search matches and contributor
+counts, and clamps a large page number to the last four rows. Existing restore,
+undo/redo, nested-date and permission regressions also pass. The offline audit
+passes with advisory fingerprints; other Upcoming coverage remains recorded.
+
+Exact totals still require a full scope scan, contributor storage grows with
+distinct authors, and concurrent changes are not a database snapshot. Broader
+History durability and large-board work remain in TODO Later.
 
 </details>
 
