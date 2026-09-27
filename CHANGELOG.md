@@ -1134,6 +1134,22 @@ Upcoming regression evidence remains recorded; other browsers were not run.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fe3d55ba7">Reject malformed Sync responses before changing cards</a>. Thanks to xet7.</summary>
+
+List Sync reuses the existing import source-shape validator before parsing and
+reconciliation. Malformed responses and parser failures set the existing error
+without creating, changing or archiving cards. A valid empty source retains
+existing archive behavior; an invalid response no longer masquerades as one.
+
+Five focused Node checks and one Chromium scenario pass. Server tests execute
+the sync function with malformed, valid-empty and parser-failing responses;
+the browser verifies error display separately without contacting a provider.
+Existing Upcoming regression evidence remains recorded. Complete pagination
+and local-edit conflict handling remain pending. Other browsers were not run.
+
+</details>
+
 This release adds the following regression coverage and documentation:
 
 <details>
