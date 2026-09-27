@@ -617,6 +617,28 @@ boards can also be duplicated with a choice of structure and data.
 This release fixes the following CRITICAL SECURITY ISSUES:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/285c1db24">Enforce current access on universal History reads and restores</a>. Thanks to xet7.</summary>
+
+[HistoryScopeBleed](https://wekan.fi/hall-of-fame/historyscopebleed/):
+assigned-only members could read hidden-card history, and historical authorship
+could preserve private-board history access after membership was removed.
+Filter current access before search, paging, totals and contributor counts.
+Restore, undo and redo also enforce current scope and card edit permission;
+an old writable board cannot authorize editing a card moved elsewhere.
+
+Ten focused Node runner entries and eight Chromium scenarios pass, including
+allowed restoration, denied hidden/moved-card writes, revoked board access,
+search/count isolation and existing rule undo/redo. Other browsers, FerretDB
+and Sandstorm were not tested. Existing Upcoming coverage remains recorded.
+
+Normal filtering and stale restore attempts can follow legitimate permission
+changes, so they are not automatically labelled as account-blocking attacks.
+See the [audit](docs/Security/History-Access-Boundary-2026-09-27.md)
+for detection limits and the verified scope. No CVE is assigned.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/679a8b349">Reject empty LDAP user credentials in every login path</a>. Thanks to kta1kri and xet7.</summary>
 
 [LdapBindBleed](https://wekan.fi/hall-of-fame/ldapbindbleed/), reported in
