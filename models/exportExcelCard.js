@@ -168,6 +168,7 @@ runOnServer(function() {
         }
         await exporter.build(res);
       } else {
+        res.writeHead(403, { 'Content-Type': 'text/plain; charset=utf-8' });
         res.end(TAPi18n.__('user-can-not-export-card-to-excel'));
       }
     }),

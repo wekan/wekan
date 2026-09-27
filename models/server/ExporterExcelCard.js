@@ -113,7 +113,8 @@ class ExporterExcelCard {
 
   async canExport(user) {
     const board = await ReactiveCache.getBoard(this._boardId);
-    return board && board.isVisibleBy(user);
+    const { canExportBoardData } = require('/models/lib/exportAccess');
+    return canExportBoardData(board, user);
   }
 
   /**

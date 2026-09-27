@@ -48,7 +48,8 @@ class ExporterChartPDF {
   async canExport(user) {
     this.userId = user?._id || null;
     const board = await ReactiveCache.getBoard(this._boardId);
-    return board && board.isVisibleBy(user);
+    const { canExportBoardData } = require('/models/lib/exportAccess');
+    return canExportBoardData(board, user, this._chartKey);
   }
 
   async build(res) {

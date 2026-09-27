@@ -37,7 +37,8 @@ class ExporterZip {
     // The same check the JSON export makes, from the same place.
     const { ReactiveCache } = require('/imports/reactiveCache');
     const board = await ReactiveCache.getBoard(this._boardId);
-    return board && board.isVisibleBy(user);
+    const { canExportBoardData } = require('/models/lib/exportAccess');
+    return canExportBoardData(board, user);
   }
 
   async build(res, filename = 'export.zip') {
