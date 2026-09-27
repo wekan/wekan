@@ -216,6 +216,14 @@ fail explicitly instead of being truncated silently. The export scans stored
 observations with a one-document cursor batch before applying scope filters.
 Imported sprints remain marked pending until cards, observations and settings
 are saved. The collector skips them and export refuses unfinished imports.
+While any sprint on the board carries that marker, Scrum settings, planning,
+metadata and lifecycle methods reject changes, including retries of an already
+closed sprint. Scrum History restore/undo/redo also refuses to write or start a
+recovery checkpoint. The Scrum view shows an incomplete-import warning and
+removes editing capabilities; daily-history reads and all Scrum chart exports
+fail explicitly. Once the importer finishes and clears the marker, these
+operations become available again. This is an exclusion for marked Scrum
+imports, not a global lock on ordinary board/card edits or all import stages.
 Interrupted imports retain that marker; recovery/rollback of the overall
 multi-document import is still unfinished.
 Unknown fields (including permission fields and recovery checkpoints), invalid

@@ -3515,5 +3515,6 @@
   "scrum-daily-truncated": "Only the most recent 366 observations are shown.",
   "scrum-daily-empty": "No daily observations have been recorded for this sprint.",
   "scrum-observed-scope": "Observed scope",
-  "scrum-daily-observations-export-help": "First recorded observation of each UTC day; missing days are omitted. Observations do not record every change or end-of-day totals. Unknown estimates are not zero."
+  "scrum-daily-observations-export-help": "First recorded observation of each UTC day; missing days are omitted. Observations do not record every change or end-of-day totals. Unknown estimates are not zero.",
+  "scrum-import-pending": "The Scrum import is incomplete. Scrum edits and report exports are unavailable."
 }

@@ -50,12 +50,15 @@ test('a private board without a valid authToken still requires a logged-in user'
 const pdfExporter = read('models/server/ExporterChartPDF.js');
 const excelExporter = read('models/server/ExporterChartExcel.js');
 
-test('ExporterChartPDF.canExport checks board.isVisibleBy', () => {
-  assert.match(pdfExporter, /board\.isVisibleBy\(user\)/);
+test('ExporterChartPDF.canExport uses the shared visibility and assigned-card policy', () => {
+  // Authorization now also restricts assigned-only exports; requiring the old
+  // inline visibility check would discard that narrower shared policy.
+  assert.match(pdfExporter, /return canExportBoardData\(board, user, this\._chartKey\)/);
+  assert.match(read('models/lib/exportAccess.js'), /board\.isVisibleBy\(user\)/);
 });
 
-test('ExporterChartExcel.canExport checks board.isVisibleBy', () => {
-  assert.match(excelExporter, /board\.isVisibleBy\(user\)/);
+test('ExporterChartExcel.canExport uses the shared visibility and assigned-card policy', () => {
+  assert.match(excelExporter, /return canExportBoardData\(board, user, this\._chartKey\)/);
 });
 
 test('the chart PDF exporter reuses the shared pdfDocument/buildUnicodePdf renderer', () => {

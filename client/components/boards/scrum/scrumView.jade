@@ -12,6 +12,8 @@ template(name="scrumView")
       p(role="status") {{_ 'loading'}}
     else
       if data
+        if data.importPending
+          p.warning.scrum-import-pending(role="alert") {{_ 'scrum-import-pending'}}
         if data.importLosses.length
           details.scrum-import-report
             summary {{_ 'import'}}

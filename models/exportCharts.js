@@ -85,6 +85,15 @@ runOnServer(function() {
     return { board, user };
   }
 
+  async function buildExport(exporter, res) {
+    try { await exporter.build(res); }
+    catch (error) {
+      if (error.error !== 'scrum-import-pending' || res.headersSent) throw error;
+      res.writeHead(409, { 'Content-Type': 'text/plain; charset=utf-8' });
+      res.end('The Scrum import is incomplete. Report exports are unavailable.');
+    }
+  }
+
   /**
    * @operation exportChartPDF
    * @tag Boards
@@ -109,7 +118,7 @@ runOnServer(function() {
     const { language, timezone, dateFormat } = await exportLocale(req, user);
     const exporter = new ExporterChartPDF(board._id, req.params.chartKey, language, timezone, dateFormat, req.query);
     if (await exporter.canExport(user)) {
-      await exporter.build(res);
+      await buildExport(exporter, res);
     } else {
       logExportDenied();
       res.writeHead(403, { 'Content-Type': 'text/plain; charset=utf-8' });
@@ -140,7 +149,7 @@ runOnServer(function() {
     const { language } = await exportLocale(req, user);
     const exporter = new ExporterChartExcel(board._id, req.params.chartKey, language, req.query);
     if (await exporter.canExport(user)) {
-      await exporter.build(res);
+      await buildExport(exporter, res);
     } else {
       logExportDenied();
       res.writeHead(403, { 'Content-Type': 'text/plain; charset=utf-8' });

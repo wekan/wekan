@@ -2,7 +2,10 @@
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { loginWithToken, openBoard } = require('../helpers/auth');
-const call = (page, method, ...args) => page.evaluate(({ method, args }) => Meteor.callAsync(method, ...args), { method, args });
+const call = (page, method, ...args) => page.evaluate(async ({ method, args }) => {
+  try { return await Meteor.callAsync(method, ...args); }
+  catch (error) { throw new Error(`${error.error}: ${error.reason || error.message}`); }
+}, { method, args });
 
 test('daily Scrum observations retain measured estimates and obey assigned-card access', async ({ page, browser, user, user2, board }) => {
   const cards = db.find('cards', { boardId: board.boardId });
@@ -18,7 +21,7 @@ test('daily Scrum observations retain measured estimates and obey assigned-card 
     for (const card of cards) await call(page, 'scrum.updateCard', board.boardId, card._id, { sprintId: sprint._id }, 0);
     await call(page, 'scrum.startSprint', board.boardId, sprint._id, sprint.revision);
     db.updateOne('scrumSprints', { _id: sprint._id }, { $set: { scrumImportPending: true } });
-    expect((await call(page, 'scrum.getDailyHistory', board.boardId, sprint._id)).rows).toHaveLength(0);
+    await expect(call(page, 'scrum.getDailyHistory', board.boardId, sprint._id)).rejects.toThrow(/import is incomplete/);
     expect(db.find('scrumDailySnapshots', { boardId: board.boardId })).toHaveLength(0);
     db.updateOne('scrumSprints', { _id: sprint._id }, { $unset: { scrumImportPending: '' } });
     const history = await call(page, 'scrum.getDailyHistory', board.boardId, sprint._id);

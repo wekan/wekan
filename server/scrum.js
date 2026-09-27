@@ -100,11 +100,13 @@ export async function getScrumBoardData(userId, boardId) {
   for (const event of events) event.followUpCardIds = (event.followUpCardIds || []).filter(id => visible.has(id));
   // Rendering a capability is not an attempted mutation. Keep write guards'
   // denial logging for actual writes, without blocking read-only viewers.
-  for (const card of cards) card.canWrite = !!userId && await canEditCardOrLinkedCard(userId, card, board, { recordDenial: false });
+  const importPending = sprints.some(sprint => sprint.scrumImportPending);
+  for (const card of cards) card.canWrite = !importPending && !!userId && await canEditCardOrLinkedCard(userId, card, board, { recordDenial: false });
   return { boardId, settings: { ...DEFAULT_SCRUM_SETTINGS, ...(board.scrum || {}) },
     settingsRevision: board.scrumRevision || 0, sprints, releases, events, cards, lists, swimlanes, customFields,
     importLosses: userId && board.hasAdmin(userId) ? (board.scrumImportLosses || []) : [],
-    canAdmin: !!userId && board.hasAdmin(userId), canWrite: !!userId && allowIsBoardMemberWithWriteAccess(userId, board),
+    importPending, canAdmin: !importPending && !!userId && board.hasAdmin(userId),
+    canWrite: !importPending && !!userId && allowIsBoardMemberWithWriteAccess(userId, board),
     partial: restricted };
 }
 async function ensureSettings(boardId, settings, board) {
@@ -115,7 +117,13 @@ async function ensureSettings(boardId, settings, board) {
     if (!board.hasMember(id)) invalid('Scrum accountabilities must reference active board members');
   }
 }
+export async function assertNoPendingScrumImport(boardId) {
+  if (await ScrumSprints.findOneAsync({ boardId, scrumImportPending: true }, { fields: { _id: 1 } })) {
+    throw new Meteor.Error('scrum-import-pending', 'The Scrum import is incomplete. Scrum edits and report exports are unavailable.');
+  }
+}
 async function pending(boardId) {
+  await assertNoPendingScrumImport(boardId);
   if (await ScrumHistoryPending.findOneAsync(boardId)) throw new Meteor.Error('scrum-history-pending', 'Retry the interrupted Scrum History operation first.');
   if (await ScrumSprints.findOneAsync({ boardId, 'rolloverPending.0': { $exists: true } })) {
     throw new Meteor.Error('scrum-rollover-pending', 'Finish the pending sprint rollover first');
@@ -218,6 +226,7 @@ export async function getScrumDailyHistory(userId, boardId, sprintId) {
   check(boardId, String); check(sprintId, String);
   if (!sprintId || sprintId.length > 200) invalid('Invalid sprint identifier');
   const board = await boardFor(userId, boardId);
+  await assertNoPendingScrumImport(boardId);
   const sprint = await ScrumSprints.findOneAsync({ _id: sprintId, boardId });
   if (!sprint) throw new Meteor.Error('not-found');
   const partial = !!assignedOnlyCardScope(board, userId);
@@ -282,6 +291,7 @@ const methods = {
       const board = await boardFor(this.userId, boardId, true);
       const sprint = await ScrumSprints.findOneAsync({ _id: sprintId, boardId });
       if (!sprint) throw new Meteor.Error('not-found');
+      await assertNoPendingScrumImport(boardId);
       // A retry must not bypass the exclusion used by every other Scrum write.
       if (await ScrumHistoryPending.findOneAsync(boardId)) throw new Meteor.Error('scrum-history-pending', 'Retry the interrupted Scrum History operation first.');
       if (sprint.state === 'closed' && sprint.closedFromRevision === expectedRevision && sprint.rolloverSprintId === rolloverSprintId) return resumeRollover(this.userId, sprint);

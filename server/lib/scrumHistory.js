@@ -15,7 +15,7 @@ import ScrumHistoryPending from './scrumHistoryPending';
 import { canUpdateCard } from '/server/permissions/cards';
 import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 import { withoutRecording, isRecordingSuppressed } from './historyRecordingScope';
-import { setScrumHistoryRecorder, setScrumHistoryBatchRunner, withScrumBoardLock } from '/server/scrum';
+import { setScrumHistoryRecorder, setScrumHistoryBatchRunner, withScrumBoardLock, assertNoPendingScrumImport } from '/server/scrum';
 const { assignedOnlyCardScope } = require('/models/lib/boardCardScope');
 const { METADATA_TYPES, historyDocument, historyRecords, historySide } = require('/models/lib/scrumHistory');
 const { normalizeScrumMetadata, normalizeScrumSettings, DEFAULT_SCRUM_SETTINGS, scrumRevisionSelector } = require('/models/lib/scrum');
@@ -139,6 +139,7 @@ export async function applyScrumHistory(row, content, direction) {
       if (await ScrumSprints.findOneAsync({ boardId: row.boardId, 'rolloverPending.0': { $exists: true } })) conflict();
       const current = await Promise.all(targets.map(entry => collections[entry.type].findOneAsync(entry.id)));
       await validateTargets(board, userId, targets, current);
+      await assertNoPendingScrumImport(row.boardId);
       const live = { records: targets.map((entry, index) => ({ type: entry.type, id: entry.id, document: historyDocument(entry.type, current[index]) })) };
       const expected = direction === 'undo' ? row.newContent : row.previousContent;
       if (direction !== 'restore' && !EJSON.equals(live, expected)) conflict();
@@ -148,6 +149,7 @@ export async function applyScrumHistory(row, content, direction) {
     } else {
       const current = await Promise.all(targets.map(entry => collections[entry.type].findOneAsync(entry.id)));
       await validateTargets(board, userId, targets, current);
+      await assertNoPendingScrumImport(row.boardId);
     }
     if (!journal.operationId) {
       journal.operationId = Random.id();

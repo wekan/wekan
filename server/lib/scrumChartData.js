@@ -8,6 +8,7 @@ export async function loadScrumChartData(userId, boardId, chartKey, options = {}
     return getScrumDailyHistory(userId, boardId, options.sprintId);
   }
   const data = await getScrumBoardData(userId, boardId);
+  if (data.importPending) throw new Meteor.Error('scrum-import-pending', 'The Scrum import is incomplete. Report exports are unavailable.');
   if (chartKey === 'scrumVelocity') return { reports: velocityRows(data.sprints), partial: data.partial };
   if (chartKey !== 'scrumSprint') throw new Meteor.Error('invalid-chart');
   if (typeof options.sprintId !== 'string' || options.sprintId.length > 200) throw new Meteor.Error('invalid-sprint');
