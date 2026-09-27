@@ -1223,6 +1223,23 @@ not run. Blockly translations remain paused.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/85b5f28bc">Keep copied cards independent from external Sync identities</a>. Thanks to xet7.</summary>
+
+Card and subtask copies no longer inherit external Sync IDs, source types or
+last-source text. The original mapping remains intact. Sync refuses existing
+duplicate local mappings before updates or archives, instead of selecting an
+arbitrary matching card. The existing popup reports the duplicate identity.
+
+Seventeen focused Node checks and one Chromium board-copy scenario pass.
+Coverage exercises real copy bodies, source preservation, subtask fields and
+zero card writes when local identities are duplicated. The browser confirms
+Scrum references still remap while copied Sync identities are absent. Updated
+the Sync guide. Existing Upcoming regression evidence remains recorded;
+other browsers and live provider accounts were not exercised.
+
+</details>
+
 This release adds the following regression coverage and documentation:
 
 <details>
