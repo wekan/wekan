@@ -710,6 +710,25 @@ recorded positive, negative and UI regression coverage.
 Also adds the following feature:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/21504d556">Select card creation and archival in the list Sync popup</a>. Thanks to xet7.</summary>
+
+Add Card and Move Card to Archive switches independently control new-source
+card creation and source-absence archival. Both default to enabled for existing
+configurations. Disabling either operation leaves matched-card updates and
+field selection available. Disabled archival skips child archive preflight;
+result counts include only enabled operations. Board write access is required.
+
+Twenty-six focused Node checks and five Chromium scenarios pass. Coverage
+includes every operation combination, retained cards, defaults, saved settings,
+invalid inputs, nonmember denial and existing conflict messages. Update the
+Sync guide and Scrum design checkpoint. Existing Upcoming regression evidence
+remains recorded; other browsers and live providers were not exercised.
+Project-scoped source identities, atomic jobs and Scrum planning Sync remain
+pending. Blockly translation work remains paused.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4aa61c6d5">Opt into Jira spent-time synchronization from the Sync popup</a>. Thanks to xet7.</summary>
 
 Jira Sync can include Spent time (hours), using the existing numeric seconds
