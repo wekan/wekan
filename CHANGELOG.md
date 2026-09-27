@@ -151,8 +151,11 @@ or provide automatic import resume/rollback.
 Sprint start/close now use bounded projected queries and reject more than 10,000
 cards or lists before state/History writes. Done-list completion uses one lookup
 index per snapshot. Exact-limit inputs remain complete; overflows never become
-partial commitment/result snapshots. Large-board view pagination, document byte
-limits and concurrent snapshot consistency remain pending.
+partial commitment/result snapshots. Lifecycle writes now preflight the BSON
+sizes of the sprint/rollover plan, compound History and recovery payload before
+mutating data, reserving room for journal/envelope fields. Large-board view
+pagination, separate storage for larger plans and concurrent snapshot
+consistency remain pending.
 Remaining: event-complete scope history and burndown,
 atomic original writes/History, the remaining large-board limits,
 complete cross-board move/reference/undo coordination, standalone
@@ -1088,6 +1091,27 @@ in TODO Later. The known released-entry changelog format failure remains.
 </details>
 
 and improves list synchronization:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7837f3d9c">Preflight Scrum lifecycle document sizes</a>. Thanks to xet7.</summary>
+
+Before a lifecycle write, check BSON byte sizes of the resulting sprint and
+rollover plan, compound History and paired recovery snapshots. A 15 MiB budget
+reserves room for envelope fields and recovery revisions. Oversized metadata
+returns an explicit scope-reduction error before changing sprint state or cards.
+
+Sixteen Scrum Node suites pass with database/lifecycle integration enabled and
+no skipped tests. All nine Chromium scenarios pass, including 800 cards with
+large acceptance criteria: close is rejected without changing state or History,
+and retry succeeds after reducing metadata. Unit coverage includes multibyte
+text, compound History overflow, recovery-size reserve and 10,000-card plans.
+The offline audit passes with advisory warnings; the pre-existing released
+v12.07 changelog line-length failure remains.
+
+Larger-plan storage, concurrent snapshot consistency and original-write/History
+atomicity remain unfinished. Size preflight does not provide a transaction.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/429c360ba">Bound Scrum sprint snapshot reads and completion work</a>. Thanks to xet7.</summary>
