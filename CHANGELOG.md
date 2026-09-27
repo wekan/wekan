@@ -599,6 +599,29 @@ their themed text colors.
 This release fixes the following bugs:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e0a53728b">Use available width for popup menus and Card settings</a>. Thanks to xet7.</summary>
+
+Board Settings / Card places Draggable to the left of Show on Minicard and Show
+on Card when the form is wide enough. Narrow popups stack all three in that
+order. The layout responds to the popup's width rather than only screen size.
+
+Board View and other long option menus use balanced columns on wide screens.
+The shared layout covers grouped board/member/card/list/swimlane menus and long
+label/custom-field/member pickers. Search spans the columns and keeps its width
+while filtering. Child forms retain their original layout; Back restores the
+menu columns. Phone layouts remain single-column, and scrolling remains
+available when all options cannot fit within the viewport.
+
+Audited 198 popup templates. Specialized forms, calendars, tables and existing
+picker grids retain their layouts. No options, actions or permission guards
+changed. Four focused Node suites and 15 distinct Chromium scenarios pass,
+including responsive layout, persistence, authorization, selection, search,
+form/back navigation, phone layout and RTL. Other browser engines were not run.
+See docs/DeveloperDocs/Popup-Layout-Audit.md for the audit scope and exceptions.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/88e234f05">Make text editors multiline and resizable, honor the Enter preference, and restore themed button text</a>. Thanks to xet7.</summary>
 
 Use multiline textareas for ordinary titles, names, descriptions, labels, rule
