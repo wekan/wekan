@@ -87,3 +87,15 @@ test('Gujarati math prose is translated while mathematical notation stays intact
  assert.notEqual(gu['blockly-MATH_ONLIST_OPERATOR_MEDIAN'],gu['blockly-MATH_ONLIST_OPERATOR_AVERAGE']);
  assert.notEqual(gu['blockly-MATH_ROUND_OPERATOR_ROUNDDOWN'],gu['blockly-MATH_ROUND_OPERATOR_ROUNDUP']);
 });
+test('Gujarati workspace and shortcut messages preserve navigation direction and placeholders',()=>{
+ const gu=require('../imports/i18n/data/gu-IN.i18n.json');
+ for(const key of Object.keys(english).filter(key=>/^blockly-(SHORTCUTS_|WORKSPACE_|SCREENREADER_)/.test(key))){
+  assert.match(gu[key],/[\u0A80-\u0AFF]/,key);
+  assert.notEqual(gu[key],english[key],key);
+  assert.deepEqual(placeholders(gu[key]),placeholders(english[key]),key);
+ }
+ assert.equal(gu['blockly-SHORTCUTS_MOVE_LEFT'],'ડાબે ખસેડો');
+ assert.equal(gu['blockly-SHORTCUTS_MOVE_RIGHT'],'જમણે ખસેડો');
+ assert.notEqual(gu['blockly-SCREENREADER_MODE_ENABLED'],gu['blockly-SCREENREADER_MODE_DISABLED']);
+ assert.match(gu['blockly-WORKSPACE_SEARCH_INPUT_LABEL'],/Shift\+Enter/);
+});
