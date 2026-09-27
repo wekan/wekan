@@ -132,8 +132,11 @@ reject changed or moved targets. A board checkpoint covers preparation and
 marker cleanup, including imports with no sprint records. An offline maintenance
 command now validates and continues complete stored Scrum plans with all writers
 stopped. It uses non-expiring recovery claims and resumes interrupted cleanup.
-Online coordinated replay, rollback and incomplete staging remain unfinished;
-the command does not recover the other native board-import stages.
+It can also undo interrupted Scrum plans in reverse order, with conditional
+target writes, durable progress and cleanup. Incomplete preparation can be
+discarded without destination writes. Online coordinated replay and partial
+plan reconstruction remain unfinished; the command does not recover the other
+native board-import stages or undo completed imports whose plans are gone.
 Marked incomplete imports also block Scrum edits, History writes and report
 exports, with a visible warning. This does not lock ordinary board/card edits
 or provide automatic import resume/rollback.
@@ -795,6 +798,30 @@ contents were not changed.
 and improves daily Scrum reporting:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/bde8c3010">Undo interrupted Scrum import plans during offline maintenance</a>. Thanks to xet7.</summary>
+
+The maintenance command now offers read-only rollback inspection and explicit
+`--rollback --apply --offline`. Validate the full plan before reversing its
+writes. Restore original Scrum metadata, including missing fields and nulls,
+while retaining unrelated card data. Remove only unchanged imported planning
+records and daily observations, with exact-document conditional deletion.
+
+Persist reverse progress and cleanup so lost acknowledgements and interrupted
+private-plan removal can be retried. Failed attempts retain their exclusive
+claim. Forward resume is refused after rollback starts. Incomplete preparation
+can be discarded without destination writes; completed imports whose plans are
+already being removed cannot be rolled back. All database writers must remain
+stopped. See the [maintenance guide](docs/Features/ImportExport/Scrum-Import-Recovery.md).
+
+Three Node suites pass, including MongoDB tests for every planned collection,
+changed/moved targets, concurrent changes at deletion/update, write gaps,
+invalid cursors, interrupted cleanup and the real CLI. The local release audit
+passes with advisory warnings. No UI behavior changed. FerretDB, online
+recovery and the other native board-import stages remain unverified or pending.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/3b2bb2335">Continue complete stored import plans during offline maintenance</a>. Thanks to xet7.</summary>
 
 The new maintenance command defaults to read-only inspection. With all WeKan
@@ -814,8 +841,8 @@ Three Node suites pass, including real MongoDB failure injection, competing
 callers, partial marker cleanup, interrupted plan cleanup, argument validation
 and the actual CLI. The final CLI rerun confirms its explicit Scrum scope.
 The release audit passes with advisory warnings. FerretDB was not tested.
-Online recovery, rollback, partial-staging reconstruction and the other board
-import stages remain pending.
+Online recovery, partial-staging reconstruction and the other board import
+stages remain pending. Offline rollback is implemented in the entry above.
 
 </details>
 
