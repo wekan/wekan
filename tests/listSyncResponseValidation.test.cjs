@@ -1,0 +1,38 @@
+'use strict';
+const {test}=require('node:test');const assert=require('node:assert/strict');
+const fs=require('node:fs');const vm=require('node:vm');
+const asModule=file=>import(`data:text/javascript;base64,${Buffer.from(fs.readFileSync(file,'utf8')).toString('base64')}`);
+async function run(raw,parser){
+ const {validateImportSourceShape}=await asModule('models/lib/importSourceShape.js');
+ const {planListSyncReconcile}=await asModule('models/lib/listSyncReconcile.js');
+ const cardWrites=[],listWrites=[];let parsed=0;
+ const source=fs.readFileSync('server/listSync.js','utf8').replace(/^import .*;\n/gm,'').replace(/export async function/g,'async function');
+ const context={Meteor:{startup(){}},Lists:{updateAsync:async(id,modifier)=>listWrites.push(modifier)},
+  Cards:{find:()=>({fetchAsync:async()=>[{_id:'card',syncExternalId:'KEY-1',title:'Existing',description:''}]}),findOneAsync:async()=>({archive:async()=>cardWrites.push('archive')})},
+  Boards:{findOneAsync:async()=>({_id:'board'})},ListSyncCredentials:{findOneAsync:async()=>({token:'test'})},
+  EXTERNAL_PARSERS:{jira:raw=>{parsed++;return parser?parser(raw):{tasks:[]};}},SYNC_CAPABLE_SOURCES:['jira'],
+  LIST_SYNC_FETCHERS:{jira:async()=>raw},validateImportSourceShape,planListSyncReconcile,require:()=>({record(){}}),console,
+ };
+ vm.createContext(context);vm.runInContext(source,context);
+ const result=await context.syncOneList({_id:'list',boardId:'board',syncSource:{type:'jira'}});
+ return {result,cardWrites,listWrites,parsed};
+}
+test('malformed sync responses cannot be mistaken for a source deletion',async()=>{
+ for(const raw of [{errorMessages:['Unavailable']},{issues:null},{issues:{}},null]){
+  const {result,cardWrites,listWrites,parsed}=await run(raw);
+  assert.match(result.error,/Invalid jira import document shape/);assert.equal(parsed,0);
+  assert.deepEqual(cardWrites,[]);assert.equal(listWrites.length,1);
+  assert.ok(listWrites[0].$set['syncSource.lastSyncError']);
+  assert.equal(listWrites[0].$set['syncSource.lastSyncedAt'],undefined);
+ }
+});
+test('a valid empty source still archives items which actually disappeared',async()=>{
+ const {result,cardWrites,listWrites,parsed}=await run({issues:[]});
+ assert.equal(parsed,1);assert.equal(result.archived,1);assert.deepEqual(cardWrites,['archive']);
+ assert.equal(listWrites[0].$set['syncSource.lastSyncError'],'');
+});
+test('parser errors follow the same no-card-write error path',async()=>{
+ const {result,cardWrites,listWrites}=await run({issues:[{}]},()=>{throw new Error('Invalid issue');});
+ assert.equal(result.error,'Invalid issue');assert.deepEqual(cardWrites,[]);
+ assert.equal(listWrites[0].$set['syncSource.lastSyncError'],'Invalid issue');
+});

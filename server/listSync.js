@@ -20,6 +20,7 @@ import Boards from '/models/boards';
 import ListSyncCredentials from '/models/listSyncCredentials';
 import { EXTERNAL_PARSERS, SYNC_CAPABLE_SOURCES } from '/models/lib/externalParsers';
 import { planListSyncReconcile } from '/models/lib/listSyncReconcile';
+import { validateImportSourceShape } from '/models/lib/importSourceShape';
 import { LIST_SYNC_FETCHERS } from '/server/lib/listSyncFetch';
 import { SyncedCron } from '/server/cron/syncedCron';
 
@@ -38,9 +39,11 @@ export async function syncOneList(list, { fetchers = LIST_SYNC_FETCHERS } = {}) 
   const credential = await ListSyncCredentials.findOneAsync({ listId: list._id });
   if (!credential) return { skipped: true, reason: 'no credential stored for this list' };
 
-  let raw;
+  let parsed;
   try {
-    raw = await fetcher(source, credential);
+    const raw = await fetcher(source, credential);
+    validateImportSourceShape(source.type, raw);
+    parsed = parser(raw);
   } catch (e) {
     await Lists.updateAsync(list._id, {
       $set: { 'syncSource.lastSyncError': String((e && e.message) || e).slice(0, 500) },
@@ -64,7 +67,6 @@ export async function syncOneList(list, { fetchers = LIST_SYNC_FETCHERS } = {}) 
     return { error: String((e && e.message) || e) };
   }
 
-  const parsed = parser(raw);
   const externalTasks = parsed.tasks || [];
 
   const existingCards = (

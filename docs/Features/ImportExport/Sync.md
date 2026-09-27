@@ -19,6 +19,14 @@ every 15 minutes, fetches each synced list's current items
 - an external item that disappeared is **archived**, never deleted - "old
   entries are at list history", per the request this implements.
 
+Before reconciliation, Sync validates the response using the same source-shape
+validator as import. A malformed response or parser failure records the existing
+last-sync error and leaves cards unchanged; it is not an empty source. A valid
+empty issue array retains the existing archive behavior. This does not yet
+verify that a provider response includes every page: complete pagination and
+conflict-aware local-edit preservation remain required before extending Scrum
+synchronization.
+
 Fetching and parsing REUSE the existing one-time-import code in
 `models/lib/externalParsers.js` (`parseJira`, `parseGithub`, `parseGitlab`,
 `parseGitea`) rather than a second implementation; `SYNC_CAPABLE_SOURCES`
