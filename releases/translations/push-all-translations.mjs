@@ -38,13 +38,20 @@ export function retryingRequest(request, { sleep = wait, log = console.log, maxA
   };
 }
 
-export function validateTranslation(content, source) {
+export function validateTranslation(content, source, { allowMissingKeys = false } = {}) {
   const data = JSON.parse(content);
   if (!data || Array.isArray(data) || typeof data !== 'object') throw new Error('Expected a JSON object');
   const tokens = value => translationTokens(value).join('\n');
   const expected = Object.keys(source).sort();
-  if (Object.keys(data).sort().join('\n') !== expected.join('\n')) throw new Error('Translation keys differ from the source');
-  for (const key of expected) {
+  const supplied = Object.keys(data).sort();
+  const unknown = supplied.filter(key => !Object.hasOwn(source, key));
+  const missing = expected.filter(key => !Object.hasOwn(data, key));
+  if (unknown.length || (!allowMissingKeys && missing.length) || (!supplied.length && expected.length)) {
+    throw new Error(`Translation keys differ from the source: ${missing.length} missing, ${unknown.length} unknown`);
+  }
+  // Missing targets are untranslated, not invalid. Never invent English target
+  // values to align catalogs: uploading them could replace remote translations.
+  for (const key of supplied) {
     if (typeof data[key] !== 'string' || (!data[key].trim() && source[key].trim())) throw new Error(`Empty or non-string value: ${key}`);
     if (tokens(data[key]) !== tokens(source[key])) throw new Error(`Broken source placeholders: ${key}`);
   }
@@ -124,7 +131,9 @@ export async function pushTranslations({ config, languages, request, readContent
     try {
       const file = `imports/i18n/data/${language.file}.i18n.json`;
       const content = readContent(file);
-      validateTranslation(content, source);
+      const data = validateTranslation(content, source, { allowMissingKeys: true });
+      const missing = Object.keys(source).length - Object.keys(data).length;
+      if (missing) log(`[tx] ${language.code}: ${missing} source keys absent locally; uploading existing keys only`);
       if (!existing.has(language.code)) {
         log(`[tx] adding project language ${language.code} (${language.file}.i18n.json)`);
         try {
@@ -243,9 +252,15 @@ async function main() {
   }
   const source = JSON.parse(fs.readFileSync(config.sourceFile, 'utf8'));
   if (args.includes('--dry-run')) {
+    validateTranslation(JSON.stringify(source), source);
     const failures = [];
     for (const language of languages) {
-      try { validateTranslation(fs.readFileSync(`imports/i18n/data/${language.file}.i18n.json`, 'utf8'), source); }
+      try {
+        const data = validateTranslation(fs.readFileSync(`imports/i18n/data/${language.file}.i18n.json`, 'utf8'),
+          source, { allowMissingKeys: true });
+        const missing = Object.keys(source).length - Object.keys(data).length;
+        if (missing) console.log(`[tx] ${language.code}: ${missing} source keys absent locally; uploading existing keys only`);
+      }
       catch (error) { failures.push({ ...language, reason: error.message }); }
       console.log(`${language.file}.i18n.json -> ${language.code}`);
       if (HUMAN_OWNED_FILES.has(language.file)) console.log(`  protected human translations: target upload skipped`);

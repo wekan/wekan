@@ -48,8 +48,16 @@ Transifex documents throttling as [HTTP 429](https://developers.transifex.com/re
 At the end it lists each failed language with its local file and reason, saves a
 JSON report under `.tools/log/translations-push/YYYY-MM-DD_HH-MM-SS/report.json`, and
 returns a nonzero exit status when any language failed. An entirely successful
-run prints `None` in the failure list. Invalid JSON, missing keys, empty values
-where the source is nonempty, and altered placeholders are reported as failures.
+run prints `None` in the failure list. Invalid JSON, unknown keys, empty catalogs,
+empty values where the source is nonempty, and altered placeholders are failures.
+
+Target files may omit source keys that have not been translated yet. The script
+reports the missing-key count and uploads only the existing local entries; it
+does not add English placeholders or modify locale files. The source upload
+retains all English keys. Offline dry runs use the same target validation as real
+uploads. This follows Transifex's support for
+[partially translated files](https://help.transifex.com/en/articles/6318456-uploading-translations).
+Whole-file protection for the PR #6695 human-owned locales remains in place.
 
 Every invocation also saves terminal status and errors to
 `.tools/log/push-all-translations_YYYY-MM-DD_HH-MM-SS.txt`, using local time.

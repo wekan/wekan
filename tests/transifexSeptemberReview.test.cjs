@@ -53,6 +53,10 @@ test('valid new translations and mathematical notation survive the review', () =
   assert.match(read('hi')['blockly-MATH_CONSTANT_TOOLTIP'], /π.*φ.*∞/);
   for (const file of fs.readdirSync(path.join(root, 'imports/i18n/data'))) {
     if (!file.endsWith('.i18n.json')) continue;
-    assert.deepEqual(Object.keys(read(file.slice(0, -10))), Object.keys(en), file);
+    // Development adds English source labels before target translations. Keep
+    // validating known keys and source order without requiring blanket filling.
+    const locale = read(file.slice(0, -10));
+    assert.ok(Object.keys(locale).length > 0, file);
+    assert.deepEqual(Object.keys(locale), Object.keys(en).filter(key => Object.hasOwn(locale, key)), file);
   }
 });

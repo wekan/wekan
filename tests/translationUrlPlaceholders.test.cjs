@@ -10,7 +10,7 @@ test('localized help URLs validate without mistaking percent octets for placehol
   const en = JSON.parse(fs.readFileSync(path.join(directory, 'en.i18n.json')));
   for (const file of fs.readdirSync(directory).filter(file => file.endsWith('.i18n.json'))) {
     const content = fs.readFileSync(path.join(directory, file), 'utf8');
-    assert.doesNotThrow(() => validateTranslation(content, en), file);
+    assert.doesNotThrow(() => validateTranslation(content, en, { allowMissingKeys: file !== 'en.i18n.json' }), file);
   }
 });
 
