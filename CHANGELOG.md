@@ -710,6 +710,24 @@ recorded positive, negative and UI regression coverage.
 Also adds the following feature:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/5e67a3bdd">Assign releases from Scrum planning card editors</a>. Thanks to xet7.</summary>
+
+Product Backlog and sprint card tables display release assignments and offer
+a selector to assign or clear a release from the current board. The controls
+reuse existing card write permissions, reference validation, revision checks
+and Scrum History. Card selections remain independent of the release-planning
+editor's selected record. No new metadata fields or translation keys are needed.
+
+Six Node checks and five Chromium scenarios pass. The new browser scenario
+covers saved selection, clearing, undo/redo and rejected foreign references;
+it caught and verified the fix for a selector helper-name collision. Existing
+Scrum planning, visibility, permission and export scenarios also pass. Update
+the Product Backlog guide. Existing Upcoming regression evidence remains
+recorded; other browsers were not exercised. Blockly translations remain paused.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/196faa9cd">Retain sprint calendars and report planned working days</a>. Thanks to xet7.</summary>
 
 Sprint snapshots retain the configured workweek. Sprint Report, Velocity and
