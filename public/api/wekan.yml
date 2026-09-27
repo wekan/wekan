@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v12.07
+  version: v12.08
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -3851,33 +3851,6 @@ paths:
         - multipart/form-data
         - application/json
       parameters:
-        - name: title
-          in: formData
-          description: |
-            the new rule title
-          type: string
-          required: false
-        - name: enabled
-          in: formData
-          description: |
-            false pauses the rule without deleting it (its
-            trigger and action stay as they are); true resumes it
-          type: boolean
-          required: false
-        - name: trigger
-          in: formData
-          description: |
-            the new trigger document
-          type: string
-          format: json
-          required: false
-        - name: action
-          in: formData
-          description: |
-            the new action document
-          type: string
-          format: json
-          required: false
         - name: board
           in: path
           description: |
@@ -5243,6 +5216,17 @@ definitions:
     type: object
     description:  This is a Board.
     properties:
+      scrum:
+        type: object
+        x-nullable: true
+      scrumRevision:
+        type: number
+        x-nullable: true
+      scrumImportLosses:
+        type: array
+        items:
+          $ref: "#/definitions/BoardsScrumimportlosses"
+        x-nullable: true
       title:
         description: |
            The title of the board
@@ -6001,6 +5985,8 @@ definitions:
       - type
       - sort
       - showActivities
+  BoardsScrumimportlosses:
+    type: object
   BoardsLabels:
     type: object
     properties:
@@ -6210,6 +6196,12 @@ definitions:
   Cards:
     type: object
     properties:
+      scrum:
+        type: object
+        x-nullable: true
+      scrumRevision:
+        type: number
+        x-nullable: true
       title:
         description: |
            the title of the card
@@ -6316,6 +6308,9 @@ definitions:
         description: |
            display name entered manually or copied from the selected user
         type: string
+        x-nullable: true
+      syncLastSource:
+        $ref: "#/definitions/CardsSynclastsource"
         x-nullable: true
       syncExternalId:
         type: string
@@ -6668,6 +6663,15 @@ definitions:
         description: |
            poker estimation value
         type: number
+  CardsSynclastsource:
+    type: object
+    properties:
+      title:
+        type: string
+      description:
+        type: string
+      spentTime:
+        type: number
   CardsVote:
     type: object
     properties:
@@ -6940,6 +6944,15 @@ definitions:
   CustomFieldsSettings:
     type: object
     properties:
+      jiraTimeField:
+        type: string
+        enum:
+          - original
+          - remaining
+      jiraEstimateFieldId:
+        type: string
+      jiraEstimateUnit:
+        type: string
       currencyCode:
         type: string
       dropdownItems:
@@ -7106,6 +7119,12 @@ definitions:
     type: object
     description:  A list (column) in the Wekan board.
     properties:
+      scrum:
+        type: object
+        x-nullable: true
+      scrumRevision:
+        type: number
+        x-nullable: true
       title:
         description: |
            the title of the list
@@ -7206,6 +7225,15 @@ definitions:
            Jira project key, or "owner/repo" for GitHub/Gitea, or numeric project
            id for GitLab
         type: string
+      fields:
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      createCards:
+        type: boolean
+      archiveCards:
+        type: boolean
       enabled:
         type: boolean
       lastSyncedAt:
@@ -7691,6 +7719,12 @@ definitions:
     type: object
     description:  A swimlane is an line in the kaban board.
     properties:
+      scrum:
+        type: object
+        x-nullable: true
+      scrumRevision:
+        type: number
+        x-nullable: true
       title:
         description: |
            the title of the swimlane
@@ -8217,6 +8251,10 @@ definitions:
           - board-view-time
           - board-view-timeline
           - board-view-group-by-assignee
+          - board-view-product-backlog
+          - board-view-sprints
+          - board-view-sprint-report
+          - board-view-velocity
           - board-view-roadmap
           - board-view-dashboard
           - board-view-bigboard
