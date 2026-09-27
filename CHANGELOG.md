@@ -710,6 +710,25 @@ recorded positive, negative and UI regression coverage.
 Also adds the following feature:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/4af54df66">Preserve Scrum data when duplicating boards</a>. Thanks to xet7.</summary>
+
+The existing duplication selector includes Scrum, selected by default with its
+custom-field dependency. Planning records receive new IDs; copied card, list,
+swimlane and snapshot references point to the destination. Clearing Scrum
+omits its settings and metadata. Copies without cards retain planning records
+with reduced snapshots visibly marked partial in reports and Excel/PDF rows.
+Source History is not copied, and source board data remains unchanged.
+
+Seventeen Node checks and seven Chromium scenarios pass, covering all copy
+selection modes, attachment inclusion/exclusion, reference remapping, omitted
+Scrum data, structure-only copies and partial-report labels. Existing Upcoming
+regression evidence remains recorded; other browsers were not exercised.
+Standalone card/list/swimlane copy and move, scoped import, History transport
+and Sync remain separate pending work. Blockly translation remains paused.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e0863b35c">Restore Scrum data when importing a native board export</a>. Thanks to xet7.</summary>
 
 Native new-board import validates the versioned Scrum section before creating
