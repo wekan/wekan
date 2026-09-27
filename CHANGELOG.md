@@ -710,6 +710,25 @@ recorded positive, negative and UI regression coverage.
 Also adds the following feature:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ef5c7d00c">Preserve Jira time tracking using existing WeKan fields</a>. Thanks to xet7.</summary>
+
+Jira JSON import converts numeric time-tracking seconds to hours. Spent time
+uses the existing card field; original and remaining estimates use numeric
+custom fields hidden from minicards by default. Explicit zeroes are preserved,
+and invalid durations fail before board creation. Existing Scrum settings can
+select the original estimate field. Native export retains the imported values.
+Localized duration text and incomplete worklog pages are not guessed.
+
+Four focused Node checks and three Chromium scenarios pass, covering nested
+and flat source fields, fractional hours, zero/missing/invalid values, the
+import page, native export, Scrum estimate selection and existing Jira import
+compatibility. Existing Upcoming regression evidence remains recorded. Jira
+sprint/release mapping and external export/Sync integration remain pending;
+other browsers were not run. Blockly translation remains paused.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/676536bcd">Visualize sprint reports and velocity with count and estimate bars</a>. Thanks to xet7.</summary>
 
 Sprint Report and Velocity now show responsive horizontal bars above their
