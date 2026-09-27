@@ -148,9 +148,14 @@ native board-import stages or undo completed imports whose plans are gone.
 Marked incomplete imports also block Scrum edits, History writes and report
 exports, with a visible warning. This does not lock ordinary board/card edits
 or provide automatic import resume/rollback.
+Sprint start/close now use bounded projected queries and reject more than 10,000
+cards or lists before state/History writes. Done-list completion uses one lookup
+index per snapshot. Exact-limit inputs remain complete; overflows never become
+partial commitment/result snapshots. Large-board view pagination, document byte
+limits and concurrent snapshot consistency remain pending.
 Remaining: event-complete scope history and burndown,
-atomic original writes/History, large-board
-limits, complete cross-board move/reference/undo coordination, standalone
+atomic original writes/History, the remaining large-board limits,
+complete cross-board move/reference/undo coordination, standalone
 planning-record mapping, existing-board scoped import and History transport.
 The design now records the implemented explicit Jira estimate-field mapping;
 automatic schema discovery remains pending.
@@ -1083,6 +1088,30 @@ in TODO Later. The known released-entry changelog format failure remains.
 </details>
 
 and improves list synchronization:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/429c360ba">Bound Scrum sprint snapshot reads and completion work</a>. Thanks to xet7.</summary>
+
+Sprint start and close previously loaded full card/list collections before
+checking the card limit. Fetch only snapshot/rollover fields and at most 10,001
+rows, retaining an overflow sentinel. Reject more than 10,000 cards or lists
+before changing sprint state or History. Start still excludes archived cards;
+close includes them for rollover. Replace repeated list scans for each card
+with one done-list membership index per snapshot.
+
+All fifteen Scrum Node suites pass with MongoDB and Meteor integration enabled,
+without skipped tests. Eight Chromium scenarios pass, including oversized
+start/close rejection with unchanged sprint/History state and successful retry
+after removing excess inputs. Unit coverage verifies exact-limit completeness,
+projected queries, overflow detection and one completion scan of the lists.
+The offline audit passes with advisory fingerprint warnings. The known v12.07
+released-entry changelog line-length failure remains.
+
+Row-count bounds do not bound document byte sizes or make concurrent snapshots
+atomic. Large metadata/rollover plans, board-view pagination and coordinated
+snapshot consistency remain in TODO Later.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0d582c9c0">Verify Scrum undo finalization before clearing recovery</a>. Thanks to xet7.</summary>
