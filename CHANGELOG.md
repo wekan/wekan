@@ -1122,6 +1122,24 @@ Upcoming regression evidence remains recorded; other browsers were not run.
 This release adds the following regression coverage and documentation:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/14a4d62fb">Verify Jira estimate mappings across native imports and board copies</a>. Thanks to xet7.</summary>
+
+Expand the Chromium transfer scenario to export a Jira-imported board as
+native WeKan JSON, import it, and duplicate the source board. Both destinations
+retain renamed estimate markers, allocate new custom-field IDs and remap the
+Scrum estimate-field reference. Subsequent Jira exports preserve numeric time
+values, including zero remaining work.
+
+The expanded browser scenario passes; its existing invalid-input, selection
+exclusion and popup-rename checks also pass. Update the Jira feature guide.
+Existing Upcoming regression evidence remains recorded. Other browsers and
+standalone card/list/swimlane transfers were not tested in this change.
+
+</details>
+
+
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2ff687756">Define shared Scrum transfer validation and ID remapping</a>. Thanks to xet7.</summary>
 
 The versioned data contract covers settings, planning records, snapshots and
