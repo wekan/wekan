@@ -114,8 +114,10 @@ and Velocity charts and Excel/PDF exports are implemented with focused tests.
 History supports revision checks, compound recovery checkpoints and undo/redo.
 Restoration retries now use stable per-author event IDs and verify immutable
 contents and integrity before accepting existing History rows. Failed or damaged
-records retain the recovery checkpoint; ordinary writes and History remain
-non-atomic, and automatic startup replay is still pending.
+records retain the recovery checkpoint. Finalization now verifies the source
+History row and persisted undo/redo state before deleting the exact operation's
+checkpoint. Retries preserve the original undo timestamp. Ordinary writes and
+History remain non-atomic, and automatic startup replay is still pending.
 Native whole-board export/import and duplication remap planning records and
 snapshots, validate lifecycle/policy consistency, and report reduced data.
 Standalone copies preserve applicable metadata and drop foreign references;
@@ -1081,6 +1083,29 @@ in TODO Later. The known released-entry changelog format failure remains.
 </details>
 
 and improves list synchronization:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0d582c9c0">Verify Scrum undo finalization before clearing recovery</a>. Thanks to xet7.</summary>
+
+Keep the pending Scrum History checkpoint until the original row's integrity,
+author, superseded state and persisted undo/redo flag are verified. Conditional
+updates reject changed rows; readback rejects invalid final states. Retrying an
+already completed undo preserves its original timestamp. Checkpoint deletion
+also matches the operation ID, preventing an older worker from removing a
+replacement operation's recovery evidence.
+
+Seven focused Node suites and all seven Scrum History Chromium scenarios pass.
+Coverage includes lost update acknowledgements, zero-match writes, damaged or
+missing source rows, failed cleanup, replacement checkpoints, invalid persisted
+states and timestamp preservation after browser-driven retry. The offline audit
+passes with advisory fingerprint warnings. The changelog format suite retains
+the pre-existing overlong line in released v12.07.
+
+This verification and cleanup sequence is not a cross-document transaction.
+Coordinated fencing of in-flight writers, atomic original writes/History and
+automatic startup replay remain in TODO Later.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/484bad1d9">Verify Scrum restoration History before acknowledging recovery</a>. Thanks to xet7.</summary>
