@@ -586,6 +586,24 @@ the Markdown commit as the template.
 This release adds the following feature:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/67c5df253">Show a single comment in the minicard badge tooltip</a>. Thanks to lonix1 and xet7.</summary>
+
+Hovering the minicard comment-count badge shows the comment text when exactly
+one visible, nonempty comment exists. Multiple or empty comments retain the
+localized count message. Reuses existing published data and renders the title
+as plain text; no new dependencies, subscriptions or permissions are needed.
+Fixes [#1933](https://github.com/wekan/wekan/issues/1933).
+
+Three focused Node suites and two Chromium scenarios pass, covering single,
+multiple, empty and malformed comment data, HTML-looking text, admin/read-only
+access and private-board comment isolation. Other browser engines and live
+FerretDB backends were not tested. Existing Upcoming changes retain their
+recorded positive, negative and UI regression coverage. Updated the comment
+feature documentation and open-issue audit.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8ad064346">Filter subtasks by their parent card</a>. Thanks to robinvd and xet7.</summary>
 
 Card actions now offer Filter: Subtasks. The Filter sidebar also offers parent
