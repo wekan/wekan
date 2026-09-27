@@ -37,3 +37,16 @@ test('Jira export does not infer field semantics from names or emit invalid or a
  for(const value of [-1,Infinity,NaN,'2',null,Number.MAX_VALUE]) assert.deepEqual(jiraTimeTrackingExport({spentTime:value,customFields:[{_id:'a',value}]},[definition]),{});
  assert.deepEqual(jiraTimeTrackingExport({customFields:[{_id:'a',value:2}]},[definition,{...definition,_id:'b'}]),{});
 });
+
+test('import selections remove nested and fallback Jira time fields before creation',async()=>{
+ const fs=require('node:fs');
+ const source=fs.readFileSync('models/lib/importParts.js','utf8');
+ const {pruneImportDocument}=await import(`data:text/javascript;base64,${Buffer.from(source).toString('base64')}`);
+ const input=()=>({issues:[{fields:{summary:'Kept',timeoriginalestimate:7200,timeestimate:3600,timespent:1800,
+  timetracking:{originalEstimateSeconds:7200,remainingEstimateSeconds:3600,timeSpentSeconds:1800}}}]});
+ for(const [fields,expected] of [[['dates'],{spent:.5}],[['custom-fields'],{original:2,remaining:1}],[['description'],{}],[[],{original:2,remaining:1,spent:.5}]]){
+  const result=pruneImportDocument(input(),fields);
+  assert.deepEqual(jiraTimeTracking(result.issues[0].fields),expected);
+  assert.equal(result.issues[0].fields.summary,'Kept');
+ }
+});

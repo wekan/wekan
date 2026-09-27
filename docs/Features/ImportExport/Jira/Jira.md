@@ -19,6 +19,10 @@ The two numeric custom fields are named `Jira original estimate (hours)` and
 `Jira remaining estimate (hours)`. Native WeKan custom-field settings control
 their visibility; no new permission or external service is introduced.
 
+On the import page, Dates selects spent time and Custom Fields selects
+original/remaining estimates. Both nested and flat source values are removed
+when their section is excluded, so fallback values cannot restore them.
+
 Jira JSON export converts these hours back to integer seconds. Dates selection
 controls spent time; Custom Fields controls original/remaining estimates.
 Imported estimate fields carry `settings.jiraTimeField` markers, so renaming

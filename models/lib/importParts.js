@@ -32,6 +32,31 @@ function pruneImportDocument(doc, fields) {
     return doc;
   }
   const wanted = new Set(fields);
+  // Jira time tracking is nested in issues rather than top-level customFields.
+  // Prune both supported representations so fallback fields cannot restore a
+  // value the user explicitly excluded in the existing import selector.
+  for (const issue of Array.isArray(doc.issues) ? doc.issues : []) {
+    const values = issue?.fields;
+    if (!values || typeof values !== 'object') continue;
+    const tracking = values.timetracking;
+    if (!wanted.has('custom-fields')) {
+      delete values.timeoriginalestimate;
+      delete values.timeestimate;
+      if (tracking && typeof tracking === 'object') {
+        delete tracking.originalEstimateSeconds;
+        delete tracking.remainingEstimateSeconds;
+        delete tracking.originalEstimate;
+        delete tracking.remainingEstimate;
+      }
+    }
+    if (!wanted.has('dates')) {
+      delete values.timespent;
+      if (tracking && typeof tracking === 'object') {
+        delete tracking.timeSpentSeconds;
+        delete tracking.timeSpent;
+      }
+    }
+  }
   if (!wanted.has('scrum')) {
     delete doc.scrumTransfer;
     delete doc.scrumTransferLosses;

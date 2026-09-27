@@ -74,3 +74,28 @@ test('Jira time import reuses spent hours and hidden numeric estimates, retainin
   expect(error).toBe('invalid-jira-time');expect(db.find('boards',{title:invalid.board.name})).toHaveLength(0);
  }finally{for(const id of [boardId,roundTrip,...nativeCopies].filter(Boolean)){db.deleteMany('customFields',{boardIds:id});db.cleanup({boardIds:[id]});}}
 });
+
+test('Jira import section controls exclude estimates and spent time independently',async({loggedInPage:page})=>{
+ const ids=[];
+ try{
+  for(const selected of ['dates','custom-fields']){
+   await navigateInApp(page,'/import/jira');
+   for(const toggle of await page.locator('.js-import-part-toggle').all()){
+    const wanted=(await toggle.getAttribute('data-field'))===selected;
+    const checked=await toggle.locator('.materialCheckBox').evaluate(el=>el.classList.contains('is-checked'));
+    if(wanted!==checked)await toggle.click();
+   }
+   await page.locator('#import-textarea').fill(JSON.stringify({board:{name:`Selected Jira ${selected}`},issues:[{key:'SELECT-1',fields:{summary:'Selected time',timespent:1800,timeoriginalestimate:7200,timeestimate:0,timetracking:{timeSpentSeconds:1800,originalEstimateSeconds:7200,remainingEstimateSeconds:0}}}]}));
+   await page.locator('.js-import-without-mapping').click();await page.waitForURL(/\/b\//);
+   const id=page.url().match(/\/b\/([^/]+)/)[1];ids.push(id);
+   const card=db.findOne('cards',{boardId:id});
+   if(selected==='dates'){
+    expect(card.spentTime).toBe(.5);
+    expect(card.customFields).toEqual([]);expect(db.find('customFields',{boardIds:id})).toHaveLength(0);
+   }else{
+    expect(card.spentTime||0).toBe(0);
+    expect(card.customFields.map(field=>field.value)).toEqual([2,0]);
+   }
+  }
+ }finally{for(const id of ids){db.deleteMany('customFields',{boardIds:id});db.cleanup({boardIds:[id]});}}
+});
