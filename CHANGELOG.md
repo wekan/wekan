@@ -710,6 +710,25 @@ recorded positive, negative and UI regression coverage.
 Also adds the following feature:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/676536bcd">Visualize sprint reports and velocity with count and estimate bars</a>. Thanks to xet7.</summary>
+
+Sprint Report and Velocity now show responsive horizontal bars above their
+existing tables. Switch between card counts and known estimates. Exact values,
+unknown-estimate counts and partial-snapshot warnings remain visible. Separate
+scales prevent comparisons across incompatible units, estimate sources,
+custom fields and completion policies. Native HTML/CSS adds no dependency.
+
+Twelve focused Node checks and four Chromium scenarios pass, covering metric
+switching, both chart views, mobile width, zero and unknown estimates, separate
+scales, partial warnings, existing permissions and Excel/PDF export. The
+expanded report-view scenario was rerun successfully. Existing Upcoming
+regression evidence remains recorded; other browsers were not run. Daily
+burndown history and the remaining transfer integrations are still pending.
+Blockly translation work remains paused.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4af54df66">Preserve Scrum data when duplicating boards</a>. Thanks to xet7.</summary>
 
 The existing duplication selector includes Scrum, selected by default with its
