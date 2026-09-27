@@ -111,3 +111,10 @@ test('malformed or foreign completion proofs cannot suppress execution or become
   }));
  }
 });
+test('effect planning requires both a builder and validator before storage access', async () => {
+  const scope = { boardId: 'board', listId: 'list', incarnation: null, revision: null, sourceKey: 'source' };
+  for (const options of [{ prepareEffects: () => ({}) }, { validateEffects: () => true },
+    { prepareEffects: null, validateEffects: () => true }]) {
+    await assert.rejects(runSyncOperation({ scope, ...options }), /effects-adapter-required/);
+  }
+});

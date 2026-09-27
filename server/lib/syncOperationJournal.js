@@ -1,6 +1,6 @@
 'use strict';
 const { randomUUID, createHash } = require('node:crypto');
-const { EJSON } = require('bson');
+const { EJSON, calculateObjectSize } = require('bson');
 const { normalizeJiraEstimateMapping } = require('../../models/lib/jiraEstimateMapping');
 
 const MAX_STEPS = 10000;
@@ -149,8 +149,12 @@ async function recordCompletion(completions, operation) {
 // below fences journal acknowledgements, not in-flight writes in another
 // collection. apply() must compare exact before/after states and be idempotent,
 // including a write which committed before its acknowledgement was lost.
-async function runSyncOperation({ operations, steps, completions, intentId, scope, build, apply, assertCurrent, now = () => new Date() }) {
+async function runSyncOperation({ operations, steps, completions, intentId, scope, build, apply, prepareEffects, validateEffects, assertCurrent, now = () => new Date() }) {
   scope = identity(scope);
+  const withEffects = prepareEffects !== undefined || validateEffects !== undefined;
+  if (withEffects && (typeof prepareEffects !== 'function' || typeof validateEffects !== 'function')) {
+    fail('sync-operation-effects-adapter-required');
+  }
   if (typeof assertCurrent !== 'function') fail('sync-operation-lease-required');
   if (typeof intentId !== 'string' || !UUID.test(intentId)) fail('sync-operation-intent-required');
   if (!completions || typeof completions.findOne !== 'function' || typeof completions.insertOne !== 'function') fail('sync-operation-completions-required');
@@ -176,8 +180,10 @@ async function runSyncOperation({ operations, steps, completions, intentId, scop
   if (operation && operation.intentId !== intentId) fail('sync-operation-intent-pending');
   if (receipt && (!['completed', 'cleaning'].includes(operation.state) || operation.checkpoint !== receipt.total ||
       operation.total !== receipt.total || operation.planChecksum !== receipt.planChecksum)) fail('sync-completion-conflict');
+  if (operation && operation.effectPlans !== undefined && operation.effectPlans !== true) fail('invalid-sync-operation-effects-mode');
+  if (operation && (operation.effectPlans === true) !== withEffects) fail('sync-operation-effects-mode-changed');
   if (!operation) {
-    operation = { _id: scope.listId, operationId: randomUUID(), intentId, scope, state: 'preparing', checkpoint: 0, attempts: 0, startedAt: now() };
+    operation = { ...(withEffects ? { effectPlans: true } : {}), _id: scope.listId, operationId: randomUUID(), intentId, scope, state: 'preparing', checkpoint: 0, attempts: 0, startedAt: now() };
     await operations.insertOne(operation);
   }
   const owner = randomUUID();
@@ -214,9 +220,18 @@ async function runSyncOperation({ operations, steps, completions, intentId, scop
       const checksums = [];
       for (let index = 0; index < planned.length; index++) {
         await guard();
-        const checksum = digest(planned[index]); checksums.push(checksum);
-        await steps.insertOne({ _id: `${operation.operationId}:${index}`, operationId: operation.operationId,
-          index, checksum, step: planned[index] });
+        const context = { operationId: operation.operationId, index, assertCurrent: guard };
+        const effects = withEffects ? await prepareEffects(planned[index], context) : undefined;
+        if (withEffects && (!plain(effects) || await validateEffects(effects, planned[index], context) !== true)) {
+          fail('sync-operation-effects-invalid');
+        }
+        const payload = withEffects ? { step: planned[index], effects } : { step: planned[index] };
+        const checksum = digest(withEffects ? payload : payload.step); checksums.push(checksum);
+        const stored = { _id: `${operation.operationId}:${index}`, operationId: operation.operationId,
+          index, checksum, ...payload };
+        if (calculateObjectSize(stored) > 15 * 1024 * 1024) fail('sync-operation-unit-too-large');
+        await guard();
+        await steps.insertOne(stored);
       }
       await update({ state: 'preparing' }, { state: 'applying', total: planned.length, planChecksum: digest(checksums), checkpoint: 0 });
       operation = await operations.findOne(selector);
@@ -232,7 +247,13 @@ async function runSyncOperation({ operations, steps, completions, intentId, scop
       for (let index = 0; index < operation.total; index++) {
         await guard();
         const stored = await steps.findOne({ _id: `${operation.operationId}:${index}`, operationId: operation.operationId, index });
-        if (!stored || digest(validateStep(stored.step)) !== stored.checksum) fail('sync-operation-plan-damaged');
+        if (!stored) fail('sync-operation-plan-damaged');
+        validateStep(stored.step);
+        if (withEffects && (!plain(stored.effects) || await validateEffects(stored.effects, stored.step,
+          { operationId: operation.operationId, index, assertCurrent: guard }) !== true)) fail('sync-operation-effects-invalid');
+        if (!withEffects && Object.hasOwn(stored, 'effects')) fail('sync-operation-effects-mode-changed');
+        if (digest(withEffects ? { step: stored.step, effects: stored.effects } : stored.step) !== stored.checksum ||
+            calculateObjectSize(stored) > 15 * 1024 * 1024) fail('sync-operation-plan-damaged');
         for (const snapshot of [stored.step.before,stored.step.after]) {
           if (snapshot && (snapshot.boardId !== scope.boardId || snapshot.listId !== scope.listId)) fail('sync-operation-card-outside-scope');
         }
@@ -242,8 +263,9 @@ async function runSyncOperation({ operations, steps, completions, intentId, scop
       for (let index = operation.checkpoint; index < operation.total; index++) {
         await guard();
         const stored = await steps.findOne({ _id: `${operation.operationId}:${index}`, operationId: operation.operationId, index });
-        if (!stored || digest(stored.step) !== checksums[index]) fail('sync-operation-plan-damaged');
-        const outcome = await apply(stored.step, { operationId: operation.operationId, index, assertCurrent: guard });
+        if (!stored || digest(withEffects ? { step: stored.step, effects: stored.effects } : stored.step) !== checksums[index]) fail('sync-operation-plan-damaged');
+        const outcome = await apply(stored.step, { operationId: operation.operationId, index,
+          ...(withEffects ? { effects: stored.effects } : {}), assertCurrent: guard });
         if (!['applied','already-applied'].includes(outcome)) fail('sync-operation-result-unverified');
         await update({ state: 'applying', checkpoint: index }, { checkpoint: index + 1 });
       }

@@ -125,4 +125,12 @@ async function persistSyncFieldHistory({ history, plan, assertCurrent }) {
   await assertCurrent();
   return plan.effectId;
 }
-module.exports = { prepareSyncFieldHistory, persistSyncFieldHistory };
+function validateSyncFieldHistory(plan, step, effectId) {
+  validatePlan(plan);
+  if (plan.effectId !== effectId || plan.boardId !== step.after?.boardId) fail();
+  const expected = prepareSyncFieldHistory({ step, effectId, userId: plan.userId,
+    createdAt: plan.rows[0]?.createdAt || new Date(0), previousHash: plan.rows[0]?.previousHash || null });
+  if (canonical(expected.rows) !== canonical(plan.rows)) fail();
+  return true;
+}
+module.exports = { prepareSyncFieldHistory, persistSyncFieldHistory, validateSyncFieldHistory };

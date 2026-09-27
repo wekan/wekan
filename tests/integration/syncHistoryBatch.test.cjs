@@ -3,7 +3,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { MongoClient, ObjectId } = require('mongodb');
 const { randomUUID } = require('node:crypto');
-const { prepareSyncFieldHistory, persistSyncFieldHistory } = require('../../server/lib/syncHistoryBatch');
+const { prepareSyncFieldHistory, persistSyncFieldHistory, validateSyncFieldHistory } = require('../../server/lib/syncHistoryBatch');
 const { applySyncOperationStep, syncOperationEffectId } = require('../../server/lib/syncOperationApply');
 const { runSyncOperation } = require('../../server/lib/syncOperationJournal');
 const { withSyncLease } = require('../../server/lib/syncLease');
@@ -13,7 +13,7 @@ test('persisted Sync History plans resume between event rows before journal comp
   const client = await new MongoClient(uri).connect(); const db = client.db(`sync_history_${new ObjectId().toHexString()}`);
   t.after(async () => { await db.dropDatabase(); await client.close(); });
   const operations = db.collection('operations'), steps = db.collection('steps'), completions = db.collection('completions');
-  const cards = db.collection('cards'), events = db.collection('history'), plans = db.collection('historyPlans');
+  const cards = db.collection('cards'), events = db.collection('history');
   const before = { _id: 'card', boardId: 'board', listId: 'list', title: 'Before', description: 'Before' };
   const step = { kind: 'update', cardId: 'card', before, after: { ...before, title: 'After', description: 'After' } };
   await cards.insertOne(before);
@@ -31,25 +31,34 @@ test('persisted Sync History plans resume between event rows before journal comp
       inserts++; await events.insertOne(row); return row._id;
     } };
   const intentId = randomUUID();
-  const run = () => withSyncLease(db.collection('leases'), 'list', ({ assertCurrent }) => runSyncOperation({
+  const run = (overrides = {}) => withSyncLease(db.collection('leases'), 'list', ({ assertCurrent }) => runSyncOperation({
     operations, steps, completions, intentId, assertCurrent,
     scope: { boardId: 'board', listId: 'list', incarnation: null, revision: null, sourceKey: 'source' },
     build: async context => {
-      builds++; await context.assertCurrent(); assert.equal(context.intentId, intentId);
-      const plan = prepareSyncFieldHistory({ step, effectId: syncOperationEffectId(context.operationId, 0),
-        userId: 'author', createdAt: new Date(1000), previousHash: later.integrityHash, redoRows: [old] });
-      await plans.insertOne({ _id: plan.effectId, plan }); return [step];
+      builds++; await context.assertCurrent(); assert.equal(context.intentId, intentId); return [step];
     },
+    prepareEffects: (saved, context) => prepareSyncFieldHistory({ step: saved,
+      effectId: syncOperationEffectId(context.operationId, context.index), userId: 'author',
+      createdAt: new Date(1000), previousHash: later.integrityHash, redoRows: [old] }),
+    validateEffects: (plan, saved, context) => validateSyncFieldHistory(plan, saved,
+      syncOperationEffectId(context.operationId, context.index)),
     apply: (saved, context) => applySyncOperationStep({ cards, step: saved, ...context,
-      completeEffects: async ({ effectId, assertCurrent }) => {
-        const saved = await plans.findOne({ _id: effectId });
-        return persistSyncFieldHistory({ history, plan: saved.plan, assertCurrent });
-      } }),
+      completeEffects: ({ assertCurrent }) => persistSyncFieldHistory({ history, plan: context.effects, assertCurrent }) }),
+    ...overrides,
   }));
   await assert.rejects(run(), /History interrupted/);
   assert.equal((await operations.findOne({ _id: 'list' })).checkpoint, 0);
   assert.equal((await cards.findOne({ _id: 'card' })).title, 'After');
   assert.equal(await completions.countDocuments({}), 0);
+  const stored = await steps.findOne({ index: 0 });
+  assert.ok(stored.effects.rows.length);
+  await steps.updateOne({ _id: stored._id }, { $unset: { effects: '' } });
+  await assert.rejects(run(), /effects-invalid/); assert.equal(inserts, 1);
+  await steps.replaceOne({ _id: stored._id }, stored);
+  await assert.rejects(run({ prepareEffects: undefined, validateEffects: undefined }), /effects-mode-changed/);
+  await steps.updateOne({ _id: stored._id }, { $set: { 'effects.redo.0.undoneAt': new Date(99) } });
+  await assert.rejects(run(), /plan-damaged/); assert.equal(inserts, 1);
+  await steps.replaceOne({ _id: stored._id }, stored);
   const first = await events.findOne({ _id: { $regex: '^sync-history-' } }); assert.ok(rowHashIsValid(first));
   await events.updateOne({ _id: 'later' }, { $set: { undone: true, undoneAt: new Date(2000) } });
   interrupt = false; assert.equal((await run()).total, 1);
@@ -58,6 +67,7 @@ test('persisted Sync History plans resume between event rows before journal comp
   assert.equal((await events.findOne({ _id: 'old' })).superseded, true);
   assert.equal((await events.findOne({ _id: 'later' })).superseded, false);
   assert.equal(await operations.countDocuments({}), 0);
+  assert.equal(await steps.countDocuments({}), 0, 'card and effect plans share verified cleanup');
   await run(); assert.equal(inserts, 2); assert.equal(builds, 1);
   assert.deepEqual(verifyHistoryRows(await events.find({}).toArray()), []);
 });

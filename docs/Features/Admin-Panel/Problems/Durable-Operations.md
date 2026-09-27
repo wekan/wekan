@@ -166,8 +166,17 @@ delivery of actual rules, notifications or webhooks. Guards and readbacks also
 do not fence in-flight writes or provide cross-collection atomicity.
 
 `server/lib/syncHistoryBatch.js` prepares and persists the History component
-for saved Sync update/archive steps. The caller must save the plan before card
-mutation. Journal plan builders now receive the stable operation/intent IDs,
+for saved Sync update/archive steps. The journal can now save the effect plan
+in the same unit document as the card plan before mutation. The optional
+`prepareEffects` and `validateEffects` adapters must both be supplied; the
+operation marker retains this mode and refuses a downgrade during recovery.
+The checksum covers both plans, and the entire persisted plan is validated
+before any unit is applied. Each unit, including its BSON envelope, is limited
+to 15 MiB. History validation binds event contents and identity to the exact
+card step. Missing/corrupted effects cannot be replaced by an empty plan or a
+freshly generated one while applying. Both plans share checkpoint retention
+and verified cleanup, with no separate effect-plan collection to orphan.
+Journal plan builders receive the stable operation/intent IDs,
 scope and ownership guard, and `syncOperationEffectId` shares the same effect
 identity with application/retry. Field rows use the ordinary History content
 format, fixed timestamps and deterministic IDs, sharing one batch and a fixed
@@ -188,7 +197,7 @@ journal checkpoint, then resumes the saved plan without rebuilding or duplicate
 events. A different row undone during interruption remains available for redo,
 and the resulting chain verifies. This is an internal History component, not
 production Sync integration or acknowledgement of activity/rule/notification
-delivery. Creation's initial-position effects, durable plan lifecycle, safe
+delivery. Creation's initial-position effects, production collection/job lifecycle, safe
 suppression of ordinary duplicate hooks, legacy redo handling and coordination
 with independent board History writers remain unfinished. In particular, a
 fixed chain does not serialize concurrent appenders or make redo/event writes

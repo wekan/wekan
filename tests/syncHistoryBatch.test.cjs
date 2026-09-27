@@ -110,3 +110,11 @@ test('cross-scope steps, explicit undefined snapshots and oversized redo plans a
     after: { ...step.after, description: undefined } } }), /undefined-snapshot/);
   assert.throws(() => prepareSyncFieldHistory({ ...options, redoRows: Array(10001).fill(redoRow()) }), /plan-invalid/);
 });
+test('persisted field History is bound to the exact card step and operation effect ID', () => {
+  const { validateSyncFieldHistory } = require('../server/lib/syncHistoryBatch');
+  const plan = prepareSyncFieldHistory(options);
+  assert.equal(validateSyncFieldHistory(plan, step, options.effectId), true);
+  assert.throws(() => validateSyncFieldHistory(plan, step, 'b'.repeat(64)), /plan-invalid/);
+  assert.throws(() => validateSyncFieldHistory(plan, { ...step, after: { ...step.after, title: 'Different' } }, options.effectId), /plan-invalid/);
+  assert.throws(() => validateSyncFieldHistory({ ...plan, rows: [] }, step, options.effectId), /plan-invalid/);
+});
