@@ -1498,6 +1498,23 @@ Blockly translations remain paused.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9d60f7bf0">Import Jira status names without inherited-property collisions</a>. Thanks to xet7.</summary>
+
+Jira status names such as constructor, toString and __proto__ no longer resolve
+to JavaScript object properties instead of new list IDs. Issue-key lookups also
+exclude inherited properties, so missing dependency targets remain missing.
+Preserve imported list categories and real dependency links.
+
+The Chromium regression reproduced the original List ID validation failure.
+Fourteen focused Node checks and five Chromium scenarios pass after the fix;
+the expanded regression also verifies rendered lists/cards, preserved Scrum
+categories, real links and ignored missing targets. Live Jira and other browsers
+were not exercised. Existing Upcoming regression evidence remains recorded;
+Blockly translations remain paused.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9f3fbfd52">Keep Scrum planning order consistent for equal ranks</a>. Thanks to xet7.</summary>
 
 Product Backlog and sprint card tables break equal effective-rank ties with
