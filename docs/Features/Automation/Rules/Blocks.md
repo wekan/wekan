@@ -34,7 +34,7 @@ source of verified product history or a compatible import format.
 
 Source comments and documentation are English. UI text uses WeKan translations.
 All 696 Blockly catalog messages are mapped into WeKan locale files, including
-accessibility and programming-block terminology. Translation filling is paused
+accessibility and programming-block terminology. Translation filling has resumed
 at the maintainer's request; catalog completeness and placeholder tests do not establish linguistic
 accuracy or that every English placeholder has been translated.
 Existing List and Workflow views remain available. Rule storage and export
@@ -108,11 +108,12 @@ A broader selection of 37 rule/workflow-related Node files passes 45 runner
 checks; the separate Blockly catalog suite passes three checks without changing
 translations. Firefox, WebKit and FerretDB were not exercised in this checkpoint.
 These results do not establish full translation or transactional concurrent
-History writes; the translation pause and concurrency limits still apply.
+History writes; the concurrency limits still apply.
 
-## Translation pause checkpoint
+## Translation progress
 
-Blockly translation work is paused by request as of 2026-09-27. The editor
+Blockly translation work resumed by request on 2026-09-27 after a pause. Gujarati
+navigation, accessibility and basic controls are partially translated. The editor
 remains available; remaining languages and native terminology review are
 tracked under TODO Later in [the changelog](../../../../CHANGELOG.md).
 Message coverage and placeholder checks do not imply complete translation.

@@ -47,3 +47,15 @@ test('localized editor reads WeKan messages without sprintf and preserves drafts
  assert.equal(fr['blockly-INPUT_LABEL_NUMBER_A'],'premier nombre');
  assert.equal(de['blockly-KEYBOARD_NAV_COPIED_HINT'],'Kopiert. Drücke %1 zum Einfügen.');
 });
+test('resumed Gujarati accessibility and basic block controls contain Gujarati prose',()=>{
+ const gu=require('../imports/i18n/data/gu-IN.i18n.json');
+ const keys=Object.keys(english).filter(key=>/^blockly-(ANNOUNCE_|ARIA_|BLOCK_LABEL_|BUBBLE_LABEL_|COLOUR_)/.test(key)&&!key.endsWith('_HELPURL')&&/[A-Za-z]/.test(english[key]));
+ for(const key of keys){
+  assert.match(gu[key],/[\u0A80-\u0AFF]/,key);
+  assert.notEqual(gu[key],english[key],key);
+  assert.deepEqual(placeholders(gu[key]),placeholders(english[key]),key);
+ }
+ assert.equal(gu['blockly-COLOUR_RGB_BLUE'],'વાદળી');
+ assert.equal(gu['blockly-ARIA_LABEL_BUTTON'],'બટન');
+ assert.equal(gu['blockly-ARIA_LABEL_FIELD_ANGLE'],'%1 અંશ');
+});
