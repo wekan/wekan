@@ -5,16 +5,16 @@ const {syncSourceKey}=require('../models/lib/listSyncSourceIdentity');
 const sourceConfig={type:'jira',url:'https://jira.example',projectKey:'TEST'};
 const sourceKey=syncSourceKey(sourceConfig);
 const asModule=file=>import(`data:text/javascript;base64,${Buffer.from(fs.readFileSync(file,'utf8')).toString('base64')}`);
-async function run(raw,parser,existing,updateCount=1,child=null,fields,operations={},credentialKey=sourceKey,currentConfig=true){
+async function run(raw,parser,existing,updateCount=1,child=null,fields,operations={},credentialKey=sourceKey,currentConfig=true,createError){
  const {validateImportSourceShape}=await asModule('models/lib/importSourceShape.js');
  const {planListSyncReconcile,validateListSyncTasks}=await asModule('models/lib/listSyncReconcile.js');
  const cardWrites=[],listWrites=[];let parsed=0,fetches=0;const cardQueries=[];
  const source=fs.readFileSync('server/listSync.js','utf8').replace(/^import .*;\n/gm,'').replace(/export async function/g,'async function');
  const context={Meteor:{startup(){}},Lists:{findOneAsync:async()=>currentConfig?{}:null,updateAsync:async(id,modifier)=>listWrites.push(modifier)},
-  Cards:{insertAsync:async document=>{cardWrites.push({insert:document});return 'new';},updateAsync:async(selector,modifier)=>{cardWrites.push({selector,modifier});return updateCount;},find:selector=>{cardQueries.push(selector);return {fetchAsync:async()=>Array.isArray(existing)?existing:[existing || {_id:'card',syncExternalId:'KEY-1',syncSourceType:'jira',syncSourceKey:sourceKey,title:'Existing',description:'',syncLastSource:{title:'Existing',description:''}}]}},findOneAsync:async()=>child},
+  Cards:{insertAsync:async document=>{cardWrites.push({insert:document});if(createError)throw createError;return document._id;},updateAsync:async(selector,modifier)=>{cardWrites.push({selector,modifier});return updateCount;},find:selector=>{cardQueries.push(selector);return {fetchAsync:async()=>Array.isArray(existing)?existing:[existing || {_id:'card',syncExternalId:'KEY-1',syncSourceType:'jira',syncSourceKey:sourceKey,title:'Existing',description:'',syncLastSource:{title:'Existing',description:''}}]}},findOneAsync:async()=>child},
   Boards:{findOneAsync:async()=>({_id:'board',getDefaultSwimlineAsync:async()=>({_id:'lane'})})},ListSyncCredentials:{findOneAsync:async()=>({token:'test',sourceKey:credentialKey})},
   EXTERNAL_PARSERS:{jira:raw=>{parsed++;return parser?parser(raw):{tasks:[]};}},SYNC_CAPABLE_SOURCES:['jira'],
-  LIST_SYNC_FETCHERS:{jira:async()=>{fetches++;return raw;}},validateImportSourceShape,planListSyncReconcile,validateListSyncTasks,require:id=>id.startsWith('/models/lib/')?require('..'+id):({record(){}}),console,
+  LIST_SYNC_FETCHERS:{jira:async()=>{fetches++;return raw;}},validateImportSourceShape,planListSyncReconcile,validateListSyncTasks,require:id=>(id.startsWith('/models/lib/') || id === '/server/lib/listSyncCardId')?require('..'+id):({record(){}}),console,
  };
  vm.createContext(context);vm.runInContext(source,context);
  const result=await context.syncOneList({_id:'list',boardId:'board',syncSource:{...sourceConfig,fields,...operations}});
@@ -147,4 +147,19 @@ test('source switch during fetch aborts before reconciling the previous response
  const {result,cardWrites,cardQueries}=await run({issues:[]},undefined,undefined,1,null,undefined,{},sourceKey,false);
  assert.match(result.error,/settings changed while fetching/);
  assert.deepEqual(cardWrites,[]);assert.deepEqual(cardQueries,[]);
+});
+
+
+test('creation collisions report a retryable conflict without claiming success or continuing writes',async()=>{
+ const {result,cardWrites,listWrites}=await run({issues:[]},()=>({tasks:[{externalId:'NEW',title:'New'}]}),[],1,{_id:'winner'},undefined,{},sourceKey,true,{code:11000});
+ assert.match(result.error,/Sync creation conflict/);
+ assert.equal(cardWrites.length,1);
+ assert.equal(listWrites.length,1);
+ assert.equal(listWrites[0].$set['syncSource.lastSyncedAt'],undefined);
+ assert.match(cardWrites[0].insert._id,/^sync-[a-f0-9]{64}$/);
+});
+
+test('unrelated insertion failures propagate instead of being mislabeled as collisions',async()=>{
+ await assert.rejects(run({issues:[]},()=>({tasks:[{externalId:'NEW',title:'New'}]}),[],1,null,undefined,{},sourceKey,true,new Error('database unavailable')),/database unavailable/);
+ await assert.rejects(run({issues:[]},()=>({tasks:[{externalId:'NEW',title:'New'}]}),[],1,null,undefined,{},sourceKey,true,Object.assign(new Error('other unique index'),{code:11000})),/other unique index/);
 });

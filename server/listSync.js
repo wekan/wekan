@@ -24,6 +24,7 @@ import { LIST_SYNC_FETCHERS } from '/server/lib/listSyncFetch';
 import { SyncedCron } from '/server/cron/syncedCron';
 const { planSyncTextMerge, syncTextSelector, selectSyncTextFields } = require('/models/lib/listSyncTextMerge');
 const { syncSourceKey } = require('/models/lib/listSyncSourceIdentity');
+const { listSyncCardId } = require('/server/lib/listSyncCardId');
 
 // Sync one list. Exported for the unit test and for a manual "sync now" call;
 // the cron job below just calls this for every eligible list.
@@ -131,25 +132,37 @@ export async function syncOneList(list, { fetchers = LIST_SYNC_FETCHERS } = {}) 
   const now = new Date();
 
   for (const task of plan.toCreate) {
-    // eslint-disable-next-line no-await-in-loop
-    await Cards.insertAsync({
-      title: task.title || 'Imported item',
-      description: task.description || '',
-      ...(task.spentTime !== undefined ? { spentTime: task.spentTime } : {}),
-      listId: list._id,
-      swimlaneId: list.swimlaneId || (board && (await board.getDefaultSwimlineAsync())._id) || '',
-      boardId: list.boardId,
-      sort: -1,
-      dateLastActivity: now,
-      syncExternalId: String(task.externalId),
-      syncSourceType: source.type,
-      syncSourceKey: sourceKey,
-      syncLastSource: {
-        ...(task.title !== undefined ? { title: task.title } : {}),
-        ...(task.description !== undefined ? { description: task.description } : {}),
+    const cardId = listSyncCardId(list._id, sourceKey, task.externalId);
+    try {
+      // eslint-disable-next-line no-await-in-loop
+      await Cards.insertAsync({
+        _id: cardId,
+        title: task.title || 'Imported item',
+        description: task.description || '',
         ...(task.spentTime !== undefined ? { spentTime: task.spentTime } : {}),
-      },
-    });
+        listId: list._id,
+        swimlaneId: list.swimlaneId || (board && (await board.getDefaultSwimlineAsync())._id) || '',
+        boardId: list.boardId,
+        sort: -1,
+        dateLastActivity: now,
+        syncExternalId: String(task.externalId),
+        syncSourceType: source.type,
+        syncSourceKey: sourceKey,
+        syncLastSource: {
+          ...(task.title !== undefined ? { title: task.title } : {}),
+          ...(task.description !== undefined ? { description: task.description } : {}),
+          ...(task.spentTime !== undefined ? { spentTime: task.spentTime } : {}),
+        },
+      });
+    } catch (e) {
+      // A second worker or a retry after a card move must not create a new
+      // target or overwrite the existing card. Never treat a duplicate as a
+      // successful reconciliation: its contents may have changed meanwhile.
+      if (e.code !== 11000 || !await Cards.findOneAsync({ _id: cardId })) throw e;
+      const error = 'Sync creation conflict: a card for this source item already exists. Retry Sync; if the card was moved, return it to this list before retrying.';
+      await Lists.updateAsync(listSelector, { $set: { 'syncSource.lastSyncError': error } });
+      return { error };
+    }
   }
 
   for (const update of plan.toUpdate) {

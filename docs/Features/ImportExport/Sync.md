@@ -58,6 +58,15 @@ text matches; differing legacy text requires the same resolution.
 Updates compare the original title, description, archive state, baseline and
 board/list location before writing. A concurrent edit aborts the remaining run.
 This is not a transaction: earlier successful updates or creations may remain.
+New Sync cards use a deterministic database ID for the list, source identity
+and external issue ID. Concurrent creation attempts therefore cannot insert
+two cards for the same item. A duplicate insertion stops the run with a
+creation-conflict error rather than overwriting local work or reporting success.
+Retry to reconcile the winning card. If it was moved out of the watched list,
+return it before retrying; Sync will not create a replacement alongside it.
+Existing cards retain their IDs and continue matching by source identity.
+This protects new creations only: distributed job/configuration coordination,
+durable restart checkpoints and atomic changes across documents remain pending.
 Card and subtask copies omit external Sync IDs, source type and text baselines,
 so independent work does not become a second target for an upstream issue.
 Existing duplicate local mappings stop the run before updates or archives;

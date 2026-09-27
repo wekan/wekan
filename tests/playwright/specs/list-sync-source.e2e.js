@@ -5,10 +5,11 @@ const db = require('../helpers/db');
 const { loginWithToken, openBoard } = require('../helpers/auth');
 const { syncSourceKey } = require('../../../models/lib/listSyncSourceIdentity');
 
-let server, base, requests, emptyProjects;
+let server, base, requests, emptyProjects, heldResponses;
 test.beforeAll(async () => {
   requests = [];
   emptyProjects = new Set(['EMPTY']);
+  heldResponses = [];
   server = http.createServer((req, res) => {
     const url = new URL(req.url, 'http://localhost');
     const project = url.searchParams.get('jql')?.replace('project=', '');
@@ -17,13 +18,64 @@ test.beforeAll(async () => {
     const issues = emptyProjects.has(project) ? [] : [{ key: 'SAME-1', fields: {
       summary: `${project} issue`, description: '', status: { name: 'Open' },
     } }];
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ startAt: 0, total: issues.length, issues }));
+    const respond = () => {
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ startAt: 0, total: issues.length, issues }));
+    };
+    if (project === 'CONCURRENT') {
+      heldResponses.push(respond);
+      if (heldResponses.length === 2) heldResponses.splice(0).forEach(send => send());
+    } else respond();
   });
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
   base = `http://127.0.0.1:${server.address().port}`;
 });
 test.afterAll(async () => { await new Promise(resolve => server.close(resolve)); });
+
+test('concurrent Sync runs create one card, and a moved card blocks replacement in the popup', async ({ page, browser, user, board }) => {
+  const listId = db.find('lists', { boardId: board.boardId })[0]._id;
+  const config = { type: 'jira', url: base, projectKey: 'CONCURRENT', token: 'concurrency-test-token' };
+  const secondContext = await browser.newContext();
+  const second = await secondContext.newPage();
+  try {
+    await loginWithToken(page, user.id, user.token);
+    await loginWithToken(second, user.id, user.token);
+    await openBoard(page, board.boardId, board.slug);
+    await call(page, 'setListSyncSource', listId, config);
+    const results = await Promise.all([call(page, 'syncListNow', listId), call(second, 'syncListNow', listId)]);
+    expect(results.filter(result => result.created === 1)).toHaveLength(1);
+    for (const result of results) {
+      // A slower run can also see the winner's updated list status before it
+      // starts reconciliation; both existing guard and ID collision are safe.
+      if (result.error) expect(result.error).toMatch(/Sync creation conflict|Sync settings changed while fetching/);
+      else expect(result.archived).toBe(0);
+    }
+    const cards = db.find('cards', { listId, syncExternalId: 'SAME-1' });
+    expect(cards).toHaveLength(1);
+    expect(cards[0]._id).toMatch(/^sync-[a-f0-9]{64}$/);
+    // Keep the identity but move the card out of the watched list. A retried
+    // creation must not replace this local work or silently count it as synced.
+    const otherList = db.find('lists', { boardId: board.boardId }).find(list => list._id !== listId);
+    expect(otherList).toBeTruthy();
+    db.updateOne('cards', { _id: cards[0]._id }, { $set: { listId: otherList._id, title: 'Moved local work' } });
+    await openSync(page, listId);
+    await page.locator('.js-list-sync-now').click();
+    await expect.poll(() => heldResponses.length).toBe(1);
+    heldResponses.splice(0).forEach(send => send());
+    await expect(page.locator('.pop-over .list-sync-now-error')).toContainText('Sync creation conflict');
+    expect(db.find('cards', { boardId: board.boardId, syncExternalId: 'SAME-1' })).toHaveLength(1);
+    expect(db.findOne('cards', { _id: cards[0]._id })).toMatchObject({ listId: otherList._id, title: 'Moved local work' });
+    db.updateOne('cards', { _id: cards[0]._id }, { $set: { listId, title: cards[0].title } });
+    const retry = call(page, 'syncListNow', listId);
+    await expect.poll(() => heldResponses.length).toBe(1);
+    heldResponses.splice(0).forEach(send => send());
+    expect(await retry).toMatchObject({ created: 0, archived: 0 });
+  } finally {
+    heldResponses.splice(0).forEach(send => send());
+    await secondContext.close();
+    db.deleteMany('listSyncCredentials', { listId });
+  }
+});
 
 const call = (page, name, ...args) => page.evaluate(({ name, args }) => Meteor.callAsync(name, ...args), { name, args });
 const openSync = (page, listId) => page.evaluate(list => {
