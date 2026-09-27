@@ -53,7 +53,8 @@ async function commitSyncConfiguration({ lists, credentials, list, source,
     await credentials.insertAsync({ _id: revision, configurationId: revision,
       listId: list._id, sourceKey: credential.sourceKey, generation,
       ...(list.syncCredentialIncarnation !== undefined ? { incarnation: list.syncCredentialIncarnation } : {}),
-      token: credential.token, username: credential.username || '' });
+      token: credential.token, username: credential.username || '',
+      ...(credential.runAsUserId ? { runAsUserId: credential.runAsUserId } : {}) });
   }
   await assertCurrent();
   const changed = await lists.updateAsync(configurationSelector(list), source ? { $set: { syncSource: source, syncRevision: revision, ...repair } }

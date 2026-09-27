@@ -23,6 +23,8 @@ ListSyncCredentials.attachSchema(
     },
     // Bind the saved credential to the exact provider/server/project tuple.
     sourceKey: { type: String, optional: true },
+    // Server-selected account that authorized this immutable scheduled job.
+    runAsUserId: { type: String, optional: true },
     incarnation: { type: String, optional: true },
     configurationId: { type: String, optional: true },
     generation: { type: Number, optional: true, min: 0, max: Number.MAX_SAFE_INTEGER },

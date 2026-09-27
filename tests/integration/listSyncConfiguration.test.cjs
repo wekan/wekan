@@ -26,7 +26,7 @@ test('Sync configuration selects immutable credentials atomically in a real data
   }));
   const oldSource = { type: 'jira', projectKey: 'OLD' };
   const newSource = { type: 'jira', projectKey: 'NEW' };
-  const newCredential = { sourceKey: 'new-source', token: 'new-test-token' };
+  const newCredential = { sourceKey: 'new-source', token: 'new-test-token', runAsUserId: 'saving-user' };
   async function seed(id) {
     const list = { _id: id, boardId: 'board', syncSource: oldSource };
     const previousCredential = { _id: `${id}-legacy`, listId: id, sourceKey: 'old-source', token: 'old-test-token' };
@@ -43,6 +43,7 @@ test('Sync configuration selects immutable credentials atomically in a real data
     const list = await current('normal');
     assert.deepEqual(list.syncSource, newSource);
     assert.equal((await read(list)).token, newCredential.token);
+    assert.equal((await read(list)).runAsUserId, 'saving-user');
     assert.equal(await db.collection('credentials').countDocuments({ listId: 'normal' }), 1);
     assert.ok(!JSON.stringify(list).includes('token'));
   });

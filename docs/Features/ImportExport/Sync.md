@@ -20,6 +20,23 @@ every 15 minutes, fetches each synced list's current items
 - an external item that disappeared is **archived**, never deleted - "old
   entries are at list history", per the request this implements.
 
+Scheduled runs use the account that last saved the Sync settings. The server
+stores that account ID only in the selected private credential version, alongside
+the token; clients cannot choose a different author. Saving settings again binds
+the next version to the saving user even when the token is retained. Before
+fetching and at subsequent guarded writes, the job requires an existing account
+with login enabled and current full-list board write access. Assigned-only
+access is insufficient for a scheduled full-list run. Collection hooks execute
+with that user context so activities and ordinary History have an author.
+
+After upgrading, save existing Sync configurations once to authorize their
+scheduled runs. Versions without an author remain paused and display an error
+in Sync; they do not guess an account. Deleted/disabled accounts and removed or
+reduced board permissions also stop scheduled runs. Save with an authorized
+account to resume. Manual Sync retains the invoking user's existing access
+checks. These guards do not cancel writes already in flight or make card writes,
+History, activities and downstream notifications one durable transaction.
+
 Before reconciliation, Sync validates the response using the same source-shape
 validator as import. A malformed response or parser failure records the existing
 last-sync error and leaves cards unchanged; it is not an empty source.

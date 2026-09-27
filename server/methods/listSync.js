@@ -120,7 +120,9 @@ Meteor.methods({
       } : null;
       try {
         return await commitSyncConfiguration({ lists: Lists, credentials: ListSyncCredentials,
-          list, source: publicSource, credential, previousCredential, assertCurrent });
+          list, source: publicSource,
+          credential: credential && { ...credential, runAsUserId: this.userId },
+          previousCredential, assertCurrent });
       } catch (error) {
         if (error.code === 'sync-config-changed') {
           throw new Meteor.Error(error.code, error.message);

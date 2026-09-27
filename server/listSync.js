@@ -13,6 +13,10 @@
 //   - normal card update hooks for archives: a disappeared external item
 //     is archived conditionally, without recursively archiving local subtasks.
 import { Meteor } from 'meteor/meteor';
+import { DDP } from 'meteor/ddp';
+import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
+const { assignedOnlyCardScope } = require('/models/lib/boardCardScope');
+const { withScheduledSyncActor } = require('/server/lib/scheduledSyncActor');
 import Lists from '/models/lists';
 import Cards from '/models/cards';
 import Boards from '/models/boards';
@@ -47,9 +51,27 @@ export async function syncOneList(list, options = {}) {
     return await withListSyncLease(list._id, async lease => {
       const current = await Lists.findOneAsync({ _id: list._id, boardId: list.boardId });
       if (!current) return { skipped: true, reason: 'list moved or deleted' };
+      if (options.scheduled) {
+        return withScheduledSyncActor({ list: current,
+          credential: await readSyncCredential(ListSyncCredentials, current),
+          findUser: id => Meteor.users.findOneAsync(id, { fields: { loginDisabled: 1 } }),
+          findBoard: id => Boards.findOneAsync(id),
+          canWrite: allowIsBoardMemberWithWriteAccess, assignedScope: assignedOnlyCardScope,
+          withActor: (userId, fn) => DDP._CurrentMethodInvocation.withValue({ userId, isSimulation: false }, fn),
+          run: assertCurrent => reconcileList(current, options, { assertCurrent }),
+          assertCurrent: lease.assertCurrent,
+        });
+      }
       return reconcileList(current, options, lease);
     });
   } catch (error) {
+    if (['sync-actor-required', 'sync-actor-denied'].includes(error.code)) {
+      await Lists.updateAsync({ _id: list._id, boardId: list.boardId, syncSource: list.syncSource,
+        syncRevision: list.syncRevision === undefined ? { $exists: false } : list.syncRevision,
+        syncCredentialIncarnation: list.syncCredentialIncarnation === undefined ? { $exists: false } : list.syncCredentialIncarnation,
+      }, { $set: { 'syncSource.lastSyncError': error.message } });
+      return { error: error.message };
+    }
     if (error.code === 'sync-estimate-invalid') return { error: error.message };
     if (error.error === 'sync-busy' || error.error === 'sync-lease-lost') {
       return { error: error.reason };
@@ -355,7 +377,7 @@ export async function scanListSync() {
   for (const list of lists) {
     try {
       // eslint-disable-next-line no-await-in-loop
-      await syncOneList(list);
+      await syncOneList(list, { scheduled: true });
     } catch (e) {
       // Never let one broken list's sync stop the rest.
       // eslint-disable-next-line no-console

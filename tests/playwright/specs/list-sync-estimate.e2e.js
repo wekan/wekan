@@ -27,6 +27,10 @@ test('Jira estimate mapping syncs zero/null and reviews local changes through th
     await openBoard(page, board.boardId, board.slug);
     const config = { type: 'jira', url: base, projectKey: 'EST', token: 'estimate-test-token' };
     await call(page, 'setListSyncSource', listId, config);
+    const savedList = db.findOne('lists', { _id: listId });
+    expect(db.findOne('listSyncCredentials', { _id: savedList.syncRevision }).runAsUserId).toBe(user.id);
+    expect(savedList.syncSource.runAsUserId).toBeUndefined();
+    await expect(call(page, 'setListSyncSource', listId, { ...config, runAsUserId: 'another-user' })).rejects.toThrow();
     await page.evaluate(list => {
       Popup.close(); Popup.open('listSync', { dataContext: list })({ currentTarget: document.body,
         target: document.body, preventDefault() {}, stopPropagation() {} });

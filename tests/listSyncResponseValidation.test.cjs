@@ -1,26 +1,28 @@
 'use strict';
 const {test}=require('node:test');const assert=require('node:assert/strict');
+const {AsyncLocalStorage}=require('node:async_hooks');
 const fs=require('node:fs');const vm=require('node:vm');
 const {syncSourceKey}=require('../models/lib/listSyncSourceIdentity');
 const sourceConfig={type:'jira',url:'https://jira.example',projectKey:'TEST'};
 const sourceKey=syncSourceKey(sourceConfig);
 const asModule=file=>import(`data:text/javascript;base64,${Buffer.from(fs.readFileSync(file,'utf8')).toString('base64')}`);
-async function run(raw,parser,existing,updateCount=1,child=null,fields,operations={},credentialKey=sourceKey,currentConfig=true,createError,options={},targets={findOneAsync:async()=>null}){
+async function run(raw,parser,existing,updateCount=1,child=null,fields,operations={},credentialKey=sourceKey,currentConfig=true,createError,options={},targets={findOneAsync:async()=>null},scheduled={}){
  const {validateImportSourceShape}=await asModule('models/lib/importSourceShape.js');
  const {planListSyncReconcile,validateListSyncTasks}=await asModule('models/lib/listSyncReconcile.js');
+ const actor=new AsyncLocalStorage();const authors=[];
  const cardWrites=[],listWrites=[];let parsed=0,fetches=0;const cardQueries=[];
  const source=fs.readFileSync('server/listSync.js','utf8').replace(/^import .*;\n/gm,'').replace(/export async function/g,'async function');
  const reports=[];
  const reportCollection={insertOne:async doc=>reports.push(doc),findOne:async q=>reports.find(r=>r._id===q._id&&r.status===q.status),updateOne:async(q,m)=>{const row=reports.find(r=>r._id===q._id&&r.status===q.status);if(row)Object.assign(row,m.$set);return {matchedCount:row?1:0};}};
- const context={ListSyncRunReports:{rawCollection:()=>reportCollection},ListSyncTargets:targets,Meteor:{startup(){}},withListSyncLease:async(id,work)=>work({assertCurrent:async()=>{}}),Lists:{findOneAsync:async selector=>!Object.hasOwn(selector,'syncSource')?({_id:'list',boardId:'board',syncSource:{...sourceConfig,fields,...operations}}):(currentConfig?{}:null),updateAsync:async(id,modifier)=>listWrites.push(modifier)},
-  Cards:{insertAsync:async (document,options)=>{cardWrites.push({insert:document,options});if(createError)throw createError;return document._id;},updateAsync:async(selector,modifier,options)=>{cardWrites.push({selector,modifier,options});return updateCount;},find:selector=>{cardQueries.push(selector);return {fetchAsync:async()=>Array.isArray(existing)?existing:[existing || {_id:'card',syncExternalId:'KEY-1',syncSourceType:'jira',syncSourceKey:sourceKey,title:'Existing',description:'',syncLastSource:{title:'Existing',description:''}}]}},findOneAsync:async selector=>typeof child==='function'?child(selector):child},
-  Boards:{findOneAsync:async()=>({_id:'board',getDefaultSwimlineAsync:async()=>({_id:'lane'})})},ListSyncCredentials:{findOneAsync:async()=>({token:'test',sourceKey:credentialKey})},
+ const context={ListSyncRunReports:{rawCollection:()=>reportCollection},ListSyncTargets:targets,Meteor:{startup(){},users:{findOneAsync:async()=>scheduled.user===undefined?{_id:'actor'}:scheduled.user}},DDP:{_CurrentMethodInvocation:{withValue:(value,work)=>actor.run(value,work)}},allowIsBoardMemberWithWriteAccess:()=>scheduled.authorized!==false,withListSyncLease:async(id,work)=>work({assertCurrent:async()=>{}}),Lists:{findOneAsync:async selector=>!Object.hasOwn(selector,'syncSource')?({_id:'list',boardId:'board',syncSource:{...sourceConfig,fields,...operations}}):(currentConfig?{}:null),updateAsync:async(id,modifier)=>listWrites.push(modifier)},
+  Cards:{insertAsync:async (document,options)=>{authors.push(actor.getStore()?.userId);cardWrites.push({insert:document,options});if(createError)throw createError;return document._id;},updateAsync:async(selector,modifier,options)=>{authors.push(actor.getStore()?.userId);cardWrites.push({selector,modifier,options});return updateCount;},find:selector=>{cardQueries.push(selector);return {fetchAsync:async()=>Array.isArray(existing)?existing:[existing || {_id:'card',syncExternalId:'KEY-1',syncSourceType:'jira',syncSourceKey:sourceKey,title:'Existing',description:'',syncLastSource:{title:'Existing',description:''}}]}},findOneAsync:async selector=>typeof child==='function'?child(selector):child},
+  Boards:{findOneAsync:async()=>({_id:'board',getDefaultSwimlineAsync:async()=>({_id:'lane'})})},ListSyncCredentials:{findOneAsync:async()=>({token:'test',sourceKey:credentialKey,runAsUserId:scheduled.userId})},
   EXTERNAL_PARSERS:{jira:raw=>{parsed++;return parser?parser(raw):{tasks:[]};}},SYNC_CAPABLE_SOURCES:['jira'],
-  LIST_SYNC_FETCHERS:{jira:async()=>{fetches++;return raw;}},validateImportSourceShape,planListSyncReconcile,validateListSyncTasks,require:id=>(id.startsWith('/models/lib/') || ['/server/lib/listSyncCardId','/server/lib/listSyncConfiguration','/server/lib/listSyncConflict','/server/lib/listSyncTarget','/server/lib/listSyncPreview','/server/lib/listSyncSourceCoverage','/server/lib/syncRunReport'].includes(id))?require('..'+id):({record(){}}),console,
+  LIST_SYNC_FETCHERS:{jira:async()=>{fetches++;if(scheduled.revokeAfterFetch)scheduled.authorized=false;return raw;}},validateImportSourceShape,planListSyncReconcile,validateListSyncTasks,require:id=>(id.startsWith('/models/lib/') || ['/server/lib/scheduledSyncActor','/server/lib/listSyncCardId','/server/lib/listSyncConfiguration','/server/lib/listSyncConflict','/server/lib/listSyncTarget','/server/lib/listSyncPreview','/server/lib/listSyncSourceCoverage','/server/lib/syncRunReport'].includes(id))?require('..'+id):({record(){}}),console,
  };
  vm.createContext(context);vm.runInContext(source,context);
  const result=await context.syncOneList({_id:'list',boardId:'board',syncSource:{...sourceConfig,fields,...operations}},options);
- return {result,cardWrites,listWrites,parsed,fetches,cardQueries,reports};
+ return {result,cardWrites,listWrites,parsed,fetches,cardQueries,reports,authors};
 }
 test('malformed sync responses cannot be mistaken for a source deletion',async()=>{
  for(const raw of [{errorMessages:['Unavailable']},{issues:null},{issues:{}},null]){
@@ -423,4 +425,19 @@ test('Sync text writes retain empty and whitespace baselines without disabling v
  }
  assert.equal(applied.cardWrites[0].insert.syncLastSource.title,'  Incoming  ');
  assert.equal(applied.cardWrites[0].insert.syncLastSource.description,'');
+});
+
+test('scheduled Sync binds writes to its saved author and refuses missing or revoked authorization',async()=>{
+ const raw={issues:[]};const parser=()=>({tasks:[{externalId:'KEY-1',title:'Scheduled',description:''}]});
+ const scheduledRun=scheduled=>run(raw,parser,[],1,null,undefined,{},sourceKey,true,undefined,{scheduled:true},undefined,scheduled);
+ const success=await scheduledRun({userId:'actor'});
+ assert.equal(success.result.created,1);assert.deepEqual(success.authors,['actor']);
+ for(const scheduled of [{},{userId:'actor',user:null},{userId:'actor',user:{loginDisabled:true}},
+  {userId:'actor',authorized:false},{userId:'actor',revokeAfterFetch:true}]){
+  const denied=await scheduledRun(scheduled);
+  assert.match(denied.result.error,/Save Sync settings/);
+  assert.equal(denied.cardWrites.length,0);
+  assert.equal(denied.fetches,scheduled.revokeAfterFetch?1:0);
+  assert.match(denied.listWrites.at(-1).$set['syncSource.lastSyncError'],/Save Sync settings/);
+ }
 });
