@@ -1763,6 +1763,22 @@ Blockly browser coverage and other Upcoming regression results remain valid.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/25498de22">Translate Gujarati Blockly shortcuts and workspace messages</a>. Thanks to xet7.</summary>
+
+Fill 60 Gujarati English placeholders for keyboard shortcuts, screen-reader
+mode hints, workspace summaries, search and navigation. Preserve placeholders,
+key names inside shortcut instructions and existing translations. Extend checks
+for direction labels, mode distinctions and search shortcuts. Gujarati remains
+incomplete; accessibility terminology needs native review.
+
+Six catalog checks and 21 human-translation preservation checks pass. Update
+the Blocks guide. Existing Gujarati Chromium coverage remains recorded; this
+batch did not add a browser or screen-reader run. Existing Upcoming regression
+evidence remains recorded.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ba0ab5ce8">Translate Gujarati Blockly procedures and variable controls</a>. Thanks to xet7.</summary>
 
 Fill 38 Gujarati English placeholders for function definitions, parameters,
