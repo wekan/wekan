@@ -692,6 +692,28 @@ recorded positive, negative and UI regression coverage.
 Also adds the following feature:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ceb19bc77">Integrate Scrum changes with reversible board History</a>. Thanks to xet7.</summary>
+
+Each Scrum view opens the existing board History filtered to Scrum changes.
+Settings, planning records and optional metadata record before/after values;
+a sprint close and its card moves undo and redo as one operation. Restoration
+checks current board and card permissions, preserves unrelated card content,
+and rejects newer conflicting edits or deletion of referenced planning data.
+
+Interrupted restores retain a private checkpoint until data, timeline and undo
+status are saved. Retrying resumes completed writes without duplicating the
+timeline or accidentally undoing an older change. This is not a transaction;
+original-edit/History atomicity and large-board limits remain documented work.
+
+Eighteen focused Node checks, one real Meteor/Mongo lifecycle test and fifteen
+Chromium scenarios pass. Coverage includes the History menu and restore,
+compound undo/redo, access denial, conflicts, planning record recreation,
+reference protection and interrupted recovery. Existing Upcoming regression
+evidence remains recorded. Firefox, WebKit and FerretDB were not exercised.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/83eac1021">Add Scrum planning, optional metadata and sprint snapshot reports</a>. Thanks to xet7.</summary>
 
 Board View adds Product Backlog, Sprints, Sprint Report and Velocity. Reuse
@@ -712,7 +734,7 @@ files and independent Card/Minicard visibility. Other browsers and FerretDB
 were not exercised. Existing Upcoming regression evidence remains recorded.
 
 The menu-aligned Scrum guides distinguish the implemented planning feature
-from pending History integration, complete import/export/sync mappings,
+from pending complete import/export/sync mappings,
 interactive charts and further release/event editing. These remain active
 implementation work; this entry does not claim complete Scrum support.
 
