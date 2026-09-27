@@ -12,6 +12,11 @@ template(name="scrumView")
       p(role="status") {{_ 'loading'}}
     else
       if data
+        if data.importLosses.length
+          details.scrum-import-report
+            summary {{_ 'import'}}
+            each data.importLosses
+              p {{_ 'scrum-import-reference-omitted' reference=sourceId}}
         if data.partial
           p(role="status" class="scrum-partial-report") {{_ 'scrum-partial-report'}}
         if canAdmin

@@ -75,6 +75,8 @@ Boards.attachSchema(
     // Scrum metadata is optional and hidden by default; only validated methods write it.
     scrum: { type: Object, optional: true, blackbox: true },
     scrumRevision: { type: Number, optional: true, min: 0 },
+    scrumImportLosses: { type: Array, optional: true },
+    'scrumImportLosses.$': { type: Object, blackbox: true },
     title: {
       /**
        * The title of the board
@@ -3290,9 +3292,9 @@ export default Boards;
 // Prevent direct DDP writes bypassing Scrum reference and lifecycle validation.
 if (Meteor.isServer) {
   Boards.deny({
-    insert(userId, doc) { return doc.scrum !== undefined || doc.scrumRevision !== undefined; },
+    insert(userId, doc) { return doc.scrum !== undefined || doc.scrumRevision !== undefined || doc.scrumImportLosses !== undefined; },
     update(userId, doc, fields) {
-      return fields.some(field => field === 'scrum' || field.startsWith('scrum.') || field === 'scrumRevision');
+      return fields.some(field => field === 'scrum' || field.startsWith('scrum.') || field === 'scrumRevision' || field === 'scrumImportLosses' || field.startsWith('scrumImportLosses.'));
     },
   });
 }

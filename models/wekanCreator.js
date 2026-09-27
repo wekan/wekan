@@ -1117,6 +1117,9 @@ export class WekanCreator {
   }
 
   async create(board, currentBoardId) {
+    // Validate every Scrum reference before even placeholder users are created.
+    const { validateScrumImport } = require('/server/lib/scrumTransferImport');
+    validateScrumImport(board);
     // TODO : Make isSandstorm variable global
     const isSandstorm =
       Meteor.settings &&
@@ -1146,6 +1149,7 @@ export class WekanCreator {
       { method: 'createCards', source: 'cards' },
       { method: 'createSubtasks', source: 'cards' },
       { method: 'createCardDependencies', source: 'cards' },
+      { method: 'createScrumData' },
       { method: 'createChecklists', source: 'checklists' },
       { method: 'createChecklistItems', source: 'checklistItems' },
       { method: 'importActivities', source: 'activities' },
@@ -1155,6 +1159,11 @@ export class WekanCreator {
       { method: 'recordImportedUsernames' },
       { method: 'recreateBackgrounds' },
     ]);
+  }
+
+  async createScrumData(board, boardId) {
+    const { importScrumTransfer } = require('/server/lib/scrumTransferImport');
+    await importScrumTransfer(this, board, boardId);
   }
 
   // Re-create the board's background images, which are exported as board-level

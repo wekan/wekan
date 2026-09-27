@@ -70,3 +70,21 @@ test('caller-owned maps reject ID collisions and do not treat prototype names as
  assert.equal(transfer.cards.length,1);assert.ok(losses.some(loss=>loss.sourceId==='__proto__'));
  assert.equal({}.scrum,undefined);
 });
+test('import loss reports are bounded plain data with explicit known reasons',()=>{
+ const {normalizeScrumTransferLosses}=require('../models/lib/scrumTransfer');
+ const report=[{path:'snapshot.cards',sourceId:'omitted',reason:'card-not-exported'}];
+ assert.deepEqual(normalizeScrumTransferLosses(report),report);
+ assert.deepEqual(normalizeScrumTransferLosses(),[]);
+ assert.throws(()=>normalizeScrumTransferLosses([{...report[0],reason:'untrusted-markup'}]),/loss reason/);
+ assert.throws(()=>normalizeScrumTransferLosses([{...report[0],extra:'unexpected'}]),/unsupported/);
+});
+test('deselecting Scrum removes its native payload and metadata without removing other content',async()=>{
+ const fs=require('node:fs');const path=require('node:path');
+ const source=fs.readFileSync(path.join(__dirname,'../models/lib/importParts.js'),'utf8');
+ const {pruneImportDocument}=await import(`data:text/javascript;base64,${Buffer.from(source).toString('base64')}`);
+ const doc={title:'Keep',scrum:{enabled:true},scrumTransfer:fixture(),scrumTransferLosses:[],cards:[{title:'Card',scrum:{issueType:'Story'}}],lists:[],swimlanes:[]};
+ pruneImportDocument(doc,['description']);
+ assert.equal(doc.title,'Keep');assert.equal(doc.cards[0].title,'Card');
+ assert.equal(doc.scrum,undefined);assert.equal(doc.scrumTransfer,undefined);assert.equal(doc.cards[0].scrum,undefined);
+ const selected={scrumTransfer:fixture()};pruneImportDocument(selected,['scrum']);assert.ok(selected.scrumTransfer);
+});

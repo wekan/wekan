@@ -3502,5 +3502,6 @@
   "scrum-partial-report": "Partial report: only cards currently assigned to you are included.",
   "scrum-state-released": "Released",
   "scrum-released-at": "Released at",
-  "scrum-follow-up-cards": "Follow-up cards"
+  "scrum-follow-up-cards": "Follow-up cards",
+  "scrum-import-reference-omitted": "A source reference could not be restored: __reference__"
 }

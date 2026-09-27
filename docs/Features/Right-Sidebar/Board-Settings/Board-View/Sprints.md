@@ -83,9 +83,17 @@ follow-up links, and include explicit loss entries. Reduced snapshots are
 marked partial. Operational recovery checkpoints and revision counters are
 not exported. Finish interrupted Scrum operations before exporting.
 
-Native import does not yet restore this new section. Keep the original board;
-this export capability is not yet a verified Scrum backup/restore round trip.
-History transport, import, duplication and synchronization remain in progress.
+Native board import restores the versioned section with new destination IDs.
+Validation runs before users or boards are created; missing required references
+or incompatible estimate fields reject the import. Selecting no Scrum section
+omits Scrum metadata as well as planning records. Import losses appear in an
+Import disclosure on Scrum views for board administrators. Source accountabilities
+remain informational and never grant board permissions.
+
+Native board round trips are tested, but universal History is not transported
+yet. Existing-board scoped import, duplication and synchronization remain in
+progress. Imports are not multi-document database transactions: a database
+failure after preflight can still leave a partially created board.
 
 The current implementation includes planning forms, revision checks,
 start/close snapshots, release and event editors, visibility controls, report

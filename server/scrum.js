@@ -97,6 +97,7 @@ export async function getScrumBoardData(userId, boardId) {
   for (const card of cards) card.canWrite = !!userId && await canUpdateCard(userId, card, ['scrum'], { $set: { scrum: {} } });
   return { boardId, settings: { ...DEFAULT_SCRUM_SETTINGS, ...(board.scrum || {}) },
     settingsRevision: board.scrumRevision || 0, sprints, releases, events, cards, lists, swimlanes, customFields,
+    importLosses: userId && board.hasAdmin(userId) ? (board.scrumImportLosses || []) : [],
     canAdmin: !!userId && board.hasAdmin(userId), canWrite: !!userId && allowIsBoardMemberWithWriteAccess(userId, board),
     partial: restricted };
 }

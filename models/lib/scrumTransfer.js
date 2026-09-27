@@ -180,4 +180,12 @@ function remapScrumTransfer(value, maps) {
   // identifiers are unique, including cards present only in old snapshots.
   return { transfer: normalizeScrumTransfer(result), losses };
 }
-module.exports = { SCRUM_TRANSFER_FORMAT: FORMAT, normalizeScrumTransfer, remapScrumTransfer };
+function normalizeScrumTransferLosses(value = []) {
+  return rows(value).map(row => {
+    object(row, ['path', 'sourceId', 'reason']);
+    if (typeof row.path !== 'string' || !row.path || row.path.length > 1000) fail('invalid loss path');
+    if (!['not-transferred', 'card-or-list-not-exported', 'card-not-exported', 'estimate-field-not-exported'].includes(row.reason)) fail('invalid loss reason');
+    return { path: row.path, sourceId: id(row.sourceId), reason: row.reason };
+  });
+}
+module.exports = { SCRUM_TRANSFER_FORMAT: FORMAT, normalizeScrumTransfer, remapScrumTransfer, normalizeScrumTransferLosses };

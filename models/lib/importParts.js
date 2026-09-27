@@ -32,6 +32,15 @@ function pruneImportDocument(doc, fields) {
     return doc;
   }
   const wanted = new Set(fields);
+  if (!wanted.has('scrum')) {
+    delete doc.scrumTransfer;
+    delete doc.scrumTransferLosses;
+    for (const row of [doc, ...(doc.cards || []), ...(doc.lists || []), ...(doc.swimlanes || [])]) {
+      delete row.scrum;
+      delete row.scrumRevision;
+      delete row.scrumImportLosses;
+    }
+  }
   // An array is only emptied when its key is a KNOWN part that was not chosen -
   // an unknown key is somebody else's data and is left alone.
   for (const [key, arrays] of Object.entries(PART_ARRAYS)) {

@@ -138,14 +138,19 @@ filters scoped planning records and marks reduced snapshots partial with a loss
 report. Real HTTP tests cover full/scoped/omitted sections and anonymization.
 The shared exporter now refuses private board-wide exports by assigned-only
 members. The nine exporter authorization methods and affected HTTP formats are
-covered by the ExportScopeBleed audit and regression tests. Importer, duplication, external
-adapter and Sync integration remain pending. Transporting History and applying export security
-remain integration requirements, not completed features. The shared anonymization
+covered by the ExportScopeBleed audit and regression tests. Native new-board
+import validates before side effects, remaps destination IDs and restores
+planning records, snapshots and metadata through the existing import pipeline.
+Loss reports are visible to board administrators. Existing-board scoped import,
+duplication, external adapters and Sync integration remain pending. Transporting
+History and completing export security integration remain requirements, not
+completed features. The shared anonymization
 helper now rewrites known username mentions in Scrum prose, including canonical
 transfer data. Native streaming export applies it to board goals, card acceptance
 criteria and swimlane purpose. Identity references, estimate units and source
 provenance are preserved; this is mention rewriting, not arbitrary personal-data
-redaction. Native transfer round-trip coverage still requires importer integration.
+redaction. Native round-trip coverage uses the import page and real export route;
+database-failure rollback and universal History transfer remain unimplemented.
 
 Create one versioned, board-scoped Scrum transfer schema and shared validation
 and remapping functions. Native JSON is the lossless reference format. Export
