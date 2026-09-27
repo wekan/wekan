@@ -710,6 +710,26 @@ recorded positive, negative and UI regression coverage.
 Also adds the following feature:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/196faa9cd">Retain sprint calendars and report planned working days</a>. Thanks to xet7.</summary>
+
+Sprint snapshots retain the configured workweek. Sprint Report, Velocity and
+their Excel/PDF exports show inclusive planned working-day counts using the
+start snapshot's calendar. Later board settings do not rewrite the result.
+Legacy snapshots without calendars and missing planned dates remain unknown;
+zero working days is a real value. Native transfer validates and preserves
+recorded calendars without inventing one for old data.
+
+Twenty-three Node checks and five Chromium scenarios pass, including calendar
+isolation, leap dates, invalid/legacy transfers, unchanged counts after board
+calendar edits, Excel values, PDF output and existing full-board duplication.
+Update the report guide. This is planned duration, not measured daily progress;
+daily burndown history remains pending. Existing Upcoming regression evidence
+remains recorded; other browsers were not exercised. Blockly translations
+remain paused.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/65217313f">Configure Scrum team accountabilities and working days from settings</a>. Thanks to xet7.</summary>
 
 The shared Scrum settings form now exposes Product Owner, Scrum Master,
