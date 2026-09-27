@@ -12,13 +12,20 @@ flat issue fields when the nested value is absent. Explicit zeroes are preserved
 Validation runs before creating the board. Localized duration strings are not
 parsed, partial worklog pages are not summed, and no historical sessions are
 fabricated. Native WeKan export retains these values. Jira sprint mapping and
-external export/sync mapping
-remain separate implementation work.
+synchronization remain separate implementation work.
 
 The numeric fields follow [Atlassian's issue API](https://developer.atlassian.com/cloud/jira/software/rest/api-group-issue/).
 The two numeric custom fields are named `Jira original estimate (hours)` and
 `Jira remaining estimate (hours)`. Native WeKan custom-field settings control
 their visibility; no new permission or external service is introduced.
+
+Jira JSON export converts these hours back to integer seconds. Dates selection
+controls spent time; Custom Fields controls original/remaining estimates.
+Imported estimate fields carry `settings.jiraTimeField` markers, so renaming
+one does not break export. Export does not infer meaning from matching names.
+Older fields without markers, duplicate mappings and invalid values are omitted.
+Native WeKan export retains the markers. This preserves time totals, not
+individual worklog entries or all Jira Scrum data.
 
 
 ## Migrate from Jira Server (Atlassian) to Wekan

@@ -46,6 +46,9 @@ CustomFields.attachSchema(
        */
       type: Object,
     },
+    'settings.jiraTimeField': {
+      type: String, optional: true, allowedValues: ['original', 'remaining'],
+    },
     'settings.currencyCode': {
       type: String,
       optional: true,

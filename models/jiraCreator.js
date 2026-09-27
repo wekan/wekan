@@ -149,7 +149,7 @@ export class JiraCreator {
     for (const field of JIRA_ESTIMATE_FIELDS) {
       if (!values.some(value => value[field.key] !== undefined)) continue;
       this.timeFields[field.key] = await CustomFields.direct.insertAsync({
-        boardIds: [boardId], name: field.name, type: 'number', settings: {},
+        boardIds: [boardId], name: field.name, type: 'number', settings: { jiraTimeField: field.key },
         showOnCard: false, automaticallyOnCard: false, alwaysOnCard: false,
         showLabelOnMiniCard: false,
       });

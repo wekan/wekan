@@ -18,3 +18,22 @@ test('invalid numeric durations fail instead of creating corrupt time data',()=>
   assert.throws(()=>jiraTimeTracking({timeestimate:value}),/expected nonnegative integer seconds/);
  }
 });
+
+test('Jira export uses stable field markers and respects section selection',()=>{
+ const {jiraTimeTrackingExport}=require('../models/lib/jiraTimeTracking');
+ const definitions=[{_id:'a',name:'Renamed',type:'number',settings:{jiraTimeField:'original'}},{_id:'b',type:'number',settings:{jiraTimeField:'remaining'}}];
+ const card={spentTime:.5,customFields:[{_id:'a',value:1/3600},{_id:'b',value:0}]};
+ assert.deepEqual(jiraTimeTrackingExport(card,definitions),{timeSpentSeconds:1800,originalEstimateSeconds:1,remainingEstimateSeconds:0});
+ assert.deepEqual(jiraTimeTrackingExport(card,definitions,new Set(['dates'])),{timeSpentSeconds:1800});
+ assert.deepEqual(jiraTimeTrackingExport(card,definitions,new Set(['custom-fields'])),{originalEstimateSeconds:1,remainingEstimateSeconds:0});
+ assert.deepEqual(jiraTimeTrackingExport(card,definitions,new Set(['description'])),{});
+ assert.deepEqual(jiraTimeTracking({timetracking:jiraTimeTrackingExport(card,definitions)}),{original:1/3600,remaining:0,spent:.5});
+});
+test('Jira export does not infer field semantics from names or emit invalid or ambiguous values',()=>{
+ const {jiraTimeTrackingExport}=require('../models/lib/jiraTimeTracking');
+ const definition={_id:'a',name:'Jira original estimate (hours)',type:'number',settings:{}};
+ assert.deepEqual(jiraTimeTrackingExport({customFields:[{_id:'a',value:2}]},[definition]),{});
+ definition.settings.jiraTimeField='original';
+ for(const value of [-1,Infinity,NaN,'2',null,Number.MAX_VALUE]) assert.deepEqual(jiraTimeTrackingExport({spentTime:value,customFields:[{_id:'a',value}]},[definition]),{});
+ assert.deepEqual(jiraTimeTrackingExport({customFields:[{_id:'a',value:2}]},[definition,{...definition,_id:'b'}]),{});
+});
