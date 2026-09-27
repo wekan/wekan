@@ -126,6 +126,19 @@ try {
   const occitan = read(path.join(data, 'oc.i18n.json'));
   assert.equal(occitan.settings, 'Paramètres', 'reviewed shared Occitan word survives');
   assert.equal(occitan['add-board'], english['add-board'], 'unreviewed French seed stays rejected');
+  // Encoded Arabic help URLs are translations, not damaged printf tokens.
+  const helpKey = 'blockly-MATH_NUMBER_HELPURL';
+  const formatKey = 'custom-field-stringtemplate-format';
+  const arabicUrl = locale('ar')[helpKey];
+  assert.match(arabicUrl, /%D8/i);
+  write(before, 'ar', { [helpKey]: english[helpKey] });
+  write(data, 'ar', { [helpKey]: arabicUrl });
+  write(before, 'fi', { [formatKey]: locale('fi')[formatKey] });
+  write(data, 'fi', { [formatKey]: 'Muoto (%{arvo})' });
+  run();
+  assert.equal(read(path.join(data, 'ar.i18n.json'))[helpKey], arabicUrl);
+  assert.equal(read(path.join(data, 'fi.i18n.json'))[formatKey], locale('fi')[formatKey],
+    'translated brace token must restore the valid local fallback');
   console.log(`Audited pull: ${cases} rejected values restored; newer humans, tokens and invalid/missing fallbacks pass.`);
 } finally {
   fs.rmSync(fixture, { recursive: true, force: true });

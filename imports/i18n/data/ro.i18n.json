@@ -1864,7 +1864,7 @@
   "move-swimlane": "Sposta swimlane",
   "moveSwimlanePopup-title": "Sposta swimlane",
   "custom-field-stringtemplate": "Plantilla de cadenas",
-  "custom-field-stringtemplate-format": "Format (utiliser %{valeur} pour marquer un emplacement)",
+  "custom-field-stringtemplate-format": "Format (folosiți %{value} ca substituent)",
   "custom-field-stringtemplate-separator": "Séparateur (utiliser &#32; ou &nbsp; pour un espace)",
   "custom-field-stringtemplate-item-placeholder": "Apăsați Enter pentru a adăuga alte elemente",
   "creator": "Creatore",

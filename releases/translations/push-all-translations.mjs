@@ -4,6 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import logDirectory from '../../tools/log-directory.cjs';
 import { api, readConfig, localLanguages, readToken } from './sync-transifex-languages.mjs';
+import { translationTokens } from './placeholder-tokens.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const wait = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds));
@@ -40,7 +41,7 @@ export function retryingRequest(request, { sleep = wait, log = console.log, maxA
 export function validateTranslation(content, source) {
   const data = JSON.parse(content);
   if (!data || Array.isArray(data) || typeof data !== 'object') throw new Error('Expected a JSON object');
-  const tokens = value => [...value.matchAll(/__[A-Za-z0-9]+(?:_[A-Za-z0-9]+)*__|%(?:\d+\$)?[A-Za-z]/g)].map(x => x[0]).sort().join('\n');
+  const tokens = value => translationTokens(value).join('\n');
   const expected = Object.keys(source).sort();
   if (Object.keys(data).sort().join('\n') !== expected.join('\n')) throw new Error('Translation keys differ from the source');
   for (const key of expected) {

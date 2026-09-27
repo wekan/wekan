@@ -194,6 +194,7 @@ test('every script in releases/ is reachable from BOTH menus', () => {
   const SKIP = {
     'recover-scrum-import.cjs': 'manual offline database recovery requires a board ID; not a release action',
     'translations/import-blockly.cjs': 'translation catalog helper; invoked explicitly for Blockly updates',
+    'translations/placeholder-tokens.mjs': 'shared pure placeholder parser used by translation validation',
     'verify-mime-runtime.cjs': 'internal runtime verification helper',
     'single-exe/wekan-vfs.cjs': 'runtime virtual-filesystem shim embedded in the executable',
     'use-release-npm.sh': 'internal helper installs the checked-out release npm version',

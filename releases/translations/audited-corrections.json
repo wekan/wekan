@@ -159528,5 +159528,145 @@
     "before": "Port SMTP",
     "after": "SMTP ⵒⵓⵔⵜ",
     "reason": "Use the existing Tamazight networking loanword spelling consistently with S3 port, superseding the earlier provisional French-script spelling."
+  },
+  {
+    "locale": "bg",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Облик (користите %{вредност} као основу/носач)",
+    "after": "Формат (използвайте %{value} като заместител)",
+    "reason": "Preserve the literal %{value} custom-field format token; correct foreign or malformed surrounding prose where present."
+  },
+  {
+    "locale": "fi",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Muoto (käytä %{arvo} paikanpitäjänä)",
+    "after": "Muoto (käytä %{value} paikanpitäjänä)",
+    "reason": "Preserve the literal %{value} custom-field format token; correct foreign or malformed surrounding prose where present."
+  },
+  {
+    "locale": "fr-CH",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Format (utiliser %{valeur} pour marquer un emplacement)",
+    "after": "Format (utiliser %{value} pour marquer un emplacement)",
+    "reason": "Preserve the literal %{value} custom-field format token; correct foreign or malformed surrounding prose where present."
+  },
+  {
+    "locale": "fr-FR",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Format (utiliser %{valeur} pour marquer un emplacement)",
+    "after": "Format (utiliser %{value} pour marquer un emplacement)",
+    "reason": "Preserve the literal %{value} custom-field format token; correct foreign or malformed surrounding prose where present."
+  },
+  {
+    "locale": "fr",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Format (utiliser %{valeur} pour marquer un emplacement)",
+    "after": "Format (utiliser %{value} pour marquer un emplacement)",
+    "reason": "Preserve the literal %{value} custom-field format token; correct foreign or malformed surrounding prose where present."
+  },
+  {
+    "locale": "nl-NL",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Format (gebruik %{waarde} als tijdelijke aanduiding)",
+    "after": "Format (gebruik %{value} als tijdelijke aanduiding)",
+    "reason": "Preserve the literal %{value} custom-field format token; correct foreign or malformed surrounding prose where present."
+  },
+  {
+    "locale": "nl",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Format (gebruik %{waarde} als tijdelijke aanduiding)",
+    "after": "Format (gebruik %{value} als tijdelijke aanduiding)",
+    "reason": "Preserve the literal %{value} custom-field format token; correct foreign or malformed surrounding prose where present."
+  },
+  {
+    "locale": "or_IN",
+    "key": "custom-field-stringtemplate-format",
+    "before": "ଫର୍ମାଟ୍ (ସ୍ଥାନଧାରୀ ଭାବରେ% {ମୂଲ୍ୟ use ବ୍ୟବହାର କରନ୍ତୁ)",
+    "after": "ଫର୍ମାଟ୍ (ସ୍ଥାନଧାରୀ ଭାବରେ %{value} ବ୍ୟବହାର କରନ୍ତୁ)",
+    "reason": "Preserve the literal %{value} custom-field format token; correct foreign or malformed surrounding prose where present."
+  },
+  {
+    "locale": "pt-BR",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Formato (use %{valor} como marcador de posição)",
+    "after": "Formato (use %{value} como marcador de posição)",
+    "reason": "Preserve the literal %{value} custom-field format token; correct foreign or malformed surrounding prose where present."
+  },
+  {
+    "locale": "ro-RO",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Format (utiliser %{valeur} pour marquer un emplacement)",
+    "after": "Format (folosiți %{value} ca substituent)",
+    "reason": "Preserve the literal %{value} custom-field format token; correct foreign or malformed surrounding prose where present."
+  },
+  {
+    "locale": "ro",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Format (utiliser %{valeur} pour marquer un emplacement)",
+    "after": "Format (folosiți %{value} ca substituent)",
+    "reason": "Preserve the literal %{value} custom-field format token; correct foreign or malformed surrounding prose where present."
+  },
+  {
+    "locale": "ru-RU",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Формат (используйте %{значение} для подстановки)",
+    "after": "Формат (используйте %{value} для подстановки)",
+    "reason": "Preserve the literal %{value} custom-field format token; correct foreign or malformed surrounding prose where present."
+  },
+  {
+    "locale": "ru-UA",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Формат (используйте %{значение} для подстановки)",
+    "after": "Формат (используйте %{value} для подстановки)",
+    "reason": "Preserve the literal %{value} custom-field format token; correct foreign or malformed surrounding prose where present."
+  },
+  {
+    "locale": "ru",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Формат (используйте %{значение} для подстановки)",
+    "after": "Формат (используйте %{value} для подстановки)",
+    "reason": "Preserve the literal %{value} custom-field format token; correct foreign or malformed surrounding prose where present."
+  },
+  {
+    "locale": "ru_RU",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Формат (используйте %{значение} для подстановки)",
+    "after": "Формат (используйте %{value} для подстановки)",
+    "reason": "Preserve the literal %{value} custom-field format token; correct foreign or malformed surrounding prose where present."
+  },
+  {
+    "locale": "sr",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Облик (користите %{вредност} као основу/носач)",
+    "after": "Облик (користите %{value} као основу/носач)",
+    "reason": "Preserve the literal %{value} custom-field format token; correct foreign or malformed surrounding prose where present."
+  },
+  {
+    "locale": "tk_TM",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Format (ýer eýesi hökmünde% {baha} ulanyň)",
+    "after": "Format (ýer tutujy hökmünde %{value} ulanyň)",
+    "reason": "Preserve the literal %{value} custom-field format token; correct foreign or malformed surrounding prose where present."
+  },
+  {
+    "locale": "ug",
+    "key": "custom-field-stringtemplate-format",
+    "before": "فورمات (% {قىممىتى place ئورۇن ئىگىسى سۈپىتىدە ئىشلىتىڭ)",
+    "after": "فورمات (%{value} نى ئورۇن بەلگىسى قىلىپ ئىشلىتىڭ)",
+    "reason": "Preserve the literal %{value} custom-field format token; correct foreign or malformed surrounding prose where present."
+  },
+  {
+    "locale": "vl-SS",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Format (gebruik %{waarde} als tijdelijke aanduiding)",
+    "after": "Format (gebruik %{value} als tijdelijke aanduiding)",
+    "reason": "Preserve the literal %{value} custom-field format token; correct foreign or malformed surrounding prose where present."
+  },
+  {
+    "locale": "yo",
+    "key": "custom-field-stringtemplate-format",
+    "before": "Ọna kika (lo %{iye} bi oniduro)",
+    "after": "Ọna kika (lo %{value} bi oniduro)",
+    "reason": "Preserve the literal %{value} custom-field format token; correct foreign or malformed surrounding prose where present."
   }
 ]

@@ -33,6 +33,7 @@
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
+import { translationTokens as tokens } from './placeholder-tokens.mjs';
 
 const DATA_DIR = 'imports/i18n/data';
 const EN_FILE = path.join(DATA_DIR, 'en.i18n.json');
@@ -47,8 +48,6 @@ const gitShow = (ref, p) => {
 };
 
 const en = readFile(EN_FILE) || {};
-const tokenPattern = /__[A-Za-z0-9_-]+?__|%(?:\d+\$)?[A-Za-z]/g;
-const tokens = value => (typeof value === 'string' ? (value.match(tokenPattern) || []) : []).sort();
 const hasSourceTokens = (value, source) =>
   JSON.stringify(tokens(value)) === JSON.stringify(tokens(source));
 
