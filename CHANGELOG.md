@@ -1316,6 +1316,25 @@ live provider accounts were not exercised.
 This release adds the following regression coverage and documentation:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2b6d71bdc">Preserve scoped Scrum metadata in list and swimlane copies</a>. Thanks to xet7.</summary>
+
+Standalone list copies retain their workflow category with a fresh metadata
+revision. Swimlane copies preserve purpose and copied-list categories;
+cross-board copies omit foreign sprint/release links, while same-board copies
+retain them. Shared copy paths no longer mutate source container objects.
+Full-board duplication continues to defer metadata to its transfer remapper.
+
+Seven Node runner entries and three Chromium scenarios pass, including
+same/cross-board containers, unchanged sources, standalone cards and full-board
+remapping. The new container browser test was corrected to use the existing
+method's boolean return contract, then passed on rerun. Update the Scrum design.
+Existing Upcoming regression evidence remains recorded. Move integration and
+standalone planning-record mapping remain pending; other browsers were not run.
+Blockly translations remain paused.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8be9b79de">Prevent foreign Scrum planning references in standalone card copies</a>. Thanks to xet7.</summary>
 
 Card and subtask copies now start a fresh Scrum metadata revision. Same-board
