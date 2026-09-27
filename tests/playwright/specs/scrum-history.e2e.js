@@ -104,6 +104,7 @@ test('retry after Scrum undo finalization does not undo an older row or duplicat
   await call(page,'changeHistory.undoLast',board.boardId);
   const checkpoint=db.findOne('changeHistory',{boardId:board.boardId,restoredFromId:row._id,isCheckpoint:true});
   const count=db.find('changeHistory',{boardId:board.boardId}).length;
+  const undoneAt=db.findOne('changeHistory',{_id:row._id}).undoneAt;
   const appliedRevision=db.findOne('cards',{_id:card._id}).scrumRevision;
   // Recreate the durable state immediately before checkpoint cleanup.
   db.insertOne('scrumHistoryPending',dates({_id:board.boardId,rowId:row._id,direction:'undo',userId:user.id,
@@ -115,9 +116,15 @@ test('retry after Scrum undo finalization does not undo an older row or duplicat
   expect(db.findOne('scrumHistoryPending',{_id:board.boardId})).not.toBe(null);
   expect(db.find('changeHistory',{boardId:board.boardId}).length).toBe(count);
   db.updateOne('changeHistory',{_id:checkpoint._id},{$set:{integrityHash:checkpoint.integrityHash}});
+  // An acknowledged timeline is insufficient if undo finalization is damaged.
+  db.updateOne('changeHistory',{_id:row._id},{$set:{undoneAt:null}});
+  await expect(call(page,'changeHistory.undoLast',board.boardId)).rejects.toThrow(/scrum-history-pending/);
+  expect(db.findOne('scrumHistoryPending',{_id:board.boardId})).not.toBe(null);
+  db.updateOne('changeHistory',{_id:row._id},{$set:{undoneAt:new Date(undoneAt)}});
   expect((await call(page,'changeHistory.undoLast',board.boardId)).undone).toBe(true);
   expect(db.find('changeHistory',{boardId:board.boardId}).length).toBe(count);
   expect(db.findOne('cards',{_id:card._id}).scrumRevision).toBe(appliedRevision);
+  expect(db.findOne('changeHistory',{_id:row._id}).undoneAt).toBe(undoneAt);
   expect(db.findOne('scrumHistoryPending',{_id:board.boardId})).toBe(null);
  }finally{clean(board.boardId);}
 });

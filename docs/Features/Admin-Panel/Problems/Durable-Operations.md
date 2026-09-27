@@ -166,6 +166,16 @@ random-ID events from an already pending operation. It retains the original
 creation timestamp and chain link. A lost insert acknowledgement or concurrent
 retry is accepted only after reading back the exact intended event.
 
+After those events are acknowledged, finalization verifies the original History
+row's integrity, author and superseded state. Undo/redo changes use a conditional
+write followed by a readback of the persisted flag and timestamp. An already
+completed undo retains its timestamp on retry. Missing rows, zero-match writes,
+invalid final states and lost write acknowledgements retain recovery evidence.
+Checkpoint deletion matches the board, source row, direction, author and operation
+ID, so an older worker cannot delete a replacement operation's checkpoint.
+These checks do not make verification and deletion a cross-document transaction;
+in-flight writers still need coordinated fencing for that stronger guarantee.
+
 A failed write or mismatched/damaged event leaves the journal pending. Ordinary
 History writes retain their best-effort contract; this strict writer applies only
 to Scrum restoration. It does not make the original Scrum mutation and History

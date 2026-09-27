@@ -22,6 +22,7 @@ const { normalizeScrumMetadata, normalizeScrumSettings, DEFAULT_SCRUM_SETTINGS, 
 const collections = { board: Boards, card: Cards, list: Lists, swimlane: Swimlanes,
   'scrum-sprint': ScrumSprints, 'scrum-release': ScrumReleases, 'scrum-event': ScrumEvents };
 const { recordScrumRestoreOnce } = require('./scrumHistoryRestoreWriter');
+const { finishScrumHistory } = require('./scrumHistoryFinalizer');
 const batches = new AsyncLocalStorage();
 const conflict = () => { throw new Meteor.Error('scrum-conflict', 'Scrum data changed. Reload History before retrying.'); };
 
@@ -198,10 +199,11 @@ export async function applyScrumHistory(row, content, direction) {
           'History could not be verified or saved. The recovery checkpoint was retained.');
       });
     }
-    if (direction !== 'restore') await ChangeHistory.updateAsync(row._id, {
-      $set: { undone: direction === 'undo', undoneAt: direction === 'undo' ? new Date() : null },
+    await finishScrumHistory({ history: ChangeHistory, pending: ScrumHistoryPending,
+      row, journal }).catch(() => {
+      throw new Meteor.Error('scrum-history-pending',
+        'History finalization could not be verified. Retry the pending operation.');
     });
-    await ScrumHistoryPending.removeAsync({ _id: row.boardId, rowId: row._id, direction, userId });
     return true;
   });
 }
