@@ -1,0 +1,72 @@
+'use strict';
+const {test}=require('node:test');
+const assert=require('node:assert/strict');
+const {SCRUM_TRANSFER_FORMAT,normalizeScrumTransfer,remapScrumTransfer}=require('../models/lib/scrumTransfer');
+function fixture(){
+ const snapshot={at:'2026-09-01T10:00:00Z',unit:'points',estimateSource:'customField',estimateCustomFieldId:'cf',completionPolicy:'dueComplete',cards:[
+  {cardId:'c1',listId:'l',estimate:0,done:true,archived:false},
+  {cardId:'c2',listId:'l',estimate:null,done:false,archived:false},
+ ],missingEstimates:1,totalEstimate:0};
+ return {format:SCRUM_TRANSFER_FORMAT,settings:{enabled:true,productGoal:'Goal',definitionOfDone:'Definition',estimateSource:'customField',estimateCustomFieldId:'cf',productOwnerId:'u',scrumMasterId:'u',developerIds:['u']},
+  sprints:[{_id:'s',name:'Sprint',state:'closed',startedAt:'2026-09-01T10:00:00Z',completedAt:'2026-09-02T10:00:00Z',startSnapshot:snapshot,closeSnapshot:{...structuredClone(snapshot),at:'2026-09-02T10:00:00Z'},rolloverSprintId:'next',createdBy:'u',createdAt:'2026-08-30T10:00:00Z'},{_id:'next',name:'Next',state:'planned'}],
+  releases:[{_id:'r',name:'Release',state:'planned'}],events:[{_id:'e',name:'Review',kind:'review',sprintId:'s',startsAt:'2026-09-02T09:30:12.123Z',followUpCardIds:['c1','c2']}],
+  cards:[{_id:'c1',scrum:{sprintId:null,pastSprintIds:['s'],releaseId:'r',backlogRank:0,acceptanceCriteria:'Criteria'}},{_id:'c2',scrum:{sprintId:'next',pastSprintIds:['s']}}],
+  lists:[{_id:'l',scrum:{category:'done'}}],swimlanes:[{_id:'w',scrum:{sprintId:'s',releaseId:'r',purpose:'Team'}}]};
+}
+function maps(){return Object.fromEntries(Object.entries({sprints:['s','next'],releases:['r'],events:['e'],cards:['c1','c2'],lists:['l'],swimlanes:['w'],customFields:['cf'],users:['u']}).map(([kind,ids])=>[kind,new Map(ids.map(id=>[id,`new-${id}`]))]));}
+test('native Scrum transfer remaps every planning, metadata, actor and snapshot reference',()=>{
+ const source=fixture();const before=structuredClone(source);
+ const {transfer,losses}=remapScrumTransfer(source,maps());
+ assert.deepEqual(source,before);assert.deepEqual(losses,[]);
+ assert.equal(transfer.settings.productOwnerId,'new-u');assert.deepEqual(transfer.settings.developerIds,['new-u']);
+ assert.equal(transfer.settings.estimateCustomFieldId,'new-cf');
+ assert.equal(transfer.sprints[0].createdBy,'new-u');assert.equal(transfer.sprints[0].rolloverSprintId,'new-next');
+ assert.equal(transfer.sprints[0].closeSnapshot.cards[0].cardId,'new-c1');
+ assert.equal(transfer.sprints[0].closeSnapshot.cards[0].listId,'new-l');
+ assert.equal(transfer.sprints[0].closeSnapshot.cards[0].estimate,0);assert.equal(transfer.sprints[0].closeSnapshot.cards[1].estimate,null);
+ assert.equal(transfer.sprints[0].closeSnapshot.estimateCustomFieldId,'new-cf');
+ assert.equal(transfer.events[0].sprintId,'new-s');assert.deepEqual(transfer.events[0].followUpCardIds,['new-c1','new-c2']);
+ assert.equal(transfer.events[0].startsAt.toISOString(),'2026-09-02T09:30:12.123Z');
+ assert.deepEqual(transfer.cards[0].scrum.pastSprintIds,['new-s']);assert.equal(transfer.cards[0].scrum.releaseId,'new-r');
+ assert.equal(transfer.swimlanes[0].scrum.sprintId,'new-s');assert.equal(transfer.lists[0].scrum.category,'done');
+ assert.deepEqual(normalizeScrumTransfer(JSON.parse(JSON.stringify(transfer))),transfer);
+});
+test('partial transfers report omitted cards and actors and mark recalculated snapshots partial',()=>{
+ const destination=maps();destination.cards.delete('c2');destination.users.clear();
+ const {transfer,losses}=remapScrumTransfer(fixture(),destination);
+ assert.equal(transfer.settings.productOwnerId,null);assert.deepEqual(transfer.settings.developerIds,[]);
+ assert.equal(transfer.sprints[0].createdBy,undefined);assert.equal(transfer.sprints[0].startSnapshot.partial,true);
+ assert.equal(transfer.sprints[0].startSnapshot.missingEstimates,0);assert.equal(transfer.sprints[0].startSnapshot.totalEstimate,0);
+ assert.equal(transfer.cards.length,1);assert.deepEqual(transfer.events[0].followUpCardIds,['new-c1']);
+ assert.ok(losses.some(loss=>loss.sourceId==='c2'&&loss.path.includes('startSnapshot')));
+ assert.ok(losses.some(loss=>loss.sourceId==='u'&&loss.path==='settings.productOwnerId'));
+});
+test('invalid versions, dates, totals, permissions, pending work and dangling references fail before writes',()=>{
+ for(const [change,pattern] of [
+  [x=>x.format='future',/version/],
+  [x=>x.settings.isAdmin=true,/Unsupported field/],
+  [x=>x.sprints[0].boardId='other-board',/Unsupported field/],
+  [x=>x.sprints[0].rolloverPending=[{cardId:'c1'}],/Unsupported field/],
+  [x=>x.events[0].startsAt='2026-02-30',/calendar/],
+  [x=>x.sprints[0].startSnapshot.totalEstimate=100,/totals/],
+  [x=>x.sprints[0].startSnapshot.cards[0].estimate=Infinity,/estimate/],
+  [x=>x.sprints[0].startSnapshot.cards.push(x.sprints[0].startSnapshot.cards[0]),/duplicate/],
+  [x=>delete x.sprints[0].closeSnapshot,/close snapshot/],
+  [x=>x.cards[0].scrum.sprintId='foreign',/foreign/],
+  [x=>x.sprints[1].rolloverSprintId='s',/cyclic/],
+  [x=>x.settings.estimateCustomFieldId=null,/field is required/],
+  [x=>x.releases.push({...x.releases[0]}),/duplicate/],
+ ]){const source=fixture();change(source);assert.throws(()=>normalizeScrumTransfer(source),pattern);}
+ const destination=maps();destination.customFields.clear();
+ assert.throws(()=>remapScrumTransfer(fixture(),destination),/unmapped settings.estimateCustomFieldId/);
+});
+test('caller-owned maps reject ID collisions and do not treat prototype names as mapped IDs',()=>{
+ const destination=maps();destination.cards.set('c2','new-c1');
+ assert.throws(()=>remapScrumTransfer(fixture(),destination),/duplicate/);
+ const snapshotsOnly=fixture();snapshotsOnly.cards=[];
+ assert.throws(()=>remapScrumTransfer(snapshotsOnly,destination),/duplicate snapshot card/);
+ const source=fixture();source.cards[0]._id='__proto__';
+ const {transfer,losses}=remapScrumTransfer(source,maps());
+ assert.equal(transfer.cards.length,1);assert.ok(losses.some(loss=>loss.sourceId==='__proto__'));
+ assert.equal({}.scrum,undefined);
+});

@@ -124,6 +124,18 @@ combine points and hours or use velocity to rank individual members.
 
 ## Import, export, copy and synchronization
 
+Implementation checkpoint: `models/lib/scrumTransfer.js` now defines and tests
+the `wekan-scrum-1` data contract and destination-ID remapping. It covers board
+settings, sprint/release/event records, lifecycle snapshots and optional item
+metadata. Missing transferred cards or historical actors produce explicit
+loss entries; reduced snapshots are marked partial and their totals recalculated.
+Unknown fields (including permission fields and recovery checkpoints), invalid
+dates, inconsistent totals, foreign planning references and ID collisions fail
+validation. Destination maps are supplied by the importer, never by file input.
+This helper is not yet connected to the native exporter/importer, duplication,
+external adapters or Sync. Transporting History and applying export security
+and anonymization also remain integration requirements, not completed features.
+
 Create one versioned, board-scoped Scrum transfer schema and shared validation
 and remapping functions. Native JSON is the lossless reference format. Export
 sprints, goals, definitions, releases, event records, snapshots and history when
