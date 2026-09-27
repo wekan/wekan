@@ -1,7 +1,7 @@
 'use strict';
 const {test,expect}=require('../fixtures');const db=require('../helpers/db');
 const {loginWithToken,openBoard}=require('../helpers/auth');
-for(const message of ['Invalid jira import document shape','Sync text conflict: KEY-1 (title). Align local and source text before retrying.'])
+for(const message of ['Sync archive conflict: an active subtask is not in the source archive plan.','Invalid jira import document shape','Sync text conflict: KEY-1 (title). Align local and source text before retrying.'])
 test(`list Sync displays ${message} without changing existing cards`,async({page,user,board})=>{
  const card=db.find('cards',{boardId:board.boardId})[0];
  db.updateOne('lists',{_id:card.listId},{$set:{syncSource:{type:'jira',url:'https://example.invalid',projectKey:'TEST',enabled:false,lastSyncError:message}}});

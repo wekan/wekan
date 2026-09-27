@@ -20,8 +20,8 @@
 //   - toArchive: card ids that were synced from this source but no longer
 //     appear upstream. Per the maintainer's explicit instruction ("old
 //     entries are at list history") these are ARCHIVED, never deleted - the
-//     caller applies this with the existing List/Card archive() helper so the
-//     card lands in the board's normal Archive.
+//     caller applies a conditional archived/archivedAt update so the card
+//     lands in the board's normal Archive without cascading to local subtasks.
 // Missing IDs must not be dropped as if those source items disappeared, and
 // duplicate IDs must not silently choose the last of two conflicting records.
 export function validateListSyncTasks(tasks) {

@@ -2,13 +2,13 @@
 const {test}=require('node:test');const assert=require('node:assert/strict');
 const fs=require('node:fs');const vm=require('node:vm');
 const asModule=file=>import(`data:text/javascript;base64,${Buffer.from(fs.readFileSync(file,'utf8')).toString('base64')}`);
-async function run(raw,parser,existing,updateCount=1){
+async function run(raw,parser,existing,updateCount=1,child=null){
  const {validateImportSourceShape}=await asModule('models/lib/importSourceShape.js');
  const {planListSyncReconcile,validateListSyncTasks}=await asModule('models/lib/listSyncReconcile.js');
  const cardWrites=[],listWrites=[];let parsed=0;
  const source=fs.readFileSync('server/listSync.js','utf8').replace(/^import .*;\n/gm,'').replace(/export async function/g,'async function');
  const context={Meteor:{startup(){}},Lists:{updateAsync:async(id,modifier)=>listWrites.push(modifier)},
-  Cards:{updateAsync:async(selector,modifier)=>{cardWrites.push({selector,modifier});return updateCount;},find:()=>({fetchAsync:async()=>Array.isArray(existing)?existing:[existing || {_id:'card',syncExternalId:'KEY-1',syncSourceType:'jira',title:'Existing',description:'',syncLastSource:{title:'Existing',description:''}}]}),findOneAsync:async()=>({archive:async()=>cardWrites.push('archive')})},
+  Cards:{updateAsync:async(selector,modifier)=>{cardWrites.push({selector,modifier});return updateCount;},find:()=>({fetchAsync:async()=>Array.isArray(existing)?existing:[existing || {_id:'card',syncExternalId:'KEY-1',syncSourceType:'jira',title:'Existing',description:'',syncLastSource:{title:'Existing',description:''}}]}),findOneAsync:async()=>child},
   Boards:{findOneAsync:async()=>({_id:'board'})},ListSyncCredentials:{findOneAsync:async()=>({token:'test'})},
   EXTERNAL_PARSERS:{jira:raw=>{parsed++;return parser?parser(raw):{tasks:[]};}},SYNC_CAPABLE_SOURCES:['jira'],
   LIST_SYNC_FETCHERS:{jira:async()=>raw},validateImportSourceShape,planListSyncReconcile,validateListSyncTasks,require:id=>id==='/models/lib/listSyncTextMerge'?require('../models/lib/listSyncTextMerge'):({record(){}}),console,
@@ -28,7 +28,8 @@ test('malformed sync responses cannot be mistaken for a source deletion',async()
 });
 test('a valid empty source still archives items which actually disappeared',async()=>{
  const {result,cardWrites,listWrites,parsed}=await run({issues:[]});
- assert.equal(parsed,1);assert.equal(result.archived,1);assert.deepEqual(cardWrites,['archive']);
+ assert.equal(parsed,1);assert.equal(result.archived,1);assert.equal(cardWrites.length,1);assert.equal(cardWrites[0].modifier.$set.archived,true);
+ assert.equal(cardWrites[0].selector.boardId,'board');assert.equal(cardWrites[0].selector.listId,'list');
  assert.equal(listWrites[0].$set['syncSource.lastSyncError'],'');
 });
 test('parser errors follow the same no-card-write error path',async()=>{
@@ -72,4 +73,14 @@ test('duplicate local mappings abort before updates or archival',async()=>{
  const cards=[{_id:'a',syncExternalId:'KEY-1',title:'Same'},{_id:'b',syncExternalId:'KEY-1',title:'Same'}];
  const {result,cardWrites}=await run({issues:[]},()=>({tasks:[]}),cards);
  assert.match(result.error,/Duplicate local Sync identity/);assert.deepEqual(cardWrites,[]);
+});
+
+test('concurrent moves or edits abort source-absence archival',async()=>{
+ const {result,listWrites}=await run({issues:[]},undefined,undefined,0);
+ assert.match(result.error,/changed while archiving/);
+ assert.equal(listWrites[0].$set['syncSource.lastSyncedAt'],undefined);
+});
+test('active subtasks outside the archive plan prevent all card writes',async()=>{
+ const {result,cardWrites}=await run({issues:[]},undefined,undefined,1,{_id:'manual-child'});
+ assert.match(result.error,/active subtask/);assert.deepEqual(cardWrites,[]);
 });

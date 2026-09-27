@@ -10,9 +10,8 @@
 //     parseGithub, parseGitlab, parseGitea) - server/lib/listSyncFetch.js only
 //     fetches the same raw JSON shape those parsers already consume for
 //     one-time import, so there is no second parsing implementation;
-//   - the EXISTING archive() helpers on Cards/Lists for "old entries are at
-//     list history": a card whose external item disappeared is archived, not
-//     deleted.
+//   - normal card update hooks for archives: a disappeared external item
+//     is archived conditionally, without recursively archiving local subtasks.
 import { Meteor } from 'meteor/meteor';
 import Lists from '/models/lists';
 import Cards from '/models/cards';
@@ -101,6 +100,15 @@ export async function syncOneList(list, { fetchers = LIST_SYNC_FETCHERS } = {}) 
     update.changes.syncLastSource = baseline;
   }
 
+  // Do not recursively archive independent local work through a synced parent.
+  for (const cardId of plan.toArchive) {
+    if (await Cards.findOneAsync({ parentId: cardId, archived: { $ne: true }, _id: { $nin: plan.toArchive } })) {
+      const error = 'Sync archive conflict: an active subtask is not in the source archive plan.';
+      await Lists.updateAsync(list._id, { $set: { 'syncSource.lastSyncError': error } });
+      return { error };
+    }
+  }
+
   const board = await Boards.findOneAsync(list.boardId);
   const now = new Date();
 
@@ -140,11 +148,14 @@ export async function syncOneList(list, { fetchers = LIST_SYNC_FETCHERS } = {}) 
   }
 
   for (const cardId of plan.toArchive) {
-    // eslint-disable-next-line no-await-in-loop
-    const card = await Cards.findOneAsync(cardId);
-    if (card) {
-      // eslint-disable-next-line no-await-in-loop
-      await card.archive();
+    const previous = existingById.get(cardId);
+    const changed = await Cards.updateAsync(syncTextSelector(previous, list.boardId, list._id), {
+      $set: { archived: true, archivedAt: now },
+    });
+    if (!changed) {
+      const error = 'Sync card changed while archiving; retry sync.';
+      await Lists.updateAsync(list._id, { $set: { 'syncSource.lastSyncError': error } });
+      return { error };
     }
   }
 
