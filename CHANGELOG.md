@@ -265,6 +265,14 @@ local edits, lost write replies, creation, archive and null-to-missing fields.
 The callback currently has a test receipt implementation; real History,
 activities, rules and notification delivery still need durable integration.
 The adapter is not enabled in manual or scheduled Sync yet.
+The internal History component now prepares fixed update/archive event batches
+and snapshots the redo rows a new edit supersedes. MongoDB tests interrupt
+between timeline rows and resume without duplicate events or invalidating rows
+undone later. Stable planning identities, predecessor verification and bounded
+plans are implemented. Production plan storage/lifecycle, duplicate-hook
+suppression, creation effects, legacy unhashed redo rows and independent
+integrity-chain writers still require integration; activities and notifications
+are not acknowledged by this History component.
 History field snapshots now preserve nested dates, including date-valued
 custom fields alongside mapped estimates. JSON transport and restoration retain
 Date types without interpreting date-looking text. Existing rows whose dates
@@ -1476,6 +1484,33 @@ the pre-existing overlong line in released v12.07.
 This verification and cleanup sequence is not a cross-document transaction.
 Coordinated fencing of in-flight writers, atomic original writes/History and
 automatic startup replay remain in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f5e2dd0f5">Persist retryable Sync field History batches</a>. Thanks to xet7.</summary>
+
+Add the internal History component for durable Sync updates and archives.
+Prepare fixed event IDs, timestamps, batch identity and integrity-chain links
+before mutation. Snapshot exact redo candidates and undo timestamps so retries
+never invalidate newly undone rows. Conditional writes and readbacks reject
+changed candidates, missing/damaged predecessors and unconfirmed event inserts.
+Existing timeline rows retain their timestamps and later undo flags. Baseline
+updates produce no History rows; mapped estimates retain typed date fields.
+Plan builders now receive stable operation/intent identities and a guard.
+
+Twenty-three focused Sync Node suites pass with MongoDB. The final seven
+History/application/journal suites also pass after scope and bounds checks.
+Real persistence tests interrupt after a card and one History row are saved,
+retain checkpoint zero, resume the saved plan, preserve a later redo candidate
+and verify the complete chain without duplicate events. Negative tests cover
+false/lost replies, malformed plans, foreign scopes and lost ownership. The
+offline audit passes with advisory fingerprints. This internal component adds
+no browser path; existing Upcoming browser regression evidence remains recorded.
+
+Production Sync integration, creation effects, legacy redo handling, independent
+chain-writer coordination and activity/rule/notification durability remain open.
+The History acknowledgement alone does not complete all effects of a Sync step.
 
 </details>
 
