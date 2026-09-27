@@ -17,6 +17,14 @@ import/export/sync mappings, and the remaining lifecycle/permission/browser
 matrix described below. Source-string registration is not translated coverage.
 These remaining requirements are not waived by passing the current tests.
 
+Native sprint transfer preserves the lifecycle invariants of the server methods:
+start and close snapshots must match their lifecycle timestamps, planned sprints
+cannot contain started/completed history, and cancellation cannot precede start.
+Contradictory state or snapshot data is rejected before import creates a board.
+Cancellation before a sprint starts remains valid without a start snapshot.
+External adapters must report unavailable historical data rather than fabricating
+native commitment or completion snapshots.
+
 Native whole-board Scrum transfer and duplication are implemented. Jira import
 and export now retain issue types and explicit workflow categories through
 existing hidden metadata, alongside numeric time tracking. See the

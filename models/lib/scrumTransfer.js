@@ -70,6 +70,19 @@ function record(kind, value) {
     for (const key of ['startSnapshot', 'closeSnapshot']) if (own(extras, key)) result[key] = snapshot(extras[key]);
     if (['active', 'closed'].includes(result.state) && (!result.startSnapshot || !result.startedAt)) fail('started sprint requires a start snapshot');
     if (result.state === 'closed' && (!result.closeSnapshot || !result.completedAt)) fail('closed sprint requires a close snapshot');
+    // Native lifecycle methods capture snapshots at the same instant as their
+    // lifecycle timestamps. Transfers must not invent another report timeline.
+    if (Boolean(result.startSnapshot) !== Boolean(result.startedAt) ||
+        (result.state === 'planned' && result.startedAt) ||
+        (result.state !== 'closed' && (result.closeSnapshot || result.completedAt || result.rolloverSprintId)) ||
+        (result.state !== 'cancelled' && (result.cancelledAt || result.cancellationReason))) {
+      fail('inconsistent sprint lifecycle');
+    }
+    for (const [snapshotKey, timestampKey] of [['startSnapshot', 'startedAt'], ['closeSnapshot', 'completedAt']]) {
+      if (result[snapshotKey] && result[snapshotKey].at.getTime() !== result[timestampKey].getTime()) {
+        fail(`inconsistent ${snapshotKey} snapshot timestamp`);
+      }
+    }
     if (result.startSnapshot && result.closeSnapshot) {
       for (const key of ['unit', 'estimateSource', 'estimateCustomFieldId', 'completionPolicy']) {
         if (result.startSnapshot[key] !== result.closeSnapshot[key]) fail(`incompatible sprint snapshot ${key}`);
@@ -77,6 +90,7 @@ function record(kind, value) {
     }
     if (result.state === 'cancelled' && (!result.cancelledAt || !result.cancellationReason?.trim())) fail('cancelled sprint requires timestamp and reason');
     if (result.completedAt && result.startedAt > result.completedAt) fail('sprint completed before it started');
+    if (result.cancelledAt && result.startedAt > result.cancelledAt) fail('sprint cancelled before it started');
   }
   return result;
 }

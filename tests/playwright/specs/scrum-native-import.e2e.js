@@ -61,5 +61,13 @@ test('native Scrum board export imports with new IDs and unchanged snapshot outc
    await expect(call(page,'importBoard',mixed,{membersMapping:{}},'wekan',null)).rejects.toThrow(/incompatible sprint snapshot/);
    expect(db.find('boards',{title:mixed.title})).toHaveLength(0);
   }
+  for(const change of ['startSnapshot','closeSnapshot','state']){
+   const invalid=structuredClone(exported);invalid.title=`Invalid Scrum lifecycle ${change}`;
+   const sprint=invalid.scrumTransfer.sprints.find(row=>row.state==='closed');
+   if(change==='state')sprint.state='planned';
+   else sprint[change].at='2000-01-01T00:00:00Z';
+   await expect(call(page,'importBoard',invalid,{membersMapping:{}},'wekan',null)).rejects.toThrow(/lifecycle|snapshot timestamp/);
+   expect(db.find('boards',{title:invalid.title})).toHaveLength(0);
+  }
  }finally{clean(imported);for(const collection of ['scrumSprints','scrumReleases','scrumEvents'])db.deleteMany(collection,{boardId:board.boardId});}
 });

@@ -14,6 +14,30 @@ function fixture(){
   lists:[{_id:'l',scrum:{category:'done'}}],swimlanes:[{_id:'w',scrum:{sprintId:'s',releaseId:'r',purpose:'Team'}}]};
 }
 function maps(){return Object.fromEntries(Object.entries({sprints:['s','next'],releases:['r'],events:['e'],cards:['c1','c2'],lists:['l'],swimlanes:['w'],customFields:['cf'],users:['u']}).map(([kind,ids])=>[kind,new Map(ids.map(id=>[id,`new-${id}`]))]));}
+test('native sprint snapshots agree with lifecycle timestamps and state',()=>{
+ for(const change of [
+  s=>s.startSnapshot.at='2026-08-31T10:00:00Z',
+  s=>s.closeSnapshot.at='2026-09-03T10:00:00Z',
+  s=>s.state='planned',
+  s=>s.state='active',
+  s=>{s.cancelledAt=s.completedAt;s.cancellationReason='Contradiction';},
+ ]){
+  const source=fixture();change(source.sprints[0]);
+  assert.throws(()=>normalizeScrumTransfer(source),/lifecycle|snapshot timestamp/);
+ }
+ const source=fixture();const sprint=source.sprints[0];
+ delete sprint.closeSnapshot;delete sprint.completedAt;delete sprint.rolloverSprintId;
+ sprint.state='active';
+ assert.equal(normalizeScrumTransfer(source).sprints[0].state,'active');
+ sprint.state='cancelled';sprint.cancelledAt='2026-09-02T10:00:00Z';sprint.cancellationReason='Cancelled';
+ assert.equal(normalizeScrumTransfer(source).sprints[0].state,'cancelled');
+ sprint.cancelledAt='2026-08-31T10:00:00Z';
+ assert.throws(()=>normalizeScrumTransfer(source),/cancelled before/);
+ sprint.cancelledAt='2026-09-02T10:00:00Z';delete sprint.startSnapshot;
+ assert.throws(()=>normalizeScrumTransfer(source),/lifecycle/);
+ delete sprint.startedAt;
+ assert.equal(normalizeScrumTransfer(source).sprints[0].state,'cancelled');
+});
 test('native Scrum transfer remaps every planning, metadata, actor and snapshot reference',()=>{
  const source=fixture();const before=structuredClone(source);
  const {transfer,losses}=remapScrumTransfer(source,maps());
@@ -57,7 +81,7 @@ test('invalid versions, dates, totals, permissions, pending work and dangling re
   [x=>x.sprints[0].closeSnapshot.estimateCustomFieldId='other-field',/incompatible sprint snapshot estimateCustomFieldId/],
   [x=>x.sprints[0].closeSnapshot.completionPolicy='doneLists',/incompatible sprint snapshot completionPolicy/],
   [x=>x.cards[0].scrum.sprintId='foreign',/foreign/],
-  [x=>x.sprints[1].rolloverSprintId='s',/cyclic/],
+  [x=>x.sprints[1]={...structuredClone(x.sprints[0]),_id:'next',rolloverSprintId:'s'},/cyclic/],
   [x=>x.settings.estimateCustomFieldId=null,/field is required/],
   [x=>x.releases.push({...x.releases[0]}),/duplicate/],
  ]){const source=fixture();change(source);assert.throws(()=>normalizeScrumTransfer(source),pattern);}
