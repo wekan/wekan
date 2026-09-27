@@ -170,8 +170,10 @@ conditional list update. Interrupted saves retain the old or new pair; stale
 saves and delayed cleanup cannot replace a newer configuration's credential.
 An hourly sweep now retires unselected credential versions. A server-owned
 generation fence prevents delayed saves from activating a retired token while
-preserving the selected version and newer staging. Missing-list credentials
-and malformed generations remain for review; all writer processes must upgrade.
+preserving the selected version and newer staging. Deleted-list credentials
+are now swept by exact identity. Each new list has a fresh lifetime identifier,
+so a recreated list cannot activate an old token or lose its new one to delayed
+cleanup. Malformed generations remain for review; all writers must upgrade.
 The Sync popup now compares conflicting title, description and spent-time
 values. Board writers can retain the local value or select the source value;
 fresh comparisons and conditional writes reject stale choices. Assigned-only
@@ -191,8 +193,8 @@ Remaining: external sprint histories without invented snapshots, multiple
 release assignments, epic relationships, automatic field/schema mapping,
 Trello and other Scrum adapters, mapping previews/loss reporting, planning and
 estimate Sync, durable restart checkpoints, fencing of in-flight card writes
-after lease loss, atomic multi-card reconciliation, cleanup of credentials for
-missing lists and malformed generations.
+after lease loss, atomic multi-card reconciliation and cleanup of credentials
+with malformed generations.
 Changes during card writes remain nontransactional.
 See [Jira](docs/Features/ImportExport/Jira/Jira.md) and
 [Sync](docs/Features/ImportExport/Sync.md).
@@ -1050,6 +1052,31 @@ in TODO Later. The known released-entry changelog format failure remains.
 and improves list synchronization:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/210f1b59b">Retire deleted-list credentials without disrupting recreated lists</a>. Thanks to xet7.</summary>
+
+Give every new list a server-generated credential lifetime, including copies
+and imports that bypass collection hooks. Match that lifetime when reading a
+credential or activating settings. Existing legacy lists keep their tokens;
+recreating the same list ID cannot reactivate the old list's credential.
+
+The hourly sweep reads credential identity before checking list absence and
+removes only that exact version. A concurrent recreated list keeps its new
+token. Delayed old saves fail their lifetime comparison; interrupted cleanup
+can retry. The scan neither reads nor logs tokens. Soft-deleted lists retain
+their selected credential for undo; malformed generations remain for review.
+All writer processes must upgrade together. Stop writers for database restores,
+which bypass application lifecycle rules.
+
+Twelve Sync Node suites and four list/import suites pass. Real MongoDB tests
+cover recreation between absence checks and deletion, stale legacy and newer
+saves, preserved active tokens and failed cleanup retries. Sixteen Sync
+Chromium scenarios and native import/board copy scenarios pass. The local
+release audit passes with advisory warnings. FerretDB and other browsers were
+not tested. Whole-run recovery and card-write fencing remain pending.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/352dcbea8">Create stable replacements for moved or detached Sync cards</a>. Thanks to xet7.</summary>
 
 Stop before normal card writes when a creation ID is occupied. Unrestricted
@@ -1181,8 +1208,9 @@ writes, disabled sources and failure isolation. Eight Chromium Sync scenarios
 pass across the initial run and corrected-test rerun, including retained token
 use, later settings saves and denial of browser changes to the generation.
 The local release audit passes with advisory warnings. All writer processes
-must upgrade together. Missing-list credentials and malformed generations stay
-for review. FerretDB, other browsers and live providers remain unverified;
+must upgrade together. Deleted-list cleanup is extended above; malformed
+generations stay for review. FerretDB, other browsers and live providers
+remain unverified;
 card-write fencing and durable reconciliation checkpoints remain pending.
 
 </details>
