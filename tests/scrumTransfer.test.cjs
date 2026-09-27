@@ -88,3 +88,15 @@ test('deselecting Scrum removes its native payload and metadata without removing
  assert.equal(doc.scrum,undefined);assert.equal(doc.scrumTransfer,undefined);assert.equal(doc.cards[0].scrum,undefined);
  const selected={scrumTransfer:fixture()};pruneImportDocument(selected,['scrum']);assert.ok(selected.scrumTransfer);
 });
+
+test('snapshot calendars round-trip without inventing legacy calendars',()=>{
+ const source=fixture();
+ assert.equal(normalizeScrumTransfer(source).sprints[0].startSnapshot.workingDays,undefined);
+ source.sprints[0].startSnapshot.workingDays=[1,3,5];
+ const {transfer}=remapScrumTransfer(source,maps());
+ assert.deepEqual(transfer.sprints[0].startSnapshot.workingDays,[1,3,5]);
+ for(const days of [[],[0],[8],['1']]){
+  source.sprints[0].startSnapshot.workingDays=days;
+  assert.throws(()=>normalizeScrumTransfer(source));
+ }
+});

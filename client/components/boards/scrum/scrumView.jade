@@ -259,6 +259,7 @@ template(name="scrumReportTable")
           th {{_ 'scrum-added'}}
           th {{_ 'scrum-removed'}}
           th {{_ 'scrum-incomplete'}}
+          th {{_ 'scrum-working-days'}}
       tbody
         each rows
           tr
@@ -272,7 +273,8 @@ template(name="scrumReportTable")
             td {{formatTotal added}}
             td {{formatTotal removed}}
             td {{formatTotal incomplete}}
+            td.scrum-working-days {{workingDaysLabel}}
         else
           tr
-            td(colspan="7") {{_ 'scrum-no-closed-sprints'}}
+            td(colspan="8") {{_ 'scrum-no-closed-sprints'}}
   p {{_ 'scrum-report-help'}}

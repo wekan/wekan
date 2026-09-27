@@ -111,6 +111,7 @@ function sprintSnapshot(cards, settings, lists, at = new Date()) {
   const rows = cards.map(card => ({ cardId: card._id, estimate: getCardEstimate(card, settings),
     done: isScrumCardDone(card, settings, lists), archived: card.archived === true, listId: card.listId }));
   return { at, unit: settings.estimateUnit, estimateSource: settings.estimateSource,
+    workingDays: [...(settings.workingDays || DEFAULT_SCRUM_SETTINGS.workingDays)],
     estimateCustomFieldId: settings.estimateCustomFieldId, completionPolicy: settings.completionPolicy,
     cards: rows, missingEstimates: rows.filter(row => row.estimate === null).length,
     totalEstimate: rows.reduce((sum, row) => sum + (row.estimate ?? 0), 0) };

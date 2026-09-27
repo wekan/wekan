@@ -25,7 +25,7 @@ function date(value) {
   return result;
 }
 function snapshot(value) {
-  object(value, ['at', 'unit', 'estimateSource', 'estimateCustomFieldId', 'completionPolicy', 'cards', 'missingEstimates', 'totalEstimate', 'partial']);
+  object(value, ['at', 'unit', 'estimateSource', 'estimateCustomFieldId', 'completionPolicy', 'workingDays', 'cards', 'missingEstimates', 'totalEstimate', 'partial']);
   const settings = normalizeScrumSettings({ estimateUnit: value.unit, estimateSource: value.estimateSource,
     estimateCustomFieldId: value.estimateCustomFieldId ?? null, completionPolicy: value.completionPolicy });
   if (settings.estimateSource === 'customField' && !settings.estimateCustomFieldId) fail('snapshot estimate field is required');
@@ -44,6 +44,7 @@ function snapshot(value) {
   if (missingEstimates !== value.missingEstimates || totalEstimate !== value.totalEstimate) fail('inconsistent snapshot totals');
   if (own(value, 'partial') && typeof value.partial !== 'boolean') fail('invalid partial flag');
   return { at: date(value.at), unit: settings.estimateUnit, estimateSource: settings.estimateSource,
+    ...(own(value, 'workingDays') ? { workingDays: normalizeScrumSettings({ workingDays: value.workingDays }).workingDays } : {}),
     estimateCustomFieldId: settings.estimateCustomFieldId, completionPolicy: settings.completionPolicy,
     cards, missingEstimates, totalEstimate, ...(value.partial ? { partial: true } : {}) };
 }

@@ -24,7 +24,7 @@ test('Excel and PDF rows retain numeric unknown counts without substituting zero
  const {chartExportRows}=require('../models/lib/chartExportRows');
  const report=sprintReport({name:'Sprint 1',startSnapshot:{unit:'points',cards:[{cardId:'x',estimate:null}]},closeSnapshot:{unit:'points',cards:[{cardId:'x',estimate:null,done:true}]}});
  const table=chartExportRows('scrumVelocity',{reports:[report]});
- assert.equal(table.headers.length,17);
+ assert.equal(table.headers.length,18);
  assert.deepEqual(table.rows[0].slice(0,8),['Sprint 1','points',1,0,1,1,0,1]);
  assert.equal(chartExportRows('scrumSprint',{reports:[]}).rows.length,0);
 });
@@ -102,4 +102,26 @@ test('maximum-size snapshots match completed commitments with bounded ID reads',
  assert.deepEqual(report.completed,{count:10000,estimate:20000,unknown:0});
  assert.deepEqual(report.added,{count:5000,estimate:10000,unknown:0});
  assert.deepEqual(report.removed,{count:5000,estimate:5000,unknown:0});
+});
+
+test('planned working days use the recorded UTC calendar, preserving unknown and zero',()=>{
+ const {plannedWorkingDays}=require('../models/lib/scrumReports');
+ assert.equal(plannedWorkingDays('2026-09-21','2026-09-27',[1,2,3,4,5]),5);
+ assert.equal(plannedWorkingDays('2026-09-26','2026-09-27',[1,2,3,4,5]),0);
+ assert.equal(plannedWorkingDays('2024-02-28','2024-03-01',[1,2,3,4,5]),3);
+ assert.equal(plannedWorkingDays('2026-09-21','2026-10-04',[7,7]),2);
+ for(const args of [[null,'2026-09-27',[1]],['invalid','2026-09-27',[1]],['2026-09-27','2026-09-21',[1]],['2026-09-21','2026-09-27',undefined],['2026-09-21','2026-09-27',[8]]])assert.equal(plannedWorkingDays(...args),null);
+ const report=sprintReport({plannedStart:'2026-09-21',plannedEnd:'2026-09-27',startSnapshot:{workingDays:[1,3,5],cards:[]},closeSnapshot:{workingDays:[1,2,3,4,5],cards:[]}});
+ assert.equal(report.plannedWorkingDays,3);
+ const {chartExportRows}=require('../models/lib/chartExportRows');
+ assert.equal(chartExportRows('scrumSprint',{reports:[report]}).rows[0].at(-1),3);
+ assert.equal(chartExportRows('scrumSprint',{reports:[sprintReport({})]}).rows[0].at(-1),'');
+});
+
+test('snapshot calendar is copied independently from current settings',()=>{
+ const {sprintSnapshot,DEFAULT_SCRUM_SETTINGS}=require('../models/lib/scrum');
+ const settings={...DEFAULT_SCRUM_SETTINGS,workingDays:[1,3,5]};
+ const snapshot=sprintSnapshot([],settings,[]);
+ settings.workingDays.push(7);
+ assert.deepEqual(snapshot.workingDays,[1,3,5]);
 });

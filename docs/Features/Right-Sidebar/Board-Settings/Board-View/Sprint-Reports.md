@@ -18,6 +18,15 @@ PDF with the same report data and requesting user's access restrictions.
 Historical daily burndown integration remains work listed in
 [the Scrum design](Scrum-Design.md).
 
+Reports and Excel/PDF exports also show the planned working-day count. The
+calendar is retained in the sprint's start snapshot, so subsequent board
+calendar changes do not alter the result. Planned start and end dates are
+inclusive UTC dates. A weekend-only range can have zero working days. Legacy
+snapshots without a recorded calendar, or sprints without both planned dates,
+show an unknown value (a dash on screen and an empty export cell). Native
+transfer and full-board duplication preserve the snapshot calendar. This is
+planned calendar duration, not a measurement of hours worked or daily progress.
+
 ## Charts
 
 Responsive horizontal bars appear above the report table. A metric

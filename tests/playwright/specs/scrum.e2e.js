@@ -17,6 +17,7 @@ test('Scrum menus plan work, retain closed snapshots and export Excel/PDF',async
  db.updateOne('cards',{_id:cards[0]._id},{$set:{'poker.estimation':3,dueComplete:true}});
  try{
   await loginWithToken(page,user.id,user.token);await openBoard(page,board.boardId,board.slug);
+  await call(page,'scrum.configure',board.boardId,{workingDays:[7]},0);
   await view(page,'sprints');
   await page.locator('.scrum-view summary').filter({hasText:'Create or edit a planned sprint'}).click();
   const form=page.locator('.js-scrum-sprint-form');
@@ -41,7 +42,10 @@ test('Scrum menus plan work, retain closed snapshots and export Excel/PDF',async
   page.once('dialog',dialog=>dialog.accept());
   await page.locator('.js-scrum-close').click();
   await expect.poll(()=>db.findOne('scrumSprints',{_id:sprint._id}).state).toBe('closed');
+  expect(db.findOne('scrumSprints',{_id:sprint._id}).startSnapshot.workingDays).toEqual([7]);
+  await call(page,'scrum.configure',board.boardId,{workingDays:[1,2,3,4,5]},db.findOne('boards',{_id:board.boardId}).scrumRevision);
   await view(page,'velocity');
+  await expect(page.locator('.scrum-working-days')).toHaveText('4');
   await expect(page.locator('.scrum-table tbody')).toContainText('Browser sprint');
   await expect(page.locator('.scrum-chart-row')).toHaveCount(1);
   await expect(page.locator('.scrum-chart-label').first()).toContainText('1');
@@ -57,6 +61,7 @@ test('Scrum menus plan work, retain closed snapshots and export Excel/PDF',async
   const Excel=require('../../../node_modules/@wekanteam/exceljs');
   const workbook=new Excel.Workbook();await workbook.xlsx.load(await excel.body());
   expect(workbook.worksheets[0].getCell('A3').value).toBe('Browser sprint');
+  expect(workbook.worksheets[0].getCell('R3').value).toBe(4);
   const pdf=await request.get(`/api/boards/${board.boardId}/charts/scrumSprint/exportPDF?authToken=${encodeURIComponent(user.token)}&sprintId=${sprint._id}`);
   expect(pdf.status()).toBe(200);expect((await pdf.body()).subarray(0,4).toString()).toBe('%PDF');
   await view(page,'sprint-report');

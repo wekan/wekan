@@ -159,6 +159,7 @@ Template.scrumReportTable.events({
   'change .js-scrum-chart-metric'(event, tpl) { tpl.metric.set(event.currentTarget.value); },
 });
 Template.scrumReportTable.helpers({
+  workingDaysLabel() { return this.plannedWorkingDays ?? '—'; },
   chartGroups() {
     return reportChartGroups(Template.currentData().rows || [], current().metric.get(), Template.currentData().velocity)
       .map(group => ({ ...group, policyLabel: group.completionPolicy ? t(`scrum-policy-${group.completionPolicy}`) : '',

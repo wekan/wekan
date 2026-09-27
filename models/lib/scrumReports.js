@@ -20,6 +20,7 @@ function sprintReport(sprint) {
   const doneIds = new Set(done.map(card => card.cardId));
   return {
     sprintId: sprint._id, name: sprint.name, state: sprint.state,
+    plannedWorkingDays: plannedWorkingDays(sprint.plannedStart, sprint.plannedEnd, sprint.startSnapshot?.workingDays),
     unit: sprint.closeSnapshot?.unit || sprint.startSnapshot?.unit || '',
     estimateSource: sprint.closeSnapshot?.estimateSource || sprint.startSnapshot?.estimateSource || '',
     estimateCustomFieldId: sprint.closeSnapshot?.estimateCustomFieldId || sprint.startSnapshot?.estimateCustomFieldId || '',
@@ -32,6 +33,22 @@ function sprintReport(sprint) {
     hasStart: Boolean(sprint.startSnapshot), hasClose: Boolean(sprint.closeSnapshot),
     partial: Boolean(sprint.startSnapshot?.partial || sprint.closeSnapshot?.partial),
   };
+}
+// Planned dates use UTC calendar days, inclusive. Count whole weeks directly
+// so even a long imported date range needs at most six daily checks.
+function plannedWorkingDays(start, end, workingDays) {
+  if (!start || !end || !Array.isArray(workingDays) || !workingDays.length || workingDays.some(day => !Number.isInteger(day) || day < 1 || day > 7)) return null;
+  const first = new Date(start), last = new Date(end);
+  if (!Number.isFinite(first.getTime()) || !Number.isFinite(last.getTime())) return null;
+  const dayNumber = date => Math.floor(date.getTime() / 86400000);
+  const days = dayNumber(last) - dayNumber(first) + 1;
+  if (days <= 0) return null;
+  const selected = new Set(workingDays);
+  let count = Math.floor(days / 7) * selected.size;
+  for (let index = 0; index < days % 7; index += 1) {
+    if (selected.has((first.getUTCDay() + index + 6) % 7 + 1)) count += 1;
+  }
+  return count;
 }
 function velocityRows(sprints) {
   return sprints.filter(s => s.state === 'closed' && s.closeSnapshot)
@@ -62,4 +79,4 @@ function reportChartGroups(reports, metric = 'count', velocity = false) {
     series: row.series.map(series => ({ ...series, width: group.max ? 100 * (series.value / group.max) : 0 })),
   })) }));
 }
-module.exports = { total, sprintReport, velocityRows, reportChartGroups };
+module.exports = { total, sprintReport, velocityRows, reportChartGroups, plannedWorkingDays };
