@@ -3570,5 +3570,9 @@
   "sync-report-skipped": "Skipped",
   "sync-report-review-only": "Review only",
   "sync-report-unavailable": "Run reports require full-list write access and an available server.",
-  "sync-report-empty": "No recorded Sync runs."
+  "sync-report-empty": "No recorded Sync runs.",
+  "sync-recovery-heading": "Sync run diagnostics",
+  "sync-recovery-description": "Retained Sync reports from the last 30 days. Search by board or list ID. An unfinished outcome may still be running or interrupted. Refresh to check again; these reports cannot resume or undo changes.",
+  "sync-recovery-unavailable": "Unable to read Sync diagnostics. Check administrator access and server availability.",
+  "sync-recovery-all": "All outcomes"
 }

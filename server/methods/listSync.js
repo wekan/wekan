@@ -14,6 +14,7 @@ import Cards from '/models/cards';
 import ListSyncCredentials from '/models/listSyncCredentials';
 import ListSyncRunReports from '/server/lib/listSyncRunReports';
 const { reportScope } = require('/server/lib/syncRunReport');
+const { syncRunReportPage } = require('/server/lib/syncRunReportPage');
 import { ReactiveCache } from '/imports/reactiveCache';
 import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 import { SYNC_CAPABLE_SOURCES } from '/models/lib/externalParsers';
@@ -139,6 +140,18 @@ Meteor.methods({
       assertConflictAccess: () => assertConflictAccess(this.userId, list.boardId) });
   },
 
+  async syncRecoveryReport(query) {
+    check(query, { search: String, status: String, page: Number });
+    const assertAdmin = async () => {
+      const user = this.userId && await Meteor.users.findOneAsync(this.userId, { fields: { isAdmin: 1 } });
+      if (!user?.isAdmin) throw new Meteor.Error('not-authorized');
+    };
+    await assertAdmin();
+    const result = await syncRunReportPage(ListSyncRunReports.rawCollection(), query);
+    await assertAdmin();
+    return result;
+  },
+
   async listSyncRunReports(listId) {
     check(listId, String);
     const list = await Lists.findOneAsync(listId);
@@ -185,4 +198,7 @@ Meteor.methods({
 });
 
 DDPRateLimiter.addRule({ type: 'method', name: 'listSyncRunReports',
+  connectionId: () => true }, 10, 10000);
+
+DDPRateLimiter.addRule({ type: 'method', name: 'syncRecoveryReport',
   connectionId: () => true }, 10, 10000);

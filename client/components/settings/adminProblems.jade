@@ -12,6 +12,8 @@ template(name="adminProblems")
           +paneTitle(paneTitleData)
           if showFileStatusAudit
             +fileStatusAudit
+          if isPane 'report-recovery'
+            +syncRecoveryReports
           if loading.get
             +spinner
           else if isPane 'report-summary'
@@ -208,3 +210,36 @@ template(name="fileStatusAudit")
             pre {{this}}
       if result.omittedFindings
         p Additional findings not displayed: {{result.omittedFindings}}
+
+template(name="syncRecoveryReports")
+  section.sync-recovery-reports
+    h2 {{_ 'sync-recovery-heading'}}
+    p.quiet {{_ 'sync-recovery-description'}}
+    if error
+      p.error {{error}}
+    +tablePage(tablePageData)
+
+template(name="syncRecoveryReportRow")
+  tr
+    td {{started}}
+    td
+      p {{_ 'board'}}: {{boardId}}
+      p {{_ 'list'}}: {{listId}}
+    td {{_ statusLabel}}
+    td
+      details
+        summary {{_ 'details'}}
+        p.quiet {{_ 'sync-report-partial'}}
+        if hasCounts
+          p {{_ 'sync-preview-create'}}: {{created}}
+          p {{_ 'sync-preview-update'}}: {{updated}}
+          p {{_ 'sync-preview-archive'}}: {{archived}}
+        each sourceRows
+          p {{path}}: {{count}} — {{_ reasonLabel}}
+        each normalizedRows
+          p {{field}}: {{count}} — {{_ reasonLabel}}
+        if coverage.source.truncated
+          p {{_ 'sync-source-truncated'}}
+          p {{_ 'sync-source-omitted'}}: {{coverage.source.omittedOccurrences}}
+        p {{_ 'sync-preview-parser-warnings'}}: {{coverage.parserWarnings}}
+        p {{_ 'sync-preview-parser-unsupported'}}: {{coverage.parserUnsupported}}

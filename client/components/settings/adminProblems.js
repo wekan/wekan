@@ -1401,3 +1401,65 @@ Template.fileStatusAudit.events({
     });
   },
 });
+
+
+// A method-backed diagnostic view of the retained Sync records. No duplicate
+// recovery events and no collection publication; refresh reads current status.
+Template.syncRecoveryReports.onCreated(function () {
+  this.result = new ReactiveVar({ rows: [], total: 0, page: 1 });
+  this.error = new ReactiveVar('');
+  this.search = new ReactiveVar('');
+  this.status = new ReactiveVar('unfinished');
+  this.request = 0;
+  this.load = (page = 1) => {
+    const request = ++this.request;
+    this.result.set({ rows: [], total: 0, page });
+    Meteor.call('syncRecoveryReport', { search: this.search.get(), status: this.status.get(), page }, (error, result) => {
+      if (this.view.isDestroyed || request !== this.request) return;
+      this.error.set(error ? TAPi18n.__('sync-recovery-unavailable') : '');
+      if (!error) this.result.set(result);
+    });
+  };
+  this.load();
+});
+Template.syncRecoveryReports.helpers({
+  error() { return Template.instance().error.get(); },
+  tablePageData() {
+    const t = Template.instance();
+    const result = t.result.get();
+    const info = pageInfo(result.total, result.page, TABLE_PAGE_ROWS_PER_PAGE);
+    const statuses = ['all', 'unfinished', 'failed', 'completed-with-warnings', 'completed', 'review-only', 'skipped'];
+    return {
+      header: buildHeader([{ labelKey: 'date' }, { labelKey: 'list' }, { labelKey: 'status' }, { labelKey: 'details' }]),
+      rowTemplate: 'syncRecoveryReportRow', emptyKey: 'sync-report-empty',
+      docs: result.rows.map(row => ({ ...row, started: formatDate(row.startedAt),
+        hasCounts: row.created !== undefined, statusLabel: `sync-report-${row.status}`,
+        sourceRows: (row.coverage?.source?.rows || []).map(field => ({ ...field, reasonLabel: `sync-source-${field.reason}` })),
+        normalizedRows: (row.coverage?.rows || []).map(field => ({ ...field, reasonLabel: `sync-source-${field.reason}` })),
+      })),
+      rowCount: result.rows.length, total: result.total, searchTerm: t.search.get(),
+      page: info.page, totalPages: info.totalPages, hasPrev: info.hasPrev, hasNext: info.hasNext,
+      actions: [{ id: 'refresh-sync', labelKey: 'refresh' }],
+      filters: [{ id: 'sync-status', labelKey: 'status', options: statuses.map(status => ({ value: status,
+        labelKey: status === 'all' ? 'sync-recovery-all' : `sync-report-${status}`, selected: status === t.status.get() })) }],
+    };
+  },
+});
+Template.syncRecoveryReports.events({
+  'keydown .js-table-page-search'(event, t) {
+    event.stopPropagation();
+    if (event.key === 'Enter') { event.preventDefault(); t.search.set(event.currentTarget.value.trim().slice(0, 100)); t.load(); }
+  },
+  'change .js-table-page-filter'(event, t) {
+    event.stopPropagation(); t.status.set(event.currentTarget.value); t.load();
+  },
+  'click .js-table-page-action'(event, t) {
+    event.preventDefault(); event.stopPropagation(); t.load();
+  },
+  'click .js-table-page-prev, click .js-table-page-next'(event, t) {
+    event.preventDefault(); event.stopPropagation();
+    const result = t.result.get();
+    const next = adjacentPage(result.total, result.page, event.currentTarget.classList.contains('js-table-page-next') ? 1 : -1, TABLE_PAGE_ROWS_PER_PAGE);
+    if (next !== result.page) t.load(next);
+  },
+});

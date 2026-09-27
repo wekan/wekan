@@ -82,8 +82,9 @@ mapping choices beyond the current field switches, binary and history
 transport. These remain in TODO Later. Full-list Sync runs now persist bounded
 coverage and terminal status privately; the popup reads the latest 20 reports
 from the last 30 days. Unfinished records explicitly leave the outcome unknown.
-These diagnostic reports do not yet implement replay/recovery checkpoints or
-the Problems → Recovery integration required by the full contract.
+Problems → Recovery now exposes the same bounded diagnostics to instance
+administrators with status filters and pagination. These reports do not yet
+implement the replay/recovery checkpoints required by the full contract.
 See [Sync](./Sync.md#preview-saved-sync-changes) for access and output limits.
 
 ## Compatibility and limits

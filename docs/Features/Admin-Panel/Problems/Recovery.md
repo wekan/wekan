@@ -30,6 +30,29 @@ bloating, detects corruption, keeps a ready-to-use backup, restores or re-migrat
 when an operator requests it, and shows the remediation history in Admin Panel →
 Problems → **Recovery**.
 
+## Sync run diagnostics
+
+Recovery also reads the private Sync run reports, without copying them into
+recovery events or publishing the collection. The default filter shows
+unfinished outcomes; these may still be running or may have been interrupted.
+Other filters show failures, completed runs, completed-with-warnings outcomes,
+review-only results or all outcomes. Nothing here resumes or rolls back an
+operation. Failed and unfinished runs may have applied some card changes.
+
+Search by a literal board or list ID and press Enter. The shared table loads ten
+rows per page, sorted by start time and record ID. Expand Details for confirmed
+successful counts, normalized/source field paths and parser diagnostic counts.
+Values, raw errors, credentials and source URLs are absent. Reports older than
+30 days are excluded. Refresh checks the latest status; this is not a live
+subscription. The existing recovery-event table retains its separate controls.
+
+Only current instance administrators may read this cross-board view. The server
+checks that permission before and after reading. The list popup still requires
+full-list board write permission and the same list lifetime. Instance admins
+can inspect retained diagnostics for deleted lists here until retention expires.
+Replay checkpoints, write fencing and automatic restart recovery are separate
+unfinished work; a diagnostic report is not a recovery plan.
+
 ## What each layer does
 
 ### FerretDB (the database engine)

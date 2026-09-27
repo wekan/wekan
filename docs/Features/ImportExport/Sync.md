@@ -253,7 +253,11 @@ new results. MongoDB expires records after 30 days through a TTL index; reads
 also exclude older records. Backends without TTL support need operator-managed
 cleanup of old diagnostic records. This is diagnostic retention, not a durable
 operation plan: restart/replay checkpoints and in-flight write fencing remain
-unfinished.
+unfinished. Instance administrators can also inspect reports across boards in
+[Problems → Recovery](../Admin-Panel/Problems/Recovery.md#sync-run-diagnostics),
+with status filters, literal board/list ID search and ten-row server pagination.
+That view checks administrator permission before and after reading; it includes
+retained diagnostics for deleted lists and offers no replay or undo action.
 
 ### Repair duplicate mappings
 
