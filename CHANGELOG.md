@@ -126,6 +126,11 @@ Native version 2 board transfer and duplication now preserve daily observations
 and remap their references; version 1 imports remain supported. Collectors skip
 unfinished imports. Recovery of interrupted multi-document imports remains
 unfinished, alongside broader History/undo transport.
+Imports now stage private per-document write plans with stable destination IDs
+and exact before/after values before applying Scrum changes. Conditional writes
+reject changed or moved targets. A board checkpoint covers preparation and
+marker cleanup, including imports with no sprint records. Coordinated replay,
+rollback and recovery of partial staging are still unfinished.
 Marked incomplete imports also block Scrum edits, History writes and report
 exports, with a visible warning. This does not lock ordinary board/card edits
 or provide automatic import resume/rollback.
@@ -785,6 +790,34 @@ contents were not changed.
 </details>
 
 and improves daily Scrum reporting:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/db5ecc802">Preserve interrupted import plans and reject changed destination data</a>. Thanks to xet7.</summary>
+
+Stage each intended Scrum write in a private recovery collection before
+changing destination records. A board checkpoint tracks preparation and
+acknowledged writes; stable IDs and exact before/after values survive a stop
+between the target write and its acknowledgement. Conditional metadata writes
+reject changed or moved targets. The step writer accepts exact repeated
+results and refuses same-ID inserts with different content.
+
+The checkpoint blocks Scrum writes, reports and daily capture before the first
+sprint exists and through the final marker cleanup. The UI shows the existing
+incomplete-import warning without exposing private plan data. Successful
+imports and board deletion clean their private checkpoints and plans.
+
+Four Node suites pass, including MongoDB tests for staging interruption,
+competing plans, target-write interruption, lost acknowledgement, BSON replay,
+changed/moved targets and missing-versus-null metadata. Four distinct Chromium
+scenarios pass for native import, board copy and both kinds of pending guard;
+the final native import rerun confirms checkpoint cleanup. The release audit
+passes with advisory warnings. FerretDB and other browsers were not tested.
+
+This is the durable-plan foundation, not a completed recovery interface.
+Coordinated replay, rollback, partial staging, orphan-plan cleanup after a
+cleanup failure and the other native import stages remain unfinished.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8cb463722">Keep marked incomplete imports out of Scrum edits and report downloads</a>. Thanks to xet7.</summary>
