@@ -34,3 +34,8 @@ Several long-standing subtask bugs are fixed in the upcoming release:
 - The subtask **"View it"** action now opens the subtask itself instead of the parent card.
 - A circular subtask/parent reference can no longer hang the board.
 
+
+
+To focus a board on one project's direct subtasks, open its parent card and
+choose **Card Actions → Filter: Subtasks**. Adjust or clear the selection under
+**Filter → Parent card**. See [Board filters](../Filter/README.md#subtasks-by-parent).

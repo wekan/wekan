@@ -1,3 +1,4 @@
+import { getSidebarInstance } from '/client/features/sidebar/service';
 import { relativeCardSort } from '/client/lib/relativeCardPosition';
 import { Random } from 'meteor/random';
 import { ReactiveCache } from '/imports/reactiveCache';
@@ -1688,6 +1689,21 @@ Template.cardDetailsActionsPopup.helpers({
 });
 
 Template.cardDetailsActionsPopup.events({
+  'click .js-filter-subtasks'(event) {
+    event.preventDefault();
+    const card = this.card || this;
+    if (!card?._id || card.boardId !== Session.get('currentBoard')) return;
+    Filter.parentId.reset();
+    Filter.parentId.add(card._id);
+    Filter.resetExceptions();
+    Session.set('openCards', (Session.get('openCards') || []).filter(id => id !== card._id));
+    if (Session.get('currentCard') === card._id) Session.set('currentCard', null);
+    Session.delete('popupCardId');
+    Session.delete('popupCardBoardId');
+    Popup.close();
+    Utils.goBoardId(card.boardId);
+    getSidebarInstance().setView('filter');
+  },
   // History.md §7a: adding History to a menu is a menu item and this handler,
   // opening the SAME historyTable every other scope opens.
   'click .js-card-history'(event) {

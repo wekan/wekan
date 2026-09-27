@@ -8,6 +8,17 @@ import { getSidebarInstance } from '/client/features/sidebar/service';
 import { DEPENDENCY_TYPES } from '/models/metadata/dependencies';
 
 Template.filterSidebar.helpers({
+  parentFilterCards() {
+    const boardId = Session.get('currentBoard');
+    if (!boardId) return [];
+    // Use only already-published current-board cards; never fetch private
+    // source boards or reveal a parent title from a foreign-board cache entry.
+    const cards = ReactiveCache.getCards({ boardId, archived: false });
+    const parentIds = new Set(cards.map(card => card.parentId).filter(Boolean));
+    Filter.parentId.list().forEach(id => parentIds.add(id));
+    return cards.filter(card => parentIds.has(card._id))
+      .sort((a, b) => String(a.title || '').localeCompare(String(b.title || '')));
+  },
   // #3392: relation types offered in the dependency ("Red Strings") filter.
   dependencyTypes() {
     return DEPENDENCY_TYPES.map(t => ({
@@ -18,6 +29,11 @@ Template.filterSidebar.helpers({
 });
 
 Template.filterSidebar.events({
+  'click .js-toggle-parent-filter'(event) {
+    event.preventDefault();
+    Filter.parentId.toggle(event.currentTarget.dataset.parentId);
+    Filter.resetExceptions();
+  },
   'change .js-label-filter-mode'(event) {
     Filter.labelIds.setMode(event.currentTarget.value);
     Filter.resetExceptions();

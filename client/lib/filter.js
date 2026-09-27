@@ -512,6 +512,8 @@ export const Filter = {
   excludedLabelIds: new SetFilter(),
   members: new SetFilter(),
   assignees: new SetFilter(),
+  // #1871: direct subtasks use the existing parentId relationship.
+  parentId: new SetFilter(),
   // #3681: filter cards by who created them. The card schema's author
   // field is `userId` (see models/cards.js), not `creatorId` — the
   // filter is keyed the same way so `_getMongoSelector()` below can map
@@ -534,6 +536,7 @@ export const Filter = {
     'labelIds',
     'members',
     'assignees',
+    'parentId',
     'userId',
     'archive',
     'hideEmpty',
@@ -697,6 +700,7 @@ export const Filter = {
       'labelIds',
       'customFields',
       'cardDependencies',
+      'parentId',
     ];
     boardScopedFields.forEach(fieldName => {
       this[fieldName].reset();

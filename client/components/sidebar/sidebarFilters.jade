@@ -17,6 +17,17 @@ template(name="filterSidebar")
   input.js-field-card-filter(type="text" value=Filter.title.value)
   hr
   h3
+    i.fa.fa-sitemap
+    | {{_ 'parent-card'}}
+  ul.sidebar-list
+    each parentFilterCards
+      li(class="{{#if Filter.parentId.isSelected _id}}active{{/if}}")
+        a.name.js-toggle-parent-filter(data-parent-id=_id)
+          span.sidebar-list-item-description= title
+          if Filter.parentId.isSelected _id
+            i.fa.fa-check
+  hr
+  h3
     i.fa.fa-tag
     | {{_ 'filter-labels-label'}}
   select.js-label-filter-mode(aria-label="{{_ 'filter-labels-label'}}")
