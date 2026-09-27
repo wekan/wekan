@@ -589,7 +589,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v12.07 2026-09-27 WeKan ® release
 
 **In short:** Change Language shows each language and its country together on
 one line: Flag Language (Flag Country), mirrored for RTL. Ordinary text editors
