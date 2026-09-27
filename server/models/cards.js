@@ -1034,8 +1034,10 @@ Cards.before.update((userId, doc, fieldNames, modifier) => {
   cardLabels(userId, doc, fieldNames, modifier);
 });
 
-Cards.before.update((userId, doc, fieldNames, modifier) => {
-  cardCustomFields(userId, doc, fieldNames, modifier);
+// Custom-field rules must observe the saved card, including whole-array Sync writes.
+Cards.after.update(async function(userId, doc, fieldNames) {
+  if (!collectionWriteSucceeded(this)) return;
+  await cardCustomFields(userId, doc, fieldNames, this.previous);
 });
 
 Cards.before.update(async (userId, doc, fieldNames, modifier) => {

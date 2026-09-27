@@ -402,8 +402,18 @@ comparison baseline. Local edits survive an unchanged upstream value; competing
 changes require the existing Keep local/Use source review. Switching mappings
 invalidates the old estimate baseline. The card write compares the entire
 previous custom-field array so a concurrent edit causes a retry, not a lost edit.
-The existing entity History hook records the custom-field change. Aggregate
-array writes do not yet generate individual custom-field activity/rule events.
+The existing entity History hook records the custom-field change. Successful
+array and dotted writes also emit one ordinary custom-field activity per changed
+field identity, after the card is saved. Reordering and unchanged values emit
+nothing; zero and false remain real values, and clearing a valued field emits
+an unset activity. Advanced-filter rules evaluate the saved values using the
+board's custom-field definitions. Empty field assignment alone emits no value
+activity. Conflicts and rejected writes do not emit success activities.
+
+These hooks compare the collection's previous and post-write snapshots. They do
+not provide durable effect replay or exactly-once delivery across crashes or
+concurrent writes between snapshot reads. Card storage, activity insertion,
+History and downstream rules/notifications remain separate operations.
 
 Automatic Jira schema discovery, arbitrary mapping creation in this popup,
 original/remaining time-estimate mapping, other providers' estimates and durable

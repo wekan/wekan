@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { Random } from 'meteor/random';
+import { EJSON } from 'meteor/ejson';
 import { ReactiveCache, ReactiveMiniMongoIndex } from '/imports/reactiveCache';
 import { CARD_RECURRENCE_INTERVALS } from '/models/lib/cardRecurrenceSchedule';
 import {
@@ -3861,54 +3862,30 @@ async function cardLabels(userId, doc, fieldNames, modifier) {
   }
 }
 
-async function cardCustomFields(userId, doc, fieldNames, modifier) {
-  if (!fieldNames.includes('customFields')) return;
+async function cardCustomFields(userId, doc, fieldNames, previous) {
+  if (!fieldNames.includes('customFields') || !previous) return;
 
-  // Say hello to the new customField value
-  if (modifier.$set) {
-    for (const [key, value] of Object.entries(modifier.$set)) {
-      if (key.startsWith('customFields')) {
-        const dotNotation = key.split('.');
-
-        // only individual changes are registered
-        if (dotNotation.length > 1) {
-          const customFieldId = doc.customFields[dotNotation[1]]._id;
-          const act = {
-            userId,
-            customFieldId,
-            value,
-            activityType: 'setCustomField',
-            boardId: doc.boardId,
-            cardId: doc._id,
-            listId: doc.listId,
-            swimlaneId: doc.swimlaneId,
-          };
-          await Activities.insertAsync(act);
-        }
-      }
-    }
-  }
-
-  // Say goodbye to the former customField value
-  if (modifier.$unset) {
-    for (const [key, value] of Object.entries(modifier.$unset)) {
-      if (key.startsWith('customFields')) {
-        const dotNotation = key.split('.');
-
-        // only individual changes are registered
-        if (dotNotation.length > 1) {
-          const customFieldId = doc.customFields[dotNotation[1]]._id;
-          const act = {
-            userId,
-            customFieldId,
-            activityType: 'unsetCustomField',
-            boardId: doc.boardId,
-            cardId: doc._id,
-          };
-          await Activities.insertAsync(act);
-        }
-      }
-    }
+  // Compare field identities, not array positions: Sync replaces the array,
+  // while the editor uses dotted writes and assignment uses push/pull.
+  const values = card => new Map((card.customFields || [])
+    .filter(field => field && typeof field._id === 'string')
+    .map(field => [field._id, field.value ?? null]));
+  const before = values(previous);
+  const after = values(doc);
+  for (const customFieldId of new Set([...before.keys(), ...after.keys()])) {
+    const oldValue = before.get(customFieldId) ?? null;
+    const value = after.get(customFieldId) ?? null;
+    if (EJSON.equals(oldValue, value)) continue;
+    await Activities.insertAsync({
+      userId,
+      customFieldId,
+      ...(value === null ? {} : { value }),
+      activityType: value === null ? 'unsetCustomField' : 'setCustomField',
+      boardId: doc.boardId,
+      cardId: doc._id,
+      listId: doc.listId,
+      swimlaneId: doc.swimlaneId,
+    });
   }
 }
 

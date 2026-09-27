@@ -43,15 +43,29 @@ test('Jira estimate mapping syncs zero/null and reviews local changes through th
     await page.locator('.js-list-sync-now').click();
     await expect.poll(() => db.findOne('cards', { listId, syncExternalId: 'EST-1' })?.customFields).toContainEqual({ _id: fieldId, value: 0 });
     const card = db.findOne('cards', { listId, syncExternalId: 'EST-1' });
+    const triggerId = db.uid('estimate-trigger'), actionId = db.uid('estimate-action');
+    db.insertOne('triggers', { _id: triggerId, boardId: board.boardId,
+      activityType: 'advancedFilterTrigger', advancedFilter: '"Jira points" = 2' });
+    db.insertOne('actions', { _id: actionId, boardId: board.boardId, actionType: 'markCardComplete' });
+    db.insertOne('rules', { _id: db.uid('estimate-rule'), boardId: board.boardId,
+      triggerId, actionId, title: 'Complete at two points', enabled: true });
+    const activityValues = () => db.find('activities', { cardId: card._id, customFieldId: fieldId })
+      .map(activity => [activity.activityType, activity.value ?? null]);
+    expect(activityValues()).toEqual([]);
     value = 2;
     expect((await call(page, 'syncListNow', listId)).error).toBeFalsy();
     expect(db.findOne('cards', { _id: card._id }).customFields).toContainEqual({ _id: fieldId, value: 2 });
+    expect(activityValues()).toEqual([['setCustomField', 2]]);
+    expect(db.findOne('cards', { _id: card._id }).dueComplete).toBe(true);
+    expect((await call(page, 'syncListNow', listId)).error).toBeFalsy();
+    expect(activityValues()).toHaveLength(1);
     db.updateOne('cards', { _id: card._id }, { $set: { customFields: [
       { _id: fieldId, value: 3 }, { _id: 'unrelated', value: 'keep me' }] } });
     value = 4;
     await page.locator('.js-list-sync-now').click();
     const conflict = page.locator('.list-sync-conflict').filter({ hasText: 'Estimate' });
     await expect(conflict).toBeVisible();
+    expect(activityValues()).toHaveLength(1);
     await conflict.locator('[data-choice="source"]').click();
     await expect.poll(() => db.findOne('cards', { _id: card._id }).customFields).toContainEqual({ _id: fieldId, value: 4 });
     expect(db.findOne('cards', { _id: card._id }).customFields).toContainEqual({ _id: 'unrelated', value: 'keep me' });
@@ -60,6 +74,7 @@ test('Jira estimate mapping syncs zero/null and reviews local changes through th
     expect((await call(page, 'syncListNow', listId)).error).toBeFalsy();
     expect(db.findOne('cards', { _id: card._id }).customFields).toEqual([{ _id: 'unrelated', value: 'keep me' }]);
     expect(db.findOne('cards', { _id: card._id }).syncLastSource).toHaveProperty('estimate', null);
+    expect(activityValues()).toEqual([['setCustomField', 2], ['setCustomField', 4], ['unsetCustomField', null]]);
     value = 5;
     expect((await call(page, 'syncListNow', listId)).error).toBeFalsy();
     value = undefined;
@@ -67,6 +82,7 @@ test('Jira estimate mapping syncs zero/null and reviews local changes through th
     expect(db.findOne('cards', { _id: card._id }).customFields).toContainEqual({ _id: fieldId, value: 5 });
     value = 'invalid';
     expect((await call(page, 'syncListNow', listId)).error).toContain('Invalid Jira estimate');
+    expect(activityValues()).toHaveLength(4);
     value = 6;
     db.updateOne('cards', { _id: card._id }, { $set: { customFields: [
       { _id: fieldId, value: 'not numeric' }, { _id: 'unrelated', value: 'keep me' }] } });
@@ -84,7 +100,32 @@ test('Jira estimate mapping syncs zero/null and reviews local changes through th
     expect(changedMapping.conflicts[0].field).toBe('estimate');
     expect(db.findOne('cards', { _id: card._id }).customFields).toContainEqual({ _id: fieldId, value: 5 });
   } finally {
+    for (const collection of ['rules', 'triggers', 'actions']) db.deleteMany(collection, { boardId: board.boardId });
     db.deleteOne('customFields', { _id: fieldId });
     db.deleteMany('listSyncCredentials', { listId });
+  }
+});
+
+test('dotted checkbox writes emit false once and removing a valued field emits an unset', async ({ page, user, board }) => {
+  const card = db.find('cards', { boardId: board.boardId })[0];
+  const fieldId = db.uid('checkbox');
+  db.insertOne('customFields', { _id: fieldId, boardIds: [board.boardId], name: 'Reviewed', type: 'checkbox' });
+  db.updateOne('cards', { _id: card._id }, { $set: { customFields: [{ _id: fieldId, value: true }] } });
+  const activities = () => db.find('activities', { cardId: card._id, customFieldId: fieldId });
+  try {
+    await loginWithToken(page, user.id, user.token);
+    await openBoard(page, board.boardId, board.slug);
+    await call(page, 'setCardCustomFieldCheckbox', card._id, fieldId, false);
+    expect(activities().map(a => [a.activityType, a.value])).toEqual([['setCustomField', false]]);
+    await call(page, 'setCardCustomFieldCheckbox', card._id, fieldId, false);
+    expect(activities()).toHaveLength(1);
+    await expect(call(page, 'setCardCustomFieldCheckbox', card._id, 'foreign', true)).rejects.toThrow();
+    expect(activities()).toHaveLength(1);
+    await call(page, 'setCardCustomFieldAssigned', card._id, fieldId, false);
+    expect(activities().map(a => a.activityType)).toEqual(['setCustomField', 'unsetCustomField']);
+    await call(page, 'setCardCustomFieldAssigned', card._id, fieldId, true);
+    expect(activities()).toHaveLength(2);
+  } finally {
+    db.deleteOne('customFields', { _id: fieldId });
   }
 });

@@ -143,13 +143,9 @@ export const RulesHelper = {
     // #3092: "card matches advanced filter" triggers are not tied to one
     // activity field like the TriggersDef-driven ones above — they reuse the
     // Filter sidebar's whole Advanced Filter criteria language against the
-    // card's CURRENT state. They still only run on the same card-affecting
-    // activities everything else here reacts to (TriggersDef[activityType]
-    // above, or createCard which has its own matchingFields entry already
-    // checked); Activities are only inserted for meaningful card changes to
-    // begin with (not on every write), so this follows the same
-    // once-per-meaningful-change discipline as every other trigger rather
-    // than re-evaluating on every database write.
+    // card's CURRENT state. Any card activity can reach these rules, including
+    // custom-field changes which have no TriggersDef entry. Value-change hooks
+    // insert their activities after successful writes and suppress no-ops.
     if (activity.cardId && activity.boardId) {
       const advancedTriggers = await ReactiveCache.getTriggers({
         boardId: activity.boardId,

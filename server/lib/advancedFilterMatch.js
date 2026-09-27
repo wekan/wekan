@@ -44,7 +44,7 @@ export async function cardMatchesAdvancedFilter(card, filterString) {
   if (!card || !filterString || !filterString.trim()) return false;
   let selector;
   try {
-    const customFields = await CustomFields.find({ boardId: card.boardId }).fetchAsync();
+    const customFields = await CustomFields.find({ boardIds: card.boardId }).fetchAsync();
     const resolvers = buildAdvancedFilterResolversFromCustomFields(customFields);
     selector = advancedFilterStringToSelector(filterString, resolvers);
   } catch (e) {

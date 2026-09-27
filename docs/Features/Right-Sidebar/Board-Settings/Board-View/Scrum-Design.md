@@ -330,6 +330,9 @@ hours and estimates in explicitly mapped numeric custom fields, with source
 baselines and conflict checks. Estimate mappings retain their field ID and unit,
 are revalidated before writes, preserve zero and handle explicit null clearing.
 A changed mapping requires saving settings and invalidates its old baseline.
+Successful estimate changes emit ordinary custom-field activities after saving;
+advanced-filter rules can act on the new values. Unchanged and rejected writes
+emit no success activity. Durable activity/History replay remains pending.
 The existing Sync popup also selects title/description fields and card
 creation/source-absence archival; these settings retain board write
 authorization. Sprint/release, original/remaining time-estimate and other

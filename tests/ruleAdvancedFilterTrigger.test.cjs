@@ -188,11 +188,9 @@ test('the server resolvers resolve custom field names and dropdown values like t
 
 // --- 4. Fire / no-fire behaviour for representative criteria ---------------
 //
-// cardMatchesAdvancedFilter() itself needs a live Mongo/FerretDB-backed Cards
-// collection (it queries `Cards.findOneAsync`) so it is not unit-testable
-// without Meteor; what IS unit-testable and pinned here is that the selector
-// it builds actually discriminates a matching card from a non-matching one,
-// using the same minimongo-style evaluator style as advancedFilterDate.test.cjs.
+// Check representative criteria with the small evaluator below. The following
+// adapter test exercises the actual server function with collection stubs;
+// list-sync-estimate.e2e.js verifies real database matching and rule execution.
 
 function matchesSelector(selector, doc) {
   if (selector.$or) return selector.$or.some(s => matchesSelector(s, doc));
@@ -232,6 +230,29 @@ test('fire/no-fire: a card only matches once its custom field crosses into the f
   const after = { customFields: [{ _id: 'cf-points', value: 5 }] };
   assert.equal(matchesSelector(selector, before), false, 'below the threshold does not match');
   assert.equal(matchesSelector(selector, after), true, 'at/above the threshold matches');
+});
+
+test('server matcher fetches definitions by board membership before building the filter', async () => {
+  const vm = require('node:vm');
+  const shared = await loadShared();
+  const src = fs.readFileSync(path.join(__dirname, '../server/lib/advancedFilterMatch.js'), 'utf8');
+  let selected, queried;
+  const context = {
+    ...shared,
+    CustomFields: { find: selector => {
+      selected = selector;
+      return { fetchAsync: async () => [{ _id: 'local', name: 'Points', type: 'number' }] };
+    } },
+    Cards: { findOneAsync: async selector => { queried = selector; return { _id: 'card' }; } },
+  };
+  vm.runInNewContext(src.slice(src.indexOf('export async function')).replace('export ', ''), context);
+  assert.equal(await context.cardMatchesAdvancedFilter({ _id: 'card', boardId: 'board' }, 'Points = 2'), true);
+  assert.deepEqual(selected, { boardIds: 'board' });
+  assert.equal(queried._id, 'card');
+  assert.equal(queried.$or[0]['customFields._id'], 'local');
+  queried = null;
+  assert.equal(await context.cardMatchesAdvancedFilter({ _id: 'card', boardId: 'board' }, ''), false);
+  assert.equal(queried, null);
 });
 
 (async () => {
