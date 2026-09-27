@@ -173,16 +173,18 @@ generation fence prevents delayed saves from activating a retired token while
 preserving the selected version and newer staging. Missing-list credentials
 and malformed generations remain for review; all writer processes must upgrade.
 The Sync popup now compares conflicting title, description and spent-time
-values. Unrestricted board writers can retain the local value or select the
-source value; fresh comparisons and conditional writes reject stale choices.
+values. Board writers can retain the local value or select the source value;
+fresh comparisons and conditional writes reject stale choices. Assigned-only
+writers review their assigned existing cards without running full-list Sync;
+their resolution writes also require the assignment to remain present.
 Remaining: external sprint histories without invented snapshots, multiple
 release assignments, epic relationships, automatic field/schema mapping,
 Trello and other Scrum adapters, mapping previews/loss reporting, planning and
 estimate Sync, durable restart checkpoints, fencing of in-flight card writes
 after lease loss, atomic multi-card reconciliation, cleanup of credentials for
 missing lists and malformed generations,
-and resolution UI for duplicate mappings, archive/move conflicts and
-assigned-only users. Changes during card writes remain nontransactional.
+and resolution UI for duplicate mappings and archive/move conflicts.
+Changes during card writes remain nontransactional.
 See [Jira](docs/Features/ImportExport/Jira/Jira.md) and
 [Sync](docs/Features/ImportExport/Sync.md).
 
@@ -1039,6 +1041,31 @@ in TODO Later. The known released-entry changelog format failure remains.
 and improves list synchronization:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/4aa67fedc">Review and resolve Sync conflicts within assigned-card access</a>. Thanks to xet7.</summary>
+
+For assigned-only writers, manual Sync reviews their assigned existing cards
+instead of running list-wide creation, updates or archival. Return only scoped
+conflicts and leave shared Sync status unchanged. Resolve an assigned card's
+field with the assignment included in its conditional write; removing access
+invalidates an earlier choice. Recheck permissions after fetching source data.
+The popup distinguishes completed review from a full-list Sync run.
+
+New shared conflict summaries omit card identifiers and values. This changes
+ordinary status content, not an attributable attack; no security event is
+recorded for normal review. Historical stored messages are not rewritten.
+Scheduled Sync and unrestricted manual runs keep their full-list behavior.
+
+Ten Sync Node suites and ten Chromium scenarios pass, including hidden-card
+preservation, unchanged shared status, assignment revocation, scoped writes
+and existing configuration/credential behavior. The local release audit passes
+with advisory warnings. Add one English source label without translation fill.
+Duplicate mapping and archive/move resolution, transactional reconciliation
+and in-flight card-write fencing remain pending. Other browsers, FerretDB
+and live providers were not tested.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/df376f788">Resolve conflicting Sync field values in the list popup</a>. Thanks to xet7.</summary>
 
 Show current WeKan and source values for title, description and spent-time
@@ -1056,8 +1083,9 @@ assigned-only restrictions and existing settings/source behavior. The local
 release audit passes with advisory warnings. Add English source labels only;
 other languages use the existing fallback, without translation filling.
 
-Duplicate mappings, archive/move conflicts, assigned-only resolution,
-transactional reconciliation and in-flight write fencing remain pending.
+Assigned-only resolution is extended in the entry above. Duplicate mappings,
+archive/move conflicts, transactional reconciliation and in-flight write
+fencing remain pending.
 FerretDB, other browsers and live providers were not tested.
 
 </details>
