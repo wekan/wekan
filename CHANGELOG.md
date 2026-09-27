@@ -1168,6 +1168,23 @@ browsers were not run. Updated the Sync guide with provider references.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7977c68a3">Use enhanced Jira Cloud search for list synchronization</a>. Thanks to xet7.</summary>
+
+Standard `.atlassian.net` tenant URLs now use REST v3 enhanced JQL search with
+explicit parser fields and token pagination. Missing termination metadata or
+repeated tokens abort before reconciliation. Self-hosted Jira retains the
+existing offset-based search path. Shared page/item limits still apply.
+
+Thirteen focused Node checks pass using mocked provider responses, including
+opaque-token encoding, required fields, empty results, malformed responses
+and retained self-hosted pagination. Existing Sync popup browser coverage and
+Upcoming regression evidence remain recorded. No live Jira account was used.
+Custom Cloud domains and government-cloud endpoint selection remain pending;
+no new UI was added. Updated the Sync guide with the API reference.
+
+</details>
+
 This release adds the following regression coverage and documentation:
 
 <details>
