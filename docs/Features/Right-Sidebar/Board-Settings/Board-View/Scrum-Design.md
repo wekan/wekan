@@ -251,7 +251,14 @@ An explicit cleaning phase resumes interrupted private-plan cleanup. Failed
 recoveries retain their claim until an operator confirms its process stopped
 and clears its exact token.
 
-Online coordinated replay, rollback, incomplete preparing plans, changed-target
+The same command can inspect and apply rollback of an interrupted Scrum plan.
+It restores only original Scrum metadata and removes unchanged inserted records
+in reverse order. Durable reverse progress and cleanup states survive write
+acknowledgement gaps. Partially staged preparing plans can be discarded without
+destination writes. Forward resume is refused after rollback starts; completed
+imports whose plans are being removed can no longer be rolled back.
+
+Online coordinated replay, reconstruction of incomplete plans, changed-target
 resolution, normal-import orphan cleanup and recovery of earlier/later native
 import stages remain unfinished. Existing marker-only interrupted imports have
 no retroactive plan. Ordinary board/card edits are not locked by these

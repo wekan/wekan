@@ -9,6 +9,8 @@ const cli = require.resolve('../../releases/recover-scrum-import.cjs');
 
 test('recovery CLI rejects incomplete actions before opening a database', () => {
   for (const args of [['--board'], ['--board', 'b', '--clear-claim'], ['--board', 'b', '--apply'],
+    ['--board', 'b', '--rollback', '--apply'], ['--board', 'b', '--rollback', '--rollback'],
+    ['--board', 'b', '--rollback', '--clear-claim', 't', '--offline'],
     ['--board', 'b', '--clear-claim', 't'], ['--board', 'b', '--unknown']]) {
     const result = spawnSync(process.execPath, [cli, ...args], { encoding: 'utf8',
       env: { ...process.env, MONGO_URL: 'mongodb://private-user:private-password@invalid/database' } });
@@ -143,4 +145,183 @@ test('offline recovery validates whole plans, resumes write gaps and holds non-e
   assert.equal(result.status, 0, result.stderr);
   assert.equal(JSON.parse(result.stdout).state, 'completed');
   assert.equal(JSON.parse(result.stdout).scope, 'scrum');
+
+  const undo = database => recoverImport(database || db, 'b', { apply: true, offline: true, rollback: true });
+  async function applied() {
+    await seed();
+    await db.collection('scrumSprints').insertOne({ ...steps[0].after });
+    await db.collection('cards').updateOne({ _id: 'c' }, { $set: steps[1].after });
+    await db.collection('boards').updateOne({ _id: 'b' }, { $set: steps[2].after });
+    await pending.updateOne({ _id: 'b' }, { $set: { state: 'applied', next: 3 } });
+  }
+  async function assertUndone() {
+    assert.deepEqual(await db.collection('boards').findOne({ _id: 'b' }), { _id: 'b', title: 'Keep board' });
+    assert.deepEqual(await db.collection('cards').findOne({ _id: 'c' }), { _id: 'c', boardId: 'b', title: 'Keep card' });
+    assert.equal(await db.collection('scrumSprints').countDocuments({}), 0);
+    assert.equal(await pending.countDocuments({}), 0);
+    assert.equal(await journal.countDocuments({}), 0);
+    assert.equal(await locks.countDocuments({}), 0);
+  }
+  await applied();
+  const dry = await recoverImport(db, 'b', { rollback: true });
+  assert.equal(dry.canRollback, true); assert.equal(dry.changed, false);
+  assert.equal(await locks.countDocuments({}), 0);
+  assert.equal((await db.collection('boards').findOne({ _id: 'b' })).scrum.enabled, true);
+  assert.equal((await undo()).state, 'rolled-back');
+  await assertUndone();
+
+  // Restore absent vs explicit null, arrays and existing metadata exactly;
+  // unrelated card changes survive. Partial sprint marker cleanup is legal.
+  await applied();
+  const before = { scrum: null, scrumRevision: 0 };
+  await journal.updateOne({ _id: 'op:1' }, { $set: { 'step.before': before } });
+  await db.collection('cards').updateOne({ _id: 'c' }, { $set: { title: 'Later title', labels: ['keep'] } });
+  await db.collection('scrumSprints').updateOne({ _id: 's' }, { $unset: { scrumImportPending: '' } });
+  await undo();
+  assert.deepEqual(await db.collection('cards').findOne({ _id: 'c' }),
+    { _id: 'c', boardId: 'b', title: 'Later title', labels: ['keep'], ...before });
+
+  // A partially staged plan never touched any destination; even zero rows
+  // can be discarded without synthesizing or applying a missing step.
+  for (const count of [0, 2, 3]) {
+    await seed('preparing', count || 1);
+    if (!count) await journal.deleteMany({});
+    await undo(); await assertUndone();
+  }
+  // Lost forward-write acknowledgement: only the possibly attempted next
+  // step may already contain its after value.
+  await seed(); await db.collection('scrumSprints').insertOne({ ...steps[0].after });
+  await undo(); await assertUndone();
+  await seed(); await db.collection('cards').updateOne({ _id: 'c' }, { $set: steps[1].after });
+  await assert.rejects(undo(), /metadata target changed/);
+  assert.equal((await pending.findOne({ _id: 'b' })).state, 'applying');
+
+  // A late conflict is found before even the final board update is undone.
+  for (const conflict of [
+    () => db.collection('scrumSprints').updateOne({ _id: 's' }, { $set: { extra: 'keep' } }),
+    () => db.collection('cards').updateOne({ _id: 'c' }, { $set: { boardId: 'foreign' } }),
+    () => db.collection('cards').updateOne({ _id: 'c' }, { $set: { scrum: { sprintId: 'edited' } } }),
+    () => db.collection('scrumSprints').deleteOne({ _id: 's' }),
+  ]) {
+    await applied(); await conflict(); await assert.rejects(undo());
+    assert.equal((await db.collection('boards').findOne({ _id: 'b' })).scrum.enabled, true);
+  }
+
+  // Database accepted the undo but the caller never received progress. Every
+  // reverse write (including deletion) is recognizable and retryable.
+  for (const stopAt of [2, 1, 0]) {
+    await applied();
+    const interrupted = { collection(name) {
+      if (name !== 'scrumImportPending') return db.collection(name);
+      return new Proxy(pending, { get(target, key) {
+        if (key === 'updateOne') return async (selector, change) => {
+          if (selector.state === 'rolling-back' && change.$set.rollbackNext === stopAt) throw new Error('Lost undo acknowledgement');
+          return target.updateOne(selector, change);
+        };
+        return typeof target[key] === 'function' ? target[key].bind(target) : target[key];
+      } });
+    } };
+    await assert.rejects(undo(interrupted), /Lost undo acknowledgement/);
+    assert.equal((await pending.findOne({ _id: 'b' })).rollbackNext, stopAt + 1);
+    await unlock();
+    await assert.rejects(run(), /continue with --rollback/);
+    await unlock();
+    await undo(); await assertUndone();
+  }
+
+  // The exact-document delete rejects even an added field between inspection
+  // and deletion; no deletion may erase it. The failed claim stays held.
+  await applied();
+  const changedAtDelete = { collection(name) {
+    const raw = db.collection(name);
+    if (name !== 'scrumSprints') return raw;
+    return new Proxy(raw, { get(target, key) {
+      if (key === 'deleteOne') return async selector => {
+        await target.updateOne({ _id: 's' }, { $set: { note: 'concurrent change' } });
+        return target.deleteOne(selector);
+      };
+      return typeof target[key] === 'function' ? target[key].bind(target) : target[key];
+    } });
+  } };
+  await assert.rejects(undo(changedAtDelete), /target changed/);
+  assert.equal((await db.collection('scrumSprints').findOne({ _id: 's' })).note, 'concurrent change');
+  assert.equal(await locks.countDocuments({}), 1);
+
+  await applied();
+  const changedAtUpdate = { collection(name) {
+    const raw = db.collection(name);
+    if (name !== 'cards') return raw;
+    return new Proxy(raw, { get(target, key) {
+      if (key === 'updateOne') return async (selector, change) => {
+        await target.updateOne({ _id: 'c' }, { $set: { scrum: { sprintId: 'keep-edit' } } });
+        return target.updateOne(selector, change);
+      };
+      return typeof target[key] === 'function' ? target[key].bind(target) : target[key];
+    } });
+  } };
+  await assert.rejects(undo(changedAtUpdate), /metadata target changed/);
+  assert.deepEqual((await db.collection('cards').findOne({ _id: 'c' })).scrum, { sprintId: 'keep-edit' });
+  assert.equal((await pending.findOne({ _id: 'b' })).rollbackNext, 2);
+  await unlock();
+  await assert.rejects(undo(), /metadata target changed/);
+
+  // Invalid cursors and previously undone targets reappearing cannot be
+  // mistaken for another lost acknowledgement.
+  for (const change of [
+    { state: 'rolling-back', rollbackFrom: 'applied', rollbackNext: -1 },
+    { state: 'rolling-back', rollbackFrom: 'preparing', rollbackNext: 3 },
+    { state: 'rolling-back', rollbackFrom: 'applied', rollbackNext: 0 },
+    { state: 'rollback-cleaning', rollbackFrom: 'applied', rollbackNext: 1 },
+  ]) {
+    await applied(); await pending.updateOne({ _id: 'b' }, { $set: change });
+    await assert.rejects(undo());
+    assert.equal(await db.collection('scrumSprints').countDocuments({}), 1);
+  }
+
+  await applied();
+  await assert.rejects(undo(cleanupFailure), /Interrupted plan cleanup/);
+  assert.equal((await pending.findOne({ _id: 'b' })).state, 'rollback-cleaning');
+  await unlock(); await undo(); await assertUndone();
+  await applied();
+  await pending.updateOne({ _id: 'b' }, { $set: { state: 'cleaning' } });
+  await assert.rejects(undo(), /rollback is no longer available/);
+
+  await applied();
+  const undoResult = spawnSync(process.execPath, [cli, '--board', 'b', '--rollback', '--apply', '--offline'], {
+    encoding: 'utf8', env: { ...process.env, MONGO_URL: url.toString() }, timeout: 15000,
+  });
+  assert.equal(undoResult.status, 0, undoResult.stderr);
+  assert.equal(JSON.parse(undoResult.stdout).state, 'rolled-back');
+  await assertUndone();
+
+  // Every planned collection is covered, including reference containers and
+  // daily observations. Original arrays and nulls retain BSON types/presence.
+  await applied();
+  const extra = [];
+  for (const [collection, name] of [['releases', 'scrumReleases'], ['events', 'scrumEvents'],
+    ['dailyObservations', 'scrumDailySnapshots']]) {
+    const after = { _id: collection, boardId: 'b', at: new Date('2026-09-02'), observations: [1, null] };
+    extra.push({ kind: 'insert', collection, after });
+    await db.collection(name).insertOne({ ...after });
+    await db.collection(name).insertOne({ _id: 'unrelated', boardId: 'other', name: 'Keep' });
+  }
+  for (const collection of ['lists', 'swimlanes']) {
+    const step = { kind: 'update', collection, id: collection, boardId: 'b',
+      before: { scrum: { releases: ['original'], estimate: null } },
+      after: { scrum: { releases: [] }, scrumRevision: 1 } };
+    extra.push(step);
+    await db.collection(collection).insertOne({ _id: collection, boardId: 'b', title: 'Keep', ...step.after });
+  }
+  const all = [steps[0], steps[1], ...extra, steps[2]];
+  await journal.deleteMany({});
+  await journal.insertMany(all.map((step, index) => ({ _id: `op:${index}`, boardId: 'b', operationId: 'op', index, step })));
+  await pending.updateOne({ _id: 'b' }, { $set: { total: all.length, next: all.length } });
+  await undo(); await assertUndone();
+  for (const name of ['scrumReleases', 'scrumEvents', 'scrumDailySnapshots']) {
+    assert.deepEqual(await db.collection(name).find({}).toArray(), [{ _id: 'unrelated', boardId: 'other', name: 'Keep' }]);
+  }
+  for (const collection of ['lists', 'swimlanes']) {
+    assert.deepEqual(await db.collection(collection).findOne({ _id: collection }),
+      { _id: collection, boardId: 'b', title: 'Keep', scrum: { releases: ['original'], estimate: null } });
+  }
 });

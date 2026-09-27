@@ -55,6 +55,38 @@ Final cleanup has its own durable `cleaning` state. If removing plan rows stops
 halfway, the next recovery finishes cleanup without replaying data writes or
 requiring the already deleted rows.
 
+## Undo the stored Scrum segment instead
+
+With the same all-writers-stopped prerequisite, inspect rollback first, then
+explicitly apply it:
+
+```sh
+node releases/recover-scrum-import.cjs --board BOARD_ID --rollback
+node releases/recover-scrum-import.cjs --board BOARD_ID --rollback --apply --offline
+```
+
+Inspection is read-only and reports `canRollback`. Rollback first validates
+the entire plan, then reverses its steps. It restores original Scrum metadata,
+including absent fields versus explicit nulls, and deletes only unchanged
+planning records and daily observations created by this import. Unrelated
+fields such as card titles remain intact. Changed or moved targets stop the
+operation; an exact-document condition also protects each planning deletion.
+
+The durable `rolling-back` state and reverse cursor let an interrupted rollback
+continue, including writes whose acknowledgements were lost. After rollback
+starts, forward resume is refused: retry with `--rollback` after resolving the
+failure and clearing the stopped owner's claim. `rollback-cleaning` resumes
+private-plan cleanup without requiring already removed rows. A successful
+result reports `state: "rolled-back"` and `scope: "scrum"`.
+
+A `preparing` plan can be discarded even if staging was incomplete, because
+destination writes have not started. This removes only the private plan and
+checkpoint. It does not remove the board or ordinary imported cards. Once
+forward recovery reaches `cleaning`, or the original import has discarded its
+plan, rollback is unavailable. Legacy marker-only imports remain unsupported.
+This is recovery of interrupted imports, not a general undo of completed board
+imports or recovery of their other stages.
+
 ## A failed or stopped recovery retains its claim
 
 Recovery claims have **no expiry**. Automatically timing one out would let a
@@ -83,10 +115,13 @@ planning records or boards.
 MongoDB integration tests cover complete and incomplete staging, whole-plan
 preflight, missing/foreign/changed targets, lost acknowledgements, stored BSON
 dates, partially cleared sprint markers, interrupted plan cleanup, two competing
-recovery callers, exact-token clearing and the real CLI. The command's argument
+recovery callers, exact-token clearing and the real CLI. Rollback coverage
+includes every planned collection, partial preparation, reverse-write gaps,
+changed targets, exact-document deletion and interrupted private-plan cleanup.
+The command's argument
 checks run without a database and prevent accidental online mutation.
 
-Online recovery, automated stale-owner fencing, conflict-resolution UI, rollback,
+Online recovery, automated stale-owner fencing, conflict-resolution UI,
 partial-staging reconstruction and the rest of the board import remain pending.
 This command has not been verified against FerretDB. It is intentionally not a
 release-menu action or an automatic startup repair.
