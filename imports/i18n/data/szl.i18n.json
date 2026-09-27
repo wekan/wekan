@@ -3504,5 +3504,6 @@
   "scrum-released-at": "Released at",
   "scrum-follow-up-cards": "Follow-up cards",
   "scrum-import-reference-omitted": "A source reference could not be restored: __reference__",
-  "scrum-partial-snapshot": "This sprint contains only part of the original snapshot."
+  "scrum-partial-snapshot": "This sprint contains only part of the original snapshot.",
+  "scrum-resume-close": "Resume interrupted sprint close"
 }

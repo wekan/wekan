@@ -65,6 +65,8 @@ template(name="scrumView")
                     .scrum-toolbar
                       if sprintPlanned
                         button.primary.js-scrum-start(disabled=busy) {{_ 'scrum-start-sprint'}}
+                      if sprintNeedsCloseRecovery
+                        button.primary.js-scrum-resume-close(disabled=busy) {{_ 'scrum-resume-close'}}
                       if sprintActive
                         label {{_ 'scrum-rollover-sprint'}}
                           select.js-scrum-rollover

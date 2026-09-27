@@ -91,6 +91,7 @@ Template.scrumView.helpers({
   sprintOptions: () => (data()?.sprints || []).map(s => ({ ...s, selected: current().sprintId.get() === s._id, stateLabel: stateLabel(s.state) })),
   rolloverOptions: () => (data()?.sprints || []).filter(s => s.state === 'planned' && s._id !== current().sprintId.get()),
   sprintPlanned: () => selectedSprint(current())?.state === 'planned',
+  sprintNeedsCloseRecovery: () => selectedSprint(current())?.state === 'closed' && selectedSprint(current())?.rolloverPending,
   sprintActive: () => selectedSprint(current())?.state === 'active',
   sprintOpen: () => ['planned', 'active'].includes(selectedSprint(current())?.state),
   sprintStart: () => dateValue(selectedSprint(current())?.plannedStart),
@@ -171,6 +172,11 @@ Template.scrumView.events({
   async 'click .js-scrum-close'(event, tpl) {
     event.preventDefault(); const sprint = selectedSprint(tpl);
     if (sprint && confirm(t('scrum-confirm-close'))) await mutate(tpl, 'scrum.closeSprint', sprint._id, sprint.revision, nullable(tpl.find('.js-scrum-rollover')?.value));
+  },
+  async 'click .js-scrum-resume-close'(event, tpl) {
+    event.preventDefault(); const sprint = selectedSprint(tpl);
+    if (sprint?.rolloverPending) await mutate(tpl, 'scrum.closeSprint', sprint._id,
+      sprint.closedFromRevision, sprint.rolloverSprintId || null);
   },
   async 'click .js-scrum-cancel'(event, tpl) {
     event.preventDefault(); const sprint = selectedSprint(tpl);

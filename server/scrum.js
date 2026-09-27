@@ -251,6 +251,8 @@ const methods = {
       const board = await boardFor(this.userId, boardId, true);
       const sprint = await ScrumSprints.findOneAsync({ _id: sprintId, boardId });
       if (!sprint) throw new Meteor.Error('not-found');
+      // A retry must not bypass the exclusion used by every other Scrum write.
+      if (await ScrumHistoryPending.findOneAsync(boardId)) throw new Meteor.Error('scrum-history-pending', 'Retry the interrupted Scrum History operation first.');
       if (sprint.state === 'closed' && sprint.closedFromRevision === expectedRevision && sprint.rolloverSprintId === rolloverSprintId) return resumeRollover(this.userId, sprint);
       expect(sprint, expectedRevision); await pending(boardId);
       if (sprint.state !== 'active') invalid('Only an active sprint can close');

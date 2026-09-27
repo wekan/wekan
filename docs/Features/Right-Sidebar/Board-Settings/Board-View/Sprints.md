@@ -27,6 +27,10 @@ Archiving a completed card does not turn it back into unfinished work.
 
 Database writes use a recoverable rollover checkpoint. If an interrupted
 close is retried, it resumes without silently overwriting later card edits.
+After refreshing, administrators can select the closed sprint and choose
+**Resume interrupted sprint close**. This uses the saved destination and
+original revision; it does not start another close or choose a new target.
+Pending History recovery must finish before this action can proceed.
 An unresolved rollover conflict must be resolved before further Scrum writes.
 This is not a database transaction.
 
