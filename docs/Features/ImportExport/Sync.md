@@ -139,9 +139,16 @@ local change made after that fetch. Only the chosen field and its source
 baseline change; Sync then retries and shows remaining conflicts, up to 50 at
 a time. The existing popup reports provider and concurrency failures.
 
-Resolution requires board write access without an assigned-only restriction;
-restricted members receive no new value previews or resolution authority.
-Permissions are checked again after fetching. Duplicate external identities,
+Resolution requires board write access. For assigned-only writers, **Sync now**
+reviews only their assigned existing cards and reports that full-list Sync was
+not run. It does not create, update or archive the whole list or change shared
+Sync status. Such users can resolve conflicts on their assigned cards; the
+database write also requires their assignment to still exist. Removing an
+assignment invalidates an old preview. Restricted previews omit all other
+cards, including their identifiers. New shared conflict status uses generic text.
+Permissions and assignment scope are checked again after fetching. Scheduled
+Sync and manual runs by unrestricted writers retain full-list behavior.
+Duplicate external identities,
 archive/subtask conflicts and moved-card creation conflicts still require
 manual repair. This does not make the whole Sync run transactional or fence
 already-issued card writes after lease loss. New UI strings are English source

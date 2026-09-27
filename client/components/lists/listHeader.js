@@ -1067,7 +1067,7 @@ Template.listSyncPopup.events({
         );
       } else {
         tpl.syncNowSuccess.set(true);
-        tpl.syncNowResult.set(TAPi18n.__('list-sync-now-success'));
+        tpl.syncNowResult.set(TAPi18n.__(res?.reviewOnly ? 'sync-conflict-review-complete' : 'list-sync-now-success'));
       }
     });
   },

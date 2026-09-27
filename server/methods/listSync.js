@@ -33,7 +33,7 @@ async function assertWriteAccess(userId, boardId) {
 
 async function assertConflictAccess(userId, boardId) {
   const board = await assertWriteAccess(userId, boardId);
-  if (assignedOnlyCardScope(board, userId)) throw new Meteor.Error('not-authorized');
+  return assignedOnlyCardScope(board, userId);
 }
 
 Meteor.methods({
@@ -131,8 +131,8 @@ Meteor.methods({
     check(listId, String);
     const list = await Lists.findOneAsync(listId);
     if (!list) throw new Meteor.Error('list-not-found', 'List not found.');
-    const board = await assertWriteAccess(this.userId, list.boardId);
-    return syncOneList(list, { previewConflicts: !assignedOnlyCardScope(board, this.userId),
+    await assertWriteAccess(this.userId, list.boardId);
+    return syncOneList(list, { previewConflicts: true,
       assertConflictAccess: () => assertConflictAccess(this.userId, list.boardId) });
   },
 

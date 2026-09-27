@@ -57,6 +57,7 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
   const parser = EXTERNAL_PARSERS[source.type];
   const fetcher = fetchers[source.type];
   if (!parser || !fetcher) return { skipped: true, reason: 'no parser/fetcher for source type' };
+  let conflictScope = assertConflictAccess ? await assertConflictAccess() : null;
 
   const credential = await readSyncCredential(ListSyncCredentials, list);
 
@@ -74,7 +75,7 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
     validateListSyncTasks(parsed?.tasks);
   } catch (e) {
     await assertCurrent();
-    await Lists.updateAsync(listSelector, {
+    if (!conflictScope) await Lists.updateAsync(listSelector, {
       $set: { 'syncSource.lastSyncError': String((e && e.message) || e).slice(0, 500) },
     });
     try {
@@ -105,9 +106,13 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
   if (!await Lists.findOneAsync(listSelector)) {
     return { error: 'Sync settings changed while fetching. Retry sync.' };
   }
+  // Manual callers with an assigned-only role review their own existing
+  // cards. They must not trigger a list-wide create/update/archive run.
+  conflictScope = assertConflictAccess ? await assertConflictAccess() : null;
 
   const existingCards = (
-    await Cards.find({ boardId: list.boardId, listId: list._id, syncSourceType: source.type, syncSourceKey: sourceKey }).fetchAsync()
+    await Cards.find({ boardId: list.boardId, listId: list._id, syncSourceType: source.type, syncSourceKey: sourceKey,
+      ...(conflictScope || {}) }).fetchAsync()
   ).map(c => ({
     _id: c._id,
     syncExternalId: c.syncExternalId,
@@ -124,26 +129,34 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
   if (resolution) {
     const plan = planSyncConflictResolution(merge.conflicts, existingCards, externalTasks, list, sourceKey, resolution);
     if (!plan) return { error: 'This conflict changed. Run Sync again to review the current values.' };
-    if (assertConflictAccess) await assertConflictAccess();
+    const currentScope = assertConflictAccess ? await assertConflictAccess() : null;
     await assertCurrent();
     if (!await Lists.findOneAsync(listSelector)) return { error: 'Sync settings changed. Run Sync again.' };
-    const changed = await Cards.updateAsync(syncTextSelector(plan.card, list.boardId, list._id),
+    const selector = syncTextSelector(plan.card, list.boardId, list._id);
+    // Assignment loss between the read and write must fail the same atomic
+    // comparison as a changed card value. Scope remains server-owned.
+    const changed = await Cards.updateAsync(currentScope ? { $and: [selector, currentScope] } : selector,
       { $set: { ...plan.changes, dateLastActivity: new Date() } });
     return changed ? { resolved: true } : { error: 'The card changed. Run Sync again to review the current values.' };
   }
   if (merge.conflicts.length) {
-    const examples = merge.conflicts.slice(0, 5).map(row => `${row.externalId.slice(0, 60)} (${row.field})`).join(', ');
+    // This status is published with the list, including to assigned-only
+    // members. Put card identifiers and values only in the scoped response.
     const error = merge.conflicts.some(row => row.field === 'syncExternalId')
-      ? `Duplicate local Sync identity: ${examples}. Resolve duplicate card mappings before retrying.`
-      : `Sync text conflict: ${examples}. Review the conflicting values in the Sync popup.`;
+      ? 'Duplicate local Sync identity. Resolve duplicate card mappings before retrying.'
+      : 'Sync text conflict. Review the conflicting values in the Sync popup.';
     await assertCurrent();
-    await Lists.updateAsync(listSelector, { $set: { 'syncSource.lastSyncError': error } });
+    if (!conflictScope) await Lists.updateAsync(listSelector, { $set: { 'syncSource.lastSyncError': error } });
     const cardsById = new Map(existingCards.map(card => [card._id, card]));
     const tasksById = new Map(externalTasks.map(task => [String(task.externalId), task]));
-    if (previewConflicts && assertConflictAccess) await assertConflictAccess();
-    return { error, conflicts: merge.conflicts.slice(0, 50).map(conflict => previewConflicts ? describeSyncConflict(conflict,
+    if (previewConflicts && assertConflictAccess) {
+      const currentScope = await assertConflictAccess();
+      if (JSON.stringify(currentScope) !== JSON.stringify(conflictScope)) return { error: 'Your card access changed. Run Sync again.' };
+    }
+    return { error, reviewOnly: !!conflictScope, conflicts: merge.conflicts.slice(0, 50).map(conflict => previewConflicts ? describeSyncConflict(conflict,
       cardsById.get(conflict.cardId), tasksById.get(conflict.externalId), list, sourceKey) : conflict) };
   }
+  if (conflictScope) return { reviewOnly: true, conflicts: [] };
   const plan = planListSyncReconcile({ externalTasks: merge.tasks, existingCards });
   // Apply operation selection before preflight, writes and result counts.
   // Missing switches retain the behavior of existing configurations.

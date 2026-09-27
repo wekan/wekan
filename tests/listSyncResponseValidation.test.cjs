@@ -60,6 +60,7 @@ test('conflict resolution refetches source, checks the preview and only writes t
  const execute=(options={},incoming=task,existing=card,count=1)=>run({issues:[]},()=>({tasks:[incoming]}),existing,count,null,undefined,{},sourceKey,true,undefined,options);
  const preview=await execute({previewConflicts:true});
  assert.equal(preview.cardWrites.length,0);
+ assert.doesNotMatch(preview.listWrites[0].$set['syncSource.lastSyncError'],/KEY-1|Local|Remote/);
  const conflict=preview.result.conflicts[0];
  assert.equal(conflict.local,'Local');assert.equal(conflict.incoming,'Remote');assert.match(conflict.fingerprint,/^[a-f0-9]{64}$/);
  const hidden=await execute();assert.equal(hidden.result.conflicts[0].local,undefined);
@@ -100,6 +101,38 @@ test('description and spent-time decisions retain value types and prevent the sa
    assert.equal(planSyncTextMerge([task],[updated]).conflicts.length,0);
   }
  }
+});
+
+test('assigned-only callers review scoped cards without running list-wide writes or shared status updates',async()=>{
+ const scope={assignees:{$in:['member']}};
+ const options={previewConflicts:true,assertConflictAccess:async()=>scope};
+ const card={_id:'card',syncExternalId:'KEY-1',syncSourceType:'jira',syncSourceKey:sourceKey,
+  title:'Local',syncLastSource:{title:'Original'}};
+ const execute=(tasks,settings=options,rows=[card],count=1)=>run({issues:[]},()=>({tasks}),rows,count,null,['title'],{},sourceKey,true,undefined,settings);
+ const preview=await execute([{externalId:'KEY-1',title:'Remote'}]);
+ assert.deepEqual(preview.cardQueries[0].assignees,scope.assignees);
+ assert.equal(preview.result.reviewOnly,true);assert.equal(preview.result.conflicts[0].local,'Local');
+ assert.deepEqual(preview.cardWrites,[]);assert.deepEqual(preview.listWrites,[]);
+ const resolution={...preview.result.conflicts[0],choice:'local'};
+ const resolved=await execute([{externalId:'KEY-1',title:'Remote'}],{...options,resolution});
+ assert.equal(resolved.result.resolved,true);
+ assert.deepEqual(resolved.cardWrites[0].selector.$and[1],scope);
+ const unassigned=await execute([{externalId:'KEY-1',title:'Remote'}],{...options,resolution},[],1);
+ assert.match(unassigned.result.error,/conflict changed/);assert.deepEqual(unassigned.cardWrites,[]);
+ const raced=await execute([{externalId:'KEY-1',title:'Remote'}],{...options,resolution},[card],0);
+ assert.match(raced.result.error,/card changed/);
+ // These would create, update and archive cards in a normal full-list run.
+ for(const tasks of [[{externalId:'NEW',title:'New'}],[{externalId:'KEY-1',title:'Local'}],[]]){
+  const result=await execute(tasks);
+  assert.equal(result.result.reviewOnly,true);assert.deepEqual(result.cardWrites,[]);assert.deepEqual(result.listWrites,[]);
+ }
+ const broken=await run({errorMessages:['Unavailable']},null,[card],1,null,undefined,{},sourceKey,true,undefined,options);
+ assert.deepEqual(broken.cardWrites,[]);assert.deepEqual(broken.listWrites,[]);
+ let calls=0;
+ const revoked=await execute([{externalId:'KEY-1',title:'Remote'}],{
+  ...options,assertConflictAccess:async()=>{if(++calls===3)throw new Error('denied');return scope;},
+ }).then(()=>null,error=>error);
+ assert.match(revoked.message,/denied/);
 });
 
 test('sync detects diverging local text before any card mutation',async()=>{

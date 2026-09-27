@@ -19,6 +19,9 @@ test.beforeAll(async () => {
     const issues = emptyProjects.has(project) ? [] : [{ key: 'SAME-1', fields: {
       summary: `${project} issue`, description: '', status: { name: 'Open' },
     } }];
+    if (project === 'SCOPED') issues.push({ key: 'SAME-2', fields: {
+      summary: 'Hidden source title', description: 'Hidden source description', status: { name: 'Open' },
+    } });
     const respond = () => {
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ startAt: 0, total: issues.length, issues }));
@@ -140,15 +143,60 @@ test('Sync popup resolves text conflicts, rejects stale previews and preserves l
       db.updateOne('boards', { _id: board.boardId }, { $set: { members: members.map(member => member.userId === user.id
         ? { ...member, isAdmin: false, isNormalAssignedOnly: true } : member) } });
       const restricted = await call(page, 'syncListNow', listId);
-      expect(restricted.conflicts[0].local).toBeUndefined();
+      expect(restricted).toMatchObject({ reviewOnly: true, conflicts: [] });
       const denied = await page.evaluate(async ({ id, resolution }) => {
-        try { await Meteor.callAsync('resolveListSyncConflict', id, resolution); return 'allowed'; }
+        try { return (await Meteor.callAsync('resolveListSyncConflict', id, resolution)).error; }
         catch (error) { return error.error; }
       }, { id: listId, resolution });
-      expect(denied).toBe('not-authorized');
+      expect(denied).toContain('conflict changed');
       expect(db.findOne('cards', { _id: card._id }).title).toBe('Private local title');
     } finally { db.updateOne('boards', { _id: board.boardId }, { $set: { members } }); }
   } finally { db.deleteMany('listSyncCredentials', { listId }); }
+});
+
+test('assigned-only writers resolve their own conflicts without reading or changing other Sync cards', async ({ page, user, board }) => {
+  const listId = db.find('lists', { boardId: board.boardId })[0]._id;
+  const members = db.findOne('boards', { _id: board.boardId }).members;
+  await loginWithToken(page, user.id, user.token);
+  await openBoard(page, board.boardId, board.slug);
+  try {
+    await call(page, 'setListSyncSource', listId, { type: 'jira', url: base, projectKey: 'SCOPED', token: 'scoped-test-token' });
+    expect(await call(page, 'syncListNow', listId)).toMatchObject({ created: 2 });
+    const own = db.findOne('cards', { listId, syncExternalId: 'SAME-1' });
+    const hidden = db.findOne('cards', { listId, syncExternalId: 'SAME-2' });
+    db.updateOne('cards', { _id: own._id }, { $set: { assignees: [user.id], title: 'My local choice', 'syncLastSource.title': 'Original' } });
+    db.updateOne('cards', { _id: hidden._id }, { $set: { assignees: [], title: 'Hidden local title', 'syncLastSource.title': 'Original' } });
+    const hiddenBefore = db.findOne('cards', { _id: hidden._id });
+    const sourceBefore = db.findOne('lists', { _id: listId }).syncSource;
+    db.updateOne('boards', { _id: board.boardId }, { $set: { members: members.map(member => member.userId === user.id
+      ? { ...member, isAdmin: false, isNormalAssignedOnly: true } : member) } });
+    const review = await call(page, 'syncListNow', listId);
+    expect(review.reviewOnly).toBe(true); expect(review.conflicts).toHaveLength(1);
+    expect(review.conflicts[0].cardId).toBe(own._id);
+    expect(JSON.stringify(review)).not.toMatch(/Hidden|SAME-2/);
+    await openSync(page, listId);
+    await page.locator('.js-list-sync-now').click();
+    await expect(page.locator('.list-sync-conflict')).toHaveCount(1);
+    await page.locator('.js-resolve-sync-conflict[data-choice="local"]').click();
+    await expect(page.locator('.pop-over .list-sync-now-success')).toContainText('Full-list Sync was not run');
+    expect(db.findOne('cards', { _id: own._id }).title).toBe('My local choice');
+    expect(db.findOne('cards', { _id: hidden._id })).toEqual(hiddenBefore);
+    expect(db.findOne('lists', { _id: listId }).syncSource).toEqual(sourceBefore);
+
+    db.updateOne('cards', { _id: own._id }, { $set: { 'syncLastSource.title': 'Original' } });
+    const preview = (await call(page, 'syncListNow', listId)).conflicts[0];
+    db.updateOne('cards', { _id: own._id }, { $set: { assignees: [] } });
+    const stale = await call(page, 'resolveListSyncConflict', listId, {
+      cardId: own._id, field: preview.field, fingerprint: preview.fingerprint, choice: 'source',
+    });
+    expect(stale.error).toContain('conflict changed');
+    expect(db.findOne('cards', { _id: own._id }).title).toBe('My local choice');
+    expect((await call(page, 'syncListNow', listId)).conflicts).toEqual([]);
+    expect(db.findOne('cards', { _id: hidden._id })).toEqual(hiddenBefore);
+  } finally {
+    db.updateOne('boards', { _id: board.boardId }, { $set: { members } });
+    db.deleteMany('listSyncCredentials', { listId });
+  }
 });
 
 test('expired Sync worker stops before reconciling after a settings save reclaims its lease', async ({ page, browser, user, board }) => {

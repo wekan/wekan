@@ -3522,5 +3522,6 @@
   "sync-conflict-local": "Current WeKan value",
   "sync-conflict-keep-local": "Keep WeKan value",
   "sync-conflict-use-source": "Use source value",
-  "sync-conflict-refresh": "Run Sync again to review the current values."
+  "sync-conflict-refresh": "Run Sync again to review the current values.",
+  "sync-conflict-review-complete": "Your assigned cards have been reviewed. No field conflicts remain. Full-list Sync was not run."
 }
