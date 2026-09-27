@@ -230,6 +230,11 @@ The private write-plan/checkpoint engine now has real MongoDB interruption
 coverage, including lost acknowledgements and interrupted cleanup. It is not
 yet connected to manual or scheduled Sync. Application adapters, private
 collection lifecycle, pause/cancel controls and restart scheduling remain open.
+The engine now persists mapped-estimate baselines and typed custom-field
+snapshots, permitting only the mapped field to change. Real MongoDB tests cover
+lost acknowledgements on update/clear, create and null/missing arrays, damaged
+mapping checksums and local-edit conflicts. This still uses a test adapter;
+production application/effect adapters remain unfinished.
 Current Sync write selectors now distinguish explicit null from missing fields.
 Adapter investigation also moved title/description activities after successful
 writes and made archive/entity/rule History hooks reject zero-match updates.
@@ -245,8 +250,8 @@ release assignments, epic relationships, automatic field/schema mapping,
 Trello and other Scrum adapters, complete provider schema/mapping coverage,
 binary/history transport, planning Sync, original/remaining time estimates,
 other providers' estimate Sync, durable custom-field activity/rule delivery,
-durable mapped-field replay and restart checkpoints, fencing of in-flight writes
-after lease loss and atomic multi-card reconciliation.
+production mapped-field replay and restart checkpoints, fencing of in-flight
+writes after lease loss and atomic multi-card reconciliation.
 Changes during card writes remain nontransactional.
 See [Jira](docs/Features/ImportExport/Jira/Jira.md) and
 [Sync](docs/Features/ImportExport/Sync.md).
@@ -1015,6 +1020,33 @@ The offline source/dependency audit passes with advisory warnings. Four
 changelog suites pass; the existing released v12.07 line-length failure remains.
 Other browsers and FerretDB were not exercised. Durable rule delivery and
 transactional changes remain in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/281d7f574">Persist mapped estimate snapshots in private Sync plans</a>. Thanks to xet7.</summary>
+
+Extend the private checkpoint engine to retain estimate baselines, canonical
+local/provider field and unit identities, and typed custom-field arrays.
+Reject duplicate IDs, unknown properties, invalid values and malformed
+mappings. Only the mapped field may change; unrelated values and ordering must
+remain unchanged. Retain zero, null clearing, dates, booleans, strings, option
+arrays and empty assignments. Enforce 10,000 entries and the existing 1 MiB
+step budget before applying a plan.
+
+Seventeen focused Sync Node suites pass with real MongoDB enabled. The final
+two journal suites also pass after adding create/null/missing and exact-limit
+coverage. Persisted tests verify lost acknowledgements without repeated writes,
+update and clear replay, unchanged typed fields, damaged mapping checksums,
+local conflicts and retained recovery evidence. The offline source/dependency
+audit passes with advisory warnings. Four changelog suites pass; the existing
+released v12.07 line-length failure remains.
+
+This engine is still not connected to manual or scheduled Sync. Tests use a
+local application adapter; no production UI path changed or was browser-tested
+for this internal addition. Live field/mapping guards, application/effect
+adapters, private collection lifecycle, startup scheduling, pause/cancel and
+transactional History/activity coordination remain in TODO Later.
 
 </details>
 
