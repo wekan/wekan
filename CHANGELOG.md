@@ -90,11 +90,104 @@ A cause specific to MongoDB or legacy data has not been established.
 </details>
 
 <details>
-<summary>Blockly translations resumed; remaining languages and review.</summary>
+<summary>Development paused for release: handoff of unfinished work.</summary>
 
-Resumed at the maintainer's request on 2026-09-27 after the earlier pause.
+All implementation, translation and audit work is paused at the maintainer's
+request on 2026-09-27. Resume only when requested. No subagents are running.
+The working tree was clean before this documentation handoff; completed changes
+already have feature/fix-specific local commits and Upcoming entries. Nothing
+was pushed, and no release/version changes were made by this handoff.
+
+**Scrum:** Product Backlog, Sprints, release/event editors, optional hidden
+metadata, team/calendar settings, commitment/result snapshots, Sprint Report
+and Velocity charts and Excel/PDF exports are implemented with focused tests.
+History supports revision checks, compound recovery checkpoints and undo/redo.
+Native whole-board export/import and duplication remap planning records and
+snapshots, validate lifecycle/policy consistency, and report reduced data.
+Standalone copies preserve applicable metadata and drop foreign references;
+list categories survive new destination containers during moves. Remaining:
+daily scope history and burndown, atomic original writes/History, large-board
+limits, complete cross-board move/reference/undo coordination, standalone
+planning-record mapping, existing-board scoped import and History transport.
+Some earlier design paragraphs still describe now-implemented copy/estimate
+work as pending; reconcile them with the linked commits before resuming.
+See the [Scrum design](docs/Features/Right-Sidebar/Board-Settings/Board-View/Scrum-Design.md).
+
+**External Scrum data and Sync:** Jira time totals, issue types, explicit status
+categories and explicitly selected numeric estimate fields now import/export
+through existing fields. Native copies retain the estimate mappings. Sync
+offers title/description/spent-time selection and controls for creating and
+archiving cards, with existing authorization and local-change checks.
+Remaining: external sprint histories without invented snapshots, multiple
+release assignments, epic relationships, automatic field/schema mapping,
+Trello and other Scrum adapters, mapping previews/loss reporting, planning and
+estimate Sync, project-scoped source identity, credential/source-switch
+boundaries, atomic concurrent jobs and conflict-resolution UI.
+See [Jira](docs/Features/ImportExport/Jira/Jira.md) and
+[Sync](docs/Features/ImportExport/Sync.md).
+
+**IFTTT Rules, Blocks, Workflows and History:** editable lazy-loaded Blocks,
+board-admin checks, responsive themed layouts and compound History are in
+place. DDP/REST edits, shared trigger/action records, deletion/restore and
+manual-button metadata have regression coverage. Writes across documents are
+not transactional; concurrent-write recovery and failed-creation orphan cleanup
+still require work. The combined checkpoint passed 45 Node runner checks and
+18 Chromium scenarios; later Gujarati editing also passed. These are focused
+results, not certification of every language or concurrency scenario.
+See [Blocks](docs/Features/Automation/Rules/Blocks.md) and
+[History](docs/Features/Reports/History/History.md).
+
+**Charts, time tracking and requested UI changes:** the five flow-report pages
+and PDF/Excel exports reuse board data, dependencies and recorded History.
+Dependency changes, move reasons and author-attributed time adjustments have
+implementation/test records. The requested date/card popup positioning,
+swimlane option layout, Enter/multiline editors, themed buttons, responsive
+menus, language picker and board multiselection/duplication changes have local
+implementation and audit records. A complete requirement-by-requirement
+recheck across themes, RTL, widths and platforms remains unfinished; do not
+treat a focused pass as completion of every requested UI audit.
+See [flow analytics](docs/Features/Reports/Charts/Flow-Analytics.md),
+[time issues](docs/Features/Reports/Charts/Time-Issue-Audit.md),
+[editor audit](docs/DeveloperDocs/Editor-Enter-Audit.md),
+[popup audit](docs/DeveloperDocs/Popup-Layout-Audit.md) and
+[menu results](docs/Features/Menu-Audit-Results.md).
+
+**Issues and security:** the 2026-09-27 inventory triaged 140 open issues;
+triage is not implementation. Verified fixes and already-fixed closures have
+local commits, while unresolved requests retain their dispositions. Do not
+close umbrella requests or claim all open issues fixed. Authentication,
+assigned-only export and History authorization fixes and their verification
+are recorded in Upcoming; this is not a completed audit of every boundary.
+Further source review includes card-copy override inputs and legacy direct
+Rules writes, which are leads to validate, not confirmed vulnerabilities.
+Examples of unfinished inventory work include the
+[archived-card heatmap](https://github.com/wekan/wekan/issues/5444) and
+[additional database conformance runs](https://github.com/wekan/wekan/issues/6509).
+Live identity providers, affected deployment data, additional browser/backend
+matrices and remaining UI baseline failures still require verification.
+See the [issue inventory](docs/DeveloperDocs/All-Open-Issues-Audit-2026-09-27.md),
+[verified issue work](docs/DeveloperDocs/Open-Issue-Audit-2026-09-27.md) and
+[authentication audit](docs/Security/Authentication-Boundary-Audit-2026-09-27.md).
+
+**Release/mirroring and verification:** mirroring changes have local code,
+tests and [documentation](docs/DeveloperDocs/Forge-Mirroring.md). Actual remote
+mirroring, host-key acceptance, publishing and releases remain human operations.
+Latest focused application checks used local Meteor/MongoDB and Chromium;
+they do not establish full FerretDB, Firefox/WebKit, mobile or live-provider
+coverage. Earlier broad audit failures remain in their audit documents until
+reproduced and resolved. No complete release build/test matrix was run for
+this pause. Older TODO Later entries below remain applicable and are not
+implicitly completed by this handoff. Translation status follows separately.
+
+</details>
+
+<details>
+<summary>Blockly translations paused for release; remaining languages and review.</summary>
+
+Paused again at the maintainer's request on 2026-09-27 for the next release.
 Gujarati Blockly prose and Blocks-editor messages now have placeholder coverage;
-continue the remaining catalogs and terminology review. The editable Blocks view
+resume the remaining catalogs and terminology review only when requested.
+The editable Blocks view
 remains available. All 696 Blockly messages have WeKan message-key coverage,
 but translation into every WeKan language is unfinished.
 
@@ -109,8 +202,11 @@ constructed languages. Completed low-confidence terminology still needs
 native-speaker review; structural validation does not establish fluency.
 
 Pause checkpoint: 246 locale files pass Blockly message coverage, source key
-order and placeholder checks. The read-only report finds 63,115 prose-like
-English-identical values across the catalogs, with 117 catalogs above 50.
+order and placeholder checks. The refreshed read-only report finds 62,562
+prose-like English-identical values, with 116 catalogs above 50. Gujarati has
+27 report matches; explicit regression exceptions cover retained notation,
+platform brands and printed key names. Seven catalog checks, 21 preservation
+checks and the Gujarati Chromium drag/edit/save/menu scenario last passed.
 These are triage counts, not exact missing-translation counts: keycap names,
 brands, mathematical terms, cognates and regional copies are included.
 Run `node releases/translations/import-blockly.cjs --report` to refresh them.
@@ -120,7 +216,11 @@ No external translation service or remote translation upload was used.
 </details>
 
 <details>
-<summary>Local translation repairs and validation in progress.</summary>
+<summary>Local translation repairs and validation paused; review remains.</summary>
+
+All work in this older audit queue is also paused for the 2026-09-27 release
+handoff. The dated findings below are retained as historical checkpoints;
+they do not supersede the pause or prove global translation completion.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 As of 2026-09-16, all 20,081 original findings are classified:
@@ -743,7 +843,8 @@ invalid issue types fail before board creation.
 Fourteen focused Node checks and four Chromium scenarios pass, including Jira
 and native round trips, excluded fields, invalid inputs, existing completion
 policies and time-tracking regression coverage. Document mappings and remaining
-external sprint, release, epic and story-point work. Live Jira and other browsers
+external sprint, release, epic and story-point work. Live Jira and other
+browsers
 were not exercised. Existing Upcoming regression evidence remains recorded;
 Blockly translation work remains paused.
 
@@ -1492,7 +1593,8 @@ edits and deleted rule documents through existing permission/conflict checks.
 This groups History recording; it does not make compound writes transactional.
 
 Four Node suites and four Chromium History scenarios pass. The REST scenario
-verifies attribution, entry counts, no-op suppression, unauthorized-write denial,
+verifies attribution, entry counts, no-op suppression, unauthorized-write
+denial,
 compound undo/redo and deletion recovery. The final no-op extension also passes
 on rerun. Update the History guide. Existing Upcoming regression evidence
 remains recorded; other browsers were not exercised. Blockly translations
@@ -1522,7 +1624,8 @@ Blockly translations remain paused.
 <summary><a href="https://github.com/wekan/wekan/commit/05e8bce70">Validate native Scrum snapshot lifecycle consistency</a>. Thanks to xet7.</summary>
 
 Native imports reject snapshot timestamps that disagree with sprint lifecycle
-dates, started history on planned sprints, completion data on unfinished sprints,
+dates, started history on planned sprints, completion data on unfinished
+sprints,
 and contradictory cancellation history. Cancellation before start remains valid
 without a commitment snapshot. Validation runs before board creation and keeps
 imported report timelines consistent with the server's sprint lifecycle methods.
@@ -1769,14 +1872,17 @@ Blockly browser coverage and other Upcoming regression results remain valid.
 Fill 85 text-operation and remaining editor messages. All audited Gujarati
 Blockly prose and Blocks-editor messages now have translations. Explicit test
 exceptions retain printed key names, platform brands, OK, mathematical notation,
-URLs and nonlinguistic symbols. This establishes placeholder coverage, not native
+URLs and nonlinguistic symbols. This establishes placeholder coverage, not
+native
 fluency; specialist terminology still needs review. Update TODO Later and the
 Blocks guide. Other languages remain in progress.
 
 Seven catalog checks, 21 human-translation preservation checks and one Chromium
-scenario pass. Browser coverage verifies Gujarati navigation to Blocks, dragging,
+scenario pass. Browser coverage verifies Gujarati navigation to Blocks,
+dragging,
 field editing, saving and translated context menus. Other browsers and screen
-readers were not exercised. Existing Upcoming regression evidence remains recorded.
+readers were not exercised. Existing Upcoming regression evidence remains
+recorded.
 
 </details>
 
@@ -1850,8 +1956,10 @@ not add a browser run. Existing Upcoming regression evidence remains recorded.
 Fill 66 additional Gujarati English placeholders for input labels, keyboard
 navigation hints, comparisons, Boolean operations and conditional values.
 Retain exact placeholders and existing translations. Expand vocabulary/script
-checks to these groups, including distinct true/false, and/or and dividend/divisor
-terms. Gujarati remains incomplete and specialist terminology needs native review.
+checks to these groups, including distinct true/false, and/or and
+dividend/divisor
+terms. Gujarati remains incomplete and specialist terminology needs native
+review.
 
 All four catalog checks and 21 human-translation preservation checks pass.
 The existing Gujarati Chromium drag/edit/save/context-menu result remains
@@ -1865,7 +1973,8 @@ Blocks guide. Existing Upcoming regression evidence remains recorded.
 
 Fill 80 additional Gujarati English placeholders for conditions, loops,
 copy/delete actions, bitmap controls, icons and input labels, including short
-control-flow aliases. Preserve existing translations and placeholder inventories.
+control-flow aliases. Preserve existing translations and placeholder
+inventories.
 The Gujarati catalog remains incomplete; specialist terminology needs native
 review. Update the Blocks guide with the current translation and browser status.
 

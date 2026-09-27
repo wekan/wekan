@@ -34,8 +34,9 @@ source of verified product history or a compatible import format.
 
 Source comments and documentation are English. UI text uses WeKan translations.
 All 696 Blockly catalog messages are mapped into WeKan locale files, including
-accessibility and programming-block terminology. Translation filling has resumed
-at the maintainer's request; catalog completeness and placeholder tests do not establish linguistic
+accessibility and programming-block terminology. Translation filling is paused
+for release at the maintainer's request; catalog completeness and placeholder
+tests do not establish linguistic
 accuracy or that every English placeholder has been translated.
 Existing List and Workflow views remain available. Rule storage and export
 formats remain unchanged; Blockly workspace state is an editing representation,
@@ -112,7 +113,8 @@ History writes; the concurrency limits still apply.
 
 ## Translation progress
 
-Blockly translation work resumed by request on 2026-09-27 after a pause. Gujarati
+Blockly translation work is paused again by request on 2026-09-27 for release.
+Resume only when requested. Gujarati
 now has translations for all audited Blockly prose and `r-blocks-*` editor
 messages. Tests explicitly allow unchanged printed key names, platform brands,
 OK, mathematical notation, URLs and nonlinguistic symbols. This is placeholder
