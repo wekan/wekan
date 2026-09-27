@@ -71,14 +71,19 @@ async function fetchArrayPages(initial, headers) {
 // Basic-auth'd (Jira Cloud: account email + API token). `list.syncSource.url`
 // is the Jira base URL (e.g. https://org.atlassian.net),
 // `list.syncSource.projectKey` the project key.
-async function fetchJiraCloudIssues(base, jql, headers) {
+async function fetchJiraCloudIssues(base, jql, headers, estimateFieldId) {
   const issues = [], tokens = new Set();
   const url = new URL(`${base}/rest/api/3/search/jql`);
   url.searchParams.set('jql', jql);
   url.searchParams.set('maxResults', '200');
   // Enhanced search otherwise returns only issue IDs. Request the fields the
   // shared parser uses so synchronization cannot replace titles with defaults.
-  url.searchParams.set('fields', 'summary,description,status,duedate,assignee,reporter,labels,timetracking,timespent');
+  const fields = ['summary', 'description', 'status', 'duedate', 'assignee', 'reporter', 'labels', 'timetracking', 'timespent'];
+  if (estimateFieldId !== undefined) {
+    if (!/^customfield_\d{1,20}$/.test(estimateFieldId)) throw new Error('Invalid Jira estimate field');
+    fields.push(estimateFieldId);
+  }
+  url.searchParams.set('fields', fields.join(','));
   for (let page = 0; page < MAX_SYNC_PAGES; page += 1) {
     const { body } = await fetchJson(url.href, headers);
     if (!body || !Array.isArray(body.issues) || typeof body.isLast !== 'boolean') throw new Error('Invalid Jira Cloud pagination');
@@ -100,7 +105,7 @@ export async function fetchJiraIssues(syncSource, credential) {
   const url = `${base}/rest/api/2/search?jql=${jql}&maxResults=200`;
   const auth = Buffer.from(`${credential.username || ''}:${credential.token}`).toString('base64');
   if (new URL(base).hostname.endsWith('.atlassian.net')) {
-    return fetchJiraCloudIssues(base, query, { Authorization: `Basic ${auth}`, Accept: 'application/json' });
+    return fetchJiraCloudIssues(base, query, { Authorization: `Basic ${auth}`, Accept: 'application/json' }, syncSource.estimateFieldId);
   }
   const issues = []; let total;
   for (let page = 0; page < MAX_SYNC_PAGES; page += 1) {

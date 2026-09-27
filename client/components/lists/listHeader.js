@@ -875,6 +875,7 @@ Template.listSyncPopup.onCreated(function () {
   // as a boolean from the existing hasListSyncCredential method, the same
   // secret-safety discipline as the LDAP Admin Panel override's bind
   // password (client/components/settings/settingBody.js, models/lib/configResolver.js).
+  tpl.selectedEstimateField = new ReactiveVar(list?.syncSource?.estimateCustomFieldId || '');
   tpl.selectedSyncFields = new ReactiveVar(list?.syncSource?.fields || ['title', 'description']);
   tpl.selectedSyncOperations = new ReactiveVar({
     createCards: list?.syncSource?.createCards !== false,
@@ -923,7 +924,7 @@ Template.listSyncPopup.helpers({
     return (Template.instance().syncPreview.get()?.items || []).map(row => ({ ...row,
       actionLabel: `sync-preview-${row.action}`,
       fieldsText: row.fields.map(field => TAPi18n.__(field === 'syncLastSource' ? 'sync-preview-baseline' :
-        field === 'spentTime' ? 'spent-time-hours' : field)).join(', '),
+        field === 'spentTime' ? 'spent-time-hours' : field === 'estimate' ? 'scrum-estimate' : field)).join(', '),
     }));
   },
   syncSourceOmissions() {
@@ -939,7 +940,7 @@ Template.listSyncPopup.helpers({
     }));
   },
   syncConflicts() { return Template.instance().syncConflicts.get().filter(row => row.fingerprint).map(row => ({
-    ...row, label: row.creation ? 'sync-conflict-creation' : row.archive ? 'sync-conflict-archive' : row.duplicate ? 'sync-conflict-duplicate' : row.field === 'spentTime' ? 'spent-time-hours' : row.field,
+    ...row, label: row.creation ? 'sync-conflict-creation' : row.archive ? 'sync-conflict-archive' : row.duplicate ? 'sync-conflict-duplicate' : row.field === 'spentTime' ? 'spent-time-hours' : row.field === 'estimate' ? 'scrum-estimate' : row.field,
   })); },
   syncBusy() { return Template.instance().syncBusy.get(); },
   syncOperations() {
@@ -949,10 +950,21 @@ Template.listSyncPopup.helpers({
       { operation: 'archiveCards', label: 'archive-card', checked: selected.archiveCards },
     ];
   },
+  syncEstimateEnabled() {
+    return Template.instance().selectedSyncType.get() === 'jira' &&
+      Template.instance().selectedSyncFields.get().includes('estimate');
+  },
+  syncEstimateFields() {
+    const selected = Template.instance().selectedEstimateField.get();
+    return ReactiveCache.getCustomFields({ boardIds: Template.currentData().boardId, type: 'number' })
+      .filter(field => field.settings?.jiraEstimateFieldId && field.settings?.jiraEstimateUnit)
+      .map(field => ({ _id: field._id, selected: field._id === selected,
+        name: `${field.name} (${field.settings.jiraEstimateFieldId}, ${field.settings.jiraEstimateUnit})` }));
+  },
   syncTextFields() {
     const fields = Template.instance().selectedSyncFields.get();
-    const choices = Template.instance().selectedSyncType.get() === 'jira' ? ['title', 'description', 'spentTime'] : ['title', 'description'];
-    return choices.map(field => ({ field, label: field === 'spentTime' ? 'spent-time-hours' : field, checked: fields.includes(field) }));
+    const choices = Template.instance().selectedSyncType.get() === 'jira' ? ['title', 'description', 'spentTime', 'estimate'] : ['title', 'description'];
+    return choices.map(field => ({ field, label: field === 'spentTime' ? 'spent-time-hours' : field === 'estimate' ? 'scrum-estimate' : field, checked: fields.includes(field) }));
   },
   listSyncSourceTypes() {
     return SYNC_CAPABLE_SOURCES;
@@ -1088,9 +1100,15 @@ Template.listSyncPopup.events({
     const selected = tpl.selectedSyncFields.get();
     tpl.selectedSyncFields.set(selected.includes(field) ? selected.filter(value => value !== field) : [...selected, field]);
   },
+  'change .js-list-sync-estimate-field'(event, tpl) {
+    tpl.clearSyncPreview();
+    tpl.selectedEstimateField.set(event.currentTarget.value);
+  },
   'change .js-list-sync-type'(event, tpl) {
     tpl.clearSyncPreview();
     tpl.selectedSyncType.set(event.currentTarget.value);
+    if (event.currentTarget.value !== 'jira') tpl.selectedSyncFields.set(
+      tpl.selectedSyncFields.get().filter(field => ['title', 'description'].includes(field)));
   },
   'click a.js-toggle-list-sync-enabled'(event, tpl) {
     tpl.clearSyncPreview();
@@ -1115,6 +1133,8 @@ Template.listSyncPopup.events({
       projectKey,
       enabled: tpl.selectedSyncEnabled.get(),
       fields: tpl.selectedSyncFields.get(),
+      ...(type === 'jira' && tpl.selectedSyncFields.get().includes('estimate')
+        ? { estimateCustomFieldId: tpl.selectedEstimateField.get() } : {}),
       ...tpl.selectedSyncOperations.get(),
       // A blank credential is retained only for the same server/project.
       // Switching source requires entering a credential for the new source.

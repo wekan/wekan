@@ -340,10 +340,12 @@ Lists.attachSchema(
       type: String,
       optional: true,
     },
+    'syncSource.estimateCustomFieldId': { type: String, optional: true },
+    'syncSource.estimateMappingIdentity': { type: String, optional: true },
     'syncSource.fields': { type: Array, optional: true },
     'syncSource.createCards': { type: Boolean, optional: true },
     'syncSource.archiveCards': { type: Boolean, optional: true },
-    'syncSource.fields.$': { type: String, allowedValues: ['title', 'description', 'spentTime'] },
+    'syncSource.fields.$': { type: String, allowedValues: ['title', 'description', 'spentTime', 'estimate'] },
     'syncSource.enabled': {
       type: Boolean,
       optional: true,

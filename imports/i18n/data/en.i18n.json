@@ -3574,5 +3574,7 @@
   "sync-recovery-heading": "Sync run diagnostics",
   "sync-recovery-description": "Retained Sync reports from the last 30 days. Search by board or list ID. An unfinished outcome may still be running or interrupted. Refresh to check again; these reports cannot resume or undo changes.",
   "sync-recovery-unavailable": "Unable to read Sync diagnostics. Check administrator access and server availability.",
-  "sync-recovery-all": "All outcomes"
+  "sync-recovery-all": "All outcomes",
+  "sync-estimate-field": "Mapped Jira estimate field",
+  "sync-estimate-field-hint": "Select a numeric field with a Jira field ID and estimate unit, as created by a mapped Jira import. Local changes are reviewed as conflicts. Missing source values are ignored; an explicit null clears the mapped value."
 }

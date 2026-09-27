@@ -3,10 +3,10 @@
 // All workers protect the same first mapping, independent of cursor order.
 const compareSyncCardIds = (a, b) => a._id < b._id ? -1 : a._id > b._id ? 1 : 0;
 
-// Compare local text and incoming text to the last accepted source values.
+// Compare selected scalar fields to the last accepted source values.
 // Legacy cards without a baseline must first agree with the source; guessing
 // would make an old local edit indistinguishable from an upstream change.
-function planSyncTextMerge(tasks, cards) {
+function planSyncTextMerge(tasks, cards, estimateMapping = null) {
   const byId = new Map(), baselines = new Map(), conflicts = [];
   for (const card of [...cards].sort(compareSyncCardIds)) {
     if (!card.syncExternalId) continue;
@@ -19,7 +19,11 @@ function planSyncTextMerge(tasks, cards) {
     const card = byId.get(String(task.externalId));
     if (!card) return task;
     const result = { ...task }, baseline = { ...(card.syncLastSource || {}) };
-    for (const field of ['title', 'description', 'spentTime']) {
+    if (estimateMapping && baseline.estimateMapping !== estimateMapping.identity) {
+      delete baseline.estimate;
+      baseline.estimateMapping = estimateMapping.identity;
+    }
+    for (const field of ['title', 'description', 'spentTime', 'estimate']) {
       if (task[field] === undefined) continue;
       const incoming = task[field], local = card[field];
       const known = Object.prototype.hasOwnProperty.call(baseline, field);
@@ -35,7 +39,9 @@ function planSyncTextMerge(tasks, cards) {
 }
 function syncTextSelector(card, boardId, listId) {
   const selector = { _id: card._id, boardId, listId };
-  for (const field of ['title', 'description', 'spentTime', 'archived', 'syncExternalId', 'syncSourceType', 'syncSourceKey', 'syncLastSource']) {
+  const fields = ['title', 'description', 'spentTime', 'archived', 'syncExternalId', 'syncSourceType', 'syncSourceKey', 'syncLastSource'];
+  if (Object.hasOwn(card, 'estimate')) fields.push('customFields');
+  for (const field of fields) {
     // Mongo equality with null also matches an absent field. A local deletion
     // after the snapshot is a change, so keep presence in the write condition.
     selector[field] = card[field] === undefined ? { $exists: false }
@@ -47,7 +53,7 @@ function selectSyncTextFields(tasks, fields) {
   const wanted = new Set(fields === undefined ? ['title', 'description'] : fields);
   return tasks.map(task => {
     const selected = { ...task };
-    for (const field of ['title', 'description', 'spentTime']) if (!wanted.has(field)) delete selected[field];
+    for (const field of ['title', 'description', 'spentTime', 'estimate']) if (!wanted.has(field)) delete selected[field];
     return selected;
   });
 }

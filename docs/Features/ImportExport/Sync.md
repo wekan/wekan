@@ -156,10 +156,10 @@ source item. If an active subtask is outside the archive plan, the run stops
 before card writes. Concurrent child creation is not covered by a transaction.
 New Scrum metadata mappings and fully atomic synchronization remain pending.
 
-### Resolve text and time conflicts
+### Resolve field conflicts
 
 Open the list's Sync popup and run Sync. For conflicting title, description or
-spent-time values, the popup shows the current WeKan value and freshly fetched
+spent-time or mapped estimate values, the popup shows the current WeKan value and freshly fetched
 source value. Choose **Keep WeKan value** or **Use source value** for one field
 at a time. Keeping local text accepts the source value as the new comparison
 baseline, so an unchanged upstream value does not raise the same conflict on
@@ -386,6 +386,29 @@ time. The source baseline and conditional update include spent hours, so timer
 or manual time edits participate in conflict detection. This syncs the aggregate
 total, not individual worklogs. Original/remaining estimates and Scrum planning
 records remain pending Sync mappings.
+
+Jira also offers an opt-in **Estimate** switch. Select a numeric custom field on
+this board whose settings contain a Jira field ID and estimate unit, as created
+by a mapped Jira import. The popup displays that ID and unit. Saving records the
+mapping identity; a changed/deleted field, unit or mapping stops Sync until the
+settings are saved again. Jira Cloud search explicitly requests the selected
+custom field. Other custom fields remain unmapped in source-coverage reports.
+
+The selected field stores the estimate as a number without unit conversion.
+Zero is a real value. An absent source field leaves the local value untouched;
+explicit null removes only the mapped custom-field entry. Other card custom
+fields are retained. Accepted source values and the mapping identity form the
+comparison baseline. Local edits survive an unchanged upstream value; competing
+changes require the existing Keep local/Use source review. Switching mappings
+invalidates the old estimate baseline. The card write compares the entire
+previous custom-field array so a concurrent edit causes a retry, not a lost edit.
+The existing entity History hook records the custom-field change. Aggregate
+array writes do not yet generate individual custom-field activity/rule events.
+
+Automatic Jira schema discovery, arbitrary mapping creation in this popup,
+original/remaining time-estimate mapping, other providers' estimates and durable
+replay remain unfinished. Mapping/permission checks and card writes are still
+separate operations; these checks do not provide cross-document atomicity.
 
 Configuration methods: `setListSyncSource`, `hasListSyncCredential`,
 `syncListNow`, `previewListSync` (`server/methods/listSync.js`), all requiring board write

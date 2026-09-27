@@ -36,6 +36,7 @@ export function validateListSyncTasks(tasks) {
     if (ids.has(String(id))) throw new Error('Duplicate sync external ID');
     ids.add(String(id));
     if (task.spentTime !== undefined && (typeof task.spentTime !== 'number' || !Number.isFinite(task.spentTime) || task.spentTime < 0)) throw new Error('Invalid sync spent time');
+    if (task.estimate !== undefined && task.estimate !== null && (typeof task.estimate !== 'number' || !Number.isFinite(task.estimate) || task.estimate < 0 || task.estimate > 1e12)) throw new Error('Invalid sync estimate');
     for (const field of ['title', 'description', 'column_name']) {
       if (task[field] !== undefined && typeof task[field] !== 'string') throw new Error(`Invalid sync task ${field}`);
     }
@@ -70,6 +71,7 @@ export function planListSyncReconcile({ externalTasks = [], existingCards = [] }
       changes.description = task.description;
     }
     if (task.spentTime !== undefined && task.spentTime !== card.spentTime) changes.spentTime = task.spentTime;
+    if (task.estimate !== undefined && task.estimate !== card.estimate) changes.estimate = task.estimate;
     if (task.column_name !== undefined && task.column_name !== card.column_name) {
       // Signals a status change (e.g. Jira issue moved to a different
       // workflow status). Current Sync reports it as an unmapped field in

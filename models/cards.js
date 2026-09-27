@@ -294,6 +294,8 @@ Cards.attachSchema(
     syncLastSource: { type: Object, optional: true },
     'syncLastSource.title': { type: String, optional: true },
     'syncLastSource.description': { type: String, optional: true },
+    'syncLastSource.estimate': { type: Number, optional: true, min: 0, max: 1e12 },
+    'syncLastSource.estimateMapping': { type: String, optional: true },
     'syncLastSource.spentTime': { type: Number, optional: true, min: 0 },
     syncExternalId: {
       type: String,

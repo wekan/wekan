@@ -11,6 +11,8 @@ import { check, Match } from 'meteor/check';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import Lists from '/models/lists';
 import Cards from '/models/cards';
+import CustomFields from '/models/customFields';
+const { syncEstimateMapping } = require('/models/lib/listSyncEstimate');
 import ListSyncCredentials from '/models/listSyncCredentials';
 import ListSyncRunReports from '/server/lib/listSyncRunReports';
 const { reportScope } = require('/server/lib/syncRunReport');
@@ -53,7 +55,8 @@ Meteor.methods({
       enabled: Match.Optional(Boolean),
       createCards: Match.Optional(Boolean),
       archiveCards: Match.Optional(Boolean),
-      fields: Match.Optional([Match.OneOf('title', 'description', 'spentTime')]),
+      estimateCustomFieldId: Match.Optional(String),
+      fields: Match.Optional([Match.OneOf('title', 'description', 'spentTime', 'estimate')]),
       token: Match.Optional(Match.OneOf(String, null)),
       username: Match.Optional(String),
     }));
@@ -76,6 +79,12 @@ Meteor.methods({
       // An old malformed URL must not prevent disconnecting a broken source.
       // Its legacy cards remain unbound; a new project must never adopt them.
       try { oldKey = list.syncSource && syncSourceKey(list.syncSource); } catch (error) { oldKey = null; }
+      let estimateMapping;
+      try {
+        estimateMapping = source && syncEstimateMapping(config,
+          config.estimateCustomFieldId && await CustomFields.findOneAsync({
+            _id: config.estimateCustomFieldId, boardIds: list.boardId }));
+      } catch (error) { throw new Meteor.Error('invalid-sync-source', error.message); }
       // Before replacing or clearing a legacy configuration, retain its identity
       // on its cards. Never infer an old card's project from the NEW config.
       const legacyCards = { boardId: list.boardId, listId,
@@ -106,6 +115,8 @@ Meteor.methods({
         createCards: config.createCards !== false,
         archiveCards: config.archiveCards !== false,
         fields: config.fields || ['title', 'description'],
+        ...(estimateMapping ? { estimateCustomFieldId: estimateMapping.localFieldId,
+          estimateMappingIdentity: estimateMapping.identity } : {}),
       } : null;
       try {
         return await commitSyncConfiguration({ lists: Lists, credentials: ListSyncCredentials,
@@ -187,7 +198,7 @@ Meteor.methods({
 
   async resolveListSyncConflict(listId, resolution) {
     check(listId, String);
-    check(resolution, { cardId: String, field: Match.OneOf('title', 'description', 'spentTime', 'syncExternalId', 'archive', 'creation'),
+    check(resolution, { cardId: String, field: Match.OneOf('title', 'description', 'spentTime', 'estimate', 'syncExternalId', 'archive', 'creation'),
       choice: Match.OneOf('local', 'source', 'detach', 'replace'), fingerprint: String });
     if (!/^[a-f0-9]{64}$/.test(resolution.fingerprint)) throw new Meteor.Error('invalid-sync-conflict');
     const list = await Lists.findOneAsync(listId);

@@ -326,10 +326,14 @@ estimates using existing spent-time and numeric custom fields. Native export
 retains them, and the original estimate can be selected in Scrum settings.
 Jira time export also restores numeric seconds using stable custom-field markers
 and respects Dates/Custom Fields selection. Jira Sync now offers opt-in spent
-hours, with source baselines and conflict checks. The existing Sync popup also
-selects title/description fields and card creation/source-absence archival;
-these settings retain board write authorization. Sprint, release and estimate
-Sync mappings remain pending. Card mappings and credentials now carry a
+hours and estimates in explicitly mapped numeric custom fields, with source
+baselines and conflict checks. Estimate mappings retain their field ID and unit,
+are revalidated before writes, preserve zero and handle explicit null clearing.
+A changed mapping requires saving settings and invalidates its old baseline.
+The existing Sync popup also selects title/description fields and card
+creation/source-absence archival; these settings retain board write
+authorization. Sprint/release, original/remaining time-estimate and other
+providers' estimate Sync mappings remain pending. Card mappings and credentials now carry a
 provider/server/project identity, preserving old cards when switching sources.
 Legacy configurations require saving once to bind their existing mappings.
 Atomic concurrent jobs and configuration writes remain pending.

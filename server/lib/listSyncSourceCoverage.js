@@ -2,16 +2,17 @@
 // Unknown objects are reported at their first unmapped path, without traversing
 // or copying their values. Known containers (for example Jira time tracking)
 // are inspected so unused siblings cannot hide beside one mapped field.
-const WRITABLE_FIELDS = new Set(['title', 'description', 'spentTime']);
+const WRITABLE_FIELDS = new Set(['title', 'description', 'spentTime', 'estimate']);
 const mapped = (target, converted = false) => ({ target, converted });
 const unusedFallback = { reason: 'fallback' };
 const present = value => value !== undefined && value !== null && value !== '' &&
   (!Array.isArray(value) || value.length > 0);
 
-function issueRules(type, issue) {
+function issueRules(type, issue, estimateMapping) {
   if (type === 'jira') {
     const fields = issue.fields || {};
     return { key: mapped('externalId'), fields: {
+      ...(estimateMapping ? { [estimateMapping.estimateFieldId]: mapped('estimate') } : {}),
       summary: mapped('title'),
       description: mapped('description', typeof fields.description === 'object'),
       status: mapped('column_name'), labels: mapped('tags'), duedate: mapped('date_due'),
@@ -38,7 +39,7 @@ function issueRules(type, issue) {
     milestone: mapped('tags'), due_date: mapped('date_due') };
 }
 
-function describeSyncSourceCoverage(type, raw, fields) {
+function describeSyncSourceCoverage(type, raw, fields, estimateMapping = null) {
   if (!['jira', 'github', 'gitlab', 'gitea', 'forgejo'].includes(type)) throw new Error('Unsupported Sync coverage source.');
   const selected = new Set(fields === undefined ? ['title', 'description'] : fields);
   const rows = new Map();
@@ -88,7 +89,7 @@ function describeSyncSourceCoverage(type, raw, fields) {
       add(issuePath, 'excluded-item');
       continue;
     }
-    inspect(issue, issueRules(type, issue), issuePath);
+    inspect(issue, issueRules(type, issue, estimateMapping), issuePath);
   }
   if (!Array.isArray(raw)) {
     // Pagination counters/tokens are transport state, not issue data. Other
