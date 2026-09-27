@@ -165,6 +165,35 @@ MongoDB test uses a separate effect receipt as a stand-in; it does not prove
 delivery of actual rules, notifications or webhooks. Guards and readbacks also
 do not fence in-flight writes or provide cross-collection atomicity.
 
+`server/lib/syncHistoryBatch.js` prepares and persists the History component
+for saved Sync update/archive steps. The caller must save the plan before card
+mutation. Journal plan builders now receive the stable operation/intent IDs,
+scope and ownership guard, and `syncOperationEffectId` shares the same effect
+identity with application/retry. Field rows use the ordinary History content
+format, fixed timestamps and deterministic IDs, sharing one batch and a fixed
+integrity chain. Estimate arrays retain nested dates. Baseline-only changes
+produce no History rows and do not invalidate redo.
+
+The plan snapshots the exact hashed redo candidates and undo timestamps before
+the change. Persistence conditionally supersedes only those candidates and
+reads the flags back; it never queries a fresh redo set on retry. Missing or
+damaged predecessors, changed redo snapshots, failed confirmations and wrong
+event contents prevent acknowledgement. Partially inserted rows are reused
+without rewriting timestamps, chain links or later undo flags. Plans are bounded
+to 16 event rows, 10,000 redo candidates and 15 MiB; legacy unhashed redo rows
+are refused rather than silently skipped.
+
+Real MongoDB coverage saves a card, interrupts between History rows, retains the
+journal checkpoint, then resumes the saved plan without rebuilding or duplicate
+events. A different row undone during interruption remains available for redo,
+and the resulting chain verifies. This is an internal History component, not
+production Sync integration or acknowledgement of activity/rule/notification
+delivery. Creation's initial-position effects, durable plan lifecycle, safe
+suppression of ordinary duplicate hooks, legacy redo handling and coordination
+with independent board History writers remain unfinished. In particular, a
+fixed chain does not serialize concurrent appenders or make redo/event writes
+atomic with the card mutation.
+
 The adapter must compare exact current/before/after states, perform a conditional
 write only from the before state, verify its result, and return `applied` or
 `already-applied`. A committed write with a lost acknowledgement must return

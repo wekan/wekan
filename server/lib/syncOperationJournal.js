@@ -199,7 +199,8 @@ async function runSyncOperation({ operations, steps, completions, intentId, scop
       // rebuilt, but orphan steps are removed only for this exact operation.
       await guard();
       await steps.deleteMany({ operationId: operation.operationId });
-      const planned = await build();
+      const planned = await build({ operationId: operation.operationId, intentId,
+        scope: { ...scope }, assertCurrent: guard });
       if (!Array.isArray(planned) || planned.length > MAX_STEPS) fail('invalid-sync-operation-plan');
       const cardIds = new Set();
       for (const step of planned) {

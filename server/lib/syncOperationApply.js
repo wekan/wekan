@@ -4,6 +4,12 @@ const { prepareSyncOperationMutation } = require('./syncOperationMutation');
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 const fail = code => { throw Object.assign(new Error(code), { code }); };
 
+function syncOperationEffectId(operationId, index) {
+  if (typeof operationId !== 'string' || !UUID.test(operationId) ||
+      !Number.isSafeInteger(index) || index < 0 || index >= 10000) fail('invalid-sync-operation-adapter');
+  return createHash('sha256').update(JSON.stringify([operationId, index])).digest('hex');
+}
+
 // Internal journal adapter. The injected card interface must preserve normal
 // application validation/hooks; raw Mongo is used only by persistence tests.
 // completeEffects must durably finish/reuse the operation's History, activity
@@ -17,7 +23,7 @@ async function applySyncOperationStep({ cards, step, operationId, index, assertC
     fail('invalid-sync-operation-adapter');
   }
   const mutation = prepareSyncOperationMutation(step);
-  const effectId = createHash('sha256').update(JSON.stringify([operationId, index])).digest('hex');
+  const effectId = syncOperationEffectId(operationId, index);
   await assertCurrent();
   let matched = await cards.findOne(mutation.afterSelector);
   const alreadyApplied = !!matched;
@@ -49,4 +55,4 @@ async function applySyncOperationStep({ cards, step, operationId, index, assertC
   await assertCurrent();
   return alreadyApplied ? 'already-applied' : 'applied';
 }
-module.exports = { applySyncOperationStep };
+module.exports = { applySyncOperationStep, syncOperationEffectId };
