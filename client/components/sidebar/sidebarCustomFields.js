@@ -334,6 +334,11 @@ Template.createCustomFieldPopup.events({
       }).length;
       CustomFields.insert(data);
     } else {
+      // Integration metadata belongs to the field, not its display name. The
+      // numeric editor has no controls for it and must not erase it on save.
+      if (data.type === 'number' && ['original', 'remaining'].includes(editing.settings?.jiraTimeField)) {
+        data.settings.jiraTimeField = editing.settings.jiraTimeField;
+      }
       CustomFields.update(currentData._id, { $set: data });
     }
 

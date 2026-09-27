@@ -26,7 +26,15 @@ test('Jira time import reuses spent hours and hidden numeric estimates, retainin
   const response=await request.get(`/api/boards/${boardId}/export?authToken=${encodeURIComponent(user.token)}`);expect(response.status()).toBe(200);
   const exported=await response.json();const exportedCard=exported.cards.find(card=>card._id===tracked._id);
   expect(exportedCard.spentTime).toBe(.5);expect(exportedCard.customFields).toEqual(tracked.customFields);
-  db.updateOne('customFields',{_id:original._id},{$set:{name:'Renamed original estimate'}});
+  await page.evaluate(field=>{
+    Popup.close();
+    Popup.open('editCustomField',{dataContext:field})({currentTarget:document.body,target:document.body,preventDefault(){},stopPropagation(){}});
+  },original);
+  const editor=page.locator('.pop-over .js-field-name');
+  await editor.fill('Renamed original estimate');
+  await page.locator('.pop-over .primary').click();
+  await expect.poll(()=>db.findOne('customFields',{_id:original._id}).name).toBe('Renamed original estimate');
+  expect(db.findOne('customFields',{_id:original._id}).settings.jiraTimeField).toBe('original');
   const jiraUrl=`/api/boards/${boardId}/export/jira?authToken=${encodeURIComponent(user.token)}`;
   const jiraResponse=await request.get(jiraUrl);expect(jiraResponse.status()).toBe(200);
   const jira=await jiraResponse.json();
