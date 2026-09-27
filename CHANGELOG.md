@@ -207,6 +207,11 @@ reports do not resume or roll back partially applied writes. Instance admins
 can now inspect them in Problems/Recovery with status filters, literal board or
 list ID search, ten-row pagination and an explicit refresh. Administrator access
 is checked before and after reading; no collection is published.
+The private write-plan/checkpoint engine now has real MongoDB interruption
+coverage, including lost acknowledgements and interrupted cleanup. It is not
+yet connected to manual or scheduled Sync. Application adapters, private
+collection lifecycle, pause/cancel controls and restart scheduling remain open.
+Current Sync write selectors now distinguish explicit null from missing fields.
 Remaining: external sprint histories without invented snapshots, multiple
 release assignments, epic relationships, automatic field/schema mapping,
 Trello and other Scrum adapters, complete provider schema/mapping coverage,
@@ -1068,6 +1073,40 @@ in TODO Later. The known released-entry changelog format failure remains.
 </details>
 
 and improves list synchronization:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/487fd5988">Prepare durable Sync checkpoints and protect nullable fields</a>. Thanks to xet7.</summary>
+
+Fix current conditional Sync writes so an explicit null snapshot no longer
+matches a field deleted locally afterward. MongoDB equality to null also
+matches missing fields; requiring presence prevents stale writes in that case.
+
+Add the private write-plan engine for the upcoming recovery adapter. Persist
+all bounded before/after units before application starts, retain the original
+plan after that point and verify its checksums before resuming. Require a
+caller-held renewable lease and a verified applied/already-applied result
+before conditionally advancing the current owner's checkpoint. Preserve the
+completed marker through plan cleanup. Keep interrupted or damaged plans for
+review; reject malformed identities before constructing mutation selectors.
+
+This engine is not yet wired into manual or scheduled Sync. It does not add
+production replay, pause/cancel controls or automatic restart recovery. The
+application adapter still needs normal card hooks/History, exact conditional
+writes, fresh source/permission checks and archive-dependency handling. Journal
+ownership fences checkpoint acknowledgements, not in-flight card writes.
+
+Twenty focused Node suites pass with MongoDB. The expanded journal suites also
+pass after adding malformed-identity and legacy-null-baseline cases. Tests
+cover preparation interruption, committed writes with lost acknowledgements,
+checkpoint resume, changed local state/scope, BSON dates, updates/archives,
+corrupt plans, lost ownership, interrupted cleanup and unverified results.
+All eighteen Chromium Sync scenarios pass for the current write-condition fix.
+The journal itself has no application UI yet. Document the engine contract and
+remaining integration. The local release audit passes with advisory warnings;
+FerretDB and other browsers were not tested. Existing Upcoming regression
+evidence remains recorded.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6a4e5e29a">Inspect retained Sync outcomes in Problems Recovery</a>. Thanks to xet7.</summary>
