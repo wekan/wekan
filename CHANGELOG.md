@@ -1086,6 +1086,22 @@ were not tested. Update the Sync guide, Scrum design and resumption checkpoint.
 and repairs downloaded translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8b418219b">Accept encoded translation help URLs and repair template tokens</a>. Thanks to xet7.</summary>
+
+Distinguish URL percent encoding from interpolation placeholders in Transifex
+upload validation and pull merging. Arabic Blockly help links now validate;
+missing, renamed and duplicated real placeholders still fail validation.
+Restore the literal `%{value}` token in 20 locales and correct foreign or
+malformed surrounding text where found. Extend the exact-value repair ledger.
+
+Eight Node suites pass, including all locale catalogs, the offline upload
+dry run and positive/negative placeholder cases. The actual pull merge also
+preserves the Arabic link and rejects a translated template token. No remote
+uploads were performed. Broader translation review remains unfinished.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ff12d9516">Restore target-language meanings and retain valid downloaded translations</a>. Thanks to xet7.</summary>
 
 Correct 487 locale/key pairs in 57 locales, including Persian in Arabic,
