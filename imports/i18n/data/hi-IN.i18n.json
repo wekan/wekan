@@ -3103,7 +3103,7 @@
   "blockly-MATH_CONSTANT_PI_ARIA": "पाई",
   "blockly-MATH_CONSTANT_SQRT1_2_ARIA": "एक बटा दो का वर्गमूल",
   "blockly-MATH_CONSTANT_SQRT2_ARIA": "दो का वर्गमूल",
-  "blockly-MATH_CONSTANT_TOOLTIP": "सामान्य स्थिरांक में से एक को वापस लौटें:π (3.141…), e (2.718…), φ (1.618…), sqrt(2) (1.414…), sqrt(½) (0.707…), or ∞ (infinity)।",
+  "blockly-MATH_CONSTANT_TOOLTIP": "सामान्य स्थिरांक में से एक को वापस लौटें:π (3.141…), e (2.718…), φ (1.618…), sqrt(2) (1.414…), sqrt(½) (0.707…), या ∞ (अनंत)।",
   "blockly-MATH_CONSTRAIN_HELPURL": "https://en.wikipedia.org/wiki/Clamping_(graphics)",
   "blockly-MATH_CONSTRAIN_TITLE": "%1 कम %2 उच्च %3 बाधित करें",
   "blockly-MATH_CONSTRAIN_TOOLTIP": "एक संख्या को निर्दिष्ट सीमा (सम्मिलित) के बीच बाधित करें।",
@@ -3509,5 +3509,12 @@
   "scrum-follow-up-cards": "Follow-up cards",
   "scrum-import-reference-omitted": "A source reference could not be restored: __reference__",
   "scrum-partial-snapshot": "This sprint contains only part of the original snapshot.",
-  "scrum-resume-close": "Resume interrupted sprint close"
+  "scrum-resume-close": "Resume interrupted sprint close",
+  "scrum-daily-observations": "Daily scope and remaining work (observations)",
+  "scrum-daily-observations-help": "Each bar shows the first recorded observation of a UTC day, at the timestamp shown. Missing days are omitted. These observations do not record every change or show end-of-day totals. Unknown estimates are not zero. Use this section's Export action for daily observations; the toolbar Export action exports sprint results.",
+  "scrum-daily-truncated": "Only the most recent 366 observations are shown.",
+  "scrum-daily-empty": "No daily observations have been recorded for this sprint.",
+  "scrum-observed-scope": "Observed scope",
+  "scrum-daily-observations-export-help": "First recorded observation of each UTC day; missing days are omitted. Observations do not record every change or end-of-day totals. Unknown estimates are not zero.",
+  "scrum-import-pending": "The Scrum import is incomplete. Scrum edits and report exports are unavailable."
 }

@@ -73,7 +73,7 @@ test('Blocks keeps rule writes restricted to board admins', async ({ page, board
   } finally { clean(board.boardId); }
 });
 
-for (const language of ['fi','ar','gu-IN']) test(`Blocks supports localized drag, field editing and context menus: ${language}`, async ({page,board,user}) => {
+for (const language of ['fi','ar','gu-IN','sv','sl','vi']) test(`Blocks supports localized drag, field editing and context menus: ${language}`, async ({page,board,user}) => {
   const translations=require(`../../../imports/i18n/data/${language}.i18n.json`);
   db.updateOne('users',{_id:user.id},{$set:{'profile.language':language}});
   const ids=await seedRule(board,user);

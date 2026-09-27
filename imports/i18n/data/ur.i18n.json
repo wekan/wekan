@@ -2832,11 +2832,11 @@
   "blockly-CONTROLS_FLOW_STATEMENTS_TOOLTIP_CONTINUE": "اس لوپ کا باقی حصہ چھوڑ کر اگلی تکرار جاری رکھیں۔",
   "blockly-CONTROLS_FLOW_STATEMENTS_WARNING": "انتباہ: اس بلاک کو صرف لوپ میں استعمال کیا جاسکتا ہے۔",
   "blockly-CONTROLS_FOREACH_HELPURL": "https://github.com/RaspberryPiFoundation/blockly/wiki/Loops#for-each",
-  "blockly-CONTROLS_FOREACH_TITLE": "प्रत्येक چیز کیلئے %1 فہرست ميں %2",
+  "blockly-CONTROLS_FOREACH_TITLE": "فہرست %2 میں ہر شے %1 کے لیے",
   "blockly-CONTROLS_FOREACH_TOOLTIP": "فہرست میں ہر آئٹم کے لئے، '%1' متغیر کو آئٹم پہ لگائے،اور پھر کچھ جملے کہے",
   "blockly-CONTROLS_FOR_HELPURL": "https://github.com/RaspberryPiFoundation/blockly/wiki/Loops#count-with",
   "blockly-CONTROLS_FOR_TITLE": "%1 سے %2 سے %3 تک %4 کے ساتھ گنتی کریں",
-  "blockly-CONTROLS_FOR_TOOLTIP": "کیا چر '%1' ابتدا عدد سے اختتام عدد تک मानों کو لیتا ہے، निर्दिष्ट अंतराल کے تحت گنتی کرتا ہے، اور निर्दिष्ट रुकावटों کو کرتا ہے۔",
+  "blockly-CONTROLS_FOR_TOOLTIP": "متغیر '%1' کو ابتدائی عدد سے آخری عدد تک مقررہ وقفے سے قدریں دیں اور مقررہ بلاکس چلائیں۔",
   "blockly-CONTROLS_IF_ELSEIF_TOOLTIP": "اگر والے بلاک میں شرط شامل کریں۔",
   "blockly-CONTROLS_IF_ELSE_TOOLTIP": "اگر والے بلاک میں باقی تمام صورتوں کے لیے آخری شرط شامل کریں۔",
   "blockly-CONTROLS_IF_HELPURL": "https://github.com/RaspberryPiFoundation/blockly/wiki/IfElse",
@@ -3509,5 +3509,12 @@
   "scrum-follow-up-cards": "Follow-up cards",
   "scrum-import-reference-omitted": "A source reference could not be restored: __reference__",
   "scrum-partial-snapshot": "This sprint contains only part of the original snapshot.",
-  "scrum-resume-close": "Resume interrupted sprint close"
+  "scrum-resume-close": "Resume interrupted sprint close",
+  "scrum-daily-observations": "Daily scope and remaining work (observations)",
+  "scrum-daily-observations-help": "Each bar shows the first recorded observation of a UTC day, at the timestamp shown. Missing days are omitted. These observations do not record every change or show end-of-day totals. Unknown estimates are not zero. Use this section's Export action for daily observations; the toolbar Export action exports sprint results.",
+  "scrum-daily-truncated": "Only the most recent 366 observations are shown.",
+  "scrum-daily-empty": "No daily observations have been recorded for this sprint.",
+  "scrum-observed-scope": "Observed scope",
+  "scrum-daily-observations-export-help": "First recorded observation of each UTC day; missing days are omitted. Observations do not record every change or end-of-day totals. Unknown estimates are not zero.",
+  "scrum-import-pending": "The Scrum import is incomplete. Scrum edits and report exports are unavailable."
 }

@@ -1,0 +1,3418 @@
+[
+  {
+    "locale": "ar-DZ",
+    "key": "blockly-COLOUR_RGB_BLUE",
+    "before": "آبی",
+    "after": "أزرق",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "blockly-COLOUR_RGB_GREEN",
+    "before": "سبز",
+    "after": "أخضر",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "blockly-COLOUR_RGB_RED",
+    "before": "قرمز",
+    "after": "أحمر",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "blockly-CONTROL_KEY",
+    "before": "التحكم",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "blockly-DIALOG_OK",
+    "before": "تأیید",
+    "after": "موافق",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "blockly-END_KEY",
+    "before": "پایان",
+    "after": "النهاية",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "blockly-FIELD_BITMAP_BUTTON_LABEL_CLEAR",
+    "before": "شفاف",
+    "after": "مسح",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "blockly-INPUT_LABEL_NUMBER",
+    "before": "رقم",
+    "after": "عدد",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "blockly-INPUT_LABEL_TEXT_PROMPT_MESSAGE",
+    "before": "پیام",
+    "after": "رسالة",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "blockly-LOGIC_OPERATION_OR",
+    "before": "یا",
+    "after": "أو",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "blockly-MATH_NUMBER_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Number",
+    "after": "https://ar.wikipedia.org/wiki/%D8%B9%D8%AF%D8%AF",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "blockly-PROCEDURES_DEFNORETURN_TITLE",
+    "before": "به",
+    "after": "إلى",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "blockly-VARIABLES_DEFAULT_NAME",
+    "before": "آیتم",
+    "after": "البند",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "blockly-LISTS_CREATE_WITH_ITEM_TITLE",
+    "before": "آیتم",
+    "after": "البند",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "blockly-MATH_CHANGE_TITLE_ITEM",
+    "before": "آیتم",
+    "after": "البند",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "blockly-PROCEDURES_DEFRETURN_TITLE",
+    "before": "به",
+    "after": "إلى",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "blockly-TEXT_APPEND_VARIABLE",
+    "before": "آیتم",
+    "after": "البند",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "blockly-TEXT_CREATE_JOIN_ITEM_TITLE_ITEM",
+    "before": "آیتم",
+    "after": "البند",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "r-blocks-view",
+    "before": "تحجب",
+    "after": "الكتل",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "blockly-COLOUR_RGB_BLUE",
+    "before": "آبی",
+    "after": "أزرق",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "blockly-COLOUR_RGB_GREEN",
+    "before": "سبز",
+    "after": "أخضر",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "blockly-COLOUR_RGB_RED",
+    "before": "قرمز",
+    "after": "أحمر",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "blockly-CONTROL_KEY",
+    "before": "التحكم",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "blockly-DIALOG_OK",
+    "before": "تأیید",
+    "after": "موافق",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "blockly-END_KEY",
+    "before": "پایان",
+    "after": "النهاية",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "blockly-FIELD_BITMAP_BUTTON_LABEL_CLEAR",
+    "before": "شفاف",
+    "after": "مسح",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "blockly-INPUT_LABEL_NUMBER",
+    "before": "رقم",
+    "after": "عدد",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "blockly-INPUT_LABEL_TEXT_PROMPT_MESSAGE",
+    "before": "پیام",
+    "after": "رسالة",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "blockly-LOGIC_OPERATION_OR",
+    "before": "یا",
+    "after": "أو",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "blockly-MATH_NUMBER_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Number",
+    "after": "https://ar.wikipedia.org/wiki/%D8%B9%D8%AF%D8%AF",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "blockly-PROCEDURES_DEFNORETURN_TITLE",
+    "before": "به",
+    "after": "إلى",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "blockly-VARIABLES_DEFAULT_NAME",
+    "before": "آیتم",
+    "after": "البند",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "blockly-LISTS_CREATE_WITH_ITEM_TITLE",
+    "before": "آیتم",
+    "after": "البند",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "blockly-MATH_CHANGE_TITLE_ITEM",
+    "before": "آیتم",
+    "after": "البند",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "blockly-PROCEDURES_DEFRETURN_TITLE",
+    "before": "به",
+    "after": "إلى",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "blockly-TEXT_APPEND_VARIABLE",
+    "before": "آیتم",
+    "after": "البند",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "blockly-TEXT_CREATE_JOIN_ITEM_TITLE_ITEM",
+    "before": "آیتم",
+    "after": "البند",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "r-blocks-view",
+    "before": "تحجب",
+    "after": "الكتل",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar",
+    "key": "blockly-COLOUR_RGB_BLUE",
+    "before": "آبی",
+    "after": "أزرق",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar",
+    "key": "blockly-COLOUR_RGB_GREEN",
+    "before": "سبز",
+    "after": "أخضر",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar",
+    "key": "blockly-COLOUR_RGB_RED",
+    "before": "قرمز",
+    "after": "أحمر",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar",
+    "key": "blockly-CONTROL_KEY",
+    "before": "التحكم",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "ar",
+    "key": "blockly-DIALOG_OK",
+    "before": "تأیید",
+    "after": "موافق",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar",
+    "key": "blockly-END_KEY",
+    "before": "پایان",
+    "after": "النهاية",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar",
+    "key": "blockly-FIELD_BITMAP_BUTTON_LABEL_CLEAR",
+    "before": "شفاف",
+    "after": "مسح",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar",
+    "key": "blockly-INPUT_LABEL_NUMBER",
+    "before": "رقم",
+    "after": "عدد",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar",
+    "key": "blockly-INPUT_LABEL_TEXT_PROMPT_MESSAGE",
+    "before": "پیام",
+    "after": "رسالة",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar",
+    "key": "blockly-LOGIC_OPERATION_OR",
+    "before": "یا",
+    "after": "أو",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar",
+    "key": "blockly-MATH_NUMBER_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Number",
+    "after": "https://ar.wikipedia.org/wiki/%D8%B9%D8%AF%D8%AF",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "ar",
+    "key": "blockly-PROCEDURES_DEFNORETURN_TITLE",
+    "before": "به",
+    "after": "إلى",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar",
+    "key": "blockly-VARIABLES_DEFAULT_NAME",
+    "before": "آیتم",
+    "after": "البند",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar",
+    "key": "blockly-LISTS_CREATE_WITH_ITEM_TITLE",
+    "before": "آیتم",
+    "after": "البند",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar",
+    "key": "blockly-MATH_CHANGE_TITLE_ITEM",
+    "before": "آیتم",
+    "after": "البند",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar",
+    "key": "blockly-PROCEDURES_DEFRETURN_TITLE",
+    "before": "به",
+    "after": "إلى",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar",
+    "key": "blockly-TEXT_APPEND_VARIABLE",
+    "before": "آیتم",
+    "after": "البند",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar",
+    "key": "blockly-TEXT_CREATE_JOIN_ITEM_TITLE_ITEM",
+    "before": "آیتم",
+    "after": "البند",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar",
+    "key": "r-blocks-view",
+    "before": "تحجب",
+    "after": "الكتل",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ca",
+    "key": "blockly-COLOUR_RGB_RED",
+    "before": "vermella",
+    "after": "vermell",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ca",
+    "key": "blockly-CONTROL_KEY",
+    "before": "Control (gràfic)",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "ca",
+    "key": "blockly-INPUT_LABEL_NUMBER",
+    "before": "número",
+    "after": "nombre",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ca",
+    "key": "blockly-LOGIC_COMPARE_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Inequality_(mathematics)",
+    "after": "https://ca.wikipedia.org/wiki/Inequaci%C3%B3",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "ca",
+    "key": "blockly-MATH_ARITHMETIC_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Arithmetic",
+    "after": "https://ca.wikipedia.org/wiki/Aritm%C3%A8tica",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "ca",
+    "key": "blockly-MATH_ATAN2_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Atan2",
+    "after": "https://ca.wikipedia.org/wiki/Inverses_de_les_funcions_trigonom%C3%A8triques#L'arctangent_amb_dos_arguments",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "ca",
+    "key": "blockly-MATH_CONSTANT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Mathematical_constant",
+    "after": "https://ca.wikipedia.org/wiki/Constant_matem%C3%A0tica",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "ca",
+    "key": "blockly-MATH_RANDOM_FLOAT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Random_number_generation",
+    "after": "https://ca.wikipedia.org/wiki/Generaci%C3%B3_de_nombres_aleatoris",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "ca",
+    "key": "blockly-MATH_RANDOM_INT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Random_number_generation",
+    "after": "https://ca.wikipedia.org/wiki/Generaci%C3%B3_de_nombres_aleatoris",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "ca",
+    "key": "blockly-MATH_TRIG_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Trigonometric_functions",
+    "after": "https://ca.wikipedia.org/wiki/Funci%C3%B3_trigonom%C3%A8trica",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "ca",
+    "key": "blockly-VARIABLES_DEFAULT_NAME",
+    "before": "article",
+    "after": "element",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ca",
+    "key": "blockly-LISTS_CREATE_WITH_ITEM_TITLE",
+    "before": "article",
+    "after": "element",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ca",
+    "key": "blockly-MATH_CHANGE_TITLE_ITEM",
+    "before": "article",
+    "after": "element",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ca",
+    "key": "blockly-TEXT_APPEND_VARIABLE",
+    "before": "article",
+    "after": "element",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ca",
+    "key": "blockly-TEXT_CREATE_JOIN_ITEM_TITLE_ITEM",
+    "before": "article",
+    "after": "element",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ca",
+    "key": "r-blocks-view",
+    "before": "Bloqueja",
+    "after": "Blocs",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "blockly-COLOUR_RGB_RED",
+    "before": "vermella",
+    "after": "vermell",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "blockly-CONTROL_KEY",
+    "before": "Control (gràfic)",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "blockly-LOGIC_COMPARE_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Inequality_(mathematics)",
+    "after": "https://ca.wikipedia.org/wiki/Inequaci%C3%B3",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "blockly-MATH_ARITHMETIC_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Arithmetic",
+    "after": "https://ca.wikipedia.org/wiki/Aritm%C3%A8tica",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "blockly-MATH_ATAN2_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Atan2",
+    "after": "https://ca.wikipedia.org/wiki/Inverses_de_les_funcions_trigonom%C3%A8triques#L'arctangent_amb_dos_arguments",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "blockly-MATH_CONSTANT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Mathematical_constant",
+    "after": "https://ca.wikipedia.org/wiki/Constant_matem%C3%A0tica",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "blockly-MATH_RANDOM_FLOAT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Random_number_generation",
+    "after": "https://ca.wikipedia.org/wiki/Generaci%C3%B3_de_nombres_aleatoris",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "blockly-MATH_RANDOM_INT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Random_number_generation",
+    "after": "https://ca.wikipedia.org/wiki/Generaci%C3%B3_de_nombres_aleatoris",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "blockly-MATH_TRIG_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Trigonometric_functions",
+    "after": "https://ca.wikipedia.org/wiki/Funci%C3%B3_trigonom%C3%A8trica",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "blockly-PAUSE_KEY",
+    "before": "Pausa",
+    "after": "Pause",
+    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "blockly-VARIABLES_DEFAULT_NAME",
+    "before": "article",
+    "after": "element",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "blockly-LISTS_CREATE_WITH_ITEM_TITLE",
+    "before": "article",
+    "after": "element",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "blockly-MATH_CHANGE_TITLE_ITEM",
+    "before": "article",
+    "after": "element",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "blockly-TEXT_APPEND_VARIABLE",
+    "before": "article",
+    "after": "element",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "blockly-TEXT_CREATE_JOIN_ITEM_TITLE_ITEM",
+    "before": "article",
+    "after": "element",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ca_ES",
+    "key": "blockly-COLOUR_RGB_RED",
+    "before": "vermella",
+    "after": "vermell",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ca_ES",
+    "key": "blockly-CONTROL_KEY",
+    "before": "Control (gràfic)",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "ca_ES",
+    "key": "blockly-LOGIC_COMPARE_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Inequality_(mathematics)",
+    "after": "https://ca.wikipedia.org/wiki/Inequaci%C3%B3",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "ca_ES",
+    "key": "blockly-MATH_ARITHMETIC_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Arithmetic",
+    "after": "https://ca.wikipedia.org/wiki/Aritm%C3%A8tica",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "ca_ES",
+    "key": "blockly-MATH_ATAN2_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Atan2",
+    "after": "https://ca.wikipedia.org/wiki/Inverses_de_les_funcions_trigonom%C3%A8triques#L'arctangent_amb_dos_arguments",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "ca_ES",
+    "key": "blockly-MATH_CONSTANT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Mathematical_constant",
+    "after": "https://ca.wikipedia.org/wiki/Constant_matem%C3%A0tica",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "ca_ES",
+    "key": "blockly-MATH_RANDOM_FLOAT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Random_number_generation",
+    "after": "https://ca.wikipedia.org/wiki/Generaci%C3%B3_de_nombres_aleatoris",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "ca_ES",
+    "key": "blockly-MATH_RANDOM_INT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Random_number_generation",
+    "after": "https://ca.wikipedia.org/wiki/Generaci%C3%B3_de_nombres_aleatoris",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "ca_ES",
+    "key": "blockly-MATH_TRIG_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Trigonometric_functions",
+    "after": "https://ca.wikipedia.org/wiki/Funci%C3%B3_trigonom%C3%A8trica",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "ca_ES",
+    "key": "blockly-PAUSE_KEY",
+    "before": "Pausa",
+    "after": "Pause",
+    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+  },
+  {
+    "locale": "ca_ES",
+    "key": "blockly-VARIABLES_DEFAULT_NAME",
+    "before": "article",
+    "after": "element",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ca_ES",
+    "key": "blockly-LISTS_CREATE_WITH_ITEM_TITLE",
+    "before": "article",
+    "after": "element",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ca_ES",
+    "key": "blockly-MATH_CHANGE_TITLE_ITEM",
+    "before": "article",
+    "after": "element",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ca_ES",
+    "key": "blockly-TEXT_APPEND_VARIABLE",
+    "before": "article",
+    "after": "element",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ca_ES",
+    "key": "blockly-TEXT_CREATE_JOIN_ITEM_TITLE_ITEM",
+    "before": "article",
+    "after": "element",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "cs-CZ",
+    "key": "blockly-CONTROL_KEY",
+    "before": "Kontrola",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "cs-CZ",
+    "key": "blockly-FIELD_BITMAP_BUTTON_LABEL_CLEAR",
+    "before": "Světlý",
+    "after": "Vymazat",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "cs-CZ",
+    "key": "blockly-MATH_MODULO_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Modulo_operation",
+    "after": "https://cs.wikipedia.org/wiki/Modul%C3%A1rn%C3%AD_aritmetika",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "cs-CZ",
+    "key": "blockly-PAUSE_KEY",
+    "before": "Pozastavit",
+    "after": "Pause",
+    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+  },
+  {
+    "locale": "cs-CZ",
+    "key": "r-blocks-view",
+    "before": "Blokuje",
+    "after": "Bloky",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "cs",
+    "key": "blockly-CONTROL_KEY",
+    "before": "Kontrola",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "cs",
+    "key": "blockly-FIELD_BITMAP_BUTTON_LABEL_CLEAR",
+    "before": "Světlý",
+    "after": "Vymazat",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "cs",
+    "key": "blockly-MATH_MODULO_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Modulo_operation",
+    "after": "https://cs.wikipedia.org/wiki/Modul%C3%A1rn%C3%AD_aritmetika",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "cs",
+    "key": "blockly-PAUSE_KEY",
+    "before": "Pozastavit",
+    "after": "Pause",
+    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+  },
+  {
+    "locale": "cs",
+    "key": "r-blocks-view",
+    "before": "Blokuje",
+    "after": "Bloky",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "da",
+    "key": "blockly-CONTROLS_REPEAT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/For_loop",
+    "after": "https://da.wikipedia.org/wiki/For-l%C3%B8kke",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "da",
+    "key": "blockly-CONTROL_KEY",
+    "before": "Kontrol",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "da",
+    "key": "blockly-INPUT_LABEL_NUMBER",
+    "before": "nummer",
+    "after": "tal",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "da",
+    "key": "blockly-PAUSE_KEY",
+    "before": "Sæt på pause",
+    "after": "Pause",
+    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+  },
+  {
+    "locale": "da",
+    "key": "r-blocks-view",
+    "before": "Blokerer",
+    "after": "Blokke",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "blockly-CONTROL_KEY",
+    "before": "Kontrolo",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "eo",
+    "key": "blockly-LOGIC_COMPARE_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Inequality_(mathematics)",
+    "after": "https://eo.wikipedia.org/wiki/Neegala%C4%B5o_(pli_granda,_malpli_granda)",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "eo",
+    "key": "blockly-PAUSE_KEY",
+    "before": "Paŭzigi",
+    "after": "Pause",
+    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+  },
+  {
+    "locale": "eo",
+    "key": "blockly-PROCEDURES_DEFNORETURN_TITLE",
+    "before": "a",
+    "after": "por",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "eo",
+    "key": "blockly-PROCEDURES_DEFRETURN_TITLE",
+    "before": "a",
+    "after": "por",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "es-AR",
+    "key": "blockly-CONTROL_KEY",
+    "before": "Control (gráfico)",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "es-AR",
+    "key": "blockly-MATH_ATAN2_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Atan2",
+    "after": "https://es.wikipedia.org/wiki/Arcotangente_de_dos_par%C3%A1metros",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "es-AR",
+    "key": "blockly-MATH_SINGLE_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Square_root",
+    "after": "https://es.wikipedia.org/wiki/Ra%C3%ADz_cuadrada",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "es-AR",
+    "key": "blockly-PAUSE_KEY",
+    "before": "Pausar",
+    "after": "Pause",
+    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+  },
+  {
+    "locale": "es-AR",
+    "key": "r-blocks-view",
+    "before": "Bloquea a",
+    "after": "Bloques",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "es-CL",
+    "key": "blockly-CONTROL_KEY",
+    "before": "Control (gráfico)",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "es-CL",
+    "key": "blockly-MATH_ATAN2_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Atan2",
+    "after": "https://es.wikipedia.org/wiki/Arcotangente_de_dos_par%C3%A1metros",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "es-CL",
+    "key": "blockly-MATH_SINGLE_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Square_root",
+    "after": "https://es.wikipedia.org/wiki/Ra%C3%ADz_cuadrada",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "es-CL",
+    "key": "blockly-PAUSE_KEY",
+    "before": "Pausar",
+    "after": "Pause",
+    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+  },
+  {
+    "locale": "es-CL",
+    "key": "r-blocks-view",
+    "before": "Bloquea a",
+    "after": "Bloques",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "es-CO",
+    "key": "blockly-COLOUR_RGB_RED",
+    "before": "roja",
+    "after": "rojo",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "es-CO",
+    "key": "blockly-CONTROL_KEY",
+    "before": "Control (gráfico)",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "es-CO",
+    "key": "blockly-END_KEY",
+    "before": "Finalizado",
+    "after": "Fin",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "es-CO",
+    "key": "blockly-MATH_ATAN2_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Atan2",
+    "after": "https://es.wikipedia.org/wiki/Arcotangente_de_dos_par%C3%A1metros",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "es-CO",
+    "key": "blockly-MATH_SINGLE_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Square_root",
+    "after": "https://es.wikipedia.org/wiki/Ra%C3%ADz_cuadrada",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "es-CO",
+    "key": "blockly-PAUSE_KEY",
+    "before": "Pausar",
+    "after": "Pause",
+    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+  },
+  {
+    "locale": "es-CO",
+    "key": "r-blocks-view",
+    "before": "Bloquea a",
+    "after": "Bloques",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "es-LA",
+    "key": "blockly-COLOUR_RGB_RED",
+    "before": "roja",
+    "after": "rojo",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "es-LA",
+    "key": "blockly-CONTROL_KEY",
+    "before": "Control (gráfico)",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "es-LA",
+    "key": "blockly-END_KEY",
+    "before": "Finalizado",
+    "after": "Fin",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "es-LA",
+    "key": "blockly-MATH_ATAN2_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Atan2",
+    "after": "https://es.wikipedia.org/wiki/Arcotangente_de_dos_par%C3%A1metros",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "es-LA",
+    "key": "blockly-MATH_SINGLE_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Square_root",
+    "after": "https://es.wikipedia.org/wiki/Ra%C3%ADz_cuadrada",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "es-LA",
+    "key": "blockly-PAUSE_KEY",
+    "before": "Pausar",
+    "after": "Pause",
+    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+  },
+  {
+    "locale": "es-LA",
+    "key": "r-blocks-view",
+    "before": "Bloquea a",
+    "after": "Bloques",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "es-MX",
+    "key": "blockly-COLOUR_RGB_RED",
+    "before": "roja",
+    "after": "rojo",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "es-MX",
+    "key": "blockly-CONTROL_KEY",
+    "before": "Control (gráfico)",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "es-MX",
+    "key": "blockly-END_KEY",
+    "before": "Finalizado",
+    "after": "Fin",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "es-MX",
+    "key": "blockly-MATH_ATAN2_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Atan2",
+    "after": "https://es.wikipedia.org/wiki/Arcotangente_de_dos_par%C3%A1metros",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "es-MX",
+    "key": "blockly-MATH_SINGLE_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Square_root",
+    "after": "https://es.wikipedia.org/wiki/Ra%C3%ADz_cuadrada",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "es-MX",
+    "key": "blockly-PAUSE_KEY",
+    "before": "Pausar",
+    "after": "Pause",
+    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+  },
+  {
+    "locale": "es-MX",
+    "key": "r-blocks-view",
+    "before": "Bloquea a",
+    "after": "Bloques",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "es-PE",
+    "key": "blockly-CONTROL_KEY",
+    "before": "Control (gráfico)",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "es-PE",
+    "key": "blockly-MATH_ATAN2_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Atan2",
+    "after": "https://es.wikipedia.org/wiki/Arcotangente_de_dos_par%C3%A1metros",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "es-PE",
+    "key": "blockly-MATH_SINGLE_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Square_root",
+    "after": "https://es.wikipedia.org/wiki/Ra%C3%ADz_cuadrada",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "es-PE",
+    "key": "blockly-PAUSE_KEY",
+    "before": "Pausar",
+    "after": "Pause",
+    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+  },
+  {
+    "locale": "es-PE",
+    "key": "r-blocks-view",
+    "before": "Bloquea a",
+    "after": "Bloques",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "es-PY",
+    "key": "blockly-COLOUR_RGB_RED",
+    "before": "roja",
+    "after": "rojo",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "es-PY",
+    "key": "blockly-CONTROL_KEY",
+    "before": "Control (gráfico)",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "es-PY",
+    "key": "blockly-END_KEY",
+    "before": "Finalizado",
+    "after": "Fin",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "es-PY",
+    "key": "blockly-MATH_ATAN2_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Atan2",
+    "after": "https://es.wikipedia.org/wiki/Arcotangente_de_dos_par%C3%A1metros",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "es-PY",
+    "key": "blockly-MATH_SINGLE_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Square_root",
+    "after": "https://es.wikipedia.org/wiki/Ra%C3%ADz_cuadrada",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "es-PY",
+    "key": "blockly-PAUSE_KEY",
+    "before": "Pausar",
+    "after": "Pause",
+    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+  },
+  {
+    "locale": "es-PY",
+    "key": "r-blocks-view",
+    "before": "Bloquea a",
+    "after": "Bloques",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "es",
+    "key": "blockly-CONTROL_KEY",
+    "before": "Control (gráfico)",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "es",
+    "key": "blockly-MATH_ATAN2_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Atan2",
+    "after": "https://es.wikipedia.org/wiki/Arcotangente_de_dos_par%C3%A1metros",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "es",
+    "key": "blockly-MATH_SINGLE_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Square_root",
+    "after": "https://es.wikipedia.org/wiki/Ra%C3%ADz_cuadrada",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "es",
+    "key": "blockly-PAUSE_KEY",
+    "before": "Pausar",
+    "after": "Pause",
+    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+  },
+  {
+    "locale": "es",
+    "key": "r-blocks-view",
+    "before": "Bloquea a",
+    "after": "Bloques",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "es_CO",
+    "key": "blockly-MATH_ATAN2_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Atan2",
+    "after": "https://es.wikipedia.org/wiki/Arcotangente_de_dos_par%C3%A1metros",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "es_CO",
+    "key": "blockly-MATH_SINGLE_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Square_root",
+    "after": "https://es.wikipedia.org/wiki/Ra%C3%ADz_cuadrada",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fa-IR",
+    "key": "blockly-CONTROL_KEY",
+    "before": "کنترل",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "fa-IR",
+    "key": "blockly-INPUT_LABEL_NUMBER",
+    "before": "شماره",
+    "after": "عدد",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "fa-IR",
+    "key": "blockly-MATH_ARITHMETIC_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Arithmetic",
+    "after": "https://fa.wikipedia.org/wiki/%D8%AD%D8%B3%D8%A7%D8%A8",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fa-IR",
+    "key": "blockly-MATH_NUMBER_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Number",
+    "after": "https://fa.wikipedia.org/wiki/%D8%B9%D8%AF%D8%AF",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fa-IR",
+    "key": "blockly-PAUSE_KEY",
+    "before": "توقف",
+    "after": "Pause",
+    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+  },
+  {
+    "locale": "fa-IR",
+    "key": "r-blocks-view",
+    "before": "مسدود می‌کند",
+    "after": "بلوک‌ها",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "fa",
+    "key": "blockly-CONTROL_KEY",
+    "before": "کنترل",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "fa",
+    "key": "blockly-INPUT_LABEL_NUMBER",
+    "before": "شماره",
+    "after": "عدد",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "fa",
+    "key": "blockly-MATH_ARITHMETIC_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Arithmetic",
+    "after": "https://fa.wikipedia.org/wiki/%D8%AD%D8%B3%D8%A7%D8%A8",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fa",
+    "key": "blockly-MATH_NUMBER_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Number",
+    "after": "https://fa.wikipedia.org/wiki/%D8%B9%D8%AF%D8%AF",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fa",
+    "key": "blockly-PAUSE_KEY",
+    "before": "توقف",
+    "after": "Pause",
+    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+  },
+  {
+    "locale": "fa",
+    "key": "r-blocks-view",
+    "before": "مسدود می‌کند",
+    "after": "بلوک‌ها",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "fi",
+    "key": "blockly-COLOUR_PICKER_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Color",
+    "after": "https://fi.wikipedia.org/wiki/V%C3%A4ri",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fi",
+    "key": "blockly-CONTROL_KEY",
+    "before": "Ohjaus",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "fi",
+    "key": "blockly-FIELD_BITMAP_BUTTON_LABEL_CLEAR",
+    "before": "Kirkas",
+    "after": "Tyhjennä",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "fi",
+    "key": "blockly-INPUT_LABEL_NUMBER",
+    "before": "numero",
+    "after": "luku",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "fi",
+    "key": "blockly-LOGIC_COMPARE_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Inequality_(mathematics)",
+    "after": "https://fi.wikipedia.org/wiki/Ep%C3%A4yht%C3%A4l%C3%B6",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fi",
+    "key": "blockly-MATH_ROUND_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Rounding",
+    "after": "https://fi.wikipedia.org/wiki/Py%C3%B6rist%C3%A4minen",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fi",
+    "key": "blockly-MATH_SINGLE_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Square_root",
+    "after": "https://fi.wikipedia.org/wiki/Neli%C3%B6juuri",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fi",
+    "key": "r-blocks-view",
+    "before": "Estää",
+    "after": "Lohkot",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "fr-BE",
+    "key": "blockly-CONTROL_KEY",
+    "before": "Contrôle",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "fr-BE",
+    "key": "blockly-INPUT_LABEL_NUMBER",
+    "before": "numéro",
+    "after": "nombre",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "fr-BE",
+    "key": "blockly-LOGIC_COMPARE_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Inequality_(mathematics)",
+    "after": "https://fr.wikipedia.org/wiki/In%C3%A9galit%C3%A9_(math%C3%A9matiques)",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-BE",
+    "key": "blockly-MATH_ARITHMETIC_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Arithmetic",
+    "after": "https://fr.wikipedia.org/wiki/Arithm%C3%A9tique",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-BE",
+    "key": "blockly-MATH_CONSTANT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Mathematical_constant",
+    "after": "https://fr.wikipedia.org/wiki/Table_de_constantes_math%C3%A9matiques",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-BE",
+    "key": "blockly-MATH_MODULO_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Modulo_operation",
+    "after": "https://fr.wikipedia.org/wiki/Modulo_(op%C3%A9ration)",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-BE",
+    "key": "blockly-MATH_RANDOM_FLOAT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Random_number_generation",
+    "after": "https://fr.wikipedia.org/wiki/G%C3%A9n%C3%A9rateur_de_nombres_al%C3%A9atoires",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-BE",
+    "key": "blockly-MATH_RANDOM_INT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Random_number_generation",
+    "after": "https://fr.wikipedia.org/wiki/G%C3%A9n%C3%A9rateur_de_nombres_al%C3%A9atoires",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-BE",
+    "key": "blockly-MATH_ROUND_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Rounding",
+    "after": "https://fr.wikipedia.org/wiki/Arrondi_(math%C3%A9matiques)",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-BE",
+    "key": "blockly-MATH_SINGLE_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Square_root",
+    "after": "https://fr.wikipedia.org/wiki/Racine_carr%C3%A9e",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-BE",
+    "key": "blockly-MATH_TRIG_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Trigonometric_functions",
+    "after": "https://fr.wikipedia.org/wiki/Fonction_trigonom%C3%A9trique",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-BE",
+    "key": "blockly-PAUSE_KEY",
+    "before": "Suspendre temporairement",
+    "after": "Pause",
+    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+  },
+  {
+    "locale": "fr-BE",
+    "key": "blockly-TEXT_TEXT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/String_(computer_science)",
+    "after": "https://fr.wikipedia.org/wiki/Cha%C3%AEne_de_caract%C3%A8res",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-BE",
+    "key": "r-blocks-view",
+    "before": "Bloque",
+    "after": "Blocs",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "fr-CA",
+    "key": "blockly-CONTROL_KEY",
+    "before": "Contrôle",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "fr-CA",
+    "key": "blockly-INPUT_LABEL_NUMBER",
+    "before": "numéro",
+    "after": "nombre",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "fr-CA",
+    "key": "blockly-LOGIC_COMPARE_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Inequality_(mathematics)",
+    "after": "https://fr.wikipedia.org/wiki/In%C3%A9galit%C3%A9_(math%C3%A9matiques)",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-CA",
+    "key": "blockly-MATH_ARITHMETIC_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Arithmetic",
+    "after": "https://fr.wikipedia.org/wiki/Arithm%C3%A9tique",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-CA",
+    "key": "blockly-MATH_CONSTANT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Mathematical_constant",
+    "after": "https://fr.wikipedia.org/wiki/Table_de_constantes_math%C3%A9matiques",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-CA",
+    "key": "blockly-MATH_MODULO_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Modulo_operation",
+    "after": "https://fr.wikipedia.org/wiki/Modulo_(op%C3%A9ration)",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-CA",
+    "key": "blockly-MATH_RANDOM_FLOAT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Random_number_generation",
+    "after": "https://fr.wikipedia.org/wiki/G%C3%A9n%C3%A9rateur_de_nombres_al%C3%A9atoires",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-CA",
+    "key": "blockly-MATH_RANDOM_INT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Random_number_generation",
+    "after": "https://fr.wikipedia.org/wiki/G%C3%A9n%C3%A9rateur_de_nombres_al%C3%A9atoires",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-CA",
+    "key": "blockly-MATH_ROUND_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Rounding",
+    "after": "https://fr.wikipedia.org/wiki/Arrondi_(math%C3%A9matiques)",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-CA",
+    "key": "blockly-MATH_SINGLE_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Square_root",
+    "after": "https://fr.wikipedia.org/wiki/Racine_carr%C3%A9e",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-CA",
+    "key": "blockly-MATH_TRIG_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Trigonometric_functions",
+    "after": "https://fr.wikipedia.org/wiki/Fonction_trigonom%C3%A9trique",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-CA",
+    "key": "blockly-PAUSE_KEY",
+    "before": "Suspendre temporairement",
+    "after": "Pause",
+    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+  },
+  {
+    "locale": "fr-CA",
+    "key": "blockly-TEXT_TEXT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/String_(computer_science)",
+    "after": "https://fr.wikipedia.org/wiki/Cha%C3%AEne_de_caract%C3%A8res",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-CA",
+    "key": "r-blocks-view",
+    "before": "Bloque",
+    "after": "Blocs",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "fr-CH",
+    "key": "blockly-CONTROL_KEY",
+    "before": "Contrôle",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "fr-CH",
+    "key": "blockly-INPUT_LABEL_NUMBER",
+    "before": "numéro",
+    "after": "nombre",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "fr-CH",
+    "key": "blockly-LOGIC_COMPARE_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Inequality_(mathematics)",
+    "after": "https://fr.wikipedia.org/wiki/In%C3%A9galit%C3%A9_(math%C3%A9matiques)",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-CH",
+    "key": "blockly-MATH_ARITHMETIC_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Arithmetic",
+    "after": "https://fr.wikipedia.org/wiki/Arithm%C3%A9tique",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-CH",
+    "key": "blockly-MATH_CONSTANT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Mathematical_constant",
+    "after": "https://fr.wikipedia.org/wiki/Table_de_constantes_math%C3%A9matiques",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-CH",
+    "key": "blockly-MATH_MODULO_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Modulo_operation",
+    "after": "https://fr.wikipedia.org/wiki/Modulo_(op%C3%A9ration)",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-CH",
+    "key": "blockly-MATH_RANDOM_FLOAT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Random_number_generation",
+    "after": "https://fr.wikipedia.org/wiki/G%C3%A9n%C3%A9rateur_de_nombres_al%C3%A9atoires",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-CH",
+    "key": "blockly-MATH_RANDOM_INT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Random_number_generation",
+    "after": "https://fr.wikipedia.org/wiki/G%C3%A9n%C3%A9rateur_de_nombres_al%C3%A9atoires",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-CH",
+    "key": "blockly-MATH_ROUND_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Rounding",
+    "after": "https://fr.wikipedia.org/wiki/Arrondi_(math%C3%A9matiques)",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-CH",
+    "key": "blockly-MATH_SINGLE_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Square_root",
+    "after": "https://fr.wikipedia.org/wiki/Racine_carr%C3%A9e",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-CH",
+    "key": "blockly-MATH_TRIG_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Trigonometric_functions",
+    "after": "https://fr.wikipedia.org/wiki/Fonction_trigonom%C3%A9trique",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-CH",
+    "key": "blockly-PAUSE_KEY",
+    "before": "Suspendre temporairement",
+    "after": "Pause",
+    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+  },
+  {
+    "locale": "fr-CH",
+    "key": "blockly-TEXT_TEXT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/String_(computer_science)",
+    "after": "https://fr.wikipedia.org/wiki/Cha%C3%AEne_de_caract%C3%A8res",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-CH",
+    "key": "r-blocks-view",
+    "before": "Bloque",
+    "after": "Blocs",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "fr-FR",
+    "key": "blockly-CONTROL_KEY",
+    "before": "Contrôle",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "fr-FR",
+    "key": "blockly-INPUT_LABEL_NUMBER",
+    "before": "numéro",
+    "after": "nombre",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "fr-FR",
+    "key": "blockly-LOGIC_COMPARE_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Inequality_(mathematics)",
+    "after": "https://fr.wikipedia.org/wiki/In%C3%A9galit%C3%A9_(math%C3%A9matiques)",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-FR",
+    "key": "blockly-MATH_ARITHMETIC_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Arithmetic",
+    "after": "https://fr.wikipedia.org/wiki/Arithm%C3%A9tique",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-FR",
+    "key": "blockly-MATH_CONSTANT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Mathematical_constant",
+    "after": "https://fr.wikipedia.org/wiki/Table_de_constantes_math%C3%A9matiques",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-FR",
+    "key": "blockly-MATH_MODULO_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Modulo_operation",
+    "after": "https://fr.wikipedia.org/wiki/Modulo_(op%C3%A9ration)",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-FR",
+    "key": "blockly-MATH_RANDOM_FLOAT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Random_number_generation",
+    "after": "https://fr.wikipedia.org/wiki/G%C3%A9n%C3%A9rateur_de_nombres_al%C3%A9atoires",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-FR",
+    "key": "blockly-MATH_RANDOM_INT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Random_number_generation",
+    "after": "https://fr.wikipedia.org/wiki/G%C3%A9n%C3%A9rateur_de_nombres_al%C3%A9atoires",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-FR",
+    "key": "blockly-MATH_ROUND_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Rounding",
+    "after": "https://fr.wikipedia.org/wiki/Arrondi_(math%C3%A9matiques)",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-FR",
+    "key": "blockly-MATH_SINGLE_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Square_root",
+    "after": "https://fr.wikipedia.org/wiki/Racine_carr%C3%A9e",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-FR",
+    "key": "blockly-MATH_TRIG_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Trigonometric_functions",
+    "after": "https://fr.wikipedia.org/wiki/Fonction_trigonom%C3%A9trique",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-FR",
+    "key": "blockly-PAUSE_KEY",
+    "before": "Suspendre temporairement",
+    "after": "Pause",
+    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+  },
+  {
+    "locale": "fr-FR",
+    "key": "blockly-TEXT_TEXT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/String_(computer_science)",
+    "after": "https://fr.wikipedia.org/wiki/Cha%C3%AEne_de_caract%C3%A8res",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr-FR",
+    "key": "r-blocks-view",
+    "before": "Bloque",
+    "after": "Blocs",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "fr",
+    "key": "blockly-CONTROL_KEY",
+    "before": "Contrôle",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "fr",
+    "key": "blockly-INPUT_LABEL_NUMBER",
+    "before": "numéro",
+    "after": "nombre",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "fr",
+    "key": "blockly-LOGIC_COMPARE_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Inequality_(mathematics)",
+    "after": "https://fr.wikipedia.org/wiki/In%C3%A9galit%C3%A9_(math%C3%A9matiques)",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr",
+    "key": "blockly-MATH_ARITHMETIC_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Arithmetic",
+    "after": "https://fr.wikipedia.org/wiki/Arithm%C3%A9tique",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr",
+    "key": "blockly-MATH_CONSTANT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Mathematical_constant",
+    "after": "https://fr.wikipedia.org/wiki/Table_de_constantes_math%C3%A9matiques",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr",
+    "key": "blockly-MATH_MODULO_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Modulo_operation",
+    "after": "https://fr.wikipedia.org/wiki/Modulo_(op%C3%A9ration)",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr",
+    "key": "blockly-MATH_RANDOM_FLOAT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Random_number_generation",
+    "after": "https://fr.wikipedia.org/wiki/G%C3%A9n%C3%A9rateur_de_nombres_al%C3%A9atoires",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr",
+    "key": "blockly-MATH_RANDOM_INT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Random_number_generation",
+    "after": "https://fr.wikipedia.org/wiki/G%C3%A9n%C3%A9rateur_de_nombres_al%C3%A9atoires",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr",
+    "key": "blockly-MATH_ROUND_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Rounding",
+    "after": "https://fr.wikipedia.org/wiki/Arrondi_(math%C3%A9matiques)",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr",
+    "key": "blockly-MATH_SINGLE_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Square_root",
+    "after": "https://fr.wikipedia.org/wiki/Racine_carr%C3%A9e",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr",
+    "key": "blockly-MATH_TRIG_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Trigonometric_functions",
+    "after": "https://fr.wikipedia.org/wiki/Fonction_trigonom%C3%A9trique",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr",
+    "key": "blockly-PAUSE_KEY",
+    "before": "Suspendre temporairement",
+    "after": "Pause",
+    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+  },
+  {
+    "locale": "fr",
+    "key": "blockly-TEXT_TEXT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/String_(computer_science)",
+    "after": "https://fr.wikipedia.org/wiki/Cha%C3%AEne_de_caract%C3%A8res",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "fr",
+    "key": "r-blocks-view",
+    "before": "Bloque",
+    "after": "Blocs",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "hu",
+    "key": "blockly-CONTROLS_REPEAT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/For_loop",
+    "after": "https://hu.wikipedia.org/wiki/Ciklus_(programoz%C3%A1s)#Sz.C3.A1ml.C3.A1l.C3.B3s_.28FOR.29_ciklus",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "hu",
+    "key": "blockly-CONTROL_KEY",
+    "before": "Vezérlés",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "hu",
+    "key": "blockly-FIELD_BITMAP_BUTTON_LABEL_CLEAR",
+    "before": "Világos",
+    "after": "Törlés",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "hu",
+    "key": "blockly-MATH_ARITHMETIC_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Arithmetic",
+    "after": "https://hu.wikipedia.org/wiki/Matematikai_m%C5%B1velet",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "hu",
+    "key": "blockly-MATH_MODULO_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Modulo_operation",
+    "after": "https://hu.wikipedia.org/wiki/Eg%C3%A9szr%C3%A9sz#Als.C3.B3_eg.C3.A9szr.C3.A9sz",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "hu",
+    "key": "blockly-MATH_NUMBER_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Number",
+    "after": "https://hu.wikipedia.org/wiki/Sz%C3%A1m",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "hu",
+    "key": "blockly-MATH_RANDOM_FLOAT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Random_number_generation",
+    "after": "https://hu.wikipedia.org/wiki/V%C3%A9letlen",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "hu",
+    "key": "blockly-MATH_RANDOM_INT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Random_number_generation",
+    "after": "https://hu.wikipedia.org/wiki/V%C3%A9letlen",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "hu",
+    "key": "blockly-MATH_ROUND_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Rounding",
+    "after": "https://hu.wikipedia.org/wiki/Eg%C3%A9szr%C3%A9sz#Kerek.C3.ADt.C3.A9s",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "hu",
+    "key": "blockly-MATH_SINGLE_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Square_root",
+    "after": "https://hu.wikipedia.org/wiki/Gy%C3%B6kvon%C3%A1s",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "hu",
+    "key": "blockly-MATH_TRIG_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Trigonometric_functions",
+    "after": "https://hu.wikipedia.org/wiki/Sz%C3%B6gf%C3%BCggv%C3%A9nyek",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "hu",
+    "key": "blockly-PAUSE_KEY",
+    "before": "Szüneteltetés",
+    "after": "Pause",
+    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+  },
+  {
+    "locale": "hu",
+    "key": "blockly-PROCEDURES_CALLNORETURN_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Subroutine",
+    "after": "https://hu.wikipedia.org/wiki/F%C3%BCggv%C3%A9ny_(programoz%C3%A1s)",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "hu",
+    "key": "blockly-PROCEDURES_CALLRETURN_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Subroutine",
+    "after": "https://hu.wikipedia.org/wiki/F%C3%BCggv%C3%A9ny_(programoz%C3%A1s)",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "hu",
+    "key": "r-blocks-view",
+    "before": "Blokkolja",
+    "after": "Blokkok",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "mn",
+    "key": "r-workflow-format",
+    "before": "Format",
+    "after": "Формат",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "mn",
+    "key": "move-progress-file",
+    "before": "File",
+    "after": "Файл",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "mn",
+    "key": "text",
+    "before": "Text",
+    "after": "Текст",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "mn",
+    "key": "azure-container",
+    "before": "Container",
+    "after": "Контейнер",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "mn",
+    "key": "file",
+    "before": "File",
+    "after": "Файл",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "mn",
+    "key": "server",
+    "before": "Server",
+    "after": "Сервер",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "mn",
+    "key": "protocol",
+    "before": "Protocol",
+    "after": "Протокол",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "mn",
+    "key": "flow-mr-mean",
+    "before": "Mean moving range",
+    "after": "MR̄",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "oc",
+    "key": "flow-mr-mean",
+    "before": "Mean moving range",
+    "after": "MR̄",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "oc",
+    "key": "blockly-BLOCK_LABEL_REPLACEABLE",
+    "before": "replaceable",
+    "after": "remplaçable",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "oc",
+    "key": "blockly-END_KEY",
+    "before": "End",
+    "after": "Fin",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "oc",
+    "key": "blockly-INPUT_LABEL_END_STATEMENT",
+    "before": "End %1",
+    "after": "Fin de %1",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "oc",
+    "key": "blockly-INPUT_LABEL_LOOP_TO",
+    "before": "ending number",
+    "after": "nombre final",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "oc",
+    "key": "blockly-INPUT_LABEL_MATH_DIVIDEND",
+    "before": "dividend",
+    "after": "dividende",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "oc",
+    "key": "blockly-LOGIC_NULL",
+    "before": "null",
+    "after": "nul",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "oc",
+    "key": "blockly-MATH_NUMBER_TOOLTIP",
+    "before": "A number.",
+    "after": "Un nombre.",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "oc",
+    "key": "blockly-MATH_TRIG_COS_ARIA",
+    "before": "cosine",
+    "after": "cosinus",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "oc",
+    "key": "blockly-MATH_TRIG_SIN_ARIA",
+    "before": "sine",
+    "after": "sinus",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pl-PL",
+    "key": "blockly-CONTROL_KEY",
+    "before": "Kontrola",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "pl-PL",
+    "key": "blockly-FIELD_BITMAP_BUTTON_LABEL_CLEAR",
+    "before": "Jasny",
+    "after": "Wyczyść",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "pl-PL",
+    "key": "blockly-INPUT_LABEL_NUMBER",
+    "before": "numer",
+    "after": "liczba",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "pl-PL",
+    "key": "blockly-MATH_ATAN2_TITLE",
+    "before": "atan2 of X:%1 Y:%2",
+    "after": "atan2 dla X:%1 Y:%2",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pl-PL",
+    "key": "blockly-PAUSE_KEY",
+    "before": "Wstrzymaj",
+    "after": "Pause",
+    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+  },
+  {
+    "locale": "pl-PL",
+    "key": "r-blocks-view",
+    "before": "Blokuje",
+    "after": "Bloki",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "pl",
+    "key": "blockly-CONTROL_KEY",
+    "before": "Kontrola",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "pl",
+    "key": "blockly-FIELD_BITMAP_BUTTON_LABEL_CLEAR",
+    "before": "Jasny",
+    "after": "Wyczyść",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "pl",
+    "key": "blockly-INPUT_LABEL_NUMBER",
+    "before": "numer",
+    "after": "liczba",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "pl",
+    "key": "blockly-MATH_ATAN2_TITLE",
+    "before": "atan2 of X:%1 Y:%2",
+    "after": "atan2 dla X:%1 Y:%2",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pl",
+    "key": "blockly-PAUSE_KEY",
+    "before": "Wstrzymaj",
+    "after": "Pause",
+    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+  },
+  {
+    "locale": "pl",
+    "key": "r-blocks-view",
+    "before": "Blokuje",
+    "after": "Bloki",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "pt-BR",
+    "key": "blockly-CONTROLS_REPEAT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/For_loop",
+    "after": "https://pt.wikipedia.org/wiki/Estrutura_de_repeti%C3%A7%C3%A3o#Repeti.C3.A7.C3.A3o_com_vari.C3.A1vel_de_controle",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt-BR",
+    "key": "blockly-CONTROL_KEY",
+    "before": "Controle",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "pt-BR",
+    "key": "blockly-LOGIC_COMPARE_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Inequality_(mathematics)",
+    "after": "https://pt.wikipedia.org/wiki/Inequa%C3%A7%C3%A3o",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt-BR",
+    "key": "blockly-MATH_ARITHMETIC_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Arithmetic",
+    "after": "https://pt.wikipedia.org/wiki/Aritm%C3%A9tica",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt-BR",
+    "key": "blockly-MATH_CHANGE_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Programming_idiom#Incrementing_a_counter",
+    "after": "https://pt.wikipedia.org/wiki/Adi%C3%A7%C3%A3o",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt-BR",
+    "key": "blockly-MATH_CONSTANT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Mathematical_constant",
+    "after": "https://pt.wikipedia.org/wiki/Anexo:Lista_de_constantes_matem%C3%A1ticas",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt-BR",
+    "key": "blockly-MATH_MODULO_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Modulo_operation",
+    "after": "https://pt.wikipedia.org/wiki/Opera%C3%A7%C3%A3o_m%C3%B3dulo",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt-BR",
+    "key": "blockly-MATH_NUMBER_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Number",
+    "after": "https://pt.wikipedia.org/wiki/N%C3%BAmero",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt-BR",
+    "key": "blockly-MATH_RANDOM_FLOAT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Random_number_generation",
+    "after": "https://pt.wikipedia.org/wiki/Gerador_de_n%C3%BAmeros_pseudoaleat%C3%B3rios",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt-BR",
+    "key": "blockly-MATH_RANDOM_INT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Random_number_generation",
+    "after": "https://pt.wikipedia.org/wiki/Gerador_de_n%C3%BAmeros_pseudoaleat%C3%B3rios",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt-BR",
+    "key": "blockly-MATH_TRIG_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Trigonometric_functions",
+    "after": "https://pt.wikipedia.org/wiki/Fun%C3%A7%C3%A3o_trigonom%C3%A9trica",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt-BR",
+    "key": "blockly-PAUSE_KEY",
+    "before": "Parar",
+    "after": "Pause",
+    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+  },
+  {
+    "locale": "pt-BR",
+    "key": "blockly-PROCEDURES_CALLNORETURN_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Subroutine",
+    "after": "https://pt.wikipedia.org/wiki/M%C3%A9todo_(programa%C3%A7%C3%A3o)",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt-BR",
+    "key": "blockly-PROCEDURES_DEFNORETURN_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Subroutine",
+    "after": "https://pt.wikipedia.org/wiki/M%C3%A9todo_(programa%C3%A7%C3%A3o)",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt-BR",
+    "key": "blockly-PROCEDURES_DEFRETURN_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Subroutine",
+    "after": "https://pt.wikipedia.org/wiki/M%C3%A9todo_(programa%C3%A7%C3%A3o)",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt-BR",
+    "key": "r-blocks-view",
+    "before": "Bloqueios",
+    "after": "Blocos",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "pt-PT",
+    "key": "blockly-CONTROLS_REPEAT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/For_loop",
+    "after": "https://pt.wikipedia.org/wiki/Estrutura_de_repeti%C3%A7%C3%A3o#Repeti.C3.A7.C3.A3o_com_vari.C3.A1vel_de_controle",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt-PT",
+    "key": "blockly-LOGIC_COMPARE_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Inequality_(mathematics)",
+    "after": "https://pt.wikipedia.org/wiki/Inequa%C3%A7%C3%A3o",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt-PT",
+    "key": "blockly-MATH_ARITHMETIC_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Arithmetic",
+    "after": "https://pt.wikipedia.org/wiki/Aritm%C3%A9tica",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt-PT",
+    "key": "blockly-MATH_CHANGE_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Programming_idiom#Incrementing_a_counter",
+    "after": "https://pt.wikipedia.org/wiki/Adi%C3%A7%C3%A3o",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt-PT",
+    "key": "blockly-MATH_CONSTANT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Mathematical_constant",
+    "after": "https://pt.wikipedia.org/wiki/Anexo:Lista_de_constantes_matem%C3%A1ticas",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt-PT",
+    "key": "blockly-MATH_MODULO_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Modulo_operation",
+    "after": "https://pt.wikipedia.org/wiki/Opera%C3%A7%C3%A3o_m%C3%B3dulo",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt-PT",
+    "key": "blockly-MATH_NUMBER_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Number",
+    "after": "https://pt.wikipedia.org/wiki/N%C3%BAmero",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt-PT",
+    "key": "blockly-MATH_RANDOM_FLOAT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Random_number_generation",
+    "after": "https://pt.wikipedia.org/wiki/N%C3%BAmero_aleat%C3%B3rio",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt-PT",
+    "key": "blockly-MATH_RANDOM_INT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Random_number_generation",
+    "after": "https://pt.wikipedia.org/wiki/N%C3%BAmero_aleat%C3%B3rio",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt-PT",
+    "key": "blockly-MATH_TRIG_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Trigonometric_functions",
+    "after": "https://pt.wikipedia.org/wiki/Fun%C3%A7%C3%A3o_trigonom%C3%A9trica",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt",
+    "key": "blockly-CONTROLS_REPEAT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/For_loop",
+    "after": "https://pt.wikipedia.org/wiki/Estrutura_de_repeti%C3%A7%C3%A3o#Repeti.C3.A7.C3.A3o_com_vari.C3.A1vel_de_controle",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt",
+    "key": "blockly-CONTROL_KEY",
+    "before": "Controle",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "pt",
+    "key": "blockly-LOGIC_COMPARE_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Inequality_(mathematics)",
+    "after": "https://pt.wikipedia.org/wiki/Inequa%C3%A7%C3%A3o",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt",
+    "key": "blockly-MATH_ARITHMETIC_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Arithmetic",
+    "after": "https://pt.wikipedia.org/wiki/Aritm%C3%A9tica",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt",
+    "key": "blockly-MATH_CHANGE_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Programming_idiom#Incrementing_a_counter",
+    "after": "https://pt.wikipedia.org/wiki/Adi%C3%A7%C3%A3o",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt",
+    "key": "blockly-MATH_CONSTANT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Mathematical_constant",
+    "after": "https://pt.wikipedia.org/wiki/Anexo:Lista_de_constantes_matem%C3%A1ticas",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt",
+    "key": "blockly-MATH_MODULO_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Modulo_operation",
+    "after": "https://pt.wikipedia.org/wiki/Opera%C3%A7%C3%A3o_m%C3%B3dulo",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt",
+    "key": "blockly-MATH_NUMBER_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Number",
+    "after": "https://pt.wikipedia.org/wiki/N%C3%BAmero",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt",
+    "key": "blockly-MATH_RANDOM_FLOAT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Random_number_generation",
+    "after": "https://pt.wikipedia.org/wiki/N%C3%BAmero_aleat%C3%B3rio",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt",
+    "key": "blockly-MATH_RANDOM_INT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Random_number_generation",
+    "after": "https://pt.wikipedia.org/wiki/N%C3%BAmero_aleat%C3%B3rio",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt",
+    "key": "blockly-MATH_TRIG_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Trigonometric_functions",
+    "after": "https://pt.wikipedia.org/wiki/Fun%C3%A7%C3%A3o_trigonom%C3%A9trica",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt",
+    "key": "blockly-PAUSE_KEY",
+    "before": "Parar",
+    "after": "Pause",
+    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+  },
+  {
+    "locale": "pt",
+    "key": "r-blocks-view",
+    "before": "Bloqueia",
+    "after": "Blocos",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "pt_PT",
+    "key": "blockly-CONTROLS_REPEAT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/For_loop",
+    "after": "https://pt.wikipedia.org/wiki/Estrutura_de_repeti%C3%A7%C3%A3o#Repeti.C3.A7.C3.A3o_com_vari.C3.A1vel_de_controle",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt_PT",
+    "key": "blockly-CONTROL_KEY",
+    "before": "Controlo",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "pt_PT",
+    "key": "blockly-LOGIC_COMPARE_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Inequality_(mathematics)",
+    "after": "https://pt.wikipedia.org/wiki/Inequa%C3%A7%C3%A3o",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt_PT",
+    "key": "blockly-MATH_ARITHMETIC_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Arithmetic",
+    "after": "https://pt.wikipedia.org/wiki/Aritm%C3%A9tica",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt_PT",
+    "key": "blockly-MATH_CHANGE_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Programming_idiom#Incrementing_a_counter",
+    "after": "https://pt.wikipedia.org/wiki/Adi%C3%A7%C3%A3o",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt_PT",
+    "key": "blockly-MATH_CONSTANT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Mathematical_constant",
+    "after": "https://pt.wikipedia.org/wiki/Anexo:Lista_de_constantes_matem%C3%A1ticas",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt_PT",
+    "key": "blockly-MATH_MODULO_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Modulo_operation",
+    "after": "https://pt.wikipedia.org/wiki/Opera%C3%A7%C3%A3o_m%C3%B3dulo",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt_PT",
+    "key": "blockly-MATH_NUMBER_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Number",
+    "after": "https://pt.wikipedia.org/wiki/N%C3%BAmero",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt_PT",
+    "key": "blockly-MATH_RANDOM_FLOAT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Random_number_generation",
+    "after": "https://pt.wikipedia.org/wiki/N%C3%BAmero_aleat%C3%B3rio",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt_PT",
+    "key": "blockly-MATH_RANDOM_INT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Random_number_generation",
+    "after": "https://pt.wikipedia.org/wiki/N%C3%BAmero_aleat%C3%B3rio",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt_PT",
+    "key": "blockly-MATH_TRIG_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Trigonometric_functions",
+    "after": "https://pt.wikipedia.org/wiki/Fun%C3%A7%C3%A3o_trigonom%C3%A9trica",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "pt_PT",
+    "key": "blockly-PAUSE_KEY",
+    "before": "Parar",
+    "after": "Pause",
+    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+  },
+  {
+    "locale": "sl",
+    "key": "zoom-in",
+    "before": "Приближи",
+    "after": "Povečaj",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "sl",
+    "key": "zoom-out",
+    "before": "Одаљи",
+    "after": "Pomanjšaj",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "sl",
+    "key": "help",
+    "before": "Помоћ",
+    "after": "Pomoč",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "sl",
+    "key": "blockly-CONTROL_KEY",
+    "before": "Nadzor",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "sl",
+    "key": "blockly-DIALOG_OK",
+    "before": "Сагласан",
+    "after": "V redu",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "sl",
+    "key": "blockly-FIELD_BITMAP_BUTTON_LABEL_CLEAR",
+    "before": "Jasno",
+    "after": "Počisti",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "sl",
+    "key": "blockly-INPUT_LABEL_NUMBER",
+    "before": "številka",
+    "after": "število",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "sl",
+    "key": "blockly-MATH_NUMBER_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Number",
+    "after": "https://sl.wikipedia.org/wiki/%C5%A0tevilo",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "sl",
+    "key": "blockly-MATH_ROUND_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Rounding",
+    "after": "https://sl.wikipedia.org/wiki/Zaokro%C5%BEanje",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "sl",
+    "key": "blockly-PAUSE_KEY",
+    "before": "Предах",
+    "after": "Pause",
+    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+  },
+  {
+    "locale": "sl",
+    "key": "blockly-PROCEDURES_DEFNORETURN_TITLE",
+    "before": "naslovnik",
+    "after": "izvedi",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "sl",
+    "key": "blockly-PROCEDURES_DEFRETURN_TITLE",
+    "before": "naslovnik",
+    "after": "izvedi",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "sl",
+    "key": "r-blocks-view",
+    "before": "Blokira",
+    "after": "Bloki",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "zoom-in",
+    "before": "Приближи",
+    "after": "Povečaj",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "zoom-out",
+    "before": "Одаљи",
+    "after": "Pomanjšaj",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "help",
+    "before": "Помоћ",
+    "after": "Pomoč",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "blockly-CONTROL_KEY",
+    "before": "Nadzor",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "blockly-DIALOG_OK",
+    "before": "Сагласан",
+    "after": "V redu",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "blockly-FIELD_BITMAP_BUTTON_LABEL_CLEAR",
+    "before": "Jasno",
+    "after": "Počisti",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "blockly-INPUT_LABEL_NUMBER",
+    "before": "številka",
+    "after": "število",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "blockly-MATH_NUMBER_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Number",
+    "after": "https://sl.wikipedia.org/wiki/%C5%A0tevilo",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "blockly-MATH_ROUND_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Rounding",
+    "after": "https://sl.wikipedia.org/wiki/Zaokro%C5%BEanje",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "blockly-PAUSE_KEY",
+    "before": "Предах",
+    "after": "Pause",
+    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "blockly-PROCEDURES_DEFNORETURN_TITLE",
+    "before": "naslovnik",
+    "after": "izvedi",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "blockly-PROCEDURES_DEFRETURN_TITLE",
+    "before": "naslovnik",
+    "after": "izvedi",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "r-blocks-view",
+    "before": "Blokira",
+    "after": "Bloki",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "sv",
+    "key": "blockly-CONTROL_KEY",
+    "before": "Styrdiagram",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "sv",
+    "key": "blockly-FIELD_BITMAP_BUTTON_LABEL_CLEAR",
+    "before": "Klar",
+    "after": "Rensa",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "sv",
+    "key": "blockly-INPUT_LABEL_NUMBER",
+    "before": "nummer",
+    "after": "tal",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "sv",
+    "key": "blockly-PAUSE_KEY",
+    "before": "Pausa",
+    "after": "Pause",
+    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+  },
+  {
+    "locale": "sv",
+    "key": "blockly-TEXT_TEXT_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/String_(computer_science)",
+    "after": "https://sv.wikipedia.org/wiki/Str%C3%A4ng_(data)",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "sv",
+    "key": "r-blocks-view",
+    "before": "Blockerar",
+    "after": "Block",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "vi-VN",
+    "key": "zoom-in",
+    "before": "Zum masuk",
+    "after": "Phóng to",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "vi-VN",
+    "key": "zoom-out",
+    "before": "Zum keluar",
+    "after": "Thu nhỏ",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "vi-VN",
+    "key": "blockly-COLOUR_PICKER_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Color",
+    "after": "https://vi.wikipedia.org/wiki/M%C3%A0u_s%E1%BA%AFc",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "vi-VN",
+    "key": "blockly-COLOUR_RGB_BLUE",
+    "before": "biru",
+    "after": "màu xanh dương",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "vi-VN",
+    "key": "blockly-COLOUR_RGB_GREEN",
+    "before": "hijau",
+    "after": "màu xanh lá cây",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "vi-VN",
+    "key": "blockly-COLOUR_RGB_RED",
+    "before": "merah",
+    "after": "màu đỏ",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "vi-VN",
+    "key": "blockly-CONTROL_KEY",
+    "before": "Kiểm soát",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "vi-VN",
+    "key": "blockly-FIELD_BITMAP_BUTTON_LABEL_CLEAR",
+    "before": "Trong suốt",
+    "after": "Xóa sạch",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "vi-VN",
+    "key": "blockly-MATH_TRIG_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Trigonometric_functions",
+    "after": "https://vi.wikipedia.org/wiki/H%C3%A0m_l%C6%B0%E1%BB%A3ng_gi%C3%A1c",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "vi-VN",
+    "key": "blockly-PAUSE_KEY",
+    "before": "Tạm dừng",
+    "after": "Pause",
+    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+  },
+  {
+    "locale": "vi-VN",
+    "key": "blockly-PROCEDURES_CALLNORETURN_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Subroutine",
+    "after": "https://vi.wikipedia.org/wiki/Ch%C6%B0%C6%A1ng_tr%C3%ACnh_con",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "vi-VN",
+    "key": "blockly-PROCEDURES_CALLRETURN_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Subroutine",
+    "after": "https://vi.wikipedia.org/wiki/Ch%C6%B0%C6%A1ng_tr%C3%ACnh_con",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "vi-VN",
+    "key": "blockly-PROCEDURES_DEFNORETURN_TITLE",
+    "before": "đến",
+    "after": "thủ tục để",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "vi-VN",
+    "key": "blockly-PROCEDURES_DEFRETURN_TITLE",
+    "before": "đến",
+    "after": "thủ tục để",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "vi-VN",
+    "key": "r-blocks-view",
+    "before": "Chặn",
+    "after": "Các khối",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "vi",
+    "key": "zoom-in",
+    "before": "Zum masuk",
+    "after": "Phóng to",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "vi",
+    "key": "zoom-out",
+    "before": "Zum keluar",
+    "after": "Thu nhỏ",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "vi",
+    "key": "blockly-COLOUR_PICKER_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Color",
+    "after": "https://vi.wikipedia.org/wiki/M%C3%A0u_s%E1%BA%AFc",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "vi",
+    "key": "blockly-COLOUR_RGB_BLUE",
+    "before": "biru",
+    "after": "màu xanh dương",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "vi",
+    "key": "blockly-COLOUR_RGB_GREEN",
+    "before": "hijau",
+    "after": "màu xanh lá cây",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "vi",
+    "key": "blockly-COLOUR_RGB_RED",
+    "before": "merah",
+    "after": "màu đỏ",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "vi",
+    "key": "blockly-CONTROL_KEY",
+    "before": "Kiểm soát",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "vi",
+    "key": "blockly-FIELD_BITMAP_BUTTON_LABEL_CLEAR",
+    "before": "Trong suốt",
+    "after": "Xóa sạch",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "vi",
+    "key": "blockly-MATH_TRIG_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Trigonometric_functions",
+    "after": "https://vi.wikipedia.org/wiki/H%C3%A0m_l%C6%B0%E1%BB%A3ng_gi%C3%A1c",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "vi",
+    "key": "blockly-PAUSE_KEY",
+    "before": "Tạm dừng",
+    "after": "Pause",
+    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+  },
+  {
+    "locale": "vi",
+    "key": "blockly-PROCEDURES_CALLNORETURN_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Subroutine",
+    "after": "https://vi.wikipedia.org/wiki/Ch%C6%B0%C6%A1ng_tr%C3%ACnh_con",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "vi",
+    "key": "blockly-PROCEDURES_CALLRETURN_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Subroutine",
+    "after": "https://vi.wikipedia.org/wiki/Ch%C6%B0%C6%A1ng_tr%C3%ACnh_con",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "vi",
+    "key": "r-blocks-view",
+    "before": "Chặn",
+    "after": "Các khối",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "vo",
+    "key": "flow-mr-mean",
+    "before": "Mean moving range",
+    "after": "MR̄",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "wa",
+    "key": "flow-mr-mean",
+    "before": "Mean moving range",
+    "after": "MR̄",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "wa",
+    "key": "blockly-CONTROL_KEY",
+    "before": "Controle",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "wa",
+    "key": "blockly-PAUSE_KEY",
+    "before": "Djoker",
+    "after": "Pause",
+    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+  },
+  {
+    "locale": "wo",
+    "key": "flow-mr-mean",
+    "before": "Mean moving range",
+    "after": "MR̄",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "yo",
+    "key": "blockly-CONTROL_KEY",
+    "before": "Ìdarí",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "yo",
+    "key": "blockly-MATH_SINGLE_HELPURL",
+    "before": "https://en.wikipedia.org/wiki/Square_root",
+    "after": "https://yo.wikipedia.org/wiki/Gb%C3%B2ngb%C3%B2_al%C3%A1gb%C3%A1ram%C3%A9j%C3%AC",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "yo",
+    "key": "blockly-PAUSE_KEY",
+    "before": "Sinmi",
+    "after": "Pause",
+    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+  },
+  {
+    "locale": "zgh",
+    "key": "flow-mr-mean",
+    "before": "Mean moving range",
+    "after": "MR̄",
+    "reason": "Retain the existing localized label, mathematical notation or localized help link instead of the English fallback."
+  },
+  {
+    "locale": "zh-Hant",
+    "key": "blockly-CONTROL_KEY",
+    "before": "控制圖",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "zh-Hant",
+    "key": "blockly-PAUSE_KEY",
+    "before": "暫停",
+    "after": "Pause",
+    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+  },
+  {
+    "locale": "zh-Hant",
+    "key": "blockly-PROCEDURES_DEFNORETURN_TITLE",
+    "before": "收件人",
+    "after": "到",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "zh-Hant",
+    "key": "blockly-PROCEDURES_DEFRETURN_TITLE",
+    "before": "收件人",
+    "after": "到",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "zh-Hant",
+    "key": "r-blocks-view",
+    "before": "阻擋",
+    "after": "積木",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "zh-TW",
+    "key": "blockly-CONTROL_KEY",
+    "before": "控制",
+    "after": "Ctrl",
+    "reason": "This identifies the keyboard Control key, not a chart or the act of controlling."
+  },
+  {
+    "locale": "zh-TW",
+    "key": "blockly-FIELD_BITMAP_BUTTON_LABEL_CLEAR",
+    "before": "透明",
+    "after": "清除",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "zh-TW",
+    "key": "blockly-PAUSE_KEY",
+    "before": "暫停",
+    "after": "Pause",
+    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+  },
+  {
+    "locale": "zh-TW",
+    "key": "r-blocks-view",
+    "before": "阻擋",
+    "after": "積木",
+    "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
+  },
+  {
+    "locale": "ar",
+    "key": "scrum-completed",
+    "before": "تمام شده",
+    "after": "مكتمل",
+    "reason": "Replace Persian with Arabic completion labels."
+  },
+  {
+    "locale": "ar",
+    "key": "scrum-category-done",
+    "before": "انجام شده",
+    "after": "تم",
+    "reason": "Replace Persian with Arabic completion labels."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "scrum-completed",
+    "before": "تمام شده",
+    "after": "مكتمل",
+    "reason": "Replace Persian with Arabic completion labels."
+  },
+  {
+    "locale": "ar-DZ",
+    "key": "scrum-category-done",
+    "before": "انجام شده",
+    "after": "تم",
+    "reason": "Replace Persian with Arabic completion labels."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "scrum-completed",
+    "before": "تمام شده",
+    "after": "مكتمل",
+    "reason": "Replace Persian with Arabic completion labels."
+  },
+  {
+    "locale": "ar-EG",
+    "key": "scrum-category-done",
+    "before": "انجام شده",
+    "after": "تم",
+    "reason": "Replace Persian with Arabic completion labels."
+  },
+  {
+    "locale": "fa",
+    "key": "scrum-state-closed",
+    "before": "مقفل",
+    "after": "بسته",
+    "reason": "Replace Arabic with Persian sprint states."
+  },
+  {
+    "locale": "fa",
+    "key": "scrum-state-cancelled",
+    "before": "الغاء",
+    "after": "لغوشده",
+    "reason": "Replace Arabic with Persian sprint states."
+  },
+  {
+    "locale": "sl",
+    "key": "scrum-state-closed",
+    "before": "Затворен",
+    "after": "Zaključen",
+    "reason": "Replace Serbian with Slovenian sprint states."
+  },
+  {
+    "locale": "sl",
+    "key": "scrum-state-cancelled",
+    "before": "Поништено",
+    "after": "Preklican",
+    "reason": "Replace Serbian with Slovenian sprint states."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "scrum-state-closed",
+    "before": "Затворен",
+    "after": "Zaključen",
+    "reason": "Replace Serbian with Slovenian sprint states."
+  },
+  {
+    "locale": "sl_SI",
+    "key": "scrum-state-cancelled",
+    "before": "Поништено",
+    "after": "Preklican",
+    "reason": "Replace Serbian with Slovenian sprint states."
+  },
+  {
+    "locale": "vi",
+    "key": "scrum-state-closed",
+    "before": "Tutup",
+    "after": "Đã đóng",
+    "reason": "Replace Malay with Vietnamese sprint states."
+  },
+  {
+    "locale": "vi",
+    "key": "scrum-state-cancelled",
+    "before": "Batal",
+    "after": "Đã hủy",
+    "reason": "Replace Malay with Vietnamese sprint states."
+  },
+  {
+    "locale": "vi-VN",
+    "key": "scrum-state-closed",
+    "before": "Tutup",
+    "after": "Đã đóng",
+    "reason": "Replace Malay with Vietnamese sprint states."
+  },
+  {
+    "locale": "vi-VN",
+    "key": "scrum-state-cancelled",
+    "before": "Batal",
+    "after": "Đã hủy",
+    "reason": "Replace Malay with Vietnamese sprint states."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "r-blocks-view",
+    "before": "Bloqueja",
+    "after": "Blocs",
+    "reason": "Use the programming-block noun and mathematical number, not blocking or an identifying number."
+  },
+  {
+    "locale": "ca@valencia",
+    "key": "blockly-INPUT_LABEL_NUMBER",
+    "before": "número",
+    "after": "nombre",
+    "reason": "Use the programming-block noun and mathematical number, not blocking or an identifying number."
+  },
+  {
+    "locale": "ca_ES",
+    "key": "r-blocks-view",
+    "before": "Bloqueja",
+    "after": "Blocs",
+    "reason": "Use the programming-block noun and mathematical number, not blocking or an identifying number."
+  },
+  {
+    "locale": "ca_ES",
+    "key": "blockly-INPUT_LABEL_NUMBER",
+    "before": "número",
+    "after": "nombre",
+    "reason": "Use the programming-block noun and mathematical number, not blocking or an identifying number."
+  },
+  {
+    "locale": "eo",
+    "key": "r-blocks-view",
+    "before": "Blokas",
+    "after": "Blokoj",
+    "reason": "Use the block noun and erase action, not blocking and clear-as-bright."
+  },
+  {
+    "locale": "eo",
+    "key": "blockly-FIELD_BITMAP_BUTTON_LABEL_CLEAR",
+    "before": "Klara",
+    "after": "Forviŝi",
+    "reason": "Use the block noun and erase action, not blocking and clear-as-bright."
+  },
+  {
+    "locale": "pt",
+    "key": "scrum-state-active",
+    "before": "Activo",
+    "after": "Ativo",
+    "reason": "Use Portuguese block and sprint labels."
+  },
+  {
+    "locale": "pt",
+    "key": "scrum-completed",
+    "before": "Completada",
+    "after": "Concluído",
+    "reason": "Use Portuguese block and sprint labels."
+  },
+  {
+    "locale": "pt_PT",
+    "key": "r-blocks-view",
+    "before": "Bloqueia",
+    "after": "Blocos",
+    "reason": "Use Portuguese block and sprint labels."
+  },
+  {
+    "locale": "pt_PT",
+    "key": "scrum-state-active",
+    "before": "Activo",
+    "after": "Ativo",
+    "reason": "Use Portuguese block and sprint labels."
+  },
+  {
+    "locale": "pt_PT",
+    "key": "scrum-completed",
+    "before": "Completada",
+    "after": "Concluído",
+    "reason": "Use Portuguese block and sprint labels."
+  },
+  {
+    "locale": "zh-Hant",
+    "key": "blockly-END_KEY",
+    "before": "完成日",
+    "after": "End",
+    "reason": "Keyboard End is not a completion date; numeric input is not an identifier."
+  },
+  {
+    "locale": "zh-Hant",
+    "key": "blockly-INPUT_LABEL_NUMBER",
+    "before": "編號",
+    "after": "數值",
+    "reason": "Keyboard End is not a completion date; numeric input is not an identifier."
+  },
+  {
+    "locale": "yo",
+    "key": "r-blocks-view",
+    "before": "Dena",
+    "after": "Àwọn bulọọku",
+    "reason": "Use Yoruba block noun and deletion action, not prevent or clear-as-obvious."
+  },
+  {
+    "locale": "yo",
+    "key": "blockly-FIELD_BITMAP_BUTTON_LABEL_CLEAR",
+    "before": "Kedere",
+    "after": "Pa rẹ́",
+    "reason": "Use Yoruba block noun and deletion action, not prevent or clear-as-obvious."
+  },
+  {
+    "locale": "wa",
+    "key": "blockly-FIELD_BITMAP_BUTTON_LABEL_CLEAR",
+    "before": "RANEti",
+    "after": "Netyî",
+    "reason": "Use Walloon action and state wording; technical block noun. Walloon wording needs fluent review."
+  },
+  {
+    "locale": "wa",
+    "key": "blockly-INPUT_LABEL_NUMBER",
+    "before": "limero",
+    "after": "nombe",
+    "reason": "Use Walloon action and state wording; technical block noun. Walloon wording needs fluent review."
+  },
+  {
+    "locale": "wa",
+    "key": "r-blocks-view",
+    "before": "Bloke",
+    "after": "Blocs",
+    "reason": "Use Walloon action and state wording; technical block noun. Walloon wording needs fluent review."
+  },
+  {
+    "locale": "wa",
+    "key": "scrum-state-active",
+    "before": "Actifs",
+    "after": "Actif",
+    "reason": "Use Walloon action and state wording; technical block noun. Walloon wording needs fluent review."
+  },
+  {
+    "locale": "wa",
+    "key": "scrum-state-closed",
+    "before": "Clôturé",
+    "after": "Cloyou",
+    "reason": "Use Walloon action and state wording; technical block noun. Walloon wording needs fluent review."
+  },
+  {
+    "locale": "ur",
+    "key": "blockly-CONTROLS_FOREACH_TITLE",
+    "before": "प्रत्येक چیز کیلئے %1 فہرست ميں %2",
+    "after": "فہرست %2 میں ہر شے %1 کے لیے",
+    "reason": "Replace Hindi fragments with Urdu while preserving Blockly argument tokens."
+  },
+  {
+    "locale": "ur",
+    "key": "blockly-CONTROLS_FOR_TOOLTIP",
+    "before": "کیا چر '%1' ابتدا عدد سے اختتام عدد تک मानों کو لیتا ہے، निर्दिष्ट अंतराल کے تحت گنتی کرتا ہے، اور निर्दिष्ट रुकावटों کو کرتا ہے۔",
+    "after": "متغیر '%1' کو ابتدائی عدد سے آخری عدد تک مقررہ وقفے سے قدریں دیں اور مقررہ بلاکس چلائیں۔",
+    "reason": "Replace Hindi fragments with Urdu while preserving Blockly argument tokens."
+  },
+  {
+    "locale": "or_IN",
+    "key": "calendar-system",
+    "before": "कैलेंडर प्रणाली (तिथि प्रदर्शन)",
+    "after": "କ୍ୟାଲେଣ୍ଡର ପ୍ରଣାଳୀ (ତାରିଖ ପ୍ରଦର୍ଶନ)",
+    "reason": "Replace Hindi calendar labels with Odia."
+  },
+  {
+    "locale": "or_IN",
+    "key": "calendar-system-gregorian",
+    "before": "ग्रेगोरियन",
+    "after": "ଗ୍ରେଗୋରିୟାନ୍",
+    "reason": "Replace Hindi calendar labels with Odia."
+  },
+  {
+    "locale": "or_IN",
+    "key": "calendar-system-jalali",
+    "before": "जलाली (फ़ारसी)",
+    "after": "ଜଲାଲି (ପାର୍ସୀ)",
+    "reason": "Replace Hindi calendar labels with Odia."
+  },
+  {
+    "locale": "bho",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "ग्रेगोरियन",
+    "reason": "Replace foreign calendar adjective with the Bhojpuri-script calendar name."
+  },
+  {
+    "locale": "bua",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "Григорианай",
+    "reason": "Use the Buryat calendar adjective."
+  },
+  {
+    "locale": "sah",
+    "key": "calendar-system-gregorian",
+    "before": "Gregoriana",
+    "after": "Григориан",
+    "reason": "Use the Sakha-script calendar name."
+  },
+  {
+    "locale": "hi",
+    "key": "blockly-MATH_CONSTANT_TOOLTIP",
+    "before": "सामान्य स्थिरांक में से एक को वापस लौटें:π (3.141…), e (2.718…), φ (1.618…), sqrt(2) (1.414…), sqrt(½) (0.707…), or ∞ (infinity)।",
+    "after": "सामान्य स्थिरांक में से एक को वापस लौटें:π (3.141…), e (2.718…), φ (1.618…), sqrt(2) (1.414…), sqrt(½) (0.707…), या ∞ (अनंत)।",
+    "reason": "Translate the remaining English constant-tooltip prose while retaining mathematical notation."
+  },
+  {
+    "locale": "hi-IN",
+    "key": "blockly-MATH_CONSTANT_TOOLTIP",
+    "before": "सामान्य स्थिरांक में से एक को वापस लौटें:π (3.141…), e (2.718…), φ (1.618…), sqrt(2) (1.414…), sqrt(½) (0.707…), or ∞ (infinity)।",
+    "after": "सामान्य स्थिरांक में से एक को वापस लौटें:π (3.141…), e (2.718…), φ (1.618…), sqrt(2) (1.414…), sqrt(½) (0.707…), या ∞ (अनंत)।",
+    "reason": "Translate the remaining English constant-tooltip prose while retaining mathematical notation."
+  },
+  {
+    "locale": "kn",
+    "key": "blockly-MATH_CONSTANT_TOOLTIP",
+    "before": "ಸಾಮಾನ್ಯ ಸ್ಥಿರಾಂಕಗಳಲ್ಲಿ ಒಂದನ್ನು ಹಿಂತಿರುಗಿಸಿ:π (3.141…), e (2.718…), φ (1.618…), sqrt(2) (1.414…), sqrt(½) (0.707…), or ∞ (infinity).",
+    "after": "ಸಾಮಾನ್ಯ ಸ್ಥಿರಾಂಕಗಳಲ್ಲಿ ಒಂದನ್ನು ಹಿಂತಿರುಗಿಸಿ:π (3.141…), e (2.718…), φ (1.618…), sqrt(2) (1.414…), sqrt(½) (0.707…), ಅಥವಾ ∞ (ಅನಂತ).",
+    "reason": "Translate the remaining English constant-tooltip prose while retaining mathematical notation."
+  },
+  {
+    "locale": "ta",
+    "key": "blockly-MATH_CONSTANT_TOOLTIP",
+    "before": "ஒரு மாறிலியை பின்கொடு π (3.141…), e (2.718…), φ (1.618…), sqrt(2) (1.414…), sqrt(½) (0.707…), or ∞ (முடிவிலி).",
+    "after": "ஒரு மாறிலியை பின்கொடு π (3.141…), e (2.718…), φ (1.618…), sqrt(2) (1.414…), sqrt(½) (0.707…), அல்லது ∞ (முடிவிலி).",
+    "reason": "Translate the remaining English constant-tooltip prose while retaining mathematical notation."
+  },
+  {
+    "locale": "zgh",
+    "key": "smtp-port",
+    "before": "SMTP Port",
+    "after": "SMTP ⵒⵓⵔⵜ",
+    "reason": "Reuse the existing Tamazight S3 port term for SMTP."
+  },
+  {
+    "locale": "wa",
+    "key": "flow-unusual",
+    "before": "Outside limit",
+    "after": "Foû des limites",
+    "reason": "Use Walloon outside-limit wording instead of the English fallback; fluent review remains useful."
+  },
+  {
+    "locale": "zgh",
+    "key": "smtp-port",
+    "before": "Port SMTP",
+    "after": "SMTP ⵒⵓⵔⵜ",
+    "reason": "Use the existing Tamazight networking loanword spelling consistently with S3 port, superseding the earlier provisional French-script spelling."
+  }
+]
