@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Random } from 'meteor/random';
+import { EJSON } from 'meteor/ejson';
 import Boards from '/models/boards';
 import Cards from '/models/cards';
 import Lists from '/models/lists';
@@ -8,6 +9,8 @@ import ScrumSprints from '/models/scrumSprints';
 import ScrumReleases from '/models/scrumReleases';
 import ScrumEvents from '/models/scrumEvents';
 import ScrumDailySnapshots from '/models/scrumDailySnapshots';
+import { ScrumImportPending, ScrumImportSteps } from './scrumImportJournal';
+const { writeImportPlan } = require('/server/lib/scrumImportWriter');
 const { dailyObservationId } = require('/server/lib/scrumDailyCapture');
 const { normalizeScrumTransfer, remapScrumTransfer, normalizeScrumTransferLosses } = require('/models/lib/scrumTransfer');
 
@@ -44,32 +47,52 @@ export async function importScrumTransfer(creator, source, boardId) {
   for (const key of ['cards','lists','swimlanes','customFields']) maps[key] = new Map(Object.entries(creator[key]));
   maps.users = new Map(Object.entries(creator.members));
   const { transfer, losses } = remapScrumTransfer(normalized, maps);
+  const steps = [];
   // All IDs have been allocated and validated before planning documents are
   // persisted. Imported accountabilities are informational, never membership.
-  for (const [key, collection] of [['sprints',ScrumSprints],['releases',ScrumReleases],['events',ScrumEvents]]) {
+  for (const key of ['sprints', 'releases', 'events']) {
     const sourceIds = new Map([...maps[key]].map(([sourceId, targetId]) => [targetId, sourceId]));
     for (const record of transfer[key]) {
       const provenance = record.provenance || { system: 'wekan', recordId: sourceIds.get(record._id),
         ...(typeof source._id === 'string' && source._id.length <= 500 ? { projectId: source._id } : {}) };
-      await collection.insertAsync({ ...record, provenance, boardId, revision: 1,
-        ...(key === 'sprints' ? { scrumImportPending: true } : {}) });
+      steps.push({ kind: 'insert', collection: key, after: { ...record, provenance, boardId, revision: 1,
+        ...(key === 'sprints' ? { scrumImportPending: true } : {}) } });
     }
   }
   for (const [key, collection] of [['cards',Cards],['lists',Lists],['swimlanes',Swimlanes]]) {
     for (const record of transfer[key]) {
-      if (!await collection.direct.updateAsync({ _id: record._id, boardId }, { $set: { scrum: record.scrum, scrumRevision: 1 } })) {
+      const current = await collection.findOneAsync({ _id: record._id, boardId }, { fields: { scrum: 1, scrumRevision: 1 } });
+      if (!current) {
         throw new Meteor.Error('invalid-scrum-transfer', 'An imported item no longer belongs to the destination board');
       }
+      const before = Object.fromEntries(['scrum', 'scrumRevision'].filter(field => Object.hasOwn(current, field)).map(field => [field, current[field]]));
+      steps.push({ kind: 'update', collection: key, id: record._id, boardId, before,
+        after: { scrum: record.scrum, scrumRevision: 1 } });
     }
   }
   for (const row of transfer.dailyObservations) {
-    await ScrumDailySnapshots.insertAsync({ ...row, boardId,
-      _id: dailyObservationId(row.sprintId, row.startedAt, row.day) });
+    steps.push({ kind: 'insert', collection: 'dailyObservations', after: { ...row, boardId,
+      _id: dailyObservationId(row.sprintId, row.startedAt, row.day) } });
   }
   const report = [...normalizeScrumTransferLosses(source.scrumTransferLosses), ...losses];
-  await Boards.direct.updateAsync(boardId, { $set: { scrum: transfer.settings, scrumRevision: 1, scrumImportLosses: report } });
+  const before = Object.fromEntries(['scrum', 'scrumRevision', 'scrumImportLosses'].filter(field => Object.hasOwn(board, field)).map(field => [field, board[field]]));
+  steps.push({ kind: 'update', collection: 'boards', id: boardId, boardId, before,
+    after: { scrum: transfer.settings, scrumRevision: 1, scrumImportLosses: report } });
+  const identity = await writeImportPlan({ boardId, operationId: Random.id(), userId: Meteor.userId(), steps,
+    pending: ScrumImportPending, journal: ScrumImportSteps, equals: EJSON.equals,
+    collections: { boards: Boards, cards: Cards, lists: Lists, swimlanes: Swimlanes,
+      sprints: ScrumSprints, releases: ScrumReleases, events: ScrumEvents, dailyObservations: ScrumDailySnapshots } });
   // A collector must never record a half-imported active sprint. Interrupted
   // imports keep this marker and cannot be exported as complete transfers.
   await ScrumSprints.updateAsync({ boardId, _id: { $in: transfer.sprints.map(row => row._id) } },
     { $unset: { scrumImportPending: '' } }, { multi: true });
+  // Keep the checkpoint until every sprint is visible as complete. A stop
+  // before this removal remains guarded even after clearing some markers.
+  if (!await ScrumImportPending.removeAsync({ ...identity, state: 'applied' })) {
+    throw new Meteor.Error('scrum-import-pending', 'The Scrum import checkpoint changed before completion.');
+  }
+  // Cleanup is not part of import success. Rows use an operation namespace,
+  // so a later import cannot accidentally reuse an interrupted cleanup's plan.
+  try { await ScrumImportSteps.removeAsync({ boardId, operationId: identity.operationId }); }
+  catch (_) { /* Orphan plan cleanup is separate from successful import. */ }
 }

@@ -48,6 +48,8 @@ test('native Scrum board export imports with new IDs and unchanged snapshot outc
   expect(new Date(observation.capturedAt).toISOString()).toBe(exported.scrumTransfer.dailyObservations[0].capturedAt);
   expect((await call(page,'scrum.getDailyHistory',imported,restored._id)).rows[0].scope.estimate).toBe(0);
   expect(db.findOne('boards',{_id:imported}).scrum.estimateCustomFieldId).toBe(restoredField._id);
+  expect(db.find('scrumImportPending',{_id:imported})).toHaveLength(0);
+  expect(db.find('scrumImportSteps',{boardId:imported})).toHaveLength(0);
   expect(restoredCard.customFields).toContainEqual({_id:restoredField._id,value:0});
   const event=db.findOne('scrumEvents',{boardId:imported});expect(event.sprintId).toBe(restored._id);expect(event.followUpCardIds).toEqual([restoredCard._id]);
   expect(new Date(event.startsAt).toISOString()).toBe('2026-09-30T09:00:12.123Z');

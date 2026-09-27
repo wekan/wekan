@@ -224,8 +224,30 @@ removes editing capabilities; daily-history reads and all Scrum chart exports
 fail explicitly. Once the importer finishes and clears the marker, these
 operations become available again. This is an exclusion for marked Scrum
 imports, not a global lock on ordinary board/card edits or all import stages.
-Interrupted imports retain that marker; recovery/rollback of the overall
-multi-document import is still unfinished.
+Before writing Scrum targets, the importer now creates a private board-level
+checkpoint and stages each intended write in `scrumImportSteps`. Records retain
+the allocated destination IDs, exact before/after values and BSON dates. Each
+step is a separate document rather than placing a large board in one MongoDB
+document. A preparing checkpoint is not ready for recovery until every step is
+durable; acknowledged writes advance its `next` position. A stop between a
+target write and the position update leaves the complete intended step intact.
+
+Metadata updates compare their original values, field presence and destination
+board atomically. A changed or moved target stops the operation without being
+overwritten. Exact already-written results are accepted by the step writer;
+same-ID inserts with different content are rejected. Normal completion removes
+the checkpoint only after clearing all sprint markers, then cleans its plan.
+Board deletion cleans both private collections. The checkpoint also excludes
+Scrum reads/writes/exports and daily capture before any sprint exists and after
+the last sprint marker clears. The UI exposes only the existing pending flag,
+not recovery contents or counters.
+
+This is the persistence and conditional-write foundation. No public replay or
+rollback endpoint exists yet. Interrupted preparing plans, coordinated retries
+across server processes, changed-target resolution, cleanup after a failed
+post-completion cleanup and recovery of the earlier/later native import stages
+remain unfinished. Existing marker-only interrupted imports have no retroactive
+plan. Ordinary board/card edits are not locked by these checkpoints.
 Unknown fields (including permission fields and recovery checkpoints), invalid
 dates, inconsistent totals, foreign planning references and ID collisions fail
 validation. Destination maps are supplied by the importer, never by file input.

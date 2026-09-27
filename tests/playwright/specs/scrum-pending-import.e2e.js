@@ -65,3 +65,33 @@ test('unfinished imports block Scrum writes, History and exports while showing a
     db.deleteMany('scrumHistoryPending', { _id: board.boardId });
   }
 });
+
+test('a private import checkpoint blocks Scrum before the first sprint exists', async ({ page, user, board }) => {
+  db.insertOne('scrumImportPending', { _id: board.boardId, operationId: 'test-plan',
+    state: 'preparing', userId: user.id, next: 0, total: 1 });
+  try {
+    await loginWithToken(page, user.id, user.token);
+    const data = await call(page, 'scrum.getBoardData', board.boardId);
+    expect(data.importPending).toBe(true);
+    expect(data.sprints).toHaveLength(0);
+    expect(data).not.toHaveProperty('operationId');
+    expect(data).not.toHaveProperty('total');
+    await expect(call(page, 'scrum.saveSprint', board.boardId, null, { name: 'Too early' }, null))
+      .rejects.toThrow(/import is incomplete/);
+    await openBoard(page, board.boardId, board.slug);
+    await page.locator('.js-toggle-board-view').first().click();
+    await page.locator('.pop-over .js-open-sprints-view').click();
+    await expect(page.locator('.scrum-import-pending')).toBeVisible();
+    await expect(page.locator('.js-scrum-sprint-form')).toHaveCount(0);
+    for (const state of ['applying', 'applied']) {
+      db.updateOne('scrumImportPending', { _id: board.boardId }, { $set: { state } });
+      expect((await call(page, 'scrum.getBoardData', board.boardId)).importPending).toBe(true);
+      await expect(call(page, 'scrum.configure', board.boardId, { productGoal: 'Too early' }, null))
+        .rejects.toThrow(/import is incomplete/);
+    }
+    db.deleteMany('scrumImportPending', { _id: board.boardId });
+    await page.locator('.js-scrum-refresh').click();
+    await expect(page.locator('.scrum-import-pending')).toHaveCount(0);
+    expect((await call(page, 'scrum.getBoardData', board.boardId)).canAdmin).toBe(true);
+  } finally { db.deleteMany('scrumImportPending', { _id: board.boardId }); }
+});

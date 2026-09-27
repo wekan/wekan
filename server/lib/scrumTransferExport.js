@@ -7,6 +7,7 @@ import ScrumReleases from '/models/scrumReleases';
 import ScrumEvents from '/models/scrumEvents';
 import ScrumDailySnapshots from '/models/scrumDailySnapshots';
 import ScrumHistoryPending from './scrumHistoryPending';
+import { ScrumImportPending } from './scrumImportJournal';
 const { normalizeScrumTransfer, SCRUM_TRANSFER_FORMAT } = require('/models/lib/scrumTransfer');
 
 // Call only after the existing export route has authorized the board and scope.
@@ -20,6 +21,9 @@ export async function exportScrumTransfer(boardId, cardIds, listIds, swimlaneIds
     ScrumSprints.find({ boardId }).fetchAsync(), ScrumReleases.find({ boardId }).fetchAsync(), ScrumEvents.find({ boardId }).fetchAsync(),
   ]);
   if (!board) throw new Error('Board no longer exists');
+  if (await ScrumImportPending.findOneAsync(boardId, { fields: { _id: 1 } })) {
+    throw new Error('Finish the pending Scrum operation before exporting');
+  }
   if (!board.scrum && !cards.length && !lists.length && !swimlanes.length && !sprints.length && !releases.length && !events.length) return null;
   if (await ScrumHistoryPending.findOneAsync(boardId) || sprints.some(s => s.scrumImportPending || s.rolloverPending?.length)) {
     throw new Error('Finish the pending Scrum operation before exporting');

@@ -1,4 +1,5 @@
 import ScrumHistoryPending from '/server/lib/scrumHistoryPending';
+import { ScrumImportPending } from '/server/lib/scrumImportJournal';
 import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
 import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
@@ -100,7 +101,8 @@ export async function getScrumBoardData(userId, boardId) {
   for (const event of events) event.followUpCardIds = (event.followUpCardIds || []).filter(id => visible.has(id));
   // Rendering a capability is not an attempted mutation. Keep write guards'
   // denial logging for actual writes, without blocking read-only viewers.
-  const importPending = sprints.some(sprint => sprint.scrumImportPending);
+  const importPending = sprints.some(sprint => sprint.scrumImportPending) ||
+    !!await ScrumImportPending.findOneAsync(boardId, { fields: { _id: 1 } });
   for (const card of cards) card.canWrite = !importPending && !!userId && await canEditCardOrLinkedCard(userId, card, board, { recordDenial: false });
   return { boardId, settings: { ...DEFAULT_SCRUM_SETTINGS, ...(board.scrum || {}) },
     settingsRevision: board.scrumRevision || 0, sprints, releases, events, cards, lists, swimlanes, customFields,
@@ -118,7 +120,8 @@ async function ensureSettings(boardId, settings, board) {
   }
 }
 export async function assertNoPendingScrumImport(boardId) {
-  if (await ScrumSprints.findOneAsync({ boardId, scrumImportPending: true }, { fields: { _id: 1 } })) {
+  if (await ScrumImportPending.findOneAsync(boardId, { fields: { _id: 1 } }) ||
+      await ScrumSprints.findOneAsync({ boardId, scrumImportPending: true }, { fields: { _id: 1 } })) {
     throw new Meteor.Error('scrum-import-pending', 'The Scrum import is incomplete. Scrum edits and report exports are unavailable.');
   }
 }

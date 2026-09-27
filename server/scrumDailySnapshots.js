@@ -6,12 +6,14 @@ import Boards from '/models/boards';
 import Lists from '/models/lists';
 import ScrumSprints from '/models/scrumSprints';
 import ScrumDailySnapshots from '/models/scrumDailySnapshots';
+import { ScrumImportPending } from '/server/lib/scrumImportJournal';
 const { captureDailySprint } = require('/server/lib/scrumDailyCapture');
 
 export async function captureOneSprint(sprint) {
   if (sprint.scrumImportPending) return { skipped: true };
   if (sprint.state !== 'active') return { skipped: true };
   if (!sprint.startSnapshot) return { skipped: true };
+  if (await ScrumImportPending.findOneAsync(sprint.boardId, { fields: { _id: 1 } })) return { skipped: true };
   const at = new Date(), day = at.toISOString().slice(0, 10);
   if (await ScrumDailySnapshots.findOneAsync({ sprintId: sprint._id, boardId: sprint.boardId,
     startedAt: new Date(sprint.startSnapshot.at), day }, { fields: { _id: 1 } })) return { skipped: true };
@@ -22,6 +24,7 @@ export async function captureOneSprint(sprint) {
   ]);
   const current = await ScrumSprints.findOneAsync(sprint._id);
   if (!current || current.state !== 'active' || !EJSON.equals(current.startSnapshot, sprint.startSnapshot)) return { skipped: true };
+  if (await ScrumImportPending.findOneAsync(sprint.boardId, { fields: { _id: 1 } })) return { skipped: true };
   const result = await captureDailySprint({ sprint, cards, lists, snapshots: ScrumDailySnapshots, at: new Date() });
   // Cover deletion during the capture as well as the normal board-delete hook.
   if (!await Boards.findOneAsync(sprint.boardId, { fields: { _id: 1 } })) {
