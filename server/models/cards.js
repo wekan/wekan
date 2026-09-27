@@ -15,6 +15,7 @@ const { coerceRestArrayParam } = require('/server/lib/restArrayParam');
 const { applyCardBoardConsistency } = require('/server/lib/cardBoardConsistency');
 import { titleChanged } from '/server/lib/titleChangeActivity';
 import { descriptionChanged } from '/server/lib/descriptionChangeActivity';
+const { collectionWriteSucceeded } = require('/server/lib/collectionWriteOutcome');
 import { buildDeleteCardActivity } from '/server/lib/deleteActivities';
 import { assertParentCardIsVisible } from '/server/lib/visibleBoardIds';
 import { computeSubtaskLabelIds } from '/models/lib/subtaskLabelInheritance';
@@ -920,7 +921,8 @@ Cards.after.insert(async (userId, doc) => {
   }, 100);
 });
 
-Cards.after.update(async (userId, doc, fieldNames) => {
+Cards.after.update(async function(userId, doc, fieldNames) {
+  if (!collectionWriteSucceeded(this) || !!this.previous.archived === !!doc.archived) return;
   await cardState(userId, doc, fieldNames);
 });
 
@@ -1075,19 +1077,12 @@ Cards.before.update(async (userId, doc, fieldNames, modifier) => {
   }
 });
 
-// Issue #3619: changing a card's title must log an activity so the
-// Activities.after.insert outgoing-webhook hook fires (like description/dueAt do).
-Cards.before.update(async (userId, doc, fieldNames, modifier) => {
-  if (!titleChanged(doc, modifier)) {
-    return;
-  }
-  const oldValue = doc.title || '';
+// Issue #3619: emit title activity only after a successful card write, so
+// outgoing webhooks/rules cannot act on a rejected conditional update.
+Cards.after.update(async function(userId, doc, fieldNames, modifier) {
+  if (!collectionWriteSucceeded(this) || !titleChanged(this.previous, modifier)) return;
+  const oldValue = this.previous.title || '';
   const newValue = modifier.$set.title;
-  const card = await ReactiveCache.getCard(doc._id);
-  if (!card) {
-    console.warn('[Cards.before.update] Card not found for cardId:', doc._id, '— skipping title activity.');
-    return;
-  }
   const user = await ReactiveCache.getUser(userId);
   await Activities.insertAsync({
     userId,
@@ -1098,25 +1093,20 @@ Cards.before.update(async (userId, doc, fieldNames, modifier) => {
     cardTitle: newValue,
     oldValue,
     value: newValue,
-    listId: card.listId,
-    swimlaneId: card.swimlaneId,
+    listId: doc.listId,
+    swimlaneId: doc.swimlaneId,
   });
 });
 
-// Issue #5482: adding or editing a card's description must log an activity so the
-// Activities.after.insert outgoing-webhook hook fires (like title/dueAt do). Fires
-// for both first-time set and later edits, but not for no-op / empty->empty saves.
-Cards.before.update(async (userId, doc, fieldNames, modifier) => {
-  if (!descriptionChanged(doc, modifier)) {
-    return;
-  }
-  const oldValue = doc.description || '';
-  const newValue = modifier.$set.description || '';
-  const card = await ReactiveCache.getCard(doc._id);
-  if (!card) {
-    console.warn('[Cards.before.update] Card not found for cardId:', doc._id, '— skipping description activity.');
-    return;
-  }
+// Issue #5482: clearing prose may be cleaned into $unset by SimpleSchema.
+// Treat that as an empty description, while retaining no-op suppression.
+Cards.after.update(async function(userId, doc, fieldNames, modifier) {
+  if (!collectionWriteSucceeded(this)) return;
+  const change = modifier?.$unset && Object.hasOwn(modifier.$unset, 'description')
+    ? { $set: { description: '' } } : modifier;
+  if (!descriptionChanged(this.previous, change)) return;
+  const oldValue = this.previous.description || '';
+  const newValue = change.$set.description || '';
   const user = await ReactiveCache.getUser(userId);
   await Activities.insertAsync({
     userId,
@@ -1127,8 +1117,8 @@ Cards.before.update(async (userId, doc, fieldNames, modifier) => {
     cardTitle: doc.title,
     oldValue,
     value: newValue,
-    listId: card.listId,
-    swimlaneId: card.swimlaneId,
+    listId: doc.listId,
+    swimlaneId: doc.swimlaneId,
   });
 });
 

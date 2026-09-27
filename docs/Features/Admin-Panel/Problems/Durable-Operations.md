@@ -134,3 +134,24 @@ reports and scheduler/startup recovery. Journal ownership protects checkpoint
 acknowledgements; it does **not** fence an already in-flight card write. That
 cross-collection boundary and atomic multi-card reconciliation remain open.
 No automatic retry scheduler or application UI is enabled by this engine alone.
+
+### Card activity and History boundary found during adapter integration
+
+The installed collection-hooks update wrapper calls `after.update` even when
+MongoDB reports zero affected documents. Title/description activity hooks also
+used to run before the card update, so a later failed conditional write could
+already have emitted an activity and triggered rules/webhooks.
+
+Title and description activities now run after successful writes, comparing the
+previous snapshot with the requested text. Description clearing handles the
+schema's `$unset` form. Archive activity ignores zero-match and unchanged-state
+writes. Universal entity History and rule/trigger/action History use the same
+successful-write guard before recording. This protects current Sync and other
+ordinary write paths while the durable adapter is being built.
+
+It does not close the crash window between the card mutation and its separate
+activity/History writes. A durable adapter must retain and replay those effects
+under stable identities before acknowledging a unit; simply seeing the new card
+values cannot prove all hooks completed. Aggregate multi-update counts also do
+not identify individual successful rows. Full replay integration remains unfinished
+at this boundary, not declared finished by moving hooks to `after.update`.

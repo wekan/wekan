@@ -60,7 +60,20 @@ test('the history table is defined exactly once, in one file', () => {
   for (const file of jadeFiles()) {
     const text = fs.readFileSync(file, 'utf8');
     for (const m of text.matchAll(/^template\(name="(\w*[Hh]istory\w*)"\)/gm)) {
-      defining.push([path.relative(ROOT, file), m[1]]);
+      const relative = path.relative(ROOT, file);
+      // Daily Scrum observations are a time-series chart, not an alternate
+      // changeHistory view. Its name predates this distinction; pin its data
+      // source and chart-only shape so this exception cannot hide a second
+      // History editor/table under that name.
+      if (relative === 'client/components/boards/scrum/scrumDailyHistory.jade' && m[1] === 'scrumDailyHistory') {
+        assert.match(text, /figure\.scrum-chart-row/);
+        assert.doesNotMatch(text, /\+historyTable|js-history-|\btable[.(]/);
+        const chart = read('client/components/boards/scrum/scrumDailyHistory.js');
+        assert.match(chart, /Meteor\.callAsync\('scrum\.getDailyHistory'/);
+        assert.doesNotMatch(chart, /changeHistory\./);
+        continue;
+      }
+      defining.push([relative, m[1]]);
     }
   }
   const names = defining.map(d => d[1]).sort();

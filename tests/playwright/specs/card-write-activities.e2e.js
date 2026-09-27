@@ -1,0 +1,35 @@
+'use strict';
+const { test, expect } = require('../fixtures');
+const db = require('../helpers/db');
+const { loginWithToken, openBoard } = require('../helpers/auth');
+const update = (page, id, modifier) => page.evaluate(({id,modifier}) => Meteor.callAsync('/cards/update', { _id: id }, modifier), {id,modifier});
+
+test('committed text and archive changes emit one activity while clears and repeats retain no-op behavior', async ({ page, user, board }) => {
+  const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
+  const activities = type => db.find('activities', { cardId: card._id, activityType: type });
+  await loginWithToken(page, user.id, user.token);
+  await openBoard(page, board.boardId, board.slug);
+  const titleBefore = activities('a-changedTitle').length;
+  const descriptionBefore = activities('a-changedDescription').length;
+  await update(page, card._id, { $set: { title: 'Committed activity title', description: 'Committed description' } });
+  await expect(page.getByText('Committed activity title', { exact: true }).first()).toBeVisible();
+  expect(activities('a-changedTitle')).toHaveLength(titleBefore + 1);
+  expect(activities('a-changedDescription')).toHaveLength(descriptionBefore + 1);
+  const title = activities('a-changedTitle').find(row => row.value === 'Committed activity title');
+  expect(title.oldValue).toBe(card.title);
+  expect(db.findOne('cards', { _id: card._id }).title).toBe(title.value);
+  const description = activities('a-changedDescription').find(row => row.value === 'Committed description');
+  expect(description.oldValue).toBe(card.description || '');
+  await update(page, card._id, { $unset: { description: '' } });
+  expect(activities('a-changedDescription')).toHaveLength(descriptionBefore + 2);
+  expect(activities('a-changedDescription').some(row => row.value === '' && row.oldValue === 'Committed description')).toBe(true);
+  await update(page, card._id, { $unset: { description: '' } });
+  await update(page, card._id, { $set: { title: 'Committed activity title' } });
+  expect(activities('a-changedTitle')).toHaveLength(titleBefore + 1);
+  expect(activities('a-changedDescription')).toHaveLength(descriptionBefore + 2);
+  const archivedBefore = activities('archivedCard').length;
+  await update(page, card._id, { $set: { archived: true } });
+  expect(activities('archivedCard')).toHaveLength(archivedBefore + 1);
+  await update(page, card._id, { $set: { archived: true } });
+  expect(activities('archivedCard')).toHaveLength(archivedBefore + 1);
+});

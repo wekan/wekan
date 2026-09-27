@@ -7,7 +7,7 @@
 // trigger an outgoing webhook, although other card operations do"): outgoing
 // webhooks fire from the Activities.after.insert hook, so a change only reaches a
 // webhook if it logs an activity. Description changes logged none. The pure
-// descriptionChanged() helper decides whether the Cards.before.update hook should
+// descriptionChanged() helper decides whether the Cards.after.update hook should
 // emit an a-changedDescription activity: it must emit when a description is set
 // for the first time and when it is edited to a different value, and must NOT
 // emit on no-op / empty->empty saves.

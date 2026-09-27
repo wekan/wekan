@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+const { collectionWriteSucceeded } = require('/server/lib/collectionWriteOutcome');
 import Cards from '/models/cards';
 import CardComments from '/models/cardComments';
 import Checklists from '/models/checklists';
@@ -178,6 +179,7 @@ Meteor.startup(() => {
   ];
   for (const [collection, entityType] of updates) {
     collection.after.update(async function (userId, doc, fieldNames) {
+      if (!collectionWriteSucceeded(this)) return;
       await recordUpdate(entityType, userId, doc, fieldNames, this.previous);
     });
   }

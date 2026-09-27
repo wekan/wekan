@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+const { collectionWriteSucceeded } = require('/server/lib/collectionWriteOutcome');
 import { EJSON } from 'meteor/ejson';
 import Rules from '/models/rules';
 import Triggers from '/models/triggers';
@@ -68,6 +69,7 @@ Meteor.startup(() => {
     if (!isRecordingSuppressed()) await recordRuleChange({ rule: null }, await ruleSnapshot(rule._id), userId);
   });
   Rules.after.update(async function (userId, rule) {
+    if (!collectionWriteSucceeded(this)) return;
     if (!isRecordingSuppressed()) await recordRuleChange(await ruleSnapshot(rule._id, { rule: this.previous }), await ruleSnapshot(rule._id), userId);
   });
   Rules.after.remove(async (userId, rule) => {
@@ -75,6 +77,7 @@ Meteor.startup(() => {
   });
   for (const [collection, field] of [[Triggers, 'trigger'], [Actions, 'action']]) {
     collection.after.update(async function (userId, doc) {
+      if (!collectionWriteSucceeded(this)) return;
       if (isRecordingSuppressed()) return;
       const rules = await Rules.find({ [`${field}Id`]: doc._id }).fetchAsync();
       for (const rule of rules) await recordRuleChange(await ruleSnapshot(rule._id, { [field]: this.previous }), await ruleSnapshot(rule._id), userId);
