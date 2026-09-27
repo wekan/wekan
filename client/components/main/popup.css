@@ -1294,38 +1294,37 @@ body.mobile-mode .pop-over .content-wrapper {
   width: auto;
 }
 
+/* Keep Flag Language (Flag Country) together on one line. Long names remain
+   readable by scrolling their own row on narrow screens. */
 .pop-over[data-popup='changeLanguagePopup'] .language-label {
   display: flex;
-  flex-direction: column;
-  gap: 0.15em;
-  min-width: 0;
-  width: 100%;
+  flex: 0 0 auto;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 0.35em;
+  white-space: nowrap;
 }
 .pop-over[data-popup='changeLanguagePopup'] .language-main-line {
   display: flex;
   align-items: baseline;
   gap: 0.25em;
+  flex: 0 0 auto;
 }
 .pop-over[data-popup='changeLanguagePopup'] .pop-over-list li > a {
   display: flex;
-  align-items: flex-start;
-  white-space: normal;
-  overflow: visible;
+  align-items: baseline;
+  gap: 0.35em;
+  white-space: nowrap;
+  overflow-x: auto;
   text-overflow: clip;
   height: auto;
 }
-.pop-over[data-popup='changeLanguagePopup'] .pop-over-list li,
-.pop-over[data-popup='changeLanguagePopup'] .language-name {
+.pop-over[data-popup='changeLanguagePopup'] .pop-over-list li {
   min-width: 0;
-  overflow-wrap: anywhere;
 }
 .pop-over[data-popup='changeLanguagePopup'] .language-region {
-  display: block;
-  white-space: normal;
-  overflow-wrap: anywhere;
-}
-
-.pop-over[data-popup='changeLanguagePopup'] .language-region {
+  flex: 0 0 auto;
+  white-space: nowrap;
   unicode-bidi: isolate;
 }
 

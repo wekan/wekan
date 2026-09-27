@@ -19,7 +19,12 @@ for (const direction of ['ltr', 'rtl']) {
     expect(bounds.width).toBeCloseTo(boardPage.viewportSize().width, 0);
     for (const width of [1280, 375]) {
       await boardPage.setViewportSize({width,height:900});
-      expect(await popup.locator('.js-set-language').evaluateAll(entries => entries.every(entry => entry.scrollWidth <= entry.clientWidth + 1))).toBe(true);
+      expect(await popup.locator('.js-set-language').evaluateAll(entries => entries.every(entry => {
+        const name = entry.querySelector('.language-name').getBoundingClientRect();
+        const region = entry.querySelector('.language-region')?.getBoundingClientRect();
+        return (!region || Math.abs(region.y - name.y) < 5) &&
+          (entry.scrollWidth <= entry.clientWidth + 1 || getComputedStyle(entry).overflowX === 'auto');
+      }))).toBe(true);
     }
     await boardPage.setViewportSize({width:1280,height:900});
     await expect(popup.locator('.js-set-language')).toHaveCount(rows.length);
@@ -42,7 +47,7 @@ for (const direction of ['ltr', 'rtl']) {
     const marker = await hebrew.locator('.language-rtl').boundingBox();
     const firstLine = await hebrew.locator('.language-main-line').boundingBox();
     const secondLine = await hebrew.locator('.language-region').boundingBox();
-    expect(marker.y).toBeLessThan(secondLine.y);
+    expect(Math.abs(marker.y - secondLine.y)).toBeLessThan(5);
     expect(marker.height).toBeLessThanOrEqual(firstLine.height);
     expect(await hebrew.locator('.language-rtl').evaluate(el => el.scrollWidth <= el.clientWidth)).toBe(true);
     const brazil = popup.locator('.js-set-language[data-language="en-BR"]');
@@ -58,11 +63,11 @@ for (const direction of ['ltr', 'rtl']) {
     ]);
     if (direction === 'ltr') {
       expect(flag.x).toBeLessThan(name.x);
-      expect(region.y).toBeGreaterThan(name.y);
+      expect(Math.abs(region.y - name.y)).toBeLessThan(5);
       expect(country.x).toBeLessThan(regionName.x);
     } else {
       expect(flag.x).toBeGreaterThan(name.x);
-      expect(region.y).toBeGreaterThan(name.y);
+      expect(Math.abs(region.y - name.y)).toBeLessThan(5);
       expect(country.x).toBeGreaterThan(regionName.x);
     }
   });
