@@ -120,7 +120,9 @@ Daily observations now preserve the first measured state of each UTC day;
 the scoped reader reports unknown estimates, partial results and truncation.
 Sprint Report displays these observations as timestamped bars, with card-count
 and estimate metrics, gaps, unknown estimates and permission-scoped results.
-Remaining: event-complete scope history and burndown, daily-history exports,
+The daily section now exports the same scoped observations to Excel and PDF,
+including timestamps, estimate policies and partial/truncated-result notices.
+Remaining: event-complete scope history and burndown,
 atomic original writes/History, large-board
 limits, complete cross-board move/reference/undo coordination, standalone
 planning-record mapping, existing-board scoped import and History transport.
@@ -746,9 +748,35 @@ the Markdown commit as the template.
 **In short:** **Sync** keeps source projects separate and coordinates concurrent
 runs and settings changes, including private credentials. **Scrum** records
 daily observations and displays their measured scope and remaining work in
-Sprint Report. Event-complete burndown and daily-history exports remain pending.
+Sprint Report, with scoped Excel/PDF downloads. Event-complete burndown remains
+pending.
 
 This release improves daily Scrum reporting:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/15ff19d2a">Export daily observations with their measurement and visibility context</a>. Thanks to xet7.</summary>
+
+The daily observations section has its own Excel/PDF export action. Both
+formats use the same authorized, bounded history reader as the screen and
+preserve sprint names, exact UTC capture times, units, estimate policies and
+separate counts for cards, known estimates and unknown estimates. Missing days
+remain absent. Excel includes a Notes sheet; PDF wraps labelled metrics and
+notices about observed states, partial visibility and the 366-observation limit.
+The toolbar's existing export still produces sprint results.
+
+Eleven focused Node suites pass, including export authorization, observation
+row formatting and real MongoDB capture; the optional separate DDP lifecycle
+suite is skipped. Five Chromium scenarios pass. The daily export scenario
+opens the popup, checks the selected sprint, reads actual workbook cells and
+extracts text from the PDF. Exact timestamps and unknown counts survive, hidden
+estimates stay excluded, and an invalid sprint cannot produce a report.
+Existing charts, read-only access and stale-response tests still pass.
+The release audit passes with advisory warnings. Four changelog suites pass;
+the known released-entry line-length failure remains. FerretDB and additional
+browsers were not tested. Event-complete burndown and native history transport
+remain unfinished.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/634abca41">Display measured daily scope and remaining work in Sprint Report</a>. Thanks to xet7.</summary>
