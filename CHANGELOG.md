@@ -235,6 +235,12 @@ snapshots, permitting only the mapped field to change. Real MongoDB tests cover
 lost acknowledgements on update/clear, create and null/missing arrays, damaged
 mapping checksums and local-edit conflicts. This still uses a test adapter;
 production application/effect adapters remain unfinished.
+A shared mutation planner now prepares conditional field patches from saved
+steps without replacing unrelated card metadata. It compares the union of
+before/after fields and isolates expected-result predicates from driver
+mutation. Production Sync uses the same literal-value selector helper.
+MongoDB replay tests and twenty production Sync browser scenarios pass; durable
+History/activity completion still needs the production adapter.
 Current Sync write selectors now distinguish explicit null from missing fields.
 Adapter investigation also moved title/description activities after successful
 writes and made archive/entity/rule History hooks reject zero-match updates.
@@ -1047,6 +1053,36 @@ local application adapter; no production UI path changed or was browser-tested
 for this internal addition. Live field/mapping guards, application/effect
 adapters, private collection lifecycle, startup scheduling, pause/cancel and
 transactional History/activity coordination remain in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0d2dd1d36">Prepare conditional field patches for saved Sync steps</a>. Thanks to xet7.</summary>
+
+Build exact before/after predicates and set/unset modifiers from validated
+journal snapshots. Compare the union of fields so a planned addition still
+requires absence and a removal remains absent in the expected result. Preserve
+unplanned metadata instead of replacing the whole card. Keep insert plans
+separate, reject scope changes and explicit undefined values, retain BSON dates
+and isolate result predicates from input or driver-side mutation.
+
+Production Sync now shares the literal snapshot selector helper. Object/array
+values are equality operands, and null checks retain field presence. Reject
+sparse or decorated arrays which would change shape during BSON storage.
+
+Eighteen focused Sync Node suites pass with real MongoDB. The final three
+journal/mutation suites pass after the serialization-boundary checks. Tests
+cover conditional additions, field removal, unrelated metadata changed after
+a lost acknowledgement, literal objects versus query operators and existing
+mapped-estimate recovery. All twenty Chromium Sync scenarios pass. The offline
+source/dependency audit passes with advisory warnings. Four changelog suites
+pass; the existing released v12.07 line-length failure remains.
+
+The mutation planner prepares storage operations; it does not prove completion
+of History/activity effects or enable production recovery by itself. Live
+permission/mapping guards, durable effects, private collection lifecycle and
+startup/pause/cancel integration remain in TODO Later. Other browsers and
+FerretDB were not exercised.
 
 </details>
 
