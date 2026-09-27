@@ -1,3 +1,4 @@
+import { withRuleHistory } from '/server/lib/ruleHistory';
 import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
 import { ReactiveCache } from '/imports/reactiveCache';
@@ -155,34 +156,36 @@ Meteor.methods({
     }
     const triggerDoc = { ...clean(trigger), boardId };
 
-    // Full-document replace (not $set) so a trigger/action switched to a
-    // different type does not keep stale fields from the type it replaced -
-    // and keep the existing _id when there is one, so the rule's triggerId/
-    // actionId never have to change just because the configuration did.
-    let triggerId = rule.triggerId;
-    if (triggerId) {
-      await Triggers.updateAsync(triggerId, triggerDoc);
-    } else {
-      triggerId = await Triggers.insertAsync(triggerDoc);
-    }
-    let actionId = rule.actionId;
-    if (actionId) {
-      await Actions.updateAsync(actionId, actionDoc);
-    } else {
-      actionId = await Actions.insertAsync(actionDoc);
-    }
+    return withRuleHistory(ruleId, this.userId, async () => {
+      // Full-document replace (not $set) so a trigger/action switched to a
+      // different type does not keep stale fields from the type it replaced -
+      // and keep the existing _id when there is one, so the rule's triggerId/
+      // actionId never have to change just because the configuration did.
+      let triggerId = rule.triggerId;
+      if (triggerId) {
+        await Triggers.updateAsync(triggerId, triggerDoc);
+      } else {
+        triggerId = await Triggers.insertAsync(triggerDoc);
+      }
+      let actionId = rule.actionId;
+      if (actionId) {
+        await Actions.updateAsync(actionId, actionDoc);
+      } else {
+        actionId = await Actions.insertAsync(actionDoc);
+      }
 
-    const ruleSet = {
-      title: title || rule.title || 'Rule',
-      triggerId,
-      actionId,
-    };
-    if (trigger && trigger.activityType === 'button') {
-      ruleSet.buttonType = trigger.buttonType || 'card';
-      ruleSet.buttonLabel = trigger.buttonLabel || ruleSet.title;
-    }
-    await Rules.updateAsync(ruleId, { $set: ruleSet });
-    return { _id: ruleId, triggerId, actionId };
+      const ruleSet = {
+        title: title || rule.title || 'Rule',
+        triggerId,
+        actionId,
+      };
+      if (trigger && trigger.activityType === 'button') {
+        ruleSet.buttonType = trigger.buttonType || 'card';
+        ruleSet.buttonLabel = trigger.buttonLabel || ruleSet.title;
+      }
+      await Rules.updateAsync(ruleId, { $set: ruleSet });
+      return { _id: ruleId, triggerId, actionId };
+    });
   },
 
   // Delete a rule (and its trigger + action) on the server in one call. The rule

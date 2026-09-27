@@ -24,14 +24,14 @@ const ChangeHistory = new Mongo.Collection('changeHistory');
 /* The entity kinds a row can describe (History.md §4). */
 export const ENTITY_TYPES = [
   'card', 'list', 'swimlane', 'board',
-  'checklist', 'checklistItem', 'comment', 'attachment', 'customField',
+  'checklist', 'checklistItem', 'comment', 'attachment', 'customField', 'rule',
 ];
 
 /* The logical groups of the card details view (History.md §3). */
 export const GROUPS = [
   'title', 'description', 'labels', 'members', 'assignees', 'dates',
   'checklists', 'subtasks', 'attachments', 'comments', 'customFields',
-  'position', 'lifecycle', 'dependencies',
+  'position', 'lifecycle', 'dependencies', 'rules',
 ];
 
 /* A small closed set, each with an i18n key `history-change-<type>`. */

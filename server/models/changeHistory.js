@@ -1,3 +1,4 @@
+import { ruleSnapshot, applyRuleHistory } from '/server/lib/ruleHistory';
 import { requireBoardMutation } from '/models/lib/boardMutationGuard';
 import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
@@ -268,6 +269,7 @@ const COLLECTIONS = {
  * false one.
  */
 async function currentContentOf(row) {
+  if (row.entityType === 'rule') return ruleSnapshot(row.entityId);
   const collection = COLLECTIONS[row.entityType];
   if (!collection) return null;
   const doc = await collection.findOneAsync(row.entityId);
@@ -320,6 +322,9 @@ async function currentContentOf(row) {
  * only look alike when the chosen row happens to be the last one.
  */
 async function applyRow(row, direction) {
+  if (row.entityType === 'rule') {
+    return withoutRecording(() => applyRuleHistory(row, contentForDirection(row, direction), direction));
+  }
   const applier = APPLIERS[row.entityType];
   if (!applier) return false;
   const content = contentForDirection(row, direction);
