@@ -49,7 +49,7 @@ test('localized editor reads WeKan messages without sprintf and preserves drafts
 });
 test('resumed Gujarati accessibility and basic block controls contain Gujarati prose',()=>{
  const gu=require('../imports/i18n/data/gu-IN.i18n.json');
- const keys=Object.keys(english).filter(key=>/^blockly-(ANNOUNCE_|ARIA_|BLOCK_LABEL_|BUBBLE_LABEL_|COLOUR_|CONTROLS_|FIELD_|ICON_|INPUT_|KEYBOARD_|LOGIC_|LISTS_)/.test(key)&&!key.endsWith('_HELPURL')&&/[A-Za-z]/.test(english[key]));
+ const keys=Object.keys(english).filter(key=>/^blockly-(ANNOUNCE_|ARIA_|BLOCK_LABEL_|BUBBLE_LABEL_|COLOUR_|CONTROLS_|FIELD_|ICON_|INPUT_|KEYBOARD_|LOGIC_|LISTS_|PROCEDURES_|VARIABLES_|VARIABLE_|NEW_VARIABLE|RENAME_VARIABLE)/.test(key)&&!key.endsWith('_HELPURL')&&/[A-Za-z]/.test(english[key]));
  for(const key of keys){
   assert.match(gu[key],/[\u0A80-\u0AFF]/,key);
   assert.notEqual(gu[key],english[key],key);
@@ -69,6 +69,9 @@ test('resumed Gujarati accessibility and basic block controls contain Gujarati p
  assert.equal(gu['blockly-LISTS_SORT_ORDER_DESCENDING'],'ઊતરતો ક્રમ');
  assert.notEqual(gu['blockly-LISTS_GET_INDEX_TOOLTIP_GET_FIRST'],gu['blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_FIRST']);
  assert.notEqual(gu['blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_FIRST'],gu['blockly-LISTS_SET_INDEX_TOOLTIP_SET_FIRST']);
+ assert.equal(gu['blockly-VARIABLES_DEFAULT_NAME'],'વસ્તુ');
+ assert.notEqual(gu['blockly-PROCEDURES_DEFNORETURN_TOOLTIP'],gu['blockly-PROCEDURES_DEFRETURN_TOOLTIP']);
+ assert.notEqual(gu['blockly-VARIABLES_GET_TOOLTIP'],gu['blockly-VARIABLES_SET_TOOLTIP']);
 });
 test('Gujarati math prose is translated while mathematical notation stays intact',()=>{
  const gu=require('../imports/i18n/data/gu-IN.i18n.json');
