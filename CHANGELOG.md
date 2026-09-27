@@ -126,6 +126,9 @@ Native version 2 board transfer and duplication now preserve daily observations
 and remap their references; version 1 imports remain supported. Collectors skip
 unfinished imports. Recovery of interrupted multi-document imports remains
 unfinished, alongside broader History/undo transport.
+Marked incomplete imports also block Scrum edits, History writes and report
+exports, with a visible warning. This does not lock ordinary board/card edits
+or provide automatic import resume/rollback.
 Remaining: event-complete scope history and burndown,
 atomic original writes/History, large-board
 limits, complete cross-board move/reference/undo coordination, standalone
@@ -756,6 +759,33 @@ Sprint Report, with scoped Excel/PDF downloads. Native board transfer and
 duplication preserve daily history too. Event-complete burndown remains pending.
 
 This release improves daily Scrum reporting:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8cb463722">Keep marked incomplete imports out of Scrum edits and report downloads</a>. Thanks to xet7.</summary>
+
+While a board has a pending imported sprint, reject Scrum settings, planning,
+metadata and lifecycle changes, including the already-closed retry path.
+History restore/undo/redo cannot create checkpoints or apply changes during
+that state. Remove editing capabilities from the Scrum view and show why.
+Daily reads reject incomplete data; Excel/PDF Scrum downloads return HTTP 409
+with an incomplete-import message. Clearing the marker after a completed
+import restores normal access.
+
+Twelve focused Node suites pass, including the shared export authorization
+policy and MongoDB capture. The optional separate DDP lifecycle suite is
+skipped. Thirteen distinct Chromium scenarios pass across the initial run and
+focused rerun after correcting test error serialization. Coverage includes
+eleven refused mutation/History calls without side effects, blocked report
+downloads, the warning and unavailable forms, restored access, native import,
+copying and existing History recovery. Both download formats also pass the
+final pending-import scenario. The release audit passes with advisory warnings.
+Four changelog suites pass; the known released-entry line-length failure
+remains. FerretDB and other browsers were not tested.
+
+This guards marked Scrum imports. Automatic resume/rollback and conflict
+handling for concurrent ordinary board/card edits remain pending.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3fe578618">Preserve daily observations through native board transfer and duplication</a>. Thanks to xet7.</summary>
