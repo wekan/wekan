@@ -177,13 +177,16 @@ values. Board writers can retain the local value or select the source value;
 fresh comparisons and conditional writes reject stale choices. Assigned-only
 writers review their assigned existing cards without running full-list Sync;
 their resolution writes also require the assignment to remain present.
+Duplicate mapping previews now identify extra cards and one consistently
+retained mapping. Extras can become local cards while keeping their content;
+changed mapping groups require a new review.
 Remaining: external sprint histories without invented snapshots, multiple
 release assignments, epic relationships, automatic field/schema mapping,
 Trello and other Scrum adapters, mapping previews/loss reporting, planning and
 estimate Sync, durable restart checkpoints, fencing of in-flight card writes
 after lease loss, atomic multi-card reconciliation, cleanup of credentials for
 missing lists and malformed generations,
-and resolution UI for duplicate mappings and archive/move conflicts.
+and resolution UI for archive/move conflicts.
 Changes during card writes remain nontransactional.
 See [Jira](docs/Features/ImportExport/Jira/Jira.md) and
 [Sync](docs/Features/ImportExport/Sync.md).
@@ -1041,6 +1044,27 @@ in TODO Later. The known released-entry changelog format failure remains.
 and improves list synchronization:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/4b05d4c51">Convert duplicate Sync mappings into local cards</a>. Thanks to xet7.</summary>
+
+The Sync popup now shows extra mappings beside the card that will stay synced.
+Keep an extra as a local card by removing only its Sync identity and source
+baseline. Preserve its content and assignments. All workers protect the same
+first mapping, independent of cursor order. Include the visible mapping group
+in the preview fingerprint and retain conditional card/assignment checks.
+Changed groups require a new review; Sync retries after successful repair.
+
+Ten Sync Node suites and eleven Chromium scenarios pass. Coverage includes
+reversed query order, protected retained mappings, stale groups, assignment
+conditions, unchanged card content and successful Sync after repair. The local
+release audit passes with advisory warnings. Add English source labels only.
+Groups spanning hidden cards require an unrestricted writer. Archive/subtask
+and moved-card creation conflicts, transactional reconciliation and in-flight
+write fencing remain pending. Other browsers, FerretDB and live providers
+were not tested.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4aa67fedc">Review and resolve Sync conflicts within assigned-card access</a>. Thanks to xet7.</summary>
 
 For assigned-only writers, manual Sync reviews their assigned existing cards
@@ -1059,7 +1083,8 @@ Ten Sync Node suites and ten Chromium scenarios pass, including hidden-card
 preservation, unchanged shared status, assignment revocation, scoped writes
 and existing configuration/credential behavior. The local release audit passes
 with advisory warnings. Add one English source label without translation fill.
-Duplicate mapping and archive/move resolution, transactional reconciliation
+Duplicate mapping repair is extended above. Archive/move resolution,
+transactional reconciliation
 and in-flight card-write fencing remain pending. Other browsers, FerretDB
 and live providers were not tested.
 
@@ -1083,8 +1108,8 @@ assigned-only restrictions and existing settings/source behavior. The local
 release audit passes with advisory warnings. Add English source labels only;
 other languages use the existing fallback, without translation filling.
 
-Assigned-only resolution is extended in the entry above. Duplicate mappings,
-archive/move conflicts, transactional reconciliation and in-flight write
+Assigned-only resolution and duplicate mapping repair are extended above.
+Archive/move conflicts, transactional reconciliation and in-flight write
 fencing remain pending.
 FerretDB, other browsers and live providers were not tested.
 
