@@ -156,6 +156,16 @@ visibility and restricts assigned-only readers to their currently visible cards,
 retaining partial-source warnings. The reader streams at most 366 observations
 and flags truncation. Capture limits each sprint to 10,000 cards and each board
 to 10,000 lists; exceeding a limit leaves a gap rather than saving partial data.
+
+Sprint start and close also bound their input queries to 10,001 cards/lists,
+using the extra row to reject oversized snapshots before changing sprint state
+or writing History. Projections omit card titles, bodies and attachments while
+retaining estimate, completion and rollover metadata. Start excludes archived
+cards; close includes them. Exactly 10,000 rows remain supported. Done-list
+membership is indexed once per snapshot instead of scanning every list for
+every card. This bounds row counts, not document byte sizes: large metadata and
+rollover plans, board-view pagination and concurrent snapshot consistency still
+need separate work.
 Board deletion removes the observations. Full-instance backups include the
 collection through the normal collection inventory; native board transfer and
 duplication now carry daily observations too. General History/undo transport

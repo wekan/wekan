@@ -1,5 +1,6 @@
 // Canonical Scrum metadata. Pure validation is shared by methods and transfers.
 const LIMIT = 10000;
+const SCRUM_SNAPSHOT_LIMIT = 10000;
 const own = (o, k) => Object.prototype.hasOwnProperty.call(o, k);
 function fail(message) { throw new Error(message); }
 function object(value, keys) {
@@ -107,9 +108,12 @@ function isScrumCardDone(card, settings, lists = []) {
     : card.dueComplete === true;
 }
 function sprintSnapshot(cards, settings, lists, at = new Date()) {
-  if (cards.length > 10000) fail('Sprint exceeds snapshot limit');
+  if (cards.length > SCRUM_SNAPSHOT_LIMIT) fail('Sprint exceeds snapshot limit');
+  if (lists.length > SCRUM_SNAPSHOT_LIMIT) fail('Board exceeds snapshot list limit');
+  const doneLists = settings.completionPolicy === 'doneLists'
+    ? new Set(lists.filter(list => list.scrum?.category === 'done').map(list => list._id)) : null;
   const rows = cards.map(card => ({ cardId: card._id, estimate: getCardEstimate(card, settings),
-    done: isScrumCardDone(card, settings, lists), archived: card.archived === true, listId: card.listId }));
+    done: doneLists ? doneLists.has(card.listId) : card.dueComplete === true, archived: card.archived === true, listId: card.listId }));
   return { at, unit: settings.estimateUnit, estimateSource: settings.estimateSource,
     workingDays: [...(settings.workingDays || DEFAULT_SCRUM_SETTINGS.workingDays)],
     estimateCustomFieldId: settings.estimateCustomFieldId, completionPolicy: settings.completionPolicy,
@@ -119,6 +123,6 @@ function sprintSnapshot(cards, settings, lists, at = new Date()) {
 function scrumRevisionSelector(doc) {
   return own(doc, 'scrumRevision') ? { scrumRevision: doc.scrumRevision } : { scrumRevision: { $exists: false } };
 }
-module.exports = { DEFAULT_SCRUM_SETTINGS, normalizeScrumSettings, normalizeScrumMetadata,
+module.exports = { SCRUM_SNAPSHOT_LIMIT, DEFAULT_SCRUM_SETTINGS, normalizeScrumSettings, normalizeScrumMetadata,
   normalizeScrumRecord, getCardEstimate, isScrumCardDone, sprintSnapshot, scrumRevisionSelector,
   validateScrumRevision: revision };

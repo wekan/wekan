@@ -22,6 +22,8 @@ const { dailyHistoryRows } = require('/models/lib/scrumDailyHistory');
 const { DEFAULT_SCRUM_SETTINGS, normalizeScrumSettings, normalizeScrumMetadata,
   normalizeScrumRecord, sprintSnapshot, scrumRevisionSelector, validateScrumRevision } = require('/models/lib/scrum');
 
+const { loadScrumSnapshotInputs } = require('./lib/scrumSnapshotInputs');
+
 const collections = { sprint: ScrumSprints, release: ScrumReleases, event: ScrumEvents };
 const queues = new Map();
 let historyRecorder = async () => {};
@@ -282,8 +284,9 @@ const methods = {
       const settings = { ...DEFAULT_SCRUM_SETTINGS, ...(board.scrum || {}) };
       await ensureSettings(boardId, settings, board);
       if (sprint.capacity != null && sprint.capacityUnit !== settings.estimateUnit) invalid('Capacity and estimates must use the same unit');
-      const cards = await Cards.find({ boardId, 'scrum.sprintId': sprintId, archived: { $ne: true } }).fetchAsync();
-      const lists = await Lists.find({ boardId }).fetchAsync(); const startedAt = new Date();
+      const { cards, lists } = await loadScrumSnapshotInputs({ cards: Cards, lists: Lists,
+        boardId, sprintId, includeArchived: false });
+      const startedAt = new Date();
       return updateSprint(this.userId, sprint, { state: 'active', startedAt,
         startSnapshot: validate(() => sprintSnapshot(cards, settings, lists, startedAt)) });
     });
@@ -302,8 +305,9 @@ const methods = {
       if (sprint.state !== 'active') invalid('Only an active sprint can close');
       if (rolloverSprintId && (rolloverSprintId === sprintId || !(await ScrumSprints.findOneAsync({ _id: rolloverSprintId, boardId, state: 'planned' })))) invalid('Rollover must target a planned sprint on this board');
       const settings = { ...DEFAULT_SCRUM_SETTINGS, ...(board.scrum || {}) };
-      const cards = await Cards.find({ boardId, 'scrum.sprintId': sprintId }).fetchAsync();
-      const lists = await Lists.find({ boardId }).fetchAsync(); const completedAt = new Date();
+      const { cards, lists } = await loadScrumSnapshotInputs({ cards: Cards, lists: Lists,
+        boardId, sprintId, includeArchived: true });
+      const completedAt = new Date();
       const closeSnapshot = validate(() => sprintSnapshot(cards, settings, lists, completedAt));
       const done = new Map(closeSnapshot.cards.map(row => [row.cardId, row.done]));
       const rolloverPending = cards.map(card => ({ cardId: card._id, revision: card.scrumRevision || 0,
