@@ -30,8 +30,16 @@ whereas the general completed total uses close-snapshot estimates. These columns
 make changing estimates and unlike completion policies visible outside WeKan.
 Excel uses columns. PDF prints wrapped labelled values for each sprint so the
 wide set of metrics does not get clipped into narrow columns.
-Historical daily burndown integration remains work listed in
-[the Scrum design](Scrum-Design.md).
+Selecting a sprint also displays its daily scope and remaining-work observations.
+Each UTC day has at most one measured state, shown with its actual capture
+timestamp. The bars offer card counts or known estimates with unknown counts;
+they omit unobserved days and do not interpolate changes. Active sprints can
+have daily observations before a closed-sprint result exists. Empty history,
+partial visibility and truncation to the latest 366 observations are labelled.
+Refreshing reloads the selected report. Daily observations are not included in
+the Export action yet; that action still exports sprint results only.
+Event-complete historical burndown and daily-history export remain work listed
+in [the Scrum design](Scrum-Design.md).
 
 Reports and Excel/PDF exports also show the planned working-day count. The
 calendar is retained in the sprint's start snapshot, so subsequent board

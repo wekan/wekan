@@ -1,7 +1,7 @@
 'use strict';
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
-const { loginWithToken } = require('../helpers/auth');
+const { loginWithToken, openBoard } = require('../helpers/auth');
 const call = (page, method, ...args) => page.evaluate(({ method, args }) => Meteor.callAsync(method, ...args), { method, args });
 
 test('daily Scrum observations retain measured estimates and obey assigned-card access', async ({ page, browser, user, user2, board }) => {
@@ -39,6 +39,67 @@ test('daily Scrum observations retain measured estimates and obey assigned-card 
     expect(JSON.stringify(restricted)).not.toContain('999');
   } finally {
     await secondContext.close();
+    db.deleteMany('scrumDailySnapshots', { boardId: board.boardId });
+    db.deleteMany('scrumSprints', { boardId: board.boardId });
+  }
+});
+
+test('daily report renders measured gaps and ignores stale sprint responses', async ({ page, user2, board }) => {
+  const card = db.find('cards', { boardId: board.boardId })[0];
+  db.updateOne('boards', { _id: board.boardId }, { $push: { members: {
+    userId: user2.id, isActive: true, isAdmin: false, isReadAssignedOnly: true,
+  } } });
+  db.updateOne('cards', { _id: card._id }, { $set: { assignees: [user2.id] } });
+  const start = new Date('2026-09-01T10:00:00Z');
+  const policy = { at: start, estimateSource: 'poker', completionPolicy: 'dueComplete', unit: 'points', cards: [] };
+  const ids = ['measured', 'delayed', 'empty'].map(name => `${name}-${board.boardId}`);
+  for (const id of ids) db.insertOne('scrumSprints', { _id: id, boardId: board.boardId,
+    name: id, state: 'closed', startSnapshot: policy });
+  for (const day of ['2026-09-01', '2026-09-03']) db.insertOne('scrumDailySnapshots', {
+    _id: `${ids[0]}-${day}`, boardId: board.boardId, sprintId: ids[0], startedAt: start,
+    capturedAt: new Date(`${day}T10:00:00Z`), day,
+    snapshot: { ...policy, cards: [{ cardId: card._id, estimate: day.endsWith('01') ? 3 : null, done: false },
+      { cardId: 'hidden', estimate: 999, done: false }] },
+  });
+  try {
+    await loginWithToken(page, user2.id, user2.token);
+    await openBoard(page, board.boardId, board.slug);
+    await page.locator('.js-toggle-board-view').first().click();
+    await page.locator('.pop-over .js-open-sprint-report-view').click();
+    await page.locator('.js-scrum-sprint').selectOption(ids[0]);
+    const report = page.locator('.scrum-daily-history');
+    await expect(report.locator('.scrum-daily-row')).toHaveCount(2);
+    await expect(report).toContainText('Missing days are omitted');
+    await expect(report.locator('.scrum-partial-report')).toBeVisible();
+    await report.locator('.js-scrum-daily-metric').selectOption('estimate');
+    await expect(report.locator('.scrum-chart-label').first()).toHaveText('Observed scope: 3');
+    await expect(report.locator('.scrum-daily-row').last()).toContainText('1 unknown');
+    await expect(report).not.toContainText('999');
+    await expect(report).not.toContainText('2026-09-02');
+    await page.setViewportSize({ width: 390, height: 844 });
+    expect(await report.evaluate(element => element.scrollWidth <= element.clientWidth + 1)).toBe(true);
+    await page.evaluate(delayedId => {
+      const original = Meteor.callAsync;
+      window.restoreDailyCall = () => { Meteor.callAsync = original; };
+      Meteor.callAsync = function (method, ...args) {
+        if (method === 'scrum.getDailyHistory' && args[1] === delayedId) {
+          return new Promise(resolve => { window.resolveDaily = resolve; });
+        }
+        return original.call(this, method, ...args);
+      };
+    }, ids[1]);
+    await page.locator('.js-scrum-sprint').selectOption(ids[1]);
+    await expect(report).toContainText('Loading');
+    await page.waitForFunction(() => typeof window.resolveDaily === 'function');
+    await page.locator('.js-scrum-sprint').selectOption(ids[2]);
+    await expect(report).toContainText('No daily observations');
+    await page.evaluate(() => {
+      window.resolveDaily({ rows: [], partial: true, truncated: true });
+      window.restoreDailyCall();
+    });
+    await expect(report).not.toContainText('366');
+    await expect(report).toContainText('No daily observations');
+  } finally {
     db.deleteMany('scrumDailySnapshots', { boardId: board.boardId });
     db.deleteMany('scrumSprints', { boardId: board.boardId });
   }

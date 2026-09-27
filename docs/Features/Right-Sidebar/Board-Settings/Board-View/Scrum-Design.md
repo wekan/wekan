@@ -12,8 +12,9 @@ See [Sprints](Sprints.md), [Product Backlog](Product-Backlog.md) and
 [Sprint Reports](Sprint-Reports.md) for the current behavior.
 
 Daily observed snapshots and a scoped history reader are now implemented as a
-foundation for burndown. Still pending: event-complete scope history and
-burndown visualization, original-edit/History atomicity and large-board limits,
+foundation for burndown, with measured daily bars in Sprint Report.
+Still pending: event-complete scope history and burndown, daily exports,
+original-edit/History atomicity and large-board limits,
 standalone planning-record transfer/copy and remaining external
 import/export/sync mappings, and the remaining lifecycle/permission/browser
 matrix described below. Source-string registration is not translated coverage.
@@ -157,8 +158,11 @@ and flags truncation. Capture limits each sprint to 10,000 cards and each board
 to 10,000 lists; exceeding a limit leaves a gap rather than saving partial data.
 Board deletion removes the observations. Full-instance backups include the
 collection through the normal collection inventory; native board transfer and
-history transport do not yet carry it. The chart UI, exports, event-level scope
-replay and cross-document consistency still require implementation.
+history transport do not yet carry it. Sprint Report now displays the observed
+daily scope, remaining work and completed work as bars, with exact timestamps,
+metric selection and partial/empty/truncated states. Missing days are not
+connected or interpolated. Exports, event-level scope replay and
+cross-document consistency still require implementation.
 
 The shared Scrum settings form now exposes Product Owner, Scrum Master,
 Developers and working days. Accountabilities select active board members and

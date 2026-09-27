@@ -3509,5 +3509,10 @@
   "scrum-follow-up-cards": "Follow-up cards",
   "scrum-import-reference-omitted": "A source reference could not be restored: __reference__",
   "scrum-partial-snapshot": "This sprint contains only part of the original snapshot.",
-  "scrum-resume-close": "Resume interrupted sprint close"
+  "scrum-resume-close": "Resume interrupted sprint close",
+  "scrum-daily-observations": "Daily scope and remaining work (observations)",
+  "scrum-daily-observations-help": "Each bar shows the first recorded observation of a UTC day, at the timestamp shown. Missing days are omitted. These observations do not record every change or show end-of-day totals. Unknown estimates are not zero. The Export action above exports sprint results, not these observations.",
+  "scrum-daily-truncated": "Only the most recent 366 observations are shown.",
+  "scrum-daily-empty": "No daily observations have been recorded for this sprint.",
+  "scrum-observed-scope": "Observed scope"
 }

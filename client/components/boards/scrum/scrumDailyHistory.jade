@@ -1,0 +1,37 @@
+template(name="scrumDailyHistory")
+  section.scrum-daily-history
+    h3 {{_ 'scrum-daily-observations'}}
+    p {{_ 'scrum-daily-observations-help'}}
+    if error
+      p.warning(role="alert") {{error}}
+    else
+      if history
+        if history.partial
+          p.scrum-partial-report {{_ 'scrum-partial-report'}}
+        if history.truncated
+          p.warning {{_ 'scrum-daily-truncated'}}
+        if history.rows.length
+          label
+            | {{_ 'cards'}} / {{_ 'scrum-estimate'}}
+            select.js-scrum-daily-metric
+              option(value="count") {{_ 'cards'}}
+              option(value="estimate") {{_ 'scrum-estimate'}}
+          each groups
+            section.scrum-chart
+              p {{unit}}
+              if partial
+                p {{_ 'scrum-partial-snapshot'}}
+              each rows
+                figure.scrum-chart-row.scrum-daily-row
+                  figcaption
+                    time(datetime=capturedLabel) {{capturedLabel}}
+                  each series
+                    .scrum-chart-series
+                      span.scrum-chart-label {{label}}: {{value}}
+                      .scrum-chart-track(aria-hidden="true")
+                        .scrum-chart-bar(class=key style="width: {{width}}%")
+                      small {{formatTotal total}}
+        else
+          p {{_ 'scrum-daily-empty'}}
+      else
+        p(role="status") {{_ 'loading'}}

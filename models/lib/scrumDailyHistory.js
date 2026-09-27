@@ -13,4 +13,24 @@ function dailyHistoryRows(samples, visibleIds = null) {
   });
 }
 
-module.exports = { dailyHistoryRows };
+// Separate units and partial samples before scaling. Missing calendar
+// days are not inserted or connected: every bar represents a measured instant.
+function dailyChartGroups(rows, metric = 'count') {
+  const groups = new Map();
+  for (const row of rows) {
+    const signature = JSON.stringify([row.unit, Boolean(row.partial)]);
+    if (!groups.has(signature)) groups.set(signature, { unit: row.unit, partial: Boolean(row.partial), rows: [], max: 0 });
+    const group = groups.get(signature);
+    const series = ['scope', 'remaining', 'completed'].map(key => {
+      const value = row[key][metric === 'estimate' ? 'estimate' : 'count'];
+      group.max = Math.max(group.max, value);
+      return { key, value, total: row[key] };
+    });
+    group.rows.push({ ...row, series });
+  }
+  return [...groups.values()].map(group => ({ ...group, rows: group.rows.map(row => ({ ...row,
+    series: row.series.map(series => ({ ...series, width: group.max ? 100 * series.value / group.max : 0 })),
+  })) }));
+}
+
+module.exports = { dailyHistoryRows, dailyChartGroups };
