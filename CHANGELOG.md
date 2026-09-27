@@ -257,9 +257,14 @@ No external translation service or remote translation upload was used.
 <details>
 <summary>Local translation repairs and validation paused; review remains.</summary>
 
-All work in this older audit queue is also paused for the 2026-09-27 release
-handoff. The dated findings below are retained as historical checkpoints;
-they do not supersede the pause or prove global translation completion.
+Wrong-language and wrong-meaning repairs resumed at the maintainer's request
+after the 2026-09-27 Transifex download. The first reviewed batch corrects 487
+locale/key pairs and retains valid downloaded translations. The broader
+semantic audit remains in progress; filling untranslated strings in every
+language is still excluded from the work queue.
+See the [download review](docs/Features/Translations/Transifex-2026-09-27.md).
+The dated findings below remain historical checkpoints, not proof of global
+translation completion.
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
 As of 2026-09-16, all 20,081 original findings are classified:
@@ -756,9 +761,30 @@ the Markdown commit as the template.
 runs and settings changes, including private credentials. **Scrum** records
 daily observations and displays their measured scope and remaining work in
 Sprint Report, with scoped Excel/PDF downloads. Native board transfer and
-duplication preserve daily history too. Event-complete burndown remains pending.
+duplication preserve daily history too. **API diagnostics** omit request secrets,
+and reviewed **translations** regain their target-language meaning.
 
-This release improves daily Scrum reporting:
+This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/03c95123f">Keep request secrets out of unhandled API failure diagnostics</a>. Thanks to xet7.</summary>
+
+The route error boundary previously logged the full request URL and exception,
+which could expose query authentication tokens and other request data.
+Record only a registered route pattern and fixed error category in folded API
+Problems entries. Repeated failures increase the count without retaining raw
+URLs, parameters, messages or stacks. A logging failure cannot break the
+generic HTTP 500 response. Ordinary server failures do not block accounts.
+
+Four focused Node suites pass. Chromium verifies authenticated failure
+responses, folded database rows, the Admin API Problems view and absence of
+the request token and private marker. The pending-import HTTP scenario also
+passes. This covers the route boundary; other loggers and historical log
+contents were not changed.
+
+</details>
+
+and improves daily Scrum reporting:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8cb463722">Keep marked incomplete imports out of Scrum edits and report downloads</a>. Thanks to xet7.</summary>
@@ -993,6 +1019,26 @@ includes overlapping IDs, scoped archival, credential replacement, legacy
 adoption, unknown sources, reconnects, malformed URLs and board permissions.
 The local release audit passes. Live providers, FerretDB and other browsers
 were not tested. Update the Sync guide, Scrum design and resumption checkpoint.
+
+</details>
+
+and repairs downloaded translations:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ff12d9516">Restore target-language meanings and retain valid downloaded translations</a>. Thanks to xet7.</summary>
+
+Correct 487 locale/key pairs in 57 locales, including Persian in Arabic,
+Serbian in Slovenian, Malay in Vietnamese, Hindi fragments in Urdu and Odia,
+and Blockly noun/action and keyboard-label mistakes. Restore lost localized
+labels and help links. Exact-value correction records prevent these known bad
+values from returning while preserving newer translations. Missing source
+keys remain explicit English placeholders, not claimed translations.
+
+Three Node suites pass, including the full 22,790-record correction ledger.
+Six Chromium localization scenarios pass. Walloon wording remains lower
+confidence; the broader semantic audit is unfinished. See the
+[review and remaining scope](docs/Features/Translations/Transifex-2026-09-27.md).
+No translations were uploaded to Transifex.
 
 </details>
 
