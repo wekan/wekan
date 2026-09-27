@@ -1202,6 +1202,27 @@ other browsers and live provider accounts were not exercised.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b254b7d3a">Preserve local title and description edits during Sync</a>. Thanks to xet7.</summary>
+
+Store the last accepted source text on synced cards. Upstream-only changes
+merge, local-only changes remain, and differing edits on both sides stop the
+run before card writes. Legacy cards adopt a baseline only when local and
+source text agree. The existing Sync popup identifies conflicting source IDs
+and fields; aligning both texts permits a retry.
+
+Conditional updates reject intervening text, archive-state or location changes.
+Sync now displays structured failures as errors rather than success. Twenty-two
+focused Node checks and two Chromium scenarios pass, including merge decisions,
+legacy baselines, concurrent-write rejection and popup error handling. Provider
+responses are mocked; no live tracker account was used. Earlier successful
+writes can remain after a later race: this is not a transaction. Dedicated
+resolution controls, Scrum mappings and fully atomic Sync remain pending.
+Existing Upcoming regression evidence remains recorded; other browsers were
+not run. Blockly translations remain paused.
+
+</details>
+
 This release adds the following regression coverage and documentation:
 
 <details>
