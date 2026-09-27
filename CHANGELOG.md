@@ -1038,6 +1038,21 @@ Existing Upcoming coverage remains recorded. Other browsers were not run.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/89f7aa985">Separate partial Scrum reports from complete chart scales</a>. Thanks to xet7.</summary>
+
+Partial snapshots from scoped imports or restricted views no longer share a
+chart scale with complete sprint snapshots. Keep the existing visible warnings
+and exact totals. Assigned-only reports continue to exclude hidden cards and
+their estimates from both chart data and exported workbooks.
+
+Nine focused Node checks and one Chromium scenario pass. The browser scenario
+checks rendered counts, metric selection, partial warnings, server snapshot
+filtering and Excel values for an assigned-only member. Existing Upcoming
+regression evidence remains recorded; other browsers were not run.
+
+</details>
+
 This release adds the following regression coverage and documentation:
 
 <details>
