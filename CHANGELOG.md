@@ -203,11 +203,14 @@ Unknown subtrees are reported as a whole, with bounded counts and no values.
 Full-list manual and scheduled runs now retain private outcome/coverage reports.
 The popup reads the latest 20 reports from the last 30 days with fresh full-list
 permission checks. Unfinished outcomes remain explicitly unknown; these
-reports do not resume or roll back partially applied writes.
+reports do not resume or roll back partially applied writes. Instance admins
+can now inspect them in Problems/Recovery with status filters, literal board or
+list ID search, ten-row pagination and an explicit refresh. Administrator access
+is checked before and after reading; no collection is published.
 Remaining: external sprint histories without invented snapshots, multiple
 release assignments, epic relationships, automatic field/schema mapping,
 Trello and other Scrum adapters, complete provider schema/mapping coverage,
-binary/history transport, Problems/Recovery report integration, planning and
+binary/history transport, planning and
 estimate Sync, durable restart checkpoints, fencing of in-flight card writes
 after lease loss and atomic multi-card reconciliation.
 Changes during card writes remain nontransactional.
@@ -1067,6 +1070,39 @@ in TODO Later. The known released-entry changelog format failure remains.
 and improves list synchronization:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/6a4e5e29a">Inspect retained Sync outcomes in Problems Recovery</a>. Thanks to xet7.</summary>
+
+Add a Sync diagnostic table alongside the existing Recovery event report.
+Read the same private run records rather than copying events or publishing the
+collection. Default to unfinished outcomes, without claiming they are stopped.
+Offer status filters, literal board/list ID search, ten-row server pagination
+and explicit refresh. Expand Details for confirmed successful counts, bounded
+field paths and parser diagnostic counts. Existing event controls stay separate.
+
+Require instance administrator access before and after reading. Reject invalid
+queries, escape search metacharacters, use an explicit field projection and
+exclude records older than 30 days. Rate-limit requests and index time/status
+queries. The list popup keeps its separate board/lifetime permission boundary;
+instance admins may inspect retained reports for deleted lists here.
+
+Twenty-two targeted Node suites pass, including MongoDB tests for stable pages,
+retention, literal search and private-field exclusion. Access tests cover
+anonymous and ordinary users and administrator rights revoked during reading.
+All twenty Chromium Sync, Recovery and instrumentation scenarios pass. The
+expanded Recovery scenario also passes with an explicit refresh after a stored
+outcome changes. Coverage includes status filters, escaped paths and the
+non-admin denial. Update Recovery, Sync and format-coverage documentation;
+add English source labels only. The local release audit passes with advisory
+warnings. Other browsers and FerretDB were not tested. Existing Upcoming
+regression evidence remains recorded.
+
+This completes the retained-report Recovery view. Replay checkpoints,
+in-flight write fencing, automatic restart recovery and atomic multi-card
+reconciliation remain unfinished; the view offers no resume or undo action.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/adf646177">Retain private Sync run outcomes and field coverage</a>. Thanks to xet7.</summary>
 
 Full-list manual and scheduled Sync runs now persist a starting record before
@@ -1094,8 +1130,8 @@ the Sync and format-coverage guides; add English source labels only. The local
 release audit passes with advisory warnings. Existing Upcoming regression
 evidence remains recorded. Other browsers and FerretDB were not tested.
 
-These are retained diagnostics, not replay plans. Problems/Recovery integration,
-restart checkpoints, in-flight write fencing and atomic multi-card changes
+These are retained diagnostics, not replay plans. The Recovery view added above
+exposes them; restart checkpoints, in-flight write fencing and atomic changes
 remain in TODO Later alongside complete provider mapping and data transport.
 
 </details>
@@ -1124,9 +1160,8 @@ add English source labels only. FerretDB and other browsers were not tested.
 
 Rules follow the current parsers, not a complete provider schema. Pagination
 envelopes discarded while fetching are outside this inventory. Complete field
-mapping, Problems/Recovery integration, binary/history transport and durable
-recovery remain in TODO Later. Existing Upcoming regression evidence remains
-recorded.
+mapping, binary/history transport and durable recovery remain in TODO Later.
+Existing Upcoming regression evidence remains recorded.
 
 </details>
 
@@ -1159,8 +1194,8 @@ other browsers were not tested.
 
 This completes the normalized-field preview checkpoint. The source inventory
 added next covers fetched fields before normalization; full-run reports now
-retain it. Complete schema/mapping coverage, Problems/Recovery integration and
-durable recovery remain in TODO Later.
+retain it and Recovery exposes it. Complete schema/mapping coverage and durable
+recovery remain in TODO Later.
 
 </details>
 
