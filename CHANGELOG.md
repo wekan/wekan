@@ -251,6 +251,14 @@ now requires stable caller-persisted intents and immutable private completion
 records before cleanup. A retry returns its original completion without building
 or applying card units, even after marker deletion, while newer jobs remain
 untouched. Production intent/storage retention and job lifecycle are still open.
+An internal card application adapter now performs conditional field writes and
+verifies their persisted results. Even when a retry finds the expected card,
+it requires a separate stable event acknowledgement before the journal advances.
+MongoDB tests cover interruption between card persistence and event completion,
+local edits, lost write replies, creation, archive and null-to-missing fields.
+The callback currently has a test receipt implementation; real History,
+activities, rules and notification delivery still need durable integration.
+The adapter is not enabled in manual or scheduled Sync yet.
 Current Sync write selectors now distinguish explicit null from missing fields.
 Adapter investigation also moved title/description activities after successful
 writes and made archive/entity/rule History hooks reject zero-match updates.
@@ -1453,6 +1461,29 @@ the pre-existing overlong line in released v12.07.
 This verification and cleanup sequence is not a cross-document transaction.
 Coordinated fencing of in-flight writers, atomic original writes/History and
 automatic startup replay remain in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7bf5c63d0">Separate Sync card writes from event completion</a>. Thanks to xet7.</summary>
+
+Add the internal application adapter for saved Sync steps. Conditional writes
+preserve unrelated card fields and require the expected stored result, including
+after lost replies. An occupied creation ID or changed local value stops replay.
+Every pending step separately requests durable effects using a stable operation
+and step identifier; matching card state alone cannot advance the journal.
+Missing acknowledgements, read failures and lost ownership retain recovery work.
+
+Twenty focused Sync Node suites pass with MongoDB. The final two adapter suites
+also pass after extending creation, field-removal and read-error coverage.
+Integration tests interrupt effects after card persistence, verify the pending
+checkpoint and resume without repeating card changes. The offline audit passes
+with advisory fingerprints. No browser behavior changes in this internal module;
+existing Upcoming browser results remain recorded with their entries.
+
+Manual/scheduled Sync integration, application hooks, real durable History and
+activity delivery, startup scheduling and job controls remain in TODO Later.
+The test effect receipt is not a production event-delivery implementation.
 
 </details>
 
