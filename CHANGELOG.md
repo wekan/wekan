@@ -1240,6 +1240,24 @@ other browsers and live provider accounts were not exercised.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/18c660916">Guard Sync archives against moved cards and independent subtasks</a>. Thanks to xet7.</summary>
+
+Source-absence archives now verify the original card text, baseline, archive
+state and board/list location before writing. Concurrent changes stop the
+remaining run. Sync no longer recursively archives subtasks; an active subtask
+outside the source archive plan stops the run before card writes.
+
+Nineteen focused Node checks and three Chromium error-display scenarios pass.
+Server tests cover valid removal, concurrent change rejection and independent
+subtask protection. Browser tests check structured archive errors alongside
+text conflicts and malformed-source errors. Updated the Sync guide. This is
+not a transaction, and concurrent child creation remains outside the guard.
+Existing Upcoming regression evidence remains recorded; other browsers and
+live provider accounts were not exercised.
+
+</details>
+
 This release adds the following regression coverage and documentation:
 
 <details>
