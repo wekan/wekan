@@ -998,11 +998,11 @@ Template.listSyncPopup.events({
     if (!list || !list._id) return;
     tpl.syncNowResult.set(TAPi18n.__('list-sync-now-pending'));
     Meteor.call('syncListNow', list._id, (err, res) => {
-      if (err) {
+      if (err || res?.error) {
         tpl.syncNowSuccess.set(false);
         tpl.syncNowResult.set(
           TAPi18n.__('list-sync-now-error', {
-            sprintf: [err.reason || err.message || ''],
+            sprintf: [err?.reason || err?.message || res?.error || ''],
           }),
         );
       } else {

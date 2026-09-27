@@ -15,7 +15,8 @@ every 15 minutes, fetches each synced list's current items
 `tests/listSyncReconcile.test.cjs`):
 
 - a new external item creates a WeKan card;
-- a changed title/description updates the existing card;
+- upstream title/description changes update the card when local text still
+  matches the last synchronized source value; local-only text edits are retained;
 - an external item that disappeared is **archived**, never deleted - "old
   entries are at list history", per the request this implements.
 
@@ -47,8 +48,19 @@ Provider contracts: [Jira search](https://developer.atlassian.com/server/jira/pl
 Automated coverage uses mocked provider responses; live-account verification
 remain outstanding; Jira Cloud custom domains and government-cloud hostnames
 need explicit endpoint configuration in a future change. Pagination cannot
-provide an atomic upstream snapshot. Conflict-aware local-edit preservation
-also remains required before extending Scrum synchronization.
+provide an atomic upstream snapshot. Title/description synchronization now stores the last accepted source text on
+the card. If both sides change a field differently, the run stops before card
+writes and the existing Sync popup identifies up to five conflicting source IDs
+and fields. Align the local and upstream text, then retry to accept a common
+baseline. Older synced cards without a baseline are adopted only when their
+text matches; differing legacy text requires the same resolution.
+
+Updates compare the original title, description, archive state, baseline and
+board/list location before writing. A concurrent edit aborts the remaining run.
+This is not a transaction: earlier successful updates or creations may remain.
+Archive-on-source-absence behavior is unchanged. Field selection, a dedicated
+conflict-resolution UI, new Scrum metadata mappings, source-switch handling
+and fully atomic synchronization remain pending.
 
 Fetching and parsing REUSE the existing one-time-import code in
 `models/lib/externalParsers.js` (`parseJira`, `parseGithub`, `parseGitlab`,

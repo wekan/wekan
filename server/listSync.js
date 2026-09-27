@@ -23,6 +23,7 @@ import { planListSyncReconcile, validateListSyncTasks } from '/models/lib/listSy
 import { validateImportSourceShape } from '/models/lib/importSourceShape';
 import { LIST_SYNC_FETCHERS } from '/server/lib/listSyncFetch';
 import { SyncedCron } from '/server/cron/syncedCron';
+const { planSyncTextMerge, syncTextSelector } = require('/models/lib/listSyncTextMerge');
 
 // Sync one list. Exported for the unit test and for a manual "sync now" call;
 // the cron job below just calls this for every eligible list.
@@ -75,12 +76,28 @@ export async function syncOneList(list, { fetchers = LIST_SYNC_FETCHERS } = {}) 
   ).map(c => ({
     _id: c._id,
     syncExternalId: c.syncExternalId,
+    syncSourceType: c.syncSourceType,
+    syncLastSource: c.syncLastSource,
     title: c.title,
     description: c.description,
     archived: c.archived,
   }));
 
-  const plan = planListSyncReconcile({ externalTasks, existingCards });
+  const merge = planSyncTextMerge(externalTasks, existingCards);
+  if (merge.conflicts.length) {
+    const examples = merge.conflicts.slice(0, 5).map(row => `${row.externalId.slice(0, 60)} (${row.field})`).join(', ');
+    const error = `Sync text conflict: ${examples}. Align local and source text before retrying.`;
+    await Lists.updateAsync(list._id, { $set: { 'syncSource.lastSyncError': error } });
+    return { error, conflicts: merge.conflicts };
+  }
+  const plan = planListSyncReconcile({ externalTasks: merge.tasks, existingCards });
+  const updatesByCard = new Map(plan.toUpdate.map(row => [row.cardId, row]));
+  const existingById = new Map(existingCards.map(card => [card._id, card]));
+  for (const [cardId, baseline] of merge.baselines) {
+    let update = updatesByCard.get(cardId);
+    if (!update) { update = { cardId, changes: {} }; plan.toUpdate.push(update); }
+    update.changes.syncLastSource = baseline;
+  }
 
   const board = await Boards.findOneAsync(list.boardId);
   const now = new Date();
@@ -97,6 +114,7 @@ export async function syncOneList(list, { fetchers = LIST_SYNC_FETCHERS } = {}) 
       dateLastActivity: now,
       syncExternalId: String(task.externalId),
       syncSourceType: source.type,
+      syncLastSource: { title: task.title || 'Imported item', description: task.description || '' },
     });
   }
 
@@ -105,7 +123,13 @@ export async function syncOneList(list, { fetchers = LIST_SYNC_FETCHERS } = {}) 
     // eslint-disable-next-line no-await-in-loop
     if (Object.keys(cardChanges).length) {
       // eslint-disable-next-line no-await-in-loop
-      await Cards.updateAsync(update.cardId, { $set: { ...cardChanges, dateLastActivity: now } });
+      const previous = existingById.get(update.cardId);
+      const changed = await Cards.updateAsync(syncTextSelector(previous, list.boardId, list._id), { $set: { ...cardChanges, dateLastActivity: now } });
+      if (!changed) {
+        const error = 'Sync card changed while applying updates; retry sync.';
+        await Lists.updateAsync(list._id, { $set: { 'syncSource.lastSyncError': error } });
+        return { error };
+      }
     }
     // column_name (a status change upstream) is recorded but not auto-moved
     // across lists here - moving a card out of the very list a sync watches
