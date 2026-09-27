@@ -135,6 +135,41 @@ test('assigned-only callers review scoped cards without running list-wide writes
  assert.match(revoked.message,/denied/);
 });
 
+test('duplicate repair detaches only an extra mapping and protects the stable first mapping',async()=>{
+ const original={_id:'a',syncExternalId:'KEY-1',syncSourceType:'jira',syncSourceKey:sourceKey,
+  title:'Primary',description:'Keep primary',syncLastSource:{title:'Primary'}};
+ const extra={...original,_id:'b',title:'Local duplicate',description:'Keep duplicate'};
+ const third={...original,_id:'c',title:'Third'};
+ const tasks=[{externalId:'KEY-1',title:'Primary'}];
+ const execute=(cards,options={},updateCount=1)=>run({issues:[]},()=>({tasks}),cards,updateCount,null,undefined,{},sourceKey,true,undefined,options);
+ const preview=await execute([third,extra,original],{previewConflicts:true});
+ assert.equal(preview.result.conflicts.length,2);assert.equal(preview.cardWrites.length,0);
+ const first=preview.result.conflicts[0];
+ assert.equal(first.cardId,'b');assert.equal(first.duplicate,true);assert.match(first.retained,/Primary/);
+ const reversed=await execute([original,extra,third],{previewConflicts:true});
+ assert.equal(reversed.result.conflicts[0].fingerprint,first.fingerprint);
+ const resolution={cardId:first.cardId,field:first.field,fingerprint:first.fingerprint,choice:'detach'};
+ const repaired=await execute([third,extra,original],{resolution});
+ assert.equal(repaired.result.resolved,true);assert.equal(repaired.cardWrites.length,1);
+ assert.equal(repaired.cardWrites[0].selector._id,'b');
+ assert.deepEqual(Object.keys(repaired.cardWrites[0].modifier.$unset).sort(),
+  ['syncExternalId','syncLastSource','syncSourceKey','syncSourceType']);
+ assert.deepEqual(Object.keys(repaired.cardWrites[0].modifier.$set),['dateLastActivity']);
+ for(const [cards,choice] of [
+  [[original,extra],resolution],
+  [[{...original,title:'Changed primary'},extra,third],resolution],
+  [[original,extra,third],{...resolution,cardId:'a'}],
+  [[original,extra,third],{...resolution,choice:'source'}],
+ ]){
+  const result=await execute(cards,{resolution:choice});
+  assert.match(result.result.error,/conflict changed/);assert.equal(result.cardWrites.length,0);
+ }
+ const lostAssignment=await execute([original,extra,third],{resolution,
+  assertConflictAccess:async()=>({assignees:{$in:['member']}})},0);
+ assert.match(lostAssignment.result.error,/card changed/);
+ assert.deepEqual(lostAssignment.cardWrites[0].selector.$and[1],{assignees:{$in:['member']}});
+});
+
 test('sync detects diverging local text before any card mutation',async()=>{
  const local={_id:'card',syncExternalId:'KEY-1',syncSourceType:'jira',title:'Local',description:'',syncLastSource:{title:'Original',description:''}};
  const {result,cardWrites}=await run({issues:[]},()=>({tasks:[{externalId:'KEY-1',title:'Upstream',description:''}]}),local);

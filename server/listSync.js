@@ -136,7 +136,7 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
     // Assignment loss between the read and write must fail the same atomic
     // comparison as a changed card value. Scope remains server-owned.
     const changed = await Cards.updateAsync(currentScope ? { $and: [selector, currentScope] } : selector,
-      { $set: { ...plan.changes, dateLastActivity: new Date() } });
+      { $set: { ...plan.changes, dateLastActivity: new Date() }, ...(plan.unset ? { $unset: plan.unset } : {}) });
     return changed ? { resolved: true } : { error: 'The card changed. Run Sync again to review the current values.' };
   }
   if (merge.conflicts.length) {
@@ -154,7 +154,7 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
       if (JSON.stringify(currentScope) !== JSON.stringify(conflictScope)) return { error: 'Your card access changed. Run Sync again.' };
     }
     return { error, reviewOnly: !!conflictScope, conflicts: merge.conflicts.slice(0, 50).map(conflict => previewConflicts ? describeSyncConflict(conflict,
-      cardsById.get(conflict.cardId), tasksById.get(conflict.externalId), list, sourceKey) : conflict) };
+      cardsById.get(conflict.cardId), tasksById.get(conflict.externalId), list, sourceKey, existingCards) : conflict) };
   }
   if (conflictScope) return { reviewOnly: true, conflicts: [] };
   const plan = planListSyncReconcile({ externalTasks: merge.tasks, existingCards });

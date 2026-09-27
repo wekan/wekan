@@ -3523,5 +3523,9 @@
   "sync-conflict-keep-local": "Keep WeKan value",
   "sync-conflict-use-source": "Use source value",
   "sync-conflict-refresh": "Run Sync again to review the current values.",
-  "sync-conflict-review-complete": "Your assigned cards have been reviewed. No field conflicts remain. Full-list Sync was not run."
+  "sync-conflict-review-complete": "Your assigned cards have been reviewed. No field conflicts remain. Full-list Sync was not run.",
+  "sync-conflict-duplicate": "Duplicate Sync mapping",
+  "sync-conflict-keep-mapping": "This card will stay synced",
+  "sync-conflict-detach": "Keep duplicate as a local card",
+  "sync-conflict-detach-hint": "Remove only this duplicate’s Sync mapping. Its content stays in WeKan."
 }

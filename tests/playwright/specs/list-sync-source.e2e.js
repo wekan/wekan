@@ -154,6 +154,42 @@ test('Sync popup resolves text conflicts, rejects stale previews and preserves l
   } finally { db.deleteMany('listSyncCredentials', { listId }); }
 });
 
+test('duplicate mappings become local cards without content loss and stale groups cannot be repaired blindly', async ({ page, user, board }) => {
+  const listId = db.find('lists', { boardId: board.boardId })[0]._id;
+  await loginWithToken(page, user.id, user.token);
+  await openBoard(page, board.boardId, board.slug);
+  try {
+    await call(page, 'setListSyncSource', listId, { type: 'jira', url: base, projectKey: 'ONE', token: 'duplicate-test-token' });
+    await call(page, 'syncListNow', listId);
+    const primary = db.findOne('cards', { listId, syncExternalId: 'SAME-1' });
+    const duplicateId = `zz-${primary._id}`;
+    db.insertOne('cards', { ...primary, _id: duplicateId, title: 'Duplicate local title',
+      description: 'Keep this local description', assignees: [user.id] });
+    const before = db.findOne('cards', { _id: duplicateId });
+    const preview = (await call(page, 'syncListNow', listId)).conflicts[0];
+    expect(preview).toMatchObject({ duplicate: true, cardId: duplicateId });
+    await openSync(page, listId);
+    await page.locator('.js-list-sync-now').click();
+    const row = page.locator('.list-sync-conflict').first();
+    await expect(row).toContainText('Duplicate local title');
+    await expect(row).toContainText(primary.title);
+    db.updateOne('cards', { _id: primary._id }, { $set: { title: 'Changed retained title' } });
+    await row.locator('[data-choice="detach"]').click();
+    await expect(page.locator('.pop-over .list-sync-now-error')).toContainText('conflict changed');
+    expect(db.findOne('cards', { _id: duplicateId }).syncExternalId).toBe('SAME-1');
+    await page.locator('.js-list-sync-now').click();
+    await expect(row).toContainText('Changed retained title');
+    await row.locator('[data-choice="detach"]').click();
+    await expect(page.locator('.pop-over .list-sync-now-success')).toBeVisible();
+    const after = db.findOne('cards', { _id: duplicateId });
+    for (const key of ['syncExternalId', 'syncSourceType', 'syncSourceKey', 'syncLastSource']) expect(after[key]).toBeUndefined();
+    for (const key of ['title', 'description', 'assignees', 'boardId', 'listId', 'swimlaneId', 'archived']) expect(after[key]).toEqual(before[key]);
+    expect(db.find('cards', { listId, syncExternalId: 'SAME-1' }).map(card => card._id)).toEqual([primary._id]);
+    expect(await call(page, 'syncListNow', listId)).toMatchObject({ created: 0, archived: 0 });
+    expect(db.findOne('cards', { _id: duplicateId }).description).toBe(before.description);
+  } finally { db.deleteMany('listSyncCredentials', { listId }); }
+});
+
 test('assigned-only writers resolve their own conflicts without reading or changing other Sync cards', async ({ page, user, board }) => {
   const listId = db.find('lists', { boardId: board.boardId })[0]._id;
   const members = db.findOne('boards', { _id: board.boardId }).members;

@@ -1,11 +1,14 @@
 'use strict';
 
+// All workers protect the same first mapping, independent of cursor order.
+const compareSyncCardIds = (a, b) => a._id < b._id ? -1 : a._id > b._id ? 1 : 0;
+
 // Compare local text and incoming text to the last accepted source values.
 // Legacy cards without a baseline must first agree with the source; guessing
 // would make an old local edit indistinguishable from an upstream change.
 function planSyncTextMerge(tasks, cards) {
   const byId = new Map(), baselines = new Map(), conflicts = [];
-  for (const card of cards) {
+  for (const card of [...cards].sort(compareSyncCardIds)) {
     if (!card.syncExternalId) continue;
     const id = String(card.syncExternalId);
     if (byId.has(id)) conflicts.push({ cardId: card._id, externalId: id, field: 'syncExternalId' });
@@ -45,4 +48,4 @@ function selectSyncTextFields(tasks, fields) {
     return selected;
   });
 }
-module.exports = { planSyncTextMerge, syncTextSelector, selectSyncTextFields };
+module.exports = { planSyncTextMerge, syncTextSelector, selectSyncTextFields, compareSyncCardIds };

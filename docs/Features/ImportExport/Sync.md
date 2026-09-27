@@ -148,12 +148,33 @@ assignment invalidates an old preview. Restricted previews omit all other
 cards, including their identifiers. New shared conflict status uses generic text.
 Permissions and assignment scope are checked again after fetching. Scheduled
 Sync and manual runs by unrestricted writers retain full-list behavior.
-Duplicate external identities,
-archive/subtask conflicts and moved-card creation conflicts still require
+Archive/subtask conflicts and moved-card creation conflicts still require
 manual repair. This does not make the whole Sync run transactional or fence
 already-issued card writes after lease loss. New UI strings are English source
 entries with the normal English fallback; translation filling remains outside
 the current work queue.
+
+### Repair duplicate mappings
+
+If multiple visible cards map to the same source item, the popup shows each
+extra card and the card whose mapping will remain. Choose **Keep duplicate as
+a local card** to remove only that extra card's Sync identity and source
+baseline. Its title, description, assignments and other content remain intact;
+later Sync runs ignore it. No card or upstream item is deleted.
+
+The retained mapping is selected consistently by card ID, independent of
+database cursor order. It is never offered for detachment, so simultaneous
+repairs cannot each choose to remove the other's retained mapping. The full
+visible mapping group is included in the preview comparison: an added,
+removed or edited member requires a new review. The selected card also uses
+the existing conditional write and assignment checks. Sync retries after
+each successful repair. If the source item has disappeared, normal configured
+archival rules still apply to the retained synced card.
+
+Assigned-only writers see only their assigned group members. A duplicate that
+is visible only across different users' assignments needs an unrestricted
+writer to review the full group. This repair does not merge card contents,
+choose arbitrary replacement IDs or resolve moved-card creation collisions.
 
 ### Source identity and switching projects
 
