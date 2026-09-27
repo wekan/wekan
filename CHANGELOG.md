@@ -122,6 +122,10 @@ Sprint Report displays these observations as timestamped bars, with card-count
 and estimate metrics, gaps, unknown estimates and permission-scoped results.
 The daily section now exports the same scoped observations to Excel and PDF,
 including timestamps, estimate policies and partial/truncated-result notices.
+Native version 2 board transfer and duplication now preserve daily observations
+and remap their references; version 1 imports remain supported. Collectors skip
+unfinished imports. Recovery of interrupted multi-document imports remains
+unfinished, alongside broader History/undo transport.
 Remaining: event-complete scope history and burndown,
 atomic original writes/History, large-board
 limits, complete cross-board move/reference/undo coordination, standalone
@@ -748,10 +752,38 @@ the Markdown commit as the template.
 **In short:** **Sync** keeps source projects separate and coordinates concurrent
 runs and settings changes, including private credentials. **Scrum** records
 daily observations and displays their measured scope and remaining work in
-Sprint Report, with scoped Excel/PDF downloads. Event-complete burndown remains
-pending.
+Sprint Report, with scoped Excel/PDF downloads. Native board transfer and
+duplication preserve daily history too. Event-complete burndown remains pending.
 
 This release improves daily Scrum reporting:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3fe578618">Preserve daily observations through native board transfer and duplication</a>. Thanks to xet7.</summary>
+
+Version 2 native Scrum payloads carry daily observations with their actual
+timestamps, start epochs, policies and measured card states. Remap sprint,
+card, list and custom-field references to destination IDs. Scoped exports and
+copies with omitted cards mark reduced snapshots partial and report losses.
+Version 1 files remain importable without invented observations; older readers
+cannot import version 2 files.
+
+Reject malformed or duplicate observations before import side effects. Bound
+native history to 10,000 observations and 100,000 observed card rows in total;
+larger transfers fail explicitly. Imported sprints remain pending until their
+cards, observations and settings are saved, so a collector cannot record a
+half-imported sprint. Pending imports cannot be exported as complete transfers.
+Interrupted-import recovery and multi-document atomicity remain unfinished.
+
+Ten focused Node suites pass with real MongoDB capture enabled; the optional
+separate DDP lifecycle suite is skipped. Eleven transfer checks also pass after
+adding the aggregate-size regression. Nine Chromium scenarios pass, including
+full/scoped export, UI import, board duplication, omitted Scrum, partial copies,
+invalid input, pending-import capture exclusion and existing report/export
+permissions. The release audit passes with advisory warnings. Four changelog
+suites pass; the known released-entry line-length failure remains. FerretDB,
+other browsers and full import crash recovery were not tested.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/15ff19d2a">Export daily observations with their measurement and visibility context</a>. Thanks to xet7.</summary>
