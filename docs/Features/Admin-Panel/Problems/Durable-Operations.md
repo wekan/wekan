@@ -144,6 +144,27 @@ verifies lost-acknowledgement replay without replacing unrelated card metadata.
 The planner does not write cards or establish completion of History/activities;
 those obligations still belong to the unfinished production adapter.
 
+`server/lib/syncOperationApply.js` now supplies the internal application step.
+It runs the ownership guard around conditional writes, reads the expected card
+state back even after successful replies, and accepts lost acknowledgements
+only when that state is readable. An occupied creation ID or a changed local
+value cannot be overwritten. Empty modifiers still require confirmed state.
+
+Matching card state never completes the unit by itself. Every unacknowledged
+attempt calls `completeEffects` with a stable identifier derived from the
+operation and step index, including retries whose card already matches. That
+callback must durably finish or reuse History, activities and downstream
+effects before returning the exact identifier. Missing/wrong acknowledgements
+or a lost lease prevent journal advancement. The real MongoDB test interrupts
+effects after saving a card, then verifies recovery before checkpoint cleanup.
+
+This adapter is not yet connected to manual or scheduled Sync. Its card
+interface must preserve application validation/hooks, and the durable effects
+implementation, production scope checks and lifecycle remain unfinished. The
+MongoDB test uses a separate effect receipt as a stand-in; it does not prove
+delivery of actual rules, notifications or webhooks. Guards and readbacks also
+do not fence in-flight writes or provide cross-collection atomicity.
+
 The adapter must compare exact current/before/after states, perform a conditional
 write only from the before state, verify its result, and return `applied` or
 `already-applied`. A committed write with a lost acknowledgement must return
