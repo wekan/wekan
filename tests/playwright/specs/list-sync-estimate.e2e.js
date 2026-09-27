@@ -45,7 +45,7 @@ test('Jira estimate mapping syncs zero/null and reviews local changes through th
     const card = db.findOne('cards', { listId, syncExternalId: 'EST-1' });
     const triggerId = db.uid('estimate-trigger'), actionId = db.uid('estimate-action');
     db.insertOne('triggers', { _id: triggerId, boardId: board.boardId,
-      activityType: 'advancedFilterTrigger', advancedFilter: '"Jira points" = 2' });
+      activityType: 'advancedFilterTrigger', advancedFilter: "'Jira points' = 2" });
     db.insertOne('actions', { _id: actionId, boardId: board.boardId, actionType: 'markCardComplete' });
     db.insertOne('rules', { _id: db.uid('estimate-rule'), boardId: board.boardId,
       triggerId, actionId, title: 'Complete at two points', enabled: true });

@@ -32,3 +32,18 @@ titles from other boards are not fetched or exposed.
 This is a view filter: read-only members can use it, and it changes no card or
 permission. Switching boards clears parent selections, like other board-local
 filters. No new card fields or server publications are required.
+
+## Advanced custom-field comparisons
+
+An advanced comparison matches the named custom field's own value. For example,
+`Points = 2` does not match a card with Points set to 1 merely because another
+field contains 2. The same rule applies to ranges, dates, dropdown values,
+regular expressions and `!=`: another field cannot supply or veto the value.
+A card without the named field does not satisfy that comparison. Combine
+comparisons with `and` or `or` to constrain several fields.
+
+Use single quotes around names containing spaces, for example
+`'Jira points' = 2`. A rule referring to an unknown field does not match. The
+sidebar retains its last valid selector when a new expression cannot be built.
+Rules and the sidebar share the same comparison builder; rules query the saved
+card while the sidebar filters the cards already published to the browser.

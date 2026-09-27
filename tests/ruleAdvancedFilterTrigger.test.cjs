@@ -94,10 +94,10 @@ test('label = value and custom-field comparisons combine with and/or/not', async
   const simple = advancedFilterStringToSelector("Priority == 'High'", resolvers);
   assert.deepEqual(simple, {
     $or: [
-      {
-        'customFields._id': 'cf-priority',
-        'customFields.value': { $in: ['opt-high', NaN] },
-      },
+      { customFields: { $elemMatch: {
+        _id: 'cf-priority',
+        value: { $in: ['opt-high', NaN] },
+      } } },
     ],
   });
 
@@ -107,14 +107,14 @@ test('label = value and custom-field comparisons combine with and/or/not', async
     $or: [
       {
         $and: [
-          {
-            'customFields._id': 'cf-priority',
-            'customFields.value': { $in: ['opt-high', NaN] },
-          },
-          {
-            'customFields._id': 'Points',
-            'customFields.value': { $gt: 3 },
-          },
+          { customFields: { $elemMatch: {
+            _id: 'cf-priority',
+            value: { $in: ['opt-high', NaN] },
+          } } },
+          { customFields: { $elemMatch: {
+            _id: 'Points',
+            value: { $gt: 3 },
+          } } },
         ],
       },
     ],
@@ -126,14 +126,14 @@ test('label = value and custom-field comparisons combine with and/or/not', async
     $or: [
       {
         $or: [
-          {
-            'customFields._id': 'cf-priority',
-            'customFields.value': { $in: ['opt-high', NaN] },
-          },
-          {
-            'customFields._id': 'cf-priority',
-            'customFields.value': { $in: ['Low', NaN] },
-          },
+          { customFields: { $elemMatch: {
+            _id: 'cf-priority',
+            value: { $in: ['opt-high', NaN] },
+          } } },
+          { customFields: { $elemMatch: {
+            _id: 'cf-priority',
+            value: { $in: ['Low', NaN] },
+          } } },
         ],
       },
     ],
@@ -148,10 +148,10 @@ test('label = value and custom-field comparisons combine with and/or/not', async
   assert.deepEqual(negated, {
     $or: [
       {
-        $not: {
-          'customFields._id': 'cf-priority',
-          'customFields.value': { $in: ['opt-high', NaN] },
-        },
+        $not: { customFields: { $elemMatch: {
+          _id: 'cf-priority',
+          value: { $in: ['opt-high', NaN] },
+        } } },
       },
     ],
   });
@@ -196,11 +196,11 @@ function matchesSelector(selector, doc) {
   if (selector.$or) return selector.$or.some(s => matchesSelector(s, doc));
   if (selector.$and) return selector.$and.every(s => matchesSelector(s, doc));
   if (selector.$not) return !matchesSelector(selector.$not, doc);
-  // A flat {'customFields._id': x, 'customFields.value': y} clause matches a
+  // An $elemMatch clause matches a
   // card that has SOME customFields entry with that _id whose value matches y.
-  if (selector['customFields._id'] !== undefined) {
-    const id = selector['customFields._id'];
-    const valueSel = selector['customFields.value'];
+  if (selector.customFields?.$elemMatch) {
+    const id = selector.customFields.$elemMatch._id;
+    const valueSel = selector.customFields.$elemMatch.value;
     return (doc.customFields || []).some(cf => {
       if (cf._id !== id) return false;
       if (valueSel && typeof valueSel === 'object' && !(valueSel instanceof RegExp)) {
@@ -249,7 +249,7 @@ test('server matcher fetches definitions by board membership before building the
   assert.equal(await context.cardMatchesAdvancedFilter({ _id: 'card', boardId: 'board' }, 'Points = 2'), true);
   assert.deepEqual(selected, { boardIds: 'board' });
   assert.equal(queried._id, 'card');
-  assert.equal(queried.$or[0]['customFields._id'], 'local');
+  assert.equal(queried.$or[0].customFields.$elemMatch._id, 'local');
   queried = null;
   assert.equal(await context.cardMatchesAdvancedFilter({ _id: 'card', boardId: 'board' }, ''), false);
   assert.equal(queried, null);

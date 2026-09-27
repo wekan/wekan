@@ -182,6 +182,13 @@ export function parseAdvancedFilterDate(str, options = {}) {
 // can back them with a synchronous, pre-fetched lookup built from the same
 // CustomFields documents.
 
+// Keep the identity and value in the SAME array entry. Independent dotted
+// predicates can match the ID of one field and the value of another.
+function matchCustomField(id, value) {
+  if (typeof id !== 'string' || !id) throw new Error('Unknown custom field');
+  return { customFields: { $elemMatch: { _id: id, value } } };
+}
+
 function processConditions(commands, resolvers) {
   for (let i = 0; i < commands.length; i++) {
     if (!commands[i].string && commands[i].cmd) {
@@ -196,21 +203,14 @@ function processConditions(commands, resolvers) {
             let regex = null;
             if (match.length > 2) regex = new RegExp(match[1], match[2]);
             else regex = new RegExp(match[1]);
-            commands[i] = {
-              'customFields._id': resolvers.fieldNameToId(field),
-              'customFields.value': regex,
-            };
+            commands[i] = matchCustomField(resolvers.fieldNameToId(field), regex);
           } else {
-            commands[i] = {
-              'customFields._id': resolvers.fieldNameToId(field),
-              'customFields.value': resolvers.customFieldDateSelector(
-                field,
-                str,
-                commands[i].cmd,
-              ) || {
+            commands[i] = matchCustomField(
+              resolvers.fieldNameToId(field),
+              resolvers.customFieldDateSelector(field, str, commands[i].cmd) || {
                 $in: [resolvers.fieldValueToId(field, str), parseInt(str, 10)],
               },
-            };
+            );
           }
           commands.splice(i - 1, 1);
           commands.splice(i, 1);
@@ -226,25 +226,18 @@ function processConditions(commands, resolvers) {
             let regex = null;
             if (match.length > 2) regex = new RegExp(match[1], match[2]);
             else regex = new RegExp(match[1]);
-            commands[i] = {
-              'customFields._id': resolvers.fieldNameToId(field),
-              'customFields.value': {
-                $not: regex,
-              },
-            };
+            commands[i] = matchCustomField(resolvers.fieldNameToId(field), {
+              $not: regex,
+            });
           } else {
-            commands[i] = {
-              'customFields._id': resolvers.fieldNameToId(field),
-              'customFields.value': resolvers.customFieldDateSelector(
-                field,
-                str,
-                commands[i].cmd,
-              ) || {
+            commands[i] = matchCustomField(
+              resolvers.fieldNameToId(field),
+              resolvers.customFieldDateSelector(field, str, commands[i].cmd) || {
                 $not: {
                   $in: [resolvers.fieldValueToId(field, str), parseInt(str, 10)],
                 },
               },
-            };
+            );
           }
           commands.splice(i - 1, 1);
           commands.splice(i, 1);
@@ -257,16 +250,12 @@ function processConditions(commands, resolvers) {
         case 'GT': {
           const field = commands[i - 1].cmd;
           const str = commands[i + 1].cmd;
-          commands[i] = {
-            'customFields._id': resolvers.fieldNameToId(field),
-            'customFields.value': resolvers.customFieldDateSelector(
-              field,
-              str,
-              commands[i].cmd,
-            ) || {
+          commands[i] = matchCustomField(
+            resolvers.fieldNameToId(field),
+            resolvers.customFieldDateSelector(field, str, commands[i].cmd) || {
               $gt: parseInt(str, 10),
             },
-          };
+          );
           commands.splice(i - 1, 1);
           commands.splice(i, 1);
           i--;
@@ -279,16 +268,12 @@ function processConditions(commands, resolvers) {
         case 'GTE': {
           const field = commands[i - 1].cmd;
           const str = commands[i + 1].cmd;
-          commands[i] = {
-            'customFields._id': resolvers.fieldNameToId(field),
-            'customFields.value': resolvers.customFieldDateSelector(
-              field,
-              str,
-              commands[i].cmd,
-            ) || {
+          commands[i] = matchCustomField(
+            resolvers.fieldNameToId(field),
+            resolvers.customFieldDateSelector(field, str, commands[i].cmd) || {
               $gte: parseInt(str, 10),
             },
-          };
+          );
           commands.splice(i - 1, 1);
           commands.splice(i, 1);
           i--;
@@ -300,16 +285,12 @@ function processConditions(commands, resolvers) {
         case 'LT': {
           const field = commands[i - 1].cmd;
           const str = commands[i + 1].cmd;
-          commands[i] = {
-            'customFields._id': resolvers.fieldNameToId(field),
-            'customFields.value': resolvers.customFieldDateSelector(
-              field,
-              str,
-              commands[i].cmd,
-            ) || {
+          commands[i] = matchCustomField(
+            resolvers.fieldNameToId(field),
+            resolvers.customFieldDateSelector(field, str, commands[i].cmd) || {
               $lt: parseInt(str, 10),
             },
-          };
+          );
           commands.splice(i - 1, 1);
           commands.splice(i, 1);
           i--;
@@ -322,16 +303,12 @@ function processConditions(commands, resolvers) {
         case 'LTE': {
           const field = commands[i - 1].cmd;
           const str = commands[i + 1].cmd;
-          commands[i] = {
-            'customFields._id': resolvers.fieldNameToId(field),
-            'customFields.value': resolvers.customFieldDateSelector(
-              field,
-              str,
-              commands[i].cmd,
-            ) || {
+          commands[i] = matchCustomField(
+            resolvers.fieldNameToId(field),
+            resolvers.customFieldDateSelector(field, str, commands[i].cmd) || {
               $lte: parseInt(str, 10),
             },
-          };
+          );
           commands.splice(i - 1, 1);
           commands.splice(i, 1);
           i--;
