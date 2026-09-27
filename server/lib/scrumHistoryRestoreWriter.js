@@ -32,14 +32,18 @@ async function recordScrumRestoreOnce(history, options) {
   const row = { ...event, _id: id, createdAt: new Date(), undone: false, undoneAt: null,
     superseded: false, previousHash: previous?.integrityHash ?? null };
   row.integrityHash = hashHistoryRow(row);
-  try {
-    return await history.insertAsync(row);
-  } catch (error) {
-    // A lost insert acknowledgement or a concurrent retry can both leave the
-    // intended row committed. Neither permits accepting another event's data.
-    const committed = await history.findOneAsync(id);
-    if (committed) return matches(committed);
-    throw error;
+  let writeError;
+  try { await history.insertAsync(row); } catch (error) { writeError = error; }
+  // A successful return is not enough to acknowledge the recovery journal:
+  // collection hooks may refuse an insert, or storage may have changed it.
+  // Read the stable key back on both success and a lost acknowledgement.
+  let committed;
+  try { committed = await history.findOneAsync(id); }
+  catch (error) { throw writeError || error; }
+  if (committed) {
+    if (committed._id !== id) throw new Error('Conflicting Scrum History restoration record');
+    return matches(committed);
   }
+  throw writeError || new Error('Unconfirmed Scrum History restoration record');
 }
 module.exports = { recordScrumRestoreOnce };

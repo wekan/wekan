@@ -233,7 +233,11 @@ from the board, journal operation and author. A retry validates the stored event
 immutable contents and integrity hash before accepting it, including legacy
 random-ID events from an already pending operation. It retains the original
 creation timestamp and chain link. A lost insert acknowledgement or concurrent
-retry is accepted only after reading back the exact intended event.
+retry is accepted only after reading back the exact intended event. Successful
+insert replies require the same readback: a hook refusing the insert, an altered
+stored event or an unavailable confirmation read cannot release the journal.
+A retry after a failed confirmation reuses the persisted event without changing
+its timestamp or integrity chain.
 
 After those events are acknowledged, finalization verifies the original History
 row's integrity, author and superseded state. Undo/redo changes use a conditional

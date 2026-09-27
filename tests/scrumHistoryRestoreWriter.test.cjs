@@ -69,3 +69,40 @@ test('authors and operations have independent identities; malformed identities f
   }
   assert.equal(db.inserts, 3);
 });
+
+test('positive insert replies require the exact readable and valid persisted event', async () => {
+  for (const corrupt of [null, row => { row.newContent = {}; }, row => { row.integrityHash = 'bad'; },
+    row => { row._id = 'another-event'; }]) {
+    const db = store();
+    db.insertAsync = async row => {
+      db.inserts++;
+      if (corrupt) { const saved = structuredClone(row); corrupt(saved); db.rows.set(row._id, saved); }
+      return row._id;
+    };
+    await assert.rejects(recordScrumRestoreOnce(db, options), corrupt ? /Conflicting/ : /Unconfirmed/);
+    assert.equal(db.inserts, 1);
+  }
+});
+test('failed post-insert reads remain pending and later retries reuse the persisted event', async () => {
+  const db = store(); const find = db.findOneAsync.bind(db);
+  db.findOneAsync = async query => {
+    if (typeof query === 'string' && db.inserts) throw new Error('read unavailable');
+    return find(query);
+  };
+  await assert.rejects(recordScrumRestoreOnce(db, options), /read unavailable/);
+  assert.equal(db.rows.size, 1); const saved = structuredClone([...db.rows.values()][0]);
+  db.findOneAsync = find;
+  assert.equal(await recordScrumRestoreOnce(db, options), saved._id);
+  assert.equal(db.inserts, 1); assert.deepEqual(db.rows.get(saved._id), saved);
+});
+test('an unavailable confirmation read preserves the original write failure', async () => {
+  const db = store(); const find = db.findOneAsync.bind(db);
+  const failure = new Error('insert unavailable');
+  db.insertAsync = async () => { throw failure; };
+  db.findOneAsync = async query => {
+    if (typeof query === 'string') throw new Error('read unavailable');
+    return find(query);
+  };
+  await assert.rejects(recordScrumRestoreOnce(db, options), error => error === failure);
+  assert.equal(db.rows.size, 0);
+});
