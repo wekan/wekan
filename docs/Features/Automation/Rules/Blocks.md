@@ -87,3 +87,10 @@ permissions, localized context menus, RTL, themes and narrow screens. History
 tests exercise compound snapshots, undo/redo, restore and intervening-edit
 conflicts. Translation tests cover all locale catalogs and token inventories;
 minority-language specialist terminology still needs native review.
+
+## Translation pause checkpoint
+
+Blockly translation work is paused by request as of 2026-09-27. The editor
+remains available; remaining languages and native terminology review are
+tracked under TODO Later in [the changelog](../../../../CHANGELOG.md).
+Message coverage and placeholder checks do not imply complete translation.

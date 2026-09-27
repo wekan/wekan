@@ -90,6 +90,33 @@ A cause specific to MongoDB or legacy data has not been established.
 </details>
 
 <details>
+<summary>Blockly translation work paused; remaining languages and review.</summary>
+
+Paused at the maintainer's request on 2026-09-27. Continue other development;
+do not resume Blockly translation until requested. The editable Blocks view
+remains available. All 696 Blockly messages have WeKan message-key coverage,
+but translation into every WeKan language is unfinished.
+
+The latest completed batch covers hi, hi-IN, ta, kn, bn, ne and ur; the prior
+batch covers fur, lld, rm and rup. Earlier completed batches are recorded in
+Upcoming. Gujarati (gu-IN), Marathi (mr), Malayalam (ml), Punjabi (pa),
+Sinhala (si) and Telugu (te-IN) were not started in the interrupted assignment.
+Additional language catalogs remain incomplete, including minority and
+constructed languages. Completed low-confidence terminology still needs
+native-speaker review; structural validation does not establish fluency.
+
+Pause checkpoint: 246 locale files pass Blockly message coverage, source key
+order and placeholder checks. The read-only report finds 63,115 prose-like
+English-identical values across the catalogs, with 117 catalogs above 50.
+These are triage counts, not exact missing-translation counts: keycap names,
+brands, mathematical terms, cognates and regional copies are included.
+Run `node releases/translations/import-blockly.cjs --report` to refresh them.
+Preserve correct human translations and all source placeholders on resumption.
+No external translation service or remote translation upload was used.
+
+</details>
+
+<details>
 <summary>Local translation repairs and validation in progress.</summary>
 
 Resumed at the maintainer's request on 2026-09-13, beginning with Klingon.
@@ -850,6 +877,21 @@ specialist Friulian terms. Other unfinished language catalogs remain pending.
 All three catalog regression checks pass: message coverage, key order, exact
 placeholder inventories and preservation of existing translations. The current
 Blockly browser coverage and other Upcoming regression results remain valid.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4ff6e78d9">Complete the current South Asian Blockly translation batch</a>. Thanks to xet7.</summary>
+
+Fill Blockly and Blocks editor prose in Hindi and its Indian locale, Tamil,
+Kannada, Bengali, Nepali and Urdu. Correct wrongly seeded Urdu shared labels;
+retain placeholders and existing correct-language translations. Specialist
+accessibility and mathematical terminology still merits native review.
+
+All three catalog checks pass. Translation work is now paused by request;
+TODO Later records the remaining coverage and the reproducible pause report.
+Other implementation work continues. Existing Upcoming regression coverage
+remains recorded in the corresponding feature and security entries.
 
 </details>
 
