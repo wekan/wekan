@@ -34,8 +34,8 @@ source of verified product history or a compatible import format.
 
 Source comments and documentation are English. UI text uses WeKan translations.
 All 696 Blockly catalog messages are mapped into WeKan locale files, including
-accessibility and programming-block terminology. Translation filling remains in
-progress; catalog completeness and placeholder tests do not establish linguistic
+accessibility and programming-block terminology. Translation filling is paused
+at the maintainer's request; catalog completeness and placeholder tests do not establish linguistic
 accuracy or that every English placeholder has been translated.
 Existing List and Workflow views remain available. Rule storage and export
 formats remain unchanged; Blockly workspace state is an editing representation,
@@ -73,6 +73,14 @@ edits, Workflow saves and Blocks saves use the same history. Choose **History**
 in the Rules sidebar to view or restore rule versions. Undo/redo also supports
 these entries and refuses to overwrite an intervening edit.
 
+REST rule creation, edits and deletion also record one attributed entry per
+compound operation. Unchanged requests record none. If legacy/imported rules
+share a trigger or action, editing a component isolates it for the edited rule,
+and deletion retains components still referenced elsewhere. Undo/redo restores
+the references without overwriting changed shared content. Trigger changes also
+restore the matching manual-button menu metadata. These operations are not
+multi-document transactions; concurrent-write recovery remains additional work.
+
 Restoring a rule requires board-administrator permission, just like editing it.
 An action targeting another board also requires current write access to that
 destination. History is not a way to regain revoked permissions. Server-side
@@ -87,6 +95,20 @@ permissions, localized context menus, RTL, themes and narrow screens. History
 tests exercise compound snapshots, undo/redo, restore and intervening-edit
 conflicts. Translation tests cover all locale catalogs and token inventories;
 minority-language specialist terminology still needs native review.
+
+Verification checkpoint (2026-09-27): after the REST History, shared-component
+and button-metadata fixes, the combined `rules-blocks.e2e.js`,
+`rules-history.e2e.js` and `rules-visibility.e2e.js` run passes all 18 Chromium
+scenarios against the local Meteor/MongoDB application. This includes real
+Blockly edits and rule execution, administrator restrictions, Finnish and Arabic
+editing, undo/redo and restoration, REST writes, shared records, manual-button
+visibility and layout at 390px/1440px in Belize, Dark and Cleanlight themes.
+
+A broader selection of 37 rule/workflow-related Node files passes 45 runner
+checks; the separate Blockly catalog suite passes three checks without changing
+translations. Firefox, WebKit and FerretDB were not exercised in this checkpoint.
+These results do not establish full translation or transactional concurrent
+History writes; the translation pause and concurrency limits still apply.
 
 ## Translation pause checkpoint
 
