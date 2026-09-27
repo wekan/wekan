@@ -259,6 +259,10 @@ local edits, lost write replies, creation, archive and null-to-missing fields.
 The callback currently has a test receipt implementation; real History,
 activities, rules and notification delivery still need durable integration.
 The adapter is not enabled in manual or scheduled Sync yet.
+History field snapshots now preserve nested dates, including date-valued
+custom fields alongside mapped estimates. JSON transport and restoration retain
+Date types without interpreting date-looking text. Existing rows whose dates
+were already flattened into strings cannot be reconstructed safely.
 Current Sync write selectors now distinguish explicit null from missing fields.
 Adapter investigation also moved title/description activities after successful
 writes and made archive/entity/rule History hooks reject zero-match updates.
@@ -1461,6 +1465,28 @@ the pre-existing overlong line in released v12.07.
 This verification and cleanup sequence is not a cross-document transaction.
 Coordinated fencing of in-flight writers, atomic original writes/History and
 automatic startup replay remain in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0da7d2d41">Preserve nested dates in History snapshots</a>. Thanks to xet7.</summary>
+
+History previously converted dates inside custom-field arrays to strings.
+Restoring an unrelated change in the same array could therefore change a date
+field's type. Record nested dates as milliseconds with explicit paths, and
+restore only those marked values as dates. Literal date-looking text stays text;
+malformed metadata is rejected. Type-only changes are now detected too.
+Older rows without date metadata retain their existing interpretation because
+their original date and text values cannot be distinguished reliably.
+
+Five focused Node suites pass, covering JSON round trips, unchanged values,
+type changes, invalid dates, malformed paths and History integrity/wiring.
+All eight Chromium scenarios pass: a real custom-field write records the date
+metadata, restoration stores a BSON Date while retaining literal text, existing
+History permission checks still hold, and Jira estimate Sync remains covered.
+The offline audit passes with advisory fingerprint warnings. Existing Upcoming
+regression evidence remains recorded with its entries. Durable Sync History and
+activity integration remain unfinished in TODO Later.
 
 </details>
 
