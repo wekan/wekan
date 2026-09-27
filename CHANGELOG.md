@@ -753,6 +753,19 @@ and open-issue audit documentation.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/abf0a1934">Preserve valid MongoDB updates when editing rule documents</a>. Thanks to xet7.</summary>
+
+Trigger and action timestamp hooks now distinguish replacement documents
+from update modifiers. Replacement edits preserve creation timestamps without
+mixing top-level fields with $set, which MongoDB rejects. Modifier updates
+continue to set their modification timestamp.
+
+Two focused tests exercise both forms and ensure replacement documents never
+receive update operators. Browser rule-editing scenarios also pass.
+
+</details>
+
 This release adds the following regression coverage and documentation:
 
 <details>
