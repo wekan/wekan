@@ -254,8 +254,11 @@ See [Jira](docs/Features/ImportExport/Jira/Jira.md) and
 **IFTTT Rules, Blocks, Workflows and History:** editable lazy-loaded Blocks,
 board-admin checks, responsive themed layouts and compound History are in
 place. DDP/REST edits, shared trigger/action records, deletion/restore and
-manual-button metadata have regression coverage. Writes across documents are
-not transactional; concurrent-write recovery and failed-creation orphan cleanup
+manual-button metadata have regression coverage. Advanced-filter comparisons
+now bind the field identity and value to the same array entry in both sidebar
+and rule queries; unknown field names cannot become value-only rule matches.
+Real MongoDB and Chromium cover multiple fields, missing fields and inequality.
+Writes across documents are not transactional; concurrent-write recovery and failed-creation orphan cleanup
 still require work. The combined checkpoint passed 45 Node runner checks and
 18 Chromium scenarios; later Gujarati editing also passed. These are focused
 results, not certification of every language or concurrency scenario.
@@ -931,6 +934,31 @@ the line-length check. Other browsers and FerretDB were not exercised.
 Card storage, activity insertion, History and downstream delivery remain
 separate operations. Snapshot comparisons do not make concurrent or interrupted
 writes exactly once; durable replay and atomicity remain in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/17341c18c">Match advanced filters against the named field's own value</a>. Thanks to xet7.</summary>
+
+Independent dotted predicates could match one custom field's identity and
+another field's value. A Points = 2 rule could therefore act on Points = 1
+when an unrelated field contained 2. Bind both predicates in one elemMatch
+for equality, inequality, ranges, regular expressions, dropdowns and dates.
+Unknown field names now fail before querying instead of dropping the identity
+constraint. The sidebar and rule matcher continue sharing one builder.
+
+Three Node suites pass, including fourteen comparison scenarios in a real
+isolated MongoDB database and an explicit reproduction of the old false
+positive. Three Chromium scenarios pass: sidebar equality/ranges/inequality,
+combined fields, missing-field rules, and existing Jira estimate Sync and
+checkbox activity regressions. Correct the Jira rule fixture to use supported
+single quotes around its spaced field name.
+
+The offline source/dependency audit passes with advisory warnings. Four
+changelog suites pass; the existing released v12.07 line-length failure remains.
+This covers field identity matching; FerretDB and additional browsers were not
+exercised.
+Durable rule effects and transactional changes remain in TODO Later.
 
 </details>
 
