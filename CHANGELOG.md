@@ -212,6 +212,10 @@ coverage, including lost acknowledgements and interrupted cleanup. It is not
 yet connected to manual or scheduled Sync. Application adapters, private
 collection lifecycle, pause/cancel controls and restart scheduling remain open.
 Current Sync write selectors now distinguish explicit null from missing fields.
+Adapter investigation also moved title/description activities after successful
+writes and made archive/entity/rule History hooks reject zero-match updates.
+Crash recovery must still coordinate card changes with separate activity and
+History effects before a durable unit can be safely acknowledged.
 Remaining: external sprint histories without invented snapshots, multiple
 release assignments, epic relationships, automatic field/schema mapping,
 Trello and other Scrum adapters, complete provider schema/mapping coverage,
@@ -1073,6 +1077,39 @@ in TODO Later. The known released-entry changelog format failure remains.
 </details>
 
 and improves list synchronization:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/96dba3460">Avoid activities and History for unmatched card writes</a>. Thanks to xet7.</summary>
+
+During durable Sync adapter work, verify that collection-hooks calls update
+post-hooks even when MongoDB reports zero affected documents. Title and
+description activities also ran before the conditional card write, allowing
+rejected attempts to emit activities and trigger rules or webhooks.
+
+Move those text activities after successful writes and compare the previous
+snapshot with the requested text. Handle description clearing after schema
+cleaning turns it into an unset. Suppress archive activities for zero-match and
+unchanged-state writes. Apply the same successful-write guard to universal
+entity History and rule/trigger/action History before reading or recording
+changes. Preserve normal activity content and no-op suppression.
+
+Twenty-five focused Node suites and four additional History suites pass. The
+History template guard now distinguishes Scrum's daily observation chart by
+its specific data source and chart-only structure, while still rejecting a
+second changeHistory table. All twenty-nine Chromium activity, Sync and Rules
+History scenarios pass.
+Coverage includes successful edits, explicit clearing, repeated writes,
+zero-match/error hook contexts, missing previous snapshots and normal History
+undo/redo. The local release audit passes with advisory warnings. No new
+translations are needed. Other browsers and FerretDB were not tested. Existing
+Upcoming regression evidence remains recorded.
+
+Document the remaining crash gap between card writes and separate activity or
+History writes. Post-hooks alone do not make these effects atomic or replayable;
+aggregate multi-update counts also do not identify individual successful rows.
+The durable adapter, stable effect identities and startup replay remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/487fd5988">Prepare durable Sync checkpoints and protect nullable fields</a>. Thanks to xet7.</summary>
