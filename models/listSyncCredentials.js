@@ -1,9 +1,9 @@
 import { Mongo } from 'meteor/mongo';
 const { SimpleSchema } = require('/imports/simpleSchema');
 
-// List sync credentials (docs/Features/ImportExport/Sync.md). One document per
-// synced list, keyed by listId, holding the token/password needed to call the
-// external tracker's API.
+// Immutable credential versions, selected by Lists.syncRevision. A version
+// is never active until settings and revision are committed in one list write.
+// Older installations have an unversioned row keyed by listId.
 //
 // This collection is SERVER-ONLY on purpose: there is no Meteor.publish for
 // it anywhere in the codebase (grep server/publications/ - it is not there),
@@ -23,6 +23,7 @@ ListSyncCredentials.attachSchema(
     },
     // Bind the saved credential to the exact provider/server/project tuple.
     sourceKey: { type: String, optional: true },
+    configurationId: { type: String, optional: true },
     // Free-form: a Jira API token, a GitHub/GitLab personal access token, a
     // Gitea access token... whatever the source type's fetcher expects.
     token: {

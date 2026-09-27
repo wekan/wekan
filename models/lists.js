@@ -295,6 +295,9 @@ Lists.attachSchema(
     // The credential itself is NEVER stored here - `syncSource` is published to
     // the client like the rest of the list - it lives server-only in
     // models/listSyncCredentials.js, a collection with no publication at all.
+    // Selects an immutable private credential version together with syncSource.
+    // Retained across clears so a delayed save cannot match a previous state.
+    syncRevision: { type: String, optional: true },
     syncSource: {
       type: Object,
       optional: true,

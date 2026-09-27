@@ -184,6 +184,30 @@ test('saving a legacy source binds its cards and credential before a source swit
   } finally { db.deleteMany('listSyncCredentials', { listId: card.listId }); }
 });
 
+test('only the committed credential version is used and clearing cannot adopt an unfinished save', async ({ page, user, board }) => {
+  const listId = db.find('lists', { boardId: board.boardId })[0]._id;
+  const config = { type: 'jira', url: base, projectKey: 'ONE', token: 'committed-test-token' };
+  await loginWithToken(page, user.id, user.token);
+  try {
+    await call(page, 'setListSyncSource', listId, config);
+    const saved = db.findOne('lists', { _id: listId });
+    expect(saved.syncRevision).toBeTruthy();
+    expect(JSON.stringify(saved)).not.toContain(config.token);
+    db.insertOne('listSyncCredentials', { _id: `staged-${listId}`, configurationId: `staged-${listId}`,
+      listId, sourceKey: syncSourceKey(config), token: 'unfinished-test-token' });
+    expect(await call(page, 'syncListNow', listId)).toMatchObject({ created: 1 });
+    expect(requests.at(-1).auth).toBe(`Basic ${Buffer.from(':committed-test-token').toString('base64')}`);
+    await call(page, 'setListSyncSource', listId, null);
+    expect(await call(page, 'hasListSyncCredential', listId)).toBe(false);
+    expect(db.findOne('listSyncCredentials', { _id: saved.syncRevision })).toBeNull();
+    await call(page, 'setListSyncSource', listId, { ...config, token: null });
+    expect(await call(page, 'hasListSyncCredential', listId)).toBe(false);
+    const count = requests.length;
+    expect((await call(page, 'syncListNow', listId)).error).toContain('credential for this server and project');
+    expect(requests).toHaveLength(count);
+  } finally { db.deleteMany('listSyncCredentials', { listId }); }
+});
+
 test('unknown legacy mappings and malformed server URLs reject configuration without changing cards', async ({ page, user, board }) => {
   const card = db.find('cards', { boardId: board.boardId })[0];
   db.updateOne('cards', { _id: card._id }, { $set: { syncSourceType: 'jira', syncExternalId: 'SAME-1' } });

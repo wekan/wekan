@@ -26,6 +26,7 @@ import { withListSyncLease } from '/server/lib/listSyncLease';
 const { planSyncTextMerge, syncTextSelector, selectSyncTextFields } = require('/models/lib/listSyncTextMerge');
 const { syncSourceKey } = require('/models/lib/listSyncSourceIdentity');
 const { listSyncCardId } = require('/server/lib/listSyncCardId');
+const { readSyncCredential } = require('/server/lib/listSyncConfiguration');
 
 // Sync one list. Exported for the unit test and for a manual "sync now" call;
 // the cron job below just calls this for every eligible list.
@@ -54,10 +55,11 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS } = {}, { ass
   const fetcher = fetchers[source.type];
   if (!parser || !fetcher) return { skipped: true, reason: 'no parser/fetcher for source type' };
 
-  const credential = await ListSyncCredentials.findOneAsync({ listId: list._id });
+  const credential = await readSyncCredential(ListSyncCredentials, list);
 
   let parsed, sourceKey;
-  const listSelector = { _id: list._id, boardId: list.boardId, syncSource: source };
+  const listSelector = { _id: list._id, boardId: list.boardId, syncSource: source,
+    syncRevision: list.syncRevision === undefined ? { $exists: false } : list.syncRevision };
   try {
     sourceKey = syncSourceKey(source);
     if (!credential || credential.sourceKey !== sourceKey) {

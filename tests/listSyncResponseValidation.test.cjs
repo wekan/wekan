@@ -14,7 +14,7 @@ async function run(raw,parser,existing,updateCount=1,child=null,fields,operation
   Cards:{insertAsync:async document=>{cardWrites.push({insert:document});if(createError)throw createError;return document._id;},updateAsync:async(selector,modifier)=>{cardWrites.push({selector,modifier});return updateCount;},find:selector=>{cardQueries.push(selector);return {fetchAsync:async()=>Array.isArray(existing)?existing:[existing || {_id:'card',syncExternalId:'KEY-1',syncSourceType:'jira',syncSourceKey:sourceKey,title:'Existing',description:'',syncLastSource:{title:'Existing',description:''}}]}},findOneAsync:async()=>child},
   Boards:{findOneAsync:async()=>({_id:'board',getDefaultSwimlineAsync:async()=>({_id:'lane'})})},ListSyncCredentials:{findOneAsync:async()=>({token:'test',sourceKey:credentialKey})},
   EXTERNAL_PARSERS:{jira:raw=>{parsed++;return parser?parser(raw):{tasks:[]};}},SYNC_CAPABLE_SOURCES:['jira'],
-  LIST_SYNC_FETCHERS:{jira:async()=>{fetches++;return raw;}},validateImportSourceShape,planListSyncReconcile,validateListSyncTasks,require:id=>(id.startsWith('/models/lib/') || id === '/server/lib/listSyncCardId')?require('..'+id):({record(){}}),console,
+  LIST_SYNC_FETCHERS:{jira:async()=>{fetches++;return raw;}},validateImportSourceShape,planListSyncReconcile,validateListSyncTasks,require:id=>(id.startsWith('/models/lib/') || ['/server/lib/listSyncCardId','/server/lib/listSyncConfiguration'].includes(id))?require('..'+id):({record(){}}),console,
  };
  vm.createContext(context);vm.runInContext(source,context);
  const result=await context.syncOneList({_id:'list',boardId:'board',syncSource:{...sourceConfig,fields,...operations}});

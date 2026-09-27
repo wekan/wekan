@@ -2,9 +2,9 @@
 
 ## List sync (implemented, Jira end to end)
 
-A WeKan list can be marked as synced from an external tracker: set
-`Lists.syncSource = { type, url, projectKey, enabled }` (`models/lists.js`)
-and store the credential separately, server-only, in `ListSyncCredentials`
+A WeKan list can be marked as synced from an external tracker through
+`setListSyncSource`. It stores public settings in `Lists.syncSource`
+(`models/lists.js`) and the credential separately, server-only, in `ListSyncCredentials`
 (`models/listSyncCredentials.js` - no publication exists for it anywhere, so
 it can never reach the client). `server/listSync.js` registers a
 `quave:synced-cron` job (the same scheduling infrastructure
@@ -75,11 +75,26 @@ checking ownership before application writes. A replacement worker can reclaim
 an expired reservation; the old owner stops at its next check and cannot release
 the replacement's reservation. These records contain no provider secrets.
 
-This is coordination, not a multi-document transaction or durable job queue.
-A process can still stop between credential and settings writes. A database
-write already issued before lease loss cannot be fenced by a later ownership
-check. Atomic configuration recovery, fencing of in-flight writes and persisted
-reconciliation checkpoints remain pending. Server clocks must be synchronized
+Settings saves first stage an immutable credential version, then update public
+settings and `Lists.syncRevision` together in one conditional list write.
+Readers select only that revision's credential for that list, never another
+staged version. A stop before activation leaves the old pair active; a stop
+after activation leaves the new pair active even if cleanup did not finish.
+Clearing settings also advances the revision, preventing an old save from
+matching a previous empty state. Cleanup removes only the previously selected
+credential, so delayed cleanup cannot delete a newer save's token. Legacy
+unversioned credentials are adopted on the next same-source settings save.
+No token is included in public list data.
+Upgrade all server processes that save Sync settings together: older code
+updates credential rows in place and does not honor these revisions.
+
+Reservations do not make card writes a multi-document transaction or durable
+job queue. A card write already issued before lease loss cannot be fenced by a
+later ownership check. Fencing of in-flight card writes and persisted
+reconciliation checkpoints remain pending. A crash or lost acknowledgement can
+leave unselected private credential versions; safe automatic cleanup of these
+versions remains pending. They are never used as a fallback credential.
+Server clocks must be synchronized
 for the expiry comparisons. A failed run still requires a retry from the start.
 Card and subtask copies omit external Sync IDs, source type and text baselines,
 so independent work does not become a second target for an upstream issue.

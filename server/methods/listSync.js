@@ -17,6 +17,7 @@ import { SYNC_CAPABLE_SOURCES } from '/models/lib/externalParsers';
 import { syncOneList } from '/server/listSync';
 import { withListSyncLease } from '/server/lib/listSyncLease';
 const { normalizeSyncSource, syncSourceKey } = require('/models/lib/listSyncSourceIdentity');
+const { readSyncCredential, commitSyncConfiguration } = require('/server/lib/listSyncConfiguration');
 
 async function assertWriteAccess(userId, boardId) {
   if (!userId) {
@@ -65,8 +66,6 @@ Meteor.methods({
       // An old malformed URL must not prevent disconnecting a broken source.
       // Its legacy cards remain unbound; a new project must never adopt them.
       try { oldKey = list.syncSource && syncSourceKey(list.syncSource); } catch (error) { oldKey = null; }
-      const listSelector = { _id: listId, boardId: list.boardId,
-        syncSource: list.syncSource === undefined ? { $exists: false } : list.syncSource };
       // Before replacing or clearing a legacy configuration, retain its identity
       // on its cards. Never infer an old card's project from the NEW config.
       const legacyCards = { boardId: list.boardId, listId,
@@ -83,55 +82,30 @@ Meteor.methods({
           { $set: { syncSourceKey: oldKey } }, { multi: true });
       }
 
-      if (config === null) {
-        await assertCurrent();
-        if (!await Lists.updateAsync(listSelector, { $unset: { syncSource: '' } })) {
-          throw new Meteor.Error('sync-config-changed', 'Sync settings changed while saving. Reopen the popup and retry.');
+      const previousCredential = await readSyncCredential(ListSyncCredentials, list);
+      let credential = null;
+      if (config?.token) {
+        credential = { token: config.token, username: config.username || '', sourceKey };
+      } else if (source && previousCredential && oldKey === sourceKey &&
+        (!previousCredential.sourceKey || previousCredential.sourceKey === sourceKey)) {
+        credential = { ...previousCredential, sourceKey };
+      }
+      const publicSource = source ? {
+        type: source.type, url: source.url, projectKey: source.projectKey,
+        enabled: config.enabled !== false,
+        createCards: config.createCards !== false,
+        archiveCards: config.archiveCards !== false,
+        fields: config.fields || ['title', 'description'],
+      } : null;
+      try {
+        return await commitSyncConfiguration({ lists: Lists, credentials: ListSyncCredentials,
+          list, source: publicSource, credential, previousCredential, assertCurrent });
+      } catch (error) {
+        if (error.code === 'sync-config-changed') {
+          throw new Meteor.Error(error.code, error.message);
         }
-        await assertCurrent();
-        await ListSyncCredentials.removeAsync({ listId });
-        return { cleared: true };
+        throw error;
       }
-
-      // Source-bound credentials fail closed if a concurrent save leaves them
-      // out of step with the list. Null/empty tokens cannot carry a credential
-      // from one provider, server or project to another.
-      const credential = await ListSyncCredentials.findOneAsync({ listId });
-      if (config.token) {
-        await assertCurrent();
-        await ListSyncCredentials.upsertAsync({ listId }, {
-          $set: { listId, token: config.token, username: config.username || '', sourceKey },
-        });
-      } else if (credential && !credential.sourceKey && oldKey === sourceKey) {
-        await assertCurrent();
-        await ListSyncCredentials.updateAsync({ _id: credential._id, sourceKey: { $exists: false } },
-          { $set: { sourceKey } });
-      } else if (credential && credential.sourceKey !== sourceKey) {
-        await assertCurrent();
-        await ListSyncCredentials.removeAsync({ _id: credential._id,
-          sourceKey: credential.sourceKey === undefined ? { $exists: false } : credential.sourceKey });
-      }
-
-      await assertCurrent();
-      const changed = await Lists.updateAsync(listSelector, {
-        $set: {
-          syncSource: {
-            type: config.type,
-            url: source.url,
-            projectKey: source.projectKey,
-            enabled: config.enabled !== false,
-            createCards: config.createCards !== false,
-            archiveCards: config.archiveCards !== false,
-            fields: config.fields || ['title', 'description'],
-          },
-        },
-      });
-
-      if (!changed) {
-        throw new Meteor.Error('sync-config-changed', 'Sync settings changed while saving. Reopen the popup and retry.');
-      }
-
-      return { ok: true };
     });
   },
 
@@ -140,7 +114,7 @@ Meteor.methods({
     const list = await Lists.findOneAsync(listId);
     if (!list) throw new Meteor.Error('list-not-found', 'List not found.');
     await assertWriteAccess(this.userId, list.boardId);
-    const credential = await ListSyncCredentials.findOneAsync({ listId });
+    const credential = await readSyncCredential(ListSyncCredentials, list);
     if (!credential || !list.syncSource) return false;
     try { return credential.sourceKey === syncSourceKey(list.syncSource); } catch (error) { return false; }
   },
