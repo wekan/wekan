@@ -711,7 +711,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v12.08 2026-09-27 WeKan ® release
 
 **In short:** Close the reported LDAP empty-password bypass and the directory
 group and SAML replay issues found during the authentication audit. Selected
