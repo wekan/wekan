@@ -1391,6 +1391,24 @@ live provider accounts were not exercised.
 This release adds the following regression coverage and documentation:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d269c8c70">Reject incompatible Scrum snapshot policies in native transfers</a>. Thanks to xet7.</summary>
+
+Native Scrum transfer requires start and close snapshots to agree on estimate
+unit, source, custom-field identifier and completion policy. This matches the
+existing active-sprint configuration rule and prevents imported reports from
+combining unlike totals under a single context. Recorded workweek calendars
+may still differ; planned duration uses the start calendar.
+
+Twenty-two Node checks and one Chromium native-import scenario pass, including
+valid round trips and rejection of each policy mismatch before board creation.
+Update the report guide. Reporting external historical sprints with mixed
+policies remains pending and is not silently approximated. Existing Upcoming
+regression evidence remains recorded; other browsers were not exercised.
+Blockly translations remain paused.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c6ac0014c">Separate unset Scrum ranks from normal board sort positions</a>. Thanks to xet7.</summary>
 
 The planning editor no longer puts a potentially negative board sort position
