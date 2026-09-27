@@ -96,7 +96,7 @@ test('label = value and custom-field comparisons combine with and/or/not', async
     $or: [
       { customFields: { $elemMatch: {
         _id: 'cf-priority',
-        value: { $in: ['opt-high', NaN] },
+        value: { $in: ['opt-high'] },
       } } },
     ],
   });
@@ -109,7 +109,7 @@ test('label = value and custom-field comparisons combine with and/or/not', async
         $and: [
           { customFields: { $elemMatch: {
             _id: 'cf-priority',
-            value: { $in: ['opt-high', NaN] },
+            value: { $in: ['opt-high'] },
           } } },
           { customFields: { $elemMatch: {
             _id: 'Points',
@@ -128,11 +128,11 @@ test('label = value and custom-field comparisons combine with and/or/not', async
         $or: [
           { customFields: { $elemMatch: {
             _id: 'cf-priority',
-            value: { $in: ['opt-high', NaN] },
+            value: { $in: ['opt-high'] },
           } } },
           { customFields: { $elemMatch: {
             _id: 'cf-priority',
-            value: { $in: ['Low', NaN] },
+            value: { $in: ['Low'] },
           } } },
         ],
       },
@@ -146,7 +146,7 @@ test('label = value and custom-field comparisons combine with and/or/not', async
       {
         $nor: [{ customFields: { $elemMatch: {
           _id: 'cf-priority',
-          value: { $in: ['opt-high', NaN] },
+          value: { $in: ['opt-high'] },
         } } }],
       },
     ],

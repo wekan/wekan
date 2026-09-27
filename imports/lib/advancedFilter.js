@@ -200,6 +200,23 @@ function matchCustomField(id, value) {
   return { customFields: { $elemMatch: { _id: id, value } } };
 }
 
+// Parse the whole decimal token. parseInt silently turned 2.5 into 2 and
+// strings such as "2hours" into numeric comparisons.
+function filterNumber(value, required = false) {
+  const valid = /^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i.test(value);
+  const number = valid ? Number(value) : NaN;
+  if (Number.isFinite(number)) return number;
+  if (required) throw new Error('Invalid numeric advanced filter value');
+  return undefined;
+}
+
+function equalityValues(field, value, resolvers) {
+  const result = [resolvers.fieldValueToId(field, value)];
+  const number = filterNumber(value);
+  if (number !== undefined && !result.includes(number)) result.push(number);
+  return result;
+}
+
 function processConditions(commands, resolvers) {
   for (let i = 0; i < commands.length; i++) {
     if (!commands[i].string && commands[i].cmd) {
@@ -219,7 +236,7 @@ function processConditions(commands, resolvers) {
             commands[i] = matchCustomField(
               resolvers.fieldNameToId(field),
               resolvers.customFieldDateSelector(field, str, commands[i].cmd) || {
-                $in: [resolvers.fieldValueToId(field, str), parseInt(str, 10)],
+                $in: equalityValues(field, str, resolvers),
               },
             );
           }
@@ -245,7 +262,7 @@ function processConditions(commands, resolvers) {
               resolvers.fieldNameToId(field),
               resolvers.customFieldDateSelector(field, str, commands[i].cmd) || {
                 $not: {
-                  $in: [resolvers.fieldValueToId(field, str), parseInt(str, 10)],
+                  $in: equalityValues(field, str, resolvers),
                 },
               },
             );
@@ -264,7 +281,7 @@ function processConditions(commands, resolvers) {
           commands[i] = matchCustomField(
             resolvers.fieldNameToId(field),
             resolvers.customFieldDateSelector(field, str, commands[i].cmd) || {
-              $gt: parseInt(str, 10),
+              $gt: filterNumber(str, true),
             },
           );
           commands.splice(i - 1, 1);
@@ -282,7 +299,7 @@ function processConditions(commands, resolvers) {
           commands[i] = matchCustomField(
             resolvers.fieldNameToId(field),
             resolvers.customFieldDateSelector(field, str, commands[i].cmd) || {
-              $gte: parseInt(str, 10),
+              $gte: filterNumber(str, true),
             },
           );
           commands.splice(i - 1, 1);
@@ -299,7 +316,7 @@ function processConditions(commands, resolvers) {
           commands[i] = matchCustomField(
             resolvers.fieldNameToId(field),
             resolvers.customFieldDateSelector(field, str, commands[i].cmd) || {
-              $lt: parseInt(str, 10),
+              $lt: filterNumber(str, true),
             },
           );
           commands.splice(i - 1, 1);
@@ -317,7 +334,7 @@ function processConditions(commands, resolvers) {
           commands[i] = matchCustomField(
             resolvers.fieldNameToId(field),
             resolvers.customFieldDateSelector(field, str, commands[i].cmd) || {
-              $lte: parseInt(str, 10),
+              $lte: filterNumber(str, true),
             },
           );
           commands.splice(i - 1, 1);

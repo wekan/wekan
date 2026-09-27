@@ -23,3 +23,20 @@ test('incomplete, unmatched and trailing expressions are rejected before databas
   }
   assert.throws(() => parse('not '.repeat(102) + 'Points = 2', resolvers), /Invalid advanced filter/);
 });
+
+test('numeric comparisons preserve fractions and exponents without coercing text prefixes', async () => {
+  const { advancedFilterStringToSelector: parse } = await load();
+  const value = expression => parse(expression, resolvers).$or[0].customFields.$elemMatch.value;
+  for (const [text, number] of [['2.5', 2.5], ['-.5', -0.5], ['+0', 0], ['1e2', 100], ['2.5e-2', 0.025]]) {
+    assert.deepEqual(value(`Points = ${text}`), { $in: [text, number] });
+    assert.deepEqual(value(`Points > ${text}`), { $gt: number });
+    assert.deepEqual(value(`Points != ${text}`), { $not: { $in: [text, number] } });
+  }
+  for (const text of ['2hours', '2,5', '0x10', 'Infinity', 'NaN', '1e999']) {
+    assert.deepEqual(value(`Text = '${text}'`), { $in: [text] });
+    for (const op of ['>', '>=', '<', '<=']) {
+      assert.throws(() => parse(`Points ${op} ${text}`, resolvers), /Invalid numeric/);
+    }
+  }
+  assert.deepEqual(value("Text = ''"), { $in: [''] });
+});

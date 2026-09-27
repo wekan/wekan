@@ -19,6 +19,11 @@ test('real Mongo filters bind numeric, text, regex, dropdown and date values to 
   const resolvers = buildAdvancedFilterResolversFromCustomFields(definitions);
   const sameDay = new Date(2026, 8, 28, 12), otherDay = new Date(2026, 8, 27, 12);
   const scenarios = [
+    ['Points = 2.5', 'points', 2, 2.5], ['Points > 2.5', 'points', 2.5, 2.75],
+    ['Points >= 2.5', 'points', 2.25, 2.5], ['Points < 2.5', 'points', 2.5, 2.25],
+    ['Points <= 2.5', 'points', 2.75, 2.5], ['Points != 2.5', 'points', 2.5, 2],
+    ['Points = -.5', 'points', 0, -0.5], ['Points = 1e2', 'points', 1, 100],
+    ["Text = '2hours'", 'text', 2, '2hours'],
     ['Points = 2', 'points', 1, 2], ['Points > 1', 'points', 1, 2],
     ['Points >= 2', 'points', 1, 2], ['Points < 2', 'points', 2, 1],
     ['Points <= 1', 'points', 2, 1], ['Points != 2', 'points', 2, 1],

@@ -56,3 +56,10 @@ match the positive comparison. `and` and `or` retain left-to-right evaluation;
 use parentheses to select a different grouping. Incomplete expressions,
 unclosed quotes and unmatched parentheses are rejected. Invalid rule expressions
 never execute an action; the sidebar keeps its last valid filter.
+
+Numeric comparisons preserve fractions, signs and exponent notation, for example
+`Points >= 2.5`, `Cost < -0.5` or `Points = 25e-1`. Use a decimal point in the
+expression. The whole token must be a finite decimal number for a range
+comparison; `Points > 2hours` is invalid. Equality can still match literal text
+such as `Text = '2hours'`, without also matching the number 2. Dropdown labels
+continue resolving to their stored option IDs.

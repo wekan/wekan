@@ -66,3 +66,42 @@ test('sidebar and rules require the selected field itself to match', async ({ pa
     for (const collection of ['rules', 'triggers', 'actions']) db.deleteMany(collection, { boardId: board.boardId });
   }
 });
+
+test('decimal currency filters and rules preserve the complete numeric boundary', async ({ page, user, board }) => {
+  const fieldId = db.uid('cost');
+  const cards = db.find('cards', { boardId: board.boardId });
+  db.insertOne('customFields', { _id: fieldId, boardIds: [board.boardId], name: 'Cost', type: 'currency', settings: { currencyCode: 'EUR' } });
+  for (const card of cards) db.updateOne('cards', { _id: card._id }, { $set: { customFields: [{ _id: fieldId, value: 2 }] } });
+  const actionId = db.uid('action');
+  db.insertOne('actions', { _id: actionId, boardId: board.boardId, actionType: 'markCardComplete' });
+  for (const filter of ['Cost > 2.5', 'Cost > 2hours']) {
+    const triggerId = db.uid('trigger');
+    db.insertOne('triggers', { _id: triggerId, boardId: board.boardId, activityType: 'advancedFilterTrigger', advancedFilter: filter });
+    db.insertOne('rules', { _id: db.uid('rule'), boardId: board.boardId, triggerId, actionId, title: filter, enabled: true });
+  }
+  try {
+    await loginWithToken(page, user.id, user.token);
+    for (let index = 0; index < cards.length; index++) {
+      await page.evaluate(({ cardId, fieldId, value }) => Meteor.callAsync('setCardCustomFieldCurrency', cardId, fieldId, value),
+        { cardId: cards[index]._id, fieldId, value: [2.25, 2.5, 2.75][index] });
+    }
+    expect(cards.map(card => !!db.findOne('cards', { _id: card._id }).dueComplete)).toEqual([false, false, true]);
+    await openBoard(page, board.boardId, board.slug);
+    await page.locator('.js-open-filter-view').click();
+    const input = page.locator('.js-field-advanced-filter');
+    const visible = page.locator('.board-canvas .js-minicard');
+    for (const [filter, indices] of [
+      ['Cost = 2.5', [1]], ['Cost > 2.5', [2]], ['Cost >= 2.5', [1, 2]],
+      ['Cost < 2.5', [0]], ['Cost <= 2.5', [0, 1]], ['Cost = 25e-1', [1]],
+      ['Cost != 2.5', [0, 2]], ['Cost > 2hours', [0, 2]],
+    ]) {
+      await input.fill(filter);
+      await input.dispatchEvent('change');
+      await expect.poll(() => visible.evaluateAll(elements => elements.map(el => el.dataset.cardId).sort()))
+        .toEqual(indices.map(index => cards[index]._id).sort());
+    }
+  } finally {
+    db.deleteOne('customFields', { _id: fieldId });
+    for (const collection of ['rules', 'triggers', 'actions']) db.deleteMany(collection, { boardId: board.boardId });
+  }
+});
