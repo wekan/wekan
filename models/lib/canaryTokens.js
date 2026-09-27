@@ -131,6 +131,22 @@ const CANARIES = {
     key: 'authz.position-history',
     what: 'tried to use position history across a board membership boundary',
   },
+  'saml.response-replay': {
+    key: 'authn.saml-replay',
+    what: 'tried to reuse a SAML login response',
+  },
+  'ldap.invalid-credentials': {
+    key: 'authn.ldap-empty',
+    what: 'tried LDAP user authentication with empty or malformed credentials',
+  },
+  'ldap.group-denied': {
+    key: 'authn.ldap-group',
+    what: 'tried LDAP login outside the configured group restriction',
+  },
+  'cas.group-denied': {
+    key: 'authn.cas-group',
+    what: 'tried CAS login outside the configured group restriction',
+  },
   'cas.account-conflict': {
     key: 'authn.cas-link',
     what: 'tried to link a CAS identity to an existing non-CAS account without consent',

@@ -32,6 +32,7 @@ const context = {
   require(name) {
     if (name === 'https') return { get(url) { requests.push(url); } };
     if (name === './cas_url') return { validationUrl, callbackUrl };
+    if (name === './groupPolicy') return require('../packages/wekan-accounts-cas/groupPolicy');
     if (name === 'xml2js') return {};
     return require(name);
   },

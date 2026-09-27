@@ -12,6 +12,7 @@
 // docs/Features/Login/SAML.md.
 
 import { SAML } from '@node-saml/node-saml';
+import { createResponseReplayGuard } from './responseReplay';
 import bodyParser from 'body-parser';
 
 const urlEncodedParser = bodyParser.urlencoded({ extended: false });
@@ -19,6 +20,7 @@ const urlEncodedParser = bodyParser.urlencoded({ extended: false });
 let _samlCredentialTokens = {};
 let _samlInstanceCacheKey = null;
 let _samlInstance = null;
+const acceptLoginResponse = createResponseReplayGuard();
 
 async function getSamlServiceConfig() {
   // eslint-disable-next-line no-undef
@@ -65,6 +67,10 @@ async function getSaml() {
     logoutUrl: config.idpSLORedirectURL || undefined,
     logoutCallbackUrl: Meteor.absoluteUrl(`_saml/logout/${provider}`),
     wantAssertionsSigned: false,
+    // This application initiates the login. Require a live request ID rather
+    // than accepting a still-valid assertion again under a new RelayState.
+    validateInResponseTo: 'always',
+    requestIdExpirationPeriodMs: 8 * 60 * 60 * 1000,
   });
   _samlInstanceCacheKey = cacheKey;
   return { saml: _samlInstance, config };
@@ -154,6 +160,14 @@ WebApp.connectHandlers.use('/_saml/validate', (req, res) => {
           return;
         }
         const { profile } = await saml.validatePostResponseAsync(body);
+        if (!acceptLoginResponse(profile)) {
+          try {
+            if (typeof global.__wekanTripCanary === 'function') {
+              global.__wekanTripCanary('saml.response-replay');
+            }
+          } catch (e) { /* logging must never break the guard */ }
+          throw new Error('SAML login response has already been consumed or is unavailable');
+        }
         _storeCredential(credentialToken, { profile });
         closePopup(res);
       } catch (err) {

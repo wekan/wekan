@@ -8,6 +8,7 @@ import {
   loginGroupNames,
 } from './groupFilterConfig';
 import { resolveConfigValue } from './configResolver';
+import { requireUserCredentials, escapeUserDnValue } from './userCredentials';
 
 // Admin Panel -> LDAP override (models/settings.js's `ldap` sub-document): maps
 // each env var this module reads to the admin-editable field that may override
@@ -384,7 +385,7 @@ export default class LDAP {
     }
 
     // Escape the username to prevent LDAP injection
-    const escapedUsername = escapedToHex(username);
+    const escapedUsername = escapeLdapFilterValue(username);
     const usernameFilter = this.options.User_Search_Field.split(',').map((item) => `(${item}=${escapedUsername})`);
 
     if (usernameFilter.length === 0) {
@@ -399,6 +400,7 @@ export default class LDAP {
   }
 
   async bindUserIfNecessary(username, password) {
+    requireUserCredentials(username, password);
 
     if (this.domainBinded === true) {
       return;
@@ -412,10 +414,10 @@ export default class LDAP {
     if (!this.options.BaseDN && !this.options.AD_Simple_Auth) throw new Error('BaseDN is not provided');
 
     // Escape the username to prevent LDAP injection in DN construction
-    const escapedUsername = escapedToHex(username);
+    const escapedUsername = escapeUserDnValue(username);
     var userDn = "";
     if (this.options.AD_Simple_Auth === true || this.options.AD_Simple_Auth === 'true') {
-      userDn = `${escapedUsername}@${this.options.Default_Domain}`;
+      userDn = `${username}@${this.options.Default_Domain}`;
     } else {
       userDn = `${this.options.User_Authentication_Field}=${escapedUsername},${this.options.BaseDN}`;
     }
@@ -612,9 +614,9 @@ export default class LDAP {
     filter.push(')');
 
     // Escape the username to prevent LDAP injection
-    const escapedUsername = escapedToHex(username);
+    const escapedUsername = escapeLdapFilterValue(username);
     const searchOptions = {
-      filter: filter.join('').replace(/#{username}/g, escapedUsername),
+      filter: filter.join('').replace(/#{username}/g, () => escapedUsername),
       scope : 'sub',
     };
 
@@ -675,10 +677,11 @@ export default class LDAP {
     }
 
     if (this.options.group_filter_group_member_attribute !== '') {
-      const format_value = ldapUser[this.options.group_filter_group_member_format];
-      if (format_value) {
-        filter.push(`(${this.options.group_filter_group_member_attribute}=${escapeLdapFilterValue(format_value)})`);
-      }
+      const format_value = ldapUser[this.options.group_filter_group_member_format] ||
+        ldapUser.dn || ldapUser.objectName || ldapUser.distinguishedName;
+      // Never turn a membership query into a search for any allowed group.
+      if (typeof format_value !== 'string' || !format_value) return false;
+      filter.push(`(${this.options.group_filter_group_member_attribute}=${escapeLdapFilterValue(format_value)})`);
     }
 
     if (this.options.group_filter_group_id_attribute !== '') {
@@ -701,9 +704,9 @@ export default class LDAP {
     filter.push(')');
 
     // Escape the username to prevent LDAP injection
-    const escapedUsername = escapedToHex(username);
+    const escapedUsername = escapeLdapFilterValue(username);
     const searchOptions = {
-      filter: filter.join('').replace(/#{username}/g, escapedUsername),
+      filter: filter.join('').replace(/#{username}/g, () => escapedUsername),
       scope : 'sub',
     };
 
@@ -722,9 +725,7 @@ export default class LDAP {
     Log.info(`Authenticating ${dn}`);
 
     try {
-      if (password === '') {
-        throw new Error('Password is not provided');
-      }
+      requireUserCredentials(dn, password);
       await this.bind(dn, password);
       Log.info(`Authenticated ${dn}`);
       return true;

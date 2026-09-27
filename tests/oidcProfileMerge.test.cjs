@@ -51,6 +51,7 @@ function buildHook(env) {
   const removed = [];
   const context = {
     process: { env: Object.assign({}, env) },
+    adminCreation: { get: () => undefined },
     console,
     Accounts: {
       onCreateUser(fn) {

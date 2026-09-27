@@ -9,6 +9,10 @@
 // so both the server ESM code and the tests/*.test.cjs guards can load it.
 
 const CATALOG = {
+  'authn.saml-replay': { category: 'authn', bleed: 'SamlReplayBleed', severity: 'high', cwe: 'CWE-294' },
+  'authn.ldap-empty': { category: 'authn', bleed: 'LdapBindBleed', severity: 'critical', cwe: 'CWE-287' },
+  'authn.ldap-group': { category: 'authn', bleed: 'DirectoryGroupBleed', severity: 'high', cwe: 'CWE-863' },
+  'authn.cas-group': { category: 'authn', bleed: 'DirectoryGroupBleed', severity: 'high', cwe: 'CWE-863' },
   'authn.inactive': { category: 'authn', bleed: 'InactiveBleed', severity: 'critical', cwe: 'CWE-613' },
   'authz.subtask-deposit': { category: 'authz', bleed: 'SubtaskDepositBleed', severity: 'high', cwe: 'CWE-639' },
   'authz.linked-write': { category: 'authz', bleed: 'LinkedWriteBleed', severity: 'high', cwe: 'CWE-863' },

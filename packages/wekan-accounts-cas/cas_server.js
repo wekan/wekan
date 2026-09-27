@@ -4,6 +4,7 @@ import https from 'https';
 import { URL } from 'url';
 import { validationUrl, callbackUrl } from './cas_url';
 import xml2js from 'xml2js';
+import { isCasGroupAllowed } from './groupPolicy';
 
 // Library
 class CAS {
@@ -53,40 +54,28 @@ class CAS {
             } else {
               if (result['cas:serviceResponse'] == null) {
                 console.log('Empty response.');
-                callback({message: 'Empty response.'});
+                return callback({message: 'Empty response.'});
               }
               if (result['cas:serviceResponse']['cas:authenticationSuccess']) {
                 const userData = {
                   id: result['cas:serviceResponse']['cas:authenticationSuccess'][0]['cas:user'][0].toLowerCase(),
                 };
-                const attributes = result['cas:serviceResponse']['cas:authenticationSuccess'][0]['cas:attributes'][0];
+                const attributes = result['cas:serviceResponse']['cas:authenticationSuccess'][0]['cas:attributes']?.[0] || {};
 
                 // Check allowed ldap groups if exist (array only)
                 // example cas settings : "allowedLdapGroups" : ["wekan", "admin"],
-                let findedGroup = false;
-                const allowedLdapGroups = Meteor.settings.cas.allowedLdapGroups || false;
-                for (const fieldName in attributes) {
-                  if (allowedLdapGroups && fieldName === 'cas:memberOf') {
-                    for (const groups in attributes[fieldName]) {
-                      const str = attributes[fieldName][groups];
-                      if (!Array.isArray(allowedLdapGroups)) {
-                        callback({message: 'Settings "allowedLdapGroups" must be an array'});
-                      }
-                      for (const allowedLdapGroup in allowedLdapGroups) {
-                        if (str.search(`cn=${allowedLdapGroups[allowedLdapGroup]}`) >= 0) {
-                          findedGroup = true;
-                        }
-                      }
+                if (!isCasGroupAllowed(Meteor.settings.cas.allowedLdapGroups, attributes['cas:memberOf'])) {
+                  try {
+                    if (typeof global.__wekanTripCanary === 'function') {
+                      global.__wekanTripCanary('cas.group-denied');
                     }
-                  }
+                  } catch (e) { /* logging must never break the guard */ }
+                  return callback({message: 'Group not allowed.'}, false);
+                }
+                for (const fieldName in attributes) {
                   userData[fieldName] = attributes[fieldName][0];
                 }
-
-                if (allowedLdapGroups && !findedGroup) {
-                  callback({message: 'Group not finded.'}, false);
-                } else {
-                  callback(undefined, true, userData);
-                }
+                callback(undefined, true, userData);
               } else {
                 callback(undefined, false);
               }

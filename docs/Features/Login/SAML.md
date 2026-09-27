@@ -116,3 +116,12 @@ configuration is in `server/saml.js` and `models/lib/samlConfig.js`.
 
 See [local login protocol tests](Testing.md) for example identities, actual
 request/response checks, failure cases and deployment limitations.
+
+### Request correlation and replay protection
+
+SAML login must start from WeKan's sign-in button. Responses require a live
+`InResponseTo` request ID; unsolicited IdP-initiated assertions and replayed
+responses are rejected. Signed responses still undergo node-saml signature,
+time and audience checks. Authentication requests and replay protection are
+process-local, so clustered instances require sticky routing for the login
+handshake. See the [authentication boundary audit](../../Security/Authentication-Boundary-Audit-2026-09-27.md).

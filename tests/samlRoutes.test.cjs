@@ -15,6 +15,7 @@ class SamlStub {
 }
 vm.runInNewContext(source, {
   SAML: SamlStub, URL, console,
+  ...require('../packages/wekan-accounts-saml/responseReplay'),
   bodyParser: { urlencoded: () => (_req, _res, next) => next() },
   ServiceConfiguration: { configurations: { findOneAsync: async () => config } },
   Assets: { getTextSync() { throw Error('not configured'); } },

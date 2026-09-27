@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const source = fs.readFileSync(path.join(__dirname, '../packages/wekan-ldap/server/ldap.js'), 'utf8');
 const body = source.split('  getUserFilter(username) {')[1].split('\n  async bindUserIfNecessary')[0].replace(/\n  }\s*$/, '');
-const getUserFilter = new Function('escapedToHex', 'Log', `return function(username) {${body}}`)(value => value, { error() {} });
+const getUserFilter = new Function('escapeLdapFilterValue', 'Log', `return function(username) {${body}}`)(value => value, { error() {} });
 for (const value of [undefined, null, '']) {
   assert.equal(getUserFilter.call({ options: { User_Search_Filter: value, User_Search_Field: 'sAMAccountName' } }, 'alice'), '(&(sAMAccountName=alice))');
 }

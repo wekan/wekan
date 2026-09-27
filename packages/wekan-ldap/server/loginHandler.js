@@ -3,6 +3,7 @@ import LDAP from './ldap';
 import { runWithLdapDisconnect } from './connectionGuard';
 import { log_debug, log_info, log_warn, log_error } from './logger';
 import { isAdminByGroups } from './adminGroups';
+import { requireUserCredentials } from './userCredentials';
 
 // Org/team sync is optional enrichment; failed sync must not block login.
 async function syncUserGroupsToOrgsTeamsSafe(ldap, ldapUser, userId) {
@@ -42,6 +43,14 @@ Accounts.registerLoginHandler('ldap', async function(loginRequest) {
     return undefined;
   }
 
+  // DDP and REST both reach this handler. Reject malformed credentials before
+  // connecting, looking up an account, or entering the local-login fallback.
+  try {
+    requireUserCredentials(loginRequest.username, loginRequest.ldapPass);
+  } catch (error) {
+    throw new Meteor.Error('LDAP-login-error', 'LDAP authentication failed');
+  }
+
   log_info('Init LDAP login', loginRequest.username);
 
   if (LDAP.settings_get('LDAP_ENABLE') !== true) {
@@ -58,37 +67,19 @@ Accounts.registerLoginHandler('ldap', async function(loginRequest) {
   // server until it hit "too many open connections" and fell over.
   return await runWithLdapDisconnect(ldap, async () => {
     let ldapUser;
+    const userAuthentication = !!LDAP.settings_get('LDAP_USER_AUTHENTICATION');
 
     try {
-
-        await ldap.connect();
-
-       if (!!LDAP.settings_get('LDAP_USER_AUTHENTICATION')) {
-          await ldap.bindUserIfNecessary(loginRequest.username, loginRequest.ldapPass);
-         ldapUser = (await ldap.searchUsers(loginRequest.username))[0];
-         } else {
-
-         const users = await ldap.searchUsers(loginRequest.username);
-
-         if (users.length !== 1) {
-           log_info('Search returned', users.length, 'record(s) for', loginRequest.username);
-           throw new Error('User not Found');
-         }
-
-        if (await ldap.isUserInGroup(loginRequest.username, users[0])) {
-          ldapUser = users[0];
-        } else {
-          throw new Error('User not in a valid group');
-        }
-
-        if (await ldap.auth(users[0].dn, loginRequest.ldapPass) !== true) {
-          ldapUser = null;
-          log_info('Wrong password for', loginRequest.username)
-        }
-       }
-
+      await ldap.connect();
+      if (userAuthentication) {
+        await ldap.bindUserIfNecessary(loginRequest.username, loginRequest.ldapPass);
+      }
+      const users = await ldap.searchUsers(loginRequest.username);
+      if (users.length !== 1) throw new Error('User not uniquely identified');
+      ldapUser = users[0];
     } catch (error) {
-       log_error(error);
+      ldapUser = null;
+      log_error(error);
     }
 
     if (!ldapUser) {
@@ -97,6 +88,27 @@ Accounts.registerLoginHandler('ldap', async function(loginRequest) {
       }
 
       throw new Meteor.Error('LDAP-login-error', `LDAP Authentication failed with provided username [${ loginRequest.username }]`);
+    }
+
+    // The directory group policy applies to both user-bind and service-bind
+    // authentication. A verified identity outside the allowed group must not
+    // fall back to a cached local password and bypass this policy.
+    if (!(await ldap.isUserInGroup(loginRequest.username, ldapUser))) {
+      try {
+        if (typeof global.__wekanTripCanary === 'function') {
+          global.__wekanTripCanary('ldap.group-denied');
+        }
+      } catch (e) { /* logging must never break the guard */ }
+      throw new Meteor.Error('LDAP-login-error', 'LDAP authentication failed');
+    }
+
+    // In service-search mode the group lookup must still use the service
+    // identity, before auth() switches the connection to the user's bind.
+    if (!userAuthentication && await ldap.auth(ldapUser.dn, loginRequest.ldapPass) !== true) {
+      if (LDAP.settings_get('LDAP_LOGIN_FALLBACK') === true) {
+        return fallbackDefaultAccountSystem(self, loginRequest.username, loginRequest.ldapPass);
+      }
+      throw new Meteor.Error('LDAP-login-error', 'LDAP authentication failed');
     }
 
     // Look to see if user already exists

@@ -549,3 +549,16 @@ networks:
 
 See [local login protocol tests](Testing.md) for example identities, actual
 request/response checks, failure cases and deployment limitations.
+
+### Authentication boundary checks
+
+Both LDAP login modes require non-empty string credentials; empty passwords
+cannot request an unauthenticated bind through the user login flow. Passwords
+are never trimmed. Intentional anonymous service searches remain supported.
+Both modes require exactly one user entry and enforce configured login-group
+restrictions. Group refusal cannot fall back to a cached local password.
+Service-search mode checks membership before rebinding as the user.
+
+Blocked credential and group-policy attempts are summarized in Admin Panel /
+Problems. See the [authentication boundary audit](../../Security/Authentication-Boundary-Audit-2026-09-27.md)
+for validation coverage and deployment limitations.
