@@ -1391,6 +1391,24 @@ live provider accounts were not exercised.
 This release adds the following regression coverage and documentation:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/21cb6e8c8">Isolate shared trigger/action changes when editing rules</a>. Thanks to xet7.</summary>
+
+Editing a shared trigger or action creates a private component for the edited
+rule instead of changing sibling rules. Unshared IDs remain stable; REST keeps
+partial-update semantics and the editor retains full replacement. Unchanged
+shared patches do not clone records. History undo/redo restores references and
+removes superseded private components only when they are no longer referenced.
+
+Nine Node runner checks and eight Chromium History scenarios pass, including
+the actual component writer, both edit transports, unchanged sibling records,
+undo/redo and cleanup. Existing deletion, permission and REST attribution checks
+also pass. Update the History guide. Concurrent writes remain nontransactional.
+Existing Upcoming regression evidence remains recorded; other browsers were
+not exercised. Blockly translations remain paused.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/7472456ad">Preserve shared triggers and actions when deleting rules</a>. Thanks to xet7.</summary>
 
 Editor, REST and History deletion share cleanup that retains trigger/action
