@@ -322,7 +322,7 @@ Activities.after.insert(async (userId, doc) => {
       if (customField.name) {
         params.customField = normalizeActivityText(customField.name);
       }
-      if (activity.value) {
+      if (activity.value !== undefined) {
         params.customFieldValue = activity.value;
       }
     }
@@ -349,7 +349,7 @@ Activities.after.insert(async (userId, doc) => {
 
   ['timeValue', 'timeOldValue'].forEach((key) => {
     const value = activity[key];
-    if (value) params[key] = value;
+    if (value !== undefined) params[key] = value;
   });
 
   // #5143: forward the before/after text of a description change (activityType
@@ -357,7 +357,7 @@ Activities.after.insert(async (userId, doc) => {
   // outgoing webhook / notification carries the actual new (and previous) text.
   ['value', 'oldValue'].forEach((key) => {
     const value = activity[key];
-    if (value) params[key] = value;
+    if (value !== undefined) params[key] = value;
   });
 
   if (board) {

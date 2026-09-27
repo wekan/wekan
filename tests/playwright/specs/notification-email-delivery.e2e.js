@@ -76,3 +76,38 @@ for (const reason of ['muted', 'email disabled']) test(`#6658 ${reason} recipien
     expect(sink.messages.some(mail => mail.recipients.includes(user2.email))).toBe(false);
   } finally { await sink.close(); }
 });
+
+test('custom-field notifications retain numeric zero and checkbox false in delivered email', async ({ page, user, user2, board }) => {
+  test.skip(!process.env.WEKAN_TEST_SMTP_PORT, 'Requires the local SMTP capture port');
+  const sink = await smtpSink(Number(process.env.WEKAN_TEST_SMTP_PORT));
+  const card = db.find('cards', { boardId: board.boardId })[0];
+  const numeric = db.uid('zero'), checkbox = db.uid('false');
+  try {
+    db.addBoardMember({ boardId: board.boardId, userId: user2.id });
+    db.updateOne('boards', { _id: board.boardId }, { $set: {
+      watchers: [{ userId: user2.id, level: 'watching' }], notifyOverrideEmail: true,
+    } });
+    db.updateOne('users', { _id: user2.id }, { $set: { 'profile.notifyOverrideEmail': true, 'profile.language': 'en' } });
+    db.insertOne('customFields', { _id: numeric, boardIds: [board.boardId], name: 'ZeroField', type: 'currency' });
+    db.insertOne('customFields', { _id: checkbox, boardIds: [board.boardId], name: 'FalseField', type: 'checkbox' });
+    db.updateOne('cards', { _id: card._id }, { $set: { customFields: [
+      { _id: numeric, value: 1 }, { _id: checkbox, value: true },
+    ] } });
+    await loginWithToken(page, user.id, user.token);
+    const recipient = db.findOne('users', { _id: user2.id }).emails[0].address.toLowerCase();
+    const delivered = () => sink.messages.filter(mail => mail.recipients.includes(recipient))
+      .map(mail => mail.data.replace(/=\r\n/g, '')).join('\n');
+    for (const [method, fieldId, value, expected] of [
+      ['setCardCustomFieldCurrency', numeric, 0, 'ZeroField: 0'],
+      ['setCardCustomFieldCheckbox', checkbox, false, 'FalseField: false'],
+    ]) {
+      await page.evaluate(({ method, cardId, fieldId, value }) => Meteor.callAsync(method, cardId, fieldId, value),
+        { method, cardId: card._id, fieldId, value });
+      await expect.poll(delivered, { timeout: 15000 }).toContain(expected);
+    }
+    expect(delivered()).not.toContain('__customFieldValue__');
+  } finally {
+    db.deleteMany('customFields', { _id: { $in: [numeric, checkbox] } });
+    await sink.close();
+  }
+});

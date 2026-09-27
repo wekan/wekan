@@ -160,7 +160,7 @@ Meteor.methods({
         };
 
         webhooksAtbts.forEach(key => {
-          if (params[key]) value[key] = params[key];
+          if (params[key] !== undefined) value[key] = params[key];
         });
         value.description = description;
         //integrations.forEach(integration => {

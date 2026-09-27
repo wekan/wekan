@@ -6,6 +6,15 @@
 
 When a webhook is activated it sends the related information within the POST request body.
 
+Present values keep their JSON types, including numeric `0`, boolean `false`,
+empty strings and explicit `null`. Missing or undefined values are omitted.
+For example, setting a numeric custom field to zero includes
+`"customFieldValue": 0`; clearing description text retains an empty `value`
+when that attribute is selected. `WEBHOOKS_ATTRIBUTES` still controls which
+attributes a regular outgoing webhook includes. Two-way webhooks retain the
+complete activity parameters. The notification parameter builder follows the
+same value-preservation rule.
+
 ## Cards
 
 ### Creation
