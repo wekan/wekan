@@ -24,11 +24,12 @@ import { LIST_SYNC_FETCHERS } from '/server/lib/listSyncFetch';
 import { SyncedCron } from '/server/cron/syncedCron';
 import { withListSyncLease } from '/server/lib/listSyncLease';
 import { ensureIndex } from '/server/lib/mongoStartup';
+import ListSyncTargets from '/server/lib/listSyncTargets';
 const { planSyncTextMerge, syncTextSelector, selectSyncTextFields } = require('/models/lib/listSyncTextMerge');
 const { syncSourceKey } = require('/models/lib/listSyncSourceIdentity');
-const { listSyncCardId } = require('/server/lib/listSyncCardId');
 const { readSyncCredential, sweepSyncCredentials } = require('/server/lib/listSyncConfiguration');
 const { describeSyncConflict, planSyncConflictResolution } = require('/server/lib/listSyncConflict');
+const { readSyncTarget, replaceSyncTarget, describeCreationConflict } = require('/server/lib/listSyncTarget');
 
 // Sync one list. Exported for the unit test and for a manual "sync now" call;
 // the cron job below just calls this for every eligible list.
@@ -128,6 +129,8 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
   const merge = planSyncTextMerge(externalTasks, existingCards);
   const plan = merge.conflicts.length ? null : planListSyncReconcile({ externalTasks: merge.tasks, existingCards });
   const archiveConflicts = [];
+  const creationConflicts = [];
+  const creationTargets = new Map();
   if (plan) {
     if (source.createCards === false) plan.toCreate = [];
     if (source.archiveCards === false) plan.toArchive = [];
@@ -138,9 +141,29 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
       if (await Cards.findOneAsync({ parentId: cardId, archived: { $ne: true }, _id: { $nin: plan.toArchive } },
         { fields: { _id: 1 } })) archiveConflicts.push({ cardId, externalId: String(byId.get(cardId).syncExternalId), field: 'archive' });
     }
+    if (!conflictScope && !archiveConflicts.length) {
+      for (const task of plan.toCreate) {
+        const target = await readSyncTarget(ListSyncTargets, list._id, sourceKey, task.externalId);
+        creationTargets.set(String(task.externalId), target);
+        if (await Cards.findOneAsync({ _id: target.targetId }, { fields: { _id: 1 } })) {
+          creationConflicts.push(describeCreationConflict(list, sourceKey, target, task));
+        }
+      }
+    }
   }
-  const conflicts = merge.conflicts.length ? merge.conflicts : archiveConflicts;
+  const conflicts = merge.conflicts.length ? merge.conflicts : archiveConflicts.length ? archiveConflicts : creationConflicts;
   if (resolution) {
+    if (resolution.field === 'creation') {
+      const preview = creationConflicts.find(row => row.cardId === resolution.cardId);
+      if (!preview || resolution.choice !== 'replace' || preview.fingerprint !== resolution.fingerprint) {
+        return { error: 'This conflict changed. Run Sync again to review the current values.' };
+      }
+      if (assertConflictAccess && await assertConflictAccess()) return { error: 'Full-list write access is required to create a replacement.' };
+      await assertCurrent();
+      if (!await Lists.findOneAsync(listSelector)) return { error: 'Sync settings changed. Run Sync again.' };
+      const changed = await replaceSyncTarget(ListSyncTargets, creationTargets.get(preview.externalId));
+      return changed ? { resolved: true } : { error: 'The replacement target changed. Run Sync again.' };
+    }
     const plan = planSyncConflictResolution(conflicts, existingCards, externalTasks, list, sourceKey, resolution);
     if (!plan) return { error: 'This conflict changed. Run Sync again to review the current values.' };
     const currentScope = assertConflictAccess ? await assertConflictAccess() : null;
@@ -156,7 +179,9 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
   if (conflicts.length) {
     // This status is published with the list, including to assigned-only
     // members. Put card identifiers and values only in the scoped response.
-    const error = archiveConflicts.length
+    const error = creationConflicts.length
+      ? 'Sync creation conflict: a previous card occupies the target ID. Review replacement in the Sync popup.'
+      : archiveConflicts.length
       ? 'Sync archive conflict: an active subtask is not in the source archive plan.'
       : conflicts.some(row => row.field === 'syncExternalId')
         ? 'Duplicate local Sync identity. Resolve duplicate card mappings before retrying.'
@@ -170,7 +195,8 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
       if (JSON.stringify(currentScope) !== JSON.stringify(conflictScope)) return { error: 'Your card access changed. Run Sync again.' };
     }
     return { error, reviewOnly: !!conflictScope, conflicts: conflicts.slice(0, 50).map(conflict => previewConflicts ? describeSyncConflict(conflict,
-      cardsById.get(conflict.cardId), tasksById.get(conflict.externalId), list, sourceKey, existingCards) : conflict) };
+      cardsById.get(conflict.cardId), tasksById.get(conflict.externalId), list, sourceKey, existingCards)
+      : { cardId: conflict.cardId, externalId: conflict.externalId, field: conflict.field }) };
   }
   if (conflictScope) return { reviewOnly: true, conflicts: [] };
   const updatesByCard = new Map(plan.toUpdate.map(row => [row.cardId, row]));
@@ -185,10 +211,14 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
   const now = new Date();
 
   for (const task of plan.toCreate) {
-    const cardId = listSyncCardId(list._id, sourceKey, task.externalId);
+    const target = creationTargets.get(String(task.externalId));
+    const cardId = target.targetId;
     try {
       // eslint-disable-next-line no-await-in-loop
       await assertCurrent();
+      if ((await readSyncTarget(ListSyncTargets, list._id, sourceKey, task.externalId)).targetId !== cardId) {
+        return { error: 'The replacement target changed. Run Sync again.' };
+      }
       await Cards.insertAsync({
         _id: cardId,
         title: task.title || 'Imported item',
@@ -213,7 +243,7 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
       // target or overwrite the existing card. Never treat a duplicate as a
       // successful reconciliation: its contents may have changed meanwhile.
       if (e.code !== 11000 || !await Cards.findOneAsync({ _id: cardId })) throw e;
-      const error = 'Sync creation conflict: a card for this source item already exists. Retry Sync; if the card was moved, return it to this list before retrying.';
+      const error = 'Sync creation conflict: a card for this source item already exists. Retry Sync to review a replacement in the Sync popup.';
       await assertCurrent();
       await Lists.updateAsync(listSelector, { $set: { 'syncSource.lastSyncError': error } });
       return { error };

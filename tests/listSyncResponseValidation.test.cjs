@@ -5,16 +5,16 @@ const {syncSourceKey}=require('../models/lib/listSyncSourceIdentity');
 const sourceConfig={type:'jira',url:'https://jira.example',projectKey:'TEST'};
 const sourceKey=syncSourceKey(sourceConfig);
 const asModule=file=>import(`data:text/javascript;base64,${Buffer.from(fs.readFileSync(file,'utf8')).toString('base64')}`);
-async function run(raw,parser,existing,updateCount=1,child=null,fields,operations={},credentialKey=sourceKey,currentConfig=true,createError,options={}){
+async function run(raw,parser,existing,updateCount=1,child=null,fields,operations={},credentialKey=sourceKey,currentConfig=true,createError,options={},targets={findOneAsync:async()=>null}){
  const {validateImportSourceShape}=await asModule('models/lib/importSourceShape.js');
  const {planListSyncReconcile,validateListSyncTasks}=await asModule('models/lib/listSyncReconcile.js');
  const cardWrites=[],listWrites=[];let parsed=0,fetches=0;const cardQueries=[];
  const source=fs.readFileSync('server/listSync.js','utf8').replace(/^import .*;\n/gm,'').replace(/export async function/g,'async function');
- const context={Meteor:{startup(){}},withListSyncLease:async(id,work)=>work({assertCurrent:async()=>{}}),Lists:{findOneAsync:async selector=>!Object.hasOwn(selector,'syncSource')?({_id:'list',boardId:'board',syncSource:{...sourceConfig,fields,...operations}}):(currentConfig?{}:null),updateAsync:async(id,modifier)=>listWrites.push(modifier)},
-  Cards:{insertAsync:async document=>{cardWrites.push({insert:document});if(createError)throw createError;return document._id;},updateAsync:async(selector,modifier)=>{cardWrites.push({selector,modifier});return updateCount;},find:selector=>{cardQueries.push(selector);return {fetchAsync:async()=>Array.isArray(existing)?existing:[existing || {_id:'card',syncExternalId:'KEY-1',syncSourceType:'jira',syncSourceKey:sourceKey,title:'Existing',description:'',syncLastSource:{title:'Existing',description:''}}]}},findOneAsync:async()=>child},
+ const context={ListSyncTargets:targets,Meteor:{startup(){}},withListSyncLease:async(id,work)=>work({assertCurrent:async()=>{}}),Lists:{findOneAsync:async selector=>!Object.hasOwn(selector,'syncSource')?({_id:'list',boardId:'board',syncSource:{...sourceConfig,fields,...operations}}):(currentConfig?{}:null),updateAsync:async(id,modifier)=>listWrites.push(modifier)},
+  Cards:{insertAsync:async document=>{cardWrites.push({insert:document});if(createError)throw createError;return document._id;},updateAsync:async(selector,modifier)=>{cardWrites.push({selector,modifier});return updateCount;},find:selector=>{cardQueries.push(selector);return {fetchAsync:async()=>Array.isArray(existing)?existing:[existing || {_id:'card',syncExternalId:'KEY-1',syncSourceType:'jira',syncSourceKey:sourceKey,title:'Existing',description:'',syncLastSource:{title:'Existing',description:''}}]}},findOneAsync:async selector=>typeof child==='function'?child(selector):child},
   Boards:{findOneAsync:async()=>({_id:'board',getDefaultSwimlineAsync:async()=>({_id:'lane'})})},ListSyncCredentials:{findOneAsync:async()=>({token:'test',sourceKey:credentialKey})},
   EXTERNAL_PARSERS:{jira:raw=>{parsed++;return parser?parser(raw):{tasks:[]};}},SYNC_CAPABLE_SOURCES:['jira'],
-  LIST_SYNC_FETCHERS:{jira:async()=>{fetches++;return raw;}},validateImportSourceShape,planListSyncReconcile,validateListSyncTasks,require:id=>(id.startsWith('/models/lib/') || ['/server/lib/listSyncCardId','/server/lib/listSyncConfiguration','/server/lib/listSyncConflict'].includes(id))?require('..'+id):({record(){}}),console,
+  LIST_SYNC_FETCHERS:{jira:async()=>{fetches++;return raw;}},validateImportSourceShape,planListSyncReconcile,validateListSyncTasks,require:id=>(id.startsWith('/models/lib/') || ['/server/lib/listSyncCardId','/server/lib/listSyncConfiguration','/server/lib/listSyncConflict','/server/lib/listSyncTarget'].includes(id))?require('..'+id):({record(){}}),console,
  };
  vm.createContext(context);vm.runInContext(source,context);
  const result=await context.syncOneList({_id:'list',boardId:'board',syncSource:{...sourceConfig,fields,...operations}},options);
@@ -296,16 +296,60 @@ test('source switch during fetch aborts before reconciling the previous response
 });
 
 
-test('creation collisions report a retryable conflict without claiming success or continuing writes',async()=>{
+test('creation collision preflight stops before any card write',async()=>{
  const {result,cardWrites,listWrites}=await run({issues:[]},()=>({tasks:[{externalId:'NEW',title:'New'}]}),[],1,{_id:'winner'},undefined,{},sourceKey,true,{code:11000});
  assert.match(result.error,/Sync creation conflict/);
- assert.equal(cardWrites.length,1);
+ assert.equal(cardWrites.length,0);
  assert.equal(listWrites.length,1);
  assert.equal(listWrites[0].$set['syncSource.lastSyncedAt'],undefined);
- assert.match(cardWrites[0].insert._id,/^sync-[a-f0-9]{64}$/);
+ assert.match(result.conflicts[0].cardId,/^sync-[a-f0-9]{64}$/);
 });
 
 test('unrelated insertion failures propagate instead of being mislabeled as collisions',async()=>{
  await assert.rejects(run({issues:[]},()=>({tasks:[{externalId:'NEW',title:'New'}]}),[],1,null,undefined,{},sourceKey,true,new Error('database unavailable')),/database unavailable/);
  await assert.rejects(run({issues:[]},()=>({tasks:[{externalId:'NEW',title:'New'}]}),[],1,null,undefined,{},sourceKey,true,Object.assign(new Error('other unique index'),{code:11000})),/other unique index/);
+});
+
+test('a collision arriving after preflight still refuses success',async()=>{
+ let reads=0;
+ const {result,cardWrites}=await run({issues:[]},()=>({tasks:[{externalId:'NEW',title:'New'}]}),[],1,
+  ()=>++reads===1?null:{_id:'winner'},undefined,{},sourceKey,true,{code:11000});
+ assert.match(result.error,/Sync creation conflict/);
+ assert.equal(cardWrites.length,1);
+ assert.match(cardWrites[0].insert._id,/^sync-[a-f0-9]{64}$/);
+});
+
+test('replacement preview and resolution preserve old content and reject stale or restricted decisions',async()=>{
+ const {nextSyncTargetId}=require('../server/lib/listSyncTarget');
+ let selected=null;
+ const targets={findOneAsync:async()=>selected,insertAsync:async doc=>{selected=doc;}};
+ const task={externalId:'NEW',title:'Incoming title',description:'Incoming prose'};
+ const old={_id:'private-card',title:'PRIVATE TITLE',description:'PRIVATE DESCRIPTION'};
+ const invoke=(tasks,options={},operations={})=>run({issues:[]},()=>({tasks}),[],1,old,undefined,operations,sourceKey,true,undefined,options,targets);
+ const preview=await invoke([task],{previewConflicts:true});
+ const row=preview.result.conflicts[0];
+ assert.equal(row.creation,true);
+ assert.equal(row.local,'Incoming title\n\nIncoming prose');
+ assert.doesNotMatch(JSON.stringify(preview.result),/PRIVATE/);
+ assert.deepEqual(preview.cardWrites,[]);
+ const resolution={cardId:row.cardId,field:'creation',choice:'replace',fingerprint:row.fingerprint};
+ for(const [tasks,options,operations] of [
+  [[{...task,title:'Changed'}],{resolution},{}],
+  [[],{resolution},{}],
+  [[task],{resolution},{createCards:false}],
+  [[task],{resolution,assertConflictAccess:async()=>({members:'restricted'})},{}],
+  [[task],{resolution:{...resolution,choice:'source'}},{}],
+ ]){
+  assert.ok((await invoke(tasks,options,operations)).result.error);
+  assert.equal(selected,null);
+ }
+ const accepted=await invoke([task],{resolution});
+ assert.equal(accepted.result.resolved,true);
+ assert.deepEqual(accepted.cardWrites,[]);
+ assert.equal(selected.targetId,nextSyncTargetId(row.cardId));
+ assert.ok((await invoke([task],{resolution})).result.error);
+ const retry=await run({issues:[]},()=>({tasks:[task]}),[],1,null,undefined,{},sourceKey,true,undefined,{},targets);
+ assert.equal(retry.result.created,1);
+ assert.equal(retry.cardWrites[0].insert._id,selected.targetId);
+ assert.deepEqual(old,{_id:'private-card',title:'PRIVATE TITLE',description:'PRIVATE DESCRIPTION'});
 });

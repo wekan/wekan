@@ -99,6 +99,62 @@ const openSync = (page, listId) => page.evaluate(list => {
     target: document.body, preventDefault() {}, stopPropagation() {} });
 }, db.findOne('lists', { _id: listId }));
 
+for (const disposition of ['moved', 'detached']) test(`Sync popup creates a durable replacement while keeping ${disposition} local work intact`, async ({ page, user, board }) => {
+  const lists = db.find('lists', { boardId: board.boardId });
+  const listId = lists[0]._id;
+  await loginWithToken(page, user.id, user.token);
+  await openBoard(page, board.boardId, board.slug);
+  try {
+    await call(page, 'setListSyncSource', listId, { type: 'jira', url: base, projectKey: 'ONE', token: 'replacement-test-token' });
+    expect(await call(page, 'syncListNow', listId)).toMatchObject({ created: 1 });
+    const card = db.findOne('cards', { listId, syncExternalId: 'SAME-1' });
+    db.updateOne('cards', { _id: card._id }, disposition === 'moved'
+      ? { $set: { listId: lists[1]._id, title: 'Private moved work' } }
+      : { $set: { title: 'Private moved work' }, $unset: { syncExternalId: '', syncSourceType: '', syncSourceKey: '', syncLastSource: '' } });
+    const original = db.findOne('cards', { _id: card._id });
+    await openSync(page, listId);
+    await page.locator('.js-list-sync-now').click();
+    const conflict = page.locator('.list-sync-conflict').first();
+    await expect(conflict).toContainText('[SAME-1] ONE issue');
+    await expect(conflict).not.toContainText('Private moved work');
+    const preview = await call(page, 'syncListNow', listId);
+    const row = preview.conflicts[0];
+    const stale = { cardId: row.cardId, field: 'creation', choice: 'replace', fingerprint: row.fingerprint };
+    emptyProjects.add('ONE');
+    expect(await call(page, 'resolveListSyncConflict', listId, stale)).toHaveProperty('error');
+    expect(db.find('listSyncTargets', { listId })).toHaveLength(0);
+    emptyProjects.delete('ONE');
+    await conflict.locator('[data-choice="replace"]').click();
+    await expect.poll(() => db.find('cards', { listId, syncExternalId: 'SAME-1' }).length).toBe(1);
+    const replacement = db.findOne('cards', { listId, syncExternalId: 'SAME-1' });
+    expect(replacement._id).toMatch(/^sync-replacement-[a-f0-9]{64}$/);
+    expect(replacement._id).not.toBe(card._id);
+    expect(db.findOne('cards', { _id: card._id })).toEqual(original);
+    const decision = db.findOne('listSyncTargets', { listId });
+    expect(decision.targetId).toBe(replacement._id);
+    for (const [method, args] of [
+      ['/listSyncTargets/insert', [{ ...decision, _id: `forged-${listId}` }]],
+      ['/listSyncTargets/update', [{ _id: decision._id }, { $set: { targetId: 'forged' } }]],
+      ['/listSyncTargets/remove', [{ _id: decision._id }]],
+    ]) {
+      const refused = await page.evaluate(async ({ method, args }) => {
+        try { await Meteor.callAsync(method, ...args); return false; } catch (error) { return true; }
+      }, { method, args });
+      expect(refused).toBe(true);
+    }
+    expect(db.findOne('listSyncTargets', { listId })).toEqual(decision);
+    await expect(page.locator('.js-list-sync-now')).toBeEnabled();
+    expect(await call(page, 'syncListNow', listId)).toMatchObject({ created: 0 });
+    expect(await call(page, 'resolveListSyncConflict', listId, stale)).toHaveProperty('error');
+    expect(db.find('cards', { listId, syncExternalId: 'SAME-1' })).toHaveLength(1);
+    expect(db.findOne('cards', { _id: card._id })).toEqual(original);
+  } finally {
+    emptyProjects.delete('ONE');
+    db.deleteMany('listSyncTargets', { listId });
+    db.deleteMany('listSyncCredentials', { listId });
+  }
+});
+
 test('Sync popup resolves text conflicts, rejects stale previews and preserves local choices on retry', async ({ page, user, board }) => {
   const listId = db.find('lists', { boardId: board.boardId })[0]._id;
   await loginWithToken(page, user.id, user.token);

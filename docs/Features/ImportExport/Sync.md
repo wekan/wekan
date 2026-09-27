@@ -63,7 +63,7 @@ and external issue ID. Concurrent creation attempts therefore cannot insert
 two cards for the same item. A duplicate insertion stops the run with a
 creation-conflict error rather than overwriting local work or reporting success.
 Retry to reconcile the winning card. If it was moved out of the watched list,
-return it before retrying; Sync will not create a replacement alongside it.
+return it before retrying or review **Create replacement here** in the popup.
 Existing cards retain their IDs and continue matching by source identity.
 This protects new creations only; existing legacy IDs are unchanged.
 
@@ -174,7 +174,30 @@ archival rules still apply to the retained synced card.
 Assigned-only writers see only their assigned group members. A duplicate that
 is visible only across different users' assignments needs an unrestricted
 writer to review the full group. This repair does not merge card contents,
-choose arbitrary replacement IDs or resolve moved-card creation collisions.
+or choose arbitrary replacement IDs. Creation collisions have a separate
+replacement action below.
+
+### Replace a moved or detached Sync card
+
+A card occupying the next creation ID stops the plan before normal card writes.
+The popup offers **Create replacement here** to unrestricted writers. Its preview
+contains only the incoming source title and description, never the old card's
+content or location: that card may now belong to a private board.
+
+The action refetches the source and checks the source settings, selected target
+and preview fingerprint. A changed or missing source item or disabled creation
+invalidates the choice. It records a conditional decision in the private
+`listSyncTargets` collection, then the popup retries Sync to create the card.
+The old card stays unchanged. Assigned-only writers cannot choose replacements.
+
+The target is deterministic and stored before insertion. Another worker or a
+retry after a lost acknowledgement uses the same target; concurrent inserts
+still meet the unique card ID constraint. Later replacements form a new target
+from the previous one, and stale decisions cannot overwrite a newer choice.
+These private decisions persist across reconnects and process restarts and
+contain no credentials. They must not be reset when cleaning up credentials.
+This does not provide transactions or fence a card write already issued by a
+worker that subsequently loses its lease.
 
 ### Keep a parent whose archival is blocked
 
@@ -193,8 +216,8 @@ list reconciliation remains disabled for those callers.
 
 Sync retries afterward. Independently synced subcards retain their own source
 rules. If the source item later returns, the existing stable-ID collision guard
-preserves the detached local parent and may report a creation conflict; automatic
-replacement of moved or detached cards remains pending.
+preserves the detached local parent and may report a creation conflict. An
+unrestricted writer can then explicitly choose a replacement as described above.
 
 ### Source identity and switching projects
 

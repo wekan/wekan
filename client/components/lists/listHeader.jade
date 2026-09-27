@@ -479,9 +479,15 @@ template(name="listSyncPopup")
         each syncConflicts
           .list-sync-conflict
             strong {{externalId}} — {{_ label}}
-            p {{_ 'sync-conflict-local'}}
+            if creation
+              p {{_ 'event-source'}}
+            else
+              p {{_ 'sync-conflict-local'}}
             pre= local
-            if archive
+            if creation
+              p.quiet {{_ 'sync-conflict-creation-hint'}}
+              button.js-resolve-sync-conflict(type="button" data-choice="replace" disabled=syncBusy) {{_ 'sync-conflict-create-replacement'}}
+            else if archive
               p.quiet {{_ 'sync-conflict-archive-hint'}}
               button.js-resolve-sync-conflict(type="button" data-choice="detach" disabled=syncBusy) {{_ 'sync-conflict-keep-card-local'}}
             else if duplicate

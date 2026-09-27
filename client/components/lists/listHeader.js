@@ -900,7 +900,7 @@ Template.listSyncPopup.onCreated(function () {
 
 Template.listSyncPopup.helpers({
   syncConflicts() { return Template.instance().syncConflicts.get().filter(row => row.fingerprint).map(row => ({
-    ...row, label: row.archive ? 'sync-conflict-archive' : row.duplicate ? 'sync-conflict-duplicate' : row.field === 'spentTime' ? 'spent-time-hours' : row.field,
+    ...row, label: row.creation ? 'sync-conflict-creation' : row.archive ? 'sync-conflict-archive' : row.duplicate ? 'sync-conflict-duplicate' : row.field === 'spentTime' ? 'spent-time-hours' : row.field,
   })); },
   syncBusy() { return Template.instance().syncBusy.get(); },
   syncOperations() {
