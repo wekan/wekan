@@ -9,8 +9,14 @@ Triggers.before.insert((userId, doc) => {
 });
 
 Triggers.before.update((userId, doc, fieldNames, modifier) => {
-  modifier.$set = modifier.$set || {};
-  modifier.$set.updatedAt = new Date();
+  // Rule editing replaces documents; never mix replacement fields with $set.
+  if (Object.keys(modifier).some(key => key.startsWith('$'))) {
+    modifier.$set = modifier.$set || {};
+    modifier.$set.updatedAt = new Date();
+  } else {
+    modifier.createdAt = doc.createdAt || new Date();
+    modifier.updatedAt = new Date();
+  }
 });
 
 Triggers.helpers({

@@ -9,8 +9,14 @@ Actions.before.insert((userId, doc) => {
 });
 
 Actions.before.update((userId, doc, fieldNames, modifier) => {
-  modifier.$set = modifier.$set || {};
-  modifier.$set.modifiedAt = new Date();
+  // Rule editing replaces documents; never mix replacement fields with $set.
+  if (Object.keys(modifier).some(key => key.startsWith('$'))) {
+    modifier.$set = modifier.$set || {};
+    modifier.$set.modifiedAt = new Date();
+  } else {
+    modifier.createdAt = doc.createdAt || new Date();
+    modifier.modifiedAt = new Date();
+  }
 });
 
 Actions.helpers({
