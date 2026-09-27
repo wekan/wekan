@@ -1763,6 +1763,22 @@ Blockly browser coverage and other Upcoming regression results remain valid.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ba0ab5ce8">Translate Gujarati Blockly procedures and variable controls</a>. Thanks to xet7.</summary>
+
+Fill 38 Gujarati English placeholders for function definitions, parameters,
+return values, variable creation, renaming and conflict messages. Preserve
+existing translations and placeholders. Extend Gujarati vocabulary checks to
+these groups and distinguish variable reads/writes and return/no-return
+functions. The catalog remains incomplete; specialist terminology needs review.
+
+Five catalog checks and 21 human-translation preservation checks pass. Update
+the Blocks guide. Existing Gujarati Chromium coverage remains recorded; no
+new browser run was performed. Existing Upcoming regression evidence remains
+recorded.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9b7135f43">Translate Gujarati Blockly mathematical descriptions</a>. Thanks to xet7.</summary>
 
 Fill 86 Gujarati English placeholders for arithmetic, constants, numeric tests,
