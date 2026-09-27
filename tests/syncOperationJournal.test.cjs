@@ -26,3 +26,66 @@ test('damaged operation identities cannot become Mongo selectors during recovery
   }}),/invalid-sync-operation-identity/);
  }
 });
+
+const mapping = JSON.stringify(['points', 'customfield_100', 'points']);
+function estimateStep() {
+ const before={_id:'card',boardId:'board',listId:'list',customFields:[
+  {_id:'text',value:'Keep'}, {_id:'points',value:2}, {_id:'flag',value:false},
+  {_id:'date',value:new Date('2026-01-02T00:00:00Z')}, {_id:'options',value:['one','two']}, {_id:'empty'}],
+  syncLastSource:{estimate:2,estimateMapping:mapping}};
+ return {kind:'update',cardId:'card',before,after:{...structuredClone(before),
+  customFields:before.customFields.map(field=>field._id==='points'?{...field,value:0}:structuredClone(field)),
+  syncLastSource:{estimate:0,estimateMapping:mapping}}};
+}
+test('mapped estimate plans preserve unrelated typed fields, order and explicit clears',()=>{
+ const s=estimateStep();assert.doesNotThrow(()=>validateStep(s));
+ s.after.customFields=s.after.customFields.filter(field=>field._id!=='points');
+ s.after.syncLastSource.estimate=null;assert.doesNotThrow(()=>validateStep(s));
+ // Accepting the source baseline while keeping a local value is legitimate.
+ const local=estimateStep();local.after.customFields=structuredClone(local.before.customFields);
+ assert.doesNotThrow(()=>validateStep(local));
+ for(const customFields of [undefined,null,[]]){
+  const creation={kind:'create',cardId:'card',before:null,after:{_id:'card',boardId:'board',listId:'list',
+   customFields:[{_id:'points',value:0}],syncLastSource:{estimate:0,estimateMapping:mapping}}};
+  if(customFields!==undefined)creation.before={_id:'card',boardId:'board',listId:'list',customFields};
+  if(creation.before)creation.kind='update';
+  assert.doesNotThrow(()=>validateStep(creation));
+ }
+});
+test('estimate plans reject invalid mappings, field payloads and unrelated changes',()=>{
+ for(const mutate of [
+  s=>delete s.after.syncLastSource.estimateMapping,
+  s=>s.after.syncLastSource.estimateMapping='not-json',
+  s=>s.after.syncLastSource.estimateMapping=JSON.stringify(['points','customfield_100','']),
+  s=>s.after.syncLastSource.estimateMapping=JSON.stringify(['points','token=secret','points']),
+  s=>s.after.syncLastSource.estimateMapping=JSON.stringify(['points','customfield_100','points','extra']),
+  s=>s.after.syncLastSource.estimate=-1,
+  s=>s.before.syncLastSource.estimate='2',
+  s=>s.after.syncLastSource.estimate=1e13,
+  s=>s.after.customFields[1].value=Infinity,
+  s=>s.after.customFields[1].value='0',
+  s=>s.after.customFields[0].value='Changed',
+  s=>s.after.customFields.reverse(),
+  s=>s.after.customFields.push({_id:'new',value:'Injected'}),
+  s=>s.after.customFields.push({_id:'points',value:0}),
+  s=>s.after.customFields[0].token='secret',
+  s=>s.after.customFields[0].value={token:'secret'},
+  s=>s.after.customFields[0].value=[1],
+  s=>s.after.customFields[0].value=new Date(NaN),
+  s=>s.after.customFields[0].value=undefined,
+  s=>s.after.customFields={},
+ ]){const s=estimateStep();mutate(s);assert.throws(()=>validateStep(s), undefined, mutate.toString());}
+});
+
+test('mapped-field plans retain entry and payload bounds',()=>{
+ const s=estimateStep();
+ s.before.customFields=Array.from({length:9999},(_,index)=>({_id:`f${index}`,value:''}));
+ s.before.customFields.push({_id:'points',value:2});
+ s.after.customFields=structuredClone(s.before.customFields);s.after.customFields[9999].value=0;
+ assert.doesNotThrow(()=>validateStep(s));
+ s.before.customFields.push({_id:'overflow',value:''});s.after.customFields.push({_id:'overflow',value:''});
+ assert.throws(()=>validateStep(s),/invalid-sync-operation-custom-fields/);
+ const large=estimateStep();large.before.customFields[0].value='x'.repeat(1024*1024);
+ large.after.customFields[0].value=large.before.customFields[0].value;
+ assert.throws(()=>validateStep(large),/step-too-large/);
+});

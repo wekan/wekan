@@ -415,6 +415,11 @@ not provide durable effect replay or exactly-once delivery across crashes or
 concurrent writes between snapshot reads. Card storage, activity insertion,
 History and downstream rules/notifications remain separate operations.
 
+The private write-plan engine can now store and validate mapped-estimate
+snapshots for recovery, preserving unrelated custom fields and source mapping
+identities. Real MongoDB tests verify interrupted update/clear replay through
+a test adapter. Manual and scheduled Sync are not yet connected to that engine.
+
 Automatic Jira schema discovery, arbitrary mapping creation in this popup,
 original/remaining time-estimate mapping, other providers' estimates and durable
 replay remain unfinished. Mapping/permission checks and card writes are still

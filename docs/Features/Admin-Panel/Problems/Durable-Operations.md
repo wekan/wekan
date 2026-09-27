@@ -112,6 +112,22 @@ Plans are limited to 10,000 unique cards and 1 MiB per step; exceeding a limit
 fails before application writes. BSON dates and missing/null distinctions are
 retained. A scope change or damaged plan preserves evidence and stops the run.
 
+Mapped-estimate plans also retain the complete typed custom-field array and
+source baseline (including zero or explicit null), with the canonical local
+field/provider field/unit identity. Other field values and their order must
+remain unchanged. Dates, booleans, strings, finite numbers, string arrays and
+empty assignments survive storage; unknown properties, duplicate IDs, invalid
+values and missing or malformed mappings are rejected. Custom-field arrays are
+limited to 10,000 entries within the existing 1 MiB step budget. A mapping's
+unit may be a configured custom unit, as in ordinary Jira estimate import/Sync.
+
+Real MongoDB tests cover lost acknowledgements for estimate updates and clears,
+unchanged typed local fields, mapping-checksum damage and local edits before
+replay. They use a test application adapter; this does not enable production
+Sync recovery. The production adapter must still validate current field
+ownership/mapping under the list guard and coordinate card writes with durable
+History/activity effects before acknowledging a unit.
+
 The adapter must compare exact current/before/after states, perform a conditional
 write only from the before state, verify its result, and return `applied` or
 `already-applied`. A committed write with a lost acknowledgement must return

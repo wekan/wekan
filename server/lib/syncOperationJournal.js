@@ -1,6 +1,7 @@
 'use strict';
 const { randomUUID, createHash } = require('node:crypto');
 const { EJSON } = require('bson');
+const { normalizeJiraEstimateMapping } = require('../../models/lib/jiraEstimateMapping');
 
 const MAX_STEPS = 10000;
 const digest = value => createHash('sha256').update(EJSON.stringify(value, { relaxed: false })).digest('hex');
@@ -13,6 +14,45 @@ function identity(scope) {
     revision: scope.revision, sourceKey: scope.sourceKey };
 }
 const plain = value => value && typeof value === 'object' && [Object.prototype, null].includes(Object.getPrototypeOf(value));
+function estimateIdentity(value) {
+  if (typeof value !== 'string') fail('invalid-sync-operation-estimate-mapping');
+  try {
+    const parts = JSON.parse(value);
+    if (!Array.isArray(parts) || parts.length !== 3 ||
+        typeof parts[0] !== 'string' || !parts[0] || typeof parts[2] !== 'string') throw new Error();
+    const mapping = normalizeJiraEstimateMapping({ estimateFieldId: parts[1], estimateUnit: parts[2] });
+    if (JSON.stringify([parts[0], mapping.estimateFieldId, mapping.estimateUnit]) !== value) throw new Error();
+    return parts[0];
+  } catch (_) { fail('invalid-sync-operation-estimate-mapping'); }
+}
+function validateCustomFields(fields) {
+  if (fields === null) return;
+  if (!Array.isArray(fields) || fields.length > 10000) fail('invalid-sync-operation-custom-fields');
+  const ids = new Set();
+  for (const field of fields) {
+    if (!plain(field) || typeof field._id !== 'string' || !field._id || ids.has(field._id) ||
+        Object.keys(field).some(key => !['_id', 'value'].includes(key))) fail('invalid-sync-operation-custom-fields');
+    ids.add(field._id);
+    if (!Object.hasOwn(field, 'value')) continue;
+    const value = field.value;
+    const valid = value === null || typeof value === 'string' || typeof value === 'boolean' ||
+      (typeof value === 'number' && Number.isFinite(value)) ||
+      (value instanceof Date && Number.isFinite(value.getTime())) ||
+      (Array.isArray(value) && value.every(item => typeof item === 'string'));
+    if (!valid) fail('invalid-sync-operation-custom-field-value');
+  }
+}
+function validateEstimateChange(step) {
+  if (![step.before, step.after].some(snapshot => snapshot && Object.hasOwn(snapshot, 'customFields'))) return;
+  const fieldId = estimateIdentity(step.after.syncLastSource?.estimateMapping);
+  const unrelated = snapshot => (snapshot?.customFields || []).filter(field => field._id !== fieldId);
+  if (digest(unrelated(step.before)) !== digest(unrelated(step.after))) fail('sync-operation-unmapped-field-change');
+  for (const snapshot of [step.before, step.after]) {
+    const value = snapshot?.customFields?.find(field => field._id === fieldId)?.value;
+    if (value !== undefined && value !== null &&
+        (typeof value !== 'number' || !Number.isFinite(value) || value < 0 || value > 1e12)) fail('invalid-sync-operation-estimate');
+  }
+}
 function validateStep(step) {
   if (!step || Object.keys(step).sort().join(',') !== 'after,before,cardId,kind' ||
     !['create','update','archive'].includes(step.kind) || typeof step.cardId !== 'string' || !step.cardId ||
@@ -20,10 +60,11 @@ function validateStep(step) {
     (step.kind === 'create' ? step.before !== null : !plain(step.before))) {
     fail('invalid-sync-operation-step');
   }
-  // Snapshots contain only Sync-owned card fields. Credentials/configuration,
-  // external source documents and arbitrary application records never belong here.
+  // Snapshots contain Sync-owned fields plus the complete custom-field array
+  // needed for an exact conditional write. Only the mapped entry may change.
+  // Credentials, source documents and arbitrary application records stay out.
   const allowed = new Set(['_id','boardId','listId','swimlaneId','title','description','spentTime','archived',
-    'archivedAt','dateLastActivity','sort','syncExternalId','syncSourceType','syncSourceKey','syncLastSource']);
+    'archivedAt','dateLastActivity','sort','customFields','syncExternalId','syncSourceType','syncSourceKey','syncLastSource']);
   for (const snapshot of [step.before, step.after]) {
     if (!snapshot) continue;
     if (snapshot._id !== step.cardId || !['boardId','listId'].every(key => typeof snapshot[key] === 'string' && snapshot[key])) fail('invalid-sync-operation-card');
@@ -38,13 +79,19 @@ function validateStep(step) {
     for (const key of ['archivedAt','dateLastActivity']) {
       if (snapshot[key] !== undefined && snapshot[key] !== null && (!(snapshot[key] instanceof Date) || !Number.isFinite(snapshot[key].getTime()))) fail('invalid-sync-operation-date');
     }
-    if (snapshot.syncLastSource !== undefined && snapshot.syncLastSource !== null && (!plain(snapshot.syncLastSource) || Object.keys(snapshot.syncLastSource).some(key => !['title','description','spentTime'].includes(key)))) fail('invalid-sync-operation-baseline');
+    if (Object.hasOwn(snapshot, 'customFields')) validateCustomFields(snapshot.customFields);
+    if (snapshot.syncLastSource !== undefined && snapshot.syncLastSource !== null && (!plain(snapshot.syncLastSource) || Object.keys(snapshot.syncLastSource).some(key => !['title','description','spentTime','estimate','estimateMapping'].includes(key)))) fail('invalid-sync-operation-baseline');
   }
   for (const snapshot of [step.before, step.after]) {
     for (const [key, value] of Object.entries(snapshot?.syncLastSource || {})) {
-      if (key === 'spentTime' ? typeof value !== 'number' || !Number.isFinite(value) : typeof value !== 'string') fail('invalid-sync-operation-baseline-value');
+      if (key === 'estimateMapping') estimateIdentity(value);
+      else if (key === 'estimate') {
+        if (value !== null && (typeof value !== 'number' || !Number.isFinite(value) || value < 0 || value > 1e12)) fail('invalid-sync-operation-estimate');
+        estimateIdentity(snapshot.syncLastSource.estimateMapping);
+      } else if (key === 'spentTime' ? typeof value !== 'number' || !Number.isFinite(value) : typeof value !== 'string') fail('invalid-sync-operation-baseline-value');
     }
   }
+  validateEstimateChange(step);
   if (step.kind === 'archive' && step.after.archived !== true) fail('invalid-sync-operation-archive');
   if (Buffer.byteLength(EJSON.stringify(step, { relaxed: false })) > 1024 * 1024) fail('sync-operation-step-too-large');
   return step;
