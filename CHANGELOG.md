@@ -611,6 +611,26 @@ and open-issue audit documentation.
 
 </details>
 
+This release adds the following regression coverage and documentation:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8cbd8c5ed">Verify duplicated boards start a new activity history</a>. Thanks to sfahrenholz and xet7.</summary>
+
+Existing board duplication excludes old board/card activity records. Document
+that behavior and verify both Duplicate Board actions through the browser,
+with and without cards. Old source history remains intact; new creation events
+on the copy are allowed. Confirmation cancellation and non-admin rejection
+remain covered. Closes [#2321](https://github.com/wekan/wekan/issues/2321)
+without changing existing permissions or adding a redundant history option.
+
+Three Chromium scenarios and four focused Node suites pass. Verification used
+MongoDB; other browser engines and live FerretDB backends were not exercised.
+The existing Upcoming parent-filter entry retains its recorded positive,
+negative and browser coverage. Refreshed the open-issue inventory (132 open)
+and recorded that #1273 still needs a retain-autocomplete-text option.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.07 2026-09-27 WeKan ® release
