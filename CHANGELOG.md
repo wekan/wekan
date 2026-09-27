@@ -783,6 +783,25 @@ action category, long content and control boundaries.
 This release adds the following regression coverage and documentation:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c666a69b2">Document Scrum capabilities and the remaining implementation plan</a>. Thanks to xet7.</summary>
+
+Audit existing estimates, charts, history, permissions and data transfers
+before adding Scrum data. The menu-aligned design describes product backlogs,
+sprint lifecycle and reports, hidden metadata, import/export mappings and
+regression requirements. Existing Scrum and Board View guides link the plan.
+
+This is design documentation: native sprint lifecycle, views and complete
+Scrum data transfer are not yet implemented. No runtime behavior changes.
+
+The Upcoming coverage audit retains existing positive, negative and browser
+regressions for authentication, duplication, comment tooltips, parent filters
+and mirroring. New rule changes pass 19 focused Node runner entries, five
+Blockly/catalog checks and 11 Chromium scenarios. External login providers,
+other browser engines and live FerretDB were not exercised in this batch.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8cbd8c5ed">Verify duplicated boards start a new activity history</a>. Thanks to sfahrenholz and xet7.</summary>
 
 Existing board duplication excludes old board/card activity records. Document
