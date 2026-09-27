@@ -710,6 +710,22 @@ recorded positive, negative and UI regression coverage.
 Also adds the following feature:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c72b9a4a0">Round-trip Jira time tracking through external JSON export</a>. Thanks to xet7.</summary>
+
+Imported estimate fields carry stable markers, so renaming them does not break
+Jira export. Convert hours back to integer seconds; Dates controls spent time
+and Custom Fields controls estimates. Never infer semantics from field names
+or export ambiguous mappings and invalid values. Native export keeps markers.
+
+Six focused Node checks and one Chromium scenario pass, including renamed
+fields, selection exclusions, zero values, native export and real Jira-format
+re-import. Existing Upcoming regression evidence remains recorded; other
+browsers were not run. Individual worklogs, sprint/release mappings and Sync
+remain pending. Blockly translation work remains paused.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ef5c7d00c">Preserve Jira time tracking using existing WeKan fields</a>. Thanks to xet7.</summary>
 
 Jira JSON import converts numeric time-tracking seconds to hours. Spent time
