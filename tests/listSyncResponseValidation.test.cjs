@@ -90,3 +90,21 @@ test('excluded source text is not updated or added to new-card baselines',async(
  assert.equal(result.created,1);assert.equal(cardWrites[0].insert.title,'Imported item');
  assert.equal(cardWrites[0].insert.description,'');assert.equal(Object.keys(cardWrites[0].insert.syncLastSource).length,0);
 });
+
+test('selected spent time updates hours and baseline together, while opt-out preserves local time',async()=>{
+ const existing={_id:'card',syncExternalId:'KEY-1',syncSourceType:'jira',title:'Existing',description:'',spentTime:2,syncLastSource:{title:'Existing',description:'',spentTime:2}};
+ const parser=()=>({tasks:[{externalId:'KEY-1',title:'Existing',description:'',spentTime:0}]});
+ const enabled=await run({issues:[]},parser,existing,1,null,['spentTime']);
+ assert.equal(enabled.result.updated,1);assert.equal(enabled.cardWrites[0].modifier.$set.spentTime,0);
+ assert.equal(enabled.cardWrites[0].modifier.$set.syncLastSource.spentTime,0);
+ assert.equal(enabled.cardWrites[0].selector.spentTime,2);
+ const disabled=await run({issues:[]},parser,{...existing,spentTime:3});
+ assert.equal(disabled.result.updated,0);assert.deepEqual(disabled.cardWrites,[]);
+});
+
+test('invalid spent time aborts Sync before card writes',async()=>{
+ for(const spentTime of [-1,Infinity,NaN,'2',null]){
+  const {result,cardWrites}=await run({issues:[]},()=>({tasks:[{externalId:'KEY-1',spentTime}]}),undefined,1,null,['spentTime']);
+  assert.match(result.error,/Invalid sync spent time/);assert.deepEqual(cardWrites,[]);
+ }
+});

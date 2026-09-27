@@ -79,6 +79,7 @@ export async function syncOneList(list, { fetchers = LIST_SYNC_FETCHERS } = {}) 
     syncLastSource: c.syncLastSource,
     title: c.title,
     description: c.description,
+    spentTime: c.spentTime,
     archived: c.archived,
   }));
 
@@ -117,6 +118,7 @@ export async function syncOneList(list, { fetchers = LIST_SYNC_FETCHERS } = {}) 
     await Cards.insertAsync({
       title: task.title || 'Imported item',
       description: task.description || '',
+      ...(task.spentTime !== undefined ? { spentTime: task.spentTime } : {}),
       listId: list._id,
       swimlaneId: list.swimlaneId || (board && (await board.getDefaultSwimlineAsync())._id) || '',
       boardId: list.boardId,
@@ -127,6 +129,7 @@ export async function syncOneList(list, { fetchers = LIST_SYNC_FETCHERS } = {}) 
       syncLastSource: {
         ...(task.title !== undefined ? { title: task.title } : {}),
         ...(task.description !== undefined ? { description: task.description } : {}),
+        ...(task.spentTime !== undefined ? { spentTime: task.spentTime } : {}),
       },
     });
   }

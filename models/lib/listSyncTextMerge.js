@@ -16,7 +16,7 @@ function planSyncTextMerge(tasks, cards) {
     const card = byId.get(String(task.externalId));
     if (!card) return task;
     const result = { ...task }, baseline = { ...(card.syncLastSource || {}) };
-    for (const field of ['title', 'description']) {
+    for (const field of ['title', 'description', 'spentTime']) {
       if (task[field] === undefined) continue;
       const incoming = task[field], local = card[field];
       const known = Object.prototype.hasOwnProperty.call(baseline, field);
@@ -32,7 +32,7 @@ function planSyncTextMerge(tasks, cards) {
 }
 function syncTextSelector(card, boardId, listId) {
   const selector = { _id: card._id, boardId, listId };
-  for (const field of ['title', 'description', 'archived', 'syncExternalId', 'syncSourceType', 'syncLastSource']) {
+  for (const field of ['title', 'description', 'spentTime', 'archived', 'syncExternalId', 'syncSourceType', 'syncLastSource']) {
     selector[field] = card[field] === undefined ? { $exists: false } : card[field];
   }
   return selector;
@@ -41,7 +41,7 @@ function selectSyncTextFields(tasks, fields) {
   const wanted = new Set(fields === undefined ? ['title', 'description'] : fields);
   return tasks.map(task => {
     const selected = { ...task };
-    for (const field of ['title', 'description']) if (!wanted.has(field)) delete selected[field];
+    for (const field of ['title', 'description', 'spentTime']) if (!wanted.has(field)) delete selected[field];
     return selected;
   });
 }

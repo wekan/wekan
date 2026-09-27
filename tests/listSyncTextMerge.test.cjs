@@ -54,3 +54,15 @@ test('field selection preserves identity and never lets excluded text reach the 
  assert.equal(merged.baselines.get('c').description,'Body');
  assert.equal(source.description,'Upstream body');
 });
+
+test('spent time is opt-in, preserves zero, merges source-only updates and detects timer edits',()=>{
+ const {selectSyncTextFields}=require('../models/lib/listSyncTextMerge');
+ const source={...task,spentTime:0};const current={...card,spentTime:2,syncLastSource:{...card.syncLastSource,spentTime:2}};
+ assert.equal(selectSyncTextFields([source])[0].spentTime,undefined);
+ const selected=selectSyncTextFields([source],['spentTime']);
+ assert.equal(selected[0].spentTime,0);
+ const merged=planSyncTextMerge(selected,[current]);
+ assert.equal(merged.conflicts.length,0);assert.equal(merged.baselines.get('c').spentTime,0);
+ assert.equal(planSyncTextMerge(selected,[{...current,spentTime:3}]).conflicts[0].field,'spentTime');
+ assert.equal(syncTextSelector(current,'board','list').spentTime,2);
+});

@@ -322,7 +322,7 @@ Lists.attachSchema(
       optional: true,
     },
     'syncSource.fields': { type: Array, optional: true },
-    'syncSource.fields.$': { type: String, allowedValues: ['title', 'description'] },
+    'syncSource.fields.$': { type: String, allowedValues: ['title', 'description', 'spentTime'] },
     'syncSource.enabled': {
       type: Boolean,
       optional: true,

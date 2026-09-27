@@ -78,7 +78,7 @@ async function fetchJiraCloudIssues(base, jql, headers) {
   url.searchParams.set('maxResults', '200');
   // Enhanced search otherwise returns only issue IDs. Request the fields the
   // shared parser uses so synchronization cannot replace titles with defaults.
-  url.searchParams.set('fields', 'summary,description,status,duedate,assignee,reporter,labels');
+  url.searchParams.set('fields', 'summary,description,status,duedate,assignee,reporter,labels,timetracking,timespent');
   for (let page = 0; page < MAX_SYNC_PAGES; page += 1) {
     const { body } = await fetchJson(url.href, headers);
     if (!body || !Array.isArray(body.issues) || typeof body.isLast !== 'boolean') throw new Error('Invalid Jira Cloud pagination');

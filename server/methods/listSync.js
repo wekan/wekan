@@ -38,7 +38,7 @@ Meteor.methods({
       url: Match.Optional(String),
       projectKey: String,
       enabled: Match.Optional(Boolean),
-      fields: Match.Optional([Match.OneOf('title', 'description')]),
+      fields: Match.Optional([Match.OneOf('title', 'description', 'spentTime')]),
       token: Match.Optional(Match.OneOf(String, null)),
       username: Match.Optional(String),
     }));

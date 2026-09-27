@@ -84,6 +84,14 @@ still require a title: with Title excluded they use `Imported item`; an
 excluded description starts empty. These switches do not change creation or
 source-absence archive behavior. Selecting no text fields is supported.
 
+For Jira, **Spent time (hours)** is an additional opt-in switch, off for existing
+configurations. The shared Jira parser converts numeric seconds using the same
+conversion as import. Zero is a real value; an absent total never clears local
+time. The source baseline and conditional update include spent hours, so timer
+or manual time edits participate in conflict detection. This syncs the aggregate
+total, not individual worklogs. Original/remaining estimates and Scrum planning
+records remain pending Sync mappings.
+
 Configuration methods: `setListSyncSource`, `hasListSyncCredential`,
 `syncListNow` (`server/methods/listSync.js`), all requiring board write
 access.

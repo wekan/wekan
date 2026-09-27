@@ -293,6 +293,7 @@ Cards.attachSchema(
     syncLastSource: { type: Object, optional: true },
     'syncLastSource.title': { type: String, optional: true },
     'syncLastSource.description': { type: String, optional: true },
+    'syncLastSource.spentTime': { type: Number, optional: true, min: 0 },
     syncExternalId: {
       type: String,
       optional: true,

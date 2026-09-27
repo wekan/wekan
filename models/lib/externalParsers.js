@@ -1,3 +1,4 @@
+import { jiraTimeTracking } from './jiraTimeTracking.js';
 // Jira Cloud v3 descriptions use Atlassian Document Format, not strings.
 // Preserve readable text and block boundaries; rich source formatting is not
 // treated as trusted HTML. Input has already passed the import security boundary.
@@ -348,7 +349,9 @@ export function parseJira(data) {
   const tasks = issues.map(issue => {
     const fields = issue.fields || {};
     const reporter = fields.reporter;
+    const time = jiraTimeTracking(fields);
     return {
+      ...(time.spent !== undefined ? { spentTime: time.spent } : {}),
       externalId: issue.key,
       title: [issue.key ? `[${issue.key}]` : null, fields.summary]
         .filter(Boolean).join(' ') || 'Imported issue',

@@ -896,7 +896,8 @@ Template.listSyncPopup.onCreated(function () {
 Template.listSyncPopup.helpers({
   syncTextFields() {
     const fields = Template.instance().selectedSyncFields.get();
-    return ['title', 'description'].map(field => ({ field, checked: fields.includes(field) }));
+    const choices = Template.instance().selectedSyncType.get() === 'jira' ? ['title', 'description', 'spentTime'] : ['title', 'description'];
+    return choices.map(field => ({ field, label: field === 'spentTime' ? 'spent-time-hours' : field, checked: fields.includes(field) }));
   },
   listSyncSourceTypes() {
     return SYNC_CAPABLE_SOURCES;

@@ -35,6 +35,7 @@ export function validateListSyncTasks(tasks) {
     }
     if (ids.has(String(id))) throw new Error('Duplicate sync external ID');
     ids.add(String(id));
+    if (task.spentTime !== undefined && (typeof task.spentTime !== 'number' || !Number.isFinite(task.spentTime) || task.spentTime < 0)) throw new Error('Invalid sync spent time');
     for (const field of ['title', 'description', 'column_name']) {
       if (task[field] !== undefined && typeof task[field] !== 'string') throw new Error(`Invalid sync task ${field}`);
     }
@@ -68,6 +69,7 @@ export function planListSyncReconcile({ externalTasks = [], existingCards = [] }
     if (task.description !== undefined && task.description !== card.description) {
       changes.description = task.description;
     }
+    if (task.spentTime !== undefined && task.spentTime !== card.spentTime) changes.spentTime = task.spentTime;
     if (task.column_name !== undefined && task.column_name !== card.column_name) {
       // Signals a status change (e.g. Jira issue moved to a different
       // workflow status) - the caller maps this to a list move when the

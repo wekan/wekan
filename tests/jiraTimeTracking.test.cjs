@@ -50,3 +50,10 @@ test('import selections remove nested and fallback Jira time fields before creat
   assert.equal(result.issues[0].fields.summary,'Kept');
  }
 });
+
+test('the shared Jira parser exposes spent hours without fabricating absent totals',async()=>{
+ const {parseJira}=await import('../models/lib/externalParsers.js');
+ assert.equal(parseJira({issues:[{key:'T-1',fields:{timespent:1800}}]}).tasks[0].spentTime,.5);
+ assert.equal(parseJira({issues:[{key:'T-1',fields:{timetracking:{timeSpentSeconds:0}}}]}).tasks[0].spentTime,0);
+ assert.equal(parseJira({issues:[{key:'T-1',fields:{}}]}).tasks[0].spentTime,undefined);
+});
