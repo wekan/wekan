@@ -670,6 +670,33 @@ recorded positive, negative and UI regression coverage.
 Also adds the following feature:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/83eac1021">Add Scrum planning, optional metadata and sprint snapshot reports</a>. Thanks to xet7.</summary>
+
+Board View adds Product Backlog, Sprints, Sprint Report and Velocity. Reuse
+existing estimates and card permissions with board-local sprint plans,
+revision checks, start/close snapshots and recoverable unfinished-work rollover.
+Board Settings controls independent hidden-by-default metadata on cards,
+minicards, lists and swimlanes. Release and event creation is included.
+
+Report tables keep unknown estimates distinct from zero and export through
+the existing Excel/PDF workflow. Assigned-only members receive explicitly
+labelled partial reports. Native checkbox controls remain visible in settings,
+and the public-board view selector recognizes the new views.
+
+Twelve focused Node checks, one real Meteor/Mongo lifecycle regression and
+three Chromium scenarios pass. Coverage includes stale/foreign writes,
+permission denial, lifecycle snapshots, rollover retries, actual Excel/PDF
+files and independent Card/Minicard visibility. Other browsers and FerretDB
+were not exercised. Existing Upcoming regression evidence remains recorded.
+
+The menu-aligned Scrum guides distinguish the implemented planning feature
+from pending History integration, complete import/export/sync mappings,
+interactive charts and further release/event editing. These remain active
+implementation work; this entry does not claim complete Scrum support.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/539aef4aa">Save rule configuration changes in reversible board history</a>. Thanks to xet7.</summary>
 
 Rule creation, edits, enabled state and deletion record snapshots containing
@@ -817,8 +844,9 @@ before adding Scrum data. The menu-aligned design describes product backlogs,
 sprint lifecycle and reports, hidden metadata, import/export mappings and
 regression requirements. Existing Scrum and Board View guides link the plan.
 
-This is design documentation: native sprint lifecycle, views and complete
-Scrum data transfer are not yet implemented. No runtime behavior changes.
+This entry records the design document. The subsequent Scrum planning entry
+above describes implemented behavior; complete Scrum data transfer and other
+remaining requirements stay explicit in the updated design.
 
 The Upcoming coverage audit retains existing positive, negative and browser
 regressions for authentication, duplication, comment tooltips, parent filters
