@@ -39,6 +39,10 @@ function pruneImportDocument(doc, fields) {
     const values = issue?.fields;
     if (!values || typeof values !== 'object') continue;
     const tracking = values.timetracking;
+    if (!wanted.has('scrum')) {
+      delete values.issuetype;
+      if (values.status && typeof values.status === 'object') delete values.status.statusCategory;
+    }
     if (!wanted.has('custom-fields')) {
       delete values.timeoriginalestimate;
       delete values.timeestimate;

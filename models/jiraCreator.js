@@ -6,6 +6,7 @@ import Boards from './boards';
 import Cards from '/models/cards';
 import CustomFields from '/models/customFields';
 const { jiraTimeTracking, JIRA_ESTIMATE_FIELDS } = require('./lib/jiraTimeTracking');
+const { jiraScrumMetadata, jiraScrumListCategories } = require('./lib/jiraScrumMetadata');
 import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
 import Rules from '/models/rules';
@@ -126,6 +127,7 @@ export class JiraCreator {
   }
 
   async createLists(data, boardId) {
+    const categories = jiraScrumListCategories(this._issues(data));
     let sort = 0;
     for (const issue of this._issues(data)) {
       const statusName =
@@ -137,6 +139,7 @@ export class JiraCreator {
         boardId,
         createdAt: this._now(),
         title: statusName,
+        ...(categories.has(statusName) ? { scrum: { category: categories.get(statusName) }, scrumRevision: 1 } : {}),
         sort,
       });
       this.lists[statusName] = listId;
@@ -178,6 +181,11 @@ export class JiraCreator {
         labelIds: [],
       };
       const time = jiraTimeTracking(fields);
+      const { card: scrum } = jiraScrumMetadata(fields);
+      if (Object.keys(scrum).length) {
+        cardToCreate.scrum = scrum;
+        cardToCreate.scrumRevision = 1;
+      }
       if (time.spent !== undefined) cardToCreate.spentTime = time.spent;
       cardToCreate.customFields = JIRA_ESTIMATE_FIELDS
         .filter(field => time[field.key] !== undefined && this.timeFields[field.key])
@@ -271,6 +279,8 @@ export class JiraCreator {
 
   async create(board, currentBoardId) {
     // Validate before archiving a Sandstorm board or creating any documents.
+    try { jiraScrumListCategories(this._issues(board)); }
+    catch (error) { throw new Meteor.Error('invalid-jira-scrum', error.message); }
     for (const issue of this._issues(board)) {
       try { jiraTimeTracking(issue.fields); }
       catch (error) { throw new Meteor.Error('invalid-jira-time', error.message); }

@@ -12,10 +12,17 @@ See [Sprints](Sprints.md), [Product Backlog](Product-Backlog.md) and
 [Sprint Reports](Sprint-Reports.md) for the current behavior.
 
 Still pending: daily scope history and burndown visualization, original-edit/History atomicity and large-board limits,
-native transfer/copy and external
+standalone planning-record transfer/copy and remaining external
 import/export/sync mappings, and the remaining lifecycle/permission/browser
 matrix described below. Source-string registration is not translated coverage.
 These remaining requirements are not waived by passing the current tests.
+
+Native whole-board Scrum transfer and duplication are implemented. Jira import
+and export now retain issue types and explicit workflow categories through
+existing hidden metadata, alongside numeric time tracking. See the
+[Jira guide](../../../ImportExport/Jira/Jira.md) for mappings, selection controls
+and limitations. External sprint snapshots, multiple release assignments,
+epic relationships and configurable story-point mappings remain pending.
 
 ## Existing features to reuse
 

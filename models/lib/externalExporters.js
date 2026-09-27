@@ -1,6 +1,7 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { formatMarkdownKanban } from './markdownKanbanFormat';
 const { jiraTimeTrackingExport } = require('./jiraTimeTracking');
+const { jiraScrumMetadataExport } = require('./jiraScrumMetadata');
 
 // Generalized export: collect a WeKan board into a neutral intermediate, then a
 // per-format formatter emits the target platform's JSON shape. This mirrors the
@@ -28,6 +29,7 @@ async function collect(boardId, fields, format) {
   const swimlanes = await ReactiveCache.getSwimlanes({ boardId, archived: false }, { sort: { sort: 1 } });
   const cards = await ReactiveCache.getCards({ boardId, archived: false }, { sort: { sort: 1 } });
   const listById = {};
+  const listRecords = new Map(lists.map(list => [list._id, list]));
   lists.forEach(l => { listById[l._id] = l.title; });
   const swById = {};
   swimlanes.forEach(s => { swById[s._id] = s.title; });
@@ -38,6 +40,7 @@ async function collect(boardId, fields, format) {
     ? await ReactiveCache.getCustomFields({ boardIds: boardId, type: 'number' }) : [];
   const items = cards.map(c => ({
     ...(format === 'jira' ? { timetracking: jiraTimeTrackingExport(c, timeFields, wanted) } : {}),
+    ...(format === 'jira' ? { jiraScrum: jiraScrumMetadataExport(c, listRecords.get(c.listId), wanted) } : {}),
     cardId: c._id,
     listId: c.listId,
     title: c.title,
@@ -134,7 +137,8 @@ const formatters = {
       fields: {
         summary: i.title,
         description: i.description,
-        status: { name: i.listTitle },
+        status: { name: i.listTitle, ...(i.jiraScrum?.statusCategory ? { statusCategory: i.jiraScrum.statusCategory } : {}) },
+        ...(i.jiraScrum?.issuetype ? { issuetype: i.jiraScrum.issuetype } : {}),
         labels: i.labels,
         duedate: i.dueAt,
         ...(Object.keys(i.timetracking || {}).length ? { timetracking: i.timetracking } : {}),

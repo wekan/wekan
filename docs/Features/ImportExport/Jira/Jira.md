@@ -35,6 +35,29 @@ the original numeric seconds. This preserves time totals, not
 individual worklog entries or all Jira Scrum data.
 
 
+## Scrum issue types and workflow categories
+
+The Jira importer maps `fields.issuetype.name` to the existing hidden Scrum
+issue-type field. It maps stable `status.statusCategory.key` values `new`,
+`indeterminate` and `done` to list categories `todo`, `doing` and `done`.
+It never infers completion from translated status names. Board administrators
+can select the existing done-list completion policy in Scrum settings; import
+does not enable Scrum or change the default completion policy or visibility.
+
+The Scrum import selection controls both mappings. Invalid issue-type values
+and conflicting known categories for statuses merged into the same named list
+are rejected before creating the board. Unknown category keys remain unmapped.
+Jira export includes the same fields when Scrum is selected. A WeKan `backlog`
+list category has no distinct Jira status category and is omitted.
+
+These mappings follow the [Jira issue field representation](https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-issues/)
+and [stable status category keys](https://docs.atlassian.com/DAC/javadoc/jira/reference/com/atlassian/jira/issue/status/category/StatusCategory.html).
+Sprint snapshots, multiple fix versions, epic relationships and configurable
+story-point field mappings remain separate implementation work. In particular,
+an external sprint's current membership cannot reconstruct its original
+commitment snapshot. Native WeKan export retains imported issue types and list
+categories through the existing Scrum transfer format.
+
 ## Migrate from Jira Server (Atlassian) to Wekan
 
 Originally from @webenefits at https://github.com/wekan/wekan/discussions/3504
