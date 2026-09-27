@@ -284,6 +284,13 @@ text and explicit null, while absent values remain omitted. This fixes lost
 zero estimates and unchecked custom-field values. SMTP and HTTP-serialization
 tests cover the values; durable delivery still needs a replacement for the
 current fire-and-forget webhooks and timed email buffer.
+Email buffering now awaits storage and acknowledges only the sent lines after
+SMTP acceptance. Failed sends and missing addresses retain buffered text;
+per-user timers serialize sends within one process. Seven Chromium cases,
+including SMTP rejection and later recovery, and thirteen Node suites pass.
+Startup recovery, automatic retries, persisted mail metadata, event identities
+and cross-process delivery coordination remain pending. SMTP success followed
+by failed acknowledgement can still duplicate a message on retry.
 History field snapshots now preserve nested dates, including date-valued
 custom fields alongside mapped estimates. JSON transport and restoration retain
 Date types without interpreting date-looking text. Existing rows whose dates
@@ -914,6 +921,24 @@ the Markdown commit as the template.
 </details>
 
 # Upcoming WeKan ® release
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4063b423c">Retain email digests until SMTP accepts them</a>. Thanks to xet7.</summary>
+
+Previously the notification buffer was cleared before sending, losing messages
+when SMTP rejected them. Buffer writes are now awaited, and successful sends
+remove only their snapshot. Distinct lines added during delivery remain queued.
+Timers serialize delivery per user within one server process, and newer reply
+targets survive an earlier digest's acknowledgement.
+
+Thirteen focused Node suites and seven Chromium scenarios pass, including a
+local SMTP rejection followed by successful delivery of retained text. Source
+audit passes with advisory fingerprint changes. Automatic retries and startup
+recovery remain pending, as do persisted mail metadata, event identities and
+cross-process coordination. A crash after SMTP accepts a message can still
+cause a duplicate on retry; this does not complete durable Sync effects.
+
+</details>
 
 **In short:** **Sync** keeps source projects separate and coordinates concurrent
 runs and settings changes, including private credentials. **Scrum** records
