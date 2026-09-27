@@ -11,7 +11,9 @@ permission-checked History restore/undo/redo with compound recovery checkpoints.
 See [Sprints](Sprints.md), [Product Backlog](Product-Backlog.md) and
 [Sprint Reports](Sprint-Reports.md) for the current behavior.
 
-Still pending: daily scope history and burndown visualization, original-edit/History atomicity and large-board limits,
+Daily observed snapshots and a scoped history reader are now implemented as a
+foundation for burndown. Still pending: event-complete scope history and
+burndown visualization, original-edit/History atomicity and large-board limits,
 standalone planning-record transfer/copy and remaining external
 import/export/sync mappings, and the remaining lifecycle/permission/browser
 matrix described below. Source-string registration is not translated coverage.
@@ -136,6 +138,27 @@ sprint, with reopened and rolled-over work handled explicitly. Burndown/burnup
 replay scope and estimate history; never present current estimates as historical
 facts. Report missing history and unknown estimates separately from zero. Do not
 combine points and hours or use velocity to rank individual members.
+
+Daily observation collection now scans active sprints every 15 minutes and
+retains the first successful observation of each UTC day. Opening the history
+reader also attempts today's observation. Capture stores actual timestamps and
+uses the sprint's recorded estimate source, unit and completion policy. Retries
+and concurrent collectors cannot replace an existing observation; a restarted
+sprint with a different start timestamp has a separate series. Missing days are
+absent, never backfilled using current estimates. Captures are observed reads,
+not transactional snapshots or a complete log of intervening events.
+
+The private `scrumDailySnapshots` collection stores these observations.
+`scrum.getDailyHistory(boardId, sprintId)` returns measured scope, remaining and
+completed totals, with unknown estimates counted separately. It checks board
+visibility and restricts assigned-only readers to their currently visible cards,
+retaining partial-source warnings. The reader streams at most 366 observations
+and flags truncation. Capture limits each sprint to 10,000 cards and each board
+to 10,000 lists; exceeding a limit leaves a gap rather than saving partial data.
+Board deletion removes the observations. Full-instance backups include the
+collection through the normal collection inventory; native board transfer and
+history transport do not yet carry it. The chart UI, exports, event-level scope
+replay and cross-document consistency still require implementation.
 
 The shared Scrum settings form now exposes Product Owner, Scrum Master,
 Developers and working days. Accountabilities select active board members and

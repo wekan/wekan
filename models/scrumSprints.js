@@ -8,6 +8,7 @@ if (Meteor.isServer) {
   ScrumSprints.deny({ insert: () => true, update: () => true, remove: () => true });
   Meteor.startup(async () => {
     await ensureIndex(ScrumSprints, { boardId: 1 });
+    await ensureIndex(ScrumSprints, { state: 1, _id: 1 });
   });
 }
 export default ScrumSprints;
