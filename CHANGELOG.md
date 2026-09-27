@@ -1003,6 +1003,22 @@ recorded; other browser engines were not run for this fix.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/72f846345">Resume interrupted sprint closes from the Sprints view</a>. Thanks to xet7.</summary>
+
+Board administrators can resume a closed sprint whose card rollover was
+interrupted, using its saved revision and destination. A pending History
+recovery blocks this action until it finishes. The recovery button disappears
+when all pending cards have been handled.
+
+Seven focused Node checks and the Chromium recovery scenario pass, including
+read-only denial, pending History exclusion and successful card rollover.
+The related Scrum and History browser suites also passed. Register the new
+source message in every catalog; Blockly translation work remains paused.
+Existing Upcoming coverage remains recorded. Other browsers were not run.
+
+</details>
+
 This release adds the following regression coverage and documentation:
 
 <details>
