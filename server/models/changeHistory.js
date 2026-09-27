@@ -1,3 +1,4 @@
+import { filterReadableHistoryRows, requireHistoryRowAccess } from '/server/lib/historyReadScope';
 import { ruleSnapshot, applyRuleHistory } from '/server/lib/ruleHistory';
 import { requireBoardMutation } from '/models/lib/boardMutationGuard';
 import { Meteor } from 'meteor/meteor';
@@ -322,6 +323,7 @@ async function currentContentOf(row) {
  * only look alike when the chosen row happens to be the last one.
  */
 async function applyRow(row, direction) {
+  await requireHistoryRowAccess(row, Meteor.userId());
   if (row.entityType === 'rule') {
     return withoutRecording(() => applyRuleHistory(row, contentForDirection(row, direction), direction));
   }
@@ -418,7 +420,8 @@ Meteor.methods({
     // Mongo regex could reliably look inside. The scope selector above has
     // already narrowed this to one card / list / swimlane / board.
     const all = await ChangeHistory.find(selector, { sort: { createdAt: -1 } }).fetchAsync();
-    const filtered = search ? all.filter(row => matchesSearch(row, search)) : all;
+    const readable = await filterReadableHistoryRows(all, this.userId);
+    const filtered = search ? readable.filter(row => matchesSearch(row, search)) : readable;
 
     const info = pageInfo(filtered.length, request.page || 1, pageSize);
     const rows = filtered.slice(info.skip, info.skip + pageSize);
