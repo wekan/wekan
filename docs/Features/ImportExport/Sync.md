@@ -88,12 +88,29 @@ No token is included in public list data.
 Upgrade all server processes that save Sync settings together: older code
 updates credential rows in place and does not honor these revisions.
 
+An hourly credential sweep removes unselected versions left by interrupted
+settings saves. Before deleting, it conditionally advances the list's
+server-owned `syncCredentialGeneration`. Every new save records its generation
+on the staged credential and requires that same generation when activating it.
+A delayed save from before the sweep therefore cannot select a retired token.
+The sweep preserves the selected credential and all versions staged in newer
+generations. A delayed old-generation insert is reclaimed on a later sweep.
+Failed or uncertain cleanup is retryable without changing the selected token.
+
+The scan streams list IDs without reading tokens, includes disabled Sync
+configurations, and isolates failures between lists. Legacy unversioned rows
+remain protected while a legacy configuration can select them. Saving settings
+binds an explicit version; later sweeps can retire those old rows too. Rows for
+missing lists and malformed generations are retained for separate review. The
+sweep does not publish or log credential contents. Upgrade **all** processes
+before relying on this cleanup: an older writer that ignores the generation
+fence can still issue unsafe activation writes.
+
 Reservations do not make card writes a multi-document transaction or durable
 job queue. A card write already issued before lease loss cannot be fenced by a
 later ownership check. Fencing of in-flight card writes and persisted
-reconciliation checkpoints remain pending. A crash or lost acknowledgement can
-leave unselected private credential versions; safe automatic cleanup of these
-versions remains pending. They are never used as a fallback credential.
+reconciliation checkpoints remain pending. Unselected private credential
+versions are never used as a fallback credential, including before cleanup.
 Server clocks must be synchronized
 for the expiry comparisons. A failed run still requires a retry from the start.
 Card and subtask copies omit external Sync IDs, source type and text baselines,

@@ -4,6 +4,7 @@ const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { loginWithToken, openBoard } = require('../helpers/auth');
 const { syncSourceKey } = require('../../../models/lib/listSyncSourceIdentity');
+const { cleanupSyncCredentials } = require('../../../server/lib/listSyncConfiguration');
 
 let server, base, requests, emptyProjects, heldResponses;
 test.beforeAll(async () => {
@@ -206,6 +207,41 @@ test('only the committed credential version is used and clearing cannot adopt an
     expect((await call(page, 'syncListNow', listId)).error).toContain('credential for this server and project');
     expect(requests).toHaveLength(count);
   } finally { db.deleteMany('listSyncCredentials', { listId }); }
+});
+
+test('credential cleanup keeps the selected token usable and later settings saves use the new generation', async ({ page, user, board }) => {
+  const { MongoClient } = require('mongodb');
+  const client = new MongoClient(process.env.WEKAN_MONGO_URL || 'mongodb://127.0.0.1:3001/meteor');
+  await client.connect();
+  const database = client.db();
+  const listId = db.find('lists', { boardId: board.boardId })[0]._id;
+  const config = { type: 'jira', url: base, projectKey: 'ONE', token: 'cleanup-selected-token' };
+  await loginWithToken(page, user.id, user.token);
+  try {
+    await call(page, 'setListSyncSource', listId, config);
+    const selected = db.findOne('lists', { _id: listId });
+    db.insertOne('listSyncCredentials', { _id: `orphan-${listId}`, configurationId: `orphan-${listId}`,
+      listId, token: 'orphan-test-token', generation: 0 });
+    await cleanupSyncCredentials({ list: selected,
+      lists: { updateAsync: async (selector, update) => (await database.collection('lists').updateOne(selector, update)).matchedCount },
+      credentials: { removeAsync: async selector => (await database.collection('listSyncCredentials').deleteMany(selector)).deletedCount } });
+    expect(db.find('listSyncCredentials', { listId })).toHaveLength(1);
+    expect(db.findOne('lists', { _id: listId }).syncRevision).toBe(selected.syncRevision);
+    expect(await call(page, 'hasListSyncCredential', listId)).toBe(true);
+    expect(await call(page, 'syncListNow', listId)).toMatchObject({ created: 1 });
+    expect(requests.at(-1).auth).toBe(`Basic ${Buffer.from(':cleanup-selected-token').toString('base64')}`);
+    await call(page, 'setListSyncSource', listId, { ...config, token: null });
+    const saved = db.findOne('lists', { _id: listId });
+    expect(db.findOne('listSyncCredentials', { _id: saved.syncRevision }).generation).toBe(1);
+    expect(await call(page, 'hasListSyncCredential', listId)).toBe(true);
+    // The fence is server-owned, even for an otherwise authorized board user.
+    const result = await page.evaluate(async id => {
+      try { await Meteor.callAsync('/lists/update', { _id: id }, { $set: { syncCredentialGeneration: 0 } }); return 'allowed'; }
+      catch (_) { return 'denied'; }
+    }, listId);
+    expect(result).toBe('denied');
+    expect(db.findOne('lists', { _id: listId }).syncCredentialGeneration).toBe(1);
+  } finally { await client.close(); db.deleteMany('listSyncCredentials', { listId }); }
 });
 
 test('unknown legacy mappings and malformed server URLs reject configuration without changing cards', async ({ page, user, board }) => {

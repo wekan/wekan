@@ -23,10 +23,11 @@ import { validateImportSourceShape } from '/models/lib/importSourceShape';
 import { LIST_SYNC_FETCHERS } from '/server/lib/listSyncFetch';
 import { SyncedCron } from '/server/cron/syncedCron';
 import { withListSyncLease } from '/server/lib/listSyncLease';
+import { ensureIndex } from '/server/lib/mongoStartup';
 const { planSyncTextMerge, syncTextSelector, selectSyncTextFields } = require('/models/lib/listSyncTextMerge');
 const { syncSourceKey } = require('/models/lib/listSyncSourceIdentity');
 const { listSyncCardId } = require('/server/lib/listSyncCardId');
-const { readSyncCredential } = require('/server/lib/listSyncConfiguration');
+const { readSyncCredential, sweepSyncCredentials } = require('/server/lib/listSyncConfiguration');
 
 // Sync one list. Exported for the unit test and for a manual "sync now" call;
 // the cron job below just calls this for every eligible list.
@@ -254,8 +255,25 @@ export async function scanListSync() {
   }
 }
 
-Meteor.startup(() => {
+Meteor.startup(async () => {
   try {
+    await ensureIndex(ListSyncCredentials, { listId: 1, generation: 1 });
+    SyncedCron.add({
+      name: 'wekan-list-sync-credential-cleanup',
+      schedule(parser) { return parser.text('every 1 hour'); },
+      async job() {
+        try {
+          const result = await sweepSyncCredentials({ lists: Lists, credentials: ListSyncCredentials,
+            cursor: ListSyncCredentials.rawCollection().find({}, { projection: { _id: 0, listId: 1 } })
+              .sort({ listId: 1 }).batchSize(100) });
+          if (result.failed) console.error('listSync: credential cleanup failed for some lists; retrying on the next sweep.');
+          return result;
+        } catch (_) {
+          console.error('listSync: credential cleanup scan failed; retrying on the next sweep.');
+          return { failed: true };
+        }
+      },
+    });
     SyncedCron.add({
       name: 'wekan-list-sync',
       schedule(parser) {

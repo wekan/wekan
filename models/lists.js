@@ -298,6 +298,8 @@ Lists.attachSchema(
     // Selects an immutable private credential version together with syncSource.
     // Retained across clears so a delayed save cannot match a previous state.
     syncRevision: { type: String, optional: true },
+    // Server-maintained fence for retiring unselected credential versions.
+    syncCredentialGeneration: { type: Number, optional: true, min: 0, max: Number.MAX_SAFE_INTEGER },
     syncSource: {
       type: Object,
       optional: true,
@@ -824,9 +826,10 @@ export default Lists;
 // Prevent direct DDP writes bypassing Scrum reference and lifecycle validation.
 if (Meteor.isServer) {
   Lists.deny({
-    insert(userId, doc) { return doc.scrum !== undefined || doc.scrumRevision !== undefined; },
+    insert(userId, doc) { return doc.scrum !== undefined || doc.scrumRevision !== undefined || doc.syncCredentialGeneration !== undefined; },
     update(userId, doc, fields) {
-      return fields.some(field => field === 'scrum' || field.startsWith('scrum.') || field === 'scrumRevision');
+      return fields.some(field => field === 'scrum' || field.startsWith('scrum.') || field === 'scrumRevision' ||
+        field === 'syncCredentialGeneration' || field.startsWith('syncCredentialGeneration.'));
     },
   });
 }

@@ -2,7 +2,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { MongoClient, ObjectId } = require('mongodb');
-const { readSyncCredential, commitSyncConfiguration } = require('../../server/lib/listSyncConfiguration');
+const { readSyncCredential, commitSyncConfiguration, cleanupSyncCredentials, sweepSyncCredentials } = require('../../server/lib/listSyncConfiguration');
 const uri = process.env.WEKAN_SYNC_TEST_MONGO_URL;
 
 test('Sync configuration selects immutable credentials atomically in a real database', { skip: !uri }, async t => {
@@ -126,5 +126,121 @@ test('Sync configuration selects immutable credentials atomically in a real data
     assert.equal(await read(list), null);
     assert.equal(await read({ ...list, syncRevision: '' }), null);
     assert.equal(await read({ ...list, _id: 'other-list' }), null);
+  });
+  const cleanup = async (id, overrides = {}) => cleanupSyncCredentials({ ...contexts[0], list: await current(id), ...overrides });
+  await t.test('cleanup removes interrupted stages, retains legacy selection and fences a delayed activation', async () => {
+    const input = await seed('cleanup-stage');
+    let staged, resume;
+    const ready = new Promise(resolve => { staged = resolve; });
+    const gate = new Promise(resolve => { resume = resolve; });
+    let checks = 0;
+    const saving = commitSyncConfiguration({ ...contexts[0], ...input, assertCurrent: async () => {
+      if (++checks === 2) { staged(); await gate; }
+    } });
+    await ready;
+    await cleanup(input.list._id);
+    assert.equal(await db.collection('credentials').countDocuments({ listId: input.list._id }), 1);
+    assert.equal((await read(await current(input.list._id))).token, input.previousCredential.token);
+    resume(); await assert.rejects(saving, { code: 'sync-config-changed' });
+    assert.equal((await read(await current(input.list._id))).token, input.previousCredential.token);
+  });
+  await t.test('a late old-generation insert cannot activate and is collected on the next sweep', async () => {
+    const input = await seed('late-insert');
+    let resume, inserting;
+    const ready = new Promise(resolve => { inserting = resolve; });
+    const gate = new Promise(resolve => { resume = resolve; });
+    const saving = commitSyncConfiguration({ ...contexts[0], ...input,
+      credentials: { ...contexts[0].credentials, insertAsync: async doc => {
+        inserting(); await gate; return contexts[0].credentials.insertAsync(doc);
+      } }, assertCurrent: async () => {
+        if ((await current(input.list._id)).syncCredentialGeneration) throw new Error('stopped');
+      },
+    });
+    await ready; await cleanup(input.list._id); resume();
+    await assert.rejects(saving, /stopped/);
+    assert.equal(await db.collection('credentials').countDocuments({ listId: input.list._id }), 2);
+    await cleanup(input.list._id);
+    assert.equal(await db.collection('credentials').countDocuments({ listId: input.list._id }), 1);
+  });
+  await t.test('delayed cleanup preserves newer selected and staged credentials', async () => {
+    const input = await seed('delayed-sweep');
+    let resume, deleting;
+    const ready = new Promise(resolve => { deleting = resolve; });
+    const gate = new Promise(resolve => { resume = resolve; });
+    const sweeping = cleanup(input.list._id, { credentials: { ...contexts[0].credentials, removeAsync: async selector => {
+      deleting(); await gate; return contexts[0].credentials.removeAsync(selector);
+    } } });
+    await ready;
+    const fenced = await current(input.list._id);
+    await commitSyncConfiguration({ ...contexts[1], ...input, list: fenced });
+    const active = await current(input.list._id);
+    await db.collection('credentials').insertOne({ _id: 'new-stage', configurationId: 'new-stage',
+      listId: input.list._id, generation: active.syncCredentialGeneration, token: 'later-stage' });
+    resume(); await sweeping;
+    assert.equal((await read(await current(input.list._id))).token, newCredential.token);
+    assert.ok(await db.collection('credentials').findOne({ _id: 'new-stage' }));
+    await cleanup(input.list._id);
+    assert.equal(await db.collection('credentials').countDocuments({ listId: input.list._id }), 1);
+  });
+  await t.test('interrupted or ambiguous cleanup is repeatable without changing the selected credential', async () => {
+    for (const phase of ['fence', 'delete']) {
+      const input = await seed(`failed-sweep-${phase}`);
+      await commitSyncConfiguration({ ...contexts[0], ...input });
+      const selected = (await current(input.list._id)).syncRevision;
+      await db.collection('credentials').insertOne({ _id: `unused-${phase}`, configurationId: `unused-${phase}`,
+        listId: input.list._id, token: 'unused' });
+      const override = phase === 'fence' ? { lists: { ...contexts[0].lists, updateAsync: async (...args) => {
+        await contexts[0].lists.updateAsync(...args); throw new Error('uncertain');
+      } } } : { credentials: { ...contexts[0].credentials, removeAsync: async () => { throw new Error('uncertain'); } } };
+      await assert.rejects(cleanup(input.list._id, override), /uncertain/);
+      assert.equal((await read(await current(input.list._id)))._id, selected);
+      await cleanup(input.list._id);
+      assert.equal((await read(await current(input.list._id)))._id, selected);
+      assert.equal(await db.collection('credentials').countDocuments({ listId: input.list._id }), 1);
+    }
+  });
+  await t.test('stale sweep snapshots do not delete and disconnected lists retire every old version', async () => {
+    const input = await seed('stale-sweep');
+    await commitSyncConfiguration({ ...contexts[0], ...input });
+    assert.equal((await cleanup(input.list._id, { list: input.list })).skipped, true);
+    const selected = await current(input.list._id);
+    await commitSyncConfiguration({ ...contexts[0], list: selected, source: null });
+    await cleanup(input.list._id);
+    assert.equal(await db.collection('credentials').countDocuments({ listId: input.list._id }), 0);
+  });
+  await t.test('overlapping sweep workers share one generation transition', async () => {
+    const input = await seed('sweep-race');
+    await commitSyncConfiguration({ ...contexts[0], ...input });
+    const list = await current(input.list._id);
+    await db.collection('credentials').insertOne({ _id: 'race-orphan', listId: list._id,
+      configurationId: 'race-orphan', generation: 0, token: 'unused' });
+    const results = await Promise.all(contexts.map(ctx => cleanupSyncCredentials({ ...ctx, list })));
+    assert.equal(results.filter(result => result.skipped).length, 1);
+    assert.equal((await current(list._id)).syncCredentialGeneration, 1);
+    assert.equal((await read(await current(list._id)))._id, list.syncRevision);
+    assert.equal(await db.collection('credentials').countDocuments({ listId: list._id }), 1);
+  });
+  await t.test('invalid generations fail before staging, deletion or activation', async () => {
+    for (const generation of [null, -1, 0.5, Number.MAX_SAFE_INTEGER, '1']) {
+      const input = await seed(`bad-generation-${String(generation)}`);
+      const list = { ...input.list, syncCredentialGeneration: generation };
+      await db.collection('lists').replaceOne({ _id: list._id }, list);
+      await assert.rejects(commitSyncConfiguration({ ...contexts[0], ...input, list }), /generation/);
+      await assert.rejects(cleanup(list._id), /generation/);
+      assert.equal(await db.collection('credentials').countDocuments({ listId: list._id }), 1);
+    }
+  });
+  await t.test('the streaming sweep handles disabled lists, missing lists and per-list errors without exposing tokens', async () => {
+    const input = await seed('disabled');
+    await db.collection('lists').updateOne({ _id: input.list._id }, { $set: { 'syncSource.enabled': false } });
+    await db.collection('credentials').insertOne({ _id: 'disabled-orphan', listId: input.list._id,
+      configurationId: 'disabled-orphan', generation: 0, token: 'private-test-marker' });
+    await db.collection('credentials').insertOne({ _id: 'missing-list', listId: 'no-list', token: 'private-test-marker' });
+    const result = await sweepSyncCredentials({ ...contexts[0],
+      cursor: db.collection('credentials').find({}, { projection: { _id: 0, listId: 1 } }).sort({ listId: 1 }).batchSize(2) });
+    assert.ok(result.cleaned > 0); assert.ok(result.failed > 0); assert.ok(result.skipped > 0);
+    assert.doesNotMatch(JSON.stringify(result), /token|private-test-marker/);
+    assert.equal(await db.collection('credentials').countDocuments({ listId: input.list._id }), 1);
+    assert.ok(await db.collection('credentials').findOne({ _id: 'missing-list' }));
   });
 });
