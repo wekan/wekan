@@ -27,6 +27,7 @@ const { substituteVars } = require('/models/lib/ruleVarsSubstitute');
 // a deliberate, documented limitation of the webhook-based approach - see
 // docs/Features/Reply-By-Email.md.
 const lastNotifiedCardIdByUser = new Map();
+const emailDeliveriesByUser = new Map();
 
 function inboundEmailReplyTo(cardId) {
   const secret = process.env.INBOUND_EMAIL_HMAC_SECRET;
@@ -118,7 +119,7 @@ Meteor.startup(() => {
             actorName
           } ${descriptionText}\n${params.url}`;
 
-      user.addEmailBuffer(
+      await user.addEmailBuffer(
         bodyTemplate
           ? text
           : buildHtmlNotificationLine({
@@ -131,49 +132,68 @@ Meteor.startup(() => {
       );
 
       if (params.cardId) {
-        lastNotifiedCardIdByUser.set(user._id, params.cardId);
+        lastNotifiedCardIdByUser.set(user._id, { cardId: params.cardId });
       }
 
       const userId = user._id;
       Meteor.setTimeout(async () => {
-        const user = await ReactiveCache.getUser(userId);
-        if (
-          !user ||
-          typeof user.getEmailBuffer !== 'function' ||
-          typeof user.clearEmailBuffer !== 'function' ||
-          typeof user.getLanguage !== 'function'
-        ) {
-          return;
-        }
-
-        const texts = user.getEmailBuffer();
-        if (texts.length === 0) return;
-
-        const html = texts.join('<br/>\n\n');
-        user.clearEmailBuffer();
-        const replyToCardId = lastNotifiedCardIdByUser.get(userId);
-        lastNotifiedCardIdByUser.delete(userId);
-        try {
-          // #6620: a user can reach this path (e.g. header-auth/LDAP
-          // accounts) with an empty emails array - user.emails[0] would then
-          // be undefined and .address.toLowerCase() threw an
-          // unhandledRejection. Skip the buffered digest send rather than
-          // crash when there is nowhere to send it.
-          const emailAddress = user.emails && user.emails[0] && user.emails[0].address;
-          if (typeof emailAddress !== 'string' || !emailAddress) {
+        // Serialize this process's digest timers, including slow SMTP sends.
+        const previous = emailDeliveriesByUser.get(userId) || Promise.resolve();
+        const delivery = previous.catch(() => {}).then(async () => {
+          const user = await ReactiveCache.getUser(userId);
+          if (
+            !user ||
+            typeof user.getEmailBuffer !== 'function' ||
+            typeof user.clearEmailBuffer !== 'function' ||
+            typeof user.getLanguage !== 'function'
+          ) {
             return;
           }
-          await EmailLocalization.sendEmail({
-            to: emailAddress.toLowerCase(),
-            from: Accounts.emailTemplates.from,
-            subject,
-            html,
-            language: user.getLanguage(),
-            userId: user._id,
-            replyTo: inboundEmailReplyTo(replyToCardId),
-          });
-        } catch (e) {
-          return;
+
+          const texts = [...user.getEmailBuffer()];
+          if (texts.length === 0) return;
+
+          const html = texts.join('<br/>\n\n');
+          const replyTarget = lastNotifiedCardIdByUser.get(userId);
+          const replyToCardId = replyTarget && replyTarget.cardId;
+          try {
+            // #6620: a user can reach this path (e.g. header-auth/LDAP
+            // accounts) with an empty emails array - user.emails[0] would then
+            // be undefined and .address.toLowerCase() threw an
+            // unhandledRejection. Skip the buffered digest send rather than
+            // crash when there is nowhere to send it.
+            const emailAddress = user.emails && user.emails[0] && user.emails[0].address;
+            if (typeof emailAddress !== 'string' || !emailAddress) {
+              return;
+            }
+            await EmailLocalization.sendEmail({
+              to: emailAddress.toLowerCase(),
+              from: Accounts.emailTemplates.from,
+              subject,
+              html,
+              language: user.getLanguage(),
+              userId: user._id,
+              replyTo: inboundEmailReplyTo(replyToCardId),
+            });
+            // Acknowledge only the snapshot accepted by SMTP. A new line added
+            // while the send was pending must remain queued for its own timer.
+            await user.clearEmailBuffer(texts);
+            if (lastNotifiedCardIdByUser.get(userId) === replyTarget) {
+              lastNotifiedCardIdByUser.delete(userId);
+            }
+          } catch (e) {
+            return;
+          }
+        });
+        emailDeliveriesByUser.set(userId, delivery);
+        try {
+          await delivery;
+        } catch (error) {
+          console.error('Error reading email notification buffer');
+        } finally {
+          if (emailDeliveriesByUser.get(userId) === delivery) {
+            emailDeliveriesByUser.delete(userId);
+          }
         }
       }, process.env.EMAIL_NOTIFICATION_TIMEOUT || 30000);
     } catch (error) {

@@ -111,3 +111,33 @@ test('custom-field notifications retain numeric zero and checkbox false in deliv
     await sink.close();
   }
 });
+
+test('SMTP rejection retains the digest until a later notification succeeds', async ({ page, user, user2, board }) => {
+  test.skip(!process.env.WEKAN_TEST_SMTP_PORT, 'Requires the local SMTP capture port');
+  let accepting = false;
+  const sink = await smtpSink(Number(process.env.WEKAN_TEST_SMTP_PORT), { accept: () => accepting });
+  try {
+    db.addBoardMember({ boardId: board.boardId, userId: user2.id });
+    db.updateOne('boards', { _id: board.boardId }, { $set: {
+      watchers: [{ userId: user2.id, level: 'watching' }], notifyOverrideEmail: true,
+    } });
+    db.updateOne('users', { _id: user2.id }, { $set: { 'profile.notifyOverrideEmail': true } });
+    await loginWithToken(page, user.id, user.token);
+    await openBoard(page, board.boardId, board.slug);
+    await new BoardPage(page).clickCard(board.listIds[0], 'Alpha Card');
+    const cp = new CardPage(page); await cp.waitForOpen();
+    await cp.addComment('Retained after SMTP rejection');
+    await expect.poll(() => sink.messages.length).toBeGreaterThan(0);
+    await page.waitForTimeout(300);
+    const buffer = () => db.findOne('users', { _id: user2.id }).profile.emailBuffer || [];
+    expect(buffer().join('\n')).toContain('Retained after SMTP rejection');
+    accepting = true;
+    const prior = sink.messages.length;
+    await cp.addComment('Trigger the next digest');
+    await expect.poll(() => sink.messages.length).toBeGreaterThan(prior);
+    await expect.poll(buffer).toHaveLength(0);
+    const delivered = sink.messages.slice(prior).map(mail => mail.data.replace(/=\r\n/g, '')).join('\n');
+    expect(delivered).toContain('Retained after SMTP rejection');
+    expect(delivered).toContain('Trigger the next digest');
+  } finally { await sink.close(); }
+});

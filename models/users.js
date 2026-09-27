@@ -2655,8 +2655,9 @@ Users.helpers({
     return await Users.updateAsync(this._id, { $addToSet: { 'profile.emailBuffer': text } });
   },
 
-  async clearEmailBuffer() {
-    return await Users.updateAsync(this._id, { $set: { 'profile.emailBuffer': [] } });
+  async clearEmailBuffer(texts) {
+    check(texts, [String]);
+    return await Users.updateAsync(this._id, { $pullAll: { 'profile.emailBuffer': texts } });
   },
 
   async setAvatarUrl(avatarUrl) {

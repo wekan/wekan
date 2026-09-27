@@ -313,3 +313,20 @@ History writes retain their best-effort contract; this strict writer applies onl
 to Scrum restoration. It does not make the original Scrum mutation and History
 atomic, serialize independent writers to the board's integrity chain, or provide
 startup replay. Those remain separate durability requirements.
+
+Email digest acknowledgement
+----------------------------
+
+Notification text is stored in the user's database email buffer before its
+send timer is scheduled. A successful SMTP send removes only the sent snapshot
+with `$pullAll`; a failure or missing recipient address leaves it in place.
+Digest timers are serialized per user within one server process, so a slow
+send does not let a second timer resend the same snapshot concurrently.
+A later notification schedules another attempt, including retained lines.
+
+This is not yet a durable delivery job queue. Startup recovery, automatic
+retry/backoff, persisted subject and reply metadata, and coordination across
+server processes remain pending. SMTP acceptance followed by a crash or failed
+acknowledgement may cause a duplicate on retry. Identical text still uses the
+existing `$addToSet` deduplication and has no separate event identity. These
+limits prevent this buffer from proving completion of a durable Sync effect.
