@@ -1763,6 +1763,23 @@ Blockly browser coverage and other Upcoming regression results remain valid.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9b7135f43">Translate Gujarati Blockly mathematical descriptions</a>. Thanks to xet7.</summary>
+
+Fill 86 Gujarati English placeholders for arithmetic, constants, numeric tests,
+statistics, rounding, logarithms and trigonometry. Keep function notation,
+mathematical symbols and placeholders intact. Specialist mathematical wording
+has low confidence and needs native review; the catalog remains incomplete.
+Update the Blocks guide with the additional translated groups.
+
+Five catalog regression checks and 21 human-translation preservation checks
+pass. New checks cover translated math prose, preserved notation and distinct
+even/odd, mean/median and rounding directions. Existing Gujarati Chromium
+coverage remains recorded; no new browser or screen-reader run was performed.
+Existing Upcoming regression evidence remains recorded.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/67d1e228e">Translate Gujarati Blockly list operations and tooltips</a>. Thanks to xet7.</summary>
 
 Fill 75 Gujarati English placeholders for creating lists, retrieving/removing
