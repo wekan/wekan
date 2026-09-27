@@ -258,7 +258,8 @@ manual-button metadata have regression coverage. Advanced-filter comparisons
 now bind the field identity and value to the same array entry in both sidebar
 and rule queries; unknown field names cannot become value-only rule matches.
 Real MongoDB and Chromium cover multiple fields, missing fields and inequality.
-Writes across documents are not transactional; concurrent-write recovery and failed-creation orphan cleanup
+Writes across documents are not transactional; concurrent-write recovery and
+failed-creation orphan cleanup
 still require work. The combined checkpoint passed 45 Node runner checks and
 18 Chromium scenarios; later Gujarati editing also passed. These are focused
 results, not certification of every language or concurrency scenario.
