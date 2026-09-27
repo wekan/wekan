@@ -76,6 +76,17 @@ edits use revision checks and the same History undo/redo as other Scrum data.
 
 ## Implementation checkpoint
 
+Native JSON export includes a selectable Scrum section containing versioned
+planning records, settings, item metadata and lifecycle snapshots. Scoped
+exports keep referenced planning records, remove omitted snapshot rows and
+follow-up links, and include explicit loss entries. Reduced snapshots are
+marked partial. Operational recovery checkpoints and revision counters are
+not exported. Finish interrupted Scrum operations before exporting.
+
+Native import does not yet restore this new section. Keep the original board;
+this export capability is not yet a verified Scrum backup/restore round trip.
+History transport, import, duplication and synchronization remain in progress.
+
 The current implementation includes planning forms, revision checks,
 start/close snapshots, release and event editors, visibility controls, report
 tables and Excel/PDF output. Work remains on interactive report charts and

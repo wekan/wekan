@@ -269,6 +269,13 @@ export class Exporter {
       { boardIds: this._boardId },
       { fields: { boardIds: 0 } },
     );
+    const { exportScrumTransfer, scrumTransferUserIds } = require('/server/lib/scrumTransferExport');
+    if (this.hasField('scrum')) {
+      const scrum = await exportScrumTransfer(this._boardId, result.cards.map(c => c._id), result.lists.map(l => l._id), result.swimlanes.map(s => s._id), this.hasScope());
+      if (scrum) { result.scrumTransfer = scrum.transfer; result.scrumTransferLosses = scrum.losses; }
+    } else {
+      for (const row of [result, ...result.cards, ...result.lists, ...result.swimlanes]) { delete row.scrum; delete row.scrumRevision; }
+    }
     const cardIds = result.cards.map(card => card._id);
     result.comments = await ReactiveCache.getCardComments(
       { cardId: { $in: cardIds } },
@@ -328,6 +335,7 @@ export class Exporter {
     // 1- only exports users that are linked somehow to that board
     // 2- do not export any sensitive information
     const users = {};
+    scrumTransferUserIds(result.scrumTransfer).forEach(id => { users[id] = true; });
     result.members.forEach((member) => {
       users[member.userId] = true;
     });
@@ -477,9 +485,22 @@ export class Exporter {
     // up front. Collect every referenced userId (small projections only, so peak
     // memory stays bounded — attachments are never loaded here), then build the
     // same deterministic map the users[] emission uses at the end.
+    const { exportScrumTransfer, scrumTransferUserIds } = require('/server/lib/scrumTransferExport');
+    let scrumExport = null;
+    if (this.hasField('scrum')) {
+      const selectedCards = await cardsRaw.find(await this._scopedCardSelector(boardId), { projection: { _id: 1, listId: 1, swimlaneId: 1 } }).toArray();
+      const selectContainers = (ids, scopeId) => this.hasScope() ? { boardId, _id: { $in: [...new Set([...ids, scopeId].filter(Boolean))] } } : { boardId };
+      const [selectedLists, selectedLanes] = await Promise.all([
+        listsRaw.find(selectContainers(selectedCards.map(c => c.listId), this._scope.listId), { projection: { _id: 1 } }).toArray(),
+        swimlanesRaw.find(selectContainers(selectedCards.map(c => c.swimlaneId), this._scope.swimlaneId), { projection: { _id: 1 } }).toArray(),
+      ]);
+      scrumExport = await exportScrumTransfer(boardId, selectedCards.map(c => c._id), selectedLists.map(l => l._id), selectedLanes.map(s => s._id), this.hasScope(), this.hasField('custom-fields'));
+      scrumTransferUserIds(scrumExport?.transfer).forEach(id => userIds.add(id));
+    }
     let anonMap = null;
     if (security.anonymizeExportUsers) {
       const preUserIds = new Set();
+      scrumTransferUserIds(scrumExport?.transfer).forEach(id => preUserIds.add(id));
       const board0 = await ReactiveCache.getBoard(boardId, { fields: { members: 1 } });
       (board0.members || []).forEach(m => preUserIds.add(m.userId));
       const preCardIds = [];
@@ -534,6 +555,8 @@ export class Exporter {
 
     // Open the object with the board's own fields + _format (board data is small).
     const board = await ReactiveCache.getBoard(boardId, { fields: { stars: 0 } });
+    if (!this.hasField('scrum')) { delete board.scrum; delete board.scrumRevision; }
+    if (scrumExport) { board.scrumTransfer = scrumExport.transfer; board.scrumTransferLosses = scrumExport.losses; }
     (board.members || []).forEach(m => userIds.add(m.userId));
     if (anonMap) anonymizeBoardTextInPlace(board, anonMap.byUsername);
     const boardJson = JSON.stringify(secureExportDoc(
@@ -616,8 +639,12 @@ export class Exporter {
       listSelector = { boardId, _id: { $in: [...new Set(listIds)] } };
       swimlaneSelector = { boardId, _id: { $in: [...new Set(swimlaneIds)] } };
     }
-    await streamArray('lists', listsRaw, listSelector, noBoardId, d => userIds.add(d.userId));
+    await streamArray('lists', listsRaw, listSelector, noBoardId, d => {
+      userIds.add(d.userId);
+      if (!this.hasField('scrum')) { delete d.scrum; delete d.scrumRevision; }
+    });
     await streamArray('swimlanes', swimlanesRaw, swimlaneSelector, {}, d => {
+      if (!this.hasField('scrum')) { delete d.scrum; delete d.scrumRevision; }
       if (anonMap) anonymizeBoardTextInPlace({ swimlanes: [d] }, anonMap.byUsername);
     });
     await streamArray('customFields', customFieldsRaw,
@@ -627,6 +654,7 @@ export class Exporter {
     // Cards (non-linked, like build()) — collect ids + userIds as we go, and
     // (when anonymizing) rewrite @mentions + requestedBy/assignedBy in each card.
     await streamArray('cards', cardsRaw, cardSelector, noBoardId, d => {
+      if (!this.hasField('scrum')) { delete d.scrum; delete d.scrumRevision; }
       cardIds.push(d._id);
       userIds.add(d.userId);
       (d.members || []).forEach(id => userIds.add(id));

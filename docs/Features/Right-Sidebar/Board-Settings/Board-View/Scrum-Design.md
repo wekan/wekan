@@ -132,14 +132,20 @@ loss entries; reduced snapshots are marked partial and their totals recalculated
 Unknown fields (including permission fields and recovery checkpoints), invalid
 dates, inconsistent totals, foreign planning references and ID collisions fail
 validation. Destination maps are supplied by the importer, never by file input.
-This helper is not yet connected to the native exporter/importer, duplication,
-external adapters or Sync. Transporting History and applying export security
+Native export integration is implemented and verified: the implementation
+adds a selectable Scrum section, strips operational checkpoints and revisions,
+filters scoped planning records and marks reduced snapshots partial with a loss
+report. Real HTTP tests cover full/scoped/omitted sections and anonymization.
+The shared exporter now refuses private board-wide exports by assigned-only
+members. The nine exporter authorization methods and affected HTTP formats are
+covered by the ExportScopeBleed audit and regression tests. Importer, duplication, external
+adapter and Sync integration remain pending. Transporting History and applying export security
 remain integration requirements, not completed features. The shared anonymization
 helper now rewrites known username mentions in Scrum prose, including canonical
 transfer data. Native streaming export applies it to board goals, card acceptance
 criteria and swimlane purpose. Identity references, estimate units and source
 provenance are preserved; this is mention rewriting, not arbitrary personal-data
-redaction. Canonical planning records still require exporter integration.
+redaction. Native transfer round-trip coverage still requires importer integration.
 
 Create one versioned, board-scoped Scrum transfer schema and shared validation
 and remapping functions. Native JSON is the lossless reference format. Export

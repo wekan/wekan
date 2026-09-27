@@ -50,6 +50,7 @@ const BOARD_EXPORT_FIELDS = [
   { field: 'board-header', label: 'board' },
   { field: 'activities', label: 'activities' },
   ...CARD_EXPORT_FIELDS,
+  { field: 'scrum', label: 'scrum-settings' },
 ];
 
 const CARD_EXPORT_FIELD_KEYS = CARD_EXPORT_FIELDS.map(entry => entry.field);
