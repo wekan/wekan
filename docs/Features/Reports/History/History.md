@@ -592,3 +592,9 @@ REST keeps its partial-update behavior, while the Rules/Blocks editor replaces
 component content. History undo/redo restores the appropriate IDs and removes
 superseded components only when they are no longer referenced. Sibling rule
 content remains unchanged. Concurrent component updates are not transactional.
+
+Changing a manual button rule to an automatic trigger clears its rule-level
+button type and label, removing it from the board/card button menus. REST
+creation and trigger updates synchronize this metadata too. Undo/redo restores
+the matching trigger and button metadata together, so restored manual buttons
+reappear and redoing an automatic trigger removes them again.

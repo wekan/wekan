@@ -1,7 +1,7 @@
 'use strict';
 const {test,expect}=require('../fixtures');
 const db=require('../helpers/db');
-const {loginWithToken,navigateInApp}=require('../helpers/auth');
+const {loginWithToken,navigateInApp,openBoard}=require('../helpers/auth');
 const call=(page,method,...args)=>page.evaluate(async ({method,args})=>{try{return await Meteor.callAsync(method,...args);}catch(e){throw new Error(`${method}: ${e.error}: ${e.reason || e.message}`);}},{method,args});
 function rows(boardId){return db.find('changeHistory',{boardId,entityType:'rule'});}
 
@@ -144,4 +144,30 @@ for(const transport of ['method','REST'])test(`${transport} editing isolates sha
  expect(db.findOne('rules',{_id:ids._id}).actionId).toBe(edited.actionId);
  expect(db.findOne('actions',{_id:edited.actionId}).actionType).toBe('unarchive');
  expect(db.findOne('actions',{_id:ids.actionId}).actionType).toBe('archive');
+});
+
+for(const transport of ['method','REST'])test(`${transport} button trigger changes synchronize menu metadata and History`,async({page,request,board,user})=>{
+ await loginWithToken(page,user.id,user.token);
+ const base=`/api/boards/${board.boardId}/rules`,headers={Authorization:`Bearer ${user.token}`};
+ const trigger={activityType:'button',buttonType:'board',buttonLabel:'Manual action'},action={actionType:'archive'};
+ let ids;
+ if(transport==='method')ids=await call(page,'rules.createRule',board.boardId,'Button rule',trigger,action);
+ else {const response=await request.post(base,{headers,data:{title:'Button rule',trigger,action}});expect(response.status()).toBe(200);ids=await response.json();}
+ expect(db.findOne('rules',{_id:ids._id}).buttonType).toBe('board');
+ await openBoard(page,board.boardId,board.slug);
+ const button=page.locator(`.js-run-board-button[data-rule-id="${ids._id}"]`);
+ await expect(button).toBeVisible();
+ const changed={activityType:'createCard'};
+ if(transport==='method')await call(page,'rules.updateRule',ids._id,'Automatic rule',changed,action);
+ else expect((await request.put(`${base}/${ids._id}`,{headers,data:{title:'Automatic rule',trigger:changed}})).status()).toBe(200);
+ expect(db.findOne('rules',{_id:ids._id}).buttonType).toBeUndefined();
+ expect(db.findOne('rules',{_id:ids._id}).buttonLabel).toBeUndefined();
+ await expect(button).toHaveCount(0);
+ await call(page,'changeHistory.undoLast',board.boardId);
+ expect(db.findOne('rules',{_id:ids._id}).buttonType).toBe('board');
+ expect(db.findOne('rules',{_id:ids._id}).buttonLabel).toBe('Manual action');
+ await expect(button).toBeVisible();
+ await call(page,'changeHistory.redoLast',board.boardId);
+ expect(db.findOne('rules',{_id:ids._id}).buttonType).toBeUndefined();
+ await expect(button).toHaveCount(0);
 });

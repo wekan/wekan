@@ -62,7 +62,7 @@ test('rules.updateRule keeps the rule, trigger and action _ids stable (update, n
   assert.match(block, /writeRuleComponent\(rule, 'trigger', triggerDoc\)/);
   assert.match(block, /writeRuleComponent\(rule, 'action', actionDoc\)/);
   // The rule document itself is updated by _id, never removed/reinserted.
-  assert.match(block, /Rules\.updateAsync\(ruleId, \{ \$set: ruleSet \}\)/);
+  assert.match(block, /Rules\.updateAsync\(ruleId, \{ \.\.\.buttonModifier, \$set: \{ \.\.\.ruleSet, \.\.\.buttonModifier\.\$set \} \}\)/);
 });
 
 test('negative: rules.updateRule never calls Rules.removeAsync or a fresh Rules.insertAsync', () => {

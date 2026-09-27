@@ -169,11 +169,9 @@ Meteor.methods({
         triggerId,
         actionId,
       };
-      if (trigger && trigger.activityType === 'button') {
-        ruleSet.buttonType = trigger.buttonType || 'card';
-        ruleSet.buttonLabel = trigger.buttonLabel || ruleSet.title;
-      }
-      await Rules.updateAsync(ruleId, { $set: ruleSet });
+      const { ruleButtonMetadata } = require('/models/lib/ruleButtonMetadata');
+      const buttonModifier = ruleButtonMetadata(triggerDoc, ruleSet.title);
+      await Rules.updateAsync(ruleId, { ...buttonModifier, $set: { ...ruleSet, ...buttonModifier.$set } });
       return { _id: ruleId, triggerId, actionId };
     });
   },

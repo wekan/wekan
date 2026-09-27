@@ -9,6 +9,7 @@ import Triggers from '/models/triggers';
 import Actions from '/models/actions';
 import { Random } from 'meteor/random';
 import { withRuleHistory, removeRuleWithUnusedParts, writeRuleComponent } from '/server/lib/ruleHistory';
+const { ruleButtonMetadata } = require('/models/lib/ruleButtonMetadata');
 
 // REST API for board automation Rules (add / edit / remove).
 //
@@ -166,6 +167,7 @@ if (Meteor.isServer) {
           triggerId,
           actionId,
           boardId: paramBoardId,
+          ...ruleButtonMetadata(trigger, title || 'API rule').$set,
         });
         return { _id: ruleId, triggerId, actionId };
       });
@@ -217,6 +219,7 @@ if (Meteor.isServer) {
         if (req.body.trigger) {
           const triggerId = await writeRuleComponent(rule, 'trigger', { ...normalizeTriggerDoc(strip(req.body.trigger)), boardId: paramBoardId }, { patch: true });
           await Rules.updateAsync(rule._id, { $set: { triggerId } });
+          await Rules.updateAsync(rule._id, ruleButtonMetadata(await Triggers.findOneAsync(triggerId), req.body.title || rule.title));
         }
         if (req.body.action) {
           const actionId = await writeRuleComponent(rule, 'action', { ...strip(req.body.action), boardId: paramBoardId }, { patch: true });
