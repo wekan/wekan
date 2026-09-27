@@ -112,6 +112,10 @@ or release/version changes. Current progress is recorded in Upcoming.
 metadata, team/calendar settings, commitment/result snapshots, Sprint Report
 and Velocity charts and Excel/PDF exports are implemented with focused tests.
 History supports revision checks, compound recovery checkpoints and undo/redo.
+Restoration retries now use stable per-author event IDs and verify immutable
+contents and integrity before accepting existing History rows. Failed or damaged
+records retain the recovery checkpoint; ordinary writes and History remain
+non-atomic, and automatic startup replay is still pending.
 Native whole-board export/import and duplication remap planning records and
 snapshots, validate lifecycle/policy consistency, and report reduced data.
 Standalone copies preserve applicable metadata and drop foreign references;
@@ -1077,6 +1081,31 @@ in TODO Later. The known released-entry changelog format failure remains.
 </details>
 
 and improves list synchronization:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/484bad1d9">Verify Scrum restoration History before acknowledging recovery</a>. Thanks to xet7.</summary>
+
+Scrum restore/undo/redo now records each author's restoration with a stable ID
+from the board and pending operation. Retries verify the exact event contents
+and integrity hash, including existing random-ID rows from older operations.
+Lost insert acknowledgements and concurrent attempts reuse the committed event
+without changing its timestamp or integrity-chain link. Failed writes and
+conflicting or damaged rows retain the pending recovery checkpoint and return
+an actionable History error.
+
+Six focused Node suites pass, including concurrent replay, lost
+acknowledgements, legacy rows, corruption, failed writes and independent author
+identities. All seven Scrum History Chromium scenarios pass. The recovery
+scenario now checks
+that a damaged event retains its checkpoint and that retry after repair produces
+no duplicate timeline row; it also passes after the final public-error change.
+The offline source/dependency audit passes with advisory fingerprint warnings.
+
+Ordinary History keeps its best-effort contract. Atomic original writes/History,
+serialization of independent integrity-chain writers and startup replay remain
+in TODO Later; this change does not complete those requirements.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/96dba3460">Avoid activities and History for unmatched card writes</a>. Thanks to xet7.</summary>
