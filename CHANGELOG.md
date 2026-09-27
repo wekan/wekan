@@ -1053,6 +1053,22 @@ regression evidence remains recorded; other browsers were not run.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5ac57edde">Avoid repeated full-snapshot scans in Scrum reports</a>. Thanks to xet7.</summary>
+
+Completed-commitment totals now use an index of completed card IDs instead of
+scanning the closing snapshot for each original card. This keeps matching work
+linear at the supported 10,000-card snapshot limit while retaining original
+commitment estimates and separate added/removed scope totals.
+
+The deterministic work-bound regression fails before the fix and passes after
+it. Fourteen focused Node checks and two Chromium scenarios pass, including
+report metric selection, assigned-only filtering and Excel/PDF output. Existing
+Upcoming regression evidence remains recorded; other browsers were not run.
+This does not resolve the remaining large-board History storage limits.
+
+</details>
+
 This release adds the following regression coverage and documentation:
 
 <details>
