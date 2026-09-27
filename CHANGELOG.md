@@ -1677,6 +1677,26 @@ were not tested. Update the Sync guide, Scrum design and resumption checkpoint.
 and repairs downloaded translations:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/81d4dc420">Allow incomplete target catalogs in Transifex uploads</a>. Thanks to xet7.</summary>
+
+New English-only Sync labels caused 239 target uploads to fail because the
+validator required identical source/target key sets. Allow missing target keys
+and upload only the entries already present locally, without generating English
+placeholders or changing locale files. Keep strict source validation and reject
+unknown target keys, empty catalogs, invalid values and broken placeholders.
+Log missing-key counts and use the same rules for offline dry runs. Existing
+human-owned locale upload exclusions remain protected.
+
+Ten focused Node suites pass, including all local catalogs, mocked upload
+payloads, malformed tokens/values, retry handling and human-translation guards.
+The actual offline command validates 241 targets and the English source without
+network requests. The offline source/dependency audit passes with advisory
+warnings. Remote upload was not performed. The known released v12.07 changelog
+line-length failure remains; all-language translation remains outside the queue.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8b418219b">Accept encoded translation help URLs and repair template tokens</a>. Thanks to xet7.</summary>
 
 Distinguish URL percent encoding from interpolation placeholders in Transifex
