@@ -44,9 +44,20 @@ test('#2131: read-only users cannot insert a swimlane', async ({ page, user2, bo
 });
 
 for (const withoutCards of [false, true]) {
-  test(`multiselection duplicates all selected boards, without cards: ${withoutCards}`, async ({ boardPage: page, board }) => {
+  test(`#2321: multiselection duplicates boards without source history, without cards: ${withoutCards}`, async ({ boardPage: page, board }) => {
     const second = db.seedBoard({ ownerId: board.owner.id, title: 'Second bulk source', cardTitlesPerList: [['Second card']] });
     const sourceIds = [board.boardId, second.boardId];
+    const historicalDate = new Date('2018-01-02T12:00:00Z');
+    const history = sourceIds.flatMap((boardId, index) => [
+      { _id: `history-board-${boardId}`, boardId, userId: board.owner.id,
+        activityType: 'createBoard', createdAt: historicalDate },
+      { _id: `history-card-${boardId}`, boardId, userId: board.owner.id,
+        cardId: db.find('cards', { boardId })[0]._id,
+        activityType: 'moveCard', createdAt: historicalDate,
+        oldListId: `old-list-${index}`, listId: `new-list-${index}` },
+    ]);
+    db.insertMany('activities', history);
+    const originalHistory = db.find('activities', { _id: { $in: history.map(a => a._id) } });
     const previousIds = db.find('boards', { 'members.userId': board.owner.id }).map(b => b._id);
     const copies = () => db.find('boards', { 'members.userId': board.owner.id }).filter(b => !previousIds.includes(b._id));
     try {
@@ -70,6 +81,11 @@ for (const withoutCards of [false, true]) {
         if (withoutCards) expect(db.find('cards', { boardId: copy._id })).toHaveLength(0);
         else await expect.poll(() => db.find('cards', { boardId: copy._id }).length).toBeGreaterThan(0);
       }
+      const copiedHistory = db.find('activities', { boardId: { $in: copies().map(b => b._id) } });
+      // Fresh creation events are legitimate; historical source events are not.
+      expect(copiedHistory.some(a => new Date(a.createdAt).getTime() === historicalDate.getTime())).toBe(false);
+      expect(copiedHistory.some(a => history.some(old => old._id === a._id || old.cardId && old.cardId === a.cardId))).toBe(false);
+      expect(db.find('activities', { _id: { $in: history.map(a => a._id) } })).toEqual(originalHistory);
       for (const id of sourceIds) expect(db.find('cards', { boardId: id }).length).toBeGreaterThan(0);
     } finally { db.cleanup({ boardIds: [second.boardId, ...copies().map(b => b._id)] }); }
   });

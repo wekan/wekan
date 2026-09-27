@@ -92,7 +92,7 @@ still use the guarded collection insert; board archive/copy retain admin checks.
 | [#2449: [Feature] Board Key](https://github.com/wekan/wekan/issues/2449) | Board Settings → Card numbering | Existing card numbers are not globally unique prefixed board keys; atomic allocation, imports and moves need coordinated tests. |
 | [#2435: Feature Request: New Rule - Send email (功能需求：新建规则-添加收件人)](https://github.com/wekan/wekan/issues/2435) | Rules → Send email | Recipient autocomplete/current-card people selection needs a scoped picker and mail delivery tests. |
 | [#6549: OAuth2 Partially Working - Rocket.Chat->G Suite SAML App](https://github.com/wekan/wekan/issues/6549) | Authentication | Provider redirect/session behavior needs the actual Rocket.Chat/G Suite/Auth0 chain; local URL tests are insufficient. |
-| [#2321: Feature Request: Remove Activity from Duplicated Board](https://github.com/wekan/wekan/issues/2321) | All Boards → Duplicate | Copying behavior and options need explicit history exclusion verification; not closed from a matching copy method alone. |
+| [#2321: Feature Request: Remove Activity from Duplicated Board](https://github.com/wekan/wekan/issues/2321) | All Boards → Duplicate | Verified existing behavior: board duplication excludes old board/card activity history with and without cards; source history survives, cancellation creates no copies, and ordinary members cannot duplicate. Chromium regression added for #2321. |
 | [#2290: Support for Login and register page webhook.](https://github.com/wekan/wekan/issues/2290) | Admin Panel → Integrations | Login/registration webhooks add an identity event transport; need minimization, delivery and failure-isolation tests. |
 | [#2217: Feature Request: Add admin panel option to show Rules option to non-admin users](https://github.com/wekan/wekan/issues/2217) | Admin Panel → Permissions | Showing Rules to more roles changes rule-management authority. Existing restrictions remain in place. |
 | [#2211: Feature Request: When using Auth0 login, redirect automatically to fullscreen Auth0 login page, instead of current login popup.](https://github.com/wekan/wekan/issues/2211) | Authentication | Provider redirect/session behavior needs the actual Rocket.Chat/G Suite/Auth0 chain; local URL tests are insufficient. |
@@ -199,3 +199,20 @@ third-party integrations, other browser engines and full database-backend
 conformance were not tested. Items marked remaining in the inventory have not
 been added or closed. Some are feasible future implementation work; lack of a
 verified implementation in this pass is not evidence that they are impossible.
+
+## Follow-up inventory refresh
+
+A fresh GitHub inventory on 2026-09-27 contains 132 open issues (excluding pull
+requests). The table above preserves the original 140-issue snapshot rather
+than silently dropping rows for issues closed since that audit.
+
+Read #2321 in full (no comments) and traced `Boards.copy`, `Swimlanes.copy`
+and `Cards.copy`: none copies Activities records. Live Chromium/MongoDB tests
+exercise the existing multiselection Duplicate actions with and without cards,
+seed old board and card activity events, and verify they remain only at the
+source. Fresh destination creation events are allowed. The permission rejection
+scenario still passes. No model or permission change is needed to close #2321.
+
+Read #1273 and its complete comment thread: Add Card autocomplete still consumes
+member/label tokens in `listBody.js`. A retain-text option is not implemented;
+this issue remains open. No claim is made that the remaining inventory is fixed.

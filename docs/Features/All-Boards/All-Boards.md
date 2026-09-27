@@ -414,3 +414,9 @@ cards** copies the selected boards' structure without cards. Both actions ask
 for confirmation and use the existing board-administrator permission checks.
 Board tiles have no Actions hamburger menu; use the multiselection sidebar to
 archive selected boards.
+
+Duplication starts a new activity history. It does not copy the source board's
+old board or card activity events, and does not delete the source history.
+Creating the copied board and its contents can produce new activity events.
+This applies both to **Duplicate Board** and **Duplicate Board — Without cards**;
+no separate remove-history option is required.
