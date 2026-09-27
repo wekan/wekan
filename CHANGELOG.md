@@ -1778,6 +1778,23 @@ Upcoming regression evidence remains recorded; Blockly translation is paused.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0e5b48c86">Record the release pause and unfinished development handoff</a>. Thanks to xet7.</summary>
+
+Pause implementation, translations and audits at the maintainer's request.
+TODO Later records implemented checkpoints, remaining Scrum/Sync and History
+work, translation coverage, open-issue/UI/security follow-ups and verification
+limits. Refresh the read-only Blockly report and mark the Blocks guide paused.
+Wrap overlong Upcoming prose without changing published release sections.
+
+Commit-link, release-placement and seven catalog checks pass. Existing feature,
+fix and security regression evidence remains in its corresponding entries;
+this documentation-only handoff adds no application behavior. The full format
+check still flags one pre-existing overlong line in published v12.07. A complete
+release build/test matrix was not run. No remote writes or version bumps occur.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/0574cd4c0">Verify the combined Rules, Blocks and History integration</a>. Thanks to xet7.</summary>
 
 Update the Blocks guide with REST History behavior, shared-component handling
