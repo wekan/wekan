@@ -162,6 +162,7 @@ template(name="scrumView")
                     th {{_ 'scrum-estimate'}}
                     th {{_ 'scrum-sprint'}}
                     th {{_ 'scrum-backlog-rank'}}
+                    th {{_ 'scrum-release'}}
                     th {{_ 'actions'}}
                 tbody
                   each cards
@@ -171,6 +172,7 @@ template(name="scrumView")
                       td {{estimateLabel}}
                       td {{sprintName}}
                       td {{rankLabel}}
+                      td.scrum-card-release {{releaseName}}
                       td
                         if canWrite
                           form.js-scrum-card(data-card-id=_id)
@@ -181,6 +183,11 @@ template(name="scrumView")
                                   option(value=_id selected=selected) {{name}}
                             label {{_ 'scrum-backlog-rank'}}
                               input(type="number" name="backlogRank" min="0" step="any" value=rankLabel)
+                            label {{_ 'scrum-release'}}
+                              select(name="releaseId")
+                                option(value="") —
+                                each cardReleaseOptions
+                                  option(value=_id selected=selected) {{name}}
                             label {{_ 'scrum-issue-type'}}
                               textarea(name="issueType" rows="1") {{scrum.issueType}}
                             label {{_ 'scrum-acceptance-criteria'}}
@@ -188,7 +195,7 @@ template(name="scrumView")
                             button.primary(type="submit" disabled=busy) {{_ 'save'}}
                   else
                     tr
-                      td(colspan="5") {{_ 'no-cards'}}
+                      td(colspan="6") {{_ 'no-cards'}}
             if isSprints
               if selectedSprint
                 h3 {{_ 'scrum-events'}}
