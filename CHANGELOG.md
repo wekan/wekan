@@ -712,6 +712,24 @@ recorded positive, negative and UI regression coverage.
 Also adds the following feature:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/a76c97461">Map explicit Jira estimates into existing Scrum custom fields</a>. Thanks to xet7.</summary>
+
+The Jira import page accepts an optional numeric estimate field ID and unit.
+Import validates the mapping and values before writes, creates a hidden numeric
+custom field and selects it for Scrum estimates without enabling Scrum. Jira
+export retains the source field ID and unit; native transfer and whole-board
+duplication preserve the mapping and remap the local field. Existing import and
+export selections require both Scrum and Custom Fields for this mapping.
+
+Sixteen focused Node checks and six Chromium scenarios pass, covering zero,
+fractional and missing estimates, invalid inputs, section selection, UI import,
+Jira/native round trips, board duplication and existing Jira regressions.
+Document the mapping. Live Jira and other browsers were not exercised; existing
+Upcoming regression evidence remains recorded.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/59a13f40d">Retain Jira issue types and workflow categories in Scrum transfers</a>. Thanks to xet7.</summary>
 
 Jira import maps issue types and explicit status category keys into existing
