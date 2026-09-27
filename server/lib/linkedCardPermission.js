@@ -9,7 +9,7 @@ import { sourceRoleBlocksDelegation, recordLinkedWriteDenial } from '/models/lib
 // board itself or at least one board containing a live link to that source.
 // Merely knowing a source id is insufficient: the linked Card document must
 // exist and its destination board must grant write access.
-export async function canEditCardOrLinkedCard(userId, card, knownSourceBoard) {
+export async function canEditCardOrLinkedCard(userId, card, knownSourceBoard, { recordDenial = true } = {}) {
   if (!userId || !card) return false;
 
   const sourceBoard = knownSourceBoard || await Boards.findOneAsync(card.boardId);
@@ -18,7 +18,7 @@ export async function canEditCardOrLinkedCard(userId, card, knownSourceBoard) {
   // minted before link creation was restricted. A self-owned destination must
   // not turn source comment/read access into general source write access.
   if (sourceRoleBlocksDelegation(userId, sourceBoard)) {
-    recordLinkedWriteDenial('linked-card:source-write');
+    if (recordDenial) recordLinkedWriteDenial('linked-card:source-write');
     return false;
   }
   // Delegation applies only to a link whose source is still visible. If source

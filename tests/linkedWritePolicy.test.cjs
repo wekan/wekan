@@ -22,6 +22,9 @@ test('live links cannot promote explicit non-writing source roles', async () => 
     vm.runInNewContext(text.replace(/^import .*;\n/gm, '').replace('export async function', 'async function'), context);
     assert.equal(await context.canEditCardOrLinkedCard('u', { _id: 'card', boardId: 'A' }), roleCan(role, 'write'));
     assert.equal(logs.length, roleCan(role, 'write') ? 0 : 1);
+    const count = logs.length;
+    assert.equal(await context.canEditCardOrLinkedCard('u', { _id: 'card', boardId: 'A' }, source, { recordDenial: false }), roleCan(role, 'write'));
+    assert.equal(logs.length, count, 'read-side capability checks must not emit write-denial events');
   }
 });
 test('negative: method, DDP insert and link-pointer updates enforce source write access', () => {

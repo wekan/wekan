@@ -1,4 +1,5 @@
 import ScrumHistoryPending from '/server/lib/scrumHistoryPending';
+import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
 import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
@@ -94,7 +95,9 @@ export async function getScrumBoardData(userId, boardId) {
     }
   }
   for (const event of events) event.followUpCardIds = (event.followUpCardIds || []).filter(id => visible.has(id));
-  for (const card of cards) card.canWrite = !!userId && await canUpdateCard(userId, card, ['scrum'], { $set: { scrum: {} } });
+  // Rendering a capability is not an attempted mutation. Keep write guards'
+  // denial logging for actual writes, without blocking read-only viewers.
+  for (const card of cards) card.canWrite = !!userId && await canEditCardOrLinkedCard(userId, card, board, { recordDenial: false });
   return { boardId, settings: { ...DEFAULT_SCRUM_SETTINGS, ...(board.scrum || {}) },
     settingsRevision: board.scrumRevision || 0, sprints, releases, events, cards, lists, swimlanes, customFields,
     importLosses: userId && board.hasAdmin(userId) ? (board.scrumImportLosses || []) : [],
