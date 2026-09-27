@@ -253,7 +253,7 @@ template(name="minicard")
               if $eq field "commentCount"
                 if showCommentCountOnMinicard
                   if comments.length
-                    .badge(title="{{_ 'card-comments-title' comments.length }}")
+                    .badge(title=commentBadgeTitle)
                       span.badge-icon.badge-comment.badge-text
                         i.fa.fa-comment-o
                         = ' '

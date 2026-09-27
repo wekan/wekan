@@ -53,3 +53,15 @@ comments.
 - No dedicated Admin Panel / board-settings UI toggle is wired up yet; the
   setting is enforced end to end but is currently set programmatically /
   via the API. A board-settings checkbox can be added later.
+
+## Comment badge tooltip (issue #1933)
+
+When the minicard comment-count badge is enabled, hovering over it shows the
+comment text if the card has exactly one visible, nonempty comment. With two
+or more comments, it shows the localized comment-count message. Empty comments
+fall back to that message; cards without comments have no badge.
+
+The tooltip uses the comments already published for the card. It does not fetch
+private-board comments or change access permissions. Comment text, including
+Markdown and HTML-looking strings, is displayed as plain text rather than
+rendered markup. This also works for read-only board members.

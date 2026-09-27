@@ -1,3 +1,4 @@
+import { commentBadgeTitle } from '/models/lib/commentBadgeTitle';
 import { isSubmitKey } from '/models/lib/editorSubmitKey';
 import { relativeCardSort } from '/client/lib/relativeCardPosition';
 import { ReactiveCache } from '/imports/reactiveCache';
@@ -41,6 +42,9 @@ function getMinicardFlag(board, onMinicardField, legacyField, defaultValue) {
 // });
 
 Template.minicard.helpers({
+  commentBadgeTitle() {
+    return commentBadgeTitle(this.comments(), count => TAPi18n.__('card-comments-title', count));
+  },
   // #1591: the whole-minicard fold, same shape as a list's collapsed() helper.
   showCollapseControl() { return ReactiveCache.getBoard(this.boardId)?.allowsMinicardCollapse !== false; },
   showLabelsAboveTitle() {
