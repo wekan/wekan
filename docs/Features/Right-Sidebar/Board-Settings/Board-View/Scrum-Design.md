@@ -134,7 +134,12 @@ dates, inconsistent totals, foreign planning references and ID collisions fail
 validation. Destination maps are supplied by the importer, never by file input.
 This helper is not yet connected to the native exporter/importer, duplication,
 external adapters or Sync. Transporting History and applying export security
-and anonymization also remain integration requirements, not completed features.
+remain integration requirements, not completed features. The shared anonymization
+helper now rewrites known username mentions in Scrum prose, including canonical
+transfer data. Native streaming export applies it to board goals, card acceptance
+criteria and swimlane purpose. Identity references, estimate units and source
+provenance are preserved; this is mention rewriting, not arbitrary personal-data
+redaction. Canonical planning records still require exporter integration.
 
 Create one versioned, board-scoped Scrum transfer schema and shared validation
 and remapping functions. Native JSON is the lossless reference format. Export

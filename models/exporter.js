@@ -535,6 +535,7 @@ export class Exporter {
     // Open the object with the board's own fields + _format (board data is small).
     const board = await ReactiveCache.getBoard(boardId, { fields: { stars: 0 } });
     (board.members || []).forEach(m => userIds.add(m.userId));
+    if (anonMap) anonymizeBoardTextInPlace(board, anonMap.byUsername);
     const boardJson = JSON.stringify(secureExportDoc(
       { _format: 'wekan-board-1.0.0', ...board }, 'export:wekan-stream:board',
     ));
@@ -616,7 +617,9 @@ export class Exporter {
       swimlaneSelector = { boardId, _id: { $in: [...new Set(swimlaneIds)] } };
     }
     await streamArray('lists', listsRaw, listSelector, noBoardId, d => userIds.add(d.userId));
-    await streamArray('swimlanes', swimlanesRaw, swimlaneSelector);
+    await streamArray('swimlanes', swimlanesRaw, swimlaneSelector, {}, d => {
+      if (anonMap) anonymizeBoardTextInPlace({ swimlanes: [d] }, anonMap.byUsername);
+    });
     await streamArray('customFields', customFieldsRaw,
       this.hasField('custom-fields') ? { boardIds: boardId } : { _id: '__none__' },
       { projection: { boardIds: 0 } });

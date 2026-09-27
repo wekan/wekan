@@ -133,14 +133,36 @@ export function anonymizeIdentityValue(value, byUsername) {
 // import so both scrub the same free-text fields.
 export function anonymizeBoardTextInPlace(board, byUsername) {
   if (!board) return;
-  (board.cards || []).forEach(card => {
+  // ReactiveCache board documents also expose cards()/swimlanes() helpers.
+  // Only exported arrays are data; never invoke collection helpers here.
+  const dataRows = value => Array.isArray(value) ? value : [];
+  const rewriteFields = (value, fields) => {
+    if (!value || typeof value !== 'object') return;
+    for (const key of fields) {
+      if (typeof value[key] === 'string') value[key] = rewriteMentionsInText(value[key], byUsername);
+    }
+  };
+  const scrumText = data => {
+    if (!data) return;
+    rewriteFields(data.scrum || data.settings, ['productGoal', 'definitionOfDone']);
+    for (const card of dataRows(data.cards)) rewriteFields(card?.scrum, ['issueType', 'acceptanceCriteria']);
+    for (const lane of dataRows(data.swimlanes)) rewriteFields(lane?.scrum, ['purpose']);
+    for (const key of ['sprints', 'releases', 'events']) {
+      for (const record of dataRows(data[key])) rewriteFields(record, ['name', 'goal', 'notes', 'cancellationReason']);
+    }
+  };
+  // Explicit prose fields only: IDs, source provenance, estimate units and
+  // snapshots must keep their meaning and references during anonymization.
+  scrumText(board);
+  scrumText(board.scrumTransfer);
+  dataRows(board.cards).forEach(card => {
     if (!card) return;
     card.title = rewriteMentionsInText(card.title, byUsername);
     card.description = rewriteMentionsInText(card.description, byUsername);
     card.requestedBy = anonymizeIdentityValue(card.requestedBy, byUsername);
     card.assignedBy = anonymizeIdentityValue(card.assignedBy, byUsername);
   });
-  (board.comments || []).forEach(comment => {
+  dataRows(board.comments).forEach(comment => {
     if (comment) comment.text = rewriteMentionsInText(comment.text, byUsername);
   });
 }
