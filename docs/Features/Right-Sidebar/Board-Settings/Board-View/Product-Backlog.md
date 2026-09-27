@@ -15,6 +15,11 @@ Smaller ranks appear first. Authorized editors can change the rank, assign a
 planned or active sprint, record a work-item type, and edit acceptance criteria.
 The card title opens the existing card details view.
 
+When cards have the same effective rank, their stable card IDs break the tie.
+This keeps the order consistent across clients and refreshes, including cards
+from different lists with matching list positions. Sprint card tables use the
+same ordering. Titles and other metadata edits do not change this tie-breaker.
+
 An unset backlog rank is blank in the editor and shown as a dash in the table.
 It uses the card's normal sort position for ordering without copying that
 position into Scrum metadata. Clear the rank field to return to this fallback;

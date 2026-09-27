@@ -2,6 +2,24 @@
 const {test,expect}=require('../fixtures');const db=require('../helpers/db');
 const {loginWithToken,openBoard}=require('../helpers/auth');
 const call=(page,method,...args)=>page.evaluate(({method,args})=>Meteor.callAsync(method,...args),{method,args});
+test('equal backlog ranks stay ordered by card ID after refresh and metadata edits',async({page,user,board})=>{
+ const cards=db.find('cards',{boardId:board.boardId});
+ for(const card of cards) db.updateOne('cards',{_id:card._id},{$set:{sort:0,'scrum.backlogRank':0}});
+ const expected=cards.map(card=>card._id).sort();
+ await loginWithToken(page,user.id,user.token);await openBoard(page,board.boardId,board.slug);
+ await page.locator('.js-toggle-board-view').first().click();
+ await page.locator('.pop-over .js-open-product-backlog-view').click();
+ const order=()=>page.locator('tr[data-card-id]').evaluateAll(rows=>rows.map(row=>row.dataset.cardId));
+ await expect.poll(order).toEqual(expected);
+ const form=page.locator(`form.js-scrum-card[data-card-id="${expected[0]}"]`);
+ await form.locator('[name="issueType"]').fill('Story');
+ await form.locator('button[type="submit"]').click();
+ await expect.poll(()=>db.findOne('cards',{_id:expected[0]}).scrum?.issueType).toBe('Story');
+ await page.locator('.js-scrum-refresh').click();
+ await expect.poll(order).toEqual(expected);
+ await page.reload();
+ await expect.poll(order).toEqual(expected);
+});
 test('backlog release assignment saves, clears and restores through History',async({page,user,board})=>{
  try{
   await loginWithToken(page,user.id,user.token);await openBoard(page,board.boardId,board.slug);

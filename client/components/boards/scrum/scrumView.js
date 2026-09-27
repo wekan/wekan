@@ -11,6 +11,7 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { ReactiveCache } from '/imports/reactiveCache';
 const { DEFAULT_SCRUM_SETTINGS, getCardEstimate } = require('/models/lib/scrum');
 const { sprintReport, velocityRows, reportChartGroups } = require('/models/lib/scrumReports');
+const { compareScrumCards } = require('/models/lib/scrumCardOrder');
 const current = () => Template.instance();
 const data = () => current().dataState.get();
 const selectedSprint = tpl => tpl.dataState.get()?.sprints.find(s => s._id === tpl.sprintId.get());
@@ -136,7 +137,7 @@ Template.scrumView.helpers({
     const sprintId = current().sprintId.get();
     const isSprints = Utils.boardView() === 'board-view-sprints';
     return result.cards.filter(card => !card.archived && (isSprints && sprintId ? card.scrum?.sprintId === sprintId : !card.scrum?.sprintId))
-      .sort((a, b) => (a.scrum?.backlogRank ?? a.sort ?? 0) - (b.scrum?.backlogRank ?? b.sort ?? 0))
+      .sort(compareScrumCards)
       .map(card => {
         const estimate = getCardEstimate(card, result.settings);
         return { ...card, estimateLabel: estimate === null ? t('scrum-unknown-estimate') : String(estimate),
