@@ -16,6 +16,8 @@ function sprintReport(sprint) {
   const committed = new Set(start.map(card => card.cardId));
   const finalIds = new Set(end.map(card => card.cardId));
   const done = end.filter(card => card.done);
+  // Index completion once: a sprint may contain 10,000 snapshot rows.
+  const doneIds = new Set(done.map(card => card.cardId));
   return {
     sprintId: sprint._id, name: sprint.name, state: sprint.state,
     unit: sprint.closeSnapshot?.unit || sprint.startSnapshot?.unit || '',
@@ -23,7 +25,7 @@ function sprintReport(sprint) {
     estimateCustomFieldId: sprint.closeSnapshot?.estimateCustomFieldId || sprint.startSnapshot?.estimateCustomFieldId || '',
     completionPolicy: sprint.closeSnapshot?.completionPolicy || sprint.startSnapshot?.completionPolicy || '',
     committed: total(start), completed: total(done),
-    completedCommitment: total(start.filter(card => done.some(endCard => endCard.cardId === card.cardId))),
+    completedCommitment: total(start.filter(card => doneIds.has(card.cardId))),
     added: total(end.filter(card => !committed.has(card.cardId))),
     removed: total(start.filter(card => !finalIds.has(card.cardId))),
     incomplete: total(end.filter(card => !card.done)),

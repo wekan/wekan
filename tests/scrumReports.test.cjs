@@ -86,3 +86,20 @@ test('partial snapshots never share a chart scale with whole-board totals',()=>{
  assert.equal(groups[1].max,1);
  assert.equal(groups[1].rows[0].partial,true);
 });
+
+test('maximum-size snapshots match completed commitments with bounded ID reads',()=>{
+ // Count work rather than timing it: CI speed does not affect this bound.
+ // The old nested scan needed tens of millions of reads at the allowed limit.
+ const size=10000;let reads=0;
+ const row=(id,estimate)=>Object.freeze({get cardId(){
+  assert.ok(++reads<=size*10,'report performs repeated full-snapshot scans');
+  return id;
+ },estimate,done:true});
+ const start=Object.freeze(Array.from({length:size},(_,i)=>row(`card-${i}`,1)));
+ const end=Object.freeze(Array.from({length:size},(_,i)=>row(`card-${i+size/2}`,2)));
+ const report=sprintReport({startSnapshot:{cards:start},closeSnapshot:{cards:end}});
+ assert.deepEqual(report.completedCommitment,{count:5000,estimate:5000,unknown:0});
+ assert.deepEqual(report.completed,{count:10000,estimate:20000,unknown:0});
+ assert.deepEqual(report.added,{count:5000,estimate:10000,unknown:0});
+ assert.deepEqual(report.removed,{count:5000,estimate:5000,unknown:0});
+});
