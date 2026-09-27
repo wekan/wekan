@@ -98,6 +98,20 @@ function validateStep(step) {
   return step;
 }
 
+// A delete acknowledgement alone does not establish cleanup. Read back the
+// exact scope, including after an error which may have lost a committed reply.
+async function removeAndVerify(remove, findRemaining) {
+  let writeError;
+  try { await remove(); } catch (error) { writeError = error; }
+  let remaining;
+  try { remaining = await findRemaining(); }
+  catch (error) { throw writeError || error; }
+  if (remaining !== null) {
+    if (writeError) throw writeError;
+    fail('sync-operation-cleanup-unconfirmed');
+  }
+}
+
 // The caller MUST hold the renewable list lease throughout this call. Ownership
 // below fences journal acknowledgements, not in-flight writes in another
 // collection. apply() must compare exact before/after states and be idempotent,
@@ -186,9 +200,15 @@ async function runSyncOperation({ operations, steps, scope, build, apply, assert
     // cleanup resumes cleanup, never the already-completed application writes.
     await update({}, { state: 'cleaning' });
     await guard();
-    await steps.deleteMany({ operationId: operation.operationId });
+    await removeAndVerify(
+      () => steps.deleteMany({ operationId: operation.operationId }),
+      () => steps.findOne({ operationId: operation.operationId }, { projection: { _id: 1 } }),
+    );
     await guard();
-    await operations.deleteOne({ ...selector, state: 'cleaning' });
+    await removeAndVerify(
+      () => operations.deleteOne({ ...selector, state: 'cleaning' }),
+      () => operations.findOne({ _id: scope.listId }, { projection: { _id: 1 } }),
+    );
     return { operationId: operation.operationId, total: operation.total };
   } catch (error) {
     // Keep all recovery evidence. Do not store provider errors or card values

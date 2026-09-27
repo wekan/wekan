@@ -152,6 +152,20 @@ advances only the matching operation owner's current checkpoint. Completed
 operations retain their marker until plan cleanup finishes, so interrupted
 cleanup never repeats card writes.
 
+Cleanup now verifies the absence of operation-specific plan rows before
+removing their checkpoint, then verifies that the list's operation slot is
+empty. Zero/partial deletions and failed reads do not report success. A lost
+delete acknowledgement is accepted only after absence is read back. Ownership
+is rechecked between the two stages, and a successor operation is never removed
+or treated as this operation's successful cleanup. A retained cleaning marker
+resumes cleanup without applying card units again.
+
+If the final read fails after deleting the marker, the outcome remains unknown;
+the engine does not recreate evidence it cannot safely restore. Production
+integration still needs durable completion/outcome records and retry intent.
+These readbacks do not fence already in-flight writes or form a transaction
+across the operation and step collections.
+
 Real MongoDB tests inject interruptions before application, after a side effect,
 after checkpoint progress and during cleanup. They exercise lost ownership,
 changed local state, changed configuration scope, BSON dates, updates/archives,

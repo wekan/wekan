@@ -11,6 +11,11 @@ test('durable Sync journal resumes verified units without rebuilding or repeatin
  const client=await new MongoClient(uri).connect();const db=client.db(`sync_operation_${new ObjectId().toHexString()}`);
  const operations=db.collection('operations'),steps=db.collection('steps'),cards=db.collection('cards'),leases=db.collection('leases');
  t.after(async()=>{await db.dropDatabase();await client.close();});
+ const wrap=(collection,overrides)=>({
+  findOne:(...args)=>collection.findOne(...args),insertOne:(...args)=>collection.insertOne(...args),
+  updateOne:(...args)=>collection.updateOne(...args),deleteOne:(...args)=>collection.deleteOne(...args),
+  deleteMany:(...args)=>collection.deleteMany(...args),...overrides,
+ });
  const scope={listId:'list',boardId:'board',incarnation:'life',revision:'revision',sourceKey:'source-hash'};
  const make=(id,title)=>({kind:'create',cardId:id,before:null,after:{_id:id,boardId:'board',listId:'list',title,dateLastActivity:new Date('2026-01-01T00:00:00Z')}});
  const plan=[make('one','First'),make('two','Second')];
@@ -89,6 +94,94 @@ test('durable Sync journal resumes verified units without rebuilding or repeatin
   assert.equal((await operations.findOne({_id:'list'})).state,'cleaning');assert.equal(effects,2);
   await run({apply:async()=>assert.fail('cleanup applied a unit'),build:async()=>assert.fail('cleanup rebuilt')});
   assert.equal(await operations.countDocuments({}),0);assert.equal(await steps.countDocuments({}),0);
+ });
+ await t.test('zero or partial plan deletion retains the completed checkpoint',async()=>{
+  for(const partial of [false,true]){
+   await cards.deleteMany({});effects=0;let deletes=0;
+   const incomplete=wrap(steps,{deleteMany:async query=>{
+    if(++deletes===1)return steps.deleteMany(query);
+    return partial?steps.deleteOne(query):{acknowledged:true,deletedCount:0};
+   }});
+   await assert.rejects(run({steps:incomplete}),/cleanup-unconfirmed/);
+   assert.equal((await operations.findOne({_id:'list'})).state,'cleaning');
+   assert.equal(await steps.countDocuments({}),partial?1:2);assert.equal(effects,2);
+   await run({apply:async()=>assert.fail('cleanup reapplied cards'),build:async()=>assert.fail('cleanup rebuilt')});
+   assert.equal(await operations.countDocuments({}),0);assert.equal(await steps.countDocuments({}),0);
+  }
+ });
+ await t.test('cleanup read failures retain a marker even after the plan rows were deleted',async()=>{
+  await cards.deleteMany({});effects=0;
+  const unreadable=wrap(steps,{findOne:async(query,options)=>{
+   if(options?.projection)throw new Error('cleanup read failed');
+   return steps.findOne(query,options);
+  }});
+  await assert.rejects(run({steps:unreadable}),/cleanup read failed/);
+  assert.equal(await steps.countDocuments({}),0);
+  assert.equal((await operations.findOne({_id:'list'})).state,'cleaning');
+  await run({apply:async()=>assert.fail('read failure replayed cards')});assert.equal(effects,2);
+ });
+ await t.test('an undefined cleanup read is not proof of absence',async()=>{
+  await cards.deleteMany({});effects=0;
+  const invalid=wrap(steps,{findOne:async(query,options)=>options?.projection?undefined:steps.findOne(query,options)});
+  await assert.rejects(run({steps:invalid}),/cleanup-unconfirmed/);
+  assert.equal((await operations.findOne({_id:'list'})).state,'cleaning');
+  await run({apply:async()=>assert.fail('invalid-read recovery reapplied cards')});assert.equal(effects,2);
+ });
+ await t.test('zero-match marker deletion cannot report completed cleanup',async()=>{
+  await cards.deleteMany({});effects=0;
+  const unchanged=wrap(operations,{deleteOne:async()=>({acknowledged:true,deletedCount:0})});
+  await assert.rejects(run({operations:unchanged}),/cleanup-unconfirmed/);
+  assert.equal((await operations.findOne({_id:'list'})).state,'cleaning');
+  assert.equal(await steps.countDocuments({}),0);
+  await run({apply:async()=>assert.fail('marker cleanup reapplied cards')});assert.equal(effects,2);
+ });
+ await t.test('lost deletion acknowledgements succeed only after verifying absence',async()=>{
+  for(const target of ['steps','operations']){
+   await cards.deleteMany({});effects=0;let deletes=0;
+   const options=target==='steps'?{steps:wrap(steps,{deleteMany:async query=>{
+    const result=await steps.deleteMany(query);
+    if(++deletes===2)throw new Error('plan delete ack lost');return result;
+   }})}:{operations:wrap(operations,{deleteOne:async query=>{
+    await operations.deleteOne(query);throw new Error('marker delete ack lost');
+   }})};
+   const result=await run(options);assert.equal(result.total,2);assert.equal(effects,2);
+   assert.equal(await steps.countDocuments({}),0);assert.equal(await operations.countDocuments({}),0);
+  }
+ });
+ await t.test('losing journal ownership after deleting steps preserves the marker',async()=>{
+  await cards.deleteMany({});effects=0;
+  const replaced=wrap(steps,{findOne:async(query,options)=>{
+   const row=await steps.findOne(query,options);
+   if(options?.projection)await operations.updateOne({_id:'list'},{$set:{owner:'replacement'}});
+   return row;
+  }});
+  await assert.rejects(run({steps:replaced}),/owner-changed/);
+  assert.equal((await operations.findOne({_id:'list'})).owner,'replacement');
+  assert.equal(await steps.countDocuments({}),0);
+  await run({apply:async()=>assert.fail('owner-change recovery reapplied cards')});assert.equal(effects,2);
+ });
+ await t.test('an unreadable final outcome is not reported as successful cleanup',async()=>{
+  await cards.deleteMany({});effects=0;let removed=false;
+  const uncertain=wrap(operations,{
+   deleteOne:async query=>{const result=await operations.deleteOne(query);removed=true;return result;},
+   findOne:async(query,options)=>{
+    if(removed&&options?.projection)throw new Error('final cleanup read failed');
+    return operations.findOne(query,options);
+   },
+  });
+  await assert.rejects(run({operations:uncertain}),/final cleanup read failed/);
+  assert.equal(await operations.countDocuments({}),0);assert.equal(await steps.countDocuments({}),0);
+  assert.equal(effects,2);
+ });
+ await t.test('cleanup never deletes or reports success over a successor operation',async()=>{
+  await cards.deleteMany({});effects=0;
+  const successor={_id:'list',operationId:'11111111-1111-4111-8111-111111111111',scope,state:'preparing',checkpoint:0,attempts:0};
+  const raced=wrap(operations,{deleteOne:async query=>{
+   const result=await operations.deleteOne(query);await operations.insertOne(successor);return result;
+  }});
+  await assert.rejects(run({operations:raced}),/cleanup-unconfirmed/);
+  assert.deepEqual(await operations.findOne({_id:'list'}),successor);assert.equal(effects,2);
+  await operations.deleteOne({_id:'list',operationId:successor.operationId});
  });
  await t.test('the application selector refuses a local field deletion after a null snapshot',async()=>{
   await cards.deleteMany({});
