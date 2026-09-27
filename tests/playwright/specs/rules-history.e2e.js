@@ -95,3 +95,29 @@ test('Rules REST writes create one attributed History entry per compound operati
  expect(db.findOne('triggers',{_id:ids.triggerId}).activityType).toBe('moveCard');
  expect(db.findOne('actions',{_id:ids.actionId}).actionType).toBe('unarchive');
 });
+
+for(const transport of ['method','REST'])test(`${transport} deletion preserves shared rule components and History restores without overwriting them`,async({page,request,board,user})=>{
+ await loginWithToken(page,user.id,user.token);
+ const ids=await call(page,'rules.createRule',board.boardId,'Shared original',{activityType:'createCard'},{actionType:'archive'});
+ const original=db.findOne('rules',{_id:ids._id});const sibling=db.uid('sharedRule');
+ db.insertOne('rules',{...original,_id:sibling,title:'Shared sibling'});
+ const remove=async()=>{
+  if(transport==='method')await call(page,'rules.deleteRule',ids._id);
+  else expect((await request.delete(`/api/boards/${board.boardId}/rules/${ids._id}`,{headers:{Authorization:`Bearer ${user.token}`}})).status()).toBe(200);
+ };
+ await remove();
+ expect(db.findOne('rules',{_id:sibling})).not.toBeNull();
+ expect(db.findOne('triggers',{_id:ids.triggerId})).not.toBeNull();
+ expect(db.findOne('actions',{_id:ids.actionId}).actionType).toBe('archive');
+ expect((await call(page,'changeHistory.undoLast',board.boardId)).undone).toBe(true);
+ expect(db.findOne('rules',{_id:ids._id}).triggerId).toBe(ids.triggerId);
+ await remove();
+ db.updateOne('actions',{_id:ids.actionId},{$set:{actionType:'unarchive'}});
+ const outcome=await page.evaluate(async id=>{try{return await Meteor.callAsync('changeHistory.undoLast',id);}catch(error){return {error:error.error};}},board.boardId);
+ expect(outcome.undone).not.toBe(true);
+ expect(db.findOne('rules',{_id:ids._id})).toBeNull();
+ expect(db.findOne('actions',{_id:ids.actionId}).actionType).toBe('unarchive');
+ await call(page,'rules.deleteRule',sibling);
+ expect(db.findOne('actions',{_id:ids.actionId})).toBeNull();
+ expect(db.findOne('triggers',{_id:ids.triggerId})).toBeNull();
+});

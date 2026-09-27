@@ -36,6 +36,14 @@ export async function withRuleHistory(id, userId, write) {
   finally { await recordRuleChange(before, await ruleSnapshot(id), userId); }
 }
 
+export async function removeRuleWithUnusedParts(rule) {
+  await Rules.removeAsync(rule._id);
+  for (const [collection, field] of [[Triggers, 'trigger'], [Actions, 'action']]) {
+    const id = rule[`${field}Id`];
+    if (id && !await Rules.findOneAsync({ [`${field}Id`]: id })) await collection.removeAsync(id);
+  }
+}
+
 // Compound rule edits are one history entry. These hooks also cover legacy
 // collection writers, imports, renames, and individual trigger/action edits.
 Meteor.startup(() => {
@@ -75,11 +83,7 @@ export async function applyRuleHistory(row, content, direction) {
   if (!content || !Object.prototype.hasOwnProperty.call(content, 'rule')) return false;
   if (!content.rule) {
     if (!current.rule) return false;
-    await Rules.removeAsync(row.entityId);
-    for (const [collection, field] of [[Triggers, 'trigger'], [Actions, 'action']]) {
-      const id = current.rule[`${field}Id`];
-      if (!await Rules.findOneAsync({ [`${field}Id`]: id })) await collection.removeAsync(id);
-    }
+    await removeRuleWithUnusedParts(current.rule);
     return true;
   }
   const { rule, trigger, action } = content;
@@ -87,12 +91,17 @@ export async function applyRuleHistory(row, content, direction) {
   if (action.boardId !== row.boardId && !allowIsBoardMemberWithWriteAccess(userId, await Boards.findOneAsync(action.boardId))) throw new Meteor.Error('not-authorized', 'Must have write access to the destination board');
   // Validate every target before the first write; imported IDs cannot replace
   // another board's document or another rule's shared trigger/action.
+  const shared = new Set();
   for (const [collection, field, doc] of [[Triggers, 'trigger', trigger], [Actions, 'action', action]]) {
     const existing = await collection.findOneAsync(doc._id);
     if (existing && existing.boardId !== doc.boardId) return false;
-    if (await Rules.findOneAsync({ [`${field}Id`]: doc._id, _id: { $ne: rule._id } })) return false;
+    if (await Rules.findOneAsync({ [`${field}Id`]: doc._id, _id: { $ne: rule._id } })) {
+      if (!existing || !EJSON.equals(document(existing), doc)) return false;
+      shared.add(collection);
+    }
   }
   for (const [collection, doc] of [[Triggers, trigger], [Actions, action], [Rules, rule]]) {
+    if (shared.has(collection)) continue;
     const { _id, ...fields } = EJSON.clone(doc);
     const existing = await collection.findOneAsync(_id);
     if (existing) {

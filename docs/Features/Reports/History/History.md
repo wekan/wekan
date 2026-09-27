@@ -578,3 +578,10 @@ Deleting a rule can be undone with its trigger and action. Board administrator
 checks still apply before writes, and History restoration retains its existing
 permission and conflict checks. The wrapper records the resulting state if a
 compound write fails partway; it does not make those writes transactional.
+
+Rule deletion through the editor or REST removes a linked trigger/action only
+when no remaining rule references it. This also applies when History removes
+a rule. Restoring a deleted rule may reuse a shared trigger/action only if its
+current content still equals the recorded snapshot; it never overwrites a
+changed shared component. Deleting the last referencing rule removes the now
+unused components. These reference checks are not a multi-document transaction.

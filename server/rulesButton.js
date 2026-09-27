@@ -1,4 +1,4 @@
-import { withRuleHistory } from '/server/lib/ruleHistory';
+import { withRuleHistory, removeRuleWithUnusedParts } from '/server/lib/ruleHistory';
 import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
 import { ReactiveCache } from '/imports/reactiveCache';
@@ -211,9 +211,7 @@ Meteor.methods({
       throw new Meteor.Error('not-authorized', 'Must be a board admin');
     }
 
-    await Rules.removeAsync(rule._id);
-    if (rule.triggerId) await Triggers.removeAsync(rule.triggerId);
-    if (rule.actionId) await Actions.removeAsync(rule.actionId);
+    await withRuleHistory(rule._id, this.userId, () => removeRuleWithUnusedParts(rule));
     return { _id: rule._id };
   },
 

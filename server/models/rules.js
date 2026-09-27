@@ -8,7 +8,7 @@ import Rules from '/models/rules';
 import Triggers from '/models/triggers';
 import Actions from '/models/actions';
 import { Random } from 'meteor/random';
-import { withRuleHistory } from '/server/lib/ruleHistory';
+import { withRuleHistory, removeRuleWithUnusedParts } from '/server/lib/ruleHistory';
 
 // REST API for board automation Rules (add / edit / remove).
 //
@@ -250,9 +250,7 @@ if (Meteor.isServer) {
       });
       if (!rule) throw new Meteor.Error('not-found', 'Rule not found');
       await withRuleHistory(rule._id, req.userId, async () => {
-        await Rules.removeAsync(rule._id);
-        await Triggers.removeAsync(rule.triggerId);
-        await Actions.removeAsync(rule.actionId);
+        await removeRuleWithUnusedParts(rule);
       });
       sendJsonResult(res, { code: 200, data: { _id: rule._id } });
     } catch (error) {
