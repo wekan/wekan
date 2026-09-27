@@ -989,6 +989,20 @@ record transfer remains pending. Existing Upcoming evidence remains recorded.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c35e84c1f">Keep read-only Scrum viewing out of write-denial logging</a>. Thanks to xet7.</summary>
+
+Rendering card capabilities no longer records an attempted write for ordinary
+read-only members. This prevents false account blocking while keeping the
+same permission decisions and denial logging for actual mutations.
+
+Ten focused Node checks and one Chromium scenario pass. Coverage verifies
+role permissions, default mutation logging and repeated read-only Scrum views
+without losing the session. Existing Upcoming regression evidence remains
+recorded; other browser engines were not run for this fix.
+
+</details>
+
 This release adds the following regression coverage and documentation:
 
 <details>
