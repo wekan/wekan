@@ -37,3 +37,6 @@ import '/client/components/rules/triggers/scheduledTriggers.js';
 import '/client/components/rules/triggers/buttonTriggers.js';
 
 import '/client/components/rules/rules.css';
+
+import '/client/components/rules/rulesBlocks.jade';
+import '/client/components/rules/rulesBlocks.js';

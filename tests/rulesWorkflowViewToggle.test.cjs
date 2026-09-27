@@ -31,7 +31,7 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 console.log('rulesWorkflowViewToggle:');
 
 test('the workflow view is the rulesList tab\'s alternative rendering', () => {
-  assert.ok(/if\(\$eq rulesCurrentTab\.get 'rulesList'\)\s*\n\s*if isWorkflowView\s*\n\s*\+rulesWorkflow\s*\n\s*else\s*\n\s*\+rulesList/.test(jade));
+  assert.ok(/if\(\$eq rulesCurrentTab\.get 'rulesList'\)\s*\n\s*if isWorkflowView\s*\n\s*\+rulesWorkflow\s*\n\s*else if isBlocksView\s*\n\s*\+rulesBlocks\s*\n\s*else if isRulesHistoryView\s*\n\s*\+historyTable\([^\n]+\)\s*\n\s*else\s*\n\s*\+rulesList/.test(jade));
 });
 
 test('the toggle only flips the Session view mode (it cannot reach the tab state)', () => {
@@ -44,7 +44,7 @@ test('the toggle only flips the Session view mode (it cannot reach the tab state
 
 test('rulesMain brings the page back to the list tab when the workflow view is selected', () => {
   const onCreated = js.slice(js.indexOf('Template.rulesMain.onCreated('), js.indexOf('Template.rulesMain.helpers('));
-  assert.ok(/this\.autorun\(\(\) => \{\s*\n\s*if \(Session\.get\('rulesViewMode'\) === 'workflow'\) \{\s*\n\s*this\.rulesCurrentTab\.set\('rulesList'\);/.test(onCreated),
+  assert.ok(/this\.autorun\(\(\) => \{\s*\n\s*Session\.get\('rulesViewRequest'\);\s*\n\s*if \(\['list', 'workflow', 'blocks', 'history'\]\.includes\(Session\.get\('rulesViewMode'\)\)\) \{\s*\n\s*this\.rulesCurrentTab\.set\('rulesList'\);/.test(onCreated),
     'without this, toggling from the Add trigger tab changes only the button label');
 });
 

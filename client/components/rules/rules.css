@@ -443,12 +443,18 @@
 .rules-page .workflow-node, .rules-page .workflow-slot, .rules-page .workflow-chip { min-width: 0; max-width: 100%; box-sizing: border-box; color: #333; overflow-wrap: anywhere; }
 .rules-page .workflow-builder { color: #333; }
 .rules-page .workflow-builder-controls textarea { flex: 1 1 200px; min-width: 0; }
+.rules-blocks-toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: end; margin: 12px 0; }
+.rules-blocks-toolbar label { flex: 1 1 220px; min-width: 0; }
+.rules-blocks-toolbar select, .rules-blocks textarea { width: 100%; max-width: 100%; box-sizing: border-box; }
+.rules-blocks-workspace { position: relative; width: 100%; height: 520px; min-height: 320px; border: 1px solid #aaa; }
+.rules-blocks-workspace .blocklyToolbox { color: #222; }
 @media (max-width: 600px) {
   .rules-page { padding-inline: 8px; }
   .rules-page .triggers-content .triggers-body { flex-direction: column; }
   .rules-page .triggers-side-menu ul { display: flex; flex-wrap: wrap; }
   .rules-page .triggers-content .triggers-main-body { padding: 6px; }
   .rules-page .rules-btns-group { flex-basis: 100%; }
+  .rules-blocks-workspace { height: 440px; }
 }
 
 /* Icons on themed action buttons must share their readable foreground. */

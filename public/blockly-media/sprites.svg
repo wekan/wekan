@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="96px" height="124px">
+  <style type="text/css">
+#background {
+  fill: none;
+}
+.arrows {
+  fill: #000;
+  stroke: none;
+}
+.selected>.arrows {
+  fill: #fff;
+}
+.checkmark {
+  fill: #000;
+  font-family: sans-serif;
+  font-size: 10pt;
+  text-anchor: middle;
+}
+.trash {
+  fill: #888;
+}
+.zoom {
+  fill: none;
+  stroke: #888;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+.zoom>.center {
+  fill: #888;
+  stroke-width: 0;
+}
+  </style>
+  <rect id="background" width="96" height="124" x="0" y="0" />
+
+  <g>
+    <path class="arrows" d="M 13,1.5 13,14.5 1.74,8 z" />
+    <path class="arrows" d="M 17.5,3 30.5,3 24,14.26 z" />
+    <path class="arrows" d="M 35,1.5 35,14.5 46.26,8 z" />
+  </g>
+  <g class="selected" transform="translate(0, 16)">
+    <path class="arrows" d="M 13,1.5 13,14.5 1.74,8 z" />
+    <path class="arrows" d="M 17.5,3 30.5,3 24,14.26 z" />
+    <path class="arrows" d="M 35,1.5 35,14.5 46.26,8 z" />
+  </g>
+
+  <text class="checkmark" x="55.5" y="28">&#10003;</text>
+
+  <g class="trash">
+    <path d="M 2,41 v 6 h 42 v -6 h -10.5 l -3,-3 h -15 l -3,3 z" />
+    <rect width="36" height="20" x="5" y="50" />
+    <rect width="36" height="42" x="5" y="50" rx="4" ry="4" />
+  </g>
+
+  <g class="zoom">
+    <circle r="11.5" cx="16" cy="108" />
+    <circle r="4.3" cx="16" cy="108" class="center" />
+    <path d="m 28,108 h3" />
+    <path d="m 1,108 h3" />
+    <path d="m 16,120 v3" />
+    <path d="m 16,93 v3" />
+  </g>
+
+  <g class="zoom">
+    <circle r="15" cx="48" cy="108" />
+    <path d="m 48,101.6 v12.8" />
+    <path d="m 41.6,108 h12.8" />
+  </g>
+
+  <g class="zoom">
+    <circle r="15" cx="80" cy="108" />
+    <path d="m 73.6,108 h12.8" />
+  </g>
+</svg>

@@ -5,12 +5,18 @@ template(name="rulesControls")
   a.board-header-btn.js-rules-back-to-board(title="{{_ 'back'}}")
     i.fa.fa-arrow-left
     | {{_ 'board'}}
+  a.board-header-btn.js-rules-list-view(title="{{_ 'r-list-view'}}")
+    i.fa.fa-list
+    | {{_ 'r-list-view'}}
   a.board-header-btn.js-rules-toggle-view(title="{{_ 'r-workflow-view'}}")
     i.fa.fa-sitemap
-    if isWorkflowView
-      | {{_ 'r-list-view'}}
-    else
-      | {{_ 'r-workflow-view'}}
+    | {{_ 'r-workflow-view'}}
+  a.board-header-btn.js-rules-blocks-view(title="{{_ 'r-blocks-view'}}")
+    i.fa.fa-puzzle-piece
+    | {{_ 'r-blocks-view'}}
+  a.board-header-btn.js-rules-history(title="{{_ 'history'}}")
+    i.fa.fa-history
+    | {{_ 'history'}}
   a.board-header-btn.js-rules-import-export(title="{{_ 'r-import-export'}}")
     i.fa.fa-exchange
     | {{_ 'r-import-export'}}
@@ -21,6 +27,10 @@ template(name="rulesMain")
       if($eq rulesCurrentTab.get 'rulesList')
         if isWorkflowView
           +rulesWorkflow
+        else if isBlocksView
+          +rulesBlocks
+        else if isRulesHistoryView
+          +historyTable(scope="board" scopeId=rulesBoardId group="rules")
         else
           +rulesList
       if($eq rulesCurrentTab.get 'trigger')

@@ -28,7 +28,8 @@ const cardsSrc = read('models/cards.js');
 const rulesHelperSrc = read('server/rulesHelper.js');
 const cardTriggersJadeSrc = read('client/components/rules/triggers/cardTriggers.jade');
 const cardTriggersJsSrc = read('client/components/rules/triggers/cardTriggers.js');
-const rulesWorkflowSrc = read('client/components/rules/rulesWorkflow.js');
+// Workflow and Blocks share the same preset definitions.
+const rulesWorkflowSrc = read('models/lib/rulesWorkflowPalette.js');
 const enI18n = JSON.parse(read('imports/i18n/data/en.i18n.json'));
 
 let passed = 0;

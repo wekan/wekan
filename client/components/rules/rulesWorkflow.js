@@ -1,9 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { Utils } from '/client/lib/utils';
-import Actions from '/models/actions';
-import Rules from '/models/rules';
-import Triggers from '/models/triggers';
 
 // A drag-and-drop visual workflow editor for board rules. Triggers and actions
 // are draggable chips; drag one of each into the builder (When → Then) and add
@@ -18,32 +15,7 @@ import Triggers from '/models/triggers';
 // follows the UI language. `labelParams` is passed to TAPi18n.__ for labels that
 // need a placeholder (e.g. the scheduled time). Existing rule keys are reused
 // where they fit; workflow-only labels use new `r-w-*` keys (see en.i18n.json).
-const TRIGGER_PALETTE = [
-  { labelKey: 'r-w-card-created', doc: { activityType: 'createCard', listName: '*', swimlaneName: '*', cardTitle: '*', userId: '*' } },
-  { labelKey: 'r-when-a-card-is-moved', doc: { activityType: 'moveCard', listName: '*', oldListName: '*', swimlaneName: '*', cardTitle: '*', userId: '*' } },
-  { labelKey: 'r-w-card-archived', doc: { activityType: 'archivedCard', userId: '*' } },
-  { labelKey: 'r-w-card-unarchived', doc: { activityType: 'restoredCard', userId: '*' } },
-  { labelKey: 'r-w-label-added', doc: { activityType: 'addedLabel', labelId: '*', userId: '*' } },
-  { labelKey: 'r-w-label-removed', doc: { activityType: 'removedLabel', labelId: '*', userId: '*' } },
-  { labelKey: 'r-w-member-added', doc: { activityType: 'joinMember', username: '*', userId: '*' } },
-  { labelKey: 'r-w-member-removed', doc: { activityType: 'unjoinMember', username: '*', userId: '*' } },
-  { labelKey: 'r-w-assignee-added', doc: { activityType: 'joinAssignee', username: '*', userId: '*' } },
-  { labelKey: 'r-w-assignee-removed', doc: { activityType: 'unjoinAssignee', username: '*', userId: '*' } },
-  { labelKey: 'r-w-checklist-added', doc: { activityType: 'addChecklist', checklistName: '*', userId: '*' } },
-  { labelKey: 'r-w-attachment-added', doc: { activityType: 'addAttachment', userId: '*' } },
-  { labelKey: 'r-w-every-day-at', labelParams: { time: '09:00' }, doc: { activityType: 'scheduledTrigger', scheduleKind: 'calendar', scheduleType: 'daily', atTime: '09:00', listName: '*', swimlaneName: '*' } },
-];
-
-const ACTION_PALETTE = [
-  { labelKey: 'r-d-move-to-top-gen', doc: { actionType: 'moveCardToTop', listName: '*', swimlaneName: '*' } },
-  { labelKey: 'r-d-move-to-bottom-gen', doc: { actionType: 'moveCardToBottom', listName: '*', swimlaneName: '*' } },
-  { labelKey: 'r-d-archive', doc: { actionType: 'archive' } },
-  { labelKey: 'r-d-unarchive', doc: { actionType: 'unarchive' } },
-  { labelKey: 'r-mark-complete', doc: { actionType: 'markCardComplete' } },
-  { labelKey: 'r-mark-incomplete', doc: { actionType: 'markCardIncomplete' } },
-  { labelKey: 'r-remove-all', doc: { actionType: 'removeMember', username: '*' } },
-  { labelKey: 'r-w-set-received-now', doc: { actionType: 'setDate', dateField: 'receivedAt' } },
-];
+import { TRIGGER_PALETTE, ACTION_PALETTE } from '/models/lib/rulesWorkflowPalette';
 
 // Translate a palette entry's label for display / storage in the current UI
 // language (matches the classic Rules view, which also stores already-translated
@@ -54,6 +26,8 @@ function paletteLabel(entry) {
 }
 
 Template.rulesWorkflow.onCreated(function () {
+  this.error = new ReactiveVar('');
+  this.busy = new ReactiveVar(false);
   this.builderTrigger = new ReactiveVar(null);
   this.builderAction = new ReactiveVar(null);
   this.dragItem = null; // {type:'trigger'|'action', idx}
@@ -64,6 +38,7 @@ Template.rulesWorkflow.onCreated(function () {
 });
 
 Template.rulesWorkflow.helpers({
+  workflowError() { return Template.instance().error.get(); },
   currentBoard() {
     return Utils.getCurrentBoard();
   },
@@ -87,7 +62,7 @@ Template.rulesWorkflow.helpers({
   },
   createDisabled() {
     const tpl = Template.instance();
-    return tpl.builderTrigger.get() && tpl.builderAction.get() ? false : true;
+    return tpl.busy.get() || !(tpl.builderTrigger.get() && tpl.builderAction.get());
   },
   rules() {
     const boardId = Session.get('currentBoard');
@@ -104,21 +79,24 @@ Template.rulesWorkflow.helpers({
   },
 });
 
-function persistRule(tpl) {
+async function persistRule(tpl) {
   const t = tpl.builderTrigger.get();
   const a = tpl.builderAction.get();
-  if (!t || !a) return;
+  if (!t || !a || tpl.busy.get()) return;
   const boardId = Session.get('currentBoard');
   const titleField = tpl.find('.js-workflow-rule-title');
   const tLabel = paletteLabel(t);
   const aLabel = paletteLabel(a);
   const title = (titleField.value || '').trim() || `${tLabel} → ${aLabel}`;
-  const triggerId = Triggers.insert({ ...t.doc, boardId, desc: tLabel });
-  const actionId = Actions.insert({ ...a.doc, boardId, desc: aLabel });
-  Rules.insert({ title, triggerId, actionId, boardId });
-  tpl.builderTrigger.set(null);
-  tpl.builderAction.set(null);
-  titleField.value = '';
+  tpl.busy.set(true); tpl.error.set('');
+  try {
+    await Meteor.callAsync('rules.createRule', boardId, title,
+      { ...t.doc, desc: tLabel }, { ...a.doc, desc: aLabel });
+    tpl.builderTrigger.set(null);
+    tpl.builderAction.set(null);
+    titleField.value = '';
+  } catch (error) { tpl.error.set(error.reason || error.message); }
+  finally { tpl.busy.set(false); }
 }
 
 Template.rulesWorkflow.events({
@@ -147,18 +125,21 @@ Template.rulesWorkflow.events({
     tpl.dragItem = null;
   },
   // Drop an action onto an existing rule to replace what it does.
-  'drop .js-rule-node'(event, tpl) {
+  async 'drop .js-rule-node'(event, tpl) {
     event.preventDefault();
     if (!tpl.dragItem || tpl.dragItem.type !== 'action') return;
     const ruleId = event.currentTarget.dataset.ruleId;
     const rule = ReactiveCache.getRule(ruleId);
     if (!rule) return;
     const a = ACTION_PALETTE[tpl.dragItem.idx];
-    const boardId = Session.get('currentBoard');
-    const oldActionId = rule.actionId;
-    const newActionId = Actions.insert({ ...a.doc, boardId, desc: paletteLabel(a) });
-    Rules.update(ruleId, { $set: { actionId: newActionId } });
-    if (oldActionId) Actions.remove(oldActionId);
+    const trigger = ReactiveCache.getTrigger(rule.triggerId);
+    if (!trigger || tpl.busy.get()) { tpl.error.set(TAPi18n.__('r-blocks-unavailable')); return; }
+    tpl.busy.set(true); tpl.error.set('');
+    try {
+      await Meteor.callAsync('rules.updateRule', ruleId, rule.title, trigger,
+        { ...a.doc, desc: paletteLabel(a) });
+    } catch (error) { tpl.error.set(error.reason || error.message); }
+    finally { tpl.busy.set(false); }
     tpl.dragItem = null;
   },
   'click .js-clear-when'(event, tpl) {
@@ -171,7 +152,7 @@ Template.rulesWorkflow.events({
   },
   'click .js-create-workflow-rule'(event, tpl) {
     event.preventDefault();
-    persistRule(tpl);
+    void persistRule(tpl);
   },
   'click .js-delete-workflow-rule'(event, tpl) {
     event.preventDefault();

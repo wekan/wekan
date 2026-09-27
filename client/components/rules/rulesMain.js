@@ -1,6 +1,8 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import { TAPi18n } from '/imports/i18n';
 import { Utils } from '/client/lib/utils';
+import { closePageSidebar } from '/client/lib/pageSidebar';
 
 Template.rulesMain.onCreated(function () {
   this.rulesCurrentTab = new ReactiveVar('rulesList');
@@ -21,7 +23,8 @@ Template.rulesMain.onCreated(function () {
   // else. Switching to the workflow view therefore brings the page back to
   // the list tab here, where the tab state lives.
   this.autorun(() => {
-    if (Session.get('rulesViewMode') === 'workflow') {
+    Session.get('rulesViewRequest');
+    if (['list', 'workflow', 'blocks', 'history'].includes(Session.get('rulesViewMode'))) {
       this.rulesCurrentTab.set('rulesList');
     }
   });
@@ -57,6 +60,9 @@ Template.rulesMain.helpers({
   currentBoard() {
     return Utils.getCurrentBoard();
   },
+  rulesBoardId() { return Session.get('currentBoard'); },
+  isRulesHistoryView() { return Session.get('rulesViewMode') === 'history'; },
+  isBlocksView() { return Session.get('rulesViewMode') === 'blocks'; },
   isWorkflowView() {
     return Session.get('rulesViewMode') === 'workflow';
   },
@@ -72,8 +78,29 @@ Template.rulesControls.helpers({
 });
 
 Template.rulesControls.events({
+  'click .js-rules-list-view'(event) {
+    event.preventDefault();
+    if (Session.get('rulesBlocksDirty') && !confirm(TAPi18n.__('r-blocks-discard'))) return;
+    Session.set('rulesViewMode', 'list');
+    Session.set('rulesViewRequest', (Session.get('rulesViewRequest') || 0) + 1);
+    closePageSidebar();
+  },
+  'click .js-rules-history'(event) {
+    event.preventDefault();
+    if (Session.get('rulesBlocksDirty') && !confirm(TAPi18n.__('r-blocks-discard'))) return;
+    Session.set('rulesViewMode', 'history');
+    Session.set('rulesViewRequest', (Session.get('rulesViewRequest') || 0) + 1);
+    closePageSidebar();
+  },
+  'click .js-rules-blocks-view'(event) {
+    event.preventDefault();
+    Session.set('rulesViewMode', 'blocks');
+    Session.set('rulesViewRequest', (Session.get('rulesViewRequest') || 0) + 1);
+    closePageSidebar();
+  },
   'click .js-rules-back-to-board'(event) {
     event.preventDefault();
+    if (Session.get('rulesBlocksDirty') && !confirm(TAPi18n.__('r-blocks-discard'))) return;
     const currentBoard = Utils.getCurrentBoard();
     if (currentBoard) {
       FlowRouter.go('board', {
@@ -84,8 +111,11 @@ Template.rulesControls.events({
   },
   'click .js-rules-toggle-view'(event) {
     event.preventDefault();
-    const mode = Session.get('rulesViewMode') === 'workflow' ? 'list' : 'workflow';
+    if (Session.get('rulesBlocksDirty') && !confirm(TAPi18n.__('r-blocks-discard'))) return;
+    const mode = 'workflow';
     Session.set('rulesViewMode', mode);
+    Session.set('rulesViewRequest', (Session.get('rulesViewRequest') || 0) + 1);
+    closePageSidebar();
   },
   'click .js-rules-import-export': Popup.open('rulesImportExport'),
 });
@@ -144,7 +174,7 @@ Template.rulesMain.events({
     tpl.editingRuleId.set(null);
     tpl.rulesCurrentTab.set('trigger');
   },
-  'click .js-edit-rule-full'(event, tpl) {
+  'click .js-edit-rule-full, click .js-blocks-form'(event, tpl) {
     event.preventDefault();
     // #2713: "Edit" on an existing rule - open the same trigger/action wizard
     // used to create a rule, but remember which rule this is so the wizard's

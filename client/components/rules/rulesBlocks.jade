@@ -1,0 +1,31 @@
+template(name="rulesBlocks")
+  .rules-blocks
+    h2 {{_ 'r-blocks-view'}}
+    if canManageBlocks
+      p {{_ 'r-blocks-help'}}
+      .rules-blocks-toolbar
+        label
+          | {{_ 'r-rule'}}
+          select.js-blocks-rule(disabled=blocksBusy)
+            option(value="") {{_ 'r-add-rule'}}
+            each blockRules
+              option(value=_id selected=isSelectedRule) {{title}}
+        button.primary.js-blocks-new(type="button" disabled=blocksBusy) {{_ 'r-add-rule'}}
+        if selectedRuleId
+          button.primary.js-blocks-form(type="button" data-rule-id=selectedRuleId disabled=blocksBusy) {{_ 'r-edit-rule-trigger-action'}}
+      label(for="blocks-rule-title") {{_ 'r-new-rule-name'}}
+      textarea#blocks-rule-title.js-blocks-title(rows="2" disabled=blocksBusy)
+      if blocksError
+        p.warning(role="alert") {{blocksError}}
+      unless blocksReady
+        p {{_ 'loading'}}
+      .js-rules-blocks-workspace.rules-blocks-workspace(aria-label="{{_ 'r-blocks-view'}}")
+      .rules-blocks-toolbar
+        button.primary.js-blocks-save(type="button" disabled=blocksDisabled) {{_ 'save'}}
+        button.js-blocks-reload(type="button" disabled=blocksBusy) {{_ 'r-blocks-reload'}}
+        if blocksDirty
+          span {{_ 'r-blocks-unsaved'}}
+        if blocksSaved
+          span(role="status") {{_ 'r-blocks-saved'}}
+    else
+      p {{_ 'r-blocks-permission'}}

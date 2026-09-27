@@ -1,5 +1,7 @@
 template(name="rulesWorkflow")
   .rules.rules-workflow(class=currentBoard.colorClass)
+    if workflowError
+      p.warning(role="alert") {{workflowError}}
     h2
       i.fa.fa-sitemap
       | {{_ 'r-workflow-view'}}
