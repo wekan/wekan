@@ -710,6 +710,24 @@ recorded positive, negative and UI regression coverage.
 Also adds the following feature:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d70358219">Include versioned Scrum data in native board exports</a>. Thanks to xet7.</summary>
+
+The export selector includes Scrum settings, planning records, optional item
+metadata and lifecycle snapshots. Scoped exports retain referenced planning
+records, reduce snapshots and follow-up links, mark partial snapshots and
+report omitted dependencies. Operational checkpoints and revision counters
+are excluded. Existing anonymization covers the added prose fields.
+
+Eleven focused Node checks and three Chromium-driven HTTP scenarios pass,
+covering complete/scoped exports, omitted sections and estimate fields,
+assigned-only denial and enabled/disabled anonymization. Existing Upcoming
+regression evidence remains recorded. Native import, History transfer, board
+duplication and Sync integration remain pending; this does not yet establish
+a Scrum backup/restore round trip. Other browsers were not exercised.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/89a06f1d5">Edit Scrum releases and events from Sprints</a>. Thanks to xet7.</summary>
 
 Board administrators select existing releases and events to edit them using
