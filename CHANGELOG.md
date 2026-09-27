@@ -61,8 +61,11 @@ https://wekan.fi/status/
 All non-translation work in this section is being resumed, starting with Scrum
 and Sync. Completed increments are recorded in Upcoming with test evidence;
 the remaining requirements and external verification blockers stay here.
-Translation into all languages follows the non-translation work. Local commits
-do not publish or release these changes.
+Do not add translation into all languages to the current work queue, including
+after the non-translation work. The maintainer is trying Transifex's translation
+features and intends to obtain most translations from Transifex. Existing
+translation checkpoints below are reference material, not active assignments.
+Local commits do not publish or release these changes.
 
 Investigated but not finished, with findings
 recorded for whoever picks them up next. Entries that have since been FIXED are
