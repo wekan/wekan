@@ -182,7 +182,7 @@ template(name="scrumView")
                                 each assignmentOptions
                                   option(value=_id selected=selected) {{name}}
                             label {{_ 'scrum-backlog-rank'}}
-                              input(type="number" name="backlogRank" min="0" step="any" value=rankLabel)
+                              input(type="number" name="backlogRank" min="0" step="any" value=rankValue)
                             label {{_ 'scrum-release'}}
                               select(name="releaseId")
                                 option(value="") —

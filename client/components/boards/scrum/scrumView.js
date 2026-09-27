@@ -140,7 +140,8 @@ Template.scrumView.helpers({
       .map(card => {
         const estimate = getCardEstimate(card, result.settings);
         return { ...card, estimateLabel: estimate === null ? t('scrum-unknown-estimate') : String(estimate),
-          rankLabel: card.scrum?.backlogRank ?? card.sort ?? 0,
+          rankLabel: card.scrum?.backlogRank ?? '—',
+          rankValue: card.scrum?.backlogRank ?? '',
           sprintName: result.sprints.find(s => s._id === card.scrum?.sprintId)?.name || t('scrum-product-backlog'),
           releaseName: result.releases.find(release => release._id === card.scrum?.releaseId)?.name || '—',
           cardReleaseOptions: result.releases.map(release => ({ ...release, selected: release._id === card.scrum?.releaseId })),
@@ -219,7 +220,7 @@ Template.scrumView.events({
   async 'submit .js-scrum-card'(event, tpl) {
     event.preventDefault(); const values = fields(event.currentTarget);
     const card = tpl.dataState.get()?.cards.find(c => c._id === event.currentTarget.dataset.cardId);
-    if (card) await mutate(tpl, 'scrum.updateCard', card._id, { sprintId: nullable(values.sprintId), releaseId: nullable(values.releaseId), backlogRank: Number(values.backlogRank), issueType: values.issueType, acceptanceCriteria: values.acceptanceCriteria }, card.scrumRevision || 0);
+    if (card) await mutate(tpl, 'scrum.updateCard', card._id, { sprintId: nullable(values.sprintId), releaseId: nullable(values.releaseId), backlogRank: values.backlogRank === '' ? null : Number(values.backlogRank), issueType: values.issueType, acceptanceCriteria: values.acceptanceCriteria }, card.scrumRevision || 0);
   },
   async 'submit .js-scrum-release'(event, tpl) {
     event.preventDefault(); const form = event.currentTarget; const values = fields(form);

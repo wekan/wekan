@@ -68,7 +68,7 @@ function normalizeScrumSettings(value) {
 }
 function normalizeScrumMetadata(kind, value) {
   const definitions = {
-    card: { sprintId: id, pastSprintIds: ids, backlogRank: number, releaseId: id,
+    card: { sprintId: id, pastSprintIds: ids, backlogRank: nullableNumber, releaseId: id,
       issueType: v => text(v, 100), acceptanceCriteria: text },
     list: { category: v => choice(v, ['backlog', 'todo', 'doing', 'done']) },
     swimlane: { sprintId: id, releaseId: id, purpose: v => text(v, 1000) },

@@ -100,3 +100,11 @@ test('snapshot calendars round-trip without inventing legacy calendars',()=>{
   assert.throws(()=>normalizeScrumTransfer(source));
  }
 });
+
+test('cleared backlog ranks survive native transfer and remapping',()=>{
+ const source=fixture();source.cards[0].scrum.backlogRank=null;
+ assert.equal(normalizeScrumTransfer(source).cards[0].scrum.backlogRank,null);
+ assert.equal(remapScrumTransfer(source,maps()).transfer.cards[0].scrum.backlogRank,null);
+ source.cards[0].scrum.backlogRank=-1;
+ assert.throws(()=>normalizeScrumTransfer(source));
+});

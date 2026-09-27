@@ -107,7 +107,7 @@ Template.scrumMetadata.events({
     const context = Template.currentData(); const record = context.record;
     const metadata = Object.fromEntries(new FormData(event.currentTarget));
     for (const key of ['sprintId', 'releaseId']) if (key in metadata) metadata[key] = metadata[key] || null;
-    if ('backlogRank' in metadata) metadata.backlogRank = Number(metadata.backlogRank);
+    if ('backlogRank' in metadata) metadata.backlogRank = metadata.backlogRank === '' ? null : Number(metadata.backlogRank);
     const method = { card: 'Card', list: 'List', swimlane: 'Swimlane' }[context.kind];
     if (!method || tpl.busy.get()) return;
     tpl.busy.set(true); tpl.error.set('');

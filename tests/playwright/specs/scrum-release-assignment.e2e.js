@@ -27,3 +27,28 @@ test('backlog release assignment saves, clears and restores through History',asy
   expect(db.findOne('cards',{_id:card._id}).scrum.releaseId).toBeNull();
  }finally{db.deleteMany('scrumReleases',{boardId:board.boardId});}
 });
+
+test('negative board sort does not become a Scrum rank and explicit ranks can be cleared',async({page,user,board})=>{
+ const card=db.find('cards',{boardId:board.boardId})[0];
+ db.updateOne('cards',{_id:card._id},{$set:{sort:-42}});
+ await loginWithToken(page,user.id,user.token);await openBoard(page,board.boardId,board.slug);
+ await page.locator('.js-toggle-board-view').first().click();
+ await page.locator('.pop-over .js-open-product-backlog-view').click();
+ const form=page.locator(`form.js-scrum-card[data-card-id="${card._id}"]`);
+ const rank=form.locator('[name="backlogRank"]');
+ await expect(rank).toHaveValue('');
+ await form.locator('[name="issueType"]').fill('Story');
+ await form.locator('button[type="submit"]').click();
+ await expect.poll(()=>db.findOne('cards',{_id:card._id}).scrum?.issueType).toBe('Story');
+ expect(db.findOne('cards',{_id:card._id}).scrum.backlogRank).toBeNull();
+ await rank.fill('0');await form.locator('button[type="submit"]').click();
+ await expect.poll(()=>db.findOne('cards',{_id:card._id}).scrum?.backlogRank).toBe(0);
+ await expect(rank).toHaveValue('0');
+ await rank.fill('');await form.locator('button[type="submit"]').click();
+ await expect.poll(()=>db.findOne('cards',{_id:card._id}).scrum?.backlogRank).toBeNull();
+ await call(page,'changeHistory.undoLast',board.boardId);
+ expect(db.findOne('cards',{_id:card._id}).scrum.backlogRank).toBe(0);
+ expect(db.findOne('cards',{_id:card._id}).sort).toBe(-42);
+ const current=db.findOne('cards',{_id:card._id});
+ await expect(call(page,'scrum.updateCard',board.boardId,card._id,{backlogRank:-1},current.scrumRevision)).rejects.toThrow();
+});

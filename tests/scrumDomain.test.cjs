@@ -16,6 +16,7 @@ test('Scrum metadata is opt-in, bounded, strict and data-only', () => {
   }
   assert.throws(() => normalizeScrumMetadata('card', { backlogRank: Infinity }));
   assert.throws(() => normalizeScrumMetadata('card', { backlogRank: -1 }));
+  assert.deepEqual(normalizeScrumMetadata('card', { backlogRank: null }), { backlogRank: null });
   assert.throws(() => normalizeScrumMetadata('card', { sprintId: '' }));
   assert.throws(() => normalizeScrumMetadata('card', { boardId: 'foreign' }));
   assert.throws(() => normalizeScrumMetadata('card', { pastSprintIds: [null] }));

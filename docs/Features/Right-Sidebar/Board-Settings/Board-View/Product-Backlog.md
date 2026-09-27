@@ -15,6 +15,13 @@ Smaller ranks appear first. Authorized editors can change the rank, assign a
 planned or active sprint, record a work-item type, and edit acceptance criteria.
 The card title opens the existing card details view.
 
+An unset backlog rank is blank in the editor and shown as a dash in the table.
+It uses the card's normal sort position for ordering without copying that
+position into Scrum metadata. Clear the rank field to return to this fallback;
+zero remains a valid explicit rank. Negative board sort positions do not block
+saving sprint, release or other metadata. Explicit negative Scrum ranks remain
+invalid. Clearing a rank is recorded by the existing Scrum History method.
+
 Sprint assignments preserve past membership when a card leaves a sprint.
 Assignment to a different board's sprint is rejected. Revision checks reject
 stale edits rather than silently overwriting another person's metadata.
