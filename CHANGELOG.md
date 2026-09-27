@@ -1763,6 +1763,21 @@ Blockly browser coverage and other Upcoming regression results remain valid.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/67d1e228e">Translate Gujarati Blockly list operations and tooltips</a>. Thanks to xet7.</summary>
+
+Fill 75 Gujarati English placeholders for creating lists, retrieving/removing
+items, insertion/replacement, sublists, sorting, splitting and joining. Preserve
+exact placeholders and existing translations. Extend Gujarati checks to list
+operations and distinct action/order terms. Update the Blocks guide; Gujarati
+remains incomplete and specialist terminology needs native review.
+
+All four catalog checks and 21 human-translation preservation checks pass.
+Existing Gujarati Chromium editor coverage remains recorded; this batch did
+not add a browser run. Existing Upcoming regression evidence remains recorded.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/be62f80fa">Translate Gujarati Blockly inputs, keyboard hints and logic</a>. Thanks to xet7.</summary>
 
 Fill 66 additional Gujarati English placeholders for input labels, keyboard
