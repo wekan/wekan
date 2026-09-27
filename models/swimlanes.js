@@ -360,7 +360,9 @@ Swimlanes.helpers({
       if (toList) {
         toListId = toList._id;
       } else {
+        const { copiedScrumMetadata } = require('./lib/scrumCopy');
         toListId = await Lists.insertAsync({
+          ...copiedScrumMetadata(list, toBoardId),
           title: list.title,
           boardId: toBoardId,
           type: list.type,

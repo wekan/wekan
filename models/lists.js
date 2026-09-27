@@ -446,7 +446,9 @@ Lists.helpers({
             'Give it a title first.',
         );
       }
+      const { copiedScrumMetadata } = require('./lib/scrumCopy');
       listId = await Lists.insertAsync({
+        ...copiedScrumMetadata(this, boardId),
         title: this.title,
         boardId,
         type: this.type,

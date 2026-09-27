@@ -137,6 +137,13 @@ same-board copies retain sprint/release links, while cross-board copies omit
 those foreign links. Full-board copies still defer metadata to the transfer
 remapper. The copy helpers do not mutate their source list or swimlane objects.
 
+Cross-board list moves, including lists created while moving a swimlane,
+preserve the workflow category when creating a destination list. A reused
+destination list retains its own category and revision. Newly created lists
+start revision 1; existing lists are not silently reclassified by incoming
+cards. Sprint/release references on moved cards and swimlanes, their lifecycle
+coordination and History restoration still need integration.
+
 Implementation checkpoint: `models/lib/scrumTransfer.js` now defines and tests
 the `wekan-scrum-1` data contract and destination-ID remapping. It covers board
 settings, sprint/release/event records, lifecycle snapshots and optional item
