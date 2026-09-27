@@ -275,9 +275,10 @@ integrity-chain writers still require integration; activities and notifications
 are not acknowledged by this History component.
 History/effect plans now persist inside the same journal units as their card
 plans. Both are covered by one checksum and whole-plan validation before writes,
-then share recovery retention and verified cleanup. Missing, changed or oversized
-effects and attempts to resume without their validator are refused. The History
-validator also binds its rows to the exact card step and operation effect ID.
+then share recovery retention and verified cleanup. Missing, changed or
+oversized effects and attempts to resume without their validator are refused.
+The History validator also binds its rows to the exact card step and
+operation effect ID.
 History field snapshots now preserve nested dates, including date-valued
 custom fields alongside mapped estimates. JSON transport and restoration retain
 Date types without interpreting date-looking text. Existing rows whose dates
