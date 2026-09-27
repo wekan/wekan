@@ -677,6 +677,25 @@ and recorded that #1273 still needs a retain-autocomplete-text option.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e2713cd0d">Keep Codeberg mirroring commented out and create missing local mirror clones</a>. Thanks to xet7.</summary>
+
+The commented Codeberg destination in releases/mirror.sh now also prevents
+older saved settings from selecting it. GitLab and SourceForge remain enabled.
+Missing source and destination repositories are cloned below the checkout's
+.tools directory, including ~/Documents/repos/wekan/.tools/wekan-github on
+macOS. Source mirror refs are fetched into that clone instead of the primary
+WeKan checkout. Existing mirror worktrees retain their branch and dirty-tree
+checks, and destination updates are not forced.
+
+Verification: 49 mirror test entries pass with mocked external commands,
+including menu choices, stale settings, fresh clones, paths containing spaces,
+clone failures and existing checkout protections. Shell syntax and diff checks
+pass. No live mirror command or remote write was executed. Existing Upcoming
+regression coverage remains recorded in its entries. Updated mirroring docs.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.07 2026-09-27 WeKan ® release
