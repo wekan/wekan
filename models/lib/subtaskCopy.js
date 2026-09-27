@@ -20,6 +20,7 @@ function buildCopiedSubtaskFields(subtask, { newParentId, boardId, swimlaneId, l
   delete fields.syncExternalId;
   delete fields.syncSourceType;
   delete fields.syncLastSource;
+  delete fields.syncSourceKey;
   delete fields.scrum;
   delete fields.scrumRevision;
   Object.assign(fields, copiedCardScrum(subtask, boardId));

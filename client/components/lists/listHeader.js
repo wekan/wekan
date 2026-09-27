@@ -1007,9 +1007,8 @@ Template.listSyncPopup.events({
       enabled: tpl.selectedSyncEnabled.get(),
       fields: tpl.selectedSyncFields.get(),
       ...tpl.selectedSyncOperations.get(),
-      // Leaving the credential field blank keeps whatever is already stored
-      // - setListSyncSource only overwrites it when a non-empty token is
-      // sent (server/methods/listSync.js).
+      // A blank credential is retained only for the same server/project.
+      // Switching source requires entering a credential for the new source.
       token: token || null,
       username,
     };

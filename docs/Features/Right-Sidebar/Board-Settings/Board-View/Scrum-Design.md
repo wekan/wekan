@@ -30,7 +30,8 @@ and export now retain issue types and explicit workflow categories through
 existing hidden metadata, alongside numeric time tracking. See the
 [Jira guide](../../../ImportExport/Jira/Jira.md) for mappings, selection controls
 and limitations. External sprint snapshots, multiple release assignments,
-epic relationships and configurable story-point mappings remain pending.
+epic relationships remain pending. Explicit numeric Jira estimate-field mapping
+is implemented; automatic field/schema discovery remains pending.
 
 ## Existing features to reuse
 
@@ -47,7 +48,7 @@ epic relationships and configurable story-point mappings remain pending.
 | History and undo | Existing activity/history facilities | Typed sprint lifecycle, assignment, goal, estimate and scope changes with before/after values and safe undo |
 | Visibility | Board Settings / Swimlane, List and Card, card/minicard field ordering | Opt-in Scrum fields in those same settings, independently selectable |
 | Native backup | `models/exporter.js` and `models/wekanCreator.js` | Sprint records and complete ID remapping for new references |
-| Jira import | `models/jiraCreator.js` creates status lists, cards, labels and issue dependencies | Sprint, epic, version, estimate, rank and schema-driven custom-field mapping are not implemented by this importer |
+| Jira import | `models/jiraCreator.js` creates status lists, cards, labels and issue dependencies; retains time totals, issue types, workflow categories and selected numeric estimate fields | Sprint, epic, version, rank and automatic schema-driven custom-field mapping remain pending |
 | External formats and sync | `models/lib/externalParsers.js`, `externalExporters.js`, list synchronization | Current common fields omit Scrum data; advertised format coverage is not evidence of actual support |
 | Trello import | `models/trelloCreator.js`, custom fields and board structures | No universal Trello sprint schema: explicit mappings for custom fields and Power-Up data are required |
 
@@ -220,8 +221,11 @@ and respects Dates/Custom Fields selection. Jira Sync now offers opt-in spent
 hours, with source baselines and conflict checks. The existing Sync popup also
 selects title/description fields and card creation/source-absence archival;
 these settings retain board write authorization. Sprint, release and estimate
-Sync mappings remain pending, as do project-scoped source identity and atomic
-concurrent jobs. See [Sync](../../../ImportExport/Sync.md) for verified scope.
+Sync mappings remain pending. Card mappings and credentials now carry a
+provider/server/project identity, preserving old cards when switching sources.
+Legacy configurations require saving once to bind their existing mappings.
+Atomic concurrent jobs and configuration writes remain pending.
+See [Sync](../../../ImportExport/Sync.md) for verified scope and limits.
 
 Jira mappings use the supplied field schema and explicit user choices, not
 hard-coded `customfield_*` numbers. Accept sprint IDs and expanded sprint

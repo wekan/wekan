@@ -290,6 +290,7 @@ Cards.attachSchema(
     // - together they are how the reconcile step (models/lib/listSyncReconcile.js)
     // matches an already-imported card back to its external item on the next
     // run, instead of creating a duplicate.
+    syncSourceKey: { type: String, optional: true },
     syncLastSource: { type: Object, optional: true },
     'syncLastSource.title': { type: String, optional: true },
     'syncLastSource.description': { type: String, optional: true },
@@ -1065,6 +1066,7 @@ Cards.helpers({
     // A copy is independent work, not a second target for the same source item.
     delete cardData.syncExternalId;
     delete cardData.syncSourceType;
+    delete cardData.syncSourceKey;
     delete cardData.syncLastSource;
 
     // Normalize customFields to ensure it's always an array

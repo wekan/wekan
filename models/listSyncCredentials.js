@@ -21,6 +21,8 @@ ListSyncCredentials.attachSchema(
     listId: {
       type: String,
     },
+    // Bind the saved credential to the exact provider/server/project tuple.
+    sourceKey: { type: String, optional: true },
     // Free-form: a Jira API token, a GitHub/GitLab personal access token, a
     // Gitea access token... whatever the source type's fetcher expects.
     token: {

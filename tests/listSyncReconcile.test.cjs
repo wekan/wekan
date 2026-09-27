@@ -143,7 +143,9 @@ check('the setListSyncSource/hasListSyncCredential methods never return a raw to
   // hasListSyncCredential must return a boolean, never the credential doc.
   const hasCredMatch = /async hasListSyncCredential\([^)]*\)\s*{([\s\S]*?)\n  },/.exec(src);
   assert.ok(hasCredMatch, 'could not locate hasListSyncCredential body');
-  assert.ok(/return !!credential/.test(hasCredMatch[1]));
+  // Presence alone is no longer enough: the saved credential must belong to
+  // the currently configured server/project. The result is still boolean.
+  assert.ok(/return credential.sourceKey === syncSourceKey\(list.syncSource\)/.test(hasCredMatch[1]));
   assert.ok(!/return credential;/.test(hasCredMatch[1]));
 });
 

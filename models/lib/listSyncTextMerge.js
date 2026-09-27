@@ -32,7 +32,7 @@ function planSyncTextMerge(tasks, cards) {
 }
 function syncTextSelector(card, boardId, listId) {
   const selector = { _id: card._id, boardId, listId };
-  for (const field of ['title', 'description', 'spentTime', 'archived', 'syncExternalId', 'syncSourceType', 'syncLastSource']) {
+  for (const field of ['title', 'description', 'spentTime', 'archived', 'syncExternalId', 'syncSourceType', 'syncSourceKey', 'syncLastSource']) {
     selector[field] = card[field] === undefined ? { $exists: false } : card[field];
   }
   return selector;

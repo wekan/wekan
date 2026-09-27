@@ -23,6 +23,7 @@ import { validateImportSourceShape } from '/models/lib/importSourceShape';
 import { LIST_SYNC_FETCHERS } from '/server/lib/listSyncFetch';
 import { SyncedCron } from '/server/cron/syncedCron';
 const { planSyncTextMerge, syncTextSelector, selectSyncTextFields } = require('/models/lib/listSyncTextMerge');
+const { syncSourceKey } = require('/models/lib/listSyncSourceIdentity');
 
 // Sync one list. Exported for the unit test and for a manual "sync now" call;
 // the cron job below just calls this for every eligible list.
@@ -37,16 +38,20 @@ export async function syncOneList(list, { fetchers = LIST_SYNC_FETCHERS } = {}) 
   if (!parser || !fetcher) return { skipped: true, reason: 'no parser/fetcher for source type' };
 
   const credential = await ListSyncCredentials.findOneAsync({ listId: list._id });
-  if (!credential) return { skipped: true, reason: 'no credential stored for this list' };
 
-  let parsed;
+  let parsed, sourceKey;
+  const listSelector = { _id: list._id, boardId: list.boardId, syncSource: source };
   try {
+    sourceKey = syncSourceKey(source);
+    if (!credential || credential.sourceKey !== sourceKey) {
+      throw new Error('Save Sync settings with a credential for this server and project before syncing.');
+    }
     const raw = await fetcher(source, credential);
     validateImportSourceShape(source.type, raw);
     parsed = parser(raw);
     validateListSyncTasks(parsed?.tasks);
   } catch (e) {
-    await Lists.updateAsync(list._id, {
+    await Lists.updateAsync(listSelector, {
       $set: { 'syncSource.lastSyncError': String((e && e.message) || e).slice(0, 500) },
     });
     try {
@@ -70,12 +75,20 @@ export async function syncOneList(list, { fetchers = LIST_SYNC_FETCHERS } = {}) 
 
   const externalTasks = selectSyncTextFields(parsed.tasks, source.fields);
 
+  // A response fetched for a previous configuration must not start a new
+  // reconcile after a source switch or disconnect. Card writes below still
+  // use their own identity preconditions; this is not a transaction.
+  if (!await Lists.findOneAsync(listSelector)) {
+    return { error: 'Sync settings changed while fetching. Retry sync.' };
+  }
+
   const existingCards = (
-    await Cards.find({ listId: list._id, syncSourceType: source.type }).fetchAsync()
+    await Cards.find({ boardId: list.boardId, listId: list._id, syncSourceType: source.type, syncSourceKey: sourceKey }).fetchAsync()
   ).map(c => ({
     _id: c._id,
     syncExternalId: c.syncExternalId,
     syncSourceType: c.syncSourceType,
+    syncSourceKey: c.syncSourceKey,
     syncLastSource: c.syncLastSource,
     title: c.title,
     description: c.description,
@@ -89,7 +102,7 @@ export async function syncOneList(list, { fetchers = LIST_SYNC_FETCHERS } = {}) 
     const error = merge.conflicts.some(row => row.field === 'syncExternalId')
       ? `Duplicate local Sync identity: ${examples}. Resolve duplicate card mappings before retrying.`
       : `Sync text conflict: ${examples}. Align local and source text before retrying.`;
-    await Lists.updateAsync(list._id, { $set: { 'syncSource.lastSyncError': error } });
+    await Lists.updateAsync(listSelector, { $set: { 'syncSource.lastSyncError': error } });
     return { error, conflicts: merge.conflicts };
   }
   const plan = planListSyncReconcile({ externalTasks: merge.tasks, existingCards });
@@ -109,7 +122,7 @@ export async function syncOneList(list, { fetchers = LIST_SYNC_FETCHERS } = {}) 
   for (const cardId of plan.toArchive) {
     if (await Cards.findOneAsync({ parentId: cardId, archived: { $ne: true }, _id: { $nin: plan.toArchive } })) {
       const error = 'Sync archive conflict: an active subtask is not in the source archive plan.';
-      await Lists.updateAsync(list._id, { $set: { 'syncSource.lastSyncError': error } });
+      await Lists.updateAsync(listSelector, { $set: { 'syncSource.lastSyncError': error } });
       return { error };
     }
   }
@@ -130,6 +143,7 @@ export async function syncOneList(list, { fetchers = LIST_SYNC_FETCHERS } = {}) 
       dateLastActivity: now,
       syncExternalId: String(task.externalId),
       syncSourceType: source.type,
+      syncSourceKey: sourceKey,
       syncLastSource: {
         ...(task.title !== undefined ? { title: task.title } : {}),
         ...(task.description !== undefined ? { description: task.description } : {}),
@@ -147,7 +161,7 @@ export async function syncOneList(list, { fetchers = LIST_SYNC_FETCHERS } = {}) 
       const changed = await Cards.updateAsync(syncTextSelector(previous, list.boardId, list._id), { $set: { ...cardChanges, dateLastActivity: now } });
       if (!changed) {
         const error = 'Sync card changed while applying updates; retry sync.';
-        await Lists.updateAsync(list._id, { $set: { 'syncSource.lastSyncError': error } });
+        await Lists.updateAsync(listSelector, { $set: { 'syncSource.lastSyncError': error } });
         return { error };
       }
     }
@@ -164,12 +178,12 @@ export async function syncOneList(list, { fetchers = LIST_SYNC_FETCHERS } = {}) 
     });
     if (!changed) {
       const error = 'Sync card changed while archiving; retry sync.';
-      await Lists.updateAsync(list._id, { $set: { 'syncSource.lastSyncError': error } });
+      await Lists.updateAsync(listSelector, { $set: { 'syncSource.lastSyncError': error } });
       return { error };
     }
   }
 
-  await Lists.updateAsync(list._id, {
+  await Lists.updateAsync(listSelector, {
     $set: { 'syncSource.lastSyncedAt': now, 'syncSource.lastSyncError': '' },
   });
 

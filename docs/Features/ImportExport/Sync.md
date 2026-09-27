@@ -65,8 +65,40 @@ resolve the duplicate mapping before retrying.
 Source-absence archives use the same conditional card selector. Sync does not
 recursively archive subtasks: each archived card must be matched to an absent
 source item. If an active subtask is outside the archive plan, the run stops
-before card writes. Concurrent child creation is not covered by a transaction. A dedicated conflict-resolution UI, new Scrum metadata mappings, source-switch handling
-and fully atomic synchronization remain pending.
+before card writes. Concurrent child creation is not covered by a transaction.
+A dedicated conflict-resolution UI, new Scrum metadata mappings and fully
+atomic synchronization remain pending.
+
+### Source identity and switching projects
+
+Each card mapping now includes the provider, normalized server URL (including
+its path), and project. Equal issue IDs from different projects are separate
+cards. Switching source leaves the previous source's cards and baselines intact;
+they are neither updated nor archived by the new source. Reconnecting the same
+source reuses its mappings. Card and subtask copies omit this identity.
+
+Credentials are bound to the same source. A blank token preserves a credential
+only when the source is unchanged. Enter a credential again when changing the
+provider, server or project; the previous credential cannot authorize a fetch
+for the new source. GitHub uses its fixed API server, while an omitted GitLab
+URL means gitlab.com. Equivalent URL casing/default ports and trailing slashes
+retain identity; project names remain case-sensitive. URL credentials, query
+parameters and fragments are rejected.
+
+After upgrading, save existing Sync settings once before resuming Sync. Saving
+the same source binds its legacy cards and credential. Changing or clearing an
+existing source first binds its legacy cards to the **old** configuration. If
+the old configuration was already removed and unbound Sync cards remain, use a
+new list: their original project cannot be inferred safely. Clearing a source
+retains card identities and removes its saved credential.
+
+A configuration change detected after fetching aborts before reconciliation.
+Status updates are conditional on the fetched configuration, so an old run
+cannot recreate cleared settings. This is still not transactional: concurrent
+jobs, configuration/credential writes and changes during card writes require
+further coordination. Local Chromium tests exercise overlapping IDs, source
+switches, empty sources, credential replacement, legacy adoption and reconnects
+against an HTTP provider fixture; live-provider verification remains separate.
 
 Fetching and parsing REUSE the existing one-time-import code in
 `models/lib/externalParsers.js` (`parseJira`, `parseGithub`, `parseGitlab`,

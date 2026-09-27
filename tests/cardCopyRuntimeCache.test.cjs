@@ -16,7 +16,7 @@ async function exercise({ sameBoard = false, cache = true, fail = false, withChi
   const original = {
     _id: 'original', boardId: 'source', swimlaneId: 'old-swimlane', listId: 'old-list',
     title: 'Template', labelIds: ['source-label'],
-    syncExternalId: 'KEY-1', syncSourceType: 'jira', syncLastSource: { title: 'Template' },
+    syncExternalId: 'KEY-1', syncSourceType: 'jira', syncSourceKey: 'original-project', syncLastSource: { title: 'Template' },
     customFields: [{ _id: 'source-field', value: 'kept' }],
     cardDependencies: [{ cardId: 'destination-card', type: 'related' }, { cardId: 'missing-card', type: 'related' }],
     ...(cache ? { __id: 'original' } : {}),
@@ -29,7 +29,7 @@ async function exercise({ sameBoard = false, cache = true, fail = false, withChi
   const Cards = { async insertAsync(document) {
     assert.equal(Object.hasOwn(document, '__id'), false, 'runtime cache must not reach schema validation');
     assert.equal(Object.hasOwn(document, '_id'), false, 'copies require a new document ID');
-    for (const key of ['syncExternalId','syncSourceType','syncLastSource']) assert.equal(Object.hasOwn(document,key),false, 'copies must not inherit Sync identity');
+    for (const key of ['syncExternalId','syncSourceType','syncSourceKey','syncLastSource']) assert.equal(Object.hasOwn(document,key),false, 'copies must not inherit Sync identity');
     if (fail) throw new Error('insert rejected');
     inserted.push(structuredClone(document)); return `new-${inserted.length}`;
   } };
@@ -42,7 +42,11 @@ async function exercise({ sameBoard = false, cache = true, fail = false, withChi
   };
   const copy = new Function('ReactiveCache', 'Cards', 'Meteor', 'filterCopiedLabelIds', 'normalizeDependencies', 'require',
     `return ({${copyBody}}).copy;`)(ReactiveCache, Cards, { isServer: false }, filterCopiedLabelIds, normalizeDependencies,
-      specifier => { assert.equal(specifier, './lib/subtaskCopy'); return { buildCopiedSubtaskFields }; });
+      specifier => {
+        // The copy path now also delegates Scrum metadata to its pure helper.
+        if (specifier === './lib/scrumCopy') return require('../models/lib/scrumCopy');
+        assert.equal(specifier, './lib/subtaskCopy'); return { buildCopiedSubtaskFields };
+      });
   if (fail) await assert.rejects(copy.call(original, boardId, 'new-swimlane', 'new-list', cardIdMap), /insert rejected/);
   else assert.equal(await copy.call(original, boardId, 'new-swimlane', 'new-list', cardIdMap), 'new-1');
   assert.equal(JSON.stringify(original), before, 'successful and rejected copies must preserve the source card');

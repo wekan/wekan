@@ -1,21 +1,24 @@
 'use strict';
 const {test}=require('node:test');const assert=require('node:assert/strict');
 const fs=require('node:fs');const vm=require('node:vm');
+const {syncSourceKey}=require('../models/lib/listSyncSourceIdentity');
+const sourceConfig={type:'jira',url:'https://jira.example',projectKey:'TEST'};
+const sourceKey=syncSourceKey(sourceConfig);
 const asModule=file=>import(`data:text/javascript;base64,${Buffer.from(fs.readFileSync(file,'utf8')).toString('base64')}`);
-async function run(raw,parser,existing,updateCount=1,child=null,fields,operations={}){
+async function run(raw,parser,existing,updateCount=1,child=null,fields,operations={},credentialKey=sourceKey,currentConfig=true){
  const {validateImportSourceShape}=await asModule('models/lib/importSourceShape.js');
  const {planListSyncReconcile,validateListSyncTasks}=await asModule('models/lib/listSyncReconcile.js');
- const cardWrites=[],listWrites=[];let parsed=0;
+ const cardWrites=[],listWrites=[];let parsed=0,fetches=0;const cardQueries=[];
  const source=fs.readFileSync('server/listSync.js','utf8').replace(/^import .*;\n/gm,'').replace(/export async function/g,'async function');
- const context={Meteor:{startup(){}},Lists:{updateAsync:async(id,modifier)=>listWrites.push(modifier)},
-  Cards:{insertAsync:async document=>{cardWrites.push({insert:document});return 'new';},updateAsync:async(selector,modifier)=>{cardWrites.push({selector,modifier});return updateCount;},find:()=>({fetchAsync:async()=>Array.isArray(existing)?existing:[existing || {_id:'card',syncExternalId:'KEY-1',syncSourceType:'jira',title:'Existing',description:'',syncLastSource:{title:'Existing',description:''}}]}),findOneAsync:async()=>child},
-  Boards:{findOneAsync:async()=>({_id:'board',getDefaultSwimlineAsync:async()=>({_id:'lane'})})},ListSyncCredentials:{findOneAsync:async()=>({token:'test'})},
+ const context={Meteor:{startup(){}},Lists:{findOneAsync:async()=>currentConfig?{}:null,updateAsync:async(id,modifier)=>listWrites.push(modifier)},
+  Cards:{insertAsync:async document=>{cardWrites.push({insert:document});return 'new';},updateAsync:async(selector,modifier)=>{cardWrites.push({selector,modifier});return updateCount;},find:selector=>{cardQueries.push(selector);return {fetchAsync:async()=>Array.isArray(existing)?existing:[existing || {_id:'card',syncExternalId:'KEY-1',syncSourceType:'jira',syncSourceKey:sourceKey,title:'Existing',description:'',syncLastSource:{title:'Existing',description:''}}]}},findOneAsync:async()=>child},
+  Boards:{findOneAsync:async()=>({_id:'board',getDefaultSwimlineAsync:async()=>({_id:'lane'})})},ListSyncCredentials:{findOneAsync:async()=>({token:'test',sourceKey:credentialKey})},
   EXTERNAL_PARSERS:{jira:raw=>{parsed++;return parser?parser(raw):{tasks:[]};}},SYNC_CAPABLE_SOURCES:['jira'],
-  LIST_SYNC_FETCHERS:{jira:async()=>raw},validateImportSourceShape,planListSyncReconcile,validateListSyncTasks,require:id=>id==='/models/lib/listSyncTextMerge'?require('../models/lib/listSyncTextMerge'):({record(){}}),console,
+  LIST_SYNC_FETCHERS:{jira:async()=>{fetches++;return raw;}},validateImportSourceShape,planListSyncReconcile,validateListSyncTasks,require:id=>id.startsWith('/models/lib/')?require('..'+id):({record(){}}),console,
  };
  vm.createContext(context);vm.runInContext(source,context);
- const result=await context.syncOneList({_id:'list',boardId:'board',syncSource:{type:'jira',fields,...operations}});
- return {result,cardWrites,listWrites,parsed};
+ const result=await context.syncOneList({_id:'list',boardId:'board',syncSource:{...sourceConfig,fields,...operations}});
+ return {result,cardWrites,listWrites,parsed,fetches,cardQueries};
 }
 test('malformed sync responses cannot be mistaken for a source deletion',async()=>{
  for(const raw of [{errorMessages:['Unavailable']},{issues:null},{issues:{}},null]){
@@ -124,4 +127,24 @@ test('operation selection independently suppresses creation and source-absence a
 test('disabled archival skips child preflight and retains absent cards',async()=>{
  const {result,cardWrites}=await run({issues:[]},undefined,undefined,1,{_id:'child'},undefined,{archiveCards:false});
  assert.equal(result.archived,0);assert.deepEqual(cardWrites,[]);
+});
+
+
+test('source identity scopes reads, new cards and conditional writes',async()=>{
+ const {cardQueries,cardWrites}=await run({issues:[]},()=>({tasks:[{externalId:'NEW',title:'New'},{externalId:'KEY-1',title:'Updated'}]}));
+ assert.equal(cardQueries[0].boardId,'board');assert.equal(cardQueries[0].syncSourceKey,sourceKey);
+ assert.equal(cardWrites.find(write=>write.insert).insert.syncSourceKey,sourceKey);
+ assert.equal(cardWrites.find(write=>write.selector).selector.syncSourceKey,sourceKey);
+});
+test('unbound or different-project credentials never reach a fetcher',async()=>{
+ for(const key of [null,syncSourceKey({...sourceConfig,projectKey:'OTHER'})]){
+  const {result,cardWrites,fetches}=await run({issues:[]},undefined,undefined,1,null,undefined,{},key);
+  assert.match(result.error,/credential for this server and project/);
+  assert.equal(fetches,0);assert.deepEqual(cardWrites,[]);
+ }
+});
+test('source switch during fetch aborts before reconciling the previous response',async()=>{
+ const {result,cardWrites,cardQueries}=await run({issues:[]},undefined,undefined,1,null,undefined,{},sourceKey,false);
+ assert.match(result.error,/settings changed while fetching/);
+ assert.deepEqual(cardWrites,[]);assert.deepEqual(cardQueries,[]);
 });

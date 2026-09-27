@@ -79,6 +79,18 @@ class RiskAudit(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'suspicious keyword'):
             r.inspect(self.root, self.policy)
 
+    def test_sync_identity_allows_only_the_existing_github_api_origin(self):
+        policy = json.loads((ROOT/'releases/risk-baseline.json').read_text())
+        self.policy['allowUrlPatternsByFile'] = policy['allowUrlPatternsByFile']
+        module = self.root/'models/lib/listSyncSourceIdentity.js'
+        module.parent.mkdir(parents=True)
+        module.write_text('const base = "https://api.github.com";')
+        r.inspect(self.root, self.policy)
+        for url in ['https://api.github.com/report', 'https://api.github.com.evil.example']:
+            module.write_text('const base = "'+url+'";')
+            with self.assertRaisesRegex(ValueError, 'new URL'):
+                r.inspect(self.root, self.policy)
+
     def test_baselined_keyword_is_not_blanket_for_new_occurrences(self):
         self.file.write_text('/* TelemetryClient compatibility */')
         self.policy['files']=r.collect(self.root,self.policy)
