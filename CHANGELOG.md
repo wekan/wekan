@@ -710,6 +710,27 @@ recorded positive, negative and UI regression coverage.
 Also adds the following feature:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e0863b35c">Restore Scrum data when importing a native board export</a>. Thanks to xet7.</summary>
+
+Native new-board import validates the versioned Scrum section before creating
+users or boards, then remaps planning, card, list, swimlane, user and estimate
+field references. Snapshots retain their outcomes, source provenance is kept,
+and imported accountabilities grant no permissions. Deselecting Scrum omits
+its payload and metadata. Board administrators can inspect import losses.
+
+Nineteen focused Node checks and three native import/export Chromium scenarios
+pass. The import-page round trip covers release links, exact event timestamps,
+numeric estimate remapping, zero values, provenance and loss reporting.
+Invalid sprint and estimate-field references create no board. Existing
+Upcoming regression evidence remains recorded; other browsers were not run.
+
+Universal History transfer, existing-board scoped import, duplication and Sync
+remain pending. Imports are not multi-document transactions, so database
+failure after validation can still leave a partially created board.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d70358219">Include versioned Scrum data in native board exports</a>. Thanks to xet7.</summary>
 
 The export selector includes Scrum settings, planning records, optional item
@@ -721,9 +742,10 @@ are excluded. Existing anonymization covers the added prose fields.
 Eleven focused Node checks and three Chromium-driven HTTP scenarios pass,
 covering complete/scoped exports, omitted sections and estimate fields,
 assigned-only denial and enabled/disabled anonymization. Existing Upcoming
-regression evidence remains recorded. Native import, History transfer, board
+regression evidence remains recorded. History transfer, board
 duplication and Sync integration remain pending; this does not yet establish
-a Scrum backup/restore round trip. Other browsers were not exercised.
+a complete Scrum backup/restore round trip including History. Other browsers
+were not exercised. Native new-board import is covered by its separate entry.
 
 </details>
 
