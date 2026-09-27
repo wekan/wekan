@@ -1763,6 +1763,23 @@ Blockly browser coverage and other Upcoming regression results remain valid.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/58fa2ce46">Translate Gujarati Blockly conditions and editing controls</a>. Thanks to xet7.</summary>
+
+Fill 80 additional Gujarati English placeholders for conditions, loops,
+copy/delete actions, bitmap controls, icons and input labels, including short
+control-flow aliases. Preserve existing translations and placeholder inventories.
+The Gujarati catalog remains incomplete; specialist terminology needs native
+review. Update the Blocks guide with the current translation and browser status.
+
+All four catalog checks pass, including all-locale coverage, key order,
+placeholder preservation and expanded Gujarati vocabulary/script checks. One
+Chromium scenario verifies Gujarati block dragging, field editing, saved changes
+and translated context menus. Other browsers were not exercised. Existing
+Upcoming regression evidence remains recorded.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/cbc3fd1fb">Resume Blockly translations with Gujarati editor controls</a>. Thanks to xet7.</summary>
 
 Resume translation at the maintainer's request and fill 87 Gujarati English
