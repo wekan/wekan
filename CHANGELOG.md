@@ -1316,6 +1316,23 @@ live provider accounts were not exercised.
 This release adds the following regression coverage and documentation:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/50a6e92e8">Preserve Scrum workflow categories in cross-board list moves</a>. Thanks to xet7.</summary>
+
+New destination lists retain their source workflow category when moving a list
+or swimlane across boards. A reused destination list retains its own category
+and revision; incoming cards do not silently change its workflow meaning.
+Newly created list metadata starts with revision 1.
+
+Six Node runner entries and four Chromium scenarios pass, covering both move
+paths with new and reused lists. Update the Scrum design checkpoint. This does
+not complete moved-card/swimlane sprint and release references, lifecycle
+coordination or History restoration. Existing Upcoming regression evidence
+remains recorded; other browsers were not exercised. Blockly translations
+remain paused.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2b6d71bdc">Preserve scoped Scrum metadata in list and swimlane copies</a>. Thanks to xet7.</summary>
 
 Standalone list copies retain their workflow category with a fresh metadata
