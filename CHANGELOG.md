@@ -168,12 +168,16 @@ reclaimed, and the previous owner stops at its next ownership check.
 Settings and an immutable private credential version now activate through one
 conditional list update. Interrupted saves retain the old or new pair; stale
 saves and delayed cleanup cannot replace a newer configuration's credential.
+An hourly sweep now retires unselected credential versions. A server-owned
+generation fence prevents delayed saves from activating a retired token while
+preserving the selected version and newer staging. Missing-list credentials
+and malformed generations remain for review; all writer processes must upgrade.
 Remaining: external sprint histories without invented snapshots, multiple
 release assignments, epic relationships, automatic field/schema mapping,
 Trello and other Scrum adapters, mapping previews/loss reporting, planning and
 estimate Sync, durable restart checkpoints, fencing of in-flight card writes
-after lease loss, atomic multi-card reconciliation, safe automatic cleanup of
-unselected credential versions after interrupted saves,
+after lease loss, atomic multi-card reconciliation, cleanup of credentials for
+missing lists and malformed generations,
 and conflict-resolution UI. Changes during card writes remain nontransactional.
 See [Jira](docs/Features/ImportExport/Jira/Jira.md) and
 [Sync](docs/Features/ImportExport/Sync.md).
@@ -1031,6 +1035,27 @@ in TODO Later. The known released-entry changelog format failure remains.
 and improves list synchronization:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b3c53c3ae">Retire abandoned Sync credentials without breaking delayed saves</a>. Thanks to xet7.</summary>
+
+An hourly sweep advances a server-owned credential generation before deleting
+unselected older versions. Settings activation checks the captured generation,
+so a delayed save cannot activate a retired token. Preserve the selected
+credential and newer staging; reclaim late old-generation inserts on a later
+sweep. Cleanup failures are retryable, and overlapping workers use conditional
+list updates. The scan streams IDs and keeps tokens out of results and logs.
+
+Eleven Node suites pass, including MongoDB races, delayed inserts, uncertain
+writes, disabled sources and failure isolation. Eight Chromium Sync scenarios
+pass across the initial run and corrected-test rerun, including retained token
+use, later settings saves and denial of browser changes to the generation.
+The local release audit passes with advisory warnings. All writer processes
+must upgrade together. Missing-list credentials and malformed generations stay
+for review. FerretDB, other browsers and live providers remain unverified;
+card-write fencing and durable reconciliation checkpoints remain pending.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/81876bfa3">Keep Sync settings and credentials consistent across interrupted saves</a>. Thanks to xet7.</summary>
 
 Stage each credential as an immutable private version, then select that version
@@ -1051,9 +1076,9 @@ FerretDB, Firefox, WebKit and live providers were not tested. The pre-existing
 released-entry changelog format failure remains.
 
 Upgrade all processes that save Sync settings together; older code does not
-honor immutable credential revisions. Automatic cleanup of unselected versions
-left by interrupted saves, durable reconciliation checkpoints and atomic card
-writes remain in TODO Later.
+honor immutable credential revisions. Unselected-version cleanup is implemented
+in the entry above. Durable reconciliation checkpoints and atomic card writes
+remain in TODO Later.
 
 </details>
 
