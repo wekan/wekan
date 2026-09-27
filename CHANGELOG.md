@@ -132,6 +132,8 @@ reject changed or moved targets. A board checkpoint covers preparation and
 marker cleanup, including imports with no sprint records. An offline maintenance
 command now validates and continues complete stored Scrum plans with all writers
 stopped. It uses non-expiring recovery claims and resumes interrupted cleanup.
+Normal imports now retain their checkpoint through private-plan removal too;
+cleanup failures remain guarded and can be continued with the same command.
 It can also undo interrupted Scrum plans in reverse order, with conditional
 target writes, durable progress and cleanup. Incomplete preparation can be
 discarded without destination writes. Online coordinated replay and partial
@@ -796,6 +798,24 @@ contents were not changed.
 </details>
 
 and improves daily Scrum reporting:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8a3a1d1b3">Keep interrupted normal-import cleanup recoverable</a>. Thanks to xet7.</summary>
+
+Normal Scrum imports previously removed their checkpoint before deleting the
+private write plan, then ignored plan deletion errors. Keep the checkpoint
+through plan removal and enter the same durable cleaning state used by offline
+recovery. Propagate failures while keeping the incomplete-import guard active.
+The maintenance command can finish partial cleanup without replaying data.
+
+Three Node suites pass. MongoDB failure injection covers marker removal,
+transition to cleaning, partial plan deletion and checkpoint removal, followed
+by offline resume. Two Chromium scenarios verify native file import and board
+duplication, including absence of leftover checkpoints and plan rows. The local
+release audit passes with advisory warnings. Existing orphan plans from older
+versions, FerretDB validation and online recovery remain pending.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/bde8c3010">Undo interrupted Scrum import plans during offline maintenance</a>. Thanks to xet7.</summary>
