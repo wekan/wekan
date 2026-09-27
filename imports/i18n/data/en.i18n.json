@@ -3549,5 +3549,15 @@
   "sync-preview-excluded": "Excluded by saved field selection",
   "sync-preview-unmapped": "No Sync mapping",
   "sync-preview-parser-warnings": "Parser warnings",
-  "sync-preview-parser-unsupported": "Omissions reported by the parser"
+  "sync-preview-parser-unsupported": "Omissions reported by the parser",
+  "sync-source-heading": "Source fields not copied directly",
+  "sync-source-scope": "Paths group field occurrences across source items. Unmapped objects are reported as a whole; their values are not shown.",
+  "sync-source-unmapped": "No Sync mapping",
+  "sync-source-excluded": "Excluded by saved field selection",
+  "sync-source-converted": "Converted to text or another representation",
+  "sync-source-fallback": "Alternate value not used by the parser",
+  "sync-source-excluded-item": "Item excluded by the parser",
+  "sync-source-occurrences": "Reported field or item occurrences",
+  "sync-source-truncated": "The report is limited to 100 paths and shortened field names.",
+  "sync-source-omitted": "Additional occurrences outside the displayed paths"
 }

@@ -209,11 +209,23 @@ also shows counts of parser warnings and unsupported entries. No omitted field
 values, credential values or parser warning bodies enter this inventory.
 Fields/rows and title lengths are bounded. Titles render as text.
 
+A second inventory inspects the fetched issue data before normalization. It
+reports source paths for unmapped fields (including attachments, comments,
+estimates and custom extensions), fields excluded by the saved selection,
+alternate values unused by the parser, and values converted to text or another
+representation. GitHub/Gitea/Forgejo pull requests excluded by the issue parser
+are counted too. Unknown objects are reported at their first unmapped path as
+a whole. Counts group occurrences across items; they are not byte-loss counts.
+The report contains no field values. It shows at most 100 path/reason rows,
+counts additional occurrences separately, and shortens field names to 80
+characters. Paths use JSON Pointer escaping for literal slashes and tildes.
+Pagination envelopes discarded by the fetcher are outside this inventory.
+
 The preview uses saved settings; changing the form clears the displayed plan.
 Sync now fetches and validates again, so the preview is not an approval token
-for a frozen plan. This is the normalized-field checkpoint: provider fields
-already discarded by a parser, detailed provider-specific loss paths, persisted
-run reports and a complete source schema inventory remain unfinished.
+for a frozen plan. The source inventory follows the current parsers; it is not
+a complete provider schema or a mapping editor. Persisted run reports, binary
+and history transport, and complete source schema coverage remain unfinished.
 
 ### Repair duplicate mappings
 

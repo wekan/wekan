@@ -499,6 +499,15 @@ template(name="listSyncPopup")
           p {{_ 'sync-preview-parser-unsupported'}}: {{coverage.parserUnsupported}}
           if coverage.truncated
             p.quiet {{_ 'sync-preview-truncated'}}
+          .list-sync-source-coverage
+            h4 {{_ 'sync-source-heading'}}
+            p.quiet {{_ 'sync-source-scope'}}
+            each syncSourceOmissions
+              p {{path}}: {{count}} — {{_ reasonLabel}}
+            p {{_ 'sync-source-occurrences'}}: {{coverage.source.occurrences}}
+            if coverage.source.truncated
+              p.quiet {{_ 'sync-source-truncated'}}
+              p {{_ 'sync-source-omitted'}}: {{coverage.source.omittedOccurrences}}
       if syncConflicts
         h3 {{_ 'sync-conflict-heading'}}
         p.quiet {{_ 'sync-conflict-hint'}}

@@ -72,9 +72,14 @@ baseline writes. It reports normalized fields excluded by selection or lacking
 a Sync mapping, plus counts of existing parser diagnostics. The preview reads
 under the usual per-list reservation and leaves cards and Sync status unchanged.
 
-This is not yet the complete loss-accounting contract above: fields discarded
-before normalization, detailed provider-specific paths, persisted run reports
-and mapping choices beyond the current field switches remain in TODO Later.
+The fetched issue data is also inspected for unmapped paths, unused fallbacks,
+excluded fields/items and representation conversions before normalization.
+Unknown subtrees are reported as a whole without values; occurrence counts and
+output limits keep the inventory bounded. Rules follow the current parsers;
+pagination envelopes discarded during fetching are not inventoried.
+The complete loss-accounting contract still requires a full provider schema,
+persisted run reports and mapping choices beyond the current field switches,
+as well as binary and history transport. These remain in TODO Later.
 See [Sync](./Sync.md#preview-saved-sync-changes) for access and output limits.
 
 ## Compatibility and limits

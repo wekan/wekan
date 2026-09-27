@@ -14,7 +14,7 @@ async function run(raw,parser,existing,updateCount=1,child=null,fields,operation
   Cards:{insertAsync:async (document,options)=>{cardWrites.push({insert:document,options});if(createError)throw createError;return document._id;},updateAsync:async(selector,modifier,options)=>{cardWrites.push({selector,modifier,options});return updateCount;},find:selector=>{cardQueries.push(selector);return {fetchAsync:async()=>Array.isArray(existing)?existing:[existing || {_id:'card',syncExternalId:'KEY-1',syncSourceType:'jira',syncSourceKey:sourceKey,title:'Existing',description:'',syncLastSource:{title:'Existing',description:''}}]}},findOneAsync:async selector=>typeof child==='function'?child(selector):child},
   Boards:{findOneAsync:async()=>({_id:'board',getDefaultSwimlineAsync:async()=>({_id:'lane'})})},ListSyncCredentials:{findOneAsync:async()=>({token:'test',sourceKey:credentialKey})},
   EXTERNAL_PARSERS:{jira:raw=>{parsed++;return parser?parser(raw):{tasks:[]};}},SYNC_CAPABLE_SOURCES:['jira'],
-  LIST_SYNC_FETCHERS:{jira:async()=>{fetches++;return raw;}},validateImportSourceShape,planListSyncReconcile,validateListSyncTasks,require:id=>(id.startsWith('/models/lib/') || ['/server/lib/listSyncCardId','/server/lib/listSyncConfiguration','/server/lib/listSyncConflict','/server/lib/listSyncTarget','/server/lib/listSyncPreview'].includes(id))?require('..'+id):({record(){}}),console,
+  LIST_SYNC_FETCHERS:{jira:async()=>{fetches++;return raw;}},validateImportSourceShape,planListSyncReconcile,validateListSyncTasks,require:id=>(id.startsWith('/models/lib/') || ['/server/lib/listSyncCardId','/server/lib/listSyncConfiguration','/server/lib/listSyncConflict','/server/lib/listSyncTarget','/server/lib/listSyncPreview','/server/lib/listSyncSourceCoverage'].includes(id))?require('..'+id):({record(){}}),console,
  };
  vm.createContext(context);vm.runInContext(source,context);
  const result=await context.syncOneList({_id:'list',boardId:'board',syncSource:{...sourceConfig,fields,...operations}},options);
@@ -361,13 +361,15 @@ test('preview and actual Sync share the write plan, including baselines and igno
  ];
  const tasks=[{externalId:'KEEP',title:'New',description:'',column_name:'Done',tags:['not synced']},
   {externalId:'NEW',title:'Create me',description:'',spentTime:0,requested_by:'PRIVATE REQUESTER'}];
- const invoke=options=>run({issues:[]},()=>({tasks}),cards,1,null,undefined,{},sourceKey,true,undefined,options);
+ const invoke=options=>run({issues:[{key:'KEEP',fields:{attachment:[{filename:'PRIVATE ATTACHMENT'}]}}]},()=>({tasks}),cards,1,null,undefined,{},sourceKey,true,undefined,options);
  const preview=await invoke({dryRun:true});
  assert.deepEqual(preview.cardWrites,[]);assert.deepEqual(preview.listWrites,[]);
  assert.equal(preview.result.preview.created,1);assert.equal(preview.result.preview.updated,1);
  assert.equal(preview.result.preview.archived,1);
  assert.equal(preview.result.preview.items.length,3);
- assert.doesNotMatch(JSON.stringify(preview.result),/PRIVATE REQUESTER|test-token/);
+ assert.doesNotMatch(JSON.stringify(preview.result),/PRIVATE REQUESTER|PRIVATE ATTACHMENT|test-token/);
+ assert.equal(preview.result.preview.coverage.source.rows[0].path,'/issues/*/fields/attachment');
+ assert.equal(preview.result.preview.coverage.source.rows[0].count,1);
  const applied=await invoke({});
  for(const field of ['created','updated','archived'])assert.equal(preview.result.preview[field],applied.result[field]);
  const unchanged=await run({issues:[]},()=>({tasks:[{externalId:'KEEP',title:'Old',description:'',column_name:'Done'}]}),[cards[0]]);
@@ -387,13 +389,13 @@ test('preview errors and conflicts leave cards, settings and Sync status unchang
 });
 
 test('full-list previews reject restricted callers before fetching and recheck access before returning',async()=>{
- const invoke=options=>run({issues:[]},()=>({tasks:[{externalId:'SECRET',title:'Hidden'}]}),[],1,null,undefined,{},sourceKey,true,undefined,{dryRun:true,...options});
+ const invoke=options=>run({issues:[{key:'SECRET',fields:{private_extension:'SECRET VALUE'}}]},()=>({tasks:[{externalId:'SECRET',title:'Hidden'}]}),[],1,null,undefined,{},sourceKey,true,undefined,{dryRun:true,...options});
  const denied=await invoke({assertConflictAccess:async()=>({members:'restricted'})});
  assert.equal(denied.fetches,0);assert.ok(denied.result.error);
- assert.doesNotMatch(JSON.stringify(denied.result),/SECRET|Hidden/);
+ assert.doesNotMatch(JSON.stringify(denied.result),/SECRET|Hidden|private_extension/);
  let checks=0;
  const revoked=await invoke({assertConflictAccess:async()=>++checks<3?null:{members:'restricted'}});
- assert.ok(revoked.result.error);assert.doesNotMatch(JSON.stringify(revoked.result),/SECRET|Hidden/);
+ assert.ok(revoked.result.error);assert.doesNotMatch(JSON.stringify(revoked.result),/SECRET|Hidden|private_extension/);
  assert.deepEqual(revoked.cardWrites,[]);assert.deepEqual(revoked.listWrites,[]);
  const invalid=await invoke({resolution:{field:'creation'}});
  assert.ok(invalid.result.error);assert.equal(invalid.fetches,0);

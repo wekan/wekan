@@ -910,6 +910,11 @@ Template.listSyncPopup.helpers({
         field === 'spentTime' ? 'spent-time-hours' : field)).join(', '),
     }));
   },
+  syncSourceOmissions() {
+    return (Template.instance().syncPreview.get()?.coverage.source?.rows || []).map(row => ({ ...row,
+      reasonLabel: `sync-source-${row.reason}`,
+    }));
+  },
   syncPreviewOmissions() {
     return (Template.instance().syncPreview.get()?.coverage.rows || []).map(row => ({ ...row,
       fieldText: TAPi18n.__(({ column_name: 'status', swimlane_name: 'swimlane', date_due: 'due-date',

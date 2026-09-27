@@ -19,7 +19,10 @@ test.beforeAll(async () => {
     const issues = emptyProjects.has(project) ? [] : [{ key: 'SAME-1', fields: {
       summary: project === 'PREVIEW' ? '<script>source title</script>' : `${project} issue`,
       description: '', status: { name: 'Open' },
-      ...(project === 'PREVIEW' ? { labels: ['private-label'], timespent: 0 } : {}),
+      ...(project === 'PREVIEW' ? { labels: ['private-label'], timespent: 0,
+        attachment: [{ filename: 'private-attachment-name' }],
+        customfield_12345: { value: 'private-custom-value' },
+        '<script>extension</script>': 'private-unknown-value' } : {}),
     } }];
     if (project === 'SCOPED') issues.push({ key: 'SAME-2', fields: {
       summary: 'Hidden source title', description: 'Hidden source description', status: { name: 'Open' },
@@ -176,6 +179,14 @@ test('Sync preview reports saved changes and omitted fields without changing car
     await expect(preview).toContainText('Labels: 1');
     await expect(preview).not.toContainText('private-label');
     await expect(preview).not.toContainText('preview-private-token');
+    const sourceCoverage = preview.locator('.list-sync-source-coverage');
+    await expect(sourceCoverage).toContainText('/issues/*/fields/attachment: 1');
+    await expect(sourceCoverage).toContainText('/issues/*/fields/customfield_12345: 1');
+    await expect(sourceCoverage).toContainText('<script>extension<~1script>');
+    await expect(sourceCoverage.locator('script')).toHaveCount(0);
+    await expect(sourceCoverage).not.toContainText('private-attachment-name');
+    await expect(sourceCoverage).not.toContainText('private-custom-value');
+    await expect(sourceCoverage).not.toContainText('private-unknown-value');
     expect(db.find('cards', { boardId: board.boardId })).toEqual(originalCards);
     expect(db.findOne('lists', { _id: listId })).toEqual(originalList);
     await page.locator('.js-list-sync-project-key').fill('UNSAVED');

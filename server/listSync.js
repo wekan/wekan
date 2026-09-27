@@ -31,6 +31,7 @@ const { readSyncCredential, sweepSyncCredentials } = require('/server/lib/listSy
 const { describeSyncConflict, planSyncConflictResolution } = require('/server/lib/listSyncConflict');
 const { readSyncTarget, replaceSyncTarget, describeCreationConflict } = require('/server/lib/listSyncTarget');
 const { syncCoverage, prepareSyncWrites, describeSyncPreview } = require('/server/lib/listSyncPreview');
+const { describeSyncSourceCoverage } = require('/server/lib/listSyncSourceCoverage');
 // Empty/whitespace source text is a real comparison baseline. Keep schema
 // validation and hooks, but do not clean these values into missing/trimmed data.
 const SYNC_TEXT_WRITE_OPTIONS = { removeEmptyStrings: false, trimStrings: false };
@@ -69,7 +70,7 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
 
   const credential = await readSyncCredential(ListSyncCredentials, list);
 
-  let parsed, sourceKey;
+  let parsed, sourceKey, sourceCoverage;
   const listSelector = { _id: list._id, boardId: list.boardId, syncSource: source,
     syncRevision: list.syncRevision === undefined ? { $exists: false } : list.syncRevision,
     syncCredentialIncarnation: list.syncCredentialIncarnation === undefined ? { $exists: false } : list.syncCredentialIncarnation };
@@ -82,6 +83,7 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
     validateImportSourceShape(source.type, raw);
     parsed = parser(raw);
     validateListSyncTasks(parsed?.tasks);
+    if (dryRun) sourceCoverage = describeSyncSourceCoverage(source.type, raw, source.fields);
   } catch (e) {
     await assertCurrent();
     if (dryRun) return { error: String((e && e.message) || e) };
@@ -170,7 +172,7 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
     const cardsById = new Map(existingCards.map(card => [card._id, card]));
     const tasksById = new Map(externalTasks.map(task => [String(task.externalId), task]));
     return { preview: describeSyncPreview({ plan, cards: existingCards,
-      coverage: syncCoverage(parsed, source), blocked: conflicts.length > 0 }),
+      coverage: { ...syncCoverage(parsed, source), source: sourceCoverage }, blocked: conflicts.length > 0 }),
       conflicts: conflicts.slice(0, 50).map(conflict => describeSyncConflict(conflict,
         cardsById.get(conflict.cardId), tasksById.get(conflict.externalId), list, sourceKey, existingCards)) };
   }
