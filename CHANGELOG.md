@@ -710,6 +710,25 @@ recorded positive, negative and UI regression coverage.
 Also adds the following feature:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/59a13f40d">Retain Jira issue types and workflow categories in Scrum transfers</a>. Thanks to xet7.</summary>
+
+Jira import maps issue types and explicit status category keys into existing
+hidden Scrum card and list fields. Jira export retains these fields, and the
+Scrum selection controls both directions. Unknown categories remain unmapped;
+translated status titles never decide completion. Import leaves Scrum settings
+and visibility unchanged. Conflicting categories for the same named list and
+invalid issue types fail before board creation.
+
+Fourteen focused Node checks and four Chromium scenarios pass, including Jira
+and native round trips, excluded fields, invalid inputs, existing completion
+policies and time-tracking regression coverage. Document mappings and remaining
+external sprint, release, epic and story-point work. Live Jira and other browsers
+were not exercised. Existing Upcoming regression evidence remains recorded;
+Blockly translation work remains paused.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8e4cf5f76">Retain Scrum report context and original commitments in exports</a>. Thanks to xet7.</summary>
 
 Sprint Report and Velocity exports include snapshot estimate source, custom
