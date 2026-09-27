@@ -162,7 +162,8 @@ WebApp.connectHandlers.use('/_saml/validate', (req, res) => {
         const { profile } = await saml.validatePostResponseAsync(body);
         if (!acceptLoginResponse(profile)) {
           try {
-            if (typeof global.__wekanTripCanary === 'function') {
+            if (acceptLoginResponse.rejection === 'replay' &&
+                typeof global.__wekanTripCanary === 'function') {
               global.__wekanTripCanary('saml.response-replay');
             }
           } catch (e) { /* logging must never break the guard */ }

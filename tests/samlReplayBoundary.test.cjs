@@ -9,8 +9,10 @@ test('atomic response consumption rejects concurrent replay, malformed IDs and c
  const accept=createResponseReplayGuard({maxEntries:2,ttlMs:100});
  const profile=id=>({getInResponseTo:()=>id});
  assert.deepEqual(await Promise.all([1,2].map(()=>Promise.resolve().then(()=>accept(profile('a'),1)))),[true,false]);
+ assert.equal(accept.rejection,'replay');
  for(const value of [undefined,null,{},profile(''),profile({})])assert.equal(accept(value,1),false);
  assert.equal(accept(profile('b'),2),true);assert.equal(accept(profile('c'),3),false);
+ assert.equal(accept.rejection,'capacity');
  assert.equal(accept(profile('c'),102),true);
 });
 test('signed response is accepted once; replay, unsolicited, unsigned and tampered assertions fail',async t=>{

@@ -11,7 +11,9 @@ function createResponseReplayGuard({ maxEntries = 10000, ttlMs = 8 * 60 * 60 * 1
       used.delete(id);
     }
     const id = profile?.getInResponseTo?.();
-    if (typeof id !== 'string' || !id || used.has(id) || used.size >= maxEntries) return false;
+    accept.rejection = typeof id !== 'string' || !id ? 'invalid'
+      : used.has(id) ? 'replay' : used.size >= maxEntries ? 'capacity' : null;
+    if (accept.rejection) return false;
     used.set(id, now + ttlMs);
     return true;
   };

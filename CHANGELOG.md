@@ -583,7 +583,64 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-This release adds the following feature:
+**In short:** Close the reported LDAP empty-password bypass and the directory
+group and SAML replay issues found during the authentication audit. Selected
+boards can also be duplicated with a choice of structure and data.
+
+This release fixes the following CRITICAL SECURITY ISSUES:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/679a8b349">Reject empty LDAP user credentials in every login path</a>. Thanks to kta1kri and xet7.</summary>
+
+[LdapBindBleed](https://wekan.fi/hall-of-fame/ldapbindbleed/), reported in
+[GHSA-m87f-f43w-hwmc](https://github.com/wekan/wekan/security/advisories/GHSA-m87f-f43w-hwmc):
+both LDAP user-authentication helpers and the DDP/REST login boundary reject
+empty or malformed credentials before binding or local fallback. Passwords
+are not trimmed; intentional anonymous service searches remain supported.
+Exploitation required a directory permitting unauthenticated binds and user
+searches. OpenLDAP documents unauthenticated binds as disabled by default.
+Blocked attempts appear as LdapBindBleed summaries in Admin Panel / Problems.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/679a8b349">Enforce LDAP and CAS login-group restrictions</a>. Thanks to xet7.</summary>
+
+[DirectoryGroupBleed](https://wekan.fi/hall-of-fame/directorygroupbleed/):
+both LDAP modes enforce group membership and require a unique user entry.
+Missing membership values cannot broaden a query, and group denial cannot
+fall back to a cached local password. Service-search mode retains service
+credentials for its group lookup. LDAP filter and DN values are escaped in
+their respective contexts. CAS compares complete literal group CN values,
+rejecting prefix and regular-expression matches and malformed allowlists.
+Group denials appear as DirectoryGroupBleed summaries in Problems.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/679a8b349">Require single-use SAML request correlation</a>. Thanks to xet7.</summary>
+
+[SamlReplayBleed](https://wekan.fi/hall-of-fame/samlreplaybleed/): require a
+live InResponseTo request ID through node-saml and consume verified response
+IDs before storing login credentials, including concurrent validation.
+Unsolicited IdP-initiated assertions are rejected. Process-local request state
+requires sticky routing in clustered deployments. Attributable concurrent
+replay denials appear as SamlReplayBleed summaries in Problems.
+
+Verification for all three entries: 46 focused Node suites and five Chromium
+scenarios pass; the local Meteor application rebuilds. Tests cover allowed
+and refused logins, malformed credentials, group restrictions, safe query
+values, logging failure and signed SAML responses. The protocol fixture
+reproduces the old replay behavior and rejects replay, unsolicited, unsigned
+and tampered responses after the fix. Live directories, external providers,
+Sandstorm and the FerretDB authentication matrix were not tested. See the
+[authentication audit](docs/Security/Authentication-Boundary-Audit-2026-09-27.md)
+for the reviewed providers and limits. Existing Upcoming entries retain their
+recorded positive, negative and UI regression coverage.
+
+</details>
+
+Also adds the following feature:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8bf47d1a9">Choose which structure and data to duplicate from selected boards</a>. Thanks to xet7.</summary>
@@ -646,7 +703,7 @@ covering parent selection, combined filters, reset, admin/read-only access,
 private-parent publication boundaries and unchanged card data. The Chromium
 run also rechecks the private-source linked-card regression from
 [#1942](https://github.com/wekan/wekan/issues/1942), already closed by
-[9cdbe1a53](https://github.com/wekan/wekan/commit/9cdbe1a53).
+[the private-source fix](https://github.com/wekan/wekan/commit/9cdbe1a53).
 Other browser engines and a live FerretDB backend were not tested.
 
 Removed the completed parent-filter and private-linked-card entries from TODO
