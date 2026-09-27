@@ -145,7 +145,7 @@ Swimlanes.attachSchema(
 );
 
 Swimlanes.helpers({
-  async copy(boardId, targetSwimlaneId = null, position = 'below', title = '', cardIdMap = null, withoutCards = false) {
+  async copy(boardId, targetSwimlaneId = null, position = 'below', title = '', cardIdMap = null, withoutCards = false, copyOptions) {
     const oldId = this._id;
     const oldBoardId = this.boardId;
     const desiredTitle = typeof title === 'string' && title.trim().length > 0
@@ -198,6 +198,8 @@ Swimlanes.helpers({
     delete this._id;
     const newSwimlaneId = await Swimlanes.insertAsync(this);
 
+    if (copyOptions && !copyOptions.lists) return newSwimlaneId;
+
     const sourceBoard = oldBoardId ? await ReactiveCache.getBoard(oldBoardId) : null;
     // Use the ASYNC default-swimlane getter here (this runs on the server): the
     // sync getDefaultSwimline() self-heals a swimlane-less board via a synchronous
@@ -235,7 +237,7 @@ Swimlanes.helpers({
     // when a swimlane is copied to ANOTHER board those label assignments are
     // silently lost. Pre-create the missing labels here (by name + color) so the
     // per-card remap inside card.copy() finds a match for every label.
-    if (!withoutCards && oldBoardId && oldBoardId !== boardId) {
+    if (!withoutCards && oldBoardId && oldBoardId !== boardId && (!copyOptions || copyOptions.labels)) {
       const sourceBoardLabels =
         (sourceBoard && sourceBoard.labels) || [];
       const destBoard = await ReactiveCache.getBoard(boardId);
@@ -296,7 +298,7 @@ Swimlanes.helpers({
         const cards = await ReactiveCache.getCards(cardQuery, { sort: { sort: 1 } });
 
         for (const card of cards) {
-          await card.copy(boardId, newSwimlaneId, newListId, cardIdMap);
+          await card.copy(boardId, newSwimlaneId, newListId, cardIdMap, copyOptions);
         }
       }
     }

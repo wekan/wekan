@@ -1,3 +1,4 @@
+import { normalizeBoardCopyOptions } from '/models/lib/boardCopyOptions';
 import { subtaskDepositChildren } from '/server/lib/subtaskDepositPublication';
 // This is the publication used to display the board list. We publish all the
 // non-archived boards:
@@ -1318,11 +1319,17 @@ Meteor.methods({
     // Strip fields the caller must not control on the copy, and pull out
     // withoutCards (#4726 "Clone Board without cards") - it steers the copy
     // itself rather than being a field assigned onto the board doc.
-    const { members, permission, withoutCards, ...safeProperties } = properties;
+    const { members, permission, withoutCards, copyOptions, ...safeProperties } = properties;
+    let selection;
+    if (copyOptions !== undefined) {
+      try { selection = normalizeBoardCopyOptions(copyOptions); }
+      catch (error) { throw new Meteor.Error('invalid-copy-options', error.message); }
+    }
     for (const key of Object.keys(safeProperties)) {
       board[key] = safeProperties[key];
     }
 
+    if (selection) return board.copy(!selection.cards, selection);
     return board.copy(!!withoutCards);
   },
 

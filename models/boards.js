@@ -1,3 +1,4 @@
+import { normalizeBoardCopyOptions } from '/models/lib/boardCopyOptions';
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check, Match } from 'meteor/check';
@@ -1467,9 +1468,12 @@ Boards.attachSchema(
 );
 
 Boards.helpers({
-  async copy(withoutCards = false) {
+  async copy(withoutCards = false, copyOptions) {
+    const selection = normalizeBoardCopyOptions(copyOptions);
+    if (withoutCards) selection.cards = false;
     const oldId = this._id;
     const oldWatchers = this.watchers ? this.watchers.slice() : [];
+    if (!selection.labels) this.labels = [];
     delete this._id;
     delete this.slug;
     this.title = await this.copyTitle();
@@ -1499,9 +1503,13 @@ Boards.helpers({
       boardId: oldId,
       archived: false,
     });
-    for (const swimlane of swimlanes) {
+    for (const swimlane of selection.swimlanes ? swimlanes : []) {
       swimlane.type = 'swimlane';
-      await swimlane.copy(_id, null, 'below', '', cardIdMap, withoutCards);
+      if (copyOptions === undefined) {
+        await swimlane.copy(_id, null, 'below', '', cardIdMap, withoutCards);
+      } else {
+        await swimlane.copy(_id, null, 'below', '', cardIdMap, !selection.cards, selection);
+      }
     }
 
     // #3392: remap card-to-card dependencies (Red Strings) from the source
@@ -1527,9 +1535,17 @@ Boards.helpers({
       });
     }
 
+    if (copyOptions !== undefined) {
+      for (const copied of await ReactiveCache.getCards({ boardId: _id })) {
+        if (copied.parentId) await Cards.updateAsync(copied._id, {
+          $set: { parentId: cardIdMap[copied.parentId] || '' },
+        });
+      }
+    }
+
     // copy custom field definitions
     const cfMap = {};
-    const customFields = await ReactiveCache.getCustomFields({ boardIds: oldId });
+    const customFields = selection.customFields ? await ReactiveCache.getCustomFields({ boardIds: oldId }) : [];
     for (const cf of customFields) {
       const id = cf._id;
       delete cf._id;
@@ -1556,7 +1572,7 @@ Boards.helpers({
 
     // copy rules, actions, and triggers
     const actionsMap = {};
-    const actions = await ReactiveCache.getActions({ boardId: oldId });
+    const actions = selection.rules ? await ReactiveCache.getActions({ boardId: oldId }) : [];
     for (const action of actions) {
       const id = action._id;
       delete action._id;
@@ -1564,14 +1580,14 @@ Boards.helpers({
       actionsMap[id] = await Actions.insertAsync(action);
     }
     const triggersMap = {};
-    const triggers = await ReactiveCache.getTriggers({ boardId: oldId });
+    const triggers = selection.rules ? await ReactiveCache.getTriggers({ boardId: oldId }) : [];
     for (const trigger of triggers) {
       const id = trigger._id;
       delete trigger._id;
       trigger.boardId = _id;
       triggersMap[id] = await Triggers.insertAsync(trigger);
     }
-    const rules = await ReactiveCache.getRules({ boardId: oldId });
+    const rules = selection.rules ? await ReactiveCache.getRules({ boardId: oldId }) : [];
     for (const rule of rules) {
       delete rule._id;
       rule.boardId = _id;
@@ -1585,7 +1601,7 @@ Boards.helpers({
     // copy, so a copied board lost all its outgoing webhooks. Re-home each onto
     // the new board; the URL/token/activities carry over (the copying user is a
     // board admin and already has access to them).
-    const integrations = await ReactiveCache.getIntegrations({ boardId: oldId });
+    const integrations = selection.integrations ? await ReactiveCache.getIntegrations({ boardId: oldId }) : [];
     for (const integration of integrations) {
       delete integration._id;
       integration.boardId = _id;

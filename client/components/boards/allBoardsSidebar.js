@@ -1,3 +1,5 @@
+import { ReactiveVar } from 'meteor/reactive-var';
+import { BOARD_COPY_FIELDS, allBoardCopyOptions, toggleBoardCopyOption } from '/models/lib/boardCopyOptions';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 const {
@@ -227,36 +229,58 @@ Template.allBoardsMultiSelectionSidebar.events({
   },
   'click .js-duplicate-selected-boards'(evt) {
     evt.preventDefault();
-    const withoutCards = evt.currentTarget.dataset.withoutCards === 'true';
-    const selectedBoards = selectedBoardIdsOrWarn();
-    if (!selectedBoards) return;
-    if (
-      confirm(TAPi18n.__('duplicate-board-confirm'))
-    ) {
-      selectedBoards.forEach((boardId) => {
-        const board = ReactiveCache.getBoard(boardId);
-        if (board) {
-          Meteor.call(
-            'copyBoard',
-            boardId,
-            {
-              sort: ReactiveCache.getBoards({ archived: false }).length,
-              type: 'board',
-              title: board.title,
-              withoutCards,
-            },
-            (err) => {
-              if (err) console.error(err);
-            },
-          );
-        }
-      });
-      BoardMultiSelection.reset();
-    }
+    const boardIds = selectedBoardIdsOrWarn();
+    if (!boardIds) return;
+    Popup.open('duplicateSelectedBoards', { titleKey: 'duplicate-board' }).call({ boardIds }, evt);
   },
   'click .js-multiselection-reset'(evt) {
     evt.preventDefault();
     BoardMultiSelection.disable();
     closeAllBoardsSidebar();
+  },
+});
+
+
+Template.duplicateSelectedBoardsPopup.onCreated(function () {
+  this.options = new ReactiveVar(allBoardCopyOptions());
+  this.busy = new ReactiveVar(false);
+  this.error = new ReactiveVar('');
+  this.remainingBoardIds = [...this.data.boardIds];
+});
+Template.duplicateSelectedBoardsPopup.helpers({
+  copyFields() {
+    const options = Template.instance().options.get();
+    return BOARD_COPY_FIELDS.map(field => ({ ...field, checked: options[field.key] }));
+  },
+  copyBusy() { return Template.instance().busy.get(); },
+  copyError() { return Template.instance().error.get(); },
+});
+Template.duplicateSelectedBoardsPopup.events({
+  'click .js-copy-select-all'(event, tpl) { event.preventDefault(); if (!tpl.busy.get()) tpl.options.set(allBoardCopyOptions()); },
+  'click .js-copy-select-none'(event, tpl) { event.preventDefault(); if (!tpl.busy.get()) tpl.options.set(allBoardCopyOptions(false)); },
+  'click .js-copy-field-toggle'(event, tpl) {
+    event.preventDefault();
+    if (!tpl.busy.get()) tpl.options.set(toggleBoardCopyOption(tpl.options.get(), event.currentTarget.dataset.field));
+  },
+  'click .js-copy-cancel'(event, tpl) { event.preventDefault(); if (!tpl.busy.get()) Popup.close(); },
+  async 'submit .js-duplicate-boards-form'(event, tpl) {
+    event.preventDefault();
+    if (tpl.busy.get()) return;
+    tpl.busy.set(true);
+    tpl.error.set('');
+    try {
+      // Retain only unfinished boards if an error requires retrying the batch.
+      while (tpl.remainingBoardIds.length) {
+        await Meteor.callAsync('copyBoard', tpl.remainingBoardIds[0], {
+          sort: ReactiveCache.getBoards({ archived: false }).length,
+          type: 'board', copyOptions: tpl.options.get(),
+        });
+        tpl.remainingBoardIds.shift();
+      }
+      BoardMultiSelection.reset();
+      Popup.close();
+    } catch (error) {
+      tpl.error.set(error.reason || error.message);
+    } finally { tpl.busy.set(false); }
   },
 });

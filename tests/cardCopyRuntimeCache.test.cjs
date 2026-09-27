@@ -5,7 +5,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const root = path.resolve(__dirname, '..');
 const source = fs.readFileSync(path.join(root, 'models/cards.js'), 'utf8');
-const copyBody = source.slice(source.indexOf('  async copy(boardId, swimlaneId, listId, cardIdMap = null) {'), source.indexOf('\n  async link('));
+const copyBody = source.slice(source.indexOf('  async copy(boardId, swimlaneId, listId, cardIdMap = null, copyOptions) {'), source.indexOf('\n  async link('));
 const linkStart = source.indexOf('  async link(');
 const linkBody = source.slice(linkStart, source.indexOf('\n  list()', linkStart));
 const { normalizeDependencies } = await import('../models/metadata/dependencies.js');

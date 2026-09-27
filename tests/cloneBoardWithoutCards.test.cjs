@@ -60,7 +60,7 @@ assert.deepEqual(
 // false so the DEFAULT clone behaviour (checkbox unchecked) is unchanged.
 assert.match(
   boardsModel,
-  /Boards\.helpers\(\{\s*\n\s*async copy\(withoutCards = false\) \{/,
+  /Boards\.helpers\(\{\s*\n\s*async copy\(withoutCards = false, copyOptions\) \{/,
   'Boards.helpers().copy() must accept withoutCards, defaulting to false',
 );
 
@@ -74,7 +74,7 @@ assert.match(
 // 4. Swimlanes.helpers().copy() accepts the same flag...
 assert.match(
   swimlanesModel,
-  /async copy\(boardId, targetSwimlaneId = null, position = 'below', title = '', cardIdMap = null, withoutCards = false\) \{/,
+  /async copy\(boardId, targetSwimlaneId = null, position = 'below', title = '', cardIdMap = null, withoutCards = false, copyOptions\) \{/,
   'Swimlanes.helpers().copy() must accept withoutCards, defaulting to false',
 );
 
@@ -84,7 +84,7 @@ assert.match(
 // nearby comment.
 assert.match(
   swimlanesModel,
-  /if \(!withoutCards\) \{\s*\n\s*const cardQuery = \{[\s\S]*?for \(const card of cards\) \{\s*\n\s*await card\.copy\(boardId, newSwimlaneId, newListId, cardIdMap\);\s*\n\s*\}\s*\n\s*\}/,
+  /if \(!withoutCards\) \{\s*\n\s*const cardQuery = \{[\s\S]*?for \(const card of cards\) \{\s*\n\s*await card\.copy\(boardId, newSwimlaneId, newListId, cardIdMap, copyOptions\);\s*\n\s*\}\s*\n\s*\}/,
   'the card-copy loop inside Swimlanes.helpers().copy() must be skipped when withoutCards is set',
 );
 
@@ -105,7 +105,7 @@ assert.equal(
 // it through to board.copy().
 assert.match(
   copyBoardMethod,
-  /const \{ members, permission, withoutCards, \.\.\.safeProperties \} = properties;/,
+  /const \{ members, permission, withoutCards, copyOptions, \.\.\.safeProperties \} = properties;/,
   'copyBoard must destructure withoutCards out of the caller-supplied properties',
 );
 assert.match(

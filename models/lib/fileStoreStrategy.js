@@ -1,3 +1,6 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+import { Random } from 'meteor/random';
+import Attachments from '/models/attachments';
 import fs from 'fs';
 import path from 'path';
 import { PassThrough } from 'stream';
@@ -1193,7 +1196,7 @@ export const copyFile = async function(fileObj, newCardId, fileStoreStrategyFact
     copyName = sanitizeUploadFileName(fileObj.name, fileObj.type) || fileObj.name;
   } catch (e) { /* keep original name on failure */ }
 
-  Object.keys(fileObj.versions).forEach(versionName => {
+  return Promise.all(Object.keys(fileObj.versions).map(versionName => new Promise((resolve, reject) => {
     const strategyRead = fileStoreStrategyFactory.getFileStrategy(fileObj, versionName);
     const readStream = strategyRead.getReadStream();
     const strategyWrite = fileStoreStrategyFactory.getFileStrategy(fileObj, versionName, STORAGE_NAME_FILESYSTEM);
@@ -1210,6 +1213,10 @@ export const copyFile = async function(fileObj, newCardId, fileStoreStrategyFact
         fileObj._id,
         `version "${versionName}": source file not found at its recorded location — skipping.`,
       );
+      if (readStream) readStream.destroy();
+      if (writeStream) writeStream.destroy();
+      fs.promises.unlink(tempPath).catch(() => {});
+      resolve(null);
       return;
     }
 
@@ -1220,48 +1227,43 @@ export const copyFile = async function(fileObj, newCardId, fileStoreStrategyFact
       try { readStream.destroy(); } catch (e) { /* ignore */ }
       try { writeStream.destroy(); } catch (e) { /* ignore */ }
       fs.promises.unlink(tempPath).catch(() => {});
+      reject(error);
     };
 
     writeStream.on('error', error => cleanupPartial(error, 'writeStream error'));
     readStream.on('error', error => cleanupPartial(error, 'readStream error'));
 
-    // https://forums.meteor.com/t/meteor-code-must-always-run-within-a-fiber-try-wrapping-callbacks-that-you-pass-to-non-meteor-libraries-with-meteor-bindenvironmen/40099/8
-    readStream.on('end', () => {
-      const fileId = new ObjectId().toString();
-      (fileStoreStrategyFactory.collection || Attachments).addFile(
-        tempPath,
-        {
-          fileName: copyName,
-          type: fileObj.type,
-          meta: {
-            boardId: newCard.boardId,
-            cardId: newCardId,
-            listId: newCard.listId,
-            swimlaneId: newCard.swimlaneId,
-            source: 'copy',
-            copyFrom: fileObj._id,
-            copyStorage: strategyRead.getStorageName(),
+    // The destination must be fully flushed before addFile reads it.
+    writeStream.on('finish', async () => {
+      try {
+        const collection = fileStoreStrategyFactory.collection || Attachments;
+        const fileRef = await collection.addFile(
+          tempPath,
+          {
+            fileName: copyName,
+            type: fileObj.type,
+            meta: {
+              boardId: newCard.boardId,
+              cardId: newCardId,
+              listId: newCard.listId,
+              swimlaneId: newCard.swimlaneId,
+              source: 'copy',
+              copyFrom: fileObj._id,
+              copyStorage: strategyRead.getStorageName(),
+            },
+            userId: fileObj.userId,
+            size: fileObj.size,
+            fileId: new ObjectId().toString(),
           },
-          userId: fileObj.userId,
-          size: fileObj.fileSize,
-          fileId,
-        },
-        (err, fileRef) => {
-          if (err) {
-            console.log(err);
-          } else {
-            // Set the userId again
-            (fileStoreStrategyFactory.collection || Attachments).updateAsync({ _id: fileRef._id }, { $set: { userId: fileObj.userId } }).catch(error => {
-              console.error('Failed to update copied attachment userId:', error);
-            });
-          }
-        },
-        true,
-      );
+          true,
+        );
+        await collection.updateAsync({ _id: fileRef._id }, { $set: { userId: fileObj.userId } });
+        resolve(fileRef._id);
+      } catch (error) { cleanupPartial(error, 'copyFile addFile error'); }
     });
 
     readStream.pipe(writeStream);
-  });
+  })));
 };
 
 export const rename = function(fileObj, newName, fileStoreStrategyFactory) {

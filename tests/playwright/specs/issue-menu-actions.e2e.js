@@ -65,15 +65,17 @@ for (const withoutCards of [false, true]) {
       await expect(page.locator('.js-board-tile-menu')).toHaveCount(0);
       await page.locator('.js-all-boards-sidebar-multiselection').first().click();
       for (const id of sourceIds) await page.locator(`li.js-board.${id} .js-toggle-board-multi-selection`).click();
-      const regular = page.locator('.js-duplicate-selected-boards:not([data-without-cards])');
-      const empty = page.locator('.js-duplicate-selected-boards-without-cards');
-      expect(await regular.evaluate(el => el.nextElementSibling.classList.contains('js-duplicate-selected-boards-without-cards'))).toBe(true);
-      const action = withoutCards ? empty : regular;
-      page.once('dialog', dialog => dialog.dismiss());
+      const action = page.locator('.js-duplicate-selected-boards');
+      await expect(page.locator('.js-duplicate-selected-boards-without-cards')).toHaveCount(0);
       await action.click();
+      await page.locator('.js-copy-cancel').click();
       expect(copies()).toHaveLength(0);
-      page.once('dialog', dialog => dialog.accept());
       await action.click();
+      const popup = page.locator('.js-duplicate-boards-form');
+      await expect(popup.locator('[role="checkbox"][aria-checked="true"]')).toHaveCount(10);
+      if (withoutCards) await popup.locator('[data-field="cards"]').click();
+      await popup.locator('button[type="submit"]').click();
+      await expect(popup).toHaveCount(0);
       await expect.poll(() => copies().length).toBe(2);
       for (const copy of copies()) {
         await expect.poll(() => db.find('lists', { boardId: copy._id }).length).toBe(3);
@@ -104,7 +106,7 @@ test('board tiles have no action menu and normal members cannot archive or dupli
   expect(result).toBe('error-board-notAdmin');
   expect(db.getBoard(board.boardId).archived).toBe(false);
   const copyResult = await page.evaluate(async id => {
-    try { await Meteor.callAsync('copyBoard', id, { withoutCards: true }); return 'allowed'; }
+    try { await Meteor.callAsync('copyBoard', id, { copyOptions: { cards: false } }); return 'allowed'; }
     catch (e) { return e.error; }
   }, board.boardId);
   expect(copyResult).toBe('not-authorized');

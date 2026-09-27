@@ -1042,7 +1042,7 @@ Cards.helpers({
 },
 
 
-  async copy(boardId, swimlaneId, listId, cardIdMap = null) {
+  async copy(boardId, swimlaneId, listId, cardIdMap = null, copyOptions) {
     const oldId = this._id;
     const oldCard = await ReactiveCache.getCard(oldId);
 
@@ -1076,9 +1076,13 @@ Cards.helpers({
       // skip unnamed labels, otherwise every unnamed destination label would be
       // wrongly selected (mirrors the guard used by Cards.move()).
       const newCardLabels = filterCopiedLabelIds((newBoard && newBoard.labels) || [], oldCardLabels);
-      cardData.labelIds = newCardLabels;
+      cardData.labelIds = copyOptions ? (copyOptions.labels ? [...(this.labelIds || [])] : []) : newCardLabels;
 
-      cardData.customFields = await this.mapCustomFieldsToBoard(newBoard._id);
+      // A scoped board copy clones definitions and remaps their IDs after the
+      // cards exist. Do not share/mutate the source definitions on this path.
+      cardData.customFields = copyOptions
+        ? (copyOptions.customFields ? (this.customFields || []).map(field => ({ ...field })) : [])
+        : await this.mapCustomFieldsToBoard(newBoard._id);
     }
 
     cardData.boardId = boardId;
@@ -1108,6 +1112,8 @@ Cards.helpers({
       cardData.cardDependencies = normalizeDependencies(this.cardDependencies);
     }
 
+    if (copyOptions && !copyOptions.labels) cardData.labelIds = [];
+    if (copyOptions && !copyOptions.attachments) delete cardData.coverId;
     const _id = await Cards.insertAsync(cardData);
 
     // #3392: record old->new id so a whole-board/swimlane copy can remap
@@ -1117,12 +1123,12 @@ Cards.helpers({
     }
 
     // Copy attachments (server-only — requires filesystem access)
-    if (Meteor.isServer) {
+    if (Meteor.isServer && (!copyOptions || copyOptions.attachments)) {
       const { copyFile } = require('./lib/fileStoreStrategy.js');
       const { fileStoreStrategyFactory } = require('./attachments.server');
       const attachmentList = await ReactiveCache.getAttachments(liveAttachments({ 'meta.cardId': oldId }));
       for (const att of attachmentList) {
-        copyFile(att, _id, fileStoreStrategyFactory);
+        await copyFile(att, _id, fileStoreStrategyFactory);
       }
 
       // #5364: "show as thumb" / cover is stored as coverId pointing at an
@@ -1132,8 +1138,7 @@ Cards.helpers({
       // old->new attachment id map and remap coverId to the new attachment id.
       const sourceCoverId = oldCard ? oldCard.coverId : this.coverId;
       if (sourceCoverId) {
-        // copyFile writes the new attachment asynchronously on stream 'end',
-        // so the new doc may not be queryable immediately; retry briefly.
+        // Attachments have finished copying; resolve their new cover ID.
         let newCoverId;
         for (let attempt = 0; attempt < 20 && !newCoverId; attempt += 1) {
           const copied = await ReactiveCache.getAttachments({
@@ -1159,7 +1164,7 @@ Cards.helpers({
     }
 
     // copy checklists
-    const checklists = await ReactiveCache.getChecklists({ cardId: oldId });
+    const checklists = !copyOptions || copyOptions.checklists ? await ReactiveCache.getChecklists({ cardId: oldId }) : [];
     for (const ch of checklists) {
       await ch.copy(_id);
     }
@@ -1170,7 +1175,7 @@ Cards.helpers({
     // new board — and it mutated the cached source docs). Re-home them onto the
     // destination board alongside the copied parent.
     const { buildCopiedSubtaskFields } = require('./lib/subtaskCopy');
-    const subtasks = await ReactiveCache.getCards({ parentId: oldId });
+    const subtasks = copyOptions ? [] : await ReactiveCache.getCards({ parentId: oldId });
     for (const subtask of subtasks) {
       const copySubtask = buildCopiedSubtaskFields(subtask, {
         newParentId: _id,
@@ -1188,7 +1193,7 @@ Cards.helpers({
     }
 
     // copy card comments (#5166: re-home them onto the destination board)
-    const comments = await ReactiveCache.getCardComments({ cardId: oldId });
+    const comments = !copyOptions || copyOptions.comments ? await ReactiveCache.getCardComments({ cardId: oldId }) : [];
     for (const cmt of comments) {
       await cmt.copy(_id, boardId);
     }
