@@ -1119,6 +1119,21 @@ Upcoming regression evidence remains recorded; other browsers were not run.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1ebc4e3b8">Honor import selections for Jira estimates and spent time</a>. Thanks to xet7.</summary>
+
+The existing import selector now removes Jira's nested time fields and their
+flat fallbacks before creation. Custom Fields controls original/remaining
+estimates; Dates controls spent time. Excluded estimates do not create numeric
+custom fields, and fallback values cannot silently restore excluded data.
+
+Seven focused Node checks and two Chromium scenarios pass. The browser tests
+exercise Dates-only and Custom-Fields-only imports and retain full native,
+Jira and board-copy round-trip coverage. Updated the Jira guide. Existing
+Upcoming regression evidence remains recorded; other browsers were not run.
+
+</details>
+
 This release adds the following regression coverage and documentation:
 
 <details>
