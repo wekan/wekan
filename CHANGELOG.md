@@ -710,6 +710,24 @@ recorded positive, negative and UI regression coverage.
 Also adds the following feature:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/4aa61c6d5">Opt into Jira spent-time synchronization from the Sync popup</a>. Thanks to xet7.</summary>
+
+Jira Sync can include Spent time (hours), using the existing numeric seconds
+conversion. Existing configurations keep time synchronization disabled.
+Selected time values share the source baseline and conditional-write guards
+with text: local timer or manual edits are preserved or reported as conflicts.
+Zero hours remains a value; absent time is not replaced with zero.
+
+Thirty-nine focused Node checks and four Chromium scenarios pass, including
+conversion, invalid values, opt-out, zero, conflict detection, popup persistence
+and unsupported-field rejection. Updated the Sync guide. Existing Upcoming
+regression evidence remains recorded. Other browsers and live Jira accounts
+were not exercised. Estimate and Scrum planning Sync remain pending; Blockly
+translation work remains paused.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/31c9b1d6d">Select title and description synchronization in the existing Sync popup</a>. Thanks to xet7.</summary>
 
 Title and Description switches default to enabled for existing configurations.
