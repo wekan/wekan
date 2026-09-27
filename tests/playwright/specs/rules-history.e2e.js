@@ -62,3 +62,36 @@ test('undo refuses to overwrite another administrator’s newer rule edit',async
  expect(db.findOne('rules',{_id:ids._id}).enabled).toBe(false);
  expect(db.findOne('rules',{_id:ids._id}).title).toBe('My edit');
 });
+
+test('Rules REST writes create one attributed History entry per compound operation',async({page,request,board,user,user2})=>{
+ await loginWithToken(page,user.id,user.token);
+ const headers={Authorization:`Bearer ${user.token}`};
+ const base=`/api/boards/${board.boardId}/rules`;
+ const payload={title:'REST original',trigger:{activityType:'createCard'},action:{actionType:'archive'}};
+ const created=await request.post(base,{headers,data:payload});expect(created.status()).toBe(200);
+ const ids=await created.json();
+ expect(rows(board.boardId)).toHaveLength(1);
+ expect(rows(board.boardId)[0].userId).toBe(user.id);
+ const edited=await request.put(`${base}/${ids._id}`,{headers,data:{title:'REST edited',enabled:false,trigger:{activityType:'moveCard',listName:'Done'},action:{actionType:'unarchive'}}});
+ expect(edited.status()).toBe(200);expect(rows(board.boardId)).toHaveLength(2);
+ const entry=rows(board.boardId).find(row=>row.changeType==='edited');
+ expect(entry.previousContent.rule.title).toBe('REST original');expect(entry.newContent.action.actionType).toBe('unarchive');
+ expect(entry.newContent.rule.enabled).toBe(false);expect(entry.userId).toBe(user.id);
+ await call(page,'changeHistory.undoLast',board.boardId);
+ expect(db.findOne('rules',{_id:ids._id}).title).toBe('REST original');
+ expect(db.findOne('actions',{_id:ids.actionId}).actionType).toBe('archive');
+ await call(page,'changeHistory.redoLast',board.boardId);
+ expect(db.findOne('rules',{_id:ids._id}).title).toBe('REST edited');
+ const before=rows(board.boardId).length;
+ const unchanged=await request.put(`${base}/${ids._id}`,{headers,data:{}});
+ expect(unchanged.status()).toBe(200);expect(rows(board.boardId)).toHaveLength(before);
+ const denied=await request.put(`${base}/${ids._id}`,{headers:{Authorization:`Bearer ${user2.token}`},data:{title:'Denied'}});
+ expect(denied.status()).not.toBe(200);expect(rows(board.boardId)).toHaveLength(before);
+ const deleted=await request.delete(`${base}/${ids._id}`,{headers});expect(deleted.status()).toBe(200);
+ expect(rows(board.boardId)).toHaveLength(before+1);
+ expect(db.findOne('rules',{_id:ids._id})).toBeNull();
+ await call(page,'changeHistory.undoLast',board.boardId);
+ expect(db.findOne('rules',{_id:ids._id}).title).toBe('REST edited');
+ expect(db.findOne('triggers',{_id:ids.triggerId}).activityType).toBe('moveCard');
+ expect(db.findOne('actions',{_id:ids.actionId}).actionType).toBe('unarchive');
+});

@@ -569,3 +569,12 @@ Undo/redo also append timestamped reversal checkpoints to History. These rows
 remain outside the undo stack, but reports replay them so reversing a dependency
 or hour adjustment does not leave the chart showing the pre-undo state. Restore
 provenance rows are counted once in the time audit, under the restoring author.
+
+Rules REST create, edit and delete operations use the same compound History
+wrapper as the Rules/Blocks editors. The entry is attributed to the API's
+authenticated user and contains the rule, trigger and action snapshots. Editing
+several fields in one request records one operation; a no-op records none.
+Deleting a rule can be undone with its trigger and action. Board administrator
+checks still apply before writes, and History restoration retains its existing
+permission and conflict checks. The wrapper records the resulting state if a
+compound write fails partway; it does not make those writes transactional.

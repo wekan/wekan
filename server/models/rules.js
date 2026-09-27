@@ -7,6 +7,8 @@ import { TriggersDef } from '/server/triggersDef';
 import Rules from '/models/rules';
 import Triggers from '/models/triggers';
 import Actions from '/models/actions';
+import { Random } from 'meteor/random';
+import { withRuleHistory } from '/server/lib/ruleHistory';
 
 // REST API for board automation Rules (add / edit / remove).
 //
@@ -151,18 +153,23 @@ if (Meteor.isServer) {
       if (!action.actionType) {
         throw new Meteor.Error('bad-request', 'action.actionType is required');
       }
-      const triggerId = await Triggers.insertAsync({
-        ...normalizeTriggerDoc(strip(trigger)),
-        boardId: paramBoardId,
+      const ruleId = Random.id();
+      const ids = await withRuleHistory(ruleId, req.userId, async () => {
+        const triggerId = await Triggers.insertAsync({
+          ...normalizeTriggerDoc(strip(trigger)),
+          boardId: paramBoardId,
+        });
+        const actionId = await Actions.insertAsync({ ...strip(action), boardId: paramBoardId });
+        await Rules.insertAsync({
+          _id: ruleId,
+          title: title || 'API rule',
+          triggerId,
+          actionId,
+          boardId: paramBoardId,
+        });
+        return { _id: ruleId, triggerId, actionId };
       });
-      const actionId = await Actions.insertAsync({ ...strip(action), boardId: paramBoardId });
-      const ruleId = await Rules.insertAsync({
-        title: title || 'API rule',
-        triggerId,
-        actionId,
-        boardId: paramBoardId,
-      });
-      sendJsonResult(res, { code: 200, data: { _id: ruleId, triggerId, actionId } });
+      sendJsonResult(res, { code: 200, data: ids });
     } catch (error) {
       sendJsonResult(res, { code: error.statusCode || 500, data: error });
     }
@@ -197,25 +204,27 @@ if (Meteor.isServer) {
       });
       if (!rule) throw new Meteor.Error('not-found', 'Rule not found');
 
-      if (typeof req.body.title === 'string') {
-        await Rules.updateAsync(rule._id, { $set: { title: req.body.title } });
-      }
-      // The "temporarily disable a rule" switch: a paused rule keeps its
-      // trigger and action and is simply skipped by the rule engine.
-      if (req.body.enabled !== undefined) {
-        const enabled = req.body.enabled === true || req.body.enabled === 'true';
-        await Rules.updateAsync(rule._id, { $set: { enabled } });
-      }
-      if (req.body.trigger) {
-        await Triggers.updateAsync(rule.triggerId, {
-          $set: { ...normalizeTriggerDoc(strip(req.body.trigger)), boardId: paramBoardId },
-        });
-      }
-      if (req.body.action) {
-        await Actions.updateAsync(rule.actionId, {
-          $set: { ...strip(req.body.action), boardId: paramBoardId },
-        });
-      }
+      await withRuleHistory(rule._id, req.userId, async () => {
+        if (typeof req.body.title === 'string') {
+          await Rules.updateAsync(rule._id, { $set: { title: req.body.title } });
+        }
+        // The "temporarily disable a rule" switch: a paused rule keeps its
+        // trigger and action and is simply skipped by the rule engine.
+        if (req.body.enabled !== undefined) {
+          const enabled = req.body.enabled === true || req.body.enabled === 'true';
+          await Rules.updateAsync(rule._id, { $set: { enabled } });
+        }
+        if (req.body.trigger) {
+          await Triggers.updateAsync(rule.triggerId, {
+            $set: { ...normalizeTriggerDoc(strip(req.body.trigger)), boardId: paramBoardId },
+          });
+        }
+        if (req.body.action) {
+          await Actions.updateAsync(rule.actionId, {
+            $set: { ...strip(req.body.action), boardId: paramBoardId },
+          });
+        }
+      });
       sendJsonResult(res, { code: 200, data: { _id: rule._id } });
     } catch (error) {
       sendJsonResult(res, { code: error.statusCode || 500, data: error });
@@ -240,9 +249,11 @@ if (Meteor.isServer) {
         boardId: paramBoardId,
       });
       if (!rule) throw new Meteor.Error('not-found', 'Rule not found');
-      await Rules.removeAsync(rule._id);
-      await Triggers.removeAsync(rule.triggerId);
-      await Actions.removeAsync(rule.actionId);
+      await withRuleHistory(rule._id, req.userId, async () => {
+        await Rules.removeAsync(rule._id);
+        await Triggers.removeAsync(rule.triggerId);
+        await Actions.removeAsync(rule.actionId);
+      });
       sendJsonResult(res, { code: 200, data: { _id: rule._id } });
     } catch (error) {
       sendJsonResult(res, { code: error.statusCode || 500, data: error });
