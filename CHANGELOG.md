@@ -258,6 +258,9 @@ manual-button metadata have regression coverage. Advanced-filter comparisons
 now bind the field identity and value to the same array entry in both sidebar
 and rule queries; unknown field names cannot become value-only rule matches.
 Real MongoDB and Chromium cover multiple fields, missing fields and inequality.
+Grouped filters and whole-expression negation now use valid database selectors.
+Incomplete expressions are rejected before rule queries; sidebar fallback and
+left-to-right logical order are covered in Node, MongoDB and Chromium tests.
 Writes across documents are not transactional; concurrent-write recovery and
 failed-creation orphan cleanup
 still require work. The combined checkpoint passed 45 Node runner checks and
@@ -960,6 +963,32 @@ changelog suites pass; the existing released v12.07 line-length failure remains.
 This covers field identity matching; FerretDB and additional browsers were not
 exercised.
 Durable rule effects and transactional changes remain in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2d0dea912">Handle grouped and negated advanced filters consistently</a>. Thanks to xet7.</summary>
+
+Whole-expression NOT previously generated a field-only database operator, and
+parenthesis processing mixed separate groups. Parse nested groups recursively,
+use nor for whole-selector negation and accept parentheses next to their
+contents. Preserve existing left-to-right and/or evaluation; NOT applies to
+the next comparison or group. Quoted and regex parentheses remain literal.
+
+Reject incomplete comparisons, unmatched groups, unclosed tokens and trailing
+operands before database queries. Limit nesting and leave input tokens intact.
+Invalid rules execute no action; the sidebar retains its last valid filter.
+Document that NOT includes cards without the compared field, whereas a direct
+inequality requires the named field.
+
+Four Node suites pass, including real MongoDB comparisons, nested groups,
+negation, evaluation order and guards against invalid server queries. Three
+Chromium scenarios pass with sidebar groups/NOT/fallback, grouped and invalid
+rules, and the existing estimate Sync and checkbox activity flows. The offline
+source/dependency audit passes with advisory warnings. Four changelog suites
+pass; the existing released v12.07 line-length failure remains. Other browsers
+and FerretDB were not exercised. Durable rule delivery and transactions remain
+in TODO Later.
 
 </details>
 
