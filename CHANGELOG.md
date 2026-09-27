@@ -1869,6 +1869,21 @@ regression coverage remains recorded in its entries. Updated mirroring docs.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/22d9124ee">Allow reviewed dependency funding links during release checks</a>. Thanks to xet7.</summary>
+
+The release risk audit rejected three funding URLs in CSSTools and parse5
+dependency metadata. Allow those exact URLs only in package-lock.json. Other
+URLs, changed query strings, lookalike hosts, application-code URLs and
+suspicious keywords remain checked; source hash changes stay informational.
+
+All ten risk-audit tests and three release-launcher runner checks pass. The
+local release audit passes with advisory fingerprint warnings. Existing
+Upcoming entries retain their regression coverage; this configuration fix
+has no UI behavior. No release build or publication was run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b929ffe8c">Complete Blockly translations in four more Romance languages</a>. Thanks to xet7.</summary>
 
 Fill remaining Blockly and Blocks editor prose in Friulian, Ladin, Romansh
