@@ -617,6 +617,24 @@ boards can also be duplicated with a choice of structure and data.
 This release fixes the following CRITICAL SECURITY ISSUES:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0c862047b">Enforce assigned-only permissions in exporter authorization</a>. Thanks to xet7.</summary>
+
+[ExportScopeBleed](https://wekan.fi/hall-of-fame/exportscopebleed/): board
+visibility alone allowed assigned-only members to export unassigned private
+board data. All nine exporter authorization methods now share an assignment
+check. Unfiltered exports refuse assigned-only members; the two Scrum report
+loaders retain access because they already filter cards and snapshots.
+Board Excel and card PDF/Excel refusals now return HTTP 403.
+
+Three Node checks cover the policy, all exporter call sites and Hall of Fame
+coverage. Eleven HTTP scenarios pass across native JSON, ZIP, CSV, calendar,
+PDF, Excel and charts, including permitted scoped Scrum reports. Existing
+Upcoming regression evidence remains recorded. Firefox, WebKit, FerretDB and
+Sandstorm were not exercised. CWE-863, high severity; no CVE assigned.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/285c1db24">Enforce current access on universal History reads and restores</a>. Thanks to xet7.</summary>
 
 [HistoryScopeBleed](https://wekan.fi/hall-of-fame/historyscopebleed/):
