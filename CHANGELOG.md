@@ -1391,6 +1391,24 @@ live provider accounts were not exercised.
 This release adds the following regression coverage and documentation:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7472456ad">Preserve shared triggers and actions when deleting rules</a>. Thanks to xet7.</summary>
+
+Editor, REST and History deletion share cleanup that retains trigger/action
+records referenced by another rule. Removing the final reference cleans them
+up. History can restore a deleted rule using unchanged shared components but
+refuses to overwrite shared content edited since the snapshot. Reference checks
+remain nontransactional across documents.
+
+Three Node suites and six Chromium History scenarios pass, including both
+deletion transports, shared-reference preservation, successful restoration,
+changed-component refusal and final-reference cleanup. Existing permissions,
+compound edits and REST History attribution remain covered. Update the History
+guide. Existing Upcoming regression evidence remains recorded; other browsers
+were not exercised. Blockly translations remain paused.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e0bcf7bde">Record compound Rules REST changes in reversible History</a>. Thanks to xet7.</summary>
 
 Rules REST creation, editing and deletion use the shared rule-history wrapper
