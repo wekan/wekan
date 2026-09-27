@@ -224,4 +224,35 @@ test('the entity table covers every entity the hooks attach to', () => {
   }
 });
 
+
+test('nested dates survive JSON History transport without converting strings or numbers', () => {
+  const value = [{ _id: 'date', value: new Date(1234) },
+    { _id: 'text', value: '1970-01-01T00:00:01.234Z' }, { _id: 'number', value: 1234 },
+    { _id: 'nested', value: { dates: [new Date(0), null] } }];
+  const content = contentForField('customFields', value);
+  assert.deepEqual(content.datePaths, [['0', 'value'], ['3', 'value', 'dates', '0']]);
+  const transported = JSON.parse(JSON.stringify(content));
+  assert.deepEqual(valueFromContent(transported), value);
+  assert.equal(typeof transported.value[0].value, 'number', 'restore must not mutate stored evidence');
+  assert.equal(changed(value, structuredClone(value)), false);
+  assert.equal(changed([{ value: new Date(1234) }], [{ value: 1234 }]), true);
+  assert.equal(changed([{ value: new Date(1234) }], [{ value: value[1].value }]), true);
+  assert.equal(contentForField('customFields', [{ value: new Date(NaN) }]), null);
+});
+test('malformed nested-date metadata cannot traverse inherited properties or coerce values', () => {
+  for (const datePaths of [null, 'bad', [[]], [[0, 'value']], [['missing']], [['toString']],
+    [['0', 'value'], ['0', 'value']]]) {
+    assert.throws(() => valueFromContent({ value: [{ value: 0 }], datePaths }), /History date/);
+  }
+  for (const value of ['0', null, Infinity, 9e20]) {
+    assert.throws(() => valueFromContent({ value: [{ value }], datePaths: [['0', 'value']] }), /History date/);
+  }
+  const literal = JSON.parse('{"__proto__":{"value":0}}');
+  const result = valueFromContent({ value: literal, datePaths: [['__proto__', 'value']] });
+  assert.equal(Object.getPrototypeOf(result), Object.prototype);
+  assert.ok(result.__proto__.value instanceof Date);
+  assert.equal(Object.prototype.value, undefined);
+  assert.deepEqual(valueFromContent({ value: [{ value: '2026-01-01' }] }), [{ value: '2026-01-01' }]);
+});
+
 console.log(`changeHistoryGroups: ${passed} tests passed`);

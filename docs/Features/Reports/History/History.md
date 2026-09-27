@@ -171,6 +171,13 @@ Transifex; see the translation-pull auto-heal note in the changelog).
 One new append-only Mongo collection **`changeHistory`** (working name) covering **every** change,
 whatever the entity. One document per change:
 
+Field snapshots preserve nested Date values with millisecond values and explicit
+`datePaths` metadata inside the content. This keeps date-valued custom fields
+as dates after JSON transport and restore, while ISO-looking text remains text.
+Malformed paths or values are rejected instead of coercing data during restore.
+Older rows without this metadata keep their original interpretation: dates
+already flattened to strings cannot safely be distinguished from actual text.
+
 ```js
 {
   _id,

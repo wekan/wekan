@@ -135,19 +135,43 @@ function contentForField(field, value) {
     // Label ids, member ids, custom field values: arrays of scalars or plain
     // objects, which is what every array field on these entities holds.
     try {
-      return { field, value: JSON.parse(JSON.stringify(value)) };
+      return nestedContent(field, value);
     } catch {
       return null;
     }
   }
   if (type === 'object') {
     try {
-      return { field, value: JSON.parse(JSON.stringify(value)) };
+      return nestedContent(field, value);
     } catch {
       return null;
     }
   }
   return null;
+}
+
+// JSON invokes Date.toJSON before a replacer sees it. Visit the original tree
+// and record explicit paths instead; ISO-looking user strings remain strings.
+function nestedContent(field, value) {
+  const datePaths = [];
+  const ancestors = new Set();
+  function encode(item, path) {
+    if (item instanceof Date) {
+      if (!Number.isFinite(item.getTime())) throw new Error('Invalid History date');
+      datePaths.push(path);
+      return item.getTime();
+    }
+    if (!item || typeof item !== 'object') return item;
+    if (ancestors.has(item)) throw new Error('Circular History content');
+    ancestors.add(item);
+    const result = Array.isArray(item)
+      ? item.map((entry, index) => encode(entry, [...path, String(index)]))
+      : Object.fromEntries(Object.keys(item).map(key => [key, encode(item[key], [...path, key])]));
+    ancestors.delete(item);
+    return result;
+  }
+  const encoded = JSON.parse(JSON.stringify(encode(value, [])));
+  return { field, value: encoded, ...(datePaths.length ? { datePaths } : {}) };
 }
 
 /* Turn stored content back into the value to write. The inverse of the above. */
@@ -156,6 +180,31 @@ function valueFromContent(content) {
   if (!('value' in content)) return undefined;
   if (content.isDate) {
     return content.value === null ? null : new Date(content.value);
+  }
+  if (content.datePaths !== undefined) {
+    if (!Array.isArray(content.datePaths)) throw new Error('Invalid History date paths');
+    const value = JSON.parse(JSON.stringify(content.value));
+    const seen = new Set();
+    for (const path of content.datePaths) {
+      if (!Array.isArray(path) || !path.length || path.some(key => typeof key !== 'string')) {
+        throw new Error('Invalid History date path');
+      }
+      const identity = JSON.stringify(path);
+      if (seen.has(identity)) throw new Error('Duplicate History date path');
+      seen.add(identity);
+      let parent = value;
+      for (const key of path.slice(0, -1)) {
+        if (!parent || typeof parent !== 'object' || !Object.hasOwn(parent, key)) throw new Error('Missing History date path');
+        parent = parent[key];
+      }
+      const key = path.at(-1);
+      if (!parent || typeof parent !== 'object' || !Object.hasOwn(parent, key) ||
+          typeof parent[key] !== 'number' || !Number.isFinite(new Date(parent[key]).getTime())) {
+        throw new Error('Invalid History date value');
+      }
+      Object.defineProperty(parent, key, { value: new Date(parent[key]), enumerable: true, writable: true, configurable: true });
+    }
+    return value;
   }
   return content.value;
 }
@@ -178,7 +227,7 @@ function changed(before, after) {
   if (after === null || after === undefined) return true;
   if (typeof before === 'object' || typeof after === 'object') {
     try {
-      return JSON.stringify(before) !== JSON.stringify(after);
+      return JSON.stringify(nestedContent('', before)) !== JSON.stringify(nestedContent('', after));
     } catch {
       return true;
     }
