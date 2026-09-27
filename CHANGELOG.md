@@ -1316,6 +1316,24 @@ live provider accounts were not exercised.
 This release adds the following regression coverage and documentation:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8be9b79de">Prevent foreign Scrum planning references in standalone card copies</a>. Thanks to xet7.</summary>
+
+Card and subtask copies now start a fresh Scrum metadata revision. Same-board
+copies retain planning associations. Cross-board standalone copies preserve
+issue type and acceptance criteria but omit source sprint, past-sprint, release
+IDs and board-relative rank. Source cards are unchanged. Full-board duplication
+still remaps planning records through its existing transfer implementation.
+
+Thirteen Node runner entries and two Chromium scenarios pass, covering copied
+subtasks, same/cross-board metadata, omitted metadata and full-board remapping.
+Update the Scrum design with the standalone-copy limits. Planning-record
+selection for standalone transfers and move integration remain pending.
+Existing Upcoming regression evidence remains recorded; other browsers were
+not exercised. Blockly translations remain paused.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/14a4d62fb">Verify Jira estimate mappings across native imports and board copies</a>. Thanks to xet7.</summary>
 
 Expand the Chromium transfer scenario to export a Jira-imported board as
@@ -1447,24 +1465,6 @@ are multiline and resizable, follow the Enter preference, and buttons retain
 their themed text colors.
 
 This release fixes the following bugs:
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/8be9b79de">Prevent foreign Scrum planning references in standalone card copies</a>. Thanks to xet7.</summary>
-
-Card and subtask copies now start a fresh Scrum metadata revision. Same-board
-copies retain planning associations. Cross-board standalone copies preserve
-issue type and acceptance criteria but omit source sprint, past-sprint, release
-IDs and board-relative rank. Source cards are unchanged. Full-board duplication
-still remaps planning records through its existing transfer implementation.
-
-Thirteen Node runner entries and two Chromium scenarios pass, covering copied
-subtasks, same/cross-board metadata, omitted metadata and full-board remapping.
-Update the Scrum design with the standalone-copy limits. Planning-record
-selection for standalone transfers and move integration remain pending.
-Existing Upcoming regression evidence remains recorded; other browsers were
-not exercised. Blockly translations remain paused.
-
-</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e0a53728b">Use available width for popup menus and Card settings</a>. Thanks to xet7.</summary>
