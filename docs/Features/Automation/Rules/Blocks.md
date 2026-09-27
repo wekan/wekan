@@ -113,7 +113,9 @@ History writes; the concurrency limits still apply.
 ## Translation progress
 
 Blockly translation work resumed by request on 2026-09-27 after a pause. Gujarati
-navigation, accessibility and basic controls are partially translated. The editor
+navigation, accessibility, conditions, loops, editing actions and input labels
+are partially translated. Chromium coverage exercises Gujarati block dragging,
+field editing, saving and context menus. The editor
 remains available; remaining languages and native terminology review are
 tracked under TODO Later in [the changelog](../../../../CHANGELOG.md).
 Message coverage and placeholder checks do not imply complete translation.

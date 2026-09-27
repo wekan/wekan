@@ -49,7 +49,7 @@ test('localized editor reads WeKan messages without sprintf and preserves drafts
 });
 test('resumed Gujarati accessibility and basic block controls contain Gujarati prose',()=>{
  const gu=require('../imports/i18n/data/gu-IN.i18n.json');
- const keys=Object.keys(english).filter(key=>/^blockly-(ANNOUNCE_|ARIA_|BLOCK_LABEL_|BUBBLE_LABEL_|COLOUR_)/.test(key)&&!key.endsWith('_HELPURL')&&/[A-Za-z]/.test(english[key]));
+ const keys=Object.keys(english).filter(key=>/^blockly-(ANNOUNCE_|ARIA_|BLOCK_LABEL_|BUBBLE_LABEL_|COLOUR_|CONTROLS_|FIELD_|ICON_)/.test(key)&&!key.endsWith('_HELPURL')&&/[A-Za-z]/.test(english[key]));
  for(const key of keys){
   assert.match(gu[key],/[\u0A80-\u0AFF]/,key);
   assert.notEqual(gu[key],english[key],key);
@@ -58,4 +58,7 @@ test('resumed Gujarati accessibility and basic block controls contain Gujarati p
  assert.equal(gu['blockly-COLOUR_RGB_BLUE'],'વાદળી');
  assert.equal(gu['blockly-ARIA_LABEL_BUTTON'],'બટન');
  assert.equal(gu['blockly-ARIA_LABEL_FIELD_ANGLE'],'%1 અંશ');
+ assert.equal(gu['blockly-CONTROLS_IF_MSG_IF'],'જો');
+ assert.equal(gu['blockly-FIELD_BITMAP_PIXEL_ON'],'ચાલુ');
+ assert.notEqual(gu['blockly-CONTROLS_WHILEUNTIL_TOOLTIP_WHILE'],gu['blockly-CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL']);
 });
