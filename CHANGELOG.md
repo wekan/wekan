@@ -168,7 +168,12 @@ See the [Scrum design](docs/Features/Right-Sidebar/Board-Settings/Board-View/Scr
 categories and explicitly selected numeric estimate fields now import/export
 through existing fields. Native copies retain the estimate mappings. Sync
 offers title/description/spent-time selection and controls for creating and
-archiving cards, with existing authorization and local-change checks. Card
+archiving cards, with existing authorization and local-change checks. Jira
+estimates now sync into an explicitly selected, already mapped numeric custom
+field. The popup shows the source field and unit; mapping changes invalidate
+the old baseline. Zero, absent values and explicit null remain distinct.
+Local estimate edits use the existing conflict review, and conditional array
+writes preserve other custom fields and their order. Card
 mappings and credentials now include provider/server/project identity. Source
 switches preserve old cards, require the new source's credential and reject
 unidentifiable legacy mappings. Save existing settings once to bind their
@@ -233,8 +238,9 @@ History effects before a durable unit can be safely acknowledged.
 Remaining: external sprint histories without invented snapshots, multiple
 release assignments, epic relationships, automatic field/schema mapping,
 Trello and other Scrum adapters, complete provider schema/mapping coverage,
-binary/history transport, planning and
-estimate Sync, durable restart checkpoints, fencing of in-flight card writes
+binary/history transport, planning Sync, original/remaining time estimates,
+other providers' estimate Sync, individual custom-field activity/rule events,
+durable mapped-field replay and restart checkpoints, fencing of in-flight writes
 after lease loss and atomic multi-card reconciliation.
 Changes during card writes remain nontransactional.
 See [Jira](docs/Features/ImportExport/Jira/Jira.md) and
@@ -856,6 +862,38 @@ responses, folded database rows, the Admin API Problems view and absence of
 the request token and private marker. The pending-import HTTP scenario also
 passes. This covers the route boundary; other loggers and historical log
 contents were not changed.
+
+</details>
+
+and adds mapped Jira estimate synchronization:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/79fcd0061">Sync mapped Jira estimates with local conflict review</a>. Thanks to xet7.</summary>
+
+Add an opt-in Estimate switch and mapped numeric-field picker to the existing
+Sync popup. Reuse Jira import field IDs and units, store their identity and
+revalidate the definition before applying writes. Cloud search requests the
+selected field. Source-coverage reports recognize only this explicit mapping.
+
+Compare incoming estimates with local values and accepted source baselines.
+Local changes survive unchanged upstream values; competing changes use the
+existing Keep local/Use source controls. Preserve zero, ignore absent source
+fields, and clear only the mapped entry for explicit null. Conditional card
+writes preserve unrelated custom fields and their order. Changed mappings
+require saving settings and invalidate the old estimate baseline. Malformed
+source/local values and foreign or invalid field definitions are rejected.
+
+Seventeen focused Sync Node suites pass, including real MongoDB persistence
+checks. All nineteen Chromium Sync scenarios pass. The final estimate scenario
+also passes after verifying invalid local values, mapping-unit changes and
+custom-field order. It exercises the actual popup against a local Jira fixture;
+live Jira servers, other browsers and FerretDB were not tested. The offline
+source/dependency audit passes with advisory fingerprint warnings.
+
+Automatic schema discovery, other providers' estimates, original/remaining
+time-estimate mapping, individual custom-field activity/rule events and durable
+mapped-field replay remain pending. Entity History uses its existing hook.
+Only English labels were added; translation into all languages remains excluded.
 
 </details>
 
