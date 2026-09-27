@@ -50,4 +50,17 @@ async function writeImportPlan({ boardId, operationId, userId, steps, pending, j
   return identity;
 }
 
-module.exports = { applyImportStep, writeImportPlan };
+// Keep the board guarded until private plan removal is acknowledged. The
+// offline recovery command understands this same cleaning state, even when
+// only part of the journal remains after an interrupted deletion.
+async function finishImportPlan({ identity, total, pending, journal, clearMarkers }) {
+  await clearMarkers();
+  if (!await pending.updateAsync({ ...identity, state: 'applied', next: total },
+    { $set: { state: 'cleaning' } })) throw new Error('Scrum import checkpoint changed before cleanup');
+  await journal.removeAsync({ boardId: identity._id, operationId: identity.operationId });
+  if (!await pending.removeAsync({ ...identity, state: 'cleaning', next: total })) {
+    throw new Error('Scrum import checkpoint changed before completion');
+  }
+}
+
+module.exports = { applyImportStep, writeImportPlan, finishImportPlan };

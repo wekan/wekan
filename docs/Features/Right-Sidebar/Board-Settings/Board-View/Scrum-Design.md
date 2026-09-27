@@ -236,7 +236,10 @@ Metadata updates compare their original values, field presence and destination
 board atomically. A changed or moved target stops the operation without being
 overwritten. Exact already-written results are accepted by the step writer;
 same-ID inserts with different content are rejected. Normal completion removes
-the checkpoint only after clearing all sprint markers, then cleans its plan.
+the checkpoint only after clearing all sprint markers and deleting its plan.
+It enters the same durable cleaning state as offline recovery before removing
+plan rows. A cleanup failure propagates with the checkpoint still present,
+allowing offline resume even after partial plan removal.
 Board deletion cleans both private collections. The checkpoint also excludes
 Scrum reads/writes/exports and daily capture before any sprint exists and after
 the last sprint marker clears. The UI exposes only the existing pending flag,
@@ -259,7 +262,7 @@ destination writes. Forward resume is refused after rollback starts; completed
 imports whose plans are being removed can no longer be rolled back.
 
 Online coordinated replay, reconstruction of incomplete plans, changed-target
-resolution, normal-import orphan cleanup and recovery of earlier/later native
+resolution, reclamation of old orphan plans and recovery of earlier/later native
 import stages remain unfinished. Existing marker-only interrupted imports have
 no retroactive plan. Ordinary board/card edits are not locked by these
 checkpoints; this is why the maintenance command requires stopped writers.

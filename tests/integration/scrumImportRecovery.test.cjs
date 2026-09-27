@@ -4,6 +4,7 @@ const assert = require('node:assert/strict');
 const { spawnSync } = require('node:child_process');
 const { MongoClient, ObjectId } = require('mongodb');
 const { inspectImport, recoverImport, clearRecoveryClaim } = require('../../server/lib/scrumImportRecovery');
+const { finishImportPlan } = require('../../server/lib/scrumImportWriter');
 const uri = process.env.WEKAN_SCRUM_TEST_MONGO_URL;
 const cli = require.resolve('../../releases/recover-scrum-import.cjs');
 
@@ -162,6 +163,49 @@ test('offline recovery validates whole plans, resumes write gaps and holds non-e
     assert.equal(await journal.countDocuments({}), 0);
     assert.equal(await locks.countDocuments({}), 0);
   }
+  // Normal imports retain their header until private-plan deletion succeeds.
+  // Inject failures at each boundary and recover using the actual offline
+  // command implementation, including a partially removed plan.
+  for (const failure of ['markers', 'seal', 'plan', 'header', null]) {
+    await applied();
+    const adapter = name => ({
+      updateAsync: async (selector, change) => {
+        if (failure === 'seal') throw new Error('Interrupted normal cleanup');
+        return (await db.collection(name).updateOne(selector, change)).matchedCount;
+      },
+      removeAsync: async selector => {
+        if (failure === 'plan' && name === 'scrumImportSteps') {
+          await journal.deleteOne({ _id: 'op:0' });
+          throw new Error('Interrupted normal cleanup');
+        }
+        if (failure === 'header' && name === 'scrumImportPending') throw new Error('Interrupted normal cleanup');
+        return (await db.collection(name).deleteMany(selector)).deletedCount;
+      },
+    });
+    const finish = () => finishImportPlan({ identity: { _id: 'b', operationId: 'op' }, total: 3,
+      pending: adapter('scrumImportPending'), journal: adapter('scrumImportSteps'), clearMarkers: async () => {
+        if (failure === 'markers') throw new Error('Interrupted normal cleanup');
+        await db.collection('scrumSprints').updateOne({ _id: 's' }, { $unset: { scrumImportPending: '' } });
+      } });
+    if (failure) {
+      await assert.rejects(finish(), /Interrupted normal cleanup/);
+      assert.equal((await pending.findOne({ _id: 'b' })).state,
+        ['markers', 'seal'].includes(failure) ? 'applied' : 'cleaning');
+      await run();
+    } else await finish();
+    assert.equal(await pending.countDocuments({}), 0);
+    assert.equal(await journal.countDocuments({}), 0);
+    assert.equal((await db.collection('boards').findOne({ _id: 'b' })).scrum.enabled, true);
+    assert.equal((await db.collection('scrumSprints').findOne({ _id: 's' })).scrumImportPending, undefined);
+  }
+  // A changed checkpoint cannot authorize plan deletion or expose the board.
+  await applied();
+  let deleted = false;
+  await assert.rejects(finishImportPlan({ identity: { _id: 'b', operationId: 'other' }, total: 3,
+    pending: { updateAsync: async (selector, change) => (await pending.updateOne(selector, change)).matchedCount },
+    journal: { removeAsync: async () => { deleted = true; } }, clearMarkers: async () => {} }), /checkpoint changed/);
+  assert.equal(deleted, false); assert.equal(await journal.countDocuments({}), 3);
+
   await applied();
   const dry = await recoverImport(db, 'b', { rollback: true });
   assert.equal(dry.canRollback, true); assert.equal(dry.changed, false);

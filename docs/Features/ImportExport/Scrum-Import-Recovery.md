@@ -51,9 +51,11 @@ plan cannot: absent intended writes cannot be reconstructed from counters.
 Preserve the checkpoint and original import file for further recovery; do not
 clear sprint markers to make an incomplete import appear finished.
 
-Final cleanup has its own durable `cleaning` state. If removing plan rows stops
-halfway, the next recovery finishes cleanup without replaying data writes or
-requiring the already deleted rows.
+Final cleanup has its own durable `cleaning` state in both normal imports and
+offline recovery. The board checkpoint remains until private-plan removal is
+acknowledged; cleanup failures propagate instead of silently leaving an orphan
+plan. If removing plan rows stops halfway, the next recovery finishes cleanup
+without replaying data writes or requiring the already deleted rows.
 
 ## Undo the stored Scrum segment instead
 
@@ -118,10 +120,14 @@ dates, partially cleared sprint markers, interrupted plan cleanup, two competing
 recovery callers, exact-token clearing and the real CLI. Rollback coverage
 includes every planned collection, partial preparation, reverse-write gaps,
 changed targets, exact-document deletion and interrupted private-plan cleanup.
+Normal-import failure injection covers marker removal, transition to cleanup,
+partial plan deletion and final checkpoint removal, followed by offline resume.
 The command's argument
 checks run without a database and prevent accidental online mutation.
 
 Online recovery, automated stale-owner fencing, conflict-resolution UI,
 partial-staging reconstruction and the rest of the board import remain pending.
+Old orphan plans left by earlier versions without a checkpoint are not reclaimed
+by this command; it cannot infer the state of their original import.
 This command has not been verified against FerretDB. It is intentionally not a
 release-menu action or an automatic startup repair.

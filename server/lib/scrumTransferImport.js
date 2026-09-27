@@ -10,7 +10,7 @@ import ScrumReleases from '/models/scrumReleases';
 import ScrumEvents from '/models/scrumEvents';
 import ScrumDailySnapshots from '/models/scrumDailySnapshots';
 import { ScrumImportPending, ScrumImportSteps } from './scrumImportJournal';
-const { writeImportPlan } = require('/server/lib/scrumImportWriter');
+const { writeImportPlan, finishImportPlan } = require('/server/lib/scrumImportWriter');
 const { dailyObservationId } = require('/server/lib/scrumDailyCapture');
 const { normalizeScrumTransfer, remapScrumTransfer, normalizeScrumTransferLosses } = require('/models/lib/scrumTransfer');
 
@@ -84,15 +84,7 @@ export async function importScrumTransfer(creator, source, boardId) {
       sprints: ScrumSprints, releases: ScrumReleases, events: ScrumEvents, dailyObservations: ScrumDailySnapshots } });
   // A collector must never record a half-imported active sprint. Interrupted
   // imports keep this marker and cannot be exported as complete transfers.
-  await ScrumSprints.updateAsync({ boardId, _id: { $in: transfer.sprints.map(row => row._id) } },
-    { $unset: { scrumImportPending: '' } }, { multi: true });
-  // Keep the checkpoint until every sprint is visible as complete. A stop
-  // before this removal remains guarded even after clearing some markers.
-  if (!await ScrumImportPending.removeAsync({ ...identity, state: 'applied' })) {
-    throw new Meteor.Error('scrum-import-pending', 'The Scrum import checkpoint changed before completion.');
-  }
-  // Cleanup is not part of import success. Rows use an operation namespace,
-  // so a later import cannot accidentally reuse an interrupted cleanup's plan.
-  try { await ScrumImportSteps.removeAsync({ boardId, operationId: identity.operationId }); }
-  catch (_) { /* Orphan plan cleanup is separate from successful import. */ }
+  await finishImportPlan({ identity, total: steps.length, pending: ScrumImportPending, journal: ScrumImportSteps,
+    clearMarkers: () => ScrumSprints.updateAsync({ boardId, _id: { $in: transfer.sprints.map(row => row._id) } },
+      { $unset: { scrumImportPending: '' } }, { multi: true }) });
 }

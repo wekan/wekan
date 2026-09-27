@@ -18,6 +18,8 @@ test('board duplication remaps Scrum planning and metadata and can omit Scrum en
   await call(page,'scrum.getDailyHistory',board.boardId,sprint._id);
   await call(page,'scrum.closeSprint',board.boardId,sprint._id,active.revision,null);
   const copy=await call(page,'copyBoard',board.boardId,{});copies.push(copy);
+  expect(db.find('scrumImportPending',{_id:copy})).toHaveLength(0);
+  expect(db.find('scrumImportSteps',{boardId:copy})).toHaveLength(0);
   const copiedSprint=db.findOne('scrumSprints',{boardId:copy});expect(copiedSprint._id).not.toBe(sprint._id);
   const copiedCard=db.findOne('cards',{boardId:copy,title:card.title});
   for(const key of ['syncExternalId','syncSourceType','syncLastSource'])expect(copiedCard[key]).toBeUndefined();
