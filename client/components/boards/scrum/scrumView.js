@@ -112,6 +112,12 @@ Template.scrumReportTable.helpers({
   formatTotal(value) { return value ? t('scrum-total', { count: value.count, estimate: value.estimate, unknown: value.unknown }) : ''; },
 });
 Template.scrumView.events({
+  'click .js-scrum-history'(event) {
+    event.preventDefault();
+    Popup.open('history', { titleKey: 'history' })(event, {
+      dataContextIfCurrentDataIsUndefined: { scope: 'board', scopeId: Session.get('currentBoard'), group: 'scrum' },
+    });
+  },
   'click .js-scrum-refresh'(event, tpl) { event.preventDefault(); void refresh(tpl); },
   'change .js-scrum-sprint'(event, tpl) { tpl.sprintId.set(event.currentTarget.value); },
   'click .js-scrum-new'(event, tpl) { event.preventDefault(); tpl.sprintId.set(''); event.currentTarget.form.reset(); },

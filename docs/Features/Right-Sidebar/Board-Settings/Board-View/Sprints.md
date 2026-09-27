@@ -33,6 +33,25 @@ This is not a database transaction.
 Cancellation requires a reason. It retains current card memberships for
 explicit reassignment and does not fabricate a completed-sprint report.
 
+## History and undo
+
+The History button on each Scrum view opens the existing board History,
+filtered to Scrum changes. Settings, planning records and optional metadata
+use before/after records. A sprint close and its card moves form one History
+operation. Undo and redo also append timestamped timeline checkpoints.
+
+Restoring requires the current permissions for every affected item. Planning
+and board settings require a board administrator; card changes retain their
+existing card permission checks. Undo rejects newer conflicting Scrum edits
+and preserves unrelated card content. Referenced planning records cannot be
+removed while other items still use them.
+
+An interrupted compound restore retains a private recovery checkpoint until
+the data, timeline and undo status are saved. Retry the same operation to
+resume it; other Scrum writes wait for recovery. This is not a database
+transaction. History recording failures are reported to the caller; this
+does not provide atomic persistence of an original edit and its History row.
+
 ## Optional presentation
 
 New Scrum fields are hidden on existing cards, minicards, lists and swimlanes.
@@ -46,6 +65,7 @@ not grant permission to edit its value.
 The current implementation includes planning forms, revision checks,
 start/close snapshots, release and event creation, visibility controls, report
 tables and Excel/PDF output. Work remains on complete event/release editing,
-interactive report charts, History integration and import/export/sync coverage.
+interactive report charts and import/export/sync coverage. History is integrated;
+large-board limits and additional failure-injection coverage remain to verify.
 These are tracked by [the Scrum design](Scrum-Design.md); this guide does not
 claim they are finished.

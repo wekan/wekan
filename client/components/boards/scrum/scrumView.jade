@@ -3,6 +3,7 @@ template(name="scrumView")
     header.scrum-toolbar
       h2 {{viewTitle}}
       button.js-scrum-refresh {{_ 'refresh'}}
+      button.js-scrum-history {{_ 'history'}}
       if isReport
         a.button.js-export-chart(data-chart-key=chartKey data-report-options=reportOptions) {{_ 'export'}}
     if error

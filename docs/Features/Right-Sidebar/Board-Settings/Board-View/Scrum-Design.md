@@ -6,12 +6,14 @@ The baseline audit below records the source before the first Scrum changes.
 Implemented and exercised in the current working version: board-local sprint
 planning and lifecycle, revision validation, commitment/result snapshots,
 optional metadata and visibility controls, Product Backlog, Sprints, report
-tables, release/event creation, and permission-filtered Excel/PDF reports.
+tables, release/event creation, permission-filtered Excel/PDF reports, and
+permission-checked History restore/undo/redo with compound recovery checkpoints.
 See [Sprints](Sprints.md), [Product Backlog](Product-Backlog.md) and
 [Sprint Reports](Sprint-Reports.md) for the current behavior.
 
 Still pending: complete release/event editors, chart visualization and daily
-scope history, History undo/redo integration, native transfer/copy and external
+scope history, original-edit/History atomicity and large-board limits,
+native transfer/copy and external
 import/export/sync mappings, and the remaining lifecycle/permission/browser
 matrix described below. Source-string registration is not translated coverage.
 These remaining requirements are not waived by passing the current tests.

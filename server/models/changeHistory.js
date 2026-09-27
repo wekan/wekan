@@ -1,3 +1,4 @@
+import { scrumHistorySnapshot, applyScrumHistory, pendingScrumHistoryRow } from '/server/lib/scrumHistory';
 import { filterReadableHistoryRows, requireHistoryRowAccess } from '/server/lib/historyReadScope';
 import { ruleSnapshot, applyRuleHistory } from '/server/lib/ruleHistory';
 import { requireBoardMutation } from '/models/lib/boardMutationGuard';
@@ -270,6 +271,7 @@ const COLLECTIONS = {
  * false one.
  */
 async function currentContentOf(row) {
+  if (row.entityType === 'scrum') return scrumHistorySnapshot(row);
   if (row.entityType === 'rule') return ruleSnapshot(row.entityId);
   const collection = COLLECTIONS[row.entityType];
   if (!collection) return null;
@@ -324,6 +326,9 @@ async function currentContentOf(row) {
  */
 async function applyRow(row, direction) {
   await requireHistoryRowAccess(row, Meteor.userId());
+  if (row.entityType === 'scrum') {
+    return applyScrumHistory(row, contentForDirection(row, direction), direction);
+  }
   if (row.entityType === 'rule') {
     return withoutRecording(() => applyRuleHistory(row, contentForDirection(row, direction), direction));
   }
@@ -475,6 +480,7 @@ Meteor.methods({
       const applied = await applyRow(row, 'restore');
       if (!applied) { skipped++; continue; }
       restored++;
+      if (row.entityType === 'scrum') continue;
 
       // Two rows, per §8.3: one attributed to whoever made the change being
       // restored, one to whoever pressed Restore. Both carry restoredFromId, so
@@ -520,17 +526,19 @@ Meteor.methods({
       { userId: this.userId, boardId, undone: false, isCheckpoint: { $ne: true } },
       { sort: { createdAt: -1 }, limit: 50 },
     ).fetchAsync();
-    const row = pickUndo(candidates);
+    const row = await pendingScrumHistoryRow(boardId, this.userId, 'undo') || pickUndo(candidates);
     if (!row) return { undone: false };
     await requireHistoryIntegrity(row, this);
 
     const before = await currentContentOf(row);
     const applied = await applyRow(row, 'undo');
     if (!applied) return { undone: false, reason: 'not-applicable' };
-    await ChangeHistory.updateAsync(row._id, {
-      $set: { undone: true, undoneAt: new Date() },
-    });
-    await recordReversal(row, this.userId, before);
+    if (row.entityType !== 'scrum') {
+      await ChangeHistory.updateAsync(row._id, {
+        $set: { undone: true, undoneAt: new Date() },
+      });
+      await recordReversal(row, this.userId, before);
+    }
     return {
       undone: true,
       entityType: row.entityType,
@@ -550,17 +558,19 @@ Meteor.methods({
       { userId: this.userId, boardId, undone: true, isCheckpoint: { $ne: true } },
       { sort: { undoneAt: -1 }, limit: 50 },
     ).fetchAsync();
-    const row = pickRedo(candidates);
+    const row = await pendingScrumHistoryRow(boardId, this.userId, 'redo') || pickRedo(candidates);
     if (!row) return { redone: false };
     await requireHistoryIntegrity(row, this);
 
     const before = await currentContentOf(row);
     const applied = await applyRow(row, 'redo');
     if (!applied) return { redone: false, reason: 'not-applicable' };
-    await ChangeHistory.updateAsync(row._id, {
-      $set: { undone: false, undoneAt: null },
-    });
-    await recordReversal(row, this.userId, before);
+    if (row.entityType !== 'scrum') {
+      await ChangeHistory.updateAsync(row._id, {
+        $set: { undone: false, undoneAt: null },
+      });
+      await recordReversal(row, this.userId, before);
+    }
     return {
       redone: true,
       entityType: row.entityType,

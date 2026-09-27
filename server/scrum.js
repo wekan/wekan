@@ -1,3 +1,4 @@
+import ScrumHistoryPending from '/server/lib/scrumHistoryPending';
 import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
@@ -19,7 +20,9 @@ const { DEFAULT_SCRUM_SETTINGS, normalizeScrumSettings, normalizeScrumMetadata,
 const collections = { sprint: ScrumSprints, release: ScrumReleases, event: ScrumEvents };
 const queues = new Map();
 let historyRecorder = async () => {};
-// The coordinator installs the existing History adapter; the domain never invents a parallel log.
+let historyBatchRunner = async (boardId, userId, operation) => operation();
+export function setScrumHistoryBatchRunner(runner) { historyBatchRunner = runner; }
+// Existing History owns persistence and compound-operation grouping.
 export function setScrumHistoryRecorder(recorder) { historyRecorder = recorder; }
 export async function recordScrumChange(boardId, kind, before, after, userId) {
   await historyRecorder({ boardId, entityType: kind, entityId: (after || before)._id,
@@ -33,13 +36,17 @@ function expect(doc, expected, field = 'revision') {
   validate(() => validateScrumRevision(expected));
   if ((doc[field] || 0) !== expected) conflict();
 }
-async function locked(boardId, operation) {
+export async function withScrumBoardLock(boardId, operation) {
   // Serialize this process's lifecycle operations. Database compare-and-set guards also
   // detect writers on other instances; this is not a multi-document transaction.
   const previous = queues.get(boardId) || Promise.resolve();
   const current = previous.catch(() => {}).then(operation);
   queues.set(boardId, current);
   try { return await current; } finally { if (queues.get(boardId) === current) queues.delete(boardId); }
+}
+async function locked(boardId, operation) {
+  const userId = Meteor.userId();
+  return withScrumBoardLock(boardId, () => historyBatchRunner(boardId, userId, operation));
 }
 async function boardFor(userId, boardId, admin = false) {
   check(boardId, String);
@@ -102,6 +109,7 @@ async function ensureSettings(boardId, settings, board) {
   }
 }
 async function pending(boardId) {
+  if (await ScrumHistoryPending.findOneAsync(boardId)) throw new Meteor.Error('scrum-history-pending', 'Retry the interrupted Scrum History operation first.');
   if (await ScrumSprints.findOneAsync({ boardId, 'rolloverPending.0': { $exists: true } })) {
     throw new Meteor.Error('scrum-rollover-pending', 'Finish the pending sprint rollover first');
   }

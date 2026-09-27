@@ -34,6 +34,7 @@ const PAGE_SIZE = 25;
  */
 const GROUP_KEYS = {
   rules: 'r-board-rules',
+  scrum: 'scrum-settings',
   title: 'title',
   description: 'description',
   labels: 'labels',
@@ -106,6 +107,12 @@ Template.historyTable.onCreated(function () {
 function summarise(row) {
   const content = row.newContent || row.previousContent;
   if (!content) return '';
+  if (row.entityType === 'scrum') {
+    return (content.records || []).map(entry => {
+      const doc = entry.document;
+      return doc ? [doc.name || doc._id, doc.state || '', doc.scrum ? JSON.stringify(doc.scrum) : ''].filter(Boolean).join(' — ') : TAPi18n.__('history-change-removed');
+    }).join('; ');
+  }
   if (row.entityType === 'rule') {
     const state = content.rule ? content : row.previousContent;
     return [state?.rule?.title, state?.trigger?.desc || state?.trigger?.activityType, state?.action?.desc || state?.action?.actionType, TAPi18n.__(content.rule ? (content.rule.enabled === false ? 'r-rule-disabled' : 'r-rule-enabled') : 'history-change-removed')].filter(Boolean).join(' — ');
