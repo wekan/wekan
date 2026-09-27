@@ -31,6 +31,9 @@ test('native Scrum board export imports with new IDs and unchanged snapshot outc
   const restored=db.findOne('scrumSprints',{boardId:imported});expect(restored._id).not.toBe(sprint._id);expect(restored.state).toBe('closed');
   expect(restored.provenance).toEqual({system:'wekan',projectId:board.boardId,recordId:sprint._id});
   const restoredCard=db.findOne('cards',{boardId:imported,title:card.title});
+  const importedLists=db.find('lists',{boardId:imported});
+  for(const list of importedLists)expect(list.syncCredentialIncarnation).toBeTruthy();
+  expect(new Set(importedLists.map(list=>list.syncCredentialIncarnation)).size).toBe(importedLists.length);
   expect(restoredCard.scrum.acceptanceCriteria).toBe('Verified criterion');
   expect(restoredCard.scrum.pastSprintIds).toEqual([restored._id]);
   expect(restoredCard.scrum.releaseId).toBe(db.findOne('scrumReleases',{boardId:imported})._id);

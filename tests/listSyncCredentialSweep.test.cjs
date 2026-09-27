@@ -18,7 +18,7 @@ test('scheduled credential cleanup streams IDs, isolates failures and keeps secr
   };
   const credentials = {
     rawCollection: () => ({ find(selector, options) {
-      assert.deepEqual(JSON.parse(JSON.stringify(options)), { projection: { _id: 0, listId: 1 } });
+      assert.deepEqual(JSON.parse(JSON.stringify(options)), { projection: { _id: 1, listId: 1, incarnation: 1, configurationId: 1 } });
       return cursor;
     } }),
     removeAsync: async selector => { removed.push(selector); return 1; },
@@ -46,7 +46,7 @@ test('scheduled credential cleanup streams IDs, isolates failures and keeps secr
   assert.ok(cleanup);
   assert.ok(jobs.find(job => job.name === 'wekan-list-sync'), 'ordinary Sync must remain scheduled');
   assert.equal(cleanup.schedule({ text: value => value }), 'every 1 hour');
-  assert.deepEqual(await cleanup.job(), { cleaned: 1, skipped: 0, failed: 1 });
+  assert.deepEqual(await cleanup.job(), { cleaned: 1, skipped: 0, failed: 1, orphaned: 0 });
   assert.equal(removed.length, 1); assert.ok(closed);
   assert.doesNotMatch(logs.join('\n'), /private-provider-secret/);
   credentials.rawCollection = () => { throw new Error('private-database-password'); };

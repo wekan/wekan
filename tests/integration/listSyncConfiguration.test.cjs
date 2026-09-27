@@ -237,10 +237,61 @@ test('Sync configuration selects immutable credentials atomically in a real data
       configurationId: 'disabled-orphan', generation: 0, token: 'private-test-marker' });
     await db.collection('credentials').insertOne({ _id: 'missing-list', listId: 'no-list', token: 'private-test-marker' });
     const result = await sweepSyncCredentials({ ...contexts[0],
-      cursor: db.collection('credentials').find({}, { projection: { _id: 0, listId: 1 } }).sort({ listId: 1 }).batchSize(2) });
-    assert.ok(result.cleaned > 0); assert.ok(result.failed > 0); assert.ok(result.skipped > 0);
+      cursor: db.collection('credentials').find({}, { projection: { _id: 1, listId: 1, incarnation: 1, configurationId: 1 } }).sort({ listId: 1 }).batchSize(2) });
+    assert.ok(result.cleaned > 0); assert.ok(result.failed > 0); assert.ok(result.orphaned > 0);
     assert.doesNotMatch(JSON.stringify(result), /token|private-test-marker/);
     assert.equal(await db.collection('credentials').countDocuments({ listId: input.list._id }), 1);
-    assert.ok(await db.collection('credentials').findOne({ _id: 'missing-list' }));
+    assert.equal(await db.collection('credentials').findOne({ _id: 'missing-list' }), null);
   });
+  await t.test('orphan cleanup cannot retire a recreated list credential or activate a delayed old save', async () => {
+    const input = await seed('recreated');
+    await db.collection('lists').updateOne({ _id: input.list._id }, { $set: { syncCredentialIncarnation: 'old-lifetime' } });
+    const old = await current(input.list._id);
+    await commitSyncConfiguration({ ...contexts[0], ...input, list: old });
+    const activeOld = await current(old._id);
+    const oldCredential = await read(activeOld);
+    assert.equal(oldCredential.incarnation, 'old-lifetime');
+    await db.collection('lists').deleteOne({ _id: old._id });
+    const candidates = await db.collection('credentials').find({ listId: old._id },
+      { projection: { _id: 1, listId: 1, incarnation: 1, configurationId: 1 } }).toArray();
+    let recreated, selected;
+    const ctx = { ...contexts[0], credentials: { ...contexts[0].credentials, removeAsync: async selector => {
+      // Interleave recreation after the missing-list read but before deletion.
+      await db.collection('lists').insertOne({ ...activeOld, syncCredentialIncarnation: 'new-lifetime' });
+      recreated = await current(old._id);
+      assert.equal(await read(recreated), null, 'copied revision cannot select an old lifetime');
+      await commitSyncConfiguration({ ...contexts[1], ...input, list: recreated, previousCredential: null });
+      selected = await current(old._id);
+      return contexts[0].credentials.removeAsync(selector);
+    } } };
+    let closed = false;
+    const result = await sweepSyncCredentials({ ...ctx, cursor: {
+      async *[Symbol.asyncIterator]() { yield* candidates; }, async close() { closed = true; },
+    } });
+    assert.equal(result.orphaned, 1); assert.equal(closed, true);
+    assert.equal((await read(selected)).incarnation, 'new-lifetime');
+    assert.equal((await read(selected)).token, 'new-test-token');
+    await assert.rejects(commitSyncConfiguration({ ...contexts[0], ...input, list: activeOld,
+      previousCredential: oldCredential }), /settings changed/);
+    assert.equal((await read(await current(old._id)))._id, selected.syncRevision);
+    assert.equal(await db.collection('credentials').countDocuments({ listId: old._id }), 1);
+  });
+  await t.test('new lifetimes reject legacy tokens and an interrupted orphan deletion retries', async () => {
+    const input = await seed('legacy-recreated');
+    const recreated = { ...input.list, syncCredentialIncarnation: 'new-lifetime' };
+    assert.equal(await read(recreated), null);
+    await db.collection('lists').updateOne({ _id: input.list._id }, { $set: { syncCredentialIncarnation: 'new-lifetime' } });
+    await assert.rejects(commitSyncConfiguration({ ...contexts[0], ...input }), /settings changed/);
+    assert.equal(await db.collection('credentials').countDocuments({ listId: input.list._id }), 1);
+    await db.collection('lists').deleteOne({ _id: input.list._id });
+    const cursor = () => db.collection('credentials').find({ listId: input.list._id },
+      { projection: { _id: 1, listId: 1, incarnation: 1, configurationId: 1 } }).sort({ listId: 1 });
+    const failed = await sweepSyncCredentials({ ...contexts[0], cursor: cursor(),
+      credentials: { ...contexts[0].credentials, removeAsync: async () => { throw new Error('private failure'); } } });
+    assert.equal(failed.failed, 1);
+    assert.equal(await db.collection('credentials').countDocuments({ listId: input.list._id }), 1);
+    assert.equal((await sweepSyncCredentials({ ...contexts[0], cursor: cursor() })).orphaned, 1);
+    assert.equal(await db.collection('credentials').countDocuments({ listId: input.list._id }), 0);
+  });
+
 });

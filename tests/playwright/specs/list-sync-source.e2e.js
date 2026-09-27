@@ -4,7 +4,7 @@ const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { loginWithToken, openBoard } = require('../helpers/auth');
 const { syncSourceKey } = require('../../../models/lib/listSyncSourceIdentity');
-const { cleanupSyncCredentials } = require('../../../server/lib/listSyncConfiguration');
+const { cleanupSyncCredentials, sweepSyncCredentials } = require('../../../server/lib/listSyncConfiguration');
 
 let server, base, requests, emptyProjects, heldResponses;
 test.beforeAll(async () => {
@@ -454,6 +454,62 @@ test('only the committed credential version is used and clearing cannot adopt an
     expect((await call(page, 'syncListNow', listId)).error).toContain('credential for this server and project');
     expect(requests).toHaveLength(count);
   } finally { db.deleteMany('listSyncCredentials', { listId }); }
+});
+
+test('recreated lists get fresh credential lifetimes and orphan cleanup preserves the new token', async ({ page, user, board }) => {
+  const { MongoClient } = require('mongodb');
+  const client = new MongoClient(process.env.WEKAN_MONGO_URL || 'mongodb://127.0.0.1:3001/meteor');
+  await client.connect();
+  const database = client.db();
+  const listId = `lifetime-${board.boardId}`;
+  const config = { type: 'jira', url: base, projectKey: 'ONE', token: 'lifetime-test-token' };
+  await loginWithToken(page, user.id, user.token);
+  await openBoard(page, board.boardId, board.slug);
+  const insert = extra => call(page, '/lists/insert', { _id: listId, boardId: board.boardId,
+    title: 'Lifetime test', sort: 10, syncCredentialIncarnation: 'copied-lifetime', ...extra });
+  try {
+    await insert({});
+    const initial = db.findOne('lists', { _id: listId });
+    expect(initial.syncCredentialIncarnation).toBeTruthy();
+    expect(initial.syncCredentialIncarnation).not.toBe('copied-lifetime');
+    await call(page, 'setListSyncSource', listId, config);
+    const saved = db.findOne('lists', { _id: listId });
+    expect(db.findOne('listSyncCredentials', { _id: saved.syncRevision }).incarnation).toBe(initial.syncCredentialIncarnation);
+    expect(await call(page, 'hasListSyncCredential', listId)).toBe(true);
+    await database.collection('lists').deleteOne({ _id: listId });
+    await insert({ syncRevision: saved.syncRevision, syncSource: saved.syncSource });
+    const recreated = db.findOne('lists', { _id: listId });
+    expect(recreated.syncCredentialIncarnation).not.toBe(initial.syncCredentialIncarnation);
+    expect(await call(page, 'hasListSyncCredential', listId)).toBe(false);
+    await openSync(page, listId);
+    await page.locator('.js-list-sync-now').click();
+    await expect(page.locator('.pop-over .list-sync-now-error')).toContainText('credential for this server and project');
+    const denied = await page.evaluate(async id => {
+      try { await Meteor.callAsync('/lists/update', { _id: id }, { $unset: { syncCredentialIncarnation: '' } }); return false; }
+      catch (_) { return true; }
+    }, listId);
+    expect(denied).toBe(true);
+    await call(page, 'setListSyncSource', listId, config);
+    expect(await call(page, 'syncListNow', listId)).toMatchObject({ created: 1 });
+    const adapter = collection => ({
+      findOneAsync: selector => collection.findOne(selector),
+      updateAsync: async (selector, change) => (await collection.updateOne(selector, change)).matchedCount,
+      removeAsync: async selector => (await collection.deleteMany(selector)).deletedCount,
+    });
+    const sweep = () => sweepSyncCredentials({ lists: adapter(database.collection('lists')),
+      credentials: adapter(database.collection('listSyncCredentials')),
+      cursor: database.collection('listSyncCredentials').find({ listId },
+        { projection: { _id: 1, listId: 1, incarnation: 1, configurationId: 1 } }).sort({ listId: 1 }) });
+    await sweep();
+    expect(db.find('listSyncCredentials', { listId })).toHaveLength(1);
+    expect(await call(page, 'hasListSyncCredential', listId)).toBe(true);
+    await database.collection('lists').deleteOne({ _id: listId });
+    expect((await sweep()).orphaned).toBe(1);
+    expect(db.find('listSyncCredentials', { listId })).toHaveLength(0);
+  } finally {
+    await client.close();
+    db.deleteMany('listSyncCredentials', { listId });
+  }
 });
 
 test('credential cleanup keeps the selected token usable and later settings saves use the new generation', async ({ page, user, board }) => {

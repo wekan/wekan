@@ -17,6 +17,7 @@ test('board duplication remaps Scrum planning and metadata and can omit Scrum en
   const active=await call(page,'scrum.startSprint',board.boardId,sprint._id,sprint.revision);
   await call(page,'scrum.getDailyHistory',board.boardId,sprint._id);
   await call(page,'scrum.closeSprint',board.boardId,sprint._id,active.revision,null);
+  db.updateOne('lists',{_id:card.listId},{$set:{syncCredentialIncarnation:'source-lifetime'}});
   const copy=await call(page,'copyBoard',board.boardId,{});copies.push(copy);
   expect(db.find('scrumImportPending',{_id:copy})).toHaveLength(0);
   expect(db.find('scrumImportSteps',{boardId:copy})).toHaveLength(0);
@@ -35,6 +36,8 @@ test('board duplication remaps Scrum planning and metadata and can omit Scrum en
   const {dailyObservationId}=require('../../../server/lib/scrumDailyCapture');
   expect(copiedObservation._id).toBe(dailyObservationId(copiedSprint._id,copiedObservation.startedAt,copiedObservation.day));
   expect(db.findOne('lists',{_id:copiedCard.listId}).scrum.category).toBe('doing');
+  expect(db.findOne('lists',{_id:copiedCard.listId}).syncCredentialIncarnation).toBeTruthy();
+  expect(db.findOne('lists',{_id:copiedCard.listId}).syncCredentialIncarnation).not.toBe('source-lifetime');
   const lane=db.findOne('swimlanes',{_id:copiedCard.swimlaneId});expect(lane.scrum.sprintId).toBe(copiedSprint._id);
   expect(db.find('changeHistory',{boardId:copy,entityType:'scrum'})).toHaveLength(0);
   expect(db.findOne('cards',{_id:card._id}).scrum.pastSprintIds).toEqual([sprint._id]);

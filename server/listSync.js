@@ -64,7 +64,8 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
 
   let parsed, sourceKey;
   const listSelector = { _id: list._id, boardId: list.boardId, syncSource: source,
-    syncRevision: list.syncRevision === undefined ? { $exists: false } : list.syncRevision };
+    syncRevision: list.syncRevision === undefined ? { $exists: false } : list.syncRevision,
+    syncCredentialIncarnation: list.syncCredentialIncarnation === undefined ? { $exists: false } : list.syncCredentialIncarnation };
   try {
     sourceKey = syncSourceKey(source);
     if (!credential || credential.sourceKey !== sourceKey) {
@@ -324,7 +325,7 @@ Meteor.startup(async () => {
       async job() {
         try {
           const result = await sweepSyncCredentials({ lists: Lists, credentials: ListSyncCredentials,
-            cursor: ListSyncCredentials.rawCollection().find({}, { projection: { _id: 0, listId: 1 } })
+            cursor: ListSyncCredentials.rawCollection().find({}, { projection: { _id: 1, listId: 1, incarnation: 1, configurationId: 1 } })
               .sort({ listId: 1 }).batchSize(100) });
           if (result.failed) console.error('listSync: credential cleanup failed for some lists; retrying on the next sweep.');
           return result;

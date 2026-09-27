@@ -97,14 +97,32 @@ The sweep preserves the selected credential and all versions staged in newer
 generations. A delayed old-generation insert is reclaimed on a later sweep.
 Failed or uncertain cleanup is retryable without changing the selected token.
 
-The scan streams list IDs without reading tokens, includes disabled Sync
-configurations, and isolates failures between lists. Legacy unversioned rows
-remain protected while a legacy configuration can select them. Saving settings
+The scan streams credential IDs and lifetime metadata without reading tokens,
+includes disabled Sync configurations, and isolates failures between lists.
+Legacy unversioned rows remain protected while a legacy configuration can
+select them. Saving settings
 binds an explicit version; later sweeps can retire those old rows too. Rows for
-missing lists and malformed generations are retained for separate review. The
-sweep does not publish or log credential contents. Upgrade **all** processes
+missing lists are removed by exact credential identity after checking that
+the list is absent; malformed generations on existing lists remain for review.
+The sweep does not publish or log credential contents. Upgrade **all** processes
 before relying on this cleanup: an older writer that ignores the generation
 fence can still issue unsafe activation writes.
+
+New lists receive a server-generated `syncCredentialIncarnation` on insertion,
+including imports that bypass collection hooks. Copies and same-ID recreation
+receive a fresh value. New credential versions carry that value, and both
+credential reads and settings activation require the same lifetime. Existing
+lists without a lifetime field continue using their existing credentials;
+a recreated list cannot fall back to those legacy tokens.
+
+Orphan cleanup snapshots each credential identity before checking list absence
+and deletes only that identity. Recreating a list between the check and deletion
+cannot lose the new list's token. A delayed old save cannot activate on the new
+list, and late abandoned staging is collected on a later sweep. Deleted-list
+credentials are retained until the next successful hourly scan, not necessarily
+removed at the moment of deletion. Soft-deleted lists still exist and keep their
+selected credential for undo. Upgrade all writers together, and stop writers
+before restoring a database backup; raw database restores bypass this lifecycle.
 
 Reservations do not make card writes a multi-document transaction or durable
 job queue. A card write already issued before lease loss cannot be fenced by a

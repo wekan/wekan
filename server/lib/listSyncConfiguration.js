@@ -10,17 +10,21 @@ function credentialGeneration(list) {
 function configurationSelector(list) {
   const present = key => Object.hasOwn(list, key) ? { $eq: list[key], $exists: true } : { $exists: false };
   return { _id: list._id, boardId: list.boardId, syncRevision: present('syncRevision'),
-    syncSource: present('syncSource'), syncCredentialGeneration: present('syncCredentialGeneration') };
+    syncSource: present('syncSource'), syncCredentialGeneration: present('syncCredentialGeneration'),
+    syncCredentialIncarnation: present('syncCredentialIncarnation') };
 }
 
 function syncCredentialSelector(list) {
   if (!list.syncSource) return null;
+  const incarnation = list.syncCredentialIncarnation;
+  if (incarnation !== undefined && (typeof incarnation !== 'string' || !incarnation)) return null;
+  const lifetime = { incarnation: incarnation === undefined ? { $exists: false } : incarnation };
   if (list.syncRevision !== undefined) {
     if (typeof list.syncRevision !== 'string' || !list.syncRevision) return null;
-    return { _id: list.syncRevision, configurationId: list.syncRevision, listId: list._id };
+    return { _id: list.syncRevision, configurationId: list.syncRevision, listId: list._id, ...lifetime };
   }
   // Never let an uncommitted version masquerade as a legacy credential.
-  return { listId: list._id, configurationId: { $exists: false } };
+  return { listId: list._id, configurationId: { $exists: false }, ...lifetime };
 }
 
 async function readSyncCredential(credentials, list) {
@@ -39,6 +43,7 @@ async function commitSyncConfiguration({ lists, credentials, list, source,
     await assertCurrent();
     await credentials.insertAsync({ _id: revision, configurationId: revision,
       listId: list._id, sourceKey: credential.sourceKey, generation,
+      ...(list.syncCredentialIncarnation !== undefined ? { incarnation: list.syncCredentialIncarnation } : {}),
       token: credential.token, username: credential.username || '' });
   }
   await assertCurrent();
@@ -82,17 +87,25 @@ async function cleanupSyncCredentials({ lists, credentials, list }) {
 }
 
 async function sweepSyncCredentials({ lists, credentials, cursor }) {
-  const result = { cleaned: 0, skipped: 0, failed: 0 };
+  const result = { cleaned: 0, skipped: 0, failed: 0, orphaned: 0 };
   let previous;
   try {
-    // Caller supplies a listId-sorted cursor projecting only listId. No secret
-    // enters this scan, its result or its error reporting.
+    // Read each immutable credential identity BEFORE checking list existence.
+    // Never project tokens or delete by listId alone: a recreated list may
+    // already be staging a credential for its new incarnation.
     for await (const row of cursor) {
       if (typeof row.listId !== 'string' || row.listId === previous) continue;
-      previous = row.listId;
       try {
         const list = await lists.findOneAsync({ _id: row.listId });
-        if (!list) { result.skipped++; continue; }
+        if (!list) {
+          if (typeof row._id !== 'string') { result.skipped++; continue; }
+          const exact = key => Object.hasOwn(row, key) ? { $eq: row[key], $exists: true } : { $exists: false };
+          const removed = await credentials.removeAsync({ _id: row._id, listId: row.listId,
+            incarnation: exact('incarnation'), configurationId: exact('configurationId') });
+          result.orphaned += typeof removed === 'number' ? removed : removed.deletedCount;
+          continue;
+        }
+        previous = row.listId;
         const status = await cleanupSyncCredentials({ lists, credentials, list });
         result[status.skipped ? 'skipped' : 'cleaned']++;
       } catch (_) { result.failed++; }
