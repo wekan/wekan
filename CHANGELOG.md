@@ -135,11 +135,14 @@ legacy mappings and credential before resuming Sync.
 New card creation now uses stable list/source/issue IDs, preventing duplicate
 cards from concurrent creation attempts and preserving moved cards on retries.
 Creation conflicts stop the run and appear in the existing Sync popup.
+Scheduled/manual Sync and settings saves now share renewable per-list database
+reservations. Competing requests report busy; expired reservations can be
+reclaimed, and the previous owner stops at its next ownership check.
 Remaining: external sprint histories without invented snapshots, multiple
 release assignments, epic relationships, automatic field/schema mapping,
 Trello and other Scrum adapters, mapping previews/loss reporting, planning and
-estimate Sync, distributed job coordination, durable restart checkpoints,
-atomic concurrent jobs and configuration/credential changes,
+estimate Sync, durable restart checkpoints, fencing of in-flight writes after
+lease loss, atomic concurrent jobs and configuration/credential changes,
 and conflict-resolution UI. Changes during card writes remain nontransactional.
 See [Jira](docs/Features/ImportExport/Jira/Jira.md) and
 [Sync](docs/Features/ImportExport/Sync.md).
@@ -735,8 +738,34 @@ the Markdown commit as the template.
 project. Changing projects preserves the previous project's cards and requires
 a credential for the new source. Concurrent creation attempts no longer create
 duplicate new Sync cards.
+Sync runs and settings saves also share a renewable per-list reservation.
 
 This release improves list synchronization:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4d8ce7754">Coordinate Sync runs and settings saves across server processes</a>. Thanks to xet7.</summary>
+
+Scheduled Sync, manual Sync and configuration saves share a private reservation
+for each list. Busy requests stop before fetching or changing credentials.
+Operations reread the list after claiming it, renew while waiting on external
+requests and verify ownership before application writes. Expired reservations
+can be reclaimed; old owners cannot release their replacements' reservations.
+The existing popup displays busy and lost-reservation errors.
+
+Twelve focused Node suites pass with real MongoDB lease and creation tests
+enabled; eleven Chromium scenarios pass. Coverage includes separate database
+connections, exclusion, independent lists, heartbeat renewal, callback failures,
+expired-owner recovery, settings exclusion, popup feedback and rejecting an old
+fetched response after a source change. The final busy-popup assertion also
+passes separately. Existing Upcoming behavior retains its regression coverage.
+The local release audit passes. FerretDB, Firefox, WebKit and live providers
+were not tested. The known released-entry changelog format failure remains.
+
+This is not a durable job queue or a multi-document transaction. Recovery from
+partial settings/credential writes, fencing already-issued writes after lease
+loss and persisted reconciliation checkpoints remain in TODO Later.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/38e8716e5">Prevent duplicate new Sync cards from concurrent runs</a>. Thanks to xet7.</summary>
@@ -754,7 +783,7 @@ negative cases cover identity separation, creation collisions, unrelated write
 failures, moved-card preservation and recovery. The existing source-identity,
 copy, field-selection and permission checks still pass. Release-audit tests and
 the local release audit pass. Live providers, FerretDB, Firefox and WebKit were
-not tested. Distributed job/configuration coordination, durable restart
+not tested. Further job/configuration recovery, durable restart
 checkpoints and multi-document atomicity remain in TODO Later.
 Four changelog suites pass; the format suite still fails on a pre-existing
 overlong line in a released editor-settings entry. Released text is unchanged.
