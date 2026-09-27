@@ -24,8 +24,11 @@ validator as import. A malformed response or parser failure records the existing
 last-sync error and leaves cards unchanged; it is not an empty source. A valid
 empty issue array retains the existing archive behavior.
 
-Fetchers collect every advertised page before reconciliation. Jira's existing
-REST v2 search fetcher follows `startAt`/`total`, rejects changing totals and
+Fetchers collect every advertised page before reconciliation. Standard Jira
+Cloud tenant URLs ending in `.atlassian.net` use REST v3 enhanced JQL search,
+request the fields used by the shared parser, and follow `nextPageToken` until
+`isLast` is true. Missing termination metadata and repeated tokens abort.
+Other Jira URLs retain REST v2 search, which follows `startAt`/`total`, rejects changing totals and
 stalled offsets, and advances by the actual returned issue count. GitHub,
 Gitea/Forgejo and GitLab follow `Link: rel="next"`; GitLab's `X-Next-Page` is
 also supported. Pagination stays on the configured origin and HTTP redirects
@@ -34,11 +37,13 @@ request failures and limits (1,000 pages or 100,000 items) abort the run without
 returning a partial collection. Normal per-request timeouts still apply.
 
 Provider contracts: [Jira search](https://developer.atlassian.com/server/jira/platform/rest/v11002/api-group-search),
+[Jira Cloud enhanced search](https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-issue-search/),
 [GitHub pagination](https://docs.github.com/en/rest/using-the-rest-api/using-pagination-in-the-rest-api),
 [GitLab REST](https://docs.gitlab.com/api/rest/) and
 [Gitea pagination](https://docs.gitea.com/1.26/development/api-usage).
 Automated coverage uses mocked provider responses; live-account verification
-and Jira Cloud's newer search endpoint remain outstanding. Pagination cannot
+remain outstanding; Jira Cloud custom domains and government-cloud hostnames
+need explicit endpoint configuration in a future change. Pagination cannot
 provide an atomic upstream snapshot. Conflict-aware local-edit preservation
 also remains required before extending Scrum synchronization.
 

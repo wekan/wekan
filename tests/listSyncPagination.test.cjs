@@ -50,3 +50,25 @@ test('advertised array totals cannot silently truncate when next links are missi
  const complete=harness([{body:[{id:1}],headers:{'x-total':'1'}}]);
  assert.equal((await complete.context.fetchGitlabIssues(config,credential)).length,1);
 });
+
+test('Jira Cloud uses enhanced search, explicit fields and opaque page tokens',async()=>{
+ const {context,calls}=harness([{body:{issues:[{key:'A'}],isLast:false,nextPageToken:'a+/= &b'}},{body:{issues:[{key:'B'}],isLast:true}}]);
+ const result=await context.fetchJiraIssues({...config,url:'https://team.atlassian.net'},credential);
+ assert.equal(result.issues.length,2);
+ const first=new URL(calls[0].url),second=new URL(calls[1].url);
+ assert.equal(first.pathname,'/rest/api/3/search/jql');
+ assert.equal(first.searchParams.get('jql'),'project=team/project');
+ assert.ok(first.searchParams.get('fields').includes('description'));
+ assert.equal(second.searchParams.get('nextPageToken'),'a+/= &b');
+ assert.equal(second.searchParams.has('startAt'),false);
+});
+test('Jira Cloud refuses missing termination metadata and repeating tokens',async()=>{
+ for(const body of [{issues:[]},{issues:[],isLast:false},{issues:[],isLast:false,nextPageToken:42}]){
+  const {context}=harness([{body}]);
+  await assert.rejects(context.fetchJiraIssues({...config,url:'https://team.atlassian.net'},credential),/pagination/);
+ }
+ const loop=harness([{body:{issues:[],isLast:false,nextPageToken:'same'}},{body:{issues:[],isLast:false,nextPageToken:'same'}}]);
+ await assert.rejects(loop.context.fetchJiraIssues({...config,url:'https://team.atlassian.net'},credential),/repeating/);
+ const empty=harness([{body:{issues:[],isLast:true}}]);
+ assert.equal((await empty.context.fetchJiraIssues({...config,url:'https://team.atlassian.net'},credential)).issues.length,0);
+});
