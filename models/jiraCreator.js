@@ -4,6 +4,8 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import Activities from '/models/activities';
 import Boards from './boards';
 import Cards from '/models/cards';
+import CustomFields from '/models/customFields';
+const { jiraTimeTracking, JIRA_ESTIMATE_FIELDS } = require('./lib/jiraTimeTracking');
 import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
 import Rules from '/models/rules';
@@ -40,6 +42,7 @@ export class JiraCreator {
     // #3392: Jira issue key -> new card id, for mapping issue links to
     // card-to-card dependencies ("Red Strings") after all cards are created.
     this.cardsByKey = {};
+    this.timeFields = {};
   }
 
   _now(dateString) {
@@ -141,6 +144,18 @@ export class JiraCreator {
     }
   }
 
+  async createTimeFields(data, boardId) {
+    const values = this._issues(data).map(issue => jiraTimeTracking(issue.fields));
+    for (const field of JIRA_ESTIMATE_FIELDS) {
+      if (!values.some(value => value[field.key] !== undefined)) continue;
+      this.timeFields[field.key] = await CustomFields.direct.insertAsync({
+        boardIds: [boardId], name: field.name, type: 'number', settings: {},
+        showOnCard: false, automaticallyOnCard: false, alwaysOnCard: false,
+        showLabelOnMiniCard: false,
+      });
+    }
+  }
+
   async createCards(data, boardId) {
     const board = await ReactiveCache.getBoard(boardId);
     for (const issue of this._issues(data)) {
@@ -162,6 +177,11 @@ export class JiraCreator {
         userId: this._user(),
         labelIds: [],
       };
+      const time = jiraTimeTracking(fields);
+      if (time.spent !== undefined) cardToCreate.spentTime = time.spent;
+      cardToCreate.customFields = JIRA_ESTIMATE_FIELDS
+        .filter(field => time[field.key] !== undefined && this.timeFields[field.key])
+        .map(field => ({ _id: this.timeFields[field.key], value: time[field.key] }));
       // Jira's REPORTER is WeKan's "Requested By": the person who asked for the
       // work, as opposed to the assignee who does it. It is a free-text field
       // here, so it takes the display name rather than needing a mapped user -
@@ -250,6 +270,11 @@ export class JiraCreator {
   }
 
   async create(board, currentBoardId) {
+    // Validate before archiving a Sandstorm board or creating any documents.
+    for (const issue of this._issues(board)) {
+      try { jiraTimeTracking(issue.fields); }
+      catch (error) { throw new Meteor.Error('invalid-jira-time', error.message); }
+    }
     const isSandstorm =
       Meteor.settings && Meteor.settings.public && Meteor.settings.public.sandstorm;
     if (isSandstorm && currentBoardId) {
@@ -259,6 +284,7 @@ export class JiraCreator {
     const boardId = await this.createBoard(board);
     await this.createSwimlanes(boardId);
     await this.createLists(board, boardId);
+    await this.createTimeFields(board, boardId);
     await this.createCards(board, boardId);
     await this.createDependencies(board);
     await this.createRules(board, boardId);

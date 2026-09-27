@@ -168,6 +168,11 @@ only as provenance. Invalid dates, ranks, units, cycles or foreign-board IDs
 produce a preview error/loss report. Never promote imported roles to access
 permissions or fabricate missing history.
 
+Jira time-tracking import now preserves spent hours and original/remaining
+estimates using existing spent-time and numeric custom fields. Native export
+retains them, and the original estimate can be selected in Scrum settings.
+Sprint, release and external export/sync mappings remain pending.
+
 Jira mappings use the supplied field schema and explicit user choices, not
 hard-coded `customfield_*` numbers. Accept sprint IDs and expanded sprint
 objects; preserve multiple past sprints, goals, dates, state, epic/parent links,

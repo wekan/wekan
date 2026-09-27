@@ -1,6 +1,29 @@
-Originally from @webenefits at https://github.com/wekan/wekan/discussions/3504
+# Jira import
+
+## Native JSON time-tracking import
+
+The native Jira JSON import reuses WeKan's spent-time field (hours) and
+numeric custom fields for original and remaining estimates (hours). It creates
+only fields supplied by the export, hides them from minicards by
+default, and allows selecting the original estimate through existing Scrum
+estimate settings.
+It accepts numeric second values from `fields.timetracking`, or the equivalent
+flat issue fields when the nested value is absent. Explicit zeroes are preserved.
+Validation runs before creating the board. Localized duration strings are not
+parsed, partial worklog pages are not summed, and no historical sessions are
+fabricated. Native WeKan export retains these values. Jira sprint mapping and
+external export/sync mapping
+remain separate implementation work.
+
+The numeric fields follow [Atlassian's issue API](https://developer.atlassian.com/cloud/jira/software/rest/api-group-issue/).
+The two numeric custom fields are named `Jira original estimate (hours)` and
+`Jira remaining estimate (hours)`. Native WeKan custom-field settings control
+their visibility; no new permission or external service is introduced.
+
 
 ## Migrate from Jira Server (Atlassian) to Wekan
+
+Originally from @webenefits at https://github.com/wekan/wekan/discussions/3504
 
 Hello all,
 
