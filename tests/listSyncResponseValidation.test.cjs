@@ -10,7 +10,7 @@ async function run(raw,parser,existing,updateCount=1,child=null,fields,operation
  const {planListSyncReconcile,validateListSyncTasks}=await asModule('models/lib/listSyncReconcile.js');
  const cardWrites=[],listWrites=[];let parsed=0,fetches=0;const cardQueries=[];
  const source=fs.readFileSync('server/listSync.js','utf8').replace(/^import .*;\n/gm,'').replace(/export async function/g,'async function');
- const context={Meteor:{startup(){}},Lists:{findOneAsync:async()=>currentConfig?{}:null,updateAsync:async(id,modifier)=>listWrites.push(modifier)},
+ const context={Meteor:{startup(){}},withListSyncLease:async(id,work)=>work({assertCurrent:async()=>{}}),Lists:{findOneAsync:async selector=>!Object.hasOwn(selector,'syncSource')?({_id:'list',boardId:'board',syncSource:{...sourceConfig,fields,...operations}}):(currentConfig?{}:null),updateAsync:async(id,modifier)=>listWrites.push(modifier)},
   Cards:{insertAsync:async document=>{cardWrites.push({insert:document});if(createError)throw createError;return document._id;},updateAsync:async(selector,modifier)=>{cardWrites.push({selector,modifier});return updateCount;},find:selector=>{cardQueries.push(selector);return {fetchAsync:async()=>Array.isArray(existing)?existing:[existing || {_id:'card',syncExternalId:'KEY-1',syncSourceType:'jira',syncSourceKey:sourceKey,title:'Existing',description:'',syncLastSource:{title:'Existing',description:''}}]}},findOneAsync:async()=>child},
   Boards:{findOneAsync:async()=>({_id:'board',getDefaultSwimlineAsync:async()=>({_id:'lane'})})},ListSyncCredentials:{findOneAsync:async()=>({token:'test',sourceKey:credentialKey})},
   EXTERNAL_PARSERS:{jira:raw=>{parsed++;return parser?parser(raw):{tasks:[]};}},SYNC_CAPABLE_SOURCES:['jira'],

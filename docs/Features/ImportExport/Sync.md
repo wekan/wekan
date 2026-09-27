@@ -65,8 +65,22 @@ creation-conflict error rather than overwriting local work or reporting success.
 Retry to reconcile the winning card. If it was moved out of the watched list,
 return it before retrying; Sync will not create a replacement alongside it.
 Existing cards retain their IDs and continue matching by source identity.
-This protects new creations only: distributed job/configuration coordination,
-durable restart checkpoints and atomic changes across documents remain pending.
+This protects new creations only; existing legacy IDs are unchanged.
+
+Scheduled Sync, manual Sync and settings saves now share a private database
+reservation per list. A competing request reports that Sync is busy before
+fetching or changing credentials. Each operation rereads the list after claiming
+the reservation. It expires after 60 seconds and renews every 15 seconds, also
+checking ownership before application writes. A replacement worker can reclaim
+an expired reservation; the old owner stops at its next check and cannot release
+the replacement's reservation. These records contain no provider secrets.
+
+This is coordination, not a multi-document transaction or durable job queue.
+A process can still stop between credential and settings writes. A database
+write already issued before lease loss cannot be fenced by a later ownership
+check. Atomic configuration recovery, fencing of in-flight writes and persisted
+reconciliation checkpoints remain pending. Server clocks must be synchronized
+for the expiry comparisons. A failed run still requires a retry from the start.
 Card and subtask copies omit external Sync IDs, source type and text baselines,
 so independent work does not become a second target for an upstream issue.
 Existing duplicate local mappings stop the run before updates or archives;

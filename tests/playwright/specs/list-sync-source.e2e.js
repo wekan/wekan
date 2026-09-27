@@ -24,7 +24,6 @@ test.beforeAll(async () => {
     };
     if (project === 'CONCURRENT') {
       heldResponses.push(respond);
-      if (heldResponses.length === 2) heldResponses.splice(0).forEach(send => send());
     } else respond();
   });
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
@@ -41,15 +40,27 @@ test('concurrent Sync runs create one card, and a moved card blocks replacement 
     await loginWithToken(page, user.id, user.token);
     await loginWithToken(second, user.id, user.token);
     await openBoard(page, board.boardId, board.slug);
+    await openBoard(second, board.boardId, board.slug);
     await call(page, 'setListSyncSource', listId, config);
-    const results = await Promise.all([call(page, 'syncListNow', listId), call(second, 'syncListNow', listId)]);
-    expect(results.filter(result => result.created === 1)).toHaveLength(1);
-    for (const result of results) {
-      // A slower run can also see the winner's updated list status before it
-      // starts reconciliation; both existing guard and ID collision are safe.
-      if (result.error) expect(result.error).toMatch(/Sync creation conflict|Sync settings changed while fetching/);
-      else expect(result.archived).toBe(0);
-    }
+    const running = call(page, 'syncListNow', listId);
+    await expect.poll(() => heldResponses.length).toBe(1);
+    const busy = await call(second, 'syncListNow', listId);
+    expect(busy.error).toContain('Sync is already running');
+    const rejectedSave = await second.evaluate(async ({ id, config }) => {
+      try { await Meteor.callAsync('setListSyncSource', id, { ...config, projectKey: 'TWO' }); return 'accepted'; }
+      catch (error) { return error.error; }
+    }, { id: listId, config });
+    expect(rejectedSave).toBe('sync-busy');
+    await openSync(second, listId);
+    await second.locator('.js-list-sync-project-key').fill('TWO');
+    await second.locator('.js-list-sync-save').click();
+    await expect(second.locator('.pop-over .list-sync-now-error')).toContainText('Sync is already running');
+    expect(db.findOne('lists', { _id: listId }).syncSource.projectKey).toBe('CONCURRENT');
+    expect(db.findOne('listSyncCredentials', { listId }).sourceKey).toBe(syncSourceKey(config));
+    expect(heldResponses).toHaveLength(1);
+    heldResponses.splice(0).forEach(send => send());
+    expect(await running).toMatchObject({ created: 1, archived: 0 });
+    expect(db.findOne('listSyncLeases', { _id: listId })).toBeNull();
     const cards = db.find('cards', { listId, syncExternalId: 'SAME-1' });
     expect(cards).toHaveLength(1);
     expect(cards[0]._id).toMatch(/^sync-[a-f0-9]{64}$/);
@@ -83,6 +94,35 @@ const openSync = (page, listId) => page.evaluate(list => {
   Popup.open('listSync', { dataContext: list })({ currentTarget: document.body,
     target: document.body, preventDefault() {}, stopPropagation() {} });
 }, db.findOne('lists', { _id: listId }));
+
+test('expired Sync worker stops before reconciling after a settings save reclaims its lease', async ({ page, browser, user, board }) => {
+  const listId = db.find('lists', { boardId: board.boardId })[0]._id;
+  const config = { type: 'jira', url: base, projectKey: 'CONCURRENT', token: 'old-test-token' };
+  const secondContext = await browser.newContext();
+  const second = await secondContext.newPage();
+  try {
+    await loginWithToken(page, user.id, user.token);
+    await loginWithToken(second, user.id, user.token);
+    await call(page, 'setListSyncSource', listId, config);
+    const running = call(page, 'syncListNow', listId);
+    await expect.poll(() => heldResponses.length).toBe(1);
+    db.updateOne('listSyncLeases', { _id: listId }, { $set: { expiresAt: new Date(0) } });
+    const replacement = { ...config, projectKey: 'TWO', token: 'replacement-test-token' };
+    expect(await call(second, 'setListSyncSource', listId, replacement)).toEqual({ ok: true });
+    heldResponses.splice(0).forEach(send => send());
+    expect((await running).error).toContain('reservation expired');
+    expect(db.find('cards', { listId, syncExternalId: 'SAME-1' })).toHaveLength(0);
+    expect(db.findOne('lists', { _id: listId }).syncSource).toMatchObject({ projectKey: 'TWO' });
+    expect(db.findOne('lists', { _id: listId }).syncSource.lastSyncError).toBeUndefined();
+    expect(db.findOne('listSyncCredentials', { listId }).sourceKey).toBe(syncSourceKey(replacement));
+    expect(await call(second, 'syncListNow', listId)).toMatchObject({ created: 1 });
+  } finally {
+    heldResponses.splice(0).forEach(send => send());
+    await secondContext.close();
+    db.deleteMany('listSyncCredentials', { listId });
+    db.deleteMany('listSyncLeases', { _id: listId });
+  }
+});
 
 test('switching projects isolates overlapping IDs, archives and credentials through the popup', async ({ page, user, board }) => {
   const listId = db.find('lists', { boardId: board.boardId })[0]._id;
