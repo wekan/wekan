@@ -4,6 +4,7 @@ const { EJSON } = require('bson');
 const { normalizeJiraEstimateMapping } = require('../../models/lib/jiraEstimateMapping');
 
 const MAX_STEPS = 10000;
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 const digest = value => createHash('sha256').update(EJSON.stringify(value, { relaxed: false })).digest('hex');
 const fail = code => { throw Object.assign(new Error(code), { code }); };
 function identity(scope) {
@@ -112,20 +113,71 @@ async function removeAndVerify(remove, findRemaining) {
   }
 }
 
+function completionProof(row) {
+  if (!plain(row) || Object.keys(row).sort().join(',') !== '_id,appliedAt,operationId,planChecksum,scope,total,version' ||
+      row.version !== 1 || typeof row._id !== 'string' || !UUID.test(row._id) ||
+      typeof row.operationId !== 'string' || !UUID.test(row.operationId) ||
+      typeof row.planChecksum !== 'string' || !/^[0-9a-f]{64}$/.test(row.planChecksum) ||
+      !Number.isSafeInteger(row.total) || row.total < 0 || row.total > MAX_STEPS ||
+      !(row.appliedAt instanceof Date) || !Number.isFinite(row.appliedAt.getTime())) fail('invalid-sync-completion');
+  return { _id: row._id, version: 1, operationId: row.operationId,
+    scope: identity(row.scope), total: row.total, planChecksum: row.planChecksum, appliedAt: row.appliedAt };
+}
+async function readCompletion(completions, intentId, scope) {
+  const row = await completions.findOne({ _id: intentId });
+  if (row === null) return null;
+  const proof = completionProof(row);
+  if (proof._id !== intentId || digest(proof.scope) !== digest(scope)) fail('sync-completion-scope-changed');
+  return proof;
+}
+async function recordCompletion(completions, operation) {
+  const proof = completionProof({ _id: operation.intentId, version: 1, operationId: operation.operationId,
+    scope: operation.scope, total: operation.total, planChecksum: operation.planChecksum, appliedAt: operation.completedAt });
+  let saved = await readCompletion(completions, proof._id, proof.scope);
+  let writeError;
+  if (!saved) {
+    try { await completions.insertOne(proof); } catch (error) { writeError = error; }
+    try { saved = await readCompletion(completions, proof._id, proof.scope); }
+    catch (error) { throw writeError || error; }
+  }
+  if (!saved) throw writeError || new Error('sync-completion-unconfirmed');
+  if (digest(saved) !== digest(proof)) fail('sync-completion-conflict');
+  return saved;
+}
+
 // The caller MUST hold the renewable list lease throughout this call. Ownership
 // below fences journal acknowledgements, not in-flight writes in another
 // collection. apply() must compare exact before/after states and be idempotent,
 // including a write which committed before its acknowledgement was lost.
-async function runSyncOperation({ operations, steps, scope, build, apply, assertCurrent, now = () => new Date() }) {
+async function runSyncOperation({ operations, steps, completions, intentId, scope, build, apply, assertCurrent, now = () => new Date() }) {
   scope = identity(scope);
   if (typeof assertCurrent !== 'function') fail('sync-operation-lease-required');
+  if (typeof intentId !== 'string' || !UUID.test(intentId)) fail('sync-operation-intent-required');
+  if (!completions || typeof completions.findOne !== 'function' || typeof completions.insertOne !== 'function') fail('sync-operation-completions-required');
   await assertCurrent();
+  const receipt = await readCompletion(completions, intentId, scope);
   let operation = await operations.findOne({ _id: scope.listId });
+  if (receipt && (!operation || operation.operationId !== receipt.operationId)) {
+    if (operation?.intentId === intentId) fail('sync-completion-conflict');
+    // The application completed before its marker disappeared. Finish only
+    // this receipt's cleanup; a newer list operation must remain untouched.
+    await assertCurrent();
+    await removeAndVerify(
+      () => steps.deleteMany({ operationId: receipt.operationId }),
+      () => steps.findOne({ operationId: receipt.operationId }, { projection: { _id: 1 } }),
+    );
+    await assertCurrent();
+    if (await operations.findOne({ _id: scope.listId, operationId: receipt.operationId }) !== null) fail('sync-operation-cleanup-unconfirmed');
+    return { operationId: receipt.operationId, total: receipt.total };
+  }
   if (operation && (typeof operation.operationId !== 'string' ||
-    !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(operation.operationId))) fail('invalid-sync-operation-identity');
+    !UUID.test(operation.operationId))) fail('invalid-sync-operation-identity');
   if (operation && digest(operation.scope) !== digest(scope)) fail('sync-operation-scope-changed');
+  if (operation && operation.intentId !== intentId) fail('sync-operation-intent-pending');
+  if (receipt && (!['completed', 'cleaning'].includes(operation.state) || operation.checkpoint !== receipt.total ||
+      operation.total !== receipt.total || operation.planChecksum !== receipt.planChecksum)) fail('sync-completion-conflict');
   if (!operation) {
-    operation = { _id: scope.listId, operationId: randomUUID(), scope, state: 'preparing', checkpoint: 0, attempts: 0, startedAt: now() };
+    operation = { _id: scope.listId, operationId: randomUUID(), intentId, scope, state: 'preparing', checkpoint: 0, attempts: 0, startedAt: now() };
     await operations.insertOne(operation);
   }
   const owner = randomUUID();
@@ -196,6 +248,12 @@ async function runSyncOperation({ operations, steps, scope, build, apply, assert
       }
       await update({ state: 'applying', checkpoint: operation.total }, { state: 'completed', completedAt: now() });
     }
+    // Persist an immutable completion proof BEFORE removing recovery evidence.
+    // The caller must retain intentId across retries, including after cleanup.
+    await guard();
+    const completed = await operations.findOne(selector);
+    if (!completed || !['completed', 'cleaning'].includes(completed.state) || completed.checkpoint !== completed.total) fail('invalid-sync-operation-checkpoint');
+    await recordCompletion(completions, completed);
     // Keep the checkpoint until all plan records are removed. A crash during
     // cleanup resumes cleanup, never the already-completed application writes.
     await update({}, { state: 'cleaning' });

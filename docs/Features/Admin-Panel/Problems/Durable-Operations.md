@@ -160,11 +160,33 @@ is rechecked between the two stages, and a successor operation is never removed
 or treated as this operation's successful cleanup. A retained cleaning marker
 resumes cleanup without applying card units again.
 
-If the final read fails after deleting the marker, the outcome remains unknown;
-the engine does not recreate evidence it cannot safely restore. Production
-integration still needs durable completion/outcome records and retry intent.
-These readbacks do not fence already in-flight writes or form a transaction
-across the operation and step collections.
+The engine now requires a caller-persisted UUID `intentId` and a private raw
+MongoDB `completions` collection. Reuse the same intent for every retry of one
+request, including after the operation marker is gone; generate a new intent
+only for a new request. Do not derive retry intent from the pending
+marker, which is deliberately removed at completion. A different intent cannot
+take over that marker while it remains pending.
+
+Before cleanup, an immutable completion record captures the intent, operation
+ID, exact scope, total, plan checksum and application-completion timestamp.
+The engine reads it back before deleting any recovery evidence. Failed writes,
+missing rows and failed verification retain the applied plan. Lost insertion
+acknowledgements are accepted only when the exact saved proof is readable.
+Conflicting, malformed and foreign-scope records cannot acknowledge the work.
+These records contain no card values or credentials, but remain private.
+
+If the final cleanup read fails after deleting the marker, the current attempt
+still reports an unknown outcome. Retrying the SAME intent reads its durable
+proof, finishes operation-specific cleanup and returns its original result
+without rebuilding or applying card units. A newer operation on that list stays
+untouched. Completion records have no automatic deletion or TTL here: removing
+a record while its intent can still be retried would lose this guarantee.
+
+Production integration must persist intent before invoking the engine and wire
+private completion storage, retention and job/outcome lifecycle. The proof means
+all adapter units were acknowledged; it cannot independently prove unfinished
+History/activity effects. These readbacks do not fence already in-flight writes
+or form a transaction across collections.
 
 Real MongoDB tests inject interruptions before application, after a side effect,
 after checkpoint progress and during cleanup. They exercise lost ownership,

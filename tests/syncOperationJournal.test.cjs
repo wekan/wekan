@@ -20,7 +20,7 @@ test('a journal cannot start without a lease guard or with secret-bearing scope 
 test('damaged operation identities cannot become Mongo selectors during recovery cleanup',async()=>{
  const scope={listId:'list',boardId:'board',sourceKey:'key',revision:null,incarnation:null};
  for(const operationId of [{$ne:null},null,'not-an-operation-id']){
-  await assert.rejects(runSyncOperation({scope,assertCurrent:async()=>{},operations:{
+  await assert.rejects(runSyncOperation({scope,intentId:'11111111-1111-4111-8111-111111111111',completions:{findOne:async()=>null,insertOne:async()=>assert.fail('unexpected completion')},assertCurrent:async()=>{},operations:{
    findOne:async()=>({_id:'list',scope,operationId,state:'cleaning',total:0,checkpoint:0}),
    updateOne:async()=>assert.fail('invalid identity reached mutation'),
   }}),/invalid-sync-operation-identity/);
@@ -91,4 +91,23 @@ test('mapped-field plans retain entry and payload bounds',()=>{
  const large=estimateStep();large.before.customFields[0].value='x'.repeat(1024*1024);
  large.after.customFields[0].value=large.before.customFields[0].value;
  assert.throws(()=>validateStep(large),/step-too-large/);
+});
+
+test('durable completion requires a stable intent and a private completion collection',async()=>{
+ const scope={listId:'list',boardId:'board',sourceKey:'key',revision:null,incarnation:null};
+ await assert.rejects(runSyncOperation({scope,assertCurrent:async()=>{}}),/intent-required/);
+ await assert.rejects(runSyncOperation({scope,intentId:{$ne:null},assertCurrent:async()=>{}}),/intent-required/);
+ await assert.rejects(runSyncOperation({scope,intentId:'11111111-1111-4111-8111-111111111111',assertCurrent:async()=>{}}),/completions-required/);
+});
+test('malformed or foreign completion proofs cannot suppress execution or become selectors',async()=>{
+ const scope={listId:'list',boardId:'board',sourceKey:'key',revision:null,incarnation:null};
+ const intentId='11111111-1111-4111-8111-111111111111';
+ const base={_id:intentId,version:1,operationId:'22222222-2222-4222-8222-222222222222',scope,total:0,planChecksum:'a'.repeat(64),appliedAt:new Date(0)};
+ for(const mutate of [row=>row.token='secret',row=>row.total=-1,row=>row.operationId={$ne:null},row=>row.appliedAt='not-date',row=>row.scope={...scope,boardId:'foreign'},row=>row.version=2]){
+  const row=structuredClone(base);mutate(row);
+  await assert.rejects(runSyncOperation({scope,intentId,assertCurrent:async()=>{},
+   completions:{findOne:async()=>row,insertOne:async()=>assert.fail('bad completion inserted')},
+   operations:{findOne:async()=>assert.fail('bad completion reached operation lookup')},
+  }));
+ }
 });

@@ -1,6 +1,7 @@
 'use strict';
 const {test}=require('node:test');const assert=require('node:assert/strict');
 const {MongoClient,ObjectId}=require('mongodb');
+const {randomUUID}=require('node:crypto');
 const {prepareSyncOperationMutation}=require('../../server/lib/syncOperationMutation');
 const {runSyncOperation}=require('../../server/lib/syncOperationJournal');
 const {withSyncLease}=require('../../server/lib/syncLease');
@@ -9,7 +10,7 @@ const {exactFieldSelector}=require('../../models/lib/exactFieldSelector');
 const uri=process.env.WEKAN_SYNC_TEST_MONGO_URL;
 test('durable Sync journal resumes verified units without rebuilding or repeating committed effects', {skip:!uri}, async t=>{
  const client=await new MongoClient(uri).connect();const db=client.db(`sync_operation_${new ObjectId().toHexString()}`);
- const operations=db.collection('operations'),steps=db.collection('steps'),cards=db.collection('cards'),leases=db.collection('leases');
+ const operations=db.collection('operations'),steps=db.collection('steps'),cards=db.collection('cards'),leases=db.collection('leases'),completions=db.collection('completions');
  t.after(async()=>{await db.dropDatabase();await client.close();});
  const wrap=(collection,overrides)=>({
   findOne:(...args)=>collection.findOne(...args),insertOne:(...args)=>collection.insertOne(...args),
@@ -35,7 +36,11 @@ test('durable Sync journal resumes verified units without rebuilding or repeatin
   assert.ok(await cards.findOne(mutation.afterSelector),'stored result must be verified');
   effects++;return 'applied';
  };
- const run=(options={})=>withSyncLease(leases,'list',({assertCurrent})=>runSyncOperation({operations,steps,scope,build,apply,assertCurrent,...options}));
+ const run=async(options={})=>{
+  const pending=await operations.findOne({_id:'list'});
+  const intentId=options.intentId||pending?.intentId||randomUUID();
+  return withSyncLease(leases,'list',({assertCurrent})=>runSyncOperation({operations,steps,completions,intentId,scope,build,apply,assertCurrent,...options}));
+ };
  await t.test('crash after side effect leaves the unit unacknowledged and skips it on resume',async()=>{
   await assert.rejects(run({apply:async step=>{await apply(step);throw new Error('lost card acknowledgement');}}),/lost card/);
   const pending=await operations.findOne({_id:'list'});assert.equal(pending.checkpoint,0);assert.equal(pending.state,'applying');
@@ -182,6 +187,92 @@ test('durable Sync journal resumes verified units without rebuilding or repeatin
   await assert.rejects(run({operations:raced}),/cleanup-unconfirmed/);
   assert.deepEqual(await operations.findOne({_id:'list'}),successor);assert.equal(effects,2);
   await operations.deleteOne({_id:'list',operationId:successor.operationId});
+ });
+ await t.test('the same intent returns its completion after marker removal without rebuilding',async()=>{
+  await cards.deleteMany({});effects=0;const intentId=randomUUID();
+  const first=await run({intentId});const proof=await completions.findOne({_id:intentId});
+  assert.equal(proof.operationId,first.operationId);assert.equal(proof.total,2);
+  assert.ok(proof.appliedAt instanceof Date);assert.equal(effects,2);
+  await cards.updateOne({_id:'one'},{$set:{title:'Later local work'}});
+  const retry=await run({intentId,build:async()=>assert.fail('completed intent rebuilt'),apply:async()=>assert.fail('completed intent applied')});
+  assert.deepEqual(retry,first);assert.equal((await cards.findOne({_id:'one'})).title,'Later local work');
+  assert.deepEqual(await completions.findOne({_id:intentId}),proof);
+  await assert.rejects(run({intentId,scope:{...scope,revision:'different'}}),/completion-scope-changed/);
+ });
+ await t.test('empty plans retain completion without rebuilding on retry',async()=>{
+  const intentId=randomUUID();let built=0;
+  const first=await run({intentId,build:async()=>{built++;return [];},apply:async()=>assert.fail('empty plan applied')});
+  assert.equal(first.total,0);assert.equal(built,1);
+  const retry=await run({intentId,build:async()=>assert.fail('empty intent rebuilt')});
+  assert.deepEqual(retry,first);assert.equal((await completions.findOne({_id:intentId})).total,0);
+ });
+ await t.test('a new intent cannot take over a pending operation',async()=>{
+  await cards.deleteMany({});const intentId=randomUUID();
+  await assert.rejects(run({intentId,apply:async()=>{throw new Error('pending intent');}}),/pending intent/);
+  const pending=await operations.findOne({_id:'list'});
+  await assert.rejects(run({intentId:randomUUID()}),/intent-pending/);
+  assert.deepEqual(await operations.findOne({_id:'list'}),pending);
+  await run({intentId});
+ });
+ await t.test('failed completion persistence retains applied plans and never repeats their units',async()=>{
+  await cards.deleteMany({});effects=0;const intentId=randomUUID();
+  const unavailable=wrap(completions,{insertOne:async()=>{throw new Error('completion insert failed');}});
+  await assert.rejects(run({intentId,completions:unavailable}),/completion insert failed/);
+  assert.equal((await operations.findOne({_id:'list'})).state,'completed');
+  assert.equal(await steps.countDocuments({}),2);assert.equal(effects,2);
+  await run({intentId,apply:async()=>assert.fail('completion retry applied cards')});
+  assert.ok(await completions.findOne({_id:intentId}));assert.equal(effects,2);
+ });
+ await t.test('completion insertion requires readable persisted proof before cleanup',async()=>{
+  for(const failure of ['not-inserted','read-failed']){
+   await cards.deleteMany({});effects=0;const intentId=randomUUID();let inserted=false;
+   const uncertain=wrap(completions,{
+    insertOne:async row=>{
+     if(failure==='not-inserted')return {acknowledged:true,insertedId:row._id};
+     const result=await completions.insertOne(row);inserted=true;return result;
+    },
+    findOne:async query=>{if(inserted)throw new Error('completion read failed');return completions.findOne(query);},
+   });
+   await assert.rejects(run({intentId,completions:uncertain}),failure==='not-inserted'?/completion-unconfirmed/:/completion read failed/);
+   assert.equal((await operations.findOne({_id:'list'})).state,'completed');
+   assert.equal(await steps.countDocuments({}),2);assert.equal(effects,2);
+   await run({intentId,apply:async()=>assert.fail('completion verification retry applied cards')});
+   assert.ok(await completions.findOne({_id:intentId}));assert.equal(effects,2);
+  }
+ });
+ await t.test('lost completion insertion acknowledgements use the exact immutable saved proof',async()=>{
+  await cards.deleteMany({});effects=0;const intentId=randomUUID();
+  const lost=wrap(completions,{insertOne:async row=>{await completions.insertOne(row);throw new Error('completion ack lost');}});
+  const result=await run({intentId,completions:lost});assert.equal(effects,2);
+  assert.equal((await completions.findOne({_id:intentId})).operationId,result.operationId);
+  assert.equal(await operations.countDocuments({}),0);
+ });
+ await t.test('receipt recovery closes an unknown cleanup outcome while preserving a newer operation',async()=>{
+  await cards.deleteMany({});effects=0;const intentId=randomUUID();let removed=false;
+  const uncertain=wrap(operations,{
+   deleteOne:async query=>{const result=await operations.deleteOne(query);removed=true;return result;},
+   findOne:async(query,options)=>{if(removed&&options?.projection)throw new Error('receipt final read failed');return operations.findOne(query,options);},
+  });
+  await assert.rejects(run({intentId,operations:uncertain}),/receipt final read failed/);
+  const proof=await completions.findOne({_id:intentId});assert.ok(proof);
+  const successor={_id:'list',intentId:randomUUID(),operationId:randomUUID(),scope,state:'preparing',checkpoint:0,attempts:0};
+  await operations.insertOne(successor);
+  const result=await run({intentId,build:async()=>assert.fail('receipt recovery rebuilt'),apply:async()=>assert.fail('receipt recovery applied')});
+  assert.equal(result.operationId,proof.operationId);assert.equal(effects,2);
+  assert.deepEqual(await operations.findOne({_id:'list'}),successor);
+  await operations.deleteOne({_id:'list',operationId:successor.operationId});
+ });
+ await t.test('a conflicting completion cannot erase pending recovery evidence',async()=>{
+  await cards.deleteMany({});effects=0;const intentId=randomUUID();
+  const denied=wrap(completions,{insertOne:async()=>{throw new Error('hold completion');}});
+  await assert.rejects(run({intentId,completions:denied}),/hold completion/);
+  const pending=await operations.findOne({_id:'list'});
+  const conflict={_id:intentId,version:1,operationId:pending.operationId,scope,total:1,
+   planChecksum:pending.planChecksum,appliedAt:pending.completedAt};
+  await completions.insertOne(conflict);
+  await assert.rejects(run({intentId}),/completion-conflict/);
+  assert.deepEqual(await operations.findOne({_id:'list'}),pending);assert.equal(await steps.countDocuments({}),2);
+  await completions.deleteOne({_id:intentId});await run({intentId});assert.equal(effects,2);
  });
  await t.test('the application selector refuses a local field deletion after a null snapshot',async()=>{
   await cards.deleteMany({});

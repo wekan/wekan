@@ -422,7 +422,9 @@ a test adapter. Manual and scheduled Sync are not yet connected to that engine.
 A shared mutation planner now builds conditional field patches for saved steps,
 preserving unrelated metadata. Production Sync shares its literal-value
 selector helper; the complete recovery/application/effect adapter is still
-unfinished.
+unfinished. Stable caller-persisted intents and private completion records now
+let that engine recognize a finished request after cleanup, without rebuilding
+its plan. Production Sync does not yet persist or use those intents/records.
 
 Automatic Jira schema discovery, arbitrary mapping creation in this popup,
 original/remaining time-estimate mapping, other providers' estimates and durable
