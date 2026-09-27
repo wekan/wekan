@@ -1,7 +1,43 @@
 'use strict';
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
-const { navigateInApp } = require('../helpers/auth');
+const { navigateInApp, openBoard } = require('../helpers/auth');
+
+test('Jira status names that match object properties retain lists and Scrum categories', async ({ loggedInPage: page }) => {
+  const title = `Jira status names ${db.uniqueSuffix()}`;
+  const names = ['constructor', 'toString', '__proto__'];
+  const source = { board: { name: title }, issues: names.map((name, index) => ({
+    key: `NAMES-${index + 1}`,
+    fields: { summary: `Card ${index}`, status: { name, statusCategory: { key: 'done' } },
+      issuelinks: [
+        { type: { name: 'Blocks' }, outwardIssue: { key: 'constructor' } },
+        ...(index === 0 ? [{ type: { name: 'Blocks' }, outwardIssue: { key: 'NAMES-2' } }] : []),
+      ],
+    },
+  })) };
+  try {
+    const id = await page.evaluate(input => Meteor.callAsync('importBoard', input, {}, 'jira'), source);
+    const lists = db.find('lists', { boardId: id });
+    expect(lists.map(list => list.title).sort()).toEqual(names.slice().sort());
+    await openBoard(page, id, db.findOne('boards', { _id: id }).slug);
+    for (const [index, name] of names.entries()) {
+      const list = lists.find(list => list.title === name);
+      expect(list.scrum.category).toBe('done');
+      const card = db.findOne('cards', { boardId: id, listId: list._id });
+      expect(card.title).toContain(`Card ${index}`);
+      if (index === 0) {
+        const target = db.findOne('cards', { boardId: id, listId: lists.find(list => list.title === 'toString')._id });
+        expect(card.cardDependencies).toHaveLength(1);
+        expect(card.cardDependencies[0]).toMatchObject({ cardId: target._id, type: 'blocks' });
+      } else expect(card.cardDependencies || []).toEqual([]);
+      // List titles use Markdown: double underscores render as bold text.
+      await expect(page.locator('.list-header-name').filter({ hasText: name === '__proto__' ? 'proto' : name }).first()).toBeVisible();
+      await expect(page.locator('.minicard-title').filter({ hasText: `Card ${index}` })).toBeVisible();
+    }
+  } finally {
+    for (const board of db.find('boards', { title })) db.cleanup({ boardIds: [board._id] });
+  }
+});
 
 test('Jira Scrum metadata imports hidden, exports and survives native import', async ({ loggedInPage: page, request, user }) => {
   const ids = [];

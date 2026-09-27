@@ -38,11 +38,12 @@ export class JiraCreator {
   constructor(data) {
     this._nowDate = new Date();
     this.members = data && data.membersMapping ? data.membersMapping : {};
-    this.lists = {};
+    // Imported names are data, including names such as "constructor".
+    this.lists = Object.create(null);
     this.swimlane = null;
     // #3392: Jira issue key -> new card id, for mapping issue links to
     // card-to-card dependencies ("Red Strings") after all cards are created.
-    this.cardsByKey = {};
+    this.cardsByKey = Object.create(null);
     this.timeFields = {};
   }
 

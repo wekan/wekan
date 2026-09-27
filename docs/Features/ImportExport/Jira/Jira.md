@@ -50,6 +50,10 @@ are rejected before creating the board. Unknown category keys remain unmapped.
 Jira export includes the same fields when Scrum is selected. A WeKan `backlog`
 list category has no distinct Jira status category and is omitted.
 
+Status names are treated as literal text, including names such as `constructor`
+or `__proto__`. Dependency references resolve only to issue keys present in
+the imported file; missing keys cannot resolve to JavaScript object properties.
+
 These mappings follow the [Jira issue field representation](https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-issues/)
 and [stable status category keys](https://docs.atlassian.com/DAC/javadoc/jira/reference/com/atlassian/jira/issue/status/category/StatusCategory.html).
 Sprint snapshots, multiple fix versions, epic relationships and configurable
