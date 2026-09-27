@@ -244,8 +244,11 @@ History/activity completion still needs the production adapter.
 Cleanup now reads back plan and marker deletion before reporting success.
 Partial/zero deletes and uncertain reads retain or report incomplete outcomes;
 lost acknowledgements require verified absence, and successor operations remain
-untouched. Real MongoDB fault-injection tests cover these boundaries. Durable
-completion records are still required for production integration.
+untouched. Real MongoDB fault-injection tests cover these boundaries. The engine
+now requires stable caller-persisted intents and immutable private completion
+records before cleanup. A retry returns its original completion without building
+or applying card units, even after marker deletion, while newer jobs remain
+untouched. Production intent/storage retention and job lifecycle are still open.
 Current Sync write selectors now distinguish explicit null from missing fields.
 Adapter investigation also moved title/description activities after successful
 writes and made archive/entity/rule History hooks reject zero-match updates.
@@ -1112,9 +1115,41 @@ changelog suites pass; the existing released v12.07 line-length failure remains.
 
 This internal engine remains outside manual/scheduled Sync; no production UI
 path changed. If the final read fails after marker deletion, the result remains
-unknown. Production integration still needs durable completion/outcome records
-and retry intent, and these checks do not fence in-flight writes or provide a
-transaction across collections. Those requirements remain in TODO Later.
+unknown for that attempt. Stable-intent completion recovery is described below;
+production storage/retention and job lifecycle remain pending. These checks do
+not fence in-flight writes or provide a transaction across collections.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/617ba292f">Retain Sync completion across stable request retries</a>. Thanks to xet7.</summary>
+
+Require a caller-persisted UUID intent and private completion collection in the
+recovery engine. Record and verify the immutable operation, scope, total, plan
+checksum and application-completion time before removing recovery evidence.
+Failed or unreadable persistence keeps the applied plan. Lost insertion replies
+are accepted only when the exact saved record is readable. Reject malformed,
+conflicting and foreign-scope records and attempts to replace a pending intent.
+
+Retrying the same intent recognizes completion after marker removal, preserves
+later local edits, and never rebuilds or reapplies card units. It can finish
+its own cleanup without touching a newer operation on the list. Empty plans
+retain the same retry guarantee. Completion records contain no card values or
+credentials and are not automatically expired or deleted by the engine.
+
+Eighteen focused Sync Node suites pass with real MongoDB enabled. The final
+three journal/mutation suites also pass after failed-read, false insertion
+acknowledgement and empty-plan checks. Tests cover lost acknowledgements,
+conflicting proofs, changed scope, unknown cleanup outcomes and newer jobs.
+The offline source/dependency audit passes with advisory warnings. Four
+changelog suites pass; the existing released v12.07 line-length failure remains.
+
+The engine remains outside production manual/scheduled Sync; no production UI
+path changed. Callers must persist intent before invocation, reuse it on retry
+and retain completion records while retries remain possible. Production private
+storage, retention and job lifecycle still need wiring. Proofs acknowledge the
+adapter's units, not independently verified History/activity effects; durable
+effect adapters and in-flight fencing remain in TODO Later.
 
 </details>
 
