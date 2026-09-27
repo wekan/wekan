@@ -710,6 +710,25 @@ recorded positive, negative and UI regression coverage.
 Also adds the following feature:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/65217313f">Configure Scrum team accountabilities and working days from settings</a>. Thanks to xet7.</summary>
+
+The shared Scrum settings form now exposes Product Owner, Scrum Master,
+Developers and working days using existing settings fields. Accountabilities
+select active board members without changing permissions. Administrators can
+clear assignments and select multiple developers and working days. Existing
+validation, revision checks and History undo/redo apply.
+
+Seven local Node checks and five Chromium scenarios pass, covering saved and
+cleared selections, invalid members/days, undo/redo, non-admin denial and the
+existing Scrum views, exports and visibility settings. One separately gated
+DDP Node suite skipped; the browser scenarios exercised the running server.
+Four new labels use English fallbacks in catalogs awaiting translations.
+Existing Upcoming regression evidence remains recorded; other browsers were
+not run. Blockly translations remain paused.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/21504d556">Select card creation and archival in the list Sync popup</a>. Thanks to xet7.</summary>
 
 Add Card and Move Card to Archive switches independently control new-source
