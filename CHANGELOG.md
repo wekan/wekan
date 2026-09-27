@@ -1185,6 +1185,23 @@ no new UI was added. Updated the Sync guide with the API reference.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6efec562e">Reject ambiguous source identities before list synchronization</a>. Thanks to xet7.</summary>
+
+Normalized Sync tasks must have unique valid external IDs and string text
+fields. Missing IDs no longer disappear silently from reconciliation, and a
+duplicate ID cannot silently replace an earlier source record. Invalid task
+collections use the existing error path before any card mutation. Valid empty
+sources and unchanged records retain their existing behavior.
+
+Fifteen focused Node checks and the Chromium Sync error-display scenario pass.
+Tests execute the sync function with malformed normalized tasks and confirm
+zero card writes. Existing pagination, parser and reconciliation checks pass.
+Updated the Sync guide. Existing Upcoming regression evidence remains recorded;
+other browsers and live provider accounts were not exercised.
+
+</details>
+
 This release adds the following regression coverage and documentation:
 
 <details>
