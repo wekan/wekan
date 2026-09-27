@@ -1763,6 +1763,24 @@ Blockly browser coverage and other Upcoming regression results remain valid.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/cbc3fd1fb">Resume Blockly translations with Gujarati editor controls</a>. Thanks to xet7.</summary>
+
+Resume translation at the maintainer's request and fill 87 Gujarati English
+placeholders for navigation, accessibility, colors and basic block controls.
+Preserve existing translations and exact placeholder tokens. Update TODO Later
+and the Blocks guide to record resumption; the Gujarati catalog and other
+remaining languages are still incomplete. Specialist terminology needs native
+review and is not claimed as linguistically verified.
+
+Four catalog regression checks and 21 human-preference checks pass. Coverage
+includes all catalog keys and placeholders plus Gujarati vocabulary/script
+checks for the resumed groups. No external translation service was used.
+Existing Blockly browser coverage remains recorded; this batch did not add a
+Gujarati browser run.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4ff6e78d9">Complete the current South Asian Blockly translation batch</a>. Thanks to xet7.</summary>
 
 Fill Blockly and Blocks editor prose in Hindi and its Indian locale, Tamil,
@@ -1770,8 +1788,8 @@ Kannada, Bengali, Nepali and Urdu. Correct wrongly seeded Urdu shared labels;
 retain placeholders and existing correct-language translations. Specialist
 accessibility and mathematical terminology still merits native review.
 
-All three catalog checks pass. Translation work is now paused by request;
-TODO Later records the remaining coverage and the reproducible pause report.
+All three catalog checks pass. Translation work was paused after this batch
+and has since resumed; TODO Later retains the historical pause checkpoint.
 Other implementation work continues. Existing Upcoming regression coverage
 remains recorded in the corresponding feature and security entries.
 
