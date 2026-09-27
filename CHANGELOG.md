@@ -766,8 +766,8 @@ the Markdown commit as the template.
 runs and settings changes, including private credentials. **Scrum** records
 daily observations and displays their measured scope and remaining work in
 Sprint Report, with scoped Excel/PDF downloads. Native board transfer and
-duplication preserve daily history too. **API diagnostics** omit request secrets,
-and reviewed **translations** regain their target-language meaning.
+duplication preserve daily history too. **API diagnostics** omit request
+secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
 
