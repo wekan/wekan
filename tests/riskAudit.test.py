@@ -43,6 +43,42 @@ class RiskAudit(unittest.TestCase):
         self.policy['denyHashes']=[hashlib.sha256(self.file.read_bytes()).hexdigest()]
         with self.assertRaisesRegex(ValueError,'hash'):r.inspect(self.root,self.policy)
         with self.assertRaisesRegex(ValueError,'hash'):r.artifact(self.file,self.policy)
+    def test_reviewed_lockfile_funding_urls_are_allowed_only_in_lockfile(self):
+        policy = json.loads((ROOT/'releases/risk-baseline.json').read_text())
+        self.policy['allowUrlPatternsByFile'] = policy['allowUrlPatternsByFile']
+        urls = ['https://github.com/sponsors/csstools',
+                'https://github.com/inikulin/parse5?sponsor=1',
+                'https://opencollective.com/csstools']
+        lock = self.root/'package-lock.json'
+        lock.write_text(json.dumps({'packages': {'node_modules/example': {
+            'funding': [{'url': url} for url in urls]}}}))
+        r.inspect(self.root, self.policy)
+        for url in urls:
+            with self.subTest(url=url):
+                self.file.write_text('fetch("'+url+'")')
+                with self.assertRaisesRegex(ValueError, 'main.js: new URL'):
+                    r.inspect(self.root, self.policy)
+
+    def test_lockfile_allowances_still_reject_unreviewed_urls_and_keywords(self):
+        policy = json.loads((ROOT/'releases/risk-baseline.json').read_text())
+        self.policy['allowUrlPatternsByFile'] = policy['allowUrlPatternsByFile']
+        lock = self.root/'package-lock.json'
+        for url in ['https://github.com/sponsors/unreviewed',
+                    'https://opencollective.com/unreviewed',
+                    'https://github.com/inikulin/parse5?sponsor=10',
+                    'https://github.com/sponsors/csstools?report=1',
+                    'https://githubXcom/sponsors/csstools',
+                    'https://opencollective.com.evil.example/csstools',
+                    'https://new.example/package.tgz']:
+            with self.subTest(url=url):
+                lock.write_text(json.dumps({'url': url}))
+                with self.assertRaisesRegex(ValueError, 'package-lock.json: new URL'):
+                    r.inspect(self.root, self.policy)
+        lock.write_text(json.dumps({'name': 'TelemetryClient',
+                                   'url': 'https://github.com/sponsors/csstools'}))
+        with self.assertRaisesRegex(ValueError, 'suspicious keyword'):
+            r.inspect(self.root, self.policy)
+
     def test_baselined_keyword_is_not_blanket_for_new_occurrences(self):
         self.file.write_text('/* TelemetryClient compatibility */')
         self.policy['files']=r.collect(self.root,self.policy)

@@ -26,6 +26,13 @@
   "denyHashes": [
     "4221c252d2f11ad658d60d2a0ab6147feb3d984e62e204a64c9ce8562e2410b0"
   ],
+  "allowUrlPatternsByFile": {
+    "package-lock.json": [
+      "https://github\\.com/sponsors/csstools",
+      "https://github\\.com/inikulin/parse5\\?sponsor=1",
+      "https://opencollective\\.com/csstools"
+    ]
+  },
   "files": {
     "client/00-startup.js": {
       "sha256": "867cad17675843991394f89c52cf107d42d7c61f59b31b88a709688cadaf5251",
