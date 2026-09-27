@@ -192,9 +192,15 @@ Moved or detached cards can now be preserved while an unrestricted writer
 chooses a replacement in the watched list. Private conditional decisions retain
 the replacement ID across retries and restarts; previews expose only incoming
 source text and stale choices are rejected.
+Full-list writers can now preview saved Sync changes without applying them.
+The preview shares the actual write plan, lists bounded card summaries and
+counts normalized fields excluded by settings or lacking mappings. Ignored
+status-only changes no longer count as updates. Empty source baselines survive
+storage, so unchanged runs do not repeatedly update them.
 Remaining: external sprint histories without invented snapshots, multiple
 release assignments, epic relationships, automatic field/schema mapping,
-Trello and other Scrum adapters, mapping previews/loss reporting, planning and
+Trello and other Scrum adapters, provider-specific mapping/loss reports,
+persisted run reports, planning and
 estimate Sync, durable restart checkpoints, fencing of in-flight card writes
 after lease loss and atomic multi-card reconciliation.
 Changes during card writes remain nontransactional.
@@ -1052,6 +1058,39 @@ in TODO Later. The known released-entry changelog format failure remains.
 </details>
 
 and improves list synchronization:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/80ccf100a">Preview saved Sync changes and fields left unsynchronized</a>. Thanks to xet7.</summary>
+
+Add Preview changes to the list Sync popup. Reuse the actual merge, operation
+switches and conflict checks without changing cards, settings or shared Sync
+status, including on errors. Show create/update/archive counts and bounded
+card summaries. Count normalized fields excluded by selection or lacking a
+mapping, plus parser diagnostic counts, without returning omitted values.
+Use saved settings and clear the displayed plan when the form changes.
+
+Require full-list write access before fetching and check access again before
+returning. Assigned-only users retain their existing scoped conflict review.
+Preview uses the usual per-list reservation; Sync now fetches and checks again.
+It is not an approval token for a frozen plan. Titles render as escaped text.
+
+Exclude ignored status-only differences from both preview and update counts.
+Preserve empty strings and surrounding whitespace in Sync text and baselines
+while retaining schema validation. The browser test exposed an empty source
+baseline being removed by cleaning; unchanged runs now stop rewriting it.
+
+Thirteen Node suites and eighteen Chromium Sync scenarios pass after the
+storage fix. Coverage includes no-write errors/conflicts, disabled sources,
+operation switches, bounded output, stale access, omitted-value privacy, saved
+settings, empty baseline persistence and conflict resolution. The release audit
+passes with advisory warnings. Add English source labels only. FerretDB and
+other browsers were not tested.
+
+This completes the normalized-field preview checkpoint. Source fields lost
+before normalization, detailed provider mapping paths, persisted run reports
+and complete schema coverage remain in TODO Later alongside durable recovery.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0210614a8">Repair damaged Sync counters without reviving old saves</a>. Thanks to xet7.</summary>
