@@ -168,12 +168,15 @@ reclaimed, and the previous owner stops at its next ownership check.
 Settings and an immutable private credential version now activate through one
 conditional list update. Interrupted saves retain the old or new pair; stale
 saves and delayed cleanup cannot replace a newer configuration's credential.
-An hourly sweep now retires unselected credential versions. A server-owned
-generation fence prevents delayed saves from activating a retired token while
-preserving the selected version and newer staging. Deleted-list credentials
+An hourly sweep now retires bounded snapshots of unselected credential IDs.
+An opaque server-owned fence prevents delayed saves from activating retired
+tokens, including after damaged numeric counters are reset. Selected tokens
+and newer staging remain intact. Deleted-list credentials
 are now swept by exact identity. Each new list has a fresh lifetime identifier,
 so a recreated list cannot activate an old token or lose its new one to delayed
-cleanup. Malformed generations remain for review; all writers must upgrade.
+cleanup. Malformed or exhausted counters are repaired by the sweep or an
+ordinary settings save. Unselected malformed versions are retired by identity;
+all writers must upgrade together.
 The Sync popup now compares conflicting title, description and spent-time
 values. Board writers can retain the local value or select the source value;
 fresh comparisons and conditional writes reject stale choices. Assigned-only
@@ -193,8 +196,7 @@ Remaining: external sprint histories without invented snapshots, multiple
 release assignments, epic relationships, automatic field/schema mapping,
 Trello and other Scrum adapters, mapping previews/loss reporting, planning and
 estimate Sync, durable restart checkpoints, fencing of in-flight card writes
-after lease loss, atomic multi-card reconciliation and cleanup of credentials
-with malformed generations.
+after lease loss and atomic multi-card reconciliation.
 Changes during card writes remain nontransactional.
 See [Jira](docs/Features/ImportExport/Jira/Jira.md) and
 [Sync](docs/Features/ImportExport/Sync.md).
@@ -1052,6 +1054,33 @@ in TODO Later. The known released-entry changelog format failure remains.
 and improves list synchronization:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0210614a8">Repair damaged Sync counters without reviving old saves</a>. Thanks to xet7.</summary>
+
+The hourly sweep now snapshots at most 500 unselected credential IDs per list
+before changing an opaque activation fence. Delete only those immutable IDs;
+newer staging survives even when another sweep completes before a delayed
+cleanup resumes. Larger backlogs drain over later sweeps. Add a list/ID index
+for the bounded scan and keep token values out of it.
+
+Repair malformed, negative, fractional or exhausted numeric counters with a
+new fence. Ordinary settings saves can also repair them, including lists with
+no existing credentials; repair and activation share one conditional write.
+Stale saves cannot become valid when the counter resets. Unselected malformed
+versions are collected by identity. Active tokens and ambiguous legacy choices
+remain protected until a settings save replaces them. All writers must upgrade
+together before relying on these fences.
+
+Twelve Sync Node suites pass, with two focused suites rerun after extending
+coverage. Real MongoDB cases include malformed values, concurrent reset and
+cleanup, more than 500 abandoned versions, stale saves, lost acknowledgements
+and new staging preserved through delayed deletion. Seventeen Chromium Sync
+scenarios pass, including popup repairs and rejection of direct fence edits.
+The local release audit passes with advisory warnings. FerretDB and other
+browsers were not tested. Whole-run recovery and card-write fencing remain open.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/210f1b59b">Retire deleted-list credentials without disrupting recreated lists</a>. Thanks to xet7.</summary>
 
 Give every new list a server-generated credential lifetime, including copies
@@ -1063,7 +1092,8 @@ The hourly sweep reads credential identity before checking list absence and
 removes only that exact version. A concurrent recreated list keeps its new
 token. Delayed old saves fail their lifetime comparison; interrupted cleanup
 can retry. The scan neither reads nor logs tokens. Soft-deleted lists retain
-their selected credential for undo; malformed generations remain for review.
+their selected credential for undo. Malformed-generation repair is extended
+above.
 All writer processes must upgrade together. Stop writers for database restores,
 which bypass application lifecycle rules.
 
@@ -1208,9 +1238,9 @@ writes, disabled sources and failure isolation. Eight Chromium Sync scenarios
 pass across the initial run and corrected-test rerun, including retained token
 use, later settings saves and denial of browser changes to the generation.
 The local release audit passes with advisory warnings. All writer processes
-must upgrade together. Deleted-list cleanup is extended above; malformed
-generations stay for review. FerretDB, other browsers and live providers
-remain unverified;
+must upgrade together. Deleted-list cleanup and malformed-generation repair
+are extended above. FerretDB, other browsers and live providers remain
+unverified;
 card-write fencing and durable reconciliation checkpoints remain pending.
 
 </details>
