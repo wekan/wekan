@@ -838,6 +838,21 @@ regression coverage remains recorded in its entries. Updated mirroring docs.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b929ffe8c">Complete Blockly translations in four more Romance languages</a>. Thanks to xet7.</summary>
+
+Fill remaining Blockly and Blocks editor prose in Friulian, Ladin, Romansh
+and Aromanian. Correct wrongly seeded shared labels while retaining existing
+correct-language translations. Ladin dialect choices and Aromanian technical
+neologisms have low confidence; native review is welcome for these and
+specialist Friulian terms. Other unfinished language catalogs remain pending.
+
+All three catalog regression checks pass: message coverage, key order, exact
+placeholder inventories and preservation of existing translations. The current
+Blockly browser coverage and other Upcoming regression results remain valid.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.07 2026-09-27 WeKan ® release
