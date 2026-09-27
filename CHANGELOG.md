@@ -180,13 +180,16 @@ their resolution writes also require the assignment to remain present.
 Duplicate mapping previews now identify extra cards and one consistently
 retained mapping. Extras can become local cards while keeping their content;
 changed mapping groups require a new review.
+Parents whose archival is blocked by active subcards can now remain local by
+removing only the parent Sync mapping. Previews omit subcard details and fresh
+source/parent checks reject stale choices; subcards remain untouched.
 Remaining: external sprint histories without invented snapshots, multiple
 release assignments, epic relationships, automatic field/schema mapping,
 Trello and other Scrum adapters, mapping previews/loss reporting, planning and
 estimate Sync, durable restart checkpoints, fencing of in-flight card writes
 after lease loss, atomic multi-card reconciliation, cleanup of credentials for
 missing lists and malformed generations,
-and resolution UI for archive/move conflicts.
+and resolution UI for moved or detached-card creation conflicts.
 Changes during card writes remain nontransactional.
 See [Jira](docs/Features/ImportExport/Jira/Jira.md) and
 [Sync](docs/Features/ImportExport/Sync.md).
@@ -1044,6 +1047,27 @@ in TODO Later. The known released-entry changelog format failure remains.
 and improves list synchronization:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ed1615369">Keep parents local when active subcards block Sync archival</a>. Thanks to xet7.</summary>
+
+Show an archive-conflict preview when an absent source item still has active
+subcards outside the archive plan. Keep the parent locally by removing only
+its Sync identity and baseline. Refetch source data, recheck the conflict and
+conditionally update the parent. Returned source items, changed parent values,
+removed blockers and disabled archival invalidate old previews. No subcard
+identifiers or content enter the preview, and subcards are never changed by
+this action. Assigned-only writers retain assignment checks and review mode.
+
+Ten Sync Node suites and thirteen Chromium scenarios pass, including both
+permission scopes, stale source absence, preserved parent/subcard data and
+existing Sync behavior. The local release audit passes with advisory warnings.
+Add English source labels only. If the source later returns, the stable-ID
+collision guard preserves a detached local card; moved/detached-card creation
+resolution remains pending alongside durable reconciliation and write fencing.
+Other browsers, FerretDB and live providers were not tested.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4b05d4c51">Convert duplicate Sync mappings into local cards</a>. Thanks to xet7.</summary>
 
 The Sync popup now shows extra mappings beside the card that will stay synced.
@@ -1058,7 +1082,8 @@ reversed query order, protected retained mappings, stale groups, assignment
 conditions, unchanged card content and successful Sync after repair. The local
 release audit passes with advisory warnings. Add English source labels only.
 Groups spanning hidden cards require an unrestricted writer. Archive/subtask
-and moved-card creation conflicts, transactional reconciliation and in-flight
+resolution is extended above. Moved/detached-card creation conflicts,
+transactional reconciliation and in-flight
 write fencing remain pending. Other browsers, FerretDB and live providers
 were not tested.
 
@@ -1083,7 +1108,8 @@ Ten Sync Node suites and ten Chromium scenarios pass, including hidden-card
 preservation, unchanged shared status, assignment revocation, scoped writes
 and existing configuration/credential behavior. The local release audit passes
 with advisory warnings. Add one English source label without translation fill.
-Duplicate mapping repair is extended above. Archive/move resolution,
+Duplicate mapping and archive/subtask repair are extended above. Creation
+collision resolution for moved or detached cards,
 transactional reconciliation
 and in-flight card-write fencing remain pending. Other browsers, FerretDB
 and live providers were not tested.
@@ -1109,8 +1135,8 @@ release audit passes with advisory warnings. Add English source labels only;
 other languages use the existing fallback, without translation filling.
 
 Assigned-only resolution and duplicate mapping repair are extended above.
-Archive/move conflicts, transactional reconciliation and in-flight write
-fencing remain pending.
+Moved/detached-card creation conflicts, transactional reconciliation and
+in-flight write fencing remain pending.
 FerretDB, other browsers and live providers were not tested.
 
 </details>
