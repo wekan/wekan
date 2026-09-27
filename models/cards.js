@@ -1045,12 +1045,13 @@ Cards.helpers({
 },
 
 
-  async copy(boardId, swimlaneId, listId, cardIdMap = null, copyOptions) {
+  async copy(boardId, swimlaneId, listId, cardIdMap = null, copyOptions, deferScrum = false) {
     const oldId = this._id;
     const oldCard = await ReactiveCache.getCard(oldId);
 
     // Work on a shallow copy to avoid mutating the source card in ReactiveCache
     const cardData = { ...this };
+    if (deferScrum || copyOptions?.scrum === false) { delete cardData.scrum; delete cardData.scrumRevision; }
     delete cardData._id;
     // getRealId() caches __id on rendered cards; it is not a schema field.
     delete cardData.__id;

@@ -148,7 +148,7 @@ Swimlanes.attachSchema(
 );
 
 Swimlanes.helpers({
-  async copy(boardId, targetSwimlaneId = null, position = 'below', title = '', cardIdMap = null, withoutCards = false, copyOptions) {
+  async copy(boardId, targetSwimlaneId = null, position = 'below', title = '', cardIdMap = null, withoutCards = false, copyOptions, copyMaps = null) {
     const oldId = this._id;
     const oldBoardId = this.boardId;
     const desiredTitle = typeof title === 'string' && title.trim().length > 0
@@ -199,7 +199,9 @@ Swimlanes.helpers({
     this.sort = targetSort;
     this.title = desiredTitle;
     delete this._id;
+    if (copyMaps || copyOptions?.scrum === false) { delete this.scrum; delete this.scrumRevision; }
     const newSwimlaneId = await Swimlanes.insertAsync(this);
+    if (copyMaps) copyMaps.swimlanes[oldId] = newSwimlaneId;
 
     if (copyOptions && !copyOptions.lists) return newSwimlaneId;
 
@@ -288,6 +290,7 @@ Swimlanes.helpers({
         color: sourceList.color,
         width: sourceList.width,
       });
+      if (copyMaps) copyMaps.lists[sourceList._id] = newListId;
 
       // #4726 "Clone Board without cards": when withoutCards is set, the
       // board/swimlane/list/label/custom-field structure above is still
@@ -301,7 +304,7 @@ Swimlanes.helpers({
         const cards = await ReactiveCache.getCards(cardQuery, { sort: { sort: 1 } });
 
         for (const card of cards) {
-          await card.copy(boardId, newSwimlaneId, newListId, cardIdMap, copyOptions);
+          await card.copy(boardId, newSwimlaneId, newListId, cardIdMap, copyOptions, !!copyMaps);
         }
       }
     }

@@ -25,6 +25,7 @@ function sprintReport(sprint) {
     removed: total(start.filter(card => !finalIds.has(card.cardId))),
     incomplete: total(end.filter(card => !card.done)),
     hasStart: Boolean(sprint.startSnapshot), hasClose: Boolean(sprint.closeSnapshot),
+    partial: Boolean(sprint.startSnapshot?.partial || sprint.closeSnapshot?.partial),
   };
 }
 function velocityRows(sprints) {

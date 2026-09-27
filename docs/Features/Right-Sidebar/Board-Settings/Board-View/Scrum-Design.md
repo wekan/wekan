@@ -141,8 +141,12 @@ members. The nine exporter authorization methods and affected HTTP formats are
 covered by the ExportScopeBleed audit and regression tests. Native new-board
 import validates before side effects, remaps destination IDs and restores
 planning records, snapshots and metadata through the existing import pipeline.
-Loss reports are visible to board administrators. Existing-board scoped import,
-duplication, external adapters and Sync integration remain pending. Transporting
+Loss reports are visible to board administrators. Whole-board duplication now
+reuses the remapper, collects destination container IDs and offers a Scrum part
+in the existing selector. Its reduced snapshots remain visibly partial and it
+does not copy original History rows. Existing-board scoped import, standalone
+card/list/swimlane copy and move, external adapters and Sync integration remain
+pending. Transporting
 History and completing export security integration remain requirements, not
 completed features. The shared anonymization
 helper now rewrites known username mentions in Scrum prose, including canonical

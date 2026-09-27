@@ -414,11 +414,16 @@ All** and **Select None** change the whole selection; **Cancel** leaves the
 boards unchanged. Press **Duplicate Board** in the popup to make the copies.
 
 Choose swimlanes, lists, labels, custom fields, rules, outgoing webhooks, cards,
-checklists (including their items), comments and attachments. Selecting a child
+checklists (including their items), comments, attachments and Scrum. Selecting a child
 also selects its required parents: comments need cards, cards need lists, and
 lists need swimlanes. Clearing a parent clears its dependent choices. For a copy
 without cards, clear **Cards**. For just an empty board, use **Select None**.
 A default swimlane may be created later when the empty board is opened.
+
+Scrum includes custom fields needed by estimates. Clearing custom fields also
+clears Scrum. Planning records and copied item references receive destination
+IDs; reduced snapshots in copies without some cards are marked partial in
+reports and exports. Clearing Scrum omits its settings and item metadata.
 
 Board settings, visibility and membership retain the existing duplication
 behavior. The operation still requires board-administrator permission on each

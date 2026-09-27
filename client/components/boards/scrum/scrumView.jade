@@ -228,7 +228,10 @@ template(name="scrumReportTable")
       tbody
         each rows
           tr
-            td {{name}}
+            td
+              | {{name}}
+              if partial
+                p {{_ 'scrum-partial-snapshot'}}
             td {{unit}}
             td {{formatTotal committed}}
             td {{formatTotal completed}}

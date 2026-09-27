@@ -1477,6 +1477,17 @@ Boards.helpers({
     const selection = normalizeBoardCopyOptions(copyOptions);
     if (withoutCards) selection.cards = false;
     const oldId = this._id;
+    const sourceBoardId = oldId;
+    let scrumExport = null;
+    if (selection.scrum) {
+      const { exportScrumTransfer } = require('/server/lib/scrumTransferExport');
+      const [sourceCards, sourceLists, sourceLanes] = await Promise.all([
+        ReactiveCache.getCards({ boardId: oldId }), ReactiveCache.getLists({ boardId: oldId }), ReactiveCache.getSwimlanes({ boardId: oldId }),
+      ]);
+      scrumExport = await exportScrumTransfer(oldId, sourceCards.map(c => c._id), sourceLists.map(l => l._id), sourceLanes.map(s => s._id));
+    }
+    // Planning references are installed only after destination IDs exist.
+    delete this.scrum; delete this.scrumRevision; delete this.scrumImportLosses;
     const oldWatchers = this.watchers ? this.watchers.slice() : [];
     if (!selection.labels) this.labels = [];
     delete this._id;
@@ -1504,6 +1515,7 @@ Boards.helpers({
     // id so card-to-card dependencies (#3392 "Red Strings") can be remapped to
     // the copies once every card has been created.
     const cardIdMap = {};
+    const copyMaps = { lists: {}, swimlanes: {} };
     const swimlanes = await ReactiveCache.getSwimlanes({
       boardId: oldId,
       archived: false,
@@ -1511,9 +1523,9 @@ Boards.helpers({
     for (const swimlane of selection.swimlanes ? swimlanes : []) {
       swimlane.type = 'swimlane';
       if (copyOptions === undefined) {
-        await swimlane.copy(_id, null, 'below', '', cardIdMap, withoutCards);
+        await swimlane.copy(_id, null, 'below', '', cardIdMap, withoutCards, selection, copyMaps);
       } else {
-        await swimlane.copy(_id, null, 'below', '', cardIdMap, !selection.cards, selection);
+        await swimlane.copy(_id, null, 'below', '', cardIdMap, !selection.cards, selection, copyMaps);
       }
     }
 
@@ -1573,6 +1585,15 @@ Boards.helpers({
           }),
         },
       });
+    }
+
+    if (scrumExport) {
+      const { importScrumTransfer } = require('/server/lib/scrumTransferImport');
+      const { scrumTransferUserIds } = require('/server/lib/scrumTransferExport');
+      const users = await ReactiveCache.getUsers({ _id: { $in: scrumTransferUserIds(scrumExport.transfer) } });
+      await importScrumTransfer({ cards: cardIdMap, lists: copyMaps.lists, swimlanes: copyMaps.swimlanes,
+        customFields: cfMap, members: Object.fromEntries(users.map(user => [user._id, user._id])) },
+      { _id: sourceBoardId, scrumTransfer: scrumExport.transfer, scrumTransferLosses: scrumExport.losses }, _id);
     }
 
     // copy rules, actions, and triggers

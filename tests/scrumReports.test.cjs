@@ -34,3 +34,10 @@ test('restricted sprint exports are explicitly labelled as partial',()=>{
  assert.match(chartExportRows('scrumSprint',{partial:true,reports:[]}).title,/Visible assigned cards only/);
  assert.doesNotMatch(chartExportRows('scrumSprint',{partial:false,reports:[]}).title,/Visible assigned cards only/);
 });
+test('copied or imported partial snapshots remain labelled in report and export rows',()=>{
+ const {chartExportRows}=require('../models/lib/chartExportRows');
+ const report=sprintReport({name:'Reduced sprint',state:'closed',startSnapshot:{partial:true,cards:[]},closeSnapshot:{cards:[],unit:'points'}});
+ assert.equal(report.partial,true);
+ assert.match(chartExportRows('scrumVelocity',{reports:[report]}).rows[0][0],/Partial original snapshot/);
+ assert.equal(sprintReport({startSnapshot:{cards:[]},closeSnapshot:{cards:[]}}).partial,false);
+});

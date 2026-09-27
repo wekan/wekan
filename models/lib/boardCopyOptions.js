@@ -10,6 +10,7 @@ export const BOARD_COPY_FIELDS = [
   { key: 'checklists', label: 'checklists', parent: 'cards' },
   { key: 'comments', label: 'comments', parent: 'cards' },
   { key: 'attachments', label: 'attachments', parent: 'cards' },
+  { key: 'scrum', label: 'scrum-settings', parent: 'customFields' },
 ];
 export function allBoardCopyOptions(value = true) {
   return Object.fromEntries(BOARD_COPY_FIELDS.map(field => [field.key, value]));

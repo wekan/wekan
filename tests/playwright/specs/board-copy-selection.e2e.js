@@ -32,12 +32,13 @@ for (const mode of ['all', 'cards-only', 'none', 'swimlanes-only']) test(`select
     await page.locator(`li.js-board.${board.boardId} .js-toggle-board-multi-selection`).click();
     await page.locator('.js-duplicate-selected-boards').click();
     const form = page.locator('.js-duplicate-boards-form');
-    await expect(form.locator('[aria-checked="true"]')).toHaveCount(10);
+    // Scrum is an additional selected copy section.
+    await expect(form.locator('[aria-checked="true"]')).toHaveCount(11);
     await form.locator('.js-copy-select-none').click();
     await expect(form.locator('[aria-checked="true"]')).toHaveCount(0);
     if (mode === 'all') {
       await form.locator('.js-copy-select-all').click();
-      await expect(form.locator('[aria-checked="true"]')).toHaveCount(10);
+      await expect(form.locator('[aria-checked="true"]')).toHaveCount(11);
     } else if (mode !== 'none') {
       await form.locator(`[data-field="${mode === 'cards-only' ? 'cards' : 'swimlanes'}"]`).click();
       await expect(form.locator('[aria-checked="true"]')).toHaveCount(mode === 'cards-only' ? 3 : 1);

@@ -56,7 +56,7 @@ function chartExportRows(chartKey, data, translate = (key, fallback) => fallback
         `${label}: ${translate('scrum-unknown-estimate', 'Unknown estimate')}`);
     }
     return { title: data.partial ? `${title} — ${translate('scrum-partial-report', 'Visible assigned cards only')}` : title, headers, rows: (data.reports || []).map(report =>
-      [report.name, report.unit, ...totals.flatMap(key => [report[key].count, report[key].estimate, report[key].unknown])]) };
+      [report.partial ? `${report.name} — ${translate('scrum-partial-snapshot', 'Partial original snapshot')}` : report.name, report.unit, ...totals.flatMap(key => [report[key].count, report[key].estimate, report[key].unknown])]) };
   }
 
   if (chartKey === 'cumulativeFlow') {

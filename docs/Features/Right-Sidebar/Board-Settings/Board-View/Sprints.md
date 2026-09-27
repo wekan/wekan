@@ -91,9 +91,21 @@ Import disclosure on Scrum views for board administrators. Source accountabiliti
 remain informational and never grant board permissions.
 
 Native board round trips are tested, but universal History is not transported
-yet. Existing-board scoped import, duplication and synchronization remain in
+yet. Existing-board scoped import and synchronization remain in
 progress. Imports are not multi-document database transactions: a database
 failure after preflight can still leave a partially created board.
+
+Board duplication also offers Scrum in its existing part selector, selected by
+default. Selecting Scrum includes custom-field definitions needed by estimates;
+clearing custom fields clears Scrum. Planning records receive new IDs, and
+copied card, list, swimlane, release and snapshot references point to the copy.
+Copying without cards retains planning records but marks reduced snapshots
+partial. Reports and Excel/PDF rows display that limitation. Clearing Scrum
+omits its settings and item metadata. The copy starts fresh History rather
+than importing the source board's History records.
+
+Standalone card/list/swimlane copies and moves still need their Scrum reference
+audit; board duplication coverage does not establish those paths are complete.
 
 The current implementation includes planning forms, revision checks,
 start/close snapshots, release and event editors, visibility controls, report

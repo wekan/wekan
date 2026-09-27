@@ -12,6 +12,9 @@ test('board duplication choices default to all and preserve parent-child consist
   for (const key of ['cards', 'checklists', 'comments', 'attachments']) assert.equal(noCards[key], false);
   assert.equal(noCards.lists, true);
   assert.equal(noCards.rules, true);
+  const scrum = toggleBoardCopyOption(none, 'scrum');
+  assert.equal(scrum.customFields, true);
+  assert.equal(toggleBoardCopyOption(scrum, 'customFields').scrum, false);
   for (const input of [null, [], true, { cards: 'false' }, { unexpected: true }, JSON.parse('{"__proto__":true}')]) assert.throws(() => normalizeBoardCopyOptions(input));
   assert.throws(() => toggleBoardCopyOption(none, 'constructor'));
 });
