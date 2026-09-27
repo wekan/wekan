@@ -766,6 +766,20 @@ receive update operators. Browser rule-editing scenarios also pass.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0a8334ef1">Keep rules-page text and controls visible across layouts</a>. Thanks to xet7.</summary>
+
+Long titles, trigger descriptions and buttons wrap within their rows.
+Controls participate in layout instead of overlapping through absolute
+positioning. Small screens stack the trigger menu and form, while workflow
+cards and primary-button icons remain readable with the current theme.
+
+Four Chromium scenarios pass at desktop and mobile widths with English and
+Arabic, including blue, dark and light themes. They check every trigger and
+action category, long content and control boundaries.
+
+</details>
+
 This release adds the following regression coverage and documentation:
 
 <details>
