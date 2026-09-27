@@ -896,6 +896,22 @@ action category, long content and control boundaries.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/156dbf0ec">Apply import and export anonymization to Scrum prose</a>. Thanks to xet7.</summary>
+
+Known username mentions in Scrum goals, definitions, acceptance criteria,
+swimlane purpose and planning text use the existing anonymization map. Native
+streaming export now applies the same pass to board and swimlane fields.
+Identity references, estimate units, source provenance and snapshots retain
+their meaning. This rewrites mentions, not arbitrary personal information.
+
+Six focused Node checks and one Chromium-driven native export scenario pass.
+The export test covers enabled/disabled anonymization and unchanged stored
+data. Canonical transfer text is covered by unit tests; native Scrum planning
+record transfer remains pending. Existing Upcoming evidence remains recorded.
+
+</details>
+
 This release adds the following regression coverage and documentation:
 
 <details>
