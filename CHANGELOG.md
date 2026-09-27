@@ -229,7 +229,7 @@ doubts and asks for a Windows/AD-experienced contributor).
 </details>
 
 <details>
-<summary>Need the running app to reproduce/verify (runtime UI or publication/mergebox state), not unit-testable here.</summary>
+<summary>Pending affected-data or database-backend verification.</summary>
 
 [#6692](https://github.com/wekan/wekan/issues/6692#issuecomment-5811473169)
 (the invitation account-block and anonymous metadata-subscription defects are
@@ -237,10 +237,6 @@ fixed; the separate HistoryIntegrity checksum mismatch needs the affected
 stored row and predecessor to reproduce. Do not regenerate hashes to hide it.
 See [investigation notes](docs/DeveloperDocs/LDAP-6692.md)).
 
-[#1942](https://github.com/wekan/wekan/issues/1942) (a card linked from board A
-into board B shows a blank view / freezes when the viewer has no rights on board
-A — the linked-card open resolves the real card the viewer cannot see; needs a
-runtime permission + reactive-close-on-no-access fix verified live),
 [#6509](https://github.com/wekan/wekan/issues/6509) — which is a request to TEST
 FerretDB v1 on MySQL, MariaDB and SAP HANA, and is mostly answered: the
 conformance harness (`./build.sh` → Tests → All databases) runs one catalogue of
@@ -295,9 +291,10 @@ reminder on a card's due date with a per-board offset — labelled Feature; the
 built-in due-date reminder already exists (`NOTIFY_DUE_DAYS_BEFORE_AND_AFTER`,
 improved in #3192), so the remaining ask is the per-board offset UI + a webhook
 reminder, a feature; [#4278](https://github.com/wekan/wekan/issues/4278) asks
-for the same reminder as a rule action, which needs a scheduled/deferred
-trigger the rule engine does not have today — every existing trigger fires on
-an immediate event, not a future point in time),
+for rule email reminders to assigned people when a card is due, overdue or
+starting. Scheduled due/overdue triggers already exist in
+`server/scheduledRules.js`; resolving assignee email recipients and scheduling
+start-date reminders remain missing),
 [#4294](https://github.com/wekan/wekan/issues/4294) (rule actions should
 support a limited set of variables, e.g. assigning a card to its creator by
 default — the acting-user member option and email variables already exist, but
@@ -345,11 +342,6 @@ this-week/next-week/no-date states; the remaining gap is filtering by
 `createdAt`/`receivedAt`/`endAt` rather than only `dueAt`, which needs a
 decision on whether to generalize `DateFilter` to a chosen date FIELD or add
 one `DateFilter` per date field, since today's UI hard-codes "due date"),
-[#1871](https://github.com/wekan/wekan/issues/1871) (filter subtasks by
-their parent card - subtasks are cards linked via `parentId`, and no
-existing `SetFilter` targets that relation; needs a decision on UI: a
-parent-card picker in the sidebar, versus a `parent:<title>` token in the
-existing advanced/text filter),
 [#1499](https://github.com/wekan/wekan/issues/1499) (hide old/done tasks -
 overlaps `Filter.dueAt.past()` and the existing Swimlane/List "Done"
 concept; the open part is a rolling "older than N days" cutoff, which
@@ -588,6 +580,38 @@ the Markdown commit as the template.
 
 </details>
 </details>
+
+# Upcoming WeKan ® release
+
+This release adds the following feature:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8ad064346">Filter subtasks by their parent card</a>. Thanks to robinvd and xet7.</summary>
+
+Card actions now offer Filter: Subtasks. The Filter sidebar also offers parent
+cards from the current board. Both use the existing `parentId` relationship and
+filter engine, showing direct children without changing any cards. Multiple
+parents can be selected, and changing boards clears this selection. Read-only
+members can filter; private parent titles are not fetched or disclosed.
+Fixes [#1871](https://github.com/wekan/wekan/issues/1871).
+
+Verification: nine focused Node checks and three Chromium scenarios pass,
+covering parent selection, combined filters, reset, admin/read-only access,
+private-parent publication boundaries and unchanged card data. The Chromium
+run also rechecks the private-source linked-card regression from
+[#1942](https://github.com/wekan/wekan/issues/1942), already closed by
+[9cdbe1a53](https://github.com/wekan/wekan/commit/9cdbe1a53).
+Other browser engines and a live FerretDB backend were not tested.
+
+Removed the completed parent-filter and private-linked-card entries from TODO
+Later. Corrected the reminder entry: scheduled due/overdue rule triggers exist;
+assignee email recipients and start-date reminders remain pending under
+[#4278](https://github.com/wekan/wekan/issues/4278). Updated the filter, subtask
+and open-issue audit documentation.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.07 2026-09-27 WeKan ® release
 
