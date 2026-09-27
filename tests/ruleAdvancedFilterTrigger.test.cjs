@@ -139,19 +139,15 @@ test('label = value and custom-field comparisons combine with and/or/not', async
     ],
   });
 
-  // ! Priority == High (the sidebar's 'not' applies to the single condition
-  // that follows it once that condition has already been reduced - the same
-  // left-to-right evaluation the sidebar's Advanced Filter description
-  // documents; a NOT wrapped in its own parentheses is a pre-existing corner
-  // case of the shared algorithm, not something this refactor changes).
+  // Negate the whole field comparison with a Mongo-compatible $nor.
   const negated = advancedFilterStringToSelector("! Priority == 'High'", resolvers);
   assert.deepEqual(negated, {
     $or: [
       {
-        $not: { customFields: { $elemMatch: {
+        $nor: [{ customFields: { $elemMatch: {
           _id: 'cf-priority',
           value: { $in: ['opt-high', NaN] },
-        } } },
+        } } }],
       },
     ],
   });
@@ -195,7 +191,7 @@ test('the server resolvers resolve custom field names and dropdown values like t
 function matchesSelector(selector, doc) {
   if (selector.$or) return selector.$or.some(s => matchesSelector(s, doc));
   if (selector.$and) return selector.$and.every(s => matchesSelector(s, doc));
-  if (selector.$not) return !matchesSelector(selector.$not, doc);
+  if (selector.$nor) return !selector.$nor.some(s => matchesSelector(s, doc));
   // An $elemMatch clause matches a
   // card that has SOME customFields entry with that _id whose value matches y.
   if (selector.customFields?.$elemMatch) {
@@ -251,8 +247,10 @@ test('server matcher fetches definitions by board membership before building the
   assert.equal(queried._id, 'card');
   assert.equal(queried.$or[0].customFields.$elemMatch._id, 'local');
   queried = null;
-  assert.equal(await context.cardMatchesAdvancedFilter({ _id: 'card', boardId: 'board' }, ''), false);
-  assert.equal(queried, null);
+  for (const filter of ['', 'Points = 2 or', '(Points = 2', 'Unknown = 2']) {
+    assert.equal(await context.cardMatchesAdvancedFilter({ _id: 'card', boardId: 'board' }, filter), false);
+    assert.equal(queried, null, 'Invalid rules must not reach the card query');
+  }
 });
 
 (async () => {

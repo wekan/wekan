@@ -58,6 +58,16 @@ export function tokenizeAdvancedFilter(filter) {
       ignore = true;
       continue;
     }
+    if ((char === '(' || char === ')') && !string) {
+      if (current !== '' || wasString || regex) {
+        commands.push({ cmd: current, string: wasString, regex });
+      }
+      commands.push({ cmd: char, string: false, regex: false });
+      current = '';
+      wasString = false;
+      regex = false;
+      continue;
+    }
     if (char === ' ' && !string) {
       commands.push({
         cmd: current,
@@ -71,7 +81,8 @@ export function tokenizeAdvancedFilter(filter) {
     }
     current += char;
   }
-  if (current !== '') {
+  if (string || ignore) throw new Error('Unfinished advanced filter token');
+  if (current !== '' || wasString || regex) {
     commands.push({
       cmd: current,
       string: wasString,
@@ -321,95 +332,55 @@ function processConditions(commands, resolvers) {
   }
 }
 
-function processLogicalOperators(commands) {
-  for (let i = 0; i < commands.length; i++) {
-    if (!commands[i].string && commands[i].cmd) {
-      switch (commands[i].cmd) {
-        case 'or':
-        case 'Or':
-        case 'OR':
-        case '|':
-        case '||': {
-          const op1 = commands[i - 1];
-          const op2 = commands[i + 1];
-          commands[i] = {
-            $or: [op1, op2],
-          };
-          commands.splice(i - 1, 1);
-          commands.splice(i, 1);
-          i--;
-          break;
-        }
-        case 'and':
-        case 'And':
-        case 'AND':
-        case '&':
-        case '&&': {
-          const op1 = commands[i - 1];
-          const op2 = commands[i + 1];
-          commands[i] = {
-            $and: [op1, op2],
-          };
-          commands.splice(i - 1, 1);
-          commands.splice(i, 1);
-          i--;
-          break;
-        }
-        case 'not':
-        case 'Not':
-        case 'NOT':
-        case '!': {
-          const op1 = commands[i + 1];
-          commands[i] = {
-            $not: op1,
-          };
-          commands.splice(i + 1, 1);
-          i--;
-          break;
-        }
-        default:
-          break;
-      }
-    }
-  }
+function processLogicalOperators(left, operator, right) {
+  const key = ['and', '&', '&&'].includes(operator) ? '$and' : '$or';
+  return { [key]: [left, right] };
 }
 
 function processSubCommands(commands, resolvers) {
-  const subcommands = [];
-  let level = 0;
-  let start = -1;
-  for (let i = 0; i < commands.length; i++) {
-    if (commands[i].cmd) {
-      switch (commands[i].cmd) {
-        case '(': {
-          level++;
-          if (start === -1) start = i;
-          continue;
-        }
-        case ')': {
-          level--;
-          commands.splice(i, 1);
-          i--;
-          continue;
-        }
-        default: {
-          if (level > 0) {
-            subcommands.push(commands[i]);
-            commands.splice(i, 1);
-            i--;
-            continue;
-          }
-        }
-      }
+  const tokens = commands.filter(token => token.cmd !== '' || token.string || token.regex);
+  let index = 0;
+  const operator = token => token && !token.string && !token.regex
+    ? token.cmd.toLowerCase() : null;
+  const fail = () => { throw new Error('Invalid advanced filter expression'); };
+  function atom(depth) {
+    if (depth > 100) fail();
+    const token = tokens[index];
+    const op = operator(token);
+    if (op === 'not' || op === '!') {
+      index++;
+      // $not is a field operator; whole-selector negation uses $nor in both
+      // MongoDB and Minimongo. This also handles grouped subexpressions.
+      return { $nor: [atom(depth + 1)] };
     }
+    if (op === '(') {
+      index++;
+      const result = expression(depth + 1);
+      if (operator(tokens[index]) !== ')') fail();
+      index++;
+      return result;
+    }
+    if (!token || op === ')') fail();
+    const condition = tokens.slice(index, index + 3);
+    if (condition.length !== 3) fail();
+    processConditions(condition, resolvers);
+    if (condition.length !== 1 || !condition[0].customFields?.$elemMatch) fail();
+    index += 3;
+    return condition[0];
   }
-  if (start !== -1) {
-    processSubCommands(subcommands, resolvers);
-    if (subcommands.length === 1) commands.splice(start, 0, subcommands[0]);
-    else commands.splice(start, 0, subcommands);
+  function expression(depth) {
+    let result = atom(depth);
+    // Preserve the existing left-to-right and/or order. Parentheses let the
+    // author explicitly choose a different grouping; NOT binds to one atom.
+    while (['and', '&', '&&', 'or', '|', '||'].includes(operator(tokens[index]))) {
+      const op = operator(tokens[index++]);
+      result = processLogicalOperators(result, op, atom(depth));
+    }
+    return result;
   }
-  processConditions(commands, resolvers);
-  processLogicalOperators(commands);
+  const result = expression(0);
+  if (index !== tokens.length) fail();
+  return result;
 }
 
 /**
@@ -419,12 +390,10 @@ function processSubCommands(commands, resolvers) {
  *   - fieldNameToId(fieldName) -> custom field _id
  *   - fieldValueToId(fieldName, value) -> dropdown item _id (or value itself)
  *   - customFieldDateSelector(fieldName, str, op) -> operator doc, or null
- * Mutates `commands`; callers that still need the original array should pass
- * a copy.
+ * Rejects incomplete expressions and does not mutate the supplied tokens.
  */
 export function advancedFilterCommandsToSelector(commands, resolvers) {
-  processSubCommands(commands, resolvers);
-  return { $or: commands };
+  return { $or: [processSubCommands(commands, resolvers)] };
 }
 
 /**

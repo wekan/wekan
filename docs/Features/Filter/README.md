@@ -47,3 +47,12 @@ Use single quotes around names containing spaces, for example
 sidebar retains its last valid selector when a new expression cannot be built.
 Rules and the sidebar share the same comparison builder; rules query the saved
 card while the sidebar filters the cards already published to the browser.
+
+Parentheses can group comparisons, including nested groups, and need no spaces
+between the parentheses and their contents. `not` (or `!`) negates the next
+comparison or group: `not(Points = 1 or Points = 2)`. Unlike `Points != 2`,
+`not Points = 2` also includes cards without a Points field because they do not
+match the positive comparison. `and` and `or` retain left-to-right evaluation;
+use parentheses to select a different grouping. Incomplete expressions,
+unclosed quotes and unmatched parentheses are rejected. Invalid rule expressions
+never execute an action; the sidebar keeps its last valid filter.

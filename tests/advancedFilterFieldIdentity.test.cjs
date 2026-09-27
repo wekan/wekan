@@ -43,6 +43,24 @@ test('real Mongo filters bind numeric, text, regex, dropdown and date values to 
       assert.deepEqual(matches.map(card => card._id), ['right'], filter);
     }
     await cards.deleteMany({});
+    await cards.insertMany([
+      { _id: 'one', customFields: [{ _id: 'points', value: 1 }, { _id: 'text', value: 'yes' }] },
+      { _id: 'two', customFields: [{ _id: 'points', value: 2 }, { _id: 'text', value: 'no' }] },
+      { _id: 'missing', customFields: [{ _id: 'text', value: 'no' }] },
+    ]);
+    for (const [filter, expected] of [
+      ['not Points = 2', ['missing', 'one']],
+      ['!(Points = 2)', ['missing', 'one']],
+      ["not(Points = 2 or Text = 'yes')", ['missing']],
+      ["(Points = 1 or Points = 2) and Text = 'no'", ['two']],
+      ["(Points = 1) or (Points = 2 and Text = 'no')", ['one', 'two']],
+      ['not not(Points = 2)', ['two']],
+      ["Points = 1 or Points = 2 and Text = 'no'", ['two']],
+    ]) {
+      const matches = await cards.find(advancedFilterStringToSelector(filter, resolvers)).sort({ _id: 1 }).toArray();
+      assert.deepEqual(matches.map(card => card._id), expected, filter);
+    }
+    await cards.deleteMany({});
     await cards.insertOne({ _id: 'split', customFields: [{ _id: 'points', value: 1 }, { _id: 'text', value: 2 }] });
     // Reproduce the former false positive using Mongo's actual array semantics.
     assert.equal(await cards.countDocuments({ 'customFields._id': 'points', 'customFields.value': 2 }), 1);

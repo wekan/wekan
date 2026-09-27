@@ -18,7 +18,7 @@ test('sidebar and rules require the selected field itself to match', async ({ pa
     [missing, [{ _id: other, value: 2 }]],
   ]) db.updateOne('cards', { _id: card._id }, { $set: { customFields: [...fields, { _id: checkbox, value: true }] } });
   const triggerId = db.uid('trigger'), actionId = db.uid('action');
-  db.insertOne('triggers', { _id: triggerId, boardId: board.boardId, activityType: 'advancedFilterTrigger', advancedFilter: 'Points = 2' });
+  db.insertOne('triggers', { _id: triggerId, boardId: board.boardId, activityType: 'advancedFilterTrigger', advancedFilter: 'not(Points = 1) and (Points = 2)' });
   db.insertOne('actions', { _id: actionId, boardId: board.boardId, actionType: 'markCardComplete' });
   db.insertOne('rules', { _id: db.uid('rule'), boardId: board.boardId, triggerId, actionId, enabled: true, title: 'Match points only' });
   const missingTriggerId = db.uid('missing-trigger');
@@ -26,6 +26,11 @@ test('sidebar and rules require the selected field itself to match', async ({ pa
     activityType: 'advancedFilterTrigger', advancedFilter: 'UnknownField = 2' });
   db.insertOne('rules', { _id: db.uid('missing-rule'), boardId: board.boardId,
     triggerId: missingTriggerId, actionId, enabled: true, title: 'Missing field must not match' });
+  const invalidTriggerId = db.uid('invalid-trigger');
+  db.insertOne('triggers', { _id: invalidTriggerId, boardId: board.boardId,
+    activityType: 'advancedFilterTrigger', advancedFilter: 'Points = 2 or' });
+  db.insertOne('rules', { _id: db.uid('invalid-rule'), boardId: board.boardId,
+    triggerId: invalidTriggerId, actionId, enabled: true, title: 'Incomplete rule must not match' });
   try {
     await loginWithToken(page, user.id, user.token);
     await openBoard(page, board.boardId, board.slug);
@@ -37,6 +42,12 @@ test('sidebar and rules require the selected field itself to match', async ({ pa
       ['Points != 2', [wrong._id]],
       ['Points = 2 and Other = 1', [right._id]],
       ['Points = 2 or Points = 1', [right._id, wrong._id]],
+      ['not Points = 2', [wrong._id, missing._id]],
+      ['!(Points = 2)', [wrong._id, missing._id]],
+      ['not(Points = 1 or Points = 2)', [missing._id]],
+      ['(Points = 1 or Points = 2) and (Other = 1)', [right._id]],
+      ['Points = 2 or', [right._id]], // Invalid input retains the last valid filter.
+
     ]) {
       await input.fill(filter);
       await input.dispatchEvent('change');
