@@ -58,6 +58,12 @@ https://wekan.fi/status/
 <details>
 <summary>Carried to a future release.</summary>
 
+All non-translation work in this section is being resumed, starting with Scrum
+and Sync. Completed increments are recorded in Upcoming with test evidence;
+the remaining requirements and external verification blockers stay here.
+Translation into all languages follows the non-translation work. Local commits
+do not publish or release these changes.
+
 Investigated but not finished, with findings
 recorded for whoever picks them up next. Entries that have since been FIXED are
 removed from this list as they are handled (their fixes carry `Fixes #NNNN` and
@@ -93,8 +99,9 @@ A cause specific to MongoDB or legacy data has not been established.
 <summary>Scrum and Sync resumed; remaining development handoff.</summary>
 
 Scrum and Sync development resumed at the maintainer's request on 2026-09-27
-after the release pause. Other implementation, translation and audit queues
-retain their separate checkpoints below. The original pause handoff recorded
+after the release pause, followed by the remaining non-translation work.
+Other implementation, translation and audit queues retain their checkpoints
+below. The original pause handoff recorded
 a clean working tree and local feature/fix commits; it made no remote writes
 or release/version changes. Current progress is recorded in Upcoming.
 
@@ -122,10 +129,14 @@ mappings and credentials now include provider/server/project identity. Source
 switches preserve old cards, require the new source's credential and reject
 unidentifiable legacy mappings. Save existing settings once to bind their
 legacy mappings and credential before resuming Sync.
+New card creation now uses stable list/source/issue IDs, preventing duplicate
+cards from concurrent creation attempts and preserving moved cards on retries.
+Creation conflicts stop the run and appear in the existing Sync popup.
 Remaining: external sprint histories without invented snapshots, multiple
 release assignments, epic relationships, automatic field/schema mapping,
 Trello and other Scrum adapters, mapping previews/loss reporting, planning and
-estimate Sync, atomic concurrent jobs and configuration/credential changes,
+estimate Sync, distributed job coordination, durable restart checkpoints,
+atomic concurrent jobs and configuration/credential changes,
 and conflict-resolution UI. Changes during card writes remain nontransactional.
 See [Jira](docs/Features/ImportExport/Jira/Jira.md) and
 [Sync](docs/Features/ImportExport/Sync.md).
@@ -719,9 +730,33 @@ the Markdown commit as the template.
 
 **In short:** **Sync** keeps card mappings and credentials tied to their source
 project. Changing projects preserves the previous project's cards and requires
-a credential for the new source.
+a credential for the new source. Concurrent creation attempts no longer create
+duplicate new Sync cards.
 
 This release improves list synchronization:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/38e8716e5">Prevent duplicate new Sync cards from concurrent runs</a>. Thanks to xet7.</summary>
+
+Give new Sync cards a stable database ID for their list, provider/server/project
+and external issue. Separate workers cannot insert two cards for the same item.
+A creation collision stops the run with a popup error, without overwriting the
+winning card or claiming success. A moved card remains intact; return it to the
+watched list before retrying. Existing card IDs remain unchanged. Unrelated
+database failures still propagate.
+
+Ten focused Node suites pass, plus a real MongoDB test using separate concurrent
+connections and ten Chromium scenarios on local Meteor/MongoDB. Positive and
+negative cases cover identity separation, creation collisions, unrelated write
+failures, moved-card preservation and recovery. The existing source-identity,
+copy, field-selection and permission checks still pass. Release-audit tests and
+the local release audit pass. Live providers, FerretDB, Firefox and WebKit were
+not tested. Distributed job/configuration coordination, durable restart
+checkpoints and multi-document atomicity remain in TODO Later.
+Four changelog suites pass; the format suite still fails on a pre-existing
+overlong line in a released editor-settings entry. Released text is unchanged.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/75a312809">Keep Sync mappings and credentials scoped to their source project</a>. Thanks to xet7.</summary>
