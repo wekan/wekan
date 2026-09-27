@@ -125,7 +125,8 @@ function sendJsonResult(res, options) {
 // promise rejection. This app turns one of those into a full process crash - the
 // note in server/ldapGroupSync.js explains why - so a single crafted request could
 // take the server down for everyone. Every route body wrapped in this answers with a
-// 500 instead, and the request that caused it is logged.
+// 500 instead. Only the registered route pattern and a fixed error category
+// are folded into API Problems; concrete requests and exception text are secret.
 //
 // The guards inside the handlers are still the real fix; this is the net under them,
 // so the next missing null check is one broken request rather than an outage.
@@ -134,8 +135,8 @@ function safeRoute(handler) {
     try {
       return await handler.call(this, req, res, ...rest);
     } catch (error) {
-      console.error('[api] unhandled error while serving',
-        (req && req.url) || 'a request', error);
+      try { require('/server/lib/apiFailureLog').recordApiFailure(req, error); }
+      catch (_) { /* Logging is best effort and must never prevent the response. */ }
       try {
         if (!res.headersSent) {
           res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });

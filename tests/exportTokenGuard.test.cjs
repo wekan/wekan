@@ -109,7 +109,8 @@ test('the wrapper answers 500 once and never throws on its way out', () => {
   assert.ok(/if \(!res\.headersSent\)/.test(fn),
     'a partly-sent response must not be given a second set of headers');
   assert.ok(/catch \(_\)/.test(fn), 'and answering must not throw either');
-  assert.ok(/console\.error/.test(fn), 'the failure is logged, not swallowed silently');
+  assert.ok(/recordApiFailure\(req, error\)/.test(fn),
+    'the failure is folded into API Problems without logging tokens or raw exception data');
   assert.ok(/module\.exports = \{ sendJsonResult, safeRoute \}/.test(mw));
 });
 
