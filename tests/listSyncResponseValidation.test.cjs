@@ -4,14 +4,14 @@ const fs=require('node:fs');const vm=require('node:vm');
 const asModule=file=>import(`data:text/javascript;base64,${Buffer.from(fs.readFileSync(file,'utf8')).toString('base64')}`);
 async function run(raw,parser){
  const {validateImportSourceShape}=await asModule('models/lib/importSourceShape.js');
- const {planListSyncReconcile}=await asModule('models/lib/listSyncReconcile.js');
+ const {planListSyncReconcile,validateListSyncTasks}=await asModule('models/lib/listSyncReconcile.js');
  const cardWrites=[],listWrites=[];let parsed=0;
  const source=fs.readFileSync('server/listSync.js','utf8').replace(/^import .*;\n/gm,'').replace(/export async function/g,'async function');
  const context={Meteor:{startup(){}},Lists:{updateAsync:async(id,modifier)=>listWrites.push(modifier)},
   Cards:{find:()=>({fetchAsync:async()=>[{_id:'card',syncExternalId:'KEY-1',title:'Existing',description:''}]}),findOneAsync:async()=>({archive:async()=>cardWrites.push('archive')})},
   Boards:{findOneAsync:async()=>({_id:'board'})},ListSyncCredentials:{findOneAsync:async()=>({token:'test'})},
   EXTERNAL_PARSERS:{jira:raw=>{parsed++;return parser?parser(raw):{tasks:[]};}},SYNC_CAPABLE_SOURCES:['jira'],
-  LIST_SYNC_FETCHERS:{jira:async()=>raw},validateImportSourceShape,planListSyncReconcile,require:()=>({record(){}}),console,
+  LIST_SYNC_FETCHERS:{jira:async()=>raw},validateImportSourceShape,planListSyncReconcile,validateListSyncTasks,require:()=>({record(){}}),console,
  };
  vm.createContext(context);vm.runInContext(source,context);
  const result=await context.syncOneList({_id:'list',boardId:'board',syncSource:{type:'jira'}});
@@ -35,4 +35,16 @@ test('parser errors follow the same no-card-write error path',async()=>{
  const {result,cardWrites,listWrites}=await run({issues:[{}]},()=>{throw new Error('Invalid issue');});
  assert.equal(result.error,'Invalid issue');assert.deepEqual(cardWrites,[]);
  assert.equal(listWrites[0].$set['syncSource.lastSyncError'],'Invalid issue');
+});
+
+test('malformed normalized tasks cannot drop source items or silently replace duplicates',async()=>{
+ for(const tasks of [undefined,null,[{}],[null],[{externalId:' '}],[{externalId:'KEY-1'},{externalId:'KEY-1'}],[{externalId:'KEY-1',title:{}}]]){
+  const {result,cardWrites,listWrites}=await run({issues:[]},()=>({tasks}));
+  assert.ok(result.error);assert.deepEqual(cardWrites,[]);
+  assert.ok(listWrites[0].$set['syncSource.lastSyncError']);
+ }
+});
+test('valid unchanged tasks leave existing cards intact',async()=>{
+ const {result,cardWrites}=await run({issues:[]},()=>({tasks:[{externalId:'KEY-1',title:'Existing',description:''}]}));
+ assert.equal(result.updated,0);assert.equal(result.archived,0);assert.deepEqual(cardWrites,[]);
 });

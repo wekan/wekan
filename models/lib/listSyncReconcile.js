@@ -22,11 +22,29 @@
 //     entries are at list history") these are ARCHIVED, never deleted - the
 //     caller applies this with the existing List/Card archive() helper so the
 //     card lands in the board's normal Archive.
+// Missing IDs must not be dropped as if those source items disappeared, and
+// duplicate IDs must not silently choose the last of two conflicting records.
+export function validateListSyncTasks(tasks) {
+  if (!Array.isArray(tasks)) throw new Error('Invalid sync task collection');
+  const ids = new Set();
+  for (const task of tasks) {
+    const id = task?.externalId;
+    if (!((typeof id === 'string' && id.trim().length > 0) ||
+      (typeof id === 'number' && Number.isSafeInteger(id) && id >= 0))) {
+      throw new Error('Sync task is missing a valid external ID');
+    }
+    if (ids.has(String(id))) throw new Error('Duplicate sync external ID');
+    ids.add(String(id));
+    for (const field of ['title', 'description', 'column_name']) {
+      if (task[field] !== undefined && typeof task[field] !== 'string') throw new Error(`Invalid sync task ${field}`);
+    }
+  }
+}
+
 export function planListSyncReconcile({ externalTasks = [], existingCards = [] } = {}) {
+  validateListSyncTasks(externalTasks);
   const tasksById = new Map();
-  externalTasks
-    .filter(t => t && t.externalId != null && String(t.externalId).length)
-    .forEach(t => tasksById.set(String(t.externalId), t));
+  externalTasks.forEach(t => tasksById.set(String(t.externalId), t));
 
   const cardsByExternalId = new Map();
   existingCards

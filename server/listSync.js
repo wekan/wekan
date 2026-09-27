@@ -19,7 +19,7 @@ import Cards from '/models/cards';
 import Boards from '/models/boards';
 import ListSyncCredentials from '/models/listSyncCredentials';
 import { EXTERNAL_PARSERS, SYNC_CAPABLE_SOURCES } from '/models/lib/externalParsers';
-import { planListSyncReconcile } from '/models/lib/listSyncReconcile';
+import { planListSyncReconcile, validateListSyncTasks } from '/models/lib/listSyncReconcile';
 import { validateImportSourceShape } from '/models/lib/importSourceShape';
 import { LIST_SYNC_FETCHERS } from '/server/lib/listSyncFetch';
 import { SyncedCron } from '/server/cron/syncedCron';
@@ -44,6 +44,7 @@ export async function syncOneList(list, { fetchers = LIST_SYNC_FETCHERS } = {}) 
     const raw = await fetcher(source, credential);
     validateImportSourceShape(source.type, raw);
     parsed = parser(raw);
+    validateListSyncTasks(parsed?.tasks);
   } catch (e) {
     await Lists.updateAsync(list._id, {
       $set: { 'syncSource.lastSyncError': String((e && e.message) || e).slice(0, 500) },
@@ -67,7 +68,7 @@ export async function syncOneList(list, { fetchers = LIST_SYNC_FETCHERS } = {}) 
     return { error: String((e && e.message) || e) };
   }
 
-  const externalTasks = parsed.tasks || [];
+  const externalTasks = parsed.tasks;
 
   const existingCards = (
     await Cards.find({ listId: list._id, syncSourceType: source.type }).fetchAsync()

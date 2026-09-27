@@ -21,7 +21,10 @@ every 15 minutes, fetches each synced list's current items
 
 Before reconciliation, Sync validates the response using the same source-shape
 validator as import. A malformed response or parser failure records the existing
-last-sync error and leaves cards unchanged; it is not an empty source. A valid
+last-sync error and leaves cards unchanged; it is not an empty source.
+Parsed tasks must also have unique, valid external IDs and text fields. Missing
+IDs, duplicates and malformed normalized tasks abort instead of being silently
+dropped or overwritten during reconciliation. A valid
 empty issue array retains the existing archive behavior.
 
 Fetchers collect every advertised page before reconciliation. Standard Jira
