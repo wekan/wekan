@@ -1150,6 +1150,24 @@ and local-edit conflict handling remain pending. Other browsers were not run.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/11b80633c">Fetch all advertised issue pages before synchronizing lists</a>. Thanks to xet7.</summary>
+
+Sync now follows Jira REST v2 search offsets and GitHub, Gitea/Forgejo and
+GitLab next-page headers before reconciling cards. Validate advertised totals;
+abort failed, incomplete, changing or looping pagination instead of returning
+partial results that could archive later-page cards. Limit runs to 1,000 pages
+or 100,000 items. Pagination stays on the configured origin; redirects fail.
+
+Eleven focused Node checks and the Chromium Sync error-display scenario pass.
+Mocked provider responses exercise multi-page success, short pages, failures,
+missing links, bounds and invalid origins. No live provider account was used.
+Existing Upcoming regression evidence remains recorded. Jira Cloud's newer
+search endpoint and local-edit conflict handling remain pending; other
+browsers were not run. Updated the Sync guide with provider references.
+
+</details>
+
 This release adds the following regression coverage and documentation:
 
 <details>
