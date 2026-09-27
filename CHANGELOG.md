@@ -1764,6 +1764,23 @@ Blockly browser coverage and other Upcoming regression results remain valid.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/ad0ad0b2b">Complete Gujarati Blockly prose and editor placeholder filling</a>. Thanks to xet7.</summary>
+
+Fill 85 text-operation and remaining editor messages. All audited Gujarati
+Blockly prose and Blocks-editor messages now have translations. Explicit test
+exceptions retain printed key names, platform brands, OK, mathematical notation,
+URLs and nonlinguistic symbols. This establishes placeholder coverage, not native
+fluency; specialist terminology still needs review. Update TODO Later and the
+Blocks guide. Other languages remain in progress.
+
+Seven catalog checks, 21 human-translation preservation checks and one Chromium
+scenario pass. Browser coverage verifies Gujarati navigation to Blocks, dragging,
+field editing, saving and translated context menus. Other browsers and screen
+readers were not exercised. Existing Upcoming regression evidence remains recorded.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/25498de22">Translate Gujarati Blockly shortcuts and workspace messages</a>. Thanks to xet7.</summary>
 
 Fill 60 Gujarati English placeholders for keyboard shortcuts, screen-reader
