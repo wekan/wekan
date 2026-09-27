@@ -233,13 +233,18 @@ collection lifecycle, pause/cancel controls and restart scheduling remain open.
 Current Sync write selectors now distinguish explicit null from missing fields.
 Adapter investigation also moved title/description activities after successful
 writes and made archive/entity/rule History hooks reject zero-match updates.
+Custom-field activities now compare saved values by field identity after
+successful array/dotted writes, including mapped Jira estimate Sync. No-op and
+failed writes emit nothing; advanced-filter rules use board-scoped definitions
+and observe the saved values. Browser regressions cover source conflicts,
+clearing, checkbox false and field removal. Durable effect delivery is pending.
 Crash recovery must still coordinate card changes with separate activity and
 History effects before a durable unit can be safely acknowledged.
 Remaining: external sprint histories without invented snapshots, multiple
 release assignments, epic relationships, automatic field/schema mapping,
 Trello and other Scrum adapters, complete provider schema/mapping coverage,
 binary/history transport, planning Sync, original/remaining time estimates,
-other providers' estimate Sync, individual custom-field activity/rule events,
+other providers' estimate Sync, durable custom-field activity/rule delivery,
 durable mapped-field replay and restart checkpoints, fencing of in-flight writes
 after lease loss and atomic multi-card reconciliation.
 Changes during card writes remain nontransactional.
@@ -891,9 +896,41 @@ live Jira servers, other browsers and FerretDB were not tested. The offline
 source/dependency audit passes with advisory fingerprint warnings.
 
 Automatic schema discovery, other providers' estimates, original/remaining
-time-estimate mapping, individual custom-field activity/rule events and durable
-mapped-field replay remain pending. Entity History uses its existing hook.
+time-estimate mapping and durable mapped-field replay remain pending. Ordinary
+custom-field activity/rule integration is described below. Entity History uses
+its existing hook.
 Only English labels were added; translation into all languages remains excluded.
+
+</details>
+
+and integrates saved custom-field changes with activities and rules:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ca7863722">Record custom-field activities after successful writes</a>. Thanks to xet7.</summary>
+
+Whole-array Sync writes previously emitted no custom-field activity; dotted
+editor writes emitted before storage and did not await insertion. Compare
+previous and saved field values by stable identity after a matched write.
+Preserve zero and false, report clearing as unset, and suppress unchanged,
+reordered, empty-assignment and failed updates. Include card/list/swimlane
+context for both set and unset events.
+
+Advanced-filter rules now see saved values. Fix their definition lookup to
+use the actual boardIds membership array instead of the absent boardId field.
+The Jira estimate browser scenario verifies an ordinary rule completing the
+card at its new estimate, source conflict resolution, clearing and no-op
+suppression. A second scenario covers dotted checkbox writes, rejected field
+IDs, removal and empty reassignment.
+
+Four focused activity/filter Node suites and seventeen Sync suites pass,
+including real MongoDB persistence checks. All twenty Chromium Sync scenarios
+pass. The offline source/dependency audit passes with advisory warnings.
+Four changelog suites pass; the existing released v12.07 entry still fails
+the line-length check. Other browsers and FerretDB were not exercised.
+
+Card storage, activity insertion, History and downstream delivery remain
+separate operations. Snapshot comparisons do not make concurrent or interrupted
+writes exactly once; durable replay and atomicity remain in TODO Later.
 
 </details>
 
