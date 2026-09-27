@@ -643,6 +643,30 @@ recorded positive, negative and UI regression coverage.
 Also adds the following feature:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/d273b86ed">Edit IFTTT rules with locally loaded Blockly blocks</a>. Thanks to xet7.</summary>
+
+Board administrators can drag, edit and save rule blocks using the existing
+rule engine. List, Workflow, Blocks and History have direct sidebar choices.
+Workflow writes use server methods. Blockly 13.3.0 and its local media load
+only when the editor is opened; no generated code or remote scripts execute.
+Unknown rule fields survive edits, and changed drafts retain conflict checks.
+
+All 696 Blockly messages map to WeKan translation keys. Existing upstream and
+local translations are preserved, with additional direct translations in
+completed language batches. Other locales still contain English fallbacks;
+translation of every language is not finished. Cornish, Manx, Gaelic, Breton,
+Kashubian, Upper Sorbian, Silesian and several regional Romance languages
+need native review of specialist terminology. No translation service is used.
+
+Five Blockly/catalog Node checks and four Chromium scenarios pass, including
+round trips, invalid workspaces, preserved parameters, permission rejection,
+Finnish and Arabic editing, drag operations and rule execution. Catalog checks
+verify key order and placeholders across all 246 locale files. The Blocks
+guide documents usage, supported editing and remaining translation work.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8bf47d1a9">Choose which structure and data to duplicate from selected boards</a>. Thanks to xet7.</summary>
 
 All Boards / Multi-selection now has one Duplicate Board action. It opens a
