@@ -200,10 +200,14 @@ storage, so unchanged runs do not repeatedly update them.
 The preview now inventories fetched source paths before normalization: unmapped
 fields, excluded selections/items, unused fallbacks and representation changes.
 Unknown subtrees are reported as a whole, with bounded counts and no values.
+Full-list manual and scheduled runs now retain private outcome/coverage reports.
+The popup reads the latest 20 reports from the last 30 days with fresh full-list
+permission checks. Unfinished outcomes remain explicitly unknown; these
+reports do not resume or roll back partially applied writes.
 Remaining: external sprint histories without invented snapshots, multiple
 release assignments, epic relationships, automatic field/schema mapping,
 Trello and other Scrum adapters, complete provider schema/mapping coverage,
-binary/history transport, persisted run reports, planning and
+binary/history transport, Problems/Recovery report integration, planning and
 estimate Sync, durable restart checkpoints, fencing of in-flight card writes
 after lease loss and atomic multi-card reconciliation.
 Changes during card writes remain nontransactional.
@@ -1063,6 +1067,40 @@ in TODO Later. The known released-entry changelog format failure remains.
 and improves list synchronization:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/adf646177">Retain private Sync run outcomes and field coverage</a>. Thanks to xet7.</summary>
+
+Full-list manual and scheduled Sync runs now persist a starting record before
+fetching or applying changes. Store bounded source/normalized field coverage
+and a terminal status. Successful runs include created/updated/archived counts;
+omissions and conversions produce completed-with-warnings status. Failed or
+unfinished runs may have changed cards and never infer partial success counts.
+A failed starting write prevents the run; an uncertain final acknowledgement
+leaves a failed or unfinished diagnostic record.
+
+Add Recent Sync runs to the popup. Read the latest 20 reports from the last 30
+days with full-list access checked before and after querying. Bind records to
+the board and list lifetime, exclude older records and rate-limit requests.
+Deny all client collection writes and publish no records. Store no credentials,
+source URLs, card values or raw error bodies. MongoDB TTL expires old reports;
+other backends without TTL support need operator-managed diagnostic cleanup.
+Previews and individual conflict resolutions do not start full-run reports.
+
+Sixteen focused Node suites pass, including real MongoDB journal and lease
+checks. An expanded persistence test also passes after reconnecting its reader.
+All eighteen Chromium Sync scenarios pass, including report rendering, omitted
+value privacy and assigned-only denial. Negative tests cover changed access,
+recreated lists, unavailable starting/final writes and unknown outcomes. Update
+the Sync and format-coverage guides; add English source labels only. The local
+release audit passes with advisory warnings. Existing Upcoming regression
+evidence remains recorded. Other browsers and FerretDB were not tested.
+
+These are retained diagnostics, not replay plans. Problems/Recovery integration,
+restart checkpoints, in-flight write fencing and atomic multi-card changes
+remain in TODO Later alongside complete provider mapping and data transport.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e0f54fc93">Show source fields left out of Sync before normalization</a>. Thanks to xet7.</summary>
 
 Inspect fetched issue data for unmapped fields, saved-field exclusions,
@@ -1074,7 +1112,8 @@ Unknown subtrees are reported at their first unmapped path as a whole.
 Return paths and occurrence counts without field values. Bound output to 100
 path/reason rows, count overflow and shorten long field names. Render paths as
 escaped text. Preserve full-list authorization, saved-settings behavior and
-no-card-write preview semantics. Normal Sync does not compute this inventory.
+no-card-write preview semantics. The inventory also feeds the persisted
+full-run reports added above.
 
 Fourteen Sync Node suites pass, including local MongoDB checks, and all eighteen
 Chromium Sync scenarios pass. Coverage includes actual parser choices, numeric
@@ -1085,8 +1124,9 @@ add English source labels only. FerretDB and other browsers were not tested.
 
 Rules follow the current parsers, not a complete provider schema. Pagination
 envelopes discarded while fetching are outside this inventory. Complete field
-mapping, persisted run reports, binary/history transport and durable recovery
-remain in TODO Later. Existing Upcoming regression evidence remains recorded.
+mapping, Problems/Recovery integration, binary/history transport and durable
+recovery remain in TODO Later. Existing Upcoming regression evidence remains
+recorded.
 
 </details>
 
@@ -1118,8 +1158,9 @@ passes with advisory warnings. Add English source labels only. FerretDB and
 other browsers were not tested.
 
 This completes the normalized-field preview checkpoint. The source inventory
-added next covers fetched fields before normalization; persisted run reports,
-complete schema/mapping coverage and durable recovery remain in TODO Later.
+added next covers fetched fields before normalization; full-run reports now
+retain it. Complete schema/mapping coverage, Problems/Recovery integration and
+durable recovery remain in TODO Later.
 
 </details>
 
