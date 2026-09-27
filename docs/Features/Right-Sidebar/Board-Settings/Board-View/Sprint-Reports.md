@@ -36,10 +36,17 @@ timestamp. The bars offer card counts or known estimates with unknown counts;
 they omit unobserved days and do not interpolate changes. Active sprints can
 have daily observations before a closed-sprint result exists. Empty history,
 partial visibility and truncation to the latest 366 observations are labelled.
-Refreshing reloads the selected report. Daily observations are not included in
-the Export action yet; that action still exports sprint results only.
-Event-complete historical burndown and daily-history export remain work listed
-in [the Scrum design](Scrum-Design.md).
+Refreshing reloads the selected report. The daily section's own Export action
+downloads those observations as Excel or PDF; the toolbar Export action still
+exports sprint results. Both daily formats use the same permission-scoped,
+bounded reader as the view. They retain sprint names, exact UTC capture times,
+units, estimate sources, custom-field identifiers, completion policies and
+separate count/known-estimate/unknown totals. Excel includes a Notes sheet and
+PDF includes wrapped notices explaining observations, partial results and any
+366-observation truncation, including when the result is empty. PDF prints
+wrapped labels rather than clipping sixteen columns into a page-width table.
+Unobserved days are never fabricated. Event-complete historical burndown remains
+work listed in [the Scrum design](Scrum-Design.md).
 
 Reports and Excel/PDF exports also show the planned working-day count. The
 calendar is retained in the sprint's start snapshot, so subsequent board

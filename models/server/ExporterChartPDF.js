@@ -59,10 +59,10 @@ class ExporterChartPDF {
       res.end('Board not found');
       return;
     }
-    const data = ['scrumVelocity', 'scrumSprint'].includes(this._chartKey)
+    const data = ['scrumVelocity', 'scrumSprint', 'scrumDaily'].includes(this._chartKey)
       ? await loadScrumChartData(this.userId, this._boardId, this._chartKey, this.options)
       : await loadBoardChartData(this._boardId, this._chartKey, this.options);
-    const { title, headers, rows } = chartExportRows(
+    const { title, headers, rows, notices = [] } = chartExportRows(
       this._chartKey, data || {}, (key, fallback) => this.__(key, fallback));
     const details = require('/models/lib/flowAnalyticsRows').flowDetailRows(
       this._chartKey, data || {}, (key, fallback) => this.__(key, fallback));
@@ -71,7 +71,8 @@ class ExporterChartPDF {
     // One tableRow per header/data row: fixed column widths, one line each,
     // so a long card title clips instead of pushing its dates off the line.
     const lines = [line(`${board.title} - ${title}`, true), ''];
-    if (['scrumVelocity', 'scrumSprint'].includes(this._chartKey)) {
+    for (const notice of notices) lines.push(...wrapTextBlock(notice).map(text => line(text)), '');
+    if (['scrumVelocity', 'scrumSprint', 'scrumDaily'].includes(this._chartKey)) {
       // A sprint has many metrics. Full-width wrapped labels retain context
       // that a narrow multi-column PDF table would clip away.
       for (const row of rows) {

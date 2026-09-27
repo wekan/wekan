@@ -1,6 +1,7 @@
 template(name="scrumDailyHistory")
   section.scrum-daily-history
     h3 {{_ 'scrum-daily-observations'}}
+    a.button.js-export-chart(data-chart-key="scrumDaily" data-report-options=reportOptions) {{_ 'export'}}
     p {{_ 'scrum-daily-observations-help'}}
     if error
       p.warning(role="alert") {{error}}

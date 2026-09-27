@@ -143,7 +143,7 @@ test('Scrum PDF renders every metric as wrapped labels while other charts keep t
  const fs=require('node:fs');
  const {line,tableRow,wrapTextBlock,TEXT_WIDTH}=await import('../models/lib/pdfDocument.js');
  const source=fs.readFileSync('models/server/ExporterChartPDF.js','utf8');
- const start=source.indexOf("    if (['scrumVelocity', 'scrumSprint'].includes(this._chartKey)) {");
+ const start=source.indexOf("    if (['scrumVelocity', 'scrumSprint', 'scrumDaily'].includes(this._chartKey)) {");
  const end=source.indexOf('    if (!rows.length)',start);
  assert.ok(start>=0&&end>start);
  const render=new Function('headers','rows','lines','line','tableRow','wrapTextBlock',source.slice(start,end)+';return lines;');

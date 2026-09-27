@@ -1,8 +1,12 @@
 import { Meteor } from 'meteor/meteor';
-import { getScrumBoardData } from '/server/scrum';
+import { getScrumBoardData, getScrumDailyHistory } from '/server/scrum';
 const { sprintReport, velocityRows } = require('/models/lib/scrumReports');
 
 export async function loadScrumChartData(userId, boardId, chartKey, options = {}) {
+  if (chartKey === 'scrumDaily') {
+    if (typeof options.sprintId !== 'string' || !options.sprintId || options.sprintId.length > 200) throw new Meteor.Error('invalid-sprint');
+    return getScrumDailyHistory(userId, boardId, options.sprintId);
+  }
   const data = await getScrumBoardData(userId, boardId);
   if (chartKey === 'scrumVelocity') return { reports: velocityRows(data.sprints), partial: data.partial };
   if (chartKey !== 'scrumSprint') throw new Meteor.Error('invalid-chart');

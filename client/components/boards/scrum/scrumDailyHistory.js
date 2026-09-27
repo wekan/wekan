@@ -30,6 +30,7 @@ Template.scrumDailyHistory.events({
   'change .js-scrum-daily-metric'(event, tpl) { tpl.metric.set(event.currentTarget.value); },
 });
 Template.scrumDailyHistory.helpers({
+  reportOptions: () => JSON.stringify({ sprintId: Template.currentData().sprintId }),
   history: () => Template.instance().history.get(),
   error: () => Template.instance().error.get(),
   groups() {

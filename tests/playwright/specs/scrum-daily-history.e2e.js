@@ -44,7 +44,7 @@ test('daily Scrum observations retain measured estimates and obey assigned-card 
   }
 });
 
-test('daily report renders measured gaps and ignores stale sprint responses', async ({ page, user2, board }) => {
+test('daily report renders measured gaps, exports scoped observations and ignores stale responses', async ({ page, request, user2, board }) => {
   const card = db.find('cards', { boardId: board.boardId })[0];
   db.updateOne('boards', { _id: board.boardId }, { $push: { members: {
     userId: user2.id, isActive: true, isAdmin: false, isReadAssignedOnly: true,
@@ -76,6 +76,39 @@ test('daily report renders measured gaps and ignores stale sprint responses', as
     await expect(report.locator('.scrum-daily-row').last()).toContainText('1 unknown');
     await expect(report).not.toContainText('999');
     await expect(report).not.toContainText('2026-09-02');
+    await report.locator('.js-export-chart').click();
+    const link = page.locator('.pop-over a').filter({ hasText: 'Excel' });
+    await expect(link).toHaveAttribute('href', /charts\/scrumDaily\/exportExcel/);
+    const href = await link.getAttribute('href');
+    expect(new URL(href, 'http://localhost').searchParams.get('sprintId')).toBe(ids[0]);
+    const excelResponse = await request.get(href);
+    expect(excelResponse.status()).toBe(200);
+    const Excel = require('../../../node_modules/@wekanteam/exceljs');
+    const workbook = new Excel.Workbook();
+    await workbook.xlsx.load(await excelResponse.body());
+    expect(workbook.worksheets[0].rowCount).toBe(4);
+    expect(workbook.worksheets[0].getRow(3).getCell(3).value).toBe('2026-09-01T10:00:00.000Z');
+    expect(workbook.worksheets[0].getRow(3).getCell(6).value).toBe(3);
+    expect(workbook.worksheets[0].getRow(4).getCell(7).value).toBe(1);
+    expect(JSON.stringify(workbook.model)).not.toContain('999');
+    expect(JSON.stringify(workbook.getWorksheet('Notes').model)).toContain('assigned');
+    const pdfResponse = await request.get(href.replace('exportExcel', 'exportPDF'));
+    expect(pdfResponse.status()).toBe(200);
+    const { getDocument } = await import('../../../node_modules/pdfjs-dist/legacy/build/pdf.mjs');
+    const pdfTask = getDocument({ data: new Uint8Array(await pdfResponse.body()), useSystemFonts: true });
+    try {
+      const pdf = await pdfTask.promise;
+      const text = [];
+      for (let index = 1; index <= pdf.numPages; index++) {
+        text.push((await (await pdf.getPage(index)).getTextContent()).items.map(item => item.str).join(' '));
+      }
+      expect(text.join(' ')).toContain('2026-09-01T10:00:00.000Z');
+      expect(text.join(' ')).toContain('assigned');
+      expect(text.join(' ')).not.toContain('999');
+    } finally { await pdfTask.destroy(); }
+    const wrongSprint = new URL(href, 'http://localhost'); wrongSprint.searchParams.set('sprintId', 'foreign-sprint');
+    expect((await request.get(wrongSprint.pathname + wrongSprint.search)).status()).not.toBe(200);
+    await page.keyboard.press('Escape');
     await page.setViewportSize({ width: 390, height: 844 });
     expect(await report.evaluate(element => element.scrollWidth <= element.clientWidth + 1)).toBe(true);
     await page.evaluate(delayedId => {

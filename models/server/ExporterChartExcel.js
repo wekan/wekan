@@ -39,10 +39,10 @@ class ExporterChartExcel {
       res.end('Board not found');
       return;
     }
-    const data = ['scrumVelocity', 'scrumSprint'].includes(this._chartKey)
+    const data = ['scrumVelocity', 'scrumSprint', 'scrumDaily'].includes(this._chartKey)
       ? await loadScrumChartData(this.userId, this._boardId, this._chartKey, this.options)
       : await loadBoardChartData(this._boardId, this._chartKey, this.options);
-    const { title, headers, rows } = chartExportRows(
+    const { title, headers, rows, notices = [] } = chartExportRows(
       this._chartKey, data || {}, (key, fallback) => this.__(key, fallback));
     const details = require('/models/lib/flowAnalyticsRows').flowDetailRows(
       this._chartKey, data || {}, (key, fallback) => this.__(key, fallback));
@@ -95,6 +95,12 @@ class ExporterChartExcel {
       });
       sheetRow.commit();
     });
+
+    if (notices.length) {
+      const notes = workbook.addWorksheet('Notes');
+      notes.columns = [{ width: 100 }];
+      notices.forEach(notice => { const row = notes.addRow([notice]); row.alignment = { wrapText: true }; });
+    }
 
     if (typeof ws.commit === 'function') ws.commit();
 

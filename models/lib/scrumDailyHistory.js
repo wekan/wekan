@@ -7,6 +7,9 @@ function dailyHistoryRows(samples, visibleIds = null) {
     const cards = sample.snapshot.cards.filter(card => !visibleIds || visibleIds.has(card.cardId));
     return { day: sample.day, capturedAt: sample.capturedAt,
       unit: sample.snapshot.unit, scope: total(cards),
+      estimateSource: sample.snapshot.estimateSource,
+      estimateCustomFieldId: sample.snapshot.estimateCustomFieldId,
+      completionPolicy: sample.snapshot.completionPolicy,
       remaining: total(cards.filter(card => !card.done)),
       completed: total(cards.filter(card => card.done)),
       partial: Boolean(visibleIds || sample.snapshot.partial), consistency: 'observed' };

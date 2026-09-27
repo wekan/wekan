@@ -214,34 +214,36 @@ async function resumeRollover(userId, sprint) {
   }
   return await ScrumSprints.findOneAsync(sprint._id);
 }
+export async function getScrumDailyHistory(userId, boardId, sprintId) {
+  check(boardId, String); check(sprintId, String);
+  if (!sprintId || sprintId.length > 200) invalid('Invalid sprint identifier');
+  const board = await boardFor(userId, boardId);
+  const sprint = await ScrumSprints.findOneAsync({ _id: sprintId, boardId });
+  if (!sprint) throw new Meteor.Error('not-found');
+  const partial = !!assignedOnlyCardScope(board, userId);
+  if (!sprint.startSnapshot) return { rows: [], partial, truncated: false, sprintName: sprint.name };
+  const visible = partial ? await Cards.find(cardSelector(board, userId),
+    { fields: { _id: 1 }, limit: 10001 }).fetchAsync() : null;
+  if (visible?.length > 10000) invalid('Daily Scrum report exceeds its card-scope limit');
+  const visibleIds = visible && new Set(visible.map(card => card._id));
+  // Reading also collects today's first observation. Stored captures use the
+  // full sprint; only the response is restricted to the reader's cards.
+  await captureOneSprint(sprint);
+  const cursor = ScrumDailySnapshots.rawCollection().find({ boardId, sprintId,
+    startedAt: new Date(sprint.startSnapshot.at) },
+  { sort: { capturedAt: -1 }, limit: 367, batchSize: 1 });
+  const rows = []; let truncated = false;
+  try {
+    for await (const sample of cursor) {
+      if (rows.length === 366) { truncated = true; break; }
+      rows.push(...dailyHistoryRows([sample], visibleIds));
+    }
+  } finally { await cursor.close(); }
+  return { rows: rows.reverse(), partial, truncated, sprintName: sprint.name };
+}
 const methods = {
   async 'scrum.getBoardData'(boardId) { check(boardId, String); return getScrumBoardData(this.userId, boardId); },
-  async 'scrum.getDailyHistory'(boardId, sprintId) {
-    check(boardId, String); check(sprintId, String);
-    const board = await boardFor(this.userId, boardId);
-    const sprint = await ScrumSprints.findOneAsync({ _id: sprintId, boardId });
-    if (!sprint) throw new Meteor.Error('not-found');
-    const partial = !!assignedOnlyCardScope(board, this.userId);
-    if (!sprint.startSnapshot) return { rows: [], partial, truncated: false };
-    const visible = partial ? await Cards.find(cardSelector(board, this.userId),
-      { fields: { _id: 1 }, limit: 10001 }).fetchAsync() : null;
-    if (visible?.length > 10000) invalid('Daily Scrum report exceeds its card-scope limit');
-    const visibleIds = visible && new Set(visible.map(card => card._id));
-    // Reading also collects today's first observation. Stored captures use the
-    // full sprint; only the response is restricted to the reader's cards.
-    await captureOneSprint(sprint);
-    const cursor = ScrumDailySnapshots.rawCollection().find({ boardId, sprintId,
-      startedAt: new Date(sprint.startSnapshot.at) },
-    { sort: { capturedAt: -1 }, limit: 367, batchSize: 1 });
-    const rows = []; let truncated = false;
-    try {
-      for await (const sample of cursor) {
-        if (rows.length === 366) { truncated = true; break; }
-        rows.push(...dailyHistoryRows([sample], visibleIds));
-      }
-    } finally { await cursor.close(); }
-    return { rows: rows.reverse(), partial, truncated };
-  },
+  async 'scrum.getDailyHistory'(boardId, sprintId) { return getScrumDailyHistory(this.userId, boardId, sprintId); },
   async 'scrum.configure'(boardId, changes, expectedRevision = null) {
     check(boardId, String); check(changes, Object); check(expectedRevision, Match.OneOf(Number, null));
     return locked(boardId, async () => {

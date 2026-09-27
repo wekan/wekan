@@ -13,7 +13,7 @@ See [Sprints](Sprints.md), [Product Backlog](Product-Backlog.md) and
 
 Daily observed snapshots and a scoped history reader are now implemented as a
 foundation for burndown, with measured daily bars in Sprint Report.
-Still pending: event-complete scope history and burndown, daily exports,
+Still pending: event-complete scope history and burndown,
 original-edit/History atomicity and large-board limits,
 standalone planning-record transfer/copy and remaining external
 import/export/sync mappings, and the remaining lifecycle/permission/browser
@@ -161,8 +161,9 @@ collection through the normal collection inventory; native board transfer and
 history transport do not yet carry it. Sprint Report now displays the observed
 daily scope, remaining work and completed work as bars, with exact timestamps,
 metric selection and partial/empty/truncated states. Missing days are not
-connected or interpolated. Exports, event-level scope replay and
-cross-document consistency still require implementation.
+connected or interpolated. The section's Excel/PDF exports use the same reader
+and preserve observation, partial-data and truncation notices. Event-level
+scope replay and cross-document consistency still require implementation.
 
 The shared Scrum settings form now exposes Product Owner, Scrum Master,
 Developers and working days. Accountabilities select active board members and

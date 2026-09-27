@@ -8,6 +8,7 @@
 const { translateGroupLabel, formatRemainingTime } = require('./chartCalculations');
 
 const CHART_TITLE_KEYS = {
+  scrumDaily: ['scrum-daily-observations', 'Daily scope and remaining work (observations)'],
   scrumSprint: ['board-view-sprint-report', 'Sprint Report'],
   scrumVelocity: ['board-view-velocity', 'Velocity'],
   agingWip: ['board-view-aging-wip', 'Aging WIP'],
@@ -42,6 +43,25 @@ function round(value) {
 
 function chartExportRows(chartKey, data, translate = (key, fallback) => fallback) {
   const title = chartTitle(chartKey, translate);
+  if (chartKey === 'scrumDaily') {
+    const headers = [translate('scrum-sprint', 'Sprint'), translate('date', 'Date'), 'UTC', translate('scrum-estimate-unit', 'Unit')];
+    for (const [key, fallback] of [['scrum-observed-scope', 'Observed scope'], ['scrum-incomplete', 'Incomplete'], ['scrum-completed', 'Completed']]) {
+      const label = translate(key, fallback);
+      headers.push(`${label}: ${translate('cards', 'Cards')}`, `${label}: ${translate('scrum-estimate', 'Estimate')}`,
+        `${label}: ${translate('scrum-unknown-estimate', 'Unknown estimate')}`);
+    }
+    const notices = [translate('scrum-daily-observations-export-help',
+      'First recorded observation of each UTC day; missing days are omitted. Observations do not record every change or end-of-day totals. Unknown estimates are not zero.')];
+    headers.push(translate('scrum-estimate-source', 'Estimate source'), translate('custom-field', 'Custom field'),
+      translate('scrum-completion-policy', 'Completion policy'));
+    if (data.partial) notices.push(translate('scrum-partial-report', 'Visible assigned cards only'));
+    if (data.rows?.some(row => row.partial)) notices.push(translate('scrum-partial-snapshot', 'Partial original snapshot'));
+    if (data.truncated) notices.push(translate('scrum-daily-truncated', 'Only the most recent 366 observations are shown.'));
+    return { title, notices, headers, rows: (data.rows || []).map(row => [data.sprintName || '', row.day,
+      new Date(row.capturedAt).toISOString(), row.unit,
+      ...['scope', 'remaining', 'completed'].flatMap(key => [row[key].count, row[key].estimate, row[key].unknown]),
+      row.estimateSource || '', row.estimateCustomFieldId || '', row.completionPolicy || '']) };
+  }
   if (['agingWip', 'blockerAnalysis', 'monteCarlo', 'processBehavior', 'sizeCycleTime'].includes(chartKey)) {
     return { title, ...require('./flowAnalyticsRows').flowAnalyticsRows(chartKey, data, translate) };
   }

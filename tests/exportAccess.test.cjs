@@ -5,7 +5,7 @@ test('export authorization denies every assigned-only role except scoped Scrum r
  for(const role of ['isReadAssignedOnly','isNormalAssignedOnly','isCommentAssignedOnly']){
   const board={members:[{userId:'u',isActive:true,[role]:true}],isVisibleBy:()=>true};
   for(const key of [null,'agingWip','velocity','scrumOther'])assert.equal(canExportBoardData(board,{_id:'u'},key),false);
-  for(const key of ['scrumVelocity','scrumSprint'])assert.equal(canExportBoardData(board,{_id:'u'},key),true);
+  for(const key of ['scrumVelocity','scrumSprint','scrumDaily'])assert.equal(canExportBoardData(board,{_id:'u'},key),true);
  }
  assert.equal(canExportBoardData({members:[],isVisibleBy:()=>false},{_id:'u'},'scrumSprint'),false);
  assert.equal(canExportBoardData(null,{_id:'u'}),false);
