@@ -286,7 +286,6 @@ template(name="boardInfoOnMyBoardsPopup")
   `role="button"`, titled with the existing move-up/move-down keys.
   client/components/sidebar/sidebar.js, tests/cardSettingsCoverage.test.cjs
 template(name="boardCardSettingsPopup")
-  +boardDragSettings(section="card")
   form.board-card-settings(class=settingsSideClass)
     div.check-div
       a.flex.js-ask-move-reason(class="{{#if askForMoveReason}}is-checked{{/if}}")
@@ -294,6 +293,8 @@ template(name="boardCardSettingsPopup")
         span {{_ 'ask-move-reason'}}
     h4.card-field-order-heading {{_ 'card-field-order'}}
     .card-field-order-columns
+      .card-field-order-column.card-field-order-column-draggable
+        +boardDragSettings(section="card")
       .card-field-order-column.card-field-order-column-minicard
         h4.card-field-order-column-heading {{_ 'show-on-minicard'}}
         +boardSettingsColumnActions(section="card" column="minicard")

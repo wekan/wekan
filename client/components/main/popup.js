@@ -1,3 +1,4 @@
+import { updatePopupMenuColumns } from '/client/lib/popupMenuLayout';
 import { CSSEvents } from '/client/lib/cssEvents';
 import { isMobileViewportNow } from '/client/lib/responsiveUtils';
 import { trapTabKey } from '/client/lib/accessibility';
@@ -119,6 +120,18 @@ Popup.template.onRendered(function () {
   this._popupElement = this.find('.js-pop-over');
   this._focusTrap = event => trapTabKey(event, this._popupElement);
   this._popupElement?.addEventListener('keydown', this._focusTrap);
+  if (this._popupElement) {
+    const update = () => {
+      this._menuLayoutFrame = null;
+      updatePopupMenuColumns(this._popupElement);
+    };
+    this._menuLayoutObserver = new MutationObserver(() => {
+      if (this._menuLayoutFrame == null) this._menuLayoutFrame = requestAnimationFrame(update);
+    });
+    this._menuLayoutObserver.observe(this._popupElement, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
+    update();
+  }
+
 
   const container = this.find('.content-container');
   if (!container) {
@@ -135,5 +148,7 @@ Popup.template.onRendered(function () {
 });
 
 Popup.template.onDestroyed(function () {
+  this._menuLayoutObserver?.disconnect();
+  if (this._menuLayoutFrame != null) cancelAnimationFrame(this._menuLayoutFrame);
   this._popupElement?.removeEventListener('keydown', this._focusTrap);
 });

@@ -66,3 +66,37 @@ test('column updates reject foreign boards, non-admin members and invalid column
     await expect(page.locator('.board-settings-column-actions')).toHaveCount(0);
   } finally { db.cleanup({boardIds:[other.boardId]}); }
 });
+
+test('Card settings place Draggable before Minicard and Card, in three columns or one ordered stack', async ({ boardPage: page, board }) => {
+  await expect(page.locator(`#js-list-${board.listIds[0]}`)).toBeVisible();
+  for (const [width, narrowPopup] of [[1280, false], [1280, true], [800, false], [375, false]]) {
+    await page.setViewportSize({ width, height: 900 });
+    await openSettings(page, 'Card');
+    const popup = page.locator('.pop-over[data-popup="boardCardSettingsPopup"]');
+    await expect(popup).toBeVisible();
+    if (narrowPopup) await popup.evaluate(el => el.style.setProperty('width', '600px', 'important'));
+    const columns = popup.locator('.card-field-order-columns > .card-field-order-column');
+    await expect(columns).toHaveCount(3);
+    await expect(columns.nth(0)).toHaveClass(/column-draggable/);
+    await expect(columns.nth(1)).toHaveClass(/column-minicard/);
+    await expect(columns.nth(2)).toHaveClass(/column-card/);
+    await expect.poll(() => popup.locator('.card-field-order-columns').evaluate(el =>
+      getComputedStyle(el).gridTemplateColumns.split(' ').length)).toBe(width === 1280 && !narrowPopup ? 3 : 1);
+    const [drag, mini, card] = await columns.evaluateAll(els => els.map(el => {
+      const r = el.getBoundingClientRect();
+      return { x: r.x, y: r.y, right: r.right, bottom: r.bottom };
+    }));
+    if (width === 1280 && !narrowPopup) {
+      expect(drag.right).toBeLessThanOrEqual(mini.x);
+      expect(mini.right).toBeLessThanOrEqual(card.x);
+      expect(drag.y).toBeCloseTo(mini.y, 0);
+      expect(mini.y).toBeCloseTo(card.y, 0);
+    } else {
+      expect(mini.y).toBeGreaterThanOrEqual(drag.bottom);
+      expect(card.y).toBeGreaterThanOrEqual(mini.bottom);
+      expect(drag.x).toBeCloseTo(mini.x, 0);
+      expect(mini.x).toBeCloseTo(card.x, 0);
+    }
+    expect(await popup.evaluate(el => el.scrollWidth <= el.clientWidth + 1)).toBe(true);
+  }
+});

@@ -8,22 +8,16 @@ labels.
 
 ## Where to find it
 
-**Board sidebar (hamburger menu) → Board Settings → Card.** The popup is one
-heading, **Card field order**, over two lists:
+**Board sidebar (hamburger menu) → Board Settings → Card.** When the popup
+has enough width, its sections appear side by side:
 
-```
-┌ Card Settings ───────────────────────────────────────────────────┐
-│ Card field order                                                  │
-│                                                                   │
-│ Show on Minicard                 Show on Card                     │
-│ [✓] [▲][▼] ☑ Mark as complete    [✓] [▲][▼] ☑ Mark as complete    │
-│ [ ] [▲][▼] # Card number         [ ] [▲][▼] # Card number         │
-│ [✓] [▲][▼] 🕓 Received           [✓] [▲][▼] 🖼 Cover image         │
-│ [✓] [▲][▼] ⌛ Start               [✓] [▲][▼] 🏷 Labels             │
-│ [✓] [▲][▼] 🕓 Due                [✓] [▲][▼] 📝 Stickers           │
-│ ...                              ...                              │
-└───────────────────────────────────────────────────────────────────┘
-```
+| Draggable | Show on Minicard | Show on Card |
+| --- | --- | --- |
+| Drag permission toggles | Minicard visibility and order | Opened-card visibility and order |
+
+When space is insufficient, all three sections stack in that order: Draggable
+first, then Show on Minicard, then Show on Card. The layout follows the popup's
+available width, including when a wide screen contains a narrow popup.
 
 Every row of either list reads the same way:
 

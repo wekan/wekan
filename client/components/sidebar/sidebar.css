@@ -147,7 +147,7 @@
   cursor: pointer;
 }
 
-/* Board Settings / Card: one "Card field order" heading over TWO lists -
+/* Board Settings / Card: Draggable precedes the two independent lists -
    "Show on Minicard" in the board's minicard order, "Show on Card" in its
    card order (sidebar.jade boardCardSettingsPopup). Two lists rather than
    one table of rows, because the two orders are independent: a field can be
@@ -159,9 +159,14 @@
   font-weight: bold;
 }
 
+.board-card-settings {
+  container-type: inline-size;
+}
+
 .card-field-order-columns {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: 18px;
   column-gap: 18px;
   align-items: start;
 }
@@ -786,9 +791,10 @@ body.sidebar-resizing-active {
 }
 
 
-/* Stack the two settings columns without changing single-side desktop headings. */
-@media screen and (max-width: 800px) {
-  .card-field-order-columns { grid-template-columns: minmax(0, 1fr); }
+/* Switch all three sections together. Measure the form, not the viewport:
+   a narrow popup must stack even on a wide display. */
+@container (min-width: 780px) {
+  .card-field-order-columns { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 .card-field-order-column { min-width: 0; }
 .card-field-order-label { overflow-wrap: anywhere; }

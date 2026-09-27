@@ -367,8 +367,8 @@
     max-width: 90vw !important;
   }
 
-  /* Board Settings / Card: two dozen settings across two columns (what a card
-     shows, and what a minicard shows). Width here buys COLUMNS of rows
+  /* Board Settings / Card: Draggable, Show on Minicard and Show on Card.
+     Width here buys three columns of settings
      (sidebar.css), which is what turns a list you scroll into a table you
      read. */
   .pop-over[data-popup='boardCardSettingsPopup'] {
@@ -1351,4 +1351,39 @@ body.mobile-mode .pop-over .content-wrapper {
   flex: 0 0 auto;
   white-space: nowrap;
   unicode-bidi: isolate;
+}
+
+/* Long option menus use the available screen width. Only the active menu is
+   classified by popupMenuLayout.js; nested forms and hidden stack pages retain
+   their original sizing. Balanced columns preserve the menu's reading order. */
+@media screen and (min-width: 801px) {
+  .pop-over.pop-over--menu-columns {
+    position: fixed;
+    width: min(960px, calc(100vw - 24px)) !important;
+    max-width: calc(100vw - 24px) !important;
+    left: max(12px, calc((100vw - 960px) / 2)) !important;
+    right: auto !important;
+    top: 12px !important;
+    margin-top: 0;
+    max-height: calc(100vh - 24px) !important;
+  }
+  .pop-over.pop-over--menu-columns .content-wrapper,
+  .pop-over.pop-over--menu-columns .content-container {
+    max-height: none;
+  }
+  .pop-over .content.popup-menu-columns {
+    display: block !important;
+    columns: 240px;
+    column-gap: 24px;
+    overflow: visible;
+  }
+  .popup-menu-columns li {
+    break-inside: avoid;
+  }
+  .popup-menu-columns > ul {
+    margin-top: 0;
+  }
+  .popup-menu-columns > input {
+    column-span: all;
+  }
 }
