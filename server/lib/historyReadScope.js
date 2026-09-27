@@ -13,7 +13,11 @@ export async function filterReadableHistoryRows(rows, userId) {
   for (const boardId of visible) {
     const board = await Boards.findOneAsync(boardId);
     const assigned = assignedOnlyCardScope(board, userId);
-    const cards = assigned ? await Cards.find({ boardId, ...assigned }, { fields: { _id: 1 } }).fetchAsync() : [];
+    const cardIds = [...new Set(rows.filter(row => row.boardId === boardId)
+      .map(row => row.cardId || (row.entityType === 'card' ? row.entityId : null)).filter(Boolean))];
+    const cards = assigned && cardIds.length ? await Cards.find({ $and: [
+      { boardId, ...assigned }, { _id: { $in: cardIds } },
+    ] }, { fields: { _id: 1 } }).fetchAsync() : [];
     scopes.set(boardId, { visible: true, assignedOnly: Boolean(assigned), cardIds: new Set(cards.map(card => card._id)) });
   }
   return rows.filter(row => readableHistoryRow(row, scopes.get(row.boardId)));

@@ -178,6 +178,16 @@ Malformed paths or values are rejected instead of coercing data during restore.
 Older rows without this metadata keep their original interpretation: dates
 already flattened to strings cannot safely be distinguished from actual text.
 
+History page reads stream database rows in batches of 100. Permission filtering
+precedes search, counts and page selection; assigned-only checks load only card
+IDs present in the current batch. The reader retains the requested page and the
+last page so an out-of-range request still clamps to the final page. It closes
+the cursor on success and failure. Exact totals and contributor counts still
+require a full scan of the selected scope, and contributor memory scales with
+the number of distinct authors. This reduces retained row memory, not scan time,
+and does not provide a consistent snapshot across concurrent writes or access
+changes. Existing newest-first indexes and ordering remain in use.
+
 ```js
 {
   _id,

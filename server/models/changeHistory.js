@@ -33,6 +33,7 @@ import {
   contentForDirection,
 } from '/models/lib/changeHistoryGroups';
 import { pageInfo } from '/models/lib/tablePage';
+const { scanHistoryPage } = require('/server/lib/historyPageScan');
 import { withoutRecording } from '/server/lib/historyRecordingScope';
 import RecoveryEvents from '/models/recoveryEvents';
 import SecurityLog from '/server/lib/securityLog';
@@ -424,29 +425,13 @@ Meteor.methods({
     // a change has no fixed shape, so there is nothing to index and nothing a
     // Mongo regex could reliably look inside. The scope selector above has
     // already narrowed this to one card / list / swimlane / board.
-    const all = await ChangeHistory.find(selector, { sort: { createdAt: -1 } }).fetchAsync();
-    const readable = await filterReadableHistoryRows(all, this.userId);
-    const filtered = search ? readable.filter(row => matchesSearch(row, search)) : readable;
-
-    const info = pageInfo(filtered.length, request.page || 1, pageSize);
-    const rows = filtered.slice(info.skip, info.skip + pageSize);
-
-    // The left-column avatar list: who contributed to THIS scope, and how much.
-    const counts = new Map();
-    for (const row of filtered) {
-      counts.set(row.userId, (counts.get(row.userId) || 0) + 1);
-    }
-    const contributors = [...counts.entries()]
-      .map(([userId, count]) => ({ userId, count }))
-      .sort((a, b) => b.count - a.count);
-
-    return {
-      rows,
-      total: filtered.length,
-      page: info.page,
-      pageSize,
-      contributors,
-    };
+    const cursor = ChangeHistory.rawCollection().find(selector)
+      .sort({ createdAt: -1 }).batchSize(100);
+    return scanHistoryPage({ cursor,
+      readable: rows => filterReadableHistoryRows(rows, this.userId),
+      matches: row => !search || matchesSearch(row, search),
+      paginate: total => pageInfo(total, request.page || 1, pageSize),
+    });
   },
 
   /*

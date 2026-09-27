@@ -20,8 +20,13 @@ test('all universal history reversal paths share the scope guard and paging filt
  const source=fs.readFileSync(path.join(__dirname,'../server/models/changeHistory.js'),'utf8');
  assert.match(source,/async function applyRow\(row, direction\) \{\s*await requireHistoryRowAccess\(row, Meteor\.userId\(\)\);/);
  for(const direction of ['restore','undo','redo']) assert.ok(source.includes(`applyRow(row, '${direction}')`));
- const readAt=source.indexOf('const readable = await filterReadableHistoryRows(all, this.userId)');
+ // The streaming reader must retain the original security boundary: filter
+ // each batch before search, totals, contributors or page selection.
+ assert.match(source, /readable: rows => filterReadableHistoryRows\(rows, this.userId\)/);
+ const scan=fs.readFileSync(path.join(__dirname,'../server/lib/historyPageScan.js'),'utf8');
+ const readAt=scan.indexOf('const allowed = await readable(batch)');
  assert.ok(readAt>0);
- assert.ok(source.indexOf('const filtered = search ? readable.filter',readAt)>readAt);
- assert.ok(source.indexOf('const info = pageInfo(filtered.length',readAt)>readAt);
+ assert.ok(scan.indexOf('if (!matches(row)) continue',readAt)>readAt);
+ assert.ok(scan.indexOf('total++',readAt)>readAt);
+ assert.doesNotMatch(source,/const all = await ChangeHistory.find\(selector/);
 });

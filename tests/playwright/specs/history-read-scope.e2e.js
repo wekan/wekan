@@ -57,3 +57,23 @@ test('History cannot edit a card moved to a board the former owner cannot access
   expect(db.findOne('cards',{_id:card._id}).description).not.toBe('Unauthorized moved-card edit');
  }finally{db.cleanup({boardIds:[foreign.boardId]});}
 });
+test('History scans multiple batches before paging readable search matches',async({page,user,user2,board})=>{
+ const cards=db.find('cards',{boardId:board.boardId});
+ db.updateOne('boards',{_id:board.boardId},{$push:{members:{userId:user2.id,isActive:true,isAdmin:false,isReadAssignedOnly:true}}});
+ db.updateOne('cards',{_id:cards[0]._id},{$set:{assignees:[user2.id]}});
+ const marker=db.uid('paged-history');
+ const rows=Array.from({length:215},(_,i)=>({_id:`${marker}-${i}`,boardId:board.boardId,
+  cardId:cards[i%2]._id,entityId:cards[i%2]._id,entityType:'card',group:'title',changeType:'edited',
+  userId:i%2?user2.id:user.id,createdAt:new Date(1700000000000+i),
+  newContent:{field:'title',value:i%4===0||i%2?marker:'not a search match'}}));
+ db.insertMany('changeHistory',rows);
+ await loginWithToken(page,user2.id,user2.token);
+ const request={scope:'board',scopeId:board.boardId,search:marker,pageSize:10};
+ const first=await call(page,request);
+ expect(first.total).toBe(54);expect(first.page).toBe(1);
+ expect(first.rows.map(row=>row._id)).toEqual(Array.from({length:10},(_,i)=>`${marker}-${212-i*4}`));
+ expect(first.contributors).toEqual([{userId:user.id,count:54}]);
+ const last=await call(page,{...request,page:999});
+ expect(last.page).toBe(6);expect(last.total).toBe(54);
+ expect(last.rows.map(row=>row._id)).toEqual([12,8,4,0].map(i=>`${marker}-${i}`));
+});
