@@ -8,6 +8,13 @@ The reports distinguish original commitments, completed work, added and removed
 scope, and incomplete work. Each total includes card count, known estimate sum
 and number of cards with unknown estimates. Unknown estimates are not zeroes.
 Compare results only when units and completion policies match.
+Native transfers require each sprint's start and close snapshots to agree on
+estimate unit, estimate source, custom-field identifier and completion policy.
+Mixed snapshot policies are rejected before import creates a board, matching
+the rule that active sprints cannot change these settings. Workweek calendars
+may differ; planned duration continues to use the start calendar. Supporting
+external historical sprints with mixed policies requires separate report
+contexts and remains pending, rather than treating unlike totals as comparable.
 
 An unfinished sprint does not produce a completed-sprint velocity result.
 Assigned-only members receive snapshots filtered to cards they can currently

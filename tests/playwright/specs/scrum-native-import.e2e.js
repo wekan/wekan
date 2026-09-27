@@ -55,5 +55,11 @@ test('native Scrum board export imports with new IDs and unchanged snapshot outc
   missingField.scrumTransfer.settings={estimateSource:'customField',estimateCustomFieldId:'foreign-field'};
   await expect(call(page,'importBoard',missingField,{membersMapping:{}},'wekan',null)).rejects.toThrow(/invalid-scrum-transfer/);
   expect(db.find('boards',{title:missingField.title})).toHaveLength(0);
+  for(const [field,value] of [['unit','hours'],['completionPolicy','doneLists'],['estimateSource','poker'],['estimateCustomFieldId','other-field']]){
+   const mixed=structuredClone(exported);mixed.title=`Mixed Scrum snapshots ${field}`;
+   mixed.scrumTransfer.sprints.find(row=>row.state==='closed').closeSnapshot[field]=value;
+   await expect(call(page,'importBoard',mixed,{membersMapping:{}},'wekan',null)).rejects.toThrow(/incompatible sprint snapshot/);
+   expect(db.find('boards',{title:mixed.title})).toHaveLength(0);
+  }
  }finally{clean(imported);for(const collection of ['scrumSprints','scrumReleases','scrumEvents'])db.deleteMany(collection,{boardId:board.boardId});}
 });

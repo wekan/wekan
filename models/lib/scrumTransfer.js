@@ -70,6 +70,11 @@ function record(kind, value) {
     for (const key of ['startSnapshot', 'closeSnapshot']) if (own(extras, key)) result[key] = snapshot(extras[key]);
     if (['active', 'closed'].includes(result.state) && (!result.startSnapshot || !result.startedAt)) fail('started sprint requires a start snapshot');
     if (result.state === 'closed' && (!result.closeSnapshot || !result.completedAt)) fail('closed sprint requires a close snapshot');
+    if (result.startSnapshot && result.closeSnapshot) {
+      for (const key of ['unit', 'estimateSource', 'estimateCustomFieldId', 'completionPolicy']) {
+        if (result.startSnapshot[key] !== result.closeSnapshot[key]) fail(`incompatible sprint snapshot ${key}`);
+      }
+    }
     if (result.state === 'cancelled' && (!result.cancelledAt || !result.cancellationReason?.trim())) fail('cancelled sprint requires timestamp and reason');
     if (result.completedAt && result.startedAt > result.completedAt) fail('sprint completed before it started');
   }
