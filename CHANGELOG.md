@@ -586,6 +586,34 @@ the Markdown commit as the template.
 This release adds the following feature:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8bf47d1a9">Choose which structure and data to duplicate from selected boards</a>. Thanks to xet7.</summary>
+
+All Boards / Multi-selection now has one Duplicate Board action. It opens a
+checkbox popup with all choices selected, Select All, Select None and Cancel.
+Choose swimlanes, lists, labels, custom fields, rules, outgoing webhooks, cards,
+checklists with their items, comments and attachments. Selecting child data
+selects its required containers; clearing a container clears its children.
+The separate Duplicate Board — Without cards action is removed; clear Cards
+in the popup instead. Select None copies only the board itself and its settings
+and access roles, without source structure or content.
+
+Server validation and board-admin permission checks remain enforced. Scoped
+copies remap parent/subtask and dependency links, preserve custom-field values
+without sharing source definitions, and omit deselected labels and covers.
+Attachment copying now imports its dependencies explicitly, waits for flushed
+bytes and the installed Meteor-Files promise API, and propagates stream errors.
+
+Verification: ten focused Node suites (14 runner entries) and nine Chromium
+scenarios pass. Coverage includes full, cards-only, swimlane-only and empty
+copies, real attachment bytes and covers, unchanged source data, multi-board
+selection, cancellation, invalid options and non-admin rejection. Other browser
+engines, cloud attachment stores and live FerretDB backends were not tested.
+Existing Upcoming entries retain their recorded positive, negative and UI
+coverage. Updated the All Boards documentation.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/67c5df253">Show a single comment in the minicard badge tooltip</a>. Thanks to lonix1 and xet7.</summary>
 
 Hovering the minicard comment-count badge shows the comment text when exactly
