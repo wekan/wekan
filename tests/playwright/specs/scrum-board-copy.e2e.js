@@ -10,6 +10,7 @@ test('board duplication remaps Scrum planning and metadata and can omit Scrum en
   const sprint=await call(page,'scrum.saveSprint',board.boardId,null,{name:'Copied sprint',plannedStart:'2026-09-01',plannedEnd:'2026-09-30'},null);
   const release=await call(page,'scrum.saveRelease',board.boardId,null,{name:'Copied release'},null);
   const card=db.find('cards',{boardId:board.boardId})[0];
+  db.updateOne('cards',{_id:card._id},{$set:{syncExternalId:'COPY-1',syncSourceType:'jira',syncLastSource:{title:card.title}}});
   await call(page,'scrum.updateCard',board.boardId,card._id,{sprintId:sprint._id,releaseId:release._id,acceptanceCriteria:'Copied criteria'},0);
   await call(page,'scrum.updateSwimlane',board.boardId,board.swimlaneId,{sprintId:sprint._id,releaseId:release._id,purpose:'Copied team'},0);
   await call(page,'scrum.updateList',board.boardId,card.listId,{category:'doing'},0);
@@ -18,6 +19,8 @@ test('board duplication remaps Scrum planning and metadata and can omit Scrum en
   const copy=await call(page,'copyBoard',board.boardId,{});copies.push(copy);
   const copiedSprint=db.findOne('scrumSprints',{boardId:copy});expect(copiedSprint._id).not.toBe(sprint._id);
   const copiedCard=db.findOne('cards',{boardId:copy,title:card.title});
+  for(const key of ['syncExternalId','syncSourceType','syncLastSource'])expect(copiedCard[key]).toBeUndefined();
+  expect(db.findOne('cards',{_id:card._id}).syncExternalId).toBe('COPY-1');
   expect(copiedCard.scrum.pastSprintIds).toEqual([copiedSprint._id]);expect(copiedCard.scrum.acceptanceCriteria).toBe('Copied criteria');
   expect(copiedCard.scrum.releaseId).toBe(db.findOne('scrumReleases',{boardId:copy})._id);
   expect(copiedSprint.closeSnapshot.cards[0].cardId).toBe(copiedCard._id);

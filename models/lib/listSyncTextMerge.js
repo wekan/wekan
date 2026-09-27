@@ -4,8 +4,14 @@
 // Legacy cards without a baseline must first agree with the source; guessing
 // would make an old local edit indistinguishable from an upstream change.
 function planSyncTextMerge(tasks, cards) {
-  const byId = new Map(cards.map(card => [String(card.syncExternalId), card]));
-  const baselines = new Map(), conflicts = [];
+  const byId = new Map(), baselines = new Map(), conflicts = [];
+  for (const card of cards) {
+    if (!card.syncExternalId) continue;
+    const id = String(card.syncExternalId);
+    if (byId.has(id)) conflicts.push({ cardId: card._id, externalId: id, field: 'syncExternalId' });
+    else byId.set(id, card);
+  }
+  if (conflicts.length) return { tasks, baselines, conflicts };
   const merged = tasks.map(task => {
     const card = byId.get(String(task.externalId));
     if (!card) return task;

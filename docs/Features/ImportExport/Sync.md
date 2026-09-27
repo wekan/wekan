@@ -58,7 +58,11 @@ text matches; differing legacy text requires the same resolution.
 Updates compare the original title, description, archive state, baseline and
 board/list location before writing. A concurrent edit aborts the remaining run.
 This is not a transaction: earlier successful updates or creations may remain.
-Archive-on-source-absence behavior is unchanged. Field selection, a dedicated
+Card and subtask copies omit external Sync IDs, source type and text baselines,
+so independent work does not become a second target for an upstream issue.
+Existing duplicate local mappings stop the run before updates or archives;
+resolve the duplicate mapping before retrying.
+Archive-on-source-absence behavior is otherwise unchanged. Field selection, a dedicated
 conflict-resolution UI, new Scrum metadata mappings, source-switch handling
 and fully atomic synchronization remain pending.
 

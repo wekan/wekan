@@ -26,3 +26,18 @@ test('write preconditions retain board, list, text and baseline identity',()=>{
  assert.equal(selector.title,'Original');assert.deepEqual(selector.syncSourceType,{$exists:false});
  assert.deepEqual(selector.syncLastSource,card.syncLastSource);
 });
+
+test('duplicate local identities stop matching even when the source is empty',()=>{
+ for(const tasks of [[],[task]]){
+  const result=planSyncTextMerge(tasks,[card,{...card,_id:'duplicate'}]);
+  assert.equal(result.conflicts.length,1);assert.equal(result.conflicts[0].field,'syncExternalId');
+  assert.equal(result.baselines.size,0);
+ }
+});
+test('copied subtasks lose Sync identity without mutating the source',async()=>{
+ const {buildCopiedSubtaskFields}=await import('../models/lib/subtaskCopy.js');
+ const original={...card,syncSourceType:'jira'};
+ const copied=buildCopiedSubtaskFields(original,{newParentId:'parent',boardId:'board',listId:'list',swimlaneId:'lane'});
+ for(const key of ['syncExternalId','syncSourceType','syncLastSource'])assert.equal(copied[key],undefined);
+ assert.equal(original.syncExternalId,'1');assert.equal(copied.title,original.title);
+});

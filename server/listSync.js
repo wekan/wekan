@@ -86,7 +86,9 @@ export async function syncOneList(list, { fetchers = LIST_SYNC_FETCHERS } = {}) 
   const merge = planSyncTextMerge(externalTasks, existingCards);
   if (merge.conflicts.length) {
     const examples = merge.conflicts.slice(0, 5).map(row => `${row.externalId.slice(0, 60)} (${row.field})`).join(', ');
-    const error = `Sync text conflict: ${examples}. Align local and source text before retrying.`;
+    const error = merge.conflicts.some(row => row.field === 'syncExternalId')
+      ? `Duplicate local Sync identity: ${examples}. Resolve duplicate card mappings before retrying.`
+      : `Sync text conflict: ${examples}. Align local and source text before retrying.`;
     await Lists.updateAsync(list._id, { $set: { 'syncSource.lastSyncError': error } });
     return { error, conflicts: merge.conflicts };
   }

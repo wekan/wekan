@@ -1058,6 +1058,10 @@ Cards.helpers({
     delete cardData._id;
     // getRealId() caches __id on rendered cards; it is not a schema field.
     delete cardData.__id;
+    // A copy is independent work, not a second target for the same source item.
+    delete cardData.syncExternalId;
+    delete cardData.syncSourceType;
+    delete cardData.syncLastSource;
 
     // Normalize customFields to ensure it's always an array
     if (!Array.isArray(cardData.customFields)) {
