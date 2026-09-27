@@ -43,7 +43,7 @@ function reportChartGroups(reports, metric = 'count', velocity = false) {
   const groups = new Map();
   for (const report of reports) {
     if (!report.hasClose || !report.hasStart) continue;
-    const signature = JSON.stringify([report.unit, report.estimateSource, report.estimateCustomFieldId, report.completionPolicy]);
+    const signature = JSON.stringify([report.unit, report.estimateSource, report.estimateCustomFieldId, report.completionPolicy, Boolean(report.partial)]);
     if (!groups.has(signature)) groups.set(signature, { unit: report.unit,
       estimateSource: report.estimateSource, completionPolicy: report.completionPolicy,
       estimateCustomFieldId: report.estimateCustomFieldId, rows: [], max: 0 });

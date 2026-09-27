@@ -75,3 +75,14 @@ test('charts isolate custom fields and keep partial report warnings',()=>{
  assert.equal(groups[0].rows[0].partial,true);
  assert.equal(groups[1].rows[0].partial,true);
 });
+
+test('partial snapshots never share a chart scale with whole-board totals',()=>{
+ const {reportChartGroups}=require('../models/lib/scrumReports');
+ const base=sprintReport({name:'Whole board',startSnapshot:{cards:[{cardId:'x',estimate:10}]},closeSnapshot:{cards:[{cardId:'x',estimate:10,done:true}]}});
+ const partial={...base,name:'Partial import',partial:true,committed:{count:1,estimate:1,unknown:0},completed:{count:1,estimate:1,unknown:0}};
+ const groups=reportChartGroups([base,partial],'estimate',true);
+ assert.equal(groups.length,2);
+ assert.equal(groups[0].max,10);
+ assert.equal(groups[1].max,1);
+ assert.equal(groups[1].rows[0].partial,true);
+});

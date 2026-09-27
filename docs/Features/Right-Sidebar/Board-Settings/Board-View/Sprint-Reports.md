@@ -26,7 +26,8 @@ committed and completed work; Sprint Report also shows added, removed and
 incomplete work. Exact values and unknown-estimate counts remain visible beside
 the bars.
 Scales are separated by snapshot unit, estimate source, custom field and
-completion policy. Partial-snapshot warnings remain visible. Empty or unfinished
+completion policy. Partial results use a separate scale from complete results.
+Partial-snapshot warnings remain visible. Empty or unfinished
 sprints produce no bars. Charts use native HTML/CSS, requiring no additional
 dependency, and retain
 the existing permission-filtered report data and export actions.
