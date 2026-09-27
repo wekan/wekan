@@ -877,6 +877,10 @@ Template.listSyncPopup.onCreated(function () {
   // secret-safety discipline as the LDAP Admin Panel override's bind
   // password (client/components/settings/settingBody.js, models/lib/configResolver.js).
   tpl.selectedSyncFields = new ReactiveVar(list?.syncSource?.fields || ['title', 'description']);
+  tpl.selectedSyncOperations = new ReactiveVar({
+    createCards: list?.syncSource?.createCards !== false,
+    archiveCards: list?.syncSource?.archiveCards !== false,
+  });
   tpl.hasCredential = new ReactiveVar(false);
   tpl.syncNowResult = new ReactiveVar('');
   tpl.syncNowSuccess = new ReactiveVar(true);
@@ -894,6 +898,13 @@ Template.listSyncPopup.onCreated(function () {
 });
 
 Template.listSyncPopup.helpers({
+  syncOperations() {
+    const selected = Template.instance().selectedSyncOperations.get();
+    return [
+      { operation: 'createCards', label: 'add-card', checked: selected.createCards },
+      { operation: 'archiveCards', label: 'archive-card', checked: selected.archiveCards },
+    ];
+  },
   syncTextFields() {
     const fields = Template.instance().selectedSyncFields.get();
     const choices = Template.instance().selectedSyncType.get() === 'jira' ? ['title', 'description', 'spentTime'] : ['title', 'description'];
@@ -961,6 +972,12 @@ Template.listSyncPopup.helpers({
 });
 
 Template.listSyncPopup.events({
+  'click .js-toggle-sync-operation'(event, tpl) {
+    event.preventDefault();
+    const operation = event.currentTarget.dataset.operation;
+    const selected = tpl.selectedSyncOperations.get();
+    tpl.selectedSyncOperations.set({ ...selected, [operation]: !selected[operation] });
+  },
   'click .js-toggle-sync-field'(event, tpl) {
     event.preventDefault();
     const field = event.currentTarget.dataset.field;
@@ -989,6 +1006,7 @@ Template.listSyncPopup.events({
       projectKey,
       enabled: tpl.selectedSyncEnabled.get(),
       fields: tpl.selectedSyncFields.get(),
+      ...tpl.selectedSyncOperations.get(),
       // Leaving the credential field blank keeps whatever is already stored
       // - setListSyncSource only overwrites it when a non-empty token is
       // sent (server/methods/listSync.js).

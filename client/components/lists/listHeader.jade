@@ -448,6 +448,11 @@ template(name="listSyncPopup")
           a.flex.js-toggle-sync-field(data-field=field)
             .materialCheckBox(class="{{#if checked}}is-checked{{/if}}")
             span {{_ label}}
+      each syncOperations
+        p
+          a.flex.js-toggle-sync-operation(data-operation=operation)
+            .materialCheckBox(class="{{#if checked}}is-checked{{/if}}")
+            span {{_ label}}
       label {{_ 'list-sync-credential'}}
       p.quiet.list-sync-credential-status {{ listSyncCredentialStatusText }}
       p

@@ -172,8 +172,12 @@ Jira time-tracking import now preserves spent hours and original/remaining
 estimates using existing spent-time and numeric custom fields. Native export
 retains them, and the original estimate can be selected in Scrum settings.
 Jira time export also restores numeric seconds using stable custom-field markers
-and respects Dates/Custom Fields selection. Sprint, release and Sync mappings
-remain pending.
+and respects Dates/Custom Fields selection. Jira Sync now offers opt-in spent
+hours, with source baselines and conflict checks. The existing Sync popup also
+selects title/description fields and card creation/source-absence archival;
+these settings retain board write authorization. Sprint, release and estimate
+Sync mappings remain pending, as do project-scoped source identity and atomic
+concurrent jobs. See [Sync](../../../ImportExport/Sync.md) for verified scope.
 
 Jira mappings use the supplied field schema and explicit user choices, not
 hard-coded `customfield_*` numbers. Accept sprint IDs and expanded sprint

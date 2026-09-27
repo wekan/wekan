@@ -81,8 +81,16 @@ The existing list Sync popup has Title and Description switches. Both default
 to selected, including configurations saved before this feature. Excluded text
 is not compared, overwritten or advanced in the conflict baseline. New cards
 still require a title: with Title excluded they use `Imported item`; an
-excluded description starts empty. These switches do not change creation or
-source-absence archive behavior. Selecting no text fields is supported.
+excluded description starts empty. Selecting no text fields is supported.
+
+The same popup also has **Add Card** and **Move Card to Archive** switches.
+Both default to enabled, preserving existing configurations. Disable Add Card
+to update matched cards without creating newly discovered items. Disable Move
+Card to Archive to retain cards whose items disappear from the source. The
+switches are independent of field selection. Disabled archival skips child
+archive checks; updates still use conflict detection and conditional writes.
+Results count only the selected operations. These settings use the existing
+board write permission and do not change manual card creation or archival.
 
 For Jira, **Spent time (hours)** is an additional opt-in switch, off for existing
 configurations. The shared Jira parser converts numeric seconds using the same

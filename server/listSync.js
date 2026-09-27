@@ -93,6 +93,10 @@ export async function syncOneList(list, { fetchers = LIST_SYNC_FETCHERS } = {}) 
     return { error, conflicts: merge.conflicts };
   }
   const plan = planListSyncReconcile({ externalTasks: merge.tasks, existingCards });
+  // Apply operation selection before preflight, writes and result counts.
+  // Missing switches retain the behavior of existing configurations.
+  if (source.createCards === false) plan.toCreate = [];
+  if (source.archiveCards === false) plan.toArchive = [];
   const updatesByCard = new Map(plan.toUpdate.map(row => [row.cardId, row]));
   const existingById = new Map(existingCards.map(card => [card._id, card]));
   for (const [cardId, baseline] of merge.baselines) {

@@ -2,7 +2,7 @@
 const {test}=require('node:test');const assert=require('node:assert/strict');
 const fs=require('node:fs');const vm=require('node:vm');
 const asModule=file=>import(`data:text/javascript;base64,${Buffer.from(fs.readFileSync(file,'utf8')).toString('base64')}`);
-async function run(raw,parser,existing,updateCount=1,child=null,fields){
+async function run(raw,parser,existing,updateCount=1,child=null,fields,operations={}){
  const {validateImportSourceShape}=await asModule('models/lib/importSourceShape.js');
  const {planListSyncReconcile,validateListSyncTasks}=await asModule('models/lib/listSyncReconcile.js');
  const cardWrites=[],listWrites=[];let parsed=0;
@@ -14,7 +14,7 @@ async function run(raw,parser,existing,updateCount=1,child=null,fields){
   LIST_SYNC_FETCHERS:{jira:async()=>raw},validateImportSourceShape,planListSyncReconcile,validateListSyncTasks,require:id=>id==='/models/lib/listSyncTextMerge'?require('../models/lib/listSyncTextMerge'):({record(){}}),console,
  };
  vm.createContext(context);vm.runInContext(source,context);
- const result=await context.syncOneList({_id:'list',boardId:'board',syncSource:{type:'jira',fields}});
+ const result=await context.syncOneList({_id:'list',boardId:'board',syncSource:{type:'jira',fields,...operations}});
  return {result,cardWrites,listWrites,parsed};
 }
 test('malformed sync responses cannot be mistaken for a source deletion',async()=>{
@@ -107,4 +107,21 @@ test('invalid spent time aborts Sync before card writes',async()=>{
   const {result,cardWrites}=await run({issues:[]},()=>({tasks:[{externalId:'KEY-1',spentTime}]}),undefined,1,null,['spentTime']);
   assert.match(result.error,/Invalid sync spent time/);assert.deepEqual(cardWrites,[]);
  }
+});
+
+test('operation selection independently suppresses creation and source-absence archival',async()=>{
+ const existing=[{_id:'missing',syncExternalId:'OLD',syncSourceType:'jira',title:'Missing'},
+  {_id:'retained',syncExternalId:'KEEP',syncSourceType:'jira',title:'Old',syncLastSource:{title:'Old'}}];
+ const parser=()=>({tasks:[{externalId:'NEW',title:'New'},{externalId:'KEEP',title:'Updated'}]});
+ for(const createCards of [false,true])for(const archiveCards of [false,true]){
+  const {result,cardWrites}=await run({issues:[]},parser,existing,1,null,undefined,{createCards,archiveCards});
+  assert.equal(result.created,Number(createCards));assert.equal(result.archived,Number(archiveCards));assert.equal(result.updated,1);
+  assert.equal(cardWrites.filter(write=>write.insert).length,Number(createCards));
+  assert.equal(cardWrites.filter(write=>write.modifier?.$set.archived).length,Number(archiveCards));
+  assert.equal(cardWrites.find(write=>write.selector?._id==='retained').modifier.$set.title,'Updated');
+ }
+});
+test('disabled archival skips child preflight and retains absent cards',async()=>{
+ const {result,cardWrites}=await run({issues:[]},undefined,undefined,1,{_id:'child'},undefined,{archiveCards:false});
+ assert.equal(result.archived,0);assert.deepEqual(cardWrites,[]);
 });
