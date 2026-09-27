@@ -172,13 +172,17 @@ An hourly sweep now retires unselected credential versions. A server-owned
 generation fence prevents delayed saves from activating a retired token while
 preserving the selected version and newer staging. Missing-list credentials
 and malformed generations remain for review; all writer processes must upgrade.
+The Sync popup now compares conflicting title, description and spent-time
+values. Unrestricted board writers can retain the local value or select the
+source value; fresh comparisons and conditional writes reject stale choices.
 Remaining: external sprint histories without invented snapshots, multiple
 release assignments, epic relationships, automatic field/schema mapping,
 Trello and other Scrum adapters, mapping previews/loss reporting, planning and
 estimate Sync, durable restart checkpoints, fencing of in-flight card writes
 after lease loss, atomic multi-card reconciliation, cleanup of credentials for
 missing lists and malformed generations,
-and conflict-resolution UI. Changes during card writes remain nontransactional.
+and resolution UI for duplicate mappings, archive/move conflicts and
+assigned-only users. Changes during card writes remain nontransactional.
 See [Jira](docs/Features/ImportExport/Jira/Jira.md) and
 [Sync](docs/Features/ImportExport/Sync.md).
 
@@ -1033,6 +1037,30 @@ in TODO Later. The known released-entry changelog format failure remains.
 </details>
 
 and improves list synchronization:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/df376f788">Resolve conflicting Sync field values in the list popup</a>. Thanks to xet7.</summary>
+
+Show current WeKan and source values for title, description and spent-time
+conflicts. Choose one value per field. Keeping local work advances its source
+baseline so unchanged source data does not repeat the same conflict. Neither
+choice writes upstream. Refetch source data and verify the preview fingerprint
+before a conditional card update; changed comparisons must be reviewed again.
+Retry Sync after a successful choice, showing up to 50 remaining conflicts.
+
+Require unrestricted board write access and recheck it after fetching. Render
+values as escaped text and keep unrelated fields intact. Ten Sync Node suites,
+additional field-specific checks, catalog ordering and nine Chromium scenarios
+pass. Browser coverage includes both choices, stale previews, text escaping,
+assigned-only restrictions and existing settings/source behavior. The local
+release audit passes with advisory warnings. Add English source labels only;
+other languages use the existing fallback, without translation filling.
+
+Duplicate mappings, archive/move conflicts, assigned-only resolution,
+transactional reconciliation and in-flight write fencing remain pending.
+FerretDB, other browsers and live providers were not tested.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b3c53c3ae">Retire abandoned Sync credentials without breaking delayed saves</a>. Thanks to xet7.</summary>
