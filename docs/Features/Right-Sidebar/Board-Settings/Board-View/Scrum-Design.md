@@ -242,12 +242,20 @@ Scrum reads/writes/exports and daily capture before any sprint exists and after
 the last sprint marker clears. The UI exposes only the existing pending flag,
 not recovery contents or counters.
 
-This is the persistence and conditional-write foundation. No public replay or
-rollback endpoint exists yet. Interrupted preparing plans, coordinated retries
-across server processes, changed-target resolution, cleanup after a failed
-post-completion cleanup and recovery of the earlier/later native import stages
-remain unfinished. Existing marker-only interrupted imports have no retroactive
-plan. Ordinary board/card edits are not locked by these checkpoints.
+An [offline maintenance command](../../../ImportExport/Scrum-Import-Recovery.md)
+can now inspect and continue a complete stored Scrum plan with all application
+and other database writers stopped. It validates every target before writing,
+uses a non-expiring per-board claim and recognizes writes whose acknowledgements
+were lost. Complete preparing plans can be sealed; incomplete plans are refused.
+An explicit cleaning phase resumes interrupted private-plan cleanup. Failed
+recoveries retain their claim until an operator confirms its process stopped
+and clears its exact token.
+
+Online coordinated replay, rollback, incomplete preparing plans, changed-target
+resolution, normal-import orphan cleanup and recovery of earlier/later native
+import stages remain unfinished. Existing marker-only interrupted imports have
+no retroactive plan. Ordinary board/card edits are not locked by these
+checkpoints; this is why the maintenance command requires stopped writers.
 Unknown fields (including permission fields and recovery checkpoints), invalid
 dates, inconsistent totals, foreign planning references and ID collisions fail
 validation. Destination maps are supplied by the importer, never by file input.

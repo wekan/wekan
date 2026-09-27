@@ -184,7 +184,7 @@ test('every script in releases/ is reachable from BOTH menus', () => {
     for (const e of fs.readdirSync(path.join(dir, rel), { withFileTypes: true })) {
       const r = rel ? `${rel}/${e.name}` : e.name;
       if (e.isDirectory()) walk(r);
-      else if (/\.(sh|mjs|bat)$/.test(e.name)) files.push(r);
+      else if (/\.(sh|mjs|cjs|bat)$/.test(e.name)) files.push(r);
     }
   };
   walk('');
@@ -192,6 +192,10 @@ test('every script in releases/ is reachable from BOTH menus', () => {
   // Deliberately not in the Releases menu, each for a stated reason. A script
   // added here must be given one.
   const SKIP = {
+    'recover-scrum-import.cjs': 'manual offline database recovery requires a board ID; not a release action',
+    'translations/import-blockly.cjs': 'translation catalog helper; invoked explicitly for Blockly updates',
+    'verify-mime-runtime.cjs': 'internal runtime verification helper',
+    'single-exe/wekan-vfs.cjs': 'runtime virtual-filesystem shim embedded in the executable',
     'use-release-npm.sh': 'internal helper installs the checked-out release npm version',
     'latest-release-version.sh': 'read-only version resolver called by release-all.sh',
     'prepare-bundle-npm.mjs': 'internal bundle package normalization called before npm install',
