@@ -93,14 +93,15 @@ A cause specific to MongoDB or legacy data has not been established.
 <summary>Blockly translations resumed; remaining languages and review.</summary>
 
 Resumed at the maintainer's request on 2026-09-27 after the earlier pause.
-Gujarati navigation, accessibility and basic controls are now being filled;
+Gujarati Blockly prose and Blocks-editor messages now have placeholder coverage;
 continue the remaining catalogs and terminology review. The editable Blocks view
 remains available. All 696 Blockly messages have WeKan message-key coverage,
 but translation into every WeKan language is unfinished.
 
 The latest completed batch covers hi, hi-IN, ta, kn, bn, ne and ur; the prior
 batch covers fur, lld, rm and rup. Earlier completed batches are recorded in
-Upcoming. Gujarati (gu-IN) is partially translated after resumption. Marathi
+Upcoming. Gujarati (gu-IN) has completed prose filling after resumption, with
+specialist terminology still pending native review. Marathi
 (mr), Malayalam (ml), Punjabi (pa), Sinhala (si) and Telugu (te-IN) were not
 started in the interrupted assignment.
 Additional language catalogs remain incomplete, including minority and

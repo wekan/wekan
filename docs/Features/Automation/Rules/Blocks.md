@@ -113,10 +113,11 @@ History writes; the concurrency limits still apply.
 ## Translation progress
 
 Blockly translation work resumed by request on 2026-09-27 after a pause. Gujarati
-navigation, accessibility, conditions, loops, editing actions, input labels,
-keyboard navigation hints, logic blocks, list operations, math descriptions,
-procedures, variable controls, shortcut descriptions and workspace messages
-are partially translated. Chromium coverage exercises Gujarati block dragging,
+now has translations for all audited Blockly prose and `r-blocks-*` editor
+messages. Tests explicitly allow unchanged printed key names, platform brands,
+OK, mathematical notation, URLs and nonlinguistic symbols. This is placeholder
+coverage, not native-speaker verification; specialist terminology still needs
+review. Chromium coverage exercises Gujarati block dragging,
 field editing, saving and context menus. The editor
 remains available; remaining languages and native terminology review are
 tracked under TODO Later in [the changelog](../../../../CHANGELOG.md).

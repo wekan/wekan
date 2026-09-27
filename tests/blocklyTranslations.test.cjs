@@ -99,3 +99,22 @@ test('Gujarati workspace and shortcut messages preserve navigation direction and
  assert.notEqual(gu['blockly-SCREENREADER_MODE_ENABLED'],gu['blockly-SCREENREADER_MODE_DISABLED']);
  assert.match(gu['blockly-WORKSPACE_SEARCH_INPUT_LABEL'],/Shift\+Enter/);
 });
+test('Gujarati Blockly prose and editor messages have no remaining English placeholders',()=>{
+ const gu=require('../imports/i18n/data/gu-IN.i18n.json');
+ // Printed key names, platform brands, OK and standard math notation stay
+ // recognizable. URLs and nonlinguistic symbols are not translation gaps.
+ const invariant=new Set(('ALT_KEY BACKSPACE_KEY CAPS_LOCK_KEY CHROME_OS COMMAND_KEY CONTROL_KEY DIALOG_OK END_KEY ENTER_KEY ESCAPE HOME_KEY INSERT_KEY LINUX MAC_OS MATH_CONSTANT_E_ARIA MATH_CONSTANT_PI_ARIA MATH_TRIG_ACOS MATH_TRIG_ASIN MATH_TRIG_ATAN MATH_TRIG_COS MATH_TRIG_SIN MATH_TRIG_TAN OPTION_KEY PAGE_DOWN_KEY PAGE_UP_KEY PAUSE_KEY SHIFT_KEY SPACE_KEY TAB_KEY WINDOWS').split(' '));
+ for(const [name,key]of Object.entries(mapping)){
+  const source=english[key];
+  assert.deepEqual(placeholders(gu[key]),placeholders(source),key);
+  if(invariant.has(name)||/^https?:/.test(source)||!/[A-Za-z]/.test(source))continue;
+  assert.notEqual(gu[key],source,key);
+  assert.match(gu[key],/[\u0A80-\u0AFF]/,key);
+ }
+ for(const key of Object.keys(english).filter(key=>key.startsWith('r-blocks-'))){
+  assert.notEqual(gu[key],english[key],key);
+  assert.match(gu[key],/[\u0A80-\u0AFF]/,key);
+  assert.deepEqual(placeholders(gu[key]),placeholders(english[key]),key);
+ }
+ assert.notEqual(gu['blockly-TEXT_TRIM_OPERATOR_LEFT'],gu['blockly-TEXT_TRIM_OPERATOR_RIGHT']);
+});
