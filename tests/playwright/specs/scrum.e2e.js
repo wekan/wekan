@@ -43,6 +43,15 @@ test('Scrum menus plan work, retain closed snapshots and export Excel/PDF',async
   await expect.poll(()=>db.findOne('scrumSprints',{_id:sprint._id}).state).toBe('closed');
   await view(page,'velocity');
   await expect(page.locator('.scrum-table tbody')).toContainText('Browser sprint');
+  await expect(page.locator('.scrum-chart-row')).toHaveCount(1);
+  await expect(page.locator('.scrum-chart-label').first()).toContainText('1');
+  await page.locator('.js-scrum-chart-metric').selectOption('estimate');
+  await expect(page.locator('.scrum-chart-label').first()).toContainText('3');
+  expect(await page.locator('.scrum-chart-bar').first().evaluate(el => el.style.width)).toBe('100%');
+  await page.setViewportSize({width:375,height:812});
+  const fits=await page.locator('.scrum-chart').evaluate(el=>el.scrollWidth<=el.clientWidth);
+  expect(fits).toBe(true);
+  await page.setViewportSize({width:1280,height:900});
   const excel=await request.get(`/api/boards/${board.boardId}/charts/scrumVelocity/exportExcel?authToken=${encodeURIComponent(user.token)}`);
   expect(excel.status()).toBe(200);expect(excel.headers()['content-type']).toContain('spreadsheet');
   const Excel=require('../../../node_modules/@wekanteam/exceljs');
@@ -50,6 +59,10 @@ test('Scrum menus plan work, retain closed snapshots and export Excel/PDF',async
   expect(workbook.worksheets[0].getCell('A3').value).toBe('Browser sprint');
   const pdf=await request.get(`/api/boards/${board.boardId}/charts/scrumSprint/exportPDF?authToken=${encodeURIComponent(user.token)}&sprintId=${sprint._id}`);
   expect(pdf.status()).toBe(200);expect((await pdf.body()).subarray(0,4).toString()).toBe('%PDF');
+  await view(page,'sprint-report');
+  await page.locator('.js-scrum-sprint').selectOption(sprint._id);
+  await expect(page.locator('.scrum-chart-series')).toHaveCount(5);
+  await expect(page.locator('.scrum-chart-label').last()).toContainText('0');
   expect(errors).toEqual([]);
  }finally{cleanup(board.boardId);}
 });

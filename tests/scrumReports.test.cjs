@@ -41,3 +41,37 @@ test('copied or imported partial snapshots remain labelled in report and export 
  assert.match(chartExportRows('scrumVelocity',{reports:[report]}).rows[0][0],/Partial original snapshot/);
  assert.equal(sprintReport({startSnapshot:{cards:[]},closeSnapshot:{cards:[]}}).partial,false);
 });
+
+test('chart scales separate incompatible estimates and policies, retaining zero and unknown values',()=>{
+ const {reportChartGroups}=require('../models/lib/scrumReports');
+ const report=(name,estimate,policy='dueComplete',unit='points')=>sprintReport({name,state:'closed',
+  startSnapshot:{unit,completionPolicy:policy,estimateSource:'poker',cards:[{cardId:'a',estimate}]},
+  closeSnapshot:{unit,completionPolicy:policy,estimateSource:'poker',cards:[{cardId:'a',estimate,done:true}]}});
+ const rows=[report('First',3),report('Second',6),report('Other policy',30,'doneLists'),report('Hours',100,'dueComplete','hours')];
+ const before=JSON.stringify(rows);
+ const groups=reportChartGroups(rows,'estimate',true);
+ assert.equal(groups.length,3);
+ assert.equal(groups[0].rows[0].series[0].width,50);
+ assert.equal(groups[0].rows[1].series[0].width,100);
+ assert.equal(groups[1].rows[0].series[0].width,100);
+ assert.equal(groups[0].rows[0].series.length,2);
+ assert.equal(reportChartGroups(rows,'count')[0].rows[0].series.length,5);
+ assert.equal(JSON.stringify(rows),before);
+ const unknown=reportChartGroups([report('Unknown',null),report('Zero',0)],'estimate')[0];
+ assert.equal(unknown.max,0);
+ assert.equal(unknown.rows[0].series[0].width,0);
+ assert.equal(unknown.rows[0].series[0].total.unknown,1);
+ assert.equal(unknown.rows[1].series[0].total.unknown,0);
+ assert.deepEqual(reportChartGroups([sprintReport({state:'active'})]),[]);
+ assert.deepEqual(reportChartGroups([]),[]);
+});
+
+test('charts isolate custom fields and keep partial report warnings',()=>{
+ const {reportChartGroups}=require('../models/lib/scrumReports');
+ const base=sprintReport({name:'Partial',startSnapshot:{partial:true,cards:[]},closeSnapshot:{cards:[]}});
+ const rows=['a','b'].map(estimateCustomFieldId=>({...base,estimateSource:'customField',estimateCustomFieldId}));
+ const groups=reportChartGroups(rows);
+ assert.equal(groups.length,2);
+ assert.equal(groups[0].rows[0].partial,true);
+ assert.equal(groups[1].rows[0].partial,true);
+});

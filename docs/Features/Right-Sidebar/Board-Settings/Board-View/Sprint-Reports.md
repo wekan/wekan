@@ -15,5 +15,18 @@ see. Those partial reports must not be treated as whole-team totals.
 
 The Export action uses the existing chart export popup and produces Excel or
 PDF with the same report data and requesting user's access restrictions.
-Current rendering is a table; interactive chart rendering and historical daily
-burndown integration remain work listed in [the Scrum design](Scrum-Design.md).
+Historical daily burndown integration remains work listed in
+[the Scrum design](Scrum-Design.md).
+
+## Charts
+
+Responsive horizontal bars appear above the report table. A metric
+selector switches between card counts and known estimates. Velocity compares
+committed and completed work; Sprint Report also shows added, removed and
+incomplete work. Exact values and unknown-estimate counts remain visible beside
+the bars.
+Scales are separated by snapshot unit, estimate source, custom field and
+completion policy. Partial-snapshot warnings remain visible. Empty or unfinished
+sprints produce no bars. Charts use native HTML/CSS, requiring no additional
+dependency, and retain
+the existing permission-filtered report data and export actions.

@@ -9,7 +9,7 @@ import { TAPi18n } from '/imports/i18n';
 import { Utils } from '/client/lib/utils';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 const { DEFAULT_SCRUM_SETTINGS, getCardEstimate } = require('/models/lib/scrum');
-const { sprintReport, velocityRows } = require('/models/lib/scrumReports');
+const { sprintReport, velocityRows, reportChartGroups } = require('/models/lib/scrumReports');
 const current = () => Template.instance();
 const data = () => current().dataState.get();
 const selectedSprint = tpl => tpl.dataState.get()?.sprints.find(s => s._id === tpl.sprintId.get());
@@ -137,7 +137,18 @@ Template.scrumView.helpers({
   })),
   eventKinds: () => ['planning', 'daily', 'review', 'retrospective'].map(value => ({ value, label: t(`scrum-event-${value}`), selected: value === (selectedEvent(current())?.kind || 'planning') })),
 });
+Template.scrumReportTable.onCreated(function () { this.metric = new ReactiveVar('count'); });
+Template.scrumReportTable.events({
+  'change .js-scrum-chart-metric'(event, tpl) { tpl.metric.set(event.currentTarget.value); },
+});
 Template.scrumReportTable.helpers({
+  chartGroups() {
+    return reportChartGroups(Template.currentData().rows || [], current().metric.get(), Template.currentData().velocity)
+      .map(group => ({ ...group, policyLabel: group.completionPolicy ? t(`scrum-policy-${group.completionPolicy}`) : '',
+        sourceLabel: group.estimateSource ? t(`scrum-source-${group.estimateSource}`) : '',
+        rows: group.rows.map(row => ({ ...row, series: row.series.map(series => ({ ...series, label: t(`scrum-${series.key}`) })) })),
+      }));
+  },
   formatTotal(value) { return value ? t('scrum-total', { count: value.count, estimate: value.estimate, unknown: value.unknown }) : ''; },
 });
 Template.scrumView.events({

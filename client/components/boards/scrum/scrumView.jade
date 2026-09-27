@@ -47,7 +47,7 @@ template(name="scrumView")
                     option(value=value selected=selected) {{label}}
               button.primary(type="submit" disabled=busy) {{_ 'save'}}
         if isVelocity
-          +scrumReportTable(rows=velocity)
+          +scrumReportTable(rows=velocity velocity=true)
         else
           if isSprints
             .scrum-planning
@@ -216,6 +216,27 @@ template(name="scrumView")
                     button.primary(type="submit" disabled=busy) {{_ 'save'}}
 
 template(name="scrumReportTable")
+  if rows.length
+    label
+      | {{_ 'cards'}} / {{_ 'scrum-estimate'}}
+      select.js-scrum-chart-metric
+        option(value="count") {{_ 'cards'}}
+        option(value="estimate") {{_ 'scrum-estimate'}}
+    each chartGroups
+      section.scrum-chart
+        p {{unit}} — {{sourceLabel}} — {{policyLabel}}
+        each rows
+          figure.scrum-chart-row
+            figcaption
+              strong {{name}}
+              if partial
+                p {{_ 'scrum-partial-snapshot'}}
+            each series
+              .scrum-chart-series
+                span.scrum-chart-label {{label}}: {{value}}
+                .scrum-chart-track(aria-hidden="true")
+                  .scrum-chart-bar(class=key style="width: {{width}}%")
+                small {{formatTotal total}}
   .scrum-table-scroll
     table.scrum-table
       thead

@@ -113,7 +113,7 @@ audit; board duplication coverage does not establish those paths are complete.
 
 The current implementation includes planning forms, revision checks,
 start/close snapshots, release and event editors, visibility controls, report
-tables and Excel/PDF output. Work remains on interactive report charts and
+tables, interactive count/estimate bars and Excel/PDF output. Work remains on daily history charts and
 import/export/sync coverage. History is integrated;
 large-board limits and additional failure-injection coverage remain to verify.
 These are tracked by [the Scrum design](Scrum-Design.md); this guide does not

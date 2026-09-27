@@ -32,3 +32,14 @@
   appearance: auto;
   cursor: pointer;
 }
+
+.scrum-chart { margin-block: 16px; border-block-end: 1px solid currentColor; }
+.scrum-chart-row { margin: 12px 0; overflow-wrap: anywhere; }
+.scrum-chart-series { display: grid; grid-template-columns: minmax(100px, 1fr) 3fr; gap: 4px 12px; margin-block: 8px; }
+.scrum-chart-series small { grid-column: 1 / -1; }
+.scrum-chart-track { align-self: center; height: 16px; border: 1px solid currentColor; }
+.scrum-chart-bar { height: 100%; background: currentColor; }
+.scrum-chart-bar.committed, .scrum-chart-bar.added { opacity: .55; }
+@media (max-width: 480px) {
+  .scrum-chart-series { grid-template-columns: 1fr; }
+}
