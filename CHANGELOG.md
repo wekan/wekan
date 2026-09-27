@@ -241,6 +241,11 @@ before/after fields and isolates expected-result predicates from driver
 mutation. Production Sync uses the same literal-value selector helper.
 MongoDB replay tests and twenty production Sync browser scenarios pass; durable
 History/activity completion still needs the production adapter.
+Cleanup now reads back plan and marker deletion before reporting success.
+Partial/zero deletes and uncertain reads retain or report incomplete outcomes;
+lost acknowledgements require verified absence, and successor operations remain
+untouched. Real MongoDB fault-injection tests cover these boundaries. Durable
+completion records are still required for production integration.
 Current Sync write selectors now distinguish explicit null from missing fields.
 Adapter investigation also moved title/description activities after successful
 writes and made archive/entity/rule History hooks reject zero-match updates.
@@ -1083,6 +1088,33 @@ of History/activity effects or enable production recovery by itself. Live
 permission/mapping guards, durable effects, private collection lifecycle and
 startup/pause/cancel integration remain in TODO Later. Other browsers and
 FerretDB were not exercised.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0c9aa707d">Verify Sync plan cleanup before reporting completion</a>. Thanks to xet7.</summary>
+
+The private recovery engine previously trusted delete calls without checking
+whether plan rows or the operation marker remained. Read back the exact plan
+scope before removing its marker, recheck ownership between stages, and verify
+the operation slot is empty before returning success. Zero/partial deletions,
+undefined results and failed reads cannot acknowledge cleanup. Lost deletion
+replies are accepted only when absence can be verified. A successor operation
+is preserved and is not treated as this operation's successful cleanup.
+
+Eighteen focused Sync Node suites pass with real MongoDB enabled. The final
+three journal/mutation suites pass after additional ownership-loss and
+uncertain-read tests. Fault injection covers partial deletion, missing replies,
+failed reads, malformed responses, zero-match marker deletion and replacement
+operations. Retained cleaning markers resume without repeating card writes.
+The offline source/dependency audit passes with advisory warnings. Four
+changelog suites pass; the existing released v12.07 line-length failure remains.
+
+This internal engine remains outside manual/scheduled Sync; no production UI
+path changed. If the final read fails after marker deletion, the result remains
+unknown. Production integration still needs durable completion/outcome records
+and retry intent, and these checks do not fence in-flight writes or provide a
+transaction across collections. Those requirements remain in TODO Later.
 
 </details>
 
