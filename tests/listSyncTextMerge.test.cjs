@@ -41,3 +41,16 @@ test('copied subtasks lose Sync identity without mutating the source',async()=>{
  for(const key of ['syncExternalId','syncSourceType','syncLastSource'])assert.equal(copied[key],undefined);
  assert.equal(original.syncExternalId,'1');assert.equal(copied.title,original.title);
 });
+
+test('field selection preserves identity and never lets excluded text reach the merge',()=>{
+ const {selectSyncTextFields}=require('../models/lib/listSyncTextMerge');
+ const source={...task,title:'Upstream',description:'Upstream body'};
+ assert.deepEqual(selectSyncTextFields([source],['title']),[{externalId:'1',title:'Upstream'}]);
+ assert.deepEqual(selectSyncTextFields([source],[]),[{externalId:'1'}]);
+ assert.deepEqual(selectSyncTextFields([source]),[source]);
+ const merged=planSyncTextMerge(selectSyncTextFields([source],['title']),[{...card,description:'Local body'}]);
+ assert.equal(merged.conflicts.length,0);
+ assert.equal(merged.tasks[0].description,undefined);
+ assert.equal(merged.baselines.get('c').description,'Body');
+ assert.equal(source.description,'Upstream body');
+});

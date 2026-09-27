@@ -443,6 +443,11 @@ template(name="listSyncPopup")
       label {{_ 'list-sync-project-key'}}
       p
         input.list-sync-project-key.js-list-sync-project-key(type="text" value="{{currentSyncProjectKey}}" placeholder="{{_ 'list-sync-project-key-placeholder'}}")
+      each syncTextFields
+        p
+          a.flex.js-toggle-sync-field(data-field=field)
+            .materialCheckBox(class="{{#if checked}}is-checked{{/if}}")
+            span {{_ field}}
       label {{_ 'list-sync-credential'}}
       p.quiet.list-sync-credential-status {{ listSyncCredentialStatusText }}
       p

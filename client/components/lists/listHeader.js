@@ -876,6 +876,7 @@ Template.listSyncPopup.onCreated(function () {
   // as a boolean from the existing hasListSyncCredential method, the same
   // secret-safety discipline as the LDAP Admin Panel override's bind
   // password (client/components/settings/settingBody.js, models/lib/configResolver.js).
+  tpl.selectedSyncFields = new ReactiveVar(list?.syncSource?.fields || ['title', 'description']);
   tpl.hasCredential = new ReactiveVar(false);
   tpl.syncNowResult = new ReactiveVar('');
   tpl.syncNowSuccess = new ReactiveVar(true);
@@ -893,6 +894,10 @@ Template.listSyncPopup.onCreated(function () {
 });
 
 Template.listSyncPopup.helpers({
+  syncTextFields() {
+    const fields = Template.instance().selectedSyncFields.get();
+    return ['title', 'description'].map(field => ({ field, checked: fields.includes(field) }));
+  },
   listSyncSourceTypes() {
     return SYNC_CAPABLE_SOURCES;
   },
@@ -955,6 +960,12 @@ Template.listSyncPopup.helpers({
 });
 
 Template.listSyncPopup.events({
+  'click .js-toggle-sync-field'(event, tpl) {
+    event.preventDefault();
+    const field = event.currentTarget.dataset.field;
+    const selected = tpl.selectedSyncFields.get();
+    tpl.selectedSyncFields.set(selected.includes(field) ? selected.filter(value => value !== field) : [...selected, field]);
+  },
   'change .js-list-sync-type'(event, tpl) {
     tpl.selectedSyncType.set(event.currentTarget.value);
   },
@@ -976,6 +987,7 @@ Template.listSyncPopup.events({
       url,
       projectKey,
       enabled: tpl.selectedSyncEnabled.get(),
+      fields: tpl.selectedSyncFields.get(),
       // Leaving the credential field blank keeps whatever is already stored
       // - setListSyncSource only overwrites it when a non-empty token is
       // sent (server/methods/listSync.js).

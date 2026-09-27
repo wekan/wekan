@@ -22,3 +22,21 @@ test(`list Sync displays ${message} without changing existing cards`,async({page
  expect(db.findOne('cards',{_id:card._id}).archived).not.toBe(true);
  expect(db.findOne('cards',{_id:card._id}).title).toBe(card.title);
 });
+
+test('Sync field selection saves, reopens and rejects unsupported field names',async({page,user,board})=>{
+ const card=db.find('cards',{boardId:board.boardId})[0];
+ db.updateOne('lists',{_id:card.listId},{$set:{syncSource:{type:'jira',url:'https://example.invalid',projectKey:'TEST',enabled:false}}});
+ await loginWithToken(page,user.id,user.token);await openBoard(page,board.boardId,board.slug);
+ const open=async()=>page.evaluate(list=>{Popup.close();Popup.open('listSync',{dataContext:list})({currentTarget:document.body,target:document.body,preventDefault(){},stopPropagation(){}});},db.findOne('lists',{_id:card.listId}));
+ await open();
+ await expect(page.locator('.js-toggle-sync-field .is-checked')).toHaveCount(2);
+ await page.locator('.js-toggle-sync-field[data-field="description"]').click();
+ await page.locator('.js-list-sync-save').click();
+ await expect.poll(()=>db.findOne('lists',{_id:card.listId}).syncSource.fields).toEqual(['title']);
+ await open();
+ await expect(page.locator('.js-toggle-sync-field[data-field="title"] .is-checked')).toHaveCount(1);
+ await expect(page.locator('.js-toggle-sync-field[data-field="description"] .is-checked')).toHaveCount(0);
+ const result=await page.evaluate(async id=>{try{await Meteor.callAsync('setListSyncSource',id,{type:'jira',projectKey:'TEST',fields:['members']});return 'accepted';}catch(error){return 'rejected';}},card.listId);
+ expect(result).toBe('rejected');
+ expect(db.findOne('lists',{_id:card.listId}).syncSource.fields).toEqual(['title']);
+});

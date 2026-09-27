@@ -37,4 +37,12 @@ function syncTextSelector(card, boardId, listId) {
   }
   return selector;
 }
-module.exports = { planSyncTextMerge, syncTextSelector };
+function selectSyncTextFields(tasks, fields) {
+  const wanted = new Set(fields === undefined ? ['title', 'description'] : fields);
+  return tasks.map(task => {
+    const selected = { ...task };
+    for (const field of ['title', 'description']) if (!wanted.has(field)) delete selected[field];
+    return selected;
+  });
+}
+module.exports = { planSyncTextMerge, syncTextSelector, selectSyncTextFields };

@@ -321,6 +321,8 @@ Lists.attachSchema(
       type: String,
       optional: true,
     },
+    'syncSource.fields': { type: Array, optional: true },
+    'syncSource.fields.$': { type: String, allowedValues: ['title', 'description'] },
     'syncSource.enabled': {
       type: Boolean,
       optional: true,

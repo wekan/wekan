@@ -22,7 +22,7 @@ import { planListSyncReconcile, validateListSyncTasks } from '/models/lib/listSy
 import { validateImportSourceShape } from '/models/lib/importSourceShape';
 import { LIST_SYNC_FETCHERS } from '/server/lib/listSyncFetch';
 import { SyncedCron } from '/server/cron/syncedCron';
-const { planSyncTextMerge, syncTextSelector } = require('/models/lib/listSyncTextMerge');
+const { planSyncTextMerge, syncTextSelector, selectSyncTextFields } = require('/models/lib/listSyncTextMerge');
 
 // Sync one list. Exported for the unit test and for a manual "sync now" call;
 // the cron job below just calls this for every eligible list.
@@ -68,7 +68,7 @@ export async function syncOneList(list, { fetchers = LIST_SYNC_FETCHERS } = {}) 
     return { error: String((e && e.message) || e) };
   }
 
-  const externalTasks = parsed.tasks;
+  const externalTasks = selectSyncTextFields(parsed.tasks, source.fields);
 
   const existingCards = (
     await Cards.find({ listId: list._id, syncSourceType: source.type }).fetchAsync()
@@ -124,7 +124,10 @@ export async function syncOneList(list, { fetchers = LIST_SYNC_FETCHERS } = {}) 
       dateLastActivity: now,
       syncExternalId: String(task.externalId),
       syncSourceType: source.type,
-      syncLastSource: { title: task.title || 'Imported item', description: task.description || '' },
+      syncLastSource: {
+        ...(task.title !== undefined ? { title: task.title } : {}),
+        ...(task.description !== undefined ? { description: task.description } : {}),
+      },
     });
   }
 

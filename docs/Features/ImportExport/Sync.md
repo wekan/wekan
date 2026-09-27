@@ -65,8 +65,7 @@ resolve the duplicate mapping before retrying.
 Source-absence archives use the same conditional card selector. Sync does not
 recursively archive subtasks: each archived card must be matched to an absent
 source item. If an active subtask is outside the archive plan, the run stops
-before card writes. Concurrent child creation is not covered by a transaction. Field selection, a dedicated
-conflict-resolution UI, new Scrum metadata mappings, source-switch handling
+before card writes. Concurrent child creation is not covered by a transaction. A dedicated conflict-resolution UI, new Scrum metadata mappings, source-switch handling
 and fully atomic synchronization remain pending.
 
 Fetching and parsing REUSE the existing one-time-import code in
@@ -78,6 +77,13 @@ GitHub/GitLab/Gitea/Forgejo share the exact same job and reconcile logic -
 their own fetchers exist in `listSyncFetch.js` - but are less exercised in
 this pass; see the CHANGELOG's TODO Later for what remains (moving a card
 across lists on an upstream status change, and covering more than issues).
+The existing list Sync popup has Title and Description switches. Both default
+to selected, including configurations saved before this feature. Excluded text
+is not compared, overwritten or advanced in the conflict baseline. New cards
+still require a title: with Title excluded they use `Imported item`; an
+excluded description starts empty. These switches do not change creation or
+source-absence archive behavior. Selecting no text fields is supported.
+
 Configuration methods: `setListSyncSource`, `hasListSyncCredential`,
 `syncListNow` (`server/methods/listSync.js`), all requiring board write
 access.

@@ -2,19 +2,19 @@
 const {test}=require('node:test');const assert=require('node:assert/strict');
 const fs=require('node:fs');const vm=require('node:vm');
 const asModule=file=>import(`data:text/javascript;base64,${Buffer.from(fs.readFileSync(file,'utf8')).toString('base64')}`);
-async function run(raw,parser,existing,updateCount=1,child=null){
+async function run(raw,parser,existing,updateCount=1,child=null,fields){
  const {validateImportSourceShape}=await asModule('models/lib/importSourceShape.js');
  const {planListSyncReconcile,validateListSyncTasks}=await asModule('models/lib/listSyncReconcile.js');
  const cardWrites=[],listWrites=[];let parsed=0;
  const source=fs.readFileSync('server/listSync.js','utf8').replace(/^import .*;\n/gm,'').replace(/export async function/g,'async function');
  const context={Meteor:{startup(){}},Lists:{updateAsync:async(id,modifier)=>listWrites.push(modifier)},
-  Cards:{updateAsync:async(selector,modifier)=>{cardWrites.push({selector,modifier});return updateCount;},find:()=>({fetchAsync:async()=>Array.isArray(existing)?existing:[existing || {_id:'card',syncExternalId:'KEY-1',syncSourceType:'jira',title:'Existing',description:'',syncLastSource:{title:'Existing',description:''}}]}),findOneAsync:async()=>child},
-  Boards:{findOneAsync:async()=>({_id:'board'})},ListSyncCredentials:{findOneAsync:async()=>({token:'test'})},
+  Cards:{insertAsync:async document=>{cardWrites.push({insert:document});return 'new';},updateAsync:async(selector,modifier)=>{cardWrites.push({selector,modifier});return updateCount;},find:()=>({fetchAsync:async()=>Array.isArray(existing)?existing:[existing || {_id:'card',syncExternalId:'KEY-1',syncSourceType:'jira',title:'Existing',description:'',syncLastSource:{title:'Existing',description:''}}]}),findOneAsync:async()=>child},
+  Boards:{findOneAsync:async()=>({_id:'board',getDefaultSwimlineAsync:async()=>({_id:'lane'})})},ListSyncCredentials:{findOneAsync:async()=>({token:'test'})},
   EXTERNAL_PARSERS:{jira:raw=>{parsed++;return parser?parser(raw):{tasks:[]};}},SYNC_CAPABLE_SOURCES:['jira'],
   LIST_SYNC_FETCHERS:{jira:async()=>raw},validateImportSourceShape,planListSyncReconcile,validateListSyncTasks,require:id=>id==='/models/lib/listSyncTextMerge'?require('../models/lib/listSyncTextMerge'):({record(){}}),console,
  };
  vm.createContext(context);vm.runInContext(source,context);
- const result=await context.syncOneList({_id:'list',boardId:'board',syncSource:{type:'jira'}});
+ const result=await context.syncOneList({_id:'list',boardId:'board',syncSource:{type:'jira',fields}});
  return {result,cardWrites,listWrites,parsed};
 }
 test('malformed sync responses cannot be mistaken for a source deletion',async()=>{
@@ -83,4 +83,10 @@ test('concurrent moves or edits abort source-absence archival',async()=>{
 test('active subtasks outside the archive plan prevent all card writes',async()=>{
  const {result,cardWrites}=await run({issues:[]},undefined,undefined,1,{_id:'manual-child'});
  assert.match(result.error,/active subtask/);assert.deepEqual(cardWrites,[]);
+});
+
+test('excluded source text is not updated or added to new-card baselines',async()=>{
+ const {result,cardWrites}=await run({issues:[]},()=>({tasks:[{externalId:'NEW',title:'Remote',description:'Remote body'}]}),[],1,null,[]);
+ assert.equal(result.created,1);assert.equal(cardWrites[0].insert.title,'Imported item');
+ assert.equal(cardWrites[0].insert.description,'');assert.equal(Object.keys(cardWrites[0].insert.syncLastSource).length,0);
 });
