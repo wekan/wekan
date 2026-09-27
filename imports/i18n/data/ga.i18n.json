@@ -3499,5 +3499,8 @@
   "scrum-category-todo": "To do",
   "scrum-category-doing": "In progress",
   "scrum-category-done": "Done",
-  "scrum-partial-report": "Partial report: only cards currently assigned to you are included."
+  "scrum-partial-report": "Partial report: only cards currently assigned to you are included.",
+  "scrum-state-released": "Released",
+  "scrum-released-at": "Released at",
+  "scrum-follow-up-cards": "Follow-up cards"
 }

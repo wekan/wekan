@@ -92,16 +92,37 @@ template(name="scrumView")
               section
                 h3 {{_ 'scrum-releases'}}
                 each releases
-                  p {{name}} — {{state}}
+                  article
+                    h4 {{name}} — {{stateLabel}}
+                    p {{goal}}
+                    p {{startLabel}} — {{endLabel}}
+                    if releasedAt
+                      p {{_ 'scrum-released-at'}}: {{releasedLabel}}
+                    pre {{notes}}
                 if canAdmin
+                  label {{_ 'scrum-release'}}
+                    select.js-scrum-release-select
+                      option(value="") {{_ 'add'}}
+                      each releaseOptions
+                        option(value=_id selected=selected) {{name}}
                   form.js-scrum-release
                     label {{_ 'name'}}
-                      textarea(name="name" required maxlength="200" rows="1")
+                      textarea(name="name" required maxlength="200" rows="1") {{selectedRelease.name}}
                     label {{_ 'scrum-product-goal'}}
-                      textarea(name="goal")
+                      textarea(name="goal") {{selectedRelease.goal}}
+                    label {{_ 'start'}}
+                      input(type="date" name="plannedStart" value=releaseStart)
                     label {{_ 'end'}}
-                      input(type="date" name="plannedEnd")
-                    button.primary(type="submit" disabled=busy) {{_ 'add'}}
+                      input(type="date" name="plannedEnd" value=releaseEnd)
+                    label {{_ 'status'}}
+                      select(name="state")
+                        each releaseStates
+                          option(value=value selected=selected) {{label}}
+                    label {{_ 'scrum-released-at'}}
+                      input(type="datetime-local" name="releasedAt" step="any" value=releaseDate)
+                    label {{_ 'scrum-notes'}}
+                      textarea(name="notes") {{selectedRelease.notes}}
+                    button.primary(type="submit" disabled=busy) {{_ 'save'}}
           if isSprintReport
             label {{_ 'scrum-sprint'}}
               select.js-scrum-sprint
@@ -157,21 +178,34 @@ template(name="scrumView")
                   article
                     h4 {{name}}
                     p {{kindLabel}} — {{dateLabel}}
+                    p {{_ 'scrum-timebox'}}: {{timeboxMinutes}}
                     pre {{notes}}
+                    each followUps
+                      p
+                        a(href=url) {{title}}
                 if canAdmin
+                  label {{_ 'scrum-events'}}
+                    select.js-scrum-event-select
+                      option(value="") {{_ 'add'}}
+                      each eventOptions
+                        option(value=_id selected=selected) {{label}}
                   form.js-scrum-event
                     label {{_ 'scrum-event-kind'}}
                       select(name="kind")
                         each eventKinds
-                          option(value=value) {{label}}
+                          option(value=value selected=selected) {{label}}
                     label {{_ 'name'}}
-                      textarea(name="name" required maxlength="200" rows="1")
+                      textarea(name="name" required maxlength="200" rows="1") {{selectedEvent.name}}
                     label {{_ 'date'}}
-                      input(type="date" name="startsAt" required)
+                      input(type="datetime-local" name="startsAt" step="any" required value=eventStart)
                     label {{_ 'scrum-timebox'}}
-                      input(type="number" name="timeboxMinutes" min="0" max="10080" value="15")
+                      input(type="number" name="timeboxMinutes" min="0" max="10080" value=eventTimebox)
                     label {{_ 'scrum-notes'}}
-                      textarea(name="notes")
+                      textarea(name="notes") {{selectedEvent.notes}}
+                    label {{_ 'scrum-follow-up-cards'}}
+                      select(name="followUpCardIds" multiple)
+                        each followUpCards
+                          option(value=_id selected=selected) {{title}}
                     button.primary(type="submit" disabled=busy) {{_ 'save'}}
 
 template(name="scrumReportTable")

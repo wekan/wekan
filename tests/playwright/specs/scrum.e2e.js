@@ -61,9 +61,13 @@ test('Scrum fields default hidden and non-admin members cannot configure or star
  await view(page,'sprints');
  await expect(page.locator('.js-scrum-settings')).toHaveCount(0);
  await expect(page.locator('.js-scrum-sprint-form')).toHaveCount(0);
+ await expect(page.locator('.js-scrum-release')).toHaveCount(0);
+ await expect(page.locator('.js-scrum-event')).toHaveCount(0);
  await expect(page.locator('.js-scrum-card')).toHaveCount(0);
  await expect(call(page,'scrum.configure',board.boardId,{enabled:true})).rejects.toThrow(/not-authorized/);
  await expect(call(page,'scrum.saveSprint',board.boardId,null,{name:'Forbidden'},null)).rejects.toThrow(/not-authorized/);
+ await expect(call(page,'scrum.saveRelease',board.boardId,null,{name:'Forbidden'},null)).rejects.toThrow(/not-authorized/);
+ await expect(call(page,'scrum.saveEvent',board.boardId,null,{name:'Forbidden'},null)).rejects.toThrow(/not-authorized/);
 });
 
 test('Board Settings reveals Scrum minicard fields and preserves independent card visibility',async({page,user,board})=>{
@@ -82,4 +86,49 @@ test('Board Settings reveals Scrum minicard fields and preserves independent car
  await popup.locator('.js-close-pop-over').click();
  await expect(page.locator('.minicard .scrum-metadata').filter({hasText:'Story'})).toHaveCount(1);
  expect(errors).toEqual([]);
+});
+
+test('release and event editors update existing records and retain linked follow-up cards',async({page,user,board})=>{
+ try{
+  await loginWithToken(page,user.id,user.token);await openBoard(page,board.boardId,board.slug);
+  const sprint=await call(page,'scrum.saveSprint',board.boardId,null,{name:'Editor sprint'},null);
+  await view(page,'sprints');
+  const releaseForm=page.locator('.js-scrum-release');
+  await releaseForm.locator('[name="name"]').fill('Release one');
+  await releaseForm.locator('[name="plannedStart"]').fill('2026-09-01');
+  await releaseForm.locator('[name="plannedEnd"]').fill('2026-09-30');
+  await releaseForm.locator('button[type="submit"]').click();
+  await expect.poll(()=>db.find('scrumReleases',{boardId:board.boardId}).length).toBe(1);
+  const release=db.findOne('scrumReleases',{boardId:board.boardId});
+  await page.locator('.js-scrum-release-select').selectOption(release._id);
+  await expect(releaseForm.locator('[name="name"]')).toHaveValue('Release one');
+  await releaseForm.locator('[name="name"]').fill('Release revised');
+  await releaseForm.locator('[name="state"]').selectOption('released');
+  await releaseForm.locator('[name="releasedAt"]').fill('2026-09-27T13:45');
+  await releaseForm.locator('[name="notes"]').fill('Release notes\nSecond line');
+  await releaseForm.locator('button[type="submit"]').click();
+  await expect.poll(()=>db.findOne('scrumReleases',{_id:release._id}).state).toBe('released');
+  expect(db.find('scrumReleases',{boardId:board.boardId})).toHaveLength(1);
+  await page.locator('.js-scrum-sprint').selectOption(sprint._id);
+  const eventForm=page.locator('.js-scrum-event');
+  await eventForm.locator('[name="name"]').fill('Review one');
+  await eventForm.locator('[name="kind"]').selectOption('review');
+  await eventForm.locator('[name="startsAt"]').fill('2026-09-28T09:30:12.123');
+  const card=db.find('cards',{boardId:board.boardId})[0];
+  await eventForm.locator('[name="followUpCardIds"]').selectOption(card._id);
+  await eventForm.locator('button[type="submit"]').click();
+  await expect.poll(()=>db.find('scrumEvents',{boardId:board.boardId}).length).toBe(1);
+  const record=db.findOne('scrumEvents',{boardId:board.boardId});
+  await page.locator('.js-scrum-event-select').selectOption(record._id);
+  await expect(eventForm.locator('[name="startsAt"]')).toHaveValue('2026-09-28T09:30:12.123');
+  await expect(eventForm.locator('[name="followUpCardIds"]')).toHaveValues([card._id]);
+  await eventForm.locator('[name="notes"]').fill('Review outcome\nFollow up with the linked card');
+  await eventForm.locator('button[type="submit"]').click();
+  await expect.poll(()=>db.findOne('scrumEvents',{_id:record._id}).notes).toContain('Review outcome');
+  expect(db.find('scrumEvents',{boardId:board.boardId})).toHaveLength(1);
+  expect(db.findOne('scrumEvents',{_id:record._id}).followUpCardIds).toEqual([card._id]);
+  expect(db.findOne('scrumEvents',{_id:record._id}).startsAt).toBe(record.startsAt);
+  await call(page,'changeHistory.undoLast',board.boardId);
+  expect(db.findOne('scrumEvents',{_id:record._id}).notes).toBe('');
+ }finally{cleanup(board.boardId);}
 });

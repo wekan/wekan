@@ -60,12 +60,26 @@ Board Settings / List controls the workflow category; Board Settings /
 Swimlane controls sprint, release and purpose fields. Revealing a field does
 not grant permission to edit its value.
 
+## Releases and Scrum events
+
+Board administrators manage releases in Board View / Sprints. Choose Add in
+the release selector to create a record, or select an existing release to edit
+its name, goal, planned dates, status, release timestamp and notes. Saving an
+existing release updates that record instead of creating another one.
+
+Select a sprint to manage its planning, daily, review and retrospective events.
+Choose Add or an existing event, then set its name, kind, local date and time,
+timebox, notes and follow-up cards. Follow-up choices use cards visible to the
+current user; event summaries link those cards. Existing timestamps retain
+their exact instant when only another field is edited. Release and event
+edits use revision checks and the same History undo/redo as other Scrum data.
+
 ## Implementation checkpoint
 
 The current implementation includes planning forms, revision checks,
-start/close snapshots, release and event creation, visibility controls, report
-tables and Excel/PDF output. Work remains on complete event/release editing,
-interactive report charts and import/export/sync coverage. History is integrated;
+start/close snapshots, release and event editors, visibility controls, report
+tables and Excel/PDF output. Work remains on interactive report charts and
+import/export/sync coverage. History is integrated;
 large-board limits and additional failure-injection coverage remain to verify.
 These are tracked by [the Scrum design](Scrum-Design.md); this guide does not
 claim they are finished.

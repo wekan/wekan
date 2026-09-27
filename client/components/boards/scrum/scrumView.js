@@ -13,7 +13,17 @@ const { sprintReport, velocityRows } = require('/models/lib/scrumReports');
 const current = () => Template.instance();
 const data = () => current().dataState.get();
 const selectedSprint = tpl => tpl.dataState.get()?.sprints.find(s => s._id === tpl.sprintId.get());
+const selectedRelease = tpl => tpl.dataState.get()?.releases.find(r => r._id === tpl.releaseId.get());
+const selectedEvent = tpl => tpl.dataState.get()?.events.find(e => e._id === tpl.eventId.get() && e.sprintId === tpl.sprintId.get());
 const dateValue = value => value ? new Date(value).toISOString().slice(0, 10) : '';
+const localDateTime = value => {
+  if (!value) return '';
+  const date = new Date(value);
+  return new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString().slice(0, 23).replace(/:00\.000$/, '').replace(/\.000$/, '');
+};
+// Preserve the exact original instant (including ambiguous daylight-saving
+// times) when an administrator edits notes without changing the date field.
+const timestamp = (value, original) => !value ? null : value === localDateTime(original) ? original : new Date(value).toISOString();
 const t = (key, params) => TAPi18n.__(key, params);
 const stateLabel = state => t(`scrum-state-${state}`);
 const nullable = value => value || null;
@@ -48,9 +58,11 @@ Template.scrumView.onCreated(function () {
   this.dataState = new ReactiveVar(null); this.loading = new ReactiveVar(true);
   this.error = new ReactiveVar(''); this.busy = new ReactiveVar(false);
   this.sprintId = new ReactiveVar(''); this.request = 0; this.stopped = false;
+  this.releaseId = new ReactiveVar(''); this.eventId = new ReactiveVar('');
   this.autorun(() => {
     Session.get('currentBoard'); Meteor.userId();
     this.dataState.set(null); this.sprintId.set('');
+    this.releaseId.set(''); this.eventId.set('');
     void refresh(this);
   });
 });
@@ -83,7 +95,18 @@ Template.scrumView.helpers({
   sprintOpen: () => ['planned', 'active'].includes(selectedSprint(current())?.state),
   sprintStart: () => dateValue(selectedSprint(current())?.plannedStart),
   sprintEnd: () => dateValue(selectedSprint(current())?.plannedEnd),
-  releases: () => data()?.releases || [],
+  releases: () => (data()?.releases || []).map(r => ({ ...r, stateLabel: stateLabel(r.state), startLabel: dateValue(r.plannedStart), endLabel: dateValue(r.plannedEnd), releasedLabel: r.releasedAt ? new Date(r.releasedAt).toLocaleString() : '' })),
+  selectedRelease: () => selectedRelease(current()),
+  releaseOptions: () => (data()?.releases || []).map(r => ({ ...r, selected: r._id === current().releaseId.get() })),
+  releaseStates: () => ['planned', 'released', 'cancelled'].map(value => ({ value, label: t(`scrum-state-${value}`), selected: value === (selectedRelease(current())?.state || 'planned') })),
+  releaseStart: () => dateValue(selectedRelease(current())?.plannedStart),
+  releaseEnd: () => dateValue(selectedRelease(current())?.plannedEnd),
+  releaseDate: () => localDateTime(selectedRelease(current())?.releasedAt),
+  selectedEvent: () => selectedEvent(current()),
+  eventOptions: () => (data()?.events || []).filter(e => e.sprintId === current().sprintId.get()).map(e => ({ ...e, selected: e._id === current().eventId.get(), label: e.name || t(`scrum-event-${e.kind}`) })),
+  eventStart: () => localDateTime(selectedEvent(current())?.startsAt),
+  eventTimebox: () => selectedEvent(current())?.timeboxMinutes ?? 15,
+  followUpCards: () => (data()?.cards || []).map(c => ({ ...c, selected: (selectedEvent(current())?.followUpCardIds || []).includes(c._id) })),
   velocity: () => velocityRows(data()?.sprints || []),
   sprintReportRows() {
     const sprint = selectedSprint(current());
@@ -105,8 +128,13 @@ Template.scrumView.helpers({
           assignmentOptions: result.sprints.filter(s => ['planned', 'active'].includes(s.state)).map(s => ({ ...s, selected: s._id === card.scrum?.sprintId })) };
       });
   },
-  events: () => (data()?.events || []).filter(e => e.sprintId === current().sprintId.get()).map(e => ({ ...e, kindLabel: t(`scrum-event-${e.kind}`), dateLabel: dateValue(e.startsAt) })),
-  eventKinds: () => ['planning', 'daily', 'review', 'retrospective'].map(value => ({ value, label: t(`scrum-event-${value}`) })),
+  events: () => (data()?.events || []).filter(e => e.sprintId === current().sprintId.get()).map(e => ({
+    ...e, kindLabel: t(`scrum-event-${e.kind}`), dateLabel: new Date(e.startsAt).toLocaleString(),
+    followUps: (data()?.cards || []).filter(c => (e.followUpCardIds || []).includes(c._id)).map(c => ({
+      title: c.title, url: FlowRouter.path('card', { boardId: c.boardId, slug: Utils.getCurrentBoard()?.slug, cardId: c._id }),
+    })),
+  })),
+  eventKinds: () => ['planning', 'daily', 'review', 'retrospective'].map(value => ({ value, label: t(`scrum-event-${value}`), selected: value === (selectedEvent(current())?.kind || 'planning') })),
 });
 Template.scrumReportTable.helpers({
   formatTotal(value) { return value ? t('scrum-total', { count: value.count, estimate: value.estimate, unknown: value.unknown }) : ''; },
@@ -119,7 +147,9 @@ Template.scrumView.events({
     });
   },
   'click .js-scrum-refresh'(event, tpl) { event.preventDefault(); void refresh(tpl); },
-  'change .js-scrum-sprint'(event, tpl) { tpl.sprintId.set(event.currentTarget.value); },
+  'change .js-scrum-sprint'(event, tpl) { tpl.sprintId.set(event.currentTarget.value); tpl.eventId.set(''); },
+  'change .js-scrum-release-select'(event, tpl) { tpl.releaseId.set(event.currentTarget.value); },
+  'change .js-scrum-event-select'(event, tpl) { tpl.eventId.set(event.currentTarget.value); },
   'click .js-scrum-new'(event, tpl) { event.preventDefault(); tpl.sprintId.set(''); event.currentTarget.form.reset(); },
   async 'submit .js-scrum-settings'(event, tpl) {
     event.preventDefault(); const values = fields(event.currentTarget);
@@ -153,10 +183,20 @@ Template.scrumView.events({
   },
   async 'submit .js-scrum-release'(event, tpl) {
     event.preventDefault(); const form = event.currentTarget; const values = fields(form);
-    if (await mutate(tpl, 'scrum.saveRelease', null, { name: values.name, goal: values.goal, plannedEnd: nullable(values.plannedEnd), state: 'planned' }, null)) form.reset();
+    const release = selectedRelease(tpl);
+    if (await mutate(tpl, 'scrum.saveRelease', release?._id || null, {
+      name: values.name, goal: values.goal, plannedStart: nullable(values.plannedStart),
+      plannedEnd: nullable(values.plannedEnd), state: values.state, notes: values.notes,
+      releasedAt: timestamp(values.releasedAt, release?.releasedAt),
+    }, release?.revision ?? null)) { if (!release) form.reset(); }
   },
   async 'submit .js-scrum-event'(event, tpl) {
     event.preventDefault(); const form = event.currentTarget; const values = fields(form); const sprint = selectedSprint(tpl);
-    if (sprint && await mutate(tpl, 'scrum.saveEvent', null, { name: values.name, kind: values.kind, startsAt: values.startsAt, timeboxMinutes: Number(values.timeboxMinutes), notes: values.notes, sprintId: sprint._id, followUpCardIds: [] }, null)) form.reset();
+    const record = selectedEvent(tpl);
+    if (sprint && await mutate(tpl, 'scrum.saveEvent', record?._id || null, {
+      name: values.name, kind: values.kind, startsAt: timestamp(values.startsAt, record?.startsAt),
+      timeboxMinutes: Number(values.timeboxMinutes), notes: values.notes, sprintId: sprint._id,
+      followUpCardIds: new FormData(form).getAll('followUpCardIds'),
+    }, record?.revision ?? null)) { if (!record) form.reset(); }
   },
 });
