@@ -1055,7 +1055,10 @@ Cards.helpers({
 
     // Work on a shallow copy to avoid mutating the source card in ReactiveCache
     const cardData = { ...this };
-    if (deferScrum || copyOptions?.scrum === false) { delete cardData.scrum; delete cardData.scrumRevision; }
+    const { copiedCardScrum } = require('./lib/scrumCopy');
+    delete cardData.scrum;
+    delete cardData.scrumRevision;
+    Object.assign(cardData, copiedCardScrum(this, boardId, { omit: deferScrum || copyOptions?.scrum === false }));
     delete cardData._id;
     // getRealId() caches __id on rendered cards; it is not a schema field.
     delete cardData.__id;

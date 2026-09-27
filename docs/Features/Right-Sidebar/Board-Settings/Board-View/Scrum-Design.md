@@ -123,6 +123,14 @@ combine points and hours or use velocity to rank individual members.
 
 ## Import, export, copy and synchronization
 
+Standalone card copies (including copied subtasks) start a fresh Scrum metadata
+revision. Within the same board they retain sprint/release associations and
+backlog rank. Across boards they retain issue type and acceptance criteria but
+omit sprint, past-sprint and release references and board-relative rank: these
+operations do not copy planning records. The source cards remain unchanged.
+Use full-board duplication to copy planning records with remapped references.
+Standalone planning-record mapping and move support remain pending.
+
 Implementation checkpoint: `models/lib/scrumTransfer.js` now defines and tests
 the `wekan-scrum-1` data contract and destination-ID remapping. It covers board
 settings, sprint/release/event records, lifecycle snapshots and optional item

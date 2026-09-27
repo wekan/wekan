@@ -1,4 +1,5 @@
 'use strict';
+import { copiedCardScrum } from './scrumCopy.js';
 
 // #3185 "Template with subtasks and checklists". When a card is copied (e.g.
 // generating a card from a template), each subtask was inserted as a BARE card
@@ -19,6 +20,9 @@ function buildCopiedSubtaskFields(subtask, { newParentId, boardId, swimlaneId, l
   delete fields.syncExternalId;
   delete fields.syncSourceType;
   delete fields.syncLastSource;
+  delete fields.scrum;
+  delete fields.scrumRevision;
+  Object.assign(fields, copiedCardScrum(subtask, boardId));
   fields.parentId = newParentId;
   fields.boardId = boardId;
   fields.swimlaneId = swimlaneId;
