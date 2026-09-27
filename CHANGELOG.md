@@ -1585,6 +1585,23 @@ Upcoming regression evidence remains recorded; Blockly translation is paused.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0574cd4c0">Verify the combined Rules, Blocks and History integration</a>. Thanks to xet7.</summary>
+
+Update the Blocks guide with REST History behavior, shared-component handling
+and button restoration. Correct stale translation wording to reflect the
+maintainer's pause. No translation values changed.
+
+The combined Blocks, History and Rules visibility browser run passes all 18
+Chromium scenarios on local Meteor/MongoDB, including Finnish/Arabic editing,
+rule execution, permissions, REST writes, undo/redo, shared components and
+390px/1440px theme layouts. A broader 37-file rule/workflow Node run passes 45
+runner checks; three separate Blockly catalog checks also pass. Other browser
+engines and FerretDB were not exercised. Concurrent History writes and complete
+translation remain open work. Existing Upcoming regression evidence is retained.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c666a69b2">Document Scrum capabilities and the remaining implementation plan</a>. Thanks to xet7.</summary>
 
 Audit existing estimates, charts, history, permissions and data transfers
