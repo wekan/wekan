@@ -55,6 +55,12 @@ and fields. Align the local and upstream text, then retry to accept a common
 baseline. Older synced cards without a baseline are adopted only when their
 text matches; differing legacy text requires the same resolution.
 
+Sync text writes preserve empty strings and surrounding whitespace in both
+the card and its source baseline while retaining schema validation. An empty
+source description therefore survives storage and does not cause a repeated
+baseline update on every run. Older missing baselines are adopted only when
+the local text agrees with the source.
+
 Updates compare the original title, description, archive state, baseline and
 board/list location before writing. A concurrent edit aborts the remaining run.
 This is not a transaction: earlier successful updates or creations may remain.
@@ -180,6 +186,34 @@ the whole Sync run transactional or fence
 already-issued card writes after lease loss. New UI strings are English source
 entries with the normal English fallback; translation filling remains outside
 the current work queue.
+
+### Preview saved Sync changes
+
+**Preview changes** fetches the saved source and uses the same merge, operation
+selection and conflict checks as Sync now. It shows create/update/archive
+counts and up to 100 card summaries. A status-only difference is not counted as
+an update because automatic moves between lists are not implemented. Changed
+comparison baselines are included in the write plan and named in the preview.
+Conflicts prevent a ready plan; existing conflict choices remain available.
+
+The preview does not change cards, configuration or the shared Sync status,
+including on fetch failure. It uses the normal private per-list reservation
+while reading, then releases it. It can inspect a saved disabled source too.
+Only unrestricted board writers can request the full-list preview. Restricted
+writers are refused before fetching, and access is checked again before a
+result is returned. Normal assigned-card conflict review remains available.
+
+The omission inventory counts normalized fields excluded by saved settings or
+lacking a Sync mapping, such as labels, owners, dates and upstream status. It
+also shows counts of parser warnings and unsupported entries. No omitted field
+values, credential values or parser warning bodies enter this inventory.
+Fields/rows and title lengths are bounded. Titles render as text.
+
+The preview uses saved settings; changing the form clears the displayed plan.
+Sync now fetches and validates again, so the preview is not an approval token
+for a frozen plan. This is the normalized-field checkpoint: provider fields
+already discarded by a parser, detailed provider-specific loss paths, persisted
+run reports and a complete source schema inventory remain unfinished.
 
 ### Repair duplicate mappings
 
@@ -310,7 +344,7 @@ total, not individual worklogs. Original/remaining estimates and Scrum planning
 records remain pending Sync mappings.
 
 Configuration methods: `setListSyncSource`, `hasListSyncCredential`,
-`syncListNow` (`server/methods/listSync.js`), all requiring board write
+`syncListNow`, `previewListSync` (`server/methods/listSync.js`), all requiring board write
 access.
 
 ## Implemented formats and completeness work

@@ -885,6 +885,9 @@ Template.listSyncPopup.onCreated(function () {
   tpl.syncNowSuccess = new ReactiveVar(true);
   tpl.syncConflicts = new ReactiveVar([]);
   tpl.syncBusy = new ReactiveVar(false);
+  tpl.syncPreview = new ReactiveVar(null);
+  tpl.previewRequest = 0;
+  tpl.clearSyncPreview = () => { tpl.syncPreview.set(null); tpl.previewRequest++; };
 
   const refreshCredentialStatus = () => {
     if (!list || !list._id) return;
@@ -899,6 +902,21 @@ Template.listSyncPopup.onCreated(function () {
 });
 
 Template.listSyncPopup.helpers({
+  syncPreview() { return Template.instance().syncPreview.get(); },
+  syncPreviewItems() {
+    return (Template.instance().syncPreview.get()?.items || []).map(row => ({ ...row,
+      actionLabel: `sync-preview-${row.action}`,
+      fieldsText: row.fields.map(field => TAPi18n.__(field === 'syncLastSource' ? 'sync-preview-baseline' :
+        field === 'spentTime' ? 'spent-time-hours' : field)).join(', '),
+    }));
+  },
+  syncPreviewOmissions() {
+    return (Template.instance().syncPreview.get()?.coverage.rows || []).map(row => ({ ...row,
+      fieldText: TAPi18n.__(({ column_name: 'status', swimlane_name: 'swimlane', date_due: 'due-date',
+        owner_username: 'owner', requested_by: 'requested-by', tags: 'labels', spentTime: 'spent-time-hours' })[row.field] || row.field),
+      reasonLabel: row.reason === 'excluded' ? 'sync-preview-excluded' : 'sync-preview-unmapped',
+    }));
+  },
   syncConflicts() { return Template.instance().syncConflicts.get().filter(row => row.fingerprint).map(row => ({
     ...row, label: row.creation ? 'sync-conflict-creation' : row.archive ? 'sync-conflict-archive' : row.duplicate ? 'sync-conflict-duplicate' : row.field === 'spentTime' ? 'spent-time-hours' : row.field,
   })); },
@@ -977,7 +995,34 @@ Template.listSyncPopup.helpers({
 });
 
 Template.listSyncPopup.events({
+  'input .js-list-sync-url, input .js-list-sync-project-key, input .js-list-sync-token, input .js-list-sync-username'(event, tpl) {
+    tpl.clearSyncPreview();
+  },
+  'click .js-list-sync-preview'(event, tpl) {
+    event.preventDefault();
+    if (tpl.syncBusy.get()) return;
+    const list = tpl.data;
+    if (!list?._id) return;
+    tpl.clearSyncPreview();
+    const request = tpl.previewRequest;
+    tpl.syncBusy.set(true);
+    tpl.syncConflicts.set([]);
+    tpl.syncNowResult.set('');
+    Meteor.call('previewListSync', list._id, (err, result) => {
+      if (tpl.view.isDestroyed) return;
+      tpl.syncBusy.set(false);
+      if (request !== tpl.previewRequest) return;
+      if (err || result?.error || !result?.preview) {
+        tpl.syncNowSuccess.set(false);
+        tpl.syncNowResult.set(err?.reason || err?.message || result?.error || TAPi18n.__('sync-preview-unavailable'));
+        return;
+      }
+      tpl.syncPreview.set(result.preview);
+      tpl.syncConflicts.set(result.conflicts || []);
+    });
+  },
   'click .js-resolve-sync-conflict'(event, tpl) {
+    tpl.clearSyncPreview();
     event.preventDefault();
     if (tpl.syncBusy.get()) return;
     const list = tpl.data;
@@ -995,25 +1040,30 @@ Template.listSyncPopup.events({
     });
   },
   'click .js-toggle-sync-operation'(event, tpl) {
+    tpl.clearSyncPreview();
     event.preventDefault();
     const operation = event.currentTarget.dataset.operation;
     const selected = tpl.selectedSyncOperations.get();
     tpl.selectedSyncOperations.set({ ...selected, [operation]: !selected[operation] });
   },
   'click .js-toggle-sync-field'(event, tpl) {
+    tpl.clearSyncPreview();
     event.preventDefault();
     const field = event.currentTarget.dataset.field;
     const selected = tpl.selectedSyncFields.get();
     tpl.selectedSyncFields.set(selected.includes(field) ? selected.filter(value => value !== field) : [...selected, field]);
   },
   'change .js-list-sync-type'(event, tpl) {
+    tpl.clearSyncPreview();
     tpl.selectedSyncType.set(event.currentTarget.value);
   },
   'click a.js-toggle-list-sync-enabled'(event, tpl) {
+    tpl.clearSyncPreview();
     event.preventDefault();
     tpl.selectedSyncEnabled.set(!tpl.selectedSyncEnabled.get());
   },
   async 'click .js-list-sync-save'(event, tpl) {
+    tpl.clearSyncPreview();
     event.preventDefault();
     if (tpl.syncBusy.get()) return;
     tpl.syncConflicts.set([]);
@@ -1047,6 +1097,7 @@ Template.listSyncPopup.events({
     });
   },
   'click .js-list-sync-now'(event, tpl) {
+    tpl.clearSyncPreview();
     event.preventDefault();
     if (tpl.syncBusy.get()) return;
     const list = Template.currentData();
@@ -1072,6 +1123,7 @@ Template.listSyncPopup.events({
     });
   },
   async 'click .js-list-sync-clear'(event, tpl) {
+    tpl.clearSyncPreview();
     event.preventDefault();
     if (tpl.syncBusy.get()) return;
     const list = Template.currentData();

@@ -96,6 +96,8 @@ test('Meteor.call sites match the EXISTING listSync method names and arities '
   assert.ok(/async setListSyncSource\(listId, config\)/.test(methods), 'setListSyncSource(listId, config) must still be the signature');
   assert.ok(/async hasListSyncCredential\(listId\)/.test(methods), 'hasListSyncCredential(listId) must still be the signature');
   assert.ok(/async syncListNow\(listId\)/.test(methods), 'syncListNow(listId) must still be the signature');
+  assert.ok(/async previewListSync\(listId\)/.test(methods), 'previewListSync(listId) must be defined');
+  assert.ok(/Meteor\.call\('previewListSync',\s*list\._id,/.test(js), 'preview uses the checked server method');
 
   // The UI calls each by name, with a call that carries the same number of
   // positional arguments before the Meteor.call callback (listId[, config]).

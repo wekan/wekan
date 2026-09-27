@@ -30,6 +30,10 @@ const { syncSourceKey } = require('/models/lib/listSyncSourceIdentity');
 const { readSyncCredential, sweepSyncCredentials } = require('/server/lib/listSyncConfiguration');
 const { describeSyncConflict, planSyncConflictResolution } = require('/server/lib/listSyncConflict');
 const { readSyncTarget, replaceSyncTarget, describeCreationConflict } = require('/server/lib/listSyncTarget');
+const { syncCoverage, prepareSyncWrites, describeSyncPreview } = require('/server/lib/listSyncPreview');
+// Empty/whitespace source text is a real comparison baseline. Keep schema
+// validation and hooks, but do not clean these values into missing/trimmed data.
+const SYNC_TEXT_WRITE_OPTIONS = { removeEmptyStrings: false, trimStrings: false };
 
 // Sync one list. Exported for the unit test and for a manual "sync now" call;
 // the cron job below just calls this for every eligible list.
@@ -48,10 +52,11 @@ export async function syncOneList(list, options = {}) {
   }
 }
 
-async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, previewConflicts = false,
+async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, previewConflicts = false, dryRun = false,
   assertConflictAccess } = {}, { assertCurrent }) {
+  if (dryRun && resolution) return { error: 'Preview cannot resolve conflicts.' };
   const source = list.syncSource;
-  if (!source || !source.type || source.enabled === false) return { skipped: true };
+  if (!source || !source.type || (!dryRun && source.enabled === false)) return { skipped: true };
   if (!SYNC_CAPABLE_SOURCES.includes(source.type)) {
     return { skipped: true, reason: 'source type has no externalId-capable parser' };
   }
@@ -59,6 +64,8 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
   const fetcher = fetchers[source.type];
   if (!parser || !fetcher) return { skipped: true, reason: 'no parser/fetcher for source type' };
   let conflictScope = assertConflictAccess ? await assertConflictAccess() : null;
+
+  if (dryRun && conflictScope) return { error: 'Full-list write access is required to preview Sync.' };
 
   const credential = await readSyncCredential(ListSyncCredentials, list);
 
@@ -77,6 +84,7 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
     validateListSyncTasks(parsed?.tasks);
   } catch (e) {
     await assertCurrent();
+    if (dryRun) return { error: String((e && e.message) || e) };
     if (!conflictScope) await Lists.updateAsync(listSelector, {
       $set: { 'syncSource.lastSyncError': String((e && e.message) || e).slice(0, 500) },
     });
@@ -111,6 +119,7 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
   // Manual callers with an assigned-only role review their own existing
   // cards. They must not trigger a list-wide create/update/archive run.
   conflictScope = assertConflictAccess ? await assertConflictAccess() : null;
+  if (dryRun && conflictScope) return { error: 'Full-list write access is required to preview Sync.' };
 
   const existingCards = (
     await Cards.find({ boardId: list.boardId, listId: list._id, syncSourceType: source.type, syncSourceKey: sourceKey,
@@ -153,6 +162,18 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
     }
   }
   const conflicts = merge.conflicts.length ? merge.conflicts : archiveConflicts.length ? archiveConflicts : creationConflicts;
+  prepareSyncWrites(plan, merge.baselines);
+  if (dryRun) {
+    await assertCurrent();
+    if (assertConflictAccess && await assertConflictAccess()) return { error: 'Your card access changed. Run preview again.' };
+    if (!await Lists.findOneAsync(listSelector)) return { error: 'Sync settings changed. Run preview again.' };
+    const cardsById = new Map(existingCards.map(card => [card._id, card]));
+    const tasksById = new Map(externalTasks.map(task => [String(task.externalId), task]));
+    return { preview: describeSyncPreview({ plan, cards: existingCards,
+      coverage: syncCoverage(parsed, source), blocked: conflicts.length > 0 }),
+      conflicts: conflicts.slice(0, 50).map(conflict => describeSyncConflict(conflict,
+        cardsById.get(conflict.cardId), tasksById.get(conflict.externalId), list, sourceKey, existingCards)) };
+  }
   if (resolution) {
     if (resolution.field === 'creation') {
       const preview = creationConflicts.find(row => row.cardId === resolution.cardId);
@@ -174,7 +195,7 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
     // Assignment loss between the read and write must fail the same atomic
     // comparison as a changed card value. Scope remains server-owned.
     const changed = await Cards.updateAsync(currentScope ? { $and: [selector, currentScope] } : selector,
-      { $set: { ...plan.changes, dateLastActivity: new Date() }, ...(plan.unset ? { $unset: plan.unset } : {}) });
+      { $set: { ...plan.changes, dateLastActivity: new Date() }, ...(plan.unset ? { $unset: plan.unset } : {}) }, SYNC_TEXT_WRITE_OPTIONS);
     return changed ? { resolved: true } : { error: 'The card changed. Run Sync again to review the current values.' };
   }
   if (conflicts.length) {
@@ -200,13 +221,7 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
       : { cardId: conflict.cardId, externalId: conflict.externalId, field: conflict.field }) };
   }
   if (conflictScope) return { reviewOnly: true, conflicts: [] };
-  const updatesByCard = new Map(plan.toUpdate.map(row => [row.cardId, row]));
   const existingById = new Map(existingCards.map(card => [card._id, card]));
-  for (const [cardId, baseline] of merge.baselines) {
-    let update = updatesByCard.get(cardId);
-    if (!update) { update = { cardId, changes: {} }; plan.toUpdate.push(update); }
-    update.changes.syncLastSource = baseline;
-  }
 
   const board = await Boards.findOneAsync(list.boardId);
   const now = new Date();
@@ -238,7 +253,7 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
           ...(task.description !== undefined ? { description: task.description } : {}),
           ...(task.spentTime !== undefined ? { spentTime: task.spentTime } : {}),
         },
-      });
+      }, SYNC_TEXT_WRITE_OPTIONS);
     } catch (e) {
       // A second worker or a retry after a card move must not create a new
       // target or overwrite the existing card. Never treat a duplicate as a
@@ -252,13 +267,13 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
   }
 
   for (const update of plan.toUpdate) {
-    const { column_name, ...cardChanges } = update.changes;
+    const cardChanges = update.changes;
     // eslint-disable-next-line no-await-in-loop
     if (Object.keys(cardChanges).length) {
       // eslint-disable-next-line no-await-in-loop
       const previous = existingById.get(update.cardId);
       await assertCurrent();
-      const changed = await Cards.updateAsync(syncTextSelector(previous, list.boardId, list._id), { $set: { ...cardChanges, dateLastActivity: now } });
+      const changed = await Cards.updateAsync(syncTextSelector(previous, list.boardId, list._id), { $set: { ...cardChanges, dateLastActivity: now } }, SYNC_TEXT_WRITE_OPTIONS);
       if (!changed) {
         const error = 'Sync card changed while applying updates; retry sync.';
         await assertCurrent();
@@ -266,10 +281,7 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
         return { error };
       }
     }
-    // column_name (a status change upstream) is recorded but not auto-moved
-    // across lists here - moving a card out of the very list a sync watches
-    // would make the next run's diff undefined. Left for a future pass; see
-    // CHANGELOG TODO Later.
+
   }
 
   for (const cardId of plan.toArchive) {

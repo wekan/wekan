@@ -1735,6 +1735,12 @@ form.inlined-form .list-composer {
   margin: 2px 0 6px;
 }
 
+.list-sync-preview {
+  border-top: 1px solid var(--border-color, #ccc);
+  padding-block: 0.75rem;
+  overflow-wrap: anywhere;
+}
+
 .list-sync-conflict {
   border-top: 1px solid var(--border-color, #ccc);
   padding-block: 0.75rem;

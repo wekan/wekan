@@ -418,7 +418,7 @@ template(name="setListColorPopup")
     button.js-remove-color.negate.wide.right {{_ 'remove-btn'}}
 
 //- List sync settings (docs/Features/ImportExport/Sync.md). UI wiring only -
-  calls the EXISTING setListSyncSource/hasListSyncCredential/syncListNow
+  calls setListSyncSource/hasListSyncCredential/previewListSync/syncListNow
   Meteor methods (server/methods/listSync.js) exactly as they are defined;
   this popup does not touch the sync backend itself.
   The credential field (js-list-sync-token) is write-only, the same
@@ -469,10 +469,36 @@ template(name="listSyncPopup")
         p.list-sync-error {{_ 'list-sync-last-error'}}: {{ listSyncLastError }}
       p
         button.js-list-sync-save.primary(type="submit") {{_ 'save'}}
+        button.js-list-sync-preview(type="button" disabled=syncBusy) {{_ 'sync-preview-button'}}
         button.js-list-sync-now.primary(type="button") {{_ 'list-sync-now'}}
         button.js-list-sync-clear.negate(type="button") {{_ 'list-sync-clear'}}
       if listSyncNowResult
         p(class="{{listSyncNowResultClass}}")= listSyncNowResult
+      with syncPreview
+        .list-sync-preview
+          h3 {{_ 'sync-preview-heading'}}
+          p.quiet {{_ 'sync-preview-saved'}}
+          if blocked
+            p {{_ 'sync-preview-blocked'}}
+          else
+            p {{_ 'sync-preview-create'}}: {{created}}
+            p {{_ 'sync-preview-update'}}: {{updated}}
+            p {{_ 'sync-preview-archive'}}: {{archived}}
+            each syncPreviewItems
+              p
+                strong {{_ actionLabel}}: {{externalId}} — {{title}}
+                if fieldsText
+                  span — {{fieldsText}}
+            if truncated
+              p.quiet {{_ 'sync-preview-truncated'}}
+          h4 {{_ 'sync-preview-omissions'}}
+          p.quiet {{_ 'sync-preview-scope'}}
+          each syncPreviewOmissions
+            p {{fieldText}}: {{count}} — {{_ reasonLabel}}
+          p {{_ 'sync-preview-parser-warnings'}}: {{coverage.parserWarnings}}
+          p {{_ 'sync-preview-parser-unsupported'}}: {{coverage.parserUnsupported}}
+          if coverage.truncated
+            p.quiet {{_ 'sync-preview-truncated'}}
       if syncConflicts
         h3 {{_ 'sync-conflict-heading'}}
         p.quiet {{_ 'sync-conflict-hint'}}

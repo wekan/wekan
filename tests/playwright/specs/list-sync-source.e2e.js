@@ -17,7 +17,9 @@ test.beforeAll(async () => {
     requests.push({ project, auth: req.headers.authorization });
     // Deliberately overlapping external IDs exercise project-scoped matching.
     const issues = emptyProjects.has(project) ? [] : [{ key: 'SAME-1', fields: {
-      summary: `${project} issue`, description: '', status: { name: 'Open' },
+      summary: project === 'PREVIEW' ? '<script>source title</script>' : `${project} issue`,
+      description: '', status: { name: 'Open' },
+      ...(project === 'PREVIEW' ? { labels: ['private-label'], timespent: 0 } : {}),
     } }];
     if (project === 'SCOPED') issues.push({ key: 'SAME-2', fields: {
       summary: 'Hidden source title', description: 'Hidden source description', status: { name: 'Open' },
@@ -153,6 +155,63 @@ for (const disposition of ['moved', 'detached']) test(`Sync popup creates a dura
     db.deleteMany('listSyncTargets', { listId });
     db.deleteMany('listSyncCredentials', { listId });
   }
+});
+
+test('Sync preview reports saved changes and omitted fields without changing cards or status', async ({ page, user, board }) => {
+  const listId = db.find('lists', { boardId: board.boardId })[0]._id;
+  const config = { type: 'jira', url: base, projectKey: 'PREVIEW', token: 'preview-private-token' };
+  await loginWithToken(page, user.id, user.token);
+  await openBoard(page, board.boardId, board.slug);
+  try {
+    await call(page, 'setListSyncSource', listId, config);
+    const originalCards = db.find('cards', { boardId: board.boardId });
+    const originalList = db.findOne('lists', { _id: listId });
+    await openSync(page, listId);
+    await page.locator('.js-list-sync-preview').click();
+    const preview = page.locator('.list-sync-preview');
+    await expect(preview).toContainText('Create cards: 1');
+    await expect(preview).toContainText('<script>source title</script>');
+    await expect(preview.locator('script')).toHaveCount(0);
+    await expect(preview).toContainText('Spent time (hours): 1');
+    await expect(preview).toContainText('Labels: 1');
+    await expect(preview).not.toContainText('private-label');
+    await expect(preview).not.toContainText('preview-private-token');
+    expect(db.find('cards', { boardId: board.boardId })).toEqual(originalCards);
+    expect(db.findOne('lists', { _id: listId })).toEqual(originalList);
+    await page.locator('.js-list-sync-project-key').fill('UNSAVED');
+    await expect(preview).toHaveCount(0);
+    await page.locator('.js-list-sync-preview').click();
+    await expect(preview).toContainText('Based on saved settings');
+    await expect(preview).toContainText('Create cards: 1');
+    expect(requests.at(-1).project).toBe('PREVIEW');
+    await page.locator('.js-list-sync-now').click();
+    await expect.poll(() => db.find('cards', { listId, syncExternalId: 'SAME-1' }).length).toBe(1);
+    await expect(page.locator('.js-list-sync-preview')).toBeEnabled();
+    const settled = db.findOne('lists', { _id: listId });
+    const cards = db.find('cards', { listId });
+    expect(cards.find(card => card.syncExternalId === 'SAME-1').syncLastSource.description).toBe('');
+    await page.locator('.js-list-sync-preview').click();
+    await expect(preview).toContainText('Update cards: 0');
+    expect(db.find('cards', { listId })).toEqual(cards);
+    expect(db.findOne('lists', { _id: listId })).toEqual(settled);
+    emptyProjects.add('PREVIEW');
+    await page.locator('.js-list-sync-preview').click();
+    await expect(preview).toContainText('Archive cards: 1');
+    expect(db.findOne('cards', { listId, syncExternalId: 'SAME-1' }).archived).not.toBe(true);
+    emptyProjects.delete('PREVIEW');
+    db.updateOne('cards', { listId, syncExternalId: 'SAME-1' }, { $set: { title: 'Local', 'syncLastSource.title': 'Original' } });
+    const conflictCard = db.findOne('cards', { listId, syncExternalId: 'SAME-1' });
+    await page.locator('.js-list-sync-preview').click();
+    await expect(preview).toContainText('Resolve the conflicts below');
+    await expect(page.locator('.list-sync-conflict')).toContainText('Local');
+    expect(db.findOne('cards', { _id: conflictCard._id })).toEqual(conflictCard);
+    expect(db.findOne('lists', { _id: listId })).toEqual(settled);
+    await page.locator('.js-resolve-sync-conflict[data-choice="source"]').click();
+    await expect(page.locator('.pop-over .list-sync-now-success')).toBeVisible();
+    await page.locator('.js-list-sync-preview').click();
+    await expect(preview).toContainText('Update cards: 0');
+    expect(db.findOne('cards', { _id: conflictCard._id }).syncLastSource.description).toBe('');
+  } finally { emptyProjects.delete('PREVIEW'); db.deleteMany('listSyncCredentials', { listId }); }
 });
 
 test('Sync popup resolves text conflicts, rejects stale previews and preserves local choices on retry', async ({ page, user, board }) => {
@@ -314,6 +373,11 @@ test('assigned-only writers resolve their own conflicts without reading or chang
     const sourceBefore = db.findOne('lists', { _id: listId }).syncSource;
     db.updateOne('boards', { _id: board.boardId }, { $set: { members: members.map(member => member.userId === user.id
       ? { ...member, isAdmin: false, isNormalAssignedOnly: true } : member) } });
+    const fetchCount = requests.length;
+    const forbiddenPreview = await call(page, 'previewListSync', listId);
+    expect(forbiddenPreview.error).toContain('Full-list write access');
+    expect(JSON.stringify(forbiddenPreview)).not.toMatch(/Hidden|SAME-2/);
+    expect(requests).toHaveLength(fetchCount);
     const review = await call(page, 'syncListNow', listId);
     expect(review.reviewOnly).toBe(true); expect(review.conflicts).toHaveLength(1);
     expect(review.conflicts[0].cardId).toBe(own._id);

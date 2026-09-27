@@ -11,10 +11,10 @@ async function run(raw,parser,existing,updateCount=1,child=null,fields,operation
  const cardWrites=[],listWrites=[];let parsed=0,fetches=0;const cardQueries=[];
  const source=fs.readFileSync('server/listSync.js','utf8').replace(/^import .*;\n/gm,'').replace(/export async function/g,'async function');
  const context={ListSyncTargets:targets,Meteor:{startup(){}},withListSyncLease:async(id,work)=>work({assertCurrent:async()=>{}}),Lists:{findOneAsync:async selector=>!Object.hasOwn(selector,'syncSource')?({_id:'list',boardId:'board',syncSource:{...sourceConfig,fields,...operations}}):(currentConfig?{}:null),updateAsync:async(id,modifier)=>listWrites.push(modifier)},
-  Cards:{insertAsync:async document=>{cardWrites.push({insert:document});if(createError)throw createError;return document._id;},updateAsync:async(selector,modifier)=>{cardWrites.push({selector,modifier});return updateCount;},find:selector=>{cardQueries.push(selector);return {fetchAsync:async()=>Array.isArray(existing)?existing:[existing || {_id:'card',syncExternalId:'KEY-1',syncSourceType:'jira',syncSourceKey:sourceKey,title:'Existing',description:'',syncLastSource:{title:'Existing',description:''}}]}},findOneAsync:async selector=>typeof child==='function'?child(selector):child},
+  Cards:{insertAsync:async (document,options)=>{cardWrites.push({insert:document,options});if(createError)throw createError;return document._id;},updateAsync:async(selector,modifier,options)=>{cardWrites.push({selector,modifier,options});return updateCount;},find:selector=>{cardQueries.push(selector);return {fetchAsync:async()=>Array.isArray(existing)?existing:[existing || {_id:'card',syncExternalId:'KEY-1',syncSourceType:'jira',syncSourceKey:sourceKey,title:'Existing',description:'',syncLastSource:{title:'Existing',description:''}}]}},findOneAsync:async selector=>typeof child==='function'?child(selector):child},
   Boards:{findOneAsync:async()=>({_id:'board',getDefaultSwimlineAsync:async()=>({_id:'lane'})})},ListSyncCredentials:{findOneAsync:async()=>({token:'test',sourceKey:credentialKey})},
   EXTERNAL_PARSERS:{jira:raw=>{parsed++;return parser?parser(raw):{tasks:[]};}},SYNC_CAPABLE_SOURCES:['jira'],
-  LIST_SYNC_FETCHERS:{jira:async()=>{fetches++;return raw;}},validateImportSourceShape,planListSyncReconcile,validateListSyncTasks,require:id=>(id.startsWith('/models/lib/') || ['/server/lib/listSyncCardId','/server/lib/listSyncConfiguration','/server/lib/listSyncConflict','/server/lib/listSyncTarget'].includes(id))?require('..'+id):({record(){}}),console,
+  LIST_SYNC_FETCHERS:{jira:async()=>{fetches++;return raw;}},validateImportSourceShape,planListSyncReconcile,validateListSyncTasks,require:id=>(id.startsWith('/models/lib/') || ['/server/lib/listSyncCardId','/server/lib/listSyncConfiguration','/server/lib/listSyncConflict','/server/lib/listSyncTarget','/server/lib/listSyncPreview'].includes(id))?require('..'+id):({record(){}}),console,
  };
  vm.createContext(context);vm.runInContext(source,context);
  const result=await context.syncOneList({_id:'list',boardId:'board',syncSource:{...sourceConfig,fields,...operations}},options);
@@ -352,4 +352,68 @@ test('replacement preview and resolution preserve old content and reject stale o
  assert.equal(retry.result.created,1);
  assert.equal(retry.cardWrites[0].insert._id,selected.targetId);
  assert.deepEqual(old,{_id:'private-card',title:'PRIVATE TITLE',description:'PRIVATE DESCRIPTION'});
+});
+
+test('preview and actual Sync share the write plan, including baselines and ignored status-only changes',async()=>{
+ const cards=[
+  {_id:'keep',syncExternalId:'KEEP',title:'Old',description:'',syncLastSource:{title:'Old',description:''}},
+  {_id:'gone',syncExternalId:'GONE',title:'Archive me',description:''},
+ ];
+ const tasks=[{externalId:'KEEP',title:'New',description:'',column_name:'Done',tags:['not synced']},
+  {externalId:'NEW',title:'Create me',description:'',spentTime:0,requested_by:'PRIVATE REQUESTER'}];
+ const invoke=options=>run({issues:[]},()=>({tasks}),cards,1,null,undefined,{},sourceKey,true,undefined,options);
+ const preview=await invoke({dryRun:true});
+ assert.deepEqual(preview.cardWrites,[]);assert.deepEqual(preview.listWrites,[]);
+ assert.equal(preview.result.preview.created,1);assert.equal(preview.result.preview.updated,1);
+ assert.equal(preview.result.preview.archived,1);
+ assert.equal(preview.result.preview.items.length,3);
+ assert.doesNotMatch(JSON.stringify(preview.result),/PRIVATE REQUESTER|test-token/);
+ const applied=await invoke({});
+ for(const field of ['created','updated','archived'])assert.equal(preview.result.preview[field],applied.result[field]);
+ const unchanged=await run({issues:[]},()=>({tasks:[{externalId:'KEEP',title:'Old',description:'',column_name:'Done'}]}),[cards[0]]);
+ assert.equal(unchanged.result.updated,0);assert.deepEqual(unchanged.cardWrites,[]);
+});
+
+test('preview errors and conflicts leave cards, settings and Sync status unchanged',async()=>{
+ const bad=await run({errorMessages:['Broken']},undefined,undefined,1,null,undefined,{},sourceKey,true,undefined,{dryRun:true});
+ assert.ok(bad.result.error);assert.deepEqual(bad.cardWrites,[]);assert.deepEqual(bad.listWrites,[]);
+ const card={_id:'card',syncExternalId:'KEY-1',title:'Local',description:'',syncLastSource:{title:'Original',description:''}};
+ const blocked=await run({issues:[]},()=>({tasks:[{externalId:'KEY-1',title:'Source'}]}),[card],1,null,undefined,{},sourceKey,true,undefined,{dryRun:true});
+ assert.equal(blocked.result.preview.blocked,true);assert.ok(blocked.result.conflicts.length);
+ assert.deepEqual(blocked.cardWrites,[]);assert.deepEqual(blocked.listWrites,[]);
+ const collision=await run({issues:[]},()=>({tasks:[{externalId:'NEW',title:'Source'}]}),[],1,{_id:'occupied'},undefined,{},sourceKey,true,undefined,{dryRun:true});
+ assert.equal(collision.result.preview.blocked,true);assert.equal(collision.result.conflicts[0].creation,true);
+ assert.deepEqual(collision.cardWrites,[]);assert.deepEqual(collision.listWrites,[]);
+});
+
+test('full-list previews reject restricted callers before fetching and recheck access before returning',async()=>{
+ const invoke=options=>run({issues:[]},()=>({tasks:[{externalId:'SECRET',title:'Hidden'}]}),[],1,null,undefined,{},sourceKey,true,undefined,{dryRun:true,...options});
+ const denied=await invoke({assertConflictAccess:async()=>({members:'restricted'})});
+ assert.equal(denied.fetches,0);assert.ok(denied.result.error);
+ assert.doesNotMatch(JSON.stringify(denied.result),/SECRET|Hidden/);
+ let checks=0;
+ const revoked=await invoke({assertConflictAccess:async()=>++checks<3?null:{members:'restricted'}});
+ assert.ok(revoked.result.error);assert.doesNotMatch(JSON.stringify(revoked.result),/SECRET|Hidden/);
+ assert.deepEqual(revoked.cardWrites,[]);assert.deepEqual(revoked.listWrites,[]);
+ const invalid=await invoke({resolution:{field:'creation'}});
+ assert.ok(invalid.result.error);assert.equal(invalid.fetches,0);
+});
+
+test('preview respects saved operation switches and can inspect a disabled source without enabling it',async()=>{
+ const parser=()=>({tasks:[{externalId:'NEW',title:'New'}]});
+ const disabled=await run({issues:[]},parser,[],1,null,undefined,{enabled:false},sourceKey,true,undefined,{dryRun:true});
+ assert.equal(disabled.result.preview.created,1);assert.deepEqual(disabled.listWrites,[]);assert.deepEqual(disabled.cardWrites,[]);
+ const unchanged=await run({issues:[]},parser,undefined,1,null,undefined,{createCards:false,archiveCards:false},sourceKey,true,undefined,{dryRun:true});
+ assert.equal(unchanged.result.preview.total,0);assert.deepEqual(unchanged.listWrites,[]);assert.deepEqual(unchanged.cardWrites,[]);
+});
+
+test('Sync text writes retain empty and whitespace baselines without disabling validation',async()=>{
+ const tasks=[{externalId:'NEW',title:'  Incoming  ',description:''},{externalId:'KEY-1',title:'Updated',description:''}];
+ const applied=await run({issues:[]},()=>({tasks}));
+ for(const write of applied.cardWrites){
+  assert.equal(write.options.removeEmptyStrings,false);assert.equal(write.options.trimStrings,false);
+  assert.equal(write.options.validate,undefined);assert.equal(write.options.bypassCollection2,undefined);
+ }
+ assert.equal(applied.cardWrites[0].insert.syncLastSource.title,'  Incoming  ');
+ assert.equal(applied.cardWrites[0].insert.syncLastSource.description,'');
 });

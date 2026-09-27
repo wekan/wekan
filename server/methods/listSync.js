@@ -136,6 +136,15 @@ Meteor.methods({
       assertConflictAccess: () => assertConflictAccess(this.userId, list.boardId) });
   },
 
+  async previewListSync(listId) {
+    check(listId, String);
+    const list = await Lists.findOneAsync(listId);
+    if (!list) throw new Meteor.Error('list-not-found', 'List not found.');
+    await assertWriteAccess(this.userId, list.boardId);
+    return syncOneList(list, { dryRun: true,
+      assertConflictAccess: () => assertConflictAccess(this.userId, list.boardId) });
+  },
+
   async resolveListSyncConflict(listId, resolution) {
     check(listId, String);
     check(resolution, { cardId: String, field: Match.OneOf('title', 'description', 'spentTime', 'syncExternalId', 'archive', 'creation'),

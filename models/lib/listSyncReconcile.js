@@ -72,8 +72,8 @@ export function planListSyncReconcile({ externalTasks = [], existingCards = [] }
     if (task.spentTime !== undefined && task.spentTime !== card.spentTime) changes.spentTime = task.spentTime;
     if (task.column_name !== undefined && task.column_name !== card.column_name) {
       // Signals a status change (e.g. Jira issue moved to a different
-      // workflow status) - the caller maps this to a list move when the
-      // target list can be resolved, otherwise it is dropped harmlessly.
+      // workflow status). Current Sync reports it as an unmapped field in
+      // preview and excludes it from writes; automatic list moves are pending.
       changes.column_name = task.column_name;
     }
     if (Object.keys(changes).length) {
