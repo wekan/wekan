@@ -1391,6 +1391,24 @@ live provider accounts were not exercised.
 This release adds the following regression coverage and documentation:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e0bcf7bde">Record compound Rules REST changes in reversible History</a>. Thanks to xet7.</summary>
+
+Rules REST creation, editing and deletion use the shared rule-history wrapper
+with the authenticated API user. Rule, trigger and action changes form one
+entry per request, and unchanged requests add none. Undo/redo restores compound
+edits and deleted rule documents through existing permission/conflict checks.
+This groups History recording; it does not make compound writes transactional.
+
+Four Node suites and four Chromium History scenarios pass. The REST scenario
+verifies attribution, entry counts, no-op suppression, unauthorized-write denial,
+compound undo/redo and deletion recovery. The final no-op extension also passes
+on rerun. Update the History guide. Existing Upcoming regression evidence
+remains recorded; other browsers were not exercised. Blockly translations
+remain paused.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/d269c8c70">Reject incompatible Scrum snapshot policies in native transfers</a>. Thanks to xet7.</summary>
 
 Native Scrum transfer requires start and close snapshots to agree on estimate
