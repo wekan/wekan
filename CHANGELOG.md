@@ -183,13 +183,16 @@ changed mapping groups require a new review.
 Parents whose archival is blocked by active subcards can now remain local by
 removing only the parent Sync mapping. Previews omit subcard details and fresh
 source/parent checks reject stale choices; subcards remain untouched.
+Moved or detached cards can now be preserved while an unrestricted writer
+chooses a replacement in the watched list. Private conditional decisions retain
+the replacement ID across retries and restarts; previews expose only incoming
+source text and stale choices are rejected.
 Remaining: external sprint histories without invented snapshots, multiple
 release assignments, epic relationships, automatic field/schema mapping,
 Trello and other Scrum adapters, mapping previews/loss reporting, planning and
 estimate Sync, durable restart checkpoints, fencing of in-flight card writes
 after lease loss, atomic multi-card reconciliation, cleanup of credentials for
-missing lists and malformed generations,
-and resolution UI for moved or detached-card creation conflicts.
+missing lists and malformed generations.
 Changes during card writes remain nontransactional.
 See [Jira](docs/Features/ImportExport/Jira/Jira.md) and
 [Sync](docs/Features/ImportExport/Sync.md).
@@ -1047,6 +1050,30 @@ in TODO Later. The known released-entry changelog format failure remains.
 and improves list synchronization:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/352dcbea8">Create stable replacements for moved or detached Sync cards</a>. Thanks to xet7.</summary>
+
+Stop before normal card writes when a creation ID is occupied. Unrestricted
+writers can choose a replacement in the Sync popup while preserving the old
+card unchanged. Show only incoming source text, since the old card may now be
+private. Refetch source data and reject changed previews or disabled creation.
+
+Store the chosen target before inserting the replacement. Conditional target
+changes reject stale decisions; retries and other workers reuse the chosen ID
+after lost acknowledgements. Keep these private records across reconnects and
+restarts. Direct client writes are denied. Assigned-only writers cannot choose
+replacements, and no provider write is made.
+
+Twelve Node suites pass, including real MongoDB concurrency and lost
+acknowledgement checks. Fourteen Chromium scenarios pass, followed by two
+focused scenarios covering moved and detached cards and denied direct writes
+(fifteen distinct scenarios total). The local release audit passes with
+advisory warnings. Add English source labels only. FerretDB, other browsers
+and live providers were not tested. Durable whole-run reconciliation,
+transactions and fencing of already-issued card writes remain pending.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ed1615369">Keep parents local when active subcards block Sync archival</a>. Thanks to xet7.</summary>
 
 Show an archive-conflict preview when an absent source item still has active
@@ -1061,8 +1088,8 @@ Ten Sync Node suites and thirteen Chromium scenarios pass, including both
 permission scopes, stale source absence, preserved parent/subcard data and
 existing Sync behavior. The local release audit passes with advisory warnings.
 Add English source labels only. If the source later returns, the stable-ID
-collision guard preserves a detached local card; moved/detached-card creation
-resolution remains pending alongside durable reconciliation and write fencing.
+collision guard preserves a detached local card; explicit replacement is
+extended above. Durable reconciliation and write fencing remain pending.
 Other browsers, FerretDB and live providers were not tested.
 
 </details>
@@ -1082,10 +1109,9 @@ reversed query order, protected retained mappings, stale groups, assignment
 conditions, unchanged card content and successful Sync after repair. The local
 release audit passes with advisory warnings. Add English source labels only.
 Groups spanning hidden cards require an unrestricted writer. Archive/subtask
-resolution is extended above. Moved/detached-card creation conflicts,
-transactional reconciliation and in-flight
-write fencing remain pending. Other browsers, FerretDB and live providers
-were not tested.
+repair and explicit creation replacement are extended above. Transactional
+reconciliation and in-flight write fencing remain pending. Other browsers,
+FerretDB and live providers were not tested.
 
 </details>
 
@@ -1108,10 +1134,9 @@ Ten Sync Node suites and ten Chromium scenarios pass, including hidden-card
 preservation, unchanged shared status, assignment revocation, scoped writes
 and existing configuration/credential behavior. The local release audit passes
 with advisory warnings. Add one English source label without translation fill.
-Duplicate mapping and archive/subtask repair are extended above. Creation
-collision resolution for moved or detached cards,
-transactional reconciliation
-and in-flight card-write fencing remain pending. Other browsers, FerretDB
+Duplicate mapping, archive/subtask repair and creation replacement are
+extended above. Transactional reconciliation and in-flight card-write
+fencing remain pending. Other browsers, FerretDB
 and live providers were not tested.
 
 </details>
@@ -1135,7 +1160,7 @@ release audit passes with advisory warnings. Add English source labels only;
 other languages use the existing fallback, without translation filling.
 
 Assigned-only resolution and duplicate mapping repair are extended above.
-Moved/detached-card creation conflicts, transactional reconciliation and
+Creation replacement is extended above. Transactional reconciliation and
 in-flight write fencing remain pending.
 FerretDB, other browsers and live providers were not tested.
 
