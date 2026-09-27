@@ -197,10 +197,13 @@ The preview shares the actual write plan, lists bounded card summaries and
 counts normalized fields excluded by settings or lacking mappings. Ignored
 status-only changes no longer count as updates. Empty source baselines survive
 storage, so unchanged runs do not repeatedly update them.
+The preview now inventories fetched source paths before normalization: unmapped
+fields, excluded selections/items, unused fallbacks and representation changes.
+Unknown subtrees are reported as a whole, with bounded counts and no values.
 Remaining: external sprint histories without invented snapshots, multiple
 release assignments, epic relationships, automatic field/schema mapping,
-Trello and other Scrum adapters, provider-specific mapping/loss reports,
-persisted run reports, planning and
+Trello and other Scrum adapters, complete provider schema/mapping coverage,
+binary/history transport, persisted run reports, planning and
 estimate Sync, durable restart checkpoints, fencing of in-flight card writes
 after lease loss and atomic multi-card reconciliation.
 Changes during card writes remain nontransactional.
@@ -1060,6 +1063,34 @@ in TODO Later. The known released-entry changelog format failure remains.
 and improves list synchronization:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/e0f54fc93">Show source fields left out of Sync before normalization</a>. Thanks to xet7.</summary>
+
+Inspect fetched issue data for unmapped fields, saved-field exclusions,
+unused fallback values and representation conversions. Report attachments,
+comments, estimates and custom extensions that disappear before normalization.
+Count pull requests excluded by the GitHub/Gitea/Forgejo issue parser.
+Unknown subtrees are reported at their first unmapped path as a whole.
+
+Return paths and occurrence counts without field values. Bound output to 100
+path/reason rows, count overflow and shorten long field names. Render paths as
+escaped text. Preserve full-list authorization, saved-settings behavior and
+no-card-write preview semantics. Normal Sync does not compute this inventory.
+
+Fourteen Sync Node suites pass, including local MongoDB checks, and all eighteen
+Chromium Sync scenarios pass. Coverage includes actual parser choices, numeric
+zero, unknown/prototype keys, bounded output, omitted-value privacy, escaped
+paths and access revoked before the preview returns. The local release audit
+passes with advisory warnings. Update Sync and format-coverage documentation;
+add English source labels only. FerretDB and other browsers were not tested.
+
+Rules follow the current parsers, not a complete provider schema. Pagination
+envelopes discarded while fetching are outside this inventory. Complete field
+mapping, persisted run reports, binary/history transport and durable recovery
+remain in TODO Later. Existing Upcoming regression evidence remains recorded.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/80ccf100a">Preview saved Sync changes and fields left unsynchronized</a>. Thanks to xet7.</summary>
 
 Add Preview changes to the list Sync popup. Reuse the actual merge, operation
@@ -1086,9 +1117,9 @@ settings, empty baseline persistence and conflict resolution. The release audit
 passes with advisory warnings. Add English source labels only. FerretDB and
 other browsers were not tested.
 
-This completes the normalized-field preview checkpoint. Source fields lost
-before normalization, detailed provider mapping paths, persisted run reports
-and complete schema coverage remain in TODO Later alongside durable recovery.
+This completes the normalized-field preview checkpoint. The source inventory
+added next covers fetched fields before normalization; persisted run reports,
+complete schema/mapping coverage and durable recovery remain in TODO Later.
 
 </details>
 
