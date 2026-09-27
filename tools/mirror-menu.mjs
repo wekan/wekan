@@ -8,9 +8,12 @@ import { loadOrganizations, saveOrganizations } from './mirror-organizations.mjs
 import { forges, loadSettings, saveSettings } from './mirror-settings.mjs';
 import { root, command, cliApi, httpJson, activeMirrors } from './mirror-active-forges.mjs';
 
-function currentSettings(directory) {
+function registryMirrors(directory) {
   const registry = path.join(directory, 'releases/mirror.sh');
-  return loadSettings(directory, fs.existsSync(registry) ? activeMirrors(fs.readFileSync(registry, 'utf8')).map(m => m.name) : undefined);
+  return fs.existsSync(registry) ? activeMirrors(fs.readFileSync(registry, 'utf8')).map(m => m.name) : ['gitlab', 'sourceforge'];
+}
+function currentSettings(directory) {
+  return loadSettings(directory, registryMirrors(directory));
 }
 
 export function changeSource(settings, source) {
@@ -195,7 +198,7 @@ export async function menu({ directory = root, ask, log = console.log, synchroni
         const source = names[Number(answer) - 1];
         settings = changeSource(settings, source); saveSettings(directory, settings);
       } else if (choice === '3') {
-        const names = Object.keys(forges).filter(n => n !== settings.source);
+        const names = Object.keys(forges).filter(n => n !== settings.source && (n !== 'codeberg' || registryMirrors(directory).includes(n)));
         log(names.map((n, i) => `${i + 1}. [${settings.mirrors.includes(n) ? 'x' : ' '}] ${forges[n].name}`).join('\n'));
         const answer = await ask('Active numbers separated by commas; none disables all; blank cancels: ');
         if (answer === null) return;

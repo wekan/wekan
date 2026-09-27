@@ -18,16 +18,16 @@ const work = fs.mkdtempSync(path.join(temporary, 'mirror-menu-tests-'));
   const test = async (name, fn) => { await fn(); passed++; console.log('  ok -', name); };
   await test('default settings persist; malformed, duplicate and self-mirroring settings fail', () => {
     const defaults = s.loadSettings(work);
-    assert.deepEqual(defaults, { source: 'github', mirrors: ['gitlab', 'codeberg', 'sourceforge'] });
+    assert.deepEqual(defaults, { source: 'github', mirrors: ['gitlab', 'sourceforge'] });
     s.saveSettings(work, defaults); assert.deepEqual(s.loadSettings(work), defaults);
     for (const text of ['source=github\nmirrors=gitlab', 'version=1\nsource=github\nsource=gitlab\nmirrors=', 'version=1\nsource=github\nmirrors=github', 'version=1\nsource=unknown\nmirrors=', 'version=1\nsource=github\nmirrors=gitlab,gitlab']) assert.throws(() => s.parseSettings(text));
-    assert.deepEqual(m.changeSource(defaults, 'gitlab'), { source: 'gitlab', mirrors: ['codeberg', 'sourceforge', 'github'] });
+    assert.deepEqual(m.changeSource(defaults, 'gitlab'), { source: 'gitlab', mirrors: ['sourceforge', 'github'] });
   });
   await test('six-action menu changes and reloads settings, dispatches checks and sync, exits safely', async () => {
     const answers = ['bad', '2', '2', '3', '1,2', '4', '5', '1', '6'];
     const calls = [], output = [];
     await m.menu({ directory: work, ask: async () => answers.shift() ?? null, log: v => output.push(v), online: async v => calls.push(['online', v]), missing: async v => calls.push(['missing', v]), synchronize: async v => calls.push(['sync', v]) });
-    assert.deepEqual(s.loadSettings(work), { source: 'gitlab', mirrors: ['github', 'codeberg'] });
+    assert.deepEqual(s.loadSettings(work), { source: 'gitlab', mirrors: ['github', 'sourceforge'] });
     assert.deepEqual(calls.map(c => c[0]), ['online', 'missing', 'sync']);
     assert.ok(calls.every(c => c[1].source === 'gitlab'));
     assert.match(output.join('\n'), /5\. Check where data/);

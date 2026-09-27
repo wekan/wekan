@@ -4,7 +4,7 @@
 # Shared menu manages source/destination organizations and local offline archives.
 # Linked files are downloaded from their live URLs only; no archive.org fallback.
 # Default repository: https://github.com/wekan/wekan to
-# GitLab, Codeberg and SourceForge.
+# GitLab and SourceForge. Codeberg stays commented out below.
 # Not to Bitbucket, it has Unauthorized errors.
 
 set -euo pipefail
@@ -20,10 +20,11 @@ export PATH="$TOOLS_DIR/bin:${GOBIN:+$GOBIN:}$PATH"
 mkdir -p "$TOOLS_DIR/tmp"
 export TMPDIR="$TOOLS_DIR/tmp"
 
-# Default registry; settings.txt overrides these destinations after configuration.
+# Default registry; settings.txt stores the selected destinations.
+# Keep Codeberg commented out to disable it, including in older saved settings.
 default_registry() {
 mirror "gitlab" "git@gitlab.com:wekan/wekan"
-mirror "codeberg" "git@codeberg.org:wekan/wekan"
+#mirror "codeberg" "git@codeberg.org:wekan/wekan"
 mirror "sourceforge" "ssh://wekan@git.code.sf.net/p/wekan/code"
 }
 # Bitbucket is inactive because its repository access is unreliable.

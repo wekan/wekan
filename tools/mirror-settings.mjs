@@ -22,9 +22,13 @@ export function parseSettings(text) {
   if (values.version !== '1' || values.source === undefined || values.mirrors === undefined) throw new Error('Incomplete or unsupported mirror settings.txt');
   return validateSettings({ source: values.source, mirrors: values.mirrors ? values.mirrors.split(',').map(s => s.trim()) : [] });
 }
-export function loadSettings(root, defaults = ['gitlab', 'codeberg', 'sourceforge']) {
+export function loadSettings(root, defaults = ['gitlab', 'sourceforge']) {
   const file = path.join(root, '.tools/mirror/settings.txt');
-  return fs.existsSync(file) ? parseSettings(fs.readFileSync(file, 'utf8')) : validateSettings({ source: 'github', mirrors: defaults });
+  const settings = fs.existsSync(file) ? parseSettings(fs.readFileSync(file, 'utf8')) : validateSettings({ source: 'github', mirrors: defaults });
+  // A commented Codeberg registry entry also disables stale saved destinations.
+  // Uncommenting it explicitly restores Codeberg as a configurable mirror.
+  if (!defaults.includes('codeberg')) settings.mirrors = settings.mirrors.filter(name => name !== 'codeberg');
+  return settings;
 }
 export function saveSettings(root, settings) {
   const validated = validateSettings(settings), file = path.join(root, '.tools/mirror/settings.txt');

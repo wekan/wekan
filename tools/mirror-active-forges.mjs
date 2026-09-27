@@ -579,16 +579,17 @@ export function syncGit(mirror, run = command, exists = fs.existsSync, tools) {
   let pushRefs;
   let otherRefs;
   if (organization === 'wekan' && repository === 'wekan') {
-    // The WeKan checkout is already a Git repository. Fetch the selected
-    // source's refs into a private namespace without moving its working branch
-    // or creating a second full clone under .tools.
-    sourceRepo = root;
+    // Keep mirror refs out of the working WeKan checkout. The path follows
+    // the script's checkout on macOS, Linux and Windows.
+    sourceRepo = path.join(tools, `wekan-${sourceName}`);
+    fs.mkdirSync(tools, { recursive: true });
+    if (!exists(sourceRepo)) run('git', ['clone', sourceUrl, sourceRepo]);
     const namespace = `refs/mirror-source/${sourceName}`;
     const heads = `${namespace}/heads/`;
     const tags = `${namespace}/tags/`;
-    run('git', ['-C', root, 'fetch', '--prune', '--no-tags', sourceUrl,
+    run('git', ['-C', sourceRepo, 'fetch', '--prune', '--no-tags', sourceUrl,
       `+refs/heads/*:${heads}*`, `+refs/tags/*:${tags}*`]);
-    const refs = run('git', ['-C', root, 'for-each-ref', '--format=%(refname)',
+    const refs = run('git', ['-C', sourceRepo, 'for-each-ref', '--format=%(refname)',
       `${namespace}/heads`, `${namespace}/tags`]).trim().split(/\r?\n/).filter(Boolean);
     if (!refs.length) return false;
     const destination = ref => {
@@ -639,6 +640,7 @@ export function syncGit(mirror, run = command, exists = fs.existsSync, tools) {
       if (otherRefs.length) run('git', ['-C', sourceRepo, 'push', mirror.url, ...otherRefs]);
     } catch (error) { throw new Error(`${original.message}; merge-preserving retry: ${error.message}`); }
   }
+  if (!exists(existingCheckout)) run('git', ['clone', '--branch', defaultBranch, mirror.url, existingCheckout]);
 }
 export async function sourceForgeReleases(snapshot, apply, download, record, run = command, directory = path.join(root, '.tools/tmp/mirror-active')) {
   const user = process.env.WEKAN_SOURCEFORGE_USER || 'wekan';
