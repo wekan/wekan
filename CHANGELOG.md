@@ -1479,6 +1479,22 @@ Blockly translations remain paused.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/9f3fbfd52">Keep Scrum planning order consistent for equal ranks</a>. Thanks to xet7.</summary>
+
+Product Backlog and sprint card tables break equal effective-rank ties with
+stable card IDs. Database fetch order no longer decides tied positions.
+Explicit zero ranks and negative normal list positions retain their existing
+meaning. Document this ordering in the Product Backlog guide.
+
+Twenty focused Node checks and three Chromium scenarios pass, covering
+different fetch orders, unchanged input data, rank precedence, metadata edits,
+refreshes, release assignment and rank History. Other browsers were not run.
+Existing Upcoming regression evidence remains recorded. Blockly translations
+remain paused under TODO Later.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c6ac0014c">Separate unset Scrum ranks from normal board sort positions</a>. Thanks to xet7.</summary>
 
 The planning editor no longer puts a potentially negative board sort position
