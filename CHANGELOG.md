@@ -114,7 +114,9 @@ and Velocity charts and Excel/PDF exports are implemented with focused tests.
 History supports revision checks, compound recovery checkpoints and undo/redo.
 Restoration retries now use stable per-author event IDs and verify immutable
 contents and integrity before accepting existing History rows. Failed or damaged
-records retain the recovery checkpoint. Finalization now verifies the source
+records retain the recovery checkpoint. Successful insert replies now require
+the same persisted-event verification; missing rows and failed confirmation
+reads keep recovery pending. Finalization now verifies the source
 History row and persisted undo/redo state before deleting the exact operation's
 checkpoint. Retries preserve the original undo timestamp. Ordinary writes and
 History remain non-atomic, and automatic startup replay is still pending.
@@ -1451,6 +1453,29 @@ the pre-existing overlong line in released v12.07.
 This verification and cleanup sequence is not a cross-document transaction.
 Coordinated fencing of in-flight writers, atomic original writes/History and
 automatic startup replay remain in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d3667f50b">Verify successful Scrum History inserts</a>. Thanks to xet7.</summary>
+
+Scrum restoration now reads back and validates the saved event even when the
+insert reports success. Refused inserts, mismatched identities, altered event
+contents and unavailable confirmation reads leave recovery pending. A retry
+reuses an intact saved event without changing its timestamp or integrity chain.
+
+Three focused History Node suites and all seven Scrum History Chromium tests
+pass. Fault injection covers false success replies, damaged records, failed
+confirmation reads and retention of the original write error. Existing browser
+coverage exercises restore, undo/redo, permission denial, damaged recovery
+evidence and interrupted compound operations. The offline source/dependency
+audit passes with advisory fingerprint warnings. Other Upcoming regression
+evidence remains recorded with its entries.
+Four of five changelog suites pass; the format suite still reports the existing
+overlong Member Settings line in the released v12.07 notes.
+
+Original mutation/History atomicity, independent chain-writer coordination and
+automatic startup replay remain incomplete in TODO Later.
 
 </details>
 
