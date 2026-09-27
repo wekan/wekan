@@ -1104,6 +1104,21 @@ This does not resolve the remaining large-board History storage limits.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e685866c1">Preserve Jira estimate mappings through the custom-field editor</a>. Thanks to xet7.</summary>
+
+Saving the existing custom-field popup no longer erases valid Jira time markers
+from numeric fields when rebuilding their settings. Renaming an imported
+estimate through the UI retains its meaning for Jira export. Invalid markers
+and markers on non-numeric fields are not retained by the editor.
+
+Seven focused Node checks and one Chromium scenario pass. Tests execute the
+production save handler, cover valid/invalid markers, and rename through the
+actual popup before exporting and re-importing Jira time values. Existing
+Upcoming regression evidence remains recorded; other browsers were not run.
+
+</details>
+
 This release adds the following regression coverage and documentation:
 
 <details>
