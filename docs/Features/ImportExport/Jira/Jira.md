@@ -24,7 +24,10 @@ controls spent time; Custom Fields controls original/remaining estimates.
 Imported estimate fields carry `settings.jiraTimeField` markers, so renaming
 one does not break export. Export does not infer meaning from matching names.
 Older fields without markers, duplicate mappings and invalid values are omitted.
-Native WeKan export retains the markers. This preserves time totals, not
+Native WeKan export/import and whole-board duplication retain the markers,
+remap custom-field IDs and preserve Scrum's selected estimate field. Browser
+regression coverage exports the resulting boards back to Jira and verifies
+the original numeric seconds. This preserves time totals, not
 individual worklog entries or all Jira Scrum data.
 
 

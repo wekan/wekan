@@ -4,6 +4,7 @@ const db=require('../helpers/db');
 const {navigateInApp}=require('../helpers/auth');
 test('Jira time import reuses spent hours and hidden numeric estimates, retaining them in native export',async({loggedInPage:page,request,user})=>{
  let boardId, roundTrip;
+ const nativeCopies=[];
  const source={board:{name:`Jira time ${db.uniqueSuffix()}`},issues:[
   {key:'TIME-1',fields:{summary:'Tracked issue',status:{name:'Open'},timetracking:{originalEstimateSeconds:7200,remainingEstimateSeconds:0,timeSpentSeconds:1800}}},
   {key:'TIME-2',fields:{summary:'No estimates',status:{name:'Open'}}},
@@ -51,8 +52,25 @@ test('Jira time import reuses spent hours and hidden numeric estimates, retainin
   expect(restored.customFields.map(field=>field.value)).toEqual([2,0]);
   await page.evaluate(({boardId,id})=>Meteor.callAsync('scrum.configure',boardId,{estimateSource:'customField',estimateCustomFieldId:id,estimateUnit:'hours'},0),{boardId,id:original._id});
   expect(db.findOne('boards',{_id:boardId}).scrum.estimateCustomFieldId).toBe(original._id);
+  const nativeResponse=await request.get(`/api/boards/${boardId}/export?authToken=${encodeURIComponent(user.token)}`);
+  expect(nativeResponse.status()).toBe(200);
+  const native=await nativeResponse.json();
+  expect(native.customFields.find(field=>field._id===original._id).settings.jiraTimeField).toBe('original');
+  const imported=await page.evaluate(input=>Meteor.callAsync('importBoard',input,{},'wekan'),native);nativeCopies.push(imported);
+  const copied=await page.evaluate(id=>Meteor.callAsync('copyBoard',id,{}),boardId);nativeCopies.push(copied);
+  for(const id of nativeCopies){
+    const field=db.findOne('customFields',{boardIds:id,'settings.jiraTimeField':'original'});
+    expect(field._id).not.toBe(original._id);expect(field.name).toBe('Renamed original estimate');
+    expect(db.findOne('boards',{_id:id}).scrum.estimateCustomFieldId).toBe(field._id);
+    const card=db.find('cards',{boardId:id}).find(card=>card.title.includes('TIME-1'));
+    expect(card.customFields).toContainEqual({_id:field._id,value:2});
+    const response=await request.get(`/api/boards/${id}/export/jira?authToken=${encodeURIComponent(user.token)}`);
+    expect(response.status()).toBe(200);
+    const body=await response.json();
+    expect(body.issues.find(issue=>issue.fields.summary.includes('TIME-1')).fields.timetracking).toEqual(issue.fields.timetracking);
+  }
   const invalid={...source,board:{name:`Invalid ${source.board.name}`},issues:[{key:'BAD-1',fields:{summary:'Invalid',timespent:-1}}]};
   const error=await page.evaluate(async input=>{try{await Meteor.callAsync('importBoard',input,{},'jira');return null;}catch(error){return error.error;}},invalid);
   expect(error).toBe('invalid-jira-time');expect(db.find('boards',{title:invalid.board.name})).toHaveLength(0);
- }finally{for(const id of [boardId,roundTrip].filter(Boolean)){db.deleteMany('customFields',{boardIds:id});db.cleanup({boardIds:[id]});}}
+ }finally{for(const id of [boardId,roundTrip,...nativeCopies].filter(Boolean)){db.deleteMany('customFields',{boardIds:id});db.cleanup({boardIds:[id]});}}
 });
