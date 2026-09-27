@@ -7,6 +7,7 @@ template(name="listHeader")
     class=colorClass
     style=colorStyle)
     +structuralSelectionCheckbox(kind="list" id=_id label=title)
+    +scrumMetadata(kind="list" record=this)
     //- #459: keyboard/screen-reader list reordering (visually hidden, focusable).
     .list-move-buttons.sr-only
       a.js-list-move-left(href="#" role="button" aria-label="{{_ 'move-list-left'}}") {{_ 'move-list-left'}}

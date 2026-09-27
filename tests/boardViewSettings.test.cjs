@@ -371,6 +371,11 @@ const PRE_FEATURE_MENU = [
   'board-view-gantt-frappe',
   'board-view-gantt-dhtmlx',
   'hr',
+  // Scrum planning extends the menu beside roadmap.
+  'board-view-product-backlog',
+  'board-view-sprints',
+  'board-view-sprint-report',
+  'board-view-velocity',
   'board-view-roadmap',
   'board-view-dashboard',
   'board-view-bigboard',
@@ -400,7 +405,7 @@ const PRE_FEATURE_HR_AFTER = PRE_FEATURE_MENU
 
 test('the default order is the pre-feature menu order (525bcab1b), literally', () => {
   assert.deepStrictEqual(bvs.DEFAULT_BOARD_VIEW_ORDER, PRE_FEATURE_ORDER);
-  assert.strictEqual(PRE_FEATURE_ORDER.length, 30);
+  assert.strictEqual(PRE_FEATURE_ORDER.length, 34);
   // The literal in the model is a list of its own, not a slice of the table
   // (negative: re-sorting BOARD_VIEWS must not be able to change the default).
   assert.match(bvsSrc, /const DEFAULT_BOARD_VIEW_ORDER = \[\n\s*'board-view-swimlanes',/);

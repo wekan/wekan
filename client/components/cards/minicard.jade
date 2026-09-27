@@ -86,6 +86,7 @@ template(name="minicard")
       block sits is decided by the loop. The upload progress indicator is not
       a field of the card and keeps a fixed place at the top.
     unless minicardCollapsed
+      +scrumMetadata(kind="minicard" record=this)
       // Upload progress indicator for drag-and-drop uploads
       if hasActiveUploads
         .minicard-upload-progress

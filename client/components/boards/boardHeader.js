@@ -383,6 +383,22 @@ Template.boardChangeViewPopup.events({
     Utils.setBoardView('board-view-wip-run');
     Popup.back();
   },
+  'click .js-open-product-backlog-view'() {
+    Utils.setBoardView('board-view-product-backlog');
+    Popup.back();
+  },
+  'click .js-open-sprints-view'() {
+    Utils.setBoardView('board-view-sprints');
+    Popup.back();
+  },
+  'click .js-open-sprint-report-view'() {
+    Utils.setBoardView('board-view-sprint-report');
+    Popup.back();
+  },
+  'click .js-open-velocity-view'() {
+    Utils.setBoardView('board-view-velocity');
+    Popup.back();
+  },
   'click .js-open-aging-wip-view'() {
     Utils.setBoardView('board-view-aging-wip');
     Popup.back();
@@ -869,6 +885,10 @@ Template.boardViewMenu.helpers({
       'board-view-throughput-histogram': 'board-view-throughput-histogram',
       'board-view-wip-run': 'board-view-wip-run',
       'board-view-pulse': 'board-view-pulse',
+      'board-view-product-backlog': 'board-view-product-backlog',
+      'board-view-sprints': 'board-view-sprints',
+      'board-view-sprint-report': 'board-view-sprint-report',
+      'board-view-velocity': 'board-view-velocity',
       'board-view-aging-wip': 'board-view-aging-wip',
       'board-view-blocker-analysis': 'board-view-blocker-analysis',
       'board-view-monte-carlo': 'board-view-monte-carlo',

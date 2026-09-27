@@ -168,6 +168,7 @@ template(name="cardDetails")
           if $eq section "description"
             +cardFieldSectionDescription
 
+      +scrumMetadata(kind="card" record=this)
       .card-checklist-attachmentGalleries
         .card-checklist-attachmentGallery.card-checklists
           if currentBoard.allowsChecklists

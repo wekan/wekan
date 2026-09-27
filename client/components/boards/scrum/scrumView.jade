@@ -1,0 +1,201 @@
+template(name="scrumView")
+  .scrum-view(class=boardColor)
+    header.scrum-toolbar
+      h2 {{viewTitle}}
+      button.js-scrum-refresh {{_ 'refresh'}}
+      if isReport
+        a.button.js-export-chart(data-chart-key=chartKey data-report-options=reportOptions) {{_ 'export'}}
+    if error
+      p.warning(role="alert") {{error}}
+    if loading
+      p(role="status") {{_ 'loading'}}
+    else
+      if data
+        if data.partial
+          p(role="status" class="scrum-partial-report") {{_ 'scrum-partial-report'}}
+        if canAdmin
+          details.scrum-settings(open=settingsOpen)
+            summary {{_ 'scrum-settings'}}
+            form.js-scrum-settings
+              label
+                input(type="checkbox" name="enabled" checked=settings.enabled)
+                | {{_ 'scrum-enabled'}}
+              label {{_ 'scrum-product-goal'}}
+                textarea(name="productGoal") {{settings.productGoal}}
+              label {{_ 'scrum-definition-of-done'}}
+                textarea(name="definitionOfDone") {{settings.definitionOfDone}}
+              label {{_ 'scrum-estimate-source'}}
+                select(name="estimateSource")
+                  each estimateSources
+                    option(value=value selected=selected) {{label}}
+              label {{_ 'custom-field'}}
+                select(name="estimateCustomFieldId")
+                  option(value="") —
+                  each estimateFields
+                    option(value=_id selected=selected) {{name}}
+              label {{_ 'scrum-estimate-unit'}}
+                textarea(name="estimateUnit" rows="1" maxlength="80") {{settings.estimateUnit}}
+              label {{_ 'scrum-completion-policy'}}
+                select(name="completionPolicy")
+                  each completionPolicies
+                    option(value=value selected=selected) {{label}}
+              button.primary(type="submit" disabled=busy) {{_ 'save'}}
+        if isVelocity
+          +scrumReportTable(rows=velocity)
+        else
+          if isSprints
+            .scrum-planning
+              section
+                h3 {{_ 'scrum-sprints'}}
+                label {{_ 'scrum-sprint'}}
+                  select.js-scrum-sprint
+                    option(value="") —
+                    each sprintOptions
+                      option(value=_id selected=selected) {{name}} ({{stateLabel}})
+                if selectedSprint
+                  p {{selectedSprint.goal}}
+                  p {{selectedSprint.stateLabel}}
+                  if canAdmin
+                    .scrum-toolbar
+                      if sprintPlanned
+                        button.primary.js-scrum-start(disabled=busy) {{_ 'scrum-start-sprint'}}
+                      if sprintActive
+                        label {{_ 'scrum-rollover-sprint'}}
+                          select.js-scrum-rollover
+                            option(value="") {{_ 'scrum-product-backlog'}}
+                            each rolloverOptions
+                              option(value=_id) {{name}}
+                        button.primary.js-scrum-close(disabled=busy) {{_ 'scrum-close-sprint'}}
+                      if sprintOpen
+                        label {{_ 'scrum-cancel-reason'}}
+                          textarea.js-scrum-cancel-reason(rows="1")
+                        button.js-scrum-cancel(disabled=busy) {{_ 'scrum-cancel-sprint'}}
+                if canAdmin
+                  details
+                    summary {{_ 'scrum-edit-sprint'}}
+                    form.js-scrum-sprint-form
+                      label {{_ 'name'}}
+                        textarea(name="name" required maxlength="200" rows="1") {{selectedSprint.name}}
+                      label {{_ 'scrum-sprint-goal'}}
+                        textarea(name="goal") {{selectedSprint.goal}}
+                      label {{_ 'start'}}
+                        input(type="date" name="plannedStart" value=sprintStart)
+                      label {{_ 'end'}}
+                        input(type="date" name="plannedEnd" value=sprintEnd)
+                      label {{_ 'scrum-capacity'}}
+                        input(type="number" name="capacity" min="0" step="any" value=selectedSprint.capacity)
+                      label {{_ 'scrum-estimate-unit'}}
+                        textarea(name="capacityUnit" rows="1") {{selectedSprint.capacityUnit}}
+                      button.primary(type="submit" disabled=busy) {{_ 'save'}}
+                      button.js-scrum-new(type="button") {{_ 'scrum-new-sprint'}}
+              section
+                h3 {{_ 'scrum-releases'}}
+                each releases
+                  p {{name}} — {{state}}
+                if canAdmin
+                  form.js-scrum-release
+                    label {{_ 'name'}}
+                      textarea(name="name" required maxlength="200" rows="1")
+                    label {{_ 'scrum-product-goal'}}
+                      textarea(name="goal")
+                    label {{_ 'end'}}
+                      input(type="date" name="plannedEnd")
+                    button.primary(type="submit" disabled=busy) {{_ 'add'}}
+          if isSprintReport
+            label {{_ 'scrum-sprint'}}
+              select.js-scrum-sprint
+                option(value="") —
+                each sprintOptions
+                  option(value=_id selected=selected) {{name}}
+            if selectedSprint
+              +scrumReportTable(rows=sprintReportRows)
+            else
+              p {{_ 'scrum-select-sprint'}}
+          else
+            h3 {{_ 'scrum-backlog'}}
+            p {{_ 'scrum-backlog-help'}}
+            .scrum-table-scroll
+              table.scrum-table
+                thead
+                  tr
+                    th {{_ 'card'}}
+                    th {{_ 'scrum-estimate'}}
+                    th {{_ 'scrum-sprint'}}
+                    th {{_ 'scrum-backlog-rank'}}
+                    th {{_ 'actions'}}
+                tbody
+                  each cards
+                    tr(data-card-id=_id)
+                      td
+                        a(href=cardUrl) {{title}}
+                      td {{estimateLabel}}
+                      td {{sprintName}}
+                      td {{rankLabel}}
+                      td
+                        if canWrite
+                          form.js-scrum-card(data-card-id=_id)
+                            label {{_ 'scrum-sprint'}}
+                              select(name="sprintId")
+                                option(value="") {{_ 'scrum-product-backlog'}}
+                                each assignmentOptions
+                                  option(value=_id selected=selected) {{name}}
+                            label {{_ 'scrum-backlog-rank'}}
+                              input(type="number" name="backlogRank" min="0" step="any" value=rankLabel)
+                            label {{_ 'scrum-issue-type'}}
+                              textarea(name="issueType" rows="1") {{scrum.issueType}}
+                            label {{_ 'scrum-acceptance-criteria'}}
+                              textarea(name="acceptanceCriteria") {{scrum.acceptanceCriteria}}
+                            button.primary(type="submit" disabled=busy) {{_ 'save'}}
+                  else
+                    tr
+                      td(colspan="5") {{_ 'no-cards'}}
+            if isSprints
+              if selectedSprint
+                h3 {{_ 'scrum-events'}}
+                each events
+                  article
+                    h4 {{name}}
+                    p {{kindLabel}} — {{dateLabel}}
+                    pre {{notes}}
+                if canAdmin
+                  form.js-scrum-event
+                    label {{_ 'scrum-event-kind'}}
+                      select(name="kind")
+                        each eventKinds
+                          option(value=value) {{label}}
+                    label {{_ 'name'}}
+                      textarea(name="name" required maxlength="200" rows="1")
+                    label {{_ 'date'}}
+                      input(type="date" name="startsAt" required)
+                    label {{_ 'scrum-timebox'}}
+                      input(type="number" name="timeboxMinutes" min="0" max="10080" value="15")
+                    label {{_ 'scrum-notes'}}
+                      textarea(name="notes")
+                    button.primary(type="submit" disabled=busy) {{_ 'save'}}
+
+template(name="scrumReportTable")
+  .scrum-table-scroll
+    table.scrum-table
+      thead
+        tr
+          th {{_ 'scrum-sprint'}}
+          th {{_ 'scrum-estimate-unit'}}
+          th {{_ 'scrum-committed'}}
+          th {{_ 'scrum-completed'}}
+          th {{_ 'scrum-added'}}
+          th {{_ 'scrum-removed'}}
+          th {{_ 'scrum-incomplete'}}
+      tbody
+        each rows
+          tr
+            td {{name}}
+            td {{unit}}
+            td {{formatTotal committed}}
+            td {{formatTotal completed}}
+            td {{formatTotal added}}
+            td {{formatTotal removed}}
+            td {{formatTotal incomplete}}
+        else
+          tr
+            td(colspan="7") {{_ 'scrum-no-closed-sprints'}}
+  p {{_ 'scrum-report-help'}}

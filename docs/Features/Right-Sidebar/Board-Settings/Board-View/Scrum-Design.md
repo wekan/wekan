@@ -1,7 +1,20 @@
 # Scrum support: source audit and implementation design
 
-Status: design, not an announcement that the features below are implemented.
-The audit covers the current source, including import, export and synchronization.
+Status: implementation in progress, not a claim that all planned features exist.
+The baseline audit below records the source before the first Scrum changes.
+
+Implemented and exercised in the current working version: board-local sprint
+planning and lifecycle, revision validation, commitment/result snapshots,
+optional metadata and visibility controls, Product Backlog, Sprints, report
+tables, release/event creation, and permission-filtered Excel/PDF reports.
+See [Sprints](Sprints.md), [Product Backlog](Product-Backlog.md) and
+[Sprint Reports](Sprint-Reports.md) for the current behavior.
+
+Still pending: complete release/event editors, chart visualization and daily
+scope history, History undo/redo integration, native transfer/copy and external
+import/export/sync mappings, and the remaining lifecycle/permission/browser
+matrix described below. Source-string registration is not translated coverage.
+These remaining requirements are not waived by passing the current tests.
 
 ## Existing features to reuse
 

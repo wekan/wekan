@@ -1,0 +1,37 @@
+template(name="scrumFieldSettings")
+  if canAdmin
+    .scrum-field-settings
+      h4 {{_ 'scrum-settings'}}
+      if error
+        p.warning(role="alert") {{error}}
+      each fields
+        label.flex
+          input.js-scrum-visibility(type="checkbox" data-key=key checked=checked disabled=busy)
+          span {{label}}
+
+template(name="scrumMetadata")
+  if visible
+    .scrum-metadata
+      each rows
+        div
+          strong {{label}}:
+          span {{value}}
+      unless compact
+        if canWrite
+          details
+            summary {{_ 'edit'}}
+            if error
+              p.warning(role="alert") {{error}}
+            form.js-scrum-metadata
+              each editors
+                label {{label}}
+                  if options
+                    select(name=field)
+                      each options
+                        option(value=value selected=selected) {{label}}
+                  else
+                    if number
+                      input(type="number" name=field value=value min="0" step="any")
+                    else
+                      textarea(name=field) {{value}}
+              button.primary(type="submit" disabled=busy) {{_ 'save'}}

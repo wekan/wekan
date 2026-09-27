@@ -1,0 +1,34 @@
+.scrum-view { box-sizing: border-box; width: 100%; height: 100%; overflow: auto; padding: 16px; }
+.scrum-toolbar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.scrum-view h2 { margin-inline-end: auto; }
+.scrum-view form { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; padding-block: 12px; }
+.scrum-view label { display: flex; flex-direction: column; gap: 4px; max-width: 100%; }
+.scrum-view textarea { resize: both; min-width: 140px; max-width: 100%; box-sizing: border-box; }
+.scrum-view select, .scrum-view input { max-width: 100%; box-sizing: border-box; }
+.scrum-view button { white-space: normal; height: auto; min-height: 32px; }
+.scrum-planning { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 20px; }
+.scrum-table-scroll { max-width: 100%; overflow-x: auto; }
+.scrum-table { width: 100%; border-collapse: collapse; }
+.scrum-table th, .scrum-table td { text-align: start; padding: 8px; border-bottom: 1px solid currentColor; vertical-align: top; }
+.scrum-view pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+.scrum-view details > summary { cursor: pointer; padding-block: 8px; }
+.scrum-metadata { margin: 8px; overflow-wrap: anywhere; white-space: normal; }
+.scrum-metadata strong { margin-inline-end: 5px; }
+.scrum-metadata label { display: block; margin-block: 6px; }
+.scrum-metadata textarea { resize: both; max-width: 100%; box-sizing: border-box; }
+.scrum-field-settings label { gap: 8px; align-items: center; margin-block: 8px; }
+/* Scrum forms use labelled native checkboxes; global material form rules hide them. */
+.scrum-view input[type="checkbox"], .scrum-field-settings input[type="checkbox"] {
+  display: inline-block;
+  visibility: visible;
+  position: static;
+  inset-inline-start: auto;
+  width: 16px;
+  height: 16px;
+  min-height: 0;
+  flex: 0 0 16px;
+  padding: 0;
+  margin: 0;
+  appearance: auto;
+  cursor: pointer;
+}

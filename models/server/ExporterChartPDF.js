@@ -5,6 +5,7 @@ import { line, tableRow, buildPdfBuffer } from '/models/lib/pdfDocument';
 import { buildUnicodePdf } from '/models/server/buildUnicodePdf';
 import { attachmentDisposition, exportFilename } from '/models/lib/exportFilename';
 import { loadBoardChartData } from '/server/lib/boardChartData';
+import { loadScrumChartData } from '/server/lib/scrumChartData';
 const { chartExportRows } = require('/models/lib/chartExportRows');
 
 async function unicodeFonts() {
@@ -45,6 +46,7 @@ class ExporterChartPDF {
   }
 
   async canExport(user) {
+    this.userId = user?._id || null;
     const board = await ReactiveCache.getBoard(this._boardId);
     return board && board.isVisibleBy(user);
   }
@@ -56,7 +58,9 @@ class ExporterChartPDF {
       res.end('Board not found');
       return;
     }
-    const data = await loadBoardChartData(this._boardId, this._chartKey, this.options);
+    const data = ['scrumVelocity', 'scrumSprint'].includes(this._chartKey)
+      ? await loadScrumChartData(this.userId, this._boardId, this._chartKey, this.options)
+      : await loadBoardChartData(this._boardId, this._chartKey, this.options);
     const { title, headers, rows } = chartExportRows(
       this._chartKey, data || {}, (key, fallback) => this.__(key, fallback));
     const details = require('/models/lib/flowAnalyticsRows').flowDetailRows(

@@ -590,6 +590,11 @@ Template.boardMenuPopup.events({
   // Board Settings / Board View - "board-view" is the existing, translated
   // "Board View" key the view switcher already uses.
   'click .js-open-board-view-settings': Popup.open('boardViewSettings', { titleKey: 'board-view' }),
+  'click .js-open-board-scrum-settings'() {
+    Session.set('scrumOpenSettings', true);
+    Utils.setBoardView('board-view-sprints');
+    Popup.close();
+  },
   'click .js-open-board-swimlane-settings': Popup.open('boardSwimlaneSettings', { titleKey: 'swimlane' }),
   'click .js-open-board-date-settings': Popup.open('boardDateSettings', { titleKey: 'date' }),
   'click .js-open-board-list-settings': Popup.open('boardListSettings', { titleKey: 'list' }),

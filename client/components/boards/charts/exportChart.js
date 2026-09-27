@@ -25,7 +25,7 @@ export function chartExportUrl(chartKey, format, options = {}) {
     tz: Intl.DateTimeFormat().resolvedOptions().timeZone || '',
     dateFormat: cardDateFormat(),
   });
-  ['targetCount', 'targetDate', 'historyDays', 'sizeField'].forEach(key => {
+  ['targetCount', 'targetDate', 'historyDays', 'sizeField', 'sprintId'].forEach(key => {
     if (options[key] !== undefined) params.set(key, options[key]);
   });
   return `/api/boards/${boardId}/charts/${chartKey}/${path}?${params.toString()}`;

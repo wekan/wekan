@@ -1,0 +1,19 @@
+# Sprint Report and Velocity
+
+Board View / Sprint Report displays a selected closed sprint. Board View /
+Velocity lists closed sprints chronologically. Both use persisted start and
+close snapshots, so later estimate changes do not rewrite finished results.
+
+The reports distinguish original commitments, completed work, added and removed
+scope, and incomplete work. Each total includes card count, known estimate sum
+and number of cards with unknown estimates. Unknown estimates are not zeroes.
+Compare results only when units and completion policies match.
+
+An unfinished sprint does not produce a completed-sprint velocity result.
+Assigned-only members receive snapshots filtered to cards they can currently
+see. Those partial reports must not be treated as whole-team totals.
+
+The Export action uses the existing chart export popup and produces Excel or
+PDF with the same report data and requesting user's access restrictions.
+Current rendering is a table; interactive chart rendering and historical daily
+burndown integration remain work listed in [the Scrum design](Scrum-Design.md).

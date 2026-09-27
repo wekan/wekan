@@ -1,6 +1,7 @@
 template(name="swimlaneHeader")
   .swimlane-header-wrap.js-swimlane-header(class=colorClass style=colorStyle title="{{_ 'rename'}}")
     +structuralSelectionCheckbox(kind="swimlane" id=_id label=title)
+    +scrumMetadata(kind="swimlane" record=this)
     if this.isTemplateContainer
         +swimlaneFixedHeader(this)
     else

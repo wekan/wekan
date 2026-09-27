@@ -915,6 +915,10 @@ Template.boardBody.helpers({
     return Utils.boardView() === 'board-view-wip-run';
   },
 
+  isViewScrum() {
+    return ['board-view-product-backlog', 'board-view-sprints', 'board-view-sprint-report', 'board-view-velocity'].includes(Utils.boardView());
+  },
+
   isViewAgingWip() {
     return Utils.boardView() === 'board-view-aging-wip';
   },

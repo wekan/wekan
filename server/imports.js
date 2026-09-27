@@ -398,3 +398,6 @@ import '/server/methods/fileStatusAudit';
 import '/server/methods/instrumentationReport';
 
 import '/server/moveBoardObjects';
+
+import '/server/scrum';
+import '/server/publications/scrum';

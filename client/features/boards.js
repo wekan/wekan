@@ -60,3 +60,6 @@ import '/client/components/boards/bigboardView.css';
 import '/client/components/boards/multiboardCalendarView.css';
 import '/client/components/boards/roadmapView.css';
 
+
+import '/client/components/boards/scrum/scrumView';
+import '/client/components/boards/scrum/scrumFields';

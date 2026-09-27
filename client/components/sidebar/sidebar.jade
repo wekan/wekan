@@ -322,6 +322,7 @@ template(name="boardCardSettingsPopup")
                     | ({{_ 'label-text-overridden'}})
                 else
                   | &nbsp;({{_ 'label-text-follows-board'}})
+        +scrumFieldSettings(kind="minicard")
       .card-field-order-column.card-field-order-column-card
         h4.card-field-order-column-heading {{_ 'show-on-card'}}
         +boardSettingsColumnActions(section="card" column="card")
@@ -338,6 +339,8 @@ template(name="boardCardSettingsPopup")
               each icon in row.icons
                 i.fa(class=icon)
               | {{row.title}}
+
+        +scrumFieldSettings(kind="card")
 
 //- The board's Subtasks Settings. Its own template, because the same settings
   are read from two places: Board Settings, and the menu of a subtask on an
@@ -553,6 +556,10 @@ template(name="boardMenuPopup")
           a.js-open-board-list-settings(title="{{_ 'list'}}")
             i.fa.fa-trello
             | {{_ 'list'}}
+        li
+          a.js-open-board-scrum-settings
+            i.fa.fa-repeat
+            | {{_ 'scrum-settings'}}
         //- "WIP Limit Groups" was here. It is a row of Board Settings /
           Swimlane now (boardSwimlaneSettingsPopup below): a group most often
           caps one swimlane's lists together, so it sits with the swimlane
@@ -663,6 +670,7 @@ template(name="boardViewSettingsPopup")
   board's settings. client/components/swimlanes/swimlanes.js
 template(name="boardSwimlaneSettingsPopup")
   +boardDragSettings(section="swimlane")
+  +scrumFieldSettings(kind="swimlane")
   form.board-swimlane-settings
     +boardSettingsColumnActions(section="swimlane" column="settings")
     div.check-div
@@ -688,6 +696,7 @@ template(name="boardSwimlaneSettingsPopup")
   client/components/lists/list.js
 template(name="boardListSettingsPopup")
   +boardDragSettings(section="list")
+  +scrumFieldSettings(kind="list")
   form.board-list-settings
     +boardSettingsColumnActions(section="list" column="settings")
     div.check-div
