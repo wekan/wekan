@@ -2,7 +2,7 @@
 
 // Standalone copies do not copy board planning records. Whole-board duplication
 // defers metadata to the shared transfer remapper instead.
-function copiedCardScrum(card, destinationBoardId, { omit = false } = {}) {
+function copiedScrumMetadata(card, destinationBoardId, { omit = false } = {}) {
   if (omit || !card.scrum) return {};
   const scrum = { ...card.scrum };
   if (Array.isArray(scrum.pastSprintIds)) scrum.pastSprintIds = [...scrum.pastSprintIds];
@@ -12,4 +12,4 @@ function copiedCardScrum(card, destinationBoardId, { omit = false } = {}) {
   return { scrum, scrumRevision: 1 };
 }
 
-module.exports = { copiedCardScrum };
+module.exports = { copiedScrumMetadata, copiedCardScrum: copiedScrumMetadata };

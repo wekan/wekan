@@ -381,10 +381,13 @@ Lists.helpers({
 
     let _id = plan.listId;
     if (plan.action === 'create') {
-      this.boardId = boardId;
-      this.swimlaneId = plan.swimlaneId; // Set the target swimlane for the copied list
-      delete this._id;
-      _id = await Lists.insertAsync(this);
+      const { copiedScrumMetadata } = require('./lib/scrumCopy');
+      const copy = { ...this, boardId, swimlaneId: plan.swimlaneId };
+      delete copy._id;
+      delete copy.scrum;
+      delete copy.scrumRevision;
+      Object.assign(copy, copiedScrumMetadata(this, boardId));
+      _id = await Lists.insertAsync(copy);
     }
 
     // Copy all cards in list. Every card of the source list travels, whatever

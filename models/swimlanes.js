@@ -154,7 +154,8 @@ Swimlanes.helpers({
     const desiredTitle = typeof title === 'string' && title.trim().length > 0
       ? title.trim()
       : this.title;
-    this.boardId = boardId;
+    const { copiedScrumMetadata } = require('./lib/scrumCopy');
+    const copiedMetadata = copiedScrumMetadata(this, boardId, { omit: !!copyMaps || copyOptions?.scrum === false });
 
     if (process.env.DEBUG === 'true') {
       console.log('[copySwimlane] start', {
@@ -196,11 +197,12 @@ Swimlanes.helpers({
       }
     }
 
-    this.sort = targetSort;
-    this.title = desiredTitle;
-    delete this._id;
-    if (copyMaps || copyOptions?.scrum === false) { delete this.scrum; delete this.scrumRevision; }
-    const newSwimlaneId = await Swimlanes.insertAsync(this);
+    const copy = { ...this, boardId, sort: targetSort, title: desiredTitle };
+    delete copy._id;
+    delete copy.scrum;
+    delete copy.scrumRevision;
+    Object.assign(copy, copiedMetadata);
+    const newSwimlaneId = await Swimlanes.insertAsync(copy);
     if (copyMaps) copyMaps.swimlanes[oldId] = newSwimlaneId;
 
     if (copyOptions && !copyOptions.lists) return newSwimlaneId;
@@ -289,6 +291,7 @@ Swimlanes.helpers({
         swimlaneId: newSwimlaneId,
         color: sourceList.color,
         width: sourceList.width,
+        ...copiedScrumMetadata(sourceList, boardId, { omit: !!copyMaps || copyOptions?.scrum === false }),
       });
       if (copyMaps) copyMaps.lists[sourceList._id] = newListId;
 

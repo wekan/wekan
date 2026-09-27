@@ -348,8 +348,10 @@ Meteor.methods({
       }
     }
 
+    const { copiedScrumMetadata } = require('/models/lib/scrumCopy');
     const newListId = await Lists.insertAsync({
       title: title || list.title,
+      ...copiedScrumMetadata(list, boardId),
       boardId,
       swimlaneId,
       type: list.type,

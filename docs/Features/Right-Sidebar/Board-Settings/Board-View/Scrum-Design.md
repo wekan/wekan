@@ -131,6 +131,12 @@ operations do not copy planning records. The source cards remain unchanged.
 Use full-board duplication to copy planning records with remapped references.
 Standalone planning-record mapping and move support remain pending.
 
+Standalone list copies retain their Scrum workflow category with a fresh
+revision. Swimlane copies retain their purpose and copy list categories;
+same-board copies retain sprint/release links, while cross-board copies omit
+those foreign links. Full-board copies still defer metadata to the transfer
+remapper. The copy helpers do not mutate their source list or swimlane objects.
+
 Implementation checkpoint: `models/lib/scrumTransfer.js` now defines and tests
 the `wekan-scrum-1` data contract and destination-ID remapping. It covers board
 settings, sprint/release/event records, lifecycle snapshots and optional item
