@@ -419,3 +419,37 @@
   color: #d9534f;
   font-size: calc(12px * var(--wekan-ui-font-scale, 1));
 }
+
+/* Rule titles and controls must participate in layout instead of overlapping. */
+.rules-page { box-sizing: border-box; width: 100%; min-width: 0; }
+.rules-page h2, .rules-page p, .rules-page .workflow-node-text { overflow-wrap: anywhere; }
+.rules-page .rules-list { max-height: none; overflow: visible; padding: 0; }
+.rules-page .rules-lists-item { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; padding: 10px 0; overflow: visible; }
+.rules-page .rules-lists-item p { flex: 1 1 200px; min-width: 0; margin: 0; float: none; }
+.rules-page .rules-btns-group { position: static; transform: none; display: flex; flex-wrap: wrap; gap: 6px; min-width: 0; }
+.rules-page button { max-width: 100%; white-space: normal; overflow-wrap: anywhere; height: auto; min-height: 32px; }
+.rules-page .rules-add { display: flex; flex-wrap: wrap; gap: 8px; overflow: visible; }
+.rules-page .rules-add textarea { flex: 1 1 240px; min-width: 0; }
+.rules-page .rules-add button { float: none; }
+.rules-page .triggers-content { color: #333; }
+.rules-page .triggers-content .triggers-body { align-items: flex-start; min-width: 0; }
+.rules-page .triggers-content .triggers-main-body { min-width: 0; box-sizing: border-box; }
+.rules-page .triggers-content .triggers-main-body .trigger-item { height: auto; min-height: 80px; display: flex; align-items: center; flex-wrap: wrap; gap: 10px; overflow: visible; color: #333; }
+.rules-page .triggers-content .triggers-main-body .trigger-item .trigger-content { position: static; transform: none; flex: 1 1 200px; min-width: 0; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+.rules-page .triggers-content .trigger-item .trigger-dropdown { min-width: 0; max-width: 100%; }
+.rules-page .triggers-content .trigger-item .trigger-dropdown :is(textarea,input,select) { box-sizing: border-box; max-width: 100%; margin: 0; }
+.rules-page .triggers-content .triggers-body .triggers-main-body .trigger-item .trigger-button { position: relative; inset: auto; transform: none; flex: 0 0 auto; margin: 0; }
+.rules-page .triggers-content .trigger-item .trigger-text { overflow-wrap: anywhere; max-width: 100%; }
+.rules-page .workflow-node, .rules-page .workflow-slot, .rules-page .workflow-chip { min-width: 0; max-width: 100%; box-sizing: border-box; color: #333; overflow-wrap: anywhere; }
+.rules-page .workflow-builder { color: #333; }
+.rules-page .workflow-builder-controls textarea { flex: 1 1 200px; min-width: 0; }
+@media (max-width: 600px) {
+  .rules-page { padding-inline: 8px; }
+  .rules-page .triggers-content .triggers-body { flex-direction: column; }
+  .rules-page .triggers-side-menu ul { display: flex; flex-wrap: wrap; }
+  .rules-page .triggers-content .triggers-main-body { padding: 6px; }
+  .rules-page .rules-btns-group { flex-basis: 100%; }
+}
+
+/* Icons on themed action buttons must share their readable foreground. */
+.rules-page button.primary i.fa { color: inherit; }
