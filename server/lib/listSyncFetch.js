@@ -10,12 +10,14 @@
 // so no HTTP client dependency is added for this.
 
 const FETCH_TIMEOUT_MS = 20000;
+const MAX_SYNC_PAGES = 1000;
+const MAX_SYNC_ITEMS = 100000;
 
 async function fetchJson(url, headers) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
   try {
-    const response = await fetch(url, { headers, signal: controller.signal });
+    const response = await fetch(url, { headers, signal: controller.signal, redirect: 'error' });
     if (!response.ok) {
       const body = await response.text().catch(() => '');
       const error = new Error(
@@ -24,10 +26,45 @@ async function fetchJson(url, headers) {
       error.status = response.status;
       throw error;
     }
-    return await response.json();
+    return { body: await response.json(), headers: response.headers };
   } finally {
     clearTimeout(timer);
   }
+}
+
+// Follow provider pagination only within the configured origin. No partial
+// collection escapes: failures or bounds abort before reconciliation starts.
+async function fetchArrayPages(initial, headers) {
+  const rows = [], seen = new Set();
+  let url = initial, total;
+  while (url) {
+    if (seen.has(url) || seen.size >= MAX_SYNC_PAGES) throw new Error('Sync pagination did not finish');
+    seen.add(url);
+    const { body, headers: responseHeaders } = await fetchJson(url, headers);
+    if (!Array.isArray(body)) throw new Error('Invalid sync issue page');
+    const advertised = responseHeaders.get('x-total-count') ?? responseHeaders.get('x-total');
+    if (advertised !== null) {
+      const count = Number(advertised);
+      if (!/^[0-9]+$/.test(advertised) || !Number.isSafeInteger(count) || (total !== undefined && total !== count)) throw new Error('Invalid or changing sync total');
+      total = count;
+      if (total > MAX_SYNC_ITEMS) throw new Error('Sync item limit exceeded');
+    }
+    rows.push(...body);
+    if (rows.length > MAX_SYNC_ITEMS) throw new Error('Sync item limit exceeded');
+    const link = responseHeaders.get('link') || '';
+    const next = link.match(/<([^>]+)>;\s*rel="next"/);
+    const nextPage = responseHeaders.get('x-next-page');
+    if (next) {
+      const target = new URL(next[1], url);
+      if (target.origin !== new URL(initial).origin || target.username || target.password) throw new Error('Invalid sync pagination origin');
+      url = target.href;
+    } else if (nextPage) {
+      if (!/^[1-9][0-9]*$/.test(nextPage)) throw new Error('Invalid sync next page');
+      const target = new URL(url); target.searchParams.set('page', nextPage); url = target.href;
+    } else url = null;
+  }
+  if (total !== undefined && rows.length !== total) throw new Error('Incomplete sync pagination');
+  return rows;
 }
 
 // Jira Cloud/Server REST search API. `credential.username` + `.token` are
@@ -39,13 +76,25 @@ export async function fetchJiraIssues(syncSource, credential) {
   const jql = encodeURIComponent(`project=${syncSource.projectKey}`);
   const url = `${base}/rest/api/2/search?jql=${jql}&maxResults=200`;
   const auth = Buffer.from(`${credential.username || ''}:${credential.token}`).toString('base64');
-  return fetchJson(url, { Authorization: `Basic ${auth}`, Accept: 'application/json' });
+  const issues = []; let total;
+  for (let page = 0; page < MAX_SYNC_PAGES; page += 1) {
+    const { body } = await fetchJson(`${url}&startAt=${issues.length}`, { Authorization: `Basic ${auth}`, Accept: 'application/json' });
+    if (!body || !Array.isArray(body.issues) || !Number.isSafeInteger(body.total) || body.total < 0 || body.startAt !== issues.length) throw new Error('Invalid Jira pagination');
+    if (total !== undefined && total !== body.total) throw new Error('Jira results changed during pagination; retry sync');
+    total = body.total;
+    if (total > MAX_SYNC_ITEMS) throw new Error('Sync item limit exceeded');
+    if (!body.issues.length && issues.length < total) throw new Error('Incomplete Jira pagination');
+    issues.push(...body.issues);
+    if (issues.length > total) throw new Error('Invalid Jira result count');
+    if (issues.length === total) return { ...body, startAt: 0, issues };
+  }
+  throw new Error('Sync pagination did not finish');
 }
 
 // GET /repos/{owner}/{repo}/issues?state=all
 export async function fetchGithubIssues(syncSource, credential) {
   const url = `https://api.github.com/repos/${syncSource.projectKey}/issues?state=all&per_page=100`;
-  return fetchJson(url, {
+  return fetchArrayPages(url, {
     Authorization: `token ${credential.token}`,
     Accept: 'application/vnd.github+json',
   });
@@ -55,7 +104,7 @@ export async function fetchGithubIssues(syncSource, credential) {
 export async function fetchGiteaIssues(syncSource, credential) {
   const base = String(syncSource.url || '').replace(/\/+$/, '');
   const url = `${base}/api/v1/repos/${syncSource.projectKey}/issues?state=all&limit=100`;
-  return fetchJson(url, { Authorization: `token ${credential.token}` });
+  return fetchArrayPages(url, { Authorization: `token ${credential.token}` });
 }
 
 // GET /projects/{id}/issues - GitLab, project id or URL-encoded path.
@@ -63,7 +112,7 @@ export async function fetchGitlabIssues(syncSource, credential) {
   const base = String(syncSource.url || 'https://gitlab.com').replace(/\/+$/, '');
   const project = encodeURIComponent(syncSource.projectKey);
   const url = `${base}/api/v4/projects/${project}/issues?per_page=100`;
-  return fetchJson(url, { 'PRIVATE-TOKEN': credential.token });
+  return fetchArrayPages(url, { 'PRIVATE-TOKEN': credential.token });
 }
 
 export const LIST_SYNC_FETCHERS = {
