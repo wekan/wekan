@@ -118,7 +118,9 @@ Standalone copies preserve applicable metadata and drop foreign references;
 list categories survive new destination containers during moves.
 Daily observations now preserve the first measured state of each UTC day;
 the scoped reader reports unknown estimates, partial results and truncation.
-Remaining: event-complete scope history, burndown UI and exports,
+Sprint Report displays these observations as timestamped bars, with card-count
+and estimate metrics, gaps, unknown estimates and permission-scoped results.
+Remaining: event-complete scope history and burndown, daily-history exports,
 atomic original writes/History, large-board
 limits, complete cross-board move/reference/undo coordination, standalone
 planning-record mapping, existing-board scoped import and History transport.
@@ -742,11 +744,37 @@ the Markdown commit as the template.
 # Upcoming WeKan ® release
 
 **In short:** **Sync** keeps source projects separate and coordinates concurrent
-runs and settings changes, including private credentials. **Scrum** now records
-daily observations with permission-scoped history reads as a foundation for
-historical reports; the burndown interface remains unfinished.
+runs and settings changes, including private credentials. **Scrum** records
+daily observations and displays their measured scope and remaining work in
+Sprint Report. Event-complete burndown and daily-history exports remain pending.
 
-This release adds the following reporting foundation:
+This release improves daily Scrum reporting:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/634abca41">Display measured daily scope and remaining work in Sprint Report</a>. Thanks to xet7.</summary>
+
+Selecting a sprint shows its recorded daily observations below the sprint
+result. Switch between card counts and known estimates; each bar retains its
+exact UTC timestamp and unknown-estimate count. Missing days remain absent,
+and unlike units or partial results do not share a scale. Loading, errors,
+empty history, restricted visibility and truncation are explicit. A late
+response cannot replace the newly selected sprint's observations.
+
+Ten focused Node suites pass with the MongoDB capture test enabled; the
+optional separate DDP lifecycle suite is skipped. Five Chromium scenarios
+pass, including the rendered values, assigned-only access, missing-day gaps,
+unknown estimates, empty history, 390-pixel width and stale-response rejection.
+The existing scoped chart/Excel export and read-only view checks still pass.
+The release audit passes with advisory warnings. Four changelog suites pass;
+the known released-entry line-length failure remains. Other browsers, FerretDB
+and a complete theme/RTL matrix were not tested.
+
+The interface identifies these as observations rather than a complete event
+history. Its Export action still exports sprint results only. Daily-history
+exports and event-complete burndown remain pending. New English source strings
+are registered; other-language translation work remains outside this queue.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/be5842616">Record daily Scrum observations without inventing missing history</a>. Thanks to xet7.</summary>
