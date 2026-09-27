@@ -1391,6 +1391,22 @@ live provider accounts were not exercised.
 This release adds the following regression coverage and documentation:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/0e7394cd8">Keep manual rule buttons consistent with trigger changes</a>. Thanks to xet7.</summary>
+
+Changing a manual button rule to an automatic trigger clears stale button
+type/label fields used by button menus. REST creation and trigger updates now
+synchronize those fields too. History restores trigger and button metadata
+together, so undo brings back the manual button and redo removes it again.
+
+Eight Node runner checks and two Chromium scenarios pass. Browser coverage
+checks editor and REST creation/changes, actual board-button visibility and
+undo/redo. Update the History guide. Existing Upcoming regression evidence
+remains recorded; other browsers were not exercised. Blockly translations
+remain paused.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/21cb6e8c8">Isolate shared trigger/action changes when editing rules</a>. Thanks to xet7.</summary>
 
 Editing a shared trigger or action creates a private component for the edited
