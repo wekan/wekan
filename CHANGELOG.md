@@ -710,6 +710,24 @@ recorded positive, negative and UI regression coverage.
 Also adds the following feature:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/8e4cf5f76">Retain Scrum report context and original commitments in exports</a>. Thanks to xet7.</summary>
+
+Sprint Report and Velocity exports include snapshot estimate source, custom
+field and completion policy identifiers. Completed original commitments retain
+their start estimates and unknown counts separately from all completed work.
+Excel remains tabular; Scrum PDF prints wrapped labelled values for each sprint
+so the wide metric set does not disappear into clipped columns. Other chart
+PDFs keep their existing table layout.
+
+Sixteen Node checks and one Chromium export scenario pass, covering changed
+estimates, added work, unknown context, complete row widths, wrapped PDF labels,
+unchanged non-Scrum tables, actual Excel cell values and PDF generation. Update
+the report guide. Existing Upcoming regression evidence remains recorded;
+other browsers were not exercised. Blockly translations remain paused.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/5e67a3bdd">Assign releases from Scrum planning card editors</a>. Thanks to xet7.</summary>
 
 Product Backlog and sprint card tables display release assignments and offer
