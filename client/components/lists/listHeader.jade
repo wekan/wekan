@@ -472,6 +472,27 @@ template(name="listSyncPopup")
         button.js-list-sync-preview(type="button" disabled=syncBusy) {{_ 'sync-preview-button'}}
         button.js-list-sync-now.primary(type="button") {{_ 'list-sync-now'}}
         button.js-list-sync-clear.negate(type="button") {{_ 'list-sync-clear'}}
+      p
+        button.js-list-sync-reports(type="button" disabled=syncReportsBusy) {{_ 'sync-report-button'}}
+      if syncReportError
+        p.list-sync-error {{syncReportError}}
+      if syncReportsLoaded
+        .list-sync-run-reports
+          p.quiet {{_ 'sync-report-retention'}}
+          each syncRunReports
+            details
+              summary {{when}} — {{_ statusLabel}}
+              p.quiet {{_ 'sync-report-partial'}}
+              if hasCounts
+                p {{_ 'sync-preview-create'}}: {{created}}
+                p {{_ 'sync-preview-update'}}: {{updated}}
+                p {{_ 'sync-preview-archive'}}: {{archived}}
+              each sourceRows
+                p {{path}}: {{count}} — {{_ reasonLabel}}
+              if coverage.source.truncated
+                p.quiet {{_ 'sync-source-truncated'}}
+          else
+            p {{_ 'sync-report-empty'}}
       if listSyncNowResult
         p(class="{{listSyncNowResultClass}}")= listSyncNowResult
       with syncPreview

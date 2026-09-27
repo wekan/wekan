@@ -78,8 +78,12 @@ Unknown subtrees are reported as a whole without values; occurrence counts and
 output limits keep the inventory bounded. Rules follow the current parsers;
 pagination envelopes discarded during fetching are not inventoried.
 The complete loss-accounting contract still requires a full provider schema,
-persisted run reports and mapping choices beyond the current field switches,
-as well as binary and history transport. These remain in TODO Later.
+mapping choices beyond the current field switches, binary and history
+transport. These remain in TODO Later. Full-list Sync runs now persist bounded
+coverage and terminal status privately; the popup reads the latest 20 reports
+from the last 30 days. Unfinished records explicitly leave the outcome unknown.
+These diagnostic reports do not yet implement replay/recovery checkpoints or
+the Problems → Recovery integration required by the full contract.
 See [Sync](./Sync.md#preview-saved-sync-changes) for access and output limits.
 
 ## Compatibility and limits

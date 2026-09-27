@@ -10,15 +10,17 @@ async function run(raw,parser,existing,updateCount=1,child=null,fields,operation
  const {planListSyncReconcile,validateListSyncTasks}=await asModule('models/lib/listSyncReconcile.js');
  const cardWrites=[],listWrites=[];let parsed=0,fetches=0;const cardQueries=[];
  const source=fs.readFileSync('server/listSync.js','utf8').replace(/^import .*;\n/gm,'').replace(/export async function/g,'async function');
- const context={ListSyncTargets:targets,Meteor:{startup(){}},withListSyncLease:async(id,work)=>work({assertCurrent:async()=>{}}),Lists:{findOneAsync:async selector=>!Object.hasOwn(selector,'syncSource')?({_id:'list',boardId:'board',syncSource:{...sourceConfig,fields,...operations}}):(currentConfig?{}:null),updateAsync:async(id,modifier)=>listWrites.push(modifier)},
+ const reports=[];
+ const reportCollection={insertOne:async doc=>reports.push(doc),findOne:async q=>reports.find(r=>r._id===q._id&&r.status===q.status),updateOne:async(q,m)=>{const row=reports.find(r=>r._id===q._id&&r.status===q.status);if(row)Object.assign(row,m.$set);return {matchedCount:row?1:0};}};
+ const context={ListSyncRunReports:{rawCollection:()=>reportCollection},ListSyncTargets:targets,Meteor:{startup(){}},withListSyncLease:async(id,work)=>work({assertCurrent:async()=>{}}),Lists:{findOneAsync:async selector=>!Object.hasOwn(selector,'syncSource')?({_id:'list',boardId:'board',syncSource:{...sourceConfig,fields,...operations}}):(currentConfig?{}:null),updateAsync:async(id,modifier)=>listWrites.push(modifier)},
   Cards:{insertAsync:async (document,options)=>{cardWrites.push({insert:document,options});if(createError)throw createError;return document._id;},updateAsync:async(selector,modifier,options)=>{cardWrites.push({selector,modifier,options});return updateCount;},find:selector=>{cardQueries.push(selector);return {fetchAsync:async()=>Array.isArray(existing)?existing:[existing || {_id:'card',syncExternalId:'KEY-1',syncSourceType:'jira',syncSourceKey:sourceKey,title:'Existing',description:'',syncLastSource:{title:'Existing',description:''}}]}},findOneAsync:async selector=>typeof child==='function'?child(selector):child},
   Boards:{findOneAsync:async()=>({_id:'board',getDefaultSwimlineAsync:async()=>({_id:'lane'})})},ListSyncCredentials:{findOneAsync:async()=>({token:'test',sourceKey:credentialKey})},
   EXTERNAL_PARSERS:{jira:raw=>{parsed++;return parser?parser(raw):{tasks:[]};}},SYNC_CAPABLE_SOURCES:['jira'],
-  LIST_SYNC_FETCHERS:{jira:async()=>{fetches++;return raw;}},validateImportSourceShape,planListSyncReconcile,validateListSyncTasks,require:id=>(id.startsWith('/models/lib/') || ['/server/lib/listSyncCardId','/server/lib/listSyncConfiguration','/server/lib/listSyncConflict','/server/lib/listSyncTarget','/server/lib/listSyncPreview','/server/lib/listSyncSourceCoverage'].includes(id))?require('..'+id):({record(){}}),console,
+  LIST_SYNC_FETCHERS:{jira:async()=>{fetches++;return raw;}},validateImportSourceShape,planListSyncReconcile,validateListSyncTasks,require:id=>(id.startsWith('/models/lib/') || ['/server/lib/listSyncCardId','/server/lib/listSyncConfiguration','/server/lib/listSyncConflict','/server/lib/listSyncTarget','/server/lib/listSyncPreview','/server/lib/listSyncSourceCoverage','/server/lib/syncRunReport'].includes(id))?require('..'+id):({record(){}}),console,
  };
  vm.createContext(context);vm.runInContext(source,context);
  const result=await context.syncOneList({_id:'list',boardId:'board',syncSource:{...sourceConfig,fields,...operations}},options);
- return {result,cardWrites,listWrites,parsed,fetches,cardQueries};
+ return {result,cardWrites,listWrites,parsed,fetches,cardQueries,reports};
 }
 test('malformed sync responses cannot be mistaken for a source deletion',async()=>{
  for(const raw of [{errorMessages:['Unavailable']},{issues:null},{issues:{}},null]){
@@ -363,7 +365,7 @@ test('preview and actual Sync share the write plan, including baselines and igno
   {externalId:'NEW',title:'Create me',description:'',spentTime:0,requested_by:'PRIVATE REQUESTER'}];
  const invoke=options=>run({issues:[{key:'KEEP',fields:{attachment:[{filename:'PRIVATE ATTACHMENT'}]}}]},()=>({tasks}),cards,1,null,undefined,{},sourceKey,true,undefined,options);
  const preview=await invoke({dryRun:true});
- assert.deepEqual(preview.cardWrites,[]);assert.deepEqual(preview.listWrites,[]);
+ assert.deepEqual(preview.cardWrites,[]);assert.deepEqual(preview.listWrites,[]);assert.deepEqual(preview.reports,[]);
  assert.equal(preview.result.preview.created,1);assert.equal(preview.result.preview.updated,1);
  assert.equal(preview.result.preview.archived,1);
  assert.equal(preview.result.preview.items.length,3);
@@ -371,6 +373,9 @@ test('preview and actual Sync share the write plan, including baselines and igno
  assert.equal(preview.result.preview.coverage.source.rows[0].path,'/issues/*/fields/attachment');
  assert.equal(preview.result.preview.coverage.source.rows[0].count,1);
  const applied=await invoke({});
+ assert.equal(applied.reports.length,1);assert.equal(applied.reports[0].status,'completed-with-warnings');
+ assert.equal(applied.reports[0].created,1);
+ assert.doesNotMatch(JSON.stringify(applied.reports),/PRIVATE ATTACHMENT|PRIVATE REQUESTER/);
  for(const field of ['created','updated','archived'])assert.equal(preview.result.preview[field],applied.result[field]);
  const unchanged=await run({issues:[]},()=>({tasks:[{externalId:'KEEP',title:'Old',description:'',column_name:'Done'}]}),[cards[0]]);
  assert.equal(unchanged.result.updated,0);assert.deepEqual(unchanged.cardWrites,[]);

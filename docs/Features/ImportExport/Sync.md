@@ -224,8 +224,36 @@ Pagination envelopes discarded by the fetcher are outside this inventory.
 The preview uses saved settings; changing the form clears the displayed plan.
 Sync now fetches and validates again, so the preview is not an approval token
 for a frozen plan. The source inventory follows the current parsers; it is not
-a complete provider schema or a mapping editor. Persisted run reports, binary
-and history transport, and complete source schema coverage remain unfinished.
+a complete provider schema or a mapping editor. Binary and history transport
+and complete source schema coverage remain unfinished.
+
+### Recent Sync runs
+
+**Recent Sync runs** reads the latest 20 full-list run reports from the last 30
+days. Manual and scheduled runs persist a private starting record before
+fetching or changing cards, then store bounded normalized/source field coverage
+and a final status. Successful runs include created, updated and archived card
+counts. A run with omitted, excluded or converted fields is shown as completed
+with warnings. Changing source settings does not erase the list's history.
+
+An unfinished report means the run may still be active or its outcome was never
+recorded. Failed and unfinished runs may have changed some cards. Reports do
+not infer partial counts, replay writes or roll them back. If the starting
+record cannot be stored, the run does not start; a lost final acknowledgement
+may leave an unfinished or failed report even after card writes committed.
+Previews, disabled/unsupported sources and assigned-only conflict reviews do
+not start full-run reports. Individual conflict resolutions are not full runs.
+
+The collection has no publication or client writes. Reading checks full-list
+write access and the list's board/lifetime before and after fetching. A new list
+reusing an old ID cannot read its reports. The method returns a bounded,
+explicit projection; source URLs, credentials, error bodies and card/omitted
+field values are never copied into these reports. Refresh explicitly to read
+new results. MongoDB expires records after 30 days through a TTL index; reads
+also exclude older records. Backends without TTL support need operator-managed
+cleanup of old diagnostic records. This is diagnostic retention, not a durable
+operation plan: restart/replay checkpoints and in-flight write fencing remain
+unfinished.
 
 ### Repair duplicate mappings
 

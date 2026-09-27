@@ -169,6 +169,7 @@ test('Sync preview reports saved changes and omitted fields without changing car
     await call(page, 'setListSyncSource', listId, config);
     const originalCards = db.find('cards', { boardId: board.boardId });
     const originalList = db.findOne('lists', { _id: listId });
+    expect(db.find('listSyncRunReports', { listId })).toHaveLength(0);
     await openSync(page, listId);
     await page.locator('.js-list-sync-preview').click();
     const preview = page.locator('.list-sync-preview');
@@ -195,9 +196,21 @@ test('Sync preview reports saved changes and omitted fields without changing car
     await expect(preview).toContainText('Based on saved settings');
     await expect(preview).toContainText('Create cards: 1');
     expect(requests.at(-1).project).toBe('PREVIEW');
+    expect(db.find('listSyncRunReports', { listId })).toHaveLength(0);
     await page.locator('.js-list-sync-now').click();
     await expect.poll(() => db.find('cards', { listId, syncExternalId: 'SAME-1' }).length).toBe(1);
     await expect(page.locator('.js-list-sync-preview')).toBeEnabled();
+    const reports = await call(page, 'listSyncRunReports', listId);
+    expect(reports).toHaveLength(1);
+    expect(reports[0]).toMatchObject({ status: 'completed-with-warnings', created: 1 });
+    expect(JSON.stringify(reports)).not.toMatch(/private-attachment-name|preview-private-token|private-custom-value/);
+    await page.locator('.js-list-sync-reports').click();
+    const history = page.locator('.list-sync-run-reports');
+    await expect(history).toContainText('Completed with omitted or converted fields');
+    await history.locator('summary').click();
+    await expect(history).toContainText('/issues/*/fields/attachment');
+    await expect(history.locator('script')).toHaveCount(0);
+    await expect(history).not.toContainText('private-attachment-name');
     const settled = db.findOne('lists', { _id: listId });
     const cards = db.find('cards', { listId });
     expect(cards.find(card => card.syncExternalId === 'SAME-1').syncLastSource.description).toBe('');
@@ -389,6 +402,11 @@ test('assigned-only writers resolve their own conflicts without reading or chang
     expect(forbiddenPreview.error).toContain('Full-list write access');
     expect(JSON.stringify(forbiddenPreview)).not.toMatch(/Hidden|SAME-2/);
     expect(requests).toHaveLength(fetchCount);
+    const reportDenied = await page.evaluate(async listId => {
+      try { await Meteor.callAsync('listSyncRunReports', listId); return 'allowed'; }
+      catch (error) { return error.error; }
+    }, listId);
+    expect(reportDenied).toBe('not-authorized');
     const review = await call(page, 'syncListNow', listId);
     expect(review.reviewOnly).toBe(true); expect(review.conflicts).toHaveLength(1);
     expect(review.conflicts[0].cardId).toBe(own._id);

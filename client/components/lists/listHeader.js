@@ -886,6 +886,9 @@ Template.listSyncPopup.onCreated(function () {
   tpl.syncConflicts = new ReactiveVar([]);
   tpl.syncBusy = new ReactiveVar(false);
   tpl.syncPreview = new ReactiveVar(null);
+  tpl.runReports = new ReactiveVar(null);
+  tpl.reportError = new ReactiveVar('');
+  tpl.reportsBusy = new ReactiveVar(false);
   tpl.previewRequest = 0;
   tpl.clearSyncPreview = () => { tpl.syncPreview.set(null); tpl.previewRequest++; };
 
@@ -902,6 +905,19 @@ Template.listSyncPopup.onCreated(function () {
 });
 
 Template.listSyncPopup.helpers({
+  syncReportsBusy() { return Template.instance().reportsBusy.get(); },
+  syncReportError() { return Template.instance().reportError.get(); },
+  syncReportsLoaded() { return Template.instance().runReports.get() !== null; },
+  syncRunReports() {
+    return (Template.instance().runReports.get() || []).map(report => ({ ...report,
+      when: new Date(report.startedAt).toLocaleString(),
+      hasCounts: report.created !== undefined,
+      statusLabel: `sync-report-${report.status}`,
+      sourceRows: (report.coverage?.source?.rows || []).map(row => ({ ...row,
+        reasonLabel: `sync-source-${row.reason}`,
+      })),
+    }));
+  },
   syncPreview() { return Template.instance().syncPreview.get(); },
   syncPreviewItems() {
     return (Template.instance().syncPreview.get()?.items || []).map(row => ({ ...row,
@@ -1000,6 +1016,20 @@ Template.listSyncPopup.helpers({
 });
 
 Template.listSyncPopup.events({
+  'click .js-list-sync-reports'(event, tpl) {
+    event.preventDefault();
+    if (tpl.reportsBusy.get()) return;
+    const list = tpl.data;
+    tpl.runReports.set(null);
+    tpl.reportError.set('');
+    tpl.reportsBusy.set(true);
+    Meteor.call('listSyncRunReports', list._id, (error, reports) => {
+      if (tpl.view.isDestroyed) return;
+      tpl.reportsBusy.set(false);
+      if (error) tpl.reportError.set(TAPi18n.__('sync-report-unavailable'));
+      else tpl.runReports.set(reports);
+    });
+  },
   'input .js-list-sync-url, input .js-list-sync-project-key, input .js-list-sync-token, input .js-list-sync-username'(event, tpl) {
     tpl.clearSyncPreview();
   },

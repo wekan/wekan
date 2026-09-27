@@ -3559,5 +3559,16 @@
   "sync-source-excluded-item": "Item excluded by the parser",
   "sync-source-occurrences": "Reported field or item occurrences",
   "sync-source-truncated": "The report is limited to 100 paths and shortened field names.",
-  "sync-source-omitted": "Additional occurrences outside the displayed paths"
+  "sync-source-omitted": "Additional occurrences outside the displayed paths",
+  "sync-report-button": "Recent Sync runs",
+  "sync-report-retention": "Latest 20 runs. Reports are retained for 30 days.",
+  "sync-report-partial": "Failed or unfinished runs may have changed some cards. These reports do not resume or undo a run.",
+  "sync-report-unfinished": "In progress or interrupted; outcome not recorded",
+  "sync-report-failed": "Failed; partial changes possible",
+  "sync-report-completed": "Completed",
+  "sync-report-completed-with-warnings": "Completed with omitted or converted fields",
+  "sync-report-skipped": "Skipped",
+  "sync-report-review-only": "Review only",
+  "sync-report-unavailable": "Run reports require full-list write access and an available server.",
+  "sync-report-empty": "No recorded Sync runs."
 }

@@ -8,9 +8,12 @@
 // they can reach the client.
 import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
+import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import Lists from '/models/lists';
 import Cards from '/models/cards';
 import ListSyncCredentials from '/models/listSyncCredentials';
+import ListSyncRunReports from '/server/lib/listSyncRunReports';
+const { reportScope } = require('/server/lib/syncRunReport');
 import { ReactiveCache } from '/imports/reactiveCache';
 import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 import { SYNC_CAPABLE_SOURCES } from '/models/lib/externalParsers';
@@ -136,6 +139,30 @@ Meteor.methods({
       assertConflictAccess: () => assertConflictAccess(this.userId, list.boardId) });
   },
 
+  async listSyncRunReports(listId) {
+    check(listId, String);
+    const list = await Lists.findOneAsync(listId);
+    if (!list) throw new Meteor.Error('list-not-found', 'List not found.');
+    const access = async () => {
+      if (await assertConflictAccess(this.userId, list.boardId)) {
+        throw new Meteor.Error('not-authorized', 'Full-list write access is required.');
+      }
+      const current = await Lists.findOneAsync(listId);
+      if (!current || JSON.stringify(reportScope(current)) !== JSON.stringify(reportScope(list))) {
+        throw new Meteor.Error('list-changed', 'The list changed.');
+      }
+    };
+    await access();
+    const reports = await ListSyncRunReports.find({ ...reportScope(list),
+      startedAt: { $gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) } }, {
+      sort: { startedAt: -1, _id: -1 }, limit: 20,
+      fields: { startedAt: 1, finishedAt: 1, status: 1, created: 1,
+        updated: 1, archived: 1, coverage: 1 },
+    }).fetchAsync();
+    await access();
+    return reports;
+  },
+
   async previewListSync(listId) {
     check(listId, String);
     const list = await Lists.findOneAsync(listId);
@@ -156,3 +183,6 @@ Meteor.methods({
     return syncOneList(list, { resolution, assertConflictAccess: () => assertConflictAccess(this.userId, list.boardId) });
   },
 });
+
+DDPRateLimiter.addRule({ type: 'method', name: 'listSyncRunReports',
+  connectionId: () => true }, 10, 10000);

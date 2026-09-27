@@ -25,6 +25,8 @@ import { SyncedCron } from '/server/cron/syncedCron';
 import { withListSyncLease } from '/server/lib/listSyncLease';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import ListSyncTargets from '/server/lib/listSyncTargets';
+import ListSyncRunReports from '/server/lib/listSyncRunReports';
+const { withSyncRunReport } = require('/server/lib/syncRunReport');
 const { planSyncTextMerge, syncTextSelector, selectSyncTextFields } = require('/models/lib/listSyncTextMerge');
 const { syncSourceKey } = require('/models/lib/listSyncSourceIdentity');
 const { readSyncCredential, sweepSyncCredentials } = require('/server/lib/listSyncConfiguration');
@@ -54,7 +56,7 @@ export async function syncOneList(list, options = {}) {
 }
 
 async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, previewConflicts = false, dryRun = false,
-  assertConflictAccess } = {}, { assertCurrent }) {
+  assertConflictAccess, recordCoverage } = {}, { assertCurrent }) {
   if (dryRun && resolution) return { error: 'Preview cannot resolve conflicts.' };
   const source = list.syncSource;
   if (!source || !source.type || (!dryRun && source.enabled === false)) return { skipped: true };
@@ -67,6 +69,13 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
   let conflictScope = assertConflictAccess ? await assertConflictAccess() : null;
 
   if (dryRun && conflictScope) return { error: 'Full-list write access is required to preview Sync.' };
+
+  if (!dryRun && !resolution && !conflictScope && !recordCoverage) {
+    await assertCurrent();
+    return withSyncRunReport(ListSyncRunReports.rawCollection(), list,
+      recordCoverage => reconcileList(list, { fetchers, previewConflicts,
+        assertConflictAccess, recordCoverage }, { assertCurrent }));
+  }
 
   const credential = await readSyncCredential(ListSyncCredentials, list);
 
@@ -83,7 +92,8 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
     validateImportSourceShape(source.type, raw);
     parsed = parser(raw);
     validateListSyncTasks(parsed?.tasks);
-    if (dryRun) sourceCoverage = describeSyncSourceCoverage(source.type, raw, source.fields);
+    if (dryRun || recordCoverage) sourceCoverage = describeSyncSourceCoverage(source.type, raw, source.fields);
+    if (recordCoverage) await recordCoverage({ ...syncCoverage(parsed, source), source: sourceCoverage });
   } catch (e) {
     await assertCurrent();
     if (dryRun) return { error: String((e && e.message) || e) };
