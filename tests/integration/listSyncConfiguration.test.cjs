@@ -13,6 +13,8 @@ test('Sync configuration selects immutable credentials atomically in a real data
   t.after(async () => { await db.dropDatabase(); await Promise.all(clients.map(client => client.close())); });
   const adapter = collection => ({
     findOneAsync: selector => collection.findOne(selector),
+    find: (selector, options) => ({ fetchAsync: () => collection.find(selector,
+      { projection: options.fields }).sort(options.sort).limit(options.limit).toArray() }),
     insertAsync: doc => collection.insertOne(doc),
     updateAsync: async (selector, modifier) => (await collection.updateOne(selector, modifier)).matchedCount,
     removeAsync: selector => collection.deleteMany(selector),
@@ -220,14 +222,94 @@ test('Sync configuration selects immutable credentials atomically in a real data
     assert.equal((await read(await current(list._id)))._id, list.syncRevision);
     assert.equal(await db.collection('credentials').countDocuments({ listId: list._id }), 1);
   });
-  await t.test('invalid generations fail before staging, deletion or activation', async () => {
-    for (const generation of [null, -1, 0.5, Number.MAX_SAFE_INTEGER, '1']) {
-      const input = await seed(`bad-generation-${String(generation)}`);
+  await t.test('damaged and exhausted generations repair without reviving old saves', async () => {
+    for (const [index, generation] of [null, -1, 0.5, Number.MAX_SAFE_INTEGER, '1', NaN, Infinity, {}, []].entries()) {
+      const input = await seed(`bad-generation-${index}`);
       const list = { ...input.list, syncCredentialGeneration: generation };
       await db.collection('lists').replaceOne({ _id: list._id }, list);
-      await assert.rejects(commitSyncConfiguration({ ...contexts[0], ...input, list }), /generation/);
-      await assert.rejects(cleanup(list._id), /generation/);
+      await db.collection('credentials').insertOne({ _id: `bad-stage-${index}`, configurationId: `bad-stage-${index}`,
+        listId: list._id, generation, token: 'unselected' });
+      await cleanup(list._id);
+      const repaired = await current(list._id);
+      assert.equal(repaired.syncCredentialGeneration, 0);
+      assert.equal(typeof repaired.syncCredentialFence, 'string');
+      assert.equal((await read(repaired)).token, input.previousCredential.token);
       assert.equal(await db.collection('credentials').countDocuments({ listId: list._id }), 1);
+      await assert.rejects(commitSyncConfiguration({ ...contexts[0], ...input, list }), /settings changed/);
+      await commitSyncConfiguration({ ...contexts[0], ...input, list: repaired });
+      assert.equal((await read(await current(list._id))).token, newCredential.token);
+      // Direct settings saves repair too, even when no credential rows exist.
+      const empty = { _id: `empty-bad-${index}`, boardId: 'board', syncCredentialGeneration: generation };
+      await db.collection('lists').insertOne(empty);
+      await commitSyncConfiguration({ ...contexts[0], ...input, list: empty, previousCredential: null });
+      assert.equal((await current(empty._id)).syncCredentialGeneration, 0);
+      assert.equal(typeof (await current(empty._id)).syncCredentialFence, 'string');
+      assert.equal((await read(await current(empty._id))).token, newCredential.token);
+    }
+  });
+  await t.test('cleanup deletes a bounded snapshot, never stages from a later fence', async () => {
+    const input = await seed('bounded-reset');
+    await commitSyncConfiguration({ ...contexts[0], ...input });
+    await db.collection('credentials').insertMany(Array.from({ length: 505 }, (_, i) => ({
+      _id: `bounded-${String(i).padStart(3, '0')}`, configurationId: `bounded-${i}`,
+      listId: input.list._id, generation: 'invalid', token: 'unused',
+    })));
+    let release, reached;
+    const paused = new Promise(resolve => { reached = resolve; });
+    const gate = new Promise(resolve => { release = resolve; });
+    const first = cleanup(input.list._id, { credentials: { ...contexts[0].credentials,
+      removeAsync: async selector => { reached(); await gate; return contexts[0].credentials.removeAsync(selector); },
+    } });
+    await paused;
+    await db.collection('lists').updateOne({ _id: input.list._id }, { $set: { syncCredentialGeneration: null } });
+    await cleanup(input.list._id);
+    const secondFence = await current(input.list._id);
+    await commitSyncConfiguration({ ...contexts[1], ...input, list: secondFence,
+      previousCredential: await read(secondFence) });
+    const selected = await current(input.list._id);
+    // This stage has the same numeric generation as a much older save, but
+    // was never in either cleanup snapshot and belongs to the current fence.
+    await db.collection('credentials').insertOne({ _id: 'later-bounded-stage', configurationId: 'later-bounded-stage',
+      listId: input.list._id, generation: 0, token: 'later' });
+    release(); await first;
+    assert.equal((await read(await current(input.list._id)))._id, selected.syncRevision);
+    assert.ok(await db.collection('credentials').findOne({ _id: 'later-bounded-stage' }));
+    assert.equal(await db.collection('credentials').countDocuments({ listId: input.list._id }), 7);
+    await cleanup(input.list._id);
+    assert.equal(await db.collection('credentials').countDocuments({ listId: input.list._id }), 1);
+  });
+  await t.test('settings repair is atomic across lost acknowledgements and disconnects', async () => {
+    const input = await seed('repair-ack');
+    await db.collection('lists').updateOne({ _id: input.list._id }, { $set: { syncCredentialGeneration: null } });
+    const old = await current(input.list._id);
+    await assert.rejects(commitSyncConfiguration({ ...contexts[0], ...input, list: old,
+      lists: { ...contexts[0].lists, updateAsync: async (...args) => {
+        await contexts[0].lists.updateAsync(...args); throw new Error('lost acknowledgement');
+      } } }), /lost acknowledgement/);
+    const active = await current(input.list._id);
+    assert.equal(active.syncCredentialGeneration, 0);
+    assert.equal((await read(active)).token, newCredential.token);
+    await assert.rejects(commitSyncConfiguration({ ...contexts[1], ...input, list: old }), /settings changed/);
+    await db.collection('lists').updateOne({ _id: input.list._id }, { $set: { syncCredentialGeneration: 'broken' } });
+    await commitSyncConfiguration({ ...contexts[1], list: await current(input.list._id), source: null });
+    assert.equal((await current(input.list._id)).syncCredentialGeneration, 0);
+    assert.equal(await read(await current(input.list._id)), null);
+    await cleanup(input.list._id);
+    assert.equal(await db.collection('credentials').countDocuments({ listId: input.list._id }), 0);
+  });
+  await t.test('malformed opaque fences are replaced when saving settings', async () => {
+    for (const [index, fence] of [null, '', 42, {}].entries()) {
+      const input = await seed(`bad-fence-${index}`);
+      await db.collection('lists').updateOne({ _id: input.list._id }, { $set: {
+        syncCredentialGeneration: 7, syncCredentialFence: fence,
+      } });
+      const previous = await current(input.list._id);
+      await commitSyncConfiguration({ ...contexts[0], ...input, list: previous });
+      const active = await current(input.list._id);
+      assert.equal(active.syncCredentialGeneration, 7);
+      assert.match(active.syncCredentialFence, /^[a-f0-9-]{36}$/);
+      assert.equal((await read(active)).token, newCredential.token);
+      await assert.rejects(commitSyncConfiguration({ ...contexts[1], ...input, list: previous }), /settings changed/);
     }
   });
   await t.test('the streaming sweep handles disabled lists, missing lists and per-list errors without exposing tokens', async () => {
@@ -238,7 +320,7 @@ test('Sync configuration selects immutable credentials atomically in a real data
     await db.collection('credentials').insertOne({ _id: 'missing-list', listId: 'no-list', token: 'private-test-marker' });
     const result = await sweepSyncCredentials({ ...contexts[0],
       cursor: db.collection('credentials').find({}, { projection: { _id: 1, listId: 1, incarnation: 1, configurationId: 1 } }).sort({ listId: 1 }).batchSize(2) });
-    assert.ok(result.cleaned > 0); assert.ok(result.failed > 0); assert.ok(result.orphaned > 0);
+    assert.ok(result.cleaned > 0); assert.equal(result.failed, 0); assert.ok(result.orphaned > 0);
     assert.doesNotMatch(JSON.stringify(result), /token|private-test-marker/);
     assert.equal(await db.collection('credentials').countDocuments({ listId: input.list._id }), 1);
     assert.equal(await db.collection('credentials').findOne({ _id: 'missing-list' }), null);

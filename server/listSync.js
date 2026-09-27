@@ -318,7 +318,7 @@ export async function scanListSync() {
 
 Meteor.startup(async () => {
   try {
-    await ensureIndex(ListSyncCredentials, { listId: 1, generation: 1 });
+    await ensureIndex(ListSyncCredentials, { listId: 1, _id: 1 });
     SyncedCron.add({
       name: 'wekan-list-sync-credential-cleanup',
       schedule(parser) { return parser.text('every 1 hour'); },

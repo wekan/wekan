@@ -312,6 +312,8 @@ Lists.attachSchema(
     },
     // Server-maintained fence for retiring unselected credential versions.
     syncCredentialGeneration: { type: Number, optional: true, min: 0, max: Number.MAX_SAFE_INTEGER },
+    // Changes on every cleanup, including a damaged numeric counter reset.
+    syncCredentialFence: { type: String, optional: true },
     syncSource: {
       type: Object,
       optional: true,
@@ -838,11 +840,12 @@ export default Lists;
 // Prevent direct DDP writes bypassing Scrum reference and lifecycle validation.
 if (Meteor.isServer) {
   Lists.deny({
-    insert(userId, doc) { return doc.scrum !== undefined || doc.scrumRevision !== undefined || doc.syncCredentialGeneration !== undefined; },
+    insert(userId, doc) { return doc.scrum !== undefined || doc.scrumRevision !== undefined || doc.syncCredentialGeneration !== undefined || doc.syncCredentialFence !== undefined; },
     update(userId, doc, fields) {
       return fields.some(field => field === 'scrum' || field.startsWith('scrum.') || field === 'scrumRevision' ||
         field === 'syncCredentialGeneration' || field.startsWith('syncCredentialGeneration.') ||
-        field === 'syncCredentialIncarnation' || field.startsWith('syncCredentialIncarnation.'));
+        field === 'syncCredentialIncarnation' || field.startsWith('syncCredentialIncarnation.') ||
+        field === 'syncCredentialFence' || field.startsWith('syncCredentialFence.'));
     },
   });
 }

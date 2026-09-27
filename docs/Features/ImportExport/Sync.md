@@ -88,14 +88,23 @@ No token is included in public list data.
 Upgrade all server processes that save Sync settings together: older code
 updates credential rows in place and does not honor these revisions.
 
-An hourly credential sweep removes unselected versions left by interrupted
-settings saves. Before deleting, it conditionally advances the list's
-server-owned `syncCredentialGeneration`. Every new save records its generation
-on the staged credential and requires that same generation when activating it.
-A delayed save from before the sweep therefore cannot select a retired token.
-The sweep preserves the selected credential and all versions staged in newer
-generations. A delayed old-generation insert is reclaimed on a later sweep.
-Failed or uncertain cleanup is retryable without changing the selected token.
+An hourly credential sweep snapshots up to 500 unselected version IDs per list
+without reading tokens. Before deleting that snapshot, it conditionally changes
+the server-owned `syncCredentialFence` and advances `syncCredentialGeneration`.
+Every settings save compares both values when activating its staged credential.
+A delayed save from before the sweep cannot select a retired token. Deletion
+uses only the snapshotted immutable IDs: later staging stays intact even if
+another sweep or counter repair finishes before the first deletion resumes.
+Larger backlogs are collected over subsequent sweeps.
+
+Malformed, negative, fractional and exhausted counters reset to zero with a
+fresh fence. Ordinary settings saves can repair them too, including a list with
+no credential rows; the repair and settings activation are one conditional
+write. A numeric reset cannot make an old save eligible again. Unselected rows
+with malformed generation values are retired by identity, without trusting
+their counters. Selected tokens remain usable; saving settings replaces their
+old metadata with a new immutable version. A late abandoned insert is reclaimed
+on a later sweep. Failed or uncertain cleanup can be retried.
 
 The scan streams credential IDs and lifetime metadata without reading tokens,
 includes disabled Sync configurations, and isolates failures between lists.
@@ -103,9 +112,9 @@ Legacy unversioned rows remain protected while a legacy configuration can
 select them. Saving settings
 binds an explicit version; later sweeps can retire those old rows too. Rows for
 missing lists are removed by exact credential identity after checking that
-the list is absent; malformed generations on existing lists remain for review.
+the list is absent.
 The sweep does not publish or log credential contents. Upgrade **all** processes
-before relying on this cleanup: an older writer that ignores the generation
+before relying on this cleanup: an older writer that ignores the opaque
 fence can still issue unsafe activation writes.
 
 New lists receive a server-generated `syncCredentialIncarnation` on insertion,

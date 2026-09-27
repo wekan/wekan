@@ -17,6 +17,10 @@ test('scheduled credential cleanup streams IDs, isolates failures and keeps secr
     async close() { closed = true; },
   };
   const credentials = {
+    find: (selector, options) => {
+      assert.deepEqual(options, { fields: { _id: 1 }, sort: { _id: 1 }, limit: 500 });
+      return { fetchAsync: async () => [{ _id: 'orphan' }] };
+    },
     rawCollection: () => ({ find(selector, options) {
       assert.deepEqual(JSON.parse(JSON.stringify(options)), { projection: { _id: 1, listId: 1, incarnation: 1, configurationId: 1 } });
       return cursor;
@@ -41,7 +45,7 @@ test('scheduled credential cleanup streams IDs, isolates failures and keeps secr
   };
   vm.runInNewContext(source.slice(source.lastIndexOf('Meteor.startup(')), context);
   await startup();
-  assert.equal(indexed.length, 1);
+  assert.deepEqual(JSON.parse(JSON.stringify(indexed)), [{ listId: 1, _id: 1 }]);
   const cleanup = jobs.find(job => job.name === 'wekan-list-sync-credential-cleanup');
   assert.ok(cleanup);
   assert.ok(jobs.find(job => job.name === 'wekan-list-sync'), 'ordinary Sync must remain scheduled');

@@ -1,17 +1,20 @@
 const { randomUUID } = require('node:crypto');
 
+function validCredentialGeneration(list) {
+  const generation = list.syncCredentialGeneration === undefined ? 0 : list.syncCredentialGeneration;
+  return Number.isSafeInteger(generation) && generation >= 0 && generation < Number.MAX_SAFE_INTEGER;
+}
+
 function credentialGeneration(list) {
-  const generation = list.syncCredentialGeneration ?? 0;
-  if (!Number.isSafeInteger(generation) || generation < 0 || generation === Number.MAX_SAFE_INTEGER ||
-      list.syncCredentialGeneration === null) throw new Error('Invalid Sync credential generation.');
-  return generation;
+  return validCredentialGeneration(list) ? (list.syncCredentialGeneration ?? 0) : 0;
 }
 
 function configurationSelector(list) {
   const present = key => Object.hasOwn(list, key) ? { $eq: list[key], $exists: true } : { $exists: false };
   return { _id: list._id, boardId: list.boardId, syncRevision: present('syncRevision'),
     syncSource: present('syncSource'), syncCredentialGeneration: present('syncCredentialGeneration'),
-    syncCredentialIncarnation: present('syncCredentialIncarnation') };
+    syncCredentialIncarnation: present('syncCredentialIncarnation'),
+    syncCredentialFence: present('syncCredentialFence') };
 }
 
 function syncCredentialSelector(list) {
@@ -38,6 +41,12 @@ async function readSyncCredential(credentials, list) {
 async function commitSyncConfiguration({ lists, credentials, list, source,
   credential, previousCredential, assertCurrent }) {
   const generation = credentialGeneration(list);
+  // Reset damaged/exhausted counters with a new opaque fence in the SAME
+  // activation write. A numeric reset alone could revive an old generation.
+  const repair = !validCredentialGeneration(list) ||
+    (list.syncCredentialFence !== undefined &&
+      (typeof list.syncCredentialFence !== 'string' || !list.syncCredentialFence))
+    ? { syncCredentialGeneration: generation, syncCredentialFence: randomUUID() } : {};
   const revision = randomUUID();
   if (source && credential) {
     await assertCurrent();
@@ -47,8 +56,8 @@ async function commitSyncConfiguration({ lists, credentials, list, source,
       token: credential.token, username: credential.username || '' });
   }
   await assertCurrent();
-  const changed = await lists.updateAsync(configurationSelector(list), source ? { $set: { syncSource: source, syncRevision: revision } }
-    : { $set: { syncRevision: revision }, $unset: { syncSource: '' } });
+  const changed = await lists.updateAsync(configurationSelector(list), source ? { $set: { syncSource: source, syncRevision: revision, ...repair } }
+    : { $set: { syncRevision: revision, ...repair }, $unset: { syncSource: '' } });
   if (!changed) {
     if (source && credential) {
       // An acknowledged failed comparison proves this attempt did not commit.
@@ -67,22 +76,21 @@ async function commitSyncConfiguration({ lists, credentials, list, source,
   return source ? { ok: true } : { cleared: true };
 }
 
-// Fence older saves with one list update BEFORE deleting any staged versions.
-// This does not rely on a lease timeout or an age heuristic. A late insert can
-// remain until the next sweep, but its old-generation activation cannot match.
+// Snapshot a bounded set BEFORE fencing saves. A delayed deletion then only
+// touches those immutable IDs, never newer staging (even after another sweep
+// or a repaired counter). No ordering or type of generation is trusted here.
 async function cleanupSyncCredentials({ lists, credentials, list }) {
-  const generation = credentialGeneration(list);
   const selected = syncCredentialSelector(list);
   if (list.syncSource && !selected) return { skipped: true };
-  if (!await lists.updateAsync(configurationSelector(list),
-    { $set: { syncCredentialGeneration: generation + 1 } })) return { skipped: true };
-  const selector = { listId: list._id, $or: [
-    { generation: { $exists: false } }, { generation: { $type: 'number', $lt: generation + 1 } },
-  ] };
-  // Legacy readers may select any unversioned row: retain them all until a
-  // settings save binds one immutable version. Never fetch tokens to sweep.
-  if (selected) selector.$nor = [selected];
-  const removed = await credentials.removeAsync(selector);
+  const selector = { listId: list._id, ...(selected ? { $nor: [selected] } : {}) };
+  const candidates = await credentials.find(selector,
+    { fields: { _id: 1 }, sort: { _id: 1 }, limit: 500 }).fetchAsync();
+  if (!await lists.updateAsync(configurationSelector(list), { $set: {
+    syncCredentialGeneration: validCredentialGeneration(list) ? credentialGeneration(list) + 1 : 0,
+    syncCredentialFence: randomUUID(),
+  } })) return { skipped: true };
+  const removed = await credentials.removeAsync({ listId: list._id,
+    _id: { $in: candidates.map(row => row._id) } });
   return { removed };
 }
 
