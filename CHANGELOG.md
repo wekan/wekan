@@ -1373,6 +1373,23 @@ live provider accounts were not exercised.
 This release adds the following regression coverage and documentation:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/c6ac0014c">Separate unset Scrum ranks from normal board sort positions</a>. Thanks to xet7.</summary>
+
+The planning editor no longer puts a potentially negative board sort position
+into a nonnegative Scrum rank input. Unset ranks remain blank, display as a
+dash and use normal card order as their sorting fallback. Clearing a rank
+stores null; zero remains an explicit rank and negative ranks remain invalid.
+The optional card metadata editor uses the same clearing behavior.
+
+Fourteen Node checks and two Chromium scenarios pass, covering unrelated edits
+on a negative-sort card, explicit zero, clearing, History restoration, rejected
+negative ranks and native transfer of null. Update the Product Backlog guide.
+Existing Upcoming regression evidence remains recorded; other browsers were
+not exercised. Blockly translations remain paused.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/50a6e92e8">Preserve Scrum workflow categories in cross-board list moves</a>. Thanks to xet7.</summary>
 
 New destination lists retain their source workflow category when moving a list
