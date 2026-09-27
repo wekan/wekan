@@ -27,7 +27,7 @@ function estimateIdentity(value) {
 }
 function validateCustomFields(fields) {
   if (fields === null) return;
-  if (!Array.isArray(fields) || fields.length > 10000) fail('invalid-sync-operation-custom-fields');
+  if (!Array.isArray(fields) || fields.length > 10000 || Object.keys(fields).length !== fields.length) fail('invalid-sync-operation-custom-fields');
   const ids = new Set();
   for (const field of fields) {
     if (!plain(field) || typeof field._id !== 'string' || !field._id || ids.has(field._id) ||
@@ -38,7 +38,8 @@ function validateCustomFields(fields) {
     const valid = value === null || typeof value === 'string' || typeof value === 'boolean' ||
       (typeof value === 'number' && Number.isFinite(value)) ||
       (value instanceof Date && Number.isFinite(value.getTime())) ||
-      (Array.isArray(value) && value.every(item => typeof item === 'string'));
+      (Array.isArray(value) && Object.keys(value).length === value.length &&
+        Array.from(value).every(item => typeof item === 'string'));
     if (!valid) fail('invalid-sync-operation-custom-field-value');
   }
 }

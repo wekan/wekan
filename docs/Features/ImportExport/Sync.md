@@ -419,6 +419,10 @@ The private write-plan engine can now store and validate mapped-estimate
 snapshots for recovery, preserving unrelated custom fields and source mapping
 identities. Real MongoDB tests verify interrupted update/clear replay through
 a test adapter. Manual and scheduled Sync are not yet connected to that engine.
+A shared mutation planner now builds conditional field patches for saved steps,
+preserving unrelated metadata. Production Sync shares its literal-value
+selector helper; the complete recovery/application/effect adapter is still
+unfinished.
 
 Automatic Jira schema discovery, arbitrary mapping creation in this popup,
 original/remaining time-estimate mapping, other providers' estimates and durable

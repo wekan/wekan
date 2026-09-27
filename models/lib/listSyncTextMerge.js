@@ -1,4 +1,5 @@
 'use strict';
+const { exactFieldSelector } = require('./exactFieldSelector');
 
 // All workers protect the same first mapping, independent of cursor order.
 const compareSyncCardIds = (a, b) => a._id < b._id ? -1 : a._id > b._id ? 1 : 0;
@@ -41,12 +42,7 @@ function syncTextSelector(card, boardId, listId) {
   const selector = { _id: card._id, boardId, listId };
   const fields = ['title', 'description', 'spentTime', 'archived', 'syncExternalId', 'syncSourceType', 'syncSourceKey', 'syncLastSource'];
   if (Object.hasOwn(card, 'estimate')) fields.push('customFields');
-  for (const field of fields) {
-    // Mongo equality with null also matches an absent field. A local deletion
-    // after the snapshot is a change, so keep presence in the write condition.
-    selector[field] = card[field] === undefined ? { $exists: false }
-      : card[field] === null ? { $eq: null, $exists: true } : card[field];
-  }
+  Object.assign(selector, exactFieldSelector(card, fields));
   return selector;
 }
 function selectSyncTextFields(tasks, fields) {

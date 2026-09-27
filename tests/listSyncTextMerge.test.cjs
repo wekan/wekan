@@ -24,7 +24,7 @@ test('same edits on both sides converge and missing source fields do not erase t
 test('write preconditions retain board, list, text and baseline identity',()=>{
  const selector=syncTextSelector(card,'board','list');assert.equal(selector.boardId,'board');assert.equal(selector.listId,'list');
  assert.equal(selector.title,'Original');assert.deepEqual(selector.syncSourceType,{$exists:false});
- assert.deepEqual(selector.syncLastSource,card.syncLastSource);
+ assert.deepEqual(selector.syncLastSource,{$eq:card.syncLastSource});
 });
 
 test('duplicate local identities stop matching even when the source is empty',()=>{

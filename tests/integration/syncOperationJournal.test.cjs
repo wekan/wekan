@@ -1,10 +1,11 @@
 'use strict';
 const {test}=require('node:test');const assert=require('node:assert/strict');
 const {MongoClient,ObjectId}=require('mongodb');
-const {isDeepStrictEqual}=require('node:util');
+const {prepareSyncOperationMutation}=require('../../server/lib/syncOperationMutation');
 const {runSyncOperation}=require('../../server/lib/syncOperationJournal');
 const {withSyncLease}=require('../../server/lib/syncLease');
 const {syncTextSelector}=require('../../models/lib/listSyncTextMerge');
+const {exactFieldSelector}=require('../../models/lib/exactFieldSelector');
 const uri=process.env.WEKAN_SYNC_TEST_MONGO_URL;
 test('durable Sync journal resumes verified units without rebuilding or repeating committed effects', {skip:!uri}, async t=>{
  const client=await new MongoClient(uri).connect();const db=client.db(`sync_operation_${new ObjectId().toHexString()}`);
@@ -16,11 +17,17 @@ test('durable Sync journal resumes verified units without rebuilding or repeatin
  let builds=0,effects=0;
  const build=async()=>{builds++;return plan;};
  const apply=async step=>{
-  const current=await cards.findOne({_id:step.cardId});
-  if(isDeepStrictEqual(current,step.after))return 'already-applied';
-  if(!isDeepStrictEqual(current,step.before))throw new Error('local state changed');
-  if(step.kind==='create')await cards.insertOne(step.after);
-  else { const changed=await cards.replaceOne(step.before,step.after);assert.equal(changed.modifiedCount,1); }
+  const mutation=prepareSyncOperationMutation(step);
+  if(await cards.findOne(mutation.afterSelector))return 'already-applied';
+  if(mutation.kind==='create'){
+   if(await cards.findOne({_id:step.cardId}))throw new Error('local state changed');
+   await cards.insertOne(mutation.document);
+  }
+  else {
+   const changed=await cards.updateOne(mutation.beforeSelector,mutation.modifier);
+   if(changed.matchedCount!==1)throw new Error('local state changed');
+  }
+  assert.ok(await cards.findOne(mutation.afterSelector),'stored result must be verified');
   effects++;return 'applied';
  };
  const run=(options={})=>withSyncLease(leases,'list',({assertCurrent})=>runSyncOperation({operations,steps,scope,build,apply,assertCurrent,...options}));
@@ -169,6 +176,36 @@ test('durable Sync journal resumes verified units without rebuilding or repeatin
   await cards.replaceOne({_id:'estimate'},before);
   await run({build:async()=>assert.fail('conflicting plan rebuilt')});
   assert.equal(effects,1);assert.deepEqual(await cards.findOne({_id:'estimate'}),after);
+ });
+ await t.test('conditional patches preserve fields outside the plan across replay',async()=>{
+  await cards.deleteMany({});effects=0;
+  const before={_id:'partial',boardId:'board',listId:'list',title:'Before',description:null};
+  const after={_id:'partial',boardId:'board',listId:'list',title:'After',spentTime:0};
+  await cards.insertOne({...before,labels:['local'],members:['member'],dueComplete:true});
+  await assert.rejects(run({build:async()=>[{kind:'update',cardId:'partial',before,after}],
+   apply:async step=>{await apply(step);throw new Error('patch ack lost');}}),/patch ack lost/);
+  await cards.updateOne({_id:'partial'},{$set:{labels:['new local label']}});
+  await run({build:async()=>assert.fail('partial plan rebuilt')});assert.equal(effects,1);
+  assert.deepEqual(await cards.findOne({_id:'partial'}),{...after,labels:['new local label'],members:['member'],dueComplete:true});
+ });
+ await t.test('added fields in a plan must still be absent before the conditional write',async()=>{
+  await cards.deleteMany({});
+  const before={_id:'added',boardId:'board',listId:'list',title:'Before'};
+  const after={...before,spentTime:0};
+  const mutation=prepareSyncOperationMutation({kind:'update',cardId:'added',before,after});
+  await cards.insertOne({...before,spentTime:null});
+  assert.equal((await cards.updateOne(mutation.beforeSelector,mutation.modifier)).matchedCount,0);
+  await cards.updateOne({_id:'added'},{$unset:{spentTime:''}});
+  assert.equal((await cards.updateOne(mutation.beforeSelector,mutation.modifier)).matchedCount,1);
+  assert.ok(await cards.findOne(mutation.afterSelector));
+ });
+ await t.test('literal object snapshot values never become query operators',async()=>{
+  await cards.deleteMany({});
+  const object={$ne:null};
+  await cards.insertMany([{_id:'literal',baseline:object},{_id:'other',baseline:{title:'different'}}]);
+  const literal=exactFieldSelector({baseline:object},['baseline']);
+  assert.deepEqual((await cards.find(literal).toArray()).map(card=>card._id),['literal']);
+  assert.equal(await cards.countDocuments({baseline:object}),2,'the former bare operand is a query operator');
  });
  await t.test('a corrupt completed checkpoint cannot discard unapplied work',async()=>{
   await cards.deleteMany({});

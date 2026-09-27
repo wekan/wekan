@@ -36,7 +36,7 @@ test('updates preserve unrelated fields and null removes only the selected value
   assert.deepEqual(estimateChanges({ estimate: 2 }, { customFields: [...card.customFields].reverse() }, mapping).customFields,
     [{ _id: 'local', value: 2 }, { _id: 'other', value: 'Keep' }]);
   assert.throws(() => cardSyncEstimate({ customFields: [card.customFields[1], card.customFields[1]] }, mapping), /Duplicate/);
-  assert.deepEqual(syncTextSelector({ ...card, estimate: 0 }, 'b', 'l').customFields, card.customFields);
+  assert.deepEqual(syncTextSelector({ ...card, estimate: 0 }, 'b', 'l').customFields, { $eq: card.customFields });
   assert.ok(!Object.hasOwn(syncTextSelector(card, 'b', 'l'), 'customFields'));
   assert.deepEqual(syncTextSelector({ estimate: null, customFields: null }, 'b', 'l').customFields, { $eq: null, $exists: true });
 });

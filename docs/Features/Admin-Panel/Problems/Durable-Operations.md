@@ -128,6 +128,22 @@ Sync recovery. The production adapter must still validate current field
 ownership/mapping under the list guard and coordinate card writes with durable
 History/activity effects before acknowledging a unit.
 
+`server/lib/syncOperationMutation.js` now prepares the conditional predicates
+and field-only `$set`/`$unset` mutation from a validated stored step. It compares
+the union of before/after fields, so additions require absence and removals
+remain absent in the expected result. It never replaces the whole card or
+changes fields outside the plan. Creation returns a separate insert document;
+unchanged updates return an empty modifier for the caller to recognize as a
+no-op. Scope changes and explicit undefined values are refused, BSON dates
+survive cloning, and input/driver-side mutations cannot alter result predicates.
+
+The same literal-value selector helper is used by production Sync. Object and
+array values are wrapped as equality operands, while null includes a presence
+check. The journal integration fixture uses the shared mutation planner and
+verifies lost-acknowledgement replay without replacing unrelated card metadata.
+The planner does not write cards or establish completion of History/activities;
+those obligations still belong to the unfinished production adapter.
+
 The adapter must compare exact current/before/after states, perform a conditional
 write only from the before state, verify its result, and return `applied` or
 `already-applied`. A committed write with a lost acknowledgement must return
@@ -140,11 +156,12 @@ Real MongoDB tests inject interruptions before application, after a side effect,
 after checkpoint progress and during cleanup. They exercise lost ownership,
 changed local state, changed configuration scope, BSON dates, updates/archives,
 damaged plans and unverified adapter results. The adapter in those tests is a
-small raw-collection fixture, not the Meteor card writer.
+raw-collection fixture using the shared planner, not the Meteor card writer.
 
 The shared Sync card selector now distinguishes an absent field from explicit
 null, so deleting a nullable field cannot satisfy an older write snapshot.
-Remaining integration includes normal card hooks and History, source/permission rechecks, archive dependencies,
+Remaining integration includes normal card hooks and History, source/permission
+rechecks, archive dependencies,
 private collection lifecycle, pause/cancel/review controls, retained outcome
 reports and scheduler/startup recovery. Journal ownership protects checkpoint
 acknowledgements; it does **not** fence an already in-flight card write. That
