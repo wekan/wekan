@@ -592,9 +592,37 @@ the Markdown commit as the template.
 # Upcoming WeKan ® release
 
 **In short:** Change Language shows each language and its country together on
-one line: Flag Language (Flag Country), mirrored for RTL.
+one line: Flag Language (Flag Country), mirrored for RTL. Ordinary text editors
+are multiline and resizable, follow the Enter preference, and buttons retain
+their themed text colors.
 
 This release fixes the following bugs:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/88e234f05">Make text editors multiline and resizable, honor the Enter preference, and restore themed button text</a>. Thanks to xet7.</summary>
+
+Use multiline textareas for ordinary titles, names, descriptions, labels, rule
+text and other prose fields. Keep credentials, searches, URLs, dates, numbers
+and structured tokens single-line. Expose the native resize handle and preserve
+the chosen size while typing. Include the calendar's Add Card dialog.
+
+Apply Member Settings / Change Settings / Submit editors with Enter consistently:
+Enter saves when enabled and Shift+Enter adds a line; when disabled, Enter adds
+a line and Ctrl/Cmd+Enter saves. Preserve IME composition, mention selection,
+existing validation, single-submit protection and server permission checks.
+
+Fix the typography reset overriding white button labels with dark gray after
+button styles load. Board Settings / Swimlane, List and Card buttons now keep
+white text on blue, green and dark themes; Clean Light's pale buttons use dark
+text. Primary and destructive controls keep their existing theme rules.
+
+Forty focused Node test entries pass. Forty-seven distinct Chromium scenarios
+pass across focused runs, covering editor shortcuts, settings changes without
+reload, multiline persistence, resizing in LTR/RTL, mentions, rules, login,
+profile/board editing and button states/themes. Other browser engines were not
+run. The editor audit and theme documentation describe coverage and exceptions.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/86b9354ca">Keep language and country labels on one line</a>. Thanks to xet7.</summary>
