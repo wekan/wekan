@@ -710,6 +710,24 @@ recorded positive, negative and UI regression coverage.
 Also adds the following feature:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/31c9b1d6d">Select title and description synchronization in the existing Sync popup</a>. Thanks to xet7.</summary>
+
+Title and Description switches default to enabled for existing configurations.
+Excluded fields are not compared, overwritten or advanced in the source-text
+baseline. Selecting no text fields is supported; new cards use the existing
+fallback title and an empty description. Creation and archive selection are
+unchanged. The existing write-access check applies to saving these options.
+
+Twenty-nine focused Node checks and four Chromium scenarios pass, covering
+selection persistence, unsupported-field rejection, excluded text, new-card
+baselines and existing conflict messages. Updated the Sync guide. Existing
+Upcoming regression evidence remains recorded; other browsers and live
+provider accounts were not exercised. Scrum field mappings remain pending,
+and Blockly translations remain paused.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c72b9a4a0">Round-trip Jira time tracking through external JSON export</a>. Thanks to xet7.</summary>
 
 Imported estimate fields carry stable markers, so renaming them does not break
