@@ -70,3 +70,17 @@ test('resumed Gujarati accessibility and basic block controls contain Gujarati p
  assert.notEqual(gu['blockly-LISTS_GET_INDEX_TOOLTIP_GET_FIRST'],gu['blockly-LISTS_GET_INDEX_TOOLTIP_GET_REMOVE_FIRST']);
  assert.notEqual(gu['blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_FIRST'],gu['blockly-LISTS_SET_INDEX_TOOLTIP_SET_FIRST']);
 });
+test('Gujarati math prose is translated while mathematical notation stays intact',()=>{
+ const gu=require('../imports/i18n/data/gu-IN.i18n.json');
+ const notation=new Set(['e','pi','sin','cos','tan','asin','acos','atan']);
+ for(const key of Object.keys(english).filter(key=>key.startsWith('blockly-MATH_')&&!key.endsWith('_HELPURL'))){
+  const source=english[key];
+  assert.deepEqual(placeholders(gu[key]),placeholders(source),key);
+  if(notation.has(source)||!/[A-Za-z]/.test(source))assert.equal(gu[key],source,key);
+  else {assert.match(gu[key],/[\u0A80-\u0AFF]/,key);assert.notEqual(gu[key],source,key);}
+ }
+ assert.equal(gu['blockly-MATH_IS_EVEN'],'સમ છે');
+ assert.equal(gu['blockly-MATH_IS_ODD'],'વિષમ છે');
+ assert.notEqual(gu['blockly-MATH_ONLIST_OPERATOR_MEDIAN'],gu['blockly-MATH_ONLIST_OPERATOR_AVERAGE']);
+ assert.notEqual(gu['blockly-MATH_ROUND_OPERATOR_ROUNDDOWN'],gu['blockly-MATH_ROUND_OPERATOR_ROUNDUP']);
+});
