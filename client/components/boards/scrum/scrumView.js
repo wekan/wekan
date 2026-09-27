@@ -8,6 +8,7 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import { TAPi18n } from '/imports/i18n';
 import { Utils } from '/client/lib/utils';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import { ReactiveCache } from '/imports/reactiveCache';
 const { DEFAULT_SCRUM_SETTINGS, getCardEstimate } = require('/models/lib/scrum');
 const { sprintReport, velocityRows, reportChartGroups } = require('/models/lib/scrumReports');
 const current = () => Template.instance();
@@ -68,6 +69,22 @@ Template.scrumView.onCreated(function () {
 });
 Template.scrumView.onDestroyed(function () { this.stopped = true; this.request += 1; });
 Template.scrumView.helpers({
+  accountabilityFields() {
+    const settings = data()?.settings || DEFAULT_SCRUM_SETTINGS;
+    const members = (Utils.getCurrentBoard()?.members || []).filter(member => member.isActive);
+    return [['productOwnerId', 'scrum-product-owner'], ['scrumMasterId', 'scrum-master'], ['developerIds', 'scrum-developers']].map(([field, label]) => ({
+      field, label: t(label), multiple: field === 'developerIds',
+      options: members.map(member => {
+        const user = ReactiveCache.getUser(member.userId);
+        return { value: member.userId, label: user?.profile?.fullname || user?.username || member.userId,
+          selected: field === 'developerIds' ? settings.developerIds.includes(member.userId) : settings[field] === member.userId };
+      }),
+    }));
+  },
+  workingDayOptions() {
+    const selected = data()?.settings?.workingDays || DEFAULT_SCRUM_SETTINGS.workingDays;
+    return ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].map((key, index) => ({ value: index + 1, label: t(key), selected: selected.includes(index + 1) }));
+  },
   data, loading: () => current().loading.get(), error: () => current().error.get(),
   busy: () => current().busy.get(), canAdmin: () => data()?.canAdmin,
   boardColor: () => Utils.getCurrentBoard()?.colorClass(),
@@ -165,10 +182,13 @@ Template.scrumView.events({
   'click .js-scrum-new'(event, tpl) { event.preventDefault(); tpl.sprintId.set(''); event.currentTarget.form.reset(); },
   async 'submit .js-scrum-settings'(event, tpl) {
     event.preventDefault(); const values = fields(event.currentTarget);
+    const formData = new FormData(event.currentTarget);
     await mutate(tpl, 'scrum.configure', { enabled: values.enabled === 'on', productGoal: values.productGoal,
       definitionOfDone: values.definitionOfDone, estimateSource: values.estimateSource,
       estimateCustomFieldId: nullable(values.estimateCustomFieldId), estimateUnit: values.estimateUnit,
-      completionPolicy: values.completionPolicy }, tpl.dataState.get().settingsRevision);
+      completionPolicy: values.completionPolicy, productOwnerId: nullable(values.productOwnerId),
+      scrumMasterId: nullable(values.scrumMasterId), developerIds: formData.getAll('developerIds'),
+      workingDays: formData.getAll('workingDays').map(Number) }, tpl.dataState.get().settingsRevision);
   },
   async 'submit .js-scrum-sprint-form'(event, tpl) {
     event.preventDefault(); const values = fields(event.currentTarget); const sprint = selectedSprint(tpl);

@@ -30,6 +30,17 @@ template(name="scrumView")
                 textarea(name="productGoal") {{settings.productGoal}}
               label {{_ 'scrum-definition-of-done'}}
                 textarea(name="definitionOfDone") {{settings.definitionOfDone}}
+              each accountabilityFields
+                label {{label}}
+                  select(name=field multiple=multiple)
+                    unless multiple
+                      option(value="") —
+                    each options
+                      option(value=value selected=selected) {{label}}
+              label {{_ 'scrum-working-days'}}
+                select(name="workingDays" multiple required)
+                  each workingDayOptions
+                    option(value=value selected=selected) {{label}}
               label {{_ 'scrum-estimate-source'}}
                 select(name="estimateSource")
                   each estimateSources

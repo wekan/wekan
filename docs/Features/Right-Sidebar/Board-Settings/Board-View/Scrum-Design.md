@@ -121,6 +121,14 @@ replay scope and estimate history; never present current estimates as historical
 facts. Report missing history and unknown estimates separately from zero. Do not
 combine points and hours or use velocity to rank individual members.
 
+The shared Scrum settings form now exposes Product Owner, Scrum Master,
+Developers and working days. Accountabilities select active board members and
+do not grant permissions. Multiple developers and a nonempty set of weekdays
+are supported; single accountabilities and the developer list can be cleared.
+Saving uses the existing administrator-only configuration method, revision
+checks and History undo/redo. Four new label keys are present in all locale
+catalogs with English placeholders where translations are not yet supplied.
+
 ## Import, export, copy and synchronization
 
 Standalone card copies (including copied subtasks) start a fresh Scrum metadata
