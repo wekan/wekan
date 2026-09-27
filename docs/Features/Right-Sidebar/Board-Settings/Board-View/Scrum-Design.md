@@ -163,9 +163,14 @@ or writing History. Projections omit card titles, bodies and attachments while
 retaining estimate, completion and rollover metadata. Start excludes archived
 cards; close includes them. Exactly 10,000 rows remain supported. Done-list
 membership is indexed once per snapshot instead of scanning every list for
-every card. This bounds row counts, not document byte sizes: large metadata and
-rollover plans, board-view pagination and concurrent snapshot consistency still
-need separate work.
+every card. Lifecycle updates also preflight the resulting sprint/rollover document,
+the compound History payload and two copies of the larger History side for
+restoration. Each must fit a 15 MiB BSON budget, reserving 1 MiB for envelope
+fields and recovery revisions. Oversized metadata fails before the first sprint
+write, with a request to reduce scope. This prevents a known size failure from
+leaving a closed sprint without its History. Board-view pagination, separate
+storage for larger plans and concurrent snapshot consistency still need work;
+these guards do not make the lifecycle transaction atomic.
 Board deletion removes the observations. Full-instance backups include the
 collection through the normal collection inventory; native board transfer and
 duplication now carry daily observations too. General History/undo transport

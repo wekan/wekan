@@ -52,3 +52,33 @@ test('oversized sprint inputs reject start and close without partial snapshots o
     db.deleteMany('scrumSprints', { boardId: board.boardId });
   }
 });
+
+test('large rollover metadata fails before closing or changing cards and History', async ({ page, user, board }) => {
+  test.setTimeout(120000);
+  const extra = { boardId: board.boardId, snapshotByteFixture: true };
+  try {
+    await loginWithToken(page, user.id, user.token);
+    const sprint = await call(page, 'scrum.saveSprint', board.boardId, null,
+      { name: 'Metadata byte budget', plannedStart: '2026-09-01', plannedEnd: '2026-09-30' }, null);
+    const card = db.find('cards', { boardId: board.boardId })[0];
+    db.insertMany('cards', Array.from({ length: 800 }, (_, i) => ({ ...extra,
+      _id: `${sprint._id}-bytes-${i}`, listId: card.listId, archived: false,
+      scrum: { sprintId: sprint._id, acceptanceCriteria: 'x'.repeat(10000) } })));
+    const active = await call(page, 'scrum.startSprint', board.boardId, sprint._id, sprint.revision);
+    expect(active.startSnapshot.cards).toHaveLength(800);
+    const historyCount = db.find('changeHistory', { boardId: board.boardId }).length;
+    await expect(call(page, 'scrum.closeSprint', board.boardId, sprint._id, active.revision, null))
+      .rejects.toThrow(/document size budget/);
+    expect(db.findOne('scrumSprints', { _id: sprint._id }).state).toBe('active');
+    expect(db.findOne('scrumSprints', { _id: sprint._id }).revision).toBe(active.revision);
+    expect(db.find('changeHistory', { boardId: board.boardId }).length).toBe(historyCount);
+    expect(db.find('cards', { ...extra, 'scrum.sprintId': sprint._id }, { _id: 1 })).toHaveLength(800);
+    db.updateMany('cards', extra, { $set: { 'scrum.acceptanceCriteria': '' } });
+    await call(page, 'scrum.closeSprint', board.boardId, sprint._id, active.revision, null);
+    expect(db.findOne('scrumSprints', { _id: sprint._id }).state).toBe('closed');
+    expect(db.find('cards', { ...extra, 'scrum.sprintId': sprint._id }, { _id: 1 })).toHaveLength(0);
+  } finally {
+    db.deleteMany('cards', extra);
+    db.deleteMany('scrumSprints', { boardId: board.boardId });
+  }
+});

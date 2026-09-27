@@ -23,6 +23,7 @@ const { DEFAULT_SCRUM_SETTINGS, normalizeScrumSettings, normalizeScrumMetadata,
   normalizeScrumRecord, sprintSnapshot, scrumRevisionSelector, validateScrumRevision } = require('/models/lib/scrum');
 
 const { loadScrumSnapshotInputs } = require('./lib/scrumSnapshotInputs');
+const { assertScrumLifecycleSize } = require('./lib/scrumLifecycleSize');
 
 const collections = { sprint: ScrumSprints, release: ScrumReleases, event: ScrumEvents };
 const queues = new Map();
@@ -205,6 +206,11 @@ async function sprintFor(userId, boardId, sprintId, expectedRevision) {
 }
 async function updateSprint(userId, before, fields) {
   const after = { ...before, ...fields, revision: before.revision + 1, updatedAt: new Date(), updatedBy: userId };
+  try { assertScrumLifecycleSize(before, after); }
+  catch (error) {
+    if (error.code === 'scrum-document-too-large') invalid(error.message);
+    throw error;
+  }
   const { _id, ...set } = after;
   if (!(await ScrumSprints.updateAsync({ _id, boardId: before.boardId, revision: before.revision }, { $set: set }))) conflict();
   await recordScrumChange(before.boardId, 'scrum-sprint', before, after, userId);
