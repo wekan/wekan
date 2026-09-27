@@ -88,3 +88,49 @@ cancel tests. External operations additionally test timeout, network reset, each
 retryable status, non-retryable 4xx, valid/invalid `Retry-After`, jitter bounds,
 attempt exhaustion and restart during backoff. Negative tests prove secrets and
 unbounded response bodies are not persisted in jobs or reports.
+
+## Sync write-plan engine checkpoint
+
+`server/lib/syncOperationJournal.js` now implements the private write-plan and
+checkpoint engine for the next Sync adapter. **It is not yet wired into manual
+or scheduled Sync.** Current production Sync still uses reconciliation and
+retained diagnostic reports; it does not automatically resume this journal.
+
+The engine requires a caller-held renewable list lease and a fixed scope
+(list, board, list lifetime, configuration revision and source identity). A
+unique pending document owns the operation; separate indexed step records hold
+only allowed Sync card fields before and after each unit. No credential or raw
+provider-response objects belong in the plan. Snapshots are private content,
+not values safe for publication, export or the diagnostic report endpoint.
+The integration must provide private collections without TTL expiry.
+
+Preparation stores all steps before enabling application writes. An interrupted
+preparation may be rebuilt because it cannot have applied a unit. Once applying,
+the original stored plan is authoritative. Resuming validates its per-step
+checksums and whole-plan checksum before calling any application adapter.
+Plans are limited to 10,000 unique cards and 1 MiB per step; exceeding a limit
+fails before application writes. BSON dates and missing/null distinctions are
+retained. A scope change or damaged plan preserves evidence and stops the run.
+
+The adapter must compare exact current/before/after states, perform a conditional
+write only from the before state, verify its result, and return `applied` or
+`already-applied`. A committed write with a lost acknowledgement must return
+`already-applied` on retry, without repeating hooks or side effects. The engine
+advances only the matching operation owner's current checkpoint. Completed
+operations retain their marker until plan cleanup finishes, so interrupted
+cleanup never repeats card writes.
+
+Real MongoDB tests inject interruptions before application, after a side effect,
+after checkpoint progress and during cleanup. They exercise lost ownership,
+changed local state, changed configuration scope, BSON dates, updates/archives,
+damaged plans and unverified adapter results. The adapter in those tests is a
+small raw-collection fixture, not the Meteor card writer.
+
+The shared Sync card selector now distinguishes an absent field from explicit
+null, so deleting a nullable field cannot satisfy an older write snapshot.
+Remaining integration includes normal card hooks and History, source/permission rechecks, archive dependencies,
+private collection lifecycle, pause/cancel/review controls, retained outcome
+reports and scheduler/startup recovery. Journal ownership protects checkpoint
+acknowledgements; it does **not** fence an already in-flight card write. That
+cross-collection boundary and atomic multi-card reconciliation remain open.
+No automatic retry scheduler or application UI is enabled by this engine alone.

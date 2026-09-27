@@ -36,7 +36,10 @@ function planSyncTextMerge(tasks, cards) {
 function syncTextSelector(card, boardId, listId) {
   const selector = { _id: card._id, boardId, listId };
   for (const field of ['title', 'description', 'spentTime', 'archived', 'syncExternalId', 'syncSourceType', 'syncSourceKey', 'syncLastSource']) {
-    selector[field] = card[field] === undefined ? { $exists: false } : card[field];
+    // Mongo equality with null also matches an absent field. A local deletion
+    // after the snapshot is a change, so keep presence in the write condition.
+    selector[field] = card[field] === undefined ? { $exists: false }
+      : card[field] === null ? { $eq: null, $exists: true } : card[field];
   }
   return selector;
 }
