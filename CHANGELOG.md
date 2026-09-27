@@ -589,6 +589,30 @@ the Markdown commit as the template.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** Change Language shows each language and its country together on
+one line: Flag Language (Flag Country), mirrored for RTL.
+
+This release fixes the following bugs:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/86b9354ca">Keep language and country labels on one line</a>. Thanks to xet7.</summary>
+
+Place each language flag and name beside its parenthesized country flag and
+name. Preserve the direction marker beside the language name and isolate mixed
+writing directions. Long entries scroll within their row on narrow screens,
+keeping their full text available without wrapping.
+
+Two Chromium scenarios verify all language rows at desktop and phone widths in
+LTR and RTL, including flag order and the direction marker. Both focused Node
+suites pass. No translation values, language preferences or permission rules
+changed. Other browser engines were not run.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.06 2026-09-27 WeKan ® release
 
 **In short:** Board multiselection can duplicate selected boards without their
