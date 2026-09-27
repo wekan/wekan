@@ -121,3 +121,27 @@ for(const transport of ['method','REST'])test(`${transport} deletion preserves s
  expect(db.findOne('actions',{_id:ids.actionId})).toBeNull();
  expect(db.findOne('triggers',{_id:ids.triggerId})).toBeNull();
 });
+
+for(const transport of ['method','REST'])test(`${transport} editing isolates shared rule components and supports undo/redo`,async({page,request,board,user})=>{
+ await loginWithToken(page,user.id,user.token);
+ const ids=await call(page,'rules.createRule',board.boardId,'Shared edit',{activityType:'createCard'},{actionType:'archive'});
+ const original=db.findOne('rules',{_id:ids._id});const sibling=db.uid('sharedEdit');
+ db.insertOne('rules',{...original,_id:sibling,title:'Untouched sibling'});
+ const before=rows(board.boardId).length;
+ if(transport==='method')await call(page,'rules.updateRule',ids._id,'Isolated edit',{activityType:'moveCard',listName:'Done'},{actionType:'unarchive'});
+ else expect((await request.put(`/api/boards/${board.boardId}/rules/${ids._id}`,{headers:{Authorization:`Bearer ${user.token}`},data:{title:'Isolated edit',trigger:{activityType:'moveCard',listName:'Done'},action:{actionType:'unarchive'}}})).status()).toBe(200);
+ const edited=db.findOne('rules',{_id:ids._id});
+ expect(edited.triggerId).not.toBe(ids.triggerId);expect(edited.actionId).not.toBe(ids.actionId);
+ expect(rows(board.boardId)).toHaveLength(before+1);
+ expect(db.findOne('rules',{_id:sibling}).actionId).toBe(ids.actionId);
+ expect(db.findOne('actions',{_id:ids.actionId}).actionType).toBe('archive');
+ expect(db.findOne('triggers',{_id:ids.triggerId}).activityType).toBe('createCard');
+ await call(page,'changeHistory.undoLast',board.boardId);
+ expect(db.findOne('rules',{_id:ids._id}).actionId).toBe(ids.actionId);
+ expect(db.findOne('actions',{_id:edited.actionId})).toBeNull();
+ expect(db.findOne('triggers',{_id:edited.triggerId})).toBeNull();
+ await call(page,'changeHistory.redoLast',board.boardId);
+ expect(db.findOne('rules',{_id:ids._id}).actionId).toBe(edited.actionId);
+ expect(db.findOne('actions',{_id:edited.actionId}).actionType).toBe('unarchive');
+ expect(db.findOne('actions',{_id:ids.actionId}).actionType).toBe('archive');
+});

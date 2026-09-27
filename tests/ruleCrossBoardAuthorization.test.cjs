@@ -66,7 +66,7 @@ test('move, link and bulk-move actions all use the execution gate', () => {
 test('negative: REST creation and editing cannot retain a supplied destination', () => {
   assert.match(rest, /const STRIP = \['_id', 'boardId'/);
   assert.match(rest, /Actions\.insertAsync\(\{ \.\.\.strip\(action\), boardId: paramBoardId \}\)/);
-  assert.match(rest, /\$set: \{ \.\.\.strip\(req\.body\.action\), boardId: paramBoardId \}/);
+  assert.match(rest, /writeRuleComponent\(rule, 'action', \{ \.\.\.strip\(req\.body\.action\), boardId: paramBoardId \}, \{ patch: true \}\)/);
 });
 
 test('browser fixtures remove rule documents for each discarded board', () => {

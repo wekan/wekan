@@ -8,7 +8,7 @@ import Rules from '/models/rules';
 import Triggers from '/models/triggers';
 import Actions from '/models/actions';
 import { Random } from 'meteor/random';
-import { withRuleHistory, removeRuleWithUnusedParts } from '/server/lib/ruleHistory';
+import { withRuleHistory, removeRuleWithUnusedParts, writeRuleComponent } from '/server/lib/ruleHistory';
 
 // REST API for board automation Rules (add / edit / remove).
 //
@@ -215,14 +215,12 @@ if (Meteor.isServer) {
           await Rules.updateAsync(rule._id, { $set: { enabled } });
         }
         if (req.body.trigger) {
-          await Triggers.updateAsync(rule.triggerId, {
-            $set: { ...normalizeTriggerDoc(strip(req.body.trigger)), boardId: paramBoardId },
-          });
+          const triggerId = await writeRuleComponent(rule, 'trigger', { ...normalizeTriggerDoc(strip(req.body.trigger)), boardId: paramBoardId }, { patch: true });
+          await Rules.updateAsync(rule._id, { $set: { triggerId } });
         }
         if (req.body.action) {
-          await Actions.updateAsync(rule.actionId, {
-            $set: { ...strip(req.body.action), boardId: paramBoardId },
-          });
+          const actionId = await writeRuleComponent(rule, 'action', { ...strip(req.body.action), boardId: paramBoardId }, { patch: true });
+          await Rules.updateAsync(rule._id, { $set: { actionId } });
         }
       });
       sendJsonResult(res, { code: 200, data: { _id: rule._id } });

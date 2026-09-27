@@ -279,7 +279,7 @@ test('POST /api/boards/:boardId/rules normalizes the trigger and validates types
 });
 
 test('PUT /api/boards/:boardId/rules/:ruleId normalizes a replaced trigger', () => {
-  assert.ok(/\$set: \{ \.\.\.normalizeTriggerDoc\(strip\(req\.body\.trigger\)\), boardId: paramBoardId \}/.test(rulesApiSrc));
+  assert.ok(/writeRuleComponent\(rule, 'trigger', \{ \.\.\.normalizeTriggerDoc\(strip\(req\.body\.trigger\)\), boardId: paramBoardId \}, \{ patch: true \}\)/.test(rulesApiSrc));
 });
 
 test('negative: no raw un-normalized trigger insert remains in the rules API', () => {

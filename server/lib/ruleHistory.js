@@ -38,10 +38,27 @@ export async function withRuleHistory(id, userId, write) {
 
 export async function removeRuleWithUnusedParts(rule) {
   await Rules.removeAsync(rule._id);
+  await removeUnusedRuleParts(rule);
+}
+async function removeUnusedRuleParts(rule) {
+  if (!rule) return;
   for (const [collection, field] of [[Triggers, 'trigger'], [Actions, 'action']]) {
     const id = rule[`${field}Id`];
     if (id && !await Rules.findOneAsync({ [`${field}Id`]: id })) await collection.removeAsync(id);
   }
+}
+
+export async function writeRuleComponent(rule, field, fields, { patch = false } = {}) {
+  const collection = field === 'trigger' ? Triggers : Actions;
+  const id = rule[`${field}Id`];
+  const existing = id && await collection.findOneAsync(id);
+  const { _id, ...previous } = document(existing) || {};
+  const next = patch ? { ...previous, ...fields } : fields;
+  if (existing && EJSON.equals(previous, next)) return id;
+  const shared = existing && await Rules.findOneAsync({ [`${field}Id`]: id, _id: { $ne: rule._id } });
+  if (!existing || shared) return collection.insertAsync(next);
+  await collection.updateAsync(id, patch ? { $set: fields } : fields);
+  return id;
 }
 
 // Compound rule edits are one history entry. These hooks also cover legacy
@@ -113,5 +130,6 @@ export async function applyRuleHistory(row, content, direction) {
       await collection.updateAsync(_id, modifier);
     } else await collection.insertAsync({ _id, ...fields });
   }
+  await removeUnusedRuleParts(current.rule);
   return true;
 }

@@ -1,4 +1,4 @@
-import { withRuleHistory, removeRuleWithUnusedParts } from '/server/lib/ruleHistory';
+import { withRuleHistory, removeRuleWithUnusedParts, writeRuleComponent } from '/server/lib/ruleHistory';
 import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
 import { ReactiveCache } from '/imports/reactiveCache';
@@ -117,7 +117,7 @@ Meteor.methods({
 
   // #2713: edit an existing rule's trigger/action in place instead of forcing
   // "delete the rule, recreate it from scratch". The rule document keeps its
-  // own _id (and, when it already has one, its trigger/action _ids too) —
+  // own _id (and its unshared trigger/action _ids too) —
   // only their CONTENT is replaced, so anything that already refers to this
   // rule by id keeps working after the edit.
   async 'rules.updateRule'(ruleId, title, trigger, action) {
@@ -159,20 +159,10 @@ Meteor.methods({
     return withRuleHistory(ruleId, this.userId, async () => {
       // Full-document replace (not $set) so a trigger/action switched to a
       // different type does not keep stale fields from the type it replaced -
-      // and keep the existing _id when there is one, so the rule's triggerId/
-      // actionId never have to change just because the configuration did.
-      let triggerId = rule.triggerId;
-      if (triggerId) {
-        await Triggers.updateAsync(triggerId, triggerDoc);
-      } else {
-        triggerId = await Triggers.insertAsync(triggerDoc);
-      }
-      let actionId = rule.actionId;
-      if (actionId) {
-        await Actions.updateAsync(actionId, actionDoc);
-      } else {
-        actionId = await Actions.insertAsync(actionDoc);
-      }
+      // and keep existing unshared IDs. Shared components get a private copy
+      // so editing this rule cannot change a sibling rule's configuration.
+      const triggerId = await writeRuleComponent(rule, 'trigger', triggerDoc);
+      const actionId = await writeRuleComponent(rule, 'action', actionDoc);
 
       const ruleSet = {
         title: title || rule.title || 'Rule',

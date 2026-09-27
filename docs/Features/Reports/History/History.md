@@ -585,3 +585,10 @@ a rule. Restoring a deleted rule may reuse a shared trigger/action only if its
 current content still equals the recorded snapshot; it never overwrites a
 changed shared component. Deleting the last referencing rule removes the now
 unused components. These reference checks are not a multi-document transaction.
+
+Rule editors and REST updates isolate changed shared components by creating a
+private trigger/action for the edited rule. Unshared component IDs stay stable.
+REST keeps its partial-update behavior, while the Rules/Blocks editor replaces
+component content. History undo/redo restores the appropriate IDs and removes
+superseded components only when they are no longer referenced. Sibling rule
+content remains unchanged. Concurrent component updates are not transactional.
