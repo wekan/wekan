@@ -692,6 +692,24 @@ recorded positive, negative and UI regression coverage.
 Also adds the following feature:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/89a06f1d5">Edit Scrum releases and events from Sprints</a>. Thanks to xet7.</summary>
+
+Board administrators select existing releases and events to edit them using
+the existing revision-checked methods. Release forms expose goals, planned
+dates, status, release timestamps and notes. Event forms include local time,
+timebox, notes and visible follow-up cards; summaries link those cards.
+Unchanged event and release timestamps keep their original precision.
+
+Four Chromium scenarios and twelve focused Node checks pass. Coverage includes
+updating rather than duplicating records, exact event timestamps, follow-up
+retention, History undo, administrator checks and hidden-by-default metadata.
+Three new source keys are registered in every catalog; this does not resume
+the paused Blockly translation work. Other browsers were not exercised.
+Existing Upcoming regression evidence remains recorded.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/ceb19bc77">Integrate Scrum changes with reversible board History</a>. Thanks to xet7.</summary>
 
 Each Scrum view opens the existing board History filtered to Scrum changes.
@@ -735,7 +753,7 @@ were not exercised. Existing Upcoming regression evidence remains recorded.
 
 The menu-aligned Scrum guides distinguish the implemented planning feature
 from pending complete import/export/sync mappings,
-interactive charts and further release/event editing. These remain active
+interactive charts. These remain active
 implementation work; this entry does not claim complete Scrum support.
 
 </details>
