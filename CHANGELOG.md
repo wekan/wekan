@@ -269,10 +269,15 @@ The internal History component now prepares fixed update/archive event batches
 and snapshots the redo rows a new edit supersedes. MongoDB tests interrupt
 between timeline rows and resume without duplicate events or invalidating rows
 undone later. Stable planning identities, predecessor verification and bounded
-plans are implemented. Production plan storage/lifecycle, duplicate-hook
+plans are implemented. Production collection/job lifecycle, duplicate-hook
 suppression, creation effects, legacy unhashed redo rows and independent
 integrity-chain writers still require integration; activities and notifications
 are not acknowledged by this History component.
+History/effect plans now persist inside the same journal units as their card
+plans. Both are covered by one checksum and whole-plan validation before writes,
+then share recovery retention and verified cleanup. Missing, changed or oversized
+effects and attempts to resume without their validator are refused. The History
+validator also binds its rows to the exact card step and operation effect ID.
 History field snapshots now preserve nested dates, including date-valued
 custom fields alongside mapped estimates. JSON transport and restoration retain
 Date types without interpreting date-looking text. Existing rows whose dates
@@ -1484,6 +1489,31 @@ the pre-existing overlong line in released v12.07.
 This verification and cleanup sequence is not a cross-document transaction.
 Coordinated fencing of in-flight writers, atomic original writes/History and
 automatic startup replay remain in TODO Later.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2c9193535">Persist Sync effects with their card plans</a>. Thanks to xet7.</summary>
+
+The internal journal now stores each prepared effect plan with its card unit,
+covering both with the unit and complete-plan checksums. Every saved effect is
+validated before any card application, including after restart. The operation
+retains its effect mode and rejects missing validators, absent plans, changed
+contents and units larger than the 15 MiB BSON budget. Card and event plans
+share checkpoint retention and verified cleanup. History rows are also checked
+against the exact card step and stable effect identity before application.
+
+Twenty-four focused Sync Node suites pass with MongoDB; the final eight
+History/application/journal suites pass after additional malformed-mode checks.
+Persistence tests cover corruption in a later unit preventing earlier writes,
+missing effects, checksum damage, preparation failures, oversized units and
+interrupted History replay from the embedded plan. The History fixture no
+longer relies on a separate plan collection. The offline audit passes with
+advisory fingerprints. No browser behavior changes in this internal engine;
+existing Upcoming browser results remain recorded with their entries.
+
+Production job/collection lifecycle, application-hook integration, creation
+effects and durable activity/rule/notification delivery remain in TODO Later.
 
 </details>
 
