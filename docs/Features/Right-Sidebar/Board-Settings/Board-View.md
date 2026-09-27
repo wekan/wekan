@@ -248,3 +248,10 @@ and in the generated OpenAPI spec (`get_board_view_settings`,
   popup this one is modelled on.
 - [Swimlanes](../../Swimlanes/Swimlanes.md), [Roadmap](../../Board/Roadmap.md), [Bigboard](../../Board/Bigboard.md),
   [Group by Assignee](../../Board/Group-By-Assignee.md) - some of the views the menu offers.
+
+## Scrum support design
+
+See the [source audit and Scrum implementation design](Board-View/Scrum-Design.md)
+for existing capabilities, missing sprint features, menu placement, optional
+fields and import/export/sync requirements. This is planned work, not a list of
+features already shipped.

@@ -1,3 +1,5 @@
+See also the [native Scrum source audit and implementation design](../Right-Sidebar/Board-Settings/Board-View/Scrum-Design.md). The design distinguishes existing features from planned additions.
+
 [Discussion](https://github.com/wekan/wekan/issues/3087)
 
 A reporter asked for tips on running a basic Scrum process on WeKan: cards
