@@ -1498,6 +1498,23 @@ Blockly translations remain paused.
 </details>
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/05e8bce70">Validate native Scrum snapshot lifecycle consistency</a>. Thanks to xet7.</summary>
+
+Native imports reject snapshot timestamps that disagree with sprint lifecycle
+dates, started history on planned sprints, completion data on unfinished sprints,
+and contradictory cancellation history. Cancellation before start remains valid
+without a commitment snapshot. Validation runs before board creation and keeps
+imported report timelines consistent with the server's sprint lifecycle methods.
+
+The new regression fails against the previous validator. Twenty-seven focused
+Node checks and two Chromium scenarios pass, covering valid active/cancelled
+states, malformed lifecycle data, native round trips and board duplication.
+Update the Scrum design. Other browsers were not exercised; existing Upcoming
+regression evidence remains recorded. Blockly translations remain paused.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/9d60f7bf0">Import Jira status names without inherited-property collisions</a>. Thanks to xet7.</summary>
 
 Jira status names such as constructor, toString and __proto__ no longer resolve
