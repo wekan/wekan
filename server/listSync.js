@@ -28,6 +28,7 @@ const { planSyncTextMerge, syncTextSelector, selectSyncTextFields } = require('/
 const { syncSourceKey } = require('/models/lib/listSyncSourceIdentity');
 const { listSyncCardId } = require('/server/lib/listSyncCardId');
 const { readSyncCredential, sweepSyncCredentials } = require('/server/lib/listSyncConfiguration');
+const { describeSyncConflict, planSyncConflictResolution } = require('/server/lib/listSyncConflict');
 
 // Sync one list. Exported for the unit test and for a manual "sync now" call;
 // the cron job below just calls this for every eligible list.
@@ -46,7 +47,8 @@ export async function syncOneList(list, options = {}) {
   }
 }
 
-async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS } = {}, { assertCurrent }) {
+async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, previewConflicts = false,
+  assertConflictAccess } = {}, { assertCurrent }) {
   const source = list.syncSource;
   if (!source || !source.type || source.enabled === false) return { skipped: true };
   if (!SYNC_CAPABLE_SOURCES.includes(source.type)) {
@@ -119,14 +121,28 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS } = {}, { ass
   }));
 
   const merge = planSyncTextMerge(externalTasks, existingCards);
+  if (resolution) {
+    const plan = planSyncConflictResolution(merge.conflicts, existingCards, externalTasks, list, sourceKey, resolution);
+    if (!plan) return { error: 'This conflict changed. Run Sync again to review the current values.' };
+    if (assertConflictAccess) await assertConflictAccess();
+    await assertCurrent();
+    if (!await Lists.findOneAsync(listSelector)) return { error: 'Sync settings changed. Run Sync again.' };
+    const changed = await Cards.updateAsync(syncTextSelector(plan.card, list.boardId, list._id),
+      { $set: { ...plan.changes, dateLastActivity: new Date() } });
+    return changed ? { resolved: true } : { error: 'The card changed. Run Sync again to review the current values.' };
+  }
   if (merge.conflicts.length) {
     const examples = merge.conflicts.slice(0, 5).map(row => `${row.externalId.slice(0, 60)} (${row.field})`).join(', ');
     const error = merge.conflicts.some(row => row.field === 'syncExternalId')
       ? `Duplicate local Sync identity: ${examples}. Resolve duplicate card mappings before retrying.`
-      : `Sync text conflict: ${examples}. Align local and source text before retrying.`;
+      : `Sync text conflict: ${examples}. Review the conflicting values in the Sync popup.`;
     await assertCurrent();
     await Lists.updateAsync(listSelector, { $set: { 'syncSource.lastSyncError': error } });
-    return { error, conflicts: merge.conflicts };
+    const cardsById = new Map(existingCards.map(card => [card._id, card]));
+    const tasksById = new Map(externalTasks.map(task => [String(task.externalId), task]));
+    if (previewConflicts && assertConflictAccess) await assertConflictAccess();
+    return { error, conflicts: merge.conflicts.slice(0, 50).map(conflict => previewConflicts ? describeSyncConflict(conflict,
+      cardsById.get(conflict.cardId), tasksById.get(conflict.externalId), list, sourceKey) : conflict) };
   }
   const plan = planListSyncReconcile({ externalTasks: merge.tasks, existingCards });
   // Apply operation selection before preflight, writes and result counts.

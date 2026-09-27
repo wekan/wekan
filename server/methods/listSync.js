@@ -18,6 +18,7 @@ import { syncOneList } from '/server/listSync';
 import { withListSyncLease } from '/server/lib/listSyncLease';
 const { normalizeSyncSource, syncSourceKey } = require('/models/lib/listSyncSourceIdentity');
 const { readSyncCredential, commitSyncConfiguration } = require('/server/lib/listSyncConfiguration');
+const { assignedOnlyCardScope } = require('/models/lib/boardCardScope');
 
 async function assertWriteAccess(userId, boardId) {
   if (!userId) {
@@ -28,6 +29,11 @@ async function assertWriteAccess(userId, boardId) {
     throw new Meteor.Error('not-authorized', 'You do not have write access to this board.');
   }
   return board;
+}
+
+async function assertConflictAccess(userId, boardId) {
+  const board = await assertWriteAccess(userId, boardId);
+  if (assignedOnlyCardScope(board, userId)) throw new Meteor.Error('not-authorized');
 }
 
 Meteor.methods({
@@ -125,7 +131,19 @@ Meteor.methods({
     check(listId, String);
     const list = await Lists.findOneAsync(listId);
     if (!list) throw new Meteor.Error('list-not-found', 'List not found.');
-    await assertWriteAccess(this.userId, list.boardId);
-    return syncOneList(list);
+    const board = await assertWriteAccess(this.userId, list.boardId);
+    return syncOneList(list, { previewConflicts: !assignedOnlyCardScope(board, this.userId),
+      assertConflictAccess: () => assertConflictAccess(this.userId, list.boardId) });
+  },
+
+  async resolveListSyncConflict(listId, resolution) {
+    check(listId, String);
+    check(resolution, { cardId: String, field: Match.OneOf('title', 'description', 'spentTime'),
+      choice: Match.OneOf('local', 'source'), fingerprint: String });
+    if (!/^[a-f0-9]{64}$/.test(resolution.fingerprint)) throw new Meteor.Error('invalid-sync-conflict');
+    const list = await Lists.findOneAsync(listId);
+    if (!list) throw new Meteor.Error('list-not-found', 'List not found.');
+    await assertConflictAccess(this.userId, list.boardId);
+    return syncOneList(list, { resolution, assertConflictAccess: () => assertConflictAccess(this.userId, list.boardId) });
   },
 });

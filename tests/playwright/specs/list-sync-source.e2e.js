@@ -96,6 +96,61 @@ const openSync = (page, listId) => page.evaluate(list => {
     target: document.body, preventDefault() {}, stopPropagation() {} });
 }, db.findOne('lists', { _id: listId }));
 
+test('Sync popup resolves text conflicts, rejects stale previews and preserves local choices on retry', async ({ page, user, board }) => {
+  const listId = db.find('lists', { boardId: board.boardId })[0]._id;
+  await loginWithToken(page, user.id, user.token);
+  await openBoard(page, board.boardId, board.slug);
+  try {
+    await call(page, 'setListSyncSource', listId, { type: 'jira', url: base, projectKey: 'ONE', token: 'conflict-test-token' });
+    await call(page, 'syncListNow', listId);
+    const card = db.findOne('cards', { listId, syncExternalId: 'SAME-1' });
+    const edit = title => db.updateOne('cards', { _id: card._id }, { $set: { title, 'syncLastSource.title': 'Original' } });
+    edit('Local title <script>not executable</script>');
+    await openSync(page, listId);
+    await page.locator('.js-list-sync-now').click();
+    const conflict = page.locator('.list-sync-conflict').first();
+    await expect(conflict).toContainText('Local title <script>not executable</script>');
+    await expect(conflict).toContainText('ONE issue');
+    await expect(conflict.locator('script')).toHaveCount(0);
+    await conflict.locator('[data-choice="local"]').click();
+    await expect(page.locator('.pop-over .list-sync-now-success')).toBeVisible();
+    expect(db.findOne('cards', { _id: card._id }).title).toBe('Local title <script>not executable</script>');
+    expect(db.findOne('cards', { _id: card._id }).syncLastSource.title).toBe(card.title);
+    expect((await call(page, 'syncListNow', listId)).conflicts).toBeUndefined();
+
+    edit('Second local title');
+    await page.locator('.js-list-sync-now').click();
+    await expect(conflict).toContainText('Second local title');
+    // New local work invalidates a previously displayed choice.
+    db.updateOne('cards', { _id: card._id }, { $set: { title: 'Newer local title' } });
+    await conflict.locator('[data-choice="source"]').click();
+    await expect(page.locator('.pop-over .list-sync-now-error')).toContainText('conflict changed');
+    expect(db.findOne('cards', { _id: card._id }).title).toBe('Newer local title');
+    await page.locator('.js-list-sync-now').click();
+    await expect(conflict).toContainText('Newer local title');
+    await conflict.locator('[data-choice="source"]').click();
+    await expect(page.locator('.pop-over .list-sync-now-success')).toBeVisible();
+    expect(db.findOne('cards', { _id: card._id }).title).toBe(card.title);
+
+    edit('Private local title');
+    const preview = (await call(page, 'syncListNow', listId)).conflicts[0];
+    const resolution = { cardId: preview.cardId, field: preview.field, fingerprint: preview.fingerprint, choice: 'source' };
+    const members = db.findOne('boards', { _id: board.boardId }).members;
+    try {
+      db.updateOne('boards', { _id: board.boardId }, { $set: { members: members.map(member => member.userId === user.id
+        ? { ...member, isAdmin: false, isNormalAssignedOnly: true } : member) } });
+      const restricted = await call(page, 'syncListNow', listId);
+      expect(restricted.conflicts[0].local).toBeUndefined();
+      const denied = await page.evaluate(async ({ id, resolution }) => {
+        try { await Meteor.callAsync('resolveListSyncConflict', id, resolution); return 'allowed'; }
+        catch (error) { return error.error; }
+      }, { id: listId, resolution });
+      expect(denied).toBe('not-authorized');
+      expect(db.findOne('cards', { _id: card._id }).title).toBe('Private local title');
+    } finally { db.updateOne('boards', { _id: board.boardId }, { $set: { members } }); }
+  } finally { db.deleteMany('listSyncCredentials', { listId }); }
+});
+
 test('expired Sync worker stops before reconciling after a settings save reclaims its lease', async ({ page, browser, user, board }) => {
   const listId = db.find('lists', { boardId: board.boardId })[0]._id;
   const config = { type: 'jira', url: base, projectKey: 'CONCURRENT', token: 'old-test-token' };

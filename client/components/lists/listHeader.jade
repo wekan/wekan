@@ -473,6 +473,18 @@ template(name="listSyncPopup")
         button.js-list-sync-clear.negate(type="button") {{_ 'list-sync-clear'}}
       if listSyncNowResult
         p(class="{{listSyncNowResultClass}}")= listSyncNowResult
+      if syncConflicts
+        h3 {{_ 'sync-conflict-heading'}}
+        p.quiet {{_ 'sync-conflict-hint'}}
+        each syncConflicts
+          .list-sync-conflict
+            strong {{externalId}} — {{_ label}}
+            p {{_ 'sync-conflict-local'}}
+            pre= local
+            p {{_ 'event-source'}}
+            pre= incoming
+            button.js-resolve-sync-conflict(type="button" data-choice="local" disabled=syncBusy) {{_ 'sync-conflict-keep-local'}}
+            button.js-resolve-sync-conflict(type="button" data-choice="source" disabled=syncBusy) {{_ 'sync-conflict-use-source'}}
 
 //- WHERE a list goes: the board, the swimlane, which list to put it left or
   right of, and Done. Copy list and Move list asked the same question with the

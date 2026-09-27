@@ -859,9 +859,8 @@ Template.setListColorPopup.events({
 
 // List sync settings popup (docs/Features/ImportExport/Sync.md). UI wiring
 // only: reads the list's own (already published, credential-free) syncSource
-// fields and calls setListSyncSource/hasListSyncCredential/syncListNow
-// (server/methods/listSync.js) exactly as they are defined there - this file
-// does not add to or change the sync backend.
+// fields and calls the configuration, Sync and conflict-resolution methods in
+// server/methods/listSync.js. Authority and fresh comparison checks stay there.
 Template.listSyncPopup.onCreated(function () {
   const tpl = this;
   const list = Template.currentData();
@@ -884,6 +883,8 @@ Template.listSyncPopup.onCreated(function () {
   tpl.hasCredential = new ReactiveVar(false);
   tpl.syncNowResult = new ReactiveVar('');
   tpl.syncNowSuccess = new ReactiveVar(true);
+  tpl.syncConflicts = new ReactiveVar([]);
+  tpl.syncBusy = new ReactiveVar(false);
 
   const refreshCredentialStatus = () => {
     if (!list || !list._id) return;
@@ -898,6 +899,10 @@ Template.listSyncPopup.onCreated(function () {
 });
 
 Template.listSyncPopup.helpers({
+  syncConflicts() { return Template.instance().syncConflicts.get().filter(row => row.fingerprint).map(row => ({
+    ...row, label: row.field === 'spentTime' ? 'spent-time-hours' : row.field,
+  })); },
+  syncBusy() { return Template.instance().syncBusy.get(); },
   syncOperations() {
     const selected = Template.instance().selectedSyncOperations.get();
     return [
@@ -972,6 +977,23 @@ Template.listSyncPopup.helpers({
 });
 
 Template.listSyncPopup.events({
+  'click .js-resolve-sync-conflict'(event, tpl) {
+    event.preventDefault();
+    if (tpl.syncBusy.get()) return;
+    const list = tpl.data;
+    const resolution = { cardId: this.cardId, field: this.field, fingerprint: this.fingerprint,
+      choice: event.currentTarget.dataset.choice };
+    tpl.syncBusy.set(true);
+    Meteor.call('resolveListSyncConflict', list._id, resolution, (err, result) => {
+      if (tpl.view.isDestroyed) return;
+      tpl.syncBusy.set(false);
+      tpl.syncConflicts.set([]);
+      if (err || result?.error || !result?.resolved) {
+        tpl.syncNowSuccess.set(false);
+        tpl.syncNowResult.set(err?.reason || err?.message || result?.error || TAPi18n.__('sync-conflict-refresh'));
+      } else tpl.$('.js-list-sync-now').trigger('click');
+    });
+  },
   'click .js-toggle-sync-operation'(event, tpl) {
     event.preventDefault();
     const operation = event.currentTarget.dataset.operation;
@@ -993,6 +1015,8 @@ Template.listSyncPopup.events({
   },
   async 'click .js-list-sync-save'(event, tpl) {
     event.preventDefault();
+    if (tpl.syncBusy.get()) return;
+    tpl.syncConflicts.set([]);
     const list = Template.currentData();
     const type = tpl.selectedSyncType.get();
     if (!list || !list._id || !type) return;
@@ -1024,10 +1048,16 @@ Template.listSyncPopup.events({
   },
   'click .js-list-sync-now'(event, tpl) {
     event.preventDefault();
+    if (tpl.syncBusy.get()) return;
     const list = Template.currentData();
     if (!list || !list._id) return;
+    tpl.syncBusy.set(true);
+    tpl.syncConflicts.set([]);
     tpl.syncNowResult.set(TAPi18n.__('list-sync-now-pending'));
     Meteor.call('syncListNow', list._id, (err, res) => {
+      if (tpl.view.isDestroyed) return;
+      tpl.syncBusy.set(false);
+      tpl.syncConflicts.set(res?.conflicts || []);
       if (err || res?.error) {
         tpl.syncNowSuccess.set(false);
         tpl.syncNowResult.set(
@@ -1043,6 +1073,7 @@ Template.listSyncPopup.events({
   },
   async 'click .js-list-sync-clear'(event, tpl) {
     event.preventDefault();
+    if (tpl.syncBusy.get()) return;
     const list = Template.currentData();
     if (!list || !list._id) return;
     Meteor.call('setListSyncSource', list._id, null, (err) => {

@@ -121,8 +121,32 @@ Source-absence archives use the same conditional card selector. Sync does not
 recursively archive subtasks: each archived card must be matched to an absent
 source item. If an active subtask is outside the archive plan, the run stops
 before card writes. Concurrent child creation is not covered by a transaction.
-A dedicated conflict-resolution UI, new Scrum metadata mappings and fully
-atomic synchronization remain pending.
+New Scrum metadata mappings and fully atomic synchronization remain pending.
+
+### Resolve text and time conflicts
+
+Open the list's Sync popup and run Sync. For conflicting title, description or
+spent-time values, the popup shows the current WeKan value and freshly fetched
+source value. Choose **Keep WeKan value** or **Use source value** for one field
+at a time. Keeping local text accepts the source value as the new comparison
+baseline, so an unchanged upstream value does not raise the same conflict on
+the next run. Neither choice writes to the external provider.
+
+Each choice fetches the source again and verifies the displayed comparison
+against the current card, baseline and selected configuration. A changed
+comparison must be reviewed again. The conditional card write also rejects a
+local change made after that fetch. Only the chosen field and its source
+baseline change; Sync then retries and shows remaining conflicts, up to 50 at
+a time. The existing popup reports provider and concurrency failures.
+
+Resolution requires board write access without an assigned-only restriction;
+restricted members receive no new value previews or resolution authority.
+Permissions are checked again after fetching. Duplicate external identities,
+archive/subtask conflicts and moved-card creation conflicts still require
+manual repair. This does not make the whole Sync run transactional or fence
+already-issued card writes after lease loss. New UI strings are English source
+entries with the normal English fallback; translation filling remains outside
+the current work queue.
 
 ### Source identity and switching projects
 

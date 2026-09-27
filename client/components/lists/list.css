@@ -1735,6 +1735,18 @@ form.inlined-form .list-composer {
   margin: 2px 0 6px;
 }
 
+.list-sync-conflict {
+  border-top: 1px solid var(--border-color, #ccc);
+  padding-block: 0.75rem;
+}
+.list-sync-conflict pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  max-height: 10rem;
+  overflow: auto;
+  font: inherit;
+}
+
 /* Hamburger-menu badge (listActionPopup) showing whether this list already
    has a sync source configured, and whether it is enabled or paused. */
 .list-sync-active {

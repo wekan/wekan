@@ -5,7 +5,7 @@ const {syncSourceKey}=require('../models/lib/listSyncSourceIdentity');
 const sourceConfig={type:'jira',url:'https://jira.example',projectKey:'TEST'};
 const sourceKey=syncSourceKey(sourceConfig);
 const asModule=file=>import(`data:text/javascript;base64,${Buffer.from(fs.readFileSync(file,'utf8')).toString('base64')}`);
-async function run(raw,parser,existing,updateCount=1,child=null,fields,operations={},credentialKey=sourceKey,currentConfig=true,createError){
+async function run(raw,parser,existing,updateCount=1,child=null,fields,operations={},credentialKey=sourceKey,currentConfig=true,createError,options={}){
  const {validateImportSourceShape}=await asModule('models/lib/importSourceShape.js');
  const {planListSyncReconcile,validateListSyncTasks}=await asModule('models/lib/listSyncReconcile.js');
  const cardWrites=[],listWrites=[];let parsed=0,fetches=0;const cardQueries=[];
@@ -14,10 +14,10 @@ async function run(raw,parser,existing,updateCount=1,child=null,fields,operation
   Cards:{insertAsync:async document=>{cardWrites.push({insert:document});if(createError)throw createError;return document._id;},updateAsync:async(selector,modifier)=>{cardWrites.push({selector,modifier});return updateCount;},find:selector=>{cardQueries.push(selector);return {fetchAsync:async()=>Array.isArray(existing)?existing:[existing || {_id:'card',syncExternalId:'KEY-1',syncSourceType:'jira',syncSourceKey:sourceKey,title:'Existing',description:'',syncLastSource:{title:'Existing',description:''}}]}},findOneAsync:async()=>child},
   Boards:{findOneAsync:async()=>({_id:'board',getDefaultSwimlineAsync:async()=>({_id:'lane'})})},ListSyncCredentials:{findOneAsync:async()=>({token:'test',sourceKey:credentialKey})},
   EXTERNAL_PARSERS:{jira:raw=>{parsed++;return parser?parser(raw):{tasks:[]};}},SYNC_CAPABLE_SOURCES:['jira'],
-  LIST_SYNC_FETCHERS:{jira:async()=>{fetches++;return raw;}},validateImportSourceShape,planListSyncReconcile,validateListSyncTasks,require:id=>(id.startsWith('/models/lib/') || ['/server/lib/listSyncCardId','/server/lib/listSyncConfiguration'].includes(id))?require('..'+id):({record(){}}),console,
+  LIST_SYNC_FETCHERS:{jira:async()=>{fetches++;return raw;}},validateImportSourceShape,planListSyncReconcile,validateListSyncTasks,require:id=>(id.startsWith('/models/lib/') || ['/server/lib/listSyncCardId','/server/lib/listSyncConfiguration','/server/lib/listSyncConflict'].includes(id))?require('..'+id):({record(){}}),console,
  };
  vm.createContext(context);vm.runInContext(source,context);
- const result=await context.syncOneList({_id:'list',boardId:'board',syncSource:{...sourceConfig,fields,...operations}});
+ const result=await context.syncOneList({_id:'list',boardId:'board',syncSource:{...sourceConfig,fields,...operations}},options);
  return {result,cardWrites,listWrites,parsed,fetches,cardQueries};
 }
 test('malformed sync responses cannot be mistaken for a source deletion',async()=>{
@@ -51,6 +51,55 @@ test('malformed normalized tasks cannot drop source items or silently replace du
 test('valid unchanged tasks leave existing cards intact',async()=>{
  const {result,cardWrites}=await run({issues:[]},()=>({tasks:[{externalId:'KEY-1',title:'Existing',description:''}]}));
  assert.equal(result.updated,0);assert.equal(result.archived,0);assert.deepEqual(cardWrites,[]);
+});
+
+test('conflict resolution refetches source, checks the preview and only writes the chosen field and baseline',async()=>{
+ const card={_id:'card',syncExternalId:'KEY-1',syncSourceType:'jira',syncSourceKey:sourceKey,
+  title:'Local',description:'Keep description',syncLastSource:{title:'Original',description:'Keep description'}};
+ const task={externalId:'KEY-1',title:'Remote',description:'Keep description'};
+ const execute=(options={},incoming=task,existing=card,count=1)=>run({issues:[]},()=>({tasks:[incoming]}),existing,count,null,undefined,{},sourceKey,true,undefined,options);
+ const preview=await execute({previewConflicts:true});
+ assert.equal(preview.cardWrites.length,0);
+ const conflict=preview.result.conflicts[0];
+ assert.equal(conflict.local,'Local');assert.equal(conflict.incoming,'Remote');assert.match(conflict.fingerprint,/^[a-f0-9]{64}$/);
+ const hidden=await execute();assert.equal(hidden.result.conflicts[0].local,undefined);
+ for(const choice of ['local','source']){
+  const result=await execute({resolution:{...conflict,choice}});
+  assert.equal(result.result.resolved,true);assert.equal(result.fetches,1);assert.equal(result.cardWrites.length,1);
+  const write=result.cardWrites[0];assert.equal(write.selector.title,'Local');
+  assert.equal(write.modifier.$set.syncLastSource.title,'Remote');
+  assert.equal(write.modifier.$set.title,choice==='source'?'Remote':undefined);
+  assert.equal(write.modifier.$set.description,undefined);
+ }
+ for(const [options,incoming,existing] of [
+  [{resolution:{...conflict,choice:'source',fingerprint:'0'.repeat(64)}},task,card],
+  [{resolution:{...conflict,choice:'source'}},{...task,title:'New remote'},card],
+  [{resolution:{...conflict,choice:'source'}},task,{...card,title:'New local'}],
+  [{resolution:{...conflict,choice:'source',cardId:'foreign'}},task,card],
+ ]){
+  const result=await execute(options,incoming,existing);assert.match(result.result.error,/conflict changed/);assert.equal(result.cardWrites.length,0);
+ }
+ const raced=await execute({resolution:{...conflict,choice:'source'}},task,card,0);
+ assert.match(raced.result.error,/card changed/);
+});
+
+test('description and spent-time decisions retain value types and prevent the same conflict recurring',async()=>{
+ const {planSyncTextMerge}=require('../models/lib/listSyncTextMerge');
+ for(const [field,original,local,incoming] of [['description','old','my text','their text'],['spentTime',1,2,3]]){
+  const card={_id:'card',syncExternalId:'KEY-1',syncSourceType:'jira',syncSourceKey:sourceKey,
+   title:'Existing',[field]:local,syncLastSource:{[field]:original}};
+  const task={externalId:'KEY-1',[field]:incoming};
+  const execute=options=>run({issues:[]},()=>({tasks:[task]}),card,1,null,[field],{},sourceKey,true,undefined,options);
+  const preview=(await execute({previewConflicts:true})).result.conflicts[0];
+  for(const choice of ['local','source']){
+   const result=await execute({resolution:{...preview,choice}});
+   assert.equal(result.result.resolved,true);
+   const updated={...card,...result.cardWrites[0].modifier.$set};
+   assert.equal(updated[field],choice==='source'?incoming:local);
+   assert.equal(updated.syncLastSource[field],incoming);
+   assert.equal(planSyncTextMerge([task],[updated]).conflicts.length,0);
+  }
+ }
 });
 
 test('sync detects diverging local text before any card mutation',async()=>{
