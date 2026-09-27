@@ -899,6 +899,23 @@ action category, long content and control boundaries.
 This release adds the following regression coverage and documentation:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/2ff687756">Define shared Scrum transfer validation and ID remapping</a>. Thanks to xet7.</summary>
+
+The versioned data contract covers settings, planning records, snapshots and
+item metadata. Destination ID maps remap references; omitted cards and actors
+produce explicit losses, and reduced snapshots are marked partial. Validation
+rejects invalid dates, inconsistent totals, foreign planning references,
+permission fields, recovery checkpoints and ID collisions.
+
+Fifteen focused Node checks pass, including four executable transfer suites.
+This is shared implementation groundwork: native import/export, duplication,
+external adapters, Sync, History transfer and anonymization integration remain
+pending. There is no new transfer UI or end-to-end transfer claim. Existing
+Upcoming regression evidence remains recorded; Blockly translation is paused.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/c666a69b2">Document Scrum capabilities and the remaining implementation plan</a>. Thanks to xet7.</summary>
 
 Audit existing estimates, charts, history, permissions and data transfers
