@@ -29,6 +29,28 @@ export const Notifications = {
     return users;
   },
 
+  // Internal recovery callers need failures and must wait for every started
+  // subscriber before advancing. Resolution confirms subscriber completion,
+  // not SMTP/webhook delivery or an operation's durable receipt.
+  notifyAndWait: async (user, title, description, params) => {
+    if (!user || typeof user._id !== 'string' || !user._id ||
+        typeof params?.activityId !== 'string' || !params.activityId) {
+      throw new Error('notification-delivery-identity-required');
+    }
+    const services = Object.entries(notifyServices).filter(([, callback]) => typeof callback === 'function');
+    if (!services.length) throw new Error('notification-services-unavailable');
+    const results = await Promise.allSettled(services.map(([, callback]) =>
+      Promise.resolve().then(() => callback(user, title, description, params))));
+    const failures = results.flatMap((result, index) => result.status === 'rejected'
+      ? [{ service: services[index][0], error: result.reason }] : []);
+    if (failures.length) {
+      const error = new AggregateError(failures.map(failure => failure.error), 'notification-delivery-incomplete');
+      error.services = failures.map(failure => failure.service);
+      throw error;
+    }
+    return services.map(([name]) => name);
+  },
+
   notify: (user, title, description, params) => {
     // Skip if user is invalid
     if (!user || !user._id) return;

@@ -76,3 +76,5 @@ import './boardTriggersClass.tests';
 import './syncHookedCards.tests';
 
 import './syncHookedActivities.tests';
+
+import './notificationAwaitedDelivery.tests';
