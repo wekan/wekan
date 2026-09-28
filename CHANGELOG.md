@@ -656,17 +656,28 @@ controls disabled. Existing tray notifications and queued SMTP mail are not
 recalled. Twenty-three Node/MongoDB cases, one full-app Meteor case and three
 Chromium scenarios pass, including confirmation dismissal, denied access,
 terminal replay and orphan cancellation without activity recreation. Intent
-snapshots and rendered plans are still retained after cancellation; payload
-cleanup and broader card/History/activity recovery coordination remain open.
+snapshots and rendered plans are compacted after cancellation as described
+below; broader card/History/activity recovery coordination remains open.
 An internal cancellation compactor now replaces rendered plans and intent
 snapshots with permanent terminal receipts. It confirms the plan receipt first,
 including inserting a tombstone when no plan was ever built, so delayed first
 writers cannot recreate payloads. Exact conditional writes, unchanged terminal
 control checks and readback handle interruption and uncertain acknowledgements.
 Orphans need no recreated activity. Twenty-five Node/MongoDB cases pass,
-including five new compaction cases. Production invocation, bounded scheduling,
-compact-receipt report/capture support and app/browser verification are still
-unfinished; production cancellation continues retaining payloads for now.
+including five new compaction cases.
+Production cancellation now invokes compaction after confirming the terminal
+control. The existing bounded recovery scan retries interrupted cleanup and
+stops scanning an intent once it has its compact cancelled state. Shared
+receipt validation makes ordinary capture/completion reject cancelled replays.
+Report queries include compact cancelled metadata, preserving literal ID
+search and visibility without reading original payloads; actions stay
+disabled. Twenty-eight Node/MongoDB cases, one full-app Meteor case and three
+Chromium scenarios pass, including recovery-pass cleanup, immediate UI
+cancellation, retained report rows, orphan cleanup, missing controls and
+prevention of capture/completion replay. Invalid or mismatched payloads remain
+for investigation. Pending and paused work is not automatically expired.
+Broader card/History/activity coordination and saved Sync effect activation
+remain unfinished.
 History field snapshots now preserve nested dates, including date-valued
 custom fields alongside mapped estimates. JSON transport and restoration retain
 Date types without interpreting date-looking text. Existing rows whose dates
@@ -1307,6 +1318,26 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f1e572db5">Clean cancelled activity payloads and retain searchable recovery receipts</a>. Thanks to xet7.</summary>
+
+Production cancellation now compacts its snapshot and rendered plan after
+confirming the terminal control. Interrupted cleanup is retried by the existing
+bounded activity recovery scan under the same delivery reservation. Once the
+intent is compacted, it leaves the pending scan. Shared receipt validation
+rejects cancelled capture/completion replays without recreating their payloads.
+
+Recovery searches pending and compact cancelled metadata and keeps cancelled
+rows visible with disabled actions, without fetching old activity or plan
+content. Twenty-eight Node/MongoDB cases, one full-app Meteor case and three
+Chromium scenarios pass, covering immediate and recovery-pass cleanup, orphan
+receipts, payload removal, report visibility, missing controls and replay
+rejection. The source audit completes with advisory warnings. Invalid or
+mismatched evidence remains for investigation; pending and paused work is not
+automatically expired. Broader saved Sync effects remain in TODO Later.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8814dbf1f">Prepare cancellation payload compaction with permanent receipts</a>. Thanks to xet7.</summary>
