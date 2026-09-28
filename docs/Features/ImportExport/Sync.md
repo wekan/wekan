@@ -733,3 +733,16 @@ connection. A multi-recipient send with one accepted and one rejected address
 likewise remains uncertain and is not automatically repeated. This covers the
 actual local transport path, not external SMTP-provider interoperability or
 operator resolution of uncertain attempts.
+
+The stored rules coordinator now installs the durable email adapter by default.
+It maps each frozen invocation to its plan index, dispatches through the stored
+command/attempt entry point, and writes rule checkpoints only after the exact
+invocation receipt returns. The shared saved-activity delivery binding now uses
+this stored rules stage by default; explicit internal adapters remain possible.
+Unsupported pending actions still fail preflight before any email dispatch.
+Ordinary `performAction` is never used as a fallback.
+
+This connects email and empty/missing-action selections through the internal
+saved-activity pipeline, including when watcher notifications are disabled.
+It does not activate manual/cron Sync. Other action adapters, shared History
+coordination and operator resolution of uncertain sends remain unfinished.

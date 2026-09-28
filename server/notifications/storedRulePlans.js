@@ -84,8 +84,13 @@ export async function captureStoredSyncRulePlan(options) {
 export async function runStoredSyncRules({ adapters, ...options }) {
   const context = executionContext(options);
   const plan = await capture(context);
+  const indices = new Map(plan.actions.map((row, index) => [row.id, index]));
+  const durableAdapters = {
+    sendEmail: ({ invocation }) => runStoredSyncRuleEmail({ ...options, index: indices.get(invocation.id) }),
+    ...adapters,
+  };
   return executeRulePlan({ plan, activity: context.saved, effectId: context.effectId,
-    receipts: SyncRuleReceipts.rawCollection(), adapters, assertCurrent: context.guard });
+    receipts: SyncRuleReceipts.rawCollection(), adapters: durableAdapters, assertCurrent: context.guard });
 }
 
 // Capture the ordinary rule's substituted, localized transport fields once.

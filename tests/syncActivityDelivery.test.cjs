@@ -76,13 +76,15 @@ test('an interrupted later stage replays through durable adapters instead of ass
 test('production binding supplies stored notification/webhook adapters and live flags, never ordinary rules', async () => {
   const fs = require('node:fs'), vm = require('node:vm');
   let args;
-  const notifications = () => {}, webhooks = () => {}, rules = () => {};
+  const notifications = () => {}, webhooks = () => {}, rules = () => {}, storedRules = () => {};
   const context = { getFeatureFlags: () => ({ disableActivities: false, disableNotifications: true }),
-    runStoredSyncNotifications: notifications, runStoredSyncWebhooks: webhooks,
+    runStoredSyncNotifications: notifications, runStoredSyncWebhooks: webhooks, runStoredSyncRules: storedRules,
     require: id => id.endsWith('syncActivityDelivery') ? { deliverSyncActivity: input => { args = input; return 'receipt'; } } : require('../server/lib/syncEffectPolicy') };
   vm.runInNewContext(fs.readFileSync(require.resolve('../server/notifications/storedActivityDelivery'), 'utf8')
     .replace(/^import .*;\n/gm, '').replace('export function ', 'function '), context);
   assert.equal(context.runStoredSyncActivityDelivery({ effectId: 'id', activity: {}, policy: {}, assertCurrent() {}, rules }), 'receipt');
   assert.equal(args.rules, rules); assert.equal(args.notifications, notifications); assert.equal(args.webhooks, webhooks);
   assert.deepEqual(await args.readPolicy(), { activities: true, notifications: false });
+  context.runStoredSyncActivityDelivery({ effectId: 'id', activity: {}, policy: {}, assertCurrent() {} });
+  assert.equal(args.rules, storedRules, 'default delivery uses durable stored rules');
 });

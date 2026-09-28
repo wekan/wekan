@@ -3,6 +3,8 @@ import { Meteor } from 'meteor/meteor';
 import { Random } from 'meteor/random';
 import { Accounts } from 'meteor/accounts-base';
 import { Email } from 'meteor/email';
+import { getFeatureFlags } from '/models/lib/featureFlags';
+import { runStoredSyncActivityDelivery } from '/server/notifications/storedActivityDelivery';
 import Boards from '/models/boards';
 import Lists from '/models/lists';
 import Cards from '/models/cards';
@@ -158,12 +160,15 @@ describe('Stored Sync rule email network delivery', function () {
     await new Promise((resolve, reject) => { smtp.once('error', reject); smtp.listen(0, '127.0.0.1', resolve); });
     const actor = Random.id(), boardId = Random.id(), listId = Random.id(), cardId = Random.id(), activityId = Random.id();
     const ruleId = Random.id(), triggerId = Random.id(), actionId = Random.id();
+    const extraRule = Random.id(), extraAction = Random.id(), extraTrigger = Random.id();
+    const flags = getFeatureFlags(), previousNotifications = flags.disableNotifications;
+    flags.disableNotifications = true;
     const originalURL = process.env.MAIL_URL, originalFrom = Accounts.emailTemplates.from, originalTransport = Email.customTransport;
     process.env.MAIL_URL = `smtp://127.0.0.1:${smtp.address().port}/?wekanTotalTimeout=5000`;
     Accounts.emailTemplates.from = 'sender@example.org'; Email.customTransport = undefined;
     const activity = { _id: activityId, activityType: 'createCard', boardId, listId, cardId, userId: actor,
       cardTitle: 'Network card', listName: 'List', swimlaneName: 'Lane', createdAt: new Date(1000), modifiedAt: new Date(1000) };
-    const input = { activity, effectId: 'e'.repeat(64), index: 0, policy: { activities: true, notifications: true }, assertCurrent: async () => {} };
+    const input = { activity, effectId: 'e'.repeat(64), index: 0, policy: { activities: true, notifications: false }, assertCurrent: async () => {} };
     try {
       await Meteor.users.rawCollection().insertOne({ _id: actor, username: actor });
       await Boards.rawCollection().insertOne({ _id: boardId, title: 'Network board', members: [{ userId: actor, isAdmin: true, isActive: true }] });
@@ -174,8 +179,9 @@ describe('Stored Sync rule email network delivery', function () {
       await Rules.rawCollection().insertOne({ _id: ruleId, boardId, triggerId, actionId, enabled: true });
       await Actions.rawCollection().insertOne({ _id: actionId, boardId, actionType: 'sendEmail', emailTo: 'Recipient <accepted@example.org>', emailSubject: 'Network {card}', emailMsg: 'Real SMTP {board}' });
       const first = await captureStoredSyncRuleEmailCommand(input);
-      assert.equal(await runStoredSyncRuleEmail(input), first.invocationId);
-      assert.equal(await runStoredSyncRuleEmail(input), first.invocationId);
+      assert.equal(await runStoredSyncActivityDelivery(input), input.effectId);
+      assert.equal(await runStoredSyncRules(input), input.effectId);
+      assert.equal(await SyncRuleReceipts.find({ effectId: input.effectId }).countAsync(), 2);
       assert.equal(connections, 1); assert.equal(bodies.length, 1);
       assert.match(bodies[0], /Subject: Network Network card/);
       assert.match(bodies[0], /Real SMTP Network board/);
@@ -184,20 +190,32 @@ describe('Stored Sync rule email network delivery', function () {
       mode = 'disconnect';
       const lostInput = { ...input, effectId: 'f'.repeat(64) };
       const lost = await captureStoredSyncRuleEmailCommand(lostInput);
-      await assert.rejects(runStoredSyncRuleEmail(lostInput));
-      await assert.rejects(runStoredSyncRuleEmail(lostInput), /delivery-uncertain/);
+      await assert.rejects(runStoredSyncRules(lostInput));
+      await assert.rejects(runStoredSyncRules(lostInput), /delivery-uncertain/);
+      assert.equal(await SyncRuleReceipts.find({ effectId: lostInput.effectId }).countAsync(), 0);
       assert.equal(connections, 2); assert.equal(bodies.length, 2);
       assert.equal((await SyncRuleEmailAttempts.findOneAsync(lost._id)).state, 'sending');
       mode = 'partial';
       await Actions.rawCollection().updateOne({ _id: actionId }, { $set: { emailTo: 'accepted@example.org, rejected@example.org' } });
       const partialInput = { ...input, effectId: '1'.repeat(64) };
       const partial = await captureStoredSyncRuleEmailCommand(partialInput);
-      await assert.rejects(runStoredSyncRuleEmail(partialInput), /delivery-unconfirmed/);
-      await assert.rejects(runStoredSyncRuleEmail(partialInput), /delivery-uncertain/);
+      await assert.rejects(runStoredSyncRules(partialInput), /delivery-unconfirmed/);
+      await assert.rejects(runStoredSyncRules(partialInput), /delivery-uncertain/);
+      assert.equal(await SyncRuleReceipts.find({ effectId: partialInput.effectId }).countAsync(), 0);
       assert.equal(connections, 3); assert.equal(bodies.length, 3);
       assert.ok(recipients.some(line => line.includes('rejected@example.org')));
       assert.equal((await SyncRuleEmailAttempts.findOneAsync(partial._id)).state, 'sending');
+      await Actions.rawCollection().insertOne({ _id: extraAction, boardId, actionType: 'archive' });
+      await Triggers.rawCollection().insertOne({ _id: extraTrigger, boardId, activityType: 'createCard', listName: '*', userId: '*', swimlaneName: '*', cardTitle: '*' });
+      await Rules.rawCollection().insertOne({ _id: extraRule, boardId, triggerId: extraTrigger, actionId: extraAction, enabled: true });
+      const blockedInput = { ...input, effectId: '2'.repeat(64) };
+      const blockedPlan = await captureStoredSyncRulePlan(blockedInput);
+      assert.equal(blockedPlan.actions.length, 2);
+      await assert.rejects(runStoredSyncActivityDelivery(blockedInput), /adapter-required/);
+      assert.equal(connections, 3);
+      assert.equal(await SyncRuleReceipts.find({ effectId: blockedInput.effectId }).countAsync(), 0);
     } finally {
+      flags.disableNotifications = previousNotifications;
       if (originalURL === undefined) delete process.env.MAIL_URL; else process.env.MAIL_URL = originalURL;
       Accounts.emailTemplates.from = originalFrom; Email.customTransport = originalTransport;
       for (const socket of sockets) socket.destroy();
@@ -205,8 +223,10 @@ describe('Stored Sync rule email network delivery', function () {
       const commands = await SyncRuleEmailCommands.find({ boardId, cardId }, { fields: { _id: 1 } }).fetchAsync();
       await SyncRuleEmailAttempts.rawCollection().deleteMany({ _id: { $in: commands.map(row => row._id) } });
       await SyncRuleEmailCommands.rawCollection().deleteMany({ boardId, cardId });
+      const receiptPlanId = planId(input.effectId, activityId);
+      await SyncRuleReceipts.rawCollection().deleteMany({ _id: { $in: [receiptPlanId, invocationId(receiptPlanId, 0)] } });
       await SyncRulePlans.rawCollection().deleteMany({ 'plan.activityId': activityId });
-      for (const [collection, id] of [[Activities, activityId], [Cards, cardId], [Lists, listId], [Boards, boardId],
+      for (const [collection, id] of [[Rules, extraRule], [Actions, extraAction], [Triggers, extraTrigger], [Activities, activityId], [Cards, cardId], [Lists, listId], [Boards, boardId],
         [Rules, ruleId], [Triggers, triggerId], [Actions, actionId], [Meteor.users, actor]]) {
         await collection.rawCollection().deleteOne({ _id: id });
       }
