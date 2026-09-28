@@ -1353,7 +1353,7 @@ async function findCards(sessionId, query, userId) {
   let dbProjection = query.projection;
   if (isTextSearch) {
     dbProjection = {
-      fields: { _id: 1, title: 1, description: 1, customFields: 1 },
+      fields: { _id: 1, boardId: 1, title: 1, description: 1, customFields: 1 },
       sort: query.projection.sort,
     };
     delete dbProjection.limit;
@@ -1369,7 +1369,11 @@ async function findCards(sessionId, query, userId) {
     const skip = query.projection.skip || 0;
     const limit = query.projection.limit || 25;
     const best = [];
-    const retain = card => retainRankedCard(best, card, regex, skip + limit);
+    const { fieldReadContext } = require('/server/lib/adminFieldReadContext');
+    const { redact } = require('/models/lib/adminOnlyCustomFields');
+    const policy = fieldReadContext.getStore();
+    const retain = card => retainRankedCard(best, policy
+      ? redact(card, policy.definitions, policy.adminBoards) : card, regex, skip + limit);
     if (typeof cards.forEachAsync === 'function') {
       await cards.forEachAsync(retain);
     } else {

@@ -35,6 +35,7 @@ class ExporterExcel {
   }
 
   async build(res) {
+    await require('/server/lib/adminOnlyCustomFields').assertFieldExport(this._boardId, this._customFieldViewerId);
     // ─────────────────────────────────────────────────────────────────────────
     // Streaming Excel export. The previous version loaded the ENTIRE board
     // (cards, comments, activities, checklists, subtasks, rules, custom fields)
@@ -838,6 +839,8 @@ class ExporterExcel {
   }
 
   async canExport(user) {
+    this._customFieldViewerId = user?._id;
+    await require('/server/lib/adminOnlyCustomFields').assertFieldExport(this._boardId, this._customFieldViewerId);
     const board = await ReactiveCache.getBoard(this._boardId);
     const { canExportBoardData } = require('/models/lib/exportAccess');
     return canExportBoardData(board, user);

@@ -37,6 +37,7 @@ import '/server/initializeDirs';
 // 0. API middleware & auth routes (must register before model routes)
 // ----------------------------------------------------------------------------
 import '/server/lib/requestReportContext';
+import '/server/00adminOnlyFieldBoundary';
 import '/server/apiMiddleware';
 import '/server/apiAuthRoutes';
 
@@ -57,6 +58,7 @@ import '/imports/lib/secureDOMPurify';
 // 2. Models — shared collections + server-only extensions
 // ----------------------------------------------------------------------------
 import '/imports/startup/shared-models';
+import '/server/adminOnlyFieldWrites';
 import '/models/attachments.server';
 import '/models/avatars.server';
 import '/server/boardBackgrounds';

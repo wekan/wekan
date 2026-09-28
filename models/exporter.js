@@ -147,6 +147,7 @@ export class Exporter {
   }
 
   async build() {
+    await require('/server/lib/adminOnlyCustomFields').assertFieldExport(this._boardId, this._customFieldViewerId);
     await assertExportEnabled();
     const fs = Npm.require('fs');
     const os = Npm.require('os');
@@ -448,6 +449,7 @@ export class Exporter {
   // single-attachment path stays on build() since it returns one small object.
   // ───────────────────────────────────────────────────────────────────────────
   async buildStream(res) {
+    await require('/server/lib/adminOnlyCustomFields').assertFieldExport(this._boardId, this._customFieldViewerId);
     await assertExportEnabled();
     const fs = Npm.require('fs');
     const { secureTransfer } = require('/server/lib/secureTransfer');
@@ -752,6 +754,7 @@ export class Exporter {
   }
 
   async buildCsv(userDelimiter = ',', userLanguage='en') {
+    await require('/server/lib/adminOnlyCustomFields').assertFieldExport(this._boardId, this._customFieldViewerId);
     const result = await this.build();
     const columnHeaders = [];
     const cardRows = [];
@@ -839,6 +842,7 @@ export class Exporter {
   // cheap passes over the card cursor: pass 1 collects referenced user ids
   // (strings only), pass 2 writes rows. Output matches buildCsv() exactly.
   async buildCsvStream(res, userDelimiter = ',', userLanguage = 'en') {
+    await require('/server/lib/adminOnlyCustomFields').assertFieldExport(this._boardId, this._customFieldViewerId);
     const cardsRaw = require('/models/cards').default.rawCollection();
     const cardSelector = { boardId: this._boardId, linkedId: { $in: ['', null] } };
 
@@ -917,6 +921,8 @@ export class Exporter {
   }
 
   async canExport(user) {
+    this._customFieldViewerId = user?._id;
+    await require('/server/lib/adminOnlyCustomFields').assertFieldExport(this._boardId, this._customFieldViewerId);
     const board = await ReactiveCache.getBoard(this._boardId);
     const { canExportBoardData } = require('/models/lib/exportAccess');
     return canExportBoardData(board, user);

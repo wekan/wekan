@@ -34,6 +34,8 @@ class ExporterZip {
   }
 
   async canExport(user) {
+    this._customFieldViewerId = user?._id;
+    await require('/server/lib/adminOnlyCustomFields').assertFieldExport(this._boardId, this._customFieldViewerId);
     // The same check the JSON export makes, from the same place.
     const { ReactiveCache } = require('/imports/reactiveCache');
     const board = await ReactiveCache.getBoard(this._boardId);
@@ -42,6 +44,7 @@ class ExporterZip {
   }
 
   async build(res, filename = 'export.zip') {
+    await require('/server/lib/adminOnlyCustomFields').assertFieldExport(this._boardId, this._customFieldViewerId);
     // archiver@8 is ESM: use the ZipArchive class instead of the old
     // archiver('zip', …) factory (which no longer exists) - the same fix
     // server/methods/backup.js already made. The old call threw synchronously,

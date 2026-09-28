@@ -291,7 +291,7 @@ Meteor.methods({
     // is checked the same as the deny rule that covers text/number/dropdown/
     // stringtemplate fields (server/permissions/cards.js).
     if (definition.adminOnly && !board.hasAdmin(this.userId)) {
-      throw new Meteor.Error('not-authorized');
+      require('/server/lib/adminOnlyCustomFields').fieldWriteDenied(this.userId, 'method:setCardCustomFieldCheckbox');
     }
 
     const index = (card.customFields || []).findIndex(field =>
@@ -326,7 +326,7 @@ Meteor.methods({
     if (!definition) throw new Meteor.Error('custom-field-not-found');
     // #3141: same server-side gate as setCardCustomFieldCheckbox above.
     if (definition.adminOnly && !board.hasAdmin(this.userId)) {
-      throw new Meteor.Error('not-authorized');
+      require('/server/lib/adminOnlyCustomFields').fieldWriteDenied(this.userId, 'method:setCardCustomFieldCurrency');
     }
 
     const index = (card.customFields || []).findIndex(field =>
@@ -804,6 +804,9 @@ Meteor.methods({
     const destBoard = await Boards.findOneAsync(boardId);
     if (!allowIsBoardMemberWithWriteAccess(this.userId, destBoard))
       throw new Meteor.Error('not-authorized');
+    // Reject a forged merge before copying children or emitting activities.
+    await require('/server/lib/adminOnlyCustomFields').assertFieldWrite(
+      this.userId, card, { ...card, ...mergeCardValues }, 'method:copyCard');
     Object.assign(card, mergeCardValues);
 
     const sort = await card.getSort(listId, swimlaneId, insertAtTop);
@@ -2138,6 +2141,13 @@ WebApp.handlers.get(
     const paramBoardId = req.params.boardId;
     const paramCustomFieldId = req.params.customFieldId;
     const paramCustomFieldValue = req.params.customFieldValue;
+    const { fieldPolicy } = require('/server/lib/adminOnlyCustomFields');
+    const { mayReadField } = require('/models/lib/adminOnlyCustomFields');
+    const policy = await fieldPolicy(req.userId);
+    if (!mayReadField(policy.definitions.get(paramCustomFieldId), paramBoardId, policy.adminBoards)) {
+      sendJsonResult(res, { code: 403, data: { error: 'Forbidden' } });
+      return;
+    }
     await Authentication.checkBoardAccess(req.userId, paramBoardId);
     sendJsonResult(res, {
       code: 200,

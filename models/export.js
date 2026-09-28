@@ -420,7 +420,9 @@ if (Meteor.isServer) {
       sendJsonResult(res, { code: 404, data: { error: 'Not found' } });
       return;
     }
+    let user = null;
     const respond = async () => {
+      await require('/server/lib/adminOnlyCustomFields').assertFieldExport(boardId, user?._id);
       const built = await buildExternalExport(boardId, format,
         parseExportFields(req.query && req.query.fields, BOARD_EXPORT_FIELD_KEYS));
       if (format === 'markdown') {
@@ -434,7 +436,6 @@ if (Meteor.isServer) {
       await respond();
       return;
     }
-    let user = null;
     const loginToken = req.query.authToken;
     if (loginToken) {
       if (loginToken.length > 10000) {

@@ -26,6 +26,8 @@ class ExporterChartExcel {
   }
 
   async canExport(user) {
+    this._customFieldViewerId = user?._id;
+    await require('/server/lib/adminOnlyCustomFields').assertFieldExport(this._boardId, this._customFieldViewerId);
     this.userId = user?._id || null;
     const board = await ReactiveCache.getBoard(this._boardId);
     const { canExportBoardData } = require('/models/lib/exportAccess');
@@ -33,6 +35,7 @@ class ExporterChartExcel {
   }
 
   async build(res) {
+    await require('/server/lib/adminOnlyCustomFields').assertFieldExport(this._boardId, this._customFieldViewerId);
     const board = await ReactiveCache.getBoard(this._boardId);
     if (!board) {
       res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });

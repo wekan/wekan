@@ -368,6 +368,7 @@ class ExporterCardPDF extends PDFExporterBase {
   }
 
   async build(res) {
+    await require('/server/lib/adminOnlyCustomFields').assertFieldExport(this._boardId, this._customFieldViewerId);
     const data = await this._getCardData();
     if (!data) {
       res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
@@ -395,6 +396,8 @@ class ExporterCardPDF extends PDFExporterBase {
   }
 
   async canExport(user) {
+    this._customFieldViewerId = user?._id;
+    await require('/server/lib/adminOnlyCustomFields').assertFieldExport(this._boardId, this._customFieldViewerId);
     const board = await ReactiveCache.getBoard(this._boardId);
     const { canExportBoardData } = require('/models/lib/exportAccess');
     return canExportBoardData(board, user);
@@ -589,6 +592,7 @@ class ExporterBoardPDF extends PDFExporterBase {
   }
 
   async build(res) {
+    await require('/server/lib/adminOnlyCustomFields').assertFieldExport(this._boardId, this._customFieldViewerId);
     const data = await this._getBoardData();
     if (!data) {
       res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
@@ -677,6 +681,8 @@ class ExporterBoardPDF extends PDFExporterBase {
   }
 
   async canExport(user) {
+    this._customFieldViewerId = user?._id;
+    await require('/server/lib/adminOnlyCustomFields').assertFieldExport(this._boardId, this._customFieldViewerId);
     const board = await ReactiveCache.getBoard(this._boardId);
     const { canExportBoardData } = require('/models/lib/exportAccess');
     return canExportBoardData(board, user);

@@ -428,7 +428,8 @@ Meteor.methods({
     const cursor = ChangeHistory.rawCollection().find(selector)
       .sort({ createdAt: -1 }).batchSize(100);
     return scanHistoryPage({ cursor,
-      readable: rows => filterReadableHistoryRows(rows, this.userId),
+      readable: async rows => require('/server/lib/adminOnlyCustomFields').redactFields(
+        await filterReadableHistoryRows(rows, this.userId), this.userId),
       matches: row => !search || matchesSearch(row, search),
       paginate: total => pageInfo(total, request.page || 1, pageSize),
     });

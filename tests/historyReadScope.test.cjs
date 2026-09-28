@@ -22,7 +22,8 @@ test('all universal history reversal paths share the scope guard and paging filt
  for(const direction of ['restore','undo','redo']) assert.ok(source.includes(`applyRow(row, '${direction}')`));
  // The streaming reader must retain the original security boundary: filter
  // each batch before search, totals, contributors or page selection.
- assert.match(source, /readable: rows => filterReadableHistoryRows\(rows, this.userId\)/);
+ // Keep row authorization AND redact protected content before search/counting.
+ assert.match(source, /readable: async rows =>[^;]+redactFields\(\s*await filterReadableHistoryRows\(rows, this.userId\), this.userId\)/);
  const scan=fs.readFileSync(path.join(__dirname,'../server/lib/historyPageScan.js'),'utf8');
  const readAt=scan.indexOf('const allowed = await readable(batch)');
  assert.ok(readAt>0);

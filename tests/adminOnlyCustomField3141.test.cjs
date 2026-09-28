@@ -118,12 +118,11 @@ const cardsPermSrc = fs.readFileSync(
 test('Cards.deny rejects a direct client write to an adminOnly field\'s value', () => {
   assert.ok(/denyAdminOnlyCustomFieldValueWrite/.test(cardsPermSrc),
     'a dedicated deny check exists');
-  assert.ok(/customFields\\\.\(\\d\+\)\\\.value/.test(cardsPermSrc) ||
-    /customFields\.\(\\d\+\)\.value/.test(cardsPermSrc) ||
-    /customFields\.\\\(\\d\+\\\)\.value/.test(cardsPermSrc),
-    'it inspects the exact `customFields.<index>.value` modifier shape the client writes');
-  assert.ok(/CustomFields\.findOneAsync\(entry\._id\)/.test(cardsPermSrc));
-  assert.ok(/board\.hasAdmin\(userId\)/.test(cardsPermSrc));
+  // The old indexed-$set check missed inserts, replacement arrays and other
+  // operators. Compare the complete before/after protected inventory instead.
+  assert.ok(/assertFieldWrite\(userId, doc, modifiedCard\(doc, modifier\)/.test(cardsPermSrc));
+  assert.ok(/assertFieldWrite\(userId, null, doc/.test(cardsPermSrc));
+
 });
 
 // --- server/models/cards.js: the dedicated setCardCustomField* methods -----

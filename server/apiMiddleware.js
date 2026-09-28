@@ -91,6 +91,14 @@ WebApp.handlers.use(require('/server/lib/apiUsageLog').apiUsageMiddleware);
 // 5. sendJsonResult — drop-in replacement for JsonRoutes.sendResult
 // ---------------------------------------------------------------------------
 function sendJsonResult(res, options) {
+  const { containsFields } = require('/models/lib/adminOnlyCustomFields');
+  if (!containsFields(options?.data)) return writeJsonResult(res, options);
+  return require('/server/lib/adminOnlyCustomFields').redactFields(options.data, res.req?.userId)
+    .then(data => writeJsonResult(res, { ...options, data }))
+    .catch(() => writeJsonResult(res, { code: 500, data: { error: 'Response unavailable' } }));
+}
+
+function writeJsonResult(res, options) {
   options = options || {};
 
   // Default response headers (matching json-routes behavior)

@@ -43,7 +43,11 @@ export async function loadBoardChartData(boardId, chartKey, options = {}) {
       ...(advanced ? { boardId: 1, poker: 1, customFields: 1, cardDependencies: 1, deletedAt: 1 } : {}),
     },
   };
-  const allCards = await Cards.find({ boardId }, cardFields).fetchAsync();
+  const rawCards = await Cards.find({ boardId }, cardFields).fetchAsync();
+  const { fieldReadContext } = require('/server/lib/adminFieldReadContext');
+  const { redact } = require('/models/lib/adminOnlyCustomFields');
+  const policy = fieldReadContext.getStore();
+  const allCards = policy ? redact(rawCards, policy.definitions, policy.adminBoards, boardId) : rawCards;
   if (advanced) {
     const ChangeHistory = require('/models/changeHistory').default;
     const [events, history, fields] = await Promise.all([

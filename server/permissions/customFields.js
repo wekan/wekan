@@ -47,3 +47,35 @@ CustomFields.allow({
   },
   fetch: ['userId', 'boardIds'],
 });
+
+// AdminFieldBleed: protect shared definitions before allow/deny returns, so an
+// explicit attempt to remove the value boundary is also visible in Problems.
+CustomFields.deny({
+  async insert(userId, doc) {
+    if (!doc.adminOnly) return false;
+    const { fieldPolicy, fieldWriteDenied } = require('/server/lib/adminOnlyCustomFields');
+    const { adminBoards } = await fieldPolicy(userId);
+    if (!doc.boardIds?.length || doc.boardIds.some(id => !adminBoards.has(id))) {
+      fieldWriteDenied(userId, 'ddp:customFields.definition');
+    }
+    return false;
+  },
+  async update(userId, doc, fields, modifier) {
+    const { fieldPolicy, modifiedCard, fieldWriteDenied } = require('/server/lib/adminOnlyCustomFields');
+    const after = modifiedCard(doc, modifier);
+    if (!doc.adminOnly && !after.adminOnly) return false;
+    const { adminBoards } = await fieldPolicy(userId);
+    if ([...(doc.boardIds || []), ...(after.boardIds || [])].some(id => !adminBoards.has(id))) {
+      fieldWriteDenied(userId, 'ddp:customFields.definition');
+    }
+    return false;
+  },
+  async remove(userId, doc) {
+    if (!doc.adminOnly) return false;
+    const { fieldPolicy, fieldWriteDenied } = require('/server/lib/adminOnlyCustomFields');
+    const { adminBoards } = await fieldPolicy(userId);
+    if ((doc.boardIds || []).some(id => !adminBoards.has(id))) fieldWriteDenied(userId, 'ddp:customFields.definition');
+    return false;
+  },
+  fetch: ['boardIds', 'adminOnly'],
+});

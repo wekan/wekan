@@ -9,6 +9,7 @@
 // so both the server ESM code and the tests/*.test.cjs guards can load it.
 
 const CATALOG = {
+  'authz.admin-only-field': { category: 'authz', bleed: 'AdminFieldBleed', severity: 'high', cwe: 'CWE-863' },
   'authn.saml-replay': { category: 'authn', bleed: 'SamlReplayBleed', severity: 'high', cwe: 'CWE-294' },
   'authn.ldap-empty': { category: 'authn', bleed: 'LdapBindBleed', severity: 'critical', cwe: 'CWE-287' },
   'authn.ldap-group': { category: 'authn', bleed: 'DirectoryGroupBleed', severity: 'high', cwe: 'CWE-863' },

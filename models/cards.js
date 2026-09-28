@@ -1073,6 +1073,17 @@ Cards.helpers({
 
     // Work on a shallow copy to avoid mutating the source card in ReactiveCache
     const cardData = { ...this };
+    if (Meteor.isServer) {
+      const { DDP } = require('meteor/ddp');
+      const { currentReportRequest } = require('/server/lib/requestReportContext');
+      const actor = DDP._CurrentMethodInvocation.get()?.userId || currentReportRequest()?.userId;
+      if (actor) {
+        const policy = await require('/server/lib/adminOnlyCustomFields').fieldPolicy(actor);
+        const { mayReadField } = require('/models/lib/adminOnlyCustomFields');
+        cardData.customFields = (cardData.customFields || []).filter(field =>
+          mayReadField(policy.definitions.get(field._id), this.boardId, policy.adminBoards));
+      }
+    }
     const { copiedCardScrum } = require('./lib/scrumCopy');
     delete cardData.scrum;
     delete cardData.scrumRevision;
@@ -1115,8 +1126,8 @@ Cards.helpers({
       // A scoped board copy clones definitions and remaps their IDs after the
       // cards exist. Do not share/mutate the source definitions on this path.
       cardData.customFields = copyOptions
-        ? (copyOptions.customFields ? (this.customFields || []).map(field => ({ ...field })) : [])
-        : await this.mapCustomFieldsToBoard(newBoard._id);
+        ? (copyOptions.customFields ? (cardData.customFields || []).map(field => ({ ...field })) : [])
+        : await this.mapCustomFieldsToBoard.call({ customFields: cardData.customFields }, newBoard._id);
     }
 
     cardData.boardId = boardId;
