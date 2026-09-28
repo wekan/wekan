@@ -424,7 +424,14 @@ acknowledgement does not mean SMTP, rules or webhook completion.
 Activity notification and webhook payloads now preserve zero, false, empty
 text and explicit null, while absent values remain omitted. This fixes lost
 zero estimates and unchecked custom-field values. SMTP and HTTP-serialization
-tests cover the values. Outgoing webhooks still need durable integration.
+tests cover the values. Outgoing webhook preparation now returns a detached
+wire payload without HTTP, comment writes or echo locks. The ordinary method
+uses the same preparer. Parameters, endpoint/token and rendering language stay
+fixed across asynchronous language loading. Seven focused Node suites pass,
+including actual method execution with stubbed network/cache dependencies.
+Persistent webhook plans, delivery receipts, retries, fresh replay authorization
+and saved Sync integration remain unfinished; no live HTTP or browser run was
+performed for this internal preparation change.
 Email notifications now use a private event/recipient outbox with persisted
 content and due times, automatic retry backoff and renewable recipient leases.
 Startup discovers pending work; legacy profile buffers migrate before removal.
@@ -1099,6 +1106,27 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/71488fa68">Separate captured webhook preparation from HTTP delivery</a>. Thanks to xet7.</summary>
+
+Share a server-side preparer between ordinary outgoing webhooks and future
+saved delivery plans. Return the endpoint, headers, serialized request body,
+webhook mode and captured rendering language without sending HTTP or changing
+comments or echo locks. Copy nested parameters and integration inputs before
+asynchronous reads, and use one language for loading and rendering.
+
+Seven focused Node suites pass. Tests execute the actual preparer and method
+with stubbed cache/network dependencies, covering changes while language loading
+is paused, identical prepared/sent bodies, ordinary and bidirectional payloads,
+falsy values, missing users, suppression, denied membership and loading errors.
+The source audit passes with informational fingerprint warnings. Live HTTP,
+full-app Meteor and browser tests were not run for this internal extraction.
+
+Durable webhook storage, retries, delivery receipts and Sync integration remain
+in TODO Later. This preparer does not acknowledge delivery or authorize replay.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1c59d5d07">Connect notification plans to private storage and replay permissions</a>. Thanks to xet7.</summary>
