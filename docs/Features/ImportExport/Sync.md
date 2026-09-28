@@ -623,3 +623,17 @@ but before its checkpoint revisits that adapter, so ordinary `performAction`
 must not be supplied as an adapter. This module does not register production
 storage or enable manual/cron Sync. Durable command preparation, target and
 variable resolution, real action adapters and their integration remain TODO.
+
+`runStoredSyncRules` now binds this coordinator to the actual saved selection
+and private `listSyncRuleReceipts` storage. The collection has an effect index,
+no TTL, no publication and denied client writes. The entry point shares the
+capture guard for exact activity, live policy, actor permissions and current
+board/list/card scope, including when reading completed receipts. It requires
+explicit durable adapters for pending actions; no ordinary action fallback is
+installed. Empty saved selections can be completed without action adapters.
+
+This is still an internal entry point, not a manual/cron activation. The current
+scope guard also stops after a rule moves the source card; durable movement
+commands need explicit before/after scope handling before those adapters can be
+implemented. Full-app coverage exercises actual rule selection and receipt
+storage using a scripted action acknowledgement, not a real durable mutation.

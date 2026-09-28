@@ -8,7 +8,9 @@ import Activities from '/models/activities';
 import Rules from '/models/rules';
 import Triggers from '/models/triggers';
 import Actions from '/models/actions';
-import { captureStoredSyncRulePlan, SyncRulePlans } from '/server/notifications/storedRulePlans';
+import { captureStoredSyncRulePlan, runStoredSyncRules, SyncRulePlans, SyncRuleReceipts } from '/server/notifications/storedRulePlans';
+
+const { planId, actionId: invocationId } = require('/server/lib/syncRulePlan');
 
 describe('Stored Sync rule selection', function () {
   this.timeout(15000);
@@ -32,6 +34,18 @@ describe('Stored Sync rule selection', function () {
       assert.equal(first.actions.length, 1);
       assert.equal(first.actions[0].rule._id, ruleId);
       assert.equal(first.actions[0].action.labelId, 'original');
+      await assert.rejects(runStoredSyncRules({ ...input, adapters: {} }), /adapter-required/);
+      await assert.rejects(runStoredSyncRules({ ...input, adapters: { addLabel: async () => true } }), /action-unconfirmed/);
+      assert.equal(await SyncRuleReceipts.find({ effectId: input.effectId }).countAsync(), 0);
+      let calls = 0;
+      assert.equal(await runStoredSyncRules({ ...input, adapters: { addLabel: async ({ invocation, assertCurrent }) => {
+        await assertCurrent(); calls++;
+        assert.equal(invocation.action.labelId, 'original');
+        return invocation.id;
+      } } }), input.effectId);
+      assert.equal(await runStoredSyncRules({ ...input, adapters: {} }), input.effectId);
+      assert.equal(calls, 1);
+      assert.equal(await SyncRuleReceipts.find({ effectId: input.effectId }).countAsync(), 2);
       await Actions.rawCollection().updateOne({ _id: actionId }, { $set: { labelId: 'edited' } });
       await Rules.rawCollection().updateOne({ _id: ruleId }, { $set: { enabled: false } });
       assert.deepEqual(await captureStoredSyncRulePlan(input), first);
@@ -39,19 +53,24 @@ describe('Stored Sync rule selection', function () {
       assert.deepEqual(empty.actions, []);
       await Rules.rawCollection().updateOne({ _id: ruleId }, { $set: { enabled: true } });
       assert.deepEqual(await captureStoredSyncRulePlan({ ...input, effectId: 'b'.repeat(64) }), empty);
+      assert.equal(await runStoredSyncRules({ ...input, effectId: 'b'.repeat(64), adapters: {} }), 'b'.repeat(64));
       assert.deepEqual(await Cards.rawCollection().findOne({ _id: cardId }),
         { _id: cardId, boardId, listId, title: 'Original card', assignees: [] });
       assert.equal(await Activities.rawCollection().countDocuments({ boardId }), 1);
       await Meteor.users.rawCollection().updateOne({ _id: actor }, { $set: { loginDisabled: true } });
       await assert.rejects(captureStoredSyncRulePlan(input), /context-denied/);
+      await assert.rejects(runStoredSyncRules({ ...input, adapters: {} }), /context-denied/);
       await Meteor.users.rawCollection().updateOne({ _id: actor }, { $set: { loginDisabled: false } });
       await Cards.rawCollection().updateOne({ _id: cardId }, { $set: { listId: 'moved' } });
       await assert.rejects(captureStoredSyncRulePlan(input), /context-denied/);
+      await assert.rejects(runStoredSyncRules({ ...input, adapters: {} }), /context-denied/);
       await Cards.rawCollection().updateOne({ _id: cardId }, { $set: { listId } });
       await Activities.rawCollection().updateOne({ _id: activityId }, { $set: { cardTitle: 'changed' } });
       await assert.rejects(captureStoredSyncRulePlan(input), /activity-changed/);
       assert.equal(await SyncRulePlans.find({ 'plan.activityId': activityId }).countAsync(), 2);
     } finally {
+      const id = planId(input.effectId, activityId);
+      await SyncRuleReceipts.rawCollection().deleteMany({ _id: { $in: [id, invocationId(id, 0), planId('b'.repeat(64), activityId)] } });
       await SyncRulePlans.rawCollection().deleteMany({ 'plan.activityId': activityId });
       for (const [collection, id] of [[Activities, activityId], [Cards, cardId], [Lists, listId], [Boards, boardId],
         [Rules, ruleId], [Triggers, triggerId], [Actions, actionId], [Meteor.users, actor]]) {

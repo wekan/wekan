@@ -14,18 +14,21 @@ const { memberCan } = require('/models/lib/boardRoleCapabilities');
 const { isAssignedOnlyMember } = require('/models/lib/boardCardScope');
 const { validateSyncEffectPolicy, assertSyncEffectPolicy, syncEffectPolicy } = require('/server/lib/syncEffectPolicy');
 const { prepareRulePlan, ensureRulePlan } = require('/server/lib/syncRulePlan');
+const { executeRulePlan } = require('/server/lib/syncRuleExecution');
 
 export const SyncRulePlans = new Mongo.Collection('listSyncRulePlans');
+export const SyncRuleReceipts = new Mongo.Collection('listSyncRuleReceipts');
+SyncRuleReceipts.deny({ insert: () => true, update: () => true, remove: () => true });
 SyncRulePlans.deny({ insert: () => true, update: () => true, remove: () => true });
 Meteor.startup(async () => {
   await ensureIndex(SyncRulePlans, { 'plan.boardId': 1, 'plan.cardId': 1 });
+  await ensureIndex(SyncRuleReceipts, { effectId: 1 });
 });
 
-// Internal capture stage, not a rules receipt. The owning journal must supply
-// its list-incarnation, source-configuration, lease and actor access guard.
-// No action is executed; saved configuration still needs command preparation
-// and durable effect application before manual/cron activation is possible.
-export async function captureStoredSyncRulePlan({ effectId, activity, policy, assertCurrent }) {
+// Both capture and execution require the journal's list-incarnation,
+// source-configuration, lease and actor-access guard in addition to these
+// checks. This module is internal and does not activate manual/cron Sync.
+function executionContext({ effectId, activity, policy, assertCurrent }) {
   const saved = EJSON.parse(EJSON.stringify(activity), { relaxed: true });
   policy = validateSyncEffectPolicy(policy);
   if (!policy.activities || typeof assertCurrent !== 'function' || typeof saved?.listId !== 'string' || !saved.listId) {
@@ -47,8 +50,26 @@ export async function captureStoredSyncRulePlan({ effectId, activity, policy, as
     }
     await assertCurrent();
   };
+  return { saved, effectId, guard };
+}
+
+function capture({ saved, effectId, guard }) {
   return ensureRulePlan({ plans: SyncRulePlans.rawCollection(), activity: saved, effectId, assertCurrent: guard,
     build: activity => prepareRulePlan({ activity, effectId, assertCurrent: guard,
       selectRules: activity => RulesHelper.findMatchingRules(activity),
       readAction: id => Actions.rawCollection().findOne({ _id: id }) }) });
+}
+
+// Capturing configuration alone is never a rules-completion receipt.
+export async function captureStoredSyncRulePlan(options) {
+  return capture(executionContext(options));
+}
+
+// Adapters must provide their own durable command/mutation reconciliation.
+// In particular ordinary RulesHelper.performAction is not an adapter here.
+export async function runStoredSyncRules({ adapters, ...options }) {
+  const context = executionContext(options);
+  const plan = await capture(context);
+  return executeRulePlan({ plan, activity: context.saved, effectId: context.effectId,
+    receipts: SyncRuleReceipts.rawCollection(), adapters, assertCurrent: context.guard });
 }
