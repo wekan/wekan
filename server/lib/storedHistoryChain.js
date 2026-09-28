@@ -1,14 +1,21 @@
 import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
+import { Random } from 'meteor/random';
 import ChangeHistory from '/models/changeHistory';
 import { ensureIndex } from '/server/lib/mongoStartup';
 const { EJSON } = require('bson');
 const { appendHistoryChain, historyChainId, validateHistoryChainHead } = require('./historyChainAppend');
 const { initializeHistoryChain } = require('./historyChainBootstrap');
+const { withHistoryWriter, beginHistoryMigration, finishHistoryMigration } = require('./historyWriterGate');
 
+export const HistoryWriterGates = new Mongo.Collection('historyWriterGates');
+HistoryWriterGates.deny({ insert: () => true, update: () => true, remove: () => true });
 export const HistoryChainHeads = new Mongo.Collection('historyChainHeads');
 HistoryChainHeads.deny({ insert: () => true, update: () => true, remove: () => true });
-Meteor.startup(async () => { await ensureIndex(HistoryChainHeads, { boardId: 1 }, { unique: true }); });
+Meteor.startup(async () => {
+  await ensureIndex(HistoryChainHeads, { boardId: 1 }, { unique: true });
+  await ensureIndex(HistoryWriterGates, { boardId: 1 }, { unique: true });
+});
 
 // Internal initialization only: the caller must exclude all legacy writers.
 export function initializeStoredHistoryChain({ boardId, assertExclusive }) {
@@ -50,4 +57,37 @@ export async function appendStoredHistoryChain({ row, assertCurrent }) {
     history: { findOne: selector => ChangeHistory.findOneAsync(selector, { transform: null }),
       insertOne: async document => ({ insertedId: await ChangeHistory.insertAsync(document,
         { removeEmptyStrings: false, trimStrings: false }) }) } });
+}
+
+
+// Ordinary recording participates immediately, but boards remain on their old
+// append path until explicitly migrated. Schema errors precede admission.
+ChangeHistory.withHistoryWriter = async ({ boardId, row, write, legacy }) => {
+  const prepared = prepareStoredHistoryRow({ ...row, _id: Random.id() });
+  return withHistoryWriter({ gates: HistoryWriterGates.rawCollection(), boardId,
+    writeLegacy: ({ assertCurrent }) => write(async document => {
+      await assertCurrent(); const id = await legacy(document); await assertCurrent(); return id;
+    }),
+    writeCoordinated: () => write(() => appendStoredHistoryChain({ row: prepared, assertCurrent: async () => {} })) });
+};
+
+// No automatic rollout: callers must prove older server versions cannot write.
+// Drain/resume uses the same durable migration UUID, never a timed takeover.
+export async function migrateStoredHistoryChain({ boardId, migrationId, assertDeploymentExclusive }) {
+  if (typeof assertDeploymentExclusive !== 'function') throw new Error('history-writer-deployment-guard-required');
+  await assertDeploymentExclusive();
+  const options = { gates: HistoryWriterGates.rawCollection(), boardId, migrationId };
+  const migration = await beginHistoryMigration(options);
+  if (migration.complete) {
+    const head = await HistoryChainHeads.rawCollection().findOne({ _id: historyChainId(boardId) });
+    validateHistoryChainHead(head, boardId); await assertDeploymentExclusive(); return migrationId;
+  }
+  const assertExclusive = async () => { await assertDeploymentExclusive(); await migration.assertExclusive(); };
+  await initializeStoredHistoryChain({ boardId, assertExclusive });
+  await finishHistoryMigration({ ...options, assertHeadReady: async () => {
+    await assertExclusive();
+    const head = await HistoryChainHeads.rawCollection().findOne({ _id: historyChainId(boardId) });
+    validateHistoryChainHead(head, boardId); await assertExclusive();
+  } });
+  await assertDeploymentExclusive(); return migrationId;
 }

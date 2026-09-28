@@ -905,11 +905,10 @@ MongoDB coverage uses four independent clients, equal timestamps, sixteen
 concurrent appends and one row interrupted before head advancement. All
 seventeen rows form one chain and retry does not insert duplicates.
 
-This is not yet installed in ordinary `ChangeHistory.record`. Initial head
-creation for an existing board requires a verified `initialHash` while legacy
-writers are excluded. Existing-chain bootstrap/migration, schema-preserving
-collection binding, redo coordination and persistent multi-row Sync ownership
-must be completed before switching ordinary writers or enabling archive jobs.
+Ordinary `ChangeHistory.record` now uses this primitive after explicit board
+migration through the schema-backed binding below. Initial head creation
+requires a verified `initialHash` while legacy writers are excluded. Redo
+coordination and persistent multi-row Sync ownership remain unfinished.
 It does not on its own provide the archive runner's History reservation.
 
 `server/lib/historyChainBootstrap.js` validates existing History before installing
@@ -929,8 +928,8 @@ The caller must exclude all old and new writers for the complete scan and head
 installation via `assertExclusive`. This helper does not create that exclusion.
 Tests exercise reversed/equal timestamps, legacy data, invalid ancestry, bounded
 scans, lost replies and real MongoDB iteration across multiple batches followed
-by append on a new connection. Production writer exclusion and binding remain
-unfinished; no automatic migration is enabled by this helper.
+by append on a new connection. The server binding below drains participating
+writers; deployment-wide exclusion still needs a caller-provided guard.
 
 ### Schema-backed coordinated History storage
 
@@ -946,9 +945,12 @@ schema validation while preserving whitespace and captured timestamps. Missing
 heads are refused; even if a head disappears after the initial read, append
 cannot recreate it from an old cached hash.
 
-This internal binding is not yet used by `ChangeHistory.record`. The startup
-registration does not initialize or migrate boards. Production writer exclusion,
-redo handling and switching ordinary writes remain pending.
+Ordinary `ChangeHistory.record` now registers through private
+`historyWriterGates`. Existing boards remain on the legacy append path until
+explicit migration. Schema validation precedes admission, so an invalid input
+cannot leave an uncertain writer token. The existing best-effort logging and
+null result on failure remain in place. A migrated board never falls back to
+legacy insertion when its coordinated head is missing.
 
 ### Migration writer admission
 
@@ -969,7 +971,19 @@ migration resumes with its existing UUID; another UUID cannot take over.
 MongoDB tests use separate clients to pause a legacy insertion, close admission,
 finish the old row, validate/bootstrap its actual head and append through the
 new coordinated path. Lost acknowledgements, invalid gates and uncertain writes
-are covered separately. This primitive is not yet registered or installed in
-`ChangeHistory.record`; all writers must participate before its exclusion is
-valid. Recovery of retained writer tokens, server binding and mixed-version
-rollout handling remain unfinished.
+are covered separately. `migrateStoredHistoryChain` binds admission, bootstrap
+and permanent switching to actual private collections. It requires a stable
+migration UUID and `assertDeploymentExclusive`: the caller must exclude old
+server versions and every writer outside this admission path throughout the
+transition. No automatic migration, DDP method or deployment-exclusion detector
+is provided. Completed retries validate the existing head.
+
+Full-app tests migrate an ordinary History row, append ten concurrent records
+and verify one complete chain; removing the head refuses later recording
+without legacy fallback. Existing card and archive hooks also pass. Browser
+coverage checks member/admin denial across all nineteen private collections.
+
+Retained-token recovery, mixed-version rollout, redo/undo coordination and
+multi-row Sync reservations remain unfinished. Draining refuses new records;
+the best-effort recorder currently returns null for those failures. Durable
+recovery of such failed recording is still required before automatic rollout.

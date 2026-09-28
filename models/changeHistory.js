@@ -150,21 +150,6 @@ ChangeHistory.record = async function record(options) {
   if (!CHANGE_TYPES.includes(changeType)) return null;
 
   try {
-    // A NEW change clears this user's redo stack on this board (History.md §7c):
-    // an undone change that has since been superseded must never be redoable
-    // back over the newer work. Retain and flag the rows so the integrity chain
-    // remains auditable without allowing redo to resurrect stale content.
-    if (changeType !== 'restored' && !isCheckpoint) {
-      await ChangeHistory.updateAsync(
-        { userId, boardId, undone: true },
-        { $set: { superseded: true } },
-        { multi: true },
-      );
-    }
-    const previous = await ChangeHistory.findOneAsync(
-      { boardId, integrityHash: { $nin: [null, ''] } },
-      { sort: { createdAt: -1 } },
-    );
     const createdAt = new Date();
     const row = {
       boardId,
@@ -185,12 +170,34 @@ ChangeHistory.record = async function record(options) {
       restoredFromId,
       restoredByUserId,
       createdAt,
-      previousHash: previous ? previous.integrityHash : null,
       superseded: false,
     };
-    const { hashHistoryRow } = require('/models/lib/changeHistoryIntegrity');
-    row.integrityHash = hashHistoryRow(row);
-    return await ChangeHistory.insertAsync(row);
+    const legacy = async document => {
+      const previous = await ChangeHistory.findOneAsync(
+        { boardId, integrityHash: { $nin: [null, ''] } },
+        { sort: { createdAt: -1 } },
+      );
+      const { hashHistoryRow } = require('/models/lib/changeHistoryIntegrity');
+      const saved = { ...document, createdAt: new Date(), previousHash: previous ? previous.integrityHash : null };
+      saved.integrityHash = hashHistoryRow(saved);
+      return ChangeHistory.insertAsync(saved);
+    };
+    const write = async append => {
+      // A NEW change clears this user's redo stack on this board (History.md §7c):
+      // an undone change that has since been superseded must never be redoable
+      // back over the newer work. Retain and flag the rows so the integrity chain
+      // remains auditable without allowing redo to resurrect stale content.
+      if (changeType !== 'restored' && !isCheckpoint) {
+        await ChangeHistory.updateAsync(
+          { userId, boardId, undone: true },
+          { $set: { superseded: true } },
+          { multi: true },
+        );
+      }
+      return append(row);
+    };
+    return await (Meteor.isServer && typeof ChangeHistory.withHistoryWriter === 'function'
+      ? ChangeHistory.withHistoryWriter({ boardId, row, write, legacy }) : write(legacy));
   } catch (error) {
     // Deliberately swallowed. The alternative is that a schema slip in a history
     // row stops a user moving a card.
