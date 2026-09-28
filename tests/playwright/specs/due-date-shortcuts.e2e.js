@@ -3,7 +3,7 @@ const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { openBoard } = require('../helpers/auth');
 
-test('previous-week and next-month due shortcuts select calendar boundaries, switch and toggle off', async ({ loggedInPage: page, board, user }) => {
+test('previous-week and next-month due shortcuts select calendar boundaries, switch and clear with the unrestricted radio', async ({ loggedInPage: page, board, user }) => {
   db.updateOne('users', { _id: user.id }, { $set: { 'profile.startDayOfWeek': 0 } });
   const bounds = await page.evaluate(() => {
     const at = new Date();
@@ -32,7 +32,7 @@ test('previous-week and next-month due shortcuts select calendar boundaries, swi
   await expectCards([week._id]);
   db.updateOne('cards', { _id: week._id }, { $set: { dueAt: new Date(bounds.weekEnd) } });
   await expectCards([]);
-  await page.locator('.js-toggle-due-previous-week-filter').click();
+  await page.locator('.js-due-unrestricted').check();
   await expectCards(cards.map(card => card._id));
   for (const card of cards) expect(db.findOne('cards', { _id: card._id }).archived).toBe(false);
 });

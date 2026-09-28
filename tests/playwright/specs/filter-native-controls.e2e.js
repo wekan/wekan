@@ -1,0 +1,58 @@
+'use strict';
+const { test, expect } = require('../fixtures');
+const db = require('../helpers/db');
+const { openBoard } = require('../helpers/auth');
+
+test('native filter inputs support keyboard selection, label exclusion, clear and saved restoration', async ({ loggedInPage: page, board, user, user2 }) => {
+  const cards = db.find('cards', { boardId: board.boardId });
+  db.updateOne('boards', { _id: board.boardId }, { $set: { labels: [{ _id: 'urgent', name: 'Urgent', color: 'red' }] } });
+  db.updateOne('cards', { _id: cards[0]._id }, { $set: { labelIds: ['urgent'], members: [user.id], assignees: [user.id] } });
+  db.addBoardMember({ boardId: board.boardId, userId: user2.id });
+  db.updateOne('cards', { _id: cards[1]._id }, { $set: { userId: user2.id } });
+  await openBoard(page, board.boardId, board.slug);
+  await page.locator('.js-open-filter-view').click();
+  const rows = page.locator('.board-canvas .js-minicard');
+  const label = page.locator('.js-toggle-label-filter[data-filter-id="urgent"] input');
+  await expect(label).toBeVisible();
+  await label.focus(); await page.keyboard.press('Space');
+  await expect(label).toBeChecked(); await expect(rows).toHaveCount(1);
+  await page.keyboard.press('Space');
+  await expect(label).toHaveJSProperty('indeterminate', true); await expect(rows).toHaveCount(2);
+  await page.keyboard.press('Space');
+  await expect(label).not.toBeChecked();
+  await expect(label).toHaveJSProperty('indeterminate', false); await expect(rows).toHaveCount(3);
+  for (const kind of ['member', 'assignee', 'creator']) {
+    const control = page.locator(`.js-toggle-${kind}-filter[data-filter-id="${user.id}"] input`);
+    await control.focus(); await page.keyboard.press('Space');
+    await expect(control).toBeChecked(); await expect(rows).toHaveCount(kind === 'creator' ? 2 : 1);
+    await page.keyboard.press('Space'); await expect(control).not.toBeChecked();
+  }
+  const anyDue = page.locator('.js-due-unrestricted');
+  await expect(anyDue).toBeChecked();
+  await anyDue.focus(); await page.keyboard.press('ArrowDown');
+  await expect(page.locator('input[name="filter-due"]:checked')).toHaveValue('noDate');
+  await page.keyboard.press('ArrowDown');
+  await expect(page.locator('input[name="filter-due"]:checked')).toHaveValue('past');
+  await expect(rows).toHaveCount(0);
+  await anyDue.check(); await expect(rows).toHaveCount(3);
+  const created = page.locator('.js-card-date-recency[data-field="createdAt"]');
+  await created.and(page.locator('[value=""]')).focus();
+  await page.keyboard.press('ArrowDown');
+  await expect(created.and(page.locator(':checked'))).toHaveValue('day');
+  await label.focus(); await page.keyboard.press('Space'); await page.keyboard.press('Space');
+  await expect(label).toHaveJSProperty('indeterminate', true);
+  await page.locator('.js-filter-preset-name').fill('Native controls');
+  await page.locator('.js-save-filter-preset [type="submit"]').click();
+  await expect(page.locator('.js-filter-preset-message')).toHaveText('Filters saved.');
+  await page.locator('.js-clear-all').click();
+  await expect(rows).toHaveCount(3);
+  if (!(await page.locator('.js-filter-preset-name').isVisible())) await page.locator('.js-open-filter-view').click();
+  await expect(created.and(page.locator(':checked'))).toHaveValue('');
+  await expect(label).toHaveJSProperty('indeterminate', false);
+  const saved = db.findOne('savedCardFilters', { ownerId: user.id, boardId: board.boardId });
+  await page.locator('.js-filter-preset-select').selectOption(saved._id);
+  await page.locator('.js-apply-filter-preset').click();
+  await expect(created.and(page.locator(':checked'))).toHaveValue('day');
+  await expect(label).toHaveJSProperty('indeterminate', true);
+  await expect(rows).toHaveCount(2);
+});

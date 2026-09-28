@@ -29,12 +29,13 @@ test('save, reload, apply, replace and delete a private board filter combination
   await expect(page.locator('.js-filter-preset-message')).toHaveText('Saved filters applied.');
   await expect(page.locator('.js-field-card-filter')).toHaveValue('Alpha');
   await expect.poll(() => page.locator('.board-canvas .js-minicard').evaluateAll(rows => rows.map(row => row.dataset.cardId))).toEqual([cards[0]._id]);
-  await page.locator('.js-toggle-due-next-month-filter').click();
+  await page.locator('.js-due-unrestricted').check();
   await page.locator('.js-field-card-filter').fill('Beta');
   await page.locator('.js-save-filter-preset [type="submit"]').click();
   await expect(page.locator('.js-filter-preset-message')).toHaveText('Filters saved.');
   const replaced = db.find('savedCardFilters', { boardId: board.boardId, ownerId: user.id });
   expect(replaced).toHaveLength(1); expect(replaced[0]._id).toBe(stored._id); expect(replaced[0].state.texts.text).toBe('Beta');
+  expect(replaced[0].state.due).toBeNull();
   await page.locator('.js-filter-preset-select').selectOption(stored._id);
   await page.locator('.js-remove-filter-preset').click();
   await expect(page.locator('.js-filter-preset-message')).toHaveText('Saved filters deleted.');

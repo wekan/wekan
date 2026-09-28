@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { Tracker } from 'meteor/tracker';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { SavedCardFilters } from '/client/lib/savedCardFilters';
 import { captureFilterPreset, applyFilterPreset } from '/client/lib/filterPresetState';
@@ -29,6 +30,7 @@ Template.filterSidebar.helpers({
   presetBusy() { return Template.instance().presetBusy.get(); },
   filterProviderViews() { return Filter.providers.views(); },
   dateFilterProviderViews() { return Filter.providers.views('dates'); },
+  dueUnrestricted() { return Filter.dueAt.state() === null; },
   movementFrom() { return Filter.movementDate.value().from; },
   movementTo() { return Filter.movementDate.value().to; },
   dateRangeFields() { return CARD_DATE_RANGE_FIELDS; },
@@ -175,6 +177,20 @@ const OUTSIDE_CLICK_KEEPS_OPEN = [
 
 Template.filterSidebar.onRendered(function () {
   const instance = this;
+  this.autorun(() => {
+    const excluded = new Set(Filter.excludedLabelIds.list());
+    const selected = new Set(Filter.labelIds.list());
+    ReactiveCache.getBoard(Session.get('currentBoard'));
+    Tracker.afterFlush(() => {
+      if (instance.view.isDestroyed) return;
+      instance.findAll('.js-toggle-label-filter').forEach(label => {
+        const id = label.dataset.filterId === '__none__' ? undefined : label.dataset.filterId;
+        const input = label.querySelector('input');
+        input.checked = selected.has(id);
+        input.indeterminate = excluded.has(id);
+      });
+    });
+  });
 
   instance._closeOnOutsideClick = evt => {
     if (evt.button !== 0) return;
@@ -217,6 +233,7 @@ function getFilterIdFromEvent(evt, fallbackId) {
 }
 
 Template.filterSidebar.events({
+  'change .js-due-unrestricted'() { Filter.dueAt.reset(); Filter.resetExceptions(); },
   'submit .js-list-filter'(evt, tpl) {
     evt.preventDefault();
     Filter.lists.set(tpl.find('.js-list-filter input').value.trim());
@@ -226,8 +243,7 @@ Template.filterSidebar.events({
     Filter.text.set(tpl.find('.js-field-card-filter').value.trim());
     Filter.resetExceptions();
   },
-  'click .js-toggle-label-filter'(evt) {
-    evt.preventDefault();
+  'change .js-toggle-label-filter'(evt) {
     const filterId = getFilterIdFromEvent(evt, this?._id);
     if (filterId === undefined) {
       // The "no label" pseudo-entry stays a simple two-state toggle; the
@@ -239,56 +255,47 @@ Template.filterSidebar.events({
     }
     Filter.resetExceptions();
   },
-  'click .js-toggle-member-filter'(evt) {
-    evt.preventDefault();
+  'change .js-toggle-member-filter'(evt) {
     Filter.members.toggle(getFilterIdFromEvent(evt, this?._id));
     Filter.resetExceptions();
   },
-  'click .js-toggle-assignee-filter'(evt) {
-    evt.preventDefault();
+  'change .js-toggle-assignee-filter'(evt) {
     Filter.assignees.toggle(getFilterIdFromEvent(evt, this?._id));
     Filter.resetExceptions();
   },
   // #3681: filter cards by whose card.userId (the creator/author field)
   // matches, the same toggle pattern as members/assignees above.
-  'click .js-toggle-creator-filter'(evt) {
-    evt.preventDefault();
+  'change .js-toggle-creator-filter'(evt) {
     Filter.userId.toggle(getFilterIdFromEvent(evt, this?._id));
     Filter.resetExceptions();
   },
-  'click .js-toggle-no-due-date-filter'(evt) {
-    evt.preventDefault();
+  'change .js-toggle-no-due-date-filter'() {
     Filter.dueAt.noDate();
     Filter.resetExceptions();
   },
-  'click .js-toggle-overdue-filter'(evt) {
-    evt.preventDefault();
+  'change .js-toggle-overdue-filter'() {
     Filter.dueAt.past();
     Filter.resetExceptions();
   },
-  'click .js-toggle-due-today-filter'(evt) {
-    evt.preventDefault();
+  'change .js-toggle-due-today-filter'() {
     Filter.dueAt.today();
     Filter.resetExceptions();
   },
-  'click .js-toggle-due-tomorrow-filter'(evt) {
-    evt.preventDefault();
+  'change .js-toggle-due-tomorrow-filter'() {
     Filter.dueAt.tomorrow();
     Filter.resetExceptions();
   },
-  'click .js-toggle-due-previous-week-filter'(evt) {
-    evt.preventDefault(); Filter.dueAt.previousWeek(); Filter.resetExceptions();
+  'change .js-toggle-due-previous-week-filter'() {
+    Filter.dueAt.previousWeek(); Filter.resetExceptions();
   },
-  'click .js-toggle-due-next-month-filter'(evt) {
-    evt.preventDefault(); Filter.dueAt.nextMonth(); Filter.resetExceptions();
+  'change .js-toggle-due-next-month-filter'() {
+    Filter.dueAt.nextMonth(); Filter.resetExceptions();
   },
-  'click .js-toggle-due-this-week-filter'(evt) {
-    evt.preventDefault();
+  'change .js-toggle-due-this-week-filter'() {
     Filter.dueAt.thisWeek();
     Filter.resetExceptions();
   },
-  'click .js-toggle-due-next-week-filter'(evt) {
-    evt.preventDefault();
+  'change .js-toggle-due-next-week-filter'() {
     Filter.dueAt.nextWeek();
     Filter.resetExceptions();
   },

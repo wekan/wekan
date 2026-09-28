@@ -29,6 +29,19 @@ unlabeled cards. Clearing filters or switching boards resets label combinations.
 These controls filter already authorized content; they do not alter access or
 change any card.
 
+Labels, members, assignees and creators have native checkboxes. Focus one with
+Tab and press Space to change it. A label cycles through included (checked),
+excluded (indeterminate, with the exclusion icon), and unrestricted (unchecked).
+The **No label** choice is a normal two-state checkbox. Due dates and creation/
+modification recency use radio groups: arrow keys move between choices and
+select immediately. **Any due date (including none)** removes just the due-date
+restriction; **Any time** removes the corresponding recency restriction.
+Clear filters resets all controls, including excluded labels.
+
+Known limitation: the Table view does not yet subscribe to card windows in
+lazy loading mode. It may therefore have no loaded cards to filter; this is
+tracked with the remaining filtering work in `CHANGELOG.md`.
+
 The board Calendar grid and Calendar list honor the same active card filters.
 This does not claim that the separate Multi Board Calendar shares every board
 filter or that arbitrary historical move-date filters exist.
@@ -245,8 +258,9 @@ selects the first through the last day of the next calendar month, including
 February and the December/January boundary. Both use your browser's local
 timezone and match actual dates only; missing/null dates are excluded.
 
-Clicking the active shortcut again clears it. Clicking another due-date option
-switches to that option. These two shortcuts refresh their calendar boundaries
+Choose **Any due date (including none)** to clear the due-date restriction.
+Choosing another radio switches to that option. These two shortcuts refresh
+their calendar boundaries
 every minute while active; they do not keep yesterday's week/month range after
 a calendar rollover. They combine with other filters and never archive cards.
 

@@ -52,14 +52,16 @@ template(name="filterSidebar")
     option(value="and" selected="{{#if $eq Filter.labelIds.mode 'and'}}selected{{/if}}") AND
   ul.sidebar-list
     li(class="{{#if Filter.labelIds.isSelected undefined}}active{{/if}}")
-          a.name.js-toggle-label-filter(data-filter-id="__none__")
+          label.name.filter-native-choice.js-toggle-label-filter(data-filter-id="__none__")
+            input(type="checkbox" checked="{{Filter.labelIds.isSelected undefined}}")
             span.sidebar-list-item-description
               | {{_ 'filter-no-label'}}
             if Filter.labelIds.isSelected undefined
               i.fa.fa-check
     each currentBoard.labels
       li(class="{{#if Filter.labelIds.isSelected _id}}active{{/if}}{{#if Filter.excludedLabelIds.isSelected _id}} excluded{{/if}}")
-        a.name.js-toggle-label-filter(data-filter-id="{{_id}}")
+        label.name.filter-native-choice.js-toggle-label-filter(data-filter-id="{{_id}}")
+          input(type="checkbox" checked="{{Filter.labelIds.isSelected _id}}")
           span.card-label.square(class="{{labelColorClass color}}" style="{{labelColorStyle color}}")
           span.sidebar-list-item-description
             if name
@@ -76,7 +78,8 @@ template(name="filterSidebar")
     | {{_ 'filter-member-label'}}
   ul.sidebar-list
     li(class="{{#if Filter.members.isSelected undefined}}active{{/if}}")
-          a.name.js-toggle-member-filter(data-filter-id="__none__")
+          label.name.filter-native-choice.js-toggle-member-filter(data-filter-id="__none__")
+            input(type="checkbox" checked="{{Filter.members.isSelected undefined}}")
             span.sidebar-list-item-description
               | {{_ 'filter-no-member'}}
             if Filter.members.isSelected undefined
@@ -84,7 +87,8 @@ template(name="filterSidebar")
     each currentBoard.activeMembers
       with getUser userId
         li(class="{{#if Filter.members.isSelected _id}}active{{/if}}")
-          a.name.js-toggle-member-filter(data-filter-id="{{_id}}")
+          label.name.filter-native-choice.js-toggle-member-filter(data-filter-id="{{_id}}")
+            input(type="checkbox" checked="{{Filter.members.isSelected _id}}")
             +userAvatar(userId=this._id)
             span.sidebar-list-item-description
               = profile.fullname
@@ -97,7 +101,8 @@ template(name="filterSidebar")
     | {{_ 'filter-assignee-label'}}
   ul.sidebar-list
     li(class="{{#if Filter.assignees.isSelected undefined}}active{{/if}}")
-      a.name.js-toggle-assignee-filter(data-filter-id="__none__")
+      label.name.filter-native-choice.js-toggle-assignee-filter(data-filter-id="__none__")
+        input(type="checkbox" checked="{{Filter.assignees.isSelected undefined}}")
         span.sidebar-list-item-description
           | {{_ 'filter-no-assignee'}}
         if Filter.assignees.isSelected undefined
@@ -105,7 +110,8 @@ template(name="filterSidebar")
     each currentBoard.activeMembers
       with getUser userId
         li(class="{{#if Filter.assignees.isSelected _id}}active{{/if}}")
-          a.name.js-toggle-assignee-filter(data-filter-id="{{_id}}")
+          label.name.filter-native-choice.js-toggle-assignee-filter(data-filter-id="{{_id}}")
+            input(type="checkbox" checked="{{Filter.assignees.isSelected _id}}")
             +userAvatar(userId=this._id)
             span.sidebar-list-item-description
               = profile.fullname
@@ -120,7 +126,8 @@ template(name="filterSidebar")
     each currentBoard.activeMembers
       with getUser userId
         li(class="{{#if Filter.userId.isSelected _id}}active{{/if}}")
-          a.name.js-toggle-creator-filter(data-filter-id="{{_id}}")
+          label.name.filter-native-choice.js-toggle-creator-filter(data-filter-id="{{_id}}")
+            input(type="checkbox" checked="{{Filter.userId.isSelected _id}}")
             +userAvatar(userId=this._id)
             span.sidebar-list-item-description
               = profile.fullname
@@ -156,53 +163,66 @@ template(name="filterSidebar")
     button.primary(type="submit") {{_ 'apply'}}
     button.js-clear-date-range(type="button") {{_ 'filter-clear'}}
   hr
-  ul.sidebar-list
-    li(class="{{#if Filter.dueAt.isSelected 'noDate'}}active{{/if}}")
-      a.name.js-toggle-no-due-date-filter
-        span.sidebar-list-item-description
-          | {{_ 'filter-no-due-date' }}
-        if Filter.dueAt.isSelected 'noDate'
-          i.fa.fa-check
-    li(class="{{#if Filter.dueAt.isSelected 'past'}}active{{/if}}")
-      a.name.js-toggle-overdue-filter
-        span.sidebar-list-item-description
-          | {{_ 'filter-overdue' }}
-        if Filter.dueAt.isSelected 'past'
-          i.fa.fa-check
-    li(class="{{#if Filter.dueAt.isSelected 'today'}}active{{/if}}")
-      a.name.js-toggle-due-today-filter
-        span.sidebar-list-item-description
-          | {{_ 'filter-due-today' }}
-        if Filter.dueAt.isSelected 'today'
-          i.fa.fa-check
-    li(class="{{#if Filter.dueAt.isSelected 'tomorrow'}}active{{/if}}")
-      a.name.js-toggle-due-tomorrow-filter
-        span.sidebar-list-item-description
-          | {{_ 'filter-due-tomorrow' }}
-        if Filter.dueAt.isSelected 'tomorrow'
-          i.fa.fa-check
-    li(class="{{#if Filter.dueAt.isSelected 'previousweek'}}active{{/if}}")
-      a.name.js-toggle-due-previous-week-filter
-        span.sidebar-list-item-description {{_ 'filter-due-previous-week'}}
-        if Filter.dueAt.isSelected 'previousweek'
-          i.fa.fa-check
-    li(class="{{#if Filter.dueAt.isSelected 'thisweek'}}active{{/if}}")
-      a.name.js-toggle-due-this-week-filter
-        span.sidebar-list-item-description
-          | {{_ 'filter-due-this-week' }}
-        if Filter.dueAt.isSelected 'thisweek'
-          i.fa.fa-check
-    li(class="{{#if Filter.dueAt.isSelected 'nextweek'}}active{{/if}}")
-      a.name.js-toggle-due-next-week-filter
-        span.sidebar-list-item-description
-          | {{_ 'filter-due-next-week' }}
-        if Filter.dueAt.isSelected 'nextweek'
-          i.fa.fa-check
-    li(class="{{#if Filter.dueAt.isSelected 'nextmonth'}}active{{/if}}")
-      a.name.js-toggle-due-next-month-filter
-        span.sidebar-list-item-description {{_ 'filter-due-next-month'}}
-        if Filter.dueAt.isSelected 'nextmonth'
-          i.fa.fa-check
+  fieldset.filter-native-group
+    legend {{_ 'dueAt'}}
+    label.filter-native-choice
+      input.js-due-unrestricted(type="radio" name="filter-due" value="" checked=dueUnrestricted)
+      span {{_ 'filter-due-any'}}
+    ul.sidebar-list
+      li(class="{{#if Filter.dueAt.isSelected 'noDate'}}active{{/if}}")
+        label.name.filter-native-choice.js-toggle-no-due-date-filter
+          input(type="radio" name="filter-due" value="noDate" checked="{{Filter.dueAt.isSelected 'noDate'}}")
+          span.sidebar-list-item-description
+            | {{_ 'filter-no-due-date' }}
+          if Filter.dueAt.isSelected 'noDate'
+            i.fa.fa-check
+      li(class="{{#if Filter.dueAt.isSelected 'past'}}active{{/if}}")
+        label.name.filter-native-choice.js-toggle-overdue-filter
+          input(type="radio" name="filter-due" value="past" checked="{{Filter.dueAt.isSelected 'past'}}")
+          span.sidebar-list-item-description
+            | {{_ 'filter-overdue' }}
+          if Filter.dueAt.isSelected 'past'
+            i.fa.fa-check
+      li(class="{{#if Filter.dueAt.isSelected 'today'}}active{{/if}}")
+        label.name.filter-native-choice.js-toggle-due-today-filter
+          input(type="radio" name="filter-due" value="today" checked="{{Filter.dueAt.isSelected 'today'}}")
+          span.sidebar-list-item-description
+            | {{_ 'filter-due-today' }}
+          if Filter.dueAt.isSelected 'today'
+            i.fa.fa-check
+      li(class="{{#if Filter.dueAt.isSelected 'tomorrow'}}active{{/if}}")
+        label.name.filter-native-choice.js-toggle-due-tomorrow-filter
+          input(type="radio" name="filter-due" value="tomorrow" checked="{{Filter.dueAt.isSelected 'tomorrow'}}")
+          span.sidebar-list-item-description
+            | {{_ 'filter-due-tomorrow' }}
+          if Filter.dueAt.isSelected 'tomorrow'
+            i.fa.fa-check
+      li(class="{{#if Filter.dueAt.isSelected 'previousweek'}}active{{/if}}")
+        label.name.filter-native-choice.js-toggle-due-previous-week-filter
+          input(type="radio" name="filter-due" value="previousweek" checked="{{Filter.dueAt.isSelected 'previousweek'}}")
+          span.sidebar-list-item-description {{_ 'filter-due-previous-week'}}
+          if Filter.dueAt.isSelected 'previousweek'
+            i.fa.fa-check
+      li(class="{{#if Filter.dueAt.isSelected 'thisweek'}}active{{/if}}")
+        label.name.filter-native-choice.js-toggle-due-this-week-filter
+          input(type="radio" name="filter-due" value="thisweek" checked="{{Filter.dueAt.isSelected 'thisweek'}}")
+          span.sidebar-list-item-description
+            | {{_ 'filter-due-this-week' }}
+          if Filter.dueAt.isSelected 'thisweek'
+            i.fa.fa-check
+      li(class="{{#if Filter.dueAt.isSelected 'nextweek'}}active{{/if}}")
+        label.name.filter-native-choice.js-toggle-due-next-week-filter
+          input(type="radio" name="filter-due" value="nextweek" checked="{{Filter.dueAt.isSelected 'nextweek'}}")
+          span.sidebar-list-item-description
+            | {{_ 'filter-due-next-week' }}
+          if Filter.dueAt.isSelected 'nextweek'
+            i.fa.fa-check
+      li(class="{{#if Filter.dueAt.isSelected 'nextmonth'}}active{{/if}}")
+        label.name.filter-native-choice.js-toggle-due-next-month-filter
+          input(type="radio" name="filter-due" value="nextmonth" checked="{{Filter.dueAt.isSelected 'nextmonth'}}")
+          span.sidebar-list-item-description {{_ 'filter-due-next-month'}}
+          if Filter.dueAt.isSelected 'nextmonth'
+            i.fa.fa-check
   hr
   h3
     i.fa.fa-list
@@ -407,10 +427,12 @@ template(name="setSelectionColorPopup")
 
 template(name="cardRecencyFilter")
   each field in dateRecencyFields
-    label(for="filter-recency-{{field.id}}") {{_ field.label}}
-    select.js-card-date-recency(id="filter-recency-{{field.id}}" data-field=field.id)
+    fieldset.filter-native-group
+      legend {{_ field.label}}
       each preset in dateRecencyPresets
-        option(value=preset.id selected="{{#if dateRecencySelected field.id preset.id}}selected{{/if}}") {{_ preset.label}}
+        label.filter-native-choice
+          input.js-card-date-recency(type="radio" name="filter-recency-{{field.id}}" data-field=field.id value=preset.id checked="{{dateRecencySelected field.id preset.id}}")
+          span {{_ preset.label}}
 
 template(name="textFilterProvider")
   label

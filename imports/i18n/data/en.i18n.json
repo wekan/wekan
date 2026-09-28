@@ -719,6 +719,7 @@
   "filter-dates-label": "Filter by date",
   "filter-no-due-date": "No due date",
   "filter-overdue": "Overdue",
+  "filter-due-any": "Any due date (including none)",
   "filter-due-today": "Due today",
   "filter-due-previous-week": "Due in the previous week",
   "filter-due-next-month": "Due next month",
