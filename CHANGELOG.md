@@ -344,6 +344,13 @@ required downstream adapter independently of activity/rule handling. Old
 version-one plans require the original enabled defaults. Sixteen Node suites
 pass, including MongoDB interrupted History with disabled activities. Wiring
 live flags into production job creation and delivery remains unfinished.
+The combined card/effects executor now validates the saved actor, complete
+plans, live policy and required adapters before card access. Policy/lease
+checks surround card application as well as History/activity completion.
+A post-write policy change retains the completed card mutation for replay,
+which finishes effects without writing the card again. Registered-storage
+MongoDB coverage now exercises intent, journal, card, activity and delivery
+receipt together. Production hooked-card and delivery adapters remain open.
 Activity notification and webhook payloads now preserve zero, false, empty
 text and explicit null, while absent values remain omitted. This fixes lost
 zero estimates and unchecked custom-field values. SMTP and HTTP-serialization
@@ -1022,6 +1029,32 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/58e7efa8e">Validate Sync effects before card application</a>. Thanks to xet7.</summary>
+
+Add a combined saved-unit executor that validates the entire History/activity
+plan, original actor, live feature policy and required adapters before reading
+or writing the card. Copy saved inputs before asynchronous work. Recheck policy
+and lease ownership around card writes and effect completion.
+
+If policy changes after a confirmed card write, retain the interrupted unit.
+Resuming under its captured policy recognizes the existing result and completes
+only the outstanding History/activity work. Missing delivery adapters and
+foreign actors fail before card access.
+
+Sixteen focused Node suites pass with real MongoDB. Additional final tests
+exercise the registered private storage entry point through intent ownership,
+journal, actual card insertion, activity delivery receipt and cleanup. Fault
+injection verifies policy changes before and immediately after a card write.
+The source audit passes with advisories; the known published changelog
+line-length failure remains. No production UI path changed.
+
+Production collection-hook coordination, real rules/notification delivery,
+job activation and scheduling remain in TODO Later. Database tests use raw
+card writes and a persisted delivery receipt adapter.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/aa68ece6c">Retain activity and notification policy in Sync plans</a>. Thanks to xet7.</summary>
