@@ -759,3 +759,24 @@ failure or authorize retry from its age. Counts and pages are separate reads,
 so concurrent changes do not form a database snapshot. This is the report
 backend only. An Admin Panel view and explicit operator resolution remain TODO;
 the method has no mutation, resend, discard or acknowledgement action.
+
+### Stored archive rule command preparation
+
+`server/lib/syncRuleArchiveCommand.js` captures archive/unarchive rule cascades
+before any card write. It binds the command to the saved rule plan, invocation,
+actor, board and root card. Its single timestamp and bounded card snapshots
+survive restart. Descendants precede parents, matching ordinary recursive
+archive/restore; an already satisfied root captures only itself, matching the
+rule helper's no-op behavior.
+
+The owner must hold the operation lease and authorize every captured card,
+including children in other lists. Capture rejects cross-board descendants,
+cycles, duplicate cards, malformed topology and oversized plans. Unique insert
+and exact readback reconcile competing builders and lost replies. Existing
+commands are validated without reselecting live descendants.
+
+This is preparation only. Production collection registration, conditional card
+application, durable History/activity delivery and invocation receipts still
+need integration. Replay must recheck current permissions and apply the saved
+before/after states; it must not treat command storage as execution completion.
+No browser or scheduled-job entry point invokes this helper yet.
