@@ -5,6 +5,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const { commentCardMatchesBoard, recordCommentBoundaryDenial } = require('../models/lib/commentCardBoundary');
+const { hasPrivateCommentWrite } = require('../models/lib/commentPrivateFields');
 const root = path.join(__dirname, '..');
 const read = file => fs.readFileSync(path.join(root, file), 'utf8');
 test('comment boundary accepts the real card board and rejects foreign or missing cards', () => {
@@ -37,13 +38,15 @@ test('DDP insertion and rebinding cannot bypass the boundary', async () => {
   const source = read('server/permissions/cardComments.js');
   const at = source.indexOf('CardComments.deny({');
   let deny;
-  new Function('CardComments', 'Cards', 'commentCardMatchesBoard', 'recordCommentBoundaryDenial', source.slice(at, source.indexOf('CardComments.allow({', at)))(
-    { deny: value => { deny = value; } }, { findOneAsync: async id => ({ _id: id, boardId: 'B' }) }, commentCardMatchesBoard, () => {});
+  new Function('CardComments', 'Cards', 'commentCardMatchesBoard', 'recordCommentBoundaryDenial', 'hasPrivateCommentWrite', 'recordCommentPrivateDenial', source.slice(at, source.indexOf('CardComments.allow({', at)))(
+    { deny: value => { deny = value; } }, { findOneAsync: async id => ({ _id: id, boardId: 'B' }) }, commentCardMatchesBoard, () => {}, hasPrivateCommentWrite, () => {});
   assert.equal(await deny.insert('u', { cardId: 'c', boardId: 'A' }), true);
   assert.equal(await deny.insert('u', { cardId: 'c', boardId: 'B' }), false);
   assert.equal(deny.update('u', {}, ['cardId']), true);
   assert.equal(deny.update('u', {}, ['boardId']), true);
   assert.equal(deny.update('u', {}, ['text']), false);
+  assert.equal(await deny.insert('u', { cardId: 'c', boardId: 'B', webhookResponseRevision: 'forged' }), true);
+  assert.equal(deny.update('u', {}, ['text'], { $rename: { text: 'webhookResponseRevision' } }), true);
 });
 test('negative: every externally supplied REST comment insert is preceded by the card boundary', () => {
   const walk = dir => fs.readdirSync(dir, { withFileTypes: true }).flatMap(entry => {

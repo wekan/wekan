@@ -119,6 +119,10 @@ CardComments.attachSchema(
        */
       type: String,
     },
+    // Server-only recovery evidence. Ordinary reads exclude these fields and
+    // DDP deny rules reject writes (including rename destinations).
+    webhookResponsePending: { type: Object, optional: true, blackbox: true },
+    webhookResponseRevision: { type: String, optional: true },
     parentId: {
       /**
        * the _id of the comment this comment is a reply to (threaded replies).

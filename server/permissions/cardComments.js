@@ -4,14 +4,31 @@ import Cards from '/models/cards';
 import { allowIsBoardMemberCommentOnly, allowIsBoardAdmin } from '/server/lib/utils';
 import { commentCardMatchesBoard, recordCommentBoundaryDenial } from '/models/lib/commentCardBoundary';
 
+const { hasPrivateCommentWrite } = require('/models/lib/commentPrivateFields');
+
+function recordCommentPrivateDenial(source) {
+  try {
+    require('/server/lib/securityLog').record({ key: 'authz.comment', action: 'blocked', source,
+      detail: 'Client attempted to modify private comment delivery evidence.' });
+  } catch (error) { /* logging must never break denial */ }
+}
+
 CardComments.deny({
   async insert(userId, doc) {
+    if (hasPrivateCommentWrite(Object.keys(doc))) {
+      recordCommentPrivateDenial('ddp:comment-private-insert');
+      return true;
+    }
     const card = await Cards.findOneAsync(doc.cardId);
     if (commentCardMatchesBoard(card, doc.cardId, doc.boardId)) return false;
     recordCommentBoundaryDenial('ddp:comment-insert');
     return true;
   },
-  update(userId, doc, fields) {
+  update(userId, doc, fields, modifier) {
+    if (hasPrivateCommentWrite(fields, modifier)) {
+      recordCommentPrivateDenial('ddp:comment-private-update');
+      return true;
+    }
     // Comments have no client move operation. Rebinding would otherwise skip
     // the insert boundary check and inject an existing comment onto another card.
     if (!fields.some(field => field === 'cardId' || field === 'boardId')) return false;

@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { EJSON } from 'meteor/ejson';
 import { DataCache } from '/imports/lib/dataCache';
 import { groupBy, indexBy } from '/imports/lib/collectionHelpers';
+const { publicCommentOptions } = require('/models/lib/commentPrivateFields');
 
 function lazyCollectionProxy(loadCollection) {
   return new Proxy(
@@ -149,10 +150,12 @@ const ReactiveCacheServer = {
     return ret;
   },
   async getCardComment(idOrFirstObjectSelector = {}, options = {}) {
+    options = publicCommentOptions(options);
     const ret = typeof CardComments.findOneAsync === 'function' ? await CardComments.findOneAsync(idOrFirstObjectSelector, options) : CardComments.findOne(idOrFirstObjectSelector, options);
     return ret;
   },
   async getCardComments(selector = {}, options = {}, getQuery = false) {
+    options = publicCommentOptions(options);
     let ret = CardComments.find(selector, options);
     if (getQuery !== true) {
       ret = typeof ret.fetchAsync === 'function' ? await ret.fetchAsync() : ret.fetch();
