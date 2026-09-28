@@ -35,3 +35,18 @@ test('lost insert replies survive a fresh connection; corrupt content never beco
   await f.commands.updateOne({ _id: saved._id }, { $set: { 'mail.text': 'tampered' } });
   await assert.rejects(ensure(f), /command-invalid/);
 });
+
+test('bound snapshots converge in Mongo and retain source evidence after reconnect', { skip: !uri }, async t => {
+  const { f, db } = await fixture(t), mail = await f.prepare();
+  const sourceBinding = { version: 1, cards: [['card', 'board', null, null]], linkedBoardId: null };
+  const prepare = async () => ({ mail, sourceBinding });
+  const [a, b] = await Promise.all([ensure({ ...f, prepare }), ensure({ ...f, prepare })]);
+  assert.deepEqual(a, b); assert.equal(a.version, 2);
+  const restarted = await new MongoClient(uri).connect();
+  try {
+    assert.deepEqual(await ensure({ ...f, commands: restarted.db(db.databaseName).collection('commands'),
+      prepare: () => assert.fail('must not recapture') }), a);
+  } finally { await restarted.close(); }
+  await f.commands.updateOne({ _id: a._id }, { $set: { 'sourceBinding.cards.0.2': 'cardType-card' } });
+  await assert.rejects(ensure({ ...f, prepare }), /command-invalid/);
+});

@@ -42,11 +42,43 @@ test('linked boards replace stale public display fields but keep wrapper-owned c
   f.boards.foreign.readable = false; await assert.rejects(context.assertCurrent(), /not-authorized/);
 });
 
-test('stored commands refuse unbound links, including after an ordinary card becomes a link', async () => {
-  const { requireBoundStoredEmailSource: guard } = require('../server/lib/ruleEmailSource');
+test('stored bindings recheck topology and access rather than resolving a replacement source', async () => {
+  const { assertRuleEmailSourceBinding: guard } = require('../server/lib/ruleEmailSource');
+  for (const mutate of [f => { f.cards.link.linkedId = 'other'; },
+    f => { f.cards.link.type = 'cardType-card'; }, f => { f.cards.source.boardId = 'local'; },
+    f => { f.cards.source.deletedAt = new Date(); }, f => { delete f.cards.source; },
+    f => { f.boards.local.readable = false; }, f => { f.boards.foreign.readable = false; },
+    f => { f.boards.foreign.members = [{ userId: 'reader', isActive: true, isReadAssignedOnly: true }]; }]) {
+    const f = fixture(), { binding } = await resolve(f);
+    await guard({ ...f, binding: structuredClone(binding) });
+    mutate(f); await assert.rejects(guard({ ...f, binding }), /source-/);
+  }
   const f = fixture();
-  await assert.rejects(guard(f.activity, f.cache), /binding-required/);
-  f.cards.link.type = 'cardType-card'; await guard(f.activity, f.cache);
-  f.cards.link.type = 'cardType-linkedBoard'; await assert.rejects(guard(f.activity, f.cache), /binding-required/);
-  f.cards.link.deletedAt = new Date(); await assert.rejects(guard(f.activity, f.cache), /not-authorized/);
+  await assert.rejects(guard(f), /binding-required/);
+  f.cards.link.type = 'cardType-card';
+  await assert.rejects(guard(f), /binding-required/); // Legacy ordinary mail has no source evidence either.
+  const { binding } = await resolve(f); await guard({ ...f, binding });
+  f.cards.link.type = 'cardType-linkedCard'; await assert.rejects(guard({ ...f, binding }), /changed/);
+});
+test('saved bindings reject unknown fields, wrong roots, cycles and incomplete chains', async () => {
+  const { validateRuleEmailSourceBinding: validate } = require('../server/lib/ruleEmailSource');
+  const f = fixture(), { binding } = await resolve(f);
+  for (const mutate of [b => { b.version = 2; }, b => { b.extra = true; },
+    b => { b.cards = []; }, b => { b.cards[0][0] = 'other'; }, b => { b.cards[0][1] = 'other'; },
+    b => { b.cards[0][2] = 'cardType-card'; }, b => { b.cards[0][3] = 'other'; },
+    b => { b.cards.pop(); }, b => { b.cards.push(b.cards[0]); },
+    b => { b.cards[1][2] = 'cardType-linkedBoard'; }, b => { b.linkedBoardId = 'foreign'; },
+    b => { b.cards[1].push('extra'); }]) {
+    const changed = structuredClone(binding); mutate(changed);
+    assert.throws(() => validate(changed, f.activity), /binding-invalid/);
+  }
+});
+test('stored board bindings require the same board and its current read permission', async () => {
+  const { assertRuleEmailSourceBinding: guard } = require('../server/lib/ruleEmailSource');
+  const f = fixture(); f.cards.link.type = 'cardType-linkedBoard'; f.cards.link.linkedId = 'foreign';
+  const { binding } = await resolve(f); await guard({ ...f, binding });
+  assert.equal(binding.linkedBoardId, 'foreign');
+  f.boards.foreign.readable = false; await assert.rejects(guard({ ...f, binding }), /not-authorized/);
+  f.boards.foreign.readable = true; f.cards.link.linkedId = 'local';
+  await assert.rejects(guard({ ...f, binding }), /changed/);
 });

@@ -2,6 +2,48 @@
 const { isAssignedOnlyMember } = require('../../models/lib/boardCardScope');
 const identity = card => JSON.stringify([card?._id, card?.boardId, card?.type, card?.linkedId]);
 
+function validateRuleEmailSourceBinding(binding, activity) {
+  const fail = () => { throw new Error('rule-email-source-binding-invalid'); };
+  const id = value => typeof value === 'string' && value.length > 0 && value.length <= 1024;
+  if (!binding || Object.keys(binding).sort().join(',') !== 'cards,linkedBoardId,version' ||
+      binding.version !== 1 || !Array.isArray(binding.cards) || !binding.cards.length || binding.cards.length > 32) fail();
+  const seen = new Set();
+  for (let i = 0; i < binding.cards.length; i++) {
+    const row = binding.cards[i];
+    if (!Array.isArray(row) || row.length !== 4 || !id(row[0]) || !id(row[1]) ||
+        !row.slice(2).every(value => value === null || (typeof value === 'string' && value.length <= 1024)) ||
+        seen.has(row[0])) fail();
+    seen.add(row[0]);
+    if (i === 0 && (row[0] !== activity.cardId || row[1] !== activity.boardId)) fail();
+    const next = binding.cards[i + 1];
+    if (next) {
+      if (row[2] !== 'cardType-linkedCard' || row[3] !== next[0]) fail();
+    } else if (row[2] === 'cardType-linkedCard' ||
+        (row[2] === 'cardType-linkedBoard'
+          ? !id(row[3]) || row[3] !== binding.linkedBoardId
+          : binding.linkedBoardId !== null)) fail();
+  }
+}
+
+async function assertRuleEmailSourceBinding({ binding, activity, cache, canReadBoard }) {
+  // Legacy snapshots have no evidence of which source supplied their content.
+  // Keep them readable, but never infer or recapture that evidence on retry.
+  if (!binding) throw new Error('rule-email-source-binding-required');
+  validateRuleEmailSourceBinding(binding, activity);
+  for (const row of binding.cards) {
+    const card = await cache.getCard(row[0]);
+    const board = card && await cache.getBoard(card.boardId);
+    if (!activity.userId || !card || card.deletedAt || !canReadBoard(activity.userId, board) ||
+        (isAssignedOnlyMember(board, activity.userId) && !card.assignees?.includes(activity.userId))) {
+      throw new Error('rule-email-source-not-authorized');
+    }
+    if (identity(card) !== JSON.stringify(row)) throw new Error('rule-email-source-changed');
+  }
+  if (binding.linkedBoardId && !canReadBoard(activity.userId, await cache.getBoard(binding.linkedBoardId))) {
+    throw new Error('rule-email-source-not-authorized');
+  }
+}
+
 async function resolveRuleEmailSource({ activity, cache, canReadBoard }) {
   const chain = [], seen = new Set();
   let id = activity.cardId, linkedBoardId = null, card, sourceActivity = activity;
@@ -32,24 +74,9 @@ async function resolveRuleEmailSource({ activity, cache, canReadBoard }) {
     }
     break;
   }
-  const assertCurrent = async () => {
-    for (const item of chain) {
-      const current = await cache.getCard(item.id);
-      await readable(current);
-      if (identity(current) !== item.identity) throw new Error('rule-email-source-changed');
-    }
-    if (linkedBoardId && !canReadBoard(activity.userId, await cache.getBoard(linkedBoardId))) throw new Error('rule-email-source-not-authorized');
-  };
-  return { card, activity: sourceActivity, assertCurrent };
+  const binding = { version: 1, cards: chain.map(item => JSON.parse(item.identity)), linkedBoardId };
+  validateRuleEmailSourceBinding(binding, activity);
+  const assertCurrent = () => assertRuleEmailSourceBinding({ binding, activity, cache, canReadBoard });
+  return { card, activity: sourceActivity, binding, assertCurrent };
 }
-module.exports = { resolveRuleEmailSource };
-
-// Stored commands currently bind only the triggering card, not a link's
-// resolved source chain. Until that chain is stored and verified on retry,
-// refuse linked commands (including already captured commands) before SMTP.
-async function requireBoundStoredEmailSource(activity, cache) {
-  const card = await cache.getCard(activity.cardId);
-  if (!card || card.boardId !== activity.boardId || card.deletedAt) throw new Error('rule-email-source-not-authorized');
-  if (['cardType-linkedCard', 'cardType-linkedBoard'].includes(card.type)) throw new Error('rule-email-source-binding-required');
-}
-module.exports.requireBoundStoredEmailSource = requireBoundStoredEmailSource;
+module.exports = { resolveRuleEmailSource, validateRuleEmailSourceBinding, assertRuleEmailSourceBinding };

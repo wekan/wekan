@@ -265,14 +265,14 @@ export const RulesHelper = {
   },
   // Shared preparation for ordinary sends and immutable stored commands.
   // This method performs reads only; it never sends or queues mail.
-  async prepareEmailAction(activity, action, ruleVars) {
+  async prepareEmailAction(activity, action, ruleVars, sourceContext) {
     if (action?.actionType !== 'sendEmail') throw new Error('rule-email-action-required');
     const card = await ReactiveCache.getCard(activity.cardId);
     if (!card) throw new Error('rule-email-card-unavailable');
-    let emailSource;
-    if (['cardType-linkedCard', 'cardType-linkedBoard'].includes(card.type)) {
+    let emailSource = sourceContext;
+    if (emailSource || ['cardType-linkedCard', 'cardType-linkedBoard'].includes(card.type)) {
       const { resolveRuleEmailSource } = require('/server/lib/ruleEmailSource');
-      emailSource = await resolveRuleEmailSource({ activity, cache: ReactiveCache, canReadBoard });
+      emailSource = emailSource || await resolveRuleEmailSource({ activity, cache: ReactiveCache, canReadBoard });
       activity = emailSource.activity;
       ruleVars = await buildRuleVars(activity, emailSource.card);
     } else if (!ruleVars) {
@@ -329,9 +329,11 @@ export const RulesHelper = {
   },
 
   async prepareEmailCommand(activity, action) {
-    const { requireBoundStoredEmailSource } = require('/server/lib/ruleEmailSource');
-    await requireBoundStoredEmailSource(activity, ReactiveCache);
-    return EmailLocalization.prepareEmail(await this.prepareEmailAction(activity, action));
+    const { resolveRuleEmailSource } = require('/server/lib/ruleEmailSource');
+    const source = await resolveRuleEmailSource({ activity, cache: ReactiveCache, canReadBoard });
+    const mail = await EmailLocalization.prepareEmail(await this.prepareEmailAction(activity, action, undefined, source));
+    await source.assertCurrent();
+    return { mail, sourceBinding: source.binding };
   },
 
   async performAction(activity, action) {

@@ -75,3 +75,18 @@ test('attachment bytes are immutable command content and cannot become file or U
     await assert.rejects(ensure(invalid), /command-invalid/); assert.equal(invalid.rows.size, 0);
   }
 });
+
+test('version two binds immutable source evidence to the mail checksum and never recaptures it', async () => {
+  const f = await fixture();
+  const sourceBinding = { version: 1, cards: [['card', 'board', 'cardType-linkedCard', 'source'],
+    ['source', 'foreign', null, null]], linkedBoardId: null };
+  f.prepare = async () => ({ mail: f.mail, sourceBinding });
+  const saved = await ensure(f), expected = structuredClone(saved);
+  assert.equal(saved.version, 2);
+  sourceBinding.cards[1][1] = 'changed'; saved.sourceBinding.cards[0][2] = 'changed';
+  assert.deepEqual(await ensure({ ...f, prepare: () => assert.fail('must not recapture') }), expected);
+  f.rows.get(saved._id).sourceBinding.cards[1][1] = 'tampered';
+  await assert.rejects(ensure(f), /command-invalid/);
+  f.rows.clear(); sourceBinding.cards[0][0] = 'wrong-root';
+  await assert.rejects(ensure(f), /command-invalid/); assert.equal(f.rows.size, 0);
+});

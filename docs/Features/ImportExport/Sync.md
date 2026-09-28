@@ -717,6 +717,19 @@ Disabled matching local recipient accounts are refused; external recipients
 remain supported. Account lookup ignores email address case while SMTP
 acceptance still uses the native envelope exactly.
 
+New version-2 email commands store a versioned source binding with the mail:
+the ordered card IDs, board IDs, card types and link targets, plus any terminal
+linked-board ID. The command checksum covers both. Capture resolves the source
+once for content and binding, then rechecks access after localization. Dispatch
+checks the persisted chain before and after its asynchronous policy reads;
+retargeting, moving, deleting or losing read/assignment access stops delivery.
+Source metadata is never passed to SMTP. Ordinary cards also receive a binding.
+
+Legacy version-1 commands remain valid for inspection, but the application
+refuses dispatch without source evidence, including sent-receipt reconciliation
+through this entry point. It does not guess a chain from today's links or
+replace the saved mail. Operator resolution/migration remains pending.
+
 This is an explicit internal entry point, not a scheduled worker or automatic
 Sync activation. It reuses sent receipts and refuses uncertain attempts. The
 full-app test uses real collections, slot ownership and command preparation,

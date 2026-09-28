@@ -1,3 +1,4 @@
+import { canReadBoard } from '/models/lib/boardVisibility';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
@@ -16,7 +17,7 @@ import { RulesHelper } from '/server/rulesHelper';
 import { getFeatureFlags } from '/models/lib/featureFlags';
 import { ensureIndex } from '/server/lib/mongoStartup';
 const { EJSON } = require('bson');
-const { requireBoundStoredEmailSource } = require('/server/lib/ruleEmailSource');
+const { assertRuleEmailSourceBinding } = require('/server/lib/ruleEmailSource');
 const { canonical } = require('/models/lib/changeHistoryIntegrity');
 const { memberCan } = require('/models/lib/boardRoleCapabilities');
 const { isAssignedOnlyMember } = require('/models/lib/boardCardScope');
@@ -133,7 +134,7 @@ export async function runStoredSyncRuleEmail({ index, ...options }) {
   const recipients = ruleEmailRecipients(command.mail, MailComposer);
   const guard = async () => {
     await context.guard();
-    await requireBoundStoredEmailSource(context.saved, ReactiveCache);
+    await assertRuleEmailSourceBinding({ binding: command.sourceBinding, activity: context.saved, cache: ReactiveCache, canReadBoard });
     const [rule, action] = await Promise.all([
       Rules.rawCollection().findOne({ _id: invocation.rule._id }),
       Actions.rawCollection().findOne({ _id: invocation.action._id }),
@@ -148,6 +149,7 @@ export async function runStoredSyncRuleEmail({ index, ...options }) {
     const users = await Meteor.users.find({ 'emails.address': { $in: addresses } },
       { fields: { loginDisabled: 1 } }).fetchAsync();
     if (users.some(user => user.loginDisabled)) throw new Error('sync-rule-email-recipient-denied');
+    await assertRuleEmailSourceBinding({ binding: command.sourceBinding, activity: context.saved, cache: ReactiveCache, canReadBoard });
     await context.guard();
   };
   return withEmailSlot(({ assertCurrent }) => dispatchRuleEmail({ command, plan,

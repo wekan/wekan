@@ -79,8 +79,8 @@ SMTP, rather than silently sending a partial set. Each message permits up to
 100 attachments and 8 MiB of raw file data in total.
 
 The actor must still be able to read the source board and card after the reads
-finish. Assigned-only access requires assignment to that card. Attachments of
-linked or unrelated cards are not followed. Stored Sync email commands retain
+finish. Assigned-only access requires assignment to that card. Unrelated cards are not followed; linked-card sources use the authorized
+resolution described below. Stored Sync email commands retain
 the captured bytes for retries. Filesystem and GridFS delivery have local SMTP
 regression coverage; cloud adapters use their existing stream interface but
 were not tested against live cloud accounts for this change.
@@ -107,9 +107,13 @@ Linked boards use current board title, description and dates while retaining
 the wrapper card's own discussion and attachments; they do not email every
 card on the linked board. Specialized fields such as Scrum, voting and timer/
 recurrence state still need review for the full-card request in #2713.
-The separate stored Sync email-command path currently refuses linked sources:
-it must first persist the resolved source chain and verify it on retries.
-Ordinary event, button and scheduled email rules support linked sources.
+Stored Sync commands capture the resolved source chain alongside the immutable
+mail and include it in their checksum. Before dispatch, every saved card/board,
+link target and current read/assignment permission must still match. A moved or
+retargeted source stops delivery even if the recipient is unchanged. Legacy
+commands without source evidence remain readable but cannot be dispatched or
+silently recaptured; operator recovery for those commands remains unfinished.
+Ordinary event, button and scheduled email rules also support linked sources.
 
 ### Copy a card after a trigger
 

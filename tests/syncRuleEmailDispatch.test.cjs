@@ -57,3 +57,31 @@ test('concurrent attempts send once and malformed stored evidence never authoriz
   f.rows.get(f.command._id).commandHash = 'changed';
   await assert.rejects(dispatch(f), /attempt-invalid/); assert.equal(f.calls, 1);
 });
+test('bound command dispatch checks its saved source and sends transport fields only', async () => {
+  const { resolveRuleEmailSource, assertRuleEmailSourceBinding } = require('../server/lib/ruleEmailSource');
+  for (const changed of [false, true]) {
+    const f = await fixture();
+    const cards = { c: { _id: 'c', boardId: 'b', type: 'cardType-linkedCard', linkedId: 'source' },
+      source: { _id: 'source', boardId: 'foreign' } };
+    const cache = { getCard: async id => cards[id], getBoard: async () => ({ readable: true }) };
+    const canReadBoard = (_, board) => !!board?.readable;
+    const { binding } = await resolveRuleEmailSource({ activity: f.activity, cache, canReadBoard });
+    let stored;
+    f.command = await ensureRuleEmailCommand({ ...f,
+      commands: { findOne: async () => stored, insertOne: async row => { stored = row; } },
+      prepare: async () => ({ mail: f.command.mail, sourceBinding: binding }) });
+    f.assertCurrent = () => assertRuleEmailSourceBinding({ binding: f.command.sourceBinding,
+      activity: f.activity, cache, canReadBoard });
+    if (changed) cards.c.type = 'cardType-card';
+    f.send = async mail => {
+      assert.deepEqual(mail, f.command.mail); assert.equal(mail.sourceBinding, undefined);
+      f.calls++; return { accepted: ['external@example.org'] };
+    };
+    if (changed) {
+      await assert.rejects(dispatch(f), /source-changed/);
+      assert.equal(f.calls, 0); assert.equal(f.rows.size, 0);
+    } else {
+      assert.equal(await dispatch(f), f.command.invocationId); assert.equal(f.calls, 1);
+    }
+  }
+});

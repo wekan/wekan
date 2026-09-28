@@ -3,6 +3,7 @@ const { EJSON, calculateObjectSize } = require('bson');
 const { canonical, sha256 } = require('../../models/lib/changeHistoryIntegrity');
 const { validateRulePlan, planId } = require('./syncRulePlan');
 const { validateRuleEmailAttachments } = require('./ruleEmailAttachments');
+const { validateRuleEmailSourceBinding } = require('./ruleEmailSource');
 const copy = value => EJSON.parse(EJSON.stringify(value), { relaxed: true });
 const fail = () => { throw new Error('sync-rule-email-command-invalid'); };
 const exactKeys = (value, expected) => value && !Array.isArray(value) &&
@@ -38,10 +39,16 @@ function commandIdentity({ plan, activity, effectId, index }) {
 }
 function validateRuleEmailCommand(row, context) {
   const identity = commandIdentity(context);
-  if (!exactKeys(row, '_id,version,kind,invocationId,planId,effectId,planHash,activityHash,actorId,boardId,cardId,mail,checksum') ||
+  const bound = row?.version === 2;
+  if (bound) identity.version = 2;
+  if (!exactKeys(row, '_id,version,kind,invocationId,planId,effectId,planHash,activityHash,actorId,boardId,cardId,mail,checksum' + (bound ? ',sourceBinding' : '')) ||
       Object.keys(identity).some(key => row[key] !== identity[key])) fail();
   validateMail(row.mail);
-  if (row.checksum !== sha256(canonical({ ...identity, mail: row.mail }))) fail();
+  if (bound) {
+    try { validateRuleEmailSourceBinding(row.sourceBinding, context.activity); } catch (_) { fail(); }
+  }
+  if (row.checksum !== sha256(canonical({ ...identity, mail: row.mail,
+    ...(bound ? { sourceBinding: row.sourceBinding } : {}) }))) fail();
   return copy(row);
 }
 // Preparation only: no SMTP, enqueue, or rule-stage completion. The caller
@@ -61,10 +68,13 @@ async function ensureRuleEmailCommand({ commands, plan, activity, effectId, inde
   };
   let command = await read();
   if (!command) {
-    const mail = copy(await prepare({ activity: copy(activity), invocation: copy(invocation), assertCurrent }));
-    validateMail(mail);
-    const candidate = { ...identity, mail };
+    const prepared = copy(await prepare({ activity: copy(activity), invocation: copy(invocation), assertCurrent }));
+    const bound = exactKeys(prepared, 'mail,sourceBinding');
+    const candidate = bound
+      ? { ...identity, version: 2, mail: prepared.mail, sourceBinding: prepared.sourceBinding }
+      : { ...identity, mail: prepared };
     candidate.checksum = sha256(canonical(candidate));
+    validate(candidate);
     await assertCurrent();
     let failure;
     try { await commands.insertOne(copy(candidate)); } catch (error) { failure = error; }
