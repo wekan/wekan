@@ -1293,7 +1293,8 @@ persisted visibility checks. The
 [content audit](docs/DeveloperDocs/Card-Email-Content-Audit.md) now tracks
 remaining wrapper metadata and the final field audit. Moved-card SMTP now
 passes with all three content choices for filesystem and GridFS. Canonical
-and legacy Gantt references now share readable target titles with distinct type labels.
+and legacy Gantt references now share readable target titles with distinct
+type labels.
 Attachment manifests now identify the cover, upload metadata and actual sizes.
 Creator,
 stickers, checklist schedules, public comment authors and scoped reaction
