@@ -336,6 +336,14 @@ and forwards its actor to authorization, planning and application callbacks.
 Missing intent evidence cannot be reconstructed from an existing journal or
 completion under a new actor. Sixteen Node suites and both Chromium private
 storage tests pass. Job creation/UI, scheduling and retention remain open.
+Effect plans now capture explicit activity/notification policy. Disabled
+activities omit their plan and delivery callbacks while retaining History.
+Live policy is checked around effect persistence; changed settings stop the
+attempt without rewriting the saved policy. Notification policy reaches the
+required downstream adapter independently of activity/rule handling. Old
+version-one plans require the original enabled defaults. Sixteen Node suites
+pass, including MongoDB interrupted History with disabled activities. Wiring
+live flags into production job creation and delivery remains unfinished.
 Activity notification and webhook payloads now preserve zero, false, empty
 text and explicit null, while absent values remain omitted. This fixes lost
 zero estimates and unchecked custom-field values. SMTP and HTTP-serialization
@@ -1014,6 +1022,28 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/aa68ece6c">Retain activity and notification policy in Sync plans</a>. Thanks to xet7.</summary>
+
+Require explicit activity/notification policy when preparing combined effects.
+Version-two plans retain that policy; disabled activities produce no activity
+plan and need no activity/delivery adapter, while History still completes.
+Validate live policy and lease ownership around effect persistence. Changed
+settings stop the attempt without silently changing the saved plan.
+
+Pass notification policy to the downstream delivery callback independently
+of activities. Version-one plans retain their enabled defaults and cannot
+resume under disabled settings. The actual rule/notification delivery adapter
+and production job activation remain unfinished.
+
+Sixteen focused Node suites pass with real MongoDB. Tests cover immutable
+policy capture, malformed policies, old plans, changed settings during mixed
+replay and interrupted History-only completion. Final policy and integration
+checks also pass. The source audit passes with advisories; the known published
+changelog line-length failure remains. No production UI path changed.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5486c263a">Keep durable Sync intents bound to their original actor</a>. Thanks to xet7.</summary>
