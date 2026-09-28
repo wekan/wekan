@@ -267,6 +267,7 @@ export const RulesHelper = {
   // This method performs reads only; it never sends or queues mail.
   async prepareEmailAction(activity, action, ruleVars, sourceContext) {
     if (action?.actionType !== 'sendEmail') throw new Error('rule-email-action-required');
+    const wrapperActivity = activity;
     const card = await ReactiveCache.getCard(activity.cardId);
     if (!card) throw new Error('rule-email-card-unavailable');
     let emailSource = sourceContext;
@@ -309,14 +310,17 @@ export const RulesHelper = {
       language: recipientLang, userId: recipientUser ? recipientUser._id : null };
     if (action.includeCardDetails === true) {
       const { prepareRuleCardDetails } = require('/server/lib/ruleCardDetails');
-      const details = await prepareRuleCardDetails({ activity, cache: ReactiveCache, canReadBoard,
+      const readScrumRecord = (kind, id, boardId) => {
+        const collection = kind === 'sprint' ? require('/models/scrumSprints').default : require('/models/scrumReleases').default;
+        return collection.findOneAsync({ _id: id, boardId }, { fields: { _id: 1, boardId: 1, name: 1, deletedAt: 1 } });
+      };
+      const details = await prepareRuleCardDetails({ activity, cache: ReactiveCache, canReadBoard, readScrumRecord,
         onRelatedSource: binding => emailSource.addRelatedSource(binding),
-        onCustomFieldPolicy: (boardId, definitions) => emailSource.addCustomFieldPolicy(boardId, definitions),
-        readScrumRecord: (kind, id, boardId) => {
-          const collection = kind === 'sprint' ? require('/models/scrumSprints').default : require('/models/scrumReleases').default;
-          return collection.findOneAsync({ _id: id, boardId }, { fields: { _id: 1, boardId: 1, name: 1, deletedAt: 1 } });
-        } });
+        onCustomFieldPolicy: (boardId, definitions) => emailSource.addCustomFieldPolicy(boardId, definitions) });
       if (details) options.text += `\n\n${details}`;
+      const { prepareRuleCardWrapper } = require('/server/lib/ruleCardWrapper');
+      const wrapper = await prepareRuleCardWrapper({ activity: wrapperActivity, cache: ReactiveCache, canReadBoard, readScrumRecord });
+      if (wrapper) options.text += `\n\n${wrapper}`;
     }
     if (action.includeChecklistsAndComments === true) {
       const { prepareRuleCardDiscussion } = require('/server/lib/ruleCardDiscussion');

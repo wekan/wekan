@@ -315,3 +315,10 @@ python3 api.py addrule BOARDID 'On create -> top' \
 - [IFTTT and Rules](../IFTTT/IFTTT.md)
 - [Cards](../../Cards/Cards.md), [Swimlanes](../../Swimlanes/Swimlanes.md)
 - [REST API](../../../API/REST-API.md)
+
+With Details enabled, a linked card or linked board also includes a separate
+`Linked card local details` section for its local board/list/swimlane placement,
+persisted timer fields and visible local Scrum metadata. Source Details keeps
+its own scope. Copied wrapper titles, descriptions, stickers and custom fields
+are not exported as local content. Public timer-owner names and same-board
+Scrum names follow the same access rechecks as other card details.

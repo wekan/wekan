@@ -21,10 +21,14 @@ This audit compares the current email preparation code with `models/cards.js`,
 
 ## Unfinished checks and implementation
 
-- Linked wrappers: check which timer, Scrum, sticker and placement fields belong
-  to the wrapper rather than the resolved source. The current linked-board
-  branch does not render all wrapper metadata. Verify the intended UI behavior
-  and retain both applicable scopes with unambiguous labels.
+- Linked wrappers: finish the remaining field ownership audit. Placement,
+  local timer snapshots and visible local Scrum fields now appear in a separate
+  `Linked card local details` section, for both linked cards and linked boards.
+  Source stickers remain in source Details; copied wrapper stickers are excluded.
+- Resolve the existing timer model mismatch: Flowtime/Pomodoro getters read
+  `this`, while session writes use `getRealId()`. Email currently reports each
+  stored scope explicitly, matching the display getters without guessing that
+  a copied timer belongs to the source. See `models/cards.js` session helpers.
 - Complete a final field-by-field pass after linked-wrapper ownership is
   resolved.
 
