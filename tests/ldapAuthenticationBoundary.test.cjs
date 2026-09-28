@@ -1,4 +1,5 @@
 'use strict';
+// LdapBindBleed: empty user credentials cannot establish an LDAP identity.
 // DirectoryGroupBleed: both LDAP bind modes must enforce configured group restrictions.
 const {test}=require('node:test');
 const assert=require('node:assert/strict');

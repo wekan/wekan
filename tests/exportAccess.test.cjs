@@ -1,4 +1,5 @@
 'use strict';
+// ExportScopeBleed: board visibility cannot authorize an unscoped export.
 const {test}=require('node:test');const assert=require('node:assert/strict');const fs=require('node:fs');const path=require('node:path');
 const {canExportBoardData}=require('../models/lib/exportAccess');
 test('export authorization denies every assigned-only role except scoped Scrum reports',()=>{

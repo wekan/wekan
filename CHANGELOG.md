@@ -1041,8 +1041,13 @@ local commits, while unresolved requests retain their dispositions. Do not
 close umbrella requests or claim all open issues fixed. Authentication,
 assigned-only export and History authorization fixes and their verification
 are recorded in Upcoming; this is not a completed audit of every boundary.
-Further source review includes card-copy override inputs and legacy direct
-Rules writes, which are leads to validate, not confirmed vulnerabilities.
+Card-copy override review confirmed and fixed CopyIdentityBleed: caller fields
+could replace the authorized source ID before private children were copied.
+Text-only overrides now preserve source identity, with unit/DDP/Chromium and
+Problems-summary coverage. See the
+[copy boundary audit](docs/Security/Card-Copy-Boundary-2026-09-29.md).
+Assigned-only source/descendant handling, destination placement IDs, legacy
+direct Rules writes and concurrent permission changes remain to be reviewed.
 The [archived-card heatmap](https://github.com/wekan/wekan/issues/5444) is now
 implemented under Board View → Pulse, with unit and Chromium scope coverage.
 Unfinished inventory work still includes
@@ -1619,14 +1624,48 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**In short:** **Pulse** adds an annual archived-card contribution grid with
+**In short:** **Security** blocks private-child disclosure through card copying.
+**Pulse** adds an annual archived-card contribution grid with
 colored label tooltips and assigned-only counts. **Scrum History recovery**
 retains completion evidence before
 removing its checkpoint. API callers can supply request IDs to retry Scrum
 undo/redo without selecting another change. Keyboard recovery and shared
 writer coordination remain in development.
 
-This release adds archive reporting and improves Scrum History recovery:
+This release fixes the following CRITICAL SECURITY ISSUE of [CopyIdentityBleed](https://wekan.fi/hall-of-fame/copyidentitybleed/):
+
+**Card copying** - keep the authorized source identity intact.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1e44a1ffc">Restrict card-copy overrides to text and preserve the source</a>. Thanks to xet7.</summary>
+
+A local regression reproduced copying another private board's checklist by
+replacing the source card ID after membership checks. Accept only title and
+description strings on a separate card object; reject other fields before
+sorting, insertion, child copying or activity writes. The source retains its
+identity, methods, text and sort. Existing admin-only field guards still apply.
+
+Record extra-field attempts as CopyIdentityBleed in Admin Panel → Problems,
+without supplied values or target identifiers. Existing high-severity policy
+blocks the attempting account. Malformed title/description text remains an
+input error without attack logging or account blocking. Logging failure cannot
+bypass rejection.
+
+Five focused Node suites and five Chromium cases pass, including the reproduced
+private-child boundary, actor-attributed summaries, malformed input, legitimate
+copies, the actual dialog, admin-only fields and Scrum copy semantics. The
+shared-form regression now checks the existing multiline title control.
+Register CopyIdentityBleed and six earlier fixes in the security-test inventory;
+the six existing security suites pass and recorded coverage gaps stay unchanged.
+The
+[boundary audit](docs/Security/Card-Copy-Boundary-2026-09-29.md) records the
+remaining assigned-only, destination-placement and concurrency review. Other
+browser/backend matrices and production data remain unverified. Existing
+Upcoming archive and Scrum entries retain their recorded regression coverage.
+
+</details>
+
+and adds archive reporting and improves Scrum History recovery:
 
 **Reports** - show archived-card contributions by calendar date.
 

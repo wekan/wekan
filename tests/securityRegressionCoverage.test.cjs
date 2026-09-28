@@ -56,6 +56,14 @@ const NOT_COVERAGE = new Set([
 // GUARDED: vulnerability -> the suite(s) that name it.
 // ─────────────────────────────────────────────────────────────────────────────
 const GUARDED = {
+  adminfieldbleed: ['tests/adminFieldBoundary.test.cjs', 'tests/playwright/specs/admin-only-custom-fields.e2e.js'],
+  copyidentitybleed: ['tests/cardCopyOverrides.test.cjs', 'tests/playwright/specs/card-copy-boundary.e2e.js'],
+  directorygroupbleed: ['tests/ldapAuthenticationBoundary.test.cjs', 'tests/casGroupBoundary.test.cjs'],
+  exportscopebleed: ['tests/exportAccess.test.cjs'],
+  historyscopebleed: ['tests/historyReadScope.test.cjs'],
+  ldapbindbleed: ['tests/ldapAuthenticationBoundary.test.cjs'],
+  samlreplaybleed: ['tests/samlReplayBoundary.test.cjs'],
+
   inactivebleed: ['tests/inactiveAccountSecurity.test.cjs'],
   authtracebleed: ['tests/loginProviderSecurity.test.cjs'],
   assignedbleed: ['tests/assignedbleed.test.cjs'],
@@ -296,7 +304,7 @@ test('the whole published list is accounted for', () => {
   // when a new one is published, and put it in GUARDED or RECORDED at the same
   // time; the two assertions together are what make "every published
   // vulnerability is accounted for" a fact rather than a hope.
-  assert.strictEqual(total, 112, 'the Hall of Fame and this list disagree on how many there are');
+  assert.strictEqual(total, 119, 'the Hall of Fame and this list disagree on how many there are');
 });
 
 test('the companion Hall of Fame names match the inventory when available', () => {

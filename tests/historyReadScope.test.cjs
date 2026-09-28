@@ -1,4 +1,5 @@
 'use strict';
+// HistoryScopeBleed: current card/board access is required for History reads and reversal.
 const {test}=require('node:test');const assert=require('node:assert/strict');
 const {readableHistoryRow}=require('../models/lib/historyReadScope');
 test('history authorship and former membership never replace current board visibility',()=>{
