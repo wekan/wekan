@@ -105,6 +105,72 @@ const Lock = {
       }
     }
   };
+// Prepare a detached wire payload without HTTP, comment writes or echo locks.
+// A durable caller must persist it and recheck authorization before delivery.
+export async function prepareOutgoingWebhook({ integration, description, params, actorId }) {
+  integration = structuredClone(integration);
+  params = structuredClone(params);
+  const quoteParams = { ...params };
+  const clonedParams = { ...params };
+  [
+    'card',
+    'list',
+    'oldList',
+    'board',
+    'oldBoard',
+    'comment',
+    'checklist',
+    'swimlane',
+    'oldSwimlane',
+    'labelId',
+    'label',
+    'attachment',
+    'attachmentId',
+  ].forEach(key => {
+    if (quoteParams[key]) quoteParams[key] = `"${params[key]}"`;
+  });
+
+  const userId = params.userId || integration.userId || actorId;
+  const user = await ReactiveCache.getUser(userId);
+  if (!user || typeof user.getLanguage !== 'function') {
+    return null;
+  }
+  // #5875: load the recipient's language bundle on the server before
+  // translating, otherwise it falls back to English.
+  const language = user.getLanguage();
+  await TAPi18n.ensureLanguageLoaded(language);
+  const descriptionText = TAPi18n.__(
+    description,
+    quoteParams,
+    language,
+  );
+
+  // If you don't want a hook, set the webhook description to "-".
+  if (descriptionText === "-") return null;
+
+  const text = `${params.user} ${descriptionText}\n${params.url}`;
+
+  if (text.length === 0) return null;
+
+  const value = {
+    text: `${text}`,
+  };
+
+  webhooksAtbts.forEach(key => {
+    if (params[key] !== undefined) value[key] = params[key];
+  });
+  value.description = description;
+  const is2way = integration.type === Integrations.Const.TWOWAY;
+  const token = integration.token || '';
+  const fetchHeaders = {
+    'Content-Type': 'application/json',
+  };
+  if (token) fetchHeaders['X-Wekan-Token'] = token;
+
+  return { url: integration.url, headers: fetchHeaders,
+    body: JSON.stringify(is2way ? { description, ...clonedParams } : value),
+    is2way, language };
+}
 Meteor.methods({
     async outgoingWebhooks(integration, description, params) {
       if (this.userId) {
@@ -113,63 +179,11 @@ Meteor.methods({
         check(params, Object);
         this.unblock();
 
-        // label activity did not work yet, see wekan/models/activities.js
-        const quoteParams = { ...params };
-        const clonedParams = { ...params };
-        [
-          'card',
-          'list',
-          'oldList',
-          'board',
-          'oldBoard',
-          'comment',
-          'checklist',
-          'swimlane',
-          'oldSwimlane',
-          'labelId',
-          'label',
-          'attachment',
-          'attachmentId',
-        ].forEach(key => {
-          if (quoteParams[key]) quoteParams[key] = `"${params[key]}"`;
-        });
-
-        const userId = params.userId || integration.userId || this.userId;
-        const user = await ReactiveCache.getUser(userId);
-        if (!user || typeof user.getLanguage !== 'function') {
-          return;
-        }
-        // #5875: load the recipient's language bundle on the server before
-        // translating, otherwise it falls back to English.
-        await TAPi18n.ensureLanguageLoaded(user.getLanguage());
-        const descriptionText = TAPi18n.__(
-          description,
-          quoteParams,
-          user.getLanguage(),
-        );
-
-        // If you don't want a hook, set the webhook description to "-".
-        if (descriptionText === "-") return;
-
-        const text = `${params.user} ${descriptionText}\n${params.url}`;
-
-        if (text.length === 0) return;
-
-        const value = {
-          text: `${text}`,
-        };
-
-        webhooksAtbts.forEach(key => {
-          if (params[key] !== undefined) value[key] = params[key];
-        });
-        value.description = description;
-        //integrations.forEach(integration => {
-        const is2way = integration.type === Integrations.Const.TWOWAY;
-        const token = integration.token || '';
-        const fetchHeaders = {
-          'Content-Type': 'application/json',
-        };
-        if (token) fetchHeaders['X-Wekan-Token'] = token;
+        integration = structuredClone(integration);
+        params = structuredClone(params);
+        const prepared = await prepareOutgoingWebhook({ integration, description, params, actorId: this.userId });
+        if (!prepared) return;
+        const { is2way } = prepared;
 
         // The `integration` object is supplied by the caller and must not be
         // trusted: verify a matching integration actually exists on its board
@@ -183,8 +197,6 @@ Meteor.methods({
         if (!storedIntegration) return;
         const integrationBoard = await ReactiveCache.getBoard(storedIntegration.boardId);
         if (!integrationBoard || !integrationBoard.hasMember(this.userId)) return;
-
-        const url = integration.url;
 
         if (is2way) {
           const cid = params.commentId;
@@ -202,10 +214,10 @@ Meteor.methods({
         // and blocks redirects — fully preventing DNS-rebinding SSRF attacks.
         let response;
         try {
-          response = await fetchSafe(url, {
+          response = await fetchSafe(prepared.url, {
             method: 'POST',
-            headers: fetchHeaders,
-            body: JSON.stringify(is2way ? { description, ...clonedParams } : value),
+            headers: prepared.headers,
+            body: prepared.body,
           });
         } catch (err) {
           throw new Meteor.Error(

@@ -46,7 +46,7 @@ test('absent and undefined values remain absent rather than being invented as em
 async function outgoingPayload(params, type = 'outgoing', attributes) {
   const source = fs.readFileSync(require.resolve('../server/notifications/outgoing.js'), 'utf8').replace(/^import .*;\n/gm, '').replace(/^export /gm, '');
   let method, payload;
-  const context = { Meteor: { methods: methods => { method = methods.outgoingWebhooks; } },
+  const context = { structuredClone, Meteor: { methods: methods => { method = methods.outgoingWebhooks; } },
     check() {}, ReactiveCache: { getUser: async () => ({ getLanguage: () => 'en' }),
       getIntegration: async () => ({ boardId: 'board' }), getBoard: async () => ({ hasMember: () => true }) },
     TAPi18n: { ensureLanguageLoaded: async () => {}, __: () => 'changed' },

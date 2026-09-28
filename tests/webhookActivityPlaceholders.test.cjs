@@ -47,7 +47,10 @@ test('the activity builder resolves every entity reported missing', () => {
 
 test('webhook translation starts from all resolved parameters', () => {
   assert.match(outgoing, /const quoteParams = \{ \.\.\.params \}/);
-  assert.match(outgoing, /TAPi18n\.__\(\s*description,\s*quoteParams,\s*user\.getLanguage\(\)/);
+  // Loading and rendering use one captured language even if the user changes it.
+  assert.match(outgoing, /const language = user\.getLanguage\(\);/);
+  assert.match(outgoing, /await TAPi18n\.ensureLanguageLoaded\(language\)/);
+  assert.match(outgoing, /TAPi18n\.__\(\s*description,\s*quoteParams,\s*language/);
   assert.doesNotMatch(outgoing, /TAPi18n\.__\(description,\s*\{\s*\}/,
     'never translate an activity without its replacement values');
 });
