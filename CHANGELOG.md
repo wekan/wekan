@@ -316,6 +316,11 @@ Each event has a stable receipt identity and requires its own downstream
 acknowledgement. A combined MongoDB test resumes create/edit/archive units
 with their saved History and activity plans; completed events are not inserted
 again. Production hook coordination and durable delivery remain open.
+The shared effects coordinator now replaces test-only History/activity glue.
+It captures display metadata, validates both complete plans and their actor/time
+agreement before writes, checks adapters up front, then requires History and
+activity delivery completion. Mixed creation/update/archive MongoDB replay
+uses this module. Production activation and lifecycle remain unfinished.
 Activity notification and webhook payloads now preserve zero, false, empty
 text and explicit null, while absent values remain omitted. This fixes lost
 zero estimates and unchecked custom-field values. SMTP and HTTP-serialization
@@ -994,6 +999,30 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4ceeb4760">Coordinate saved Sync History and activity effects</a>. Thanks to xet7.</summary>
+
+Provide one internal planner and persistence adapter for combined History and
+activity effects. Capture display metadata before application, preserve the
+History chain across mixed card operations, and validate both plans against
+the exact card step and effect ID. Reject mismatched actors or timestamps and
+missing storage/delivery adapters before the first effect write. Activity
+planning failures do not advance the History planner's index.
+
+Thirteen focused Node suites pass with real MongoDB enabled. The mixed
+create/edit/archive interruption test now calls the shared module instead of
+assembling the effect sequence in the test. Additional cases cover immutable
+metadata, unknown/duplicate swimlanes, retrying failed planning and
+independently
+valid but inconsistent component plans. The source audit passes with advisory
+warnings; the existing published changelog line-length failure remains.
+
+The adapter is not enabled in production Sync. Durable rule/notification
+delivery, feature-flag and hook coordination, private collection lifecycle,
+startup scheduling and user controls remain in TODO Later. No UI path changed.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/696bcb1c2">Resume Sync update activities with per-event receipts</a>. Thanks to xet7.</summary>
