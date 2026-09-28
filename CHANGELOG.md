@@ -1437,19 +1437,14 @@ since this issue was filed; WebAuthn/FIDO2 passkeys are the passwordless
 standard that gained the adoption SQRL did not. Needs a maintainer decision
 on whether this remains worth pursuing before any implementation is
 attempted.),
-[#2713](https://github.com/wekan/wekan/issues/2713) (attaching a card's
-actual FILE attachments to the email a rule sends, not just its
-title/description/link - every WeKan email today goes through
-`server/rulesHelper.js`'s `Email.sendAsync`/`EmailLocalization.sendEmail`
-call sites, which take `{ to, from, subject, text }` with no `attachments`
-parameter anywhere in this codebase; no other WeKan email path attaches a
-file either. Wiring a real attachment through needs the mailer wrapper
-itself to grow attachment support and code to read the file back out of
-whichever of the four storage backends
-(`models/lib/fileStoreStrategy.js`/`attachmentStoreStrategy.js`:
-filesystem, GridFS, S3/Azure/GCS) holds it - mailer-level scope past what a
-single rule action should take on alone, and needs a maintainer decision on
-size limits/backend coverage before it is built.).
+[#2713](https://github.com/wekan/wekan/issues/2713) (emailing actual card
+attachments remains unfinished. A shared stream reader now creates immutable
+base64 attachment snapshots, capped at 100 files and 8 MiB of raw bytes in
+aggregate, with read timeouts and cleanup. Stored Sync email commands now
+validate and checksum those snapshots, without permitting file paths or URLs.
+Still needed: authorized live-card attachment selection, storage-strategy
+integration, the rule form option, mailer propagation and end-to-end delivery
+coverage. Keep this item open until the complete send path works.).
 
 </details>
 
@@ -1529,6 +1524,25 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cfb23b4f6">Prepare immutable attachments for stored rule emails</a>. Thanks to kabi178, bbyszio and xet7.</summary>
+
+Add a backend-neutral reader that captures attachment streams as bounded,
+canonical base64 data. Sanitize filenames and content types, reject oversized
+or unavailable reads, time out stalled streams and close them on failure.
+Validate attachment byte snapshots as part of stored Sync email commands;
+retries retain the original bytes and integrity checks detect tampering.
+File paths and URLs cannot become attachment transport options.
+
+Thirteen focused Node suites pass, covering binary and empty files, JSON
+round trips, changed source buffers, read failures, stalled streams, size and
+count limits, malformed metadata, immutable retries and command corruption.
+This is preparation for [#2713](https://github.com/wekan/wekan/issues/2713),
+not completed attachment sending. Authorized storage reads, form controls,
+mailer propagation and end-to-end delivery remain in TODO Later.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/998b96bf9">Copy cards automatically with a rule</a>. Thanks to javen9881, phaseshift3r, gugmt15 and xet7.</summary>
