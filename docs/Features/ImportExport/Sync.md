@@ -884,3 +884,30 @@ The shared coordination of ordinary History writers is still unfinished, so
 ordinary rules and manual/cron Sync do not install this archive adapter yet.
 An isolated full-app test supplies a controlled reservation; that proves the
 entry point's data flow, not multi-process History exclusivity.
+
+### Durable History append coordination primitive
+
+`server/lib/historyChainAppend.js` introduces a single persisted head per board
+(including a distinct null-board scope). Conditional head replacement reserves
+one exact pending row before insertion; a pending-payload checksum protects its
+full snapshot. Every appender finishes a pending row and confirms its readback
+before advancing the head or reserving another successor. A stalled worker has
+no expiring lease that could authorize a second successor. An older helper's
+conditional replacement cannot clear a newer reservation.
+
+This primitive handles lost row/head acknowledgements, process interruption,
+matching retry IDs and ownership loss. Changed retry payloads, corrupt pending
+rows and false write acknowledgements fail without discarding the reservation.
+Mutable undo flags do not invalidate a row's protected integrity hash. The
+bounded retry loop reports contention instead of spinning indefinitely.
+
+MongoDB coverage uses four independent clients, equal timestamps, sixteen
+concurrent appends and one row interrupted before head advancement. All
+seventeen rows form one chain and retry does not insert duplicates.
+
+This is not yet installed in ordinary `ChangeHistory.record`. Initial head
+creation for an existing board requires a verified `initialHash` while legacy
+writers are excluded. Existing-chain bootstrap/migration, schema-preserving
+collection binding, redo coordination and persistent multi-row Sync ownership
+must be completed before switching ordinary writers or enabling archive jobs.
+It does not on its own provide the archive runner's History reservation.
