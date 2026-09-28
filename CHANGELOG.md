@@ -1289,7 +1289,11 @@ counts, public voter names and completed Poker results now follow disclosure
 settings, including persisted checks for stored commands. Linked-board voting
 now uses current target results and both boards' visibility settings. The six
 visible Scrum card fields are included with same-board name resolution and
-persisted visibility checks. Final full-content audit remains),
+persisted visibility checks. The
+[content audit](docs/DeveloperDocs/Card-Email-Content-Audit.md) now tracks
+remaining reactions, converted-subtask references, attachment metadata,
+legacy Gantt links, wrapper metadata and moved-card SMTP coverage. Creator,
+stickers, checklist schedules and public comment authors are now included),
 [#3195](https://github.com/wekan/wekan/issues/3195) (rule action/trigger
 values should be able to reference a custom field's value — today's action
 and trigger value inputs are plain literals; resolving a per-board custom
@@ -1462,7 +1466,9 @@ Timer and recurrence snapshots now have Details and SMTP coverage. Card voting
 and completed Poker results also have disclosure checks and SMTP coverage;
 Linked-board voting now follows target policy with stored checks. Visible
 Scrum card metadata now has same-board reference and SMTP coverage. Final
-full-content audit and legacy stored-command recovery remain.).
+[content audit](docs/DeveloperDocs/Card-Email-Content-Audit.md) records concrete
+remaining fields and trigger coverage; legacy stored-command recovery also
+remains. Creator/stickers and checklist/comment metadata gaps are now fixed.).
 
 </details>
 
@@ -1542,6 +1548,29 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2e13fab98">Fill audited card email content gaps</a>. Thanks to kabi178, bbyszio and xet7.</summary>
+
+Include public creator names, sticker attributes, archive/activity dates,
+ordering and last move reason under Details. Include checklist/item deadlines,
+checklist completion/reset metadata and public comment authors/edit dates
+under Checklists / Comments. Serialize only selected scalar fields; preserve
+zero values, omit private account data and recheck access after author reads.
+
+Compare email preparation with card/checklist/comment models and the shared
+export layout in the new
+[content audit](docs/DeveloperDocs/Card-Email-Content-Audit.md). Track the
+remaining references, reactions, attachment presentation, legacy Gantt links,
+wrapper metadata and moved-card scenario explicitly instead of marking the
+full-content request complete.
+
+Fifty-seven Node suites pass without skips, including MongoDB and native
+MailComposer integration. Three Chromium SMTP scenarios pass; filesystem and
+GridFS messages verify the new content and its omission when deselected.
+Existing Upcoming regression evidence remains recorded.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d99641d8e">Include visible Scrum card fields in rule email details</a>. Thanks to kabi178, bbyszio and xet7.</summary>
