@@ -19,7 +19,7 @@ test('linked-card mail uses current authorized source content and stops after so
     db.updateOne('cards', { _id: target._id }, { $set: { description: 'Current source description', dueAt: new Date('2027-04-01'), parentId: `${id}-parent` } });
     db.updateOne('boards', { _id: local.boardId }, { $set: { 'scrum.visibility.cardBacklogRank': true } });
     db.updateOne('cards', { _id: wrapper._id }, { $set: { type: 'cardType-linkedCard', linkedId: target._id, description: 'STALE-WRAPPER-DESCRIPTION',
-      flowInterruptions: 7, pomodoroPhase: 'break', scrum: { backlogRank: 42 }, stickers: [{ name: 'STALE-WRAPPER-STICKER' }] } });
+      recurrenceInterval: 'weekly', lastRecurrenceAt: new Date('2027-01-01'), flowInterruptions: 7, pomodoroPhase: 'break', scrum: { backlogRank: 42 }, stickers: [{ name: 'STALE-WRAPPER-STICKER' }] } });
     db.insertOne('cards', { _id: `${id}-parent`, boardId: source.boardId, type: 'cardType-linkedCard',
       title: 'STALE-PARENT-TITLE', linkedId: `${id}-parent-source` });
     db.insertOne('cards', { _id: `${id}-parent-source`, boardId: local.boardId, title: 'Current related parent' });
@@ -38,7 +38,7 @@ test('linked-card mail uses current authorized source content and stops after so
     for (const text of ['Live source card', 'Current source description', 'Current source note', 'Current source comment', 'Due: 2027-04-01', bytes.toString('base64')]) expect(mails()[0].data).toContain(text);
     const wrapperText = mails()[0].data.replace(/=\r?\n/g, '').split('Linked card local details:')[1];
     expect(wrapperText).toBeTruthy();
-    for (const text of ['Flowtime interruptions: 7', 'Pomodoro phase: break', 'Scrum backlog rank: 42']) expect(wrapperText).toContain(text);
+    for (const text of ['Recurrence: weekly', 'Last recurrence: 2027-01-01T00:00:00.000Z', 'Flowtime interruptions: 7', 'Pomodoro phase: break', 'Scrum backlog rank: 42']) expect(wrapperText).toContain(text);
     expect(mails()[0].data).not.toContain('STALE-WRAPPER');
     expect(mails()[0].data.replace(/=\r?\n/g, '')).toContain('Parent: Current related parent');
     expect(mails()[0].data).not.toContain('STALE-PARENT');
@@ -63,6 +63,7 @@ test('linked-card mail uses current authorized source content and stops after so
     const boardMail = mails()[1].data.replace(/=\r?\n/g, '');
     expect(boardMail).toContain('Linked card local details:');
     expect(boardMail).toContain('Scrum backlog rank: 42');
+    expect(boardMail).toContain('Recurrence: weekly');
     for (const text of ['Vote question: Current board vote', 'Votes for: 1', 'For voters: Unknown user',
       'Poker 2 votes: 1', 'Poker 2 voters: Unknown user']) expect(boardMail).toContain(text);
     db.updateOne('boards', { _id: source.boardId }, { $set: { 'vote.public': false, 'poker.end': new Date('2999-01-01') } });

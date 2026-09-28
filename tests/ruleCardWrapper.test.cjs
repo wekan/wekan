@@ -5,7 +5,7 @@ const { prepareRuleCardWrapper: prepare } = require('../server/lib/ruleCardWrapp
 function fixture() {
   const card = { _id: 'link', boardId: 'local', type: 'cardType-linkedCard', linkedId: 'source',
     listId: 'list', swimlaneId: 'lane', title: 'STALE TITLE', description: 'STALE DESCRIPTION',
-    stickers: [{ name: 'STALE STICKER' }], sort: 0, flowInterruptions: 2, flowUserId: 'person',
+    stickers: [{ name: 'STALE STICKER' }], recurrenceInterval: 'weekly', lastRecurrenceAt: new Date('2027-01-01'), sort: 0, flowInterruptions: 2, flowUserId: 'person',
     scrum: { sprintId: 'sprint', issueType: 'SECRET HIDDEN', backlogRank: 0 } };
   const board = { _id: 'local', title: 'Local board', scrum: { visibility: { cardSprint: true, cardBacklogRank: true } } };
   const args = { activity: { cardId: 'link', boardId: 'local', userId: 'actor' }, canReadBoard: () => true,
@@ -21,7 +21,7 @@ test('local wrapper fields use local scope, visible Scrum and public names witho
     const { card, args } = fixture(); card.type = type;
     const text = await prepare(args);
     for (const part of ['Linked card local details:', 'Board: Local board', 'List: Local list', 'Sort: 0',
-      'Flowtime interruptions: 2', 'Flowtime user: Visible person', 'Scrum sprint: Local sprint', 'Scrum backlog rank: 0']) assert.ok(text.includes(part), part);
+      'Recurrence: weekly', 'Last recurrence: 2027-01-01T00:00:00.000Z', 'Flowtime interruptions: 2', 'Flowtime user: Visible person', 'Scrum sprint: Local sprint', 'Scrum backlog rank: 0']) assert.ok(text.includes(part), part);
     assert.doesNotMatch(text, /STALE|SECRET|source/);
   }
 });

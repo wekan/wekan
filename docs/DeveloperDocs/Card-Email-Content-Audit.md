@@ -19,14 +19,32 @@ This audit compares the current email preparation code with `models/cards.js`,
 | Linked cards | Resolve readable source chain for selected content; detect retargeting and access loss | `tests/ruleEmailSource.test.cjs`; linked-source SMTP |
 | Linked boards | Current board display fields and voting; wrapper discussion/files remain local | Linked-source SMTP and Details tests |
 
-## Unfinished checks and implementation
+## Field inventory and remaining implementation
 
-- Linked wrappers: finish the remaining field ownership audit. Placement,
-  local timer snapshots and visible local Scrum fields now appear in a separate
-  `Linked card local details` section, for both linked cards and linked boards.
-  Source stickers remain in source Details; copied wrapper stickers are excluded.
-- Complete a final field-by-field pass after linked-wrapper ownership is
-  resolved.
+[Field inventory](Card-Email-Field-Inventory.json) classifies all 71 top-level
+fields in the current Cards schema, including intentional exclusions. The
+`ruleCardFieldInventory` test parses that schema and requires an inventory
+update whenever fields are added or removed. It proves that fields were
+classified, not that every display path is implemented. Black-box objects
+still require the explicit nested-field policies described above.
+
+The final pass found these concrete linked-board gaps:
+
+- Target board archive state, overtime/due-complete display and active members
+  shown by the linked-board card getters are not yet in Details.
+- Some getters read the linked-board wrapper: creator, stickers, custom fields,
+  locations and relationships. Verify and render those with their local scope,
+  instead of excluding all wrapper content as though it were a linked-card copy.
+- `Cards.comments()` reads target-board comments for a linked board, while the
+  mail discussion currently reads only wrapper-card comments. Board-wide
+  discussion needs per-card authorization, assigned-only filtering and durable
+  evidence for every included card; board read access alone is insufficient.
+- Distinguish source archive state from the wrapper's local archive/placement
+  lifecycle. The field inventory records these ownership checks explicitly.
+
+Local recurrence and last recurrence now accompany placement, timers and the
+six visible Scrum fields in `Linked card local details`. Recurrence setters
+write the displayed card, so source recurrence alone did not cover it.
 
 Timer model reads and session writes now both use the displayed card ID.
 Completed work reads the linked source total through `getSpentTime()` and
