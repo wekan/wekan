@@ -52,7 +52,19 @@ async function prepareRuleCardDetails({ activity, cache, canReadBoard, readScrum
     if (canReadBoard(activity.userId, target)) {
       add('Linked board', target.title);
       add('Description', target.description);
-      for (const [field, label] of [['receivedAt', 'Received'], ['startAt', 'Start'], ['dueAt', 'Due'], ['endAt', 'End'], ['spentTime', 'Spent time (hours)']]) add(label, target[field]);
+      for (const [field, label] of [['receivedAt', 'Received'], ['startAt', 'Start'], ['dueAt', 'Due'], ['endAt', 'End'], ['spentTime', 'Spent time (hours)'], ['archived', 'Archived'], ['archivedAt', 'Archived at'], ['dueComplete', 'Due complete'], ['isOvertime', 'Overtime']]) add(label, target[field]);
+      // Linked-board card getters expose the target board's active members
+      // for both people fields. Never serialize membership roles or accounts.
+      const names = [];
+      const ids = [...new Set((Array.isArray(target.members) ? target.members : [])
+        .filter(member => member?.isActive === true && typeof member.userId === 'string' && member.userId)
+        .map(member => member.userId))];
+      for (const id of ids) {
+        const user = await cache.getUser(id);
+        if (user) names.push(user.profile?.fullname || user.username || 'Unknown user');
+      }
+      add('Members', names);
+      add('Assignees', names);
       const presentationBoard = { allowsVote: board.allowsVote !== false && target.allowsVote !== false,
         allowsPoker: board.allowsPoker !== false && target.allowsPoker !== false };
       const policy = JSON.stringify(votingVisibility(target, target));

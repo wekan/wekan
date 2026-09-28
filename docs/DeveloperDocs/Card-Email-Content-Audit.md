@@ -17,7 +17,7 @@ This audit compares the current email preparation code with `models/cards.js`,
 | Comments | Public prose, creation/edit dates, public author display name, reaction emoji and distinct counts | Discussion unit tests; SMTP assertions |
 | Files | Selected live attachments become immutable byte snapshots; names/MIME types retained; manifest identifies cover, captured byte size, upload date and public uploader | Filesystem/GridFS SMTP; bounded-stream unit tests |
 | Linked cards | Resolve readable source chain for selected content; detect retargeting and access loss | `tests/ruleEmailSource.test.cjs`; linked-source SMTP |
-| Linked boards | Current board display fields and voting; wrapper discussion/files remain local | Linked-source SMTP and Details tests |
+| Linked boards | Current dates, spent time, overtime, due completion, archive state, active member names and voting; wrapper discussion/files remain local | Linked-source SMTP and Details tests |
 
 ## Field inventory and remaining implementation
 
@@ -28,10 +28,14 @@ update whenever fields are added or removed. It proves that fields were
 classified, not that every display path is implemented. Black-box objects
 still require the explicit nested-field policies described above.
 
-The final pass found these concrete linked-board gaps:
+Linked-board Details now includes current archive state/date, overtime, due
+completion and public names of active target members. Members and Assignees
+follow the same active-member list as the card getters; inactive, duplicate and
+missing accounts do not produce extra rows. Target access is rechecked after
+name resolution.
 
-- Target board archive state, overtime/due-complete display and active members
-  shown by the linked-board card getters are not yet in Details.
+The final pass found these remaining concrete linked-board gaps:
+
 - Some getters read the linked-board wrapper: creator, stickers, custom fields,
   locations and relationships. Verify and render those with their local scope,
   instead of excluding all wrapper content as though it were a linked-card copy.

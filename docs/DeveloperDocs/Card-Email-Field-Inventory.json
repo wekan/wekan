@@ -21,15 +21,15 @@
   },
   {
     "fields": ["archived", "archivedAt", "createdAt", "modifiedAt", "dateLastActivity", "cardNumber", "color"],
-    "handling": "Ordinary/source Details. Remaining audit: linked-board archive display and wrapper-local placement lifecycle/number/color ownership."
+    "handling": "Ordinary/source Details. Linked-board archive state and date use the current target. Remaining audit: wrapper-local placement lifecycle/number/color ownership."
   },
   {
     "fields": ["receivedAt", "startAt", "dueAt", "endAt", "spentTime", "isOvertime", "dueComplete"],
-    "handling": "Ordinary/source Details. Linked-board Details includes four dates and spent time; overtime and due-complete still need board-display parity."
+    "handling": "Ordinary/source Details. Linked-board Details includes four dates, spent time, overtime and due-complete from the current target."
   },
   {
     "fields": ["members", "assignees", "requesters", "assigners", "requestedBy", "assignedBy", "userId"],
-    "handling": "Ordinary/source Details resolves public names for account references; requestedBy/assignedBy are prose. Remaining audit: active linked-board membership and wrapper-local creator/requesters/assigners."
+    "handling": "Ordinary/source Details resolves public names for account references; requestedBy/assignedBy are prose. Linked-board Members and Assignees use deduplicated active target members with public names, matching card getters. Remaining audit: wrapper-local creator/requesters/assigners."
   },
   {
     "fields": ["labelIds", "customFields", "stickers", "locationName", "locationAddress", "locationLatitude", "locationLongitude", "locations"],

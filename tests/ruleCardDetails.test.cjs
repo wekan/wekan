@@ -196,3 +196,26 @@ test('legacy Gantt targets share authorization and source capture with canonical
   assert.equal(text.split('Parent task').length, 2); assert.equal(sources.length, 1);
   assert.doesNotMatch(text, /SECRET/);
 });
+
+test('linked-board state and people come from current target display fields', async () => {
+  const f = fixture(); Object.assign(f.card, { type: 'cardType-linkedBoard', linkedId: 'target',
+    archived: true, dueComplete: true, isOvertime: true, members: ['SECRET-WRAPPER'] });
+  const target = { _id: 'target', title: 'Target', archived: false, dueComplete: false, isOvertime: false,
+    spentTime: 0, members: [{ userId: 'active', isActive: true, isAdmin: true },
+      { userId: 'active', isActive: true }, { userId: 'inactive', isActive: false },
+      { userId: 'missing', isActive: true }, null, { userId: {}, isActive: true }] };
+  f.cache.getBoard = async id => id === 'target' ? target : f.board;
+  f.canReadBoard = (_, board) => !!board && f.allowed;
+  const lookedUp = [];
+  f.cache.getUser = async id => { lookedUp.push(id); return id === 'active'
+    ? { profile: { fullname: 'Active member' }, emails: ['SECRET-EMAIL'], services: { token: 'SECRET' } } : null; };
+  const text = await prepare(f);
+  for (const part of ['Archived: false', 'Due complete: false', 'Overtime: false', 'Spent time (hours): 0',
+    'Members: Active member', 'Assignees: Active member']) assert.ok(text.includes(part), part);
+  assert.deepEqual(lookedUp, ['active', 'missing']);
+  assert.doesNotMatch(text, /SECRET|isAdmin|inactive|missing/);
+  let targetReadable = true;
+  f.canReadBoard = (_, board) => !!board && (board._id !== 'target' || targetReadable);
+  f.cache.getUser = async () => { targetReadable = false; return { username: 'Active member' }; };
+  await assert.rejects(prepare(f), /not-authorized/);
+});
