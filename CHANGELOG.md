@@ -305,30 +305,38 @@ A durable append primitive now reserves one checksummed pending row per board
 through conditional head replacement. Another writer can finish an interrupted
 insert before reserving its successor, avoiding timestamp ties and lease-expiry
 forks. Six Node/MongoDB cases pass, including four independent clients and
-seventeen rows forming one chain. Verified bootstrap of existing history,
-ordinary writer binding, redo coordination and multi-row Sync ownership remain
-unfinished; this primitive is not yet installed in ChangeHistory.record.
+seventeen rows forming one chain. Verified bootstrap and ordinary writer
+binding are now implemented below. Redo coordination and multi-row Sync
+ownership remain unfinished.
 Existing-chain bootstrap now scans bounded batches, validates row hashes and
 ancestry, and refuses forks or missing predecessors before head insertion.
 Legacy unhashed rows remain untouched; cursor order and timestamps do not
 choose the head. Twelve append/bootstrap Node/MongoDB cases pass, including a
-300-row reversed-time chain and fresh-connection continuation. Writer exclusion
-during bootstrap and ordinary writer binding remain unfinished; no automatic
-migration is enabled.
+300-row reversed-time chain and fresh-connection continuation. Participating
+writers now drain through the gate below; deployment-wide exclusion is still
+a caller responsibility. No automatic migration is enabled.
 Private History head storage now uses the real History schema. The internal
 append entry point validates complete defaults before reservation, preserves
 captured timestamps/whitespace and refuses missing or deleted heads. Twelve
 Node/MongoDB cases, one full-app case and two Chromium cases pass, including
 six concurrent schema-backed writes and denied browser access across all 18
-private recovery collections. Ordinary writer switching, bootstrap exclusion
-and redo coordination remain unfinished.
+private recovery collections at that checkpoint. Ordinary writer switching
+and participating-writer exclusion now use the binding below; redo
+coordination remains unfinished.
 A persistent admission gate now drains participating legacy History writers
 before granting migration ownership. New writers are refused during draining;
 existing writers finish, and a verified head enables only the coordinated path.
 Failed writes retain their tokens without expiry. Eighteen Node/MongoDB cases
-pass, including separate clients across drain/bootstrap/append. Production
-writer binding, retained-token recovery and mixed-version rollout handling
-remain unfinished; the gate is not yet installed in ChangeHistory.record.
+pass, including separate clients across drain/bootstrap/append. Ordinary
+ChangeHistory.record now participates through private History writer gates.
+An explicit board migration drains registered writers, bootstraps the actual
+head and permanently switches ordinary appends to the coordinated path. The
+caller must exclude older servers and writers outside this path. Four full-app
+cases pass, including ten concurrent ordinary appends and refusal without
+legacy fallback after head deletion. Chromium checks all 19 private recovery
+collections for members/admins. Retained-token recovery, failed-record
+recovery, mixed-version rollout, redo coordination and multi-row Sync
+reservations remain unfinished; automatic migration stays disabled.
 Creation units now preserve the ordinary createCard activity payload in a
 bounded private plan with a stable ID and captured names/timestamps. Readback
 confirms insertion, but the journal cannot advance until a separate durable
@@ -1498,6 +1506,25 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1442809b4">Coordinate ordinary History writers after explicit board migration</a>. Thanks to xet7.</summary>
+
+Register ordinary History writes with persistent per-board admission. Keep
+existing boards on their legacy path until explicit migration drains writers,
+validates the existing chain and switches permanently to coordinated appends.
+Require a caller-provided deployment guard to exclude older server versions
+and other writers. Validate input before admission; never fall back to legacy
+insertion when a migrated head disappears. Preserve best-effort error handling.
+
+Eighteen History Node/MongoDB cases, four existing History Node suites, four
+full-app Meteor cases and two Chromium cases pass. Ten concurrent ordinary
+writes form one chain. Members/admins cannot access any of the nineteen
+private recovery collections. The source audit reports advisory warnings.
+Automatic rollout, retained-token and failed-record recovery, shared redo
+coordination and multi-row Sync reservations remain unfinished.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/54a4ef069">Drain History writers before granting persistent migration ownership</a>. Thanks to xet7.</summary>
