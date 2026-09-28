@@ -127,8 +127,15 @@ hash and invalidation state are rechecked before entity writes, restoration
 events and finalization. Twenty Node cases and eight Chromium cases pass,
 including a newer ordinary card edit during pending redo. The checkpoint
 remains for recovery; atomic coordination and resolution of superseded
-partial restores are unfinished. Failed or damaged
-records retain the recovery checkpoint. Successful insert replies now require
+partial restores are unfinished. Legacy checkpoint operation IDs now use a
+conditional upgrade of the exact stored plan; concurrent workers adopt its
+first persisted ID instead of overwriting each other. Ownership checks and
+cleanup match the captured before/after values and revisions, so a replaced
+plan cannot authorize an old worker. Twenty-six Node/MongoDB cases and eight
+Chromium cases pass, including separate-client upgrades and legacy browser
+recovery. Same-operation worker serialization remains unfinished. Failed or
+damaged records retain the recovery checkpoint. Successful insert replies
+now require
 the same persisted-event verification; missing rows and failed confirmation
 reads keep recovery pending. Finalization now verifies the source
 History row and persisted undo/redo state before deleting the exact operation's
@@ -1531,6 +1538,24 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/eb91a68a5">Bind Scrum recovery ownership to its persisted checkpoint plan</a>. Thanks to xet7.</summary>
+
+Assign missing legacy operation IDs with a conditional update of the stored
+plan, then adopt the winning ID after readback. Concurrent workers no longer
+overwrite each other's identities; lost acknowledgements retain or confirm
+the same plan. Check ownership at entity writes and before timeline events.
+Match before/after values and revisions during finalization and cleanup so
+reusing an operation ID cannot authorize deletion of a replaced checkpoint.
+
+Twenty-six Node/MongoDB cases and eight Chromium cases pass. Independent
+clients verify one legacy upgrade and refused cleanup of changed evidence.
+Browser cases cover normal undo/redo, interrupted legacy recovery and
+superseded redo. The source audit has advisory warnings. Same-operation
+worker serialization and cross-document atomicity remain unfinished.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2bbc13456">Refuse invalidated Scrum redo recovery before replaying changes</a>. Thanks to xet7.</summary>
