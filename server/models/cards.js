@@ -807,16 +807,21 @@ Meteor.methods({
     // Reject a forged merge before copying children or emitting activities.
     await require('/server/lib/adminOnlyCustomFields').assertFieldWrite(
       this.userId, card, { ...card, ...mergeCardValues }, 'method:copyCard');
-    Object.assign(card, mergeCardValues);
-
-    const sort = await card.getSort(listId, swimlaneId, insertAtTop);
-    if (insertAtTop) {
-      card.sort = sort - 1;
-    } else {
-      card.sort = sort + 1;
+    const { cardWithCopyOverrides } = require('/models/lib/cardCopyOverrides');
+    let copy;
+    try { copy = cardWithCopyOverrides(card, mergeCardValues); }
+    catch (error) {
+      try {
+        if (error.securityAttempt) require('/server/lib/securityLog').record({ key: 'authz.card-copy-overrides',
+          action: 'blocked', source: 'method:copyCard', userId: this.userId,
+          detail: 'Unsupported card-copy overrides refused' });
+      } catch (logError) { /* logging must never break the guard */ }
+      throw new Meteor.Error('bad-request', 'Invalid card copy overrides');
     }
 
-    return await card.copy(boardId, swimlaneId, listId);
+    const sort = await copy.getSort(listId, swimlaneId, insertAtTop);
+    copy.sort = insertAtTop ? sort - 1 : sort + 1;
+    return await copy.copy(boardId, swimlaneId, listId);
   },
 
   // #2209: "Create template from element" — save an EXISTING card as a card

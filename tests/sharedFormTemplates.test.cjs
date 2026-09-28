@@ -181,7 +181,7 @@ test('a label still clicks its own control (negative)', () => {
   assert.ok(/id="position-above-\{\{idSuffix\}\}"/.test(picker), 'the radios take a suffix');
   assert.ok(/label\(for="position-above-\{\{idSuffix\}\}"\)/.test(picker), 'and the label follows it');
   const swimlane = swimlanesJade.slice(swimlanesJade.indexOf('template(name="swimlaneDestinationPicker")'));
-  assert.ok(/input\.full-line\(id="\{\{titleId\}\}"/.test(swimlane),
+  assert.ok(/textarea\.full-line\([^\n]*id="\{\{titleId\}\}"/.test(swimlane),
     'the title field takes its id as an attribute - a literal id cannot hold a mustache');
   assert.ok(/label\(for="\{\{titleId\}\}"\)/.test(swimlane), 'and its label points at it');
 });

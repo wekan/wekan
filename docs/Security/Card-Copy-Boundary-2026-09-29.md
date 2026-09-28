@@ -1,0 +1,57 @@
+# CopyIdentityBleed: card-copy override boundary
+
+The TODO Later source-review lead was confirmed against a local Meteor app and
+MongoDB using two test-owned private boards. A member of the first board passed
+the ID of a card on the second board in `copyCard`'s `mergeCardValues` object.
+The method checked membership using the original card, then replaced that card
+object's `_id`. `Cards.copy()` used the replacement identity to load children.
+The negative test reproduced copying the second board's private checklist into
+the first board despite the caller lacking membership of the second board.
+
+This is an application authorization defect (CWE-915, high severity). The caller
+must be authenticated, have a readable member board and a writable destination,
+and know another card's identifier. The existing custom-field guard does not
+protect card identity. FerretDB's find handler consumes the requested filter;
+it cannot recover the original application identity after the method replaced
+it. No database implementation change is needed for this specific defect.
+
+The method now accepts only optional string `title` and `description` overrides,
+matching the copy, copy-many and multiselection dialogs. All other keys and
+non-string values are refused before sorting, insertion or child copying.
+Overrides apply to a separate transformed card object; the source's identity,
+prototype, text and sort stay unchanged. Existing protected custom-field
+mutation checks still run, retaining their AdminFieldBleed denial summaries.
+
+Unsupported override attempts are summarized under **CopyIdentityBleed** in
+Admin Panel → Problems. The record includes the actor and method, not supplied
+field names, values or target identifiers. Logging failure cannot bypass the
+refusal. Ordinary copies and malformed title/description text do not produce attack
+records or account blocks. Extra-field attempts follow the existing high-severity
+policy, which blocks the attempting account. No CVE is assigned;
+the fix is prepared locally for the Upcoming release, not yet published.
+
+## Verification
+
+- `tests/cardCopyOverrides.test.cjs` exercises text overrides, empty values,
+  rejected keys and types, prototype preservation and source isolation. It also
+  scans maintained application sources for the unsafe source-object merge shape.
+- `tests/playwright/specs/card-copy-boundary.e2e.js` reproduces the original
+  private-checklist disclosure, verifies refusal without card/activity writes,
+  checks Problems attribution, tests invalid overrides and legitimate children,
+  and exercises the actual copy dialog.
+- Existing protected-field and Scrum card-copy browser coverage remains relevant;
+  the new validation must retain those protections and copy semantics.
+- The shared-form label/control test now follows the existing multiline swimlane
+  title textarea instead of requiring the obsolete single-line input.
+
+Testing uses local MongoDB, Meteor and Chromium. Other backends, production data
+and other browsers are not validated by these results. The negative baseline
+failure and post-fix logs are retained in `.tools/tmp/card-copy-boundary` locally.
+
+## Remaining review
+
+This fix closes caller-controlled source identity replacement. Review is still
+needed for assigned-only source and descendant handling, caller-supplied
+destination list/swimlane IDs, direct Rules writes and concurrent permission
+changes. It does not certify every entry point that copies cards or related
+records. The larger non-translation TODO goal remains open.
