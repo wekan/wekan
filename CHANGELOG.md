@@ -1299,32 +1299,6 @@ whether it is one feature or several; it bundles per-org/team/board label
 expansion, granular board roles, LDAP-group-driven auto-labeling and
 permission inheritance, none of which is a filter change - needs it split
 into separate, concretely-scoped issues before any one part is buildable),
-[#935](https://github.com/wekan/wekan/issues/935) (simple card filtering:
-labels and native date ranges now have sidebar controls, including creation,
-modification and entry into the current list. Creation and modification also
-have rolling 24-hour, 7-day, 30-day and older presets. The single text input
-now matches titles, descriptions, checklists and comments across authorized
-cards, including lazy windows. Recorded historical list/swimlane and incoming
-board moves now have a separate date-range picker, matching earlier events
-even after later moves. Previous-week and next-month due shortcuts now use
-local calendar boundaries and refresh while active. Named filter combinations
-now persist privately per user and board, with explicit apply/replace/delete
-and validated restoration of every current control. Clear filters is the last
-panel action. Bundled extensions can now register their sidebar template,
-selector, scoped reset and versioned saved state through one provider API;
-creation/modification recency is the first built-in provider. Cross-project
-overdue/label search now has browser coverage: exact current-time cutoff,
-board-owned label IDs, missing labels and excluded private boards. Sidebar
-saved combinations remain per board. Labels, members, assignees and creators
-now use native checkboxes; excluded labels use the indeterminate state.
-Due dates and recency use native radio groups, with keyboard selection,
-explicit unrestricted choices and verified saved-state restoration. The Table
-view now loads authorized 25-card server pages in lazy mode, applying search,
-sort and grouping before pagination; its label-filter regression passes.
-Still unfinished: linked-card/linked-board date badges may read source dates,
-while lazy Table sorting currently reads local card dates. Implement authorized
-source-date resolution and reactive source/access-change observation before
-claiming parity with eager Table sorting and closing the issue),
 [#572](https://github.com/wekan/wekan/issues/572) (label add/remove as its own
 controllable Notification Settings option - the activity feed entry it asks
 for already exists (`models/cards.js`'s `cardLabels()` hook logs
@@ -1561,6 +1535,33 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c273b12e2">Use authorized linked dates in Table sorting and badges</a>. Thanks to ghost, neooleg, Creanimo, GusevVictor, avatar1024 and xet7.</summary>
+
+Resolve received, start, due and end dates one link deep for lazy Table pages.
+Use the same dates for ordering and badges without changing local link cards.
+Observe source cards and boards, recheck data and permissions after the scan,
+and refresh on edits, moves and access changes. Missing, archived or
+inaccessible sources produce no card dates; assigned-only readers see dates
+only for assigned source cards. Publish only current-page date metadata,
+not source documents. Handle missing member metadata on linked
+boards without breaking Table rendering.
+
+Ten focused Node suites pass, including real MongoDB tests for all four dates,
+source moves, assigned-only scope and delayed-observer access rechecks. Two
+Chromium scenarios pass: ordinary paging/search/edit/revocation and linked
+source edits, date ordering, badges and access revocation/restoration. Source
+inventory warnings remain advisory.
+
+This completes the remaining Table date-parity work tracked with
+[#935](https://github.com/wekan/wekan/issues/935). Its sidebar text, label,
+creator/assignee, date/recency, historical-movement and saved-combination
+controls, native keyboard controls and provider API have regression coverage
+in the preceding filter changes. Remove the completed item from TODO Later.
+Other TODO Later work, including Scrum and Sync, remains unfinished.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1c1b78d47">Load Table pages when cards are loaded lazily</a>. Thanks to neooleg and xet7.</summary>
