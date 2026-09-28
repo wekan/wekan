@@ -419,6 +419,13 @@ retains uncertainty, and partial multi-recipient acceptance remains unfinished
 without another network send. Both full-app cases pass. External-provider
 interoperability, ambiguous-send operator handling and worker activation remain
 unfinished.
+An administrator-only report backend now exposes ten-row pages of attempt IDs,
+timestamps and sent/unconfirmed/invalid status, with literal ID search and page
+clamping. It reads no command payload or recipient address, rechecks admin
+access after reads and limits request rate. Four Node/MongoDB cases and one
+Chromium DDP case pass, including member denial, revocation during reads,
+private-field exclusion and pagination. The Admin Panel view and mutation
+controls remain unfinished; unconfirmed may include an in-flight attempt.
 Private operation, step and completion collections are now registered with
 server-only adapters, denied browser writes, recovery indexes and no TTL.
 The stored-operation entry point holds the list lease and requires fresh access
@@ -1416,6 +1423,23 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cb8c68c54">Expose administrator metadata reports for stored rule email attempts</a>. Thanks to xet7.</summary>
+
+Add a rate-limited administrator report with ten-row pages, literal ID search,
+state filters and last-page clamping. Read only attempt metadata and return
+validated identifiers/timestamps, never message bodies or recipient addresses.
+Recheck administrator access after reads and hide backend exception details.
+Unconfirmed status does not distinguish active from interrupted attempts.
+
+Four Node/MongoDB cases and one Chromium DDP case pass, covering malformed rows,
+query limits, access revocation, member denial, private-field exclusion and
+pagination. The source audit completes with advisory warnings. The Admin Panel
+view, operator resolution and automatic job integration remain TODO; this
+backend exposes no retry, discard or acknowledgement mutation.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ab81fcede">Connect durable email receipts through stored rule and activity delivery</a>. Thanks to xet7.</summary>
