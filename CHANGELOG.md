@@ -133,10 +133,15 @@ first persisted ID instead of overwriting each other. Ownership checks and
 cleanup match the captured before/after values and revisions, so a replaced
 plan cannot authorize an old worker. Twenty-six Node/MongoDB cases and eight
 Chromium cases pass, including separate-client upgrades and legacy browser
-recovery. Same-operation worker serialization remains unfinished. Failed or
-damaged records retain the recovery checkpoint. Successful insert replies
-now require
-the same persisted-event verification; missing rows and failed confirmation
+recovery. Already-applied content now also requires the exact expected
+revision: unchanged steps retain the original revision, updates advance once
+and recreated records start at one. Newer revisions with identical values
+retain the checkpoint instead of acknowledging stale recovery. Thirty-four
+Node/MongoDB cases and nine Chromium cases pass across all Scrum record types.
+Same-operation worker serialization and deletion/recreation ambiguity remain
+unfinished. Failed or damaged records retain the recovery checkpoint.
+Successful insert replies now require the same persisted-event verification;
+missing rows and failed confirmation
 reads keep recovery pending. Finalization now verifies the source
 History row and persisted undo/redo state before deleting the exact operation's
 checkpoint. Retries preserve the original undo timestamp. Ordinary writes and
@@ -1538,6 +1543,23 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a0f84ac11">Verify revisions before acknowledging already-restored Scrum values</a>. Thanks to xet7.</summary>
+
+Matching target values alone could acknowledge an old recovery checkpoint
+after another writer returned to the same content at a newer revision. Require
+the exact original or expected post-write revision for unchanged, pending and
+applied steps. Cover Scrum metadata and planning records, reject invalid
+revision values, and verify before/after record identities before writes.
+
+Thirty-four Node/MongoDB cases and nine Chromium cases pass. Browser retries
+with identical content at a newer revision preserve the checkpoint, revision
+and History count; normal and interrupted undo/redo remain covered. The source
+audit has advisory warnings. Shared operation-level coordination, atomicity
+and distinguishing deletion from later create/delete cycles remain unfinished.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/eb91a68a5">Bind Scrum recovery ownership to its persisted checkpoint plan</a>. Thanks to xet7.</summary>
