@@ -164,22 +164,39 @@ test('a slow SMTP recipient remains visible while another recipient completes de
     await panel.locator('.js-table-page-search').fill(slowUser.id);
     await panel.locator('.js-table-page-search').press('Enter');
     await expect(panel).toContainText('Queued messages: 1');
+    if (process.env.WEKAN_TEST_MAIL_TOTAL_TIMEOUT === '1000') {
+      await expect.poll(() => db.findOne('notificationEmailJobs', { _id: slow })?.attempts).toBeGreaterThan(0);
+    }
     release();
     await expect.poll(() => db.findOne('notificationEmailJobs', { _id: slow })?.state, { timeout: 15000 }).toBe('sent');
     expect(sink.messages.filter(mail => mail.recipients.includes(fastUser.email))).toHaveLength(1);
-    expect(sink.messages.filter(mail => mail.recipients.includes(slowUser.email))).toHaveLength(1);
+    // With a short total deadline the held DATA acknowledgement expires while
+    // the administrator opens Recovery. Each persisted attempt may send the
+    // body once; an unconfirmed body must not suppress its eventual retry.
+    const receipt = db.findOne('notificationEmailJobs', { _id: slow });
+    expect(sink.messages.filter(mail => mail.recipients.includes(slowUser.email)))
+      .toHaveLength(receipt.cycleAttempts);
+    expect(receipt.cycleAttempts).toBe(receipt.attempts + 1);
+    if (process.env.WEKAN_TEST_MAIL_TOTAL_TIMEOUT === '1000') expect(receipt.attempts).toBeGreaterThan(0);
   } finally {
     release(); await sink.close();
     db.deleteMany('notificationEmailJobs', { _id: { $in: [slow, fast] } });
   }
 });
 
-for (const phase of ['greeting', 'idle']) test(`SMTP ${phase} timeout closes the socket and retains delivery for retry`, async ({ page, adminUser, user2 }) => {
-  test.skip(process.env.WEKAN_TEST_MAIL_TIMEOUTS !== '1000', 'Start app with one-second greeting/socket limits');
+for (const phase of ['greeting', 'idle', 'total']) test(`SMTP ${phase} timeout closes the socket and retains delivery for retry`, async ({ page, adminUser, user2 }) => {
+  test.skip(phase === 'total' ? process.env.WEKAN_TEST_MAIL_TOTAL_TIMEOUT !== '1000' :
+    process.env.WEKAN_TEST_MAIL_TIMEOUTS !== '1000',
+    'Use one-second total timeout with TLS override and longer phase limits, or one-second phase limits');
   let recovered = false, release;
   const held = new Promise(resolve => { release = resolve; });
   const sink = await smtpSink(Number(process.env.WEKAN_TEST_SMTP_PORT), {
     greet: () => phase !== 'greeting' || recovered,
+    onMessage: (message, socket) => {
+      if (phase !== 'total' || recovered) return;
+      const timer = setInterval(() => socket.write('250-still processing\r\n'), 10);
+      socket.on('close', () => clearInterval(timer));
+    },
     accept: async () => { if (!recovered) await held; return true; },
   });
   const id = db.uid(`timeout-${phase}`);
@@ -190,6 +207,7 @@ for (const phase of ['greeting', 'idle']) test(`SMTP ${phase} timeout closes the
     const pending = db.findOne('notificationEmailJobs', { _id: id });
     expect(pending.state).toBe('pending'); expect(pending.html).toBe('PRIVATE-QUEUE-BODY');
     expect(pending.lastFailure).toBe('delivery-failed');
+    if (phase === 'total') expect(sink.messages).toHaveLength(1);
     await loginWithToken(page, adminUser.id, adminUser.token);
     await navigateInApp(page, '/admin/problems/recovery');
     const panel = page.locator('.email-recovery-reports');

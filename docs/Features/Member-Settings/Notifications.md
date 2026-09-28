@@ -84,3 +84,24 @@ The test binds a local SMTP capture server and never relays mail. The app must
 already be ready and connected to the fixture database. Without the explicit
 SMTP port the delivery spec skips; that is not a delivery verification. This
 covers SMTP acceptance, not delivery by an external provider to a real inbox.
+
+The total-deadline recovery scenario uses the same isolated app and fixture
+port, with these additional app environment variables:
+
+```sh
+export MAIL_TLS_SERVERNAME=localhost
+export MAIL_TOTAL_TIMEOUT_MS=1000
+export MAIL_GREETING_TIMEOUT_MS=5000
+export MAIL_SOCKET_TIMEOUT_MS=5000
+```
+
+Run `email-recovery-controls.e2e.js` with `WEKAN_TEST_SMTP_PORT=2525` and
+`WEKAN_TEST_MAIL_TOTAL_TIMEOUT=1000`. Its total-timeout case sends continuous
+SMTP reply bytes, verifies socket closure and the retained pending payload,
+checks the retry count in Admin Panel → Problems → Recovery, then permits a
+retry and verifies that acceptance replaces the payload with a receipt. The
+longer phase limits ensure this exercises the total deadline. This setup tests
+the TLS-override transport; the ordinary native MAIL_URL path does not yet have
+an absolute deadline. The full-app Meteor suite `SMTP total deadline in Meteor`
+also checks Admin Panel transport installation and the real `Email.sendAsync`
+path without replacing Nodemailer.
