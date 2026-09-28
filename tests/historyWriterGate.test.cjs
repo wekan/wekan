@@ -112,3 +112,16 @@ test('recovery CLI defaults to inspection and requires explicit offline retireme
     ['--board', 'b', '--retire', randomUUID()], ['--board', 'b', '--board', 'c'],
     ['--board', 'b', '--migration', randomUUID()], ['--oops']]) assert.throws(() => parse(args));
 });
+test('migration requires deployment exclusion and CLI rejects ambiguous maintenance actions', async () => {
+  const { migrateHistoryChain } = require('../server/lib/historyChainMigration');
+  const f = fixture();
+  await assert.rejects(migrateHistoryChain(f.options), /deployment-guard-required/);
+  await assert.rejects(migrateHistoryChain({ ...f.options, assertDeploymentExclusive: async () => { throw Error('old writers'); } }), /old writers/);
+  assert.equal(f.rows.size, 0);
+  const { parse } = require('../releases/recover-history-writer.cjs');
+  const migrationId = randomUUID();
+  assert.equal(parse(['--board', 'b', '--migrate', migrationId, '--offline']).migrationId, migrationId);
+  for (const args of [['--board', 'b', '--migrate', migrationId],
+    ['--board', 'b', '--migrate', migrationId, '--retire', randomUUID(), '--offline'],
+    ['--board', 'b', '--migrate', migrationId, '--migration', migrationId, '--offline']]) assert.throws(() => parse(args));
+});

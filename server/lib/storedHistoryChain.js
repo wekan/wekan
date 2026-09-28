@@ -6,7 +6,8 @@ import { ensureIndex } from '/server/lib/mongoStartup';
 const { EJSON } = require('bson');
 const { appendHistoryChain, historyChainId, validateHistoryChainHead } = require('./historyChainAppend');
 const { initializeHistoryChain } = require('./historyChainBootstrap');
-const { withHistoryWriter, beginHistoryMigration, finishHistoryMigration } = require('./historyWriterGate');
+const { withHistoryWriter } = require('./historyWriterGate');
+const { migrateHistoryChain } = require('./historyChainMigration');
 
 export const HistoryWriterGates = new Mongo.Collection('historyWriterGates');
 HistoryWriterGates.deny({ insert: () => true, update: () => true, remove: () => true });
@@ -73,21 +74,8 @@ ChangeHistory.withHistoryWriter = async ({ boardId, row, write, legacy }) => {
 
 // No automatic rollout: callers must prove older server versions cannot write.
 // Drain/resume uses the same durable migration UUID, never a timed takeover.
-export async function migrateStoredHistoryChain({ boardId, migrationId, assertDeploymentExclusive }) {
-  if (typeof assertDeploymentExclusive !== 'function') throw new Error('history-writer-deployment-guard-required');
-  await assertDeploymentExclusive();
-  const options = { gates: HistoryWriterGates.rawCollection(), boardId, migrationId };
-  const migration = await beginHistoryMigration(options);
-  if (migration.complete) {
-    const head = await HistoryChainHeads.rawCollection().findOne({ _id: historyChainId(boardId) });
-    validateHistoryChainHead(head, boardId); await assertDeploymentExclusive(); return migrationId;
-  }
-  const assertExclusive = async () => { await assertDeploymentExclusive(); await migration.assertExclusive(); };
-  await initializeStoredHistoryChain({ boardId, assertExclusive });
-  await finishHistoryMigration({ ...options, assertHeadReady: async () => {
-    await assertExclusive();
-    const head = await HistoryChainHeads.rawCollection().findOne({ _id: historyChainId(boardId) });
-    validateHistoryChainHead(head, boardId); await assertExclusive();
-  } });
-  await assertDeploymentExclusive(); return migrationId;
+export function migrateStoredHistoryChain({ boardId, migrationId, assertDeploymentExclusive }) {
+  return migrateHistoryChain({ gates: HistoryWriterGates.rawCollection(),
+    heads: HistoryChainHeads.rawCollection(), history: ChangeHistory.rawCollection(),
+    boardId, migrationId, assertDeploymentExclusive });
 }

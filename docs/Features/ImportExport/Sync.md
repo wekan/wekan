@@ -976,7 +976,10 @@ and permanent switching to actual private collections. It requires a stable
 migration UUID and `assertDeploymentExclusive`: the caller must exclude old
 server versions and every writer outside this admission path throughout the
 transition. No automatic migration, DDP method or deployment-exclusion detector
-is provided. Completed retries validate the existing head.
+is provided. Completed retries validate the existing head. Before switching,
+the shared migration routine rescans actual History and requires its head to
+match the stored head with no pending append. A stale but structurally valid
+head cannot authorize migration.
 
 Full-app tests migrate an ordinary History row, append ten concurrent records
 and verify one complete chain; removing the head refuses later recording
@@ -1029,3 +1032,40 @@ in separate processes after an insert with a lost reply, verify unchanged
 History, reject missing offline confirmation/wrong ownership and bootstrap the
 persisted row after retirement. Missing-row replay and online recovery remain
 unfinished. There is no browser recovery action.
+
+### Offline board migration to coordinated History
+
+After upgrading every application instance, stop all writers and keep them
+stopped until this maintenance finishes. Supply a new lowercase UUID once for
+the migration, save it, and reuse it for every retry:
+
+```sh
+node releases/recover-history-writer.cjs --board BOARD_ID \
+  --migrate MIGRATION_UUID --offline
+```
+
+`MONGO_URL` must explicitly name the database. Use `--null-board` for global
+History. This is an explicit permanent switch for one scope, not an automatic
+rollout. Do not restart older application versions or writers that bypass the
+admission/coordinated append path afterward.
+
+The command uses the same migration routine as the server. It closes legacy
+admission, drains registered writers, bootstraps the head from validated History
+and then switches to coordinated mode. Uncertain tokens stop it in `draining`;
+inspect and retire only confirmed stopped writers as described above, then
+retry with the same migration UUID. A different UUID cannot take over.
+
+Malformed chains, forks, missing predecessors, stale stored heads and pending
+appends prevent the switch. A failed bootstrap retains `migrating` ownership
+for inspection and retry. Neither the command nor a retry repairs, deletes or
+silently resets History or an existing head. The scan remains bounded to
+100,000 rows and 128 MiB; larger histories require a separate reviewed workflow.
+A completed retry validates the head and preserves coordinated mode. Ordinary
+writes after application restart use the coordinated writer for that board.
+
+Tests run the actual command in separate processes across drain, token
+retirement, failed stale-head verification and resume; they then append through
+the ordinary writer-admission interface. Empty global History is supported.
+Forked History is rejected without changing its rows or creating a head.
+This command does not recover missing records, coordinate redo/undo operations,
+provide multi-row Sync reservations or enable archive jobs automatically.

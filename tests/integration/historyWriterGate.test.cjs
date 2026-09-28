@@ -75,3 +75,63 @@ test('offline command inspects and retires a lost-reply token without changing s
     boardId, assertExclusive: reservation.assertExclusive });
   assert.equal(head.hash, row.integrityHash);
 });
+
+test('offline migration command resumes ownership, verifies actual head and enables coordinated writers', { skip: !uri }, async t => {
+  const exec = require('node:util').promisify(require('node:child_process').execFile);
+  const client = await new MongoClient(uri).connect();
+  const db = client.db(`history_migrate_${new ObjectId().toHexString()}`);
+  t.after(async () => { await db.dropDatabase(); await client.close(); });
+  const url = new URL(uri); url.pathname = `/${db.databaseName}`;
+  const run = args => exec(process.execPath, [require('node:path').resolve(__dirname, '../../releases/recover-history-writer.cjs'), ...args],
+    { env: { ...process.env, MONGO_URL: url.toString() } });
+  const gates = db.collection('historyWriterGates'), heads = db.collection('historyChainHeads'), history = db.collection('changeHistory');
+  const boardId = 'board', migrationId = randomUUID();
+  const row = { _id: 'old', boardId, entityType: 'card', entityId: 'card', userId: 'actor',
+    newContent: { field: 'title', value: 'saved' }, createdAt: new Date(), previousHash: null, isCheckpoint: false };
+  row.integrityHash = hashHistoryRow(row);
+  let writerId;
+  await assert.rejects(write({ gates, boardId, writeCoordinated: () => assert.fail(), writeLegacy: async writer => {
+    writerId = writer.writerId; await history.insertOne(row); throw Error('uncertain');
+  } }), /uncertain/);
+  const args = ['--board', boardId, '--migrate', migrationId, '--offline'];
+  await assert.rejects(run(args.slice(0, -1)));
+  assert.equal((await gates.findOne({ boardId })).mode, 'legacy');
+  await assert.rejects(run(args));
+  assert.equal((await gates.findOne({ boardId })).mode, 'draining');
+  await run(['--board', boardId, '--retire', writerId, '--migration', migrationId, '--offline']);
+  // Simulate a structurally valid head from an earlier interrupted setup that
+  // omitted the actual legacy row. It must not be trusted or reset silently.
+  const stale = { _id: historyChainId(boardId), version: 1, boardId, hash: null, pending: null, pendingHash: null };
+  await heads.insertOne(stale);
+  await assert.rejects(run(args));
+  assert.equal((await gates.findOne({ boardId })).mode, 'migrating');
+  assert.deepEqual(await heads.findOne({ boardId }), stale);
+  assert.deepEqual(await history.findOne({ _id: 'old' }), row);
+  // Restore the fixture's correct saved head, as if the preceding interrupted
+  // initialization had completed. The command itself never repairs this data.
+  await heads.updateOne({ boardId }, { $set: { hash: row.integrityHash } });
+  const wrong = [...args]; wrong[3] = randomUUID();
+  await assert.rejects(run(wrong));
+  assert.equal(JSON.parse((await run(args)).stdout), migrationId);
+  assert.equal((await gates.findOne({ boardId })).mode, 'coordinated');
+  assert.equal(JSON.parse((await run(args)).stdout), migrationId);
+  const next = { ...row, _id: 'next', newContent: { field: 'title', value: 'new' } };
+  delete next.previousHash; delete next.integrityHash;
+  await write({ gates, boardId, writeLegacy: () => assert.fail('legacy fallback'),
+    writeCoordinated: () => appendHistoryChain({ heads, history, row: next,
+      initialHash: row.integrityHash, assertCurrent: async () => {} }) });
+  assert.equal((await history.findOne({ _id: 'next' })).previousHash, row.integrityHash);
+  const nullId = randomUUID();
+  await run(['--null-board', '--migrate', nullId, '--offline']);
+  assert.equal((await heads.findOne({ _id: historyChainId(null) })).hash, null);
+  assert.equal((await gates.findOne({ boardId: null })).mode, 'coordinated');
+  const forkBoard = 'fork', forkId = randomUUID();
+  for (const id of ['a', 'b']) {
+    const branch = { ...row, _id: id, boardId: forkBoard, newContent: { field: 'title', value: id } };
+    branch.integrityHash = hashHistoryRow(branch); await history.insertOne(branch);
+  }
+  await assert.rejects(run(['--board', forkBoard, '--migrate', forkId, '--offline']));
+  assert.equal((await gates.findOne({ boardId: forkBoard })).mode, 'migrating');
+  assert.equal(await heads.findOne({ boardId: forkBoard }), null);
+  assert.equal(await history.countDocuments({ boardId: forkBoard }), 2);
+});
