@@ -308,9 +308,15 @@ Email scans now select up to 100 distinct due recipients and run four workers
 per application process. A large backlog cannot hide other recipients behind
 the former 100-message selection limit. Overlapping scans share one pass.
 Nine focused Node suites and fourteen Chromium cases pass, including a slow
-SMTP recipient while another recipient completes delivery. Receipt retention,
-transport timeouts, deployment-wide concurrency and coordinating activity
-creation with queue insertion remain pending.
+SMTP recipient while another recipient completes delivery.
+SMTP DNS, connection and greeting waits now default to 30 seconds, and idle
+connections to two minutes. Validated environment variables configure each
+limit. Native Meteor SMTP routing is preserved; TLS overrides and Admin Panel
+providers receive the same limits. Eleven focused Node suites and fifteen
+Chromium cases pass, including actual socket closure and eventual delivery
+after missing greetings and idle SMTP responses. Receipt retention, an absolute
+delivery deadline with cancellation, deployment-wide concurrency and
+coordinating activity creation with queue insertion remain pending.
 History field snapshots now preserve nested dates, including date-valued
 custom fields alongside mapped estimates. JSON transport and restoration retain
 Date types without interpreting date-looking text. Existing rows whose dates
@@ -1049,8 +1055,9 @@ operator recovery, permissions, request replay and report privacy. Source audit
 passes with advisory fingerprint changes. The separate stopped-app startup
 harness was not rerun. Other browsers, FerretDB and external SMTP remain
 unverified.
-Delivery remains at least once. Retention, transport timeouts/concurrency and
-atomic activity-to-queue integration remain in TODO Later.
+Delivery remains at least once. Retention, absolute delivery deadlines,
+deployment-wide concurrency and atomic activity-to-queue integration remain
+in TODO Later.
 
 </details>
 
@@ -1073,9 +1080,40 @@ notification and recovery scenarios pass. Source audit passes with advisory
 fingerprint changes; the separate startup-only harness was not rerun.
 
 The limit is per application process. A pass still waits for active transports
-before polling again; transport timeouts and a deployment-wide connection
-limit remain pending, along with retention and durable activity integration.
+before polling again. An absolute delivery deadline and a deployment-wide
+connection limit remain pending, along with retention and durable activity
+integration.
 Other browsers, FerretDB and external SMTP providers remain unverified.
+
+</details>
+
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9758886cf">Close unresponsive SMTP connections with configurable timeouts</a>. Thanks to xet7.</summary>
+
+Apply finite DNS, TCP connection, greeting and idle limits to SMTP URLs,
+certificate overrides and Admin Panel providers. DNS, connection and greeting
+waits default to 30 seconds; idle connections default to two minutes. Each
+process environment setting accepts 1000–900000 milliseconds. Invalid values
+are rejected, and URL timeout parameters cannot disable the policy.
+
+Keep Meteor's native transport and mail plugins for standard SMTP URLs.
+TLS overrides refresh their transport after URL changes, and Sandstorm mail
+updates reapply the limits. The operator guide documents configuration and
+explains that other direct email callers retain their existing error handling.
+
+Eleven focused Node suites and fifteen Chromium cases pass with local MongoDB
+and SMTP. Tests cover settings, preserved URL options, TLS verification and
+actual connection closure after missing greetings or idle replies. Queued
+payloads survive the failure, appear as retrying in Recovery and are delivered
+when SMTP recovers. Source audit passes with advisory fingerprint changes.
+The separate startup-only harness, other browsers, FerretDB, external SMTP
+providers and live Sandstorm were not exercised.
+
+These are phase and inactivity limits. An absolute delivery deadline with
+cancellation against a continuously active peer remains pending, as do receipt
+retention, deployment-wide concurrency and durable activity integration. Legacy
+non-SMTP URL schemes and third-party custom transports retain their own policy.
 
 </details>
 
