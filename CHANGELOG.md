@@ -1286,8 +1286,9 @@ Sync commands now persist and verify their source chain before dispatch;
 legacy unbound commands require future operator recovery. Details also
 includes persisted Flowtime/Pomodoro sessions and recurrence fields. Voting
 counts, public voter names and completed Poker results now follow disclosure
-settings, including persisted checks for stored commands. Scrum fields and
-linked-board voting remain),
+settings, including persisted checks for stored commands. Linked-board voting
+now uses current target results and both boards' visibility settings. Scrum
+fields remain),
 [#3195](https://github.com/wekan/wekan/issues/3195) (rule action/trigger
 values should be able to reference a custom field's value — today's action
 and trigger value inputs are plain literals; resolving a per-board custom
@@ -1458,7 +1459,8 @@ linked-source content. Stored Sync commands now persist and revalidate their
 source chain; legacy unbound-command recovery remains pending. Specialized
 Timer and recurrence snapshots now have Details and SMTP coverage. Card voting
 and completed Poker results also have disclosure checks and SMTP coverage;
-Scrum fields and linked-board voting remain for the full-content audit.).
+Linked-board voting now follows target policy with stored checks. Scrum fields
+remain for the full-content audit.).
 
 </details>
 
@@ -1538,6 +1540,25 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0b86c92de">Include linked-board voting in rule email details</a>. Thanks to kabi178, bbyszio and xet7.</summary>
+
+Read voting and Poker results from the authorized linked board, retaining
+public-name and completed-Poker disclosure rules. Respect hidden sections on
+both the wrapper board and target board. Reject visibility changes during
+preparation. Version-three source bindings persist target voting policy
+separately from the card chain and recheck it before stored dispatch. Older
+bindings remain readable for snapshots captured before linked-board voting.
+
+Fifty-seven Node suites pass without skips, including MongoDB and native
+MailComposer checks. Additional source-binding schema tests pass. Three
+Chromium scenarios pass with local SMTP, including live linked-board results,
+private voter names being omitted and reopened Poker results being hidden.
+Existing Upcoming regression evidence remains recorded. Scrum content and
+legacy command recovery remain open; the overall TODO Later work continues.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/952cb16a7">Include voting and Poker results in rule email details</a>. Thanks to kabi178, bbyszio and xet7.</summary>
