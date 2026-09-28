@@ -8,6 +8,9 @@ template(name="mailActions")
       input(id="email-subject",type=text,placeholder="{{_'r-subject'}}")
       textarea(id="email-msg" data-editor-submit=".js-mail-action")
       label
+        input#email-card-details(type="checkbox")
+        | {{_ 'details'}}
+      label
         input#email-discussion(type="checkbox")
         | {{_ 'checklists'}} / {{_ 'comments'}}
       label

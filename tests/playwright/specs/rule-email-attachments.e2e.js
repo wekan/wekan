@@ -30,6 +30,11 @@ test(`email rule form and SMTP carry only live triggering-card bytes from ${back
     db.insertOne('checklists', { _id: `${id}-checklist`, cardId: card._id, title: 'Email checklist', sort: 0 });
     db.insertOne('checklistItems', { _id: `${id}-item`, cardId: card._id, checklistId: `${id}-checklist`, title: 'Reviewed task', isFinished: true, sort: 0 });
     db.insertOne('card_comments', { _id: `${id}-comment`, cardId: card._id, boardId: board.boardId, text: 'Public email comment', createdAt: new Date(), modifiedAt: new Date(), webhookResponsePending: 'NEVER-MAIL-PRIVATE-STATE' });
+    db.updateOne('cards', { _id: card._id }, { $set: { dueAt: new Date('2027-02-01'), spentTime: 0,
+      customFields: [{ _id: `${id}-field`, value: 'high' }] } });
+    db.insertOne('customFields', { _id: `${id}-field`, boardIds: [board.boardId], name: 'Mail priority', type: 'dropdown',
+      settings: { dropdownItems: [{ _id: 'high', name: 'High priority' }] } });
+    db.insertOne('card_text_notes', { _id: `${id}-note`, cardId: card._id, boardId: board.boardId, title: 'Mail note', text: 'Visible note content', createdAt: new Date() });
     await navigateInApp(page, `/b/${board.boardId}/${board.slug}/rules`);
     await page.locator('#ruleTitle').fill('Email card files');
     await page.locator('.js-goto-trigger').click();
@@ -42,6 +47,8 @@ test(`email rule form and SMTP carry only live triggering-card bytes from ${back
     await expect(page.locator('#email-attachments')).not.toBeChecked();
     await expect(page.locator('#email-discussion')).not.toBeChecked();
     await page.locator('#email-discussion').check();
+    await expect(page.locator('#email-card-details')).not.toBeChecked();
+    await page.locator('#email-card-details').check();
     await page.locator('#email-attachments').focus();
     await page.keyboard.press('Space');
     await expect(page.locator('#email-attachments')).toBeChecked();
@@ -51,6 +58,7 @@ test(`email rule form and SMTP carry only live triggering-card bytes from ${back
     const action = db.findOne('actions', { _id: rule.actionId });
     expect(action.includeAttachments).toBe(true);
     expect(action.includeChecklistsAndComments).toBe(true);
+    expect(action.includeCardDetails).toBe(true);
     expect(action.desc.toLowerCase()).toContain('attachments');
     await call(page, 'rules.runButton', rule._id, card._id);
     const mails = () => sink.messages.filter(mail => mail.recipients.includes('attachments@example.invalid'));
@@ -61,18 +69,22 @@ test(`email rule form and SMTP carry only live triggering-card bytes from ${back
     expect(mails()[0].data).toContain('Email checklist');
     expect(mails()[0].data).toContain('[x] Reviewed task');
     expect(mails()[0].data).toContain('Public email comment');
+    expect(mails()[0].data).toContain('Due: 2027-02-01T00:00:00.000Z');
+    expect(mails()[0].data).toContain('Mail priority: High priority');
+    expect(mails()[0].data).toContain('Mail note: Visible note content');
     expect(mails()[0].data).not.toContain('NEVER-MAIL-PRIVATE-STATE');
     db.updateOne('attachments', { _id: id }, { $set: { deletedAt: new Date() } });
     await call(page, 'rules.runButton', rule._id, card._id);
     await expect.poll(() => mails().length).toBe(2);
     expect(mails()[1].data).not.toContain('report.bin');
     db.updateOne('attachments', { _id: id }, { $unset: { deletedAt: '' } });
-    db.updateOne('actions', { _id: rule.actionId }, { $set: { includeChecklistsAndComments: false } });
+    db.updateOne('actions', { _id: rule.actionId }, { $set: { includeChecklistsAndComments: false, includeCardDetails: false } });
     await call(page, 'rules.runButton', rule._id, card._id);
     await expect.poll(() => mails().length).toBe(3);
     expect(mails()[2].data).toContain('Requested card content');
     expect(mails()[2].data).not.toContain('Email checklist');
     expect(mails()[2].data).not.toContain('Public email comment');
+    expect(mails()[2].data).not.toContain('Mail priority');
     fs.unlinkSync(filename);
     if (backend === 'gridfs') { db.deleteMany('attachments.files', { _id: gridId }); db.deleteMany('attachments.chunks', { files_id: gridId }); }
     const error = await page.evaluate(async ({ ruleId, cardId }) => {
@@ -81,6 +93,7 @@ test(`email rule form and SMTP carry only live triggering-card bytes from ${back
     }, { ruleId: rule._id, cardId: card._id });
     expect(error).not.toBeNull(); expect(mails()).toHaveLength(3);
   } finally {
+    db.deleteOne('customFields', { _id: `${id}-field` });
     db.deleteMany('attachments', { _id: { $in: [id, foreignId] } });
     db.deleteMany('attachments.files', { _id: gridId }); db.deleteMany('attachments.chunks', { files_id: gridId });
     fs.rmSync(filename, { force: true }); await sink.close();

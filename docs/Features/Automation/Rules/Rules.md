@@ -92,8 +92,17 @@ order. Private webhook state is never included. Card access is rechecked after
 reading; oversized discussion text fails rather than being silently truncated.
 This option is independent of Attachments and is off for existing rules.
 
-Other card fields (such as dates, custom fields, notes and relationships) still
-need a complete representation for the full-card request in #2713.
+Enable **Details** to append board/list/swimlane names, dates, labels, members,
+assignees, requesters/assigners, time spent, locations, custom-field display
+values, text notes and readable parent/subtask/dependency titles. Admin-only
+custom fields require board-admin access. Account emails, tokens and private
+related-card titles are never included. Zero and false values are retained.
+Access and custom-field policy are checked again before preparation finishes.
+
+Linked cards/boards currently include only an authorized source title in this
+section; cached source metadata is not treated as permission to disclose it.
+Complete linked-source content and specialized fields such as Scrum and
+voting still need review for the full-card request in #2713.
 
 ### Copy a card after a trigger
 

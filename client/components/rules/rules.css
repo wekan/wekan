@@ -462,7 +462,8 @@
 
 /* Native, keyboard-accessible attachment choice in the mail action form. */
 .trigger-content-mail #email-attachments,
-.trigger-content-mail #email-discussion {
+.trigger-content-mail #email-discussion,
+.trigger-content-mail #email-card-details {
   display: inline-block;
   visibility: visible;
   position: static;
