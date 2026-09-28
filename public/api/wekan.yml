@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v12.08
+  version: v12.09
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -1680,7 +1680,7 @@ paths:
         - name: type
           in: formData
           description: |
-            relation type: related-to | blocks | is-blocked-by | fixes | is-fixed-by
+            relation type: related-to | blocks | is-blocked-by | fixes | is-fixed-by | duplicates | is-duplicated-by
           type: string
           required: false
         - name: color
@@ -1741,7 +1741,7 @@ paths:
         - name: type
           in: formData
           description: |
-            relation type: related-to | blocks | is-blocked-by | fixes | is-fixed-by
+            relation type: related-to | blocks | is-blocked-by | fixes | is-fixed-by | duplicates | is-duplicated-by
           type: string
           required: false
         - name: key
@@ -6170,6 +6170,12 @@ definitions:
         description: |
            the text of the comment
         type: string
+      webhookResponsePending:
+        type: object
+        x-nullable: true
+      webhookResponseRevision:
+        type: string
+        x-nullable: true
       parentId:
         description: |
            the _id of the comment this comment is a reply to (threaded replies).
@@ -6252,6 +6258,9 @@ definitions:
       color:
         type: string
         x-nullable: true
+      listEnteredAt:
+        type: string
+        x-nullable: true
       createdAt:
         description: |
            creation date
@@ -6307,6 +6316,9 @@ definitions:
       assignedBy:
         description: |
            display name entered manually or copied from the selected user
+        type: string
+        x-nullable: true
+      syncSourceKey:
         type: string
         x-nullable: true
       syncLastSource:
@@ -6669,6 +6681,18 @@ definitions:
       title:
         type: string
       description:
+        type: string
+      estimate:
+        type: number
+      originalEstimate:
+        type: number
+      remainingEstimate:
+        type: number
+      originalEstimateMapping:
+        type: string
+      remainingEstimateMapping:
+        type: string
+      estimateMapping:
         type: string
       spentTime:
         type: number
@@ -7199,6 +7223,18 @@ definitions:
            screen; kept in sync with DEFAULT_LIST_WIDTH in models/lib/listWidth.js.
         type: number
         x-nullable: true
+      syncRevision:
+        type: string
+        x-nullable: true
+      syncCredentialIncarnation:
+        type: string
+        x-nullable: true
+      syncCredentialGeneration:
+        type: number
+        x-nullable: true
+      syncCredentialFence:
+        type: string
+        x-nullable: true
       syncSource:
         $ref: "#/definitions/ListsSyncsource"
         x-nullable: true
@@ -7224,6 +7260,12 @@ definitions:
         description: |
            Jira project key, or "owner/repo" for GitHub/Gitea, or numeric project
            id for GitLab
+        type: string
+      timeMappingIdentities:
+        type: object
+      estimateCustomFieldId:
+        type: string
+      estimateMappingIdentity:
         type: string
       fields:
         type: array
@@ -7886,6 +7928,12 @@ definitions:
         description: |
            last time the user has been seen
         type: string
+        x-nullable: true
+      notificationDeliveryRevision:
+        type: string
+        x-nullable: true
+      notificationDeliveryPending:
+        type: object
         x-nullable: true
       isAdmin:
         description: |
