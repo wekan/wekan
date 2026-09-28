@@ -392,8 +392,18 @@ complete job without enqueuing it. It captures caller parameters, recipient
 identity/language and one settings/template snapshot before rendering, so
 asynchronous work cannot combine changed inputs. The ordinary subscriber uses
 that result unchanged. Thirteen Node suites, five full-app Meteor tests and
-three Chromium SMTP cases pass. Persisting frozen recipient/service plans and
-connecting them to saved Sync effects remain unfinished.
+three Chromium SMTP cases pass.
+An internal notification-plan component now captures bounded recipient/service
+snapshots, binds them to the full saved activity hash and persists them with a
+checksum. Concurrent builders retain the first stored plan; replay cannot
+re-render content or choose new recipients. The executor rechecks access and
+requires exact tray receipts and email-enqueue identities. Seven Node suites
+pass with real MongoDB, including dismissal between stages, interrupted email
+enqueue, changed activity, plan corruption and competing preparations. This
+uses the actual tray/outbox storage components but supplied preparation/access
+callbacks. Ordinary recipient selection, production plan storage lifecycle and
+saved Sync effect integration remain unfinished. Enqueue acknowledgement does
+not mean SMTP, rules or webhook completion.
 Activity notification and webhook payloads now preserve zero, false, empty
 text and explicit null, while absent values remain omitted. This fixes lost
 zero estimates and unchecked custom-field values. SMTP and HTTP-serialization
@@ -1072,6 +1082,35 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/276675bc7">Persist frozen notification plans for interrupted delivery</a>. Thanks to xet7.</summary>
+
+Capture recipient IDs, tray decisions and fully rendered email jobs in a
+bounded internal plan tied to the exact saved activity, actor, board and card.
+Reject duplicate recipients, foreign job identities, unknown fields and plans
+above 15 MiB. Persist a checksum and read back uncertain writes; concurrent
+preparations use the first stored snapshot. Invalid saved evidence is refused
+instead of rebuilding recipients or content.
+
+Resume each recipient through the actual tray receipt and email outbox
+interfaces, requiring their exact stable identities. Recheck ownership and
+recipient access around each stage. A lost email-stage attempt can resume
+without restoring a dismissed tray entry or inserting duplicate email jobs.
+This acknowledges durable enqueue only, not SMTP acceptance or rule/webhook
+completion.
+
+Seven focused Node suites pass with real MongoDB. Coverage includes captured
+inputs, malformed and oversized plans, missing adapters, incorrect receipts,
+revoked access, interruption between services, lost plan insertion replies,
+changed activity, corrupted checksums and competing rendered snapshots. The
+source audit passes with informational fingerprint advisories.
+
+The component is internal; no production UI or dispatch path changes here.
+Ordinary recipient selection, production plan storage lifecycle, Sync effect
+integration and durable rule/webhook handling remain in TODO Later.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b42815691">Prepare captured email content before queue insertion</a>. Thanks to xet7.</summary>
