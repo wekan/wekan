@@ -322,6 +322,13 @@ Node/MongoDB cases, one full-app case and two Chromium cases pass, including
 six concurrent schema-backed writes and denied browser access across all 18
 private recovery collections. Ordinary writer switching, bootstrap exclusion
 and redo coordination remain unfinished.
+A persistent admission gate now drains participating legacy History writers
+before granting migration ownership. New writers are refused during draining;
+existing writers finish, and a verified head enables only the coordinated path.
+Failed writes retain their tokens without expiry. Eighteen Node/MongoDB cases
+pass, including separate clients across drain/bootstrap/append. Production
+writer binding, retained-token recovery and mixed-version rollout handling
+remain unfinished; the gate is not yet installed in ChangeHistory.record.
 Creation units now preserve the ordinary createCard activity payload in a
 bounded private plan with a stable ID and captured names/timestamps. Readback
 confirms insertion, but the journal cannot advance until a separate durable
@@ -1491,6 +1498,23 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/54a4ef069">Drain History writers before granting persistent migration ownership</a>. Thanks to xet7.</summary>
+
+Register participating legacy writers with exact tokens and close admission
+when migration begins. Let existing writers finish before granting exclusive
+bootstrap access; switch to coordinated writes only after head verification.
+Keep uncertain writer tokens and migration ownership without expiry, reconcile
+lost replies, and refuse takeover by a different migration ID.
+
+Eighteen History Node/MongoDB cases pass, including six new admission cases.
+Separate clients finish an old row, bootstrap its actual head and append via
+the coordinated path. The source audit has advisory warnings. No UI flow
+changes; server/ordinary-writer binding, retained-token recovery and
+mixed-version rollout handling remain unfinished.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e56dac26a">Bind coordinated History appends to private heads and schema validation</a>. Thanks to xet7.</summary>
