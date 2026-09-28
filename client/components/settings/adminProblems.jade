@@ -303,7 +303,11 @@ template(name="activityNotificationRecoveryRow")
       if cardId
         p.quiet {{_ 'card'}}: {{cardId}}
     td {{boardId}}
-    td {{_ statusLabel}}
+    td
+      p {{_ statusLabel}}
+      if paused
+        p {{_ 'activity-recovery-paused'}}
     td {{createdText}}
     td
+      button.js-control-activity-notification(type="button" disabled=controlDisabled) {{_ controlLabel}}
       button.js-retry-activity-notification(type="button" disabled=retryDisabled) {{_ 'activity-recovery-retry'}}

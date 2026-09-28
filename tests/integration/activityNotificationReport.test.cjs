@@ -10,7 +10,7 @@ async function fixture(t) {
   const client = await new MongoClient(uri).connect();
   const db = client.db(`activity_report_${new ObjectId().toHexString()}`);
   t.after(async () => { await db.dropDatabase(); await client.close(); });
-  const f = Object.fromEntries(['intents', 'activities', 'plans', 'leases'].map(name => [name, db.collection(name)]));
+  const f = Object.fromEntries(['intents', 'activities', 'plans', 'leases', 'controls'].map(name => [name, db.collection(name)]));
   f.seed = async (id, status, boardId = 'board') => {
     const activity = { _id: id, boardId, cardId: 'card', createdAt: new Date(0), activityType: 'createCard', privateContent: 'PRIVATE BODY' };
     const activityHash = sha256(canonical(activity));
@@ -43,7 +43,7 @@ test('report classifies pending work without returning saved snapshots, recipien
     const row = result.rows.find(item => item.activityId === status);
     assert.equal(row.status, status);
     assert.equal(row.canRetry, ['pending', 'preparing'].includes(status));
-    assert.deepEqual(Object.keys(row).sort(), ['activityId', 'boardId', 'canRetry', 'cardId', 'createdAt', 'intentId', 'status']);
+    assert.deepEqual(Object.keys(row).sort(), ['activityId', 'boardId', 'canControl', 'canRetry', 'cardId', 'controlRevision', 'createdAt', 'intentId', 'paused', 'status']);
   }
   assert.doesNotMatch(JSON.stringify(result), /PRIVATE|recipients|activityHash|checksum|dispatchUserId/);
 });
@@ -62,4 +62,24 @@ test('report searches regex metacharacters literally, paginates ten rows and exc
   assert.equal(new Set([...first.rows, ...last.rows].map(row => row.intentId)).size, 13);
   const empty = await report(f, { search: 'absent', page: 9 });
   assert.deepEqual(empty, { total: 0, page: 1, rows: [] });
+});
+
+test('report exposes only hold state and revision, disables paused retry and rejects corrupt controls', { skip: !uri }, async t => {
+  const f = await fixture(t), intent = await f.seed('held', 'pending');
+  await f.controls.insertOne({ _id: intent._id, paused: true, revision: 7, requestId: 'private-request-12345678',
+    actorId: 'PRIVATE ACTOR', changedAt: new Date() });
+  let result = await report(f);
+  assert.equal(result.rows[0].paused, true);
+  assert.equal(result.rows[0].controlRevision, 7);
+  assert.equal(result.rows[0].canRetry, false);
+  assert.equal(result.rows[0].canControl, true);
+  assert.doesNotMatch(JSON.stringify(result), /PRIVATE|private-request|actorId|requestId|changedAt/);
+  await f.controls.updateOne({ _id: intent._id }, { $set: { paused: false } });
+  assert.equal((await report(f)).rows[0].canRetry, true);
+  await f.controls.updateOne({ _id: intent._id }, { $set: { revision: 'corrupt' } });
+  result = await report(f);
+  assert.equal(result.rows[0].status, 'invalid');
+  assert.equal(result.rows[0].canRetry, false);
+  assert.equal(result.rows[0].canControl, false);
+  assert.equal(result.rows[0].controlRevision, null);
 });

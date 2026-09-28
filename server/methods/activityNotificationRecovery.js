@@ -3,7 +3,8 @@ import { check } from 'meteor/check';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import Activities from '/models/activities';
 import { ActivityNotificationIntents } from '/server/notifications/activityIntents';
-import { ActivityNotificationPlans, ActivityNotificationLeases, resumeActivityNotifications } from '/server/notifications/activityPlans';
+import { ActivityNotificationPlans, ActivityNotificationLeases, ActivityNotificationControls, resumeActivityNotifications } from '/server/notifications/activityPlans';
+const { controlActivityNotification } = require('/server/lib/activityNotificationControl');
 const { activityNotificationReport } = require('/server/lib/activityNotificationReport');
 async function assertAdmin(userId) {
   const user = userId && await Meteor.users.findOneAsync(userId, { fields: { isAdmin: 1, loginDisabled: 1 } });
@@ -15,12 +16,31 @@ Meteor.methods({
     await assertAdmin(this.userId);
     try {
       const result = await activityNotificationReport({ intents: ActivityNotificationIntents.rawCollection(),
-        activities: Activities.rawCollection(), plans: ActivityNotificationPlans.rawCollection(), leases: ActivityNotificationLeases.rawCollection() }, query);
+        activities: Activities.rawCollection(), plans: ActivityNotificationPlans.rawCollection(), leases: ActivityNotificationLeases.rawCollection(),
+        controls: ActivityNotificationControls.rawCollection() }, query);
       await assertAdmin(this.userId);
       return result;
     } catch (error) {
       if (error.error === 'not-authorized') throw error;
       throw new Meteor.Error('activity-recovery-unavailable');
+    }
+  },
+  async controlActivityNotificationRecovery(request) {
+    check(request, { intentId: String, paused: Boolean, expectedRevision: Number, requestId: String });
+    await assertAdmin(this.userId);
+    try {
+      const result = await controlActivityNotification({ ...request, actorId: this.userId,
+        controls: ActivityNotificationControls.rawCollection(), intents: ActivityNotificationIntents.rawCollection(),
+        leases: ActivityNotificationLeases.rawCollection(), assertAdmin: () => assertAdmin(this.userId) });
+      await assertAdmin(this.userId);
+      return result;
+    } catch (error) {
+      if (error.error === 'not-authorized') throw error;
+      if (['sync-busy', 'sync-lease-lost'].includes(error.code)) throw new Meteor.Error('activity-recovery-busy');
+      if (['activity-notification-control-conflict', 'activity-notification-control-not-pending'].includes(error.message)) {
+        throw new Meteor.Error('activity-recovery-control-conflict');
+      }
+      throw new Meteor.Error('activity-recovery-control-failed');
     }
   },
   async retryActivityNotification(request) {
@@ -36,11 +56,12 @@ Meteor.methods({
       if (['sync-busy', 'sync-lease-lost'].includes(error.code)) throw new Meteor.Error('activity-recovery-busy');
       if (['activity-notification-recipient-denied', 'activity-notification-preference-changed'].includes(error.message)) throw new Meteor.Error('activity-recovery-denied');
       if (error.message === 'activity-notification-activity-unconfirmed') throw new Meteor.Error('activity-recovery-source-unavailable');
+      if (error.message === 'activity-notification-paused') throw new Meteor.Error('activity-recovery-paused');
       if (error.message === 'activity-notifications-disabled') throw new Meteor.Error('activity-recovery-disabled');
       throw new Meteor.Error('activity-recovery-failed');
     }
   },
 });
-for (const name of ['activityNotificationRecoveryReport', 'retryActivityNotification']) {
+for (const name of ['activityNotificationRecoveryReport', 'retryActivityNotification', 'controlActivityNotificationRecovery']) {
   DDPRateLimiter.addRule({ type: 'method', name, connectionId: () => true }, 30, 10000);
 }

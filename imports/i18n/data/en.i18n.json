@@ -3617,7 +3617,7 @@
   "activity-recovery-empty": "No pending activity notifications.",
   "activity-recovery-unavailable": "Could not load pending activity notifications.",
   "activity-recovery-retry": "Retry now",
-  "activity-recovery-retrying": "Retrying notification delivery…",
+  "activity-recovery-retrying": "Updating notification delivery…",
   "activity-recovery-status-pending": "Pending delivery",
   "activity-recovery-status-preparing": "Waiting for a recipient plan",
   "activity-recovery-status-processing": "Delivery reservation active",
@@ -3629,5 +3629,10 @@
   "activity-recovery-denied": "Recipient access or notification preferences no longer permit delivery.",
   "activity-recovery-source-unavailable": "The original activity is missing or has changed. Nothing was recreated.",
   "activity-recovery-disabled": "Activity notifications are disabled.",
-  "activity-recovery-failed": "Could not complete notification delivery. Pending work has been retained."
+  "activity-recovery-failed": "Could not complete notification delivery. Pending work has been retained.",
+  "activity-recovery-pause": "Pause delivery",
+  "activity-recovery-resume": "Resume delivery",
+  "activity-recovery-paused": "Activity notification delivery is paused.",
+  "activity-recovery-control-conflict": "This notification changed since it was loaded. Review the refreshed state before trying again.",
+  "activity-recovery-control-failed": "Could not confirm the delivery setting. Refresh and review its current state."
 }

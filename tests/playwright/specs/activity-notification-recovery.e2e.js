@@ -18,6 +18,7 @@ function seed(id, activity, recipients) {
 }
 function cleanup(ids) {
   db.deleteMany('activityNotificationIntents', { _id: { $in: ids.map(id => sha256(canonical(['activity-notification-intent', id]))) } });
+  db.deleteMany('activityNotificationControls', { _id: { $in: ids.map(id => sha256(canonical(['activity-notification-intent', id]))) } });
   db.deleteMany('activityNotificationLeases', { _id: { $in: ids.map(id => sha256(canonical(['activity-notification-intent', id]))) } });
   db.deleteMany('activityNotificationPlans', { _id: { $in: ids.map(planId) } });
   db.deleteMany('activities', { _id: { $in: ids } });
@@ -47,12 +48,12 @@ test('Recovery paginates pending activity summaries, disables orphan retries and
     await loginWithToken(page, user.id, user.token);
     const denied = await page.evaluate(async intentId => {
       const results = [];
-      for (const [method, request] of [['activityNotificationRecoveryReport', { search: '', page: 1 }], ['retryActivityNotification', { intentId }]]) {
+      for (const [method, request] of [['activityNotificationRecoveryReport', { search: '', page: 1 }], ['retryActivityNotification', { intentId }], ['controlActivityNotificationRecovery', { intentId, paused: true, expectedRevision: 0, requestId: 'a'.repeat(32) }]]) {
         try { await Meteor.callAsync(method, request); results.push('allowed'); } catch (error) { results.push(error.error); }
       }
       return results;
     }, sha256(canonical(['activity-notification-intent', ids[0]])));
-    expect(denied).toEqual(['not-authorized', 'not-authorized']);
+    expect(denied).toEqual(['not-authorized', 'not-authorized', 'not-authorized']);
     expect(db.find('activities', { _id: { $in: ids } })).toHaveLength(0);
   } finally { cleanup(ids); }
 });
@@ -70,6 +71,24 @@ test('manual retry delivers a stored plan once and removes completed work from t
     await panel.locator('.js-table-page-search').fill(id);
     await panel.locator('.js-table-page-search').press('Enter');
     await expect(panel.locator('tbody tr')).toHaveCount(1);
+    await panel.locator('.js-control-activity-notification').click();
+    await expect(panel).toContainText('Activity notification delivery is paused.');
+    await expect(panel.locator('.js-retry-activity-notification')).toBeDisabled();
+    const held = db.findOne('activityNotificationControls', { _id: intentId });
+    expect(held.revision).toBe(1);
+    await page.reload();
+    await panel.locator('.js-table-page-search').fill(id);
+    await panel.locator('.js-table-page-search').press('Enter');
+    await expect(panel).toContainText('Activity notification delivery is paused.');
+    await panel.locator('.js-control-activity-notification').click();
+    await expect(panel.locator('.js-retry-activity-notification')).toBeEnabled();
+    expect(db.findOne('activityNotificationControls', { _id: intentId }).revision).toBe(2);
+    const stale = await page.evaluate(async request => {
+      try { await Meteor.callAsync('controlActivityNotificationRecovery', request); return 'allowed'; }
+      catch (error) { return error.error; }
+    }, { intentId, paused: true, expectedRevision: 0, requestId: held.requestId });
+    expect(stale).toBe('activity-recovery-control-conflict');
+    expect(db.findOne('activityNotificationControls', { _id: intentId }).paused).toBe(false);
     await panel.locator('.js-retry-activity-notification').click();
     await expect(panel.locator('[role="alert"]')).toContainText('no longer permit delivery');
     expect(db.find('notificationEmailJobs', { eventId: id })).toHaveLength(0);

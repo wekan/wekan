@@ -11,8 +11,8 @@ function fixture(scenario, failure) {
         loginDisabled: scenario === 'disabled' }),
     }, Error: class extends Error { constructor(code) { super(code); this.error = code; } } },
     check() {}, DDPRateLimiter: { addRule: (...args) => rules.push(args) },
-    Activities: collection, ActivityNotificationIntents: collection, ActivityNotificationPlans: collection, ActivityNotificationLeases: collection,
-    require: () => ({ activityNotificationReport: async () => { reads++; if (failure) throw failure; return { rows: [], total: 0 }; } }),
+    Activities: collection, ActivityNotificationIntents: collection, ActivityNotificationPlans: collection, ActivityNotificationLeases: collection, ActivityNotificationControls: collection,
+    require: () => ({ controlActivityNotification: async options => { await options.assertAdmin(); if (failure) throw failure; writes++; return { revision: 1, paused: true }; }, activityNotificationReport: async () => { reads++; if (failure) throw failure; return { rows: [], total: 0 }; } }),
     resumeActivityNotifications: async (id, options) => { await options.assertAllowed(); if (failure) throw failure; writes++; return 'completed'; },
   };
   vm.runInNewContext(fs.readFileSync(require.resolve('../server/methods/activityNotificationRecovery.js'), 'utf8').replace(/^import .*;\n/gm, ''), context);
@@ -34,7 +34,7 @@ test('manual retry rechecks administrator access inside its reservation', async 
     if (scenario === 'admin') assert.equal((await call()).status, 'completed');
     else await assert.rejects(call(), /not-authorized/);
     assert.equal(f.count().writes, scenario === 'admin' ? 1 : 0);
-    assert.deepEqual(f.rules.map(rule => rule[0].name), ['activityNotificationRecoveryReport', 'retryActivityNotification']);
+    assert.deepEqual(f.rules.map(rule => rule[0].name), ['activityNotificationRecoveryReport', 'retryActivityNotification', 'controlActivityNotificationRecovery']);
     for (const rule of f.rules) assert.deepEqual(rule.slice(1), [30, 10000]);
   }
 });
@@ -62,4 +62,21 @@ test('invalid identities never enter delivery and private errors never reach cli
 });
 test('the server entry graph registers both recovery methods', () => {
   assert.match(fs.readFileSync(require.resolve('../server/imports.js'), 'utf8'), /import '\/server\/methods\/activityNotificationRecovery';/);
+});
+
+test('pause/resume requires current enabled admin access and hides internal errors', async () => {
+  const request = { intentId: 'a'.repeat(64), paused: true, expectedRevision: 0, requestId: 'a'.repeat(32) };
+  for (const scenario of ['admin', 'ordinary', 'anonymous', 'disabled', 'revoked']) {
+    const f = fixture(scenario);
+    const call = () => f.methods.controlActivityNotificationRecovery.call({ userId: scenario === 'anonymous' ? null : 'admin' }, request);
+    if (scenario === 'admin') assert.equal((await call()).paused, true);
+    else await assert.rejects(call(), /not-authorized/);
+    assert.equal(f.count().writes, scenario === 'admin' ? 1 : 0);
+  }
+  for (const [message, expected] of [['activity-notification-control-conflict', 'conflict'],
+    ['activity-notification-control-not-pending', 'conflict'], ['PRIVATE DATA', 'failed']]) {
+    const f = fixture('admin', new Error(message));
+    await assert.rejects(f.methods.controlActivityNotificationRecovery.call({ userId: 'admin' }, request),
+      error => error.error === `activity-recovery-control-${expected}`);
+  }
 });

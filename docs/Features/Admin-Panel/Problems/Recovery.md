@@ -281,20 +281,23 @@ queue writes; SMTP delivery is tracked separately in the email queue.
 The table's status is a snapshot of recovery metadata. “Pending delivery” does
 not certify the complete stored payload or current recipient permissions;
 retry validates those before each effect and reports a safe failure message.
-Missing or changed activities are never recreated. Holds, cancellation and
-resolution of orphaned intents are not implemented here; unresolved payloads
-remain retained for later operator handling.
+Missing or changed activities are never recreated. Cancellation and resolution
+of orphaned intents are not implemented here; unresolved payloads remain
+retained for later operator handling.
 
-### Persistent activity holds (UI integration pending)
+### Pause and resume activity notifications
 
 `server/lib/activityNotificationControl.js` provides the storage primitive for
 activity pause/resume controls. Production delivery now reads the private
 `activityNotificationControls` collection before preparation and local effects.
 Both immediate ordinary delivery and manual/background recovery honor holds;
 automatic scanning skips held work and continues to later pending intents.
-Malformed control state stops delivery. The Recovery UI and administrator
-mutation method are not connected yet. Their integration must use the existing
-intents and delivery leases collections, plus a live administrator check.
+Malformed control state stops delivery. An enabled administrator can select
+**Pause delivery** or **Resume delivery** in the pending activity table. The
+method uses the same delivery reservation and checks current administrator
+access before and during the operation. A busy reservation requires retrying
+later. Paused rows retain their underlying diagnostic status and disable
+**Retry now** until resumed.
 
 A request carries the intent ID, desired pause state, administrator ID, stable
 request ID and the revision displayed to the administrator. A conditional
@@ -308,6 +311,16 @@ row per controlled intent, rather than one row per button click.
 
 A hold applies to future local notification effects only. Messages already
 in the SMTP outbox require the separate email queue controls. Control rows
-are not published and member/admin DDP writes are denied. UI wiring, an
-administrator mutation method, pause/resume report status and restart tests
-remain required before this becomes an operator-facing control.
+are not published and member/admin DDP writes are denied. If another operator
+changes the revision, the UI refreshes and asks you to review the current state;
+it never silently retries against the newer revision. A failed network response
+can leave the operation applied: refresh to inspect the actual persisted state.
+Resume releases the hold for the next automatic scan; it does not guarantee
+successful delivery if the original activity or recipient access has changed.
+
+The restart regression in `activity-hold-restart.e2e.js` has two explicit phases:
+run with `WEKAN_TEST_ACTIVITY_HOLD_RESTART=seed`, restart the app against the same
+test database with `ACTIVITY_NOTIFICATION_RECOVERY_INTERVAL_MS=1000`, then run
+with `WEKAN_TEST_ACTIVITY_HOLD_RESTART=verify`. The seed phase retains a held
+fixture deliberately; verify checks that automatic scanning has preserved it,
+resumes through the UI and removes the fixture afterward.

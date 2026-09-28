@@ -1573,7 +1573,8 @@ Template.activityNotificationRecoveryReports.helpers({
       { labelKey: 'date' }, { labelKey: 'actions' }]),
     rowTemplate: 'activityNotificationRecoveryRow', emptyKey: 'activity-recovery-empty',
     docs: result.rows.map(row => ({ ...row, statusLabel: `activity-recovery-status-${row.status}`,
-      createdText: row.createdAt ? formatDate(row.createdAt) : '—', retryDisabled: t.busy.get() || !row.canRetry })),
+      createdText: row.createdAt ? formatDate(row.createdAt) : '—', retryDisabled: t.busy.get() || !row.canRetry,
+      controlDisabled: t.busy.get() || !row.canControl, controlLabel: row.paused ? 'activity-recovery-resume' : 'activity-recovery-pause' })),
     rowCount: result.rows.length, total: result.total, searchTerm: t.search.get(),
     page: info.page, totalPages: info.totalPages, hasPrev: info.hasPrev, hasNext: info.hasNext,
     actions: [{ id: 'refresh-activity-notifications', labelKey: 'refresh' }] };
@@ -1593,6 +1594,21 @@ Template.activityNotificationRecoveryReports.events({
     const next = adjacentPage(result.total, result.page, event.currentTarget.classList.contains('js-table-page-next') ? 1 : -1, TABLE_PAGE_ROWS_PER_PAGE);
     if (next !== result.page) t.load(next);
   },
+  'click .js-control-activity-notification'(event, t) {
+    event.preventDefault(); event.stopPropagation();
+    if (t.busy.get() || !this.canControl) return;
+    t.busy.set(true); t.actionError.set('');
+    // Use the displayed revision. Never silently rebase an uncertain request
+    // onto a newer administrator decision.
+    Meteor.call('controlActivityNotificationRecovery', { intentId: this.intentId, paused: !this.paused,
+      expectedRevision: this.controlRevision, requestId: Random.id(32) }, error => {
+      if (t.view.isDestroyed) return;
+      t.busy.set(false);
+      const known = ['activity-recovery-busy', 'activity-recovery-control-conflict'];
+      if (error) t.actionError.set(TAPi18n.__(known.includes(error.error) ? error.error : 'activity-recovery-control-failed'));
+      t.load(t.result.get().page);
+    });
+  },
   'click .js-retry-activity-notification'(event, t) {
     event.preventDefault(); event.stopPropagation();
     if (t.busy.get() || !this.canRetry) return;
@@ -1600,7 +1616,7 @@ Template.activityNotificationRecoveryReports.events({
     Meteor.call('retryActivityNotification', { intentId: this.intentId }, error => {
       if (t.view.isDestroyed) return;
       t.busy.set(false);
-      const known = ['activity-recovery-busy', 'activity-recovery-denied', 'activity-recovery-source-unavailable', 'activity-recovery-disabled'];
+      const known = ['activity-recovery-busy', 'activity-recovery-denied', 'activity-recovery-source-unavailable', 'activity-recovery-disabled', 'activity-recovery-paused'];
       if (error) t.actionError.set(TAPi18n.__(known.includes(error.error) ? error.error : 'activity-recovery-failed'));
       t.load(t.result.get().page);
     });

@@ -1,5 +1,6 @@
 'use strict';
 const { canonical, sha256 } = require('../../models/lib/changeHistoryIntegrity');
+const { readActivityNotificationControl } = require('./activityNotificationControl');
 const { planId } = require('./activityNotificationPlan');
 const text = value => typeof value === 'string' && value.length > 0 && value.length <= 1024;
 const hash = value => typeof value === 'string' && /^[a-f0-9]{64}$/.test(value);
@@ -9,7 +10,7 @@ const date = value => value instanceof Date && Number.isFinite(+value) ? value :
 // Ten summaries only. Rendered email payloads and saved activity snapshots are
 // not selected. Current activity content is hashed on the server to detect
 // changed input; neither that content nor recipient/mailbox data is returned.
-async function activityNotificationReport({ intents, activities, plans, leases, now = () => new Date() }, { search = '', page = 1 } = {}) {
+async function activityNotificationReport({ intents, activities, plans, leases, controls, now = () => new Date() }, { search = '', page = 1 } = {}) {
   if (typeof search !== 'string' || search.length > 100 || !Number.isSafeInteger(page) || page < 1 || page > 100000) {
     throw new Error('invalid-activity-notification-report');
   }
@@ -27,7 +28,7 @@ async function activityNotificationReport({ intents, activities, plans, leases, 
     const item = { intentId: hash(row._id) ? row._id : '', activityId,
       boardId: text(row.activity?.boardId) ? row.activity.boardId : '',
       cardId: text(row.activity?.cardId) ? row.activity.cardId : '',
-      createdAt: date(row.activity?.createdAt), status: 'invalid', canRetry: false };
+      createdAt: date(row.activity?.createdAt), status: 'invalid', canRetry: false, paused: false, controlRevision: null, canControl: false };
     const valid = item.intentId && activityId && row.version === 1 && hash(row.activityHash) && text(row.writerId) &&
       (row.dispatchUserId === null || text(row.dispatchUserId)) &&
       row._id === sha256(canonical(['activity-notification-intent', activityId]));
@@ -52,7 +53,16 @@ async function activityNotificationReport({ intents, activities, plans, leases, 
           }
         }
       }
-      item.canRetry = ['pending', 'preparing'].includes(item.status);
+      try {
+        const control = await readActivityNotificationControl({ controls, intentId: row._id });
+        item.paused = control.paused;
+        item.controlRevision = control.revision;
+        item.canControl = item.status !== 'processing' && control.revision < Number.MAX_SAFE_INTEGER;
+      } catch (error) {
+        if (error.message !== 'activity-notification-control-invalid') throw error;
+        item.status = 'invalid';
+      }
+      item.canRetry = item.controlRevision !== null && !item.paused && ['pending', 'preparing'].includes(item.status);
     }
     rows.push(item);
   }
