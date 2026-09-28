@@ -424,8 +424,11 @@ timestamps and sent/unconfirmed/invalid status, with literal ID search and page
 clamping. It reads no command payload or recipient address, rechecks admin
 access after reads and limits request rate. Four Node/MongoDB cases and one
 Chromium DDP case pass, including member denial, revocation during reads,
-private-field exclusion and pagination. The Admin Panel view and mutation
-controls remain unfinished; unconfirmed may include an in-flight attempt.
+private-field exclusion and pagination. The Admin Panel Recovery view now
+shows this report with ID search, status filters, refresh and pagination.
+A stale-callback unit test and two Chromium cases pass, including the actual
+rendered controls. Operator mutation controls remain unfinished; unconfirmed
+may include an in-flight attempt.
 Private operation, step and completion collections are now registered with
 server-only adapters, denied browser writes, recovery indexes and no TTL.
 The stored-operation entry point holds the list lease and requires fresh access
@@ -1423,6 +1426,22 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/778e9ed95">Show rule email delivery reports in administrator Recovery</a>. Thanks to xet7.</summary>
+
+Add an administrator table with literal ID search, delivery-state filters,
+ten-row pages and refresh. Display attempt identifiers and timestamps without
+mail bodies or recipient addresses. Ignore stale callbacks and responses after
+navigation; show a generic error when the report cannot be loaded.
+
+Four Node cases and two Chromium cases pass, covering access control, private
+metadata, stale responses and rendered search/filter/page/refresh controls.
+The source audit completes with advisory warnings. Only English source labels
+are added. Unconfirmed attempts may still be running; operator resolution and
+manual/cron activation remain unfinished.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/cb8c68c54">Expose administrator metadata reports for stored rule email attempts</a>. Thanks to xet7.</summary>
