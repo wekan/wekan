@@ -440,9 +440,20 @@ payloads, including suppressed targets and both webhook modes. Eight Node suites
 pass with real MongoDB; an expanded six-case storage suite and two full-app
 Meteor preparation cases pass again after the final changes. Network delivery
 is injected in these tests; no external HTTP or browser run was performed.
-Production private collection registration, live integration/actor replay
-adapters, HTTP and bidirectional-response acknowledgement, scheduled retries,
-retention/operator controls and saved Sync integration remain unfinished.
+A guarded HTTP adapter now stores exact successful responses before processing
+bidirectional reply effects. Replay reuses the stored response without another
+network request. It binds evidence to the full request/target/activity, checks
+live guards around each stage, confirms uncertain writes by readback and
+refuses corrupt or mismatched evidence. Production transport is fixed to
+fetchSafe with DNS/IP checks, redirects disabled, a 30-second inactivity limit
+and a 2 MiB response limit. Bidirectional effects still require a separate
+durable acknowledgement callback. Eleven Node suites pass with actual MongoDB;
+two full-app Meteor cases pass, including actual private-IP denial and stored
+response replay. Successful transport is scripted in tests; no external endpoint
+or browser was exercised. Absolute HTTP deadlines, production collection
+registration, live integration/actor replay adapters, durable comment-response
+effects, scheduled retries, retention/operator controls and saved Sync
+integration remain unfinished.
 Email notifications now use a private event/recipient outbox with persisted
 content and due times, automatic retry backoff and renewable recipient leases.
 Startup discovers pending work; legacy profile buffers migrate before removal.
@@ -1117,6 +1128,36 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e08b22983">Persist guarded webhook responses before reply effects</a>. Thanks to xet7.</summary>
+
+Add a stored HTTP stage bound to the captured request, integration and activity.
+Persist successful status/body evidence before bidirectional reply processing.
+After interrupted processing, replay uses the stored body without another HTTP
+request. Require exact acknowledgement from the reply-effect adapter before
+returning delivery completion. Non-JSON replies retain ordinary no-action
+semantics. Check ownership/target access around work and confirm uncertain
+response inserts by readback; corrupted evidence stops without resending.
+
+The production wrapper binds transport to fetchSafe, preserving DNS pinning,
+private-IP denial and redirect refusal. Limit response bodies to 2 MiB and
+requests to a 30-second inactivity timeout. A caller cannot replace this
+wrapper's transport or substitute a request outside the saved target.
+
+Eleven focused Node suites pass with MongoDB, covering interrupted reply
+processing, lost storage replies, changed/corrupt responses, denied access,
+HTTP failure, partial/oversized bodies and one-way/no-action replies. Guard
+execution with scripted DNS/transport verifies pinning and redirect rejection.
+Two full-app Meteor cases pass, including actual private-IP denial and stored
+response replay. Source audit passes with informational fingerprint warnings.
+No successful external HTTP delivery or browser test was run.
+
+Production collection registration, live replay access adapters, durable
+comment-response effects, absolute HTTP deadlines and manual/cron activation
+remain in TODO Later. This internal stage does not enable automatic sending.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7747aa0a2">Persist captured Sync webhook plans and delivery receipts</a>. Thanks to xet7.</summary>
