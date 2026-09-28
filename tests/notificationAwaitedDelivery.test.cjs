@@ -42,8 +42,8 @@ test('ordinary dispatch remains nonblocking and isolates service failures',async
 });
 function subscriber(name,extra) {
  let callback;
- const source=fs.readFileSync(require.resolve(`../server/notifications/${name}.js`),'utf8').replace(/^import .*;\n/gm,'');
- vm.runInNewContext(source,{Meteor:{startup:fn=>fn()},Notifications:{subscribe:(n,fn)=>{callback=fn;}},
+ const source=fs.readFileSync(require.resolve(`../server/notifications/${name}.js`),'utf8').replace(/^import .*;\n/gm,'').replace(/export /g,'');
+ vm.runInNewContext(source,{structuredClone,Meteor:{startup:fn=>fn()},Notifications:{subscribe:(n,fn)=>{callback=fn;}},
   ReactiveCache:{getCurrentSetting:async()=>({})},resolveNotificationSetting:()=>true,
   TAPi18n:{ensureLanguageLoaded:async()=>{},__:key=>key},formatActivityNotificationTitle:()=> 'Subject',
   require:id=>require(`..${id}`),console,...extra});

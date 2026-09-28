@@ -31,7 +31,7 @@ test('#5438 representative notification prose exists in French', () => {
 
 test('#5438 notification preparation loads the recipient language first', () => {
   const load = notification.indexOf(
-    'await TAPi18n.ensureLanguageLoaded(user.getLanguage())',
+    'await TAPi18n.ensureLanguageLoaded(lan)',
   );
   const language = notification.indexOf('const lan = user.getLanguage()');
   const subject = notification.indexOf(
@@ -40,11 +40,12 @@ test('#5438 notification preparation loads the recipient language first', () => 
   const body = notification.indexOf(
     'TAPi18n.__(description, quoteParams, lan)',
   );
-  assert.ok(load >= 0 && load < language && language < subject && subject < body);
+  assert.ok(language >= 0 && language < load && load < subject && subject < body);
 });
 
 test('the durable email keeps the recipient language selected when rendered', () => {
-  assert.match(notification, /emailOutbox.enqueue\(\{[\s\S]*?language: lan/);
+  assert.match(notification, /return \{ userId,[\s\S]*?language: lan/);
+  assert.match(notification, /if \(job\) await emailOutbox.enqueue\(job\)/);
   const worker = read('server/lib/emailOutbox.js');
   assert.match(worker, /language: first.language/);
 });

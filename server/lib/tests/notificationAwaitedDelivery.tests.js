@@ -2,6 +2,8 @@ import assert from 'node:assert/strict';
 import { Meteor } from 'meteor/meteor';
 import { Random } from 'meteor/random';
 import { trayDeliveryReceipts, recoverTrayDeliveries } from '/server/notifications/trayQueue';
+import { prepareActivityEmail } from '/server/notifications/email';
+import { EmailJobs } from '/server/notifications/emailQueue';
 import { Notifications } from '/server/notifications/notifications';
 
 describe('Awaited notification delivery', function () {
@@ -55,6 +57,29 @@ describe('Awaited notification delivery', function () {
     } finally {
       await Meteor.users.rawCollection().deleteMany({_id:userId});
       await trayDeliveryReceipts.rawCollection().deleteMany({userId});
+    }
+  });
+
+  it('prepares rendered email without queuing and the ordinary subscriber persists that content', async function () {
+    if (!Meteor.isAppTest) this.skip();
+    const userId=Random.id(),activityId=Random.id();
+    try {
+      await Meteor.users.rawCollection().insertOne({_id:userId,username:'prepare-'+userId,
+        profile:{notifyOverrideEmail:true,notifyOverrideTray:false,language:'en'}});
+      const user=await Meteor.users.findOneAsync(userId);
+      const params={activityId,card:'Prepared card',user:'Author',url:'http://localhost:4100/card'};
+      const job=await prepareActivityEmail(user,'act-activity-notify','act-createCard',params);
+      assert.equal(job.userId,userId);assert.equal(job.eventId,activityId);
+      assert.equal(job.language,user.getLanguage());assert.equal(typeof job.html,'string');
+      assert.equal(await EmailJobs.find({userId}).countAsync(),0);
+      await Notifications.notifyAndWait(user,'act-activity-notify','act-createCard',params);
+      const saved=await EmailJobs.findOneAsync({userId,eventId:activityId});
+      assert.equal(saved.html,job.html);assert.equal(saved.subject,job.subject);assert.equal(saved.language,job.language);
+      user.profile.notifyOverrideEmail=false;
+      assert.equal(await prepareActivityEmail(user,'act-activity-notify','act-createCard',params),null);
+    } finally {
+      await EmailJobs.rawCollection().deleteMany({userId});
+      await Meteor.users.rawCollection().deleteMany({_id:userId});
     }
   });
 
