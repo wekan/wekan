@@ -387,6 +387,13 @@ Receipts have no TTL. Retention and legacy already-dismissed events remain
 unresolved; old evidence cannot be reconstructed. Sync still needs frozen
 recipients, complete service orchestration, rule/action recovery and durable
 outgoing webhooks.
+Email rendering now has a shared preparation entry point that returns the
+complete job without enqueuing it. It captures caller parameters, recipient
+identity/language and one settings/template snapshot before rendering, so
+asynchronous work cannot combine changed inputs. The ordinary subscriber uses
+that result unchanged. Thirteen Node suites, five full-app Meteor tests and
+three Chromium SMTP cases pass. Persisting frozen recipient/service plans and
+connecting them to saved Sync effects remain unfinished.
 Activity notification and webhook payloads now preserve zero, false, empty
 text and explicit null, while absent values remain omitted. This fixes lost
 zero estimates and unchecked custom-field values. SMTP and HTTP-serialization
@@ -1065,6 +1072,29 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b42815691">Prepare captured email content before queue insertion</a>. Thanks to xet7.</summary>
+
+Expose shared activity-email preparation that returns a complete rendered job
+without writing to the outbox. Capture the recipient identity/language and
+caller parameters before asynchronous work. Use one settings/template snapshot
+instead of re-reading templates later during rendering. The ordinary subscriber
+queues the returned job unchanged; disabled preferences return no job.
+
+Thirteen focused Node suites pass. Tests mutate the caller's parameters, user
+language and templates while preparation waits, verifying the original text,
+identity and language survive and no queue insertion occurs. Five full-app
+Meteor tests pass, including equality between prepared metadata and the real
+subscriber's queued job. Three Chromium SMTP cases pass for board watching,
+disabled email and numeric-zero/checkbox-false content. The source audit passes
+with informational fingerprint advisories.
+
+This prepares reusable content for saved delivery plans. Durable recipient-plan
+storage, service orchestration, rules/webhook recovery and Sync job activation
+remain in TODO Later.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/65a4c892b">Retain tray delivery receipts across dismissal and restarts</a>. Thanks to xet7.</summary>
