@@ -536,10 +536,15 @@ expiry
 closes it without cancelling other recipients. Four focused Node suites pass,
 including five real SMTP/TLS cases for missing greetings, continuous responses,
 late DNS, concurrent delivery, encrypted socket closure and certificate refusal.
-Message preparation cannot open a connection after expiration. The ordinary
-Meteor MAIL_URL path still needs total cancellation while preserving its native
-plugins. Receipt retention, deployment-wide concurrency and coordinating
-activity creation with queue insertion remain pending. Two full-app Meteor
+Message preparation cannot open a connection after expiration. Native Meteor
+MAIL_URL and native service settings without MAIL_URL now share the total
+budget too. Preserve the original message plugins, defaults and TLS settings;
+only the final SMTP send uses an isolated connection. HTTP/HTTPS CONNECT proxy
+handshakes and tunneled SMTP share the same cancellation. Five focused Node
+suites pass, including eight native SMTP/proxy cases and five direct SMTP/TLS
+cases. Four full-app Meteor cases and fifteen Chromium delivery/recovery cases
+pass. Receipt retention, deployment-wide concurrency and coordinating activity
+creation with queue insertion remain pending. Two full-app Meteor
 cases now verify actual Email.sendAsync cancellation and subsequent success
 through both transport installers. Fifteen Chromium scenarios pass across the
 email-delivery and recovery suites, including retained payloads, visible retry
@@ -1190,6 +1195,36 @@ secrets, and reviewed **translations** regain their target-language meaning.
 This release improves security diagnostics:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/7a450190a">Enforce native Meteor SMTP total deadlines without losing message plugins</a>. Thanks to xet7.</summary>
+
+Native SMTP MAIL_URL and Meteor email service settings now use the same
+MAIL_TOTAL_TIMEOUT_MS budget as Admin Panel providers and certificate
+overrides. Preserve the original Mailer, compile/stream plugins, defaults,
+authentication and TLS requirements. Run only the final SMTP send on an
+isolated connection. Pool settings no longer share sockets between messages,
+and a timed-out sender cannot close another recipient's connection.
+
+Budget message preparation as well as DNS, connection and replies; late
+plugin completion cannot open a connection. Preserve promise and callback
+callers. HTTP and HTTPS CONNECT proxies use cancellable requests through the
+handshake and the SMTP tunnel, retaining proxy authentication. A
+continuously responding peer cannot extend the send indefinitely. Queue
+delivery remains at least once when acceptance is ambiguous; deployment-wide
+concurrency and receipt retention remain in TODO Later.
+
+Five focused Node suites pass, including eight native SMTP/proxy cases and
+five direct SMTP/TLS cases. Verify plugins run once, defaults survive,
+callback completion, concurrent delivery, late preparation, service
+configuration, proxy success/cancellation, and refusal of plaintext when TLS
+is required. Four full-app Meteor cases pass through Email.sendAsync,
+including service configuration without MAIL_URL. Fifteen Chromium
+delivery/recovery scenarios pass on the native MAIL_URL path; the two
+separate greeting/idle-timeout cases require different settings and were
+skipped. Source/dependency audit passes with advisory warnings.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b70d8e421">Verify SMTP deadline recovery through Meteor and the browser</a>. Thanks to xet7.</summary>
 
 Exercise the actual Email.sendAsync path with Admin Panel and TLS-override
@@ -1208,8 +1243,8 @@ Fifteen Chromium scenarios pass across email delivery and recovery,
 including the corrected slow-recipient case and a repeated total-timeout
 case. Two greeting/idle-timeout scenarios were skipped because they require
 separate phase-limit settings. Document the exact test environment.
-Source/dependency audit passes with advisory warnings. Native Meteor
-MAIL_URL total-deadline integration remains in TODO Later.
+Source/dependency audit passes with advisory warnings. The later entry above
+completes native Meteor MAIL_URL total deadlines.
 
 </details>
 
@@ -1233,9 +1268,8 @@ late DNS, concurrent success, encrypted connection closure and rejection of a
 mismatched certificate. Source/dependency audit passes with advisory warnings.
 No UI behavior changes. The follow-up regression entry records full-app
 Meteor and Chromium validation.
-The ordinary Meteor MAIL_URL path still has phase/idle limits only; its total
-deadline integration, receipt retention and deployment-wide concurrency remain
-in TODO Later.
+The later native SMTP entry above completes MAIL_URL total deadlines. Receipt
+retention and deployment-wide concurrency remain in TODO Later.
 
 </details>
 
