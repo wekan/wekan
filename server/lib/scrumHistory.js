@@ -18,13 +18,14 @@ import { withoutRecording, isRecordingSuppressed } from './historyRecordingScope
 import { setScrumHistoryRecorder, setScrumHistoryBatchRunner, withScrumBoardLock, assertNoPendingScrumImport } from '/server/scrum';
 const { assignedOnlyCardScope } = require('/models/lib/boardCardScope');
 const { METADATA_TYPES, historyDocument, historyRecords, historySide } = require('/models/lib/scrumHistory');
-const { normalizeScrumMetadata, normalizeScrumSettings, DEFAULT_SCRUM_SETTINGS, scrumRevisionSelector } = require('/models/lib/scrum');
+const { normalizeScrumMetadata, normalizeScrumSettings, DEFAULT_SCRUM_SETTINGS } = require('/models/lib/scrum');
 const collections = { board: Boards, card: Cards, list: Lists, swimlane: Swimlanes,
   'scrum-sprint': ScrumSprints, 'scrum-release': ScrumReleases, 'scrum-event': ScrumEvents };
 const { recordScrumRestoreOnce } = require('./scrumHistoryRestoreWriter');
 const { finishScrumHistory, verifyScrumHistorySource } = require('./scrumHistoryFinalizer');
 const { ensureScrumHistoryOperation, assertScrumHistoryOperation } = require('./scrumHistoryOwnership');
 const { scrumHistoryWriteState, verifyScrumHistoryWrites } = require('./scrumHistoryWriteState');
+const { scrumHistoryWriteSelector } = require('./scrumHistoryWriteSelector');
 const batches = new AsyncLocalStorage();
 const conflict = () => { throw new Meteor.Error('scrum-conflict', 'Scrum data changed. Reload History before retrying.'); };
 
@@ -185,7 +186,7 @@ export async function applyScrumHistory(row, content, direction) {
         catch (error) { conflict(); }
         if (state === 'applied') continue;
         const metadata = METADATA_TYPES.has(entry.type);
-        const selector = { _id: entry.id, ...(metadata ? scrumRevisionSelector(current) : { revision: current?.revision }) };
+        const selector = current ? scrumHistoryWriteSelector(entry.type, current) : null;
         await assertCurrent();
         if (!entry.document) {
           if (!await collection.removeAsync(selector)) conflict();

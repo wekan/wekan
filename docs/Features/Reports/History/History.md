@@ -700,3 +700,26 @@ The batch checks also revisit earlier targets after later writes. They are
 verification, not a database snapshot or transaction: another writer can still
 change a target after its readback. Multi-process operation fencing and atomic
 entity/History/checkpoint changes remain unfinished.
+
+### Conditional placement and content checks
+
+Scrum restoration updates now include the captured Scrum values and revision
+in their database predicate. Non-board metadata also matches its board ID;
+card updates additionally match the list, swimlane and assignees read during
+validation. Missing fields remain distinct from explicit null or zero. A card
+moved after validation therefore cannot receive the old board's restoration
+merely because its Scrum revision stayed the same.
+
+Planning-record updates and deletes match all captured fields, including an
+explicit absence check for a missing legacy revision. Metadata writes leave
+unrelated fields such as a card title outside their predicate, so ordinary
+unrelated edits are preserved. The existing persisted-result checks still
+verify the resulting values before acknowledging recovery.
+
+A full-app test moves a real card between read and write without advancing its
+Scrum revision. The conditional write refuses the change, retains the pending
+operation, and creates no restoration event. This is a concurrency conflict,
+not evidence of an attack; it does not create a security-attempt log entry.
+Permissions stored in other documents and fields added by writers outside the
+revision protocol still require shared operation-level coordination. These
+predicates do not provide a multi-document transaction.

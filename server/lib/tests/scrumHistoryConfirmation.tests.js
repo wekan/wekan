@@ -14,7 +14,7 @@ const { historyDocument } = require('/models/lib/scrumHistory');
 
 describe('Scrum History write confirmation', function () {
   this.timeout(15000);
-  it('retains recovery after false write acknowledgement and resumes only after actual persisted values', async function () {
+  it('retains recovery after false acknowledgements or raced card moves and resumes verified writes', async function () {
     if (!Meteor.isAppTest) this.skip();
     const userId = Random.id(), boardId = Random.id(), cardId = Random.id(), listId = Random.id(), swimlaneId = Random.id();
     const originalUpdate = Cards.updateAsync;
@@ -44,6 +44,23 @@ describe('Scrum History write confirmation', function () {
       assert.equal((await Cards.findOneAsync(cardId)).scrum.issueType, 'Story');
       assert.equal((await ChangeHistory.findOneAsync(id)).undone, false);
       assert.equal(await ChangeHistory.find({ boardId, restoredFromId: id }).countAsync(), 0);
+      // Move without changing scrumRevision after the read/permission checks,
+      // immediately before the actual conditional write reaches storage.
+      const movedBoard = Random.id();
+      Cards.updateAsync = async function (query, modifier, ...args) {
+        if (query?._id === cardId && modifier?.$set?.scrum) {
+          await Cards.rawCollection().updateOne({ _id: cardId }, { $set: { boardId: movedBoard } });
+        }
+        return originalUpdate.call(this, query, modifier, ...args);
+      };
+      await assert.rejects(actor(() => applyScrumHistory(row, previousContent, 'undo')), /scrum-conflict/);
+      const moved = await Cards.findOneAsync(cardId);
+      assert.equal(moved.boardId, movedBoard); assert.equal(moved.scrum.issueType, 'Story');
+      assert.equal(moved.scrumRevision, 1);
+      assert.equal((await ScrumHistoryPending.findOneAsync(boardId)).operationId, journal.operationId);
+      assert.equal(await ChangeHistory.find({ boardId, restoredFromId: id }).countAsync(), 0);
+      // Restore only the isolated test fixture to permit the original retry.
+      await Cards.rawCollection().updateOne({ _id: cardId }, { $set: { boardId } });
       Cards.updateAsync = originalUpdate;
       await actor(() => applyScrumHistory(row, previousContent, 'undo'));
       assert.deepEqual((await Cards.findOneAsync(cardId)).scrum, {});
@@ -57,7 +74,7 @@ describe('Scrum History write confirmation', function () {
       await ScrumHistoryPending.rawCollection().deleteMany({ _id: boardId });
       await ChangeHistory.rawCollection().deleteMany({ boardId });
       await HistoryWriterGates.rawCollection().deleteMany({ boardId });
-      await Cards.rawCollection().deleteMany({ boardId });
+      await Cards.rawCollection().deleteMany({ _id: cardId });
       await Lists.rawCollection().deleteMany({ boardId });
       await Swimlanes.rawCollection().deleteMany({ boardId });
       await Boards.rawCollection().deleteMany({ _id: boardId });
