@@ -11,7 +11,7 @@ import ScrumReleases from '/models/scrumReleases';
 import ScrumEvents from '/models/scrumEvents';
 import ChangeHistory from '/models/changeHistory';
 import CustomFields from '/models/customFields';
-import ScrumHistoryPending from './scrumHistoryPending';
+import ScrumHistoryPending, { ScrumHistoryCompletions } from './scrumHistoryPending';
 import { canUpdateCard } from '/server/permissions/cards';
 import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 import { withoutRecording, isRecordingSuppressed } from './historyRecordingScope';
@@ -229,7 +229,7 @@ export async function applyScrumHistory(row, content, direction) {
     }
     await verifyWrites();
     await finishScrumHistory({ history: ChangeHistory, pending: ScrumHistoryPending,
-      row, journal }).catch(() => {
+      completions: ScrumHistoryCompletions, row, journal }).catch(() => {
       throw new Meteor.Error('scrum-history-pending',
         'History finalization could not be verified. Retry the pending operation.');
     });

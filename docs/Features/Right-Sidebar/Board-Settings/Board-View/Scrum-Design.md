@@ -129,13 +129,18 @@ Closing shows a preview of completed and incomplete work. Explicitly choose the
 backlog or a planned sprint for rollover; keep historical membership and the
 original commitment intact. Closing is idempotent and revision-checked. Undo
 must not overwrite intervening edits or move a card from an inaccessible board.
-Finalizing a History restoration verifies that its board checkpoint is absent
-from storage after the conditional deletion. A success acknowledgement alone
-cannot finish the operation; a lost reply can be reconciled by a successful
-absence read. An unreadable slot or a successor checkpoint produces an
-unconfirmed result, without another deletion or changing the successor. This
-is not a durable completion receipt across a process restart; shared writer
-coordination and recovery after an uncertain final read remain open.
+Finalizing a History restoration first persists an immutable private completion
+receipt bound to the operation ID, actor, source hash and exact checkpoint plan.
+Only verified receipt readback permits conditional checkpoint deletion. A false
+delete acknowledgement retains recovery, while a lost reply requires a read
+confirming that the exact checkpoint is gone. A successor is never removed.
+The internal finalizer can retry with its original journal after an uncertain
+cleanup read, including from a fresh database connection, without rewriting
+History or its undo timestamp. Receipts have no TTL and do not assert that the
+board still has its historical values. Public undo/redo requests do not yet
+carry stable caller operation IDs: selecting the next stack entry after a lost
+response is not an idempotent retry. Caller identity/recovery UI, receipt
+retention and shared writer coordination remain open.
 
 Cancelling records a reason and preserves the history. Scrum accountabilities
 are visible information and do not grant access: all mutations must also satisfy

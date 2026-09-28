@@ -7,10 +7,11 @@ import Cards from '/models/cards';
 import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
 import ChangeHistory from '/models/changeHistory';
-import ScrumHistoryPending from '/server/lib/scrumHistoryPending';
+import ScrumHistoryPending, { ScrumHistoryCompletions } from '/server/lib/scrumHistoryPending';
 import { HistoryWriterGates } from '/server/lib/storedHistoryChain';
 import { applyScrumHistory } from '/server/lib/scrumHistory';
 const { historyDocument } = require('/models/lib/scrumHistory');
+const { finishScrumHistory } = require('/server/lib/scrumHistoryFinalizer');
 
 describe('Scrum History write confirmation', function () {
   this.timeout(15000);
@@ -19,6 +20,7 @@ describe('Scrum History write confirmation', function () {
     const userId = Random.id(), boardId = Random.id(), cardId = Random.id(), secondId = Random.id(), listId = Random.id(), swimlaneId = Random.id();
     const originalUpdate = Cards.updateAsync;
     const originalRemove = ScrumHistoryPending.removeAsync;
+    const originalFind = ScrumHistoryPending.findOneAsync;
     const actor = fn => DDP._CurrentMethodInvocation.withValue({ userId, isSimulation: false }, fn);
     try {
       await Meteor.users.rawCollection().insertOne({ _id: userId, username: `confirm-${userId}`, profile: {} });
@@ -80,13 +82,21 @@ describe('Scrum History write confirmation', function () {
       await assert.rejects(actor(() => applyScrumHistory(row, previousContent, 'undo')), /scrum-history-pending/);
       assert.equal((await ScrumHistoryPending.findOneAsync(boardId)).operationId, journal.operationId);
       assert.equal((await ChangeHistory.findOneAsync(id)).undone, true);
+      const receipt = await ScrumHistoryCompletions.findOneAsync(journal.operationId);
+      assert.equal(receipt.rowId, id); assert.equal(receipt.userId, userId);
       const firstUndoneAt = (await ChangeHistory.findOneAsync(id)).undoneAt;
       // The inverse failure is also possible: storage succeeds, reply is lost.
       ScrumHistoryPending.removeAsync = async function (...args) {
         await originalRemove.apply(this, args);
+        ScrumHistoryPending.findOneAsync = async () => { throw new Error('cleanup read unavailable'); };
         throw new Error('lost cleanup reply');
       };
-      await actor(() => applyScrumHistory(row, previousContent, 'undo'));
+      await assert.rejects(actor(() => applyScrumHistory(row, previousContent, 'undo')), /scrum-history-pending/);
+      ScrumHistoryPending.findOneAsync = originalFind;
+      // Resume the original finalizer from its durable identity, after its
+      // checkpoint was removed. The public stack methods still need caller IDs.
+      await finishScrumHistory({ history: ChangeHistory, pending: ScrumHistoryPending,
+        completions: ScrumHistoryCompletions, row, journal });
       assert.deepEqual((await ChangeHistory.findOneAsync(id)).undoneAt, firstUndoneAt);
       assert.deepEqual((await Cards.findOneAsync(secondId)).scrum, {});
       assert.equal((await Cards.findOneAsync(secondId)).scrumRevision, 2);
@@ -96,10 +106,13 @@ describe('Scrum History write confirmation', function () {
       assert.equal(await ScrumHistoryPending.findOneAsync(boardId), undefined);
       const restored = await ChangeHistory.find({ boardId, restoredFromId: id }).fetchAsync();
       assert.equal(restored.length, 1); assert.equal(restored[0].batchId, journal.operationId);
+      assert.deepEqual(await ScrumHistoryCompletions.findOneAsync(journal.operationId), receipt);
     } finally {
       Cards.updateAsync = originalUpdate;
       ScrumHistoryPending.removeAsync = originalRemove;
+      ScrumHistoryPending.findOneAsync = originalFind;
       await ScrumHistoryPending.rawCollection().deleteMany({ _id: boardId });
+      await ScrumHistoryCompletions.rawCollection().deleteMany({ boardId });
       await ChangeHistory.rawCollection().deleteMany({ boardId });
       await HistoryWriterGates.rawCollection().deleteMany({ boardId });
       await Cards.rawCollection().deleteMany({ _id: { $in: [cardId, secondId] } });

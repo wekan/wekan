@@ -1,5 +1,6 @@
 const { scrumHistorySelector, assertScrumHistoryOperation } = require('./scrumHistoryOwnership');
 const { rowHashIsValid } = require('../../models/lib/changeHistoryIntegrity');
+const { readScrumHistoryCompletion, saveScrumHistoryCompletion } = require('./scrumHistoryCompletion');
 
 // A pending checkpoint must not make an invalidated redo eligible again when
 // its source row is reloaded on retry. Compare identity and immutable evidence,
@@ -14,9 +15,9 @@ function verifyScrumHistorySource(current, row, direction) {
 }
 
 // The timeline events have already been acknowledged. Keep the board journal
-// until the original row's undo/redo state is verified, then delete only this
-// operation's checkpoint. Retry must not move an existing undoneAt timestamp.
-async function finishScrumHistory({ history, pending, row, journal, now = () => new Date() }) {
+// until the original row's undo/redo state and durable completion are verified,
+// then delete only this operation's checkpoint. Retry must not move undoneAt.
+async function finishScrumHistory({ history, pending, completions, row, journal, now = () => new Date() }) {
   const identity = scrumHistorySelector(journal);
   const fail = () => { throw new Error('Scrum History finalization conflict'); };
   if (!['undo', 'redo', 'restore'].includes(journal.direction) ||
@@ -24,6 +25,24 @@ async function finishScrumHistory({ history, pending, row, journal, now = () => 
       journal.rowId !== row._id || journal._id !== row.boardId) fail();
   const owned = () => assertScrumHistoryOperation(pending, journal);
   const verify = current => verifyScrumHistorySource(current, row, journal.direction);
+  const cleanup = async () => {
+    // A verified receipt can reconcile an absent checkpoint or a successor. It
+    // proves this operation finished, not that the board still has its values.
+    const checkpoint = await pending.findOneAsync({ _id: journal._id });
+    if (!checkpoint || checkpoint.operationId !== journal.operationId) return;
+    await owned();
+    let cleanupError;
+    try { await pending.removeAsync(identity); }
+    catch (error) { cleanupError = error; }
+    const remaining = await pending.findOneAsync({ _id: journal._id });
+    if (remaining?.operationId === journal.operationId) {
+      throw cleanupError || new Error('Scrum History cleanup unconfirmed');
+    }
+  };
+  if (await readScrumHistoryCompletion(completions, journal, row)) {
+    await cleanup();
+    return;
+  }
   await owned();
   let current = await history.findOneAsync(row._id);
   verify(current);
@@ -48,14 +67,7 @@ async function finishScrumHistory({ history, pending, row, journal, now = () => 
       : current.undoneAt !== null)) fail();
   }
   await owned();
-  let cleanupError;
-  try { await pending.removeAsync(identity); }
-  catch (error) { cleanupError = error; }
-  // A positive reply can hide a no-op, while a lost reply can follow a real
-  // deletion. Inspect the board slot, not only the old operation's selector:
-  // a replacement checkpoint must remain untouched and cannot confirm this
-  // worker's cleanup. Never retry the deletion against a newly observed row.
-  const remaining = await pending.findOneAsync({ _id: journal._id });
-  if (remaining) throw cleanupError || new Error('Scrum History cleanup unconfirmed');
+  await saveScrumHistoryCompletion(completions, journal, row, now);
+  await cleanup();
 }
 module.exports = { finishScrumHistory, verifyScrumHistorySource };

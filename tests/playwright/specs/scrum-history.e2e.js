@@ -2,7 +2,7 @@
 const {test,expect}=require('../fixtures');const db=require('../helpers/db');
 const {loginWithToken,openBoard}=require('../helpers/auth');
 const call=(page,method,...args)=>page.evaluate(async({method,args})=>{try{return await Meteor.callAsync(method,...args);}catch(e){throw new Error(`${e.error}: ${e.reason||e.message}`);}},{method,args});
-function clean(boardId){for(const collection of ['scrumSprints','scrumReleases','scrumEvents'])db.deleteMany(collection,{boardId});db.deleteOne('scrumHistoryPending',{_id:boardId});}
+function clean(boardId){for(const collection of ['scrumSprints','scrumReleases','scrumEvents','scrumHistoryCompletions'])db.deleteMany(collection,{boardId});db.deleteOne('scrumHistoryPending',{_id:boardId});}
 test('Scrum views open the existing board History filtered to Scrum changes',async({page,user,board})=>{
  try{
   await loginWithToken(page,user.id,user.token);await openBoard(page,board.boardId,board.slug);
@@ -35,7 +35,9 @@ test('Scrum changes use History and undo a sprint close with all card moves as o
   expect(db.findOne('scrumSprints',{_id:sprint._id}).state).toBe('active');
   for(const card of cards)expect(db.findOne('cards',{_id:card._id}).scrum.sprintId).toBe(sprint._id);
   expect(db.findOne('scrumHistoryPending',{_id:board.boardId})).toBe(null);
+  expect(db.find('scrumHistoryCompletions',{boardId:board.boardId,rowId:close._id,direction:'undo'})).toHaveLength(1);
   expect((await call(page,'changeHistory.redoLast',board.boardId)).redone).toBe(true);
+  expect(db.find('scrumHistoryCompletions',{boardId:board.boardId,rowId:close._id,direction:'redo'})).toHaveLength(1);
   expect(db.findOne('scrumSprints',{_id:sprint._id}).state).toBe('closed');
   for(const card of cards)expect(db.findOne('cards',{_id:card._id}).scrum.sprintId).toBe(next._id);
  }finally{clean(board.boardId);}
@@ -106,7 +108,10 @@ test('retry after Scrum undo finalization does not undo an older row or duplicat
   const count=db.find('changeHistory',{boardId:board.boardId}).length;
   const undoneAt=db.findOne('changeHistory',{_id:row._id}).undoneAt;
   const appliedRevision=db.findOne('cards',{_id:card._id}).scrumRevision;
-  // Recreate the durable state immediately before checkpoint cleanup.
+  // Recreate the durable state before completion receipt persistence and
+  // checkpoint cleanup. Leaving the receipt from the completed fixture undo
+  // would test a historical completion, not unfinished undo finalization.
+  db.deleteOne('scrumHistoryCompletions',{_id:checkpoint.batchId});
   db.insertOne('scrumHistoryPending',dates({_id:board.boardId,rowId:row._id,direction:'undo',userId:user.id,
     operationId:checkpoint.batchId,content:row.previousContent,before:row.newContent,revisions:[revision]}));
   expect(checkpoint._id).toMatch(/^scrum-restore-[a-f0-9]{64}$/);

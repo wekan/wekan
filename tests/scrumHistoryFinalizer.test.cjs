@@ -38,7 +38,15 @@ function fixture(direction = 'undo') {
       return 1;
     },
   };
-  return { history, pending, row, journal, state, now: () => new Date(1234) };
+  const completions = {
+    async findOneAsync(id) { return state.receipt?._id === id ? structuredClone(state.receipt) : null; },
+    async insertAsync(receipt) {
+      if (state.receipt) throw new Error('duplicate');
+      state.receipt = structuredClone(receipt);
+      return receipt._id;
+    },
+  };
+  return { history, pending, completions, row, journal, state, now: () => new Date(1234) };
 }
 test('undo and redo verify the persisted state before exact checkpoint cleanup', async () => {
   for (const direction of ['undo', 'redo', 'restore']) {
@@ -143,7 +151,7 @@ test('a lost cleanup reply is reconciled only after confirmed absence', async ()
     assert.equal(f.state.current.undone, true);
   }
 });
-test('unreadable cleanup and successor checkpoints are not acknowledged or removed again', async () => {
+test('unreadable cleanup retains a completion receipt and successors are never removed again', async () => {
   for (const mode of ['unreadable', 'successor']) {
     const f = fixture(); let deleted = false; let removals = 0;
     const read = f.pending.findOneAsync;
@@ -156,8 +164,87 @@ test('unreadable cleanup and successor checkpoints are not acknowledged or remov
       f.state.checkpoint = mode === 'successor' ? { ...f.journal, operationId: 'next-operation' } : null;
       return 1;
     };
-    await assert.rejects(finishScrumHistory(f), mode === 'unreadable' ? /cleanup read failed/ : /cleanup unconfirmed/);
+    if (mode === 'unreadable') await assert.rejects(finishScrumHistory(f), /cleanup read failed/);
+    else await finishScrumHistory(f);
+    assert.ok(f.state.receipt);
     assert.equal(removals, 1);
     if (mode === 'successor') assert.equal(f.state.checkpoint.operationId, 'next-operation');
   }
+});
+
+test('retry after an uncertain cleanup read uses immutable completion without rewriting History', async () => {
+  const f = fixture(); const read = f.pending.findOneAsync;
+  f.pending.findOneAsync = async query => {
+    if (!f.state.checkpoint) throw new Error('read unavailable');
+    return read(query);
+  };
+  await assert.rejects(finishScrumHistory(f), /read unavailable/);
+  const receipt = structuredClone(f.state.receipt);
+  assert.equal(f.state.checkpoint, null);
+  f.pending.findOneAsync = read;
+  f.history.findOneAsync = async () => { throw new Error('must not reread historical completion'); };
+  f.now = () => new Date(9999);
+  await finishScrumHistory(f);
+  assert.deepEqual(f.state.receipt, receipt);
+  assert.equal(f.state.updates, 1); assert.equal(f.state.deletes, 1);
+});
+
+test('false and lost completion insert replies require exact persisted receipt readback', async () => {
+  for (const mode of ['false', 'lost', 'damaged']) {
+    const f = fixture(); const insert = f.completions.insertAsync;
+    f.completions.insertAsync = async receipt => {
+      if (mode === 'false') return receipt._id;
+      await insert(receipt);
+      if (mode === 'damaged') f.state.receipt.planHash = 'other';
+      throw new Error('lost completion reply');
+    };
+    if (mode === 'lost') {
+      await finishScrumHistory(f); assert.equal(f.state.checkpoint, null);
+    } else {
+      await assert.rejects(finishScrumHistory(f), /completion (unconfirmed|conflict)/);
+      assert.ok(f.state.checkpoint); assert.equal(f.state.deletes, 0);
+    }
+  }
+});
+
+test('a stored receipt cannot authorize another actor, source, direction or plan', async () => {
+  for (const change of [f => { f.journal.userId = 'other'; },
+    f => { f.journal.direction = 'redo'; },
+    f => { f.journal.content = { records: [], changed: true }; },
+    f => { f.row.newContent = { changed: true }; f.row.integrityHash = hashHistoryRow(f.row); },
+    f => { f.state.receipt.completedAt = new Date(9999); },
+    f => { f.state.receipt.extra = 'unrecognized'; }]) {
+    const f = fixture(); await finishScrumHistory(f); change(f);
+    await assert.rejects(finishScrumHistory(f), /completion conflict/);
+    assert.equal(f.state.updates, 1); assert.equal(f.state.deletes, 1);
+  }
+});
+
+test('unreadable completion evidence never permits checkpoint cleanup', async () => {
+  const f = fixture(); const read = f.completions.findOneAsync;
+  f.completions.findOneAsync = async id => {
+    if (f.state.receipt) throw new Error('receipt read unavailable');
+    return read(id);
+  };
+  await assert.rejects(finishScrumHistory(f), /receipt read unavailable/);
+  assert.ok(f.state.checkpoint); assert.equal(f.state.deletes, 0);
+  const receipt = structuredClone(f.state.receipt);
+  f.completions.findOneAsync = read;
+  await finishScrumHistory(f);
+  assert.deepEqual(f.state.receipt, receipt); assert.equal(f.state.updates, 1);
+});
+
+test('a changed checkpoint reusing a completed operation ID is retained as a conflict', async () => {
+  const f = fixture(); await finishScrumHistory(f);
+  f.state.checkpoint = { ...f.journal, content: { records: [], changed: true } };
+  await assert.rejects(finishScrumHistory(f), /checkpoint conflict/);
+  assert.equal(f.state.checkpoint.content.changed, true);
+  assert.equal(f.state.deletes, 1);
+});
+
+test('storage field ordering does not change immutable completion identity', async () => {
+  const f = fixture(); await finishScrumHistory(f);
+  f.state.receipt = Object.fromEntries(Object.entries(f.state.receipt).reverse());
+  await finishScrumHistory(f);
+  assert.equal(f.state.updates, 1); assert.equal(f.state.deletes, 1);
 });

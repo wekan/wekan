@@ -7,6 +7,7 @@ for (const role of ['member', 'admin']) {
     const actor = role === 'admin' ? adminUser : user;
     await loginWithToken(page, actor.id, actor.token);
     const names = ['historyWriterGates', 'historyChainHeads', 'listSyncRuleArchiveCommands', 'listSyncRuleArchiveEffects', 'listSyncRuleArchiveReceipts', 'listSyncRuleEmailAttempts', 'listSyncRuleEmailCommands', 'listSyncRuleReceipts', 'listSyncRulePlans', 'listSyncWebhookPlans', 'listSyncWebhookReceipts', 'listSyncWebhookResponses', 'listSyncWebhookCommentPlans', 'listSyncWebhookCommentReceipts', 'listSyncNotificationPlans', 'listSyncOperationIntents', 'listSyncOperations', 'listSyncOperationSteps', 'listSyncOperationCompletions'];
+    names.push('scrumHistoryCompletions');
     const id = db.uid('private-sync');
     for (const name of names) db.insertOne(name, { _id: id, marker: 'private recovery evidence' });
     try {
