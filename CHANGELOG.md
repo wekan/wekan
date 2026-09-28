@@ -370,8 +370,13 @@ hide persistence errors; the profile subscriber awaits its actual user-helper
 write instead of submitting its Promise as another database modifier. Eleven
 Node suites, three full-app Meteor tests and three Chromium notification cases
 pass. This confirms subscriber completion, not durable service receipts or SMTP
-delivery. Recovery still needs frozen recipients, service receipts, tray replay
-after read/dismissal, rule/action recovery and durable outgoing webhooks.
+delivery. Tray insertion now compares activity identity independently of the
+read flag and confirms storage by readback. Concurrent retries preserve a read
+notification and its timestamp instead of appending an unread duplicate. Real
+Meteor tests cover concurrent existing/new events and deleted users; twelve
+Node suites and three Chromium cases pass. Recovery still needs frozen
+recipients, service receipts, tray replay after dismissal, rule/action recovery
+and durable outgoing webhooks.
 Activity notification and webhook payloads now preserve zero, false, empty
 text and explicit null, while absent values remain omitted. This fixes lost
 zero estimates and unchecked custom-field values. SMTP and HTTP-serialization
@@ -1050,6 +1055,29 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/15a9d61eb">Preserve read notifications during delivery retries</a>. Thanks to xet7.</summary>
+
+Insert a tray notification only when its activity identity is absent from the
+recipient's notification array. Previously the mutable read flag participated
+in whole-object deduplication, so retrying an already-read event could append
+another unread copy. Conditional insertion preserves existing rows and their
+read timestamps without replacing the array.
+
+Confirm the same recipient/activity pair by readback, including after a lost
+write reply. Missing recipients, unsuccessful writes and unavailable readback
+cannot report successful persistence. Twelve notification Node suites pass.
+Three full-app Meteor tests pass, including five concurrent deliveries of a
+read event and five concurrent insertions of a new event. Three Chromium cases
+pass for muted-member refusal, explicit list watching and the visible alert.
+The source audit passes with informational fingerprint advisories.
+
+This preserves notifications still present in the tray. Durable service
+receipts are still needed to prevent a dismissed notification from returning
+on later replay; that work remains in TODO Later with Sync delivery integration.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a76e828bf">Await notification persistence and fix the profile subscriber</a>. Thanks to xet7.</summary>
