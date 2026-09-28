@@ -354,6 +354,27 @@ function processLogicalOperators(left, operator, right) {
   return { [key]: [left, right] };
 }
 
+const CARD_DATE_FIELDS = new Map(['createdAt', 'receivedAt', 'startAt', 'dueAt', 'endAt', 'listEnteredAt']
+  .map(field => [`@${field.toLowerCase()}`, field]));
+
+function cardDateCondition(condition, options) {
+  const [name, operator, value] = condition;
+  const field = CARD_DATE_FIELDS.get(name.cmd.toLowerCase());
+  if (!field || operator.string || operator.regex || value.regex) throw new Error('Invalid card date filter');
+  const op = operator.cmd;
+  if (value.cmd.toLowerCase() === 'none') {
+    if (['=', '==', '==='].includes(op)) return { [field]: null };
+    if (['!=', '!=='].includes(op)) return { [field]: { $type: 9, $ne: null, $exists: true } };
+    throw new Error('Invalid empty date comparison');
+  }
+  const range = parseAdvancedFilterDate(value.cmd, options);
+  const comparison = buildDateValueSelector(op, range);
+  if (!comparison) throw new Error('Invalid card date comparison');
+  // Mongo, Minimongo and FerretDB must agree: absent dates are not before
+  // every real date and do not satisfy inequality against an existing date.
+  return { [field]: { ...comparison, $type: 9, $ne: null, $exists: true } };
+}
+
 function processSubCommands(commands, resolvers) {
   const tokens = commands.filter(token => token.cmd !== '' || token.string || token.regex);
   let index = 0;
@@ -380,6 +401,11 @@ function processSubCommands(commands, resolvers) {
     if (!token || op === ')') fail();
     const condition = tokens.slice(index, index + 3);
     if (condition.length !== 3) fail();
+    if (!token.string && !token.regex && token.cmd.startsWith('@')) {
+      const result = cardDateCondition(condition, { dayFirst: !!resolvers.dayFirst });
+      index += 3;
+      return result;
+    }
     processConditions(condition, resolvers);
     if (condition.length !== 1 || !condition[0].customFields?.$elemMatch) fail();
     index += 3;
@@ -471,7 +497,7 @@ export function buildAdvancedFilterResolversFromCustomFields(customFields, optio
     return buildDateValueSelector(op, range);
   };
 
-  return { fieldNameToId, fieldValueToId, customFieldDateSelector };
+  return { fieldNameToId, fieldValueToId, customFieldDateSelector, dayFirst };
 }
 
 // --- Selector building -------------------------------------------------------

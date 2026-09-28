@@ -216,6 +216,7 @@ template(name="filterSidebar")
   h3 {{_ 'advanced-filter-label'}}
   input.js-field-advanced-filter(type="text" value=Filter.advanced.value)
   span {{_ 'advanced-filter-description'}}
+  p.quiet {{_ 'advanced-filter-card-dates-hint'}}
   if Filter.isActive
     hr
     a.sidebar-btn.js-clear-all

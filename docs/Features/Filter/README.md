@@ -103,3 +103,42 @@ or update the derived field deliberately. Keep all application writers upgraded
 when performing this repair. These controls implement the list-age request in
 [#1499](https://github.com/wekan/wekan/issues/1499); unrecorded historical moves
 cannot be reconstructed, so their ages deliberately remain unknown.
+
+## Filter the card's own dates
+
+Advanced Filter accepts these built-in date names:
+
+| Name | Card date |
+| --- | --- |
+| `@createdAt` | Created |
+| `@receivedAt` | Received |
+| `@startAt` | Start |
+| `@dueAt` | Due |
+| `@endAt` | End |
+| `@listEnteredAt` | Entry into the current board/list |
+
+For example, hide cards completed before September 2026 while keeping cards
+without an end date:
+
+```text
+@endAt >= '2026-09-01' or @endAt = none
+```
+
+Use `=`, `!=`, `<`, `<=`, `>` or `>=` and the same date formats supported by
+custom-field dates. An equality matches the entire specified day (or minute or
+second when supplied); `>` means after that interval, and `>=` includes it.
+Dates use the browser's local timezone, and regional day/month order follows
+the user's date-display preference. ISO `YYYY-MM-DD` avoids that ambiguity.
+Rules use the same parser with server-local timezone and default month-first
+regional parsing, as existing custom-field date rules do.
+
+An ordinary date comparison, including `!=`, requires an actual non-null date.
+Use `= none` for missing/null dates and `!= none` for present dates. Negating a
+whole condition with `not` also includes cards without a date. Combine date
+conditions with custom fields, parentheses, `and`, `or` and `not` as usual.
+
+Built-in names are case-insensitive. Quote a custom field's name if it starts
+with `@`: `'@endAt' = keep` addresses that custom field, while
+`@endAt = '2026-09-01'` addresses the card's end date. Invalid dates, unsupported
+names and regex comparisons are rejected; the sidebar retains its last valid
+filter and a rule does not match. Filtering does not archive or delete cards.

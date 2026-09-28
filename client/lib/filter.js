@@ -497,6 +497,7 @@ class AdvancedFilter {
   _arrayToSelector(commands) {
     try {
       const selector = advancedFilterCommandsToSelector(commands, {
+        dayFirst: /^D/.test(dateDisplayPreferences().dateFormat),
         fieldNameToId: this._fieldNameToId.bind(this),
         fieldValueToId: this._fieldValueToId.bind(this),
         customFieldDateSelector: this._customFieldDateSelector.bind(this),
