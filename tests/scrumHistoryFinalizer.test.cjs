@@ -93,3 +93,21 @@ test('failed cleanup and a changed readback do not report successful completion'
   await assert.rejects(finishScrumHistory(h), /conflict/);
   assert.ok(h.state.checkpoint);
 });
+test('reloaded superseded redo sources never finalize or clear their pending journal', async () => {
+  const f = fixture('redo');
+  f.row.superseded = true; f.state.current.superseded = true;
+  await assert.rejects(finishScrumHistory(f), /conflict/);
+  assert.equal(f.state.updates, 0); assert.equal(f.state.deletes, 0);
+  assert.ok(f.state.checkpoint);
+});
+test('source validation rejects invalidation before mutations while allowing completed redo retry', () => {
+  const { verifyScrumHistorySource: verify } = require('../server/lib/scrumHistoryFinalizer');
+  const f = fixture('redo');
+  f.state.current.undone = false; // finalization reply was lost
+  assert.doesNotThrow(() => verify(f.state.current, f.row, 'redo'));
+  for (const mutate of [row => { row._id = 'other'; }, row => { row.superseded = true; },
+    row => { row.newContent = { damaged: true }; }]) {
+    const current = structuredClone(f.state.current); mutate(current);
+    assert.throws(() => verify(current, f.row, 'redo'), /conflict/);
+  }
+});

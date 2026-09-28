@@ -615,3 +615,25 @@ button type and label, removing it from the board/card button menus. REST
 creation and trigger updates synchronize this metadata too. Undo/redo restores
 the matching trigger and button metadata together, so restored manual buttons
 reappear and redoing an automatic trigger removes them again.
+
+### Interrupted Scrum redo after a newer edit
+
+A pending Scrum checkpoint identifies the interrupted operation; it does not
+make a superseded redo eligible again. If a newer ordinary change invalidates
+that user's redo branch, retry reports a Scrum conflict and retains the pending
+checkpoint. It does not reapply the old Scrum values, append another restoration
+event or clear the source row's undone flag. Repeating the request preserves
+the same recovery evidence.
+
+Source identity, immutable hash and superseded state are rechecked before
+preparing/resuming the operation, at entity writes, before restoration events
+and during finalization. A reloaded source already marked superseded is refused
+for redo even when the captured row has the same flag. A completed, valid redo
+can still finish checkpoint cleanup after an interrupted response.
+
+These checks detect stale recovery work; they do not make the source row,
+entity writes and checkpoint cleanup one transaction. A change arriving between
+checks can leave partial work requiring the retained checkpoint. Shared
+operation-level writer coordination and a resolution workflow for superseded
+partial restores remain unfinished. Do not discard the checkpoint merely to
+make the conflict disappear.

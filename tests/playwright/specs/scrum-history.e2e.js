@@ -153,3 +153,30 @@ test('an interrupted compound Scrum undo resumes without repeating completed wri
   expect(db.findOne('scrumHistoryPending',{_id:board.boardId})).toBe(null);
  }finally{clean(board.boardId);}
 });
+test('pending Scrum redo cannot revive a source invalidated by a newer ordinary edit',async({page,user,board})=>{
+ try{
+  await loginWithToken(page,user.id,user.token);
+  const card=db.find('cards',{boardId:board.boardId})[0];
+  await call(page,'scrum.updateCard',board.boardId,card._id,{issueType:'Story'},0);
+  const row=db.findOne('changeHistory',{boardId:board.boardId,entityType:'scrum'});
+  await call(page,'changeHistory.undoLast',board.boardId);
+  const undone=db.findOne('cards',{_id:card._id});
+  const operationId='superseded-redo';
+  db.insertOne('scrumHistoryPending',dates({_id:board.boardId,rowId:row._id,direction:'redo',userId:user.id,
+    operationId,content:row.newContent,before:row.previousContent,revisions:[undone.scrumRevision]}));
+  // This ordinary edit runs real redo invalidation while recovery is pending.
+  await call(page,'/cards/update',{_id:card._id},{$set:{title:'Newer ordinary edit'}});
+  expect(db.findOne('changeHistory',{_id:row._id}).superseded).toBe(true);
+  const count=db.find('changeHistory',{boardId:board.boardId}).length;
+  for(let attempt=0;attempt<2;attempt++){
+   await expect(call(page,'changeHistory.redoLast',board.boardId)).rejects.toThrow(/scrum-conflict/);
+   const current=db.findOne('cards',{_id:card._id});
+   expect(current.scrum).toEqual(undone.scrum);
+   expect(current.scrumRevision).toBe(undone.scrumRevision);
+   expect(current.title).toBe('Newer ordinary edit');
+   expect(db.findOne('changeHistory',{_id:row._id}).undone).toBe(true);
+   expect(db.findOne('scrumHistoryPending',{_id:board.boardId}).operationId).toBe(operationId);
+   expect(db.find('changeHistory',{boardId:board.boardId}).length).toBe(count);
+  }
+ }finally{clean(board.boardId);}
+});
