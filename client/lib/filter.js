@@ -1,3 +1,4 @@
+import { FilterProviderRegistry } from '/client/lib/filterProviders';
 import { boardMovementSelector, startBoardMovementFilter } from '/client/lib/boardMovementFilter';
 import { boardTextSelector, startBoardTextFilter } from '/client/lib/boardTextFilter';
 import { dateDisplayPreferences } from '/client/lib/dateDisplay';
@@ -614,6 +615,7 @@ class AdvancedFilter {
 // the need to provide a list of `_fields`. We also should move methods into the
 // object prototype.
 export const Filter = {
+  providers: new FilterProviderRegistry(),
   // XXX I would like to rename this field into `labels` to be consistent with
   // the rest of the schema, but we need to set some migrations architecture
   // before changing the schema.
@@ -674,7 +676,7 @@ export const Filter = {
 
   isActive() {
     return (
-      this.movementDate._isActive() || this.text._isActive() || this.columnAge._isActive() || this.dateRange._isActive() || this.dateRecency._isActive() ||
+      this.movementDate._isActive() || this.text._isActive() || this.columnAge._isActive() || this.dateRange._isActive() || this.providers.isActive() ||
       this._fields.some(fieldName => {
         return this[fieldName]._isActive();
       }) ||
@@ -762,7 +764,7 @@ export const Filter = {
     if (isFilterActive) constraints.push(combined);
     if (this.columnAge._isActive()) constraints.push(this.columnAge.selector());
     if (this.dateRange._isActive()) constraints.push(this.dateRange.selector());
-    if (this.dateRecency._isActive()) constraints.push(this.dateRecency.selector());
+    constraints.push(...this.providers.selectors());
     if (this.text._isActive()) constraints.push(boardTextSelector(this.text.value()));
     if (this.movementDate._isActive()) constraints.push(boardMovementSelector(this.movementDate.value()));
     return constraints.length > 1 ? { $and: constraints } : (constraints[0] || {});
@@ -799,7 +801,7 @@ export const Filter = {
     this.text.reset();
     this.dateRange.reset();
     this.movementDate.reset();
-    this.dateRecency.reset();
+    this.providers.reset();
     this.lists.reset();
     this.advanced.reset();
     this.resetExceptions();
@@ -819,6 +821,7 @@ export const Filter = {
   // sidebar button, leaving to All Boards) exactly as it was everywhere
   // else - this only changes what happens on a board-to-board hop.
   resetBoardScoped() {
+    this.providers.reset(true);
     this.columnAge.reset();
     const boardScopedFields = [
       'labelIds',
@@ -854,3 +857,12 @@ Blaze.registerHelper('Filter', Filter);
 startBoardTextFilter(Filter.text);
 
 startBoardMovementFilter(Filter.movementDate);
+
+Filter.providers.register({
+  id: 'wekan.date-recency', version: 1, scope: 'global', template: 'cardRecencyFilter', section: 'dates', legacyPreset: true,
+  data: () => ({ filter: Filter.dateRecency }),
+  isActive: () => Filter.dateRecency._isActive(), selector: () => Filter.dateRecency.selector(),
+  reset: () => Filter.dateRecency.reset(), capture: () => Filter.dateRecency.value(),
+  validate: value => cardRecencySelector(value) !== null,
+  restore: value => Filter.dateRecency.set(value),
+});

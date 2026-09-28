@@ -12,8 +12,10 @@ function shape(value, keys) {
 }
 export function validateFilterPresetState(value) {
   const invalid = () => { throw new Error('Invalid saved filter state'); };
-  if (!shape(value, ['version', 'sets', 'texts', 'labelMode', 'due', 'dateRange', 'movementDate', 'dateRecency', 'columnAge']) ||
-      value.version !== 1 || !shape(value.sets, FILTER_PRESET_SETS) || !shape(value.texts, FILTER_PRESET_TEXTS)) invalid();
+  const keys = ['version', 'sets', 'texts', 'labelMode', 'due', 'dateRange', 'movementDate', 'dateRecency', 'columnAge'];
+  if (value?.version === 2) keys.push('providers');
+  if (!shape(value, keys) ||
+      ![1, 2].includes(value.version) || !shape(value.sets, FILTER_PRESET_SETS) || !shape(value.texts, FILTER_PRESET_TEXTS)) invalid();
   if (JSON.stringify(value).length > 65536) invalid();
   for (const field of FILTER_PRESET_SETS) {
     const ids = value.sets[field];
@@ -34,6 +36,22 @@ export function validateFilterPresetState(value) {
   const age = value.columnAge;
   if (!shape(age, ['listId', 'days']) || typeof age.listId !== 'string' || age.listId.length > 256 ||
       !Number.isInteger(age.days) || age.days < 1 || age.days > 365000) invalid();
+  if (value.version === 2) {
+    const providers = value.providers;
+    if (!providers || Object.prototype.toString.call(providers) !== '[object Object]' || Object.keys(providers).length > 100) invalid();
+    const jsonValue = (item, depth = 0) => {
+      if (depth > 20) return false;
+      if (item === null || typeof item === 'string' || typeof item === 'boolean') return true;
+      if (typeof item === 'number') return Number.isFinite(item);
+      if (Array.isArray(item)) return item.every(child => jsonValue(child, depth + 1));
+      if (!item || Object.prototype.toString.call(item) !== '[object Object]') return false;
+      return Object.keys(item).every(key => !['__proto__', 'constructor', 'prototype'].includes(key) && jsonValue(item[key], depth + 1));
+    };
+    for (const [id, saved] of Object.entries(providers)) {
+      if (!/^[a-z][a-z0-9]*(?:[.-][a-z0-9]+)+$/.test(id) || id.length > 128 ||
+          !shape(saved, ['version', 'value']) || !Number.isSafeInteger(saved.version) || saved.version < 1 || !jsonValue(saved.value)) invalid();
+    }
+  }
   // Return a detached JSON-only state; null encodes an explicit "no value" set entry.
   return JSON.parse(JSON.stringify(value));
 }

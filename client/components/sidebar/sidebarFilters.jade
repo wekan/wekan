@@ -131,11 +131,8 @@ template(name="filterSidebar")
   h3
     i.fa.fa-calendar
     | {{_ 'filter-dates-label' }}
-  each field in dateRecencyFields
-    label(for="filter-recency-{{field.id}}") {{_ field.label}}
-    select.js-card-date-recency(id="filter-recency-{{field.id}}" data-field=field.id)
-      each preset in dateRecencyPresets
-        option(value=preset.id selected="{{#if dateRecencySelected field.id preset.id}}selected{{/if}}") {{_ preset.label}}
+  each dateFilterProviderViews
+    +Template.dynamic(template=template data=data)
   form.js-card-movement-range
     h4 {{_ 'filter-movement-range'}}
     label(for="filter-card-movement-from") {{_ 'filter-date-range-from'}}
@@ -268,6 +265,9 @@ template(name="filterSidebar")
         if Filter.hideEmpty.isSelected _id
           i.fa.fa-check
   hr
+  each filterProviderViews
+    .filter-provider(data-provider-id=id)
+      +Template.dynamic(template=template data=data)
   h3 {{_ 'advanced-filter-label'}}
   input.js-field-advanced-filter(type="text" value=Filter.advanced.value)
   span {{_ 'advanced-filter-description'}}
@@ -404,3 +404,15 @@ template(name="setSelectionColorPopup")
             i.fa.fa-check
     button.primary.confirm.js-submit {{_ 'save'}}
     button.js-remove-color.negate.wide.right {{_ 'remove-btn'}}
+
+template(name="cardRecencyFilter")
+  each field in dateRecencyFields
+    label(for="filter-recency-{{field.id}}") {{_ field.label}}
+    select.js-card-date-recency(id="filter-recency-{{field.id}}" data-field=field.id)
+      each preset in dateRecencyPresets
+        option(value=preset.id selected="{{#if dateRecencySelected field.id preset.id}}selected{{/if}}") {{_ preset.label}}
+
+template(name="textFilterProvider")
+  label
+    span {{_ labelKey}}
+    input.js-provider-text(type="text" value=providerTextValue maxlength="512")

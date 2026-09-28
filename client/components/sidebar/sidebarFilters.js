@@ -27,11 +27,8 @@ Template.filterSidebar.helpers({
   },
   presetMessage() { return Template.instance().presetMessage.get(); },
   presetBusy() { return Template.instance().presetBusy.get(); },
-  dateRecencyFields() {
-    return [{ id: 'createdAt', label: 'createdAt' }, { id: 'modifiedAt', label: 'modifiedAt' }];
-  },
-  dateRecencyPresets() { return CARD_RECENCY_PRESETS; },
-  dateRecencySelected(field, preset) { return Filter.dateRecency.value()[field] === preset; },
+  filterProviderViews() { return Filter.providers.views(); },
+  dateFilterProviderViews() { return Filter.providers.views('dates'); },
   movementFrom() { return Filter.movementDate.value().from; },
   movementTo() { return Filter.movementDate.value().to; },
   dateRangeFields() { return CARD_DATE_RANGE_FIELDS; },
@@ -97,12 +94,6 @@ Template.filterSidebar.events({
       tpl.presetMessage.set('filter-preset-deleted');
     } catch (error) { tpl.presetMessage.set('filter-preset-error'); }
     finally { tpl.presetBusy.set(false); }
-  },
-  'change .js-card-date-recency'(event) {
-    const { field } = event.currentTarget.dataset;
-    if (Filter.dateRecency.set({ ...Filter.dateRecency.value(), [field]: event.currentTarget.value })) {
-      Filter.resetExceptions();
-    }
   },
   'submit .js-card-movement-range'(event, tpl) {
     event.preventDefault();
@@ -748,4 +739,26 @@ registerSelectionDialogTemplate('copySelectionPopup', async (card, to) => {
   const newCard = ReactiveCache.getCard(newCardId);
   if (!newCard) return;
   await newCard.move(to.boardId, to.swimlaneId, to.listId, to.sortIndex);
+});
+
+Template.cardRecencyFilter.helpers({
+  dateRecencyFields() { return [{ id: 'createdAt', label: 'createdAt' }, { id: 'modifiedAt', label: 'modifiedAt' }]; },
+  dateRecencyPresets() { return CARD_RECENCY_PRESETS; },
+  dateRecencySelected(field, preset) { return Template.instance().data.filter.value()[field] === preset; },
+});
+Template.cardRecencyFilter.events({
+  'change .js-card-date-recency'(event, tpl) {
+    const filter = tpl.data.filter;
+    if (filter.set({ ...filter.value(), [event.currentTarget.dataset.field]: event.currentTarget.value })) Filter.resetExceptions();
+  },
+});
+
+Template.textFilterProvider.helpers({
+  providerTextValue() { return Template.instance().data.get(); },
+});
+Template.textFilterProvider.events({
+  'input .js-provider-text'(event, tpl) {
+    tpl.data.set(event.currentTarget.value);
+    Filter.resetExceptions();
+  },
 });

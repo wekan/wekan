@@ -162,8 +162,9 @@ an input-validation message. No card is archived, edited or deleted.
 Searching for any movement within a historical date range is different from
 filtering the latest list entry: a card may have moved again since then. Use
 the separate **Moved during (recorded history)** controls below for that case.
-The full extensible provider interface from
-[#935](https://github.com/wekan/wekan/issues/935) remains in TODO Later.
+Bundled extensions can add controls through the
+[filter provider API](Providers.md), including query, reset and saved-state
+integration.
 
 ## Relative creation and modification dates
 
