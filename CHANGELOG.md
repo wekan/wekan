@@ -341,6 +341,13 @@ Already satisfied roots preserve ordinary no-op behavior. Seven Node/MongoDB
 cases pass, including concurrent capture, restart, lost replies, malformed
 hierarchies and denied descendants. This helper writes no cards; production
 registration, conditional application and durable effects remain unfinished.
+The internal archive executor now applies conditional descendant-first writes
+with exact before/after predicates and separate durable per-card effects.
+Already changed cards still require their effect receipt before advancing;
+lost write/receipt replies reconcile by readback. Sixteen Node/MongoDB cases
+cover capture and execution, including interrupted child effects, restart,
+no-op roots, stale later cards, denied access and incomplete receipt prefixes.
+Production hook binding and saved History/activity plans remain pending.
 Other action adapters, shared History-chain coordination, uncertain-send
 operator handling and manual/cron activation remain unfinished; ordinary
 executeRules is not substituted for durable rule replay.
@@ -1432,6 +1439,23 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2684c6fdd">Reconcile stored archive cascades with conditional writes and effect receipts</a>. Thanks to xet7.</summary>
+
+Apply saved archive/restore descendants before their parent using exact state
+predicates. Preserve captured archive timestamps and restore's existing time.
+Preflight all pending cards and required effects before writes. Confirm each
+card's durable effects and receipt before proceeding; a matching card alone
+never proves activity delivery. Reject malformed or non-prefix receipts.
+
+Eight execution unit cases and one real MongoDB case pass, alongside the seven
+capture cases. Fresh-connection replay after interrupted child effects avoids
+repeated writes and finishes the child before the parent. The source audit
+completes with advisory warnings. This internal executor has no UI entry point;
+production card hooks and saved History/activity integration remain pending.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8a0475faa">Capture archive rule cascades before card mutations</a>. Thanks to xet7.</summary>
