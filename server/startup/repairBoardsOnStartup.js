@@ -1,5 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { repairAllBoards } from '/server/lib/repairBoardData';
+import Cards from '/models/cards';
+import Activities from '/models/activities';
+import { backfillCardListEntries } from '/server/lib/cardListEntryBackfill';
 import {
   getRepairMarkerVersion,
   setRepairMarkerVersion,
@@ -16,7 +19,7 @@ import {
 // more. Progress is persisted (setBoardRepairStatus) so the Admin Panel / Problems
 // Status page and `snap run wekan.problems` can see it while it runs.
 
-const REPAIR_VERSION = 1;
+const REPAIR_VERSION = 2;
 
 // Wait this long after startup so the pass does not compete with boot / first
 // requests, then run detached.
@@ -44,7 +47,14 @@ Meteor.startup(() => {
           error: '',
         });
 
-        const summary = await repairAllBoards((boardsDone, boardsTotal, totals) => {
+        const columnDates = await backfillCardListEntries({
+          cards: Cards.rawCollection(), activities: Activities.rawCollection(),
+          onProgress: repaired => setBoardRepairStatus({ repaired }),
+        });
+        if (columnDates.columnDatesPending) {
+          throw new Error(`Column entry backfill deferred ${columnDates.columnDatesPending} concurrent changes; retry on next startup`);
+        }
+        const repairs = await repairAllBoards((boardsDone, boardsTotal, totals) => {
           // Persist INTERMEDIATE progress only. The terminal (boardsDone ===
           // boardsTotal) update is deliberately NOT written here: it carries
           // running:true and, being fire-and-forget, could land AFTER the awaited
@@ -59,6 +69,7 @@ Meteor.startup(() => {
           }
         });
 
+        const summary = { ...repairs, ...columnDates };
         await setRepairMarkerVersion(REPAIR_VERSION, summary);
         await setBoardRepairStatus({
           running: false, phase: 'completed', kind: 'startup-repair',

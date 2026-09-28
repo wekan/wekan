@@ -80,10 +80,26 @@ text, adding comments and archiving do not change this date. A conditional
 update that does not match the card cannot reset it. Undoing a move counts as
 entering the previous list again.
 
-Existing cards without this field remain visible until they next change lists.
-Reconstructing their dates from historical move activities is still pending;
-creation and last-edit dates are not substitutes for missing move history.
+On the first startup after upgrading, the background repair pass reconstructs
+legacy entry dates from recorded card creation and movement activities. This
+also covers archived cards and boards. It reads cards in batches of 250 and
+streams each history, so a long history is not truncated to an arbitrary number
+of events. A recorded entry must lead consistently to the card's current board
+and list; repeated moves use the latest entry, while same-list swimlane changes
+do not reset it. Old cross-board events without a destination list cannot by
+themselves establish the date. A later recorded list entry can establish one.
+
+Missing, contradictory, invalid or ambiguously ordered history stays unknown
+and visible. Creation/last-edit fields are never substituted for absent movement
+evidence. The migration only fills missing/null entry dates, with a conditional
+write checking the observed placement and edit timestamps. A concurrent move's
+new timestamp wins. Interrupted writes are safe to retry; unresolved concurrent
+changes keep the startup migration pending for the next restart. The repair
+status records scanned, restored, unknown, raced and pending counts. The normal
+`WEKAN_SKIP_STARTUP_REPAIR=true` setting also disables this backfill.
+
 Direct/raw database maintenance bypasses application hooks and must preserve
-or update this derived field deliberately. This implements the current-data
-portion of [#1499](https://github.com/wekan/wekan/issues/1499); the historical
-backfill remains in TODO Later.
+or update the derived field deliberately. Keep all application writers upgraded
+when performing this repair. These controls implement the list-age request in
+[#1499](https://github.com/wekan/wekan/issues/1499); unrecorded historical moves
+cannot be reconstructed, so their ages deliberately remain unknown.
