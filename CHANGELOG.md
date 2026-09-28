@@ -572,10 +572,17 @@ An internal write-ahead intent primitive now confirms immutable storage before
 allowing an activity insertion, reconciles uncertain replies and requires an
 exact activity snapshot on recovery. Only the creating call may insert a
 missing activity; later orphan retries cannot resurrect deleted records.
-Four real MongoDB fault/concurrency tests pass. Activity-hook activation,
-private collection lifecycle, saved recipient plans, startup recovery and
-operator resolution remain open; ordinary notifications still have the
-post-insert crash gap.
+Ordinary activity hooks now await private intent persistence before activity
+insertion, after final timestamps. Failed storage prevents the activity write.
+Scoped deferred Sync and disabled notifications skip ordinary capture.
+Asynchronous dispatch waits internally for every recipient's subscribers;
+only successful local writes compact the intent to a permanent receipt.
+Failures leave the activity snapshot pending. Bind the original dispatch
+actor, keep webhooks independent and deny member/admin DDP writes.
+Six MongoDB cases, three Node suites, three full-app Meteor cases and ten
+Chromium notification scenarios pass. Automatic recovery, saved recipient
+plans, operator resolution and pending-payload retention remain open. A crash
+now leaves pending evidence, but does not yet trigger automatic replay.
 History field snapshots now preserve nested dates, including date-valued
 custom fields alongside mapped estimates. JSON transport and restoration retain
 Date types without interpreting date-looking text. Existing rows whose dates
@@ -1216,6 +1223,32 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/54c3130ce">Retain activity notification intents until subscriber acknowledgement</a>. Thanks to xet7.</summary>
+
+Capture an immutable private intent before ordinary activity insertion, with
+final IDs/timestamps and the original dispatch actor. Failed intent storage
+prevents the activity write. Disabled notifications skip capture; the scoped
+Sync adapter has its own one-use deferral slot and retains its delivery plans.
+
+Keep ordinary delivery asynchronous, but wait internally for all recipient
+subscribers. Successful local acknowledgements atomically compact the intent
+to a permanent receipt; failures retain pending snapshots. This confirms
+local notification writes, not SMTP acceptance or webhook completion.
+Webhooks remain independent and nonblocking. The private collection denies
+member/admin DDP writes and is not published.
+
+Six MongoDB cases, three Node suites, three full-app Meteor cases and ten
+Chromium scenarios pass. Coverage includes failed pre-insert storage, held
+and rejected subscribers, dispatch identity, uncertain completion replies,
+Sync suppression, real SMTP delivery and private-collection write denial.
+The source audit passes with advisory dependency fingerprint warnings.
+Automatic recovery, saved recipient plans, operator handling and pending
+payload retention remain unfinished. Raw writes bypassing hooks are outside
+this guarantee; FerretDB was not exercised.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/081c22010">Prepare durable activity notification intents before activity writes</a>. Thanks to xet7.</summary>
