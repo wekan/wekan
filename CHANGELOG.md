@@ -147,7 +147,13 @@ write, before timeline insertion and before finalization. False success
 replies, missing targets and failed readback retain the checkpoint. Thirty-six
 Node/MongoDB cases and a full-app false-acknowledgement/retry case pass.
 Batch verification is not a snapshot; atomic cross-document coordination
-remains unfinished.
+remains unfinished. Conditional restoration writes now also match captured
+Scrum values, placement and card assignments, preserving unrelated title
+edits. Planning-record writes match all captured fields. Thirty-nine
+Node/MongoDB cases and the full-app raced-move case pass: a card moved after
+validation receives no old-board restoration, and its checkpoint remains.
+Cross-document permissions and writers outside revision tracking still need
+shared coordination.
 Finalization now verifies the source
 History row and persisted undo/redo state before deleting the exact operation's
 checkpoint. Retries preserve the original undo timestamp. Ordinary writes and
@@ -1549,6 +1555,25 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bf75fafdd">Match captured placement and content in Scrum restoration writes</a>. Thanks to xet7.</summary>
+
+A card moved after validation could still match a revision-only restoration
+write. Match captured Scrum values, board placement, list, swimlane and
+assignees in the write predicate. Preserve unrelated ordinary metadata such
+as title edits. Planning-record updates and deletes match all captured fields;
+missing legacy fields remain distinct from explicit null or zero values.
+
+Thirty-nine Node/MongoDB cases, one full-app Meteor case and nine Chromium
+cases pass. Moving a real card between validation and write without changing
+its Scrum revision refuses the restoration, preserves the checkpoint and
+creates no History event. Browser coverage verifies normal and interrupted
+undo/redo. This concurrent-change conflict is not an attributed attack, so no
+security-attempt event is emitted. The source audit has advisory warnings.
+Cross-document permissions and atomic writer coordination remain unfinished.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/62f5a4874">Confirm persisted Scrum targets before acknowledging recovery</a>. Thanks to xet7.</summary>
