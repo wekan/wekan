@@ -328,6 +328,7 @@ export const RulesHelper = {
       const { prepareRuleCardAttachments } = require('/server/lib/ruleCardAttachments');
       const { fileStoreStrategyFactory } = require('/models/attachments.server');
       const attachments = await prepareRuleCardAttachments({ activity, cache: ReactiveCache, canReadBoard,
+        onManifest: text => { if (text) options.text += `\n\n${text}`; },
         openStream: file => fileStoreStrategyFactory.getFileStrategy(file, 'original').getReadStream() });
       if (attachments.length) options.attachments = attachments;
     }

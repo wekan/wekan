@@ -15,14 +15,12 @@ This audit compares the current email preparation code with `models/cards.js`,
 | Scrum card metadata | Six visible fields; sprint/release names scoped to source board | Details/source-binding tests; SMTP assertions |
 | Checklists | Titles, item text/completion, checklist/item due dates, completion date, reset interval, last reset and readable converted-subtask titles | `tests/ruleCardDiscussion.test.cjs`; SMTP assertions |
 | Comments | Public prose, creation/edit dates, public author display name, reaction emoji and distinct counts | Discussion unit tests; SMTP assertions |
-| Files | Selected live attachments become immutable byte snapshots; names and MIME types retained | Filesystem/GridFS SMTP; bounded-stream unit tests |
+| Files | Selected live attachments become immutable byte snapshots; names/MIME types retained; manifest identifies cover, captured byte size, upload date and public uploader | Filesystem/GridFS SMTP; bounded-stream unit tests |
 | Linked cards | Resolve readable source chain for selected content; detect retargeting and access loss | `tests/ruleEmailSource.test.cjs`; linked-source SMTP |
 | Linked boards | Current board display fields and voting; wrapper discussion/files remain local | Linked-source SMTP and Details tests |
 
 ## Unfinished checks and implementation
 
-- Attachment presentation metadata: identify the cover attachment and decide
-  how to include upload time/uploader alongside the already attached bytes.
 - Legacy Gantt dependency fields: compare `targetId_gantt`, `linkType_gantt` and
   `linkId_gantt` with canonical `cardDependencies`; preserve visible relationships
   without duplicating them or exposing an unreadable target.

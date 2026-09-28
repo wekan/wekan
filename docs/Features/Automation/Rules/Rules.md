@@ -74,6 +74,10 @@ Evaluated by a server cron job every minute:
 Enable **Attachments** in the email action to include the triggering card's
 live files. The default remains a text-only message. Files are read through the
 configured storage strategy and sent as byte snapshots, not download links.
+A text manifest lists the attached filename, actual captured byte count, MIME
+type, cover marker, upload date and public uploader display name. It contains
+no storage paths, download URLs or private account fields. The manifest is
+included with Attachments regardless of Details and is capped at 256 KiB.
 A deleted attachment is omitted; an unreadable file fails the message before
 SMTP, rather than silently sending a partial set. Each message permits up to
 100 attachments and 8 MiB of raw file data in total.
