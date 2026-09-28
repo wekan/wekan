@@ -89,7 +89,6 @@ The total-deadline recovery scenario uses the same isolated app and fixture
 port, with these additional app environment variables:
 
 ```sh
-export MAIL_TLS_SERVERNAME=localhost
 export MAIL_TOTAL_TIMEOUT_MS=1000
 export MAIL_GREETING_TIMEOUT_MS=5000
 export MAIL_SOCKET_TIMEOUT_MS=5000
@@ -101,7 +100,8 @@ SMTP reply bytes, verifies socket closure and the retained pending payload,
 checks the retry count in Admin Panel → Problems → Recovery, then permits a
 retry and verifies that acceptance replaces the payload with a receipt. The
 longer phase limits ensure this exercises the total deadline. This setup tests
-the TLS-override transport; the ordinary native MAIL_URL path does not yet have
-an absolute deadline. The full-app Meteor suite `SMTP total deadline in Meteor`
-also checks Admin Panel transport installation and the real `Email.sendAsync`
+the native MAIL_URL transport. Add `MAIL_TLS_SERVERNAME=localhost` to the app
+environment to exercise the TLS-override transport with the same scenario. The full-app Meteor suite `SMTP total deadline in Meteor`
+also checks native MAIL_URL, Admin Panel and TLS-override installation through
+the real `Email.sendAsync`
 path without replacing Nodemailer.

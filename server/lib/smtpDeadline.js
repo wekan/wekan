@@ -1,6 +1,8 @@
 'use strict';
 const net = require('node:net');
 const dns = require('node:dns');
+const http = require('node:http');
+const https = require('node:https');
 const { createOutboundDeadline } = require('./outboundDeadline');
 
 function smtpTotalTimeout(env = process.env) {
@@ -16,7 +18,7 @@ function smtpTotalTimeout(env = process.env) {
 // Pool.close() deliberately leaves busy connections alive, so it cannot provide
 // cancellation. No other message shares the connection that we destroy here.
 async function sendDeadlineSmtp({ nodemailer, options, message, timeoutMs,
-  lookup = dns.lookup }) {
+  lookup = dns.lookup, send = transport => transport.sendMail(message) }) {
   const deadline = createOutboundDeadline(timeoutMs);
   let transport, socket, dnsTimer, connectTimer;
   try {
@@ -32,6 +34,49 @@ async function sendDeadlineSmtp({ nodemailer, options, message, timeoutMs,
         };
         try {
           deadline.assertActive();
+          if (settings.proxy) {
+            const proxy = new URL(settings.proxy);
+            if (!['http:', 'https:'].includes(proxy.protocol)) {
+              const error = new Error('Unsupported SMTP proxy protocol');
+              error.code = 'EPROXY';
+              return finish(error);
+            }
+            const target = settings.host || 'localhost';
+            const authority = `${net.isIP(target) === 6 ? `[${target}]` : target}:${settings.port || (settings.secure ? 465 : 587)}`;
+            const headers = { Host: authority };
+            if (proxy.username || proxy.password) {
+              headers['Proxy-Authorization'] = `Basic ${Buffer.from(
+                `${decodeURIComponent(proxy.username)}:${decodeURIComponent(proxy.password)}`).toString('base64')}`;
+              proxy.username = ''; proxy.password = '';
+            }
+            const request = (proxy.protocol === 'https:' ? https : http).request(proxy, {
+              method: 'CONNECT', path: authority, headers,
+            });
+            request.on('error', error => finish(error));
+            deadline.watch({ destroy: () => request.destroy() });
+            request.on('connect', (response, connected, head) => {
+              socket = connected;
+              socket.on('error', error => finish(error));
+              try {
+                deadline.watch({ destroy: () => socket.destroy() });
+                if (response.statusCode !== 200) {
+                  const error = new Error('SMTP proxy connection refused');
+                  error.code = 'EPROXY';
+                  socket.destroy();
+                  return finish(error);
+                }
+                if (head.length) socket.unshift(head);
+                finish(null, { connection: socket, secured: false });
+              } catch (error) { socket.destroy(); finish(error); }
+            });
+            connectTimer = setTimeout(() => {
+              const error = new Error('SMTP proxy connection timed out');
+              error.code = 'ETIMEDOUT';
+              request.destroy(error);
+            }, settings.connectionTimeout || 30000);
+            request.end();
+            return;
+          }
           socket = new net.Socket();
           socket.on('error', error => finish(error));
           // Nodemailer annotates received Error objects with its own SMTP code.
@@ -69,7 +114,10 @@ async function sendDeadlineSmtp({ nodemailer, options, message, timeoutMs,
         } catch (error) { finish(error); }
       },
     });
-    return await deadline.wait(transport.sendMail(message));
+    // Nodemailer's built-in proxy adapter exposes a socket only after CONNECT.
+    // Keep our cancellable adapter through that handshake too.
+    transport.getSocket = null;
+    return await deadline.wait(send(transport, deadline.assertActive));
   } catch (error) {
     deadline.cancel(error);
     throw error;

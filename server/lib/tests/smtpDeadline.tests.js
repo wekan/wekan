@@ -8,10 +8,10 @@ import { installAdminMailTransport, installMailTransport } from '/server/lib/mai
 // listen on loopback, never relay mail, and restore the global transport.
 describe('SMTP total deadline in Meteor', function () {
   this.timeout(15000);
-  for (const mode of ['admin', 'certificate override']) {
+  for (const mode of ['admin', 'certificate override', 'native MAIL_URL']) {
     it(`${mode} closes a continuously responding peer and permits a later send`, async function () {
       if (!Meteor.isAppTest) this.skip();
-      const previous = Email.customTransport, sockets = new Set();
+      const previous = Email.customTransport, previousUrl = process.env.MAIL_URL, sockets = new Set();
       let hold = true, closed = 0, received = 0;
       const server = net.createServer(socket => {
         sockets.add(socket);
@@ -41,7 +41,12 @@ describe('SMTP total deadline in Meteor', function () {
         const env = { MAIL_TOTAL_TIMEOUT_MS: '1000', MAIL_SOCKET_TIMEOUT_MS: '5000' };
         if (mode === 'admin') installAdminMailTransport({ Email, EmailInternals, env,
           mailServer: { enabled: true, service: 'SMTP', configurations: { SMTP: { host: '127.0.0.1', port } } } });
-        else installMailTransport({ Email, EmailInternals,
+        else if (mode === 'native MAIL_URL') {
+          const nativeEnv = { ...env, MAIL_URL: `smtp://127.0.0.1:${port}/` };
+          installMailTransport({ Email, EmailInternals, env: nativeEnv });
+          Email.customTransport = undefined;
+          process.env.MAIL_URL = nativeEnv.MAIL_URL;
+        } else installMailTransport({ Email, EmailInternals,
           env: { ...env, MAIL_URL: `smtp://127.0.0.1:${port}/`, MAIL_TLS_SERVERNAME: 'localhost' } });
         const message = { from: 'sender@example.test', to: 'recipient@example.test', subject: 'total deadline', text: 'test only' };
         await assert.rejects(Email.sendAsync(message), { code: 'OUTBOUND_DEADLINE_EXCEEDED' });
@@ -54,9 +59,44 @@ describe('SMTP total deadline in Meteor', function () {
         assert.equal(received, 2);
       } finally {
         Email.customTransport = previous;
+        if (previousUrl === undefined) delete process.env.MAIL_URL;
+        else process.env.MAIL_URL = previousUrl;
         for (const socket of sockets) socket.destroy();
         if (server.listening) await new Promise(resolve => server.close(resolve));
       }
     });
   }
+  it('native service settings without MAIL_URL bound a stalled compile plugin', async function () {
+    if (!Meteor.isAppTest) this.skip();
+    const previousTransport = Email.customTransport, previousUrl = process.env.MAIL_URL;
+    const previousPackages = Meteor.settings.packages;
+    const nodemailer = EmailInternals.NpmModules.nodemailer.module;
+    const previousCache = globalThis.cache, previousCacheKey = globalThis.cacheKey;
+    let restoreFactory;
+    try {
+      delete process.env.MAIL_URL;
+      Email.customTransport = undefined;
+      Meteor.settings.packages = { ...previousPackages, email: { service: 'Gmail' } };
+      installMailTransport({ Email, EmailInternals, env: { MAIL_TOTAL_TIMEOUT_MS: '1000' } });
+      restoreFactory = nodemailer.createTransport;
+      let prepared = 0;
+      nodemailer.createTransport = function (...args) {
+        const mailer = restoreFactory.apply(this, args);
+        mailer.use('compile', () => { prepared++; }); // no network or actual provider credentials
+        return mailer;
+      };
+      await assert.rejects(Email.sendAsync({ from: 'sender@example.test',
+        to: 'recipient@example.test', text: 'test only' }), { code: 'OUTBOUND_DEADLINE_EXCEEDED' });
+      assert.equal(prepared, 1);
+    } finally {
+      if (restoreFactory) nodemailer.createTransport = restoreFactory;
+      Email.customTransport = previousTransport;
+      if (previousUrl === undefined) delete process.env.MAIL_URL;
+      else process.env.MAIL_URL = previousUrl;
+      if (previousPackages === undefined) delete Meteor.settings.packages;
+      else Meteor.settings.packages = previousPackages;
+      globalThis.cache = previousCache; globalThis.cacheKey = previousCacheKey;
+    }
+  });
+
 });

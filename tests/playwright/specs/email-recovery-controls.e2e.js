@@ -187,7 +187,7 @@ test('a slow SMTP recipient remains visible while another recipient completes de
 for (const phase of ['greeting', 'idle', 'total']) test(`SMTP ${phase} timeout closes the socket and retains delivery for retry`, async ({ page, adminUser, user2 }) => {
   test.skip(phase === 'total' ? process.env.WEKAN_TEST_MAIL_TOTAL_TIMEOUT !== '1000' :
     process.env.WEKAN_TEST_MAIL_TIMEOUTS !== '1000',
-    'Use one-second total timeout with TLS override and longer phase limits, or one-second phase limits');
+    'Use one-second total timeout and longer phase limits, or one-second phase limits');
   let recovered = false, release;
   const held = new Promise(resolve => { release = resolve; });
   const sink = await smtpSink(Number(process.env.WEKAN_TEST_SMTP_PORT), {

@@ -29,7 +29,7 @@ const read = rel => fs.readFileSync(path.join(ROOT, rel), 'utf8');
 const src = read('server/lib/mailTransport.js');
 const lib = {};
 // eslint-disable-next-line no-new-func
-new Function('exports', 'URL', 'fs', 'mailServiceStorageKey', 'sendDeadlineSmtp', 'smtpTotalTimeout',
+new Function('exports', 'URL', 'fs', 'mailServiceStorageKey', 'sendDeadlineSmtp', 'smtpTotalTimeout', 'installNativeSmtpDeadline',
   src.replace(/export function/g, 'function').replace(/^import .*$/gm, '') +
   '\nexports.smtpOptionsFromUrl = smtpOptionsFromUrl;' +
   '\nexports.hasTlsOverrides = hasTlsOverrides;' +
@@ -39,7 +39,8 @@ new Function('exports', 'URL', 'fs', 'mailServiceStorageKey', 'sendDeadlineSmtp'
   '\nexports.installAdminMailTransport = installAdminMailTransport;')(
   lib, URL, fs, service => service.replaceAll('.', '\uff0e'),
   require('../server/lib/smtpDeadline').sendDeadlineSmtp,
-  require('../server/lib/smtpDeadline').smtpTotalTimeout);
+  require('../server/lib/smtpDeadline').smtpTotalTimeout,
+  require('../server/lib/nativeSmtpDeadline').installNativeSmtpDeadline);
 
 let passed = 0;
 function test(name, fn) {
@@ -299,6 +300,15 @@ test('Sandstorm mail updates reinstall the timeout policy', () => {
   const settings = read('server/models/settings.js');
   const hook = settings.slice(settings.indexOf('if (isSandstorm) {\n  Settings.after.update'), settings.indexOf('\nMeteor.methods({'));
   assert.match(hook, /installMailTransport\(\{ Email, EmailInternals \}\)/);
+});
+
+
+test('native service settings receive the deadline even without MAIL_URL', () => {
+  const createTransport = () => assert.fail('installation must not connect');
+  const nodemailer = { createTransport };
+  assert.strictEqual(lib.installMailTransport({ Email: {},
+    EmailInternals: { NpmModules: { nodemailer: { module: nodemailer } } }, env: {} }), 'no-mail-url');
+  assert.notStrictEqual(nodemailer.createTransport, createTransport);
 });
 
 console.log(`\n${passed} tests passed`);

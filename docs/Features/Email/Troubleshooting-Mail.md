@@ -46,17 +46,17 @@ retains its content and retries under the queue's attempt policy. Invitation,
 password-reset and other direct mail callers retain their existing error handling;
 these timeouts do not put those messages into the notification outbox.
 
-For Admin Panel providers and `MAIL_TLS_CA_CERT` / `MAIL_TLS_SERVERNAME`
-overrides, `MAIL_TOTAL_TIMEOUT_MS` additionally limits the entire send, including
+For native SMTP `MAIL_URL`, Meteor email service settings, Admin Panel
+providers and TLS certificate overrides, `MAIL_TOTAL_TIMEOUT_MS` additionally limits the entire send, including
 message preparation, DNS, TCP, TLS and SMTP replies. Its default is 120000 ms;
 valid values are integers from 1000 to 300000 ms. Each message owns a separate
 connection, which is closed at the deadline even if the peer keeps sending
-bytes. Other recipients' connections are unaffected. These paths no longer
-reuse a pool of SMTP connections.
+bytes. Other recipients' connections are unaffected. SMTP connections are no longer
+pooled, including when an older MAIL_URL contains `pool=true`. Native message
+compile/stream plugins, defaults, authentication and TLS options remain in use.
 
-The ordinary Meteor `MAIL_URL` path still has only the phase and idle limits
-above; adding a total deadline while preserving its native mail plugins remains
-pending. A deployment-wide connection limit also remains pending.
+HTTP and HTTPS CONNECT proxies also share the total deadline, including the
+proxy handshake. A deployment-wide connection limit remains pending.
 Legacy non-SMTP `MAIL_URL` schemes and third-party custom transports are outside
 this policy. SMTP acknowledgement loss can still cause duplicate delivery.
 

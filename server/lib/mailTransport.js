@@ -29,6 +29,7 @@
 // ============================================================================
 import fs from 'fs';
 import { sendDeadlineSmtp, smtpTotalTimeout } from './smtpDeadline';
+import { installNativeSmtpDeadline } from './nativeSmtpDeadline';
 import { mailServiceStorageKey } from '/models/lib/mailServices';
 
 // A certificate from an env var: the PEM itself, or a path to a file holding it.
@@ -67,7 +68,7 @@ export function smtpOptionsFromUrl(mailUrl, { ca = null, servername = '' } = {})
     // The ports SMTP actually uses: 465 is implicit TLS, 587 is STARTTLS.
     port: url.port ? Number(url.port) : (secure ? 465 : 587),
     secure,
-    // Meteor defaults the connection pool on; keep the same behaviour.
+    // Preserve the parsed option; the deadline adapter isolates each send.
     pool: true,
     // Verification stays ON. Only the inputs to it can be adjusted below.
     tls: { rejectUnauthorized: true },
@@ -124,7 +125,15 @@ export function hasTlsOverrides(env = process.env) {
 // Install SMTP limits for both standard MAIL_URL and certificate overrides.
 // Returns what it did, so the caller can log it.
 export function installMailTransport({ Email, EmailInternals, env = process.env } = {}) {
-  if (!env.MAIL_URL) return 'no-mail-url';
+  if (!env.MAIL_URL) {
+    // Meteor.settings.packages.email can select a native SMTP service without
+    // MAIL_URL. Install its factory policy before the first send in that mode.
+    const nodemailer = EmailInternals?.NpmModules?.nodemailer?.module;
+    if (nodemailer) installNativeSmtpDeadline(nodemailer, {
+      timeoutMs: smtpTotalTimeout(env), timeouts: smtpTimeouts(env),
+    });
+    return 'no-mail-url';
+  }
   const customTls = hasTlsOverrides(env);
   if (!customTls && !/^smtps?:/i.test(env.MAIL_URL)) return 'default';
   if (!Email || !EmailInternals) return 'no-email-package';
@@ -136,7 +145,10 @@ export function installMailTransport({ Email, EmailInternals, env = process.env 
   if (!customTls) {
     // Keep Meteor's native transport selection and stream plugins (including
     // encrypted/signed mail). Its cache follows the normalized URL.
-    env.MAIL_URL = boundedSmtpUrl(env.MAIL_URL, timeouts);
+    installNativeSmtpDeadline(nodemailer, { timeoutMs: smtpTotalTimeout(env), timeouts });
+    const url = new URL(boundedSmtpUrl(env.MAIL_URL, timeouts));
+    url.searchParams.set('wekanTotalTimeout', String(smtpTotalTimeout(env)));
+    env.MAIL_URL = url.toString();
     return 'bounded-smtp';
   }
   const makeOptions = mailUrl => ({
