@@ -280,9 +280,15 @@ and snapshots the redo rows a new edit supersedes. MongoDB tests interrupt
 between timeline rows and resume without duplicate events or invalidating rows
 undone later. Stable planning identities, predecessor verification and bounded
 plans are implemented. Production collection/job lifecycle, duplicate-hook
-suppression, creation effects, legacy unhashed redo rows and independent
-integrity-chain writers still require integration; activities and notifications
+suppression, creation effects and independent integrity-chain writers still
+require integration; activities and notifications
 are not acknowledged by this History component.
+Legacy redo rows without integrity hashes now retain exact typed snapshots
+inside private plans. Conditional invalidation and readback preserve their
+original missing/null/empty hashes and refuse changed contents or undo cycles.
+Interrupted replay handles hashed and legacy rows together; later undo rows
+remain untouched. This removes the legacy-row limitation from the internal
+History adapter, while production integration remains unfinished.
 History/effect plans now persist inside the same journal units as their card
 plans. Both are covered by one checksum and whole-plan validation before writes,
 then share recovery retention and verified cleanup. Missing, changed or
@@ -967,6 +973,27 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bb42397a2">Resume Sync History plans containing legacy redo rows</a>. Thanks to xet7.</summary>
+
+Retain exact typed snapshots of legacy undone History rows that have no
+integrity hash. Compare their original contents and undo timestamp before
+marking them superseded, then verify the stored result. Keep snapshot digests
+in the private plan; do not add retroactive integrity hashes to old History.
+Malformed existing hashes still fail validation.
+
+Eight focused Sync/History Node suites pass with real MongoDB enabled. Tests
+cover journal persistence, missing/null/empty hashes, literal object contents,
+changed undo cycles, lost write acknowledgements, interruption, repeated replay
+and protection of rows undone later. The source audit passes with advisories.
+The existing published-entry changelog line-length failure remains.
+
+This internal adapter still needs production job/collection integration,
+creation effects and coordination with other History writers. No production
+UI changed; activity and notification completion remain separate pending work.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a55703f02">Retain Jira time estimates in durable Sync plans</a>. Thanks to xet7.</summary>
