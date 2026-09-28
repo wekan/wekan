@@ -10,7 +10,9 @@ function createResponseReplayGuard({ maxEntries = 10000, ttlMs = 8 * 60 * 60 * 1
       if (expires > now) break;
       used.delete(id);
     }
-    const id = profile?.getInResponseTo?.();
+    // node-saml exposes the validated Response InResponseTo as a string.
+    // Missing IDs remain invalid; accepting a valid response is still atomic.
+    const id = typeof profile?.inResponseTo === 'string' ? profile.inResponseTo : '';
     accept.rejection = typeof id !== 'string' || !id ? 'invalid'
       : used.has(id) ? 'replay' : used.size >= maxEntries ? 'capacity' : null;
     if (accept.rejection) return false;

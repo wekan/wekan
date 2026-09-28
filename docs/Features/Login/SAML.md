@@ -53,6 +53,30 @@ identity mapping. Its Admin Panel override follows the same precedence rules.
 Configuration and route tests and Chromium settings tests cover this integration.
 End-to-end interoperability with a live identity provider still requires testing.
 
+## Popup closes but sign-in does not finish
+
+A successful IdP response still needs to pass WeKan validation and establish a
+Meteor session. The response replay guard reads node-saml's string property
+`profile.inResponseTo`; it must not call a nonexistent `getInResponseTo()` method.
+The verified ID is consumed once. Missing IDs and replays remain rejected, and
+`validateInResponseTo` stays `always`.
+
+If the ACS rejects a response, the popup's error marker now passes its message
+to the sign-in page. No credential exchange is attempted for that failed
+response. Error text is rendered as text, and cleared before the next attempt.
+
+For an IdP that supplies a short account name in the `username` attribute and
+an email address separately, set `SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE=username`.
+Enable `SAML_MERGE_EXISTING_USERS` only when intentionally linking the trusted
+IdP identity to an existing local account; the default remains false. Keep the
+client's `public.SAML_PROVIDER` consistent with the server's provider setting.
+Verify the issuer/audience, ACS URL and assertion-signing public certificate.
+A signature failure is distinct from a response-ID or account-conflict failure.
+
+These are deployment-specific settings, not defaults changed by the fix.
+The local signed-response fixture and popup/UI tests do not validate a remote
+installation's certificate, account mapping or IdP configuration.
+
 ## Related Meteor SAML code / prior art
 
 - New: https://forums.meteor.com/t/meteor-and-saml/61561

@@ -35,9 +35,14 @@ Meteor.loginWithSaml = function (options, callback) {
 
   var checkPopupOpen = setInterval(function () {
     var popupClosed;
+    var failureMessage;
     try {
-      if (popup && popup.document && popup.document.getElementById('popupCanBeClosed')) {
-        popup.close();
+      if (popup && popup.document) {
+        var marker = popup.document.getElementById('popupCanBeClosed');
+        if (marker) {
+          failureMessage = marker.getAttribute('data-error');
+          popup.close();
+        }
       }
       popupClosed = !popup || popup.closed || popup.closed === undefined;
     } catch (e) {
@@ -48,6 +53,10 @@ Meteor.loginWithSaml = function (options, callback) {
 
     if (popupClosed) {
       clearInterval(checkPopupOpen);
+      if (failureMessage) {
+        if (callback) callback(new Meteor.Error('saml-login-failed', failureMessage));
+        return;
+      }
       Accounts.callLoginMethod({
         methodArguments: [{ saml: { credentialToken: credentialToken } }],
         userCallback: function (err) {

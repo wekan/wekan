@@ -8,10 +8,10 @@ const {createResponseReplayGuard}=require('../packages/wekan-accounts-saml/respo
 
 test('atomic response consumption rejects concurrent replay, malformed IDs and capacity overflow',async()=>{
  const accept=createResponseReplayGuard({maxEntries:2,ttlMs:100});
- const profile=id=>({getInResponseTo:()=>id});
+ const profile=id=>({inResponseTo:id});
  assert.deepEqual(await Promise.all([1,2].map(()=>Promise.resolve().then(()=>accept(profile('a'),1)))),[true,false]);
  assert.equal(accept.rejection,'replay');
- for(const value of [undefined,null,{},profile(''),profile({})])assert.equal(accept(value,1),false);
+ for(const value of [undefined,null,{},profile(''),profile({}),{getInResponseTo:()=> 'fake'}])assert.equal(accept(value,1),false);
  assert.equal(accept(profile('b'),2),true);assert.equal(accept(profile('c'),3),false);
  assert.equal(accept.rejection,'capacity');
  assert.equal(accept(profile('c'),102),true);
@@ -28,6 +28,11 @@ test('signed response is accepted once; replay, unsolicited, unsigned and tamper
  const saml=new SAML({...opts,validateInResponseTo:mode});
  async function response(client){const url=await client.getAuthorizeUrlAsync('test-relay',undefined,{});const html=await(await fetch(url)).text();return {SAMLResponse:/name="SAMLResponse" value="([^"]+)"/.exec(html)[1],RelayState:'test-relay'};}
  const body=await response(saml);const first=await saml.validatePostResponseAsync(body);assert.equal(first.profile.nameID,'alice.saml@example.invalid');
+ const accept=createResponseReplayGuard();
+ assert.equal(typeof first.profile.inResponseTo,'string');
+ assert.ok(first.profile.inResponseTo.length>0);
+ assert.equal(accept(first.profile),true);assert.equal(accept(first.profile),false);
+ assert.equal(accept.rejection,'replay');
  await assert.rejects(saml.validatePostResponseAsync({...body,RelayState:'different-relay'}),/InResponseTo/);
  // Reproduce the old configuration to prove the test detects the vulnerability.
  const old=new SAML(opts);await old.validatePostResponseAsync(body);await old.validatePostResponseAsync(body);

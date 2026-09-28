@@ -365,8 +365,13 @@ Template.userFormsLayout.events({
   'click #at-saml'(event) {
     event.preventDefault();
     const provider = Meteor.settings.public.SAML_PROVIDER;
+    showLoginError('');
     Meteor.loginWithSaml({ provider }, (err) => {
-      if (!err) FlowRouter.go('/');
+      if (err) {
+        showLoginError(err);
+        return;
+      }
+      FlowRouter.go('/');
     });
   },
   // Google / GitHub / Facebook / X / Meteor Developer / Weibo / Meetup: the
