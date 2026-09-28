@@ -1291,9 +1291,11 @@ now uses current target results and both boards' visibility settings. The six
 visible Scrum card fields are included with same-board name resolution and
 persisted visibility checks. The
 [content audit](docs/DeveloperDocs/Card-Email-Content-Audit.md) now tracks
-remaining reactions, converted-subtask references, attachment metadata,
+remaining converted-subtask references, attachment metadata,
 legacy Gantt links, wrapper metadata and moved-card SMTP coverage. Creator,
-stickers, checklist schedules and public comment authors are now included),
+stickers, checklist schedules, public comment authors and scoped reaction
+summaries are now included. Stored related-card titles still need durable
+permission evidence),
 [#3195](https://github.com/wekan/wekan/issues/3195) (rule action/trigger
 values should be able to reference a custom field's value — today's action
 and trigger value inputs are plain literals; resolving a per-board custom
@@ -1548,6 +1550,25 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4cca0b2c8">Include comment reactions in rule emails</a>. Thanks to kabi178, bbyszio and xet7.</summary>
+
+Append Unicode reaction emoji and distinct-reactor counts to included live
+comments. Batch reads are scoped by board, card and comment IDs; foreign or
+deleted-comment rows do not contribute. Reject malformed, control and
+surrogate codepoints. Never render reactor IDs, private account fields or
+arbitrary reaction markup. The existing content bound and final source-access
+check apply after reaction reads too.
+
+Fifty-seven Node suites pass without skips, including MongoDB and native
+MailComposer integration. Unit coverage checks duplicate reactors, invalid
+codes, foreign rows and revoked access. Three Chromium SMTP scenarios pass;
+filesystem/GridFS mail includes the emoji/count and omits reactor identifiers.
+The content audit now records related-card authorization on stored retries
+as a separate unfinished requirement. Existing Upcoming coverage is retained.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2e13fab98">Fill audited card email content gaps</a>. Thanks to kabi178, bbyszio and xet7.</summary>
