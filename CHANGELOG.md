@@ -246,7 +246,10 @@ coverage, including lost acknowledgements and interrupted cleanup. It is not
 yet connected to manual or scheduled Sync. Application adapters, private
 collection lifecycle, pause/cancel controls and restart scheduling remain open.
 The engine now persists mapped-estimate baselines and typed custom-field
-snapshots, permitting only the mapped field to change. Real MongoDB tests cover
+snapshots, permitting only explicitly mapped fields to change. Original and
+remaining Jira time estimates now survive the same persisted replay together
+with the primary estimate; overlapping target IDs are refused. Real MongoDB
+tests cover
 lost acknowledgements on update/clear, create and null/missing arrays, damaged
 mapping checksums and local-edit conflicts. This still uses a test adapter;
 production application/effect adapters remain unfinished.
@@ -964,6 +967,22 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a55703f02">Retain Jira time estimates in durable Sync plans</a>. Thanks to xet7.</summary>
+
+Persist original and remaining time baselines and canonical hour mappings
+alongside the primary estimate. Reject overlapping target fields, incorrect
+units, malformed values and changes to unrelated custom fields. Preserve
+zero, explicit clearing and unrelated typed values during replay.
+
+Nine focused Node suites pass with real MongoDB enabled, including interrupted
+creation/update/clear, lost acknowledgements, local-edit conflicts and damaged
+saved mappings or checksums. The source audit passes with advisory warnings.
+This private engine still needs production Sync integration, lifecycle controls
+and durable History/activity completion. No production UI path changed.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/03c95123f">Keep request secrets out of unhandled API failure diagnostics</a>. Thanks to xet7.</summary>
