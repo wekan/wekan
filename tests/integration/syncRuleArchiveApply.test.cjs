@@ -1,0 +1,46 @@
+'use strict';
+const { test } = require('node:test');
+const assert = require('node:assert/strict');
+const { MongoClient, ObjectId } = require('mongodb');
+const { prepareRulePlan } = require('../../server/lib/syncRulePlan');
+const { ensureRuleArchiveCommand } = require('../../server/lib/syncRuleArchiveCommand');
+const { applyRuleArchiveCommand: apply } = require('../../server/lib/syncRuleArchiveApply');
+const uri = process.env.WEKAN_SYNC_TEST_MONGO_URL;
+test('fresh-connection replay finishes child effects before the parent without repeating card writes', { skip: !uri }, async t => {
+  const client = await new MongoClient(uri).connect(), db = client.db(`archive_apply_${new ObjectId().toHexString()}`);
+  t.after(async () => { await db.dropDatabase(); await client.close(); });
+  const cards = db.collection('cards'), receipts = db.collection('receipts');
+  await cards.insertMany(['root', 'child'].map(_id => ({ _id, boardId: 'board', listId: 'list',
+    swimlaneId: 'lane', title: _id, archived: false, ...(_id === 'child' ? { parentId: 'root', archivedAt: null } : {}) })));
+  const f = { activity: { _id: 'activity', boardId: 'board', cardId: 'root', userId: 'actor' },
+    effectId: 'a'.repeat(64), index: 0, assertCurrent: async () => {}, assertCard: async () => {} };
+  f.plan = await prepareRulePlan({ ...f,
+    selectRules: async () => [{ _id: 'rule', boardId: 'board', triggerId: 'trigger', actionId: 'action' }],
+    readAction: async () => ({ _id: 'action', actionType: 'archive' }) });
+  f.command = await ensureRuleArchiveCommand({ ...f, commands: db.collection('commands'),
+    readCard: id => cards.findOne({ _id: id }), readChildren: id => cards.find({ parentId: id }).toArray(),
+    now: () => new Date(1000) });
+  const writes = [], delivered = [];
+  const wrap = collection => ({ findOne: (...args) => collection.findOne(...args),
+    updateOne: async (selector, modifier) => {
+      const result = await collection.updateOne(selector, modifier);
+      if (result.modifiedCount) writes.push(selector._id);
+      throw Error('lost write reply');
+    } });
+  f.cards = wrap(cards); f.receipts = receipts; f.preflightEffects = async () => {};
+  f.completeEffects = async () => { throw Error('interrupted effects'); };
+  await assert.rejects(apply(f), /interrupted effects/);
+  assert.deepEqual(writes, ['child']); assert.equal(await receipts.countDocuments({}), 0);
+  assert.equal((await cards.findOne({ _id: 'root' })).archived, false);
+  const restarted = await new MongoClient(uri).connect();
+  try {
+    const next = restarted.db(db.databaseName);
+    f.cards = wrap(next.collection('cards')); f.receipts = next.collection('receipts');
+    f.completeEffects = async ({ unit }) => { delivered.push(unit.cardId); return unit.effectId; };
+    assert.equal(await apply(f), f.command.invocationId);
+    assert.deepEqual(writes, ['child', 'root']); assert.deepEqual(delivered, ['child', 'root']);
+    await apply(f); assert.equal(writes.length, 2); assert.equal(delivered.length, 2);
+    assert.equal(await receipts.countDocuments({}), 3);
+    assert.equal(await cards.countDocuments({ archived: true, archivedAt: new Date(1000) }), 2);
+  } finally { await restarted.close(); }
+});

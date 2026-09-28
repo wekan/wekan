@@ -780,3 +780,21 @@ application, durable History/activity delivery and invocation receipts still
 need integration. Replay must recheck current permissions and apply the saved
 before/after states; it must not treat command storage as execution completion.
 No browser or scheduled-job entry point invokes this helper yet.
+
+`server/lib/syncRuleArchiveApply.js` provides the internal conditional executor.
+It derives stable per-card effect IDs and exact before/after predicates from a
+validated command, including missing versus null parent/timestamp fields.
+Archive uses the captured timestamp; restore preserves the old archive time,
+as ordinary card restore does. A satisfied root produces no card units.
+
+Before writing, it verifies every saved receipt, each card's access and every
+pending card state, then requires a separate preflight of all saved effects.
+It reconciles lost write acknowledgements by reading the expected after-state.
+An already changed card still needs its durable effect acknowledgement. Only
+then is its receipt inserted and read back, before the next parent is changed.
+A final receipt requires the complete ordered prefix of per-card receipts.
+
+The owner must supply hook-preserving card access, a live lease/access guard,
+and durable effect preparation/delivery. MongoDB tests use raw collections to
+exercise conditional persistence only; they do not prove ordinary Meteor hook
+integration. Production binding and History/activity plans remain pending.
