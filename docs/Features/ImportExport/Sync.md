@@ -795,9 +795,38 @@ checked before and after the read, with a per-connection request rate limit.
 
 An unconfirmed attempt may still be in flight; the report does not infer
 failure or authorize retry from its age. Counts and pages are separate reads,
-so concurrent changes do not form a database snapshot. This is the report
-backend only. An Admin Panel view and explicit operator resolution remain TODO;
-the method has no mutation, resend, discard or acknowledgement action.
+so concurrent changes do not form a database snapshot. Admin Panel → Problems
+shows this report; the method has no mutation, resend, discard or acknowledgement
+action.
+
+An offline maintainer can reconcile one uncertain attempt only after independent
+SMTP evidence confirms acceptance of **every** recipient:
+
+```sh
+node releases/recover-rule-email.cjs --command <command-hash> \
+  --attempt <attempt-UUID> --operator <maintainer-name> \
+  --evidence <opaque-log-reference> --offline --confirm-accepted
+```
+
+Set `MONGO_URL` to the intended named database. Stop all application and delivery
+workers, including other recovery processes, and keep them stopped throughout.
+The flags are operator assertions; the tool cannot discover remote workers or
+verify SMTP logs. Never use it for partial or unknown acceptance. Evidence is an
+opaque reference, not recipient addresses, credentials or message content.
+
+The tool first stores an immutable decision in `listSyncRuleEmailResolutions`,
+then conditionally reconciles the exact attempt to `sent` and verifies readback.
+It reads command identity metadata only and never sends, changes, discards or
+resets mail. `finishedAt` records the confirmation time, not an inferred original
+SMTP acceptance time. These are separate writes; if interrupted, repeat the
+identical arguments while writers remain stopped. Conflicting evidence, changed
+attempts and damaged decisions fail closed. A matching completed decision is
+idempotent, and an already-sent attempt without a decision stays unchanged.
+Normal dispatch still applies source-access guards before reusing the receipt.
+
+Legacy unbound commands, obsolete Details bindings, partial/unknown acceptance
+and online operator resolution remain unfinished. This tool does not make those
+commands eligible for dispatch or activate manual/cron Sync.
 
 ### Stored archive rule command preparation
 

@@ -89,9 +89,13 @@ Display preferences, internal Sync provenance/revisions, deletion bookkeeping
 and security/transport state are not prose to serialize wholesale. A new field
 must be classified by its user-visible meaning before adding it to email.
 
-Stored Sync command recovery remains unfinished: unbound
-legacy commands and uncertain SMTP attempts still require an operator workflow.
-Snapshots are not automatically rewritten or resent. Version-five source evidence now binds related-card titles to their complete
+Stored Sync command recovery remains partly unfinished. Offline confirmation
+of independently verified acceptance for every recipient now records an immutable
+decision and reconciles the exact receipt without sending again; see the
+[Sync recovery workflow](../Features/ImportExport/Sync.md). Legacy unbound
+commands, obsolete Details bindings, partial/unknown SMTP acceptance and online
+operator resolution remain open. Snapshots are not automatically rewritten or
+resent. Version-five source evidence now binds related-card titles to their complete
 source chains and rechecks them on retries, including board-admin access used
 for main-card content. Older Details commands require recovery. Custom-field definition fingerprints are also retained and rechecked, so a
 public-to-admin-only change after capture blocks dispatch. Source bindings cover

@@ -44,6 +44,8 @@ for (const collection of [SyncRuleArchiveCommands, SyncRuleArchiveEffects, SyncR
 export const SyncRulePlans = new Mongo.Collection('listSyncRulePlans');
 export const SyncRuleEmailAttempts = new Mongo.Collection('listSyncRuleEmailAttempts');
 SyncRuleEmailAttempts.deny({ insert: () => true, update: () => true, remove: () => true });
+export const SyncRuleEmailResolutions = new Mongo.Collection('listSyncRuleEmailResolutions');
+SyncRuleEmailResolutions.deny({ insert: () => true, update: () => true, remove: () => true });
 export const SyncRuleEmailCommands = new Mongo.Collection('listSyncRuleEmailCommands');
 SyncRuleEmailCommands.deny({ insert: () => true, update: () => true, remove: () => true });
 export const SyncRuleReceipts = new Mongo.Collection('listSyncRuleReceipts');
