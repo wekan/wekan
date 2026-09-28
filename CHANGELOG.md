@@ -327,11 +327,17 @@ ID. It validates required adapters and list scope before effects, isolates saved
 inputs from adapter mutation, and checks ownership and captured policy around
 every stage. Disabled notifications still require rules. Replay revisits durable
 stage reconciliation instead of assuming earlier in-memory success. An internal
-binding uses the actual stored notification/webhook entry points and live flags,
-but requires a supplied durable rules adapter. Nineteen Node cases pass,
-including seven coordinator/binding cases with scripted adapters. Durable rule
-execution, shared History-chain coordination and manual/cron activation remain
-unfinished; ordinary executeRules is not substituted for durable rule replay.
+binding uses actual stored notification/webhook entry points, live flags and
+now the stored rules stage by default. That stage installs the durable email
+adapter, mapping frozen invocation IDs to command indices. Empty/missing-action
+plans complete without action dispatch; unsupported pending actions fail
+preflight before email. Twenty-four Node/MongoDB cases and two full-app cases
+pass, including real SMTP through saved activity/rule delivery with watcher
+notifications disabled, exact aggregate receipts and refusal of unsupported
+sibling actions.
+Other action adapters, shared History-chain coordination, uncertain-send
+operator handling and manual/cron activation remain unfinished; ordinary
+executeRules is not substituted for durable rule replay.
 An internal rule-plan primitive now freezes ordered rule and action snapshots
 for a saved activity/effect, including duplicate matches, absent actions and
 empty selections. It binds actor, board/card identity and the activity hash;
@@ -1410,6 +1416,24 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ab81fcede">Connect durable email receipts through stored rule and activity delivery</a>. Thanks to xet7.</summary>
+
+Install the stored email adapter in the rule coordinator and use stored rules
+by default in saved-activity delivery. Map frozen invocation IDs to their plan
+indices and acknowledge the rule stage only after exact durable receipts.
+Unsupported pending actions still fail preflight before the first email; no
+ordinary action runner is used as a fallback.
+
+Twenty-four Node/MongoDB cases and two full-app cases pass. Real loopback SMTP
+covers the full saved-activity/rule path with watcher notifications disabled,
+no resend on completed replay, no aggregate receipt for uncertain or partial
+SMTP acceptance, and no send when another action is unsupported. The source
+audit completes with advisory warnings. Other action adapters, shared History
+coordination, operator recovery and manual/cron activation remain TODO.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5c2b9c160">Verify stored rule email through real SMTP acceptance and interruption</a>. Thanks to xet7.</summary>
