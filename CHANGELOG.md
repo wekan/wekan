@@ -1278,8 +1278,10 @@ asks for the same thing),
 optional live-card attachments, with source-access rechecks and verified
 filesystem/GridFS SMTP delivery. The original request also asks for all card
 content: live checklists and public comments now have an independent opt-in
-mail action choice with SMTP coverage. Other fields, including dates, custom
-fields, text notes and relationships, still need an email representation),
+mail action choice with SMTP coverage. Details now includes dates, placement,
+labels/people, custom-field display values, notes and authorized relationships.
+Complete linked-source content and specialized fields such as Scrum and voting
+still need review before the full-card-content request can be closed),
 [#3195](https://github.com/wekan/wekan/issues/3195) (rule action/trigger
 values should be able to reference a custom field's value — today's action
 and trigger value inputs are plain literals; resolving a per-board custom
@@ -1444,8 +1446,9 @@ immutable byte snapshots and mailer propagation. Filesystem and GridFS delivery
 pass local SMTP tests; live cloud-account validation remains unperformed.
 The bounded snapshot and durable-command checks remain in place. Checklists
 and public comments can now be included independently, with private webhook
-state excluded. Dates, custom fields, text notes and relationships remain
-before the full card-content request can be closed.).
+state excluded. Details now covers ordinary card metadata, custom fields,
+notes and authorized relationships. Linked-source content and specialized
+Scrum/voting fields remain for the full-content audit.).
 
 </details>
 
@@ -1525,6 +1528,27 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c06b42976">Include authorized card details in rule emails</a>. Thanks to kabi178, bbyszio and xet7.</summary>
+
+Add a Details checkbox for dates, placement, labels, public member names,
+requesters/assigners, time spent, locations, custom-field display values,
+text notes and readable parent/subtask/dependency titles. Preserve zero and
+false values. Match dropdown, multiselect, date, currency and string-template
+semantics. Require board-admin access for admin-only custom fields, recheck
+source/related access and custom-field definitions, and omit private account
+fields and inaccessible related-card titles. Linked cards/boards expose only
+an authorized source title, never their cached source snapshots.
+
+Thirty-six focused Node suites pass. Two Chromium cases with local SMTP
+capture verify saved Details selection, actual dates, custom-field names and
+notes, along with disabling the content while preserving attachment behavior.
+Source inventory warnings remain advisory. Keep
+[#2713](https://github.com/wekan/wekan/issues/2713) open for complete linked
+source content and specialized card fields.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/05080fc02">Include checklists and comments in rule emails</a>. Thanks to kabi178, bbyszio and xet7.</summary>
