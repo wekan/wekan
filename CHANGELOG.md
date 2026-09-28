@@ -539,8 +539,15 @@ late DNS, concurrent delivery, encrypted socket closure and certificate refusal.
 Message preparation cannot open a connection after expiration. The ordinary
 Meteor MAIL_URL path still needs total cancellation while preserving its native
 plugins. Receipt retention, deployment-wide concurrency and coordinating
-activity creation with queue insertion remain pending. Full-app Meteor and
-browser validation of this new SMTP adapter remain pending.
+activity creation with queue insertion remain pending. Two full-app Meteor
+cases now verify actual Email.sendAsync cancellation and subsequent success
+through both transport installers. Fifteen Chromium scenarios pass across the
+email-delivery and recovery suites, including retained payloads, visible retry
+counts, cancellation, authorization and successful delivery after a total
+timeout. The slow-recipient regression compares captured bodies with persisted
+attempts, preserving at-least-once retry after an unconfirmed acknowledgement.
+Two phase-timeout cases require different test settings and were skipped in
+this total-deadline browser run.
 History field snapshots now preserve nested dates, including date-valued
 custom fields alongside mapped estimates. JSON transport and restoration retain
 Date types without interpreting date-looking text. Existing rows whose dates
@@ -1183,6 +1190,30 @@ secrets, and reviewed **translations** regain their target-language meaning.
 This release improves security diagnostics:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/b70d8e421">Verify SMTP deadline recovery through Meteor and the browser</a>. Thanks to xet7.</summary>
+
+Exercise the actual Email.sendAsync path with Admin Panel and TLS-override
+transport installation. A continuously responding local SMTP peer must lose
+its connection at the total deadline; a later send succeeds. Both full-app
+Meteor cases pass.
+
+Extend the SMTP browser fixture with streaming replies. Verify the timed-out
+payload stays pending, Recovery shows its retry count, and later acceptance
+replaces the payload with a receipt. Keep the fast recipient at one send
+while matching a slow recipient's captured bodies to its persisted attempts.
+An expired acknowledgement legitimately requires a retry, so the old one-
+body assumption no longer applies under the short total deadline.
+
+Fifteen Chromium scenarios pass across email delivery and recovery,
+including the corrected slow-recipient case and a repeated total-timeout
+case. Two greeting/idle-timeout scenarios were skipped because they require
+separate phase-limit settings. Document the exact test environment.
+Source/dependency audit passes with advisory warnings. Native Meteor
+MAIL_URL total-deadline integration remains in TODO Later.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/e037b423d">Bound custom SMTP delivery with active socket cancellation</a>. Thanks to xet7.</summary>
 
 Admin Panel mail providers and TLS certificate overrides now enforce a total
@@ -1200,7 +1231,8 @@ Meteor's Nodemailer dependency. Verify stalled and continuously responding
 peers,
 late DNS, concurrent success, encrypted connection closure and rejection of a
 mismatched certificate. Source/dependency audit passes with advisory warnings.
-No UI behavior changes. Full-app Meteor and browser validation remain pending.
+No UI behavior changes. The follow-up regression entry records full-app
+Meteor and Chromium validation.
 The ordinary Meteor MAIL_URL path still has phase/idle limits only; its total
 deadline integration, receipt retention and deployment-wide concurrency remain
 in TODO Later.
