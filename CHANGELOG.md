@@ -1292,7 +1292,8 @@ visible Scrum card fields are included with same-board name resolution and
 persisted visibility checks. The
 [content audit](docs/DeveloperDocs/Card-Email-Content-Audit.md) now tracks
 all 71 top-level card fields. Remaining work is linked-board display parity
-and authorized target-board discussion. Local recurrence is now included.
+and authorized target-board discussion. Target archive/time state and active
+member names are now included, along with local recurrence.
 Timer session reads and writes now agree;
 completed work uses the current source total. Local placement,
 timers and visible Scrum now have a separate linked-card section. Moved-card
@@ -1481,7 +1482,8 @@ Linked-board voting now follows target policy with stored checks. Visible
 Scrum card metadata now has same-board reference and SMTP coverage. Final
 [content audit](docs/DeveloperDocs/Card-Email-Content-Audit.md) records concrete
 linked-board display and authorized target-board discussion gaps after a
-71-field inventory. Local recurrence is now included. Timer reads and writes
+71-field inventory. Target archive/time state, active member names and local
+recurrence are now included. Timer reads and writes
 now agree, and
 completed work uses the current source total. Local placement,
 timers and visible Scrum now have a separate section. Moved-card SMTP passes
@@ -1568,6 +1570,25 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f27f060fb">Include current linked-board state and active people in rule emails</a>. Thanks to kabi178, bbyszio and xet7.</summary>
+
+Linked-board Details now reads archive state/date, due completion and overtime
+from the current target board. Members and Assignees use its unique active
+members, matching the linked-board card getters. Resolve public display names
+only; skip inactive or missing accounts and never serialize membership roles,
+email addresses or account credentials. Recheck target access after name reads.
+
+Sixty Node suites pass without skips, including MongoDB and native mail
+composition. Unit tests cover false/zero values, stale wrapper fields,
+duplicate/inactive/missing members and loss of target-only read access.
+Three Chromium SMTP scenarios pass, including target state and member names.
+The source audit passes with informational warnings. Update the field inventory
+and retain existing Upcoming regression evidence. Local wrapper content and
+per-card-authorized target-board discussion remain unfinished.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1869a68c6">Audit card email fields and include local link recurrence</a>. Thanks to kabi178, bbyszio and xet7.</summary>
