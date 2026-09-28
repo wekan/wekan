@@ -24,6 +24,7 @@ const collections = { board: Boards, card: Cards, list: Lists, swimlane: Swimlan
 const { recordScrumRestoreOnce } = require('./scrumHistoryRestoreWriter');
 const { finishScrumHistory, verifyScrumHistorySource } = require('./scrumHistoryFinalizer');
 const { ensureScrumHistoryOperation, assertScrumHistoryOperation } = require('./scrumHistoryOwnership');
+const { scrumHistoryWriteState } = require('./scrumHistoryWriteState');
 const batches = new AsyncLocalStorage();
 const conflict = () => { throw new Meteor.Error('scrum-conflict', 'Scrum data changed. Reload History before retrying.'); };
 
@@ -170,13 +171,15 @@ export async function applyScrumHistory(row, content, direction) {
         await assertCurrent();
         const entry = targets[index]; const collection = collections[entry.type];
         const current = await collection.findOneAsync(entry.id);
-        const live = historyDocument(entry.type, current);
-        if (EJSON.equals(live, entry.document)) continue;
-        if (!EJSON.equals(live, journal.before.records[index].document)) conflict();
-        const metadata = METADATA_TYPES.has(entry.type);
-        const revisionField = metadata ? 'scrumRevision' : 'revision';
+        const before = journal.before.records[index];
+        if (before?.type !== entry.type || before?.id !== entry.id) conflict();
         const originalRevision = journal.revisions[index];
-        if (current && (current[revisionField] || 0) !== originalRevision) conflict();
+        let state;
+        try { state = scrumHistoryWriteState({ type: entry.type, current,
+          before: before.document, after: entry.document, revision: originalRevision }); }
+        catch (error) { conflict(); }
+        if (state === 'applied') continue;
+        const metadata = METADATA_TYPES.has(entry.type);
         const selector = { _id: entry.id, ...(metadata ? scrumRevisionSelector(current) : { revision: current?.revision }) };
         await assertCurrent();
         if (!entry.document) {

@@ -658,3 +658,25 @@ browser tests. These ownership checks retain exact recovery evidence; they do
 not serialize simultaneous workers on the same unchanged plan or make separate
 entity and checkpoint writes atomic. Shared operation-level coordination is
 still required for those guarantees.
+
+### Revision evidence for already-applied Scrum writes
+
+Recovery no longer treats matching target values alone as proof that a saved
+step is complete. It also requires the operation's expected revision: unchanged
+steps retain the captured revision, updates advance it by exactly one, and
+newly recreated planning records begin at revision one. A pending write must
+still match both its captured before-values and original revision.
+
+This applies to board/card/list/swimlane Scrum metadata and sprint, release
+and event records. A newer writer that returns to the same visible values
+still changes the revision, so the older recovery fails with a Scrum conflict
+and retains its checkpoint. It does not rewrite the newer revision, append
+another timeline event or acknowledge cleanup. Invalid numeric revisions and
+mismatched before/after record identities are also refused.
+
+A missing document after a planned deletion has no stored revision to check;
+absence alone cannot distinguish this operation's deletion from a later
+create/delete cycle. Same-revision external writes and the interval between
+validation and mutation still require stronger operation-level coordination.
+The existing conditional update guards remain in place, and this change does
+not claim cross-document atomicity.

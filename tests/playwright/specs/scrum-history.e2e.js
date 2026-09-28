@@ -180,3 +180,28 @@ test('pending Scrum redo cannot revive a source invalidated by a newer ordinary 
   }
  }finally{clean(board.boardId);}
 });
+test('matching restored Scrum values at a newer revision cannot complete an old checkpoint',async({page,user,board})=>{
+ try{
+  await loginWithToken(page,user.id,user.token);
+  const card=db.find('cards',{boardId:board.boardId})[0];
+  await call(page,'scrum.updateCard',board.boardId,card._id,{issueType:'Story'},0);
+  const row=db.findOne('changeHistory',{boardId:board.boardId,entityType:'scrum'});
+  const revision=db.findOne('cards',{_id:card._id}).scrumRevision;
+  await call(page,'changeHistory.undoLast',board.boardId);
+  const checkpoint=db.findOne('changeHistory',{boardId:board.boardId,restoredFromId:row._id,isCheckpoint:true});
+  db.insertOne('scrumHistoryPending',dates({_id:board.boardId,rowId:row._id,direction:'undo',userId:user.id,
+    operationId:checkpoint.batchId,content:row.previousContent,before:row.newContent,revisions:[revision]}));
+  // Model an intervening writer returning to the same values. Equality of
+  // projected Scrum content must not hide the newer revision from recovery.
+  db.updateOne('cards',{_id:card._id},{$inc:{scrumRevision:1}});
+  const current=db.findOne('cards',{_id:card._id});
+  const count=db.find('changeHistory',{boardId:board.boardId}).length;
+  for(let retry=0;retry<2;retry++){
+   await expect(call(page,'changeHistory.undoLast',board.boardId)).rejects.toThrow(/scrum-conflict/);
+   expect(db.findOne('cards',{_id:card._id}).scrum).toEqual(current.scrum);
+   expect(db.findOne('cards',{_id:card._id}).scrumRevision).toBe(current.scrumRevision);
+   expect(db.findOne('scrumHistoryPending',{_id:board.boardId}).operationId).toBe(checkpoint.batchId);
+   expect(db.find('changeHistory',{boardId:board.boardId}).length).toBe(count);
+  }
+ }finally{clean(board.boardId);}
+});
