@@ -1,3 +1,4 @@
+import { boardTextSelector, startBoardTextFilter } from '/client/lib/boardTextFilter';
 import { dateDisplayPreferences } from '/client/lib/dateDisplay';
 import { Blaze } from 'meteor/blaze';
 import { Tracker } from 'meteor/tracker';
@@ -608,6 +609,7 @@ export const Filter = {
   dateRange: new CardDateRangeFilter(),
   dateRecency: new CardRecencyFilter(),
   title: new StringFilter(),
+  text: new StringFilter(),
   customFields: new SetFilter('_id'),
   // #3392: filter cards by their dependency ("Red Strings") relation type.
   cardDependencies: new SetFilter('type'),
@@ -636,7 +638,7 @@ export const Filter = {
 
   isActive() {
     return (
-      this.columnAge._isActive() || this.dateRange._isActive() || this.dateRecency._isActive() ||
+      this.text._isActive() || this.columnAge._isActive() || this.dateRange._isActive() || this.dateRecency._isActive() ||
       this._fields.some(fieldName => {
         return this[fieldName]._isActive();
       }) ||
@@ -725,6 +727,7 @@ export const Filter = {
     if (this.columnAge._isActive()) constraints.push(this.columnAge.selector());
     if (this.dateRange._isActive()) constraints.push(this.dateRange.selector());
     if (this.dateRecency._isActive()) constraints.push(this.dateRecency.selector());
+    if (this.text._isActive()) constraints.push(boardTextSelector(this.text.value()));
     return constraints.length > 1 ? { $and: constraints } : (constraints[0] || {});
   },
 
@@ -756,6 +759,7 @@ export const Filter = {
     });
     this.excludedLabelIds.reset();
     this.columnAge.reset();
+    this.text.reset();
     this.dateRange.reset();
     this.dateRecency.reset();
     this.lists.reset();
@@ -808,3 +812,5 @@ export const Filter = {
 };
 
 Blaze.registerHelper('Filter', Filter);
+
+startBoardTextFilter(Filter.text);

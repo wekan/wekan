@@ -293,6 +293,7 @@ import '/server/publications/backgrounds';
 import '/server/publications/boards';
 import '/server/publications/cards';
 import '/server/publications/cardsWindow';
+import '/server/publications/boardTextMatches';
 import '/server/publications/customUI';
 import '/server/publications/impersonationReport';
 import '/server/publications/recoveryReport';

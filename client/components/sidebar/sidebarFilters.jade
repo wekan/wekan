@@ -13,8 +13,8 @@ template(name="filterSidebar")
   hr
   h3
     i.fa.fa-list
-    | {{_ 'filter-card-title-label'}}
-  input.js-field-card-filter(type="text" value=Filter.title.value)
+    | {{_ 'filter-card-text-label'}}
+  input.js-field-card-filter(type="text" maxlength="512" value=Filter.text.value aria-label="{{_ 'filter-card-text-label'}}")
   hr
   h3
     i.fa.fa-sitemap

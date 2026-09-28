@@ -9,6 +9,10 @@
 // is a no-op so the module can load without a running Meteor app.
 
 const STUBS = {
+  '/client/lib/boardTextFilter': `
+    export const boardTextSelector = term => ({ _id: { $in: [term] } });
+    export const startBoardTextFilter = () => {};
+  `,
   'meteor/meteor': `
     export const timers = new Map();
     export const Meteor = {

@@ -161,9 +161,9 @@ Template.filterSidebar.events({
     evt.preventDefault();
     Filter.lists.set(tpl.find('.js-list-filter input').value.trim());
   },
-  'change .js-field-card-filter'(evt, tpl) {
+  'input .js-field-card-filter'(evt, tpl) {
     evt.preventDefault();
-    Filter.title.set(tpl.find('.js-field-card-filter').value.trim());
+    Filter.text.set(tpl.find('.js-field-card-filter').value.trim());
     Filter.resetExceptions();
   },
   'click .js-toggle-label-filter'(evt) {

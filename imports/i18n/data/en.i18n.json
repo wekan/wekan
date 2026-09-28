@@ -1975,6 +1975,7 @@
   "remove-team-from-table": "Are you sure you want to remove this team from the board ?",
   "confirm-btn": "Confirm",
   "remove-btn": "Remove",
+  "filter-card-text-label": "Filter card text",
   "filter-card-title-label": "Filter by card title",
   "invite-people-success": "Invitation to register sent with success",
   "invite-people-error": "Error while sending invitation to register",

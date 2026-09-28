@@ -1,9 +1,9 @@
 # Board filters
 
-Open **Filter** in the board header. Title, list and advanced-filter text stays
+Open **Filter** in the board header. Card, list and advanced-filter text stays
 visible when the panel is closed and reopened. Closing the panel does not clear
-an active filter. Title and advanced text apply when the field changes; submit
-the list filter to apply it.
+an active filter. Card text applies while typing; advanced text applies when
+the field changes. Submit the list filter to apply it.
 
 Under **Labels**, choose **OR** to match any selected label (the default), or
 **AND** to require every selected label. Clicking a selected label again excludes
@@ -162,9 +162,8 @@ an input-validation message. No card is archived, edited or deleted.
 This addresses the no-expression date-selection portion of
 [#935](https://github.com/wekan/wekan/issues/935). Searching for any movement
 within a historical date range is different from filtering the latest list
-entry: a card may have moved again since then. That activity-based filter,
-combined title/description/checklist/comment text filtering, and saved filter
-combinations are still tracked in TODO Later.
+entry: a card may have moved again since then. That activity-based filter and
+saved filter combinations are still tracked in TODO Later.
 
 ## Relative creation and modification dates
 
@@ -179,3 +178,20 @@ Creation and modification selections combine with each other and other filters,
 including the explicit date range. They refresh every minute while active,
 remain selected when the sidebar closes or the board changes, and make no card
 writes. **Any time** disables that field; the final clear button resets both.
+
+## Search all card text
+
+**Filter card text** matches a case-insensitive literal substring in the title,
+description, checklist names, checklist item text or comments. Punctuation is
+ordinary text, not a regular expression. The limit is 512 characters. Matching
+uses stored text, including Markdown markup, rather than rendered HTML.
+
+The server scans the current board in card batches, including cards outside
+lazy loading windows. It sends only matching card IDs, never a copy of comment
+or checklist text. Board visibility and assigned-only membership apply before
+the join; child records must belong to both the board and an authorized card.
+Changes to text, card placement, archival, assignments or membership refresh
+the results. Stopping/changing the filter releases its observers. A newly
+entered query shows no matches until its result arrives. The filter combines
+with labels, dates and other sidebar constraints and persists across board
+navigation; clearing its field or all filters disables it. No cards are edited.
