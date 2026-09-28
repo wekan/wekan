@@ -1,5 +1,22 @@
 # Board filters
 
+## Search across boards
+
+In **Global Search**, `due:overdue` finds cards whose deadline is before the
+instant you submit the search, including deadlines earlier today. In an
+English interface, `due:overdue label:red` restricts that to red-labelled cards;
+`due:overdue label:Urgent` matches label names instead. Other interface languages
+show their operator and predicate spellings in the search help.
+
+Search covers boards where you are an active member. A label belongs to its
+own board: reusing its ID on a copied/imported board does not make differently
+named/colored labels match. A nonexistent label returns no cards. Numeric label
+terms retain their additional card-number match (`#12` means label 12 or card
+number 12). Rerun the query to refresh its time cutoff. Saved sidebar filter
+combinations are still per board, separate from global search queries.
+
+## Filter the current board
+
 Open **Filter** in the board header. Card, list and advanced-filter text stays
 visible when the panel is closed and reopened. Closing the panel does not clear
 an active filter. Card text applies while typing; advanced text applies when

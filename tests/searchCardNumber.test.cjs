@@ -103,12 +103,14 @@ test('a bare 12 finds card 12 as well as the text "12"', () => {
     'and it is added before that $or is used, not after');
 });
 
-test('#red still means the label red, and nothing else changed (negative)', () => {
+test('#red still means a label, with each match scoped to its own board (negative)', () => {
   // The union is for NUMBERS. A word is a label, exactly as before.
   const block = cards.slice(cards.indexOf('hasOperator(OPERATOR_LABEL)'),
     cards.indexOf('hasOperator(OPERATOR_HAS)'));
-  assert.ok(/selector\.labelIds = labelClause\.labelIds/.test(block),
-    'a label-only search takes the path it always took');
+  assert.ok(/selector\.\$and\.push\(labelClause\)/.test(block),
+    'label-only searches retain their restriction; IDs are now paired with boards');
+  assert.ok(/boardId: board\._id, labelIds: boardLabel\._id/.test(block),
+    'the same ID on a differently labelled board must not match');
   assert.ok(en['globalSearch-instructions-operator-hash'],
     '# is still the documented label abbreviation');
   assert.ok(/'operator-label-abbrev': OPERATOR_LABEL/.test(queryClasses),

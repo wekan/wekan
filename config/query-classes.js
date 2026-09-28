@@ -499,7 +499,9 @@ export class Query {
               ) {
                 value = {
                   operator: '$lt',
-                  value: formatDate(now()),
+                  // Overdue is an instant, not a date-only string parsed as
+                  // UTC midnight. Include deadlines earlier today as well.
+                  value: now().toISOString(),
                 };
               } else {
                 this.addError(OPERATOR_DUE, {

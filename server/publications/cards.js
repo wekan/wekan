@@ -812,7 +812,7 @@ async function buildSelector(queryParams, userId) {
                 return boardLabel.color === label.toLowerCase();
               })
               .forEach(boardLabel => {
-                queryLabels.push(boardLabel._id);
+                queryLabels.push({ boardId: board._id, labelIds: boardLabel._id });
               });
           });
         } else {
@@ -831,7 +831,7 @@ async function buildSelector(queryParams, userId) {
                   return boardLabel.name.match(reLabel);
                 })
                 .forEach(boardLabel => {
-                  queryLabels.push(boardLabel._id);
+                  queryLabels.push({ boardId: board._id, labelIds: boardLabel._id });
                 });
             });
           } else if (!/^[0-9]+$/.test(String(label).trim())) {
@@ -855,7 +855,7 @@ async function buildSelector(queryParams, userId) {
         .map(label => parseInt(label, 10))
         .filter(value => !isNaN(value)))];
       const labelClause = queryLabels.length
-        ? { labelIds: { $in: [...new Set(queryLabels)] } }
+        ? { $or: queryLabels }
         : null;
       const numberClause = numericLabels.length
         ? { cardNumber: { $in: numericLabels } }
@@ -864,10 +864,14 @@ async function buildSelector(queryParams, userId) {
       if (labelClause && numberClause) {
         selector.$and.push({ $or: [labelClause, numberClause] });
       } else if (labelClause) {
-        // Unchanged from before, for the ordinary `#red` / `label:urgent` case.
-        selector.labelIds = labelClause.labelIds;
+        // Labels belong to a board. Imports/copies can reuse the same ID for
+        // a different label on another board; preserve that ownership pair.
+        selector.$and.push(labelClause);
       } else if (numberClause) {
         selector.$and.push(numberClause);
+      } else {
+        // A missing label is an empty result, never an absent restriction.
+        selector.$and.push({ _id: { $in: [] } });
       }
     }
 

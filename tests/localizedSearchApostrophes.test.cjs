@@ -55,12 +55,13 @@ for (const text of ['nimi:"Demo card"', 'nimi:Demo']) {
 assert.equal(query('unknownoperator:Demo').hasErrors(), true);
 assert.equal(query('lugetiž:Blocked').getQueryParams().getPredicate('list'), 'Blocked');
 assert.equal(query('lugetiž:"Kodvi"').getQueryParams().getPredicate('list'), 'Kodvi');
-context.now = () => new Date('2026-09-14T00:00:00Z');
-context.formatDate = date => date.toISOString();
+context.now = () => new Date('2026-09-14T15:42:37.123Z');
+context.formatDate = date => date.toISOString().slice(0, 10);
 const overdue = query(`${labels['operator-due']}:${labels['predicate-overdue']}`);
 assert.equal(overdue.hasErrors(), false);
 assert.equal(overdue.getQueryParams().getPredicate('dueAt').operator, '$lt');
-assert.equal(overdue.getQueryParams().getPredicate('dueAt').value, '2026-09-14T00:00:00.000Z');
+assert.equal(overdue.getQueryParams().getPredicate('dueAt').value, '2026-09-14T15:42:37.123Z',
+  'overdue retains the instant instead of excluding deadlines earlier today');
 assert.equal(query(`${labels['operator-due']}:overdue`).hasErrors(), false);
 assert.equal(query(`${labels['operator-due']}:unknown-predicate`).hasErrors(), true);
 assert.equal(query(`${labels['operator-created']}:${labels['predicate-overdue']}`).hasErrors(), true);
@@ -109,7 +110,7 @@ context.subtract = (date, days, unit) => {
 const createdFilter = query(`${labels['operator-created']}:3`);
 assert.equal(createdFilter.hasErrors(), false);
 assert.deepEqual(JSON.parse(JSON.stringify(createdFilter.getQueryParams().getPredicate('createdAt'))),
-  { operator: '$gte', value: '2026-09-11T00:00:00.000Z' });
+  { operator: '$gte', value: '2026-09-11' });
 assert.equal(query(`${labels['operator-created']}:invalid-period`).hasErrors(), true);
 for (const [prefix, order] of [['', 'asc'], ['-', 'des']]) {
   const parsed = query(`${labels['operator-sort']}:${prefix}${labels['predicate-created']}`);
