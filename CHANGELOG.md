@@ -450,10 +450,22 @@ and a 2 MiB response limit. Bidirectional effects still require a separate
 durable acknowledgement callback. Eleven Node suites pass with actual MongoDB;
 two full-app Meteor cases pass, including actual private-IP denial and stored
 response replay. Successful transport is scripted in tests; no external endpoint
-or browser was exercised. Absolute HTTP deadlines, production collection
-registration, live integration/actor replay adapters, durable comment-response
-effects, scheduled retries, retention/operator controls and saved Sync
-integration remain unfinished.
+or browser was exercised.
+An internal comment-response stage now persists immutable before/text/time
+plans, including explicit no-action decisions. A conditional raw Mongo write
+records text, modification time and a bounded pending receipt atomically.
+Permanent revision fencing rejects delayed writes after receipt cleanup.
+Recovery transfers pending evidence to a durable receipt without restoring
+reply text over a later user edit. Changed/moved/deleted comments stop safely;
+no comments are recreated. Thirteen Node suites pass with MongoDB; the expanded
+eight-case storage suite also covers lost plan replies and concurrent builders.
+A combined HTTP/comment test resumes after a receipt-storage failure without
+another HTTP request or loss of the user's later text. This raw-driver stage
+is not active on production comments: private marker/schema protection,
+publication exclusions, collection registration, live integration/actor replay
+adapters and recovery startup remain unfinished. Absolute HTTP deadlines,
+scheduled retries, retention/operator controls and saved Sync integration
+also remain unfinished.
 Email notifications now use a private event/recipient outbox with persisted
 content and due times, automatic retry backoff and renewable recipient leases.
 Startup discovers pending work; legacy profile buffers migrate before removal.
@@ -1128,6 +1140,36 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/647b261e3">Record webhook comment effects atomically and preserve later edits</a>. Thanks to xet7.</summary>
+
+Add immutable comment-response plans bound to the captured activity, target
+and response. Freeze the original comment and replacement text/time; retain
+explicit no-action decisions so a later-created comment cannot become a target.
+Reject cross-board, malformed, mismatched and oversized changes.
+
+Use a conditional raw Mongo write for the text/time change and bounded pending
+receipt together. Transfer that evidence to a durable receipt before clearing
+the marker; retain a revision fence that rejects delayed original writes.
+Recovery acknowledges the prior change without replacing a user's later text.
+Changed, moved or deleted comments stop without being overwritten or recreated.
+Uncertain writes are verified by readback; corrupt evidence is not rebuilt.
+
+Thirteen focused Node suites pass with actual MongoDB. The expanded eight-case
+storage suite passes again, covering interrupted receipts, later user edits,
+lost mutation/receipt/cleanup replies, delayed writes, revoked guards, saved
+no-action decisions, lost plan replies and competing builders. A combined
+HTTP/comment test resumes without another request or replacing a later edit.
+Source audit passes with informational fingerprint warnings. Meteor/browser
+tests were not run for this unconnected raw-driver component.
+
+Production marker/schema protection, publication exclusions, private storage,
+fresh access adapters and startup recovery must be connected before enabling
+this stage. Ordinary webhook/comment behavior is unchanged; manual/cron Sync
+activation remains in TODO Later.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e08b22983">Persist guarded webhook responses before reply effects</a>. Thanks to xet7.</summary>
