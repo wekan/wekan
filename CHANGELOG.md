@@ -1291,7 +1291,9 @@ now uses current target results and both boards' visibility settings. The six
 visible Scrum card fields are included with same-board name resolution and
 persisted visibility checks. The
 [content audit](docs/DeveloperDocs/Card-Email-Content-Audit.md) now tracks
-remaining wrapper metadata and the final field audit. Moved-card SMTP now
+the final wrapper-field audit and timer getter/write mismatch. Local placement,
+timers and visible Scrum now have a separate linked-card section. Moved-card
+SMTP now
 passes with all three content choices for filesystem and GridFS. Canonical
 and legacy Gantt references now share readable target titles with distinct
 type labels.
@@ -1475,7 +1477,9 @@ and completed Poker results also have disclosure checks and SMTP coverage;
 Linked-board voting now follows target policy with stored checks. Visible
 Scrum card metadata now has same-board reference and SMTP coverage. Final
 [content audit](docs/DeveloperDocs/Card-Email-Content-Audit.md) records concrete
-remaining wrapper fields; moved-card SMTP now passes for filesystem and
+remaining wrapper fields and the timer getter/write mismatch. Local placement,
+timers and visible Scrum now have a separate section. Moved-card SMTP passes
+for filesystem and
 GridFS with all three choices. Legacy stored-command recovery also
 remains. Creator/stickers and checklist/comment metadata gaps are now fixed.
 Canonical and legacy Gantt targets now use grouped, authorized titles.).
@@ -1558,6 +1562,27 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/032e0db79">Include scoped local linked-card details in rule emails</a>. Thanks to kabi178, bbyszio and xet7.</summary>
+
+With Details selected, add a separate local section for linked-card and
+linked-board placement, persisted timer values and visible local Scrum fields.
+Resolve public timer-owner names and same-board Scrum names. Recheck local
+access, assigned-only restrictions, link identity and Scrum visibility.
+Exclude copied wrapper titles, descriptions, stickers and custom fields.
+Authorized source content retains its existing separate scope and bindings.
+
+Fifty-nine Node suites pass without skips, including MongoDB and native
+MailComposer integration. Five wrapper tests cover both link types, ordinary
+cards, malformed values, foreign references, access loss and policy changes.
+Three Chromium SMTP scenarios pass, including wrapper fields in linked-card
+and linked-board messages, source-access loss and moved-card attachments.
+The source audit passes with informational fingerprint warnings. Existing
+Upcoming regression evidence is retained. The field audit records the timer
+model's getter/write mismatch for follow-up; full completion remains open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e96f0dfb2">Verify complete emails when a card moves into a selected list</a>. Thanks to kabi178, bbyszio and xet7.</summary>
