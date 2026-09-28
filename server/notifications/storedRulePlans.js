@@ -1,6 +1,9 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { Email, EmailInternals } from 'meteor/email';
+import { DDP } from 'meteor/ddp';
+import ChangeHistory from '/models/changeHistory';
+import { runStoredSyncActivityDelivery } from './storedActivityDelivery';
 import Rules from '/models/rules';
 import { EmailSendSlots } from '/server/notifications/emailQueue';
 import Activities from '/models/activities';
@@ -24,6 +27,9 @@ const withEmailSlot = createEmailSendSlots(EmailSendSlots.rawCollection());
 const { executeRulePlan } = require('/server/lib/syncRuleExecution');
 const { ensureRuleEmailCommand } = require('/server/lib/syncRuleEmailCommand');
 const { ensureRuleArchiveCommand } = require('/server/lib/syncRuleArchiveCommand');
+const { ensureRuleArchiveEffects, prepareRuleArchiveEffects, applyRuleArchiveEffects } = require('/server/lib/syncRuleArchiveEffects');
+const { createRuleArchiveCards } = require('/server/lib/syncRuleArchiveCards');
+const { createRuleArchiveActivities } = require('/server/lib/syncRuleArchiveActivities');
 const { exactFieldSelector } = require('/models/lib/exactFieldSelector');
 
 export const SyncRuleArchiveCommands = new Mongo.Collection('listSyncRuleArchiveCommands');
@@ -152,7 +158,7 @@ export async function runStoredSyncRuleEmail({ index, ...options }) {
 // Internal capture only. The caller owns the journal lease and scope guard.
 // Do not enable mutation execution until History coordination and downstream
 // delivery are bound. No browser method, publication or TTL exposes this data.
-export async function captureStoredSyncRuleArchiveCommand({ index, ...options }) {
+async function archiveContext({ index, ...options }) {
   const context = executionContext(options), plan = await capture(context);
   const invocation = plan.actions[index];
   if (!Number.isSafeInteger(index) || index < 0 ||
@@ -183,6 +189,9 @@ export async function captureStoredSyncRuleArchiveCommand({ index, ...options })
     }
     await guard();
   };
+  return { context, plan, index, guard, assertCard };
+}
+async function captureArchive({ context, plan, index, guard, assertCard }) {
   const command = await ensureRuleArchiveCommand({ commands: SyncRuleArchiveCommands.rawCollection(),
     plan, activity: context.saved, effectId: context.effectId, index, assertCurrent: guard, assertCard,
     readCard: id => Cards.findOneAsync(id, { transform: null }),
@@ -191,4 +200,54 @@ export async function captureStoredSyncRuleArchiveCommand({ index, ...options })
   for (const card of command.cards) await assertCard(card);
   await guard();
   return command;
+}
+
+
+export async function captureStoredSyncRuleArchiveCommand(options) {
+  return captureArchive(await archiveContext(options));
+}
+
+// The owner must reserve the BOARD History chain across this entire callback,
+// supplying its captured head/redo rows and a live ownership check. There is
+// deliberately no no-op/default reservation: ordinary writers must participate
+// before manual/cron integration can enable this entry point.
+export async function runStoredSyncRuleArchive({ withHistoryReservation,
+  completeDelivery = runStoredSyncActivityDelivery, ...options }) {
+  if (typeof withHistoryReservation !== 'function' || typeof completeDelivery !== 'function') {
+    throw new Error('sync-rule-archive-history-reservation-required');
+  }
+  const captured = await archiveContext(options);
+  const command = await captureArchive(captured);
+  return withHistoryReservation(command.boardId, async reservation => {
+    if (!reservation || typeof reservation.assertCurrent !== 'function' ||
+        !Object.hasOwn(reservation, 'previousHash') || !Array.isArray(reservation.redoRows)) {
+      throw new Error('sync-rule-archive-history-reservation-required');
+    }
+    const guard = async () => {
+      await reservation.assertCurrent(); await captured.guard(); await reservation.assertCurrent();
+    };
+    await guard();
+    const input = { command, plan: captured.plan, activity: captured.context.saved,
+      effectId: captured.context.effectId, index: captured.index, assertCurrent: guard };
+    const effects = await ensureRuleArchiveEffects({ ...input, effects: SyncRuleArchiveEffects.rawCollection(),
+      build: async () => {
+        await guard();
+        const user = await Meteor.users.findOneAsync(command.actorId);
+        const ids = [...new Set(command.cards.map(card => card.listId))];
+        const lists = await Lists.find({ _id: { $in: ids }, boardId: command.boardId }, { transform: null }).fetchAsync();
+        await guard();
+        return prepareRuleArchiveEffects({ ...input, username: user?.username || '', lists,
+          policy: options.policy, previousHash: reservation.previousHash, redoRows: reservation.redoRows });
+      } });
+    const withActor = (userId, work) => DDP._CurrentMethodInvocation.withValue({ userId, isSimulation: false }, work);
+    const result = await applyRuleArchiveEffects({ ...input, effects,
+      cards: createRuleArchiveCards({ ...input, cards: Cards, withActor }), history: ChangeHistory,
+      activities: createRuleArchiveActivities({ ...input, effects, activities: Activities, withActor }),
+      receipts: SyncRuleArchiveReceipts.rawCollection(), assertCard: captured.assertCard,
+      readPolicy: async () => syncEffectPolicy(getFeatureFlags()),
+      completeDelivery: context => completeDelivery({ ...context, assertCurrent: async () => {
+        await guard(); await context.assertCurrent(); await guard();
+      } }) });
+    await guard(); return result;
+  });
 }

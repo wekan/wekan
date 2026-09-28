@@ -867,3 +867,20 @@ children. Capture writes no cards or rule-completion receipt.
 alongside commands for subsequent execution binding. All three collections deny
 browser insert/update/remove, have recovery lookup indexes and no publication
 or TTL. They are not wired into ordinary/manual/cron rule execution yet.
+
+### Internal stored archive execution
+
+`runStoredSyncRuleArchive` now binds command/effect/receipt storage to real
+Cards, ChangeHistory and Activities. It prepares effects once from current
+actor/list display metadata, uses the saved actor for writes, and defaults to
+`runStoredSyncActivityDelivery` for exact downstream receipts. It retains
+configuration, descendant access, feature-policy and journal ownership checks
+through preparation, mutation and delivery.
+
+The caller MUST supply `withHistoryReservation(boardId, work)`. Its callback
+provides `previousHash`, `redoRows` and `assertCurrent`, and must reserve the
+board's History chain for the full operation. No default reservation exists.
+The shared coordination of ordinary History writers is still unfinished, so
+ordinary rules and manual/cron Sync do not install this archive adapter yet.
+An isolated full-app test supplies a controlled reservation; that proves the
+entry point's data flow, not multi-process History exclusivity.

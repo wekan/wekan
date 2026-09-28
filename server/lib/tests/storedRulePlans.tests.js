@@ -9,10 +9,11 @@ import Boards from '/models/boards';
 import Lists from '/models/lists';
 import Cards from '/models/cards';
 import Activities from '/models/activities';
+import ChangeHistory from '/models/changeHistory';
 import Rules from '/models/rules';
 import Triggers from '/models/triggers';
 import Actions from '/models/actions';
-import { captureStoredSyncRuleArchiveCommand, SyncRuleArchiveCommands, captureStoredSyncRulePlan, captureStoredSyncRuleEmailCommand, runStoredSyncRuleEmail, SyncRuleEmailAttempts, runStoredSyncRules, SyncRulePlans, SyncRuleReceipts, SyncRuleEmailCommands } from '/server/notifications/storedRulePlans';
+import { runStoredSyncRuleArchive, captureStoredSyncRuleArchiveCommand, SyncRuleArchiveCommands, SyncRuleArchiveEffects, SyncRuleArchiveReceipts, captureStoredSyncRulePlan, captureStoredSyncRuleEmailCommand, runStoredSyncRuleEmail, SyncRuleEmailAttempts, runStoredSyncRules, SyncRulePlans, SyncRuleReceipts, SyncRuleEmailCommands } from '/server/notifications/storedRulePlans';
 
 const { planId, actionId: invocationId } = require('/server/lib/syncRulePlan');
 
@@ -84,6 +85,30 @@ describe('Stored Sync rule selection', function () {
       await assert.rejects(captureStoredSyncRuleArchiveCommand(archiveInput), /configuration-changed/);
       await Actions.rawCollection().updateOne({ _id: actionId }, { $set: { actionType: 'archive' } });
       assert.deepEqual(await captureStoredSyncRuleArchiveCommand(archiveInput), archive);
+      await assert.rejects(runStoredSyncRuleArchive(archiveInput), /history-reservation-required/);
+      const flags = getFeatureFlags(), oldFlags = { ...flags };
+      try {
+        flags.disableNotifications = true;
+        const run = { ...archiveInput, policy: { activities: true, notifications: false },
+          withHistoryReservation: async (id, work) => {
+            assert.equal(id, boardId);
+            return work({ previousHash: null, redoRows: [], assertCurrent: async () => {} });
+          } };
+        await assert.rejects(runStoredSyncRuleArchive({ ...run,
+          completeDelivery: async () => { throw Error('delivery interrupted'); } }), /delivery interrupted/);
+        assert.equal((await Cards.findOneAsync(childId)).archived, true);
+        assert.equal((await Cards.findOneAsync(cardId)).archived, false);
+        assert.equal(await ChangeHistory.find({ boardId }).countAsync(), 1);
+        assert.equal(await SyncRuleArchiveReceipts.find({ commandId: archive._id }).countAsync(), 0);
+        assert.equal(await runStoredSyncRuleArchive(run), archive.invocationId);
+        assert.equal(await runStoredSyncRuleArchive(run), archive.invocationId);
+        assert.equal((await Cards.findOneAsync(cardId)).archived, true);
+        assert.equal((await Cards.findOneAsync(laterChildId)).archived, false);
+        assert.equal(await ChangeHistory.find({ boardId }).countAsync(), 2);
+        assert.equal(await Activities.find({ boardId }).countAsync(), 3);
+        assert.equal(await SyncRuleArchiveEffects.find({ _id: archive._id }).countAsync(), 1);
+        assert.equal(await SyncRuleArchiveReceipts.find({ commandId: archive._id }).countAsync(), 3);
+      } finally { Object.assign(flags, oldFlags); }
       await Actions.rawCollection().updateOne({ _id: actionId }, { $set: { actionType: 'sendEmail',
         emailTo: 'outside@example.org', emailSubject: 'Subject {card}', emailMsg: 'Body {board} {list}' } });
       const mailInput = { ...input, effectId: 'c'.repeat(64), index: 0 };
@@ -127,6 +152,15 @@ describe('Stored Sync rule selection', function () {
       await assert.rejects(captureStoredSyncRulePlan(input), /activity-changed/);
       assert.equal(await SyncRulePlans.find({ 'plan.activityId': activityId }).countAsync(), 5);
     } finally {
+      const archiveCommands = await SyncRuleArchiveCommands.find({ boardId }, { fields: { _id: 1 } }).fetchAsync();
+      const archiveIds = archiveCommands.map(row => row._id);
+      await SyncRuleArchiveEffects.rawCollection().deleteMany({ _id: { $in: archiveIds } });
+      await SyncRuleArchiveReceipts.rawCollection().deleteMany({ commandId: { $in: archiveIds } });
+      const archivePlans = await SyncRulePlans.find({ 'plan.boardId': boardId }).fetchAsync();
+      await SyncRuleReceipts.rawCollection().deleteMany({ effectId: { $in: archivePlans.map(row => row.plan.effectId) } });
+      await SyncRulePlans.rawCollection().deleteMany({ 'plan.boardId': boardId });
+      await ChangeHistory.rawCollection().deleteMany({ boardId });
+      await Activities.rawCollection().deleteMany({ boardId });
       await SyncRuleArchiveCommands.rawCollection().deleteMany({ boardId });
       await Cards.rawCollection().deleteMany({ _id: { $in: [childId, laterChildId] } });
       await Meteor.users.rawCollection().deleteOne({ _id: recipientId });
