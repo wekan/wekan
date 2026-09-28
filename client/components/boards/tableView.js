@@ -1,3 +1,6 @@
+import { Mongo } from 'meteor/mongo';
+import { Random } from 'meteor/random';
+import { isLazyCards } from '/client/lib/lazyCards';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Utils } from '/client/lib/utils';
 import { Filter } from '/client/lib/filter';
@@ -21,15 +24,26 @@ import {
 // client/components/main/myCards.css). It is the per-board counterpart of the
 // My Cards table view, which spans all boards.
 //
-// Search, column sorting (Excel-like) and pagination all run client-side: the
-// board's cards are already loaded reactively via board.cards(), so there is no
-// need for the server-side limit/skip publication the Admin People page uses.
+// Eager boards use local rows. Lazy boards request one authorized, sorted
+// server page; local caches from other publications cannot expand that page.
 
 const rowsPerPage = 25;
+const tablePages = new Mongo.Collection('boardTablePages');
+function resultPage(tpl) {
+  return tablePages.findOne({ boardId: Utils.getCurrentBoardId(), key: tpl.pageKey.get() });
+}
+function totalPages(tpl) {
+  const count = isLazyCards() ? resultPage(tpl)?.total || 0 : tpl.filteredRows.get().length;
+  return Math.max(1, Math.ceil(count / rowsPerPage));
+}
+function currentPage(tpl) {
+  return Math.min(tpl.page.get(), totalPages(tpl));
+}
 
 Template.tableView.onCreated(function () {
   this.searchQuery = new ReactiveVar('');
   this.page = new ReactiveVar(1);
+  this.pageKey = new ReactiveVar('');
   this.filteredRows = new ReactiveVar([]);
   this.wrapCardTitles = new ReactiveVar(
     readTableViewTitleWrap(window.localStorage, Meteor.userId()),
@@ -39,6 +53,17 @@ Template.tableView.onCreated(function () {
   this.groupBySwimlane = new ReactiveVar(
     readTableViewGrouping(window.localStorage, Meteor.userId()),
   );
+
+  this.autorun(() => {
+    const boardId = Utils.getCurrentBoardId();
+    if (!boardId || !isLazyCards(boardId)) return;
+    const selector = Filter.isActive() ? Filter._getMongoSelector() : {};
+    const options = { query: this.searchQuery.get(), sortField: this.sortField.get(),
+      direction: this.sortDirection.get(), group: this.groupBySwimlane.get(), page: this.page.get() };
+    const key = Random.id();
+    this.pageKey.set(key);
+    this.subscribe('boardTablePage', boardId, key, selector, options);
+  });
 
   // Recompute the flat, filtered and sorted row list whenever the board cards,
   // board Filter or search query changes. Pagination is applied separately in
@@ -54,8 +79,10 @@ Template.tableView.onCreated(function () {
     const filterSelector = Filter.isActive()
       ? Filter._getMongoSelector()
       : undefined;
+    const lazy = isLazyCards(board._id);
+    const remote = lazy ? resultPage(this) : null;
     const cards = ReactiveCache.getCards(
-      tableViewCardsSelector(board._id, filterSelector),
+      lazy ? { boardId: board._id, _id: { $in: remote?.ids || [] } } : tableViewCardsSelector(board._id, filterSelector),
       { sort: { title: 1 } },
     );
 
@@ -121,6 +148,10 @@ Template.tableView.onCreated(function () {
       return compareTableViewRows(a, b, sortField, sortDirection);
     });
 
+    if (lazy) {
+      const byId = new Map(rows.map(row => [row.card._id, row]));
+      filtered = (remote?.ids || []).map(id => byId.get(id)).filter(Boolean);
+    }
     this.filteredRows.set(filtered);
   });
 });
@@ -133,37 +164,28 @@ Template.tableView.helpers({
   rows() {
     const tpl = Template.instance();
     const all = tpl.filteredRows.get();
-    const totalPages = Math.max(1, Math.ceil(all.length / rowsPerPage));
-    // Clamp on read so a shrinking list (deleted cards) never shows an empty
-    // page; no write here, to avoid a reactive loop.
-    const page = Math.min(tpl.page.get(), totalPages);
-    const start = (page - 1) * rowsPerPage;
-    const pageRows = all.slice(start, start + rowsPerPage);
+    const start = (currentPage(tpl) - 1) * rowsPerPage;
+    const pageRows = isLazyCards() ? all : all.slice(start, start + rowsPerPage);
     return tpl.groupBySwimlane.get()
       ? addSwimlaneGroupHeaders(pageRows)
       : pageRows;
   },
 
   currentPage() {
-    return Template.instance().page.get();
+    return currentPage(Template.instance());
   },
 
   totalPages() {
-    const count = Template.instance().filteredRows.get().length;
-    return Math.max(1, Math.ceil(count / rowsPerPage));
+    return totalPages(Template.instance());
   },
 
   hasPrevPage() {
-    return Template.instance().page.get() > 1;
+    return currentPage(Template.instance()) > 1;
   },
 
   hasNextPage() {
     const tpl = Template.instance();
-    const totalPages = Math.max(
-      1,
-      Math.ceil(tpl.filteredRows.get().length / rowsPerPage),
-    );
-    return tpl.page.get() < totalPages;
+    return currentPage(tpl) < totalPages(tpl);
   },
 
   wrapCardTitles() {
@@ -220,18 +242,14 @@ Template.tableView.events({
 
   'click .js-table-view-prev-page'(event, tpl) {
     event.preventDefault();
-    const current = tpl.page.get();
+    const current = currentPage(tpl);
     if (current > 1) tpl.page.set(current - 1);
   },
 
   'click .js-table-view-next-page'(event, tpl) {
     event.preventDefault();
-    const totalPages = Math.max(
-      1,
-      Math.ceil(tpl.filteredRows.get().length / rowsPerPage),
-    );
-    const current = tpl.page.get();
-    if (current < totalPages) tpl.page.set(current + 1);
+    const current = currentPage(tpl);
+    if (current < totalPages(tpl)) tpl.page.set(current + 1);
   },
 
   'click .js-table-view-toggle-card-title-wrap'(event, tpl) {

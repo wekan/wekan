@@ -6,13 +6,19 @@ const { assignedOnlyCardScope } = require('/models/lib/boardCardScope');
 
 // Shared authorized, reactive ID-only publication for board filter providers.
 export async function publishBoardMatches({ publication, boardId, key, identity,
-  collectionName, children, cardFields = {}, findMatches }) {
+  collectionName, children, cardFields = {}, boardFields = {}, snapshot = false, findMatches }) {
   let stopped = false, initializing = true, running = false, pending = false, revision = 0;
   const handles = [], published = new Set();
+  let pagePublished = false;
+  const pageCards = new Map();
   const rowId = cardId => JSON.stringify([boardId, key, cardId]);
   const clear = () => {
     for (const id of published) publication.removed(collectionName, rowId(id));
     published.clear();
+    if (pagePublished) publication.removed(collectionName, rowId('page'));
+    pagePublished = false;
+    for (const id of pageCards.keys()) publication.removed('cards', id);
+    pageCards.clear();
   };
   publication.onStop(() => { stopped = true; for (const handle of handles) handle.stop(); });
   const refresh = async () => {
@@ -27,7 +33,7 @@ export async function publishBoardMatches({ publication, boardId, key, identity,
         if (stopped) return;
         if (!canReadBoard(publication.userId, board)) { clear(); continue; }
         const scope = { boardId, archived: false, ...assignedOnlyCardScope(board, publication.userId) };
-        const ids = await findMatches({ scope, stopped: () => stopped || revision !== version });
+        const ids = await findMatches({ scope, board, stopped: () => stopped || revision !== version });
         if (stopped) return;
         if (revision !== version) { pending = true; continue; }
         // Authorization is re-read after the asynchronous scan, not only when
@@ -37,6 +43,24 @@ export async function publishBoardMatches({ publication, boardId, key, identity,
         if (!canReadBoard(publication.userId, latest)) { clear(); continue; }
         if (revision !== version || JSON.stringify(latest.members) !== JSON.stringify(board.members)) {
           pending = true; continue;
+        }
+        if (snapshot) {
+          const { cards, ...fields } = ids;
+          const next = new Map(cards.map(card => [card._id, card]));
+          for (const id of pageCards.keys()) if (!next.has(id)) publication.removed('cards', id);
+          for (const [id, card] of next) {
+            const { _id, ...data } = card;
+            if (!pageCards.has(id)) publication.added('cards', id, data);
+            else {
+              const previous = pageCards.get(id);
+              for (const field of Object.keys(previous)) if (field !== '_id' && !(field in data)) data[field] = undefined;
+              publication.changed('cards', id, data);
+            }
+          }
+          pageCards.clear(); for (const [id, card] of next) pageCards.set(id, card);
+          publication[pagePublished ? 'changed' : 'added'](collectionName, rowId('page'), { boardId, ...identity, ...fields });
+          pagePublished = true;
+          continue;
         }
         const next = new Set(ids);
         for (const id of published) if (!next.has(id)) {
@@ -59,10 +83,10 @@ export async function publishBoardMatches({ publication, boardId, key, identity,
   };
   // Observe before scanning so an edit during a batch invalidates that result.
   try {
-    await observe(Boards.find({ _id: boardId }, { fields: { permission: 1, members: 1 } }), boardChanged);
+    await observe(Boards.find({ _id: boardId }, { fields: { ...boardFields, permission: 1, members: 1 } }), boardChanged);
     const board = await Boards.findOneAsync(boardId);
     if (!canReadBoard(publication.userId, board)) { publication.ready(); return; }
-    await observe(Cards.find({ boardId }, { fields: { ...cardFields, archived: 1, assignees: 1 } }), changed);
+    await observe(Cards.find({ boardId }, cardFields === null ? {} : { fields: { ...cardFields, archived: 1, assignees: 1 } }), changed);
     for (const { model, fields, selector = {} } of children) {
       await observe(model.find({ ...selector, boardId }, { fields: { ...fields, cardId: 1 } }), changed);
     }

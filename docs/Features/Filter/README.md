@@ -38,9 +38,18 @@ select immediately. **Any due date (including none)** removes just the due-date
 restriction; **Any time** removes the corresponding recency restriction.
 Clear filters resets all controls, including excluded labels.
 
-Known limitation: the Table view does not yet subscribe to card windows in
-lazy loading mode. It may therefore have no loaded cards to filter; this is
-tracked with the remaining filtering work in `CHANGELOG.md`.
+In lazy loading mode the Table view requests a server page of 25 cards. Search,
+sorting and swimlane grouping run over the whole authorized result before
+paging, including matches beyond the list-window limit. The server watches card,
+list, swimlane and board changes and retracts a page when access is revoked.
+Search includes card titles, list/swimlane titles and label names. The server
+scans projected table metadata and loads full documents only for the page;
+large result sets still require server-side scan/sort work.
+
+Remaining parity work: date sorting in this lazy path currently uses dates on
+the local card document. Linked-card/linked-board date badges can resolve dates
+from their source instead; authorized source-date sorting and source-change
+observation still need implementation. Eager Table behavior is unchanged.
 
 The board Calendar grid and Calendar list honor the same active card filters.
 This does not claim that the separate Multi Board Calendar shares every board

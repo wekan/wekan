@@ -5,7 +5,7 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 const { assignedOnlyCardScope } = require('../models/lib/boardCardScope');
 const tick = () => new Promise(resolve => setImmediate(resolve));
-async function fixture(search) {
+async function fixture(search, snapshot = false) {
   const observers = [], rows = new Map();
   let handler, stop, ready = 0;
   let board = { _id: 'board', permission: 'private', members: [{ userId: 'reader', isActive: true, isReadAssignedOnly: true }] };
@@ -17,13 +17,20 @@ async function fixture(search) {
   const source = (fs.readFileSync('server/lib/publishBoardMatches.js', 'utf8').replace('export async function', 'async function') + '\n' +
     fs.readFileSync('server/publications/boardTextMatches.js', 'utf8'))
     .replace(/^import .*;\n/gm, '').replace(/^const \{ assignedOnlyCardScope \} = require\([^\n]+\);\n/m, '');
-  vm.runInNewContext(source, { Meteor: { publish: (name, fn) => { handler = fn; }, Error }, check() {},
+  const snapshotSource = snapshot ? `
+    Meteor.publish('snapshot', function(boardId, key) {
+      return publishBoardMatches({ publication: this, boardId, key, identity: { key },
+        collectionName: 'pages', snapshot: true, cardFields: null, children: [],
+        findMatches: boardTextSearch });
+    });` : '';
+  vm.runInNewContext(source + snapshotSource, { Meteor: { publish: (name, fn) => { handler = fn; }, Error }, check() {},
     Boards, Cards: model('cards'), CardComments: model('comments'), Checklists: model('checklists'), ChecklistItems: model('items'),
     canReadBoard: (id, doc) => !!doc && (doc.permission === 'public' || doc.members.some(m => m.userId === id && m.isActive)),
     assignedOnlyCardScope, boardTextSearch: search,
   });
   const context = { userId: 'reader', onStop: fn => { stop = fn; }, ready: () => ready++,
     added: (collection, id, fields) => rows.set(id, fields), removed: (collection, id) => rows.delete(id),
+    changed: (collection, id, fields) => rows.set(id, { ...rows.get(id), ...fields }),
     error: error => { throw error; } };
   return { observers, rows, context, start: term => handler.call(context, 'board', term),
     setBoard(value) { board = value; }, stop: () => stop(), ready: () => ready };
@@ -39,6 +46,22 @@ test('publication scopes the join, retracts revoked results and cleans every obs
   f.observers[0].callbacks.changed('board', {});
   assert.equal(f.rows.size, 0, 'board policy changes retract old results immediately');
   await tick(); assert.equal(f.rows.size, 0);
+  f.stop(); assert.ok(f.observers.every(handle => handle.stopped));
+});
+test('page snapshots replace cards, clear removed fields, retract on revocation and stop observers', async () => {
+  let cards = [{ _id: 'first', title: 'Before', description: 'Removed later' }];
+  const f = await fixture(async () => ({ ids: cards.map(card => card._id), total: 30, page: 1, cards }), true);
+  await f.start('page-key');
+  assert.equal(f.rows.size, 2); assert.equal(f.rows.get('first').description, 'Removed later');
+  cards = [{ _id: 'first', title: 'After' }];
+  f.observers[1].callbacks.changed('first', {}); await tick();
+  assert.equal(f.rows.get('first').title, 'After'); assert.equal(f.rows.get('first').description, undefined);
+  cards = [{ _id: 'second', title: 'Next' }];
+  f.observers[1].callbacks.changed('first', {}); await tick();
+  assert.equal(f.rows.has('first'), false); assert.equal(f.rows.get('second').title, 'Next');
+  f.setBoard({ _id: 'board', permission: 'private', members: [] });
+  f.observers[0].callbacks.changed('board', {});
+  assert.equal(f.rows.size, 0); await tick(); assert.equal(f.rows.size, 0);
   f.stop(); assert.ok(f.observers.every(handle => handle.stopped));
 });
 test('authorization is rechecked after an in-flight search even before the observer event', async () => {

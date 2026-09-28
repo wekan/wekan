@@ -295,6 +295,7 @@ import '/server/publications/cards';
 import '/server/publications/cardsWindow';
 import '/server/publications/boardTextMatches';
 import '/server/publications/boardMovementMatches';
+import '/server/publications/boardTablePage';
 import '/server/filterPresets';
 import '/server/publications/customUI';
 import '/server/publications/impersonationReport';
