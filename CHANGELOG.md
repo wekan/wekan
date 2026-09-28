@@ -350,7 +350,14 @@ checks surround card application as well as History/activity completion.
 A post-write policy change retains the completed card mutation for replay,
 which finishes effects without writing the card again. Registered-storage
 MongoDB coverage now exercises intent, journal, card, activity and delivery
-receipt together. Production hooked-card and delivery adapters remain open.
+receipt together. A bound internal card adapter now applies saved conditional
+mutations through the real Cards schema and business hooks under their actor.
+Only the owning async write defers planned History/activity recording; unrelated
+and later edits retain normal recording. Full-app Meteor coverage verifies
+schema defaults, conditional retries, archive/estimate edits, invalid-value
+rejection and ordinary recording after failure. Production activation still
+needs the activity adapter, durable delivery and shared History coordination;
+manual/cron Sync does not invoke this adapter yet.
 Activity notification and webhook payloads now preserve zero, false, empty
 text and explicit null, while absent values remain omitted. This fixes lost
 zero estimates and unchecked custom-field values. SMTP and HTTP-serialization
@@ -1029,6 +1036,42 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dc9ce0537">Apply saved Sync writes through card hooks</a>. Thanks to xet7.</summary>
+
+Bind the internal storage adapter to one saved card mutation and actor. Use
+ordinary Cards APIs so schema validation, defaults and business hooks remain
+active. Preserve source whitespace and empty descriptions. Refuse planned
+activity timestamps owned by schema auto-values and foreign read/write shapes.
+
+Defer planned History and activity recording only within the owning async
+write, matching its card, board and list. Each recording hook consumes one
+slot; expired async callbacks and unrelated writes retain normal recording.
+Saved effects remain responsible for completing these deferred events before
+the operation advances.
+
+Twenty focused Node suites pass with real MongoDB. The full-app Meteor test
+passes against the actual card schema and hooks, covering create, conditional
+update/retry, archive, mapped estimates, schema rejection and normal recording
+after failure. Six affected Node suites also pass the final rerun. This adds
+an internal adapter; manual/cron activation, shared History-chain coordination
+and production activity/rule/notification delivery remain in TODO Later.
+No production UI path changes in this step.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/180aced2c">Exclude generated app-test bundles from source audits</a>. Thanks to xet7.</summary>
+
+Exclude the known public/private build-assets-app-test and
+build-chunks-app-test directories from risk and telemetry source inventories.
+Full-app Meteor tests generate bundled copies there; ordinary public source
+files remain audited and unapproved origins still fail. No URL or keyword
+allowlist is broadened. Twelve risk-audit tests and six telemetry tests pass;
+the repository source audit passes with informational fingerprint advisories.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/58e7efa8e">Validate Sync effects before card application</a>. Thanks to xet7.</summary>
