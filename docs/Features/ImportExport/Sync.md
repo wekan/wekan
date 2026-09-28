@@ -949,3 +949,27 @@ cannot recreate it from an old cached hash.
 This internal binding is not yet used by `ChangeHistory.record`. The startup
 registration does not initialize or migrate boards. Production writer exclusion,
 redo handling and switching ordinary writes remain pending.
+
+### Migration writer admission
+
+`server/lib/historyWriterGate.js` provides persistent per-board admission for
+participating writers. Legacy writes register unique tokens before their
+callback. Beginning migration changes the gate to `draining`, refusing new
+legacy writers while registered writers finish. Once their tokens are removed,
+the same migration ID can enter `migrating` and provide the bootstrap helper's
+exclusive guard. A verified ready head permits the final `coordinated` state;
+later calls route only to the coordinated writer, with no legacy fallback.
+
+Writer and migration ownership do not expire. Successful writes remove only
+their own token with conditional readback; failed/uncertain callbacks retain
+the token. Such evidence needs explicit recovery before migration can advance,
+not a time-based takeover that could overlap a delayed write. Interrupted
+migration resumes with its existing UUID; another UUID cannot take over.
+
+MongoDB tests use separate clients to pause a legacy insertion, close admission,
+finish the old row, validate/bootstrap its actual head and append through the
+new coordinated path. Lost acknowledgements, invalid gates and uncertain writes
+are covered separately. This primitive is not yet registered or installed in
+`ChangeHistory.record`; all writers must participate before its exclusion is
+valid. Recovery of retained writer tokens, server binding and mixed-version
+rollout handling remain unfinished.
