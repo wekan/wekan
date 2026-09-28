@@ -5,9 +5,7 @@ const { MongoClient, ObjectId } = require('mongodb');
 const { randomUUID } = require('node:crypto');
 const { runSyncOperation } = require('../../server/lib/syncOperationJournal');
 const { applySyncOperationStep, syncOperationEffectId } = require('../../server/lib/syncOperationApply');
-const { createSyncHistoryPlanner, validateSyncFieldHistory, persistSyncFieldHistory } = require('../../server/lib/syncHistoryBatch');
-const { prepareSyncCreationActivity, validateSyncCreationActivity, persistSyncCreationActivity } = require('../../server/lib/syncCreationActivity');
-const { prepareSyncUpdateActivities, validateSyncUpdateActivities, persistSyncUpdateActivities } = require('../../server/lib/syncUpdateActivities');
+const { createSyncEffectPlanner, validateSyncEffects, persistSyncEffects } = require('../../server/lib/syncEffects');
 const { verifyHistoryRows } = require('../../models/lib/changeHistoryIntegrity');
 const uri = process.env.WEKAN_SYNC_TEST_MONGO_URL;
 test('one journal replays creation, edits and archive with History and per-activity delivery receipts', {skip:!uri}, async t=>{
@@ -23,22 +21,16 @@ test('one journal replays creation, edits and archive with History and per-activ
   {kind:'archive',cardId:'archive',before:archive,after:{...archive,archived:true}}];
  const context={userId:'author',username:'author-name',createdAt:new Date(1000),
   list:{_id:'list',boardId:'board',title:'List'},swimlane:{_id:'lane',boardId:'board',title:'Lane'}};
- const historyPlanner=createSyncHistoryPlanner({userId:context.userId,createdAt:context.createdAt});
+ const effectPlanner=createSyncEffectPlanner({...context,swimlanes:[context.swimlane]});
  const history={findOneAsync:q=>events.findOne(typeof q==='string'?{_id:q}:q),insertAsync:r=>events.insertOne(r),updateAsync:(...a)=>events.updateOne(...a)};
  const activityStore={findOneAsync:id=>activities.findOne({_id:id}),insertAsync:async row=>{await activities.insertOne(row);throw new Error('lost activity reply');}};
  let builds=0,interrupted=true;
  const args={operations,steps,completions,intentId:randomUUID(),assertCurrent:async()=>{},
   scope:{boardId:'board',listId:'list',incarnation:null,revision:null,sourceKey:'source'},build:async()=>{builds++;return plan;},
-  prepareEffects:(step,c)=>({history:historyPlanner(step,c),activities:(step.kind==='create'?prepareSyncCreationActivity:prepareSyncUpdateActivities)({
-   ...context,step,effectId:syncOperationEffectId(c.operationId,c.index)})}),
-  validateEffects:(effects,step,c)=>{
-   const id=syncOperationEffectId(c.operationId,c.index);
-   return Object.keys(effects).sort().join(',')==='activities,history'&&validateSyncFieldHistory(effects.history,step,id)&&
-    (step.kind==='create'?validateSyncCreationActivity:validateSyncUpdateActivities)(effects.activities,step,id);
-  },
+  prepareEffects:effectPlanner,
+  validateEffects:(effects,step,c)=>validateSyncEffects(effects,step,syncOperationEffectId(c.operationId,c.index)),
   apply:(step,c)=>applySyncOperationStep({cards,step,...c,completeEffects:async({effectId,assertCurrent})=>{
-   await persistSyncFieldHistory({history,plan:c.effects.history,assertCurrent});
-   return (step.kind==='create'?persistSyncCreationActivity:persistSyncUpdateActivities)({activities:activityStore,plan:c.effects.activities,
+   return persistSyncEffects({history,activities:activityStore,plan:c.effects,
     step,effectId,assertCurrent,completeDelivery:async({effectId,activity})=>{
      if(interrupted&&activity.activityType==='a-changedDescription')throw new Error('delivery interrupted');
      await receipts.updateOne({_id:effectId},{$setOnInsert:{activityId:activity._id}},{upsert:true});
