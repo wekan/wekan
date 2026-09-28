@@ -6,7 +6,7 @@ const vm = require('node:vm');
 
 function fixture() {
   const hooks = [], deliveries = [], notifications = [];
-  const source = fs.readFileSync(require.resolve('../server/models/activities.js'), 'utf8').replace(/^import .*;\n/gm, '');
+  const source = fs.readFileSync(require.resolve('../server/models/activities.js'), 'utf8').replace(/^import .*;\n/gm, '').replace(/^export /gm, '');
   const context = { Meteor: { startup() {}, call(name, integration, description, params, callback) {
     assert.equal(name, 'outgoingWebhooks'); deliveries.push(structuredClone(params)); callback(null);
   } }, Activities: { after: { insert: fn => hooks.push(fn) }, _transform: doc => doc },
@@ -17,8 +17,10 @@ function fixture() {
     safeDeliver: async fn => fn(), require: id => require(`..${id}`), process: { env: {} }, console,
   };
   vm.runInNewContext(source, context);
-  return { deliveries, notifications, run: value => hooks[1]('author', { _id: 'activity', activityType: 'setCustomField',
-    customFieldId: 'field', customField: async () => ({ name: 'Estimate' }), ...value }) };
+  const doc = value => ({ _id: 'activity', activityType: 'setCustomField',
+    customFieldId: 'field', customField: async () => ({ name: 'Estimate' }), ...value });
+  return { deliveries, notifications, run: value => hooks[1]('author', doc(value)),
+    prepare: value => context.prepareActivityNotification('author', doc(value)) };
 }
 test('actual activity hook forwards zero, false, empty and null to notifications and webhooks', async () => {
   for (const value of [0, false, '', null, 'text', 12]) {
@@ -42,7 +44,7 @@ test('absent and undefined values remain absent rather than being invented as em
   }
 });
 async function outgoingPayload(params, type = 'outgoing', attributes) {
-  const source = fs.readFileSync(require.resolve('../server/notifications/outgoing.js'), 'utf8').replace(/^import .*;\n/gm, '');
+  const source = fs.readFileSync(require.resolve('../server/notifications/outgoing.js'), 'utf8').replace(/^import .*;\n/gm, '').replace(/^export /gm, '');
   let method, payload;
   const context = { Meteor: { methods: methods => { method = methods.outgoingWebhooks; } },
     check() {}, ReactiveCache: { getUser: async () => ({ getLanguage: () => 'en' }),
@@ -70,4 +72,12 @@ test('outgoing HTTP payload preserves falsy configured attributes without wideni
   }
   const absent = await outgoingPayload({ value: undefined }, 'outgoing', 'value,oldValue');
   assert.equal(Object.hasOwn(absent, 'value'), false); assert.equal(Object.hasOwn(absent, 'oldValue'), false);
+});
+
+test('shared activity preparation selects the same payload and recipients without notification or webhook writes', async () => {
+  const f=fixture(),prepared=await f.prepare({value:0,oldValue:false});
+  assert.equal(f.deliveries.length,0);assert.equal(f.notifications.length,0);
+  assert.deepEqual(Array.from(prepared.users,user=>user._id),['watcher']);
+  await f.run({value:0,oldValue:false});
+  assert.deepEqual(structuredClone(prepared.params),f.notifications[0]);
 });

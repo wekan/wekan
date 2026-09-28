@@ -78,3 +78,5 @@ import './syncHookedCards.tests';
 import './syncHookedActivities.tests';
 
 import './notificationAwaitedDelivery.tests';
+
+import './notificationPreparation.tests';

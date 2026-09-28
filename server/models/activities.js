@@ -61,14 +61,14 @@ Meteor.startup(async () => {
   );
 });
 
-Activities.after.insert(async (userId, doc) => {
-  if (deferSyncActivity('notifications', doc)) return;
+export async function prepareActivityNotification(userId, doc) {
   // Admin Panel / Features / Notifications (#5820): never send watch
   // notifications when disabled. Activity recording (if enabled) is unaffected.
   if (getFeatureFlags().disableNotifications) {
-    return;
+    return null;
   }
   const activity = Activities._transform(doc);
+  let notificationCard = null;
   let participants = [];
   let watchers = [];
   const scopedWatchers = new Set();
@@ -158,6 +158,7 @@ Activities.after.insert(async (userId, doc) => {
   if (activity.cardId) {
     const card = (await activity.card()) || (await Cards.findOneAsync(activity.cardId));
     if (card) {
+      notificationCard = card;
       // #3192: include the card's ASSIGNEES as participants too, not just its
       // creator and members — a user assigned a card (e.g. one with a due date)
       // must be notified about it. Participants are still gated downstream by the
@@ -414,13 +415,20 @@ Activities.after.insert(async (userId, doc) => {
     );
   }
 
-  (await Notifications.getUsers(watchers)).forEach((user) => {
-    if (!user || !user._id) return;
+  const users = (await Notifications.getUsers(watchers)).filter((user) => {
+    if (!user || !user._id) return false;
     const isSelfMention = user._id === userId && title === 'act-atUserComment';
-    if (user._id !== userId || isSelfMention) {
-      Notifications.notify(user, title, description, params);
-    }
+    return user._id !== userId || isSelfMention;
   });
+  return { users, title, description, params, watchers, board, card: notificationCard };
+}
+
+Activities.after.insert(async (userId, doc) => {
+  if (deferSyncActivity('notifications', doc)) return;
+  const prepared = await prepareActivityNotification(userId, doc);
+  if (!prepared) return;
+  const { users, title, description, params, watchers, board } = prepared;
+  users.forEach(user => Notifications.notify(user, title, description, params));
 
   const integrationBoardIds = board
     ? [board._id, Integrations.Const.GLOBAL_WEBHOOK_ID]

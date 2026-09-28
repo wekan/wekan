@@ -124,4 +124,4 @@ async function deliverNotificationPlan({ plan, activity, tray, email, assertCurr
   await assertCurrent();
   return planId(plan.activityId);
 }
-module.exports = { prepareNotificationPlan, validateNotificationPlan, ensureNotificationPlan, deliverNotificationPlan, planId };
+module.exports = { notificationActivityIdentity: identity, prepareNotificationPlan, validateNotificationPlan, ensureNotificationPlan, deliverNotificationPlan, planId };
