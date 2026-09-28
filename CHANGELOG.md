@@ -400,10 +400,16 @@ re-render content or choose new recipients. The executor rechecks access and
 requires exact tray receipts and email-enqueue identities. Seven Node suites
 pass with real MongoDB, including dismissal between stages, interrupted email
 enqueue, changed activity, plan corruption and competing preparations. This
-uses the actual tray/outbox storage components but supplied preparation/access
-callbacks. Ordinary recipient selection, production plan storage lifecycle and
-saved Sync effect integration remain unfinished. Enqueue acknowledgement does
-not mean SMTP, rules or webhook completion.
+uses the actual tray/outbox storage components with supplied access guards.
+Production preparation now shares the ordinary activity hook's watcher,
+mention, mute, scoped-subscription and actor filtering. A shared tray-preference
+reader and the email preparer capture each selected user's service choices
+without dispatch. Planning follows the confirmed card mutation, checks its
+board/list context and refuses missing or moved cards. Twenty Node suites,
+six full-app Meteor tests and six Chromium/SMTP cases pass. Production plan
+storage lifecycle, replay permission adapters and saved Sync effect integration
+remain unfinished. Enqueue acknowledgement does not mean SMTP, rules or
+webhook completion.
 Activity notification and webhook payloads now preserve zero, false, empty
 text and explicit null, while absent values remain omitted. This fixes lost
 zero estimates and unchecked custom-field values. SMTP and HTTP-serialization
@@ -1082,6 +1088,33 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2ae279838">Share notification audience selection with saved-plan preparation</a>. Thanks to xet7.</summary>
+
+Extract ordinary activity notification preparation from dispatch. The normal
+hook keeps its existing notifications and nonblocking webhooks, while saved
+plan preparation calls the same watcher, mention, mute, scoped-subscription
+and actor filters without dispatching anything. Share tray preference lookup
+with the profile subscriber and reuse the rendered-email preparation function.
+
+The internal adapter plans after the card mutation is confirmed, because the
+ordinary helpers read that resulting card. Bind the complete activity identity,
+check ownership around preparation and refuse missing cards or mismatched
+board/list identities before returning a plan. Disabled notifications produce no recipients.
+
+Twenty focused Node suites pass with MongoDB plan tests enabled. Six full-app
+Meteor cases pass, covering actor exclusion, active watching, muted/inactive
+members, explicit list subscriptions, independent service preferences, disabled
+notifications, missing/moved cards and no preparation writes. Six Chromium/SMTP
+cases pass for normal alerts, mute/list scope, delivery, disabled email and
+zero/false custom-field content. The source audit passes with informational
+fingerprint advisories.
+
+Production plan storage lifecycle, replay permission adapters, saved Sync
+execution and durable rule/webhook handling remain in TODO Later.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/276675bc7">Persist frozen notification plans for interrupted delivery</a>. Thanks to xet7.</summary>
