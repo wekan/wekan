@@ -461,9 +461,15 @@ no comments are recreated. Thirteen Node suites pass with MongoDB; the expanded
 eight-case storage suite also covers lost plan replies and concurrent builders.
 A combined HTTP/comment test resumes after a receipt-storage failure without
 another HTTP request or loss of the user's later text. This raw-driver stage
-is not active on production comments: private marker/schema protection,
-publication exclusions, collection registration, live integration/actor replay
-adapters and recovery startup remain unfinished. Absolute HTTP deadlines,
+is not active on production comments yet. Private marker fields are now defined
+in the schema, excluded by ordinary server reads (including publication cursors
+and JSON export reads), and rejected in DDP insert/update/rename/replacement
+attempts. Copies never inherit another comment's delivery evidence. Ordinary
+text edits preserve the stored markers. Eleven focused Node suites with MongoDB,
+two full-app Meteor cases and two Chromium member/admin cases pass; an expanded
+projection guard also passes. Denied private writes use the existing comment
+security summary in Problems. Collection registration, live integration/actor
+replay adapters and recovery startup remain unfinished. Absolute HTTP deadlines,
 scheduled retries, retention/operator controls and saved Sync integration
 also remain unfinished.
 Email notifications now use a private event/recipient outbox with persisted
@@ -1140,6 +1146,30 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/29872ab9f">Protect private webhook comment evidence across reads, writes and copies</a>. Thanks to xet7.</summary>
+
+Define private comment recovery fields and exclude them from shared server
+reads, including publication cursors and board JSON exports. Preserve existing
+public projections without letting private-only requests expand to full rows.
+Reject client inserts, nested updates, unsets, replacements and rename targets
+that could forge or erase evidence. Record attempted private writes in the
+existing comment security summary; ordinary text edits remain allowed.
+Comment copies discard the original's pending receipt and revision.
+
+Eleven focused Node suites pass with MongoDB. Two full-app Meteor cases verify
+actual projections, normal-edit preservation and stored HTTP replay. Two
+Chromium cases verify visible comment text, hidden evidence, five rejected
+writes per member/admin account and successful ordinary edits. Five focused
+Node suites pass again after the final mixed-projection regression was added.
+Source audit passes with informational fingerprint warnings.
+
+The comment-response executor is not enabled yet. Private storage registration,
+live replay access adapters, startup recovery and saved Sync activation remain
+in TODO Later.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/647b261e3">Record webhook comment effects atomically and preserve later edits</a>. Thanks to xet7.</summary>
