@@ -383,8 +383,13 @@ prepared transport fields against the complete rule-plan checksum, invocation,
 activity hash and actor/board/card identity. Exact readback reconciles lost
 replies and concurrent builders; changed plans, corrupt content, malformed
 headers and oversized payloads are refused. Twenty-two Node/MongoDB cases pass,
-including seven command cases and fresh-connection reuse. Actual rule-variable
-preparation, private collection registration and the dispatch worker remain
+including seven command cases and fresh-connection reuse. The server entry point
+now prepares actual rule variables, recipient language and card-context footer
+through shared ordinary-mail code before storing in a private indexed command
+collection. Plain-text preparation omits absent HTML for BSON compatibility.
+Twenty focused cases, 28 rule Node suites, one full-app case and two Chromium
+cases pass; the browser denies member/admin access to thirteen collections.
+Dispatch, send-time recipient/configuration checks and operator recovery remain
 TODO. Persisting this command does not acknowledge sending or rule completion.
 Private operation, step and completion collections are now registered with
 server-only adapters, denied browser writes, recovery indexes and no TTL.
@@ -1383,6 +1388,24 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/319173291">Capture stored rule mail through shared variable and localization preparation</a>. Thanks to xet7.</summary>
+
+Use shared ordinary-rule preparation for token substitution, recipient language
+and the card title/description/link footer. Bind final localized transport
+fields to immutable commands in a private indexed collection without TTL.
+Capture and replay check the saved activity, live policy, actor permission and
+current card/list scope. Omit absent HTML to prevent BSON null conversion.
+
+Twenty focused Node/MongoDB cases, 28 rule Node suites, one full-app case and
+two Chromium cases pass. The app test uses actual variable/localization code,
+verifies unchanged stored mail after card/action edits and forbids SMTP calls.
+Browser checks deny member/admin access to thirteen private collections. The
+source audit completes with advisory warnings. Durable sending, send-time
+recipient/configuration checks and operator recovery remain unfinished.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/61969464b">Persist immutable prepared rule email commands with exact readback</a>. Thanks to xet7.</summary>
