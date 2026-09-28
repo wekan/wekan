@@ -51,7 +51,36 @@ failure and post-fix logs are retained in `.tools/tmp/card-copy-boundary` locall
 ## Remaining review
 
 This fix closes caller-controlled source identity replacement. Review is still
-needed for assigned-only source and descendant handling, caller-supplied
-destination list/swimlane IDs, direct Rules writes and concurrent permission
-changes. It does not certify every entry point that copies cards or related
+needed for assigned-only source and descendant handling, direct Rules writes
+and concurrent permission changes. Destination placement validation is covered
+by the follow-up below. It does not certify every entry point that copies cards or related
 records. The larger non-translation TODO goal remains open.
+
+## Destination placement follow-up
+
+A separate local regression confirmed that card-copy DDP accepted a list from
+another board and inserted a card whose board and list disagreed. Shared server
+copying now checks that the board exists and both destination containers exist
+on that board, with none soft-deleted. The DDP method checks before calculating
+sort order, and `Cards.copy()` checks again before loading source children,
+remapping custom fields, allocating card numbers or writing documents. The
+REST route returns HTTP 400 for an invalid destination.
+
+Board-wide lists remain valid; this check does not require a list to be bound
+to one swimlane. Archived containers remain valid for existing board-copy
+semantics. A stale picker can legitimately hold removed or foreign selections,
+so destination rejection is an input error, without security logging or account
+blocking. Permissions remain the callers' responsibility.
+
+`tests/cardCopyDestination.test.cjs` covers the placement decision and guard
+ordering. `tests/playwright/specs/card-copy-destination.e2e.js` covers DDP/REST
+foreign and missing containers, soft-deleted containers, unchanged cards,
+activities and number counters, plus valid cross-board copies into a board-wide
+list. Existing ordinary, Scrum, list, swimlane and rule-copy browser suites
+exercise the shared server entry point.
+
+This is not a transaction: a concurrent move or deletion after validation can
+still invalidate a destination. Client-side template copies use collection
+writes and need their own end-to-end audit. Assigned-only source/descendant
+permissions remain open, as does the separate `copyBoard` properties merge,
+which needs the same identity-preservation review as the card method.

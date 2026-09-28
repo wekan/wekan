@@ -819,6 +819,7 @@ Meteor.methods({
       throw new Meteor.Error('bad-request', 'Invalid card copy overrides');
     }
 
+    await require('/server/lib/cardCopyDestination').requireCardCopyDestination(boardId, swimlaneId, listId);
     const sort = await copy.getSort(listId, swimlaneId, insertAtTop);
     copy.sort = insertAtTop ? sort - 1 : sort + 1;
     return await copy.copy(boardId, swimlaneId, listId);
@@ -2351,7 +2352,13 @@ WebApp.handlers.post(
       return;
     }
 
-    const newId = await card.copy(toBoardId, toSwimlaneId, toListId);
+    let newId;
+    try { newId = await card.copy(toBoardId, toSwimlaneId, toListId); }
+    catch (error) {
+      if (error.error !== 'invalid-copy-destination') throw error;
+      sendJsonResult(res, { code: 400, data: { error: error.reason } });
+      return;
+    }
 
     if (Object.prototype.hasOwnProperty.call(req.body, 'position')) {
       const siblings = await ReactiveCache.getCards(

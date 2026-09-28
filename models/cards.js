@@ -1068,6 +1068,9 @@ Cards.helpers({
 
 
   async copy(boardId, swimlaneId, listId, cardIdMap = null, copyOptions, deferScrum = false) {
+    if (Meteor.isServer) {
+      await require('/server/lib/cardCopyDestination').requireCardCopyDestination(boardId, swimlaneId, listId);
+    }
     const oldId = this._id;
     const oldCard = await ReactiveCache.getCard(oldId);
 
