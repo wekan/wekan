@@ -1844,7 +1844,7 @@ if arguments >= 4 and sys.argv[1] == 'editrule':
 #
 # Typed card-to-card dependencies, visualized on the board as colored connection
 # lines (SAFe PI-planning "Red Strings"). Each line has:
-#   type  : related-to | blocks | is-blocked-by | fixes | is-fixed-by
+#   type  : related-to | blocks | is-blocked-by | fixes | is-fixed-by | duplicates | is-duplicated-by
 #   color : any CSS color, e.g. "#eb144c"
 #   icon  : a FontAwesome 4.7 icon name without the "fa-" prefix, e.g. "link"
 #

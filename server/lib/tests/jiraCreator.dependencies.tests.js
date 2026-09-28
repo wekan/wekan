@@ -6,7 +6,7 @@ import { JiraCreator } from '/models/jiraCreator';
 
 // #3392: importing a Jira board maps Jira issue links (`issuelinks`) best-effort
 // to card-to-card dependencies ("Red Strings"). "blocks" link types become
-// blocks / is-blocked-by by direction; everything else becomes related-to.
+// blocks / is-blocked-by; Duplicate maps to duplicates / is-duplicated-by.
 // Links to issues not in the import (or self-links) are skipped.
 
 describe('JiraCreator dependency mapping (#3392)', function () {
@@ -40,6 +40,19 @@ describe('JiraCreator dependency mapping (#3392)', function () {
     await runWith([{ type: { name: 'Blocks' }, inwardIssue: { key: 'PROJ-3' } }]);
     const [, modifier] = updateStub.getCall(0).args;
     expect(modifier.$set.cardDependencies[0]).to.include({ cardId: 'idC', type: 'is-blocked-by' });
+  });
+
+  it('maps duplicate links in both directions and keeps absent/self targets out', async function () {
+    await runWith([
+      { type: { name: 'Duplicate' }, outwardIssue: { key: 'PROJ-2' } },
+      { type: { name: 'Duplicate' }, inwardIssue: { key: 'PROJ-3' } },
+      { type: { name: 'Duplicate' }, outwardIssue: { key: 'NOPE-9' } },
+      { type: { name: 'Duplicate' }, inwardIssue: { key: 'PROJ-1' } },
+    ]);
+    const deps = updateStub.getCall(0).args[1].$set.cardDependencies;
+    expect(deps.map(({ cardId, type }) => ({ cardId, type }))).to.deep.equal([
+      { cardId: 'idB', type: 'duplicates' }, { cardId: 'idC', type: 'is-duplicated-by' },
+    ]);
   });
 
   it('maps non-block link types to related-to', async function () {

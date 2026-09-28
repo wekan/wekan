@@ -1824,6 +1824,8 @@
   "dependency-type-is-blocked-by": "Is blocked by",
   "dependency-type-fixes": "Fixes",
   "dependency-type-is-fixed-by": "Is fixed by",
+  "dependency-type-duplicates": "Duplicates",
+  "dependency-type-is-duplicated-by": "Is duplicated by",
   "filter-dependencies-label": "Filter by dependencies",
   "import-dependencies-file": "Dependencies file (JSON or SVG)",
   "import-dependencies-placeholder": "Or paste dependencies JSON / SVG here",

@@ -116,8 +116,8 @@ Template.dependencyOverlay.onCreated(function () {
         const meta = dependencyTypeMeta(dep.type);
         // Draw the arrow from the prerequisite card's right edge to the
         // dependent card's left edge. For forward relations (blocks/fixes/
-        // related-to) the source card is the prerequisite; for the reverse
-        // relations (is-blocked-by/is-fixed-by) the target is.
+        // duplicates/related-to) the source card is the starting end; for reverse
+        // relations (is-blocked-by/is-fixed-by/is-duplicated-by) the target is.
         const prereq = meta.forward ? sourceRect : targetRect;
         const dependent = meta.forward ? targetRect : sourceRect;
         const x1 = prereq.x + prereq.w;

@@ -116,3 +116,19 @@ Here again briefly the way:
 I hope I could save you some work with this. Good luck! :four_leaf_clover:
 Greetings
 Alexander
+
+## Duplicate issue links
+
+Standard Jira `Duplicate` issue links now import as `duplicates` for
+`outwardIssue` and `is-duplicated-by` for `inwardIssue`, following the
+[Atlassian issue-link model](https://developer.atlassian.com/cloud/jira/platform/issue-linking-model/)
+and [Data Center link types](https://developer.atlassian.com/server/jira/platform/rest/v11000/api-group-issuelink/).
+Both endpoints must be included in the imported board. Self-links and missing
+targets are skipped; the existing one-relation-per-target rule still applies.
+The names `Duplicate` and `Duplicates` are recognized case-insensitively.
+Custom/localized link names retain the existing generic relation fallback.
+
+The relation is editable in card details and survives native WeKan board
+export/import and History restoration. It does not merge duplicate cards or
+change blocker analytics. The separate Jira JSON exporter currently omits
+issue links; native WeKan export is the supported transfer path for these links.

@@ -238,7 +238,8 @@ export class JiraCreator {
 
   // #3392: best-effort mapping of Jira issue links to card-to-card dependencies
   // ("Red Strings"). Jira link type names are matched loosely: "blocks" maps to
-  // blocks / is-blocked-by depending on direction, everything else to related-to.
+  // blocks / is-blocked-by; "Duplicate" maps to duplicates / is-duplicated-by.
+  // Other configured link names retain the existing related-to fallback.
   async createDependencies(data) {
     for (const issue of this._issues(data)) {
       const fromId = this.cardsByKey[issue.key];
@@ -252,9 +253,11 @@ export class JiraCreator {
         if (link.outwardIssue) {
           targetKey = link.outwardIssue.key;
           if (typeName.includes('block')) depType = 'blocks';
+          else if (typeName === 'duplicate' || typeName === 'duplicates') depType = 'duplicates';
         } else if (link.inwardIssue) {
           targetKey = link.inwardIssue.key;
           if (typeName.includes('block')) depType = 'is-blocked-by';
+          else if (typeName === 'duplicate' || typeName === 'duplicates') depType = 'is-duplicated-by';
         }
         if (!targetKey) continue;
         const toId = this.cardsByKey[targetKey];

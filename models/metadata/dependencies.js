@@ -19,7 +19,7 @@ export const DEFAULT_DEPENDENCY_TYPE = 'related-to';
 // `directed`: whether the connection line draws an arrowhead.
 // `forward` : true  => arrow points from the source card to the target card;
 //             false => arrow points from the target card back to the source
-//             (used by the reverse relations "is-blocked-by" / "is-fixed-by").
+//             (used by "is-blocked-by", "is-fixed-by" and "is-duplicated-by").
 // The i18n label for each type is the key `dependency-type-<id>`.
 export const DEPENDENCY_TYPES = [
   { id: 'related-to', directed: false, forward: true },
@@ -27,6 +27,8 @@ export const DEPENDENCY_TYPES = [
   { id: 'is-blocked-by', directed: true, forward: false },
   { id: 'fixes', directed: true, forward: true },
   { id: 'is-fixed-by', directed: true, forward: false },
+  { id: 'duplicates', directed: true, forward: true },
+  { id: 'is-duplicated-by', directed: true, forward: false },
 ];
 
 export const DEPENDENCY_TYPE_IDS = DEPENDENCY_TYPES.map(t => t.id);
@@ -47,6 +49,8 @@ export const DEPENDENCY_TYPE_INVERSE = {
   'is-blocked-by': 'blocks',
   fixes: 'is-fixed-by',
   'is-fixed-by': 'fixes',
+  duplicates: 'is-duplicated-by',
+  'is-duplicated-by': 'duplicates',
 };
 
 export function dependencyTypeMeta(typeId) {

@@ -65,7 +65,9 @@ test('completion and list changes close/split episodes, unrelated edges do not b
     change('a', 10, 'endAt', null, date(10))];
   const episodes = blockerEpisodes(cards, history, now);
   assert.deepEqual(episodes.map(p => [p.listId, p.days]), [['doing', 3], ['review', 5]]);
-  assert.equal(blockerEpisodes([card('a', { cardDependencies: [{ cardId: 'b', type: 'related-to' }] }), card('b')], [], now).length, 0);
+  for (const type of ['related-to', 'duplicates', 'is-duplicated-by']) {
+    assert.equal(blockerEpisodes([card('a', { cardDependencies: [{ cardId: 'b', type }] }), card('b')], [], now).length, 0);
+  }
   assert.equal(blockerEpisodes([card('a', { cardDependencies: dep }), card('b', { boardId: 'private' })], [], now).length, 0);
 });
 

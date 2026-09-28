@@ -17,6 +17,8 @@ board**. Each dependency has a **relation type**, a **color** and an **icon**.
 | `is-blocked-by` | this card is blocked by the target | target → this |
 | `fixes` | this card fixes the target | this → target |
 | `is-fixed-by` | this card is fixed by the target | target → this |
+| `duplicates` | this card duplicates the target | this → target |
+| `is-duplicated-by` | the target duplicates this card | target → this |
 
 The line is always drawn from the **right edge of the prerequisite card** to the
 **left edge of the dependent card**, so direction is visible at a glance. A card
@@ -157,7 +159,8 @@ match.
 
 - **Jira**: when importing a Jira **board** (All Boards → New → Import → From
   Jira), issue links (`issuelinks`) are mapped best-effort — "blocks" link types
-  become `blocks` / `is-blocked-by` (by direction), other link types become
+  become `blocks` / `is-blocked-by` (by direction), standard `Duplicate` links
+  become `duplicates` / `is-duplicated-by`, and other link types become
   `related-to`.
 - **Miro**: the importer best-effort maps **Miro REST API** data. Export the
   board's items and connectors from the Miro API (e.g. `GET /v2/boards/{id}/items`
@@ -191,7 +194,8 @@ Base path: `/api/boards/:boardId`. All endpoints require a bearer token
 | DELETE | `/cards/:cardId/dependencies/:targetId` | remove a dependency |
 
 `type` is one of `related-to`, `blocks`, `is-blocked-by`, `fixes`,
-`is-fixed-by`. `color` is any CSS color (e.g. `#eb144c`). `icon` is a
+`is-fixed-by`, `duplicates`, `is-duplicated-by`. `color` is any CSS color
+(e.g. `#eb144c`). `icon` is a
 FontAwesome 4.7 icon name without the `fa-` prefix (e.g. `link`).
 
 These operations are also documented in the generated OpenAPI docs (tag
@@ -209,3 +213,8 @@ python3 api.py removedependency BOARDID CARDID TARGETCARDID
 # Example: card A blocks card B, drawn as a blue line with a lock icon
 python3 api.py adddependency BOARDID CARDA CARDB blocks '#2196f3' lock
 ```
+
+Duplicate relations identify another card representing the same work. They do
+not merge or archive cards, and do not count as blockers in Blocker Analysis.
+They use the existing type picker, directed overlay, color/icon settings, REST
+API, History undo/redo and native board transfer with remapped card IDs.

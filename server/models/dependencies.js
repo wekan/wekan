@@ -23,7 +23,7 @@ import {
 //     body: { "type"?, "color"?, "icon"? }
 //   DELETE /api/boards/:boardId/cards/:cardId/dependencies/:targetId
 //
-// type  : one of related-to | blocks | is-blocked-by | fixes | is-fixed-by
+// type  : one of related-to | blocks | is-blocked-by | fixes | is-fixed-by | duplicates | is-duplicated-by
 // color : any CSS color (e.g. "#eb144c")
 // icon  : a FontAwesome 4.7 icon name without the "fa-" prefix (e.g. "link")
 
@@ -183,7 +183,7 @@ if (Meteor.isServer) {
    * @param {string} boardId the board ID
    * @param {string} cardId the source card ID
    * @param {string} cardId_dependency the target card ID (body field "cardId")
-   * @param {string} [type] relation type: related-to | blocks | is-blocked-by | fixes | is-fixed-by
+   * @param {string} [type] relation type: related-to | blocks | is-blocked-by | fixes | is-fixed-by | duplicates | is-duplicated-by
    * @param {string} [color] line/badge color, any CSS color e.g. "#eb144c"
    * @param {string} [icon] FontAwesome icon name without the "fa-" prefix
    * @return_type {_id: string, cardId: string, type: string, color: string, icon: string}
@@ -252,7 +252,7 @@ if (Meteor.isServer) {
    * @param {string} boardId the board ID
    * @param {string} cardId the source card ID
    * @param {string} targetId the target card ID of the dependency
-   * @param {string} [type] relation type: related-to | blocks | is-blocked-by | fixes | is-fixed-by
+   * @param {string} [type] relation type: related-to | blocks | is-blocked-by | fixes | is-fixed-by | duplicates | is-duplicated-by
    * @param {string} [color] line/badge color, any CSS color e.g. "#eb144c"
    * @param {string} [icon] FontAwesome icon name without the "fa-" prefix
    * @return_type {_id: string}

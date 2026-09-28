@@ -12,7 +12,7 @@ function validDependencyRestore(card, dependencies, targets) {
     const target = byId.get(dep.cardId);
     return dep.cardId !== card._id && target?.boardId === card.boardId
       && !target.deletedAt
-      && ['related-to', 'blocks', 'is-blocked-by', 'fixes', 'is-fixed-by'].includes(dep.type);
+      && ['related-to', 'blocks', 'is-blocked-by', 'fixes', 'is-fixed-by', 'duplicates', 'is-duplicated-by'].includes(dep.type);
   });
 }
 function dependencySummary(dependencies, titleOf = id => id, translate = key => key) {
