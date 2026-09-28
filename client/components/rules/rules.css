@@ -461,7 +461,8 @@
 .rules-page button.primary i.fa { color: inherit; }
 
 /* Native, keyboard-accessible attachment choice in the mail action form. */
-.trigger-content-mail #email-attachments {
+.trigger-content-mail #email-attachments,
+.trigger-content-mail #email-discussion {
   display: inline-block;
   visibility: visible;
   position: static;

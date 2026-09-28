@@ -27,6 +27,9 @@ test(`email rule form and SMTP carry only live triggering-card bytes from ${back
     db.insertOne('attachments', { _id: id, name: 'report.bin', extension: 'bin', type: 'application/octet-stream', size: bytes.length,
       meta: { boardId: board.boardId, cardId: card._id },
       versions: { original: { storage: backend, meta: backend === 'gridfs' ? { gridFsFileId: gridId.toHexString() } : {}, path: filename, size: bytes.length, extension: 'bin', type: 'application/octet-stream' } } });
+    db.insertOne('checklists', { _id: `${id}-checklist`, cardId: card._id, title: 'Email checklist', sort: 0 });
+    db.insertOne('checklistItems', { _id: `${id}-item`, cardId: card._id, checklistId: `${id}-checklist`, title: 'Reviewed task', isFinished: true, sort: 0 });
+    db.insertOne('card_comments', { _id: `${id}-comment`, cardId: card._id, boardId: board.boardId, text: 'Public email comment', createdAt: new Date(), modifiedAt: new Date(), webhookResponsePending: 'NEVER-MAIL-PRIVATE-STATE' });
     await navigateInApp(page, `/b/${board.boardId}/${board.slug}/rules`);
     await page.locator('#ruleTitle').fill('Email card files');
     await page.locator('.js-goto-trigger').click();
@@ -37,6 +40,8 @@ test(`email rule form and SMTP carry only live triggering-card bytes from ${back
     await page.locator('#email-subject').fill('Card files');
     await page.locator('#email-msg').fill('Requested card content');
     await expect(page.locator('#email-attachments')).not.toBeChecked();
+    await expect(page.locator('#email-discussion')).not.toBeChecked();
+    await page.locator('#email-discussion').check();
     await page.locator('#email-attachments').focus();
     await page.keyboard.press('Space');
     await expect(page.locator('#email-attachments')).toBeChecked();
@@ -45,6 +50,7 @@ test(`email rule form and SMTP carry only live triggering-card bytes from ${back
     const rule = db.findOne('rules', { boardId: board.boardId, title: 'Email card files' });
     const action = db.findOne('actions', { _id: rule.actionId });
     expect(action.includeAttachments).toBe(true);
+    expect(action.includeChecklistsAndComments).toBe(true);
     expect(action.desc.toLowerCase()).toContain('attachments');
     await call(page, 'rules.runButton', rule._id, card._id);
     const mails = () => sink.messages.filter(mail => mail.recipients.includes('attachments@example.invalid'));
@@ -52,18 +58,28 @@ test(`email rule form and SMTP carry only live triggering-card bytes from ${back
     expect(mails()[0].data).toContain('filename=report.bin');
     expect(mails()[0].data).toContain(bytes.toString('base64'));
     expect(mails()[0].data).toContain('Requested card content');
+    expect(mails()[0].data).toContain('Email checklist');
+    expect(mails()[0].data).toContain('[x] Reviewed task');
+    expect(mails()[0].data).toContain('Public email comment');
+    expect(mails()[0].data).not.toContain('NEVER-MAIL-PRIVATE-STATE');
     db.updateOne('attachments', { _id: id }, { $set: { deletedAt: new Date() } });
     await call(page, 'rules.runButton', rule._id, card._id);
     await expect.poll(() => mails().length).toBe(2);
     expect(mails()[1].data).not.toContain('report.bin');
     db.updateOne('attachments', { _id: id }, { $unset: { deletedAt: '' } });
+    db.updateOne('actions', { _id: rule.actionId }, { $set: { includeChecklistsAndComments: false } });
+    await call(page, 'rules.runButton', rule._id, card._id);
+    await expect.poll(() => mails().length).toBe(3);
+    expect(mails()[2].data).toContain('Requested card content');
+    expect(mails()[2].data).not.toContain('Email checklist');
+    expect(mails()[2].data).not.toContain('Public email comment');
     fs.unlinkSync(filename);
     if (backend === 'gridfs') { db.deleteMany('attachments.files', { _id: gridId }); db.deleteMany('attachments.chunks', { files_id: gridId }); }
     const error = await page.evaluate(async ({ ruleId, cardId }) => {
       try { await Meteor.callAsync('rules.runButton', ruleId, cardId); return null; }
       catch (error) { return error.error; }
     }, { ruleId: rule._id, cardId: card._id });
-    expect(error).not.toBeNull(); expect(mails()).toHaveLength(2);
+    expect(error).not.toBeNull(); expect(mails()).toHaveLength(3);
   } finally {
     db.deleteMany('attachments', { _id: { $in: [id, foreignId] } });
     db.deleteMany('attachments.files', { _id: gridId }); db.deleteMany('attachments.chunks', { files_id: gridId });

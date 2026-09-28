@@ -16,6 +16,7 @@ Template.mailActions.events({
       emailTo,
       emailSubject,
       emailMsg,
+      includeChecklistsAndComments: tpl.find('#email-discussion').checked,
       includeAttachments: tpl.find('#email-attachments').checked,
       boardId,
       desc,

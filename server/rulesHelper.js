@@ -301,6 +301,11 @@ export const RulesHelper = {
     }
     const options = { to, from: Accounts.emailTemplates.from, subject, text,
       language: recipientLang, userId: recipientUser ? recipientUser._id : null };
+    if (action.includeChecklistsAndComments === true) {
+      const { prepareRuleCardDiscussion } = require('/server/lib/ruleCardDiscussion');
+      const discussion = await prepareRuleCardDiscussion({ activity, cache: ReactiveCache, canReadBoard });
+      if (discussion) options.text += `\n\n${discussion}`;
+    }
     if (action.includeAttachments === true) {
       const { prepareRuleCardAttachments } = require('/server/lib/ruleCardAttachments');
       const { fileStoreStrategyFactory } = require('/models/attachments.server');

@@ -85,9 +85,15 @@ the captured bytes for retries. Filesystem and GridFS delivery have local SMTP
 regression coverage; cloud adapters use their existing stream interface but
 were not tested against live cloud accounts for this change.
 
-Email bodies currently include the configured text and the card's title,
-description and link. A complete rendering of checklists, comments and other
-card fields requested in #2713 is still pending.
+Email bodies include the configured text and the card's title, description and
+link. Enable **Checklists / Comments** to append live checklist titles, tasks
+and their completion state, followed by public comment text in chronological
+order. Private webhook state is never included. Card access is rechecked after
+reading; oversized discussion text fails rather than being silently truncated.
+This option is independent of Attachments and is off for existing rules.
+
+Other card fields (such as dates, custom fields, notes and relationships) still
+need a complete representation for the full-card request in #2713.
 
 ### Copy a card after a trigger
 
