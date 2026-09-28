@@ -404,3 +404,5 @@ import '/server/moveBoardObjects';
 import '/server/scrum';
 import '/server/publications/scrum';
 import '/server/methods/syncRuleEmailRecovery';
+
+import '/server/lib/storedHistoryChain';

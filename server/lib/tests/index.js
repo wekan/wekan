@@ -96,3 +96,5 @@ import './activityNotificationIntent.tests';
 import './activityNotificationRecovery.tests';
 
 import './storedRulePlans.tests';
+
+import './storedHistoryChain.tests';

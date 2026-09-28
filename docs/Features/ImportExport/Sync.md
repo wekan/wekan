@@ -931,3 +931,21 @@ Tests exercise reversed/equal timestamps, legacy data, invalid ancestry, bounded
 scans, lost replies and real MongoDB iteration across multiple batches followed
 by append on a new connection. Production writer exclusion and binding remain
 unfinished; no automatic migration is enabled by this helper.
+
+### Schema-backed coordinated History storage
+
+`server/lib/storedHistoryChain.js` registers private `historyChainHeads` with a
+unique board index and denied browser writes. No publication or TTL exposes or
+expires it. `initializeStoredHistoryChain` binds verified bootstrap to the real
+History collection and still requires the caller's exclusive writer guard.
+
+`appendStoredHistoryChain` fills the existing History schema's defaults and
+validates the complete input before reserving a pending row. It requires a
+stable caller-supplied row ID and timestamp. Inserts use ordinary ChangeHistory
+schema validation while preserving whitespace and captured timestamps. Missing
+heads are refused; even if a head disappears after the initial read, append
+cannot recreate it from an old cached hash.
+
+This internal binding is not yet used by `ChangeHistory.record`. The startup
+registration does not initialize or migrate boards. Production writer exclusion,
+redo handling and switching ordinary writes remain pending.
