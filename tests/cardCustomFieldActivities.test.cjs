@@ -13,6 +13,7 @@ function harness() {
     Activities: { insertAsync: async activity => { await Promise.resolve(); emitted.push(activity); } },
     Cards: { after: { update: fn => { hook = fn; } } },
     collectionWriteSucceeded,
+    deferSyncRecording: () => false,
   };
   const model = fs.readFileSync('models/cards.js', 'utf8');
   vm.runInNewContext(model.slice(model.indexOf('async function cardCustomFields('), model.indexOf('\nasync function cardCreation')), context);

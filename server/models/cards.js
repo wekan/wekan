@@ -16,6 +16,7 @@ const { applyCardBoardConsistency } = require('/server/lib/cardBoardConsistency'
 import { titleChanged } from '/server/lib/titleChangeActivity';
 import { descriptionChanged } from '/server/lib/descriptionChangeActivity';
 const { collectionWriteSucceeded } = require('/server/lib/collectionWriteOutcome');
+const { deferSyncRecording } = require('/server/lib/syncRecordingScope');
 import { buildDeleteCardActivity } from '/server/lib/deleteActivities';
 import { assertParentCardIsVisible } from '/server/lib/visibleBoardIds';
 import { computeSubtaskLabelIds } from '/models/lib/subtaskLabelInheritance';
@@ -911,7 +912,7 @@ Meteor.startup(async () => {
 });
 
 Cards.after.insert(async (userId, doc) => {
-  await cardCreation(userId, doc);
+  if (!deferSyncRecording('create', doc)) await cardCreation(userId, doc);
 
   Meteor.setTimeout(async () => {
     const card = await Cards.findOneAsync(doc._id);
@@ -923,7 +924,7 @@ Cards.after.insert(async (userId, doc) => {
 
 Cards.after.update(async function(userId, doc, fieldNames) {
   if (!collectionWriteSucceeded(this) || !!this.previous.archived === !!doc.archived) return;
-  await cardState(userId, doc, fieldNames);
+  if (!deferSyncRecording('archive', doc)) await cardState(userId, doc, fieldNames);
 });
 
 // When a card moves to another board, re-sync the denormalized boardId on its
@@ -1037,6 +1038,7 @@ Cards.before.update((userId, doc, fieldNames, modifier) => {
 // Custom-field rules must observe the saved card, including whole-array Sync writes.
 Cards.after.update(async function(userId, doc, fieldNames) {
   if (!collectionWriteSucceeded(this)) return;
+  if (fieldNames.includes('customFields') && deferSyncRecording('customFields', doc)) return;
   await cardCustomFields(userId, doc, fieldNames, this.previous);
 });
 
@@ -1083,6 +1085,7 @@ Cards.before.update(async (userId, doc, fieldNames, modifier) => {
 // outgoing webhooks/rules cannot act on a rejected conditional update.
 Cards.after.update(async function(userId, doc, fieldNames, modifier) {
   if (!collectionWriteSucceeded(this) || !titleChanged(this.previous, modifier)) return;
+  if (deferSyncRecording('title', doc)) return;
   const oldValue = this.previous.title || '';
   const newValue = modifier.$set.title;
   const user = await ReactiveCache.getUser(userId);
@@ -1107,6 +1110,7 @@ Cards.after.update(async function(userId, doc, fieldNames, modifier) {
   const change = modifier?.$unset && Object.hasOwn(modifier.$unset, 'description')
     ? { $set: { description: '' } } : modifier;
   if (!descriptionChanged(this.previous, change)) return;
+  if (deferSyncRecording('description', doc)) return;
   const oldValue = this.previous.description || '';
   const newValue = change.$set.description || '';
   const user = await ReactiveCache.getUser(userId);

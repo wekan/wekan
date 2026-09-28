@@ -50,7 +50,7 @@ test('delivery interruption between update activities resumes exact rows without
 
 test('planned update payloads match the ordinary archive, title, description and custom-field hooks',async()=>{
  const fs=require('node:fs'),vm=require('node:vm');const emitted=[],hooks=[];
- const context={Activities:{insertAsync:async row=>{emitted.push(row);}},Cards:{after:{update:fn=>hooks.push(fn)}},
+ const context={deferSyncRecording:()=>false,Activities:{insertAsync:async row=>{emitted.push(row);}},Cards:{after:{update:fn=>hooks.push(fn)}},
   ReactiveCache:{getUser:async()=>({username:args.username}),getList:async()=>args.list},
   EJSON:{equals:(a,b)=>require('node:util').isDeepStrictEqual(a,b)},
   collectionWriteSucceeded:require('../server/lib/collectionWriteOutcome').collectionWriteSucceeded};

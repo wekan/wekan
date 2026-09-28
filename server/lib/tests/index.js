@@ -72,3 +72,5 @@ import './filenameTruncation.tests';
 // mocha suite there is. A test that reads the repository belongs on the side
 // that has a filesystem.
 import './boardTriggersClass.tests';
+
+import './syncHookedCards.tests';
