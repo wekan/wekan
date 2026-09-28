@@ -134,7 +134,7 @@ export async function runStoredSyncRuleEmail({ index, ...options }) {
   const recipients = ruleEmailRecipients(command.mail, MailComposer);
   const guard = async () => {
     await context.guard();
-    await assertRuleEmailSourceBinding({ binding: command.sourceBinding, activity: context.saved, cache: ReactiveCache, canReadBoard });
+    await assertRuleEmailSourceBinding({ binding: command.sourceBinding, activity: context.saved, cache: ReactiveCache, canReadBoard, requireRelatedSources: invocation.action.includeCardDetails === true });
     const [rule, action] = await Promise.all([
       Rules.rawCollection().findOne({ _id: invocation.rule._id }),
       Actions.rawCollection().findOne({ _id: invocation.action._id }),
@@ -149,7 +149,7 @@ export async function runStoredSyncRuleEmail({ index, ...options }) {
     const users = await Meteor.users.find({ 'emails.address': { $in: addresses } },
       { fields: { loginDisabled: 1 } }).fetchAsync();
     if (users.some(user => user.loginDisabled)) throw new Error('sync-rule-email-recipient-denied');
-    await assertRuleEmailSourceBinding({ binding: command.sourceBinding, activity: context.saved, cache: ReactiveCache, canReadBoard });
+    await assertRuleEmailSourceBinding({ binding: command.sourceBinding, activity: context.saved, cache: ReactiveCache, canReadBoard, requireRelatedSources: invocation.action.includeCardDetails === true });
     await context.guard();
   };
   return withEmailSlot(({ assertCurrent }) => dispatchRuleEmail({ command, plan,

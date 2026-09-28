@@ -40,12 +40,11 @@ Display preferences, internal Sync provenance/revisions, deletion bookkeeping
 and security/transport state are not prose to serialize wholesale. A new field
 must be classified by its user-visible meaning before adding it to email.
 
-Stored Sync command recovery and related-content authorization are unfinished
-integrations: unbound
+Stored Sync command recovery remains unfinished: unbound
 legacy commands and uncertain SMTP attempts still require an operator workflow.
-Snapshots are not automatically rewritten or resent. Extend persisted source
-evidence to related-card titles before claiming that cross-board related
-content remains authorized on every retry; the main linked-source chain alone
-does not establish that property. Source bindings cover
+Snapshots are not automatically rewritten or resent. Version-five source evidence now binds related-card titles to their complete
+source chains and rechecks them on retries, including board-admin access used
+for main-card content. Older Details commands require recovery. Custom-field definition fingerprints are also retained and rechecked, so a
+public-to-admin-only change after capture blocks dispatch. Source bindings cover
 current source identity, access and voting/Scrum disclosure settings; they do
 not establish cross-document transactional consistency.

@@ -730,7 +730,7 @@ public-voter status and Poker end time for every card in the source chain.
 Dispatch refuses changes to these visibility fields before sending captured
 results or names. Version-1 source bindings remain readable for commands
 captured before voting details were supported; new preparation always writes
-version 4. This source-binding version is separate from the command version.
+version 5. This source-binding version is separate from the command version.
 Version 3 adds terminal linked-board voting/Poker visibility to the evidence,
 rechecking it independently of the wrapper card and board. Versions 1 and 2
 remain valid for older snapshots that did not include linked-board voting;
@@ -739,6 +739,17 @@ Version 4 additionally captures the six Scrum card-field visibility flags for
 each source board. Changing any flag stops a stored dispatch, preventing a
 previously visible Scrum value from surviving a later visibility restriction.
 Earlier binding versions remain readable for pre-Scrum-content snapshots.
+Version 5 records the source chains used for related-card titles, including
+terminal linked boards. These are one-level reference chains, not recursive
+card exports. Capture deduplicates references and permits up to 1,000 chains; dispatch rechecks their identity,
+read/assignment access and disclosure settings even if the original card no
+longer references them. Loss of board-admin access used during preparation
+also blocks sending. Fingerprints of the custom-field definitions used in
+Details are stored and rechecked, including later public-to-admin-only changes.
+Commands including Details with an older binding require
+operator recovery because their related sources cannot be inferred safely.
+Commands, including source evidence and attachments, are bounded to 15 MiB.
+
 
 Legacy version-1 commands remain valid for inspection, but the application
 refuses dispatch without source evidence, including sent-receipt reconciliation

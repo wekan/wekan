@@ -9,7 +9,7 @@ const scalar = value => value instanceof Date ? (Number.isFinite(+value) ? value
   ['string', 'number', 'boolean'].includes(typeof value) ? String(value) : '';
 const values = value => Array.isArray(value) ? value.map(scalar).filter(Boolean).join(', ') : scalar(value);
 
-async function prepareRuleCardDetails({ activity, cache, canReadBoard, readScrumRecord }) {
+async function prepareRuleCardDetails({ activity, cache, canReadBoard, readScrumRecord, onRelatedSource = () => {}, onCustomFieldPolicy = () => {} }) {
   const canRead = (card, board) => !!(activity.userId && card && !card.deletedAt &&
     canReadBoard(activity.userId, board) &&
     (!isAssignedOnlyMember(board, activity.userId) || card.assignees?.includes(activity.userId)));
@@ -24,7 +24,7 @@ async function prepareRuleCardDetails({ activity, cache, canReadBoard, readScrum
   const scrumPolicy = JSON.stringify(scrumVisibility(board));
   let assertScrum = async () => {};
   const admin = !!board.hasAdmin?.(activity.userId);
-  const lines = [], related = new Set(), relatedBoards = new Map();
+  const lines = [], related = [], relatedBoards = new Map();
   let size = 0;
   const add = (label, value) => {
     const text = values(value);
@@ -39,8 +39,17 @@ async function prepareRuleCardDetails({ activity, cache, canReadBoard, readScrum
     const target = await cache.getCard(id);
     const targetBoard = target && await cache.getBoard(target.boardId);
     if (!canRead(target, targetBoard)) return;
-    related.add(id);
-    add(label, target.title);
+    const { resolveRuleEmailSource } = require('./ruleEmailSource');
+    let resolved;
+    try {
+      resolved = await resolveRuleEmailSource({ activity: { ...activity, cardId: id, boardId: target.boardId }, cache, canReadBoard });
+    } catch (error) {
+      if (['rule-email-source-not-authorized', 'rule-email-source-invalid'].includes(error.message)) return;
+      throw error;
+    }
+    related.push(resolved);
+    onRelatedSource(resolved.binding);
+    add(label, resolved.card.title);
   };
   // A link's cached fields may be copied from a now-private source. Never
   // export those snapshots as if they were authorized local metadata.
@@ -64,6 +73,7 @@ async function prepareRuleCardDetails({ activity, cache, canReadBoard, readScrum
       cache.getCustomFields({ boardIds: { $in: [card.boardId] } }, { sort: { _id: 1 } }),
       cache.getCardTextNotes(notDeleted({ cardId: card._id, boardId: card.boardId }), { sort: { createdAt: 1, _id: 1 } }),
     ]);
+    onCustomFieldPolicy(card.boardId, definitions);
     add('Board', board.title);
     if (list?.boardId === card.boardId) add('List', list.title);
     if (lane?.boardId === card.boardId) add('Swimlane', lane.title);
@@ -129,10 +139,7 @@ async function prepareRuleCardDetails({ activity, cache, canReadBoard, readScrum
   if (JSON.stringify(scrumVisibility(latest.board)) !== scrumPolicy) throw new Error('rule-email-details-changed');
   if (JSON.stringify(votingVisibility(latest.card, latest.board)) !== visibility) throw new Error('rule-email-details-changed');
   if (admin && !latest.board.hasAdmin?.(activity.userId)) throw new Error('rule-email-details-not-authorized');
-  for (const id of related) {
-    const target = await cache.getCard(id), targetBoard = target && await cache.getBoard(target.boardId);
-    if (!canRead(target, targetBoard)) throw new Error('rule-email-details-not-authorized');
-  }
+  for (const resolved of related) await resolved.assertCurrent();
   for (const [id, policy] of relatedBoards) {
     const target = await cache.getBoard(id);
     if (!canReadBoard(activity.userId, target)) throw new Error('rule-email-details-not-authorized');

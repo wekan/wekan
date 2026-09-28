@@ -173,3 +173,16 @@ test('creator, stickers and lifecycle metadata use public scalar fields only', a
     'Sort: 0', 'Subtask sort: 2', 'Last move reason: Review complete']) assert.ok(text.includes(expected), expected);
   assert.doesNotMatch(text, /SECRET|object Object/);
 });
+test('related links use live readable titles, retain their source evidence and refuse late revocation', async () => {
+  const f = fixture();
+  f.cards.parent = { _id: 'parent', boardId: 'board', type: 'cardType-linkedCard', linkedId: 'actual', title: 'STALE' };
+  f.cards.actual = { _id: 'actual', boardId: 'board', title: 'Current parent title' };
+  const collected = []; f.onRelatedSource = binding => collected.push(binding);
+  assert.match(await prepare(f), /Parent: Current parent title/);
+  assert.deepEqual(collected[0].cards.map(row => row[0]), ['parent', 'actual']);
+  f.cards.parent.linkedId = 'secret';
+  assert.doesNotMatch(await prepare(f), /Parent:|STALE|SECRET/);
+  f.cards.parent.linkedId = 'actual';
+  f.onRelatedSource = () => { f.cards.actual.deletedAt = new Date(); };
+  await assert.rejects(prepare(f), /not-authorized/);
+});

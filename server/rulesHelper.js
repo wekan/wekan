@@ -270,7 +270,7 @@ export const RulesHelper = {
     const card = await ReactiveCache.getCard(activity.cardId);
     if (!card) throw new Error('rule-email-card-unavailable');
     let emailSource = sourceContext;
-    if (emailSource || ['cardType-linkedCard', 'cardType-linkedBoard'].includes(card.type)) {
+    if (emailSource || action.includeCardDetails === true || ['cardType-linkedCard', 'cardType-linkedBoard'].includes(card.type)) {
       const { resolveRuleEmailSource } = require('/server/lib/ruleEmailSource');
       emailSource = emailSource || await resolveRuleEmailSource({ activity, cache: ReactiveCache, canReadBoard });
       activity = emailSource.activity;
@@ -310,6 +310,8 @@ export const RulesHelper = {
     if (action.includeCardDetails === true) {
       const { prepareRuleCardDetails } = require('/server/lib/ruleCardDetails');
       const details = await prepareRuleCardDetails({ activity, cache: ReactiveCache, canReadBoard,
+        onRelatedSource: binding => emailSource.addRelatedSource(binding),
+        onCustomFieldPolicy: (boardId, definitions) => emailSource.addCustomFieldPolicy(boardId, definitions),
         readScrumRecord: (kind, id, boardId) => {
           const collection = kind === 'sprint' ? require('/models/scrumSprints').default : require('/models/scrumReleases').default;
           return collection.findOneAsync({ _id: id, boardId }, { fields: { _id: 1, boardId: 1, name: 1, deletedAt: 1 } });

@@ -133,10 +133,12 @@ These are card metadata, not entire sprint reports, events or other cards.
 The [full-card content audit](../../../DeveloperDocs/Card-Email-Content-Audit.md)
 records remaining work for #2713.
 Stored Sync commands capture the resolved source chain alongside the immutable
-mail and include it in their checksum. Before dispatch, every saved card/board,
+mail and include it in their checksum. Related-card title sources are captured too, including their linked chains.
+Before dispatch, every saved card/board,
 link target and current read/assignment permission must still match. A moved or
 retargeted source stops delivery even if the recipient is unchanged. Legacy
-commands without source evidence remain readable but cannot be dispatched or
+commands without source evidence, and older Details snapshots without related-source
+evidence, remain readable but cannot be dispatched or
 silently recaptured; operator recovery for those commands remains unfinished.
 Ordinary event, button and scheduled email rules also support linked sources.
 

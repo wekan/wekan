@@ -90,7 +90,7 @@ test('stored source evidence rejects revoked public voting, reopened poker and h
     f => { f.boards.foreign.allowsPoker = false; }]) {
     const f = fixture(); f.cards.source.vote = { public: true };
     f.cards.source.poker = { end: new Date('2020-01-01') };
-    const { binding } = await resolve(f); assert.equal(binding.version, 4);
+    const { binding } = await resolve(f); assert.equal(binding.version, 5);
     await guard({ ...f, binding }); mutate(f);
     await assert.rejects(guard({ ...f, binding }), /visibility-changed/);
   }
@@ -104,9 +104,9 @@ test('visibility binding schema cannot omit or coerce disclosure policy', async 
     const changed = structuredClone(binding); mutate(changed);
     assert.throws(() => validate(changed, f.activity), /binding-invalid/);
   }
-  const legacy = structuredClone(binding); legacy.version = 1; delete legacy.visibility; delete legacy.linkedBoardVisibility; delete legacy.scrumVisibility;
+  const legacy = structuredClone(binding); legacy.version = 1; delete legacy.visibility; delete legacy.linkedBoardVisibility; delete legacy.scrumVisibility; delete legacy.relatedSources; delete legacy.adminAccess; delete legacy.customFieldPolicies;
   validate(legacy, f.activity); // Before voting was added, no voter data could be captured.
-  const previous = structuredClone(binding); previous.version = 2; delete previous.linkedBoardVisibility; delete previous.scrumVisibility;
+  const previous = structuredClone(binding); previous.version = 2; delete previous.linkedBoardVisibility; delete previous.scrumVisibility; delete previous.relatedSources; delete previous.adminAccess; delete previous.customFieldPolicies;
   validate(previous, f.activity); // Version 2 had card voting, but no linked-board voting.
   const invalid = structuredClone(binding); invalid.linkedBoardVisibility = [true, true, false, null];
   assert.throws(() => validate(invalid, f.activity), /binding-invalid/);
@@ -137,6 +137,45 @@ test('stored source evidence rechecks Scrum disclosure policy and validates its 
     const changed = structuredClone(binding); mutate(changed);
     assert.throws(() => validate(changed, f.activity), /binding-invalid/);
   }
-  const previous = structuredClone(binding); previous.version = 3; delete previous.scrumVisibility;
+  const previous = structuredClone(binding); previous.version = 3; delete previous.scrumVisibility; delete previous.relatedSources; delete previous.adminAccess; delete previous.customFieldPolicies;
   validate(previous, f.activity);
+});
+test('captured related sources remain bound after the reference is removed or retargeted', async () => {
+  const { assertRuleEmailSourceBinding: guard } = require('../server/lib/ruleEmailSource');
+  for (const change of [f => { f.boards.foreign.readable = false; },
+    f => { f.cards.source.boardId = 'local'; }, f => { f.cards.source.deletedAt = new Date(); },
+    f => { f.boards.foreign.members = [{ userId: 'reader', isActive: true, isReadAssignedOnly: true }]; }]) {
+    const f = fixture(); f.cards.link.type = 'cardType-card';
+    const root = await resolve(f), related = await resolve({ ...f, activity: { ...f.activity, cardId: 'source', boardId: 'foreign' } });
+    root.addRelatedSource(related.binding); root.addRelatedSource(related.binding);
+    assert.equal(root.binding.relatedSources.length, 1);
+    await guard({ ...f, binding: structuredClone(root.binding), requireRelatedSources: true });
+    change(f); await assert.rejects(root.assertCurrent(), /source-/);
+  }
+  const f = fixture(), source = await resolve(f), old = structuredClone(source.binding);
+  old.version = 4; delete old.relatedSources; delete old.adminAccess; delete old.customFieldPolicies;
+  await guard({ ...f, binding: old });
+  await assert.rejects(guard({ ...f, binding: old, requireRelatedSources: true }), /binding-required/);
+});
+test('related source evidence cannot contain recursive chains or malformed scopes', async () => {
+  const { validateRuleEmailSourceBinding: validate } = require('../server/lib/ruleEmailSource');
+  const f = fixture(), root = await resolve(f);
+  for (const row of [root.binding, { version: 4, cards: [] }, null]) {
+    const invalid = structuredClone(root.binding); invalid.relatedSources = [row];
+    assert.throws(() => validate(invalid, f.activity), /binding-invalid/);
+  }
+});
+
+test('a stored snapshot prepared with board-admin access stops after that access is revoked', async () => {
+  const f = fixture(); let admin = true; f.boards.foreign.hasAdmin = () => admin;
+  const source = await resolve(f); await source.assertCurrent();
+  admin = false; await assert.rejects(source.assertCurrent(), /not-authorized/);
+});
+
+test('captured custom-field policy rejects later public-to-admin changes', async () => {
+  const f = fixture(); const definitions = [{ _id: 'field', boardIds: ['foreign'], adminOnly: false }];
+  f.cache.getCustomFields = async () => definitions;
+  const source = await resolve(f); source.addCustomFieldPolicy('foreign', definitions);
+  await source.assertCurrent(); definitions[0].adminOnly = true;
+  await assert.rejects(source.assertCurrent(), /field-policy-changed/);
 });

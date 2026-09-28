@@ -43,6 +43,7 @@ function validateRuleEmailCommand(row, context) {
   if (bound) identity.version = 2;
   if (!exactKeys(row, '_id,version,kind,invocationId,planId,effectId,planHash,activityHash,actorId,boardId,cardId,mail,checksum' + (bound ? ',sourceBinding' : '')) ||
       Object.keys(identity).some(key => row[key] !== identity[key])) fail();
+  if (calculateObjectSize(row) > 15 * 1024 * 1024) fail();
   validateMail(row.mail);
   if (bound) {
     try { validateRuleEmailSourceBinding(row.sourceBinding, context.activity); } catch (_) { fail(); }

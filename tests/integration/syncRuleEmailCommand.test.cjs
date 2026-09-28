@@ -38,7 +38,8 @@ test('lost insert replies survive a fresh connection; corrupt content never beco
 
 test('bound snapshots converge in Mongo and retain source evidence after reconnect', { skip: !uri }, async t => {
   const { f, db } = await fixture(t), mail = await f.prepare();
-  const sourceBinding = { version: 4, scrumVisibility: [[false, false, false, false, false, false]], cards: [['card', 'board', null, null]], linkedBoardId: null, linkedBoardVisibility: null,
+  const sourceBinding = { version: 5, customFieldPolicies: [], adminAccess: [false], relatedSources: [{ version: 4, cards: [['related', 'foreign', null, null]], linkedBoardId: null,
+    linkedBoardVisibility: null, visibility: [[true, true, false, null]], scrumVisibility: [[false, false, false, false, false, false]] }], scrumVisibility: [[false, false, false, false, false, false]], cards: [['card', 'board', null, null]], linkedBoardId: null, linkedBoardVisibility: null,
     visibility: [[true, true, true, '2020-01-01T00:00:00.000Z']] };
   const prepare = async () => ({ mail, sourceBinding });
   const [a, b] = await Promise.all([ensure({ ...f, prepare }), ensure({ ...f, prepare })]);
@@ -48,6 +49,6 @@ test('bound snapshots converge in Mongo and retain source evidence after reconne
     assert.deepEqual(await ensure({ ...f, commands: restarted.db(db.databaseName).collection('commands'),
       prepare: () => assert.fail('must not recapture') }), a);
   } finally { await restarted.close(); }
-  await f.commands.updateOne({ _id: a._id }, { $set: { 'sourceBinding.cards.0.2': 'cardType-card' } });
+  await f.commands.updateOne({ _id: a._id }, { $set: { 'sourceBinding.relatedSources.0.cards.0.1': 'tampered' } });
   await assert.rejects(ensure({ ...f, prepare }), /command-invalid/);
 });

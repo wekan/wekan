@@ -16,8 +16,11 @@ test('linked-card mail uses current authorized source content and stops after so
   try {
     const target = db.findOne('cards', { boardId: source.boardId });
     const wrapper = db.findOne('cards', { boardId: local.boardId });
-    db.updateOne('cards', { _id: target._id }, { $set: { description: 'Current source description', dueAt: new Date('2027-04-01') } });
+    db.updateOne('cards', { _id: target._id }, { $set: { description: 'Current source description', dueAt: new Date('2027-04-01'), parentId: `${id}-parent` } });
     db.updateOne('cards', { _id: wrapper._id }, { $set: { type: 'cardType-linkedCard', linkedId: target._id, description: 'STALE-WRAPPER-DESCRIPTION' } });
+    db.insertOne('cards', { _id: `${id}-parent`, boardId: source.boardId, type: 'cardType-linkedCard',
+      title: 'STALE-PARENT-TITLE', linkedId: `${id}-parent-source` });
+    db.insertOne('cards', { _id: `${id}-parent-source`, boardId: local.boardId, title: 'Current related parent' });
     db.insertOne('card_text_notes', { _id: `${id}-note`, boardId: source.boardId, cardId: target._id, title: 'Source note', text: 'Current source note', createdAt: new Date() });
     db.insertOne('card_comments', { _id: `${id}-comment`, boardId: source.boardId, cardId: target._id, text: 'Current source comment', createdAt: new Date(), modifiedAt: new Date() });
     db.insertOne('attachments', { _id: id, name: 'source.txt', size: bytes.length, extension: 'txt', type: 'text/plain',
@@ -32,6 +35,8 @@ test('linked-card mail uses current authorized source content and stops after so
     await expect.poll(() => mails().length).toBe(1);
     for (const text of ['Live source card', 'Current source description', 'Current source note', 'Current source comment', 'Due: 2027-04-01', bytes.toString('base64')]) expect(mails()[0].data).toContain(text);
     expect(mails()[0].data).not.toContain('STALE-WRAPPER');
+    expect(mails()[0].data.replace(/=\r?\n/g, '')).toContain('Parent: Current related parent');
+    expect(mails()[0].data).not.toContain('STALE-PARENT');
     const members = db.findOne('boards', { _id: source.boardId }).members;
     db.updateOne('boards', { _id: source.boardId }, { $set: { members: [] } });
     const denied = await page.evaluate(async ({ ruleId, cardId }) => {
