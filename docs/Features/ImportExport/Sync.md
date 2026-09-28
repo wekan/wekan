@@ -539,3 +539,29 @@ Gogs | | | [wekan-gogs](https://github.com/wekan/wekan-gogs) |
 From | Import | Export | Sync | In Progress
 ------------ | ------------- | ------------- | -------------  | -------------
 Confluence |  |  | |
+
+### Stored activity delivery coordinator (internal)
+
+`server/lib/syncActivityDelivery.js` composes the durable delivery stages used
+by a saved activity's `completeDelivery` callback. It requires a durable rules
+adapter first, then confirms the existing stored notification and webhook plan
+IDs. A fulfilled Promise without the correct receipt does not complete a stage.
+All required adapters are checked before any effect. Ownership and captured
+feature policy are checked before and after every stage; each adapter receives
+an isolated copy of the original activity and policy.
+
+When notifications are disabled in the saved policy, rules still run and must
+confirm their receipt; notification and webhook adapters are not invoked.
+Replay revisits the stages through their own receipt reconciliation, rather
+than using in-memory success flags. The coordinator does not itself guarantee
+that an arbitrary supplied adapter is durable.
+
+`server/notifications/storedActivityDelivery.js` binds this coordinator to the
+actual stored notification and webhook entry points and current feature flags.
+It deliberately requires the caller to provide durable rule execution: calling
+ordinary `RulesHelper.executeRules` is not enough to make rule effects safe to
+replay. This internal binding is not invoked by manual or scheduled Sync yet.
+Durable rules, shared History-chain coordination, job activation and lifecycle
+remain prerequisites. The current tests exercise the coordinator and binding
+with scripted adapters; they do not claim end-to-end rule execution or external
+webhook delivery.
