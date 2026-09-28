@@ -1310,9 +1310,13 @@ even after later moves. Previous-week and next-month due shortcuts now use
 local calendar boundaries and refresh while active. Named filter combinations
 now persist privately per user and board, with explicit apply/replace/delete
 and validated restoration of every current control. Clear filters is the last
-panel action. Still unfinished: the RFC's extensible filter-provider interface.
-The shared server match publisher is a foundation for providers; it is not
-the complete client/plugin registration interface),
+panel action. Bundled extensions can now register their sidebar template,
+selector, scoped reset and versioned saved state through one provider API;
+creation/modification recency is the first built-in provider. The later
+cross-project overdue/label request still needs an end-to-end scope audit:
+global search already parses overdue and label predicates, but the new sidebar
+controls and saved combinations operate on one board. Do not treat this as
+proof of the complete cross-board workflow),
 [#572](https://github.com/wekan/wekan/issues/572) (label add/remove as its own
 controllable Notification Settings option - the activity feed entry it asks
 for already exists (`models/cards.js`'s `cardLabels()` hook logs
@@ -1549,6 +1553,28 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5904f077a">Register extensible card filters with saved state</a>. Thanks to neooleg and xet7.</summary>
+
+Give bundled extensions one registration API for compiled sidebar templates,
+reactive query selectors, board/global reset scope and versioned saved state.
+Use it for the existing creation/modification recency controls. Unregistering
+a provider resets it and removes its controls and query constraint. Keep old
+saved combinations compatible; validate all extension states before changing
+current selections and refuse missing providers or incompatible versions.
+Retain owner/board authorization and bounded JSON validation for saved choices.
+
+Fourteen focused Node suites pass, including real MongoDB saved-filter storage.
+Five Chromium cases pass across provider registration, recency controls and
+saved combinations: rendering, lazy card queries, clear/apply, unregister,
+incompatible versions, private ownership, permission revocation and invalid
+state. Document the trusted bundled-code API and callback contract. Source
+inventory warnings remain advisory. Complete provider registration from
+[#935](https://github.com/wekan/wekan/issues/935); keep the later cross-board
+workflow audit in TODO Later rather than closing the entire issue prematurely.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/16508a8fa">Save private board filter combinations</a>. Thanks to Creanimo, avatar1024, neooleg and xet7.</summary>
