@@ -295,6 +295,12 @@ then share recovery retention and verified cleanup. Missing, changed or
 oversized effects and attempts to resume without their validator are refused.
 The History validator also binds its rows to the exact card step and
 operation effect ID.
+The operation History planner now chains successive card batches through
+baseline-only steps and consumes captured redo candidates only at the first
+actual History change. Interrupted preparation resets the planner at index
+zero; persisted replay reuses the saved chain without replanning. Real MongoDB
+coverage spans three card units and interruption between History rows.
+Independent production History writers still need shared chain coordination.
 Activity notification and webhook payloads now preserve zero, false, empty
 text and explicit null, while absent values remain omitted. This fixes lost
 zero estimates and unchecked custom-field values. SMTP and HTTP-serialization
@@ -973,6 +979,28 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6cebd5ec5">Chain durable Sync History plans across cards</a>. Thanks to xet7.</summary>
+
+Prepare each card's History batch from the preceding planned batch's final
+hash. Baseline-only steps preserve the chain, and only the first actual change
+consumes the captured redo candidates. Reject out-of-order preparation,
+changed operation IDs and foreign boards. Restarted preparation resets at
+index zero while keeping stable event identities and captured input values.
+
+Eight focused Sync/History Node suites pass with real MongoDB enabled. The
+journal integration test persists three card units, interrupts between History
+rows, then verifies replay, cleanup, one connected integrity chain and no
+duplicate events. Unit tests cover immutable inputs, no-op steps and invalid
+ordering/scope. The source audit passes with advisories. The known published
+changelog line-length failure remains.
+
+This internal planner does not yet enable production replay. Creation effects,
+shared coordination with other History writers, job lifecycle and durable
+activity/notification integration remain in TODO Later. No UI path changed.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/bb42397a2">Resume Sync History plans containing legacy redo rows</a>. Thanks to xet7.</summary>
