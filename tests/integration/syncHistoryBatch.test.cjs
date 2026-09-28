@@ -20,6 +20,8 @@ test('persisted Sync History plans resume between event rows before journal comp
   const old = { _id: 'old', boardId: 'board', userId: 'author', entityId: 'card', entityType: 'card',
     createdAt: new Date(0), undone: true, undoneAt: new Date(10), superseded: false };
   old.integrityHash = hashHistoryRow(old); await events.insertOne(old);
+  const legacy = { ...old, _id: 'legacy' }; delete legacy.integrityHash;
+  await events.insertOne(legacy);
   const later = { ...old, _id: 'later', entityId: 'other-card', createdAt: new Date(5),
     previousHash: old.integrityHash, undone: false, undoneAt: null };
   later.integrityHash = hashHistoryRow(later); await events.insertOne(later);
@@ -39,7 +41,7 @@ test('persisted Sync History plans resume between event rows before journal comp
     },
     prepareEffects: (saved, context) => prepareSyncFieldHistory({ step: saved,
       effectId: syncOperationEffectId(context.operationId, context.index), userId: 'author',
-      createdAt: new Date(1000), previousHash: later.integrityHash, redoRows: [old] }),
+      createdAt: new Date(1000), previousHash: later.integrityHash, redoRows: [old, legacy] }),
     validateEffects: (plan, saved, context) => validateSyncFieldHistory(plan, saved,
       syncOperationEffectId(context.operationId, context.index)),
     apply: (saved, context) => applySyncOperationStep({ cards, step: saved, ...context,
@@ -65,9 +67,54 @@ test('persisted Sync History plans resume between event rows before journal comp
   assert.equal(builds, 1); assert.equal(inserts, 2);
   assert.deepEqual(await events.findOne({ _id: first._id }), first);
   assert.equal((await events.findOne({ _id: 'old' })).superseded, true);
+  assert.deepEqual(await events.findOne({ _id: 'legacy' }), { ...legacy, superseded: true });
   assert.equal((await events.findOne({ _id: 'later' })).superseded, false);
   assert.equal(await operations.countDocuments({}), 0);
   assert.equal(await steps.countDocuments({}), 0, 'card and effect plans share verified cleanup');
   await run(); assert.equal(inserts, 2); assert.equal(builds, 1);
   assert.deepEqual(verifyHistoryRows(await events.find({}).toArray()), []);
+});
+
+test('legacy redo invalidation resumes with exact snapshots and never manufactures historical hashes', { skip: !uri }, async t => {
+  const client = await new MongoClient(uri).connect(); const db = client.db(`sync_legacy_history_${new ObjectId().toHexString()}`);
+  t.after(async () => { await db.dropDatabase(); await client.close(); });
+  const events = db.collection('history');
+  for (const hash of [undefined, null, '']) {
+    await events.deleteMany({});
+    const legacy = { _id: 'legacy', boardId: 'board', userId: 'author', entityId: 'card', entityType: 'card',
+      group: 'title', changeType: 'edited', previousContent: null,
+      newContent: { field: 'title', value: { $ne: 'literal data', date: new Date(0) } },
+      createdAt: new Date(0), undone: true, undoneAt: new Date(10) };
+    if (hash !== undefined) legacy.integrityHash = hash;
+    await events.insertOne(legacy);
+    const before = { _id: 'card', boardId: 'board', listId: 'list', title: 'Before' };
+    const plan = prepareSyncFieldHistory({ step: { kind: 'update', cardId: 'card', before, after: { ...before, title: 'After' } },
+      effectId: 'b'.repeat(64), userId: 'author', createdAt: new Date(1000), redoRows: [legacy] });
+    // Actual BSON persistence must retain nested dates and missing hash fields.
+    await db.collection('plans').deleteMany({}); await db.collection('plans').insertOne({ _id: 'plan', plan });
+    const savedPlan = (await db.collection('plans').findOne({ _id: 'plan' })).plan;
+    assert.deepEqual(savedPlan, plan);
+    let interrupted = true;
+    const history = { findOneAsync: query => events.findOne(typeof query === 'string' ? { _id: query } : query),
+      updateAsync: async (...args) => { await events.updateOne(...args); throw new Error('lost redo acknowledgement'); },
+      insertAsync: async row => { if (interrupted) throw new Error('interrupted History'); await events.insertOne(row); } };
+    const args = { history, plan: savedPlan, assertCurrent: async () => {} };
+    // A changed payload or a new undo cycle cannot be superseded by the old plan.
+    for (const change of [{ newContent: { field: 'title', value: 'Changed' } }, { undoneAt: new Date(20) }, { integrityHash: 'new hash' }]) {
+      await events.replaceOne({ _id: 'legacy' }, { ...legacy, ...change });
+      await assert.rejects(persistSyncFieldHistory(args), /lost redo acknowledgement/);
+      assert.notEqual((await events.findOne({ _id: 'legacy' })).superseded, true);
+      assert.equal(await events.countDocuments({ _id: { $regex: '^sync-history-' } }), 0);
+    }
+    await events.replaceOne({ _id: 'legacy' }, legacy);
+    await assert.rejects(persistSyncFieldHistory(args), /interrupted History/);
+    assert.deepEqual(await events.findOne({ _id: 'legacy' }), { ...legacy, superseded: true });
+    await events.insertOne({ ...legacy, _id: 'later', undoneAt: new Date(30) });
+    interrupted = false;
+    assert.equal(await persistSyncFieldHistory(args), plan.effectId);
+    assert.equal(await persistSyncFieldHistory(args), plan.effectId);
+    assert.equal(await events.countDocuments({ _id: { $regex: '^sync-history-' } }), 1);
+    assert.notEqual((await events.findOne({ _id: 'later' })).superseded, true);
+    assert.deepEqual(await events.findOne({ _id: 'legacy' }), { ...legacy, superseded: true });
+  }
 });

@@ -3,8 +3,29 @@ const { diffFields, groupForField, valueFromContent } = require('../../models/li
 const { canonical, sha256, hashHistoryRow, rowHashIsValid } = require('../../models/lib/changeHistoryIntegrity');
 const { prepareSyncOperationMutation } = require('./syncOperationMutation');
 const { EJSON } = require('bson');
+const { exactFieldSelector } = require('../../models/lib/exactFieldSelector');
 const copy = value => EJSON.parse(EJSON.stringify(value), { relaxed: true });
 const fail = () => { throw new Error('sync-history-plan-invalid'); };
+
+// Old History rows predate integrity hashing. Keep their exact observed
+// payload privately; never install a retroactive hash or accept a damaged one.
+const unhashed = row => row && (!Object.hasOwn(row, 'integrityHash') ||
+  row.integrityHash === null || row.integrityHash === '');
+function legacySnapshot(row) {
+  const snapshot = { ...row };
+  delete snapshot.superseded;
+  return snapshot;
+}
+function redoTarget(row) {
+  if (!row || row.undone !== true || row.superseded === true) fail();
+  const legacyRow = unhashed(row) ? legacySnapshot(row) : null;
+  if (!legacyRow && !rowHashIsValid(row)) fail();
+  if (legacyRow && canonical(copy(legacyRow)) !== canonical(legacyRow)) fail();
+  return { _id: row._id, boardId: row.boardId, userId: row.userId,
+    undoneAt: row.undoneAt, ...(legacyRow
+      ? { legacyRow, snapshotHash: sha256(canonical(legacyRow)) }
+      : { integrityHash: row.integrityHash }) };
+}
 
 // Prepare BEFORE mutation and persist this exact plan in the owning journal.
 // The caller supplies the observed chain head and redo candidates; retries
@@ -29,11 +50,7 @@ function prepareSyncFieldHistory({ step, effectId, userId, createdAt, previousHa
     return row;
   });
   if (!Array.isArray(redoRows) || redoRows.length > 10000) fail();
-  const redo = rows.length ? redoRows.map(row => {
-    if (!rowHashIsValid(row) || row.undone !== true || row.superseded === true) fail();
-    return { _id: row._id, boardId: row.boardId, userId: row.userId,
-      integrityHash: row.integrityHash, undoneAt: row.undoneAt };
-  }) : [];
+  const redo = rows.length ? redoRows.map(redoTarget) : [];
   const plan = { effectId, boardId: after.boardId, userId, rows, redo };
   validatePlan(plan);
   return copy(plan);
@@ -69,11 +86,20 @@ function validatePlan(plan) {
     ids.add(row._id); previous = row.integrityHash;
   }
   for (const row of plan.redo) {
-    if (Object.keys(row).sort().join(',') !== '_id,boardId,integrityHash,undoneAt,userId' ||
+    if (Object.keys(row).sort().join(',') !== (Object.hasOwn(row, 'legacyRow')
+        ? '_id,boardId,legacyRow,snapshotHash,undoneAt,userId' : '_id,boardId,integrityHash,undoneAt,userId') ||
         typeof row._id !== 'string' || !row._id || ids.has(row._id) ||
         row.boardId !== plan.boardId || row.userId !== plan.userId ||
-        !/^[a-f0-9]{64}$/.test(row.integrityHash) || !(row.undoneAt instanceof Date) ||
+        !/^[a-f0-9]{64}$/.test(Object.hasOwn(row, 'legacyRow') ? row.snapshotHash : row.integrityHash) || !(row.undoneAt instanceof Date) ||
         !Number.isFinite(row.undoneAt.getTime())) fail();
+    if (Object.hasOwn(row, 'legacyRow')) {
+      const legacy = row.legacyRow;
+      if (!legacy || Array.isArray(legacy) || typeof legacy !== 'object' ||
+          !unhashed(legacy) || Object.hasOwn(legacy, 'superseded') || legacy.undone !== true ||
+          ['_id', 'boardId', 'userId', 'undoneAt'].some(key => canonical(legacy[key]) !== canonical(row[key])) ||
+          Object.keys(legacy).some(key => key.startsWith('$') || key.includes('.')) ||
+          canonical(copy(legacy)) !== canonical(legacy) || sha256(canonical(legacy)) !== row.snapshotHash) fail();
+    }
     ids.add(row._id);
   }
   if (Buffer.byteLength(EJSON.stringify(plan)) > 15 * 1024 * 1024) fail();
@@ -97,13 +123,18 @@ async function persistSyncFieldHistory({ history, plan, assertCurrent }) {
     await assertCurrent();
     let error;
     try {
-      await history.updateAsync({ ...target, undone: true, superseded: { $ne: true } }, { $set: { superseded: true } });
+      const selector = target.legacyRow
+        ? exactFieldSelector(target.legacyRow, [...new Set([...Object.keys(target.legacyRow), 'integrityHash'])])
+        : { ...target, undone: true };
+      await history.updateAsync({ ...selector, superseded: { $ne: true } }, { $set: { superseded: true } });
     } catch (failure) { error = failure; }
     await assertCurrent();
     let saved;
     try { saved = await history.findOneAsync(target._id); } catch (failure) { throw error || failure; }
-    if (!saved || saved.superseded !== true || !rowHashIsValid(saved) ||
-        Object.keys(target).some(key => canonical(saved[key]) !== canonical(target[key]))) {
+    const matches = target.legacyRow
+      ? saved && canonical(legacySnapshot(saved)) === canonical(target.legacyRow)
+      : rowHashIsValid(saved) && Object.keys(target).every(key => canonical(saved[key]) === canonical(target[key]));
+    if (!saved || saved.superseded !== true || !matches) {
       throw error || new Error('sync-history-redo-unconfirmed');
     }
   }

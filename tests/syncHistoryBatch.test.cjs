@@ -118,3 +118,23 @@ test('persisted field History is bound to the exact card step and operation effe
   assert.throws(() => validateSyncFieldHistory(plan, { ...step, after: { ...step.after, title: 'Different' } }, options.effectId), /plan-invalid/);
   assert.throws(() => validateSyncFieldHistory({ ...plan, rows: [] }, step, options.effectId), /plan-invalid/);
 });
+
+test('legacy redo snapshots preserve missing/null/empty hashes and reject damaged hashed rows', async () => {
+  for (const hash of [undefined, null, '']) {
+    const legacy = redoRow(); delete legacy.integrityHash;
+    if (hash !== undefined) legacy.integrityHash = hash;
+    legacy.newContent = { field: 'customFields', value: [{ _id: 'date', value: new Date(0) }] };
+    const plan = prepareSyncFieldHistory({ ...options, redoRows: [legacy] });
+    assert.deepEqual(plan.redo[0].legacyRow.newContent, legacy.newContent);
+    assert.equal(Object.hasOwn(plan.redo[0].legacyRow, 'integrityHash'), hash !== undefined);
+    const damaged = structuredClone(plan); damaged.redo[0].legacyRow.newContent = null;
+    await assert.rejects(persistSyncFieldHistory({ ...fixture(), plan: damaged }), /plan-invalid/);
+  }
+  for (const integrityHash of ['broken', 'a'.repeat(64), false, 0]) {
+    assert.throws(() => prepareSyncFieldHistory({ ...options, redoRows: [{ ...redoRow(), integrityHash }] }), /plan-invalid/);
+  }
+  const legacy = redoRow(); delete legacy.integrityHash;
+  for (const change of [{ boardId: 'other' }, { userId: 'other' }, { undoneAt: null }, { payload: undefined }]) {
+    assert.throws(() => prepareSyncFieldHistory({ ...options, redoRows: [{ ...legacy, ...change }] }), /plan-invalid/);
+  }
+});
