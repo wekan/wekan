@@ -234,6 +234,12 @@ Template.filterSidebar.events({
     Filter.dueAt.tomorrow();
     Filter.resetExceptions();
   },
+  'click .js-toggle-due-previous-week-filter'(evt) {
+    evt.preventDefault(); Filter.dueAt.previousWeek(); Filter.resetExceptions();
+  },
+  'click .js-toggle-due-next-month-filter'(evt) {
+    evt.preventDefault(); Filter.dueAt.nextMonth(); Filter.resetExceptions();
+  },
   'click .js-toggle-due-this-week-filter'(evt) {
     evt.preventDefault();
     Filter.dueAt.thisWeek();

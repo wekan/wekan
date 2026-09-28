@@ -31,6 +31,7 @@ import {
   advancedFilterCommandsToSelector,
 } from '/imports/lib/advancedFilter';
 import { weekRange } from '/models/lib/weekStart';
+import { dueDateShortcut } from '/models/lib/dueDateShortcuts';
 import { Session } from 'meteor/session';
 import { boardScopedFilterSelector } from '/models/lib/boardScopedSelection';
 import { cardDateRangeSelector, cardRecencySelector } from '/models/lib/cardDateRange';
@@ -136,10 +137,16 @@ class DateFilter {
     this.subField = ''; // Prevent name mangling in Filter
     this._filter = null;
     this._filterState = null;
+    this._ticker = null;
   }
 
   _updateState(state) {
     this._filterState = state;
+    if (state === 'previousweek' || state === 'nextmonth') {
+      if (!this._ticker) this._ticker = subscribeDateNowTicker();
+    } else {
+      this._ticker?.unsubscribe(); this._ticker = null;
+    }
     showFilterSidebar();
     this._dep.changed();
   }
@@ -182,6 +189,16 @@ class DateFilter {
   // nextWeek is a convenience method for calling relativeWeek with 1
   nextWeek() {
     this.relativeWeek(1, 'next')
+  }
+
+  previousWeek() {
+    if (this._filterState === 'previousweek') this.reset();
+    else this._updateState('previousweek');
+  }
+
+  nextMonth() {
+    if (this._filterState === 'nextmonth') this.reset();
+    else this._updateState('nextmonth');
   }
 
   // relativeDay builds a filter starting from now and including all
@@ -252,6 +269,7 @@ class DateFilter {
   reset() {
     this._filter = null;
     this._filterState = null;
+    this._ticker?.unsubscribe(); this._ticker = null;
     this._dep.changed();
   }
 
@@ -267,6 +285,10 @@ class DateFilter {
 
   _getMongoSelector() {
     this._dep.depend();
+    if (this._ticker) {
+      const user = ReactiveCache.getCurrentUser();
+      return dueDateShortcut(this._filterState, this._ticker.now.get(), user ? user.getStartDayOfWeek() : 1);
+    }
     // #6483: cards with NO due/end/received date store the field as null — that
     // is exactly what the noDate filter matches ({dueAt: null}). A comparison
     // filter such as Overdue/"past" is `{$lte: now}`, and `$lte` MATCHES null

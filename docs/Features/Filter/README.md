@@ -162,8 +162,7 @@ an input-validation message. No card is archived, edited or deleted.
 Searching for any movement within a historical date range is different from
 filtering the latest list entry: a card may have moved again since then. Use
 the separate **Moved during (recorded history)** controls below for that case.
-Saved filter combinations, remaining due-date shortcuts (previous week and
-next month), and the full extensible provider interface from
+Saved filter combinations and the full extensible provider interface from
 [#935](https://github.com/wekan/wekan/issues/935) remain in TODO Later.
 
 ## Relative creation and modification dates
@@ -219,3 +218,16 @@ card loading does not limit the search. Recorded-event additions, corrections
 and deletions update matches, as do card placement and access changes. Local
 calendar endpoints are sent as exact instants, so the server's timezone does
 not reinterpret them. No cards or history records are written by the filter.
+
+## Due in the previous week or next month
+
+**Due in the previous week** selects the complete calendar week before the
+current week, using your configured first day of the week. **Due next month**
+selects the first through the last day of the next calendar month, including
+February and the December/January boundary. Both use your browser's local
+timezone and match actual dates only; missing/null dates are excluded.
+
+Clicking the active shortcut again clears it. Clicking another due-date option
+switches to that option. These two shortcuts refresh their calendar boundaries
+every minute while active; they do not keep yesterday's week/month range after
+a calendar rollover. They combine with other filters and never archive cards.
