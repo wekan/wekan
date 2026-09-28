@@ -13,6 +13,18 @@ function matches(row, expected) {
   return row && row._id === expected._id && row.isCheckpoint === expected.isCheckpoint &&
     rowHashIsValid(row) && row.integrityHash === expected.integrityHash;
 }
+const historyChainId = boardId => sha256(canonical(['history-chain', boardId]));
+function validateHistoryChainHead(head, boardId) {
+  const id = historyChainId(boardId);
+  if (!head || keys(head) !== '_id,boardId,hash,pending,pendingHash,version' || head._id !== id ||
+      head.boardId !== boardId || head.version !== 1 || !hash(head.hash) ||
+      head.pendingHash !== (head.pending === null ? null : sha256(canonical(head.pending)))) fail('head-invalid');
+  if (head.pending !== null) {
+    validateRow(head.pending, boardId);
+    if (head.pending.previousHash !== head.hash) fail('head-invalid');
+  }
+  return head;
+}
 // Internal multi-process append primitive, not yet a replacement for record().
 // Initializing an existing board requires a verified initialHash under migration
 // exclusion. All writers must use this protocol once that head is installed.
@@ -25,7 +37,7 @@ async function appendHistoryChain({ heads, history, row, initialHash, assertCurr
       !hash(initialHash) || typeof assertCurrent !== 'function' ||
       !['findOne', 'insertOne', 'replaceOne'].every(key => typeof heads?.[key] === 'function') ||
       !['findOne', 'insertOne'].every(key => typeof history?.[key] === 'function')) fail('adapter-invalid');
-  const boardId = row.boardId, id = sha256(canonical(['history-chain', boardId]));
+  const boardId = row.boardId, id = historyChainId(boardId);
   const candidateFor = previousHash => {
     const candidate = { ...copy(row), previousHash };
     candidate.integrityHash = hashHistoryRow(candidate); validateRow(candidate, boardId);
@@ -35,13 +47,7 @@ async function appendHistoryChain({ heads, history, row, initialHash, assertCurr
   const read = async () => {
     await assertCurrent(); const head = await heads.findOne({ _id: id }); await assertCurrent();
     if (!head) return null;
-    if (keys(head) !== '_id,boardId,hash,pending,pendingHash,version' || head._id !== id ||
-        head.boardId !== boardId || head.version !== 1 || !hash(head.hash) ||
-        head.pendingHash !== (head.pending === null ? null : sha256(canonical(head.pending)))) fail('head-invalid');
-    if (head.pending !== null) {
-      validateRow(head.pending, boardId);
-      if (head.pending.previousHash !== head.hash) fail('head-invalid');
-    }
+    validateHistoryChainHead(head, boardId);
     return copy(head);
   };
   const storedRow = async expected => {
@@ -95,4 +101,4 @@ async function appendHistoryChain({ heads, history, row, initialHash, assertCurr
   }
   fail('contention');
 }
-module.exports = { appendHistoryChain };
+module.exports = { appendHistoryChain, historyChainId, validateHistoryChainHead };

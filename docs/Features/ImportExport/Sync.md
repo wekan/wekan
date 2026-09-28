@@ -911,3 +911,23 @@ writers are excluded. Existing-chain bootstrap/migration, schema-preserving
 collection binding, redo coordination and persistent multi-row Sync ownership
 must be completed before switching ordinary writers or enabling archive jobs.
 It does not on its own provide the archive runner's History reservation.
+
+`server/lib/historyChainBootstrap.js` validates existing History before installing
+its first coordinated head. It scans in batches of 250 and follows validated
+hash ancestry rather than timestamp or cursor order. Duplicate successors,
+duplicate hashes, missing predecessors, disconnected chains and changed payloads
+are refused. Truly pre-integrity rows remain unchanged and outside the hashed
+chain; an unhashed row claiming a predecessor is rejected.
+
+The scan defaults to 100,000 rows and 128 MiB of inspected BSON, with explicit
+configurable limits. Exceeding either limit refuses initialization instead of
+using a truncated history. Cursors close on success, validation failure or
+ownership loss. Existing heads are validated and retained without rescanning or
+resetting them; new heads require exact readback after insertion.
+
+The caller must exclude all old and new writers for the complete scan and head
+installation via `assertExclusive`. This helper does not create that exclusion.
+Tests exercise reversed/equal timestamps, legacy data, invalid ancestry, bounded
+scans, lost replies and real MongoDB iteration across multiple batches followed
+by append on a new connection. Production writer exclusion and binding remain
+unfinished; no automatic migration is enabled by this helper.
