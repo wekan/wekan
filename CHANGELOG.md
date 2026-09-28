@@ -339,10 +339,15 @@ checksums and exact shape checks reject changed stored content. First-writer
 readback reconciles lost replies and concurrent builders without reselecting
 current rules. Preparation is bounded to 1,000 invocations and 14 MiB with
 incremental size checks. Thirteen Node/MongoDB cases pass, including six new
-selection/persistence cases. This stores configuration only: production
-matching, target/variable/date resolution, live permissions, durable action
-execution and its receipts remain unfinished. Storing a rule plan does not
-complete a rule.
+selection/persistence cases. Production capture now uses the actual matching
+helper and raw action documents in a private registered collection. It checks
+the saved activity, live policy, actor access, assigned-only restrictions and
+current board/list/card scope around preparation and readback. A full-app test
+confirms real matching, frozen empty/nonempty selections and unchanged cards
+and activity counts; two Chromium cases deny member/admin browser writes and
+exposure for all eleven private recovery collections. Target/variable/date
+resolution, live action permissions, durable action execution and its receipts
+remain unfinished. Storing a rule plan does not complete a rule.
 Private operation, step and completion collections are now registered with
 server-only adapters, denied browser writes, recovery indexes and no TTL.
 The stored-operation entry point holds the list lease and requires fresh access
@@ -1340,6 +1345,25 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d2c73b422">Capture saved Sync rule selections using actual matching and live scope checks</a>. Thanks to xet7.</summary>
+
+Bind internal rule-plan capture to the existing matching helper and raw action
+definitions. Register a private indexed collection without TTL or client write
+access. Check the exact saved activity, live policy, enabled actor, board write
+permission, assigned-only restrictions and current card/list scope before
+preparation and readback. Reuse stored selections when rules later change.
+
+Thirteen Node/MongoDB cases, one full-app matching case and two Chromium cases
+pass. Coverage includes frozen empty and nonempty selections, revoked actors,
+moved cards, changed activities, unchanged cards/activity counts and denied
+member/admin access to eleven private recovery collections. The source audit
+completes with advisory warnings. Capture performs no rule actions; durable
+command preparation/execution, shared History coordination and manual/cron
+activation remain TODO.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c7f30bfd4">Preserve immutable rule selections for saved Sync activities</a>. Thanks to xet7.</summary>
