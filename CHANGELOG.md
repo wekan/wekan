@@ -406,10 +406,21 @@ mention, mute, scoped-subscription and actor filtering. A shared tray-preference
 reader and the email preparer capture each selected user's service choices
 without dispatch. Planning follows the confirmed card mutation, checks its
 board/list context and refuses missing or moved cards. Twenty Node suites,
-six full-app Meteor tests and six Chromium/SMTP cases pass. Production plan
-storage lifecycle, replay permission adapters and saved Sync effect integration
-remain unfinished. Enqueue acknowledgement does not mean SMTP, rules or
-webhook completion.
+six full-app Meteor tests and six Chromium/SMTP cases pass.
+Private notification-plan storage is now registered with recovery indexes,
+denied client writes and no TTL. A stored-stage entry point connects shared
+preparation to real tray receipts and email enqueue. It verifies the persisted
+activity and card/list scope, calls the operation's ownership/access guard,
+and checks captured global policy. Initial capture excludes recipients outside
+their current card-read scope. Replay retains the same audience while disabled
+accounts, revoked membership/assignment, changed subscriptions or disabled
+service preferences stop delivery. Nineteen Node suites, seven full-app Meteor
+tests (with a final expanded access rerun) and two Chromium DDP-denial cases
+pass. Interruption after tray acknowledgement preserves the original email
+content and does not restore a dismissed tray entry. Manual/cron Sync still
+does not invoke this stage. Plan retention, operator controls, saved Sync effect
+integration and durable rule/webhook completion remain unfinished. Enqueue
+acknowledgement does not mean SMTP, rules or webhook completion.
 Activity notification and webhook payloads now preserve zero, false, empty
 text and explicit null, while absent values remain omitted. This fixes lost
 zero estimates and unchecked custom-field values. SMTP and HTTP-serialization
@@ -1090,6 +1101,37 @@ secrets, and reviewed **translations** regain their target-language meaning.
 This release improves security diagnostics:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/1c59d5d07">Connect notification plans to private storage and replay permissions</a>. Thanks to xet7.</summary>
+
+Register private saved-plan storage with board/card indexes, denied browser
+writes and no TTL. Connect the shared audience/content preparer to actual tray
+receipts and email outbox enqueue through an internal stored-stage entry point.
+Require the caller's ownership/access guard and captured enabled policy.
+Verify the persisted activity and card/list scope before work can advance.
+
+The first snapshot excludes recipients without current card-read access,
+including unassigned restricted members. Replay never chooses new watchers or
+re-renders email. Recheck account status, active membership, assigned-only card
+scope, subscriptions and enabled service preferences around delivery. Changed
+permissions, settings or source evidence stop the attempt and retain its plan.
+
+Nineteen focused Node suites pass with MongoDB. Seven full-app Meteor cases
+pass; the expanded access case passes again after the final change. Injected
+email failure after tray acknowledgement resumes the original content even
+when the card title and recipient language change, without restoring a
+dismissed notification. Coverage includes disabled accounts/preferences,
+revoked membership, assignment changes, changed policy/activity, moved cards
+and corrupted plans. Two Chromium cases deny all five recovery collections'
+insert/update/remove requests for members and admins and confirm no published
+plan data. The source audit passes with informational fingerprint advisories.
+
+Manual/cron Sync does not invoke this internal stage yet. Retention, operator
+controls, saved effect integration and durable rule/webhook delivery remain in
+TODO Later. Enqueue completion is not SMTP acceptance or full event completion.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/2ae279838">Share notification audience selection with saved-plan preparation</a>. Thanks to xet7.</summary>
 
 Extract ordinary activity notification preparation from dispatch. The normal
@@ -1101,7 +1143,8 @@ with the profile subscriber and reuse the rendered-email preparation function.
 The internal adapter plans after the card mutation is confirmed, because the
 ordinary helpers read that resulting card. Bind the complete activity identity,
 check ownership around preparation and refuse missing cards or mismatched
-board/list identities before returning a plan. Disabled notifications produce no recipients.
+board/list identities before returning a plan. Disabled notifications produce
+no recipients.
 
 Twenty focused Node suites pass with MongoDB plan tests enabled. Six full-app
 Meteor cases pass, covering actor exclusion, active watching, muted/inactive
