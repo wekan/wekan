@@ -142,3 +142,26 @@ with `@`: `'@endAt' = keep` addresses that custom field, while
 `@endAt = '2026-09-01'` addresses the card's end date. Invalid dates, unsupported
 names and regex comparisons are rejected; the sidebar retains its last valid
 filter and a rule does not match. Filtering does not archive or delete cards.
+
+## Pick a date range without an expression
+
+Under **Filter by date**, choose a **Date field**, enter **From** and/or
+**Through**, and press **Apply**. The picker supports creation, last modification,
+received, start, due, end and current-list entry dates. Both selected days are
+included in the browser's local timezone. Leave either bound blank for an
+open-ended range; leave both blank to disable it. Enable **Include cards without
+this date** to keep missing/null values visible alongside the dated matches.
+
+The range combines with other active filters and stays selected across board
+navigation because these date fields have the same meaning on every board.
+Closing/reopening the sidebar preserves its controls. Its **Clear filter**
+button clears just the range; the panel's final clear button clears everything.
+A reversed or invalid range leaves the last applied range unchanged and shows
+an input-validation message. No card is archived, edited or deleted.
+
+This addresses the no-expression date-selection portion of
+[#935](https://github.com/wekan/wekan/issues/935). Searching for any movement
+within a historical date range is different from filtering the latest list
+entry: a card may have moved again since then. That activity-based filter,
+combined title/description/checklist/comment text filtering, and the remaining
+relative-date presets from the issue's RFC are still tracked in TODO Later.

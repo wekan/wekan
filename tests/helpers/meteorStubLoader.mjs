@@ -84,7 +84,7 @@ const STUBS = {
 };
 
 export async function resolve(specifier, context, nextResolve) {
-  if (['/models/lib/cardListEntry', '/client/lib/dateNowTicker'].includes(specifier)) {
+  if (['/models/lib/cardDateRange', '/models/lib/cardListEntry', '/client/lib/dateNowTicker'].includes(specifier)) {
     return nextResolve(new URL(`../..${specifier}.js`, import.meta.url).href, context);
   }
   if (specifier === '/models/lib/dateFormatPolicy') {

@@ -31,6 +31,7 @@ import {
 import { weekRange } from '/models/lib/weekStart';
 import { Session } from 'meteor/session';
 import { boardScopedFilterSelector } from '/models/lib/boardScopedSelection';
+import { cardDateRangeSelector } from '/models/lib/cardDateRange';
 import { columnAgeSelector } from '/models/lib/cardListEntry';
 import { subscribeDateNowTicker } from '/client/lib/dateNowTicker';
 // Sidebar is imported late to avoid circular dependency (sidebar.js needs its
@@ -50,6 +51,26 @@ function getSidebar() {
 // fields.
 function showFilterSidebar() {
   getSidebar().setView('filter');
+}
+
+class CardDateRangeFilter {
+  constructor() {
+    this._dep = new Tracker.Dependency();
+    this.reset();
+  }
+  value() { this._dep.depend(); return this._value; }
+  set(value) {
+    if (cardDateRangeSelector(value) === null) return false;
+    this._value = { ...value };
+    this._dep.changed();
+    return true;
+  }
+  reset() {
+    this._value = { field: 'createdAt', from: '', to: '', includeMissing: false };
+    this._dep.changed();
+  }
+  _isActive() { const value = this.value(); return !!(value.from || value.to); }
+  selector() { return cardDateRangeSelector(this.value()) || {}; }
 }
 
 class ColumnAgeFilter {
@@ -556,6 +577,7 @@ export const Filter = {
   hideEmpty: new SetFilter(),
   dueAt: new DateFilter(),
   columnAge: new ColumnAgeFilter(),
+  dateRange: new CardDateRangeFilter(),
   title: new StringFilter(),
   customFields: new SetFilter('_id'),
   // #3392: filter cards by their dependency ("Red Strings") relation type.
@@ -585,7 +607,7 @@ export const Filter = {
 
   isActive() {
     return (
-      this.columnAge._isActive() ||
+      this.columnAge._isActive() || this.dateRange._isActive() ||
       this._fields.some(fieldName => {
         return this[fieldName]._isActive();
       }) ||
@@ -668,18 +690,12 @@ export const Filter = {
       selectors.push(this.advanced._getMongoSelector());
     }
 
-    if(isFilterActive) {
-      const combined = { $or: selectors };
-      return this.columnAge._isActive()
-        ? { $and: [combined, this.columnAge.selector()] } : combined;
-    }
-    else {
-      // we don't want there is only Filter.lists
-      // otherwise no card will be displayed ...
-      // selectors = [exceptionsSelector];
-      // will return [{"_id":{"$in":[]}}]
-      return this.columnAge.selector();
-    }
+    const combined = isFilterActive ? { $or: selectors } : {};
+    const constraints = [];
+    if (isFilterActive) constraints.push(combined);
+    if (this.columnAge._isActive()) constraints.push(this.columnAge.selector());
+    if (this.dateRange._isActive()) constraints.push(this.dateRange.selector());
+    return constraints.length > 1 ? { $and: constraints } : (constraints[0] || {});
   },
 
   mongoSelector(additionalSelector) {
@@ -710,6 +726,7 @@ export const Filter = {
     });
     this.excludedLabelIds.reset();
     this.columnAge.reset();
+    this.dateRange.reset();
     this.lists.reset();
     this.advanced.reset();
     this.resetExceptions();

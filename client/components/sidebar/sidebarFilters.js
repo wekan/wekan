@@ -5,9 +5,15 @@ import { EscapeActions } from '/client/lib/escapeActions';
 import { MultiSelection } from '/client/lib/multiSelection';
 import { Utils } from '/client/lib/utils';
 import { getSidebarInstance } from '/client/features/sidebar/service';
+import { CARD_DATE_RANGE_FIELDS } from '/models/lib/cardDateRange';
 import { DEPENDENCY_TYPES } from '/models/metadata/dependencies';
 
 Template.filterSidebar.helpers({
+  dateRangeFields() { return CARD_DATE_RANGE_FIELDS; },
+  dateRangeSelected(id) { return Filter.dateRange.value().field === id; },
+  dateRangeFrom() { return Filter.dateRange.value().from; },
+  dateRangeTo() { return Filter.dateRange.value().to; },
+  dateRangeMissing() { return Filter.dateRange.value().includeMissing; },
   columnAgeLists() {
     return ReactiveCache.getLists({ boardId: Session.get('currentBoard'), archived: false }, { sort: { sort: 1 } });
   },
@@ -34,6 +40,23 @@ Template.filterSidebar.helpers({
 });
 
 Template.filterSidebar.events({
+  'submit .js-card-date-range'(event, tpl) {
+    event.preventDefault();
+    const end = tpl.find('.js-card-date-to');
+    const valid = Filter.dateRange.set({ field: tpl.find('.js-card-date-field').value,
+      from: tpl.find('.js-card-date-from').value, to: end.value,
+      includeMissing: tpl.find('.js-card-date-missing').checked });
+    end.setCustomValidity(valid ? '' : TAPi18n.__('filter-date-range-invalid'));
+    if (!valid) end.reportValidity();
+    else Filter.resetExceptions();
+  },
+  'input .js-card-date-range input'(event, tpl) {
+    tpl.find('.js-card-date-to').setCustomValidity('');
+  },
+  'click .js-clear-date-range'(event, tpl) {
+    event.preventDefault(); tpl.find('.js-card-date-to').setCustomValidity('');
+    Filter.dateRange.reset(); Filter.resetExceptions();
+  },
   'submit .js-column-age-filter'(event, tpl) {
     event.preventDefault();
     const listId = tpl.find('.js-column-age-list').value;
@@ -226,8 +249,9 @@ Template.filterSidebar.events({
     );
     Filter.resetExceptions();
   },
-  'click .js-clear-all'(evt) {
+  'click .js-clear-all'(evt, tpl) {
     evt.preventDefault();
+    tpl.find('.js-card-date-to')?.setCustomValidity('');
     Filter.reset();
   },
   'click .js-filter-to-selection'(evt) {

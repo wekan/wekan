@@ -798,3 +798,17 @@ body.sidebar-resizing-active {
 }
 .card-field-order-column { min-width: 0; }
 .card-field-order-label { overflow-wrap: anywhere; }
+
+/* Date-range filters use a labelled, keyboard-accessible native checkbox. */
+.js-card-date-range input[type="checkbox"] {
+  display: inline-block;
+  visibility: visible;
+  position: static;
+  inset-inline-start: auto;
+  width: 16px;
+  height: 16px;
+  min-height: 0;
+  padding: 0;
+  margin-inline-end: 6px;
+  appearance: auto;
+}

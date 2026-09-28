@@ -75,7 +75,8 @@ function read(relPath) {
     },
     {
       file: 'client/components/sidebar/sidebarFilters.js',
-      context: /'click \.js-clear-all'\(evt\) \{[\s\S]{0,200}?Filter\.reset\(\);/,
+      // The template instance also clears native date-range validation.
+      context: /'click \.js-clear-all'\(evt, tpl\) \{[\s\S]{0,200}?Filter\.reset\(\);/,
     },
     {
       file: 'client/lib/keyboard.js',

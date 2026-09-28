@@ -114,6 +114,21 @@ template(name="filterSidebar")
   h3
     i.fa.fa-calendar
     | {{_ 'filter-dates-label' }}
+  form.js-card-date-range
+    label(for="filter-card-date-field") {{_ 'filter-date-range-field'}}
+    select.js-card-date-field(id="filter-card-date-field")
+      each dateRangeFields
+        option(value=id selected="{{#if dateRangeSelected id}}selected{{/if}}") {{_ label}}
+    label(for="filter-card-date-from") {{_ 'filter-date-range-from'}}
+    input.js-card-date-from(id="filter-card-date-from" type="date" value=dateRangeFrom)
+    label(for="filter-card-date-to") {{_ 'filter-date-range-to'}}
+    input.js-card-date-to(id="filter-card-date-to" type="date" value=dateRangeTo)
+    label
+      input.js-card-date-missing(type="checkbox" checked=dateRangeMissing)
+      | {{_ 'filter-date-range-missing'}}
+    button.primary(type="submit") {{_ 'apply'}}
+    button.js-clear-date-range(type="button") {{_ 'filter-clear'}}
+  hr
   ul.sidebar-list
     li(class="{{#if Filter.dueAt.isSelected 'noDate'}}active{{/if}}")
       a.name.js-toggle-no-due-date-filter
