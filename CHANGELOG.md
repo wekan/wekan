@@ -623,8 +623,8 @@ receipts as automatic delivery. Current admin access is checked inside the
 reservation and during delivery; missing activities are never recreated.
 Report responses omit saved activity content, recipients and rendered emails.
 Seven focused report/method cases, sixteen related Node/MongoDB cases, one
-full-app Meteor case and two Chromium scenarios pass. Holds, cancellation,
-orphan resolution and unresolved-payload retention remain unfinished.
+full-app Meteor case and two Chromium scenarios pass. Cancellation, orphan
+resolution and unresolved-payload retention remain unfinished.
 An internal pause/resume storage primitive now persists one versioned control
 row per intent under its delivery reservation. Requests carry the observed
 revision and a stable identity; old requests cannot undo newer decisions.
@@ -637,9 +637,17 @@ Immediate ordinary dispatch, manual retry and background recovery all honor
 holds; the background scan skips held work without hiding later runnable rows.
 Malformed control state stops delivery. Twenty-three Node/MongoDB cases, one
 full-app Meteor case and one Chromium case pass. Browser coverage denies direct
-member/admin writes across all nine private notification collections. Admin
-methods/UI, report pause status and restart verification remain unfinished;
-activity holds are not yet an operator-facing feature.
+member/admin writes across all nine private notification collections.
+Recovery now exposes Pause delivery and Resume delivery to enabled admins.
+The report shows the stored hold and disables manual retry while paused.
+Requests use the displayed revision; conflicting or uncertain actions refresh
+rather than silently overriding a newer administrator decision. The method
+checks admin access before and inside the reservation and limits request rate.
+Twenty Node/MongoDB cases and three Chromium scenarios pass. A two-phase browser
+case pauses through the actual method, restarts the app on the same database,
+verifies the hold survives automatic scans, then resumes through the UI and
+observes automatic completion. Cancellation, orphan resolution and unresolved
+payload retention remain unfinished.
 History field snapshots now preserve nested dates, including date-valued
 custom fields alongside mapped estimates. JSON transport and restoration retain
 Date types without interpreting date-looking text. Existing rows whose dates
@@ -1280,6 +1288,26 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7fef4f4cd">Pause and resume activity notification delivery from Recovery</a>. Thanks to xet7.</summary>
+
+Enabled administrators can pause or resume pending activity notification work.
+The report displays the stored hold, disables retry while paused and exposes
+only the revision needed for conditional control requests. A newer decision
+causes a conflict and refresh instead of being silently overwritten. Methods
+recheck current administrator access inside the shared delivery reservation,
+rate-limit requests and return safe errors without private storage details.
+
+Twenty Node/MongoDB cases and three Chromium scenarios pass, including
+non-admin denial, held-state reload, stale-request rejection, manual delivery
+and completed replay. The restart scenario pauses through the actual method,
+stops and restarts WeKan against the same database, observes the persisted hold
+across automatic scans, and resumes through the UI to automatic completion.
+The source audit completes with advisory warnings. Cancellation, orphan
+resolution and unresolved-payload retention remain in TODO Later.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/61bca9bb4">Honor stored activity holds in immediate and recovered delivery</a>. Thanks to xet7.</summary>
