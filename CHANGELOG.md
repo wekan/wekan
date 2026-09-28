@@ -1291,7 +1291,8 @@ now uses current target results and both boards' visibility settings. The six
 visible Scrum card fields are included with same-board name resolution and
 persisted visibility checks. The
 [content audit](docs/DeveloperDocs/Card-Email-Content-Audit.md) now tracks
-remaining legacy Gantt links, wrapper metadata and moved-card SMTP coverage.
+remaining wrapper metadata and moved-card SMTP coverage. Canonical and legacy
+Gantt references now share readable target titles with distinct type labels.
 Attachment manifests now identify the cover, upload metadata and actual sizes.
 Creator,
 stickers, checklist schedules, public comment authors and scoped reaction
@@ -1473,7 +1474,8 @@ Linked-board voting now follows target policy with stored checks. Visible
 Scrum card metadata now has same-board reference and SMTP coverage. Final
 [content audit](docs/DeveloperDocs/Card-Email-Content-Audit.md) records concrete
 remaining fields and trigger coverage; legacy stored-command recovery also
-remains. Creator/stickers and checklist/comment metadata gaps are now fixed.).
+remains. Creator/stickers and checklist/comment metadata gaps are now fixed.
+Canonical and legacy Gantt targets now use grouped, authorized titles.).
 
 </details>
 
@@ -1553,6 +1555,25 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b5c15e95e">Include canonical and legacy Gantt relationships in rule emails</a>. Thanks to kabi178, bbyszio and xet7.</summary>
+
+Normalize canonical dependency records, including legacy bare card IDs, and
+include stored Gantt targets in Details. Group repeated targets under one
+readable title while preserving distinct relationship labels. Missing or
+misaligned legacy types use a generic label; internal link IDs stay private.
+Related targets retain live access checks and durable source bindings.
+
+Fifty-eight Node suites pass without skips, including MongoDB and native
+MailComposer integration. Three Chromium SMTP scenarios pass, covering grouped
+labels and omission when Details is disabled. Unit tests cover all four Gantt
+types, duplicates and malformed arrays. Twelve risk-audit tests and the release
+source audit pass; the exact documentation URL is allowed only in its source
+file. Existing Upcoming regression evidence is retained. Wrapper metadata,
+moved-card trigger coverage and operator recovery remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/027d399cb">Include attachment presentation metadata in rule emails</a>. Thanks to kabi178, bbyszio and xet7.</summary>
