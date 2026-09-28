@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Random } from 'meteor/random';
-import { captureActivityNotificationIntent, acknowledgeActivityNotifications } from '/server/notifications/activityIntents';
+import { captureActivityNotificationIntent } from '/server/notifications/activityIntents';
+import { deliverStoredActivityNotifications } from '/server/notifications/activityPlans';
 const { deferSyncActivity } = require('/server/lib/syncActivityScope');
 import { ReactiveCache } from '/imports/reactiveCache';
 import { findWhere, where } from '/imports/lib/collectionHelpers';
@@ -449,16 +450,12 @@ Activities.after.insert(async (userId, doc) => {
   if (deferSyncActivity('notifications', doc)) return;
   const prepared = await prepareActivityNotification(userId, doc);
   if (!prepared) return;
-  const { users, title, description, params, watchers, board } = prepared;
-  // Preserve nonblocking activity insertion, but keep durable pending evidence
-  // until every recipient's subscriber has acknowledged its local writes.
-  // SMTP acceptance and webhook completion are separate stages.
-  (async () => {
-    const results = await Promise.allSettled(users.map(user =>
-      Notifications.notifyAndWait(user, title, description, params)));
-    if (results.some(result => result.status === 'rejected')) throw new Error('activity-notification-delivery-incomplete');
-    await acknowledgeActivityNotifications(doc, userId);
-  })().catch(() => console.error('Activity notification delivery incomplete; pending intent retained'));
+  const { description, params, watchers, board } = prepared;
+  // Freeze all recipient/service payloads before the first local delivery.
+  // The saved plan and pending intent survive a failure; SMTP/webhooks remain
+  // separate from this local acknowledgement boundary.
+  deliverStoredActivityNotifications(doc, userId, async () => prepared)
+    .catch(() => console.error('Activity notification delivery incomplete; pending intent retained'));
 
   const integrations = await activityWebhookIntegrations(board, description);
   if (integrations.length > 0) {

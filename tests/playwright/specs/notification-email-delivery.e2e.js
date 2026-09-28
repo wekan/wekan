@@ -40,6 +40,12 @@ for (const scope of ['board', 'list', 'card']) test(`#6658 ${scope} watching del
     const receipt = db.findOne('activityNotificationIntents', { _id: intentId });
     expect(receipt.activity).toBeUndefined();
     expect(receipt.dispatchUserId).toBe(user.id);
+    const savedPlan = db.findOne('activityNotificationPlans', { 'plan.activityId': queuedEvent.eventId });
+    expect(savedPlan.plan.dispatchUserId).toBe(user.id);
+    const savedRecipient = savedPlan.plan.recipients.find(row => row.userId === user2.id);
+    expect(savedRecipient.email.html).toContain('Watched email delivery regression');
+    expect(savedRecipient.email.eventId).toBe(queuedEvent.eventId);
+
     const delivered = () => sink.messages.filter(mail => mail.recipients.includes(recipient)).length;
     let count = delivered();
     await cp.editTitle('Email title change');
@@ -168,7 +174,7 @@ test('legacy email buffer is migrated and delivered without a new board event', 
 test('clients cannot create or alter private email jobs and recipient leases', async ({ page, user, adminUser }) => {
   for (const actor of [user, adminUser]) {
     await loginWithToken(page, actor.id, actor.token);
-    for (const collection of ['notificationEmailJobs', 'notificationEmailLeases', 'notificationEmailControls', 'notificationEmailCommands', 'notificationEmailSendSlots', 'activityNotificationIntents']) {
+    for (const collection of ['notificationEmailJobs', 'notificationEmailLeases', 'notificationEmailControls', 'notificationEmailCommands', 'notificationEmailSendSlots', 'activityNotificationIntents', 'activityNotificationPlans']) {
       const id = db.uid('private-email');
       const errors = await page.evaluate(async ({ collection, id }) => {
         const errors = [];

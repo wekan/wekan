@@ -1,0 +1,82 @@
+'use strict';
+const { EJSON, calculateObjectSize } = require('bson');
+const { canonical, sha256 } = require('../../models/lib/changeHistoryIntegrity');
+const { idFor } = require('./emailReceiptIdentity');
+const { receiptFor } = require('./trayDelivery');
+const copy = value => EJSON.parse(EJSON.stringify(value), { relaxed: true });
+const text = value => typeof value === 'string' && value.length > 0 && value.length <= 1024;
+const exact = (value, fields) => value && !Array.isArray(value) && Object.keys(value).sort().join(',') === fields;
+const fail = () => { throw new Error('activity-notification-plan-invalid'); };
+function planIdentity(activity, dispatchUserId) {
+  if (!activity || !text(activity._id) || (dispatchUserId !== null && !text(dispatchUserId))) fail();
+  return { version: 1, activityId: activity._id, activityHash: sha256(canonical(activity)), dispatchUserId };
+}
+const planId = activityId => sha256(canonical(['activity-notification-plan', activityId]));
+function validatePlan(plan, activity, dispatchUserId) {
+  const identity = planIdentity(activity, dispatchUserId);
+  if (!exact(plan, 'activityHash,activityId,dispatchUserId,recipients,version') ||
+      Object.entries(identity).some(([key, value]) => plan[key] !== value) ||
+      !Array.isArray(plan.recipients) || plan.recipients.length > 10000) fail();
+  const seen = new Set();
+  for (const row of plan.recipients) {
+    if (!exact(row, 'email,tray,userId') || !text(row.userId) || seen.has(row.userId) || typeof row.tray !== 'boolean') fail();
+    seen.add(row.userId);
+    const job = row.email;
+    if (job === null) continue;
+    if (!exact(job, 'boardId,cardId,eventId,html,language,subject,userId') || job.userId !== row.userId ||
+        job.eventId !== activity._id || job.boardId !== (activity.boardId || null) ||
+        !(job.cardId === null || (text(activity.cardId) && job.cardId === activity.cardId)) ||
+        !text(job.language) || typeof job.subject !== 'string' || job.subject.length > 10000 ||
+        /[\r\n]/.test(job.subject) || typeof job.html !== 'string') fail();
+  }
+  if (calculateObjectSize(plan) > 14 * 1024 * 1024) fail();
+}
+async function ensureActivityNotificationPlan({ plans, activity, dispatchUserId = null, build, assertCurrent }) {
+  if (typeof build !== 'function' || typeof assertCurrent !== 'function') fail();
+  activity = copy(activity);
+  const identity = planIdentity(activity, dispatchUserId), _id = planId(activity._id);
+  async function read() {
+    const row = await plans.findOne({ _id });
+    if (!row) return null;
+    if (!exact(row, '_id,checksum,plan') || row._id !== _id || row.checksum !== sha256(canonical(row.plan))) fail();
+    validatePlan(row.plan, activity, dispatchUserId);
+    return copy(row.plan);
+  }
+  await assertCurrent();
+  let plan = await read();
+  if (!plan) {
+    const candidate = { ...identity, recipients: copy(await build()) };
+    validatePlan(candidate, activity, dispatchUserId);
+    await assertCurrent();
+    let failure;
+    try { await plans.insertOne({ _id, checksum: sha256(canonical(candidate)), plan: candidate }); }
+    catch (error) { failure = error; }
+    plan = await read();
+    if (!plan) throw failure || new Error('activity-notification-plan-unconfirmed');
+  }
+  await assertCurrent();
+  return plan;
+}
+async function deliverActivityNotificationPlan({ plan, activity, dispatchUserId = null, assertCurrent, assertAccess, tray, email }) {
+  plan = copy(plan); activity = copy(activity);
+  validatePlan(plan, activity, dispatchUserId);
+  if (![assertCurrent, assertAccess, tray, email].every(fn => typeof fn === 'function')) fail();
+  await assertCurrent();
+  for (const row of plan.recipients) {
+    if (row.tray) {
+      await assertCurrent(); await assertAccess(row.userId, 'tray'); await assertCurrent();
+      if (await tray(row.userId, activity._id) !== receiptFor(row.userId, activity._id)._id) {
+        throw new Error('activity-notification-tray-unconfirmed');
+      }
+    }
+    if (row.email) {
+      await assertCurrent(); await assertAccess(row.userId, 'email'); await assertCurrent();
+      if (await email(copy(row.email)) !== idFor(row.userId, activity._id)) {
+        throw new Error('activity-notification-email-unconfirmed');
+      }
+    }
+  }
+  await assertCurrent();
+  return planId(activity._id);
+}
+module.exports = { planId, validatePlan, ensureActivityNotificationPlan, deliverActivityNotificationPlan };

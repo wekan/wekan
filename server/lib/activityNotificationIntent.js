@@ -79,13 +79,15 @@ async function persistActivityWithNotificationIntent({ intents, activities, acti
   await assertCurrent();
   return intent;
 }
-async function readActivityForNotificationIntent({ intents, activities, intentId, assertCurrent }) {
+async function readActivityForNotificationIntent({ intents, activities, intentId, assertCurrent, expectedActivity, expectedDispatchUserId }) {
   if (!text(intentId) || typeof assertCurrent !== 'function') fail();
   await assertCurrent();
   const row = await intents.findOne({ _id: intentId });
   if (!row || row._id !== intentId) fail();
   if (row.state !== 'pending') fail();
   validateIntent(row, row.activity, row.dispatchUserId);
+  if ((expectedActivity && canonical(row.activity) !== canonical(expectedActivity)) ||
+      (expectedDispatchUserId !== undefined && row.dispatchUserId !== expectedDispatchUserId)) fail();
   const activity = await activities.findOne({ _id: row.activity._id });
   if (!activity || canonical(activity) !== canonical(row.activity)) {
     throw new Error('activity-notification-activity-unconfirmed');

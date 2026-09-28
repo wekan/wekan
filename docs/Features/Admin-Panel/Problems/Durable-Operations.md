@@ -437,18 +437,33 @@ notifications create no intent. Scoped deferred Sync inserts skip capture,
 leaving delivery to their own persisted effect plans. Raw database writes and
 imports that bypass hooks do not get this guarantee.
 
-Ordinary delivery remains asynchronous, but waits internally for every
-recipient's subscribers. Only successful local subscriber acknowledgements
-compact the intent to a permanent small receipt; the activity snapshot is
-removed. The dispatch actor remains bound to the receipt. Subscriber or
+Ordinary delivery remains asynchronous. Before the first local delivery,
+`activityNotificationPlans` stores an immutable, checksummed plan containing
+recipient IDs, tray choices and already rendered email jobs. The original
+dispatch actor and exact activity snapshot bind the plan. Changed templates,
+languages or watchers cannot rewrite a saved plan on retry. Candidates whose
+services are already disabled or inaccessible are excluded at preparation;
+a later access or preference change stops replay and retains pending evidence.
+
+Delivery rechecks the current account, board membership, watch/mute scope,
+assigned-only card scope and channel preferences. It uses the real tray
+receipt and email job identities, requiring their exact acknowledgements.
+A crash between these services can replay without recreating a dismissed tray
+notification or duplicating an already queued event. Only confirmed local
+deliveries compact the intent to a permanent small receipt; its activity
+snapshot is removed. The dispatch actor remains bound to the receipt. Subscriber or
 completion-write failure retains pending evidence. The collection has no
 client publication, rejects member/admin DDP writes and has no TTL. Webhooks
 remain independent and nonblocking; completion is not SMTP acceptance.
 
 There is no background recovery worker yet. Pending evidence survives a crash,
-but is not replayed automatically. Saved recipient plans, startup scanning,
-orphan/operator controls and pending-payload retention must still be
-integrated before claiming durable activity-to-queue completion.
+but is not replayed automatically. Plans currently retain rendered content
+even after successful enqueue. Startup scanning, cross-process ownership,
+orphan/operator controls and plan/pending-payload retention must still be
+integrated before claiming durable activity-to-queue completion. Plans are
+private, reject direct member/admin DDP writes and have no TTL. Limit each
+plan to 10,000 recipients and 14 MiB, checking size while preparing recipients;
+oversized preparation leaves the intent pending without delivering a prefix.
 
 `tests/integration/activityNotificationIntent.test.cjs` uses a real MongoDB
 with `WEKAN_SYNC_TEST_MONGO_URL`. It covers write ordering, uncertain replies,
@@ -459,3 +474,11 @@ actor mismatch. Full-app Meteor tests exercise real before/after hooks,
 failed storage, pending subscribers, disabled notifications and deferred Sync.
 Chromium tests verify actual SMTP delivery and private-collection denial.
 FerretDB has not been exercised.
+
+`tests/integration/activityNotificationPlan.test.cjs` covers saved-plan reuse,
+uncertain plan writes, corrupted checksums, access revocation, false service
+receipts, duplicate/invalid recipients and size limits. It interrupts between
+real tray storage and real email enqueue, then retries the same plan. The
+full-app intent suite verifies that disabled recipients stop replay and that
+resume does not invoke rendering or recipient selection again. Chromium
+checks persisted plans against actual delivered mail and denies client writes.

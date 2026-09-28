@@ -24,6 +24,8 @@ test('intent is durable before activity insertion; lost acknowledgements reconci
     await f.activities.insertOne(activity); throw new Error('lost activity reply');
   } });
   assert.deepEqual(await recover({ ...f, intentId: row._id }), f.activity);
+  await assert.rejects(recover({ ...f, intentId: row._id, expectedDispatchUserId: 'other' }), /intent-invalid/);
+  await assert.rejects(recover({ ...f, intentId: row._id, expectedActivity: { ...f.activity, userId: 'other' } }), /intent-invalid/);
   await persist({ ...f, insert: () => assert.fail('replay must not insert twice') });
   assert.equal(await f.intents.countDocuments({}), 1);
   assert.equal(await f.activities.countDocuments({}), 1);
