@@ -364,6 +364,14 @@ and notification/webhook delivery, while disabled activity recording still
 cancels insertion. Lost delivery resumes from the same stored event and still
 requires a separate receipt. Twenty Node suites and two full-app Meteor tests
 pass; durable downstream delivery and job activation remain unfinished.
+Notification dispatch now has an internal awaited path that waits for every
+started subscriber and propagates failures. Email/profile subscribers no longer
+hide persistence errors; the profile subscriber awaits its actual user-helper
+write instead of submitting its Promise as another database modifier. Eleven
+Node suites, three full-app Meteor tests and three Chromium notification cases
+pass. This confirms subscriber completion, not durable service receipts or SMTP
+delivery. Recovery still needs frozen recipients, service receipts, tray replay
+after read/dismissal, rule/action recovery and durable outgoing webhooks.
 Activity notification and webhook payloads now preserve zero, false, empty
 text and explicit null, while absent values remain omitted. This fixes lost
 zero estimates and unchecked custom-field values. SMTP and HTTP-serialization
@@ -1042,6 +1050,33 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a76e828bf">Await notification persistence and fix the profile subscriber</a>. Thanks to xet7.</summary>
+
+Fix the profile notification subscriber treating an async user-helper Promise
+as a MongoDB modifier. Await the actual helper write and reject a missing
+recipient instead of issuing an invalid second update. Email and profile
+subscribers now propagate failures to their dispatcher.
+
+Add an internal awaited dispatcher requiring a recipient and stable activity
+identity. Capture the active subscribers and wait for all started calls, even
+when another throws or rejects, before returning success or grouped failures.
+Ordinary notifications remain nonblocking and isolate service errors.
+
+Eleven focused Node suites pass, covering delayed completion, synchronous and
+async failures, changing subscriptions, disabled preferences and storage errors.
+Three full-app Meteor tests pass against actual subscribers and Sync hooks,
+including profile persistence, repeated unread events and a deleted recipient.
+Three Chromium cases pass: muted-board refusal, explicit list watching and the
+recipient's visible notification indicator. The source audit passes with
+informational fingerprint advisories.
+
+Awaited completion is not a durable service receipt or SMTP acknowledgement.
+Sync job activation, frozen delivery plans, tray replay after read/dismissal,
+rule recovery and webhook delivery remain in TODO Later.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f2728947c">Preserve saved Sync activity timestamps and defer delivery</a>. Thanks to xet7.</summary>
