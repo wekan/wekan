@@ -24,7 +24,7 @@ const collections = { board: Boards, card: Cards, list: Lists, swimlane: Swimlan
 const { recordScrumRestoreOnce } = require('./scrumHistoryRestoreWriter');
 const { finishScrumHistory, verifyScrumHistorySource } = require('./scrumHistoryFinalizer');
 const { ensureScrumHistoryOperation, assertScrumHistoryOperation } = require('./scrumHistoryOwnership');
-const { scrumHistoryWriteState } = require('./scrumHistoryWriteState');
+const { scrumHistoryWriteState, verifyScrumHistoryWrites } = require('./scrumHistoryWriteState');
 const batches = new AsyncLocalStorage();
 const conflict = () => { throw new Meteor.Error('scrum-conflict', 'Scrum data changed. Reload History before retrying.'); };
 
@@ -166,6 +166,11 @@ export async function applyScrumHistory(row, content, direction) {
       await assertScrumHistoryOperation(ScrumHistoryPending, journal);
       await assertSource();
     };
+    const verifyWrites = async (entries = targets, before = journal.before.records, revisions = journal.revisions) => {
+      try { await verifyScrumHistoryWrites({ targets: entries, before, revisions, assertCurrent,
+        read: entry => collections[entry.type].findOneAsync(entry.id) }); }
+      catch (error) { conflict(); }
+    };
     await withoutRecording(async () => {
       for (let index = 0; index < targets.length; index += 1) {
         await assertCurrent();
@@ -195,13 +200,14 @@ export async function applyScrumHistory(row, content, direction) {
           if (Object.keys(unset).length) modifier.$unset = unset;
           if (!await collection.updateAsync(selector, modifier)) conflict();
         }
+        await verifyWrites([entry], [before], [originalRevision]);
       }
     });
     // Keep recovery durable until BOTH the timeline and the undo-stack flag
     // are saved. A retry after either write uses the same operation ID.
     const authors = direction === 'restore' ? [...new Set([row.userId, userId])] : [userId];
     for (const author of authors) {
-      await assertCurrent();
+      await verifyWrites();
       await recordScrumRestoreOnce(ChangeHistory, {
         boardId: row.boardId, swimlaneId: row.swimlaneId, listId: row.listId, cardId: row.cardId,
         entityType: row.entityType, entityId: row.entityId, group: row.group,
@@ -213,6 +219,7 @@ export async function applyScrumHistory(row, content, direction) {
           'History could not be verified or saved. The recovery checkpoint was retained.');
       });
     }
+    await verifyWrites();
     await finishScrumHistory({ history: ChangeHistory, pending: ScrumHistoryPending,
       row, journal }).catch(() => {
       throw new Meteor.Error('scrum-history-pending',

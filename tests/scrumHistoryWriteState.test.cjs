@@ -31,3 +31,28 @@ test('creation/deletion and legacy revision zero distinguish acknowledged writes
   assert.equal(state({ type: 'scrum-sprint', current: after, before: after, after: null, revision: 0 }), 'pending');
   assert.throws(() => state({ ...options, revision: 0 }), /conflict/);
 });
+
+const { verifyScrumHistoryWrites: verify } = require('../server/lib/scrumHistoryWriteState');
+function verification() {
+  const rows = [1, 2].map(i => ({ _id: `card-${i}`, boardId: 'board', scrum: { value: 'after' }, scrumRevision: 2 }));
+  const targets = rows.map(row => ({ type: 'card', id: row._id, document: historyDocument('card', row) }));
+  return { rows, options: { targets, before: targets.map(entry => ({ ...entry, document: { ...entry.document, scrum: {} } })),
+    revisions: [1, 1], read: async entry => rows.find(row => row._id === entry.id), assertCurrent: async () => {} } };
+}
+test('confirmed batch readback rejects missing, unapplied and newer-revision values', async () => {
+  await verify(verification().options);
+  for (const damage of [f => { f.rows.pop(); }, f => { f.rows[1].scrum = {}; f.rows[1].scrumRevision = 1; },
+    f => { f.rows[0].scrumRevision = 3; }]) {
+    const f = verification(); damage(f); await assert.rejects(verify(f.options), /conflict/);
+  }
+});
+test('batch readback retains failures and checks ownership after reads', async () => {
+  const f = verification(); f.options.read = async () => { throw Error('read unavailable'); };
+  await assert.rejects(verify(f.options), /read unavailable/);
+  const g = verification(); let read = false;
+  g.options.read = async entry => { read = true; return g.rows.find(row => row._id === entry.id); };
+  g.options.assertCurrent = async () => { if (read) throw Error('ownership lost'); };
+  await assert.rejects(verify(g.options), /ownership lost/);
+  const h = verification(); h.options.before[1].id = 'other';
+  await assert.rejects(verify(h.options), /conflict/);
+});

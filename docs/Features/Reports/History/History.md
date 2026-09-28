@@ -680,3 +680,23 @@ create/delete cycle. Same-revision external writes and the interval between
 validation and mutation still require stronger operation-level coordination.
 The existing conditional update guards remain in place, and this change does
 not claim cross-document atomicity.
+
+### Confirming persisted restoration results
+
+A successful collection update reply is not enough to acknowledge a Scrum
+restoration. Each applied write is read back and checked against its captured
+target values and expected revision. The whole target set is checked again
+before each restoration event and before source-flag finalization. Checkpoint
+ownership and source validity are checked around those reads.
+
+Missing or unapplied targets, unexpected revisions, failed confirmation reads
+and lost ownership stop completion and retain the checkpoint. A subsequent
+retry can finish using the same operation ID once the saved writes are actually
+confirmed. In full-app regression coverage, a card adapter falsely reports a
+successful write: no restoration event or undone flag is saved and the
+checkpoint survives. Restoring the actual adapter lets the retry complete once.
+
+The batch checks also revisit earlier targets after later writes. They are
+verification, not a database snapshot or transaction: another writer can still
+change a target after its readback. Multi-process operation fencing and atomic
+entity/History/checkpoint changes remain unfinished.
