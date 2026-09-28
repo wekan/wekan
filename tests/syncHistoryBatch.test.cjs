@@ -63,7 +63,8 @@ test('invalid plans and changed ownership stop before acknowledgement', async ()
   await assert.rejects(persistSyncFieldHistory(g), /lease lost/); assert.equal(g.inserts, 0);
   assert.throws(() => prepareSyncFieldHistory({ ...options, redoRows: [{ ...redoRow(), undone: false }] }), /plan-invalid/);
   assert.throws(() => prepareSyncFieldHistory({ ...options, userId: '' }), /plan-invalid/);
-  assert.throws(() => prepareSyncFieldHistory({ ...options, step: { ...step, kind: 'create', before: null } }), /plan-invalid/);
+  const creation = prepareSyncFieldHistory({ ...options, step: { ...step, kind: 'create', before: null }, redoRows: [redoRow()] });
+  assert.deepEqual(creation.rows, []); assert.deepEqual(creation.redo, []);
 });
 test('mapped estimate History preserves typed unrelated values; baseline-only updates emit no history', () => {
   const mapping = JSON.stringify(['estimate', 'customfield_100', 'points']);
@@ -152,7 +153,8 @@ test('operation History planning chains cards across no-ops and consumes redo on
   const first = planner(step, { operationId, index: 1 });
   assert.equal(first.redo.length, 1); assert.equal(first.rows[0].createdAt.getTime(), 1000);
   assert.equal(first.rows[0].previousHash, redo.integrityHash);
-  planner(unchanged, { operationId, index: 2 });
+  const creation = planner({ ...step, kind: 'create', before: null }, { operationId, index: 2 });
+  assert.deepEqual(creation.rows, []); assert.deepEqual(creation.redo, []);
   const next = planner(step, { operationId, index: 3 });
   assert.equal(next.rows[0].previousHash, first.rows.at(-1).integrityHash);
   assert.deepEqual(next.redo, []);

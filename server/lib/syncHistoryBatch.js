@@ -33,12 +33,15 @@ function redoTarget(row) {
 // never select a new head or invalidate newly undone rows.
 function prepareSyncFieldHistory({ step, effectId, userId, createdAt, previousHash = null, redoRows = [] }) {
   prepareSyncOperationMutation(step);
-  if (step.kind === 'create' || !/^[a-f0-9]{64}$/.test(effectId) || typeof userId !== 'string' || !userId ||
+  if (!/^[a-f0-9]{64}$/.test(effectId) || typeof userId !== 'string' || !userId ||
       !(createdAt instanceof Date) || !Number.isFinite(createdAt.getTime()) ||
       (previousHash !== null && !/^[a-f0-9]{64}$/.test(previousHash))) fail();
   const after = step.after;
-  const fields = [...new Set([...Object.keys(step.before), ...Object.keys(after)])].sort();
-  const rows = diffFields('card', step.before, after, fields).map(change => {
+  const fields = [...new Set([...Object.keys(step.before || {}), ...Object.keys(after)])].sort();
+  // Ordinary creation records an activity, not field-by-field History. Its
+  // separate durable activity adapter must still acknowledge downstream work.
+  const changes = step.kind === 'create' ? [] : diffFields('card', step.before, after, fields);
+  const rows = changes.map(change => {
     const row = { _id: `sync-history-${sha256(canonical([effectId, change.field]))}`,
       boardId: after.boardId, swimlaneId: after.swimlaneId ?? null, listId: after.listId,
       cardId: after._id, entityType: 'card', entityId: after._id, group: change.group,

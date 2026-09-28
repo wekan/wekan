@@ -3896,17 +3896,8 @@ async function cardCustomFields(userId, doc, fieldNames, previous) {
 async function cardCreation(userId, doc) {
   const list = await ReactiveCache.getList(doc.listId);
   const swimlane = await ReactiveCache.getSwimlane(doc.swimlaneId);
-  await Activities.insertAsync({
-    userId,
-    activityType: 'createCard',
-    boardId: doc.boardId,
-    listName: list.title,
-    listId: doc.listId,
-    cardId: doc._id,
-    cardTitle: doc.title,
-    swimlaneName: swimlane.title,
-    swimlaneId: doc.swimlaneId,
-  });
+  const { cardCreationActivity } = require('./lib/cardCreationActivity');
+  await Activities.insertAsync(cardCreationActivity(userId, doc, list, swimlane));
 }
 
 async function cardRemover(userId, doc) {
