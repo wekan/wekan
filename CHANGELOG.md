@@ -580,9 +580,20 @@ only successful local writes compact the intent to a permanent receipt.
 Failures leave the activity snapshot pending. Bind the original dispatch
 actor, keep webhooks independent and deny member/admin DDP writes.
 Six MongoDB cases, three Node suites, three full-app Meteor cases and ten
-Chromium notification scenarios pass. Automatic recovery, saved recipient
-plans, operator resolution and pending-payload retention remain open. A crash
-now leaves pending evidence, but does not yet trigger automatic replay.
+Chromium notification scenarios pass.
+Ordinary activity notifications now save private recipient/channel plans and
+rendered email payloads before delivering anything. Replays reuse the original
+content and language, verify exact tray/email receipts, and recheck current
+account, membership, mute/watch scope, assigned-only scope and preferences.
+Initial preparation excludes already ineligible services; later revocation
+stops replay without rewriting the saved audience. Bind each plan to the exact
+activity and dispatch actor, with checksum, recipient count and size limits.
+Ten MongoDB cases, three Node suites, three full-app Meteor cases and ten
+Chromium scenarios pass, including interruption between tray and email writes.
+Automatic recovery, cross-process ownership, operator resolution and plan
+retention remain open. Saved plans currently retain rendered content even
+after successful enqueue. Pending evidence survives a crash, but does not yet
+trigger automatic replay.
 History field snapshots now preserve nested dates, including date-valued
 custom fields alongside mapped estimates. JSON transport and restoration retain
 Date types without interpreting date-looking text. Existing rows whose dates
@@ -1223,6 +1234,36 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4c762f407">Persist activity notification recipients and rendered email plans</a>. Thanks to xet7.</summary>
+
+Save a checksummed private plan before the first local delivery. Bind the
+exact activity and dispatch actor, recipients, tray choices and rendered email
+jobs. Retry with the stored content and language instead of reading changed
+templates or selecting new watchers. Limit plans to 10,000 recipients and
+14 MiB; check size during preparation before delivering any prefix.
+
+Recheck current accounts, board membership, watch/mute and assigned-only
+scope, and channel preferences before each service write. Initial preparation
+excludes already ineligible channels; later revocation retains pending work.
+Use stable tray receipts and email job identities and require exact return
+values before acknowledging the intent. Private plan storage denies direct
+member/admin DDP writes and is not published.
+
+Ten real MongoDB cases, three Node suites, three full-app Meteor cases and
+ten Chromium scenarios pass. Tests cover lost writes, changed preparation,
+corrupted plans, invalid payloads, false receipts, revoked users and a crash
+between actual tray insertion and email enqueue. Browser tests inspect saved
+plans, deliver real local SMTP mail and reject private-collection writes.
+The source audit passes with advisory dependency fingerprint warnings.
+
+Automatic recovery, cross-process ownership, operator handling and retention
+remain unfinished. Plans currently keep rendered payloads after enqueue.
+These acknowledgements are local writes, not SMTP acceptance. FerretDB and
+external mail providers were not exercised.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/54c3130ce">Retain activity notification intents until subscriber acknowledgement</a>. Thanks to xet7.</summary>
