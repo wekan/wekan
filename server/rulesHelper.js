@@ -439,7 +439,7 @@ export const RulesHelper = {
       } catch (e) {
         // eslint-disable-next-line no-console
         console.error(e);
-        return;
+        throw e;
       }
     }
 
