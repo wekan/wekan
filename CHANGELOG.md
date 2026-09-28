@@ -291,9 +291,16 @@ Deleted users, revoked board members and disabled email settings cancel sends.
 Nineteen focused Node suites, a separate actual app-startup recovery test and
 ten Chromium cases pass, including SMTP rejection/retry and blocked DDP writes.
 Delivery is at least once: an SMTP acknowledgement lost across a crash or lease
-expiry can duplicate mail. Recovery UI, pause/cancel/resume, receipt retention,
-terminal-error classification, retry limits/jitter, transport concurrency and
-coordinating activity creation with queue insertion remain pending.
+expiry can duplicate mail. Problems → Recovery now provides recipient summaries
+and pause/resume/cancel controls, with persisted holds and cancellation cutoffs.
+Stable request receipts prevent late retries from overriding newer actions or
+cancelling later messages. Active sends refuse controls until the reservation
+is released; an expired in-flight SMTP request cannot be recalled.
+Thirteen focused Node suites and thirteen Chromium scenarios pass, covering
+queue controls, recipient grouping, permissions, lost replies and delivery.
+Receipt retention, terminal-error classification, retry limits/jitter,
+transport concurrency and coordinating activity creation with queue insertion
+remain pending.
 History field snapshots now preserve nested dates, including date-valued
 custom fields alongside mapped estimates. JSON transport and restoration retain
 Date types without interpreting date-looking text. Existing rows whose dates
@@ -978,10 +985,36 @@ with advisory fingerprint changes. Other browsers, FerretDB and external mail
 providers were not exercised.
 
 Delivery remains at least once: a crash after SMTP acceptance can duplicate
-mail. Recovery UI and operator controls, receipt retention, retry-policy limits
-and coordinating original activity writes with enqueue remain in TODO Later.
+mail. Receipt retention, retry-policy limits and coordinating original
+activity writes with enqueue remain in TODO Later.
 
 </details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/20b47995b">Manage queued email from Problems → Recovery</a>. Thanks to xet7.</summary>
+
+Show one summary per recipient with pending/retrying counts, next attempt and
+last operator change. Literal user-ID search and ten-row pages omit message
+contents and mailbox fields. Empty paused recipients remain listed for resume.
+Current administrator checks protect reads and mutations; direct client writes
+to the private collections remain denied.
+
+Pause holds existing and new messages. Resume makes existing messages due now.
+Cancel asks for confirmation and removes payloads queued through its timestamp,
+while preserving later messages and replay receipts. Controls share the sender's
+reservation and report busy during active delivery. Persisted request identities
+and generation checks stop a late retry from undoing a newer operator action.
+
+Thirteen focused Node suites and thirteen Chromium scenarios pass with local
+MongoDB and SMTP. Coverage includes pagination, authorization, persisted holds,
+partial/false write acknowledgements, late enqueue, superseded controls,
+confirmation, automatic delivery and existing Sync diagnostics. Source audit
+passes with advisory fingerprint changes. The separate stopped-app startup test
+was not rerun for this control change. Other browsers and FerretDB remain
+unverified; delivery is still at least once when SMTP outlives a lost lease.
+
+</details>
+
 
 and adds mapped Jira estimate synchronization:
 
@@ -2303,6 +2336,16 @@ Six Chromium localization scenarios pass. Walloon wording remains lower
 confidence; the broader semantic audit is unfinished. See the
 [review and remaining scope](docs/Features/Translations/Transifex-2026-09-27.md).
 No translations were uploaded to Transifex.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dd30cd052">List every People authentication pane in the documentation</a>. Thanks to xet7.</summary>
+
+Add SAML, LDAP, OAuth login providers and Passwordless login to the People index
+and implementation inventory in the live menu order. Explain their separation
+from general Login controls. The existing menu/documentation regression passes;
+this changes navigation documentation, not identity-provider behavior.
 
 </details>
 
