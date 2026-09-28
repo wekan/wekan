@@ -329,6 +329,13 @@ recreated, moved or reconfigured lists cannot consume old plans or receipts.
 Recovery evidence remains retained; legacy unversioned identities are refused.
 Fifteen Node suites and two Chromium DDP-denial cases pass. Manual/cron job
 activation, operator handling of stale scopes and retention remain pending.
+Stored operations now retain immutable private intent records binding each
+caller UUID to its original actor and versioned scope. Readback verifies
+registration after lost replies; replay checks the same identity throughout
+and forwards its actor to authorization, planning and application callbacks.
+Missing intent evidence cannot be reconstructed from an existing journal or
+completion under a new actor. Sixteen Node suites and both Chromium private
+storage tests pass. Job creation/UI, scheduling and retention remain open.
 Activity notification and webhook payloads now preserve zero, false, empty
 text and explicit null, while absent values remain omitted. This fixes lost
 zero estimates and unchecked custom-field values. SMTP and HTTP-serialization
@@ -1007,6 +1014,31 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5486c263a">Keep durable Sync intents bound to their original actor</a>. Thanks to xet7.</summary>
+
+Register an immutable private intent before building a stored Sync plan. Bind
+its caller UUID to the original actor and list scope, retain its creation time,
+and verify the stored row after an uncertain insertion. Reject reuse by another
+actor or scope before planning, applying or returning a completion receipt.
+
+Recheck intent identity during execution and pass its actor explicitly to
+access, build, application and effect callbacks. If intent evidence disappears
+while a journal or completion exists, refuse to reconstruct an owner. Retain
+intent rows without TTL, deny client writes and index scope/actor lookups.
+
+Sixteen focused Node suites pass with real MongoDB, covering lost replies,
+false insert acknowledgements, malformed records, revoked access, changed
+owners and missing intents before/after completion. Both Chromium member/admin
+cases pass with the new collection included. The source audit passes with
+advisories; the existing published changelog line-length failure remains.
+
+The stored-operation entry point still awaits production job activation,
+durable downstream delivery, hook coordination, controls and scheduling.
+No automatic replay or intent cleanup is enabled.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9f179eb7b">Bind private Sync recovery storage to list lifetimes</a>. Thanks to xet7.</summary>
