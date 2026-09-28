@@ -1274,11 +1274,11 @@ ties a rule to exactly one `triggerId`/`actionId`; supporting several is a
 schema change, not a UI fix, and needs a decision on how a multi-trigger rule
 matches: any trigger, or all of them; [#2953](https://github.com/wekan/wekan/issues/2953)
 asks for the same thing),
-[#2713](https://github.com/wekan/wekan/issues/2713) (rule email action should
-support attachments — `client/components/rules/actions/mailActions.js` and
-its server-side sender only handle a plain templated body today; attaching a
-card's files means streaming them through the mailer, a scope change to the
-existing action, not a bug),
+[#2713](https://github.com/wekan/wekan/issues/2713) (email rules now offer
+optional live-card attachments, with source-access rechecks and verified
+filesystem/GridFS SMTP delivery. The original request also asks for all card
+content: checklists, comments and other fields still need a complete email
+representation, beyond the current title/description/link and custom text),
 [#3195](https://github.com/wekan/wekan/issues/3195) (rule action/trigger
 values should be able to reference a custom field's value — today's action
 and trigger value inputs are plain literals; resolving a per-board custom
@@ -1437,14 +1437,13 @@ since this issue was filed; WebAuthn/FIDO2 passkeys are the passwordless
 standard that gained the adoption SQRL did not. Needs a maintainer decision
 on whether this remains worth pursuing before any implementation is
 attempted.),
-[#2713](https://github.com/wekan/wekan/issues/2713) (emailing actual card
-attachments remains unfinished. A shared stream reader now creates immutable
-base64 attachment snapshots, capped at 100 files and 8 MiB of raw bytes in
-aggregate, with read timeouts and cleanup. Stored Sync email commands now
-validate and checksum those snapshots, without permitting file paths or URLs.
-Still needed: authorized live-card attachment selection, storage-strategy
-integration, the rule form option, mailer propagation and end-to-end delivery
-coverage. Keep this item open until the complete send path works.).
+[#2713](https://github.com/wekan/wekan/issues/2713) (the attachment send path
+now works: a native form checkbox enables authorized live-card file reads,
+immutable byte snapshots and mailer propagation. Filesystem and GridFS delivery
+pass local SMTP tests; live cloud-account validation remains unperformed.
+The bounded snapshot and durable-command checks remain in place. Finish the
+original request's full card-content rendering and its regression coverage
+before closing this issue.).
 
 </details>
 
@@ -1524,6 +1523,25 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/846f19069">Attach card files to rule emails</a>. Thanks to kabi178, bbyszio and xet7.</summary>
+
+Add an optional native Attachments checkbox to the mail action. Read only live
+files of the triggering card through the existing storage strategy. Recheck
+source access and assignment restrictions after reading, and discard results
+if attachment metadata changes. Preserve validated byte snapshots through
+localization and SMTP. Missing files fail before sending a partial message.
+Show selected checkbox labels in saved rule descriptions instead of "on".
+
+Thirty-four focused Node suites pass. Two Chromium cases verify keyboard
+selection, saved configuration, real MIME attachment bytes from filesystem
+and GridFS, deleted-file omission, unrelated-file exclusion and failed reads.
+SMTP is captured locally; no external message was sent. Live cloud accounts
+were not exercised. Document limits and keep the full-card-content portion of
+[#2713](https://github.com/wekan/wekan/issues/2713) open in TODO Later.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/cfb23b4f6">Prepare immutable attachments for stored rule emails</a>. Thanks to kabi178, bbyszio and xet7.</summary>
