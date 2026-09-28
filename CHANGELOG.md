@@ -1293,11 +1293,6 @@ ask above, plus a custom-field picker in the rule UI),
 [#2698](https://github.com/wekan/wekan/issues/2698) (sync rules with GitLab —
 a third-party integration needing a GitLab API credential and webhook
 endpoint, environment/infrastructure this sandbox cannot stand up or verify),
-[#3815](https://github.com/wekan/wekan/issues/3815) (more variables in rule
-email/string templates — `{username}` and a direct card link landed for
-\#3304/\#3301, but the request is open-ended about which further fields
-(board/list/swimlane name, custom fields) should be addressable; needs the
-same templating-layer decision as the #4294 variables ask above),
 [#4790](https://github.com/wekan/wekan/issues/4790) (a sprawling "User
 Filter" wishlist - the reporter's own words are "I'm kind of confused" about
 whether it is one feature or several; it bundles per-org/team/board label
@@ -1556,6 +1551,28 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c8e89bd58">Add card context and URL encoding to custom field String Templates</a>. Thanks to solunix and xet7.</summary>
+
+Resolve card, board, list and swimlane titles in String Template custom fields.
+Add a URL-encoding modifier for values used as query parameters, retain the
+existing JSON regex format and leave unknown or malformed tokens visible.
+Refresh minicards and open details when titles, placement or formatting change.
+Publish only the linked source card's list/swimlane display metadata, scoped
+by its authorized board. Add an English editor hint and usage documentation.
+
+Eight new Node cases and nineteen existing custom-field cases pass, along with
+six linked-card Node suites and three Chromium cases. Browser coverage includes
+live updates, encoded URLs, regex formatting, linked source context and refusal
+to expose private-board placement metadata. The source audit reports advisory
+warnings only. This completes [#3815](https://github.com/wekan/wekan/issues/3815),
+which concerns custom-field String Templates, not Rules email variables as the
+old TODO Later entry claimed. Remove that entry; the separate Rules variable
+and custom-field-value requests remain in the queue. Translation into every
+language remains outside this work queue.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/eb527dd13">Add duplicate card relationships and preserve Jira link direction</a>. Thanks to xet7.</summary>
