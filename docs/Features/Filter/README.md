@@ -162,8 +162,8 @@ an input-validation message. No card is archived, edited or deleted.
 Searching for any movement within a historical date range is different from
 filtering the latest list entry: a card may have moved again since then. Use
 the separate **Moved during (recorded history)** controls below for that case.
-Saved filter combinations and the full extensible provider interface from
-[#935](https://github.com/wekan/wekan/issues/935) remain in TODO Later.
+The full extensible provider interface from
+[#935](https://github.com/wekan/wekan/issues/935) remains in TODO Later.
 
 ## Relative creation and modification dates
 
@@ -231,3 +231,26 @@ Clicking the active shortcut again clears it. Clicking another due-date option
 switches to that option. These two shortcuts refresh their calendar boundaries
 every minute while active; they do not keep yesterday's week/month range after
 a calendar rollover. They combine with other filters and never archive cards.
+
+## Save a filter combination
+
+Signed-in users can use **Saved filters** at the top of the filter panel.
+Choose the filters, enter a name, and press **Save current filters**. The
+combination is private to your account on this board and survives reloading
+or using another browser. Saving the same name replaces your previous
+combination; another user's choice with that name is separate.
+
+Select a saved combination and press **Apply** to replace the active filters.
+It includes labels and exclusions, members, assignees, parents, creators,
+archive/hide-empty choices, custom fields, dependency types, text/list/advanced
+inputs, date ranges, movement history, recency and column-age settings. Relative
+due-date choices are recalculated when applied; temporary card exceptions are
+not saved. **Delete** removes the selected saved combination without changing
+the active filters. **Clear filter** remains the last action in the panel.
+
+Invalid saved data or an advanced expression whose custom fields no longer
+resolve is rejected before changing your active selection. Names are limited
+to 80 characters. The board's current data and permissions still control the results: saving filters does
+not preserve access to removed cards, labels, fields or board membership.
+Saved choices disappear from your client when board access is revoked and are
+removed from storage when the board or owning account is normally deleted.

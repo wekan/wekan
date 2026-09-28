@@ -1,3 +1,7 @@
+import { Meteor } from 'meteor/meteor';
+import { ReactiveVar } from 'meteor/reactive-var';
+import { SavedCardFilters } from '/client/lib/savedCardFilters';
+import { captureFilterPreset, applyFilterPreset } from '/client/lib/filterPresetState';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { Filter } from '/client/lib/filter';
@@ -8,7 +12,21 @@ import { getSidebarInstance } from '/client/features/sidebar/service';
 import { CARD_DATE_RANGE_FIELDS, CARD_RECENCY_PRESETS } from '/models/lib/cardDateRange';
 import { DEPENDENCY_TYPES } from '/models/metadata/dependencies';
 
+Template.filterSidebar.onCreated(function () {
+  this.presetMessage = new ReactiveVar('');
+  this.presetBusy = new ReactiveVar(false);
+  this.autorun(() => {
+    const boardId = Session.get('currentBoard');
+    if (Meteor.userId() && boardId) this.subscribe('savedCardFilters', boardId);
+  });
+});
+
 Template.filterSidebar.helpers({
+  savedFilterPresets() {
+    return SavedCardFilters.find({ boardId: Session.get('currentBoard'), ownerId: Meteor.userId() }, { sort: { name: 1 } });
+  },
+  presetMessage() { return Template.instance().presetMessage.get(); },
+  presetBusy() { return Template.instance().presetBusy.get(); },
   dateRecencyFields() {
     return [{ id: 'createdAt', label: 'createdAt' }, { id: 'modifiedAt', label: 'modifiedAt' }];
   },
@@ -47,6 +65,39 @@ Template.filterSidebar.helpers({
 });
 
 Template.filterSidebar.events({
+  async 'submit .js-save-filter-preset'(event, tpl) {
+    event.preventDefault();
+    if (tpl.presetBusy.get()) return;
+    tpl.presetBusy.set(true); tpl.presetMessage.set('');
+    try {
+      await Meteor.callAsync('filterPresets.save', Session.get('currentBoard'),
+        tpl.find('.js-filter-preset-name').value, captureFilterPreset(Filter));
+      tpl.presetMessage.set('filter-preset-saved');
+    } catch (error) { tpl.presetMessage.set('filter-preset-error'); }
+    finally { tpl.presetBusy.set(false); }
+  },
+  'click .js-apply-filter-preset'(event, tpl) {
+    event.preventDefault();
+    const preset = SavedCardFilters.findOne({ _id: tpl.find('.js-filter-preset-select').value,
+      ownerId: Meteor.userId(), boardId: Session.get('currentBoard') });
+    try {
+      if (!preset) throw new Error('Missing preset');
+      applyFilterPreset(Filter, preset.state);
+      for (const selector of ['.js-card-date-to', '.js-card-movement-to']) tpl.find(selector)?.setCustomValidity('');
+      tpl.find('.js-filter-preset-name').value = preset.name;
+      tpl.presetMessage.set('filter-preset-applied');
+    } catch (error) { tpl.presetMessage.set('filter-preset-error'); }
+  },
+  async 'click .js-remove-filter-preset'(event, tpl) {
+    event.preventDefault();
+    if (tpl.presetBusy.get()) return;
+    tpl.presetBusy.set(true); tpl.presetMessage.set('');
+    try {
+      await Meteor.callAsync('filterPresets.remove', Session.get('currentBoard'), tpl.find('.js-filter-preset-select').value);
+      tpl.presetMessage.set('filter-preset-deleted');
+    } catch (error) { tpl.presetMessage.set('filter-preset-error'); }
+    finally { tpl.presetBusy.set(false); }
+  },
   'change .js-card-date-recency'(event) {
     const { field } = event.currentTarget.dataset;
     if (Filter.dateRecency.set({ ...Filter.dateRecency.value(), [field]: event.currentTarget.value })) {

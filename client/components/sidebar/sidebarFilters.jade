@@ -4,6 +4,23 @@
   and #each x in y constructors to fix this.
 
 template(name="filterSidebar")
+  if currentUser
+    h3 {{_ 'filter-presets'}}
+    label(for="saved-filter-preset") {{_ 'filter-presets'}}
+    select.js-filter-preset-select(id="saved-filter-preset")
+      option(value="") {{_ 'filter-preset-choose'}}
+      each savedFilterPresets
+        option(value=_id)= name
+    button.js-apply-filter-preset(type="button" disabled=presetBusy) {{_ 'apply'}}
+    button.js-remove-filter-preset(type="button" disabled=presetBusy) {{_ 'delete'}}
+    form.js-save-filter-preset
+      label(for="saved-filter-name") {{_ 'filter-preset-name'}}
+      input.js-filter-preset-name(id="saved-filter-name" type="text" maxlength="80" required)
+      p.quiet {{_ 'filter-preset-replace-hint'}}
+      button.primary(type="submit" disabled=presetBusy) {{_ 'filter-preset-save'}}
+    if presetMessage
+      p.js-filter-preset-message(role="status") {{_ presetMessage}}
+    hr
   h3
     i.fa.fa-list
     | {{_ 'list-filter-label'}}
@@ -257,12 +274,12 @@ template(name="filterSidebar")
   p.quiet {{_ 'advanced-filter-card-dates-hint'}}
   if Filter.isActive
     hr
-    a.sidebar-btn.js-clear-all
-      i.fa.fa-search
-      span {{_ 'filter-clear'}}
     a.sidebar-btn.js-filter-to-selection
       i.fa.fa-check
       span {{_ 'filter-to-selection'}}
+    a.sidebar-btn.js-clear-all
+      i.fa.fa-search
+      span {{_ 'filter-clear'}}
 
 template(name="multiselectionSidebar")
   if MultiSelection.hasObjects

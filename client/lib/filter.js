@@ -278,6 +278,8 @@ class DateFilter {
     return this._filterState == val;
   }
 
+  state() { this._dep.depend(); return this._filterState; }
+
   _isActive() {
     this._dep.depend();
     return this._filterState !== null;
@@ -567,6 +569,16 @@ class AdvancedFilter {
   // rule trigger can reuse the exact same function server-side instead of a
   // parallel reimplementation. Only the three lookups that need live board
   // data stay here, bound to ReactiveCache.
+  validate(text) {
+    if (!text) return {};
+    return advancedFilterCommandsToSelector(tokenizeAdvancedFilter(text), {
+      dayFirst: /^D/.test(dateDisplayPreferences().dateFormat),
+      fieldNameToId: this._fieldNameToId.bind(this),
+      fieldValueToId: this._fieldValueToId.bind(this),
+      customFieldDateSelector: this._customFieldDateSelector.bind(this),
+    });
+  }
+
   _arrayToSelector(commands) {
     try {
       const selector = advancedFilterCommandsToSelector(commands, {

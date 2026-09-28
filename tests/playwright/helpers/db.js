@@ -460,6 +460,7 @@ function cleanup({ boardIds = [], userIds = [] } = {}) {
     runOps([
       { collection: 'attachments', method: 'deleteMany', filter: { 'meta.boardId': boardId } },
       { collection: 'cards', method: 'deleteMany', filter: { boardId } },
+      { collection: 'savedCardFilters', method: 'deleteMany', filter: { boardId } },
       { collection: 'lists', method: 'deleteMany', filter: { boardId } },
       { collection: 'swimlanes', method: 'deleteMany', filter: { boardId } },
       { collection: 'boards', method: 'deleteOne', filter: { _id: boardId } },
