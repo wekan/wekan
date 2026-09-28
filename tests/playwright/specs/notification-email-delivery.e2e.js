@@ -171,7 +171,7 @@ test('legacy email buffer is migrated and delivered without a new board event', 
 test('clients cannot create or alter private email jobs and recipient leases', async ({ page, user, adminUser }) => {
   for (const actor of [user, adminUser]) {
     await loginWithToken(page, actor.id, actor.token);
-    for (const collection of ['notificationEmailJobs', 'notificationEmailLeases', 'notificationEmailControls', 'notificationEmailCommands', 'notificationEmailSendSlots', 'activityNotificationIntents', 'activityNotificationPlans', 'activityNotificationLeases']) {
+    for (const collection of ['notificationEmailJobs', 'notificationEmailLeases', 'notificationEmailControls', 'notificationEmailCommands', 'notificationEmailSendSlots', 'activityNotificationIntents', 'activityNotificationPlans', 'activityNotificationLeases', 'activityNotificationControls']) {
       const id = db.uid('private-email');
       const errors = await page.evaluate(async ({ collection, id }) => {
         const errors = [];

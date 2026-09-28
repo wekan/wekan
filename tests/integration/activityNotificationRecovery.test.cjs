@@ -54,3 +54,15 @@ test('expired owners are reclaimed and losing ownership cannot remove a successo
   }), { code: 'sync-lease-lost' });
   assert.equal((await f.leases.findOne({ _id: 'event' })).owner, 'successor');
 });
+test('paused work remains pending and does not hide later runnable work', { skip: !uri }, async t => {
+  const f = await fixture(t);
+  await f.intents.insertMany(['held', 'ready'].map(_id => ({ _id, state: 'pending' })));
+  const scan = create({ ...f, limit: 1, run: async id => {
+    if (id === 'held') throw new Error('activity-notification-paused');
+    await f.intents.updateOne({ _id: id }, { $set: { state: 'completed' } });
+    return 'completed';
+  } });
+  assert.deepEqual(await scan(), { visited: 1, completed: 0, failed: 0, busy: 0, skipped: 1 });
+  assert.deepEqual(await scan(), { visited: 1, completed: 1, failed: 0, busy: 0, skipped: 0 });
+  assert.equal((await f.intents.findOne({ _id: 'held' })).state, 'pending');
+});

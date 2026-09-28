@@ -285,14 +285,16 @@ Missing or changed activities are never recreated. Holds, cancellation and
 resolution of orphaned intents are not implemented here; unresolved payloads
 remain retained for later operator handling.
 
-### Persistent activity hold storage (internal)
+### Persistent activity holds (UI integration pending)
 
 `server/lib/activityNotificationControl.js` provides the storage primitive for
-future activity pause/resume controls. It is not connected to the Recovery UI
-or production delivery yet. An integration must supply the private controls,
-intents and the same leases collection used by activity delivery, plus a live
-administrator check. Every delivery entry point must call the unpaused guard
-before preparation and each local effect before enabling the UI.
+activity pause/resume controls. Production delivery now reads the private
+`activityNotificationControls` collection before preparation and local effects.
+Both immediate ordinary delivery and manual/background recovery honor holds;
+automatic scanning skips held work and continues to later pending intents.
+Malformed control state stops delivery. The Recovery UI and administrator
+mutation method are not connected yet. Their integration must use the existing
+intents and delivery leases collections, plus a live administrator check.
 
 A request carries the intent ID, desired pause state, administrator ID, stable
 request ID and the revision displayed to the administrator. A conditional
@@ -304,7 +306,8 @@ A control row must never be deleted or expired, including after resume: its
 revision prevents delayed old requests from becoming valid again. There is one
 row per controlled intent, rather than one row per button click.
 
-A hold will apply to future local notification effects only. Messages already
-in the SMTP outbox require the separate email queue controls. UI wiring,
-private collection registration, delivery guards and restart/browser tests
-remain required before this storage primitive is an operational control.
+A hold applies to future local notification effects only. Messages already
+in the SMTP outbox require the separate email queue controls. Control rows
+are not published and member/admin DDP writes are denied. UI wiring, an
+administrator mutation method, pause/resume report status and restart tests
+remain required before this becomes an operator-facing control.

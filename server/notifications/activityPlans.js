@@ -17,6 +17,7 @@ const { EJSON, calculateObjectSize } = require('bson');
 const { compactActivityNotificationPlan, createActivityPlanCleanup, activityPlanCleanupInterval } = require('/server/lib/activityNotificationPlanRetention');
 const { planId, ensureActivityNotificationPlan, deliverActivityNotificationPlan } = require('/server/lib/activityNotificationPlan');
 const { withSyncLease } = require('/server/lib/syncLease');
+const { assertActivityNotificationUnpaused } = require('/server/lib/activityNotificationControl');
 const { createActivityNotificationRecovery, activityNotificationRecoveryInterval } = require('/server/lib/activityNotificationRecovery');
 const { readActivityForNotificationIntent, readActivityNotificationIntentState } = require('/server/lib/activityNotificationIntent');
 const { canonical, sha256 } = require('/models/lib/changeHistoryIntegrity');
@@ -27,6 +28,8 @@ export const ActivityNotificationPlans = new Mongo.Collection('activityNotificat
 ActivityNotificationPlans.deny({ insert: () => true, update: () => true, remove: () => true });
 export const ActivityNotificationLeases = new Mongo.Collection('activityNotificationLeases');
 ActivityNotificationLeases.deny({ insert: () => true, update: () => true, remove: () => true });
+export const ActivityNotificationControls = new Mongo.Collection('activityNotificationControls');
+ActivityNotificationControls.deny({ insert: () => true, update: () => true, remove: () => true });
 // Named service adapters also make real-hook failure injection possible without
 // changing the public subscriber registry used by non-activity notifications.
 export const activityNotificationServices = {
@@ -68,6 +71,7 @@ async function deliverWithinReservation(activity, dispatchUserId, buildContext, 
   const intentId = sha256(canonical(['activity-notification-intent', activity._id]));
   async function guard() {
     await assertCurrent();
+    await assertActivityNotificationUnpaused({ controls: ActivityNotificationControls.rawCollection(), intentId });
     if (getFeatureFlags().disableNotifications || getFeatureFlags().disableActivities) throw new Error('activity-notifications-disabled');
     await readActivityForNotificationIntent({ intents: ActivityNotificationIntents.rawCollection(),
       activities: Activities.rawCollection(), intentId, expectedActivity: activity, expectedDispatchUserId: dispatchUserId,
@@ -97,6 +101,7 @@ async function deliverWithinReservation(activity, dispatchUserId, buildContext, 
   await deliverActivityNotificationPlan({ plan, activity, dispatchUserId, assertCurrent: guard,
     assertAccess: (userId, service) => assertAccess(activity, userId, service),
     tray: activityNotificationServices.tray, email: activityNotificationServices.email });
+  await guard();
   await acknowledgeActivityNotifications(activity, dispatchUserId, assertCurrent);
   try {
     await compactActivityNotificationPlan({ plans: ActivityNotificationPlans.rawCollection(),
@@ -124,6 +129,7 @@ export async function resumeActivityNotifications(intentId, { assertAllowed = as
     await assertCurrent();
     const row = await ActivityNotificationIntents.rawCollection().findOne({ _id: intentId });
     if (!row || row.state !== 'pending') return 'skipped';
+    await assertActivityNotificationUnpaused({ controls: ActivityNotificationControls.rawCollection(), intentId });
     const activity = await readActivityForNotificationIntent({ intents: ActivityNotificationIntents.rawCollection(),
       activities: Activities.rawCollection(), intentId, assertCurrent });
     // Load lazily to avoid a module cycle with the ordinary after.insert hook.

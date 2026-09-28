@@ -3,10 +3,11 @@ import { Meteor } from 'meteor/meteor';
 import { Random } from 'meteor/random';
 import Activities from '/models/activities';
 import { ActivityNotificationIntents, captureActivityNotificationIntent } from '/server/notifications/activityIntents';
-import { ActivityNotificationPlans, ActivityNotificationLeases, activityNotificationServices,
-  recoverActivityNotifications, resumeActivityNotifications } from '/server/notifications/activityPlans';
+import { ActivityNotificationPlans, ActivityNotificationLeases, ActivityNotificationControls, activityNotificationServices,
+  recoverActivityNotifications, resumeActivityNotifications, deliverStoredActivityNotifications } from '/server/notifications/activityPlans';
 import { EmailJobs } from '/server/notifications/emailQueue';
 const { ensureActivityNotificationPlan, planId } = require('/server/lib/activityNotificationPlan');
+const { controlActivityNotification } = require('/server/lib/activityNotificationControl');
 const { idFor } = require('/server/lib/emailReceiptIdentity');
 
 describe('Activity notification recovery', function () {
@@ -32,6 +33,20 @@ describe('Activity notification recovery', function () {
       activityNotificationServices.prepareEmail = () => assert.fail('must not rerender stored plan');
       activityNotificationServices.prepareTray = () => assert.fail('must not reselect stored plan');
       activityNotificationServices.email = async job => { calls++; await gate; return saved.email(job); };
+      const control = { controls: ActivityNotificationControls.rawCollection(), intents, leases,
+        intentId: intent._id, paused: true, expectedRevision: 0, requestId: 'pause-request-123456789',
+        actorId: userId, assertAdmin: async () => {} };
+      await controlActivityNotification(control);
+      await assert.rejects(resumeActivityNotifications(intent._id), /notification-paused/);
+      await assert.rejects(deliverStoredActivityNotifications(activity, null,
+        () => assert.fail('paused notifications must not prepare context')), /notification-paused/);
+      const pausedScan = await recoverActivityNotifications();
+      assert.ok(pausedScan.skipped >= 1);
+      assert.equal(calls, 0);
+      assert.equal(await EmailJobs.rawCollection().findOne({ _id: idFor(userId, activityId) }), null);
+      assert.equal((await intents.findOne({ _id: intent._id })).state, 'pending');
+      await controlActivityNotification({ ...control, paused: false, expectedRevision: 1,
+        requestId: 'resume-request-12345678' });
       let accessChecks = 0;
       await assert.rejects(resumeActivityNotifications(intent._id, {
         assertAllowed: async () => {
@@ -60,6 +75,7 @@ describe('Activity notification recovery', function () {
       await Activities.rawCollection().deleteMany({ _id: { $in: [activityId, orphanId] } });
       await intents.deleteMany({ _id: { $in: [intent?._id, orphan?._id].filter(Boolean) } });
       await ActivityNotificationPlans.rawCollection().deleteMany({ _id: planId(activityId) });
+      await ActivityNotificationControls.rawCollection().deleteMany({ _id: intent?._id });
       await leases.deleteMany({ _id: { $in: [intent?._id, orphan?._id].filter(Boolean) } });
       await EmailJobs.rawCollection().deleteOne({ _id: idFor(userId, activityId) });
       await Meteor.users.rawCollection().deleteOne({ _id: userId });
