@@ -1287,8 +1287,9 @@ legacy unbound commands require future operator recovery. Details also
 includes persisted Flowtime/Pomodoro sessions and recurrence fields. Voting
 counts, public voter names and completed Poker results now follow disclosure
 settings, including persisted checks for stored commands. Linked-board voting
-now uses current target results and both boards' visibility settings. Scrum
-fields remain),
+now uses current target results and both boards' visibility settings. The six
+visible Scrum card fields are included with same-board name resolution and
+persisted visibility checks. Final full-content audit remains),
 [#3195](https://github.com/wekan/wekan/issues/3195) (rule action/trigger
 values should be able to reference a custom field's value — today's action
 and trigger value inputs are plain literals; resolving a per-board custom
@@ -1459,8 +1460,9 @@ linked-source content. Stored Sync commands now persist and revalidate their
 source chain; legacy unbound-command recovery remains pending. Specialized
 Timer and recurrence snapshots now have Details and SMTP coverage. Card voting
 and completed Poker results also have disclosure checks and SMTP coverage;
-Linked-board voting now follows target policy with stored checks. Scrum fields
-remain for the full-content audit.).
+Linked-board voting now follows target policy with stored checks. Visible
+Scrum card metadata now has same-board reference and SMTP coverage. Final
+full-content audit and legacy stored-command recovery remain.).
 
 </details>
 
@@ -1540,6 +1542,27 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d99641d8e">Include visible Scrum card fields in rule email details</a>. Thanks to kabi178, bbyszio and xet7.</summary>
+
+Include visible sprint, past sprints, release, issue type, acceptance criteria
+and backlog rank. Resolve names only from records on the source board; omit
+missing or foreign references and recheck included records after preparation.
+Preserve zero ranks and exclude hidden fields and unrelated record payloads.
+Version-four source bindings retain the six visibility flags so stored sends
+stop after disclosure settings change. Earlier bindings remain readable for
+snapshots captured before Scrum content was added.
+
+Fifty-seven Node suites pass without skips, including MongoDB persistence and
+native MailComposer integration. Positive and negative coverage exercises
+all six fields, hidden values, foreign references, changed record ownership
+and changed visibility. Three Chromium SMTP scenarios pass; filesystem and
+GridFS mail carry visible Scrum fields and omit hidden ones. Existing Upcoming
+regression evidence remains recorded. Final full-card content audit and
+legacy stored-command recovery remain in TODO Later.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0b86c92de">Include linked-board voting in rule email details</a>. Thanks to kabi178, bbyszio and xet7.</summary>
