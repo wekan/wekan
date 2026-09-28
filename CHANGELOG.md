@@ -1293,7 +1293,8 @@ persisted visibility checks. The
 [content audit](docs/DeveloperDocs/Card-Email-Content-Audit.md) now tracks
 all 71 top-level card fields. Remaining work is linked-board display parity
 and authorized target-board discussion. Target archive/time state and active
-member names are now included, along with local recurrence.
+member names are now included, along with local recurrence. Linked-board
+wrapper content now uses local field and related-source policies.
 Timer session reads and writes now agree;
 completed work uses the current source total. Local placement,
 timers and visible Scrum now have a separate linked-card section. Moved-card
@@ -1483,7 +1484,8 @@ Scrum card metadata now has same-board reference and SMTP coverage. Final
 [content audit](docs/DeveloperDocs/Card-Email-Content-Audit.md) records concrete
 linked-board display and authorized target-board discussion gaps after a
 71-field inventory. Target archive/time state, active member names and local
-recurrence are now included. Timer reads and writes
+recurrence are now included. Linked-board wrapper content now uses local
+field and related-source policies. Timer reads and writes
 now agree, and
 completed work uses the current source total. Local placement,
 timers and visible Scrum now have a separate section. Moved-card SMTP passes
@@ -1570,6 +1572,27 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5bd348a4b">Include linked-board wrapper content with shared email policies</a>. Thanks to kabi178, bbyszio and xet7.</summary>
+
+Render explicitly local linked-board fields through the shared Details path:
+creator, requesters/assigners, labels, stickers, custom fields, notes, locations
+and relationships. Keep target dates, votes and member lists in their target
+section. Custom fields use local definitions and admin visibility; related
+cards require current access. Persist both definition fingerprints and related
+source evidence in the existing stored-command binding. String templates use
+the live target title, and retargeting during preparation rejects the result.
+
+Sixty Node suites pass without skips, including MongoDB and native mail
+composition. Tests cover excluded stale/target fields, private custom fields,
+policy changes, wrong wrapper types and retargeting. Three Chromium SMTP
+scenarios pass; the linked-board message includes local custom fields,
+stickers, locations and a readable parent. The source audit passes with
+informational warnings. Existing Upcoming regression evidence is retained.
+Target-board discussion and the remaining placement lifecycle audit stay open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f27f060fb">Include current linked-board state and active people in rule emails</a>. Thanks to kabi178, bbyszio and xet7.</summary>
