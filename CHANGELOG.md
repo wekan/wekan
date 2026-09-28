@@ -358,6 +358,15 @@ from being marked successful after failed delivery or recipient lookup. Six
 controlled-adapter tests cover localized/fallback mail, retained card context,
 ordered execution and scanner isolation; all 28 rule Node suites pass. Actual
 SMTP delivery and durable rule-email replay remain unverified/unfinished.
+An internal rule execution coordinator now requires exact invocation receipts,
+validates all saved checkpoints and required adapters before effects, and
+records aggregate completion only after the ordered actions. Checkpoints bind
+the complete plan checksum; missing-action/empty selections retain explicit
+no-op receipts. Lost replies reconcile by readback, and missing predecessors
+or corrupted receipts stop replay. Fifteen Node/MongoDB cases pass, including
+a fresh-connection resume after interruption. Command preparation, durable
+mutation adapters, production storage and manual/cron wiring remain unfinished;
+ordinary performAction cannot satisfy this adapter contract.
 Private operation, step and completion collections are now registered with
 server-only adapters, denied browser writes, recovery indexes and no TTL.
 The stored-operation entry point holds the list lease and requires fresh access
@@ -1355,6 +1364,24 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d668d2b41">Coordinate saved rule execution with ordered durable checkpoints</a>. Thanks to xet7.</summary>
+
+Add an internal coordinator for immutable rule plans. Validate all checkpoints
+and required action adapters before dispatch. Require exact invocation receipts,
+bind checkpoints to the whole plan checksum and acknowledge the stage only
+after ordered completion. Preserve explicit empty/missing-action receipts,
+reconcile lost insert replies and reject corrupt or non-prefix evidence.
+
+Fifteen Node/MongoDB cases pass, including adapter failure, false receipts,
+lease loss, input isolation and resume through a fresh database connection.
+The source audit completes with advisory warnings. Action tests use scripted
+adapters, not actual card mutations or external delivery. Durable command and
+mutation adapters, production storage and manual/cron integration remain TODO;
+this coordinator must not wrap ordinary performAction as if it were durable.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b5d7910b7">Propagate rule email failures before acknowledging scheduled execution</a>. Thanks to xet7.</summary>
