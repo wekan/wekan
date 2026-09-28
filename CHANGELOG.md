@@ -92,9 +92,11 @@ held only issues \#4774 and \#4055, and both are closed now.
 Scrum History now persists private immutable completion receipts before
 checkpoint cleanup. The internal finalizer can reconcile an uncertain cleanup
 read from its original operation identity without repeating History writes,
-even after a restart or a successor checkpoint. Caller-persisted undo/redo
-request IDs, recovery UI and shared writer coordination remain unfinished;
-retrying a public stack request is not yet an idempotent completion lookup.
+even after a restart or a successor checkpoint. Public Scrum undo/redo methods
+now accept optional caller-persisted request IDs, retaining the selected row
+and returning its original completion on retry. Empty and unsupported results
+remain stable too. Keyboard shortcuts still use unkeyed calls; their recovery
+UI, non-Scrum replay and shared writer coordination remain unfinished.
 Validation for this increment is recorded in Upcoming.
 
 The preceding rule-email increment confirms independently verified SMTP
@@ -202,8 +204,14 @@ persists and verifies a private immutable receipt before deleting the exact
 checkpoint. False acknowledgements retain recovery evidence; a lost reply
 requires readback. The internal finalizer can use the original operation and
 receipt after an uncertain final read without touching a successor checkpoint
-or rewriting History. Public request identities and recovery controls, receipt
-retention and shared writer coordination remain unfinished. Ordinary writes
+or rewriting History. Public Scrum undo/redo now binds optional caller request
+IDs to the first stored selection before mutation. Retries use the original
+completion after uncertain cleanup and even after a later opposite operation.
+Changed/missing sources, lost original intent evidence and revoked access stop
+recovery. Empty stacks remain empty for that ID; non-Scrum selections are
+explicitly refused without mutation. Keyboard request persistence, recovery
+controls, non-Scrum replay, receipt retention and shared writer coordination
+remain unfinished. Ordinary writes
 and History remain non-atomic, and automatic startup replay is still pending.
 Native whole-board export/import and duplication remap planning records and
 snapshots, validate lifecycle/policy consistency, and report reduced data.
@@ -1611,13 +1619,45 @@ the Markdown commit as the template.
 # Upcoming WeKan ® release
 
 **In short:** **Scrum History recovery** retains completion evidence before
-removing its checkpoint. Internal retries can verify completed finalization
-after an uncertain cleanup response; public request recovery and shared writer
-coordination remain in development.
+removing its checkpoint. API callers can supply request IDs to retry Scrum
+undo/redo without selecting another change. Keyboard recovery and shared
+writer coordination remain in development.
 
 This release improves Scrum History recovery:
 
 **History** - verify completed operations and preserve unfinished recovery.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6b44f61b2">Retry keyed Scrum undo and redo without advancing the stack again</a>. Thanks to xet7.</summary>
+
+The public History undo/redo methods now accept an optional caller-persisted
+request ID for Scrum operations. Persist the first selected row and source hash
+before mutation; competing builders adopt the stored selection. Retries keep
+the same result after lost cleanup responses, browser reloads and subsequent
+opposite operations. New intentional actions use new IDs. Empty-stack results
+remain empty, and unsupported non-Scrum selections remain explicit refusals.
+
+Recheck board and History access before application and response. Reject IDs
+reused in another board/direction, corrupt requests, changed/missing sources
+and missing original intent records when recovery evidence remains. The new
+request collection is private, indexed and has no TTL. History undo/redo calls
+are limited per account. Existing one-argument callers remain compatible.
+
+Thirty focused Node suites pass, with the opt-in DDP lifecycle case run
+separately against the local app. MongoDB coverage uses independent request
+builders and lost insertion replies. Two full-app cases pass, including four
+concurrent calls to one new redo, uncertain cleanup, later opposite completion,
+revocation and missing intent evidence. All thirteen Chromium scenarios pass,
+including reload/retry, new operations and member/admin private-storage denial.
+The source audit passes. Both earlier Upcoming recovery entries retain their
+unit, database, full-app and browser regression coverage.
+
+Keyboard shortcuts still call the unkeyed path. Caller-side persistence and
+visible recovery controls, non-Scrum replay, retention and shared coordination
+across server processes remain unfinished. The API contract and retry rules are
+documented in the Scrum design. This does not make card/History writes atomic.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/16b17c494">Persist completion before removing Scrum recovery checkpoints</a>. Thanks to xet7.</summary>
