@@ -1,3 +1,6 @@
+import { ReactiveCache } from '/imports/reactiveCache';
+import { formatStringTemplate } from '/models/lib/customFieldStringTemplate';
+
 class CustomField {
   constructor(definition) {
     this.definition = definition;
@@ -11,28 +14,22 @@ export class CustomFieldStringTemplate extends CustomField {
     this.separator = definition.settings.stringtemplateSeparator;
   }
 
-  getFormattedValue(rawValue) {
-    const ret = (rawValue ?? [])
-      .filter(value => !!value.trim())
-      .map(value => {
-        let _ret = this.format.replace(/[%$]\{.+?[^0-9]\}/g, function(_match) {
-          let __ret;
-          if (_match.match(/%\{value\}/i)) {
-            __ret = value;
-          } else {
-            _match = _match.replace(/^\$/, "");
-            try {
-              const _json = JSON.parse(_match);
-              __ret =  value.replace(new RegExp(_json.regex, _json.flags), _json.replace);
-            } catch (err) {
-              console.error(err);
-            }
-          }
-          return __ret;
-        });
-        return _ret;
-      })
-      .join(this.separator ?? '');
-    return ret;
+  getFormattedValue(rawValue, context = {}) {
+    return formatStringTemplate(rawValue, this.format, this.separator, context);
   }
+}
+
+// Called inside a Blaze helper, so Minimongo reads track renames and moves.
+// Linked cards use the same real card as customFieldsWD()'s values.
+export function stringTemplateContext(card) {
+  const real = card?.getRealCard?.() || card;
+  if (!real) return {};
+  const context = { 'card.title': real.title || '' };
+  const board = ReactiveCache.getBoard(real.boardId);
+  const list = ReactiveCache.getList({ _id: real.listId, boardId: real.boardId });
+  const swimlane = ReactiveCache.getSwimlane({ _id: real.swimlaneId, boardId: real.boardId });
+  if (board) context['board.title'] = board.title || '';
+  if (list) context['list.title'] = list.title || '';
+  if (swimlane) context['swimlane.title'] = swimlane.title || '';
+  return context;
 }

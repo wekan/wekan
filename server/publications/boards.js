@@ -1090,7 +1090,29 @@ publishComposite('board', async function(boardId, isArchived, generation) {
           if (linkedCardIds.length === 0) return null;
 
           return await ReactiveCache.getCards({ _id: { $in: linkedCardIds }, archived: isArchived }, {}, true);
-        }
+        },
+        // String Template context for an authorized linked source. Nest under
+        // the source card so moving it refreshes these narrow display cursors.
+        children: [
+          {
+            async find(card) {
+              if (!card.listId) return null;
+              return await ReactiveCache.getLists(
+                { _id: card.listId, boardId: card.boardId },
+                { fields: { title: 1, boardId: 1 } }, true,
+              );
+            },
+          },
+          {
+            async find(card) {
+              if (!card.swimlaneId) return null;
+              return await ReactiveCache.getSwimlanes(
+                { _id: card.swimlaneId, boardId: card.boardId },
+                { fields: { title: 1, boardId: 1 } }, true,
+              );
+            },
+          },
+        ],
       },
       // Source-board display metadata for linked cards. The source card itself
       // carries label ids and custom-field values, but their definitions live

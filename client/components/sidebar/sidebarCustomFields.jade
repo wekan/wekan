@@ -71,6 +71,7 @@ template(name="createCustomFieldPopup")
             label
                 | {{_ 'custom-field-stringtemplate-format'}}
             input.js-field-stringtemplate-format(type="text" value=getStringtemplateFormat)
+            p.quiet {{_ 'custom-field-stringtemplate-context-hint'}}
             label
                 | {{_ 'custom-field-stringtemplate-separator'}}
             input.js-field-stringtemplate-separator(type="text" value=getStringtemplateSeparator)

@@ -3,7 +3,7 @@ import { isSubmitKey } from '/models/lib/editorSubmitKey';
 import { relativeCardSort } from '/client/lib/relativeCardPosition';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
-import { CustomFieldStringTemplate } from '/client/lib/customFields';
+import { CustomFieldStringTemplate, stringTemplateContext } from '/client/lib/customFields';
 import { handleFileUpload } from './attachments';
 import uploadProgressManager from '../../lib/uploadProgressManager';
 import { Utils } from '/client/lib/utils';
@@ -171,7 +171,9 @@ Template.minicard.helpers({
     if (!fieldDefinition) return customFieldTrueValue.join(' ');
     try {
       return new CustomFieldStringTemplate(fieldDefinition)
-        .getFormattedValue(customFieldTrueValue);
+        .getFormattedValue(customFieldTrueValue, stringTemplateContext(
+          ReactiveCache.getCard(Template.instance().data._id),
+        ));
     } catch (error) {
       return customFieldTrueValue.join(' ');
     }

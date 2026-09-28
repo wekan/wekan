@@ -26,7 +26,7 @@ import {
   fromNow,
   calendar
 } from '/imports/lib/dateUtils';
-import { CustomFieldStringTemplate } from '/client/lib/customFields'
+import { CustomFieldStringTemplate, stringTemplateContext } from '/client/lib/customFields'
 import { getCurrentCardFromContext } from '/client/lib/currentCard';
 import { formatNumberValue } from '/imports/lib/customNumberFormat';
 import { Utils } from '/client/lib/utils';
@@ -492,15 +492,14 @@ Template['cardCustomField-dropdownMultiSelect'].events({
 Template['cardCustomField-stringtemplate'].onCreated(function () {
   this.card = getCurrentCardFromContext();
   this.customFieldId = Template.currentData()._id;
-  this.customField = new CustomFieldStringTemplate(Template.currentData().definition);
   this.stringtemplateItems = new ReactiveVar(Template.currentData().value ?? []);
 });
 
 Template['cardCustomField-stringtemplate'].helpers({
   formattedValue() {
-    const tpl = Template.instance();
-    const ret = tpl.customField.getFormattedValue(this.value);
-    return ret;
+    return new CustomFieldStringTemplate(this.definition).getFormattedValue(
+      this.value, stringTemplateContext(getCurrentCardFromContext()),
+    );
   },
   stringtemplateItems() {
     return Template.instance().stringtemplateItems.get();
