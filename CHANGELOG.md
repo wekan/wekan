@@ -477,9 +477,19 @@ changed activities, moved cards, policy changes, lost ownership and corruption.
 Eight Node suites with MongoDB, three full-app Meteor cases and four Chromium
 cases pass. The browser checks deny 30 writes per member/admin account across
 all ten Sync recovery collections and verify that evidence stays private.
-Live integration/actor replay adapters and recovery startup remain unfinished.
-Absolute HTTP deadlines, scheduled retries, retention/operator controls and
-saved Sync delivery activation also remain unfinished.
+The internal delivery entry point now connects private plans, guarded HTTP
+response replay and atomic comment receipts. Capture and replay require an
+active enabled actor with current write/card access; each target must still
+match its captured integration identity and complete configuration. Reply
+changes recheck the actual card/comment scope, comment capability and author/
+admin editing restrictions. Nine Node suites pass with MongoDB. Four full-app
+Meteor cases pass, and the expanded delivery case passes again with actual
+private-IP rejection. Production replay applies an accepted stored reply once
+and preserves a later human edit; revoked accounts/membership/assignments,
+changed tokens and restricted comment edits stop. Successful external HTTP was
+not exercised, and no new browser test was run for this internal entry point.
+Recovery startup, absolute HTTP deadlines, scheduled retries, retention/operator
+controls and activation in saved manual/cron Sync remain unfinished.
 Email notifications now use a private event/recipient outbox with persisted
 content and due times, automatic retry backoff and renewable recipient leases.
 Startup discovers pending work; legacy profile buffers migrate before removal.
@@ -1154,6 +1164,36 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9df7ac572">Connect stored webhook delivery to live replay permissions</a>. Thanks to xet7.</summary>
+
+Connect the private plan, HTTP-response and comment-effect stores through an
+internal delivery entry point. Recheck the original actor's enabled account,
+active board write access and assigned-only card scope around capture and
+replay. Require each current enabled integration to match the saved identity,
+board/global scope and complete configuration before using its target.
+
+Apply accepted stored replies through the durable comment-plan/receipt stage.
+Check the actual reply card and comment boundary, comment capability and
+current author/admin editing restrictions. Preserve later human edits when a
+completed delivery is replayed. HTTP acceptance, comment-effect completion and
+outer delivery receipts remain distinct; guarded transport still uses fetchSafe.
+
+Nine focused Node suites pass with MongoDB. Four full-app Meteor cases pass;
+the expanded delivery case passes again after adding a fresh private-IP denial
+check. The actual entry point resumes a stored accepted reply without external
+HTTP, writes the comment and both receipts, preserves a later edit, and refuses
+changed tokens, disabled users, revoked membership/assignment and restricted
+comment edits. A denied fresh HTTP attempt creates no success evidence. Source
+audit passes with informational fingerprint warnings. No successful external
+HTTP or new browser run was performed for this internal entry point.
+
+Manual/cron Sync does not call this stage yet. Startup recovery, absolute HTTP
+deadlines, scheduling, operator controls and full saved-effect activation remain
+in TODO Later.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/79d4024f1">Register private webhook storage and guarded plan capture</a>. Thanks to xet7.</summary>
