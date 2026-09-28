@@ -1291,8 +1291,9 @@ now uses current target results and both boards' visibility settings. The six
 visible Scrum card fields are included with same-board name resolution and
 persisted visibility checks. The
 [content audit](docs/DeveloperDocs/Card-Email-Content-Audit.md) now tracks
-remaining wrapper metadata and moved-card SMTP coverage. Canonical and legacy
-Gantt references now share readable target titles with distinct type labels.
+remaining wrapper metadata and the final field audit. Moved-card SMTP now
+passes with all three content choices for filesystem and GridFS. Canonical
+and legacy Gantt references now share readable target titles with distinct type labels.
 Attachment manifests now identify the cover, upload metadata and actual sizes.
 Creator,
 stickers, checklist schedules, public comment authors and scoped reaction
@@ -1473,7 +1474,8 @@ and completed Poker results also have disclosure checks and SMTP coverage;
 Linked-board voting now follows target policy with stored checks. Visible
 Scrum card metadata now has same-board reference and SMTP coverage. Final
 [content audit](docs/DeveloperDocs/Card-Email-Content-Audit.md) records concrete
-remaining fields and trigger coverage; legacy stored-command recovery also
+remaining wrapper fields; moved-card SMTP now passes for filesystem and
+GridFS with all three choices. Legacy stored-command recovery also
 remains. Creator/stickers and checklist/comment metadata gaps are now fixed.
 Canonical and legacy Gantt targets now use grouped, authorized titles.).
 
@@ -1555,6 +1557,23 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e96f0dfb2">Verify complete emails when a card moves into a selected list</a>. Thanks to kabi178, bbyszio and xet7.</summary>
+
+Extend the filesystem and GridFS SMTP scenarios with authenticated REST card
+moves and a destination-list rule. Verify the activity and placement, Details,
+checklists, public comments and actual attachment bytes in the received mail.
+Unauthorized moves and moves away from the selected list must not send mail.
+Keep the existing button tests for independent content choices and failures.
+
+Both extended Chromium SMTP scenarios pass; the linked-source SMTP scenario
+also passes. Correct the test's MIME assertion to compare base64 bytes before
+removing quoted-printable soft breaks. Existing Upcoming regression evidence
+is retained. The content audit now leaves linked-wrapper field ownership,
+final field review and stored-command operator recovery unfinished.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b5c15e95e">Include canonical and legacy Gantt relationships in rule emails</a>. Thanks to kabi178, bbyszio and xet7.</summary>
