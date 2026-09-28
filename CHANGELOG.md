@@ -1294,7 +1294,8 @@ persisted visibility checks. The
 all 71 top-level card fields. Remaining work is linked-board display parity
 and authorized target-board discussion. Target archive/time state and active
 member names are now included, along with local recurrence. Linked-board
-wrapper content now uses local field and related-source policies.
+wrapper content now uses local field and related-source policies. Local
+archive state and lifecycle timestamps now complete the placement audit.
 Timer session reads and writes now agree;
 completed work uses the current source total. Local placement,
 timers and visible Scrum now have a separate linked-card section. Moved-card
@@ -1485,7 +1486,8 @@ Scrum card metadata now has same-board reference and SMTP coverage. Final
 linked-board display and authorized target-board discussion gaps after a
 71-field inventory. Target archive/time state, active member names and local
 recurrence are now included. Linked-board wrapper content now uses local
-field and related-source policies. Timer reads and writes
+field and related-source policies. Local archive/lifecycle fields complete
+the placement audit. Timer reads and writes
 now agree, and
 completed work uses the current source total. Local placement,
 timers and visible Scrum now have a separate section. Moved-card SMTP passes
@@ -1572,6 +1574,25 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8d51ac92e">Separate link placement lifecycle from source state in rule emails</a>. Thanks to kabi178, bbyszio and xet7.</summary>
+
+Include local archive state/date and creation, modification and last-activity
+timestamps in the linked-card local section. A link may be archived while its
+source remains active; the message preserves both states under their own
+sections. Card number and color continue to follow the existing display getters:
+source-owned for linked cards and local for linked-board wrappers.
+
+Sixty Node suites pass without skips, including MongoDB and native mail
+composition. Tests cover false archive state, local timestamps, malformed dates
+and exclusion of copied card numbers/colors. Three Chromium SMTP scenarios
+pass, including an archived link to an active source. The source audit passes
+with informational warnings. Existing Upcoming regression evidence is retained.
+The placement ownership audit is complete; target-board discussion and stored
+command operator recovery remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5bd348a4b">Include linked-board wrapper content with shared email policies</a>. Thanks to kabi178, bbyszio and xet7.</summary>
