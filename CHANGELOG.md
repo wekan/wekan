@@ -1280,8 +1280,10 @@ filesystem/GridFS SMTP delivery. The original request also asks for all card
 content: live checklists and public comments now have an independent opt-in
 mail action choice with SMTP coverage. Details now includes dates, placement,
 labels/people, custom-field display values, notes and authorized relationships.
-Complete linked-source content and specialized fields such as Scrum and voting
-still need review before the full-card-content request can be closed),
+Ordinary email rules now resolve live linked-card content across all selected
+sections and linked-board display fields with source-access rechecks. Stored
+Sync commands still need a durable source-chain binding before linked sources
+can be enabled there. Scrum, voting and timer/recurrence fields remain),
 [#3195](https://github.com/wekan/wekan/issues/3195) (rule action/trigger
 values should be able to reference a custom field's value — today's action
 and trigger value inputs are plain literals; resolving a per-board custom
@@ -1447,8 +1449,10 @@ pass local SMTP tests; live cloud-account validation remains unperformed.
 The bounded snapshot and durable-command checks remain in place. Checklists
 and public comments can now be included independently, with private webhook
 state excluded. Details now covers ordinary card metadata, custom fields,
-notes and authorized relationships. Linked-source content and specialized
-Scrum/voting fields remain for the full-content audit.).
+notes and authorized relationships. Ordinary rules now send authorized live
+linked-source content. Stored Sync retries reject linked sources until their
+source chain is persisted and revalidated. Specialized Scrum/voting/timer and
+recurrence fields remain for the full-content audit.).
 
 </details>
 
@@ -1528,6 +1532,30 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/479f01d57">Use live linked sources in rule emails</a>. Thanks to kabi178, bbyszio and xet7.</summary>
+
+Resolve linked cards before building email variables, details, discussion and
+attachments. Every source must be readable, including assigned-only access;
+reject missing/deleted sources, cycles and changed links. Recheck the complete
+chain after preparation. Linked boards use current board title, description
+and dates while keeping wrapper-owned discussion and files. Never send stale
+cached source descriptions or unrelated cards from a linked board.
+
+Fifty-seven Node suites pass without skips, including real MongoDB and native
+MailComposer integration. Three Chromium scenarios pass with local SMTP
+capture: filesystem and GridFS messages, plus linked-card source content,
+source-access revocation and linked-board isolation. Source inventory remains
+advisory. Ordinary event, manual and scheduled rules use the new resolution.
+
+Stored Sync email commands do not yet bind the resolved source chain. Reject
+linked sources during capture and dispatch until that durable binding exists,
+so retargeting cannot authorize stale captured content. Keep this integration
+and specialized card fields open under
+[#2713](https://github.com/wekan/wekan/issues/2713) in TODO Later.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c06b42976">Include authorized card details in rule emails</a>. Thanks to kabi178, bbyszio and xet7.</summary>
