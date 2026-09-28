@@ -64,3 +64,51 @@ test('malformed gate evidence prevents callbacks', async () => {
   [...f.rows.values()][0].writers = [randomUUID()];
   await assert.rejects(write({ ...f.options, writeLegacy: () => assert.fail(), writeCoordinated: () => assert.fail() }), /gate-invalid/);
 });
+
+const { inspectHistoryWriters, retireHistoryWriter: retire } = require('../server/lib/historyWriterGate');
+async function uncertain(f) {
+  let writerId;
+  await assert.rejects(write({ ...f.options, writeLegacy: async writer => {
+    writerId = writer.writerId; throw Error('uncertain');
+  }, writeCoordinated: () => assert.fail() }), /uncertain/);
+  return writerId;
+}
+test('offline recovery retires one exact token, preserves other evidence and permits later migration', async () => {
+  const f = fixture();
+  assert.equal(await inspectHistoryWriters(f.options), null);
+  assert.equal(f.rows.size, 0);
+  const first = await uncertain(f), second = await uncertain(f);
+  await assert.rejects(begin(f.options), /writers-pending/);
+  const options = { ...f.options, writerId: first, assertOffline: async () => {} };
+  await assert.rejects(retire({ ...options, migrationId: randomUUID() }), /recovery-state/);
+  await assert.rejects(retire({ ...options, assertOffline: undefined }), /invalid/);
+  await assert.rejects(retire({ ...options, assertOffline: async () => { throw Error('writers running'); } }), /writers running/);
+  assert.deepEqual((await inspectHistoryWriters(f.options)).writers, [first, second]);
+  const replace = f.options.gates.replaceOne;
+  f.options.gates.replaceOne = async (...args) => { await replace(...args); throw Error('lost reply'); };
+  assert.deepEqual((await retire(options)).writers, [second]);
+  assert.deepEqual((await retire(options)).writers, [second]);
+  await assert.rejects(begin(f.options), /writers-pending/);
+  await retire({ ...options, writerId: second });
+  await (await begin(f.options)).assertExclusive();
+  await assert.rejects(retire(options), /recovery-state/);
+});
+test('offline recovery refuses concurrent changes and never removes unrelated tokens', async () => {
+  const f = fixture(), writerId = await uncertain(f), added = randomUUID();
+  const replace = f.options.gates.replaceOne;
+  f.options.gates.replaceOne = async (...args) => {
+    [...f.rows.values()][0].writers.push(added); await replace(...args);
+  };
+  await assert.rejects(retire({ ...f.options, migrationId: null, writerId,
+    assertOffline: async () => {} }), /recovery-conflict/);
+  assert.deepEqual((await inspectHistoryWriters(f.options)).writers, [writerId, added]);
+});
+test('recovery CLI defaults to inspection and requires explicit offline retirement', () => {
+  const { parse } = require('../releases/recover-history-writer.cjs');
+  assert.equal(parse(['--board', 'b']).writerId, undefined);
+  assert.equal(parse(['--null-board']).boardId, null);
+  assert.equal(parse(['--board', 'b', '--retire', randomUUID(), '--offline']).offline, true);
+  for (const args of [[], ['--board'], ['--board', 'b', '--null-board'],
+    ['--board', 'b', '--retire', randomUUID()], ['--board', 'b', '--board', 'c'],
+    ['--board', 'b', '--migration', randomUUID()], ['--oops']]) assert.throws(() => parse(args));
+});

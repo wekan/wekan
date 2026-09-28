@@ -983,7 +983,49 @@ and verify one complete chain; removing the head refuses later recording
 without legacy fallback. Existing card and archive hooks also pass. Browser
 coverage checks member/admin denial across all nineteen private collections.
 
-Retained-token recovery, mixed-version rollout, redo/undo coordination and
-multi-row Sync reservations remain unfinished. Draining refuses new records;
+Offline retained-token retirement is available below. Online recovery,
+mixed-version rollout, redo/undo coordination and multi-row Sync reservations
+remain unfinished. Draining refuses new records;
 the best-effort recorder currently returns null for those failures. Durable
 recovery of such failed recording is still required before automatic rollout.
+
+### Offline recovery of uncertain writer admission
+
+With every application instance, maintenance command and other database writer
+stopped, inspect the board gate using an explicitly named database:
+
+```sh
+node releases/recover-history-writer.cjs --board BOARD_ID
+```
+
+Set `MONGO_URL` in the environment. Inspection is read-only, returns the stored
+gate or null, and never creates a gate. Use `--null-board` instead of `--board`
+for global History. Record the writer UUID and, for a draining gate, its existing
+migration UUID. Keep all writers stopped throughout recovery:
+
+```sh
+node releases/recover-history-writer.cjs --board BOARD_ID \
+  --retire WRITER_UUID --migration MIGRATION_UUID --offline
+```
+
+For a legacy gate omit `--migration`. The command removes only that exact writer
+from a legacy/draining gate with matching migration ownership. Conditional
+replacement preserves other writer tokens and reconciles a lost acknowledgement
+by exact readback. Repeating retirement is harmless while the gate remains in
+the same recovery state; changed ownership or mode is refused. Concurrent gate
+changes cause failure rather than a retry that could discard new evidence.
+
+`--offline` is the operator's assertion, not an automatic process detector.
+Removing a token cannot cancel an insert already in flight. Do not restart
+writers until inspection confirms the result and the maintenance operation is
+finished. A failed command can have applied its write before losing readback;
+inspect again with writers stopped before deciding what to retry.
+
+This action releases admission evidence only. It never inserts, deletes or
+repairs History rows, proves that a missing change was recorded, initializes a
+head, or completes migration. Subsequent bootstrap must still validate the
+actual chain and refuses forks or damaged rows. Real MongoDB tests run the CLI
+in separate processes after an insert with a lost reply, verify unchanged
+History, reject missing offline confirmation/wrong ownership and bootstrap the
+persisted row after retirement. Missing-row replay and online recovery remain
+unfinished. There is no browser recovery action.

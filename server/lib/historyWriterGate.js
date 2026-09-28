@@ -107,4 +107,26 @@ async function finishHistoryMigration({ gates, boardId, migrationId, assertHeadR
   if (saved.mode !== 'coordinated' || saved.migrationId !== migrationId) fail('ownership-lost');
   return migrationId;
 }
-module.exports = { withHistoryWriter, beginHistoryMigration, finishHistoryMigration };
+async function inspectHistoryWriters(options) {
+  return gateAccess(options).read();
+}
+// Offline recovery only. Token removal cannot fence an in-flight legacy insert;
+// the caller must stop every writer and keep them stopped through readback.
+async function retireHistoryWriter({ gates, boardId, writerId, migrationId = null, assertOffline }) {
+  if (typeof writerId !== 'string' || !UUID.test(writerId) ||
+      (migrationId !== null && (typeof migrationId !== 'string' || !UUID.test(migrationId))) ||
+      typeof assertOffline !== 'function') fail('invalid');
+  const access = gateAccess({ gates, boardId });
+  await assertOffline();
+  const row = await access.read();
+  if (!row || row.migrationId !== migrationId || !['legacy', 'draining'].includes(row.mode)) fail('recovery-state');
+  if (!row.writers.includes(writerId)) { await assertOffline(); return row; }
+  const expected = { ...row, writers: row.writers.filter(id => id !== writerId) };
+  await assertOffline();
+  const saved = await access.change(row, expected);
+  await assertOffline();
+  if (canonical(saved) !== canonical(expected)) fail('recovery-conflict');
+  return saved;
+}
+module.exports = { withHistoryWriter, beginHistoryMigration, finishHistoryMigration,
+  inspectHistoryWriters, retireHistoryWriter };
