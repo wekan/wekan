@@ -1291,8 +1291,9 @@ now uses current target results and both boards' visibility settings. The six
 visible Scrum card fields are included with same-board name resolution and
 persisted visibility checks. The
 [content audit](docs/DeveloperDocs/Card-Email-Content-Audit.md) now tracks
-all 71 top-level card fields. Remaining work is linked-board display parity
-and authorized target-board discussion. Target archive/time state and active
+all 71 top-level card fields. Target-board discussion now checks each owner
+card and retains source evidence; stored-command recovery remains open.
+Target archive/time state and active
 member names are now included, along with local recurrence. Linked-board
 wrapper content now uses local field and related-source policies. Local
 archive state and lifecycle timestamps now complete the placement audit.
@@ -1483,8 +1484,8 @@ and completed Poker results also have disclosure checks and SMTP coverage;
 Linked-board voting now follows target policy with stored checks. Visible
 Scrum card metadata now has same-board reference and SMTP coverage. Final
 [content audit](docs/DeveloperDocs/Card-Email-Content-Audit.md) records concrete
-linked-board display and authorized target-board discussion gaps after a
-71-field inventory. Target archive/time state, active member names and local
+the 71-field inventory. Target-board discussion now uses per-card access and
+stored source evidence. Target archive/time state, active member names and local
 recurrence are now included. Linked-board wrapper content now uses local
 field and related-source policies. Local archive/lifecycle fields complete
 the placement audit. Timer reads and writes
@@ -1574,6 +1575,28 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/551325408">Include authorized target-board comments in linked-board rule emails</a>. Thanks to kabi178, bbyszio and xet7.</summary>
+
+The Discussion choice now includes target-board comments grouped by readable
+owner card. Discover owner IDs before reading prose; enforce assigned-only and
+linked-source access, omit missing/deleted/foreign owners, and recheck every
+included source plus the board link. Retain owner chains in stored-command
+evidence so later access loss blocks dispatch. Reuse public authors and reaction
+summaries without exporting account secrets or webhook state. Checklists and
+files remain local to the wrapper. More than 1,000 discovered comment rows or
+768 KiB of rendered board discussion rejects capture rather than truncating it.
+
+Sixty-one Node suites pass without skips, including MongoDB and native mail
+composition. Tests cover inaccessible owners, capture-time access loss,
+retargeting, oversized input and later assignment loss against saved evidence.
+Three Chromium SMTP scenarios pass; assigned-only card comments are included,
+unassigned comments/titles are excluded, and disabling Discussion omits them.
+The source audit passes with informational warnings. Existing Upcoming
+regression evidence is retained. Stored-command operator recovery remains open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8d51ac92e">Separate link placement lifecycle from source state in rule emails</a>. Thanks to kabi178, bbyszio and xet7.</summary>
