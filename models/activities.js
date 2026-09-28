@@ -89,6 +89,10 @@ Activities.before.insert((userId, doc) => {
   if (getFeatureFlags().disableActivities) {
     return false;
   }
+  if (Meteor.isServer) {
+    const { deferSyncActivity } = require('/server/lib/syncActivityScope');
+    if (deferSyncActivity('timestamps', doc)) return;
+  }
   doc.createdAt = new Date();
   doc.modifiedAt = doc.createdAt;
 });

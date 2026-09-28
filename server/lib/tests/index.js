@@ -74,3 +74,5 @@ import './filenameTruncation.tests';
 import './boardTriggersClass.tests';
 
 import './syncHookedCards.tests';
+
+import './syncHookedActivities.tests';

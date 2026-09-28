@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+const { deferSyncActivity } = require('/server/lib/syncActivityScope');
 import { ReactiveCache } from '/imports/reactiveCache';
 import { findWhere, where } from '/imports/lib/collectionHelpers';
 import Activities from '/models/activities';
@@ -31,6 +32,7 @@ function getActivityUserName(user, fallback = '') {
 }
 
 Activities.after.insert(async (userId, doc) => {
+  if (deferSyncActivity('rules', doc)) return;
   const activity = Activities._transform(doc);
   try {
     await RulesHelper.executeRules(activity);
@@ -60,6 +62,7 @@ Meteor.startup(async () => {
 });
 
 Activities.after.insert(async (userId, doc) => {
+  if (deferSyncActivity('notifications', doc)) return;
   // Admin Panel / Features / Notifications (#5820): never send watch
   // notifications when disabled. Activity recording (if enabled) is unaffected.
   if (getFeatureFlags().disableNotifications) {
