@@ -364,9 +364,15 @@ records aggregate completion only after the ordered actions. Checkpoints bind
 the complete plan checksum; missing-action/empty selections retain explicit
 no-op receipts. Lost replies reconcile by readback, and missing predecessors
 or corrupted receipts stop replay. Fifteen Node/MongoDB cases pass, including
-a fresh-connection resume after interruption. Command preparation, durable
-mutation adapters, production storage and manual/cron wiring remain unfinished;
-ordinary performAction cannot satisfy this adapter contract.
+a fresh-connection resume after interruption. The server entry point now binds
+actual saved selection and private indexed receipt storage to the same live
+activity, policy and access guard, including completed receipt reads. One
+full-app case verifies adapter rejection, persisted acknowledgement and replay;
+two Chromium cases deny member/admin access to twelve private collections.
+Command preparation, durable mutation adapters and manual/cron wiring remain
+unfinished; ordinary performAction cannot satisfy this adapter contract.
+Moving the source card also needs explicit before/after scope handling before
+a movement adapter can use the current guard.
 Private operation, step and completion collections are now registered with
 server-only adapters, denied browser writes, recovery indexes and no TTL.
 The stored-operation entry point holds the list lease and requires fresh access
@@ -1364,6 +1370,24 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/230225952">Bind saved Sync rule execution to private receipts and live scope guards</a>. Thanks to xet7.</summary>
+
+Add an internal server entry point using actual saved rule selection and a
+private indexed receipt collection without TTL. Share exact activity, policy,
+actor and board/list/card access checks between capture and execution, including
+completed receipt reads. Require explicit adapters for pending actions and
+permit saved empty selections to complete without action dispatch.
+
+Fifteen Node/MongoDB cases, one full-app case and two Chromium cases pass.
+Coverage includes unsupported adapters, false acknowledgements, stored replay,
+revoked access and denied member/admin writes to twelve private collections.
+The source audit completes with advisory warnings. The full-app action adapter
+is scripted; durable card mutations, movement scope transitions and manual/cron
+activation remain unfinished.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d668d2b41">Coordinate saved rule execution with ordered durable checkpoints</a>. Thanks to xet7.</summary>
