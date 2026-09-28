@@ -565,3 +565,27 @@ Durable rules, shared History-chain coordination, job activation and lifecycle
 remain prerequisites. The current tests exercise the coordinator and binding
 with scripted adapters; they do not claim end-to-end rule execution or external
 webhook delivery.
+
+### Stored rule selection plans (internal)
+
+`server/lib/syncRulePlan.js` prepares and persists an immutable rule selection
+for one saved activity/effect identity. It freezes the ordered rule documents
+before awaiting action reads and saves each action definition or an explicit
+null for an absent action. Duplicate matches remain separate invocations with
+ordinal receipt identities, matching ordinary rule iteration. An empty result
+is persisted too, so later rules cannot silently join a resumed operation.
+
+The plan binds the exact activity hash, actor, board, card and effect ID. Its
+checksum, shape, rule ownership and action references are validated on replay.
+Preparation is bounded to 1,000 invocations and 14 MiB, with incremental size
+checks; it does not repeatedly serialize an ever-growing complete plan. Lost
+insert replies are reconciled by readback, and simultaneous first builders
+reuse whichever valid plan was actually stored.
+
+This is selection/configuration storage, not action execution. Cross-board
+action definitions retain their destination so a future executor can validate
+access there. Target resolution, substituted variables, relative dates, live
+rule/action permission checks and durable per-action mutation receipts still
+need implementation. No external side effect is performed by this module, and
+it is not wired to ordinary rules or manual/cron Sync. Do not acknowledge the
+rules stage merely because its selection plan was stored.
