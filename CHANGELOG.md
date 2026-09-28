@@ -429,9 +429,20 @@ wire payload without HTTP, comment writes or echo locks. The ordinary method
 uses the same preparer. Parameters, endpoint/token and rendering language stay
 fixed across asynchronous language loading. Seven focused Node suites pass,
 including actual method execution with stubbed network/cache dependencies.
-Persistent webhook plans, delivery receipts, retries, fresh replay authorization
-and saved Sync integration remain unfinished; no live HTTP or browser run was
-performed for this internal preparation change.
+An internal webhook-plan component now persists bounded integration/request
+snapshots with activity and configuration hashes. First-writer snapshots survive
+restarts without rebuilding targets or content. Immutable per-target receipts
+are read back after writes; replay skips confirmed deliveries and refuses
+corrupt evidence. Stable delivery IDs survive ambiguous HTTP acceptance or a
+failed receipt write. This is at-least-once delivery, not exactly once.
+Actual preparation shares ordinary board/global activity selection and rendered
+payloads, including suppressed targets and both webhook modes. Eight Node suites
+pass with real MongoDB; an expanded six-case storage suite and two full-app
+Meteor preparation cases pass again after the final changes. Network delivery
+is injected in these tests; no external HTTP or browser run was performed.
+Production private collection registration, live integration/actor replay
+adapters, HTTP and bidirectional-response acknowledgement, scheduled retries,
+retention/operator controls and saved Sync integration remain unfinished.
 Email notifications now use a private event/recipient outbox with persisted
 content and due times, automatic retry backoff and renewable recipient leases.
 Startup discovers pending work; legacy profile buffers migrate before removal.
@@ -1106,6 +1117,37 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7747aa0a2">Persist captured Sync webhook plans and delivery receipts</a>. Thanks to xet7.</summary>
+
+Add an internal bounded plan store with activity/configuration hashes,
+first-writer snapshot selection and exact readback after uncertain writes.
+Share ordinary board/global activity matching and rendered webhook preparation.
+Retain suppressed targets and reject duplicate, foreign, disabled, oversized
+or malformed targets before dispatch. Bind prepared endpoints, tokens and
+webhook modes to the captured integrations.
+
+The executor checks ownership and target access through required adapters,
+requires an exact delivery acknowledgement and persists immutable receipts.
+Replay skips confirmed deliveries and checks all saved receipts for corruption
+before sending. Stable delivery IDs let receivers deduplicate retries when
+HTTP acceptance or receipt storage acknowledgement is lost. Delivery remains
+at least once; the HTTP adapter must enforce current SSRF checks and complete
+any bidirectional response effects before acknowledging.
+
+Eight focused Node suites pass with actual MongoDB. The expanded six-case
+storage suite additionally verifies accepted delivery followed by failed
+receipt persistence. Two full-app Meteor tests pass with the final code,
+covering actual webhook and notification preparation. Source audit passes with
+informational fingerprint warnings. HTTP delivery is injected in storage tests;
+no external HTTP or browser tests were run for this internal component.
+
+Production collections, live replay adapters, HTTP/response recovery,
+scheduling, operator controls and activation in manual/cron Sync remain in
+TODO Later. No new automatic webhook sender is enabled by this change.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/71488fa68">Separate captured webhook preparation from HTTP delivery</a>. Thanks to xet7.</summary>
