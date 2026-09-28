@@ -58,9 +58,11 @@ https://wekan.fi/status/
 <details>
 <summary>Carried to a future release.</summary>
 
-All non-translation work in this section is being resumed, starting with Scrum
-and Sync. Completed increments are recorded in Upcoming with test evidence;
-the remaining requirements and external verification blockers stay here.
+All implementation work in this section is paused at the maintainer's request
+on 2026-09-28. Scrum, Sync and the other non-translation requirements below are
+unfinished, not cancelled or marked complete. Completed increments are recorded
+in Upcoming with test evidence; remaining requirements and external verification
+blockers stay here. Resume only when requested.
 Do not add translation into all languages to the current work queue, including
 after the non-translation work. The maintainer is trying Transifex's translation
 features and intends to obtain most translations from Transifex. Existing
@@ -81,6 +83,32 @@ Checked against GitHub on 2026-07-28 and removed as no longer open: issues
 \#3138, \#3252, \#3276, \#3378, \#3748, \#3828, \#4055, \#4774, \#5149 and
 \#6511. The "already correct in the current code" category went with them - it
 held only issues \#4774 and \#4055, and both are closed now.
+
+</details>
+
+<details>
+<summary>Paused implementation checkpoint: Scrum, Sync and rule email recovery.</summary>
+
+The most recent completed increment confirms independently verified SMTP
+acceptance offline, retaining an immutable operator decision before reconciling
+the exact receipt. It does not send or reset email. Sixty-three focused Node
+suites pass without skips, including the real MongoDB command-line workflow.
+The card-content email audit, linked-board discussion, link-placement metadata
+and timer ownership work already have Upcoming entries and regression evidence.
+
+Still unfinished for [#2713](https://github.com/wekan/wekan/issues/2713): legacy
+unbound commands and obsolete Details snapshots, partial or unknown SMTP
+acceptance, and online operator resolution. The offline confirmation tool only
+handles independently verified acceptance by every recipient. Keep all writers
+stopped while using it; its flags do not detect running remote processes.
+
+Scrum/Sync still needs cross-document coordination of cards, History, activities
+and effects; compound archive reservations; interrupted/deleted-record replay;
+remaining action/provider adapters; and safe manual/cron activation. Existing
+implementation and test checkpoints below remain authoritative. Other open
+non-translation categories also remain paused; this checkpoint does not close
+those issues or treat external verification as complete. Translation into all
+languages remains outside the work queue.
 
 </details>
 
@@ -1292,7 +1320,8 @@ visible Scrum card fields are included with same-board name resolution and
 persisted visibility checks. The
 [content audit](docs/DeveloperDocs/Card-Email-Content-Audit.md) now tracks
 all 71 top-level card fields. Target-board discussion now checks each owner
-card and retains source evidence; stored-command recovery remains open.
+card and retains source evidence. Offline full-acceptance confirmation is now
+implemented; other stored-command recovery remains open.
 Target archive/time state and active
 member names are now included, along with local recurrence. Linked-board
 wrapper content now uses local field and related-source policies. Local
@@ -1493,8 +1522,9 @@ now agree, and
 completed work uses the current source total. Local placement,
 timers and visible Scrum now have a separate section. Moved-card SMTP passes
 for filesystem and
-GridFS with all three choices. Legacy stored-command recovery also
-remains. Creator/stickers and checklist/comment metadata gaps are now fixed.
+GridFS with all three choices. Offline full-acceptance confirmation is now
+implemented; legacy commands and partial/unknown acceptance still need recovery.
+Creator/stickers and checklist/comment metadata gaps are now fixed.
 Canonical and legacy Gantt targets now use grouped, authorized titles.).
 
 </details>
@@ -1573,6 +1603,8 @@ daily observations and displays their measured scope and remaining work in
 Sprint Report, with scoped Excel/PDF downloads. Native board transfer and
 duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
+**Rule emails** include authorized card content and support offline confirmation
+of independently verified delivery acceptance.
 
 This release improves security diagnostics:
 
@@ -5692,6 +5724,34 @@ includes overlapping IDs, scoped archival, credential replacement, legacy
 adoption, unknown sources, reconnects, malformed URLs and board permissions.
 The local release audit passes. Live providers, FerretDB and other browsers
 were not tested. Update the Sync guide, Scrum design and resumption checkpoint.
+
+</details>
+
+and adds the following operator recovery tool:
+
+**Stored rule email** - reconcile verified acceptance without sending again.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6bf4ac0f2">Confirm accepted rule email offline without resending</a>. Thanks to xet7.</summary>
+
+After all application and delivery workers are stopped, a maintainer can confirm
+an exact attempt using independent SMTP evidence for every recipient. Persist an
+immutable operator decision before changing the receipt, verify both readbacks,
+and resume interrupted confirmation with identical arguments. Never reset mail,
+rewrite its content or send again. Conflicting decisions and changed attempts
+fail closed. The confirmation timestamp is not an inferred SMTP acceptance time.
+
+Sixty-three focused Node suites pass without skips, including MongoDB, native
+mail composition and an actual CLI subprocess. Positive and negative cases cover
+idempotence, interruption, lost acknowledgements, damaged records, conflicting
+evidence, unchanged commands and retained source-access guards. Seven focused
+recovery/dispatch/report suites also pass. This increment adds no browser
+action; the existing report UI guard passes. The source audit passes with advisory
+fingerprint warnings. Existing Upcoming regression evidence is retained.
+
+Document the existing Admin Panel report and the offline recovery procedure.
+Legacy unbound commands, obsolete Details snapshots, partial/unknown acceptance
+and online resolution remain in TODO Later. Manual/cron Sync is not activated.
 
 </details>
 
