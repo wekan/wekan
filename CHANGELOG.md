@@ -568,6 +568,14 @@ full-app Meteor scheduler test and one Chromium Recovery replay/authorization
 scenario pass. Local MongoDB tests cover uncertain writes, changed states,
 keyset batches, concurrent sweeps and independent collection failures.
 Coordinating activity creation with queue insertion remains pending.
+An internal write-ahead intent primitive now confirms immutable storage before
+allowing an activity insertion, reconciles uncertain replies and requires an
+exact activity snapshot on recovery. Only the creating call may insert a
+missing activity; later orphan retries cannot resurrect deleted records.
+Four real MongoDB fault/concurrency tests pass. Activity-hook activation,
+private collection lifecycle, saved recipient plans, startup recovery and
+operator resolution remain open; ordinary notifications still have the
+post-insert crash gap.
 History field snapshots now preserve nested dates, including date-valued
 custom fields alongside mapped estimates. JSON transport and restoration retain
 Date types without interpreting date-looking text. Existing rows whose dates
@@ -1208,6 +1216,27 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/081c22010">Prepare durable activity notification intents before activity writes</a>. Thanks to xet7.</summary>
+
+Add an internal write-ahead storage component with immutable activity
+snapshots, hashed identities and per-call insertion ownership. Verify intent
+persistence before writing the activity and reconcile uncertain write replies
+from exact stored values. Reject conflicting IDs, damaged snapshots, lost
+guards and invalid or oversized input.
+
+Recovery requires the original activity to remain unchanged. Missing rows
+are unresolved orphans, not permission to recreate a cancelled or deleted
+activity. Returning an intent does not acknowledge any notification delivery.
+
+Four real MongoDB tests pass, covering write order, lost replies, concurrent
+writers, orphan retries and invalid state. This is not activated in Meteor
+activity hooks and has no UI change. Private collections, recipient plans,
+startup scanning, operator handling and retention remain to be integrated.
+The ordinary activity-to-notification crash gap therefore remains open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/765e2c305">Compact completed email metadata without reopening old deliveries</a>. Thanks to xet7.</summary>
