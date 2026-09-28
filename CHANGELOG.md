@@ -1597,16 +1597,52 @@ the Markdown commit as the template.
 # Upcoming WeKan ® release
 
 
-**In short:** **Sync** keeps source projects separate and coordinates concurrent
-runs and settings changes, including private credentials. **Scrum** records
-daily observations and displays their measured scope and remaining work in
-Sprint Report, with scoped Excel/PDF downloads. Native board transfer and
-duplication preserve daily history too. **API diagnostics** omit request
-secrets, and reviewed **translations** regain their target-language meaning.
-**Rule emails** include authorized card content and support offline confirmation
-of independently verified delivery acceptance.
+**In short:** **Security** protects admin-only custom-field values across server
+reads, writes and exports. **SAML login** accepts valid responses and displays
+failures. **Sync** separates source projects and coordinates concurrent runs and
+settings changes. **Scrum** records daily observations, reports measured scope
+and remaining work, and preserves history in transfers and scoped exports.
+**API diagnostics** omit request secrets. **Rule emails** include authorized
+card content and support offline confirmation of independently verified
+acceptance.
+Reviewed **translations** regain their target-language meaning.
 
-This release improves security diagnostics:
+This release fixes the following CRITICAL SECURITY ISSUE of
+[AdminFieldBleed](https://wekan.fi/hall-of-fame/adminfieldbleed/):
+
+**Admin-only fields** - enforce the value boundary on the server.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/89a65ee7c">Protect admin-only custom-field reads, writes and exports</a>. Thanks to Hama1cco and xet7.</summary>
+
+Fix GHSA-m8gh-2h78-f57x, CWE-863. Non-admin board members could read raw
+protected values and bypass the indexed-value guard through card creation,
+copying and whole-array updates. Apply shared server projection to publications,
+REST and method results, nested History and analytics. Keep IDs and array
+positions, redact values and guessing-prone History hashes, and constrain value
+queries. Live card subscriptions react to protection and admin-access changes;
+value-search subscriptions are retracted and must be requested again.
+
+Check complete before/after values for request-attributed writes, preserve
+public edits and omit unreadable values from ordinary copies. Protected shared
+definitions require administration of every affected board. Until binary and
+streaming exports support equivalent projection, boards with protected fields
+require board-admin export access; orphan values also fail closed. Summarize
+explicit mutation attempts under AdminFieldBleed in Admin Panel / Problems,
+without recording values or treating ordinary reads/export refusals as attacks.
+
+All 116 focused Node suites pass, including positive, negative and source-wide
+boundary tests. Chromium covers REST and eager/lazy DDP reads, live permission
+changes, eight forged-write shapes, public/admin edits, ordinary copying,
+History/value searches and the Problems summary. Existing comment-protection
+browser checks pass. The source audit passes with advisory fingerprints.
+Existing Upcoming regression evidence remains recorded. Production, FerretDB
+and other browsers were not tested. See the
+[boundary review and compatibility limits](docs/Security/Admin-Only-Custom-Fields-2026-09-28.md).
+
+</details>
+
+and improves security diagnostics:
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/551325408">Include authorized target-board comments in linked-board rule emails</a>. Thanks to kabi178, bbyszio and xet7.</summary>
@@ -5727,6 +5763,29 @@ were not tested. Update the Sync guide, Scrum design and resumption checkpoint.
 
 </details>
 
+and fixes SAML sign-in:
+
+**SAML** - complete valid logins and make rejected responses understandable.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3578e3ef8">Accept node-saml response IDs and display popup failures</a>. Thanks to xet7.</summary>
+
+Read the validated string property `profile.inResponseTo` instead of calling
+an accessor node-saml does not provide. Retain request correlation, missing-ID
+rejection and single-use replay protection. Read ACS errors before closing the
+popup, skip the nonexistent credential exchange and display the error as text
+on the sign-in page. Clear it before a retry.
+
+Five SAML Node suites pass. Chromium tests verify a real signed popup response
+establishes a Meteor session, a bad signature returns the actual ACS error,
+and the sign-in form safely displays and clears failures. The wider 116-suite
+regression run passes. Document username mapping, conditional account linking
+and provider/certificate checks. The reported remote IdP and deployment settings
+were not changed or tested; local fixtures do not verify those settings.
+Existing Upcoming regression evidence remains recorded.
+
+</details>
+
 and adds the following operator recovery tool:
 
 **Stored rule email** - reconcile verified acceptance without sending again.
@@ -5746,8 +5805,9 @@ mail composition and an actual CLI subprocess. Positive and negative cases cover
 idempotence, interruption, lost acknowledgements, damaged records, conflicting
 evidence, unchanged commands and retained source-access guards. Seven focused
 recovery/dispatch/report suites also pass. This increment adds no browser
-action; the existing report UI guard passes. The source audit passes with advisory
-fingerprint warnings. Existing Upcoming regression evidence is retained.
+action; the existing report UI guard passes. The source audit passes with
+advisory fingerprint warnings. Existing Upcoming regression evidence is
+retained.
 
 Document the existing Admin Panel report and the offline recovery procedure.
 Legacy unbound commands, obsolete Details snapshots, partial/unknown acceptance
