@@ -445,7 +445,7 @@ bidirectional reply effects. Replay reuses the stored response without another
 network request. It binds evidence to the full request/target/activity, checks
 live guards around each stage, confirms uncertain writes by readback and
 refuses corrupt or mismatched evidence. Production transport is fixed to
-fetchSafe with DNS/IP checks, redirects disabled, a 30-second inactivity limit
+fetchSafe with DNS/IP checks, redirects disabled, a 30-second total deadline
 and a 2 MiB response limit. Bidirectional effects still require a separate
 durable acknowledgement callback. Eleven Node suites pass with actual MongoDB;
 two full-app Meteor cases pass, including actual private-IP denial and stored
@@ -488,8 +488,16 @@ private-IP rejection. Production replay applies an accepted stored reply once
 and preserves a later human edit; revoked accounts/membership/assignments,
 changed tokens and restricted comment edits stop. Successful external HTTP was
 not exercised, and no new browser test was run for this internal entry point.
-Recovery startup, absolute HTTP deadlines, scheduled retries, retention/operator
-controls and activation in saved manual/cron Sync remain unfinished.
+Both ordinary and stored webhooks now have a 30-second total HTTP deadline
+covering DNS, connection and the complete response body. Deadline expiry closes
+active request/response streams; late DNS completion cannot start a connection.
+Optional redirect users share one budget across hops. Thirteen focused Node
+suites pass, including real local sockets held before headers or fed continuous
+body chunks; two Meteor cases pass. The expanded deadline suites pass again
+with late-response cleanup after transport failure. Existing LDAP/CAS group and
+SAML replay tests now name their Hall of Fame entries, restoring the coverage
+inventory check. Recovery startup, scheduled retries and retention/operator
+controls, along with activation in saved manual/cron Sync remain unfinished.
 Email notifications now use a private event/recipient outbox with persisted
 content and due times, automatic retry backoff and renewable recipient leases.
 Startup discovers pending work; legacy profile buffers migrate before removal.
@@ -1164,6 +1172,41 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4ad72c970">Enforce total webhook deadlines with active cancellation</a>. Thanks to xet7.</summary>
+
+Limit both ordinary and stored outgoing webhooks to 30 seconds for DNS,
+connection and complete response-body consumption together. Keep the existing
+inactivity timeout as an additional bound. A continuously arriving response
+can no longer extend the request indefinitely. Close active request/response
+streams on expiry, ignore late DNS results before dialing and destroy late
+responses after a timeout or transport failure. Dispose timers after completion.
+
+Other fetchSafe callers can opt into the same total budget; redirects share it
+across all hops. DNS resolution may finish in the system resolver afterward,
+but cannot open a connection once the operation has timed out. Existing DNS/IP,
+certificate and redirect checks remain enforced.
+
+Thirteen focused Node suites pass with local HTTP/MongoDB fixtures. Real sockets
+close while waiting for headers and while response chunks arrive continuously.
+Coverage also checks late DNS/headers, shared redirect budgets, invalid limits,
+normal failure cleanup and successful timer disposal. Two full-app Meteor
+webhook cases pass. The expanded deadline suites pass again after the final
+late-response cleanup test. Source audit passes with informational fingerprint
+warnings. No new browser test was run for this server transport change.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/116f292be">Link existing authentication regressions to Hall of Fame names</a>. Thanks to xet7.</summary>
+
+Name DirectoryGroupBleed in the existing LDAP bind-mode and CAS literal-group
+boundary suites, and SamlReplayBleed in the signed-response replay suite.
+Their assertions and the published-vulnerability coverage check all pass.
+This repairs test discovery metadata; authentication behavior is unchanged.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/9df7ac572">Connect stored webhook delivery to live replay permissions</a>. Thanks to xet7.</summary>
