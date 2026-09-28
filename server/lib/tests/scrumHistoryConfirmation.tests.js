@@ -14,9 +14,9 @@ const { historyDocument } = require('/models/lib/scrumHistory');
 
 describe('Scrum History write confirmation', function () {
   this.timeout(15000);
-  it('retains recovery after false acknowledgements or raced card moves and resumes verified writes', async function () {
+  it('preflights the complete batch and retains recovery after false replies or raced moves', async function () {
     if (!Meteor.isAppTest) this.skip();
-    const userId = Random.id(), boardId = Random.id(), cardId = Random.id(), listId = Random.id(), swimlaneId = Random.id();
+    const userId = Random.id(), boardId = Random.id(), cardId = Random.id(), secondId = Random.id(), listId = Random.id(), swimlaneId = Random.id();
     const originalUpdate = Cards.updateAsync;
     const actor = fn => DDP._CurrentMethodInvocation.withValue({ userId, isSimulation: false }, fn);
     try {
@@ -27,9 +27,11 @@ describe('Scrum History write confirmation', function () {
       await Swimlanes.rawCollection().insertOne({ _id: swimlaneId, boardId, title: 'Lane', type: 'swimlane', archived: false, sort: 0 });
       const card = { _id: cardId, boardId, listId, swimlaneId, title: 'Card', archived: false,
         sort: 0, scrum: { issueType: 'Story' }, scrumRevision: 1 };
-      await Cards.rawCollection().insertOne(card);
-      const previousContent = { records: [{ type: 'card', id: cardId, document: historyDocument('card', { ...card, scrum: {} }) }] };
-      const newContent = { records: [{ type: 'card', id: cardId, document: historyDocument('card', card) }] };
+      const cards = [card, { ...card, _id: secondId, title: 'Second card' }];
+      await Cards.rawCollection().insertMany(cards);
+      const previousContent = { records: cards.map(item => ({ type: 'card', id: item._id,
+        document: historyDocument('card', { ...item, scrum: {} }) })) };
+      const newContent = { records: cards.map(item => ({ type: 'card', id: item._id, document: historyDocument('card', item) })) };
       const id = await ChangeHistory.record({ boardId, cardId, listId, swimlaneId, userId,
         entityType: 'scrum', entityId: cardId, group: 'scrum', changeType: 'edited', previousContent, newContent });
       const row = await ChangeHistory.findOneAsync(id);
@@ -62,7 +64,19 @@ describe('Scrum History write confirmation', function () {
       // Restore only the isolated test fixture to permit the original retry.
       await Cards.rawCollection().updateOne({ _id: cardId }, { $set: { boardId } });
       Cards.updateAsync = originalUpdate;
+      // The second target already conflicts on retry. Do not apply the first
+      // target before discovering it, even though that first write is valid.
+      await Cards.rawCollection().updateOne({ _id: secondId }, { $inc: { scrumRevision: 1 } });
+      await assert.rejects(actor(() => applyScrumHistory(row, previousContent, 'undo')), /scrum-conflict/);
+      const untouched = await Cards.findOneAsync(cardId);
+      assert.equal(untouched.scrum.issueType, 'Story'); assert.equal(untouched.scrumRevision, 1);
+      assert.equal((await ScrumHistoryPending.findOneAsync(boardId)).operationId, journal.operationId);
+      assert.equal(await ChangeHistory.find({ boardId, restoredFromId: id }).countAsync(), 0);
+      // Reset only the isolated fixture, then prove valid recovery still works.
+      await Cards.rawCollection().updateOne({ _id: secondId }, { $set: { scrumRevision: 1 } });
       await actor(() => applyScrumHistory(row, previousContent, 'undo'));
+      assert.deepEqual((await Cards.findOneAsync(secondId)).scrum, {});
+      assert.equal((await Cards.findOneAsync(secondId)).scrumRevision, 2);
       assert.deepEqual((await Cards.findOneAsync(cardId)).scrum, {});
       assert.equal((await Cards.findOneAsync(cardId)).scrumRevision, 2);
       assert.equal((await ChangeHistory.findOneAsync(id)).undone, true);
@@ -74,7 +88,7 @@ describe('Scrum History write confirmation', function () {
       await ScrumHistoryPending.rawCollection().deleteMany({ _id: boardId });
       await ChangeHistory.rawCollection().deleteMany({ boardId });
       await HistoryWriterGates.rawCollection().deleteMany({ boardId });
-      await Cards.rawCollection().deleteMany({ _id: cardId });
+      await Cards.rawCollection().deleteMany({ _id: { $in: [cardId, secondId] } });
       await Lists.rawCollection().deleteMany({ boardId });
       await Swimlanes.rawCollection().deleteMany({ boardId });
       await Boards.rawCollection().deleteMany({ _id: boardId });

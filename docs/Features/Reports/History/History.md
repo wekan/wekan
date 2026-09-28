@@ -723,3 +723,23 @@ not evidence of an attack; it does not create a security-attempt log entry.
 Permissions stored in other documents and fields added by writers outside the
 revision protocol still require shared operation-level coordination. These
 predicates do not provide a multi-document transaction.
+
+### Preflight before resuming a compound restoration
+
+Before writing another target, Scrum recovery inspects every target in the
+saved batch under checkpoint/source checks. Each must be either still at its
+captured before-values and revision or already at the exact expected result.
+Mixed pending/applied batches remain resumable. A later target with conflicting
+values, an unexpected revision, a missing read or mismatched identity prevents
+new entity writes even when the first target could have been restored.
+
+The full-app test retains a two-card checkpoint, changes only the second
+card's revision, and retries. The first card stays unchanged, no restoration
+event appears, and the same checkpoint survives. With the isolated fixture
+restored to its captured revisions, both writes complete normally. Existing
+false-acknowledgement and raced-placement cases remain covered.
+
+Preflight does not replace conditional writes or post-write confirmation:
+other workers may change data after the scan. Those checks still run at each
+write and before finalization. Full operation serialization and atomic
+cross-document changes remain unfinished.

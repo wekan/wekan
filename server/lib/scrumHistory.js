@@ -24,7 +24,7 @@ const collections = { board: Boards, card: Cards, list: Lists, swimlane: Swimlan
 const { recordScrumRestoreOnce } = require('./scrumHistoryRestoreWriter');
 const { finishScrumHistory, verifyScrumHistorySource } = require('./scrumHistoryFinalizer');
 const { ensureScrumHistoryOperation, assertScrumHistoryOperation } = require('./scrumHistoryOwnership');
-const { scrumHistoryWriteState, verifyScrumHistoryWrites } = require('./scrumHistoryWriteState');
+const { scrumHistoryWriteState, inspectScrumHistoryWrites, verifyScrumHistoryWrites } = require('./scrumHistoryWriteState');
 const { scrumHistoryWriteSelector } = require('./scrumHistoryWriteSelector');
 const batches = new AsyncLocalStorage();
 const conflict = () => { throw new Meteor.Error('scrum-conflict', 'Scrum data changed. Reload History before retrying.'); };
@@ -172,6 +172,13 @@ export async function applyScrumHistory(row, content, direction) {
         read: entry => collections[entry.type].findOneAsync(entry.id) }); }
       catch (error) { conflict(); }
     };
+    // Refuse already-visible conflicts anywhere in the saved batch before
+    // advancing its first unfinished write. Per-write guards remain necessary
+    // because this read-only preflight is not an atomic database snapshot.
+    try { await inspectScrumHistoryWrites({ targets, before: journal.before.records,
+      revisions: journal.revisions, assertCurrent,
+      read: entry => collections[entry.type].findOneAsync(entry.id) }); }
+    catch (error) { conflict(); }
     await withoutRecording(async () => {
       for (let index = 0; index < targets.length; index += 1) {
         await assertCurrent();

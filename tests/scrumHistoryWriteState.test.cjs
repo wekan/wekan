@@ -56,3 +56,17 @@ test('batch readback retains failures and checks ownership after reads', async (
   const h = verification(); h.options.before[1].id = 'other';
   await assert.rejects(verify(h.options), /conflict/);
 });
+test('read-only preflight accepts mixed pending/applied steps and rejects later conflicts before writes', async () => {
+  const { inspectScrumHistoryWrites: inspect } = require('../server/lib/scrumHistoryWriteState');
+  const f = verification();
+  f.rows[0].scrum = {}; f.rows[0].scrumRevision = 1;
+  assert.deepEqual(await inspect(f.options), ['pending', 'applied']);
+  f.rows[1].scrumRevision = 3;
+  let applied = false;
+  await assert.rejects((async () => {
+    await inspect(f.options); applied = true;
+  })(), /conflict/);
+  assert.equal(applied, false);
+  assert.equal(f.rows[0].scrumRevision, 1);
+  assert.deepEqual(f.rows[0].scrum, {});
+});

@@ -21,19 +21,24 @@ function scrumHistoryWriteState({ type, current, before, after, revision }) {
       (current && !Number.isSafeInteger(revision + 1))) fail();
   return 'pending';
 }
-async function verifyScrumHistoryWrites({ targets, before, revisions, read, assertCurrent }) {
+async function inspectScrumHistoryWrites({ targets, before, revisions, read, assertCurrent }) {
   if (!Array.isArray(targets) || !Array.isArray(before) || !Array.isArray(revisions) ||
       targets.length !== before.length || targets.length !== revisions.length ||
       typeof read !== 'function' || typeof assertCurrent !== 'function') fail();
+  const states = [];
   for (let index = 0; index < targets.length; index++) {
     const target = targets[index], previous = before[index];
     if (!target || !previous || target.type !== previous.type || target.id !== previous.id) fail();
     await assertCurrent();
     const current = await read(target);
     await assertCurrent();
-    if (scrumHistoryWriteState({ type: target.type, current, before: previous.document,
-      after: target.document, revision: revisions[index] }) !== 'applied') fail();
+    states.push(scrumHistoryWriteState({ type: target.type, current, before: previous.document,
+      after: target.document, revision: revisions[index] }));
   }
   await assertCurrent();
+  return states;
 }
-module.exports = { scrumHistoryWriteState, verifyScrumHistoryWrites };
+async function verifyScrumHistoryWrites(options) {
+  if ((await inspectScrumHistoryWrites(options)).some(state => state !== 'applied')) fail();
+}
+module.exports = { scrumHistoryWriteState, inspectScrumHistoryWrites, verifyScrumHistoryWrites };
