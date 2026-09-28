@@ -798,3 +798,16 @@ The owner must supply hook-preserving card access, a live lease/access guard,
 and durable effect preparation/delivery. MongoDB tests use raw collections to
 exercise conditional persistence only; they do not prove ordinary Meteor hook
 integration. Production binding and History/activity plans remain pending.
+
+`server/lib/syncRuleArchiveCards.js` binds the executor to the real Cards
+collection. Only the validated command's exact selectors and archive modifiers
+are accepted. Writes use the saved actor and ordinary schema/business hooks;
+only the owning card's archive activity and History recording are deferred.
+Unrelated hooks and later ordinary edits keep their normal recording, including
+after a failed or interrupted write.
+
+Full-app Meteor coverage exercises a parent/child archive with real schema
+and hooks, interrupts the child effect callback, resumes the parent and then
+checks ordinary restore activity/History recording. The test uses controlled
+effect callbacks; saved effect plans and production rule-stage activation are
+still required before this adapter can be enabled in ordinary Sync execution.

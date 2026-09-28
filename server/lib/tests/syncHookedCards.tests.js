@@ -64,3 +64,63 @@ describe('Sync hooked card adapter', function () {
     }
   });
 });
+
+const { prepareRulePlan } = require('/server/lib/syncRulePlan');
+const { ensureRuleArchiveCommand } = require('/server/lib/syncRuleArchiveCommand');
+const { applyRuleArchiveCommand } = require('/server/lib/syncRuleArchiveApply');
+const { createRuleArchiveCards } = require('/server/lib/syncRuleArchiveCards');
+describe('Stored archive hooked card adapter', function () {
+  this.timeout(30000);
+  it('archives a saved cascade through Cards and restores ordinary recording after interruption', async function () {
+    if (!Meteor.isAppTest) this.skip();
+    const userId = Random.id(), boardId = Random.id(), listId = Random.id(), swimlaneId = Random.id();
+    const root = Random.id(), child = Random.id(), ids = [root, child];
+    const withActor = (actor, fn) => DDP._CurrentMethodInvocation.withValue({ userId: actor, isSimulation: false }, fn);
+    try {
+      await Meteor.users.rawCollection().insertOne({ _id: userId, username: `archive-${userId}`, profile: {} });
+      await Boards.rawCollection().insertOne({ _id: boardId, title: 'Archive test', permission: 'private',
+        members: [{ userId, isAdmin: true, isActive: true }], archived: false });
+      await Lists.rawCollection().insertOne({ _id: listId, boardId, swimlaneId, title: 'List', archived: false, sort: 0 });
+      await Swimlanes.rawCollection().insertOne({ _id: swimlaneId, boardId, title: 'Lane', type: 'swimlane', archived: false, sort: 0 });
+      for (const _id of ids) await Cards.rawCollection().insertOne({ _id, boardId, listId, swimlaneId,
+        title: _id, archived: false, sort: 0, ...(_id === child ? { parentId: root } : {}) });
+      const f = { activity: { _id: Random.id(), boardId, cardId: root, userId }, effectId: 'c'.repeat(64), index: 0,
+        assertCurrent: async () => {}, assertCard: async () => {}, withActor };
+      f.plan = await prepareRulePlan({ ...f,
+        selectRules: async () => [{ _id: 'rule', boardId, triggerId: 'trigger', actionId: 'action' }],
+        readAction: async () => ({ _id: 'action', actionType: 'archive' }) });
+      let saved;
+      f.command = await ensureRuleArchiveCommand({ ...f, commands: { findOne: async () => saved,
+        insertOne: async row => { saved = row; } }, readCard: id => Cards.findOneAsync(id, { transform: null }),
+        readChildren: parentId => Cards.find({ parentId }, { transform: null }).fetchAsync(), now: () => new Date(1000) });
+      f.cards = createRuleArchiveCards({ ...f, cards: Cards });
+      const receipts = new Map();
+      f.receipts = { findOne: async ({ _id }) => receipts.get(_id), insertOne: async row => { receipts.set(row._id, row); } };
+      f.preflightEffects = async () => {};
+      f.completeEffects = async () => { throw Error('interrupted effects'); };
+      await assert.rejects(applyRuleArchiveCommand(f), /interrupted effects/);
+      assert.equal((await Cards.findOneAsync(child)).archived, true);
+      assert.equal((await Cards.findOneAsync(root)).archived, false);
+      assert.equal(await Activities.find({ cardId: { $in: ids } }).countAsync(), 0);
+      assert.equal(await ChangeHistory.find({ cardId: { $in: ids } }).countAsync(), 0);
+      const delivered = [];
+      f.completeEffects = async ({ unit }) => { delivered.push(unit.cardId); return unit.effectId; };
+      await applyRuleArchiveCommand(f);
+      assert.deepEqual(delivered, [child, root]);
+      for (const id of ids) {
+        const card = await Cards.findOneAsync(id);
+        assert.equal(card.archived, true); assert.equal(card.archivedAt.getTime(), 1000);
+        assert.ok(card.dateLastActivity instanceof Date);
+      }
+      await assert.rejects(f.cards.updateOne({ _id: root }, { $set: { title: 'outside command' } }), /cards-invalid/);
+      await withActor(userId, () => Cards.updateAsync(root, { $set: { archived: false } }));
+      assert.equal(await Activities.find({ cardId: root, activityType: 'restoredCard' }).countAsync(), 1);
+      assert.equal(await ChangeHistory.find({ cardId: root, group: 'lifecycle', userId }).countAsync(), 1);
+    } finally {
+      for (const collection of [Activities, ChangeHistory]) await collection.rawCollection().deleteMany({ cardId: { $in: ids } });
+      await Cards.rawCollection().deleteMany({ _id: { $in: ids } });
+      await Lists.rawCollection().deleteMany({ _id: listId }); await Swimlanes.rawCollection().deleteMany({ _id: swimlaneId });
+      await Boards.rawCollection().deleteMany({ _id: boardId }); await Meteor.users.rawCollection().deleteMany({ _id: userId });
+    }
+  });
+});
