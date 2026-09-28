@@ -1046,8 +1046,13 @@ could replace the authorized source ID before private children were copied.
 Text-only overrides now preserve source identity, with unit/DDP/Chromium and
 Problems-summary coverage. See the
 [copy boundary audit](docs/Security/Card-Copy-Boundary-2026-09-29.md).
-Assigned-only source/descendant handling, destination placement IDs, legacy
-direct Rules writes and concurrent permission changes remain to be reviewed.
+Server card copies now validate destination list/swimlane ownership before
+sort reads, number allocation or copying children. DDP/REST reject foreign,
+missing and soft-deleted containers; board-wide lists remain valid. See the
+copy boundary audit for the nontransactional limit.
+Assigned-only source/descendant handling, client-side template copy writes,
+board-copy property merging, legacy direct Rules writes and concurrent
+permission changes remain to be reviewed.
 The [archived-card heatmap](https://github.com/wekan/wekan/issues/5444) is now
 implemented under Board View → Pulse, with unit and Chromium scope coverage.
 Unfinished inventory work still includes
@@ -1625,7 +1630,8 @@ the Markdown commit as the template.
 # Upcoming WeKan ® release
 
 **In short:** **Security** blocks private-child disclosure through card copying.
-**Pulse** adds an annual archived-card contribution grid with
+Card copies also reject invalid destinations. **Pulse** adds an annual
+archived-card contribution grid with
 colored label tooltips and assigned-only counts. **Scrum History recovery**
 retains completion evidence before
 removing its checkpoint. API callers can supply request IDs to retry Scrum
@@ -1695,6 +1701,34 @@ non-translation TODO work, including keyboard recovery, shared writer
 coordination, database conformance and deployment checks, stays open.
 
 Fixes [#5444](https://github.com/wekan/wekan/issues/5444).
+
+</details>
+
+**Copy destinations** - keep new cards on valid destination containers.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c35ba4b35">Validate server card-copy destinations before reads and writes</a>. Thanks to xet7.</summary>
+
+A local regression reproduced copying into another board's list while retaining
+the requested board ID. Shared server card copying now requires an existing
+board, list and swimlane belonging to that board, with none soft-deleted. The
+DDP method validates before reading sort order; the shared copy entry point
+validates before remapping fields, allocating card numbers or copying children.
+REST returns HTTP 400 for invalid destinations.
+
+Preserve board-wide lists and archived-container board copies. Invalid or stale
+picker selections are input errors, without attack records or account blocking.
+Caller permissions still apply; validation does not make concurrent moves or
+deletions transactional, or replace checks on client-side collection writes.
+
+Three focused Node suites and nine Chromium cases pass, including DDP/REST
+negative cases without writes or counter changes, valid cross-board placement,
+ordinary copy UI, the earlier identity boundary, and rule/Scrum/list/swimlane
+copy regressions. The offline source audit passes. The
+[copy boundary audit](docs/Security/Card-Copy-Boundary-2026-09-29.md) records
+remaining assigned-only, client-template, board-property and concurrency review.
+The existing Upcoming security, archive and Scrum entries retain their recorded
+regression coverage. Other browsers and backends were not run for this change.
 
 </details>
 
