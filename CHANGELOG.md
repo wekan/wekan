@@ -1284,8 +1284,10 @@ Ordinary email rules now resolve live linked-card content across all selected
 sections and linked-board display fields with source-access rechecks. Stored
 Sync commands now persist and verify their source chain before dispatch;
 legacy unbound commands require future operator recovery. Details also
-includes persisted Flowtime/Pomodoro sessions and recurrence fields. Scrum
-and voting fields remain),
+includes persisted Flowtime/Pomodoro sessions and recurrence fields. Voting
+counts, public voter names and completed Poker results now follow disclosure
+settings, including persisted checks for stored commands. Scrum fields and
+linked-board voting remain),
 [#3195](https://github.com/wekan/wekan/issues/3195) (rule action/trigger
 values should be able to reference a custom field's value — today's action
 and trigger value inputs are plain literals; resolving a per-board custom
@@ -1454,8 +1456,9 @@ state excluded. Details now covers ordinary card metadata, custom fields,
 notes and authorized relationships. Ordinary rules now send authorized live
 linked-source content. Stored Sync commands now persist and revalidate their
 source chain; legacy unbound-command recovery remains pending. Specialized
-Timer and recurrence snapshots now have Details and SMTP coverage; Scrum and
-voting fields remain for the full-content audit.).
+Timer and recurrence snapshots now have Details and SMTP coverage. Card voting
+and completed Poker results also have disclosure checks and SMTP coverage;
+Scrum fields and linked-board voting remain for the full-content audit.).
 
 </details>
 
@@ -1535,6 +1538,25 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/952cb16a7">Include voting and Poker results in rule email details</a>. Thanks to kabi178, bbyszio and xet7.</summary>
+
+Include voting questions, deadlines and counts; show voter names only for
+public votes. Include saved Poker estimation and reveal choice counts/names
+only after Poker ends. Omit hidden sections and private account data. Recheck
+visibility after asynchronous name lookups. New source bindings capture the
+voting/Poker visibility fields so changing disclosure settings, hiding a
+section or reopening Poker stops dispatch of a captured message.
+
+Fifty-seven Node suites pass without skips, including MongoDB persistence and
+native MailComposer integration. Additional binding tests reject malformed
+visibility evidence. Three Chromium scenarios pass with local SMTP; extended
+filesystem/GridFS cases also verify public voters and reopened Poker on rerun.
+Existing Upcoming regression evidence is retained. Scrum fields, linked-board
+voting and legacy command recovery remain in TODO Later.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/94f125ac0">Include timer and recurrence state in rule email details</a>. Thanks to kabi178, bbyszio and xet7.</summary>
