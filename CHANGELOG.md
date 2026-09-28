@@ -1304,10 +1304,12 @@ labels and native date ranges now have sidebar controls, including creation,
 modification and entry into the current list. Creation and modification also
 have rolling 24-hour, 7-day, 30-day and older presets. The single text input
 now matches titles, descriptions, checklists and comments across authorized
-cards, including lazy windows. Still unfinished: matching any historical
-move within a date range, saved filter combinations and the RFC's extensible
-filter-provider interface. The current-list entry date does not answer
-arbitrary historical move queries),
+cards, including lazy windows. Recorded historical list/swimlane and incoming
+board moves now have a separate date-range picker, matching earlier events
+even after later moves. Still unfinished: previous-week and next-month due
+shortcuts, saved filter combinations and the RFC's extensible filter-provider
+interface. The shared server match publisher is a foundation for providers;
+it is not the complete client/plugin registration interface),
 [#572](https://github.com/wekan/wekan/issues/572) (label add/remove as its own
 controllable Notification Settings option - the activity feed entry it asks
 for already exists (`models/cards.js`'s `cardLabels()` hook logs
@@ -1544,6 +1546,29 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c17305c2e">Filter cards by recorded historical movement dates</a>. Thanks to neooleg and xet7.</summary>
+
+Add a separate movement-history date picker with inclusive local calendar
+bounds, open endpoints, invalid-range rejection and explicit clearing. Match
+any recorded list/swimlane or incoming board move during the interval, even
+when a card moved again later. Search current readable, non-archived cards and
+only this board's activities; missing history is not guessed and foreign
+private-board events do not become searchable through a card's new location.
+
+Extract the shared authorized, reactive ID-only publisher used by both text
+and movement filters. Keep batched joins, lazy-window coverage, permission
+rechecks and cancellation cleanup. Twenty Node suites and three Chromium
+cases pass, including a 501-card/1,001-repeat history test, exact date bounds,
+foreign/inaccessible history, invalid input, live event insertion/deletion,
+clearing and the existing text-filter permission-revocation regression.
+Source inventory warnings remain advisory. Document the scope and finish the
+historical-movement portion of [#935](https://github.com/wekan/wekan/issues/935).
+Keep remaining due-date shortcuts, saved combinations and full provider
+registration in TODO Later. Add only the English source label.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0bf2dc27b">Search all card text from the filter sidebar</a>. Thanks to neooleg and xet7.</summary>
