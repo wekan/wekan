@@ -648,3 +648,20 @@ No durable rule-email command or dispatch worker is installed by this change.
 The notification outbox is not a drop-in rule-email adapter: it groups messages
 by user and resolves the delivery address later, whereas a rule may name an
 external address and needs its captured message and recipient preserved.
+
+The internal `ensureRuleEmailCommand` storage primitive freezes fully prepared
+transport fields for one email invocation. It requires the complete validated
+rule plan and invocation index, binds the command to the plan checksum,
+activity hash, actor and board/card scope, and verifies exact stored shape and
+content checksum on every read. The first persisted recipient, sender, subject,
+text, HTML and optional Reply-To remain authoritative. Preparation must perform
+no send or mutation; it runs only when no command exists.
+
+Commands accept only those transport fields, bound header lengths and a 1 MiB
+mail payload. Header line breaks, unknown transport options, mismatched plans,
+corrupted content and unconfirmed writes are rejected. Concurrent builders and
+lost insertion replies converge through stored readback. Callers provide the
+operation lease and live access/policy guard; this primitive does not acquire
+one. It neither enqueues nor sends mail and is not a rule-completion receipt.
+Production collection registration, actual rule-variable preparation and a
+recipient-aware durable dispatch worker remain unfinished.
