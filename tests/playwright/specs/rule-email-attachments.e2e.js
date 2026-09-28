@@ -34,6 +34,8 @@ test(`email rule form and SMTP carry only live triggering-card bytes from ${back
     db.insertOne('card_comment_reactions', { _id: `${id}-reaction`, cardId: card._id, boardId: board.boardId,
       cardCommentId: `${id}-comment`, reactions: [{ reactionCodepoint: '&#128077;', userIds: ['PRIVATE-REACTOR', 'second-reactor'] }] });
     db.updateOne('cards', { _id: card._id }, { $set: { dueAt: new Date('2027-02-01'), spentTime: 0,
+      targetId_gantt: [`${id}-converted`], linkType_gantt: [0], linkId_gantt: ['PRIVATE-LINK-ID'],
+      cardDependencies: [{ cardId: `${id}-converted`, type: 'blocks' }],
       coverId: id, userId: 'missing-card-author', stickers: [{ name: 'Approved', icon: 'check', position: 0 }],
       vote: { question: 'Release vote', public: false, positive: ['PRIVATE-VOTER'], negative: [] },
       poker: { question: true, end: new Date('2020-01-01'), one: ['MISSING-POKER-VOTER'], estimation: 1 },
@@ -105,6 +107,8 @@ test(`email rule form and SMTP carry only live triggering-card bytes from ${back
       'Cover: true', 'Uploaded: 2027-01-10T00:00:00.000Z', 'Uploaded by: Unknown user']) expect(votingText).toContain(text);
     expect(votingText).not.toContain(filename);
     expect(votingText).toContain('Converted subtask: Converted item target');
+    expect(votingText).toContain('blocks / Gantt finish-to-start: Converted item target');
+    expect(votingText).not.toContain('PRIVATE-LINK-ID');
     for (const text of ['Scrum sprint: Mail sprint', 'Scrum release: Mail release',
       'Scrum acceptance criteria: Ready for review', 'Scrum backlog rank: 0']) expect(votingText).toContain(text);
     expect(votingText).not.toContain('HIDDEN-SCRUM-TYPE');
@@ -128,7 +132,7 @@ test(`email rule form and SMTP carry only live triggering-card bytes from ${back
     expect(mails()[2].data).not.toContain('Email checklist');
     expect(mails()[2].data).not.toContain('Public email comment');
     expect(mails()[2].data).not.toContain('Mail priority');
-    expect(mails()[2].data).not.toMatch(/Flowtime|Pomodoro|Recurrence|Vote question|Poker|Scrum|Sticker|Created by|Author:|Reset interval|Reactions:/);
+    expect(mails()[2].data).not.toMatch(/Flowtime|Pomodoro|Recurrence|Vote question|Poker|Scrum|Sticker|Created by|Author:|Reset interval|Reactions:|Gantt finish-to-start/);
     db.updateOne('actions', { _id: rule.actionId }, { $set: { includeChecklistsAndComments: true } });
     await call(page, 'rules.runButton', rule._id, card._id);
     await expect.poll(() => mails().length).toBe(4);

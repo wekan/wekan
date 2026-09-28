@@ -8,7 +8,7 @@ This audit compares the current email preparation code with `models/cards.js`,
 | Content | Current email behavior | Evidence / remaining work |
 | --- | --- | --- |
 | Title, description, card link | Included with configured subject/body | Rule email Chromium SMTP scenarios |
-| Placement, labels, people, dates, time, location, custom fields, notes and relationships | Details opt-in; referenced cards require read/assignment access; custom fields honor admin-only policy | `tests/ruleCardDetails.test.cjs`; SMTP tests |
+| Placement, labels, people, dates, time, location, custom fields, notes and relationships | Canonical and legacy Gantt targets are grouped; Details opt-in; referenced cards require read/assignment access; custom fields honor admin-only policy | `tests/ruleCardDetails.test.cjs`; SMTP tests |
 | Creator, stickers, archive/activity timestamps, ordering and move reason | Public creator name and explicit scalar fields under Details | Details unit tests; creator/sticker SMTP assertions |
 | Flowtime, Pomodoro, recurrence | Persisted fields, public session-owner names; unfinished time is not added to completed hours | Details unit tests; SMTP assertions |
 | Voting and Poker | Counts, public voter names, completed Poker choices; visibility checked before dispatch | Details/source-binding tests; ordinary and linked-board SMTP |
@@ -21,9 +21,6 @@ This audit compares the current email preparation code with `models/cards.js`,
 
 ## Unfinished checks and implementation
 
-- Legacy Gantt dependency fields: compare `targetId_gantt`, `linkType_gantt` and
-  `linkId_gantt` with canonical `cardDependencies`; preserve visible relationships
-  without duplicating them or exposing an unreadable target.
 - Linked wrappers: check which timer, Scrum, sticker and placement fields belong
   to the wrapper rather than the resolved source. The current linked-board
   branch does not render all wrapper metadata. Verify the intended UI behavior
@@ -31,6 +28,14 @@ This audit compares the current email preparation code with `models/cards.js`,
 - Complete a final field-by-field pass and a rule triggered by moving a card to
   a list, with all three content choices enabled. Current SMTP scenarios use
   the button trigger; they do not alone prove the original moved-card example.
+
+Legacy Gantt targets are now included with the documented default dependency
+types when target/type arrays align; malformed or missing types use a generic
+Gantt-target label. `linkId_gantt` is an internal link identifier, not a card
+reference or display field. Current Gantt views do not consume these legacy
+arrays (`dhtmlxGantt.js` supplies an empty links array), but existing data is
+retained in the email relationship summary. Canonical and legacy labels for
+one target share a single title and the same source-access evidence.
 
 Display preferences, internal Sync provenance/revisions, deletion bookkeeping
 and security/transport state are not prose to serialize wholesale. A new field

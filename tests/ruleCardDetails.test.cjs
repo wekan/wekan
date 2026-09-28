@@ -186,3 +186,13 @@ test('related links use live readable titles, retain their source evidence and r
   f.onRelatedSource = () => { f.cards.actual.deletedAt = new Date(); };
   await assert.rejects(prepare(f), /not-authorized/);
 });
+test('legacy Gantt targets share authorization and source capture with canonical relations', async () => {
+  const f = fixture(); delete f.card.parentId;
+  f.card.cardDependencies = [{ cardId: 'parent', type: 'blocks' }, { cardId: 'parent', type: 'blocks' }];
+  f.card.targetId_gantt = ['parent', 'secret']; f.card.linkType_gantt = [0, 1]; f.card.linkId_gantt = ['SECRET-INTERNAL'];
+  const sources = []; f.onRelatedSource = source => sources.push(source);
+  const text = await prepare(f);
+  assert.match(text, /blocks \/ Gantt finish-to-start: Parent task/);
+  assert.equal(text.split('Parent task').length, 2); assert.equal(sources.length, 1);
+  assert.doesNotMatch(text, /SECRET/);
+});

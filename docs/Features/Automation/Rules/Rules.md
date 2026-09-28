@@ -114,6 +114,11 @@ completed spent-time total or calculate a continually changing elapsed value.
 Admin-only custom fields require board-admin access. Account emails, tokens
 and private related-card titles are never included. Zero and false values are retained.
 Access and custom-field policy are checked again before preparation finishes.
+Canonical dependencies and legacy Gantt targets share one row per target,
+retaining distinct relationship labels. Gantt types follow the
+[DHTMLX defaults](https://docs.dhtmlx.com/gantt/api/config/links/). Inconsistent
+legacy target/type arrays retain the target with a generic label rather than
+an inferred type. Internal Gantt link IDs are not included.
 
 Details includes voting questions, deadlines and counts. Voter names appear
 only for public votes. Planning Poker includes the saved estimation and
