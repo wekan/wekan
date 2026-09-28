@@ -90,7 +90,7 @@ test('rulesHelper.js imports substituteVars from the pure module (no duplicate c
 });
 
 test('the sendEmail action appends the card title and link, even with no user template', () => {
-  const sendEmailBlock = rulesHelperSrc.slice(rulesHelperSrc.indexOf("actionType === 'sendEmail'"));
+  const sendEmailBlock = rulesHelperSrc.slice(rulesHelperSrc.indexOf('async prepareEmailAction'));
   assert.ok(/ruleVars\.cardname/.test(sendEmailBlock), 'appends the card title');
   assert.ok(/ruleVars\.cardlink/.test(sendEmailBlock), 'appends the card link');
 });

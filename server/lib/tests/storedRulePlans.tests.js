@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict';
 import { Meteor } from 'meteor/meteor';
 import { Random } from 'meteor/random';
+import { Accounts } from 'meteor/accounts-base';
+import { Email } from 'meteor/email';
 import Boards from '/models/boards';
 import Lists from '/models/lists';
 import Cards from '/models/cards';
@@ -8,7 +10,7 @@ import Activities from '/models/activities';
 import Rules from '/models/rules';
 import Triggers from '/models/triggers';
 import Actions from '/models/actions';
-import { captureStoredSyncRulePlan, runStoredSyncRules, SyncRulePlans, SyncRuleReceipts } from '/server/notifications/storedRulePlans';
+import { captureStoredSyncRulePlan, captureStoredSyncRuleEmailCommand, runStoredSyncRules, SyncRulePlans, SyncRuleReceipts, SyncRuleEmailCommands } from '/server/notifications/storedRulePlans';
 
 const { planId, actionId: invocationId } = require('/server/lib/syncRulePlan');
 
@@ -21,6 +23,9 @@ describe('Stored Sync rule selection', function () {
     const activity = { _id: activityId, activityType: 'createCard', boardId, listId, cardId, userId: actor,
       cardTitle: 'Original card', listName: 'List', swimlaneName: 'Lane', createdAt: new Date(1000), modifiedAt: new Date(1000) };
     const input = { activity, effectId: 'a'.repeat(64), policy: { activities: true, notifications: true }, assertCurrent: async () => {} };
+    const originalFrom = Accounts.emailTemplates.from, originalSend = Email.sendAsync;
+    Accounts.emailTemplates.from = 'wekan@example.org';
+    Email.sendAsync = async () => { throw new Error('capture must never send mail'); };
     try {
       await Meteor.users.rawCollection().insertOne({ _id: actor, username: actor });
       await Boards.rawCollection().insertOne({ _id: boardId, title: 'Board', members: [{ userId: actor, isAdmin: true, isActive: true }] });
@@ -57,18 +62,36 @@ describe('Stored Sync rule selection', function () {
       assert.deepEqual(await Cards.rawCollection().findOne({ _id: cardId }),
         { _id: cardId, boardId, listId, title: 'Original card', assignees: [] });
       assert.equal(await Activities.rawCollection().countDocuments({ boardId }), 1);
+      await Actions.rawCollection().updateOne({ _id: actionId }, { $set: { actionType: 'sendEmail',
+        emailTo: 'outside@example.org', emailSubject: 'Subject {card}', emailMsg: 'Body {board} {list}' } });
+      const mailInput = { ...input, effectId: 'c'.repeat(64), index: 0 };
+      const command = await captureStoredSyncRuleEmailCommand(mailInput);
+      assert.equal(command.mail.to, 'outside@example.org');
+      assert.equal(command.mail.from, 'wekan@example.org');
+      assert.equal(command.mail.subject, 'Subject Original card');
+      assert.match(command.mail.text, /Body Board List/);
+      assert.match(command.mail.text, /Card: Original card/);
+      await Cards.rawCollection().updateOne({ _id: cardId }, { $set: { title: 'Later title' } });
+      await Actions.rawCollection().updateOne({ _id: actionId }, { $set: { emailTo: 'changed@example.org' } });
+      assert.deepEqual(await captureStoredSyncRuleEmailCommand(mailInput), command);
+      assert.equal(await SyncRuleEmailCommands.find({ boardId }).countAsync(), 1);
       await Meteor.users.rawCollection().updateOne({ _id: actor }, { $set: { loginDisabled: true } });
       await assert.rejects(captureStoredSyncRulePlan(input), /context-denied/);
+      await assert.rejects(captureStoredSyncRuleEmailCommand(mailInput), /context-denied/);
       await assert.rejects(runStoredSyncRules({ ...input, adapters: {} }), /context-denied/);
       await Meteor.users.rawCollection().updateOne({ _id: actor }, { $set: { loginDisabled: false } });
       await Cards.rawCollection().updateOne({ _id: cardId }, { $set: { listId: 'moved' } });
       await assert.rejects(captureStoredSyncRulePlan(input), /context-denied/);
+      await assert.rejects(captureStoredSyncRuleEmailCommand(mailInput), /context-denied/);
       await assert.rejects(runStoredSyncRules({ ...input, adapters: {} }), /context-denied/);
       await Cards.rawCollection().updateOne({ _id: cardId }, { $set: { listId } });
       await Activities.rawCollection().updateOne({ _id: activityId }, { $set: { cardTitle: 'changed' } });
       await assert.rejects(captureStoredSyncRulePlan(input), /activity-changed/);
-      assert.equal(await SyncRulePlans.find({ 'plan.activityId': activityId }).countAsync(), 2);
+      assert.equal(await SyncRulePlans.find({ 'plan.activityId': activityId }).countAsync(), 3);
     } finally {
+      Accounts.emailTemplates.from = originalFrom;
+      Email.sendAsync = originalSend;
+      await SyncRuleEmailCommands.rawCollection().deleteMany({ boardId, cardId });
       const id = planId(input.effectId, activityId);
       await SyncRuleReceipts.rawCollection().deleteMany({ _id: { $in: [id, invocationId(id, 0), planId('b'.repeat(64), activityId)] } });
       await SyncRulePlans.rawCollection().deleteMany({ 'plan.activityId': activityId });

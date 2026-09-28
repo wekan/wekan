@@ -54,9 +54,9 @@ const EmailLocalization = {
       to: options.to,
       from: options.from || Accounts.emailTemplates.from,
       subject: subject,
-      text: text,
-      html: options.html
+      text: text
     };
+    if (options.html !== undefined) mail.html = options.html;
     // #2414: reply-by-email - a Reply-To carrying an HMAC-signed card token,
     // set by server/notifications/emailQueue.js, lets a reply sent through the
     // inbound-email webhook (server/routes/inboundEmail.js) be matched back to

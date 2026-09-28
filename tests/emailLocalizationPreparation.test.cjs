@@ -62,3 +62,11 @@ test('transport failure remains visible to the rule caller', async () => {
   f.Email.sendAsync = async () => { throw error; };
   await assert.rejects(f.localization.sendEmail(options), value => value === error);
 });
+
+test('plain text preparation omits absent HTML before BSON serialization', async () => {
+  const f = fixture();
+  const mail = await f.localization.prepareEmail({ ...options, html: undefined });
+  assert.equal(Object.hasOwn(mail, 'html'), false);
+  const { EJSON } = require('bson');
+  assert.equal(Object.hasOwn(EJSON.parse(EJSON.stringify(mail)), 'html'), false);
+});

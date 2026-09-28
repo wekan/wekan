@@ -261,6 +261,50 @@ export const RulesHelper = {
     }
     return matchingMap;
   },
+  // Shared preparation for ordinary sends and immutable stored commands.
+  // This method performs reads only; it never sends or queues mail.
+  async prepareEmailAction(activity, action, ruleVars) {
+    if (action?.actionType !== 'sendEmail') throw new Error('rule-email-action-required');
+    if (!ruleVars) {
+      const card = await ReactiveCache.getCard(activity.cardId);
+      if (!card) throw new Error('rule-email-card-unavailable');
+      ruleVars = await buildRuleVars(activity, card);
+    }
+    const to = substituteVars(action.emailTo, ruleVars);
+    const body = substituteVars(action.emailMsg || '', ruleVars);
+    const subject = substituteVars(action.emailSubject || '', ruleVars);
+    // #3301: the email used to carry no reference to the card that
+    // triggered it at all - not even its title, let alone a link. Append
+    // the card's title and a direct link automatically, even when the
+    // user's configured body/subject uses none of the {card}/{cardLink}
+    // tokens, so the recipient always has enough context to find the card.
+    // #2713: also carry the card's description automatically - the title
+    // and link were already appended unconditionally (#3301); the
+    // description is the other piece of "full card content" the rule
+    // action was missing without the user typing {description} by hand.
+    const cardFooterLines = [];
+    if (ruleVars.cardname) cardFooterLines.push(`Card: ${ruleVars.cardname}`);
+    if (ruleVars.description) cardFooterLines.push(`Description: ${ruleVars.description}`);
+    if (ruleVars.cardlink) cardFooterLines.push(`Link: ${ruleVars.cardlink}`);
+    const text = cardFooterLines.length
+      ? `${body}${body ? '\n\n' : ''}-- \n${cardFooterLines.join('\n')}`
+      : body;
+    let recipientUser = null;
+    let recipientLang = TAPi18n.getLanguage() || 'en';
+    if (to && to.includes('@')) {
+      recipientUser = await ReactiveCache.getUser({ 'emails.address': to.toLowerCase() });
+      if (recipientUser && typeof recipientUser.getLanguage === 'function') {
+        recipientLang = recipientUser.getLanguage();
+      }
+    }
+    return { to, from: Accounts.emailTemplates.from, subject, text,
+      language: recipientLang, userId: recipientUser ? recipientUser._id : null };
+  },
+
+  async prepareEmailCommand(activity, action) {
+    return EmailLocalization.prepareEmail(await this.prepareEmailAction(activity, action));
+  },
+
   async performAction(activity, action) {
     const card = await ReactiveCache.getCard(activity.cardId);
     if (activity.activityType === 'button') {
@@ -384,57 +428,13 @@ export const RulesHelper = {
       }
     }
     if (action.actionType === 'sendEmail') {
-      const to = substituteVars(action.emailTo, ruleVars);
-      const body = substituteVars(action.emailMsg || '', ruleVars);
-      const subject = substituteVars(action.emailSubject || '', ruleVars);
-      // #3301: the email used to carry no reference to the card that
-      // triggered it at all - not even its title, let alone a link. Append
-      // the card's title and a direct link automatically, even when the
-      // user's configured body/subject uses none of the {card}/{cardLink}
-      // tokens, so the recipient always has enough context to find the card.
-      // #2713: also carry the card's description automatically - the title
-      // and link were already appended unconditionally (#3301); the
-      // description is the other piece of "full card content" the rule
-      // action was missing without the user typing {description} by hand.
-      const cardFooterLines = [];
-      if (ruleVars.cardname) cardFooterLines.push(`Card: ${ruleVars.cardname}`);
-      if (ruleVars.description) cardFooterLines.push(`Description: ${ruleVars.description}`);
-      if (ruleVars.cardlink) cardFooterLines.push(`Link: ${ruleVars.cardlink}`);
-      const text = cardFooterLines.length
-        ? `${body}${body ? '\n\n' : ''}-- \n${cardFooterLines.join('\n')}`
-        : body;
       try {
-        // Try to detect the recipient's language preference if it's a Wekan user
-        // Otherwise, use the default language for the rule-triggered emails
-        let recipientUser = null;
-        let recipientLang = TAPi18n.getLanguage() || 'en';
-
-        // Check if recipient is a Wekan user to get their language
-        if (to && to.includes('@')) {
-          recipientUser = await ReactiveCache.getUser({ 'emails.address': to.toLowerCase() });
-          if (recipientUser && typeof recipientUser.getLanguage === 'function') {
-            recipientLang = recipientUser.getLanguage();
-          }
-        }
-
-        // Use EmailLocalization if available
+        const options = await this.prepareEmailAction(activity, action, ruleVars);
         if (typeof EmailLocalization !== 'undefined') {
-          await EmailLocalization.sendEmail({
-            to,
-            from: Accounts.emailTemplates.from,
-            subject,
-            text,
-            language: recipientLang,
-            userId: recipientUser ? recipientUser._id : null
-          });
+          await EmailLocalization.sendEmail(options);
         } else {
-          // Fallback to standard Email.send
-          await Email.sendAsync({
-            to,
-            from: Accounts.emailTemplates.from,
-            subject,
-            text,
-          });
+          const { to, from, subject, text } = options;
+          await Email.sendAsync({ to, from, subject, text });
         }
       } catch (e) {
         // eslint-disable-next-line no-console

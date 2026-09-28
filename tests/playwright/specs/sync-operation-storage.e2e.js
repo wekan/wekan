@@ -6,7 +6,7 @@ for (const role of ['member', 'admin']) {
   test(`private Sync recovery collections reject ${role} browser writes`, async ({ page, user, adminUser }) => {
     const actor = role === 'admin' ? adminUser : user;
     await loginWithToken(page, actor.id, actor.token);
-    const names = ['listSyncRuleReceipts', 'listSyncRulePlans', 'listSyncWebhookPlans', 'listSyncWebhookReceipts', 'listSyncWebhookResponses', 'listSyncWebhookCommentPlans', 'listSyncWebhookCommentReceipts', 'listSyncNotificationPlans', 'listSyncOperationIntents', 'listSyncOperations', 'listSyncOperationSteps', 'listSyncOperationCompletions'];
+    const names = ['listSyncRuleEmailCommands', 'listSyncRuleReceipts', 'listSyncRulePlans', 'listSyncWebhookPlans', 'listSyncWebhookReceipts', 'listSyncWebhookResponses', 'listSyncWebhookCommentPlans', 'listSyncWebhookCommentReceipts', 'listSyncNotificationPlans', 'listSyncOperationIntents', 'listSyncOperations', 'listSyncOperationSteps', 'listSyncOperationCompletions'];
     const id = db.uid('private-sync');
     for (const name of names) db.insertOne(name, { _id: id, marker: 'private recovery evidence' });
     try {

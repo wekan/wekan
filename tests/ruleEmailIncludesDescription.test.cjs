@@ -35,8 +35,8 @@ test('buildRuleVars exposes the description on ruleVars', () => {
 
 test('the sendEmail action appends title, description and link automatically', () => {
   const sendEmailBlock = rulesHelperSrc.slice(
-    rulesHelperSrc.indexOf("actionType === 'sendEmail'"),
-    rulesHelperSrc.indexOf("if (action.actionType === 'setDate')"),
+    rulesHelperSrc.indexOf('async prepareEmailAction'),
+    rulesHelperSrc.indexOf('async performAction'),
   );
   assert.ok(/ruleVars\.cardname/.test(sendEmailBlock), 'still appends the card title (#3301)');
   assert.ok(/ruleVars\.description/.test(sendEmailBlock), 'appends the card description');
@@ -54,7 +54,7 @@ test('the sendEmail action appends title, description and link automatically', (
 });
 
 test('the description line is appended only when non-empty, same as the existing title/link lines', () => {
-  const sendEmailBlock = rulesHelperSrc.slice(rulesHelperSrc.indexOf("actionType === 'sendEmail'"));
+  const sendEmailBlock = rulesHelperSrc.slice(rulesHelperSrc.indexOf('async prepareEmailAction'));
   const descLine = sendEmailBlock.match(/if \(ruleVars\.description\)[^\n]*\n/);
   assert.ok(descLine, 'expected an `if (ruleVars.description)` guard, not an unconditional push');
 });

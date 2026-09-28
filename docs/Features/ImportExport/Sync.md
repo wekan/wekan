@@ -665,3 +665,18 @@ operation lease and live access/policy guard; this primitive does not acquire
 one. It neither enqueues nor sends mail and is not a rule-completion receipt.
 Production collection registration, actual rule-variable preparation and a
 recipient-aware durable dispatch worker remain unfinished.
+
+`captureStoredSyncRuleEmailCommand` now connects command storage to actual rule
+variable resolution and localization. It captures the saved selection first,
+then prepares one indexed email action using the same recipient lookup, token
+substitution and card-context footer as ordinary rule mail. Final localization
+runs before insertion into the private indexed `listSyncRuleEmailCommands`
+collection. Missing HTML is omitted rather than serialized into a null field.
+The collection has no TTL or publication and denies all client writes.
+
+Capture and replay both check exact activity, live policy, actor permission and
+current board/list/card scope. A saved message remains unchanged when the card
+title or action recipient later changes. This entry point only prepares and
+stores: it does not enqueue mail or acknowledge a rule invocation. Dispatch,
+recipient/configuration revocation handling at send time and operator recovery
+still need implementation before manual/cron activation.

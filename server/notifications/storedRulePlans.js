@@ -15,14 +15,18 @@ const { isAssignedOnlyMember } = require('/models/lib/boardCardScope');
 const { validateSyncEffectPolicy, assertSyncEffectPolicy, syncEffectPolicy } = require('/server/lib/syncEffectPolicy');
 const { prepareRulePlan, ensureRulePlan } = require('/server/lib/syncRulePlan');
 const { executeRulePlan } = require('/server/lib/syncRuleExecution');
+const { ensureRuleEmailCommand } = require('/server/lib/syncRuleEmailCommand');
 
 export const SyncRulePlans = new Mongo.Collection('listSyncRulePlans');
+export const SyncRuleEmailCommands = new Mongo.Collection('listSyncRuleEmailCommands');
+SyncRuleEmailCommands.deny({ insert: () => true, update: () => true, remove: () => true });
 export const SyncRuleReceipts = new Mongo.Collection('listSyncRuleReceipts');
 SyncRuleReceipts.deny({ insert: () => true, update: () => true, remove: () => true });
 SyncRulePlans.deny({ insert: () => true, update: () => true, remove: () => true });
 Meteor.startup(async () => {
   await ensureIndex(SyncRulePlans, { 'plan.boardId': 1, 'plan.cardId': 1 });
   await ensureIndex(SyncRuleReceipts, { effectId: 1 });
+  await ensureIndex(SyncRuleEmailCommands, { boardId: 1, cardId: 1 });
 });
 
 // Both capture and execution require the journal's list-incarnation,
@@ -72,4 +76,14 @@ export async function runStoredSyncRules({ adapters, ...options }) {
   const plan = await capture(context);
   return executeRulePlan({ plan, activity: context.saved, effectId: context.effectId,
     receipts: SyncRuleReceipts.rawCollection(), adapters, assertCurrent: context.guard });
+}
+
+// Capture the ordinary rule's substituted, localized transport fields once.
+// A saved command is not a send/enqueue or rules-completion acknowledgement.
+export async function captureStoredSyncRuleEmailCommand({ index, ...options }) {
+  const context = executionContext(options);
+  const plan = await capture(context);
+  return ensureRuleEmailCommand({ commands: SyncRuleEmailCommands.rawCollection(), plan,
+    activity: context.saved, effectId: context.effectId, index, assertCurrent: context.guard,
+    prepare: ({ activity, invocation }) => RulesHelper.prepareEmailCommand(activity, invocation.action) });
 }
