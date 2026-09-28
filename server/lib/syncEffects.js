@@ -1,5 +1,6 @@
 'use strict';
 const { EJSON } = require('bson');
+const { validateSyncEffectPolicy, assertSyncEffectPolicy } = require('./syncEffectPolicy');
 const { syncOperationEffectId } = require('./syncOperationApply');
 const { createSyncHistoryPlanner, validateSyncFieldHistory, persistSyncFieldHistory } = require('./syncHistoryBatch');
 const { prepareSyncCreationActivity, validateSyncCreationActivity, persistSyncCreationActivity } = require('./syncCreationActivity');
@@ -9,7 +10,8 @@ const fail = () => { throw new Error('sync-effects-invalid'); };
 
 // Capture all display metadata before the journal begins applying cards.
 // Context changes during replay must not rewrite an already persisted event.
-function createSyncEffectPlanner({ userId, username, createdAt, list, swimlanes, previousHash = null, redoRows = [] }) {
+function createSyncEffectPlanner({ userId, username, createdAt, list, swimlanes, previousHash = null, redoRows = [], policy }) {
+  policy = validateSyncEffectPolicy(policy);
   const captured = copy({ userId, username, createdAt, list, swimlanes });
   if (!captured.list || !Array.isArray(captured.swimlanes) || captured.swimlanes.length > 10000) fail();
   const lanes = new Map();
@@ -23,37 +25,56 @@ function createSyncEffectPlanner({ userId, username, createdAt, list, swimlanes,
     const effectId = syncOperationEffectId(context.operationId, context.index);
     // Validate activities first: a failed reference must not advance the
     // History planner and make a corrected retry of this index impossible.
-    const activities = (step.kind === 'create' ? prepareSyncCreationActivity : prepareSyncUpdateActivities)({
-      ...captured, step, effectId, swimlane: lanes.get(step.after.swimlaneId) });
-    const plan = { version: 1, history: historyPlanner(step, context), activities };
+    const activities = policy.activities ? (step.kind === 'create' ? prepareSyncCreationActivity : prepareSyncUpdateActivities)({
+      ...captured, step, effectId, swimlane: lanes.get(step.after.swimlaneId) }) : null;
+    const plan = { version: 2, policy: { ...policy }, history: historyPlanner(step, context), activities };
     validateSyncEffects(plan, step, effectId);
     return plan;
   };
 }
 function validateSyncEffects(plan, step, effectId) {
-  if (!plan || Object.keys(plan).sort().join(',') !== 'activities,history,version' || plan.version !== 1) fail();
+  if (!plan || ![1, 2].includes(plan.version) || Object.keys(plan).sort().join(',') !==
+      (plan.version === 1 ? 'activities,history,version' : 'activities,history,policy,version')) fail();
+  const policy = planPolicy(plan);
   validateSyncFieldHistory(plan.history, step, effectId);
-  (step.kind === 'create' ? validateSyncCreationActivity : validateSyncUpdateActivities)(plan.activities, step, effectId);
-  const actor = step.kind === 'create' ? plan.activities.activity : plan.activities.context;
-  if (plan.history.userId !== actor.userId || plan.history.rows.some(row => row.createdAt.getTime() !== actor.createdAt.getTime()) ||
-      Buffer.byteLength(EJSON.stringify(plan)) > 15 * 1024 * 1024) fail();
+  if (policy.activities) {
+    (step.kind === 'create' ? validateSyncCreationActivity : validateSyncUpdateActivities)(plan.activities, step, effectId);
+    const actor = step.kind === 'create' ? plan.activities.activity : plan.activities.context;
+    if (plan.history.userId !== actor.userId || plan.history.rows.some(row => row.createdAt.getTime() !== actor.createdAt.getTime())) fail();
+  } else if (plan.activities !== null) fail();
+  if (Buffer.byteLength(EJSON.stringify(plan)) > 15 * 1024 * 1024) fail();
   return true;
 }
 
-// Internal coordinator: production callers still must supply durable delivery,
-// coordinate ordinary hooks and feature flags, and hold the required leases.
-async function persistSyncEffects({ history, activities, plan, step, effectId, assertCurrent, completeDelivery }) {
+function planPolicy(plan) {
+  // Version-one plans predate policy capture and always include activities.
+  return plan.version === 1 ? { activities: true, notifications: true } : validateSyncEffectPolicy(plan.policy);
+}
+
+// Internal coordinator: callers still supply durable rules/notification
+// delivery and coordinate ordinary hooks. Changed flags pause the saved plan;
+// replay never silently replaces its captured policy with current defaults.
+async function persistSyncEffects({ history, activities, plan, step, effectId, assertCurrent, completeDelivery, readPolicy }) {
   validateSyncEffects(plan, step, effectId);
-  if (typeof assertCurrent !== 'function' || typeof completeDelivery !== 'function' ||
+  const policy = planPolicy(plan);
+  if (typeof assertCurrent !== 'function' || typeof readPolicy !== 'function' ||
       !['findOneAsync','insertAsync','updateAsync'].every(key => typeof history?.[key] === 'function') ||
-      !['findOneAsync','insertAsync'].every(key => typeof activities?.[key] === 'function')) fail();
-  // Neither adapter may mutate the other adapter's later verification inputs.
+      (policy.activities && (typeof completeDelivery !== 'function' ||
+        !['findOneAsync','insertAsync'].every(key => typeof activities?.[key] === 'function')))) fail();
   plan = copy(plan);
-  await assertCurrent();
-  await persistSyncFieldHistory({ history, plan: plan.history, assertCurrent });
-  await (step.kind === 'create' ? persistSyncCreationActivity : persistSyncUpdateActivities)({
-    activities, plan: plan.activities, step, effectId, assertCurrent, completeDelivery });
-  await assertCurrent();
+  const guard = async () => {
+    await assertCurrent();
+    await assertSyncEffectPolicy(policy, readPolicy);
+    await assertCurrent();
+  };
+  await guard();
+  await persistSyncFieldHistory({ history, plan: plan.history, assertCurrent: guard });
+  if (policy.activities) {
+    await (step.kind === 'create' ? persistSyncCreationActivity : persistSyncUpdateActivities)({
+      activities, plan: plan.activities, step, effectId, assertCurrent: guard,
+      completeDelivery: context => completeDelivery({ ...context, policy: { ...policy } }) });
+  }
+  await guard();
   return effectId;
 }
 module.exports = { createSyncEffectPlanner, validateSyncEffects, persistSyncEffects };

@@ -19,18 +19,18 @@ test('one journal replays creation, edits and archive with History and per-activ
  const plan=[{kind:'create',cardId:'new',before:null,after:{...base,_id:'new',title:'New'}},
   {kind:'update',cardId:'edit',before:edit,after:{...edit,title:'Changed',description:''}},
   {kind:'archive',cardId:'archive',before:archive,after:{...archive,archived:true}}];
- const context={userId:'author',username:'author-name',createdAt:new Date(1000),
+ const context={policy:{activities:true,notifications:true},userId:'author',username:'author-name',createdAt:new Date(1000),
   list:{_id:'list',boardId:'board',title:'List'},swimlane:{_id:'lane',boardId:'board',title:'Lane'}};
  const effectPlanner=createSyncEffectPlanner({...context,swimlanes:[context.swimlane]});
  const history={findOneAsync:q=>events.findOne(typeof q==='string'?{_id:q}:q),insertAsync:r=>events.insertOne(r),updateAsync:(...a)=>events.updateOne(...a)};
  const activityStore={findOneAsync:id=>activities.findOne({_id:id}),insertAsync:async row=>{await activities.insertOne(row);throw new Error('lost activity reply');}};
- let builds=0,interrupted=true;
+ let builds=0,interrupted=true,currentPolicy={activities:true,notifications:true};
  const args={operations,steps,completions,intentId:randomUUID(),assertCurrent:async()=>{},
   scope:{boardId:'board',listId:'list',incarnation:null,revision:null,sourceKey:'source'},build:async()=>{builds++;return plan;},
   prepareEffects:effectPlanner,
   validateEffects:(effects,step,c)=>validateSyncEffects(effects,step,syncOperationEffectId(c.operationId,c.index)),
   apply:(step,c)=>applySyncOperationStep({cards,step,...c,completeEffects:async({effectId,assertCurrent})=>{
-   return persistSyncEffects({history,activities:activityStore,plan:c.effects,
+   return persistSyncEffects({history,activities:activityStore,plan:c.effects,readPolicy:async()=>currentPolicy,
     step,effectId,assertCurrent,completeDelivery:async({effectId,activity})=>{
      if(interrupted&&activity.activityType==='a-changedDescription')throw new Error('delivery interrupted');
      await receipts.updateOne({_id:effectId},{$setOnInsert:{activityId:activity._id}},{upsert:true});
@@ -42,6 +42,10 @@ test('one journal replays creation, edits and archive with History and per-activ
  assert.equal((await operations.findOne({_id:'list'})).checkpoint,1);
  assert.equal(await receipts.countDocuments({}),2);assert.equal(await activities.countDocuments({}),3);
  assert.equal(await completions.countDocuments({}),0);
+ currentPolicy={activities:false,notifications:false};
+ await assert.rejects(runSyncOperation(args),/policy-changed/);
+ assert.equal(await activities.countDocuments({}),3);assert.equal(await receipts.countDocuments({}),2);
+ currentPolicy={activities:true,notifications:true};
  const stored=await steps.findOne({index:2});
  await steps.updateOne({_id:stored._id},{$set:{'effects.activities.rows.0.activity.cardTitle':'Wrong'}});
  await assert.rejects(runSyncOperation(args),/activities-invalid/);
@@ -52,4 +56,24 @@ test('one journal replays creation, edits and archive with History and per-activ
  assert.equal(await activities.countDocuments({}),4);assert.equal(await receipts.countDocuments({}),4);
  assert.equal(await events.countDocuments({}),3);assert.deepEqual(verifyHistoryRows(await events.find({}).toArray()),[]);
  assert.equal(await completions.countDocuments({}),1);assert.equal(await steps.countDocuments({}),0);
+});
+
+test('a persisted disabled-activity plan completes History without an activity or delivery adapter',{skip:!uri},async t=>{
+ const client=await new MongoClient(uri).connect(),db=client.db(`sync_disabled_${new ObjectId().toHexString()}`);
+ t.after(async()=>{await db.dropDatabase();await client.close();});
+ const before={_id:'card',boardId:'board',listId:'list',swimlaneId:'lane',title:'Before'};
+ const step={kind:'update',cardId:'card',before,after:{...before,title:'After'}};
+ const operationId=randomUUID(),effectId=syncOperationEffectId(operationId,0),policy={activities:false,notifications:false};
+ const plan=createSyncEffectPlanner({policy,userId:'author',username:'name',createdAt:new Date(0),
+  list:{_id:'list',boardId:'board',title:'List'},swimlanes:[]})(step,{operationId,index:0});
+ await db.collection('plans').insertOne({_id:'plan',plan});
+ const saved=(await db.collection('plans').findOne({_id:'plan'})).plan;
+ const events=db.collection('history');let interrupted=true;
+ const history={findOneAsync:id=>events.findOne({_id:id}),updateAsync:(...args)=>events.updateOne(...args),
+  insertAsync:async row=>{if(interrupted)throw new Error('History interrupted');await events.insertOne(row);}};
+ const args={history,plan:saved,step,effectId,assertCurrent:async()=>{},readPolicy:async()=>policy};
+ await assert.rejects(persistSyncEffects(args),/History interrupted/);
+ interrupted=false;assert.equal(await persistSyncEffects(args),effectId);await persistSyncEffects(args);
+ assert.equal(await events.countDocuments({}),1);assert.equal(saved.activities,null);
+ assert.deepEqual(verifyHistoryRows(await events.find({}).toArray()),[]);
 });

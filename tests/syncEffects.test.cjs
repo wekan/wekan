@@ -6,7 +6,7 @@ const { createSyncEffectPlanner, validateSyncEffects, persistSyncEffects } = req
 const { syncOperationEffectId } = require('../server/lib/syncOperationApply');
 const card={_id:'card',boardId:'board',listId:'list',swimlaneId:'lane',title:'Before'};
 const step={kind:'update',cardId:'card',before:card,after:{...card,title:'After'}};
-const options={userId:'user',username:'name',createdAt:new Date(0),
+const options={policy:{activities:true,notifications:true},userId:'user',username:'name',createdAt:new Date(0),
  list:{_id:'list',boardId:'board',title:'List'},swimlanes:[{_id:'lane',boardId:'board',title:'Lane'}]};
 const context={operationId:randomUUID(),index:0};
 const effectId=syncOperationEffectId(context.operationId,context.index);
@@ -29,15 +29,15 @@ test('combined plans capture immutable metadata and leave planner state unchange
 });
 test('all effects and required adapters validate before any History or activity write',async()=>{
  const plan=createSyncEffectPlanner(options)(step,context);
- for(const damage of [p=>p.activities.rows[0].activity.value='Forged',p=>p.version=2,p=>p.activities.context.userId='other']){
+ for(const damage of [p=>p.activities.rows[0].activity.value='Forged',p=>p.version=3,p=>p.activities.context.userId='other']){
   const bad=structuredClone(plan);damage(bad);let writes=0;
   const store={findOneAsync:async()=>null,insertAsync:async()=>{writes++;},updateAsync:async()=>{writes++;}};
-  await assert.rejects(persistSyncEffects({history:store,activities:store,plan:bad,step,effectId,assertCurrent:async()=>{},completeDelivery:async()=>effectId}));
+  await assert.rejects(persistSyncEffects({history:store,activities:store,plan:bad,step,effectId,assertCurrent:async()=>{},readPolicy:async()=>options.policy,completeDelivery:async()=>effectId}));
   assert.equal(writes,0);
  }
  let reads=0;
  const store={findOneAsync:async()=>{reads++;},insertAsync:async()=>{},updateAsync:async()=>{}};
- await assert.rejects(persistSyncEffects({history:store,activities:store,plan,step,effectId,assertCurrent:async()=>{}}),/sync-effects-invalid/);
+ await assert.rejects(persistSyncEffects({history:store,activities:store,plan,step,effectId,assertCurrent:async()=>{},readPolicy:async()=>options.policy}),/sync-effects-invalid/);
  assert.equal(reads,0);
 });
 
@@ -48,4 +48,37 @@ test('individually valid plans cannot mix different actors or event times',()=>{
   const activities=prepareSyncUpdateActivities({...options,...override,step,effectId});
   assert.throws(()=>validateSyncEffects({...plan,activities},step,effectId),/sync-effects-invalid/);
  }
+});
+
+test('captured feature policies preserve History while suppressing activities and never accept changed live flags',async()=>{
+ const {syncEffectPolicy}=require('../server/lib/syncEffectPolicy');
+ assert.deepEqual(syncEffectPolicy({disableActivities:true,disableNotifications:false}),{activities:false,notifications:true});
+ assert.throws(()=>syncEffectPolicy({disableActivities:'false',disableNotifications:false}),/policy-invalid/);
+ assert.throws(()=>createSyncEffectPlanner({...options,policy:undefined}),/policy-invalid/);
+ for(const policy of [{activities:false,notifications:false},{activities:true,notifications:false}]){
+  const input={...options,policy:{...policy}},planner=createSyncEffectPlanner(input);
+  input.policy.activities=!policy.activities;
+  const plan=planner(step,context);assert.deepEqual(plan.policy,policy);
+  const histories=new Map(),activities=new Map(),delivered=[];
+  const store=rows=>({findOneAsync:async id=>rows.get(id),insertAsync:async row=>rows.set(row._id,row),updateAsync:async()=>{}});
+  const args={history:store(histories),plan,step,effectId,assertCurrent:async()=>{},readPolicy:async()=>policy,
+   ...(policy.activities?{activities:store(activities),completeDelivery:async event=>{delivered.push(event.policy);return event.effectId;}}:{})};
+  await assert.rejects(persistSyncEffects({...args,readPolicy:async()=>({...policy,notifications:true})}),/policy-changed/);
+  assert.equal(histories.size,0);
+  assert.equal(await persistSyncEffects(args),effectId);assert.equal(histories.size,1);
+  assert.equal(activities.size,policy.activities?1:0);
+  assert.deepEqual(delivered,policy.activities?[policy]:[]);
+  if(!policy.activities){
+   assert.equal(plan.activities,null);
+   assert.throws(()=>validateSyncEffects({...plan,activities:{}},step,effectId));
+  }
+ }
+});
+test('old effect plans require live enabled defaults; they cannot silently adopt disabled settings',async()=>{
+ const plan=createSyncEffectPlanner(options)(step,context);delete plan.policy;plan.version=1;
+ assert.equal(validateSyncEffects(plan,step,effectId),true);
+ let reads=0;const store={findOneAsync:async()=>{reads++;},insertAsync:async()=>{},updateAsync:async()=>{}};
+ await assert.rejects(persistSyncEffects({history:store,activities:store,plan,step,effectId,assertCurrent:async()=>{},
+  completeDelivery:async()=>effectId,readPolicy:async()=>({activities:false,notifications:false})}),/policy-changed/);
+ assert.equal(reads,0);
 });
