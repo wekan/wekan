@@ -113,7 +113,15 @@ metadata, team/calendar settings, commitment/result snapshots, Sprint Report
 and Velocity charts and Excel/PDF exports are implemented with focused tests.
 History supports revision checks, compound recovery checkpoints and undo/redo.
 Restoration retries now use stable per-author event IDs and verify immutable
-contents and integrity before accepting existing History rows. Failed or damaged
+contents and integrity before accepting existing History rows. Restoration
+inserts now participate in persistent writer admission and, after explicit
+board migration, use the same coordinated head as ordinary edits. Concurrent
+retries retain the first persisted event, timestamp and predecessor. Failed
+confirmation preserves recovery evidence; closed admission and missing heads
+never trigger legacy fallback. Three Scrum History Node suites (18 cases) and
+five full-app cases pass, including eight retries alongside five ordinary
+edits. Restored-entity writes and undo/redo flags still require shared
+operation-level coordination. Failed or damaged
 records retain the recovery checkpoint. Successful insert replies now require
 the same persisted-event verification; missing rows and failed confirmation
 reads keep recovery pending. Finalization now verifies the source
@@ -1517,6 +1525,25 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0818e22ad">Share coordinated History appends with Scrum restoration events</a>. Thanks to xet7.</summary>
+
+Route strict Scrum restoration recording through persistent writer admission
+and preserve its deterministic event ID in the schema-backed append binding.
+On migrated boards, restoration retries and ordinary edits share the same
+head. Confirm persisted events inside legacy admission so a verified lost
+insert acknowledgement releases its token; failed confirmation retains it.
+Reject closed admission and missing migrated heads without legacy fallback.
+
+Three Scrum History Node suites (18 cases) and five full-app Meteor cases pass.
+Eight concurrent retries create one restoration event alongside five ordinary
+edits; all seven rows, including the initial legacy event, form one chain.
+Changed retry contents and missing heads are refused. The source audit has
+advisory warnings. No UI flow changes. Restored-entity mutations, source-row
+undo/redo flags and shared multi-row Sync ownership remain unfinished.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/98359d778">Resume explicit offline History migration with verified chain heads</a>. Thanks to xet7.</summary>
