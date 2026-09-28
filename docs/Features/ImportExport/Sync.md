@@ -606,3 +606,20 @@ write access, including for administrators. This entry point captures matching
 configuration only: it never calls `performAction` or `executeRules` and is not
 a rules-completion receipt. Ordinary rule behavior and manual/cron Sync remain
 unchanged until durable command execution is implemented.
+
+The internal `executeRulePlan` coordinator validates the complete saved plan,
+reads all invocation checkpoints and resolves every required action adapter
+before dispatch. Checkpoints bind the entire plan checksum and invocation
+identity. Completed checkpoints must form an ordered prefix; damaged evidence,
+unsupported pending actions or false acknowledgements stop execution. Explicit
+missing-action and empty selections receive durable no-op completion evidence.
+Lost insert replies are reconciled through exact stored readback, and a fresh
+coordinator skips confirmed invocations before continuing the remaining order.
+
+This coordinator requires a journal-owned lease and live scope/policy guard.
+Each action adapter must prepare and reconcile its own durable command and
+mutation receipts before returning the invocation ID. A crash after a mutation
+but before its checkpoint revisits that adapter, so ordinary `performAction`
+must not be supplied as an adapter. This module does not register production
+storage or enable manual/cron Sync. Durable command preparation, target and
+variable resolution, real action adapters and their integration remain TODO.
