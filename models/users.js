@@ -2640,9 +2640,8 @@ Users.helpers({
   },
 
   async addNotification(activityId) {
-    return await Users.updateAsync(this._id, {
-      $addToSet: { 'profile.notifications': { activity: activityId, read: null } },
-    });
+    const { addNotificationOnce } = require('/models/lib/notificationInsertion');
+    return await addNotificationOnce(Users, this._id, activityId);
   },
 
   async removeNotification(activityId) {
