@@ -479,13 +479,32 @@ context. It never recreates missing activities or reruns activity rule and
 webhook hooks. Missing/changed activities, invalid plans and revoked access
 remain pending for later review. Completed intents are skipped.
 
-Plans currently retain rendered content even after successful enqueue.
-Operator/orphan controls and plan/pending-payload retention remain unfinished.
-Plans and reservations are private, reject direct member/admin DDP writes and
-have no TTL. Limit each plan to 10,000 recipients and 14 MiB, checking size
-while preparing recipients; oversized preparation leaves the intent pending
-without delivering a prefix. This recovers local tray/email enqueue only;
-full card/History/activity/Sync effect coordination remains separate work.
+After the intent acknowledges local delivery, its plan is immediately
+compacted in place. The permanent plan receipt keeps only its unique ID,
+activity hash, plan checksum and compaction version. Rendered subject/body,
+recipient IDs, language and channel choices are removed. Keeping the unique
+plan row prevents a delayed former writer from recreating those payloads.
+The SMTP outbox retains its own queued content until delivery or cancellation;
+plan compaction does not delete an unsent email job.
+
+A separate cleanup sweep handles interruption after acknowledgement but
+before compaction. It examines up to 100 plan IDs per pass, loading one plan
+under the same per-intent reservation as delivery. The default interval is
+60 seconds; `ACTIVITY_NOTIFICATION_PLAN_CLEANUP_INTERVAL_MS` accepts integer
+values from 1000 to 86400000. Failed/busy/malformed rows do not hide later rows.
+Only an exact completed intent with the same activity hash and dispatch actor
+permits compaction; the plan checksum must validate too. Conditional atomic
+replacement and readback reconcile uncertain replies. Activity deletion after
+completion does not prevent removing old plan content.
+
+Pending plans, orphans, inconsistent completion evidence and damaged payloads
+remain intact. Operator/orphan controls and unresolved-payload retention are
+still unfinished. Permanent receipts have no TTL and their total count is not
+capped. Plans and reservations remain private and reject member/admin DDP
+writes. Limit each plan to 10,000 recipients and 14 MiB, checking size while
+preparing recipients; oversized preparation leaves the intent pending without
+delivering a prefix. This recovers local tray/email enqueue only; full
+card/History/activity/Sync effect coordination remains separate work.
 
 `tests/integration/activityNotificationIntent.test.cjs` uses a real MongoDB
 with `WEKAN_SYNC_TEST_MONGO_URL`. It covers write ordering, uncertain replies,
@@ -512,3 +531,10 @@ the real private collections and email enqueue adapter. Chromium tests seed
 persisted intents with and without saved plans, then observe scheduled SMTP
 delivery without invoking a notification hook; a missing activity remains an
 orphan and is never recreated. These local tests do not run FerretDB.
+
+`tests/integration/activityNotificationPlanRetention.test.cjs` verifies payload
+removal after completion, permanent replay keys, pending/missing/mismatched
+receipt preservation, uncertain or false acknowledgements, changed payloads,
+ownership loss, malformed-row progress and local scan coalescing. Chromium
+checks immediate compaction after actual SMTP delivery and scheduled cleanup
+of a previously completed plan while an unfinished orphan retains its body.

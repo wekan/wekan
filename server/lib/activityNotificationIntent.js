@@ -126,4 +126,12 @@ async function readActivityNotificationIntentState({ intents, activity, dispatch
   await assertCurrent();
   return row.state;
 }
-module.exports = { readActivityNotificationIntentState, completeActivityNotificationIntent, ensureActivityNotificationIntent, persistActivityWithNotificationIntent, readActivityForNotificationIntent };
+function matchesCompletedActivityNotificationIntent(row, { activityId, activityHash, dispatchUserId }) {
+  if (!text(activityId) || !/^[a-f0-9]{64}$/.test(activityHash) ||
+      !(dispatchUserId === null || text(dispatchUserId))) return false;
+  return Boolean(row && row._id === sha256(canonical(['activity-notification-intent', activityId])) &&
+    row.state === 'completed' && row.version === 1 && text(row.writerId) &&
+    row.activityHash === activityHash && row.dispatchUserId === dispatchUserId &&
+    Object.keys(row).sort().join(',') === '_id,activityHash,dispatchUserId,state,version,writerId');
+}
+module.exports = { matchesCompletedActivityNotificationIntent, readActivityNotificationIntentState, completeActivityNotificationIntent, ensureActivityNotificationIntent, persistActivityWithNotificationIntent, readActivityForNotificationIntent };

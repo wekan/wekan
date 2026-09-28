@@ -14,7 +14,8 @@ import { trayDelivery } from './trayQueue';
 import { emailOutbox } from './emailQueue';
 import { ActivityNotificationIntents, acknowledgeActivityNotifications } from './activityIntents';
 const { EJSON, calculateObjectSize } = require('bson');
-const { ensureActivityNotificationPlan, deliverActivityNotificationPlan } = require('/server/lib/activityNotificationPlan');
+const { compactActivityNotificationPlan, createActivityPlanCleanup, activityPlanCleanupInterval } = require('/server/lib/activityNotificationPlanRetention');
+const { planId, ensureActivityNotificationPlan, deliverActivityNotificationPlan } = require('/server/lib/activityNotificationPlan');
 const { withSyncLease } = require('/server/lib/syncLease');
 const { createActivityNotificationRecovery, activityNotificationRecoveryInterval } = require('/server/lib/activityNotificationRecovery');
 const { readActivityForNotificationIntent, readActivityNotificationIntentState } = require('/server/lib/activityNotificationIntent');
@@ -97,6 +98,10 @@ async function deliverWithinReservation(activity, dispatchUserId, buildContext, 
     assertAccess: (userId, service) => assertAccess(activity, userId, service),
     tray: activityNotificationServices.tray, email: activityNotificationServices.email });
   await acknowledgeActivityNotifications(activity, dispatchUserId, assertCurrent);
+  try {
+    await compactActivityNotificationPlan({ plans: ActivityNotificationPlans.rawCollection(),
+      intents: ActivityNotificationIntents.rawCollection(), id: planId(activity._id), assertCurrent });
+  } catch (error) { console.error('Completed activity notification payload cleanup failed; receipt retained'); }
   return 'completed';
 }
 
@@ -137,4 +142,25 @@ Meteor.startup(async () => {
   }
   // Begin asynchronously after installing the pending-work index.
   Meteor.setTimeout(scan, recoveryInterval);
+});
+
+export const cleanupActivityNotificationPlans = createActivityPlanCleanup({
+  plans: ActivityNotificationPlans.rawCollection(), run: async id => {
+    const row = await ActivityNotificationPlans.rawCollection().findOne({ _id: id }, { projection: { 'plan.activityId': 1 } });
+    if (!row) return 'missing';
+    if (typeof row.plan?.activityId !== 'string' || !row.plan.activityId || row.plan.activityId.length > 1024) return 'invalid';
+    return withSyncLease(ActivityNotificationLeases.rawCollection(), intentIdFor(row.plan.activityId), ({ assertCurrent }) =>
+      compactActivityNotificationPlan({ plans: ActivityNotificationPlans.rawCollection(),
+        intents: ActivityNotificationIntents.rawCollection(), id, assertCurrent }));
+  },
+});
+const planCleanupInterval = activityPlanCleanupInterval();
+Meteor.startup(async () => {
+  await ensureIndex(ActivityNotificationPlans, { compactReceiptVersion: 1, _id: 1 });
+  async function scan() {
+    try { await cleanupActivityNotificationPlans(); }
+    catch (error) { console.error('Activity notification plan cleanup failed; receipts retained'); }
+    finally { Meteor.setTimeout(scan, planCleanupInterval); }
+  }
+  Meteor.setTimeout(scan, planCleanupInterval);
 });

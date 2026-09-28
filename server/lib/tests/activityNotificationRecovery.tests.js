@@ -6,7 +6,7 @@ import { ActivityNotificationIntents, captureActivityNotificationIntent } from '
 import { ActivityNotificationPlans, ActivityNotificationLeases, activityNotificationServices,
   recoverActivityNotifications, resumeActivityNotifications } from '/server/notifications/activityPlans';
 import { EmailJobs } from '/server/notifications/emailQueue';
-const { ensureActivityNotificationPlan } = require('/server/lib/activityNotificationPlan');
+const { ensureActivityNotificationPlan, planId } = require('/server/lib/activityNotificationPlan');
 const { idFor } = require('/server/lib/emailReceiptIdentity');
 
 describe('Activity notification recovery', function () {
@@ -50,7 +50,7 @@ describe('Activity notification recovery', function () {
       release(); Object.assign(activityNotificationServices, saved);
       await Activities.rawCollection().deleteMany({ _id: { $in: [activityId, orphanId] } });
       await intents.deleteMany({ _id: { $in: [intent?._id, orphan?._id].filter(Boolean) } });
-      await ActivityNotificationPlans.rawCollection().deleteMany({ 'plan.activityId': activityId });
+      await ActivityNotificationPlans.rawCollection().deleteMany({ _id: planId(activityId) });
       await leases.deleteMany({ _id: { $in: [intent?._id, orphan?._id].filter(Boolean) } });
       await EmailJobs.rawCollection().deleteOne({ _id: idFor(userId, activityId) });
       await Meteor.users.rawCollection().deleteOne({ _id: userId });

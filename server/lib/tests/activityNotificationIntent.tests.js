@@ -5,6 +5,7 @@ import Activities from '/models/activities';
 import { ActivityNotificationIntents } from '/server/notifications/activityIntents';
 import { ActivityNotificationPlans, ActivityNotificationLeases, activityNotificationServices, deliverStoredActivityNotifications } from '/server/notifications/activityPlans';
 const { idFor } = require('/server/lib/emailReceiptIdentity');
+const { planId } = require('/server/lib/activityNotificationPlan');
 import { Notifications } from '/server/notifications/notifications';
 import { RulesHelper } from '/server/rulesHelper';
 import { getFeatureFlags } from '/models/lib/featureFlags';
@@ -84,7 +85,7 @@ describe('Activity notification intent hooks', function () {
       Notifications.getUsers = oldUsers; Object.assign(activityNotificationServices, oldServices);
       RulesHelper.executeRules = oldRules; Object.assign(flags, previousFlags);
       await Meteor.users.rawCollection().deleteOne({ _id: ids[0] });
-      await ActivityNotificationPlans.rawCollection().deleteMany({ 'plan.activityId': { $in: ids } });
+      await ActivityNotificationPlans.rawCollection().deleteMany({ _id: { $in: ids.map(planId) } });
       await Activities.rawCollection().deleteMany({ _id: { $in: ids } });
       await intents.deleteMany({ $or: [{ _id: { $in: intentIds } }, { 'activity._id': { $in: ids } }] });
     }

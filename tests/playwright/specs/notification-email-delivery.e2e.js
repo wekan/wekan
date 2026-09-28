@@ -40,12 +40,9 @@ for (const scope of ['board', 'list', 'card']) test(`#6658 ${scope} watching del
     const receipt = db.findOne('activityNotificationIntents', { _id: intentId });
     expect(receipt.activity).toBeUndefined();
     expect(receipt.dispatchUserId).toBe(user.id);
-    const savedPlan = db.findOne('activityNotificationPlans', { 'plan.activityId': queuedEvent.eventId });
-    expect(savedPlan.plan.dispatchUserId).toBe(user.id);
-    const savedRecipient = savedPlan.plan.recipients.find(row => row.userId === user2.id);
-    expect(savedRecipient.email.html).toContain('Watched email delivery regression');
-    expect(savedRecipient.email.eventId).toBe(queuedEvent.eventId);
-
+    const planId = sha256(canonical(['activity-notification-plan', queuedEvent.eventId]));
+    await expect.poll(() => db.findOne('activityNotificationPlans', { _id: planId })?.compactReceiptVersion).toBe(1);
+    expect(db.findOne('activityNotificationPlans', { _id: planId }).plan).toBeUndefined();
     const delivered = () => sink.messages.filter(mail => mail.recipients.includes(recipient)).length;
     let count = delivered();
     await cp.editTitle('Email title change');
@@ -279,7 +276,8 @@ test('background recovery prepares a plan when the process stopped after activit
       activityHash: sha256(canonical(activity)), dispatchUserId: user.id, writerId: randomUUID() });
     await expect.poll(() => db.findOne('activityNotificationIntents', { _id: intentId })?.state,
       { timeout: 20000 }).toBe('completed');
-    expect(db.findOne('activityNotificationPlans', { _id: planId }).plan.recipients.some(row => row.userId === user2.id && row.email)).toBe(true);
+    await expect.poll(() => db.findOne('activityNotificationPlans', { _id: planId })?.compactReceiptVersion).toBe(1);
+    expect(db.findOne('activityNotificationPlans', { _id: planId }).plan).toBeUndefined();
     await expect.poll(() => sink.messages.some(mail => mail.recipients.includes(user2.email)), { timeout: 15000 }).toBe(true);
     await expect.poll(() => db.find('notificationEmailJobs', { eventId, state: 'sent' }).length).toBe(1);
     expect(db.find('activities', { _id: eventId })).toHaveLength(1);
@@ -290,5 +288,41 @@ test('background recovery prepares a plan when the process stopped after activit
     db.deleteMany('activities', { _id: eventId });
     db.deleteMany('notificationEmailJobs', { eventId });
     await sink.close();
+  }
+});
+
+test('scheduled cleanup removes completed plan content and retains unfinished payloads', async ({ user2 }) => {
+  test.skip(process.env.WEKAN_TEST_ACTIVITY_PLAN_CLEANUP !== '1', 'Start app with ACTIVITY_NOTIFICATION_PLAN_CLEANUP_INTERVAL_MS=1000');
+  const { canonical, sha256 } = require('../../../models/lib/changeHistoryIntegrity');
+  const { randomUUID } = require('node:crypto');
+  const intentIds = [], planIds = [];
+  try {
+    for (const completed of [true, false]) {
+      const eventId = db.uid(completed ? 'cleanup-completed' : 'cleanup-pending');
+      const activity = { _id: eventId, activityType: 'createCard', userId: user2.id,
+        createdAt: new Date('2026-01-01'), modifiedAt: new Date('2026-01-01') };
+      const activityHash = sha256(canonical(activity));
+      const intentId = sha256(canonical(['activity-notification-intent', eventId])); intentIds.push(intentId);
+      const planId = sha256(canonical(['activity-notification-plan', eventId])); planIds.push(planId);
+      const plan = { version: 1, activityId: eventId, activityHash, dispatchUserId: null,
+        recipients: [{ userId: user2.id, tray: false, email: { userId: user2.id, eventId, subject: 'PRIVATE CLEANUP SUBJECT',
+          html: 'PRIVATE CLEANUP BODY', language: 'en', boardId: null, cardId: null } }] };
+      // No activity exists: completion evidence alone permits old payload cleanup,
+      // while the pending orphan must retain its payload without being delivered.
+      db.insertOne('activityNotificationIntents', { _id: intentId, version: 1, state: completed ? 'completed' : 'pending',
+        activityHash, dispatchUserId: null, writerId: randomUUID(), ...(completed ? {} : { activity }) });
+      db.insertOne('activityNotificationPlans', { _id: planId, checksum: sha256(canonical(plan)), plan });
+    }
+    await expect.poll(() => db.findOne('activityNotificationPlans', { _id: planIds[0] })?.compactReceiptVersion,
+      { timeout: 15000 }).toBe(1);
+    const receipt = db.findOne('activityNotificationPlans', { _id: planIds[0] });
+    expect(Object.keys(receipt).sort()).toEqual(['_id', 'activityHash', 'checksum', 'compactReceiptVersion']);
+    expect(JSON.stringify(receipt)).not.toContain('PRIVATE CLEANUP');
+    expect(db.findOne('activityNotificationPlans', { _id: planIds[1] }).plan.recipients[0].email.html).toBe('PRIVATE CLEANUP BODY');
+    expect(db.findOne('activityNotificationIntents', { _id: intentIds[1] }).state).toBe('pending');
+  } finally {
+    db.deleteMany('activityNotificationPlans', { _id: { $in: planIds } });
+    db.deleteMany('activityNotificationIntents', { _id: { $in: intentIds } });
+    db.deleteMany('activityNotificationLeases', { _id: { $in: intentIds } });
   }
 });

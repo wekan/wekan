@@ -12,10 +12,10 @@ function planIdentity(activity, dispatchUserId) {
   return { version: 1, activityId: activity._id, activityHash: sha256(canonical(activity)), dispatchUserId };
 }
 const planId = activityId => sha256(canonical(['activity-notification-plan', activityId]));
-function validatePlan(plan, activity, dispatchUserId) {
-  const identity = planIdentity(activity, dispatchUserId);
-  if (!exact(plan, 'activityHash,activityId,dispatchUserId,recipients,version') ||
-      Object.entries(identity).some(([key, value]) => plan[key] !== value) ||
+function validatePlanShape(plan) {
+  if (!exact(plan, 'activityHash,activityId,dispatchUserId,recipients,version') || plan.version !== 1 ||
+      !text(plan.activityId) || !/^[a-f0-9]{64}$/.test(plan.activityHash) ||
+      !(plan.dispatchUserId === null || text(plan.dispatchUserId)) ||
       !Array.isArray(plan.recipients) || plan.recipients.length > 10000) fail();
   const seen = new Set();
   for (const row of plan.recipients) {
@@ -24,12 +24,21 @@ function validatePlan(plan, activity, dispatchUserId) {
     const job = row.email;
     if (job === null) continue;
     if (!exact(job, 'boardId,cardId,eventId,html,language,subject,userId') || job.userId !== row.userId ||
-        job.eventId !== activity._id || job.boardId !== (activity.boardId || null) ||
-        !(job.cardId === null || (text(activity.cardId) && job.cardId === activity.cardId)) ||
+        job.eventId !== plan.activityId || !(job.boardId === null || text(job.boardId)) ||
+        !(job.cardId === null || text(job.cardId)) ||
         !text(job.language) || typeof job.subject !== 'string' || job.subject.length > 10000 ||
         /[\r\n]/.test(job.subject) || typeof job.html !== 'string') fail();
   }
   if (calculateObjectSize(plan) > 14 * 1024 * 1024) fail();
+}
+function validatePlan(plan, activity, dispatchUserId) {
+  validatePlanShape(plan);
+  const identity = planIdentity(activity, dispatchUserId);
+  if (Object.entries(identity).some(([key, value]) => plan[key] !== value)) fail();
+  for (const row of plan.recipients) {
+    if (row.email && (row.email.boardId !== (activity.boardId || null) ||
+        !(row.email.cardId === null || (text(activity.cardId) && row.email.cardId === activity.cardId)))) fail();
+  }
 }
 async function ensureActivityNotificationPlan({ plans, activity, dispatchUserId = null, build, assertCurrent }) {
   if (typeof build !== 'function' || typeof assertCurrent !== 'function') fail();
@@ -79,4 +88,4 @@ async function deliverActivityNotificationPlan({ plan, activity, dispatchUserId 
   await assertCurrent();
   return planId(activity._id);
 }
-module.exports = { planId, validatePlan, ensureActivityNotificationPlan, deliverActivityNotificationPlan };
+module.exports = { validatePlanShape, planId, validatePlan, ensureActivityNotificationPlan, deliverActivityNotificationPlan };
