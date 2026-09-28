@@ -17,7 +17,7 @@ function fixture() {
   return { card, board, args };
 }
 test('local wrapper fields use local scope, visible Scrum and public names without cached content', async () => {
-  for (const type of ['cardType-linkedCard', 'cardType-linkedBoard']) {
+  for (const type of ['cardType-linkedCard']) {
     const { card, args } = fixture(); card.type = type;
     const text = await prepare(args);
     for (const part of ['Linked card local details:', 'Board: Local board', 'List: Local list', 'Sort: 0',

@@ -310,16 +310,18 @@ python3 api.py addrule BOARDID 'On create -> top' \
   '{"actionType":"moveCardToTop","listName":"*","swimlaneName":"*"}'
 ```
 
+With Details enabled, a linked card or linked board also includes a separate
+`Linked card local details` section for its local board/list/swimlane placement,
+local recurrence, persisted timer fields and visible local Scrum metadata.
+Source Details keeps its own scope. Copied source-card titles, descriptions,
+stickers and custom fields are not
+exported from a linked-card wrapper. A linked-board wrapper owns its local
+labels, stickers, custom fields, notes, locations, creator and relationships;
+These use local field visibility and related-card access checks. Public timer
+owner names and same-board Scrum names use the same access rechecks.
+
 ## Related
 
 - [IFTTT and Rules](../IFTTT/IFTTT.md)
 - [Cards](../../Cards/Cards.md), [Swimlanes](../../Swimlanes/Swimlanes.md)
 - [REST API](../../../API/REST-API.md)
-
-With Details enabled, a linked card or linked board also includes a separate
-`Linked card local details` section for its local board/list/swimlane placement,
-local recurrence, persisted timer fields and visible local Scrum metadata.
-Source Details keeps
-its own scope. Copied wrapper titles, descriptions, stickers and custom fields
-are not exported as local content. Public timer-owner names and same-board
-Scrum names follow the same access rechecks as other card details.

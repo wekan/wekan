@@ -34,11 +34,15 @@ follow the same active-member list as the card getters; inactive, duplicate and
 missing accounts do not produce extra rows. Target access is rechecked after
 name resolution.
 
+Linked-board local Details now uses the shared ordinary-card renderer with an
+explicit local-field selection: creator, requesters/assigners, labels, stickers,
+custom fields, notes, locations and relationships keep the wrapper board scope.
+Target-owned dates, voting and member lists are excluded from that local
+section. Custom-field policies and related-source chains enter the same durable
+binding as source Details. A string-template title uses the live target title.
+
 The final pass found these remaining concrete linked-board gaps:
 
-- Some getters read the linked-board wrapper: creator, stickers, custom fields,
-  locations and relationships. Verify and render those with their local scope,
-  instead of excluding all wrapper content as though it were a linked-card copy.
 - `Cards.comments()` reads target-board comments for a linked board, while the
   mail discussion currently reads only wrapper-card comments. Board-wide
   discussion needs per-card authorization, assigned-only filtering and durable

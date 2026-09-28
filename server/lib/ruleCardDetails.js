@@ -10,7 +10,7 @@ const scalar = value => value instanceof Date ? (Number.isFinite(+value) ? value
   ['string', 'number', 'boolean'].includes(typeof value) ? String(value) : '';
 const values = value => Array.isArray(value) ? value.map(scalar).filter(Boolean).join(', ') : scalar(value);
 
-async function prepareRuleCardDetails({ activity, cache, canReadBoard, readScrumRecord, onRelatedSource = () => {}, onCustomFieldPolicy = () => {} }) {
+async function prepareRuleCardDetails({ activity, cache, canReadBoard, readScrumRecord, localLinkedBoard = false, onRelatedSource = () => {}, onCustomFieldPolicy = () => {} }) {
   const canRead = (card, board) => !!(activity.userId && card && !card.deletedAt &&
     canReadBoard(activity.userId, board) &&
     (!isAssignedOnlyMember(board, activity.userId) || card.assignees?.includes(activity.userId)));
@@ -20,8 +20,9 @@ async function prepareRuleCardDetails({ activity, cache, canReadBoard, readScrum
     if (!canRead(card, board) || card.boardId !== activity.boardId) throw new Error('rule-email-details-not-authorized');
     return { card, board };
   };
-  const { card, board } = await source();
-  const visibility = JSON.stringify(votingVisibility(card, board));
+  const { card: originalCard, board } = await source();
+  let card = originalCard;
+  const visibility = JSON.stringify(votingVisibility(originalCard, board));
   const scrumPolicy = JSON.stringify(scrumVisibility(board));
   let assertScrum = async () => {};
   const admin = !!board.hasAdmin?.(activity.userId);
@@ -43,6 +44,25 @@ async function prepareRuleCardDetails({ activity, cache, canReadBoard, readScrum
     onRelatedSource(resolved.binding);
     add(label, resolved.card.title);
   };
+  if (localLinkedBoard) {
+    if (originalCard.type !== 'cardType-linkedBoard') throw new Error('rule-email-local-board-required');
+    const target = await cache.getBoard(originalCard.linkedId);
+    if (!canReadBoard(activity.userId, target)) throw new Error('rule-email-details-not-authorized');
+    // Linked-board getters retain these fields on the wrapper. Reuse ordinary
+    // rendering and policy checks, but do not copy target-owned dates/votes/people.
+    const localFields = ['_id', 'boardId', 'listId', 'swimlaneId', 'cardNumber', 'color',
+      'archived', 'archivedAt', 'createdAt', 'modifiedAt', 'dateLastActivity', 'sort', 'subtaskSort',
+      'lastMoveReason', 'listEnteredAt', 'requestedBy', 'assignedBy', 'requesters', 'assigners',
+      'recurrenceInterval', 'lastRecurrenceAt', 'flowStartAt', 'flowInterruptions', 'flowUserId',
+      'pomodoroStartAt', 'pomodoroPhase', 'pomodoroCount', 'pomodoroWorkMinutes', 'pomodoroUserId',
+      'locationName', 'locationAddress', 'locationLatitude', 'locationLongitude', 'locations',
+      'userId', 'stickers', 'scrum', 'labelIds', 'customFields', 'parentId', 'cardDependencies',
+      'targetId_gantt', 'linkType_gantt'];
+    card = Object.fromEntries(localFields.filter(field => Object.hasOwn(originalCard, field))
+      .map(field => [field, originalCard[field]]));
+    card.title = target.title; // String-template context must use the live display title.
+    relatedBoards.set(originalCard.linkedId, JSON.stringify(votingVisibility(target, target)));
+  }
   // A link's cached fields may be copied from a now-private source. Never
   // export those snapshots as if they were authorized local metadata.
   if (card.type === 'cardType-linkedCard') {
@@ -140,6 +160,9 @@ async function prepareRuleCardDetails({ activity, cache, canReadBoard, readScrum
   }
   await assertScrum();
   const latest = await source();
+  if (localLinkedBoard && (latest.card.type !== originalCard.type || latest.card.linkedId !== originalCard.linkedId)) {
+    throw new Error('rule-email-details-changed');
+  }
   if (JSON.stringify(scrumVisibility(latest.board)) !== scrumPolicy) throw new Error('rule-email-details-changed');
   if (JSON.stringify(votingVisibility(latest.card, latest.board)) !== visibility) throw new Error('rule-email-details-changed');
   if (admin && !latest.board.hasAdmin?.(activity.userId)) throw new Error('rule-email-details-not-authorized');

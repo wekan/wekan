@@ -29,15 +29,15 @@
   },
   {
     "fields": ["members", "assignees", "requesters", "assigners", "requestedBy", "assignedBy", "userId"],
-    "handling": "Ordinary/source Details resolves public names for account references; requestedBy/assignedBy are prose. Linked-board Members and Assignees use deduplicated active target members with public names, matching card getters. Remaining audit: wrapper-local creator/requesters/assigners."
+    "handling": "Ordinary/source Details resolves public names for account references; requestedBy/assignedBy are prose. Linked-board Members and Assignees use deduplicated active target members with public names, matching card getters. Linked-board local creator/requesters/assigners appear separately with the wrapper board scope."
   },
   {
     "fields": ["labelIds", "customFields", "stickers", "locationName", "locationAddress", "locationLatitude", "locationLongitude", "locations"],
-    "handling": "Ordinary/source Details with custom-field visibility and definition checks. Remaining audit: fields whose linked-board getters use the wrapper instead of a source card."
+    "handling": "Ordinary/source Details with custom-field visibility and definition checks. Linked-board local Details renders these wrapper-owned fields with local definitions, admin visibility and policy fingerprints."
   },
   {
     "fields": ["parentId", "cardDependencies", "targetId_gantt", "linkType_gantt"],
-    "handling": "Ordinary/source Details resolves authorized targets and groups duplicate labels. Remaining audit: linked-board wrapper relationship getters. Dependency color/icon are presentation metadata, not separate targets."
+    "handling": "Ordinary/source Details resolves authorized targets and groups duplicate labels. Linked-board wrapper relationships use the same authorized resolver and durable related-source evidence. Dependency color/icon are presentation metadata, not separate targets."
   },
   {
     "fields": ["vote", "poker"],

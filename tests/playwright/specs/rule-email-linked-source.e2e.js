@@ -52,7 +52,10 @@ test('linked-card mail uses current authorized source content and stops after so
       archived: false, dueComplete: true, isOvertime: true, spentTime: 3,
       vote: { question: 'Current board vote', public: true, positive: ['missing-voter'], negative: [] },
       poker: { question: true, end: new Date('2020-01-01'), two: ['missing-voter'], estimation: 2 } } });
-    db.updateOne('cards', { _id: wrapper._id }, { $set: { type: 'cardType-linkedBoard', linkedId: source.boardId } });
+    db.insertOne('customFields', { _id: `${id}-local-field`, boardIds: [local.boardId], name: 'Local priority', type: 'text' });
+    db.updateOne('cards', { _id: wrapper._id }, { $set: { type: 'cardType-linkedBoard', linkedId: source.boardId,
+      stickers: [{ name: 'Local board sticker' }], locations: [{ name: 'Local office' }],
+      customFields: [{ _id: `${id}-local-field`, value: 'Local value' }], parentId: `${id}-parent-source` } });
     await call(page, 'rules.runButton', rule._id, wrapper._id);
     await expect.poll(() => mails().length).toBe(2);
     expect(mails()[1].data).toContain('Live source board');
@@ -65,6 +68,8 @@ test('linked-card mail uses current authorized source content and stops after so
     expect(boardMail).toContain('Linked card local details:');
     expect(boardMail).toContain('Scrum backlog rank: 42');
     expect(boardMail).toContain('Recurrence: weekly');
+    for (const text of ['Local priority: Local value', 'Sticker: Local board sticker',
+      'Location: Local office', 'Parent: Current related parent']) expect(boardMail).toContain(text);
     for (const text of ['Archived: false', 'Due complete: true', 'Overtime: true', 'Spent time (hours): 3',
       'Members: E2E Test User', 'Assignees: E2E Test User']) expect(boardMail).toContain(text);
     for (const text of ['Vote question: Current board vote', 'Votes for: 1', 'For voters: Unknown user',
@@ -78,6 +83,7 @@ test('linked-card mail uses current authorized source content and stops after so
 
 
   } finally {
+    db.deleteOne('customFields', { _id: `${id}-local-field` });
     db.deleteOne('attachments', { _id: id }); db.cleanup({ boardIds: [local.boardId, source.boardId] });
     fs.rmSync(filename, { force: true }); await sink.close();
   }

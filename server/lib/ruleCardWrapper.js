@@ -2,9 +2,9 @@
 const { isAssignedOnlyMember } = require('../../models/lib/boardCardScope');
 const { appendRuleCardScrum, scrumVisibility } = require('./ruleCardScrum');
 
-// Only local presentation fields: linkCard() copied source content into the
-// wrapper, so never serialize its title, description, stickers or custom fields.
-async function prepareRuleCardWrapper({ activity, cache, canReadBoard, readScrumRecord }) {
+// Linked-card wrappers contain copied source content. Linked-board wrappers
+// instead own local content, selected explicitly by the shared Details renderer.
+async function prepareRuleCardWrapper({ activity, cache, canReadBoard, readScrumRecord, onRelatedSource, onCustomFieldPolicy }) {
   const read = async () => {
     const card = await cache.getCard(activity.cardId);
     const board = card && await cache.getBoard(card.boardId);
@@ -17,6 +17,12 @@ async function prepareRuleCardWrapper({ activity, cache, canReadBoard, readScrum
   };
   const { card, board } = await read();
   if (!['cardType-linkedCard', 'cardType-linkedBoard'].includes(card.type)) return '';
+  if (card.type === 'cardType-linkedBoard') {
+    const { prepareRuleCardDetails } = require('./ruleCardDetails');
+    const details = await prepareRuleCardDetails({ activity, cache, canReadBoard, readScrumRecord,
+      localLinkedBoard: true, onRelatedSource, onCustomFieldPolicy });
+    return `Linked card local details:\n${details}`;
+  }
   const policy = JSON.stringify(scrumVisibility(board));
   const lines = ['Linked card local details:'];
   let bytes = 0;

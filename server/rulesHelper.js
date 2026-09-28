@@ -319,7 +319,9 @@ export const RulesHelper = {
         onCustomFieldPolicy: (boardId, definitions) => emailSource.addCustomFieldPolicy(boardId, definitions) });
       if (details) options.text += `\n\n${details}`;
       const { prepareRuleCardWrapper } = require('/server/lib/ruleCardWrapper');
-      const wrapper = await prepareRuleCardWrapper({ activity: wrapperActivity, cache: ReactiveCache, canReadBoard, readScrumRecord });
+      const wrapper = await prepareRuleCardWrapper({ activity: wrapperActivity, cache: ReactiveCache, canReadBoard, readScrumRecord,
+        onRelatedSource: binding => emailSource.addRelatedSource(binding),
+        onCustomFieldPolicy: (boardId, definitions) => emailSource.addCustomFieldPolicy(boardId, definitions) });
       if (wrapper) options.text += `\n\n${wrapper}`;
     }
     if (action.includeChecklistsAndComments === true) {

@@ -219,3 +219,37 @@ test('linked-board state and people come from current target display fields', as
   f.cache.getUser = async () => { targetReadable = false; return { username: 'Active member' }; };
   await assert.rejects(prepare(f), /not-authorized/);
 });
+
+test('linked-board local content reuses local custom-field and related-source policies', async () => {
+  const f = fixture(); f.localLinkedBoard = true;
+  Object.assign(f.card, { type: 'cardType-linkedBoard', linkedId: 'target', title: 'STALE TITLE',
+    stickers: [{ name: 'Local sticker' }], locations: [{ name: 'Local place' }],
+    vote: { question: 'STALE VOTE' }, userId: 'creator' });
+  const target = { _id: 'target', title: 'Live board title' };
+  const originalGetBoard = f.cache.getBoard;
+  f.cache.getBoard = async id => id === 'target' ? target : originalGetBoard(id);
+  f.canReadBoard = (_, board) => ['board', 'target'].includes(board?._id);
+  const policies = [], related = [];
+  f.onCustomFieldPolicy = (id, defs) => policies.push([id, defs]);
+  f.onRelatedSource = binding => related.push(binding);
+  const text = await prepare(f);
+  for (const part of ['Priority: High', 'Sticker: Local sticker', 'Location: Local place',
+    'Review: Visible note', 'Created by: person', 'Parent: Parent task']) assert.ok(text.includes(part), part);
+  assert.doesNotMatch(text, /SECRET|STALE|Due:|Spent time|Votes|Members:|Assignees:/);
+  assert.equal(policies[0][0], 'board'); assert.equal(related.length, 1);
+  // A definition becoming admin-only during preparation must reject the result.
+  const originalGetUser = f.cache.getUser;
+  f.cache.getUser = async id => { f.definitions[0].adminOnly = true; return originalGetUser(id); };
+  await assert.rejects(prepare(f), /details-changed/);
+});
+test('local linked-board content rejects retargeting and use with a copied linked-card wrapper', async () => {
+  const f = fixture(); f.localLinkedBoard = true;
+  Object.assign(f.card, { type: 'cardType-linkedCard', linkedId: 'target' });
+  await assert.rejects(prepare(f), /local-board-required/);
+  f.card.type = 'cardType-linkedBoard';
+  const saved = { ...f.card }; let reads = 0;
+  f.cache.getCard = async id => id === 'card' ? (++reads === 1 ? saved : { ...saved, linkedId: 'other' }) : f.cards[id];
+  f.cache.getBoard = async id => id === 'target' ? { _id: 'target', title: 'Board' } : f.board;
+  f.canReadBoard = () => true;
+  await assert.rejects(prepare(f), /details-changed/);
+});
