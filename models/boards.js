@@ -1803,7 +1803,7 @@ Boards.helpers({
 
   activeMembers(){
     // Depend on the users collection for reactivity when users are loaded
-    const memberUserIds = this.members.map(x => x.userId);
+    const memberUserIds = (this.members || []).map(x => x.userId);
     // Use findOne with limit for reactivity trigger instead of count() which loads all users
     if (Meteor.isClient) {
       Meteor.users.findOne({ _id: { $in: memberUserIds } }, { fields: { _id: 1 }, limit: 1 });

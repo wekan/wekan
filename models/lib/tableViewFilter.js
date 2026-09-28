@@ -8,4 +8,15 @@ function tableViewCardsSelector(boardId, filterSelector) {
   return { $and: [filterSelector, base] };
 }
 
-export { tableViewCardsSelector };
+// Preserve card identity/mutators, but use the page's authorized dates for
+// badges as well as ordering. Never write source dates onto a local link card.
+function tableCardWithDates(card, dates) {
+  if (!dates) return card;
+  const view = Object.assign(Object.create(Object.getPrototypeOf(card)), card);
+  for (const [getter, field] of [['getReceived', 'receivedAt'], ['getStart', 'startAt'], ['getDue', 'dueAt'], ['getEnd', 'endAt']]) {
+    Object.defineProperty(view, getter, { value: () => dates[field] ?? null });
+  }
+  return view;
+}
+
+export { tableViewCardsSelector, tableCardWithDates };

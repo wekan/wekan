@@ -5,7 +5,7 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 const { assignedOnlyCardScope } = require('../models/lib/boardCardScope');
 const tick = () => new Promise(resolve => setImmediate(resolve));
-async function fixture(search, snapshot = false) {
+async function fixture(search, snapshot = false, prepare) {
   const observers = [], rows = new Map();
   let handler, stop, ready = 0;
   let board = { _id: 'board', permission: 'private', members: [{ userId: 'reader', isActive: true, isReadAssignedOnly: true }] };
@@ -20,13 +20,13 @@ async function fixture(search, snapshot = false) {
   const snapshotSource = snapshot ? `
     Meteor.publish('snapshot', function(boardId, key) {
       return publishBoardMatches({ publication: this, boardId, key, identity: { key },
-        collectionName: 'pages', snapshot: true, cardFields: null, children: [],
+        collectionName: 'pages', snapshot: true, cardFields: null, children: [], prepare: prepareFixture,
         findMatches: boardTextSearch });
     });` : '';
   vm.runInNewContext(source + snapshotSource, { Meteor: { publish: (name, fn) => { handler = fn; }, Error }, check() {},
     Boards, Cards: model('cards'), CardComments: model('comments'), Checklists: model('checklists'), ChecklistItems: model('items'),
     canReadBoard: (id, doc) => !!doc && (doc.permission === 'public' || doc.members.some(m => m.userId === id && m.isActive)),
-    assignedOnlyCardScope, boardTextSearch: search,
+    assignedOnlyCardScope, boardTextSearch: search, prepareFixture: prepare,
   });
   const context = { userId: 'reader', onStop: fn => { stop = fn; }, ready: () => ready++,
     added: (collection, id, fields) => rows.set(id, fields), removed: (collection, id) => rows.delete(id),
@@ -47,6 +47,27 @@ test('publication scopes the join, retracts revoked results and cleans every obs
   assert.equal(f.rows.size, 0, 'board policy changes retract old results immediately');
   await tick(); assert.equal(f.rows.size, 0);
   f.stop(); assert.ok(f.observers.every(handle => handle.stopped));
+});
+test('dynamic source watches invalidate pages, replace old handles and recheck prepared state', async () => {
+  const sources = []; let key = 'one', valid = true, count = 0;
+  const prepare = async ({ watch }) => {
+    await watch('source', key, { observeChangesAsync: async callbacks => {
+      const handle = { callbacks, stopped: false, stop() { this.stopped = true; } };
+      sources.push(handle); callbacks.added('source', {}); return handle;
+    } });
+    return { async isCurrent() { if (!valid) { valid = true; return false; } return true; } };
+  };
+  const f = await fixture(async () => ({ ids: ['card'], total: ++count, page: 1, cards: [{ _id: 'card', title: key }] }), true, prepare);
+  await f.start('page-key'); assert.equal(sources.length, 1);
+  sources[0].callbacks.changed('source', {});
+  assert.equal(f.rows.size, 0, 'a source change retracts old ordering immediately');
+  await tick(); assert.equal(sources.length, 1, 'unchanged source IDs reuse the observer');
+  key = 'two'; valid = false;
+  sources[0].callbacks.changed('source', {}); await tick(); await tick();
+  assert.equal(sources.length, 2); assert.equal(sources[0].stopped, true);
+  assert.equal(f.rows.get('card').title, 'two');
+  assert.ok(count >= 4, 'failed end-of-scan verification forces a fresh scan');
+  f.stop(); assert.ok(sources.every(handle => handle.stopped));
 });
 test('page snapshots replace cards, clear removed fields, retract on revocation and stop observers', async () => {
   let cards = [{ _id: 'first', title: 'Before', description: 'Removed later' }];

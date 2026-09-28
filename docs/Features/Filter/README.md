@@ -46,10 +46,12 @@ Search includes card titles, list/swimlane titles and label names. The server
 scans projected table metadata and loads full documents only for the page;
 large result sets still require server-side scan/sort work.
 
-Remaining parity work: date sorting in this lazy path currently uses dates on
-the local card document. Linked-card/linked-board date badges can resolve dates
-from their source instead; authorized source-date sorting and source-change
-observation still need implementation. Eager Table behavior is unchanged.
+Linked-card and linked-board date sorting and badges use the same authorized
+source dates, resolved one link deep. Source edits and source access changes
+refresh the page. Missing, archived or inaccessible source cards have no dates;
+assigned-only source-board membership also limits which card dates are visible.
+Only the four dates for the current page are included in its metadata; source
+card and board documents are not published by this Table subscription.
 
 The board Calendar grid and Calendar list honor the same active card filters.
 This does not claim that the separate Multi Board Calendar shares every board

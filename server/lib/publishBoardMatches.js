@@ -6,11 +6,12 @@ const { assignedOnlyCardScope } = require('/models/lib/boardCardScope');
 
 // Shared authorized, reactive ID-only publication for board filter providers.
 export async function publishBoardMatches({ publication, boardId, key, identity,
-  collectionName, children, cardFields = {}, boardFields = {}, snapshot = false, findMatches }) {
+  collectionName, children, cardFields = {}, boardFields = {}, snapshot = false, prepare, findMatches }) {
   let stopped = false, initializing = true, running = false, pending = false, revision = 0;
   const handles = [], published = new Set();
   let pagePublished = false;
   const pageCards = new Map();
+  const watches = new Map();
   const rowId = cardId => JSON.stringify([boardId, key, cardId]);
   const clear = () => {
     for (const id of published) publication.removed(collectionName, rowId(id));
@@ -20,7 +21,22 @@ export async function publishBoardMatches({ publication, boardId, key, identity,
     for (const id of pageCards.keys()) publication.removed('cards', id);
     pageCards.clear();
   };
-  publication.onStop(() => { stopped = true; for (const handle of handles) handle.stop(); });
+  publication.onStop(() => {
+    stopped = true;
+    for (const handle of handles) handle.stop();
+    for (const { handle } of watches.values()) handle.stop();
+    watches.clear();
+  });
+  const watch = async (name, key, cursor) => {
+    if (stopped || watches.get(name)?.key === key) return;
+    let starting = true;
+    const invalidate = () => { if (!starting) boardChanged(); };
+    const handle = await cursor.observeChangesAsync({ added: invalidate, changed: invalidate, removed: invalidate });
+    starting = false;
+    if (stopped) { handle.stop(); return; }
+    watches.get(name)?.handle.stop();
+    watches.set(name, { key, handle });
+  };
   const refresh = async () => {
     pending = true;
     if (running || initializing || stopped) return;
@@ -33,7 +49,10 @@ export async function publishBoardMatches({ publication, boardId, key, identity,
         if (stopped) return;
         if (!canReadBoard(publication.userId, board)) { clear(); continue; }
         const scope = { boardId, archived: false, ...assignedOnlyCardScope(board, publication.userId) };
-        const ids = await findMatches({ scope, board, stopped: () => stopped || revision !== version });
+        const isStopped = () => stopped || revision !== version;
+        const prepared = prepare ? await prepare({ scope, board, watch, stopped: isStopped }) : undefined;
+        if (isStopped()) { pending = !stopped; continue; }
+        const ids = await findMatches({ scope, board, prepared, stopped: isStopped });
         if (stopped) return;
         if (revision !== version) { pending = true; continue; }
         // Authorization is re-read after the asynchronous scan, not only when
@@ -44,6 +63,8 @@ export async function publishBoardMatches({ publication, boardId, key, identity,
         if (revision !== version || JSON.stringify(latest.members) !== JSON.stringify(board.members)) {
           pending = true; continue;
         }
+        if (prepared?.isCurrent && !(await prepared.isCurrent())) { clear(); pending = true; continue; }
+        if (isStopped()) { pending = !stopped; continue; }
         if (snapshot) {
           const { cards, ...fields } = ids;
           const next = new Map(cards.map(card => [card._id, card]));

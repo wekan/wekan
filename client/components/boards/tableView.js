@@ -4,7 +4,7 @@ import { isLazyCards } from '/client/lib/lazyCards';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Utils } from '/client/lib/utils';
 import { Filter } from '/client/lib/filter';
-import { tableViewCardsSelector } from '/models/lib/tableViewFilter';
+import { tableViewCardsSelector, tableCardWithDates } from '/models/lib/tableViewFilter';
 import {
   readTableViewTitleWrap,
   writeTableViewTitleWrap,
@@ -81,13 +81,15 @@ Template.tableView.onCreated(function () {
       : undefined;
     const lazy = isLazyCards(board._id);
     const remote = lazy ? resultPage(this) : null;
+    const dateValues = new Map((remote?.dateValues || []).map(value => [value._id, value]));
     const cards = ReactiveCache.getCards(
       lazy ? { boardId: board._id, _id: { $in: remote?.ids || [] } } : tableViewCardsSelector(board._id, filterSelector),
       { sort: { title: 1 } },
     );
 
     const rows = [];
-    cards.forEach(card => {
+    cards.forEach(storedCard => {
+      const card = tableCardWithDates(storedCard, lazy ? dateValues.get(storedCard._id) : undefined);
       const swimlane = card.getSwimlane();
       const list = card.getList();
       if (!swimlane || swimlane.archived || !list || list.archived) return;
