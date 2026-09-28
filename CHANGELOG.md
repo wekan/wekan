@@ -1302,11 +1302,12 @@ into separate, concretely-scoped issues before any one part is buildable),
 [#935](https://github.com/wekan/wekan/issues/935) (simple card filtering:
 labels and native date ranges now have sidebar controls, including creation,
 modification and entry into the current list. Creation and modification also
-have rolling 24-hour, 7-day, 30-day and older presets. Still unfinished:
-matching any historical move within a date range, combined text search
-across titles, descriptions, checklists and comments, saved filter
-combinations and the RFC's extensible filter-provider interface. The
-current-list entry date does not answer arbitrary historical move queries),
+have rolling 24-hour, 7-day, 30-day and older presets. The single text input
+now matches titles, descriptions, checklists and comments across authorized
+cards, including lazy windows. Still unfinished: matching any historical
+move within a date range, saved filter combinations and the RFC's extensible
+filter-provider interface. The current-list entry date does not answer
+arbitrary historical move queries),
 [#572](https://github.com/wekan/wekan/issues/572) (label add/remove as its own
 controllable Notification Settings option - the activity feed entry it asks
 for already exists (`models/cards.js`'s `cardLabels()` hook logs
@@ -1543,6 +1544,31 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0bf2dc27b">Search all card text from the filter sidebar</a>. Thanks to neooleg and xet7.</summary>
+
+Replace the sidebar's title-only input with an immediate, case-insensitive
+literal substring filter over titles, descriptions, checklist names/items and
+comments. Scan authorized cards in batches so matches outside lazy windows
+are found too. Publish only matching card IDs, constrain children to the board
+and allowed cards, and refresh on text, placement, archival, assignment and
+membership changes. Recheck board access after asynchronous reads and clean
+observers on cancellation. Combine matches with existing filter constraints.
+
+Eighteen Node suites pass, including a real 501-card MongoDB join test and
+publication tests for revocation, in-flight permission changes, invalid input
+and stopped subscriptions. Chromium verifies every text source, lazy loading,
+literal punctuation, live edits/deletions, foreign child scope, assigned-only
+access and full membership revocation. The date-range browser regression also
+passes. The standalone database uses Meteor polling; the multi-edit browser
+test allows sufficient total time while retaining each assertion's timeout.
+Source inventory warnings remain advisory. Complete this text-search portion
+of [#935](https://github.com/wekan/wekan/issues/935) and retain its remaining
+historical movement, saved combination and provider-interface work in
+TODO Later.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/34ed467a4">Filter cards by relative creation and modification dates</a>. Thanks to neooleg and xet7.</summary>
