@@ -1,3 +1,4 @@
+import { canReadBoard } from '/models/lib/boardVisibility';
 import { copyRuleCard } from '/server/lib/ruleCopyCard';
 import { requireButtonRuleContext } from '/models/lib/buttonRulePermission';
 import { DDP } from 'meteor/ddp';
@@ -298,8 +299,16 @@ export const RulesHelper = {
         recipientLang = recipientUser.getLanguage();
       }
     }
-    return { to, from: Accounts.emailTemplates.from, subject, text,
+    const options = { to, from: Accounts.emailTemplates.from, subject, text,
       language: recipientLang, userId: recipientUser ? recipientUser._id : null };
+    if (action.includeAttachments === true) {
+      const { prepareRuleCardAttachments } = require('/server/lib/ruleCardAttachments');
+      const { fileStoreStrategyFactory } = require('/models/attachments.server');
+      const attachments = await prepareRuleCardAttachments({ activity, cache: ReactiveCache, canReadBoard,
+        openStream: file => fileStoreStrategyFactory.getFileStrategy(file, 'original').getReadStream() });
+      if (attachments.length) options.attachments = attachments;
+    }
+    return options;
   },
 
   async prepareEmailCommand(activity, action) {
@@ -435,8 +444,8 @@ export const RulesHelper = {
         if (typeof EmailLocalization !== 'undefined') {
           await EmailLocalization.sendEmail(options);
         } else {
-          const { to, from, subject, text } = options;
-          await Email.sendAsync({ to, from, subject, text });
+          const { to, from, subject, text, attachments } = options;
+          await Email.sendAsync({ to, from, subject, text, ...(attachments ? { attachments } : {}) });
         }
       } catch (e) {
         // eslint-disable-next-line no-console

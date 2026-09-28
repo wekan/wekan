@@ -1159,6 +1159,8 @@ export const Utils = {
           .find('select option:selected')
           .text()
           .toLowerCase();
+      } else if (element.find('input[type=checkbox]').length > 0) {
+        if (element.find('input[type=checkbox]').is(':checked')) part = element.text().trim();
       } else if (element.find('input').length > 0) {
         let inputvalue = element.find('input').val();
         if (inputvalue === undefined || inputvalue === '') {

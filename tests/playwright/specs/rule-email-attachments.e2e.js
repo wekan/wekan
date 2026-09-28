@@ -1,0 +1,74 @@
+'use strict';
+const { test, expect } = require('../fixtures');
+const db = require('../helpers/db');
+const { navigateInApp } = require('../helpers/auth');
+const { smtpSink } = require('../helpers/smtpSink');
+const fs = require('node:fs');
+const { ObjectId, Binary } = require('bson');
+const path = require('node:path');
+const call = (page, method, ...args) => page.evaluate(({ method, args }) => Meteor.callAsync(method, ...args), { method, args });
+
+for (const backend of ['fs', 'gridfs']) {
+test(`email rule form and SMTP carry only live triggering-card bytes from ${backend}`, async ({ boardPage: page, board }) => {
+  test.skip(!process.env.WEKAN_TEST_SMTP_PORT || !process.env.WEKAN_FILES_PATH, 'requires isolated SMTP capture and local file storage');
+  const sink = await smtpSink(Number(process.env.WEKAN_TEST_SMTP_PORT));
+  const id = db.uid('mailattachment'), bytes = Buffer.from([0, 255, 128, 10, 13, 65, 66, 67]);
+  const filename = path.join(process.env.WEKAN_FILES_PATH, 'attachments', `${id}.bin`);
+  fs.mkdirSync(path.dirname(filename), { recursive: true }); fs.writeFileSync(filename, bytes);
+  const gridId = new ObjectId();
+  const foreignId = db.uid('foreignattachment');
+  const card = db.findOne('cards', { boardId: board.boardId });
+  try {
+    if (backend === 'gridfs') {
+      db.insertOne('attachments.files', { _id: gridId, filename: 'report.bin', length: bytes.length, chunkSize: 255 * 1024, uploadDate: new Date() });
+      db.insertOne('attachments.chunks', { files_id: gridId, n: 0, data: new Binary(bytes) });
+    }
+    db.insertOne('attachments', { _id: foreignId, name: 'foreign-secret.bin', meta: { cardId: 'another-card' } });
+    db.insertOne('attachments', { _id: id, name: 'report.bin', extension: 'bin', type: 'application/octet-stream', size: bytes.length,
+      meta: { boardId: board.boardId, cardId: card._id },
+      versions: { original: { storage: backend, meta: backend === 'gridfs' ? { gridFsFileId: gridId.toHexString() } : {}, path: filename, size: bytes.length, extension: 'bin', type: 'application/octet-stream' } } });
+    await navigateInApp(page, `/b/${board.boardId}/${board.slug}/rules`);
+    await page.locator('#ruleTitle').fill('Email card files');
+    await page.locator('.js-goto-trigger').click();
+    await page.locator('.js-set-button-triggers').click();
+    await page.locator('.js-add-button-trigger').click();
+    await page.locator('.js-set-mail-actions').click();
+    await page.locator('#email-to').fill('attachments@example.invalid');
+    await page.locator('#email-subject').fill('Card files');
+    await page.locator('#email-msg').fill('Requested card content');
+    await expect(page.locator('#email-attachments')).not.toBeChecked();
+    await page.locator('#email-attachments').focus();
+    await page.keyboard.press('Space');
+    await expect(page.locator('#email-attachments')).toBeChecked();
+    await page.locator('.js-mail-action').click();
+    await expect(page.locator('.rules-lists-item').filter({ hasText: 'Email card files' })).toBeVisible();
+    const rule = db.findOne('rules', { boardId: board.boardId, title: 'Email card files' });
+    const action = db.findOne('actions', { _id: rule.actionId });
+    expect(action.includeAttachments).toBe(true);
+    expect(action.desc.toLowerCase()).toContain('attachments');
+    await call(page, 'rules.runButton', rule._id, card._id);
+    const mails = () => sink.messages.filter(mail => mail.recipients.includes('attachments@example.invalid'));
+    await expect.poll(() => mails().length).toBe(1);
+    expect(mails()[0].data).toContain('filename=report.bin');
+    expect(mails()[0].data).toContain(bytes.toString('base64'));
+    expect(mails()[0].data).toContain('Requested card content');
+    db.updateOne('attachments', { _id: id }, { $set: { deletedAt: new Date() } });
+    await call(page, 'rules.runButton', rule._id, card._id);
+    await expect.poll(() => mails().length).toBe(2);
+    expect(mails()[1].data).not.toContain('report.bin');
+    db.updateOne('attachments', { _id: id }, { $unset: { deletedAt: '' } });
+    fs.unlinkSync(filename);
+    if (backend === 'gridfs') { db.deleteMany('attachments.files', { _id: gridId }); db.deleteMany('attachments.chunks', { files_id: gridId }); }
+    const error = await page.evaluate(async ({ ruleId, cardId }) => {
+      try { await Meteor.callAsync('rules.runButton', ruleId, cardId); return null; }
+      catch (error) { return error.error; }
+    }, { ruleId: rule._id, cardId: card._id });
+    expect(error).not.toBeNull(); expect(mails()).toHaveLength(2);
+  } finally {
+    db.deleteMany('attachments', { _id: { $in: [id, foreignId] } });
+    db.deleteMany('attachments.files', { _id: gridId }); db.deleteMany('attachments.chunks', { files_id: gridId });
+    fs.rmSync(filename, { force: true }); await sink.close();
+  }
+});
+
+}

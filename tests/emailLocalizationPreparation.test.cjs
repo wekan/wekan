@@ -7,7 +7,7 @@ const source = fs.readFileSync(require.resolve('../server/lib/emailLocalization.
   .replace(/^import .*;\n/gm, '').replace('export default EmailLocalization;', 'globalThis.localization = EmailLocalization;');
 function fixture() {
   const events = [], sent = [];
-  const context = { Accounts: { emailTemplates: { from: 'default@example.org' } },
+  const context = { structuredClone, require: name => { assert.equal(name, './ruleEmailAttachments'); return require('../server/lib/ruleEmailAttachments'); }, Accounts: { emailTemplates: { from: 'default@example.org' } },
     ReactiveCache: { getUser: async id => { events.push(`user:${id}`); return { getLanguage: () => 'fi' }; } },
     TAPi18n: { getLanguage: () => 'en', ensureLanguageLoaded: async lang => { events.push(`load:${lang}`); },
       __: (key, params, lang) => { events.push(`translate:${key}`); return `${lang}:${key}:${params.name || ''}`; } },
@@ -69,4 +69,16 @@ test('plain text preparation omits absent HTML before BSON serialization', async
   assert.equal(Object.hasOwn(mail, 'html'), false);
   const { EJSON } = require('bson');
   assert.equal(Object.hasOwn(EJSON.parse(EJSON.stringify(mail)), 'html'), false);
+});
+
+test('attachment snapshots survive preparation and reach the transport unchanged', async () => {
+  const f = fixture();
+  const attachments = [{ filename: 'file.bin', contentType: 'application/octet-stream', encoding: 'base64', content: 'AP8=' }];
+  const mail = await f.localization.prepareEmail({ ...options, attachments });
+  attachments[0].content = 'YQ==';
+  assert.equal(mail.attachments[0].content, 'AP8=');
+  await f.localization.sendEmail({ ...options, attachments });
+  assert.deepEqual(f.sent[0].attachments, attachments);
+  await assert.rejects(f.localization.sendEmail({ ...options, attachments: [{ path: '/private/file' }] }), /invalid/);
+  assert.equal(f.sent.length, 1);
 });

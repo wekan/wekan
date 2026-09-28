@@ -16,6 +16,7 @@ Template.mailActions.events({
       emailTo,
       emailSubject,
       emailMsg,
+      includeAttachments: tpl.find('#email-attachments').checked,
       boardId,
       desc,
     });

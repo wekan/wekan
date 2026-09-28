@@ -56,6 +56,11 @@ const EmailLocalization = {
       subject: subject,
       text: text
     };
+    if (options.attachments !== undefined) {
+      const { validateRuleEmailAttachments } = require('./ruleEmailAttachments');
+      // Only byte snapshots may cross this boundary, never paths or URLs.
+      mail.attachments = structuredClone(validateRuleEmailAttachments(options.attachments));
+    }
     if (options.html !== undefined) mail.html = options.html;
     // #2414: reply-by-email - a Reply-To carrying an HMAC-signed card token,
     // set by server/notifications/emailQueue.js, lets a reply sent through the

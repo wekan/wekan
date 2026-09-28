@@ -69,6 +69,26 @@ Evaluated by a server cron job every minute:
   a checklist with items.
 - **Mail:** send an email.
 
+### Attach card files to an email
+
+Enable **Attachments** in the email action to include the triggering card's
+live files. The default remains a text-only message. Files are read through the
+configured storage strategy and sent as byte snapshots, not download links.
+A deleted attachment is omitted; an unreadable file fails the message before
+SMTP, rather than silently sending a partial set. Each message permits up to
+100 attachments and 8 MiB of raw file data in total.
+
+The actor must still be able to read the source board and card after the reads
+finish. Assigned-only access requires assignment to that card. Attachments of
+linked or unrelated cards are not followed. Stored Sync email commands retain
+the captured bytes for retries. Filesystem and GridFS delivery have local SMTP
+regression coverage; cloud adapters use their existing stream interface but
+were not tested against live cloud accounts for this change.
+
+Email bodies currently include the configured text and the card's title,
+description and link. A complete rendering of checklists, comments and other
+card fields requested in #2713 is still pending.
+
 ### Copy a card after a trigger
 
 In the form builder, choose **Copy Card** under Board actions and select the
