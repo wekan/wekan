@@ -529,9 +529,18 @@ connections to two minutes. Validated environment variables configure each
 limit. Native Meteor SMTP routing is preserved; TLS overrides and Admin Panel
 providers receive the same limits. Eleven focused Node suites and fifteen
 Chromium cases pass, including actual socket closure and eventual delivery
-after missing greetings and idle SMTP responses. Receipt retention, an absolute
-delivery deadline with cancellation, deployment-wide concurrency and
-coordinating activity creation with queue insertion remain pending.
+after missing greetings and idle SMTP responses. Admin Panel providers and TLS
+certificate overrides now also have a two-minute total send deadline, configured
+with MAIL_TOTAL_TIMEOUT_MS (1000–300000 ms). Each message owns its socket;
+expiry
+closes it without cancelling other recipients. Four focused Node suites pass,
+including five real SMTP/TLS cases for missing greetings, continuous responses,
+late DNS, concurrent delivery, encrypted socket closure and certificate refusal.
+Message preparation cannot open a connection after expiration. The ordinary
+Meteor MAIL_URL path still needs total cancellation while preserving its native
+plugins. Receipt retention, deployment-wide concurrency and coordinating
+activity creation with queue insertion remain pending. Full-app Meteor and
+browser validation of this new SMTP adapter remain pending.
 History field snapshots now preserve nested dates, including date-valued
 custom fields alongside mapped estimates. JSON transport and restoration retain
 Date types without interpreting date-looking text. Existing rows whose dates
@@ -1172,6 +1181,31 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e037b423d">Bound custom SMTP delivery with active socket cancellation</a>. Thanks to xet7.</summary>
+
+Admin Panel mail providers and TLS certificate overrides now enforce a total
+send deadline, including preparation, DNS, TCP, TLS and SMTP replies. The
+default
+is two minutes; MAIL_TOTAL_TIMEOUT_MS accepts 1000–300000 milliseconds. Each
+message owns a separate connection, so expiration closes its socket without
+interrupting another recipient. These paths no longer reuse pooled connections.
+Keep certificate verification and existing phase limits. Delayed preparation or
+DNS cannot start a connection after expiration; failures remain eligible for
+the notification queue's bounded retry policy.
+
+Four focused Node suites pass, including five actual local SMTP/TLS cases using
+Meteor's Nodemailer dependency. Verify stalled and continuously responding
+peers,
+late DNS, concurrent success, encrypted connection closure and rejection of a
+mismatched certificate. Source/dependency audit passes with advisory warnings.
+No UI behavior changes. Full-app Meteor and browser validation remain pending.
+The ordinary Meteor MAIL_URL path still has phase/idle limits only; its total
+deadline integration, receipt retention and deployment-wide concurrency remain
+in TODO Later.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4ad72c970">Enforce total webhook deadlines with active cancellation</a>. Thanks to xet7.</summary>
