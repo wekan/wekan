@@ -1306,10 +1306,11 @@ have rolling 24-hour, 7-day, 30-day and older presets. The single text input
 now matches titles, descriptions, checklists and comments across authorized
 cards, including lazy windows. Recorded historical list/swimlane and incoming
 board moves now have a separate date-range picker, matching earlier events
-even after later moves. Still unfinished: previous-week and next-month due
-shortcuts, saved filter combinations and the RFC's extensible filter-provider
-interface. The shared server match publisher is a foundation for providers;
-it is not the complete client/plugin registration interface),
+even after later moves. Previous-week and next-month due shortcuts now use
+local calendar boundaries and refresh while active. Still unfinished: saved
+filter combinations and the RFC's extensible filter-provider interface. The
+shared server match publisher is a foundation for providers; it is not the
+complete client/plugin registration interface),
 [#572](https://github.com/wekan/wekan/issues/572) (label add/remove as its own
 controllable Notification Settings option - the activity feed entry it asks
 for already exists (`models/cards.js`'s `cardLabels()` hook logs
@@ -1546,6 +1547,25 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e40532b9f">Filter due dates in the previous week or next month</a>. Thanks to neooleg, Creanimo and xet7.</summary>
+
+Add the remaining previous-week and next-month due-date shortcuts requested
+in [#935](https://github.com/wekan/wekan/issues/935). Use the configured first
+weekday and complete local calendar months, including February and year
+rollover. Require actual dates, switch between options, and clear a shortcut
+by clicking it again. Refresh these active bounds every minute and release
+the shared clock subscription when switching away or clearing filters.
+
+Twelve Node suites and two Chromium cases pass. Cover every week start,
+month-end and year rollover, reactive clock refresh/cleanup, null dates,
+exact interval endpoints, switching/toggling, and the existing date-range
+picker. Source inventory warnings remain advisory. Document calendar
+semantics and retain saved combinations and provider registration in
+TODO Later. Add only English source labels.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c17305c2e">Filter cards by recorded historical movement dates</a>. Thanks to neooleg and xet7.</summary>
