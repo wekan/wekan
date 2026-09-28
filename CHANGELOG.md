@@ -351,8 +351,14 @@ The bound Cards adapter now accepts only saved archive selectors/modifiers,
 runs under the captured actor and defers only its own archive/History hooks.
 Twelve Node cases and two full-app Meteor cases pass, including real schema
 writes, interrupted child effects and normal restore recording afterward.
-Saved History/activity plans and production rule-stage activation remain
-pending; full-app effect callbacks are controlled test adapters.
+Saved History/activity plans now bind the complete archive cascade to its
+command checksum, preserving captured names/times and a cross-card hash chain.
+The execution wrapper preflights plans/adapters and rechecks live feature
+policy while reconciling History, activities and exact delivery receipts.
+All 24 archive Node/MongoDB cases pass, including fresh-connection continuation
+after child event insertion without duplicate rows. Production collection and
+delivery binding, shared History coordination and rule-stage activation remain
+pending; delivery callbacks are still controlled in these persistence tests.
 Other action adapters, shared History-chain coordination, uncertain-send
 operator handling and manual/cron activation remain unfinished; ordinary
 executeRules is not substituted for durable rule replay.
@@ -1444,6 +1450,23 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/85edeb0ec">Persist archive History and activity plans before replay</a>. Thanks to xet7.</summary>
+
+Capture bounded cascade-wide History and activity plans with stable effect IDs,
+names, timestamps and a validated cross-card History chain. Bind the stored
+payload to its archive command and reconcile insertion by exact readback.
+Preflight every plan and required adapter before card access; recheck live
+feature policy and require exact delivery receipts before advancing parents.
+
+All 24 archive Node/MongoDB cases pass, including seven new effect-plan cases.
+Interrupted child delivery resumes on a fresh connection without repeated card
+writes, History rows or activity events. The source audit has advisory warnings.
+No UI flow changes; production collection/delivery binding, shared History
+coordination and job activation remain unfinished.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/3e8650057">Bind saved archive cascades to validated Cards writes</a>. Thanks to xet7.</summary>
