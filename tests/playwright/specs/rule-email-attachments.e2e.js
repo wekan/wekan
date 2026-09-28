@@ -27,8 +27,9 @@ test(`email rule form and SMTP carry only live triggering-card bytes from ${back
     db.insertOne('attachments', { _id: id, name: 'report.bin', extension: 'bin', type: 'application/octet-stream', size: bytes.length,
       meta: { boardId: board.boardId, cardId: card._id },
       versions: { original: { storage: backend, meta: backend === 'gridfs' ? { gridFsFileId: gridId.toHexString() } : {}, path: filename, size: bytes.length, extension: 'bin', type: 'application/octet-stream' } } });
+    db.insertOne('cards', { _id: `${id}-converted`, boardId: board.boardId, title: 'Converted item target' });
     db.insertOne('checklists', { _id: `${id}-checklist`, cardId: card._id, title: 'Email checklist', sort: 0, dueAt: new Date('2027-06-01'), resetInterval: 'weekly' });
-    db.insertOne('checklistItems', { _id: `${id}-item`, cardId: card._id, checklistId: `${id}-checklist`, title: 'Reviewed task', isFinished: true, sort: 0, dueAt: new Date('2027-05-01') });
+    db.insertOne('checklistItems', { _id: `${id}-item`, cardId: card._id, checklistId: `${id}-checklist`, title: 'Reviewed task', isFinished: true, sort: 0, linkedCardId: `${id}-converted`, dueAt: new Date('2027-05-01') });
     db.insertOne('card_comments', { _id: `${id}-comment`, cardId: card._id, boardId: board.boardId, text: 'Public email comment', userId: 'missing-comment-author', createdAt: new Date(), modifiedAt: new Date(), webhookResponsePending: 'NEVER-MAIL-PRIVATE-STATE' });
     db.insertOne('card_comment_reactions', { _id: `${id}-reaction`, cardId: card._id, boardId: board.boardId,
       cardCommentId: `${id}-comment`, reactions: [{ reactionCodepoint: '&#128077;', userIds: ['PRIVATE-REACTOR', 'second-reactor'] }] });
@@ -100,6 +101,7 @@ test(`email rule form and SMTP carry only live triggering-card bytes from ${back
     expect(votingText).not.toContain('PRIVATE-VOTER');
     expect(votingText).toContain('Reactions: =F0=9F=91=8D 2'); // UTF-8 thumbs-up in quoted-printable SMTP.
     expect(votingText).not.toContain('PRIVATE-REACTOR');
+    expect(votingText).toContain('Converted subtask: Converted item target');
     for (const text of ['Scrum sprint: Mail sprint', 'Scrum release: Mail release',
       'Scrum acceptance criteria: Ready for review', 'Scrum backlog rank: 0']) expect(votingText).toContain(text);
     expect(votingText).not.toContain('HIDDEN-SCRUM-TYPE');
@@ -124,14 +126,21 @@ test(`email rule form and SMTP carry only live triggering-card bytes from ${back
     expect(mails()[2].data).not.toContain('Public email comment');
     expect(mails()[2].data).not.toContain('Mail priority');
     expect(mails()[2].data).not.toMatch(/Flowtime|Pomodoro|Recurrence|Vote question|Poker|Scrum|Sticker|Created by|Author:|Reset interval|Reactions:/);
+    db.updateOne('actions', { _id: rule.actionId }, { $set: { includeChecklistsAndComments: true } });
+    await call(page, 'rules.runButton', rule._id, card._id);
+    await expect.poll(() => mails().length).toBe(4);
+    const discussionOnly = mails()[3].data.replace(/=\r?\n/g, '');
+    expect(discussionOnly).toContain('Converted subtask: Converted item target');
+    expect(discussionOnly).not.toContain('Mail priority');
     fs.unlinkSync(filename);
     if (backend === 'gridfs') { db.deleteMany('attachments.files', { _id: gridId }); db.deleteMany('attachments.chunks', { files_id: gridId }); }
     const error = await page.evaluate(async ({ ruleId, cardId }) => {
       try { await Meteor.callAsync('rules.runButton', ruleId, cardId); return null; }
       catch (error) { return error.error; }
     }, { ruleId: rule._id, cardId: card._id });
-    expect(error).not.toBeNull(); expect(mails()).toHaveLength(3);
+    expect(error).not.toBeNull(); expect(mails()).toHaveLength(4);
   } finally {
+    db.deleteOne('cards', { _id: `${id}-converted` });
     db.deleteOne('card_comment_reactions', { _id: `${id}-reaction` });
     db.deleteOne('scrumSprints', { _id: `${id}-sprint` });
     db.deleteOne('scrumReleases', { _id: `${id}-release` });

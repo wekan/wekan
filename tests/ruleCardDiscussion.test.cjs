@@ -74,3 +74,24 @@ test('reactions are scoped to live comments, decoded as text and count distinct 
   f.cache.getCardCommentReactions = async () => { f.allowed = false; return []; };
   await assert.rejects(prepare(f), /not-authorized/);
 });
+test('converted subtask references resolve readable live titles and capture the full source chain', async () => {
+  const f = fixture(), references = [];
+  f.items[0].linkedCardId = 'linked';
+  const cards = { card: f.card, linked: { _id: 'linked', boardId: 'board', type: 'cardType-linkedCard', linkedId: 'target', title: 'STALE' },
+    target: { _id: 'target', boardId: 'other', title: 'Current subtask' } };
+  const boards = { board: f.board, other: { members: [] } };
+  f.cache.getCard = async id => cards[id]; f.cache.getBoard = async id => boards[id];
+  f.canReadBoard = (_, board) => f.allowed && !!board;
+  f.onRelatedSource = binding => references.push(binding);
+  const text = await prepare(f);
+  assert.match(text, /Converted subtask: Current subtask/); assert.doesNotMatch(text, /STALE/);
+  assert.deepEqual(references[0].cards.map(row => row[0]), ['linked', 'target']);
+  for (const change of [() => { delete cards.target; }, () => { cards.target.deletedAt = new Date(); },
+    () => { boards.other.members = [{ userId: 'reader', isActive: true, isReadAssignedOnly: true }]; }]) {
+    cards.target = { _id: 'target', boardId: 'other', title: 'SECRET' }; boards.other.members = [];
+    change(); assert.doesNotMatch(await prepare(f), /Converted subtask|SECRET|STALE/);
+  }
+  cards.target = { _id: 'target', boardId: 'other', title: 'Current subtask' }; boards.other.members = [];
+  f.onRelatedSource = () => { cards.linked.linkedId = 'elsewhere'; };
+  await assert.rejects(prepare(f), /source-changed/);
+});

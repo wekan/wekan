@@ -739,8 +739,8 @@ Version 4 additionally captures the six Scrum card-field visibility flags for
 each source board. Changing any flag stops a stored dispatch, preventing a
 previously visible Scrum value from surviving a later visibility restriction.
 Earlier binding versions remain readable for pre-Scrum-content snapshots.
-Version 5 records the source chains used for related-card titles, including
-terminal linked boards. These are one-level reference chains, not recursive
+Version 5 records the source chains used for related-card titles and converted checklist subtasks,
+including terminal linked boards. These are one-level reference chains, not recursive
 card exports. Capture deduplicates references and permits up to 1,000 chains; dispatch rechecks their identity,
 read/assignment access and disclosure settings even if the original card no
 longer references them. Loss of board-admin access used during preparation

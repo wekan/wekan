@@ -147,4 +147,15 @@ async function resolveRuleEmailSource({ activity, cache, canReadBoard }) {
   };
   return { card, activity: sourceActivity, binding, assertCurrent, addRelatedSource, addCustomFieldPolicy };
 }
-module.exports = { resolveRuleEmailSource, validateRuleEmailSourceBinding, assertRuleEmailSourceBinding };
+async function resolveRuleEmailReference({ id, activity, cache, canReadBoard }) {
+  if (typeof id !== 'string' || !id) return null;
+  const target = await cache.getCard(id);
+  if (!target || target._id !== id) return null;
+  try {
+    return await resolveRuleEmailSource({ activity: { ...activity, cardId: id, boardId: target.boardId }, cache, canReadBoard });
+  } catch (error) {
+    if (['rule-email-source-not-authorized', 'rule-email-source-invalid'].includes(error.message)) return null;
+    throw error;
+  }
+}
+module.exports = { resolveRuleEmailReference, resolveRuleEmailSource, validateRuleEmailSourceBinding, assertRuleEmailSourceBinding };

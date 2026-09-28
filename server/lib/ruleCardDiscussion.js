@@ -4,7 +4,7 @@ const { notDeleted } = require('../../models/lib/softDelete');
 
 // Only public prose is rendered. Never serialize full comment/checklist
 // documents: comments may hold private webhook response state.
-async function prepareRuleCardDiscussion({ activity, cache, canReadBoard }) {
+async function prepareRuleCardDiscussion({ activity, cache, canReadBoard, onRelatedSource = () => {} }) {
   const authorize = async () => {
     const card = await cache.getCard(activity.cardId);
     const board = card && await cache.getBoard(card.boardId);
@@ -40,7 +40,7 @@ async function prepareRuleCardDiscussion({ activity, cache, canReadBoard }) {
       }
     }
   }
-  const lines = [];
+  const lines = [], related = [];
   let bytes = 0;
   const add = value => {
     const line = String(value ?? '');
@@ -69,6 +69,14 @@ async function prepareRuleCardDiscussion({ activity, cache, canReadBoard }) {
       for (const item of itemsByChecklist.get(checklist._id) || []) {
         add(`  [${item.isFinished ? 'x' : ' '}] ${item.title || ''}`);
         dateLine('Due', item.dueAt, '    ');
+        if (typeof item.linkedCardId === 'string' && item.linkedCardId) {
+          const { resolveRuleEmailReference } = require('./ruleEmailSource');
+          const source = await resolveRuleEmailReference({ id: item.linkedCardId, activity, cache, canReadBoard });
+          if (source) {
+            related.push(source); onRelatedSource(source.binding);
+            if (typeof source.card.title === 'string' && source.card.title) add(`    Converted subtask: ${source.card.title}`);
+          }
+        }
       }
     }
   }
@@ -92,6 +100,7 @@ async function prepareRuleCardDiscussion({ activity, cache, canReadBoard }) {
       if (summary.length) add(`Reactions: ${summary.join(', ')}`);
     }
   }
+  for (const source of related) await source.assertCurrent();
   await authorize();
   return lines.join('\n');
 }

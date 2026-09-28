@@ -270,7 +270,7 @@ export const RulesHelper = {
     const card = await ReactiveCache.getCard(activity.cardId);
     if (!card) throw new Error('rule-email-card-unavailable');
     let emailSource = sourceContext;
-    if (emailSource || action.includeCardDetails === true || ['cardType-linkedCard', 'cardType-linkedBoard'].includes(card.type)) {
+    if (emailSource || action.includeCardDetails === true || action.includeChecklistsAndComments === true || ['cardType-linkedCard', 'cardType-linkedBoard'].includes(card.type)) {
       const { resolveRuleEmailSource } = require('/server/lib/ruleEmailSource');
       emailSource = emailSource || await resolveRuleEmailSource({ activity, cache: ReactiveCache, canReadBoard });
       activity = emailSource.activity;
@@ -320,7 +320,8 @@ export const RulesHelper = {
     }
     if (action.includeChecklistsAndComments === true) {
       const { prepareRuleCardDiscussion } = require('/server/lib/ruleCardDiscussion');
-      const discussion = await prepareRuleCardDiscussion({ activity, cache: ReactiveCache, canReadBoard });
+      const discussion = await prepareRuleCardDiscussion({ activity, cache: ReactiveCache, canReadBoard,
+        onRelatedSource: binding => emailSource.addRelatedSource(binding) });
       if (discussion) options.text += `\n\n${discussion}`;
     }
     if (action.includeAttachments === true) {

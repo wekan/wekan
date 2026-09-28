@@ -13,7 +13,7 @@ This audit compares the current email preparation code with `models/cards.js`,
 | Flowtime, Pomodoro, recurrence | Persisted fields, public session-owner names; unfinished time is not added to completed hours | Details unit tests; SMTP assertions |
 | Voting and Poker | Counts, public voter names, completed Poker choices; visibility checked before dispatch | Details/source-binding tests; ordinary and linked-board SMTP |
 | Scrum card metadata | Six visible fields; sprint/release names scoped to source board | Details/source-binding tests; SMTP assertions |
-| Checklists | Titles, item text/completion, checklist/item due dates, completion date, reset interval and last reset | `tests/ruleCardDiscussion.test.cjs`; SMTP assertions |
+| Checklists | Titles, item text/completion, checklist/item due dates, completion date, reset interval, last reset and readable converted-subtask titles | `tests/ruleCardDiscussion.test.cjs`; SMTP assertions |
 | Comments | Public prose, creation/edit dates, public author display name, reaction emoji and distinct counts | Discussion unit tests; SMTP assertions |
 | Files | Selected live attachments become immutable byte snapshots; names and MIME types retained | Filesystem/GridFS SMTP; bounded-stream unit tests |
 | Linked cards | Resolve readable source chain for selected content; detect retargeting and access loss | `tests/ruleEmailSource.test.cjs`; linked-source SMTP |
@@ -21,8 +21,6 @@ This audit compares the current email preparation code with `models/cards.js`,
 
 ## Unfinished checks and implementation
 
-- Checklist `linkedCardId`: render the converted subtask reference only if its
-  target remains readable; do not expose an inaccessible target title or ID.
 - Attachment presentation metadata: identify the cover attachment and decide
   how to include upload time/uploader alongside the already attached bytes.
 - Legacy Gantt dependency fields: compare `targetId_gantt`, `linkType_gantt` and

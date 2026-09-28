@@ -35,18 +35,9 @@ async function prepareRuleCardDetails({ activity, cache, canReadBoard, readScrum
     lines.push(line);
   };
   const relation = async (label, id) => {
-    if (typeof id !== 'string' || !id) return;
-    const target = await cache.getCard(id);
-    const targetBoard = target && await cache.getBoard(target.boardId);
-    if (!canRead(target, targetBoard)) return;
-    const { resolveRuleEmailSource } = require('./ruleEmailSource');
-    let resolved;
-    try {
-      resolved = await resolveRuleEmailSource({ activity: { ...activity, cardId: id, boardId: target.boardId }, cache, canReadBoard });
-    } catch (error) {
-      if (['rule-email-source-not-authorized', 'rule-email-source-invalid'].includes(error.message)) return;
-      throw error;
-    }
+    const { resolveRuleEmailReference } = require('./ruleEmailSource');
+    const resolved = await resolveRuleEmailReference({ id, activity, cache, canReadBoard });
+    if (!resolved) return;
     related.push(resolved);
     onRelatedSource(resolved.binding);
     add(label, resolved.card.title);

@@ -93,6 +93,10 @@ order with public author names and creation/edit dates. Reactions include
 Unicode emoji and distinct-reactor counts, scoped to each included comment;
 reactor IDs and account data are not included. Private webhook state is never included. Card access is rechecked after
 reading; oversized discussion text fails rather than being silently truncated.
+Converted checklist subtasks include their current readable title. Linked
+references use the same source-chain resolution as other relations; private,
+missing or deleted targets are omitted, and references are rechecked before
+sending. Stored commands retain their source chains even when Details is off.
 This option is independent of Attachments and is off for existing rules.
 
 Enable **Details** to append board/list/swimlane names, dates, labels, members,
