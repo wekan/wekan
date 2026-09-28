@@ -391,6 +391,12 @@ Twenty focused cases, 28 rule Node suites, one full-app case and two Chromium
 cases pass; the browser denies member/admin access to thirteen collections.
 Dispatch, send-time recipient/configuration checks and operator recovery remain
 TODO. Persisting this command does not acknowledge sending or rule completion.
+An internal acceptance helper now derives intended recipients with Meteor's
+native MailComposer and requires all intended addresses to be accepted with
+no rejected or unexpected recipients. Five tests pass, including the actual
+composer with display names, quoted commas, groups and international domains.
+The helper does not yet persist send attempts or install a dispatch worker;
+ambiguous-send recovery and operator handling remain unfinished.
 Private operation, step and completion collections are now registered with
 server-only adapters, denied browser writes, recovery indexes and no TTL.
 The stored-operation entry point holds the list lease and requires fresh access
@@ -1388,6 +1394,22 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2e32025c3">Verify rule email acceptance against the native transport envelope</a>. Thanks to xet7.</summary>
+
+Add internal helpers using Meteor Email's native MailComposer to derive the
+intended envelope recipients. Require acceptance of every intended address and
+reject missing results, partial acceptance, rejections or unexpected addresses.
+Preserve local-part case and reject empty or oversized recipient sets.
+
+Five tests pass, including the installed native composer with named addresses,
+quoted commas, groups, duplicates and internationalized domains. The source
+audit completes with advisory warnings. Transport results are controlled test
+inputs; no SMTP, browser or database flow runs here. Durable send-attempt state,
+ambiguous-send recovery, operator controls and worker integration remain TODO.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/319173291">Capture stored rule mail through shared variable and localization preparation</a>. Thanks to xet7.</summary>
