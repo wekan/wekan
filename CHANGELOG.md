@@ -658,6 +658,15 @@ Chromium scenarios pass, including confirmation dismissal, denied access,
 terminal replay and orphan cancellation without activity recreation. Intent
 snapshots and rendered plans are still retained after cancellation; payload
 cleanup and broader card/History/activity recovery coordination remain open.
+An internal cancellation compactor now replaces rendered plans and intent
+snapshots with permanent terminal receipts. It confirms the plan receipt first,
+including inserting a tombstone when no plan was ever built, so delayed first
+writers cannot recreate payloads. Exact conditional writes, unchanged terminal
+control checks and readback handle interruption and uncertain acknowledgements.
+Orphans need no recreated activity. Twenty-five Node/MongoDB cases pass,
+including five new compaction cases. Production invocation, bounded scheduling,
+compact-receipt report/capture support and app/browser verification are still
+unfinished; production cancellation continues retaining payloads for now.
 History field snapshots now preserve nested dates, including date-valued
 custom fields alongside mapped estimates. JSON transport and restoration retain
 Date types without interpreting date-looking text. Existing rows whose dates
@@ -1298,6 +1307,24 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8814dbf1f">Prepare cancellation payload compaction with permanent receipts</a>. Thanks to xet7.</summary>
+
+Add an internal compactor that requires a valid terminal cancellation and the
+delivery reservation. Replace the plan with a permanent unique receipt before
+removing the intent snapshot. An absent plan receives a tombstone too, blocking
+late first writers. Retain only identifying metadata and checksums; preserve the
+cancellation control and never recreate an orphan's original activity.
+
+Twenty-five Node/MongoDB cases pass, including five new compaction cases for
+payload removal, stale inserts, missing plans, corruption, false and lost write
+acknowledgements, interrupted cleanup and changed controls. The source audit
+completes with advisory warnings. Production invocation, bounded background
+scheduling and compact-receipt consumers still need integration and app/browser
+verification; cancellation currently retains payloads in production.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b590d3d76">Cancel remaining activity delivery without reopening old requests</a>. Thanks to xet7.</summary>
