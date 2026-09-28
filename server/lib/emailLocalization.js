@@ -56,7 +56,7 @@ const EmailLocalization = {
       html: options.html
     };
     // #2414: reply-by-email - a Reply-To carrying an HMAC-signed card token,
-    // set by server/notifications/email.js, lets a reply sent through the
+    // set by server/notifications/emailQueue.js, lets a reply sent through the
     // inbound-email webhook (server/routes/inboundEmail.js) be matched back to
     // the card it was about. Omitted entirely when the caller has none to give
     // (e.g. WEKAN_INBOUND_EMAIL_DOMAIN is not configured).

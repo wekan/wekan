@@ -8,6 +8,18 @@ Enter the provider credentials and From address, save, then use **Send SMTP test
 email**. Leave the option disabled when you want WeKan to use the installation's
 existing `MAIL_URL` and `MAIL_FROM` settings instead.
 
+Activity notification emails are queued in the database. SMTP failures retry
+automatically with increasing delays (5 seconds up to one hour), and pending
+mail resumes after a restart. These are at-least-once deliveries: interruption
+after SMTP acceptance can cause a duplicate. A recipient who is no longer an
+active board member does not receive a queued board notification. The current
+mailbox address and mail configuration are used on each attempt.
+
+Without a working transport, console output alone does not clear the queue.
+Custom email transports must return the accepted recipient list, as Nodemailer
+SMTP transports do. Queue status and operator recovery controls are still in
+progress; see [delivery recovery details](../Admin-Panel/Problems/Durable-Operations.md).
+
 [Azure Email Communication Service](https://github.com/wekan/wekan/issues/5453)
 
 [Uberspace Email](https://github.com/wekan/wekan/issues/2009#issuecomment-1017630758)

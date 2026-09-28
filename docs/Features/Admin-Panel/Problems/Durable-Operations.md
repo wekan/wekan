@@ -314,19 +314,56 @@ to Scrum restoration. It does not make the original Scrum mutation and History
 atomic, serialize independent writers to the board's integrity chain, or provide
 startup replay. Those remain separate durability requirements.
 
-Email digest acknowledgement
-----------------------------
+Email outbox and restart recovery
+--------------------------------
 
-Notification text is stored in the user's database email buffer before its
-send timer is scheduled. A successful SMTP send removes only the sent snapshot
-with `$pullAll`; a failure or missing recipient address leaves it in place.
-Digest timers are serialized per user within one server process, so a slow
-send does not let a second timer resend the same snapshot concurrently.
-A later notification schedules another attempt, including retained lines.
+Activity notifications now enter a private `notificationEmailJobs` collection.
+Each event/recipient pair has a deterministic ID, rendered subject/body,
+language, board/card references, due time and attempt counter. Insertion is read
+back before enqueue succeeds. Duplicate events retain the original rendered
+copy, including after completion. Notifications without an activity ID receive
+a new UUID and cannot deduplicate a replay across separate enqueue calls.
 
-This is not yet a durable delivery job queue. Startup recovery, automatic
-retry/backoff, persisted subject and reply metadata, and coordination across
-server processes remain pending. SMTP acceptance followed by a crash or failed
-acknowledgement may cause a duplicate on retry. Identical text still uses the
-existing `$addToSet` deduplication and has no separate event identity. These
-limits prevent this buffer from proving completion of a durable Sync effect.
+The worker scans due jobs after startup and once a second after each completed
+pass. It reserves a recipient in `notificationEmailLeases` using the shared
+renewable lease primitive, in a separate collection from list Sync. A normal
+live reservation prevents another process from sending that recipient's digest.
+Expired reservations can be reclaimed. It streams at most 100 rows per digest,
+combining up to 4 MiB of body text; a larger single event travels alone. Individual
+jobs must fit within a 15 MiB BSON budget. SMTP failure retains the rendered data
+and schedules a retry after 5 seconds, then 10, 20 and so on, capped at one hour.
+Backoff survives restart. Deleted users and recipients who lost their active
+board membership or disabled email are cancelled without sending. Missing
+addresses and disabled accounts retain pending work for retry.
+
+Only a transport result listing the recipient as accepted acknowledges delivery.
+Meteor's development console output and suppressed send hooks are not delivery
+proof. Accepted/cancelled rows shed subject, body, language and reply target;
+small identity/state receipts remain without a TTL to suppress event replay.
+The current account address, From setting and reply signing configuration are
+resolved at delivery. A multi-card digest replies to its last card reference.
+
+Legacy `profile.emailBuffer` lines are copied into stable jobs and read back
+before `$pullAll` removes those exact lines. Their original subject and board/
+card identity were never stored, so they use the neutral subject `WeKan` and no
+Reply-To. Their board membership cannot be revalidated retrospectively. A failed
+migration retains the old buffer and does not stop delivery for other users.
+
+Delivery is explicitly **at least once**. SMTP acceptance followed by a crash,
+a lost acknowledgement or lease expiry can cause duplicate mail. Leases cannot
+cancel a request already in flight. Original activity creation and notification
+enqueue are still separate operations, so this does not yet prove completion of
+a durable Sync effect. Recovery UI, operator pause/cancel/resume, receipt
+retention policy, terminal-error classification, retry limits/jitter and SMTP
+timeout/concurrency policy remain pending. No external mail provider or FerretDB
+was exercised by this implementation's local MongoDB/SMTP tests.
+
+Run `tests/integration/emailOutbox.test.cjs` with
+`WEKAN_SYNC_TEST_MONGO_URL` pointing to local disposable MongoDB. For a real app
+restart, stop the test app, set `WEKAN_EMAIL_STARTUP_TEST_MONGO_URL` to its test
+database and `WEKAN_EMAIL_STARTUP_READY_FILE` to a new file under `.tools/tmp`,
+then run `tests/integration/emailOutboxStartup.test.cjs`. Start the app when the
+ready file appears, using that database and `MAIL_URL=smtp://127.0.0.1:4102`.
+The suite owns that local capture port, verifies acceptance and a scrubbed
+receipt, and removes its own rows. Optional `WEKAN_EMAIL_STARTUP_TEST_APP_URL`
+and `WEKAN_EMAIL_STARTUP_TEST_SMTP_PORT` override the loopback defaults.

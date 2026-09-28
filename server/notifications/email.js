@@ -1,44 +1,15 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
-//var nodemailer = require('nodemailer');
 
-import EmailLocalization from '../lib/emailLocalization';
+import { emailOutbox } from '/server/notifications/emailQueue';
 import { Notifications } from '/server/notifications/notifications';
 import { formatActivityNotificationTitle } from '/server/lib/activityNotificationTitle';
 import { resolveNotificationSetting } from '/models/lib/notificationSettings';
 const {
-  escapeEmailHtml,
   safeEmailSubject,
   buildHtmlNotificationLine,
 } = require('/models/lib/emailNotificationSafety');
-const { buildReplyToAddress } = require('/server/lib/inboundEmailReplyToken');
 const { substituteVars } = require('/models/lib/ruleVarsSubstitute');
-
-// #2414: reply-by-email. A notification's Reply-To address encodes the card
-// it is about (HMAC-signed, see inboundEmailReplyToken.js) so a reply caught
-// by the inbound-email webhook (server/routes/inboundEmail.js) can be matched
-// back to the right card. Both a shared secret and a domain to send the
-// reply to must be configured, or WeKan sends no Reply-To at all (the
-// feature is opt-in and off by default - most self-hosters have no
-// inbound-mail webhook configured).
-// Emails are buffered per-user and flushed together (see below); a digest
-// covering more than one card can only carry ONE Reply-To, so this tracks the
-// MOST RECENTLY notified card per user and a reply lands on that one. This is
-// a deliberate, documented limitation of the webhook-based approach - see
-// docs/Features/Reply-By-Email.md.
-const lastNotifiedCardIdByUser = new Map();
-const emailDeliveriesByUser = new Map();
-
-function inboundEmailReplyTo(cardId) {
-  const secret = process.env.INBOUND_EMAIL_HMAC_SECRET;
-  const domain = process.env.INBOUND_EMAIL_DOMAIN;
-  if (!cardId || !secret || !domain) return '';
-  try {
-    return buildReplyToAddress(cardId, secret, domain);
-  } catch (e) {
-    return '';
-  }
-}
 
 // buffer each user's email text in a queue, then flush them in single email
 Meteor.startup(() => {
@@ -46,9 +17,7 @@ Meteor.startup(() => {
     try {
       if (
         !user ||
-        typeof user.getLanguage !== 'function' ||
-        typeof user.getEmailBuffer !== 'function' ||
-        typeof user.addEmailBuffer !== 'function'
+        typeof user.getLanguage !== 'function'
       ) {
         console.error('Invalid user helper surface for email notification:', user?._id);
         return;
@@ -88,7 +57,7 @@ Meteor.startup(() => {
         TAPi18n.__.bind(TAPi18n),
         lan,
       ));
-      const existing = user.getEmailBuffer().length > 0;
+      const existing = await emailOutbox.hasPending(user._id);
       const actorName = params.user || '';
       const descriptionText = TAPi18n.__(description, quoteParams, lan);
 
@@ -119,83 +88,17 @@ Meteor.startup(() => {
             actorName
           } ${descriptionText}\n${params.url}`;
 
-      await user.addEmailBuffer(
-        bodyTemplate
-          ? text
-          : buildHtmlNotificationLine({
-              existing,
-              subject,
-              actorName,
-              descriptionText,
-              url: params.url,
-            }),
-      );
-
-      if (params.cardId) {
-        lastNotifiedCardIdByUser.set(user._id, { cardId: params.cardId });
-      }
-
-      const userId = user._id;
-      Meteor.setTimeout(async () => {
-        // Serialize this process's digest timers, including slow SMTP sends.
-        const previous = emailDeliveriesByUser.get(userId) || Promise.resolve();
-        const delivery = previous.catch(() => {}).then(async () => {
-          const user = await ReactiveCache.getUser(userId);
-          if (
-            !user ||
-            typeof user.getEmailBuffer !== 'function' ||
-            typeof user.clearEmailBuffer !== 'function' ||
-            typeof user.getLanguage !== 'function'
-          ) {
-            return;
-          }
-
-          const texts = [...user.getEmailBuffer()];
-          if (texts.length === 0) return;
-
-          const html = texts.join('<br/>\n\n');
-          const replyTarget = lastNotifiedCardIdByUser.get(userId);
-          const replyToCardId = replyTarget && replyTarget.cardId;
-          try {
-            // #6620: a user can reach this path (e.g. header-auth/LDAP
-            // accounts) with an empty emails array - user.emails[0] would then
-            // be undefined and .address.toLowerCase() threw an
-            // unhandledRejection. Skip the buffered digest send rather than
-            // crash when there is nowhere to send it.
-            const emailAddress = user.emails && user.emails[0] && user.emails[0].address;
-            if (typeof emailAddress !== 'string' || !emailAddress) {
-              return;
-            }
-            await EmailLocalization.sendEmail({
-              to: emailAddress.toLowerCase(),
-              from: Accounts.emailTemplates.from,
-              subject,
-              html,
-              language: user.getLanguage(),
-              userId: user._id,
-              replyTo: inboundEmailReplyTo(replyToCardId),
-            });
-            // Acknowledge only the snapshot accepted by SMTP. A new line added
-            // while the send was pending must remain queued for its own timer.
-            await user.clearEmailBuffer(texts);
-            if (lastNotifiedCardIdByUser.get(userId) === replyTarget) {
-              lastNotifiedCardIdByUser.delete(userId);
-            }
-          } catch (e) {
-            return;
-          }
-        });
-        emailDeliveriesByUser.set(userId, delivery);
-        try {
-          await delivery;
-        } catch (error) {
-          console.error('Error reading email notification buffer');
-        } finally {
-          if (emailDeliveriesByUser.get(userId) === delivery) {
-            emailDeliveriesByUser.delete(userId);
-          }
-        }
-      }, process.env.EMAIL_NOTIFICATION_TIMEOUT || 30000);
+      const html = bodyTemplate
+        ? text
+        : buildHtmlNotificationLine({
+            existing,
+            subject,
+            actorName,
+            descriptionText,
+            url: params.url,
+          });
+      await emailOutbox.enqueue({ userId: user._id, eventId: params.activityId,
+        subject, html, language: lan, cardId: params.cardId || null, boardId: params.boardId || null });
     } catch (error) {
       console.error('Error preparing email notification:', error);
     }

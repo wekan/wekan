@@ -112,7 +112,7 @@ test('custom-field notifications retain numeric zero and checkbox false in deliv
   }
 });
 
-test('SMTP rejection retains the digest until a later notification succeeds', async ({ page, user, user2, board }) => {
+test('SMTP rejection is retried automatically without another notification', async ({ page, user, user2, board }) => {
   test.skip(!process.env.WEKAN_TEST_SMTP_PORT, 'Requires the local SMTP capture port');
   let accepting = false;
   const sink = await smtpSink(Number(process.env.WEKAN_TEST_SMTP_PORT), { accept: () => accepting });
@@ -129,15 +129,72 @@ test('SMTP rejection retains the digest until a later notification succeeds', as
     await cp.addComment('Retained after SMTP rejection');
     await expect.poll(() => sink.messages.length).toBeGreaterThan(0);
     await page.waitForTimeout(300);
-    const buffer = () => db.findOne('users', { _id: user2.id }).profile.emailBuffer || [];
-    expect(buffer().join('\n')).toContain('Retained after SMTP rejection');
+    const pending = () => db.find('notificationEmailJobs', { userId: user2.id, state: 'pending' });
+    expect(pending().map(job => job.html).join('\n')).toContain('Retained after SMTP rejection');
     accepting = true;
     const prior = sink.messages.length;
-    await cp.addComment('Trigger the next digest');
-    await expect.poll(() => sink.messages.length).toBeGreaterThan(prior);
-    await expect.poll(buffer).toHaveLength(0);
+    await expect.poll(() => sink.messages.length, { timeout: 15000 }).toBeGreaterThan(prior);
+    await expect.poll(pending).toHaveLength(0);
+    expect(db.find('notificationEmailJobs', { userId: user2.id, state: 'sent' }).length).toBeGreaterThan(0);
     const delivered = sink.messages.slice(prior).map(mail => mail.data.replace(/=\r\n/g, '')).join('\n');
     expect(delivered).toContain('Retained after SMTP rejection');
-    expect(delivered).toContain('Trigger the next digest');
   } finally { await sink.close(); }
+});
+
+
+test('legacy email buffer is migrated and delivered without a new board event', async ({ user2 }) => {
+  test.skip(!process.env.WEKAN_TEST_SMTP_PORT, 'Requires the local SMTP capture port');
+  const sink = await smtpSink(Number(process.env.WEKAN_TEST_SMTP_PORT));
+  try {
+    db.updateOne('users', { _id: user2.id }, { $set: {
+      'profile.emailBuffer': ['Legacy pending digest'], 'profile.language': 'en',
+    } });
+    await expect.poll(() => sink.messages.filter(mail => mail.recipients.includes(user2.email)).length,
+      { timeout: 15000 }).toBeGreaterThan(0);
+    await expect.poll(() => db.findOne('users', { _id: user2.id }).profile.emailBuffer).toHaveLength(0);
+    await expect.poll(() => db.find('notificationEmailJobs', { userId: user2.id, state: 'sent' }).length).toBe(1);
+    expect(sink.messages.map(mail => mail.data).join('\n')).toContain('Legacy pending digest');
+  } finally { await sink.close(); }
+});
+
+test('clients cannot create or alter private email jobs and recipient leases', async ({ page, user }) => {
+  await loginWithToken(page, user.id, user.token);
+  for (const collection of ['notificationEmailJobs', 'notificationEmailLeases']) {
+    const id = db.uid('private-email');
+    const errors = await page.evaluate(async ({ collection, id }) => {
+      const errors = [];
+      for (const [operation, args] of [
+        ['insert', [{ _id: id, userId: Meteor.userId(), state: 'pending' }]],
+        ['update', [{ _id: id }, { $set: { state: 'sent' } }]],
+        ['remove', [{ _id: id }]],
+      ]) {
+        try { await Meteor.callAsync(`/${collection}/${operation}`, ...args); errors.push(null); }
+        catch (error) { errors.push(error.error); }
+      }
+      return errors;
+    }, { collection, id });
+    expect(errors).toEqual([403, 403, 403]);
+    expect(db.findOne(collection, { _id: id })).toBeNull();
+  }
+});
+
+test('a queued digest is cancelled when its recipient loses board membership', async ({ user2, board }) => {
+  test.skip(!process.env.WEKAN_TEST_SMTP_PORT, 'Requires the local SMTP capture port');
+  const sink = await smtpSink(Number(process.env.WEKAN_TEST_SMTP_PORT));
+  const id = db.uid('revoked-mail');
+  try {
+    db.addBoardMember({ boardId: board.boardId, userId: user2.id });
+    db.insertOne('notificationEmailJobs', { _id: id, userId: user2.id, eventId: id,
+      boardId: board.boardId, cardId: null, subject: 'Revoked board', html: 'Private revoked text',
+      language: 'en', state: 'pending', attempts: 0, createdAt: new Date(),
+      nextAttemptAt: new Date(Date.now() + 1000) });
+    db.updateOne('boards', { _id: board.boardId }, { $pull: { members: { userId: user2.id } } });
+    await expect.poll(() => db.findOne('notificationEmailJobs', { _id: id }).state,
+      { timeout: 15000 }).toBe('cancelled');
+    expect(db.findOne('notificationEmailJobs', { _id: id }).html).toBeUndefined();
+    expect(sink.messages.some(mail => mail.recipients.includes(user2.email))).toBe(false);
+  } finally {
+    db.deleteMany('notificationEmailJobs', { _id: id });
+    await sink.close();
+  }
 });
