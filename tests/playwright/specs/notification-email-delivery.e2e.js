@@ -32,6 +32,14 @@ for (const scope of ['board', 'list', 'card']) test(`#6658 ${scope} watching del
     await expect.poll(() => sink.messages.filter(mail => mail.recipients.includes(recipient)).length,
       { timeout: 15000 }).toBeGreaterThan(0);
     expect(sink.messages.map(mail => mail.data.replace(/=\r\n/g, '')).join('\n')).toContain('Watched email delivery regression');
+    const queuedEvent = db.findOne('notificationEmailJobs', { userId: user2.id, boardId: board.boardId });
+    expect(queuedEvent).toBeTruthy();
+    const { canonical, sha256 } = require('../../../models/lib/changeHistoryIntegrity');
+    const intentId = sha256(canonical(['activity-notification-intent', queuedEvent.eventId]));
+    await expect.poll(() => db.findOne('activityNotificationIntents', { _id: intentId })?.state).toBe('completed');
+    const receipt = db.findOne('activityNotificationIntents', { _id: intentId });
+    expect(receipt.activity).toBeUndefined();
+    expect(receipt.dispatchUserId).toBe(user.id);
     const delivered = () => sink.messages.filter(mail => mail.recipients.includes(recipient)).length;
     let count = delivered();
     await cp.editTitle('Email title change');
@@ -160,7 +168,7 @@ test('legacy email buffer is migrated and delivered without a new board event', 
 test('clients cannot create or alter private email jobs and recipient leases', async ({ page, user, adminUser }) => {
   for (const actor of [user, adminUser]) {
     await loginWithToken(page, actor.id, actor.token);
-    for (const collection of ['notificationEmailJobs', 'notificationEmailLeases', 'notificationEmailControls', 'notificationEmailCommands', 'notificationEmailSendSlots']) {
+    for (const collection of ['notificationEmailJobs', 'notificationEmailLeases', 'notificationEmailControls', 'notificationEmailCommands', 'notificationEmailSendSlots', 'activityNotificationIntents']) {
       const id = db.uid('private-email');
       const errors = await page.evaluate(async ({ collection, id }) => {
         const errors = [];

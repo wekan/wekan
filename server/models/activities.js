@@ -1,4 +1,6 @@
 import { Meteor } from 'meteor/meteor';
+import { Random } from 'meteor/random';
+import { captureActivityNotificationIntent, acknowledgeActivityNotifications } from '/server/notifications/activityIntents';
 const { deferSyncActivity } = require('/server/lib/syncActivityScope');
 import { ReactiveCache } from '/imports/reactiveCache';
 import { findWhere, where } from '/imports/lib/collectionHelpers';
@@ -30,6 +32,15 @@ function getActivityUserName(user, fallback = '') {
     fallback,
   );
 }
+
+// Registered after the model's timestamp hook. Collection-hooks awaits this
+// write before issuing the activity insert. Deferred Sync owns its own plans.
+Activities.before.insert(async (userId, doc) => {
+  if (deferSyncActivity('notificationIntent', doc)) return;
+  if (getFeatureFlags().disableActivities || getFeatureFlags().disableNotifications) return;
+  if (!doc._id) doc._id = Random.id();
+  await captureActivityNotificationIntent(doc, userId);
+});
 
 Activities.after.insert(async (userId, doc) => {
   if (deferSyncActivity('rules', doc)) return;
@@ -439,7 +450,15 @@ Activities.after.insert(async (userId, doc) => {
   const prepared = await prepareActivityNotification(userId, doc);
   if (!prepared) return;
   const { users, title, description, params, watchers, board } = prepared;
-  users.forEach(user => Notifications.notify(user, title, description, params));
+  // Preserve nonblocking activity insertion, but keep durable pending evidence
+  // until every recipient's subscriber has acknowledged its local writes.
+  // SMTP acceptance and webhook completion are separate stages.
+  (async () => {
+    const results = await Promise.allSettled(users.map(user =>
+      Notifications.notifyAndWait(user, title, description, params)));
+    if (results.some(result => result.status === 'rejected')) throw new Error('activity-notification-delivery-incomplete');
+    await acknowledgeActivityNotifications(doc, userId);
+  })().catch(() => console.error('Activity notification delivery incomplete; pending intent retained'));
 
   const integrations = await activityWebhookIntegrations(board, description);
   if (integrations.length > 0) {

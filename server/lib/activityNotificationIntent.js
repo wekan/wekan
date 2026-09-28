@@ -16,23 +16,29 @@ function identity(activity) {
   return { _id: sha256(canonical(['activity-notification-intent', activity._id])),
     activityHash: sha256(canonical(activity)) };
 }
-function validateIntent(row, activity) {
+function validateIntent(row, activity, dispatchUserId = activity.userId ?? null) {
   const expected = identity(activity);
   if (!row || row.version !== 1 || row._id !== expected._id || row.activityHash !== expected.activityHash ||
-      !text(row.writerId) || row.state !== 'pending' || canonical(row.activity) !== canonical(activity) ||
-      Object.keys(row).sort().join(',') !== '_id,activity,activityHash,state,version,writerId') fail();
+      !text(row.writerId) || (row.dispatchUserId !== null && !text(row.dispatchUserId)) ||
+      row.dispatchUserId !== dispatchUserId ||
+      !['pending', 'completed'].includes(row.state)) fail();
+  const fields = row.state === 'pending'
+    ? '_id,activity,activityHash,dispatchUserId,state,version,writerId'
+    : '_id,activityHash,dispatchUserId,state,version,writerId';
+  if (Object.keys(row).sort().join(',') !== fields ||
+      (row.state === 'pending' && canonical(row.activity) !== canonical(activity))) fail();
   return row;
 }
 
-// Internal write-ahead primitive. The eventual hook adapter must supply its
-// finalized activity (ID and timestamps included), suppress deferred Sync
-// hooks, and retain these private records until delivery is acknowledged.
-// This does not schedule delivery or acknowledge downstream completion.
-async function captureIntent({ intents, activity, assertCurrent }) {
+// Write-ahead storage used by the ordinary activity hook. Callers supply
+// finalized IDs/timestamps and the original dispatch actor. Pending snapshots
+// survive failures; completion retains only immutable identity metadata.
+// This module does not schedule recovery or acknowledge SMTP/webhooks.
+async function captureIntent({ intents, activity, assertCurrent, dispatchUserId = activity.userId ?? null }) {
   validateActivity(activity);
-  if (typeof assertCurrent !== 'function') fail();
+  if (typeof assertCurrent !== 'function' || (dispatchUserId !== null && !text(dispatchUserId))) fail();
   activity = copy(activity);
-  const expected = { ...identity(activity), version: 1, state: 'pending', activity, writerId: randomUUID() };
+  const expected = { ...identity(activity), version: 1, state: 'pending', activity, writerId: randomUUID(), dispatchUserId };
   await assertCurrent();
   let row = await intents.findOne({ _id: expected._id });
   if (!row) {
@@ -42,7 +48,7 @@ async function captureIntent({ intents, activity, assertCurrent }) {
     row = await intents.findOne({ _id: expected._id });
     if (!row) throw failure || new Error('activity-notification-intent-unconfirmed');
   }
-  validateIntent(row, activity);
+  validateIntent(row, activity, dispatchUserId);
   await assertCurrent();
   return { intent: copy(row), ownsInsertion: row.writerId === expected.writerId };
 }
@@ -58,7 +64,7 @@ async function ensureActivityNotificationIntent(options) {
 async function persistActivityWithNotificationIntent({ intents, activities, activity, assertCurrent, insert }) {
   if (typeof insert !== 'function') fail();
   const { intent, ownsInsertion } = await captureIntent({ intents, activity, assertCurrent });
-  const savedActivity = intent.activity;
+  const savedActivity = copy(activity);
   await assertCurrent();
   let saved = await activities.findOne({ _id: savedActivity._id }), failure;
   if (!saved) {
@@ -78,7 +84,8 @@ async function readActivityForNotificationIntent({ intents, activities, intentId
   await assertCurrent();
   const row = await intents.findOne({ _id: intentId });
   if (!row || row._id !== intentId) fail();
-  validateIntent(row, row.activity);
+  if (row.state !== 'pending') fail();
+  validateIntent(row, row.activity, row.dispatchUserId);
   const activity = await activities.findOne({ _id: row.activity._id });
   if (!activity || canonical(activity) !== canonical(row.activity)) {
     throw new Error('activity-notification-activity-unconfirmed');
@@ -86,4 +93,26 @@ async function readActivityForNotificationIntent({ intents, activities, intentId
   await assertCurrent();
   return copy(activity);
 }
-module.exports = { ensureActivityNotificationIntent, persistActivityWithNotificationIntent, readActivityForNotificationIntent };
+async function completeActivityNotificationIntent({ intents, activities, activity, dispatchUserId = activity.userId ?? null, assertCurrent }) {
+  validateActivity(activity);
+  if (typeof assertCurrent !== 'function') fail();
+  const expected = identity(activity);
+  await assertCurrent();
+  const row = await intents.findOne({ _id: expected._id });
+  validateIntent(row, activity, dispatchUserId);
+  if (row.state === 'completed') { await assertCurrent(); return row._id; }
+  await readActivityForNotificationIntent({ intents, activities, intentId: row._id, assertCurrent });
+  const receipt = { ...row };
+  delete receipt.activity;
+  receipt.state = 'completed';
+  await assertCurrent();
+  let failure;
+  try { await intents.replaceOne({ _id: row._id, state: 'pending', activityHash: row.activityHash, writerId: row.writerId }, receipt); }
+  catch (error) { failure = error; }
+  const saved = await intents.findOne({ _id: row._id });
+  validateIntent(saved, activity, dispatchUserId);
+  if (saved.state !== 'completed') throw failure || new Error('activity-notification-completion-unconfirmed');
+  await assertCurrent();
+  return row._id;
+}
+module.exports = { completeActivityNotificationIntent, ensureActivityNotificationIntent, persistActivityWithNotificationIntent, readActivityForNotificationIntent };

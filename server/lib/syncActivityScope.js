@@ -3,7 +3,7 @@ const { AsyncLocalStorage } = require('node:async_hooks');
 const { canonical } = require('../../models/lib/changeHistoryIntegrity');
 const storage = new AsyncLocalStorage();
 async function withSyncActivityDeferred(activity, work) {
-  const scope = { expected: canonical(activity), slots: new Set(['timestamps', 'rules', 'notifications']), active: true };
+  const scope = { expected: canonical(activity), slots: new Set(['timestamps', 'notificationIntent', 'rules', 'notifications']), active: true };
   return storage.run(scope, async () => {
     try { return await work(); } finally { scope.active = false; }
   });

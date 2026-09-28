@@ -412,32 +412,50 @@ The suite owns that local capture port, verifies acceptance and a scrubbed
 receipt, and removes its own rows. Optional `WEKAN_EMAIL_STARTUP_TEST_APP_URL`
 and `WEKAN_EMAIL_STARTUP_TEST_SMTP_PORT` override the loopback defaults.
 
-### Activity notification write-ahead intent (internal, not activated)
+### Activity notification write-ahead intent and hook capture
 
-`server/lib/activityNotificationIntent.js` provides the storage boundary for a
-future activity insertion adapter. It confirms a private immutable intent
-before allowing an activity insert, then reads back the exact persisted
-activity before returning. Activity IDs and timestamps must already be final.
+`server/lib/activityNotificationIntent.js` provides the storage boundary for
+activity notification capture. It confirms a private immutable intent before
+allowing an activity insert. Its separate persistence helper also reads back
+the exact stored activity. Activity IDs and timestamps must already be final.
 The intent binds the entire BSON-preserving snapshot and carries a unique
 writer identity. Lost intent or activity acknowledgements require matching
 readback; conflicting reuse of an activity ID is refused.
 
-Only the call that created the intent may insert a missing activity. A later
+The persistence helper allows only the creating call to insert a missing
+activity. A later
 call cannot distinguish an interrupted first insertion from subsequent
 intentional deletion, and must not recreate it. Recovery reads require the
 exact retained activity; missing or changed activities leave an unresolved
 intent. Explicit orphan resolution is still needed. A returned intent does
 not acknowledge tray delivery, email enqueue, rule actions or webhooks.
 
-This primitive is not yet connected to activity hooks or to a background
-worker. The ordinary activity notification hook still has the post-insert
-crash gap. Production private collections, deferred-Sync hook handling,
-persisted recipient plans, startup scanning, orphan/operator controls and
-retention must be integrated before claiming durable activity-to-queue
-completion. No UI behavior changes with this internal component.
+Ordinary server activity insertion now captures an intent in the private
+`activityNotificationIntents` collection after timestamps and before the
+activity write. A failed intent write stops the activity insert. Disabled
+notifications create no intent. Scoped deferred Sync inserts skip capture,
+leaving delivery to their own persisted effect plans. Raw database writes and
+imports that bypass hooks do not get this guarantee.
+
+Ordinary delivery remains asynchronous, but waits internally for every
+recipient's subscribers. Only successful local subscriber acknowledgements
+compact the intent to a permanent small receipt; the activity snapshot is
+removed. The dispatch actor remains bound to the receipt. Subscriber or
+completion-write failure retains pending evidence. The collection has no
+client publication, rejects member/admin DDP writes and has no TTL. Webhooks
+remain independent and nonblocking; completion is not SMTP acceptance.
+
+There is no background recovery worker yet. Pending evidence survives a crash,
+but is not replayed automatically. Saved recipient plans, startup scanning,
+orphan/operator controls and pending-payload retention must still be
+integrated before claiming durable activity-to-queue completion.
 
 `tests/integration/activityNotificationIntent.test.cjs` uses a real MongoDB
 with `WEKAN_SYNC_TEST_MONGO_URL`. It covers write ordering, uncertain replies,
 concurrent writers, cancelled insertion, deleted/changed activities, corrupted
 intents, identity reuse, guard failure and oversized/invalid input. These tests
-do not exercise the Meteor activity hooks or FerretDB.
+also cover completion compaction, uncertain completion replies and dispatch
+actor mismatch. Full-app Meteor tests exercise real before/after hooks,
+failed storage, pending subscribers, disabled notifications and deferred Sync.
+Chromium tests verify actual SMTP delivery and private-collection denial.
+FerretDB has not been exercised.

@@ -19,7 +19,7 @@ test('activity scope requires exact payload and one hook slot, isolates parallel
  const task=withSyncActivityDeferred(activity,async()=>{
   await gate;
   assert.equal(deferSyncActivity('timestamps',{...activity,cardTitle:'Changed'}),false);
-  for(const kind of ['timestamps','rules','notifications']) {
+  for(const kind of ['timestamps','notificationIntent','rules','notifications']) {
    assert.equal(deferSyncActivity(kind,activity),true);assert.equal(deferSyncActivity(kind,activity),false);
   }
  });

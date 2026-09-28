@@ -89,3 +89,5 @@ import './storedWebhooks.tests';
 import './smtpDeadline.tests';
 
 import './emailReceiptRetention.tests';
+
+import './activityNotificationIntent.tests';

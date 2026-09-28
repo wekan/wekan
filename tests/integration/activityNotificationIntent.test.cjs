@@ -60,3 +60,26 @@ test('concurrent writers share an immutable intent and reject invalid or oversiz
   }
   assert.equal(await f.intents.countDocuments({}), 1);
 });
+test('completion compacts confirmed intents, reconciles lost replies and binds the dispatch actor', { skip: !uri }, async t => {
+  const { completeActivityNotificationIntent: complete } = require('../../server/lib/activityNotificationIntent');
+  const f = await fixture(t), row = await persist(f);
+  await assert.rejects(complete({ ...f, dispatchUserId: 'other-dispatcher' }), /intent-invalid/);
+  const intents = { findOne: (...args) => f.intents.findOne(...args), replaceOne: async (...args) => {
+    await f.intents.replaceOne(...args); throw new Error('lost completion reply');
+  } };
+  assert.equal(await complete({ ...f, intents }), row._id);
+  const receipt = await f.intents.findOne({ _id: row._id });
+  assert.equal(receipt.state, 'completed'); assert.equal(receipt.activity, undefined);
+  assert.equal(await complete(f), row._id);
+  assert.equal((await ensure(f)).state, 'completed');
+  await assert.rejects(recover({ ...f, intentId: row._id }), /intent-invalid/);
+});
+test('unacknowledged completion retains pending state and changed activities cannot be acknowledged', { skip: !uri }, async t => {
+  const { completeActivityNotificationIntent: complete } = require('../../server/lib/activityNotificationIntent');
+  const f = await fixture(t), row = await persist(f);
+  await assert.rejects(complete({ ...f, intents: { findOne: (...args) => f.intents.findOne(...args),
+    replaceOne: async () => ({ matchedCount: 1 }) } }), /completion-unconfirmed/);
+  assert.equal((await f.intents.findOne({ _id: row._id })).state, 'pending');
+  await f.activities.updateOne({ _id: f.activity._id }, { $set: { userId: 'other' } });
+  await assert.rejects(complete(f), /activity-unconfirmed/);
+});
