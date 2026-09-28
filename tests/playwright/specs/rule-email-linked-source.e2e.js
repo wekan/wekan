@@ -38,7 +38,9 @@ test('linked-card mail uses current authorized source content and stops after so
       try { await Meteor.callAsync('rules.runButton', ruleId, cardId); return false; } catch (_) { return true; }
     }, { ruleId: rule._id, cardId: wrapper._id });
     expect(denied).toBe(true); expect(mails()).toHaveLength(1);
-    db.updateOne('boards', { _id: source.boardId }, { $set: { members, title: 'Live source board', description: 'Current board description', dueAt: new Date('2027-05-01') } });
+    db.updateOne('boards', { _id: source.boardId }, { $set: { members, title: 'Live source board', description: 'Current board description', dueAt: new Date('2027-05-01'),
+      vote: { question: 'Current board vote', public: true, positive: ['missing-voter'], negative: [] },
+      poker: { question: true, end: new Date('2020-01-01'), two: ['missing-voter'], estimation: 2 } } });
     db.updateOne('cards', { _id: wrapper._id }, { $set: { type: 'cardType-linkedBoard', linkedId: source.boardId } });
     await call(page, 'rules.runButton', rule._id, wrapper._id);
     await expect.poll(() => mails().length).toBe(2);
@@ -48,6 +50,16 @@ test('linked-card mail uses current authorized source content and stops after so
     expect(mails()[1].data).not.toContain('STALE-WRAPPER');
     expect(mails()[1].data).not.toContain('Current source comment');
     expect(mails()[1].data).not.toContain(bytes.toString('base64'));
+    const boardMail = mails()[1].data.replace(/=\r?\n/g, '');
+    for (const text of ['Vote question: Current board vote', 'Votes for: 1', 'For voters: Unknown user',
+      'Poker 2 votes: 1', 'Poker 2 voters: Unknown user']) expect(boardMail).toContain(text);
+    db.updateOne('boards', { _id: source.boardId }, { $set: { 'vote.public': false, 'poker.end': new Date('2999-01-01') } });
+    await call(page, 'rules.runButton', rule._id, wrapper._id);
+    await expect.poll(() => mails().length).toBe(3);
+    const privateMail = mails()[2].data.replace(/=\r?\n/g, '');
+    expect(privateMail).toContain('Votes for: 1');
+    expect(privateMail).not.toMatch(/For voters|Poker 2 votes|Poker 2 voters/);
+
 
   } finally {
     db.deleteOne('attachments', { _id: id }); db.cleanup({ boardIds: [local.boardId, source.boardId] });

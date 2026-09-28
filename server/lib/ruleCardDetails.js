@@ -21,7 +21,7 @@ async function prepareRuleCardDetails({ activity, cache, canReadBoard }) {
   const { card, board } = await source();
   const visibility = JSON.stringify(votingVisibility(card, board));
   const admin = !!board.hasAdmin?.(activity.userId);
-  const lines = [], related = new Set(), relatedBoards = new Set();
+  const lines = [], related = new Set(), relatedBoards = new Map();
   let size = 0;
   const add = (label, value) => {
     const text = values(value);
@@ -49,7 +49,11 @@ async function prepareRuleCardDetails({ activity, cache, canReadBoard }) {
       add('Linked board', target.title);
       add('Description', target.description);
       for (const [field, label] of [['receivedAt', 'Received'], ['startAt', 'Start'], ['dueAt', 'Due'], ['endAt', 'End'], ['spentTime', 'Spent time (hours)']]) add(label, target[field]);
-      relatedBoards.add(card.linkedId);
+      const presentationBoard = { allowsVote: board.allowsVote !== false && target.allowsVote !== false,
+        allowsPoker: board.allowsPoker !== false && target.allowsPoker !== false };
+      const policy = JSON.stringify(votingVisibility(target, target));
+      await appendRuleCardVoting({ card: target, board: presentationBoard, cache, add });
+      relatedBoards.set(card.linkedId, policy);
     }
   } else {
     const [list, lane, definitions, notes] = await Promise.all([
@@ -114,8 +118,10 @@ async function prepareRuleCardDetails({ activity, cache, canReadBoard }) {
     const target = await cache.getCard(id), targetBoard = target && await cache.getBoard(target.boardId);
     if (!canRead(target, targetBoard)) throw new Error('rule-email-details-not-authorized');
   }
-  for (const id of relatedBoards) {
-    if (!canReadBoard(activity.userId, await cache.getBoard(id))) throw new Error('rule-email-details-not-authorized');
+  for (const [id, policy] of relatedBoards) {
+    const target = await cache.getBoard(id);
+    if (!canReadBoard(activity.userId, target)) throw new Error('rule-email-details-not-authorized');
+    if (JSON.stringify(votingVisibility(target, target)) !== policy) throw new Error('rule-email-details-changed');
   }
   return lines.join('\n');
 }

@@ -108,3 +108,27 @@ test('hidden voting sections, unfinished poker and a visibility change during na
   f.cache.getUser = async () => { f.card.vote.public = false; return { username: 'VOTER' }; };
   await assert.rejects(prepare(f), /details-changed/);
 });
+test('linked-board voting uses the readable target, not cached wrapper votes, and respects both boards', async () => {
+  const f = fixture(); Object.assign(f.card, { type: 'cardType-linkedBoard', linkedId: 'target',
+    vote: { question: 'STALE-WRAPPER-VOTE', public: true, positive: ['wrapper'] } });
+  const target = { _id: 'target', title: 'Target board',
+    vote: { question: 'Board decision', public: true, positive: ['voter'], negative: [] },
+    poker: { question: true, end: new Date('2020-01-01'), two: ['voter'], estimation: 2 } };
+  f.cache.getBoard = async id => id === 'target' ? target : f.board;
+  f.canReadBoard = (_, board) => !!board;
+  let text = await prepare(f);
+  for (const expected of ['Vote question: Board decision', 'Votes for: 1', 'For voters: person',
+    'Poker 2 votes: 1', 'Poker 2 voters: person']) assert.ok(text.includes(expected), expected);
+  assert.doesNotMatch(text, /STALE|SECRET/);
+  target.vote.public = false; target.poker.end = new Date('2999-01-01');
+  text = await prepare(f); assert.ok(text.includes('Votes for: 1'));
+  assert.doesNotMatch(text, /For voters|Poker 2 votes|Poker 2 voters/);
+  for (const board of [f.board, target]) {
+    board.allowsVote = false; board.allowsPoker = false;
+    assert.doesNotMatch(await prepare(f), /Vote question|Votes for|Poker/);
+    delete board.allowsVote; delete board.allowsPoker;
+  }
+  target.vote.public = true;
+  f.cache.getUser = async () => { target.vote.public = false; return { username: 'person' }; };
+  await assert.rejects(prepare(f), /details-changed/);
+});

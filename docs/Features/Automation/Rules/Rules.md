@@ -118,8 +118,9 @@ must remain readable by the actor; changed targets, cycles, missing sources
 and revoked access stop preparation. Cached source snapshots are not sent.
 Linked boards use current board title, description and dates while retaining
 the wrapper card's own discussion and attachments; they do not email every
-card on the linked board. Scrum fields and linked-board voting still need review for the full-card
-request in #2713.
+card on the linked board. Linked-board voting uses the target board's current votes and Poker results,
+subject to the same disclosure rules and both boards' section visibility.
+Scrum fields still need review for the full-card request in #2713.
 Stored Sync commands capture the resolved source chain alongside the immutable
 mail and include it in their checksum. Before dispatch, every saved card/board,
 link target and current read/assignment permission must still match. A moved or
