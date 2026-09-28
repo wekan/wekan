@@ -54,11 +54,12 @@ test('production email and profile subscribers propagate persistence failures an
  const email=subscriber('email',{emailOutbox:{hasPending:async()=>false,enqueue:async()=>{throw failure;}}});
  const recipient={_id:'user',getLanguage:()=> 'en',addNotification:()=>({$set:{}})};
  await assert.rejects(email(recipient,'','',params),error=>error===failure);
- const profile=subscriber('profile',{});
- await assert.rejects(profile({...recipient,addNotification:async()=>{throw failure;}},'','',params),error=>error===failure);
- await assert.rejects(profile({...recipient,addNotification:async()=>0},'','',params),/not-stored/);
- let writes=0;await profile({...recipient,addNotification:async id=>{assert.equal(id,'event');writes++;return 1;}},'','',params);
- assert.equal(writes,1);
+ const profile=subscriber('profile',{trayDelivery:{deliver:async()=>{throw failure;}}});
+ await assert.rejects(profile(recipient,'','',params),error=>error===failure);
+ let writes=0;const working=subscriber('profile',{trayDelivery:{deliver:async(userId,id)=>{
+  assert.equal(userId,'user');assert.equal(id,'event');writes++;return 'receipt';
+ }}});
+ await working(recipient,'','',params);assert.equal(writes,1);
  for(const name of ['email','profile']) {
   const disabled=subscriber(name,{resolveNotificationSetting:()=>false});
   await disabled(recipient,'','',params);

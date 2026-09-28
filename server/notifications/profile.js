@@ -1,3 +1,4 @@
+import { trayDelivery } from '/server/notifications/trayQueue';
 import { Notifications } from '/server/notifications/notifications';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { resolveNotificationSetting } from '/models/lib/notificationSettings';
@@ -24,7 +25,6 @@ Meteor.startup(() => {
     });
     if (!enabled) return;
 
-    const written = await user.addNotification(params.activityId);
-    if (!written) throw new Error('profile-notification-not-stored');
+    await trayDelivery.deliver(user._id, params.activityId);
   });
 });

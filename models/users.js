@@ -1114,6 +1114,11 @@ Users.attachSchema(
       type: Date,
       optional: true,
     },
+    // Server-only tray delivery fencing/evidence; receipt history lives in a
+    // private collection so user documents retain only one pending delivery.
+    notificationDeliveryRevision: { type: String, optional: true },
+    notificationDeliveryPending: { type: Object, optional: true, blackbox: true },
+
     isAdmin: {
       /**
        * is the user an admin of the board?
@@ -1202,6 +1207,8 @@ Users.attachSchema(
 export const USER_UPDATE_ALLOWED_EXACT = ['username', 'profile', 'modifiedAt'];
 export const USER_UPDATE_ALLOWED_PREFIXES = ['profile.'];
 export const USER_UPDATE_FORBIDDEN_PREFIXES = [
+  'notificationDeliveryRevision',
+  'notificationDeliveryPending',
   'profile.invitedBoards',
   'services',
   'emails',

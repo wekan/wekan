@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { Meteor } from 'meteor/meteor';
 import { Random } from 'meteor/random';
+import { trayDeliveryReceipts, recoverTrayDeliveries } from '/server/notifications/trayQueue';
 import { Notifications } from '/server/notifications/notifications';
 
 describe('Awaited notification delivery', function () {
@@ -26,11 +27,35 @@ describe('Awaited notification delivery', function () {
       await Promise.all(Array.from({length:5},()=>user.addNotification(nextId)));
       assert.deepEqual((await Meteor.users.findOneAsync(userId)).profile.notifications,
         [{activity:activityId,read:readAt},{activity:nextId,read:null}]);
+      await user.removeNotification(activityId);
+      await Notifications.notifyAndWait(user,'act-activity-notify','act-createCard',{activityId});
+      assert.deepEqual((await Meteor.users.findOneAsync(userId)).profile.notifications,[{activity:nextId,read:null}]);
+      assert.equal(await trayDeliveryReceipts.find({userId}).countAsync(),1);
+      await recoverTrayDeliveries();
       await Meteor.users.rawCollection().deleteOne({_id:userId});
-      await assert.rejects(Notifications.notifyAndWait(user,'act-activity-notify','act-createCard',{activityId}),
+      await assert.rejects(Notifications.notifyAndWait(user,'act-activity-notify','act-createCard',{activityId:Random.id()}),
         error=>error.message==='notification-delivery-incomplete' && error.services.includes('profile'));
     } finally {
       await Meteor.users.rawCollection().deleteMany({_id:userId});
+      await trayDeliveryReceipts.rawCollection().deleteMany({userId});
     }
   });
+  it('recovers a dismissed event from its retained marker through the registered recovery scan', async function () {
+    if (!Meteor.isAppTest) this.skip();
+    const { receiptFor, PENDING, REVISION } = require('/server/lib/trayDelivery');
+    const userId=Random.id(),activityId=Random.id(),receipt=receiptFor(userId,activityId);
+    try {
+      await Meteor.users.rawCollection().insertOne({_id:userId,username:'recovery-'+userId,
+        profile:{notifications:[]},[PENDING]:receipt,[REVISION]:Random.id()});
+      await recoverTrayDeliveries();
+      assert.deepEqual(await trayDeliveryReceipts.findOneAsync(receipt._id,{transform:null}),receipt);
+      const user=await Meteor.users.findOneAsync(userId);
+      assert.deepEqual(user.profile.notifications,[]);
+      assert.equal(Object.hasOwn(user,PENDING),false);
+    } finally {
+      await Meteor.users.rawCollection().deleteMany({_id:userId});
+      await trayDeliveryReceipts.rawCollection().deleteMany({userId});
+    }
+  });
+
 });
