@@ -1282,8 +1282,9 @@ mail action choice with SMTP coverage. Details now includes dates, placement,
 labels/people, custom-field display values, notes and authorized relationships.
 Ordinary email rules now resolve live linked-card content across all selected
 sections and linked-board display fields with source-access rechecks. Stored
-Sync commands still need a durable source-chain binding before linked sources
-can be enabled there. Scrum, voting and timer/recurrence fields remain),
+Sync commands now persist and verify their source chain before dispatch;
+legacy unbound commands require future operator recovery. Scrum, voting and
+timer/recurrence fields remain),
 [#3195](https://github.com/wekan/wekan/issues/3195) (rule action/trigger
 values should be able to reference a custom field's value — today's action
 and trigger value inputs are plain literals; resolving a per-board custom
@@ -1450,9 +1451,9 @@ The bounded snapshot and durable-command checks remain in place. Checklists
 and public comments can now be included independently, with private webhook
 state excluded. Details now covers ordinary card metadata, custom fields,
 notes and authorized relationships. Ordinary rules now send authorized live
-linked-source content. Stored Sync retries reject linked sources until their
-source chain is persisted and revalidated. Specialized Scrum/voting/timer and
-recurrence fields remain for the full-content audit.).
+linked-source content. Stored Sync commands now persist and revalidate their
+source chain; legacy unbound-command recovery remains pending. Specialized
+Scrum/voting/timer and recurrence fields remain for the full-content audit.).
 
 </details>
 
@@ -1532,6 +1533,30 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6e4032b69">Bind stored rule email to its source chain</a>. Thanks to kabi178, bbyszio and xet7.</summary>
+
+Capture versioned source evidence alongside immutable mail, covered by the
+command checksum. Record each source card, board, type and link target; use
+the same resolution for content and binding. Before dispatch, recheck the
+saved chain and current read/assignment access. Reject moved, retargeted,
+deleted or unreadable sources even when the recipient is unchanged. Source
+metadata never reaches SMTP. Linked and ordinary stored commands use this
+binding; it supersedes the temporary linked-source refusal below.
+
+Legacy commands remain readable but cannot be sent or reconciled through the
+send entry point without source evidence. Never recapture or rewrite them
+silently; operator recovery remains pending. Specialized card fields and the
+wider Sync/History coordination work remain in TODO Later.
+
+Fifty-seven Node suites pass without skips, including MongoDB concurrency,
+reconnect and checksum checks. An additional dispatch test verifies source
+retarget refusal and transport-only fields. Three Chromium scenarios pass
+against local SMTP: filesystem, GridFS and linked-card/linked-board content.
+Existing Upcoming regression evidence is retained; no new UI is introduced.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/479f01d57">Use live linked sources in rule emails</a>. Thanks to kabi178, bbyszio and xet7.</summary>
