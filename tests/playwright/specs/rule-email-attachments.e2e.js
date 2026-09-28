@@ -31,6 +31,8 @@ test(`email rule form and SMTP carry only live triggering-card bytes from ${back
     db.insertOne('checklistItems', { _id: `${id}-item`, cardId: card._id, checklistId: `${id}-checklist`, title: 'Reviewed task', isFinished: true, sort: 0 });
     db.insertOne('card_comments', { _id: `${id}-comment`, cardId: card._id, boardId: board.boardId, text: 'Public email comment', createdAt: new Date(), modifiedAt: new Date(), webhookResponsePending: 'NEVER-MAIL-PRIVATE-STATE' });
     db.updateOne('cards', { _id: card._id }, { $set: { dueAt: new Date('2027-02-01'), spentTime: 0,
+      vote: { question: 'Release vote', public: false, positive: ['PRIVATE-VOTER'], negative: [] },
+      poker: { question: true, end: new Date('2020-01-01'), one: ['MISSING-POKER-VOTER'], estimation: 1 },
       recurrenceInterval: 'weekly', lastRecurrenceAt: new Date('2027-01-01'),
       flowStartAt: new Date('2027-02-01'), flowInterruptions: 2,
       pomodoroStartAt: new Date('2027-02-01'), pomodoroPhase: 'work', pomodoroCount: 3, pomodoroWorkMinutes: 25,
@@ -81,11 +83,20 @@ test(`email rule form and SMTP carry only live triggering-card bytes from ${back
       // Quoted-printable can wrap these fields with a soft line break.
       expect(mails()[0].data.replace(/=\r?\n/g, '')).toContain(text);
     }
+    const votingText = mails()[0].data.replace(/=\r?\n/g, '');
+    for (const text of ['Vote question: Release vote', 'Votes for: 1', 'Votes against: 0',
+      'Poker 1 votes: 1', 'Poker 1 voters: Unknown user', 'Poker estimation: 1']) expect(votingText).toContain(text);
+    expect(votingText).not.toContain('For voters');
+    expect(votingText).not.toContain('PRIVATE-VOTER');
     expect(mails()[0].data).not.toContain('NEVER-MAIL-PRIVATE-STATE');
     db.updateOne('attachments', { _id: id }, { $set: { deletedAt: new Date() } });
+    db.updateOne('cards', { _id: card._id }, { $set: { 'vote.public': true, 'poker.end': new Date('2999-01-01') } });
     await call(page, 'rules.runButton', rule._id, card._id);
     await expect.poll(() => mails().length).toBe(2);
     expect(mails()[1].data).not.toContain('report.bin');
+    const reopenedText = mails()[1].data.replace(/=\r?\n/g, '');
+    expect(reopenedText).toContain('For voters: Unknown user');
+    expect(reopenedText).not.toMatch(/Poker 1 votes|Poker 1 voters/);
     db.updateOne('attachments', { _id: id }, { $unset: { deletedAt: '' } });
     db.updateOne('actions', { _id: rule.actionId }, { $set: { includeChecklistsAndComments: false, includeCardDetails: false } });
     await call(page, 'rules.runButton', rule._id, card._id);
@@ -94,7 +105,7 @@ test(`email rule form and SMTP carry only live triggering-card bytes from ${back
     expect(mails()[2].data).not.toContain('Email checklist');
     expect(mails()[2].data).not.toContain('Public email comment');
     expect(mails()[2].data).not.toContain('Mail priority');
-    expect(mails()[2].data).not.toMatch(/Flowtime|Pomodoro|Recurrence/);
+    expect(mails()[2].data).not.toMatch(/Flowtime|Pomodoro|Recurrence|Vote question|Poker/);
     fs.unlinkSync(filename);
     if (backend === 'gridfs') { db.deleteMany('attachments.files', { _id: gridId }); db.deleteMany('attachments.chunks', { files_id: gridId }); }
     const error = await page.evaluate(async ({ ruleId, cardId }) => {

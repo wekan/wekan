@@ -86,3 +86,25 @@ test('absent or malformed timer values do not become serialized objects and acce
   f.cache.getUser = async () => { f.allowed = false; return { username: 'person' }; };
   await assert.rejects(prepare(f), /not-authorized/);
 });
+test('private votes retain counts while public votes and ended poker resolve only public names', async () => {
+  const f = fixture();
+  f.card.vote = { question: 'Ship?', public: false, positive: ['yes'], negative: ['no'], end: new Date('2020-01-01') };
+  f.card.poker = { question: true, end: new Date('2999-01-01'), one: ['poker-user'], estimation: 0 };
+  f.cache.getUser = async id => ({ username: `${id}-name`, emails: ['SECRET-EMAIL'] });
+  let text = await prepare(f);
+  for (const expected of ['Vote question: Ship?', 'Votes for: 1', 'Votes against: 1', 'Poker estimation: 0']) assert.ok(text.includes(expected));
+  assert.doesNotMatch(text, /yes-name|no-name|poker-user-name|Poker 1 votes|SECRET/);
+  f.card.vote.public = true; f.card.poker.end = new Date('2020-01-01');
+  text = await prepare(f);
+  for (const expected of ['For voters: yes-name', 'Against voters: no-name', 'Poker 1 votes: 1', 'Poker 1 voters: poker-user-name', 'Poker 2 votes: 0']) assert.ok(text.includes(expected), expected);
+  assert.doesNotMatch(text, /SECRET/);
+});
+test('hidden voting sections, unfinished poker and a visibility change during name lookup cannot leak results', async () => {
+  const f = fixture(); f.card.vote = { question: 'SECRET-QUESTION', public: true, positive: ['voter'] };
+  f.card.poker = { question: true, one: ['poker-user'], estimation: 42 };
+  f.board.allowsVote = false; f.board.allowsPoker = false;
+  assert.doesNotMatch(await prepare(f), /SECRET|Poker|voters/);
+  f.board.allowsVote = true;
+  f.cache.getUser = async () => { f.card.vote.public = false; return { username: 'VOTER' }; };
+  await assert.rejects(prepare(f), /details-changed/);
+});

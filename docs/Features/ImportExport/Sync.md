@@ -725,6 +725,13 @@ checks the persisted chain before and after its asynchronous policy reads;
 retargeting, moving, deleting or losing read/assignment access stops delivery.
 Source metadata is never passed to SMTP. Ordinary cards also receive a binding.
 
+New version-2 source bindings also capture voting/Poker section visibility,
+public-voter status and Poker end time for every card in the source chain.
+Dispatch refuses changes to these visibility fields before sending captured
+results or names. Version-1 source bindings remain readable for commands
+captured before voting details were supported; new preparation always writes
+version 2. This source-binding version is separate from the command version.
+
 Legacy version-1 commands remain valid for inspection, but the application
 refuses dispatch without source evidence, including sent-receipt reconciliation
 through this entry point. It does not guess a chain from today's links or

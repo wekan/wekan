@@ -3,6 +3,7 @@ const { isAssignedOnlyMember } = require('../../models/lib/boardCardScope');
 const { notDeleted } = require('../../models/lib/softDelete');
 const { buildCustomFieldsWD, filterAdminOnlyDefinitions } = require('../../models/lib/customFieldsWD');
 const { formatStringTemplate } = require('../../models/lib/customFieldStringTemplate');
+const { appendRuleCardVoting, votingVisibility } = require('./ruleCardVoting');
 const scalar = value => value instanceof Date ? (Number.isFinite(+value) ? value.toISOString() : '') :
   ['string', 'number', 'boolean'].includes(typeof value) ? String(value) : '';
 const values = value => Array.isArray(value) ? value.map(scalar).filter(Boolean).join(', ') : scalar(value);
@@ -18,6 +19,7 @@ async function prepareRuleCardDetails({ activity, cache, canReadBoard }) {
     return { card, board };
   };
   const { card, board } = await source();
+  const visibility = JSON.stringify(votingVisibility(card, board));
   const admin = !!board.hasAdmin?.(activity.userId);
   const lines = [], related = new Set(), relatedBoards = new Set();
   let size = 0;
@@ -74,6 +76,7 @@ async function prepareRuleCardDetails({ activity, cache, canReadBoard }) {
       const user = await cache.getUser(card[field]);
       add(label, user?.profile?.fullname || user?.username || 'Unknown user');
     }
+    await appendRuleCardVoting({ card, board, cache, add });
     const labels = new Map((board.labels || []).map(label => [label._id, label.name || label.color]));
     add('Labels', (card.labelIds || []).map(id => labels.get(id)).filter(Boolean));
     for (const [field, label] of [['members', 'Members'], ['assignees', 'Assignees'], ['requesters', 'Requesters'], ['assigners', 'Assigners']]) {
@@ -105,6 +108,7 @@ async function prepareRuleCardDetails({ activity, cache, canReadBoard }) {
     if (JSON.stringify(latestDefinitions) !== JSON.stringify(definitions)) throw new Error('rule-email-details-changed');
   }
   const latest = await source();
+  if (JSON.stringify(votingVisibility(latest.card, latest.board)) !== visibility) throw new Error('rule-email-details-changed');
   if (admin && !latest.board.hasAdmin?.(activity.userId)) throw new Error('rule-email-details-not-authorized');
   for (const id of related) {
     const target = await cache.getCard(id), targetBoard = target && await cache.getBoard(target.boardId);

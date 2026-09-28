@@ -1,12 +1,17 @@
 'use strict';
 const { isAssignedOnlyMember } = require('../../models/lib/boardCardScope');
+const { votingVisibility } = require('./ruleCardVoting');
 const identity = card => JSON.stringify([card?._id, card?.boardId, card?.type, card?.linkedId]);
 
 function validateRuleEmailSourceBinding(binding, activity) {
   const fail = () => { throw new Error('rule-email-source-binding-invalid'); };
   const id = value => typeof value === 'string' && value.length > 0 && value.length <= 1024;
-  if (!binding || Object.keys(binding).sort().join(',') !== 'cards,linkedBoardId,version' ||
-      binding.version !== 1 || !Array.isArray(binding.cards) || !binding.cards.length || binding.cards.length > 32) fail();
+  if (!binding || Object.keys(binding).sort().join(',') !== (binding.version === 2 ? 'cards,linkedBoardId,version,visibility' : 'cards,linkedBoardId,version') ||
+      ![1, 2].includes(binding.version) || !Array.isArray(binding.cards) || !binding.cards.length || binding.cards.length > 32) fail();
+  if (binding.version === 2 && (!Array.isArray(binding.visibility) || binding.visibility.length !== binding.cards.length ||
+      !binding.visibility.every(row => Array.isArray(row) && row.length === 4 &&
+        row.slice(0, 3).every(value => typeof value === 'boolean') &&
+        (row[3] === null || (typeof row[3] === 'string' && Number.isFinite(Date.parse(row[3])) && new Date(row[3]).toISOString() === row[3]))))) fail();
   const seen = new Set();
   for (let i = 0; i < binding.cards.length; i++) {
     const row = binding.cards[i];
@@ -30,12 +35,15 @@ async function assertRuleEmailSourceBinding({ binding, activity, cache, canReadB
   // Keep them readable, but never infer or recapture that evidence on retry.
   if (!binding) throw new Error('rule-email-source-binding-required');
   validateRuleEmailSourceBinding(binding, activity);
-  for (const row of binding.cards) {
+  for (const [index, row] of binding.cards.entries()) {
     const card = await cache.getCard(row[0]);
     const board = card && await cache.getBoard(card.boardId);
     if (!activity.userId || !card || card.deletedAt || !canReadBoard(activity.userId, board) ||
         (isAssignedOnlyMember(board, activity.userId) && !card.assignees?.includes(activity.userId))) {
       throw new Error('rule-email-source-not-authorized');
+    }
+    if (binding.version === 2 && JSON.stringify(votingVisibility(card, board)) !== JSON.stringify(binding.visibility[index])) {
+      throw new Error('rule-email-source-visibility-changed');
     }
     if (identity(card) !== JSON.stringify(row)) throw new Error('rule-email-source-changed');
   }
@@ -60,7 +68,7 @@ async function resolveRuleEmailSource({ activity, cache, canReadBoard }) {
     card = await cache.getCard(id);
     await readable(card);
     if (!chain.length && card.boardId !== activity.boardId) throw new Error('rule-email-source-not-authorized');
-    chain.push({ id, identity: identity(card) });
+    chain.push({ id, identity: identity(card), visibility: votingVisibility(card, await cache.getBoard(card.boardId)) });
     sourceActivity = { ...activity, cardId: card._id, boardId: card.boardId };
     if (card.type === 'cardType-linkedCard') { id = card.linkedId; continue; }
     if (card.type === 'cardType-linkedBoard') {
@@ -74,7 +82,8 @@ async function resolveRuleEmailSource({ activity, cache, canReadBoard }) {
     }
     break;
   }
-  const binding = { version: 1, cards: chain.map(item => JSON.parse(item.identity)), linkedBoardId };
+  const binding = { version: 2, cards: chain.map(item => JSON.parse(item.identity)), linkedBoardId,
+    visibility: chain.map(item => item.visibility) };
   validateRuleEmailSourceBinding(binding, activity);
   const assertCurrent = () => assertRuleEmailSourceBinding({ binding, activity, cache, canReadBoard });
   return { card, activity: sourceActivity, binding, assertCurrent };

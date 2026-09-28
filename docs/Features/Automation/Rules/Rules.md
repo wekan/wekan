@@ -103,14 +103,23 @@ Admin-only custom fields require board-admin access. Account emails, tokens and 
 related-card titles are never included. Zero and false values are retained.
 Access and custom-field policy are checked again before preparation finishes.
 
+Details includes voting questions, deadlines and counts. Voter names appear
+only for public votes. Planning Poker includes the saved estimation and
+reveals the choice counts and names only after its end time, matching the
+card UI. Hidden voting/Poker sections are omitted. Only public display names
+are resolved; emails, account data and raw user IDs are excluded. Visibility
+is rechecked after preparation and captured in new stored-command source
+bindings, so changing public voting, reopening Poker or hiding either section
+stops dispatch of an older snapshot.
+
 For linked cards, all selected sections use the current source card, including
 its board-scoped custom fields, comments and files. Every link in the chain
 must remain readable by the actor; changed targets, cycles, missing sources
 and revoked access stop preparation. Cached source snapshots are not sent.
 Linked boards use current board title, description and dates while retaining
 the wrapper card's own discussion and attachments; they do not email every
-card on the linked board. Scrum and voting fields still need review for the
-full-card request in #2713.
+card on the linked board. Scrum fields and linked-board voting still need review for the full-card
+request in #2713.
 Stored Sync commands capture the resolved source chain alongside the immutable
 mail and include it in their checksum. Before dispatch, every saved card/board,
 link target and current read/assignment permission must still match. A moved or

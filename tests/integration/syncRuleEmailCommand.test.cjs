@@ -38,7 +38,8 @@ test('lost insert replies survive a fresh connection; corrupt content never beco
 
 test('bound snapshots converge in Mongo and retain source evidence after reconnect', { skip: !uri }, async t => {
   const { f, db } = await fixture(t), mail = await f.prepare();
-  const sourceBinding = { version: 1, cards: [['card', 'board', null, null]], linkedBoardId: null };
+  const sourceBinding = { version: 2, cards: [['card', 'board', null, null]], linkedBoardId: null,
+    visibility: [[true, true, true, '2020-01-01T00:00:00.000Z']] };
   const prepare = async () => ({ mail, sourceBinding });
   const [a, b] = await Promise.all([ensure({ ...f, prepare }), ensure({ ...f, prepare })]);
   assert.deepEqual(a, b); assert.equal(a.version, 2);

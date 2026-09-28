@@ -63,7 +63,7 @@ test('stored bindings recheck topology and access rather than resolving a replac
 test('saved bindings reject unknown fields, wrong roots, cycles and incomplete chains', async () => {
   const { validateRuleEmailSourceBinding: validate } = require('../server/lib/ruleEmailSource');
   const f = fixture(), { binding } = await resolve(f);
-  for (const mutate of [b => { b.version = 2; }, b => { b.extra = true; },
+  for (const mutate of [b => { b.version = 99; }, b => { b.extra = true; },
     b => { b.cards = []; }, b => { b.cards[0][0] = 'other'; }, b => { b.cards[0][1] = 'other'; },
     b => { b.cards[0][2] = 'cardType-card'; }, b => { b.cards[0][3] = 'other'; },
     b => { b.cards.pop(); }, b => { b.cards.push(b.cards[0]); },
@@ -81,4 +81,29 @@ test('stored board bindings require the same board and its current read permissi
   f.boards.foreign.readable = false; await assert.rejects(guard({ ...f, binding }), /not-authorized/);
   f.boards.foreign.readable = true; f.cards.link.linkedId = 'local';
   await assert.rejects(guard({ ...f, binding }), /changed/);
+});
+
+test('stored source evidence rejects revoked public voting, reopened poker and hidden sections', async () => {
+  const { assertRuleEmailSourceBinding: guard } = require('../server/lib/ruleEmailSource');
+  for (const mutate of [f => { f.cards.source.vote.public = false; },
+    f => { f.cards.source.poker.end = null; }, f => { f.boards.foreign.allowsVote = false; },
+    f => { f.boards.foreign.allowsPoker = false; }]) {
+    const f = fixture(); f.cards.source.vote = { public: true };
+    f.cards.source.poker = { end: new Date('2020-01-01') };
+    const { binding } = await resolve(f); assert.equal(binding.version, 2);
+    await guard({ ...f, binding }); mutate(f);
+    await assert.rejects(guard({ ...f, binding }), /visibility-changed/);
+  }
+});
+test('visibility binding schema cannot omit or coerce disclosure policy', async () => {
+  const { validateRuleEmailSourceBinding: validate } = require('../server/lib/ruleEmailSource');
+  const f = fixture(), { binding } = await resolve(f);
+  for (const mutate of [b => { delete b.visibility; }, b => { b.visibility.pop(); },
+    b => { b.visibility[0][0] = 'true'; }, b => { b.visibility[0][3] = 'invalid'; },
+    b => { b.visibility[0].push('extra'); }]) {
+    const changed = structuredClone(binding); mutate(changed);
+    assert.throws(() => validate(changed, f.activity), /binding-invalid/);
+  }
+  const legacy = structuredClone(binding); legacy.version = 1; delete legacy.visibility;
+  validate(legacy, f.activity); // Before voting was added, no voter data could be captured.
 });
