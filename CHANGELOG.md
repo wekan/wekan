@@ -348,6 +348,11 @@ and activity counts; two Chromium cases deny member/admin browser writes and
 exposure for all eleven private recovery collections. Target/variable/date
 resolution, live action permissions, durable action execution and its receipts
 remain unfinished. Storing a rule plan does not complete a rule.
+Ordinary rule execution now waits for date, label and linked-card writes before
+running the next matched rule, and initial-date write failures propagate too.
+Forty controlled delayed-write/rejection cases cover twenty action paths and
+fail against the previous implementation; all 27 rule Node suites pass. This
+fixes Promise ownership only, not durable command receipts or restart replay.
 Private operation, step and completion collections are now registered with
 server-only adapters, denied browser writes, recovery indexes and no TTL.
 The stored-operation entry point holds the list lease and requires fresh access
@@ -1345,6 +1350,24 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/569c2c61b">Wait for rule date, label and linked-card writes before later actions</a>. Thanks to xet7.</summary>
+
+Await initial, updated, removed and relative date writes, label changes and
+linked-card creation in the ordinary rule action runner. A later matched rule
+now waits for these writes to finish; rejection stops the remaining rules.
+Initial-date errors are logged and propagated instead of silently succeeding.
+
+Forty tests execute the actual action and rule-loop code with controlled
+Promises across twenty paths, covering delayed completion and write rejection.
+All forty fail against the previous implementation. All 27 rule Node suites
+pass after repairing a VM test loader for the existing write-result guard.
+The source audit completes with advisory warnings. These checks use controlled
+model adapters; no new browser or database integration run was performed.
+Durable command receipts and restart replay remain separate unfinished work.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d2c73b422">Capture saved Sync rule selections using actual matching and live scope checks</a>. Thanks to xet7.</summary>
