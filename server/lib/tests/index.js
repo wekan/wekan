@@ -80,3 +80,5 @@ import './syncHookedActivities.tests';
 import './notificationAwaitedDelivery.tests';
 
 import './notificationPreparation.tests';
+
+import './storedNotificationDelivery.tests';

@@ -6,7 +6,7 @@ for (const role of ['member', 'admin']) {
   test(`private Sync recovery collections reject ${role} browser writes`, async ({ page, user, adminUser }) => {
     const actor = role === 'admin' ? adminUser : user;
     await loginWithToken(page, actor.id, actor.token);
-    const names = ['listSyncOperationIntents', 'listSyncOperations', 'listSyncOperationSteps', 'listSyncOperationCompletions'];
+    const names = ['listSyncNotificationPlans', 'listSyncOperationIntents', 'listSyncOperations', 'listSyncOperationSteps', 'listSyncOperationCompletions'];
     const id = db.uid('private-sync');
     for (const name of names) db.insertOne(name, { _id: id, marker: 'private recovery evidence' });
     try {
@@ -21,7 +21,7 @@ for (const role of ['member', 'admin']) {
         }
         return { errors, visible: names.some(name => Meteor.connection._stores[name]?._getCollection?.().findOne(id)) };
       }, { names, id });
-      expect(result.errors).toEqual(Array(12).fill(403));
+      expect(result.errors).toEqual(Array(names.length * 3).fill(403));
       expect(result.visible).toBe(false);
       for (const name of names) {
         expect(db.findOne(name, { _id: id }).marker).toBe('private recovery evidence');

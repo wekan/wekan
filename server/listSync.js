@@ -1,3 +1,4 @@
+import '/server/notifications/storedDelivery';
 import '/server/lib/listSyncOperations';
 // List sync (docs/Features/ImportExport/Sync.md, Priority 1 of the
 // import/export/sync audit): periodic job that keeps a WeKan list up to date
