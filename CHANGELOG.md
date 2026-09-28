@@ -1291,7 +1291,8 @@ now uses current target results and both boards' visibility settings. The six
 visible Scrum card fields are included with same-board name resolution and
 persisted visibility checks. The
 [content audit](docs/DeveloperDocs/Card-Email-Content-Audit.md) now tracks
-the final wrapper-field audit and timer getter/write mismatch. Local placement,
+the final wrapper-field audit. Timer session reads and writes now agree;
+completed work uses the current source total. Local placement,
 timers and visible Scrum now have a separate linked-card section. Moved-card
 SMTP now
 passes with all three content choices for filesystem and GridFS. Canonical
@@ -1477,7 +1478,8 @@ and completed Poker results also have disclosure checks and SMTP coverage;
 Linked-board voting now follows target policy with stored checks. Visible
 Scrum card metadata now has same-board reference and SMTP coverage. Final
 [content audit](docs/DeveloperDocs/Card-Email-Content-Audit.md) records concrete
-remaining wrapper fields and the timer getter/write mismatch. Local placement,
+remaining wrapper fields. Timer session reads and writes now agree, and
+completed work uses the current source total. Local placement,
 timers and visible Scrum now have a separate section. Moved-card SMTP passes
 for filesystem and
 GridFS with all three choices. Legacy stored-command recovery also
@@ -1562,6 +1564,28 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0bd4dc0a5">Keep linked timer sessions local and credit current source time</a>. Thanks to xet7.</summary>
+
+Flowtime and Pomodoro session writes now use the displayed card, matching their
+getters. Completed work adds to the current linked source total and awaits its
+save before clearing or advancing the session. Remove a duplicate Spent Time
+setter that silently replaced linked-board support. Keep automatic Pomodoro
+transitions outside reactive tracking and allow one pending transition per view.
+The source total and local session remain separate writes, not a transaction.
+
+Sixty-three Node suites pass without skips, with MongoDB and native
+MailComposer.
+Executable model tests cover local writes, current totals, failed credits,
+breaks and the linked-board setter; the client test checks pending transitions.
+Two Chromium timer scenarios pass for linked cards and boards, including
+interruptions, elapsed time, automatic work completion and stopping a break.
+Three SMTP scenarios also pass. The source audit passes with advisory warnings.
+The separate Pomodoro suite still fails on pre-existing locale key positions;
+translation files remain deferred. Existing Upcoming coverage is retained.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/032e0db79">Include scoped local linked-card details in rule emails</a>. Thanks to kabi178, bbyszio and xet7.</summary>
