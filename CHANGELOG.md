@@ -1341,11 +1341,7 @@ Researched against WeKan's actual current code (not assumed) to find what is
 genuinely still missing after this session's landed work, then scoped down
 to the smallest well-understood piece (card recurrence, added above) rather
 than a shallow pass across all five tools. What is investigated but deferred:
-**Jira Server/DC duplicate issue links** remain deferred. Typed relationships
-already exist in `models/metadata/dependencies.js`: related-to, blocks,
-is-blocked-by, fixes and is-fixed-by, with reciprocal display and configurable
-line colors/icons. A dedicated duplicates/is-duplicated-by relationship is
-still missing. **Jira issue TYPES** (Bug/Task/Story/Epic as a first-class
+**Jira issue TYPES** (Bug/Task/Story/Epic as a first-class
 card attribute with its own icon set and swimlane-per-epic grouping - the
 existing custom-field mechanism can represent the VALUE but not the icon/
 swimlane-grouping behaviour Jira gives a type, so this needs a decision on
@@ -1560,6 +1556,26 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/eb527dd13">Add duplicate card relationships and preserve Jira link direction</a>. Thanks to xet7.</summary>
+
+Add Duplicates and Is duplicated by to the existing dependency picker, directed
+board overlay and REST API. Preserve both types in History undo/redo and native
+board export/import. Map standard Jira Duplicate links in both directions,
+skipping self-links and targets outside the imported board. Duplicate relations
+do not merge cards or count as blockers in flow analytics.
+
+Two new Node cases, the ten-case flow analytics suite and existing importer
+checks pass, alongside eight full-app Jira mapping cases and three Chromium
+cases. Browser checks cover type editing, History, directed lines, Jira import,
+native ID remapping and REST self/cross-board rejection. Add English labels
+only; translating every language remains outside this work queue. The source
+audit has advisory warnings. The existing Jira JSON exporter still omits issue
+links; native WeKan export preserves them. Remove the completed relationship
+gap from TODO Later.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/46d2039b8">Preflight the complete Scrum recovery batch before more writes</a>. Thanks to xet7.</summary>
