@@ -301,6 +301,15 @@ actual History change. Interrupted preparation resets the planner at index
 zero; persisted replay reuses the saved chain without replanning. Real MongoDB
 coverage spans three card units and interruption between History rows.
 Independent production History writers still need shared chain coordination.
+Creation units now preserve the ordinary createCard activity payload in a
+bounded private plan with a stable ID and captured names/timestamps. Readback
+confirms insertion, but the journal cannot advance until a separate durable
+delivery callback acknowledges the same effect. History planning accepts
+creation without inventing field-edit events or consuming redo candidates.
+MongoDB tests cover interrupted delivery, lost insertion acknowledgements,
+plan corruption, replay and cleanup; Chromium verifies ordinary creation and
+the visible activity. Production feature flags, hook coordination, rule and
+notification delivery adapters remain unfinished.
 Activity notification and webhook payloads now preserve zero, false, empty
 text and explicit null, while absent values remain omitted. This fixes lost
 zero estimates and unchecked custom-field values. SMTP and HTTP-serialization
@@ -979,6 +988,32 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0975d33d9">Persist creation activities in Sync recovery plans</a>. Thanks to xet7.</summary>
+
+Share the ordinary card-creation activity payload with a private durable Sync
+adapter. Capture list/swimlane names, timestamps and a stable event ID before
+application. Reject foreign references, changed card identities, unknown
+payload properties and oversized plans. Verify stored activity contents after
+insertions, including lost replies, and require a separate matching delivery
+receipt even when the activity already exists.
+
+Creation units no longer block the History planner: they produce no invented
+field-edit History rows and leave the chain and redo candidates intact,
+matching ordinary creation behavior.
+
+Twelve focused Node suites pass with real MongoDB enabled. Tests cover
+interrupted delivery, malformed plans, collisions, lease loss, repeated replay
+and verified cleanup. A Chromium scenario creates a card and verifies its
+single complete activity in the card history. The source audit passes with
+advisories; the existing published changelog line-length failure remains.
+
+The durable adapter is not enabled in production Sync. Feature-flag and hook
+coordination, durable rule/notification delivery and job lifecycle integration
+remain in TODO Later; tests use a persisted delivery receipt adapter.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6cebd5ec5">Chain durable Sync History plans across cards</a>. Thanks to xet7.</summary>
