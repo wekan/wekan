@@ -838,3 +838,16 @@ Production collection registration, binding to the actual History/activity
 collections and delivery service, shared History-writer coordination and
 manual/cron activation remain unfinished. The test's delivery callback is
 controlled; it does not prove real notification or recursive-rule delivery.
+
+`server/lib/syncRuleArchiveActivities.js` binds every activity in a validated
+archive effect envelope to ordinary Activities insertion. It accepts only the
+saved IDs and exact payloads, preserves their actor and timestamp, and defers
+ordinary rule/notification hooks to the separately acknowledged delivery stage.
+Disabled activity plans expose no event IDs through this adapter.
+
+The full-app archive collection test combines the real Cards, ChangeHistory
+and Activities collections. It interrupts delivery after child History/activity
+insertion, then resumes both child and parent, verifies exact stored payloads
+and confirms replay creates no duplicates. Ordinary restore recording still
+works afterward. The test controls only downstream delivery acknowledgements;
+production delivery binding and shared History-writer coordination remain open.

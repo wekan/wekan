@@ -110,4 +110,4 @@ async function applyRuleArchiveEffects(options) {
         effectId: unit.effectId, assertCurrent: checkCard, completeDelivery, readPolicy });
     } });
 }
-module.exports = { prepareRuleArchiveEffects, validateRuleArchiveEffects, ensureRuleArchiveEffects, applyRuleArchiveEffects };
+module.exports = { archiveEffectStep: stepFor, prepareRuleArchiveEffects, validateRuleArchiveEffects, ensureRuleArchiveEffects, applyRuleArchiveEffects };

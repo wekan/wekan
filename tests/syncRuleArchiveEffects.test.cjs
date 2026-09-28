@@ -73,3 +73,24 @@ test('changed live policy or missing delivery adapters cannot reach card writes'
     readPolicy: async () => ({ activities: false, notifications: false }), completeDelivery: async () => {} }), /policy/);
   await assert.rejects(apply({ ...f, cards, history, activities, receipts, readPolicy: async () => f.policy }), /effects-invalid/);
 });
+test('cascade activity adapter restricts IDs and payloads while preserving scoped delivery deferral', async () => {
+  const { createRuleArchiveActivities } = require('../server/lib/syncRuleArchiveActivities');
+  const { deferSyncActivity } = require('../server/lib/syncActivityScope');
+  const f = await fixture(); let actor, inserts = 0;
+  const adapter = createRuleArchiveActivities({ ...f, withActor: async (id, work) => {
+    actor = id; try { return await work(); } finally { actor = undefined; }
+  }, activities: { findOneAsync: async (id, options) => { assert.equal(options.transform, null); return { _id: id }; },
+    insertAsync: async event => {
+      inserts++; assert.equal(actor, 'actor');
+      for (const kind of ['timestamps', 'notificationIntent', 'rules', 'notifications']) assert.equal(deferSyncActivity(kind, event), true);
+      return event._id;
+    } } });
+  const event = f.effects.rows[1].activities.rows[0].activity;
+  assert.equal(await adapter.insertAsync(event), event._id);
+  assert.equal(actor, undefined); assert.equal(deferSyncActivity('rules', event), false);
+  assert.equal((await adapter.findOneAsync(event._id))._id, event._id);
+  assert.throws(() => adapter.findOneAsync('unrelated'), /activities-invalid/);
+  assert.throws(() => adapter.insertAsync({ ...event, _id: 'unrelated' }), /activities-invalid/);
+  await assert.rejects(adapter.insertAsync({ ...event, cardTitle: 'changed' }), /adapter-invalid/);
+  assert.equal(inserts, 1);
+});
