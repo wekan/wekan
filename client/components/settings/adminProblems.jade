@@ -13,6 +13,7 @@ template(name="adminProblems")
           if showFileStatusAudit
             +fileStatusAudit
           if isPane 'report-recovery'
+            +emailRecoveryReports
             +syncRecoveryReports
           if loading.get
             +spinner
@@ -243,3 +244,37 @@ template(name="syncRecoveryReportRow")
           p {{_ 'sync-source-omitted'}}: {{coverage.source.omittedOccurrences}}
         p {{_ 'sync-preview-parser-warnings'}}: {{coverage.parserWarnings}}
         p {{_ 'sync-preview-parser-unsupported'}}: {{coverage.parserUnsupported}}
+
+template(name="emailRecoveryReports")
+  section.email-recovery-reports
+    h2 {{_ 'email-recovery-heading'}}
+    p.quiet {{_ 'email-recovery-description'}}
+    if error
+      p.error(role="alert") {{error}}
+    if busy
+      p.quiet {{_ 'email-recovery-saving'}}
+    +tablePage(tablePageData)
+
+template(name="emailRecoveryReportRow")
+  tr(data-recipient=userId)
+    td
+      p {{username}}
+      p.quiet {{userId}}
+    td {{_ statusLabel}}
+    td
+      p {{_ 'email-recovery-queued'}}: {{queued}}
+      p {{_ 'email-recovery-retrying'}}: {{retrying}}
+      p {{_ 'email-recovery-attempts'}}: {{attempts}}
+    td
+      p {{_ 'email-recovery-oldest'}}: {{oldestText}}
+      p {{_ 'email-recovery-next'}}: {{nextText}}
+      if changedText
+        p {{_ 'email-recovery-changed'}}: {{changedText}}
+        p.quiet {{changedBy}}
+    td
+      if paused
+        button.js-email-queue-action(type="button" data-action="resume" disabled=busy) {{_ 'email-recovery-resume'}}
+      else
+        button.js-email-queue-action(type="button" data-action="pause" disabled=busy) {{_ 'email-recovery-pause'}}
+      if queued
+        button.js-email-queue-action(type="button" data-action="cancel" disabled=busy) {{_ 'email-recovery-cancel'}}

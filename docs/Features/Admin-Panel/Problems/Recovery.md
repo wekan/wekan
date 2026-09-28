@@ -30,6 +30,36 @@ bloating, detects corruption, keeps a ready-to-use backup, restores or re-migrat
 when an operator requests it, and shows the remediation history in Admin Panel →
 Problems → **Recovery**.
 
+## Email delivery queue
+
+The email section groups pending notifications by recipient, with ten recipients
+per page. Search by a literal user ID and press Enter. It shows the queued and
+retrying counts, highest retry count, oldest queued time, next attempt and last
+operator change. Recipients are identified by username and user ID; mailbox
+fields and message contents are not returned.
+Refresh reads the current database state; this is not a live subscription.
+
+- **Pause delivery** holds both existing and subsequently queued messages for
+  that recipient. A paused recipient remains listed even with an empty queue.
+- **Resume delivery** removes the hold and makes existing queued messages due
+  now. Normal recipient permissions are rechecked before sending.
+- **Cancel queued messages** asks for confirmation, removes rendered payloads
+  queued up to the request's timestamp, and retains cancellation receipts.
+  Messages created afterward are kept. Cancelling does not remove a pause.
+
+Only a currently enabled instance administrator can read or change the queue.
+Controls acquire the same recipient reservation as the sender. If a delivery is
+already running, the operation reports busy; refresh and retry. A request ID
+makes a retry safe after an uncertain reply, and older interrupted commands
+cannot override a newer operator action. An in-flight SMTP request cannot be
+recalled after a lost lease; delivery remains at least once.
+
+Control records retain the latest actor/time/action and per-action counts;
+private request receipts retain completion or supersession. Queue payloads and
+control collections have no client publication or direct client writes.
+See [durable operations](Durable-Operations.md) for remaining transport policy,
+retention and activity-to-delivery integration work.
+
 ## Sync run diagnostics
 
 Recovery also reads the private Sync run reports, without copying them into

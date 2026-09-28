@@ -1,6 +1,7 @@
 const { createHash, randomUUID } = require('node:crypto');
 const { withSyncLease } = require('./syncLease');
 const { calculateObjectSize } = require('bson');
+const { PAYLOAD_FIELDS } = require('./emailOutboxControl');
 
 const idFor = (userId, eventId) => createHash('sha256').update(JSON.stringify([userId, eventId])).digest('hex');
 const MAX_JOB_BYTES = 15 * 1024 * 1024;
@@ -9,7 +10,7 @@ const RETRY_MS = 5000;
 
 // Raw-driver storage is private to the server. The shared renewable reservation
 // primitive uses its own collection here; no list Sync lease is touched.
-function createEmailOutbox({ jobs, leases, getUser, send, replyTo, from,
+function createEmailOutbox({ jobs, leases, controls, getUser, send, replyTo, from,
   canReceive = async () => true, now = () => new Date(), leaseOptions = {}, delayMs = 30000 }) {
   async function enqueue({ userId, eventId = randomUUID(), subject, html, language, cardId = null, boardId = null }) {
     if (![userId, eventId, subject, html, language].every(value => typeof value === 'string') ||
@@ -37,7 +38,24 @@ function createEmailOutbox({ jobs, leases, getUser, send, replyTo, from,
   async function drainUser(userId) {
     try {
       return await withSyncLease(leases, userId, async ({ assertCurrent }) => {
-        const cursor = jobs.find({ userId, state: 'pending', nextAttemptAt: { $lte: now() } })
+        const control = controls && await controls.findOne({ _id: userId });
+        await assertCurrent();
+        if (control?.cancelBefore) {
+          await jobs.updateMany({ userId, state: 'pending', createdAt: { $lte: control.cancelBefore } }, {
+            $set: { state: 'cancelled', finishedAt: now() }, $unset: PAYLOAD_FIELDS,
+          });
+          await assertCurrent();
+        }
+        if (control?.paused) {
+          // Do not let held mail monopolize the next due scan. Resume explicitly
+          // wakes existing jobs, and new jobs still consult this durable flag.
+          await jobs.updateMany({ userId, state: 'pending' }, {
+            $max: { nextAttemptAt: new Date(now().getTime() + 60000) },
+          });
+          return;
+        }
+        const cursor = jobs.find({ userId, state: 'pending', nextAttemptAt: { $lte: now() },
+          ...(control?.cancelBefore ? { createdAt: { $gt: control.cancelBefore } } : {}) })
           .sort({ createdAt: 1, _id: 1 }).limit(100).batchSize(1);
         let batch = []; let size = 0;
         // Stream to bound memory even when each queued document is large. A

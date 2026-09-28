@@ -353,8 +353,14 @@ Delivery is explicitly **at least once**. SMTP acceptance followed by a crash,
 a lost acknowledgement or lease expiry can cause duplicate mail. Leases cannot
 cancel a request already in flight. Original activity creation and notification
 enqueue are still separate operations, so this does not yet prove completion of
-a durable Sync effect. Recovery UI, operator pause/cancel/resume, receipt
-retention policy, terminal-error classification, retry limits/jitter and SMTP
+a durable Sync effect. Recipient summaries and pause/resume/cancel controls
+are available in Problems → Recovery; see [the operator guide](Recovery.md).
+Control requests use the recipient lease, persisted holds/cancellation cutoffs
+and stable request receipts with generation checks. A paused recipient stays
+listed with no pending jobs, so the hold can always be removed. Report totals
+scan sorted recipient summaries with bounded memory; concurrent writes can
+change counts between reads, and Refresh obtains a new result.
+Receipt retention policy, terminal-error classification, retry limits/jitter and SMTP
 timeout/concurrency policy remain pending. No external mail provider or FerretDB
 was exercised by this implementation's local MongoDB/SMTP tests.
 

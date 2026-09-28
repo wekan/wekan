@@ -17,8 +17,9 @@ mailbox address and mail configuration are used on each attempt.
 
 Without a working transport, console output alone does not clear the queue.
 Custom email transports must return the accepted recipient list, as Nodemailer
-SMTP transports do. Queue status and operator recovery controls are still in
-progress; see [delivery recovery details](../Admin-Panel/Problems/Durable-Operations.md).
+SMTP transports do. **Admin Panel / Problems / Recovery** shows recipient
+summaries and lets an administrator pause, resume or cancel queued messages.
+See [the recovery guide](../Admin-Panel/Problems/Recovery.md#email-delivery-queue).
 
 [Azure Email Communication Service](https://github.com/wekan/wekan/issues/5453)
 

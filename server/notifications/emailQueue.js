@@ -7,16 +7,18 @@ import { ensureIndex } from '/server/lib/mongoStartup';
 const { createEmailOutbox, migrateLegacyEmailBuffer } = require('/server/lib/emailOutbox');
 const { buildReplyToAddress } = require('/server/lib/inboundEmailReplyToken');
 
-// No client collection, methods or publications expose the mail outbox.
-const EmailJobs = new Mongo.Collection('notificationEmailJobs');
-const EmailLeases = new Mongo.Collection('notificationEmailLeases');
-for (const collection of [EmailJobs, EmailLeases]) {
+// Mail payloads remain private; admin methods expose only recipient summaries.
+export const EmailJobs = new Mongo.Collection('notificationEmailJobs');
+export const EmailLeases = new Mongo.Collection('notificationEmailLeases');
+export const EmailControls = new Mongo.Collection('notificationEmailControls');
+export const EmailCommands = new Mongo.Collection('notificationEmailCommands');
+for (const collection of [EmailJobs, EmailLeases, EmailControls, EmailCommands]) {
   collection.deny({ insert: () => true, update: () => true, remove: () => true });
 }
 const configuredDelay = Number(process.env.EMAIL_NOTIFICATION_TIMEOUT);
 const delayMs = Number.isFinite(configuredDelay) && configuredDelay > 0 ? configuredDelay : 30000;
 export const emailOutbox = createEmailOutbox({
-  jobs: EmailJobs.rawCollection(), leases: EmailLeases.rawCollection(), delayMs,
+  jobs: EmailJobs.rawCollection(), controls: EmailControls.rawCollection(), leases: EmailLeases.rawCollection(), delayMs,
   getUser: id => ReactiveCache.getUser(id),
   send: mail => EmailLocalization.sendEmail(mail),
   canReceive: async (user, job) => {
@@ -40,6 +42,7 @@ export const emailOutbox = createEmailOutbox({
 Meteor.startup(async () => {
   await ensureIndex(EmailJobs, { state: 1, nextAttemptAt: 1, _id: 1 });
   await ensureIndex(EmailJobs, { userId: 1, state: 1, createdAt: 1, _id: 1 });
+  await ensureIndex(EmailControls, { paused: 1, _id: 1 });
   await ensureIndex(Meteor.users, { 'profile.emailBuffer.0': 1 });
   // Polling discovers both new jobs and pre-restart work. Schedule after each
   // pass so a slow SMTP server cannot accumulate overlapping scans.

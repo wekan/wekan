@@ -1,6 +1,7 @@
 import { formatDateForDisplay } from '/client/lib/dateDisplay';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Session } from 'meteor/session';
+import { Random } from 'meteor/random';
 import { Tracker } from 'meteor/tracker';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 // The per-pane URLs of the Admin Panel. docs/Features/Page/Admin-Panel-URLs.md
@@ -1461,5 +1462,85 @@ Template.syncRecoveryReports.events({
     const result = t.result.get();
     const next = adjacentPage(result.total, result.page, event.currentTarget.classList.contains('js-table-page-next') ? 1 : -1, TABLE_PAGE_ROWS_PER_PAGE);
     if (next !== result.page) t.load(next);
+  },
+});
+
+// Recipient summaries use the existing table page controls. No message content
+// or mailbox addresses are published into Minimongo.
+Template.emailRecoveryReports.onCreated(function () {
+  this.result = new ReactiveVar({ rows: [], total: 0, page: 1 });
+  this.error = new ReactiveVar('');
+  this.actionError = new ReactiveVar('');
+  this.search = new ReactiveVar('');
+  this.busy = new ReactiveVar(false);
+  this.request = 0;
+  this.commands = new Map();
+  this.load = (page = 1) => {
+    const request = ++this.request;
+    this.result.set({ rows: [], total: 0, page });
+    Meteor.call('emailRecoveryReport', { search: this.search.get(), page }, (error, result) => {
+      if (this.view.isDestroyed || request !== this.request) return;
+      this.error.set(error ? TAPi18n.__('email-recovery-unavailable') : '');
+      if (!error) this.result.set(result);
+    });
+  };
+  this.load();
+});
+Template.emailRecoveryReports.helpers({
+  error() { const t = Template.instance(); return t.actionError.get() || t.error.get(); },
+  busy() { return Template.instance().busy.get(); },
+  tablePageData() {
+    const t = Template.instance(), result = t.result.get();
+    const info = pageInfo(result.total, result.page, TABLE_PAGE_ROWS_PER_PAGE);
+    return {
+      header: buildHeader([{ labelKey: 'username' }, { labelKey: 'status' }, { labelKey: 'email-recovery-queued' },
+        { labelKey: 'date' }, { labelKey: 'actions' }]),
+      rowTemplate: 'emailRecoveryReportRow', emptyKey: 'email-recovery-empty',
+      docs: result.rows.map(row => ({ ...row, busy: t.busy.get(),
+        statusLabel: row.paused ? 'email-recovery-paused' : 'email-recovery-pending',
+        oldestText: row.oldest ? formatDate(row.oldest) : '—',
+        nextText: !row.paused && row.nextAttemptAt ? formatDate(row.nextAttemptAt) : '—',
+        changedText: row.changedAt ? formatDate(row.changedAt) : '',
+      })),
+      rowCount: result.rows.length, total: result.total, searchTerm: t.search.get(),
+      page: info.page, totalPages: info.totalPages, hasPrev: info.hasPrev, hasNext: info.hasNext,
+      actions: [{ id: 'refresh-email', labelKey: 'refresh' }],
+    };
+  },
+});
+Template.emailRecoveryReports.events({
+  'keydown .js-table-page-search'(event, t) {
+    event.stopPropagation();
+    if (event.key === 'Enter') { event.preventDefault(); t.search.set(event.currentTarget.value.trim().slice(0, 100)); t.load(); }
+  },
+  'click .js-table-page-action'(event, t) {
+    event.preventDefault(); event.stopPropagation(); t.load();
+  },
+  'click .js-table-page-prev, click .js-table-page-next'(event, t) {
+    event.preventDefault(); event.stopPropagation();
+    const result = t.result.get();
+    const next = adjacentPage(result.total, result.page, event.currentTarget.classList.contains('js-table-page-next') ? 1 : -1, TABLE_PAGE_ROWS_PER_PAGE);
+    if (next !== result.page) t.load(next);
+  },
+  'click .js-email-queue-action'(event, t) {
+    event.preventDefault(); event.stopPropagation();
+    if (t.busy.get()) return;
+    const action = event.currentTarget.dataset.action, userId = this.userId;
+    if (action === 'cancel' && !window.confirm(TAPi18n.__('email-recovery-confirm-cancel'))) return;
+    const key = `${userId}:${action}`;
+    // Retain an uncertain request's identity when the operator retries. A late
+    // retry cannot cancel newer messages or undo a newer operator action.
+    if (!t.commands.has(key)) t.commands.set(key, Random.id(32));
+    t.busy.set(true); t.actionError.set('');
+    Meteor.call('controlEmailRecovery', { userId, action, requestId: t.commands.get(key) }, (error, result) => {
+      if (t.view.isDestroyed) return;
+      t.busy.set(false);
+      if (error) t.actionError.set(TAPi18n.__(error.error === 'email-recovery-busy' ? 'email-recovery-busy' : 'email-recovery-failed'));
+      else {
+        t.commands.delete(key);
+        if (result.status === 'superseded') t.actionError.set(TAPi18n.__('email-recovery-superseded'));
+      }
+      t.load(t.result.get().page);
+    });
   },
 });
