@@ -121,7 +121,13 @@ confirmation preserves recovery evidence; closed admission and missing heads
 never trigger legacy fallback. Three Scrum History Node suites (18 cases) and
 five full-app cases pass, including eight retries alongside five ordinary
 edits. Restored-entity writes and undo/redo flags still require shared
-operation-level coordination. Failed or damaged
+operation-level coordination. Pending redo now refuses a superseded source
+even when recovery reloads that already-invalidated row. Source identity,
+hash and invalidation state are rechecked before entity writes, restoration
+events and finalization. Twenty Node cases and eight Chromium cases pass,
+including a newer ordinary card edit during pending redo. The checkpoint
+remains for recovery; atomic coordination and resolution of superseded
+partial restores are unfinished. Failed or damaged
 records retain the recovery checkpoint. Successful insert replies now require
 the same persisted-event verification; missing rows and failed confirmation
 reads keep recovery pending. Finalization now verifies the source
@@ -1525,6 +1531,24 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2bbc13456">Refuse invalidated Scrum redo recovery before replaying changes</a>. Thanks to xet7.</summary>
+
+A pending Scrum redo checkpoint could bypass normal redo selection after a
+newer ordinary edit superseded its source. Reject that source even when the
+retry reloads the already-invalidated row. Recheck source identity, immutable
+hash and superseded state before entity writes, restoration events and final
+cleanup. Preserve the checkpoint when recovery conflicts.
+
+Twenty Node cases and eight Chromium cases pass. A real ordinary card edit
+invalidates pending redo; repeated retries preserve card metadata, revision,
+undone state and recovery evidence without adding History. Valid undo/redo,
+compound recovery and checkpoint cleanup remain covered. The source audit has
+advisory warnings. Cross-document atomicity and operator resolution of already
+partially applied, superseded restores remain unfinished.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0818e22ad">Share coordinated History appends with Scrum restoration events</a>. Thanks to xet7.</summary>
