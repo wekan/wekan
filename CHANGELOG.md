@@ -335,6 +335,12 @@ preflight before email. Twenty-four Node/MongoDB cases and two full-app cases
 pass, including real SMTP through saved activity/rule delivery with watcher
 notifications disabled, exact aggregate receipts and refusal of unsupported
 sibling actions.
+Archive/unarchive preparation now captures the complete descendant cascade,
+with bounded post-order snapshots, one timestamp and a saved-plan checksum.
+Already satisfied roots preserve ordinary no-op behavior. Seven Node/MongoDB
+cases pass, including concurrent capture, restart, lost replies, malformed
+hierarchies and denied descendants. This helper writes no cards; production
+registration, conditional application and durable effects remain unfinished.
 Other action adapters, shared History-chain coordination, uncertain-send
 operator handling and manual/cron activation remain unfinished; ordinary
 executeRules is not substituted for durable rule replay.
@@ -1426,6 +1432,22 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8a0475faa">Capture archive rule cascades before card mutations</a>. Thanks to xet7.</summary>
+
+Freeze archive/unarchive descendants before execution, preserving ordinary
+root no-ops and child-before-parent order. Bind bounded snapshots and a single
+timestamp to the saved rule invocation. Validate every captured card's scope,
+require per-card authorization and reject cycles, duplicate IDs and corruption.
+Unique insertion and readback reconcile competing builders and lost replies.
+
+Seven Node/MongoDB cases pass, including fresh-connection replay after live
+children change. The source audit completes with advisory warnings. This
+internal helper has no UI or card-writing entry point; production registration,
+conditional mutations and durable History/activity receipts remain unfinished.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/778e9ed95">Show rule email delivery reports in administrator Recovery</a>. Thanks to xet7.</summary>
