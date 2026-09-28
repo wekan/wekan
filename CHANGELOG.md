@@ -347,7 +347,12 @@ Already changed cards still require their effect receipt before advancing;
 lost write/receipt replies reconcile by readback. Sixteen Node/MongoDB cases
 cover capture and execution, including interrupted child effects, restart,
 no-op roots, stale later cards, denied access and incomplete receipt prefixes.
-Production hook binding and saved History/activity plans remain pending.
+The bound Cards adapter now accepts only saved archive selectors/modifiers,
+runs under the captured actor and defers only its own archive/History hooks.
+Twelve Node cases and two full-app Meteor cases pass, including real schema
+writes, interrupted child effects and normal restore recording afterward.
+Saved History/activity plans and production rule-stage activation remain
+pending; full-app effect callbacks are controlled test adapters.
 Other action adapters, shared History-chain coordination, uncertain-send
 operator handling and manual/cron activation remain unfinished; ordinary
 executeRules is not substituted for durable rule replay.
@@ -1439,6 +1444,22 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3e8650057">Bind saved archive cascades to validated Cards writes</a>. Thanks to xet7.</summary>
+
+Restrict card reads and writes to the saved archive command's exact predicates
+and modifiers. Use its original actor and ordinary schema/business hooks,
+deferring only the owning card's archive activity and History recording.
+Preserve unrelated hooks and subsequent ordinary recording after interruption.
+
+Twelve Node cases and two full-app Meteor cases pass. The new full-app case
+archives a real parent/child pair, resumes after interrupted child effects,
+then verifies ordinary restore activity and lifecycle History under its actor.
+The source audit completes with advisory warnings. No UI flow changes; saved
+History/activity plans and production rule-stage activation remain pending.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2684c6fdd">Reconcile stored archive cascades with conditional writes and effect receipts</a>. Thanks to xet7.</summary>
