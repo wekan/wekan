@@ -19,29 +19,33 @@ function validateMail(mail) {
   if (Object.hasOwn(mail, 'html') && typeof mail.html !== 'string') fail();
   if (calculateObjectSize(mail) > 1024 * 1024) fail();
 }
-// Preparation only: no SMTP, enqueue, or rule-stage completion. The caller
-// must hold the operation lease and prepare fully localized transport fields.
-// The complete parent plan is required so an invocation cannot be substituted
-// under the same ID. The first persisted recipient/content wins on replay.
-async function ensureRuleEmailCommand({ commands, plan, activity, effectId, index, prepare, assertCurrent }) {
-  plan = copy(plan); activity = copy(activity);
+function commandIdentity({ plan, activity, effectId, index }) {
   validateRulePlan(plan, activity, effectId);
   if (!Number.isSafeInteger(index) || index < 0 || index >= plan.actions.length ||
-      plan.actions[index].action?.actionType !== 'sendEmail' || typeof prepare !== 'function' ||
-      typeof assertCurrent !== 'function' || typeof commands?.findOne !== 'function' ||
-      typeof commands?.insertOne !== 'function') fail();
+      plan.actions[index].action?.actionType !== 'sendEmail') fail();
   const invocation = plan.actions[index];
-  const identity = { _id: commandId(invocation.id), version: 1, kind: 'rule-email',
+  return { _id: commandId(invocation.id), version: 1, kind: 'rule-email',
     invocationId: invocation.id, planId: planId(effectId, activity._id), effectId,
     planHash: sha256(canonical(plan)), activityHash: plan.activityHash,
     actorId: plan.actorId, boardId: plan.boardId, cardId: plan.cardId };
-  const validate = row => {
-    if (!exactKeys(row, '_id,version,kind,invocationId,planId,effectId,planHash,activityHash,actorId,boardId,cardId,mail,checksum') ||
-        Object.keys(identity).some(key => row[key] !== identity[key])) fail();
-    validateMail(row.mail);
-    if (row.checksum !== sha256(canonical({ ...identity, mail: row.mail }))) fail();
-    return copy(row);
-  };
+}
+function validateRuleEmailCommand(row, context) {
+  const identity = commandIdentity(context);
+  if (!exactKeys(row, '_id,version,kind,invocationId,planId,effectId,planHash,activityHash,actorId,boardId,cardId,mail,checksum') ||
+      Object.keys(identity).some(key => row[key] !== identity[key])) fail();
+  validateMail(row.mail);
+  if (row.checksum !== sha256(canonical({ ...identity, mail: row.mail }))) fail();
+  return copy(row);
+}
+// Preparation only: no SMTP, enqueue, or rule-stage completion. The caller
+// holds the operation lease and prepares fully localized transport fields.
+async function ensureRuleEmailCommand({ commands, plan, activity, effectId, index, prepare, assertCurrent }) {
+  plan = copy(plan); activity = copy(activity);
+  const context = { plan, activity, effectId, index }, identity = commandIdentity(context);
+  if (typeof prepare !== 'function' || typeof assertCurrent !== 'function' ||
+      typeof commands?.findOne !== 'function' || typeof commands?.insertOne !== 'function') fail();
+  const invocation = plan.actions[index];
+  const validate = row => validateRuleEmailCommand(row, context);
   const read = async () => {
     await assertCurrent();
     const row = await commands.findOne({ _id: identity._id });
@@ -63,4 +67,4 @@ async function ensureRuleEmailCommand({ commands, plan, activity, effectId, inde
   await assertCurrent();
   return command;
 }
-module.exports = { ensureRuleEmailCommand, commandId };
+module.exports = { ensureRuleEmailCommand, validateRuleEmailCommand, commandId };

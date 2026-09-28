@@ -690,3 +690,20 @@ address, report no rejected recipients and include no unexpected addresses.
 Console-only sends, hook-suppressed results and partial acceptance cannot count
 as successful delivery. These helpers do not send, persist delivery state or
 install a worker. Ambiguous-send recovery and operator handling remain TODO.
+
+The internal `dispatchRuleEmail` primitive now records an attempt before calling
+its sender. It validates the immutable command against its complete parent
+plan, compiles the native recipient envelope and reads back the exact unique
+attempt before sending. A confirmed acceptance of every recipient permits a
+conditional transition to `sent`; exact readback reconciles lost insertion or
+completion replies. A confirmed sent receipt returns the invocation ID without
+another send, including through a fresh database connection.
+
+Any existing `sending` attempt stops replay. SMTP rejection, partial acceptance,
+ownership loss or a crash after dispatch may leave that state; it is not safe
+to infer whether the remote server accepted mail. Raw transport errors and
+recipient payloads are not copied into attempt metadata. There is currently no
+automatic retry or operator resolution for these attempts. The caller must
+supply live scope/configuration checks, its operation lease and cancellable SMTP
+capacity slot. Production collection registration, actual sender binding,
+recovery controls and manual/cron integration remain unfinished.
