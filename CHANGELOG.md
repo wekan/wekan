@@ -1294,8 +1294,9 @@ persisted visibility checks. The
 remaining converted-subtask references, attachment metadata,
 legacy Gantt links, wrapper metadata and moved-card SMTP coverage. Creator,
 stickers, checklist schedules, public comment authors and scoped reaction
-summaries are now included. Stored related-card titles still need durable
-permission evidence),
+summaries are now included. Stored Details now binds related-source chains,
+admin access and custom-field definition fingerprints; older Details snapshots
+require operator recovery),
 [#3195](https://github.com/wekan/wekan/issues/3195) (rule action/trigger
 values should be able to reference a custom field's value — today's action
 and trigger value inputs are plain literals; resolving a per-board custom
@@ -1550,6 +1551,28 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b1b126fb0">Bind stored email details to related sources and field policies</a>. Thanks to kabi178, bbyszio and xet7.</summary>
+
+Resolve related parent/dependency/subtask titles through readable current
+source chains, including linked cards and boards. Capture those chains with
+version-five source evidence and recheck them before stored dispatch, even
+when today's card no longer references them. Recheck board-admin access used
+during capture and custom-field definition fingerprints, including later
+public-to-admin-only changes. Reject older Details snapshots lacking this
+evidence without recapturing their mail. Limit reference evidence to 1,000
+chains and the complete command to 15 MiB.
+
+Fifty-seven Node suites pass without skips. MongoDB concurrency/reconnect
+coverage retains reference evidence and rejects checksum tampering. Unit tests
+cover access/assignment loss, deletion, movement, nested evidence, revoked
+admin access and changed custom-field policy. Three Chromium SMTP scenarios
+pass, including a linked parent whose live title replaces its stale copy.
+Existing Upcoming regression evidence remains recorded. Operator recovery,
+remaining content-audit items and broader Sync coordination remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4cca0b2c8">Include comment reactions in rule emails</a>. Thanks to kabi178, bbyszio and xet7.</summary>
