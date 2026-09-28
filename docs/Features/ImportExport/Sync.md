@@ -746,3 +746,16 @@ This connects email and empty/missing-action selections through the internal
 saved-activity pipeline, including when watcher notifications are disabled.
 It does not activate manual/cron Sync. Other action adapters, shared History
 coordination and operator resolution of uncertain sends remain unfinished.
+
+The administrator-only `syncRuleEmailRecoveryReport` method now exposes paged
+attempt metadata: command/invocation/attempt IDs, timestamps and sent,
+unconfirmed or invalid status. It reads a metadata projection only, never the
+command body or recipient address. Searches are literal ID matches, pages hold
+ten rows, and out-of-range pages clamp to the current last page. Access is
+checked before and after the read, with a per-connection request rate limit.
+
+An unconfirmed attempt may still be in flight; the report does not infer
+failure or authorize retry from its age. Counts and pages are separate reads,
+so concurrent changes do not form a database snapshot. This is the report
+backend only. An Admin Panel view and explicit operator resolution remain TODO;
+the method has no mutation, resend, discard or acknowledgement action.
