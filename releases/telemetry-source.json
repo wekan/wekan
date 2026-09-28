@@ -21,7 +21,11 @@
     "public/api/wekan.html",
     "public/api/wekan.yml",
     "public/build-assets",
-    "public/build-chunks"
+    "public/build-chunks",
+    "public/build-assets-app-test",
+    "private/build-assets-app-test",
+    "public/build-chunks-app-test",
+    "private/build-chunks-app-test"
   ],
   "normalizeAppVersion": true,
   "reviewed": {

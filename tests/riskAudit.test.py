@@ -114,4 +114,23 @@ class RiskAudit(unittest.TestCase):
             self.file.write_text(text)
             result=subprocess.run(['python3','-B',str(ROOT/'releases/risk-audit.py'),'--source',str(self.root),'--policy',str(policy)],capture_output=True,text=True)
             self.assertEqual(result.returncode,code,result.stdout+result.stderr)
+
+class GeneratedAppTestAssets(unittest.TestCase):
+    def test_full_app_test_assets_are_excluded_but_public_source_is_scanned(self):
+        (ROOT/'.tools/tmp').mkdir(parents=True,exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=ROOT/'.tools/tmp') as directory:
+            root=Path(directory)
+            for name in ['public/build-assets-app-test','public/build-chunks-app-test',
+                         'private/build-assets-app-test','private/build-chunks-app-test']:
+                asset=root/name/'bundle.js';asset.parent.mkdir(parents=True,exist_ok=True)
+                asset.write_text('fetch("https://generated.example"); Sentry.init();')
+            source=root/'public/real-source.js';source.write_text('console.log("local");')
+            for filename in ['risk-baseline.json','telemetry-source.json']:
+                policy={'roots':['public','private'],'exclude':json.loads((ROOT/'releases'/filename).read_text())['exclude']}
+                self.assertEqual(list(r.collect(root,policy)),['public/real-source.js'])
+                policy['files']=r.collect(root,policy);policy['initialized']=True
+                source.write_text('fetch("https://unapproved.example");')
+                with self.assertRaises(ValueError):r.inspect(root,policy)
+                source.write_text('console.log("local");')
+
 if __name__=='__main__':unittest.main()
