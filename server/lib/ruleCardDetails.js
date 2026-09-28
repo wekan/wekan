@@ -4,11 +4,12 @@ const { notDeleted } = require('../../models/lib/softDelete');
 const { buildCustomFieldsWD, filterAdminOnlyDefinitions } = require('../../models/lib/customFieldsWD');
 const { formatStringTemplate } = require('../../models/lib/customFieldStringTemplate');
 const { appendRuleCardVoting, votingVisibility } = require('./ruleCardVoting');
+const { scrumVisibility, appendRuleCardScrum } = require('./ruleCardScrum');
 const scalar = value => value instanceof Date ? (Number.isFinite(+value) ? value.toISOString() : '') :
   ['string', 'number', 'boolean'].includes(typeof value) ? String(value) : '';
 const values = value => Array.isArray(value) ? value.map(scalar).filter(Boolean).join(', ') : scalar(value);
 
-async function prepareRuleCardDetails({ activity, cache, canReadBoard }) {
+async function prepareRuleCardDetails({ activity, cache, canReadBoard, readScrumRecord }) {
   const canRead = (card, board) => !!(activity.userId && card && !card.deletedAt &&
     canReadBoard(activity.userId, board) &&
     (!isAssignedOnlyMember(board, activity.userId) || card.assignees?.includes(activity.userId)));
@@ -20,6 +21,8 @@ async function prepareRuleCardDetails({ activity, cache, canReadBoard }) {
   };
   const { card, board } = await source();
   const visibility = JSON.stringify(votingVisibility(card, board));
+  const scrumPolicy = JSON.stringify(scrumVisibility(board));
+  let assertScrum = async () => {};
   const admin = !!board.hasAdmin?.(activity.userId);
   const lines = [], related = new Set(), relatedBoards = new Map();
   let size = 0;
@@ -81,6 +84,7 @@ async function prepareRuleCardDetails({ activity, cache, canReadBoard }) {
       add(label, user?.profile?.fullname || user?.username || 'Unknown user');
     }
     await appendRuleCardVoting({ card, board, cache, add });
+    assertScrum = await appendRuleCardScrum({ card, board, readRecord: readScrumRecord, add });
     const labels = new Map((board.labels || []).map(label => [label._id, label.name || label.color]));
     add('Labels', (card.labelIds || []).map(id => labels.get(id)).filter(Boolean));
     for (const [field, label] of [['members', 'Members'], ['assignees', 'Assignees'], ['requesters', 'Requesters'], ['assigners', 'Assigners']]) {
@@ -111,7 +115,9 @@ async function prepareRuleCardDetails({ activity, cache, canReadBoard }) {
     const latestDefinitions = await cache.getCustomFields({ boardIds: { $in: [card.boardId] } }, { sort: { _id: 1 } });
     if (JSON.stringify(latestDefinitions) !== JSON.stringify(definitions)) throw new Error('rule-email-details-changed');
   }
+  await assertScrum();
   const latest = await source();
+  if (JSON.stringify(scrumVisibility(latest.board)) !== scrumPolicy) throw new Error('rule-email-details-changed');
   if (JSON.stringify(votingVisibility(latest.card, latest.board)) !== visibility) throw new Error('rule-email-details-changed');
   if (admin && !latest.board.hasAdmin?.(activity.userId)) throw new Error('rule-email-details-not-authorized');
   for (const id of related) {

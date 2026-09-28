@@ -90,7 +90,7 @@ test('stored source evidence rejects revoked public voting, reopened poker and h
     f => { f.boards.foreign.allowsPoker = false; }]) {
     const f = fixture(); f.cards.source.vote = { public: true };
     f.cards.source.poker = { end: new Date('2020-01-01') };
-    const { binding } = await resolve(f); assert.equal(binding.version, 3);
+    const { binding } = await resolve(f); assert.equal(binding.version, 4);
     await guard({ ...f, binding }); mutate(f);
     await assert.rejects(guard({ ...f, binding }), /visibility-changed/);
   }
@@ -104,9 +104,9 @@ test('visibility binding schema cannot omit or coerce disclosure policy', async 
     const changed = structuredClone(binding); mutate(changed);
     assert.throws(() => validate(changed, f.activity), /binding-invalid/);
   }
-  const legacy = structuredClone(binding); legacy.version = 1; delete legacy.visibility; delete legacy.linkedBoardVisibility;
+  const legacy = structuredClone(binding); legacy.version = 1; delete legacy.visibility; delete legacy.linkedBoardVisibility; delete legacy.scrumVisibility;
   validate(legacy, f.activity); // Before voting was added, no voter data could be captured.
-  const previous = structuredClone(binding); previous.version = 2; delete previous.linkedBoardVisibility;
+  const previous = structuredClone(binding); previous.version = 2; delete previous.linkedBoardVisibility; delete previous.scrumVisibility;
   validate(previous, f.activity); // Version 2 had card voting, but no linked-board voting.
   const invalid = structuredClone(binding); invalid.linkedBoardVisibility = [true, true, false, null];
   assert.throws(() => validate(invalid, f.activity), /binding-invalid/);
@@ -125,4 +125,18 @@ test('linked-board voting policy is persisted independently of wrapper policy', 
     assert.throws(() => validate(invalid, f.activity), /binding-invalid/);
     mutate(f); await assert.rejects(guard({ ...f, binding }), /visibility-changed/);
   }
+});
+test('stored source evidence rechecks Scrum disclosure policy and validates its shape', async () => {
+  const { assertRuleEmailSourceBinding: guard, validateRuleEmailSourceBinding: validate } = require('../server/lib/ruleEmailSource');
+  const f = fixture(); f.boards.foreign.scrum = { visibility: { cardAcceptanceCriteria: true } };
+  const { binding } = await resolve(f); await guard({ ...f, binding });
+  f.boards.foreign.scrum.visibility.cardAcceptanceCriteria = false;
+  await assert.rejects(guard({ ...f, binding }), /visibility-changed/);
+  for (const mutate of [b => { delete b.scrumVisibility; }, b => { b.scrumVisibility.pop(); },
+    b => { b.scrumVisibility[0][0] = 'true'; }, b => { b.scrumVisibility[0].push(false); }]) {
+    const changed = structuredClone(binding); mutate(changed);
+    assert.throws(() => validate(changed, f.activity), /binding-invalid/);
+  }
+  const previous = structuredClone(binding); previous.version = 3; delete previous.scrumVisibility;
+  validate(previous, f.activity);
 });

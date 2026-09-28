@@ -1,6 +1,7 @@
 'use strict';
 const { isAssignedOnlyMember } = require('../../models/lib/boardCardScope');
 const { votingVisibility } = require('./ruleCardVoting');
+const { scrumVisibility } = require('./ruleCardScrum');
 const validVisibility = row => Array.isArray(row) && row.length === 4 &&
   row.slice(0, 3).every(value => typeof value === 'boolean') &&
   (row[3] === null || (typeof row[3] === 'string' && Number.isFinite(Date.parse(row[3])) && new Date(row[3]).toISOString() === row[3]));
@@ -9,13 +10,16 @@ const identity = card => JSON.stringify([card?._id, card?.boardId, card?.type, c
 function validateRuleEmailSourceBinding(binding, activity) {
   const fail = () => { throw new Error('rule-email-source-binding-invalid'); };
   const id = value => typeof value === 'string' && value.length > 0 && value.length <= 1024;
-  if (!binding || Object.keys(binding).sort().join(',') !== (binding.version === 3 ? 'cards,linkedBoardId,linkedBoardVisibility,version,visibility' :
+  if (!binding || Object.keys(binding).sort().join(',') !== (binding.version === 4 ? 'cards,linkedBoardId,linkedBoardVisibility,scrumVisibility,version,visibility' :
+        binding.version === 3 ? 'cards,linkedBoardId,linkedBoardVisibility,version,visibility' :
         binding.version === 2 ? 'cards,linkedBoardId,version,visibility' : 'cards,linkedBoardId,version') ||
-      ![1, 2, 3].includes(binding.version) || !Array.isArray(binding.cards) || !binding.cards.length || binding.cards.length > 32) fail();
+      ![1, 2, 3, 4].includes(binding.version) || !Array.isArray(binding.cards) || !binding.cards.length || binding.cards.length > 32) fail();
   if (binding.version >= 2 && (!Array.isArray(binding.visibility) || binding.visibility.length !== binding.cards.length ||
       !binding.visibility.every(validVisibility))) fail();
-  if (binding.version === 3 && (binding.linkedBoardId === null
+  if (binding.version >= 3 && (binding.linkedBoardId === null
     ? binding.linkedBoardVisibility !== null : !validVisibility(binding.linkedBoardVisibility))) fail();
+  if (binding.version === 4 && (!Array.isArray(binding.scrumVisibility) || binding.scrumVisibility.length !== binding.cards.length ||
+      !binding.scrumVisibility.every(row => Array.isArray(row) && row.length === 6 && row.every(value => typeof value === 'boolean')))) fail();
   const seen = new Set();
   for (let i = 0; i < binding.cards.length; i++) {
     const row = binding.cards[i];
@@ -49,12 +53,15 @@ async function assertRuleEmailSourceBinding({ binding, activity, cache, canReadB
     if (binding.version >= 2 && JSON.stringify(votingVisibility(card, board)) !== JSON.stringify(binding.visibility[index])) {
       throw new Error('rule-email-source-visibility-changed');
     }
+    if (binding.version === 4 && JSON.stringify(scrumVisibility(board)) !== JSON.stringify(binding.scrumVisibility[index])) {
+      throw new Error('rule-email-source-visibility-changed');
+    }
     if (identity(card) !== JSON.stringify(row)) throw new Error('rule-email-source-changed');
   }
   if (binding.linkedBoardId) {
     const board = await cache.getBoard(binding.linkedBoardId);
     if (!canReadBoard(activity.userId, board)) throw new Error('rule-email-source-not-authorized');
-    if (binding.version === 3 && JSON.stringify(votingVisibility(board, board)) !== JSON.stringify(binding.linkedBoardVisibility)) {
+    if (binding.version >= 3 && JSON.stringify(votingVisibility(board, board)) !== JSON.stringify(binding.linkedBoardVisibility)) {
       throw new Error('rule-email-source-visibility-changed');
     }
   }
@@ -69,14 +76,15 @@ async function resolveRuleEmailSource({ activity, cache, canReadBoard }) {
         (isAssignedOnlyMember(board, activity.userId) && !value.assignees?.includes(activity.userId))) {
       throw new Error('rule-email-source-not-authorized');
     }
+    return board;
   };
   while (true) {
     if (typeof id !== 'string' || !id || seen.has(id) || seen.size >= 32) throw new Error('rule-email-source-invalid');
     seen.add(id);
     card = await cache.getCard(id);
-    await readable(card);
+    const cardBoard = await readable(card);
     if (!chain.length && card.boardId !== activity.boardId) throw new Error('rule-email-source-not-authorized');
-    chain.push({ id, identity: identity(card), visibility: votingVisibility(card, await cache.getBoard(card.boardId)) });
+    chain.push({ id, identity: identity(card), visibility: votingVisibility(card, cardBoard), scrumVisibility: scrumVisibility(cardBoard) });
     sourceActivity = { ...activity, cardId: card._id, boardId: card.boardId };
     if (card.type === 'cardType-linkedCard') { id = card.linkedId; continue; }
     if (card.type === 'cardType-linkedBoard') {
@@ -91,8 +99,8 @@ async function resolveRuleEmailSource({ activity, cache, canReadBoard }) {
     }
     break;
   }
-  const binding = { version: 3, cards: chain.map(item => JSON.parse(item.identity)), linkedBoardId,
-    visibility: chain.map(item => item.visibility), linkedBoardVisibility };
+  const binding = { version: 4, cards: chain.map(item => JSON.parse(item.identity)), linkedBoardId,
+    visibility: chain.map(item => item.visibility), scrumVisibility: chain.map(item => item.scrumVisibility), linkedBoardVisibility };
   validateRuleEmailSourceBinding(binding, activity);
   const assertCurrent = () => assertRuleEmailSourceBinding({ binding, activity, cache, canReadBoard });
   return { card, activity: sourceActivity, binding, assertCurrent };

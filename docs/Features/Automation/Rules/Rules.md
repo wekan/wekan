@@ -120,7 +120,13 @@ Linked boards use current board title, description and dates while retaining
 the wrapper card's own discussion and attachments; they do not email every
 card on the linked board. Linked-board voting uses the target board's current votes and Poker results,
 subject to the same disclosure rules and both boards' section visibility.
-Scrum fields still need review for the full-card request in #2713.
+Details includes the six visible Scrum card fields: sprint, past sprints,
+release, issue type, acceptance criteria and backlog rank. Only enabled card
+visibility flags permit output. Sprint/release names must belong to the source
+board; missing or foreign references are omitted. References are rechecked
+after reads and new stored source bindings retain the six visibility flags.
+These are card metadata, not entire sprint reports, events or other cards.
+The final full-card content audit for #2713 remains open.
 Stored Sync commands capture the resolved source chain alongside the immutable
 mail and include it in their checksum. Before dispatch, every saved card/board,
 link target and current read/assignment permission must still match. A moved or

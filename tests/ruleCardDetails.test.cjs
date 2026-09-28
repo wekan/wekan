@@ -132,3 +132,33 @@ test('linked-board voting uses the readable target, not cached wrapper votes, an
   f.cache.getUser = async () => { target.vote.public = false; return { username: 'person' }; };
   await assert.rejects(prepare(f), /details-changed/);
 });
+test('Scrum details honor six visibility flags and resolve only same-board names', async () => {
+  const f = fixture(); f.board.scrum = { visibility: Object.fromEntries(
+    ['Sprint', 'PastSprints', 'Release', 'IssueType', 'AcceptanceCriteria', 'BacklogRank'].map(key => [`card${key}`, true])) };
+  f.card.scrum = { sprintId: 'sprint', pastSprintIds: ['past', 'foreign', 'missing'], releaseId: 'release',
+    issueType: 'Story', acceptanceCriteria: 'Reviewed by owner', backlogRank: 0, private: 'SECRET' };
+  const rows = { sprint: { _id: 'sprint', boardId: 'board', name: 'Current sprint' },
+    past: { _id: 'past', boardId: 'board', name: 'Past sprint' },
+    release: { _id: 'release', boardId: 'board', name: 'Release one' },
+    foreign: { _id: 'foreign', boardId: 'other', name: 'SECRET' } };
+  f.readScrumRecord = async (_, id) => rows[id];
+  const text = await prepare(f);
+  for (const expected of ['Scrum sprint: Current sprint', 'Past Scrum sprints: Past sprint',
+    'Scrum release: Release one', 'Scrum issue type: Story', 'Scrum acceptance criteria: Reviewed by owner',
+    'Scrum backlog rank: 0']) assert.ok(text.includes(expected), expected);
+  assert.doesNotMatch(text, /SECRET|missing/);
+  f.board.scrum.visibility = {}; f.readScrumRecord = () => assert.fail('hidden references must not be read');
+  assert.doesNotMatch(await prepare(f), /Scrum/);
+});
+test('Scrum reference movement and visibility revocation during reads stop mail preparation', async () => {
+  for (const change of ['reference', 'policy']) {
+    const f = fixture(); f.board.scrum = { visibility: { cardSprint: true } }; f.card.scrum = { sprintId: 'sprint' };
+    let reads = 0;
+    f.readScrumRecord = async () => {
+      reads++;
+      if (change === 'policy') f.board.scrum.visibility.cardSprint = false;
+      return { _id: 'sprint', boardId: change === 'reference' && reads > 1 ? 'other' : 'board', name: 'Sprint' };
+    };
+    await assert.rejects(prepare(f), /changed/);
+  }
+});

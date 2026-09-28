@@ -39,6 +39,13 @@ test(`email rule form and SMTP carry only live triggering-card bytes from ${back
       customFields: [{ _id: `${id}-field`, value: 'high' }] } });
     db.insertOne('customFields', { _id: `${id}-field`, boardIds: [board.boardId], name: 'Mail priority', type: 'dropdown',
       settings: { dropdownItems: [{ _id: 'high', name: 'High priority' }] } });
+    db.updateOne('boards', { _id: board.boardId }, { $set: { 'scrum.visibility': {
+      cardSprint: true, cardRelease: true, cardAcceptanceCriteria: true, cardBacklogRank: true,
+    } } });
+    db.insertOne('scrumSprints', { _id: `${id}-sprint`, boardId: board.boardId, name: 'Mail sprint' });
+    db.insertOne('scrumReleases', { _id: `${id}-release`, boardId: board.boardId, name: 'Mail release' });
+    db.updateOne('cards', { _id: card._id }, { $set: { scrum: { sprintId: `${id}-sprint`, releaseId: `${id}-release`,
+      acceptanceCriteria: 'Ready for review', backlogRank: 0, issueType: 'HIDDEN-SCRUM-TYPE' } } });
     db.insertOne('card_text_notes', { _id: `${id}-note`, cardId: card._id, boardId: board.boardId, title: 'Mail note', text: 'Visible note content', createdAt: new Date() });
     await navigateInApp(page, `/b/${board.boardId}/${board.slug}/rules`);
     await page.locator('#ruleTitle').fill('Email card files');
@@ -88,6 +95,9 @@ test(`email rule form and SMTP carry only live triggering-card bytes from ${back
       'Poker 1 votes: 1', 'Poker 1 voters: Unknown user', 'Poker estimation: 1']) expect(votingText).toContain(text);
     expect(votingText).not.toContain('For voters');
     expect(votingText).not.toContain('PRIVATE-VOTER');
+    for (const text of ['Scrum sprint: Mail sprint', 'Scrum release: Mail release',
+      'Scrum acceptance criteria: Ready for review', 'Scrum backlog rank: 0']) expect(votingText).toContain(text);
+    expect(votingText).not.toContain('HIDDEN-SCRUM-TYPE');
     expect(mails()[0].data).not.toContain('NEVER-MAIL-PRIVATE-STATE');
     db.updateOne('attachments', { _id: id }, { $set: { deletedAt: new Date() } });
     db.updateOne('cards', { _id: card._id }, { $set: { 'vote.public': true, 'poker.end': new Date('2999-01-01') } });
@@ -105,7 +115,7 @@ test(`email rule form and SMTP carry only live triggering-card bytes from ${back
     expect(mails()[2].data).not.toContain('Email checklist');
     expect(mails()[2].data).not.toContain('Public email comment');
     expect(mails()[2].data).not.toContain('Mail priority');
-    expect(mails()[2].data).not.toMatch(/Flowtime|Pomodoro|Recurrence|Vote question|Poker/);
+    expect(mails()[2].data).not.toMatch(/Flowtime|Pomodoro|Recurrence|Vote question|Poker|Scrum/);
     fs.unlinkSync(filename);
     if (backend === 'gridfs') { db.deleteMany('attachments.files', { _id: gridId }); db.deleteMany('attachments.chunks', { files_id: gridId }); }
     const error = await page.evaluate(async ({ ruleId, cardId }) => {
@@ -114,6 +124,8 @@ test(`email rule form and SMTP carry only live triggering-card bytes from ${back
     }, { ruleId: rule._id, cardId: card._id });
     expect(error).not.toBeNull(); expect(mails()).toHaveLength(3);
   } finally {
+    db.deleteOne('scrumSprints', { _id: `${id}-sprint` });
+    db.deleteOne('scrumReleases', { _id: `${id}-release` });
     db.deleteOne('customFields', { _id: `${id}-field` });
     db.deleteMany('attachments', { _id: { $in: [id, foreignId] } });
     db.deleteMany('attachments.files', { _id: gridId }); db.deleteMany('attachments.chunks', { files_id: gridId });

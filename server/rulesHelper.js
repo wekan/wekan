@@ -309,7 +309,11 @@ export const RulesHelper = {
       language: recipientLang, userId: recipientUser ? recipientUser._id : null };
     if (action.includeCardDetails === true) {
       const { prepareRuleCardDetails } = require('/server/lib/ruleCardDetails');
-      const details = await prepareRuleCardDetails({ activity, cache: ReactiveCache, canReadBoard });
+      const details = await prepareRuleCardDetails({ activity, cache: ReactiveCache, canReadBoard,
+        readScrumRecord: (kind, id, boardId) => {
+          const collection = kind === 'sprint' ? require('/models/scrumSprints').default : require('/models/scrumReleases').default;
+          return collection.findOneAsync({ _id: id, boardId }, { fields: { _id: 1, boardId: 1, name: 1, deletedAt: 1 } });
+        } });
       if (details) options.text += `\n\n${details}`;
     }
     if (action.includeChecklistsAndComments === true) {
