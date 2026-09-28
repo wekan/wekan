@@ -401,8 +401,14 @@ stores exact completion. Confirmed sent receipts skip replay; existing sending
 attempts remain uncertain and refuse automatic resend. Lost database replies
 reconcile through readback. Twenty Node/MongoDB/native-composer cases pass,
 including fresh-connection recovery; SMTP responses remain scripted. Production
-storage/sender binding, cancellation/capacity integration, ambiguous-send
-operator handling and worker activation remain unfinished.
+storage and sender binding now use a private indexed attempt collection and
+shared cancellable SMTP slots. Live guards compare rule/action snapshots and
+resolved recipient/sender, refuse disabled matching local accounts regardless
+of email case, and retain actor/policy/activity/scope checks. Twenty focused
+cases, one full-app binding case and two Chromium cases pass; fourteen private
+collections deny member/admin browser access. SMTP responses are controlled in
+the app test. Real network delivery, ambiguous-send operator handling and worker
+activation remain unfinished.
 Private operation, step and completion collections are now registered with
 server-only adapters, denied browser writes, recovery indexes and no TTL.
 The stored-operation entry point holds the list lease and requires fresh access
@@ -1400,6 +1406,25 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0dc51068a">Bind stored rule email dispatch to private attempts and shared SMTP slots</a>. Thanks to xet7.</summary>
+
+Add an explicit internal dispatch entry point using private indexed attempt
+storage and shared cancellable SMTP capacity. Recheck actor/policy/activity and
+scope, exact rule/action configuration, resolved recipient/sender and disabled
+matching local accounts before sending. Reuse sent receipts and refuse
+uncertain attempts without automatic resend. External addresses remain valid.
+
+Twenty focused Node/MongoDB/native-composer cases, one full-app case and two
+Chromium cases pass. App coverage exercises real storage and slot ownership
+with controlled Email.sendAsync responses, changed configuration, mixed-case
+disabled recipients, sent replay and uncertain replay. Browser checks deny
+member/admin access to fourteen private collections. The source audit completes
+with advisory warnings. Real network delivery, operator recovery, scheduled
+worker and manual/cron Sync integration remain TODO.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/43d73ed90">Persist rule email attempts and refuse ambiguous automatic replay</a>. Thanks to xet7.</summary>
