@@ -134,4 +134,4 @@ function matchesCompletedActivityNotificationIntent(row, { activityId, activityH
     row.activityHash === activityHash && row.dispatchUserId === dispatchUserId &&
     Object.keys(row).sort().join(',') === '_id,activityHash,dispatchUserId,state,version,writerId');
 }
-module.exports = { matchesCompletedActivityNotificationIntent, readActivityNotificationIntentState, completeActivityNotificationIntent, ensureActivityNotificationIntent, persistActivityWithNotificationIntent, readActivityForNotificationIntent };
+module.exports = { validateActivityNotificationIntent: validateIntent, matchesCompletedActivityNotificationIntent, readActivityNotificationIntentState, completeActivityNotificationIntent, ensureActivityNotificationIntent, persistActivityWithNotificationIntent, readActivityForNotificationIntent };

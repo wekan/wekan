@@ -345,3 +345,30 @@ It cannot undo a local effect already authorized by a former worker. Permanent
 control and delivery receipts remain to prevent replay. Intent snapshots and
 rendered plans are retained for now; a later cleanup stage must remove their
 payloads without deleting cancellation or deduplication evidence.
+
+### Cancellation payload cleanup (internal)
+
+`server/lib/activityNotificationCancellationRetention.js` now implements an
+internal two-stage compactor. It requires the same delivery reservation and an
+unchanged valid terminal cancellation control. It validates the complete
+pending intent and any stored recipient plan before replacing payloads.
+
+First, it replaces the plan with a permanent cancellation receipt containing
+its unique ID, activity hash and checksum. If no plan exists, it inserts a
+receipt with a null checksum to prevent a delayed initial plan insertion.
+Only after confirming that receipt does it replace the intent snapshot with
+cancelled metadata: activity/board/card IDs, creation time, identity hash,
+original dispatch actor and writer ID. Neither unique row is deleted. The
+original activity is not required, so an orphan can be compacted too.
+
+Exact conditional replacement and readback handle lost replies, interrupted
+cleanup and stale writers. A mismatch retains the affected evidence and fails
+instead of claiming successful removal. Already compacted receipts can be
+checked repeatedly. Pending work without a terminal cancellation is untouched.
+
+This helper is not scheduled or invoked by the production cancellation method
+yet. Recovery report queries must first learn the compact cancelled intent
+shape, and delivery/capture consumers must recognize terminal receipts without
+recreating data. Integration, bounded background scheduling, and actual-app and
+browser verification remain pending. Production cancellation still retains
+its snapshots and rendered plans until those steps are complete.
