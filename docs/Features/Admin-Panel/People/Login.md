@@ -22,6 +22,18 @@ Below the group:
   startup.
 - **OIDC button text** — what the OIDC / OAuth2 sign-in button says.
 
+## Provider settings
+
+Provider configuration has separate People menu pages: **SAML**, **LDAP**,
+**OAuth login providers**, and **Passwordless login**. Their URLs are `/admin/people/saml`,
+`/admin/people/ldap`, `/admin/people/oauth`, and `/admin/people/passwordless`.
+The Login page retains the general sign-in and registration controls.
+
+SAML uses an override form showing each field's effective configuration source
+and the service URLs. LDAP, OAuth and Passwordless select their corresponding
+sections of the authentication settings interface. Configuring these pages is
+separate from verifying an actual sign-in against an external identity provider.
+
 ## Related
 
 - [Login / Authentication methods](../../../README.md#LoginAuth)

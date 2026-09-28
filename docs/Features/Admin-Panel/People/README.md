@@ -5,6 +5,10 @@ Who may sign in, who they belong to, and what they may do — in menu order.
 | Menu path | URL slug | Page | What it is |
 | --- | --- | --- | --- |
 | People / Login | `login` | [Login.md](Login.md) | What is allowed at sign-in, and the authentication method. |
+| People / SAML | `saml` | [Login.md](Login.md#provider-settings) | SAML provider overrides and service URLs. |
+| People / LDAP | `ldap` | [Login.md](Login.md#provider-settings) | LDAP-specific authentication settings. |
+| People / OAuth login providers | `oauth` | [Login.md](Login.md#provider-settings) | OAuth provider configuration. |
+| People / Passwordless login | `passwordless` | [Login.md](Login.md#provider-settings) | Passwordless authentication settings. |
 | People / E-mail | `email` | [E-mail.md](E-mail.md) | SMTP, the invite domain, and whether users may change their address. |
 | People / Notifications | `notifications` | [Notifications.md](Notifications.md) | The site-wide notification default, overridable per board and per member. |
 | People / Domains | `domains` | [Domains.md](Domains.md) | The e-mail domains in use, with a user count each. |

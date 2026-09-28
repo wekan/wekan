@@ -63,7 +63,11 @@ are not reachable from the current Admin Panel menu. Current storage panes use
 
 | Pane / URL slug | Implementation | Behavior and limits |
 | --- | --- | --- |
-| Login (`login`) | [settings.js](../../../server/models/settings.js) | LDAP/OAuth/passwordless controls and server authentication guards; external identity providers need credentials and a test directory. |
+| Login (`login`) | [settings.js](../../../server/models/settings.js) | General sign-in and registration controls. |
+| SAML (`saml`) | [saml.js](../../../server/saml.js) | Provider overrides and configuration-source/service-URL reporting; external IdP sign-in needs a configured provider. |
+| LDAP (`ldap`) | [peopleBody.js](../../../client/components/settings/peopleBody.js) | LDAP section of the authentication settings interface; directory integration needs a test directory. |
+| OAuth (`oauth`) | [peopleBody.js](../../../client/components/settings/peopleBody.js) | OAuth provider settings; live-provider flows need credentials. |
+| Passwordless (`passwordless`) | [peopleBody.js](../../../client/components/settings/peopleBody.js) | Passwordless authentication settings, separate from the Login pane. |
 | E-mail (`email`) | [settings.js](../../../server/models/settings.js) | Mail service settings, secret masking and test-email method; delivery needs a configured SMTP/provider account. |
 | Notifications (`notifications`) | [settings.js](../../../server/models/settings.js) | Site defaults through setAdminNotifyDefault; used by notification resolution. |
 | Domains (`domains`) | [peopleBody.js](../../../client/components/settings/peopleBody.js) | Server-backed domain membership counts, search and pagination. |
