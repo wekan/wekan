@@ -423,6 +423,17 @@ export async function prepareActivityNotification(userId, doc) {
   return { users, title, description, params, watchers, board, card: notificationCard };
 }
 
+export async function activityWebhookIntegrations(board, description, options = {}) {
+  const integrationBoardIds = board
+    ? [board._id, Integrations.Const.GLOBAL_WEBHOOK_ID]
+    : [Integrations.Const.GLOBAL_WEBHOOK_ID];
+  return ReactiveCache.getIntegrations({
+    boardId: { $in: integrationBoardIds },
+    enabled: true,
+    activities: { $in: [description, 'all'] },
+  }, options);
+}
+
 Activities.after.insert(async (userId, doc) => {
   if (deferSyncActivity('notifications', doc)) return;
   const prepared = await prepareActivityNotification(userId, doc);
@@ -430,14 +441,7 @@ Activities.after.insert(async (userId, doc) => {
   const { users, title, description, params, watchers, board } = prepared;
   users.forEach(user => Notifications.notify(user, title, description, params));
 
-  const integrationBoardIds = board
-    ? [board._id, Integrations.Const.GLOBAL_WEBHOOK_ID]
-    : [Integrations.Const.GLOBAL_WEBHOOK_ID];
-  const integrations = await ReactiveCache.getIntegrations({
-    boardId: { $in: integrationBoardIds },
-    enabled: true,
-    activities: { $in: [description, 'all'] },
-  });
+  const integrations = await activityWebhookIntegrations(board, description);
   if (integrations.length > 0) {
     params.watchers = watchers;
     integrations.forEach((integration) => {
