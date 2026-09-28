@@ -46,9 +46,17 @@ retains its content and retries under the queue's attempt policy. Invitation,
 password-reset and other direct mail callers retain their existing error handling;
 these timeouts do not put those messages into the notification outbox.
 
-Socket timeouts measure inactivity, not total delivery duration. A peer that
-keeps sending bytes can keep a connection alive. An absolute delivery deadline
-with cancellation remains pending, as does a deployment-wide connection limit.
+For Admin Panel providers and `MAIL_TLS_CA_CERT` / `MAIL_TLS_SERVERNAME`
+overrides, `MAIL_TOTAL_TIMEOUT_MS` additionally limits the entire send, including
+message preparation, DNS, TCP, TLS and SMTP replies. Its default is 120000 ms;
+valid values are integers from 1000 to 300000 ms. Each message owns a separate
+connection, which is closed at the deadline even if the peer keeps sending
+bytes. Other recipients' connections are unaffected. These paths no longer
+reuse a pool of SMTP connections.
+
+The ordinary Meteor `MAIL_URL` path still has only the phase and idle limits
+above; adding a total deadline while preserving its native mail plugins remains
+pending. A deployment-wide connection limit also remains pending.
 Legacy non-SMTP `MAIL_URL` schemes and third-party custom transports are outside
 this policy. SMTP acknowledgement loss can still cause duplicate delivery.
 

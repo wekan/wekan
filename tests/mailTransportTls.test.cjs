@@ -29,7 +29,7 @@ const read = rel => fs.readFileSync(path.join(ROOT, rel), 'utf8');
 const src = read('server/lib/mailTransport.js');
 const lib = {};
 // eslint-disable-next-line no-new-func
-new Function('exports', 'URL', 'fs', 'mailServiceStorageKey',
+new Function('exports', 'URL', 'fs', 'mailServiceStorageKey', 'sendDeadlineSmtp', 'smtpTotalTimeout',
   src.replace(/export function/g, 'function').replace(/^import .*$/gm, '') +
   '\nexports.smtpOptionsFromUrl = smtpOptionsFromUrl;' +
   '\nexports.hasTlsOverrides = hasTlsOverrides;' +
@@ -37,7 +37,9 @@ new Function('exports', 'URL', 'fs', 'mailServiceStorageKey',
   '\nexports.installMailTransport = installMailTransport;' +
   '\nexports.smtpTimeouts = smtpTimeouts; exports.boundedSmtpUrl = boundedSmtpUrl;' +
   '\nexports.installAdminMailTransport = installAdminMailTransport;')(
-  lib, URL, fs, service => service.replaceAll('.', '\uff0e'));
+  lib, URL, fs, service => service.replaceAll('.', '\uff0e'),
+  require('../server/lib/smtpDeadline').sendDeadlineSmtp,
+  require('../server/lib/smtpDeadline').smtpTotalTimeout);
 
 let passed = 0;
 function test(name, fn) {
@@ -176,6 +178,8 @@ test('standard SMTP and certificate overrides both receive bounded transport set
     lib.installMailTransport({ Email, EmailInternals,
       env: { MAIL_TLS_SERVERNAME: 'mail.example.com', MAIL_URL: 'smtp://mail.example.com:587/' } }),
     'custom-tls');
+  assert.strictEqual(calls.length, 0, 'no connection before a message');
+  Email.customTransport({ to: 'recipient@example.test' });
   assert.strictEqual(calls.length, 1);
   assert.strictEqual(calls[0].tls.rejectUnauthorized, true, 'still verified');
   assert.strictEqual(calls[0].tls.servername, 'mail.example.com');
@@ -218,6 +222,7 @@ test('Admin Panel settings select custom SMTP or a Nodemailer service', () => {
       username: 'user' } },
     passwords: { SMTP: 'secret' },
   } });
+  Email.customTransport({ to: 'recipient@example.test' });
   assert.deepStrictEqual(calls[0].auth, { user: 'user', pass: 'secret' });
   assert.strictEqual(calls[0].host, 'mail.example.com');
   assert.strictEqual(calls[0].socketTimeout, 120000);
@@ -229,6 +234,7 @@ test('Admin Panel settings select custom SMTP or a Nodemailer service', () => {
     configurations: { Gmail: { username: 'user@gmail.com' } },
     passwords: { Gmail: 'app-password' },
   } });
+  Email.customTransport({ to: 'recipient@example.test' });
   assert.strictEqual(calls[1].service, 'Gmail');
   assert.strictEqual(calls[1].connectionTimeout, 30000);
   assert.deepStrictEqual(calls[1].auth, { user: 'user@gmail.com', pass: 'app-password' });
@@ -284,7 +290,7 @@ test('MAIL_URL changes refresh bounded transport without reusing the old endpoin
   Email.customTransport({ to: 'first@example.test' });
   env.MAIL_URL = 'smtp://second:25/';
   Email.customTransport({ to: 'second@example.test' });
-  assert.strictEqual(calls.length, 2); assert.strictEqual(closed.length, 1);
+  assert.strictEqual(calls.length, 2); assert.strictEqual(closed.length, 0, 'each active message owns its transport');
   assert.strictEqual(sent[1].host, 'second');
   assert.strictEqual(sent[1].socketTimeout, 120000);
 });

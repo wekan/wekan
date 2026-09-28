@@ -28,6 +28,7 @@
 // connection closure and queued retry after greeting and idle timeouts.
 // ============================================================================
 import fs from 'fs';
+import { sendDeadlineSmtp, smtpTotalTimeout } from './smtpDeadline';
 import { mailServiceStorageKey } from '/models/lib/mailServices';
 
 // A certificate from an env var: the PEM itself, or a path to a file holding it.
@@ -138,14 +139,15 @@ export function installMailTransport({ Email, EmailInternals, env = process.env 
     env.MAIL_URL = boundedSmtpUrl(env.MAIL_URL, timeouts);
     return 'bounded-smtp';
   }
-  const makeTransport = mailUrl => nodemailer.createTransport({
+  const makeOptions = mailUrl => ({
     ...smtpOptionsFromUrl(mailUrl, {
       ca: certificateFrom(env.MAIL_TLS_CA_CERT, { name: 'MAIL_TLS_CA_CERT' }),
       servername: (env.MAIL_TLS_SERVERNAME || '').trim(),
     }), ...timeouts,
   });
   let configuredUrl = env.MAIL_URL;
-  let transport = makeTransport(configuredUrl);
+  let options = makeOptions(configuredUrl);
+  const timeoutMs = smtpTotalTimeout(env);
 
   // Meteor hands the message plus its own packageSettings; nodemailer takes the
   // message fields as they are and would choke on the extra key.
@@ -153,12 +155,10 @@ export function installMailTransport({ Email, EmailInternals, env = process.env 
     // Meteor normally refreshes its cached transport when MAIL_URL changes.
     // Preserve that behavior for settings hooks such as Sandstorm's updater.
     if (env.MAIL_URL !== configuredUrl) {
-      const replacement = makeTransport(env.MAIL_URL);
-      transport.close?.();
-      transport = replacement;
+      options = makeOptions(env.MAIL_URL);
       configuredUrl = env.MAIL_URL;
     }
-    return transport.sendMail(message);
+    return sendDeadlineSmtp({ nodemailer, options, message, timeoutMs });
   };
 
   return 'custom-tls';
@@ -191,7 +191,9 @@ export function installAdminMailTransport({ Email, EmailInternals, mailServer, e
   }
   if (config.username) options.auth = { user: config.username, pass: password };
 
-  const transport = nodemailer.createTransport({ ...options, ...smtpTimeouts(env) });
-  Email.customTransport = ({ packageSettings, ...message }) => transport.sendMail(message);
+  options = { ...options, ...smtpTimeouts(env) };
+  const timeoutMs = smtpTotalTimeout(env);
+  Email.customTransport = ({ packageSettings, ...message }) =>
+    sendDeadlineSmtp({ nodemailer, options, message, timeoutMs });
   return 'admin-settings';
 }
