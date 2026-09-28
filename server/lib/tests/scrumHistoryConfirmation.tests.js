@@ -18,6 +18,7 @@ describe('Scrum History write confirmation', function () {
     if (!Meteor.isAppTest) this.skip();
     const userId = Random.id(), boardId = Random.id(), cardId = Random.id(), secondId = Random.id(), listId = Random.id(), swimlaneId = Random.id();
     const originalUpdate = Cards.updateAsync;
+    const originalRemove = ScrumHistoryPending.removeAsync;
     const actor = fn => DDP._CurrentMethodInvocation.withValue({ userId, isSimulation: false }, fn);
     try {
       await Meteor.users.rawCollection().insertOne({ _id: userId, username: `confirm-${userId}`, profile: {} });
@@ -74,7 +75,19 @@ describe('Scrum History write confirmation', function () {
       assert.equal(await ChangeHistory.find({ boardId, restoredFromId: id }).countAsync(), 0);
       // Reset only the isolated fixture, then prove valid recovery still works.
       await Cards.rawCollection().updateOne({ _id: secondId }, { $set: { scrumRevision: 1 } });
+      // A success reply without deletion must not acknowledge completion.
+      ScrumHistoryPending.removeAsync = async () => 1;
+      await assert.rejects(actor(() => applyScrumHistory(row, previousContent, 'undo')), /scrum-history-pending/);
+      assert.equal((await ScrumHistoryPending.findOneAsync(boardId)).operationId, journal.operationId);
+      assert.equal((await ChangeHistory.findOneAsync(id)).undone, true);
+      const firstUndoneAt = (await ChangeHistory.findOneAsync(id)).undoneAt;
+      // The inverse failure is also possible: storage succeeds, reply is lost.
+      ScrumHistoryPending.removeAsync = async function (...args) {
+        await originalRemove.apply(this, args);
+        throw new Error('lost cleanup reply');
+      };
       await actor(() => applyScrumHistory(row, previousContent, 'undo'));
+      assert.deepEqual((await ChangeHistory.findOneAsync(id)).undoneAt, firstUndoneAt);
       assert.deepEqual((await Cards.findOneAsync(secondId)).scrum, {});
       assert.equal((await Cards.findOneAsync(secondId)).scrumRevision, 2);
       assert.deepEqual((await Cards.findOneAsync(cardId)).scrum, {});
@@ -85,6 +98,7 @@ describe('Scrum History write confirmation', function () {
       assert.equal(restored.length, 1); assert.equal(restored[0].batchId, journal.operationId);
     } finally {
       Cards.updateAsync = originalUpdate;
+      ScrumHistoryPending.removeAsync = originalRemove;
       await ScrumHistoryPending.rawCollection().deleteMany({ _id: boardId });
       await ChangeHistory.rawCollection().deleteMany({ boardId });
       await HistoryWriterGates.rawCollection().deleteMany({ boardId });

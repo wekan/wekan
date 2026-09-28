@@ -129,6 +129,14 @@ Closing shows a preview of completed and incomplete work. Explicitly choose the
 backlog or a planned sprint for rollover; keep historical membership and the
 original commitment intact. Closing is idempotent and revision-checked. Undo
 must not overwrite intervening edits or move a card from an inaccessible board.
+Finalizing a History restoration verifies that its board checkpoint is absent
+from storage after the conditional deletion. A success acknowledgement alone
+cannot finish the operation; a lost reply can be reconciled by a successful
+absence read. An unreadable slot or a successor checkpoint produces an
+unconfirmed result, without another deletion or changing the successor. This
+is not a durable completion receipt across a process restart; shared writer
+coordination and recovery after an uncertain final read remain open.
+
 Cancelling records a reason and preserves the history. Scrum accountabilities
 are visible information and do not grant access: all mutations must also satisfy
 the existing board/card write permissions. Board configuration and lifecycle

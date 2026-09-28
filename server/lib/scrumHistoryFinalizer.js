@@ -48,6 +48,14 @@ async function finishScrumHistory({ history, pending, row, journal, now = () => 
       : current.undoneAt !== null)) fail();
   }
   await owned();
-  if (await pending.removeAsync(identity) !== 1) fail();
+  let cleanupError;
+  try { await pending.removeAsync(identity); }
+  catch (error) { cleanupError = error; }
+  // A positive reply can hide a no-op, while a lost reply can follow a real
+  // deletion. Inspect the board slot, not only the old operation's selector:
+  // a replacement checkpoint must remain untouched and cannot confirm this
+  // worker's cleanup. Never retry the deletion against a newly observed row.
+  const remaining = await pending.findOneAsync({ _id: journal._id });
+  if (remaining) throw cleanupError || new Error('Scrum History cleanup unconfirmed');
 }
 module.exports = { finishScrumHistory, verifyScrumHistorySource };

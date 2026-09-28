@@ -93,7 +93,7 @@ test('failed cleanup and a changed readback do not report successful completion'
   await assert.rejects(finishScrumHistory(g), /conflict/);
   assert.equal(g.state.deletes, 0);
   const h = fixture(); h.pending.removeAsync = async () => 0;
-  await assert.rejects(finishScrumHistory(h), /conflict/);
+  await assert.rejects(finishScrumHistory(h), /cleanup unconfirmed/);
   assert.ok(h.state.checkpoint);
 });
 test('reloaded superseded redo sources never finalize or clear their pending journal', async () => {
@@ -120,5 +120,44 @@ test('same-ID checkpoint replacement cannot authorize finalization or cleanup', 
     f.state.checkpoint[field] = field === 'revisions' ? [1] : { records: [{ changed: true }] };
     await assert.rejects(finishScrumHistory(f), /conflict/);
     assert.equal(f.state.updates, 0); assert.equal(f.state.deletes, 0);
+  }
+});
+
+test('cleanup success requires observed absence, not a positive delete acknowledgement', async () => {
+  const f = fixture();
+  f.pending.removeAsync = async () => 1;
+  await assert.rejects(finishScrumHistory(f), /cleanup unconfirmed/);
+  assert.ok(f.state.checkpoint);
+  assert.equal(f.state.current.undone, true);
+});
+test('a lost cleanup reply is reconciled only after confirmed absence', async () => {
+  for (const reply of ['lost', 'zero']) {
+    const f = fixture();
+    f.pending.removeAsync = async () => {
+      f.state.checkpoint = null;
+      if (reply === 'lost') throw new Error('lost cleanup reply');
+      return 0;
+    };
+    await finishScrumHistory(f);
+    assert.equal(f.state.checkpoint, null);
+    assert.equal(f.state.current.undone, true);
+  }
+});
+test('unreadable cleanup and successor checkpoints are not acknowledged or removed again', async () => {
+  for (const mode of ['unreadable', 'successor']) {
+    const f = fixture(); let deleted = false; let removals = 0;
+    const read = f.pending.findOneAsync;
+    f.pending.findOneAsync = async query => {
+      if (deleted && mode === 'unreadable') throw new Error('cleanup read failed');
+      return read(query);
+    };
+    f.pending.removeAsync = async () => {
+      removals++; deleted = true;
+      f.state.checkpoint = mode === 'successor' ? { ...f.journal, operationId: 'next-operation' } : null;
+      return 1;
+    };
+    await assert.rejects(finishScrumHistory(f), mode === 'unreadable' ? /cleanup read failed/ : /cleanup unconfirmed/);
+    assert.equal(removals, 1);
+    if (mode === 'successor') assert.equal(f.state.checkpoint.operationId, 'next-operation');
   }
 });
