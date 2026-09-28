@@ -48,7 +48,7 @@ async function deliverStoredWebhookHttp({ item, responses, requestHttp, assertCu
     // The production adapter binds requestHttp to fetchSafe. DNS pinning,
     // private-IP denial and redirect refusal apply to every new attempt.
     const response = await requestHttp(request.url, { method: 'POST', headers: copy(request.headers), body: request.body,
-      timeoutMs: 30000, maxResponseBytes: MAX_RESPONSE_BYTES, maxRedirects: 0 });
+      timeoutMs: 30000, totalTimeoutMs: 30000, maxResponseBytes: MAX_RESPONSE_BYTES, maxRedirects: 0 });
     if (!response || !Number.isInteger(response.status) || response.status < 200 || response.status >= 300) {
       throw new Error('sync-webhook-http-rejected');
     }

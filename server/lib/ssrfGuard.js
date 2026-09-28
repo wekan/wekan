@@ -32,6 +32,7 @@ import http from 'http';
 import https from 'https';
 import { URL } from 'url';
 import { isIpBlocked } from '/models/lib/attachmentUrlValidation';
+import { createOutboundDeadline } from '/server/lib/outboundDeadline';
 
 // dns/promises is only a standalone sub-path from Node 15+; use dns.promises
 // for compatibility with the Node 14 runtime bundled in Meteor 2.x.
@@ -234,7 +235,7 @@ async function validateAndResolve(rawUrl) {
  * hostname is preserved in the Host header and as the TLS servername (SNI) so
  * virtual-hosting and certificate validation work.
  */
-function requestOnce(parsed, resolvedIp, options) {
+function requestOnce(parsed, resolvedIp, options, deadline) {
   return new Promise((resolve, reject) => {
     const isHttps = parsed.protocol === 'https:';
     const transport = isHttps ? https : http;
@@ -277,6 +278,7 @@ function requestOnce(parsed, resolvedIp, options) {
       }
     }
 
+    deadline?.assertActive();
     const req = transport.request(reqOptions, (res) => {
       // The caller reads the body a microtask later (or destroys the response
       // and follows a redirect). Hold onto an error that arrives in between so
@@ -284,10 +286,12 @@ function requestOnce(parsed, resolvedIp, options) {
       res.once('error', (err) => {
         res.ssrfGuardEarlyError = err;
       });
+      try { deadline?.watch(res); } catch (error) { reject(error); return; }
       resolve(res);
     });
 
     req.on('error', reject);
+    deadline?.watch(req);
 
     const timeoutMs = Number.isFinite(options.timeoutMs)
       ? Math.max(1000, Math.min(options.timeoutMs, 300000))
@@ -375,11 +379,21 @@ function readResponse(res, options = {}) {
  * live Trello import, whose attachment URLs 302 to signed S3 URLs — passes a
  * small number, and each hop is validated exactly like the first.
  *
+ * `options.totalTimeoutMs` optionally caps the entire operation (1–300000ms),
+ * including DNS and all redirects, and destroys active streams on expiry.
+ *
  * @param {string} rawUrl           User-supplied URL
  * @param {RequestInit} [options]   Standard fetch options, plus maxRedirects
  * @returns {Promise<Response>}
  */
 export async function fetchSafe(rawUrl, options = {}) {
+  const deadline = options.totalTimeoutMs === undefined ? null : createOutboundDeadline(options.totalTimeoutMs);
+  try { return await fetchWithinDeadline(rawUrl, options, deadline); }
+  catch (error) { deadline?.cancel(error); throw error; }
+  finally { deadline?.dispose(); }
+}
+
+async function fetchWithinDeadline(rawUrl, options, deadline) {
   const maxRedirects = Number.isInteger(options.maxRedirects)
     ? Math.max(0, options.maxRedirects)
     : 0;
@@ -391,16 +405,21 @@ export async function fetchSafe(rawUrl, options = {}) {
   let origin = null;
 
   for (let hop = 0; ; hop += 1) {
-    const { parsed, resolvedIp } = await validateAndResolve(currentUrl);
+    deadline?.assertActive();
+    const resolution = validateAndResolve(currentUrl);
+    const { parsed, resolvedIp } = await (deadline ? deadline.wait(resolution) : resolution);
+    deadline?.assertActive();
     if (origin === null) {
       origin = parsed.origin;
     }
 
-    const res = await requestOnce(parsed, resolvedIp, currentOptions);
+    const pending = requestOnce(parsed, resolvedIp, currentOptions, deadline);
+    const res = await (deadline ? deadline.wait(pending) : pending);
 
     const isRedirect = res.statusCode >= 300 && res.statusCode < 400;
     if (!isRedirect) {
-      return readResponse(res, currentOptions);
+      const body = readResponse(res, currentOptions);
+      return deadline ? deadline.wait(body) : body;
     }
 
     // A redirect is never followed silently.

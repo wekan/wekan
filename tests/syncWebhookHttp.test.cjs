@@ -24,7 +24,7 @@ function fixture({ addresses = ['93.184.216.34'], status = 200, body = '{"reply"
   const { isIpBlocked } = load('models/lib/attachmentUrlValidation.js', { Meteor: { isServer: true }, require }, ['isIpBlocked']);
   const { fetchSafe } = load('server/lib/ssrfGuard.js', { dns: { promises: { lookup: async () => {
     lookups++; return addresses.map(address => ({ address, family: address.includes(':') ? 6 : 4 }));
-  } } }, fs, net: require('node:net'), http: transport, https: transport, URL, isIpBlocked }, ['fetchSafe']);
+  } } }, createOutboundDeadline: require('../server/lib/outboundDeadline').createOutboundDeadline, fs, net: require('node:net'), http: transport, https: transport, URL, isIpBlocked }, ['fetchSafe']);
   const { sendStoredWebhook } = load('server/notifications/storedWebhookHttp.js', {
     fetchSafe, require: id => require(`..${id}`),
   }, ['sendStoredWebhook']);

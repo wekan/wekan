@@ -216,6 +216,7 @@ Meteor.methods({
         try {
           response = await fetchSafe(prepared.url, {
             method: 'POST',
+            totalTimeoutMs: 30000,
             headers: prepared.headers,
             body: prepared.body,
           });
