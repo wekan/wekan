@@ -159,11 +159,12 @@ button clears just the range; the panel's final clear button clears everything.
 A reversed or invalid range leaves the last applied range unchanged and shows
 an input-validation message. No card is archived, edited or deleted.
 
-This addresses the no-expression date-selection portion of
-[#935](https://github.com/wekan/wekan/issues/935). Searching for any movement
-within a historical date range is different from filtering the latest list
-entry: a card may have moved again since then. That activity-based filter and
-saved filter combinations are still tracked in TODO Later.
+Searching for any movement within a historical date range is different from
+filtering the latest list entry: a card may have moved again since then. Use
+the separate **Moved during (recorded history)** controls below for that case.
+Saved filter combinations, remaining due-date shortcuts (previous week and
+next month), and the full extensible provider interface from
+[#935](https://github.com/wekan/wekan/issues/935) remain in TODO Later.
 
 ## Relative creation and modification dates
 
@@ -195,3 +196,26 @@ the results. Stopping/changing the filter releases its observers. A newly
 entered query shows no matches until its result arrives. The filter combines
 with labels, dates and other sidebar constraints and persists across board
 navigation; clearing its field or all filters disables it. No cards are edited.
+
+## Find cards moved during a historical interval
+
+Under **Filter by date**, use **Moved during (recorded history)** and press
+**Apply**. Both selected local calendar days are included. Leave one endpoint
+blank for an open range; leave both blank or press its clear button to disable
+this filter. Reversed ranges retain the last valid selection. The selection
+persists when the panel closes or the board changes, and combines with other
+filters. The final clear button resets it along with the rest of the panel.
+
+A card matches if any recorded list/swimlane move or incoming board move falls
+in that interval, even if it moved again later. Only currently non-archived,
+readable cards on this board and movement records belonging to this board are
+considered. Events from another private board do not become searchable through
+a card's current location. Creation, edits and unrecorded moves do not match;
+no date is guessed when history is absent. This is a filter of current cards,
+not a reconstruction of a past board snapshot or a list of departed cards.
+
+The server joins history in batches and sends only matching card IDs. Lazy
+card loading does not limit the search. Recorded-event additions, corrections
+and deletions update matches, as do card placement and access changes. Local
+calendar endpoints are sent as exact instants, so the server's timezone does
+not reinterpret them. No cards or history records are written by the filter.

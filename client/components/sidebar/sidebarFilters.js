@@ -14,6 +14,8 @@ Template.filterSidebar.helpers({
   },
   dateRecencyPresets() { return CARD_RECENCY_PRESETS; },
   dateRecencySelected(field, preset) { return Filter.dateRecency.value()[field] === preset; },
+  movementFrom() { return Filter.movementDate.value().from; },
+  movementTo() { return Filter.movementDate.value().to; },
   dateRangeFields() { return CARD_DATE_RANGE_FIELDS; },
   dateRangeSelected(id) { return Filter.dateRange.value().field === id; },
   dateRangeFrom() { return Filter.dateRange.value().from; },
@@ -50,6 +52,22 @@ Template.filterSidebar.events({
     if (Filter.dateRecency.set({ ...Filter.dateRecency.value(), [field]: event.currentTarget.value })) {
       Filter.resetExceptions();
     }
+  },
+  'submit .js-card-movement-range'(event, tpl) {
+    event.preventDefault();
+    const end = tpl.find('.js-card-movement-to');
+    const valid = Filter.movementDate.set({ field: 'createdAt',
+      from: tpl.find('.js-card-movement-from').value, to: end.value, includeMissing: false });
+    end.setCustomValidity(valid ? '' : TAPi18n.__('filter-date-range-invalid'));
+    if (!valid) end.reportValidity();
+    else Filter.resetExceptions();
+  },
+  'input .js-card-movement-range input'(event, tpl) {
+    tpl.find('.js-card-movement-to').setCustomValidity('');
+  },
+  'click .js-clear-movement-range'(event, tpl) {
+    event.preventDefault(); tpl.find('.js-card-movement-to').setCustomValidity('');
+    Filter.movementDate.reset(); Filter.resetExceptions();
   },
   'submit .js-card-date-range'(event, tpl) {
     event.preventDefault();
@@ -263,6 +281,7 @@ Template.filterSidebar.events({
   'click .js-clear-all'(evt, tpl) {
     evt.preventDefault();
     tpl.find('.js-card-date-to')?.setCustomValidity('');
+    tpl.find('.js-card-movement-to')?.setCustomValidity('');
     Filter.reset();
   },
   'click .js-filter-to-selection'(evt) {

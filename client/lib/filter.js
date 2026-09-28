@@ -1,3 +1,4 @@
+import { boardMovementSelector, startBoardMovementFilter } from '/client/lib/boardMovementFilter';
 import { boardTextSelector, startBoardTextFilter } from '/client/lib/boardTextFilter';
 import { dateDisplayPreferences } from '/client/lib/dateDisplay';
 import { Blaze } from 'meteor/blaze';
@@ -607,6 +608,7 @@ export const Filter = {
   dueAt: new DateFilter(),
   columnAge: new ColumnAgeFilter(),
   dateRange: new CardDateRangeFilter(),
+  movementDate: new CardDateRangeFilter(),
   dateRecency: new CardRecencyFilter(),
   title: new StringFilter(),
   text: new StringFilter(),
@@ -638,7 +640,7 @@ export const Filter = {
 
   isActive() {
     return (
-      this.text._isActive() || this.columnAge._isActive() || this.dateRange._isActive() || this.dateRecency._isActive() ||
+      this.movementDate._isActive() || this.text._isActive() || this.columnAge._isActive() || this.dateRange._isActive() || this.dateRecency._isActive() ||
       this._fields.some(fieldName => {
         return this[fieldName]._isActive();
       }) ||
@@ -728,6 +730,7 @@ export const Filter = {
     if (this.dateRange._isActive()) constraints.push(this.dateRange.selector());
     if (this.dateRecency._isActive()) constraints.push(this.dateRecency.selector());
     if (this.text._isActive()) constraints.push(boardTextSelector(this.text.value()));
+    if (this.movementDate._isActive()) constraints.push(boardMovementSelector(this.movementDate.value()));
     return constraints.length > 1 ? { $and: constraints } : (constraints[0] || {});
   },
 
@@ -761,6 +764,7 @@ export const Filter = {
     this.columnAge.reset();
     this.text.reset();
     this.dateRange.reset();
+    this.movementDate.reset();
     this.dateRecency.reset();
     this.lists.reset();
     this.advanced.reset();
@@ -814,3 +818,5 @@ export const Filter = {
 Blaze.registerHelper('Filter', Filter);
 
 startBoardTextFilter(Filter.text);
+
+startBoardMovementFilter(Filter.movementDate);

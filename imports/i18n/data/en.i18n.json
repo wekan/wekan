@@ -709,6 +709,7 @@
   "filter-recency-week": "Within the last 7 days",
   "filter-recency-month": "Within the last 30 days",
   "filter-recency-older": "More than 30 days ago",
+  "filter-movement-range": "Moved during (recorded history)",
   "filter-date-range-field": "Date field",
   "filter-date-range-from": "From (inclusive)",
   "filter-date-range-to": "Through (inclusive)",

@@ -14,7 +14,8 @@ async function fixture(search) {
     observers.push(handle); callbacks.added('initial', {}); return handle;
   } }) });
   const Boards = { ...model('boards'), findOneAsync: async () => structuredClone(board) };
-  const source = fs.readFileSync('server/publications/boardTextMatches.js', 'utf8')
+  const source = (fs.readFileSync('server/lib/publishBoardMatches.js', 'utf8').replace('export async function', 'async function') + '\n' +
+    fs.readFileSync('server/publications/boardTextMatches.js', 'utf8'))
     .replace(/^import .*;\n/gm, '').replace(/^const \{ assignedOnlyCardScope \} = require\([^\n]+\);\n/m, '');
   vm.runInNewContext(source, { Meteor: { publish: (name, fn) => { handler = fn; }, Error }, check() {},
     Boards, Cards: model('cards'), CardComments: model('comments'), Checklists: model('checklists'), ChecklistItems: model('items'),

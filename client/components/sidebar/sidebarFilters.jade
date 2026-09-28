@@ -119,6 +119,14 @@ template(name="filterSidebar")
     select.js-card-date-recency(id="filter-recency-{{field.id}}" data-field=field.id)
       each preset in dateRecencyPresets
         option(value=preset.id selected="{{#if dateRecencySelected field.id preset.id}}selected{{/if}}") {{_ preset.label}}
+  form.js-card-movement-range
+    h4 {{_ 'filter-movement-range'}}
+    label(for="filter-card-movement-from") {{_ 'filter-date-range-from'}}
+    input.js-card-movement-from(id="filter-card-movement-from" type="date" value=movementFrom)
+    label(for="filter-card-movement-to") {{_ 'filter-date-range-to'}}
+    input.js-card-movement-to(id="filter-card-movement-to" type="date" value=movementTo)
+    button.primary(type="submit") {{_ 'apply'}}
+    button.js-clear-movement-range(type="button") {{_ 'filter-clear'}}
   form.js-card-date-range
     label(for="filter-card-date-field") {{_ 'filter-date-range-field'}}
     select.js-card-date-field(id="filter-card-date-field")
