@@ -8,6 +8,11 @@ import { getSidebarInstance } from '/client/features/sidebar/service';
 import { DEPENDENCY_TYPES } from '/models/metadata/dependencies';
 
 Template.filterSidebar.helpers({
+  columnAgeLists() {
+    return ReactiveCache.getLists({ boardId: Session.get('currentBoard'), archived: false }, { sort: { sort: 1 } });
+  },
+  columnAgeDays() { return Filter.columnAge.value().days; },
+  columnAgeSelected(id) { return Filter.columnAge.value().listId === id; },
   parentFilterCards() {
     const boardId = Session.get('currentBoard');
     if (!boardId) return [];
@@ -29,6 +34,13 @@ Template.filterSidebar.helpers({
 });
 
 Template.filterSidebar.events({
+  'submit .js-column-age-filter'(event, tpl) {
+    event.preventDefault();
+    const listId = tpl.find('.js-column-age-list').value;
+    if (!listId) Filter.columnAge.reset();
+    else Filter.columnAge.set(listId, Number(tpl.find('.js-column-age-days').value));
+    Filter.resetExceptions();
+  },
   'click .js-toggle-parent-filter'(event) {
     event.preventDefault();
     Filter.parentId.toggle(event.currentTarget.dataset.parentId);

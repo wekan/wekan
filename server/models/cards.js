@@ -13,6 +13,7 @@ import { allowIsBoardMember, allowIsBoardMemberWithWriteAccess, computeSortForIn
 import { computeTopSort, normalizeMoveParams, parseCardDate } from '/server/lib/restCardHelpers';
 const { coerceRestArrayParam } = require('/server/lib/restArrayParam');
 const { applyCardBoardConsistency } = require('/server/lib/cardBoardConsistency');
+const { stampCardListEntry } = require('/models/lib/cardListEntry');
 import { titleChanged } from '/server/lib/titleChangeActivity';
 import { descriptionChanged } from '/server/lib/descriptionChangeActivity';
 const { collectionWriteSucceeded } = require('/server/lib/collectionWriteOutcome');
@@ -1019,6 +1020,7 @@ async function enforceCardBoardConsistency(doc, fieldNames, modifier) {
 // hook (and the persisted update) sees.
 Cards.before.update(async (userId, doc, fieldNames, modifier) => {
   await enforceCardBoardConsistency(doc, fieldNames, modifier);
+  stampCardListEntry(doc, modifier);
 });
 
 Cards.before.update(async (userId, doc, fieldNames, modifier) => {

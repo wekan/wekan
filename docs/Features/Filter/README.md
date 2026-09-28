@@ -63,3 +63,27 @@ expression. The whole token must be a finite decimal number for a range
 comparison; `Points > 2hours` is invalid. Equality can still match literal text
 such as `Text = '2hours'`, without also matching the number 2. Dropdown labels
 continue resolving to their stored option IDs.
+
+## Hide old cards in a list
+
+In **Filter → Hide old cards in a list**, select a list (for example Done),
+enter a whole number of days, and choose **Apply**. Cards that entered that list
+more than N × 24 hours ago are hidden. The cutoff refreshes once per minute.
+Other lists and cards with unknown entry dates remain visible. This combines
+with the other card filters; it does not archive or delete anything. Choose
+**Do not hide by list age** and Apply, or clear the filters, to show them again.
+The selected list resets when navigating to another board.
+
+New cards record `listEnteredAt`. Moving to another list or board resets it in
+the same card update. Reordering within a list, switching swimlanes, editing
+text, adding comments and archiving do not change this date. A conditional
+update that does not match the card cannot reset it. Undoing a move counts as
+entering the previous list again.
+
+Existing cards without this field remain visible until they next change lists.
+Reconstructing their dates from historical move activities is still pending;
+creation and last-edit dates are not substitutes for missing move history.
+Direct/raw database maintenance bypasses application hooks and must preserve
+or update this derived field deliberately. This implements the current-data
+portion of [#1499](https://github.com/wekan/wekan/issues/1499); the historical
+backfill remains in TODO Later.

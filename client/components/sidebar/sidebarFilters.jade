@@ -154,6 +154,20 @@ template(name="filterSidebar")
   hr
   h3
     i.fa.fa-list
+    | {{_ 'filter-column-age'}}
+  form.js-column-age-filter
+    label {{_ 'list'}}
+    select.js-column-age-list
+      option(value="") {{_ 'filter-column-age-disabled'}}
+      each columnAgeLists
+        option(value=_id selected="{{#if columnAgeSelected _id}}selected{{/if}}") {{title}}
+    label {{_ 'filter-column-age-days'}}
+    input.js-column-age-days(type="number" min="1" max="365000" required value=columnAgeDays)
+    p.quiet {{_ 'filter-column-age-hint'}}
+    button.primary(type="submit") {{_ 'apply'}}
+  hr
+  h3
+    i.fa.fa-list
     | {{_ 'filter-custom-fields-label'}}
   ul.sidebar-list
     li(class="{{#if Filter.customFields.isSelected undefined}}active{{/if}}")

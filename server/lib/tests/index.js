@@ -100,3 +100,5 @@ import './storedRulePlans.tests';
 import './storedHistoryChain.tests';
 
 import './scrumHistoryConfirmation.tests';
+
+import "./cardListEntry.tests";

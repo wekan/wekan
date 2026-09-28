@@ -31,6 +31,8 @@ import {
 import { weekRange } from '/models/lib/weekStart';
 import { Session } from 'meteor/session';
 import { boardScopedFilterSelector } from '/models/lib/boardScopedSelection';
+import { columnAgeSelector } from '/models/lib/cardListEntry';
+import { subscribeDateNowTicker } from '/client/lib/dateNowTicker';
 // Sidebar is imported late to avoid circular dependency (sidebar.js needs its
 // jade template loaded first, but router.js → filter.js would load it too early)
 let _Sidebar;
@@ -48,6 +50,33 @@ function getSidebar() {
 // fields.
 function showFilterSidebar() {
   getSidebar().setView('filter');
+}
+
+class ColumnAgeFilter {
+  constructor() {
+    this._dep = new Tracker.Dependency();
+    this._value = { listId: '', days: 30 };
+    this._ticker = null;
+  }
+  value() { this._dep.depend(); return this._value; }
+  set(listId, days) {
+    if (!Object.keys(columnAgeSelector(listId, days)).length) return false;
+    this._value = { listId, days };
+    if (!this._ticker) this._ticker = subscribeDateNowTicker();
+    this._dep.changed();
+    return true;
+  }
+  reset() {
+    this._value = { listId: '', days: 30 };
+    this._ticker?.unsubscribe();
+    this._ticker = null;
+    this._dep.changed();
+  }
+  _isActive() { return !!this.value().listId; }
+  selector() {
+    const { listId, days } = this.value();
+    return columnAgeSelector(listId, days, this._ticker?.now.get() || new Date());
+  }
 }
 
 class DateFilter {
@@ -525,6 +554,7 @@ export const Filter = {
   archive: new SetFilter(),
   hideEmpty: new SetFilter(),
   dueAt: new DateFilter(),
+  columnAge: new ColumnAgeFilter(),
   title: new StringFilter(),
   customFields: new SetFilter('_id'),
   // #3392: filter cards by their dependency ("Red Strings") relation type.
@@ -554,6 +584,7 @@ export const Filter = {
 
   isActive() {
     return (
+      this.columnAge._isActive() ||
       this._fields.some(fieldName => {
         return this[fieldName]._isActive();
       }) ||
@@ -637,16 +668,16 @@ export const Filter = {
     }
 
     if(isFilterActive) {
-      return {
-        $or: selectors,
-      };
+      const combined = { $or: selectors };
+      return this.columnAge._isActive()
+        ? { $and: [combined, this.columnAge.selector()] } : combined;
     }
     else {
       // we don't want there is only Filter.lists
       // otherwise no card will be displayed ...
       // selectors = [exceptionsSelector];
       // will return [{"_id":{"$in":[]}}]
-      return {};
+      return this.columnAge.selector();
     }
   },
 
@@ -677,6 +708,7 @@ export const Filter = {
       filter.reset();
     });
     this.excludedLabelIds.reset();
+    this.columnAge.reset();
     this.lists.reset();
     this.advanced.reset();
     this.resetExceptions();
@@ -696,6 +728,7 @@ export const Filter = {
   // sidebar button, leaving to All Boards) exactly as it was everywhere
   // else - this only changes what happens on a board-to-board hop.
   resetBoardScoped() {
+    this.columnAge.reset();
     const boardScopedFields = [
       'labelIds',
       'customFields',

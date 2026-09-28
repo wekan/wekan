@@ -165,6 +165,16 @@ Cards.attachSchema(
         return 'notAllowed';
       },
     },
+    listEnteredAt: {
+      /** When this card entered its current board/list. Unrelated edits do not reset it. */
+      type: Date,
+      optional: true,
+      autoValue() {
+        if (this.isInsert) return new Date();
+        if (this.isUpsert) return { $setOnInsert: new Date() };
+        this.unset();
+      },
+    },
     createdAt: {
       /**
        * creation date
