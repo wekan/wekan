@@ -56,8 +56,11 @@ Only a currently enabled instance administrator can read or change the queue.
 Controls acquire the same recipient reservation as the sender. If a delivery is
 already running, the operation reports busy; refresh and retry. A request ID
 makes a retry safe after an uncertain reply, and older interrupted commands
-cannot override a newer operator action. An in-flight SMTP request cannot be
-recalled after a lost lease; delivery remains at least once.
+cannot override a newer operator action. Shared delivery reservations cap queued
+notification workers at four across the deployment. Waiting for capacity does
+not spend an attempt or mark a message as failed. Reservation loss closes the
+sender's live SMTP connection, but cannot retract remote acceptance; delivery
+remains at least once.
 
 Control records retain the latest actor/time/action and per-action counts;
 private request receipts retain completion or supersession. Queue payloads and

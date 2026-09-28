@@ -222,3 +222,34 @@ for (const phase of ['greeting', 'idle', 'total']) test(`SMTP ${phase} timeout c
     db.deleteMany('notificationEmailJobs', { _id: id });
   }
 });
+
+test('deployment SMTP capacity keeps queued mail visible without spending retry attempts', async ({ page, adminUser, user2 }) => {
+  test.skip(!process.env.WEKAN_TEST_SMTP_PORT, 'Requires local SMTP capture');
+  const sink = await smtpSink(Number(process.env.WEKAN_TEST_SMTP_PORT));
+  const owner = db.uid('capacity-owner'), id = db.uid('capacity-job');
+  try {
+    await expect.poll(() => db.countDocuments('notificationEmailSendSlots', {})).toBe(0);
+    db.insertMany('notificationEmailSendSlots', Array.from({ length: 4 }, (_, slot) => ({
+      _id: `slot-${slot}`, owner, expiresAt: new Date(Date.now() + 60000),
+    })));
+    db.insertOne('notificationEmailJobs', queued(id, user2.id, { cycleAttempts: 0, nextAttemptAt: new Date() }));
+    await loginWithToken(page, adminUser.id, adminUser.token);
+    await navigateInApp(page, '/admin/problems/recovery');
+    const panel = page.locator('.email-recovery-reports');
+    await panel.locator('.js-table-page-search').fill(user2.id);
+    await panel.locator('.js-table-page-search').press('Enter');
+    await expect(panel).toContainText('Queued messages: 1');
+    await page.waitForTimeout(2200); // allow at least two ordinary queue scans
+    const pending = db.findOne('notificationEmailJobs', { _id: id });
+    expect(pending.state).toBe('pending');
+    expect(pending.cycleAttempts).toBe(0); expect(pending.attempts).toBe(0);
+    expect(sink.messages).toHaveLength(0);
+    db.deleteMany('notificationEmailSendSlots', { owner });
+    await expect.poll(() => db.findOne('notificationEmailJobs', { _id: id })?.state, { timeout: 15000 }).toBe('sent');
+    expect(sink.messages).toHaveLength(1);
+  } finally {
+    db.deleteMany('notificationEmailSendSlots', { owner });
+    db.deleteMany('notificationEmailJobs', { _id: id });
+    await sink.close();
+  }
+});

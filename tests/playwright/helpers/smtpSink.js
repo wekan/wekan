@@ -7,6 +7,10 @@ async function smtpSink(port, { accept = () => true, rejectionCode = 451, greet 
   const sockets = new Set();
   const server = net.createServer(socket => {
     sockets.add(socket);
+    // Active cancellation may reset the peer while reply bytes are in flight.
+    socket.on('error', error => {
+      if (!['ECONNRESET', 'EPIPE'].includes(error.code)) throw error;
+    });
     socket.on('close', () => sockets.delete(socket));
     socket.setEncoding('utf8');
     if (greet()) socket.write('220 localhost test SMTP\r\n');

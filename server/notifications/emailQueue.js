@@ -5,6 +5,7 @@ import EmailLocalization from '/server/lib/emailLocalization';
 import { resolveNotificationSetting } from '/models/lib/notificationSettings';
 import { ensureIndex } from '/server/lib/mongoStartup';
 const { createEmailOutbox, migrateLegacyEmailBuffer } = require('/server/lib/emailOutbox');
+const { createEmailSendSlots } = require('/server/lib/emailSendSlots');
 const { buildReplyToAddress } = require('/server/lib/inboundEmailReplyToken');
 
 // Mail payloads remain private; admin methods expose only recipient summaries.
@@ -12,12 +13,14 @@ export const EmailJobs = new Mongo.Collection('notificationEmailJobs');
 export const EmailLeases = new Mongo.Collection('notificationEmailLeases');
 export const EmailControls = new Mongo.Collection('notificationEmailControls');
 export const EmailCommands = new Mongo.Collection('notificationEmailCommands');
-for (const collection of [EmailJobs, EmailLeases, EmailControls, EmailCommands]) {
+export const EmailSendSlots = new Mongo.Collection('notificationEmailSendSlots');
+for (const collection of [EmailJobs, EmailLeases, EmailControls, EmailCommands, EmailSendSlots]) {
   collection.deny({ insert: () => true, update: () => true, remove: () => true });
 }
 const configuredDelay = Number(process.env.EMAIL_NOTIFICATION_TIMEOUT);
 const delayMs = Number.isFinite(configuredDelay) && configuredDelay > 0 ? configuredDelay : 30000;
 export const emailOutbox = createEmailOutbox({
+  withDeliverySlot: createEmailSendSlots(EmailSendSlots.rawCollection()),
   jobs: EmailJobs.rawCollection(), controls: EmailControls.rawCollection(), leases: EmailLeases.rawCollection(), delayMs,
   getUser: id => ReactiveCache.getUser(id),
   send: mail => EmailLocalization.sendEmail(mail),

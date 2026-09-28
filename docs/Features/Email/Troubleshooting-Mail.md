@@ -22,6 +22,27 @@ summaries and lets an administrator pause, resume, retry failed messages or canc
 See [the recovery guide](../Admin-Panel/Problems/Recovery.md#email-delivery-queue).
 
 
+## Shared notification delivery capacity
+
+Queued notifications share four delivery reservations across all WeKan
+processes using the same database. A sender reserves a place before recording
+an attempt; a full queue of active senders leaves other messages pending with
+no retry-budget cost. The next scan can take a newly freed place.
+
+Reservations renew every 15 seconds and expire after 60 seconds. A crashed
+worker's reservation is reclaimable after expiry. Losing ownership, a failed
+renewal or a locally expired reservation cancels that sender's SMTP socket.
+An independent timer still expires authority if a database renewal hangs.
+The private reservation collection contains at most four slot records and has
+no TTL index, client publication or client writes. A former owner cannot
+release a replacement worker's reservation.
+
+This limit covers the notification outbox, not direct password-reset,
+invitation or test messages. Keep application-host clocks synchronized. The
+bound is on live reservations: SMTP servers cannot fence stale connections
+from paused hosts, and an already accepted message cannot be recalled. Delivery
+therefore remains at least once.
+
 ## SMTP timeouts
 
 SMTP connections configured through `MAIL_URL`, TLS certificate overrides or
@@ -56,7 +77,8 @@ pooled, including when an older MAIL_URL contains `pool=true`. Native message
 compile/stream plugins, defaults, authentication and TLS options remain in use.
 
 HTTP and HTTPS CONNECT proxies also share the total deadline, including the
-proxy handshake. A deployment-wide connection limit remains pending.
+proxy handshake. Queued notifications additionally use the shared reservations
+described above; direct mail is outside that queue capacity limit.
 Legacy non-SMTP `MAIL_URL` schemes and third-party custom transports are outside
 this policy. SMTP acknowledgement loss can still cause duplicate delivery.
 

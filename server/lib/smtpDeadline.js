@@ -4,6 +4,7 @@ const dns = require('node:dns');
 const http = require('node:http');
 const https = require('node:https');
 const { createOutboundDeadline } = require('./outboundDeadline');
+const { smtpCancellationSignal } = require('./smtpCancellation');
 
 function smtpTotalTimeout(env = process.env) {
   const value = Number(env.MAIL_TOTAL_TIMEOUT_MS || 120000);
@@ -18,10 +19,15 @@ function smtpTotalTimeout(env = process.env) {
 // Pool.close() deliberately leaves busy connections alive, so it cannot provide
 // cancellation. No other message shares the connection that we destroy here.
 async function sendDeadlineSmtp({ nodemailer, options, message, timeoutMs,
-  lookup = dns.lookup, send = transport => transport.sendMail(message) }) {
+  lookup = dns.lookup, send = transport => transport.sendMail(message), signal = smtpCancellationSignal() }) {
   const deadline = createOutboundDeadline(timeoutMs);
   let transport, socket, dnsTimer, connectTimer;
+  const abort = () => deadline.cancel(signal.reason instanceof Error ? signal.reason :
+    Object.assign(new Error('SMTP delivery cancelled'), { code: 'SMTP_CANCELLED' }));
+  signal?.addEventListener('abort', abort, { once: true });
+  if (signal?.aborted) abort();
   try {
+    deadline.assertActive();
     transport = nodemailer.createTransport({ ...options, pool: false,
       getSocket(settings, callback) {
         let returned = false;
@@ -122,6 +128,7 @@ async function sendDeadlineSmtp({ nodemailer, options, message, timeoutMs,
     deadline.cancel(error);
     throw error;
   } finally {
+    signal?.removeEventListener('abort', abort);
     clearTimeout(dnsTimer);
     clearTimeout(connectTimer);
     socket?.destroy();

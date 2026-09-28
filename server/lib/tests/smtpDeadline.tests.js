@@ -2,13 +2,15 @@ import assert from 'node:assert/strict';
 import net from 'node:net';
 import { Meteor } from 'meteor/meteor';
 import { Email, EmailInternals } from 'meteor/email';
+import { EmailSendSlots } from '/server/notifications/emailQueue';
+const { createEmailSendSlots } = require('/server/lib/emailSendSlots');
 import { installAdminMailTransport, installMailTransport } from '/server/lib/mailTransport';
 
 // Exercise the actual Meteor send path and bundled Nodemailer. Fixtures only
 // listen on loopback, never relay mail, and restore the global transport.
 describe('SMTP total deadline in Meteor', function () {
   this.timeout(15000);
-  for (const mode of ['admin', 'certificate override', 'native MAIL_URL']) {
+  for (const mode of ['admin', 'certificate override', 'native MAIL_URL', 'lost shared slot']) {
     it(`${mode} closes a continuously responding peer and permits a later send`, async function () {
       if (!Meteor.isAppTest) this.skip();
       const previous = Email.customTransport, previousUrl = process.env.MAIL_URL, sockets = new Set();
@@ -41,7 +43,7 @@ describe('SMTP total deadline in Meteor', function () {
         const env = { MAIL_TOTAL_TIMEOUT_MS: '1000', MAIL_SOCKET_TIMEOUT_MS: '5000' };
         if (mode === 'admin') installAdminMailTransport({ Email, EmailInternals, env,
           mailServer: { enabled: true, service: 'SMTP', configurations: { SMTP: { host: '127.0.0.1', port } } } });
-        else if (mode === 'native MAIL_URL') {
+        else if (['native MAIL_URL', 'lost shared slot'].includes(mode)) {
           const nativeEnv = { ...env, MAIL_URL: `smtp://127.0.0.1:${port}/` };
           installMailTransport({ Email, EmailInternals, env: nativeEnv });
           Email.customTransport = undefined;
@@ -49,7 +51,17 @@ describe('SMTP total deadline in Meteor', function () {
         } else installMailTransport({ Email, EmailInternals,
           env: { ...env, MAIL_URL: `smtp://127.0.0.1:${port}/`, MAIL_TLS_SERVERNAME: 'localhost' } });
         const message = { from: 'sender@example.test', to: 'recipient@example.test', subject: 'total deadline', text: 'test only' };
-        await assert.rejects(Email.sendAsync(message), { code: 'OUTBOUND_DEADLINE_EXCEEDED' });
+        if (mode === 'lost shared slot') {
+          const run = createEmailSendSlots(EmailSendSlots.rawCollection(), { limit: 1, leaseMs: 300, heartbeatMs: 40 });
+          const failed = assert.rejects(run(() => Email.sendAsync(message)), { code: 'sync-lease-lost' });
+          for (let i = 0; !received && i < 100; i++) await new Promise(resolve => setTimeout(resolve, 5));
+          assert.equal(received, 1);
+          await EmailSendSlots.rawCollection().updateOne({ _id: 'slot-0' }, {
+            $set: { owner: 'smtp-test-replacement', expiresAt: new Date(Date.now() + 10000) },
+          });
+          await failed;
+          assert.equal((await EmailSendSlots.rawCollection().findOne({ _id: 'slot-0' })).owner, 'smtp-test-replacement');
+        } else await assert.rejects(Email.sendAsync(message), { code: 'OUTBOUND_DEADLINE_EXCEEDED' });
         for (let i = 0; !closed && i < 100; i++) await new Promise(resolve => setTimeout(resolve, 10));
         assert.equal(closed, 1);
         assert.equal(received, 1, 'server received the first body but never confirmed acceptance');
@@ -58,6 +70,7 @@ describe('SMTP total deadline in Meteor', function () {
         assert.deepEqual(result.accepted, ['recipient@example.test']);
         assert.equal(received, 2);
       } finally {
+        await EmailSendSlots.rawCollection().deleteMany({ owner: 'smtp-test-replacement' });
         Email.customTransport = previous;
         if (previousUrl === undefined) delete process.env.MAIL_URL;
         else process.env.MAIL_URL = previousUrl;

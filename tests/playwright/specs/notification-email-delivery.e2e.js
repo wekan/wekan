@@ -157,24 +157,26 @@ test('legacy email buffer is migrated and delivered without a new board event', 
   } finally { await sink.close(); }
 });
 
-test('clients cannot create or alter private email jobs and recipient leases', async ({ page, user }) => {
-  await loginWithToken(page, user.id, user.token);
-  for (const collection of ['notificationEmailJobs', 'notificationEmailLeases', 'notificationEmailControls', 'notificationEmailCommands']) {
-    const id = db.uid('private-email');
-    const errors = await page.evaluate(async ({ collection, id }) => {
-      const errors = [];
-      for (const [operation, args] of [
-        ['insert', [{ _id: id, userId: Meteor.userId(), state: 'pending' }]],
-        ['update', [{ _id: id }, { $set: { state: 'sent' } }]],
-        ['remove', [{ _id: id }]],
-      ]) {
-        try { await Meteor.callAsync(`/${collection}/${operation}`, ...args); errors.push(null); }
-        catch (error) { errors.push(error.error); }
-      }
-      return errors;
-    }, { collection, id });
-    expect(errors).toEqual([403, 403, 403]);
-    expect(db.findOne(collection, { _id: id })).toBeNull();
+test('clients cannot create or alter private email jobs and recipient leases', async ({ page, user, adminUser }) => {
+  for (const actor of [user, adminUser]) {
+    await loginWithToken(page, actor.id, actor.token);
+    for (const collection of ['notificationEmailJobs', 'notificationEmailLeases', 'notificationEmailControls', 'notificationEmailCommands', 'notificationEmailSendSlots']) {
+      const id = db.uid('private-email');
+      const errors = await page.evaluate(async ({ collection, id }) => {
+        const errors = [];
+        for (const [operation, args] of [
+          ['insert', [{ _id: id, userId: Meteor.userId(), state: 'pending' }]],
+          ['update', [{ _id: id }, { $set: { state: 'sent' } }]],
+          ['remove', [{ _id: id }]],
+        ]) {
+          try { await Meteor.callAsync(`/${collection}/${operation}`, ...args); errors.push(null); }
+          catch (error) { errors.push(error.error); }
+        }
+        return errors;
+      }, { collection, id });
+      expect(errors).toEqual([403, 403, 403]);
+      expect(db.findOne(collection, { _id: id })).toBeNull();
+    }
   }
 });
 

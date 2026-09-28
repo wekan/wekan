@@ -329,11 +329,19 @@ pass. Each pass selects up to 100 distinct due recipients, ordered by their
 earliest due time and recipient ID, so a recipient with many queued messages
 cannot hide other recipients behind a message-count limit. Four workers per
 application process handle recipients concurrently; concurrent callers share
-the same pass. A slow recipient does not occupy the other three slots. Multiple
-application processes each have their own pool; there is no global SMTP
-connection limit. A pass still waits for its active transports before polling
-again. SMTP phase and idle timeouts close unresponsive connections; an
-absolute deadline against a continuously active peer remains pending.
+the same pass. All processes also compete for four renewable reservations in
+`notificationEmailSendSlots`, acquired before an attempt is recorded. Full
+capacity leaves the message pending without spending retries. A slow recipient
+does not occupy the other three reservations. Slots renew every 15 seconds and
+expire after 60; a crashed owner's slot can then be reclaimed. An independent
+local expiry timer cancels SMTP even when the renewal database call hangs.
+Ownership loss cancels only that sender's connection, and old-owner cleanup
+cannot remove a replacement's slot. This is a bound on live queue reservations;
+SMTP cannot fence a stale connection from a paused host. Application clocks
+must be synchronized. Direct mail outside the outbox is not counted.
+
+A pass waits for its active transports before polling again. SMTP phase, idle
+and total deadlines close unresponsive or continuously active connections.
 It reserves a recipient in `notificationEmailLeases` using the shared
 renewable lease primitive, in a separate collection from list Sync. A normal
 live reservation prevents another process from sending that recipient's digest.
@@ -370,7 +378,8 @@ migration retains the old buffer and does not stop delivery for other users.
 
 Delivery is explicitly **at least once**. SMTP acceptance followed by a crash,
 a lost acknowledgement or lease expiry can cause duplicate mail. Leases cannot
-cancel a request already in flight. Original activity creation and notification
+retract remote acceptance, although a lost reservation closes the sender's
+live connection. Original activity creation and notification
 enqueue are still separate operations, so this does not yet prove completion of
 a durable Sync effect. Recipient summaries and pause/resume/cancel/retry controls
 are available in Problems → Recovery; see [the operator guide](Recovery.md).
@@ -381,9 +390,12 @@ scan sorted recipient summaries with bounded memory; concurrent writes can
 change counts between reads, and Refresh obtains a new result.
 SMTP DNS, connection, greeting and idle limits are configured in the
 [mail troubleshooting guide](../../Email/Troubleshooting-Mail.md#smtp-timeouts).
-Receipt retention, an absolute delivery deadline with cancellation and
-deployment-wide concurrency policy remain pending. No external mail provider or FerretDB
-was exercised by this implementation's local MongoDB/SMTP tests.
+Receipt retention and atomic activity-to-queue insertion remain pending.
+Cross-process slot contention, crashed-owner reclaim, hung renewal and live
+SMTP cancellation are covered by `tests/integration/emailSendSlots.test.cjs`.
+Set `WEKAN_SYNC_TEST_MONGO_URL` and `WEKAN_SMTP_TEST=1` to run its database and
+local SMTP fixtures. No external mail provider or FerretDB was exercised by
+these local MongoDB/SMTP tests.
 
 Run `tests/integration/emailOutbox.test.cjs` with
 `WEKAN_SYNC_TEST_MONGO_URL` pointing to local disposable MongoDB. For a real app
