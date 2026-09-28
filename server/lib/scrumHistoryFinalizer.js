@@ -1,3 +1,4 @@
+const { scrumHistorySelector, assertScrumHistoryOperation } = require('./scrumHistoryOwnership');
 const { rowHashIsValid } = require('../../models/lib/changeHistoryIntegrity');
 
 // A pending checkpoint must not make an invalidated redo eligible again when
@@ -16,13 +17,12 @@ function verifyScrumHistorySource(current, row, direction) {
 // until the original row's undo/redo state is verified, then delete only this
 // operation's checkpoint. Retry must not move an existing undoneAt timestamp.
 async function finishScrumHistory({ history, pending, row, journal, now = () => new Date() }) {
-  const identity = { _id: row.boardId, operationId: journal.operationId,
-    rowId: row._id, direction: journal.direction, userId: journal.userId };
+  const identity = scrumHistorySelector(journal);
   const fail = () => { throw new Error('Scrum History finalization conflict'); };
   if (!['undo', 'redo', 'restore'].includes(journal.direction) ||
       typeof journal.operationId !== 'string' || !journal.operationId ||
       journal.rowId !== row._id || journal._id !== row.boardId) fail();
-  const owned = async () => { if (!await pending.findOneAsync(identity)) fail(); };
+  const owned = () => assertScrumHistoryOperation(pending, journal);
   const verify = current => verifyScrumHistorySource(current, row, journal.direction);
   await owned();
   let current = await history.findOneAsync(row._id);
@@ -30,6 +30,7 @@ async function finishScrumHistory({ history, pending, row, journal, now = () => 
   if (journal.direction !== 'restore') {
     const undone = journal.direction === 'undo';
     if (current.undone !== undone) {
+      await owned();
       const count = await history.updateAsync({ _id: row._id, boardId: row.boardId,
         userId: row.userId, integrityHash: row.integrityHash,
         superseded: Object.hasOwn(current, 'superseded') ? current.superseded : { $exists: false },

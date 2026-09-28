@@ -23,6 +23,7 @@ const collections = { board: Boards, card: Cards, list: Lists, swimlane: Swimlan
   'scrum-sprint': ScrumSprints, 'scrum-release': ScrumReleases, 'scrum-event': ScrumEvents };
 const { recordScrumRestoreOnce } = require('./scrumHistoryRestoreWriter');
 const { finishScrumHistory, verifyScrumHistorySource } = require('./scrumHistoryFinalizer');
+const { ensureScrumHistoryOperation, assertScrumHistoryOperation } = require('./scrumHistoryOwnership');
 const batches = new AsyncLocalStorage();
 const conflict = () => { throw new Meteor.Error('scrum-conflict', 'Scrum data changed. Reload History before retrying.'); };
 
@@ -159,13 +160,14 @@ export async function applyScrumHistory(row, content, direction) {
       await assertNoPendingScrumImport(row.boardId);
     }
     await assertSource();
-    if (!journal.operationId) {
-      journal.operationId = Random.id();
-      await ScrumHistoryPending.updateAsync(journal._id, { $set: { operationId: journal.operationId } });
-    }
+    journal = await ensureScrumHistoryOperation(ScrumHistoryPending, journal);
+    const assertCurrent = async () => {
+      await assertScrumHistoryOperation(ScrumHistoryPending, journal);
+      await assertSource();
+    };
     await withoutRecording(async () => {
       for (let index = 0; index < targets.length; index += 1) {
-        await assertSource();
+        await assertCurrent();
         const entry = targets[index]; const collection = collections[entry.type];
         const current = await collection.findOneAsync(entry.id);
         const live = historyDocument(entry.type, current);
@@ -176,7 +178,7 @@ export async function applyScrumHistory(row, content, direction) {
         const originalRevision = journal.revisions[index];
         if (current && (current[revisionField] || 0) !== originalRevision) conflict();
         const selector = { _id: entry.id, ...(metadata ? scrumRevisionSelector(current) : { revision: current?.revision }) };
-        await assertSource();
+        await assertCurrent();
         if (!entry.document) {
           if (!await collection.removeAsync(selector)) conflict();
         } else if (metadata) {
@@ -196,7 +198,7 @@ export async function applyScrumHistory(row, content, direction) {
     // are saved. A retry after either write uses the same operation ID.
     const authors = direction === 'restore' ? [...new Set([row.userId, userId])] : [userId];
     for (const author of authors) {
-      await assertSource();
+      await assertCurrent();
       await recordScrumRestoreOnce(ChangeHistory, {
         boardId: row.boardId, swimlaneId: row.swimlaneId, listId: row.listId, cardId: row.cardId,
         entityType: row.entityType, entityId: row.entityId, group: row.group,

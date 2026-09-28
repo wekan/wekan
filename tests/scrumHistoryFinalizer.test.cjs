@@ -1,13 +1,13 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { finishScrumHistory } = require('../server/lib/scrumHistoryFinalizer');
-const { hashHistoryRow } = require('../models/lib/changeHistoryIntegrity');
+const { hashHistoryRow, canonical } = require('../models/lib/changeHistoryIntegrity');
 function fixture(direction = 'undo') {
   const row = { _id: 'row', boardId: 'board', userId: 'author', entityType: 'scrum',
     entityId: 'card', changeType: 'edited', previousContent: {}, newContent: {},
     createdAt: new Date(0), undone: direction === 'redo', undoneAt: null, superseded: false };
   row.integrityHash = hashHistoryRow(row);
-  const journal = { _id: 'board', rowId: 'row', userId: 'author', operationId: 'operation', direction };
+  const journal = { _id: 'board', rowId: 'row', userId: 'author', operationId: 'operation', direction, content: { records: [] }, before: { records: [] }, revisions: [] };
   const state = { current: structuredClone(row), checkpoint: structuredClone(journal), updates: 0,
     deletes: 0, zero: false, lostAck: false, replaceCheckpoint: false };
   const history = {
@@ -25,12 +25,15 @@ function fixture(direction = 'undo') {
   };
   const pending = {
     async findOneAsync(query) {
-      return state.checkpoint && Object.keys(query).every(key => state.checkpoint[key] === query[key])
+      return state.checkpoint && Object.keys(query).every(key => canonical(state.checkpoint[key]) === canonical(query[key]?.$eq ?? query[key]))
         ? structuredClone(state.checkpoint) : null;
     },
     async removeAsync(query) {
       state.deletes++;
-      assert.deepEqual(query, journal);
+      assert.equal(query.operationId, journal.operationId);
+      assert.deepEqual(query.content.$eq, journal.content);
+      assert.deepEqual(query.before.$eq, journal.before);
+      assert.deepEqual(query.revisions.$eq, journal.revisions);
       state.checkpoint = null;
       return 1;
     },
@@ -109,5 +112,13 @@ test('source validation rejects invalidation before mutations while allowing com
     row => { row.newContent = { damaged: true }; }]) {
     const current = structuredClone(f.state.current); mutate(current);
     assert.throws(() => verify(current, f.row, 'redo'), /conflict/);
+  }
+});
+test('same-ID checkpoint replacement cannot authorize finalization or cleanup', async () => {
+  for (const field of ['content', 'before', 'revisions']) {
+    const f = fixture();
+    f.state.checkpoint[field] = field === 'revisions' ? [1] : { records: [{ changed: true }] };
+    await assert.rejects(finishScrumHistory(f), /conflict/);
+    assert.equal(f.state.updates, 0); assert.equal(f.state.deletes, 0);
   }
 });

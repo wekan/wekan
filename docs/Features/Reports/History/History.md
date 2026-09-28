@@ -637,3 +637,24 @@ checks can leave partial work requiring the retained checkpoint. Shared
 operation-level writer coordination and a resolution workflow for superseded
 partial restores remain unfinished. Do not discard the checkpoint merely to
 make the conflict disappear.
+
+### Checkpoint ownership during Scrum recovery
+
+Legacy checkpoints without an operation ID acquire one with a conditional
+update of the captured identity, before/after values and revisions. Concurrent
+workers adopt the first persisted ID; they cannot replace it with a second
+random ID. Lost acknowledgements are reconciled from the unchanged saved plan.
+An invalid or replaced plan fails before recovery can use its identity.
+
+Recovery rechecks ownership together with source validity at entity writes and
+before restoration events. Finalization checks the same plan before updating
+the source undo/redo flag, and checkpoint deletion matches its full captured
+before/after plan and revisions. Reusing the old operation ID on a changed
+checkpoint cannot make an old worker delete the replacement.
+
+Independent MongoDB clients verify concurrent legacy upgrades and replacement
+refusal. Ordinary undo/redo and interrupted legacy recovery remain covered by
+browser tests. These ownership checks retain exact recovery evidence; they do
+not serialize simultaneous workers on the same unchanged plan or make separate
+entity and checkpoint writes atomic. Shared operation-level coordination is
+still required for those guarantees.
