@@ -20,6 +20,26 @@ async function prepareRuleCardDiscussion({ activity, cache, canReadBoard }) {
     cache.getChecklistItems(notDeleted({ cardId: activity.cardId }), { sort: { sort: 1, _id: 1 } }),
     cache.getCardComments(notDeleted({ cardId: activity.cardId, boardId: activity.boardId }), { sort: { createdAt: 1, _id: 1 } }),
   ]);
+  const commentIds = comments.filter(comment => comment.cardId === activity.cardId &&
+    comment.boardId === activity.boardId && !comment.deletedAt && typeof comment._id === 'string').map(comment => comment._id);
+  const reactions = commentIds.length ? await cache.getCardCommentReactions({
+    cardId: activity.cardId, boardId: activity.boardId, cardCommentId: { $in: commentIds },
+  }, { sort: { _id: 1 } }) : [];
+  const allowedComments = new Set(commentIds), reactionsByComment = new Map();
+  for (const row of reactions) {
+    if (row.cardId !== activity.cardId || row.boardId !== activity.boardId || !allowedComments.has(row.cardCommentId)) continue;
+    if (!reactionsByComment.has(row.cardCommentId)) reactionsByComment.set(row.cardCommentId, new Map());
+    const groups = reactionsByComment.get(row.cardCommentId);
+    for (const reaction of Array.isArray(row.reactions) ? row.reactions : []) {
+      if (!reaction || typeof reaction.reactionCodepoint !== 'string' || !/^&#\d{4,6};$/.test(reaction.reactionCodepoint)) continue;
+      const code = Number(reaction.reactionCodepoint.slice(2, -1));
+      if (code < 0x20 || (code >= 0x7f && code <= 0x9f) || code > 0x10ffff || (code >= 0xd800 && code <= 0xdfff)) continue;
+      if (!groups.has(code)) groups.set(code, new Set());
+      for (const id of Array.isArray(reaction.userIds) ? reaction.userIds : []) {
+        if (typeof id === 'string' && id) groups.get(code).add(id);
+      }
+    }
+  }
   const lines = [];
   let bytes = 0;
   const add = value => {
@@ -66,6 +86,10 @@ async function prepareRuleCardDiscussion({ activity, cache, canReadBoard }) {
       }
       dateLine('Edited', comment.modifiedAt, '');
       add(comment.text);
+      const summary = [...(reactionsByComment.get(comment._id) || [])]
+        .filter(([, users]) => users.size).sort(([a], [b]) => a - b)
+        .map(([code, users]) => `${String.fromCodePoint(code)} ${users.size}`);
+      if (summary.length) add(`Reactions: ${summary.join(', ')}`);
     }
   }
   await authorize();

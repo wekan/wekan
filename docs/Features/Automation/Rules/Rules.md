@@ -89,7 +89,9 @@ Email bodies include the configured text and the card's title, description and
 link. Enable **Checklists / Comments** to append live checklist titles, tasks
 and their completion state, checklist/item due dates, checklist completion
 and reset dates/interval, followed by public comment text in chronological
-order with public author names and creation/edit dates. Private webhook state is never included. Card access is rechecked after
+order with public author names and creation/edit dates. Reactions include
+Unicode emoji and distinct-reactor counts, scoped to each included comment;
+reactor IDs and account data are not included. Private webhook state is never included. Card access is rechecked after
 reading; oversized discussion text fails rather than being silently truncated.
 This option is independent of Attachments and is off for existing rules.
 

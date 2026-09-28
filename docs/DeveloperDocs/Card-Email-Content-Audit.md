@@ -14,7 +14,7 @@ This audit compares the current email preparation code with `models/cards.js`,
 | Voting and Poker | Counts, public voter names, completed Poker choices; visibility checked before dispatch | Details/source-binding tests; ordinary and linked-board SMTP |
 | Scrum card metadata | Six visible fields; sprint/release names scoped to source board | Details/source-binding tests; SMTP assertions |
 | Checklists | Titles, item text/completion, checklist/item due dates, completion date, reset interval and last reset | `tests/ruleCardDiscussion.test.cjs`; SMTP assertions |
-| Comments | Public prose, creation/edit dates, public author display name | Discussion unit tests; SMTP assertions |
+| Comments | Public prose, creation/edit dates, public author display name, reaction emoji and distinct counts | Discussion unit tests; SMTP assertions |
 | Files | Selected live attachments become immutable byte snapshots; names and MIME types retained | Filesystem/GridFS SMTP; bounded-stream unit tests |
 | Linked cards | Resolve readable source chain for selected content; detect retargeting and access loss | `tests/ruleEmailSource.test.cjs`; linked-source SMTP |
 | Linked boards | Current board display fields and voting; wrapper discussion/files remain local | Linked-source SMTP and Details tests |
@@ -23,8 +23,6 @@ This audit compares the current email preparation code with `models/cards.js`,
 
 - Checklist `linkedCardId`: render the converted subtask reference only if its
   target remains readable; do not expose an inaccessible target title or ID.
-- Comment reactions: review the reaction collection and render visible emoji
-  and counts with correct comment/card scope. Private webhook state stays out.
 - Attachment presentation metadata: identify the cover attachment and decide
   how to include upload time/uploader alongside the already attached bytes.
 - Legacy Gantt dependency fields: compare `targetId_gantt`, `linkType_gantt` and
@@ -42,8 +40,12 @@ Display preferences, internal Sync provenance/revisions, deletion bookkeeping
 and security/transport state are not prose to serialize wholesale. A new field
 must be classified by its user-visible meaning before adding it to email.
 
-Stored Sync command recovery is a separate unfinished integration: unbound
+Stored Sync command recovery and related-content authorization are unfinished
+integrations: unbound
 legacy commands and uncertain SMTP attempts still require an operator workflow.
-Snapshots are not automatically rewritten or resent. Source bindings cover
+Snapshots are not automatically rewritten or resent. Extend persisted source
+evidence to related-card titles before claiming that cross-board related
+content remains authorized on every retry; the main linked-source chain alone
+does not establish that property. Source bindings cover
 current source identity, access and voting/Scrum disclosure settings; they do
 not establish cross-document transactional consistency.

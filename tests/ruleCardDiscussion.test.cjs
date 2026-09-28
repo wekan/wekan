@@ -9,9 +9,10 @@ function fixture() {
     items: [{ cardId: 'card', checklistId: 'checklist', title: 'Test', isFinished: true },
       { cardId: 'card', checklistId: 'checklist', title: 'Ship', isFinished: false },
       { cardId: 'foreign', checklistId: 'checklist', title: 'Private item' }],
-    comments: [{ cardId: 'card', boardId: 'board', text: 'Ready for review', createdAt: new Date('2026-09-28'), webhookResponsePending: 'PRIVATE' }] };
+    comments: [{ _id: 'comment', cardId: 'card', boardId: 'board', text: 'Ready for review', createdAt: new Date('2026-09-28'), webhookResponsePending: 'PRIVATE' }] };
   const read = name => async selector => { assert.equal(selector.cardId, 'card'); assert.equal(selector.deletedAt, null); return f[name]; };
   f.cache = { getCard: async () => f.card, getBoard: async () => f.board,
+    getCardCommentReactions: async () => [],
     getChecklists: read('checklists'), getChecklistItems: read('items'), getCardComments: read('comments') };
   f.canReadBoard = () => f.allowed;
   return f;
@@ -48,5 +49,28 @@ test('checklist dates, reset schedule and public comment author accompany prose'
   assert.doesNotMatch(text, /PRIVATE|SECRET/);
   f.cache.getUser = async () => null; assert.match(await prepare(f), /Author: Unknown user/);
   f.cache.getUser = async () => { f.allowed = false; return { username: 'author' }; };
+  await assert.rejects(prepare(f), /not-authorized/);
+});
+
+test('reactions are scoped to live comments, decoded as text and count distinct people without exposing IDs', async () => {
+  const f = fixture();
+  f.comments.push({ _id: 'deleted', cardId: 'card', boardId: 'board', deletedAt: new Date(), text: 'SECRET' });
+  f.cache.getCardCommentReactions = async selector => {
+    assert.deepEqual(selector, { cardId: 'card', boardId: 'board', cardCommentId: { $in: ['comment'] } });
+    const row = { cardId: 'card', boardId: 'board', cardCommentId: 'comment', reactions: [
+      { reactionCodepoint: '&#128077;', userIds: ['SECRET-ID', 'other', 'other'] },
+      { reactionCodepoint: '&#10084;', userIds: ['other'] },
+      { reactionCodepoint: '<script>SECRET</script>', userIds: ['other'] },
+      { reactionCodepoint: '&#0000;', userIds: ['other'] },
+      { reactionCodepoint: '&#55296;', userIds: ['other'] },
+      { reactionCodepoint: '&#128578;', userIds: [] }, null,
+    ] };
+    return [row, row, { ...row, boardId: 'foreign' }, { ...row, cardId: 'foreign' },
+      { ...row, cardCommentId: 'deleted' }];
+  };
+  const text = await prepare(f); assert.match(text, /Reactions: ❤ 1, 👍 2/);
+  assert.equal(text.split('Reactions:').length, 2);
+  assert.doesNotMatch(text, /SECRET|script|�|🙂/);
+  f.cache.getCardCommentReactions = async () => { f.allowed = false; return []; };
   await assert.rejects(prepare(f), /not-authorized/);
 });
