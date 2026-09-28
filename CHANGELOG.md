@@ -1277,8 +1277,9 @@ asks for the same thing),
 [#2713](https://github.com/wekan/wekan/issues/2713) (email rules now offer
 optional live-card attachments, with source-access rechecks and verified
 filesystem/GridFS SMTP delivery. The original request also asks for all card
-content: checklists, comments and other fields still need a complete email
-representation, beyond the current title/description/link and custom text),
+content: live checklists and public comments now have an independent opt-in
+mail action choice with SMTP coverage. Other fields, including dates, custom
+fields, text notes and relationships, still need an email representation),
 [#3195](https://github.com/wekan/wekan/issues/3195) (rule action/trigger
 values should be able to reference a custom field's value — today's action
 and trigger value inputs are plain literals; resolving a per-board custom
@@ -1441,9 +1442,10 @@ attempted.),
 now works: a native form checkbox enables authorized live-card file reads,
 immutable byte snapshots and mailer propagation. Filesystem and GridFS delivery
 pass local SMTP tests; live cloud-account validation remains unperformed.
-The bounded snapshot and durable-command checks remain in place. Finish the
-original request's full card-content rendering and its regression coverage
-before closing this issue.).
+The bounded snapshot and durable-command checks remain in place. Checklists
+and public comments can now be included independently, with private webhook
+state excluded. Dates, custom fields, text notes and relationships remain
+before the full card-content request can be closed.).
 
 </details>
 
@@ -1523,6 +1525,25 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/05080fc02">Include checklists and comments in rule emails</a>. Thanks to kabi178, bbyszio and xet7.</summary>
+
+Add an independent Checklists / Comments option to the mail action. Append
+live checklist titles and completion state, followed by chronological public
+comment text. Exclude deleted and foreign rows and never serialize private
+webhook response fields. Recheck source-card access after child reads and
+fail oversized content rather than silently truncating it. Existing rules
+keep their previous body until the new option is enabled.
+
+Thirty-five focused Node suites pass. Two Chromium cases with local SMTP
+capture verify saved configuration, checklist tasks and comments arriving
+alongside filesystem/GridFS attachments, private-field exclusion and removal
+of the extra text when the option is disabled. Source inventory is advisory.
+Keep [#2713](https://github.com/wekan/wekan/issues/2713) open for the remaining
+card metadata, custom fields, text notes and relationships.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/846f19069">Attach card files to rule emails</a>. Thanks to kabi178, bbyszio and xet7.</summary>
