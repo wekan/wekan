@@ -1312,11 +1312,14 @@ now persist privately per user and board, with explicit apply/replace/delete
 and validated restoration of every current control. Clear filters is the last
 panel action. Bundled extensions can now register their sidebar template,
 selector, scoped reset and versioned saved state through one provider API;
-creation/modification recency is the first built-in provider. The later
-cross-project overdue/label request still needs an end-to-end scope audit:
-global search already parses overdue and label predicates, but the new sidebar
-controls and saved combinations operate on one board. Do not treat this as
-proof of the complete cross-board workflow),
+creation/modification recency is the first built-in provider. Cross-project
+overdue/label search now has browser coverage: exact current-time cutoff,
+board-owned label IDs, missing labels and excluded private boards. Sidebar
+saved combinations remain per board. Still unfinished: the RFC explicitly
+requests checkbox/radio selectors. Label/member/assignee/creator and due-date
+choices currently use clickable links, while recency uses select menus;
+provide the requested native control and keyboard semantics while preserving
+label exclusions, existing selection behavior and saved combinations),
 [#572](https://github.com/wekan/wekan/issues/572) (label add/remove as its own
 controllable Notification Settings option - the activity feed entry it asks
 for already exists (`models/cards.js`'s `cardLabels()` hook logs
@@ -1553,6 +1556,26 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0b5ac1c43">Correct overdue and label searches across boards</a>. Thanks to GusevVictor, neooleg and xet7.</summary>
+
+Match labels with their owning board instead of treating copied/imported label
+IDs as globally unique. A red label on one board must not match a blue label
+with the same ID on another. Missing labels return no cards; numeric terms
+retain their card-number alternative. Compare overdue dates with the exact
+search-time instant, including earlier-today deadlines previously lost through
+date-only conversion to UTC midnight. Document global query syntax and scope.
+
+Four Node suites and four Chromium cases pass. The new browser regression
+reproduced the cross-board label mismatch before the fix and now covers color
+and name queries, recent overdue cards, future/undated exclusions, missing
+labels and private-board exclusion. Existing localized overdue and board-access
+regressions also pass. Source inventory warnings remain advisory. Complete the
+cross-board query check from [#935](https://github.com/wekan/wekan/issues/935);
+retain its explicit checkbox/radio UI requirement in TODO Later.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5904f077a">Register extensible card filters with saved state</a>. Thanks to neooleg and xet7.</summary>
