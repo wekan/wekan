@@ -27,14 +27,17 @@ test('registered private storage retains recovery evidence and refuses recreated
  await db.collection('lists').insertOne(list);await db.collection('boards').insertOne({_id:'board'});
  const scope={listId:'list',boardId:'board',incarnation:'life',revision:'revision',sourceKey:syncSourceKey(source)};
  let builds=0,applied=0,interrupted=true;
- const options={scope,intentId:randomUUID(),assertAccess:async()=>true,build:async()=>{builds++;return [{kind:'create',cardId:'card',before:null,
-  after:{_id:'card',boardId:'board',listId:'list',title:'Saved'}}];},apply:async()=>{if(interrupted)throw new Error('interrupted');applied++;return 'applied';}};
+ const options={scope,actorId:'author',intentId:randomUUID(),assertAccess:async current=>{assert.equal(current.userId,'author');return true;},build:async context=>{assert.equal(context.userId,'author');builds++;return [{kind:'create',cardId:'card',before:null,
+  after:{_id:'card',boardId:'board',listId:'list',title:'Saved'}}];},apply:async(step,context)=>{assert.equal(context.userId,'author');if(interrupted)throw new Error('interrupted');applied++;return 'applied';}};
  const run=overrides=>context.runStoredListSyncOperation({...options,...overrides});
  await assert.rejects(run({scope:{...scope,listId:{$ne:null}}}),/invalid.*scope/);
  assert.equal(await db.collection('leases').countDocuments({}),0);
  await assert.rejects(run(),/interrupted/);assert.equal(builds,1);
  const operations=db.collection('listSyncOperations'),steps=db.collection('listSyncOperationSteps'),completions=db.collection('listSyncOperationCompletions');
  assert.equal(await steps.countDocuments({}),1);
+ const intents=db.collection('listSyncOperationIntents');
+ assert.equal((await intents.findOne({_id:options.intentId})).actorId,'author');
+ await assert.rejects(run({actorId:'other',assertAccess:async()=>true}),/intent-conflict/);
  const step=await steps.findOne({index:0});
  await assert.rejects(steps.insertOne({...step,_id:'duplicate'}),error=>error.code===11000);
  for(const change of [{syncCredentialIncarnation:'new-life'},{syncRevision:'new-revision'},{boardId:'other'},
@@ -50,6 +53,10 @@ test('registered private storage retains recovery evidence and refuses recreated
  await assert.rejects(run({assertAccess:async()=>false}),/access-denied/);
  interrupted=false;assert.equal((await run()).total,1);await run();
  assert.equal(applied,1);assert.equal(builds,1);assert.equal(await completions.countDocuments({}),1);
+ await assert.rejects(run({actorId:'other',assertAccess:async()=>true}),/intent-conflict/);
+ const savedIntent=await intents.findOne({_id:options.intentId});await intents.deleteOne({_id:options.intentId});
+ await assert.rejects(run({actorId:'other',assertAccess:async()=>true}),/intent-missing/);
+ await intents.insertOne(savedIntent);
  assert.equal(await steps.countDocuments({}),0);assert.equal(await operations.countDocuments({}),0);
  await db.collection('lists').replaceOne({_id:'list'},{...list,syncCredentialIncarnation:'new-life'});
  await assert.rejects(run(),/scope-changed/);assert.equal(await completions.countDocuments({}),1);

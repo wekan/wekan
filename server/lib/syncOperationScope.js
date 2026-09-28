@@ -4,9 +4,13 @@ const fail = code => { throw Object.assign(new Error(code), { code }); };
 
 // Durable jobs require versioned identities. Legacy lists must establish an
 // incarnation/revision before enqueueing; null cannot distinguish recreation.
-function createSyncOperationScopeGuard({ lists, boards, scope, assertCurrent, assertAccess }) {
+function validateSyncOperationScope(scope) {
   if (!scope || Object.keys(scope).sort().join(',') !== 'boardId,incarnation,listId,revision,sourceKey' ||
       Object.values(scope).some(value => typeof value !== 'string' || !value)) fail('invalid-sync-operation-scope');
+  return { ...scope };
+}
+function createSyncOperationScopeGuard({ lists, boards, scope, assertCurrent, assertAccess }) {
+  scope = validateSyncOperationScope(scope);
   if (typeof assertCurrent !== 'function' || typeof assertAccess !== 'function' ||
       typeof lists?.findOneAsync !== 'function' || typeof boards?.findOneAsync !== 'function') fail('sync-operation-access-required');
   scope = { ...scope };
@@ -30,4 +34,4 @@ function createSyncOperationScopeGuard({ lists, boards, scope, assertCurrent, as
     await assertCurrent();
   };
 }
-module.exports = { createSyncOperationScopeGuard };
+module.exports = { createSyncOperationScopeGuard, validateSyncOperationScope };
