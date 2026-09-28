@@ -82,3 +82,18 @@ test('old effect plans require live enabled defaults; they cannot silently adopt
   completeDelivery:async()=>effectId,readPolicy:async()=>({activities:false,notifications:false})}),/policy-changed/);
  assert.equal(reads,0);
 });
+
+test('the combined card adapter rejects incomplete delivery, foreign actors and stale policy before card access',async()=>{
+ const {applySyncEffectsStep}=require('../server/lib/syncEffects');
+ const effects=createSyncEffectPlanner(options)(step,context);
+ for(const change of [{userId:'other'},{completeDelivery:undefined},
+  {readPolicy:async()=>({activities:false,notifications:false})},
+  {effects:{...effects,activities:null}}]){
+  let accessed=0;
+  const store={findOneAsync:async()=>null,insertAsync:async()=>{},updateAsync:async()=>{}};
+  const cards={findOne:async()=>{accessed++;},insertOne:async()=>{accessed++;},updateOne:async()=>{accessed++;}};
+  await assert.rejects(applySyncEffectsStep({cards,history:store,activities:store,step,effects,...context,userId:'user',
+   assertCurrent:async()=>{},readPolicy:async()=>options.policy,completeDelivery:async()=>effectId,...change}));
+  assert.equal(accessed,0);
+ }
+});

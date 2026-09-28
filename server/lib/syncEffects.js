@@ -1,7 +1,7 @@
 'use strict';
 const { EJSON } = require('bson');
 const { validateSyncEffectPolicy, assertSyncEffectPolicy } = require('./syncEffectPolicy');
-const { syncOperationEffectId } = require('./syncOperationApply');
+const { syncOperationEffectId, applySyncOperationStep } = require('./syncOperationApply');
 const { createSyncHistoryPlanner, validateSyncFieldHistory, persistSyncFieldHistory } = require('./syncHistoryBatch');
 const { prepareSyncCreationActivity, validateSyncCreationActivity, persistSyncCreationActivity } = require('./syncCreationActivity');
 const { prepareSyncUpdateActivities, validateSyncUpdateActivities, persistSyncUpdateActivities } = require('./syncUpdateActivities');
@@ -54,19 +54,24 @@ function planPolicy(plan) {
 // Internal coordinator: callers still supply durable rules/notification
 // delivery and coordinate ordinary hooks. Changed flags pause the saved plan;
 // replay never silently replaces its captured policy with current defaults.
-async function persistSyncEffects({ history, activities, plan, step, effectId, assertCurrent, completeDelivery, readPolicy }) {
+function createEffectGuard({ history, activities, plan, step, effectId, assertCurrent, completeDelivery, readPolicy }) {
   validateSyncEffects(plan, step, effectId);
   const policy = planPolicy(plan);
   if (typeof assertCurrent !== 'function' || typeof readPolicy !== 'function' ||
       !['findOneAsync','insertAsync','updateAsync'].every(key => typeof history?.[key] === 'function') ||
       (policy.activities && (typeof completeDelivery !== 'function' ||
         !['findOneAsync','insertAsync'].every(key => typeof activities?.[key] === 'function')))) fail();
-  plan = copy(plan);
-  const guard = async () => {
+  return async () => {
     await assertCurrent();
     await assertSyncEffectPolicy(policy, readPolicy);
     await assertCurrent();
   };
+}
+async function persistSyncEffects(options) {
+  const { history, activities, step, effectId, completeDelivery } = options;
+  const plan = copy(options.plan);
+  const policy = planPolicy(plan);
+  const guard = createEffectGuard({ ...options, plan });
   await guard();
   await persistSyncFieldHistory({ history, plan: plan.history, assertCurrent: guard });
   if (policy.activities) {
@@ -77,4 +82,18 @@ async function persistSyncEffects({ history, activities, plan, step, effectId, a
   await guard();
   return effectId;
 }
-module.exports = { createSyncEffectPlanner, validateSyncEffects, persistSyncEffects };
+// Apply one saved card unit only after validating its entire effect plan,
+// persisted actor, live feature policy and all required adapters. Ordinary
+// collection hooks and durable delivery remain the production caller's job.
+async function applySyncEffectsStep({ cards, history, activities, step, effects, operationId, index,
+  userId, assertCurrent, completeDelivery, readPolicy }) {
+  const effectId = syncOperationEffectId(operationId, index);
+  const plan = copy(effects), savedStep = copy(step);
+  validateSyncEffects(plan, savedStep, effectId);
+  if (typeof userId !== 'string' || !userId || plan.history.userId !== userId) fail();
+  const options = { history, activities, plan, step: savedStep, effectId, assertCurrent, completeDelivery, readPolicy };
+  const guard = createEffectGuard(options);
+  return applySyncOperationStep({ cards, step: savedStep, operationId, index, assertCurrent: guard,
+    completeEffects: () => persistSyncEffects(options) });
+}
+module.exports = { createSyncEffectPlanner, validateSyncEffects, persistSyncEffects, applySyncEffectsStep };
