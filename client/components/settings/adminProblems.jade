@@ -14,6 +14,7 @@ template(name="adminProblems")
             +fileStatusAudit
           if isPane 'report-recovery'
             +emailRecoveryReports
+            +activityNotificationRecoveryReports
             +syncRecoveryReports
           if loading.get
             +spinner
@@ -283,3 +284,26 @@ template(name="emailRecoveryReportRow")
         button.js-email-queue-action(type="button" data-action="retry" disabled=busy) {{_ 'email-recovery-retry'}}
       if queued
         button.js-email-queue-action(type="button" data-action="cancel" disabled=busy) {{_ 'email-recovery-cancel'}}
+
+
+template(name="activityNotificationRecoveryReports")
+  section.activity-notification-recovery-reports
+    h2 {{_ 'activity-recovery-heading'}}
+    p.quiet {{_ 'activity-recovery-description'}}
+    if error
+      p.error(role="alert") {{error}}
+    if busy
+      p.quiet {{_ 'activity-recovery-retrying'}}
+    +tablePage(tablePageData)
+
+template(name="activityNotificationRecoveryRow")
+  tr(data-intent=intentId)
+    td
+      p {{activityId}}
+      if cardId
+        p.quiet {{_ 'card'}}: {{cardId}}
+    td {{boardId}}
+    td {{_ statusLabel}}
+    td {{createdText}}
+    td
+      button.js-retry-activity-notification(type="button" disabled=retryDisabled) {{_ 'activity-recovery-retry'}}

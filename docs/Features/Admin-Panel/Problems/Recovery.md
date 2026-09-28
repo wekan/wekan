@@ -262,3 +262,25 @@ Recovery report.
   restore requests for automatic retry on restart).
 - FerretDB: `opendb_test.go` (corruption check + bloat `VACUUM`) and
   `msg_replset_test.go` (OpLog cap).
+
+## Pending activity notifications
+
+The pending activity table lists ten summaries per page, with literal searches
+across intent, activity, board and card IDs. It does not return stored activity
+content, recipients, email addresses or rendered messages. Missing or changed
+activities, inconsistent plan metadata and active delivery reservations are
+shown separately. Completed intents disappear from this table.
+
+An enabled administrator can select **Retry now** for a pending delivery or an
+activity waiting for its first recipient plan. The request uses the same
+renewable reservation and receipt identities as automatic recovery. It rechecks
+administrator access during delivery, together with current recipient access
+and notification preferences. A successful retry confirms local tray/email
+queue writes; SMTP delivery is tracked separately in the email queue.
+
+The table's status is a snapshot of recovery metadata. “Pending delivery” does
+not certify the complete stored payload or current recipient permissions;
+retry validates those before each effect and reports a safe failure message.
+Missing or changed activities are never recreated. Holds, cancellation and
+resolution of orphaned intents are not implemented here; unresolved payloads
+remain retained for later operator handling.

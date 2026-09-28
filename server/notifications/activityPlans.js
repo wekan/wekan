@@ -116,8 +116,11 @@ export async function deliverStoredActivityNotifications(activity, dispatchUserI
     return deliverWithinReservation(activity, dispatchUserId, buildContext, assertCurrent);
   });
 }
-export async function resumeActivityNotifications(intentId) {
-  return withSyncLease(ActivityNotificationLeases.rawCollection(), intentId, async ({ assertCurrent }) => {
+export async function resumeActivityNotifications(intentId, { assertAllowed = async () => {} } = {}) {
+  if (typeof assertAllowed !== 'function') throw new Error('activity-recovery-access-guard-required');
+  await assertAllowed();
+  return withSyncLease(ActivityNotificationLeases.rawCollection(), intentId, async ({ assertCurrent: assertOwner }) => {
+    const assertCurrent = async () => { await assertOwner(); await assertAllowed(); };
     await assertCurrent();
     const row = await ActivityNotificationIntents.rawCollection().findOne({ _id: intentId });
     if (!row || row.state !== 'pending') return 'skipped';

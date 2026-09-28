@@ -32,6 +32,15 @@ describe('Activity notification recovery', function () {
       activityNotificationServices.prepareEmail = () => assert.fail('must not rerender stored plan');
       activityNotificationServices.prepareTray = () => assert.fail('must not reselect stored plan');
       activityNotificationServices.email = async job => { calls++; await gate; return saved.email(job); };
+      let accessChecks = 0;
+      await assert.rejects(resumeActivityNotifications(intent._id, {
+        assertAllowed: async () => {
+          if (++accessChecks > 1) throw new Meteor.Error('not-authorized');
+        },
+      }), /not-authorized/);
+      assert.equal(accessChecks, 2);
+      assert.equal(calls, 0, 'revocation inside the reservation prevents delivery');
+      assert.equal(await leases.findOne({ _id: intent._id }), null);
       const running = resumeActivityNotifications(intent._id);
       for (let i = 0; calls === 0 && i < 200; i++) await new Promise(resolve => setTimeout(resolve, 10));
       assert.equal(calls, 1);

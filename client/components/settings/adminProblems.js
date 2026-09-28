@@ -1545,3 +1545,64 @@ Template.emailRecoveryReports.events({
     });
   },
 });
+
+
+Template.activityNotificationRecoveryReports.onCreated(function () {
+  this.result = new ReactiveVar({ rows: [], total: 0, page: 1 });
+  this.search = new ReactiveVar(''); this.error = new ReactiveVar('');
+  this.actionError = new ReactiveVar(''); this.busy = new ReactiveVar(false);
+  this.request = 0;
+  this.load = (page = 1) => {
+    const request = ++this.request;
+    this.result.set({ rows: [], total: 0, page });
+    Meteor.call('activityNotificationRecoveryReport', { search: this.search.get(), page }, (error, result) => {
+      if (this.view.isDestroyed || request !== this.request) return;
+      this.error.set(error ? TAPi18n.__('activity-recovery-unavailable') : '');
+      if (!error) this.result.set(result);
+    });
+  };
+  this.load();
+});
+Template.activityNotificationRecoveryReports.helpers({
+  error() { const t = Template.instance(); return t.actionError.get() || t.error.get(); },
+  busy() { return Template.instance().busy.get(); },
+  tablePageData() {
+    const t = Template.instance(), result = t.result.get();
+    const info = pageInfo(result.total, result.page, TABLE_PAGE_ROWS_PER_PAGE);
+    return { header: buildHeader([{ labelKey: 'activity' }, { labelKey: 'board' }, { labelKey: 'status' },
+      { labelKey: 'date' }, { labelKey: 'actions' }]),
+    rowTemplate: 'activityNotificationRecoveryRow', emptyKey: 'activity-recovery-empty',
+    docs: result.rows.map(row => ({ ...row, statusLabel: `activity-recovery-status-${row.status}`,
+      createdText: row.createdAt ? formatDate(row.createdAt) : '—', retryDisabled: t.busy.get() || !row.canRetry })),
+    rowCount: result.rows.length, total: result.total, searchTerm: t.search.get(),
+    page: info.page, totalPages: info.totalPages, hasPrev: info.hasPrev, hasNext: info.hasNext,
+    actions: [{ id: 'refresh-activity-notifications', labelKey: 'refresh' }] };
+  },
+});
+Template.activityNotificationRecoveryReports.events({
+  'keydown .js-table-page-search'(event, t) {
+    event.stopPropagation();
+    if (event.key === 'Enter') { event.preventDefault(); t.search.set(event.currentTarget.value.trim().slice(0, 100)); t.load(); }
+  },
+  'click .js-table-page-action'(event, t) {
+    event.preventDefault(); event.stopPropagation(); t.actionError.set(''); t.load();
+  },
+  'click .js-table-page-prev, click .js-table-page-next'(event, t) {
+    event.preventDefault(); event.stopPropagation();
+    const result = t.result.get();
+    const next = adjacentPage(result.total, result.page, event.currentTarget.classList.contains('js-table-page-next') ? 1 : -1, TABLE_PAGE_ROWS_PER_PAGE);
+    if (next !== result.page) t.load(next);
+  },
+  'click .js-retry-activity-notification'(event, t) {
+    event.preventDefault(); event.stopPropagation();
+    if (t.busy.get() || !this.canRetry) return;
+    t.busy.set(true); t.actionError.set('');
+    Meteor.call('retryActivityNotification', { intentId: this.intentId }, error => {
+      if (t.view.isDestroyed) return;
+      t.busy.set(false);
+      const known = ['activity-recovery-busy', 'activity-recovery-denied', 'activity-recovery-source-unavailable', 'activity-recovery-disabled'];
+      if (error) t.actionError.set(TAPi18n.__(known.includes(error.error) ? error.error : 'activity-recovery-failed'));
+      t.load(t.result.get().page);
+    });
+  },
+});

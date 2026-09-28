@@ -1,0 +1,61 @@
+'use strict';
+const { canonical, sha256 } = require('../../models/lib/changeHistoryIntegrity');
+const { planId } = require('./activityNotificationPlan');
+const text = value => typeof value === 'string' && value.length > 0 && value.length <= 1024;
+const hash = value => typeof value === 'string' && /^[a-f0-9]{64}$/.test(value);
+const escape = value => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const date = value => value instanceof Date && Number.isFinite(+value) ? value : null;
+
+// Ten summaries only. Rendered email payloads and saved activity snapshots are
+// not selected. Current activity content is hashed on the server to detect
+// changed input; neither that content nor recipient/mailbox data is returned.
+async function activityNotificationReport({ intents, activities, plans, leases, now = () => new Date() }, { search = '', page = 1 } = {}) {
+  if (typeof search !== 'string' || search.length > 100 || !Number.isSafeInteger(page) || page < 1 || page > 100000) {
+    throw new Error('invalid-activity-notification-report');
+  }
+  const pattern = search.trim() ? new RegExp(escape(search.trim()), 'i') : null;
+  const query = { state: 'pending', ...(pattern ? { $or: ['_id', 'activity._id', 'activity.boardId', 'activity.cardId']
+    .map(key => ({ [key]: pattern })) } : {}) };
+  const total = await intents.countDocuments(query);
+  page = Math.min(page, Math.max(1, Math.ceil(total / 10)));
+  const pending = await intents.find(query, { projection: { _id: 1, version: 1, state: 1, activityHash: 1,
+    writerId: 1, dispatchUserId: 1, 'activity._id': 1, 'activity.createdAt': 1, 'activity.boardId': 1, 'activity.cardId': 1 } })
+    .sort({ _id: 1 }).skip((page - 1) * 10).limit(10).toArray();
+  const rows = [];
+  for (const row of pending) {
+    const activityId = text(row.activity?._id) ? row.activity._id : '';
+    const item = { intentId: hash(row._id) ? row._id : '', activityId,
+      boardId: text(row.activity?.boardId) ? row.activity.boardId : '',
+      cardId: text(row.activity?.cardId) ? row.activity.cardId : '',
+      createdAt: date(row.activity?.createdAt), status: 'invalid', canRetry: false };
+    const valid = item.intentId && activityId && row.version === 1 && hash(row.activityHash) && text(row.writerId) &&
+      (row.dispatchUserId === null || text(row.dispatchUserId)) &&
+      row._id === sha256(canonical(['activity-notification-intent', activityId]));
+    if (valid) {
+      const lease = await leases.findOne({ _id: row._id }, { projection: { _id: 1, expiresAt: 1 } });
+      if (date(lease?.expiresAt) && lease.expiresAt > now()) item.status = 'processing';
+      else {
+        const activity = await activities.findOne({ _id: activityId });
+        if (!activity) item.status = 'missing';
+        else {
+          let unchanged = false;
+          try { unchanged = sha256(canonical(activity)) === row.activityHash; } catch (error) { /* Invalid stored BSON cannot authorize retry. */ }
+          if (!unchanged) item.status = 'changed';
+          else {
+            const plan = await plans.findOne({ _id: planId(activityId) }, { projection: { _id: 1, checksum: 1, compactReceiptVersion: 1,
+              'plan.version': 1, 'plan.activityId': 1, 'plan.activityHash': 1, 'plan.dispatchUserId': 1 } });
+            if (!plan) item.status = 'preparing';
+            else if (plan.compactReceiptVersion !== undefined || !hash(plan.checksum) || plan.plan?.version !== 1 ||
+                plan.plan.activityId !== activityId || plan.plan.activityHash !== row.activityHash || plan.plan.dispatchUserId !== row.dispatchUserId) {
+              item.status = 'inconsistent';
+            } else item.status = 'pending';
+          }
+        }
+      }
+      item.canRetry = ['pending', 'preparing'].includes(item.status);
+    }
+    rows.push(item);
+  }
+  return { total, page, rows };
+}
+module.exports = { activityNotificationReport };

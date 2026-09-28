@@ -336,6 +336,7 @@ import '/server/checklistResetSchedule';
 import '/server/listSync';
 import '/server/methods/listSync';
 import '/server/methods/emailRecovery';
+import '/server/methods/activityNotificationRecovery';
 import '/server/methods/wipLimitGroups';
 import '/server/rulesButton';
 
