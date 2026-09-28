@@ -1305,13 +1305,6 @@ this-week/next-week/no-date states; the remaining gap is filtering by
 `createdAt`/`receivedAt`/`endAt` rather than only `dueAt`, which needs a
 decision on whether to generalize `DateFilter` to a chosen date FIELD or add
 one `DateFilter` per date field, since today's UI hard-codes "due date"),
-[#1499](https://github.com/wekan/wekan/issues/1499) now has a list-specific
-rolling age filter and server-recorded `listEnteredAt` for new cards and moves.
-**Historical backfill remains:** reconstruct legacy cards' current-list entry
-from trustworthy move activities, with conditional writes that cannot replace
-a concurrent move. Missing or contradictory history must stay unknown and
-visible, rather than substituting creation/last-edit dates. Verify ordinary,
-cross-board and repeated moves before calling the full request complete.
 [#935](https://github.com/wekan/wekan/issues/935) (filter cards by date or
 tag - dated 2017; labels are already filterable and `Filter.dueAt` covers
 due-date ranges, but "moved on a specific date" would need a per-activity
@@ -1555,6 +1548,33 @@ secrets, and reviewed **translations** regain their target-language meaning.
 This release improves security diagnostics:
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/800ec4e95">Recover legacy card column ages from recorded movement history</a>. Thanks to grasshide and xet7.</summary>
+
+Complete the historical portion of
+[#1499](https://github.com/wekan/wekan/issues/1499). The versioned background
+startup repair scans missing/null entry dates in card batches and streams each
+history without an event-count cutoff. Recover the latest consistent stay in
+the current board/list, including repeated moves and known cross-board entries.
+Keep missing, contradictory, ambiguous or incomplete evidence unknown and
+visible. Do not substitute creation or last-edit timestamps for move history.
+
+Conditional writes preserve a concurrent move's date and reject changed
+placement or edit timestamps. Interrupted writes are idempotent; unresolved
+concurrent changes keep the migration pending for the next startup. Persist
+restored, unknown, raced and pending counts in the repair status. Include
+archived cards and boards, and document the startup-repair opt-out.
+
+Six focused Node suites pass, including eleven new inference, startup and real
+MongoDB cases. Coverage includes more than one card batch, long histories,
+independent-client write races, retry after a lost reply and startup markers.
+Both list-age Chromium cases pass; the recovery case also passes after the
+final streaming change. The source audit has advisory warnings. Remove the
+completed historical-backfill item from TODO Later. Dates absent from the
+recorded history remain unrecoverable and visible by design.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/0542a239f">Track column entry time and hide old cards in a selected list</a>. Thanks to grasshide and xet7.</summary>
 
 Record `listEnteredAt` on card creation and real board/list changes, in the
@@ -1568,8 +1588,9 @@ Eleven Node suites, one full-app timestamp test and one Chromium case pass.
 Coverage includes date validation, filter combination and reset, timer cleanup,
 real moves, unrelated edits, rejected writes and keeping unknown ages visible.
 Add English labels and user documentation. The source audit has advisory
-warnings only. Keep historical move-activity backfill in TODO Later for
-[#1499](https://github.com/wekan/wekan/issues/1499); the request is not closed.
+warnings only. Historical move-activity backfill for
+[#1499](https://github.com/wekan/wekan/issues/1499) is covered by the recovery
+entry above.
 
 </details>
 
