@@ -381,3 +381,20 @@ recreating a payload or declaring delivery successful. Missing or malformed
 cancellation evidence keeps report actions disabled. Corrupt/mismatched
 payloads are retained for investigation rather than erased. Ordinary pending
 or merely paused work is not expired or automatically cancelled.
+
+
+### Stored rule email attempts
+
+The **Rule email delivery** table shows ten attempts per page. Search matches
+literal command, invocation or attempt IDs. Filter by all attempts, unconfirmed
+attempts or messages accepted by the mail server. Refresh keeps the current
+page; changing the search or status starts at the first page.
+
+Only enabled administrators can read the report. It contains identifiers,
+start/confirmation timestamps and delivery status, without message bodies or
+recipient addresses. Invalid attempt metadata is marked explicitly.
+
+**Unconfirmed** can mean delivery is still running or was interrupted. It does
+not prove that the recipient received nothing. **Accepted by mail server**
+records transport acceptance, not inbox delivery. This table provides no retry,
+cancel or acknowledgement control; operator resolution remains unfinished.

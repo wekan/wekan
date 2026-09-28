@@ -1635,3 +1635,56 @@ Template.activityNotificationRecoveryReports.events({
     });
   },
 });
+
+
+Template.syncRuleEmailRecoveryReports.onCreated(function () {
+  this.result = new ReactiveVar({ rows: [], total: 0, page: 0, pageSize: 10 });
+  this.search = new ReactiveVar(''); this.status = new ReactiveVar('all');
+  this.error = new ReactiveVar(''); this.request = 0;
+  this.load = (page = 0) => {
+    const request = ++this.request;
+    this.error.set('');
+    this.result.set({ rows: [], total: 0, page, pageSize: 10 });
+    Meteor.call('syncRuleEmailRecoveryReport', { search: this.search.get(), status: this.status.get(), page }, (error, result) => {
+      if (this.view.isDestroyed || request !== this.request) return;
+      this.error.set(error ? TAPi18n.__('rule-email-recovery-unavailable') : '');
+      if (!error) this.result.set(result);
+    });
+  };
+  this.load();
+});
+Template.syncRuleEmailRecoveryReports.helpers({
+  error() { return Template.instance().error.get(); },
+  tablePageData() {
+    const t = Template.instance(), result = t.result.get();
+    // The report API is zero-based; the shared table controls are one-based.
+    const info = pageInfo(result.total, result.page + 1, result.pageSize);
+    return { header: buildHeader([{ labelKey: 'rule-email-recovery-identifiers' }, { labelKey: 'status' },
+      { labelKey: 'rule-email-recovery-started' }, { labelKey: 'rule-email-recovery-finished' }]),
+      rowTemplate: 'syncRuleEmailRecoveryRow', emptyKey: 'rule-email-recovery-empty',
+      docs: result.rows.map(row => ({ ...row, statusLabel: `rule-email-recovery-${row.status}`,
+        startedText: row.startedAt ? formatDate(row.startedAt) : '—', finishedText: row.finishedAt ? formatDate(row.finishedAt) : '—' })),
+      rowCount: result.rows.length, total: result.total, searchTerm: t.search.get(),
+      page: info.page, totalPages: info.totalPages, hasPrev: info.hasPrev, hasNext: info.hasNext,
+      actions: [{ id: 'refresh-rule-email', labelKey: 'refresh' }] };
+  },
+});
+Template.syncRuleEmailRecoveryReports.events({
+  'keydown .js-table-page-search'(event, t) {
+    event.stopPropagation();
+    if (event.key === 'Enter') { event.preventDefault(); t.search.set(event.currentTarget.value.trim().slice(0, 128)); t.load(); }
+  },
+  'change .js-rule-email-status'(event, t) {
+    event.stopPropagation(); t.status.set(event.currentTarget.value); t.load();
+  },
+  'click .js-table-page-action'(event, t) {
+    event.preventDefault(); event.stopPropagation(); t.load(t.result.get().page);
+  },
+  'click .js-table-page-prev, click .js-table-page-next'(event, t) {
+    event.preventDefault(); event.stopPropagation();
+    const result = t.result.get();
+    const page = adjacentPage(result.total, result.page + 1,
+      event.currentTarget.classList.contains('js-table-page-next') ? 1 : -1, result.pageSize) - 1;
+    if (page !== result.page) t.load(page);
+  },
+});

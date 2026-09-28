@@ -15,6 +15,7 @@ template(name="adminProblems")
           if isPane 'report-recovery'
             +emailRecoveryReports
             +activityNotificationRecoveryReports
+            +syncRuleEmailRecoveryReports
             +syncRecoveryReports
           if loading.get
             +spinner
@@ -312,3 +313,28 @@ template(name="activityNotificationRecoveryRow")
       button.js-cancel-activity-notification(type="button" disabled=controlDisabled) {{_ 'activity-recovery-cancel'}}
       button.js-control-activity-notification(type="button" disabled=controlDisabled) {{_ controlLabel}}
       button.js-retry-activity-notification(type="button" disabled=retryDisabled) {{_ 'activity-recovery-retry'}}
+
+
+template(name="syncRuleEmailRecoveryReports")
+  section.sync-rule-email-recovery-reports
+    h2 {{_ 'rule-email-recovery-heading'}}
+    p.quiet {{_ 'rule-email-recovery-description'}}
+    label
+      | {{_ 'status'}}
+      select.js-rule-email-status
+        option(value="all") {{_ 'rule-email-recovery-all'}}
+        option(value="unconfirmed") {{_ 'rule-email-recovery-unconfirmed'}}
+        option(value="sent") {{_ 'rule-email-recovery-sent'}}
+    if error
+      p.error(role="alert") {{error}}
+    +tablePage(tablePageData)
+
+template(name="syncRuleEmailRecoveryRow")
+  tr(data-command=commandId)
+    td.rule-email-recovery-identifiers
+      p {{commandId}}
+      p.quiet {{invocationId}}
+      p.quiet {{attemptId}}
+    td {{_ statusLabel}}
+    td {{startedText}}
+    td {{finishedText}}

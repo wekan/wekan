@@ -45,3 +45,8 @@
 .file-status-audit-actions { display: flex; flex-wrap: wrap; gap: .5rem; }
 .file-status-audit-actions button { margin: 0; min-height: 34px; }
 .file-status-audit pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+
+.rule-email-recovery-identifiers {
+  overflow-wrap: anywhere;
+  max-width: 32rem;
+}
