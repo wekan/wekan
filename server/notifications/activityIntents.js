@@ -16,6 +16,6 @@ const options = (activity, dispatchUserId) => ({ activity, dispatchUserId,
 export function captureActivityNotificationIntent(activity, dispatchUserId) {
   return ensureActivityNotificationIntent(options(activity, dispatchUserId ?? null));
 }
-export function acknowledgeActivityNotifications(activity, dispatchUserId) {
-  return completeActivityNotificationIntent(options(activity, dispatchUserId ?? null));
+export function acknowledgeActivityNotifications(activity, dispatchUserId, assertCurrent = async () => {}) {
+  return completeActivityNotificationIntent({ ...options(activity, dispatchUserId ?? null), assertCurrent });
 }

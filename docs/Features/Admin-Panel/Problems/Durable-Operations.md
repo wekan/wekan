@@ -456,14 +456,36 @@ completion-write failure retains pending evidence. The collection has no
 client publication, rejects member/admin DDP writes and has no TTL. Webhooks
 remain independent and nonblocking; completion is not SMTP acceptance.
 
-There is no background recovery worker yet. Pending evidence survives a crash,
-but is not replayed automatically. Plans currently retain rendered content
-even after successful enqueue. Startup scanning, cross-process ownership,
-orphan/operator controls and plan/pending-payload retention must still be
-integrated before claiming durable activity-to-queue completion. Plans are
-private, reject direct member/admin DDP writes and have no TTL. Limit each
-plan to 10,000 recipients and 14 MiB, checking size while preparing recipients;
-oversized preparation leaves the intent pending without delivering a prefix.
+Each process now scans pending intents after startup and every second after
+the previous pass finishes. Set `ACTIVITY_NOTIFICATION_RECOVERY_INTERVAL_MS`
+to an integer from 1000 to 60000 to change the interval. A pass selects at
+most 100 IDs, then loads one private payload at a time. Keyset pagination
+advances past failed, busy or orphaned records; overlapping local scans share
+one pass. Failed storage scans retry on the next timer.
+
+Immediate delivery and recovery acquire the same per-intent reservation in
+`activityNotificationLeases`. Reservations renew every 15 seconds and expire
+after 60 seconds, permitting another process to reclaim a crashed owner's
+work. Guards check ownership during preparation, before service writes and
+before completion. Former owners cannot delete successor reservations. These
+are renewable reservations, not cross-collection transactions; stable service
+identities still make uncertain writes safe to retry. Keep server clocks
+synchronized.
+
+Recovery uses an existing plan without rebuilding recipients or content. If
+a crash happened after activity persistence but before planning, it prepares
+the first plan from that exact retained activity and current permitted
+context. It never recreates missing activities or reruns activity rule and
+webhook hooks. Missing/changed activities, invalid plans and revoked access
+remain pending for later review. Completed intents are skipped.
+
+Plans currently retain rendered content even after successful enqueue.
+Operator/orphan controls and plan/pending-payload retention remain unfinished.
+Plans and reservations are private, reject direct member/admin DDP writes and
+have no TTL. Limit each plan to 10,000 recipients and 14 MiB, checking size
+while preparing recipients; oversized preparation leaves the intent pending
+without delivering a prefix. This recovers local tray/email enqueue only;
+full card/History/activity/Sync effect coordination remains separate work.
 
 `tests/integration/activityNotificationIntent.test.cjs` uses a real MongoDB
 with `WEKAN_SYNC_TEST_MONGO_URL`. It covers write ordering, uncertain replies,
@@ -482,3 +504,11 @@ real tray storage and real email enqueue, then retries the same plan. The
 full-app intent suite verifies that disabled recipients stop replay and that
 resume does not invoke rendering or recipient selection again. Chromium
 checks persisted plans against actual delivered mail and denies client writes.
+
+`tests/integration/activityNotificationRecovery.test.cjs` verifies bounded
+scan progress past failures, local coalescing, competing reservations, expired
+owner reclaim and successor preservation. The full-app recovery suite uses
+the real private collections and email enqueue adapter. Chromium tests seed
+persisted intents with and without saved plans, then observe scheduled SMTP
+delivery without invoking a notification hook; a missing activity remains an
+orphan and is never recreated. These local tests do not run FerretDB.

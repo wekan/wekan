@@ -91,3 +91,5 @@ import './smtpDeadline.tests';
 import './emailReceiptRetention.tests';
 
 import './activityNotificationIntent.tests';
+
+import './activityNotificationRecovery.tests';

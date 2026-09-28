@@ -5,6 +5,7 @@ import Boards from '/models/boards';
 import Cards from '/models/cards';
 import Lists from '/models/lists';
 import Settings from '/models/settings';
+import { ensureIndex } from '/server/lib/mongoStartup';
 import { getFeatureFlags } from '/models/lib/featureFlags';
 import { resolveNotificationSetting } from '/models/lib/notificationSettings';
 import { prepareActivityEmail } from './email';
@@ -14,13 +15,17 @@ import { emailOutbox } from './emailQueue';
 import { ActivityNotificationIntents, acknowledgeActivityNotifications } from './activityIntents';
 const { EJSON, calculateObjectSize } = require('bson');
 const { ensureActivityNotificationPlan, deliverActivityNotificationPlan } = require('/server/lib/activityNotificationPlan');
-const { readActivityForNotificationIntent } = require('/server/lib/activityNotificationIntent');
+const { withSyncLease } = require('/server/lib/syncLease');
+const { createActivityNotificationRecovery, activityNotificationRecoveryInterval } = require('/server/lib/activityNotificationRecovery');
+const { readActivityForNotificationIntent, readActivityNotificationIntentState } = require('/server/lib/activityNotificationIntent');
 const { canonical, sha256 } = require('/models/lib/changeHistoryIntegrity');
 const { boardNotificationRecipients } = require('/models/lib/boardNotificationRecipients');
 const { isAssignedOnlyMember } = require('/models/lib/boardCardScope');
 
 export const ActivityNotificationPlans = new Mongo.Collection('activityNotificationPlans');
 ActivityNotificationPlans.deny({ insert: () => true, update: () => true, remove: () => true });
+export const ActivityNotificationLeases = new Mongo.Collection('activityNotificationLeases');
+ActivityNotificationLeases.deny({ insert: () => true, update: () => true, remove: () => true });
 // Named service adapters also make real-hook failure injection possible without
 // changing the public subscriber registry used by non-activity notifications.
 export const activityNotificationServices = {
@@ -56,15 +61,16 @@ async function eligible(activity, userId, service) {
     throw error;
   }
 }
-export async function deliverStoredActivityNotifications(activity, dispatchUserId, buildContext) {
+async function deliverWithinReservation(activity, dispatchUserId, buildContext, assertCurrent) {
   activity = EJSON.parse(EJSON.stringify(activity), { relaxed: true });
   dispatchUserId ??= null;
   const intentId = sha256(canonical(['activity-notification-intent', activity._id]));
   async function guard() {
+    await assertCurrent();
     if (getFeatureFlags().disableNotifications || getFeatureFlags().disableActivities) throw new Error('activity-notifications-disabled');
     await readActivityForNotificationIntent({ intents: ActivityNotificationIntents.rawCollection(),
       activities: Activities.rawCollection(), intentId, expectedActivity: activity, expectedDispatchUserId: dispatchUserId,
-      assertCurrent: async () => {} });
+      assertCurrent });
   }
   const plan = await ensureActivityNotificationPlan({ plans: ActivityNotificationPlans.rawCollection(), activity, dispatchUserId,
     assertCurrent: guard, build: async () => {
@@ -90,5 +96,45 @@ export async function deliverStoredActivityNotifications(activity, dispatchUserI
   await deliverActivityNotificationPlan({ plan, activity, dispatchUserId, assertCurrent: guard,
     assertAccess: (userId, service) => assertAccess(activity, userId, service),
     tray: activityNotificationServices.tray, email: activityNotificationServices.email });
-  await acknowledgeActivityNotifications(activity, dispatchUserId);
+  await acknowledgeActivityNotifications(activity, dispatchUserId, assertCurrent);
+  return 'completed';
 }
+
+const intentIdFor = activityId => sha256(canonical(['activity-notification-intent', activityId]));
+export async function deliverStoredActivityNotifications(activity, dispatchUserId, buildContext) {
+  activity = EJSON.parse(EJSON.stringify(activity), { relaxed: true });
+  dispatchUserId ??= null;
+  return withSyncLease(ActivityNotificationLeases.rawCollection(), intentIdFor(activity._id), async ({ assertCurrent }) => {
+    const state = await readActivityNotificationIntentState({ intents: ActivityNotificationIntents.rawCollection(),
+      activity, dispatchUserId, assertCurrent });
+    if (state === 'completed') return 'completed';
+    return deliverWithinReservation(activity, dispatchUserId, buildContext, assertCurrent);
+  });
+}
+export async function resumeActivityNotifications(intentId) {
+  return withSyncLease(ActivityNotificationLeases.rawCollection(), intentId, async ({ assertCurrent }) => {
+    await assertCurrent();
+    const row = await ActivityNotificationIntents.rawCollection().findOne({ _id: intentId });
+    if (!row || row.state !== 'pending') return 'skipped';
+    const activity = await readActivityForNotificationIntent({ intents: ActivityNotificationIntents.rawCollection(),
+      activities: Activities.rawCollection(), intentId, assertCurrent });
+    // Load lazily to avoid a module cycle with the ordinary after.insert hook.
+    const { prepareActivityNotification } = require('/server/models/activities');
+    return deliverWithinReservation(activity, row.dispatchUserId,
+      () => prepareActivityNotification(row.dispatchUserId, activity), assertCurrent);
+  });
+}
+export const recoverActivityNotifications = createActivityNotificationRecovery({
+  intents: ActivityNotificationIntents.rawCollection(), run: resumeActivityNotifications,
+});
+const recoveryInterval = activityNotificationRecoveryInterval();
+Meteor.startup(async () => {
+  await ensureIndex(ActivityNotificationIntents, { state: 1, _id: 1 });
+  async function scan() {
+    try { await recoverActivityNotifications(); }
+    catch (error) { console.error('Activity notification recovery scan failed; pending evidence retained'); }
+    finally { Meteor.setTimeout(scan, recoveryInterval); }
+  }
+  // Begin asynchronously after installing the pending-work index.
+  Meteor.setTimeout(scan, recoveryInterval);
+});

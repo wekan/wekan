@@ -117,4 +117,13 @@ async function completeActivityNotificationIntent({ intents, activities, activit
   await assertCurrent();
   return row._id;
 }
-module.exports = { completeActivityNotificationIntent, ensureActivityNotificationIntent, persistActivityWithNotificationIntent, readActivityForNotificationIntent };
+async function readActivityNotificationIntentState({ intents, activity, dispatchUserId = activity.userId ?? null, assertCurrent }) {
+  validateActivity(activity);
+  if (typeof assertCurrent !== 'function') fail();
+  await assertCurrent();
+  const row = await intents.findOne({ _id: identity(activity)._id });
+  validateIntent(row, activity, dispatchUserId);
+  await assertCurrent();
+  return row.state;
+}
+module.exports = { readActivityNotificationIntentState, completeActivityNotificationIntent, ensureActivityNotificationIntent, persistActivityWithNotificationIntent, readActivityForNotificationIntent };

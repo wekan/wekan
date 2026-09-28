@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { Random } from 'meteor/random';
 import Activities from '/models/activities';
 import { ActivityNotificationIntents } from '/server/notifications/activityIntents';
-import { ActivityNotificationPlans, activityNotificationServices, deliverStoredActivityNotifications } from '/server/notifications/activityPlans';
+import { ActivityNotificationPlans, ActivityNotificationLeases, activityNotificationServices, deliverStoredActivityNotifications } from '/server/notifications/activityPlans';
 const { idFor } = require('/server/lib/emailReceiptIdentity');
 import { Notifications } from '/server/notifications/notifications';
 import { RulesHelper } from '/server/rulesHelper';
@@ -54,6 +54,7 @@ describe('Activity notification intent hooks', function () {
       await until(async () => (await intents.findOne({ _id: intentIds[0] }))?.state === 'completed');
       assert.equal((await intents.findOne({ _id: intentIds[0] })).activity, undefined);
       assert.equal((await intents.findOne({ _id: intentIds[1] })).state, 'pending');
+      await until(async () => !await ActivityNotificationLeases.rawCollection().findOne({ _id: intentIds[1] }));
       const interrupted = await intents.findOne({ _id: intentIds[1] });
       const savedPlan = await ActivityNotificationPlans.rawCollection().findOne({ 'plan.activityId': ids[1] });
       assert.equal(savedPlan.plan.recipients[0].email.html, 'saved');

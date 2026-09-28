@@ -174,7 +174,7 @@ test('legacy email buffer is migrated and delivered without a new board event', 
 test('clients cannot create or alter private email jobs and recipient leases', async ({ page, user, adminUser }) => {
   for (const actor of [user, adminUser]) {
     await loginWithToken(page, actor.id, actor.token);
-    for (const collection of ['notificationEmailJobs', 'notificationEmailLeases', 'notificationEmailControls', 'notificationEmailCommands', 'notificationEmailSendSlots', 'activityNotificationIntents', 'activityNotificationPlans']) {
+    for (const collection of ['notificationEmailJobs', 'notificationEmailLeases', 'notificationEmailControls', 'notificationEmailCommands', 'notificationEmailSendSlots', 'activityNotificationIntents', 'activityNotificationPlans', 'activityNotificationLeases']) {
       const id = db.uid('private-email');
       const errors = await page.evaluate(async ({ collection, id }) => {
         const errors = [];
@@ -211,6 +211,84 @@ test('a queued digest is cancelled when its recipient loses board membership', a
     expect(sink.messages.some(mail => mail.recipients.includes(user2.email))).toBe(false);
   } finally {
     db.deleteMany('notificationEmailJobs', { _id: id });
+    await sink.close();
+  }
+});
+
+test('background recovery delivers a persisted plan without a new activity and preserves missing-activity orphans', async ({ user2 }) => {
+  test.skip(!process.env.WEKAN_TEST_SMTP_PORT, 'Requires the app to use the local SMTP capture port');
+  const { canonical, sha256 } = require('../../../models/lib/changeHistoryIntegrity');
+  const { randomUUID } = require('node:crypto');
+  const sink = await smtpSink(Number(process.env.WEKAN_TEST_SMTP_PORT));
+  const eventIds = [db.uid('resume-event'), db.uid('orphan-event')];
+  const intentIds = [], planIds = [];
+  try {
+    db.updateOne('users', { _id: user2.id }, { $set: { 'profile.notifyOverrideEmail': true } });
+    for (const [index, eventId] of eventIds.entries()) {
+      const activity = { _id: eventId, activityType: 'createCard', userId: user2.id,
+        createdAt: new Date('2026-01-01'), modifiedAt: new Date('2026-01-01') };
+      const intentId = sha256(canonical(['activity-notification-intent', eventId])); intentIds.push(intentId);
+      const planId = sha256(canonical(['activity-notification-plan', eventId])); planIds.push(planId);
+      const plan = { version: 1, activityId: eventId, activityHash: sha256(canonical(activity)), dispatchUserId: null,
+        recipients: [{ userId: user2.id, tray: false, email: { userId: user2.id, eventId, subject: 'Persisted recovery mail',
+          html: `Frozen recovery body ${index}`, language: 'en', boardId: null, cardId: null } }] };
+      // Seed an already persisted plan and a crashed owner's reservation before
+      // exposing pending work to the scheduler. No notification hook is invoked.
+      db.insertOne('activityNotificationPlans', { _id: planId, checksum: sha256(canonical(plan)), plan });
+      if (index === 0) db.insertOne('activities', activity);
+      db.insertOne('activityNotificationLeases', { _id: intentId, owner: 'crashed-worker', expiresAt: new Date(0) });
+      db.insertOne('activityNotificationIntents', { _id: intentId, version: 1, state: 'pending', activity,
+        activityHash: plan.activityHash, dispatchUserId: null, writerId: randomUUID() });
+    }
+    await expect.poll(() => sink.messages.filter(mail => mail.recipients.includes(user2.email)).length,
+      { timeout: 20000 }).toBe(1);
+    expect(sink.messages[0].data.replace(/=\r\n/g, '')).toContain('Frozen recovery body 0');
+    await expect.poll(() => db.findOne('activityNotificationIntents', { _id: intentIds[0] })?.state).toBe('completed');
+    await expect.poll(() => db.findOne('activityNotificationLeases', { _id: intentIds[0] })).toBeNull();
+    expect(db.findOne('activityNotificationIntents', { _id: intentIds[1] }).state).toBe('pending');
+    expect(db.findOne('activities', { _id: eventIds[1] })).toBeNull();
+    await expect.poll(() => db.find('notificationEmailJobs', { eventId: eventIds[0] }).filter(row => row.state === 'sent').length).toBe(1);
+    expect(db.find('notificationEmailJobs', { eventId: eventIds[1] })).toHaveLength(0);
+  } finally {
+    db.deleteMany('activityNotificationIntents', { _id: { $in: intentIds } });
+    db.deleteMany('activityNotificationPlans', { _id: { $in: planIds } });
+    db.deleteMany('activityNotificationLeases', { _id: { $in: intentIds } });
+    db.deleteMany('activities', { _id: { $in: eventIds } });
+    db.deleteMany('notificationEmailJobs', { eventId: { $in: eventIds } });
+    await sink.close();
+  }
+});
+
+test('background recovery prepares a plan when the process stopped after activity persistence', async ({ user, user2, board }) => {
+  test.skip(!process.env.WEKAN_TEST_SMTP_PORT, 'Requires local SMTP capture');
+  const { canonical, sha256 } = require('../../../models/lib/changeHistoryIntegrity');
+  const { randomUUID } = require('node:crypto');
+  const sink = await smtpSink(Number(process.env.WEKAN_TEST_SMTP_PORT));
+  const eventId = db.uid('unplanned-event');
+  const intentId = sha256(canonical(['activity-notification-intent', eventId]));
+  const planId = sha256(canonical(['activity-notification-plan', eventId]));
+  try {
+    db.addBoardMember({ boardId: board.boardId, userId: user2.id });
+    db.updateOne('boards', { _id: board.boardId }, { $set: { watchers: [{ userId: user2.id, level: 'watching' }], notifyOverrideEmail: true } });
+    db.updateOne('users', { _id: user2.id }, { $set: { 'profile.notifyOverrideEmail': true } });
+    const activity = { _id: eventId, activityType: 'createCard', userId: user.id, boardId: board.boardId,
+      cardId: db.findCardIdByTitle({ boardId: board.boardId, title: 'Alpha Card' }), listId: board.listIds[0],
+      createdAt: new Date('2026-01-01'), modifiedAt: new Date('2026-01-01') };
+    db.insertOne('activities', activity);
+    db.insertOne('activityNotificationIntents', { _id: intentId, version: 1, state: 'pending', activity,
+      activityHash: sha256(canonical(activity)), dispatchUserId: user.id, writerId: randomUUID() });
+    await expect.poll(() => db.findOne('activityNotificationIntents', { _id: intentId })?.state,
+      { timeout: 20000 }).toBe('completed');
+    expect(db.findOne('activityNotificationPlans', { _id: planId }).plan.recipients.some(row => row.userId === user2.id && row.email)).toBe(true);
+    await expect.poll(() => sink.messages.some(mail => mail.recipients.includes(user2.email)), { timeout: 15000 }).toBe(true);
+    await expect.poll(() => db.find('notificationEmailJobs', { eventId, state: 'sent' }).length).toBe(1);
+    expect(db.find('activities', { _id: eventId })).toHaveLength(1);
+  } finally {
+    db.deleteMany('activityNotificationIntents', { _id: intentId });
+    db.deleteMany('activityNotificationPlans', { _id: planId });
+    db.deleteMany('activityNotificationLeases', { _id: intentId });
+    db.deleteMany('activities', { _id: eventId });
+    db.deleteMany('notificationEmailJobs', { eventId });
     await sink.close();
   }
 });
