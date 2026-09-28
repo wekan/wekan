@@ -1283,8 +1283,9 @@ labels/people, custom-field display values, notes and authorized relationships.
 Ordinary email rules now resolve live linked-card content across all selected
 sections and linked-board display fields with source-access rechecks. Stored
 Sync commands now persist and verify their source chain before dispatch;
-legacy unbound commands require future operator recovery. Scrum, voting and
-timer/recurrence fields remain),
+legacy unbound commands require future operator recovery. Details also
+includes persisted Flowtime/Pomodoro sessions and recurrence fields. Scrum
+and voting fields remain),
 [#3195](https://github.com/wekan/wekan/issues/3195) (rule action/trigger
 values should be able to reference a custom field's value — today's action
 and trigger value inputs are plain literals; resolving a per-board custom
@@ -1453,7 +1454,8 @@ state excluded. Details now covers ordinary card metadata, custom fields,
 notes and authorized relationships. Ordinary rules now send authorized live
 linked-source content. Stored Sync commands now persist and revalidate their
 source chain; legacy unbound-command recovery remains pending. Specialized
-Scrum/voting/timer and recurrence fields remain for the full-content audit.).
+Timer and recurrence snapshots now have Details and SMTP coverage; Scrum and
+voting fields remain for the full-content audit.).
 
 </details>
 
@@ -1533,6 +1535,26 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/94f125ac0">Include timer and recurrence state in rule email details</a>. Thanks to kabi178, bbyszio and xet7.</summary>
+
+Details now includes Flowtime start and interruptions, Pomodoro start, phase,
+completed intervals and work duration, plus public session-owner names.
+Include recurrence interval and last recurrence. Preserve zero counts and
+ISO dates without serializing account records or malformed objects. Export
+persisted session state without adding unfinished time to completed hours.
+Existing source-access checks still apply, and disabling Details omits these
+fields. Scrum and voting content remain in the full-card email TODO.
+
+Fifty-seven Node suites pass without skips, including actual MongoDB and
+native MailComposer integration. New positive and negative tests cover timer
+fields, absent/malformed data, public names and revoked access. Filesystem and
+GridFS Chromium SMTP scenarios pass after accounting for quoted-printable
+soft line breaks in test assertions; the linked-source scenario also passes.
+Existing Upcoming regression evidence remains recorded.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6e4032b69">Bind stored rule email to its source chain</a>. Thanks to kabi178, bbyszio and xet7.</summary>
