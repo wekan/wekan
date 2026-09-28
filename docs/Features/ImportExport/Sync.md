@@ -589,3 +589,20 @@ rule/action permission checks and durable per-action mutation receipts still
 need implementation. No external side effect is performed by this module, and
 it is not wired to ordinary rules or manual/cron Sync. Do not acknowledge the
 rules stage merely because its selection plan was stored.
+
+The internal `captureStoredSyncRulePlan` entry point now binds preparation to
+`RulesHelper.findMatchingRules` and raw action documents. It stores plans in the
+private `listSyncRulePlans` collection, with board/card indexes and no TTL.
+Before preparing or reading a saved plan, it checks the owning journal guard,
+current activity/notification policy, exact stored activity, enabled actor,
+board write permission, assigned-only card restrictions and current board/list/
+card scope. A moved card, deleted list, changed activity or revoked actor stops
+capture. Stored plans are reused even if rule configuration later changes;
+the future action executor must still apply its live permission/configuration
+checks before effects.
+
+The collection is registered at server startup but has no publication or client
+write access, including for administrators. This entry point captures matching
+configuration only: it never calls `performAction` or `executeRules` and is not
+a rules-completion receipt. Ordinary rule behavior and manual/cron Sync remain
+unchanged until durable command execution is implemented.

@@ -1,3 +1,4 @@
+import '/server/notifications/storedRulePlans';
 import '/server/notifications/storedWebhooks';
 import '/server/notifications/storedDelivery';
 import '/server/lib/listSyncOperations';

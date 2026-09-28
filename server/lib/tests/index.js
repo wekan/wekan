@@ -93,3 +93,5 @@ import './emailReceiptRetention.tests';
 import './activityNotificationIntent.tests';
 
 import './activityNotificationRecovery.tests';
+
+import './storedRulePlans.tests';
