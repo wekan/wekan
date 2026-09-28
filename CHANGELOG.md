@@ -304,7 +304,12 @@ before sending, so crashes cannot reset the budget. Recovery includes stopped
 counts and explicit retry; repeated control requests cannot reset a second cycle,
 and existing pauses remain in force. Fourteen focused Node suites and fourteen
 Chromium scenarios pass, including actual SMTP rejection and manual recovery.
-Receipt retention, transport timeouts/concurrency and coordinating activity
+Email scans now select up to 100 distinct due recipients and run four workers
+per application process. A large backlog cannot hide other recipients behind
+the former 100-message selection limit. Overlapping scans share one pass.
+Nine focused Node suites and fourteen Chromium cases pass, including a slow
+SMTP recipient while another recipient completes delivery. Receipt retention,
+transport timeouts, deployment-wide concurrency and coordinating activity
 creation with queue insertion remain pending.
 History field snapshots now preserve nested dates, including date-valued
 custom fields alongside mapped estimates. JSON transport and restoration retain
@@ -1045,6 +1050,31 @@ passes with advisory fingerprint changes. The separate stopped-app startup
 harness was not rerun; other browsers, FerretDB and external SMTP are unverified.
 Delivery remains at least once. Retention, transport timeouts/concurrency and
 atomic activity-to-queue integration remain in TODO Later.
+
+</details>
+
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/15368a157">Let independent email recipients progress concurrently</a>. Thanks to xet7.</summary>
+
+Select up to 100 distinct due recipients instead of the first 100 messages,
+so one large backlog cannot hide other recipients. Four workers per application
+process handle recipients concurrently, retaining the distributed recipient
+lease. Overlapping scans share a pass instead of multiplying its worker pool.
+A failed scheduling query releases the pass for the next poll.
+
+Nine focused Node suites and fourteen Chromium scenarios pass with local
+MongoDB and SMTP. Database tests cover the four-worker cap, overlapping scans,
+query recovery and another recipient beside a backlog exceeding 100 messages.
+The browser holds the first recipient's SMTP reply while verifying the second
+recipient completes and Recovery still shows the held message. Existing
+notification and recovery scenarios pass. Source audit passes with advisory
+fingerprint changes; the separate startup-only harness was not rerun.
+
+The limit is per application process. A pass still waits for active transports
+before polling again; transport timeouts and a deployment-wide connection
+limit remain pending, along with retention and durable activity integration.
+Other browsers, FerretDB and external SMTP providers remain unverified.
 
 </details>
 
