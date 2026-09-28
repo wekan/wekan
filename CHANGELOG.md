@@ -301,8 +301,8 @@ queue controls, recipient grouping, permissions, lost replies and delivery.
 Permanent SMTP failures now stop with safe reason categories. Temporary errors
 use positive jitter and at most twelve attempts per cycle. Attempts are stored
 before sending, so crashes cannot reset the budget. Recovery includes stopped
-counts and explicit retry; repeated control requests cannot reset a second cycle,
-and existing pauses remain in force. Fourteen focused Node suites and fourteen
+counts and explicit retry. Repeated control requests cannot reset another
+cycle, and existing pauses remain in force. Fourteen focused Node suites and fourteen
 Chromium scenarios pass, including actual SMTP rejection and manual recovery.
 Email scans now select up to 100 distinct due recipients and run four workers
 per application process. A large backlog cannot hide other recipients behind
@@ -1047,7 +1047,8 @@ MongoDB and SMTP. Coverage includes permanent rejection, automatic backoff,
 exhausted/crash-reserved budgets, lost and false storage acknowledgements,
 operator recovery, permissions, request replay and report privacy. Source audit
 passes with advisory fingerprint changes. The separate stopped-app startup
-harness was not rerun; other browsers, FerretDB and external SMTP are unverified.
+harness was not rerun. Other browsers, FerretDB and external SMTP remain
+unverified.
 Delivery remains at least once. Retention, transport timeouts/concurrency and
 atomic activity-to-queue integration remain in TODO Later.
 
