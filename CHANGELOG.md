@@ -1315,11 +1315,14 @@ selector, scoped reset and versioned saved state through one provider API;
 creation/modification recency is the first built-in provider. Cross-project
 overdue/label search now has browser coverage: exact current-time cutoff,
 board-owned label IDs, missing labels and excluded private boards. Sidebar
-saved combinations remain per board. Still unfinished: the RFC explicitly
-requests checkbox/radio selectors. Label/member/assignee/creator and due-date
-choices currently use clickable links, while recency uses select menus;
-provide the requested native control and keyboard semantics while preserving
-label exclusions, existing selection behavior and saved combinations),
+saved combinations remain per board. Labels, members, assignees and creators
+now use native checkboxes; excluded labels use the indeterminate state.
+Due dates and recency use native radio groups, with keyboard selection,
+explicit unrestricted choices and verified saved-state restoration. Still
+unfinished: the Table view reads local cards but does not subscribe to card
+windows in lazy loading mode. Its existing label-filter browser regression
+returns zero rows with CARDS_LOADING=lazy. Add a scoped loading/pagination path
+for that view and rerun the regression before closing the issue),
 [#572](https://github.com/wekan/wekan/issues/572) (label add/remove as its own
 controllable Notification Settings option - the activity feed entry it asks
 for already exists (`models/cards.js`'s `cardLabels()` hook logs
@@ -1556,6 +1559,26 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c5fc4ff61">Use native controls for board filter choices</a>. Thanks to neooleg and xet7.</summary>
+
+Replace label/member/assignee/creator links with native checkboxes, preserving
+the label include/exclude/clear cycle through checked/indeterminate/unchecked
+states. Use labelled radio groups for due dates and creation/modification
+recency. Add an explicit unrestricted due-date choice; an already selected
+radio stays selected. Keep controls visible and expose keyboard focus.
+
+Fourteen Node suites pass, including real MongoDB saved-filter storage.
+Seven Chromium scenarios pass across keyboard/Space/arrow selection, mixed
+label states, saved restoration, date boundaries, label URL state and private
+saved-filter access checks. Update usage documentation and add one English
+label. Source inventory warnings remain advisory. The additional Table-view
+regression fails under lazy loading because that view has no card-window
+subscription; retain that concrete gap under
+[#935](https://github.com/wekan/wekan/issues/935) in TODO Later.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0b5ac1c43">Correct overdue and label searches across boards</a>. Thanks to GusevVictor, neooleg and xet7.</summary>
