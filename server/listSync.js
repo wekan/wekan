@@ -1,3 +1,4 @@
+import '/server/notifications/storedWebhooks';
 import '/server/notifications/storedDelivery';
 import '/server/lib/listSyncOperations';
 // List sync (docs/Features/ImportExport/Sync.md, Priority 1 of the
