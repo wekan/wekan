@@ -373,6 +373,12 @@ Command preparation, durable mutation adapters and manual/cron wiring remain
 unfinished; ordinary performAction cannot satisfy this adapter contract.
 Moving the source card also needs explicit before/after scope handling before
 a movement adapter can use the current guard.
+Localized email preparation now returns final transport fields separately from
+sending; ordinary mail uses the same preparation. Six new controlled tests
+cover language resolution, unchanged prepared content and propagated failures.
+A rule-email command must persist these fields and its explicit recipient;
+the existing user-grouped notification outbox resolves addresses later and
+cannot substitute directly. Command storage and its dispatch worker remain TODO.
 Private operation, step and completion collections are now registered with
 server-only adapters, denied browser writes, recovery indexes and no TTL.
 The stored-operation entry point holds the list lease and requires fresh access
@@ -1370,6 +1376,23 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a48524ecf">Separate localized email preparation from transport for saved rule commands</a>. Thanks to xet7.</summary>
+
+Expose preparation of final transport fields without sending mail. Ordinary
+sendEmail uses the same path, retaining recipient/site language resolution,
+catalog loading, literal bodies, HTML, sender and optional Reply-To. Prepared
+strings remain unchanged by subsequent language or sender configuration edits.
+
+Twelve focused cases pass, including six new preparation cases and existing
+rule failure coverage. The broader email run has thirteen suites with no
+failures, but 42 integration cases are skipped without database/service setup.
+The source audit completes with advisory warnings. No SMTP or browser run was
+performed. Durable rule-email command storage and dispatch remain TODO; the
+user-grouped notification outbox is not an explicit-address rule-mail adapter.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/230225952">Bind saved Sync rule execution to private receipts and live scope guards</a>. Thanks to xet7.</summary>
