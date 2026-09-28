@@ -301,6 +301,13 @@ actual History change. Interrupted preparation resets the planner at index
 zero; persisted replay reuses the saved chain without replanning. Real MongoDB
 coverage spans three card units and interruption between History rows.
 Independent production History writers still need shared chain coordination.
+A durable append primitive now reserves one checksummed pending row per board
+through conditional head replacement. Another writer can finish an interrupted
+insert before reserving its successor, avoiding timestamp ties and lease-expiry
+forks. Six Node/MongoDB cases pass, including four independent clients and
+seventeen rows forming one chain. Verified bootstrap of existing history,
+ordinary writer binding, redo coordination and multi-row Sync ownership remain
+unfinished; this primitive is not yet installed in ChangeHistory.record.
 Creation units now preserve the ordinary createCard activity payload in a
 bounded private plan with a stable ID and captured names/timestamps. Readback
 confirms insertion, but the journal cannot advance until a separate durable
@@ -1470,6 +1477,23 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/355fd742c">Serialize History appends through a durable recoverable head</a>. Thanks to xet7.</summary>
+
+Reserve an exact pending History row with conditional head replacement before
+insertion. Require readback before head advancement; other appenders can finish
+an interrupted reservation. Protect pending payloads with checksums and reject
+conflicting retries or damaged evidence without dropping the pending row.
+No expiring lease authorizes a second successor.
+
+Six Node/MongoDB cases pass. Four independent clients append sixteen equal-time
+rows after an interrupted predecessor; all seventeen form one chain and retry
+adds no duplicate. Lost acknowledgements and ownership loss are covered. The
+source audit has advisory warnings. No UI flow changes; existing-chain
+bootstrap, ordinary writer binding and multi-row Sync ownership remain pending.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/978beefe8">Bind stored archive execution to durable effects and History ownership</a>. Thanks to xet7.</summary>
