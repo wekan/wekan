@@ -332,6 +332,17 @@ but requires a supplied durable rules adapter. Nineteen Node cases pass,
 including seven coordinator/binding cases with scripted adapters. Durable rule
 execution, shared History-chain coordination and manual/cron activation remain
 unfinished; ordinary executeRules is not substituted for durable rule replay.
+An internal rule-plan primitive now freezes ordered rule and action snapshots
+for a saved activity/effect, including duplicate matches, absent actions and
+empty selections. It binds actor, board/card identity and the activity hash;
+checksums and exact shape checks reject changed stored content. First-writer
+readback reconciles lost replies and concurrent builders without reselecting
+current rules. Preparation is bounded to 1,000 invocations and 14 MiB with
+incremental size checks. Thirteen Node/MongoDB cases pass, including six new
+selection/persistence cases. This stores configuration only: production
+matching, target/variable/date resolution, live permissions, durable action
+execution and its receipts remain unfinished. Storing a rule plan does not
+complete a rule.
 Private operation, step and completion collections are now registered with
 server-only adapters, denied browser writes, recovery indexes and no TTL.
 The stored-operation entry point holds the list lease and requires fresh access
@@ -1329,6 +1340,25 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c7f30bfd4">Preserve immutable rule selections for saved Sync activities</a>. Thanks to xet7.</summary>
+
+Add an internal rule selection plan with frozen rule order, action definitions,
+duplicate invocation identities and explicit missing-action or empty results.
+Bind each plan to its activity hash, actor, scope and effect identity. Validate
+saved checksums and bound preparation to 1,000 invocations and 14 MiB using
+incremental size checks. Lost insertion replies and concurrent builders reuse
+the first valid persisted plan instead of choosing new rules on replay.
+
+Thirteen Node/MongoDB cases pass, including six new selection/persistence cases
+for immutable ordering, absent actions, malformed/oversized inputs, changed
+identity, corruption, false/lost acknowledgements and concurrent first writes.
+The source audit completes with advisory warnings. This module does not execute
+actions or acknowledge their effects. Production matching, target/variable/date
+resolution, live permission checks and durable action receipts remain TODO.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/cc9a568c7">Coordinate saved Sync delivery through exact stage receipts</a>. Thanks to xet7.</summary>
