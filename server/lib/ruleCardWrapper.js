@@ -43,6 +43,8 @@ async function prepareRuleCardWrapper({ activity, cache, canReadBoard, readScrum
   if (list?.boardId === card.boardId) add('List', list.title);
   if (lane?.boardId === card.boardId) add('Swimlane', lane.title);
   for (const [field, label] of Object.entries({
+    archived: 'Archived', archivedAt: 'Archived at', createdAt: 'Created',
+    modifiedAt: 'Modified', dateLastActivity: 'Last activity',
     recurrenceInterval: 'Recurrence', lastRecurrenceAt: 'Last recurrence',
     sort: 'Sort', subtaskSort: 'Subtask sort', listEnteredAt: 'Entered list', lastMoveReason: 'Last move reason',
     flowStartAt: 'Flowtime started', flowInterruptions: 'Flowtime interruptions',

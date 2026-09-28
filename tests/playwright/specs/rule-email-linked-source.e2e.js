@@ -16,10 +16,10 @@ test('linked-card mail uses current authorized source content and stops after so
   try {
     const target = db.findOne('cards', { boardId: source.boardId });
     const wrapper = db.findOne('cards', { boardId: local.boardId });
-    db.updateOne('cards', { _id: target._id }, { $set: { description: 'Current source description', dueAt: new Date('2027-04-01'), parentId: `${id}-parent` } });
+    db.updateOne('cards', { _id: target._id }, { $set: { description: 'Current source description', archived: false, dueAt: new Date('2027-04-01'), parentId: `${id}-parent` } });
     db.updateOne('boards', { _id: local.boardId }, { $set: { 'scrum.visibility.cardBacklogRank': true } });
     db.updateOne('cards', { _id: wrapper._id }, { $set: { type: 'cardType-linkedCard', linkedId: target._id, description: 'STALE-WRAPPER-DESCRIPTION',
-      recurrenceInterval: 'weekly', lastRecurrenceAt: new Date('2027-01-01'), flowInterruptions: 7, pomodoroPhase: 'break', scrum: { backlogRank: 42 }, stickers: [{ name: 'STALE-WRAPPER-STICKER' }] } });
+      archived: true, archivedAt: new Date('2027-02-01'), recurrenceInterval: 'weekly', lastRecurrenceAt: new Date('2027-01-01'), flowInterruptions: 7, pomodoroPhase: 'break', scrum: { backlogRank: 42 }, stickers: [{ name: 'STALE-WRAPPER-STICKER' }] } });
     db.insertOne('cards', { _id: `${id}-parent`, boardId: source.boardId, type: 'cardType-linkedCard',
       title: 'STALE-PARENT-TITLE', linkedId: `${id}-parent-source` });
     db.insertOne('cards', { _id: `${id}-parent-source`, boardId: local.boardId, title: 'Current related parent' });
@@ -38,6 +38,9 @@ test('linked-card mail uses current authorized source content and stops after so
     for (const text of ['Live source card', 'Current source description', 'Current source note', 'Current source comment', 'Due: 2027-04-01', bytes.toString('base64')]) expect(mails()[0].data).toContain(text);
     const wrapperText = mails()[0].data.replace(/=\r?\n/g, '').split('Linked card local details:')[1];
     expect(wrapperText).toBeTruthy();
+    expect(wrapperText).toContain('Archived: true');
+    expect(wrapperText).toContain('Archived at: 2027-02-01T00:00:00.000Z');
+    expect(mails()[0].data.replace(/=\r?\n/g, '').split('Linked card local details:')[0]).toContain('Archived: false');
     for (const text of ['Recurrence: weekly', 'Last recurrence: 2027-01-01T00:00:00.000Z', 'Flowtime interruptions: 7', 'Pomodoro phase: break', 'Scrum backlog rank: 42']) expect(wrapperText).toContain(text);
     expect(mails()[0].data).not.toContain('STALE-WRAPPER');
     expect(mails()[0].data.replace(/=\r?\n/g, '')).toContain('Parent: Current related parent');

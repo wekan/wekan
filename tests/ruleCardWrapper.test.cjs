@@ -56,3 +56,18 @@ test('deleted, foreign-board and unassigned wrappers are rejected', async () => 
     await assert.rejects(prepare(args), /rule-email-wrapper-not-authorized/);
   }
 });
+
+test('linked-card placement lifecycle is local and excludes source-owned number and color', async () => {
+  const { card, args } = fixture();
+  Object.assign(card, { archived: false, archivedAt: new Date('2027-01-01'),
+    createdAt: new Date('2026-01-01'), modifiedAt: new Date('2027-02-01'),
+    dateLastActivity: new Date('2027-03-01'), cardNumber: 999, color: 'STALE-COLOR' });
+  const text = await prepare(args);
+  for (const value of ['Archived: false', 'Archived at: 2027-01-01T00:00:00.000Z',
+    'Created: 2026-01-01T00:00:00.000Z', 'Modified: 2027-02-01T00:00:00.000Z',
+    'Last activity: 2027-03-01T00:00:00.000Z']) assert.ok(text.includes(value), value);
+  assert.doesNotMatch(text, /999|STALE-COLOR|Card number|Color:/);
+  card.archived = true; card.archivedAt = new Date('invalid');
+  assert.match(await prepare(args), /Archived: true/);
+  assert.doesNotMatch(await prepare(args), /Archived at:|Invalid Date/);
+});

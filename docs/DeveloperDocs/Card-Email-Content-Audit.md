@@ -47,8 +47,11 @@ The final pass found these remaining concrete linked-board gaps:
   mail discussion currently reads only wrapper-card comments. Board-wide
   discussion needs per-card authorization, assigned-only filtering and durable
   evidence for every included card; board read access alone is insufficient.
-- Distinguish source archive state from the wrapper's local archive/placement
-  lifecycle. The field inventory records these ownership checks explicitly.
+
+Local archive state/date and creation/modification/activity timestamps now
+appear in each link wrapper section, independently of source archive state.
+Card number and color follow `getRealCard()`: source-owned for linked cards,
+local for linked-board wrappers. This completes the placement ownership pass.
 
 Local recurrence and last recurrence now accompany placement, timers and the
 six visible Scrum fields in `Linked card local details`. Recurrence setters

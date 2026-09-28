@@ -21,7 +21,7 @@
   },
   {
     "fields": ["archived", "archivedAt", "createdAt", "modifiedAt", "dateLastActivity", "cardNumber", "color"],
-    "handling": "Ordinary/source Details. Linked-board archive state and date use the current target. Remaining audit: wrapper-local placement lifecycle/number/color ownership."
+    "handling": "Ordinary/source Details. Both link types separately include local archive state/date and lifecycle timestamps. Card number/color follow getRealCard(): source-owned for linked cards, local for linked-board wrappers. Target-board archive state remains in target Details."
   },
   {
     "fields": ["receivedAt", "startAt", "dueAt", "endAt", "spentTime", "isOvertime", "dueComplete"],
