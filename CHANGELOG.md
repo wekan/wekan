@@ -1299,12 +1299,6 @@ whether it is one feature or several; it bundles per-org/team/board label
 expansion, granular board roles, LDAP-group-driven auto-labeling and
 permission inheritance, none of which is a filter change - needs it split
 into separate, concretely-scoped issues before any one part is buildable),
-[#1915](https://github.com/wekan/wekan/issues/1915) (hide cards by a date -
-largely already covered by the existing `Filter.dueAt` past/today/tomorrow/
-this-week/next-week/no-date states; the remaining gap is filtering by
-`createdAt`/`receivedAt`/`endAt` rather than only `dueAt`, which needs a
-decision on whether to generalize `DateFilter` to a chosen date FIELD or add
-one `DateFilter` per date field, since today's UI hard-codes "due date"),
 [#935](https://github.com/wekan/wekan/issues/935) (filter cards by date or
 tag - dated 2017; labels are already filterable and `Filter.dueAt` covers
 due-date ranges, but "moved on a specific date" would need a per-activity
@@ -1546,6 +1540,27 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/930c5c67d">Filter native card dates in Advanced Filter and rules</a>. Thanks to TiibCD and xet7.</summary>
+
+Add `@createdAt`, `@receivedAt`, `@startAt`, `@dueAt`, `@endAt` and
+`@listEnteredAt` to the shared advanced-filter parser. Compare actual date
+values with the existing calendar-day/time interval operators, combine them
+with custom fields and logical groups, and use `= none` for missing dates.
+Quote custom-field names beginning with `@` to retain their literal meaning.
+Reject invalid dates, unknown properties and regex comparisons. Add an English
+sidebar hint and document regional date parsing and client/server timezones.
+
+Six Node suites and three Chromium cases pass. Coverage includes every native
+date field, comparison operators, missing and malformed values, quoted custom
+fields, invalid-input fallback, and actual rule execution. Existing field
+identity and decimal boundary browser regressions also pass. The source audit
+has advisory warnings. This completes
+[#1915](https://github.com/wekan/wekan/issues/1915); remove its native-date gap
+from TODO Later. No cards are archived or deleted by these filters.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/800ec4e95">Recover legacy card column ages from recorded movement history</a>. Thanks to grasshide and xet7.</summary>
