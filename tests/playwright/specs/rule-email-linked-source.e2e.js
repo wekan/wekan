@@ -65,7 +65,8 @@ test('linked-card mail uses current authorized source content and stops after so
     expect(mails()[1].data).toContain('Current board description');
     expect(mails()[1].data).toContain('Due: 2027-05-01');
     expect(mails()[1].data).not.toContain('STALE-WRAPPER');
-    expect(mails()[1].data).not.toContain('Current source comment');
+    expect(mails()[1].data).toContain('Current source comment');
+    expect(mails()[1].data).toContain('Linked board discussion:');
     expect(mails()[1].data).not.toContain(bytes.toString('base64'));
     const boardMail = mails()[1].data.replace(/=\r?\n/g, '');
     expect(boardMail).toContain('Linked card local details:');
@@ -83,6 +84,28 @@ test('linked-card mail uses current authorized source content and stops after so
     const privateMail = mails()[2].data.replace(/=\r?\n/g, '');
     expect(privateMail).toContain('Votes for: 1');
     expect(privateMail).not.toMatch(/For voters|Poker 2 votes|Poker 2 voters/);
+    // Board read access does not grant access to every card's discussion.
+    db.updateOne('boards', { _id: source.boardId }, { $set: { members: [
+      { userId: user.id, isActive: true, isReadAssignedOnly: true },
+    ] } });
+    db.updateOne('cards', { _id: target._id }, { $set: { assignees: [user.id] } });
+    db.insertOne('cards', { _id: `${id}-hidden`, boardId: source.boardId, title: 'UNASSIGNED-CARD-TITLE', assignees: [] });
+    db.insertOne('card_comments', { _id: `${id}-hidden-comment`, boardId: source.boardId,
+      cardId: `${id}-hidden`, text: 'UNASSIGNED-CARD-COMMENT', createdAt: new Date() });
+    await call(page, 'rules.runButton', rule._id, wrapper._id);
+    await expect.poll(() => mails().length).toBe(4);
+    expect(mails()[3].data).toContain('Current source comment');
+    expect(mails()[3].data).not.toMatch(/UNASSIGNED-CARD-TITLE|UNASSIGNED-CARD-COMMENT/);
+    db.updateOne('cards', { _id: target._id }, { $set: { assignees: [] } });
+    await call(page, 'rules.runButton', rule._id, wrapper._id);
+    await expect.poll(() => mails().length).toBe(5);
+    expect(mails()[4].data).not.toMatch(/Current source comment|UNASSIGNED-CARD-COMMENT|Linked board discussion:/);
+    db.updateOne('actions', { _id: rule.actionId }, { $set: { includeChecklistsAndComments: false } });
+    db.updateOne('cards', { _id: target._id }, { $set: { assignees: [user.id] } });
+    await call(page, 'rules.runButton', rule._id, wrapper._id);
+    await expect.poll(() => mails().length).toBe(6);
+    expect(mails()[5].data).not.toMatch(/Current source comment|Linked board discussion:/);
+
 
 
   } finally {

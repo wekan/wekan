@@ -17,7 +17,7 @@ This audit compares the current email preparation code with `models/cards.js`,
 | Comments | Public prose, creation/edit dates, public author display name, reaction emoji and distinct counts | Discussion unit tests; SMTP assertions |
 | Files | Selected live attachments become immutable byte snapshots; names/MIME types retained; manifest identifies cover, captured byte size, upload date and public uploader | Filesystem/GridFS SMTP; bounded-stream unit tests |
 | Linked cards | Resolve readable source chain for selected content; detect retargeting and access loss | `tests/ruleEmailSource.test.cjs`; linked-source SMTP |
-| Linked boards | Current dates, spent time, overtime, due completion, archive state, active member names and voting; wrapper discussion/files remain local | Linked-source SMTP and Details tests |
+| Linked boards | Current dates, spent time, overtime, due completion, archive state, active member names and voting; wrapper checklists/files remain local; target comments require each owner card to be readable | Linked-source SMTP and Details tests |
 
 ## Field inventory and remaining implementation
 
@@ -41,12 +41,21 @@ Target-owned dates, voting and member lists are excluded from that local
 section. Custom-field policies and related-source chains enter the same durable
 binding as source Details. A string-template title uses the live target title.
 
-The final pass found these remaining concrete linked-board gaps:
+Linked-board discussion now groups public target-board comments by readable
+owner card. The owner and any linked source chain must remain readable and
+assigned to the actor when assigned-only restrictions apply. Deleted, missing,
+foreign-board and unreadable owners are omitted. Author display names and
+reaction summaries reuse the ordinary comment renderer; webhook state and
+account secrets are excluded. Every included owner chain joins the durable
+related-source evidence, and capture rechecks all included owners and the
+board link before returning. This does not export every target card's checklists
+or files: those remain on the local wrapper as in the existing card getters.
 
-- `Cards.comments()` reads target-board comments for a linked board, while the
-  mail discussion currently reads only wrapper-card comments. Board-wide
-  discussion needs per-card authorization, assigned-only filtering and durable
-  evidence for every included card; board read access alone is insufficient.
+The board scan reads only comment ownership metadata before authorization and
+rejects more than 1,000 discovered comment rows. Its rendered body is capped
+at 768 KiB, alongside the existing final mail and source-binding limits. An
+oversized capture fails instead of returning a silently truncated message.
+The ordinary Discussion choice controls both local and target-board comments.
 
 Local archive state/date and creation/modification/activity timestamps now
 appear in each link wrapper section, independently of source archive state.

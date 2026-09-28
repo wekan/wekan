@@ -4,7 +4,7 @@ const { notDeleted } = require('../../models/lib/softDelete');
 
 // Only public prose is rendered. Never serialize full comment/checklist
 // documents: comments may hold private webhook response state.
-async function prepareRuleCardDiscussion({ activity, cache, canReadBoard, onRelatedSource = () => {} }) {
+async function prepareRuleCardDiscussion({ activity, cache, canReadBoard, commentsOnly = false, onRelatedSource = () => {} }) {
   const authorize = async () => {
     const card = await cache.getCard(activity.cardId);
     const board = card && await cache.getBoard(card.boardId);
@@ -16,8 +16,8 @@ async function prepareRuleCardDiscussion({ activity, cache, canReadBoard, onRela
   };
   await authorize();
   const [checklists, items, comments] = await Promise.all([
-    cache.getChecklists(notDeleted({ cardId: activity.cardId }), { sort: { sort: 1, _id: 1 } }),
-    cache.getChecklistItems(notDeleted({ cardId: activity.cardId }), { sort: { sort: 1, _id: 1 } }),
+    commentsOnly ? [] : cache.getChecklists(notDeleted({ cardId: activity.cardId }), { sort: { sort: 1, _id: 1 } }),
+    commentsOnly ? [] : cache.getChecklistItems(notDeleted({ cardId: activity.cardId }), { sort: { sort: 1, _id: 1 } }),
     cache.getCardComments(notDeleted({ cardId: activity.cardId, boardId: activity.boardId }), { sort: { createdAt: 1, _id: 1 } }),
   ]);
   const commentIds = comments.filter(comment => comment.cardId === activity.cardId &&

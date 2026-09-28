@@ -329,6 +329,10 @@ export const RulesHelper = {
       const discussion = await prepareRuleCardDiscussion({ activity, cache: ReactiveCache, canReadBoard,
         onRelatedSource: binding => emailSource.addRelatedSource(binding) });
       if (discussion) options.text += `\n\n${discussion}`;
+      const { prepareRuleBoardDiscussion } = require('/server/lib/ruleBoardDiscussion');
+      const boardDiscussion = await prepareRuleBoardDiscussion({ activity, cache: ReactiveCache, canReadBoard,
+        onRelatedSource: binding => emailSource.addRelatedSource(binding) });
+      if (boardDiscussion) options.text += `\n\n${boardDiscussion}`;
     }
     if (action.includeAttachments === true) {
       const { prepareRuleCardAttachments } = require('/server/lib/ruleCardAttachments');

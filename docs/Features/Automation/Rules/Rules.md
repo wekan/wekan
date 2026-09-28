@@ -320,6 +320,14 @@ labels, stickers, custom fields, notes, locations, creator and relationships;
 These use local field visibility and related-card access checks. Public timer
 owner names and same-board Scrum names use the same access rechecks.
 
+A linked-board card's Discussion choice also includes public comments from
+readable cards on the target board, grouped by current card title. Assigned-only
+membership still limits which cards can contribute. Missing/deleted cards and
+unreadable linked sources are omitted. Access is checked again after rendering
+and before a stored command is sent. Checklists and files remain local to the
+linked-board card. Board discussion rejects more than 1,000 discovered comment
+rows or 768 KiB of rendered text; it does not send an incomplete subset.
+
 ## Related
 
 - [IFTTT and Rules](../IFTTT/IFTTT.md)
