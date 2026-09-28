@@ -1,5 +1,6 @@
 'use strict';
 const { EJSON } = require('bson');
+const { persistSyncActivity } = require('./syncActivityPersistence');
 const { cardCreationActivity } = require('../../models/lib/cardCreationActivity');
 const { prepareSyncOperationMutation } = require('./syncOperationMutation');
 const { canonical } = require('../../models/lib/changeHistoryIntegrity');
@@ -46,20 +47,6 @@ async function persistSyncCreationActivity({ activities, plan, assertCurrent, co
   validatePlan(plan);
   if (typeof assertCurrent !== 'function' || typeof completeDelivery !== 'function' ||
       !['findOneAsync','insertAsync'].every(key => typeof activities?.[key] === 'function')) fail();
-  plan = copy(plan);
-  await assertCurrent();
-  let saved = await activities.findOneAsync(plan.activity._id), error;
-  if (!saved) {
-    await assertCurrent();
-    try { await activities.insertAsync(copy(plan.activity)); } catch (failure) { error = failure; }
-    await assertCurrent();
-    try { saved = await activities.findOneAsync(plan.activity._id); } catch (failure) { throw error || failure; }
-  }
-  if (!saved || canonical(saved) !== canonical(plan.activity)) throw error || new Error('sync-creation-activity-unconfirmed');
-  await assertCurrent();
-  const receipt = await completeDelivery({ effectId: plan.effectId, activity: copy(plan.activity), assertCurrent });
-  if (receipt !== plan.effectId) throw new Error('sync-creation-delivery-unconfirmed');
-  await assertCurrent();
-  return plan.effectId;
+  return persistSyncActivity({ activities, activity: plan.activity, effectId: plan.effectId, assertCurrent, completeDelivery });
 }
 module.exports = { prepareSyncCreationActivity, validateSyncCreationActivity, persistSyncCreationActivity };
