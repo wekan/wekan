@@ -253,3 +253,38 @@ test('deployment SMTP capacity keeps queued mail visible without spending retry 
     await sink.close();
   }
 });
+
+test('Recovery preserves later mail when an old compacted cancellation is replayed', async ({ page, adminUser, user }) => {
+  test.skip(process.env.WEKAN_TEST_EMAIL_RETENTION !== '1', 'Start app with EMAIL_RECEIPT_SWEEP_INTERVAL_MS=1000');
+  const requestId = require('node:crypto').randomUUID();
+  const oldId = db.uid('retention-old'), freshId = db.uid('retention-fresh');
+  const userId = db.uid('retention-recipient');
+  try {
+    db.insertOne('notificationEmailJobs', queued(oldId, userId));
+    await loginWithToken(page, adminUser.id, adminUser.token);
+    const request = { userId, requestId, action: 'cancel' };
+    await page.evaluate(request => Meteor.callAsync('controlEmailRecovery', request), request);
+    db.updateOne('notificationEmailCommands', { _id: requestId }, { $set: { finishedAt: new Date('2000-01-01') } });
+    await expect.poll(() => db.findOne('notificationEmailCommands', { _id: requestId })?.compactReceiptVersion,
+      { timeout: 10000 }).toBe(1);
+    db.insertOne('notificationEmailJobs', queued(freshId, userId));
+    await page.evaluate(request => Meteor.callAsync('controlEmailRecovery', request), request);
+    await navigateInApp(page, '/admin/problems/recovery');
+    const panel = page.locator('.email-recovery-reports');
+    await panel.locator('.js-table-page-search').fill(userId);
+    await panel.locator('.js-table-page-search').press('Enter');
+    await expect(panel).toContainText('Queued messages: 1');
+    expect(db.findOne('notificationEmailJobs', { _id: freshId }).state).toBe('pending');
+    expect(db.findOne('notificationEmailControls', { _id: userId }).cancelCount).toBe(1);
+    await loginWithToken(page, user.id, user.token);
+    const denied = await page.evaluate(async request => {
+      try { await Meteor.callAsync('controlEmailRecovery', request); return 'allowed'; }
+      catch (error) { return error.error; }
+    }, request);
+    expect(denied).toBe('not-authorized');
+  } finally {
+    db.deleteMany('notificationEmailJobs', { _id: { $in: [oldId, freshId] } });
+    db.deleteMany('notificationEmailCommands', { _id: requestId });
+    db.deleteMany('notificationEmailControls', { _id: userId });
+  }
+});

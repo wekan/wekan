@@ -87,3 +87,5 @@ import './storedWebhookHttp.tests';
 import './commentPrivateFields.tests';
 import './storedWebhooks.tests';
 import './smtpDeadline.tests';
+
+import './emailReceiptRetention.tests';

@@ -1,4 +1,5 @@
 const { withSyncLease } = require('./syncLease');
+const { matchesEmailCommand } = require('./emailReceiptIdentity');
 const ACTIONS = ['pause', 'resume', 'cancel', 'retry'];
 const REQUEST_ID = /^[A-Za-z0-9_-]{20,64}$/;
 const PAYLOAD_FIELDS = { html: '', subject: '', language: '', cardId: '', nextAttemptAt: '', lastFailure: '', failedAt: '' };
@@ -15,7 +16,7 @@ async function controlEmailOutbox({ jobs, controls, commands, leases, userId, ac
     const guard = async () => { await assertCurrent(); await assertAdmin(); };
     await guard();
     let command = await commands.findOne({ _id: requestId });
-    if (command && (command.userId !== userId || command.action !== action || command.actorId !== actorId)) {
+    if (command && !matchesEmailCommand(command, { requestId, userId, action, actorId })) {
       throw new Error('email-control-identity-mismatch');
     }
     if (command?.status === 'completed' || command?.status === 'superseded') return { status: command.status };

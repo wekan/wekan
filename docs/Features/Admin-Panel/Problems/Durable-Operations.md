@@ -390,7 +390,12 @@ scan sorted recipient summaries with bounded memory; concurrent writes can
 change counts between reads, and Refresh obtains a new result.
 SMTP DNS, connection, greeting and idle limits are configured in the
 [mail troubleshooting guide](../../Email/Troubleshooting-Mail.md#smtp-timeouts).
-Receipt retention and atomic activity-to-queue insertion remain pending.
+Terminal receipt metadata is compacted after 30 days by default, with bounded
+background batches and permanent minimal replay identities. Atomic replacement
+in the original collection prevents gaps in duplicate suppression. Pending or
+failed work and control state are retained. See the
+[receipt policy](../../Email/Troubleshooting-Mail.md#completed-notification-receipts).
+Atomic activity-to-queue insertion remains pending.
 Cross-process slot contention, crashed-owner reclaim, hung renewal and live
 SMTP cancellation are covered by `tests/integration/emailSendSlots.test.cjs`.
 Set `WEKAN_SYNC_TEST_MONGO_URL` and `WEKAN_SMTP_TEST=1` to run its database and

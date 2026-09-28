@@ -5,6 +5,7 @@ import EmailLocalization from '/server/lib/emailLocalization';
 import { resolveNotificationSetting } from '/models/lib/notificationSettings';
 import { ensureIndex } from '/server/lib/mongoStartup';
 const { createEmailOutbox, migrateLegacyEmailBuffer } = require('/server/lib/emailOutbox');
+const { createEmailReceiptMaintenance, emailReceiptPolicy } = require('/server/lib/emailReceiptRetention');
 const { createEmailSendSlots } = require('/server/lib/emailSendSlots');
 const { buildReplyToAddress } = require('/server/lib/inboundEmailReplyToken');
 
@@ -42,10 +43,22 @@ export const emailOutbox = createEmailOutbox({
   },
 });
 
+const receiptPolicy = emailReceiptPolicy();
+export const maintainEmailReceipts = createEmailReceiptMaintenance({
+  jobs: EmailJobs.rawCollection(), commands: EmailCommands.rawCollection(), days: receiptPolicy.days,
+});
 Meteor.startup(async () => {
   await ensureIndex(EmailJobs, { state: 1, nextAttemptAt: 1, _id: 1 });
   await ensureIndex(EmailJobs, { userId: 1, state: 1, createdAt: 1, _id: 1 });
   await ensureIndex(EmailControls, { paused: 1, _id: 1 });
+  await ensureIndex(EmailJobs, { state: 1, compactReceiptVersion: 1, finishedAt: 1, _id: 1 });
+  await ensureIndex(EmailCommands, { status: 1, compactReceiptVersion: 1, finishedAt: 1, _id: 1 });
+  async function maintainReceipts() {
+    try { await maintainEmailReceipts(); }
+    catch (error) { console.error('Email receipt maintenance failed; replay protection retained'); }
+    finally { Meteor.setTimeout(maintainReceipts, receiptPolicy.intervalMs); }
+  }
+  Meteor.setTimeout(maintainReceipts, receiptPolicy.intervalMs);
   await ensureIndex(Meteor.users, { 'profile.emailBuffer.0': 1 });
   // Polling discovers both new jobs and pre-restart work. Schedule after each
   // pass so a slow SMTP server cannot accumulate overlapping scans.

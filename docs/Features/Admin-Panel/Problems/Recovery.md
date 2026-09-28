@@ -65,8 +65,12 @@ remains at least once.
 Control records retain the latest actor/time/action and per-action counts;
 private request receipts retain completion or supersession. Queue payloads and
 control collections have no client publication or direct client writes.
-See [durable operations](Durable-Operations.md) for remaining transport policy,
-retention and activity-to-delivery integration work.
+Detailed terminal receipt metadata is compacted after 30 days by default.
+Minimal replay identities remain indefinitely, so an old cancellation cannot
+affect later messages. Pending or failed work and recipient holds are retained.
+See [receipt retention](../../Email/Troubleshooting-Mail.md#completed-notification-receipts)
+for configuration and [durable operations](Durable-Operations.md) for remaining
+activity-to-delivery integration work.
 
 ## Sync run diagnostics
 

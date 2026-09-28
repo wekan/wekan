@@ -43,6 +43,29 @@ bound is on live reservations: SMTP servers cannot fence stale connections
 from paused hosts, and an already accepted message cannot be recalled. Delivery
 therefore remains at least once.
 
+## Completed notification receipts
+
+Completed and cancelled notification jobs, and completed or superseded control
+requests, retain detailed metadata for 30 days by default. Set
+`EMAIL_RECEIPT_METADATA_DAYS` to an integer from 1 to 3650 to change this age.
+The background sweep runs every 60 seconds; `EMAIL_RECEIPT_SWEEP_INTERVAL_MS`
+accepts 1000–86400000 milliseconds. Each pass examines at most 100 jobs and
+100 control requests. Large backlogs therefore take multiple passes.
+
+Old terminal rows are atomically replaced in the same private collections.
+Job receipts retain their hashed event identity and terminal state; command
+receipts retain their request ID, terminal state and a hash binding the actor,
+recipient and action. These minimal receipts remain indefinitely to prevent
+old events or control commands from running again. This reduces metadata per
+receipt; it does not cap the total number of receipts or erase request IDs.
+There is no TTL deletion.
+
+Pending and failed jobs, pending commands, recipient pauses, cancellation
+cutoffs and the latest control audit summary remain intact. Missing or invalid
+completion dates and inconsistent identities are retained for investigation.
+A storage failure leaves replay protection in place and is retried on a later
+sweep; it does not stop maintenance of the other receipt collection.
+
 ## SMTP timeouts
 
 SMTP connections configured through `MAIL_URL`, TLS certificate overrides or

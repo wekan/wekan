@@ -1,10 +1,10 @@
-const { createHash, randomUUID } = require('node:crypto');
+const { randomUUID } = require('node:crypto');
+const { idFor, matchesEmailJob } = require('./emailReceiptIdentity');
 const { withSyncLease } = require('./syncLease');
 const { calculateObjectSize } = require('bson');
 const { PAYLOAD_FIELDS } = require('./emailOutboxControl');
 const { MAX_EMAIL_ATTEMPTS, emailRetryDecision } = require('./emailRetryPolicy');
 
-const idFor = (userId, eventId) => createHash('sha256').update(JSON.stringify([userId, eventId])).digest('hex');
 const MAX_JOB_BYTES = 15 * 1024 * 1024;
 const MAX_DIGEST_BYTES = 4 * 1024 * 1024;
 
@@ -29,10 +29,10 @@ function createEmailOutbox({ jobs, leases, controls, getUser, send, replyTo, fro
       // Duplicate events and lost insert acknowledgements are safe only after
       // reading the durable identity. Never overwrite an earlier rendered copy.
       const existing = await jobs.findOne({ _id });
-      if (!existing || existing.userId !== userId || existing.eventId !== eventId) throw error;
+      if (!matchesEmailJob(existing, userId, eventId)) throw error;
     }
     const stored = await jobs.findOne({ _id });
-    if (!stored || stored.userId !== userId || stored.eventId !== eventId) throw new Error('email-job-not-stored');
+    if (!matchesEmailJob(stored, userId, eventId)) throw new Error('email-job-not-stored');
     return _id;
   }
 
