@@ -555,8 +555,19 @@ deadline assertions.
 This is a bound on live notification-queue reservations, not a hard fence on
 an SMTP connection from a paused host. Keep application clocks synchronized.
 Direct email calls outside the queue are not counted, and remote acceptance
-remains at least once. Receipt retention and coordinating activity creation
-with queue insertion remain pending.
+remains at least once.
+
+Terminal email job and control-request metadata now has a configurable
+30-day retention period. Bounded background sweeps atomically replace old
+terminal rows with minimal permanent replay identities in the same private
+collections. Preserve pending/failed work, control holds and cancellation
+cutoffs; old event and command retries cannot recreate deliveries or cancel
+newer messages. Invalid identities or missing completion dates remain intact.
+The number of minimal receipts is not capped. Six focused Node suites, one
+full-app Meteor scheduler test and one Chromium Recovery replay/authorization
+scenario pass. Local MongoDB tests cover uncertain writes, changed states,
+keyset batches, concurrent sweeps and independent collection failures.
+Coordinating activity creation with queue insertion remains pending.
 History field snapshots now preserve nested dates, including date-valued
 custom fields alongside mapped estimates. JSON transport and restoration retain
 Date types without interpreting date-looking text. Existing rows whose dates
@@ -1197,6 +1208,31 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/765e2c305">Compact completed email metadata without reopening old deliveries</a>. Thanks to xet7.</summary>
+
+Retain terminal job and control-request metadata for 30 days by default,
+configurable with EMAIL_RECEIPT_METADATA_DAYS. Sweep at most 100 rows per
+collection every 60 seconds, with a configurable interval. Atomically replace
+old rows in place with minimal permanent replay identities. Keep unfinished
+work, pauses, cancellation cutoffs and current control audit summaries.
+
+Job receipts retain their event hash and terminal state. Command receipts
+retain the request ID, terminal state and actor/recipient/action identity
+hash. Do not delete replay keys or cap their total count. Missing completion
+dates and inconsistent identities remain untouched. Reconcile uncertain
+replacement acknowledgements and continue the other collection after a
+storage failure.
+
+Six Node suites pass, including real MongoDB replay, fault and batching
+coverage. A full-app Meteor test verifies the startup scheduler, and a
+Chromium Recovery test verifies that an old compacted cancellation preserves
+later queued mail and still rejects non-admin callers. The source audit
+passes with advisory dependency fingerprint warnings. External providers and
+FerretDB were not exercised. Atomic activity-to-queue insertion remains open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7efa8ca37">Share notification delivery capacity across server processes</a>. Thanks to xet7.</summary>
