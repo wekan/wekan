@@ -315,6 +315,13 @@ choose the head. Twelve append/bootstrap Node/MongoDB cases pass, including a
 300-row reversed-time chain and fresh-connection continuation. Writer exclusion
 during bootstrap and ordinary writer binding remain unfinished; no automatic
 migration is enabled.
+Private History head storage now uses the real History schema. The internal
+append entry point validates complete defaults before reservation, preserves
+captured timestamps/whitespace and refuses missing or deleted heads. Twelve
+Node/MongoDB cases, one full-app case and two Chromium cases pass, including
+six concurrent schema-backed writes and denied browser access across all 18
+private recovery collections. Ordinary writer switching, bootstrap exclusion
+and redo coordination remain unfinished.
 Creation units now preserve the ordinary createCard activity payload in a
 bounded private plan with a stable ID and captured names/timestamps. Readback
 confirms insertion, but the journal cannot advance until a separate durable
@@ -1484,6 +1491,24 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e56dac26a">Bind coordinated History appends to private heads and schema validation</a>. Thanks to xet7.</summary>
+
+Register private board History heads with a unique index and denied browser
+writes. Validate complete History defaults before reserving a pending row,
+then use ordinary schema-backed insertion without changing timestamps or
+whitespace. Missing heads require explicit bootstrap; append cannot silently
+recreate a deleted head from stale state.
+
+Twelve Node/MongoDB cases, one full-app Meteor case and two Chromium cases pass.
+Six concurrent real History writes form one chain; invalid schema values leave
+no pending reservation. Members/admins cannot write or read any of the 18
+private recovery collections. The source audit has advisory warnings.
+Ordinary writer switching, bootstrap exclusion and redo coordination remain
+unfinished; no automatic migration is enabled.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5090e5783">Validate History ancestry before initializing a coordinated head</a>. Thanks to xet7.</summary>
