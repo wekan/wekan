@@ -365,6 +365,13 @@ Meteor case combines real Cards, ChangeHistory and Activities, interrupts child
 delivery and resumes without duplicate rows; ordinary restore still records.
 All 25 archive Node/MongoDB cases pass. Production downstream delivery and
 shared History-writer coordination remain pending.
+Private archive command/effect/receipt collections now have recovery indexes,
+no TTL and denied browser writes. The real rule capture entry point validates
+current configuration, actor access and every saved descendant's parent/list
+identity, including on replay. Six capture unit cases, one full-app case and
+two Chromium cases pass; members/admins cannot write or read the 17 private
+Sync collections. Archive mutation activation and effect/delivery binding
+remain unfinished.
 Other action adapters, shared History-chain coordination, uncertain-send
 operator handling and manual/cron activation remain unfinished; ordinary
 executeRules is not substituted for durable rule replay.
@@ -1456,6 +1463,23 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/840711a6e">Register private archive recovery storage and guarded capture</a>. Thanks to xet7.</summary>
+
+Register private archive commands, effect plans and receipts with recovery
+indexes and denied browser writes. Capture real matched archive rules under
+the caller's lease/scope guard. Recheck current rule/action configuration,
+actor access and every saved descendant's parent/list identity on replay.
+Later children do not replace the saved cascade; capture never mutates cards.
+
+Six capture unit cases, one full-app Meteor case and two Chromium cases pass.
+Browser tests deny member/admin writes and exposure for all 17 private Sync
+collections. The source audit completes with advisory warnings. Mutation and
+production effect/delivery binding remain unfinished; no automatic job uses
+this capture entry point yet.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/96b9bb689">Bind archive activities to real collection hooks and verify replay</a>. Thanks to xet7.</summary>
