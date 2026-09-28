@@ -31,7 +31,7 @@ import {
 import { weekRange } from '/models/lib/weekStart';
 import { Session } from 'meteor/session';
 import { boardScopedFilterSelector } from '/models/lib/boardScopedSelection';
-import { cardDateRangeSelector } from '/models/lib/cardDateRange';
+import { cardDateRangeSelector, cardRecencySelector } from '/models/lib/cardDateRange';
 import { columnAgeSelector } from '/models/lib/cardListEntry';
 import { subscribeDateNowTicker } from '/client/lib/dateNowTicker';
 // Sidebar is imported late to avoid circular dependency (sidebar.js needs its
@@ -71,6 +71,34 @@ class CardDateRangeFilter {
   }
   _isActive() { const value = this.value(); return !!(value.from || value.to); }
   selector() { return cardDateRangeSelector(this.value()) || {}; }
+}
+
+class CardRecencyFilter {
+  constructor() {
+    this._dep = new Tracker.Dependency();
+    this._ticker = null;
+    this.reset();
+  }
+  value() { this._dep.depend(); return this._value; }
+  set(value) {
+    const selector = cardRecencySelector(value);
+    if (selector === null) return false;
+    this._value = { createdAt: value.createdAt || '', modifiedAt: value.modifiedAt || '' };
+    if (Object.keys(selector).length) {
+      if (!this._ticker) this._ticker = subscribeDateNowTicker();
+    } else {
+      this._ticker?.unsubscribe(); this._ticker = null;
+    }
+    this._dep.changed();
+    return true;
+  }
+  reset() {
+    this._value = { createdAt: '', modifiedAt: '' };
+    this._ticker?.unsubscribe(); this._ticker = null;
+    this._dep.changed();
+  }
+  _isActive() { const value = this.value(); return !!(value.createdAt || value.modifiedAt); }
+  selector() { return cardRecencySelector(this.value(), this._ticker?.now.get() || new Date()); }
 }
 
 class ColumnAgeFilter {
@@ -578,6 +606,7 @@ export const Filter = {
   dueAt: new DateFilter(),
   columnAge: new ColumnAgeFilter(),
   dateRange: new CardDateRangeFilter(),
+  dateRecency: new CardRecencyFilter(),
   title: new StringFilter(),
   customFields: new SetFilter('_id'),
   // #3392: filter cards by their dependency ("Red Strings") relation type.
@@ -607,7 +636,7 @@ export const Filter = {
 
   isActive() {
     return (
-      this.columnAge._isActive() || this.dateRange._isActive() ||
+      this.columnAge._isActive() || this.dateRange._isActive() || this.dateRecency._isActive() ||
       this._fields.some(fieldName => {
         return this[fieldName]._isActive();
       }) ||
@@ -695,6 +724,7 @@ export const Filter = {
     if (isFilterActive) constraints.push(combined);
     if (this.columnAge._isActive()) constraints.push(this.columnAge.selector());
     if (this.dateRange._isActive()) constraints.push(this.dateRange.selector());
+    if (this.dateRecency._isActive()) constraints.push(this.dateRecency.selector());
     return constraints.length > 1 ? { $and: constraints } : (constraints[0] || {});
   },
 
@@ -727,6 +757,7 @@ export const Filter = {
     this.excludedLabelIds.reset();
     this.columnAge.reset();
     this.dateRange.reset();
+    this.dateRecency.reset();
     this.lists.reset();
     this.advanced.reset();
     this.resetExceptions();

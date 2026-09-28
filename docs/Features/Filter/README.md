@@ -163,5 +163,19 @@ This addresses the no-expression date-selection portion of
 [#935](https://github.com/wekan/wekan/issues/935). Searching for any movement
 within a historical date range is different from filtering the latest list
 entry: a card may have moved again since then. That activity-based filter,
-combined title/description/checklist/comment text filtering, and the remaining
-relative-date presets from the issue's RFC are still tracked in TODO Later.
+combined title/description/checklist/comment text filtering, and saved filter
+combinations are still tracked in TODO Later.
+
+## Relative creation and modification dates
+
+Under **Filter by date**, the **Created** and **Modified** selectors apply
+immediately. Select the last 24 hours, 7 days, 30 days, or more than 30 days ago.
+These are rolling elapsed periods (a day is 24 hours and a month here is 30
+such days), rather than calendar months or midnight boundaries. Recent ranges
+include both endpoints and exclude future timestamps; the older range is
+strictly before the 30-day cutoff. Missing/null and non-date values do not match.
+
+Creation and modification selections combine with each other and other filters,
+including the explicit date range. They refresh every minute while active,
+remain selected when the sidebar closes or the board changes, and make no card
+writes. **Any time** disables that field; the final clear button resets both.

@@ -5,10 +5,15 @@ import { EscapeActions } from '/client/lib/escapeActions';
 import { MultiSelection } from '/client/lib/multiSelection';
 import { Utils } from '/client/lib/utils';
 import { getSidebarInstance } from '/client/features/sidebar/service';
-import { CARD_DATE_RANGE_FIELDS } from '/models/lib/cardDateRange';
+import { CARD_DATE_RANGE_FIELDS, CARD_RECENCY_PRESETS } from '/models/lib/cardDateRange';
 import { DEPENDENCY_TYPES } from '/models/metadata/dependencies';
 
 Template.filterSidebar.helpers({
+  dateRecencyFields() {
+    return [{ id: 'createdAt', label: 'createdAt' }, { id: 'modifiedAt', label: 'modifiedAt' }];
+  },
+  dateRecencyPresets() { return CARD_RECENCY_PRESETS; },
+  dateRecencySelected(field, preset) { return Filter.dateRecency.value()[field] === preset; },
   dateRangeFields() { return CARD_DATE_RANGE_FIELDS; },
   dateRangeSelected(id) { return Filter.dateRange.value().field === id; },
   dateRangeFrom() { return Filter.dateRange.value().from; },
@@ -40,6 +45,12 @@ Template.filterSidebar.helpers({
 });
 
 Template.filterSidebar.events({
+  'change .js-card-date-recency'(event) {
+    const { field } = event.currentTarget.dataset;
+    if (Filter.dateRecency.set({ ...Filter.dateRecency.value(), [field]: event.currentTarget.value })) {
+      Filter.resetExceptions();
+    }
+  },
   'submit .js-card-date-range'(event, tpl) {
     event.preventDefault();
     const end = tpl.find('.js-card-date-to');

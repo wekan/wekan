@@ -114,6 +114,11 @@ template(name="filterSidebar")
   h3
     i.fa.fa-calendar
     | {{_ 'filter-dates-label' }}
+  each field in dateRecencyFields
+    label(for="filter-recency-{{field.id}}") {{_ field.label}}
+    select.js-card-date-recency(id="filter-recency-{{field.id}}" data-field=field.id)
+      each preset in dateRecencyPresets
+        option(value=preset.id selected="{{#if dateRecencySelected field.id preset.id}}selected{{/if}}") {{_ preset.label}}
   form.js-card-date-range
     label(for="filter-card-date-field") {{_ 'filter-date-range-field'}}
     select.js-card-date-field(id="filter-card-date-field")
