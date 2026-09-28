@@ -19,9 +19,12 @@ async function smtpSink(port, { accept = () => true, rejectionCode = 451 } = {})
         pending = pending.slice(end + 2);
         if (data !== null) {
           if (line === '.') {
-            messages.push({ recipients: [...recipients], data: data.join('\r\n') });
+            const message = { recipients: [...recipients], data: data.join('\r\n') };
+            messages.push(message);
             data = null; recipients = [];
-            socket.write(accept() ? '250 captured\r\n' : `${rejectionCode} test rejection\r\n`);
+            Promise.resolve().then(() => accept(message)).then(accepted => {
+              if (!socket.destroyed) socket.write(accepted ? '250 captured\r\n' : `${rejectionCode} test rejection\r\n`);
+            }).catch(() => socket.destroy());
           } else data.push(line.replace(/^\.\./, '.'));
         } else if (/^(EHLO|HELO)/i.test(line)) socket.write('250 localhost\r\n');
         else if (/^RCPT TO:/i.test(line)) {

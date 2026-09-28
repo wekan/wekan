@@ -325,7 +325,15 @@ copy, including after completion. Notifications without an activity ID receive
 a new UUID and cannot deduplicate a replay across separate enqueue calls.
 
 The worker scans due jobs after startup and once a second after each completed
-pass. It reserves a recipient in `notificationEmailLeases` using the shared
+pass. Each pass selects up to 100 distinct due recipients, ordered by their
+earliest due time and recipient ID, so a recipient with many queued messages
+cannot hide other recipients behind a message-count limit. Four workers per
+application process handle recipients concurrently; concurrent callers share
+the same pass. A slow recipient does not occupy the other three slots. Multiple
+application processes each have their own pool; there is no global SMTP
+connection limit. A pass still waits for its active transports before polling
+again, so transport timeouts remain necessary.
+It reserves a recipient in `notificationEmailLeases` using the shared
 renewable lease primitive, in a separate collection from list Sync. A normal
 live reservation prevents another process from sending that recipient's digest.
 Expired reservations can be reclaimed. It streams at most 100 rows per digest,
@@ -370,7 +378,8 @@ and stable request receipts with generation checks. A paused recipient stays
 listed with no pending jobs, so the hold can always be removed. Report totals
 scan sorted recipient summaries with bounded memory; concurrent writes can
 change counts between reads, and Refresh obtains a new result.
-Receipt retention and SMTP timeout/concurrency policy remain pending. No external mail provider or FerretDB
+Receipt retention, SMTP timeouts and deployment-wide concurrency policy remain
+pending. No external mail provider or FerretDB
 was exercised by this implementation's local MongoDB/SMTP tests.
 
 Run `tests/integration/emailOutbox.test.cjs` with

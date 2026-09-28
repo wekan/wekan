@@ -140,3 +140,36 @@ test('permanent SMTP rejection stays stopped until an administrator retries deli
     await sink.close();
   }
 });
+
+test('a slow SMTP recipient remains visible while another recipient completes delivery', async ({ page, adminUser, user, user2 }) => {
+  test.skip(!process.env.WEKAN_TEST_SMTP_PORT, 'Requires local SMTP capture');
+  const [slowUser, fastUser] = [user, user2].sort((a, b) => a.id < b.id ? -1 : 1);
+  let release;
+  const held = new Promise(resolve => { release = resolve; });
+  const sink = await smtpSink(Number(process.env.WEKAN_TEST_SMTP_PORT), {
+    accept: async mail => { if (mail.recipients.includes(slowUser.email)) await held; return true; },
+  });
+  const slow = db.uid('slow-recipient'), fast = db.uid('fast-recipient');
+  try {
+    const due = new Date(Date.now() + 1000);
+    db.insertMany('notificationEmailJobs', [
+      queued(slow, slowUser.id, { nextAttemptAt: due }),
+      queued(fast, fastUser.id, { nextAttemptAt: due }),
+    ]);
+    await expect.poll(() => db.findOne('notificationEmailJobs', { _id: fast })?.state, { timeout: 15000 }).toBe('sent');
+    expect(db.findOne('notificationEmailJobs', { _id: slow }).state).toBe('pending');
+    await loginWithToken(page, adminUser.id, adminUser.token);
+    await navigateInApp(page, '/admin/problems/recovery');
+    const panel = page.locator('.email-recovery-reports');
+    await panel.locator('.js-table-page-search').fill(slowUser.id);
+    await panel.locator('.js-table-page-search').press('Enter');
+    await expect(panel).toContainText('Queued messages: 1');
+    release();
+    await expect.poll(() => db.findOne('notificationEmailJobs', { _id: slow })?.state, { timeout: 15000 }).toBe('sent');
+    expect(sink.messages.filter(mail => mail.recipients.includes(fastUser.email))).toHaveLength(1);
+    expect(sink.messages.filter(mail => mail.recipients.includes(slowUser.email))).toHaveLength(1);
+  } finally {
+    release(); await sink.close();
+    db.deleteMany('notificationEmailJobs', { _id: { $in: [slow, fast] } });
+  }
+});

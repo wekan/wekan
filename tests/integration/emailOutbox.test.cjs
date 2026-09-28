@@ -213,3 +213,63 @@ test('crash-reserved and legacy exhausted budgets stop before SMTP; reservations
   }) }).drainUser('user');
   assert.equal(f.sent.length, 1); assert.equal((await f.jobs.findOne({ _id: id })).cycleAttempts, 1);
 });
+
+test('four recipient workers progress independently and concurrent scans share the bounded pool', { skip: !uri, timeout: 10000 }, async t => {
+  const f = await fixture(t), gate = deferred(), entered = deferred();
+  let active = 0, peak = 0, started = 0;
+  const delivered = [];
+  const queue = createEmailOutbox({ ...f.options,
+    getUser: async id => ({ _id: id, emails: [{ address: `${id}@example.test` }] }),
+    send: async mail => {
+      active++; peak = Math.max(peak, active); started++;
+      if (started === 4) entered.resolve();
+      await gate.promise;
+      delivered.push(mail.userId); active--;
+      return { accepted: [mail.to] };
+    },
+  });
+  for (let i = 0; i < 9; i++) await queue.enqueue(f.job(`event-${i}`, { userId: `user-${i}` }));
+  f.advance(100);
+  const first = queue.drain();
+  const second = queue.drain();
+  assert.equal(first, second, 'callers await the same pass');
+  try {
+    await entered.promise;
+    assert.equal(started, 4); assert.equal(peak, 4);
+  } finally { gate.resolve(); await first; }
+  assert.equal(delivered.length, 9); assert.equal(new Set(delivered).size, 9); assert.equal(peak, 4);
+  await queue.drain(); assert.equal(delivered.length, 9);
+});
+test('a slow recipient with over one hundred messages does not hide other recipients', { skip: !uri, timeout: 10000 }, async t => {
+  const f = await fixture(t), gate = deferred(), otherDelivered = deferred();
+  for (let i = 0; i < 105; i++) await f.queue.enqueue(f.job(`slow-${i}`, { userId: 'slow' }));
+  f.advance(1); await f.queue.enqueue(f.job('other', { userId: 'other' })); f.advance(100);
+  const queue = createEmailOutbox({ ...f.options, send: async mail => {
+    if (mail.userId === 'slow') await gate.promise;
+    else otherDelivered.resolve();
+    return { accepted: [mail.to] };
+  } });
+  const pass = queue.drain();
+  try {
+    await otherDelivered.promise;
+    assert.equal(await f.jobs.countDocuments({ userId: 'slow', state: 'sent' }), 0);
+  } finally { gate.resolve(); await pass; }
+  assert.equal(await f.jobs.countDocuments({ userId: 'other', state: 'sent' }), 1);
+  assert.equal(await f.jobs.countDocuments({ userId: 'slow', state: 'pending' }), 5);
+});
+
+test('a failed scheduling query releases the shared pass for the next poll', { skip: !uri }, async t => {
+  const f = await fixture(t); await f.queue.enqueue(f.job('event')); f.advance(100);
+  let fail = true;
+  const jobs = new Proxy(f.jobs, { get(target, key) {
+    if (key === 'aggregate') return (...args) => {
+      if (fail) { fail = false; throw Error('temporary query failure'); }
+      return target.aggregate(...args);
+    };
+    const value = target[key]; return typeof value === 'function' ? value.bind(target) : value;
+  } });
+  const queue = createEmailOutbox({ ...f.options, jobs });
+  await assert.rejects(queue.drain(), /temporary query failure/);
+  assert.equal(f.sent.length, 0);
+  await queue.drain(); assert.equal(f.sent.length, 1);
+});

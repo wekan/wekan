@@ -161,13 +161,32 @@ function createEmailOutbox({ jobs, leases, controls, getUser, send, replyTo, fro
     }
   }
 
-  async function drain() {
-    const due = await jobs.find({ state: 'pending', nextAttemptAt: { $lte: now() } },
-      { projection: { userId: 1 } }).sort({ nextAttemptAt: 1, _id: 1 }).limit(100).toArray();
-    for (const userId of new Set(due.map(job => job.userId))) {
-      try { await drainUser(userId); }
-      catch (error) { console.error('Email outbox recipient failed; pending jobs retained'); }
+  let draining;
+  async function drainBatch() {
+    // Select recipients, not the first hundred messages: one large backlog
+    // must not hide everyone else. Keep payloads out of this scheduling query.
+    const due = await jobs.aggregate([
+      { $match: { state: 'pending', nextAttemptAt: { $lte: now() } } },
+      { $group: { _id: '$userId', nextAttemptAt: { $min: '$nextAttemptAt' } } },
+      { $sort: { nextAttemptAt: 1, _id: 1 } },
+      { $limit: 100 },
+    ]).toArray();
+    let next = 0;
+    async function worker() {
+      while (next < due.length) {
+        const userId = due[next++]._id;
+        try { await drainUser(userId); }
+        catch (error) { console.error('Email outbox recipient failed; pending jobs retained'); }
+      }
     }
+    // Four independent recipients can progress while another SMTP request is
+    // slow. The per-recipient distributed lease still excludes other senders.
+    await Promise.all(Array.from({ length: Math.min(4, due.length) }, worker));
+  }
+  function drain() {
+    // Concurrent callers share this pass instead of multiplying its pool.
+    if (!draining) draining = drainBatch().finally(() => { draining = null; });
+    return draining;
   }
   async function hasPending(userId) {
     return !!await jobs.findOne({ userId, state: 'pending' }, { projection: { _id: 1 } });
