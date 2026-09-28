@@ -282,15 +282,18 @@ operation effect ID.
 Activity notification and webhook payloads now preserve zero, false, empty
 text and explicit null, while absent values remain omitted. This fixes lost
 zero estimates and unchecked custom-field values. SMTP and HTTP-serialization
-tests cover the values; durable delivery still needs a replacement for the
-current fire-and-forget webhooks and timed email buffer.
-Email buffering now awaits storage and acknowledges only the sent lines after
-SMTP acceptance. Failed sends and missing addresses retain buffered text;
-per-user timers serialize sends within one process. Seven Chromium cases,
-including SMTP rejection and later recovery, and thirteen Node suites pass.
-Startup recovery, automatic retries, persisted mail metadata, event identities
-and cross-process delivery coordination remain pending. SMTP success followed
-by failed acknowledgement can still duplicate a message on retry.
+tests cover the values. Outgoing webhooks still need durable integration.
+Email notifications now use a private event/recipient outbox with persisted
+content and due times, automatic retry backoff and renewable recipient leases.
+Startup discovers pending work; legacy profile buffers migrate before removal.
+SMTP acceptance is verified before payloads are replaced with replay receipts.
+Deleted users, revoked board members and disabled email settings cancel sends.
+Nineteen focused Node suites, a separate actual app-startup recovery test and
+ten Chromium cases pass, including SMTP rejection/retry and blocked DDP writes.
+Delivery is at least once: an SMTP acknowledgement lost across a crash or lease
+expiry can duplicate mail. Recovery UI, pause/cancel/resume, receipt retention,
+terminal-error classification, retry limits/jitter, transport concurrency and
+coordinating activity creation with queue insertion remain pending.
 History field snapshots now preserve nested dates, including date-valued
 custom fields alongside mapped estimates. JSON transport and restoration retain
 Date types without interpreting date-looking text. Existing rows whose dates
@@ -922,23 +925,6 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/4063b423c">Retain email digests until SMTP accepts them</a>. Thanks to xet7.</summary>
-
-Previously the notification buffer was cleared before sending, losing messages
-when SMTP rejected them. Buffer writes are now awaited, and successful sends
-remove only their snapshot. Distinct lines added during delivery remain queued.
-Timers serialize delivery per user within one server process, and newer reply
-targets survive an earlier digest's acknowledgement.
-
-Thirteen focused Node suites and seven Chromium scenarios pass, including a
-local SMTP rejection followed by successful delivery of retained text. Source
-audit passes with advisory fingerprint changes. Automatic retries and startup
-recovery remain pending, as do persisted mail metadata, event identities and
-cross-process coordination. A crash after SMTP accepts a message can still
-cause a duplicate on retry; this does not complete durable Sync effects.
-
-</details>
 
 **In short:** **Sync** keeps source projects separate and coordinates concurrent
 runs and settings changes, including private credentials. **Scrum** records
@@ -964,6 +950,36 @@ responses, folded database rows, the Admin API Problems view and absence of
 the request token and private marker. The pending-import HTTP scenario also
 passes. This covers the route boundary; other loggers and historical log
 contents were not changed.
+
+</details>
+
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d828411bf">Persist email notifications and resume delivery after restart</a>. Thanks to xet7.</summary>
+
+Notification digests now use a private database outbox with stable event and
+recipient identities. Subject, body, language and card references survive a
+restart. Renewable recipient reservations coordinate workers; SMTP failures
+retry with persisted backoff from five seconds up to one hour. Legacy profile
+buffers migrate before removal, using a neutral subject where old metadata
+was never stored.
+
+SMTP must confirm the recipient was accepted before a digest is acknowledged.
+Console output and suppressed send hooks do not count. Completion removes the
+rendered payload and retains a small receipt to suppress replay. New events
+remain distinct even when their text matches. Deferred delivery rechecks active
+board membership and email settings; clients cannot alter private job records.
+
+Nineteen focused Node suites, an actual stopped-app startup recovery test and
+ten Chromium scenarios pass with local MongoDB and SMTP. Tests cover competing
+workers, lost/false write acknowledgements, bounded batches, legacy migration,
+automatic retries, revoked access and blocked client writes. Source audit passes
+with advisory fingerprint changes. Other browsers, FerretDB and external mail
+providers were not exercised.
+
+Delivery remains at least once: a crash after SMTP acceptance can duplicate
+mail. Recovery UI and operator controls, receipt retention, retry-policy limits
+and coordinating original activity writes with enqueue remain in TODO Later.
 
 </details>
 
