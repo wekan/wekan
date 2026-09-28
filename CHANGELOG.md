@@ -1291,8 +1291,9 @@ now uses current target results and both boards' visibility settings. The six
 visible Scrum card fields are included with same-board name resolution and
 persisted visibility checks. The
 [content audit](docs/DeveloperDocs/Card-Email-Content-Audit.md) now tracks
-remaining attachment metadata,
-legacy Gantt links, wrapper metadata and moved-card SMTP coverage. Creator,
+remaining legacy Gantt links, wrapper metadata and moved-card SMTP coverage.
+Attachment manifests now identify the cover, upload metadata and actual sizes.
+Creator,
 stickers, checklist schedules, public comment authors and scoped reaction
 summaries are now included. Stored Details now binds related-source chains,
 admin access and custom-field definition fingerprints; older Details snapshots
@@ -1552,6 +1553,26 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/027d399cb">Include attachment presentation metadata in rule emails</a>. Thanks to kabi178, bbyszio and xet7.</summary>
+
+Append an attachment manifest with captured filenames, actual byte counts,
+MIME types, cover marker, upload date and public uploader display name. Never
+include storage paths, download URLs or private account data. The manifest
+follows the Attachments choice independently of Details and is bounded to
+256 KiB. Reject deleted cards and foreign file rows; recheck access and cover
+identity after all file metadata reads. Remove this gap from the content audit.
+
+Fifty-seven Node suites pass without skips, including MongoDB and native
+MailComposer integration. Unit tests cover actual byte size, private-field
+exclusion, cover changes, deleted cards and access loss during final reads.
+Three Chromium SMTP scenarios pass; filesystem/GridFS messages verify the
+manifest and its omission when Attachments is disabled. Existing Upcoming
+regression evidence is retained. Legacy Gantt links, wrapper metadata,
+moved-card trigger coverage and operator recovery remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2a632445b">Include converted checklist subtask references in rule emails</a>. Thanks to kabi178, bbyszio and xet7.</summary>
