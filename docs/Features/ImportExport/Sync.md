@@ -851,3 +851,19 @@ insertion, then resumes both child and parent, verifies exact stored payloads
 and confirms replay creates no duplicates. Ordinary restore recording still
 works afterward. The test controls only downstream delivery acknowledgements;
 production delivery binding and shared History-writer coordination remain open.
+
+### Private archive command storage
+
+`captureStoredSyncRuleArchiveCommand` uses actual saved rule selection and the
+private `listSyncRuleArchiveCommands` collection. The internal entry point
+requires the caller's journal lease/scope guard, current activity identity,
+live feature policy, enabled actor and board write access. It checks the live
+rule/action documents against their frozen snapshots and authorizes every
+captured descendant, including assigned-only access and current parent/list
+identity. Existing commands recheck descendant access without discovering new
+children. Capture writes no cards or rule-completion receipt.
+
+`listSyncRuleArchiveEffects` and `listSyncRuleArchiveReceipts` are registered
+alongside commands for subsequent execution binding. All three collections deny
+browser insert/update/remove, have recovery lookup indexes and no publication
+or TTL. They are not wired into ordinary/manual/cron rule execution yet.

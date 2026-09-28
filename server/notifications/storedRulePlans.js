@@ -23,7 +23,15 @@ const { createEmailSendSlots } = require('/server/lib/emailSendSlots');
 const withEmailSlot = createEmailSendSlots(EmailSendSlots.rawCollection());
 const { executeRulePlan } = require('/server/lib/syncRuleExecution');
 const { ensureRuleEmailCommand } = require('/server/lib/syncRuleEmailCommand');
+const { ensureRuleArchiveCommand } = require('/server/lib/syncRuleArchiveCommand');
+const { exactFieldSelector } = require('/models/lib/exactFieldSelector');
 
+export const SyncRuleArchiveCommands = new Mongo.Collection('listSyncRuleArchiveCommands');
+export const SyncRuleArchiveEffects = new Mongo.Collection('listSyncRuleArchiveEffects');
+export const SyncRuleArchiveReceipts = new Mongo.Collection('listSyncRuleArchiveReceipts');
+for (const collection of [SyncRuleArchiveCommands, SyncRuleArchiveEffects, SyncRuleArchiveReceipts]) {
+  collection.deny({ insert: () => true, update: () => true, remove: () => true });
+}
 export const SyncRulePlans = new Mongo.Collection('listSyncRulePlans');
 export const SyncRuleEmailAttempts = new Mongo.Collection('listSyncRuleEmailAttempts');
 SyncRuleEmailAttempts.deny({ insert: () => true, update: () => true, remove: () => true });
@@ -33,6 +41,9 @@ export const SyncRuleReceipts = new Mongo.Collection('listSyncRuleReceipts');
 SyncRuleReceipts.deny({ insert: () => true, update: () => true, remove: () => true });
 SyncRulePlans.deny({ insert: () => true, update: () => true, remove: () => true });
 Meteor.startup(async () => {
+  await ensureIndex(SyncRuleArchiveCommands, { boardId: 1, cardId: 1 });
+  await ensureIndex(SyncRuleArchiveEffects, { commandHash: 1 });
+  await ensureIndex(SyncRuleArchiveReceipts, { commandId: 1 });
   await ensureIndex(SyncRulePlans, { 'plan.boardId': 1, 'plan.cardId': 1 });
   await ensureIndex(SyncRuleReceipts, { effectId: 1 });
   await ensureIndex(SyncRuleEmailCommands, { boardId: 1, cardId: 1 });
@@ -135,4 +146,49 @@ export async function runStoredSyncRuleEmail({ index, ...options }) {
     attempts: SyncRuleEmailAttempts.rawCollection(), assertCurrent,
     send: async (mail, { assertCurrent: beforeSend }) => { await beforeSend(); return Email.sendAsync(mail); },
   }), { assertOwner: guard });
+}
+
+
+// Internal capture only. The caller owns the journal lease and scope guard.
+// Do not enable mutation execution until History coordination and downstream
+// delivery are bound. No browser method, publication or TTL exposes this data.
+export async function captureStoredSyncRuleArchiveCommand({ index, ...options }) {
+  const context = executionContext(options), plan = await capture(context);
+  const invocation = plan.actions[index];
+  if (!Number.isSafeInteger(index) || index < 0 ||
+      !['archive', 'unarchive'].includes(invocation?.action?.actionType)) {
+    throw new Error('sync-rule-archive-command-invalid');
+  }
+  const guard = async () => {
+    await context.guard();
+    const [rule, action] = await Promise.all([
+      Rules.rawCollection().findOne({ _id: invocation.rule._id }),
+      Actions.rawCollection().findOne({ _id: invocation.action._id }),
+    ]);
+    if (!rule || !action || canonical(rule) !== canonical(invocation.rule) ||
+        canonical(action) !== canonical(invocation.action)) throw new Error('sync-rule-archive-configuration-changed');
+    await context.guard();
+  };
+  const assertCard = async snapshot => {
+    await guard();
+    const [card, list, user, board] = await Promise.all([
+      Cards.findOneAsync(exactFieldSelector(snapshot, ['_id', 'boardId', 'listId', 'parentId'])),
+      Lists.findOneAsync({ _id: snapshot.listId, boardId: snapshot.boardId }),
+      Meteor.users.findOneAsync(context.saved.userId), Boards.findOneAsync(snapshot.boardId),
+    ]);
+    if (!card || !list || !user || user.loginDisabled || !board ||
+        !memberCan(board.members, user._id, 'write') ||
+        (isAssignedOnlyMember(board, user._id) && !card.assignees?.includes(user._id))) {
+      throw new Error('sync-rule-archive-card-denied');
+    }
+    await guard();
+  };
+  const command = await ensureRuleArchiveCommand({ commands: SyncRuleArchiveCommands.rawCollection(),
+    plan, activity: context.saved, effectId: context.effectId, index, assertCurrent: guard, assertCard,
+    readCard: id => Cards.findOneAsync(id, { transform: null }),
+    readChildren: parentId => Cards.find({ parentId }, { transform: null, limit: 1001 }).fetchAsync() });
+  // Existing commands skip discovery, but never skip current descendant access.
+  for (const card of command.cards) await assertCard(card);
+  await guard();
+  return command;
 }
