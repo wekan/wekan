@@ -339,6 +339,12 @@ and retires one exact uncertain writer token with all database writers stopped.
 It preserves other tokens, migration ownership and History rows, reconciles
 lost acknowledgements and refuses concurrent gate changes. Twenty-two focused
 Node/MongoDB cases pass, including the actual command in separate processes.
+The offline command can now migrate one board or the global History scope,
+using the same routine as the server and retaining its UUID across restart.
+Before the permanent switch, actual chain verification rejects stale heads,
+pending appends and forks without repairing or resetting stored evidence.
+Twenty-four Node/MongoDB cases and four full-app cases pass, including the
+actual command across drain, retirement, interrupted verification and resume.
 Online token recovery, missing-record replay, mixed-version rollout, redo
 coordination and multi-row Sync reservations remain unfinished; automatic
 migration stays disabled.
@@ -1511,6 +1517,26 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/98359d778">Resume explicit offline History migration with verified chain heads</a>. Thanks to xet7.</summary>
+
+Extend the History maintenance command with an explicit offline migration for
+one board or global scope. Share the server migration routine, drain registered
+writers and retain the same migration UUID through interruption and retry.
+Compare the actual validated chain with the stored head before permanently
+switching writers; refuse stale heads, pending appends and forked History.
+Never repair or reset existing rows or heads implicitly.
+
+Twenty-four Node/MongoDB cases and four full-app Meteor cases pass. Command
+subprocesses exercise offline confirmation, token retirement, stale-head
+refusal, resumption, coordinated append and empty global History. Invalid
+chains retain migration ownership and their original evidence. The source
+audit has advisory warnings. No browser flow changes. Automatic rollout,
+missing-row recovery, undo/redo coordination and multi-row Sync ownership
+remain unfinished; all database writers must stay stopped during maintenance.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/09b51d75a">Recover uncertain History writer tokens with an offline command</a>. Thanks to xet7.</summary>
