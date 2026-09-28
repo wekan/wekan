@@ -334,9 +334,14 @@ head and permanently switches ordinary appends to the coordinated path. The
 caller must exclude older servers and writers outside this path. Four full-app
 cases pass, including ten concurrent ordinary appends and refusal without
 legacy fallback after head deletion. Chromium checks all 19 private recovery
-collections for members/admins. Retained-token recovery, failed-record
-recovery, mixed-version rollout, redo coordination and multi-row Sync
-reservations remain unfinished; automatic migration stays disabled.
+collections for members/admins. Offline recovery now inspects admission gates
+and retires one exact uncertain writer token with all database writers stopped.
+It preserves other tokens, migration ownership and History rows, reconciles
+lost acknowledgements and refuses concurrent gate changes. Twenty-two focused
+Node/MongoDB cases pass, including the actual command in separate processes.
+Online token recovery, missing-record replay, mixed-version rollout, redo
+coordination and multi-row Sync reservations remain unfinished; automatic
+migration stays disabled.
 Creation units now preserve the ordinary createCard activity payload in a
 bounded private plan with a stable ID and captured names/timestamps. Readback
 confirms insertion, but the journal cannot advance until a separate durable
@@ -1506,6 +1511,24 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/09b51d75a">Recover uncertain History writer tokens with an offline command</a>. Thanks to xet7.</summary>
+
+Inspect private History admission without creating or changing gates. Require
+all writers to be stopped before retiring one exact uncertain token. Match
+migration ownership, preserve other tokens, compare the entire stored gate
+and confirm exact readback. Refuse concurrent changes or incompatible modes;
+reconcile lost acknowledgements without replaying History writes.
+
+Twenty-two History Node/MongoDB cases pass. The command runs in separate
+processes against actual MongoDB after an insert with a lost reply; History
+stays unchanged and subsequent bootstrap uses the persisted row. Negative
+cases reject missing offline confirmation, wrong ownership and concurrent
+changes. The source audit has advisory warnings. No browser action is added.
+Online recovery, missing-row replay and automatic migration remain unfinished.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1442809b4">Coordinate ordinary History writers after explicit board migration</a>. Thanks to xet7.</summary>
