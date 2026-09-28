@@ -468,10 +468,18 @@ attempts. Copies never inherit another comment's delivery evidence. Ordinary
 text edits preserve the stored markers. Eleven focused Node suites with MongoDB,
 two full-app Meteor cases and two Chromium member/admin cases pass; an expanded
 projection guard also passes. Denied private writes use the existing comment
-security summary in Problems. Collection registration, live integration/actor
-replay adapters and recovery startup remain unfinished. Absolute HTTP deadlines,
-scheduled retries, retention/operator controls and saved Sync integration
-also remain unfinished.
+security summary in Problems. Five private webhook recovery collections are now
+registered for plans, delivery receipts, HTTP responses, comment plans and
+comment receipts, with replay indexes and no TTL. A guarded capture entry point
+uses the real activity/context and shared preparation code; it reuses the first
+stored snapshot after title, token or target-selection changes and rejects
+changed activities, moved cards, policy changes, lost ownership and corruption.
+Eight Node suites with MongoDB, three full-app Meteor cases and four Chromium
+cases pass. The browser checks deny 30 writes per member/admin account across
+all ten Sync recovery collections and verify that evidence stays private.
+Live integration/actor replay adapters and recovery startup remain unfinished.
+Absolute HTTP deadlines, scheduled retries, retention/operator controls and
+saved Sync delivery activation also remain unfinished.
 Email notifications now use a private event/recipient outbox with persisted
 content and due times, automatic retry backoff and renewable recipient leases.
 Startup discovers pending work; legacy profile buffers migrate before removal.
@@ -1146,6 +1154,33 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/79d4024f1">Register private webhook storage and guarded plan capture</a>. Thanks to xet7.</summary>
+
+Register five private recovery collections for webhook plans, delivery
+receipts, accepted HTTP responses, comment-effect plans and comment receipts.
+Deny all browser writes, publish none of the stored content and retain evidence
+without TTL. Add indexes for board/card plans and receipt/comment recovery.
+
+Connect the real shared preparer to a stored capture entry point. Require the
+operation's ownership/access guard and captured enabled policy. Verify the
+persisted activity and current board/card/list context around capture or replay.
+Reuse the original plan when titles, tokens or target selection change; never
+rebuild corrupted evidence or use a changed/moved activity context.
+
+Eight focused Node suites pass with MongoDB. Three full-app Meteor cases pass,
+covering real capture/replay, changed evidence and policy, corruption, stored
+HTTP replay and comment privacy. Four Chromium cases pass: members and admins
+each receive 30 denied writes across ten recovery collections, and comment
+private-field denials and allowed edits remain verified. Source audit passes
+with informational fingerprint warnings.
+
+This entry point captures plans only. Live integration and reply-target access
+checks, delivery orchestration, startup recovery and manual/cron activation
+remain in TODO Later; no automatic webhook sender is enabled here.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/29872ab9f">Protect private webhook comment evidence across reads, writes and copies</a>. Thanks to xet7.</summary>
