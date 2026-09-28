@@ -137,10 +137,40 @@ confirming that the exact checkpoint is gone. A successor is never removed.
 The internal finalizer can retry with its original journal after an uncertain
 cleanup read, including from a fresh database connection, without rewriting
 History or its undo timestamp. Receipts have no TTL and do not assert that the
-board still has its historical values. Public undo/redo requests do not yet
-carry stable caller operation IDs: selecting the next stack entry after a lost
-response is not an idempotent retry. Caller identity/recovery UI, receipt
-retention and shared writer coordination remain open.
+board still has its historical values. Public undo/redo methods now accept an
+optional caller request ID for Scrum entries. Keyboard shortcuts still use
+the original unkeyed path; their recovery UI, non-Scrum replay, receipt retention
+and shared writer coordination remain open.
+
+### Retrying a Scrum undo or redo request
+
+An API caller may pass a second argument to `changeHistory.undoLast(boardId,
+requestId)` or `changeHistory.redoLast(boardId, requestId)`. Generate and persist
+the ID before invoking the method, then reuse it after a connection loss or an
+uncertain response. It must contain 16–128 ASCII letters, digits, underscores or
+hyphens; a random UUID is suitable. Use a new ID only for a new intentional
+operation. Reusing an ID for another board or direction is refused.
+
+The server persists the first selected row and source hash in a private request
+record before applying changes. Concurrent selectors adopt that first result.
+An empty-stack result remains empty for that request even after new edits.
+A non-Scrum selection returns `scrum-history-request-unsupported` without a
+mutation; the ID will keep that result. Do not automatically drop the ID and
+retry against the generic stack after this or another failure.
+
+Completed requests return their original result without reapplying card writes
+or moving the undo/redo stack again. This includes a retry after the opposite
+direction has subsequently completed. The response describes historical
+completion, not the current state of the card. Fresh board and History access
+checks still apply; removed or changed source rows, missing original request
+evidence and damaged receipts stop recovery. Request and completion records
+have no TTL. They must be retained while callers may retry.
+
+Existing one-argument calls keep their previous behavior and do not provide
+idempotent request replay. Automatic keyboard integration must first handle
+non-Scrum operations and provide visible recovery controls; it is not enabled
+by this API addition. Independent processes still require shared writer
+coordination for atomic card/History changes.
 
 Cancelling records a reason and preserves the history. Scrum accountabilities
 are visible information and do not grant access: all mutations must also satisfy

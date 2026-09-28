@@ -248,3 +248,19 @@ test('storage field ordering does not change immutable completion identity', asy
   await finishScrumHistory(f);
   assert.equal(f.state.updates, 1); assert.equal(f.state.deletes, 1);
 });
+
+test('a saved request can read only the receipt for its original source, actor and direction', async () => {
+  const { readScrumHistoryRequestCompletion: read } = require('../server/lib/scrumHistoryCompletion');
+  const f = fixture(); await finishScrumHistory(f);
+  const request = { _id: f.journal.operationId, boardId: f.journal._id, userId: f.journal.userId,
+    direction: 'undo', selection: { kind: 'scrum', rowId: f.row._id, sourceHash: f.row.integrityHash } };
+  assert.deepEqual(await read(f.completions, request), f.state.receipt);
+  for (const change of [r => { r.boardId = 'other'; }, r => { r.userId = 'other'; },
+    r => { r.direction = 'redo'; }, r => { r.selection.rowId = 'other'; },
+    r => { r.selection.sourceHash = 'b'.repeat(64); }]) {
+    const other = structuredClone(request); change(other);
+    await assert.rejects(read(f.completions, other), /completion conflict/);
+  }
+  f.state.receipt.planHash = 'bad';
+  await assert.rejects(read(f.completions, request), /completion conflict/);
+});

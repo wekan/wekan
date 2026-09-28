@@ -19,8 +19,7 @@ function completionIdentity(journal, row) {
 
 // Evidence is immutable and keyed by the operation, never by the board's latest
 // undo state. A later undo/redo cycle cannot rewrite an earlier completion.
-async function readScrumHistoryCompletion(completions, journal, row) {
-  const expected = completionIdentity(journal, row);
+async function readCompletion(completions, expected) {
   const saved = await completions.findOneAsync(expected._id);
   if (!saved) return null;
   const { completedAt, checksum, ...identity } = saved;
@@ -28,6 +27,24 @@ async function readScrumHistoryCompletion(completions, journal, row) {
       digest(identity) !== digest(expected) ||
       checksum !== digest({ ...identity, completedAt })) fail();
   return saved;
+}
+
+async function readScrumHistoryCompletion(completions, journal, row) {
+  return readCompletion(completions, completionIdentity(journal, row));
+}
+
+// A persisted request pins the operation and immutable source before the
+// checkpoint exists. Its receipt remains usable after checkpoint cleanup;
+// completion proves historical execution, not the board's current contents.
+async function readScrumHistoryRequestCompletion(completions, request) {
+  const { _id, boardId, userId, direction, selection } = request;
+  if (selection.kind !== 'scrum') fail();
+  const saved = await completions.findOneAsync(_id);
+  if (!saved) return null;
+  if (typeof saved.planHash !== 'string' || !/^[a-f0-9]{64}$/.test(saved.planHash)) fail();
+  return readCompletion({ findOneAsync: async () => saved }, { _id, version: 1,
+    boardId, userId, direction, rowId: selection.rowId,
+    sourceHash: selection.sourceHash, planHash: saved.planHash });
 }
 
 async function saveScrumHistoryCompletion(completions, journal, row, now) {
@@ -46,4 +63,4 @@ async function saveScrumHistoryCompletion(completions, journal, row, now) {
   return saved;
 }
 
-module.exports = { readScrumHistoryCompletion, saveScrumHistoryCompletion };
+module.exports = { readScrumHistoryCompletion, saveScrumHistoryCompletion, readScrumHistoryRequestCompletion };

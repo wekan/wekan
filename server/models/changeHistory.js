@@ -4,6 +4,8 @@ import { ruleSnapshot, applyRuleHistory } from '/server/lib/ruleHistory';
 import { requireBoardMutation } from '/models/lib/boardMutationGuard';
 import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
+import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
+import ScrumHistoryPending, { ScrumHistoryRequests, ScrumHistoryCompletions } from '/server/lib/scrumHistoryPending';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Boards from '/models/boards';
 import Cards from '/models/cards';
@@ -38,6 +40,59 @@ import { withoutRecording } from '/server/lib/historyRecordingScope';
 import RecoveryEvents from '/models/recoveryEvents';
 import SecurityLog from '/server/lib/securityLog';
 const { rowHashIsValid } = require('/models/lib/changeHistoryIntegrity');
+const { prepareScrumHistoryRequest } = require('/server/lib/scrumHistoryRequest');
+
+DDPRateLimiter.addRule({ type: 'method',
+  name: name => ['changeHistory.undoLast', 'changeHistory.redoLast'].includes(name),
+  userId: userId => Boolean(userId) }, 120, 60000);
+
+async function requestedScrumReversal(context, boardId, direction, requestId) {
+  const assertAccess = async () => {
+    const board = await Boards.findOneAsync(boardId);
+    requireBoardMutation(context.userId, board, 'changeHistory:write', Meteor);
+  };
+  try {
+    const request = await prepareScrumHistoryRequest({ requests: ScrumHistoryRequests,
+      context: { userId: context.userId, boardId, direction, requestId }, assertAccess,
+      assertUnused: async operationId => {
+        if (await ScrumHistoryCompletions.findOneAsync(operationId) ||
+            await ScrumHistoryPending.findOneAsync({ _id: boardId, operationId })) {
+          throw new Meteor.Error('scrum-history-request-conflict',
+            'The original request record is missing. Its recovery evidence was retained.');
+        }
+      },
+      select: async () => {
+        const pending = await pendingScrumHistoryRow(boardId, context.userId, direction);
+        if (pending) return pending;
+        const rows = await ChangeHistory.find({ userId: context.userId, boardId,
+          undone: direction === 'redo', isCheckpoint: { $ne: true } },
+        { sort: direction === 'undo' ? { createdAt: -1 } : { undoneAt: -1 }, limit: 50 }).fetchAsync();
+        return (direction === 'undo' ? pickUndo : pickRedo)(rows);
+      } });
+    const resultKey = direction === 'undo' ? 'undone' : 'redone';
+    if (request.selection.kind === 'empty') return { [resultKey]: false };
+    if (request.selection.kind === 'unsupported') {
+      throw new Meteor.Error('scrum-history-request-unsupported',
+        'Request IDs currently support Scrum History only. This request changed nothing.');
+    }
+    const row = await ChangeHistory.findOneAsync(request.selection.rowId);
+    if (!row || row.boardId !== boardId || row.userId !== context.userId ||
+        row.integrityHash !== request.selection.sourceHash || row.entityType !== 'scrum') {
+      throw new Meteor.Error('scrum-history-request-conflict', 'The saved History source is missing or changed.');
+    }
+    await requireHistoryIntegrity(row, context);
+    await requireHistoryRowAccess(row, context.userId);
+    await assertAccess();
+    await applyScrumHistory(row, contentForDirection(row, direction), direction, request);
+    await assertAccess();
+    await requireHistoryRowAccess(row, context.userId);
+    return { [resultKey]: true, entityType: row.entityType, entityId: row.entityId, group: row.group };
+  } catch (error) {
+    if (error instanceof Meteor.Error) throw error;
+    throw new Meteor.Error('scrum-history-request-conflict',
+      'The request could not be confirmed. Keep its ID when retrying; do not select a new operation.');
+  }
+}
 
 // Server side of the universal change history
 // (docs/Features/Reports/History/History.md): the read method, the restore, and
@@ -501,12 +556,14 @@ Meteor.methods({
    * selection rule (the pure pickUndo/pickRedo), but over every recorded change
    * rather than positions only.
    */
-  async 'changeHistory.undoLast'(boardId) {
+  async 'changeHistory.undoLast'(boardId, requestId) {
     check(boardId, String);
+    check(requestId, Match.Maybe(String));
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
     await requireBoardWrite(this.userId, boardId);
+    if (requestId !== undefined) return requestedScrumReversal(this, boardId, 'undo', requestId);
 
     const candidates = await ChangeHistory.find(
       { userId: this.userId, boardId, undone: false, isCheckpoint: { $ne: true } },
@@ -533,12 +590,14 @@ Meteor.methods({
     };
   },
 
-  async 'changeHistory.redoLast'(boardId) {
+  async 'changeHistory.redoLast'(boardId, requestId) {
     check(boardId, String);
+    check(requestId, Match.Maybe(String));
     if (!this.userId) {
       throw new Meteor.Error('not-authorized', 'You must be logged in.');
     }
     await requireBoardWrite(this.userId, boardId);
+    if (requestId !== undefined) return requestedScrumReversal(this, boardId, 'redo', requestId);
 
     const candidates = await ChangeHistory.find(
       { userId: this.userId, boardId, undone: true, isCheckpoint: { $ne: true } },

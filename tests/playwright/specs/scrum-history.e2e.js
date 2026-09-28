@@ -2,7 +2,7 @@
 const {test,expect}=require('../fixtures');const db=require('../helpers/db');
 const {loginWithToken,openBoard}=require('../helpers/auth');
 const call=(page,method,...args)=>page.evaluate(async({method,args})=>{try{return await Meteor.callAsync(method,...args);}catch(e){throw new Error(`${e.error}: ${e.reason||e.message}`);}},{method,args});
-function clean(boardId){for(const collection of ['scrumSprints','scrumReleases','scrumEvents','scrumHistoryCompletions'])db.deleteMany(collection,{boardId});db.deleteOne('scrumHistoryPending',{_id:boardId});}
+function clean(boardId){for(const collection of ['scrumSprints','scrumReleases','scrumEvents','scrumHistoryCompletions','scrumHistoryRequests'])db.deleteMany(collection,{boardId});db.deleteOne('scrumHistoryPending',{_id:boardId});}
 test('Scrum views open the existing board History filtered to Scrum changes',async({page,user,board})=>{
  try{
   await loginWithToken(page,user.id,user.token);await openBoard(page,board.boardId,board.slug);
@@ -208,5 +208,58 @@ test('matching restored Scrum values at a newer revision cannot complete an old 
    expect(db.findOne('scrumHistoryPending',{_id:board.boardId}).operationId).toBe(checkpoint.batchId);
    expect(db.find('changeHistory',{boardId:board.boardId}).length).toBe(count);
   }
+ }finally{clean(board.boardId);}
+});
+
+test('keyed Scrum undo and redo return their original result without moving the stack again',async({page,user,board})=>{
+ try{
+  await loginWithToken(page,user.id,user.token);
+  const card=db.find('cards',{boardId:board.boardId})[0];
+  await call(page,'scrum.updateCard',board.boardId,card._id,{issueType:'Story'},0);
+  await call(page,'scrum.updateCard',board.boardId,card._id,{issueType:'Bug'},1);
+  const undoId='undo-request-'+db.uid(),redoId='redo-request-'+db.uid();
+  const first=await call(page,'changeHistory.undoLast',board.boardId,undoId);
+  expect(first.undone).toBe(true);
+  const revision=db.findOne('cards',{_id:card._id}).scrumRevision;
+  const count=db.find('changeHistory',{boardId:board.boardId}).length;
+  // Reload the actual browser to discard in-memory method state and then retry.
+  await page.reload();
+  await loginWithToken(page,user.id,user.token);
+  expect(await call(page,'changeHistory.undoLast',board.boardId,undoId)).toEqual(first);
+  expect(db.findOne('cards',{_id:card._id}).scrum.issueType).toBe('Story');
+  expect(db.findOne('cards',{_id:card._id}).scrumRevision).toBe(revision);
+  expect(db.find('changeHistory',{boardId:board.boardId}).length).toBe(count);
+  const redo=await call(page,'changeHistory.redoLast',board.boardId,redoId);
+  expect(redo.redone).toBe(true);
+  const afterRedo=db.findOne('cards',{_id:card._id});
+  expect(afterRedo.scrum.issueType).toBe('Bug');
+  expect(await call(page,'changeHistory.undoLast',board.boardId,undoId)).toEqual(first);
+  expect(await call(page,'changeHistory.redoLast',board.boardId,redoId)).toEqual(redo);
+  expect(db.findOne('cards',{_id:card._id}).scrumRevision).toBe(afterRedo.scrumRevision);
+  await expect(call(page,'changeHistory.redoLast',board.boardId,undoId)).rejects.toThrow(/scrum-history-request-conflict/);
+  expect(db.find('scrumHistoryRequests',{boardId:board.boardId})).toHaveLength(2);
+  expect((await call(page,'changeHistory.undoLast',board.boardId,'new-undo-'+db.uid())).undone).toBe(true);
+  expect(db.findOne('cards',{_id:card._id}).scrum.issueType).toBe('Story');
+  expect(db.findOne('cards',{_id:card._id}).scrumRevision).toBe(afterRedo.scrumRevision+1);
+ }finally{clean(board.boardId);}
+});
+
+test('keyed empty and unsupported History requests never reselect later Scrum work',async({page,user,board})=>{
+ try{
+  await loginWithToken(page,user.id,user.token);
+  const card=db.find('cards',{boardId:board.boardId})[0];
+  db.deleteMany('changeHistory',{boardId:board.boardId});
+  const emptyId='empty-request-'+db.uid();
+  expect(await call(page,'changeHistory.undoLast',board.boardId,emptyId)).toEqual({undone:false});
+  // An ordinary title edit is deliberately outside this keyed Scrum contract.
+  await call(page,'/cards/update',{_id:card._id},{$set:{title:'Ordinary title'}});
+  const unsupportedId='other-request-'+db.uid();
+  await expect(call(page,'changeHistory.undoLast',board.boardId,unsupportedId)).rejects.toThrow(/scrum-history-request-unsupported/);
+  await call(page,'scrum.updateCard',board.boardId,card._id,{issueType:'Story'},0);
+  expect(await call(page,'changeHistory.undoLast',board.boardId,emptyId)).toEqual({undone:false});
+  await expect(call(page,'changeHistory.undoLast',board.boardId,unsupportedId)).rejects.toThrow(/scrum-history-request-unsupported/);
+  expect(db.findOne('cards',{_id:card._id}).scrum.issueType).toBe('Story');
+  expect(db.findOne('cards',{_id:card._id}).title).toBe('Ordinary title');
+  await expect(call(page,'changeHistory.undoLast',board.boardId,'short')).rejects.toThrow(/scrum-history-request-conflict/);
  }finally{clean(board.boardId);}
 });

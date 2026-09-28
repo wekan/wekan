@@ -26,6 +26,7 @@ const { finishScrumHistory, verifyScrumHistorySource } = require('./scrumHistory
 const { ensureScrumHistoryOperation, assertScrumHistoryOperation } = require('./scrumHistoryOwnership');
 const { scrumHistoryWriteState, inspectScrumHistoryWrites, verifyScrumHistoryWrites } = require('./scrumHistoryWriteState');
 const { scrumHistoryWriteSelector } = require('./scrumHistoryWriteSelector');
+const { readScrumHistoryRequestCompletion } = require('./scrumHistoryCompletion');
 const batches = new AsyncLocalStorage();
 const conflict = () => { throw new Meteor.Error('scrum-conflict', 'Scrum data changed. Reload History before retrying.'); };
 
@@ -132,11 +133,27 @@ async function validateTargets(board, userId, records, current) {
   }
 }
 
-export async function applyScrumHistory(row, content, direction) {
+export async function applyScrumHistory(row, content, direction, request) {
   return withScrumBoardLock(row.boardId, async () => {
     const userId = Meteor.userId();
     const board = await Boards.findOneAsync(row.boardId);
     if (!userId || !board) throw new Meteor.Error('not-authorized');
+    const operationId = request?._id;
+    if (request) {
+      if (request.userId !== userId || request.boardId !== row.boardId || request.direction !== direction ||
+          request.selection.rowId !== row._id || request.selection.sourceHash !== row.integrityHash) conflict();
+      if (!allowIsBoardMemberWithWriteAccess(userId, board)) throw new Meteor.Error('not-authorized');
+      // Check inside the board queue too: another call may have completed after
+      // this worker read the request but before it acquired the local lock.
+      if (await readScrumHistoryRequestCompletion(ScrumHistoryCompletions, request)) {
+        const pending = await ScrumHistoryPending.findOneAsync(row.boardId);
+        if (pending?.operationId === operationId) {
+          await finishScrumHistory({ history: ChangeHistory, pending: ScrumHistoryPending,
+            completions: ScrumHistoryCompletions, row, journal: pending });
+        }
+        return true;
+      }
+    }
     const assertSource = async () => {
       const current = await ChangeHistory.findOneAsync(row._id);
       try { verifyScrumHistorySource(current, row, direction); } catch (error) { conflict(); }
@@ -144,7 +161,8 @@ export async function applyScrumHistory(row, content, direction) {
     await assertSource();
     const targets = recordList(content);
     let journal = await ScrumHistoryPending.findOneAsync(row.boardId);
-    if (journal && (journal.rowId !== row._id || journal.direction !== direction || journal.userId !== userId || !EJSON.equals(journal.content, content))) conflict();
+    if (journal && (journal.rowId !== row._id || journal.direction !== direction || journal.userId !== userId ||
+        (operationId && journal.operationId !== operationId) || !EJSON.equals(journal.content, content))) conflict();
     if (!journal) {
       if (await ScrumSprints.findOneAsync({ boardId: row.boardId, 'rolloverPending.0': { $exists: true } })) conflict();
       const current = await Promise.all(targets.map(entry => collections[entry.type].findOneAsync(entry.id)));
@@ -153,7 +171,7 @@ export async function applyScrumHistory(row, content, direction) {
       const live = { records: targets.map((entry, index) => ({ type: entry.type, id: entry.id, document: historyDocument(entry.type, current[index]) })) };
       const expected = direction === 'undo' ? row.newContent : row.previousContent;
       if (direction !== 'restore' && !EJSON.equals(live, expected)) conflict();
-      journal = { _id: row.boardId, rowId: row._id, direction, userId, operationId: Random.id(), content: EJSON.clone(content),
+      journal = { _id: row.boardId, rowId: row._id, direction, userId, operationId: operationId || Random.id(), content: EJSON.clone(content),
         before: live, revisions: current.map((doc,index) => doc ? (METADATA_TYPES.has(targets[index].type) ? doc.scrumRevision || 0 : doc.revision || 0) : null) };
       await ScrumHistoryPending.insertAsync(journal);
     } else {
