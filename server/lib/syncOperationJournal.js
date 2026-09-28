@@ -15,13 +15,16 @@ function identity(scope) {
     revision: scope.revision, sourceKey: scope.sourceKey };
 }
 const plain = value => value && typeof value === 'object' && [Object.prototype, null].includes(Object.getPrototypeOf(value));
-function estimateIdentity(value) {
+const estimateFields = ['estimate', 'originalEstimate', 'remainingEstimate'];
+function estimateIdentity(value, field = 'estimate') {
   if (typeof value !== 'string') fail('invalid-sync-operation-estimate-mapping');
   try {
     const parts = JSON.parse(value);
     if (!Array.isArray(parts) || parts.length !== 3 ||
         typeof parts[0] !== 'string' || !parts[0] || typeof parts[2] !== 'string') throw new Error();
-    const mapping = normalizeJiraEstimateMapping({ estimateFieldId: parts[1], estimateUnit: parts[2] });
+    const mapping = field === 'estimate'
+      ? normalizeJiraEstimateMapping({ estimateFieldId: parts[1], estimateUnit: parts[2] })
+      : { estimateFieldId: field === 'originalEstimate' ? 'original' : 'remaining', estimateUnit: 'hours' };
     if (JSON.stringify([parts[0], mapping.estimateFieldId, mapping.estimateUnit]) !== value) throw new Error();
     return parts[0];
   } catch (_) { fail('invalid-sync-operation-estimate-mapping'); }
@@ -46,10 +49,12 @@ function validateCustomFields(fields) {
 }
 function validateEstimateChange(step) {
   if (![step.before, step.after].some(snapshot => snapshot && Object.hasOwn(snapshot, 'customFields'))) return;
-  const fieldId = estimateIdentity(step.after.syncLastSource?.estimateMapping);
-  const unrelated = snapshot => (snapshot?.customFields || []).filter(field => field._id !== fieldId);
+  const ids = estimateFields.filter(field => Object.hasOwn(step.after.syncLastSource || {}, `${field}Mapping`))
+    .map(field => estimateIdentity(step.after.syncLastSource[`${field}Mapping`], field));
+  if (!ids.length) fail('invalid-sync-operation-estimate-mapping');
+  const unrelated = snapshot => (snapshot?.customFields || []).filter(field => !ids.includes(field._id));
   if (digest(unrelated(step.before)) !== digest(unrelated(step.after))) fail('sync-operation-unmapped-field-change');
-  for (const snapshot of [step.before, step.after]) {
+  for (const snapshot of [step.before, step.after]) for (const fieldId of ids) {
     const value = snapshot?.customFields?.find(field => field._id === fieldId)?.value;
     if (value !== undefined && value !== null &&
         (typeof value !== 'number' || !Number.isFinite(value) || value < 0 || value > 1e12)) fail('invalid-sync-operation-estimate');
@@ -63,7 +68,7 @@ function validateStep(step) {
     fail('invalid-sync-operation-step');
   }
   // Snapshots contain Sync-owned fields plus the complete custom-field array
-  // needed for an exact conditional write. Only the mapped entry may change.
+  // needed for an exact conditional write. Only explicitly mapped entries may change.
   // Credentials, source documents and arbitrary application records stay out.
   const allowed = new Set(['_id','boardId','listId','swimlaneId','title','description','spentTime','archived',
     'archivedAt','dateLastActivity','sort','customFields','syncExternalId','syncSourceType','syncSourceKey','syncLastSource']);
@@ -82,14 +87,18 @@ function validateStep(step) {
       if (snapshot[key] !== undefined && snapshot[key] !== null && (!(snapshot[key] instanceof Date) || !Number.isFinite(snapshot[key].getTime()))) fail('invalid-sync-operation-date');
     }
     if (Object.hasOwn(snapshot, 'customFields')) validateCustomFields(snapshot.customFields);
-    if (snapshot.syncLastSource !== undefined && snapshot.syncLastSource !== null && (!plain(snapshot.syncLastSource) || Object.keys(snapshot.syncLastSource).some(key => !['title','description','spentTime','estimate','estimateMapping'].includes(key)))) fail('invalid-sync-operation-baseline');
+    if (snapshot.syncLastSource !== undefined && snapshot.syncLastSource !== null && (!plain(snapshot.syncLastSource) || Object.keys(snapshot.syncLastSource).some(key => !['title','description','spentTime', ...estimateFields, ...estimateFields.map(field => `${field}Mapping`)].includes(key)))) fail('invalid-sync-operation-baseline');
   }
   for (const snapshot of [step.before, step.after]) {
+    const ids = new Set();
     for (const [key, value] of Object.entries(snapshot?.syncLastSource || {})) {
-      if (key === 'estimateMapping') estimateIdentity(value);
-      else if (key === 'estimate') {
+      if (estimateFields.some(field => key === `${field}Mapping`)) {
+        const id = estimateIdentity(value, key.slice(0, -'Mapping'.length));
+        if (ids.has(id)) fail('invalid-sync-operation-estimate-mapping');
+        ids.add(id);
+      } else if (estimateFields.includes(key)) {
         if (value !== null && (typeof value !== 'number' || !Number.isFinite(value) || value < 0 || value > 1e12)) fail('invalid-sync-operation-estimate');
-        estimateIdentity(snapshot.syncLastSource.estimateMapping);
+        estimateIdentity(snapshot.syncLastSource[`${key}Mapping`], key);
       } else if (key === 'spentTime' ? typeof value !== 'number' || !Number.isFinite(value) : typeof value !== 'string') fail('invalid-sync-operation-baseline-value');
     }
   }
