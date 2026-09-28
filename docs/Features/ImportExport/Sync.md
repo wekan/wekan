@@ -811,3 +811,30 @@ and hooks, interrupts the child effect callback, resumes the parent and then
 checks ordinary restore activity/History recording. The test uses controlled
 effect callbacks; saved effect plans and production rule-stage activation are
 still required before this adapter can be enabled in ordinary Sync execution.
+
+### Stored archive History and activity plans
+
+`server/lib/syncRuleArchiveEffects.js` prepares and persists the complete
+cascade's effect plans before execution. Each card keeps a stable effect ID,
+captured actor/time/list name, immutable History rows and activity payloads.
+The History chain continues across unchanged children; redo candidates are
+consumed only by the first actual History change. Parent identity remains in
+the card mutation predicates and is omitted from field-change History inputs.
+
+The envelope binds all effects to the archive command checksum, validates every
+card plan and the cross-card hash chain, and is limited to 14 MiB. Unique insert
+and readback handle lost acknowledgements without rebuilding names or events.
+Disabled activity recording retains History while omitting activity plans.
+
+The execution wrapper validates the entire stored envelope and required
+adapters before card access, checks the captured live feature policy around
+execution, and routes each card's completion through the shared durable
+History/activity persistence coordinator. Pending delivery must acknowledge
+its exact activity receipt before the next card advances. MongoDB coverage
+interrupts after child History/activity insertion, then resumes on a fresh
+connection without duplicate cards, History rows or activities.
+
+Production collection registration, binding to the actual History/activity
+collections and delivery service, shared History-writer coordination and
+manual/cron activation remain unfinished. The test's delivery callback is
+controlled; it does not prove real notification or recursive-rule delivery.
