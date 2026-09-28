@@ -310,6 +310,12 @@ MongoDB tests cover interrupted delivery, lost insertion acknowledgements,
 plan corruption, replay and cleanup; Chromium verifies ordinary creation and
 the visible activity. Production feature flags, hook coordination, rule and
 notification delivery adapters remain unfinished.
+Update/archive activity plans now capture title and description edits, mapped
+custom-field changes and archive/restore events, preserving zero and clearing.
+Each event has a stable receipt identity and requires its own downstream
+acknowledgement. A combined MongoDB test resumes create/edit/archive units
+with their saved History and activity plans; completed events are not inserted
+again. Production hook coordination and durable delivery remain open.
 Activity notification and webhook payloads now preserve zero, false, empty
 text and explicit null, while absent values remain omitted. This fixes lost
 zero estimates and unchecked custom-field values. SMTP and HTTP-serialization
@@ -988,6 +994,33 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/696bcb1c2">Resume Sync update activities with per-event receipts</a>. Thanks to xet7.</summary>
+
+Persist bounded activity plans for title, description, mapped custom-field
+and archive/restore changes. Preserve empty description clears and zero
+estimates; omit values for unset-field events. Capture actor and list display
+values once, validate the complete plan against its card mutation, and assign
+a distinct stable receipt identity to each event.
+
+Share insertion/readback and downstream acknowledgement logic with creation
+activities. Retry verifies existing event contents and still requires durable
+delivery receipts before the journal advances. No-op and spent-time-only steps
+emit no new activity, matching existing hooks.
+
+Twelve focused Sync/History Node suites pass with real MongoDB enabled. A
+combined test interrupts delivery while processing create/edit/archive units,
+rejects a damaged future activity before its card write, then verifies one
+History chain, exact event/receipt counts and cleanup. Hook parity tests compare
+the planned payloads with ordinary activity functions. The source audit passes
+with advisories; the known published changelog line-length failure remains.
+
+These internal adapters are not enabled in production Sync. Tests use durable
+receipt fixtures; real rule/notification delivery, feature flags, duplicate-hook
+suppression and job lifecycle remain unfinished. No production UI path changed.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0975d33d9">Persist creation activities in Sync recovery plans</a>. Thanks to xet7.</summary>
