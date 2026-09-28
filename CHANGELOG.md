@@ -1043,8 +1043,9 @@ assigned-only export and History authorization fixes and their verification
 are recorded in Upcoming; this is not a completed audit of every boundary.
 Further source review includes card-copy override inputs and legacy direct
 Rules writes, which are leads to validate, not confirmed vulnerabilities.
-Examples of unfinished inventory work include the
-[archived-card heatmap](https://github.com/wekan/wekan/issues/5444) and
+The [archived-card heatmap](https://github.com/wekan/wekan/issues/5444) is now
+implemented under Board View → Pulse, with unit and Chromium scope coverage.
+Unfinished inventory work still includes
 [additional database conformance runs](https://github.com/wekan/wekan/issues/6509).
 Live identity providers, affected deployment data, additional browser/backend
 matrices and remaining UI baseline failures still require verification.
@@ -1618,12 +1619,45 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**In short:** **Scrum History recovery** retains completion evidence before
+**In short:** **Pulse** adds an annual archived-card contribution grid with
+colored label tooltips and assigned-only counts. **Scrum History recovery**
+retains completion evidence before
 removing its checkpoint. API callers can supply request IDs to retry Scrum
 undo/redo without selecting another change. Keyboard recovery and shared
 writer coordination remain in development.
 
-This release improves Scrum History recovery:
+This release adds archive reporting and improves Scrum History recovery:
+
+**Reports** - show archived-card contributions by calendar date.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1c200407a">Show archived-card contributions in Pulse</a>. Thanks to xet7.</summary>
+
+Board View → Pulse now shows months across an annual grid and day numbers down
+it. Green cells darken as archived-card counts increase. Hover or keyboard focus
+shows the count and colored label names; Escape dismisses the tooltip and taps
+also show details below the grid. Year selection and Apply reload the report.
+
+Count currently archived cards by their UTC archive date. Restored cards and
+legacy archives without valid dates are excluded. All three assigned-only roles
+see only their assigned cards and labels; private-board access is checked before
+and after reading. Existing activity-chart exports remain separate.
+
+Four focused Node suites and six Chromium cases pass, including leap days,
+invalid years, restored/undated cards, escaped colored labels, foreign-board and
+hidden-label isolation. A further browser run verifies focus/hover color,
+compact rows and tooltip dismissal. The offline source audit passes. Other
+browsers and database backends were not run for this item.
+
+The [report documentation](docs/Features/Reports/Archived-Contributions.md)
+records the archive lifecycle and refresh behavior. Upcoming's existing Scrum
+recovery entries retain their recorded regression coverage. The remaining
+non-translation TODO work, including keyboard recovery, shared writer
+coordination, database conformance and deployment checks, stays open.
+
+Fixes [#5444](https://github.com/wekan/wekan/issues/5444).
+
+</details>
 
 **History** - verify completed operations and preserve unfinished recovery.
 
