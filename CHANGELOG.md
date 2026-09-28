@@ -1291,12 +1291,13 @@ now uses current target results and both boards' visibility settings. The six
 visible Scrum card fields are included with same-board name resolution and
 persisted visibility checks. The
 [content audit](docs/DeveloperDocs/Card-Email-Content-Audit.md) now tracks
-remaining converted-subtask references, attachment metadata,
+remaining attachment metadata,
 legacy Gantt links, wrapper metadata and moved-card SMTP coverage. Creator,
 stickers, checklist schedules, public comment authors and scoped reaction
 summaries are now included. Stored Details now binds related-source chains,
 admin access and custom-field definition fingerprints; older Details snapshots
-require operator recovery),
+require operator recovery. Converted checklist subtasks now use readable live
+titles and persisted reference evidence, including without Details),
 [#3195](https://github.com/wekan/wekan/issues/3195) (rule action/trigger
 values should be able to reference a custom field's value — today's action
 and trigger value inputs are plain literals; resolving a per-board custom
@@ -1551,6 +1552,26 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2a632445b">Include converted checklist subtask references in rule emails</a>. Thanks to kabi178, bbyszio and xet7.</summary>
+
+Append the current readable title of a checklist item's converted subtask.
+Share source-chain resolution with Details relations so linked targets use
+live titles instead of stale snapshots. Omit missing, deleted and unreadable
+targets; recheck included references after preparation. Stored commands retain
+those source chains even when Checklists / Comments is enabled without Details.
+Remove this gap from the full-card content audit.
+
+Fifty-seven Node suites pass without skips, including MongoDB and native
+MailComposer integration. Unit cases cover source-chain capture, private and
+deleted targets, assignment restrictions and retargeting during preparation.
+Three Chromium SMTP scenarios pass; filesystem/GridFS tests verify references
+with Details on and off. Existing Upcoming regression evidence is retained.
+Attachment presentation, legacy Gantt links, wrapper metadata, the moved-card
+scenario and operator recovery remain open.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/b1b126fb0">Bind stored email details to related sources and field policies</a>. Thanks to kabi178, bbyszio and xet7.</summary>
