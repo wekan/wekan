@@ -602,9 +602,20 @@ Recovery reuses saved plans or prepares a first plan from an unchanged stored
 activity. It never recreates missing activities or reruns rule/webhook hooks.
 Fourteen Node/MongoDB cases, three additional Node suites, four full-app Meteor
 cases and twelve Chromium scenarios pass, including scheduled SMTP recovery
-with and without an existing plan. Operator resolution and plan retention
-remain open; plans still retain rendered content after successful enqueue.
-This recovers local tray/email enqueue, not the whole Sync effects lifecycle.
+with and without an existing plan.
+Completed notification plans now compact immediately after matching intent
+acknowledgement. Keep a permanent unique plan ID, activity hash, checksum and
+version; remove recipient/channel data and rendered content. A bounded
+background sweep handles interruption between completion and compaction,
+using the same intent reservation and exact conditional replacement. Its
+60-second interval is configurable. Pending, orphaned, mismatched or damaged
+plans retain their payloads. Completion remains sufficient for cleanup after
+the original activity is deleted; the SMTP outbox keeps unsent mail separately.
+Twenty Node/MongoDB cases, three additional Node suites, four Meteor cases and
+thirteen Chromium scenarios pass, covering uncertain writes, stale writers,
+changed payloads, immediate compaction and scheduled cleanup. Operator
+resolution and unresolved-payload retention remain open. This recovers local
+tray/email enqueue, not the whole Sync effects lifecycle.
 History field snapshots now preserve nested dates, including date-valued
 custom fields alongside mapped estimates. JSON transport and restoration retain
 Date types without interpreting date-looking text. Existing rows whose dates
@@ -1245,6 +1256,36 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/694807fc4">Remove completed notification plan payloads while retaining replay keys</a>. Thanks to xet7.</summary>
+
+Compact a notification plan immediately after its matching intent acknowledges
+local delivery. Retain only the unique plan ID, activity hash, checksum and
+compaction version. In-place replacement prevents a delayed writer from
+recreating rendered content. Do not remove the SMTP outbox's unsent payload.
+
+A separate sweep examines at most 100 IDs, one plan at a time under its shared
+reservation, to finish cleanup interrupted after acknowledgement. The default
+interval is 60 seconds; ACTIVITY_NOTIFICATION_PLAN_CLEANUP_INTERVAL_MS accepts
+1000 to 86400000 milliseconds. Advance past failed/busy or malformed records.
+
+Require the exact completed intent, dispatch identity and valid plan checksum.
+Conditional replacement preserves concurrently changed payloads. Read back
+uncertain acknowledgements. Pending plans, orphans, mismatched completion
+records and damaged content remain intact. Completed activity deletion does
+not prevent cleanup. Permanent receipt counts are not capped and have no TTL.
+
+Twenty Node/MongoDB cases, three additional Node suites, four Meteor cases
+and thirteen Chromium scenarios pass. Tests cover permanent replay keys,
+uncertain/false acknowledgements, ownership loss, changed payloads, bounded
+scan progress and scheduled cleanup that retains unfinished work. Actual
+local SMTP delivery still passes. The source audit passes with advisory
+dependency fingerprint warnings. FerretDB was not exercised.
+
+Operator/orphan controls and unresolved-payload retention remain unfinished.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/34c6c31a4">Resume pending activity notifications under shared reservations</a>. Thanks to xet7.</summary>
