@@ -7,7 +7,8 @@ import { ReactiveCache } from '/imports/reactiveCache';
 // Main object for email localization utilities
 const EmailLocalization = {
   /**
-   * Send an email using the recipient's preferred language
+   * Prepare transport content using the recipient's preferred language.
+   * Does not send; callers may persist the returned message before dispatch.
    * @param {Object} options - Standard email sending options plus language options
    * @param {String} options.to - Recipient email address
    * @param {String} options.from - Sender email address
@@ -17,7 +18,7 @@ const EmailLocalization = {
    * @param {String} options.language - Language code to use (if not provided, will try to detect)
    * @param {String} options.userId - User ID to determine language (if not provided with language)
    */
-  async sendEmail(options) {
+  async prepareEmail(options) {
     // Determine the language to use
     let lang = options.language;
 
@@ -47,7 +48,8 @@ const EmailLocalization = {
       text = TAPi18n.__(text, options.params || {}, lang);
     }
 
-    // Send the email with translated content
+    // Build final transport content without sending it. Durable callers can
+    // persist this snapshot instead of re-localizing during a later retry.
     const mail = {
       to: options.to,
       from: options.from || Accounts.emailTemplates.from,
@@ -63,7 +65,11 @@ const EmailLocalization = {
     if (options.replyTo) {
       mail.replyTo = options.replyTo;
     }
-    return await Email.sendAsync(mail);
+    return mail;
+  },
+
+  async sendEmail(options) {
+    return await Email.sendAsync(await EmailLocalization.prepareEmail(options));
   }
 };
 

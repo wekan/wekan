@@ -637,3 +637,14 @@ scope guard also stops after a rule moves the source card; durable movement
 commands need explicit before/after scope handling before those adapters can be
 implemented. Full-app coverage exercises actual rule selection and receipt
 storage using a scripted action acknowledgement, not a real durable mutation.
+
+Localized email preparation is now available separately through
+`EmailLocalization.prepareEmail`. It resolves the recipient/site language,
+loads its catalog and returns the final transport fields without sending.
+Ordinary `sendEmail` uses the same preparation, preserving literal body, HTML,
+sender and optional Reply-To behavior. A future rule-email command can persist
+these final strings before dispatch, avoiding changes from later locale edits.
+No durable rule-email command or dispatch worker is installed by this change.
+The notification outbox is not a drop-in rule-email adapter: it groups messages
+by user and resolves the delivery address later, whereas a rule may name an
+external address and needs its captured message and recipient preserved.
