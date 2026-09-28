@@ -1301,11 +1301,12 @@ permission inheritance, none of which is a filter change - needs it split
 into separate, concretely-scoped issues before any one part is buildable),
 [#935](https://github.com/wekan/wekan/issues/935) (simple card filtering:
 labels and native date ranges now have sidebar controls, including creation,
-modification and entry into the current list. Still unfinished: matching any
-historical move within a date range, combined text search across titles,
-descriptions, checklists and comments, relative created/updated date presets,
-saved filter combinations and the RFC's extensible filter-provider interface.
-The current-list entry date does not answer arbitrary historical move queries),
+modification and entry into the current list. Creation and modification also
+have rolling 24-hour, 7-day, 30-day and older presets. Still unfinished:
+matching any historical move within a date range, combined text search
+across titles, descriptions, checklists and comments, saved filter
+combinations and the RFC's extensible filter-provider interface. The
+current-list entry date does not answer arbitrary historical move queries),
 [#572](https://github.com/wekan/wekan/issues/572) (label add/remove as its own
 controllable Notification Settings option - the activity feed entry it asks
 for already exists (`models/cards.js`'s `cardLabels()` hook logs
@@ -1542,6 +1543,26 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/34ed467a4">Filter cards by relative creation and modification dates</a>. Thanks to neooleg and xet7.</summary>
+
+Add independent sidebar selectors for the last 24 hours, 7 days, 30 days and
+more than 30 days ago. Apply immediately, combine both fields with other
+filters, preserve choices across boards and refresh their shared clock every
+minute. Recent windows include their endpoints and exclude future dates;
+older dates use a strict cutoff. Missing and malformed dates do not match.
+Reset releases the clock subscription. Document elapsed-time semantics and
+add English labels without filling translations into all languages.
+
+Sixteen Node suites and two Chromium cases pass. Cover all presets, rejected
+input, both fields together, shared timer refresh/cleanup, persistence,
+clearing, missing/malformed/future dates, and the existing date-range picker.
+Source inventory warnings remain advisory. Complete the created/updated
+relative-date portion of [#935](https://github.com/wekan/wekan/issues/935);
+retain its other unfinished filter requirements in TODO Later.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/5527f8503">Choose card date ranges without filter expressions</a>. Thanks to neooleg and xet7.</summary>
