@@ -25,9 +25,15 @@ This audit compares the current email preparation code with `models/cards.js`,
   to the wrapper rather than the resolved source. The current linked-board
   branch does not render all wrapper metadata. Verify the intended UI behavior
   and retain both applicable scopes with unambiguous labels.
-- Complete a final field-by-field pass and a rule triggered by moving a card to
-  a list, with all three content choices enabled. Current SMTP scenarios use
-  the button trigger; they do not alone prove the original moved-card example.
+- Complete a final field-by-field pass after linked-wrapper ownership is
+  resolved.
+
+The filesystem and GridFS SMTP scenarios also move the card through the
+authenticated REST endpoint into a rule-selected list with all three content
+choices enabled. They verify the move activity, card placement, Details,
+checklists/comments and actual attachment bytes. Unauthorized moves and moves
+away from the selected list must not send a message. Button-trigger coverage
+continues to verify each content choice independently.
 
 Legacy Gantt targets are now included with the documented default dependency
 types when target/type arrays align; malformed or missing types use a generic

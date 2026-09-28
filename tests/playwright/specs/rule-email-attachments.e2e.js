@@ -9,7 +9,7 @@ const path = require('node:path');
 const call = (page, method, ...args) => page.evaluate(({ method, args }) => Meteor.callAsync(method, ...args), { method, args });
 
 for (const backend of ['fs', 'gridfs']) {
-test(`email rule form and SMTP carry only live triggering-card bytes from ${backend}`, async ({ boardPage: page, board }) => {
+test(`email rule form and SMTP carry only live triggering-card bytes from ${backend}`, async ({ boardPage: page, board, user, user2, request }) => {
   test.skip(!process.env.WEKAN_TEST_SMTP_PORT || !process.env.WEKAN_FILES_PATH, 'requires isolated SMTP capture and local file storage');
   const sink = await smtpSink(Number(process.env.WEKAN_TEST_SMTP_PORT));
   const id = db.uid('mailattachment'), bytes = Buffer.from([0, 255, 128, 10, 13, 65, 66, 67]);
@@ -116,6 +116,42 @@ test(`email rule form and SMTP carry only live triggering-card bytes from ${back
       'Due: 2027-06-01T00:00:00.000Z', 'Reset interval: weekly', 'Due: 2027-05-01T00:00:00.000Z',
       'Author: Unknown user']) expect(votingText).toContain(text);
     expect(mails()[0].data).not.toContain('NEVER-MAIL-PRIVATE-STATE');
+    // Exercise the original #2713 activity trigger through a real card move,
+    // independently of the manual button's mail preparation path.
+    const destination = db.findOne('lists', { _id: board.listIds.find(listId => listId !== card.listId) });
+    const movedRule = await call(page, 'rules.createRule', board.boardId, 'Email moved card', {
+      activityType: 'moveCard', listName: destination.title, oldListName: '*',
+      swimlaneName: '*', cardTitle: '*', userId: '*',
+    }, { ...action, emailTo: 'moved@example.invalid' });
+    const movedMails = () => sink.messages.filter(mail => mail.recipients.includes('moved@example.invalid'));
+    const move = (from, to, token = user.token) => request.put(
+      `/api/boards/${board.boardId}/lists/${from}/cards/${card._id}`,
+      { headers: { Authorization: `Bearer ${token}` }, data: { listId: to } },
+    );
+    const denied = await move(card.listId, destination._id, user2.token);
+    expect(denied.ok()).toBe(false);
+    expect(db.getCard(card._id).listId).toBe(card.listId);
+    expect(movedMails()).toHaveLength(0);
+    expect((await move(card.listId, destination._id)).status()).toBe(200);
+    await expect.poll(() => movedMails().length).toBe(1);
+    expect(db.getCard(card._id).listId).toBe(destination._id);
+    expect(db.find('activities', { cardId: card._id, activityType: 'moveCard', listId: destination._id })).toHaveLength(1);
+    const movedText = movedMails()[0].data.replace(/=\r?\n/g, '');
+    for (const text of ['Requested card content', 'Email checklist', '[x] Reviewed task',
+      'Public email comment', 'Mail priority: High priority', 'Mail note: Visible note content',
+      'Scrum sprint: Mail sprint', 'blocks / Gantt finish-to-start: Converted item target',
+      'File: report.bin', 'Size (bytes): 8', 'filename=report.bin']) {
+      expect(movedText).toContain(text);
+    }
+    // Check the raw MIME part: quoted-printable soft-break removal would also
+    // remove a base64 padding '=' at the end of its own line.
+    expect(movedMails()[0].data).toContain(bytes.toString('base64'));
+    expect(movedText).not.toMatch(/NEVER-MAIL-PRIVATE-STATE|PRIVATE-VOTER|PRIVATE-LINK-ID|foreign-secret/);
+    // Moving away from the selected destination must not run this rule.
+    expect((await move(destination._id, card.listId)).status()).toBe(200);
+    expect(db.getCard(card._id).listId).toBe(card.listId);
+    await call(page, 'rules.deleteRule', movedRule._id);
+    expect(movedMails()).toHaveLength(1);
     db.updateOne('attachments', { _id: id }, { $set: { deletedAt: new Date() } });
     db.updateOne('cards', { _id: card._id }, { $set: { 'vote.public': true, 'poker.end': new Date('2999-01-01') } });
     await call(page, 'rules.runButton', rule._id, card._id);
