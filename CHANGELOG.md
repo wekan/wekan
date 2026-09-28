@@ -372,6 +372,13 @@ identity, including on replay. Six capture unit cases, one full-app case and
 two Chromium cases pass; members/admins cannot write or read the 17 private
 Sync collections. Archive mutation activation and effect/delivery binding
 remain unfinished.
+The internal stored archive runner now binds private commands/effects/receipts
+to real Cards, History and Activities plus default saved-activity delivery.
+It requires an explicit board History reservation around the complete run;
+there is no fallback reservation. Twenty-six Node/MongoDB cases and one full-app
+case pass, including interrupted child delivery, exact replay receipts and
+refusal without History ownership. Ordinary History writers still need shared
+coordination before this runner is installed in manual/cron rule execution.
 Other action adapters, shared History-chain coordination, uncertain-send
 operator handling and manual/cron activation remain unfinished; ordinary
 executeRules is not substituted for durable rule replay.
@@ -1463,6 +1470,24 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/978beefe8">Bind stored archive execution to durable effects and History ownership</a>. Thanks to xet7.</summary>
+
+Add an internal runner using private command/effect/receipt storage, real Cards,
+History and Activities, and default saved-activity delivery. Preserve current
+configuration, access, feature-policy and lease checks around every stage.
+Require an explicit board History reservation with a captured head and redo
+rows; missing or lost ownership refuses execution before effect preparation.
+
+Twenty-six Node/MongoDB cases and one full-app Meteor case pass. The full-app
+case resumes interrupted child delivery through the default delivery stage,
+keeps later children outside the saved cascade and reuses exact receipts.
+Its History reservation is controlled: shared ordinary-writer coordination
+and manual/cron activation remain unfinished. The source audit has advisory
+warnings. No UI flow changes.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/840711a6e">Register private archive recovery storage and guarded capture</a>. Thanks to xet7.</summary>
