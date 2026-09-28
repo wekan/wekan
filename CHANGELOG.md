@@ -623,8 +623,8 @@ receipts as automatic delivery. Current admin access is checked inside the
 reservation and during delivery; missing activities are never recreated.
 Report responses omit saved activity content, recipients and rendered emails.
 Seven focused report/method cases, sixteen related Node/MongoDB cases, one
-full-app Meteor case and two Chromium scenarios pass. Cancellation, orphan
-resolution and unresolved-payload retention remain unfinished.
+full-app Meteor case and two Chromium scenarios pass. Pending-payload cleanup
+and broader recovery coordination remain unfinished.
 An internal pause/resume storage primitive now persists one versioned control
 row per intent under its delivery reservation. Requests carry the observed
 revision and a stable identity; old requests cannot undo newer decisions.
@@ -646,8 +646,18 @@ checks admin access before and inside the reservation and limits request rate.
 Twenty Node/MongoDB cases and three Chromium scenarios pass. A two-phase browser
 case pauses through the actual method, restarts the app on the same database,
 verifies the hold survives automatic scans, then resumes through the UI and
-observes automatic completion. Cancellation, orphan resolution and unresolved
-payload retention remain unfinished.
+observes automatic completion.
+Recovery now offers confirmed cancellation of remaining activity delivery,
+including orphaned notifications. A permanent terminal control row prevents
+both old and new Resume requests from reopening cancelled work. Repeating the
+same cancellation request is safe. Both delivery entry points refuse it, the
+scanner skips it, and the report keeps its cancelled status visible with
+controls disabled. Existing tray notifications and queued SMTP mail are not
+recalled. Twenty-three Node/MongoDB cases, one full-app Meteor case and three
+Chromium scenarios pass, including confirmation dismissal, denied access,
+terminal replay and orphan cancellation without activity recreation. Intent
+snapshots and rendered plans are still retained after cancellation; payload
+cleanup and broader card/History/activity recovery coordination remain open.
 History field snapshots now preserve nested dates, including date-valued
 custom fields alongside mapped estimates. JSON transport and restoration retain
 Date types without interpreting date-looking text. Existing rows whose dates
@@ -1288,6 +1298,26 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b590d3d76">Cancel remaining activity delivery without reopening old requests</a>. Thanks to xet7.</summary>
+
+Add a confirmed Cancel delivery action for enabled administrators, including
+notifications whose original activity is missing. Cancellation shares the
+delivery reservation, uses the displayed revision and retains a permanent
+terminal control record. Neither a delayed nor a new Resume request can reopen
+it. Repeating the identical cancellation is safe. Recovery skips cancelled
+work and keeps its status visible with disabled controls.
+
+Twenty-three Node/MongoDB cases, one full-app Meteor case and three Chromium
+scenarios pass. Coverage includes administrator revocation, stale/repeated
+requests, lost write replies, confirmation dismissal, terminal delivery denial
+and cancelling an orphan without recreating its activity. The source audit
+completes with advisory warnings. Existing tray notifications and queued SMTP
+mail are not recalled. Pending snapshots and rendered plans remain retained;
+cleanup must preserve cancellation and delivery receipts and remains TODO.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7fef4f4cd">Pause and resume activity notification delivery from Recovery</a>. Thanks to xet7.</summary>
