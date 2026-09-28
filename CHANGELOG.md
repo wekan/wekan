@@ -359,6 +359,12 @@ All 24 archive Node/MongoDB cases pass, including fresh-connection continuation
 after child event insertion without duplicate rows. Production collection and
 delivery binding, shared History coordination and rule-stage activation remain
 pending; delivery callbacks are still controlled in these persistence tests.
+The archive activity adapter now restricts real Activities insertion to saved
+payloads under the captured actor, deferring ordinary delivery hooks. A full-app
+Meteor case combines real Cards, ChangeHistory and Activities, interrupts child
+delivery and resumes without duplicate rows; ordinary restore still records.
+All 25 archive Node/MongoDB cases pass. Production downstream delivery and
+shared History-writer coordination remain pending.
 Other action adapters, shared History-chain coordination, uncertain-send
 operator handling and manual/cron activation remain unfinished; ordinary
 executeRules is not substituted for durable rule replay.
@@ -1450,6 +1456,23 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/96b9bb689">Bind archive activities to real collection hooks and verify replay</a>. Thanks to xet7.</summary>
+
+Restrict cascade activity access to saved event IDs and exact payloads. Preserve
+captured actors/timestamps while deferring ordinary rules and notifications to
+the separately acknowledged delivery stage. Expose the shared archive History
+step conversion for this validated collection adapter.
+
+All 25 archive Node/MongoDB cases and one full-app Meteor case pass. The
+full-app case uses real Cards, ChangeHistory and Activities, resumes interrupted
+child
+delivery without duplicate events, and confirms ordinary restore recording.
+The source audit completes with advisory warnings. No UI flow changes;
+production delivery binding and shared History coordination remain unfinished.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/85edeb0ec">Persist archive History and activity plans before replay</a>. Thanks to xet7.</summary>
