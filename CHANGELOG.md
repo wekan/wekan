@@ -1305,11 +1305,13 @@ this-week/next-week/no-date states; the remaining gap is filtering by
 `createdAt`/`receivedAt`/`endAt` rather than only `dueAt`, which needs a
 decision on whether to generalize `DateFilter` to a chosen date FIELD or add
 one `DateFilter` per date field, since today's UI hard-codes "due date"),
-[#1499](https://github.com/wekan/wekan/issues/1499) (hide old/done tasks -
-overlaps `Filter.dueAt.past()` and the existing Swimlane/List "Done"
-concept; the open part is a rolling "older than N days" cutoff, which
-`DateFilter` has no relative-N-days state for today, only fixed
-day/week/no-date buckets),
+[#1499](https://github.com/wekan/wekan/issues/1499) now has a list-specific
+rolling age filter and server-recorded `listEnteredAt` for new cards and moves.
+**Historical backfill remains:** reconstruct legacy cards' current-list entry
+from trustworthy move activities, with conditional writes that cannot replace
+a concurrent move. Missing or contradictory history must stay unknown and
+visible, rather than substituting creation/last-edit dates. Verify ordinary,
+cross-board and repeated moves before calling the full request complete.
 [#935](https://github.com/wekan/wekan/issues/935) (filter cards by date or
 tag - dated 2017; labels are already filterable and `Filter.dueAt` covers
 due-date ranges, but "moved on a specific date" would need a per-activity
@@ -1551,6 +1553,25 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0542a239f">Track column entry time and hide old cards in a selected list</a>. Thanks to grasshide and xet7.</summary>
+
+Record `listEnteredAt` on card creation and real board/list changes, in the
+same write as the move. Keep it stable across text edits, sorting, swimlane
+changes and failed conditional writes. Add a Filter sidebar control to hide
+cards older than N days in one chosen list. Combine it with existing filters
+and refresh the cutoff each minute. Other lists and unknown legacy dates stay
+visible; clearing the filter restores the cards without archiving them.
+
+Eleven Node suites, one full-app timestamp test and one Chromium case pass.
+Coverage includes date validation, filter combination and reset, timer cleanup,
+real moves, unrelated edits, rejected writes and keeping unknown ages visible.
+Add English labels and user documentation. The source audit has advisory
+warnings only. Keep historical move-activity backfill in TODO Later for
+[#1499](https://github.com/wekan/wekan/issues/1499); the request is not closed.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c8e89bd58">Add card context and URL encoding to custom field String Templates</a>. Thanks to solunix and xet7.</summary>
