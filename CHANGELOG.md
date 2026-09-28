@@ -567,7 +567,8 @@ The number of minimal receipts is not capped. Six focused Node suites, one
 full-app Meteor scheduler test and one Chromium Recovery replay/authorization
 scenario pass. Local MongoDB tests cover uncertain writes, changed states,
 keyset batches, concurrent sweeps and independent collection failures.
-Coordinating activity creation with queue insertion remains pending.
+Ordinary activity-to-notification recovery is implemented below; broader
+card/History/activity coordination remains unfinished.
 An internal write-ahead intent primitive now confirms immutable storage before
 allowing an activity insertion, reconciles uncertain replies and requires an
 exact activity snapshot on recovery. Only the creating call may insert a
@@ -590,10 +591,20 @@ stops replay without rewriting the saved audience. Bind each plan to the exact
 activity and dispatch actor, with checksum, recipient count and size limits.
 Ten MongoDB cases, three Node suites, three full-app Meteor cases and ten
 Chromium scenarios pass, including interruption between tray and email writes.
-Automatic recovery, cross-process ownership, operator resolution and plan
-retention remain open. Saved plans currently retain rendered content even
-after successful enqueue. Pending evidence survives a crash, but does not yet
-trigger automatic replay.
+Automatic recovery now scans up to 100 pending intent IDs per pass, one
+private payload at a time, after startup and every second. Configure the
+interval from one to sixty seconds. Local overlapping scans coalesce and
+keyset pagination advances past failed, busy and orphaned rows. Immediate
+and recovered delivery share a per-intent database reservation, renewed every
+15 seconds with 60-second crash reclaim. Ownership checks protect preparation,
+service writes and completion; old owners cannot remove successor leases.
+Recovery reuses saved plans or prepares a first plan from an unchanged stored
+activity. It never recreates missing activities or reruns rule/webhook hooks.
+Fourteen Node/MongoDB cases, three additional Node suites, four full-app Meteor
+cases and twelve Chromium scenarios pass, including scheduled SMTP recovery
+with and without an existing plan. Operator resolution and plan retention
+remain open; plans still retain rendered content after successful enqueue.
+This recovers local tray/email enqueue, not the whole Sync effects lifecycle.
 History field snapshots now preserve nested dates, including date-valued
 custom fields alongside mapped estimates. JSON transport and restoration retain
 Date types without interpreting date-looking text. Existing rows whose dates
@@ -1234,6 +1245,37 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/34c6c31a4">Resume pending activity notifications under shared reservations</a>. Thanks to xet7.</summary>
+
+Start bounded recovery scans after application startup. Select at most 100
+pending IDs, load one private payload at a time, and advance past failed,
+busy or orphaned rows. Coalesce overlapping local scans. The default interval
+is one second; ACTIVITY_NOTIFICATION_RECOVERY_INTERVAL_MS accepts integer
+values from 1000 to 60000. Reschedule failed scans without discarding evidence.
+
+Immediate delivery and recovery use the same private per-intent reservation.
+Renew every 15 seconds, reclaim crashed owners after 60 seconds and check
+ownership through preparation, service writes and completion. Conditional
+cleanup cannot remove a successor's reservation. These leases coordinate
+workers; immutable service identities reconcile uncertain local writes.
+
+Use the saved plan unchanged, or prepare the first plan from the exact
+persisted activity when a crash preceded planning. Missing/changed activities
+and revoked access remain pending. Do not recreate activities or rerun their
+rule/webhook hooks. Completed intents do not cause another delivery.
+
+Fourteen Node/MongoDB cases, three additional Node suites, four full-app
+Meteor cases and twelve Chromium scenarios pass. Browser tests observe
+scheduled local SMTP delivery with and without a saved plan, retain an orphan,
+and deny private-lease writes. The source audit passes with advisory
+dependency fingerprint warnings. FerretDB was not exercised.
+
+Operator/orphan handling and payload retention remain open. This acknowledges
+local tray/email enqueue, not SMTP acceptance or the complete Sync lifecycle.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4c762f407">Persist activity notification recipients and rendered email plans</a>. Thanks to xet7.</summary>
