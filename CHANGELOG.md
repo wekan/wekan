@@ -1594,7 +1594,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v12.09 2026-09-28 WeKan ® release
 
 
 **In short:** **Security** protects admin-only custom-field values across server
