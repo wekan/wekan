@@ -625,6 +625,15 @@ Report responses omit saved activity content, recipients and rendered emails.
 Seven focused report/method cases, sixteen related Node/MongoDB cases, one
 full-app Meteor case and two Chromium scenarios pass. Holds, cancellation,
 orphan resolution and unresolved-payload retention remain unfinished.
+An internal pause/resume storage primitive now persists one versioned control
+row per intent under its delivery reservation. Requests carry the observed
+revision and a stable identity; old requests cannot undo newer decisions.
+Exact readback reconciles lost write replies, while false acknowledgements,
+malformed state, revoked access and non-pending intents fail. Six tests pass
+with real MongoDB, including concurrent requests and delayed stale writers.
+The control row is permanent to prevent revision reuse. Private collection
+registration, production delivery guards, admin methods/UI and restart/browser
+verification remain unfinished; activity holds are not operational yet.
 History field snapshots now preserve nested dates, including date-valued
 custom fields alongside mapped estimates. JSON transport and restoration retain
 Date types without interpreting date-looking text. Existing rows whose dates
@@ -1265,6 +1274,23 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/614ece539">Prepare versioned storage for activity notification holds</a>. Thanks to xet7.</summary>
+
+Add an internal pause/resume storage primitive using the activity delivery
+reservation and an expected revision. One permanent control row records the
+latest decision. An identical retry reuses its result; stale requests cannot
+undo later changes. Exact readback confirms uncertain writes. Missing or
+completed intents, malformed controls and revoked administrator access fail.
+
+Six Node/MongoDB tests pass, covering persistence, replay, false and lost write
+acknowledgements, revocation, concurrent requests and delayed stale writers.
+The source audit completes with advisory fingerprint warnings. This primitive
+is not active in production delivery or the UI yet; the remaining integration
+and browser verification are recorded in TODO Later and the Recovery guide.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/169a19817">Inspect pending activity notifications and retry delivery from Recovery</a>. Thanks to xet7.</summary>
