@@ -35,6 +35,7 @@ new Function('exports', 'URL', 'fs', 'mailServiceStorageKey',
   '\nexports.hasTlsOverrides = hasTlsOverrides;' +
   '\nexports.certificateFrom = certificateFrom;' +
   '\nexports.installMailTransport = installMailTransport;' +
+  '\nexports.smtpTimeouts = smtpTimeouts; exports.boundedSmtpUrl = boundedSmtpUrl;' +
   '\nexports.installAdminMailTransport = installAdminMailTransport;')(
   lib, URL, fs, service => service.replaceAll('.', '\uff0e'));
 
@@ -144,7 +145,7 @@ test('a certificate can be the PEM itself or a path, and a bad path is not fatal
   assert.strictEqual(lib.certificateFrom(undefined), null);
 });
 
-test('nothing is installed unless there is something to say, and then it is', () => {
+test('standard SMTP and certificate overrides both receive bounded transport settings', () => {
   const calls = [];
   const nodemailer = {
     createTransport(options) {
@@ -155,11 +156,13 @@ test('nothing is installed unless there is something to say, and then it is', ()
   const Email = {};
   const EmailInternals = { NpmModules: { nodemailer: { module: nodemailer } } };
 
-  // Default: untouched.
+  // Keep Meteor's native mail plugins; only normalize its SMTP URL.
+  const plainEnv = { MAIL_URL: 'smtp://mail/' };
   assert.strictEqual(
-    lib.installMailTransport({ Email, EmailInternals, env: { MAIL_URL: 'smtp://mail/' } }),
-    'default');
-  assert.strictEqual(Email.customTransport, undefined);
+    lib.installMailTransport({ Email, EmailInternals, env: plainEnv }),
+    'bounded-smtp');
+  assert.strictEqual(Email.customTransport, undefined, 'Meteor keeps its native mail plugins');
+  assert.strictEqual(new URL(plainEnv.MAIL_URL).searchParams.get('socketTimeout'), '120000');
   assert.strictEqual(calls.length, 0);
 
   // Something to say, but nothing to connect to.
@@ -176,6 +179,8 @@ test('nothing is installed unless there is something to say, and then it is', ()
   assert.strictEqual(calls.length, 1);
   assert.strictEqual(calls[0].tls.rejectUnauthorized, true, 'still verified');
   assert.strictEqual(calls[0].tls.servername, 'mail.example.com');
+  assert.strictEqual(calls[0].socketTimeout, 120000);
+  assert.strictEqual(calls[0].greetingTimeout, 30000);
   assert.strictEqual(typeof Email.customTransport, 'function');
 });
 
@@ -215,6 +220,7 @@ test('Admin Panel settings select custom SMTP or a Nodemailer service', () => {
   } });
   assert.deepStrictEqual(calls[0].auth, { user: 'user', pass: 'secret' });
   assert.strictEqual(calls[0].host, 'mail.example.com');
+  assert.strictEqual(calls[0].socketTimeout, 120000);
   assert.strictEqual(calls[0].secure, true);
 
   lib.installAdminMailTransport({ Email, EmailInternals, mailServer: {
@@ -224,6 +230,7 @@ test('Admin Panel settings select custom SMTP or a Nodemailer service', () => {
     passwords: { Gmail: 'app-password' },
   } });
   assert.strictEqual(calls[1].service, 'Gmail');
+  assert.strictEqual(calls[1].connectionTimeout, 30000);
   assert.deepStrictEqual(calls[1].auth, { user: 'user@gmail.com', pass: 'app-password' });
 });
 
@@ -246,6 +253,46 @@ test('the webhook side trusts a certificate, and keeps every SSRF protection', (
   assert.ok(/SSRF_GUARD: Blocked IP in URL/.test(guard), 'and private addresses are still refused');
   assert.ok(/reqOptions\.servername = hostname;/.test(guard),
     'the certificate is still checked against the host that was asked for');
+});
+
+
+
+test('SMTP timeout configuration is finite and URL options survive policy normalization', () => {
+  for (const value of ['0', '-1', 'NaN', 'Infinity', '1.5', '999', '900001']) {
+    assert.throws(() => lib.smtpTimeouts({ MAIL_SOCKET_TIMEOUT_MS: value }), /MAIL_SOCKET_TIMEOUT_MS/);
+  }
+  const limits = lib.smtpTimeouts({ MAIL_SOCKET_TIMEOUT_MS: '1000',
+    MAIL_DNS_TIMEOUT_MS: '2000', MAIL_CONNECTION_TIMEOUT_MS: '3000', MAIL_GREETING_TIMEOUT_MS: '4000' });
+  assert.deepStrictEqual(limits, { socketTimeout: 1000, dnsTimeout: 2000, connectionTimeout: 3000, greetingTimeout: 4000 });
+  const url = new URL(lib.boundedSmtpUrl('smtp://user:p%40ss@mail:25/?pool=false&requireTLS=true&socketTimeout=0', limits));
+  assert.strictEqual(url.searchParams.get('socketTimeout'), '1000');
+  assert.strictEqual(url.searchParams.get('pool'), 'false');
+  assert.strictEqual(url.searchParams.get('requireTLS'), 'true');
+  assert.strictEqual(decodeURIComponent(url.password), 'p@ss');
+  assert.strictEqual(url.port, '25');
+});
+
+test('MAIL_URL changes refresh bounded transport without reusing the old endpoint', () => {
+  const calls = [], sent = [], closed = [];
+  const env = { MAIL_URL: 'smtp://first:25/', MAIL_TLS_SERVERNAME: 'mail.example.test' };
+  const Email = {};
+  const nodemailer = { createTransport: options => {
+    calls.push(options);
+    return { sendMail: () => { sent.push(options); }, close: () => closed.push(options) };
+  } };
+  lib.installMailTransport({ Email, EmailInternals: { NpmModules: { nodemailer: { module: nodemailer } } }, env });
+  Email.customTransport({ to: 'first@example.test' });
+  env.MAIL_URL = 'smtp://second:25/';
+  Email.customTransport({ to: 'second@example.test' });
+  assert.strictEqual(calls.length, 2); assert.strictEqual(closed.length, 1);
+  assert.strictEqual(sent[1].host, 'second');
+  assert.strictEqual(sent[1].socketTimeout, 120000);
+});
+
+test('Sandstorm mail updates reinstall the timeout policy', () => {
+  const settings = read('server/models/settings.js');
+  const hook = settings.slice(settings.indexOf('if (isSandstorm) {\n  Settings.after.update'), settings.indexOf('\nMeteor.methods({'));
+  assert.match(hook, /installMailTransport\(\{ Email, EmailInternals \}\)/);
 });
 
 console.log(`\n${passed} tests passed`);

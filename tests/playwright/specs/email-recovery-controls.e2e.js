@@ -173,3 +173,34 @@ test('a slow SMTP recipient remains visible while another recipient completes de
     db.deleteMany('notificationEmailJobs', { _id: { $in: [slow, fast] } });
   }
 });
+
+for (const phase of ['greeting', 'idle']) test(`SMTP ${phase} timeout closes the socket and retains delivery for retry`, async ({ page, adminUser, user2 }) => {
+  test.skip(process.env.WEKAN_TEST_MAIL_TIMEOUTS !== '1000', 'Start app with one-second greeting/socket limits');
+  let recovered = false, release;
+  const held = new Promise(resolve => { release = resolve; });
+  const sink = await smtpSink(Number(process.env.WEKAN_TEST_SMTP_PORT), {
+    greet: () => phase !== 'greeting' || recovered,
+    accept: async () => { if (!recovered) await held; return true; },
+  });
+  const id = db.uid(`timeout-${phase}`);
+  try {
+    db.insertOne('notificationEmailJobs', queued(id, user2.id, { nextAttemptAt: new Date() }));
+    await expect.poll(() => db.findOne('notificationEmailJobs', { _id: id })?.attempts, { timeout: 10000 }).toBe(1);
+    await expect.poll(() => sink.connections()).toBe(0);
+    const pending = db.findOne('notificationEmailJobs', { _id: id });
+    expect(pending.state).toBe('pending'); expect(pending.html).toBe('PRIVATE-QUEUE-BODY');
+    expect(pending.lastFailure).toBe('delivery-failed');
+    await loginWithToken(page, adminUser.id, adminUser.token);
+    await navigateInApp(page, '/admin/problems/recovery');
+    const panel = page.locator('.email-recovery-reports');
+    await panel.locator('.js-table-page-search').fill(user2.id);
+    await panel.locator('.js-table-page-search').press('Enter');
+    await expect(panel).toContainText('Messages retrying: 1');
+    recovered = true; release();
+    await expect.poll(() => db.findOne('notificationEmailJobs', { _id: id })?.state, { timeout: 20000 }).toBe('sent');
+    expect(db.findOne('notificationEmailJobs', { _id: id }).html).toBeUndefined();
+  } finally {
+    release(); await sink.close();
+    db.deleteMany('notificationEmailJobs', { _id: id });
+  }
+});

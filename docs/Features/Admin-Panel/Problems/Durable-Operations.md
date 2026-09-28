@@ -332,7 +332,8 @@ application process handle recipients concurrently; concurrent callers share
 the same pass. A slow recipient does not occupy the other three slots. Multiple
 application processes each have their own pool; there is no global SMTP
 connection limit. A pass still waits for its active transports before polling
-again, so transport timeouts remain necessary.
+again. SMTP phase and idle timeouts close unresponsive connections; an
+absolute deadline against a continuously active peer remains pending.
 It reserves a recipient in `notificationEmailLeases` using the shared
 renewable lease primitive, in a separate collection from list Sync. A normal
 live reservation prevents another process from sending that recipient's digest.
@@ -378,8 +379,10 @@ and stable request receipts with generation checks. A paused recipient stays
 listed with no pending jobs, so the hold can always be removed. Report totals
 scan sorted recipient summaries with bounded memory; concurrent writes can
 change counts between reads, and Refresh obtains a new result.
-Receipt retention, SMTP timeouts and deployment-wide concurrency policy remain
-pending. No external mail provider or FerretDB
+SMTP DNS, connection, greeting and idle limits are configured in the
+[mail troubleshooting guide](../../Email/Troubleshooting-Mail.md#smtp-timeouts).
+Receipt retention, an absolute delivery deadline with cancellation and
+deployment-wide concurrency policy remain pending. No external mail provider or FerretDB
 was exercised by this implementation's local MongoDB/SMTP tests.
 
 Run `tests/integration/emailOutbox.test.cjs` with

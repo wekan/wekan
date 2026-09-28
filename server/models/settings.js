@@ -351,6 +351,7 @@ if (isSandstorm) {
           doc.mailServer.password,
         )}@${doc.mailServer.host}:${doc.mailServer.port}/`;
       }
+      installMailTransport({ Email, EmailInternals });
       Accounts.emailTemplates.from = doc.mailServer.from;
     }
   });

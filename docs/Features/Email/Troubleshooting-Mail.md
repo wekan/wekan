@@ -8,8 +8,8 @@ Enter the provider credentials and From address, save, then use **Send SMTP test
 email**. Leave the option disabled when you want WeKan to use the installation's
 existing `MAIL_URL` and `MAIL_FROM` settings instead.
 
-Activity notification emails are queued in the database. SMTP failures retry
-automatically with increasing delays (5 seconds up to one hour), and pending
+Activity notification emails are queued in the database. Temporary SMTP failures retry with increasing delays and jitter, up to twelve
+attempts per cycle. Permanent failures stop for administrator review. Pending
 mail resumes after a restart. These are at-least-once deliveries: interruption
 after SMTP acceptance can cause a duplicate. A recipient who is no longer an
 active board member does not receive a queued board notification. The current
@@ -18,8 +18,40 @@ mailbox address and mail configuration are used on each attempt.
 Without a working transport, console output alone does not clear the queue.
 Custom email transports must return the accepted recipient list, as Nodemailer
 SMTP transports do. **Admin Panel / Problems / Recovery** shows recipient
-summaries and lets an administrator pause, resume or cancel queued messages.
+summaries and lets an administrator pause, resume, retry failed messages or cancel queued messages.
 See [the recovery guide](../Admin-Panel/Problems/Recovery.md#email-delivery-queue).
+
+
+## SMTP timeouts
+
+SMTP connections configured through `MAIL_URL`, TLS certificate overrides or
+Admin Panel provider settings use these process environment variables:
+
+| Variable | Default | Limits |
+| --- | --- | --- |
+| `MAIL_DNS_TIMEOUT_MS` | 30000 (30 seconds) | DNS lookup |
+| `MAIL_CONNECTION_TIMEOUT_MS` | 30000 (30 seconds) | TCP connection |
+| `MAIL_GREETING_TIMEOUT_MS` | 30000 (30 seconds) | Initial SMTP greeting |
+| `MAIL_SOCKET_TIMEOUT_MS` | 120000 (2 minutes) | Connection idle time |
+
+Each value must be an integer from 1000 to 900000 milliseconds. Restart WeKan
+after changing these variables. Invalid values are rejected; zero cannot disable
+a timeout. These settings override timeout query parameters in an SMTP
+`MAIL_URL`. The standard Meteor URL path preserves its other URL options,
+encoded credentials and native mail plugins. A provider that legitimately takes
+longer needs a larger value within these bounds.
+
+The transport closes an idle or unresponsive connection. A queued notification
+retains its content and retries under the queue's attempt policy. Invitation,
+password-reset and other direct mail callers retain their existing error handling;
+these timeouts do not put those messages into the notification outbox.
+
+Socket timeouts measure inactivity, not total delivery duration. A peer that
+keeps sending bytes can keep a connection alive. An absolute delivery deadline
+with cancellation remains pending, as does a deployment-wide connection limit.
+Legacy non-SMTP `MAIL_URL` schemes and third-party custom transports are outside
+this policy. SMTP acknowledgement loss can still cause duplicate delivery.
+
 
 [Azure Email Communication Service](https://github.com/wekan/wekan/issues/5453)
 
