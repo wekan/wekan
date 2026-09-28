@@ -9,6 +9,9 @@ template(name="boardChartView")
           i.fa.fa-share-square-o
           | {{_ 'export'}}
 
+      if isPulse
+        +archiveContributions
+
       if flowNote
         p.chart-method-note {{flowNote}}
       if isMonteCarlo
@@ -79,3 +82,42 @@ template(name="boardChartView")
                     td
                       +viewer
                         = cell
+
+template(name="archiveContributions")
+  section.archive-contributions
+    h3 {{_ 'archived'}} · {{_ 'cards'}} · UTC
+    form.js-archive-year.chart-options
+      label
+        | {{_ 'predicate-year'}}
+        input(type="number" name="year" min="1900" max="9998" required value="{{year}}")
+      button.primary(type="submit") {{_ 'apply'}}
+    if error
+      p.chart-error(role="alert") {{_ 'flow-error'}}
+    else if ready
+      .archive-grid-scroll
+        table.archive-grid
+          caption {{_ 'month'}} / {{_ 'day'}} · UTC
+          thead
+            tr
+              th(scope="col") {{_ 'day'}}
+              each month in months
+                th(scope="col")= month
+          tbody
+            each row in rows
+              tr
+                th(scope="row")= row.day
+                each cell in row.cells
+                  td.archive-cell
+                    if cell
+                      button.archive-day(type="button" class="archive-level-{{cell.level}}" data-date="{{cell.date}}" aria-label="{{cell.description}}" aria-describedby="archive-tip-{{cell.date}}")= cell.count
+                      .archive-tooltip(id="archive-tip-{{cell.date}}" role="tooltip" class="{{tooltipClass cell.date}}")
+                        strong {{cell.date}} UTC · {{_ 'cards'}}: {{cell.count}}
+                        each label in cell.labels
+                          span.card-label(class="{{labelColorClass label.color}}" style="{{labelColorStyle label.color}}")= label.name
+      .archive-day-detail(role="status" aria-live="polite")
+        with selected
+          strong {{date}} UTC · {{_ 'cards'}}: {{count}}
+          each label in labels
+            span.card-label(class="{{labelColorClass label.color}}" style="{{labelColorStyle label.color}}")= label.name
+    else
+      p {{_ 'loading'}}

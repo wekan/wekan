@@ -57,3 +57,29 @@
 .chart-error { color: #b52e20; }
 .chart-details { margin-top: 20px; overflow-x: auto; }
 .chart-details summary { cursor: pointer; }
+
+.archive-contributions { margin-bottom: 28px; }
+.archive-grid-scroll { overflow-x: auto; }
+.archive-grid { border-spacing: 3px; width: min(100%, 700px); }
+.archive-grid caption { text-align: start; }
+.archive-grid th { text-align: center; padding: 2px; }
+.archive-grid td { padding: 0; }
+.archive-day { width: 100%; min-width: 32px; min-height: 26px; margin: 0; padding: 2px; border: 1px solid #87988b; border-radius: 3px; }
+.archive-day:hover, .archive-day:focus-visible { outline: 3px solid #1769aa; outline-offset: 1px; }
+.archive-contributions .archive-day.archive-level-0 { background: #ebedf0; color: #303030; }
+.archive-contributions .archive-day.archive-level-1 { background: #9be9a8; color: #16351e; }
+.archive-contributions .archive-day.archive-level-2 { background: #40c463; color: #123018; }
+.archive-contributions .archive-day.archive-level-3 { background: #216e39; color: white; }
+.archive-contributions .archive-day.archive-level-4 { background: #124522; color: white; }
+.archive-day-detail { min-height: 40px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 8px 0; }
+.archive-day-detail .card-label { display: inline-block; width: auto; height: auto; padding: 4px 8px; }
+.archive-cell { position: relative; }
+.archive-tooltip { display: none; position: absolute; z-index: 10; top: 100%; left: 0; width: max-content; max-width: 240px; white-space: normal; background: #fff; color: #222; border: 1px solid #777; padding: 8px; box-shadow: 0 2px 5px #0003; }
+.archive-cell:nth-last-child(-n+4) .archive-tooltip { left: auto; right: 0; }
+.archive-cell:hover .archive-tooltip, .archive-cell:focus-within .archive-tooltip { display: block; }
+.archive-tooltip .card-label { display: block; width: auto; height: auto; margin-top: 4px; }
+.archive-cell .archive-tooltip.archive-tooltip-dismissed { display: none; }
+.archive-grid tbody tr:nth-last-child(-n+5) .archive-tooltip { top: auto; bottom: 100%; }
+
+.archive-contributions .archive-grid th, .archive-contributions .archive-grid td { padding: 0; border: 0; background: transparent; }
+.archive-contributions .archive-grid tr { background: transparent; }

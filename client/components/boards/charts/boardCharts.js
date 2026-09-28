@@ -1,3 +1,4 @@
+import './archiveContributions';
 import { titleViewerText } from '/client/lib/titleViewer';
 import { Template } from 'meteor/templating';
 import { Meteor } from 'meteor/meteor';
@@ -206,6 +207,7 @@ Template.boardChartView.onRendered(function() {
 });
 
 Template.boardChartView.helpers({
+  isPulse() { return Template.currentData().chartKey === 'pulse'; },
   hasError() { return Template.instance().error.get(); },
   isMonteCarlo() { return Template.currentData().chartKey === 'monteCarlo'; },
   isSizeCycleTime() { return Template.currentData().chartKey === 'sizeCycleTime'; },

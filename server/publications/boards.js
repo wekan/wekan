@@ -1405,6 +1405,19 @@ Meteor.methods({
     };
   },
 
+  // Annual archive counts use an explicit per-member card scope.
+  async archivedCardContributions(boardId, year) {
+    check(boardId, String);
+    check(year, Number);
+    const { loadArchiveContributions } = require('/server/lib/archiveContributions');
+    try {
+      return await loadArchiveContributions(this.userId, boardId, year);
+    } catch (error) {
+      if (/^Invalid /.test(error.message)) throw new Meteor.Error('bad-request', error.message);
+      throw error;
+    }
+  },
+
   // Data for the board report charts (chartPlaceholderViews.jade replacements -
   // Dashboard/Burndown/Burnup/CFD/Control/Cycle/Flow-Efficiency/Lead/Throughput/
   // WIP-Run), computed board-scoped as requested. The calculation itself is pure
