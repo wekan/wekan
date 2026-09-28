@@ -723,3 +723,13 @@ full-app test uses real collections, slot ownership and command preparation,
 but replaces Email.sendAsync with controlled transport responses; real network
 delivery is not established by that test. Operator resolution, recovery UI and
 manual/cron rule-stage wiring remain unfinished.
+
+A second full-app test now drives `runStoredSyncRuleEmail` through the real
+Meteor Email transport to a TCP SMTP server bound only to loopback. It verifies
+captured subject/body/card-description content, accepted-delivery persistence
+and no second connection on replay. Closing the socket after receiving DATA
+but before acknowledgement leaves an uncertain attempt; replay opens no new
+connection. A multi-recipient send with one accepted and one rejected address
+likewise remains uncertain and is not automatically repeated. This covers the
+actual local transport path, not external SMTP-provider interoperability or
+operator resolution of uncertain attempts.
