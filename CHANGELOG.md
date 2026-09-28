@@ -616,6 +616,15 @@ thirteen Chromium scenarios pass, covering uncertain writes, stale writers,
 changed payloads, immediate compaction and scheduled cleanup. Operator
 resolution and unresolved-payload retention remain open. This recovers local
 tray/email enqueue, not the whole Sync effects lifecycle.
+Problems → Recovery now lists pending activity notification summaries with
+literal ID search, ten-row pages and status-specific retry availability.
+Enabled administrators can retry through the same reservation and permanent
+receipts as automatic delivery. Current admin access is checked inside the
+reservation and during delivery; missing activities are never recreated.
+Report responses omit saved activity content, recipients and rendered emails.
+Seven focused report/method cases, sixteen related Node/MongoDB cases, one
+full-app Meteor case and two Chromium scenarios pass. Holds, cancellation,
+orphan resolution and unresolved-payload retention remain unfinished.
 History field snapshots now preserve nested dates, including date-valued
 custom fields alongside mapped estimates. JSON transport and restoration retain
 Date types without interpreting date-looking text. Existing rows whose dates
@@ -1256,6 +1265,26 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/169a19817">Inspect pending activity notifications and retry delivery from Recovery</a>. Thanks to xet7.</summary>
+
+Show ten pending activity summaries per page with literal ID search. Distinguish
+missing or changed activities, active reservations and inconsistent plan
+metadata without returning activity snapshots, recipients or email payloads.
+Enabled administrators can retry pending delivery using the same reservations,
+current permission checks and permanent receipt IDs as automatic recovery.
+Repeated requests do not duplicate local queue writes or recreate activities.
+
+Seven focused report/method cases and sixteen related Node/MongoDB cases pass.
+One full-app Meteor case verifies reservation-time permission revocation and
+recovery; two Chromium cases verify pagination, privacy, non-admin denial,
+recipient rejection, successful manual retry and completed-request replay.
+The browser tests caught and verified a missing server-entry import. The
+source audit completes with advisory fingerprint warnings. Holds, cancellation,
+orphan resolution and unresolved-payload retention remain in TODO Later.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/694807fc4">Remove completed notification plan payloads while retaining replay keys</a>. Thanks to xet7.</summary>
