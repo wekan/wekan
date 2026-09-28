@@ -153,7 +153,12 @@ edits. Planning-record writes match all captured fields. Thirty-nine
 Node/MongoDB cases and the full-app raced-move case pass: a card moved after
 validation receives no old-board restoration, and its checkpoint remains.
 Cross-document permissions and writers outside revision tracking still need
-shared coordination.
+shared coordination. Resumption now preflights every saved target before
+advancing the first pending entity write. Mixed pending/applied batches are
+accepted, but an existing later conflict prevents additional partial writes.
+Forty Node/MongoDB cases and the full-app two-card conflict/retry case pass.
+The preflight remains a sequence of reads; same-operation serialization and
+atomicity are still unfinished.
 Finalization now verifies the source
 History row and persisted undo/redo state before deleting the exact operation's
 checkpoint. Retries preserve the original undo timestamp. Ordinary writes and
@@ -1555,6 +1560,24 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/46d2039b8">Preflight the complete Scrum recovery batch before more writes</a>. Thanks to xet7.</summary>
+
+Inspect every saved target before advancing the next pending entity write.
+Accept mixed pending/applied targets only when their captured values and
+revisions match. Refuse already-visible conflicts in later targets before
+applying an otherwise valid earlier write. Keep per-write predicates and
+post-write confirmation because preflight is not an atomic snapshot.
+
+Forty Node/MongoDB cases, one full-app Meteor case and nine Chromium cases
+pass. A conflicting second card leaves the first card untouched and retains
+the checkpoint without timeline insertion; valid retry completes both cards.
+Browser coverage verifies partial compound undo still resumes. The source
+audit has advisory warnings. Same-operation worker serialization and
+cross-document atomicity remain unfinished.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/bf75fafdd">Match captured placement and content in Scrum restoration writes</a>. Thanks to xet7.</summary>
