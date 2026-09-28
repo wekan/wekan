@@ -175,9 +175,16 @@ estimates now sync into an explicitly selected, already mapped numeric custom
 field. The popup shows the source field and unit; mapping changes invalidate
 the old baseline. Zero, absent values and explicit null remain distinct.
 Local estimate edits use the existing conflict review, and conditional array
-writes preserve other custom fields and their order. Card
-mappings and credentials now include provider/server/project identity. Source
-switches preserve old cards, require the new source's credential and reject
+writes preserve other custom fields and their order.
+Original and remaining Jira time estimates now have opt-in Sync switches. Each
+uses the unique imported numeric time field on the board, converting seconds
+to hours. Saved mapping identities are rechecked before writes; missing,
+ambiguous, changed or overlapping mappings stop the run. Zero, explicit null
+and absent values remain distinct, and simultaneous estimate changes retain
+unrelated custom fields. The popup reviews local/source conflicts. Twenty-five
+focused Node suites and twenty-two Chromium scenarios pass.
+Card mappings and credentials include provider/server/project identity.
+Source switches preserve old cards, require the new credential and reject
 unidentifiable legacy mappings. Save existing settings once to bind their
 legacy mappings and credential before resuming Sync.
 New card creation now uses stable list/source/issue IDs, preventing duplicate
@@ -334,8 +341,8 @@ History effects before a durable unit can be safely acknowledged.
 Remaining: external sprint histories without invented snapshots, multiple
 release assignments, epic relationships, automatic field/schema mapping,
 Trello and other Scrum adapters, complete provider schema/mapping coverage,
-binary/history transport, planning Sync, original/remaining time estimates,
-other providers' estimate Sync, durable custom-field activity/rule delivery,
+binary/history transport, planning Sync, other providers' estimate Sync,
+durable custom-field activity/rule delivery,
 production mapped-field replay and restart checkpoints, fencing of in-flight
 writes after lease loss and atomic multi-card reconciliation.
 Changes during card writes remain nontransactional.
@@ -1143,11 +1150,39 @@ custom-field order. It exercises the actual popup against a local Jira fixture;
 live Jira servers, other browsers and FerretDB were not tested. The offline
 source/dependency audit passes with advisory fingerprint warnings.
 
-Automatic schema discovery, other providers' estimates, original/remaining
-time-estimate mapping and durable mapped-field replay remain pending. Ordinary
-custom-field activity/rule integration is described below. Entity History uses
-its existing hook.
+Automatic schema discovery, other providers' estimates and durable mapped-field
+replay remain pending. Ordinary custom-field activity/rule integration is
+described below. Entity History uses its existing hook.
 Only English labels were added; translation into all languages remains excluded.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5e1ed32f5">Sync Jira original and remaining time estimates</a>. Thanks to xet7.</summary>
+
+Add opt-in Original time estimate and Remaining time estimate switches to the
+Sync popup. Resolve each to the unique imported numeric Jira time field on the
+board and save its mapping identity. Missing, foreign, ambiguous or changed
+mappings are rejected, as is sharing a target with another selected estimate.
+Jira Cloud requests the nested time totals and flat numeric fallback fields.
+
+Convert numeric seconds to hours. Preserve zero, leave absent values unchanged
+and clear only the selected entry for explicit null. Combine original,
+remaining and mapped custom estimates without replacing unrelated fields.
+Local edits participate in baseline comparison and Keep local/Use source
+review; conditional array writes reject concurrent changes. Mapping switches
+invalidate the old baseline. Preview and coverage recognize selected time data.
+
+Twenty-five focused Node suites and twenty-two Chromium scenarios pass using
+local MongoDB and Jira fixtures. Coverage includes zero/null/missing values,
+combined field updates, malformed seconds, mapping validation, stale conflicts,
+source changes and existing authorization/credential behavior. Source audit
+passes with advisory fingerprint changes. Live Jira, other browsers and
+FerretDB remain unverified. Only English source labels were added.
+
+These are aggregate issue estimates. Sprint/release Sync, provider schema
+discovery, other providers' estimates and durable History/activity completion
+remain in TODO Later.
 
 </details>
 
