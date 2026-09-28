@@ -58,11 +58,11 @@ https://wekan.fi/status/
 <details>
 <summary>Carried to a future release.</summary>
 
-All implementation work in this section is paused at the maintainer's request
-on 2026-09-28. Scrum, Sync and the other non-translation requirements below are
-unfinished, not cancelled or marked complete. Completed increments are recorded
-in Upcoming with test evidence; remaining requirements and external verification
-blockers stay here. Resume only when requested.
+Non-translation implementation resumed at the maintainer's explicit request
+on 2026-09-28 after the security and SAML fixes. Scrum, Sync and the other
+requirements below remain unfinished. Completed increments are recorded in
+Upcoming with test evidence; remaining requirements and external verification
+blockers stay here.
 Do not add translation into all languages to the current work queue, including
 after the non-translation work. The maintainer is trying Transifex's translation
 features and intends to obtain most translations from Transifex. Existing
@@ -87,9 +87,15 @@ held only issues \#4774 and \#4055, and both are closed now.
 </details>
 
 <details>
-<summary>Paused implementation checkpoint: Scrum, Sync and rule email recovery.</summary>
+<summary>Active implementation checkpoint: Scrum, Sync and rule email recovery.</summary>
 
-The most recent completed increment confirms independently verified SMTP
+The current Scrum History increment verifies checkpoint deletion from stored
+state, rejecting false acknowledgements and preserving successor checkpoints.
+A lost deletion reply can be reconciled by a confirmed absence read. Thirty-one
+Node suites, one full-app case and nine Chromium scenarios pass. Durable
+completion receipts and recovery after an uncertain final read remain open.
+
+The preceding rule-email increment confirms independently verified SMTP
 acceptance offline, retaining an immutable operator decision before reconciling
 the exact receipt. It does not send or reset email. Sixty-three focused Node
 suites pass without skips, including the real MongoDB command-line workflow.
@@ -106,7 +112,7 @@ Scrum/Sync still needs cross-document coordination of cards, History, activities
 and effects; compound archive reservations; interrupted/deleted-record replay;
 remaining action/provider adapters; and safe manual/cron activation. Existing
 implementation and test checkpoints below remain authoritative. Other open
-non-translation categories also remain paused; this checkpoint does not close
+non-translation categories remain in the queue; this checkpoint does not close
 those issues or treat external verification as complete. Translation into all
 languages remains outside the work queue.
 
@@ -189,8 +195,14 @@ The preflight remains a sequence of reads; same-operation serialization and
 atomicity are still unfinished.
 Finalization now verifies the source
 History row and persisted undo/redo state before deleting the exact operation's
-checkpoint. Retries preserve the original undo timestamp. Ordinary writes and
-History remain non-atomic, and automatic startup replay is still pending.
+checkpoint. Retries preserve the original undo timestamp. Checkpoint cleanup
+now also reads the board slot after deletion: false acknowledgements cannot
+report completion, and lost replies require confirmed absence. A successor
+checkpoint or failed read remains unconfirmed and is never deleted again.
+Thirty-one Node suites, one full-app confirmation case and nine Chromium cases
+pass. Durable completion receipts, shared writer coordination and recovery after
+an uncertain final read remain unfinished. Ordinary writes and History remain
+non-atomic, and automatic startup replay is still pending.
 Native whole-board export/import and duplication remap planning records and
 snapshots, validate lifecycle/policy consistency, and report reduced data.
 Standalone copies preserve applicable metadata and drop foreign references;
@@ -4751,7 +4763,29 @@ effect adapters and in-flight fencing remain in TODO Later.
 
 </details>
 
-and improves daily Scrum reporting:
+and improves Scrum reporting and History recovery:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3b7eaedee">Verify Scrum History checkpoint removal before completing recovery</a>. Thanks to xet7.</summary>
+
+Read the board checkpoint after its exact conditional deletion. A positive
+write reply alone no longer completes restoration. Reconcile a lost reply only
+when storage confirms absence; reject failed reads and successor checkpoints
+without deleting again. Retain the original undo timestamp and stable timeline
+identity across retries.
+
+Thirty-one focused Node suites pass without skips, including MongoDB and DDP
+integration. The full-app confirmation case covers false deletion success,
+retry and a persisted deletion whose reply is lost. Nine Chromium History
+scenarios pass, including compound undo/redo, permissions, interrupted recovery,
+superseded redo and newer revisions. The source audit passes with advisory
+fingerprint warnings. Existing Upcoming regression evidence remains recorded.
+
+Record explicit resumption of non-translation work. Cross-document writer
+coordination, durable completion receipts and recovery after an uncertain final
+read remain in TODO Later. This readback does not make restoration atomic.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/8a3a1d1b3">Keep interrupted normal-import cleanup recoverable</a>. Thanks to xet7.</summary>
