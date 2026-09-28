@@ -353,6 +353,11 @@ running the next matched rule, and initial-date write failures propagate too.
 Forty controlled delayed-write/rejection cases cover twenty action paths and
 fail against the previous implementation; all 27 rule Node suites pass. This
 fixes Promise ownership only, not durable command receipts or restart replay.
+Rule email failures now propagate to callers too, preventing a scheduled slot
+from being marked successful after failed delivery or recipient lookup. Six
+controlled-adapter tests cover localized/fallback mail, retained card context,
+ordered execution and scanner isolation; all 28 rule Node suites pass. Actual
+SMTP delivery and durable rule-email replay remain unverified/unfinished.
 Private operation, step and completion collections are now registered with
 server-only adapters, denied browser writes, recovery indexes and no TTL.
 The stored-operation entry point holds the list lease and requires fresh access
@@ -1350,6 +1355,23 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b5d7910b7">Propagate rule email failures before acknowledging scheduled execution</a>. Thanks to xet7.</summary>
+
+Propagate recipient lookup and email delivery errors from the rule action
+runner. Subsequent matched actions stop on failure, and the scheduled scanner
+no longer marks a failed email slot successful. Other scheduled triggers still
+run through the scanner's existing per-trigger error boundary.
+
+Six controlled-adapter tests run the actual rule and scheduler code, covering
+localized and fallback mail, delayed completion, rejection, recipient lookup,
+card context and failed-slot acknowledgement. All 28 rule Node suites pass;
+the source audit completes with advisory warnings. No real SMTP, browser or
+database integration was exercised in this batch. This change does not provide
+exactly-once email delivery or durable rule replay after a process restart.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/569c2c61b">Wait for rule date, label and linked-card writes before later actions</a>. Thanks to xet7.</summary>
