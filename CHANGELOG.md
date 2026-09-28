@@ -378,7 +378,14 @@ sending; ordinary mail uses the same preparation. Six new controlled tests
 cover language resolution, unchanged prepared content and propagated failures.
 A rule-email command must persist these fields and its explicit recipient;
 the existing user-grouped notification outbox resolves addresses later and
-cannot substitute directly. Command storage and its dispatch worker remain TODO.
+cannot substitute directly. An internal command storage primitive now freezes
+prepared transport fields against the complete rule-plan checksum, invocation,
+activity hash and actor/board/card identity. Exact readback reconciles lost
+replies and concurrent builders; changed plans, corrupt content, malformed
+headers and oversized payloads are refused. Twenty-two Node/MongoDB cases pass,
+including seven command cases and fresh-connection reuse. Actual rule-variable
+preparation, private collection registration and the dispatch worker remain
+TODO. Persisting this command does not acknowledge sending or rule completion.
 Private operation, step and completion collections are now registered with
 server-only adapters, denied browser writes, recovery indexes and no TTL.
 The stored-operation entry point holds the list lease and requires fresh access
@@ -1376,6 +1383,26 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/61969464b">Persist immutable prepared rule email commands with exact readback</a>. Thanks to xet7.</summary>
+
+Add an internal storage primitive for fully prepared email transport fields.
+Bind each command to its complete rule plan, invocation index, activity hash
+and actor/board/card scope. Reuse the first stored recipient and content on
+replay; verify exact shape and checksum, restrict transport options and bound
+header lengths and the mail payload. Reconcile lost replies and competing
+builders through stored readback under the caller's live ownership guard.
+
+Twenty-two Node/MongoDB cases pass, including seven command cases for identity,
+corruption, false/lost acknowledgements, ownership loss, invalid payloads,
+concurrent preparation and reuse through a fresh connection. The source audit
+completes with advisory warnings. Preparation callbacks are controlled test
+adapters; no SMTP or browser flow runs here. Actual rule-variable preparation,
+private production storage and durable dispatch remain TODO. Command storage
+alone is not a sending or rule-completion receipt.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a48524ecf">Separate localized email preparation from transport for saved rule commands</a>. Thanks to xet7.</summary>
