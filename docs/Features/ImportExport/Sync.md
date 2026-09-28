@@ -680,3 +680,13 @@ title or action recipient later changes. This entry point only prepares and
 stores: it does not enqueue mail or acknowledge a rule invocation. Dispatch,
 recipient/configuration revocation handling at send time and operator recovery
 still need implementation before manual/cron activation.
+
+The internal rule-email acceptance helper derives intended recipients using
+Meteor Email's own MailComposer envelope, including display names, quoted
+commas, groups and internationalized domains. It rejects empty, malformed or
+oversized recipient sets, deduplicates exact envelope addresses and preserves
+local-part case. Confirmation requires the transport to accept every intended
+address, report no rejected recipients and include no unexpected addresses.
+Console-only sends, hook-suppressed results and partial acceptance cannot count
+as successful delivery. These helpers do not send, persist delivery state or
+install a worker. Ambiguous-send recovery and operator handling remain TODO.
