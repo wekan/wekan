@@ -62,7 +62,18 @@ async function prepareRuleCardDetails({ activity, cache, canReadBoard }) {
       createdAt: 'Created', modifiedAt: 'Modified', listEnteredAt: 'Entered list', receivedAt: 'Received',
       startAt: 'Start', dueAt: 'Due', endAt: 'End', dueComplete: 'Due complete',
       requestedBy: 'Requested by', assignedBy: 'Assigned by', spentTime: 'Spent time (hours)', isOvertime: 'Overtime',
+      recurrenceInterval: 'Recurrence', lastRecurrenceAt: 'Last recurrence',
+      flowStartAt: 'Flowtime started', flowInterruptions: 'Flowtime interruptions',
+      pomodoroStartAt: 'Pomodoro started', pomodoroPhase: 'Pomodoro phase',
+      pomodoroCount: 'Pomodoro completed intervals', pomodoroWorkMinutes: 'Pomodoro work interval (minutes)',
       locationName: 'Location', locationAddress: 'Address', locationLatitude: 'Latitude', locationLongitude: 'Longitude' })) add(label, card[field]);
+    // Export the persisted session snapshot, not a ticking elapsed duration
+    // that could be mistaken for completed spent time. Resolve only public names.
+    for (const [field, label] of [['flowUserId', 'Flowtime user'], ['pomodoroUserId', 'Pomodoro user']]) {
+      if (typeof card[field] !== 'string' || !card[field]) continue;
+      const user = await cache.getUser(card[field]);
+      add(label, user?.profile?.fullname || user?.username || 'Unknown user');
+    }
     const labels = new Map((board.labels || []).map(label => [label._id, label.name || label.color]));
     add('Labels', (card.labelIds || []).map(id => labels.get(id)).filter(Boolean));
     for (const [field, label] of [['members', 'Members'], ['assignees', 'Assignees'], ['requesters', 'Requesters'], ['assigners', 'Assigners']]) {

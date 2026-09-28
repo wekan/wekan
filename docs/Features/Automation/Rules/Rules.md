@@ -94,8 +94,12 @@ This option is independent of Attachments and is off for existing rules.
 
 Enable **Details** to append board/list/swimlane names, dates, labels, members,
 assignees, requesters/assigners, time spent, locations, custom-field display
-values, text notes and readable parent/subtask/dependency titles. Admin-only
-custom fields require board-admin access. Account emails, tokens and private
+values, text notes and readable parent/subtask/dependency titles. Details also
+includes recurrence interval/last recurrence and persisted Flowtime/Pomodoro
+session start, interruptions, phase, completed intervals, work duration and
+public user display names. Timer snapshots do not add unfinished time to the
+completed spent-time total or calculate a continually changing elapsed value.
+Admin-only custom fields require board-admin access. Account emails, tokens and private
 related-card titles are never included. Zero and false values are retained.
 Access and custom-field policy are checked again before preparation finishes.
 
@@ -105,8 +109,8 @@ must remain readable by the actor; changed targets, cycles, missing sources
 and revoked access stop preparation. Cached source snapshots are not sent.
 Linked boards use current board title, description and dates while retaining
 the wrapper card's own discussion and attachments; they do not email every
-card on the linked board. Specialized fields such as Scrum, voting and timer/
-recurrence state still need review for the full-card request in #2713.
+card on the linked board. Scrum and voting fields still need review for the
+full-card request in #2713.
 Stored Sync commands capture the resolved source chain alongside the immutable
 mail and include it in their checksum. Before dispatch, every saved card/board,
 link target and current read/assignment permission must still match. A moved or

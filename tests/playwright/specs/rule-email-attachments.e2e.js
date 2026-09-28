@@ -31,6 +31,9 @@ test(`email rule form and SMTP carry only live triggering-card bytes from ${back
     db.insertOne('checklistItems', { _id: `${id}-item`, cardId: card._id, checklistId: `${id}-checklist`, title: 'Reviewed task', isFinished: true, sort: 0 });
     db.insertOne('card_comments', { _id: `${id}-comment`, cardId: card._id, boardId: board.boardId, text: 'Public email comment', createdAt: new Date(), modifiedAt: new Date(), webhookResponsePending: 'NEVER-MAIL-PRIVATE-STATE' });
     db.updateOne('cards', { _id: card._id }, { $set: { dueAt: new Date('2027-02-01'), spentTime: 0,
+      recurrenceInterval: 'weekly', lastRecurrenceAt: new Date('2027-01-01'),
+      flowStartAt: new Date('2027-02-01'), flowInterruptions: 2,
+      pomodoroStartAt: new Date('2027-02-01'), pomodoroPhase: 'work', pomodoroCount: 3, pomodoroWorkMinutes: 25,
       customFields: [{ _id: `${id}-field`, value: 'high' }] } });
     db.insertOne('customFields', { _id: `${id}-field`, boardIds: [board.boardId], name: 'Mail priority', type: 'dropdown',
       settings: { dropdownItems: [{ _id: 'high', name: 'High priority' }] } });
@@ -72,6 +75,12 @@ test(`email rule form and SMTP carry only live triggering-card bytes from ${back
     expect(mails()[0].data).toContain('Due: 2027-02-01T00:00:00.000Z');
     expect(mails()[0].data).toContain('Mail priority: High priority');
     expect(mails()[0].data).toContain('Mail note: Visible note content');
+    for (const text of ['Recurrence: weekly', 'Last recurrence: 2027-01-01T00:00:00.000Z',
+      'Flowtime started: 2027-02-01T00:00:00.000Z', 'Flowtime interruptions: 2',
+      'Pomodoro phase: work', 'Pomodoro completed intervals: 3', 'Pomodoro work interval (minutes): 25']) {
+      // Quoted-printable can wrap these fields with a soft line break.
+      expect(mails()[0].data.replace(/=\r?\n/g, '')).toContain(text);
+    }
     expect(mails()[0].data).not.toContain('NEVER-MAIL-PRIVATE-STATE');
     db.updateOne('attachments', { _id: id }, { $set: { deletedAt: new Date() } });
     await call(page, 'rules.runButton', rule._id, card._id);
@@ -85,6 +94,7 @@ test(`email rule form and SMTP carry only live triggering-card bytes from ${back
     expect(mails()[2].data).not.toContain('Email checklist');
     expect(mails()[2].data).not.toContain('Public email comment');
     expect(mails()[2].data).not.toContain('Mail priority');
+    expect(mails()[2].data).not.toMatch(/Flowtime|Pomodoro|Recurrence/);
     fs.unlinkSync(filename);
     if (backend === 'gridfs') { db.deleteMany('attachments.files', { _id: gridId }); db.deleteMany('attachments.chunks', { files_id: gridId }); }
     const error = await page.evaluate(async ({ ruleId, cardId }) => {

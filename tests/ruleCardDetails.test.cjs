@@ -57,3 +57,32 @@ test('custom dates, checkbox values, multiselect, currency and string templates 
   const text = await prepare(f);
   for (const expected of ['multi: First, Second', 'date: 2027-03-01T00:00:00.000Z', 'flag: false', 'money: 0 EUR', 'template: Board: one; Board: two']) assert.ok(text.includes(expected), expected);
 });
+
+test('timer and recurrence snapshots preserve dates and zero counts without exporting account data', async () => {
+  const f = fixture(); Object.assign(f.card, {
+    recurrenceInterval: 'weekly', lastRecurrenceAt: new Date('2027-01-02'),
+    flowStartAt: new Date('2027-01-03'), flowInterruptions: 0, flowUserId: 'flow',
+    pomodoroStartAt: new Date('2027-01-04'), pomodoroPhase: 'break', pomodoroCount: 4,
+    pomodoroWorkMinutes: 25, pomodoroUserId: 'pomodoro',
+  });
+  f.cache.getUser = async id => ({ username: id, profile: { fullname: `${id} name` },
+    emails: [{ address: 'SECRET-EMAIL' }], services: { token: 'SECRET-TOKEN' } });
+  const text = await prepare(f);
+  for (const expected of ['Recurrence: weekly', 'Last recurrence: 2027-01-02T00:00:00.000Z',
+    'Flowtime started: 2027-01-03T00:00:00.000Z', 'Flowtime interruptions: 0', 'Flowtime user: flow name',
+    'Pomodoro started: 2027-01-04T00:00:00.000Z', 'Pomodoro phase: break', 'Pomodoro completed intervals: 4',
+    'Pomodoro work interval (minutes): 25', 'Pomodoro user: pomodoro name']) assert.ok(text.includes(expected), expected);
+  assert.ok(!text.includes('SECRET'));
+  f.cache.getUser = async () => null;
+  assert.ok((await prepare(f)).includes('Flowtime user: Unknown user'));
+});
+test('absent or malformed timer values do not become serialized objects and access loss aborts export', async () => {
+  const f = fixture();
+  assert.doesNotMatch(await prepare(f), /Flowtime|Pomodoro|Recurrence/);
+  Object.assign(f.card, { flowStartAt: new Date(NaN), pomodoroPhase: { secret: 'SECRET' },
+    flowUserId: { secret: 'SECRET' }, recurrenceInterval: { secret: 'SECRET' } });
+  assert.doesNotMatch(await prepare(f), /SECRET|Invalid Date|object Object|Flowtime|Pomodoro|Recurrence/);
+  f.card.flowUserId = 'timer-owner';
+  f.cache.getUser = async () => { f.allowed = false; return { username: 'person' }; };
+  await assert.rejects(prepare(f), /not-authorized/);
+});
