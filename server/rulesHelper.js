@@ -450,28 +450,28 @@ export const RulesHelper = {
           case 'startAt': {
             const resStart = card.getStart();
             if (typeof resStart === 'undefined') {
-              card.setStart(currentDateTime);
+              await card.setStart(currentDateTime);
             }
             break;
           }
           case 'endAt': {
             const resEnd = card.getEnd();
             if (typeof resEnd === 'undefined') {
-              card.setEnd(currentDateTime);
+              await card.setEnd(currentDateTime);
             }
             break;
           }
           case 'dueAt': {
             const resDue = card.getDue();
             if (typeof resDue === 'undefined') {
-              card.setDue(currentDateTime);
+              await card.setDue(currentDateTime);
             }
             break;
           }
           case 'receivedAt': {
             const resReceived = card.getReceived();
             if (typeof resReceived === 'undefined') {
-              card.setReceived(currentDateTime);
+              await card.setReceived(currentDateTime);
             }
             break;
           }
@@ -479,7 +479,7 @@ export const RulesHelper = {
       } catch (e) {
         // eslint-disable-next-line no-console
         console.error(e);
-        return;
+        throw e;
       }
     }
 
@@ -487,19 +487,19 @@ export const RulesHelper = {
       const currentDateTimeUpdate = new Date();
       switch (action.dateField) {
         case 'startAt': {
-          card.setStart(currentDateTimeUpdate);
+          await card.setStart(currentDateTimeUpdate);
           break;
         }
         case 'endAt': {
-          card.setEnd(currentDateTimeUpdate);
+          await card.setEnd(currentDateTimeUpdate);
           break;
         }
         case 'dueAt': {
-          card.setDue(currentDateTimeUpdate);
+          await card.setDue(currentDateTimeUpdate);
           break;
         }
         case 'receivedAt': {
-          card.setReceived(currentDateTimeUpdate);
+          await card.setReceived(currentDateTimeUpdate);
           break;
         }
       }
@@ -508,19 +508,19 @@ export const RulesHelper = {
     if (action.actionType === 'removeDate') {
       switch (action.dateField) {
         case 'startAt': {
-          card.unsetStart();
+          await card.unsetStart();
           break;
         }
         case 'endAt': {
-          card.unsetEnd();
+          await card.unsetEnd();
           break;
         }
         case 'dueAt': {
-          card.unsetDue();
+          await card.unsetDue();
           break;
         }
         case 'receivedAt': {
-          card.unsetReceived();
+          await card.unsetReceived();
           break;
         }
       }
@@ -539,13 +539,13 @@ export const RulesHelper = {
       await card.setColor(action.selectedColor);
     }
     if (action.actionType === 'addLabel') {
-      card.addLabel(action.labelId);
+      await card.addLabel(action.labelId);
     }
     if (action.actionType === 'removeLabel') {
-      card.removeLabel(action.labelId);
+      await card.removeLabel(action.labelId);
     }
     if (action.actionType === 'removeAllLabels') {
-      card.removeAllLabels();
+      await card.removeAllLabels();
     }
     // #2674: resolve the username defensively for the member actions. A rule
     // whose username no longer resolves (user renamed/deleted, or a typo in an
@@ -715,7 +715,7 @@ export const RulesHelper = {
         swimlane,
         await getDestBoardDefaultSwimlane(action.boardId),
       );
-      card.link(action.boardId, swimlaneId, listId);
+      await card.link(action.boardId, swimlaneId, listId);
     }
     if (
       action.actionType === 'markCardComplete' ||
@@ -729,10 +729,10 @@ export const RulesHelper = {
       // `unit` is optional: when absent (old rules) it defaults to days.
       const target = relativeDateOffset(new Date(), action.days, action.unit);
       switch (action.dateField) {
-        case 'startAt': card.setStart(target); break;
-        case 'endAt': card.setEnd(target); break;
-        case 'dueAt': card.setDue(target); break;
-        case 'receivedAt': card.setReceived(target); break;
+        case 'startAt': await card.setStart(target); break;
+        case 'endAt': await card.setEnd(target); break;
+        case 'dueAt': await card.setDue(target); break;
+        case 'receivedAt': await card.setReceived(target); break;
       }
     }
     if (action.actionType === 'sortList') {
