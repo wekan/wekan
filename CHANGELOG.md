@@ -1291,7 +1291,9 @@ now uses current target results and both boards' visibility settings. The six
 visible Scrum card fields are included with same-board name resolution and
 persisted visibility checks. The
 [content audit](docs/DeveloperDocs/Card-Email-Content-Audit.md) now tracks
-the final wrapper-field audit. Timer session reads and writes now agree;
+all 71 top-level card fields. Remaining work is linked-board display parity
+and authorized target-board discussion. Local recurrence is now included.
+Timer session reads and writes now agree;
 completed work uses the current source total. Local placement,
 timers and visible Scrum now have a separate linked-card section. Moved-card
 SMTP now
@@ -1478,7 +1480,9 @@ and completed Poker results also have disclosure checks and SMTP coverage;
 Linked-board voting now follows target policy with stored checks. Visible
 Scrum card metadata now has same-board reference and SMTP coverage. Final
 [content audit](docs/DeveloperDocs/Card-Email-Content-Audit.md) records concrete
-remaining wrapper fields. Timer session reads and writes now agree, and
+linked-board display and authorized target-board discussion gaps after a
+71-field inventory. Local recurrence is now included. Timer reads and writes
+now agree, and
 completed work uses the current source total. Local placement,
 timers and visible Scrum now have a separate section. Moved-card SMTP passes
 for filesystem and
@@ -1564,6 +1568,27 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1869a68c6">Audit card email fields and include local link recurrence</a>. Thanks to kabi178, bbyszio and xet7.</summary>
+
+Include local recurrence and last recurrence in linked-card and linked-board
+Details, matching the recurrence setter's displayed-card scope. Classify all
+71 top-level Cards schema fields in a checked inventory, including intentional
+exclusions and remaining behavior. An AST-based test requires new or removed
+schema fields to receive an explicit audit disposition.
+
+The audit identifies remaining linked-board archive/time/member display,
+wrapper-owned content and target-board comments. Board-wide discussion needs
+per-card access checks and durable evidence before it can be included safely;
+the inventory does not claim those implementations are complete.
+
+Sixty Node suites pass without skips, including MongoDB and native mail
+composition. Three Chromium SMTP scenarios pass, with local recurrence verified
+for both link types. The source audit passes with informational warnings.
+Existing Upcoming regression evidence is retained.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0bd4dc0a5">Keep linked timer sessions local and credit current source time</a>. Thanks to xet7.</summary>
