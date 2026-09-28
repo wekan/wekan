@@ -321,6 +321,17 @@ It captures display metadata, validates both complete plans and their actor/time
 agreement before writes, checks adapters up front, then requires History and
 activity delivery completion. Mixed creation/update/archive MongoDB replay
 uses this module. Production activation and lifecycle remain unfinished.
+A shared activity delivery coordinator now requires the durable rules receipt,
+then exact notification and webhook plan receipts before returning the effect
+ID. It validates required adapters and list scope before effects, isolates saved
+inputs from adapter mutation, and checks ownership and captured policy around
+every stage. Disabled notifications still require rules. Replay revisits durable
+stage reconciliation instead of assuming earlier in-memory success. An internal
+binding uses the actual stored notification/webhook entry points and live flags,
+but requires a supplied durable rules adapter. Nineteen Node cases pass,
+including seven coordinator/binding cases with scripted adapters. Durable rule
+execution, shared History-chain coordination and manual/cron activation remain
+unfinished; ordinary executeRules is not substituted for durable rule replay.
 Private operation, step and completion collections are now registered with
 server-only adapters, denied browser writes, recovery indexes and no TTL.
 The stored-operation entry point holds the list lease and requires fresh access
@@ -1318,6 +1329,24 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cc9a568c7">Coordinate saved Sync delivery through exact stage receipts</a>. Thanks to xet7.</summary>
+
+Add an internal activity delivery coordinator requiring rules, notification and
+webhook receipts before acknowledging the saved effect. Validate all required
+adapters before effects, isolate captured activity/policy inputs and recheck
+ownership and live policy around every stage. Disabled notifications still
+require the rules receipt; replay delegates to durable stage reconciliation.
+
+Nineteen Node cases pass, including seven new coordinator/binding cases for
+missing adapters, invalid scope, incorrect receipts, policy/access changes,
+interrupted replay and production adapter selection. The source audit completes
+with advisory warnings. Tests use scripted adapters; no new browser, full-app
+rule execution or external webhook delivery was exercised. Durable rules,
+shared History-chain coordination and manual/cron activation remain TODO.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f1e572db5">Clean cancelled activity payloads and retain searchable recovery receipts</a>. Thanks to xet7.</summary>
