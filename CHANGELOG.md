@@ -1307,10 +1307,12 @@ now matches titles, descriptions, checklists and comments across authorized
 cards, including lazy windows. Recorded historical list/swimlane and incoming
 board moves now have a separate date-range picker, matching earlier events
 even after later moves. Previous-week and next-month due shortcuts now use
-local calendar boundaries and refresh while active. Still unfinished: saved
-filter combinations and the RFC's extensible filter-provider interface. The
-shared server match publisher is a foundation for providers; it is not the
-complete client/plugin registration interface),
+local calendar boundaries and refresh while active. Named filter combinations
+now persist privately per user and board, with explicit apply/replace/delete
+and validated restoration of every current control. Clear filters is the last
+panel action. Still unfinished: the RFC's extensible filter-provider interface.
+The shared server match publisher is a foundation for providers; it is not
+the complete client/plugin registration interface),
 [#572](https://github.com/wekan/wekan/issues/572) (label add/remove as its own
 controllable Notification Settings option - the activity feed entry it asks
 for already exists (`models/cards.js`'s `cardLabels()` hook logs
@@ -1547,6 +1549,29 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/16508a8fa">Save private board filter combinations</a>. Thanks to Creanimo, avatar1024, neooleg and xet7.</summary>
+
+Add named saved filters per account and board, surviving browser reloads and
+other devices. Capture every current sidebar filter, preserve no-value set
+choices, and recalculate relative dates when applying. Validate saved state
+and advanced expressions before replacing live selections. Save the same name
+atomically to replace it; delete a saved choice without clearing active filters.
+Keep the clear action last in the panel. Enforce ownership and current board
+access for methods and subscriptions, reject direct client writes, and clean
+saved choices when their board or owning account is normally removed.
+
+Thirteen Node suites pass, including real MongoDB concurrent-write and cleanup
+coverage. Three saved-filter Chromium cases verify save/reload/apply/replace/
+delete, owner isolation, rejected direct and unauthorized writes, subscription
+revocation, malformed state and invalid-expression preservation. The existing
+date-range browser regression also passes. Source inventory warnings remain
+advisory. Add English labels and usage documentation. Complete the saved-filter
+portion of [#935](https://github.com/wekan/wekan/issues/935), keeping full
+provider registration in TODO Later.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e40532b9f">Filter due dates in the previous week or next month</a>. Thanks to neooleg, Creanimo and xet7.</summary>
