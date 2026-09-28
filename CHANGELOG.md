@@ -298,9 +298,14 @@ cancelling later messages. Active sends refuse controls until the reservation
 is released; an expired in-flight SMTP request cannot be recalled.
 Thirteen focused Node suites and thirteen Chromium scenarios pass, covering
 queue controls, recipient grouping, permissions, lost replies and delivery.
-Receipt retention, terminal-error classification, retry limits/jitter,
-transport concurrency and coordinating activity creation with queue insertion
-remain pending.
+Permanent SMTP failures now stop with safe reason categories. Temporary errors
+use positive jitter and at most twelve attempts per cycle. Attempts are stored
+before sending, so crashes cannot reset the budget. Recovery includes stopped
+counts and explicit retry; repeated control requests cannot reset a second cycle,
+and existing pauses remain in force. Fourteen focused Node suites and fourteen
+Chromium scenarios pass, including actual SMTP rejection and manual recovery.
+Receipt retention, transport timeouts/concurrency and coordinating activity
+creation with queue insertion remain pending.
 History field snapshots now preserve nested dates, including date-valued
 custom fields alongside mapped estimates. JSON transport and restoration retain
 Date types without interpreting date-looking text. Existing rows whose dates
@@ -985,8 +990,8 @@ with advisory fingerprint changes. Other browsers, FerretDB and external mail
 providers were not exercised.
 
 Delivery remains at least once: a crash after SMTP acceptance can duplicate
-mail. Receipt retention, retry-policy limits and coordinating original
-activity writes with enqueue remain in TODO Later.
+mail. Receipt retention, transport policy and coordinating original activity
+writes with enqueue remain in TODO Later.
 
 </details>
 
@@ -1012,6 +1017,34 @@ confirmation, automatic delivery and existing Sync diagnostics. Source audit
 passes with advisory fingerprint changes. The separate stopped-app startup test
 was not rerun for this control change. Other browsers and FerretDB remain
 unverified; delivery is still at least once when SMTP outlives a lost lease.
+
+</details>
+
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0457e0dfd">Stop permanent email failures and bound automatic retries</a>. Thanks to xet7.</summary>
+
+Reserve and read back each attempt before delivery. Temporary failures receive
+up to twelve attempts per cycle with persisted exponential backoff and positive
+jitter, capped at one hour. Numeric SMTP 5xx responses and configuration errors
+stop delivery; 4xx responses remain retryable. Unconfirmed transport results
+require review. Database acknowledgement failures retain their own category.
+Rendered messages remain available until accepted delivery or cancellation.
+
+Problems → Recovery shows stopped counts and fixed failure reasons without raw
+SMTP errors or message contents. Retry failed messages starts a fresh cycle,
+respects a pause and preserves lifetime failure counts. Repeating an interrupted
+request cannot reset the same cycle again. Resume does not restart stopped mail;
+cancellation removes both pending and stopped payloads through its cutoff.
+
+Fourteen focused Node suites and fourteen Chromium scenarios pass with local
+MongoDB and SMTP. Coverage includes permanent rejection, automatic backoff,
+exhausted/crash-reserved budgets, lost and false storage acknowledgements,
+operator recovery, permissions, request replay and report privacy. Source audit
+passes with advisory fingerprint changes. The separate stopped-app startup
+harness was not rerun; other browsers, FerretDB and external SMTP are unverified.
+Delivery remains at least once. Retention, transport timeouts/concurrency and
+atomic activity-to-queue integration remain in TODO Later.
 
 </details>
 
