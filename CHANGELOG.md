@@ -321,6 +321,14 @@ It captures display metadata, validates both complete plans and their actor/time
 agreement before writes, checks adapters up front, then requires History and
 activity delivery completion. Mixed creation/update/archive MongoDB replay
 uses this module. Production activation and lifecycle remain unfinished.
+Private operation, step and completion collections are now registered with
+server-only adapters, denied browser writes, recovery indexes and no TTL.
+The stored-operation entry point holds the list lease and requires fresh access
+checks plus exact board/list/incarnation/revision/source identity. Deleted,
+recreated, moved or reconfigured lists cannot consume old plans or receipts.
+Recovery evidence remains retained; legacy unversioned identities are refused.
+Fifteen Node suites and two Chromium DDP-denial cases pass. Manual/cron job
+activation, operator handling of stale scopes and retention remain pending.
 Activity notification and webhook payloads now preserve zero, false, empty
 text and explicit null, while absent values remain omitted. This fixes lost
 zero estimates and unchecked custom-field values. SMTP and HTTP-serialization
@@ -999,6 +1007,34 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9f179eb7b">Bind private Sync recovery storage to list lifetimes</a>. Thanks to xet7.</summary>
+
+Register private operation, plan-step and completion collections with recovery
+indexes, denied client writes and no automatic expiration. Keep unfinished
+plans and completion receipts when their list disappears. The internal stored
+operation entry point acquires the existing list lease and checks a mandatory
+access callback plus current board/list, incarnation, revision and source
+identity before recovery work. Validate selectors before acquiring the lease.
+
+Refuse deleted, recreated, moved or reconfigured lists, including a scope
+change during an asynchronous access check. Legacy lists without stable
+incarnation/revision identities cannot start durable operations yet. Retain
+stale recovery evidence for future operator handling instead of deleting it.
+
+Fifteen focused Node suites pass with real MongoDB, covering storage indexes,
+unique steps, lost work/resume boundaries and retained completion receipts.
+Two Chromium scenarios verify denied insert/update/remove requests for members
+and administrators and absence of recovery rows from browser collections.
+The source audit passes with advisories; the known published changelog
+line-length failure remains.
+
+Manual and scheduled Sync do not yet call this entry point. Durable delivery,
+hook coordination, job activation, stale-scope controls, startup scheduling and
+retention remain in TODO Later. No automatic replay or cleanup is enabled.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4ceeb4760">Coordinate saved Sync History and activity effects</a>. Thanks to xet7.</summary>
