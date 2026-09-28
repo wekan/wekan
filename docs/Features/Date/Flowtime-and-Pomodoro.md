@@ -63,3 +63,13 @@ Time.
 - Both timers require **Time Tracking** to be enabled on the board (the
   board's `allowsSpentTime` setting) and the same card-modify permission as
   any other time entry.
+
+## Linked cards and boards
+
+The live session belongs to the displayed link card: starting, interrupting,
+changing phase or resetting it does not change a source card's timer session.
+Completed work still uses the same Spent Time destination as manual time entry
+(the linked source card or board). Its current total is used, rather than a
+stale value copied into the link card. If the total cannot be saved, the
+session is retained. Saving the total and clearing the local session are
+separate writes; they are not a cross-document transaction.

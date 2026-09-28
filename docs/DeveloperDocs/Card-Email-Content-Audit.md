@@ -25,12 +25,12 @@ This audit compares the current email preparation code with `models/cards.js`,
   local timer snapshots and visible local Scrum fields now appear in a separate
   `Linked card local details` section, for both linked cards and linked boards.
   Source stickers remain in source Details; copied wrapper stickers are excluded.
-- Resolve the existing timer model mismatch: Flowtime/Pomodoro getters read
-  `this`, while session writes use `getRealId()`. Email currently reports each
-  stored scope explicitly, matching the display getters without guessing that
-  a copied timer belongs to the source. See `models/cards.js` session helpers.
 - Complete a final field-by-field pass after linked-wrapper ownership is
   resolved.
+
+Timer model reads and session writes now both use the displayed card ID.
+Completed work reads the linked source total through `getSpentTime()` and
+awaits its save before clearing or advancing the local session.
 
 The filesystem and GridFS SMTP scenarios also move the card through the
 authenticated REST endpoint into a rule-selected list with all three content

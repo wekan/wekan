@@ -2219,14 +2219,14 @@ Cards.helpers({
 
   startFlowSession(userId) {
     return Cards.updateAsync(
-      { _id: this.getRealId() },
+      { _id: this._id },
       { $set: { flowStartAt: new Date(), flowInterruptions: 0, flowUserId: userId } },
     );
   },
 
   addFlowInterruption() {
     return Cards.updateAsync(
-      { _id: this.getRealId() },
+      { _id: this._id },
       { $inc: { flowInterruptions: 1 } },
     );
   },
@@ -2234,14 +2234,14 @@ Cards.helpers({
   // Stops the active Flowtime session: adds its duration (in hours) into the
   // existing spentTime field via setSpentTime() - the same method the manual
   // time-entry popup uses - and clears the session fields.
-  stopFlowSession() {
+  async stopFlowSession() {
     if (!this.flowStartAt) return null;
     const elapsedHours =
       (Date.now() - new Date(this.flowStartAt).getTime()) / (1000 * 60 * 60);
-    const newSpentTime = (this.spentTime || 0) + elapsedHours;
-    this.setSpentTime(newSpentTime);
+    const newSpentTime = (this.getSpentTime() || 0) + elapsedHours;
+    await this.setSpentTime(newSpentTime);
     return Cards.updateAsync(
-      { _id: this.getRealId() },
+      { _id: this._id },
       { $set: { flowStartAt: null, flowInterruptions: 0, flowUserId: null } },
     );
   },
@@ -2287,7 +2287,7 @@ Cards.helpers({
 
   startPomodoro(userId, workMinutes) {
     return Cards.updateAsync(
-      { _id: this.getRealId() },
+      { _id: this._id },
       {
         $set: {
           pomodoroStartAt: new Date(),
@@ -2303,13 +2303,13 @@ Cards.helpers({
   // duration (in hours) into the existing spentTime field via setSpentTime()
   // - the same method the manual time-entry popup uses - increments the
   // completed-interval count, and switches to a break interval.
-  completePomodoroWorkInterval() {
+  async completePomodoroWorkInterval() {
     if (!this.pomodoroStartAt || this.pomodoroPhase !== 'work') return null;
     const workHours = this.getPomodoroWorkMinutes() / 60;
-    this.setSpentTime((this.spentTime || 0) + workHours);
+    await this.setSpentTime((this.getSpentTime() || 0) + workHours);
     const newCount = this.getPomodoroCount() + 1;
     return Cards.updateAsync(
-      { _id: this.getRealId() },
+      { _id: this._id },
       {
         $set: {
           pomodoroStartAt: new Date(),
@@ -2325,7 +2325,7 @@ Cards.helpers({
   completePomodoroBreakInterval() {
     if (!this.pomodoroStartAt || this.pomodoroPhase !== 'break') return null;
     return Cards.updateAsync(
-      { _id: this.getRealId() },
+      { _id: this._id },
       { $set: { pomodoroStartAt: null, pomodoroPhase: null } },
     );
   },
@@ -2334,16 +2334,16 @@ Cards.helpers({
   // defaults. If stopped mid-work-interval, credits the partial elapsed
   // time to spentTime (consistent with how Flowtime's stopFlowSession()
   // credits an interrupted session above); a break interval adds no time.
-  stopPomodoro() {
+  async stopPomodoro() {
     if (!this.pomodoroStartAt) return null;
     if (this.pomodoroPhase === 'work') {
       const elapsedHours =
         (Date.now() - new Date(this.pomodoroStartAt).getTime()) /
         (1000 * 60 * 60);
-      this.setSpentTime((this.spentTime || 0) + elapsedHours);
+      await this.setSpentTime((this.getSpentTime() || 0) + elapsedHours);
     }
     return Cards.updateAsync(
-      { _id: this.getRealId() },
+      { _id: this._id },
       {
         $set: {
           pomodoroStartAt: null,
@@ -3467,10 +3467,6 @@ Cards.helpers({
 
   setOvertime(isOvertime) {
     return Cards.updateAsync(this.getRealId(), { $set: { isOvertime } });
-  },
-
-  setSpentTime(spentTime) {
-    return Cards.updateAsync(this.getRealId(), { $set: { spentTime } });
   },
 
   unsetSpentTime() {

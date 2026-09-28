@@ -66,7 +66,7 @@ const stopBody = cardsModel.match(/stopFlowSession\(\)\s*\{([\s\S]*?)\n  \},/);
 assert.ok(stopBody, 'stopFlowSession has a body');
 assert.match(stopBody[1], /this\.setSpentTime\(newSpentTime\)/,
   'stopping a session must add its duration through setSpentTime(), the same method the manual popup uses');
-assert.match(stopBody[1], /\(this\.spentTime \|\| 0\) \+ elapsedHours/,
+assert.match(stopBody[1], /\(this\.getSpentTime\(\) \|\| 0\) \+ elapsedHours/,
   'the session duration is ADDED to the existing spentTime total, not a separate one');
 assert.match(stopBody[1], /flowStartAt:\s*null/);
 assert.match(stopBody[1], /flowInterruptions:\s*0/);
@@ -87,7 +87,7 @@ assert.equal(computeStopResult(2, start, stop), 3.5,
 
 // --- cross-card leakage: only the three session methods WRITE flowStartAt/
 // flowInterruptions/flowUserId (via $set/$inc), and each write is scoped to
-// `this.getRealId()` (the CURRENT card), never a hardcoded id or every card
+// `this._id` (the displayed card, including a link wrapper), never a hardcoded id or every card
 // in the collection ---
 const flowFieldWriteSites = [...cardsModel.matchAll(
   /(\w+)\([^)]*\)\s*\{([\s\S]*?)\n  \},/g,
@@ -97,8 +97,8 @@ assert.deepEqual(writerNames.sort(),
   ['addFlowInterruption', 'startFlowSession', 'stopFlowSession'].sort(),
   'no method other than start/interrupt/stop actually WRITES the flow session fields');
 for (const [, name, body] of flowFieldWriteSites) {
-  assert.match(body, /this\.getRealId\(\)/,
-    `${name} scopes its update to this.getRealId() - never a hardcoded id or the whole collection`);
+  assert.match(body, /\{ _id: this\._id \}/,
+    `${name} scopes its session update to this._id - never a hardcoded id or the whole collection`);
 }
 
 // --- UI: buttons call the right card methods, and the ticking display uses

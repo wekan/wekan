@@ -6,6 +6,7 @@
 // card helper for adding completed time - never a duplicate of it.
 import { TAPi18n } from '/imports/i18n';
 import Cards from '/models/cards';
+import { Tracker } from 'meteor/tracker';
 import { getCurrentCardIdFromContext } from '/client/lib/currentCard';
 import { Utils } from '/client/lib/utils';
 
@@ -23,6 +24,7 @@ Template.cardPomodoro.onCreated(function () {
   this.remainingMs = new ReactiveVar(0);
   this.workMinutesInput = new ReactiveVar(25);
   this.timer = null;
+  this.transitioning = false;
 
   const phaseTotalMs = card => {
     const minutes =
@@ -42,13 +44,20 @@ Template.cardPomodoro.onCreated(function () {
       if (remaining <= 0) {
         // Reached zero: transition the interval. Re-fetch the card so we
         // never act on a stale phase if it changed elsewhere.
-        const current = Cards.findOne(getCardId());
-        if (!current || !current.isPomodoroActive()) return;
-        if (current.pomodoroPhase === 'work') {
-          current.completePomodoroWorkInterval();
-        } else if (current.pomodoroPhase === 'break') {
-          current.completePomodoroBreakInterval();
-        }
+        if (this.transitioning) return;
+        // The tick may run inside autorun. Reading the spent-time destination
+        // during a transition must not make its own write restart that autorun.
+        Tracker.nonreactive(() => {
+          const current = Cards.findOne(card._id);
+          if (!current || !current.isPomodoroActive()) return;
+          this.transitioning = true;
+          const transition = current.pomodoroPhase === 'work'
+            ? () => current.completePomodoroWorkInterval()
+            : () => current.completePomodoroBreakInterval();
+          Promise.resolve().then(transition)
+            .catch(error => console.error('Pomodoro transition failed', error))
+            .finally(() => { this.transitioning = false; });
+        });
       }
     };
     tick();
