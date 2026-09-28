@@ -74,6 +74,12 @@ test('report exposes only hold state and revision, disables paused retry and rej
   assert.equal(result.rows[0].canRetry, false);
   assert.equal(result.rows[0].canControl, true);
   assert.doesNotMatch(JSON.stringify(result), /PRIVATE|private-request|actorId|requestId|changedAt/);
+  await f.controls.updateOne({ _id: intent._id }, { $set: { cancelled: true } });
+  const cancelled = (await report(f)).rows[0];
+  assert.equal(cancelled.status, 'cancelled');
+  assert.equal(cancelled.canRetry, false);
+  assert.equal(cancelled.canControl, false);
+  await f.controls.updateOne({ _id: intent._id }, { $unset: { cancelled: '' } });
   await f.controls.updateOne({ _id: intent._id }, { $set: { paused: false } });
   assert.equal((await report(f)).rows[0].canRetry, true);
   await f.controls.updateOne({ _id: intent._id }, { $set: { revision: 'corrupt' } });

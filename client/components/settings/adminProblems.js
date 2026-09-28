@@ -1572,7 +1572,7 @@ Template.activityNotificationRecoveryReports.helpers({
     return { header: buildHeader([{ labelKey: 'activity' }, { labelKey: 'board' }, { labelKey: 'status' },
       { labelKey: 'date' }, { labelKey: 'actions' }]),
     rowTemplate: 'activityNotificationRecoveryRow', emptyKey: 'activity-recovery-empty',
-    docs: result.rows.map(row => ({ ...row, statusLabel: `activity-recovery-status-${row.status}`,
+    docs: result.rows.map(row => ({ ...row, showPaused: row.paused && row.status !== 'cancelled', statusLabel: `activity-recovery-status-${row.status}`,
       createdText: row.createdAt ? formatDate(row.createdAt) : '—', retryDisabled: t.busy.get() || !row.canRetry,
       controlDisabled: t.busy.get() || !row.canControl, controlLabel: row.paused ? 'activity-recovery-resume' : 'activity-recovery-pause' })),
     rowCount: result.rows.length, total: result.total, searchTerm: t.search.get(),
@@ -1593,6 +1593,19 @@ Template.activityNotificationRecoveryReports.events({
     const result = t.result.get();
     const next = adjacentPage(result.total, result.page, event.currentTarget.classList.contains('js-table-page-next') ? 1 : -1, TABLE_PAGE_ROWS_PER_PAGE);
     if (next !== result.page) t.load(next);
+  },
+  'click .js-cancel-activity-notification'(event, t) {
+    event.preventDefault(); event.stopPropagation();
+    if (t.busy.get() || !this.canControl || !window.confirm(TAPi18n.__('activity-recovery-cancel-confirm'))) return;
+    t.busy.set(true); t.actionError.set('');
+    Meteor.call('cancelActivityNotificationRecovery', { intentId: this.intentId,
+      expectedRevision: this.controlRevision, requestId: Random.id(32) }, error => {
+      if (t.view.isDestroyed) return;
+      t.busy.set(false);
+      const known = ['activity-recovery-busy', 'activity-recovery-control-conflict'];
+      if (error) t.actionError.set(TAPi18n.__(known.includes(error.error) ? error.error : 'activity-recovery-control-failed'));
+      t.load(t.result.get().page);
+    });
   },
   'click .js-control-activity-notification'(event, t) {
     event.preventDefault(); event.stopPropagation();
@@ -1616,7 +1629,7 @@ Template.activityNotificationRecoveryReports.events({
     Meteor.call('retryActivityNotification', { intentId: this.intentId }, error => {
       if (t.view.isDestroyed) return;
       t.busy.set(false);
-      const known = ['activity-recovery-busy', 'activity-recovery-denied', 'activity-recovery-source-unavailable', 'activity-recovery-disabled', 'activity-recovery-paused'];
+      const known = ['activity-recovery-busy', 'activity-recovery-denied', 'activity-recovery-source-unavailable', 'activity-recovery-disabled', 'activity-recovery-paused', 'activity-recovery-status-cancelled'];
       if (error) t.actionError.set(TAPi18n.__(known.includes(error.error) ? error.error : 'activity-recovery-failed'));
       t.load(t.result.get().page);
     });

@@ -12,7 +12,7 @@ function fixture(scenario, failure) {
     }, Error: class extends Error { constructor(code) { super(code); this.error = code; } } },
     check() {}, DDPRateLimiter: { addRule: (...args) => rules.push(args) },
     Activities: collection, ActivityNotificationIntents: collection, ActivityNotificationPlans: collection, ActivityNotificationLeases: collection, ActivityNotificationControls: collection,
-    require: () => ({ controlActivityNotification: async options => { await options.assertAdmin(); if (failure) throw failure; writes++; return { revision: 1, paused: true }; }, activityNotificationReport: async () => { reads++; if (failure) throw failure; return { rows: [], total: 0 }; } }),
+    require: () => ({ cancelActivityNotification: async options => { await options.assertAdmin(); if (failure) throw failure; writes++; return { revision: 1, paused: true, cancelled: true }; }, controlActivityNotification: async options => { await options.assertAdmin(); if (failure) throw failure; writes++; return { revision: 1, paused: true }; }, activityNotificationReport: async () => { reads++; if (failure) throw failure; return { rows: [], total: 0 }; } }),
     resumeActivityNotifications: async (id, options) => { await options.assertAllowed(); if (failure) throw failure; writes++; return 'completed'; },
   };
   vm.runInNewContext(fs.readFileSync(require.resolve('../server/methods/activityNotificationRecovery.js'), 'utf8').replace(/^import .*;\n/gm, ''), context);
@@ -34,7 +34,7 @@ test('manual retry rechecks administrator access inside its reservation', async 
     if (scenario === 'admin') assert.equal((await call()).status, 'completed');
     else await assert.rejects(call(), /not-authorized/);
     assert.equal(f.count().writes, scenario === 'admin' ? 1 : 0);
-    assert.deepEqual(f.rules.map(rule => rule[0].name), ['activityNotificationRecoveryReport', 'retryActivityNotification', 'controlActivityNotificationRecovery']);
+    assert.deepEqual(f.rules.map(rule => rule[0].name), ['activityNotificationRecoveryReport', 'retryActivityNotification', 'controlActivityNotificationRecovery', 'cancelActivityNotificationRecovery']);
     for (const rule of f.rules) assert.deepEqual(rule.slice(1), [30, 10000]);
   }
 });
@@ -77,6 +77,23 @@ test('pause/resume requires current enabled admin access and hides internal erro
     ['activity-notification-control-not-pending', 'conflict'], ['PRIVATE DATA', 'failed']]) {
     const f = fixture('admin', new Error(message));
     await assert.rejects(f.methods.controlActivityNotificationRecovery.call({ userId: 'admin' }, request),
+      error => error.error === `activity-recovery-control-${expected}`);
+  }
+});
+
+test('cancellation requires current admin access and returns only safe failures', async () => {
+  const request = { intentId: 'a'.repeat(64), expectedRevision: 0, requestId: 'a'.repeat(32) };
+  for (const scenario of ['admin', 'ordinary', 'anonymous', 'disabled', 'revoked']) {
+    const f = fixture(scenario);
+    const call = () => f.methods.cancelActivityNotificationRecovery.call({ userId: scenario === 'anonymous' ? null : 'admin' }, request);
+    if (scenario === 'admin') assert.equal((await call()).cancelled, true);
+    else await assert.rejects(call(), /not-authorized/);
+    assert.equal(f.count().writes, scenario === 'admin' ? 1 : 0);
+  }
+  for (const [message, expected] of [['activity-notification-control-conflict', 'conflict'],
+    ['activity-notification-cancelled', 'conflict'], ['PRIVATE BODY', 'failed']]) {
+    const f = fixture('admin', new Error(message));
+    await assert.rejects(f.methods.cancelActivityNotificationRecovery.call({ userId: 'admin' }, request),
       error => error.error === `activity-recovery-control-${expected}`);
   }
 });

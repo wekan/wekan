@@ -7,7 +7,7 @@ import { ActivityNotificationPlans, ActivityNotificationLeases, ActivityNotifica
   recoverActivityNotifications, resumeActivityNotifications, deliverStoredActivityNotifications } from '/server/notifications/activityPlans';
 import { EmailJobs } from '/server/notifications/emailQueue';
 const { ensureActivityNotificationPlan, planId } = require('/server/lib/activityNotificationPlan');
-const { controlActivityNotification } = require('/server/lib/activityNotificationControl');
+const { controlActivityNotification, cancelActivityNotification } = require('/server/lib/activityNotificationControl');
 const { idFor } = require('/server/lib/emailReceiptIdentity');
 
 describe('Activity notification recovery', function () {
@@ -70,12 +70,18 @@ describe('Activity notification recovery', function () {
       assert.equal(await Activities.findOneAsync(orphanId), undefined);
       assert.equal((await intents.findOne({ _id: orphan._id })).state, 'pending');
       assert.ok((await recoverActivityNotifications()).failed >= 1);
+      await cancelActivityNotification({ ...control, intentId: orphan._id, expectedRevision: 0,
+        requestId: 'cancel-orphan-request-123' });
+      await assert.rejects(resumeActivityNotifications(orphan._id), /notification-cancelled/);
+      assert.ok((await recoverActivityNotifications()).skipped >= 1);
+      assert.equal(await Activities.findOneAsync(orphanId), undefined);
+
     } finally {
       release(); Object.assign(activityNotificationServices, saved);
       await Activities.rawCollection().deleteMany({ _id: { $in: [activityId, orphanId] } });
       await intents.deleteMany({ _id: { $in: [intent?._id, orphan?._id].filter(Boolean) } });
       await ActivityNotificationPlans.rawCollection().deleteMany({ _id: planId(activityId) });
-      await ActivityNotificationControls.rawCollection().deleteMany({ _id: intent?._id });
+      await ActivityNotificationControls.rawCollection().deleteMany({ _id: { $in: [intent?._id, orphan?._id].filter(Boolean) } });
       await leases.deleteMany({ _id: { $in: [intent?._id, orphan?._id].filter(Boolean) } });
       await EmailJobs.rawCollection().deleteOne({ _id: idFor(userId, activityId) });
       await Meteor.users.rawCollection().deleteOne({ _id: userId });

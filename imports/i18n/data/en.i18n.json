@@ -3634,5 +3634,8 @@
   "activity-recovery-resume": "Resume delivery",
   "activity-recovery-paused": "Activity notification delivery is paused.",
   "activity-recovery-control-conflict": "This notification changed since it was loaded. Review the refreshed state before trying again.",
-  "activity-recovery-control-failed": "Could not confirm the delivery setting. Refresh and review its current state."
+  "activity-recovery-control-failed": "Could not confirm the delivery setting. Refresh and review its current state.",
+  "activity-recovery-status-cancelled": "Activity notification delivery is cancelled.",
+  "activity-recovery-cancel": "Cancel delivery",
+  "activity-recovery-cancel-confirm": "Permanently cancel remaining delivery for this activity? This cannot be resumed. Already queued email and delivered notifications are not recalled."
 }

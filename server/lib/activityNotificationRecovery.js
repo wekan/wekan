@@ -25,7 +25,7 @@ function createActivityNotificationRecovery({ intents, run, limit = 100 }) {
         else throw new Error('activity-notification-recovery-unconfirmed');
       } catch (error) {
         if (error.code === 'sync-busy') result.busy++;
-        else if (error.message === 'activity-notification-paused') result.skipped++;
+        else if (['activity-notification-paused', 'activity-notification-cancelled'].includes(error.message)) result.skipped++;
         else result.failed++;
       }
     }

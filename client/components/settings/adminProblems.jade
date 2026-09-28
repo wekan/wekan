@@ -305,9 +305,10 @@ template(name="activityNotificationRecoveryRow")
     td {{boardId}}
     td
       p {{_ statusLabel}}
-      if paused
+      if showPaused
         p {{_ 'activity-recovery-paused'}}
     td {{createdText}}
     td
+      button.js-cancel-activity-notification(type="button" disabled=controlDisabled) {{_ 'activity-recovery-cancel'}}
       button.js-control-activity-notification(type="button" disabled=controlDisabled) {{_ controlLabel}}
       button.js-retry-activity-notification(type="button" disabled=retryDisabled) {{_ 'activity-recovery-retry'}}

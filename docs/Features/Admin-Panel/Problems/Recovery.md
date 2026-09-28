@@ -281,9 +281,9 @@ queue writes; SMTP delivery is tracked separately in the email queue.
 The table's status is a snapshot of recovery metadata. “Pending delivery” does
 not certify the complete stored payload or current recipient permissions;
 retry validates those before each effect and reports a safe failure message.
-Missing or changed activities are never recreated. Cancellation and resolution
-of orphaned intents are not implemented here; unresolved payloads remain
-retained for later operator handling.
+Missing or changed activities are never recreated. An administrator can cancel
+remaining delivery, including orphaned work, as described below. Pending and
+cancelled payloads remain retained; payload cleanup is not implemented yet.
 
 ### Pause and resume activity notifications
 
@@ -324,3 +324,24 @@ test database with `ACTIVITY_NOTIFICATION_RECOVERY_INTERVAL_MS=1000`, then run
 with `WEKAN_TEST_ACTIVITY_HOLD_RESTART=verify`. The seed phase retains a held
 fixture deliberately; verify checks that automatic scanning has preserved it,
 resumes through the UI and removes the fixture afterward.
+
+### Cancel remaining activity delivery
+
+**Cancel delivery** asks for confirmation and permanently stops remaining local
+notification delivery for that activity. It uses the displayed revision and
+the same delivery reservation as pause/resume. Cancellation is terminal: neither
+a delayed old request nor a new Resume request can reopen it. An identical
+cancel request can be retried after a lost response. Already completed intents
+cannot be cancelled.
+
+The cancelled row remains visible with its diagnostic metadata and disabled
+controls. Automatic recovery skips it. An orphan whose original activity is
+missing can be cancelled without recreating that activity. This is an explicit
+operator decision to abandon remaining delivery, not proof of delivery.
+
+Cancellation does not recall existing tray notifications or email already in
+the SMTP outbox; use the separate email queue controls for unsent queued mail.
+It cannot undo a local effect already authorized by a former worker. Permanent
+control and delivery receipts remain to prevent replay. Intent snapshots and
+rendered plans are retained for now; a later cleanup stage must remove their
+payloads without deleting cancellation or deduplication evidence.

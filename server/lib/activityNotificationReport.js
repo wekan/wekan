@@ -57,7 +57,8 @@ async function activityNotificationReport({ intents, activities, plans, leases, 
         const control = await readActivityNotificationControl({ controls, intentId: row._id });
         item.paused = control.paused;
         item.controlRevision = control.revision;
-        item.canControl = item.status !== 'processing' && control.revision < Number.MAX_SAFE_INTEGER;
+        if (control.cancelled) item.status = 'cancelled';
+        item.canControl = !control.cancelled && item.status !== 'processing' && control.revision < Number.MAX_SAFE_INTEGER;
       } catch (error) {
         if (error.message !== 'activity-notification-control-invalid') throw error;
         item.status = 'invalid';

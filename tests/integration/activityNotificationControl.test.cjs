@@ -2,7 +2,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { MongoClient, ObjectId } = require('mongodb');
-const { controlActivityNotification: control, readActivityNotificationControl: read,
+const { controlActivityNotification: control, cancelActivityNotification: cancel, readActivityNotificationControl: read,
   assertActivityNotificationUnpaused: unpaused } = require('../../server/lib/activityNotificationControl');
 const uri = process.env.WEKAN_SYNC_TEST_MONGO_URL;
 async function fixture(t) {
@@ -93,4 +93,28 @@ test('concurrent requests share the delivery reservation and cannot both claim t
   } finally { release(); }
   assert.deepEqual(await running, { revision: 1, paused: true });
   await assert.rejects(control({ ...f, requestId: 'second-request-123456789' }), /control-conflict/);
+});
+
+test('cancellation is terminal, idempotent and retains pending evidence without permitting resume', { skip: !uri }, async t => {
+  const f = await fixture(t);
+  await control(f);
+  const request = { ...f, expectedRevision: 1, requestId: 'cancel-request-123456789' };
+  const result = { revision: 2, paused: true, cancelled: true };
+  assert.deepEqual(await cancel(request), result);
+  assert.deepEqual(await cancel(request), result);
+  await assert.rejects(unpaused(f), /notification-cancelled/);
+  await assert.rejects(control({ ...f, expectedRevision: 2, paused: false, requestId: 'resume-request-123456789' }), /notification-cancelled/);
+  await assert.rejects(control(f), /notification-cancelled/);
+  assert.equal((await f.intents.findOne({ _id: f.intentId })).state, 'pending');
+  assert.equal(await f.controls.countDocuments({}), 1);
+});
+test('orphan cancellation needs no source activity and reconciles a lost acknowledgement', { skip: !uri }, async t => {
+  const f = await fixture(t);
+  const controls = { findOne: (...args) => f.controls.findOne(...args), insertOne: async (...args) => {
+    await f.controls.insertOne(...args); throw new Error('lost cancellation reply');
+  } };
+  assert.equal((await cancel({ ...f, controls })).cancelled, true);
+  await assert.rejects(cancel({ ...f, actorId: 'other' }), /notification-cancelled/);
+  await f.controls.updateOne({ _id: f.intentId }, { $set: { cancelled: false } });
+  await assert.rejects(unpaused(f), /control-invalid/);
 });
