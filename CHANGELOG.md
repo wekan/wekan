@@ -407,8 +407,12 @@ resolved recipient/sender, refuse disabled matching local accounts regardless
 of email case, and retain actor/policy/activity/scope checks. Twenty focused
 cases, one full-app binding case and two Chromium cases pass; fourteen private
 collections deny member/admin browser access. SMTP responses are controlled in
-the app test. Real network delivery, ambiguous-send operator handling and worker
-activation remain unfinished.
+the original app test. A second full-app case now uses real Meteor SMTP over
+loopback: accepted delivery persists without replay, connection loss after DATA
+retains uncertainty, and partial multi-recipient acceptance remains unfinished
+without another network send. Both full-app cases pass. External-provider
+interoperability, ambiguous-send operator handling and worker activation remain
+unfinished.
 Private operation, step and completion collections are now registered with
 server-only adapters, denied browser writes, recovery indexes and no TTL.
 The stored-operation entry point holds the list lease and requires fresh access
@@ -1406,6 +1410,23 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5c2b9c160">Verify stored rule email through real SMTP acceptance and interruption</a>. Thanks to xet7.</summary>
+
+Exercise the production stored-rule entry point, private database records,
+shared SMTP slots and Meteor Email transport against a loopback TCP server.
+Verify captured message content and persisted sent state without a second
+connection on replay. Close the socket after DATA to prove uncertain attempts
+remain retained; reject one of multiple recipients to prove partial acceptance
+cannot complete the command or cause an automatic resend.
+
+Both full-app cases pass, including existing preparation/access/receipt checks.
+The source audit completes with advisory warnings. This verifies the local
+network transport path, not external-provider interoperability. Operator
+resolution of uncertain sends and manual/cron worker integration remain TODO.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/0dc51068a">Bind stored rule email dispatch to private attempts and shared SMTP slots</a>. Thanks to xet7.</summary>
