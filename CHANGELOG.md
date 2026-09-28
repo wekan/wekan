@@ -1299,11 +1299,13 @@ whether it is one feature or several; it bundles per-org/team/board label
 expansion, granular board roles, LDAP-group-driven auto-labeling and
 permission inheritance, none of which is a filter change - needs it split
 into separate, concretely-scoped issues before any one part is buildable),
-[#935](https://github.com/wekan/wekan/issues/935) (filter cards by date or
-tag - dated 2017; labels are already filterable and `Filter.dueAt` covers
-due-date ranges, but "moved on a specific date" would need a per-activity
-date filter, not a card-field one, since a card has no single "last moved"
-field today),
+[#935](https://github.com/wekan/wekan/issues/935) (simple card filtering:
+labels and native date ranges now have sidebar controls, including creation,
+modification and entry into the current list. Still unfinished: matching any
+historical move within a date range, combined text search across titles,
+descriptions, checklists and comments, relative created/updated date presets,
+saved filter combinations and the RFC's extensible filter-provider interface.
+The current-list entry date does not answer arbitrary historical move queries),
 [#572](https://github.com/wekan/wekan/issues/572) (label add/remove as its own
 controllable Notification Settings option - the activity feed entry it asks
 for already exists (`models/cards.js`'s `cardLabels()` hook logs
@@ -1540,6 +1542,27 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5527f8503">Choose card date ranges without filter expressions</a>. Thanks to neooleg and xet7.</summary>
+
+Add sidebar date pickers for creation, modification, received, start, due, end
+and current-list entry dates. Include both selected local calendar days, allow
+open bounds and optionally include cards without the selected date. Combine
+ranges with other filters, preserve them across board navigation, and retain
+the last valid filter when a reversed interval is rejected. Clear the range
+individually or with all filters. Keep the native checkbox visible and labelled.
+
+Fifteen Node suites and the new Chromium sidebar case pass, covering all seven
+fields, open and inclusive bounds, missing dates, reversed input, clearing and
+reopening. The existing column-age browser regression also passes. Source
+inventory warnings remain advisory. Update the remaining scope of
+[#935](https://github.com/wekan/wekan/issues/935) in TODO Later; historical
+moves, combined text search and the remaining RFC controls are still unfinished.
+Only English source labels are added; translation into all languages is
+deferred.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/930c5c67d">Filter native card dates in Advanced Filter and rules</a>. Thanks to TiibCD and xet7.</summary>
