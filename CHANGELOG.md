@@ -89,11 +89,13 @@ held only issues \#4774 and \#4055, and both are closed now.
 <details>
 <summary>Active implementation checkpoint: Scrum, Sync and rule email recovery.</summary>
 
-The current Scrum History increment verifies checkpoint deletion from stored
-state, rejecting false acknowledgements and preserving successor checkpoints.
-A lost deletion reply can be reconciled by a confirmed absence read. Thirty-one
-Node suites, one full-app case and nine Chromium scenarios pass. Durable
-completion receipts and recovery after an uncertain final read remain open.
+Scrum History now persists private immutable completion receipts before
+checkpoint cleanup. The internal finalizer can reconcile an uncertain cleanup
+read from its original operation identity without repeating History writes,
+even after a restart or a successor checkpoint. Caller-persisted undo/redo
+request IDs, recovery UI and shared writer coordination remain unfinished;
+retrying a public stack request is not yet an idempotent completion lookup.
+Validation for this increment is recorded in Upcoming.
 
 The preceding rule-email increment confirms independently verified SMTP
 acceptance offline, retaining an immutable operator decision before reconciling
@@ -195,14 +197,14 @@ The preflight remains a sequence of reads; same-operation serialization and
 atomicity are still unfinished.
 Finalization now verifies the source
 History row and persisted undo/redo state before deleting the exact operation's
-checkpoint. Retries preserve the original undo timestamp. Checkpoint cleanup
-now also reads the board slot after deletion: false acknowledgements cannot
-report completion, and lost replies require confirmed absence. A successor
-checkpoint or failed read remains unconfirmed and is never deleted again.
-Thirty-one Node suites, one full-app confirmation case and nine Chromium cases
-pass. Durable completion receipts, shared writer coordination and recovery after
-an uncertain final read remain unfinished. Ordinary writes and History remain
-non-atomic, and automatic startup replay is still pending.
+checkpoint. Retries preserve the original undo timestamp. Finalization now
+persists and verifies a private immutable receipt before deleting the exact
+checkpoint. False acknowledgements retain recovery evidence; a lost reply
+requires readback. The internal finalizer can use the original operation and
+receipt after an uncertain final read without touching a successor checkpoint
+or rewriting History. Public request identities and recovery controls, receipt
+retention and shared writer coordination remain unfinished. Ordinary writes
+and History remain non-atomic, and automatic startup replay is still pending.
 Native whole-board export/import and duplication remap planning records and
 snapshots, validate lifecycle/policy consistency, and report reduced data.
 Standalone copies preserve applicable metadata and drop foreign references;
@@ -1605,6 +1607,72 @@ the Markdown commit as the template.
 
 </details>
 </details>
+
+# Upcoming WeKan ® release
+
+**In short:** **Scrum History recovery** retains completion evidence before
+removing its checkpoint. Internal retries can verify completed finalization
+after an uncertain cleanup response; public request recovery and shared writer
+coordination remain in development.
+
+This release improves Scrum History recovery:
+
+**History** - verify completed operations and preserve unfinished recovery.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/16b17c494">Persist completion before removing Scrum recovery checkpoints</a>. Thanks to xet7.</summary>
+
+Store immutable private receipts binding the operation, actor, source History
+hash and exact saved plan before checkpoint cleanup. Verify storage rather
+than trusting insert replies. Preserve the first completion timestamp, reject
+changed or damaged receipts and keep unfinished evidence on failed reads.
+Checksums preserve data types and tolerate storage field ordering.
+
+The internal finalizer can retry from the original journal after deletion and
+an uncertain confirmation read, even on a fresh database connection. It does
+not rewrite History or undo timestamps and never removes a successor operation.
+A changed checkpoint reusing the old operation ID remains a conflict. Receipt
+storage has a recovery index, no TTL, no publication and denied browser writes.
+
+Twenty-seven focused Node suites pass without skips, including real MongoDB
+and the DDP lifecycle case. Fourteen affected suites pass again after the final
+checksum change. The full-app confirmation case passes with lost deletion and
+failed readback; all eleven Chromium History/private-storage scenarios pass.
+The pre-completion browser fixture now removes its completed receipt before
+simulating unfinished finalization, preserving its corruption assertions.
+The source audit passes, and both Upcoming entries have regression coverage.
+
+Public undo/redo requests still need caller-persisted identities and recovery
+controls; repeating a stack request is not an idempotent lookup. Receipt
+retention, atomic writes and shared writer coordination remain in TODO Later.
+Other non-translation requirements and external verification blockers remain
+open. No release or remote write was performed.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3b7eaedee">Verify Scrum History checkpoint removal before completing recovery</a>. Thanks to xet7.</summary>
+
+Read the board checkpoint after its exact conditional deletion. A positive
+write reply alone no longer completes restoration. Reconcile a lost reply only
+when storage confirms absence; reject failed reads and successor checkpoints
+without deleting again. Retain the original undo timestamp and stable timeline
+identity across retries.
+
+Thirty-one focused Node suites pass without skips, including MongoDB and DDP
+integration. The full-app confirmation case covers false deletion success,
+retry and a persisted deletion whose reply is lost. Nine Chromium History
+scenarios pass, including compound undo/redo, permissions, interrupted recovery,
+superseded redo and newer revisions. The source audit passes with advisory
+fingerprint warnings. Existing Upcoming regression evidence remains recorded.
+
+Record explicit resumption of non-translation work. Cross-document writer
+coordination, durable completion receipts and recovery after an uncertain final
+read remain in TODO Later. This readback does not make restoration atomic.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
 
@@ -4766,28 +4834,6 @@ effect adapters and in-flight fencing remain in TODO Later.
 and improves Scrum reporting and History recovery:
 
 <details>
-<summary><a href="https://github.com/wekan/wekan/commit/3b7eaedee">Verify Scrum History checkpoint removal before completing recovery</a>. Thanks to xet7.</summary>
-
-Read the board checkpoint after its exact conditional deletion. A positive
-write reply alone no longer completes restoration. Reconcile a lost reply only
-when storage confirms absence; reject failed reads and successor checkpoints
-without deleting again. Retain the original undo timestamp and stable timeline
-identity across retries.
-
-Thirty-one focused Node suites pass without skips, including MongoDB and DDP
-integration. The full-app confirmation case covers false deletion success,
-retry and a persisted deletion whose reply is lost. Nine Chromium History
-scenarios pass, including compound undo/redo, permissions, interrupted recovery,
-superseded redo and newer revisions. The source audit passes with advisory
-fingerprint warnings. Existing Upcoming regression evidence remains recorded.
-
-Record explicit resumption of non-translation work. Cross-document writer
-coordination, durable completion receipts and recovery after an uncertain final
-read remain in TODO Later. This readback does not make restoration atomic.
-
-</details>
-
-<details>
 <summary><a href="https://github.com/wekan/wekan/commit/8a3a1d1b3">Keep interrupted normal-import cleanup recoverable</a>. Thanks to xet7.</summary>
 
 Normal Scrum imports previously removed their checkpoint before deleting the
@@ -7299,7 +7345,8 @@ text and other prose fields. Keep credentials, searches, URLs, dates, numbers
 and structured tokens single-line. Expose the native resize handle and preserve
 the chosen size while typing. Include the calendar's Add Card dialog.
 
-Apply Member Settings / Change Settings / Submit editors with Enter consistently:
+Apply Member Settings / Change Settings / Submit editors with Enter
+consistently:
 Enter saves when enabled and Shift+Enter adds a line; when disabled, Enter adds
 a line and Ctrl/Cmd+Enter saves. Preserve IME composition, mention selection,
 existing validation, single-submit protection and server permission checks.
