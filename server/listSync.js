@@ -21,7 +21,8 @@ import Lists from '/models/lists';
 import Cards from '/models/cards';
 import Boards from '/models/boards';
 import CustomFields from '/models/customFields';
-const { syncEstimateMapping, addSyncEstimates, cardSyncEstimate, estimateChanges } = require('/models/lib/listSyncEstimate');
+const { syncEstimateMapping, addSyncEstimates, cardSyncEstimate } = require('/models/lib/listSyncEstimate');
+const { TIME_FIELDS, syncTimeMappings, timeMappingIdentities, addSyncTimeEstimates, cardSyncTimes, syncTimeBaseline, syncValueChanges } = require('/models/lib/listSyncTimeEstimates');
 import ListSyncCredentials from '/models/listSyncCredentials';
 import { EXTERNAL_PARSERS, SYNC_CAPABLE_SOURCES } from '/models/lib/externalParsers';
 import { planListSyncReconcile, validateListSyncTasks } from '/models/lib/listSyncReconcile';
@@ -105,6 +106,10 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
   const credential = await readSyncCredential(ListSyncCredentials, list);
 
   let parsed, sourceKey, sourceCoverage, estimateMapping;
+  let timeMappings = {};
+  const readTimeMappings = async () => syncTimeMappings(source,
+    source.fields?.some(field => Object.hasOwn(TIME_FIELDS, field))
+      ? await CustomFields.find({ boardIds: list.boardId, 'settings.jiraTimeField': { $in: ['original', 'remaining'] } }).fetchAsync() : [], estimateMapping);
   const listSelector = { _id: list._id, boardId: list.boardId, syncSource: source,
     syncRevision: list.syncRevision === undefined ? { $exists: false } : list.syncRevision,
     syncCredentialIncarnation: list.syncCredentialIncarnation === undefined ? { $exists: false } : list.syncCredentialIncarnation };
@@ -119,12 +124,16 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
       throw new Error('Estimate field mapping changed. Save Sync settings again before syncing.');
     }
     estimateMapping = mapping;
+    timeMappings = await readTimeMappings();
+    if (JSON.stringify(timeMappingIdentities(timeMappings)) !== JSON.stringify(source.timeMappingIdentities || {})) {
+      throw new Error('Time estimate mapping changed. Save Sync settings again before syncing.');
+    }
     const raw = await fetcher(estimateMapping ? { ...source, estimateFieldId: estimateMapping.estimateFieldId } : source, credential);
     validateImportSourceShape(source.type, raw);
     parsed = parser(raw);
-    parsed.tasks = addSyncEstimates(parsed.tasks, raw, estimateMapping);
+    parsed.tasks = addSyncTimeEstimates(addSyncEstimates(parsed.tasks, raw, estimateMapping), raw, timeMappings);
     validateListSyncTasks(parsed?.tasks);
-    if (dryRun || recordCoverage) sourceCoverage = describeSyncSourceCoverage(source.type, raw, source.fields, estimateMapping);
+    if (dryRun || recordCoverage) sourceCoverage = describeSyncSourceCoverage(source.type, raw, source.fields, estimateMapping, timeMappings);
     if (recordCoverage) await recordCoverage({ ...syncCoverage(parsed, source), source: sourceCoverage });
   } catch (e) {
     await assertCurrent();
@@ -154,6 +163,9 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
   const assertLease = assertCurrent;
   assertCurrent = async () => {
     await assertLease();
+    if (Object.keys(timeMappings).length && JSON.stringify(timeMappingIdentities(await readTimeMappings())) !== JSON.stringify(timeMappingIdentities(timeMappings))) {
+      throw new Meteor.Error('sync-time-estimate-changed', 'Time estimate mapping changed. Save Sync settings again.');
+    }
     if (estimateMapping) {
       const current = syncEstimateMapping(source, await CustomFields.findOneAsync({
         _id: estimateMapping.localFieldId, boardIds: list.boardId }));
@@ -188,11 +200,12 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
     description: c.description,
     spentTime: c.spentTime,
     customFields: c.customFields,
+    ...cardSyncTimes(c, timeMappings),
     ...(estimateMapping ? { estimate: cardSyncEstimate(c, estimateMapping) } : {}),
     archived: c.archived,
   }));
 
-  const merge = planSyncTextMerge(externalTasks, existingCards, estimateMapping);
+  const merge = planSyncTextMerge(externalTasks, existingCards, estimateMapping, timeMappings);
   const plan = merge.conflicts.length ? null : planListSyncReconcile({ externalTasks: merge.tasks, existingCards });
   const archiveConflicts = [];
   const creationConflicts = [];
@@ -242,7 +255,7 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
       const changed = await replaceSyncTarget(ListSyncTargets, creationTargets.get(preview.externalId));
       return changed ? { resolved: true } : { error: 'The replacement target changed. Run Sync again.' };
     }
-    const plan = planSyncConflictResolution(conflicts, existingCards, externalTasks, list, sourceKey, resolution, estimateMapping);
+    const plan = planSyncConflictResolution(conflicts, existingCards, externalTasks, list, sourceKey, resolution, estimateMapping, timeMappings);
     if (!plan) return { error: 'This conflict changed. Run Sync again to review the current values.' };
     const currentScope = assertConflictAccess ? await assertConflictAccess() : null;
     await assertCurrent();
@@ -251,7 +264,7 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
     // Assignment loss between the read and write must fail the same atomic
     // comparison as a changed card value. Scope remains server-owned.
     const changed = await Cards.updateAsync(currentScope ? { $and: [selector, currentScope] } : selector,
-      { $set: { ...estimateChanges(plan.changes, plan.card, estimateMapping), dateLastActivity: new Date() }, ...(plan.unset ? { $unset: plan.unset } : {}) }, SYNC_TEXT_WRITE_OPTIONS);
+      { $set: { ...syncValueChanges(plan.changes, plan.card, estimateMapping, timeMappings), dateLastActivity: new Date() }, ...(plan.unset ? { $unset: plan.unset } : {}) }, SYNC_TEXT_WRITE_OPTIONS);
     return changed ? { resolved: true } : { error: 'The card changed. Run Sync again to review the current values.' };
   }
   if (conflicts.length) {
@@ -296,7 +309,7 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
         title: task.title || 'Imported item',
         description: task.description || '',
         ...(task.spentTime !== undefined ? { spentTime: task.spentTime } : {}),
-        ...(task.estimate !== undefined ? estimateChanges({ estimate: task.estimate }, null, estimateMapping) : {}),
+        ...syncValueChanges(Object.fromEntries(['estimate', ...Object.keys(TIME_FIELDS)].filter(field => task[field] !== undefined).map(field => [field, task[field]])), null, estimateMapping, timeMappings),
         listId: list._id,
         swimlaneId: list.swimlaneId || (board && (await board.getDefaultSwimlineAsync())._id) || '',
         boardId: list.boardId,
@@ -306,6 +319,7 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
         syncSourceType: source.type,
         syncSourceKey: sourceKey,
         syncLastSource: {
+          ...syncTimeBaseline(task, timeMappings),
           ...(task.title !== undefined ? { title: task.title } : {}),
           ...(task.description !== undefined ? { description: task.description } : {}),
           ...(task.spentTime !== undefined ? { spentTime: task.spentTime } : {}),
@@ -331,7 +345,7 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
       // eslint-disable-next-line no-await-in-loop
       const previous = existingById.get(update.cardId);
       await assertCurrent();
-      const changed = await Cards.updateAsync(syncTextSelector(previous, list.boardId, list._id), { $set: { ...estimateChanges(cardChanges, previous, estimateMapping), dateLastActivity: now } }, SYNC_TEXT_WRITE_OPTIONS);
+      const changed = await Cards.updateAsync(syncTextSelector(previous, list.boardId, list._id), { $set: { ...syncValueChanges(cardChanges, previous, estimateMapping, timeMappings), dateLastActivity: now } }, SYNC_TEXT_WRITE_OPTIONS);
       if (!changed) {
         const error = 'Sync card changed while applying updates; retry sync.';
         await assertCurrent();

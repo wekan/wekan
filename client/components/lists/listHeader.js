@@ -861,6 +861,9 @@ Template.setListColorPopup.events({
 // only: reads the list's own (already published, credential-free) syncSource
 // fields and calls the configuration, Sync and conflict-resolution methods in
 // server/methods/listSync.js. Authority and fresh comparison checks stay there.
+const syncFieldLabel = field => ({ spentTime: 'spent-time-hours', estimate: 'scrum-estimate',
+  originalEstimate: 'sync-original-time', remainingEstimate: 'sync-remaining-time' })[field] || field;
+
 Template.listSyncPopup.onCreated(function () {
   const tpl = this;
   const list = Template.currentData();
@@ -924,7 +927,7 @@ Template.listSyncPopup.helpers({
     return (Template.instance().syncPreview.get()?.items || []).map(row => ({ ...row,
       actionLabel: `sync-preview-${row.action}`,
       fieldsText: row.fields.map(field => TAPi18n.__(field === 'syncLastSource' ? 'sync-preview-baseline' :
-        field === 'spentTime' ? 'spent-time-hours' : field === 'estimate' ? 'scrum-estimate' : field)).join(', '),
+        syncFieldLabel(field))).join(', '),
     }));
   },
   syncSourceOmissions() {
@@ -940,7 +943,7 @@ Template.listSyncPopup.helpers({
     }));
   },
   syncConflicts() { return Template.instance().syncConflicts.get().filter(row => row.fingerprint).map(row => ({
-    ...row, label: row.creation ? 'sync-conflict-creation' : row.archive ? 'sync-conflict-archive' : row.duplicate ? 'sync-conflict-duplicate' : row.field === 'spentTime' ? 'spent-time-hours' : row.field === 'estimate' ? 'scrum-estimate' : row.field,
+    ...row, label: row.creation ? 'sync-conflict-creation' : row.archive ? 'sync-conflict-archive' : row.duplicate ? 'sync-conflict-duplicate' : syncFieldLabel(row.field),
   })); },
   syncBusy() { return Template.instance().syncBusy.get(); },
   syncOperations() {
@@ -961,10 +964,13 @@ Template.listSyncPopup.helpers({
       .map(field => ({ _id: field._id, selected: field._id === selected,
         name: `${field.name} (${field.settings.jiraEstimateFieldId}, ${field.settings.jiraEstimateUnit})` }));
   },
+  syncTimeEnabled() {
+    return Template.instance().selectedSyncFields.get().some(field => ['originalEstimate', 'remainingEstimate'].includes(field));
+  },
   syncTextFields() {
     const fields = Template.instance().selectedSyncFields.get();
-    const choices = Template.instance().selectedSyncType.get() === 'jira' ? ['title', 'description', 'spentTime', 'estimate'] : ['title', 'description'];
-    return choices.map(field => ({ field, label: field === 'spentTime' ? 'spent-time-hours' : field === 'estimate' ? 'scrum-estimate' : field, checked: fields.includes(field) }));
+    const choices = Template.instance().selectedSyncType.get() === 'jira' ? ['title', 'description', 'spentTime', 'estimate', 'originalEstimate', 'remainingEstimate'] : ['title', 'description'];
+    return choices.map(field => ({ field, label: syncFieldLabel(field), checked: fields.includes(field) }));
   },
   listSyncSourceTypes() {
     return SYNC_CAPABLE_SOURCES;

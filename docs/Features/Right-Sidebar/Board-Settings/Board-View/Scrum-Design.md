@@ -335,8 +335,11 @@ advanced-filter rules can act on the new values. Unchanged and rejected writes
 emit no success activity. Durable activity/History replay remains pending.
 The existing Sync popup also selects title/description fields and card
 creation/source-absence archival; these settings retain board write
-authorization. Sprint/release, original/remaining time-estimate and other
-providers' estimate Sync mappings remain pending. Card mappings and credentials now carry a
+authorization. Original/remaining time estimates now sync through the unique
+imported numeric time fields on the board, in hours, with mapping identity
+checks, local-edit review and zero/null/missing handling. Sprint/release and
+other providers' estimate Sync mappings remain pending.
+Card mappings and credentials now carry a
 provider/server/project identity, preserving old cards when switching sources.
 Legacy configurations require saving once to bind their existing mappings.
 Atomic concurrent jobs and configuration writes remain pending.

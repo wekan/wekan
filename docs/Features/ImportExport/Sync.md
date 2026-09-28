@@ -401,8 +401,26 @@ configurations. The shared Jira parser converts numeric seconds using the same
 conversion as import. Zero is a real value; an absent total never clears local
 time. The source baseline and conditional update include spent hours, so timer
 or manual time edits participate in conflict detection. This syncs the aggregate
-total, not individual worklogs. Original/remaining estimates and Scrum planning
-records remain pending Sync mappings.
+total, not individual worklogs. Scrum planning records remain pending Sync
+mappings.
+
+Jira also offers **Original time estimate (hours)** and **Remaining time estimate
+(hours)**. Each is opt-in and uses the numeric field created by Jira import,
+identified by its original/remaining time marker. Exactly one matching numeric
+field must exist on this board for each selection; missing, foreign-board or
+ambiguous fields are refused. These fields must be distinct from a separately
+selected custom estimate field. Saving records the mapping identities, and
+changed mappings require another settings save before Sync can write.
+
+Numeric `originalEstimateSeconds` and `remainingEstimateSeconds` become hours;
+flat `timeoriginalestimate` and `timeestimate` are fallbacks when the nested
+field is absent. Localized duration strings are not parsed. Zero is retained,
+missing values leave the local field unchanged, and explicit null removes only
+the selected value. Original, remaining and custom estimates can update together
+without replacing unrelated custom fields. Local edits use the same baseline,
+Keep local/Use source review and conditional array writes as other estimates.
+These values are aggregate issue totals, not sprint scope history or individual
+worklogs. The existing History/activity hooks still lack durable effect replay.
 
 Jira also offers an opt-in **Estimate** switch. Select a numeric custom field on
 this board whose settings contain a Jira field ID and estimate unit, as created

@@ -2,15 +2,20 @@
 // Unknown objects are reported at their first unmapped path, without traversing
 // or copying their values. Known containers (for example Jira time tracking)
 // are inspected so unused siblings cannot hide beside one mapped field.
-const WRITABLE_FIELDS = new Set(['title', 'description', 'spentTime', 'estimate']);
+const WRITABLE_FIELDS = new Set(['title', 'description', 'spentTime', 'estimate', 'originalEstimate', 'remainingEstimate']);
 const mapped = (target, converted = false) => ({ target, converted });
 const unusedFallback = { reason: 'fallback' };
 const present = value => value !== undefined && value !== null && value !== '' &&
   (!Array.isArray(value) || value.length > 0);
 
-function issueRules(type, issue, estimateMapping) {
+function issueRules(type, issue, estimateMapping, timeMappings) {
   if (type === 'jira') {
     const fields = issue.fields || {};
+    const timeRules = {}, trackingRules = { timeSpentSeconds: mapped('spentTime', true) };
+    for (const [field, mapping] of Object.entries(timeMappings)) {
+      timeRules[mapping.flat] = Object.hasOwn(fields.timetracking || {}, mapping.nested) ? unusedFallback : mapped(field, true);
+      trackingRules[mapping.nested] = mapped(field, true);
+    }
     return { key: mapped('externalId'), fields: {
       ...(estimateMapping ? { [estimateMapping.estimateFieldId]: mapped('estimate') } : {}),
       summary: mapped('title'),
@@ -18,7 +23,7 @@ function issueRules(type, issue, estimateMapping) {
       status: mapped('column_name'), labels: mapped('tags'), duedate: mapped('date_due'),
       assignee: mapped('owner_username'), reporter: mapped('requested_by'),
       timespent: fields.timetracking?.timeSpentSeconds == null ? mapped('spentTime', true) : unusedFallback,
-      timetracking: { timeSpentSeconds: mapped('spentTime', true) },
+      ...timeRules, timetracking: trackingRules,
     } };
   }
   if (type === 'gitlab') {
@@ -39,7 +44,7 @@ function issueRules(type, issue, estimateMapping) {
     milestone: mapped('tags'), due_date: mapped('date_due') };
 }
 
-function describeSyncSourceCoverage(type, raw, fields, estimateMapping = null) {
+function describeSyncSourceCoverage(type, raw, fields, estimateMapping = null, timeMappings = {}) {
   if (!['jira', 'github', 'gitlab', 'gitea', 'forgejo'].includes(type)) throw new Error('Unsupported Sync coverage source.');
   const selected = new Set(fields === undefined ? ['title', 'description'] : fields);
   const rows = new Map();
@@ -89,7 +94,7 @@ function describeSyncSourceCoverage(type, raw, fields, estimateMapping = null) {
       add(issuePath, 'excluded-item');
       continue;
     }
-    inspect(issue, issueRules(type, issue, estimateMapping), issuePath);
+    inspect(issue, issueRules(type, issue, estimateMapping, timeMappings), issuePath);
   }
   if (!Array.isArray(raw)) {
     // Pagination counters/tokens are transport state, not issue data. Other

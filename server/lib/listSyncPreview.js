@@ -1,4 +1,4 @@
-const SYNC_FIELDS = ['title', 'description', 'spentTime', 'estimate'];
+const SYNC_FIELDS = ['title', 'description', 'spentTime', 'estimate', 'originalEstimate', 'remainingEstimate'];
 const hasValue = value => value !== undefined && value !== null && value !== '' &&
   (!Array.isArray(value) || value.length > 0);
 

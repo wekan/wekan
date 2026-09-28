@@ -7,7 +7,7 @@ const compareSyncCardIds = (a, b) => a._id < b._id ? -1 : a._id > b._id ? 1 : 0;
 // Compare selected scalar fields to the last accepted source values.
 // Legacy cards without a baseline must first agree with the source; guessing
 // would make an old local edit indistinguishable from an upstream change.
-function planSyncTextMerge(tasks, cards, estimateMapping = null) {
+function planSyncTextMerge(tasks, cards, estimateMapping = null, timeMappings = {}) {
   const byId = new Map(), baselines = new Map(), conflicts = [];
   for (const card of [...cards].sort(compareSyncCardIds)) {
     if (!card.syncExternalId) continue;
@@ -24,7 +24,12 @@ function planSyncTextMerge(tasks, cards, estimateMapping = null) {
       delete baseline.estimate;
       baseline.estimateMapping = estimateMapping.identity;
     }
-    for (const field of ['title', 'description', 'spentTime', 'estimate']) {
+    for (const [field, mapping] of Object.entries(timeMappings)) {
+      if (baseline[`${field}Mapping`] !== mapping.identity) {
+        delete baseline[field]; baseline[`${field}Mapping`] = mapping.identity;
+      }
+    }
+    for (const field of ['title', 'description', 'spentTime', 'estimate', 'originalEstimate', 'remainingEstimate']) {
       if (task[field] === undefined) continue;
       const incoming = task[field], local = card[field];
       const known = Object.prototype.hasOwnProperty.call(baseline, field);
@@ -41,7 +46,7 @@ function planSyncTextMerge(tasks, cards, estimateMapping = null) {
 function syncTextSelector(card, boardId, listId) {
   const selector = { _id: card._id, boardId, listId };
   const fields = ['title', 'description', 'spentTime', 'archived', 'syncExternalId', 'syncSourceType', 'syncSourceKey', 'syncLastSource'];
-  if (Object.hasOwn(card, 'estimate')) fields.push('customFields');
+  if (['estimate', 'originalEstimate', 'remainingEstimate'].some(field => Object.hasOwn(card, field))) fields.push('customFields');
   Object.assign(selector, exactFieldSelector(card, fields));
   return selector;
 }
@@ -49,7 +54,7 @@ function selectSyncTextFields(tasks, fields) {
   const wanted = new Set(fields === undefined ? ['title', 'description'] : fields);
   return tasks.map(task => {
     const selected = { ...task };
-    for (const field of ['title', 'description', 'spentTime', 'estimate']) if (!wanted.has(field)) delete selected[field];
+    for (const field of ['title', 'description', 'spentTime', 'estimate', 'originalEstimate', 'remainingEstimate']) if (!wanted.has(field)) delete selected[field];
     return selected;
   });
 }

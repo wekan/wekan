@@ -18,7 +18,7 @@ function describeSyncConflict(conflict, card, task, list, sourceKey, cards = [])
     const text = row => [row.title || '', row.description || ''].filter(Boolean).join('\n\n');
     return { ...conflict, duplicate: true, local: text(card), retained: text(group[0]), fingerprint };
   }
-  if (!['title', 'description', 'spentTime', 'estimate'].includes(conflict.field) || !card || !task) return conflict;
+  if (!['title', 'description', 'spentTime', 'estimate', 'originalEstimate', 'remainingEstimate'].includes(conflict.field) || !card || !task) return conflict;
   const field = conflict.field;
   const local = card[field], incoming = task[field];
   const fingerprint = createHash('sha256').update(JSON.stringify([
@@ -29,7 +29,7 @@ function describeSyncConflict(conflict, card, task, list, sourceKey, cards = [])
   return { ...conflict, local: local ?? '', incoming: incoming ?? '', fingerprint };
 }
 
-function planSyncConflictResolution(conflicts, cards, tasks, list, sourceKey, resolution, estimateMapping = null) {
+function planSyncConflictResolution(conflicts, cards, tasks, list, sourceKey, resolution, estimateMapping = null, timeMappings = {}) {
   const conflict = conflicts.find(row => row.cardId === resolution.cardId && row.field === resolution.field);
   const card = cards.find(row => row._id === resolution.cardId);
   const task = conflict && tasks.find(row => String(row.externalId) === conflict.externalId);
@@ -42,6 +42,7 @@ function planSyncConflictResolution(conflicts, cards, tasks, list, sourceKey, re
       !['local', 'source'].includes(resolution.choice)) return null;
   return { card, changes: {
     syncLastSource: { ...(card.syncLastSource || {}), [resolution.field]: task[resolution.field],
+      ...(timeMappings[resolution.field] ? { [`${resolution.field}Mapping`]: timeMappings[resolution.field].identity } : {}),
       ...(resolution.field === 'estimate' && estimateMapping ? { estimateMapping: estimateMapping.identity } : {}) },
     ...(resolution.choice === 'source' ? { [resolution.field]: task[resolution.field] } : {}),
   } };

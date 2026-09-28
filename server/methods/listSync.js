@@ -13,6 +13,7 @@ import Lists from '/models/lists';
 import Cards from '/models/cards';
 import CustomFields from '/models/customFields';
 const { syncEstimateMapping } = require('/models/lib/listSyncEstimate');
+const { TIME_FIELDS, syncTimeMappings, timeMappingIdentities } = require('/models/lib/listSyncTimeEstimates');
 import ListSyncCredentials from '/models/listSyncCredentials';
 import ListSyncRunReports from '/server/lib/listSyncRunReports';
 const { reportScope } = require('/server/lib/syncRunReport');
@@ -56,7 +57,7 @@ Meteor.methods({
       createCards: Match.Optional(Boolean),
       archiveCards: Match.Optional(Boolean),
       estimateCustomFieldId: Match.Optional(String),
-      fields: Match.Optional([Match.OneOf('title', 'description', 'spentTime', 'estimate')]),
+      fields: Match.Optional([Match.OneOf('title', 'description', 'spentTime', 'estimate', 'originalEstimate', 'remainingEstimate')]),
       token: Match.Optional(Match.OneOf(String, null)),
       username: Match.Optional(String),
     }));
@@ -80,10 +81,13 @@ Meteor.methods({
       // Its legacy cards remain unbound; a new project must never adopt them.
       try { oldKey = list.syncSource && syncSourceKey(list.syncSource); } catch (error) { oldKey = null; }
       let estimateMapping;
+      let timeMappings = {};
       try {
         estimateMapping = source && syncEstimateMapping(config,
           config.estimateCustomFieldId && await CustomFields.findOneAsync({
             _id: config.estimateCustomFieldId, boardIds: list.boardId }));
+        if (source) timeMappings = syncTimeMappings(config, config.fields?.some(field => Object.hasOwn(TIME_FIELDS, field))
+          ? await CustomFields.find({ boardIds: list.boardId, 'settings.jiraTimeField': { $in: ['original', 'remaining'] } }).fetchAsync() : [], estimateMapping);
       } catch (error) { throw new Meteor.Error('invalid-sync-source', error.message); }
       // Before replacing or clearing a legacy configuration, retain its identity
       // on its cards. Never infer an old card's project from the NEW config.
@@ -115,6 +119,7 @@ Meteor.methods({
         createCards: config.createCards !== false,
         archiveCards: config.archiveCards !== false,
         fields: config.fields || ['title', 'description'],
+        ...(Object.keys(timeMappings).length ? { timeMappingIdentities: timeMappingIdentities(timeMappings) } : {}),
         ...(estimateMapping ? { estimateCustomFieldId: estimateMapping.localFieldId,
           estimateMappingIdentity: estimateMapping.identity } : {}),
       } : null;
@@ -200,7 +205,7 @@ Meteor.methods({
 
   async resolveListSyncConflict(listId, resolution) {
     check(listId, String);
-    check(resolution, { cardId: String, field: Match.OneOf('title', 'description', 'spentTime', 'estimate', 'syncExternalId', 'archive', 'creation'),
+    check(resolution, { cardId: String, field: Match.OneOf('title', 'description', 'spentTime', 'estimate', 'originalEstimate', 'remainingEstimate', 'syncExternalId', 'archive', 'creation'),
       choice: Match.OneOf('local', 'source', 'detach', 'replace'), fingerprint: String });
     if (!/^[a-f0-9]{64}$/.test(resolution.fingerprint)) throw new Meteor.Error('invalid-sync-conflict');
     const list = await Lists.findOneAsync(listId);

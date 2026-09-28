@@ -3608,5 +3608,8 @@
   "email-failure-delivery-unconfirmed": "Delivery could not be confirmed; review before retrying",
   "email-failure-acknowledgement-failed": "Delivery receipt could not be saved",
   "email-failure-delivery-failed": "Delivery or preparation failed",
-  "email-failure-retry-limit": "Automatic attempt limit reached"
+  "email-failure-retry-limit": "Automatic attempt limit reached",
+  "sync-original-time": "Original time estimate (hours)",
+  "sync-remaining-time": "Remaining time estimate (hours)",
+  "sync-time-estimate-hint": "Time estimates use the numeric original/remaining time fields created by Jira import. Exactly one matching field must exist on this board. Local edits are reviewed as conflicts; missing source values are ignored and explicit null clears the value."
 }

@@ -75,7 +75,9 @@ test('Jira Cloud refuses missing termination metadata and repeating tokens',asyn
 test('Jira Cloud requests the mapped estimate field and refuses invalid field IDs before fetching',async()=>{
  const {context,calls}=harness([{body:{issues:[],isLast:true}}]);
  await context.fetchJiraIssues({...config,url:'https://team.atlassian.net',estimateFieldId:'customfield_100'},credential);
- assert.ok(new URL(calls[0].url).searchParams.get('fields').split(',').includes('customfield_100'));
+ for (const field of ['customfield_100', 'timetracking', 'timeoriginalestimate', 'timeestimate']) {
+  assert.ok(new URL(calls[0].url).searchParams.get('fields').split(',').includes(field));
+ }
  const invalid=harness([]);
  await assert.rejects(invalid.context.fetchJiraIssues({...config,url:'https://team.atlassian.net',estimateFieldId:'summary,password'},credential),/Invalid Jira estimate field/);
  assert.equal(invalid.calls.length,0);

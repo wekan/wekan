@@ -78,7 +78,7 @@ async function fetchJiraCloudIssues(base, jql, headers, estimateFieldId) {
   url.searchParams.set('maxResults', '200');
   // Enhanced search otherwise returns only issue IDs. Request the fields the
   // shared parser uses so synchronization cannot replace titles with defaults.
-  const fields = ['summary', 'description', 'status', 'duedate', 'assignee', 'reporter', 'labels', 'timetracking', 'timespent'];
+  const fields = ['summary', 'description', 'status', 'duedate', 'assignee', 'reporter', 'labels', 'timetracking', 'timespent', 'timeoriginalestimate', 'timeestimate'];
   if (estimateFieldId !== undefined) {
     if (!/^customfield_\d{1,20}$/.test(estimateFieldId)) throw new Error('Invalid Jira estimate field');
     fields.push(estimateFieldId);

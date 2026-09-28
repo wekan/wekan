@@ -448,6 +448,8 @@ template(name="listSyncPopup")
           a.flex.js-toggle-sync-field(data-field=field)
             .materialCheckBox(class="{{#if checked}}is-checked{{/if}}")
             span {{_ label}}
+      if syncTimeEnabled
+        p.quiet {{_ 'sync-time-estimate-hint'}}
       each syncOperations
         p
           a.flex.js-toggle-sync-operation(data-operation=operation)
