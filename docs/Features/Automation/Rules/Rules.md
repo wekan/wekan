@@ -87,20 +87,22 @@ were not tested against live cloud accounts for this change.
 
 Email bodies include the configured text and the card's title, description and
 link. Enable **Checklists / Comments** to append live checklist titles, tasks
-and their completion state, followed by public comment text in chronological
-order. Private webhook state is never included. Card access is rechecked after
+and their completion state, checklist/item due dates, checklist completion
+and reset dates/interval, followed by public comment text in chronological
+order with public author names and creation/edit dates. Private webhook state is never included. Card access is rechecked after
 reading; oversized discussion text fails rather than being silently truncated.
 This option is independent of Attachments and is off for existing rules.
 
 Enable **Details** to append board/list/swimlane names, dates, labels, members,
 assignees, requesters/assigners, time spent, locations, custom-field display
-values, text notes and readable parent/subtask/dependency titles. Details also
-includes recurrence interval/last recurrence and persisted Flowtime/Pomodoro
+values, text notes and readable parent/subtask/dependency titles. Creator
+names, stickers, archive/activity dates, ordering and move reasons are included.
+Details also includes recurrence interval/last recurrence and persisted Flowtime/Pomodoro
 session start, interruptions, phase, completed intervals, work duration and
 public user display names. Timer snapshots do not add unfinished time to the
 completed spent-time total or calculate a continually changing elapsed value.
-Admin-only custom fields require board-admin access. Account emails, tokens and private
-related-card titles are never included. Zero and false values are retained.
+Admin-only custom fields require board-admin access. Account emails, tokens
+and private related-card titles are never included. Zero and false values are retained.
 Access and custom-field policy are checked again before preparation finishes.
 
 Details includes voting questions, deadlines and counts. Voter names appear
@@ -126,7 +128,8 @@ visibility flags permit output. Sprint/release names must belong to the source
 board; missing or foreign references are omitted. References are rechecked
 after reads and new stored source bindings retain the six visibility flags.
 These are card metadata, not entire sprint reports, events or other cards.
-The final full-card content audit for #2713 remains open.
+The [full-card content audit](../../../DeveloperDocs/Card-Email-Content-Audit.md)
+records remaining work for #2713.
 Stored Sync commands capture the resolved source chain alongside the immutable
 mail and include it in their checksum. Before dispatch, every saved card/board,
 link target and current read/assignment permission must still match. A moved or

@@ -68,7 +68,8 @@ async function prepareRuleCardDetails({ activity, cache, canReadBoard, readScrum
     if (list?.boardId === card.boardId) add('List', list.title);
     if (lane?.boardId === card.boardId) add('Swimlane', lane.title);
     for (const [field, label] of Object.entries({ cardNumber: 'Card number', color: 'Color', archived: 'Archived',
-      createdAt: 'Created', modifiedAt: 'Modified', listEnteredAt: 'Entered list', receivedAt: 'Received',
+      createdAt: 'Created', modifiedAt: 'Modified', archivedAt: 'Archived at', dateLastActivity: 'Last activity',
+      sort: 'Sort', subtaskSort: 'Subtask sort', lastMoveReason: 'Last move reason', listEnteredAt: 'Entered list', receivedAt: 'Received',
       startAt: 'Start', dueAt: 'Due', endAt: 'End', dueComplete: 'Due complete',
       requestedBy: 'Requested by', assignedBy: 'Assigned by', spentTime: 'Spent time (hours)', isOvertime: 'Overtime',
       recurrenceInterval: 'Recurrence', lastRecurrenceAt: 'Last recurrence',
@@ -76,6 +77,14 @@ async function prepareRuleCardDetails({ activity, cache, canReadBoard, readScrum
       pomodoroStartAt: 'Pomodoro started', pomodoroPhase: 'Pomodoro phase',
       pomodoroCount: 'Pomodoro completed intervals', pomodoroWorkMinutes: 'Pomodoro work interval (minutes)',
       locationName: 'Location', locationAddress: 'Address', locationLatitude: 'Latitude', locationLongitude: 'Longitude' })) add(label, card[field]);
+    if (typeof card.userId === 'string' && card.userId) {
+      const creator = await cache.getUser(card.userId);
+      add('Created by', creator?.profile?.fullname || creator?.username || 'Unknown user');
+    }
+    for (const sticker of Array.isArray(card.stickers) ? card.stickers : []) {
+      if (!sticker || typeof sticker !== 'object') continue;
+      add('Sticker', ['name', 'icon', 'highlight', 'position'].map(field => scalar(sticker[field])).filter(Boolean));
+    }
     // Export the persisted session snapshot, not a ticking elapsed duration
     // that could be mistaken for completed spent time. Resolve only public names.
     for (const [field, label] of [['flowUserId', 'Flowtime user'], ['pomodoroUserId', 'Pomodoro user']]) {

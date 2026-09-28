@@ -27,10 +27,11 @@ test(`email rule form and SMTP carry only live triggering-card bytes from ${back
     db.insertOne('attachments', { _id: id, name: 'report.bin', extension: 'bin', type: 'application/octet-stream', size: bytes.length,
       meta: { boardId: board.boardId, cardId: card._id },
       versions: { original: { storage: backend, meta: backend === 'gridfs' ? { gridFsFileId: gridId.toHexString() } : {}, path: filename, size: bytes.length, extension: 'bin', type: 'application/octet-stream' } } });
-    db.insertOne('checklists', { _id: `${id}-checklist`, cardId: card._id, title: 'Email checklist', sort: 0 });
-    db.insertOne('checklistItems', { _id: `${id}-item`, cardId: card._id, checklistId: `${id}-checklist`, title: 'Reviewed task', isFinished: true, sort: 0 });
-    db.insertOne('card_comments', { _id: `${id}-comment`, cardId: card._id, boardId: board.boardId, text: 'Public email comment', createdAt: new Date(), modifiedAt: new Date(), webhookResponsePending: 'NEVER-MAIL-PRIVATE-STATE' });
+    db.insertOne('checklists', { _id: `${id}-checklist`, cardId: card._id, title: 'Email checklist', sort: 0, dueAt: new Date('2027-06-01'), resetInterval: 'weekly' });
+    db.insertOne('checklistItems', { _id: `${id}-item`, cardId: card._id, checklistId: `${id}-checklist`, title: 'Reviewed task', isFinished: true, sort: 0, dueAt: new Date('2027-05-01') });
+    db.insertOne('card_comments', { _id: `${id}-comment`, cardId: card._id, boardId: board.boardId, text: 'Public email comment', userId: 'missing-comment-author', createdAt: new Date(), modifiedAt: new Date(), webhookResponsePending: 'NEVER-MAIL-PRIVATE-STATE' });
     db.updateOne('cards', { _id: card._id }, { $set: { dueAt: new Date('2027-02-01'), spentTime: 0,
+      userId: 'missing-card-author', stickers: [{ name: 'Approved', icon: 'check', position: 0 }],
       vote: { question: 'Release vote', public: false, positive: ['PRIVATE-VOTER'], negative: [] },
       poker: { question: true, end: new Date('2020-01-01'), one: ['MISSING-POKER-VOTER'], estimation: 1 },
       recurrenceInterval: 'weekly', lastRecurrenceAt: new Date('2027-01-01'),
@@ -98,6 +99,9 @@ test(`email rule form and SMTP carry only live triggering-card bytes from ${back
     for (const text of ['Scrum sprint: Mail sprint', 'Scrum release: Mail release',
       'Scrum acceptance criteria: Ready for review', 'Scrum backlog rank: 0']) expect(votingText).toContain(text);
     expect(votingText).not.toContain('HIDDEN-SCRUM-TYPE');
+    for (const text of ['Created by: Unknown user', 'Sticker: Approved, check, 0',
+      'Due: 2027-06-01T00:00:00.000Z', 'Reset interval: weekly', 'Due: 2027-05-01T00:00:00.000Z',
+      'Author: Unknown user']) expect(votingText).toContain(text);
     expect(mails()[0].data).not.toContain('NEVER-MAIL-PRIVATE-STATE');
     db.updateOne('attachments', { _id: id }, { $set: { deletedAt: new Date() } });
     db.updateOne('cards', { _id: card._id }, { $set: { 'vote.public': true, 'poker.end': new Date('2999-01-01') } });
@@ -115,7 +119,7 @@ test(`email rule form and SMTP carry only live triggering-card bytes from ${back
     expect(mails()[2].data).not.toContain('Email checklist');
     expect(mails()[2].data).not.toContain('Public email comment');
     expect(mails()[2].data).not.toContain('Mail priority');
-    expect(mails()[2].data).not.toMatch(/Flowtime|Pomodoro|Recurrence|Vote question|Poker|Scrum/);
+    expect(mails()[2].data).not.toMatch(/Flowtime|Pomodoro|Recurrence|Vote question|Poker|Scrum|Sticker|Created by|Author:|Reset interval/);
     fs.unlinkSync(filename);
     if (backend === 'gridfs') { db.deleteMany('attachments.files', { _id: gridId }); db.deleteMany('attachments.chunks', { files_id: gridId }); }
     const error = await page.evaluate(async ({ ruleId, cardId }) => {

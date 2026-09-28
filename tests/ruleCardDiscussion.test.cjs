@@ -35,3 +35,18 @@ test('empty cards add no section; excessive content fails instead of silently tr
   f.comments = [{ cardId: 'card', boardId: 'board', text: 'x'.repeat(768 * 1024) }];
   await assert.rejects(prepare(f), /too-large/);
 });
+test('checklist dates, reset schedule and public comment author accompany prose', async () => {
+  const f = fixture(); Object.assign(f.checklists[0], { dueAt: new Date('2027-01-01'), finishedAt: new Date('2027-01-02'),
+    resetInterval: 'weekly', lastResetAt: new Date('2027-01-03') });
+  f.items[0].dueAt = new Date('2027-01-01');
+  Object.assign(f.comments[0], { userId: 'author', modifiedAt: new Date('2027-01-04') });
+  f.cache.getUser = async () => ({ profile: { fullname: 'Comment author' }, emails: ['SECRET'], services: { token: 'SECRET' } });
+  const text = await prepare(f);
+  for (const expected of ['  Due: 2027-01-01T00:00:00.000Z', '  Finished: 2027-01-02T00:00:00.000Z',
+    'Reset interval: weekly', 'Last reset: 2027-01-03T00:00:00.000Z', '    Due: 2027-01-01T00:00:00.000Z',
+    'Author: Comment author', 'Edited: 2027-01-04T00:00:00.000Z']) assert.ok(text.includes(expected), expected);
+  assert.doesNotMatch(text, /PRIVATE|SECRET/);
+  f.cache.getUser = async () => null; assert.match(await prepare(f), /Author: Unknown user/);
+  f.cache.getUser = async () => { f.allowed = false; return { username: 'author' }; };
+  await assert.rejects(prepare(f), /not-authorized/);
+});

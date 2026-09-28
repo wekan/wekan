@@ -162,3 +162,14 @@ test('Scrum reference movement and visibility revocation during reads stop mail 
     await assert.rejects(prepare(f), /changed/);
   }
 });
+test('creator, stickers and lifecycle metadata use public scalar fields only', async () => {
+  const f = fixture(); Object.assign(f.card, { userId: 'author', archivedAt: new Date('2027-01-01'),
+    dateLastActivity: new Date('2027-01-02'), sort: 0, subtaskSort: 2, lastMoveReason: 'Review complete',
+    stickers: [{ name: 'Approved', icon: 'check', highlight: 'round', position: 0, private: 'SECRET' },
+      { name: { secret: 'SECRET' } }, null] });
+  const text = await prepare(f);
+  for (const expected of ['Created by: person', 'Sticker: Approved, check, round, 0',
+    'Archived at: 2027-01-01T00:00:00.000Z', 'Last activity: 2027-01-02T00:00:00.000Z',
+    'Sort: 0', 'Subtask sort: 2', 'Last move reason: Review complete']) assert.ok(text.includes(expected), expected);
+  assert.doesNotMatch(text, /SECRET|object Object/);
+});
