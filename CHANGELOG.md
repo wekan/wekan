@@ -510,7 +510,8 @@ expiry can duplicate mail. Problems → Recovery now provides recipient summarie
 and pause/resume/cancel controls, with persisted holds and cancellation cutoffs.
 Stable request receipts prevent late retries from overriding newer actions or
 cancelling later messages. Active sends refuse controls until the reservation
-is released; an expired in-flight SMTP request cannot be recalled.
+is released. Reservation loss now closes the live SMTP connection, but cannot
+retract remote acceptance.
 Thirteen focused Node suites and thirteen Chromium scenarios pass, covering
 queue controls, recipient grouping, permissions, lost replies and delivery.
 Permanent SMTP failures now stop with safe reason categories. Temporary errors
@@ -524,35 +525,38 @@ per application process. A large backlog cannot hide other recipients behind
 the former 100-message selection limit. Overlapping scans share one pass.
 Nine focused Node suites and fourteen Chromium cases pass, including a slow
 SMTP recipient while another recipient completes delivery.
-SMTP DNS, connection and greeting waits now default to 30 seconds, and idle
-connections to two minutes. Validated environment variables configure each
-limit. Native Meteor SMTP routing is preserved; TLS overrides and Admin Panel
-providers receive the same limits. Eleven focused Node suites and fifteen
-Chromium cases pass, including actual socket closure and eventual delivery
-after missing greetings and idle SMTP responses. Admin Panel providers and TLS
-certificate overrides now also have a two-minute total send deadline, configured
-with MAIL_TOTAL_TIMEOUT_MS (1000–300000 ms). Each message owns its socket;
-expiry
-closes it without cancelling other recipients. Four focused Node suites pass,
-including five real SMTP/TLS cases for missing greetings, continuous responses,
-late DNS, concurrent delivery, encrypted socket closure and certificate refusal.
-Message preparation cannot open a connection after expiration. Native Meteor
-MAIL_URL and native service settings without MAIL_URL now share the total
-budget too. Preserve the original message plugins, defaults and TLS settings;
-only the final SMTP send uses an isolated connection. HTTP/HTTPS CONNECT proxy
-handshakes and tunneled SMTP share the same cancellation. Five focused Node
-suites pass, including eight native SMTP/proxy cases and five direct SMTP/TLS
-cases. Four full-app Meteor cases and fifteen Chromium delivery/recovery cases
-pass. Receipt retention, deployment-wide concurrency and coordinating activity
-creation with queue insertion remain pending. Two full-app Meteor
-cases now verify actual Email.sendAsync cancellation and subsequent success
-through both transport installers. Fifteen Chromium scenarios pass across the
-email-delivery and recovery suites, including retained payloads, visible retry
-counts, cancellation, authorization and successful delivery after a total
-timeout. The slow-recipient regression compares captured bodies with persisted
-attempts, preserving at-least-once retry after an unconfirmed acknowledgement.
-Two phase-timeout cases require different test settings and were skipped in
-this total-deadline browser run.
+SMTP DNS, connection and greeting waits default to 30 seconds, idle
+connections to two minutes, and the total send budget to two minutes.
+Validated environment variables configure the limits. Native MAIL_URL,
+native service settings without MAIL_URL, Admin Panel providers and
+certificate overrides all use cancellable per-message connections. Keep
+original message plugins, defaults, authentication and TLS requirements.
+HTTP/HTTPS CONNECT handshakes and tunneled SMTP share the deadline; late DNS
+or preparation cannot open a connection after expiry.
+
+Notification queue workers now share four delivery reservations across all
+processes using the same database. Reserve before recording an attempt, so
+full capacity leaves pending messages and retry budgets unchanged. Renew
+every 15 seconds; reclaim a crashed owner's slot after its 60-second expiry.
+A failed renewal, ownership loss or independent local expiry cancels that
+sender's SMTP connection, including when a database renewal hangs. Former
+owners cannot delete replacement reservations. Slots are private, deny
+member/admin DDP writes and contain no message content.
+
+Nine executed Node suites pass; the separate full-app-startup suite was
+skipped. Coverage includes separate worker processes, crash reclaim, hung
+renewal, replacement-owner safety, retry accounting and actual socket
+cancellation. Five full-app Meteor cases and sixteen Chromium
+delivery/recovery scenarios pass. Two phase-timeout browser cases require
+different settings and were skipped. The test SMTP sink now accepts expected
+connection resets from active cancellation while retaining all queue and
+deadline assertions.
+
+This is a bound on live notification-queue reservations, not a hard fence on
+an SMTP connection from a paused host. Keep application clocks synchronized.
+Direct email calls outside the queue are not counted, and remote acceptance
+remains at least once. Receipt retention and coordinating activity creation
+with queue insertion remain pending.
 History field snapshots now preserve nested dates, including date-valued
 custom fields alongside mapped estimates. JSON transport and restoration retain
 Date types without interpreting date-looking text. Existing rows whose dates
@@ -1193,6 +1197,38 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7efa8ca37">Share notification delivery capacity across server processes</a>. Thanks to xet7.</summary>
+
+Limit queued notification workers to four shared reservations in the private
+notificationEmailSendSlots collection. Claim a slot before recording an
+attempt; occupied slots leave messages pending without spending the retry
+budget. Renew every 15 seconds and reclaim crashed owners after 60 seconds.
+Preserve per-recipient exclusion and conditional old-owner cleanup.
+
+Propagate reservation loss through server-side cancellation context into
+both native and custom SMTP adapters. Expire local authority independently
+of a hanging database renewal. Abort only the affected sender, refuse late
+preparation and never delete a replacement owner's reservation. Keep slots
+unpublished and deny direct writes for members and administrators.
+
+Nine executed Node suites pass; the separate app-startup suite was skipped.
+Tests include separate Node processes, a killed worker, capacity contention,
+unchanged attempt counts, hung renewal and actual SMTP socket closure. Five
+full-app Meteor tests and sixteen Chromium delivery/recovery cases pass,
+including visible capacity waiting and blocked private-slot writes for both
+roles. Two phase-timeout browser cases require separate settings and were
+skipped. Fix the test SMTP peer's handling of expected resets from active
+cancellation. Source/dependency audit passes with advisory warnings.
+
+The limit applies to live queue reservations, not direct invitation/reset
+mail or a hard physical connection quota during host pauses. Host clocks
+must be synchronized; remote SMTP acceptance remains at least once. Receipt
+retention and atomic activity-to-queue insertion remain in TODO Later. These
+tests used local MongoDB and SMTP, not FerretDB or external mail providers.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7a450190a">Enforce native Meteor SMTP total deadlines without losing message plugins</a>. Thanks to xet7.</summary>
