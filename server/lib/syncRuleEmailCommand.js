@@ -2,6 +2,7 @@
 const { EJSON, calculateObjectSize } = require('bson');
 const { canonical, sha256 } = require('../../models/lib/changeHistoryIntegrity');
 const { validateRulePlan, planId } = require('./syncRulePlan');
+const { validateRuleEmailAttachments } = require('./ruleEmailAttachments');
 const copy = value => EJSON.parse(EJSON.stringify(value), { relaxed: true });
 const fail = () => { throw new Error('sync-rule-email-command-invalid'); };
 const exactKeys = (value, expected) => value && !Array.isArray(value) &&
@@ -9,7 +10,7 @@ const exactKeys = (value, expected) => value && !Array.isArray(value) &&
 const commandId = invocationId => sha256(canonical(['sync-rule-email', invocationId]));
 function validateMail(mail) {
   if (!mail || Array.isArray(mail) || typeof mail !== 'object' ||
-      Object.keys(mail).some(key => !['to', 'from', 'subject', 'text', 'html', 'replyTo'].includes(key)) ||
+      Object.keys(mail).some(key => !['to', 'from', 'subject', 'text', 'html', 'replyTo', 'attachments'].includes(key)) ||
       !['to', 'from', 'subject', 'text'].every(key => typeof mail[key] === 'string') ||
       !mail.to.trim() || !mail.from.trim()) fail();
   for (const key of ['to', 'from', 'subject', 'replyTo']) {
@@ -17,7 +18,13 @@ function validateMail(mail) {
     if (typeof mail[key] !== 'string' || mail[key].length > 10000 || /[\r\n\0]/.test(mail[key])) fail();
   }
   if (Object.hasOwn(mail, 'html') && typeof mail.html !== 'string') fail();
-  if (calculateObjectSize(mail) > 1024 * 1024) fail();
+  const { attachments, ...body } = mail;
+  if (calculateObjectSize(body) > 1024 * 1024) fail();
+  if (Object.hasOwn(mail, 'attachments')) {
+    if (!Array.isArray(attachments) || !attachments.length) fail();
+    try { validateRuleEmailAttachments(attachments); } catch (_) { fail(); }
+  }
+  if (calculateObjectSize(mail) > 12 * 1024 * 1024) fail();
 }
 function commandIdentity({ plan, activity, effectId, index }) {
   validateRulePlan(plan, activity, effectId);

@@ -60,3 +60,18 @@ test('preparation loses ownership before storage and cannot mutate the captured 
   };
   assert.equal((await ensure(f)).cardId, 'card');
 });
+test('attachment bytes are immutable command content and cannot become file or URL references', async () => {
+  const f = await fixture();
+  const attachment = { filename: 'report.bin', contentType: 'application/octet-stream', encoding: 'base64', content: 'AP8=' };
+  f.mail.attachments = [attachment];
+  const first = await ensure(f), expected = structuredClone(first);
+  attachment.content = 'YQ=='; first.mail.attachments[0].filename = 'changed';
+  assert.deepEqual(await ensure({ ...f, prepare: () => assert.fail('must reuse saved bytes') }), expected);
+  f.rows.get(expected._id).mail.attachments[0].content = 'Yg==';
+  await assert.rejects(ensure(f), /command-invalid/);
+  for (const patch of [{ path: '/private/file' }, { href: 'https://example.org/file' }, { encoding: 'utf8' }, { content: '%' }]) {
+    const invalid = await fixture();
+    invalid.mail.attachments = [{ ...attachment, ...patch }];
+    await assert.rejects(ensure(invalid), /command-invalid/); assert.equal(invalid.rows.size, 0);
+  }
+});
