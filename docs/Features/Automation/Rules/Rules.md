@@ -60,7 +60,7 @@ Evaluated by a server cron job every minute:
 ## Actions
 
 - **Board:** move card to top/bottom (of its list or a named list/board), archive /
-  unarchive, add swimlane, create card, link card, **sort a list** (by due date /
+  unarchive, add swimlane, create card, copy card, link card, **sort a list** (by due date /
   name / created / modified), **move all cards** from one list to another.
 - **Card:** set/update/remove a date, **set a date relative to now** ("+N days"),
   add/remove label, add/remove member, remove all members, set color,
@@ -68,6 +68,24 @@ Evaluated by a server cron job every minute:
 - **Checklist:** add/remove checklist, check/uncheck all, check/uncheck an item, add
   a checklist with items.
 - **Mail:** send an email.
+
+### Copy a card after a trigger
+
+In the form builder, choose **Copy Card** under Board actions and select the
+board, list and swimlane. The original card stays in place; an independent copy
+is appended to the selected list. This uses ordinary card copying, including
+its checklist, comment, attachment and subtask handling and cross-board label
+and custom-field mapping. It does not create a live link to the original.
+
+The saved action keeps destination IDs, so renaming a list or swimlane does not
+redirect the copy. The actor must have write access to both boards when the
+rule runs. Deleted or archived destinations, foreign lists/swimlanes and
+revoked access produce no copy. A trigger needs a card context: use an event,
+a card button or a card-based scheduled trigger, rather than a board button.
+
+Copies may trigger other rules. The same copy action runs only once in a
+causal chain, preventing a create-card rule from endlessly copying its own
+copies. Separate user events can each make a copy.
 
 ## Variables
 

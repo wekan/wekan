@@ -1,6 +1,31 @@
 template(name="boardActions")
   div.trigger-item
     div.trigger-content
+      div.trigger-text {{_ 'copyCardPopup-title'}}
+      div.trigger-text {{_ 'r-the-board'}}
+      div.trigger-dropdown
+        select#board-id-copy(aria-label="{{_ 'board'}}")
+          option(value="" disabled selected if=not boards.length) {{loadingBoardsLabel}}
+          each boards
+            if $eq _id currentBoard._id
+              option(value=_id selected) {{_ 'current'}}
+            else
+              option(value=_id) {{title}}
+      div.trigger-text {{_ 'r-in-list'}}
+      div.trigger-dropdown
+        select#list-id-copy(aria-label="{{_ 'list'}}")
+          each copyLists
+            option(value=_id) {{title}}
+      div.trigger-text {{_ 'r-in-swimlane'}}
+      div.trigger-dropdown
+        select#swimlane-id-copy(aria-label="{{_ 'swimlane'}}")
+          each copySwimlanes
+            option(value=_id) {{title}}
+    button.trigger-button.js-copy-card-action.js-goto-rules(disabled=copyTargetUnavailable type="button" aria-label="{{_ 'r-add-action'}}")
+      i.fa.fa-plus(aria-hidden="true")
+
+  div.trigger-item
+    div.trigger-content
       div.trigger-text
         | {{_'r-move-card-to'}}
       div.trigger-dropdown

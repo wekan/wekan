@@ -1,3 +1,4 @@
+import { ReactiveVar } from 'meteor/reactive-var';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { TAPi18n } from '/imports/i18n';
 import { Utils } from '/client/lib/utils';
@@ -6,9 +7,25 @@ import { saveRuleTriggerAction } from '/client/components/rules/rulesSaveHelper'
 
 Template.boardActions.onCreated(function () {
   this.subscribe('boards');
+  this.copyBoardId = new ReactiveVar(Session.get('currentBoard'));
+  this.autorun(() => {
+    const id = this.copyBoardId.get();
+    if (id) this.subscribe('board', id, false);
+  });
 });
 
 Template.boardActions.helpers({
+  copyTargetUnavailable() {
+    const boardId = Template.instance().copyBoardId.get();
+    return !ReactiveCache.getLists({ boardId, archived: false }).length ||
+      !ReactiveCache.getSwimlanes({ boardId, archived: false }).length;
+  },
+  copyLists() {
+    return ReactiveCache.getLists({ boardId: Template.instance().copyBoardId.get(), archived: false }, { sort: { sort: 1 } });
+  },
+  copySwimlanes() {
+    return ReactiveCache.getSwimlanes({ boardId: Template.instance().copyBoardId.get(), archived: false }, { sort: { sort: 1 } });
+  },
   boards() {
     // #5698: don't restrict to boards where the user is a DIRECT member — that
     // hid every board reached through an Organization / Team / email-domain
@@ -48,6 +65,21 @@ Template.boardActions.helpers({
 });
 
 Template.boardActions.events({
+  'change #board-id-copy'(event, tpl) {
+    tpl.copyBoardId.set(event.currentTarget.value);
+  },
+  'click .js-copy-card-action'(event, tpl) {
+    const data = Template.currentData();
+    const boardId = tpl.find('#board-id-copy').value;
+    const listId = tpl.find('#list-id-copy').value;
+    const swimlaneId = tpl.find('#swimlane-id-copy').value;
+    if (!boardId || !listId || !swimlaneId) return;
+    saveRuleTriggerAction(Session.get('currentBoard'), data.ruleId,
+      data.ruleName.get(), data.triggerVar.get(), {
+        actionType: 'copyCard', boardId, listId, swimlaneId,
+        desc: Utils.getTriggerActionDesc(event, tpl),
+      });
+  },
   'click .js-create-card-action'(event, tpl) {
     const data = Template.currentData();
     const ruleName = data.ruleName.get();

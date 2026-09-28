@@ -1,3 +1,4 @@
+import { copyRuleCard } from '/server/lib/ruleCopyCard';
 import { requireButtonRuleContext } from '/models/lib/buttonRulePermission';
 import { DDP } from 'meteor/ddp';
 import { ReactiveCache } from '/imports/reactiveCache';
@@ -326,6 +327,7 @@ export const RulesHelper = {
       'moveCardToTop',
       'moveCardToBottom',
       'linkCard',
+      'copyCard',
       'moveAllCardsInList',
     ];
     const actionBoardId = action.boardId || boardId;
@@ -700,6 +702,9 @@ export const RulesHelper = {
         sort: 0,
         boardId
       });
+    }
+    if (action.actionType === 'copyCard') {
+      return await copyRuleCard({ activity, action, cache: ReactiveCache, canWrite: allowIsBoardMemberWithWriteAccess });
     }
     if (action.actionType === 'linkCard') {
       const list = await ReactiveCache.getList({ title: action.listName, boardId: action.boardId });
