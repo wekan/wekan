@@ -267,9 +267,15 @@ export const RulesHelper = {
   // This method performs reads only; it never sends or queues mail.
   async prepareEmailAction(activity, action, ruleVars) {
     if (action?.actionType !== 'sendEmail') throw new Error('rule-email-action-required');
-    if (!ruleVars) {
-      const card = await ReactiveCache.getCard(activity.cardId);
-      if (!card) throw new Error('rule-email-card-unavailable');
+    const card = await ReactiveCache.getCard(activity.cardId);
+    if (!card) throw new Error('rule-email-card-unavailable');
+    let emailSource;
+    if (['cardType-linkedCard', 'cardType-linkedBoard'].includes(card.type)) {
+      const { resolveRuleEmailSource } = require('/server/lib/ruleEmailSource');
+      emailSource = await resolveRuleEmailSource({ activity, cache: ReactiveCache, canReadBoard });
+      activity = emailSource.activity;
+      ruleVars = await buildRuleVars(activity, emailSource.card);
+    } else if (!ruleVars) {
       ruleVars = await buildRuleVars(activity, card);
     }
     const to = substituteVars(action.emailTo, ruleVars);
@@ -318,10 +324,13 @@ export const RulesHelper = {
         openStream: file => fileStoreStrategyFactory.getFileStrategy(file, 'original').getReadStream() });
       if (attachments.length) options.attachments = attachments;
     }
+    if (emailSource) await emailSource.assertCurrent();
     return options;
   },
 
   async prepareEmailCommand(activity, action) {
+    const { requireBoundStoredEmailSource } = require('/server/lib/ruleEmailSource');
+    await requireBoundStoredEmailSource(activity, ReactiveCache);
     return EmailLocalization.prepareEmail(await this.prepareEmailAction(activity, action));
   },
 

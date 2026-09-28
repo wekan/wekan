@@ -43,7 +43,12 @@ async function prepareRuleCardDetails({ activity, cache, canReadBoard }) {
     await relation('Linked card', card.linkedId);
   } else if (card.type === 'cardType-linkedBoard') {
     const target = typeof card.linkedId === 'string' && card.linkedId ? await cache.getBoard(card.linkedId) : null;
-    if (canReadBoard(activity.userId, target)) { add('Linked board', target.title); relatedBoards.add(card.linkedId); }
+    if (canReadBoard(activity.userId, target)) {
+      add('Linked board', target.title);
+      add('Description', target.description);
+      for (const [field, label] of [['receivedAt', 'Received'], ['startAt', 'Start'], ['dueAt', 'Due'], ['endAt', 'End'], ['spentTime', 'Spent time (hours)']]) add(label, target[field]);
+      relatedBoards.add(card.linkedId);
+    }
   } else {
     const [list, lane, definitions, notes] = await Promise.all([
       card.listId ? cache.getList(card.listId) : null, card.swimlaneId ? cache.getSwimlane(card.swimlaneId) : null,

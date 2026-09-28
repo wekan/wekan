@@ -99,10 +99,17 @@ custom fields require board-admin access. Account emails, tokens and private
 related-card titles are never included. Zero and false values are retained.
 Access and custom-field policy are checked again before preparation finishes.
 
-Linked cards/boards currently include only an authorized source title in this
-section; cached source metadata is not treated as permission to disclose it.
-Complete linked-source content and specialized fields such as Scrum and
-voting still need review for the full-card request in #2713.
+For linked cards, all selected sections use the current source card, including
+its board-scoped custom fields, comments and files. Every link in the chain
+must remain readable by the actor; changed targets, cycles, missing sources
+and revoked access stop preparation. Cached source snapshots are not sent.
+Linked boards use current board title, description and dates while retaining
+the wrapper card's own discussion and attachments; they do not email every
+card on the linked board. Specialized fields such as Scrum, voting and timer/
+recurrence state still need review for the full-card request in #2713.
+The separate stored Sync email-command path currently refuses linked sources:
+it must first persist the resolved source chain and verify it on retries.
+Ordinary event, button and scheduled email rules support linked sources.
 
 ### Copy a card after a trigger
 
