@@ -374,9 +374,19 @@ delivery. Tray insertion now compares activity identity independently of the
 read flag and confirms storage by readback. Concurrent retries preserve a read
 notification and its timestamp instead of appending an unread duplicate. Real
 Meteor tests cover concurrent existing/new events and deleted users; twelve
-Node suites and three Chromium cases pass. Recovery still needs frozen
-recipients, service receipts, tray replay after dismissal, rule/action recovery
-and durable outgoing webhooks.
+Node suites and three Chromium cases pass.
+New profile deliveries now atomically retain one private pending receipt beside
+the tray insertion, then move that evidence into a private receipt collection.
+Dismissal and automatic tray cleanup cannot erase delivery evidence. Revision
+checks reject delayed writes after another delivery has finished, and startup
+recovery completes retained markers without restoring dismissed rows. Both
+ordinary and awaited profile dispatch use this path. Fourteen Node suites with
+real MongoDB, four full-app Meteor tests and five Chromium scenarios pass;
+additional browser checks cover rename attempts against private marker fields.
+Receipts have no TTL. Retention and legacy already-dismissed events remain
+unresolved; old evidence cannot be reconstructed. Sync still needs frozen
+recipients, complete service orchestration, rule/action recovery and durable
+outgoing webhooks.
 Activity notification and webhook payloads now preserve zero, false, empty
 text and explicit null, while absent values remain omitted. This fixes lost
 zero estimates and unchecked custom-field values. SMTP and HTTP-serialization
@@ -1055,6 +1065,38 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/65a4c892b">Retain tray delivery receipts across dismissal and restarts</a>. Thanks to xet7.</summary>
+
+New profile notification deliveries atomically store one pending marker with
+the tray change, then confirm a private durable receipt before clearing the
+marker. Read notifications keep their state; dismissed or cleaned-up entries
+do not return when the same event is retried. A persistent revision rejects
+stale writes even after another worker has completed and cleared its marker.
+Lost database replies require readback; damaged evidence remains refused.
+
+Ordinary and awaited profile subscribers use this path. A startup recovery
+scan resumes pending receipts in batches of 100, advances past damaged rows
+and reschedules after failures. A sparse marker index supports pending-user
+lookup; user documents retain one marker rather than an expanding history.
+Receipt documents have no TTL. Browser writes to the collection or private
+user fields are denied, including rename destinations; neither is published.
+
+Fourteen Node suites pass with real MongoDB. Fault injection covers dismissal
+before receipt insertion, restart recovery, concurrent events, delayed writes,
+lost user/receipt/cleanup replies and incomplete cleanup. Four full-app Meteor
+tests pass with real subscribers and the registered recovery scan. Five
+Chromium cases pass for normal notification behavior and member/admin write
+denial; both private-storage cases pass again with rename checks. The source
+audit passes with informational fingerprint advisories.
+
+Receipt retention still needs policy and tooling. Already-dismissed legacy
+notifications have no historical receipt to recover. Sync job activation,
+frozen recipient plans, rule/action recovery and durable webhooks remain in
+TODO Later; this change completes the tray receipt path only.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/15a9d61eb">Preserve read notifications during delivery retries</a>. Thanks to xet7.</summary>
