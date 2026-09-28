@@ -631,9 +631,15 @@ revision and a stable identity; old requests cannot undo newer decisions.
 Exact readback reconciles lost write replies, while false acknowledgements,
 malformed state, revoked access and non-pending intents fail. Six tests pass
 with real MongoDB, including concurrent requests and delayed stale writers.
-The control row is permanent to prevent revision reuse. Private collection
-registration, production delivery guards, admin methods/UI and restart/browser
-verification remain unfinished; activity holds are not operational yet.
+The control row is permanent to prevent revision reuse. Production delivery
+now reads a private control collection before preparation and local effects.
+Immediate ordinary dispatch, manual retry and background recovery all honor
+holds; the background scan skips held work without hiding later runnable rows.
+Malformed control state stops delivery. Twenty-three Node/MongoDB cases, one
+full-app Meteor case and one Chromium case pass. Browser coverage denies direct
+member/admin writes across all nine private notification collections. Admin
+methods/UI, report pause status and restart verification remain unfinished;
+activity holds are not yet an operator-facing feature.
 History field snapshots now preserve nested dates, including date-valued
 custom fields alongside mapped estimates. JSON transport and restoration retain
 Date types without interpreting date-looking text. Existing rows whose dates
@@ -1274,6 +1280,24 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/61bca9bb4">Honor stored activity holds in immediate and recovered delivery</a>. Thanks to xet7.</summary>
+
+Register a private activity notification control collection and consult it
+before preparing and delivering local effects. Manual and automatic recovery
+respect the same stored hold. Background scanning counts held work as skipped
+and continues to later intents; malformed control state fails closed. Holds
+retain pending evidence and do not cancel mail already in the SMTP outbox.
+
+Twenty-three Node/MongoDB cases and one full-app Meteor case pass. The app test
+verifies that both delivery entry points refuse a stored hold, the scanner
+retains it, and resuming reuses the original plan. One Chromium case verifies
+member/admin DDP write denial across nine private notification collections.
+The source audit completes with advisory warnings. Admin pause/resume methods,
+report status, UI controls and restart verification remain in TODO Later.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/614ece539">Prepare versioned storage for activity notification holds</a>. Thanks to xet7.</summary>
