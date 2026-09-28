@@ -1,5 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
+import { Email, EmailInternals } from 'meteor/email';
+import Rules from '/models/rules';
+import { EmailSendSlots } from '/server/notifications/emailQueue';
 import Activities from '/models/activities';
 import Boards from '/models/boards';
 import Cards from '/models/cards';
@@ -14,10 +17,16 @@ const { memberCan } = require('/models/lib/boardRoleCapabilities');
 const { isAssignedOnlyMember } = require('/models/lib/boardCardScope');
 const { validateSyncEffectPolicy, assertSyncEffectPolicy, syncEffectPolicy } = require('/server/lib/syncEffectPolicy');
 const { prepareRulePlan, ensureRulePlan } = require('/server/lib/syncRulePlan');
+const { dispatchRuleEmail } = require('/server/lib/syncRuleEmailDispatch');
+const { ruleEmailRecipients } = require('/server/lib/syncRuleEmailAcceptance');
+const { createEmailSendSlots } = require('/server/lib/emailSendSlots');
+const withEmailSlot = createEmailSendSlots(EmailSendSlots.rawCollection());
 const { executeRulePlan } = require('/server/lib/syncRuleExecution');
 const { ensureRuleEmailCommand } = require('/server/lib/syncRuleEmailCommand');
 
 export const SyncRulePlans = new Mongo.Collection('listSyncRulePlans');
+export const SyncRuleEmailAttempts = new Mongo.Collection('listSyncRuleEmailAttempts');
+SyncRuleEmailAttempts.deny({ insert: () => true, update: () => true, remove: () => true });
 export const SyncRuleEmailCommands = new Mongo.Collection('listSyncRuleEmailCommands');
 SyncRuleEmailCommands.deny({ insert: () => true, update: () => true, remove: () => true });
 export const SyncRuleReceipts = new Mongo.Collection('listSyncRuleReceipts');
@@ -27,6 +36,7 @@ Meteor.startup(async () => {
   await ensureIndex(SyncRulePlans, { 'plan.boardId': 1, 'plan.cardId': 1 });
   await ensureIndex(SyncRuleReceipts, { effectId: 1 });
   await ensureIndex(SyncRuleEmailCommands, { boardId: 1, cardId: 1 });
+  await ensureIndex(SyncRuleEmailAttempts, { state: 1, startedAt: 1 });
 });
 
 // Both capture and execution require the journal's list-incarnation,
@@ -86,4 +96,38 @@ export async function captureStoredSyncRuleEmailCommand({ index, ...options }) {
   return ensureRuleEmailCommand({ commands: SyncRuleEmailCommands.rawCollection(), plan,
     activity: context.saved, effectId: context.effectId, index, assertCurrent: context.guard,
     prepare: ({ activity, invocation }) => RulesHelper.prepareEmailCommand(activity, invocation.action) });
+}
+
+// Explicit internal send entry point; never called by ordinary/manual/cron
+// rules yet. Uncertain attempts require future operator resolution.
+export async function runStoredSyncRuleEmail({ index, ...options }) {
+  const context = executionContext(options), plan = await capture(context);
+  const command = await ensureRuleEmailCommand({ commands: SyncRuleEmailCommands.rawCollection(), plan,
+    activity: context.saved, effectId: context.effectId, index, assertCurrent: context.guard,
+    prepare: ({ activity, invocation }) => RulesHelper.prepareEmailCommand(activity, invocation.action) });
+  const invocation = plan.actions[index], MailComposer = EmailInternals.NpmModules.mailcomposer.module;
+  const recipients = ruleEmailRecipients(command.mail, MailComposer);
+  const guard = async () => {
+    await context.guard();
+    const [rule, action] = await Promise.all([
+      Rules.rawCollection().findOne({ _id: invocation.rule._id }),
+      Actions.rawCollection().findOne({ _id: invocation.action._id }),
+    ]);
+    if (!rule || !action || canonical(rule) !== canonical(invocation.rule) ||
+        canonical(action) !== canonical(invocation.action)) throw new Error('sync-rule-email-configuration-changed');
+    const current = await RulesHelper.prepareEmailAction(context.saved, action);
+    if (current.to !== command.mail.to || current.from !== command.mail.from) {
+      throw new Error('sync-rule-email-destination-changed');
+    }
+    const addresses = recipients.map(address => new RegExp(`^${address.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`, 'i'));
+    const users = await Meteor.users.find({ 'emails.address': { $in: addresses } },
+      { fields: { loginDisabled: 1 } }).fetchAsync();
+    if (users.some(user => user.loginDisabled)) throw new Error('sync-rule-email-recipient-denied');
+    await context.guard();
+  };
+  return withEmailSlot(({ assertCurrent }) => dispatchRuleEmail({ command, plan,
+    activity: context.saved, effectId: context.effectId, index, MailComposer,
+    attempts: SyncRuleEmailAttempts.rawCollection(), assertCurrent,
+    send: async (mail, { assertCurrent: beforeSend }) => { await beforeSend(); return Email.sendAsync(mail); },
+  }), { assertOwner: guard });
 }

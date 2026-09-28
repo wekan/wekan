@@ -10,7 +10,7 @@ import Activities from '/models/activities';
 import Rules from '/models/rules';
 import Triggers from '/models/triggers';
 import Actions from '/models/actions';
-import { captureStoredSyncRulePlan, captureStoredSyncRuleEmailCommand, runStoredSyncRules, SyncRulePlans, SyncRuleReceipts, SyncRuleEmailCommands } from '/server/notifications/storedRulePlans';
+import { captureStoredSyncRulePlan, captureStoredSyncRuleEmailCommand, runStoredSyncRuleEmail, SyncRuleEmailAttempts, runStoredSyncRules, SyncRulePlans, SyncRuleReceipts, SyncRuleEmailCommands } from '/server/notifications/storedRulePlans';
 
 const { planId, actionId: invocationId } = require('/server/lib/syncRulePlan');
 
@@ -18,6 +18,7 @@ describe('Stored Sync rule selection', function () {
   this.timeout(15000);
   it('uses actual matching, preserves saved actions and refuses revoked or changed scope', async function () {
     if (!Meteor.isAppTest) this.skip();
+    const recipientId = Random.id();
     const actor = Random.id(), boardId = Random.id(), listId = Random.id(), cardId = Random.id(), activityId = Random.id();
     const ruleId = Random.id(), triggerId = Random.id(), actionId = Random.id();
     const activity = { _id: activityId, activityType: 'createCard', boardId, listId, cardId, userId: actor,
@@ -75,6 +76,22 @@ describe('Stored Sync rule selection', function () {
       await Actions.rawCollection().updateOne({ _id: actionId }, { $set: { emailTo: 'changed@example.org' } });
       assert.deepEqual(await captureStoredSyncRuleEmailCommand(mailInput), command);
       assert.equal(await SyncRuleEmailCommands.find({ boardId }).countAsync(), 1);
+      await assert.rejects(runStoredSyncRuleEmail(mailInput), /configuration-changed/);
+      await Actions.rawCollection().updateOne({ _id: actionId }, { $set: { emailTo: 'outside@example.org' } });
+      await Meteor.users.rawCollection().insertOne({ _id: recipientId, loginDisabled: true,
+        emails: [{ address: 'Outside@Example.Org' }] });
+      await assert.rejects(runStoredSyncRuleEmail(mailInput), /recipient-denied/);
+      await Meteor.users.rawCollection().deleteOne({ _id: recipientId });
+      let sent = 0;
+      Email.sendAsync = async mail => { sent++; assert.deepEqual(mail, command.mail); return { accepted: ['outside@example.org'] }; };
+      assert.equal(await runStoredSyncRuleEmail(mailInput), command.invocationId);
+      assert.equal(await runStoredSyncRuleEmail(mailInput), command.invocationId);
+      assert.equal(sent, 1);
+      const uncertainInput = { ...mailInput, effectId: 'd'.repeat(64) };
+      Email.sendAsync = async () => { sent++; return undefined; };
+      await assert.rejects(runStoredSyncRuleEmail(uncertainInput), /delivery-unconfirmed/);
+      await assert.rejects(runStoredSyncRuleEmail(uncertainInput), /delivery-uncertain/);
+      assert.equal(sent, 2);
       await Meteor.users.rawCollection().updateOne({ _id: actor }, { $set: { loginDisabled: true } });
       await assert.rejects(captureStoredSyncRulePlan(input), /context-denied/);
       await assert.rejects(captureStoredSyncRuleEmailCommand(mailInput), /context-denied/);
@@ -87,10 +104,13 @@ describe('Stored Sync rule selection', function () {
       await Cards.rawCollection().updateOne({ _id: cardId }, { $set: { listId } });
       await Activities.rawCollection().updateOne({ _id: activityId }, { $set: { cardTitle: 'changed' } });
       await assert.rejects(captureStoredSyncRulePlan(input), /activity-changed/);
-      assert.equal(await SyncRulePlans.find({ 'plan.activityId': activityId }).countAsync(), 3);
+      assert.equal(await SyncRulePlans.find({ 'plan.activityId': activityId }).countAsync(), 4);
     } finally {
+      await Meteor.users.rawCollection().deleteOne({ _id: recipientId });
       Accounts.emailTemplates.from = originalFrom;
       Email.sendAsync = originalSend;
+      const commands = await SyncRuleEmailCommands.find({ boardId, cardId }, { fields: { _id: 1 } }).fetchAsync();
+      await SyncRuleEmailAttempts.rawCollection().deleteMany({ _id: { $in: commands.map(row => row._id) } });
       await SyncRuleEmailCommands.rawCollection().deleteMany({ boardId, cardId });
       const id = planId(input.effectId, activityId);
       await SyncRuleReceipts.rawCollection().deleteMany({ _id: { $in: [id, invocationId(id, 0), planId('b'.repeat(64), activityId)] } });

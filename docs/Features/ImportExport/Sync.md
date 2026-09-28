@@ -707,3 +707,19 @@ automatic retry or operator resolution for these attempts. The caller must
 supply live scope/configuration checks, its operation lease and cancellable SMTP
 capacity slot. Production collection registration, actual sender binding,
 recovery controls and manual/cron integration remain unfinished.
+
+`runStoredSyncRuleEmail` now binds attempts to private indexed
+`listSyncRuleEmailAttempts` storage and dispatches final captured mail through
+Meteor Email within the shared cancellable SMTP capacity slots. It requires
+unchanged rule/action documents, unchanged currently resolved recipient/sender,
+and the existing exact-activity, policy, actor and board/list/card guard.
+Disabled matching local recipient accounts are refused; external recipients
+remain supported. Account lookup ignores email address case while SMTP
+acceptance still uses the native envelope exactly.
+
+This is an explicit internal entry point, not a scheduled worker or automatic
+Sync activation. It reuses sent receipts and refuses uncertain attempts. The
+full-app test uses real collections, slot ownership and command preparation,
+but replaces Email.sendAsync with controlled transport responses; real network
+delivery is not established by that test. Operator resolution, recovery UI and
+manual/cron rule-stage wiring remain unfinished.
