@@ -1,4 +1,5 @@
 'use strict';
+// SamlReplayBleed: signed responses require live request IDs and single-use consumption.
 const {test}=require('node:test');const assert=require('node:assert/strict');
 const fs=require('node:fs');const path=require('node:path');const {execFileSync}=require('node:child_process');
 const {SAML}=require('@node-saml/node-saml');

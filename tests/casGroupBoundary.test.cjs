@@ -1,4 +1,5 @@
 'use strict';
+// DirectoryGroupBleed: CAS membership uses complete literal CNs, never substring matches.
 const {test}=require('node:test');const assert=require('node:assert/strict');
 const fs=require('node:fs');const path=require('node:path');const vm=require('node:vm');
 const {isCasGroupAllowed}=require('../packages/wekan-accounts-cas/groupPolicy');
