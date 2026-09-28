@@ -411,3 +411,33 @@ ready file appears, using that database and `MAIL_URL=smtp://127.0.0.1:4102`.
 The suite owns that local capture port, verifies acceptance and a scrubbed
 receipt, and removes its own rows. Optional `WEKAN_EMAIL_STARTUP_TEST_APP_URL`
 and `WEKAN_EMAIL_STARTUP_TEST_SMTP_PORT` override the loopback defaults.
+
+### Activity notification write-ahead intent (internal, not activated)
+
+`server/lib/activityNotificationIntent.js` provides the storage boundary for a
+future activity insertion adapter. It confirms a private immutable intent
+before allowing an activity insert, then reads back the exact persisted
+activity before returning. Activity IDs and timestamps must already be final.
+The intent binds the entire BSON-preserving snapshot and carries a unique
+writer identity. Lost intent or activity acknowledgements require matching
+readback; conflicting reuse of an activity ID is refused.
+
+Only the call that created the intent may insert a missing activity. A later
+call cannot distinguish an interrupted first insertion from subsequent
+intentional deletion, and must not recreate it. Recovery reads require the
+exact retained activity; missing or changed activities leave an unresolved
+intent. Explicit orphan resolution is still needed. A returned intent does
+not acknowledge tray delivery, email enqueue, rule actions or webhooks.
+
+This primitive is not yet connected to activity hooks or to a background
+worker. The ordinary activity notification hook still has the post-insert
+crash gap. Production private collections, deferred-Sync hook handling,
+persisted recipient plans, startup scanning, orphan/operator controls and
+retention must be integrated before claiming durable activity-to-queue
+completion. No UI behavior changes with this internal component.
+
+`tests/integration/activityNotificationIntent.test.cjs` uses a real MongoDB
+with `WEKAN_SYNC_TEST_MONGO_URL`. It covers write ordering, uncertain replies,
+concurrent writers, cancelled insertion, deleted/changed activities, corrupted
+intents, identity reuse, guard failure and oversized/invalid input. These tests
+do not exercise the Meteor activity hooks or FerretDB.
