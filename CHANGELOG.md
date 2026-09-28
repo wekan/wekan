@@ -1274,12 +1274,6 @@ ties a rule to exactly one `triggerId`/`actionId`; supporting several is a
 schema change, not a UI fix, and needs a decision on how a multi-trigger rule
 matches: any trigger, or all of them; [#2953](https://github.com/wekan/wekan/issues/2953)
 asks for the same thing),
-[#4160](https://github.com/wekan/wekan/issues/4160) (a rule Copy Card action
-is still missing; Link Card already exists in `server/rulesHelper.js` and its
-rule-action UI, so only the copy portion remains deferred),
-[#3235](https://github.com/wekan/wekan/issues/3235) (rule action to copy a
-card to another board and list — same underlying gap as #4160, plus needs a
-board/list picker in the rule-action UI),
 [#2713](https://github.com/wekan/wekan/issues/2713) (rule email action should
 support attachments — `client/components/rules/actions/mailActions.js` and
 its server-side sender only handle a plain templated body today; attaching a
@@ -1535,6 +1529,28 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/998b96bf9">Copy cards automatically with a rule</a>. Thanks to javen9881, phaseshift3r, gugmt15 and xet7.</summary>
+
+Add Copy Card to the Board action form with board, list and swimlane selectors.
+Store destination IDs so renaming does not redirect the action. Reuse ordinary
+card copying, including its related-data handling, and append the independent
+copy without moving or mutating the source. Check current write access to both
+boards and reject missing, archived or foreign destination placements.
+
+Stop the same copy action from running repeatedly in one causal chain, so a
+create-card rule cannot copy its own copies forever. Independent events still
+make independent copies. Existing Link Card remains available.
+
+All 29 rule Node suites pass. Two Chromium scenarios cover form creation,
+automatic and manual copies, checklists, comments, source preservation,
+private targets, forged list IDs, revoked destination access and same-board
+recursion. Source inventory warnings remain advisory. Document the behavior
+and remove completed [#4160](https://github.com/wekan/wekan/issues/4160) and
+[#3235](https://github.com/wekan/wekan/issues/3235) from TODO Later.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c273b12e2">Use authorized linked dates in Table sorting and badges</a>. Thanks to ghost, neooleg, Creanimo, GusevVictor, avatar1024 and xet7.</summary>
