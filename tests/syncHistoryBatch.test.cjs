@@ -138,3 +138,32 @@ test('legacy redo snapshots preserve missing/null/empty hashes and reject damage
     assert.throws(() => prepareSyncFieldHistory({ ...options, redoRows: [{ ...legacy, ...change }] }), /plan-invalid/);
   }
 });
+
+test('operation History planning chains cards across no-ops and consumes redo once', () => {
+  const { createSyncHistoryPlanner } = require('../server/lib/syncHistoryBatch');
+  const { randomUUID } = require('node:crypto');
+  const operationId = randomUUID(), redo = redoRow();
+  const input = { userId: 'author', createdAt: new Date(1000), previousHash: redo.integrityHash, redoRows: [redo] };
+  const planner = createSyncHistoryPlanner(input);
+  input.redoRows.length = 0; input.createdAt.setTime(9999);
+  const unchanged = { ...step, after: step.before };
+  const noOp = planner(unchanged, { operationId, index: 0 });
+  assert.deepEqual(noOp.rows, []); assert.deepEqual(noOp.redo, []);
+  const first = planner(step, { operationId, index: 1 });
+  assert.equal(first.redo.length, 1); assert.equal(first.rows[0].createdAt.getTime(), 1000);
+  assert.equal(first.rows[0].previousHash, redo.integrityHash);
+  planner(unchanged, { operationId, index: 2 });
+  const next = planner(step, { operationId, index: 3 });
+  assert.equal(next.rows[0].previousHash, first.rows.at(-1).integrityHash);
+  assert.deepEqual(next.redo, []);
+  assert.notEqual(next.rows[0]._id, first.rows[0]._id);
+  // Interrupted preparation may restart at zero; all identities stay stable.
+  planner(unchanged, { operationId, index: 0 });
+  assert.deepEqual(planner(step, { operationId, index: 1 }), first);
+  for (const context of [{ operationId, index: 4 }, { operationId: randomUUID(), index: 2 }]) {
+    assert.throws(() => planner(step, context), /plan-invalid/);
+  }
+  const foreign = { ...step, before: { ...step.before, boardId: 'other' }, after: { ...step.after, boardId: 'other' } };
+  assert.throws(() => planner(foreign, { operationId, index: 2 }), /plan-invalid/);
+  assert.deepEqual(planner(unchanged, { operationId, index: 2 }).rows, []);
+});

@@ -3,6 +3,7 @@ const { diffFields, groupForField, valueFromContent } = require('../../models/li
 const { canonical, sha256, hashHistoryRow, rowHashIsValid } = require('../../models/lib/changeHistoryIntegrity');
 const { prepareSyncOperationMutation } = require('./syncOperationMutation');
 const { EJSON } = require('bson');
+const { syncOperationEffectId } = require('./syncOperationApply');
 const { exactFieldSelector } = require('../../models/lib/exactFieldSelector');
 const copy = value => EJSON.parse(EJSON.stringify(value), { relaxed: true });
 const fail = () => { throw new Error('sync-history-plan-invalid'); };
@@ -55,6 +56,31 @@ function prepareSyncFieldHistory({ step, effectId, userId, createdAt, previousHa
   validatePlan(plan);
   return copy(plan);
 }
+// One planner per preparation attempt. The journal invokes it in index order;
+// index zero also resets a reused planner after interrupted preparation. Once
+// persisted, replay reads these plans and never invokes the planner again.
+function createSyncHistoryPlanner(options) {
+  const captured = copy(options);
+  let operationId, nextIndex, boardId, previousHash, redoRows;
+  return (step, context) => {
+    const effectId = syncOperationEffectId(context.operationId, context.index);
+    const first = context.index === 0;
+    if (!first && (operationId !== context.operationId || nextIndex !== context.index ||
+        boardId !== step.after?.boardId)) fail();
+    const plan = prepareSyncFieldHistory({ ...captured, step, effectId,
+      previousHash: first ? captured.previousHash ?? null : previousHash,
+      redoRows: first ? captured.redoRows ?? [] : redoRows });
+    // Advance only after successful validation. Baseline-only changes neither
+    // break the chain nor consume the original redo candidates.
+    operationId = context.operationId;
+    boardId = step.after.boardId;
+    nextIndex = context.index + 1;
+    previousHash = plan.rows.at(-1)?.integrityHash ?? (first ? captured.previousHash ?? null : previousHash);
+    redoRows = plan.rows.length ? [] : (first ? captured.redoRows ?? [] : redoRows);
+    return plan;
+  };
+}
+
 function validatePlan(plan) {
   if (!plan || Object.keys(plan).sort().join(',') !== 'boardId,effectId,redo,rows,userId' ||
       typeof plan.effectId !== 'string' || !/^[a-f0-9]{64}$/.test(plan.effectId) ||
@@ -164,4 +190,4 @@ function validateSyncFieldHistory(plan, step, effectId) {
   if (canonical(expected.rows) !== canonical(plan.rows)) fail();
   return true;
 }
-module.exports = { prepareSyncFieldHistory, persistSyncFieldHistory, validateSyncFieldHistory };
+module.exports = { createSyncHistoryPlanner, prepareSyncFieldHistory, persistSyncFieldHistory, validateSyncFieldHistory };

@@ -3,7 +3,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { MongoClient, ObjectId } = require('mongodb');
 const { randomUUID } = require('node:crypto');
-const { prepareSyncFieldHistory, persistSyncFieldHistory, validateSyncFieldHistory } = require('../../server/lib/syncHistoryBatch');
+const { createSyncHistoryPlanner, prepareSyncFieldHistory, persistSyncFieldHistory, validateSyncFieldHistory } = require('../../server/lib/syncHistoryBatch');
 const { applySyncOperationStep, syncOperationEffectId } = require('../../server/lib/syncOperationApply');
 const { runSyncOperation } = require('../../server/lib/syncOperationJournal');
 const { withSyncLease } = require('../../server/lib/syncLease');
@@ -16,7 +16,12 @@ test('persisted Sync History plans resume between event rows before journal comp
   const cards = db.collection('cards'), events = db.collection('history');
   const before = { _id: 'card', boardId: 'board', listId: 'list', title: 'Before', description: 'Before' };
   const step = { kind: 'update', cardId: 'card', before, after: { ...before, title: 'After', description: 'After' } };
-  await cards.insertOne(before);
+  const unchanged = { ...before, _id: 'baseline' };
+  const second = { ...before, _id: 'second' };
+  const planned = [step, { kind: 'update', cardId: 'baseline', before: unchanged,
+    after: { ...unchanged, syncLastSource: { title: 'Before' } } },
+    { kind: 'update', cardId: 'second', before: second, after: { ...second, title: 'Second changed' } }];
+  await cards.insertMany([before, unchanged, second]);
   const old = { _id: 'old', boardId: 'board', userId: 'author', entityId: 'card', entityType: 'card',
     createdAt: new Date(0), undone: true, undoneAt: new Date(10), superseded: false };
   old.integrityHash = hashHistoryRow(old); await events.insertOne(old);
@@ -37,11 +42,10 @@ test('persisted Sync History plans resume between event rows before journal comp
     operations, steps, completions, intentId, assertCurrent,
     scope: { boardId: 'board', listId: 'list', incarnation: null, revision: null, sourceKey: 'source' },
     build: async context => {
-      builds++; await context.assertCurrent(); assert.equal(context.intentId, intentId); return [step];
+      builds++; await context.assertCurrent(); assert.equal(context.intentId, intentId); return planned;
     },
-    prepareEffects: (saved, context) => prepareSyncFieldHistory({ step: saved,
-      effectId: syncOperationEffectId(context.operationId, context.index), userId: 'author',
-      createdAt: new Date(1000), previousHash: later.integrityHash, redoRows: [old, legacy] }),
+    prepareEffects: createSyncHistoryPlanner({ userId: 'author', createdAt: new Date(1000),
+      previousHash: later.integrityHash, redoRows: [old, legacy] }),
     validateEffects: (plan, saved, context) => validateSyncFieldHistory(plan, saved,
       syncOperationEffectId(context.operationId, context.index)),
     apply: (saved, context) => applySyncOperationStep({ cards, step: saved, ...context,
@@ -54,6 +58,10 @@ test('persisted Sync History plans resume between event rows before journal comp
   assert.equal(await completions.countDocuments({}), 0);
   const stored = await steps.findOne({ index: 0 });
   assert.ok(stored.effects.rows.length);
+  const middle = await steps.findOne({ index: 1 }), last = await steps.findOne({ index: 2 });
+  assert.deepEqual(middle.effects.rows, []);
+  assert.equal(last.effects.rows[0].previousHash, stored.effects.rows.at(-1).integrityHash);
+  assert.deepEqual(last.effects.redo, []);
   await steps.updateOne({ _id: stored._id }, { $unset: { effects: '' } });
   await assert.rejects(run(), /effects-invalid/); assert.equal(inserts, 1);
   await steps.replaceOne({ _id: stored._id }, stored);
@@ -63,15 +71,15 @@ test('persisted Sync History plans resume between event rows before journal comp
   await steps.replaceOne({ _id: stored._id }, stored);
   const first = await events.findOne({ _id: { $regex: '^sync-history-' } }); assert.ok(rowHashIsValid(first));
   await events.updateOne({ _id: 'later' }, { $set: { undone: true, undoneAt: new Date(2000) } });
-  interrupt = false; assert.equal((await run()).total, 1);
-  assert.equal(builds, 1); assert.equal(inserts, 2);
+  interrupt = false; assert.equal((await run()).total, 3);
+  assert.equal(builds, 1); assert.equal(inserts, 3);
   assert.deepEqual(await events.findOne({ _id: first._id }), first);
   assert.equal((await events.findOne({ _id: 'old' })).superseded, true);
   assert.deepEqual(await events.findOne({ _id: 'legacy' }), { ...legacy, superseded: true });
   assert.equal((await events.findOne({ _id: 'later' })).superseded, false);
   assert.equal(await operations.countDocuments({}), 0);
   assert.equal(await steps.countDocuments({}), 0, 'card and effect plans share verified cleanup');
-  await run(); assert.equal(inserts, 2); assert.equal(builds, 1);
+  await run(); assert.equal(inserts, 3); assert.equal(builds, 1);
   assert.deepEqual(verifyHistoryRows(await events.find({}).toArray()), []);
 });
 
