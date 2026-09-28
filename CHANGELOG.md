@@ -308,6 +308,13 @@ forks. Six Node/MongoDB cases pass, including four independent clients and
 seventeen rows forming one chain. Verified bootstrap of existing history,
 ordinary writer binding, redo coordination and multi-row Sync ownership remain
 unfinished; this primitive is not yet installed in ChangeHistory.record.
+Existing-chain bootstrap now scans bounded batches, validates row hashes and
+ancestry, and refuses forks or missing predecessors before head insertion.
+Legacy unhashed rows remain untouched; cursor order and timestamps do not
+choose the head. Twelve append/bootstrap Node/MongoDB cases pass, including a
+300-row reversed-time chain and fresh-connection continuation. Writer exclusion
+during bootstrap and ordinary writer binding remain unfinished; no automatic
+migration is enabled.
 Creation units now preserve the ordinary createCard activity payload in a
 bounded private plan with a stable ID and captured names/timestamps. Readback
 confirms insertion, but the journal cannot advance until a separate durable
@@ -1477,6 +1484,23 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5090e5783">Validate History ancestry before initializing a coordinated head</a>. Thanks to xet7.</summary>
+
+Scan existing History in bounded batches and validate hashes, unique successors
+and predecessor reachability. Select the actual chain head independently of
+timestamps and retain unhashed legacy rows unchanged. Refuse damaged or partial
+scans; close cursors on failure and confirm head insertion by exact readback.
+Existing heads are retained instead of reset.
+
+Twelve append/bootstrap Node/MongoDB cases pass, including a 300-row chain with
+reversed timestamps and a new-connection append. Forks, missing predecessors,
+limits, ownership loss and lost replies are covered. The source audit has
+advisory warnings. No UI flow changes; production writer exclusion, ordinary
+writer binding and multi-row Sync ownership remain unfinished.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/355fd742c">Serialize History appends through a durable recoverable head</a>. Thanks to xet7.</summary>
