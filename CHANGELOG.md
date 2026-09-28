@@ -141,8 +141,14 @@ Node/MongoDB cases and nine Chromium cases pass across all Scrum record types.
 Same-operation worker serialization and deletion/recreation ambiguity remain
 unfinished. Failed or damaged records retain the recovery checkpoint.
 Successful insert replies now require the same persisted-event verification;
-missing rows and failed confirmation
-reads keep recovery pending. Finalization now verifies the source
+missing rows and failed confirmation reads keep recovery pending. Restored
+entity writes now require exact persisted values and revisions after each
+write, before timeline insertion and before finalization. False success
+replies, missing targets and failed readback retain the checkpoint. Thirty-six
+Node/MongoDB cases and a full-app false-acknowledgement/retry case pass.
+Batch verification is not a snapshot; atomic cross-document coordination
+remains unfinished.
+Finalization now verifies the source
 History row and persisted undo/redo state before deleting the exact operation's
 checkpoint. Retries preserve the original undo timestamp. Ordinary writes and
 History remain non-atomic, and automatic startup replay is still pending.
@@ -1543,6 +1549,25 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/62f5a4874">Confirm persisted Scrum targets before acknowledging recovery</a>. Thanks to xet7.</summary>
+
+Read back restored values and revisions after each entity write. Verify the
+complete target set again before restoration events and before finalization,
+with checkpoint ownership and source checks around reads. Missing, unapplied
+or changed targets and failed confirmation reads retain recovery evidence
+instead of trusting a successful adapter reply.
+
+Thirty-six Node/MongoDB cases, one full-app Meteor case and nine Chromium
+cases pass. The full-app case simulates success without a card write: the
+checkpoint remains and no restoration event or undone flag is saved. Retrying
+with real storage completes the same operation once. Normal and interrupted
+undo/redo remain covered. The source audit has advisory warnings. Batch
+readback is not a database snapshot; shared writer fencing and cross-document
+atomicity remain unfinished.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a0f84ac11">Verify revisions before acknowledging already-restored Scrum values</a>. Thanks to xet7.</summary>
