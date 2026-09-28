@@ -32,9 +32,9 @@ Problems → **Recovery**.
 
 ## Email delivery queue
 
-The email section groups pending notifications by recipient, with ten recipients
+The email section groups pending and stopped notifications by recipient, with ten recipients
 per page. Search by a literal user ID and press Enter. It shows the queued and
-retrying counts, highest retry count, oldest queued time, next attempt and last
+retrying/stopped counts, fixed failure categories, highest lifetime failure count, oldest queued time, next attempt and last
 operator change. Recipients are identified by username and user ID; mailbox
 fields and message contents are not returned.
 Refresh reads the current database state; this is not a live subscription.
@@ -42,9 +42,14 @@ Refresh reads the current database state; this is not a live subscription.
 - **Pause delivery** holds both existing and subsequently queued messages for
   that recipient. A paused recipient remains listed even with an empty queue.
 - **Resume delivery** removes the hold and makes existing queued messages due
-  now. Normal recipient permissions are rechecked before sending.
+  now. Normal recipient permissions are rechecked before sending. Stopped
+  messages remain stopped.
+- **Retry failed messages** starts a new twelve-attempt cycle for stopped
+  messages, preserving lifetime failure counts and any pause. Fix the reported
+  cause first. Replaying the same control request cannot reset the budget again,
+  even if the restarted cycle has already failed.
 - **Cancel queued messages** asks for confirmation, removes rendered payloads
-  queued up to the request's timestamp, and retains cancellation receipts.
+  pending or stopped up to the request's timestamp, and retains cancellation receipts.
   Messages created afterward are kept. Cancelling does not remove a pause.
 
 Only a currently enabled instance administrator can read or change the queue.

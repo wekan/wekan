@@ -2,16 +2,16 @@ const { createHash, randomUUID } = require('node:crypto');
 const { withSyncLease } = require('./syncLease');
 const { calculateObjectSize } = require('bson');
 const { PAYLOAD_FIELDS } = require('./emailOutboxControl');
+const { MAX_EMAIL_ATTEMPTS, emailRetryDecision } = require('./emailRetryPolicy');
 
 const idFor = (userId, eventId) => createHash('sha256').update(JSON.stringify([userId, eventId])).digest('hex');
 const MAX_JOB_BYTES = 15 * 1024 * 1024;
 const MAX_DIGEST_BYTES = 4 * 1024 * 1024;
-const RETRY_MS = 5000;
 
 // Raw-driver storage is private to the server. The shared renewable reservation
 // primitive uses its own collection here; no list Sync lease is touched.
 function createEmailOutbox({ jobs, leases, controls, getUser, send, replyTo, from,
-  canReceive = async () => true, now = () => new Date(), leaseOptions = {}, delayMs = 30000 }) {
+  canReceive = async () => true, random = Math.random, now = () => new Date(), leaseOptions = {}, delayMs = 30000 }) {
   async function enqueue({ userId, eventId = randomUUID(), subject, html, language, cardId = null, boardId = null }) {
     if (![userId, eventId, subject, html, language].every(value => typeof value === 'string') ||
         !userId || !eventId || !language || /[\r\n]/.test(subject) ||
@@ -20,7 +20,7 @@ function createEmailOutbox({ jobs, leases, controls, getUser, send, replyTo, fro
         (boardId !== null && typeof boardId !== 'string')) throw new Error('invalid-email-job');
     const _id = idFor(userId, eventId), createdAt = now();
     const job = { _id, userId, eventId, subject, html, language, cardId, boardId,
-      state: 'pending', attempts: 0, createdAt,
+      state: 'pending', attempts: 0, cycleAttempts: 0, createdAt,
       nextAttemptAt: new Date(createdAt.getTime() + delayMs) };
     if (calculateObjectSize(job) > MAX_JOB_BYTES) throw new Error('email-job-too-large');
     try { await jobs.insertOne(job); }
@@ -41,7 +41,7 @@ function createEmailOutbox({ jobs, leases, controls, getUser, send, replyTo, fro
         const control = controls && await controls.findOne({ _id: userId });
         await assertCurrent();
         if (control?.cancelBefore) {
-          await jobs.updateMany({ userId, state: 'pending', createdAt: { $lte: control.cancelBefore } }, {
+          await jobs.updateMany({ userId, state: { $in: ['pending', 'failed'] }, createdAt: { $lte: control.cancelBefore } }, {
             $set: { state: 'cancelled', finishedAt: now() }, $unset: PAYLOAD_FIELDS,
           });
           await assertCurrent();
@@ -68,8 +68,35 @@ function createEmailOutbox({ jobs, leases, controls, getUser, send, replyTo, fro
           }
         } finally { await cursor.close(); }
         if (!batch.length) return;
+        const attemptId = randomUUID(), reserved = [];
+        for (const job of batch) {
+          await assertCurrent();
+          const previous = job.cycleAttempts ?? job.attempts ?? 0;
+          if (!Number.isSafeInteger(previous) || previous < 0) throw new Error('invalid-email-attempt-count');
+          const selector = { _id: job._id, userId, state: 'pending',
+            cycleAttempts: job.cycleAttempts ?? { $exists: false },
+            retryRequestId: job.retryRequestId ?? { $exists: false } };
+          if (previous >= MAX_EMAIL_ATTEMPTS) {
+            await jobs.updateOne(selector, { $set: { state: 'failed', lastFailure: 'retry-limit', failedAt: now() },
+              $unset: { nextAttemptAt: '' } });
+            continue;
+          }
+          const cycleAttempts = previous + 1;
+          try {
+            await jobs.updateOne(selector, { $set: { cycleAttempts, attemptId, lastAttemptAt: now() } });
+          } catch (error) {
+            if (!await jobs.findOne({ _id: job._id, userId, state: 'pending', attemptId, cycleAttempts })) throw error;
+          }
+          if (!await jobs.findOne({ _id: job._id, userId, state: 'pending', attemptId, cycleAttempts })) {
+            throw new Error('email-attempt-not-stored');
+          }
+          reserved.push({ ...job, cycleAttempts });
+        }
+        batch = reserved;
+        if (!batch.length) return;
+        let phase = 'preparation';
         let ids = batch.map(job => job._id);
-        let selector = { _id: { $in: ids }, userId, state: 'pending' };
+        let selector = { _id: { $in: ids }, userId, state: 'pending', attemptId };
         try {
           const user = await getUser(userId);
           await assertCurrent();
@@ -84,18 +111,19 @@ function createEmailOutbox({ jobs, leases, controls, getUser, send, replyTo, fro
             else cancelled.push(job._id);
           }
           await assertCurrent();
-          if (cancelled.length) await jobs.updateMany({ _id: { $in: cancelled }, userId, state: 'pending' }, {
+          if (cancelled.length) await jobs.updateMany({ _id: { $in: cancelled }, userId, state: 'pending', attemptId }, {
             $set: { state: 'cancelled', finishedAt: now() },
             $unset: { html: '', subject: '', language: '', cardId: '', nextAttemptAt: '', lastFailure: '' },
           });
           batch = permitted;
           if (!batch.length) return;
           ids = batch.map(job => job._id);
-          selector = { _id: { $in: ids }, userId, state: 'pending' };
+          selector = { _id: { $in: ids }, userId, state: 'pending', attemptId };
           const address = user.emails?.[0]?.address;
-          if (user.loginDisabled || typeof address !== 'string' || !address) throw new Error('email-recipient-unavailable');
+          if (user.loginDisabled || typeof address !== 'string' || !address) throw Object.assign(new Error('Email recipient unavailable'), { code: 'email-recipient-unavailable' });
           const first = batch[0], last = [...batch].reverse().find(job => job.cardId);
           await assertCurrent();
+          phase = 'smtp';
           const result = await send({ to: address.toLowerCase(), from: from(), subject: first.subject,
             html: batch.map(job => job.html).join('<br/>\n\n'), language: first.language,
             userId, replyTo: replyTo(last?.cardId) });
@@ -105,7 +133,8 @@ function createEmailOutbox({ jobs, leases, controls, getUser, send, replyTo, fro
           if (!result?.accepted?.some(value => {
             const accepted = typeof value === 'string' ? value : value?.address;
             return typeof accepted === 'string' && accepted.toLowerCase() === address.toLowerCase();
-          })) throw new Error('email-not-accepted');
+          })) throw Object.assign(new Error('Email acceptance not confirmed'), { code: 'email-not-accepted' });
+          phase = 'acknowledgement';
           await assertCurrent();
           await jobs.updateMany(selector, { $set: { state: 'sent', finishedAt: now() },
             $unset: { html: '', subject: '', language: '', cardId: '', nextAttemptAt: '', lastFailure: '' } });
@@ -116,10 +145,11 @@ function createEmailOutbox({ jobs, leases, controls, getUser, send, replyTo, fro
           // Retry only still-pending rows, including a partially acknowledged
           // batch. No raw SMTP errors, addresses or credentials enter diagnostics.
           for (const job of batch) {
-            const attempts = Math.min(1000, (job.attempts || 0) + 1);
-            await jobs.updateOne({ _id: job._id, userId, state: 'pending' }, {
-              $set: { attempts, lastFailure: 'delivery-failed',
-                nextAttemptAt: new Date(now().getTime() + Math.min(3600000, RETRY_MS * 2 ** Math.min(attempts - 1, 10))) },
+            const attempts = Math.min(Number.MAX_SAFE_INTEGER, (job.attempts || 0) + 1);
+            const decision = emailRetryDecision(error, phase, job.cycleAttempts, now(), random);
+            await jobs.updateOne({ _id: job._id, userId, state: 'pending', attemptId }, {
+              $set: { attempts, ...decision },
+              $unset: decision.state === 'failed' ? { nextAttemptAt: '' } : { failedAt: '' },
             });
           }
         }

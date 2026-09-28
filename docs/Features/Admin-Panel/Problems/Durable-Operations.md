@@ -330,11 +330,21 @@ renewable lease primitive, in a separate collection from list Sync. A normal
 live reservation prevents another process from sending that recipient's digest.
 Expired reservations can be reclaimed. It streams at most 100 rows per digest,
 combining up to 4 MiB of body text; a larger single event travels alone. Individual
-jobs must fit within a 15 MiB BSON budget. SMTP failure retains the rendered data
-and schedules a retry after 5 seconds, then 10, 20 and so on, capped at one hour.
-Backoff survives restart. Deleted users and recipients who lost their active
-board membership or disabled email are cancelled without sending. Missing
-addresses and disabled accounts retain pending work for retry.
+jobs must fit within a 15 MiB BSON budget. Temporary failures retain rendered
+content and retry after 5 seconds, then 10, 20 and so on, with 0–25% positive
+jitter. The base caps at 48 minutes, giving a final spread of 48–60 minutes.
+Backoff survives restart. Each job gets at most twelve attempts per cycle,
+reserved and read back before delivery preparation so a crash consumes its
+attempt. Older records use their stored failure count as the initial budget.
+Numeric SMTP 4xx responses retry; 5xx responses stop. Authentication, envelope,
+message and TLS configuration failures without a temporary response also stop.
+Console-only or hook-suppressed sends without confirmed acceptance require
+operator review. Other failures retry within the same limit. Storage failures
+after SMTP acceptance are classified separately from SMTP rejection.
+Stopped rows retain their payloads and a fixed reason category; raw transport
+errors and credentials are never stored in the queue report. Deleted users and
+recipients who lost their active board membership or disabled email are cancelled without sending. Missing
+addresses and disabled accounts retain work for retry within the same limit.
 
 Only a transport result listing the recipient as accepted acknowledges delivery.
 Meteor's development console output and suppressed send hooks are not delivery
@@ -353,15 +363,14 @@ Delivery is explicitly **at least once**. SMTP acceptance followed by a crash,
 a lost acknowledgement or lease expiry can cause duplicate mail. Leases cannot
 cancel a request already in flight. Original activity creation and notification
 enqueue are still separate operations, so this does not yet prove completion of
-a durable Sync effect. Recipient summaries and pause/resume/cancel controls
+a durable Sync effect. Recipient summaries and pause/resume/cancel/retry controls
 are available in Problems → Recovery; see [the operator guide](Recovery.md).
 Control requests use the recipient lease, persisted holds/cancellation cutoffs
 and stable request receipts with generation checks. A paused recipient stays
 listed with no pending jobs, so the hold can always be removed. Report totals
 scan sorted recipient summaries with bounded memory; concurrent writes can
 change counts between reads, and Refresh obtains a new result.
-Receipt retention policy, terminal-error classification, retry limits/jitter and SMTP
-timeout/concurrency policy remain pending. No external mail provider or FerretDB
+Receipt retention and SMTP timeout/concurrency policy remain pending. No external mail provider or FerretDB
 was exercised by this implementation's local MongoDB/SMTP tests.
 
 Run `tests/integration/emailOutbox.test.cjs` with

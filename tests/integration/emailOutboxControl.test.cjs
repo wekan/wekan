@@ -132,3 +132,58 @@ test('a request interrupted before changing the control cannot reuse a generatio
   assert.equal((await f.control('pause', { requestId })).status, 'superseded');
   assert.equal((await f.controls.findOne({ _id: 'user' })).paused, false);
 });
+
+test('failed rows report safe reasons, retry preserves pause and lifetime counts, cancel scrubs payloads', { skip: !uri }, async t => {
+  const f = await fixture(t), id = await f.enqueue('stopped');
+  await f.jobs.updateOne({ _id: id }, { $set: { state: 'failed', attempts: 12, cycleAttempts: 12,
+    failedAt: f.now(), lastFailure: 'retry-limit' }, $unset: { nextAttemptAt: '' } });
+  const report = await emailOutboxReport(f);
+  assert.equal(report.total, 1); assert.equal(report.rows[0].queued, 1);
+  assert.equal(report.rows[0].failed, 1); assert.equal(report.rows[0].retrying, 0);
+  assert.equal(report.rows[0].nextAttemptAt, null);
+  assert.deepEqual(report.rows[0].failures, [{ reason: 'retry-limit', count: 1 }]);
+  assert.doesNotMatch(JSON.stringify(report), /Private|html|subject/);
+  await f.control('resume'); await f.queue.drain(); assert.equal(f.sent.length, 0);
+  await f.control('pause'); await f.control('retry'); await f.queue.drain();
+  let job = await f.jobs.findOne({ _id: id });
+  assert.equal(job.state, 'pending'); assert.equal(job.cycleAttempts, 0); assert.equal(job.attempts, 12);
+  assert.equal(job.lastFailure, undefined); assert.equal(job.failedAt, undefined); assert.equal(f.sent.length, 0);
+  await f.control('resume'); await f.queue.drain(); assert.equal(f.sent.length, 1);
+  const cancelled = await f.enqueue('cancel-failed');
+  await f.jobs.updateOne({ _id: cancelled }, { $set: { state: 'failed', failedAt: f.now(), lastFailure: 'smtp-rejected' } });
+  await f.control('cancel'); job = await f.jobs.findOne({ _id: cancelled });
+  assert.equal(job.state, 'cancelled'); assert.equal(job.html, undefined); assert.equal(job.failedAt, undefined);
+});
+test('replaying an interrupted retry cannot reset a newly exhausted cycle again', { skip: !uri }, async t => {
+  const f = await fixture(t), id = await f.enqueue('stopped'), requestId = randomUUID();
+  await f.jobs.updateOne({ _id: id }, { $set: { state: 'failed', cycleAttempts: 12 } });
+  const commands = new Proxy(f.commands, { get(target, key) {
+    if (key === 'updateOne') return async () => { throw Error('receipt interrupted'); };
+    const value = target[key]; return typeof value === 'function' ? value.bind(target) : value;
+  } });
+  await assert.rejects(f.control('retry', { requestId, commands }), /interrupted/);
+  assert.equal((await f.jobs.findOne({ _id: id })).cycleAttempts, 0);
+  await f.jobs.updateOne({ _id: id }, { $set: { state: 'failed', cycleAttempts: 12 } });
+  await f.control('retry', { requestId });
+  const job = await f.jobs.findOne({ _id: id });
+  assert.equal(job.state, 'failed'); assert.equal(job.cycleAttempts, 12);
+  await f.control('retry'); assert.equal((await f.jobs.findOne({ _id: id })).cycleAttempts, 0);
+});
+
+test('retry requires durable state and tolerates a lost update acknowledgement', { skip: !uri }, async t => {
+  const f = await fixture(t), id = await f.enqueue('stopped');
+  await f.jobs.updateOne({ _id: id }, { $set: { state: 'failed', cycleAttempts: 12, lastFailure: 'PRIVATE UNKNOWN REASON' } });
+  assert.deepEqual((await emailOutboxReport(f)).rows[0].failures, []);
+  const proxy = update => new Proxy(f.jobs, { get(target, key) {
+    if (key === 'updateMany') return update;
+    const value = target[key]; return typeof value === 'function' ? value.bind(target) : value;
+  } });
+  const requestId = randomUUID();
+  await assert.rejects(f.control('retry', { requestId, jobs: proxy(async () => ({ modifiedCount: 1 })) }), /retry-incomplete/);
+  assert.equal((await f.jobs.findOne({ _id: id })).state, 'failed');
+  await f.control('retry', { requestId, jobs: proxy(async (...args) => {
+    await f.jobs.updateMany(...args); throw Error('lost acknowledgement');
+  }) });
+  assert.equal((await f.jobs.findOne({ _id: id })).state, 'pending');
+  assert.equal((await f.commands.findOne({ _id: requestId })).status, 'completed');
+});

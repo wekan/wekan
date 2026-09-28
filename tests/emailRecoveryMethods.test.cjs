@@ -27,9 +27,9 @@ test('private queue report requires current admin access before and after readin
   }
 });
 test('mutation rechecks administrator access inside the reservation and rate limits both methods', async () => {
-  for (const scenario of ['admin', 'ordinary', 'anonymous', 'disabled', 'revoked']) {
+  for (const action of ['pause', 'resume', 'cancel', 'retry']) for (const scenario of ['admin', 'ordinary', 'anonymous', 'disabled', 'revoked']) {
     const f = fixture(scenario), ctx = { userId: scenario === 'anonymous' ? null : 'user' };
-    const call = () => f.methods.controlEmailRecovery.call(ctx, { userId: 'recipient', action: 'pause', requestId: 'x'.repeat(32) });
+    const call = () => f.methods.controlEmailRecovery.call(ctx, { userId: 'recipient', action, requestId: 'x'.repeat(32) });
     if (scenario === 'admin') assert.equal((await call()).status, 'completed');
     else await assert.rejects(call(), /not-authorized/);
     assert.equal(f.count().writes, scenario === 'admin' ? 1 : 0);

@@ -107,3 +107,36 @@ test('admin pauses new delivery, resumes it, confirms cancellation, and retries 
     await sink.close();
   }
 });
+
+test('permanent SMTP rejection stays stopped until an administrator retries delivery', async ({ page, adminUser, user2 }) => {
+  test.skip(!process.env.WEKAN_TEST_SMTP_PORT, 'Requires local SMTP capture');
+  let accept = false;
+  const sink = await smtpSink(Number(process.env.WEKAN_TEST_SMTP_PORT), { accept: () => accept, rejectionCode: 550 });
+  const id = db.uid('rejected-mail');
+  try {
+    db.insertOne('notificationEmailJobs', queued(id, user2.id, { nextAttemptAt: new Date() }));
+    await expect.poll(() => db.findOne('notificationEmailJobs', { _id: id })?.state, { timeout: 15000 }).toBe('failed');
+    expect(db.findOne('notificationEmailJobs', { _id: id }).lastFailure).toBe('smtp-rejected');
+    await loginWithToken(page, adminUser.id, adminUser.token);
+    await navigateInApp(page, '/admin/problems/recovery');
+    const panel = page.locator('.email-recovery-reports');
+    await panel.locator('.js-table-page-search').fill(user2.id);
+    await panel.locator('.js-table-page-search').press('Enter');
+    await expect(panel).toContainText('Stopped messages: 1');
+    await expect(panel).not.toContainText('PRIVATE-QUEUE');
+    await page.waitForTimeout(5500);
+    expect(db.findOne('notificationEmailJobs', { _id: id }).cycleAttempts).toBe(1);
+    accept = true;
+    await panel.locator('[data-action="retry"]').click();
+    await expect.poll(() => db.findOne('notificationEmailJobs', { _id: id })?.state, { timeout: 15000 }).toBe('sent');
+    const receipt = db.findOne('notificationEmailJobs', { _id: id });
+    expect(receipt.html).toBeUndefined(); expect(receipt.cycleAttempts).toBe(1); expect(receipt.attempts).toBe(1);
+    expect(sink.messages.filter(mail => mail.recipients.includes(user2.email))).toHaveLength(2);
+  } finally {
+    db.deleteMany('notificationEmailJobs', { userId: user2.id });
+    db.deleteMany('notificationEmailLeases', { _id: user2.id });
+    db.deleteMany('notificationEmailControls', { _id: user2.id });
+    db.deleteMany('notificationEmailCommands', { userId: user2.id });
+    await sink.close();
+  }
+});

@@ -12,7 +12,7 @@ async function fixture(t) {
   let time = Date.now();
   const f = { db, jobs, leases, sent, advance: ms => { time += ms; }, now: () => new Date(time),
     user: { _id: 'user', emails: [{ address: 'Test@example.test' }] }, send: async () => {} };
-  f.options = { jobs, leases, delayMs: 100, leaseOptions: { heartbeatMs: 0 }, now: f.now,
+  f.options = { jobs, leases, random: () => 0, delayMs: 100, leaseOptions: { heartbeatMs: 0 }, now: f.now,
     getUser: async () => f.user, from: () => 'from@example.test', replyTo: cardId => cardId || '',
     send: async mail => { sent.push(mail); await f.send(); return { accepted: [mail.to] }; } };
   f.queue = createEmailOutbox(f.options);
@@ -83,11 +83,12 @@ test('lost enqueue acknowledgement is read back; false success never acknowledge
 test('failed acknowledgement keeps pending work and permits an explicitly at-least-once retry', { skip: !uri }, async t => {
   const f = await fixture(t); await f.queue.enqueue(f.job('event')); f.advance(100);
   const jobs = new Proxy(f.jobs, { get(target, key) {
-    if (key === 'updateMany') return async () => { throw Error('database unavailable after SMTP'); };
+    if (key === 'updateMany') return async () => { throw Object.assign(Error('database unavailable after SMTP'), { responseCode: 550 }); };
     const value = target[key]; return typeof value === 'function' ? value.bind(target) : value;
   } });
   await createEmailOutbox({ ...f.options, jobs }).drain();
   assert.equal(await f.jobs.countDocuments({ state: 'pending' }), 1); assert.equal(f.sent.length, 1);
+  assert.equal((await f.jobs.findOne({ state: 'pending' })).lastFailure, 'acknowledgement-failed');
   f.advance(5000); await f.queue.drain(); assert.equal(f.sent.length, 2);
 });
 test('legacy migration resumes after partial insertion without losing or duplicating text', { skip: !uri }, async t => {
@@ -119,14 +120,17 @@ test('expired reservation is recovered but an old sender cannot acknowledge a re
   assert.equal(await f.jobs.countDocuments({ state: 'sent' }), 1);
 });
 
-test('console-only sends, suppressed hooks and rejection results do not acknowledge a job', { skip: !uri }, async t => {
-  const f = await fixture(t); await f.queue.enqueue(f.job('event')); f.advance(100);
+test('console-only sends, suppressed hooks and rejection results await manual review', { skip: !uri }, async t => {
+  const f = await fixture(t); let n = 0;
   for (const result of [undefined, {}, { accepted: [], rejected: ['test@example.test'] }, { accepted: ['other@example.test'] }]) {
+    const id = await f.queue.enqueue(f.job(`event-${n++}`)); f.advance(100);
     await createEmailOutbox({ ...f.options, send: async () => result }).drain();
-    assert.equal(await f.jobs.countDocuments({ state: 'pending' }), 1);
+    const job = await f.jobs.findOne({ _id: id });
+    assert.equal(job.state, 'failed'); assert.equal(job.lastFailure, 'delivery-unconfirmed');
+    assert.ok(job.html); assert.equal(job.nextAttemptAt, undefined);
     f.advance(3600001);
   }
-  await f.queue.drain(); assert.equal(await f.jobs.countDocuments({ state: 'sent' }), 1);
+  await f.queue.drain(); assert.equal(f.sent.length, 0, 'uncertain delivery must not repeat automatically');
 });
 test('large backlogs split into bounded digests while one large event remains deliverable', { skip: !uri }, async t => {
   const f = await fixture(t);
@@ -159,4 +163,53 @@ test('a false-positive acknowledgement write retains the pending job for retry',
   await createEmailOutbox({ ...f.options, jobs }).drain();
   const pending = await f.jobs.findOne({ state: 'pending' });
   assert.equal(pending.attempts, 1); assert.equal(pending.nextAttemptAt - f.now(), 5000);
+});
+
+test('SMTP rejection stops immediately, while temporary failures exhaust a durable twelve-attempt budget', { skip: !uri }, async t => {
+  const f = await fixture(t), rejected = await f.queue.enqueue(f.job('rejected'));
+  f.send = async () => { throw Object.assign(Error('PRIVATE SMTP detail'), { responseCode: 550 }); };
+  f.advance(100); await f.queue.drain();
+  const stopped = await f.jobs.findOne({ _id: rejected });
+  assert.equal(stopped.state, 'failed'); assert.equal(stopped.lastFailure, 'smtp-rejected');
+  assert.equal(stopped.cycleAttempts, 1); assert.ok(stopped.html); assert.equal(stopped.nextAttemptAt, undefined);
+  f.advance(3600001); await createEmailOutbox(f.options).drain(); assert.equal(f.sent.length, 1);
+  const temporary = await f.queue.enqueue(f.job('temporary')); f.advance(100);
+  f.send = async () => { throw Object.assign(Error('PRIVATE temporary detail'), { responseCode: 451 }); };
+  for (let attempt = 1; attempt <= 12; attempt++) {
+    await createEmailOutbox({ ...f.options, random: () => 1 }).drain();
+    const job = await f.jobs.findOne({ _id: temporary });
+    assert.equal(job.cycleAttempts, attempt); assert.equal(job.attempts, attempt);
+    assert.doesNotMatch(JSON.stringify(job), /PRIVATE/);
+    if (attempt < 12) {
+      assert.equal(job.state, 'pending'); assert.equal(job.lastFailure, 'smtp-temporary');
+      const delay = Math.round(Math.min(2880000, 5000 * 2 ** (attempt - 1)) * 1.25);
+      assert.equal(job.nextAttemptAt - f.now(), delay);
+      f.advance(delay - 1); await f.queue.drain(); assert.equal(f.sent.length, attempt + 1);
+      f.advance(1);
+    } else {
+      assert.equal(job.state, 'failed'); assert.equal(job.lastFailure, 'retry-limit');
+      assert.equal(job.nextAttemptAt, undefined);
+    }
+  }
+  f.advance(3600001); await f.queue.drain(); assert.equal(f.sent.length, 13);
+});
+test('crash-reserved and legacy exhausted budgets stop before SMTP; reservations require storage proof', { skip: !uri }, async t => {
+  const f = await fixture(t);
+  for (const extra of [{ cycleAttempts: 12 }, { attempts: 12 }]) {
+    const id = await f.queue.enqueue(f.job(JSON.stringify(extra)));
+    await f.jobs.updateOne({ _id: id }, { $set: extra, ...(!extra.cycleAttempts ? { $unset: { cycleAttempts: '' } } : {}) });
+  }
+  f.advance(100); await f.queue.drain();
+  assert.equal(f.sent.length, 0); assert.equal(await f.jobs.countDocuments({ state: 'failed', lastFailure: 'retry-limit' }), 2);
+  const id = await f.queue.enqueue(f.job('reservation')); f.advance(100);
+  const wrap = update => new Proxy(f.jobs, { get(target, key) {
+    if (key === 'updateOne') return update;
+    const value = target[key]; return typeof value === 'function' ? value.bind(target) : value;
+  } });
+  await assert.rejects(createEmailOutbox({ ...f.options, jobs: wrap(async () => ({ modifiedCount: 1 })) }).drainUser('user'), /attempt-not-stored/);
+  assert.equal(f.sent.length, 0); assert.equal((await f.jobs.findOne({ _id: id })).cycleAttempts, 0);
+  await createEmailOutbox({ ...f.options, jobs: wrap(async (...args) => {
+    await f.jobs.updateOne(...args); throw Error('lost reservation acknowledgement');
+  }) }).drainUser('user');
+  assert.equal(f.sent.length, 1); assert.equal((await f.jobs.findOne({ _id: id })).cycleAttempts, 1);
 });

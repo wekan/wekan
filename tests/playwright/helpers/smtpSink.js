@@ -2,7 +2,7 @@
 
 // Local-only SMTP capture for notification regressions. No mail is relayed.
 const net = require('node:net');
-async function smtpSink(port, { accept = () => true } = {}) {
+async function smtpSink(port, { accept = () => true, rejectionCode = 451 } = {}) {
   const messages = [];
   const sockets = new Set();
   const server = net.createServer(socket => {
@@ -21,7 +21,7 @@ async function smtpSink(port, { accept = () => true } = {}) {
           if (line === '.') {
             messages.push({ recipients: [...recipients], data: data.join('\r\n') });
             data = null; recipients = [];
-            socket.write(accept() ? '250 captured\r\n' : '451 temporary test failure\r\n');
+            socket.write(accept() ? '250 captured\r\n' : `${rejectionCode} test rejection\r\n`);
           } else data.push(line.replace(/^\.\./, '.'));
         } else if (/^(EHLO|HELO)/i.test(line)) socket.write('250 localhost\r\n');
         else if (/^RCPT TO:/i.test(line)) {

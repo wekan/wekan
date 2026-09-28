@@ -1,7 +1,7 @@
 const { withSyncLease } = require('./syncLease');
-const ACTIONS = ['pause', 'resume', 'cancel'];
+const ACTIONS = ['pause', 'resume', 'cancel', 'retry'];
 const REQUEST_ID = /^[A-Za-z0-9_-]{20,64}$/;
-const PAYLOAD_FIELDS = { html: '', subject: '', language: '', cardId: '', nextAttemptAt: '', lastFailure: '' };
+const PAYLOAD_FIELDS = { html: '', subject: '', language: '', cardId: '', nextAttemptAt: '', lastFailure: '', failedAt: '' };
 
 // A stable request receipt prevents a reconnect from repeating an old cancel
 // against mail queued later. Generation fencing also makes an interrupted old
@@ -50,8 +50,8 @@ async function controlEmailOutbox({ jobs, controls, commands, leases, userId, ac
       if ((current?.generation || 0) !== command.generation - 1) throw new Error('email-control-generation-mismatch');
       const set = { generation: command.generation, lastRequestId: requestId,
         lastAction: action, changedAt: command.cutoff, changedBy: actorId };
-      if (action !== 'cancel') set.paused = action === 'pause';
-      else set.cancelBefore = new Date(Math.max(+current?.cancelBefore || 0, +command.cutoff));
+      if (action === 'pause' || action === 'resume') set.paused = action === 'pause';
+      if (action === 'cancel') set.cancelBefore = new Date(Math.max(+current?.cancelBefore || 0, +command.cutoff));
       const selector = { _id: userId, generation: current?.generation ?? { $exists: false } };
       try {
         await controls.updateOne(selector, { $set: set, $inc: { [`${action}Count`]: 1 } }, { upsert: true });
@@ -67,9 +67,18 @@ async function controlEmailOutbox({ jobs, controls, commands, leases, userId, ac
     await guard();
     const pending = { userId, state: 'pending', createdAt: { $lte: command.cutoff } };
     if (action === 'cancel') {
+      pending.state = { $in: ['pending', 'failed'] };
       try { await jobs.updateMany(pending, { $set: { state: 'cancelled', finishedAt: now() }, $unset: PAYLOAD_FIELDS }); }
       catch (error) { if (await jobs.countDocuments(pending)) throw error; }
       if (await jobs.countDocuments(pending)) throw new Error('email-control-cancel-incomplete');
+    } else if (action === 'retry') {
+      const failed = { userId, state: 'failed', createdAt: { $lte: command.cutoff }, retryRequestId: { $ne: requestId } };
+      try {
+        await jobs.updateMany(failed, { $set: { state: 'pending', cycleAttempts: 0,
+          retryRequestId: requestId, nextAttemptAt: command.cutoff },
+        $unset: { failedAt: '', lastFailure: '', attemptId: '' } });
+      } catch (error) { if (await jobs.countDocuments(failed)) throw error; }
+      if (await jobs.countDocuments(failed)) throw new Error('email-control-retry-incomplete');
     } else if (action === 'resume') {
       const waiting = { ...pending, nextAttemptAt: { $gt: command.cutoff } };
       try { await jobs.updateMany(pending, { $set: { nextAttemptAt: command.cutoff } }); }

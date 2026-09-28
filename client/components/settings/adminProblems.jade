@@ -264,6 +264,9 @@ template(name="emailRecoveryReportRow")
     td
       p {{_ 'email-recovery-queued'}}: {{queued}}
       p {{_ 'email-recovery-retrying'}}: {{retrying}}
+      p {{_ 'email-recovery-stopped'}}: {{failed}}
+      each failureRows
+        p.quiet {{_ labelKey}}: {{count}}
       p {{_ 'email-recovery-attempts'}}: {{attempts}}
     td
       p {{_ 'email-recovery-oldest'}}: {{oldestText}}
@@ -276,5 +279,7 @@ template(name="emailRecoveryReportRow")
         button.js-email-queue-action(type="button" data-action="resume" disabled=busy) {{_ 'email-recovery-resume'}}
       else
         button.js-email-queue-action(type="button" data-action="pause" disabled=busy) {{_ 'email-recovery-pause'}}
+      if failed
+        button.js-email-queue-action(type="button" data-action="retry" disabled=busy) {{_ 'email-recovery-retry'}}
       if queued
         button.js-email-queue-action(type="button" data-action="cancel" disabled=busy) {{_ 'email-recovery-cancel'}}
