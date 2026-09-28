@@ -1069,3 +1069,27 @@ the ordinary writer-admission interface. Empty global History is supported.
 Forked History is rejected without changing its rows or creating a head.
 This command does not recover missing records, coordinate redo/undo operations,
 provide multi-row Sync reservations or enable archive jobs automatically.
+
+### Coordinated Scrum restoration events
+
+Scrum undo/redo's strict restoration-event writer now uses the same persistent
+writer admission as ordinary History recording. Its deterministic event ID is
+preserved by the schema-backed append binding. On a migrated board, concurrent
+ordinary edits and restoration retries share one head; retries confirm the
+original event rather than changing its timestamp, payload or predecessor.
+Legacy random-ID events remain acceptable only after exact content and
+integrity verification.
+
+Before migration, restoration insert and persisted-event confirmation both run
+inside legacy admission. A lost insert acknowledgement with a valid readback
+can release its token. A failed confirmation propagates and keeps recovery
+evidence. Closed admission or a missing migrated head never falls back to a
+legacy insert. Existing verified restoration rows can still acknowledge a retry
+without making another write.
+
+Full-app coverage interleaves eight retries of one restoration with five
+ordinary edits after an initial legacy event: seven rows form one chain. It
+also rejects changed retry contents, migration-time insertion and a missing
+coordinated head. This coordinates the restoration audit rows only. The
+restored entity mutations, source-row undo/redo flags, redo invalidation and
+multi-row Sync reservations still need shared operation-level coordination.

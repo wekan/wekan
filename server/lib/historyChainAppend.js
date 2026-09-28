@@ -25,7 +25,7 @@ function validateHistoryChainHead(head, boardId) {
   }
   return head;
 }
-// Internal multi-process append primitive, not yet a replacement for record().
+// Shared multi-process append primitive behind the schema-backed writer.
 // Initializing an existing board requires a verified initialHash under migration
 // exclusion. All writers must use this protocol once that head is installed.
 // One persisted pending row fences the next predecessor; helpers finish it

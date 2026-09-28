@@ -77,3 +77,56 @@ describe('Ordinary History writer migration', function () {
     }
   });
 });
+
+describe('Coordinated Scrum History restoration', function () {
+  this.timeout(15000);
+  it('shares one chain with ordinary edits and deduplicates concurrent restoration retries', async function () {
+    if (!Meteor.isAppTest) this.skip();
+    const { recordScrumRestoreOnce } = require('/server/lib/scrumHistoryRestoreWriter');
+    const { beginHistoryMigration } = require('/server/lib/historyWriterGate');
+    const boardId = Random.id(), migrationId = require('node:crypto').randomUUID();
+    const options = { boardId, batchId: 'legacy', userId: 'author', entityType: 'scrum', entityId: 'card',
+      changeType: 'restored', restoredFromId: 'original', restoredByUserId: 'editor',
+      isCheckpoint: true, newContent: { records: [] } };
+    const restore = batchId => recordScrumRestoreOnce(ChangeHistory, { ...options, batchId });
+    try {
+      const legacy = await restore('legacy');
+      const gate = await HistoryWriterGates.findOneAsync({ boardId });
+      assert.equal(gate.mode, 'legacy'); assert.deepEqual(gate.writers, []);
+      await beginHistoryMigration({ gates: HistoryWriterGates.rawCollection(), boardId, migrationId });
+      await assert.rejects(restore('refused'), /migration-busy/);
+      assert.equal(await ChangeHistory.find({ boardId }).countAsync(), 1);
+      await migrateStoredHistoryChain({ boardId, migrationId, assertDeploymentExclusive: async () => {} });
+      const restored = await Promise.all([
+        ...Array.from({ length: 8 }, () => restore('shared')),
+        ...Array.from({ length: 5 }, (_, i) => ChangeHistory.record({ boardId, userId: 'actor',
+          entityType: 'card', entityId: 'card', changeType: 'edited', newContent: { title: `edit-${i}` } })),
+      ]);
+      assert.equal(new Set(restored.slice(0, 8)).size, 1);
+      assert.ok(restored.every(id => typeof id === 'string'));
+      const saved = await ChangeHistory.findOneAsync(restored[0], { transform: null });
+      assert.equal(await restore('shared'), saved._id);
+      assert.deepEqual(await ChangeHistory.findOneAsync(saved._id, { transform: null }), saved);
+      await assert.rejects(recordScrumRestoreOnce(ChangeHistory, { ...options, batchId: 'shared', newContent: {} }), /Conflicting/);
+      assert.equal(await restore('legacy'), legacy);
+      const rows = await ChangeHistory.find({ boardId }, { transform: null }).fetchAsync();
+      assert.equal(rows.length, 7);
+      const successors = new Map();
+      for (const row of rows) {
+        assert.ok(rowHashIsValid(row)); assert.ok(!successors.has(row.previousHash));
+        successors.set(row.previousHash, row.integrityHash);
+      }
+      let hash = null, count = 0;
+      while (successors.has(hash)) { hash = successors.get(hash); count++; }
+      assert.equal(count, rows.length);
+      assert.equal((await HistoryChainHeads.findOneAsync({ boardId })).hash, hash);
+      await HistoryChainHeads.rawCollection().deleteOne({ boardId });
+      await assert.rejects(restore('missing-head'), /not-initialized/);
+      assert.equal(await ChangeHistory.find({ boardId }).countAsync(), 7);
+    } finally {
+      await ChangeHistory.rawCollection().deleteMany({ boardId });
+      await HistoryChainHeads.rawCollection().deleteMany({ boardId });
+      await HistoryWriterGates.rawCollection().deleteMany({ boardId });
+    }
+  });
+});

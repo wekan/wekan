@@ -27,23 +27,30 @@ async function recordScrumRestoreOnce(history, options) {
   // rewriting their timestamp or chain link, before acknowledging the journal.
   const existing = await history.findOneAsync({ boardId, batchId, userId });
   if (existing) return matches(existing);
-  const previous = await history.findOneAsync(
-    { boardId, integrityHash: { $nin: [null, ''] } }, { sort: { createdAt: -1 } });
-  const row = { ...event, _id: id, createdAt: new Date(), undone: false, undoneAt: null,
-    superseded: false, previousHash: previous?.integrityHash ?? null };
-  row.integrityHash = hashHistoryRow(row);
-  let writeError;
-  try { await history.insertAsync(row); } catch (error) { writeError = error; }
-  // A successful return is not enough to acknowledge the recovery journal:
-  // collection hooks may refuse an insert, or storage may have changed it.
-  // Read the stable key back on both success and a lost acknowledgement.
-  let committed;
-  try { committed = await history.findOneAsync(id); }
-  catch (error) { throw writeError || error; }
-  if (committed) {
-    if (committed._id !== id) throw new Error('Conflicting Scrum History restoration record');
-    return matches(committed);
-  }
-  throw writeError || new Error('Unconfirmed Scrum History restoration record');
+  const row = { ...event, _id: id, createdAt: new Date(), undone: false,
+    undoneAt: null, superseded: false };
+  const legacy = async document => {
+    const previous = await history.findOneAsync(
+      { boardId, integrityHash: { $nin: [null, ''] } }, { sort: { createdAt: -1 } });
+    const saved = { ...document, previousHash: previous?.integrityHash ?? null };
+    saved.integrityHash = hashHistoryRow(saved);
+    return history.insertAsync(saved);
+  };
+  const write = async append => {
+    let writeError;
+    try { await append(row); } catch (error) { writeError = error; }
+    // Confirm inside writer admission so a lost insert reply with a verified
+    // row can release its token. A failed confirmation retains recovery evidence.
+    let committed;
+    try { committed = await history.findOneAsync(id); }
+    catch (error) { throw writeError || error; }
+    if (committed) {
+      if (committed._id !== id) throw new Error('Conflicting Scrum History restoration record');
+      return matches(committed);
+    }
+    throw writeError || new Error('Unconfirmed Scrum History restoration record');
+  };
+  return typeof history.withHistoryWriter === 'function'
+    ? history.withHistoryWriter({ boardId, row, write, legacy }) : write(legacy);
 }
 module.exports = { recordScrumRestoreOnce };

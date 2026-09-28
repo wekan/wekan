@@ -106,3 +106,29 @@ test('an unavailable confirmation read preserves the original write failure', as
   await assert.rejects(recordScrumRestoreOnce(db, options), error => error === failure);
   assert.equal(db.rows.size, 0);
 });
+test('restoration uses writer admission, preserves its stable ID and never falls back on rejection', async () => {
+  const db = store(); let captured, calls = 0;
+  db.withHistoryWriter = async ({ boardId, row, write, legacy }) => {
+    calls++; captured = structuredClone(row);
+    assert.equal(boardId, options.boardId);
+    assert.equal(Object.hasOwn(row, 'previousHash'), false);
+    return write(legacy);
+  };
+  const id = await recordScrumRestoreOnce(db, options);
+  assert.equal(captured._id, id); assert.equal(calls, 1);
+  await recordScrumRestoreOnce(db, options); assert.equal(calls, 1);
+  db.withHistoryWriter = async () => { throw Error('migration busy'); };
+  await assert.rejects(recordScrumRestoreOnce(db, { ...options, batchId: 'new' }), /migration busy/);
+  assert.equal(db.inserts, 1);
+});
+test('lost legacy acknowledgements are verified within admission before releasing ownership', async () => {
+  const db = store(); db.fail = 'after'; let confirmed = false;
+  db.withHistoryWriter = async ({ write, legacy }) => {
+    const result = await write(legacy);
+    assert.ok(db.rows.has(result)); confirmed = true; return result;
+  };
+  await recordScrumRestoreOnce(db, options); assert.equal(confirmed, true);
+  db.fail = 'before'; confirmed = false;
+  await assert.rejects(recordScrumRestoreOnce(db, { ...options, batchId: 'missing' }), /unavailable/);
+  assert.equal(confirmed, false);
+});

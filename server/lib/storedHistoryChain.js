@@ -64,7 +64,7 @@ export async function appendStoredHistoryChain({ row, assertCurrent }) {
 // Ordinary recording participates immediately, but boards remain on their old
 // append path until explicitly migrated. Schema errors precede admission.
 ChangeHistory.withHistoryWriter = async ({ boardId, row, write, legacy }) => {
-  const prepared = prepareStoredHistoryRow({ ...row, _id: Random.id() });
+  const prepared = prepareStoredHistoryRow({ ...row, _id: row._id ?? Random.id() });
   return withHistoryWriter({ gates: HistoryWriterGates.rawCollection(), boardId,
     writeLegacy: ({ assertCurrent }) => write(async document => {
       await assertCurrent(); const id = await legacy(document); await assertCurrent(); return id;
