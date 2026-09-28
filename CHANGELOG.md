@@ -395,8 +395,14 @@ An internal acceptance helper now derives intended recipients with Meteor's
 native MailComposer and requires all intended addresses to be accepted with
 no rejected or unexpected recipients. Five tests pass, including the actual
 composer with display names, quoted commas, groups and international domains.
-The helper does not yet persist send attempts or install a dispatch worker;
-ambiguous-send recovery and operator handling remain unfinished.
+An internal dispatcher now persists and reads back a unique sending attempt
+before invoking its sender, verifies all-recipient acceptance and conditionally
+stores exact completion. Confirmed sent receipts skip replay; existing sending
+attempts remain uncertain and refuse automatic resend. Lost database replies
+reconcile through readback. Twenty Node/MongoDB/native-composer cases pass,
+including fresh-connection recovery; SMTP responses remain scripted. Production
+storage/sender binding, cancellation/capacity integration, ambiguous-send
+operator handling and worker activation remain unfinished.
 Private operation, step and completion collections are now registered with
 server-only adapters, denied browser writes, recovery indexes and no TTL.
 The stored-operation entry point holds the list lease and requires fresh access
@@ -1394,6 +1400,24 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/43d73ed90">Persist rule email attempts and refuse ambiguous automatic replay</a>. Thanks to xet7.</summary>
+
+Add internal dispatch with a validated immutable command, native recipient
+envelope and unique sending attempt read back before transport. Require full
+acceptance and exact conditional completion readback before returning the
+invocation receipt. Reuse confirmed sent state and retain uncertain attempts
+without automatic resend. Never copy raw SMTP errors into attempt metadata.
+
+Twenty Node/MongoDB/native-composer cases pass, including lost replies, false
+write acknowledgements, partial acceptance, ownership loss, competing attempts
+and fresh-connection reuse of both sent and uncertain state. The source audit
+completes with advisory warnings. SMTP responses are scripted, not live network
+delivery. Production storage/sender binding, cancellation/capacity integration,
+operator recovery and manual/cron activation remain TODO.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/2e32025c3">Verify rule email acceptance against the native transport envelope</a>. Thanks to xet7.</summary>
