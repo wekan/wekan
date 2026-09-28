@@ -356,8 +356,14 @@ Only the owning async write defers planned History/activity recording; unrelated
 and later edits retain normal recording. Full-app Meteor coverage verifies
 schema defaults, conditional retries, archive/estimate edits, invalid-value
 rejection and ordinary recording after failure. Production activation still
-needs the activity adapter, durable delivery and shared History coordination;
-manual/cron Sync does not invoke this adapter yet.
+needs durable delivery and shared History coordination; manual/cron Sync
+does not invoke these adapters yet.
+The internal activity adapter now preserves validated saved timestamps and
+payloads through ordinary collection insertion. Its scoped hooks defer rules
+and notification/webhook delivery, while disabled activity recording still
+cancels insertion. Lost delivery resumes from the same stored event and still
+requires a separate receipt. Twenty Node suites and two full-app Meteor tests
+pass; durable downstream delivery and job activation remain unfinished.
 Activity notification and webhook payloads now preserve zero, false, empty
 text and explicit null, while absent values remain omitted. This fixes lost
 zero estimates and unchecked custom-field values. SMTP and HTTP-serialization
@@ -1036,6 +1042,30 @@ duplication preserve daily history too. **API diagnostics** omit request
 secrets, and reviewed **translations** regain their target-language meaning.
 
 This release improves security diagnostics:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f2728947c">Preserve saved Sync activity timestamps and defer delivery</a>. Thanks to xet7.</summary>
+
+Bind the internal activity adapter to a validated saved effect plan and actor.
+Ordinary collection insertion retains its activity feature gate. Only an exact
+saved payload inside the owning async context preserves its original timestamps
+and defers the rule and notification/webhook hooks to separate durable delivery.
+Each hook consumes one slot; foreign payloads and callbacks outliving the write
+retain ordinary behavior. Reads return stored data without helper transforms.
+
+A delivery interruption leaves one exact event for retry and still requires a
+receipt before completion. Twenty Node suites pass, including MongoDB replay,
+actor/payload rejection, async isolation and ordinary webhook behavior. Two
+full-app Meteor tests pass against the real card and activity hooks, verifying
+saved timestamps, retry without duplication, disabled recording, and normal
+rule/notification invocation after scoped work. The source audit passes with
+informational fingerprint advisories. No production UI path changes here.
+
+Manual/cron activation, shared History-chain coordination and durable rules,
+notifications and webhook delivery remain in TODO Later. The test acknowledges
+delivery through a callback; it does not claim production delivery completion.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/dc9ce0537">Apply saved Sync writes through card hooks</a>. Thanks to xet7.</summary>
