@@ -3,7 +3,7 @@ import { check } from 'meteor/check';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import Activities from '/models/activities';
 import { ActivityNotificationIntents } from '/server/notifications/activityIntents';
-import { ActivityNotificationPlans, ActivityNotificationLeases, ActivityNotificationControls, resumeActivityNotifications } from '/server/notifications/activityPlans';
+import { ActivityNotificationPlans, ActivityNotificationLeases, ActivityNotificationControls, resumeActivityNotifications, cleanupCancelledActivityNotifications } from '/server/notifications/activityPlans';
 const { controlActivityNotification, cancelActivityNotification } = require('/server/lib/activityNotificationControl');
 const { activityNotificationReport } = require('/server/lib/activityNotificationReport');
 async function assertAdmin(userId) {
@@ -50,6 +50,8 @@ Meteor.methods({
       const result = await cancelActivityNotification({ ...request, actorId: this.userId,
         controls: ActivityNotificationControls.rawCollection(), intents: ActivityNotificationIntents.rawCollection(),
         leases: ActivityNotificationLeases.rawCollection(), assertAdmin: () => assertAdmin(this.userId) });
+      try { await cleanupCancelledActivityNotifications(request.intentId, () => assertAdmin(this.userId)); }
+      catch (error) { console.error('Cancelled activity payload cleanup incomplete; automatic recovery will retry'); }
       await assertAdmin(this.userId);
       return result;
     } catch (error) {

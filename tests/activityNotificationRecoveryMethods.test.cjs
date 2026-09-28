@@ -13,6 +13,7 @@ function fixture(scenario, failure) {
     check() {}, DDPRateLimiter: { addRule: (...args) => rules.push(args) },
     Activities: collection, ActivityNotificationIntents: collection, ActivityNotificationPlans: collection, ActivityNotificationLeases: collection, ActivityNotificationControls: collection,
     require: () => ({ cancelActivityNotification: async options => { await options.assertAdmin(); if (failure) throw failure; writes++; return { revision: 1, paused: true, cancelled: true }; }, controlActivityNotification: async options => { await options.assertAdmin(); if (failure) throw failure; writes++; return { revision: 1, paused: true }; }, activityNotificationReport: async () => { reads++; if (failure) throw failure; return { rows: [], total: 0 }; } }),
+    cleanupCancelledActivityNotifications: async (id, guard) => { await guard(); },
     resumeActivityNotifications: async (id, options) => { await options.assertAllowed(); if (failure) throw failure; writes++; return 'completed'; },
   };
   vm.runInNewContext(fs.readFileSync(require.resolve('../server/methods/activityNotificationRecovery.js'), 'utf8').replace(/^import .*;\n/gm, ''), context);

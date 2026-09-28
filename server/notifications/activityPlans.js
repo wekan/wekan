@@ -16,6 +16,7 @@ import { ActivityNotificationIntents, acknowledgeActivityNotifications } from '.
 const { EJSON, calculateObjectSize } = require('bson');
 const { compactActivityNotificationPlan, createActivityPlanCleanup, activityPlanCleanupInterval } = require('/server/lib/activityNotificationPlanRetention');
 const { planId, ensureActivityNotificationPlan, deliverActivityNotificationPlan } = require('/server/lib/activityNotificationPlan');
+const { compactCancelledActivityNotification } = require('/server/lib/activityNotificationCancellationRetention');
 const { withSyncLease } = require('/server/lib/syncLease');
 const { assertActivityNotificationUnpaused } = require('/server/lib/activityNotificationControl');
 const { createActivityNotificationRecovery, activityNotificationRecoveryInterval } = require('/server/lib/activityNotificationRecovery');
@@ -118,8 +119,19 @@ export async function deliverStoredActivityNotifications(activity, dispatchUserI
     const state = await readActivityNotificationIntentState({ intents: ActivityNotificationIntents.rawCollection(),
       activity, dispatchUserId, assertCurrent });
     if (state === 'completed') return 'completed';
+    if (state === 'cancelled') throw new Error('activity-notification-cancelled');
     return deliverWithinReservation(activity, dispatchUserId, buildContext, assertCurrent);
   });
+}
+const cancellationCleanupOptions = (intentId, assertCurrent) => ({ intentId, assertCurrent,
+  controls: ActivityNotificationControls.rawCollection(), intents: ActivityNotificationIntents.rawCollection(),
+  plans: ActivityNotificationPlans.rawCollection() });
+export async function cleanupCancelledActivityNotifications(intentId, assertAllowed = async () => {}) {
+  await assertAllowed();
+  return withSyncLease(ActivityNotificationLeases.rawCollection(), intentId, ({ assertCurrent: assertOwner }) =>
+    compactCancelledActivityNotification(cancellationCleanupOptions(intentId, async () => {
+      await assertOwner(); await assertAllowed();
+    })));
 }
 export async function resumeActivityNotifications(intentId, { assertAllowed = async () => {} } = {}) {
   if (typeof assertAllowed !== 'function') throw new Error('activity-recovery-access-guard-required');
@@ -128,8 +140,15 @@ export async function resumeActivityNotifications(intentId, { assertAllowed = as
     const assertCurrent = async () => { await assertOwner(); await assertAllowed(); };
     await assertCurrent();
     const row = await ActivityNotificationIntents.rawCollection().findOne({ _id: intentId });
+    if (row?.state === 'cancelled') throw new Error('activity-notification-cancelled');
     if (!row || row.state !== 'pending') return 'skipped';
-    await assertActivityNotificationUnpaused({ controls: ActivityNotificationControls.rawCollection(), intentId });
+    try {
+      await assertActivityNotificationUnpaused({ controls: ActivityNotificationControls.rawCollection(), intentId });
+    } catch (error) {
+      if (error.message !== 'activity-notification-cancelled') throw error;
+      await compactCancelledActivityNotification(cancellationCleanupOptions(intentId, assertCurrent));
+      throw error;
+    }
     const activity = await readActivityForNotificationIntent({ intents: ActivityNotificationIntents.rawCollection(),
       activities: Activities.rawCollection(), intentId, assertCurrent });
     // Load lazily to avoid a module cycle with the ordinary after.insert hook.

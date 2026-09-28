@@ -1,6 +1,7 @@
 'use strict';
 const { canonical, sha256 } = require('../../models/lib/changeHistoryIntegrity');
 const { readActivityNotificationControl } = require('./activityNotificationControl');
+const { validateCancelledActivityNotificationIntent } = require('./activityNotificationCancellationReceipt');
 const { planId } = require('./activityNotificationPlan');
 const text = value => typeof value === 'string' && value.length > 0 && value.length <= 1024;
 const hash = value => typeof value === 'string' && /^[a-f0-9]{64}$/.test(value);
@@ -15,20 +16,34 @@ async function activityNotificationReport({ intents, activities, plans, leases, 
     throw new Error('invalid-activity-notification-report');
   }
   const pattern = search.trim() ? new RegExp(escape(search.trim()), 'i') : null;
-  const query = { state: 'pending', ...(pattern ? { $or: ['_id', 'activity._id', 'activity.boardId', 'activity.cardId']
+  const query = { state: { $in: ['pending', 'cancelled'] }, ...(pattern ? { $or: ['_id', 'activity._id', 'activity.boardId', 'activity.cardId', 'activityId', 'boardId', 'cardId']
     .map(key => ({ [key]: pattern })) } : {}) };
   const total = await intents.countDocuments(query);
   page = Math.min(page, Math.max(1, Math.ceil(total / 10)));
   const pending = await intents.find(query, { projection: { _id: 1, version: 1, state: 1, activityHash: 1,
-    writerId: 1, dispatchUserId: 1, 'activity._id': 1, 'activity.createdAt': 1, 'activity.boardId': 1, 'activity.cardId': 1 } })
+    writerId: 1, dispatchUserId: 1, activityId: 1, boardId: 1, cardId: 1, createdAt: 1, 'activity._id': 1, 'activity.createdAt': 1, 'activity.boardId': 1, 'activity.cardId': 1 } })
     .sort({ _id: 1 }).skip((page - 1) * 10).limit(10).toArray();
   const rows = [];
   for (const row of pending) {
-    const activityId = text(row.activity?._id) ? row.activity._id : '';
+    const summary = row.state === 'cancelled' ? { _id: row.activityId, boardId: row.boardId, cardId: row.cardId, createdAt: row.createdAt } : row.activity;
+    const activityId = text(summary?._id) ? summary._id : '';
     const item = { intentId: hash(row._id) ? row._id : '', activityId,
-      boardId: text(row.activity?.boardId) ? row.activity.boardId : '',
-      cardId: text(row.activity?.cardId) ? row.activity.cardId : '',
-      createdAt: date(row.activity?.createdAt), status: 'invalid', canRetry: false, paused: false, controlRevision: null, canControl: false };
+      boardId: text(summary?.boardId) ? summary.boardId : '',
+      cardId: text(summary?.cardId) ? summary.cardId : '',
+      createdAt: date(summary?.createdAt), status: 'invalid', canRetry: false, paused: false, controlRevision: null, canControl: false };
+    if (row.state === 'cancelled') {
+      try {
+        validateCancelledActivityNotificationIntent(row, row._id);
+        const control = await readActivityNotificationControl({ controls, intentId: row._id });
+        if (control.cancelled) {
+          item.status = 'cancelled'; item.paused = true; item.controlRevision = control.revision;
+        }
+      } catch (error) {
+        if (!['activity-cancellation-cleanup-invalid', 'activity-notification-control-invalid'].includes(error.message)) throw error;
+      }
+      rows.push(item);
+      continue;
+    }
     const valid = item.intentId && activityId && row.version === 1 && hash(row.activityHash) && text(row.writerId) &&
       (row.dispatchUserId === null || text(row.dispatchUserId)) &&
       row._id === sha256(canonical(['activity-notification-intent', activityId]));

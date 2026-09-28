@@ -72,15 +72,18 @@ describe('Activity notification recovery', function () {
       assert.ok((await recoverActivityNotifications()).failed >= 1);
       await cancelActivityNotification({ ...control, intentId: orphan._id, expectedRevision: 0,
         requestId: 'cancel-orphan-request-123' });
-      await assert.rejects(resumeActivityNotifications(orphan._id), /notification-cancelled/);
       assert.ok((await recoverActivityNotifications()).skipped >= 1);
+      await assert.rejects(resumeActivityNotifications(orphan._id), /notification-cancelled/);
+      assert.equal((await intents.findOne({ _id: orphan._id })).state, 'cancelled');
+      assert.equal((await intents.findOne({ _id: orphan._id })).activity, undefined);
+      assert.equal((await ActivityNotificationPlans.rawCollection().findOne({ _id: planId(orphanId) })).cancelled, true);
       assert.equal(await Activities.findOneAsync(orphanId), undefined);
 
     } finally {
       release(); Object.assign(activityNotificationServices, saved);
       await Activities.rawCollection().deleteMany({ _id: { $in: [activityId, orphanId] } });
       await intents.deleteMany({ _id: { $in: [intent?._id, orphan?._id].filter(Boolean) } });
-      await ActivityNotificationPlans.rawCollection().deleteMany({ _id: planId(activityId) });
+      await ActivityNotificationPlans.rawCollection().deleteMany({ _id: { $in: [planId(activityId), planId(orphanId)] } });
       await ActivityNotificationControls.rawCollection().deleteMany({ _id: { $in: [intent?._id, orphan?._id].filter(Boolean) } });
       await leases.deleteMany({ _id: { $in: [intent?._id, orphan?._id].filter(Boolean) } });
       await EmailJobs.rawCollection().deleteOne({ _id: idFor(userId, activityId) });

@@ -82,3 +82,24 @@ test('false acknowledgements, changed cancellation and stale writers cannot remo
     if (++checks === 2) await f.controls.updateOne({ _id: f.intentId }, { $set: { revision: 2 } });
   } }), /control-changed/);
 });
+test('compact receipts remain searchable and never authorize capture or completion replay', { skip: !uri }, async t => {
+  const f = await fixture(t); await f.cancel(); await compact(f);
+  const { activityNotificationReport: report } = require('../../server/lib/activityNotificationReport');
+  const { readActivityNotificationIntentState, completeActivityNotificationIntent } = require('../../server/lib/activityNotificationIntent');
+  const noRead = { findOne: () => assert.fail('compact report must not read original content') };
+  const result = await report({ ...f, activities: noRead, plans: noRead }, { search: 'event', page: 1 });
+  assert.equal(result.total, 1);
+  assert.equal(result.rows[0].status, 'cancelled');
+  assert.equal(result.rows[0].activityId, 'event');
+  assert.equal(result.rows[0].canRetry, false);
+  assert.equal(result.rows[0].canControl, false);
+  assert.doesNotMatch(JSON.stringify(result), /PRIVATE|writerId|dispatchUserId|activityHash/);
+  assert.equal(await readActivityNotificationIntentState({ ...f, dispatchUserId: null }), 'cancelled');
+  await assert.rejects(ensureActivityNotificationIntent({ ...f, dispatchUserId: null }), /notification-cancelled/);
+  await assert.rejects(completeActivityNotificationIntent({ ...f, dispatchUserId: null }), /notification-cancelled/);
+  await f.controls.deleteOne({ _id: f.intentId });
+  const invalid = (await report({ ...f, activities: noRead, plans: noRead })).rows[0];
+  assert.equal(invalid.status, 'invalid');
+  assert.equal(invalid.canRetry, false);
+  assert.equal(invalid.canControl, false);
+});

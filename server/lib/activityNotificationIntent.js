@@ -1,5 +1,6 @@
 'use strict';
 const { EJSON, calculateObjectSize } = require('bson');
+const { validateCancelledActivityNotificationIntent } = require('./activityNotificationCancellationReceipt');
 const { randomUUID } = require('node:crypto');
 const { canonical, sha256 } = require('../../models/lib/changeHistoryIntegrity');
 const copy = value => EJSON.parse(EJSON.stringify(value), { relaxed: true });
@@ -21,7 +22,13 @@ function validateIntent(row, activity, dispatchUserId = activity.userId ?? null)
   if (!row || row.version !== 1 || row._id !== expected._id || row.activityHash !== expected.activityHash ||
       !text(row.writerId) || (row.dispatchUserId !== null && !text(row.dispatchUserId)) ||
       row.dispatchUserId !== dispatchUserId ||
-      !['pending', 'completed'].includes(row.state)) fail();
+      !['pending', 'completed', 'cancelled'].includes(row.state)) fail();
+  if (row.state === 'cancelled') {
+    validateCancelledActivityNotificationIntent(row, expected._id);
+    if (row.activityId !== activity._id || row.boardId !== (activity.boardId ?? null) ||
+        row.cardId !== (activity.cardId ?? null) || +row.createdAt !== +activity.createdAt) fail();
+    return row;
+  }
   const fields = row.state === 'pending'
     ? '_id,activity,activityHash,dispatchUserId,state,version,writerId'
     : '_id,activityHash,dispatchUserId,state,version,writerId';
@@ -49,6 +56,7 @@ async function captureIntent({ intents, activity, assertCurrent, dispatchUserId 
     if (!row) throw failure || new Error('activity-notification-intent-unconfirmed');
   }
   validateIntent(row, activity, dispatchUserId);
+  if (row.state === 'cancelled') throw new Error('activity-notification-cancelled');
   await assertCurrent();
   return { intent: copy(row), ownsInsertion: row.writerId === expected.writerId };
 }
@@ -102,6 +110,7 @@ async function completeActivityNotificationIntent({ intents, activities, activit
   await assertCurrent();
   const row = await intents.findOne({ _id: expected._id });
   validateIntent(row, activity, dispatchUserId);
+  if (row.state === 'cancelled') throw new Error('activity-notification-cancelled');
   if (row.state === 'completed') { await assertCurrent(); return row._id; }
   await readActivityForNotificationIntent({ intents, activities, intentId: row._id, assertCurrent });
   const receipt = { ...row };

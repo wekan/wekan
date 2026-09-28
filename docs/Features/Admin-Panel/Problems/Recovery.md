@@ -283,7 +283,7 @@ not certify the complete stored payload or current recipient permissions;
 retry validates those before each effect and reports a safe failure message.
 Missing or changed activities are never recreated. An administrator can cancel
 remaining delivery, including orphaned work, as described below. Pending and
-cancelled payloads remain retained; payload cleanup is not implemented yet.
+cancelled payloads are compacted into permanent receipts as described below.
 
 ### Pause and resume activity notifications
 
@@ -342,15 +342,16 @@ operator decision to abandon remaining delivery, not proof of delivery.
 Cancellation does not recall existing tray notifications or email already in
 the SMTP outbox; use the separate email queue controls for unsent queued mail.
 It cannot undo a local effect already authorized by a former worker. Permanent
-control and delivery receipts remain to prevent replay. Intent snapshots and
-rendered plans are retained for now; a later cleanup stage must remove their
-payloads without deleting cancellation or deduplication evidence.
+control and delivery receipts remain to prevent replay. Cancellation removes
+intent snapshots and rendered plans through guarded compaction without deleting
+cancellation or deduplication evidence. Failed cleanup retains its evidence for
+retry.
 
-### Cancellation payload cleanup (internal)
+### Cancellation payload cleanup
 
-`server/lib/activityNotificationCancellationRetention.js` now implements an
-internal two-stage compactor. It requires the same delivery reservation and an
-unchanged valid terminal cancellation control. It validates the complete
+`server/lib/activityNotificationCancellationRetention.js` implements a two-stage
+compactor used by production cancellation. It requires the same delivery
+reservation and an unchanged valid terminal cancellation control. It validates the complete
 pending intent and any stored recipient plan before replacing payloads.
 
 First, it replaces the plan with a permanent cancellation receipt containing
@@ -366,9 +367,17 @@ cleanup and stale writers. A mismatch retains the affected evidence and fails
 instead of claiming successful removal. Already compacted receipts can be
 checked repeatedly. Pending work without a terminal cancellation is untouched.
 
-This helper is not scheduled or invoked by the production cancellation method
-yet. Recovery report queries must first learn the compact cancelled intent
-shape, and delivery/capture consumers must recognize terminal receipts without
-recreating data. Integration, bounded background scheduling, and actual-app and
-browser verification remain pending. Production cancellation still retains
-its snapshots and rendered plans until those steps are complete.
+The cancellation method attempts compaction after confirming the terminal
+control. If cleanup fails or the process stops, the existing bounded activity
+recovery scan retries cancelled pending intents under the delivery reservation.
+The scan processes at most 100 IDs per pass and advances past failures. It uses
+`ACTIVITY_NOTIFICATION_RECOVERY_INTERVAL_MS`; no separate cleanup timer is
+needed. Once the intent is compacted, its terminal state leaves the pending
+scan. The report searches both pending and compact cancelled metadata and
+keeps cancelled rows visible without fetching their old activity or plan.
+
+Capture and completion reject compact cancellation receipts instead of
+recreating a payload or declaring delivery successful. Missing or malformed
+cancellation evidence keeps report actions disabled. Corrupt/mismatched
+payloads are retained for investigation rather than erased. Ordinary pending
+or merely paused work is not expired or automatically cancelled.

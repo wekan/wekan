@@ -147,6 +147,10 @@ test('cancellation requires confirmation, stops remaining delivery and cannot be
     await panel.locator('.js-cancel-activity-notification').click();
     await expect(panel).toContainText('Activity notification delivery is cancelled.');
     expect(db.findOne('activityNotificationControls', { _id: orphanIntent }).cancelled).toBe(true);
+    expect(db.findOne('activityNotificationIntents', { _id: orphanIntent }).activity).toBeUndefined();
+    expect(db.findOne('activityNotificationIntents', { _id: intentId }).activity).toBeUndefined();
+    expect(db.findOne('activityNotificationPlans', { _id: planId(id) }).plan).toBeUndefined();
+    expect(db.findOne('activityNotificationPlans', { _id: planId(orphan) }).cancelled).toBe(true);
     expect(db.findOne('activities', { _id: orphan })).toBeNull();
   } finally { cleanup([id, orphan]); }
 });
