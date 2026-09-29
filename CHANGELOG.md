@@ -105,11 +105,11 @@ for one of four stated reasons, not left unexamined:
 - **Checked:** `SamlAccountMergeBleed` needs no Hall of Fame page: SAML
   refused that merge from its first commit, so it is a detection category
   like `CanaryBleed`, not a fixed vulnerability.
-- **Decisions not yet built:** trigger-value variables, the thumbnail route,
-  semi-open boards, the parents array, first-class
-  Jira issue types, the Map board view, splitting #4790, per-activity
-  notification options (#572), Deck-style auto-archive, the import-page loss
-  report, recovery controls, and the Scrum/Sync journal work.
+- **Decisions not yet built:** trigger-value variables, semi-open boards, the
+  parents array, first-class Jira issue types, the Map board view, splitting
+  issue #4790, per-activity notification options (#572), Deck-style
+  auto-archive, the import-page loss report, recovery controls, and the
+  Scrum/Sync journal work.
 
 Maintainer decisions of 2026-09-29, answering the blockers above:
 
@@ -1782,8 +1782,28 @@ and fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
   or to write non-HTML output. No shipped code had the one-pass form, so there
   is no Hall of Fame row or Problems key. Thanks to GitHub CodeQL and xet7.
 
-and adds archive reporting, code highlighting, custom URL schemes and improves
-Scrum History recovery:
+and adds archive reporting, code highlighting, custom URL schemes, attachment
+thumbnails and improves Scrum History recovery:
+
+**Attachments** - small images where images are shown small.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2be3ded5b">Serve image attachments as thumbnails</a>. Thanks to blaggacao and xet7.</summary>
+
+The card's attachment gallery and the minicard cover downloaded every image at
+full size ([#3275](https://github.com/wekan/wekan/issues/3275)). A raster
+image now has `/cdn/storage/attachments/<id>/thumbnail`: a WebP of at most 512
+pixels, made with sharp under the GIF converter's input limits and kept in a
+bounded in-memory cache keyed by file version. It is the attachment route
+itself, after board access, the download block and limit and the storage read
+flag, so a thumbnail is readable exactly when the original is, and it is cached
+privately only. SVG and non-images have none; a damaged image redirects to its
+original. A unit suite covers eligibility, conversion, the cache and the order
+of checks; a Chromium case fetches a 2000-pixel PNG as a 512-pixel WebP, checks
+revalidation, SVG, a damaged file, the gallery tile and a signed-out request on
+a private board.
+
+</details>
 
 **Card text** - code blocks in colour, and links an administrator allows.
 
