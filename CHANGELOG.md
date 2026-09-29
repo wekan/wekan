@@ -3685,6 +3685,21 @@ translations are still in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1fe7cd048">Correct Bulgarian rules, search and diagnostic vocabulary</a>. Thanks to xet7.</summary>
+
+Corrected 47 Bulgarian locale entries containing Serbian text, including rule
+actions, notification controls, search operators and help, card creators, team
+controls and memory diagnostics. Restored Arial as the literal Excel font name
+used by exports. Correct-language Bulgarian translations are preserved.
+
+Bulgarian vocabulary, search-token and placeholder tests, translation URL
+checks and all 21 human-translation preference checks pass. Browser and
+fluent-speaker review were not run. Further locale vocabulary auditing and
+remaining translations are still in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
