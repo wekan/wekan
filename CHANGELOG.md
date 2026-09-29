@@ -3596,6 +3596,24 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/186672961">Translate Bulgarian synchronization previews and diagnostics</a>. Thanks to xet7.</summary>
+
+Fill 45 Bulgarian placeholders for synchronization replacement cards,
+previews, source omissions and retained diagnostic reports. Preserve retry
+behavior, hidden source values, partial-change warnings and access
+requirements. Existing translations remain intact.
+
+The Bulgarian and translation-token suites pass, together with all 21 human-
+preference checks. Coverage checks source tokens, repeated replacement reuse,
+refreshed source checks, 100-entry/path limits, 20-run and 30-day retention,
+full-list write access and non-resumable reports. Browser layout and fluent-
+speaker review were not run. Existing Upcoming entries retain their recorded
+regression evidence. More untranslated strings and vocabulary review remain in
+Bulgarian and other locales. The all-language goal remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
