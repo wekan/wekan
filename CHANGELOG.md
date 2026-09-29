@@ -3538,6 +3538,25 @@ translation goal remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e1791d383">Translate Bulgarian filter and rule messages and correct workspace labels</a>. Thanks to xet7.</summary>
+
+Fill 45 Bulgarian placeholders for date filters, automatic archiving, board
+visibility, rule variables and notification preferences. Correct eight Serbian
+workspace, connection, template and background labels. Existing Bulgarian
+translations are preserved.
+
+The Bulgarian and translation-token suites pass, together with all 21
+human-preference checks. Coverage checks placeholders and brace variables,
+date-filter syntax, inclusive bounds, unknown entry dates, archive exclusions,
+visibility restrictions, URL schemes and mandatory notifications. Browser
+layout and fluent-speaker review were not run. Existing Upcoming entries retain
+their recorded regression evidence. More untranslated strings and vocabulary
+review remain in Bulgarian and other locales. The all-language goal remains
+unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
