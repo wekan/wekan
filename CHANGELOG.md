@@ -2984,6 +2984,24 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dc09c5ea7">Complete Slovak recovery and notification translations</a>. Thanks to xet7.</summary>
+
+Fill 150 missing or English values for synchronization, delivery recovery,
+SAML login, move ordering, accessibility and new notification preferences.
+Existing translations remain intact. Reviewed keyboard legends, product names,
+mathematical terms and shared words stay unchanged.
+
+Slovak and translation-token tests pass, together with all 21 human-preference
+checks. Coverage checks source keys and order, interpolation tokens, recovery
+warnings, notification exceptions and no remaining prose placeholders against
+the current English source. Browser layout and fluent-speaker review were not
+run. Existing Upcoming entries retain their recorded regression evidence.
+Other locales still need the new notification strings and their remaining
+translations; the all-language goal remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
