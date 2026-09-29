@@ -3,6 +3,7 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import { TAPi18n } from '/imports/i18n';
 import { Utils } from '/client/lib/utils';
 import { closePageSidebar } from '/client/lib/pageSidebar';
+import { triggerValueHasVars } from '/models/lib/ruleTriggerVars';
 
 Template.rulesMain.onCreated(function () {
   this.rulesCurrentTab = new ReactiveVar('rulesList');
@@ -196,7 +197,12 @@ Template.rulesMain.events({
       .val();
     let trigger = tpl.triggerVar.get();
     trigger.userId = '*';
-    if (username !== undefined) {
+    if (triggerValueHasVars(username)) {
+      // #4294: "by {assignees}" - a person named by a variable, resolved for
+      // the card when the rule is checked (models/lib/ruleTriggerVars.js).
+      trigger.userId = username.trim();
+      tpl.triggerVar.set(trigger);
+    } else if (username !== undefined) {
       const userFound = ReactiveCache.getUser({ username });
       if (userFound !== undefined) {
         trigger.userId = userFound._id;

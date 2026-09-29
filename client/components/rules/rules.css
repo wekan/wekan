@@ -475,3 +475,9 @@
   margin-inline-end: 6px;
   appearance: auto;
 }
+/* #4294: which variables trigger fields accept. */
+.rules-vars-hint {
+  margin: 0 0 10px;
+  color: #6b778c;
+  font-size: 0.9em;
+}

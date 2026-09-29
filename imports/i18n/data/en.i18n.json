@@ -1418,6 +1418,7 @@
   "r-of": "of",
   "r-subject": "subject",
   "r-email-vars-hint": "Available tags: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-trigger-vars-hint": "List, swimlane, title, checklist and user fields also accept {creator}, {assignees}, {members} and {customField:Name}, read from the card when the rule is checked.",
   "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Rule details",
   "r-rule-any-trigger-help": "The rule runs when any of its triggers happens. Its actions run in order.",

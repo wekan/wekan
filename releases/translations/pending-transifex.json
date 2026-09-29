@@ -63,6 +63,10 @@
     {
       "key": "automatic-linked-url-schemes-hint",
       "since": "2026-09-29"
+    },
+    {
+      "key": "r-trigger-vars-hint",
+      "since": "2026-09-29"
     }
   ]
 }

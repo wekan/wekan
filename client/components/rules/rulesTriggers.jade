@@ -17,6 +17,7 @@ template(name="rulesTriggers")
           li.js-set-button-triggers(title="{{_ 'r-set-button-triggers'}}")
             i.fa.fa-hand-pointer-o
       .triggers-main-body
+        p.rules-vars-hint.js-trigger-vars-hint {{_ 'r-trigger-vars-hint'}}
         if showBoardTrigger.get
           +boardTriggers
         else if showCardTrigger.get

@@ -12,7 +12,8 @@ import Checklists from '/models/checklists';
 import Swimlanes from '/models/swimlanes';
 import { relativeDateOffset } from '/models/lib/relativeDateOffset';
 import { resolveRuleSwimlaneId, resolveRuleListId } from '/models/lib/ruleActionResolve';
-import { cardTitleMatchList } from '/models/lib/ruleCardTitleFilter';
+import { cardTitleMatchList, cardTitleFilterMatches } from '/models/lib/ruleCardTitleFilter';
+import { triggerMatchesWithVars } from '/models/lib/ruleTriggerVars';
 import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 import { tripCanary } from '/server/lib/canary';
 import { substituteVars, recipientVars } from '/models/lib/ruleVarsSubstitute';
@@ -193,6 +194,37 @@ export const RulesHelper = {
           matchingRules.push(rule);
         }
       }
+      // #4294 / #3195: a trigger value may hold a {token} (models/lib/
+      // ruleTriggerVars.js). Such a value never equals what an activity
+      // carries, so the query above cannot find it; fetch this board's
+      // triggers of this kind that hold one, and resolve them for the card.
+      const tokenFields = matchingFields.filter(field => field !== 'boardId');
+      const tokenTriggers = tokenFields.length ? await ReactiveCache.getTriggers({
+        activityType,
+        boardId: { $in: [activity.boardId, '*', null] },
+        $or: tokenFields.map(field => ({ [field]: { $regex: '\\{\\w+(?::[^{}]+)?\\}' } })),
+      }) : [];
+      if (tokenTriggers.length) {
+        const actualValues = await this.resolveMatchingValues(activity, matchingFields);
+        const card = activity.cardId ? await ReactiveCache.getCard(activity.cardId) : null;
+        const vars = await buildRuleVars(activity, card);
+        // People tokens resolve to usernames, and the activity names the
+        // acting user by id: compare a "by {assignees}" trigger by username.
+        const tokenValues = { ...actualValues };
+        if (actualValues.userId) {
+          const actor = await ReactiveCache.getUser(actualValues.userId);
+          tokenValues.userId = actor ? actor.username : undefined;
+        }
+        const plainMatches = (field, expected) => (field === 'cardTitle'
+          ? cardTitleFilterMatches(expected, actualValues.cardTitle)
+          : expected === undefined || expected === null || expected === '*' || expected === actualValues[field]);
+        for (const trigger of tokenTriggers) {
+          if (!triggerMatchesWithVars(trigger, matchingFields, tokenValues, vars, plainMatches)) continue;
+          // eslint-disable-next-line no-await-in-loop
+          const rule = await trigger.getRule();
+          if (rule !== undefined) matchingRules.push(rule);
+        }
+      }
     }
     // #3092: "card matches advanced filter" triggers are not tied to one
     // activity field like the TriggersDef-driven ones above — they reuse the
@@ -263,6 +295,27 @@ export const RulesHelper = {
     // only an explicit `false` is skipped here. A rule matched through more
     // than one of its triggers runs once (#4294: any trigger fires it).
     return uniqueRules(matchingRules.filter(rule => rule.enabled !== false));
+  },
+  // The value each matching field has for this activity, resolved the way
+  // buildMatchingFieldsMap compares it (list and swimlane names looked up,
+  // an archived card's title read from the card).
+  async resolveMatchingValues(activity, matchingFields) {
+    const values = {};
+    for (const field of matchingFields) {
+      let value = activity[field];
+      if (field === 'oldListName') {
+        const oldList = await ReactiveCache.getList(activity.oldListId);
+        if (oldList) value = oldList.title;
+      } else if (field === 'oldSwimlaneName') {
+        const oldSwimlane = await ReactiveCache.getSwimlane(activity.oldSwimlaneId);
+        if (oldSwimlane) value = oldSwimlane.title;
+      } else if (field === 'cardTitle' && value === undefined && activity.cardId) {
+        const card = await ReactiveCache.getCard(activity.cardId);
+        if (card) value = card.title;
+      }
+      values[field] = value;
+    }
+    return values;
   },
   async buildMatchingFieldsMap(activity, matchingFields) {
     const matchingMap = { activityType: activity.activityType };
