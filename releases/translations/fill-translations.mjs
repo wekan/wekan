@@ -133,6 +133,16 @@ const isInvariantSource = value => {
   if (/^https?:\/\/\S+$/.test(value)) return true; // example/placeholder URLs stay identical in every locale
   return /^(Meteor|Node|MongoDB.*|OAuth2|LDAP|CAS|GridFS|Arial|Gantt|Frappe Gantt|DHTMLX Gantt|S3.*|CollectionFS|Google Cloud Storage\.?|Azure Blob.*|Meteor-Files|Microsoft Azure Blob Storage\.?|MongoDB Compact|Bytes|URL|Logo|Cron|OS|Platform|USA|Asia|OK|Planning Poker|API|Bigboard|Google|GitHub|Facebook|X \(Twitter\)|Meteor Developer|Weibo|Meetup)$/.test(value);
 };
+// Keys added in English on purpose while they wait for Transifex
+// (pending-transifex.json, written by add-pending-keys.mjs). A locale value
+// still equal to the English source is not counted as missing for them; the
+// count is reported separately so they are not forgotten. A translated value
+// always replaces the English one, so this never protects English over a
+// translation.
+const pendingTransifex = new Set(((readJson('releases/translations/pending-transifex.json') || {}).keys || [])
+  .filter(row => row && typeof row.key === 'string' && row.key in en)
+  .map(row => row.key));
+
 const isInvariantForLocale = (code, key) =>
   isInvariantSource(en[key]) || Boolean(LOCALE_INVARIANTS[code]?.has(key)) || reviewedSourceTerms.has(`${code}:${key}`);
 
@@ -156,12 +166,16 @@ if (mode === '--missing') {
     const code = path.basename(f, '.i18n.json');
     if (isEnglishVariant(code)) continue;
     const j = readJson(path.join(DATA_DIR, f)) || {};
-    const miss = enKeys.filter(k => isPlaceholder(j, k) && !isInvariantForLocale(code, k)).length;
+    const miss = enKeys.filter(k => isPlaceholder(j, k) && !isInvariantForLocale(code, k)
+      && !pendingTransifex.has(k)).length;
     if (miss) rows.push([code, miss]);
   }
   rows.sort((a, b) => a[1] - b[1]);
   for (const [code, miss] of rows) console.log(`${miss}\t${code}`);
   console.error(`[fill] ${rows.length} language(s) still have untranslated strings.`);
+  if (pendingTransifex.size) {
+    console.error(`[fill] ${pendingTransifex.size} key(s) are English on purpose, pending Transifex (pending-transifex.json).`);
+  }
   process.exit(0);
 }
 

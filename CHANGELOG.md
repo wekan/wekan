@@ -97,6 +97,45 @@ for one of four stated reasons, not left unexamined:
   adapters and cron activation (checkpoint below) were not advanced in this
   pass; each needs its own design step, not a patch.
 
+Maintainer decisions of 2026-09-29, answering the blockers above:
+
+- **New interface text** is added in English to every locale and listed in
+  `releases/translations/pending-transifex.json` until Transifex supplies
+  translations; the completeness gate reports those keys separately.
+- **Rule variables** ([#4294](https://github.com/wekan/wekan/issues/4294),
+  [#3195](https://github.com/wekan/wekan/issues/3195)): reuse the email
+  `{token}` syntax in action and trigger values, adding `{creator}`,
+  `{assignees}` and `{customField:Name}`; unknown tokens stay literal.
+- **Several triggers per rule** (#4294, [#2953](https://github.com/wekan/wekan/issues/2953)):
+  the rule fires when ANY of its triggers fires; actions run in order.
+- **Scrum/Sync** keeps the journal and reservation approach, finishing
+  ordinary-writer coordination before Sync is activated.
+- **Thumbnails** ([#3275](https://github.com/wekan/wekan/issues/3275)): a
+  separate `/cdn/storage/attachments/<id>/thumbnail` route.
+- **Semi-open boards** ([#3249](https://github.com/wekan/wekan/issues/3249)):
+  visible to every logged-in user of the instance, never in an unauthenticated
+  response.
+- **Several parents** ([#3626](https://github.com/wekan/wekan/issues/3626)): a
+  full parents-array model, migrating every ancestor walk.
+- **Code highlighting**: highlight.js, with only `hljs-*`/`language-*` classes
+  allowed on `span`/`code` inside `pre`.
+- **Custom URL schemes** ([#3218](https://github.com/wekan/wekan/issues/3218)):
+  off by default; an admin allowlist chooses which become links.
+- **Jira issue types** become a first-class card field with an icon; Kanboard
+  categories stay labels.
+- **Hot areas** ([#3256](https://github.com/wekan/wekan/issues/3256)): a new
+  Map board view with cards as markers on an uploaded image.
+- **User Filter** ([#4790](https://github.com/wekan/wekan/issues/4790)): split
+  into separate items and closed.
+- **Due reminders** ([#5323](https://github.com/wekan/wekan/issues/5323)): a
+  per-board offset and a webhook reminder, both in Board Settings →
+  Notifications.
+- **Not now**: a consolidated `act-editCard` webhook
+  ([#4912](https://github.com/wekan/wekan/issues/4912)); SQRL
+  ([#2460](https://github.com/wekan/wekan/issues/2460)) stays open for a future
+  maintained library; [#2509](https://github.com/wekan/wekan/issues/2509) waits
+  for the reporter.
+
 Node suite health at this pass: 163 of 1445 suites fail; 162 already failed at
 the pass's starting commit (mostly translation-completeness suites, plus source
 guards such as `changeHistoryWiring` and `historyRestoreAppliesWhatIsShown`).
