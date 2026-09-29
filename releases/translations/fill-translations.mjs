@@ -83,7 +83,7 @@ const isEnglishVariant = code => /^en([_-].*)?$/.test(code) || code === 'en';
 // source-wide list would hide real work in every language.
 const LOCALE_INVARIANTS = {
   // Product names and mathematical function symbols are not English prose.
-  ...Object.fromEntries(['vi', 'vi-VN'].map(code => [code, new Set([
+  ...Object.fromEntries(['vi', 'vi-VN', 'el', 'el-GR'].map(code => [code, new Set([
     'blockly-CHROME_OS', 'blockly-LINUX', 'blockly-MAC_OS', 'blockly-WINDOWS',
     'blockly-MATH_TRIG_ACOS', 'blockly-MATH_TRIG_ASIN', 'blockly-MATH_TRIG_ATAN',
     'blockly-MATH_TRIG_COS', 'blockly-MATH_TRIG_SIN', 'blockly-MATH_TRIG_TAN',
