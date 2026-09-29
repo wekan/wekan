@@ -2346,7 +2346,7 @@ and has the following developer-tooling fix:
 
 and updates the following translations:
 
-**Languages updated:** Finnish, Arabic, Algerian Arabic, Egyptian Arabic, Turkish, Spanish, Argentine Spanish, Chilean Spanish, Colombian Spanish, Latin American Spanish, Mexican Spanish, Peruvian Spanish, Paraguayan Spanish, Italian, Portuguese, Brazilian Portuguese, European Portuguese, Galician, Korean, Japanese, Traditional Chinese, Chinese (Taiwan), Chinese (Hong Kong), Simplified Chinese, Mandarin Chinese, Chinese (Singapore), French, Belgian French, Canadian French, Swiss French, German, Austrian German, Swiss German, Swedish, Danish, Norwegian Bokmål, Dutch, Romanian.
+**Languages updated:** Finnish, Arabic, Algerian Arabic, Egyptian Arabic, Turkish, Spanish, Argentine Spanish, Chilean Spanish, Colombian Spanish, Latin American Spanish, Mexican Spanish, Peruvian Spanish, Paraguayan Spanish, Italian, Portuguese, Brazilian Portuguese, European Portuguese, Galician, Korean, Japanese, Traditional Chinese, Chinese (Taiwan), Chinese (Hong Kong), Simplified Chinese, Mandarin Chinese, Chinese (Singapore), French, Belgian French, Canadian French, Swiss French, German, Austrian German, Swiss German, Swedish, Danish, Norwegian Bokmål, Dutch, Romanian, Indonesian.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ef52698fe">Complete Finnish and Arabic planning and recovery translations</a>. Thanks to xet7.</summary>
@@ -2681,6 +2681,29 @@ not run for this batch.
 The inventory lists 183 unfinished locales. New English keys, including
 missing locale keys and those pending Transifex, remain in scope for every
 locale. The all-language translation goal remains unfinished.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/03b4503de">Translate Indonesian planning and recovery strings</a>. Thanks to xet7.</summary>
+
+Translate 272 missing or English values for filters, Scrum, Sync, reminders,
+rules and delivery recovery. Correct nine Malay-seeded basic labels to
+Indonesian, including card, list and display name. Preserve other existing
+translations and review shared terms and keyboard labels individually.
+
+Twenty translation suites and 21 human-preference checks pass against the
+current English source. Coverage verifies source keys, order, interpolation
+tokens, recovery meaning, corrected native labels and no remaining Indonesian
+English placeholders. Previously completed locales are rechecked. Existing
+Upcoming implementation entries retain their recorded regression evidence.
+Browser layout and fluent-speaker review were not run for this batch.
+
+The placeholder inventory lists 182 unfinished locales. Indonesian still
+contains older Malay wording, including archive and permission descriptions;
+its vocabulary review remains unfinished despite an empty placeholder list.
+New English keys, including missing locale keys and those pending Transifex,
+remain in scope for every locale. The all-language goal remains unfinished.
 
 </details>
 
