@@ -1795,6 +1795,16 @@ human-preference checks pass. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a0889dc7e">Translate Hungarian recovery messages</a>. Thanks to xet7.</summary>
+
+Fill 44 recovery, legacy-review and variable-insertion strings. Hungarian
+passes completeness, placeholder, key-order and warning-vocabulary checks
+against the current English source. Existing translations are preserved and
+human-preference checks pass. Other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.10 2026-09-29 WeKan ® release
