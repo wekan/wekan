@@ -2168,7 +2168,7 @@ and has the following developer-tooling fix:
 
 and updates the following translations:
 
-**Languages updated:** Finnish, Arabic, Algerian Arabic, Egyptian Arabic, Turkish, Spanish, Argentine Spanish, Chilean Spanish, Colombian Spanish, Latin American Spanish, Mexican Spanish, Peruvian Spanish, Paraguayan Spanish, Italian, Portuguese, Brazilian Portuguese, European Portuguese, Galician, Korean.
+**Languages updated:** Finnish, Arabic, Algerian Arabic, Egyptian Arabic, Turkish, Spanish, Argentine Spanish, Chilean Spanish, Colombian Spanish, Latin American Spanish, Mexican Spanish, Peruvian Spanish, Paraguayan Spanish, Italian, Portuguese, Brazilian Portuguese, European Portuguese, Galician, Korean, Japanese.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ef52698fe">Complete Finnish and Arabic planning and recovery translations</a>. Thanks to xet7.</summary>
@@ -2296,6 +2296,27 @@ not run for this batch.
 The inventory lists 211 unfinished locales. New English keys remain in scope
 for every locale, including keys absent from locale files and those marked
 pending Transifex. The all-language goal remains unfinished.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ee9175627">Complete Japanese planning and recovery translations</a>. Thanks to xet7.</summary>
+
+Fill 800 missing or English values across three Japanese locale files for
+filters, Scrum, Sync, reminders and delivery recovery, including the current
+rule-editor and positioning labels. Existing translations and interpolation
+tokens remain intact. Reviewed technical labels stay unchanged, while boolean
+display names use Japanese.
+
+Ten translation suites and 21 human-preference checks pass against the current
+English source. Coverage checks source key order, interpolation tokens,
+Japanese prose and no remaining placeholders; previously completed locales
+also pass. Existing Upcoming implementation entries retain their recorded
+regression evidence. Browser layout and fluent-speaker review were not run.
+
+The inventory lists 208 unfinished locales. Newly added English keys and keys
+pending Transifex remain in scope for every locale. The all-language goal is
+not complete.
 
 </details>
 
