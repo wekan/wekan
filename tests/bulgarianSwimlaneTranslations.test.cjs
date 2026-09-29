@@ -421,6 +421,22 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
   assert.match(bg['shortcut-toggle-searchbar'], /Показване или скриване.*страничната лента.*търсене/);
   assert.match(bg['delete-all-notifications'], /всички известия/);
   assert.match(bg['description-on-minicard'], /Описание.*миникартата/);
+  const ruleSearchAuditKeys = ["r-items-check","r-of-checklist","r-of","r-in-list","r-d-check-of-list","r-set","oidc-button-text","mark-all-as-read","mark-all-as-unread","remove-all-read","myCardsViewChange-choice-table","dueCardsViewChange-title","dueCardsViewChangePopup-title","dueCardsViewChange-choice-all","operator-creator","operator-description","operator-attachment-text","predicate-ended","predicate-all","predicate-overdue","predicate-quarter","predicate-modified","predicate-attachment","predicate-description","predicate-assignee","previous-page","heading-notes","globalSearch-instructions-status-all","globalSearch-instructions-notes-1","link-to-search","excel-font","server-error","title-alphabetically","links-heading","custom-field-stringtemplate","creator","creator-on-minicard","cancelled","request","requests","add-teams-label","confirm-btn","Node_heap_total_heap_size","Node_heap_total_heap_size_executable","Node_heap_total_physical_size","Node_heap_total_available_size","copied"];
+  for (const key of ruleSearchAuditKeys) {
+    assert.deepEqual(translationTokens(bg[key]), translationTokens(en[key]), key);
+    assert.doesNotMatch(bg[key], /са списка|обавити|Унеси|дугмету|Означи|сва|прочитана|Избриши|Приказани|Надлежност|увида|завео|описао|приложио|окончан|све|истекао|тромесечно|изменио|овластио|Претходна|Додатак|задаци|истовремено|задати|Повежи|претраге|словни|серверу|наслову|абучним|Везе|Оснивач|Поништено|Захтев|Додати|Потврди|укупни|извршни|физички|доступни|Умножено/i, key);
+  }
+  assert.match(bg['mark-all-as-read'], /като прочетени/);
+  assert.match(bg['mark-all-as-unread'], /като непрочетени/);
+  assert.match(bg['globalSearch-instructions-status-all'], /всички архивирани и неархивирани карти/);
+  assert.match(bg['dueCardsViewChange-choice-all'], /Всички потребители/);
+  assert.equal(bg['excel-font'], 'Arial'); // Used as the actual Excel font name.
+  for (const key of ['operator-creator', 'operator-description', 'operator-attachment-text', 'predicate-ended', 'predicate-all', 'predicate-overdue', 'predicate-quarter', 'predicate-modified', 'predicate-attachment', 'predicate-description', 'predicate-assignee']) {
+    assert.doesNotMatch(bg[key], /\s/, key);
+  }
+  assert.match(bg.Node_heap_total_heap_size_executable, /изпълним код/);
+  assert.match(bg.Node_heap_total_physical_size, /физически/);
+  assert.match(bg.Node_heap_total_available_size, /наличен/);
   assert.equal(bg.swimlane, 'Коридор');
   assert.equal(bg['welcome-swimlane'], 'Етап 1');
   assert.match(bg['swimlane-height-error-message'], /положително цяло число/);
