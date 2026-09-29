@@ -105,9 +105,8 @@ for one of four stated reasons, not left unexamined:
 - **Checked:** `SamlAccountMergeBleed` needs no Hall of Fame page: SAML
   refused that merge from its first commit, so it is a detection category
   like `CanaryBleed`, not a fixed vulnerability.
-- **Decisions not yet built:** the parents array, first-class Jira issue
-  types, the Map board view, recovery controls, and the Scrum/Sync journal
-  work.
+- **Decisions not yet built:** the parents array, the Map board view,
+  recovery controls, and the Scrum/Sync journal work.
 - **Intermittent:** in a run of all seven import specs one case failed twice in
   four runs (once seen as the `jira-time-import` case about section controls,
   with a value mismatch); every case passes alone and in its own file.
@@ -2225,6 +2224,20 @@ and brings the external imports up to their format contracts:
 
 **External imports** - Kanboard, Nextcloud Deck, OpenProject, Asana, Zenkit and
 Jira keep what each source has a WeKan place for, and report the rest.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e0bf4cbb7">Show a card's Jira issue type on the minicard with an icon</a>. Thanks to xet7.</summary>
+
+Jira imports keep each issue's type, but it showed only as a Scrum text field on
+boards with Scrum turned on. The minicard now shows it first in its badge strip
+on every board, with an icon for the usual types - bug, story, task, sub-task,
+epic, improvement, feature, spike, test - matched loosely, and a neutral icon
+for a site's own types; Scrum's minicard text copy is gone. Kanboard categories
+stay labels. A unit suite covers the mapping and parses the minicard module; a
+Chromium case shows a bug icon, a custom type and no badge on a board without
+Scrum.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/f8b9f26c5">Show the import loss report on the import page</a>. Thanks to xet7.</summary>
