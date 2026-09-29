@@ -72,30 +72,29 @@ Local commits do not publish or release these changes.
 Pass of 2026-09-29: the six external import adapters were brought up to their
 format contracts, imports now parse only sanitized input and keep source
 creation dates, import losses are recorded in Problems → Recovery, and keyboard
-undo/redo persists request IDs (all in Upcoming). What remains below is blocked
-for one of four stated reasons, not left unexamined:
+undo/redo persists request IDs (all in Upcoming). Later that day the items once
+blocked on new interface text or on a maintainer decision were built with
+English strings pending Transifex: start-date reminders and assignee
+recipients, per-activity notification options, the per-board reminder offset,
+auto-archival, the import-page loss report, the undo/redo recovery notice,
+rule variables in triggers with a picker, several triggers per rule, Jira issue
+types (Kanboard categories stay labels), semi-open boards, the Map view,
+several parents per card, export fidelity and the Leo outline format. What
+remains below is blocked for one of three stated reasons, not left unexamined:
 
-- **Needs new interface text.** A new visible string must be translated into
-  every locale (`tests/allTranslationCompleteness.test.cjs`), and translation
-  is outside this queue. Blocked on that alone: start-date reminders and
-  assignee recipients in the rule editor
-  ([#4278](https://github.com/wekan/wekan/issues/4278)), per-activity
-  notification options ([#572](https://github.com/wekan/wekan/issues/572)),
-  the per-board reminder offset ([#5323](https://github.com/wekan/wekan/issues/5323)),
-  Deck-style auto-archival, the loss report on the import page, and visible
-  History/Scrum/Sync recovery controls.
 - **Needs a maintainer decision.** Everything under "Needs a maintainer
-  decision" and "Deferred pending a security decision", the rule templating
-  and multi-trigger contract (#4294, #3195, #2953), Jira issue types and
-  Kanboard categories.
+  decision" (#4912, #2509, #2460), and filing the prepared #4790 split.
 - **Needs infrastructure or affected data.** The environment-owner, snap and
   data-verification items. The MySQL/MariaDB/PostgreSQL verification was done
   once Docker was approved (see Upcoming); only SAP HANA remains, and its image
-  is amd64-only and needs a licence and about 16 GB of memory.
+  is amd64-only and needs a licence and about 16 GB of memory. File contents
+  from import sources need live API connectors with credentials, and Zenkit's
+  native export has no published schema to verify against.
 - **Architectural Scrum/Sync work.** Atomic cross-document coordination,
   compound archive reservations, interrupted-record replay, production
-  adapters and cron activation (checkpoint below) were not advanced in this
-  pass; each needs its own design step, not a patch.
+  adapters and cron activation (checkpoint below), with operator recovery for
+  legacy unbound Sync commands and online SMTP resolution (#2713), were not
+  advanced; each needs its own design step, not a patch.
 
 **Paused for a release on 2026-09-29 - in progress, not in this release:**
 
