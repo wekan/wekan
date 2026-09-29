@@ -2017,6 +2017,19 @@ remaining; other languages also remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/67bd1b357">Translate Estonian Scrum planning and reports</a>. Thanks to xet7.</summary>
+
+Fill 83 Scrum planning and reporting strings. Regression checks preserve
+placeholders and distinguish unknown estimates from zero, partial reports
+from full reports, and daily observations from complete change histories.
+Existing translations are preserved; human-preference and language wiring
+checks pass. Update the README coverage count to 73. Estonian still has 157
+reported placeholders, including shared technical terms, and remains in
+progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
@@ -2071,19 +2084,6 @@ Locale key and token checks, correction replay, translation audit and README
 count tests pass. This does not complete translation filling: 105,652
 actionable values remain across 176 locales, in addition to keys explicitly
 marked pending Transifex. Completeness checks remain enabled.
-
-</details>
-
-<details>
-<summary><a href="https://github.com/wekan/wekan/commit/67bd1b357">Translate Estonian Scrum planning and reports</a>. Thanks to xet7.</summary>
-
-Fill 83 Scrum planning and reporting strings. Regression checks preserve
-placeholders and distinguish unknown estimates from zero, partial reports
-from full reports, and daily observations from complete change histories.
-Existing translations are preserved; human-preference and language wiring
-checks pass. Update the README coverage count to 73. Estonian still has 157
-reported placeholders, including shared technical terms, and remains in
-progress.
 
 </details>
 
