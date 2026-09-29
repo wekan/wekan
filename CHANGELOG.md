@@ -1638,9 +1638,9 @@ template.
 confirm - **resend to unconfirmed recipients only, mark sent or drop** - and
 review **legacy rule emails** instead of leaving them stuck. Boards import
 and export as **todo.txt**, **GitLab** import and export reach the format
-contract, and OpenProject watchers and Asana followers become card watchers. **Undo and redo** apply a raced
-request once, and Sync and Scrum History writes gain the coordination the
-maintainer's 2026-09-30 decisions call for.
+contract, and OpenProject watchers and Asana followers become card watchers.
+**Undo and redo** apply a raced request once, and Sync and Scrum History
+writes gain the coordination the maintainer's 2026-09-30 decisions call for.
 
 This release adds the following new features:
 
