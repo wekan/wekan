@@ -235,7 +235,9 @@ test('WeKan does not already autolink bare #NNNN to its own cards anywhere', () 
 // ── i18n ─────────────────────────────────────────────────────────────────
 test('en.i18n.json has all four new keys, right after automatic-linked-url-schemes', () => {
   const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
-  const keys = Object.keys(en);
+  // #3218 put the URL-scheme field's own hint right after its label, so the
+  // external-link block starts one key later when that hint is present.
+  const keys = Object.keys(en).filter(key => key !== 'automatic-linked-url-schemes-hint');
   const anchor = keys.indexOf('automatic-linked-url-schemes');
   assert.notStrictEqual(anchor, -1);
   assert.strictEqual(keys[anchor + 1], 'external-link-pattern');
@@ -265,7 +267,9 @@ test('every locale file has all four keys, immediately after automatic-linked-ur
   ];
   for (const f of fs.readdirSync(dir).filter(x => x.endsWith('.i18n.json'))) {
     const doc = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'));
-    const keys = Object.keys(doc);
+    // #3218: the URL-scheme field's own hint may sit between the anchor and
+    // this block (see the English test above).
+    const keys = Object.keys(doc).filter(key => key !== 'automatic-linked-url-schemes-hint');
     if (!('external-link-pattern' in doc) || !('external-link-pattern-description' in doc)
       || !('external-link-pattern-prefix' in doc) || !('external-link-pattern-url' in doc)) {
       missing.push(f);
