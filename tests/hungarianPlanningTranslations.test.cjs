@@ -2,14 +2,14 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
+const { spawnSync } = require('node:child_process');
 const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data/' + code + '.i18n.json'), 'utf8'));
 (async () => {
   const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
   const en = read('en'), hu = read('hu');
-  // Remaining planning/recovery sections are filled in subsequent increments.
-  assert.deepEqual(Object.keys(hu), Object.keys(en).filter(key => key in hu));
+  assert.deepEqual(Object.keys(hu), Object.keys(en));
   for (const key of Object.keys(en)) {
-    if (key in hu) assert.deepEqual(translationTokens(hu[key]), translationTokens(en[key]), key);
+    assert.deepEqual(translationTokens(hu[key]), translationTokens(en[key]), key);
     if (/^(filter-recency-|filter-date-range-|filter-column-age|filter-preset|notification-activity-|auto-archive-|due-reminder-)/.test(key)) {
       assert.ok(hu[key]?.trim(), key);
       assert.notEqual(hu[key], en[key], key);
@@ -43,5 +43,19 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
   assert.match(hu['scrum-added'], /sprint feladataihoz/);
   assert.match(hu['scrum-removed'], /sprint feladatai közül/);
   assert.notEqual(hu['scrum-category-todo'], hu['scrum-category-done']);
-  console.log('Hungarian filters, rules, Scrum and preferences preserve tokens and restrictions');
+  for (const key of Object.keys(en).filter(key => /^(sync-|email-recovery-|email-failure-|activity-recovery-|rule-email-recovery-)/.test(key))) {
+    assert.ok(hu[key]?.trim(), key);
+    assert.notEqual(hu[key], en[key], key);
+  }
+  assert.match(hu['sync-conflict-hint'], /Semmi nem kerül elküldésre a forrásrendszerbe/);
+  assert.match(hu['activity-recovery-cancel-confirm'], /Ezek nem folytathatók/);
+  assert.match(hu['email-recovery-confirm-cancel'], /új üzenetek megmaradnak/);
+  assert.match(hu['sync-time-estimate-hint'], /kifejezett null pedig törli/);
+  assert.notEqual(hu['move-selection-before'], hu['move-selection-after']);
+  const inventory = spawnSync(process.execPath,
+    ['releases/translations/fill-translations.mjs', '--list', 'hu'],
+    { cwd: path.resolve(__dirname, '..'), encoding: 'utf8' });
+  assert.equal(inventory.status, 0, inventory.stderr);
+  assert.deepEqual(JSON.parse(inventory.stdout), {});
+  console.log('Hungarian source keys, tokens, planning and recovery warning meanings verified');
 })().catch(error => { console.error(error); process.exitCode = 1; });

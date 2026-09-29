@@ -82,6 +82,20 @@ const isEnglishVariant = code => /^en([_-].*)?$/.test(code) || code === 'en';
 // needs a different word. Keep those exceptions per locale; putting them in the
 // source-wide list would hide real work in every language.
 const LOCALE_INVARIANTS = {
+  // Hungarian shared mathematical/Scrum terms and keyboard/product names.
+  hu: new Set([
+    'blockly-ALT_KEY', 'blockly-BACKSPACE_KEY', 'blockly-CAPS_LOCK_KEY',
+    'blockly-CHROME_OS', 'blockly-COMMAND_KEY', 'blockly-END_KEY',
+    'blockly-ENTER_KEY', 'blockly-ESCAPE', 'blockly-HOME_KEY',
+    'blockly-INPUT_LABEL_NUMBER_MAX', 'blockly-INPUT_LABEL_NUMBER_MIN',
+    'blockly-INSERT_KEY', 'blockly-LINUX', 'blockly-LOGIC_NULL', 'blockly-MAC_OS',
+    'blockly-MATH_ONLIST_OPERATOR_MAX_ARIA', 'blockly-MATH_ONLIST_OPERATOR_MIN_ARIA',
+    'blockly-MATH_TRIG_ACOS', 'blockly-MATH_TRIG_ASIN', 'blockly-MATH_TRIG_ATAN',
+    'blockly-MATH_TRIG_COS', 'blockly-MATH_TRIG_SIN', 'blockly-MATH_TRIG_TAN',
+    'blockly-OPTION_KEY', 'blockly-PAGE_DOWN_KEY', 'blockly-PAGE_UP_KEY',
+    'blockly-PAUSE_KEY', 'blockly-SHIFT_KEY', 'blockly-TAB_KEY', 'blockly-WINDOWS',
+    'scrum-master', 'scrum-sprint',
+  ]),
   // Slovak shared words, mathematical terms and printed keyboard/product names.
   sk: new Set([
     'text', 'blockly-ALT_KEY', 'blockly-BACKSPACE_KEY', 'blockly-CAPS_LOCK_KEY',
