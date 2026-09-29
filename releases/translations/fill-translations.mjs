@@ -131,7 +131,14 @@ const LOCALE_INVARIANTS = {
   rup: new Set(['color-indigo', 'color-magenta']),
   lld: new Set(['move-progress-file']),
   nap: new Set(['move-progress-file']),
-  gl: new Set(['predicate-selector']),
+  // Galician shared vocabulary, product names and mathematical notation.
+  ...Object.fromEntries(['gl', 'gl-ES'].map(code => [code, new Set([
+    ...(code === 'gl' ? ['predicate-selector'] : []),
+    'blockly-ALT_KEY', 'blockly-CHROME_OS', 'blockly-CONTROL_KEY',
+    'blockly-INPUT_LABEL_MATH_DIVISOR', 'blockly-LINUX', 'blockly-MAC_OS',
+    'blockly-MATH_TRIG_ACOS', 'blockly-MATH_TRIG_ATAN',
+    'blockly-MATH_TRIG_COS', 'blockly-MATH_TRIG_TAN', 'blockly-WINDOWS',
+  ])])),
   bs: new Set(['server']),
   // Native MediaWiki vep.json: view-pool-error and api-clientside-error-http
   // use the nominative server. This is Veps, not the legacy Venda ve locale.
