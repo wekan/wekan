@@ -2041,6 +2041,17 @@ checks pass. Estonian has 97 reported placeholders remaining.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/62f8337bc">Translate Estonian notifications and todo.txt import guidance</a>. Thanks to xet7.</summary>
+
+Fill 70 notification recovery, history, sign-in and import strings, including
+the newly added todo.txt guidance. Tests preserve import syntax, placeholders
+and irreversible cancellation warnings. Existing translations are preserved;
+focused translation and human-preference checks pass. The 28 remaining reported
+values need a terminology review; other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
