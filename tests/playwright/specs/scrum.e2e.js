@@ -99,15 +99,18 @@ test('Board Settings reveals Scrum minicard fields and preserves independent car
  const errors=[];page.on('pageerror',error=>errors.push(error.message));
  await loginWithToken(page,user.id,user.token);await openBoard(page,board.boardId,board.slug);
  await expect(page.locator('.minicard .scrum-metadata')).toHaveCount(0);
+ // The issue type is a minicard badge on every board now, not a Scrum toggle.
+ await expect(page.locator('.minicard .minicard-issue-type',{hasText:'Story'})).toHaveCount(1);
  await page.evaluate(()=>{Popup.close();const opener=document.body;Popup.open('boardCardSettings')({currentTarget:opener,target:opener,preventDefault(){},stopPropagation(){}});});
  const popup=page.locator('.pop-over[data-popup="boardCardSettingsPopup"]');
  await expect(popup).toBeVisible();
- const checkbox=popup.locator('input[data-key="minicardIssueType"]');
+ await expect(popup.locator('input[data-key="minicardIssueType"]')).toHaveCount(0);
+ const checkbox=popup.locator('input[data-key="minicardBacklogRank"]');
  await checkbox.check();
- await expect.poll(()=>db.findOne('boards',{_id:board.boardId}).scrum?.visibility?.minicardIssueType).toBe(true);
- expect(db.findOne('boards',{_id:board.boardId}).scrum?.visibility?.cardIssueType).not.toBe(true);
+ await expect.poll(()=>db.findOne('boards',{_id:board.boardId}).scrum?.visibility?.minicardBacklogRank).toBe(true);
+ expect(db.findOne('boards',{_id:board.boardId}).scrum?.visibility?.cardBacklogRank).not.toBe(true);
  await popup.locator('.js-close-pop-over').click();
- await expect(page.locator('.minicard .scrum-metadata').filter({hasText:'Story'})).toHaveCount(1);
+ await expect(page.locator('.minicard .scrum-metadata').filter({hasText:'4'})).toHaveCount(1);
  expect(errors).toEqual([]);
 });
 
