@@ -1572,7 +1572,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v12.11 2026-09-30 WeKan ® release
 
 **In short:** Card updates again run their activity, rule and History
 hooks while preserving private-field checks. Language, date and Rules controls
