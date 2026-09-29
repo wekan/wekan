@@ -3518,6 +3518,26 @@ The all-language translation goal remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7d5d7bf6e">Translate multiple-parent card controls in 59 locales</a>. Thanks to xet7.</summary>
+
+Translate the three new additional-parent and relationship-removal controls
+in 59 locales, adding 177 translations. Removal describes ending the subtask
+relationship rather than deleting a card. The placeholder-only fill preserves
+existing translations; a per-key diff confirms only these three keys changed
+in each locale.
+
+All 27 translation suites and 21 human-preference checks pass. New coverage
+checks all three controls, source placeholders, distinct add/remove actions
+and Finnish relationship-removal wording. Existing locale suites check source
+coverage, key order and terminology. Browser layout and fluent-speaker review
+were not run. Existing Upcoming entries retain their recorded regression
+evidence. Other locales still need these strings and their earlier untranslated
+text, and the Bulgarian vocabulary audit remains ongoing. The all-language
+translation goal remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
