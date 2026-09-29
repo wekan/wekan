@@ -10,6 +10,7 @@ import { canDeleteBoardRule } from '/models/lib/ruleDeletePermission';
 import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 import { tripCanary } from '/server/lib/canary';
 import { requireButtonRuleContext } from '/models/lib/buttonRulePermission';
+import { ruleActionIds, MAX_EXTRA_RULE_PARTS } from '/models/lib/ruleParts';
 
 // Button rules are manual: a user clicks a card/board button and we run the
 // rule's action immediately. This method runs one button rule on demand.
@@ -32,18 +33,25 @@ Meteor.methods({
     const card = cardId === undefined ? undefined : await ReactiveCache.getCard(cardId);
     requireButtonRuleContext(this.userId, board, cardId, card, Meteor);
 
-    const action = await ReactiveCache.getAction(rule.actionId);
-    if (!action) throw new Meteor.Error('not-found', 'Action not found');
+    // A rule runs each of its actions in order (models/lib/ruleParts.js).
+    const actions = [];
+    for (const actionId of ruleActionIds(rule)) {
+      const action = await ReactiveCache.getAction(actionId);
+      if (!action) throw new Meteor.Error('not-found', 'Action not found');
+      actions.push(action);
+    }
 
-    await RulesHelper.performAction(
-      {
-        activityType: 'button',
-        cardId,
-        boardId: rule.boardId,
-        userId: this.userId,
-      },
-      action,
-    );
+    for (const action of actions) {
+      await RulesHelper.performAction(
+        {
+          activityType: 'button',
+          cardId,
+          boardId: rule.boardId,
+          userId: this.userId,
+        },
+        action,
+      );
+    }
     return true;
   },
 
@@ -173,6 +181,68 @@ Meteor.methods({
       const buttonModifier = ruleButtonMetadata(triggerDoc, ruleSet.title);
       await Rules.updateAsync(ruleId, { ...buttonModifier, $set: { ...ruleSet, ...buttonModifier.$set } });
       return { _id: ruleId, triggerId, actionId };
+    });
+  },
+
+  // #4294 / #2953: add one more trigger (the rule then fires when ANY of its
+  // triggers fires) or one more action (run after the rule's others, in order)
+  // to an existing rule. Same board-admin and cross-board checks as
+  // rules.createRule; recorded as one rule History entry.
+  async 'rules.addPart'(ruleId, kind, doc) {
+    check(ruleId, String);
+    check(kind, Match.OneOf('trigger', 'action'));
+    check(doc, Object);
+    const rule = await ReactiveCache.getRule(ruleId);
+    if (!rule) throw new Meteor.Error('not-found', 'Rule not found');
+    const board = await ReactiveCache.getBoard(rule.boardId);
+    if (!board) throw new Meteor.Error('not-found', 'Board not found');
+    if (!board.hasAdmin(this.userId)) throw new Meteor.Error('not-authorized', 'Must be a board admin');
+    const { _id, ...fields } = doc;
+    const field = kind === 'trigger' ? 'extraTriggerIds' : 'extraActionIds';
+    if ((rule[field] || []).length >= MAX_EXTRA_RULE_PARTS) {
+      throw new Meteor.Error('too-many-rule-parts', `A rule can have at most ${MAX_EXTRA_RULE_PARTS} extra ${kind}s`);
+    }
+    let partDoc;
+    if (kind === 'trigger') {
+      // A manual button is the rule's own trigger, never an extra one.
+      if (fields.activityType === 'button') throw new Meteor.Error('invalid-rule-part', 'A button cannot be an extra trigger');
+      partDoc = { ...fields, boardId: rule.boardId };
+    } else {
+      partDoc = { boardId: rule.boardId, ...fields };
+      if (!partDoc.boardId) partDoc.boardId = rule.boardId;
+      if (partDoc.boardId !== rule.boardId) {
+        const destination = await ReactiveCache.getBoard(partDoc.boardId);
+        if (!allowIsBoardMemberWithWriteAccess(this.userId, destination)) {
+          tripCanary('rule.cross-board-write', { userId: this.userId });
+          throw new Meteor.Error('not-authorized', 'Must have write access to the destination board');
+        }
+      }
+    }
+    return withRuleHistory(ruleId, this.userId, async () => {
+      const partId = await (kind === 'trigger' ? Triggers : Actions).insertAsync(partDoc);
+      await Rules.updateAsync(ruleId, { $push: { [field]: partId } });
+      return { _id: ruleId, partId };
+    });
+  },
+
+  // Remove one extra trigger or action from a rule. The rule's own
+  // triggerId/actionId cannot be removed this way.
+  async 'rules.removePart'(ruleId, kind, partId) {
+    check(ruleId, String);
+    check(kind, Match.OneOf('trigger', 'action'));
+    check(partId, String);
+    const rule = await ReactiveCache.getRule(ruleId);
+    if (!rule) throw new Meteor.Error('not-found', 'Rule not found');
+    const board = await ReactiveCache.getBoard(rule.boardId);
+    if (!board) throw new Meteor.Error('not-found', 'Board not found');
+    if (!board.hasAdmin(this.userId)) throw new Meteor.Error('not-authorized', 'Must be a board admin');
+    const field = kind === 'trigger' ? 'extraTriggerIds' : 'extraActionIds';
+    if (!(rule[field] || []).includes(partId)) throw new Meteor.Error('not-found', 'Not an extra part of this rule');
+    return withRuleHistory(ruleId, this.userId, async () => {
+      await Rules.updateAsync(ruleId, { $pull: { [field]: partId } });
+      const using = await Rules.findOneAsync({ $or: [{ [`${kind}Id`]: partId }, { [field]: partId }] });
+      if (!using) await (kind === 'trigger' ? Triggers : Actions).removeAsync(partId);
+      return { _id: ruleId };
     });
   },
 

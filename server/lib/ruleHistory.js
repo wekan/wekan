@@ -8,6 +8,7 @@ import Boards from '/models/boards';
 import ChangeHistory from '/models/changeHistory';
 import { allowIsBoardMemberWithWriteAccess } from '/server/lib/utils';
 import { withoutRecording, isRecordingSuppressed } from './historyRecordingScope';
+import { ruleTriggerIds, ruleActionIds } from '/models/lib/ruleParts';
 
 function document(doc) {
   if (!doc) return null;
@@ -19,7 +20,22 @@ export async function ruleSnapshot(id, overrides = {}) {
   if (!rule) return { rule: null };
   const trigger = Object.prototype.hasOwnProperty.call(overrides, 'trigger') ? overrides.trigger : await Triggers.findOneAsync(rule.triggerId);
   const action = Object.prototype.hasOwnProperty.call(overrides, 'action') ? overrides.action : await Actions.findOneAsync(rule.actionId);
-  return { rule: document(rule), trigger: document(trigger), action: document(action) };
+  const snapshot = { rule: document(rule), trigger: document(trigger), action: document(action) };
+  // #4294: a rule's further triggers and actions, in order. Only present when
+  // the rule has them, so rows recorded before stay comparable.
+  const extraTriggers = ruleTriggerIds(rule).slice(1), extraActions = ruleActionIds(rule).slice(1);
+  if (extraTriggers.length) snapshot.extraTriggers = await Promise.all(extraTriggers.map(async id => document(await Triggers.findOneAsync(id))));
+  if (extraActions.length) snapshot.extraActions = await Promise.all(extraActions.map(async id => document(await Actions.findOneAsync(id))));
+  return snapshot;
+}
+// A snapshot with one extra trigger/action replaced by an older version.
+async function ruleSnapshotWithPart(id, field, previous) {
+  const snapshot = await ruleSnapshot(id);
+  const key = field === 'trigger' ? 'extraTriggers' : 'extraActions';
+  if (previous && Array.isArray(snapshot[key])) {
+    snapshot[key] = snapshot[key].map(part => (part && part._id === previous._id ? document(previous) : part));
+  }
+  return snapshot;
 }
 export async function recordRuleChange(before, after, userId) {
   if (!userId || isRecordingSuppressed() || EJSON.equals(before, after)) return;
@@ -41,11 +57,14 @@ export async function removeRuleWithUnusedParts(rule) {
   await Rules.removeAsync(rule._id);
   await removeUnusedRuleParts(rule);
 }
+// Rules that use this trigger or action, as their own or as an extra one.
+const rulesUsing = (field, id) => ({ $or: [{ [`${field}Id`]: id }, { [`extra${field === 'trigger' ? 'Trigger' : 'Action'}Ids`]: id }] });
 async function removeUnusedRuleParts(rule) {
   if (!rule) return;
-  for (const [collection, field] of [[Triggers, 'trigger'], [Actions, 'action']]) {
-    const id = rule[`${field}Id`];
-    if (id && !await Rules.findOneAsync({ [`${field}Id`]: id })) await collection.removeAsync(id);
+  for (const [collection, field, list] of [[Triggers, 'trigger', ruleTriggerIds(rule)], [Actions, 'action', ruleActionIds(rule)]]) {
+    for (const id of list) {
+      if (id && !await Rules.findOneAsync(rulesUsing(field, id))) await collection.removeAsync(id);
+    }
   }
 }
 
@@ -79,13 +98,24 @@ Meteor.startup(() => {
     collection.after.update(async function (userId, doc) {
       if (!collectionWriteSucceeded(this)) return;
       if (isRecordingSuppressed()) return;
-      const rules = await Rules.find({ [`${field}Id`]: doc._id }).fetchAsync();
-      for (const rule of rules) await recordRuleChange(await ruleSnapshot(rule._id, { [field]: this.previous }), await ruleSnapshot(rule._id), userId);
+      const rules = await Rules.find(rulesUsing(field, doc._id)).fetchAsync();
+      for (const rule of rules) {
+        // The previous version of an extra part is not the rule's own part.
+        const before = rule[`${field}Id`] === doc._id
+          ? await ruleSnapshot(rule._id, { [field]: this.previous })
+          : await ruleSnapshotWithPart(rule._id, field, this.previous);
+        await recordRuleChange(before, await ruleSnapshot(rule._id), userId);
+      }
     });
     collection.after.remove(async (userId, doc) => {
       if (isRecordingSuppressed()) return;
-      const rules = await Rules.find({ [`${field}Id`]: doc._id }).fetchAsync();
-      for (const rule of rules) await recordRuleChange(await ruleSnapshot(rule._id, { [field]: doc }), await ruleSnapshot(rule._id), userId);
+      const rules = await Rules.find(rulesUsing(field, doc._id)).fetchAsync();
+      for (const rule of rules) {
+        const before = rule[`${field}Id`] === doc._id
+          ? await ruleSnapshot(rule._id, { [field]: doc })
+          : await ruleSnapshotWithPart(rule._id, field, doc);
+        await recordRuleChange(before, await ruleSnapshot(rule._id), userId);
+      }
     });
   }
 });
@@ -107,21 +137,29 @@ export async function applyRuleHistory(row, content, direction) {
     return true;
   }
   const { rule, trigger, action } = content;
+  const extraTriggers = Array.isArray(content.extraTriggers) ? content.extraTriggers : [];
+  const extraActions = Array.isArray(content.extraActions) ? content.extraActions : [];
+  // The saved extras must be exactly the rule's extra ids, in order.
+  if (JSON.stringify(extraTriggers.map(doc => doc && doc._id)) !== JSON.stringify(ruleTriggerIds(rule).slice(1)) ||
+      JSON.stringify(extraActions.map(doc => doc && doc._id)) !== JSON.stringify(ruleActionIds(rule).slice(1)) ||
+      extraTriggers.some(doc => doc.boardId !== row.boardId) || extraActions.some(doc => doc.boardId !== row.boardId)) return false;
   if (rule._id !== row.entityId || rule.boardId !== row.boardId || !trigger || !action || trigger._id !== rule.triggerId || action._id !== rule.actionId || trigger.boardId !== row.boardId) return false;
   if (action.boardId !== row.boardId && !allowIsBoardMemberWithWriteAccess(userId, await Boards.findOneAsync(action.boardId))) throw new Meteor.Error('not-authorized', 'Must have write access to the destination board');
   // Validate every target before the first write; imported IDs cannot replace
   // another board's document or another rule's shared trigger/action.
   const shared = new Set();
-  for (const [collection, field, doc] of [[Triggers, 'trigger', trigger], [Actions, 'action', action]]) {
+  const parts = [[Triggers, 'trigger', trigger], [Actions, 'action', action],
+    ...extraTriggers.map(doc => [Triggers, 'trigger', doc]), ...extraActions.map(doc => [Actions, 'action', doc])];
+  for (const [collection, field, doc] of parts) {
     const existing = await collection.findOneAsync(doc._id);
     if (existing && existing.boardId !== doc.boardId) return false;
-    if (await Rules.findOneAsync({ [`${field}Id`]: doc._id, _id: { $ne: rule._id } })) {
+    if (await Rules.findOneAsync({ ...rulesUsing(field, doc._id), _id: { $ne: rule._id } })) {
       if (!existing || !EJSON.equals(document(existing), doc)) return false;
-      shared.add(collection);
+      shared.add(doc._id);
     }
   }
-  for (const [collection, doc] of [[Triggers, trigger], [Actions, action], [Rules, rule]]) {
-    if (shared.has(collection)) continue;
+  for (const [collection, doc] of [...parts.map(([collection, , doc]) => [collection, doc]), [Rules, rule]]) {
+    if (shared.has(doc._id)) continue;
     const { _id, ...fields } = EJSON.clone(doc);
     const existing = await collection.findOneAsync(_id);
     if (existing) {

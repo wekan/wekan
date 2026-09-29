@@ -312,11 +312,13 @@ export class Exporter {
         }),
       );
     }
+    const { ruleTriggerIds: partTriggerIds, ruleActionIds: partActionIds } = require('/models/lib/ruleParts');
     for (const rule of result.rules) {
+      // #4294: every trigger and action of the rule, not only the first ones.
       result.triggers.push(
         ...await ReactiveCache.getTriggers(
           {
-            _id: rule.triggerId,
+            _id: { $in: partTriggerIds(rule) },
           },
           noBoardId,
         ),
@@ -324,7 +326,7 @@ export class Exporter {
       result.actions.push(
         ...await ReactiveCache.getActions(
           {
-            _id: rule.actionId,
+            _id: { $in: partActionIds(rule) },
           },
           noBoardId,
         ),
@@ -698,7 +700,11 @@ export class Exporter {
     // Rules + their triggers/actions.
     const ruleTriggerIds = [];
     const ruleActionIds = [];
-    await streamArray('rules', rulesRaw, scoped ? { _id: '__none__' } : { boardId }, noBoardId, d => { if (d.triggerId) ruleTriggerIds.push(d.triggerId); if (d.actionId) ruleActionIds.push(d.actionId); });
+    await streamArray('rules', rulesRaw, scoped ? { _id: '__none__' } : { boardId }, noBoardId, d => {
+      // #4294: extra triggers/actions travel with their rule.
+      const parts = require('/models/lib/ruleParts');
+      ruleTriggerIds.push(...parts.ruleTriggerIds(d)); ruleActionIds.push(...parts.ruleActionIds(d));
+    });
     await streamArray('triggers', triggersRaw, { _id: { $in: ruleTriggerIds } }, noBoardId);
     await streamArray('actions', actionsRaw, { _id: { $in: ruleActionIds } }, noBoardId);
 

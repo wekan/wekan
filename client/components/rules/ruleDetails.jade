@@ -12,12 +12,29 @@ template(name="ruleDetails")
                     div.trigger-content
                         div.trigger-text
                         = trigger
+                each extraTriggers
+                  div.trigger-item.js-extra-rule-part
+                      div.trigger-content
+                          div.trigger-text= text
+                      button.js-remove-rule-part(type="button" data-rule-id="{{ruleId}}" data-kind="{{kind}}" data-part-id="{{id}}") {{_ 'r-remove-rule-part'}}
+                button.js-add-rule-part(type="button" data-rule-id="{{currentRuleId}}" data-kind="trigger")
+                  i.fa.fa-plus
+                  | {{_ 'r-add-trigger-to-rule'}}
+                p.quiet {{_ 'r-rule-any-trigger-help'}}
                 h4
                   | {{_ 'r-action'}}
                 div.trigger-item
                     div.trigger-content
                         div.trigger-text
                         = action
+                each extraActions
+                  div.trigger-item.js-extra-rule-part
+                      div.trigger-content
+                          div.trigger-text= text
+                      button.js-remove-rule-part(type="button" data-rule-id="{{ruleId}}" data-kind="{{kind}}" data-part-id="{{id}}") {{_ 'r-remove-rule-part'}}
+                button.js-add-rule-part(type="button" data-rule-id="{{currentRuleId}}" data-kind="action")
+                  i.fa.fa-plus
+                  | {{_ 'r-add-action-to-rule'}}
     div.rules-back
         button.primary.wide.js-goback(type="submit")
           i.fa.fa-arrow-left

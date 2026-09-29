@@ -6,6 +6,14 @@
 // rules.updateRule) instead of creating a brand-new rule. Otherwise it falls
 // back to the normal create path (rules.createRule), same as before.
 export function saveRuleTriggerAction(boardId, ruleIdVar, ruleName, trigger, actionDoc) {
+  // #4294: "Add another action" on a rule's details adds this action to that
+  // rule instead of creating or editing a rule (see rulesMain.js).
+  const adding = Session.get('rulesAddingPart');
+  if (adding && adding.kind === 'action') {
+    Session.set('rulesAddingPart', null);
+    Meteor.call('rules.addPart', adding.ruleId, 'action', actionDoc);
+    return;
+  }
   const ruleId =
     ruleIdVar && typeof ruleIdVar.get === 'function' ? ruleIdVar.get() : null;
   if (ruleId) {

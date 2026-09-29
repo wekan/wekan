@@ -931,8 +931,7 @@ export class WekanCreator {
     for (const rule of wekanRules) {
       // Create the rule
       rule.boardId = boardId;
-      rule.triggerId = this.triggers[rule.triggerId];
-      rule.actionId = this.actions[rule.actionId];
+      require('/models/lib/ruleParts').remapRuleParts(rule, this.triggers, this.actions);
       delete rule._id;
       await Rules.direct.insertAsync(rule);
     }

@@ -2,6 +2,7 @@
 const { EJSON, calculateObjectSize } = require('bson');
 const { canonical, sha256 } = require('../../models/lib/changeHistoryIntegrity');
 const { notificationActivityIdentity } = require('./syncNotificationPlan');
+const { ruleActionIds } = require('../../models/lib/ruleParts');
 const copy = value => EJSON.parse(EJSON.stringify(value), { relaxed: true });
 const text = value => typeof value === 'string' && value.length > 0 && value.length <= 1024;
 const hash = value => typeof value === 'string' && /^[a-f0-9]{64}$/.test(value);
@@ -18,7 +19,8 @@ function validateAction(row, index, activity, effectId) {
   if (!keys(row, 'action,id,rule') || row.id !== actionId(planId(effectId, activity._id), index) ||
       !rule || Array.isArray(rule) || !text(rule._id) || rule.boardId !== activity.boardId ||
       !text(rule.actionId) || !text(rule.triggerId) || rule.enabled === false ||
-      (action !== null && (!action || Array.isArray(action) || action._id !== rule.actionId || !text(action.actionType)))) fail();
+      (action !== null && (!action || Array.isArray(action) || !ruleActionIds(rule).includes(action._id) ||
+        !text(action.actionType)))) fail();
 }
 function validateRulePlan(plan, activity, effectId) {
   const expected = identity(activity, effectId);
@@ -32,7 +34,9 @@ function validateRulePlan(plan, activity, effectId) {
 }
 // Capture the entire ordered selection before fetching actions. Duplicate rules
 // remain duplicate invocations, as in ordinary executeRules; IDs use ordinals.
-// A missing action is an explicit saved no-op, not a chance to select it later.
+// A rule with several actions (models/lib/ruleParts.js) saves one row per
+// action, in order. A missing action is an explicit saved no-op, not a chance
+// to select it later.
 async function prepareRulePlan({ activity, effectId, selectRules, readAction, assertCurrent }) {
   const saved = copy(activity), expected = identity(saved, effectId);
   if (![selectRules, readAction, assertCurrent].every(value => typeof value === 'function')) fail();
@@ -41,16 +45,23 @@ async function prepareRulePlan({ activity, effectId, selectRules, readAction, as
   if (!Array.isArray(selected) || selected.length > 1000) fail();
   const plan = { version: 1, ...expected, actions: [] };
   let bytes = calculateObjectSize(plan);
-  for (let index = 0; index < selected.length; index++) {
-    const rule = selected[index];
+  let index = 0;
+  for (const rule of selected) {
     if (!rule || !text(rule.actionId)) fail();
-    await assertCurrent();
-    const action = await readAction(rule.actionId);
-    const row = { id: actionId(planId(effectId, saved._id), index), rule, action: action == null ? null : copy(action) };
-    validateAction(row, index, saved, effectId);
-    bytes += calculateObjectSize(row) + 32;
-    if (bytes > 14 * 1024 * 1024) fail();
-    plan.actions.push(row);
+    for (const ruleActionId of ruleActionIds(rule)) {
+      if (index >= 1000) fail();
+      await assertCurrent();
+      const action = await readAction(ruleActionId);
+      // A missing action is saved as that action's no-op, not the rule's.
+      const savedAction = action == null ? null : copy(action);
+      if (savedAction && savedAction._id !== ruleActionId) fail();
+      const row = { id: actionId(planId(effectId, saved._id), index), rule, action: savedAction };
+      validateAction(row, index, saved, effectId);
+      bytes += calculateObjectSize(row) + 32;
+      if (bytes > 14 * 1024 * 1024) fail();
+      plan.actions.push(row);
+      index += 1;
+    }
   }
   await assertCurrent();
   validateRulePlan(plan, saved, effectId);

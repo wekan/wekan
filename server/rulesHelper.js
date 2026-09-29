@@ -20,6 +20,7 @@ import { buildCustomFieldsWD, filterAdminOnlyDefinitions } from '/models/lib/cus
 import { cardMatchesAdvancedFilter } from '/server/lib/advancedFilterMatch';
 import { cardTextContainsMatch } from '/models/lib/ruleTextContainsMatch';
 import { RULE_ACTING_USER_SENTINEL, resolveActingUserId } from '/models/lib/ruleActingUser';
+import { ruleActionIds, uniqueRules } from '/models/lib/ruleParts';
 
 // #5536: robustly resolve a destination board's default swimlane, tolerating a
 // board that lacks a swimlane literally titled 'Default' (renamed/translated) or
@@ -163,9 +164,17 @@ export const RulesHelper = {
   async executeRules(activity) {
     const matchingRules = await this.findMatchingRules(activity);
     for (let i = 0; i < matchingRules.length; i++) {
-      const action = await matchingRules[i].getAction();
+      const rule = matchingRules[i];
+      const action = await rule.getAction();
       if (action !== undefined) {
         await this.performAction(activity, action);
+      }
+      // #4294: further actions run in order after the rule's own action.
+      for (const extraId of ruleActionIds(rule).slice(1)) {
+        const extra = await ReactiveCache.getAction(extraId);
+        if (extra !== undefined) {
+          await this.performAction(activity, extra);
+        }
       }
     }
   },
@@ -251,8 +260,9 @@ export const RulesHelper = {
     // #2322: a disabled rule keeps its trigger/action documents and
     // configuration intact so it can be re-enabled later, but it must never
     // fire while disabled. `enabled` defaults to `true` in the schema, so
-    // only an explicit `false` is skipped here.
-    return matchingRules.filter(rule => rule.enabled !== false);
+    // only an explicit `false` is skipped here. A rule matched through more
+    // than one of its triggers runs once (#4294: any trigger fires it).
+    return uniqueRules(matchingRules.filter(rule => rule.enabled !== false));
   },
   async buildMatchingFieldsMap(activity, matchingFields) {
     const matchingMap = { activityType: activity.activityType };

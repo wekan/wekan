@@ -22,7 +22,27 @@ Template.ruleDetails.onCreated(function () {
   this.subscribe('boards');
 });
 
+// #4294 / #2953: the rule's further triggers and actions, in order.
+function extraParts(ruleIdVar, kind) {
+  const rule = ReactiveCache.getRule(ruleIdVar.get());
+  if (!rule) return [];
+  const ids = (kind === 'trigger' ? rule.extraTriggerIds : rule.extraActionIds) || [];
+  return ids.map(id => {
+    const doc = kind === 'trigger' ? ReactiveCache.getTrigger(id) : ReactiveCache.getAction(id);
+    return { ruleId: rule._id, kind, id, text: doc ? upperFirst(localizedDescription(doc.description())) : id };
+  });
+}
+
 Template.ruleDetails.helpers({
+  currentRuleId() {
+    return Template.currentData().ruleId.get();
+  },
+  extraTriggers() {
+    return extraParts(Template.currentData().ruleId, 'trigger');
+  },
+  extraActions() {
+    return extraParts(Template.currentData().ruleId, 'action');
+  },
   trigger() {
     const ruleId = Template.currentData().ruleId;
     const rule = ReactiveCache.getRule(ruleId.get());

@@ -4,6 +4,7 @@ import Triggers from '/models/triggers';
 import Rules from '/models/rules';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { publishReportPage } from '/models/lib/reportPageIndex';
+import { ruleActionIds, ruleTriggerIds } from '/models/lib/ruleParts';
 
 Meteor.publish('rules', async function(ruleId) {
   check(ruleId, String);
@@ -106,8 +107,9 @@ Meteor.publish('rulesReport', async function(searchTerm = '', limit, skip = 0) {
   const triggerIds = [];
   const boardIds = [];
   rules.forEach(rule => {
-    actionIds.push(rule.actionId);
-    triggerIds.push(rule.triggerId);
+    // #4294: every trigger and action of the rule.
+    actionIds.push(...ruleActionIds(rule));
+    triggerIds.push(...ruleTriggerIds(rule));
     boardIds.push(rule.boardId);
   });
 

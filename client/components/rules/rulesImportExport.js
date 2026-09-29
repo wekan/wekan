@@ -25,7 +25,13 @@ function collectBoardRules(boardId) {
       const trigger = ReactiveCache.getTrigger(rule.triggerId);
       const action = ReactiveCache.getAction(rule.actionId);
       if (!trigger || !action) return null;
-      return { title: rule.title, trigger: stripDoc(trigger), action: stripDoc(action) };
+      const entry = { title: rule.title, trigger: stripDoc(trigger), action: stripDoc(action) };
+      // #4294: further triggers and actions travel with the rule.
+      const extraTriggers = (rule.extraTriggerIds || []).map(id => ReactiveCache.getTrigger(id)).filter(Boolean).map(stripDoc);
+      const extraActions = (rule.extraActionIds || []).map(id => ReactiveCache.getAction(id)).filter(Boolean).map(stripDoc);
+      if (extraTriggers.length) entry.extraTriggers = extraTriggers;
+      if (extraActions.length) entry.extraActions = extraActions;
+      return entry;
     })
     .filter(Boolean);
 }
@@ -66,6 +72,19 @@ function importRules(rulesArray, boardId) {
       entry.title || 'Imported rule',
       normalizeTrigger(stripDoc(entry.trigger)),
       stripDoc(entry.action),
+      (error, created) => {
+        if (error || !created) return;
+        // #4294: add the rule's further triggers, then actions, in order.
+        const parts = [
+          ...(Array.isArray(entry.extraTriggers) ? entry.extraTriggers : []).map(doc => ['trigger', normalizeTrigger(stripDoc(doc))]),
+          ...(Array.isArray(entry.extraActions) ? entry.extraActions : []).map(doc => ['action', stripDoc(doc)]),
+        ];
+        const next = () => {
+          const part = parts.shift();
+          if (part) Meteor.call('rules.addPart', created._id, part[0], part[1], next);
+        };
+        next();
+      },
     );
     count += 1;
   });

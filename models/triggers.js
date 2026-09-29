@@ -1,5 +1,6 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { Mongo } from 'meteor/mongo';
+import { ruleForTriggerSelector } from '/models/lib/ruleParts';
 
 const Triggers = new Mongo.Collection('triggers');
 
@@ -31,7 +32,8 @@ Triggers.helpers({
   },
 
   getRule() {
-    return ReactiveCache.getRule({ triggerId: this._id });
+    // A trigger may be one of several a rule has (models/lib/ruleParts.js).
+    return ReactiveCache.getRule(ruleForTriggerSelector(this._id));
   },
 
   fromList() {

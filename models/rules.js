@@ -52,6 +52,20 @@ Rules.attachSchema(
       type: String,
       optional: false,
     },
+    // #4294 / #2953: further triggers (the rule fires when ANY fires) and
+    // further actions (run in order after actionId). See models/lib/ruleParts.js.
+    extraTriggerIds: {
+      type: Array,
+      optional: true,
+      maxCount: 10,
+    },
+    'extraTriggerIds.$': { type: String },
+    extraActionIds: {
+      type: Array,
+      optional: true,
+      maxCount: 10,
+    },
+    'extraActionIds.$': { type: String },
     boardId: {
       type: String,
       optional: false,

@@ -25,6 +25,8 @@ function fixture(action, method) {
   const card = { _id: 'card', getStart() {}, getEnd() {}, getDue() {}, getReceived() {},
     [method]() { calls++; started(); return calls === 1 ? pending : Promise.resolve(); } };
   const helper = vm.runInNewContext(`(${object})`, {
+    // Rules with several triggers/actions (models/lib/ruleParts.js).
+    ...require('../models/lib/ruleParts.js'),
     console: { error() {} },
     buildRuleVars: async () => ({}),
     relativeDateOffset: () => new Date(1234),

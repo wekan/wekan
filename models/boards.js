@@ -1636,8 +1636,8 @@ Boards.helpers({
     for (const rule of rules) {
       delete rule._id;
       rule.boardId = _id;
-      rule.actionId = actionsMap[rule.actionId];
-      rule.triggerId = triggersMap[rule.triggerId];
+      // #4294: all of a rule's triggers and actions, not only the first ones.
+      require('/models/lib/ruleParts').remapRuleParts(rule, triggersMap, actionsMap);
       await Rules.insertAsync(rule);
     }
 

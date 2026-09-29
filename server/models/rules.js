@@ -63,13 +63,21 @@ function normalizeTriggerDoc(trigger) {
 async function serializeRule(rule) {
   const trigger = await ReactiveCache.getTrigger(rule.triggerId);
   const action = await ReactiveCache.getAction(rule.actionId);
-  return {
+  const out = {
     _id: rule._id,
     title: rule.title,
     enabled: rule.enabled !== false,
     trigger: trigger ? strip(trigger) : null,
     action: action ? strip(action) : null,
   };
+  // #4294: further triggers (any fires the rule) and actions (run in order).
+  if ((rule.extraTriggerIds || []).length) {
+    out.extraTriggers = (await Promise.all(rule.extraTriggerIds.map(id => ReactiveCache.getTrigger(id)))).filter(Boolean).map(strip);
+  }
+  if ((rule.extraActionIds || []).length) {
+    out.extraActions = (await Promise.all(rule.extraActionIds.map(id => ReactiveCache.getAction(id)))).filter(Boolean).map(strip);
+  }
+  return out;
 }
 
 if (Meteor.isServer) {
