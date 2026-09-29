@@ -149,6 +149,46 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
   assert.match(bg['Node_heap_peak_malloced_memory'], /пиков.*malloc/);
   assert.match(bg['Node_heap_does_zap_garbage'], /презаписване.*zap/);
   assert.match(bg['Node_memory_usage_rss'], /резидентната памет/);
+  const attachmentKeys = ["checklistActionsPopup-title", "moveChecklist", "moveChecklistPopup-title", "newlineBecomesNewChecklistItem", "newLineNewItem", "newlineBecomesNewChecklistItemOriginOrder", "subtaskActionsPopup-title", "attachmentActionsPopup-title", "attachment-move-storage-fs", "attachment-move-storage-gridfs", "attachment-move-storage-s3", "attachment-move", "move-all-attachments-to-fs", "move-all-attachments-to-gridfs", "move-all-attachments-to-s3", "move-all-attachments-of-board-to-fs", "move-all-attachments-of-board-to-gridfs", "move-all-attachments-of-board-to-s3", "path", "version-name", "board-title", "password-again", "if-you-already-have-an-account", "forgot-password", "Mongo_sessions_count", "max-upload-filesize", "allowed-upload-filetypes", "max-avatar-filesize", "allowed-avatar-filetypes", "invalid-file", "preview-pdf-not-supported", "translation-number", "delete-translation-confirm-popup", "show-subtasks-field", "import-board-zip", "hideCheckedChecklistItems", "hideAllChecklistItems", "support-page-enabled", "support-info-not-added-yet", "support-info-only-for-logged-in-users", "support-content", "accessibility", "accessibility-page-enabled", "accessibility-info-not-added-yet", "accessibility-content"];
+  for (const key of attachmentKeys) {
+    assert.deepEqual(translationTokens(bg[key]), translationTokens(en[key]), key);
+    assert.doesNotMatch(bg[key], /[јћђљњџЈЋЂЉЊЋЏ]|поступ|списи|опорав|предмет/i, key);
+    assert.match(bg[key], /[А-Яа-я]/, key);
+  }
+  for (const backend of ['gridfs', 's3']) {
+    const name = backend === 'gridfs' ? 'GridFS' : 'S3';
+    for (const prefix of ['attachment-move-storage-', 'move-all-attachments-to-', 'move-all-attachments-of-board-to-']) {
+      assert.ok(bg[prefix + backend].includes(name));
+    }
+  }
+  assert.match(bg['move-all-attachments-of-board-to-fs'], /всички.*на таблото/);
+  assert.match(bg['max-upload-filesize'], /байтове/);
+  assert.match(bg['max-avatar-filesize'], /аватара в байтове/);
+  assert.match(bg['invalid-file'], /качването или преименуването се отменя/);
+  assert.match(bg['import-board-zip'], /\.zip.*JSON.*подпапки.*прикачените файлове/);
+  assert.match(bg['delete-translation-confirm-popup'], /необратимо/);
+  assert.match(bg['support-info-only-for-logged-in-users'], /само за влезли потребители/);
+  assert.match(bg['hideCheckedChecklistItems'], /отметнатите/);
+  assert.match(bg['hideAllChecklistItems'], /всички/);
+  assert.match(bg['newlineBecomesNewChecklistItemOriginOrder'], /първоначалния ред/);
+  const lockoutKeys = ["accounts-lockout-info", "accounts-lockout-known-users", "accounts-lockout-unknown-users", "accounts-lockout-failures-before", "accounts-lockout-period", "accounts-lockout-failure-window", "accounts-lockout-settings-updated", "accounts-lockout-locked-users-info", "accounts-lockout-no-locked-users", "accounts-lockout-failed-attempts", "accounts-lockout-user-unlocked", "accounts-lockout-confirm-unlock", "accounts-lockout-user-locked", "accounts-lockout-click-to-unlock", "admin-people-filter-show", "admin-people-filter-inactive", "admin-people-user-active", "admin-people-user-inactive", "accounts-lockout-all-users-unlocked", "active-cron-jobs", "add-cron-job-placeholder", "attachment-storage-configuration", "attachments-path", "attachments-path-description", "avatars-path", "avatars-path-description", "board-archive-failed", "board-archive-scheduled", "board-backup-failed", "board-backup-scheduled", "board-cleanup-failed", "board-cleanup-scheduled", "board-operations", "cron-migrations", "cron-job-delete-failed"];
+  for (const key of lockoutKeys) {
+    assert.deepEqual(translationTokens(bg[key]), translationTokens(en[key]), key);
+    assert.doesNotMatch(bg[key], /[јћђљњџЈЋЂЉЊЋЏ]|поступ|списи|опорав|предмет|платн/i, key);
+    assert.match(bg[key], /[А-Яа-я]/, key);
+  }
+  assert.match(bg['accounts-lockout-known-users'], /правилно потребителско име, грешна парола/);
+  assert.match(bg['accounts-lockout-unknown-users'], /несъществуващо потребителско име/);
+  assert.match(bg['accounts-lockout-period'], /секунди/);
+  assert.match(bg['accounts-lockout-failure-window'], /секунди/);
+  assert.match(bg['admin-people-user-active'], /е активен.*деактивирате/);
+  assert.match(bg['admin-people-user-inactive'], /е неактивен.*го активирате/);
+  assert.match(bg['accounts-lockout-all-users-unlocked'], /Всички.*отблокирани/);
+  for (const operation of ['archive', 'backup', 'cleanup']) {
+    assert.match(bg['board-' + operation + '-failed'], /Неуспешно планиране/);
+    assert.match(bg['board-' + operation + '-scheduled'], /планирано успешно/);
+  }
+  assert.notEqual(bg['board-backup-scheduled'], bg['board-archive-scheduled']);
   assert.equal(bg.swimlane, 'Коридор');
   assert.equal(bg['welcome-swimlane'], 'Етап 1');
   assert.match(bg['swimlane-height-error-message'], /положително цяло число/);
