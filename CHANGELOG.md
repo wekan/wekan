@@ -1448,33 +1448,6 @@ endpoint, environment/infrastructure this sandbox cannot stand up or verify).
 </details>
 
 <details>
-<summary>Trello/Jira/Kanboard/Nextcloud Deck/Gitea gaps investigated but not built this pass.</summary>
-
-Researched against WeKan's actual current code (not assumed) to find what is
-genuinely still missing after this session's landed work, then scoped down
-to the smallest well-understood piece (card recurrence, added above) rather
-than a shallow pass across all five tools. What is investigated but deferred:
-**Jira issue TYPES** (Bug/Task/Story/Epic as a first-class
-card attribute with its own icon set and swimlane-per-epic grouping - the
-existing custom-field mechanism can represent the VALUE but not the icon/
-swimlane-grouping behaviour Jira gives a type, so this needs a decision on
-whether to build it as a special custom field or a new schema concept before
-any UI is worth writing). **Kanboard color-coded categories** (a per-board
-tag distinct from labels, used for at-a-glance visual grouping rather than
-filtering - overlaps enough with labels that it needs a maintainer decision
-on whether it is a genuinely separate concept or a label-color affordance
-that already exists).
-**Nextcloud Deck auto-archival after N days of inactivity** (overlaps the
-card-recurrence scan job's shape closely enough to reuse
-`SyncedCron`/`models/lib/*Schedule.js` once built, but is a separate
-feature - archiving instead of cloning - and needs its own opt-in field and
-UI, not a variant of recurrence). None of these needs Internet access to
-run - all are genuinely on-premise-buildable - they are deferred for scope,
-not for a missing on-premise capability.
-
-</details>
-
-<details>
 <summary>Attachment-board upgrade report needs affected data or runtime logs.</summary>
 
 An upgrade report by email: after a 6.09 to 10.85 dump-and-restore,
