@@ -325,6 +325,25 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
   assert.match(bg['scrum-policy-doneLists'], /списък от категория/);
   assert.match(bg['scrum-backlog-help'], /планиран или активен спринт/);
   assert.match(bg['scrum-timebox'], /минути/);
+  const reportFillKeys = ["scrum-notes", "scrum-event-planning", "scrum-event-daily", "scrum-event-review", "scrum-event-retrospective", "scrum-committed", "scrum-completed", "scrum-added", "scrum-removed", "scrum-incomplete", "scrum-no-closed-sprints", "scrum-report-help", "scrum-total", "scrum-state-planned", "scrum-state-active", "scrum-state-closed", "scrum-state-cancelled", "scrum-unknown-estimate", "scrum-confirm-close", "scrum-confirm-cancel", "scrum-past-sprints", "scrum-list-category", "scrum-swimlane-purpose", "scrum-category-backlog", "scrum-category-todo", "scrum-category-doing", "scrum-category-done", "scrum-partial-report", "scrum-state-released", "scrum-released-at", "scrum-follow-up-cards", "scrum-import-reference-omitted", "scrum-partial-snapshot", "scrum-resume-close", "scrum-daily-observations", "scrum-daily-observations-help", "scrum-daily-truncated", "scrum-daily-empty", "scrum-observed-scope", "scrum-daily-observations-export-help", "scrum-import-pending", "sync-conflict-heading", "sync-conflict-hint", "sync-conflict-local", "sync-conflict-keep-local", "sync-conflict-use-source", "sync-conflict-refresh", "sync-conflict-review-complete", "sync-conflict-duplicate", "sync-conflict-keep-mapping", "sync-conflict-detach", "sync-conflict-detach-hint", "sync-conflict-archive", "sync-conflict-archive-hint", "sync-conflict-keep-card-local"];
+  for (const key of reportFillKeys) {
+    assert.ok(bg[key]?.trim(), key);
+    assert.notEqual(bg[key], en[key], key);
+    assert.deepEqual(translationTokens(bg[key]), translationTokens(en[key]), key);
+    assert.match(bg[key], /[А-Яа-я]/, key);
+  }
+  assert.match(bg['scrum-report-help'], /не са нулеви оценки.*еднакви мерни единици/);
+  assert.match(bg['scrum-confirm-close'], /Незавършените карти ще се преместят/);
+  assert.match(bg['scrum-confirm-cancel'], /остават в него.*преназначени/);
+  assert.match(bg['scrum-partial-report'], /само картите.*възложени на вас/);
+  assert.match(bg['scrum-daily-observations-help'], /първото записано.*UTC.*Липсващите дни се пропускат/);
+  assert.match(bg['scrum-daily-observations-help'], /не записват всяка промяна.*не са нула/);
+  assert.match(bg['scrum-daily-truncated'], /366/);
+  assert.match(bg['scrum-import-pending'], /не са достъпни/);
+  assert.match(bg['sync-conflict-hint'], /Нищо не се изпраща към изходната система/);
+  assert.match(bg['sync-conflict-review-complete'], /Не е извършена синхронизация на целия списък/);
+  assert.match(bg['sync-conflict-detach-hint'], /Съдържанието му остава в WeKan/);
+  assert.match(bg['sync-conflict-archive-hint'], /Подкартите не се променят/);
   assert.equal(bg.swimlane, 'Коридор');
   assert.equal(bg['welcome-swimlane'], 'Етап 1');
   assert.match(bg['swimlane-height-error-message'], /положително цяло число/);
