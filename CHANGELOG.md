@@ -2075,6 +2075,17 @@ values need a terminology review; other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e5539d0b8">Translate todo.txt import guidance across 62 locales</a>. Thanks to xet7.</summary>
+
+Translate the new import guidance across recently completed locales.
+Regression checks preserve task markers, project and context syntax, priority
+markers and date prefixes. Completeness, placeholder and human-preference
+checks pass; existing translations are preserved. Other languages remain in
+progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
