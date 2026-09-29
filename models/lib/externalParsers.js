@@ -551,26 +551,187 @@ export function parseAsana(data) {
 }
 
 // --- ZenKit ----------------------------------------------------------------
-// Accepts a ZenKit-style export { title, stages:[{name}],
-//   items:[{title, description, stage_name, due, tags:[string]}] }.
+// Two shapes are accepted.
+//
+// The Zenkit API: { list:{name}, elements:[{uuid, name, elementcategory,
+// isPrimary}], entries:[entry] } where an entry is { uuid, displayString,
+// sortOrder, created_at, deprecated_at, comment_count, checklists:[{name,
+// items:[{text, checked}]}] } plus one key per field value, named after the
+// element: `<uuid>_text`, `_number`, `_date`, `_categories_sort`,
+// `_persons_sort` or `_references_sort` (as the zenkit Rust client
+// deserializes them). Zenkit documents no single-file JSON export schema, so
+// element kinds whose value key is not documented are reported, not guessed.
+//
+// The adapter shape: { title, stages:[{name}], items:[{title, description,
+// stage_name, due, tags, id, parent_id, assignees, fields:{name: value},
+// comments, checklists}] }. Keys it does not know are reported too, because
+// Zenkit products differ.
+const ZENKIT = { text: 1, number: 2, url: 3, date: 4, checkbox: 5, categories: 6, formula: 7,
+  persons: 14, files: 15, references: 16, hierarchy: 17, subEntries: 18, dependencies: 19 };
+const ZENKIT_ADAPTER_KEYS = new Set(['title', 'name', 'description', 'notes', 'stage_name', 'stageName', 'list',
+  'due', 'dueDate', 'due_date', 'tags', 'assignee', 'assignees', 'id', 'uuid', 'parent_id', 'parentId',
+  'fields', 'comments', 'checklists', 'created_at', 'start']);
+
+function zenkitNames(list, key) {
+  return (Array.isArray(list) ? list : []).map(v => v && v[key]).filter(v => typeof v === 'string' && v);
+}
+
+function zenkitChecklists(checklists) {
+  return (Array.isArray(checklists) ? checklists : []).map(c => ({
+    title: c && c.name,
+    items: (Array.isArray(c && c.items) ? c.items : []).map(i => ({ title: i && (i.text || i.title), done: Boolean(i && (i.checked || i.done)) })),
+  }));
+}
+
+function parseZenkitApi(data) {
+  const elements = data.elements.filter(e => e && typeof e.uuid === 'string');
+  const kind = e => Number(e.elementcategory);
+  const named = (category, pattern) => elements.find(e => kind(e) === category && pattern.test(e.name || ''));
+  const categories = elements.filter(e => kind(e) === ZENKIT.categories);
+  const stage = named(ZENKIT.categories, /stage|status|state|column/i) || categories[0];
+  const descriptionField = elements.find(e => kind(e) === ZENKIT.text && !e.isPrimary && /description|notes?|details/i.test(e.name || ''));
+  const due = named(ZENKIT.date, /due|deadline|end/i);
+  const start = named(ZENKIT.date, /start|begin/i);
+  const people = elements.filter(e => kind(e) === ZENKIT.persons);
+  const hierarchy = elements.find(e => kind(e) === ZENKIT.hierarchy);
+  const dependencies = elements.filter(e => kind(e) === ZENKIT.dependencies);
+  const unsupported = [];
+  const warnings = [];
+  const entries = (data.entries || data.listEntries).filter(Boolean);
+  const live = entries.filter(e => !e.deprecated_at);
+  if (live.length !== entries.length) warnings.push({ path: '/entries', reason: `${entries.length - live.length} deleted entr(ies) skipped` });
+  live.sort((a, b) => (Number(a.sortOrder) || 0) - (Number(b.sortOrder) || 0));
+  const reported = new Set();
+  const report = (element, reason) => {
+    if (reported.has(element.uuid)) return;
+    reported.add(element.uuid);
+    unsupported.push({ path: `/elements/${elements.indexOf(element)}`, reason: `${element.name || element.uuid}: ${reason}` });
+  };
+  const tasks = live.map((entry, index) => {
+    const value = (element, suffix) => entry[`${element.uuid}_${suffix}`];
+    const custom = {};
+    const tags = [];
+    elements.forEach(element => {
+      if (element.isPrimary || [stage, descriptionField, due, start, hierarchy].includes(element)) return;
+      switch (kind(element)) {
+        case ZENKIT.text: case ZENKIT.url: {
+          const v = value(element, 'text');
+          if (typeof v === 'string' && v) custom[element.name] = v;
+          break;
+        }
+        case ZENKIT.number: {
+          const v = value(element, 'number');
+          if (typeof v === 'number' && Number.isFinite(v)) custom[element.name] = v;
+          break;
+        }
+        case ZENKIT.date: {
+          const v = value(element, 'date');
+          if (typeof v === 'string' && v) custom[element.name] = v;
+          break;
+        }
+        case ZENKIT.categories:
+          tags.push(...zenkitNames(value(element, 'categories_sort'), 'name'));
+          break;
+        case ZENKIT.persons: case ZENKIT.dependencies: case ZENKIT.subEntries:
+          break;
+        case ZENKIT.files:
+          report(element, 'files are not part of the export');
+          break;
+        case ZENKIT.references:
+          report(element, 'references to other lists are not imported');
+          break;
+        case ZENKIT.formula:
+          report(element, 'formula results are computed by Zenkit and not imported');
+          break;
+        default:
+          if ([8, 9, 10, 11, 12, 13].includes(kind(element))) break; // entry metadata, read below
+          report(element, 'this field type has no documented value format');
+      }
+    });
+    const persons = people.flatMap(p => zenkitNames(value(p, 'persons_sort'), 'displayname'));
+    const parent = hierarchy && zenkitNames(value(hierarchy, 'references_sort'), 'uuid')[0];
+    const comments = Number(entry.comment_count) || 0;
+    if (comments) unsupported.push({ path: `/entries/${index}/comment_count`, reason: `${comments} comment(s) are fetched separately from Zenkit` });
+    return {
+      ref: entry.uuid,
+      parent_ref: parent,
+      dependencies: dependencies.flatMap(d => zenkitNames(value(d, 'references_sort'), 'uuid'))
+        .map(ref => ({ ref, type: 'related-to' })),
+      title: entry.displayString || 'Imported item',
+      description: (descriptionField && value(descriptionField, 'text')) || '',
+      column_name: (stage && zenkitNames(value(stage, 'categories_sort'), 'name')[0]) || 'Inbox',
+      swimlane_name: 'Default',
+      date_due: due && value(due, 'date'),
+      date_started: start && value(start, 'date'),
+      date_creation: entry.created_at,
+      owner_username: persons[0],
+      assignees: persons.slice(1),
+      requested_by: entry.created_by_displayname || undefined,
+      tags: uniq(tags),
+      custom_fields: custom,
+      checklists: zenkitChecklists(entry.checklists),
+    };
+  });
+  const stageNames = stage && stage.elementData && Array.isArray(stage.elementData.predefinedCategories)
+    ? zenkitNames(stage.elementData.predefinedCategories, 'name') : [];
+  const columns = uniq(stageNames.concat(tasks.map(t => t.column_name)));
+  return {
+    board: { name: (data.list && data.list.name) || data.title || data.name || 'Imported ZenKit list' },
+    columns: columns.map(title => ({ title })),
+    swimlanes: [{ name: 'Default' }],
+    tasks,
+    warnings,
+    unsupported,
+  };
+}
+
 export function parseZenkit(data) {
+  if (data && !Array.isArray(data) && Array.isArray(data.elements)
+    && (Array.isArray(data.entries) || Array.isArray(data.listEntries))) {
+    return parseZenkitApi(data);
+  }
   const items = Array.isArray(data) ? data : (data.items || []);
   const stages = data.stages || [];
-  const tasks = items.map(t => ({
-    title: t.title || t.name || 'Imported item',
-    description: t.description || t.notes || '',
-    column_name: t.stage_name || t.stageName || t.list || 'Inbox',
-    swimlane_name: 'Default',
-    date_due: t.due || t.dueDate || t.due_date,
-    owner_username: t.assignee && (t.assignee.email || t.assignee.name),
-    tags: Array.isArray(t.tags) ? t.tags.map(tag => (typeof tag === 'string' ? tag : tag.name)) : [],
-  }));
+  const unsupported = [];
+  const tasks = items.map((t, index) => {
+    const unknown = Object.keys(t || {}).filter(key => !ZENKIT_ADAPTER_KEYS.has(key));
+    if (unknown.length) {
+      unsupported.push({ path: `/items/${index}`, reason: `unrecognized field(s): ${unknown.slice(0, 10).join(', ')}` });
+    }
+    const people = (Array.isArray(t.assignees) ? t.assignees : [t.assignee])
+      .map(a => (typeof a === 'string' ? a : a && (a.email || a.name))).filter(Boolean);
+    const id = t.id !== undefined && t.id !== null ? t.id : t.uuid;
+    const parent = t.parent_id !== undefined && t.parent_id !== null ? t.parent_id : t.parentId;
+    return {
+      ref: id !== undefined && id !== null ? String(id) : undefined,
+      parent_ref: parent !== undefined && parent !== null ? String(parent) : undefined,
+      title: t.title || t.name || 'Imported item',
+      description: t.description || t.notes || '',
+      column_name: t.stage_name || t.stageName || t.list || 'Inbox',
+      swimlane_name: 'Default',
+      date_due: t.due || t.dueDate || t.due_date,
+      date_started: t.start,
+      date_creation: t.created_at,
+      owner_username: people[0],
+      assignees: people.slice(1),
+      tags: Array.isArray(t.tags) ? t.tags.map(tag => (typeof tag === 'string' ? tag : tag && tag.name)).filter(Boolean) : [],
+      custom_fields: t.fields && typeof t.fields === 'object' && !Array.isArray(t.fields) ? t.fields : {},
+      checklists: zenkitChecklists(t.checklists),
+      comments: (Array.isArray(t.comments) ? t.comments : []).map(c => ({
+        text: typeof c === 'string' ? c : c && (c.text || c.message),
+        author: c && typeof c === 'object' ? (c.author || c.user) : undefined,
+        date: c && typeof c === 'object' ? (c.date || c.created_at) : undefined,
+      })),
+    };
+  });
   const derivedColumns = uniq(tasks.map(t => t.column_name)).map(title => ({ title }));
   return {
     board: { name: data.title || data.name || 'Imported ZenKit list' },
     columns: stages.length ? stages.map(s => ({ title: s.name || s.title })) : derivedColumns,
     swimlanes: [{ name: 'Default' }],
     tasks,
+    warnings: [],
+    unsupported,
   };
 }
 

@@ -1,0 +1,138 @@
+{
+  "list": {
+    "name": "Audit Zenkit API list"
+  },
+  "elements": [
+    {
+      "uuid": "e-title",
+      "name": "Title",
+      "elementcategory": 1,
+      "isPrimary": true
+    },
+    {
+      "uuid": "e-stage",
+      "name": "Stage",
+      "elementcategory": 6,
+      "elementData": {
+        "predefinedCategories": [
+          {
+            "id": 1,
+            "name": "Audit list"
+          },
+          {
+            "id": 2,
+            "name": "Done"
+          }
+        ]
+      }
+    },
+    {
+      "uuid": "e-labels",
+      "name": "Labels",
+      "elementcategory": 6
+    },
+    {
+      "uuid": "e-desc",
+      "name": "Description",
+      "elementcategory": 1
+    },
+    {
+      "uuid": "e-due",
+      "name": "Due date",
+      "elementcategory": 4
+    },
+    {
+      "uuid": "e-people",
+      "name": "Assignees",
+      "elementcategory": 14
+    },
+    {
+      "uuid": "e-parent",
+      "name": "Parent",
+      "elementcategory": 17
+    },
+    {
+      "uuid": "e-points",
+      "name": "Audit points",
+      "elementcategory": 2
+    },
+    {
+      "uuid": "e-files",
+      "name": "Files",
+      "elementcategory": 15
+    },
+    {
+      "uuid": "e-formula",
+      "name": "Score",
+      "elementcategory": 7
+    }
+  ],
+  "entries": [
+    {
+      "uuid": "u1",
+      "displayString": "Audit task – Å 中文",
+      "sortOrder": 1,
+      "created_at": "2026-08-01T10:00:00Z",
+      "comment_count": 2,
+      "e-title_text": "Audit task – Å 中文",
+      "e-stage_categories_sort": [
+        {
+          "id": 1,
+          "name": "Audit list"
+        }
+      ],
+      "e-labels_categories_sort": [
+        {
+          "id": 3,
+          "name": "Audit label"
+        }
+      ],
+      "e-desc_text": "First line: café, comma, and \"quotes\".\nSecond line: 日本語.",
+      "e-due_date": "2026-09-30",
+      "e-people_persons_sort": [
+        {
+          "id": 1,
+          "displayname": "zen-a"
+        },
+        {
+          "id": 2,
+          "displayname": "zen-b"
+        }
+      ],
+      "e-points_number": 5,
+      "checklists": [
+        {
+          "name": "Audit checklist",
+          "items": [
+            {
+              "text": "Audit item",
+              "checked": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "uuid": "u2",
+      "displayString": "Audit child",
+      "sortOrder": 2,
+      "e-parent_references_sort": [
+        {
+          "uuid": "u1"
+        }
+      ],
+      "e-stage_categories_sort": [
+        {
+          "id": 2,
+          "name": "Done"
+        }
+      ]
+    },
+    {
+      "uuid": "u0",
+      "displayString": "Deleted entry",
+      "sortOrder": 0,
+      "deprecated_at": "2026-09-02T00:00:00Z"
+    }
+  ]
+}

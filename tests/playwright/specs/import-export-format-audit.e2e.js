@@ -106,7 +106,39 @@ const FIDELITY = {
     },
     labels: [expected.label],
   },
+  zenkit: {
+    comments: [`zen-user: ${expected.comment}`],
+    checklistItems: [['Audit item', true]],
+    card: card => {
+      const fields = Object.fromEntries(db.find('customFields', { boardIds: card.boardId }).map(f => [f._id, f.name]));
+      expect(Object.fromEntries(card.customFields.map(v => [fields[v._id], v.value])))
+        .toEqual({ 'Audit estimate': 3, 'Audit owner team': 'Blue' });
+    },
+    labels: [expected.label],
+  },
 };
+
+test('zenkit: API entries import stages, checklists, fields and hierarchy', async ({ loggedInPage: page }) => {
+  const doc = JSON.parse(fs.readFileSync(path.join(fixtures, 'zenkit-api.json')));
+  let boardId;
+  try {
+    await navigateInApp(page, '/import/zenkit');
+    await page.locator('#import-textarea').fill(JSON.stringify(doc));
+    await page.locator('.js-import-without-mapping').click();
+    await page.waitForURL(/\/b\//);
+    boardId = page.url().match(/\/b\/([^/]+)/)[1];
+    const cards = db.find('cards', { boardId });
+    expect(cards.map(c => c.title).sort()).toEqual(['Audit child', expected.title].sort());
+    const first = cards.find(c => c.title === expected.title);
+    const child = cards.find(c => c.title === 'Audit child');
+    expect(child.parentId).toBe(first._id);
+    expect(first.description).toBe(expected.description);
+    const lists = Object.fromEntries(db.find('lists', { boardId }).map(l => [l._id, l.title]));
+    expect([lists[first.listId], lists[child.listId]]).toEqual(['Audit list', 'Done']);
+    expect(db.find('checklistItems', { boardId }).map(i => [i.title, i.isFinished])).toEqual([['Audit item', true]]);
+    await expect(page.locator('.minicard')).toHaveCount(2);
+  } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
+});
 
 test('openproject: parent hierarchy and relations link the imported cards', async ({ loggedInPage: page }) => {
   const wp = (id, subject, extra = {}) => ({ id, subject, _links: { status: { title: 'Open' }, ...extra.links }, ...extra.body });
@@ -160,7 +192,9 @@ for (const [source, want] of Object.entries(FIDELITY)) {
       const names = board.labels.filter(l => card.labelIds.includes(l._id)).map(l => l.name);
       for (const label of want.labels) expect(names).toContain(label);
       // The comment and checklist are visible in the opened card, not only stored.
-      await page.locator('.minicard').first().click();
+      // The title, not the minicard's middle: a minicard can show its
+      // checklist, and a click there edits the checklist instead.
+      await page.locator('.minicard .minicard-title').first().click();
       if (want.checklistItems.length) await expect(page.locator('.js-checklist-item').first()).toBeVisible();
       await expect(page.locator('.comment-text').first()).toContainText(expected.comment);
     } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }

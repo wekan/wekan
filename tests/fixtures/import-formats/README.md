@@ -17,6 +17,7 @@ or all fields from these products are supported. No vendor account was used.
 | `forgejo.json` | [API usage](https://forgejo.org/docs/latest/user/api/usage/) | Issue array; actual schema/version depends on the source server. |
 | `asana.json` | [API v1 tasks](https://developers.asana.com/reference/gettasks) | Tasks response; newest bulk JSONL.gz resource export is not supported. |
 | `zenkit-adapter.json` | [JSON export documentation](https://help.zenkit.com/en/support/solutions/articles/43000642205-exporting-a-list-as-json-file) | Adapter-shaped sample only: vendor docs do not publish a concrete JSON schema. Native current export compatibility remains unverified. |
+| `zenkit-api.json` | Zenkit API entries/elements, value keys as the [zenkit client](https://docs.rs/zenkit/0.3.1/src/zenkit/types.rs.html) deserializes them | Synthetic; comments, files, formulas and cross-list references are reported, not imported. |
 | `csv.csv` | CSV with quoted multiline Unicode text | No standard file-attachment representation. |
 | `markdown.md` | Markdown task-list convention | No universal kanban Markdown interchange schema. |
 
@@ -28,8 +29,10 @@ and comment. Excel tests create an OOXML workbook using the installed ExcelJS.
 The browser suite checks real imports, malformed documents, rendered cards,
 export links and unauthorized export requests. Its Trello ZIP → WeKan JSON →
 WeKan import test checks comments, checklist items and exact attachment bytes.
-Passing text-import checks for other adapters does **not** establish file or
-comment preservation: those adapters currently omit additional content.
+The fidelity cases also import Kanboard, Deck, OpenProject, Asana and Zenkit
+comments, checklists, dates and custom fields and check them in the database
+and the opened card. File contents are never part of these adapters' JSON;
+their metadata is counted in each parser's `unsupported` report.
 
 See [format coverage](../../../docs/Features/ImportExport/Format-Coverage.md)
 and [menu audit](../../../docs/Features/Menu-Implementation-Audit.md).
