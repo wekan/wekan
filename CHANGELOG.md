@@ -3311,6 +3311,24 @@ translations remain in Bulgarian, and the all-language goal remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cdc5dd08d">Correct Bulgarian search and due-card translations</a>. Thanks to xet7.</summary>
+
+Replace 60 Serbian values with Bulgarian for search operators and help,
+due-card results, sorting, visibility controls and linked-card deletion.
+Restore card, list, board, team and assignee terminology while preserving
+search placeholders, example syntax and source meanings.
+
+The Bulgarian and translation-token suites pass, together with all 21
+human-preference checks. Coverage checks script and vocabulary, placeholders,
+positive-integer limits, quoted search values, member-or-assignee searches,
+comment matching and permission-limited unfinished due cards. Browser layout
+and fluent-speaker review were not run. Existing Upcoming entries retain their
+recorded regression evidence. More wrong-language values and missing
+translations remain; the all-language goal remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
