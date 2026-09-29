@@ -2168,7 +2168,7 @@ and has the following developer-tooling fix:
 
 and updates the following translations:
 
-**Languages updated:** Finnish, Arabic, Algerian Arabic, Egyptian Arabic, Turkish, Spanish, Argentine Spanish, Chilean Spanish, Colombian Spanish, Latin American Spanish, Mexican Spanish, Peruvian Spanish, Paraguayan Spanish, Italian.
+**Languages updated:** Finnish, Arabic, Algerian Arabic, Egyptian Arabic, Turkish, Spanish, Argentine Spanish, Chilean Spanish, Colombian Spanish, Latin American Spanish, Mexican Spanish, Peruvian Spanish, Paraguayan Spanish, Italian, Portuguese, Brazilian Portuguese, European Portuguese.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ef52698fe">Complete Finnish and Arabic planning and recovery translations</a>. Thanks to xet7.</summary>
@@ -2231,6 +2231,27 @@ regression coverage. Browser layout and fluent-speaker review were not run.
 The current inventory has 219 unfinished locales. New English keys, including
 missing locale keys and pending Transifex strings, remain in scope. This batch
 does not complete the all-language goal.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/12edb7c05">Complete Portuguese translations and localize new rule editor text</a>. Thanks to xet7.</summary>
+
+Fill 1,341 locale values, completing four Portuguese files with Brazilian and
+European terminology and reviewed Blockly accessibility text. Four new
+English rule-editor strings added during the work are also translated in all
+19 completed locale files. Existing translations and interpolation tokens
+remain intact. Reviewed shared terms and technical labels stay unchanged.
+
+Seven translation suites pass, checking completeness against current English
+keys, source key order, placeholder inventories and regional terminology.
+All-locale URL/token validation and all 21 human-preference checks pass.
+Existing Upcoming implementation entries retain their recorded regression
+evidence. Browser layout and fluent-speaker review were not run.
+
+There are 215 unfinished locales. Thirteen source keys are marked pending
+Transifex, but that marker does not exclude them from this translation goal.
+New English keys remain in scope for every locale as features are added.
 
 </details>
 
