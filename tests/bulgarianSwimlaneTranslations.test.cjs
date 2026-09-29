@@ -470,6 +470,13 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
   assert.match(bg['s3-region-description'], /us-east-1/);
   assert.match(bg['migration-delay-ms'], /\(ms\)/);
   assert.match(bg['start-time'], /Начален час/);
+  for (const key of ['cron', 'confirm', 'flow-note-sizeCycleTime']) {
+    assert.deepEqual(translationTokens(bg[key]), translationTokens(en[key]), key);
+    assert.doesNotMatch(bg[key], /послови|Потврди|Играмо карте/i, key);
+  }
+  assert.match(bg['flow-note-sizeCycleTime'], /покер за планиране.*числово персонализирано поле/);
+  assert.match(bg['flow-note-sizeCycleTime'], /Липсващите оценки и невалидните дати се пропускат/);
+  assert.match(bg['flow-note-sizeCycleTime'], /липсващо начало.*създаване.*липсващ край.*архивиране/);
   assert.equal(bg.swimlane, 'Коридор');
   assert.equal(bg['welcome-swimlane'], 'Етап 1');
   assert.match(bg['swimlane-height-error-message'], /положително цяло число/);
