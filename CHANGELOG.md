@@ -106,9 +106,8 @@ for one of four stated reasons, not left unexamined:
   refused that merge from its first commit, so it is a detection category
   like `CanaryBleed`, not a fixed vulnerability.
 - **Decisions not yet built:** the parents array, first-class Jira issue
-  types, the Map board view, per-activity notification options (#572),
-  Deck-style auto-archive, the import-page loss report, recovery controls, and
-  the Scrum/Sync journal work.
+  types, the Map board view, Deck-style auto-archive, the import-page loss
+  report, recovery controls, and the Scrum/Sync journal work.
 - **Waiting on the maintainer:** the split of issue #4790 is prepared in
   [User-Filter-4790-Split.md](docs/Features/User-Filter-4790-Split.md) with
   ready-to-run `gh issue create` commands; filing issues is a publishing step.
@@ -2033,7 +2032,24 @@ Remove and refuse non-admins. With the variables above this completes
 
 </details>
 
-**Notifications** - due-date reminders per board.
+**Notifications** - due-date reminders per board, and which activity notifies.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2845fc9f9">Let members choose which kinds of card activity notify them</a>. Thanks to bhagyas and xet7.</summary>
+
+Notification Settings chose where a notification goes, not what about
+([#572](https://github.com/wekan/wekan/issues/572)). Member Settings →
+Notifications now lists the kinds of card activity - labels, members,
+assignees, comments, moves, dates, checklists, attachments, custom field
+values, archiving and creation - and an unticked kind reaches neither the bell
+nor email. It is checked where each recipient's channels are decided, when the
+plan is frozen and again before delivery. Due-date reminders and @mentions
+always arrive. A suite requires every named activity type to be in a group or
+deliberately unmutable; a Chromium case mutes labels through the member menu
+and sees a comment arrive while the label change does not, then unmutes and
+sees the next label change arrive. New strings are English, pending Transifex.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/58d166029">Set due-date reminder days and webhook delivery per board</a>. Thanks to xet7.</summary>
