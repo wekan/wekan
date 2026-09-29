@@ -278,6 +278,35 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
   assert.match(bg['copyChecklistFromTemplate'], /от шаблон/);
   assert.match(bg['s3-ssl-enabled-description'], /SSL\/TLS.*S3/);
   assert.notEqual(bg['maximize-card'], bg['minimize-card']);
+  const filterFillKeys = ["auto-archive-days", "auto-archive-off", "auto-archive-hint", "filter-recency-any", "filter-recency-day", "filter-recency-week", "filter-recency-month", "filter-recency-older", "filter-movement-range", "filter-date-range-field", "filter-date-range-from", "filter-date-range-to", "filter-date-range-missing", "filter-date-range-list-entry", "filter-date-range-invalid", "filter-due-any", "filter-due-previous-week", "filter-due-next-month", "filter-column-age", "filter-column-age-disabled", "filter-column-age-days", "filter-column-age-hint", "advanced-filter-card-dates-hint", "instance", "instance-desc", "board-instance-info", "automatic-linked-url-schemes-hint", "r-when-card-date", "r-trigger-vars-hint", "r-vars-people-hint", "r-rule-any-trigger-help", "r-add-trigger-to-rule", "r-add-action-to-rule", "r-remove-rule-part", "notification-activity-heading", "notification-activity-description", "notification-activity-labels", "notification-activity-members", "notification-activity-assignees", "notification-activity-comments", "notification-activity-moves", "notification-activity-dates", "notification-activity-checklists", "notification-activity-attachments", "notification-activity-customFields"];
+  for (const key of filterFillKeys) {
+    assert.ok(bg[key]?.trim(), key);
+    assert.notEqual(bg[key], en[key], key);
+    assert.deepEqual(translationTokens(bg[key]), translationTokens(en[key]), key);
+    assert.match(bg[key], /[А-Яа-я]/, key);
+  }
+  for (const key of ['r-trigger-vars-hint', 'r-vars-people-hint']) {
+    assert.deepEqual(bg[key].match(/\{[^}]+\}/g), en[key].match(/\{[^}]+\}/g), key);
+  }
+  assert.match(bg['filter-date-range-from'], /включително/);
+  assert.match(bg['filter-date-range-to'], /включително/);
+  assert.match(bg['filter-column-age-hint'], /неизвестна дата.*остават видими.*не нулира/);
+  assert.match(bg['auto-archive-hint'], /всеки час.*шаблоните никога.*празно/);
+  assert.match(bg['instance-desc'], /не са влезли.*Само хората, добавени към таблото.*редактират/);
+  assert.match(bg['board-instance-info'], /<strong>.*<\/strong>/);
+  assert.match(bg['r-rule-any-trigger-help'], /което и да е.*по ред/);
+  assert.match(bg['notification-activity-description'], /краен срок и @mentions винаги/);
+  const dateHelp = bg['advanced-filter-card-dates-hint'];
+  for (const token of ['@createdAt', '@receivedAt', '@startAt', '@dueAt', '@endAt', '@listEnteredAt', "@endAt >= '2026-01-01'", '@endAt = none']) assert.ok(dateHelp.includes(token));
+  for (const scheme of ['thunderlink', 'onenote', 'javascript', 'data', 'vbscript']) assert.ok(bg['automatic-linked-url-schemes-hint'].includes(scheme));
+  const workspaceKeys = ["allboards.workspaces", "allboards.add-workspace", "allboards.edit-workspace-icon", "addWorkspacePopup-title", "app-try-reconnect", "template-container", "board-background-image-url", "remove-background-image"];
+  for (const key of workspaceKeys) {
+    assert.deepEqual(translationTokens(bg[key]), translationTokens(en[key]), key);
+    assert.doesNotMatch(bg[key], /радни|простор|Слика|Прошири|Покушавам|Сандук|Веза|Уклони/);
+  }
+  assert.match(bg['allboards.edit-workspace-icon'], /Markdown/);
+  assert.match(bg['app-try-reconnect'], /свържете отново/);
+  assert.equal(bg['allboards.add-workspace'], bg['addWorkspacePopup-title']);
   assert.equal(bg.swimlane, 'Коридор');
   assert.equal(bg['welcome-swimlane'], 'Етап 1');
   assert.match(bg['swimlane-height-error-message'], /положително цяло число/);
