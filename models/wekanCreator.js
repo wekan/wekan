@@ -50,6 +50,7 @@ import {
 import getSlug from 'limax';
 import { fetchImportedAttachment } from './lib/importAttachmentDownload';
 import { runImportPipeline, writeImportedEntity } from './lib/importPipeline';
+const { cardParentIds, parentFields } = require('/models/lib/cardParents');
 
 const DateString = Match.Where(function(dateAsString) {
   check(dateAsString, String);
@@ -822,17 +823,21 @@ export class WekanCreator {
       //        When importing boards between instances the IDs are definitely
       //        lost if source and parent are two different boards
       //        This is not the place to fix it, the entire subtask system needs to be rethought there.
-      const parentIdInNewBoard = this.cards[card.parentId]
-        ? this.cards[card.parentId]
-        : card.parentId;
+      // #3626: every parent of the card, each mapped the same way; a parent
+      // that does not exist here is dropped, and the first one kept is primary.
+      const parentsInNewBoard = [];
+      for (const sourceParentId of cardParentIds(card)) {
+        const parentIdInNewBoard = this.cards[sourceParentId]
+          ? this.cards[sourceParentId]
+          : sourceParentId;
+        if (await ReactiveCache.getCard(parentIdInNewBoard)) parentsInNewBoard.push(parentIdInNewBoard);
+      }
 
-      //if the parent card exists, proceed
-      if (await ReactiveCache.getCard(parentIdInNewBoard)) {
-        //set parent id of the card in the new board to the new id of the parent
+      //if a parent card exists, proceed
+      if (parentsInNewBoard.length) {
+        //set the parents of the card in the new board to the new ids
         await Cards.direct.updateAsync(cardIdInNewBoard, {
-          $set: {
-            parentId: parentIdInNewBoard,
-          },
+          $set: parentFields(parentsInNewBoard),
         });
       }
     }

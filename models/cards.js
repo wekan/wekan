@@ -45,7 +45,10 @@ import {
   filterCopiedLabelIds,
   remapCoverId,
 } from '/server/lib/cardCopyHelpers';
-import { wouldCreateCycle } from '/imports/lib/subtaskHelpers';
+const {
+  cardParentIds, parentFields, withParentAdded, withParentRemoved, childrenSelector,
+  onlyChildrenSelector, sharedChildrenSelector, collectAllAncestorIdsSync, wouldCreateParentCycle,
+} = require('/models/lib/cardParents');
 import Attachments from "./attachments";
 import PositionHistory from './positionHistory';
 import Activities from '/models/activities';
@@ -114,11 +117,23 @@ Cards.attachSchema(
     },
     parentId: {
       /**
-       * ID of the parent card
+       * ID of the parent card - the PRIMARY parent, always parentIds[0]
+       * (#3626, models/lib/cardParents.js).
        */
       type: String,
       optional: true,
       defaultValue: '',
+    },
+    parentIds: {
+      /**
+       * #3626: every parent of the card, primary first. A card written before
+       * this has only parentId, which is then its one parent.
+       */
+      type: Array,
+      optional: true,
+    },
+    'parentIds.$': {
+      type: String,
     },
     listId: {
       /**
@@ -1247,7 +1262,8 @@ Cards.helpers({
     // new board — and it mutated the cached source docs). Re-home them onto the
     // destination board alongside the copied parent.
     const { buildCopiedSubtaskFields } = require('./lib/subtaskCopy');
-    const subtasks = copyOptions ? [] : await ReactiveCache.getCards({ parentId: oldId });
+    // #3626: a subtask shared with another parent is copied too, under the copy.
+    const subtasks = copyOptions ? [] : await ReactiveCache.getCards(childrenSelector(oldId));
     for (const subtask of subtasks) {
       const copySubtask = buildCopiedSubtaskFields(subtask, {
         newParentId: _id,
@@ -1680,6 +1696,11 @@ Cards.helpers({
       ret = ReactiveCache.getCard(this.parentId);
     }
     return ret;
+  },
+
+  // #3626: every parent card, primary first.
+  parentCards() {
+    return cardParentIds(this).map(id => ReactiveCache.getCard(id)).filter(Boolean);
   },
 
   parentCardName() {
@@ -2944,8 +2965,10 @@ Cards.helpers({
     return pokerWinnersListMap[0].pokerCard;
   },
 
+  // Archive/restore cascade: only the children this card is the one parent of
+  // (#3626 - a subtask shared with another parent stays where it is).
   async applyToChildren(funct) {
-    const cards = await ReactiveCache.getCards({ parentId: this._id });
+    const cards = await ReactiveCache.getCards(onlyChildrenSelector(this._id));
     if (!cards) return;
     for (const card of cards) {
       await funct(card);
@@ -3524,35 +3547,52 @@ Cards.helpers({
     return Cards.updateAsync(this.getRealId(), { $unset: { spentTime: '', isOvertime: false } });
   },
 
-  setParentId(parentId) {
-    // #3328: never allow a card to become its own ancestor — that closes a
-    // parent/subtask loop and hangs every ancestor walk (parentList,
-    // parentString, the subtasks board, ...). Build the proposed parent's
-    // ancestor chain (its own id + the ids of all of its ancestors) and refuse
-    // the assignment if this card already appears in it. Comparison is by VALUE.
-    if (parentId) {
-      const ancestorIds = [parentId];
-      let crtParentId = parentId;
-      while (crtParentId) {
-        const crt = ReactiveCache.getCard(crtParentId);
-        if (!crt) {
-          break;
-        }
-        crtParentId = crt.parentId;
-        if (!crtParentId || ancestorIds.includes(crtParentId)) {
-          // unset or an already-broken loop in existing data: stop walking.
-          break;
-        }
-        ancestorIds.push(crtParentId);
-      }
-      if (wouldCreateCycle(this.getRealId(), parentId, ancestorIds)) {
-        throw new Meteor.Error(
-          'circular-subtask',
-          'A card cannot be made a subtask of itself or of one of its own subtasks.',
-        );
-      }
+  // #3328: never allow a card to become its own ancestor - that closes a
+  // parent/subtask loop and hangs every ancestor walk. #3626: the proposed
+  // parent's ancestors are followed through ALL of their parents.
+  // The card as it is NOW: a cached copy from before an earlier parent change
+  // would make the next change replace a parent instead of adding one.
+  liveParentSource() {
+    return (Meteor.isClient && Cards.findOne(this.getRealId())) || this;
+  },
+
+  assertNoParentCycle(parentId) {
+    if (!parentId) return;
+    const lookup = id => (Meteor.isClient && Cards.findOne(id)) || ReactiveCache.getCard(id);
+    const ancestors = collectAllAncestorIdsSync([parentId], lookup);
+    if (wouldCreateParentCycle(this.getRealId(), parentId, ancestors)) {
+      throw new Meteor.Error(
+        'circular-subtask',
+        'A card cannot be made a subtask of itself or of one of its own subtasks.',
+      );
     }
-    return Cards.updateAsync(this.getRealId(), { $set: { parentId } });
+  },
+
+  // Make `parentId` the card's ONE parent ('' for none), as before #3626.
+  setParentId(parentId) {
+    this.assertNoParentCycle(parentId);
+    return Cards.updateAsync(this.getRealId(), { $set: parentFields(parentId ? [parentId] : []) });
+  },
+
+  // #3626: make `parentId` the PRIMARY parent, keeping the others; '' drops
+  // the primary one and the next parent takes its place.
+  setPrimaryParent(parentId) {
+    const live = this.liveParentSource();
+    const current = cardParentIds(live);
+    if (!parentId) return Cards.updateAsync(this.getRealId(), { $set: withParentRemoved(live, current[0]) });
+    this.assertNoParentCycle(parentId);
+    return Cards.updateAsync(this.getRealId(), { $set: parentFields([parentId, ...current.filter(id => id !== parentId)]) });
+  },
+
+  // #3626: also a subtask of `parentId`, keeping the parents it has.
+  addParent(parentId) {
+    this.assertNoParentCycle(parentId);
+    return Cards.updateAsync(this.getRealId(), { $set: withParentAdded(this.liveParentSource(), parentId) });
+  },
+
+  // #3626: no longer a subtask of `parentId`; the next parent becomes primary.
+  removeParent(parentId) {
+    return Cards.updateAsync(this.getRealId(), { $set: withParentRemoved(this.liveParentSource(), parentId) });
   },
 
   setVoteQuestion(question, publicVote, allowNonBoardMembers) {
@@ -3976,8 +4016,12 @@ async function cardRemover(userId, doc) {
     });
   }
   // Subcards go through the hooked remove so each subcard's own children cascade
-  // and its delete activity / webhook fire.
-  await Cards.removeAsync({ parentId: doc._id });
+  // and its delete activity / webhook fire. #3626: only the subcards this card
+  // is the one parent of; one that has another parent too just loses this one.
+  for (const shared of await Cards.find(sharedChildrenSelector(doc._id), { fields: { parentId: 1, parentIds: 1 } }).fetchAsync()) {
+    await Cards.direct.updateAsync(shared._id, { $set: withParentRemoved(shared, doc._id) });
+  }
+  await Cards.removeAsync(onlyChildrenSelector(doc._id));
   // Attachments keep the normal remove so the underlying file is deleted from the
   // configured storage backend.
   await Attachments.removeAsync({ cardId: doc._id });

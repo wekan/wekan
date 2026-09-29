@@ -2627,7 +2627,8 @@ Template.cardMorePopup.onCreated(function () {
       this.parentCard = null;
     }
     const card = Cards.findOne(getCardId());
-    if (card) card.setParentId(cardId);
+    // #3626: only the primary parent changes; other parents stay.
+    if (card) card.setPrimaryParent(cardId === 'none' ? '' : cardId);
   };
 });
 
@@ -2680,9 +2681,30 @@ Template.cardMorePopup.helpers({
     }
     return false;
   },
+  // #3626: the parents besides the primary one.
+  otherParents() {
+    const card = ReactiveCache.getCard(getCardId());
+    return card ? card.parentCards().slice(1) : [];
+  },
 });
 
 Template.cardMorePopup.events({
+  'change .js-field-add-parent-card'(event) {
+    const parentId = $(event.currentTarget).val();
+    $(event.currentTarget).val('none');
+    const card = ReactiveCache.getCard(getCardId());
+    if (!card || !parentId || parentId === 'none') return;
+    try {
+      card.addParent(parentId);
+    } catch (error) {
+      alert(error?.reason || error?.message || 'Could not add the parent card.');
+    }
+  },
+  'click .js-remove-other-parent'(event) {
+    event.preventDefault();
+    const card = ReactiveCache.getCard(getCardId());
+    if (card) card.removeParent(event.currentTarget.dataset.id);
+  },
   'click .js-copy-card-link-to-clipboard'(event, tpl) {
     const promise = Utils.copyTextToClipboard(location.origin + document.getElementById('cardURL').value);
 

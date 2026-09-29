@@ -40,13 +40,15 @@ async function exercise({ sameBoard = false, cache = true, fail = false, withChi
     getCards: async () => withChildren ? [{ _id: 'child', __id: 'child', boardId: 'source', parentId: 'original', title: 'Child' }] : [],
     getCardComments: async () => withChildren ? [{ async copy(id, target) { children.push(['comment', id, target]); } }] : [],
   };
-  const copy = new Function('ReactiveCache', 'Cards', 'Meteor', 'filterCopiedLabelIds', 'normalizeDependencies', 'require',
+  // #3626: copy() finds the card's subtasks with the shared children selector.
+  const { childrenSelector } = require('../models/lib/cardParents');
+  const copy = new Function('ReactiveCache', 'Cards', 'Meteor', 'filterCopiedLabelIds', 'normalizeDependencies', 'require', 'childrenSelector',
     `return ({${copyBody}}).copy;`)(ReactiveCache, Cards, { isServer: false }, filterCopiedLabelIds, normalizeDependencies,
       specifier => {
         // The copy path now also delegates Scrum metadata to its pure helper.
         if (specifier === './lib/scrumCopy') return require('../models/lib/scrumCopy');
         assert.equal(specifier, './lib/subtaskCopy'); return { buildCopiedSubtaskFields };
-      });
+      }, childrenSelector);
   if (fail) await assert.rejects(copy.call(original, boardId, 'new-swimlane', 'new-list', cardIdMap), /insert rejected/);
   else assert.equal(await copy.call(original, boardId, 'new-swimlane', 'new-list', cardIdMap), 'new-1');
   assert.equal(JSON.stringify(original), before, 'successful and rejected copies must preserve the source card');

@@ -8,6 +8,7 @@ const { notHelperBoardTitle } = require('/models/lib/helperBoards');
 const { boardVisibilitySelectors } = require('/models/lib/boardVisibilitySelectors');
 const { BOARD_PERMISSIONS, readableWithoutMembership, withoutMembershipSelectors } = require('/models/lib/boardPermission');
 const { normalizeAutoArchiveDays } = require('/models/lib/autoArchive');
+const { cardParentIds, parentFields } = require('/models/lib/cardParents');
 const boardViewSettings = require('/models/lib/boardViewSettings');
 import escapeForRegex from 'escape-string-regexp';
 import CustomFields from './customFields';
@@ -1609,8 +1610,10 @@ Boards.helpers({
 
     if (copyOptions !== undefined) {
       for (const copied of await ReactiveCache.getCards({ boardId: _id })) {
-        if (copied.parentId) await Cards.updateAsync(copied._id, {
-          $set: { parentId: cardIdMap[copied.parentId] || '' },
+        // #3626: every parent, remapped; one that was not copied is dropped.
+        const parents = cardParentIds(copied);
+        if (parents.length) await Cards.updateAsync(copied._id, {
+          $set: parentFields(parents.map(id => cardIdMap[id]).filter(Boolean)),
         });
       }
     }

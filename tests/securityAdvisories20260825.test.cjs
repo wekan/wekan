@@ -81,17 +81,18 @@ test('every subtask export query carries its board boundary', () => {
   const expectations = new Map([
     ['models/exporter.js', [
       /boardId: card\.boardId,[\s\S]*?parentId: card\._id/,
-      /\{ boardId, parentId: \{ \$in: cardIds \} \}/,
+      // #3626: subtasks under any of their parents, still bounded by board.
+      /\{ boardId, \$or: \[\{ parentId: \{ \$in: cardIds \} \}, \{ parentIds: \{ \$in: cardIds \} \}\] \}/,
     ]],
     ['models/server/ExporterExcelBoard.js', [
-      /\{ boardId: this\._boardId, parentId: \{ \$in: cardIds \} \}/,
+      /\{ boardId: this\._boardId, \$or: \[\{ parentId: \{ \$in: cardIds \} \}, \{ parentIds: \{ \$in: cardIds \} \}\] \}/,
     ]],
     ['models/server/ExporterCardPDF.js', [
-      /\{ boardId: this\._boardId, parentId: this\._cardId \}/,
-      /\{ boardId: this\._boardId, parentId: \{ \$in: cardIds \} \}/,
+      /\{ boardId: this\._boardId, \.\.\.childrenSelector\(this\._cardId\) \}/,
+      /\{ boardId: this\._boardId, \$or: \[\{ parentId: \{ \$in: cardIds \} \}, \{ parentIds: \{ \$in: cardIds \} \}\] \}/,
     ]],
     ['models/server/ExporterExcelCard.js', [
-      /\{ boardId: this\._boardId, parentId: this\._cardId \}/,
+      /\{ boardId: this\._boardId, \.\.\.childrenSelector\(this\._cardId\) \}/,
     ]],
   ]);
   for (const [rel, patterns] of expectations) {

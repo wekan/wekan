@@ -1444,6 +1444,22 @@ template(name="cardMorePopup")
               option(value="{{_id}}" selected) {{title}}
             else
               option(value="{{_id}}") {{title}}
+    //- #3626: a card may be a subtask of several cards. The one above is the
+      primary parent (the path shown above the title); these are the others.
+    if otherParents.length
+      .card-other-parents
+        span {{_ 'other-parent-cards'}}:
+        ul
+          each otherParents
+            li
+              span {{title}}
+              a.js-remove-other-parent(href="#" data-id="{{_id}}" title="{{_ 'remove-parent-card'}}") ×
+    if cards.length
+      label {{_ 'add-parent-card'}}:
+        select.js-field-add-parent-card
+          option(value="none" selected) {{_ 'custom-field-dropdown-none'}}
+          each cards
+            option(value="{{_id}}") {{title}}
     br
     | {{_ 'added'}}
     span.date(title=card.createdAt) {{ displayDate createdAt 'LLL' }}

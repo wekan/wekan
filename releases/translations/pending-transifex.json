@@ -203,6 +203,18 @@
     {
       "key": "map-view-all-placed",
       "since": "2026-09-29"
+    },
+    {
+      "key": "other-parent-cards",
+      "since": "2026-09-29"
+    },
+    {
+      "key": "add-parent-card",
+      "since": "2026-09-29"
+    },
+    {
+      "key": "remove-parent-card",
+      "since": "2026-09-29"
     }
   ]
 }

@@ -18,6 +18,7 @@ import {
 } from '/models/lib/pdfDocument';
 import { buildUnicodePdf } from '/models/server/buildUnicodePdf';
 import { attachmentDisposition, exportFilename } from '/models/lib/exportFilename';
+const { childrenSelector, groupByParents } = require('/models/lib/cardParents');
 
 async function unicodeFonts() {
   return {
@@ -308,7 +309,8 @@ class ExporterCardPDF extends PDFExporterBase {
     // the pdf? Location, Voting, Checklists, Subtasks, Custom Fields,
     // Attachments, Comments,...?" - the three that were not fetched at all.
     const subtasks = await ReactiveCache.getCards(
-      { boardId: this._boardId, parentId: this._cardId },
+      // #3626: a subtask under any of its parents; still this board only.
+      { boardId: this._boardId, ...childrenSelector(this._cardId) },
       { sort: { sort: 1 } },
     );
     const attachments = await ReactiveCache.getAttachments(
@@ -471,7 +473,7 @@ class ExporterBoardPDF extends PDFExporterBase {
         { sort: { sort: 1 } })
       : [];
     const subtasks = this.hasField('subtasks')
-      ? await ReactiveCache.getCards({ boardId: this._boardId, parentId: { $in: cardIds } }, { sort: { sort: 1 } })
+      ? await ReactiveCache.getCards({ boardId: this._boardId, $or: [{ parentId: { $in: cardIds } }, { parentIds: { $in: cardIds } }] }, { sort: { sort: 1 } })
       : [];
     const comments = this.hasField('comments')
       ? await ReactiveCache.getCardComments({ cardId: { $in: cardIds } }, { sort: { createdAt: 1 } })
@@ -538,7 +540,8 @@ class ExporterBoardPDF extends PDFExporterBase {
       customFieldsById,
       checklistsByCard: byCard(checklists),
       itemsByChecklist,
-      subtasksByCard: byCard(subtasks, 'parentId'),
+      // #3626: listed under every parent.
+      subtasksByCard: groupByParents(subtasks),
       commentsByCard: byCard(comments),
       attachmentsByCard: (() => {
         const map = {};

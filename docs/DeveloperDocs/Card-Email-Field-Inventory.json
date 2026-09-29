@@ -36,7 +36,7 @@
     "handling": "Ordinary/source Details with custom-field visibility and definition checks. Linked-board local Details renders these wrapper-owned fields with local definitions, admin visibility and policy fingerprints."
   },
   {
-    "fields": ["parentId", "cardDependencies", "targetId_gantt", "linkType_gantt"],
+    "fields": ["parentId", "parentIds", "cardDependencies", "targetId_gantt", "linkType_gantt"],
     "handling": "Ordinary/source Details resolves authorized targets and groups duplicate labels. Linked-board wrapper relationships use the same authorized resolver and durable related-source evidence. Dependency color/icon are presentation metadata, not separate targets."
   },
   {

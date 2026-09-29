@@ -48,6 +48,7 @@ import getSlug from 'limax';
 
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
 const { isOpenPermission } = require('/models/lib/boardPermission');
+const { parentFields } = require('/models/lib/cardParents');
 
 function getTranslatedString(key, fallback, options) {
   const i18n = getTAPi18n && getTAPi18n();
@@ -1572,9 +1573,11 @@ WebApp.handlers.put(
       // board publication would then hand that private card to everyone
       // subscribed to this board.
       await assertParentCardIsVisible(req.userId, req.body.parentId);
+      // #3626: over REST, parentId makes that card the ONE parent, as it did
+      // before cards could have several - parentIds follows it.
       await Cards.direct.updateAsync(
         { _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
-        { $set: { parentId: req.body.parentId } },
+        { $set: parentFields([req.body.parentId]) },
       );
       updated = true;
     }

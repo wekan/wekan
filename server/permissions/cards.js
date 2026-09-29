@@ -40,14 +40,34 @@ export async function canUserSeeParentCard(userId, parentId) {
   return await canUserSeeBoard(userId, parent.boardId);
 }
 
+// Every parent id a card write names: $set parentId, and (#3626) every id in
+// parentIds however it is written - $set, $addToSet or $push, one id or $each.
+export function parentIdsWritten(modifier) {
+  const ids = [];
+  const add = value => {
+    if (typeof value === 'string') ids.push(value);
+    else if (Array.isArray(value)) value.forEach(add);
+    else if (value && typeof value === 'object' && Array.isArray(value.$each)) value.$each.forEach(add);
+    else if (value !== undefined && value !== null && value !== '') ids.push(value);
+  };
+  if (modifier && modifier.$set) {
+    if (modifier.$set.parentId) add(modifier.$set.parentId);
+    add(modifier.$set.parentIds);
+  }
+  for (const op of ['$addToSet', '$push']) {
+    if (modifier && modifier[op]) add(modifier[op].parentIds);
+  }
+  return ids;
+}
+
 // The deny-rule form: true means "refuse this write".
 export async function denyInvisibleParentCard(userId, modifier) {
-  const set = modifier && modifier.$set;
-  if (!set) return false;
-  const parentId = set.parentId;
-  // Not setting a parent, or clearing it — nothing to check.
-  if (typeof parentId !== 'string' || !parentId) return false;
-  return !(await canUserSeeParentCard(userId, parentId));
+  for (const parentId of parentIdsWritten(modifier)) {
+    // A non-string parent id is not something to point at either.
+    if (typeof parentId !== 'string' || !parentId) return true;
+    if (!(await canUserSeeParentCard(userId, parentId))) return true;
+  }
+  return false;
 }
 
 // Centralized update policy for Cards
@@ -128,9 +148,13 @@ Cards.deny({
 // Same rule on INSERT: a card can be created with a parentId already set.
 Cards.deny({
   async insert(userId, doc) {
-    if (!doc || !doc.parentId) return false;
-    if (await canUserSeeParentCard(userId, doc.parentId)) return false;
-    return tripCanaryDeny('card.invisible-parent', { userId });
+    if (!doc) return false;
+    // #3626: every parent in parentIds too.
+    const ids = [doc.parentId, ...(Array.isArray(doc.parentIds) ? doc.parentIds : [])].filter(Boolean);
+    for (const parentId of ids) {
+      if (!(await canUserSeeParentCard(userId, parentId))) return tripCanaryDeny('card.invisible-parent', { userId });
+    }
+    return false;
   },
   fetch: [],
 });

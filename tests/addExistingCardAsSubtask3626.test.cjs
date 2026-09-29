@@ -62,14 +62,19 @@ test('clicking the trigger opens that exact popup (Popup.open("addExistingSubtas
   assert.match(jsSrc, /'click \.js-add-existing-subtask'[\s\S]{0,120}Popup\.open\('addExistingSubtask'\)/);
 });
 
-// --- It reuses setParentId, the exact existing re-parenting method --------
+// --- It adds a parent through the model, keeping the card's other parents ---
+// #3626's second part (maintainer decision 2026-09-29): a card may have
+// several parents, so picking a card that already has one ADDS this card as a
+// further parent (Card.addParent, models/lib/cardParents.js) instead of
+// replacing it with setParentId - "A must be done before B and C".
 
-test('picking a card calls targetCard.setParentId(...), not a new bespoke method', () => {
+test('picking a card calls targetCard.addParent(...), which keeps its other parents', () => {
   const handler = jsSrc.slice(
     jsSrc.indexOf("'click .js-select-existing-subtask'"),
     jsSrc.indexOf('});', jsSrc.indexOf("'click .js-select-existing-subtask'")),
   );
-  assert.match(handler, /targetCard\.setParentId\(parentId\)/);
+  assert.match(handler, /targetCard\.addParent\(parentId\)/);
+  assert.doesNotMatch(handler, /targetCard\.setParentId\(/, 'replacing the parent would drop the others');
 });
 
 test('picking a card does NOT create a new card (no addSubtaskCard / Cards.insert call)', () => {
@@ -86,14 +91,18 @@ test('picking a card sets ONLY the parent link -- no other field of the target c
     jsSrc.indexOf("'click .js-select-existing-subtask'"),
     jsSrc.indexOf('});', jsSrc.indexOf("'click .js-select-existing-subtask'")),
   );
-  // The only mutating call on targetCard in this handler is setParentId.
+  // The only mutating call on targetCard in this handler is addParent (#3626).
   const mutatingCalls = [...handler.matchAll(/targetCard\.(\w+)\(/g)].map(m => m[1]);
-  assert.deepStrictEqual(mutatingCalls, ['setParentId']);
+  assert.deepStrictEqual(mutatingCalls, ['addParent']);
 });
 
-test('setParentId itself (models/cards.js) still has its #3328 cycle guard', () => {
-  const fn = extractMethod(cardsSrc, 'setParentId');
-  assert.ok(fn.includes('wouldCreateCycle'), 'cycle protection must still gate every caller, including this new one');
+test('setParentId and addParent (models/cards.js) keep the #3328 cycle guard', () => {
+  // #3626 moved the guard into one method both call, walking every parent.
+  for (const name of ['setParentId', 'addParent']) {
+    assert.ok(extractMethod(cardsSrc, name).includes('this.assertNoParentCycle(parentId)'), `${name} is guarded`);
+  }
+  assert.ok(extractMethod(cardsSrc, 'assertNoParentCycle').includes('wouldCreateParentCycle'),
+    'cycle protection must still gate every caller, including this new one');
 });
 
 // --- Candidate search excludes anything setParentId would refuse anyway ----

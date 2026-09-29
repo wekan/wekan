@@ -16,7 +16,10 @@
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
-const { collectAncestorIds } = require('../server/lib/subtaskAncestors');
+// #3626: the walk moved to models/lib/cardParents.js, where it follows EVERY
+// parent of a card; server/lib/subtaskAncestors.js, which followed only
+// parentId, is gone. The contract below is unchanged.
+const { collectAllAncestorIds: collectAncestorIds } = require('../models/lib/cardParents');
 
 let passed = 0;
 const tests = [];
@@ -103,6 +106,12 @@ test('#3328 cyclic chain terminates and yields each ancestor exactly once', asyn
   assert.deepStrictEqual(ids.sort(), ['P1', 'P2']);
 });
 
+test('#3626: a card with several parents contributes every chain', async () => {
+  const docs = { A: { _id: 'A', parentId: 'B', parentIds: ['B', 'C'] }, B: { _id: 'B' }, C: { _id: 'C', parentId: 'D' }, D: { _id: 'D' } };
+  const ids = await collectAncestorIds(['A'], batch => batch.map(id => docs[id]).filter(Boolean));
+  assert.deepStrictEqual(ids.sort(), ['A', 'B', 'C', 'D'], 'D is reached only through the second parent');
+});
+
 test('self-parent card terminates', async () => {
   const calls = [];
   const fetch = makeFetch({ P1: 'P1' }, calls);
@@ -126,14 +135,14 @@ test('board publication publishes the FULL ancestor chain (uses collectAncestorI
     'utf8',
   );
   assert.ok(
-    /require\(['"]\/server\/lib\/subtaskAncestors['"]\)|from ['"]\/server\/lib\/subtaskAncestors['"]/.test(src),
-    'boards.js must import collectAncestorIds from /server/lib/subtaskAncestors',
+    /const \{ cardParentIds, collectAllAncestorIds \} = require\('\/models\/lib\/cardParents'\);/.test(src),
+    'boards.js must use the all-parents walk from /models/lib/cardParents',
   );
   // The "Parent cards (for subtasks)" child must publish the walked ancestor
   // set, not the one-level parentIds snapshot (the #3453 truncation).
   const parentChild = src.slice(src.indexOf('// Parent cards (for subtasks)'));
   assert.ok(
-    parentChild.includes('collectAncestorIds('),
+    parentChild.includes('collectAllAncestorIds('),
     'the parent-cards child must walk the full ancestor chain',
   );
   assert.ok(

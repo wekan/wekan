@@ -6,6 +6,7 @@ const { formatStringTemplate } = require('../../models/lib/customFieldStringTemp
 const { appendRuleCardVoting, votingVisibility } = require('./ruleCardVoting');
 const { scrumVisibility, appendRuleCardScrum } = require('./ruleCardScrum');
 const { ruleCardRelations } = require('./ruleCardRelations');
+const { cardParentIds, childrenSelector } = require('../../models/lib/cardParents');
 const scalar = value => value instanceof Date ? (Number.isFinite(+value) ? value.toISOString() : '') :
   ['string', 'number', 'boolean'].includes(typeof value) ? String(value) : '';
 const values = value => Array.isArray(value) ? value.map(scalar).filter(Boolean).join(', ') : scalar(value);
@@ -56,7 +57,7 @@ async function prepareRuleCardDetails({ activity, cache, canReadBoard, readScrum
       'recurrenceInterval', 'lastRecurrenceAt', 'flowStartAt', 'flowInterruptions', 'flowUserId',
       'pomodoroStartAt', 'pomodoroPhase', 'pomodoroCount', 'pomodoroWorkMinutes', 'pomodoroUserId',
       'locationName', 'locationAddress', 'locationLatitude', 'locationLongitude', 'locations',
-      'userId', 'stickers', 'scrum', 'labelIds', 'customFields', 'parentId', 'cardDependencies',
+      'userId', 'stickers', 'scrum', 'labelIds', 'customFields', 'parentId', 'parentIds', 'cardDependencies',
       'targetId_gantt', 'linkType_gantt'];
     card = Object.fromEntries(localFields.filter(field => Object.hasOwn(originalCard, field))
       .map(field => [field, originalCard[field]]));
@@ -152,9 +153,10 @@ async function prepareRuleCardDetails({ activity, cache, canReadBoard, readScrum
       add(field.definition.name, value);
     }
     for (const note of notes) if (note.cardId === card._id && note.boardId === card.boardId && !note.deletedAt) add(note.title || 'Note', note.text);
-    await relation('Parent', card.parentId);
+    // #3626: every parent, primary first; each is checked like any relation.
+    for (const parentId of cardParentIds(card)) await relation('Parent', parentId);
     for (const dependency of ruleCardRelations(card)) await relation(dependency.label, dependency.cardId);
-    for (const subtask of await cache.getCards(notDeleted({ parentId: card._id }))) await relation('Subtask', subtask._id);
+    for (const subtask of await cache.getCards(notDeleted(childrenSelector(card._id)))) await relation('Subtask', subtask._id);
     const latestDefinitions = await cache.getCustomFields({ boardIds: { $in: [card.boardId] } }, { sort: { _id: 1 } });
     if (JSON.stringify(latestDefinitions) !== JSON.stringify(definitions)) throw new Error('rule-email-details-changed');
   }

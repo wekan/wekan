@@ -5,6 +5,7 @@ import { createWorkbook } from './createWorkbook';
 import { formatDateByUserPreference } from '/imports/lib/dateUtils';
 import { ExporterExcelCard } from './ExporterExcelCard';
 import { attachmentDisposition, exportFilename } from '/models/lib/exportFilename';
+const { groupByParents } = require('/models/lib/cardParents');
 
 // A BOARD in the CARD export's layout (#1173).
 //
@@ -105,7 +106,8 @@ class ExporterExcelBoard {
         { checklistId: { $in: checklists.map(c => c._id) } }, { sort: { sort: 1 } })
       : [];
     const subtasks = this.hasField('subtasks')
-      ? await ReactiveCache.getCards({ boardId: this._boardId, parentId: { $in: cardIds } }, { sort: { sort: 1 } })
+      // #3626: a subtask under any of its parents; still this board only.
+      ? await ReactiveCache.getCards({ boardId: this._boardId, $or: [{ parentId: { $in: cardIds } }, { parentIds: { $in: cardIds } }] }, { sort: { sort: 1 } })
       : [];
     const comments = this.hasField('comments')
       ? await ReactiveCache.getCardComments({ cardId: { $in: cardIds } }, { sort: { createdAt: 1 } })
@@ -163,7 +165,7 @@ class ExporterExcelBoard {
       customFieldsById,
       checklistsByCard: group(checklists, 'cardId'),
       checklistItems,
-      subtasksByCard: group(subtasks, 'parentId'),
+      subtasksByCard: groupByParents(subtasks),
       commentsByCard: group(comments, 'cardId'),
       attachmentsByCard: group(attachments, 'meta.cardId'),
     };

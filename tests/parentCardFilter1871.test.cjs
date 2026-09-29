@@ -13,12 +13,14 @@ register(pathToFileURL(path.join(__dirname, 'helpers/meteorStubLoader.mjs')).hre
   assert.equal(Filter.parentId.isSelected('projectA'), true);
   Filter.parentId.add('projectA');
   assert.deepEqual(Filter.parentId.list(), ['projectA']);
-  let clause = Filter._getMongoSelector().$or.find(c => c.parentId);
-  assert.deepEqual(clause.parentId, { $in: ['projectA'] });
-  assert.equal(clause.parentId.$in.includes('projectB'), false);
-  assert.equal(clause.parentId.$in.includes(undefined), false);
+  // #3626: "subtasks of" matches the primary parent or any other parent.
+  const parentClause = selector => selector.$or.find(c => Array.isArray(c.$and));
+  let clause = parentClause(Filter._getMongoSelector());
+  assert.deepEqual(clause.$and[0], { $or: [{ parentId: { $in: ['projectA'] } }, { parentIds: { $in: ['projectA'] } }] });
+  assert.equal(clause.$and[0].$or[0].parentId.$in.includes('projectB'), false);
+  assert.equal(clause.$and[0].$or[0].parentId.$in.includes(undefined), false);
   Filter.labelIds.add('urgent');
-  clause = Filter._getMongoSelector().$or.find(c => c.parentId);
+  clause = parentClause(Filter._getMongoSelector());
   assert.deepEqual(clause.labelIds, { $in: ['urgent'] }, 'normal filters intersect with parent choice');
   Filter.parentId.add('projectB');
   assert.deepEqual(Filter.parentId.list(), ['projectA', 'projectB']);

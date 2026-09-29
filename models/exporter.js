@@ -695,7 +695,8 @@ export class Exporter {
     await streamArray('checklists', checklistsRaw, checklistSelector, {}, d => userIds.add(d.userId));
     await streamArray('checklistItems', checklistItemsRaw, checklistItemSelector, {});
     await streamArray('subtaskItems', cardsRaw,
-      this.hasField('subtasks') ? { boardId, parentId: { $in: cardIds } } : { _id: '__none__' }, {});
+      // #3626: a subtask under any of its parents.
+      this.hasField('subtasks') ? { boardId, $or: [{ parentId: { $in: cardIds } }, { parentIds: { $in: cardIds } }] } : { _id: '__none__' }, {});
 
     // Rules + their triggers/actions.
     const ruleTriggerIds = [];

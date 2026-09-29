@@ -94,15 +94,21 @@ test('the DDP deny rule refuses a parentId on an invisible board', () => {
   assert.ok(/export async function denyInvisibleParentCard/.test(cardPermissions));
   assert.ok(/denyInvisibleParentCard\(userId, modifier\)/.test(cardPermissions),
     'the update deny rule calls it');
-  assert.ok(/canUserSeeParentCard\(userId, doc\.parentId\)/.test(cardPermissions),
+  // #3626: the insert rule checks every parent in parentIds as well as parentId.
+  assert.ok(/const ids = \[doc\.parentId, \.\.\.\(Array\.isArray\(doc\.parentIds\) \? doc\.parentIds : \[\]\)\]\.filter\(Boolean\);[\s\S]{0,120}canUserSeeParentCard\(userId, parentId\)/.test(cardPermissions),
     'and insert is covered too — a card can be created with a parent already set');
 });
 
 test('negative: clearing or omitting a parent is still allowed', () => {
   const deny = cardPermissions.match(/export async function denyInvisibleParentCard[\s\S]*?\n\}/)[0];
-  assert.ok(/if \(typeof parentId !== 'string' \|\| !parentId\) return false;/.test(deny),
+  // #3626: the parents a write names come from parentIdsWritten(), which skips
+  // a cleared parentId and returns nothing for a modifier that names none, so
+  // the loop refuses nothing and the rule answers false.
+  const written = cardPermissions.match(/export function parentIdsWritten[\s\S]*?\n\}/)[0];
+  assert.ok(/if \(modifier\.\$set\.parentId\) add\(modifier\.\$set\.parentId\);/.test(written),
     'no parentId in the modifier means nothing to refuse');
-  assert.ok(/if \(!set\) return false;/.test(deny), 'a modifier without $set is not a parent change');
+  assert.ok(/for \(const parentId of parentIdsWritten\(modifier\)\) \{[\s\S]*?\}\s*return false;/.test(deny),
+    'a modifier without $set is not a parent change');
 });
 
 test('negative: BoardBleed\'s cross-board MOVE deny is still enforced', () => {
@@ -213,7 +219,8 @@ test('linked and parent discovery use two narrow indexed queries', () => {
   assert.ok(/type: 'cardType-linkedCard'/.test(helper));
   assert.ok(/parentId: \{ \$exists: true, \$ne: null \}/.test(helper));
   assert.ok(/fields: \{ _id: 1, linkedId: 1 \}/.test(helper));
-  assert.ok(/fields: \{ _id: 1, parentId: 1 \}/.test(helper));
+  // #3626: the narrow projection carries every parent (parentIds) as well.
+  assert.ok(/fields: \{ _id: 1, parentId: 1, parentIds: 1 \}/.test(helper));
   assert.ok(/Promise\.all/.test(helper));
 });
 

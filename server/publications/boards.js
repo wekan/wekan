@@ -16,7 +16,6 @@ import Attachments from '../../models/attachments';
 import Boards from '/models/boards';
 import Cards from '/models/cards';
 import { localizeBoardMemberAvatars } from '/server/lib/localizeAvatar';
-import { collectAncestorIds } from '/server/lib/subtaskAncestors';
 import { visibleBoardIds } from '/server/lib/visibleBoardIds';
 import {
   showsCardCounterList,
@@ -29,6 +28,7 @@ const {
 } = require('/models/lib/cardsLoading');
 const { boardCardScope, assignedOnlyCardScope } = require('/models/lib/boardCardScope');
 const { boardVisibilitySelectors, starredPublicBoardSelector } = require('/models/lib/boardVisibilitySelectors');
+const { cardParentIds, collectAllAncestorIds } = require('/models/lib/cardParents');
 
 // Card-loading mode (Admin Panel / Features): 'all' ships every card/checklist to
 // minimongo; 'lazy' ships none (each list loads its visible window via the
@@ -764,12 +764,13 @@ publishComposite('board', async function(boardId, isArchived, generation) {
       ),
       ReactiveCache.getCards(
         { ...cardScopeFor(board), parentId: { $exists: true, $ne: null } },
-        { fields: { _id: 1, parentId: 1 } },
+        { fields: { _id: 1, parentId: 1, parentIds: 1 } },
         false,
       ),
     ]).then(([links, children]) => ({
       linkedIds: [...new Set((links || []).map(card => card.linkedId).filter(Boolean))],
-      parentIds: [...new Set((children || []).map(card => card.parentId).filter(Boolean))],
+      // #3626: every parent of a subtask, not only the primary one.
+      parentIds: [...new Set((children || []).flatMap(card => cardParentIds(card)))],
     }));
     cardIndexByParent.set(board, compute);
     return compute;
@@ -1048,10 +1049,11 @@ publishComposite('board', async function(boardId, isArchived, generation) {
           // they are not covered by any other cursor of this publication.
           // Publishing only the direct parents truncated the path after a hard
           // refresh — walk every level so the full path survives F5.
-          const ancestorIds = await collectAncestorIds(parentIds, ids =>
+          // #3626: through every parent of every ancestor.
+          const ancestorIds = await collectAllAncestorIds(parentIds, ids =>
             ReactiveCache.getCards(
               { _id: { $in: ids } },
-              { fields: { _id: 1, parentId: 1 } },
+              { fields: { _id: 1, parentId: 1, parentIds: 1 } },
               false,
             ),
           );

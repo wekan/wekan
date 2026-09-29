@@ -725,6 +725,15 @@ export const Filter = {
       }
     });
 
+    // #3626: "subtasks of" these cards includes the cards whose OTHER parent
+    // is one of them, not only their primary parent.
+    if (filterSelector.parentId) {
+      const parentSelector = filterSelector.parentId;
+      delete filterSelector.parentId;
+      const either = { $or: [{ parentId: parentSelector }, { parentIds: parentSelector }] };
+      filterSelector.$and = [...(filterSelector.$and || []), either];
+    }
+
     // #2886: merge the exclusion into the existing `labelIds` selector
     // (rather than a `filterSelector.excludedLabelIds` key nothing reads)
     // so a card matching `labelIds`'s $in but ALSO carrying an excluded

@@ -57,6 +57,7 @@ const Cards = lazyCollectionProxy(() => require('/models/cards').default);
 const ChecklistItems = lazyCollectionProxy(() => require('/models/checklistItems').default);
 const Checklists = lazyCollectionProxy(() => require('/models/checklists').default);
 const CustomFields = lazyCollectionProxy(() => require('/models/customFields').default);
+const { childrenSelector, cardParentIds } = require('/models/lib/cardParents');
 const ImpersonatedUsers = lazyCollectionProxy(
   () => require('/models/impersonatedUsers').default,
 );
@@ -1607,7 +1608,8 @@ const ReactiveMiniMongoIndexServer = {
   async getSubTasksWithParentId(parentId, addSelect = {}, options = {}) {
     let ret = [];
     if (parentId) {
-      ret = await ReactiveCache.getCards({ parentId, ...addSelect }, options);
+      // #3626: a subtask whose other parent is this card is its child too.
+      ret = await ReactiveCache.getCards({ $and: [childrenSelector(parentId), addSelect] }, options);
     }
     return ret;
   },
@@ -1660,7 +1662,11 @@ const ReactiveMiniMongoIndexClient = {
             { parentId: { $exists: true }, ...__select.addSelect },
             __select.options,
           );
-          const _ret = groupBy(_subTasks, 'parentId');
+          // #3626: a card is listed under EVERY one of its parents.
+          const _ret = {};
+          for (const subTask of _subTasks) {
+            for (const id of cardParentIds(subTask)) (_ret[id] = _ret[id] || []).push(subTask);
+          }
           return _ret;
         });
       }

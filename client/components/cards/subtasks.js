@@ -9,6 +9,7 @@ import {
   subtaskBoardNavTarget,
 } from './subtaskViewHelpers';
 import { Utils } from '/client/lib/utils';
+const { cardParentIds, collectAllAncestorIdsSync } = require('/models/lib/cardParents');
 
 Template.subtasks.events({
   'click .js-open-subtask-details-menu'(event) {
@@ -246,29 +247,21 @@ function existingSubtaskCandidatesFor(tpl) {
     boardId: contextCard.boardId,
     _id: { $ne: cardId },
     // A card already a subtask of this one has nothing to gain from being
-    // picked again.
+    // picked again - as its primary or (#3626) one of its other parents.
     parentId: { $ne: cardId },
+    parentIds: { $ne: cardId },
     type: { $nin: ['template-card', 'cardType-linkedCard', 'cardType-linkedBoard'] },
   };
   if (term) {
     selector.title = { $regex: term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), $options: 'i' };
   }
   const cards = ReactiveCache.getCards(selector, { sort: { sort: 1 }, limit: 50 });
-  // Never offer a card that is already an ancestor of this one -- setParentId
-  // refuses it anyway (#3328 loop guard), so filter it out up front instead
+  // Never offer a card that is already an ANCESTOR of this one, through any
+  // of its parents (#3626) - making it a subtask here would close a loop,
+  // which addParent refuses anyway (#3328), so filter it out up front instead
   // of letting the user pick it and see an error.
-  return (cards || []).filter(card => {
-    let crt = card;
-    const seen = new Set();
-    while (crt && crt.parentId && !seen.has(crt.parentId)) {
-      if (crt.parentId === cardId) {
-        return false;
-      }
-      seen.add(crt.parentId);
-      crt = ReactiveCache.getCard(crt.parentId);
-    }
-    return true;
-  });
+  const ancestors = new Set(collectAllAncestorIdsSync(cardParentIds(contextCard), id => ReactiveCache.getCard(id)));
+  return (cards || []).filter(card => !ancestors.has(card._id));
 }
 
 Template.addExistingSubtaskPopup.helpers({
@@ -300,7 +293,9 @@ Template.addExistingSubtaskPopup.events({
       ? contextCard.getRealId()
       : contextCard._id;
     try {
-      await targetCard.setParentId(parentId);
+      // #3626: the card keeps the parents it has and becomes this one's
+      // subtask too - "A must be done before B and C", so A is under both.
+      await targetCard.addParent(parentId);
     } catch (error) {
       alert(error?.reason || error?.message || 'Could not add the existing card as a subtask.');
     }

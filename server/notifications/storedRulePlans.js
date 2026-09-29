@@ -34,6 +34,7 @@ const { ensureRuleArchiveEffects, prepareRuleArchiveEffects, applyRuleArchiveEff
 const { createRuleArchiveCards } = require('/server/lib/syncRuleArchiveCards');
 const { createRuleArchiveActivities } = require('/server/lib/syncRuleArchiveActivities');
 const { exactFieldSelector } = require('/models/lib/exactFieldSelector');
+const { onlyChildrenSelector } = require('/models/lib/cardParents');
 
 export const SyncRuleArchiveCommands = new Mongo.Collection('listSyncRuleArchiveCommands');
 export const SyncRuleArchiveEffects = new Mongo.Collection('listSyncRuleArchiveEffects');
@@ -202,7 +203,9 @@ async function captureArchive({ context, plan, index, guard, assertCard }) {
   const command = await ensureRuleArchiveCommand({ commands: SyncRuleArchiveCommands.rawCollection(),
     plan, activity: context.saved, effectId: context.effectId, index, assertCurrent: guard, assertCard,
     readCard: id => Cards.findOneAsync(id, { transform: null }),
-    readChildren: parentId => Cards.find({ parentId }, { transform: null, limit: 1001 }).fetchAsync() });
+    // #3626: the children archived WITH a card are the ones it is the one
+    // parent of - the same set card.archive() takes (models/lib/cardParents.js).
+    readChildren: parentId => Cards.find(onlyChildrenSelector(parentId), { transform: null, limit: 1001 }).fetchAsync() });
   // Existing commands skip discovery, but never skip current descendant access.
   for (const card of command.cards) await assertCard(card);
   await guard();
