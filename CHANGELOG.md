@@ -99,24 +99,20 @@ for one of four stated reasons, not left unexamined:
 
 **Paused for a release on 2026-09-29 - in progress, not in this release:**
 
-- **Viewer sanitizer hooks.** The card viewer's DOMPurify rules for inputs
-  were written in a `HOOKS` config key, which DOMPurify ignores, and as
-  `return false`, which hooks ignore; so card text can render a live
-  `<input type="password">` (the #2419 "disabled checkbox only" rule never
-  ran). A fix with real per-call hooks and unit tests exists, parked as
-  `.tools/tmp/sanitizer-hooks-wip.patch`; its browser check still showed no
-  task checkbox, which must be understood before it ships.
 - **Code highlighting** (decision above): highlight.js with markdown-it and a
-  colour stylesheet work in the client, parked with the sanitizer work
-  (`.tools/tmp/highlight-wip.patch`, `.tools/tmp/highlight-wip/`); the browser
-  check is unfinished and the dependency is not added.
-- **Failing suites not yet fixed:** `multilineTitles` and `pomodoroTimer`
-  (not yet examined); `calendarDateDisplay` waits for the locale files to
+  colour stylesheet work in the client, parked in
+  `.tools/tmp/highlight-wip.patch` and `.tools/tmp/highlight-wip/`; the browser
+  check is unfinished and the dependency is not added. The viewer's second
+  sanitizer pass removes every class, so the colours also need a class rule
+  there, like the task-checkbox hook it now has.
+- **Failing suites not yet fixed:** `calendarDateDisplay`,
+  `multilineTitles` and `pomodoroTimer` all wait for the locale files to
   follow `en.i18n.json`'s key order, which is the translation agent's work.
 - **Found, not yet fixed:** board-invite in-app push may no longer be
   delivered since notifications moved to stored plans (its params carry no
-  `activityId`) and needs a runtime check. `SamlAccountMergeBleed` has a
-  Problems category but no Hall of Fame page yet.
+  `activityId`) and needs a runtime check. (`SamlAccountMergeBleed` needs no
+  Hall of Fame page: SAML refused that merge from its first commit, so it is a
+  detection category like `CanaryBleed`, not a fixed vulnerability.)
 - **Decisions not yet built:** trigger-value variables, the thumbnail route,
   semi-open boards, the parents array, the URL-scheme allowlist, first-class
   Jira issue types, the Map board view, splitting #4790, per-activity
@@ -2329,7 +2325,7 @@ and has the following developer-tooling fix:
 
 and updates the following translations:
 
-**Languages updated:** Finnish, Arabic, Algerian Arabic, Egyptian Arabic, Turkish, Spanish, Argentine Spanish, Chilean Spanish, Colombian Spanish, Latin American Spanish, Mexican Spanish, Peruvian Spanish, Paraguayan Spanish, Italian, Portuguese, Brazilian Portuguese, European Portuguese, Galician, Korean, Japanese, Traditional Chinese, Chinese (Taiwan), Chinese (Hong Kong), Simplified Chinese, Mandarin Chinese, Chinese (Singapore), French, Belgian French, Canadian French, Swiss French, German, Austrian German, Swiss German, Swedish.
+**Languages updated:** Finnish, Arabic, Algerian Arabic, Egyptian Arabic, Turkish, Spanish, Argentine Spanish, Chilean Spanish, Colombian Spanish, Latin American Spanish, Mexican Spanish, Peruvian Spanish, Paraguayan Spanish, Italian, Portuguese, Brazilian Portuguese, European Portuguese, Galician, Korean, Japanese, Traditional Chinese, Chinese (Taiwan), Chinese (Hong Kong), Simplified Chinese, Mandarin Chinese, Chinese (Singapore), French, Belgian French, Canadian French, Swiss French, German, Austrian German, Swiss German, Swedish, Danish.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ef52698fe">Complete Finnish and Arabic planning and recovery translations</a>. Thanks to xet7.</summary>
@@ -2579,6 +2575,26 @@ are rechecked. Existing Upcoming implementation entries retain their recorded
 regression evidence. Browser layout and fluent-speaker review were not run.
 
 The inventory lists 189 unfinished locales. New English keys, including
+missing locale keys and those pending Transifex, remain in scope for every
+locale. The all-language translation goal remains unfinished.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/00399026d">Complete Danish planning and recovery translations</a>. Thanks to xet7.</summary>
+
+Translate 268 missing or English values for filters, Scrum, Sync, reminders,
+rules and delivery recovery. Preserve existing translations and individually
+review shared Danish terms, product names and mathematical notation.
+
+The Danish regression test and fifteen previously completed translation
+suites pass, as do 21 human-preference checks. Coverage verifies current
+source keys, order, interpolation tokens, recovery meaning and no remaining
+Danish placeholders. Existing Upcoming implementation entries retain their
+recorded regression evidence. Browser layout and fluent-speaker review were
+not run for this batch.
+
+The inventory lists 188 unfinished locales. New English keys, including
 missing locale keys and those pending Transifex, remain in scope for every
 locale. The all-language translation goal remains unfinished.
 
