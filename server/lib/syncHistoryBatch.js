@@ -134,11 +134,23 @@ function validatePlan(plan) {
   if (Buffer.byteLength(EJSON.stringify(plan)) > 15 * 1024 * 1024) fail();
 }
 
+// Sync's rows are hashed when they are PLANNED (previousHash is fixed then),
+// so they may only be written as a writer the board's History gate admits:
+// history.admitHistoryWriter holds a legacy writer token for the whole batch,
+// which makes a chain migration wait for it, and it refuses on a board whose
+// chain is already coordinated instead of forking it. There is no default: an
+// adapter without it is refused, never silently written around the gate.
 async function persistSyncFieldHistory({ history, plan, assertCurrent }) {
   validatePlan(plan);
-  if (typeof assertCurrent !== 'function') fail();
+  if (typeof assertCurrent !== 'function' || typeof history?.admitHistoryWriter !== 'function') fail();
   // Do not let a collection adapter mutate the journal's verification inputs.
   plan = copy(plan);
+  return history.admitHistoryWriter({ boardId: plan.boardId, work: async ({ assertCurrent: writerCurrent }) => {
+    if (typeof writerCurrent !== 'function') fail();
+    return writeSyncFieldHistory({ history, plan, assertCurrent: async () => { await assertCurrent(); await writerCurrent(); } });
+  } });
+}
+async function writeSyncFieldHistory({ history, plan, assertCurrent }) {
   if (plan.rows[0]?.previousHash) {
     await assertCurrent();
     const predecessor = await history.findOneAsync({ boardId: plan.boardId,

@@ -72,6 +72,14 @@ ChangeHistory.withHistoryWriter = async ({ boardId, row, write, legacy }) => {
     writeCoordinated: () => write(() => appendStoredHistoryChain({ row: prepared, assertCurrent: async () => {} })) });
 };
 
+// Sync History (server/lib/syncHistoryBatch.js) writes rows it hashed when it
+// planned them. It holds a legacy writer token for the whole batch, so a
+// migration drains it; on a coordinated board it is refused rather than
+// appended around the head, until a multi-row chain reservation exists.
+ChangeHistory.admitHistoryWriter = ({ boardId, work }) => withHistoryWriter({
+  gates: HistoryWriterGates.rawCollection(), boardId, writeLegacy: work,
+  writeCoordinated: async () => { throw new Error('sync-history-coordination-required'); } });
+
 // No automatic rollout: callers must prove older server versions cannot write.
 // Drain/resume uses the same durable migration UUID, never a timed takeover.
 export function migrateStoredHistoryChain({ boardId, migrationId, assertDeploymentExclusive }) {

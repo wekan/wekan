@@ -19,6 +19,8 @@ function fixture() {
   const plan = prepareSyncFieldHistory({ ...options, previousHash: redo.integrityHash, redoRows: [redo] });
   let inserts = 0;
   return { plan, records, get inserts() { return inserts; }, assertCurrent: async () => {}, history: {
+    // Sync History writes only as a writer the board's History gate admits.
+    admitHistoryWriter: ({ work }) => work({ assertCurrent: async () => {} }),
     findOneAsync: async query => typeof query === 'string' ? records.get(query)
       : [...records.values()].find(row => row.boardId === query.boardId && row.integrityHash === query.integrityHash),
     updateAsync: async target => { const row = records.get(target._id); if (row && row.undoneAt.getTime() === target.undoneAt.getTime()) row.superseded = true; },

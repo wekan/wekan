@@ -41,7 +41,7 @@ test('registered private storage retains recovery evidence and refuses recreated
   apply:async(step,context)=>{
    assert.equal(context.userId,'author');if(interrupted)throw new Error('interrupted');applied++;
    return applySyncEffectsStep({cards:db.collection('cards'),step,...context,readPolicy:async()=>policy,
-    history:{findOneAsync:q=>events.findOne(typeof q==='string'?{_id:q}:q),insertAsync:r=>events.insertOne(r),updateAsync:(...a)=>events.updateOne(...a)},
+    history:{admitHistoryWriter:({work})=>work({assertCurrent:async()=>{}}),findOneAsync:q=>events.findOne(typeof q==='string'?{_id:q}:q),insertAsync:r=>events.insertOne(r),updateAsync:(...a)=>events.updateOne(...a)},
     activities:{findOneAsync:id=>activities.findOne({_id:id}),insertAsync:r=>activities.insertOne(r)},
     completeDelivery:async({effectId})=>{
      await deliveries.updateOne({_id:effectId},{$setOnInsert:{done:true}},{upsert:true});

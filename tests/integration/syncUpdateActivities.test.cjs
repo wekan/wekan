@@ -22,7 +22,7 @@ test('one journal replays creation, edits and archive with History and per-activ
  const context={policy:{activities:true,notifications:true},userId:'author',username:'author-name',createdAt:new Date(1000),
   list:{_id:'list',boardId:'board',title:'List'},swimlane:{_id:'lane',boardId:'board',title:'Lane'}};
  const effectPlanner=createSyncEffectPlanner({...context,swimlanes:[context.swimlane]});
- const history={findOneAsync:q=>events.findOne(typeof q==='string'?{_id:q}:q),insertAsync:r=>events.insertOne(r),updateAsync:(...a)=>events.updateOne(...a)};
+ const history={admitHistoryWriter:({work})=>work({assertCurrent:async()=>{}}),findOneAsync:q=>events.findOne(typeof q==='string'?{_id:q}:q),insertAsync:r=>events.insertOne(r),updateAsync:(...a)=>events.updateOne(...a)};
  const activityStore={findOneAsync:id=>activities.findOne({_id:id}),insertAsync:async row=>{await activities.insertOne(row);throw new Error('lost activity reply');}};
  let builds=0,interrupted=true,currentPolicy={activities:true,notifications:true};
  const args={operations,steps,completions,intentId:randomUUID(),assertCurrent:async()=>{},
@@ -67,7 +67,7 @@ test('a persisted disabled-activity plan completes History without an activity o
  await db.collection('plans').insertOne({_id:'plan',plan});
  const saved=(await db.collection('plans').findOne({_id:'plan'})).plan;
  const events=db.collection('history');let interrupted=true;
- const history={findOneAsync:id=>events.findOne({_id:id}),updateAsync:(...args)=>events.updateOne(...args),
+ const history={admitHistoryWriter:({work})=>work({assertCurrent:async()=>{}}),findOneAsync:id=>events.findOne({_id:id}),updateAsync:(...args)=>events.updateOne(...args),
   insertAsync:async row=>{if(interrupted)throw new Error('History interrupted');await events.insertOne(row);}};
  const args={history,plan:saved,step,effectId,assertCurrent:async()=>{},readPolicy:async()=>policy};
  await assert.rejects(persistSyncEffects(args),/History interrupted/);
@@ -90,7 +90,7 @@ test('combined card application checks policy before writes and retains recovery
  const args={step,effects,operationId,index,userId:'author',assertCurrent:async()=>{},readPolicy:async()=>current,
   cards:{findOne:q=>cards.findOne(q),insertOne:r=>cards.insertOne(r),updateOne:async(...a)=>{
    writes++;const result=await cards.updateOne(...a);current={activities:false,notifications:false};return result;
-  }},history:{findOneAsync:q=>events.findOne(typeof q==='string'?{_id:q}:q),insertAsync:r=>events.insertOne(r),updateAsync:(...a)=>events.updateOne(...a)},
+  }},history:{admitHistoryWriter:({work})=>work({assertCurrent:async()=>{}}),findOneAsync:q=>events.findOne(typeof q==='string'?{_id:q}:q),insertAsync:r=>events.insertOne(r),updateAsync:(...a)=>events.updateOne(...a)},
   activities:{findOneAsync:id=>activities.findOne({_id:id}),insertAsync:r=>activities.insertOne(r)},
   completeDelivery:async({effectId})=>{deliveries++;return effectId;}};
  await assert.rejects(applySyncEffectsStep(args),/policy-changed/);

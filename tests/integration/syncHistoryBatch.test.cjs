@@ -31,7 +31,7 @@ test('persisted Sync History plans resume between event rows before journal comp
     previousHash: old.integrityHash, undone: false, undoneAt: null };
   later.integrityHash = hashHistoryRow(later); await events.insertOne(later);
   let inserts = 0, builds = 0, interrupt = true;
-  const history = { findOneAsync: query => events.findOne(typeof query === 'string' ? { _id: query } : query),
+  const history = { admitHistoryWriter: ({ work }) => work({ assertCurrent: async () => {} }), findOneAsync: query => events.findOne(typeof query === 'string' ? { _id: query } : query),
     updateAsync: async (...args) => { await events.updateOne(...args); },
     insertAsync: async row => {
       if (interrupt && inserts === 1) throw new Error('History interrupted');
@@ -103,7 +103,7 @@ test('legacy redo invalidation resumes with exact snapshots and never manufactur
     const savedPlan = (await db.collection('plans').findOne({ _id: 'plan' })).plan;
     assert.deepEqual(savedPlan, plan);
     let interrupted = true;
-    const history = { findOneAsync: query => events.findOne(typeof query === 'string' ? { _id: query } : query),
+    const history = { admitHistoryWriter: ({ work }) => work({ assertCurrent: async () => {} }), findOneAsync: query => events.findOne(typeof query === 'string' ? { _id: query } : query),
       updateAsync: async (...args) => { await events.updateOne(...args); throw new Error('lost redo acknowledgement'); },
       insertAsync: async row => { if (interrupted) throw new Error('interrupted History'); await events.insertOne(row); } };
     const args = { history, plan: savedPlan, assertCurrent: async () => {} };

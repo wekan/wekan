@@ -23,7 +23,8 @@ test('stored History and activities resume after delivery interruption without d
   f.policy = { activities: true, notifications: false };
   const prepared = prepareRuleArchiveEffects({ ...f, username: 'Actor', lists: [{ _id: 'list', boardId: 'board', title: 'Saved list' }] });
   f.effects = await ensureRuleArchiveEffects({ ...f, effects: db.collection('effects'), build: async () => prepared });
-  const collectionAdapter = collection => ({ findOneAsync: selector => collection.findOne(typeof selector === 'string' ? { _id: selector } : selector),
+  const collectionAdapter = collection => ({ admitHistoryWriter: ({ work }) => work({ assertCurrent: async () => {} }),
+    findOneAsync: selector => collection.findOne(typeof selector === 'string' ? { _id: selector } : selector),
     insertAsync: async row => { await collection.insertOne(row); return row._id; },
     updateAsync: async (selector, modifier) => (await collection.updateOne(selector, modifier)).modifiedCount });
   f.history = collectionAdapter(db.collection('history'));
