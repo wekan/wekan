@@ -3253,6 +3253,25 @@ recorded regression evidence. The all-language goal remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2d579db7b">Complete Russian delivery recovery translations</a>. Thanks to xet7.</summary>
+
+Fill 72 missing or English values for email and activity delivery recovery,
+rule-email diagnostics, SAML login and move ordering. Existing translations
+remain intact. Reviewed keyboard legends, product names and mathematical
+notation stay unchanged.
+
+Russian and translation-token tests pass, together with all 21
+human-preference checks. Coverage checks every source key and its order,
+interpolation tokens, script, irreversible cancellation and preservation of
+new messages after a cancellation request. No Russian prose placeholders
+remain against the current English source. Browser layout and fluent-speaker
+review were not run. Existing Upcoming entries retain their recorded
+regression evidence. Other locales and new English additions remain in scope;
+the all-language goal is unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
