@@ -105,11 +105,10 @@ for one of four stated reasons, not left unexamined:
 - **Checked:** `SamlAccountMergeBleed` needs no Hall of Fame page: SAML
   refused that merge from its first commit, so it is a detection category
   like `CanaryBleed`, not a fixed vulnerability.
-- **Decisions not yet built:** trigger-value variables, semi-open boards, the
-  parents array, first-class Jira issue types, the Map board view, splitting
-  issue #4790, per-activity notification options (#572), Deck-style
-  auto-archive, the import-page loss report, recovery controls, and the
-  Scrum/Sync journal work.
+- **Decisions not yet built:** semi-open boards, the parents array,
+  first-class Jira issue types, the Map board view, splitting issue #4790,
+  per-activity notification options (#572), Deck-style auto-archive, the
+  import-page loss report, recovery controls, and the Scrum/Sync journal work.
 
 Maintainer decisions of 2026-09-29, answering the blockers above:
 
@@ -1944,7 +1943,24 @@ either entry removed it names the id and the file.
 
 </details>
 
-**Rules** - variables in action values, and start-date reminders.
+**Rules** - variables in action and trigger values, and start-date reminders.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b1dbea215">Accept rule variables in trigger values</a>. Thanks to xet7.</summary>
+
+A trigger's list, swimlane, title, checklist and user fields may use the
+variables actions resolve - `{creator}`, `{assignees}`, `{members}`,
+`{customField:Name}` and the rest - read from the card when the rule is
+checked: "when a card is moved to the list named in its `{customField:Stage}`".
+The rule engine also fetches this board's triggers that hold a token and
+resolves them; every other field keeps the exact-or-wildcard rule. People
+tokens match any one named user, "by `{assignees}`" is compared by username,
+and an unknown token stays literal. The editor shows a new hint (English,
+pending Transifex). A unit suite covers resolution and whole-trigger matching;
+a Chromium case moves two cards to the same list and only the one whose field
+names it fires the rule.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/a91855993">Resolve people and custom-field variables in rule action values</a>. Thanks to xet7.</summary>
