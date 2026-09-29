@@ -3089,6 +3089,25 @@ recorded regression evidence. The all-language goal remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fbc531444">Complete Hungarian synchronization and recovery translations</a>. Thanks to xet7.</summary>
+
+Fill 135 missing or English values for synchronization conflicts and reports,
+email and activity recovery, SAML login and move ordering. Existing
+translations remain intact. Reviewed keyboard legends, product names and
+shared mathematical and Scrum terms stay unchanged.
+
+Hungarian and translation-token tests pass, together with all 21
+human-preference checks. Coverage checks every source key and its order,
+interpolation tokens, cancellation warnings, source-system isolation and
+explicit null handling. No Hungarian prose placeholders remain against the
+current English source. Browser layout and fluent-speaker review were not
+run. Existing Upcoming entries retain their recorded regression evidence.
+Other locales and future English additions remain in scope; the all-language
+goal is unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
