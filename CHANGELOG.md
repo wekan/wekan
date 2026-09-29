@@ -3330,6 +3330,24 @@ recorded regression evidence. The all-language goal remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bbd99d3f1">Correct Bulgarian permissions, planning and account messages</a>. Thanks to xet7.</summary>
+
+Replace 45 Serbian values with Bulgarian for permission descriptions, planning
+poker, deletion dialogs, account emails, invitations and template copying.
+Correct-language translations remain intact. Preserve all placeholders and
+JSON property names while translating the example values.
+
+The Bulgarian and translation-token suites pass, together with all 21
+human-preference checks. Coverage checks vocabulary, script, interpolation
+tokens, assigned-card restrictions, irreversible deletion and valid template
+JSON. More wrong-language values and missing translations remain in Bulgarian.
+Browser layout and fluent-speaker review were not run. Existing Upcoming
+entries retain their recorded regression evidence. The all-language goal
+remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
