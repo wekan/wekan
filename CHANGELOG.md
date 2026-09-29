@@ -88,11 +88,10 @@ for one of four stated reasons, not left unexamined:
   decision" and "Deferred pending a security decision", the rule templating
   and multi-trigger contract (#4294, #3195, #2953), Jira issue types and
   Kanboard categories.
-- **Needs infrastructure or affected data.** The environment-owner, snap,
-  data-verification and FerretDB backend items. For #6509 and the index
-  verification, Docker Desktop on this Mac waits for an administrator to
-  approve its privileged helper, so no MySQL/MariaDB/PostgreSQL container
-  could start; SAP HANA still needs a licence and memory.
+- **Needs infrastructure or affected data.** The environment-owner, snap and
+  data-verification items. The MySQL/MariaDB/PostgreSQL verification was done
+  once Docker was approved (see Upcoming); only SAP HANA remains, and its image
+  is amd64-only and needs a licence and about 16 GB of memory.
 - **Architectural Scrum/Sync work.** Atomic cross-document coordination,
   compound archive reservations, interrupted-record replay, production
   adapters and cron activation (checkpoint below) were not advanced in this
@@ -1302,49 +1301,29 @@ fixed; the separate HistoryIntegrity checksum mismatch needs the affected
 stored row and predecessor to reproduce. Do not regenerate hashes to hide it.
 See [investigation notes](docs/DeveloperDocs/LDAP-6692.md)).
 
-[#6509](https://github.com/wekan/wekan/issues/6509) — which is a request to TEST
-FerretDB v1 on MySQL, MariaDB and SAP HANA, and is mostly answered: the
-conformance harness (`./build.sh` → Tests → All databases) runs one catalogue of
-100 queries against every backend with an image for the machine, and **MariaDB
-now answers identically to SQLite on 98 of them**, the two exceptions being the
-`$slice` / `$elemMatch` projections that NO backend implements. Getting there
-took a dozen fixes in wekan/FerretDB — MySQL answered `Error 1064` to every
-filtered query, deletes deleted nothing, `DROP INDEX` was PostgreSQL's spelling,
-`collStats` was not valid SQL, and MariaDB has neither the `->` operator nor a
-JSON type to cast to. **MySQL's confirming run is still pending** (its container
-lost a port race on the last run, since fixed) and **SAP HANA is untested**: its
-image needs a licence acceptance and a machine with the memory for it.
+[#6509](https://github.com/wekan/wekan/issues/6509) — a request to TEST FerretDB
+v1 on MySQL, MariaDB and SAP HANA. MySQL and MariaDB are now confirmed: on
+2026-09-29 the conformance harness (`./build.sh` → Tests → All databases) ran
+its 110-case catalogue on SQLite, PostgreSQL 18, MySQL 9.7 and MariaDB 12.3
+and every case agreed, after a MySQL range fix it found (see Upcoming). **Only
+SAP HANA is untested**: its image is amd64-only and needs a licence acceptance
+and about 16 GB of memory, so it cannot run on the arm64 machine used here.
 
 </details>
 
 <details>
-<summary>In-progress dev work carried forward (FerretDB v1 fork backend parity — not an issue, recorded so the next session can resume).</summary>
+<summary>FerretDB v1 fork backend parity: SAP HANA verification remains.</summary>
 
-declared-index usability across the PostgreSQL / MySQL / MariaDB / SAP HANA
-backends. DONE: range (`$gt/$gte/$lt/$lte`) and `$in` pushdown are implemented
-and unit-tested on sqlite/postgresql/mysql/hana; the external-DB snap launcher
-(`wekan-ferretdb-handler` / `wekan-ferretdb-url`) is in; `ROADMAP.md` +
-`docs/pushdown.md` are updated; the OpLog `ts` index is now created best-effort
-in each backend's `collectionCreate` (postgresql btree
-`(((_jsonb->>'ts')::numeric))`, mysql functional
-`((CAST(_ferretdb_sjson->>'$.ts' AS DECIMAL(65,10))))` with a **MariaDB
-fallback** to a `STORED` generated column on that CAST + a column index since
-MariaDB has no functional key parts, hana a DocStore index) with a descriptive
-WARN log on failure; and the **MariaDB-vs-mysql-backend assessment is done**
-(MariaDB speaks the MySQL wire protocol and the backend does not gate on
-vendor/version — the `json` column, `->`/`->>`/`JSON_CONTAINS`/`JSON_TYPE`, the
-generated-`STORED` index workaround, `EXPLAIN FORMAT=JSON` and
-`information_schema` all work on MariaDB 10.2+; the functional ts index was the
-one concrete break, now fixed; every pushdown is a superset with an in-Go
-re-filter so results stay correct regardless). VERIFICATION BOUNDARY / NEXT: the
-sandbox can only run/EXPLAIN the SQLite backend, so the maintainer must confirm
-on live PostgreSQL / MySQL / MariaDB / SAP HANA that the range pushdown
-expression MATCHES the indexed expression and the optimizer actually USES the
-index (today the mysql pushdown compares `col->'$.ts'` while the index is on
-`CAST(col->>'$.ts' AS DECIMAL)`, so the pushdown likely needs to emit the same
-CAST), plus whether MariaDB's `JSON_TYPE` returns the same
-`INTEGER`/`DOUBLE`/`DECIMAL` tokens — all correctness-neutral (only
-selectivity), verifiable only with live `EXPLAIN` on each engine.
+Range and `$in` pushdown, the external-database snap launcher and the OpLog
+`ts` index in each backend's `collectionCreate` are in wekan/FerretDB. The
+live check the previous entry asked for was done on 2026-09-29 against MySQL
+9.7, MariaDB 12.3 and PostgreSQL 18 (see Upcoming): the pushed range did not
+match the index on any of them, and the assumption that this was only a
+selectivity question was wrong for MySQL, whose `UNSIGNED INTEGER` JSON type
+made its range pushdown drop documents. Both are fixed and verified with
+EXPLAIN and the conformance catalogue. What remains is SAP HANA: its DocStore
+index and range pushdown need a live HANA, which needs an amd64 machine, a
+licence and about 16 GB of memory.
 
 </details>
 
@@ -1767,6 +1746,29 @@ copy regressions. The offline source audit passes. The
 remaining assigned-only, client-template, board-property and concurrency review.
 The existing Upcoming security, archive and Scrum entries retain their recorded
 regression coverage. Other browsers and backends were not run for this change.
+
+</details>
+
+**Databases** - FerretDB answers MySQL range queries correctly and uses its OpLog index.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ed73253da">MySQL range queries no longer drop large integers, and the OpLog tail uses its index</a>. Thanks to xet7.</summary>
+
+Run live once Docker was available, the conformance catalogue - extended with
+Date, Timestamp and large-integer ranges - found that FerretDB's MySQL backend
+dropped documents from range queries: MySQL 9.7 types some positive integers
+(1577934245000, not 2147483648) as `UNSIGNED INTEGER`, which its number guard
+did not list. The same cause had made a date range answer no rows, so Date and
+Timestamp ranges were never pushed down on MySQL. The previous FerretDB build
+fails the new case; with the fix in wekan/FerretDB `eb8c8834` all 110 cases
+agree on SQLite, PostgreSQL 18, MySQL 9.7 and MariaDB 12.3.
+
+EXPLAIN on those engines also showed the capped-collection `ts` index was never
+used by the pushed range, so an idle OpLog tail scanned the whole table on
+every poll. MySQL and MariaDB now also receive the indexed DECIMAL expression
+(non-strict, so rounding keeps a superset) and PostgreSQL the literal key; all
+three now show index range scans. SAP HANA was not run: its image is amd64-only
+and licensed. This confirms #6509 for MySQL and MariaDB but does not close it.
 
 </details>
 
