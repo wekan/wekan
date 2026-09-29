@@ -82,6 +82,13 @@ const isEnglishVariant = code => /^en([_-].*)?$/.test(code) || code === 'en';
 // needs a different word. Keep those exceptions per locale; putting them in the
 // source-wide list would hide real work in every language.
 const LOCALE_INVARIANTS = {
+  // Product names and mathematical function symbols are not English prose.
+  ...Object.fromEntries(['vi', 'vi-VN'].map(code => [code, new Set([
+    'blockly-CHROME_OS', 'blockly-LINUX', 'blockly-MAC_OS', 'blockly-WINDOWS',
+    'blockly-MATH_TRIG_ACOS', 'blockly-MATH_TRIG_ASIN', 'blockly-MATH_TRIG_ATAN',
+    'blockly-MATH_TRIG_COS', 'blockly-MATH_TRIG_SIN', 'blockly-MATH_TRIG_TAN',
+  ])])),
+  bg: new Set(['blockly-CHROME_OS', 'blockly-MAC_OS']),
   // Russian retains printed keyboard legends, product names and math notation.
   ru: new Set([
     'blockly-ALT_KEY', 'blockly-BACKSPACE_KEY', 'blockly-CAPS_LOCK_KEY',
