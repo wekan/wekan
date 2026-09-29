@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v12.09
+  version: v12.10
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -685,6 +685,11 @@ paths:
         - multipart/form-data
         - application/json
       parameters:
+        - name: permission
+          in: formData
+          description: the permission value
+          type: string
+          required: true
       produces:
         - application/json
       security:
@@ -1066,6 +1071,12 @@ paths:
         - multipart/form-data
         - application/json
       parameters:
+        - name: cardFieldOrder
+          in: formData
+          description: |
+            JSON array of section keys, e.g. ["description", "labels", "dates", "members", "customFields"]
+          type: string
+          required: true
         - name: board
           in: path
           description: |
@@ -1850,6 +1861,16 @@ paths:
           description: the cardIds value
           type: string
           required: true
+        - name: addLabelIds
+          in: formData
+          description: the addLabelIds value
+          type: string
+          required: true
+        - name: removeLabelIds
+          in: formData
+          description: the removeLabelIds value
+          type: string
+          required: true
         - name: board
           in: path
           description: the board value
@@ -2413,7 +2434,7 @@ paths:
   /api/boards/{board}/export/{format}:
     get:
       operationId: exportExternal
-      summary: Export the board as a NextCloud Deck / OpenProject / GitHub /  GitLab / Gitea / Forgejo style JSON.
+      summary: Export the board as a NextCloud Deck / Kanboard / OpenProject /  GitHub / GitLab / Gitea / Forgejo / Jira / Asana / Zenkit / Trello style  JSON, or Markdown.
       tags:
         - Boards
       parameters:
@@ -2445,30 +2466,6 @@ paths:
 
          See https://blog.kayla.com.au/server-side-route-authentication-in-meteor/
          for detailed explanations
-      tags:
-        - Boards
-      parameters:
-        - name: board
-          in: path
-          description: |
-            the ID of the board we are exporting
-          type: string
-          required: true
-      produces:
-        - application/json
-      security:
-          - UserSecurity: []
-      responses:
-        '200':
-          description: |-
-            200 response
-  /api/boards/{board}/export/kanboard:
-    get:
-      operationId: exportKanboard
-      summary: Export the board as a Kanboard-style JSON (columns + tasks).
-      description: |
-        Pass the loginToken as the `authToken` query param for private
-         boards: `/api/boards/:boardId/export/kanboard?authToken=:token`.
       tags:
         - Boards
       parameters:
@@ -2904,6 +2901,16 @@ paths:
           description: the linkedId value
           type: string
           required: true
+        - name: members
+          in: formData
+          description: the members value
+          type: string
+          required: true
+        - name: assignees
+          in: formData
+          description: the assignees value
+          type: string
+          required: true
         - name: dateField
           in: formData
           description: the dateField value
@@ -2964,6 +2971,11 @@ paths:
         - multipart/form-data
         - application/json
       parameters:
+        - name: moveReason
+          in: formData
+          description: the moveReason value
+          type: string
+          required: true
         - name: title
           in: formData
           description: the title value
@@ -4261,6 +4273,11 @@ paths:
         - multipart/form-data
         - application/json
       parameters:
+        - name: reason
+          in: formData
+          description: the reason value
+          type: string
+          required: true
         - name: user
           in: path
           description: the user value
@@ -5275,8 +5292,9 @@ definitions:
            visibility of the board
         type: string
         enum:
-          - public
           - private
+          - instance
+          - public
       orgs:
         description: |
            the list of organizations that a board belongs to
@@ -5362,6 +5380,18 @@ definitions:
            connection lines between cards that have cardDependencies, SAFe
            PI-planning program board style.
         type: boolean
+      mapImageAttachmentId:
+        description: |
+           #3256: the image the Map board view draws the cards on - a board-level
+           attachment (meta.source 'board-map'). Unset = no map yet.
+        type: string
+        x-nullable: true
+      autoArchiveInactiveDays:
+        description: |
+           Nextcloud Deck-style auto-archive: archive cards with no activity for
+           this many days (models/lib/autoArchive.js). Unset means off.
+        $ref: "#/definitions/BoardsAutoarchiveinactivedays"
+        x-nullable: true
       cardAgingDays1:
         type: number
       cardAgingDays2:
@@ -5532,6 +5562,14 @@ definitions:
         type: boolean
         x-nullable: true
       notifyOverrideEmail:
+        type: boolean
+        x-nullable: true
+      dueReminderDays:
+        type: array
+        items:
+          $ref: "#/definitions/BoardsDuereminderdays"
+        x-nullable: true
+      dueReminderWebhook:
         type: boolean
         x-nullable: true
       allowsCardNumberOnMinicard:
@@ -6154,6 +6192,8 @@ definitions:
       - listIds
       - limit
       - enabled
+  BoardsDuereminderdays:
+    type: object
   CardComments:
     type: object
     description:  A comment on a card
@@ -6233,8 +6273,18 @@ definitions:
         x-nullable: true
       parentId:
         description: |
-           ID of the parent card
+           ID of the parent card - the PRIMARY parent, always parentIds[0]
+           (#3626, models/lib/cardParents.js).
         type: string
+        x-nullable: true
+      parentIds:
+        description: |
+           #3626: every parent of the card, primary first. A card written before
+           this has only parentId, which is then its one parent.
+        type: array
+        items:
+          type: string
+          x-nullable: true
         x-nullable: true
       listId:
         description: |
@@ -6249,6 +6299,15 @@ definitions:
         description: |
            Board ID of the card
         type: string
+        x-nullable: true
+      mapX:
+        description: |
+           #3256: the card's place on the board's Map view, as a percentage of
+           the map image's width (models/lib/boardMap.js). Unset = not on the map.
+        type: number
+        x-nullable: true
+      mapY:
+        type: number
         x-nullable: true
       coverId:
         description: |
@@ -7430,6 +7489,18 @@ definitions:
         type: string
       actionId:
         type: string
+      extraTriggerIds:
+        type: array
+        items:
+          type: string
+          x-nullable: true
+        x-nullable: true
+      extraActionIds:
+        type: array
+        items:
+          type: string
+          x-nullable: true
+        x-nullable: true
       boardId:
         type: string
       buttonType:
@@ -8001,6 +8072,15 @@ definitions:
         items:
           type: string
           x-nullable: true
+      notifyMutedActivities:
+        description: |
+           #572: kinds of card activity this member is not notified about, as
+           keys of models/lib/notificationActivityGroups.js. Unset or empty
+           means every kind, as before.
+        type: array
+        items:
+          type: string
+          x-nullable: true
       notifyOverrideTray:
         description: |
            Member-level override of the in-app notification tray (3-tier
@@ -8321,6 +8401,7 @@ definitions:
           - board-view-monte-carlo
           - board-view-process-behavior
           - board-view-size-cycle-time
+          - board-view-map
       listSortBy:
         description: |
            default sort list for user
