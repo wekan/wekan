@@ -1572,6 +1572,63 @@ the Markdown commit as the template.
 </details>
 </details>
 
+# Upcoming WeKan ® release
+
+**In short:** Card updates again run their activity, rule and History
+hooks while preserving private-field checks. Language, date and Rules controls
+work across browsers. EVERYTHING gains portable image fixtures and Docker mail
+connections. Locale files regain missing fallback keys, with translation
+completeness failures still reported for the remaining untranslated strings.
+
+This release fixes the following bugs:
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7c1127602">Restore card update effects and repair EVERYTHING test failures</a>. Thanks to xet7.</summary>
+
+Custom-field privacy checks were rewriting internal snapshot queries, so a
+successful card write could skip its activity, rule and History hooks. Keep
+caller searches and write permissions checked while preserving the exact
+server-owned snapshots used by hooks and Sync's concurrent-edit checks.
+
+Keep the fullscreen language picker out of generic menu columns, retain one
+scroll surface in resized date popups, include textarea values in saved rule
+descriptions, reset native date controls when clearing a range in WebKit, and
+let mobile mail-rule rows grow with their controls.
+
+Align Docker with Meteor 3.6-beta.3. Both test-server modes now configure the
+local SMTP capture fixture. Docker Desktop tests use a direct database
+connection and a loopback SMTP bridge. Browser-generated image fixtures avoid
+loading host-native image modules in Linux containers. Test fixtures now
+search paginated reports, trigger real lazy loading, wait for reactive changes,
+use fresh accounts after security blocks, and measure block drags within the
+workspace instead of against a shifting page.
+
+Focused Node suites and Chromium regressions pass, including the protected-field
+negative tests. WebKit date, language, drag, localized block and mobile Rules
+regressions pass. Docker Firefox thumbnail, map and invitation tests pass.
+The full Node run still reports translation-completeness failures; the ongoing
+EVERYTHING run uses its earlier compiled bundle.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/97baf99e1">Restore locale key structure and accurate translation checks</a>. Thanks to xet7.</summary>
+
+Restore missing English fallback keys and source key order while preserving
+every existing locale value. Use the shared placeholder parser so URL-encoded
+bytes are not mistaken for format tokens. Retain newer localized keyboard
+labels and the Bulgarian JSON example in the correction ledger, and refresh
+the audit summary and README's completeness count.
+
+Locale key and token checks, correction replay, translation audit and README
+count tests pass. This does not complete translation filling: 105,652
+actionable values remain across 176 locales, in addition to keys explicitly
+marked pending Transifex. Completeness checks remain enabled.
+
+</details>
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v12.10 2026-09-29 WeKan ® release
 
 **In short:** **Security** blocks private-data disclosure through card and board
