@@ -2,14 +2,14 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
+const { spawnSync } = require('node:child_process');
 const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data/' + code + '.i18n.json'), 'utf8'));
 (async () => {
   const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
   const en = read('en'), ru = read('ru');
-  // Delivery recovery sections remain pending in this locale.
-  assert.deepEqual(Object.keys(ru), Object.keys(en).filter(key => key in ru));
+  assert.deepEqual(Object.keys(ru), Object.keys(en));
   for (const key of Object.keys(en)) {
-    if (key in ru) assert.deepEqual(translationTokens(ru[key]), translationTokens(en[key]), key);
+    assert.deepEqual(translationTokens(ru[key]), translationTokens(en[key]), key);
     if (/^(filter-recency-|filter-date-range-|filter-column-age|filter-preset|notification-activity-|auto-archive-|due-reminder-|import-report-)/.test(key)) {
       assert.ok(ru[key]?.trim(), key);
       assert.notEqual(ru[key], en[key], key);
@@ -53,5 +53,18 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
   assert.match(ru['sync-report-partial'], /не возобновляют и не отменяют/);
   assert.match(ru['sync-time-estimate-hint'], /явное null очищает/);
   assert.match(ru['sync-conflict-detach-hint'], /содержимое останется/);
-  console.log('Russian planning and synchronization prose preserves tokens and restrictions');
+  for (const key of Object.keys(en).filter(key => /^(email-recovery-|email-failure-|activity-recovery-|rule-email-recovery-)/.test(key))) {
+    assert.ok(ru[key]?.trim(), key);
+    assert.notEqual(ru[key], en[key], key);
+    assert.match(ru[key], /[А-Яа-яЁё]/, key);
+  }
+  assert.match(ru['activity-recovery-cancel-confirm'], /нельзя будет возобновить/);
+  assert.match(ru['email-recovery-confirm-cancel'], /Новые сообщения.*сохранятся/);
+  assert.notEqual(ru['move-selection-before'], ru['move-selection-after']);
+  const inventory = spawnSync(process.execPath,
+    ['releases/translations/fill-translations.mjs', '--list', 'ru'],
+    { cwd: path.resolve(__dirname, '..'), encoding: 'utf8' });
+  assert.equal(inventory.status, 0, inventory.stderr);
+  assert.deepEqual(JSON.parse(inventory.stdout), {});
+  console.log('Russian source keys, tokens, planning and recovery warning meanings verified');
 })().catch(error => { console.error(error); process.exitCode = 1; });
