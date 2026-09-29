@@ -3557,6 +3557,24 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/48c091962">Translate Bulgarian reminders, filters and Scrum planning controls</a>. Thanks to xet7.</summary>
+
+Fill 70 Bulgarian placeholders for due-date reminders, saved filters, import
+warnings, template context and Scrum planning controls. Preserve timing limits,
+private-filter behavior, dependency direction and template variable syntax.
+Existing translations remain intact.
+
+The Bulgarian and translation-token suites pass, together with all 21
+human-preference checks. Coverage checks source tokens, reminder sign and range,
+filter replacement, partial import warnings, template variables, completion
+policies and distinct close/cancel sprint actions. Browser layout and
+fluent-speaker review were not run. Existing Upcoming entries retain their
+recorded regression evidence. More untranslated strings and vocabulary review
+remain in Bulgarian and other locales. The all-language goal remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
