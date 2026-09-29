@@ -121,16 +121,18 @@ Meteor.methods({
         // A markdown-kanban task list is plain text, not JSON - see
         // parseMarkdownKanban in models/lib/externalParsers.js.
         check(board, String);
-        importedBoard = EXTERNAL_PARSERS.markdown(board);
+        importedBoard = EXTERNAL_PARSERS.markdown(importedBoard);
         creator = new KanboardCreator(data);
         break;
       default:
         // NextCloud Deck / OpenProject / GitHub / GitLab / Gitea / Forgejo:
         // normalize the platform's JSON to the common Kanboard shape and reuse
-        // the Kanboard creator.
+        // the Kanboard creator. Parse the SANITIZED copy: `board` is the raw
+        // upload, and parsing it would store the markup and prototype keys the
+        // boundary above removed - while Problems reports them as sanitized.
         if (EXTERNAL_PARSERS[importSource]) {
           check(board, Match.OneOf(Object, Array));
-          importedBoard = EXTERNAL_PARSERS[importSource](board);
+          importedBoard = EXTERNAL_PARSERS[importSource](importedBoard);
           creator = new KanboardCreator(data);
         }
         break;

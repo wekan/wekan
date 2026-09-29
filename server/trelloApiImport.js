@@ -801,9 +801,11 @@ async function runJob(jobId) {
         const creator = new TrelloCreator({ membersMapping });
         const newBoardId = await creator.create(sanitized, null);
 
+        // The sanitized copy, like the creator above: the organization name is
+        // stored as a workspace title, so it is imported text too.
         const wsName =
-          (board.organization && board.organization.displayName) ||
-          (board.organization && board.organization.name) ||
+          (sanitized.organization && sanitized.organization.displayName) ||
+          (sanitized.organization && sanitized.organization.name) ||
           'Personal Boards';
         const spaceId = await ensureWorkspaceNode(
           job.userId,
@@ -822,7 +824,7 @@ async function runJob(jobId) {
             results: {
               trelloBoardId,
               boardId: newBoardId,
-              title: board.name,
+              title: sanitized.name,
               attachmentsImported,
               success: true,
             },
