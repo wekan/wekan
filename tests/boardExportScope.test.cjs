@@ -433,7 +433,8 @@ test('every downloadable format carries the selection, and the server reads it',
     // The route that serves this path must parse `fields`. The external-tool
     // exports share one handler (serveExternalExport), which does.
     const route = `'/api/boards/:boardId/${p}'`;
-    if (!server.includes(route) && !/^export\/(trello|jira|deck|openproject|github|gitlab|gitea|forgejo|asana|zenkit|markdown)$/.test(p)) {
+    // Kanboard joined the shared handler when its own route was removed.
+    if (!server.includes(route) && !/^export\/(trello|jira|deck|kanboard|openproject|github|gitlab|gitea|forgejo|asana|zenkit|markdown)$/.test(p)) {
       return true;
     }
     return false;

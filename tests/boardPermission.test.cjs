@@ -61,7 +61,7 @@ const REVIEWED = {
   'server/routes/universalFileServer.js': [2, 'anonymous avatar reads; a signed-in reader uses readableWithoutMembership'],
   'server/lib/cardOgTags.js': [2, 'link previews are unauthenticated, so public only'],
   'server/routes/cardOgTags.js': [1, 'comment about the same'],
-  'models/export.js': [7, 'the no-token branch; instance boards authenticate and pass isVisibleBy'],
+  'models/export.js': [6, 'the no-token branch; instance boards authenticate and pass isVisibleBy'],
   'models/exportCharts.js': [1, 'same'],
   'models/exportExcel.js': [1, 'same'],
   'models/exportExcelCard.js': [2, 'same (one is a comment)'],

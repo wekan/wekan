@@ -1,20 +1,22 @@
 import { ReactiveCache } from '/imports/reactiveCache';
-import { formatMarkdownKanban } from './markdownKanbanFormat';
+import { formatters, EXTERNAL_EXPORT_FORMATS } from './externalExportFormatters';
 const { jiraTimeTrackingExport } = require('./jiraTimeTracking');
 const { jiraScrumMetadataExport } = require('./jiraScrumMetadata');
 const { jiraEstimateExportMapping, jiraEstimateExportValue } = require('./jiraEstimateMapping');
+const { buildCustomFieldsWD } = require('./customFieldsWD');
+const { notDeleted } = require('./softDelete');
+
+export { EXTERNAL_EXPORT_FORMATS };
 
 // Generalized export: collect a WeKan board into a neutral intermediate, then a
-// per-format formatter emits the target platform's JSON shape. This mirrors the
-// generalized import (externalParsers.js): one collector + a map of formatters.
+// per-format formatter (externalExportFormatters.js) emits the target
+// platform's JSON shape. This mirrors the generalized import
+// (externalParsers.js): one collector + a map of formatters.
 
-// #1173: what the export selection can reach in these formats.
-//
-// A Trello, Jira or GitHub export is a card's title, description, due date and
-// labels; Jira also carries time tracking, gated during collection by Dates
-// and Custom Fields. These formats have no comments, checklists or attachments.
-// Selection gates the parts that ARE here and nothing else, which is the
-// honest answer: a format drops what it has.
+// #1173: what the export selection can reach in these formats. Selection
+// gates the parts that ARE here - description, labels, dates, people,
+// comments, checklists, subtasks and custom fields - and each formatter drops
+// what its format has no field for.
 function gateItem(item, wanted) {
   if (!wanted) return item;
   const out = { ...item };
@@ -23,6 +25,8 @@ function gateItem(item, wanted) {
   if (!wanted.has('dates')) delete out.dueAt;
   return out;
 }
+
+const iso = value => (value ? new Date(value).toISOString() : undefined);
 
 async function collect(boardId, fields, format) {
   const board = await ReactiveCache.getBoard(boardId);
@@ -37,155 +41,71 @@ async function collect(boardId, fields, format) {
   const labelById = {};
   (board.labels || []).forEach(l => { labelById[l._id] = l.name; });
   const wanted = fields && fields.length ? new Set(fields) : null;
-  const timeFields = format === 'jira' && (!wanted || wanted.has('custom-fields'))
+  const want = key => !wanted || wanted.has(key);
+  const timeFields = format === 'jira' && want('custom-fields')
     ? await ReactiveCache.getCustomFields({ boardIds: boardId, type: 'number' }) : [];
   const estimateMapping = format === 'jira' ? jiraEstimateExportMapping(timeFields, wanted) : null;
-  const items = cards.map(c => ({
-    ...(format === 'jira' ? { jiraEstimate: jiraEstimateExportValue(c, estimateMapping) } : {}),
-    ...(format === 'jira' ? { timetracking: jiraTimeTrackingExport(c, timeFields, wanted) } : {}),
-    ...(format === 'jira' ? { jiraScrum: jiraScrumMetadataExport(c, listRecords.get(c.listId), wanted) } : {}),
-    cardId: c._id,
-    listId: c.listId,
-    title: c.title,
-    description: c.description || '',
-    listTitle: listById[c.listId] || '',
-    swimlaneTitle: swById[c.swimlaneId] || 'Default',
-    dueAt: c.dueAt ? new Date(c.dueAt).toISOString() : undefined,
-    labelIds: c.labelIds || [],
-    labels: (c.labelIds || []).map(id => labelById[id]).filter(Boolean),
-  }));
+
+  // The rest of a card, read once per board and only when selected. Custom
+  // fields reach this export only after server/lib/adminOnlyCustomFields
+  // assertFieldExport has let this caller read every value on the board.
+  const cardIds = cards.map(c => c._id);
+  const comments = want('comments') && cardIds.length
+    ? await ReactiveCache.getCardComments(notDeleted({ cardId: { $in: cardIds } }), { sort: { createdAt: 1 } }) : [];
+  const checklists = want('checklists') && cardIds.length
+    ? await ReactiveCache.getChecklists(notDeleted({ cardId: { $in: cardIds } }), { sort: { sort: 1 } }) : [];
+  const checklistItems = checklists.length
+    ? await ReactiveCache.getChecklistItems(notDeleted({ checklistId: { $in: checklists.map(c => c._id) } }), { sort: { sort: 1 } }) : [];
+  const definitions = want('custom-fields')
+    ? (await ReactiveCache.getCustomFields({ boardIds: boardId }))
+      // Jira's time tracking and estimate carry these already.
+      .filter(d => format !== 'jira' || !(d.settings && (d.settings.jiraTimeField || d.settings.jiraEstimateFieldId)))
+    : [];
+  const userIds = new Set();
+  if (want('people')) cards.forEach(c => [c.userId, ...(c.assignees || []), ...(c.members || [])].forEach(id => id && userIds.add(id)));
+  comments.forEach(c => c.userId && userIds.add(c.userId));
+  const users = userIds.size ? await ReactiveCache.getUsers({ _id: { $in: [...userIds] } }) : [];
+  const username = id => (users.find(u => u._id === id) || {}).username;
+
+  const items = cards.map(c => {
+    const people = want('people') ? [...(c.assignees || []), ...(c.members || [])].map(username).filter(Boolean) : [];
+    const cardChecklists = checklists.filter(cl => cl.cardId === c._id).map(cl => ({
+      title: cl.title,
+      items: checklistItems.filter(it => it.checklistId === cl._id).map(it => ({ title: it.title, done: Boolean(it.isFinished) })),
+    }));
+    const customFields = {};
+    for (const field of buildCustomFieldsWD(c.customFields, definitions)) {
+      const value = field.trueValue;
+      if (value === undefined || value === null || value === '') continue;
+      customFields[field.definition.name] = value;
+    }
+    return {
+      ...(format === 'jira' ? { jiraEstimate: jiraEstimateExportValue(c, estimateMapping) } : {}),
+      ...(format === 'jira' ? { timetracking: jiraTimeTrackingExport(c, timeFields, wanted) } : {}),
+      ...(format === 'jira' ? { jiraScrum: jiraScrumMetadataExport(c, listRecords.get(c.listId), wanted) } : {}),
+      cardId: c._id,
+      listId: c.listId,
+      title: c.title,
+      description: c.description || '',
+      listTitle: listById[c.listId] || '',
+      swimlaneTitle: swById[c.swimlaneId] || 'Default',
+      dueAt: iso(c.dueAt),
+      labelIds: c.labelIds || [],
+      labels: (c.labelIds || []).map(id => labelById[id]).filter(Boolean),
+      ...(want('dates') ? { startAt: iso(c.startAt), endAt: iso(c.endAt), createdAt: iso(c.createdAt) } : {}),
+      ...(want('people') ? {
+        owner: people[0], assignees: people.slice(1), creator: username(c.userId), requestedBy: c.requestedBy || undefined,
+      } : {}),
+      ...(want('subtasks') && c.parentId ? { parentCardId: c.parentId } : {}),
+      ...(comments.length ? { comments: comments.filter(cm => cm.cardId === c._id)
+        .map(cm => ({ text: cm.text, author: username(cm.userId), date: iso(cm.createdAt) })) } : {}),
+      ...(cardChecklists.length ? { checklists: cardChecklists } : {}),
+      ...(Object.keys(customFields).length ? { customFields } : {}),
+    };
+  });
   return { board, lists, swimlanes, jiraEstimateMapping: estimateMapping,
     items: items.map(item => gateItem(item, wanted)) };
 }
-
-// A WeKan list maps to a "closed" issue state when its name looks terminal.
-function isClosed(listTitle) {
-  return /done|closed|complete|archiv|finished/i.test(listTitle || '');
-}
-
-const githubLike = ({ items }) =>
-  items.map(i => ({
-    title: i.title,
-    body: i.description,
-    state: isClosed(i.listTitle) ? 'closed' : 'open',
-    labels: i.labels.map(name => ({ name })),
-    due_date: i.dueAt,
-  }));
-
-const formatters = {
-  // NextCloud Deck: board with stacks, each stack carrying its cards.
-  deck: ({ board, lists, items }) => ({
-    title: board.title,
-    stacks: lists.map(l => ({
-      title: l.title,
-      cards: items
-        .filter(i => i.listTitle === l.title)
-        .map(i => ({
-          title: i.title,
-          description: i.description,
-          duedate: i.dueAt,
-        ...(Object.keys(i.timetracking || {}).length ? { timetracking: i.timetracking } : {}),
-          labels: i.labels.map(name => ({ title: name })),
-        })),
-    })),
-  }),
-  // OpenProject: a work-packages collection.
-  openproject: ({ items }) => ({
-    _embedded: {
-      elements: items.map(i => ({
-        subject: i.title,
-        description: { raw: i.description },
-        dueDate: i.dueAt,
-        _links: { status: { title: i.listTitle } },
-      })),
-    },
-  }),
-  // GitHub / Gitea / Forgejo: an issues array.
-  github: githubLike,
-  gitea: githubLike,
-  forgejo: githubLike,
-  // GitLab: issues array (state "opened"/"closed", string labels).
-  gitlab: ({ items }) =>
-    items.map(i => ({
-      title: i.title,
-      description: i.description,
-      state: isClosed(i.listTitle) ? 'closed' : 'opened',
-      labels: i.labels,
-      due_date: i.dueAt,
-    })),
-  // Trello board JSON (round-trips with WeKan's Trello import).
-  trello: ({ board, lists, items }) => ({
-    name: board.title,
-    prefs: { background: 'blue', permissionLevel: 'private' },
-    labels: (board.labels || []).map(l => ({ id: l._id, name: l.name, color: l.color })),
-    lists: lists.map(l => ({ id: l._id, name: l.title, closed: false })),
-    cards: items.map(i => ({
-      id: i.cardId,
-      name: i.title,
-      desc: i.description,
-      idList: i.listId,
-      due: i.dueAt || null,
-      closed: false,
-      idLabels: i.labelIds,
-      idMembers: [],
-      idChecklists: [],
-    })),
-    checklists: [],
-    actions: [],
-  }),
-  // Jira issues collection (round-trips with WeKan's Jira import).
-  jira: ({ board, items, jiraEstimateMapping }) => ({
-    board: { name: board.title },
-    ...(jiraEstimateMapping ? {
-      wekanScrumMapping: { estimateFieldId: jiraEstimateMapping.estimateFieldId, estimateUnit: jiraEstimateMapping.estimateUnit },
-      schema: { [jiraEstimateMapping.estimateFieldId]: { type: 'number' } },
-    } : {}),
-    issues: items.map((i, idx) => ({
-      key: `WEKAN-${idx + 1}`,
-      fields: {
-        summary: i.title,
-        description: i.description,
-        status: { name: i.listTitle, ...(i.jiraScrum?.statusCategory ? { statusCategory: i.jiraScrum.statusCategory } : {}) },
-        ...(i.jiraScrum?.issuetype ? { issuetype: i.jiraScrum.issuetype } : {}),
-        ...(i.jiraEstimate || {}),
-        labels: i.labels,
-        duedate: i.dueAt,
-        ...(Object.keys(i.timetracking || {}).length ? { timetracking: i.timetracking } : {}),
-      },
-    })),
-  }),
-  // Asana tasks (sections become the board columns).
-  asana: ({ items }) => ({
-    data: items.map(i => ({
-      name: i.title,
-      notes: i.description,
-      completed: isClosed(i.listTitle),
-      due_on: i.dueAt,
-      memberships: [{ section: { name: i.listTitle } }],
-      tags: i.labels.map(name => ({ name })),
-    })),
-  }),
-  // ZenKit-style export (stages + items).
-  zenkit: ({ board, lists, items }) => ({
-    title: board.title,
-    stages: lists.map(l => ({ name: l.title })),
-    items: items.map(i => ({
-      title: i.title,
-      description: i.description,
-      stage_name: i.listTitle,
-      due: i.dueAt,
-      tags: i.labels,
-    })),
-  }),
-  // Markdown "task list" kanban - the convention several markdown-kanban tools
-  // use (Obsidian Kanban and similar): `## List name` headings, `- [ ]`/`- [x]`
-  // items underneath, indented continuation lines as the item's description.
-  // Round-trips with parseMarkdownKanban in externalParsers.js. Returns a
-  // plain string, not an object - the one formatter here that does.
-  markdown: formatMarkdownKanban,
-};
-
-export const EXTERNAL_EXPORT_FORMATS = Object.keys(formatters);
 
 export async function buildExternalExport(boardId, format, fields) {
   const formatter = formatters[format];

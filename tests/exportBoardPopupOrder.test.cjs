@@ -200,11 +200,13 @@ test('a CSV honours the selection as COLUMNS', () => {
 });
 
 test('a format only drops what it actually has (negative)', () => {
-  // A Trello or Jira export carries a title, a description, a due date and
-  // labels. Pretending the selection removes comments from it would be a lie in
-  // the UI; gating what is there is the honest half.
+  // Since the export formatters were brought up to their importers, a format
+  // carries comments, checklists, people and the rest when selected
+  // (externalExportFormatters.js); each still drops what IT has no field for,
+  // and gateItem still gates only the three parts every format has.
   const external = read('models/lib/externalExporters.js');
-  assert.ok(/a format drops what it has/.test(external), 'the reason is written down');
+  assert.ok(/A format drops what it has no\n\/\/ field for/.test(read('models/lib/externalExportFormatters.js')),
+    'the reason is written down');
   assert.ok(/wanted\.has\('description'\)/.test(external)
     && /wanted\.has\('labels'\)/.test(external)
     && /wanted\.has\('dates'\)/.test(external),

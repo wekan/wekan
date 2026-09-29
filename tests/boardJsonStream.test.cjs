@@ -69,7 +69,9 @@ const writer = new Function(...Object.keys(injected), `return { ${method} };`)(.
 const routeSource = read('models/export.js');
 const route = new Function('sendJsonResult', 'console', routeSource.slice(
   routeSource.indexOf('  async function streamJsonBoardExport'),
-  routeSource.indexOf('  // Build a Kanboard-style')) + '\nreturn streamJsonBoardExport;')(
+  // The Kanboard builder that used to follow it moved into the shared external
+  // export (externalExportFormatters.js); the next section is the export routes.
+  routeSource.indexOf('  // todo XXX once we have a real API in place')) + '\nreturn streamJsonBoardExport;')(
   (res, result) => { res.statusCode = result.code; res.end(JSON.stringify(result.data)); }, { error() {} });
 function response() {
   const res = new EventEmitter();
