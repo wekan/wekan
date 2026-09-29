@@ -239,8 +239,16 @@ const LOCALE_INVARIANTS = {
   ar: new Set(['blockly-MATH_TRIG_ACOS', 'blockly-MATH_TRIG_ASIN', 'blockly-MATH_TRIG_ATAN']),
   'ar-DZ': new Set(['blockly-MATH_TRIG_ACOS', 'blockly-MATH_TRIG_ASIN', 'blockly-MATH_TRIG_ATAN']),
   'ar-EG': new Set(['blockly-MATH_TRIG_ACOS', 'blockly-MATH_TRIG_ASIN', 'blockly-MATH_TRIG_ATAN']),
-  ro: new Set(['card']),
-  'ro-RO': new Set(['card']),
+  // Romanian shared words, mathematical notation and printed keyboard names.
+  ...Object.fromEntries(['ro', 'ro-RO'].map(code => [code, new Set([
+    'card', 'blockly-ALT_KEY', 'blockly-BLOCK_LABEL_CONTAINER',
+    'blockly-CHROME_OS', 'blockly-ENTER_KEY', 'blockly-LINUX',
+    'blockly-LISTS_SORT_TYPE_NUMERIC', 'blockly-LOGIC_TERNARY_CONDITION',
+    'blockly-MAC_OS', 'blockly-MATH_ADDITION_SYMBOL_ARIA',
+    'blockly-MATH_SUBTRACTION_SYMBOL_ARIA', 'blockly-MATH_TRIG_COS',
+    'blockly-MATH_TRIG_SIN', 'blockly-SHIFT_KEY', 'blockly-SHORTCUTS_GENERAL',
+    'blockly-TAB_KEY', 'blockly-WINDOWS', 'scrum-sprint',
+  ])])),
   rup: new Set(['color-indigo', 'color-magenta']),
   lld: new Set(['move-progress-file']),
   nap: new Set(['move-progress-file']),

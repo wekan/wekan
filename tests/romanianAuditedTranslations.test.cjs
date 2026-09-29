@@ -8,8 +8,30 @@ const root = path.resolve(__dirname, '..');
 const read = name => JSON.parse(fs.readFileSync(path.join(root, name), 'utf8'));
 const records = read('releases/translations/audited-corrections.json');
 (async () => {
+  const { spawnSync } = require('node:child_process');
+  const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
+  const english = read('imports/i18n/data/en.i18n.json');
   for (const locale of ['ro', 'ro-RO']) {
     const data = read(`imports/i18n/data/${locale}.i18n.json`);
+    assert.deepEqual(Object.keys(data), Object.keys(english), locale);
+    for (const key of Object.keys(english)) {
+      assert.deepEqual(translationTokens(data[key]), translationTokens(english[key]), `${locale}:${key}`);
+    }
+    for (const key of ['filter-column-age-hint', 'scrum-total', 'sync-preview-saved',
+      'email-recovery-description', 'activity-recovery-busy', 'saml-login-not-started',
+      'r-rule-any-trigger-help', 'move-selection-before', 'move-selection-after', 'draggable']) {
+      assert.ok(data[key]?.trim(), key);
+      assert.notEqual(data[key], english[key], `${locale}:${key}`);
+    }
+    assert.equal(data['move-selection-before'], 'Înainte');
+    assert.equal(data['move-selection-after'], 'După');
+    assert.match(data['scrum-report-help'], /nu sunt estimări de zero/);
+    assert.match(data['sync-conflict-hint'], /Nu se trimite nimic/);
+    assert.match(data['activity-recovery-cancel-confirm'], /Nu mai poate fi reluată/);
+    const inventory = spawnSync(process.execPath,
+      ['releases/translations/fill-translations.mjs', '--list', locale], { cwd: root, encoding: 'utf8' });
+    assert.equal(inventory.status, 0, inventory.stderr);
+    assert.deepEqual(JSON.parse(inventory.stdout), {});
     const repaired = records.filter(row => row.locale === locale);
     assert.ok(repaired.length >= 414, `${locale}: reviewed Romanian activity and instruction batches`);
     for (const row of repaired) assert.doesNotMatch(row.after, /\bbachec[ah]|\bsched[ae]\b|\butenti\b|\baggiunt[ao]\b|\bnell[ao]\b/i, row.key);
