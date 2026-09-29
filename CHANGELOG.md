@@ -3715,6 +3715,21 @@ across locales are still in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/568cd52c1">Correct Bulgarian migration and monitoring vocabulary</a>. Thanks to xet7.</summary>
+
+Corrected 58 Bulgarian entries for migration controls, monitoring, schedules
+and S3 storage. Replaced Serbian text and English labels while preserving
+existing Bulgarian translations, endpoint examples, region codes and numeric
+intervals.
+
+Bulgarian vocabulary and placeholder tests, translation URL checks and all 21
+human-translation preference checks pass. Browser and fluent-speaker review
+were not run. Vocabulary auditing continues; the repository-wide missing-
+string report still lists 176 locales with untranslated strings.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
