@@ -1690,6 +1690,20 @@ translation backlog remains active.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9dbec04c4">Complete Russian and Ukrainian regional coverage</a>. Thanks to xet7.</summary>
+
+Fill 1,139 values in the Russian and Ukrainian locale files. Translate new
+recovery and legacy-email messages, then fill regional gaps from reviewed
+same-language translations for identical keys. Preserve existing translations
+and the Russian locale alias. Printed keyboard legends remain unchanged.
+
+Completeness, key-order and placeholder checks pass against the current
+English source. Vocabulary checks distinguish Russian from Ukrainian, and
+human-preference checks pass. The remaining locale backlog is still active.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.10 2026-09-29 WeKan ® release
