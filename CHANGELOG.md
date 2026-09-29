@@ -1673,6 +1673,23 @@ also pass. Translation work continues for the other languages.
 
 </details>
 
+**Language coverage** - complete missing prose and preserve regional wording.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1f2c91456">Complete Catalan locales and legacy email review text</a>. Thanks to xet7.</summary>
+
+Fill 1,635 values across Catalan and its regional locales, Vietnamese,
+Bulgarian and Greek. Complete the three Catalan files, reuse reviewed Catalan
+Blockly text only for matching untranslated regional keys, and translate the
+20 new legacy-email review strings in the earlier completed languages.
+
+All eight locale files pass completeness, placeholder and key-order checks
+against the current English source, including keys pending Transifex. Existing
+translations remain unchanged. Human-preference checks also pass; the wider
+translation backlog remains active.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.10 2026-09-29 WeKan ® release
