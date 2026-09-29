@@ -420,6 +420,10 @@ Template.boardChangeViewPopup.events({
     Utils.setBoardView('board-view-size-cycle-time');
     Popup.back();
   },
+  'click .js-open-map-view'() {
+    Utils.setBoardView('board-view-map');
+    Popup.back();
+  },
   'click .js-open-pulse-view'() {
     Utils.setBoardView('board-view-pulse');
     Popup.back();
@@ -895,6 +899,7 @@ Template.boardViewMenu.helpers({
       'board-view-monte-carlo': 'board-view-monte-carlo',
       'board-view-process-behavior': 'board-view-process-behavior',
       'board-view-size-cycle-time': 'board-view-size-cycle-time',
+      'board-view-map': 'board-view-map',
     };
     return TAPi18n.__(names[Utils.boardView()] || 'board-view');
   },

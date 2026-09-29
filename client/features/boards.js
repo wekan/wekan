@@ -19,6 +19,7 @@ import '/client/components/boards/charts/boardCharts.jade';
 import '/client/components/boards/charts/exportChart.jade';
 import '/client/components/boards/chartPlaceholderViews.jade';
 import '/client/components/boards/bigboardView.jade';
+import '/client/components/boards/mapView.jade';
 import '/client/components/boards/multiboardCalendarView.jade';
 
 import '/client/components/boards/boardArchive.js';
@@ -41,6 +42,7 @@ import '/client/components/boards/charts/boardCharts.js';
 import '/client/components/boards/charts/exportChart.js';
 import '/client/components/boards/chartPlaceholderViews.js';
 import '/client/components/boards/bigboardView.js';
+import '/client/components/boards/mapView.js';
 import '/client/components/boards/multiboardCalendarView.js';
 import '/client/components/boards/roadmapView.js';
 
@@ -57,6 +59,7 @@ import '/client/components/boards/statsView.css';
 import '/client/components/boards/timelineView.css';
 import '/client/components/boards/charts/boardCharts.css';
 import '/client/components/boards/bigboardView.css';
+import '/client/components/boards/mapView.css';
 import '/client/components/boards/multiboardCalendarView.css';
 import '/client/components/boards/roadmapView.css';
 

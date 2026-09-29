@@ -1,0 +1,68 @@
+/* #3256: the Map board view (mapView.jade). */
+.map-view {
+  padding: 12px;
+}
+.map-view-body {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-start;
+}
+.map-view-stage {
+  flex: 1 1 480px;
+  min-width: 0;
+}
+.map-view-canvas {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  line-height: 0;
+}
+.map-view-canvas.is-placing {
+  cursor: crosshair;
+}
+.map-view-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  user-select: none;
+}
+.map-view-marker {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border: 2px solid #fff;
+  border-radius: 11px 11px 11px 2px;
+  background: #2a6ebb;
+  color: #fff;
+  font-size: calc(12px * var(--wekan-ui-font-scale, 1));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+}
+.map-view-side {
+  flex: 0 1 260px;
+  min-width: 0;
+}
+.map-view-unplaced {
+  margin: 0 0 12px;
+  padding: 0;
+  list-style: none;
+}
+.map-view-unplaced a {
+  display: block;
+  padding: 4px 8px;
+  border-radius: 3px;
+  overflow-wrap: anywhere;
+}
+.map-view-unplaced a.is-selected {
+  background: #fff3c4;
+  outline: 2px solid #e6a100;
+}
+.map-view-empty {
+  max-width: 480px;
+}

@@ -568,6 +568,14 @@ Boards.attachSchema(
       type: Boolean,
       defaultValue: false,
     },
+    mapImageAttachmentId: {
+      /**
+       * #3256: the image the Map board view draws the cards on - a board-level
+       * attachment (meta.source 'board-map'). Unset = no map yet.
+       */
+      type: String,
+      optional: true,
+    },
     autoArchiveInactiveDays: {
       /**
        * Nextcloud Deck-style auto-archive: archive cards with no activity for
@@ -3162,6 +3170,13 @@ Boards.helpers({
     return await Boards.updateAsync(this._id, {
       $set: { cardAgingDays1, cardAgingDays2, cardAgingDays3 },
     });
+  },
+
+  // #3256: the Map view's image, or null to remove it.
+  async setMapImage(attachmentId) {
+    return await Boards.updateAsync(this._id, typeof attachmentId === 'string' && attachmentId
+      ? { $set: { mapImageAttachmentId: attachmentId } }
+      : { $unset: { mapImageAttachmentId: '' } });
   },
 
   // Deck-style auto-archive: a whole number of days, or null/'' for off.

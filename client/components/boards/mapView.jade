@@ -1,0 +1,45 @@
+//- #3256: the Map board view - cards as markers on an uploaded image
+  (models/lib/boardMap.js). A board admin uploads the image; members who can
+  edit place a card by dragging it onto the map, or by choosing it and then
+  clicking where it belongs, and move a marker by dragging it.
+template(name="mapView")
+  //- nodragscroll: the board's drag-to-scroll would otherwise cancel the
+    mousedown that starts dragging a card onto the map.
+  .map-view.js-map-view.nodragscroll
+    if mapImageUrl
+      .map-view-body
+        .map-view-stage
+          .map-view-canvas.js-map-canvas(class="{{#if placing}}is-placing{{/if}}")
+            img.map-view-image(src="{{mapImageUrl}}" alt="{{_ 'board-view-map'}}" draggable="false")
+            each markers
+              a.map-view-marker.js-map-marker(href="#" draggable="{{#if canEdit}}true{{else}}false{{/if}}"
+                data-card-id="{{cardId}}" title="{{marker.title}}"
+                class="{{#if marker.color}}card-label-{{marker.color}}{{/if}}"
+                style="left:{{marker.x}}%;top:{{marker.y}}%")
+                span.map-view-marker-text {{marker.text}}
+        aside.map-view-side
+          if canEdit
+            h3 {{_ 'map-view-unplaced'}}
+            if unplaced.length
+              p.quiet {{_ 'map-view-place-hint'}}
+              ul.map-view-unplaced
+                each unplaced
+                  li
+                    a.js-map-unplaced(href="#" draggable="true" data-card-id="{{_id}}"
+                      class="{{#if isPlacing _id}}is-selected{{/if}}") {{title}}
+            else
+              p.quiet {{_ 'map-view-all-placed'}}
+          if isBoardAdmin
+            button.js-map-remove-image(type="button") {{_ 'map-view-remove-image'}}
+    else
+      .map-view-empty
+        p {{_ 'map-view-empty'}}
+        if isBoardAdmin
+          +mapImageUpload
+
+template(name="mapImageUpload")
+  .map-image-upload
+    input.js-map-upload-input.hide(type="file" accept="image/png,image/jpeg,image/gif,image/webp")
+    button.primary.js-map-upload-button(type="button" disabled=uploading) {{_ 'map-view-upload'}}
+    if error
+      p.warning {{error}}

@@ -848,6 +848,7 @@ Users.attachSchema(
         'board-view-monte-carlo',
         'board-view-process-behavior',
         'board-view-size-cycle-time',
+        'board-view-map',
       ],
     },
     'profile.listSortBy': {

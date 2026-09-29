@@ -341,6 +341,7 @@ export const Utils = {
         'board-view-monte-carlo',
         'board-view-process-behavior',
         'board-view-size-cycle-time',
+        'board-view-map',
       ].includes(view)
     ) {
       window.localStorage.setItem('boardView', view); //true
@@ -431,6 +432,7 @@ export const Utils = {
         'board-view-monte-carlo',
         'board-view-process-behavior',
         'board-view-size-cycle-time',
+        'board-view-map',
       ].includes(window.localStorage.getItem('boardView'))
     ) {
       return window.localStorage.getItem('boardView');

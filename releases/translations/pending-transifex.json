@@ -175,6 +175,34 @@
     {
       "key": "history-request-forget",
       "since": "2026-09-29"
+    },
+    {
+      "key": "board-view-map",
+      "since": "2026-09-29"
+    },
+    {
+      "key": "map-view-empty",
+      "since": "2026-09-29"
+    },
+    {
+      "key": "map-view-upload",
+      "since": "2026-09-29"
+    },
+    {
+      "key": "map-view-remove-image",
+      "since": "2026-09-29"
+    },
+    {
+      "key": "map-view-unplaced",
+      "since": "2026-09-29"
+    },
+    {
+      "key": "map-view-place-hint",
+      "since": "2026-09-29"
+    },
+    {
+      "key": "map-view-all-placed",
+      "since": "2026-09-29"
     }
   ]
 }

@@ -58,5 +58,9 @@
   {
     "fields": ["showActivities", "showListOnMinicard", "showChecklistAtMinicard", "hideFinishedChecklistIfItemsAreHidden"],
     "handling": "Display preferences do not become email content. Discussion selection is controlled by the mail action."
+  },
+  {
+    "fields": ["mapX", "mapY"],
+    "handling": "Positions on the board's Map view image (#3256), as percentages of that image; they mean nothing without it, so they are not email content."
   }
 ]

@@ -54,6 +54,8 @@ const BOARD_VIEWS = [
   { view: 'board-view-monte-carlo', labelKey: 'board-view-monte-carlo', icon: 'fa-random' },
   { view: 'board-view-process-behavior', labelKey: 'board-view-process-behavior', icon: 'fa-line-chart' },
   { view: 'board-view-size-cycle-time', labelKey: 'board-view-size-cycle-time', icon: 'fa-braille' },
+  // #3256: cards as markers on an uploaded image (client/components/boards/mapView.*).
+  { view: 'board-view-map', labelKey: 'board-view-map', icon: 'fa-map-marker' },
 ];
 
 const DEFAULT_BOARD_VIEW = 'board-view-swimlanes';
@@ -104,6 +106,7 @@ const DEFAULT_BOARD_VIEW_ORDER = [
   'board-view-monte-carlo',
   'board-view-process-behavior',
   'board-view-size-cycle-time',
+  'board-view-map',
 ];
 
 // After which entries the menu draws a separator - the same six `hr`s the

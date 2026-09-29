@@ -145,6 +145,23 @@ Cards.attachSchema(
       optional: true,
       defaultValue: '',
     },
+    mapX: {
+      /**
+       * #3256: the card's place on the board's Map view, as a percentage of
+       * the map image's width (models/lib/boardMap.js). Unset = not on the map.
+       */
+      type: Number,
+      optional: true,
+      min: 0,
+      max: 100,
+    },
+    mapY: {
+      /** #3256: the same, as a percentage of the map image's height. */
+      type: Number,
+      optional: true,
+      min: 0,
+      max: 100,
+    },
     coverId: {
       /**
        * Cover ID of the card
@@ -2933,6 +2950,19 @@ Cards.helpers({
     for (const card of cards) {
       await funct(card);
     }
+  },
+
+  // #3256: place the card on the board's Map view, or take it off.
+  async setMapPosition(x, y) {
+    const { clampPercent } = require('/models/lib/boardMap');
+    const mapX = clampPercent(x);
+    const mapY = clampPercent(y);
+    if (mapX === null || mapY === null) return this.clearMapPosition();
+    return Cards.updateAsync(this._id, { $set: { mapX, mapY } });
+  },
+
+  async clearMapPosition() {
+    return Cards.updateAsync(this._id, { $unset: { mapX: '', mapY: '' } });
   },
 
   async archive() {

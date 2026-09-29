@@ -940,6 +940,10 @@ Template.boardBody.helpers({
     return Utils.boardView() === 'board-view-size-cycle-time';
   },
 
+  isViewMap() {
+    return Utils.boardView() === 'board-view-map';
+  },
+
   isViewPulse() {
     return Utils.boardView() === 'board-view-pulse';
   },

@@ -69,6 +69,7 @@ const REVIEWED = {
   'models/boards.js': [4, 'isPublic, visibilityIcon and a comment'],
   'models/lib/boardViewSettings.js': [3, 'per-visibility views; instance uses the private side'],
   'models/lib/boardVisibilitySelectors.js': [1, 'comment'],
+  'models/lib/boardPermission.js': [3, 'the rule itself'],
   'models/lib/importedBoardPermission.js': [1, 'import keeps public and instance'],
   'models/trelloCreator.js': [1, 'Trello visibility mapping; Trello "org" stays private'],
   'server/lib/schemaUpgradeSteps.js': [1, 'case repair of stored values'],

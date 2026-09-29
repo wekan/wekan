@@ -66,6 +66,8 @@ const VIEWS = [
   { view: 'board-view-monte-carlo', jsClass: 'js-open-monte-carlo-view', icon: 'fa-random', template: 'monteCarloView', helper: 'isViewMonteCarlo', chart: true },
   { view: 'board-view-process-behavior', jsClass: 'js-open-process-behavior-view', icon: 'fa-line-chart', template: 'processBehaviorView', helper: 'isViewProcessBehavior', chart: true },
   { view: 'board-view-size-cycle-time', jsClass: 'js-open-size-cycle-time-view', icon: 'fa-braille', template: 'sizeCycleTimeView', helper: 'isViewSizeCycleTime', chart: true },
+  // #3256: cards as markers on an uploaded image.
+  { view: 'board-view-map', jsClass: 'js-open-map-view', icon: 'fa-map-marker', template: 'mapView', helper: 'isViewMap' },
 ];
 
 // Between Table and Calendar, between Timeline and Statistics, between
