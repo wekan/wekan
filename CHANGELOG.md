@@ -3072,6 +3072,23 @@ all-language goal remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dce560a3a">Translate Hungarian Scrum planning and reports</a>. Thanks to xet7.</summary>
+
+Fill 81 missing or English values for Scrum planning, sprint reports, daily
+observations and the draggable label. Existing translations remain intact.
+Report wording preserves the distinction between unknown and zero estimates,
+and explains that daily observations do not record every change.
+
+Hungarian coverage and the translation-token suite pass, as do all 21
+human-preference checks. Regression coverage checks Scrum prose, tokens,
+sprint cancellation, scope changes and distinct workflow categories.
+Hungarian synchronization and recovery text remains pending. Browser layout
+and fluent-speaker review were not run. Existing Upcoming entries retain their
+recorded regression evidence. The all-language goal remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
