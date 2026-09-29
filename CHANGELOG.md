@@ -3480,6 +3480,25 @@ evidence. The all-language translation goal remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/321c7ef71">Correct Bulgarian activity and board-control vocabulary</a>. Thanks to xet7.</summary>
+
+Replace 55 Serbian values missed by the distinctive-letter check with Bulgarian
+for activity messages, workspaces, board controls, exports, members and rules.
+Restore the read-only editing prohibition, full card-search scope and
+directional move actions while retaining every source placeholder.
+Correct-language values remain intact.
+
+The Bulgarian and translation-token suites pass, together with all 21
+human-preference checks. Coverage checks vocabulary, placeholders, old/new list
+positions, read-only restrictions, search fields, sidebar toggling and above/
+below placement. Browser layout and fluent-speaker review were not run. Existing
+Upcoming entries retain their recorded regression evidence. More vocabulary
+corrections and untranslated strings remain in Bulgarian and other locales.
+The all-language goal remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
