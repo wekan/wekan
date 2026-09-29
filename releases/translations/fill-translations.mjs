@@ -83,6 +83,22 @@ const isEnglishVariant = code => /^en([_-].*)?$/.test(code) || code === 'en';
 // source-wide list would hide real work in every language.
 const LOCALE_INVARIANTS = {
   // Locale-specific shared vocabulary, not exemptions for English prose.
+  // French shares these short labels with English; symbols and product names
+  // retain their conventional spelling. No descriptive prose is exempted.
+  ...Object.fromEntries(['fr', 'fr-FR', 'fr-BE', 'fr-CH', 'fr-CA'].map(code =>
+    [code, new Set([
+      'blockly-ALT_KEY', 'blockly-ARIA_TYPE_FIELD_ANGLE', 'blockly-ARIA_TYPE_FIELD_DATE',
+      'blockly-ARIA_TYPE_FIELD_IMAGE', 'blockly-CHROME_OS', 'blockly-CONTEXT_MENU_KEY',
+      'blockly-FIELD_LABEL_OPTION_INDEX', 'blockly-FIELD_LABEL_VARIABLE',
+      'blockly-INPUT_LABEL_CONDITION', 'blockly-INPUT_LABEL_NUMBER_MAX',
+      'blockly-INPUT_LABEL_NUMBER_MIN', 'blockly-LINUX', 'blockly-LOGIC_TERNARY_CONDITION',
+      'blockly-MAC_OS', 'blockly-MATH_ADDITION_SYMBOL_ARIA',
+      'blockly-MATH_ONLIST_OPERATOR_MAX_ARIA', 'blockly-MATH_ONLIST_OPERATOR_MIN_ARIA',
+      'blockly-MATH_TRIG_ACOS', 'blockly-MATH_TRIG_ASIN', 'blockly-MATH_TRIG_ATAN',
+      'blockly-MATH_TRIG_COS', 'blockly-MATH_TRIG_SIN', 'blockly-MATH_TRIG_TAN',
+      'blockly-PAUSE_KEY', 'blockly-WINDOWS', 'board-view-sprints',
+      'scrum-sprints', 'scrum-sprint',
+    ])])),
   // Simplified Chinese keyboard legends and product names.
   ...Object.fromEntries(['zh', 'zh-CN', 'zh-Hans', 'zh-GB', 'zh_SG', 'cmn']
     .map(code => [code, new Set([
