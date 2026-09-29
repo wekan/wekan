@@ -532,7 +532,11 @@
   background: transparent !important;
   color: inherit !important;
   box-shadow: none !important;
-  line-height: 24px;
+  /* Centre the grip glyph in its fixed box at any font scale. */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
   cursor: nwse-resize;
   touch-action: none;
 }
