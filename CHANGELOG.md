@@ -3236,6 +3236,23 @@ evidence. The all-language goal remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3e850e978">Translate Russian synchronization conflicts and reports</a>. Thanks to xet7.</summary>
+
+Fill 63 missing or English values for synchronization conflicts, previews,
+source-field reports, diagnostics and mapped Jira estimates. Existing
+translations remain intact. The warnings retain source-system isolation,
+partial-change limitations and explicit null handling.
+
+Russian coverage and the translation-token suite pass, as do all 21
+human-preference checks. Tests check synchronization prose, source tokens,
+script, retained duplicate content and reports that cannot undo runs.
+Russian delivery-recovery text remains pending. Browser layout and
+fluent-speaker review were not run. Existing Upcoming entries retain their
+recorded regression evidence. The all-language goal remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
