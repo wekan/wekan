@@ -97,6 +97,33 @@ for one of four stated reasons, not left unexamined:
   adapters and cron activation (checkpoint below) were not advanced in this
   pass; each needs its own design step, not a patch.
 
+**Paused for a release on 2026-09-29 - in progress, not in this release:**
+
+- **Viewer sanitizer hooks.** The card viewer's DOMPurify rules for inputs
+  were written in a `HOOKS` config key, which DOMPurify ignores, and as
+  `return false`, which hooks ignore; so card text can render a live
+  `<input type="password">` (the #2419 "disabled checkbox only" rule never
+  ran). A fix with real per-call hooks and unit tests exists, parked as
+  `.tools/tmp/sanitizer-hooks-wip.patch`; its browser check still showed no
+  task checkbox, which must be understood before it ships.
+- **Code highlighting** (decision above): highlight.js with markdown-it and a
+  colour stylesheet work in the client, parked with the sanitizer work
+  (`.tools/tmp/highlight-wip.patch`, `.tools/tmp/highlight-wip/`); the browser
+  check is unfinished and the dependency is not added.
+- **Failing suites not yet fixed:** `multilineTitles` and `pomodoroTimer`
+  (not yet examined); `calendarDateDisplay` waits for the locale files to
+  follow `en.i18n.json`'s key order, which is the translation agent's work.
+- **Found, not yet fixed:** the SAML package trips a
+  `saml.account-conflict` canary that is missing from
+  `models/lib/canaryTokens.js`; board-invite in-app push may no longer be
+  delivered since notifications moved to stored plans (its params carry no
+  `activityId`) and needs a runtime check.
+- **Decisions not yet built:** trigger-value variables, the thumbnail route,
+  semi-open boards, the parents array, the URL-scheme allowlist, first-class
+  Jira issue types, the Map board view, splitting #4790, per-activity
+  notification options (#572), Deck-style auto-archive, the import-page loss
+  report, recovery controls, and the Scrum/Sync journal work.
+
 Maintainer decisions of 2026-09-29, answering the blockers above:
 
 - **New interface text** is added to `en.i18n.json` and listed in
@@ -1695,6 +1722,8 @@ Kanboard, Nextcloud Deck, OpenProject, Asana, Zenkit and Jira now bring
 comments, subtasks, custom fields, hierarchy and dates, keep source creation
 dates, parse only sanitized input and report what they could not import.
 **FerretDB on MySQL** no longer drops large integers from range queries.
+**Rules** gain variables, several triggers and actions, and start-date
+reminders; **SAML** supports Assertion-only signatures with redirect login.
 
 This release fixes the following CRITICAL SECURITY ISSUE of [CopyIdentityBleed](https://wekan.fi/hall-of-fame/copyidentitybleed/):
 
@@ -1848,6 +1877,25 @@ a card starts within N days or should have started N days ago; with
 `{assignees}` as the recipient the reminder reaches the card's assignees. The
 date filter is a pure module with unit tests, and triggers saved before keep
 watching the due date. Fixes [#4278](https://github.com/wekan/wekan/issues/4278).
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/69eeb00c8">Let a rule have several triggers and several actions</a>. Thanks to xet7.</summary>
+
+A rule keeps its own trigger and action and may add up to ten more of each: it
+fires when any of its triggers fires - once per activity, even when several
+match - and runs its actions in order, its own first. Rule details lists the
+extra parts with Add another trigger / Add another action and Remove; the new
+methods keep the board-admin and cross-board destination checks, and a button
+cannot be an extra trigger. Ordinary, scheduled and button rules, the durable
+Sync rule plan, rule History, deletion, board copy, WeKan export/import, the
+rules JSON export/import, the REST representation and the admin rules report
+handle every part. Node suites cover ordering, deduplication and remapping;
+Chromium cases run a real rule through its added trigger and action, check
+Remove and refuse non-admins. With the variables above this completes
+[#4294](https://github.com/wekan/wekan/issues/4294). Fixes
+[#2953](https://github.com/wekan/wekan/issues/2953).
 
 </details>
 
@@ -2122,7 +2170,7 @@ translated string.
 
 </details>
 
-and fixes the following import bugs:
+and fixes the following bugs:
 
 **Import boundary** - continue with what the boundary returns.
 
@@ -2159,12 +2207,51 @@ and compares the card's creation date.
 
 </details>
 
+**Interface** - right-to-left layout, font scale, titles and pickers.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4ff3a2c91">Fix RTL offsets, a fixed font size and unsanitized time-view titles</a>. Thanks to xet7.</summary>
+
+The archive-chart tooltip and the menu-column popup used physical left/right
+offsets that do not mirror in right-to-left languages; a board-settings column
+label ignored the interface font scale; the Time view's adjustments table
+printed card titles directly instead of through the sanitized viewer. Each is
+fixed, and the source guards that found them now pass, with a negative test
+that every Time-view title goes through the viewer.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/53fef3c12">Name the move-selection choices in words and give its popup a title</a>. Thanks to xet7.</summary>
+
+The mixed-selection move picker showed its before/after choices as arrow
+characters inside options, where no icon can render; they are now the words
+Before and After (English, pending translation). The Move selection popup had
+an empty header; both places that open it now pass its title. Tests include
+negative checks that neither returns.
+
+</details>
+
 and has the following developer-tooling fix:
 
 - [The forge mirror CLI test no longer reads real mirror checkouts](https://github.com/wekan/wekan/commit/0172bc51e):
   `WEKAN_MIRROR_TOOLS_DIR` relocates them and the test uses a temporary
   directory, so it passes on machines that have `.tools/wekan-gitlab`.
   Thanks to xet7.
+
+- [Stale source guards follow the behaviour their code deliberately changed](https://github.com/wekan/wekan/commit/a81b4d5d9):
+  eighteen suites pin the new notification delivery, export field guard,
+  selectable board copy, Scrum menu entry, canaries, method lookup, rule parts
+  and card dragging, each with a comment naming the change and several new
+  positive and negative cases; two list-sync browser specs no longer share a
+  session token. Thanks to xet7.
+- [Rule and popup test harnesses receive what the code now uses](https://github.com/wekan/wekan/commit/59b1b0d8a):
+  the rule-engine VM fixtures and the notification popup stub gained the new
+  helpers ([popup](https://github.com/wekan/wekan/commit/7611d7f7f)), and the
+  popup suite now covers the due-reminder form. Thanks to xet7.
+- [New interface strings go to en.i18n.json only](https://github.com/wekan/wekan/commit/f49799701):
+  `add-pending-keys.mjs` no longer writes locale files, which another agent
+  translates. Thanks to xet7.
 
 and updates the following translations:
 
