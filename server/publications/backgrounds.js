@@ -1,6 +1,7 @@
 import Attachments from '/models/attachments';
 import { ReactiveCache } from '/imports/reactiveCache';
 import { liveAttachments } from '/models/lib/attachmentSoftDelete';
+const { readableWithoutMembership } = require('/models/lib/boardPermission');
 
 // Publish a board's background images so the board-settings backgrounds list
 // can show them. Board backgrounds are stored as board-level Attachments
@@ -14,9 +15,10 @@ Meteor.publish('boardBackgrounds', async function (boardId) {
   if (!board) {
     return this.ready();
   }
-  const isPublic = board.isPublic && board.isPublic();
+  // Signed in (checked above), so an 'instance' board (#3249) is readable too.
+  const readable = readableWithoutMembership(board.permission, true);
   const isMember = board.hasMember && board.hasMember(this.userId);
-  if (!isPublic && !isMember) {
+  if (!readable && !isMember) {
     return this.ready();
   }
   return Attachments.collection.find(liveAttachments({

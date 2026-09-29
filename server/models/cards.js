@@ -47,6 +47,7 @@ import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
 import getSlug from 'limax';
 
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
+const { isOpenPermission } = require('/models/lib/boardPermission');
 
 function getTranslatedString(key, fallback, options) {
   const i18n = getTAPi18n && getTAPi18n();
@@ -94,9 +95,9 @@ Meteor.methods({
     const privateOnly = await TableVisibilityModeSettings.findOneAsync(
       'tableVisibilityMode-allowPrivateOnly',
     );
-    const requestedPermission = sourceBoard.permission === 'public' ? 'public' : 'private';
+    const requestedPermission = isOpenPermission(sourceBoard.permission) ? sourceBoard.permission : 'private';
     const permission = privateOnly?.booleanValue ? 'private' : requestedPermission;
-    if (privateOnly?.booleanValue && requestedPermission === 'public') {
+    if (privateOnly?.booleanValue && isOpenPermission(requestedPermission)) {
       try {
         require('/server/lib/securityLog').record({
           key: 'authz.board-visibility', action: 'blocked',

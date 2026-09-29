@@ -85,6 +85,7 @@ import Team from "../../models/team";
 import { MATCH_NOTHING, selectorIsInjection } from '/server/lib/selectorGuard';
 const { boardCardScope } = require('/models/lib/boardCardScope');
 const { retainRankedCard } = require('/models/lib/cardSearchRanking');
+const { withoutMembershipSelectors } = require('/models/lib/boardPermission');
 const {
   ownedSearchSessionSelector,
   recordLoggedOutPaginationProbe,
@@ -355,9 +356,10 @@ Meteor.publish('dueCards', async function(allUsers = false, limit = 200, skip = 
   }
 
   // Get user's board memberships for efficient filtering
+  // #3249: signed in, so 'instance' boards count as well.
   const userBoards = (await ReactiveCache.getBoards({
     $or: [
-      { permission: 'public' },
+      ...withoutMembershipSelectors(true),
       { members: { $elemMatch: { userId, isActive: true } } }
     ]
   })).map(board => board._id);

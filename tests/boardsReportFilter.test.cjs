@@ -29,12 +29,13 @@ test('publication and count share a validated server-side selector', () => {
   const server = read('server/publications/boards.js');
   assert.match(server, /function boardsReportQuery\(searchTerm = '', permission = 'all'\)/);
   assert.match(server,
-    /permission === 'public' \|\| permission === 'private'[\s\S]*query\.permission = permission/);
+    /permission === 'public' \|\| permission === 'private' \|\| permission === 'instance'[\s\S]*query\.permission = permission/);
   assert.match(server,
     /Meteor\.publish\('boardsReport', async function\(searchTerm = '', permission = 'all', limit, skip = 0\)/);
   assert.match(server, /async getBoardsReportCount\(searchTerm = '', permission = 'all'\)/);
   assert.strictEqual((server.match(/boardsReportQuery\(searchTerm, permission\)/g) || []).length, 2);
-  assert.strictEqual((server.match(/check\(permission, Match\.OneOf\('all', 'public', 'private'\)\)/g) || []).length, 2,
+  // #3249 added 'instance' boards to the filter.
+  assert.strictEqual((server.match(/check\(permission, Match\.OneOf\('all', 'public', 'private', 'instance'\)\)/g) || []).length, 2,
     'forged filter values must be rejected in both endpoints');
 });
 

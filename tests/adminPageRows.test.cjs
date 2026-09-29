@@ -163,7 +163,8 @@ function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
       const at = src.indexOf(marker);
       assert.ok(at !== -1, `${marker} must exist`);
       // The guard must be at the TOP of the publication, before it reads anything.
-      assert.ok(/isAdmin/.test(src.slice(at, at + 400)), `${marker} must be admin-only`);
+      // (500: the boardsReport argument checks grew by the #3249 'instance' filter.)
+      assert.ok(/isAdmin/.test(src.slice(at, at + 500)), `${marker} must be admin-only`);
     }
     for (const [file, method] of [
       ['server/publications/boards.js', 'getBoardsReportCount'],

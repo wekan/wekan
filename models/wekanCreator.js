@@ -193,7 +193,7 @@ export class WekanCreator {
         // allowed values (is it worth the maintenance?)
         color: String,
         permission: Match.Where(value => {
-          return ['private', 'public'].indexOf(value) >= 0;
+          return ['private', 'instance', 'public'].indexOf(value) >= 0;
         }),
       }),
     );

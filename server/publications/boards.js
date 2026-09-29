@@ -180,10 +180,12 @@ Meteor.publish('boardTemplates', async function() {
 // ─────────────────────────────────────────────────────────────────────────────
 
 // The boards /public may show: public, not archived, a real board rather than a
-// template container, and not one of WeKan's internal helper boards.
-function publicBoardsSelector(searchTerm) {
+// template container, and not one of WeKan's internal helper boards. A
+// signed-in visitor also sees the 'instance' boards (#3249); who is signed in
+// is the server's own `this.userId`, never something the client says.
+function publicBoardsSelector(searchTerm, signedIn = false) {
   const query = {
-    permission: 'public',
+    permission: signedIn ? { $in: ['public', 'instance'] } : 'public',
     archived: false,
     type: 'board',
     title: notHelperBoardTitle(),
@@ -225,7 +227,7 @@ Meteor.publish('publicBoards', async function(searchTerm = '', limit = 10, skip 
   // `members` in particular is deliberately absent: it is the largest field on a
   // busy board and this page shows no avatars.
   const boards = await ReactiveCache.getBoards(
-    publicBoardsSelector(searchTerm),
+    publicBoardsSelector(searchTerm, !!this.userId),
     {
       fields: {
         _id: 1,
@@ -252,9 +254,10 @@ Meteor.publish('publicBoards', async function(searchTerm = '', limit = 10, skip 
 Meteor.methods({
   async getPublicBoardsCount(searchTerm = '') {
     check(searchTerm, Match.OneOf(String, null, undefined));
-    // No authorization check, deliberately: this counts PUBLIC boards, which is
-    // the same set the publication above will send to the same caller.
-    const cursor = await ReactiveCache.getBoards(publicBoardsSelector(searchTerm), {}, true);
+    // No authorization check, deliberately: this counts the same set the
+    // publication above sends to the same caller - public boards, plus the
+    // 'instance' ones when that caller is signed in.
+    const cursor = await ReactiveCache.getBoards(publicBoardsSelector(searchTerm, !!this.userId), {}, true);
     return typeof cursor.countAsync === 'function'
       ? await cursor.countAsync()
       : cursor.count();
@@ -266,7 +269,7 @@ function boardsReportQuery(searchTerm = '', permission = 'all') {
   if (searchTerm) {
     query.title = new RegExp(searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
   }
-  if (permission === 'public' || permission === 'private') {
+  if (permission === 'public' || permission === 'private' || permission === 'instance') {
     query.permission = permission;
   }
   return query;
@@ -274,7 +277,7 @@ function boardsReportQuery(searchTerm = '', permission = 'all') {
 
 Meteor.publish('boardsReport', async function(searchTerm = '', permission = 'all', limit, skip = 0) {
   check(searchTerm, Match.OneOf(String, null, undefined));
-  check(permission, Match.OneOf('all', 'public', 'private'));
+  check(permission, Match.OneOf('all', 'public', 'private', 'instance'));
   check(limit, Number);
   check(skip, Match.OneOf(Number, null, undefined));
   // An ADMIN report, over the whole instance - like the Cards report beside it in
@@ -358,7 +361,7 @@ Meteor.publish('boardsReport', async function(searchTerm = '', permission = 'all
 Meteor.methods({
   async getBoardsReportCount(searchTerm = '', permission = 'all') {
     check(searchTerm, Match.OneOf(String, null, undefined));
-    check(permission, Match.OneOf('all', 'public', 'private'));
+    check(permission, Match.OneOf('all', 'public', 'private', 'instance'));
     const user = await ReactiveCache.getCurrentUser();
     if (!user || !user.isAdmin) {
       throw new Meteor.Error('not-authorized');

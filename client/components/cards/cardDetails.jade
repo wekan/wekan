@@ -1409,7 +1409,7 @@ template(name="cardMorePopup")
     span.clearfix
       span {{_ 'link-card'}}
       = ' '
-      i.fa(class="{{#if currentBoard.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
+      i.fa(class="{{currentBoard.visibilityIcon}}")
       input.inline-input(type="text" id="cardURL" readonly value="{{ originRelativeUrl }}" autofocus="autofocus")
       //- `.primary` is the themed button - the board's accent with white text -
         and is named in forms.css beside the other buttons that wear it, so the

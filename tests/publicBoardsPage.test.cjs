@@ -176,7 +176,12 @@ test('the publication chooses what it shows; the client does not', () => {
   const at = publications.indexOf('function publicBoardsSelector(');
   assert.notStrictEqual(at, -1, 'the selector must be built on the server');
   const sel = publications.slice(at, publications.indexOf('\n}', at));
-  assert.ok(/permission: 'public'/.test(sel), 'public boards');
+  // #3249: public boards for anybody; a signed-in visitor also sees 'instance'
+  // boards, decided from the server's own this.userId.
+  assert.ok(/permission: signedIn \? \{ \$in: \['public', 'instance'\] \} : 'public'/.test(sel), 'public boards');
+  assert.ok(/function publicBoardsSelector\(searchTerm, signedIn = false\)/.test(publications), 'anonymous by default');
+  assert.equal((publications.match(/publicBoardsSelector\(searchTerm, !!this\.userId\)/g) || []).length, 2,
+    'the publication and its count both take who is signed in from the server');
   assert.ok(/archived: false/.test(sel), 'not archived');
   assert.ok(/type: 'board'/.test(sel), 'real boards, not template containers');
   assert.ok(/notHelperBoardTitle\(\)/.test(sel),

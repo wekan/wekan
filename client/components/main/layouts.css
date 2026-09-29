@@ -608,6 +608,10 @@ kbd {
 .fa.fa-bell-slash.colorful {
   color: #f44336;
 }
+/* #3249: visible to every signed-in user - between public and private. */
+.fa.fa-users.colorful {
+  color: #e6a100;
+}
 .fa.fa-eye.colorful {
   color: #4336f4;
 }

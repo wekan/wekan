@@ -7,6 +7,7 @@ import { createHash } from 'node:crypto';
 import Boards from '/models/boards';
 import { canReadBoard } from '/models/lib/boardVisibility';
 import { validateFilterPresetState } from '/models/lib/filterPresetState';
+const { withoutMembershipSelectors } = require('/models/lib/boardPermission');
 
 const presets = new Mongo.Collection('savedCardFilters');
 async function authorize(userId, boardId) {
@@ -38,7 +39,8 @@ publishComposite('savedCardFilters', function(boardId) {
   const ownerId = this.userId;
   if (!ownerId || !boardId) return;
   return {
-    find: () => Boards.find({ _id: boardId, $or: [{ permission: 'public' },
+    // #3249: signed in (checked above), so 'instance' boards count too.
+    find: () => Boards.find({ _id: boardId, $or: [...withoutMembershipSelectors(true),
       { members: { $elemMatch: { userId: ownerId, isActive: true } } }] }, { fields: { _id: 1 } }),
     children: [{ find: board => presets.find({ ownerId, boardId: board._id }, { sort: { name: 1 } }) }],
   };

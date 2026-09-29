@@ -6,6 +6,7 @@ import { Random } from 'meteor/random';
 import { ReactiveCache } from '/imports/reactiveCache';
 const { notHelperBoardTitle } = require('/models/lib/helperBoards');
 const { boardVisibilitySelectors } = require('/models/lib/boardVisibilitySelectors');
+const { BOARD_PERMISSIONS, readableWithoutMembership, withoutMembershipSelectors } = require('/models/lib/boardPermission');
 const boardViewSettings = require('/models/lib/boardViewSettings');
 import escapeForRegex from 'escape-string-regexp';
 import CustomFields from './customFields';
@@ -341,7 +342,8 @@ Boards.attachSchema(
        * visibility of the board
        */
       type: String,
-      allowedValues: ['public', 'private'],
+      // #3249: 'instance' = every signed-in user reads it (semi-open).
+      allowedValues: BOARD_PERMISSIONS,
     },
     orgs: {
       /**
@@ -1663,13 +1665,12 @@ Boards.helpers({
    * Is supplied user authorized to view this board?
    */
   isVisibleBy(user) {
-    if (this.isPublic()) {
-      // public boards are visible to everyone
+    // Public boards are visible to everyone, 'instance' boards (#3249) to
+    // every signed-in user; otherwise you have to be an active member.
+    if (readableWithoutMembership(this.permission, !!(user && user._id))) {
       return true;
-    } else {
-      // otherwise you have to be logged-in and active member
-      return user && this.isActiveMember(user._id);
     }
+    return user && this.isActiveMember(user._id);
   },
 
   /**
@@ -1688,8 +1689,22 @@ Boards.helpers({
     }
   },
 
+  // Anybody, signed in or not. An 'instance' board is NOT public: code that
+  // serves anonymous callers keeps asking this; code that knows its caller
+  // asks isVisibleBy() or readableWithoutMembership().
   isPublic() {
     return this.permission === 'public';
+  },
+
+  isInstanceBoard() {
+    return this.permission === 'instance';
+  },
+
+  // The icon shown beside the board's visibility (#3249).
+  visibilityIcon() {
+    if (this.permission === 'public') return 'fa-globe';
+    if (this.permission === 'instance') return 'fa-users';
+    return 'fa-lock';
   },
 
   hasSharedListsConverted() {
@@ -3219,7 +3234,7 @@ Boards.userSearch = (
   projection = {},
   options = {},
 ) => {
-  selector.$or = options.includePublic === false ? [] : [{ permission: 'public' }];
+  selector.$or = options.includePublic === false ? [] : withoutMembershipSelectors(!!userId);
 
   if (userId) {
     selector.$or.push({ members: { $elemMatch: { userId, isActive: true } } });

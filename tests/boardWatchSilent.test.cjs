@@ -49,7 +49,9 @@ test('watching asks whether the user may SEE the board', () => {
 test('the four ways a board is shared are all covered', () => {
   const fn = method.slice(method.indexOf('async function canSeeBoard'));
   const body = fn.slice(0, fn.indexOf('\n}'));
-  assert.ok(/permission === 'public'/.test(body), 'public');
+  // #3249: public for anybody and 'instance' for a signed-in user, both from
+  // models/lib/boardPermission.js.
+  assert.ok(/readableWithoutMembership\(board\.permission, !!userId\)/.test(body), 'public and instance-wide');
   assert.ok(/hasMember\(userId\)/.test(body), 'membership');
   assert.ok(/orgIds/.test(body) && /teamIds/.test(body) && /emailDomains/.test(body),
     'organisation, team and email domain');

@@ -4,13 +4,15 @@ import { ReactiveCache } from '/imports/reactiveCache';
 import { getFeatureFlags } from '/models/lib/featureFlags';
 import Boards from '/models/boards';
 const { boardVisibilitySelectors } = require('/models/lib/boardVisibilitySelectors');
+const { readableWithoutMembership } = require('/models/lib/boardPermission');
 
 // True when this user may see this board: public, a member, or an ACTIVE
 // organisation / team / email-domain share. Built from the same selectors the
 // board publication uses, so the two cannot drift apart.
 async function canSeeBoard(userId, board) {
   if (!board) return false;
-  if (board.permission === 'public') return true;
+  // #3249: public for anybody, 'instance' for a signed-in user.
+  if (readableWithoutMembership(board.permission, !!userId)) return true;
   if (!userId) return false;
   if (typeof board.hasMember === 'function' && board.hasMember(userId)) return true;
 

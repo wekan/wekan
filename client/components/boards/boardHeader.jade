@@ -31,7 +31,7 @@ template(name="boardHeaderButtons")
             a.board-header-btn(
               class="{{#if currentUser.isBoardAdmin}}js-change-visibility{{else}}is-disabled{{/if}}"
               title="{{_ currentBoard.permission}}")
-              i.fa(class="{{#if currentBoard.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
+              i.fa(class="{{currentBoard.visibilityIcon}}")
               //- The SAME expression the tooltip uses, so the two cannot say
                 different things - and both follow the board from Private to
                 Public without a second list of words to keep in step.
@@ -109,6 +109,15 @@ template(name="boardVisibilityList")
             i.fa.fa-check
           span.sub-name {{privateDesc}}
     if notAllowPrivateVisibilityOnly
+      //- #3249: every signed-in user of the instance, never anonymous.
+      li
+        with "instance"
+          a.js-select-visibility
+            i.fa.fa-users
+            | {{_ 'instance'}}
+            if visibilityCheck
+              i.fa.fa-check
+            span.sub-name {{_ 'instance-desc'}}
       li
         with "public"
           a.js-select-visibility
@@ -191,6 +200,10 @@ template(name="createBoardForm")
           span.fa.fa-globe.colorful
           = " "
           | {{{_ 'board-public-info'}}}
+        else if $eq visibility 'instance'
+          span.fa.fa-users.colorful
+          = " "
+          | {{{_ 'board-instance-info'}}}
         else
           span.fa.fa-lock.colorful
           = " "

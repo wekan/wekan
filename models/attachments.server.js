@@ -16,6 +16,7 @@ import Attachments, { normalizeRemovedFiles } from './attachments';
 import Boards from '/models/boards';
 import { allowIsBoardMember } from '/server/lib/utils';
 import { ensureIndex } from '/server/lib/mongoStartup';
+const { readableWithoutMembership } = require('/models/lib/boardPermission');
 
 // ---------------------------------------------------------------------------
 // Server-only configuration
@@ -273,7 +274,8 @@ Attachments.protected = async function (fileObj) {
   if (!board) {
     return false;
   }
-  if (board.isPublic()) {
+  // #3249: an 'instance' board is readable by any signed-in user.
+  if (readableWithoutMembership(board.permission, !!this.userId)) {
     return true;
   }
   return board.hasMember(this.userId);

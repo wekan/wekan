@@ -1,5 +1,9 @@
 'use strict';
 
+import boardPermission from './boardPermission.js';
+
+const { readableWithoutMembership } = boardPermission;
+
 // Pure helpers deciding which boards may be picked as a destination in the
 // IFTTT-Rules "move card to the board" / "link card to the board" selectors.
 // Extracted from client/components/rules/actions/boardActions.js so the choice
@@ -22,7 +26,8 @@ function hasActive(list, predicate) {
 // emailDomains } — the last three are plain id arrays (empty when absent).
 function boardVisibleToUserContext(board, ctx) {
   if (!board || !ctx) return false;
-  if (board.permission === 'public') return true;
+  // #3249: public for anybody, 'instance' for a signed-in user.
+  if (readableWithoutMembership(board.permission, !!ctx.userId)) return true;
   if (hasActive(board.members, m => m.userId === ctx.userId && !!m.isActive)) {
     return true;
   }

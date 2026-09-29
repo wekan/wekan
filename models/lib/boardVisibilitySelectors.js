@@ -1,3 +1,5 @@
+const { withoutMembershipSelectors } = require('./boardPermission');
+
 // Pure, dependency-free construction of the Mongo `$or` that answers "which
 // boards may this user see". No Meteor imports, so it is unit tested directly
 // with plain Node (tests/boardVisibilitySelectors.test.cjs).
@@ -39,8 +41,10 @@ function boardVisibilitySelectors({
 } = {}) {
   const selectors = [];
 
+  // #3249: 'instance' boards count as readable-without-membership for a
+  // signed-in subscriber only (models/lib/boardPermission.js).
   if (includePublic && !membersOnly) {
-    selectors.push({ permission: 'public' });
+    selectors.push(...withoutMembershipSelectors(!!userId));
   }
 
   if (!userId) {
@@ -70,14 +74,16 @@ function boardVisibilitySelectors({
   return selectors;
 }
 
-// A favorite is a user relationship only while the board remains public.
-// Requiring permission here prevents a stale star from restoring access to a
-// private board after its membership or share is revoked.
+// A favorite is a user relationship only while the board remains readable
+// without membership. Requiring permission here prevents a stale star from
+// restoring access to a private board after its membership or share is
+// revoked. Stars belong to signed-in users, so an 'instance' board (#3249)
+// counts too.
 function starredPublicBoardSelector(boardIds) {
   const ids = Array.isArray(boardIds)
     ? boardIds.filter(id => typeof id === 'string' && id)
     : [];
-  return ids.length ? { _id: { $in: ids }, permission: 'public' } : null;
+  return ids.length ? { _id: { $in: ids }, permission: { $in: ['public', 'instance'] } } : null;
 }
 
 module.exports = { boardVisibilitySelectors, starredPublicBoardSelector };

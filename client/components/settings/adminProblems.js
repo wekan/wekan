@@ -829,6 +829,7 @@ function reportTablePageData(tmpl) {
       id: 'board-permission', label: 'Permission', options: [
         { value: 'all', label: 'All' },
         { value: 'public', labelKey: 'public' },
+        { value: 'instance', labelKey: 'instance' },
         { value: 'private', labelKey: 'private' },
       ],
     }], cfg.filter.get()) : [],

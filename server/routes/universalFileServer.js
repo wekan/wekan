@@ -28,6 +28,7 @@ import { DocumentPreviews, indexDocumentText } from '/server/lib/documentGif';
 import { boundedStreamBuffer, gifCacheKey } from '/server/lib/imageGif';
 import { convertImageBufferToThumbnail, cachedThumbnail, rememberThumbnail } from '/server/lib/imageThumbnail';
 const { isThumbnailPath, canThumbnail, THUMBNAIL_TYPE } = require('/models/lib/attachmentThumbnail');
+const { readableWithoutMembership } = require('/models/lib/boardPermission');
 
 async function normalizeStoredNameOnRead(collection, fileObj, factory) {
   if (!fileObj) return fileObj;
@@ -316,10 +317,12 @@ if (Meteor.isServer) {
         const board = await ReactiveCache.getBoard(boardId);
         if (board && board.isPublic && board.isPublic()) return true;
 
-        // If private board is specified, require membership of requester
+        // Otherwise require a signed-in requester who may read the board: a
+        // member, or anybody signed in on an 'instance' board (#3249).
         const token = extractLoginToken(req);
         const user = token ? await getUserFromToken(token) : null;
         if (user && board && board.hasMember && board.hasMember(user._id)) return true;
+        if (user && board && readableWithoutMembership(board.permission, true)) return true;
         return false;
       }
 

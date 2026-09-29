@@ -71,8 +71,14 @@ test('the public clause is optional, and only that clause', () => {
     assert.ok(withoutPublic.some(c => Object.prototype.hasOwnProperty.call(c, clause)),
       `${clause} is a real relationship and must always be in the scope`);
   }
-  assert.strictEqual(withPublic.length - withoutPublic.length, 1,
-    'dropping the public clause drops nothing else');
+  // #3249: for a signed-in user the "readable without membership" clauses are
+  // two - public and 'instance' - and includePublic: false drops both.
+  assert.ok(withPublic.some(c => c.permission === 'instance'), 'instance boards for a signed-in user');
+  assert.ok(!withoutPublic.some(c => c.permission === 'instance'), 'and they drop out with public');
+  assert.ok(!boardVisibilitySelectors({ includePublic: true }).some(c => c.permission === 'instance'),
+    'never for an anonymous caller');
+  assert.strictEqual(withPublic.length - withoutPublic.length, 2,
+    'dropping the public clauses drops nothing else');
 });
 
 test('the option reaches userBoardIds, which is what the search calls', () => {
@@ -111,7 +117,10 @@ test('the board: filter scopes the same way as the search around it', () => {
 test('userSearch keeps its old behaviour for anyone who does not ask', () => {
   const at = boards.indexOf('Boards.userSearch = (');
   const body = boards.slice(at, boards.indexOf('};', at));
-  assert.ok(/options\.includePublic === false \? \[\] : \[\{ permission: 'public' \}\]/.test(body),
+  // #3249: the "readable without membership" clauses come from
+  // models/lib/boardPermission.js - public boards always, 'instance' boards for
+  // a signed-in caller.
+  assert.ok(/options\.includePublic === false \? \[\] : withoutMembershipSelectors\(!!userId\)/.test(body),
     'public boards are still included unless excluded explicitly');
   // An anonymous caller with public boards excluded can reach NOTHING. An empty
   // `$or` means "match nothing" in Mongo but is an error in some backends, so it

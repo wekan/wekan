@@ -3,6 +3,7 @@ import TableVisibilityModeSettings from '/models/tableVisibilityModeSettings';
 import { findWhere, where } from '/imports/lib/collectionHelpers';
 import { allowIsBoardAdminOrSiteAdmin, canUpdateBoardSort, canUpdateBoardSameWidthValue } from '/server/lib/utils';
 import { canWriteSubtaskDeposit, recordSubtaskDepositDenial } from '/server/lib/subtaskDepositAccess';
+const { isOpenPermission } = require('/models/lib/boardPermission');
 
 Boards.deny({
   async insert(userId, doc) {
@@ -31,7 +32,8 @@ Boards.allow({
 
     // If allowPrivateOnly is enabled, only allow private boards
     const allowPrivateOnly = (await TableVisibilityModeSettings.findOneAsync('tableVisibilityMode-allowPrivateOnly'))?.booleanValue;
-    if (allowPrivateOnly && doc.permission === 'public') {
+    // #3249: an 'instance' board is not private either.
+    if (allowPrivateOnly && isOpenPermission(doc.permission)) {
       return false;
     }
 
@@ -124,7 +126,7 @@ Boards.deny({
     if (!(fieldNames || []).includes('permission')) return false;
 
     const allowPrivateOnly = (await TableVisibilityModeSettings.findOneAsync('tableVisibilityMode-allowPrivateOnly'))?.booleanValue;
-    if (allowPrivateOnly && modifier.$set && modifier.$set.permission === 'public') {
+    if (allowPrivateOnly && modifier.$set && isOpenPermission(modifier.$set.permission)) {
       return true;
     }
 

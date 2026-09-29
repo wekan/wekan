@@ -815,7 +815,8 @@ Template.boardBody.helpers({
       allowPrivateVisibilityOnly !== undefined &&
       allowPrivateVisibilityOnly.booleanValue &&
       currentBoard &&
-      currentBoard.permission == 'public'
+      // #3249: an 'instance' board is not private either.
+      (currentBoard.permission === 'public' || currentBoard.permission === 'instance')
     );
   },
 

@@ -36,6 +36,7 @@ import { recordRecoveryAudit } from '/server/lib/recoveryAudit';
 import { publicErrorData } from '/server/lib/apiResponseHelpers';
 
 const getTAPi18n = () => require('/imports/i18n').TAPi18n;
+const { readableWithoutMembership, withoutMembershipSelectors, isOpenPermission } = require('/models/lib/boardPermission');
 
 function getTranslatedString(key, fallback, options) {
   const i18n = getTAPi18n && getTAPi18n();
@@ -198,7 +199,7 @@ Meteor.methods({
       'tableVisibilityMode-allowPrivateOnly',
     );
     const permission = privateOnly?.booleanValue ? 'private' : requestedPermission;
-    if (privateOnly?.booleanValue && requestedPermission === 'public') {
+    if (privateOnly?.booleanValue && isOpenPermission(requestedPermission)) {
       try {
         require('/server/lib/securityLog').record({
           key: 'authz.board-visibility', action: 'blocked',
@@ -616,7 +617,8 @@ Meteor.methods({
         { $pull: { watchers: memberId } },
         { multi: true },
       );
-      if (!board.isPublic()) {
+      // #3249: a star stays while the board remains readable to them.
+      if (!readableWithoutMembership(board.permission, true)) {
         await Users.updateAsync(memberId, {
           $pull: { 'profile.starredBoards': currBoardId },
         });
@@ -713,14 +715,14 @@ Meteor.methods({
 Boards.before.insert(async (userId, doc) => {
   // Trusted copies, imports and lazy helper creation bypass collection allow
   // rules too. Enforce the instance policy at the shared insertion boundary.
-  if (doc.permission === 'public') {
+  if (isOpenPermission(doc.permission)) {
     const privateOnly = await TableVisibilityModeSettings.findOneAsync('tableVisibilityMode-allowPrivateOnly');
     if (privateOnly?.booleanValue) {
       doc.permission = 'private';
       try {
         require('/server/lib/securityLog').record({
           key: 'authz.board-visibility', action: 'blocked', source: 'board:insert-policy',
-          detail: 'Public board insertion overridden by private-only policy.',
+          detail: 'Public or instance-wide board insertion overridden by private-only policy.',
         });
       } catch (e) { /* logging must never break the guard */ }
     }
@@ -821,7 +823,8 @@ Boards.before.update((userId, doc, fieldNames, modifier) => {
     const board = Boards._transform(doc);
     await board.setWatcher(memberId, false);
 
-    if (!board.isPublic()) {
+    // #3249: a star stays while the board remains readable to them.
+    if (!readableWithoutMembership(board.permission, true)) {
       await Users.updateAsync(memberId, {
         $pull: {
           'profile.starredBoards': boardId,
@@ -949,8 +952,9 @@ WebApp.handlers.get('/api/users/:userId/boards', async function(req, res) {
 WebApp.handlers.get('/api/boards', async function(req, res) {
   try {
     await Authentication.checkUserId(req.userId);
+    // #3249: the caller is authenticated, so 'instance' boards are listed too.
     const boards = await ReactiveCache.getBoards(
-      { permission: 'public' },
+      { $or: withoutMembershipSelectors(true) },
       {
         sort: { sort: 1 },
       },
@@ -974,11 +978,13 @@ WebApp.handlers.get('/api/boards_count', async function(req, res) {
     await Authentication.checkUserId(req.userId);
     const privateBoards = await ReactiveCache.getBoards({ permission: 'private' });
     const publicBoards = await ReactiveCache.getBoards({ permission: 'public' });
+    const instanceBoards = await ReactiveCache.getBoards({ permission: 'instance' });
     sendJsonResult(res, {
       code: 200,
       data: {
         private: privateBoards.length,
         public: publicBoards.length,
+        instance: instanceBoards.length,
       },
     });
   } catch (error) {

@@ -325,7 +325,7 @@ template(name="listMorePopup")
     span.clearfix
       span {{_ 'link-list'}}
       = ' '
-      i.fa(class="{{#if currentBoard.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
+      i.fa(class="{{currentBoard.visibilityIcon}}")
       //- #6459: was {{ rootUrl }}, a helper that does not exist anywhere, so the
       //- link input was always empty. absoluteUrl was then resolved through a
       //- CARD of this list, so the box showed a card's address - and nothing at
