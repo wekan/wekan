@@ -1718,6 +1718,20 @@ translation work continues for the remaining languages.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ca3250ddb">Translate recovery actions across German, French, Spanish and Italian</a>. Thanks to xet7.</summary>
+
+Fill 836 values across 19 locale files, including regional variants. Translate
+rule-email recovery decisions, legacy email review and the variable insertion
+prompt. Preserve existing translations and every executable placeholder.
+
+All 19 files pass completeness checks including pending Transifex keys,
+key-order checks and placeholder checks against the current English source.
+Native-language checks retain the duplicate-delivery warning and permanent
+discard meaning. Human-preference checks pass; other locales remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.10 2026-09-29 WeKan ® release
