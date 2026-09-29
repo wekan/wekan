@@ -1561,9 +1561,9 @@ safe mapping (an import never grants access); (4) Zenkit's native
 single-file export is unverified because Zenkit publishes no schema. The
 EXPORT formatters now carry what each importer reads (see Upcoming).
 
-Additional formats named but not yet researched or built: the Leo literate
-editor's `.leo` outline format, and whatever else other kanban/outline tools
-use for import/export that WeKan does not read or write yet. Each new format
+Additional formats not yet researched or built: whatever other kanban/outline
+tools use for import/export that WeKan does not read or write yet (the Leo
+`.leo` outline is done, see Upcoming). Each new format
 costs roughly what Markdown (this round's new format) cost: a parser, a
 formatter, tests, UI wiring in the import picker and export menu, and - since
 every user-visible string needs one - a new translated string across all 234
@@ -1584,7 +1584,8 @@ schemes an administrator allows. **Scrum History recovery** retains completion
 evidence, and API callers can retry undo/redo by request ID. **Imports** from
 Kanboard, Nextcloud Deck, OpenProject, Asana, Zenkit and Jira now bring
 comments, subtasks, custom fields, hierarchy and dates, keep source creation
-dates, parse only sanitized input and report what they could not import.
+dates, parse only sanitized input and report what they could not import;
+**Leo** `.leo` outlines import and export.
 **FerretDB on MySQL** no longer drops large integers from range queries.
 **Rules** gain variables, several triggers and actions, and start-date
 reminders; **SAML** supports Assertion-only signatures with redirect login.
@@ -2150,7 +2151,25 @@ read remain in TODO Later. This readback does not make restoration atomic.
 and brings the external imports up to their format contracts:
 
 **External imports** - Kanboard, Nextcloud Deck, OpenProject, Asana, Zenkit and
-Jira keep what each source has a WeKan place for, and report the rest.
+Jira keep what each source has a WeKan place for, and report the rest; Leo
+outlines are a new format.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/286ed906a">Import and export the Leo literate editor's .leo outlines</a>. Thanks to xet7.</summary>
+
+A new import source and export format. Top-level nodes become lists, their
+children cards with the node body as the description and a marked node as
+done, and deeper nodes checklists; clones keep their headline and children,
+and a list's own body text is reported as a loss. The board title travels in a
+`wekan_board` header attribute that Leo ignores. The raw XML is parsed on the
+server only, in XML mode that reads no DTD or external entity; a node cloned
+inside itself cannot loop and a clone bomb is refused at 100,000 nodes, and the
+parsed tasks then pass the shared import sanitizer. A suite round-trips an
+export, imports a hand-written outline and refuses hostile XML; Chromium cases
+import through the page and refuse non-Leo text without creating a board, and
+the export menu link is checked with every other format.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/7e784d4f9">Export comments, checklists, parents, people and custom fields to other tools</a>. Thanks to xet7.</summary>
@@ -2479,6 +2498,13 @@ and has the following developer-tooling fix:
   CUSTOM-IP no longer runs the Linux-only `ip address`, and CURRENT-IP reads
   the default-route interface instead of trying only en0 and en1. A suite runs
   both platforms with stub commands. Thanks to xet7.
+- [The release risk scan skips every generated Meteor build context](https://github.com/wekan/wekan/commit/45185a7b6):
+  the full-app Mocha run's `public/build-assets-local-test-app-test/` bundle
+  was not in the exclude list, so its dependencies' URLs read as new origins;
+  `public/` source is still scanned, which a new case checks. Thanks to xet7.
+- [The one-history-view guard allows the undo/redo recovery notice](https://github.com/wekan/wekan/commit/4633a3c48):
+  it is a status line for one pending request, and the guard pins that shape.
+  Thanks to xet7.
 
 and updates the following translations:
 
