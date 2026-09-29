@@ -3746,6 +3746,22 @@ remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fde997661">Correct Bulgarian chart help and action labels</a>. Thanks to xet7.</summary>
+
+Replaced Serbian text in the confirmation and scheduled-task labels and the
+size-versus-cycle-time chart help. The chart help now explains missing
+estimates, invalid dates and the creation/archive date fallbacks. Reviewed the
+later Blockly and planning entries while preserving existing Bulgarian
+translations.
+
+Bulgarian vocabulary and placeholder tests, translation URL checks and all 21
+human-translation preference checks pass. Browser and fluent-speaker review
+were not run. Earlier vocabulary review gaps and translations in other locales
+remain to be completed.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
