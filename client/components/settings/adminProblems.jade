@@ -16,6 +16,7 @@ template(name="adminProblems")
             +emailRecoveryReports
             +activityNotificationRecoveryReports
             +syncRuleEmailRecoveryReports
+            +syncRuleEmailLegacyCommands
             +syncRecoveryReports
           if loading.get
             +spinner
@@ -360,3 +361,38 @@ template(name="syncRuleEmailRecoveryRow")
     td
       if canReview
         button.js-rule-email-review(type="button") {{_ 'rule-email-recovery-review'}}
+
+
+template(name="syncRuleEmailLegacyCommands")
+  section.sync-rule-email-legacy-commands
+    h2 {{_ 'rule-email-legacy-heading'}}
+    p.quiet {{_ 'rule-email-legacy-description'}}
+    if error
+      p.error(role="alert") {{error}}
+    if rows.length
+      table
+        thead
+          tr
+            th {{_ 'rule-email-legacy-source'}}
+            th {{_ 'rule-email-legacy-mail'}}
+            th {{_ 'rule-email-legacy-reason'}}
+            th {{_ 'actions'}}
+        tbody
+          each rows
+            tr(data-command=commandId)
+              td
+                p {{boardId}}
+                p.quiet {{cardId}}
+              td
+                p {{to}}
+                p.quiet {{subject}}
+              td {{_ reasonKey}}
+              td
+                button.js-rule-email-legacy-rebind(type="button" disabled=rebindDisabled) {{_ 'rule-email-legacy-rebind'}}
+                button.js-rule-email-legacy-discard(type="button" disabled=busy) {{_ 'rule-email-legacy-discard'}}
+      if hasPages
+        button.js-rule-email-legacy-prev(type="button" disabled=noPrev) &lsaquo;
+        span  {{pageLabel}}
+        button.js-rule-email-legacy-next(type="button" disabled=noNext) &rsaquo;
+    else
+      p.quiet {{_ 'rule-email-legacy-empty'}}

@@ -137,6 +137,12 @@ export async function runStoredSyncRuleEmail({ index, ...options }) {
   const command = await ensureRuleEmailCommand({ commands: SyncRuleEmailCommands.rawCollection(), plan,
     activity: context.saved, effectId: context.effectId, index, assertCurrent: context.guard,
     prepare: ({ activity, invocation }) => RulesHelper.prepareEmailCommand(activity, invocation.action) });
+  // A dropped attempt (an administrator's drop or legacy discard, #2713) sends
+  // nothing, so it needs no source access: complete before the binding guard,
+  // which refuses the legacy command it was recorded for.
+  const dropped = await SyncRuleEmailAttempts.rawCollection().findOne({ _id: command._id });
+  if (dropped?.state === 'dropped' && dropped.commandHash === command.checksum &&
+      dropped.invocationId === command.invocationId) return command.invocationId;
   const invocation = plan.actions[index], MailComposer = EmailInternals.NpmModules.mailcomposer.module;
   const recipients = ruleEmailRecipients(command.mail, MailComposer);
   const guard = async () => {

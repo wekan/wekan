@@ -4,10 +4,22 @@ import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import { Email, EmailInternals } from 'meteor/email';
 import { SyncRuleEmailAttempts, SyncRuleEmailCommands, SyncRuleEmailOutcomes, SyncRuleEmailResolutions } from '/server/notifications/storedRulePlans';
 import { EmailSendSlots } from '/server/notifications/emailQueue';
+import { SyncRulePlans } from '/server/notifications/storedRulePlans';
+import Activities from '/models/activities';
+import Boards from '/models/boards';
+import Cards from '/models/cards';
+import Rules from '/models/rules';
+import Actions from '/models/actions';
+import { RulesHelper } from '/server/rulesHelper';
 const { syncRuleEmailReport } = require('/server/lib/syncRuleEmailReport');
 const { ruleEmailRecoveryDetail, resolveRuleEmailAttempt,
   resendUnconfirmedRuleEmail } = require('/server/lib/syncRuleEmailResolution');
 const { withSyncLease } = require('/server/lib/syncLease');
+const { listLegacyRuleEmailCommands, rebindLegacyRuleEmailCommand,
+  discardLegacyRuleEmailCommand } = require('/server/lib/syncRuleEmailLegacy');
+const { canonical } = require('/models/lib/changeHistoryIntegrity');
+const { memberCan } = require('/models/lib/boardRoleCapabilities');
+const { isAssignedOnlyMember } = require('/models/lib/boardCardScope');
 const { createEmailSendSlots } = require('/server/lib/emailSendSlots');
 const withEmailSlot = createEmailSendSlots(EmailSendSlots.rawCollection());
 const CommandId = Match.Where(value => typeof value === 'string' && /^[a-f0-9]{64}$/.test(value));
@@ -26,8 +38,28 @@ function translate(error) {
   if (error?.reason && /^[a-z-]+$/.test(error.reason) && error.message === `rule-email-resolution-${error.reason}`) {
     return new Meteor.Error(`rule-email-resolution-${error.reason}`);
   }
+  if (error?.reason && /^[a-z-]+$/.test(error.reason) && error.message === `rule-email-legacy-${error.reason}`) {
+    return new Meteor.Error(`rule-email-legacy-${error.reason}`);
+  }
+  if (error?.message === 'rule-email-legacy-access-denied') return new Meteor.Error('rule-email-legacy-access-denied');
   if (error?.code === 'sync-busy') return new Meteor.Error('rule-email-resolution-busy');
   return new Meteor.Error('rule-email-resolution-failed');
+}
+const legacyCollections = () => ({ commands: SyncRuleEmailCommands.rawCollection(), plans: SyncRulePlans.rawCollection(),
+  attempts: SyncRuleEmailAttempts.rawCollection(), resolutions: SyncRuleEmailResolutions.rawCollection() });
+// The re-bind re-checks what a stored rule run checks: the rule's actor is
+// still enabled with write access to the card, and the rule and its action
+// are exactly what the plan captured.
+async function assertLegacyAccess({ activity, invocation }) {
+  const denied = () => { throw new Error('rule-email-legacy-access-denied'); };
+  const [user, board, card, rule, action] = await Promise.all([
+    Meteor.users.findOneAsync(activity.userId), Boards.findOneAsync(activity.boardId),
+    Cards.findOneAsync({ _id: activity.cardId, boardId: activity.boardId }),
+    Rules.rawCollection().findOne({ _id: invocation.rule._id }), Actions.rawCollection().findOne({ _id: invocation.action?._id }),
+  ]);
+  if (!user || user.loginDisabled || !board || !card || !memberCan(board.members, user._id, 'write') ||
+      (isAssignedOnlyMember(board, user._id) && !card.assignees?.includes(user._id))) denied();
+  if (!rule || !action || canonical(rule) !== canonical(invocation.rule) || canonical(action) !== canonical(invocation.action)) denied();
 }
 // One administrator decision per command at a time, across server processes.
 async function exclusive(commandId, work) {
@@ -71,8 +103,36 @@ Meteor.methods({
           assertCurrent, send: mail => Email.sendAsync(mail) }), { assertOwner: lease.assertCurrent }));
     } catch (error) { throw translate(error); }
   },
+  async syncRuleEmailLegacyList(page) {
+    check(page, Match.Where(value => Number.isSafeInteger(value) && value >= 0));
+    await assertAdmin(this.userId);
+    try { return await listLegacyRuleEmailCommands({ ...legacyCollections(), page }); } catch (error) { throw translate(error); }
+  },
+  async syncRuleEmailLegacyRebind(commandId) {
+    check(commandId, CommandId);
+    const admin = await assertAdmin(this.userId);
+    try {
+      return await exclusive(commandId, async ({ assertCurrent }) => {
+        await assertCurrent();
+        return rebindLegacyRuleEmailCommand({ ...legacyCollections(), commandId, operator: admin.username || admin._id,
+          readActivity: id => Activities.findOneAsync(id, { transform: null }), assertAccess: assertLegacyAccess,
+          prepare: (activity, action) => RulesHelper.prepareEmailCommand(activity, action) });
+      });
+    } catch (error) { throw translate(error); }
+  },
+  async syncRuleEmailLegacyDiscard(commandId) {
+    check(commandId, CommandId);
+    const admin = await assertAdmin(this.userId);
+    try {
+      return await exclusive(commandId, async ({ assertCurrent }) => {
+        await assertCurrent();
+        return discardLegacyRuleEmailCommand({ ...legacyCollections(), commandId, operator: admin.username || admin._id });
+      });
+    } catch (error) { throw translate(error); }
+  },
 });
 DDPRateLimiter.addRule({ name: 'syncRuleEmailRecoveryReport', type: 'method', connectionId() { return true; } }, 30, 10000);
-for (const name of ['syncRuleEmailRecoveryDetail', 'syncRuleEmailRecoveryResolve', 'syncRuleEmailRecoveryResend']) {
+for (const name of ['syncRuleEmailRecoveryDetail', 'syncRuleEmailRecoveryResolve', 'syncRuleEmailRecoveryResend',
+  'syncRuleEmailLegacyList', 'syncRuleEmailLegacyRebind', 'syncRuleEmailLegacyDiscard']) {
   DDPRateLimiter.addRule({ name, type: 'method', connectionId() { return true; } }, 10, 10000);
 }

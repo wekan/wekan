@@ -119,3 +119,39 @@ test('administrator reviews recipients and drops an unconfirmed rule email', asy
     db.deleteMany('listSyncRuleEmailResolutions', { commandId: { $in: [oldId, newId] } });
   }
 });
+
+// Legacy rule emails (maintainer decision of 2026-09-30): listed for review,
+// never run automatically; discard records a dropped attempt. Re-binding
+// needs a full rule/activity chain and is covered by
+// tests/syncRuleEmailLegacy.test.cjs.
+test('administrator reviews and discards a legacy rule email', async ({ page, user, adminUser }) => {
+  const { canonical, sha256 } = require('../../../models/lib/changeHistoryIntegrity');
+  const id = randomBytes(32).toString('hex'), planDoc = randomBytes(32).toString('hex');
+  const plan = { version: 1, actions: [{ id: 'i'.repeat(64), rule: { _id: 'r' }, action: { _id: 'a', actionType: 'sendEmail' } }] };
+  db.insertOne('listSyncRulePlans', { _id: planDoc, plan, checksum: sha256(canonical(plan)) });
+  db.insertOne('listSyncRuleEmailCommands', { _id: id, version: 1, kind: 'rule-email', invocationId: 'i'.repeat(64),
+    planId: planDoc, boardId: 'legacy-board', cardId: 'legacy-card', checksum: 'c'.repeat(64),
+    mail: { to: 'legacy@example.org', from: 'wekan@example.org', subject: 'Legacy subject', text: 'T' } });
+  try {
+    await loginWithToken(page, user.id, user.token);
+    const denied = await page.evaluate(id => Meteor.callAsync('syncRuleEmailLegacyDiscard', id)
+      .then(() => 'accepted', error => error.error), id);
+    expect(denied).toBe('not-authorized');
+    await loginWithToken(page, adminUser.id, adminUser.token);
+    await navigateInApp(page, '/admin/problems/recovery');
+    const panel = page.locator('.sync-rule-email-legacy-commands');
+    const row = panel.locator(`tr[data-command="${id}"]`);
+    await expect(row).toContainText('legacy@example.org');
+    await expect(row).toContainText('Legacy subject');
+    await expect(row).toContainText('Source not recorded');
+    page.once('dialog', dialog => dialog.accept());
+    await row.locator('.js-rule-email-legacy-discard').click();
+    await expect(row).toHaveCount(0);
+    expect(db.findOne('listSyncRuleEmailAttempts', { _id: id }).state).toBe('dropped');
+  } finally {
+    db.deleteMany('listSyncRulePlans', { _id: planDoc });
+    db.deleteMany('listSyncRuleEmailCommands', { _id: id });
+    db.deleteMany('listSyncRuleEmailAttempts', { _id: id });
+    db.deleteMany('listSyncRuleEmailResolutions', { commandId: id });
+  }
+});

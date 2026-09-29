@@ -1739,3 +1739,60 @@ Template.syncRuleEmailRecoveryReports.events({
     if (page !== result.page) t.load(page);
   },
 });
+
+
+// Legacy rule emails, maintainer decision of 2026-09-30: an administrator
+// re-binds (recaptures from the current source) or discards each one.
+const LEGACY_ERRORS = ['access-denied', 'source-changed', 'source-unavailable', 'plan-unavailable',
+  'attempt-exists', 'not-legacy'].map(reason => `rule-email-legacy-${reason}`);
+Template.syncRuleEmailLegacyCommands.onCreated(function () {
+  this.result = new ReactiveVar({ rows: [], total: 0, page: 0, pageSize: 10 });
+  this.error = new ReactiveVar(''); this.busy = new ReactiveVar(false); this.request = 0;
+  this.load = (page = 0) => {
+    const request = ++this.request;
+    Meteor.call('syncRuleEmailLegacyList', page, (error, result) => {
+      if (this.view.isDestroyed || request !== this.request) return;
+      if (error) { this.error.set(TAPi18n.__('rule-email-legacy-unavailable')); return; }
+      this.result.set(result);
+    });
+  };
+  this.act = (method, commandId, confirmKey) => {
+    if (this.busy.get() || !window.confirm(TAPi18n.__(confirmKey))) return;
+    this.busy.set(true); this.error.set('');
+    Meteor.call(method, commandId, error => {
+      if (this.view.isDestroyed) return;
+      this.busy.set(false);
+      if (error) this.error.set(TAPi18n.__(LEGACY_ERRORS.includes(error.error) ? error.error : 'rule-email-legacy-failed'));
+      this.load(this.result.get().page);
+    });
+  };
+  this.load();
+});
+Template.syncRuleEmailLegacyCommands.helpers({
+  error() { return Template.instance().error.get(); },
+  busy() { return Template.instance().busy.get(); },
+  rows() {
+    const t = Template.instance();
+    return t.result.get().rows.map(row => ({ ...row, reasonKey: `rule-email-legacy-reason-${row.reason}`,
+      rebindDisabled: t.busy.get() || !row.rebindable }));
+  },
+  hasPages() { const r = Template.instance().result.get(); return r.total > r.pageSize; },
+  noPrev() { return Template.instance().result.get().page === 0; },
+  noNext() { const r = Template.instance().result.get(); return (r.page + 1) * r.pageSize >= r.total; },
+  pageLabel() { const r = Template.instance().result.get(); return `${r.page + 1} / ${Math.max(1, Math.ceil(r.total / r.pageSize))}`; },
+});
+Template.syncRuleEmailLegacyCommands.events({
+  'click .js-rule-email-legacy-rebind'(event, t) {
+    event.preventDefault(); event.stopPropagation();
+    t.act('syncRuleEmailLegacyRebind', event.currentTarget.closest('tr').dataset.command, 'rule-email-legacy-rebind-confirm');
+  },
+  'click .js-rule-email-legacy-discard'(event, t) {
+    event.preventDefault(); event.stopPropagation();
+    t.act('syncRuleEmailLegacyDiscard', event.currentTarget.closest('tr').dataset.command, 'rule-email-legacy-discard-confirm');
+  },
+  'click .js-rule-email-legacy-prev, click .js-rule-email-legacy-next'(event, t) {
+    event.preventDefault(); event.stopPropagation();
+    const r = t.result.get();
+    t.load(r.page + (event.currentTarget.classList.contains('js-rule-email-legacy-next') ? 1 : -1));
+  },
+});
