@@ -105,8 +105,10 @@ for one of four stated reasons, not left unexamined:
 - **Checked:** `SamlAccountMergeBleed` needs no Hall of Fame page: SAML
   refused that merge from its first commit, so it is a detection category
   like `CanaryBleed`, not a fixed vulnerability.
-- **Decisions not yet built:** the parents array, the Map board view,
-  recovery controls, and the Scrum/Sync journal work.
+- **Decisions not yet built:** the parents array, the Map board view, and the
+  Scrum/Sync journal work. Of the recovery controls, keyboard undo/redo now has
+  its notice; operator recovery for legacy unbound Sync commands and online
+  SMTP resolution remain, and belong to the journal work.
 - **Intermittent:** in a run of all seven import specs one case failed twice in
   four runs (once seen as the `jira-time-import` case about section controls,
   with a value mismatch); every case passes alone and in its own file.
@@ -2025,6 +2027,20 @@ and licensed. This confirms #6509 for MySQL and MariaDB but does not close it.
 </details>
 
 **History** - verify completed operations and preserve unfinished recovery.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9e3abe02a">Show an unanswered keyboard undo or redo, with Try again and Forget it</a>. Thanks to xet7.</summary>
+
+A Ctrl+Z whose reply was lost is kept and retried by the next keystroke with
+the same request ID, but nothing on screen said it was still waiting. The board
+now shows a notice while it has such a request, also after a reload: Try again
+resends that same request, so it can never take back a second change, and
+Forget it drops it. A node suite checks the wiring and parses the modules; a
+Chromium case plants a lost reply, forgets it, ignores other boards' and
+expired requests, and retries one until the server answers. New strings are
+English, pending Transifex.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/c659b4bbc">Keyboard undo and redo retry a lost request instead of repeating it</a>. Thanks to xet7.</summary>
