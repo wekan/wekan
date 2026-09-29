@@ -34,6 +34,14 @@ def collect(root, policy):
         rel = path.relative_to(root).as_posix()
         if any(rel == x or rel.startswith(x + '/') for x in excluded):
             return
+        # Meteor/rspack write a bundle per build context into public/ and
+        # private/ (build-assets-app-test, build-assets-local-test-app-test
+        # for METEOR_LOCAL_DIR=.meteor/local-test, ...), all gitignored as
+        # */build-assets* and */build-chunks*. Generated code is not source.
+        parts = rel.split('/')
+        if len(parts) >= 2 and parts[0] in ('public', 'private') and \
+                parts[1].startswith(('build-assets', 'build-chunks')):
+            return
         if path.is_symlink():
             # Never follow links outside the inspected tree.
             return

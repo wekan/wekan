@@ -58,3 +58,37 @@ test('both releases and every repack path enforce the gates', () => {
   }
   assert.match(read('models/server/metrics.js'), /WebApp.handlers.use\('\/metrics'/);
 });
+
+// A `meteor test` run with METEOR_LOCAL_DIR=.meteor/local-test (the full-app
+// Mocha run) writes public/build-assets-local-test-app-test/, a bundle holding
+// every dependency's URLs. The scanner skips every generated build context
+// (gitignored as */build-assets* and */build-chunks*), and still reports a
+// new origin in ordinary public/ source.
+test('generated build contexts are skipped, public/ source is still scanned', () => {
+  const fs = require('node:fs');
+  fs.mkdirSync(path.join(root, '.tools/tmp'), { recursive: true });
+  const dir = fs.mkdtempSync(path.join(root, '.tools/tmp', 'risk-audit-'));
+  try {
+    const policy = path.join(dir, 'policy.json');
+    fs.writeFileSync(policy, JSON.stringify({ initialized: true, roots: ['public'], files: {} }));
+    const write = (rel, text) => {
+      fs.mkdirSync(path.dirname(path.join(dir, rel)), { recursive: true });
+      fs.writeFileSync(path.join(dir, rel), text);
+    };
+    const run = () => spawnSync('python3', ['-B', path.join(root, 'releases/risk-audit.py'), '--source', dir, '--policy', policy], {
+      cwd: dir, encoding: 'utf8',
+    });
+    for (const generated of ['public/build-assets-local-test-app-test/a.js', 'public/build-chunks-x/b.js', 'private/build-assets/c.js']) {
+      write(generated, 'fetch("https://generated.example/x")');
+    }
+    let result = run();
+    assert.equal(result.status, 0, result.stdout + result.stderr);
+    write('public/source.js', 'fetch("https://source.example/x")');
+    result = run();
+    assert.notEqual(result.status, 0);
+    assert.match(result.stdout + result.stderr, /public\/source\.js: new URL origin https:\/\/source\.example/);
+    assert.doesNotMatch(result.stdout + result.stderr, /generated\.example/);
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
