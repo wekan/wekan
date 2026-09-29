@@ -2346,7 +2346,7 @@ and has the following developer-tooling fix:
 
 and updates the following translations:
 
-**Languages updated:** Finnish, Arabic, Algerian Arabic, Egyptian Arabic, Turkish, Spanish, Argentine Spanish, Chilean Spanish, Colombian Spanish, Latin American Spanish, Mexican Spanish, Peruvian Spanish, Paraguayan Spanish, Italian, Portuguese, Brazilian Portuguese, European Portuguese, Galician, Korean, Japanese, Traditional Chinese, Chinese (Taiwan), Chinese (Hong Kong), Simplified Chinese, Mandarin Chinese, Chinese (Singapore), French, Belgian French, Canadian French, Swiss French, German, Austrian German, Swiss German, Swedish, Danish, Norwegian Bokmål, Dutch.
+**Languages updated:** Finnish, Arabic, Algerian Arabic, Egyptian Arabic, Turkish, Spanish, Argentine Spanish, Chilean Spanish, Colombian Spanish, Latin American Spanish, Mexican Spanish, Peruvian Spanish, Paraguayan Spanish, Italian, Portuguese, Brazilian Portuguese, European Portuguese, Galician, Korean, Japanese, Traditional Chinese, Chinese (Taiwan), Chinese (Hong Kong), Simplified Chinese, Mandarin Chinese, Chinese (Singapore), French, Belgian French, Canadian French, Swiss French, German, Austrian German, Swiss German, Swedish, Danish, Norwegian Bokmål, Dutch, Romanian.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ef52698fe">Complete Finnish and Arabic planning and recovery translations</a>. Thanks to xet7.</summary>
@@ -2657,6 +2657,28 @@ retain their recorded regression evidence. Browser layout and fluent-speaker
 review were not run for this batch.
 
 The inventory lists 185 unfinished locales. New English keys, including
+missing locale keys and those pending Transifex, remain in scope for every
+locale. The all-language translation goal remains unfinished.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b1f80fcf0">Complete Romanian planning and recovery translations</a>. Thanks to xet7.</summary>
+
+Translate 530 missing or English values across both Romanian locales for
+filters, Scrum, Sync, reminders, rules and delivery recovery. Preserve
+existing translations and individually review shared Romanian terms,
+mathematical notation and keyboard labels.
+
+Nineteen translation suites and 21 human-preference checks pass against the
+current English source. Coverage verifies source keys, order, interpolation
+tokens, recovery meaning and no remaining Romanian placeholders, alongside
+earlier native-language and formatting regressions. Previously completed
+locales are rechecked. Existing Upcoming implementation entries retain their
+recorded regression evidence. Browser layout and fluent-speaker review were
+not run for this batch.
+
+The inventory lists 183 unfinished locales. New English keys, including
 missing locale keys and those pending Transifex, remain in scope for every
 locale. The all-language translation goal remains unfinished.
 
