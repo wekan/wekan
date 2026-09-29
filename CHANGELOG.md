@@ -1511,11 +1511,6 @@ minicard, a checkbox custom field's tick/cross icon, per-board default label
 text visibility, and custom-field sort order. Needs the maintainer either to
 describe the screenshot's blue markup or to pick which additional visual
 property should become the customizable one before this can be scoped),
-[#3256](https://github.com/wekan/wekan/issues/3256) (requests an
-image-coordinate-based "hot area" marker visualization - upload a background
-image, overlay a grid, place clickable card markers on it - a new data model
-and rendering mode outside WeKan's existing list/swimlane structure; built in
-Upcoming as the Map board view, and closes with that commit),
 [#3626](https://github.com/wekan/wekan/issues/3626)
 (decided 2026-09-29: a full parents-array model, migrating every ancestor walk;
 not built yet. A card as a subtask of MULTIPLE parents - today `parentId`
