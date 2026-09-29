@@ -108,11 +108,9 @@ for one of four stated reasons, not left unexamined:
 - **Failing suites not yet fixed:** `calendarDateDisplay`,
   `multilineTitles` and `pomodoroTimer` all wait for the locale files to
   follow `en.i18n.json`'s key order, which is the translation agent's work.
-- **Found, not yet fixed:** board-invite in-app push may no longer be
-  delivered since notifications moved to stored plans (its params carry no
-  `activityId`) and needs a runtime check. (`SamlAccountMergeBleed` needs no
-  Hall of Fame page: SAML refused that merge from its first commit, so it is a
-  detection category like `CanaryBleed`, not a fixed vulnerability.)
+- **Checked:** `SamlAccountMergeBleed` needs no Hall of Fame page: SAML
+  refused that merge from its first commit, so it is a detection category
+  like `CanaryBleed`, not a fixed vulnerability.
 - **Decisions not yet built:** trigger-value variables, the thumbnail route,
   semi-open boards, the parents array, the URL-scheme allowlist, first-class
   Jira issue types, the Map board view, splitting #4790, per-activity
@@ -2226,6 +2224,25 @@ fix, passes again.
 
 </details>
 
+**Notifications** - board invitations reach the bell.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cecf92cf5">Deliver board invitations to the invitee's notification bell</a>. Thanks to CondensedTea and xet7.</summary>
+
+The [#3136](https://github.com/wekan/wekan/issues/3136) in-app notification for
+an existing invitee never ran: its params were declared inside the email block,
+so the call threw a `ReferenceError` that its own catch logged. With them in
+scope, the tray would still have refused an entry with no activity, and a
+second email would have been queued beside the invitation. The invite now
+delivers the membership's `addBoardMember` activity, which the bell already
+renders, to the invitee's tray only, honouring their tray setting. A
+re-activated membership records that activity; re-inviting an active member
+adds nobody. A Chromium case covers delivery, re-invites, re-activation and a
+disabled bell, and fails on the old code; a source guard also fails if any
+server code calls `notify()` again.
+
+</details>
+
 **Import boundary** - continue with what the boundary returns.
 
 <details>
@@ -2322,6 +2339,10 @@ and has the following developer-tooling fix:
 - [New interface strings go to en.i18n.json only](https://github.com/wekan/wekan/commit/f49799701):
   `add-pending-keys.mjs` no longer writes locale files, which another agent
   translates. Thanks to xet7.
+- [build.sh finds the dev server's IP address on macOS](https://github.com/wekan/wekan/commit/786b8b017):
+  CUSTOM-IP no longer runs the Linux-only `ip address`, and CURRENT-IP reads
+  the default-route interface instead of trying only en0 and en1. A suite runs
+  both platforms with stub commands. Thanks to xet7.
 
 and updates the following translations:
 
