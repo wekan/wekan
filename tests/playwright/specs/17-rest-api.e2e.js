@@ -554,7 +554,7 @@ test.describe('REST API: data + permissions', () => {
   });
 
   // ---- #3252/#5322: deleting a card cascades + clears its activities --------
-  test('#3252 deleting a card removes its children and clears its activities', async ({ request, user, board }) => {
+  test('#3252 deleting a card removes its children and adds one delete activity', async ({ request, user, board }) => {
     const listId = board.listIds[0];
     const cardId = listCards(board.boardId, listId)[0]._id;
     const seed = (coll, extra) => {
@@ -582,13 +582,13 @@ test.describe('REST API: data + permissions', () => {
     expect(db.find('checklistItems', { cardId }).length).toBe(0);
     expect(db.find('card_comments', { cardId }).length).toBe(0);
 
-    // The card's pre-existing activities are cleaned up in one bulk op; only the
-    // deleteCard activity (kept for the outgoing webhook) remains. Before the fix
-    // the seeded activities survived (and per-child delete activities were added),
-    // so this also acts as the negative test.
+    // #1598 (6d99ad73c) keeps the card's timestamped activities for board
+    // reports, where #3252 had deleted them, so the seeded two remain. What
+    // #3252 still guarantees: the children go without one activity each, and
+    // the card gets exactly one deleteCard activity.
     const acts = db.find('activities', { cardId });
-    expect(acts.length).toBe(1);
-    expect(acts[0].activityType).toBe('deleteCard');
+    expect(acts.map(a => a.activityType).sort()).toEqual(['addComment', 'createCard', 'deleteCard']);
+    expect(acts.filter(a => /removeChecklist|deleteComment|removedChecklistItem/.test(a.activityType))).toEqual([]);
   });
 
   // ---- #5592 / #5627: copying a board copies its webhooks and rules --------
