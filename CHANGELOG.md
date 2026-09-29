@@ -113,11 +113,10 @@ for one of four stated reasons, not left unexamined:
 - **Failing suites not yet fixed:** `multilineTitles` and `pomodoroTimer`
   (not yet examined); `calendarDateDisplay` waits for the locale files to
   follow `en.i18n.json`'s key order, which is the translation agent's work.
-- **Found, not yet fixed:** the SAML package trips a
-  `saml.account-conflict` canary that is missing from
-  `models/lib/canaryTokens.js`; board-invite in-app push may no longer be
+- **Found, not yet fixed:** board-invite in-app push may no longer be
   delivered since notifications moved to stored plans (its params carry no
-  `activityId`) and needs a runtime check.
+  `activityId`) and needs a runtime check. `SamlAccountMergeBleed` has a
+  Problems category but no Hall of Fame page yet.
 - **Decisions not yet built:** trigger-value variables, the thumbnail route,
   semi-open boards, the parents array, the URL-scheme allowlist, first-class
   Jira issue types, the Map board view, splitting #4790, per-activity
@@ -1848,6 +1847,22 @@ node-saml 5.1.0: an Assertion-only signature fails with the reported error under
 wrong certificates are refused. Seven Chromium cases pass, including a full
 redirect login through the fixture identity provider and a token link opened
 in another browser. The new message is English, pending Transifex.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a5930f57d">Show blocked SAML account takeovers and foreign comment edits in Problems</a>. Thanks to xet7.</summary>
+
+A SAML login that would take over an existing non-SAML account with the same
+username (with `SAML_MERGE_EXISTING_USERS` off) was refused, but its canary
+`saml.account-conflict` was not in the canary catalog, and neither was the REST
+comment-edit refusal's `comment.foreign-edit`. Both attempts reached Admin
+Panel → Problems only as an "unknown" canary, without category, severity or
+description. They are now catalogued - the SAML one under a new
+`SamlAccountMergeBleed` category, the SAML counterpart of
+CasAccountMergeBleed. The canary coverage test now scans every canary call in
+the app and its packages and fails on any id missing from the catalog; with
+either entry removed it names the id and the file.
 
 </details>
 
