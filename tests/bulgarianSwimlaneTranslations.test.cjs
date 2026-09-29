@@ -99,6 +99,22 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
   assert.match(bg['r-checklist-note'], /разделени със запетаи/);
   assert.match(bg['add-custom-html-after-body-start'], /след.*<body>/);
   assert.match(bg['add-custom-html-before-body-end'], /преди.*<\/body>/);
+  const searchKeys = ["allow-rename", "allowRenamePopup-title", "start-day-of-week", "last-modified-at", "last-activity", "voting", "delete-linked-card-before-this-card", "delete-linked-cards-before-this-list", "hide-checked-items", "hide-finished-checklist", "autoAddUsersWithDomainName", "myCardsSortChange-title", "myCardsSortChangePopup-title", "myCardsSortChange-choice-board", "myCardsSortChange-choice-dueat", "dueCardsViewChange-choice-me", "dueCardsViewChange-choice-all-description", "dueCards-noResults-title", "dueCards-noResults-description", "broken-cards", "board-title-not-found", "list-title-not-found", "label-not-found", "label-color-not-found", "user-username-not-found", "comment-not-found", "org-name-not-found", "team-name-not-found", "no-cards-found", "one-card-found", "n-cards-found", "n-n-of-n-cards-found", "operator-assignee", "operator-modified", "operator-limit", "operator-debug", "predicate-week", "predicate-year", "predicate-public", "predicate-private", "predicate-projection", "operator-unknown-error", "operator-number-expected", "operator-sort-invalid", "operator-status-invalid", "operator-has-invalid", "operator-limit-invalid", "operator-debug-invalid", "next-page", "globalSearch-instructions-heading", "globalSearch-instructions-description", "globalSearch-instructions-operators", "globalSearch-instructions-operator-list", "globalSearch-instructions-operator-comment", "globalSearch-instructions-operator-label", "globalSearch-instructions-operator-hash", "globalSearch-instructions-operator-user", "globalSearch-instructions-operator-at", "globalSearch-instructions-operator-member", "globalSearch-instructions-operator-assignee"];
+  for (const key of searchKeys) {
+    assert.deepEqual(translationTokens(bg[key]), translationTokens(en[key]), key);
+    assert.doesNotMatch(bg[key], /[јћђљњџЈЋЂЉЊЋЏ]|поступ|списи|опорав|предмет/i, key);
+    assert.match(bg[key], /[А-Яа-я]/, key);
+  }
+  assert.match(bg['dueCardsViewChange-choice-all-description'], /незавършени карти.*краен срок.*има разрешение/);
+  assert.match(bg['comment-not-found'], /карта с коментар.*'%s'/);
+  assert.match(bg['operator-limit-invalid'], /положително цяло число/);
+  assert.match(bg['globalSearch-instructions-description'], /`list:Blocked`.*\*Blocked\*/);
+  assert.match(bg['globalSearch-instructions-description'], /двоеточие.*интервали.*кавички/);
+  assert.match(bg['globalSearch-instructions-operator-label'], /или/);
+  assert.match(bg['globalSearch-instructions-operator-user'], /член.*или.*изпълнител/);
+  assert.match(bg['globalSearch-instructions-operator-member'], /е \*член\*/);
+  assert.match(bg['globalSearch-instructions-operator-assignee'], /е \*изпълнител\*/);
+  assert.match(bg['delete-linked-cards-before-this-list'], /преди първо да изтриете свързаните карти/);
   assert.equal(bg.swimlane, 'Коридор');
   assert.equal(bg['welcome-swimlane'], 'Етап 1');
   assert.match(bg['swimlane-height-error-message'], /положително цяло число/);
