@@ -3108,6 +3108,23 @@ goal is unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/958f842d4">Translate automatic archiving preferences in 55 more locales</a>. Thanks to xet7.</summary>
+
+Fill 165 values for automatic archiving settings across the previously audited
+locales. The help retains the hourly check, activity on every card change,
+template exclusion and empty-field disable behavior. Hungarian already
+received these strings in its own batch. Existing translations remain intact.
+
+All 24 translation suites and 21 human-preference checks pass. Coverage checks
+the three archiving strings in 56 locales for missing prose, preserved tokens
+and distinct labels, alongside the existing locale regressions. Browser layout
+and fluent-speaker review were not run. Existing Upcoming entries retain their
+recorded regression evidence. Other locales and future English additions remain
+in scope; the all-language goal is unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
