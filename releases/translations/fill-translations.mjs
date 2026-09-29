@@ -83,6 +83,18 @@ const isEnglishVariant = code => /^en([_-].*)?$/.test(code) || code === 'en';
 // source-wide list would hide real work in every language.
 const LOCALE_INVARIANTS = {
   // Locale-specific shared vocabulary, not exemptions for English prose.
+  // Portuguese menu/math vocabulary, keyboard legends and Scrum terminology.
+  ...Object.fromEntries(['pt', 'pt-PT', 'pt_PT', 'pt-BR'].map(code => [code, new Set([
+    'blockly-ALT_KEY', 'blockly-CHROME_OS', 'blockly-CONTEXT_MENU_KEY',
+    'blockly-ENTER_KEY', 'blockly-INPUT_LABEL_MATH_DIVISOR', 'blockly-LINUX',
+    'blockly-MAC_OS', 'blockly-MATH_TRIG_ACOS', 'blockly-MATH_TRIG_ASIN',
+    'blockly-MATH_TRIG_ATAN', 'blockly-MATH_TRIG_COS', 'blockly-MATH_TRIG_SIN',
+    'blockly-MATH_TRIG_TAN', 'blockly-WINDOWS', 'board-view-sprints',
+    'scrum-sprints', 'scrum-sprint',
+    ...(code === 'pt-PT' ? ['blockly-VARIABLES_DEFAULT_NAME',
+      'blockly-LISTS_CREATE_WITH_ITEM_TITLE', 'blockly-MATH_CHANGE_TITLE_ITEM',
+      'blockly-TEXT_APPEND_VARIABLE', 'blockly-TEXT_CREATE_JOIN_ITEM_TITLE_ITEM'] : []),
+  ])])),
   // Italian keyboard legends, menu label, products and mathematical symbols.
   it: new Set(['blockly-ALT_KEY', 'blockly-CHROME_OS', 'blockly-COMMAND_KEY',
     'blockly-CONTEXT_MENU_KEY', 'blockly-CONTROL_KEY', 'blockly-LINUX',
