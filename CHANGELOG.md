@@ -1805,6 +1805,16 @@ human-preference checks pass. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2ec92f8c4">Translate Slovak recovery messages</a>. Thanks to xet7.</summary>
+
+Fill 44 recovery, legacy-review and variable-insertion strings. Slovak passes
+completeness, placeholder, key-order and warning-vocabulary checks against the
+current English source. Existing translations are preserved and
+human-preference checks pass. Other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.10 2026-09-29 WeKan ® release
