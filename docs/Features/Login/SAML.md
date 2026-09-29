@@ -21,6 +21,10 @@ Enable it with these environment variables (see the commented example in
 | `SAML_IDENTIFIER_FORMAT` | NameID format requested from the IdP. Defaults to `urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress`. |
 | `SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE` | Assertion attribute to use as the WeKan username instead of the NameID/email. |
 | `SAML_ATTRIBUTES` | Assertion attributes read for the local profile. |
+| `SAML_IDP_PROFILE` | What the identity provider signs and how login opens: `standard` (default) or `signed-assertion-redirect`. See below. |
+| `SAML_WANT_RESPONSE_SIGNED` | `true`/`false`: require a signed SAML Response. Default: from the profile. |
+| `SAML_WANT_ASSERTIONS_SIGNED` | `true`/`false`: require a signed Assertion. Default: from the profile. |
+| `SAML_LOGIN_FLOW` | `popup` or `redirect`. Default: from the profile. |
 
 The client opens a popup at `/_saml/authorize`, which redirects to the
 identity provider (`SAML_ENTRYPOINT`); the IdP posts the signed assertion
@@ -28,6 +32,43 @@ back to `/_saml/validate` (WeKan's Assertion Consumer Service URL -
 `<WeKan URL>/_saml/validate/<SAML_PROVIDER>`), which is registered as the
 service's callback URL with the IdP. This mirrors the existing CAS
 popup-based login flow (`packages/wekan-accounts-cas`).
+
+## Identity-provider profiles
+
+SAML 2.0 lets an identity provider sign the whole Response, only the Assertion
+inside it, or both. Which one it does is a property of that identity provider,
+so WeKan has a profile for each common arrangement:
+
+| `SAML_IDP_PROFILE` | Signed Response required | Signed Assertion required | Login |
+| --- | --- | --- | --- |
+| `standard` (default) | yes | no | popup |
+| `signed-assertion-redirect` | no | yes | full-page redirect |
+
+Each of the three settings can also be chosen on its own in **Admin Panel /
+People / SAML**; one left at Default follows the profile, and the page shows
+`SAML_IDP_PROFILE` as its source. WeKan refuses a configuration that requires
+neither signature, because an unsigned assertion would then be accepted.
+node-saml verifies every signature that is present against `SAML_CERT`.
+
+Symptoms that point here:
+
+- **"Invalid document signature"** right after the identity provider reports
+  success: the Response is not signed but `SAML_WANT_RESPONSE_SIGNED` is on.
+  If the Assertion is signed, use `signed-assertion-redirect` or turn off only
+  `SAML_WANT_RESPONSE_SIGNED` and turn on `SAML_WANT_ASSERTIONS_SIGNED`.
+- **"Invalid signature"** after that: `SAML_CERT` is not the certificate whose
+  key signed the Assertion. Paste that certificate's PEM, including the BEGIN
+  and END lines.
+
+With `SAML_LOGIN_FLOW=redirect` the browser leaves WeKan for the identity
+provider and returns in the same window: the ACS stores the validated profile
+under the random credential token and redirects to
+`/sign-in?samlToken=<token>`, which the page exchanges for a login and then
+opens `/`. The assertion is never put in the address. The token is remembered
+in the browser tab that started the login, and a `samlToken` that tab did not
+start is not exchanged, so a link cannot sign someone into another account.
+Errors return as `/sign-in?samlError=<message>` and are shown on the sign-in
+page.
 
 ## Admin Panel overrides and logout
 

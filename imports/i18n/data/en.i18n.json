@@ -3687,5 +3687,6 @@
   "rule-email-recovery-started": "Started",
   "rule-email-recovery-finished": "Confirmed",
   "rule-email-recovery-empty": "No rule email attempts match this search.",
-  "rule-email-recovery-unavailable": "Could not load rule email attempts. Refresh to try again."
+  "rule-email-recovery-unavailable": "Could not load rule email attempts. Refresh to try again.",
+  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again."
 }

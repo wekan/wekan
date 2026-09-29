@@ -66,6 +66,7 @@ Template.userFormsLayout.onCreated(function () {
 });
 
 Template.userFormsLayout.onRendered(function () {
+  if (pendingSamlError) Meteor.defer(() => showLoginError(samlErrorForDisplay(pendingSamlError)));
   const instance = this;
   // Login / register pages scroll on <body>; enable drag-to-scroll there so the
   // gesture works the same as on the board swimlanes view.
@@ -366,6 +367,8 @@ Template.userFormsLayout.events({
     event.preventDefault();
     const provider = Meteor.settings.public.SAML_PROVIDER;
     showLoginError('');
+    // In redirect mode the page leaves here and this callback never runs;
+    // the result is reported when the browser comes back.
     Meteor.loginWithSaml({ provider }, (err) => {
       if (err) {
         showLoginError(err);
@@ -438,6 +441,25 @@ Template.userFormsLayout.events({
 
 // The same ARIA live region config/accounts.js writes the password form's
 // login errors into, so a provider or code error reads the same way.
+// wekan-accounts-saml's redirect flow finishes after the page reloads, and
+// may report before the sign-in form exists: keep the last error until then.
+// It also arrives before translations load, so a message key is translated
+// each time it is shown, and shown again once the language is ready.
+let pendingSamlError = null;
+const samlErrorForDisplay = error => (error && error.error === 'saml-login-not-started'
+  ? { reason: TAPi18n.__('saml-login-not-started') } : error);
+window.addEventListener('wekan-saml-login', event => {
+  const error = event.detail && event.detail.error;
+  if (!error) return;
+  pendingSamlError = error;
+  showLoginError(samlErrorForDisplay(error));
+});
+Tracker.autorun(() => {
+  TAPi18n.ready.get();
+  TAPi18n.revision.get();
+  if (pendingSamlError) Tracker.nonreactive(() => showLoginError(samlErrorForDisplay(pendingSamlError)));
+});
+
 function showLoginError(err) {
   const errorDiv = document.getElementById('login-error-message');
   if (!errorDiv) return;

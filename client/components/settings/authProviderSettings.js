@@ -26,9 +26,13 @@ Template.authProviderSettings.helpers({
       const source = sources[field.key] || {};
       return { ...field, value: value ?? '', effective: String(source.value ?? ''),
         booleanField: field.type === 'boolean', multiline: field.type === 'textarea',
+        choiceField: field.type === 'choice',
+        choiceOptions: (field.choices || []).map(choice => ({ value: choice, selected: value === choice })),
         inherit: value === undefined, enabled: value === true, disabled: value === false,
         sourceLabel: source.source === 'admin' ? TAPi18n.__('admin-panel')
-          : source.source === 'env' ? field.envVar : TAPi18n.__('default') };
+          : source.source === 'env' ? field.envVar
+          // SAML fields left at Default follow the identity-provider profile.
+          : source.source === 'profile' ? 'SAML_IDP_PROFILE' : TAPi18n.__('default') };
     });
   },
   urls() { return Object.values(Template.instance().config.get().urls || {}).map(url => ({ url })); },

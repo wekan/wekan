@@ -1,11 +1,11 @@
 "use strict";
 
 // SP-initiated SAML 2.0 login for Meteor accounts, following the same
-// popup + credential-token pattern as wekan-accounts-cas (cas_server.js):
-// the client opens a popup pointed at our own /_saml/authorize endpoint,
-// which redirects the popup to the identity provider; the IdP then POSTs
-// the SAML response back to our /_saml/validate endpoint, which is our
-// Assertion Consumer Service (ACS). All SAML protocol handling (building
+// credential-token pattern as wekan-accounts-cas (cas_server.js): the client
+// sends the browser - a popup, or with SAML_LOGIN_FLOW=redirect the page
+// itself - to our own /_saml/authorize endpoint, which redirects to the
+// identity provider; the IdP then POSTs the SAML response back to our
+// /_saml/validate endpoint, which is our Assertion Consumer Service (ACS). All SAML protocol handling (building
 // the AuthnRequest, parsing the response, verifying the XML signature) is
 // done by @node-saml/node-saml (MIT license) - this file only wires that
 // into Meteor's accounts system. See ../LICENSE and
@@ -66,7 +66,15 @@ async function getSaml() {
     publicCert,
     logoutUrl: config.idpSLORedirectURL || undefined,
     logoutCallbackUrl: Meteor.absoluteUrl(`_saml/logout/${provider}`),
-    wantAssertionsSigned: false,
+    // Which signatures are required depends on the identity provider (Admin
+    // Panel -> People -> SAML: SAML_IDP_PROFILE and the fields below it).
+    // node-saml verifies every signature that is present; these say which
+    // must be present. Some identity providers sign the Assertion and not the
+    // Response, and node-saml's default of requiring a signed Response then
+    // fails with "Invalid document signature" before the Assertion is checked.
+    // validateSamlConfig refuses a configuration that requires neither.
+    wantAuthnResponseSigned: config.wantResponseSigned !== false,
+    wantAssertionsSigned: config.wantAssertionsSigned === true,
     // This application initiates the login. Require a live request ID rather
     // than accepting a still-valid assertion again under a new RelayState.
     validateInResponseTo: 'always',
@@ -88,6 +96,21 @@ const _retrieveCredential = (credentialToken) => {
   delete _samlCredentialTokens[credentialToken];
   return result;
 };
+
+// With SAML_LOGIN_FLOW=redirect the whole page went to the identity provider,
+// so the ACS sends it back to the sign-in page with the credential token - a
+// random id, never the assertion - which the client exchanges for a login.
+const redirectTo = (res, pathAndQuery) => {
+  res.writeHead(302, { Location: Meteor.absoluteUrl(pathAndQuery) });
+  res.end();
+};
+const finishLogin = (res, credentialToken) => {
+  redirectTo(res, `sign-in?samlToken=${encodeURIComponent(credentialToken)}`);
+};
+const redirectError = (res, message) => {
+  redirectTo(res, `sign-in?samlError=${encodeURIComponent(String(message).slice(0, 200))}`);
+};
+const isRedirectFlow = config => Boolean(config && config.loginFlow === 'redirect');
 
 const closePopup = (res) => {
   res.writeHead(200, { 'Content-Type': 'text/html' });
@@ -127,7 +150,8 @@ WebApp.connectHandlers.use('/_saml/authorize', (req, res) => {
       const credentialToken = urlParsed.searchParams.get('credentialToken');
       const { saml, config } = await getSaml();
       if (!saml || !credentialToken) {
-        sendError(res, 'SAML is not configured');
+        const current = await getSamlServiceConfig();
+        (isRedirectFlow(current) ? redirectError : sendError)(res, 'SAML is not configured');
         return;
       }
       const redirectUrl = await saml.getAuthorizeUrlAsync(
@@ -139,7 +163,8 @@ WebApp.connectHandlers.use('/_saml/authorize', (req, res) => {
       res.end();
     } catch (err) {
       console.log(`wekan-accounts-saml: authorize error: ${err.message}`);
-      sendError(res, err.message);
+      const current = await getSamlServiceConfig().catch(() => null);
+      (isRedirectFlow(current) ? redirectError : sendError)(res, err.message);
     }
   })();
 });
@@ -147,6 +172,7 @@ WebApp.connectHandlers.use('/_saml/authorize', (req, res) => {
 WebApp.connectHandlers.use('/_saml/validate', (req, res) => {
   urlEncodedParser(req, res, () => {
     (async () => {
+      let fail = sendError;
       try {
         const body = req.body || {};
         // RelayState carries the credential token generated on the client,
@@ -154,9 +180,10 @@ WebApp.connectHandlers.use('/_saml/validate', (req, res) => {
         // concurrent SAML logins never cross identities (see the
         // account-takeover fix noted in cas_server.js).
         const credentialToken = body.RelayState;
-        const { saml } = await getSaml();
+        const { saml, config } = await getSaml();
+        fail = isRedirectFlow(config) ? redirectError : sendError;
         if (!saml || !credentialToken) {
-          sendError(res, 'SAML is not configured');
+          fail(res, 'SAML is not configured');
           return;
         }
         const { profile } = await saml.validatePostResponseAsync(body);
@@ -170,10 +197,11 @@ WebApp.connectHandlers.use('/_saml/validate', (req, res) => {
           throw new Error('SAML login response has already been consumed or is unavailable');
         }
         _storeCredential(credentialToken, { profile });
-        closePopup(res);
+        if (isRedirectFlow(config)) finishLogin(res, credentialToken);
+        else closePopup(res);
       } catch (err) {
         console.log(`wekan-accounts-saml: validate error: ${err.message}`);
-        sendError(res, err.message);
+        fail(res, err.message);
       }
     })();
   });

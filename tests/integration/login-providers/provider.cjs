@@ -63,10 +63,14 @@ module.exports.startProvider = async ({ privateKey, certificate }) => {
         if (state.mode !== 'unsigned') {
           const signer = new SignedXml({ privateKey, publicCert: certificate,
             signatureAlgorithm: 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256', canonicalizationAlgorithm: 'http://www.w3.org/2001/10/xml-exc-c14n#' });
-          signer.addReference({ xpath: "/*[local-name()='Response']", transforms: ['http://www.w3.org/2000/09/xmldsig#enveloped-signature', 'http://www.w3.org/2001/10/xml-exc-c14n#'], digestAlgorithm: 'http://www.w3.org/2001/04/xmlenc#sha256' });
-          signer.computeSignature(xml, { location: { reference: "/*[local-name()='Response']/*[local-name()='Issuer']", action: 'after' } }); xml = signer.getSignedXml();
+          // 'assertion-only' signs the Assertion and leaves the Response
+          // unsigned, as some identity providers do (SAML_IDP_PROFILE).
+          const target = state.mode === 'assertion-only' || state.mode === 'assertion-only-tampered'
+            ? "/*[local-name()='Response']/*[local-name()='Assertion']" : "/*[local-name()='Response']";
+          signer.addReference({ xpath: target, transforms: ['http://www.w3.org/2000/09/xmldsig#enveloped-signature', 'http://www.w3.org/2001/10/xml-exc-c14n#'], digestAlgorithm: 'http://www.w3.org/2001/04/xmlenc#sha256' });
+          signer.computeSignature(xml, { location: { reference: `${target}/*[local-name()='Issuer']`, action: 'after' } }); xml = signer.getSignedXml();
         }
-        if (state.mode === 'tampered') xml = xml.replace('Alice SAML', 'Mallory SAML');
+        if (state.mode === 'tampered' || state.mode === 'assertion-only-tampered') xml = xml.replace('Alice SAML', 'Mallory SAML');
         res.setHeader('Content-Type', 'text/html');
         return res.end(`<form method="post" action="${esc(acs)}"><input name="SAMLResponse" value="${Buffer.from(xml).toString('base64')}"><input name="RelayState" value="${esc(params.get('RelayState'))}"></form><script>document.forms[0].submit()</script>`);
       }

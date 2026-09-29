@@ -12,9 +12,14 @@ template(name="authProviderSettings")
               .form-group
                 if booleanField
                   select.wekan-form-control.js-auth-config-field(id="auth-{{key}}" data-key="{{key}}" data-boolean="true")
-                    option(value="" selected=inherit) {{_ 'default'}}
+                    option(value="" selected=inherit) {{_ 'default'}} ({{effective}})
                     option(value="true" selected=enabled) {{_ 'yes'}}
                     option(value="false" selected=disabled) {{_ 'no'}}
+                else if choiceField
+                  select.wekan-form-control.js-auth-config-field(id="auth-{{key}}" data-key="{{key}}")
+                    option(value="" selected=inherit) {{_ 'default'}} ({{effective}})
+                    each choiceOptions
+                      option(value="{{value}}" selected=selected)= value
                 else if multiline
                   textarea.wekan-form-control.js-auth-config-field(id="auth-{{key}}" data-key="{{key}}" rows="5" placeholder="{{effective}}")= value
                 else

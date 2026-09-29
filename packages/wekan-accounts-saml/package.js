@@ -9,7 +9,9 @@ Package.onUse(function(api) {
   api.versionsFrom(['2.16', '3.0']);
   api.use('ecmascript');
   api.use('webapp', 'server');
-  api.use('service-configuration', 'server');
+  // The client reads the published login flow (popup or redirect).
+  api.use('service-configuration', ['client', 'server']);
+  api.use('random', 'client');
   api.use('accounts-base', ['client', 'server']);
   // Export Accounts (etc) to packages using this one.
   api.imply('accounts-base', ['client', 'server']);

@@ -42,8 +42,16 @@ Meteor.methods({
     check(input, Object);
     const user = await Meteor.userAsync();
     if (user?.isAdmin !== true) throw new Meteor.Error('error-notAuthorized');
-    const clean = cleanSamlOverrides(input);
-    validateSamlConfig(resolveSamlConfig(clean).config);
+    // Validation errors are plain TypeErrors, which Meteor would report to
+    // the administrator only as "Internal server error".
+    let clean;
+    try {
+      clean = cleanSamlOverrides(input);
+      validateSamlConfig(resolveSamlConfig(clean).config);
+    } catch (error) {
+      if (error instanceof TypeError) throw new Meteor.Error('invalid-saml-settings', error.message);
+      throw error;
+    }
     const setting = await Settings.findOneAsync({});
     if (!setting) throw new Meteor.Error('settings-not-found');
     await Settings.updateAsync(setting._id, { $set: { saml: clean } });

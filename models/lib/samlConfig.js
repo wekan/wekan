@@ -13,7 +13,28 @@ const SAML_FIELDS = [
   ['localProfileMatchAttribute', 'SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE', 'text', ''],
   ['attributesSAML', 'SAML_ATTRIBUTES', 'text', 'sn,givenName,mail'],
   ['mergeExistingUsers', 'SAML_MERGE_EXISTING_USERS', 'boolean', false],
-].map(([key, envVar, type, defaultValue]) => ({ key, envVar, type, defaultValue }));
+  // Identity providers differ in WHAT they sign and in how the login page is
+  // opened. A profile sets all of that at once; each field below it can still
+  // be set on its own, and a field left at Default follows the profile.
+  ['idpProfile', 'SAML_IDP_PROFILE', 'choice', 'standard', ['standard', 'signed-assertion-redirect']],
+  ['wantResponseSigned', 'SAML_WANT_RESPONSE_SIGNED', 'boolean', null],
+  ['wantAssertionsSigned', 'SAML_WANT_ASSERTIONS_SIGNED', 'boolean', null],
+  ['loginFlow', 'SAML_LOGIN_FLOW', 'choice', null, ['popup', 'redirect']],
+].map(([key, envVar, type, defaultValue, choices]) => ({ key, envVar, type, defaultValue, choices }));
+
+// What each identity-provider profile means.
+//   standard                  the Response is signed (node-saml's default and
+//                             WeKan's behaviour so far); login opens in a popup.
+//   signed-assertion-redirect the identity provider signs the Assertion and
+//                             not the Response - SAML 2.0 allows either - so
+//                             the Assertion signature is required instead;
+//                             the browser leaves WeKan for the identity
+//                             provider and comes back in the same window.
+const SAML_PROFILES = {
+  standard: { wantResponseSigned: true, wantAssertionsSigned: false, loginFlow: 'popup' },
+  'signed-assertion-redirect': { wantResponseSigned: false, wantAssertionsSigned: true, loginFlow: 'redirect' },
+};
+const PROFILE_KEYS = ['wantResponseSigned', 'wantAssertionsSigned', 'loginFlow'];
 
 function cleanSamlOverrides(input) {
   const clean = {};
@@ -23,6 +44,9 @@ function cleanSamlOverrides(input) {
     if (value === '' || value === null) continue; // restore environment/default
     if (field.type === 'boolean') {
       if (typeof value !== 'boolean') throw new TypeError(`Invalid ${field.envVar}`);
+      clean[key] = value;
+    } else if (field.type === 'choice') {
+      if (!field.choices.includes(value)) throw new TypeError(`Invalid ${field.envVar}`);
       clean[key] = value;
     } else {
       if (typeof value !== 'string' || value.length > (key === 'cert' ? 65536 : 4096)) {
@@ -39,8 +63,17 @@ function resolveSamlConfig(overrides = {}, env = process.env) {
   for (const field of SAML_FIELDS) {
     const resolved = resolveConfigValue(field.envVar, overrides[field.key], { readEnv: key => env[key] });
     const value = resolved.value === undefined ? field.defaultValue : resolved.value;
-    config[field.key] = field.type === 'boolean' ? value === true || value === 'true' : value;
+    config[field.key] = field.type === 'boolean' && value !== null ? value === true || value === 'true' : value;
     sources[field.key] = { source: resolved.source, value: config[field.key] };
+  }
+  // Fields left at Default follow the chosen profile. An unknown profile name
+  // (a mistyped environment variable) is kept so validation can refuse it.
+  const profile = SAML_PROFILES[config.idpProfile];
+  for (const key of PROFILE_KEYS) {
+    if (config[key] === null || config[key] === undefined) {
+      config[key] = profile ? profile[key] : SAML_PROFILES.standard[key];
+      sources[key] = { source: 'profile', value: config[key] };
+    }
   }
   return { config, sources };
 }
@@ -59,9 +92,19 @@ function validateSamlConfig(config) {
       throw new TypeError(`SAML ${key} must be a path inside private/`);
     }
   }
+  for (const field of SAML_FIELDS) {
+    if (field.type === 'choice' && !field.choices.includes(config[field.key])) {
+      throw new TypeError(`Invalid ${field.envVar}`);
+    }
+  }
+  // At least one signature must be required and verified. With neither, any
+  // unsigned assertion naming any user would log in as that user.
+  if (config.wantResponseSigned !== true && config.wantAssertionsSigned !== true) {
+    throw new TypeError('SAML needs SAML_WANT_RESPONSE_SIGNED or SAML_WANT_ASSERTIONS_SIGNED');
+  }
   if (config.enabled && (!config.entryPoint || !config.issuer || !config.cert)) {
     throw new TypeError('SAML_ENTRYPOINT, SAML_ISSUER and SAML_CERT are required');
   }
   return config;
 }
-module.exports = { SAML_FIELDS, cleanSamlOverrides, resolveSamlConfig, validateSamlConfig };
+module.exports = { SAML_FIELDS, SAML_PROFILES, cleanSamlOverrides, resolveSamlConfig, validateSamlConfig };

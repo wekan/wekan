@@ -1014,6 +1014,10 @@ services:
       #- SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE=
       #- SAML_ATTRIBUTES=
       #- SAML_MERGE_EXISTING_USERS=false
+      #- SAML_IDP_PROFILE=standard
+      #- SAML_WANT_RESPONSE_SIGNED=
+      #- SAML_WANT_ASSERTIONS_SIGNED=
+      #- SAML_LOGIN_FLOW=
       #---------------------------------------------------------------------
       # Login with Meteor accounts providers, see docs/Features/Login/OAuth-Providers.md
       # and docs/Features/Login/Passwordless.md. Every one of these can be overridden

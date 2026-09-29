@@ -807,6 +807,10 @@ REM SET SAML_IDENTIFIER_FORMAT=
 REM SET SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE=
 REM SET SAML_ATTRIBUTES=
 REM SET SAML_MERGE_EXISTING_USERS=false
+REM SET SAML_IDP_PROFILE=standard
+REM SET SAML_WANT_RESPONSE_SIGNED=
+REM SET SAML_WANT_ASSERTIONS_SIGNED=
+REM SET SAML_LOGIN_FLOW=
 
 REM # Login with Meteor accounts providers, see docs/Features/Login/OAuth-Providers.md
 REM # and docs/Features/Login/Passwordless.md. Every one of these can be overridden

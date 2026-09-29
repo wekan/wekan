@@ -423,6 +423,10 @@
       #export SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE=
       #export SAML_ATTRIBUTES=
       #export SAML_MERGE_EXISTING_USERS=false
+      #export SAML_IDP_PROFILE=standard
+      #export SAML_WANT_RESPONSE_SIGNED=
+      #export SAML_WANT_ASSERTIONS_SIGNED=
+      #export SAML_LOGIN_FLOW=
       #---------------------------------------------------------------------
       # Login with Meteor accounts providers, see docs/Features/Login/OAuth-Providers.md
       # and docs/Features/Login/Passwordless.md. Every one of these can be overridden
