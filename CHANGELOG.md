@@ -1622,14 +1622,12 @@ EXPORT formatters now carry what each importer reads (see Upcoming).
 
 Additional formats not yet researched or built: whatever other kanban/outline
 tools use for import/export that WeKan does not read or write yet (the Leo
-`.leo` outline is done, see Upcoming). Each new format
-costs roughly what Markdown (this round's new format) cost: a parser, a
-formatter, tests, UI wiring in the import picker and export menu, and - since
-every user-visible string needs one - a new translated string across all 234
-locale files, not just an English placeholder
-(tests/allTranslationCompleteness.test.cjs
-enforces that). Not attempted as a batch; take them one at a time, following
-the Markdown commit as the template.
+`.leo` outline is done, and todo.txt was added on 2026-09-30, see Upcoming).
+Each new format costs roughly what todo.txt cost: a parser, a formatter,
+tests, the import picker and export menu wiring, and one instruction string,
+added in English and marked pending Transifex (the maintainer's 2026-09-29
+decision). Take them one at a time, following the todo.txt commit as the
+template.
 
 </details>
 </details>
@@ -1638,9 +1636,9 @@ the Markdown commit as the template.
 
 **In short:** Administrators can now resolve rule emails WeKan could not
 confirm - **resend to unconfirmed recipients only, mark sent or drop** - and
-review **legacy rule emails** instead of leaving them stuck. The **GitLab**
-importer and Sync source reach the format contract, and OpenProject watchers
-and Asana followers become card watchers. **Undo and redo** apply a raced
+review **legacy rule emails** instead of leaving them stuck. Boards import
+and export as **todo.txt**, **GitLab** import and export reach the format
+contract, and OpenProject watchers and Asana followers become card watchers. **Undo and redo** apply a raced
 request once, and Sync and Scrum History writes gain the coordination the
 maintainer's 2026-09-30 decisions call for.
 
@@ -1683,8 +1681,8 @@ Chromium and WebKit cover review and discard.
 
 </details>
 
-**External imports** - GitLab reaches the format contract, and watchers and
-followers survive an import.
+**External imports** - GitLab reaches the format contract in both directions,
+watchers and followers survive an import, and todo.txt is a new format.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d71bab65b">Bring the GitLab importer and Sync source up to the format contract</a>. Thanks to gotjoshua and xet7.</summary>
@@ -1712,6 +1710,31 @@ mapping maps them to a member of the new board. Anyone else - unmapped, or not
 a board member and so not allowed a private board's notifications - is
 counted in the import's loss report. Nextcloud Deck sharing rules stay a
 reported loss by design. Planner, Asana and OpenProject tests pin it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/65f5cb45b">Export to GitLab with the people, dates and comments its importer reads</a>. Thanks to xet7.</summary>
+
+The GitLab export wrote title, description, state, labels and due date while
+the importer reads every assignee, the author, creation and close dates and
+notes, so an exported board imported back kept none of them. The formatter
+now writes them, and no iid, so a re-import adds no second "Source:" line.
+The round-trip test pins it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dd7baeec5">Import and export boards as todo.txt</a>. Thanks to xet7.</summary>
+
+[todo.txt](https://github.com/todotxt/todo.txt) is the one-task-per-line
+format the todo.txt app and many compatible apps share. Completed tasks go to
+Done; priority, `+project` and `@context` become labels; creation, completion,
+`due:` and `t:` dates become the card's dates; a `list:` extension keeps list
+names across a round trip. Other `key:value` pairs stay in the title and a
+malformed date is reported. The format has no descriptions, comments or
+members, so an export leaves them out. Unit tests run the specification's
+examples and the round trip; a Playwright case imports through the page.
 
 </details>
 
