@@ -31,10 +31,13 @@ console.log('  ok - build.sh and npm test run the server suite in --full-app mod
 
 // Negative: a test file that needs full-app mode but is not imported by the
 // test module would never run either.
+// Every regex metacharacter, the backslash included (CodeQL
+// js/incomplete-sanitization): a file name is data, not a pattern.
+const escapeRegExp = text => text.replace(/[\\^$.*+?()[\]{}|]/g, '\\$&');
 const index = read('server/lib/tests/index.js');
 const dir = path.join(ROOT, 'server/lib/tests');
 const unloaded = fs.readdirSync(dir).filter(file => file.endsWith('.tests.js'))
   .filter(file => /Meteor\.isAppTest/.test(fs.readFileSync(path.join(dir, file), 'utf8')))
-  .filter(file => !new RegExp(`['"]\\./${file.replace(/\.js$/, '').replace(/[.]/g, '\\.')}(\\.js)?['"]`).test(index));
+  .filter(file => !new RegExp(`['"]\\./${escapeRegExp(file.replace(/\.js$/, ''))}(\\.js)?['"]`).test(index));
 assert.deepEqual(unloaded, [], 'full-app tests missing from server/lib/tests/index.js');
 console.log('  ok - every full-app test file is loaded by the test module');
