@@ -70,3 +70,23 @@ test('completed locale batches preserve URL schemes and rule variable syntax in 
     }
   }
 });
+
+
+test('notification preferences are translated in audited locales without losing source tokens', async () => {
+  const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
+  const codes = ["fi", "ar", "ar-DZ", "ar-EG", "tr", "es", "es-AR", "es-CL", "es-CO", "es-LA", "es-MX", "es-PE", "es-PY", "es_CO", "it", "pt", "pt-PT", "pt_PT", "pt-BR", "gl", "gl-ES", "ko", "ko-KR", "ja", "ja-JP", "ja-HI", "zh-Hant", "zh-TW", "zh-HK", "zh", "zh-CN", "zh-Hans", "zh-GB", "zh_SG", "cmn", "fr", "fr-FR", "fr-BE", "fr-CH", "fr-CA", "de", "de-AT", "de_DE", "de-CH", "sv", "da", "nb", "nl", "nl-NL", "ro", "ro-RO", "id", "pl", "cs", "sk"];
+  const source = JSON.parse(fs.readFileSync(path.join(directory, 'en.i18n.json')));
+  const keys = Object.keys(source).filter(key => key.startsWith('notification-activity-'));
+  assert.ok(keys.length >= 13);
+  for (const code of codes) {
+    const locale = JSON.parse(fs.readFileSync(path.join(directory, code + '.i18n.json')));
+    for (const key of keys) {
+      assert.ok(locale[key]?.trim(), code + ':' + key);
+      assert.notEqual(locale[key], source[key], code + ':' + key);
+      assert.deepEqual(translationTokens(locale[key]), translationTokens(source[key]), code + ':' + key);
+    }
+    assert.equal((locale['notification-activity-description'].match(/@/g) || []).length, 1, code);
+    assert.notEqual(locale['notification-activity-members'], locale['notification-activity-assignees'], code);
+    assert.notEqual(locale['notification-activity-archive'], locale['notification-activity-created'], code);
+  }
+});
