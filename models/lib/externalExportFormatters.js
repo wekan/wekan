@@ -114,7 +114,9 @@ export const formatters = {
   github: githubLike,
   gitea: githubLike,
   forgejo: githubLike,
-  // GitLab: issues array (state "opened"/"closed", string labels).
+  // GitLab: an Issues API v4 array, carrying what parseGitlab reads (#2698):
+  // every assignee, the author, creation and close dates and comments as
+  // notes. No iid: a re-import would then add a second "Source:" line.
   gitlab: ({ items }) =>
     items.map(i => ({
       title: i.title,
@@ -122,6 +124,12 @@ export const formatters = {
       state: isClosed(i.listTitle) ? 'closed' : 'opened',
       labels: i.labels,
       due_date: i.dueAt,
+      ...(has(i.owner) ? { assignees: [i.owner, ...list(i.assignees)].map(username => ({ username })) } : {}),
+      ...(has(i.creator) ? { author: { username: i.creator } } : {}),
+      ...(has(i.createdAt) ? { created_at: i.createdAt } : {}),
+      ...(isClosed(i.listTitle) && has(i.endAt) ? { closed_at: i.endAt } : {}),
+      ...(list(i.comments).length ? { notes: i.comments.map(c => ({ body: c.text,
+        author: { username: c.author }, created_at: c.date, system: false })) } : {}),
     })),
   // Trello board JSON (round-trips with WeKan's Trello import).
   trello: ({ board, lists, items }) => ({

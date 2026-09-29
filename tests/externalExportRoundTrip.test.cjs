@@ -67,6 +67,15 @@ async function main() {
     assert.deepEqual(t.custom_fields, { Pressure: 42, Room: 'B12' });
     assert.deepEqual(t.comments, [{ text: 'Looks good', author: 'bob', date: '2026-09-02T00:00:00.000Z' }]);
   }
+  // GitLab (#2698).
+  {
+    const t = child(parsers.parseGitlab(formatters.gitlab(collected)).tasks);
+    assert.deepEqual([t.column_name, t.date_end, t.date_creation, t.owner_username, t.assignees, t.requested_by],
+      ['Closed', '2026-10-09T00:00:00.000Z', '2026-09-01T00:00:00.000Z', 'alice', ['bob'], 'carol']);
+    assert.deepEqual(t.comments, [{ text: 'Looks good', author: 'bob', authorName: undefined, date: '2026-09-02T00:00:00.000Z' }]);
+    assert.equal(t.description, 'Do it', 'no source line is invented on a round trip');
+    assert.ok(t.tags.includes('urgent'));
+  }
   // Asana.
   {
     const parsed = parsers.parseAsana(formatters.asana(collected));
