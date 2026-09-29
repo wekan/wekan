@@ -23,6 +23,34 @@
           },
           "attachments": {
             "href": "/api/v3/work_packages/1/attachments"
+          },
+          "type": {
+            "href": "/api/v3/types/1",
+            "title": "Task"
+          },
+          "priority": {
+            "href": "/api/v3/priorities/8",
+            "title": "High"
+          },
+          "assignee": {
+            "href": "/api/v3/users/5",
+            "title": "op-assignee"
+          },
+          "responsible": {
+            "href": "/api/v3/users/6",
+            "title": "op-responsible"
+          },
+          "author": {
+            "href": "/api/v3/users/7",
+            "title": "op-author"
+          },
+          "project": {
+            "href": "/api/v3/projects/2",
+            "title": "Audit project"
+          },
+          "customField4": {
+            "href": "/api/v3/custom_options/9",
+            "title": "Option B"
           }
         },
         "_embedded": {
@@ -35,8 +63,60 @@
                 "fileSize": 25
               }
             ]
+          },
+          "schema": {
+            "_type": "Schema",
+            "customField3": {
+              "name": "Audit text field",
+              "type": "String"
+            },
+            "customField4": {
+              "name": "Audit list field",
+              "type": "CustomOption"
+            }
+          },
+          "activities": {
+            "_type": "Collection",
+            "elements": [
+              {
+                "_type": "Activity::Comment",
+                "comment": {
+                  "format": "markdown",
+                  "raw": "Audit comment"
+                },
+                "createdAt": "2026-09-30T12:34:56Z",
+                "_links": {
+                  "user": {
+                    "href": "/api/v3/users/8",
+                    "title": "op-user"
+                  }
+                }
+              },
+              {
+                "_type": "Activity",
+                "comment": {
+                  "raw": ""
+                },
+                "createdAt": "2026-09-02T00:00:00Z"
+              }
+            ]
+          },
+          "watchers": {
+            "_type": "Collection",
+            "elements": [
+              {
+                "id": 5,
+                "name": "op-assignee"
+              }
+            ]
           }
-        }
+        },
+        "startDate": "2026-09-01",
+        "createdAt": "2026-08-01T10:00:00Z",
+        "spentTime": "PT1H30M",
+        "estimatedTime": "PT3H",
+        "percentageDone": 40,
+        "customField3": "Audit value"
       }
     ]
   }

@@ -76,7 +76,54 @@ const FIDELITY = {
     },
     labels: [expected.label],
   },
+  openproject: {
+    comments: [`op-user: ${expected.comment}`],
+    checklistItems: [],
+    card: card => {
+      expect(new Date(card.startAt).toISOString()).toBe('2026-09-01T00:00:00.000Z');
+      expect(new Date(card.createdAt).toISOString()).toBe('2026-08-01T10:00:00.000Z');
+      expect(card.spentTime).toBe(1.5);
+      const fields = db.find('customFields', { boardIds: card.boardId });
+      const byId = Object.fromEntries(fields.map(f => [f._id, f]));
+      const values = Object.fromEntries(card.customFields.map(v => [byId[v._id].name, v.value]));
+      expect(values).toEqual({
+        'Audit text field': 'Audit value', 'Audit list field': 'Option B',
+        'Estimated time (hours)': 3, 'Progress (%)': 40,
+      });
+      expect(byId[card.customFields.find(v => v.value === 3)._id].type).toBe('number');
+    },
+    labels: ['Task', 'priority:High'],
+  },
 };
+
+test('openproject: parent hierarchy and relations link the imported cards', async ({ loggedInPage: page }) => {
+  const wp = (id, subject, extra = {}) => ({ id, subject, _links: { status: { title: 'Open' }, ...extra.links }, ...extra.body });
+  const doc = { _embedded: { elements: [
+    wp(10, 'Epic parent'),
+    wp(11, 'Child item', {
+      links: { parent: { href: '/api/v3/work_packages/10' } },
+      body: { _embedded: { relations: { elements: [
+        { type: 'blocks', _links: { from: { href: '/api/v3/work_packages/11' }, to: { href: '/api/v3/work_packages/12' } } },
+      ] } } },
+    }),
+    wp(12, 'Blocked item', { links: { parent: { href: '/api/v3/work_packages/404' } } }),
+  ] } };
+  let boardId;
+  try {
+    await navigateInApp(page, '/import/openproject');
+    await page.locator('#import-textarea').fill(JSON.stringify(doc));
+    await page.locator('.js-import-without-mapping').click();
+    await page.waitForURL(/\/b\//);
+    boardId = page.url().match(/\/b\/([^/]+)/)[1];
+    const card = title => db.findOne('cards', { boardId, title });
+    const [parent, child, blocked] = ['Epic parent', 'Child item', 'Blocked item'].map(card);
+    expect(child.parentId).toBe(parent._id);
+    expect(blocked.parentId || '').toBe('');
+    expect(parent.parentId || '').toBe('');
+    expect(child.cardDependencies.map(d => [d.cardId, d.type])).toEqual([[blocked._id, 'blocks']]);
+    await expect(page.locator('.minicard')).toHaveCount(3);
+  } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
+});
 
 for (const [source, want] of Object.entries(FIDELITY)) {
   test(`${source}: comments, checklists and card fields survive a UI import`, async ({ loggedInPage: page }) => {

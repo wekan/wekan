@@ -121,3 +121,137 @@ export function planImportedTask(task, { members = {}, allowedColors = [] } = {}
       .filter(Boolean),
   };
 }
+
+// --- Board-level relationships ------------------------------------------------
+// Tasks may carry, besides the fields above:
+//   ref                               - the source's id for this item
+//   parent_ref                        - the ref of its parent item
+//   dependencies: [{ ref, type }]     - links to other items; type is a WeKan
+//                                       dependency type (blocks, is-blocked-by,
+//                                       related-to, ...)
+//   custom_fields: { name: value }    - values of source custom fields
+// Relationships resolve only between items of the same import, after every
+// card exists; a reference to anything else is reported, never guessed.
+
+export const MAX_IMPORTED_CUSTOM_FIELDS = 50;
+const MAX_CUSTOM_FIELD_NAME = 100;
+const MAX_CUSTOM_FIELD_TEXT = 10000;
+const DEPENDENCY_TYPES = ['related-to', 'blocks', 'is-blocked-by', 'fixes', 'is-fixed-by', 'duplicates', 'is-duplicated-by'];
+
+function customFieldValue(value) {
+  if (value === undefined || value === null || value === '') return undefined;
+  if (typeof value === 'number') return Number.isFinite(value) ? value : undefined;
+  if (typeof value === 'boolean') return value;
+  if (Array.isArray(value)) {
+    const parts = value.map(customFieldValue).filter(v => v !== undefined).map(String);
+    return parts.length ? parts.join(', ').slice(0, MAX_CUSTOM_FIELD_TEXT) : undefined;
+  }
+  if (typeof value === 'object') {
+    const named = value.name || value.title || value.value || value.display_value;
+    return customFieldValue(typeof named === 'object' ? undefined : named);
+  }
+  return String(value).slice(0, MAX_CUSTOM_FIELD_TEXT);
+}
+
+// One WeKan custom field per distinct source field name, typed from the values
+// actually present: all numbers -> number, all booleans -> checkbox, else text.
+export function planImportedCustomFields(tasks) {
+  const values = new Map();
+  const unsupported = [];
+  (Array.isArray(tasks) ? tasks : []).forEach(task => {
+    const fields = task && task.custom_fields;
+    if (!fields || typeof fields !== 'object' || Array.isArray(fields)) return;
+    for (const [rawName, rawValue] of Object.entries(fields)) {
+      const name = String(rawName).trim().slice(0, MAX_CUSTOM_FIELD_NAME);
+      const value = customFieldValue(rawValue);
+      if (!name || value === undefined) continue;
+      if (!values.has(name)) {
+        if (values.size >= MAX_IMPORTED_CUSTOM_FIELDS) {
+          if (!unsupported.some(u => u.path === '/custom_fields')) {
+            unsupported.push({ path: '/custom_fields', reason: `more than ${MAX_IMPORTED_CUSTOM_FIELDS} custom fields; the rest are not imported` });
+          }
+          continue;
+        }
+        values.set(name, []);
+      }
+      values.get(name).push(value);
+    }
+  });
+  const fields = [...values.entries()].map(([name, list]) => ({
+    name,
+    type: list.every(v => typeof v === 'number') ? 'number'
+      : list.every(v => typeof v === 'boolean') ? 'checkbox' : 'text',
+  }));
+  return { fields, unsupported };
+}
+
+// The [{ name, value }] a card stores for its task, given the planned fields.
+export function importedCustomFieldValues(task, fields) {
+  const source = task && task.custom_fields;
+  if (!source || typeof source !== 'object' || Array.isArray(source)) return [];
+  const byName = new Map(fields.map(field => [field.name, field]));
+  const out = [];
+  for (const [rawName, rawValue] of Object.entries(source)) {
+    const field = byName.get(String(rawName).trim().slice(0, MAX_CUSTOM_FIELD_NAME));
+    let value = customFieldValue(rawValue);
+    if (!field || value === undefined) continue;
+    if (field.type === 'text') value = String(value);
+    out.push({ name: field.name, value });
+  }
+  return out;
+}
+
+// Parent and dependency links between tasks, as task indexes.
+export function planImportedLinks(tasks) {
+  const list = Array.isArray(tasks) ? tasks : [];
+  const byRef = new Map();
+  const unsupported = [];
+  list.forEach((task, index) => {
+    const ref = task && task.ref;
+    if (ref === undefined || ref === null || ref === '') return;
+    if (byRef.has(String(ref))) {
+      unsupported.push({ path: `/tasks/${index}/ref`, reason: 'duplicate source id; links resolve to the first item' });
+      return;
+    }
+    byRef.set(String(ref), index);
+  });
+  const parents = [];
+  const dependencies = [];
+  list.forEach((task, index) => {
+    if (!task) return;
+    if (task.parent_ref !== undefined && task.parent_ref !== null && task.parent_ref !== '') {
+      const parent = byRef.get(String(task.parent_ref));
+      if (parent === undefined) {
+        unsupported.push({ path: `/tasks/${index}/parent_ref`, reason: 'parent is not part of this import' });
+      } else if (parent === index || createsCycle(list, byRef, index, parent)) {
+        unsupported.push({ path: `/tasks/${index}/parent_ref`, reason: 'parent link would form a cycle' });
+      } else {
+        parents.push({ index, parent });
+      }
+    }
+    const deps = [];
+    (Array.isArray(task.dependencies) ? task.dependencies : []).forEach(dep => {
+      const target = dep && byRef.get(String(dep.ref));
+      if (target === undefined) {
+        unsupported.push({ path: `/tasks/${index}/dependencies`, reason: 'linked item is not part of this import' });
+        return;
+      }
+      if (target === index || deps.some(d => d.target === target)) return;
+      deps.push({ target, type: DEPENDENCY_TYPES.includes(dep.type) ? dep.type : 'related-to' });
+    });
+    if (deps.length) dependencies.push({ index, deps });
+  });
+  return { parents, dependencies, unsupported };
+}
+
+function createsCycle(list, byRef, index, parent) {
+  const seen = new Set([index]);
+  let current = parent;
+  while (current !== undefined) {
+    if (seen.has(current)) return true;
+    seen.add(current);
+    const ref = list[current] && list[current].parent_ref;
+    current = ref === undefined || ref === null || ref === '' ? undefined : byRef.get(String(ref));
+  }
+  return false;
+}

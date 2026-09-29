@@ -9,7 +9,14 @@ import Checklists from '/models/checklists';
 import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
 import { CARD_COLORS } from '/models/metadata/colors';
-import { planImportedTask } from '/models/lib/importedTaskPlan';
+import {
+  importedCustomFieldValues,
+  planImportedCustomFields,
+  planImportedLinks,
+  planImportedTask,
+} from '/models/lib/importedTaskPlan';
+import { normalizeDependency } from '/models/metadata/dependencies';
+import CustomFields from '/models/customFields';
 import { writeImportedEntity } from '/models/lib/importPipeline';
 
 // Creates a WeKan board from a Kanboard export.
@@ -168,6 +175,8 @@ export class KanboardCreator {
     const board = await ReactiveCache.getBoard(boardId);
     const firstSwimlane = Object.values(this.swimlanes)[0];
     const tasks = this._tasks(data);
+    const fieldIds = await this.createCustomFields(tasks, boardId);
+    const cardIds = [];
     for (let index = 0; index < tasks.length; index += 1) {
       const task = tasks[index];
       const columnName = task.column_name || task.column || this._columnNames(data)[0];
@@ -191,9 +200,42 @@ export class KanboardCreator {
         if (label) cardToCreate.labelIds.push(label._id);
       }
       if (plan.memberIds.length) cardToCreate.members = plan.memberIds;
+      const values = importedCustomFieldValues(task, this.customFieldPlan)
+        .map(({ name, value }) => ({ _id: fieldIds[name], value }));
+      if (values.length) cardToCreate.customFields = values;
       const cardId = await writeImportedEntity(Cards, cardToCreate);
+      cardIds[index] = cardId;
       await this.createChecklists(plan.checklists, boardId, cardId);
       await this.createComments(plan.comments, boardId, cardId);
+    }
+    await this.createLinks(tasks, cardIds);
+  }
+
+  // One board custom field per source field name (see planImportedCustomFields).
+  async createCustomFields(tasks, boardId) {
+    this.customFieldPlan = planImportedCustomFields(tasks).fields;
+    const ids = {};
+    for (const field of this.customFieldPlan) {
+      ids[field.name] = await writeImportedEntity(CustomFields, {
+        boardIds: [boardId], name: field.name, type: field.type, settings: {},
+        showOnCard: false, automaticallyOnCard: false, alwaysOnCard: false,
+        showLabelOnMiniCard: false, createdAt: this._now(),
+      });
+    }
+    return ids;
+  }
+
+  // Parents and dependencies point at cards of this import, so they are set
+  // once every card exists.
+  async createLinks(tasks, cardIds) {
+    const { parents, dependencies } = planImportedLinks(tasks);
+    for (const { index, parent } of parents) {
+      await Cards.direct.updateAsync(cardIds[index], { $set: { parentId: cardIds[parent] } });
+    }
+    for (const { index, deps } of dependencies) {
+      await Cards.direct.updateAsync(cardIds[index], { $set: {
+        cardDependencies: deps.map(dep => normalizeDependency({ cardId: cardIds[dep.target], type: dep.type })),
+      } });
     }
   }
 

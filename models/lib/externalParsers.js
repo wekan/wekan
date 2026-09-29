@@ -212,30 +212,126 @@ export function parseNextcloudDeck(data) {
 
 // --- OpenProject ------------------------------------------------------------
 // Accepts a work-packages collection (GET /api/v3/work_packages), i.e.
-// { _embedded: { elements: [ { subject, description:{raw}, dueDate,
-//   _links:{ status:{title}, assignee:{title}, type:{title} } } ] } }.
+// { _embedded: { elements: [ { id, subject, description:{raw}, startDate,
+//   dueDate, spentTime:"PT1H30M", _links:{ status, type, priority, assignee,
+//   responsible, author, parent, category, version, customFieldN } } ] } }.
+// Custom-field names come from embedded schemas when the export carries them
+// (_embedded.schemas, per the API's resource-schema concept); comments,
+// relations, watchers and attachments are read when embedded on a work
+// package, since the collection itself only links to them.
+// ISO 8601 duration as hours; OpenProject uses PT..H..M and P..D for days.
+export function isoDurationHours(value) {
+  if (typeof value !== 'string') return undefined;
+  const m = /^P(?:(\d+(?:\.\d+)?)D)?(?:T(?:(\d+(?:\.\d+)?)H)?(?:(\d+(?:\.\d+)?)M)?(?:(\d+(?:\.\d+)?)S)?)?$/.exec(value);
+  if (!m || value === 'P' || value === 'PT') return undefined;
+  const [, d = 0, h = 0, min = 0, sec = 0] = m;
+  return Math.round((Number(d) * 24 + Number(h) + Number(min) / 60 + Number(sec) / 3600) * 100) / 100;
+}
+
+function halTitle(link) {
+  if (Array.isArray(link)) return link.map(halTitle).filter(Boolean).join(', ') || undefined;
+  return (link && typeof link === 'object' && typeof link.title === 'string' && link.title) || undefined;
+}
+
+function halId(link) {
+  const href = link && typeof link === 'object' ? link.href : undefined;
+  const m = typeof href === 'string' && /\/(\d+)\/?$/.exec(href);
+  return m ? m[1] : undefined;
+}
+
+function embeddedElements(owner, key) {
+  const value = owner && owner._embedded && owner._embedded[key];
+  if (Array.isArray(value)) return value;
+  return (value && Array.isArray(value.elements) && value.elements) || [];
+}
+
+const OPENPROJECT_RELATIONS = {
+  blocks: 'blocks', blocked: 'is-blocked-by', duplicates: 'duplicates', duplicated: 'is-duplicated-by',
+};
+
 export function parseOpenProject(data) {
   const elements =
     (data._embedded && data._embedded.elements) ||
     data.elements ||
     (Array.isArray(data) ? data : []);
-  const tasks = elements.map(wp => {
+  // customFieldN -> its name, from any embedded schema.
+  const fieldNames = {};
+  const schemas = embeddedElements(data, 'schemas');
+  elements.forEach(wp => { if (wp && wp._embedded && wp._embedded.schema) schemas.push(wp._embedded.schema); });
+  schemas.forEach(schema => {
+    Object.keys(schema || {}).filter(k => /^customField\d+$/.test(k)).forEach(key => {
+      if (schema[key] && typeof schema[key].name === 'string') fieldNames[key] = schema[key].name;
+    });
+  });
+  const unsupported = [];
+  const tasks = elements.map((wp, index) => {
+    const at = `/_embedded/elements/${index}`;
     const links = wp._links || {};
+    const custom = {};
+    const addField = (key, value) => {
+      if (value === undefined || value === null || value === '') return;
+      custom[fieldNames[key] || key] = value;
+    };
+    Object.keys(wp).filter(k => /^customField\d+$/.test(k)).forEach(key => {
+      const value = wp[key];
+      addField(key, value && typeof value === 'object' && !Array.isArray(value) ? value.raw : value);
+    });
+    Object.keys(links).filter(k => /^customField\d+$/.test(k)).forEach(key => addField(key, halTitle(links[key])));
+    const estimated = isoDurationHours(wp.estimatedTime);
+    if (estimated !== undefined) custom['Estimated time (hours)'] = estimated;
+    if (typeof wp.percentageDone === 'number') custom['Progress (%)'] = wp.percentageDone;
+
+    const id = wp.id !== undefined && wp.id !== null ? String(wp.id) : undefined;
+    const dependencies = [];
+    embeddedElements(wp, 'relations').forEach(rel => {
+      const relLinks = (rel && rel._links) || {};
+      const from = halId(relLinks.from);
+      const to = halId(relLinks.to);
+      // Each relation is listed on both work packages; keep the "from" side.
+      if (!id || from !== id || !to) return;
+      dependencies.push({ ref: to, type: OPENPROJECT_RELATIONS[rel.type] || 'related-to' });
+    });
+    const watchers = embeddedElements(wp, 'watchers').length;
+    if (watchers) unsupported.push({ path: `${at}/watchers`, reason: `${watchers} watcher(s) are not imported` });
+    const attachments = embeddedElements(wp, 'attachments').length;
+    if (attachments) unsupported.push({ path: `${at}/attachments`, reason: `${attachments} attachment(s): the API export carries metadata, not file contents` });
+
+    const tags = [
+      halTitle(links.type),
+      links.priority && halTitle(links.priority) && `priority:${halTitle(links.priority)}`,
+      halTitle(links.category),
+      links.version && halTitle(links.version) && `version:${halTitle(links.version)}`,
+    ].filter(Boolean);
     return {
+      ref: id,
+      parent_ref: halId(links.parent),
+      dependencies,
       title: wp.subject || wp.name || 'Imported work package',
       description: (wp.description && (wp.description.raw || wp.description.html)) || '',
-      column_name: (links.status && links.status.title) || wp.status || 'Imported',
+      column_name: halTitle(links.status) || wp.status || 'Imported',
       swimlane_name: 'Default',
-      date_due: wp.dueDate || wp.due_date,
-      owner_username: links.assignee && links.assignee.title,
-      tags: [links.type && links.type.title].filter(Boolean),
+      date_due: wp.dueDate || wp.due_date || wp.date,
+      date_started: wp.startDate,
+      date_creation: wp.createdAt,
+      spent_hours: isoDurationHours(wp.spentTime),
+      owner_username: halTitle(links.assignee),
+      assignees: [halTitle(links.responsible)].filter(Boolean),
+      requested_by: halTitle(links.author),
+      tags,
+      custom_fields: custom,
+      comments: embeddedElements(wp, 'activities')
+        .filter(a => a && a._type === 'Activity::Comment' && a.comment && a.comment.raw)
+        .map(a => ({ text: a.comment.raw, author: halTitle(a._links && a._links.user), date: a.createdAt })),
     };
   });
+  const project = elements[0] && elements[0]._links && halTitle(elements[0]._links.project);
   return {
-    board: { name: (data._links && data._links.self && data._links.self.title) || 'Imported OpenProject' },
+    board: { name: (data._links && data._links.self && data._links.self.title) || project || 'Imported OpenProject' },
     columns: uniq(tasks.map(t => t.column_name)).map(title => ({ title })),
     swimlanes: [{ name: 'Default' }],
     tasks,
+    warnings: [],
+    unsupported,
   };
 }
 
