@@ -155,6 +155,22 @@ Maintainer decisions of 2026-09-29, answering the blockers above:
   maintained library; [#2509](https://github.com/wekan/wekan/issues/2509) waits
   for the reporter.
 
+Maintainer decisions of 2026-09-30, for the design steps that remained:
+
+- **Partial or unknown SMTP acceptance**
+  ([#2713](https://github.com/wekan/wekan/issues/2713)): the send stays pending
+  in Admin Panel → Problems → Recovery with each recipient's status. An
+  administrator resends to unconfirmed recipients only, marks it sent, or drops
+  it; WeKan never resends by itself, so nobody receives a duplicate.
+- **Legacy unbound Sync commands**: nothing runs automatically. Admin Panel
+  lists each command with what it would do; an administrator re-binds it to the
+  current source, with a fresh access check, or discards it.
+- **Sync activation**: off by default. A board administrator enables Sync per
+  board and an instance administrator enables cron separately, so an upgrade
+  changes nothing on its own.
+- **The "Not now" issues** (#4912, #2460, #2509) stay open and stay listed
+  here with their reasons.
+
 Node suite health at this pass: 163 of 1445 suites fail; 162 already failed at
 the pass's starting commit (mostly translation-completeness suites, plus source
 guards such as `changeHistoryWiring` and `historyRestoreAppliesWhatIsShown`).
