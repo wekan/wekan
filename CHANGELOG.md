@@ -3018,6 +3018,24 @@ translations; the all-language goal remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5dcd0cc48">Translate notification activity preferences in 54 more locales</a>. Thanks to xet7.</summary>
+
+Fill 702 values for notification categories and their explanation across the
+previously audited locales. The description distinguishes optional activity
+notifications from due-date reminders and mentions that always arrive.
+Slovak already received these strings in its own batch. Existing translations
+remain intact; Dutch uses the established checklist terminology.
+
+All 23 translation suites and 21 human-preference checks pass. New coverage
+checks all 13 notification keys in 55 locales, preserved source tokens, the
+mention marker and distinct member/assignee and archive/creation categories.
+Browser layout and fluent-speaker review were not run. Existing Upcoming
+entries retain their recorded regression evidence. Other locales and future
+English additions remain in scope; the all-language goal is unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
