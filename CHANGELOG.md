@@ -3654,6 +3654,21 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/120edadb7">Correct Bulgarian shortcut and minicard vocabulary</a>. Thanks to xet7.</summary>
+
+Replaced nine Serbian labels in Bulgarian with Bulgarian text for CSV/TSV
+import, minicard covers and descriptions, keyboard shortcuts, modification
+dates, action prompts and notification deletion. Existing correct-language
+translations remain unchanged.
+
+Bulgarian vocabulary and placeholder regression tests, translation URL and
+token checks, and all 21 human-translation preference checks pass. Browser and
+fluent-speaker review were not run. The remaining locale vocabulary audit and
+translations are still in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
