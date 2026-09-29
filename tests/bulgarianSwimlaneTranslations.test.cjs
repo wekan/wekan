@@ -249,6 +249,21 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
   assert.match(bg['time-adjustment-note'], /не са отделни работни сесии.*Отрицателните стойности са корекции/);
   assert.match(bg['time-adjustment-note'], /незаписано време не може да се отнесе/);
   for (const [key, value] of Object.entries(bg)) assert.doesNotMatch(value, /[јћђљњџЈЋЂЉЊЋЏ]/, key);
+  const vocabularyKeys = ["act-editComment", "act-importCard", "act-importList", "act-moveCard", "act-removeBoardMember", "act-restoredCard", "act-unjoinMember", "allboards.add-workspace-prompt", "allboards.add-subworkspace-prompt", "allboards.edit-workspace-name", "board-change-background-image", "add-background-image", "show-at-all-boards-page", "show-board_members-avatar", "board_members", "card_members", "deleteDuplicateListsPopup-title", "close-card", "read-only-desc", "user-can-not-export-excel", "export-card", "export-card-pdf", "exportCardPopup-title", "sort-desc", "list-label-title", "filter-show-archive", "impersonate-user", "import-csv-placeholder", "settingsTeamPopup-title", "settingsOrgPopup-title", "copySelectionPopup-title", "multi-selection-label", "multi-selection-member", "paste-or-dragdrop", "remove-from-board", "remove-label", "search-cards", "shortcut-autocomplete-members", "shortcut-toggle-sidebar", "unsaved-description", "import-usernames", "delete-duplicate-lists", "minicard-settings", "boardMinicardSettingsPopup-title", "r-when-the-label", "r-d-move-to-top-gen", "r-d-move-to-top-spec", "r-d-move-to-bottom-gen", "r-d-move-to-bottom-spec", "above-selected-card", "below-selected-card", "act-atUserComment", "editOrgPopup-title", "newOrgPopup-title", "editTeamPopup-title"];
+  for (const key of vocabularyKeys) {
+    assert.deepEqual(translationTokens(bg[key]), translationTokens(en[key]), key);
+    assert.doesNotMatch(bg[key], /предмет|спис[иа]|поступ|сарад|налеп|корис|назив|правни/i, key);
+    assert.match(bg[key], /[А-Яа-я]/, key);
+  }
+  assert.match(bg['read-only-desc'], /само да преглежда.*Не може да редактира/);
+  assert.match(bg['search-cards'], /карти и списъци, описанията и персонализираните полета/);
+  assert.match(bg['act-moveCard'], /от списък __oldList__.*към списък __list__/);
+  assert.match(bg['shortcut-toggle-sidebar'], /Показване или скриване/);
+  assert.match(bg['r-d-move-to-top-gen'], /началото на нейния списък/);
+  assert.match(bg['r-d-move-to-bottom-gen'], /края на нейния списък/);
+  assert.match(bg['above-selected-card'], /^Над/);
+  assert.match(bg['below-selected-card'], /^Под/);
+  assert.match(bg['import-csv-placeholder'], /CSV\/TSV/);
   assert.equal(bg.swimlane, 'Коридор');
   assert.equal(bg['welcome-swimlane'], 'Етап 1');
   assert.match(bg['swimlane-height-error-message'], /положително цяло число/);
