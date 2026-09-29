@@ -2313,7 +2313,7 @@ and has the following developer-tooling fix:
 
 and updates the following translations:
 
-**Languages updated:** Finnish, Arabic, Algerian Arabic, Egyptian Arabic, Turkish, Spanish, Argentine Spanish, Chilean Spanish, Colombian Spanish, Latin American Spanish, Mexican Spanish, Peruvian Spanish, Paraguayan Spanish, Italian, Portuguese, Brazilian Portuguese, European Portuguese, Galician, Korean, Japanese, Traditional Chinese, Chinese (Taiwan), Chinese (Hong Kong), Simplified Chinese, Mandarin Chinese, Chinese (Singapore), French, Belgian French, Canadian French, Swiss French, German, Austrian German, Swiss German.
+**Languages updated:** Finnish, Arabic, Algerian Arabic, Egyptian Arabic, Turkish, Spanish, Argentine Spanish, Chilean Spanish, Colombian Spanish, Latin American Spanish, Mexican Spanish, Peruvian Spanish, Paraguayan Spanish, Italian, Portuguese, Brazilian Portuguese, European Portuguese, Galician, Korean, Japanese, Traditional Chinese, Chinese (Taiwan), Chinese (Hong Kong), Simplified Chinese, Mandarin Chinese, Chinese (Singapore), French, Belgian French, Canadian French, Swiss French, German, Austrian German, Swiss German, Swedish.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ef52698fe">Complete Finnish and Arabic planning and recovery translations</a>. Thanks to xet7.</summary>
@@ -2546,6 +2546,25 @@ not run for this batch.
 The inventory lists 190 unfinished locales. Newly added English keys remain
 in scope for every locale, including missing keys and those pending Transifex.
 The all-language translation goal remains unfinished.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/169f8cb99">Complete Swedish planning and recovery translations</a>. Thanks to xet7.</summary>
+
+Translate 270 missing or English values for filters, Scrum, Sync, reminders,
+rules and delivery recovery. Preserve existing translations and review shared
+Swedish vocabulary, product names and mathematical notation individually.
+
+Fifteen translation suites and 21 human-preference checks pass against the
+current English source, including key order, interpolation tokens, recovery
+meaning and no remaining Swedish placeholders. Previously completed locales
+are rechecked. Existing Upcoming implementation entries retain their recorded
+regression evidence. Browser layout and fluent-speaker review were not run.
+
+The inventory lists 189 unfinished locales. New English keys, including
+missing locale keys and those pending Transifex, remain in scope for every
+locale. The all-language translation goal remains unfinished.
 
 </details>
 
