@@ -1154,9 +1154,9 @@ copy boundary audit for the nontransactional limit.
 Assigned-only source/descendant handling, client-side template copy writes,
 legacy direct Rules writes and concurrent permission changes remain to be
 reviewed. Board-copy property merging was the same fault on boards and is fixed
-in Upcoming. The markdown viewer's form-field allowance is not exploitable: the
-second sanitizer strips inputs, but it also strips GFM task-list checkboxes
-([#2419](https://github.com/wekan/wekan/issues/2419)), which remains to be fixed.
+in Upcoming. The markdown viewer's form-field allowance was not exploitable: the
+second sanitizer stripped every input, including task-list checkboxes, which
+now render disabled.
 The [archived-card heatmap](https://github.com/wekan/wekan/issues/5444) is now
 implemented under Board View → Pulse, with unit and Chromium scope coverage.
 Unfinished inventory work still includes
@@ -2265,7 +2265,7 @@ and compares the card's creation date.
 
 </details>
 
-**Interface** - right-to-left layout, font scale, titles and pickers.
+**Interface** - right-to-left layout, font scale, titles, pickers, task lists.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/4ff3a2c91">Fix RTL offsets, a fixed font size and unsanitized time-view titles</a>. Thanks to xet7.</summary>
@@ -2287,6 +2287,22 @@ characters inside options, where no icon can render; they are now the words
 Before and After (English, pending translation). The Move selection popup had
 an empty header; both places that open it now pass its title. Tests include
 negative checks that neither returns.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/911e689d2">Show markdown task-list checkboxes in the card viewer</a>. Thanks to rodrigocipriani and xet7.</summary>
+
+"- [ ] Task" is rendered as a disabled checkbox, but the rule allowing only
+that input sat in a `HOOKS` config key, which DOMPurify does not have, so it
+never ran. The card viewer then sanitized the result again with a config that
+forbids every input, and `forms.css` hides bare checkboxes anyway. Both passes
+now install a real hook for that call only: it keeps a disabled checkbox and
+removes any other input, so card text still cannot show a password or text
+field. The dead `HOOKS` keys are gone from all three sanitizer configs. A jsdom
+suite drives both passes, and a Chromium case checks that checked and unchecked
+boxes are visible and other fields are absent; it fails without the viewer
+change. Checkboxes stay read-only ([#2419](https://github.com/wekan/wekan/issues/2419) asks for clickable ones).
 
 </details>
 
