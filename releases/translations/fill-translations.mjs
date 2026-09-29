@@ -354,7 +354,20 @@ const LOCALE_INVARIANTS = {
   've-PP': new Set(['server']),
   // Generalitat Valenciana's Valencian technical help uses errors.
   // Same spelling as English does not make a native plural untranslated.
-  'ca@valencia': new Set(['errors']),
+  // Catalan shared words (angle, color, increment, dividend, divisor, tangent,
+  // general) are native, alongside unchanged product names and math symbols.
+  // IEC mathematical usage: https://scm.iec.cat/wp-content/uploads/2018/01/sessions_olimpiada.pdf
+  // XTEC division terminology: https://ioc.xtec.cat/materials/FP/Recursos/fp_asx_m03_/web/fp_asx_m03_htmlindex/WebContent/u1/a1/continguts.html
+  ...Object.fromEntries(['ca', 'ca_ES', 'ca@valencia'].map(code => [code, new Set([
+    'blockly-ARIA_TYPE_FIELD_ANGLE', 'blockly-ARIA_TYPE_FIELD_COLOUR',
+    'blockly-INPUT_LABEL_LOOP_BY', 'blockly-INPUT_LABEL_MATH_DIVIDEND',
+    'blockly-INPUT_LABEL_MATH_DIVISOR', 'blockly-MATH_TRIG_TAN_ARIA',
+    'blockly-SHORTCUTS_GENERAL', 'blockly-CHROME_OS', 'blockly-LINUX',
+    'blockly-MAC_OS', 'blockly-WINDOWS', 'blockly-MATH_TRIG_ACOS',
+    'blockly-MATH_TRIG_ASIN', 'blockly-MATH_TRIG_ATAN', 'blockly-MATH_TRIG_COS',
+    'blockly-MATH_TRIG_SIN', 'blockly-MATH_TRIG_TAN',
+    ...(code === 'ca@valencia' ? ['errors'] : []),
+  ])])),
   sq: new Set(['color-indigo', 'color-magenta', 'email', 'normal', 'private']),
   // These are reviewed search-parser keywords, not untranslated display prose.
   // Keep the exception per zgh key so English sentences remain fillable.
