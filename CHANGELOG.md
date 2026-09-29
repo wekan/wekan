@@ -69,6 +69,42 @@ features and intends to obtain most translations from Transifex. Existing
 translation checkpoints below are reference material, not active assignments.
 Local commits do not publish or release these changes.
 
+Pass of 2026-09-29: the six external import adapters were brought up to their
+format contracts, imports now parse only sanitized input and keep source
+creation dates, import losses are recorded in Problems → Recovery, and keyboard
+undo/redo persists request IDs (all in Upcoming). What remains below is blocked
+for one of four stated reasons, not left unexamined:
+
+- **Needs new interface text.** A new visible string must be translated into
+  every locale (`tests/allTranslationCompleteness.test.cjs`), and translation
+  is outside this queue. Blocked on that alone: start-date reminders and
+  assignee recipients in the rule editor
+  ([#4278](https://github.com/wekan/wekan/issues/4278)), per-activity
+  notification options ([#572](https://github.com/wekan/wekan/issues/572)),
+  the per-board reminder offset ([#5323](https://github.com/wekan/wekan/issues/5323)),
+  Deck-style auto-archival, the loss report on the import page, and visible
+  History/Scrum/Sync recovery controls.
+- **Needs a maintainer decision.** Everything under "Needs a maintainer
+  decision" and "Deferred pending a security decision", the rule templating
+  and multi-trigger contract (#4294, #3195, #2953), Jira issue types and
+  Kanboard categories.
+- **Needs infrastructure or affected data.** The environment-owner, snap,
+  data-verification and FerretDB backend items. For #6509 and the index
+  verification, Docker Desktop on this Mac waits for an administrator to
+  approve its privileged helper, so no MySQL/MariaDB/PostgreSQL container
+  could start; SAP HANA still needs a licence and memory.
+- **Architectural Scrum/Sync work.** Atomic cross-document coordination,
+  compound archive reservations, interrupted-record replay, production
+  adapters and cron activation (checkpoint below) were not advanced in this
+  pass; each needs its own design step, not a patch.
+
+Node suite health at this pass: 163 of 1445 suites fail; 162 already failed at
+the pass's starting commit (mostly translation-completeness suites, plus source
+guards such as `changeHistoryWiring` and `historyRestoreAppliesWhatIsShown`).
+The other is `activeForgeMirror`, which reads the real `.tools/wekan-gitlab`
+directory instead of a mock and fails on any checkout that has one - on the
+starting commit too, once that directory exists.
+
 Investigated but not finished, with findings
 recorded for whoever picks them up next. Entries that have since been FIXED are
 removed from this list as they are handled (their fixes carry `Fixes #NNNN` and
