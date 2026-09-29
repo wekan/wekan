@@ -459,30 +459,94 @@ export function parseGitlab(data) {
 }
 
 // --- Asana ----------------------------------------------------------------
-// Accepts an Asana tasks export { data: [ { name, notes, completed, due_on,
-//   memberships:[{section:{name}}], tags:[{name}], assignee:{name} } ] }.
+// Accepts an Asana tasks response { data: [ task ] } (GET /tasks with
+// opt_fields). A task: { gid, name, notes, completed, completed_at,
+// created_at, start_on|start_at, due_on|due_at, assignee, followers,
+// memberships:[{section:{name}}], tags, parent:{gid}, subtasks,
+// dependencies:[{gid}], custom_fields, stories, attachments, permalink_url }.
+// Subtasks fetched as tasks of their own link to their parent card; compact
+// subtasks embedded on a task (not listed separately) become a checklist.
+// Comments are the `comment_added` stories, when the export embedded them.
+function asanaCustomValue(field) {
+  if (!field || typeof field !== 'object') return undefined;
+  if (typeof field.number_value === 'number') return field.number_value;
+  if (typeof field.text_value === 'string' && field.text_value) return field.text_value;
+  if (field.enum_value && field.enum_value.name) return field.enum_value.name;
+  if (Array.isArray(field.multi_enum_values) && field.multi_enum_values.length) {
+    return field.multi_enum_values.map(v => v && v.name).filter(Boolean);
+  }
+  if (field.date_value && (field.date_value.date_time || field.date_value.date)) {
+    return field.date_value.date_time || field.date_value.date;
+  }
+  if (Array.isArray(field.people_value) && field.people_value.length) {
+    return field.people_value.map(p => p && (p.name || p.email)).filter(Boolean);
+  }
+  return typeof field.display_value === 'string' && field.display_value ? field.display_value : undefined;
+}
+
+function asanaUser(user) {
+  return user && (user.email || user.name || user.gid) || undefined;
+}
+
 export function parseAsana(data) {
-  const items = Array.isArray(data) ? data : (data.data || []);
-  const tasks = items.map(t => {
+  const items = Array.isArray(data) ? data : (Array.isArray(data.data) ? data.data : []);
+  const listed = new Set(items.map(t => t && t.gid).filter(Boolean).map(String));
+  const unsupported = [];
+  const tasks = items.map((t, index) => {
+    const at = `/data/${index}`;
     const section =
       (t.memberships && t.memberships[0] && t.memberships[0].section &&
         t.memberships[0].section.name) ||
       (t.completed ? 'Done' : 'In Progress');
+    const custom = {};
+    (Array.isArray(t.custom_fields) ? t.custom_fields : []).forEach(field => {
+      const value = asanaCustomValue(field);
+      if (field && field.name && value !== undefined) custom[field.name] = value;
+    });
+    const embedded = (Array.isArray(t.subtasks) ? t.subtasks : []).filter(sub => !(sub && sub.gid && listed.has(String(sub.gid))));
+    const followers = Array.isArray(t.followers) ? t.followers.length : 0;
+    if (followers) unsupported.push({ path: `${at}/followers`, reason: `${followers} follower(s) are not imported` });
+    const attachments = Array.isArray(t.attachments) ? t.attachments.length : 0;
+    if (attachments) unsupported.push({ path: `${at}/attachments`, reason: `${attachments} attachment(s): the API export carries metadata, not file contents` });
+    const footer = t.permalink_url ? `Source: ${t.permalink_url}` : '';
     return {
+      ref: t.gid !== undefined && t.gid !== null ? String(t.gid) : undefined,
+      parent_ref: t.parent && t.parent.gid !== undefined ? String(t.parent.gid) : undefined,
+      // Each dependency is also listed on the other task as a dependent; keep
+      // one side: this task is blocked by what it depends on.
+      dependencies: (Array.isArray(t.dependencies) ? t.dependencies : [])
+        .filter(d => d && d.gid !== undefined)
+        .map(d => ({ ref: String(d.gid), type: 'is-blocked-by' })),
       title: t.name || 'Imported task',
-      description: t.notes || '',
+      description: [t.notes || '', footer].filter(Boolean).join('\n\n'),
       column_name: section,
       swimlane_name: 'Default',
-      date_due: t.due_on || t.due_at,
-      owner_username: t.assignee && (t.assignee.email || t.assignee.name),
-      tags: (t.tags || []).map(tag => (typeof tag === 'string' ? tag : tag.name)),
+      date_due: t.due_at || t.due_on,
+      date_started: t.start_at || t.start_on,
+      date_end: t.completed ? t.completed_at : undefined,
+      date_creation: t.created_at,
+      owner_username: asanaUser(t.assignee),
+      tags: (t.tags || []).map(tag => (typeof tag === 'string' ? tag : tag && tag.name)).filter(Boolean),
+      custom_fields: custom,
+      checklists: embedded.length ? [{
+        title: 'Subtasks',
+        items: embedded.map(sub => ({ title: sub && sub.name, done: Boolean(sub && sub.completed) })),
+      }] : [],
+      comments: (Array.isArray(t.stories) ? t.stories : [])
+        .filter(story => story && story.resource_subtype === 'comment_added')
+        .map(story => ({ text: story.text, author: asanaUser(story.created_by), date: story.created_at })),
     };
   });
   return {
-    board: { name: (data.project && data.project.name) || 'Imported Asana project' },
+    board: { name: (data.project && data.project.name)
+      || (items[0] && items[0].memberships && items[0].memberships[0] && items[0].memberships[0].project
+        && items[0].memberships[0].project.name)
+      || 'Imported Asana project' },
     columns: uniq(tasks.map(t => t.column_name)).map(title => ({ title })),
     swimlanes: [{ name: 'Default' }],
     tasks,
+    warnings: [],
+    unsupported,
   };
 }
 

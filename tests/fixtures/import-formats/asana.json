@@ -33,7 +33,69 @@
           "resource_subtype": "asana"
         }
       ],
-      "num_subtasks": 1
+      "num_subtasks": 1,
+      "created_at": "2026-08-01T10:00:00.000Z",
+      "start_on": "2026-09-01",
+      "permalink_url": "https://app.asana.com/0/2/1",
+      "assignee": {
+        "gid": "9",
+        "name": "Asana Assignee",
+        "email": "asana-a@example.com"
+      },
+      "followers": [
+        {
+          "gid": "9",
+          "name": "Asana Assignee"
+        }
+      ],
+      "subtasks": [
+        {
+          "gid": "11",
+          "name": "Audit subtask",
+          "completed": true
+        }
+      ],
+      "custom_fields": [
+        {
+          "gid": "20",
+          "name": "Audit points",
+          "resource_subtype": "number",
+          "number_value": 5
+        },
+        {
+          "gid": "21",
+          "name": "Audit stage",
+          "resource_subtype": "enum",
+          "enum_value": {
+            "gid": "22",
+            "name": "Review"
+          }
+        },
+        {
+          "gid": "23",
+          "name": "Audit empty",
+          "resource_subtype": "text",
+          "text_value": null
+        }
+      ],
+      "stories": [
+        {
+          "gid": "30",
+          "resource_subtype": "comment_added",
+          "text": "Audit comment",
+          "created_at": "2026-09-30T12:34:56.000Z",
+          "created_by": {
+            "gid": "8",
+            "name": "asana-user"
+          }
+        },
+        {
+          "gid": "31",
+          "resource_subtype": "assigned",
+          "text": "assigned to you",
+          "created_at": "2026-09-02T00:00:00.000Z"
+        }
+      ]
     }
   ],
   "next_page": null

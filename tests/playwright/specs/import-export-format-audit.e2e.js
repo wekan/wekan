@@ -94,6 +94,18 @@ const FIDELITY = {
     },
     labels: ['Task', 'priority:High'],
   },
+  asana: {
+    comments: [`asana-user: ${expected.comment}`],
+    checklistItems: [['Audit subtask', true]],
+    card: card => {
+      expect(new Date(card.startAt).toISOString()).toBe('2026-09-01T00:00:00.000Z');
+      expect(new Date(card.createdAt).toISOString()).toBe('2026-08-01T10:00:00.000Z');
+      const fields = Object.fromEntries(db.find('customFields', { boardIds: card.boardId }).map(f => [f._id, f.name]));
+      expect(Object.fromEntries(card.customFields.map(v => [fields[v._id], v.value])))
+        .toEqual({ 'Audit points': 5, 'Audit stage': 'Review' });
+    },
+    labels: [expected.label],
+  },
 };
 
 test('openproject: parent hierarchy and relations link the imported cards', async ({ loggedInPage: page }) => {
