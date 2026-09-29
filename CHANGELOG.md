@@ -1835,6 +1835,17 @@ human-preference checks pass. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/04f134cb1">Translate Chinese recovery messages across regional locales</a>. Thanks to xet7.</summary>
+
+Fill 396 recovery, legacy-review and variable-insertion strings across nine
+Chinese locale files, using Simplified and Traditional Chinese wording.
+Completeness, placeholder, key-order and warning-vocabulary checks pass against
+the current English source. Existing translations are preserved and
+human-preference checks pass. Other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.10 2026-09-29 WeKan ® release
