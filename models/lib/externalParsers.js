@@ -435,26 +435,90 @@ export function parseGitea(data) {
 }
 
 // --- GitLab -----------------------------------------------------------------
-// Accepts an array of issues (GET /projects/{id}/issues). GitLab uses
-// state "opened"/"closed", string labels, and assignee.username.
+// Accepts an array of issues (GET /projects/{id}/issues, Issues API v4) or
+// { issues }. Brought to the Format-Coverage contract (#2698) the way the
+// GitHub/Gitea adapter was: state, labels (strings or with_labels_details
+// objects), every assignee, author, milestone, iteration, weight, due date,
+// time stats, task completion, links and URL, plus embedded `notes` and
+// `links` when the exporting client fetched them. Anything with no place in
+// a card is kept as a tag or reported in `unsupported`, never dropped.
+const GITLAB_LINK_TYPES = { relates_to: 'related-to', blocks: 'blocks', is_blocked_by: 'is-blocked-by' };
+function gitlabUser(user) {
+  return (user && (user.username || user.name)) || undefined;
+}
 export function parseGitlab(data) {
   const issues = Array.isArray(data) ? data : data.issues || [];
-  const tasks = issues.map(issue => ({
-    externalId: issue.iid != null ? String(issue.iid) : issue.id != null ? String(issue.id) : undefined,
-    title: issue.title || 'Imported issue',
-    description: issue.description || '',
-    column_name: issue.state === 'closed' ? 'Closed' : 'Open',
-    swimlane_name: 'Default',
-    date_due: issue.due_date || (issue.milestone && issue.milestone.due_date),
-    owner_username: issue.assignee && issue.assignee.username,
-    requested_by: issue.author && (issue.author.username || issue.author.name),
-    tags: (issue.labels || []).map(l => (typeof l === 'string' ? l : l.name)),
-  }));
+  const unsupported = [];
+  const warnings = [];
+  const tasks = issues.map((issue, index) => {
+    const path = `/${index}`;
+    const tags = (issue.labels || []).map(l => (typeof l === 'string' ? l : l && l.name)).filter(Boolean);
+    const milestoneTitle = issue.milestone && issue.milestone.title;
+    if (milestoneTitle) tags.push(`milestone:${milestoneTitle}`);
+    if (issue.iteration && issue.iteration.title) tags.push(`iteration:${issue.iteration.title}`);
+    if (issue.issue_type && issue.issue_type !== 'issue') tags.push(`type:${issue.issue_type}`);
+    if (issue.confidential) {
+      tags.push('confidential');
+      warnings.push(`${path}: confidential in GitLab; on the board, the board's visibility decides who can read it`);
+    }
+    const assignees = (Array.isArray(issue.assignees) && issue.assignees.length ? issue.assignees
+      : (issue.assignee ? [issue.assignee] : [])).map(gitlabUser).filter(Boolean);
+    const custom = {};
+    if (typeof issue.weight === 'number') custom.Weight = issue.weight;
+    const stats = issue.time_stats || {};
+    if (Number(stats.time_estimate) > 0) custom['Time estimate (hours)'] = Math.round(Number(stats.time_estimate) / 36) / 100;
+    const completion = issue.task_completion_status;
+    if (completion && Number(completion.count) > 0) {
+      custom.Tasks = `${Number(completion.completed_count) || 0}/${Number(completion.count)}`;
+    }
+    const notes = Array.isArray(issue.notes) ? issue.notes : null;
+    const comments = (notes || [])
+      .filter(note => note && !note.system && typeof note.body === 'string' && note.body.trim())
+      .map(note => ({ text: note.body, author: gitlabUser(note.author), authorName: note.author && note.author.name,
+        date: note.created_at }));
+    if (!notes && Number(issue.user_notes_count) > 0) {
+      unsupported.push({ path: `${path}/user_notes_count`,
+        reason: `${issue.user_notes_count} comment(s) exist upstream but were not embedded in this export` });
+    }
+    const dependencies = (Array.isArray(issue.links) ? issue.links : [])
+      .filter(link => link && link.iid != null)
+      .map(link => ({ ref: String(link.iid), type: GITLAB_LINK_TYPES[link.link_type] || 'related-to' }));
+    if (issue.epic || issue.epic_iid) {
+      unsupported.push({ path: `${path}/epic`, reason: 'epics are group-level in GitLab; the parent epic is not imported' });
+    }
+    const reference = (issue.references && issue.references.full)
+      || (issue.iid != null ? `#${issue.iid}` : null);
+    const footer = [reference ? `Source: ${reference}` : null, issue.web_url || null].filter(Boolean).join(' ');
+    const description = [issue.description || '', footer].filter(Boolean).join('\n\n').trim();
+    const spent = Number(stats.total_time_spent);
+    return {
+      // Sync match key: the project-scoped iid, unique within one list's source.
+      externalId: issue.iid != null ? String(issue.iid) : issue.id != null ? String(issue.id) : undefined,
+      ref: issue.iid != null ? String(issue.iid) : undefined,
+      title: issue.title || 'Imported issue',
+      description,
+      column_name: issue.state === 'closed' ? 'Closed' : 'Open',
+      swimlane_name: 'Default',
+      date_due: issue.due_date || (issue.milestone && issue.milestone.due_date) || undefined,
+      date_creation: issue.created_at || undefined,
+      date_end: issue.state === 'closed' ? (issue.closed_at || undefined) : undefined,
+      owner_username: assignees[0],
+      assignees: assignees.slice(1),
+      requested_by: gitlabUser(issue.author),
+      spent_hours: spent > 0 ? Math.round(spent / 36) / 100 : undefined,
+      tags,
+      ...(Object.keys(custom).length ? { custom_fields: custom } : {}),
+      ...(comments.length ? { comments } : {}),
+      ...(dependencies.length ? { dependencies } : {}),
+    };
+  });
   return {
     board: { name: 'Imported GitLab issues' },
     columns: [{ title: 'Open' }, { title: 'Closed' }],
     swimlanes: [{ name: 'Default' }],
     tasks,
+    warnings,
+    unsupported,
   };
 }
 

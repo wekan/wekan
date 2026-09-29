@@ -27,10 +27,19 @@ function issueRules(type, issue, estimateMapping, timeMappings) {
     } };
   }
   if (type === 'gitlab') {
+    // #2698: everything parseGitlab now carries. `epic` stays unmapped (group
+    // level) and is reported by the parser's own loss report too.
     return { iid: mapped('externalId'), id: issue.iid == null ? mapped('externalId') : unusedFallback,
       title: mapped('title'), description: mapped('description'), state: mapped('column_name'),
-      due_date: mapped('date_due'), milestone: mapped('date_due'), assignee: mapped('owner_username'),
-      author: mapped('requested_by'), labels: mapped('tags') };
+      due_date: mapped('date_due'), milestone: mapped('tags'), iteration: mapped('tags'),
+      issue_type: mapped('tags'), confidential: mapped('tags'),
+      assignee: Array.isArray(issue.assignees) && issue.assignees.length ? unusedFallback : mapped('owner_username'),
+      assignees: mapped('owner_username'), author: mapped('requested_by'), labels: mapped('tags'),
+      references: mapped('description', true), web_url: mapped('description', true),
+      created_at: mapped('date_creation'), closed_at: mapped('date_end'),
+      weight: mapped('custom_fields'), time_stats: mapped('custom_fields', true),
+      task_completion_status: mapped('custom_fields', true), notes: mapped('comments', true),
+      user_notes_count: issue.notes ? unusedFallback : mapped('unsupported'), links: mapped('dependencies', true) };
   }
   // GitHub, Gitea and Forgejo all use parseIssuesArray.
   return { number: mapped('externalId'), id: issue.number == null ? mapped('externalId') : unusedFallback,

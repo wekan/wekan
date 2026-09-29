@@ -69,6 +69,18 @@ followers, cross-list references and formula results. Zenkit's API entries
 are read with the value keys its API client documents; its single-file export
 remains unverified because no schema is published.
 
+GitLab ([#2698](https://github.com/wekan/wekan/issues/2698)) now meets the
+same contract as GitHub: every assignee, the author, creation and close dates,
+time spent, labels with details, milestone, iteration, issue type and
+confidentiality as tags, weight, time estimate and task completion as custom
+fields, embedded `notes` as comments (system notes skipped), embedded `links`
+as dependencies, and the `group/project#iid` reference and web URL at the end
+of the description. A confidential issue is warned about, because on the board
+the board's visibility decides who reads it. Epics, which are group-level, and
+comments that exist upstream but were not embedded are reported in
+`unsupported`. List Sync still writes only title, description and time fields
+on existing cards; the others apply when a card is created.
+
 An import with losses records one `import-completed-with-warnings` row in
 Admin Panel → Problems → Recovery, with the board, the importing user and a
 bounded list of paths and reasons (`models/lib/importLossReport.js`). A
