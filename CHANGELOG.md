@@ -2168,7 +2168,7 @@ and has the following developer-tooling fix:
 
 and updates the following translations:
 
-**Languages updated:** Finnish, Arabic, Algerian Arabic, Egyptian Arabic.
+**Languages updated:** Finnish, Arabic, Algerian Arabic, Egyptian Arabic, Turkish, Spanish, Argentine Spanish, Chilean Spanish, Colombian Spanish, Latin American Spanish, Mexican Spanish, Peruvian Spanish, Paraguayan Spanish.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ef52698fe">Complete Finnish and Arabic planning and recovery translations</a>. Thanks to xet7.</summary>
@@ -2188,6 +2188,29 @@ layout or fluent-speaker review was run.
 At this checkpoint, 230 locales still have untranslated strings. The nine
 pending Transifex source keys are also included in this batch; other locales
 still need them. The all-language translation goal remains unfinished.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ee893ed79">Complete Turkish and Spanish planning and recovery translations</a>. Thanks to xet7.</summary>
+
+Fill 2,815 missing or English values in Turkish and nine Spanish locale files,
+including the source keys pending Transifex. The Colombian `es_CO` locale also
+receives reviewed Spanish Blockly accessibility wording. Existing translations
+are preserved; reviewed keyboard legends, product names, mathematical symbols
+and shared vocabulary remain unchanged.
+
+Turkish and Spanish regression suites pass with source key order, interpolation
+tokens and no remaining placeholders checked in every affected locale. The
+all-locale URL/token suite and 21 human-preference checks pass. Finnish and
+Arabic completion checks also pass against the latest English source. Existing
+Upcoming feature and security entries retain their recorded regression
+coverage. No browser layout or fluent-speaker review was run for this batch.
+
+The translation inventory now lists 220 unfinished locales. Newly added
+English keys remain part of the all-language goal, including keys absent from
+locale files and those pending Transifex; completion must be checked again as
+features land. This is a progress checkpoint, not completion of that goal.
 
 </details>
 
