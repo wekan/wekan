@@ -6,7 +6,7 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
 (async () => {
   const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
   const en = read('en'), ru = read('ru');
-  // Scrum and recovery sections remain pending in this locale.
+  // Synchronization and recovery sections remain pending in this locale.
   assert.deepEqual(Object.keys(ru), Object.keys(en).filter(key => key in ru));
   for (const key of Object.keys(en)) {
     if (key in ru) assert.deepEqual(translationTokens(ru[key]), translationTokens(en[key]), key);
@@ -34,5 +34,15 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
   for (const scheme of ['thunderlink', 'onenote', 'javascript', 'data', 'vbscript']) {
     assert.equal(ru['automatic-linked-url-schemes-hint'].split(scheme).length - 1, 1, scheme);
   }
-  console.log('Russian filters, preferences and import warnings preserve tokens and restrictions');
+  for (const key of Object.keys(en).filter(key => key.startsWith('scrum-'))) {
+    assert.ok(ru[key]?.trim(), key);
+    assert.notEqual(ru[key], en[key], key);
+    assert.match(ru[key], /[А-Яа-яЁё]/, key);
+  }
+  assert.match(ru['scrum-report-help'], /это не нулевые оценки/);
+  assert.match(ru['scrum-daily-observations-help'], /не фиксируют каждое изменение/);
+  assert.match(ru['scrum-confirm-cancel'], /останутся назначенными/);
+  assert.notEqual(ru['scrum-category-todo'], ru['scrum-category-done']);
+  assert.equal(ru['blockly-CONTEXT_MENU_KEY'], '≣ Меню');
+  console.log('Russian filters, Scrum and preferences preserve tokens and restrictions');
 })().catch(error => { console.error(error); process.exitCode = 1; });
