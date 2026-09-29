@@ -3329,6 +3329,27 @@ translations remain; the all-language goal remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0c2d0f17a">Correct Bulgarian search help, team and diagnostic messages</a>. Thanks to xet7.</summary>
+
+Replace 75 Serbian values with Bulgarian for advanced search help, reports,
+loading indicators, teams, invitations and memory diagnostics. Preserve search
+variables, shell commands and HTML entities. Restore AND/OR semantics, missing
+field searches, descending sorting and team-membership deletion restrictions.
+Memory terminology was checked against
+[Node.js V8 documentation](https://github.com/nodejs/node/blob/main/doc/api/v8.md).
+
+The Bulgarian and translation-token suites pass, together with all 21
+human-preference checks. Coverage checks vocabulary, placeholders, search logic,
+case-insensitive matching, archive exclusion, sort order, shell commands,
+invitations and memory-label distinctions. Browser layout and fluent-speaker
+review were not run. Existing Upcoming entries retain their recorded regression
+evidence. More wrong-language values and missing translations remain, including
+new English strings being added by feature work. The all-language goal remains
+unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
