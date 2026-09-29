@@ -424,6 +424,7 @@ template(name='tableVisibilityModeSettings')
           input.wekan-form-control#legalNoticevalue(type="text", placeholder="" value="{{currentSetting.legalNotice}}")
       li.tableVisibilityMode-form
         .title {{_ 'automatic-linked-url-schemes'}}
+        .description {{_ 'automatic-linked-url-schemes-hint'}}
         .form-group
           textarea#automatic-linked-url-schemes.wekan-form-control(data-editor-submit=".js-visibility-url-save")= currentSetting.automaticLinkedUrlSchemes
       li

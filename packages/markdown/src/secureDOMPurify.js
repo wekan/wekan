@@ -24,8 +24,30 @@ const MATHML_ATTR = [
   'selection',
 ];
 
+// wekan/wekan#3218: the link rule with the administrator's custom URL schemes
+// added. The app parses the setting (models/lib/urlSchemeAllowlist.js, which
+// has the same builder and refuses javascript:, data: and the rest); this
+// package cannot import app code, so it keeps this copy, and
+// tests/urlSchemeAllowlist.test.cjs checks the two agree.
+const SCHEME_NAME = /^[a-z][a-z0-9+.-]{0,31}$/;
+// Never linked whatever the list says - the same set as the app's parser.
+const NEVER_LINKED = [
+  'javascript', 'vbscript', 'livescript', 'data', 'blob', 'about', 'filesystem',
+  'view-source', 'jar', 'wyciwyg', 'ms-its', 'mhtml', 'res',
+];
+export function linkableSchemes(schemes) {
+  return (Array.isArray(schemes) ? schemes : [])
+    .filter(name => typeof name === 'string' && SCHEME_NAME.test(name) && !NEVER_LINKED.includes(name));
+}
+const escapeRegExp = text => text.replace(/[.*+?^${}()|[\]\\-]/g, '\\$&');
+export function allowedUriRegExp(schemes = []) {
+  const extra = linkableSchemes(schemes).map(escapeRegExp);
+  const names = ['(?:f|ht)tps?', 'mailto', 'tel', 'callto', 'cid', 'xmpp', ...extra].join('|');
+  return new RegExp(`^(?:(?:${names}):|[^a-z]|[a-z+.\\-]+(?:[^a-z+.\\-:]|$))`, 'i');
+}
+
 // Centralized secure DOMPurify configuration to prevent XSS and CSS injection attacks
-export function getSecureDOMPurifyConfig() {
+export function getSecureDOMPurifyConfig(urlSchemes = []) {
   return {
     // Allow common markdown elements including anchor tags, plus MathML for Temml math.
     // wekan/wekan#2419: 'input' is allowed so a GFM task-list checkbox
@@ -37,7 +59,8 @@ export function getSecureDOMPurifyConfig() {
     // 'type', 'checked', 'disabled' are for the task-list checkbox above (#2419).
     ALLOWED_ATTR: ['href', 'title', 'alt', 'src', 'width', 'height', 'target', 'rel', 'type', 'checked', 'disabled', ...MATHML_ATTR],
     // Allow safe protocols for links
-    ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|cid|xmpp):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i,
+    // Plus any custom schemes the administrator listed (#3218).
+    ALLOWED_URI_REGEXP: allowedUriRegExp(urlSchemes),
     // Allow unknown protocols but be cautious
     ALLOW_UNKNOWN_PROTOCOLS: false,
     // Sanitize DOM for security

@@ -60,15 +60,16 @@ function extract(name) {
 }
 const validateSchemeTail = extract('validateSchemeTail');
 
-function schemesFromSource() {
-  const start = source.indexOf('var urlschemes = [');
-  const end = source.indexOf('];', start);
-  assert.ok(start !== -1 && end !== -1, 'the scheme list is gone');
-  return source.slice(start, end)
-    .match(/"[a-z]+"/g)
-    .map(s => s.replace(/"/g, ''));
-}
-const SCHEMES = schemesFromSource();
+// #3218 (maintainer decision 2026-09-29): the eight schemes that used to be
+// hardcoded in the package are now whatever an administrator lists in
+// Admin Panel → Features → URL, off by default. They stay here as a
+// representative allowlist - the schemes real installations asked for - so
+// every crash check below still runs against them.
+// tests/urlSchemeAllowlist.test.cjs covers the allowlist itself.
+const SCHEMES = ['aodroplink', 'thunderlink', 'cbthunderlink', 'onenote', 'file', 'abasurl', 'conisio', 'mailspring'];
+assert.ok(!/var urlschemes = \[/.test(source), 'no hardcoded scheme list is registered any more');
+assert.match(source, /Markdown\.linkify\.add\(name \+ ':', \{ validate: validateSchemeTail \}\)/,
+  'every scheme the allowlist registers still carries its own validate (#6588)');
 
 async function linkifyLike(register) {
   const { LinkifyIt } = await import('linkify-it');
@@ -98,7 +99,7 @@ test('every scheme WeKan registers has a working validate now', async () => {
     const entry = linkify.__schemas__[scheme + ':'];
     assert.strictEqual(typeof entry.validate, 'function', `${scheme}: has no validate`);
   }
-  assert.strictEqual(SCHEMES.length, 8, 'the eight schemes are still registered');
+  assert.strictEqual(SCHEMES.length, 8, 'the eight schemes installations asked for');
   assert.ok(SCHEMES.includes('file'), 'including the one from the report');
 });
 
@@ -133,13 +134,11 @@ test('markdown-it renders a card containing such a link, end to end', async () =
 
 test('a file: link renders as TEXT, and that is the honest outcome (negative)', async () => {
   // Registering the scheme makes markdown-it RECOGNISE it. Two filters then decide
-  // whether a reader gets a clickable link, and both refuse: markdown-it's own
-  // validateLink blocks file: (with javascript:, vbscript: and data:), and the
-  // viewer's DOMPurify allows only http/https/ftp/ftps/mailto/tel/callto/cid/xmpp
-  // hrefs. So this list has never produced a clickable link for any of its
-  // schemes - its only observable effect was the crash. Making them clickable
-  // means relaxing both, for schemes that launch local applications, which is a
-  // security decision (#3218) rather than part of a crash fix.
+  // whether a reader gets a clickable link: markdown-it's own validateLink blocks
+  // file: (with javascript:, vbscript: and data:), and the viewer's DOMPurify has
+  // its own URI allowlist. Plain markdown-it still refuses; since #3218 the
+  // package accepts a scheme only when an administrator listed it, which
+  // tests/urlSchemeAllowlist.test.cjs pins.
   const { default: MarkdownIt } = await import('markdown-it');
   const md = new MarkdownIt({ linkify: true });
   for (const scheme of SCHEMES) md.linkify.add(scheme + ':', { validate: validateSchemeTail });

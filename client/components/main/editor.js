@@ -6,6 +6,7 @@ import { Markdown } from 'meteor/wekan-markdown';
 import { Utils } from '/client/lib/utils';
 import { memberMatchesTerm } from '/models/lib/memberAutocomplete';
 import { internalCardPath } from '/models/lib/internalCardLink';
+import { parseAllowedUrlSchemes, hrefScheme, BUILT_IN } from '/models/lib/urlSchemeAllowlist';
 import autosize from 'autosize';
 var converter = require('@wekanteam/html-to-markdown');
 
@@ -20,6 +21,21 @@ function syncMarkdownExternalLinkPattern(setting) {
   if (current?.prefix !== pattern.prefix || current?.urlTemplate !== pattern.urlTemplate) {
     Markdown.externalLinkPattern.set(pattern);
   }
+}
+
+// wekan/wekan#3218: the custom URL schemes the administrator allows as links,
+// pushed into the wekan-markdown package (which cannot read settings) and
+// returned for the viewer's own sanitizer pass. Same identity rule as above:
+// only set the ReactiveVar when the list actually changed.
+function syncMarkdownUrlSchemes(setting) {
+  const schemes = parseAllowedUrlSchemes(setting && setting.automaticLinkedUrlSchemes);
+  if (typeof Markdown !== 'undefined' && Markdown.urlSchemes) {
+    const current = Markdown.urlSchemes.get();
+    if (current.length !== schemes.length || current.some((name, i) => name !== schemes[i])) {
+      Markdown.urlSchemes.set(schemes);
+    }
+  }
+  return schemes;
 }
 
 const specialHandles = [
@@ -167,6 +183,7 @@ Blaze.Template.registerHelper(
     if (typeof Markdown !== 'undefined' && Markdown.externalLinkPattern) {
       syncMarkdownExternalLinkPattern(setting);
     }
+    const urlSchemes = syncMarkdownUrlSchemes(setting);
     let content = Blaze.toHTML(view.templateContentBlock);
     // Admin Panel / Features: when "render links as plain text" is enabled, every
     // link (markdown [label](url) and raw HTML <a href>) is stripped to plain,
@@ -175,7 +192,7 @@ Blaze.Template.registerHelper(
     const stripLinks = !!(setting && setting.renderLinksAsPlainText);
     const currentBoard = Utils.getCurrentBoard();
     if (!currentBoard)
-      return HTML.Raw(sanitizeHTML(content, { stripLinks }));
+      return HTML.Raw(sanitizeHTML(content, { stripLinks, urlSchemes }));
     const knowedUsers = [...new Set([...currentBoard.members
       .filter(member => member.isActive)
       .map(member => {
@@ -229,7 +246,7 @@ Blaze.Template.registerHelper(
       content = content.replace(fullMention, Blaze.toHTML(link));
     }
 
-    return HTML.Raw(sanitizeHTML(content, { stripLinks }));
+    return HTML.Raw(sanitizeHTML(content, { stripLinks, urlSchemes }));
   }),
 );
 
@@ -294,8 +311,14 @@ Template.viewer.events({
       const href = event.currentTarget.href;
       if (href) {
         const cardPath = internalCardPath(href, window.location.href);
+        const scheme = hrefScheme(href);
         if (cardPath) {
           FlowRouter.go(cardPath);
+        } else if (scheme && !BUILT_IN.includes(scheme)) {
+          // #3218: an allowed custom scheme (thunderlink:, onenote:, ...) is
+          // handed to the application registered for it by following the
+          // link in place; window.open would leave an empty tab behind.
+          window.location.assign(href);
         } else {
           window.open(href, '_blank', 'noopener');
         }
@@ -327,6 +350,7 @@ Meteor.startup(() => {
     if (typeof Markdown !== 'undefined' && Markdown.externalLinkPattern) {
       syncMarkdownExternalLinkPattern(setting);
     }
+    syncMarkdownUrlSchemes(setting);
   });
 
   // wekan/wekan#2453: wire the wekan-markdown package's card-URL relabeling

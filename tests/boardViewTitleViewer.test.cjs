@@ -33,7 +33,9 @@ test('new board fields use the shared policy-aware viewer', () => {
   assert.doesNotMatch(read('client/components/boards/timelineView.jade'), /timeline-(?:list|card)-title \{\{/);
   const editor = read('client/components/main/editor.js');
   assert.match(editor, /setting\.renderLinksAsPlainText/);
-  assert.match(editor, /sanitizeHTML\(content, \{ stripLinks \}\)/);
+  // #3218 added the custom URL-scheme allowlist beside stripLinks; the viewer
+  // still sanitizes with the "render links as plain text" option.
+  assert.match(editor, /sanitizeHTML\(content, \{ stripLinks, urlSchemes \}\)/);
 });
 
 test('chart title adapter delegates HTML, escapes SVG markup and observes settings', () => {

@@ -4,7 +4,7 @@ import * as markdownItEmoji from 'markdown-it-emoji';
 import markdownItMath from 'markdown-it-math/no-default-renderer';
 import temml from 'temml';
 import hljs from 'highlight.js/lib/common';
-import { secureSanitize } from './secureDOMPurify';
+import { secureSanitize, getSecureDOMPurifyConfig, linkableSchemes } from './secureDOMPurify';
 import { Blaze } from 'meteor/blaze';
 import { HTML } from 'meteor/htmljs';
 import { Template } from 'meteor/templating';
@@ -197,27 +197,6 @@ Markdown.escapeHtmlSource = escapeHtmlSource;
 
 //import markdownItMermaid from "@wekanteam/markdown-it-mermaid";
 
-// Static URL Scheme Listing
-var urlschemes = [
-  "aodroplink",
-  "thunderlink",
-  "cbthunderlink",
-  "onenote",
-  "file",
-  "abasurl",
-  "conisio",
-  "mailspring"
-];
-
-
-
-// Better would be a field in the admin backend to set this dynamically
-// instead of putting all known or wanted url schemes here hard into code
-// but i was not able to access those settings
-// var urlschemes = currentSetting.automaticLinkedUrlSchemes.split('\n');
-
-
-
 // #6588: a card whose description or comment contains a `file://` link could not
 // be OPENED at all - the details panel never mounted, and the swallowed exception
 // was
@@ -236,7 +215,7 @@ var urlschemes = [
 //
 // Spreading the string 'http:' gives `{0:'h',1:'t',2:'t',3:'p',4:':'}` - an entry
 // with NO validate - and `testSchemaAt` then calls `.validate(...)` on it. So
-// every one of the schemes below was a landmine: any text containing `file:`,
+// every scheme registered here was a landmine: any text containing `file:`,
 // `onenote:`, `thunderlink:` and the rest crashed the viewer, and the card holding
 // it could not be opened again.
 //
@@ -257,30 +236,45 @@ function validateSchemeTail(text, pos) {
   return link.length;
 }
 
-// WHAT THIS DOES AND DOES NOT ACHIEVE, since the list above promises more than it
-// delivers: registering a scheme here makes markdown-it RECOGNISE it as a link,
-// and two later filters then decide whether the reader gets a clickable one.
-// markdown-it's own validateLink refuses `file:` (along with javascript:,
-// vbscript: and data:), and the viewer's DOMPurify allows only
-// http/https/ftp/ftps/mailto/tel/callto/cid/xmpp hrefs (secureDOMPurify.js), so
-// EVERY scheme in this list currently has its href removed before it reaches the
-// page. They render as text, which is what they did before this fix as well - on
-// the cards that could still be opened.
+// wekan/wekan#3218: which custom schemes become links is the administrator's
+// choice (Admin Panel → Features → URL, "automaticLinkedUrlSchemes"), parsed by
+// the app with models/lib/urlSchemeAllowlist.js and pushed here by
+// client/components/main/editor.js - this package cannot import app code.
+// Off by default. A listed scheme has to pass three filters to be clickable:
+// linkify must recognise it (registered below), markdown-it's validateLink
+// must accept it (it refuses file: along with javascript:, vbscript: and
+// data:), and both sanitizer passes must allow it as a link target
+// (getSecureDOMPurifyConfig(urlSchemes) here, sanitizeHTML's urlSchemes option
+// in the viewer). javascript:, data: and the like are never in the list.
 //
-// Making them genuinely clickable means relaxing both filters, and each of these
-// schemes launches a local application, so that is a security decision (the ask in
-// #3218) and not something to slip in while fixing a crash. What is fixed here is
-// that a card containing one can be OPENED.
-//
-// Exposed for tests/markdownCustomUrlSchemes.test.cjs, which renders real
-// markdown through this configuration rather than reading it.
+// Before, eight schemes (thunderlink, onenote, file, ...) were hardcoded
+// here: recognised, then stripped by the two later filters, so none was ever
+// clickable.
+Markdown.urlSchemes = new ReactiveVar([]);
 Markdown.validateSchemeTail = validateSchemeTail;
-Markdown.customUrlSchemes = urlschemes;
 
-// put all url schemes into the linkify configuration to automatically make it clickable
-for (var i = 0; i < urlschemes.length; i++) {
-  Markdown.linkify.add(urlschemes[i] + ':', { validate: validateSchemeTail });
+let linkifiedSchemes = [];
+// Register exactly the listed schemes with linkify, removing any that were
+// taken off the list. linkify-it recompiles on add().
+function syncLinkifySchemes(list) {
+  const schemes = linkableSchemes(list);
+  if (schemes.length === linkifiedSchemes.length && schemes.every((name, i) => name === linkifiedSchemes[i])) return;
+  for (const name of linkifiedSchemes) {
+    if (!schemes.includes(name)) Markdown.linkify.add(name + ':', null);
+  }
+  for (const name of schemes) {
+    Markdown.linkify.add(name + ':', { validate: validateSchemeTail });
+  }
+  linkifiedSchemes = schemes.slice();
 }
+Markdown.syncLinkifySchemes = syncLinkifySchemes;
+
+const defaultValidateLink = Markdown.validateLink;
+Markdown.validateLink = function (url) {
+  if (defaultValidateLink.call(this, url)) return true;
+  const match = /^\s*([a-z][a-z0-9+.-]*):/i.exec(String(url || ''));
+  return !!match && linkifiedSchemes.includes(match[1].toLowerCase());
+};
 
 const emojiPlugin = markdownItEmoji.full || markdownItEmoji.default || markdownItEmoji;
 if (emojiPlugin) {
@@ -523,6 +517,9 @@ Blaze.Template.registerHelper('markdown', new Template('markdown', function () {
   // Admin Panel / Features / Security: "show all code as plain text" forces the
   // raw-source view for ALL content, not only for hidden markdown links.
   const forceRawSource = Markdown.alwaysShowCodeAsText.get();
+  // #3218: read reactively, so changing the allowlist re-renders viewers.
+  const urlSchemes = linkableSchemes(Markdown.urlSchemes.get());
+  syncLinkifySchemes(urlSchemes);
   const hasHiddenLink = text.includes("[]");
   if (forceRawSource || hasHiddenLink) {
     // Prevent hiding info: https://wekan.github.io/hall-of-fame/invisiblebleed/
@@ -569,7 +566,7 @@ Blaze.Template.registerHelper('markdown', new Template('markdown', function () {
         Markdown.resolveCardTitle,
       );
       const renderedMarkdown = Markdown.render(textWithCardLinks).replace('<!--', '<font color="red" title="Warning! Hidden HTML comment!" aria-label="Warning! Hidden HTML comment!">&lt;!--</font>').replace('-->', '<font color="red" title="Warning! Hidden HTML comment!" aria-label="Warning! Hidden HTML comment!">--&gt;</font>');
-      sanitized = secureSanitize(DOMPurify, renderedMarkdown);
+      sanitized = secureSanitize(DOMPurify, renderedMarkdown, getSecureDOMPurifyConfig(urlSchemes));
     } catch (error) {
       const message = (error && error.message) ? error.message : String(error);
       // eslint-disable-next-line no-console

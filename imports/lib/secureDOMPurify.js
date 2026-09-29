@@ -1,4 +1,5 @@
 import DOMPurify from 'dompurify';
+import { allowedUriRegExp } from '/models/lib/urlSchemeAllowlist';
 
 // Centralized secure DOMPurify configuration to prevent XSS and CSS injection attacks.
 //
@@ -13,7 +14,10 @@ export function getSecureDOMPurifyConfig(options = {}) {
     // Allow safe attributes including href for anchor tags
     ALLOWED_ATTR: ['href', 'title', 'alt', 'src', 'width', 'height', 'target', 'rel'],
     // Allow safe protocols for links
-    ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|cid|xmpp):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i,
+    // Plus the custom schemes an administrator listed (#3218, options.urlSchemes
+    // from models/lib/urlSchemeAllowlist.js, which never includes javascript:
+    // or data:).
+    ALLOWED_URI_REGEXP: allowedUriRegExp(options.urlSchemes),
     // Allow unknown protocols but be cautious
     ALLOW_UNKNOWN_PROTOCOLS: false,
     // Sanitize DOM for security

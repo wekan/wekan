@@ -27,8 +27,9 @@ const read = file => fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
 function loadViewerSanitizer(purifier) {
   const source = read('imports/lib/secureDOMPurify.js')
     .replace(/^import DOMPurify from 'dompurify';$/m, '')
+    .replace(/^import \{ allowedUriRegExp \} from '\/models\/lib\/urlSchemeAllowlist';$/m, '')
     .replace(/^export function /gm, 'function ');
-  const sandbox = { DOMPurify: purifier };
+  const sandbox = { DOMPurify: purifier, allowedUriRegExp: require('../models/lib/urlSchemeAllowlist.js').allowedUriRegExp };
   vm.runInNewContext(`${source}\nthis.sanitizeHTML = sanitizeHTML; this.getSecureDOMPurifyConfig = getSecureDOMPurifyConfig;`, sandbox);
   return sandbox;
 }
@@ -115,7 +116,7 @@ async function main() {
   }
   const integration = read('packages/markdown/src/template-integration.js');
   assert.doesNotMatch(integration, /DOMPurify\.sanitize\(/);
-  assert.match(integration, /secureSanitize\(DOMPurify, renderedMarkdown\)/);
+  assert.match(integration, /secureSanitize\(DOMPurify, renderedMarkdown, getSecureDOMPurifyConfig\(urlSchemes\)\)/);
   console.log('  ok - no dead HOOKS config remains');
 }
 
