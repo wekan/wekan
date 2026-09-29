@@ -1,7 +1,16 @@
 // The source adapters decide what each document means; this writer owns the
 // repeated persistence and old-id -> new-id bookkeeping.
 export async function writeImportedEntity(collection, document, options = {}) {
+  // Every WeKan schema's createdAt autoValue replaces the value on insert, so
+  // a creation date carried by the source (#1992) was silently reset to the
+  // import time. Write it back past the schema; nothing else is touched. Read
+  // it BEFORE inserting: collection2 cleans the document object in place.
+  const createdAt = document && document.createdAt;
   const id = await collection.direct.insertAsync(document);
+  if (createdAt instanceof Date && !Number.isNaN(createdAt.getTime())
+    && typeof collection.rawCollection === 'function') {
+    await collection.rawCollection().updateOne({ _id: id }, { $set: { createdAt } });
+  }
   if (options.touch) {
     await collection.direct.updateAsync(id, { $set: options.touch });
   }

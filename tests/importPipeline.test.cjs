@@ -50,6 +50,62 @@ async function test(name, fn) {
     assert.strictEqual(updates, 0);
   });
 
+  await test('writer restores a source createdAt that the schema autoValue replaced (#1992)', async () => {
+    const createdAt = new Date('2020-01-02T03:04:05Z');
+    const stored = {};
+    const raw = [];
+    const collection = {
+      // Like collection2, the insert rewrites the caller's document in place.
+      direct: { insertAsync: async doc => { doc.createdAt = new Date(); Object.assign(stored, doc); return 'new-id'; } },
+      rawCollection: () => ({ updateOne: async (filter, update) => { raw.push([filter, update]); Object.assign(stored, update.$set); } }),
+    };
+    await pipeline.writeImportedEntity(collection, { title: 'Card', createdAt });
+    assert.deepStrictEqual(raw, [[{ _id: 'new-id' }, { $set: { createdAt } }]]);
+    assert.strictEqual(stored.createdAt.toISOString(), '2020-01-02T03:04:05.000Z');
+  });
+
+  await test('writer does not write createdAt that is missing, invalid, or has no raw collection', async () => {
+    let rawWrites = 0;
+    const collection = {
+      direct: { insertAsync: async () => 'new-id' },
+      rawCollection: () => ({ updateOne: async () => { rawWrites += 1; } }),
+    };
+    for (const createdAt of [undefined, null, '2020-01-02', new Date('garbage'), 0]) {
+      await pipeline.writeImportedEntity(collection, { createdAt });
+    }
+    assert.strictEqual(rawWrites, 0);
+    await pipeline.writeImportedEntity({ direct: { insertAsync: async () => 'id' } }, { createdAt: new Date() });
+  });
+
+  await test('every creator inserts dated documents through the restoring writer', async () => {
+    // Each `createdAt:` that is not simply the import time is a source date,
+    // and the next insert after it must be one that keeps it: the restoring
+    // writer, or an activity (the activities schema has no createdAt autoValue).
+    const offenders = [];
+    let dated = 0;
+    for (const file of fs.readdirSync(path.join(root, 'models')).filter(f => /Creator\.js$/.test(f))) {
+      const lines = fs.readFileSync(path.join(root, 'models', file), 'utf8').split('\n');
+      lines.forEach((line, index) => {
+        const m = /^\s*createdAt: (.+?),?\s*$/.exec(line);
+        if (!m || /^(this\._now\(\)|new Date\(\)|DateString|i)$/.test(m[1])) return;
+        dated += 1;
+        // Inside an insert call's own object literal, that call is the insert;
+        // otherwise it is the next one after the document is built.
+        let next;
+        for (let j = index - 1; j >= Math.max(0, index - 20); j -= 1) {
+          if (/^\s*\}\)?;/.test(lines[j])) break;
+          if (/insertAsync\(\{|writeImportedEntity\(\w+, \{/.test(lines[j])) { next = lines[j]; break; }
+        }
+        next = next || lines.slice(index, index + 150).find(l => /insertAsync\(|writeImportedEntity\(/.test(l));
+        if (!next || !/writeImportedEntity\(|Activities\.direct\.insertAsync\(/.test(next)) {
+          offenders.push(`${file}:${index + 1} ${line.trim()} -> ${next ? next.trim() : 'no insert'}`);
+        }
+      });
+    }
+    assert.ok(dated >= 20, `found ${dated} dated inserts`);
+    assert.deepStrictEqual(offenders, []);
+  });
+
   await test('pipeline preserves adapter order and carries the board id', async () => {
     const calls = [];
     const creator = {

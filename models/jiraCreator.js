@@ -13,6 +13,7 @@ import Swimlanes from '/models/swimlanes';
 import Rules from '/models/rules';
 import Triggers from '/models/triggers';
 import Actions from '/models/actions';
+import { writeImportedEntity } from '/models/lib/importPipeline';
 import {
   DEFAULT_DEPENDENCY_TYPE,
   normalizeDependency,
@@ -231,7 +232,7 @@ export class JiraCreator {
           cardToCreate.members = [this.members[key]];
         }
       }
-      const cardId = await Cards.direct.insertAsync(cardToCreate);
+      const cardId = await writeImportedEntity(Cards, cardToCreate);
       if (issue.key) this.cardsByKey[issue.key] = cardId;
     }
   }

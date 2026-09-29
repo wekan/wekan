@@ -398,7 +398,7 @@ export class WekanCreator {
       });
     }
 
-    const boardId = await Boards.direct.insertAsync(boardToCreate);
+    const boardId = await writeImportedEntity(Boards, boardToCreate);
     await Boards.direct.updateAsync(boardId, {
       $set: {
         modifiedAt: this._now(),
@@ -546,7 +546,7 @@ export class WekanCreator {
       }
 
       // insert card
-      const cardId = await Cards.direct.insertAsync(cardToCreate);
+      const cardId = await writeImportedEntity(Cards, cardToCreate);
       // keep track of Wekan id => Wekan id
       this.cards[card._id] = cardId;
       // // log activity
@@ -578,7 +578,7 @@ export class WekanCreator {
           };
           // dateLastActivity will be set from activity insert, no need to
           // update it ourselves
-          const commentId = await CardComments.direct.insertAsync(commentToCreate);
+          const commentId = await writeImportedEntity(CardComments, commentToCreate);
           this.commentIds[comment._id] = commentId;
           // Activities.direct.insert({
           //   activityType: 'addComment',

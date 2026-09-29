@@ -282,7 +282,7 @@ export class TrelloCreator {
         boardToCreate.labels.push(labelToCreate);
       });
     }
-    const boardId = await Boards.direct.insertAsync(boardToCreate);
+    const boardId = await writeImportedEntity(Boards, boardToCreate);
     await Boards.direct.updateAsync(boardId, { $set: { modifiedAt: this._now() } });
     // log activity
     await Activities.direct.insertAsync({
@@ -520,7 +520,7 @@ export class TrelloCreator {
       }
 
       // insert card
-      const cardId = await Cards.direct.insertAsync(cardToCreate);
+      const cardId = await writeImportedEntity(Cards, cardToCreate);
       // keep track of Trello id => Wekan id
       this.cards[card.id] = cardId;
       // log activity
@@ -553,7 +553,7 @@ export class TrelloCreator {
           };
           // dateLastActivity will be set from activity insert, no need to
           // update it ourselves
-          const commentId = await CardComments.direct.insertAsync(commentToCreate);
+          const commentId = await writeImportedEntity(CardComments, commentToCreate);
           // We need to keep adding comment activities this way with Trello
           // because it doesn't provide a comment ID
           await Activities.direct.insertAsync({
