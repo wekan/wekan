@@ -1789,6 +1789,57 @@ regression coverage. Other browsers and backends were not run for this change.
 
 </details>
 
+**SAML login** - support identity providers that sign only the Assertion, and redirect login.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d6503b43f">Choose which SAML signatures are required, and log in by full-page redirect</a>. Thanks to xet7.</summary>
+
+SAML 2.0 lets an identity provider sign the Response, the Assertion or both.
+WeKan always required a signed Response - node-saml's default, never
+overridden - so an identity provider that signs only the Assertion failed with
+"Invalid document signature" before the Assertion was even checked. Admin
+Panel → People → SAML now has `SAML_IDP_PROFILE`: `standard` keeps the previous
+behaviour; `signed-assertion-redirect` requires the Assertion signature instead
+and logs in by full-page redirect. `SAML_WANT_RESPONSE_SIGNED`,
+`SAML_WANT_ASSERTIONS_SIGNED` and `SAML_LOGIN_FLOW` can each be chosen on their
+own, or left at Default to follow the profile. A configuration that requires
+neither signature is refused, and SAML validation errors now reach the
+administrator instead of "Internal server error".
+
+In redirect mode the browser leaves WeKan and returns to
+`/sign-in?samlToken=<random id>`, which the page exchanges for a login; the
+assertion never enters the address. Only a token started in the same browser
+tab is exchanged, so a link cannot sign somebody into another account.
+
+A test signs responses with a throwaway key and runs them through the shipped
+node-saml 5.1.0: an Assertion-only signature fails with the reported error under
+`standard` and succeeds under the new profile, while tampered assertions and
+wrong certificates are refused. Seven Chromium cases pass, including a full
+redirect login through the fixture identity provider and a token link opened
+in another browser. The new message is English, pending Transifex.
+
+</details>
+
+**Notifications** - due-date reminders per board.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/58d166029">Set due-date reminder days and webhook delivery per board</a>. Thanks to xet7.</summary>
+
+Board Settings → Notifications now has due-date reminders. A board's own
+offsets override `NOTIFY_DUE_DAYS_BEFORE_AND_AFTER` (an empty list turns them
+off, an empty field restores the server default), and a switch sends the
+board's reminders to all its enabled outgoing webhooks, whatever activities
+those subscribe to. The reminder scan now runs when either the environment
+variable or a board sets offsets, and writes reminders only for the offsets
+each board uses. A validated method limited to board admins stores the setting.
+
+Unit tests cover parsing, per-board selection and webhook routing; two Chromium
+cases cover the popup, invalid input and non-admin refusal. The hourly scan
+itself was not run in the browser. The new strings are English, pending
+Transifex. Fixes [#5323](https://github.com/wekan/wekan/issues/5323).
+
+</details>
+
 **Databases** - FerretDB answers MySQL range queries correctly and uses its OpLog index.
 
 <details>
