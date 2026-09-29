@@ -2494,6 +2494,11 @@ and has the following developer-tooling fix:
 - [New interface strings go to en.i18n.json only](https://github.com/wekan/wekan/commit/f49799701):
   `add-pending-keys.mjs` no longer writes locale files, which another agent
   translates. Thanks to xet7.
+- [The server Mocha suite runs in --full-app mode](https://github.com/wekan/wekan/commit/d1bfeafca):
+  26 integration tests (notification delivery, stored history, Sync hooks,
+  rule plans, webhooks) skip without it and had never run; one was failing
+  unseen and is fixed. 559 pass, none pending, and a guard keeps the runners in
+  this mode. Thanks to xet7.
 - [build.sh finds the dev server's IP address on macOS](https://github.com/wekan/wekan/commit/786b8b017):
   CUSTOM-IP no longer runs the Linux-only `ip address`, and CURRENT-IP reads
   the default-route interface instead of trying only en0 and en1. A suite runs
