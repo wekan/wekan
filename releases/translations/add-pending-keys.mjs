@@ -43,14 +43,20 @@ export function addPendingKeys(additions, { after, today = new Date().toISOStrin
     if (typeof value !== 'string' || !value.trim()) throw new Error(`${key} needs English text`);
   }
   if (after && !(after in en)) throw new Error(`--after ${after} is not an existing key`);
-  const files = fs.readdirSync(dir).filter(f => f.endsWith('.i18n.json'));
-  for (const file of files) {
-    const p = path.join(dir, file);
-    const locale = JSON.parse(fs.readFileSync(p, 'utf8'));
+  // Symlinked locales (km-KH -> km_KH) share their target's file: write each
+  // real file once. Check every file before writing any, so a refusal leaves
+  // the tree untouched.
+  const files = fs.readdirSync(dir)
+    .filter(f => f.endsWith('.i18n.json') && !fs.lstatSync(path.join(dir, f)).isSymbolicLink());
+  const updated = files.map(file => {
+    const locale = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf8'));
     for (const key of Object.keys(additions)) {
       if (key in locale) throw new Error(`${file} already has ${key}`);
     }
-    fs.writeFileSync(p, JSON.stringify(insertKeys(locale, additions, after), null, 2) + '\n');
+    return [file, insertKeys(locale, additions, after)];
+  });
+  for (const [file, locale] of updated) {
+    fs.writeFileSync(path.join(dir, file), JSON.stringify(locale, null, 2) + '\n');
   }
   const list = fs.existsSync(pending) ? JSON.parse(fs.readFileSync(pending, 'utf8')) : { keys: [] };
   for (const key of Object.keys(additions)) list.keys.push({ key, since: today });

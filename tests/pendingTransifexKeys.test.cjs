@@ -36,6 +36,15 @@ async function main() {
     assert.throws(() => addPendingKeys({ z: '  ' }, { dir, pending }), /needs English text/);
     assert.throws(() => addPendingKeys({ z: 'Z' }, { after: 'nope', dir, pending }), /not an existing key/);
     assert.equal(read('en.i18n.json').z, undefined, 'a refused call writes nothing');
+    // A symlinked locale shares its target and is written once, not refused.
+    fs.symlinkSync('fi.i18n.json', path.join(dir, 'fi-FI.i18n.json'));
+    assert.equal(addPendingKeys({ n3: 'Three' }, { dir, pending }), 2);
+    assert.equal(read('fi-FI.i18n.json').n3, 'Three');
+    // A clash in one locale leaves every file untouched.
+    write('sv.i18n.json', { a: 'A', n1: 'x', n2: 'y', b: 'B', n3: 'z', clash: 'already' });
+    const before = read('en.i18n.json');
+    assert.throws(() => addPendingKeys({ clash: 'C' }, { dir, pending }), /sv\.i18n\.json already has clash/);
+    assert.deepEqual(read('en.i18n.json'), before);
     assert.deepEqual(Object.keys(insertKeys({ a: 1 }, { x: 2 })), ['a', 'x'], 'no anchor appends');
   } finally {
     fs.rmSync(work, { recursive: true, force: true });

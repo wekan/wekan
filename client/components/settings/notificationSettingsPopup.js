@@ -1,6 +1,9 @@
 import { ReactiveCache } from '/imports/reactiveCache';
 import { NOTIFICATION_SERVICES } from '/models/lib/notificationSettings';
 import { Utils } from '/client/lib/utils';
+import { ReactiveVar } from 'meteor/reactive-var';
+import { TAPi18n } from '/imports/i18n';
+import { parseDueReminderInput } from '/models/lib/dueNotificationConfig';
 
 // The 3-tier Notification Settings popup (see notificationSettingsPopup.jade
 // and models/lib/notificationSettings.js). `this.data().scope` is one of
@@ -33,7 +36,33 @@ function currentValue(scope, service) {
   return user && user.profile ? user.profile[profileField] : undefined;
 }
 
+Template.notificationSettingsPopup.onCreated(function () {
+  this.dueReminderMessage = new ReactiveVar('');
+  // Toggle state starts from the board and changes locally until Save.
+  const board = this.data.scope === 'board' ? currentBoard() : null;
+  this.dueRemindersOff = new ReactiveVar(Boolean(board && Array.isArray(board.dueReminderDays)
+    && board.dueReminderDays.length === 0));
+  this.dueReminderWebhook = new ReactiveVar(Boolean(board && board.dueReminderWebhook));
+});
+
 Template.notificationSettingsPopup.helpers({
+  // #5323: per-board due-date reminder offsets and webhook delivery.
+  isBoardScope() {
+    return Template.instance().data.scope === 'board';
+  },
+  dueReminderDaysText() {
+    const board = currentBoard();
+    return board && Array.isArray(board.dueReminderDays) ? board.dueReminderDays.join(', ') : '';
+  },
+  dueRemindersOff() {
+    return Template.instance().dueRemindersOff.get();
+  },
+  dueReminderWebhook() {
+    return Template.instance().dueReminderWebhook.get();
+  },
+  dueReminderMessage() {
+    return Template.instance().dueReminderMessage.get();
+  },
   isAdminScope() {
     return Template.instance().data.scope === 'admin';
   },
@@ -54,6 +83,29 @@ Template.notificationSettingsPopup.helpers({
 });
 
 Template.notificationSettingsPopup.events({
+  'click .js-due-reminder-off'(event, instance) {
+    event.preventDefault();
+    instance.dueRemindersOff.set(!instance.dueRemindersOff.get());
+  },
+  'click .js-due-reminder-webhook'(event, instance) {
+    event.preventDefault();
+    instance.dueReminderWebhook.set(!instance.dueReminderWebhook.get());
+  },
+  'submit .js-due-reminder-form'(event, instance) {
+    event.preventDefault();
+    const board = currentBoard();
+    if (!board) return;
+    const off = instance.dueRemindersOff.get();
+    const days = off ? [] : parseDueReminderInput(instance.$('.js-due-reminder-days').val());
+    if (days === undefined) {
+      instance.dueReminderMessage.set(TAPi18n.__('due-reminder-invalid'));
+      return;
+    }
+    const webhook = instance.dueReminderWebhook.get();
+    Meteor.call('setBoardDueReminders', board._id, days, webhook, error => {
+      instance.dueReminderMessage.set(TAPi18n.__(error ? 'due-reminder-invalid' : 'due-reminder-saved'));
+    });
+  },
   'click .js-notify-option'(event, instance) {
     event.preventDefault();
     const target = event.currentTarget;

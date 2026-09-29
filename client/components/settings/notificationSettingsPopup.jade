@@ -35,3 +35,22 @@ template(name="notificationSettingsPopup")
             a.flex.js-notify-option(data-service="{{service}}" data-value="false")
               .materialCheckBox(class="{{#if offSelected}}is-checked{{/if}}")
               span {{_ 'no'}}
+    if isBoardScope
+      li.due-reminder-settings
+        .title
+          i.fa.fa-clock-o
+          | {{_ 'due-reminder-heading'}}
+        form.js-due-reminder-form
+          label(for="due-reminder-days") {{_ 'due-reminder-days-label'}}
+          input#due-reminder-days.js-due-reminder-days(type="text" value="{{dueReminderDaysText}}" disabled=dueRemindersOff)
+          //- WeKan hides bare checkboxes app-wide; these follow the popup's
+          //- materialCheckBox toggles above.
+          a.flex.js-due-reminder-off(role="checkbox" aria-checked="{{#if dueRemindersOff}}true{{else}}false{{/if}}")
+            .materialCheckBox(class="{{#if dueRemindersOff}}is-checked{{/if}}")
+            span {{_ 'due-reminder-off'}}
+          a.flex.js-due-reminder-webhook(role="checkbox" aria-checked="{{#if dueReminderWebhook}}true{{else}}false{{/if}}")
+            .materialCheckBox(class="{{#if dueReminderWebhook}}is-checked{{/if}}")
+            span {{_ 'due-reminder-webhook'}}
+          if dueReminderMessage
+            p.quiet.js-due-reminder-message {{dueReminderMessage}}
+          button.primary.js-due-reminder-save(type="submit") {{_ 'save'}}

@@ -3946,13 +3946,24 @@ async function cardRemover(userId, doc) {
   await Attachments.removeAsync({ cardId: doc._id });
 }
 
-const findDueCards = async days => {
-  const seekDue = async ($from, $to, activityType) => {
+// #5323: `envDays` is the server default (NOTIFY_DUE_DAYS_BEFORE_AND_AFTER);
+// a board with its own offsets (Board Settings -> Notifications) uses those
+// instead, and an empty list there turns its reminders off.
+const findDueCards = async envDays => {
+  const { dueDaysToScan, effectiveDueDays } = require('/models/lib/dueNotificationConfig');
+  const overrides = await ReactiveCache.getBoards(
+    { dueReminderDays: { $exists: true } },
+    { fields: { dueReminderDays: 1 } },
+  );
+  const boardDays = new Map((overrides || []).map(board => [board._id, effectiveDueDays(board, envDays)]));
+  const daysFor = boardId => (boardDays.has(boardId) ? boardDays.get(boardId) : envDays || []);
+  const seekDue = async ($from, $to, activityType, day) => {
     const cards = await ReactiveCache.getCards({
       archived: false,
       dueAt: { $gte: $from, $lt: $to },
     });
     for (const card of cards) {
+      if (!daysFor(card.boardId).includes(day)) continue;
       const user = await ReactiveCache.getUser(card.userId);
       if (!user) {
         console.warn('Due date notification: user not found for card', card._id, 'userId', card.userId);
@@ -3978,9 +3989,7 @@ const findDueCards = async days => {
   startOfToday.setHours(0, 0, 0, 0);
   const aday = 3600 * 24 * 1e3;
   const then = day => new Date(startOfToday.getTime() + day * aday);
-  if (!days) return;
-  if (!days.map) days = [days];
-  for (const day of days) {
+  for (const day of dueDaysToScan(envDays, overrides)) {
     let args = [];
     if (day === 0) {
       args = [then(0), then(1), 'duenow'];
@@ -3990,18 +3999,16 @@ const findDueCards = async days => {
     } else {
       args = [then(day), then(0), 'pastdue'];
     }
-    await seekDue(...args);
+    await seekDue(...args, day);
   }
 };
 const addCronJob = debounce(
   function findDueCardsDebounced() {
     const { parseNotifyDueDays, parseNotifyDueHour } = require('/models/lib/dueNotificationConfig');
-    const envValue = process.env.NOTIFY_DUE_DAYS_BEFORE_AND_AFTER;
-    if (!envValue) {
-      return;
-    }
     // -14..14: positive = days before due, 0 = due today, negative = days past due.
-    const notifydays = parseNotifyDueDays(envValue);
+    // #5323: the scan runs even without the environment variable, because a
+    // board can set its own offsets; with neither, it finds nothing to scan.
+    const notifydays = parseNotifyDueDays(process.env.NOTIFY_DUE_DAYS_BEFORE_AND_AFTER);
     const defaultitvl = 8; // default every morning at 8am if the env var is missing/invalid
     // #3192: parseNotifyDueHour keeps a configured hour of 0 (midnight) instead of
     // the old `parseInt(..) || 8` that turned the falsy 0 into 8, and rejects
@@ -4037,6 +4044,7 @@ export {
   cardCreation,
   cardRemover,
   addCronJob,
+  findDueCards,
 };
 
 // Position history tracking methods

@@ -878,6 +878,25 @@ Boards.attachSchema(
       type: Boolean,
       optional: true,
     },
+    // #5323: this board's due-date reminder offsets (days before due, 0 = due
+    // today, negative = days past due), overriding NOTIFY_DUE_DAYS_BEFORE_AND_AFTER.
+    // Unset uses the server default; an empty list turns reminders off.
+    dueReminderDays: {
+      type: Array,
+      optional: true,
+      maxCount: 10,
+    },
+    'dueReminderDays.$': {
+      type: SimpleSchema.Integer,
+      min: -14,
+      max: 14,
+    },
+    // #5323: also send this board's due reminders to its enabled outgoing
+    // webhooks, whichever activities those webhooks subscribe to.
+    dueReminderWebhook: {
+      type: Boolean,
+      optional: true,
+    },
     allowsCardNumberOnMinicard: {
       /**
        * Does the board allows card numbers on minicard?

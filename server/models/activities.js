@@ -16,6 +16,7 @@ import { safeDeliver } from '/server/lib/webhookGuard';
 import { labelDisplayName } from '/models/lib/labelDisplayName';
 import { getFeatureFlags } from '/models/lib/featureFlags';
 import { ACTIVITY_NOTIFICATION_TITLE } from '/server/lib/activityNotificationTitle';
+import { isDueReminderDescription } from '/models/lib/dueNotificationConfig';
 const {
   boardNotificationRecipients,
 } = require('/models/lib/boardNotificationRecipients');
@@ -439,6 +440,17 @@ export async function activityWebhookIntegrations(board, description, options = 
   const integrationBoardIds = board
     ? [board._id, Integrations.Const.GLOBAL_WEBHOOK_ID]
     : [Integrations.Const.GLOBAL_WEBHOOK_ID];
+  // #5323: a board that turned on due reminders by webhook sends them to all of
+  // its own enabled webhooks; global webhooks still follow their own lists.
+  if (board && board.dueReminderWebhook === true && isDueReminderDescription(description)) {
+    return ReactiveCache.getIntegrations({
+      enabled: true,
+      $or: [
+        { boardId: board._id },
+        { boardId: Integrations.Const.GLOBAL_WEBHOOK_ID, activities: { $in: [description, 'all'] } },
+      ],
+    }, options);
+  }
   return ReactiveCache.getIntegrations({
     boardId: { $in: integrationBoardIds },
     enabled: true,

@@ -35,4 +35,63 @@ function parseNotifyDueHour(envValue, defaultHour = 8) {
   return hour;
 }
 
-export { parseNotifyDueDays, parseNotifyDueHour };
+// #5323: a board may set its own reminder offsets (Board Settings ->
+// Notifications), overriding NOTIFY_DUE_DAYS_BEFORE_AND_AFTER for that board.
+// Same -14..14 window as the environment variable; duplicates removed, at most
+// ten offsets, sorted. Returns null for anything that is not a usable list, so
+// a malformed value can never silence or flood a board.
+const MAX_BOARD_DUE_DAYS = 10;
+function normalizeBoardDueDays(value) {
+  if (!Array.isArray(value)) return null;
+  const days = [];
+  for (const entry of value) {
+    if (typeof entry !== 'number' || !Number.isInteger(entry) || entry < -14 || entry > 14) return null;
+    if (!days.includes(entry)) days.push(entry);
+  }
+  if (days.length > MAX_BOARD_DUE_DAYS) return null;
+  return days.sort((a, b) => b - a);
+}
+
+// The text field in Board Settings -> Notifications: "3, 1, 0, -1". Empty text
+// means "use the server default" (null); anything unusable returns undefined.
+function parseDueReminderInput(text) {
+  const trimmed = String(text == null ? '' : text).trim();
+  if (!trimmed) return null;
+  const parts = trimmed.split(',').map(part => part.trim());
+  if (parts.some(part => !/^[+-]?\d+$/.test(part))) return undefined;
+  return normalizeBoardDueDays(parts.map(Number)) || undefined;
+}
+
+// The offsets that apply to one board: its own list when it has one (an empty
+// list turns reminders off for that board), otherwise the server default.
+function effectiveDueDays(board, envDays) {
+  const own = normalizeBoardDueDays(board && board.dueReminderDays);
+  return own || (Array.isArray(envDays) ? envDays : []);
+}
+
+// Every offset the scan has to look at: the server default plus any board's.
+function dueDaysToScan(envDays, boards) {
+  const all = new Set(Array.isArray(envDays) ? envDays : []);
+  for (const board of boards || []) {
+    for (const day of normalizeBoardDueDays(board && board.dueReminderDays) || []) all.add(day);
+  }
+  return [...all].sort((a, b) => b - a);
+}
+
+// The activity types the reminder scan writes, and their webhook descriptions.
+const DUE_REMINDER_ACTIVITIES = ['duenow', 'almostdue', 'pastdue'];
+function isDueReminderDescription(description) {
+  return DUE_REMINDER_ACTIVITIES.some(type => description === `act-${type}`);
+}
+
+export {
+  parseNotifyDueDays,
+  parseNotifyDueHour,
+  normalizeBoardDueDays,
+  parseDueReminderInput,
+  effectiveDueDays,
+  dueDaysToScan,
+  isDueReminderDescription,
+  DUE_REMINDER_ACTIVITIES,
+  MAX_BOARD_DUE_DAYS,
+};
