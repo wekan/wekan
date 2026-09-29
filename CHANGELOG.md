@@ -2168,7 +2168,7 @@ and has the following developer-tooling fix:
 
 and updates the following translations:
 
-**Languages updated:** Finnish, Arabic, Algerian Arabic, Egyptian Arabic, Turkish, Spanish, Argentine Spanish, Chilean Spanish, Colombian Spanish, Latin American Spanish, Mexican Spanish, Peruvian Spanish, Paraguayan Spanish, Italian, Portuguese, Brazilian Portuguese, European Portuguese, Galician.
+**Languages updated:** Finnish, Arabic, Algerian Arabic, Egyptian Arabic, Turkish, Spanish, Argentine Spanish, Chilean Spanish, Colombian Spanish, Latin American Spanish, Mexican Spanish, Peruvian Spanish, Paraguayan Spanish, Italian, Portuguese, Brazilian Portuguese, European Portuguese, Galician, Korean.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ef52698fe">Complete Finnish and Arabic planning and recovery translations</a>. Thanks to xet7.</summary>
@@ -2274,6 +2274,28 @@ not run for this batch.
 The translation inventory now lists 213 unfinished locales. All newly added
 English keys, including those pending Transifex, remain in scope for every
 locale. The all-language translation goal remains unfinished.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/996ab518c">Complete Korean translations and localize new positioning labels</a>. Thanks to xet7.</summary>
+
+Fill 575 locale values, completing both Korean files for filters, Scrum, Sync,
+reminders, rules and delivery recovery. New before/after positioning labels
+added to English during the work are translated in all 23 completed locale
+files. Existing translations remain intact; reviewed keyboard legends,
+product names and mathematical symbols stay unchanged.
+
+Nine translation suites and 21 human-preference checks pass. Coverage checks
+current English keys, source order, interpolation tokens, Korean script and
+no remaining placeholders. Previously completed locales also pass against
+the current source. Existing Upcoming implementation entries retain their
+recorded regression evidence. Browser layout and fluent-speaker review were
+not run for this batch.
+
+The inventory lists 211 unfinished locales. New English keys remain in scope
+for every locale, including keys absent from locale files and those marked
+pending Transifex. The all-language goal remains unfinished.
 
 </details>
 
