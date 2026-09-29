@@ -11,6 +11,7 @@
 // checklists, parentCardId and customFields. A format drops what it has no
 // field for; that is the honest answer, not a loss this module invents.
 import { formatMarkdownKanban } from './markdownKanbanFormat.js';
+import { formatLeo } from './leoOutlineFormat.js';
 
 // A WeKan list maps to a "closed" issue state when its name looks terminal.
 function isClosed(listTitle) {
@@ -227,6 +228,9 @@ export const formatters = {
   // Round-trips with parseMarkdownKanban in externalParsers.js. Returns a
   // plain string, not an object - the one formatter here that does.
   markdown: formatMarkdownKanban,
+  // The Leo literate editor's .leo outline (XML): lists, cards and checklists
+  // as nested nodes. Round-trips with parseLeo in leoOutline.js.
+  leo: formatLeo,
 };
 
 export const EXTERNAL_EXPORT_FORMATS = Object.keys(formatters);

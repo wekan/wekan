@@ -69,8 +69,8 @@ Meteor.methods({
     // feature lookup, creator or write is reached before authentication.
     // String is accepted alongside Object/Array for markdown-kanban text
     // imports (models/lib/externalParsers.js parseMarkdownKanban); the
-    // 'markdown' case below is the only one that lets a string through its
-    // own per-source check().
+    // 'markdown' and 'leo' cases below are the only ones that let a string
+    // through their own per-source check().
     check(board, Match.OneOf(Object, Array, String));
     check(data, Object);
     check(importSource, String);
@@ -87,7 +87,9 @@ Meteor.methods({
     try { validateImportSourceShape(importSource, board); }
     catch (error) { throw new Meteor.Error('invalid-import-format', error.message); }
     let creator;
-    let importedBoard = sanitizeImported(board, importSource, this);
+    // A .leo outline is XML: sanitizing the raw text would strip its tags as
+    // markup. It is parsed first and the parsed tasks are sanitized instead.
+    let importedBoard = importSource === 'leo' ? board : sanitizeImported(board, importSource, this);
     switch (importSource) {
       case 'trello':
         check(board, Object);
@@ -127,6 +129,18 @@ Meteor.methods({
         check(board, String);
         importedBoard = EXTERNAL_PARSERS.markdown(importedBoard);
         creator = new KanboardCreator(data, 'markdown');
+        break;
+      case 'leo':
+        // The Leo literate editor's outline - see models/lib/leoOutline.js.
+        check(board, String);
+        if (!Meteor.isServer) return undefined;
+        try {
+          importedBoard = require('/server/lib/leoImport').parseLeo(board);
+        } catch (error) {
+          throw new Meteor.Error('invalid-import-format', error.message);
+        }
+        importedBoard = sanitizeImported(importedBoard, 'leo', this);
+        creator = new KanboardCreator(data, 'leo');
         break;
       default:
         // NextCloud Deck / OpenProject / GitHub / GitLab / Gitea / Forgejo:

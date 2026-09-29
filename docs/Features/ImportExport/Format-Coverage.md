@@ -50,6 +50,7 @@ code/API schema rather than old sample files:
 | XLSX | ECMA-376 workbook data consumed through the maintained ExcelJS fork | Multiple worksheets when documented, typed cells/dates, formulas as displayed values, custom-field columns and size/row/column bounds |
 | PDF / HTML / SVG | Export-only rendered views | Every selected visible section, Unicode, safe links/images, pagination and deterministic filenames; these are presentations, not lossless re-import formats |
 | Markdown task list | The convention markdown-kanban tools (e.g. Obsidian Kanban) use: `## List` headings, `- [ ]`/`- [x]` items | Headings as lists, checkbox state as a `done` tag, indented lines as description; a plain bulleted list with no checkboxes still imports as open cards |
+| Leo outline (`.leo`) | The [Leo](https://leo-editor.github.io/leo-editor/) literate editor's XML outline: nested `<v>` nodes with `<vh>` headlines, bodies in `<t>` joined by the node id | Top-level nodes as lists, their children as cards (body as description, a marked node as `done`), deeper nodes as checklists with their descendants as items; clones keep their headline and children; list bodies are reported as a loss; the board title travels in a `wekan_board` attribute Leo ignores |
 
 ## Current external adapter checkpoint
 

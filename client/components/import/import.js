@@ -235,7 +235,8 @@ Template.import.onCreated(function () {
     // (Obsidian Kanban and similar) - `## List name` headings, `- [ ]`/`- [x]`
     // items underneath. It is plain text, not JSON, so it is sent as-is rather
     // than parsed - models/lib/externalParsers.js does the parsing server-side.
-    if (dataSource === 'markdown') {
+    // A Leo .leo outline is XML text and is handled the same way.
+    if (dataSource === 'markdown' || dataSource === 'leo') {
       const input = this.find('.js-import-json').value;
       if (!input || !input.trim()) {
         this.setError('error-json-malformed');
@@ -447,6 +448,7 @@ const IMPORT_SOURCES = [
   { key: 'asana', name: 'Asana' },
   { key: 'zenkit', name: 'Zenkit' },
   { key: 'markdown', name: 'Markdown' },
+  { key: 'leo', name: 'Leo' },
 ];
 
 Template.import.helpers({

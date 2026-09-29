@@ -776,6 +776,7 @@
   "import-board-instruction-asana": "Paste an Asana tasks export JSON ({ \"data\": [...] } from the Asana export or GET /tasks). Tasks are grouped into sections (memberships); completed tasks go to Done.",
   "import-board-instruction-zenkit": "Paste a ZenKit list export JSON ({ \"title\", \"stages\":[...], \"items\":[...] }). Stages become lists and items become cards.",
   "import-board-instruction-markdown": "Paste a markdown task list (the convention markdown-kanban tools such as Obsidian Kanban use): \"## List name\" headings, with \"- [ ]\"/\"- [x]\" items underneath. Headings become lists and items become cards; a plain bulleted list with no checkboxes also imports, as open cards.",
+  "import-board-instruction-leo": "Paste a Leo outline (.leo file). Top-level nodes become lists, their children become cards with the node body as the description, and deeper nodes become checklists. Marked nodes import as done.",
   "import-board-instruction-trello": "In your Trello board, go to 'Menu', then 'More', 'Print and Export', 'Export JSON', and copy the resulting text.",
   "import-board-instruction-csv": "Paste in your Comma Separated Values(CSV)/ Tab Separated Values (TSV) .",
   "import-board-instruction-jira": "Paste the JSON from the Jira Cloud REST API issue search (GET /rest/api/2/search), or an equivalent { \"issues\": [...] } object. Jira statuses become lists and issues become cards. Optionally include an \"automationRules\" array to import rules.",

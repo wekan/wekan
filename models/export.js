@@ -327,10 +327,10 @@ if (Meteor.isServer) {
   // admin-only custom field check every other format has.
 
   // Generalized export to other tools: NextCloud Deck, Kanboard, OpenProject,
-  // GitHub, GitLab, Gitea, Forgejo, Jira, Asana, Zenkit, Trello, Markdown. One shared auth handler, one route per
-  // format. Every one of these formats is JSON except Markdown, which is
-  // plain text meant to be read/edited directly or opened by another
-  // markdown-kanban tool - wrapping it in `{"data": "..."}` would defeat that.
+  // GitHub, GitLab, Gitea, Forgejo, Jira, Asana, Zenkit, Trello, Markdown, Leo. One shared auth handler, one route per
+  // format. Every one of these formats is JSON except Markdown and Leo, which are
+  // plain text meant to be read/edited directly or opened by the tool they
+  // belong to - wrapping them in `{"data": "..."}` would defeat that.
   async function serveExternalExport(req, res, format) {
     const boardId = req.params.boardId;
     const board = await ReactiveCache.getBoard(boardId);
@@ -343,8 +343,10 @@ if (Meteor.isServer) {
       await require('/server/lib/adminOnlyCustomFields').assertFieldExport(boardId, user?._id);
       const built = await buildExternalExport(boardId, format,
         parseExportFields(req.query && req.query.fields, BOARD_EXPORT_FIELD_KEYS));
-      if (format === 'markdown') {
-        res.writeHead(200, { 'Content-Type': 'text/markdown; charset=utf-8' });
+      // Markdown and the Leo outline (XML) are text files of their own.
+      const textType = { markdown: 'text/markdown', leo: 'application/xml' }[format];
+      if (textType) {
+        res.writeHead(200, { 'Content-Type': `${textType}; charset=utf-8` });
         res.end(String(built == null ? '' : built));
         return;
       }
