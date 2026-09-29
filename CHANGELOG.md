@@ -106,8 +106,11 @@ for one of four stated reasons, not left unexamined:
   refused that merge from its first commit, so it is a detection category
   like `CanaryBleed`, not a fixed vulnerability.
 - **Decisions not yet built:** the parents array, first-class Jira issue
-  types, the Map board view, the import-page loss report, recovery controls,
-  and the Scrum/Sync journal work.
+  types, the Map board view, recovery controls, and the Scrum/Sync journal
+  work.
+- **Intermittent:** in a run of all seven import specs one case failed twice in
+  four runs (once seen as the `jira-time-import` case about section controls,
+  with a value mismatch); every case passes alone and in its own file.
 - **Waiting on the maintainer:** the split of issue #4790 is prepared in
   [User-Filter-4790-Split.md](docs/Features/User-Filter-4790-Split.md) with
   ready-to-run `gh issue create` commands; filing issues is a publishing step.
@@ -2222,6 +2225,23 @@ and brings the external imports up to their format contracts:
 
 **External imports** - Kanboard, Nextcloud Deck, OpenProject, Asana, Zenkit and
 Jira keep what each source has a WeKan place for, and report the rest.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f8b9f26c5">Show the import loss report on the import page</a>. Thanks to xet7.</summary>
+
+An import that completed with warnings used to open its board at once, so the
+person importing never saw what was left behind; only an administrator could,
+in Problems → Recovery. The import page now stays and lists that report, then
+opens the board from a button; a complete import opens the board as before.
+The server hands back only reports the caller's own import recorded for that
+board in the last hour, with locations and counts but no source values. The
+Chromium import cases use one helper that follows either outcome, and the audit
+case checks the Deck report on the page, none for GitLab, and none for another
+user. New strings are English, pending Transifex. (This change landed inside
+the translation commit named in the link, which shared the staging area; its
+message describes only the Bulgarian part.)
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/bc153a99f">Every external import can bring checklists, comments, dates, archive state and colors</a>. Thanks to xet7.</summary>
