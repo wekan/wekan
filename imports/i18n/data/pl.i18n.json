@@ -776,6 +776,7 @@
   "import-board-instruction-asana": "Wklej eksport JSON zadań Asana ({ \"data\": [...] } z eksportu Asana lub GET /tasks). Zadania są grupowane w sekcje (memberships); ukończone zadania trafiają do Zakończone.",
   "import-board-instruction-zenkit": "Wklej eksport JSON listy ZenKit ({ \"title\", \"stages\":[...], \"items\":[...] }). Etapy stają się listami, a elementy kartami.",
   "import-board-instruction-markdown": "Wklej listę zadań w markdown (konwencja używana przez narzędzia markdown-kanban, takie jak Obsidian Kanban): nagłówki \"## Nazwa listy\", z elementami \"- [ ]\"/\"- [x]\" poniżej. Nagłówki stają się listami, a elementy kartami; zwykła lista punktowana bez pól wyboru również jest importowana, jako otwarte karty.",
+  "import-board-instruction-leo": "Wklej konspekt Leo (plik .leo). Węzły najwyższego poziomu stają się listami, ich dzieci kartami z treścią węzła jako opisem, a głębsze węzły listami kontrolnymi. Oznaczone węzły są importowane jako ukończone.",
   "import-board-instruction-trello": "W twojej tablicy na Trello przejdź do 'Menu', następnie 'Więcej', 'Drukuj i eksportuj', 'Eksportuj jako JSON' i skopiuj wynik",
   "import-board-instruction-csv": "Wklej swoje dane w postaci wartości oddzielanych przecinkiem (CSV) lub tabulatorem (TSV)",
   "import-board-instruction-jira": "Wklej JSON z wyszukiwania zgłoszeń w Jira Cloud REST API (GET /rest/api/2/search) lub równoważny obiekt { \"issues\": [...] }. Statusy Jira stają się listami, a zgłoszenia kartami. Opcjonalnie dołącz tablicę \"automationRules\", aby zaimportować reguły.",

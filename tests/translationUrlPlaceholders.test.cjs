@@ -175,3 +175,23 @@ test('multiple-parent card controls are translated in reviewed locales', async (
   assert.match(fi['remove-parent-card'], /Ei enää tämän kortin alitehtävä/);
   assert.doesNotMatch(fi['remove-parent-card'], /poista|tuhoa/i);
 });
+
+test('Leo outline import instructions are translated in reviewed locales', async () => {
+  const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
+  const codes = ["fi", "ar", "ar-DZ", "ar-EG", "tr", "es", "es-AR", "es-CL", "es-CO", "es-LA", "es-MX", "es-PE", "es-PY", "es_CO", "it", "pt", "pt-PT", "pt_PT", "pt-BR", "gl", "gl-ES", "ko", "ko-KR", "ja", "ja-JP", "ja-HI", "zh-Hant", "zh-TW", "zh-HK", "zh", "zh-CN", "zh-Hans", "zh-GB", "zh_SG", "cmn", "fr", "fr-FR", "fr-BE", "fr-CH", "fr-CA", "de", "de-AT", "de_DE", "de-CH", "sv", "da", "nb", "nl", "nl-NL", "ro", "ro-RO", "id", "pl", "cs", "sk", "hu", "uk", "ru", "bg"];
+  const key = 'import-board-instruction-leo';
+  const source = JSON.parse(fs.readFileSync(path.join(directory, 'en.i18n.json')))[key];
+  for (const code of codes) {
+    const value = JSON.parse(fs.readFileSync(path.join(directory, code + '.i18n.json')))[key];
+    assert.ok(value?.trim(), code);
+    assert.notEqual(value, source, code);
+    assert.deepEqual(translationTokens(value), translationTokens(source), code);
+    assert.ok(value.includes('Leo'), code);
+    assert.ok(value.includes('.leo'), code);
+  }
+  const fi = JSON.parse(fs.readFileSync(path.join(directory, 'fi.i18n.json')))[key];
+  assert.match(fi, /Ylimm.*listoja/);
+  assert.match(fi, /lapsista kortteja/);
+  assert.match(fi, /syvemm.*tarkistuslistoja/);
+  assert.match(fi, /Merkityt solmut tuodaan valmiina/);
+});
