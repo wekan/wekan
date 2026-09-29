@@ -54,3 +54,48 @@ test('the trigger editor explains which variables trigger fields accept', async 
   await page.locator('.js-goto-trigger').first().click();
   await expect(page.locator('.js-trigger-vars-hint')).toContainText('{customField:Name}');
 });
+
+// #3195: the editor inserts a variable at the caret of the text field last
+// focused, and offers the board's custom fields but not admin-only ones.
+test('the rule editor inserts a picked variable into the last focused field', async ({ boardPage: page, board }) => {
+  const { navigateInApp } = require('../helpers/auth');
+  const stamp = Date.now();
+  const fields = [['Stage', false], ['Secret', true]].map(([name, adminOnly]) => ({
+    _id: `cf${name}${stamp}`, boardIds: [board.boardId], name: `${name}${stamp}`, type: 'text', settings: {}, adminOnly,
+    showOnCard: false, automaticallyOnCard: false, alwaysOnCard: false, showLabelOnMiniCard: false,
+    createdAt: new Date(), modifiedAt: new Date(),
+  }));
+  fields.forEach(field => db.insertOne('customFields', field));
+  try {
+    await navigateInApp(page, `/b/${board.boardId}/${board.slug}/rules`);
+    await page.locator('#ruleTitle').fill('Picker');
+    await page.locator('.js-goto-trigger').first().click();
+    const picker = page.locator('.js-rule-variable-picker');
+    await expect(picker.locator(`option[value="{customField:Stage${stamp}}"]`)).toHaveCount(1);
+    await expect(picker.locator(`option[value="{customField:Secret${stamp}}"]`)).toHaveCount(0);
+    await expect(picker.locator('option[value="{assignees}"]')).toHaveCount(1);
+
+    const listName = page.locator('#create-list-name');
+    await listName.fill('Stage ');
+    await listName.focus();
+    await picker.selectOption(`{customField:Stage${stamp}}`);
+    await expect(listName).toHaveValue(`Stage {customField:Stage${stamp}}`);
+    await expect(listName).toBeFocused();
+    await expect(picker).toHaveValue('');
+    // The caret follows the token: a second pick lands after the first.
+    await picker.selectOption('{members}');
+    await expect(listName).toHaveValue(`Stage {customField:Stage${stamp}}{members}`);
+    // A different field becomes the target once it is focused.
+    const swimlane = page.locator('#create-swimlane-name');
+    await swimlane.focus();
+    await picker.selectOption('{board}');
+    await expect(swimlane).toHaveValue('{board}');
+    await expect(listName).toHaveValue(`Stage {customField:Stage${stamp}}{members}`);
+
+    // The action editor has the same picker.
+    await page.locator('.js-add-create-trigger').first().click();
+    await expect(page.locator('.js-rule-variable-picker')).toBeVisible();
+  } finally {
+    fields.forEach(field => db.deleteOne('customFields', { _id: field._id }));
+  }
+});

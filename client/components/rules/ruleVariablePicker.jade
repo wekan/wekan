@@ -1,0 +1,9 @@
+//- #3195: insert a rule variable into the text field last focused in this
+  editor, so {customField:Name} and the people tokens need not be typed.
+template(name="ruleVariablePicker")
+  label.rule-variable-picker
+    span {{_ 'r-insert-variable'}}
+    select.js-rule-variable-picker
+      option(value="") -
+      each tokens
+        option(value=this) {{this}}

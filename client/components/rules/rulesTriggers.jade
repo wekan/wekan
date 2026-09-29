@@ -18,6 +18,7 @@ template(name="rulesTriggers")
             i.fa.fa-hand-pointer-o
       .triggers-main-body
         p.rules-vars-hint.js-trigger-vars-hint {{_ 'r-trigger-vars-hint'}}
+        +ruleVariablePicker
         if showBoardTrigger.get
           +boardTriggers
         else if showCardTrigger.get

@@ -475,6 +475,21 @@
   margin-inline-end: 6px;
   appearance: auto;
 }
+/* #3195: insert a variable into the text field last focused. */
+.rule-variable-picker {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5em;
+  margin: 0 0 10px;
+  color: #6b778c;
+  font-size: 0.9em;
+}
+.rule-variable-picker select {
+  width: auto;
+  max-width: 100%;
+  margin: 0;
+}
 /* #4294: which variables trigger fields accept. */
 .rules-vars-hint {
   margin: 0 0 10px;

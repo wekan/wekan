@@ -15,6 +15,7 @@ template(name="rulesActions")
           li.js-set-mail-actions
             | @
       .triggers-main-body
+        +ruleVariablePicker
         if $eq currentActions.get 'board'
           +boardActions(ruleName=data.ruleName triggerVar=data.triggerVar ruleId=data.ruleId)
         else if $eq currentActions.get 'card'
