@@ -223,6 +223,32 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
   assert.match(bg['run-restore-all-archived-migration-confirm'], /не може лесно да бъде отменено/);
   assert.match(bg['migrations-admin-only'], /Само администраторите на таблото/);
   assert.match(bg['restore-lost-cards-nothing-to-restore'], /коридори, списъци или карти/);
+  const progressKeys = ["migration-progress-details", "migration-progress-note", "step-fix-orphaned-cards", "step-convert-shared-lists", "step-validate-migration", "step-fix-avatar-urls", "step-fix-attachment-urls", "step-create-missing-lists", "step-update-cards", "step-restore-lists", "step-restore-cards", "step-fix-missing-ids", "step-scan-files", "step-fix-file-urls", "cleanup-old-jobs", "conversion-info-text", "converting-board", "converting-board-description", "cpu-cores", "cpu-usage", "current-action", "database-migrations", "duration", "estimated-time-remaining", "every-1-day", "export-monitoring", "filesystem-attachments", "force-board-scan", "gridfs-attachments", "hide-list-on-minicard", "job-details", "last-run", "memory-usage", "migrated-attachments", "migration-batch-size-description", "migration-cpu-threshold", "migration-cpu-threshold-description", "migration-delay-ms-description", "migration-info-text", "migration-markers"];
+  for (const key of progressKeys) {
+    assert.deepEqual(translationTokens(bg[key]), translationTokens(en[key]), key);
+    assert.doesNotMatch(bg[key], /[јћђљњџЈЋЂЉЊЋЏ]|поступ|списи|опорав|предмет/i, key);
+    assert.match(bg[key], /[А-Яа-я]/, key);
+  }
+  assert.match(bg['conversion-info-text'], /веднъж за всяко табло.*продължите да използвате/);
+  assert.match(bg['migration-info-text'], /веднъж.*продължава във фонов режим.*затворите браузъра/);
+  assert.match(bg['migration-batch-size-description'], /1-100/);
+  assert.match(bg['migration-cpu-threshold-description'], /на пауза.*надвиши.*10-90/);
+  assert.match(bg['migration-delay-ms-description'], /милисекунди.*100-10000/);
+  const analyticsKeys = ["migration-resume-failed", "migration-resumed", "migration-warning-text", "next", "operation-type", "refresh-monitoring", "remaining-attachments", "run-once", "s3-attachments", "s3-size", "scanning-status", "search-boards-or-operations", "showChecklistAtMinicard", "showing", "start-test-operation", "step-progress", "total-attachments", "total-operations", "unmigrated-boards", "weight", "current-step", "flow-age-days", "flow-samples", "flow-episodes", "flow-history-days", "flow-details", "flow-note-agingWip", "flow-note-blockerAnalysis", "flow-note-monteCarlo", "time-adjustment-note"];
+  for (const key of analyticsKeys) {
+    assert.deepEqual(translationTokens(bg[key]), translationTokens(en[key]), key);
+    assert.doesNotMatch(bg[key], /[јћђљњџЈЋЂЉЊЋЏ]|поступ|списи|опорав|предмет/i, key);
+    assert.match(bg[key], /[А-Яа-я]/, key);
+  }
+  assert.match(bg['migration-warning-text'], /не затваряйте.*продължи във фонов режим.*повече време/);
+  assert.match(bg['flow-note-agingWip'], /85-и персентил.*поне пет престоя.*неизвестна/);
+  assert.match(bg['flow-note-blockerAnalysis'], /неизвестно начало.*изтрити карти.*отделно/);
+  assert.match(bg['flow-note-monteCarlo'], /2 000.*UTC.*дни без завършени карти/);
+  assert.match(bg['flow-note-monteCarlo'], /горната опашка.*долната опашка/);
+  assert.match(bg['flow-note-monteCarlo'], /не е гаранция.*3 650.*няма прогноза/);
+  assert.match(bg['time-adjustment-note'], /не са отделни работни сесии.*Отрицателните стойности са корекции/);
+  assert.match(bg['time-adjustment-note'], /незаписано време не може да се отнесе/);
+  for (const [key, value] of Object.entries(bg)) assert.doesNotMatch(value, /[јћђљњџЈЋЂЉЊЋЏ]/, key);
   assert.equal(bg.swimlane, 'Коридор');
   assert.equal(bg['welcome-swimlane'], 'Етап 1');
   assert.match(bg['swimlane-height-error-message'], /положително цяло число/);
