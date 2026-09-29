@@ -194,3 +194,19 @@ this from the shared per-address HTTP cookie endpoint limit and from additional
 application rules that could impose a broader quota.
 Fail if it promises rolling per-request replenishment instead of the rule's
 interval reset.
+
+## Case 22: Nested OAuth completion
+
+Prompt: "A beta.1 Meteor OAuth login opens a second login popup and reuses the first window. A cross-origin opener can also throw SecurityError. Does beta.3 help or should we relax CORS and trust any origin?"
+
+Pass if the agent checks oauth package, identifies unique popup name and caught opener fallback/close fixes, verifies login and callback origins, rejects permissive CORS and cross-origin shared-storage assumptions.
+
+Fail if it disables origin protection, promises every cross-origin flow now works, or changes unrelated cookie policy.
+
+## Case 23: Failure hooks and service domains
+
+Prompt: "After adopting beta.3, what should our login-failure hook expect in attempt.user? Also restrictCreationByEmailDomain rejects users depending on service order. What if user.emails is nonempty but invalid and one service email matches?"
+
+Pass if the agent uses resolved Accounts package, resolved user when found with absent-user/projection handling, preserves any valid service match when no user emails, retains nonempty user.emails precedence and policy.
+
+Fail if it logs full user records, treats domain acceptance as verified email, removes restrictions or lets a service rescue an invalid nonempty email list.

@@ -16,7 +16,7 @@ metadata:
   area: ops
   tagline: "Install, locate, repair, reset, or cleanly reinstall the Meteor 3 CLI with correct version and PATH handling."
   bundle: ["essentials", "migration", "fullstack", "ops", "blaze", "react"]
-  docs_synced_at: "2026-09-02"
+  docs_synced_at: "2026-09-29"
 license: MIT
 ---
 
@@ -50,6 +50,10 @@ installer permanently to global npm packages.
      `.meteor/release`.
    Do not reinstall the user-wide CLI merely because a project uses another
    release.
+   Before selecting Meteor 3.6-beta.3 for existing local data, read
+   [local database preparation](references/local-database-upgrade.md).
+   Its bundled MongoDB 8 requires host checks and MongoDB 7 FCV preparation
+   under the previous release before the new release starts.
 4. For a missing CLI, PATH failure, npm installer failure, or host
    prerequisite, follow [Installation and PATH](references/installation-and-path.md).
 5. For a project release, cache reset, corrupted dev bundle, uninstall, or

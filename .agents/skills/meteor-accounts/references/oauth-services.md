@@ -57,6 +57,21 @@ Meteor.loginWithGoogle(
 
 `requestPermissions` is the OAuth scopes array. Optional per provider.
 
+## Meteor 3.6 login diagnostics
+
+These fixes are verified on beta.3; beta.1 lacks them. Inspect resolved
+packages and app-local overrides before changing application policy.
+
+| Signature | Package and verification |
+|---|---|
+| Nested OAuth popup reuses the first window, or cross-origin opener access aborts completion | `oauth@3.0.5-beta360.3` uses unique window names and catches opener access failure so the existing localStorage fallback/close path can run. Verify the full login on the intended origins. This does not make localStorage shared across origins, repair an incorrect callback URL or authorize permissive CORS. |
+| Login-failure hook receives a Promise as `attempt.user` | `accounts-base@3.4.0-beta360.3` awaits the user lookup before hooks. Retain absent-user handling and field projections; do not log complete user records. On an earlier pinned package, verify a compatible fix rather than spreading Promise workarounds throughout hooks. |
+| Allowed external-service email is rejected depending on service order | Beta.3 Accounts keeps a successful service-email match. A nonempty `user.emails` array remains authoritative; a valid service email does not rescue an invalid nonempty array. Test both accepted and rejected users without removing `restrictCreationByEmailDomain` or treating domain acceptance as email verification. |
+
+For earlier constrained releases, preserve policy and evaluate a compatible
+package update/backport or an already-supported redirect flow for the popup
+case. Do not force a beta upgrade or remove origin restrictions to hide it.
+
 ## Encryption at rest
 
 Add `oauth-encryption` and pass a 16-byte base64 key:
@@ -81,3 +96,4 @@ supported user token fields, such as `services.github.accessToken` or Twitter's
 
 ---
 Source: https://github.com/meteor/meteor/blob/devel/v3-docs/docs/packages/service-configuration.md
+Source: https://github.com/meteor/meteor/blob/devel/v3-docs/docs/generators/changelog/versions/3.6.0.md

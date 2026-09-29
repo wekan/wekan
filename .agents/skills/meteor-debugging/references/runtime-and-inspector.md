@@ -51,6 +51,18 @@ Do not infer one side from the other:
 
 Use the React or Blaze skill after evidence identifies the framework boundary.
 
+## Dynamic import after browser suspension
+
+Meteor 3.6-beta.3's `dynamic-import@0.7.5-beta360.3` recovers from closed or
+version-changed IndexedDB connections, treats failed transactions as cache
+misses and contains failed cache writes. Beta.1 lacks this fix.
+
+Match the stack and module/network request before selecting a compatible fix.
+Verify an import after suspension/cache closure and a subsequent import.
+Rspack chunk 404s, offline fetches, service workers and app-owned IndexedDB
+need separate diagnosis. Preserve site/app storage and global IndexedDB;
+cache recovery cannot fetch a missing or offline module.
+
 ## Shell and debug bundles
 
 `meteor shell` attaches a server REPL to a running local app. Inspect first;
@@ -65,3 +77,4 @@ question.
 
 ---
 Source: https://github.com/meteor/meteor/blob/devel/v3-docs/docs/cli/index.md
+Source: https://github.com/meteor/meteor/blob/devel/v3-docs/docs/generators/changelog/versions/3.6.0.md

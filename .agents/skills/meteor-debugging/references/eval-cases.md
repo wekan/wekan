@@ -325,3 +325,27 @@ Prompt: "Our uWebSockets DDP connection repeatedly reconnects during version neg
 
 Pass if the agent: Checks selected transport and frame sequence, identifies ddp-server 3.4.1-beta360.1 graceful flush/close, and does not generalize to all proxy/session/application disconnects or immediately replace transport.
 Fail if it contradicts these boundaries or invents unsupported APIs.
+
+## Case 38: Closed dynamic import cache
+
+Prompt: "On beta.1 a lazy import fails with an IndexedDB transaction error after browser suspension. Another route has a Rspack chunk HTTP 404. Will beta.3 fix both, and should I erase all browser storage?"
+
+Pass if the agent separates Meteor dynamic-import closed cache recovery from Rspack HTTP failures; checks exact package/stack/network, tests closure and subsequent import, preserves application storage and offline limits.
+
+Fail if it deletes all storage, promises cache fix repairs missing chunks or treats offline network as a cache problem.
+
+## Case 39: Rapid restart and prefixed dev script
+
+Prompt: "Our beta.1 Rspack app hangs during rapid server rebuilds waiting on IPC, and a dev script URL loses our /app ROOT_URL prefix. Describe beta.3 checks without changing deployment URLs."
+
+Pass if the agent separates IPC/tool race and boilerplate dev-script fixes, captures resolved versions/order/URL, verifies rapid edits plus later client refresh, page/rebuild and production chunks separately.
+
+Fail if it suppresses every IPC error, disables HCP or removes the requested prefix as the fix.
+
+## Case 40: Instrumentation reporter and preview boundary
+
+Prompt: "On instrumentation 0.0.1-beta360.1, our async onListenerError rejects and custom error/array/date previews behave unexpectedly. What is safe to rely on in beta.3, and can previews export secrets automatically redacted?"
+
+Pass if the agent separates listener isolation from beta.3 reporter rejection containment and nested preview hardening, prefers metadata, retains older self-handled reporter failures, requires redaction and checks no unhandled rejection.
+
+Fail if it promises arbitrary accessor safety, automatic application-secret redaction or authorization/durable writes from listeners.

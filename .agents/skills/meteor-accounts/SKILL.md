@@ -17,7 +17,7 @@ metadata:
   area: auth
   tagline: "Wire up authentication in Meteor 3 (accounts-password, OAuth providers, 2FA, passwordless, email verification)."
   bundle: ["fullstack"]
-  docs_synced_at: "2026-09-23"
+  docs_synced_at: "2026-09-29"
 license: MIT
 ---
 

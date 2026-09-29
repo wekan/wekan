@@ -18,6 +18,10 @@ latest installer.
 
 ## Install
 
+For Meteor 3.6-beta.3's bundled MongoDB 8, also check
+[local database platform requirements](local-database-upgrade.md#bundled-mongodb-host-requirements).
+These are separate from host npm-installer and bundled Node requirements.
+
 Use the official npm installer first:
 
 ```bash

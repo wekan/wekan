@@ -103,6 +103,21 @@ config; `meteor run` does not generate native declarations. Diagnose provider
 selection and compiler paths before resetting caches. For an upgrade, use
 `migrate-to-meteor-3`'s TypeScript reference.
 
+The following additional 3.6 fixes are verified on beta.3; beta.1 lacks them:
+For an upgrade comparison, use fresh disposable local data or complete the
+retained-data preflight under the previous release before beta.3 starts.
+
+| Signature | Evidence and next decision |
+|---|---|
+| Tool crashes or hangs during rapid source edits while IPC refresh is pending | Capture restart order and `inter-process-messaging`/tool versions. Beta.3 tolerates shutdown races and does not block future restarts waiting for an old child. Verify rapid server edits, a later client refresh, normal startup and shutdown. Do not suppress every IPC exception or disable hot code push. |
+| Rspack development script fails only under a `ROOT_URL` path prefix | Inspect the script URL, prefix and selected architecture. Beta.3's `boilerplate-generator@2.2.0-beta360.3` includes the prefix in the dev script URL. Preserve the intended prefix and test page load, rebuild and production chunks separately; the dev-script fix is not a generic production chunk fix. |
+| Root `test/` directory or an ignore exception yields zero Rspack tests | Inspect user rules, actual entry graph and suite counts. Beta.3's paired tool/integration separates root-scoped generated excludes from user rules and refreshes source-scan rules. Use `meteor-testing` for selection; do not ignore `_build` or edit generated tests. |
+
+For local MongoDB startup immediately after a beta.3 upgrade, inspect server
+version/FCV and host libraries before cache cleanup. Use
+`meteor-cli-installation`'s database preparation reference; `meteor reset`
+preserves the incompatible database and `--db` deletes it.
+
 Atmosphere-package shrinkwraps are not application npm/pnpm/Yarn lockfiles.
 Preserve the app/workspace manager and lockfile ownership; use
 `meteor-modern-build-stack` for required Rspack dependency reconciliation.

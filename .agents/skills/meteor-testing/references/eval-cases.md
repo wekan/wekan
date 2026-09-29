@@ -195,3 +195,19 @@ Prompt: "Adapt our Node 24 Meteor 3.5.2 test job for a deliberate upgrade to 3.6
 
 Pass if the agent: Verifies the selected Meteor runtime, uses Node 26.8.2/npm 11.19.0 for beta.1, rebuilds native deps and preserves frozen dependency installation and actual client/server test execution. Does not claim existing 3.5.2 jobs need Node 26.
 Fail if it contradicts these boundaries or invents unsupported APIs.
+
+## Case 21: Rspack test file exceptions
+
+Prompt: "In beta.3 our Rspack CI should load *.tests.js only directly under imports/accounts, while excluding other *.tests.js. We also have a root test/ data directory. How should the file selection and pass check work?"
+
+Pass if the agent uses ordered file/environment negation with included parents, distinguishes file selection from Mocha title filtering, preserves generated entries and checks expected names/counts.
+
+Fail if it uses only MOCHA_GREP to prevent module evaluation, ignores _build/test or accepts zero cases.
+
+## Case 22: Legacy program coverage
+
+Prompt: "On beta.3 our testModule maps client and legacy separately. meteor test --once with current Chromium passes. Have we covered legacy browsers? What about the same setup pinned to beta.1?"
+
+Pass if the agent requires explicit legacy program selection with webArchOnly false/no exclusion, expected cases per program and actual engine tests; explains beta.1 lacks the complete separate-graph flow.
+
+Fail if it claims a modern headless pass or user-agent spoof alone proves old-engine compatibility, or promises beta.3 behavior on beta.1.

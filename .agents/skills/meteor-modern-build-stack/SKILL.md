@@ -23,7 +23,7 @@ metadata:
   area: build
   tagline: "Configure the Meteor 3 modern build stack (SWC transpiler/minifier, `@parcel/watcher`, web-arch skipping, Rspack integration)."
   bundle: ["essentials"]
-  docs_synced_at: "2026-09-23"
+  docs_synced_at: "2026-09-29"
 license: MIT
 ---
 
@@ -38,7 +38,7 @@ The modern build stack is two independent tracks. Enable either or both.
    delegates app-code compilation to Rspack. Tree shaking, ESM, code
    splitting via HTTP, modern bundler plugins.
 
-Standard current `meteor create` application skeletons ship both enabled.
+Current `meteor create` application skeletons ship both enabled.
 Purposefully small or compatibility-oriented skeletons, including `minimal`
 and `legacy`, may omit Rspack or the modern flag. Inspect the generated
 `package.json` and `.meteor/packages` instead of inferring features only from
@@ -100,14 +100,9 @@ moves to Rspack; Meteor still handles Atmosphere packages and produces the
 final bundle. Requires entry points in `package.json` and no nested imports
 in app code. To migrate an existing app, use the `migrate-to-rspack` skill.
 
-Inspect `.meteor/versions`, `package.json`, and the lockfile. Meteor
-3.6-beta.1 pairs `rspack@1.4.0-beta360.1`, `@meteorjs/rspack@3.0.0-beta.2`
-and Rspack 2.2.0. Beta.0 retains 1.4.0-beta360.0/3.0.0-beta.1; 3.5.2
-retains the 1.3.0/2.2.0 integration pairing.
-See [pairings](references/rspack-config.md) and
-[dependencies/workspaces](references/meteor-3.6-workspaces.md).
-For migration, use `migrate-to-rspack`.
-
+Inspect `.meteor/versions`, `package.json`, and the lockfile. For 3.6-beta.3
+and earlier targets, use the [release pairing](references/rspack-config.md)
+and [dependency minimums](references/meteor-3.6-workspaces.md).
 Rspack transpiles TypeScript. Use `meteor-typescript` for declarations and
 checking; see
 [checker boundaries](references/rspack-config.md#typescript-declarations).
@@ -171,6 +166,9 @@ scripts/
 
 For per-command rules, set the `METEOR_IGNORE` env var.
 
+On the 3.6-beta.3 pairing, read the [test-ignore boundaries](references/meteor-3.6-workspaces.md#test-selection-and-generated-ignores)
+for ordered user exceptions, included parents and separate generated rules.
+
 Do not copy `.gitignore` into `.meteorignore` blindly. Exclude unrelated large
 trees that Meteor does not need, but never match the active Rspack build context:
 Meteor consumes its generated main and test modules during final assembly.
@@ -192,6 +190,10 @@ production output, source maps, build time, and runtime behavior.
 
 ## Production legacy builds
 
+For separate `mainModule.legacy` or exact architecture entries on 3.6-beta.3,
+read [architecture entry points](references/architecture-entrypoints.md).
+Earlier integrations retain their shared-client behavior.
+
 Dev skips `web.browser.legacy` and `web.cordova` with `"modern": true`.
 Production still ships legacy by default. To drop legacy in production
 too, add `modern` to `.meteor/platforms`:
@@ -204,19 +206,8 @@ modern
 
 ## Memory limits
 
-Rspack runs as a child process and may OOM on large apps. Raise the heap
-for tool processes temporarily when capturing evidence (Meteor 3.4.1+):
-
-```bash
-TOOL_NODE_FLAGS="--max-old-space-size=16384" meteor run
-```
-
-On Meteor 3.4.0, use `NODE_OPTIONS="--max-old-space-size=16384"`.
-
-First distinguish a one-shot build failure from growth during a long watch
-session. Audit large directories visible to Meteor and check the exact release
-for fixes. Test heap size and persistent cache as separate variables; revert a
-change that does not improve the failure or a measured memory trend.
+For tool-process OOM or growing watch memory, use the version-specific
+[heap and cache checks](references/rspack-config.md#memory-limits).
 
 ## Multiple instances
 

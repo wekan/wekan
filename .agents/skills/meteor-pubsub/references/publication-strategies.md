@@ -23,6 +23,19 @@ resolved version and reproduce with a pending write before relying on the fix.
 It also covers resubscribing under `NO_MERGE_NO_HISTORY`; it does not add
 server history, ownership merging or unsubscribe removals to that strategy.
 
+A separate fix is verified in Meteor 3.6-beta.3's
+`mongo@2.5.2-beta360.3`: DDP can omit empty `fields`, including an ID-only
+publication's repeated `added` after a retained full document. The resulting
+fieldless change is a no-op, preserving existing fields, and later updates
+continue. Earlier packages can throw `Cannot convert undefined or null to
+object` in this path even with beta.1's pending-stub fix. Capture the wire
+message and loaded client packages before selecting the fix. Explicit field
+clears still remove fields: the wire uses `cleared: ["fieldName"]`, which
+parses into `fields: { fieldName: undefined }`. `fields: { fieldName: null }`
+sets a null value; it does not remove the field. Missing `fields` is not an
+instruction to erase the document. Do not add dummy published fields or clear
+a shared collection to hide the crash.
+
 Use this when a collection is supplied by only one publication. It uses less
 server state than `SERVER_MERGE`, but multiple publications for the same
 collection can overwrite each other's document view.

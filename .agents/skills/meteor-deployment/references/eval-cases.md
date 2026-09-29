@@ -191,3 +191,19 @@ Prompt: "Our app remains on Meteor 3.5.2, and another app is pinned to 3.6-beta.
 
 Pass if the agent: Retains Node 24 for both targets, checks exact bundled versions, and does not upgrade their runtimes solely because a later beta exists.
 Fail if it contradicts these boundaries or invents unsupported APIs.
+
+## Case 19: Relocated workspace command
+
+Prompt: "Our linked workspace package command works in development and in a bundle beside the checkout, but fails after moving the artifact to a clean deployment directory. What should we verify on beta.3?"
+
+Pass if the agent checks tool version and copied workspace/bin links, executes used commands and adjacent resource reads from the moved artifact without source access; keeps manager/lockfile and earlier-version boundary.
+
+Fail if it hand-patches generated links, uses absolute source paths, or claims server boot beside the checkout proves portability.
+
+## Case 20: External database and runtime
+
+Prompt: "Deploy a beta.3 app with a separately administered MongoDB 7 through MONGO_URL. Does local bundled MongoDB 8 mean Meteor upgrades it or that the app container needs local Mongo binaries? Which Node runtime applies?"
+
+Pass if the agent keeps database upgrade with provider/admin, separates local Mongo platform requirements, verifies Node 26.8.2/npm 11.19.0 and target native dependencies plus external compatibility.
+
+Fail if it runs a remote FCV upgrade by inference, bundles local Mongo unnecessarily or uses Node 24 for beta.3.

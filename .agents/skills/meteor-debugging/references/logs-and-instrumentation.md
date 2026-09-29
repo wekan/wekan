@@ -93,6 +93,12 @@ Do not enforce authorization, reject a method, or promise durable audit writes
 from a listener. Keep validation and access checks in the actual handler.
 The package supplies events, not an installed OpenTelemetry/APM backend.
 
+For Meteor 3.6-beta.3's `instrumentation@0.0.1-beta360.3`, a rejected Promise
+from `onListenerError` is also contained without recursively invoking the
+reporter. Beta.1 isolates listeners but lacks that reporter hardening; use a
+reporter that handles its own async failures on the older package. Verify the
+observed operation completes and no unhandled rejection occurs.
+
 Arguments, results and IP addresses are off by default. Prefer selected
 metadata. If a payload is necessary, project approved fields per method:
 
@@ -109,6 +115,13 @@ sensitive Accounts methods remain redacted even with overrides. Global
 does not protect a same-named publication. `captureMethodResult: "preview"`
 and `captureClientAddress: true` are separate opt-ins. Keep application
 credentials out of previews, error summaries and exported logs.
+
+Beta.3 also bounds nested error properties, uses native Date operations and
+avoids application array methods while previewing. Beta.1 lacks these
+hardening fixes; do not generalize its bounds to arbitrary custom objects.
+Even on beta.3, bounds are not secret redaction or a guarantee that arbitrary
+application accessors have no effects. Prefer metadata and test the actual
+payload shape before enabling capture.
 
 Stop temporary handles during cleanup. `METEOR_INSTRUMENTATION_DISABLED=1`
 disables emission initially; `Instrumentation.configure({ enabled: false })`

@@ -13,6 +13,10 @@ meteor create --release <release> <path>
 
 Update an existing project and its pin:
 
+Before selecting Meteor 3.6-beta.3 for a project with local data, complete
+[MongoDB 7 to 8 preparation](local-database-upgrade.md) under the previous
+release. The same precaution applies to an explicit `--release` run override.
+
 ```bash
 meteor update --release <release>
 ```

@@ -18,7 +18,7 @@ metadata:
   area: testing
   tagline: "Set up and write Meteor 3 tests (`meteortesting:mocha`, async signatures, methods/publications, Playwright/Cypress E2E)."
   bundle: ["fullstack"]
-  docs_synced_at: "2026-09-23"
+  docs_synced_at: "2026-09-29"
 license: MIT
 ---
 
@@ -88,6 +88,11 @@ inspect `meteor.testModule` and read `references/focused-runs.md` before
 narrowing entrypoint imports. Restore every temporary focus or import change,
 then run the normal affected suite. Read the configured entrypoint paths from
 the project; do not invent paths, scripts, ports, or helpers.
+
+For 3.6-beta.3 Rspack ignore exceptions or separate legacy test entries, use
+the [architecture and ignore boundaries](references/focused-runs.md#rspack-architecture-and-ignore-boundaries).
+Check expected suites on each selected program; a modern zero-exit run is
+not proof of legacy coverage.
 
 ## Method test (server-side)
 

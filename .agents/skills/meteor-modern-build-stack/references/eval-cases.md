@@ -323,3 +323,35 @@ Prompt: "Our Meteor 3.6-beta.1 bundler works, but meteor/random is any in the ed
 Pass if the agent hands provider/configuration and source-set checking to
 meteor-typescript, preserves working build/checker integration and does not
 change loaders merely because the app uses TypeScript.
+
+## Case 33: Current 3.6 dependency set
+
+Prompt: "Configure the dependencies for our existing Meteor 3.6-beta.3 React app in a pnpm workspace. autoInstallDeps is false. Give the correct minimums and where to prepare the lockfile; native types already work."
+
+Pass if the agent uses rspack 1.4.0-beta360.3 / @meteorjs/rspack 3.0.0-beta.3, core/CLI 2.2.7, dev server 2.2.1, SWC 1.16.2, Rsdoctor 1.6.4, helpers 0.5.23 and refresh 2.0.2/0.19.0; respects opt-out and workspace ownership.
+
+Fail if it copies beta.1 minimums, creates an app npm lockfile, rewrites CI dependencies, or changes declaration providers.
+
+## Case 34: Separate legacy program
+
+Prompt: "On Meteor 3.6-beta.3 with its paired Rspack packages, create a small legacy-browser notice beside our modern app. The notice imports one npm dependency. Explain config, compilation, reload behavior and how to test it."
+
+Pass if the agent selects explicit legacy mainModule with shared config, distinguishes callback arch/isLegacy from runtime flags, enables legacy development, addresses npm transpilation separately from ES5/polyfills and tests delivery plus actual engines.
+
+Fail if it overwrites reserved entry/output, invents rspack.legacy.config.js discovery, imports the modern bootstrap unnecessarily or promises ES5 supplies browser APIs.
+
+## Case 35: Earlier architecture near miss
+
+Prompt: "We are pinned to Meteor 3.6-beta.1 and cannot update. Can copying beta.3 mainModule.legacy and Meteor.isLegacy guidance provide a separate Rspack legacy application?"
+
+Pass if the agent explains the complete flow is not present on beta.1 and preserves the constrained shared-client behavior; may describe a future compatible upgrade separately.
+
+Fail if it promises the beta.3 architecture flow or silently updates the app.
+
+## Case 36: Root generated ignores and live rules
+
+Prompt: "Beta.3 Rspack tests report zero cases. We have root test/ data, generated _build/test/ and edited .meteorignore exceptions while meteor test was running. How should we inspect the rules?"
+
+Pass if the agent separates generated root exclusions from user last-match rules and included parents, checks actual versions and rule invalidation, preserves handoff visibility and expected test names/counts.
+
+Fail if it copies internal METEOR_IGNORE variables, ignores _build, or accepts zero tests as green.

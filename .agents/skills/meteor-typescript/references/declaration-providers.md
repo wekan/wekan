@@ -93,6 +93,23 @@ Ordinary Meteor commands and a skipped native run do not delete either tree.
 
 ## Compiler configuration compatibility
 
+For Meteor 3.6, the workflow above is verified through beta.3. Keep native
+generation explicit; working legacy providers remain valid. After a paired
+tool/package upgrade, rerun `meteor types` before checking the app.
+If reaching beta.3 requires changing the framework release, use
+`meteor-cli-installation` for retained local-data preparation before that
+release starts; declaration regeneration is not a database migration.
+
+| Native declaration symptom | Beta.3 verification and earlier-version boundary |
+|---|---|
+| Relative imports/re-exports or ambient declarations break inside a generated package | Beta.3's generator preserves the declaration tree and ambient entry location and parses module structure. Beta.1 lacks these layout fixes. Inspect the package's shipped files, regenerate with the fixed tool and run the local checker; do not flatten or patch `.meteor/types`. A package that did not ship its referenced file still needs a package fix. |
+| DDP imports or subscription handles disagree with runtime | Beta.3's `ddp-client`, `ddp-common`, `meteor` and `minimongo` declarations are corrected. Match resolved package versions and regenerate. Real `Meteor.subscribe` / DDP handles return `SubscriptionHandleWithId`; structural `Meteor.SubscriptionHandle` still requires only `ready()` and `stop()`. Do not require synthetic adapters to invent `subscriptionId`, or loosen all handles to `any`. |
+
+These are declaration corrections, not new runtime methods. Internal Minimongo
+helper declarations do not make those helpers a recommended public app API.
+Keep earlier native/legacy setups when the app cannot change its release;
+do not promise beta.3 declaration fixes on beta.1 or force a provider switch.
+
 Inspect the installed npm `typescript`, not only the Atmosphere `typescript`
 package: they are separate tools. Beta.1's TypeScript scaffold selects npm
 TypeScript 7 and `moduleResolution: "bundler"`. Do not copy older docs'

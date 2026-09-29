@@ -117,3 +117,19 @@ Pass if the agent rejects editing generated adapters and directs the actual
 package-author workflow to the official Atmosphere types documentation. It
 does not claim the app-provider skill implements package publication or that
 api.types exists on every Meteor 3 release.
+
+## Case 14: Native declaration layout recovery
+
+Prompt: "Our beta.1 native generated declarations lose a package relative import and nested ambient declaration path. The package ships those files. We can update to beta.3. Should we flatten or edit .meteor/types?"
+
+Pass if the agent checks exact tool/packages, uses beta.3 layout corrections then explicit meteor types and local compiler/source inclusion checks, preserving provider config and unedited generated files.
+
+Fail if it patches generated files, adds any/skipLibCheck to hide errors, or promises the generator recreates unshipped files.
+
+## Case 15: Structural subscription handles
+
+Prompt: "On beta.3 native declarations we read subscriptionId from Meteor.subscribe and DDP.connect(...).subscribe. Our wrapper returns only ready and stop and is typed Meteor.SubscriptionHandle. Must we invent an ID for it?"
+
+Pass if the agent distinguishes concrete SubscriptionHandleWithId returns from structural SubscriptionHandle, keeps wrapper valid without synthetic IDs, checks resolved declarations/regeneration and notes older providers may differ.
+
+Fail if it makes subscriptionId mandatory for all structural handles, uses any or treats type corrections as new runtime APIs.

@@ -15,6 +15,7 @@ Match both integration packages to the Meteor release:
 | 3.5.2 | `1.3.0` | `2.2.0` | Required-dependency diagnostics, mode isolation, TypeScript config dependency tracking, and full-app/TLA fixes. |
 | 3.6-beta.0 | `1.4.0-beta360.0` | `3.0.0-beta.1` | Rspack 2.2.0, SWC React Compiler, workspace-aware installs and stable cache configuration. |
 | 3.6-beta.1 | `1.4.0-beta360.1` | `3.0.0-beta.2` | Same Rspack 2 minimums, fixed TypeScript server rebuild lifecycle; Node 26.8.2. |
+| 3.6-beta.3 | `1.4.0-beta360.3` | `3.0.0-beta.3` | Core/CLI 2.2.7, dev server 2.2.1, separate architecture graphs and corrected test ignores; Node 26.8.2. |
 
 Inspect `.meteor/versions`, `package.json`, and the lockfile. Do not install an
 arbitrary `@meteorjs/rspack` major to obtain one helper; upgrade the Meteor
@@ -81,6 +82,12 @@ Meteor SWC file based only on the generic Rspack migration guide. Inspect the
 effective configuration; extend it with `Meteor.extendSwcConfig`.
 
 ## Configuration example
+
+On Meteor 3.6-beta.3's pairing, use `Meteor.arch` and `Meteor.isLegacy` in
+the config callback for explicit architecture compilations. These are not
+runtime APIs. Read [architecture entry points](architecture-entrypoints.md)
+before selecting a legacy graph or npm transpilation rules; beta.0/beta.1
+do not supply the complete flow.
 
 ```javascript
 const { defineConfig } = require('@meteorjs/rspack');
@@ -358,6 +365,22 @@ preserve it when working. See the
 `meteor-typescript` skill for provider configuration and checking.
 If it is not installed, consult the
 [declaration guide](https://docs.meteor.com/cli/using-core-types).
+
+## Memory limits
+
+Rspack runs as a child process and may OOM on large apps. Raise the heap
+for tool processes temporarily when capturing evidence (Meteor 3.4.1+):
+
+```bash
+TOOL_NODE_FLAGS="--max-old-space-size=16384" meteor run
+```
+
+On Meteor 3.4.0, use `NODE_OPTIONS="--max-old-space-size=16384"`.
+
+First distinguish a one-shot build failure from growth during a long watch
+session. Audit large directories visible to Meteor and check the exact release
+for fixes. Test heap size and persistent cache as separate variables; revert a
+change that does not improve the failure or a measured memory trend.
 
 ---
 Source: https://github.com/meteor/meteor/blob/devel/v3-docs/docs/about/modern-build-stack/rspack-bundler-integration.md

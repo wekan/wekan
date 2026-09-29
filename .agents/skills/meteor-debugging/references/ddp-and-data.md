@@ -68,6 +68,14 @@ capture message order before deciding either applies:
 
 ## Mongo and Minimongo inspection
 
+On Meteor 3.6-beta.3, `mongo@2.5.2-beta360.3` separately fixes fieldless
+replication. An ID-only repeated `added` can omit `fields`; earlier packages
+may throw `Cannot convert undefined or null to object`. Capture that message
+and distinguish it from beta.1's pending-stub duplicate-add fix. Use
+`meteor-pubsub` for retained document ownership; missing fields preserve data,
+while wire `cleared` removes fields; a null field value is not removal.
+Do not clear shared Minimongo data.
+
 Use the local shells for read-first evidence:
 
 ```bash

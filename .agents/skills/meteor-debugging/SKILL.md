@@ -17,7 +17,7 @@ metadata:
   area: ops
   tagline: "Diagnose Meteor 3 failures across builds, server/client runtime, DDP, Mongo, tests, browsers, mobile, and production."
   bundle: ["essentials", "fullstack", "ops"]
-  docs_synced_at: "2026-09-23"
+  docs_synced_at: "2026-09-29"
 license: MIT
 ---
 
@@ -74,7 +74,7 @@ can reject the current hypothesis.
   full user documents.
 - Treat `console.log` as temporary instrumentation. Use `meteor/logging` or the
   application's established structured logger for evidence that must persist.
-- For server lifecycle evidence on Meteor 3.6-beta.1, use the optional
+- For server lifecycle evidence on Meteor 3.6-beta.1 through beta.3, use the optional
   `instrumentation` package through [Logs and instrumentation](references/logs-and-instrumentation.md).
   Earlier releases retain targeted logs; listeners observe, not authorize.
 - Use `.only` only as temporary local test focus when the runner and execution

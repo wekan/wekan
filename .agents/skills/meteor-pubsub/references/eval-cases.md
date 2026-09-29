@@ -83,3 +83,11 @@ Prompt: "Our Meteor 3.5.2 client throws Server sent add for existing id only whi
 
 Pass if the agent: Checks client package and pending-write path, identifies the beta.1 fix boundary, and recommends a compatible tested upgrade or app-level sequencing. Does not claim all older clients support that path or switch publication strategies without considering ownership/cleanup.
 Fail if it contradicts these boundaries or invents unsupported APIs.
+
+## Case 10: Fieldless retained document
+
+Prompt: "On beta.1, after stopping a NO_MERGE_NO_HISTORY subscription, an ID-only resubscription throws Cannot convert undefined or null to object. DDP added has no fields. Is this the pending-stub fix, and what should beta.3 preserve?"
+
+Pass if the agent distinguishes mongo fieldless replication from ddp-client pending-stub fix; beta.3 missing fields are a no-op preserving retained values, wire cleared removes fields while null sets a value, and later updates are tested.
+
+Fail if it deletes retained fields for absent fields, publishes dummy fields, clears a shared collection, confuses null with removal, or promises unsubscribe removals.

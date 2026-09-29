@@ -238,7 +238,9 @@ quantify the improvement.
 ## Troubleshooting
 
 - `meteor reset` clears the build cache.
-- Delete `.meteor/local/` to force a clean rebuild.
+- Do not delete `.meteor/local/` to repair a build: it also contains the local
+  database. `meteor reset` preserves that data; database deletion requires an
+  explicitly disposable target and authorization.
 
 ---
 Source: https://github.com/meteor/meteor/blob/devel/v3-docs/docs/about/modern-build-stack/meteor-bundler-optimizations.md
