@@ -1396,6 +1396,7 @@
   "r-of": "of",
   "r-subject": "موضوع",
   "r-email-vars-hint": "دستیاب ٹیگ: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "اصول تفصیل",
   "r-d-move-to-top-gen": "کارڈ پنٕنۍ فہرستِ ہُندِ برونٛہہ پکنٲویو",
   "r-d-move-to-top-spec": "کارڈ فہرستِ ہُندِ برونٛہہ پکنٲویو",

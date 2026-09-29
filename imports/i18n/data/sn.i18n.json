@@ -1396,6 +1396,7 @@
   "r-of": "ye",
   "r-subject": "Mashoko echiShona: subject",
   "r-email-vars-hint": "Zviratidzo zviripo: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Mashoko echiShona: Rule details",
   "r-d-move-to-top-gen": "fambisa kadhi ku top ye its rondedzero",
   "r-d-move-to-top-spec": "fambisa kadhi ku top ye rondedzero",

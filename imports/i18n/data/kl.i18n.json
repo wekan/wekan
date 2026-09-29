@@ -1396,6 +1396,7 @@
   "r-of": "of",
   "r-subject": "qulequtaq",
   "r-email-vars-hint": "Atugassiuutit pissutsit: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Malittarisassap paasissutissartai",
   "r-d-move-to-top-gen": "Kortsi nammineq allattorsimaffiata qulaanut nuuguk",
   "r-d-move-to-top-spec": "Kortsi allattorsimaffiup qulaanut nuuguk",

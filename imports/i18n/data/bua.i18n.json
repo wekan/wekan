@@ -1396,6 +1396,7 @@
   "r-of": "of",
   "r-subject": "гаршаг",
   "r-email-vars-hint": "Абаха тегүүд: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Дүримэй дэлгэрэнгы мэдээсэл",
   "r-d-move-to-top-gen": "Карта өөрынь жагсаалтын эхиндэ зөөхэ",
   "r-d-move-to-top-spec": "Карта жагсаалтын эхиндэ зөөхэ",

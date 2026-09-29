@@ -1396,6 +1396,7 @@
   "r-of": "of",
   "r-subject": "བརྗོད་གཞི།",
   "r-email-vars-hint": "ཐོབ་ཐུབ་པའི་ཏེག: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "སྒྲིག་སྲོལ་ཞིབ་ཕྲ།",
   "r-d-move-to-top-gen": "བྱང་བུ་དེའི་ཐོ་གཞུང་གི་སྟེང་དུ་སྤོ།",
   "r-d-move-to-top-spec": "བྱང་བུ་ཐོ་གཞུང་གི་སྟེང་དུ་སྤོ།",

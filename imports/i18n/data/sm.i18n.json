@@ -1396,6 +1396,7 @@
   "r-of": "of",
   "r-subject": "mataupu",
   "r-email-vars-hint": "Fa’ailoga o lo’o iai: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Faamatalaga o le tulafono",
   "r-d-move-to-top-gen": "Sii le pepa i le pito i luga o lana lisi",
   "r-d-move-to-top-spec": "Sii le pepa i le pito i luga o le lisi",

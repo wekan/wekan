@@ -1396,6 +1396,7 @@
   "r-of": "of",
   "r-subject": "jejer",
   "r-email-vars-hint": "Tag sing kasedhiya: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Rincian aturan",
   "r-d-move-to-top-gen": "Pindhah kertu menyang ndhuwur dhaptare",
   "r-d-move-to-top-spec": "Pindhah kertu menyang ndhuwur dhaptar",

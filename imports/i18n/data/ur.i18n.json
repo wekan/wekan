@@ -1396,6 +1396,7 @@
   "r-of": "کا",
   "r-subject": "سوبجےکت",
   "r-email-vars-hint": "دستیاب ٹیگز: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "رولے دےتایلس",
   "r-d-move-to-top-gen": "منتقل کارڈ کو توپ کا یتس فہرست",
   "r-d-move-to-top-spec": "منتقل کارڈ کو توپ کا فہرست",

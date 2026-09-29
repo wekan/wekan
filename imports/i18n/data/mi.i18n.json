@@ -1396,6 +1396,7 @@
   "r-of": "of",
   "r-subject": "kaupapa",
   "r-email-vars-hint": "Ngā tohu e wātea ana: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Ngā taipitopito ture",
   "r-d-move-to-top-gen": "Neke kāri ki runga o tōna rārangi",
   "r-d-move-to-top-spec": "Neke kāri ki runga o te rārangi",

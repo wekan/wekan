@@ -1396,6 +1396,7 @@
   "r-of": "của",
   "r-subject": "Chủ đề",
   "r-email-vars-hint": "Thẻ có sẵn: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Chi tiết quy tắc",
   "r-d-move-to-top-gen": "Di chuyển thẻ lên đầu danh sách của nó",
   "r-d-move-to-top-spec": "Di chuyển thẻ lên đầu của danh sách",

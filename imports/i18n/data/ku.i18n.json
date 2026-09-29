@@ -1396,6 +1396,7 @@
   "r-of": "of",
   "r-subject": "mijar",
   "r-email-vars-hint": "Nîşaneyên berdest: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Hûrguliyên rêbazê",
   "r-d-move-to-top-gen": "Kartê bibe serê lîsteya wê",
   "r-d-move-to-top-spec": "Kartê bibe serê lîsteyê",

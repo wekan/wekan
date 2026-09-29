@@ -1396,6 +1396,7 @@
   "r-of": "of",
   "r-subject": "sehlogo",
   "r-email-vars-hint": "Dipego tše di lego gona: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Dintlha tša molao",
   "r-d-move-to-top-gen": "Šuthišetša karata godimo ga lenaneo la yona",
   "r-d-move-to-top-spec": "Šuthišetša karata godimo ga lenaneo",

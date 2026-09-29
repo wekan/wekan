@@ -1396,6 +1396,7 @@
   "r-of": "ના",
   "r-subject": "વિષય",
   "r-email-vars-hint": "ઉપલબ્ધ ટૅગ્સ: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "નિયમ વિગતો",
   "r-d-move-to-top-gen": "કાર્ડને તેની સૂચિની ટોચ પર ખસેડો",
   "r-d-move-to-top-spec": "કાર્ડને સૂચિની ટોચ પર ખસેડો",

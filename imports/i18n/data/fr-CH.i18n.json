@@ -1396,6 +1396,7 @@
   "r-of": "sur",
   "r-subject": "sujet",
   "r-email-vars-hint": "Balises disponibles: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Détails de la règle",
   "r-d-move-to-top-gen": "Déplacer la carte en haut de sa liste",
   "r-d-move-to-top-spec": "Déplacer la carte en haut de la liste",

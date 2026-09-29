@@ -1396,6 +1396,7 @@
   "r-of": "-ից",
   "r-subject": "առարկա",
   "r-email-vars-hint": "Հասանելի պիտակներ: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Կանոնների մանրամասները",
   "r-d-move-to-top-gen": "Քարտը տեղափոխեք իր ցուցակի վերևում",
   "r-d-move-to-top-spec": "Քարտը տեղափոխեք ցուցակի վերևում",

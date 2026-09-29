@@ -1396,6 +1396,7 @@
   "r-of": "de",
   "r-subject": "gaia",
   "r-email-vars-hint": "Erabilgarri dauden etiketak: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Arauaren xehetasunak",
   "r-d-move-to-top-gen": "Eraman txartela zerrenda honen goiko aldera",
   "r-d-move-to-top-spec": "Eraman txartela zerrendaren goiko aldera",

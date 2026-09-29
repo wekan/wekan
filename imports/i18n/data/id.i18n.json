@@ -1396,6 +1396,7 @@
   "r-of": "dari",
   "r-subject": "subyek",
   "r-email-vars-hint": "Tag yang tersedia: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Perincian Peraturan",
   "r-d-move-to-top-gen": "Pindah kad ke atas senarainya",
   "r-d-move-to-top-spec": "Pindah kad ke bawah senarai",

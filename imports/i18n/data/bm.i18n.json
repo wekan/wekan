@@ -1396,6 +1396,7 @@
   "r-of": "of",
   "r-subject": "kunnafoni kun",
   "r-email-vars-hint": "Taagiw minnu bɛ sɔrɔ: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Sariya kunnafoniw",
   "r-d-move-to-top-gen": "Karata yɛlɛma ka taa a ka lisiti sanfɛ",
   "r-d-move-to-top-spec": "Karata yɛlɛma ka taa lisiti sanfɛ",

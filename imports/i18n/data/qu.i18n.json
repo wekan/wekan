@@ -1396,6 +1396,7 @@
   "r-of": "Kay willaymi: pa",
   "r-subject": "Kay willaymi: subjectta",
   "r-email-vars-hint": "Kaq etiquetakuna: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Kay willaymi: Ruleta detailsta",
   "r-d-move-to-top-gen": "Kay willaymi: Kuyuchiy Tarjeta man topta pa itsta Sinri",
   "r-d-move-to-top-spec": "Kay willaymi: Kuyuchiy Tarjeta man topta pa Sinri",

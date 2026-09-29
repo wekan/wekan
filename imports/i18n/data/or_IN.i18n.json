@@ -1396,6 +1396,7 @@
   "r-of": "ର",
   "r-subject": "ବିଷୟ",
   "r-email-vars-hint": "ଉପଲବ୍ଧ ଟାଗ୍: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "ନିୟମ ବିବରଣୀ",
   "r-d-move-to-top-gen": "କାର୍ଡକୁ ଏହାର ତାଲିକାର ଶୀର୍ଷକୁ ଘୁଞ୍ଚାନ୍ତୁ |",
   "r-d-move-to-top-spec": "କାର୍ଡକୁ ତାଲିକାର ଶୀର୍ଷକୁ ଘୁଞ୍ଚାନ୍ତୁ |",

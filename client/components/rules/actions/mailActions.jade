@@ -18,5 +18,7 @@ template(name="mailActions")
         | {{_ 'attachments'}}
       div.trigger-hint.trigger-hint-email-vars
         | {{_'r-email-vars-hint'}}
+      div.trigger-hint.trigger-hint-people-vars
+        | {{_'r-vars-people-hint'}}
     button.trigger-button.trigger-button-email.js-mail-action.js-goto-rules(type="button" aria-label="{{_ 'r-add-action'}}")
       i.fa.fa-plus(aria-hidden="true")

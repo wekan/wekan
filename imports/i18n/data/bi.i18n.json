@@ -1396,6 +1396,7 @@
   "r-of": "blong",
   "r-subject": "Tok blong sistem: subject",
   "r-email-vars-hint": "Ol tag we i stap: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Tok blong sistem: Rule details",
   "r-d-move-to-top-gen": "Movem kad long top blong its lis",
   "r-d-move-to-top-spec": "Movem kad long top blong lis",

@@ -1396,6 +1396,7 @@
   "r-of": "ya",
   "r-subject": "somo",
   "r-email-vars-hint": "Lebo zinazopatikana: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Maelezo ya kanuni",
   "r-d-move-to-top-gen": "Sogeza kadi juu ya orodha yake",
   "r-d-move-to-top-spec": "Hamisha kadi hadi juu ya orodha",

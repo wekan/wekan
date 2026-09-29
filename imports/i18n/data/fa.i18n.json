@@ -1396,6 +1396,7 @@
   "r-of": "از",
   "r-subject": "عنوان",
   "r-email-vars-hint": "برچسب‌های موجود: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "جزئیات قاعده",
   "r-d-move-to-top-gen": "انتقال کارت به ابتدای لیست خود",
   "r-d-move-to-top-spec": "انتقال کارت به ابتدای لیست",

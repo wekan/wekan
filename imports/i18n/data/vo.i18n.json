@@ -1396,6 +1396,7 @@
   "r-of": "lü",
   "r-subject": "temo",
   "r-email-vars-hint": "Tags davedön: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Rego pats",
   "r-d-move-to-top-gen": "Topätükön kadi lü löp liseda onik",
   "r-d-move-to-top-spec": "Topätükön kadi lü löp liseda",

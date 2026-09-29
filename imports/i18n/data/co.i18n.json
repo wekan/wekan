@@ -1396,6 +1396,7 @@
   "r-of": "di",
   "r-subject": "oggetto",
   "r-email-vars-hint": "Etichette dispunibule: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Dettagli di a regola",
   "r-d-move-to-top-gen": "Move la carta in cima alla sua lista",
   "r-d-move-to-top-spec": "Move la carta in cima alla lista",

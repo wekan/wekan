@@ -1396,6 +1396,7 @@
   "r-of": "of",
   "r-subject": "বিষয়",
   "r-email-vars-hint": "উপলব্ধ ট্যাগ: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "নিয়মের বিবরণ",
   "r-d-move-to-top-gen": "কার্ড তার তালিকার শীর্ষে সরান",
   "r-d-move-to-top-spec": "কার্ড তালিকার শীর্ষে সরান",

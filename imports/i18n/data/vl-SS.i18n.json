@@ -1396,6 +1396,7 @@
   "r-of": "van",
   "r-subject": "onderwerp",
   "r-email-vars-hint": "Sabor na eksisti: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Regel details",
   "r-d-move-to-top-gen": "Verplaats kaart helemaal naar boven op de lijst",
   "r-d-move-to-top-spec": "Verplaats kaart naar bovenaan op lijst",

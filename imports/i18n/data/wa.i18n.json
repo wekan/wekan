@@ -1396,6 +1396,7 @@
   "r-of": "de",
   "r-subject": "sudjet",
   "r-email-vars-hint": "Etiketes k’on pout eployî: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Détails de rèye",
   "r-d-move-to-top-gen": "Bodjî l' cåte al copete di si djivêye",
   "r-d-move-to-top-spec": "Bodjî l' cåte al copete del djivêye",

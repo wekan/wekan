@@ -1396,6 +1396,7 @@
   "r-of": "of",
   "r-subject": "oggetto",
   "r-email-vars-hint": "Etichettas disponiblas: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Dettagli da la regola",
   "r-d-move-to-top-gen": "Sposta la carta in cima ala sua glista",
   "r-d-move-to-top-spec": "Sposta la carta in cima ala glista",

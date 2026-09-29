@@ -1396,6 +1396,7 @@
   "r-of": "Latine: de",
   "r-subject": "Latine: subject",
   "r-email-vars-hint": "Tesserae disponibiles: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Latine: Regula singula",
   "r-d-move-to-top-gen": "Latine: Move scheda ad top de its index",
   "r-d-move-to-top-spec": "Latine: Move scheda ad top de index",

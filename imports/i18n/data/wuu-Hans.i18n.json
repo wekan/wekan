@@ -1396,6 +1396,7 @@
   "r-of": "的",
   "r-subject": "主题",
   "r-email-vars-hint": "可用标签：{card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "规则详情",
   "r-d-move-to-top-gen": "将卡移至列表顶部",
   "r-d-move-to-top-spec": "将卡移至列表顶部",

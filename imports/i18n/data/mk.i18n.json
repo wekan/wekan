@@ -1396,6 +1396,7 @@
   "r-of": "од",
   "r-subject": "Тема",
   "r-email-vars-hint": "Достапни ознаки: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Детайли за правилото",
   "r-d-move-to-top-gen": "Премести ја картата на врвот на нејзиниот список",
   "r-d-move-to-top-spec": "Премести ја картата на врвот на списокот",

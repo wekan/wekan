@@ -27,6 +27,10 @@
     {
       "key": "saml-login-not-started",
       "since": "2026-09-29"
+    },
+    {
+      "key": "r-vars-people-hint",
+      "since": "2026-09-29"
     }
   ]
 }

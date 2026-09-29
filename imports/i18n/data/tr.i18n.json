@@ -1396,6 +1396,7 @@
   "r-of": "ile ilgili",
   "r-subject": "Konu",
   "r-email-vars-hint": "Kullanılabilir etiketler: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Kural Detayları",
   "r-d-move-to-top-gen": "Kartı listesinin en üstüne taşı",
   "r-d-move-to-top-spec": "Kartı listenin en üstüne taşı",

@@ -1396,6 +1396,7 @@
   "r-of": "ਦੇ",
   "r-subject": "ਵਿਸ਼ਾ",
   "r-email-vars-hint": "ਉਪਲਬਧ ਟੈਗ: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "ਨਿਯਮ ਦੇ ਵੇਰਵੇ",
   "r-d-move-to-top-gen": "ਕਾਰਡ ਨੂੰ ਇਸਦੀ ਸੂਚੀ ਦੇ ਸਿਖਰ 'ਤੇ ਲੈ ਜਾਓ",
   "r-d-move-to-top-spec": "ਕਾਰਡ ਨੂੰ ਸੂਚੀ ਦੇ ਸਿਖਰ 'ਤੇ ਲੈ ਜਾਓ",

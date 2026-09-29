@@ -1396,6 +1396,7 @@
   "r-of": "of",
   "r-subject": "lohahevitra",
   "r-email-vars-hint": "Marika azo ampiasaina: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Antsipirian'ny fitsipika",
   "r-d-move-to-top-gen": "Afindrao eo an-tampon'ny lisiny ny karatra",
   "r-d-move-to-top-spec": "Afindrao eo an-tampon'ny lisitra ny karatra",

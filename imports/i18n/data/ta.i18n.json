@@ -1396,6 +1396,7 @@
   "r-of": "இன்",
   "r-subject": "பொருள்",
   "r-email-vars-hint": "கிடைக்கக்கூடிய குறிச்சொற்கள்: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "விதியின் விவரங்கள்",
   "r-d-move-to-top-gen": "அட்டையை அதன் பட்டியலின் மேலே நகர்த்து",
   "r-d-move-to-top-spec": "அட்டையைப் பட்டியலின் மேலே நகர்த்து",

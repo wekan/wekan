@@ -1396,6 +1396,7 @@
   "r-of": "Ci",
   "r-subject": "menn benn",
   "r-email-vars-hint": "Baatam yi am: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Benn-bennal yi bu ña joxe",
   "r-d-move-to-top-gen": "Yóbbu karta bi ci kaw limu bi mu nekk",
   "r-d-move-to-top-spec": "Yóbbu karta bi ci kaw limu bi",

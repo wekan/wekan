@@ -1396,6 +1396,7 @@
   "r-of": "of",
   "r-subject": "sihloko",
   "r-email-vars-hint": "Tiphawulo letikhona: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Imininingwane yemtsetfo",
   "r-d-move-to-top-gen": "Yisa likhadi etulu kweluhlu lwalo",
   "r-d-move-to-top-spec": "Yisa likhadi etulu kweluhlu",

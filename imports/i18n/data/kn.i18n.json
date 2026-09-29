@@ -1396,6 +1396,7 @@
   "r-of": "of",
   "r-subject": "ವಿಷಯ",
   "r-email-vars-hint": "ಲಭ್ಯವಿರುವ ಟ್ಯಾಗ್‌ಗಳು: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "ನಿಯಮದ ವಿವರಗಳು",
   "r-d-move-to-top-gen": "ಕಾರ್ಡ್ ಅನ್ನು ಅದರ ಪಟ್ಟಿಯ ಮೇಲ್ಭಾಗಕ್ಕೆ ಸರಿಸಿ",
   "r-d-move-to-top-spec": "ಕಾರ್ಡ್ ಅನ್ನು ಪಟ್ಟಿಯ ಮೇಲ್ಭಾಗಕ್ಕೆ ಸರಿಸಿ",

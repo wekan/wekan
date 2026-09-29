@@ -1396,6 +1396,7 @@
   "r-of": "of",
   "r-subject": "အကြောင်းအရာ",
   "r-email-vars-hint": "ရရှိနိုင်သော tag: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "စည်းမျဉ်း အသေးစိတ်",
   "r-d-move-to-top-gen": "ကတ်ကို ၎င်း၏စာရင်းထိပ်သို့ ရွှေ့ရန်",
   "r-d-move-to-top-spec": "ကတ်ကို စာရင်းထိပ်သို့ ရွှေ့ရန်",

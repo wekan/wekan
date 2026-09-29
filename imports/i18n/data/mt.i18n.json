@@ -1396,6 +1396,7 @@
   "r-of": "of",
   "r-subject": "Traduzzjoni Maltija: subject",
   "r-email-vars-hint": "Tikketti disponibbli: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Traduzzjoni Maltija: Rule details",
   "r-d-move-to-top-gen": "Mexxi kard għal top ta’ its lista",
   "r-d-move-to-top-spec": "Mexxi kard għal top ta’ lista",

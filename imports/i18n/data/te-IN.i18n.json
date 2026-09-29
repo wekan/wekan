@@ -1396,6 +1396,7 @@
   "r-of": "యొక్క",
   "r-subject": "విషయం",
   "r-email-vars-hint": "అందుబాటులో ఉన్న ట్యాగ్‌లు: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "నియమం వివరాలు",
   "r-d-move-to-top-gen": "కార్డ్‌ని దాని జాబితా ఎగువకు తరలించండి",
   "r-d-move-to-top-spec": "కార్డ్‌ని జాబితా ఎగువకు తరలించండి",

@@ -1396,6 +1396,7 @@
   "r-of": "of",
   "r-subject": "тақырып",
   "r-email-vars-hint": "Қолжетімді тегтер: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Ереже мәліметтері",
   "r-d-move-to-top-gen": "Карточканы өз тізімінің басына жылжыту",
   "r-d-move-to-top-spec": "Карточканы тізімнің басына жылжыту",

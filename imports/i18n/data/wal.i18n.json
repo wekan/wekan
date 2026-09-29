@@ -1396,6 +1396,7 @@
   "r-of": "of",
   "r-subject": "Wolayttatto: subject",
   "r-email-vars-hint": "De’iya malaatiya: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Wolayttatto: Rule details",
   "r-d-move-to-top-gen": "Wolayttatto: Laammissa kaardiya kko top iya its mazgabaa",
   "r-d-move-to-top-spec": "Wolayttatto: Laammissa kaardiya kko top iya mazgabaa",

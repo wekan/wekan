@@ -1396,6 +1396,7 @@
   "r-of": "av",
   "r-subject": "ämne",
   "r-email-vars-hint": "Tillgängliga taggar: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Regeldetaljer",
   "r-d-move-to-top-gen": "Flytta kort till toppen av sin lista",
   "r-d-move-to-top-spec": "Flytta kort till toppen av listan",

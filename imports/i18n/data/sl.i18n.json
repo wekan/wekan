@@ -1396,6 +1396,7 @@
   "r-of": "od",
   "r-subject": "zadeva",
   "r-email-vars-hint": "Razpoložljive oznake: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Podrobnosti pravila",
   "r-d-move-to-top-gen": "Premakni kartico na vrh pripadajočega sezama",
   "r-d-move-to-top-spec": "Premakni kartico na vrh seznama",

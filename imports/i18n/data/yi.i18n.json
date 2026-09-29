@@ -1396,6 +1396,7 @@
   "r-of": "פון",
   "r-subject": "אונטערטעניק",
   "r-email-vars-hint": "פֿאַראַנענע טאַגן: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "הערשן פרטים",
   "r-d-move-to-top-gen": "מאַך קאָרט צו שפּיץ פון זייַן רשימה",
   "r-d-move-to-top-spec": "מאַך קאָרט צו שפּיץ פון רשימה",

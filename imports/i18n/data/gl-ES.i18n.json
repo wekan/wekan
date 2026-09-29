@@ -1396,6 +1396,7 @@
   "r-of": "de",
   "r-subject": "assunto",
   "r-email-vars-hint": "Etiquetas dispoñibles: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Detalhes da regra",
   "r-d-move-to-top-gen": "Mover a tarxeta ao principio da súa lista",
   "r-d-move-to-top-spec": "Mover a tarxeta ao principio da lista",

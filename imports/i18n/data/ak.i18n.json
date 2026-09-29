@@ -1396,6 +1396,7 @@
   "r-of": "Nsɛm a ɛfa dwumadi yi ho",
   "r-subject": "Nsɛm a ɛfa dwumadi yi ho",
   "r-email-vars-hint": "Nsɛnkyerɛnne a ɛwɔ hɔ: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Nsɛm a ɛfa dwumadi yi ho",
   "r-d-move-to-top-gen": "Tu kaad kɔ top a its nhyehyɛe",
   "r-d-move-to-top-spec": "Tu kaad kɔ top a nhyehyɛe",

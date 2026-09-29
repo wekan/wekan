@@ -1396,6 +1396,7 @@
   "r-of": "of",
   "r-subject": "mutu",
   "r-email-vars-hint": "Zizindikiro zomwe zilipo: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Zambiri za lamulo",
   "r-d-move-to-top-gen": "Sunthani khadi pamwamba pa mndandanda wake",
   "r-d-move-to-top-spec": "Sunthani khadi pamwamba pa mndandanda",

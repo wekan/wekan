@@ -1396,6 +1396,7 @@
   "r-of": "de",
   "r-subject": "asunto",
   "r-email-vars-hint": "Etiquetas disponibles: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Detalle de la regla",
   "r-d-move-to-top-gen": "Mover la tarcheta t'o inicio de su lista",
   "r-d-move-to-top-spec": "Mover la tarcheta t'o inicio de la lista",

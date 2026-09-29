@@ -1396,6 +1396,7 @@
   "r-of": "of",
   "r-subject": "subject",
   "r-email-vars-hint": "Available tags: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Rule details",
   "r-d-move-to-top-gen": "Move card to top of its list",
   "r-d-move-to-top-spec": "Move card to top of list",

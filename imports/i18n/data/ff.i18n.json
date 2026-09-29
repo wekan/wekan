@@ -1396,6 +1396,7 @@
   "r-of": "of",
   "r-subject": "toɓɓere",
   "r-email-vars-hint": "Baynguure ngoodaaɗe: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Cariiɗe laawol",
   "r-d-move-to-top-gen": "Dirtin kartal to dow doggol mum",
   "r-d-move-to-top-spec": "Dirtin kartal to dow doggol",

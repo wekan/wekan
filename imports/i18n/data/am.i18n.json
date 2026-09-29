@@ -1396,6 +1396,7 @@
   "r-of": "of",
   "r-subject": "ርዕሰ ጉዳይ",
   "r-email-vars-hint": "ያሉ መለያዎች: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "የደንብ ዝርዝሮች",
   "r-d-move-to-top-gen": "ካርድን ወደ ዝርዝሩ ላይ አንቀሳቅስ",
   "r-d-move-to-top-spec": "ካርድን ወደ ዝርዝሩ ላይ አንቀሳቅስ",

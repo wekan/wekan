@@ -1396,6 +1396,7 @@
   "r-of": "iš",
   "r-subject": "tema",
   "r-email-vars-hint": "Prieinamos žymos: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Taisyklės detalės",
   "r-d-move-to-top-gen": "Perkelkite kortelę į jos sąrašo viršų",
   "r-d-move-to-top-spec": "Perkelti kortelę į sąrašo viršų",

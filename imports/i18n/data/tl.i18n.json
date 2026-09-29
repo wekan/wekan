@@ -1396,6 +1396,7 @@
   "r-of": "of",
   "r-subject": "paksa",
   "r-email-vars-hint": "Mga tag na magagamit: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Tuntunin mga detalye",
   "r-d-move-to-top-gen": "Ilipat kard sa itaas of its listahan",
   "r-d-move-to-top-spec": "Ilipat kard sa itaas of listahan",

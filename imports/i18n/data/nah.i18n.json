@@ -1396,6 +1396,7 @@
   "r-of": "of",
   "r-subject": "tlahtolpehualiztli",
   "r-email-vars-hint": "Tlahtōlmachiyōtl in oncah: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Nahuatilli itlahtol",
   "r-d-move-to-top-gen": "Xicuica amatlapalli itocatlahtol itlacpac",
   "r-d-move-to-top-spec": "Xicuica amatlapalli tocatlahtolli itlacpac",

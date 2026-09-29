@@ -1396,6 +1396,7 @@
   "r-of": "ya",
   "r-subject": "Hi Xitsonga: mhaka",
   "r-email-vars-hint": "Swikombiso leswi kumekaka: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Hi Xitsonga: mhaka mhaka",
   "r-d-move-to-top-gen": "susa mhaka yisa khadi eka mhaka ya mhaka nxaxamelo",
   "r-d-move-to-top-spec": "susa mhaka yisa khadi eka mhaka ya nxaxamelo",

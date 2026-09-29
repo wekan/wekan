@@ -1396,6 +1396,7 @@
   "r-of": "នៃ",
   "r-subject": "ប្រធានបទ",
   "r-email-vars-hint": "ស្លាកដែលអាចប្រើបាន: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "ព័ត៌មានលម្អិតអំពីច្បាប់",
   "r-d-move-to-top-gen": "ផ្លាស់ទីកាតទៅកំពូលនៃបញ្ជីរបស់វា។",
   "r-d-move-to-top-spec": "ផ្លាស់ទីកាតទៅកំពូលនៃបញ្ជី",

@@ -1396,6 +1396,7 @@
   "r-of": "of",
   "r-subject": "mba'e",
   "r-email-vars-hint": "Marandu oĩva: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Mbojojaha marandu",
   "r-d-move-to-top-gen": "Emongu'e kuatia'i hysaja yvate gotyo",
   "r-d-move-to-top-spec": "Emongu'e kuatia'i ysaja yvate gotyo",

@@ -1396,6 +1396,7 @@
   "r-of": "of",
   "r-subject": "ᎧᏃᎮᏓ",
   "r-email-vars-hint": "ᎠᏂᏙᎯ ᏗᎪᏪᎵ: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "ᎧᏃᎮᏗ ᏚᏓᎴᏅᏛ",
   "r-d-move-to-top-gen": "ᎪᏪᎵ ᎤᏍᏗ ᎤᏤᎵ ᏗᎪᏪᎵ ᎦᎸᎳᏗ ᎦᏅᏗ",
   "r-d-move-to-top-spec": "ᎪᏪᎵ ᎤᏍᏗ ᏗᎪᏪᎵ ᎦᎸᎳᏗ ᎦᏅᏗ",

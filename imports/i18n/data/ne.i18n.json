@@ -1396,6 +1396,7 @@
   "r-of": "of",
   "r-subject": "विषय",
   "r-email-vars-hint": "उपलब्ध ट्याग: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "नियम विवरण",
   "r-d-move-to-top-gen": "कार्डलाई यसको सूचीको माथि सार्नुहोस्",
   "r-d-move-to-top-spec": "कार्डलाई सूचीको माथि सार्नुहोस्",

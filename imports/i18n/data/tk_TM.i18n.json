@@ -1396,6 +1396,7 @@
   "r-of": "-nyň",
   "r-subject": "mowzuk",
   "r-email-vars-hint": "Elýeterli tegler: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Düzgünnama",
   "r-d-move-to-top-gen": "Kartany sanawyň başyna geçiriň",
   "r-d-move-to-top-spec": "Kartany sanawyň başyna geçiriň",

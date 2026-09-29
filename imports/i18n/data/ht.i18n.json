@@ -1396,6 +1396,7 @@
   "r-of": "of",
   "r-subject": "sijè",
   "r-email-vars-hint": "Tag ki disponib: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Detay règ",
   "r-d-move-to-top-gen": "Deplase kat anlè lis li a",
   "r-d-move-to-top-spec": "Deplase kat anlè lis la",

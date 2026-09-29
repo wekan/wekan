@@ -1396,6 +1396,7 @@
   "r-of": "sus",
   "r-subject": "sujèt",
   "r-email-vars-hint": "Etiquetas disponiblas: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Detalis de la rèla",
   "r-d-move-to-top-gen": "Desplaçar la carta en naut de sa lista",
   "r-d-move-to-top-spec": "Desplaçar la carta en naut de la lista",

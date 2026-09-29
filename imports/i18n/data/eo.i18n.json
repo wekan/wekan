@@ -1396,6 +1396,7 @@
   "r-of": "de",
   "r-subject": "temo",
   "r-email-vars-hint": "Disponeblaj etikedoj: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Detaloj de regulo",
   "r-d-move-to-top-gen": "Movi karton al la supro de ĝia listo",
   "r-d-move-to-top-spec": "Movi karton al la supro de listo",

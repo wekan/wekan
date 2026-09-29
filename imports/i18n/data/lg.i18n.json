@@ -1396,6 +1396,7 @@
   "r-of": "lya",
   "r-subject": "subject (mu Luganda)",
   "r-email-vars-hint": "Obubonero obuliwo: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Tteeka ebisingawo",
   "r-d-move-to-top-gen": "Tambusa kaadi eri waggulu lya kyakyo lukalala",
   "r-d-move-to-top-spec": "Tambusa kaadi eri waggulu lya lukalala",

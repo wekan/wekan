@@ -1396,6 +1396,7 @@
   "r-of": "eus",
   "r-subject": "titlenn",
   "r-email-vars-hint": "Balizennoù hegerz: {card}, {cardLink}, {list}, {board}, {member}",
+  "r-vars-people-hint": "Also: {creator}, {assignees}, {members} (usernames in text, email addresses in To) and {customField:Field name}. These also work in member, list and swimlane names of other actions.",
   "r-rule-details": "Munudoù ar reolenn",
   "r-d-move-to-top-gen": "Dilec’hiañ ar gartenn e krec’h he roll",
   "r-d-move-to-top-spec": "Dilec’hiañ ar gartenn e krec’h ar roll",
