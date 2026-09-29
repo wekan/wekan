@@ -33,7 +33,8 @@ test('real interpolation tokens remain checked in URL fields and surrounding pro
     { help: 'https://example.org/?value=%s' }), /Broken source placeholders/);
 });
 
-test('completed locale batches translate URL scheme help without changing scheme names', () => {
+test('completed locale batches preserve URL schemes and rule variable syntax in translated help', async () => {
+  const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
   const codes = ['fi', 'ar', 'ar-DZ', 'ar-EG', 'tr', 'es', 'es-AR', 'es-CL',
     'es-CO', 'es-LA', 'es-MX', 'es-PE', 'es-PY', 'es_CO', 'it', 'pt', 'pt-PT',
     'pt_PT', 'pt-BR', 'gl', 'gl-ES', 'ko', 'ko-KR', 'ja', 'ja-JP', 'ja-HI',
@@ -43,7 +44,17 @@ test('completed locale batches translate URL scheme help without changing scheme
   const key = 'automatic-linked-url-schemes-hint';
   const english = JSON.parse(fs.readFileSync(path.join(directory, 'en.i18n.json')))[key];
   for (const code of codes) {
-    const value = JSON.parse(fs.readFileSync(path.join(directory, code + '.i18n.json')))[key];
+    const locale = JSON.parse(fs.readFileSync(path.join(directory, code + '.i18n.json')));
+    const value = locale[key];
+    const source = JSON.parse(fs.readFileSync(path.join(directory, 'en.i18n.json')));
+    const ruleHelp = locale['r-trigger-vars-hint'];
+    assert.ok(ruleHelp?.trim(), code);
+    assert.notEqual(ruleHelp, source['r-trigger-vars-hint'], code);
+    assert.deepEqual(ruleHelp.match(/\{[^{}]+\}/g),
+      source['r-trigger-vars-hint'].match(/\{[^{}]+\}/g), code);
+    for (const helpKey of [key, 'r-trigger-vars-hint']) {
+      assert.deepEqual(translationTokens(locale[helpKey]), translationTokens(source[helpKey]), code);
+    }
     assert.ok(value?.trim(), code);
     assert.notEqual(value, english, code);
     for (const scheme of ['thunderlink', 'onenote', 'javascript', 'data', 'vbscript']) {
