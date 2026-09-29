@@ -1857,6 +1857,17 @@ Estonian still has 321 placeholders; other languages also remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6eb843dd3">Translate Estonian filters, notifications and board controls</a>. Thanks to xet7.</summary>
+
+Fill 81 strings covering filters, notifications, rule variables, board
+visibility, imports and map placement. Regression checks preserve executable
+variables and filter syntax as well as placeholders. Existing translations
+are preserved and human-preference checks pass. Estonian has 240 placeholders
+remaining; other languages also remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.10 2026-09-29 WeKan ® release
