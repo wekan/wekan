@@ -1846,6 +1846,17 @@ human-preference checks pass. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/753c55df7">Translate Estonian email recovery and review messages</a>. Thanks to xet7.</summary>
+
+Fill 55 email recovery, legacy-review and variable-insertion strings in
+Estonian. Focused coverage checks the translated email messages, preserved
+placeholders, duplicate-delivery warnings and permanent-discard wording.
+Existing translations are preserved and human-preference checks pass.
+Estonian still has 321 placeholders; other languages also remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.10 2026-09-29 WeKan ® release
