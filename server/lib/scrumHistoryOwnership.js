@@ -32,4 +32,27 @@ async function ensureScrumHistoryOperation(pending, journal, newId = randomUUID)
   await assertScrumHistoryOperation(pending, saved);
   return saved;
 }
-module.exports = { scrumHistorySelector, assertScrumHistoryOperation, ensureScrumHistoryOperation };
+// Same-operation worker serialization. The board lock in server/scrum.js is a
+// per-process queue, so two server processes could resume ONE operation at the
+// same time and interleave its writes. Each worker now claims the checkpoint
+// with its own id; the newest claim wins, and a displaced worker stops at its
+// next guard instead of writing on. `worker` is deliberately not part of
+// scrumHistorySelector: the completion's planHash digests that selector, and
+// who resumed a plan is not part of the plan.
+async function claimScrumHistoryWorker(pending, journal, worker = randomUUID()) {
+  if (!journal?.operationId || typeof worker !== 'string' || !worker) fail();
+  const selector = scrumHistorySelector(journal);
+  let error;
+  try { await pending.updateAsync(selector, { $set: { worker } }); }
+  catch (failure) { error = failure; }
+  let saved;
+  try { saved = await pending.findOneAsync({ ...selector, worker }); } catch (failure) { throw error || failure; }
+  if (!saved) throw error || new Error('Scrum History checkpoint conflict');
+  return worker;
+}
+async function assertScrumHistoryWorker(pending, journal, worker) {
+  if (!journal?.operationId || typeof worker !== 'string' || !worker ||
+      !await pending.findOneAsync({ ...scrumHistorySelector(journal), worker })) fail();
+}
+module.exports = { scrumHistorySelector, assertScrumHistoryOperation, ensureScrumHistoryOperation,
+  claimScrumHistoryWorker, assertScrumHistoryWorker };

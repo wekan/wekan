@@ -23,7 +23,7 @@ const collections = { board: Boards, card: Cards, list: Lists, swimlane: Swimlan
   'scrum-sprint': ScrumSprints, 'scrum-release': ScrumReleases, 'scrum-event': ScrumEvents };
 const { recordScrumRestoreOnce } = require('./scrumHistoryRestoreWriter');
 const { finishScrumHistory, verifyScrumHistorySource } = require('./scrumHistoryFinalizer');
-const { ensureScrumHistoryOperation, assertScrumHistoryOperation } = require('./scrumHistoryOwnership');
+const { ensureScrumHistoryOperation, claimScrumHistoryWorker, assertScrumHistoryWorker } = require('./scrumHistoryOwnership');
 const { scrumHistoryWriteState, inspectScrumHistoryWrites, verifyScrumHistoryWrites } = require('./scrumHistoryWriteState');
 const { scrumHistoryWriteSelector } = require('./scrumHistoryWriteSelector');
 const { readScrumHistoryRequestCompletion } = require('./scrumHistoryCompletion');
@@ -181,8 +181,10 @@ export async function applyScrumHistory(row, content, direction, request) {
     }
     await assertSource();
     journal = await ensureScrumHistoryOperation(ScrumHistoryPending, journal);
+    // This worker's claim on the operation; a newer resume displaces it.
+    const worker = await claimScrumHistoryWorker(ScrumHistoryPending, journal);
     const assertCurrent = async () => {
-      await assertScrumHistoryOperation(ScrumHistoryPending, journal);
+      await assertScrumHistoryWorker(ScrumHistoryPending, journal, worker);
       await assertSource();
     };
     const verifyWrites = async (entries = targets, before = journal.before.records, revisions = journal.revisions) => {

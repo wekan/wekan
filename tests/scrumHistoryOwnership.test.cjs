@@ -54,3 +54,37 @@ test('false acknowledgements, malformed plans and failed confirmation retain the
     assert.equal(h.state.updates, 0);
   }
 });
+
+// Same-operation worker serialization: two server processes resuming ONE
+// operation used to interleave its writes. The newest claim wins; a displaced
+// worker is refused at its next guard.
+const { claimScrumHistoryWorker: claim, assertScrumHistoryWorker: worker, scrumHistorySelector } =
+  require('../server/lib/scrumHistoryOwnership');
+test('the newest worker claim wins and the displaced worker stops at its next guard', async () => {
+  const f = fixture();
+  const journal = await ensure(f.pending, f.original, () => 'op');
+  const first = await claim(f.pending, journal, 'worker-1');
+  await worker(f.pending, journal, first);
+  const second = await claim(f.pending, journal, 'worker-2');
+  await worker(f.pending, journal, second);
+  await assert.rejects(worker(f.pending, journal, first), /conflict/, 'the first worker is displaced');
+  await owned(f.pending, journal);
+});
+test('a claim never attaches to a replaced plan, and a lost reply reconciles by readback', async () => {
+  const f = fixture();
+  const journal = await ensure(f.pending, f.original, () => 'op');
+  f.state.row.revisions = [9];
+  await assert.rejects(claim(f.pending, journal, 'w'), /conflict/);
+  assert.equal(f.state.row.worker, undefined);
+  const g = fixture(), saved = await ensure(g.pending, g.original, () => 'op'), update = g.pending.updateAsync;
+  g.pending.updateAsync = async (...args) => { await update(...args); throw Error('lost reply'); };
+  assert.equal(await claim(g.pending, saved, 'w'), 'w');
+  await assert.rejects(claim(g.pending, { ...g.original }, 'w'), /conflict/, 'a legacy plan without an id is not claimed');
+});
+test('who resumed a plan is not part of the plan (completion hash unchanged)', async () => {
+  const f = fixture();
+  const journal = await ensure(f.pending, f.original, () => 'op');
+  const before = JSON.stringify(scrumHistorySelector(journal));
+  await claim(f.pending, journal, 'w');
+  assert.equal(JSON.stringify(scrumHistorySelector({ ...journal, worker: 'w' })), before);
+});
