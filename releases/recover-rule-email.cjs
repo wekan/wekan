@@ -16,7 +16,7 @@ function parse(args) {
 async function main() {
   if (process.argv.includes('--help')) {
     console.log('Usage: MONGO_URL=<named database URI> node releases/recover-rule-email.cjs --command <hash> --attempt <UUID> --operator <name> --evidence <log reference> --offline --confirm-accepted');
-    console.log('Stop ALL application, SMTP and recovery workers first and keep them stopped. Independently verify SMTP acceptance of ALL recipients. Do not use this for partial/unknown acceptance.');
+    console.log('Stop ALL application, SMTP and recovery workers first and keep them stopped. Independently verify SMTP acceptance of ALL recipients. For partial or unknown acceptance use Admin Panel -> Problems -> Recovery, which can resend to unconfirmed recipients only, mark sent or drop.');
     console.log('Records an immutable operator decision and reconciles the exact receipt. Never sends, resets or edits mail. Reuse identical arguments after interruption. Evidence must be an opaque reference, not addresses, credentials or mail text.');
     return;
   }

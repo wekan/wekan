@@ -1638,10 +1638,35 @@ Template.activityNotificationRecoveryReports.events({
 });
 
 
+const RESOLUTION_ERRORS = ['too-early', 'already-resolved', 'resend-in-flight', 'nothing-to-resend',
+  'resend-uncertain', 'busy', 'command-changed', 'attempt-invalid'].map(reason => `rule-email-resolution-${reason}`);
+const resolutionError = error => (RESOLUTION_ERRORS.includes(error?.error) ? error.error : 'rule-email-resolution-failed');
 Template.syncRuleEmailRecoveryReports.onCreated(function () {
   this.result = new ReactiveVar({ rows: [], total: 0, page: 0, pageSize: 10 });
   this.search = new ReactiveVar(''); this.status = new ReactiveVar('all');
   this.error = new ReactiveVar(''); this.request = 0;
+  // #2713: the administrator's review of one unconfirmed attempt.
+  this.detail = new ReactiveVar(null); this.actionError = new ReactiveVar(''); this.busy = new ReactiveVar(false);
+  this.openDetail = commandId => {
+    this.actionError.set('');
+    Meteor.call('syncRuleEmailRecoveryDetail', commandId, (error, detail) => {
+      if (this.view.isDestroyed) return;
+      if (error) { this.detail.set(null); this.error.set(TAPi18n.__(resolutionError(error))); return; }
+      this.detail.set(detail);
+    });
+  };
+  this.decide = (method, args, confirmKey) => {
+    const detail = this.detail.get();
+    if (!detail || this.busy.get() || !window.confirm(TAPi18n.__(confirmKey))) return;
+    this.busy.set(true); this.actionError.set('');
+    Meteor.call(method, ...args(detail.commandId), error => {
+      if (this.view.isDestroyed) return;
+      this.busy.set(false);
+      if (error) this.actionError.set(TAPi18n.__(resolutionError(error)));
+      this.openDetail(detail.commandId);
+      this.load(this.result.get().page);
+    });
+  };
   this.load = (page = 0) => {
     const request = ++this.request;
     this.error.set('');
@@ -1656,14 +1681,23 @@ Template.syncRuleEmailRecoveryReports.onCreated(function () {
 });
 Template.syncRuleEmailRecoveryReports.helpers({
   error() { return Template.instance().error.get(); },
+  detail() {
+    const t = Template.instance(), detail = t.detail.get();
+    if (!detail) return null;
+    return { ...detail,
+      recipients: detail.recipients.map(row => ({ ...row, statusKey: `rule-email-recovery-recipient-${row.status}` })),
+      waiting: detail.status === 'unconfirmed', resolvableText: formatDate(detail.resolvableAt),
+      actionError: t.actionError.get(), actionsDisabled: t.busy.get() || !detail.resolvable };
+  },
   tablePageData() {
     const t = Template.instance(), result = t.result.get();
     // The report API is zero-based; the shared table controls are one-based.
     const info = pageInfo(result.total, result.page + 1, result.pageSize);
     return { header: buildHeader([{ labelKey: 'rule-email-recovery-identifiers' }, { labelKey: 'status' },
-      { labelKey: 'rule-email-recovery-started' }, { labelKey: 'rule-email-recovery-finished' }]),
+      { labelKey: 'rule-email-recovery-started' }, { labelKey: 'rule-email-recovery-finished' }, { labelKey: 'actions' }]),
       rowTemplate: 'syncRuleEmailRecoveryRow', emptyKey: 'rule-email-recovery-empty',
       docs: result.rows.map(row => ({ ...row, statusLabel: `rule-email-recovery-${row.status}`,
+        canReview: row.status === 'unconfirmed' && !!row.commandId,
         startedText: row.startedAt ? formatDate(row.startedAt) : '—', finishedText: row.finishedAt ? formatDate(row.finishedAt) : '—' })),
       rowCount: result.rows.length, total: result.total, searchTerm: t.search.get(),
       page: info.page, totalPages: info.totalPages, hasPrev: info.hasPrev, hasNext: info.hasNext,
@@ -1674,6 +1708,22 @@ Template.syncRuleEmailRecoveryReports.events({
   'keydown .js-table-page-search'(event, t) {
     event.stopPropagation();
     if (event.key === 'Enter') { event.preventDefault(); t.search.set(event.currentTarget.value.trim().slice(0, 128)); t.load(); }
+  },
+  'click .js-rule-email-review'(event, t) {
+    event.preventDefault(); event.stopPropagation();
+    t.openDetail(event.currentTarget.closest('tr').dataset.command);
+  },
+  'click .js-rule-email-resend'(event, t) {
+    event.preventDefault(); event.stopPropagation();
+    t.decide('syncRuleEmailRecoveryResend', commandId => [commandId], 'rule-email-recovery-resend-confirm');
+  },
+  'click .js-rule-email-mark-sent'(event, t) {
+    event.preventDefault(); event.stopPropagation();
+    t.decide('syncRuleEmailRecoveryResolve', commandId => [{ commandId, decision: 'mark-sent' }], 'rule-email-recovery-mark-sent-confirm');
+  },
+  'click .js-rule-email-drop'(event, t) {
+    event.preventDefault(); event.stopPropagation();
+    t.decide('syncRuleEmailRecoveryResolve', commandId => [{ commandId, decision: 'drop' }], 'rule-email-recovery-drop-confirm');
   },
   'change .js-rule-email-status'(event, t) {
     event.stopPropagation(); t.status.set(event.currentTarget.value); t.load();

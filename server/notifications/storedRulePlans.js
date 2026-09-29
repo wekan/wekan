@@ -47,6 +47,9 @@ export const SyncRuleEmailAttempts = new Mongo.Collection('listSyncRuleEmailAtte
 SyncRuleEmailAttempts.deny({ insert: () => true, update: () => true, remove: () => true });
 export const SyncRuleEmailResolutions = new Mongo.Collection('listSyncRuleEmailResolutions');
 SyncRuleEmailResolutions.deny({ insert: () => true, update: () => true, remove: () => true });
+// Who accepted a partially accepted attempt (#2713); addresses only, no SMTP text.
+export const SyncRuleEmailOutcomes = new Mongo.Collection('listSyncRuleEmailOutcomes');
+SyncRuleEmailOutcomes.deny({ insert: () => true, update: () => true, remove: () => true });
 export const SyncRuleEmailCommands = new Mongo.Collection('listSyncRuleEmailCommands');
 SyncRuleEmailCommands.deny({ insert: () => true, update: () => true, remove: () => true });
 export const SyncRuleReceipts = new Mongo.Collection('listSyncRuleReceipts');
@@ -60,6 +63,7 @@ Meteor.startup(async () => {
   await ensureIndex(SyncRuleReceipts, { effectId: 1 });
   await ensureIndex(SyncRuleEmailCommands, { boardId: 1, cardId: 1 });
   await ensureIndex(SyncRuleEmailAttempts, { state: 1, startedAt: 1 });
+  await ensureIndex(SyncRuleEmailResolutions, { commandId: 1, attemptId: 1, decision: 1 });
 });
 
 // Both capture and execution require the journal's list-incarnation,
@@ -157,7 +161,7 @@ export async function runStoredSyncRuleEmail({ index, ...options }) {
   };
   return withEmailSlot(({ assertCurrent }) => dispatchRuleEmail({ command, plan,
     activity: context.saved, effectId: context.effectId, index, MailComposer,
-    attempts: SyncRuleEmailAttempts.rawCollection(), assertCurrent,
+    attempts: SyncRuleEmailAttempts.rawCollection(), outcomes: SyncRuleEmailOutcomes.rawCollection(), assertCurrent,
     send: async (mail, { assertCurrent: beforeSend }) => { await beforeSend(); return Email.sendAsync(mail); },
   }), { assertOwner: guard });
 }

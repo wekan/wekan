@@ -325,9 +325,28 @@ template(name="syncRuleEmailRecoveryReports")
         option(value="all") {{_ 'rule-email-recovery-all'}}
         option(value="unconfirmed") {{_ 'rule-email-recovery-unconfirmed'}}
         option(value="sent") {{_ 'rule-email-recovery-sent'}}
+        option(value="dropped") {{_ 'rule-email-recovery-dropped'}}
     if error
       p.error(role="alert") {{error}}
     +tablePage(tablePageData)
+    if detail
+      with detail
+        section.rule-email-recovery-detail(data-command=commandId aria-live="polite")
+          h3 {{_ 'rule-email-recovery-recipients'}}
+          ul
+            each recipients
+              li {{address}} — {{_ statusKey}}
+          if resends.length
+            p.quiet {{_ 'rule-email-recovery-resends' count=resends.length}}
+          p.quiet {{_ 'rule-email-recovery-actions-hint'}}
+          unless resolvable
+            if waiting
+              p {{_ 'rule-email-recovery-wait' time=resolvableText}}
+          if actionError
+            p.error(role="alert") {{actionError}}
+          button.js-rule-email-resend(type="button" disabled=actionsDisabled) {{_ 'rule-email-recovery-resend'}}
+          button.js-rule-email-mark-sent(type="button" disabled=actionsDisabled) {{_ 'rule-email-recovery-mark-sent'}}
+          button.js-rule-email-drop(type="button" disabled=actionsDisabled) {{_ 'rule-email-recovery-drop'}}
 
 template(name="syncRuleEmailRecoveryRow")
   tr(data-command=commandId)
@@ -338,3 +357,6 @@ template(name="syncRuleEmailRecoveryRow")
     td {{_ statusLabel}}
     td {{startedText}}
     td {{finishedText}}
+    td
+      if canReview
+        button.js-rule-email-review(type="button") {{_ 'rule-email-recovery-review'}}

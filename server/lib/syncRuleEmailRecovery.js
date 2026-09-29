@@ -47,6 +47,10 @@ async function confirmAcceptedRuleEmail({ attempts, commands, resolutions, comma
     await assertOffline();
     return row ? validate(row) : null;
   };
+  // An online administrator decision (#2713) for this attempt excludes this one.
+  await assertOffline();
+  const onlineId = sha256(canonical(['rule-email-resolution', commandId, attemptId]));
+  if ((await resolutions.findOne({ _id: onlineId }))?._id === onlineId) fail('decision-conflict');
   let decision = await readDecision();
   if (!decision && attempt.state === 'sent') return { commandId, attemptId, status: 'already-sent' };
   if (!decision) {

@@ -7,9 +7,9 @@ const date = value => value instanceof Date && Number.isFinite(value.getTime());
 // SMTP delivery or authorize a retry from elapsed time. No command/mail read.
 async function syncRuleEmailReport(attempts, { search, page, status }) {
   if (typeof search !== 'string' || search.length > 128 || !Number.isSafeInteger(page) || page < 0 ||
-      !['all', 'unconfirmed', 'sent'].includes(status)) throw new Error('sync-rule-email-report-invalid');
+      !['all', 'unconfirmed', 'sent', 'dropped'].includes(status)) throw new Error('sync-rule-email-report-invalid');
   const query = {};
-  if (status !== 'all') query.state = status === 'unconfirmed' ? 'sending' : 'sent';
+  if (status !== 'all') query.state = status === 'unconfirmed' ? 'sending' : status;
   if (search.trim()) {
     const pattern = new RegExp(search.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
     query.$or = ['_id', 'invocationId', 'attemptId'].map(key => ({ [key]: pattern }));
@@ -21,11 +21,11 @@ async function syncRuleEmailReport(attempts, { search, page, status }) {
     .sort({ startedAt: -1, _id: 1 }).skip(page * PAGE_SIZE).limit(PAGE_SIZE).toArray();
   const rows = saved.map(row => {
     const valid = hash(row._id) && hash(row.commandHash) && hash(row.invocationId) && uuid(row.attemptId) &&
-      row.version === 1 && date(row.startedAt) && ['sending', 'sent'].includes(row.state) &&
-      (row.state === 'sent' ? date(row.finishedAt) : row.finishedAt === undefined);
+      row.version === 1 && date(row.startedAt) && ['sending', 'sent', 'dropped'].includes(row.state) &&
+      (row.state !== 'sending' ? date(row.finishedAt) : row.finishedAt === undefined);
     return { commandId: hash(row._id) ? row._id : null, invocationId: hash(row.invocationId) ? row.invocationId : null,
       attemptId: uuid(row.attemptId) ? row.attemptId : null,
-      status: valid ? (row.state === 'sent' ? 'sent' : 'unconfirmed') : 'invalid',
+      status: valid ? (row.state === 'sending' ? 'unconfirmed' : row.state) : 'invalid',
       startedAt: date(row.startedAt) ? row.startedAt : null, finishedAt: date(row.finishedAt) ? row.finishedAt : null };
   });
   return { total, page, pageSize: PAGE_SIZE, rows };

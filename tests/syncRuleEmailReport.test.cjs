@@ -25,10 +25,17 @@ test('method checks administrator access before and after reads and hides backen
   class MeteorError extends Error { constructor(code) { super(code); this.error = code; } }
   const context = { Meteor: { Error: MeteorError, users: { findOneAsync: async () => ({ isAdmin: admin, loginDisabled: revoked }) },
     methods: methods => { handler = methods.syncRuleEmailRecoveryReport; } }, check() {},
-    DDPRateLimiter: { addRule(rule, limit, window) { assert.equal(rule.name, 'syncRuleEmailRecoveryReport'); assert.equal(limit, 30); assert.equal(window, 10000); } },
-    SyncRuleEmailAttempts: { rawCollection: () => ({}) }, require: () => ({ syncRuleEmailReport: async () => {
-      reads++; if (failure) throw new Error('database password secret'); revoked = true; return { rows: [] };
-    } }) };
+    // The #2713 resolution methods share this file; they have their own
+    // limits, pinned in tests/syncRuleEmailResolution.test.cjs.
+    DDPRateLimiter: { addRule(rule, limit, window) {
+      if (rule.name !== 'syncRuleEmailRecoveryReport') return;
+      assert.equal(limit, 30); assert.equal(window, 10000);
+    } },
+    Match: { Where: fn => fn, OneOf: () => String }, EmailSendSlots: { rawCollection: () => ({}) },
+    SyncRuleEmailAttempts: { rawCollection: () => ({}) }, require: () => ({ createEmailSendSlots: () => async () => {},
+      syncRuleEmailReport: async () => {
+        reads++; if (failure) throw new Error('database password secret'); revoked = true; return { rows: [] };
+      } }) };
   vm.runInNewContext(fs.readFileSync(require.resolve('../server/methods/syncRuleEmailRecovery'), 'utf8').replace(/^import .*;\n/gm, ''), context);
   admin = false;
   await assert.rejects(handler.call({ userId: 'member' }, {}), /not-authorized/); assert.equal(reads, 0);

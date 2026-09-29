@@ -70,3 +70,52 @@ test('administrator filters, pages and refreshes rule email attempts in Recovery
     await expect(panel).toContainText('No rule email attempts match this search.');
   } finally { db.deleteMany('listSyncRuleEmailAttempts', { _id: { $in: ids } }); }
 });
+
+// #2713, maintainer decision of 2026-09-30: an administrator resolves a
+// partially accepted rule email. Resend needs a live SMTP server and is
+// covered by tests/syncRuleEmailResolution.test.cjs; this pins the review,
+// the quarantine refusal and a drop, end to end.
+test('administrator reviews recipients and drops an unconfirmed rule email', async ({ page, user, adminUser }) => {
+  const prefix = randomBytes(12).toString('hex');
+  const oldId = `${prefix}${'0'.repeat(40)}`, newId = `${prefix}${'1'.repeat(40)}`;
+  const seed = (id, startedAt) => {
+    db.insertOne('listSyncRuleEmailCommands', { _id: id, checksum: 'a'.repeat(64), invocationId: 'b'.repeat(64),
+      mail: { to: 'one@example.org, two@example.org', from: 'wekan@example.org', subject: 'S', text: 'T' } });
+    const attemptId = randomUUID();
+    db.insertOne('listSyncRuleEmailAttempts', { _id: id, version: 1, commandHash: 'a'.repeat(64),
+      invocationId: 'b'.repeat(64), attemptId, state: 'sending', startedAt });
+    db.insertOne('listSyncRuleEmailOutcomes', { _id: id, attemptId, accepted: ['one@example.org'] });
+  };
+  seed(oldId, new Date(Date.now() - 60 * 60 * 1000));
+  seed(newId, new Date());
+  try {
+    await loginWithToken(page, user.id, user.token);
+    const denied = await page.evaluate(id => Meteor.callAsync('syncRuleEmailRecoveryResolve', { commandId: id, decision: 'drop' })
+      .then(() => 'accepted', error => error.error), oldId);
+    expect(denied).toBe('not-authorized');
+    await loginWithToken(page, adminUser.id, adminUser.token);
+    const early = await page.evaluate(id => Meteor.callAsync('syncRuleEmailRecoveryResolve', { commandId: id, decision: 'drop' })
+      .then(() => 'accepted', error => error.error), newId);
+    expect(early).toBe('rule-email-resolution-too-early');
+    await navigateInApp(page, '/admin/problems/recovery');
+    const panel = page.locator('.sync-rule-email-recovery-reports');
+    const search = panel.locator('.js-table-page-search');
+    await search.fill(prefix); await search.press('Enter');
+    await expect(panel.locator('tr[data-command]')).toHaveCount(2);
+    await panel.locator(`tr[data-command="${oldId}"] .js-rule-email-review`).click();
+    const detail = panel.locator('.rule-email-recovery-detail');
+    await expect(detail).toContainText('one@example.org — Accepted');
+    await expect(detail).toContainText('two@example.org — Not confirmed');
+    page.once('dialog', dialog => dialog.accept());
+    await detail.locator('.js-rule-email-drop').click();
+    await expect(panel.locator(`tr[data-command="${oldId}"]`)).toContainText('Dropped by an administrator');
+    await expect(detail.locator('.js-rule-email-drop')).toBeDisabled();
+    const stored = db.findOne('listSyncRuleEmailAttempts', { _id: oldId });
+    expect(stored.state).toBe('dropped');
+  } finally {
+    for (const name of ['listSyncRuleEmailCommands', 'listSyncRuleEmailAttempts', 'listSyncRuleEmailOutcomes']) {
+      db.deleteMany(name, { _id: { $in: [oldId, newId] } });
+    }
+    db.deleteMany('listSyncRuleEmailResolutions', { commandId: { $in: [oldId, newId] } });
+  }
+});

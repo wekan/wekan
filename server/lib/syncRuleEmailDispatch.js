@@ -4,12 +4,13 @@ const { EJSON } = require('bson');
 const { canonical } = require('../../models/lib/changeHistoryIntegrity');
 const { validateRuleEmailCommand } = require('./syncRuleEmailCommand');
 const { ruleEmailRecipients, confirmRuleEmailAcceptance } = require('./syncRuleEmailAcceptance');
+const { recordRuleEmailOutcome } = require('./syncRuleEmailResolution');
 const copy = value => EJSON.parse(EJSON.stringify(value), { relaxed: true });
 // The owner supplies the live journal/policy/configuration guard, operation
 // lease and cancellable SMTP capacity slot. Never automatically repeat an
 // existing sending attempt: a crash may have happened after SMTP acceptance.
 async function dispatchRuleEmail({ command, plan, activity, effectId, index,
-  attempts, MailComposer, send, assertCurrent, now = () => new Date() }) {
+  attempts, outcomes, MailComposer, send, assertCurrent, now = () => new Date() }) {
   command = validateRuleEmailCommand(command, { plan, activity, effectId, index });
   if (typeof send !== 'function' || typeof assertCurrent !== 'function' ||
       !['findOne', 'insertOne', 'replaceOne'].every(key => typeof attempts?.[key] === 'function')) {
@@ -23,11 +24,11 @@ async function dispatchRuleEmail({ command, plan, activity, effectId, index,
   const base = { _id: command._id, version: 1, commandHash: command.checksum, invocationId: command.invocationId };
   const validate = row => {
     if (!row || Object.keys(base).some(key => row[key] !== base[key]) ||
-        !['sending', 'sent'].includes(row.state) ||
+        !['sending', 'sent', 'dropped'].includes(row.state) ||
         typeof row.attemptId !== 'string' || !/^[a-f0-9-]{36}$/.test(row.attemptId) ||
         !(row.startedAt instanceof Date) || !Number.isFinite(row.startedAt.getTime()) ||
-        (row.state === 'sent' && (!(row.finishedAt instanceof Date) || !Number.isFinite(row.finishedAt.getTime()))) ||
-        Object.keys(row).sort().join(',') !== (row.state === 'sent'
+        (row.state !== 'sending' && (!(row.finishedAt instanceof Date) || !Number.isFinite(row.finishedAt.getTime()))) ||
+        Object.keys(row).sort().join(',') !== (row.state !== 'sending'
           ? '_id,attemptId,commandHash,finishedAt,invocationId,startedAt,state,version'
           : '_id,attemptId,commandHash,invocationId,startedAt,state,version')) {
       throw new Error('sync-rule-email-attempt-invalid');
@@ -42,7 +43,8 @@ async function dispatchRuleEmail({ command, plan, activity, effectId, index,
   };
   const existing = await read();
   if (existing) {
-    if (existing.state === 'sent') return command.invocationId;
+    // An administrator's drop (#2713) completes the stage without mail.
+    if (existing.state === 'sent' || existing.state === 'dropped') return command.invocationId;
     throw new Error('sync-rule-email-delivery-uncertain');
   }
   const recipients = ruleEmailRecipients(command.mail, MailComposer);
@@ -57,7 +59,19 @@ async function dispatchRuleEmail({ command, plan, activity, effectId, index,
   // Any rejection, partial acceptance or ownership loss retains sending state.
   // Do not persist SMTP error text, which can expose addresses or credentials.
   const result = await send(copy(command.mail), { assertCurrent });
-  confirmRuleEmailAcceptance(recipients, result);
+  try {
+    confirmRuleEmailAcceptance(recipients, result);
+  } catch (error) {
+    // Partial acceptance: keep who DID accept, so an administrator can resend
+    // to the rest only. Recording it must never turn into a completion.
+    if (typeof outcomes?.updateOne === 'function') {
+      try {
+        await recordRuleEmailOutcome({ outcomes, commandId: pending._id, attemptId: pending.attemptId,
+          recipients, result, now: date });
+      } catch (_) { /* the attempt stays uncertain either way */ }
+    }
+    throw error;
+  }
   await assertCurrent();
   const sent = { ...pending, state: 'sent', finishedAt: date() };
   failure = undefined;

@@ -223,6 +223,98 @@
     {
       "key": "r-insert-variable",
       "since": "2026-09-29"
+    },
+    {
+      "key": "rule-email-recovery-dropped",
+      "since": "2026-09-29"
+    },
+    {
+      "key": "rule-email-recovery-review",
+      "since": "2026-09-29"
+    },
+    {
+      "key": "rule-email-recovery-recipients",
+      "since": "2026-09-29"
+    },
+    {
+      "key": "rule-email-recovery-recipient-accepted",
+      "since": "2026-09-29"
+    },
+    {
+      "key": "rule-email-recovery-recipient-unconfirmed",
+      "since": "2026-09-29"
+    },
+    {
+      "key": "rule-email-recovery-actions-hint",
+      "since": "2026-09-29"
+    },
+    {
+      "key": "rule-email-recovery-wait",
+      "since": "2026-09-29"
+    },
+    {
+      "key": "rule-email-recovery-resends",
+      "since": "2026-09-29"
+    },
+    {
+      "key": "rule-email-recovery-resend",
+      "since": "2026-09-29"
+    },
+    {
+      "key": "rule-email-recovery-mark-sent",
+      "since": "2026-09-29"
+    },
+    {
+      "key": "rule-email-recovery-drop",
+      "since": "2026-09-29"
+    },
+    {
+      "key": "rule-email-recovery-resend-confirm",
+      "since": "2026-09-29"
+    },
+    {
+      "key": "rule-email-recovery-mark-sent-confirm",
+      "since": "2026-09-29"
+    },
+    {
+      "key": "rule-email-recovery-drop-confirm",
+      "since": "2026-09-29"
+    },
+    {
+      "key": "rule-email-resolution-too-early",
+      "since": "2026-09-29"
+    },
+    {
+      "key": "rule-email-resolution-already-resolved",
+      "since": "2026-09-29"
+    },
+    {
+      "key": "rule-email-resolution-resend-in-flight",
+      "since": "2026-09-29"
+    },
+    {
+      "key": "rule-email-resolution-nothing-to-resend",
+      "since": "2026-09-29"
+    },
+    {
+      "key": "rule-email-resolution-resend-uncertain",
+      "since": "2026-09-29"
+    },
+    {
+      "key": "rule-email-resolution-busy",
+      "since": "2026-09-29"
+    },
+    {
+      "key": "rule-email-resolution-command-changed",
+      "since": "2026-09-29"
+    },
+    {
+      "key": "rule-email-resolution-attempt-invalid",
+      "since": "2026-09-29"
+    },
+    {
+      "key": "rule-email-resolution-failed",
+      "since": "2026-09-29"
     }
   ]
 }
