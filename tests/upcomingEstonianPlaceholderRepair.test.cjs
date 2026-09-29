@@ -26,4 +26,18 @@ assert.match(translated['rule-email-recovery-resend-confirm'], /kaks korda/);
 assert.match(translated['rule-email-legacy-discard-confirm'], /ei saadeta kunagi/);
 assert.match(translated['rule-email-legacy-description'], /autoril on endiselt juurdepääs/);
 assert.match(translated['rule-email-recovery-actions-hint'], /ei saada.*kunagi ise uuesti/);
-console.log('upcomingEstonianPlaceholderRepair: placeholders and email recovery translations passed');
+for (const key of Object.keys(english).filter(key =>
+  /^(filter-(recency|movement-range|date-range|due-|column-age|preset|card-text)|notification-activity-|due-reminder-|map-view-|auto-archive-)/.test(key))) {
+  assert.ok(translated[key]?.trim(), `${key}: missing Estonian text`);
+  assert.notStrictEqual(translated[key], english[key], `${key}: English placeholder`);
+}
+for (const token of ['@createdAt', '@receivedAt', '@startAt', '@dueAt', '@endAt', '@listEnteredAt', 'none']) {
+  assert.ok(translated['advanced-filter-card-dates-hint'].includes(token), `preserve ${token}`);
+}
+for (const token of ['{creator}', '{assignees}', '{members}', '{customField:Name}']) {
+  assert.ok(translated['r-trigger-vars-hint'].includes(token), `preserve ${token}`);
+}
+assert.ok(translated['r-vars-people-hint'].includes('{customField:Field name}'));
+assert.match(translated['filter-column-age-hint'], /ei nulli/);
+assert.match(translated['instance-desc'], /Sisse logimata inimestele seda kunagi ei näidata/);
+console.log('upcomingEstonianPlaceholderRepair: placeholders, recovery, filters and rule syntax passed');
