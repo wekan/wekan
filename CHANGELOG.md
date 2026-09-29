@@ -2437,7 +2437,7 @@ and has the following developer-tooling fix:
 
 and updates the following translations:
 
-**Languages updated:** Finnish, Arabic, Algerian Arabic, Egyptian Arabic, Turkish, Spanish, Argentine Spanish, Chilean Spanish, Colombian Spanish, Latin American Spanish, Mexican Spanish, Peruvian Spanish, Paraguayan Spanish, Italian, Portuguese, Brazilian Portuguese, European Portuguese, Galician, Korean, Japanese, Traditional Chinese, Chinese (Taiwan), Chinese (Hong Kong), Simplified Chinese, Mandarin Chinese, Chinese (Singapore), French, Belgian French, Canadian French, Swiss French, German, Austrian German, Swiss German, Swedish, Danish, Norwegian Bokmål, Dutch, Romanian, Indonesian.
+**Languages updated:** Finnish, Arabic, Algerian Arabic, Egyptian Arabic, Turkish, Spanish, Argentine Spanish, Chilean Spanish, Colombian Spanish, Latin American Spanish, Mexican Spanish, Peruvian Spanish, Paraguayan Spanish, Italian, Portuguese, Brazilian Portuguese, European Portuguese, Galician, Korean, Japanese, Traditional Chinese, Chinese (Taiwan), Chinese (Hong Kong), Simplified Chinese, Mandarin Chinese, Chinese (Singapore), French, Belgian French, Canadian French, Swiss French, German, Austrian German, Swiss German, Swedish, Danish, Norwegian Bokmål, Dutch, Romanian, Indonesian, Polish.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ef52698fe">Complete Finnish and Arabic planning and recovery translations</a>. Thanks to xet7.</summary>
@@ -2859,6 +2859,25 @@ exact brace-delimited variable inventory in all 52 files. Existing Upcoming
 entries retain their recorded regression evidence. Browser layout and
 fluent-speaker review were not run. Other locales and future English additions
 remain in scope; the all-language translation goal is unfinished.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/71b56977a">Fill Polish planning, synchronization and recovery translations</a>. Thanks to xet7.</summary>
+
+Translate 267 missing or English values for filters, rules, reminders, Scrum,
+synchronization and delivery recovery, including the new signed-in-user board
+visibility text. Existing translations remain intact. Reviewed keyboard
+legends, product names, mathematical terms and shared Scrum terms stay
+unchanged.
+
+The Polish and translation-token suites pass, as do all 21 human-preference
+checks. Coverage checks source order, interpolation and rule-variable syntax,
+filter keywords, visibility restrictions and cancellation warnings. No prose
+placeholders remain in Polish against the current English source. Browser
+layout and fluent-speaker review were not run. Existing Upcoming entries
+retain their recorded regression evidence. Other locales and new English
+additions remain in scope; the all-language translation goal is unfinished.
 
 </details>
 
