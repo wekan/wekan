@@ -83,6 +83,18 @@ const isEnglishVariant = code => /^en([_-].*)?$/.test(code) || code === 'en';
 // source-wide list would hide real work in every language.
 const LOCALE_INVARIANTS = {
   // Locale-specific shared vocabulary, not exemptions for English prose.
+  // German shared labels, Scrum terms, product names and mathematical notation.
+  ...Object.fromEntries(['de', 'de-AT', 'de-CH', 'de_DE'].map(code =>
+    [code, new Set([
+      'blockly-ALT_KEY', 'blockly-CHROME_OS', 'blockly-FIELD_LABEL_OPTION_INDEX',
+      'blockly-FIELD_LABEL_VARIABLE', 'blockly-LINUX', 'blockly-LOGIC_NULL',
+      'blockly-MAC_OS', 'blockly-MATH_ADDITION_SYMBOL_ARIA',
+      'blockly-MATH_SUBTRACTION_SYMBOL_ARIA', 'blockly-MATH_TRIG_ACOS',
+      'blockly-MATH_TRIG_ASIN', 'blockly-MATH_TRIG_ATAN', 'blockly-MATH_TRIG_COS',
+      'blockly-MATH_TRIG_SIN', 'blockly-MATH_TRIG_TAN', 'blockly-OPTION_KEY',
+      'blockly-PAUSE_KEY', 'blockly-WINDOWS', 'board-view-sprints',
+      'scrum-sprints', 'scrum-sprint',
+    ])])),
   // French shares these short labels with English; symbols and product names
   // retain their conventional spelling. No descriptive prose is exempted.
   ...Object.fromEntries(['fr', 'fr-FR', 'fr-BE', 'fr-CH', 'fr-CA'].map(code =>
