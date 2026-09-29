@@ -82,6 +82,21 @@ const isEnglishVariant = code => /^en([_-].*)?$/.test(code) || code === 'en';
 // needs a different word. Keep those exceptions per locale; putting them in the
 // source-wide list would hide real work in every language.
 const LOCALE_INVARIANTS = {
+  // Dutch shares these mathematical labels (including "is even") and Scrum
+  // terms; product names and printed keyboard legends stay recognizable.
+  ...Object.fromEntries(['nl', 'nl-NL'].map(code => [code, new Set([
+    'blockly-ALT_KEY', 'blockly-BACKSPACE_KEY', 'blockly-BLOCK_LABEL_BEGIN_PREFIX',
+    'blockly-CAPS_LOCK_KEY', 'blockly-CHROME_OS', 'blockly-COMMAND_KEY',
+    'blockly-CONTEXT_MENU_KEY', 'blockly-ENTER_KEY', 'blockly-HOME_KEY',
+    'blockly-INPUT_LABEL_NUMBER_MAX', 'blockly-INPUT_LABEL_NUMBER_MIN',
+    'blockly-LINUX', 'blockly-LOGIC_TERNARY_CONDITION', 'blockly-MAC_OS',
+    'blockly-MATH_ADDITION_SYMBOL_ARIA', 'blockly-MATH_IS_EVEN',
+    'blockly-MATH_ONLIST_OPERATOR_MAX_ARIA', 'blockly-MATH_ONLIST_OPERATOR_MIN_ARIA',
+    'blockly-MATH_TRIG_ACOS', 'blockly-MATH_TRIG_ASIN', 'blockly-MATH_TRIG_COS',
+    'blockly-MATH_TRIG_SIN', 'blockly-MATH_TRIG_TAN', 'blockly-OPTION_KEY',
+    'blockly-SHIFT_KEY', 'blockly-TAB_KEY', 'blockly-WINDOWS',
+    'board-view-sprints', 'scrum-sprints', 'scrum-sprint',
+  ])])),
   // Bokmål shared mathematics and Scrum labels, plus product/keyboard names.
   nb: new Set([
     'blockly-ALT_KEY', 'blockly-CHROME_OS', 'blockly-COMMAND_KEY',
