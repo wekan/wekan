@@ -1553,10 +1553,8 @@ comments, an `unsupported` loss report). The Jira, Kanboard, Nextcloud Deck,
 OpenProject, Asana and Zenkit IMPORT adapters now have their own fixture/spec
 passes (see Upcoming): comments, subtasks/hierarchy, dependencies, custom
 fields, dates, members and a loss report recorded in Problems → Recovery.
-Still open for them: (1) the import page does not show the loss report
-itself - that needs a new translated string in every locale, and translation
-is outside the current work queue (see the note at the top of TODO Later);
-(2) file CONTENTS - these JSON sources carry
+The import page now shows the loss report itself (see Upcoming). Still open
+for them: (2) file CONTENTS - these JSON sources carry
 attachment metadata only, so bytes need live API connectors with credentials;
 (3) Deck sharing rules, OpenProject watchers and Asana followers have no
 safe mapping (an import never grants access); (4) Zenkit's native
