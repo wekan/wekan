@@ -437,6 +437,22 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
   assert.match(bg.Node_heap_total_heap_size_executable, /изпълним код/);
   assert.match(bg.Node_heap_total_physical_size, /физически/);
   assert.match(bg.Node_heap_total_available_size, /наличен/);
+  const storageAdminAuditKeys = ["originOrder","move-progress-pause","board-id","s3-file-id","storage","uploading","remaining_time","speed","progress","register","drag-board","newTranslationPopup-title","editTranslationPopup-title","settingsTranslationPopup-title","convert-to-markdown","uncollapse","support","supportPopup-title","support-title","accessibility-title","accounts-lockout-settings","accounts-lockout-locked-users","accounts-lockout-remaining-time","accounts-lockout-confirm-unlock-all","admin-people-filter-locked","admin-people-active-status","accounts-lockout-unlock-all","add-cron-job","cron-jobs","cron-job-delete-confirm","cron-no-errors","cron-error-severity","cron-error-message","cron-clear-errors","cron-retry-failed","cron-resume-paused","cron-migrations-retried","sandstorm-storage-item"];
+  for (const key of storageAdminAuditKeys) {
+    assert.notEqual(bg[key], en[key], key);
+    assert.deepEqual(translationTokens(bg[key]), translationTokens(en[key]), key);
+    assert.doesNotMatch(bg[key], /изворни|редослед|Предах|Складиште|Подижем|Преостало|Брзина|Напредак|Упиши|Пребаци|списе|исправка|Исправи|Обриши|исправку|Претвори|структуирани|Рашири|Подршка|Наслов|такве|Заштитне|насилног|упада|Налози|мерама|сигурни|желите|скинете|налоге|приступа|Радни|однос|Скини|Закажи|посао|Заказани|послови|уклоните|Нису|догодиле|никакве|грешке|Учесталост|Порука|грешци|Избриши|наведене|Понови|обнове|Настави|обнову|након|Неуспеле|управо|покренуте/i, key);
+  }
+  assert.match(bg['accounts-lockout-confirm-unlock-all'], /отблокирате всички блокирани потребители/);
+  assert.match(bg['admin-people-filter-locked'], /Само блокирани/);
+  assert.match(bg['cron-job-delete-confirm'], /изтриете тази планирана задача/);
+  assert.match(bg['cron-retry-failed'], /Повторен опит.*неуспешните миграции/);
+  assert.match(bg['cron-resume-paused'], /Възобновяване.*миграциите на пауза/);
+  assert.match(bg['cron-migrations-retried'], /стартирани повторно успешно/);
+  assert.match(bg['s3-file-id'], /S3/);
+  assert.match(bg['convert-to-markdown'], /Markdown/);
+  assert.match(bg['remaining_time'], /Оставащо време/);
+  assert.equal(bg.storage, bg['sandstorm-storage-item']);
   assert.equal(bg.swimlane, 'Коридор');
   assert.equal(bg['welcome-swimlane'], 'Етап 1');
   assert.match(bg['swimlane-height-error-message'], /положително цяло число/);
