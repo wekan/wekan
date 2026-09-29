@@ -1704,6 +1704,20 @@ human-preference checks pass. The remaining locale backlog is still active.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/55abfe26c">Complete Polish and Czech locale coverage</a>. Thanks to xet7.</summary>
+
+Fill 780 values in Polish, Czech and their regional locale files. Translate
+the new email recovery and legacy review messages, and fill regional gaps
+using reviewed same-language text for identical keys. Existing translations
+and executable placeholders are preserved.
+
+All four files pass completeness, placeholder, key-order and native-vocabulary
+checks against the current English source. Human-preference checks pass;
+translation work continues for the remaining languages.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.10 2026-09-29 WeKan ® release
