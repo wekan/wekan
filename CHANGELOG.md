@@ -1743,6 +1743,17 @@ continues on the remaining languages.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5d008c9ec">Translate Swedish and Finnish recovery messages</a>. Thanks to xet7.</summary>
+
+Fill 88 missing values for rule-email recovery, legacy review and variable
+insertion. Both locales pass completeness, placeholder and key-order checks
+against the current English source. Regression checks cover duplicate-delivery
+and permanent-discard warnings. Existing translations remain unchanged and
+human-preference checks pass. Other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.10 2026-09-29 WeKan ® release
