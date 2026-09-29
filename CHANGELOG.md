@@ -3385,6 +3385,26 @@ Bulgarian values also remain. The all-language goal remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/24f3fab2f">Correct Bulgarian attachment and account-lockout translations</a>. Thanks to xet7.</summary>
+
+Replace 80 Serbian values with Bulgarian for checklist and attachment actions,
+file limits, support and accessibility pages, account lockouts and scheduled
+board operations. Restore active-user terminology instead of payroll language,
+known/unknown login distinctions and the difference between scheduling an
+archive and a backup. Preserve storage names, file extensions and placeholders.
+
+The Bulgarian and translation-token suites pass, together with all 21
+human-preference checks. Coverage checks vocabulary, tokens, storage targets,
+byte units, ZIP import structure, irreversible deletion, login restrictions,
+checked/all checklist items, activation direction and scheduling results.
+Browser layout and fluent-speaker review were not run. Existing Upcoming
+entries retain their recorded regression evidence. More wrong-language values
+and missing translations remain, including new English strings from ongoing
+feature work. The all-language goal remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
