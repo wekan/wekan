@@ -2844,6 +2844,24 @@ locale, including keys pending Transifex.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0e1719ebd">Translate new rule-variable help in 52 audited locales</a>. Thanks to xet7.</summary>
+
+Translate the new rule-trigger field help into Finnish, Arabic, Turkish,
+Spanish, Italian, Portuguese, Galician, Korean, Japanese, Chinese, French,
+German, Swedish, Danish, Norwegian Bokmål, Dutch, Romanian and Indonesian,
+including their previously audited regional variants. Existing translations
+are preserved. The executable variable names remain unchanged in every value.
+
+The translation token and Indonesian suites pass, along with all 21
+human-preference checks. Regression coverage checks translated prose and the
+exact brace-delimited variable inventory in all 52 files. Existing Upcoming
+entries retain their recorded regression evidence. Browser layout and
+fluent-speaker review were not run. Other locales and future English additions
+remain in scope; the all-language translation goal is unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
