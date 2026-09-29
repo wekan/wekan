@@ -1754,6 +1754,17 @@ human-preference checks pass. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b66799cd2">Translate Danish and Norwegian recovery messages</a>. Thanks to xet7.</summary>
+
+Fill 88 values in Danish and Norwegian Bokmål for rule-email recovery,
+legacy review and variable insertion. Completeness, key-order, placeholder
+and warning-vocabulary checks pass against the current English source.
+Existing translations remain unchanged and human-preference checks pass.
+Translation work continues for the remaining languages.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.10 2026-09-29 WeKan ® release
