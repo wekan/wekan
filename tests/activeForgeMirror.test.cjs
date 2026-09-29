@@ -359,7 +359,10 @@ const work = fs.mkdtempSync(path.join(process.env.TMPDIR, 'mirror-fixtures-'));
       const file = path.join(bin, name); fs.writeFileSync(file, contents); fs.chmodSync(file, 0o755);
     }
     const file = path.join(work, 'source.json'); fs.writeFileSync(file, JSON.stringify({ ...snapshot([]), capturedAt: new Date().toISOString() }));
-    const result = spawnSync(process.execPath, [path.join(root, 'tools/mirror-active-forges.mjs'), '--apply', '--code', '--skip-archive', '--target', 'gitlab', '--snapshot', file], { encoding: 'utf8', env: { ...process.env, PATH: `${bin}:${process.env.PATH}`, MIRROR_GIT_RECORDER: recorder } });
+    const result = spawnSync(process.execPath, [path.join(root, 'tools/mirror-active-forges.mjs'), '--apply', '--code', '--skip-archive', '--target', 'gitlab', '--snapshot', file], { encoding: 'utf8', env: { ...process.env, PATH: `${bin}:${process.env.PATH}`, MIRROR_GIT_RECORDER: recorder,
+      // Never the developer's real .tools/wekan-<forge> checkouts: whether one
+      // exists must not decide which path this test exercises.
+      WEKAN_MIRROR_TOOLS_DIR: path.join(work, 'mirror-tools') } });
     const logdir = result.stdout.match(/Report: ([^\r\n]+)/)?.[1];
     try {
       assert.equal(result.status, 0, result.stdout + result.stderr);

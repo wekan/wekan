@@ -558,9 +558,11 @@ async function digestMatches(file, digest) {
 }
 export function syncGit(mirror, run = command, exists = fs.existsSync, tools) {
   const sourceName = mirror.sourceName || 'github', sourceUrl = forges[sourceName].git;
-  tools ||= organization === 'wekan' && repository === 'wekan'
+  // WEKAN_MIRROR_TOOLS_DIR relocates the mirror checkouts (tests use a
+  // temporary directory so a developer's real checkouts are never read).
+  tools ||= process.env.WEKAN_MIRROR_TOOLS_DIR || (organization === 'wekan' && repository === 'wekan'
     ? path.join(root, '.tools')
-    : path.join(root, '.tools', 'mirror-git', organization, repository);
+    : path.join(root, '.tools', 'mirror-git', organization, repository));
   const defaultBranch = mirror.defaultBranch || process.env.WEKAN_MIRROR_DEFAULT_BRANCH || 'main';
   const existingCheckout = path.join(tools, `wekan-${mirror.name}`);
   if (exists(existingCheckout)) {
