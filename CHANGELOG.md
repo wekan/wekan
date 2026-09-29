@@ -3575,6 +3575,27 @@ remain in Bulgarian and other locales. The all-language goal remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cace14e39">Translate Bulgarian sprint reports and synchronization conflicts</a>. Thanks to xet7.</summary>
+
+Fill 55 Bulgarian placeholders for sprint events, results, daily observations
+and synchronization conflict controls. Preserve unknown-estimate warnings,
+partial-report scope, close/cancel behavior and local-only conflict
+resolution.
+Existing translations remain intact.
+
+The Bulgarian and translation-token suites pass, together with all 21
+human-preference checks. Coverage checks source tokens, UTC observations,
+missing-day omissions, the 366-observation limit, incomplete-import
+restrictions, retained duplicate content and unchanged subcards. Browser
+layout and
+fluent-speaker review were not run. Existing Upcoming entries retain their
+recorded regression evidence. More untranslated strings and vocabulary review
+remain in Bulgarian and other locales. The all-language goal remains
+unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
