@@ -3720,5 +3720,10 @@
   "rule-email-recovery-unavailable": "ルールのメール送信試行を読み込めませんでした。更新して再試行してください。",
   "saml-login-not-started": "この SAML ログインはこのブラウザータブで開始されていません。もう一度ログインしてください。",
   "move-selection-before": "前に",
-  "move-selection-after": "後に"
+  "move-selection-after": "後に",
+  "history-request-pending-undo": "最後の取り消しは、まだサーバーによって確認されていません。",
+  "history-request-pending-redo": "最後のやり直しは、まだサーバーによって確認されていません。",
+  "history-request-hint": "再試行しても同じリクエストを繰り返すため、別の変更まで取り消されることはありません。",
+  "history-request-retry": "再試行",
+  "history-request-forget": "リクエストを破棄"
 }

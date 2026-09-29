@@ -3720,5 +3720,10 @@
   "rule-email-recovery-unavailable": "Não foi possível carregar as tentativas de correio das regras. Atualize para tentar novamente.",
   "saml-login-not-started": "Este início de sessão SAML não foi iniciado neste separador do navegador. Inicie sessão novamente.",
   "move-selection-before": "Antes de",
-  "move-selection-after": "Depois de"
+  "move-selection-after": "Depois de",
+  "history-request-pending-undo": "O servidor ainda não confirmou a sua última ação de anular.",
+  "history-request-pending-redo": "O servidor ainda não confirmou a sua última ação de refazer.",
+  "history-request-hint": "Tentar novamente repete o mesmo pedido, pelo que nunca pode anular uma segunda alteração.",
+  "history-request-retry": "Tentar novamente",
+  "history-request-forget": "Esquecer o pedido"
 }

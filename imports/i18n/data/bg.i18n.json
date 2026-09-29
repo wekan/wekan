@@ -3525,5 +3525,10 @@
   "scrum-observed-scope": "Observed scope",
   "scrum-daily-observations-export-help": "First recorded observation of each UTC day; missing days are omitted. Observations do not record every change or end-of-day totals. Unknown estimates are not zero.",
   "scrum-import-pending": "The Scrum import is incomplete. Scrum edits and report exports are unavailable.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again."
+  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
+  "history-request-pending-undo": "Сървърът все още не е потвърдил последната отмяна на действие.",
+  "history-request-pending-redo": "Сървърът все още не е потвърдил последното повторение на действие.",
+  "history-request-hint": "Повторният опит изпраща същата заявка, така че никога не може да отмени втора промяна.",
+  "history-request-retry": "Опитайте отново",
+  "history-request-forget": "Забравяне на заявката"
 }

@@ -3720,5 +3720,10 @@
   "rule-email-recovery-unavailable": "Tidak dapat memuat percobaan pengiriman email aturan. Segarkan untuk mencoba lagi.",
   "saml-login-not-started": "Proses masuk SAML ini tidak dimulai di tab peramban ini. Silakan masuk lagi.",
   "move-selection-before": "Sebelum",
-  "move-selection-after": "Sesudah"
+  "move-selection-after": "Sesudah",
+  "history-request-pending-undo": "Server belum mengonfirmasi tindakan urungkan terakhir Anda.",
+  "history-request-pending-redo": "Server belum mengonfirmasi tindakan ulangi terakhir Anda.",
+  "history-request-hint": "Mencoba lagi mengulangi permintaan yang sama, sehingga tidak akan pernah mengurungkan perubahan kedua.",
+  "history-request-retry": "Coba lagi",
+  "history-request-forget": "Lupakan permintaan"
 }

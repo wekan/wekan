@@ -3720,5 +3720,10 @@
   "rule-email-recovery-unavailable": "Sääntöjen sähköpostiyrityksiä ei voitu ladata. Päivitä näkymä yrittääksesi uudelleen.",
   "saml-login-not-started": "Tätä SAML-kirjautumista ei aloitettu tässä selainvälilehdessä. Kirjaudu uudelleen.",
   "move-selection-before": "Ennen",
-  "move-selection-after": "Jälkeen"
+  "move-selection-after": "Jälkeen",
+  "history-request-pending-undo": "Palvelin ei ole vielä vahvistanut viimeisintä kumoamistasi.",
+  "history-request-pending-redo": "Palvelin ei ole vielä vahvistanut viimeisintä uudelleentekoasi.",
+  "history-request-hint": "Uusi yritys toistaa saman pyynnön, joten se ei voi kumota toista muutosta.",
+  "history-request-retry": "Yritä uudelleen",
+  "history-request-forget": "Unohda pyyntö"
 }

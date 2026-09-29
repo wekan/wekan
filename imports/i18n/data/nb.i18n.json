@@ -3720,5 +3720,10 @@
   "rule-email-recovery-unavailable": "Kunne ikke laste inn forsøk på å sende e-post fra regler. Oppdater for å prøve igjen.",
   "saml-login-not-started": "Denne SAML-påloggingen ble ikke startet i denne nettleserfanen. Logg på igjen.",
   "move-selection-before": "Før",
-  "move-selection-after": "Etter"
+  "move-selection-after": "Etter",
+  "history-request-pending-undo": "Serveren har ennå ikke bekreftet den siste angringen din.",
+  "history-request-pending-redo": "Serveren har ennå ikke bekreftet den siste gjør om-handlingen din.",
+  "history-request-hint": "Et nytt forsøk gjentar den samme forespørselen og kan derfor aldri angre en annen endring.",
+  "history-request-retry": "Prøv igjen",
+  "history-request-forget": "Glem forespørselen"
 }

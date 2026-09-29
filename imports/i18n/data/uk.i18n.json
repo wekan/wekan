@@ -3720,5 +3720,10 @@
   "rule-email-recovery-unavailable": "Не вдалося завантажити спроби надсилання листів за правилами. Оновіть, щоб спробувати знову.",
   "saml-login-not-started": "Цей вхід SAML не було розпочато в цій вкладці браузера. Увійдіть знову.",
   "move-selection-before": "Перед",
-  "move-selection-after": "Після"
+  "move-selection-after": "Після",
+  "history-request-pending-undo": "Сервер ще не підтвердив останнє скасування дії.",
+  "history-request-pending-redo": "Сервер ще не підтвердив останнє повторення дії.",
+  "history-request-hint": "Повторна спроба надсилає той самий запит, тому ніколи не може скасувати другу зміну.",
+  "history-request-retry": "Спробувати ще раз",
+  "history-request-forget": "Забути запит"
 }

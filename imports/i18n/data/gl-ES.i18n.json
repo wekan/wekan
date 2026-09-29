@@ -3720,5 +3720,10 @@
   "rule-email-recovery-unavailable": "Non foi posible cargar os intentos de correo das regras. Actualiza para tentar de novo.",
   "saml-login-not-started": "Este inicio de sesión SAML non se iniciou nesta lapela do navegador. Inicia sesión de novo.",
   "move-selection-before": "Antes de",
-  "move-selection-after": "Despois de"
+  "move-selection-after": "Despois de",
+  "history-request-pending-undo": "O servidor aínda non confirmou a túa última acción de desfacer.",
+  "history-request-pending-redo": "O servidor aínda non confirmou a túa última acción de refacer.",
+  "history-request-hint": "Tentalo de novo repite a mesma solicitude, polo que nunca pode desfacer un segundo cambio.",
+  "history-request-retry": "Tentar de novo",
+  "history-request-forget": "Esquecer a solicitude"
 }

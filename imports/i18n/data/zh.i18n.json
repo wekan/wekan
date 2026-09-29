@@ -3720,5 +3720,10 @@
   "rule-email-recovery-unavailable": "无法加载规则邮件发送尝试。请刷新后重试。",
   "saml-login-not-started": "此 SAML 登录并非从这个浏览器标签页开始。请重新登录。",
   "move-selection-before": "之前",
-  "move-selection-after": "之后"
+  "move-selection-after": "之后",
+  "history-request-pending-undo": "服务器尚未确认您上一次的撤销操作。",
+  "history-request-pending-redo": "服务器尚未确认您上一次的重做操作。",
+  "history-request-hint": "重试会重复同一个请求，因此绝不会撤销第二项更改。",
+  "history-request-retry": "重试",
+  "history-request-forget": "忘记此请求"
 }

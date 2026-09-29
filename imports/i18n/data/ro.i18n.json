@@ -3720,5 +3720,10 @@
   "rule-email-recovery-unavailable": "Nu s-au putut încărca încercările de trimitere a e-mailurilor din reguli. Reîmprospătați pentru a încerca din nou.",
   "saml-login-not-started": "Această autentificare SAML nu a fost inițiată în această filă a browserului. Autentificați-vă din nou.",
   "move-selection-before": "Înainte",
-  "move-selection-after": "După"
+  "move-selection-after": "După",
+  "history-request-pending-undo": "Serverul nu a confirmat încă ultima anulare.",
+  "history-request-pending-redo": "Serverul nu a confirmat încă ultima refacere.",
+  "history-request-hint": "Reîncercarea repetă aceeași cerere, deci nu poate anula niciodată o a doua modificare.",
+  "history-request-retry": "Încearcă din nou",
+  "history-request-forget": "Uită cererea"
 }

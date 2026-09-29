@@ -3720,5 +3720,10 @@
   "rule-email-recovery-unavailable": "Не удалось загрузить попытки отправки писем по правилам. Обновите, чтобы попробовать снова.",
   "saml-login-not-started": "Этот вход SAML не был начат в этой вкладке браузера. Войдите снова.",
   "move-selection-before": "Перед",
-  "move-selection-after": "После"
+  "move-selection-after": "После",
+  "history-request-pending-undo": "Сервер ещё не подтвердил последнюю отмену действия.",
+  "history-request-pending-redo": "Сервер ещё не подтвердил последнее повторение действия.",
+  "history-request-hint": "Повторная попытка отправляет тот же запрос, поэтому никогда не может отменить второе изменение.",
+  "history-request-retry": "Попробовать ещё раз",
+  "history-request-forget": "Забыть запрос"
 }

@@ -3720,5 +3720,10 @@
   "rule-email-recovery-unavailable": "Impossibile caricare i tentativi di invio email delle regole. Aggiorna per riprovare.",
   "saml-login-not-started": "Questo accesso SAML non è stato avviato in questa scheda del browser. Accedi di nuovo.",
   "move-selection-before": "Prima di",
-  "move-selection-after": "Dopo"
+  "move-selection-after": "Dopo",
+  "history-request-pending-undo": "Il server non ha ancora confermato la tua ultima operazione di annullamento.",
+  "history-request-pending-redo": "Il server non ha ancora confermato la tua ultima operazione di ripristino.",
+  "history-request-hint": "Riprovare ripete la stessa richiesta, quindi non può mai annullare una seconda modifica.",
+  "history-request-retry": "Riprova",
+  "history-request-forget": "Dimentica la richiesta"
 }

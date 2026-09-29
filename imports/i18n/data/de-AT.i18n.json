@@ -3720,5 +3720,10 @@
   "rule-email-recovery-unavailable": "E-Mail-Versuche von Regeln konnten nicht geladen werden. Zum erneuten Versuch aktualisieren.",
   "saml-login-not-started": "Diese SAML-Anmeldung wurde nicht in diesem Browser-Tab gestartet. Bitte erneut anmelden.",
   "move-selection-before": "Davor",
-  "move-selection-after": "Danach"
+  "move-selection-after": "Danach",
+  "history-request-pending-undo": "Der Server hat dein letztes Rückgängigmachen noch nicht bestätigt.",
+  "history-request-pending-redo": "Der Server hat dein letztes Wiederherstellen noch nicht bestätigt.",
+  "history-request-hint": "Ein erneuter Versuch wiederholt dieselbe Anfrage und kann daher niemals eine zweite Änderung rückgängig machen.",
+  "history-request-retry": "Erneut versuchen",
+  "history-request-forget": "Anfrage vergessen"
 }

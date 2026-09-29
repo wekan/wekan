@@ -3720,5 +3720,10 @@
   "rule-email-recovery-unavailable": "Pokusy o odeslání e-mailů z pravidel se nepodařilo načíst. Obnovte zobrazení a zkuste to znovu.",
   "saml-login-not-started": "Toto přihlášení SAML nebylo zahájeno na této kartě prohlížeče. Přihlaste se prosím znovu.",
   "move-selection-before": "Před",
-  "move-selection-after": "Za"
+  "move-selection-after": "Za",
+  "history-request-pending-undo": "Server zatím nepotvrdil poslední vrácení akce zpět.",
+  "history-request-pending-redo": "Server zatím nepotvrdil poslední opakování akce.",
+  "history-request-hint": "Další pokus opakuje stejný požadavek, takže nikdy nemůže vrátit zpět druhou změnu.",
+  "history-request-retry": "Zkusit znovu",
+  "history-request-forget": "Zapomenout požadavek"
 }

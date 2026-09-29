@@ -3720,5 +3720,10 @@
   "rule-email-recovery-unavailable": "Kon pogingen om e-mails door regels te verzenden niet laden. Vernieuw om het opnieuw te proberen.",
   "saml-login-not-started": "Deze SAML-aanmelding is niet in dit browsertabblad gestart. Meld je opnieuw aan.",
   "move-selection-before": "Vóór",
-  "move-selection-after": "Na"
+  "move-selection-after": "Na",
+  "history-request-pending-undo": "De server heeft je laatste ongedaanmaking nog niet bevestigd.",
+  "history-request-pending-redo": "De server heeft je laatste opnieuw uitgevoerde actie nog niet bevestigd.",
+  "history-request-hint": "Opnieuw proberen herhaalt hetzelfde verzoek en kan dus nooit een tweede wijziging ongedaan maken.",
+  "history-request-retry": "Opnieuw proberen",
+  "history-request-forget": "Verzoek vergeten"
 }

@@ -3720,5 +3720,10 @@
   "rule-email-recovery-unavailable": "Nie udało się wczytać prób wysyłki e-maili z reguł. Odśwież, aby spróbować ponownie.",
   "saml-login-not-started": "To logowanie SAML nie zostało rozpoczęte w tej karcie przeglądarki. Zaloguj się ponownie.",
   "move-selection-before": "Przed",
-  "move-selection-after": "Po"
+  "move-selection-after": "Po",
+  "history-request-pending-undo": "Serwer nie potwierdził jeszcze ostatniego cofnięcia.",
+  "history-request-pending-redo": "Serwer nie potwierdził jeszcze ostatniego ponowienia.",
+  "history-request-hint": "Ponowna próba powtarza to samo żądanie, więc nigdy nie może cofnąć drugiej zmiany.",
+  "history-request-retry": "Spróbuj ponownie",
+  "history-request-forget": "Zapomnij żądanie"
 }

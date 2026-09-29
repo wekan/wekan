@@ -3720,5 +3720,10 @@
   "rule-email-recovery-unavailable": "無法載入規則郵件傳送嘗試。請重新整理後再試。",
   "saml-login-not-started": "此 SAML 登入並非從這個瀏覽器分頁開始。請重新登入。",
   "move-selection-before": "之前",
-  "move-selection-after": "之後"
+  "move-selection-after": "之後",
+  "history-request-pending-undo": "伺服器尚未確認您上一次的復原操作。",
+  "history-request-pending-redo": "伺服器尚未確認您上一次的重做操作。",
+  "history-request-hint": "重試會重複同一個請求，因此絕不會復原第二項變更。",
+  "history-request-retry": "重試",
+  "history-request-forget": "忘記此請求"
 }

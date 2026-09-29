@@ -3720,5 +3720,10 @@
   "rule-email-recovery-unavailable": "Impossible de charger les tentatives de courriel des règles. Actualisez pour réessayer.",
   "saml-login-not-started": "Cette connexion SAML n’a pas été lancée dans cet onglet du navigateur. Veuillez vous reconnecter.",
   "move-selection-before": "Avant",
-  "move-selection-after": "Après"
+  "move-selection-after": "Après",
+  "history-request-pending-undo": "Le serveur n’a pas encore confirmé votre dernière annulation.",
+  "history-request-pending-redo": "Le serveur n’a pas encore confirmé votre dernier rétablissement.",
+  "history-request-hint": "Réessayer répète la même demande et ne peut donc jamais annuler une deuxième modification.",
+  "history-request-retry": "Réessayer",
+  "history-request-forget": "Oublier la demande"
 }

@@ -3720,5 +3720,10 @@
   "rule-email-recovery-unavailable": "Kural e-postası denemeleri yüklenemedi. Yeniden denemek için yenileyin.",
   "saml-login-not-started": "Bu SAML oturum açma işlemi bu tarayıcı sekmesinde başlatılmadı. Lütfen yeniden oturum açın.",
   "move-selection-before": "Öncesine",
-  "move-selection-after": "Sonrasına"
+  "move-selection-after": "Sonrasına",
+  "history-request-pending-undo": "Son geri alma işleminiz sunucu tarafından henüz onaylanmadı.",
+  "history-request-pending-redo": "Son yineleme işleminiz sunucu tarafından henüz onaylanmadı.",
+  "history-request-hint": "Yeniden denemek aynı isteği tekrarlar; bu nedenle ikinci bir değişikliği geri alamaz.",
+  "history-request-retry": "Yeniden dene",
+  "history-request-forget": "İsteği unut"
 }
