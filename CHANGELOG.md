@@ -1732,6 +1732,17 @@ discard meaning. Human-preference checks pass; other locales remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/09919e54e">Translate Portuguese and Dutch recovery messages</a>. Thanks to xet7.</summary>
+
+Fill 264 values across six locale files, using separate Brazilian and European
+Portuguese wording. Include rule-email recovery, legacy review and variable
+insertion. Completeness, placeholders, key order, regional wording and
+human-preference checks pass. Existing translations remain unchanged; work
+continues on the remaining languages.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.10 2026-09-29 WeKan ® release
