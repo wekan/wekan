@@ -82,6 +82,22 @@ const isEnglishVariant = code => /^en([_-].*)?$/.test(code) || code === 'en';
 // needs a different word. Keep those exceptions per locale; putting them in the
 // source-wide list would hide real work in every language.
 const LOCALE_INVARIANTS = {
+  // Danish mathematical vocabulary and Scrum labels shared with English,
+  // alongside unchanged product names and keyboard legends.
+  da: new Set([
+    'color-orange', 'computer', 'export-card-attachment-type', 'team',
+    'type', 'Database', 'layout', 'teams', 'links-heading', 'stats-scope',
+    'support', 'supportPopup-title', 'start', 'stop', 'log',
+    'blockly-ALT_KEY', 'blockly-CHROME_OS', 'blockly-CONTEXT_MENU_KEY',
+    'blockly-ENTER_KEY', 'blockly-INPUT_LABEL_MATH_DIVIDEND',
+    'blockly-INPUT_LABEL_MATH_DIVISOR', 'blockly-INPUT_LABEL_NUMBER_MIN',
+    'blockly-LINUX', 'blockly-LOGIC_NULL', 'blockly-LOGIC_TERNARY_CONDITION',
+    'blockly-MAC_OS', 'blockly-MATH_ADDITION_SYMBOL_ARIA',
+    'blockly-MATH_ONLIST_OPERATOR_MIN_ARIA', 'blockly-MATH_SUBTRACTION_SYMBOL_ARIA',
+    'blockly-MATH_TRIG_ACOS', 'blockly-MATH_TRIG_ASIN', 'blockly-MATH_TRIG_ATAN',
+    'blockly-MATH_TRIG_COS', 'blockly-MATH_TRIG_SIN', 'blockly-MATH_TRIG_TAN',
+    'blockly-PAUSE_KEY', 'blockly-WINDOWS', 'scrum-sprint', 'scrum-start-sprint',
+  ]),
   // Swedish shared mathematical vocabulary, keyboard labels and product names.
   sv: new Set([
     'blockly-ALT_KEY', 'blockly-CHROME_OS', 'blockly-ENTER_KEY',
@@ -196,9 +212,6 @@ const LOCALE_INVARIANTS = {
   ar: new Set(['blockly-MATH_TRIG_ACOS', 'blockly-MATH_TRIG_ASIN', 'blockly-MATH_TRIG_ATAN']),
   'ar-DZ': new Set(['blockly-MATH_TRIG_ACOS', 'blockly-MATH_TRIG_ASIN', 'blockly-MATH_TRIG_ATAN']),
   'ar-EG': new Set(['blockly-MATH_TRIG_ACOS', 'blockly-MATH_TRIG_ASIN', 'blockly-MATH_TRIG_ATAN']),
-  da: new Set(['color-orange', 'computer', 'export-card-attachment-type', 'team',
-    'type', 'Database', 'layout', 'teams', 'links-heading', 'stats-scope',
-    'support', 'supportPopup-title', 'start', 'stop', 'log']),
   ro: new Set(['card']),
   'ro-RO': new Set(['card']),
   rup: new Set(['color-indigo', 'color-magenta']),
