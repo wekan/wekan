@@ -145,11 +145,23 @@ async function main() {
     title: 'Deck',
     stacks: [{ title: 'List', cards: [{ title: 'Card', description: 'ok <img src=x onerror="alert(1)">' }] }],
   }));
-  const stripTags = value => value.replace(/<[^>]*>/g, '');
-  const { value, warnings } = sanitizeTransferValue(upload, { direction: 'import', sanitizeHtml: stripTags });
+  // The server's own sanitizer (server/lib/inputSanitizer.js, sanitize-html),
+  // which server/lib/secureTransfer.js hands the boundary. This used to be a
+  // one-pass `replace(/<[^>]*>/g, '')` stub, which CodeQL alert #545 flagged:
+  // "<<script>script>" leaves "<script" behind. A test should drive the real
+  // sanitizer anyway, not a weaker stand-in.
+  const sanitizerSource = fs.readFileSync(path.join(ROOT, 'server/lib/inputSanitizer.js'), 'utf8');
+  const sanitizeInput = new Function('require', sanitizerSource
+    .replace(/import (\w+) from '([^']+)';/g, 'const $1 = require("$2");')
+    .replace(/export /g, '') + '\nreturn sanitizeInput;')(require);
+  const { value, warnings } = sanitizeTransferValue(upload, { direction: 'import', sanitizeHtml: sanitizeInput });
   assert.equal(warnings.length, 1);
-  assert.equal(parseNextcloudDeck(value).tasks[0].description, 'ok ');
+  assert.equal(parseNextcloudDeck(value).tasks[0].description, 'ok');
   assert.match(parseNextcloudDeck(upload).tasks[0].description, /onerror/, 'the raw upload still carries it');
+  // Negative: markup spliced back together by a one-pass strip does not survive.
+  const spliced = sanitizeTransferValue({ title: '<<script>script>alert(1)<</script>/script>', stacks: [] },
+    { direction: 'import', sanitizeHtml: sanitizeInput }).value;
+  assert.doesNotMatch(spliced.title, /<\s*script/i, spliced.title);
 
   console.log('  ok - imports parse and store only the sanitized transfer value');
 }
