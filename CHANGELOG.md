@@ -2881,6 +2881,24 @@ additions remain in scope; the all-language translation goal is unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/eb13c50c0">Translate signed-in-user board visibility in 52 more locales</a>. Thanks to xet7.</summary>
+
+Fill 156 missing values for the board visibility label, description and
+confirmation across the previously audited locales. The text distinguishes
+viewing by every signed-in user from editing by board members, and excludes
+anonymous visitors. Polish already received these strings in its own batch.
+Existing correct-language translations remain untouched.
+
+All 21 translation suites and 21 human-preference checks pass. Coverage
+checks translated prose, interpolation tokens and balanced emphasis markup
+in the visibility confirmation, alongside the existing locale regressions.
+Browser layout and fluent-speaker review were not run. Existing Upcoming
+entries retain their recorded regression evidence. Other locales and future
+English additions remain in scope; the all-language goal is unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
