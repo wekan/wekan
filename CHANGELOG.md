@@ -3380,6 +3380,25 @@ evidence. The all-language goal remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f1a0cab15">Correct Bulgarian notification, rule and deadline messages</a>. Thanks to xet7.</summary>
+
+Replace 90 Serbian or mixed-language values with Bulgarian for notifications,
+rule actions, branding, authentication, deadlines and account controls. Restore
+assignee terminology, the first reminder, shortcut ranges and the distinction
+between upcoming, past and current deadlines. Preserve placeholders, HTML tags,
+private-board restrictions and irreversible-deletion warnings.
+
+The Bulgarian and translation-token suites pass, together with all 21
+human-preference checks. Regression coverage checks language, tokens, reminder
+timing, check/uncheck actions, empty duplicate-list deletion, new/all-card field
+settings, HTML insertion positions and account deletion warnings. Existing
+Upcoming entries retain their recorded regression evidence. Browser layout and
+fluent-speaker review were not run. More wrong-language values and missing
+translations remain in Bulgarian, and the all-language goal remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
