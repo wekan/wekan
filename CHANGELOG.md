@@ -1509,72 +1509,37 @@ minicard, a checkbox custom field's tick/cross icon, per-board default label
 text visibility, and custom-field sort order. Needs the maintainer either to
 describe the screenshot's blue markup or to pick which additional visual
 property should become the customizable one before this can be scoped),
-[#3275](https://github.com/wekan/wekan/issues/3275) (generate thumbnails for
-image attachments, referencing Meteor-Files' image-processing documentation, so
-minicard covers and the attachment list preview a smaller resized image instead
-of the full original. Confirmed NOT built: `models/attachments.js`,
-`models/attachments.server.js`, `client/components/cards/minicard.jade` and
-`client/components/cards/attachments.jade` still read `cover.link('original')` /
-`{{link}}` with no other version, and the client override of `Attachments.link`
-(`models/attachments.js`) ignores its `version` argument entirely, always
-resolving through `generateUniversalAttachmentUrl` to `/cdn/storage/attachments/
-<fileId>` with no version selector. `sharp` IS already a project dependency
-(used today for GIF handling in `server/lib/imageGif.js`), so the image-
-processing half is not the blocker. What is missing is the plumbing around it:
-`server/routes/universalFileServer.js` serves a single stored file per
-attachment ID with no version query parameter, and attachment storage spans
-four independently-implemented backends (filesystem, GridFS, S3/Azure/GCS, each
-its own `FileStoreStrategy` in `models/lib/fileStoreStrategy.js` /
-`attachmentStoreStrategy.js`) that would each need to persist and serve a second
-"thumbnail" version safely alongside the original. Building that end-to-end
-touches the same `Attachments.onAfterUpload` hook and upload/serving routes that
-concurrent MIME-validation work (#3274) was editing live in this same session,
-so it needs a maintainer decision on the URL/version contract (a `?v=thumbnail`
-query parameter vs. a distinct route, and whether older attachments get a
-backfill or only fall back to the original) before it is safe to build without
-colliding with that other in-flight change),
-[#3249](https://github.com/wekan/wekan/issues/3249) ("semi-open" boards -
-visible to every logged-in user but excluded from search-engine indexing.
-WeKan's `permission` field is only `public`/`private` today
-(`models/boards.js`); there is no `noindex`/robots concept anywhere in the
-codebase. A third tier is more than a flag: it changes what the Public
-Boards page, the board publication's visibility selector
-(`models/lib/boardVisibilitySelectors.js`) and the sitemap/robots routing
-all mean by "public", and needs a decision on the exact rule - e.g. any
-logged-in user vs. only this instance's users, and whether search engines
-are kept out via `robots.txt`/`noindex` meta or by the board simply never
-appearing in an unauthenticated response - before it is worth adding as a
-third `permission` value alongside `public`/`private`),
 [#3256](https://github.com/wekan/wekan/issues/3256) (requests an
 image-coordinate-based "hot area" marker visualization - upload a background
 image, overlay a grid, place clickable card markers on it - a new data model
-and rendering mode outside WeKan's existing list/swimlane structure; needs a
-scope decision before implementation),
-[#3626](https://github.com/wekan/wekan/issues/3626) (a card as a subtask of
-MULTIPLE parents - today `parentId` (`models/cards.js`) is a single field, and
-every ancestor walk (`setParentId`'s #3328 cycle guard, `parentList`,
-`parentString`, the subtask completion counter) assumes exactly one parent;
-turning that into an array or a separate join changes the shape all of them
-read, so it needs a deliberate design decision rather than a quick patch. The
-other two parts of #3626 are done: the completed/total subtask counter was
-already correct (pinned by the #4050 work), and picking an EXISTING card as a
-subtask from the parent card's own UI is now built.),
-[#2460](https://github.com/wekan/wekan/issues/2460) (SQRL login - the report
-is a single comment-free link to https://www.grc.com/sqrl from 2019. SQRL has
-no official Meteor/Node package, unlike accounts-2fa (#3058); confirmed no
-`sqrl` dependency exists in `package.json`. Supporting it would mean
-implementing SQRL's own custom Ed25519-based handshake protocol - not
+and rendering mode outside WeKan's existing list/swimlane structure; decided
+2026-09-29 as a new Map board view, not built yet),
+[#3626](https://github.com/wekan/wekan/issues/3626)
+(decided 2026-09-29: a full parents-array model, migrating every ancestor walk;
+not built yet. A card as a subtask of MULTIPLE parents - today `parentId`
+(`models/cards.js`) is a single field, and every ancestor walk (`setParentId`'s
+\#3328 cycle guard, `parentList`, `parentString`, the subtask completion
+counter) assumes exactly one parent; turning that into an array or a separate
+join changes the shape all of them read, so it needs a deliberate design
+decision rather than a quick patch. The other two parts of #3626 are done: the
+completed/total subtask counter was already correct (pinned by the #4050 work),
+and picking an EXISTING card as a subtask from the parent card's own UI is now
+built.), [#2460](https://github.com/wekan/wekan/issues/2460) (SQRL login - the
+report is a single comment-free link to https://www.grc.com/sqrl from 2019.
+SQRL has no official Meteor/Node package, unlike accounts-2fa (#3058);
+confirmed no `sqrl` dependency exists in `package.json`. Supporting it would
+mean implementing SQRL's own custom Ed25519-based handshake protocol - not
 OAuth2/OIDC, which WeKan already supports generically via
-`accounts-oidc`/similar - either from scratch or via a third-party library,
-and no well-maintained, actively-updated, MIT/copyfree-licensed Node.js SQRL
+`accounts-oidc`/similar - either from scratch or via a third-party library, and
+no well-maintained, actively-updated, MIT/copyfree-licensed Node.js SQRL
 library is known to exist that a Meteor server integration could trust.
 Hand-rolling an authentication protocol's cryptography is exactly the
 security-critical work that should not be freshly written without extensive
 review. SQRL's real-world adoption peaked around 2013-2016 and has not grown
 since this issue was filed; WebAuthn/FIDO2 passkeys are the passwordless
-standard that gained the adoption SQRL did not. Needs a maintainer decision
-on whether this remains worth pursuing before any implementation is
-attempted.),
+standard that gained the adoption SQRL did not. Needs a maintainer decision on
+whether this remains worth pursuing before any implementation is attempted.),
+
 [#2713](https://github.com/wekan/wekan/issues/2713) (the attachment send path
 now works: a native form checkbox enables authorized live-card file reads,
 immutable byte snapshots and mailer propagation. Filesystem and GridFS delivery
@@ -1609,33 +1574,11 @@ Canonical and legacy Gantt targets now use grouped, authorized titles.).
 <details>
 <summary>Deferred pending a security decision.</summary>
 
-Making WeKan's eight custom URL schemes (`file:`, `thunderlink:`,
-`cbthunderlink:`, `onenote:`, `aodroplink:`, `abasurl:`, `conisio:`,
-`mailspring:`) actually CLICKABLE — the ask in
-[#3218](https://github.com/wekan/wekan/issues/3218). They are registered with
-markdown-it so they are recognised, and two filters then remove the link:
-markdown-it's own `validateLink` refuses `file:` (with `javascript:`,
-`vbscript:` and `data:`), and the viewer's DOMPurify allows only
-http/https/ftp/ftps/mailto/tel/callto/cid/xmpp hrefs. So the schemes have never
-produced a link, and #6588 showed that their only observable effect was a crash.
-Enabling them means relaxing both filters for schemes whose whole purpose is to
-launch a local application from a link somebody else may have written into a
-card — a decision for xet7, not a side effect of a crash fix.
-
-
-Syntax/color highlighting for code blocks in the card viewer (`+viewer`; the
-copy-to-clipboard half of #5149, which asked for both, is done and that issue is
-closed). It IS
-possible — set MarkdownIt's `highlight` option with a highlighter (e.g.
-`highlight.js`) and ship a theme — BUT the viewer's DOMPurify
-(`packages/markdown/src/secureDOMPurify.js`) deliberately strips EVERY `class`
-and `id` attribute (in `FORBID_ATTR` plus a hook, "for CSS injection" safety),
-so a highlighter's `<span class="hljs-...">` output would have its classes
-removed and NO colour would survive. Enabling it therefore requires carefully
-relaxing the sanitizer to allow a TIGHT allowlist of `hljs-*` / `language-*`
-classes on `<span>` inside `pre>code` only, which is a security trade-off xet7
-has not decided on yet (adds a dependency + loosens the XSS sanitizer + needs a
-browser build to verify).
+Both items that waited here were decided on 2026-09-29 and are built in
+Upcoming: custom URL schemes ([#3218](https://github.com/wekan/wekan/issues/3218))
+link only when an administrator lists them, and fenced code blocks are coloured
+by highlight.js with a tight class allowlist inside `pre` only. Nothing is
+waiting on a security decision now.
 
 </details>
 
