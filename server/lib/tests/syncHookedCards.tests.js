@@ -8,6 +8,7 @@ import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
 import Activities from '/models/activities';
 import ChangeHistory from '/models/changeHistory';
+import CustomFields from '/models/customFields';
 const { createSyncHookedCards } = require('/server/lib/syncHookedCards');
 const { prepareSyncOperationMutation } = require('/server/lib/syncOperationMutation');
 
@@ -24,6 +25,11 @@ describe('Sync hooked card adapter', function () {
       await Boards.rawCollection().insertOne({_id:boardId,title:'Sync test',permission:'private',members:[{userId,isAdmin:true,isActive:true}],archived:false});
       await Swimlanes.rawCollection().insertOne({_id:swimlaneId,boardId,title:'Lane',type:'swimlane',archived:false,sort:0});
       await Lists.rawCollection().insertOne({_id:listId,boardId,swimlaneId,title:'List',archived:false,sort:0});
+      // The planned card sets a value for the 'points' field, so the field has
+      // to exist on this board: the admin-only-field guard (AdminFieldBleed)
+      // rightly refuses a value for a field defined for no board.
+      await CustomFields.rawCollection().insertOne({_id:'points',boardIds:[boardId],name:'Points',type:'number',settings:{},
+        showOnCard:false,automaticallyOnCard:false,alwaysOnCard:false,showLabelOnMiniCard:false});
       const after={_id:cardId,boardId,listId,swimlaneId,title:'  Preserved  ',description:'',sort:0,archived:false};
       const creation={kind:'create',cardId,before:null,after};
       const writer=createSyncHookedCards({cards:Cards,step:creation,userId,withActor});
@@ -61,6 +67,7 @@ describe('Sync hooked card adapter', function () {
       await Cards.rawCollection().deleteMany({_id:cardId});
       await Lists.rawCollection().deleteMany({_id:listId});await Swimlanes.rawCollection().deleteMany({_id:swimlaneId});
       await Boards.rawCollection().deleteMany({_id:boardId});await Meteor.users.rawCollection().deleteMany({_id:userId});
+      await CustomFields.rawCollection().deleteMany({_id:'points',boardIds:[boardId]});
     }
   });
 });

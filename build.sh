@@ -1242,7 +1242,12 @@ function run_all_tests(){
 		echo
 		local rc=0
 		case "$k" in
-			mocha)  METEOR_LOCAL_DIR=.meteor/local-test meteor test --once --driver-package meteortesting:mocha --port 3100 || rc=$? ;;
+			# --full-app: 26 integration tests in server/lib/tests (notification
+			# delivery, stored history, Sync hooks) need the whole app's hooks and
+			# skip themselves otherwise - they had never run here before. The app
+			# refuses to start without WRITABLE_PATH. The one-second email receipt
+			# sweep is what emailReceiptRetention.tests.js waits for.
+			mocha)  EMAIL_RECEIPT_SWEEP_INTERVAL_MS=1000 WRITABLE_PATH="${WRITABLE_PATH:-..}" METEOR_LOCAL_DIR=.meteor/local-test meteor test --full-app --once --driver-package meteortesting:mocha --port 3100 || rc=$? ;;
 			# Every plain-node suite: the .cjs guards plus the stickers / Trello /
 			# OAuth2 .js tests. They need no server and no browser, and the whole-suite
 			# run did not run them at all once - a guard that was supposed to fail the
@@ -3171,10 +3176,11 @@ for _once in 1; do
 
 	"Test Mocha unit + security + API-logic tests (server-side only, no browser)")
 		LOG="$(one_log mocha)"
-		echo "Running Mocha tests: meteor test --once --driver-package meteortesting:mocha --port 3100"
+		echo "Running Mocha tests: meteor test --full-app --once --driver-package meteortesting:mocha --port 3100"
 		echo "(server-side unit/security/API-logic tests; browser/client tests are covered by Playwright options)"
 		echo "Log: $LOG"
-		meteor test --once --driver-package meteortesting:mocha --port 3100 2>&1 | tee "$LOG"
+		# --full-app so the integration tests that need the app's hooks run too.
+		EMAIL_RECEIPT_SWEEP_INTERVAL_MS=1000 WRITABLE_PATH="${WRITABLE_PATH:-..}" METEOR_LOCAL_DIR=.meteor/local-test meteor test --full-app --once --driver-package meteortesting:mocha --port 3100 2>&1 | tee "$LOG"
 		break
 		;;
 

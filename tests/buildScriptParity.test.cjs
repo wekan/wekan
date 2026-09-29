@@ -707,8 +707,11 @@ test('test runtimes cannot inherit the build tool half-of-RAM heap', () => {
     assert.match(flow, new RegExp(`NODE_OPTIONS="\\$TEST_NODE_OPTIONS"[^\\n]*${escaped}`),
       `${command} must use the bounded test-runtime heap`);
   }
+  // The Mocha line now also runs --full-app with WRITABLE_PATH and a test
+  // email-sweep interval (tests/mochaFullApp.test.cjs); what matters here is
+  // that it never takes the bounded test heap.
   assert.match(flow,
-    /mocha\)  METEOR_LOCAL_DIR=.*meteor test --once/,
+    /mocha\)  (?![^\n]*NODE_OPTIONS="\$TEST_NODE_OPTIONS")[^\n]*METEOR_LOCAL_DIR=[^\n]*meteor test --full-app --once/,
     'Meteor test keeps the larger build heap because it compiles a test application');
 });
 

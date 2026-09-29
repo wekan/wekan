@@ -24,10 +24,10 @@
     "modern": true
   },
   "scripts": {
-    "test": "meteor test --once --driver-package meteortesting:mocha",
+    "test": "EMAIL_RECEIPT_SWEEP_INTERVAL_MS=1000 WRITABLE_PATH=${WRITABLE_PATH:-..} meteor test --full-app --once --driver-package meteortesting:mocha",
     "test:unit:node": "node tests/run-node-suites.cjs",
     "test:unit:all": "npm run test:unit:node",
-    "test:watch": "meteor test --driver-package meteortesting:mocha",
+    "test:watch": "WRITABLE_PATH=${WRITABLE_PATH:-..} meteor test --full-app --driver-package meteortesting:mocha",
     "test:e2e": "node tests/e2e/list-regressions.js",
     "test:playwright": "cd tests/playwright && npm install && npx playwright test",
     "test:playwright:ui": "cd tests/playwright && npx playwright test --ui",
