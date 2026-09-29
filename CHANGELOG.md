@@ -1790,7 +1790,8 @@ regression coverage. Other browsers and backends were not run for this change.
 
 </details>
 
-**SAML login** - support identity providers that sign only the Assertion, and redirect login.
+**SAML login** - support identity providers that sign only the Assertion,
+and redirect login.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/d6503b43f">Choose which SAML signatures are required, and log in by full-page redirect</a>. Thanks to xet7.</summary>
@@ -1870,7 +1871,8 @@ Transifex. Fixes [#5323](https://github.com/wekan/wekan/issues/5323).
 
 </details>
 
-**Databases** - FerretDB answers MySQL range queries correctly and uses its OpLog index.
+**Databases** - FerretDB answers MySQL range queries correctly and uses its
+OpLog index.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ed73253da">MySQL range queries no longer drop large integers, and the OpLog tail uses its index</a>. Thanks to xet7.</summary>
@@ -2163,6 +2165,31 @@ and has the following developer-tooling fix:
   `WEKAN_MIRROR_TOOLS_DIR` relocates them and the test uses a temporary
   directory, so it passes on machines that have `.tools/wekan-gitlab`.
   Thanks to xet7.
+
+and updates the following translations:
+
+**Languages updated:** Finnish, Arabic, Algerian Arabic, Egyptian Arabic.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ef52698fe">Complete Finnish and Arabic planning and recovery translations</a>. Thanks to xet7.</summary>
+
+Fill 1,020 missing or English source values for filtering, Scrum, Sync,
+reminders and delivery recovery across four locales. Existing translations
+remain intact. Reviewed Blockly product names and mathematical symbols stay
+unchanged; ordinary prose is not exempted from translation.
+
+The Finnish and Arabic regression suites pass, checking source key order,
+interpolation tokens, localized prose and zero remaining placeholders in these
+four locales. The URL/token suite validates every locale, and all 21
+human-preference checks pass. Existing Upcoming implementation entries retain
+their recorded regression evidence; this batch changes text only. No browser
+layout or fluent-speaker review was run.
+
+At this checkpoint, 230 locales still have untranslated strings. The nine
+pending Transifex source keys are also included in this batch; other locales
+still need them. The all-language translation goal remains unfinished.
+
+</details>
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
