@@ -15,7 +15,11 @@ import {
 import { normalizeDependency } from '/models/metadata/dependencies';
 import CustomFields from '/models/customFields';
 import { writeImportedEntity } from '/models/lib/importPipeline';
-import { insertImportedChecklists, insertImportedComments } from '/models/lib/importedCardChildren';
+import {
+  insertImportedChecklists,
+  insertImportedComments,
+  recordImportLosses,
+} from '/models/lib/importedCardChildren';
 
 // Creates a WeKan board from a Kanboard export.
 //
@@ -39,7 +43,10 @@ import { insertImportedChecklists, insertImportedComments } from '/models/lib/im
 // What each task becomes is decided by models/lib/importedTaskPlan.js, which
 // plain-Node tests exercise; this class only performs the inserts.
 export class KanboardCreator {
-  constructor(data) {
+  constructor(data, source = 'kanboard') {
+    this.source = source;
+    // Parser and planner losses, recorded once the board exists.
+    this.losses = [];
     this._nowDate = new Date();
     this.members = data && data.membersMapping ? data.membersMapping : {};
     this.lists = {};
@@ -212,7 +219,9 @@ export class KanboardCreator {
 
   // One board custom field per source field name (see planImportedCustomFields).
   async createCustomFields(tasks, boardId) {
-    this.customFieldPlan = planImportedCustomFields(tasks).fields;
+    const customFieldPlan = planImportedCustomFields(tasks);
+    this.customFieldPlan = customFieldPlan.fields;
+    this.losses.push(...customFieldPlan.unsupported);
     const ids = {};
     for (const field of this.customFieldPlan) {
       ids[field.name] = await writeImportedEntity(CustomFields, {
@@ -227,7 +236,8 @@ export class KanboardCreator {
   // Parents and dependencies point at cards of this import, so they are set
   // once every card exists.
   async createLinks(tasks, cardIds) {
-    const { parents, dependencies } = planImportedLinks(tasks);
+    const { parents, dependencies, unsupported } = planImportedLinks(tasks);
+    this.losses.push(...unsupported);
     for (const { index, parent } of parents) {
       await Cards.direct.updateAsync(cardIds[index], { $set: { parentId: cardIds[parent] } });
     }
@@ -249,6 +259,14 @@ export class KanboardCreator {
     await this.createSwimlanes(board, boardId);
     await this.createLists(board, boardId);
     await this.createCards(board, boardId);
+    await recordImportLosses({
+      source: this.source,
+      warnings: board.warnings,
+      unsupported: [...(Array.isArray(board.unsupported) ? board.unsupported : []), ...this.losses],
+      boardId,
+      boardTitle: board.board && (board.board.name || board.board.title),
+      userId: Meteor.userId(),
+    });
     return boardId;
   }
 }

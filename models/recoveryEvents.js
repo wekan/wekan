@@ -29,6 +29,8 @@ RecoveryEvents.types = {
   PERMANENT_DELETE_SETTING_CHANGED: 'permanent-delete-setting-changed',
   BOARD_PERMANENTLY_DELETED: 'board-permanently-deleted',
   ATTACHMENT_PERMANENTLY_DELETED: 'attachment-permanently-deleted',
+  // Detail lists what an import could not bring over (models/lib/importLossReport.js).
+  IMPORT_COMPLETED_WITH_WARNINGS: 'import-completed-with-warnings',
 };
 
 RecoveryEvents.attachSchema(

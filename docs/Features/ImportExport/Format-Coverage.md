@@ -51,6 +51,29 @@ code/API schema rather than old sample files:
 | PDF / HTML / SVG | Export-only rendered views | Every selected visible section, Unicode, safe links/images, pagination and deterministic filenames; these are presentations, not lossless re-import formats |
 | Markdown task list | The convention markdown-kanban tools (e.g. Obsidian Kanban) use: `## List` headings, `- [ ]`/`- [x]` items | Headings as lists, checkbox state as a `done` tag, indented lines as description; a plain bulleted list with no checkboxes still imports as open cards |
 
+## Current external adapter checkpoint
+
+Kanboard, Nextcloud Deck, OpenProject, Asana, Zenkit and Jira now map the
+fields listed above that have a WeKan equivalent: comments (posted by the
+mapped user, otherwise by the importer with the source author's name leading
+the text), subtasks as child cards when they are imported too and as a
+checklist otherwise, parent hierarchy and dependencies between items of the
+same import, custom-field values as typed board custom fields, start, end
+and creation dates, archive state, colors, several assignees and source
+order. Creation dates survive the schema's `createdAt` autoValue through
+`writeImportedEntity`. What has no equivalent is listed per parser in
+`unsupported`: file contents (these JSON sources carry attachment metadata
+only), sharing rules (an import never grants board access), watchers and
+followers, cross-list references and formula results. Zenkit's API entries
+are read with the value keys its API client documents; its single-file export
+remains unverified because no schema is published.
+
+An import with losses records one `import-completed-with-warnings` row in
+Admin Panel → Problems → Recovery, with the board, the importing user and a
+bounded list of paths and reasons (`models/lib/importLossReport.js`). A
+complete import records nothing. The import page itself does not yet show the
+report: that needs a new translated string in every locale.
+
 ## Loss accounting and extensions
 
 Every parser returns `{ normalized, warnings, unsupported }`. `unsupported`

@@ -111,7 +111,7 @@ Meteor.methods({
         // task shape; the creator used to read only the handful of fields
         // that shape and Kanboard's API happen to spell the same way.
         importedBoard = EXTERNAL_PARSERS.kanboard(importedBoard);
-        creator = new KanboardCreator(data);
+        creator = new KanboardCreator(data, 'kanboard');
         break;
       case 'excel':
         // board = { excelBase64 }; parse it into rows and reuse the CSV creator.
@@ -126,7 +126,7 @@ Meteor.methods({
         // parseMarkdownKanban in models/lib/externalParsers.js.
         check(board, String);
         importedBoard = EXTERNAL_PARSERS.markdown(importedBoard);
-        creator = new KanboardCreator(data);
+        creator = new KanboardCreator(data, 'markdown');
         break;
       default:
         // NextCloud Deck / OpenProject / GitHub / GitLab / Gitea / Forgejo:
@@ -137,7 +137,7 @@ Meteor.methods({
         if (EXTERNAL_PARSERS[importSource]) {
           check(board, Match.OneOf(Object, Array));
           importedBoard = EXTERNAL_PARSERS[importSource](importedBoard);
-          creator = new KanboardCreator(data);
+          creator = new KanboardCreator(data, importSource);
         }
         break;
     }

@@ -1,7 +1,7 @@
 'use strict';
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
-const { navigateInApp, openBoard } = require('../helpers/auth');
+const { loginWithToken, navigateInApp, openBoard } = require('../helpers/auth');
 const BoardPage = require('../pages/BoardPage');
 const fs = require('node:fs');
 const path = require('node:path');
@@ -211,6 +211,42 @@ for (const [source, want] of Object.entries(FIDELITY)) {
     } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
   });
 }
+
+test('imports with losses record one Recovery row; a complete import records none', async ({ loggedInPage: page, user, adminUser }) => {
+  const boardIds = [];
+  const importText = async (source, doc) => {
+    await navigateInApp(page, `/import/${source}`);
+    await page.locator('#import-textarea').fill(JSON.stringify(doc));
+    await page.locator('.js-import-without-mapping').click();
+    await page.waitForURL(/\/b\//);
+    const id = page.url().match(/\/b\/([^/]+)/)[1];
+    boardIds.push(id);
+    return id;
+  };
+  try {
+    const deckBoard = await importText('deck', read('deck'));
+    const events = db.find('recoveryEvents', { boardIds: deckBoard });
+    expect(events).toHaveLength(1);
+    expect(events[0].type).toBe('import-completed-with-warnings');
+    expect(events[0].severity).toBe('warning');
+    expect(events[0].source).toBe('import:deck');
+    expect(events[0].detail).toContain('/acl');
+    expect(events[0].detail).toContain('1 deleted card(s) skipped');
+    expect(events[0].userId).toBe(user.id);
+    const gitlabBoard = await importText('gitlab', read('gitlab'));
+    expect(db.find('recoveryEvents', { boardIds: gitlabBoard })).toHaveLength(0);
+    // The importing member cannot read the Recovery report; an administrator can.
+    const row = page.locator('tr', { hasText: 'import-completed-with-warnings' }).filter({ hasText: '/acl' }).first();
+    await navigateInApp(page, '/admin/problems/recovery');
+    await expect(row).toHaveCount(0);
+    await loginWithToken(page, adminUser.id, adminUser.token);
+    await navigateInApp(page, '/admin/problems/recovery');
+    await expect(page.locator('tr', { hasText: 'import-completed-with-warnings' }).filter({ hasText: '/acl' }).first()).toBeVisible();
+  } finally {
+    db.deleteMany('recoveryEvents', { boardIds: { $in: boardIds } });
+    db.cleanup({ boardIds });
+  }
+});
 
 test('WeKan JSON import keeps each card creation date (#1992)', async ({ boardPage: page, board, user }) => {
   const card = db.findOne('cards', { boardId: board.boardId });

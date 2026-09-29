@@ -14,14 +14,18 @@ import Rules from '/models/rules';
 import Triggers from '/models/triggers';
 import Actions from '/models/actions';
 import { writeImportedEntity } from '/models/lib/importPipeline';
-import { insertImportedChecklists, insertImportedComments } from '/models/lib/importedCardChildren';
+import {
+  insertImportedChecklists,
+  insertImportedComments,
+  recordImportLosses,
+} from '/models/lib/importedCardChildren';
 import {
   importedChecklists,
   importedComment,
   importedCustomFieldValues,
   planImportedCustomFields,
 } from '/models/lib/importedTaskPlan';
-import { jiraIssueExtras } from '/models/lib/jiraIssueExtras';
+import { jiraIssueExtras, jiraPageWarnings } from '/models/lib/jiraIssueExtras';
 import {
   DEFAULT_DEPENDENCY_TYPE,
   normalizeDependency,
@@ -368,6 +372,18 @@ export class JiraCreator {
     await this.createCards(board, boardId);
     await this.createDependencies(board);
     await this.createRules(board, boardId);
+    const issues = this._issues(board);
+    await recordImportLosses({
+      source: 'jira',
+      warnings: jiraPageWarnings(board),
+      unsupported: [
+        ...issues.flatMap(issue => this._extras(board, issue).unsupported),
+        ...planImportedCustomFields(issues.map(issue => this._extras(board, issue))).unsupported,
+      ],
+      boardId,
+      boardTitle: (board.board && board.board.name) || undefined,
+      userId: Meteor.userId(),
+    });
     return boardId;
   }
 }

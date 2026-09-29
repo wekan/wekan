@@ -2,7 +2,9 @@ import Activities from '/models/activities';
 import CardComments from '/models/cardComments';
 import ChecklistItems from '/models/checklistItems';
 import Checklists from '/models/checklists';
+import RecoveryEvents from '/models/recoveryEvents';
 import { writeImportedEntity } from '/models/lib/importPipeline';
+import { importLossReport } from '/models/lib/importLossReport';
 
 // The checklists and comments an importer planned for one card (see
 // models/lib/importedTaskPlan.js), written the same way for every source.
@@ -33,4 +35,20 @@ export async function insertImportedComments(comments, { boardId, cardId, now, i
       activityType: 'addComment', boardId, cardId, commentId, createdAt, userId,
     });
   }
+}
+
+// Record what an import could not bring over as one Recovery row (see
+// models/lib/importLossReport.js). Best-effort: RecoveryEvents.record never
+// throws, and an import is never failed because its report could not be saved.
+export async function recordImportLosses({ source, warnings, unsupported, boardId, boardTitle, userId }) {
+  const report = importLossReport({ source, warnings, unsupported });
+  if (!report) return null;
+  return RecoveryEvents.record(report.type, {
+    detail: report.detail,
+    severity: report.severity,
+    source: `import:${source}`,
+    userId,
+    boardIds: boardId ? [boardId] : undefined,
+    boardTitles: boardTitle ? [String(boardTitle)] : undefined,
+  });
 }
