@@ -186,7 +186,8 @@ export class KanboardCreator {
       const task = tasks[index];
       const columnName = task.column_name || task.column || this._columnNames(data)[0];
       const swimlaneName = task.swimlane_name || task.swimlane || 'Default';
-      const plan = planImportedTask(task, { members: this.members, allowedColors: CARD_COLORS });
+      const plan = planImportedTask(task, { members: this.members, allowedColors: CARD_COLORS,
+        boardMemberIds: (board.members || []).filter(m => m.isActive !== false).map(m => m.userId) });
       const cardToCreate = {
         ...plan.card,
         boardId,
@@ -205,6 +206,11 @@ export class KanboardCreator {
         if (label) cardToCreate.labelIds.push(label._id);
       }
       if (plan.memberIds.length) cardToCreate.members = plan.memberIds;
+      if (plan.watcherIds.length) cardToCreate.watchers = plan.watcherIds;
+      if (plan.unwatchedCount) {
+        this.losses.push({ path: `/tasks/${index}/watchers`,
+          reason: `${plan.unwatchedCount} watcher(s) are not members of this board and do not watch the card` });
+      }
       const values = importedCustomFieldValues(task, this.customFieldPlan)
         .map(({ name, value }) => ({ _id: fieldIds[name], value }));
       if (values.length) cardToCreate.customFields = values;

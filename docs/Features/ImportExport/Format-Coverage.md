@@ -64,8 +64,12 @@ and creation dates, archive state, colors, several assignees and source
 order. Creation dates survive the schema's `createdAt` autoValue through
 `writeImportedEntity`. What has no equivalent is listed per parser in
 `unsupported`: file contents (these JSON sources carry attachment metadata
-only), sharing rules (an import never grants board access), watchers and
-followers, cross-list references and formula results. Zenkit's API entries
+only), sharing rules (an import never grants board access), cross-list
+references and formula results. OpenProject watchers and Asana followers
+become card watchers when they are mapped to a member of the new board;
+watching grants no access, but a non-member watching a private board would
+receive its notifications, so any other watcher is counted in the loss
+report instead. Nextcloud Deck sharing rules stay a reported loss by design. Zenkit's API entries
 are read with the value keys its API client documents; its single-file export
 remains unverified because no schema is published.
 

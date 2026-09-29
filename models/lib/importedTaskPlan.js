@@ -12,6 +12,7 @@
 //   assignees: [source user key]            - more people besides the owner
 //   checklists: [{ title, items: [{ title, done }] }]
 //   comments:   [{ text, author, authorName, date }]
+//   watchers:   [source user key]           - who follows the item
 // Every one of them is optional; a task without them imports as before.
 
 const HEX6 = /^#?([0-9a-fA-F]{6})$/;
@@ -83,7 +84,10 @@ export function importedChecklists(checklists) {
     .filter(checklist => checklist.items.length);
 }
 
-export function planImportedTask(task, { members = {}, allowedColors = [] } = {}) {
+// `boardMemberIds` are the new board's members. A source watcher becomes a
+// card watcher only when mapped to one of them: watching grants no access,
+// but a watcher outside a private board must not receive its notifications.
+export function planImportedTask(task, { members = {}, allowedColors = [], boardMemberIds = [] } = {}) {
   const card = {
     title: text(task.title) || 'Imported task',
     description: text(task.description),
@@ -115,9 +119,14 @@ export function planImportedTask(task, { members = {}, allowedColors = [] } = {}
     .filter(key => (typeof key === 'string' && key) || (typeof key === 'number' && Number.isFinite(key)))
     .map(key => members[key])
     .filter(Boolean))];
+  const watcherKeys = (Array.isArray(task.watchers) ? task.watchers : [])
+    .filter(key => (typeof key === 'string' && key) || (typeof key === 'number' && Number.isFinite(key)));
+  const watcherIds = [...new Set(watcherKeys.map(key => members[key]).filter(id => id && boardMemberIds.includes(id)))];
   return {
     card,
     memberIds,
+    watcherIds,
+    unwatchedCount: watcherKeys.length - watcherKeys.filter(key => watcherIds.includes(members[key])).length,
     checklists: importedChecklists(task.checklists),
     comments: (Array.isArray(task.comments) ? task.comments : [])
       .map(comment => importedComment(comment, members))

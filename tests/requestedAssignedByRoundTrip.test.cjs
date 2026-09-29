@@ -157,7 +157,8 @@ test("an issue tracker's author arrives as Requested By", () => {
   assert.match(read('models/kanboardCreator.js'), /\.\.\.plan\.card/);
   assert.ok(/requested_by: \(issue\.user/.test(parsers),
     'GitHub, Gitea and Forgejo: whoever opened the issue');
-  assert.ok(/requested_by: issue\.author/.test(parsers), 'GitLab: the same by another name');
+  // #2698 routes GitLab's author through gitlabUser (username, else name).
+  assert.ok(/requested_by: gitlabUser\(issue\.author\)/.test(parsers), 'GitLab: the same by another name');
   assert.ok(/task\.requested_by/.test(kanboard),
     'and the creator that every external parser feeds reads it');
 });

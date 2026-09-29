@@ -291,8 +291,9 @@ export function parseOpenProject(data) {
       if (!id || from !== id || !to) return;
       dependencies.push({ ref: to, type: OPENPROJECT_RELATIONS[rel.type] || 'related-to' });
     });
-    const watchers = embeddedElements(wp, 'watchers').length;
-    if (watchers) unsupported.push({ path: `${at}/watchers`, reason: `${watchers} watcher(s) are not imported` });
+    // Watchers become card watchers when mapped to a board member (the
+    // importer decides, models/lib/importedTaskPlan.js); others are reported.
+    const watchers = embeddedElements(wp, 'watchers').map(w => w && (w.name || w.login)).filter(Boolean);
     const attachments = embeddedElements(wp, 'attachments').length;
     if (attachments) unsupported.push({ path: `${at}/attachments`, reason: `${attachments} attachment(s): the API export carries metadata, not file contents` });
 
@@ -319,6 +320,7 @@ export function parseOpenProject(data) {
       requested_by: halTitle(links.author),
       tags,
       custom_fields: custom,
+      ...(watchers.length ? { watchers } : {}),
       comments: embeddedElements(wp, 'activities')
         .filter(a => a && a._type === 'Activity::Comment' && a.comment && a.comment.raw)
         .map(a => ({ text: a.comment.raw, author: halTitle(a._links && a._links.user), date: a.createdAt })),
@@ -568,8 +570,7 @@ export function parseAsana(data) {
       if (field && field.name && value !== undefined) custom[field.name] = value;
     });
     const embedded = (Array.isArray(t.subtasks) ? t.subtasks : []).filter(sub => !(sub && sub.gid && listed.has(String(sub.gid))));
-    const followers = Array.isArray(t.followers) ? t.followers.length : 0;
-    if (followers) unsupported.push({ path: `${at}/followers`, reason: `${followers} follower(s) are not imported` });
+    const followers = (Array.isArray(t.followers) ? t.followers : []).map(asanaUser).filter(Boolean);
     const attachments = Array.isArray(t.attachments) ? t.attachments.length : 0;
     if (attachments) unsupported.push({ path: `${at}/attachments`, reason: `${attachments} attachment(s): the API export carries metadata, not file contents` });
     const footer = t.permalink_url ? `Source: ${t.permalink_url}` : '';
@@ -592,6 +593,7 @@ export function parseAsana(data) {
       owner_username: asanaUser(t.assignee),
       tags: (t.tags || []).map(tag => (typeof tag === 'string' ? tag : tag && tag.name)).filter(Boolean),
       custom_fields: custom,
+      ...(followers.length ? { watchers: followers } : {}),
       checklists: embedded.length ? [{
         title: 'Subtasks',
         items: embedded.map(sub => ({ title: sub && sub.name, done: Boolean(sub && sub.completed) })),

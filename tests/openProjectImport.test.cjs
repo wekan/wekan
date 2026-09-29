@@ -45,8 +45,14 @@ async function main() {
     'Estimated time (hours)': 3, 'Progress (%)': 40,
   });
   assert.deepEqual(task.comments, [{ text: expected.comment, author: 'op-user', date: '2026-09-30T12:34:56Z' }]);
-  assert.deepEqual(parsed.unsupported.map(u => u.path),
-    ['/_embedded/elements/0/watchers', '/_embedded/elements/0/attachments']);
+  // Watchers are no longer a parser loss: they become card watchers when
+  // mapped to a board member, and the importer reports the rest.
+  assert.deepEqual(parsed.unsupported.map(u => u.path), ['/_embedded/elements/0/attachments']);
+  assert.deepEqual(task.watchers, ['op-assignee']);
+  const watched = planImportedTask(task, { members: { 'op-assignee': 'u1' }, boardMemberIds: ['u1'] });
+  assert.deepEqual([watched.watcherIds, watched.unwatchedCount], [['u1'], 0]);
+  const unmapped = planImportedTask(task, { members: {}, boardMemberIds: ['u1'] });
+  assert.deepEqual([unmapped.watcherIds, unmapped.unwatchedCount], [[], 1], 'an unmapped watcher is counted');
 
   const plan = planImportedTask(task, { members: {} });
   assert.equal(plan.card.startAt.toISOString(), '2026-09-01T00:00:00.000Z');

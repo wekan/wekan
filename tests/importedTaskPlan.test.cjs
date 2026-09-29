@@ -73,7 +73,8 @@ async function main() {
 
   // Negative: a task with only the original fields imports exactly as before.
   const minimal = planImportedTask({ title: 'Old', tags: ['x'], owner_username: 'nobody' }, { members: {} });
-  assert.deepEqual(minimal, { card: { title: 'Old', description: '', archived: false }, memberIds: [], checklists: [], comments: [] });
+  assert.deepEqual(minimal, { card: { title: 'Old', description: '', archived: false }, memberIds: [],
+    watcherIds: [], unwatchedCount: 0, checklists: [], comments: [] });
   for (const spent of [0, -1, 'NaN', null]) {
     assert.equal(planImportedTask({ spent_hours: spent }).card.spentTime, undefined);
   }
@@ -81,7 +82,10 @@ async function main() {
 
   // The creator writes what the plan says, and nothing bypasses the plan.
   const creator = fs.readFileSync(path.join(__dirname, '../models/kanboardCreator.js'), 'utf8');
-  assert.match(creator, /planImportedTask\(task, \{ members: this\.members, allowedColors: CARD_COLORS \}\)/);
+  // The creator also passes the new board's active members, the only users a
+  // source watcher may become (see the watcher case below).
+  assert.match(creator, /planImportedTask\(task, \{ members: this\.members, allowedColors: CARD_COLORS,\s*boardMemberIds: \(board\.members \|\| \[\]\)/);
+  assert.match(creator, /if \(plan\.watcherIds\.length\) cardToCreate\.watchers = plan\.watcherIds;/);
   assert.match(creator, /\.\.\.plan\.card/);
   assert.match(creator, /cardToCreate\.members = plan\.memberIds/);
   assert.match(creator, /sort: index,/, 'cards keep their source order');
@@ -97,6 +101,17 @@ async function main() {
   assert.doesNotMatch(creator, /cardToCreate\.dueAt = /, 'dates come only from the plan');
 
   console.log('  ok - imported tasks carry checklists, comments, dates, archive state and colors');
+
+  // Source watchers/followers: a card watcher only when mapped to a member of
+  // the new board. Watching grants no access, but a non-member watching a
+  // private board would receive its notifications.
+  const watched = planImportedTask({ title: 'W', watchers: ['me', 'colleague', 'stranger', 'me', ''] },
+    { members: { me: 'uMe', colleague: 'uColleague' }, boardMemberIds: ['uMe'] });
+  assert.deepEqual(watched.watcherIds, ['uMe']);
+  assert.equal(watched.unwatchedCount, 2, 'the non-member and the unmapped watcher are counted');
+  const noBoard = planImportedTask({ title: 'W', watchers: ['me'] }, { members: { me: 'uMe' } });
+  assert.deepEqual(noBoard.watcherIds, [], 'without board members nobody watches (negative)');
+  console.log('  ok - source watchers become card watchers only for board members');
 }
 
 main().catch(error => { console.error(error); process.exitCode = 1; });

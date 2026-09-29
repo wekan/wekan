@@ -30,7 +30,14 @@ async function main() {
   assert.deepEqual(task.tags, [expected.label]);
   assert.deepEqual(task.custom_fields, { 'Audit points': 5, 'Audit stage': 'Review' });
   assert.deepEqual(task.checklists, [{ title: 'Subtasks', items: [{ title: 'Audit subtask', done: true }] }]);
-  assert.deepEqual(parsed.unsupported.map(u => u.path), ['/data/0/followers', '/data/0/attachments']);
+  // Followers are no longer a parser loss: they become card watchers when
+  // mapped to a board member, and the importer reports the rest.
+  assert.deepEqual(parsed.unsupported.map(u => u.path), ['/data/0/attachments']);
+  assert.deepEqual(task.watchers, ['Asana Assignee']);
+  const watched = planImportedTask(task, { members: { 'Asana Assignee': 'u1' }, boardMemberIds: ['u1'] });
+  assert.deepEqual([watched.watcherIds, watched.unwatchedCount], [['u1'], 0]);
+  const outsider = planImportedTask(task, { members: { 'Asana Assignee': 'u2' }, boardMemberIds: ['u1'] });
+  assert.deepEqual([outsider.watcherIds, outsider.unwatchedCount], [[], 1], 'a non-member never watches');
 
   const plan = planImportedTask(task, { members: {} });
   assert.equal(plan.card.startAt.toISOString(), '2026-09-01T00:00:00.000Z');
