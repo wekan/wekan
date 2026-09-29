@@ -83,6 +83,11 @@ const isEnglishVariant = code => /^en([_-].*)?$/.test(code) || code === 'en';
 // source-wide list would hide real work in every language.
 const LOCALE_INVARIANTS = {
   // Locale-specific shared vocabulary, not exemptions for English prose.
+  // Italian keyboard legends, menu label, products and mathematical symbols.
+  it: new Set(['blockly-ALT_KEY', 'blockly-CHROME_OS', 'blockly-COMMAND_KEY',
+    'blockly-CONTEXT_MENU_KEY', 'blockly-CONTROL_KEY', 'blockly-LINUX',
+    'blockly-MAC_OS', 'blockly-MATH_TRIG_COS', 'blockly-MATH_TRIG_TAN',
+    'blockly-WINDOWS', 'scrum-sprint']),
   // Spanish shares color/divisor/general with English. Product names,
   // keyboard legends and mathematical function symbols also stay unchanged.
   ...Object.fromEntries(['es', 'es-AR', 'es-CL', 'es-CO', 'es-LA', 'es-MX',
