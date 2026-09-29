@@ -1303,6 +1303,7 @@
   "r-schedule-on-date": "ամսաթվով",
   "r-of-cards-in-list": "ցուցակի քարտերի համար",
   "r-when-due": "Երբ քարտի վերջնաժամկետը",
+  "r-when-card-date": "When this date of a card",
   "r-due-is-set": "սահմանված է",
   "r-due-soon": "մոտենում է",
   "r-due-overdue": "ժամկետանց է",

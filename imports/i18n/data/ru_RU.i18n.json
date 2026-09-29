@@ -1303,6 +1303,7 @@
   "r-schedule-on-date": "в дату",
   "r-of-cards-in-list": "для карточек в списке",
   "r-when-due": "Когда назначенная дата карточки",
+  "r-when-card-date": "When this date of a card",
   "r-due-is-set": "установлена",
   "r-due-soon": "приближается",
   "r-due-overdue": "просрочена",

@@ -34,12 +34,14 @@ Template.scheduledTriggers.events({
     const desc = Utils.getTriggerActionDesc(event, tpl);
     const boardId = Session.get('currentBoard');
     const dueCondition = tpl.find('#due-condition').value;
+    const dateField = tpl.find('#due-date-field').value === 'startAt' ? 'startAt' : 'dueAt';
     const days = parseInt(tpl.find('#due-days').value, 10) || 0;
     const atTime = tpl.find('#due-time').value || '09:00';
     datas.triggerVar.set({
       activityType: 'scheduledTrigger',
       scheduleKind: 'due',
       dueCondition,
+      dateField,
       days,
       atTime,
       listName: '*',

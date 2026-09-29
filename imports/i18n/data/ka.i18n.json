@@ -1303,6 +1303,7 @@
   "r-schedule-on-date": "თარიღზე",
   "r-of-cards-in-list": "სიაში არსებული ბარათებისთვის",
   "r-when-due": "როდესაც ბარათის ვადა",
+  "r-when-card-date": "When this date of a card",
   "r-due-is-set": "დაყენებულია",
   "r-due-soon": "ახლოვდება",
   "r-due-overdue": "გადაცილებულია",

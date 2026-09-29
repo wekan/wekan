@@ -7,6 +7,7 @@ import Triggers from '/models/triggers';
 import Actions from '/models/actions';
 import Cards from '/models/cards';
 import Activities from '/models/activities';
+import { matchesScheduledDate } from '/models/lib/scheduledDueFilter';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 const BOARD_LEVEL_ACTIONS = ['createCard', 'addSwimlane', 'moveAllCardsInList'];
@@ -63,16 +64,9 @@ async function selectCards(trigger) {
   let cards = await ReactiveCache.getCards(selector);
 
   if (trigger.scheduleKind === 'due') {
+    // #4278: the trigger may watch the start date instead of the due date.
     const now = Date.now();
-    const window = (Number(trigger.days) || 0) * DAY_MS;
-    cards = cards.filter(c => {
-      if (!c.dueAt) return false;
-      const due = new Date(c.dueAt).getTime();
-      if (trigger.dueCondition === 'set') return true;
-      if (trigger.dueCondition === 'soon') return due >= now && due - now <= window;
-      if (trigger.dueCondition === 'overdue') return now - due >= window;
-      return false;
-    });
+    cards = cards.filter(c => matchesScheduledDate(c, trigger, now));
   } else if (trigger.scheduleKind === 'aging') {
     const filtered = [];
     for (const c of cards) {

@@ -1303,6 +1303,7 @@
   "r-schedule-on-date": "v datum",
   "r-of-cards-in-list": "pro karty v seznamu",
   "r-when-due": "Když požadovaný termín karty",
+  "r-when-card-date": "When this date of a card",
   "r-due-is-set": "je nastaven",
   "r-due-soon": "se blíží",
   "r-due-overdue": "je po termínu",

@@ -1303,6 +1303,7 @@
   "r-schedule-on-date": "taariikhda",
   "r-of-cards-in-list": "kaararka liiska ku jira",
   "r-when-due": "Marka taariikhda kama dambaysta ah ee kaar",
+  "r-when-card-date": "When this date of a card",
   "r-due-is-set": "la dejiyo",
   "r-due-soon": "soo dhowaanayso",
   "r-due-overdue": "waqtigeedu dhaafo",

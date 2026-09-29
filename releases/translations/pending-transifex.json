@@ -31,6 +31,10 @@
     {
       "key": "r-vars-people-hint",
       "since": "2026-09-29"
+    },
+    {
+      "key": "r-when-card-date",
+      "since": "2026-09-29"
     }
   ]
 }

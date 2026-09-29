@@ -1303,6 +1303,7 @@
   "r-schedule-on-date": "long deit",
   "r-of-cards-in-list": "blong ol kad insaed long lis",
   "r-when-due": "Taem wan card's mas finis deit",
+  "r-when-card-date": "When this date of a card",
   "r-due-is-set": "i set",
   "r-due-soon": "i approaching",
   "r-due-overdue": "i overdue",

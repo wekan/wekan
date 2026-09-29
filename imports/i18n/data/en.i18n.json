@@ -1323,6 +1323,7 @@
   "r-schedule-on-date": "on date",
   "r-of-cards-in-list": "for cards in list",
   "r-when-due": "When a card's due date",
+  "r-when-card-date": "When this date of a card",
   "r-due-is-set": "is set",
   "r-due-soon": "is approaching",
   "r-due-overdue": "is overdue",

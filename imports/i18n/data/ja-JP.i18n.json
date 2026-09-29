@@ -1303,6 +1303,7 @@
   "r-schedule-on-date": "日付",
   "r-of-cards-in-list": "リスト内のカードに対して",
   "r-when-due": "カードの期限が",
+  "r-when-card-date": "When this date of a card",
   "r-due-is-set": "設定されたとき",
   "r-due-soon": "近づいたとき",
   "r-due-overdue": "過ぎたとき",

@@ -1303,6 +1303,7 @@
   "r-schedule-on-date": "kwa tarehe",
   "r-of-cards-in-list": "kwa kadi zilizo kwenye orodha",
   "r-when-due": "Wakati tarehe ya mwisho ya kadi",
+  "r-when-card-date": "When this date of a card",
   "r-due-is-set": "imewekwa",
   "r-due-soon": "inakaribia",
   "r-due-overdue": "imepitwa na wakati",

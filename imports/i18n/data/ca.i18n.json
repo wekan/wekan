@@ -1303,6 +1303,7 @@
   "r-schedule-on-date": "en data",
   "r-of-cards-in-list": "per a les fitxes de la llista",
   "r-when-due": "Quan la data de venciment d'una fitxa",
+  "r-when-card-date": "When this date of a card",
   "r-due-is-set": "s'estableix",
   "r-due-soon": "s'apropa",
   "r-due-overdue": "està vençuda",

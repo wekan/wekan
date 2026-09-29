@@ -45,7 +45,12 @@ template(name="scheduledTriggers")
   div.trigger-item#trigger-due
     div.trigger-content
       div.trigger-text
-        | {{_'r-when-due'}}
+        | {{_'r-when-card-date'}}
+      div.trigger-dropdown
+        //- #4278: start-date reminders use the same conditions as due dates.
+        select#due-date-field.js-due-date-field
+          option(value="dueAt" selected="selected") {{_'due-date'}}
+          option(value="startAt") {{_'card-start'}}
       div.trigger-dropdown
         select#due-condition.js-due-condition
           option(value="set") {{_'r-due-is-set'}}

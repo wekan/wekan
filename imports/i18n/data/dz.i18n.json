@@ -1303,6 +1303,7 @@
   "r-schedule-on-date": "ཚེས་གྲངས་ལ།",
   "r-of-cards-in-list": "ཐོ་གཞུང་ནང་གི་ཤོག་བྱང་ལ།",
   "r-when-due": "ཤོག་བྱང་གི་དུས་བཀག་ཚེས་གྲངས།",
+  "r-when-card-date": "When this date of a card",
   "r-due-is-set": "སྒྲིག་ཡོད་སྐབས།",
   "r-due-soon": "ཉེ་བར་སླེབས་སྐབས།",
   "r-due-overdue": "དུས་ཡོལ་སྐབས།",

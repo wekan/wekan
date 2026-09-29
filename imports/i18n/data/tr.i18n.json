@@ -1303,6 +1303,7 @@
   "r-schedule-on-date": "tarihte",
   "r-of-cards-in-list": "listedeki kartlar için",
   "r-when-due": "Bir kartın bitiş tarihi",
+  "r-when-card-date": "When this date of a card",
   "r-due-is-set": "ayarlandığında",
   "r-due-soon": "yaklaştığında",
   "r-due-overdue": "geçtiğinde",

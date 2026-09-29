@@ -1303,6 +1303,7 @@
   "r-schedule-on-date": "于日期",
   "r-of-cards-in-list": "针对列表中的卡片",
   "r-when-due": "当卡片的截止日期",
+  "r-when-card-date": "When this date of a card",
   "r-due-is-set": "被设置",
   "r-due-soon": "即将到来",
   "r-due-overdue": "已逾期",
