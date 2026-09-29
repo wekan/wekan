@@ -2917,6 +2917,24 @@ remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0a9a38c51">Complete Czech synchronization and recovery translations</a>. Thanks to xet7.</summary>
+
+Fill 138 remaining prose values for synchronization conflicts and reports,
+email and activity recovery, SAML login, move ordering and accessibility.
+Existing translations remain intact. Reviewed keyboard legends, product names,
+mathematical terms and shared Scrum terms stay unchanged.
+
+Czech and translation-token tests pass, together with all 21 human-preference
+checks. Coverage checks every source key and its order, interpolation tokens,
+recovery warnings and the absence of remaining prose placeholders against the
+current English source. Browser layout and fluent-speaker review were not run.
+Existing Upcoming entries retain their recorded regression evidence. Other
+locales and new English additions remain in scope; the all-language goal is
+unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
