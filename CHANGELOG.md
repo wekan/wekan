@@ -3700,6 +3700,21 @@ remaining translations are still in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/85df77155">Correct Bulgarian storage and administration vocabulary</a>. Thanks to xet7.</summary>
+
+Corrected 38 Bulgarian entries for upload progress, storage, support and
+accessibility pages, custom translations, account lockouts and scheduled jobs.
+Replaced Serbian text and translated the remaining English board and S3 file
+identifier labels while preserving existing Bulgarian translations.
+
+Bulgarian vocabulary and placeholder regression tests, translation URL checks
+and all 21 human-translation preference checks pass. Browser and fluent-
+speaker review were not run. The remaining vocabulary audit and translations
+across locales are still in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
