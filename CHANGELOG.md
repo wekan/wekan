@@ -1152,8 +1152,11 @@ sort reads, number allocation or copying children. DDP/REST reject foreign,
 missing and soft-deleted containers; board-wide lists remain valid. See the
 copy boundary audit for the nontransactional limit.
 Assigned-only source/descendant handling, client-side template copy writes,
-board-copy property merging, legacy direct Rules writes and concurrent
-permission changes remain to be reviewed.
+legacy direct Rules writes and concurrent permission changes remain to be
+reviewed. Board-copy property merging was the same fault on boards and is fixed
+in Upcoming. The markdown viewer's form-field allowance is not exploitable: the
+second sanitizer strips inputs, but it also strips GFM task-list checkboxes
+([#2419](https://github.com/wekan/wekan/issues/2419)), which remains to be fixed.
 The [archived-card heatmap](https://github.com/wekan/wekan/issues/5444) is now
 implemented under Board View → Pulse, with unit and Chromium scope coverage.
 Unfinished inventory work still includes
@@ -1713,8 +1716,8 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**In short:** **Security** blocks private-child disclosure through card copying,
-and card copies reject invalid destinations. **Pulse** adds an annual
+**In short:** **Security** blocks private-data disclosure through card and board
+copying, and card copies reject invalid destinations. **Pulse** adds an annual
 archived-card contribution grid. **Scrum History recovery** retains completion
 evidence, and API callers can retry undo/redo by request ID. **Imports** from
 Kanboard, Nextcloud Deck, OpenProject, Asana, Zenkit and Jira now bring
@@ -1754,6 +1757,30 @@ The
 remaining assigned-only, destination-placement and concurrency review. Other
 browser/backend matrices and production data remain unverified. Existing
 Upcoming archive and Scrum entries retain their recorded regression coverage.
+
+</details>
+
+**Board copying** - copy only the board the caller was authorized for.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/94931c7ab">Refuse board-copy properties that could replace the source board's identity</a>. Thanks to xet7.</summary>
+
+The `copyBoard` method assigned every caller-supplied property onto the source
+board before copying it, `_id` included. The copy loads lists, cards and their
+children by that identifier, so a board admin could pass another board's ID and
+duplicate a private board they are not a member of. `boardCopyProperties`
+now accepts only `title`, `sort`, `type`, `withoutCards` and `copyOptions`, and
+the copy is made from a separate object, so the source keeps its identity. The
+REST copy route accepts only a string title, applied the same way.
+
+A property outside that list is refused and recorded as CopyIdentityBleed in
+Admin Panel → Problems, without the supplied values. A wrong type on a
+supported property is an input error, not an attack. Logging failure cannot
+bypass the refusal. A unit suite covers the accepted and refused properties.
+Its source scan fails if caller input is assigned onto the source board again,
+or if the source board object is the one copied. A Chromium case reproduces the
+`_id` override and checks the refusal, the Problems record and malformed input.
+All 24 board-copy Chromium cases pass.
 
 </details>
 
@@ -2187,6 +2214,22 @@ translated string.
 
 and fixes the following bugs:
 
+**Board copying** - copies keep their custom fields.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0c0a79078">Copy boards with custom fields again by cloning definitions before cards</a>. Thanks to xet7.</summary>
+
+Duplicating a board with custom fields failed with "Protected custom field".
+The definitions were cloned only after every card had been copied, so each
+card still referenced the source board's fields. The admin-only field guard
+correctly refuses a field defined for a different board. Definitions are now
+cloned first, and cards receive the mapped IDs. A value whose field was not
+copied is dropped rather than left pointing at the source board. The
+"Selective board duplication: all" Chromium case, which failed before this
+fix, passes again.
+
+</details>
+
 **Import boundary** - continue with what the boundary returns.
 
 <details>
@@ -2270,7 +2313,7 @@ and has the following developer-tooling fix:
 
 and updates the following translations:
 
-**Languages updated:** Finnish, Arabic, Algerian Arabic, Egyptian Arabic, Turkish, Spanish, Argentine Spanish, Chilean Spanish, Colombian Spanish, Latin American Spanish, Mexican Spanish, Peruvian Spanish, Paraguayan Spanish, Italian, Portuguese, Brazilian Portuguese, European Portuguese, Galician, Korean, Japanese, Traditional Chinese, Chinese (Taiwan), Chinese (Hong Kong), Simplified Chinese, Mandarin Chinese, Chinese (Singapore).
+**Languages updated:** Finnish, Arabic, Algerian Arabic, Egyptian Arabic, Turkish, Spanish, Argentine Spanish, Chilean Spanish, Colombian Spanish, Latin American Spanish, Mexican Spanish, Peruvian Spanish, Paraguayan Spanish, Italian, Portuguese, Brazilian Portuguese, European Portuguese, Galician, Korean, Japanese, Traditional Chinese, Chinese (Taiwan), Chinese (Hong Kong), Simplified Chinese, Mandarin Chinese, Chinese (Singapore), French, Belgian French, Canadian French, Swiss French.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ef52698fe">Complete Finnish and Arabic planning and recovery translations</a>. Thanks to xet7.</summary>
@@ -2462,6 +2505,26 @@ were not run for this batch.
 The inventory lists 199 unfinished locales. Newly added English keys remain
 in scope for every locale, including missing keys and those pending Transifex.
 The all-language goal remains unfinished.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/09668d61f">Complete French planning and recovery translations</a>. Thanks to xet7.</summary>
+
+Fill 1,287 missing or English values across five French locale files for
+filters, Scrum, Sync, reminders, rules and delivery recovery. Existing
+translations remain intact. Reviewed shared French terms, keyboard labels,
+product names and mathematical notation stay unchanged.
+
+Thirteen translation suites and 21 human-preference checks pass against
+current English keys. Coverage checks source order, interpolation tokens,
+French prose and no remaining placeholders, and rechecks previously completed
+locales. Existing Upcoming implementation entries retain their recorded
+regression evidence. Browser layout and fluent-speaker review were not run.
+
+The inventory lists 194 unfinished locales. Newly added English keys remain
+in scope for every locale, including missing keys and those pending Transifex.
+The all-language translation goal remains unfinished.
 
 </details>
 
