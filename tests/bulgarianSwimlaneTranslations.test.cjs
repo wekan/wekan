@@ -115,6 +115,40 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
   assert.match(bg['globalSearch-instructions-operator-member'], /е \*член\*/);
   assert.match(bg['globalSearch-instructions-operator-assignee'], /е \*изпълнител\*/);
   assert.match(bg['delete-linked-cards-before-this-list'], /преди първо да изтриете свързаните карти/);
+  const helpKeys = ["globalSearch-instructions-operator-creator", "globalSearch-instructions-operator-org", "globalSearch-instructions-operator-team", "globalSearch-instructions-operator-due", "globalSearch-instructions-operator-created", "globalSearch-instructions-operator-modified", "globalSearch-instructions-operator-status", "globalSearch-instructions-status-public", "globalSearch-instructions-status-private", "globalSearch-instructions-operator-has", "globalSearch-instructions-operator-sort", "globalSearch-instructions-operator-limit", "globalSearch-instructions-notes-2", "globalSearch-instructions-notes-3", "globalSearch-instructions-notes-3-2", "globalSearch-instructions-notes-4", "globalSearch-instructions-notes-5", "label-colors", "archived-at", "due-date", "server-error-troubleshooting", "created-at-newest-first", "created-at-oldest-first", "custom-field-stringtemplate-separator", "custom-field-stringtemplate-item-placeholder", "filesReportTitle", "reports", "rulesReportTitle", "boardsReportTitle", "cardsReportTitle", "display-card-creator", "wait-spinner", "Bounce", "Cube", "Cube-Grid", "Dot", "Double-Bounce", "Rotateplane", "Scaleout", "Wave"];
+  for (const key of helpKeys) {
+    assert.deepEqual(translationTokens(bg[key]), translationTokens(en[key]), key);
+    assert.doesNotMatch(bg[key], /[јћђљњџЈЋЂЉЊЋЏ]|поступ|списи|опорав|предмет/i, key);
+    assert.match(bg[key], /[А-Яа-я]/, key);
+  }
+  assert.match(bg['globalSearch-instructions-notes-2'], /логическо \*ИЛИ\*.*поне едно/);
+  assert.match(bg['globalSearch-instructions-notes-3'], /логическо \*И\*.*всички/);
+  assert.match(bg['globalSearch-instructions-operator-has'], /`has:-due`.*без краен срок/);
+  assert.match(bg['globalSearch-instructions-operator-sort'], /низходящо.*`-` пред/);
+  assert.match(bg['globalSearch-instructions-notes-5'], /архивираните карти не се включват/);
+  assert.match(bg['globalSearch-instructions-notes-4'], /не се прави разлика между малки и главни букви/);
+  assert.match(bg['created-at-newest-first'], /най-новите/);
+  assert.match(bg['created-at-oldest-first'], /най-старите/);
+  for (const command of ['sudo snap logs wekan.wekan', 'sudo docker logs wekan-app']) {
+    assert.ok(bg['server-error-troubleshooting'].includes('`' + command + '`'));
+  }
+  for (const entity of ['&#32;', '&nbsp;']) assert.ok(bg['custom-field-stringtemplate-separator'].includes(entity));
+  const teamKeys = ["delete-org-warning-message", "delete-team-warning-message", "details", "carbon-copy", "ticket", "tickets", "ticket-number", "pending", "history", "help-request", "editCardSortOrderPopup-title", "cardDetailsPopup-title", "add-teams", "filter-card-title-label", "invite-people-success", "invite-people-error", "to-create-teams-contact-admin", "Node_heap_used_heap_size", "Node_heap_heap_size_limit", "Node_heap_malloced_memory", "Node_heap_peak_malloced_memory", "Node_heap_does_zap_garbage", "Node_heap_number_of_native_contexts", "Node_heap_number_of_detached_contexts", "Node_memory_usage_rss", "Node_memory_usage_heap_total", "Node_memory_usage_heap_used", "Node_memory_usage_external", "add-organizations", "add-organizations-label", "remove-organization-from-board", "to-create-organizations-contact-admin", "custom-legal-notice-link-url", "acceptance_of_our_legalNotice", "legalNotice"];
+  for (const key of teamKeys) {
+    assert.deepEqual(translationTokens(bg[key]), translationTokens(en[key]), key);
+    assert.doesNotMatch(bg[key], /[јћђљњџЈЋЂЉЊЋЏ]|поступ|списи|опорав|предмет/i, key);
+    assert.match(bg[key], /[А-Яа-я]/, key);
+  }
+  for (const entity of ['org', 'team']) {
+    assert.match(bg['delete-' + entity + '-warning-message'], /не може.*поне един потребител/);
+  }
+  assert.match(bg['invite-people-success'], /регистрация.*успешно/);
+  assert.match(bg['invite-people-error'], /Грешка.*регистрация/);
+  assert.match(bg['carbon-copy'], /Cc:/);
+  assert.match(bg['Node_heap_malloced_memory'], /malloc/);
+  assert.match(bg['Node_heap_peak_malloced_memory'], /пиков.*malloc/);
+  assert.match(bg['Node_heap_does_zap_garbage'], /презаписване.*zap/);
+  assert.match(bg['Node_memory_usage_rss'], /резидентната памет/);
   assert.equal(bg.swimlane, 'Коридор');
   assert.equal(bg['welcome-swimlane'], 'Етап 1');
   assert.match(bg['swimlane-height-error-message'], /положително цяло число/);
