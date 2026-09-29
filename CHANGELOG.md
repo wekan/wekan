@@ -1654,6 +1654,7 @@ evidence, and API callers can retry undo/redo by request ID. **Imports** from
 Kanboard, Nextcloud Deck, OpenProject, Asana, Zenkit and Jira now bring
 comments, subtasks, custom fields, hierarchy and dates, keep source creation
 dates, parse only sanitized input and report what they could not import.
+**FerretDB on MySQL** no longer drops large integers from range queries.
 
 This release fixes the following CRITICAL SECURITY ISSUE of [CopyIdentityBleed](https://wekan.fi/hall-of-fame/copyidentitybleed/):
 
