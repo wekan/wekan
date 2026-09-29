@@ -777,6 +777,7 @@
   "import-board-instruction-zenkit": "貼上 ZenKit 清單的 JSON 匯出檔 ({ \"title\", \"stages\":[...], \"items\":[...] })。階段會轉為清單，項目則會轉為卡片。",
   "import-board-instruction-markdown": "貼上 Markdown 任務清單（採用 Obsidian Kanban 等傳統 Markdown-Kanban 工具所使用的格式）：以「## 清單名稱」作為標題，下方列出「- [ ]」或「- [x]」格式的項目。標題會轉為清單，項目則轉為卡片；若為不含核取方塊的純文字項目符號清單，亦會以「待辦卡片」的形式匯入。",
   "import-board-instruction-leo": "貼上 Leo 大綱（.leo 檔案）。頂層節點會成為清單，其子節點會成為卡片，並以節點內文作為描述；更深層的節點會成為檢查清單。已標記的節點會以已完成狀態匯入。",
+  "import-board-instruction-todotxt": "貼上 todo.txt 檔案：每行一個任務，採用 todo.txt 應用程式及相容應用程式寫出的格式。已完成的任務（\"x\"）歸入已完成，+project 和 @context 轉為標籤，(A) 轉為優先順序標籤，due: 和 t: 轉為截止日期和開始日期。",
   "import-board-instruction-trello": "在你的 Trello 看板中，點選「功能表」，然後選擇「更多」，「列印與匯出」，「匯出為 JSON」並複製結果文字。",
   "import-board-instruction-csv": "貼上您的 CSV（逗號分隔值）/TSV（Tab 分隔值）資料。",
   "import-board-instruction-jira": "請貼上來自 Jira Cloud REST API 問題搜尋 (GET /rest/api/2/search) 的 JSON 內容，或等價的 { \"issues\": [...] } 物件。Jira 狀態將轉為清單，問題則轉為卡片。您亦可選擇性地包含一個「automationRules」陣列以匯入規則。",
