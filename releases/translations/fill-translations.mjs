@@ -83,6 +83,20 @@ const isEnglishVariant = code => /^en([_-].*)?$/.test(code) || code === 'en';
 // source-wide list would hide real work in every language.
 const LOCALE_INVARIANTS = {
   // Locale-specific shared vocabulary, not exemptions for English prose.
+  // Spanish shares color/divisor/general with English. Product names,
+  // keyboard legends and mathematical function symbols also stay unchanged.
+  ...Object.fromEntries(['es', 'es-AR', 'es-CL', 'es-CO', 'es-LA', 'es-MX',
+    'es-PE', 'es-PY', 'es_CO'].map(code => [code, new Set([
+    'blockly-ALT_KEY', 'blockly-ARIA_TYPE_FIELD_COLOUR', 'blockly-CHROME_OS',
+    'blockly-INPUT_LABEL_MATH_DIVISOR', 'blockly-LINUX', 'blockly-MAC_OS',
+    'blockly-MATH_TRIG_ACOS', 'blockly-MATH_TRIG_ASIN', 'blockly-MATH_TRIG_ATAN',
+    'blockly-MATH_TRIG_COS', 'blockly-MATH_TRIG_SIN', 'blockly-MATH_TRIG_TAN',
+    'blockly-SHORTCUTS_GENERAL', 'blockly-WINDOWS',
+  ])])),
+  // Turkish keyboard legends/product names and the established Scrum term.
+  tr: new Set(['blockly-ALT_KEY', 'blockly-CHROME_OS', 'blockly-ENTER_KEY',
+    'blockly-ESCAPE', 'blockly-LINUX', 'blockly-MAC_OS', 'blockly-SHIFT_KEY',
+    'blockly-TAB_KEY', 'blockly-WINDOWS', 'scrum-sprint']),
   // Finnish retains these product names, keyboard labels and math symbols.
   fi: new Set(['blockly-ALT_KEY', 'blockly-CHROME_OS', 'blockly-LINUX',
     'blockly-MAC_OS', 'blockly-WINDOWS', 'blockly-MATH_TRIG_ACOS',

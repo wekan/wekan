@@ -19,3 +19,26 @@ for (const language of languages) {
   assert.strictEqual(translated.error, 'Mensaje de error');
 }
 console.log('upcomingSpanishTranslationFill: 45 tests passed');
+
+(async () => {
+  const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
+  const en = JSON.parse(fs.readFileSync(path.join(ROOT, 'imports/i18n/data/en.i18n.json'), 'utf8'));
+  for (const language of languages) {
+    const translated = JSON.parse(fs.readFileSync(path.join(ROOT,
+      'imports/i18n/data', `${language}.i18n.json`), 'utf8'));
+    assert.deepStrictEqual(Object.keys(translated), Object.keys(en), language);
+    for (const key of Object.keys(en)) {
+      assert.deepStrictEqual(translationTokens(translated[key]), translationTokens(en[key]), `${language}:${key}`);
+    }
+    for (const key of ['filter-column-age-hint', 'scrum-total', 'sync-preview-saved',
+      'email-recovery-description', 'activity-recovery-busy',
+      'rule-email-recovery-description', 'saml-login-not-started',
+      'blockly-WORKSPACE_SEARCH_INPUT_LABEL']) {
+      assert.ok(translated[key]?.trim(), `${language}:${key}`);
+      assert.notStrictEqual(translated[key], en[key], `${language}:${key} remains English`);
+    }
+    assert.strictEqual(translated['blockly-ARIA_TYPE_FIELD_COLOUR'], 'color');
+    assert.strictEqual(translated['blockly-INPUT_LABEL_MATH_DIVISOR'], 'divisor');
+  }
+  console.log('upcomingSpanishTranslationFill: source keys, tokens and new prose verified in all nine locales');
+})().catch(error => { console.error(error); process.exitCode = 1; });
