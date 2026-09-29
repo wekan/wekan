@@ -8,7 +8,9 @@ const root = path.resolve(__dirname, '..');
 const read = code => JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data', `${code}.i18n.json`)));
 const english = read('en');
 for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valencia',
-  'ru', 'ru-RU', 'ru-UA', 'ru_RU', 'uk', 'uk-UA', 'pl', 'pl-PL', 'cs', 'cs-CZ']) {
+  'ru', 'ru-RU', 'ru-UA', 'ru_RU', 'uk', 'uk-UA', 'pl', 'pl-PL', 'cs', 'cs-CZ',
+  'de', 'de_DE', 'de-AT', 'de-CH', 'fr', 'fr-FR', 'fr-BE', 'fr-CA', 'fr-CH',
+  'es', 'es-AR', 'es-LA', 'es-CL', 'es_CO', 'es-CO', 'es-PY', 'es-PE', 'es-MX', 'it']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(english), `${code}: source key order`);
   for (const key of Object.keys(english)) {
@@ -86,5 +88,17 @@ for (const code of ['cs', 'cs-CZ']) {
   assert.match(locale['rule-email-recovery-resend-confirm'], /dvakrát/);
   assert.match(locale['rule-email-legacy-discard-confirm'], /Nikdy nebude odeslán/);
   assert.equal(locale['rule-email-legacy-source'], 'Tablo / karta');
+}
+for (const [codes, duplicate, never] of [
+  [['de', 'de_DE', 'de-AT', 'de-CH'], /doppelt/, /niemals gesendet/],
+  [['fr', 'fr-FR', 'fr-BE', 'fr-CA', 'fr-CH'], /deux fois/, /jamais envoyé/],
+  [['es', 'es-AR', 'es-LA', 'es-CL', 'es_CO', 'es-CO', 'es-PY', 'es-PE', 'es-MX'], /dos veces/, /Nunca se enviará/],
+  [['it'], /due volte/, /Non sarà mai inviata/],
+]) {
+  for (const code of codes) {
+    const locale = read(code);
+    assert.match(locale['rule-email-recovery-resend-confirm'], duplicate);
+    assert.match(locale['rule-email-legacy-discard-confirm'], never);
+  }
 }
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
