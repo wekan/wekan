@@ -47,6 +47,14 @@ test('completed locale batches preserve URL schemes and rule variable syntax in 
     const locale = JSON.parse(fs.readFileSync(path.join(directory, code + '.i18n.json')));
     const value = locale[key];
     const source = JSON.parse(fs.readFileSync(path.join(directory, 'en.i18n.json')));
+    for (const visibilityKey of ['instance', 'instance-desc', 'board-instance-info']) {
+      assert.ok(locale[visibilityKey]?.trim(), code + ':' + visibilityKey);
+      assert.notEqual(locale[visibilityKey], source[visibilityKey], code + ':' + visibilityKey);
+      assert.deepEqual(translationTokens(locale[visibilityKey]),
+        translationTokens(source[visibilityKey]), code + ':' + visibilityKey);
+    }
+    assert.deepEqual(locale['board-instance-info'].match(/<\/?strong>/g),
+      ['<strong>', '</strong>'], code + ': visibility emphasis');
     const ruleHelp = locale['r-trigger-vars-hint'];
     assert.ok(ruleHelp?.trim(), code);
     assert.notEqual(ruleHelp, source['r-trigger-vars-hint'], code);
