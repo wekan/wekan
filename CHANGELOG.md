@@ -2707,6 +2707,29 @@ remain in scope for every locale. The all-language goal remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f42035a7c">Correct Indonesian wording and translate new URL scheme help</a>. Thanks to xet7.</summary>
+
+Correct 231 Malay-seeded or incorrect Indonesian values across archive,
+permissions, cards, rules, settings and reports. Restore lost meaning in
+search case sensitivity, vertical scrolling, keyboard shortcut states and
+top-versus-bottom rule actions. Translate the newly added URL scheme help
+in the 52 locales covered by the completed translation batches.
+
+Twenty translation suites and 21 human-preference checks pass. Additional
+checks reject reviewed Malay vocabulary, distinguish opposite actions and
+preserve the literal scheme names in all 52 help translations. Source keys,
+order and interpolation tokens remain intact. Existing Upcoming
+implementation entries retain their recorded regression evidence. Browser
+layout and fluent-speaker review were not run.
+
+The broader Indonesian vocabulary review remains open; word-list checks
+do not establish full fluency. Other unfinished locales still need the new
+URL scheme help as well as their existing backlog. New source keys and keys
+pending Transifex remain in scope. The all-language goal remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
