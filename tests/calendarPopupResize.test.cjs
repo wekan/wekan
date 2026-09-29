@@ -6,7 +6,7 @@ const vm = require('node:vm');
 const path = require('node:path');
 let events;
 const context = {
-  window: { innerWidth: 1280, innerHeight: 900 },
+  window: { innerWidth: 1280, innerHeight: 900, getComputedStyle: () => ({ direction: 'ltr' }) },
   Popup: { template: {
     events(map) { events = map; }, onRendered() {}, onDestroyed() {},
   } },
@@ -38,7 +38,7 @@ assert.equal(element.style.width, '460px');
 assert.equal(element.style.height, '660px');
 context.resizeDatePopup(element, 1, 1);
 assert.equal(element.style.width, '320px');
-assert.equal(element.style.height, '600px', 'shrinking keeps the initial controls visible');
+assert.equal(element.style.height, '160px', 'shrinking leaves a scrollable content area');
 context.resizeDatePopup(element, 10000, 10000);
 assert.equal(element.style.width, '828px');
 assert.equal(element.style.height, '876px', 'resizing stays inside the viewport');
@@ -93,3 +93,15 @@ assert.equal(offset.left, 190, 'fixed wide settings ignores sidebar/document scr
 assert.equal(offset.top, 12);
 assert.equal(offset.maxHeight, 696);
 console.log('Board View Settings dragging and fixed viewport geometry passed');
+
+// RTL dragging grows leftward while preserving the opposite (right) edge.
+context.window.getComputedStyle = () => ({ direction: 'rtl' });
+element.style.width = '400px';
+element.style.height = '400px';
+events['pointerdown .js-date-popup-resize'](event, tpl);
+events['pointermove .js-date-popup-resize']({ ...event, clientX: 760 }, tpl);
+assert.equal(element.style.width, '440px');
+assert.equal(element.style.left, '400px');
+events['keydown .js-date-popup-resize']({ ...event, key: 'ArrowRight' });
+assert.equal(element.style.width, '420px', 'right arrow shrinks the left-hand RTL grip');
+console.log('RTL resize reverses horizontal input and keeps the right edge anchored');

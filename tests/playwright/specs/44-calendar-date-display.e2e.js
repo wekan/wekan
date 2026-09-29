@@ -32,7 +32,7 @@ for (const [language, direction] of [['en', 'ltr'], ['ar', 'rtl']]) {
   });
 }
 
-test('RTL date popup keeps its bottom-right grip and moves with physical pointer coordinates', async ({ page, user, board }) => {
+test('RTL date popup keeps its bottom-left grip and moves with physical pointer coordinates', async ({ page, user, board }) => {
   const card = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
   db.updateOne('users', { _id: user.id }, { $set: {
     'profile.language': 'ar', 'profile.calendarSystem': 'jalali',
@@ -52,7 +52,7 @@ test('RTL date popup keeps its bottom-right grip and moves with physical pointer
   await expect(popup.locator('.selected-calendar-picker')).toBeVisible();
   const original = await popup.boundingBox();
   const grip = await popup.locator('.js-date-popup-resize').boundingBox();
-  expect(Math.abs(grip.x + grip.width - original.x - original.width)).toBeLessThan(2);
+  expect(Math.abs(grip.x - original.x)).toBeLessThan(2);
   expect(Math.abs(grip.y + grip.height - original.y - original.height)).toBeLessThan(2);
   const title = await popup.locator('.header-title').boundingBox();
   await page.mouse.move(title.x + title.width / 2, title.y + title.height / 2);

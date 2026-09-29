@@ -510,38 +510,61 @@
   min-height: 32px;
 }
 
-.pop-over .js-date-popup-resize {
-  display: none;
-}
-.pop-over[data-popup='boardViewSettingsPopup'] > .js-date-popup-resize,
-.pop-over:has(.edit-date) > .js-date-popup-resize {
-  display: block;
-  position: absolute;
-  inset-inline-end: 0;
-  bottom: 0;
+/* Every popup owns a small grip, independent of themed/full-width buttons. */
+.pop-over > button.js-date-popup-resize {
+  display: block !important;
+  position: absolute !important;
+  inset-inline-start: auto !important;
+  inset-inline-end: 0 !important;
+  top: auto !important;
+  bottom: 0 !important;
   z-index: 20;
-  width: 20px;
-  height: 20px;
-  min-height: 0;
-  padding: 0;
-  margin: 0;
-  border: 0;
-  background: transparent;
-  color: inherit;
+  box-sizing: border-box;
+  width: 24px !important;
+  min-width: 0 !important;
+  max-width: 24px !important;
+  height: 24px !important;
+  min-height: 0 !important;
+  max-height: 24px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: inherit !important;
+  box-shadow: none !important;
+  line-height: 24px;
   cursor: nwse-resize;
   touch-action: none;
 }
-/* The requested resize grip stays at the physical bottom-right in RTL too. */
-html[dir='rtl'] .pop-over[data-popup='boardViewSettingsPopup'] > .js-date-popup-resize,
-html[dir='rtl'] .pop-over:has(.edit-date) > .js-date-popup-resize {
-  inset-inline-start: 0;
-  inset-inline-end: auto;
+html[dir='rtl'] .pop-over > button.js-date-popup-resize {
+  cursor: nesw-resize;
 }
-.pop-over[data-popup='boardViewSettingsPopup'] > .js-date-popup-resize:focus-visible,
-.pop-over:has(.edit-date) > .js-date-popup-resize:focus-visible {
+html[dir='rtl'] .pop-over > button.js-date-popup-resize > span {
+  display: inline-block;
+  transform: scaleX(-1);
+}
+.pop-over > button.js-date-popup-resize:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: -2px;
 }
+/* Resized shells keep the grip outside the scrolling content. */
+.pop-over[data-user-resized] {
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  box-sizing: border-box;
+  padding-bottom: 24px;
+}
+.pop-over[data-user-resized] > .header {
+  flex-shrink: 0;
+}
+.pop-over[data-user-resized] > .content-wrapper {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow-y: auto !important;
+}
+
 .pop-over:has(.edit-date) .calendar-time-input select {
   margin-bottom: 0;
 }

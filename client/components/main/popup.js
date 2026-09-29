@@ -3,16 +3,28 @@ import { CSSEvents } from '/client/lib/cssEvents';
 import { isMobileViewportNow } from '/client/lib/responsiveUtils';
 import { trapTabKey } from '/client/lib/accessibility';
 
-// Keep the popup anchored while resizing and retain every control at its
-// initial height. Pointer capture prevents releasing outside from closing it.
+// Anchor the opposite edge while dragging the bottom inline-end corner.
 function resizeDatePopup(element, width, height) {
   const bounds = element.getBoundingClientRect();
-  const availableWidth = Math.max(0, window.innerWidth - bounds.left - 12);
+  const rtl = window.getComputedStyle(element).direction === 'rtl';
+  const right = bounds.left + bounds.width;
+  const availableWidth = Math.max(0, rtl ? right - 12 : window.innerWidth - bounds.left - 12);
   const availableHeight = Math.max(0, window.innerHeight - bounds.top - 12);
-  const minimumHeight = Number(element.dataset.resizeMinimumHeight) || bounds.height;
+  const minimumHeight = Number(element.dataset.resizeMinimumHeight) || Math.min(160, bounds.height);
   element.dataset.resizeMinimumHeight = String(minimumHeight);
-  element.style.setProperty('width', `${Math.min(availableWidth, Math.max(Math.min(320, availableWidth), width))}px`, 'important');
-  element.style.setProperty('height', `${Math.min(availableHeight, Math.max(Math.min(minimumHeight, availableHeight), height))}px`, 'important');
+  const nextWidth = Math.min(availableWidth, Math.max(Math.min(320, availableWidth), width));
+  const nextHeight = Math.min(availableHeight, Math.max(Math.min(minimumHeight, availableHeight), height));
+  element.dataset.userResized = 'true';
+  // Existing popup types may use centered logical insets or fullscreen sizes.
+  // Freeze viewport coordinates before applying the user's dimensions.
+  const styles = {
+    position: 'fixed', 'inset-inline-start': 'auto', 'inset-inline-end': 'auto',
+    right: 'auto', bottom: 'auto', left: `${rtl ? right - nextWidth : bounds.left}px`,
+    top: `${bounds.top}px`, margin: '0', 'min-width': '0', 'min-height': '0',
+    'max-width': `${availableWidth}px`, 'max-height': `${availableHeight}px`,
+    width: `${nextWidth}px`, height: `${nextHeight}px`,
+  };
+  Object.entries(styles).forEach(([key, value]) => element.style.setProperty(key, value, 'important'));
 }
 
 Popup.template.events({
@@ -47,14 +59,15 @@ Popup.template.events({
     const element = evt.currentTarget.closest('.pop-over');
     const bounds = element.getBoundingClientRect();
     tpl._dateResize = { element, pointerId: evt.pointerId, x: evt.clientX, y: evt.clientY,
-      width: bounds.width, height: bounds.height };
+      width: bounds.width, height: bounds.height,
+      direction: window.getComputedStyle(element).direction === 'rtl' ? -1 : 1 };
     evt.currentTarget.setPointerCapture(evt.pointerId);
   },
   'pointermove .js-date-popup-resize'(evt, tpl) {
     const drag = tpl._dateResize;
     if (!drag || drag.pointerId !== evt.pointerId) return;
     evt.preventDefault(); evt.stopPropagation();
-    resizeDatePopup(drag.element, drag.width + evt.clientX - drag.x, drag.height + evt.clientY - drag.y);
+    resizeDatePopup(drag.element, drag.width + drag.direction * (evt.clientX - drag.x), drag.height + evt.clientY - drag.y);
   },
   'pointerup .js-date-popup-resize, pointercancel .js-date-popup-resize, lostpointercapture .js-date-popup-resize'(evt, tpl) {
     tpl._dateResize = null;
@@ -67,7 +80,8 @@ Popup.template.events({
     const element = evt.currentTarget.closest('.pop-over');
     const bounds = element.getBoundingClientRect();
     const [width, height] = offsets[evt.key];
-    resizeDatePopup(element, bounds.width + width, bounds.height + height);
+    const direction = window.getComputedStyle(element).direction === 'rtl' ? -1 : 1;
+    resizeDatePopup(element, bounds.width + direction * width, bounds.height + height);
   },
   'click .js-back-view'() {
     Popup.back();
