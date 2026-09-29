@@ -4,6 +4,7 @@ import { Utils } from '/client/lib/utils';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { TAPi18n } from '/imports/i18n';
 import { parseDueReminderInput } from '/models/lib/dueNotificationConfig';
+import { GROUP_KEYS, cleanMutedGroups } from '/models/lib/notificationActivityGroups';
 
 // The 3-tier Notification Settings popup (see notificationSettingsPopup.jade
 // and models/lib/notificationSettings.js). `this.data().scope` is one of
@@ -66,6 +67,15 @@ Template.notificationSettingsPopup.helpers({
   isAdminScope() {
     return Template.instance().data.scope === 'admin';
   },
+  // #572: every kind of card activity, ticked unless this member muted it.
+  isMemberScope() {
+    return Template.instance().data.scope === 'member';
+  },
+  activityGroupRows() {
+    const user = ReactiveCache.getCurrentUser();
+    const muted = cleanMutedGroups(user && user.profile && user.profile.notifyMutedActivities);
+    return GROUP_KEYS.map(key => ({ key, labelKey: `notification-activity-${key}`, enabled: !muted.includes(key) }));
+  },
   notifyServiceRows() {
     const scope = Template.instance().data.scope;
     return Object.keys(NOTIFICATION_SERVICES).map(service => {
@@ -105,6 +115,14 @@ Template.notificationSettingsPopup.events({
     Meteor.call('setBoardDueReminders', board._id, days, webhook, error => {
       instance.dueReminderMessage.set(TAPi18n.__(error ? 'due-reminder-invalid' : 'due-reminder-saved'));
     });
+  },
+  'click .js-notify-activity'(event) {
+    event.preventDefault();
+    const user = ReactiveCache.getCurrentUser();
+    if (!user) return;
+    const group = event.currentTarget.dataset.group;
+    const muted = cleanMutedGroups(user.profile && user.profile.notifyMutedActivities);
+    user.setNotifyMutedActivities(muted.includes(group) ? muted.filter(key => key !== group) : [...muted, group]);
   },
   'click .js-notify-option'(event, instance) {
     event.preventDefault();

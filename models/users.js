@@ -23,6 +23,7 @@ import * as tenantAdmin from '/models/lib/tenantAdmin';
 const { starredPagesOf, isPageStarred } = require('/models/lib/starredPages');
 const Users = Meteor.users;
 const getUtils = () => require('/client/lib/utils').Utils;
+const { GROUP_KEYS, cleanMutedGroups } = require('/models/lib/notificationActivityGroups');
 
 // Public-board collapse persistence helpers (cookie-based for non-logged-in users)
 if (Meteor.isClient) {
@@ -323,6 +324,19 @@ Users.attachSchema(
     },
     'profile.emailBuffer.$': {
       type: String,
+    },
+    'profile.notifyMutedActivities': {
+      /**
+       * #572: kinds of card activity this member is not notified about, as
+       * keys of models/lib/notificationActivityGroups.js. Unset or empty
+       * means every kind, as before.
+       */
+      type: Array,
+      optional: true,
+    },
+    'profile.notifyMutedActivities.$': {
+      type: String,
+      allowedValues: GROUP_KEYS,
     },
     'profile.notifyOverrideTray': {
       /**
@@ -2683,6 +2697,16 @@ Users.helpers({
     const modifier = value === true || value === false
       ? { $set: { [field]: value } }
       : { $unset: { [field]: '' } };
+    return await Users.updateAsync(this._id, modifier);
+  },
+
+  // #572: the kinds of card activity this member mutes (see
+  // models/lib/notificationActivityGroups.js). Unknown keys are dropped.
+  async setNotifyMutedActivities(groups) {
+    const muted = cleanMutedGroups(groups);
+    const modifier = muted.length
+      ? { $set: { 'profile.notifyMutedActivities': muted } }
+      : { $unset: { 'profile.notifyMutedActivities': '' } };
     return await Users.updateAsync(this._id, modifier);
   },
 

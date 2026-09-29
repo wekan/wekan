@@ -24,6 +24,7 @@ const { readActivityForNotificationIntent, readActivityNotificationIntentState }
 const { canonical, sha256 } = require('/models/lib/changeHistoryIntegrity');
 const { boardNotificationRecipients } = require('/models/lib/boardNotificationRecipients');
 const { isAssignedOnlyMember } = require('/models/lib/boardCardScope');
+const { isActivityMuted } = require('/models/lib/notificationActivityGroups');
 
 export const ActivityNotificationPlans = new Mongo.Collection('activityNotificationPlans');
 ActivityNotificationPlans.deny({ insert: () => true, update: () => true, remove: () => true });
@@ -56,6 +57,11 @@ async function assertAccess(activity, userId, service) {
   const field = service === 'email' ? 'Email' : 'Tray';
   if (!resolveNotificationSetting(service, { adminDefault: settings?.[`notifyDefault${field}`],
     boardOverride: board?.[`notifyOverride${field}`], memberOverride: user.profile?.[`notifyOverride${field}`] })) {
+    throw new Error('activity-notification-preference-changed');
+  }
+  // #572: a kind of activity the member muted reaches neither the bell nor
+  // email. Checked when the plan is frozen and again before delivery.
+  if (isActivityMuted(activity.activityType, user.profile?.notifyMutedActivities)) {
     throw new Error('activity-notification-preference-changed');
   }
 }

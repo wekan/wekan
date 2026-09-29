@@ -54,3 +54,14 @@ template(name="notificationSettingsPopup")
           if dueReminderMessage
             p.quiet.js-due-reminder-message {{dueReminderMessage}}
           button.primary.js-due-reminder-save(type="submit") {{_ 'save'}}
+    //- #572: which kinds of card activity this member is told about.
+    if isMemberScope
+      li.notification-activity-settings
+        .title
+          i.fa.fa-filter
+          | {{_ 'notification-activity-heading'}}
+        p.quiet {{_ 'notification-activity-description'}}
+        each activityGroupRows
+          a.flex.js-notify-activity(data-group="{{key}}" role="checkbox" aria-checked="{{#if enabled}}true{{else}}false{{/if}}")
+            .materialCheckBox(class="{{#if enabled}}is-checked{{/if}}")
+            span {{_ labelKey}}
