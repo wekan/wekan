@@ -106,8 +106,8 @@ for one of four stated reasons, not left unexamined:
   refused that merge from its first commit, so it is a detection category
   like `CanaryBleed`, not a fixed vulnerability.
 - **Decisions not yet built:** the parents array, first-class Jira issue
-  types, the Map board view, Deck-style auto-archive, the import-page loss
-  report, recovery controls, and the Scrum/Sync journal work.
+  types, the Map board view, the import-page loss report, recovery controls,
+  and the Scrum/Sync journal work.
 - **Waiting on the maintainer:** the split of issue #4790 is prepared in
   [User-Filter-4790-Split.md](docs/Features/User-Filter-4790-Split.md) with
   ready-to-run `gh issue create` commands; filing issues is a publishing step.
@@ -1783,8 +1783,8 @@ and fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
   or to write non-HTML output. No shipped code had the one-pass form, so there
   is no Hall of Fame row or Problems key. Thanks to GitHub CodeQL and xet7.
 
-and adds semi-open boards, archive reporting, code highlighting, custom URL
-schemes, attachment thumbnails and improves Scrum History recovery:
+and adds semi-open boards, auto-archive, archive reporting, code highlighting,
+custom URL schemes, attachment thumbnails and improves Scrum History recovery:
 
 **Board visibility** - a board every signed-in user can see.
 
@@ -1859,6 +1859,23 @@ links with the list empty and set.
 
 </details>
 
+
+**Archiving** - cards that nobody touches archive themselves.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/22c62b7b3">Archive cards automatically after a chosen number of days without activity</a>. Thanks to xet7.</summary>
+
+Board Settings gains Nextcloud Deck's auto-archive: a board admin sets a number
+of days from 1 to 3650, and an hourly job archives the cards whose last
+activity is older, with their subtasks and an `archivedCard` activity
+attributed to the board creator, as scheduled rules are. Empty means off,
+templates are never archived, and each run takes at most 200 cards per board.
+The same date drives the card-aging fade, so a card fades before it goes. A
+node suite covers the day rules and wiring, a server Mocha test runs the job
+against real collections, and a Chromium case sets and clears the field. New
+strings are English, pending Transifex.
+
+</details>
 
 **Reports** - show archived-card contributions by calendar date.
 
