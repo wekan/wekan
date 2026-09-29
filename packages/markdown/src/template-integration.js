@@ -3,17 +3,33 @@ import MarkdownIt from 'markdown-it';
 import * as markdownItEmoji from 'markdown-it-emoji';
 import markdownItMath from 'markdown-it-math/no-default-renderer';
 import temml from 'temml';
+import hljs from 'highlight.js/lib/common';
 import { secureSanitize } from './secureDOMPurify';
 import { Blaze } from 'meteor/blaze';
 import { HTML } from 'meteor/htmljs';
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 
+// Code blocks with a known language (```js ... ```) are coloured with
+// highlight.js. Its output is escaped HTML with hljs-* classes, which both
+// sanitizer passes keep only inside <pre>. An unknown or missing language
+// returns '' so markdown-it escapes the code itself, exactly as before.
+function highlightCode(code, language) {
+  const lang = String(language || '').trim().toLowerCase();
+  if (!lang || !hljs.getLanguage(lang)) return '';
+  try {
+    return hljs.highlight(code, { language: lang, ignoreIllegals: true }).value;
+  } catch (e) {
+    return '';
+  }
+}
+
 export const Markdown = new MarkdownIt({
   html: true,
   linkify: true,
   typographer: true,
   breaks: true,
+  highlight: highlightCode,
 });
 
 // Admin Panel / Features / Security bridge. This package cannot import app code,

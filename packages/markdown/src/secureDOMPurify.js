@@ -62,6 +62,29 @@ export function getSecureDOMPurifyConfig() {
   };
 }
 
+// Code highlighting classes (highlight.js): only these, only on <code>/<span>
+// inside <pre>. Every other class is still removed by FORBID_ATTR.
+const HIGHLIGHT_CLASS = /^(?:hljs(?:-[a-z0-9_-]+)?|language-[a-z0-9_+#-]+)$/i;
+function insidePre(node) {
+  for (let parent = node.parentNode; parent; parent = parent.parentNode) {
+    if (parent.nodeName && parent.nodeName.toLowerCase() === 'pre') return true;
+  }
+  return false;
+}
+// An attribute hook keeps an attribute by setting data.forceKeepAttr (its
+// return value is ignored). forceKeepAttr keeps the attribute AS IT IS ON THE
+// ELEMENT, not data.attrValue, so the filtered value is written back first.
+function keepHighlightClasses(node, data) {
+  if (data.attrName !== 'class') return;
+  const tag = node.nodeName ? node.nodeName.toLowerCase() : '';
+  if ((tag !== 'code' && tag !== 'span') || !insidePre(node)) return;
+  const classes = String(data.attrValue || '').split(/\s+/).filter(name => HIGHLIGHT_CLASS.test(name));
+  if (!classes.length) return;
+  data.attrValue = classes.join(' ');
+  node.setAttribute('class', data.attrValue);
+  data.forceKeepAttr = true;
+}
+
 // wekan/wekan#2419: an <input> may only be the task-list checkbox markdown
 // emits - a plain, disabled checkbox. A text/password/file field in card text
 // would be a live control somebody could type a password into.
@@ -81,10 +104,12 @@ function onlyTaskCheckboxes(node) {
 // Sanitize with this package's config and hooks. The hooks are added for this
 // call only, so other DOMPurify users in the app are not affected.
 export function secureSanitize(purifier, html, config = getSecureDOMPurifyConfig()) {
+  purifier.addHook('uponSanitizeAttribute', keepHighlightClasses);
   purifier.addHook('afterSanitizeAttributes', onlyTaskCheckboxes);
   try {
     return purifier.sanitize(html, config);
   } finally {
+    purifier.removeHook('uponSanitizeAttribute', keepHighlightClasses);
     purifier.removeHook('afterSanitizeAttributes', onlyTaskCheckboxes);
   }
 }

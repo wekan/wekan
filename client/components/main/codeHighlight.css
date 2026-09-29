@@ -1,0 +1,52 @@
+/* Code block colours for highlight.js in the card viewer (secureSanitize in
+   packages/markdown keeps only hljs-* / language-* classes inside <pre>).
+   Chosen for contrast on the viewer's #dedede code background. */
+.viewer pre code[class*="language-"] {
+  color: #1f2328;
+}
+.viewer .hljs-comment,
+.viewer .hljs-quote {
+  color: #57606a;
+  font-style: italic;
+}
+.viewer .hljs-keyword,
+.viewer .hljs-selector-tag,
+.viewer .hljs-literal,
+.viewer .hljs-doctag {
+  color: #a0111f;
+}
+.viewer .hljs-string,
+.viewer .hljs-regexp,
+.viewer .hljs-addition {
+  color: #0b5a2a;
+}
+.viewer .hljs-number,
+.viewer .hljs-symbol,
+.viewer .hljs-bullet,
+.viewer .hljs-variable,
+.viewer .hljs-template-variable {
+  color: #0a3069;
+}
+.viewer .hljs-title,
+.viewer .hljs-section,
+.viewer .hljs-name,
+.viewer .hljs-selector-id,
+.viewer .hljs-selector-class {
+  color: #6639ba;
+}
+.viewer .hljs-attr,
+.viewer .hljs-attribute,
+.viewer .hljs-built_in,
+.viewer .hljs-type,
+.viewer .hljs-meta {
+  color: #7a3e00;
+}
+.viewer .hljs-deletion {
+  color: #82071e;
+}
+.viewer .hljs-emphasis {
+  font-style: italic;
+}
+.viewer .hljs-strong {
+  font-weight: bold;
+}

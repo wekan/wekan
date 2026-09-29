@@ -1,7 +1,8 @@
 'use strict';
 
 // The card viewer's task-list checkbox survives both sanitizer passes, and
-// nothing else that is a form field does (wekan/wekan#2419).
+// nothing else that is a form field does (wekan/wekan#2419); code
+// highlighting classes survive only on code inside <pre>.
 // Run: node tests/markdownSanitizerHooks.test.cjs
 //
 // packages/markdown/src/secureDOMPurify.js described its extra rules in a
@@ -55,26 +56,57 @@ function checkCheckboxRules(clean, label) {
   assert.equal(clean('<input type="checkbox" onclick="x()"><script>1</script>'), '<input type="checkbox" disabled="">', label);
 }
 
+function checkHighlightRules(clean, label) {
+  // Highlighting classes only on <code>/<span> inside <pre>, and only hljs-*/language-*.
+  assert.equal(clean('<pre><code class="hljs language-js"><span class="hljs-keyword">const</span></code></pre>'),
+    '<pre><code class="hljs language-js"><span class="hljs-keyword">const</span></code></pre>', label);
+  assert.equal(clean('<pre><code class="hljs evil"><span class="hljs-string danger">x</span></code></pre>'),
+    '<pre><code class="hljs"><span class="hljs-string">x</span></code></pre>', `${label}: other classes are removed`);
+  // Negative: no class survives outside <pre>, on other elements, or a foreign class.
+  for (const html of ['<p class="hljs-keyword">x</p>', '<span class="hljs-keyword">x</span>', '<code class="hljs">x</code>',
+    '<div class="language-js">x</div>', '<pre><div class="hljs">x</div></pre>', '<pre><a class="hljs-link" href="#">x</a></pre>',
+    '<pre><span class="evil">x</span></pre>']) {
+    assert.doesNotMatch(clean(html), /class=/, `${label}: ${html}`);
+  }
+  assert.equal(clean('<pre><span class="hljs-x" id="y" style="color:red" onclick="z()">x</span></pre>'),
+    '<pre><span class="hljs-x">x</span></pre>', label);
+}
+
 async function main() {
   const window = new JSDOM('').window;
 
   const { secureSanitize, getSecureDOMPurifyConfig } = await import('../packages/markdown/src/secureDOMPurify.js');
   const markdownPurifier = createDOMPurify(window);
   checkCheckboxRules(html => secureSanitize(markdownPurifier, html), 'markdown pass');
+  checkHighlightRules(html => secureSanitize(markdownPurifier, html), 'markdown pass');
+  assert.equal(markdownPurifier.sanitize('<pre><code class="hljs">x</code></pre>', getSecureDOMPurifyConfig()),
+    '<pre><code>x</code></pre>', 'the class hook is removed after each call');
   // The hooks are for these calls only: plain DOMPurify is unaffected afterwards.
   assert.equal(markdownPurifier.sanitize('<input type="password">', getSecureDOMPurifyConfig()), '<input type="password">');
-  console.log('  ok - the markdown pass keeps only a disabled checkbox');
+  console.log('  ok - the markdown pass keeps only a disabled checkbox and code highlighting in <pre>');
 
   const viewerPurifier = createDOMPurify(window);
   const viewer = loadViewerSanitizer(viewerPurifier);
   checkCheckboxRules(html => viewer.sanitizeHTML(html), 'viewer pass');
   checkCheckboxRules(html => viewer.sanitizeHTML(html, { stripLinks: true }), 'viewer pass, links stripped');
+  checkHighlightRules(html => viewer.sanitizeHTML(html), 'viewer pass');
+
+  // Real highlight.js output passes both passes intact and still escaped.
+  const hljs = require('highlight.js/lib/common');
+  const code = hljs.highlight('const x = "<script>alert(1)</script>"; // hi', { language: 'javascript' }).value;
+  const block = `<pre><code class="language-js">${code}</code></pre>`;
+  const twice = viewer.sanitizeHTML(secureSanitize(markdownPurifier, block));
+  assert.match(twice, /<span class="hljs-keyword">const<\/span>/);
+  assert.match(twice, /<span class="hljs-string">/);
+  assert.match(twice, /<span class="hljs-comment">\/\/ hi<\/span>/);
+  assert.match(twice, /&lt;script&gt;/, 'code stays text');
+  assert.doesNotMatch(twice, /<script/);
   // Its config on its own still forbids every input, and the hook is removed.
   assert.ok(viewer.getSecureDOMPurifyConfig().FORBID_TAGS.includes('input'));
   assert.equal(viewerPurifier.sanitize('<input type="checkbox">', viewer.getSecureDOMPurifyConfig()), '');
   assert.equal(viewerPurifier.sanitize('<input type="password">', { ALLOWED_TAGS: ['input'], ALLOWED_ATTR: ['type'] }),
     '<input type="password">', 'no hook is left installed after sanitizeHTML');
-  console.log('  ok - the viewer pass keeps the task checkbox and nothing else');
+  console.log('  ok - the viewer pass keeps the task checkbox and highlighting, and nothing else');
 
   // No sanitizer config may carry a dead HOOKS key again, and the markdown
   // package never calls DOMPurify.sanitize without its hooks.

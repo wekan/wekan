@@ -42,6 +42,31 @@ export function getSecureDOMPurifyConfig(options = {}) {
   return config;
 }
 
+// Code highlighting classes (highlight.js): only these, only on <code>/<span>
+// inside <pre>. Every other class is still removed by FORBID_ATTR. The markdown
+// package keeps the same classes in its own pass; this is the card viewer's
+// second pass, which would otherwise strip them again.
+const HIGHLIGHT_CLASS = /^(?:hljs(?:-[a-z0-9_-]+)?|language-[a-z0-9_+#-]+)$/i;
+function insidePre(node) {
+  for (let parent = node.parentNode; parent; parent = parent.parentNode) {
+    if (parent.nodeName && parent.nodeName.toLowerCase() === 'pre') return true;
+  }
+  return false;
+}
+// An attribute hook keeps an attribute by setting data.forceKeepAttr (its
+// return value is ignored). forceKeepAttr keeps the attribute AS IT IS ON THE
+// ELEMENT, not data.attrValue, so the filtered value is written back first.
+function keepHighlightClasses(node, data) {
+  if (data.attrName !== 'class') return;
+  const tag = node.nodeName ? node.nodeName.toLowerCase() : '';
+  if ((tag !== 'code' && tag !== 'span') || !insidePre(node)) return;
+  const classes = String(data.attrValue || '').split(/\s+/).filter(name => HIGHLIGHT_CLASS.test(name));
+  if (!classes.length) return;
+  data.attrValue = classes.join(' ');
+  node.setAttribute('class', data.attrValue);
+  data.forceKeepAttr = true;
+}
+
 // wekan/wekan#2419: the markdown package renders "- [ ] Task" as a disabled
 // <input type="checkbox">, and the card viewer sanitizes that output again
 // here. The config above forbids every <input>; sanitizeHTML() admits exactly
@@ -58,17 +83,20 @@ function onlyTaskCheckboxes(node) {
   node.setAttribute('disabled', '');
 }
 
-// Convenience function for secure sanitization. The checkbox hook is added
-// for this call only, so other DOMPurify users in the app are not affected.
+// Convenience function for secure sanitization. The checkbox and highlight
+// hooks are added for this call only, so other DOMPurify users in the app are
+// not affected.
 export function sanitizeHTML(html, options = {}) {
   const config = getSecureDOMPurifyConfig(options);
   config.ALLOWED_TAGS = config.ALLOWED_TAGS.concat(['input']);
   config.FORBID_TAGS = config.FORBID_TAGS.filter(tag => tag !== 'input');
   config.ALLOWED_ATTR = config.ALLOWED_ATTR.concat(['type', 'checked', 'disabled']);
+  DOMPurify.addHook('uponSanitizeAttribute', keepHighlightClasses);
   DOMPurify.addHook('afterSanitizeAttributes', onlyTaskCheckboxes);
   try {
     return DOMPurify.sanitize(html, config);
   } finally {
+    DOMPurify.removeHook('uponSanitizeAttribute', keepHighlightClasses);
     DOMPurify.removeHook('afterSanitizeAttributes', onlyTaskCheckboxes);
   }
 }
