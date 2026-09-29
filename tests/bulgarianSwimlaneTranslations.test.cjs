@@ -62,11 +62,48 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
   assert.match(bg['page-maybe-private'], /<a href='%s'>.*<\/a>/);
   assert.equal((bg['toggle-labels'].match(/1-9/g) || []).length, 2);
   assert.match(bg['toggle-assignees'], /1-9/);
+  const notificationKeys = ["remove-labels-multiselect", "tracking-info", "unassign-member", "uploading-files", "upload-failed", "upload-completed", "custom-top-left-corner-logo-image-url", "custom-top-left-corner-logo-link-url", "custom-top-left-corner-logo-height", "custom-login-logo-image-url", "custom-login-logo-link-url", "custom-help-link-url", "text-below-custom-login-logo", "automatic-linked-url-schemes", "watching-info", "wipLimitErrorPopup-dialog-pt1", "email-invite-register-subject", "email-invite-register-text", "automatically-field-on-card", "always-field-on-card", "showSum-field-on-list", "tableVisibilityMode-allowPrivateOnly", "tableVisibilityMode", "setSelectionColorPopup-title", "card-sorting-by-number", "delete-all-notifications-confirm", "delete-duplicate-lists-confirm", "deposit-subtasks-list", "cover-attachment-on-minicard", "badge-attachment-on-minicard", "card-sorting-by-number-on-minicard", "activity-set-customfield", "activity-unset-customfield", "r-w-assignee-added", "r-w-assignee-removed", "r-when-a-label-is", "r-when-a-assignee", "r-when-the-assignee", "r-send-email", "r-d-send-email", "r-d-check-all", "r-d-uncheck-all", "r-d-check-one", "r-d-uncheck-one", "r-board-note"];
+  for (const key of notificationKeys) {
+    assert.deepEqual(translationTokens(bg[key]), translationTokens(en[key]), key);
+    assert.doesNotMatch(bg[key], /[јћђљњџЈЋЂЉЊЋЏ]|поступ|списи|опорав|предмет/i, key);
+    assert.match(bg[key], /[А-Яа-я]/, key);
+  }
+  assert.match(bg['delete-duplicate-lists-confirm'], /едно и също име и не съдържат карти/);
+  assert.match(bg['delete-all-notifications-confirm'], /всички известия.*необратимо/);
+  assert.match(bg['tracking-info'], /създател или член/);
+  assert.match(bg['watching-info'], /всяка промяна в това табло/);
+  assert.match(bg['automatically-field-on-card'], /новите карти/);
+  assert.match(bg['always-field-on-card'], /всички карти/);
+  assert.match(bg['remove-labels-multiselect'], /1-9/);
+  assert.match(bg['automatic-linked-url-schemes'], /една URL схема на ред/);
+  assert.match(bg['r-d-check-all'], /като изпълнени$/);
+  assert.match(bg['r-d-uncheck-all'], /като неизпълнени$/);
+  assert.match(bg['r-d-check-one'], /като изпълнен$/);
+  assert.match(bg['r-d-uncheck-one'], /като неизпълнен$/);
+  const deadlineKeys = ["r-checklist-note", "r-when-a-card-is-moved", "r-datefield", "r-to-current-datetime", "r-remove-value-from", "r-link-card", "authentication-method", "authentication-type", "add-custom-html-after-body-start", "add-custom-html-before-body-end", "error-ldap-login", "display-authentication-method", "default-authentication-method", "org-number", "team-number", "people-number", "loading", "act-a-dueAt", "act-a-endAt", "act-a-startAt", "act-a-receivedAt", "a-dueAt", "a-endAt", "a-startAt", "a-receivedAt", "almostdue", "pastdue", "duenow", "act-newDue", "act-withDue", "act-almostdue", "act-pastdue", "act-duenow", "delete-user-confirm-popup", "delete-team-confirm-popup", "delete-org-confirm-popup", "accounts-allowUserDelete", "hide-minicard-label-text", "show-desktop-drag-handles", "assignee", "cardAssigneesPopup-title", "addmore-detail", "show-on-card", "show-on-minicard", "filter-by-unread"];
+  for (const key of deadlineKeys) {
+    assert.deepEqual(translationTokens(bg[key]), translationTokens(en[key]), key);
+    assert.doesNotMatch(bg[key], /[јћђљњџЈЋЂЉЊЋЏ]|поступ|списи|опорав|предмет/i, key);
+    assert.match(bg[key], /[А-Яа-я]/, key);
+  }
+  assert.match(bg.almostdue, /наближава$/);
+  assert.match(bg.pastdue, /е изтекъл$/);
+  assert.match(bg.duenow, /е днес$/);
+  assert.match(bg['act-duenow'], /настъпва сега$/);
+  assert.match(bg['act-newDue'], /първо напомняне/);
+  for (const entity of ['user', 'team', 'org']) {
+    assert.match(bg['delete-' + entity + '-confirm-popup'], /необратимо/);
+  }
+  assert.equal(bg.assignee, 'Изпълнител');
+  assert.equal(bg['cardAssigneesPopup-title'], bg.assignee);
+  assert.match(bg['r-checklist-note'], /разделени със запетаи/);
+  assert.match(bg['add-custom-html-after-body-start'], /след.*<body>/);
+  assert.match(bg['add-custom-html-before-body-end'], /преди.*<\/body>/);
   assert.equal(bg.swimlane, 'Коридор');
   assert.equal(bg['welcome-swimlane'], 'Етап 1');
   assert.match(bg['swimlane-height-error-message'], /положително цяло число/);
   assert.match(bg['swimlane-delete-pop'], /няма да можете да възстановите.*необратимо/);
   assert.match(bg['globalSearch-instructions-operator-swimlane'], /карти в коридори/);
   assert.notEqual(bg['move-swimlane'], bg['copy-swimlane']);
-  console.log('Bulgarian swimlane corrections preserve tokens and replace Serbian vocabulary');
+  console.log('Bulgarian corrections preserve tokens, meanings and native vocabulary');
 })().catch(error => { console.error(error); process.exitCode = 1; });
