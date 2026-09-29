@@ -2168,7 +2168,7 @@ and has the following developer-tooling fix:
 
 and updates the following translations:
 
-**Languages updated:** Finnish, Arabic, Algerian Arabic, Egyptian Arabic, Turkish, Spanish, Argentine Spanish, Chilean Spanish, Colombian Spanish, Latin American Spanish, Mexican Spanish, Peruvian Spanish, Paraguayan Spanish.
+**Languages updated:** Finnish, Arabic, Algerian Arabic, Egyptian Arabic, Turkish, Spanish, Argentine Spanish, Chilean Spanish, Colombian Spanish, Latin American Spanish, Mexican Spanish, Peruvian Spanish, Paraguayan Spanish, Italian.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ef52698fe">Complete Finnish and Arabic planning and recovery translations</a>. Thanks to xet7.</summary>
@@ -2211,6 +2211,26 @@ The translation inventory now lists 220 unfinished locales. Newly added
 English keys remain part of the all-language goal, including keys absent from
 locale files and those pending Transifex; completion must be checked again as
 features land. This is a progress checkpoint, not completion of that goal.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0adb0fe14">Complete Italian planning and recovery translations</a>. Thanks to xet7.</summary>
+
+Translate 260 missing or English values for filters, Scrum, Sync, reminders
+and delivery recovery. Preserve existing translations, source key order and
+interpolation tokens. Reviewed product names, keyboard legends, mathematical
+symbols and the Italian Scrum term remain unchanged.
+
+All six translation suites pass, including the Italian completion checks,
+all-locale URL/token validation and rechecks of Finnish, Arabic, Turkish and
+Spanish against the current English source. All 21 human-preference checks
+pass. Existing Upcoming implementation entries retain their recorded
+regression coverage. Browser layout and fluent-speaker review were not run.
+
+The current inventory has 219 unfinished locales. New English keys, including
+missing locale keys and pending Transifex strings, remain in scope. This batch
+does not complete the all-language goal.
 
 </details>
 
