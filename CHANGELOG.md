@@ -106,9 +106,12 @@ for one of four stated reasons, not left unexamined:
   refused that merge from its first commit, so it is a detection category
   like `CanaryBleed`, not a fixed vulnerability.
 - **Decisions not yet built:** the parents array, first-class Jira issue
-  types, the Map board view, splitting issue #4790, per-activity notification
-  options (#572), Deck-style auto-archive, the import-page loss report,
-  recovery controls, and the Scrum/Sync journal work.
+  types, the Map board view, per-activity notification options (#572),
+  Deck-style auto-archive, the import-page loss report, recovery controls, and
+  the Scrum/Sync journal work.
+- **Waiting on the maintainer:** the split of issue #4790 is prepared in
+  [User-Filter-4790-Split.md](docs/Features/User-Filter-4790-Split.md) with
+  ready-to-run `gh issue create` commands; filing issues is a publishing step.
 
 Maintainer decisions of 2026-09-29, answering the blockers above:
 
