@@ -2506,7 +2506,7 @@ and has the following developer-tooling fix:
 
 and updates the following translations:
 
-**Languages updated:** Finnish, Arabic, Algerian Arabic, Egyptian Arabic, Turkish, Spanish, Argentine Spanish, Chilean Spanish, Colombian Spanish, Latin American Spanish, Mexican Spanish, Peruvian Spanish, Paraguayan Spanish, Italian, Portuguese, Brazilian Portuguese, European Portuguese, Galician, Korean, Japanese, Traditional Chinese, Chinese (Taiwan), Chinese (Hong Kong), Simplified Chinese, Mandarin Chinese, Chinese (Singapore), French, Belgian French, Canadian French, Swiss French, German, Austrian German, Swiss German, Swedish, Danish, Norwegian Bokmål, Dutch, Romanian, Indonesian, Polish, Czech, Slovak, Hungarian.
+**Languages updated:** Finnish, Arabic, Algerian Arabic, Egyptian Arabic, Turkish, Spanish, Argentine Spanish, Chilean Spanish, Colombian Spanish, Latin American Spanish, Mexican Spanish, Peruvian Spanish, Paraguayan Spanish, Italian, Portuguese, Brazilian Portuguese, European Portuguese, Galician, Korean, Japanese, Traditional Chinese, Chinese (Taiwan), Chinese (Hong Kong), Simplified Chinese, Mandarin Chinese, Chinese (Singapore), French, Belgian French, Canadian French, Swiss French, German, Austrian German, Swiss German, Swedish, Danish, Norwegian Bokmål, Dutch, Romanian, Indonesian, Polish, Czech, Slovak, Hungarian, Ukrainian.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ef52698fe">Complete Finnish and Arabic planning and recovery translations</a>. Thanks to xet7.</summary>
@@ -3127,6 +3127,23 @@ and distinct labels, alongside the existing locale regressions. Browser layout
 and fluent-speaker review were not run. Existing Upcoming entries retain their
 recorded regression evidence. Other locales and future English additions remain
 in scope; the all-language goal is unfinished.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d29441c76">Translate Ukrainian filters, rules and notification preferences</a>. Thanks to xet7.</summary>
+
+Fill 66 missing or English values for filters, rules, reminders, notification
+preferences, board visibility and automatic archiving. Existing translations
+remain intact. Rule variables, date-filter keywords, URL schemes and
+interpolation tokens stay unchanged.
+
+Ukrainian coverage and the translation-token suite pass, as do all 21
+human-preference checks. Tests check translated prose, source order for present
+keys, script, visibility restrictions, notification exceptions and archiving
+behavior. Ukrainian Scrum and recovery text remains pending. Browser layout
+and fluent-speaker review were not run. Existing Upcoming entries retain their
+recorded regression evidence. The all-language goal remains unfinished.
 
 </details>
 
