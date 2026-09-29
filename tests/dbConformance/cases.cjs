@@ -22,19 +22,29 @@
 // fields, nested documents, arrays of scalars and of documents, a negative
 // number, a zero, a float that is not an integer, and strings that sort
 // differently under different collations.
+// `big` holds integers of both MySQL JSON types. `ts` holds BSON Timestamps - the OpLog tail's {ts: {$gt}} shape - plus one
+// plain number, one string and one missing value, so a range pushdown must keep
+// its type guard and stay a superset.
+const { Timestamp } = require('bson');
+const ts = (t, i) => new Timestamp({ t, i });
+
 const SEED = [
   { _id: 1, name: 'alpha', n: 5, f: 1.5, tags: ['red', 'green'], nested: { a: 1, b: 'x' },
-    items: [{ k: 'a', v: 1 }, { k: 'b', v: 2 }], flag: true, when: new Date('2020-01-02T03:04:05Z') },
+    items: [{ k: 'a', v: 1 }, { k: 'b', v: 2 }], flag: true, when: new Date('2020-01-02T03:04:05Z'),
+    ts: ts(1700000000, 1), big: 1577934245000 },
   { _id: 2, name: 'Beta', n: -3, f: 2.0, tags: ['green'], nested: { a: 2, b: 'y' },
-    items: [{ k: 'a', v: 5 }], flag: false, when: new Date('2021-06-07T08:09:10Z') },
+    items: [{ k: 'a', v: 5 }], flag: false, when: new Date('2021-06-07T08:09:10Z'),
+    ts: ts(1700000000, 2), big: 3 },
   { _id: 3, name: 'gamma', n: 0, f: 0.5, tags: [], nested: { a: 3 },
-    items: [], flag: true, when: new Date('2022-12-31T23:59:59Z') },
+    items: [], flag: true, when: new Date('2022-12-31T23:59:59Z'),
+    ts: ts(1700000005, 1), big: -1577934245000 },
   { _id: 4, name: 'delta', n: 42, f: 42.5, tags: ['blue', 'red', 'red'], nested: { a: 4, b: 'z' },
-    items: [{ k: 'c', v: 7 }, { k: 'a', v: 9 }], flag: true, when: new Date('2019-03-04T05:06:07Z') },
+    items: [{ k: 'c', v: 7 }, { k: 'a', v: 9 }], flag: true, when: new Date('2019-03-04T05:06:07Z'),
+    ts: ts(1600000000, 9) },
   { _id: 5, name: 'epsilon', n: null, tags: ['blue'], nested: {}, items: [{ k: 'b', v: 0 }],
-    when: new Date('2023-01-01T00:00:00Z') },
+    when: new Date('2023-01-01T00:00:00Z'), ts: 'not a timestamp' },
   { _id: 6, name: 'zeta', n: 7, f: 7.25, nested: { a: null }, flag: false,
-    when: new Date('2018-11-12T13:14:15Z') },
+    when: new Date('2018-11-12T13:14:15Z'), ts: 42 },
 ];
 
 // A second collection, for $lookup.
@@ -81,6 +91,21 @@ const CASES = [
   { group: 'comparison', name: 'range on float', kind: 'find', filter: { f: { $gt: 1, $lt: 8 } } },
   { group: 'comparison', name: 'range on date', kind: 'find',
     filter: { when: { $gte: new Date('2020-01-01T00:00:00Z') } } },
+  { group: 'comparison', name: 'date range $lt', kind: 'find',
+    filter: { when: { $lt: new Date('2021-06-07T08:09:10Z') } } },
+  // The OpLog tail: {ts: {$gt: <Timestamp>}}. The increment matters: the bound
+  // is (1700000000, 1), so (1700000000, 2) is included and (1700000000, 1) not.
+  { group: 'comparison', name: 'Timestamp range $gt (OpLog tail)', kind: 'find',
+    filter: { ts: { $gt: ts(1700000000, 1) } } },
+  { group: 'comparison', name: 'Timestamp range $gte', kind: 'find',
+    filter: { ts: { $gte: ts(1700000000, 2) } } },
+  { group: 'comparison', name: 'Timestamp range $lte', kind: 'find',
+    filter: { ts: { $lte: ts(1700000000, 1) } } },
+  { group: 'comparison', name: 'number range on ts', kind: 'find', filter: { ts: { $lt: 100 } } },
+  // MySQL types 1577934245000 as 'UNSIGNED INTEGER' and 2147483648 as 'INTEGER';
+  // a range pushdown whose type guard missed the former dropped the document.
+  { group: 'comparison', name: 'range over a large positive integer', kind: 'find', filter: { big: { $gt: 10 } } },
+  { group: 'comparison', name: 'range below a large positive integer', kind: 'find', filter: { big: { $lt: 10 } } },
   { group: 'comparison', name: 'string range', kind: 'find', filter: { name: { $gt: 'd' } } },
 
   // ── logical ───────────────────────────────────────────────────────────────
