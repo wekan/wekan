@@ -82,6 +82,18 @@ const isEnglishVariant = code => /^en([_-].*)?$/.test(code) || code === 'en';
 // needs a different word. Keep those exceptions per locale; putting them in the
 // source-wide list would hide real work in every language.
 const LOCALE_INVARIANTS = {
+  // Bokmål shared mathematics and Scrum labels, plus product/keyboard names.
+  nb: new Set([
+    'blockly-ALT_KEY', 'blockly-CHROME_OS', 'blockly-COMMAND_KEY',
+    'blockly-ENTER_KEY', 'blockly-INPUT_LABEL_MATH_DIVIDEND',
+    'blockly-INPUT_LABEL_MATH_DIVISOR', 'blockly-INPUT_LABEL_NUMBER_MIN',
+    'blockly-LINUX', 'blockly-LOGIC_NULL', 'blockly-LOGIC_TERNARY_CONDITION',
+    'blockly-MAC_OS', 'blockly-MATH_ONLIST_OPERATOR_MIN_ARIA',
+    'blockly-MATH_SUBTRACTION_SYMBOL_ARIA', 'blockly-MATH_TRIG_ACOS',
+    'blockly-MATH_TRIG_ASIN', 'blockly-MATH_TRIG_ATAN', 'blockly-MATH_TRIG_COS',
+    'blockly-MATH_TRIG_SIN', 'blockly-MATH_TRIG_TAN', 'blockly-OPTION_KEY',
+    'blockly-PAUSE_KEY', 'blockly-WINDOWS', 'scrum-sprint', 'scrum-start-sprint',
+  ]),
   // Danish mathematical vocabulary and Scrum labels shared with English,
   // alongside unchanged product names and keyboard legends.
   da: new Set([

@@ -13,3 +13,26 @@ assert.equal(locale.Database, 'Datalager');
 assert.match(locale['azure-container'], /Azure/);
 assert.match(locale['office-report-desc'], /IPv4.*IPv6/);
 assert.match(locale['api-no-calls'], /REST API.*WITH_API=true/);
+
+(async () => {
+  const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
+  const english = JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data/en.i18n.json'), 'utf8'));
+  assert.deepEqual(Object.keys(locale), Object.keys(english));
+  for (const key of Object.keys(english)) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), key);
+  }
+  for (const key of ['filter-column-age-hint', 'scrum-total', 'sync-preview-saved',
+    'email-recovery-description', 'activity-recovery-busy', 'saml-login-not-started',
+    'r-rule-any-trigger-help', 'move-selection-before', 'move-selection-after']) {
+    assert.ok(locale[key]?.trim(), key);
+    assert.notEqual(locale[key], english[key], key);
+  }
+  assert.equal(locale['move-selection-before'], 'Før');
+  assert.equal(locale['move-selection-after'], 'Etter');
+  assert.equal(locale['blockly-MATH_ADDITION_SYMBOL_ARIA'], 'pluss');
+  assert.equal(locale['scrum-start-sprint'], 'Start sprint');
+  assert.match(locale['scrum-report-help'], /ikke nullestimater/);
+  assert.match(locale['sync-conflict-hint'], /Ingenting sendes til kildesystemet/);
+  assert.match(locale['activity-recovery-cancel-confirm'], /kan ikke gjenopptas/);
+  console.log('Bokmål source keys, tokens, shared vocabulary and recovery meaning verified');
+})().catch(error => { console.error(error); process.exitCode = 1; });
