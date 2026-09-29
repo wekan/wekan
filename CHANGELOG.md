@@ -3730,6 +3730,22 @@ string report still lists 176 locales with untranslated strings.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/485762c0e">Translate Leo outline import instructions</a>. Thanks to xet7.</summary>
+
+Translated the new Leo import instruction in 59 reviewed locales, explaining
+how outline levels become lists, cards and checklists, how node text becomes
+card descriptions, and how marked nodes import as completed. Existing
+translations are preserved.
+
+All 27 locale regression suites and 21 human-translation preference checks
+pass. Tests check translated text, placeholders, the Leo name and .leo
+extension, with outline mapping coverage in Finnish. Browser and fluent-
+speaker review were not run. Other locales and the Bulgarian vocabulary audit
+remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
