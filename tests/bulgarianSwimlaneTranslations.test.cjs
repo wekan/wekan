@@ -361,6 +361,25 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
   assert.match(bg['sync-report-unavailable'], /право на запис за целия списък/);
   assert.match(bg['sync-recovery-description'], /още да работи или да е прекъснато.*Обновете/);
   assert.match(bg['sync-recovery-unavailable'], /администраторския достъп/);
+  const emailFillKeys = ["sync-estimate-field-hint", "email-recovery-heading", "email-recovery-description", "email-recovery-saving", "email-recovery-queued", "email-recovery-retrying", "email-recovery-attempts", "email-recovery-oldest", "email-recovery-next", "email-recovery-changed", "email-recovery-pause", "email-recovery-resume", "email-recovery-cancel", "email-recovery-paused", "email-recovery-pending", "email-recovery-empty", "email-recovery-unavailable", "email-recovery-busy", "email-recovery-failed", "email-recovery-superseded", "email-recovery-confirm-cancel", "email-recovery-attention", "email-recovery-stopped", "email-recovery-retry", "email-failure-smtp-temporary", "email-failure-smtp-rejected", "email-failure-smtp-authentication", "email-failure-smtp-configuration", "email-failure-recipient-unavailable", "email-failure-delivery-unconfirmed", "email-failure-acknowledgement-failed", "email-failure-delivery-failed", "email-failure-retry-limit", "sync-original-time", "sync-remaining-time"];
+  for (const key of emailFillKeys) {
+    assert.ok(bg[key]?.trim(), key);
+    assert.notEqual(bg[key], en[key], key);
+    assert.deepEqual(translationTokens(bg[key]), translationTokens(en[key]), key);
+    assert.match(bg[key], /[А-Яа-я]/, key);
+  }
+  assert.match(bg['sync-estimate-field-hint'], /Липсващите стойности.*игнорират.*null изчиства/);
+  assert.match(bg['email-recovery-description'], /имейл адресите.*не се показват/);
+  assert.match(bg['email-recovery-description'], /съществуващите и бъдещите съобщения/);
+  assert.match(bg['email-recovery-description'], /не може да бъде оттеглено.*изпратено повторно/);
+  assert.match(bg['email-recovery-description'], /нов цикъл от опити и спазва съществуващата пауза/);
+  assert.match(bg['email-recovery-confirm-cancel'], /не може да бъде възстановено.*след тази заявка, се запазват/);
+  assert.match(bg['email-recovery-failed'], /повторете същото действие/);
+  assert.match(bg['email-failure-smtp-temporary'], /Временен/);
+  assert.match(bg['email-failure-smtp-rejected'], /Постоянен/);
+  assert.match(bg['email-failure-delivery-unconfirmed'], /прегледайте преди повторен опит/);
+  assert.match(bg['sync-original-time'], /часове/);
+  assert.match(bg['sync-remaining-time'], /часове/);
   assert.equal(bg.swimlane, 'Коридор');
   assert.equal(bg['welcome-swimlane'], 'Етап 1');
   assert.match(bg['swimlane-height-error-message'], /положително цяло число/);
