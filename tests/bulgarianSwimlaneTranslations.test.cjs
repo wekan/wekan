@@ -397,6 +397,20 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
   assert.match(bg['saml-login-not-started'], /SAML.*този раздел.*влезте отново/);
   assert.equal(bg['move-selection-before'], 'Преди');
   assert.equal(bg['move-selection-after'], 'След');
+  const uiAuditKeys = ["allBoardsChangeBackgroundImagePopup-title", "board-view-table", "calendar-previous-month-label", "calendar-next-month-label", "due-today", "editVoteEndDatePopup-title", "poker-question", "poker-result-votes", "poker-result-who", "poker-replay", "set-estimation", "cardTemplatePopup-title", "delete-avatar-confirm", "click-to-star", "color-crimson", "color-slateblue", "comments", "no-comments-desc", "read-only", "date-format-yyyy-mm-dd", "date-format-dd-mm-yyyy", "date-format-mm-dd-yyyy", "email-address", "email-verifyEmail-subject", "filter-due-tomorrow", "advanced-filter-label", "show-activities"];
+  for (const key of uiAuditKeys) {
+    assert.deepEqual(translationTokens(bg[key]), translationTokens(en[key]), key);
+    assert.doesNotMatch(bg[key], /Осликани|Приказани|Претходни|Наредни|Где|Играмо|Гласови|Понови|прогнозу|образац|слику|звездицом|тамно|загасито|Расправа|Читалац|поште|Потврдите|сутрадан|филтер|записник/i, key);
+  }
+  assert.match(bg['calendar-previous-month-label'], /Предишен/);
+  assert.match(bg['calendar-next-month-label'], /Следващ/);
+  assert.match(bg['due-today'], /днес/);
+  assert.match(bg['filter-due-tomorrow'], /утре/);
+  assert.equal(bg['date-format-yyyy-mm-dd'], 'година-месец-ден');
+  assert.equal(bg['date-format-dd-mm-yyyy'], 'ден-месец-година');
+  assert.equal(bg['date-format-mm-dd-yyyy'], 'месец-ден-година');
+  assert.match(bg['no-comments-desc'], /Не може да вижда/);
+  assert.match(bg['email-verifyEmail-subject'], /__siteName__/);
   assert.equal(bg.swimlane, 'Коридор');
   assert.equal(bg['welcome-swimlane'], 'Етап 1');
   assert.match(bg['swimlane-height-error-message'], /положително цяло число/);
