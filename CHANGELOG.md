@@ -95,8 +95,9 @@ read from its original operation identity without repeating History writes,
 even after a restart or a successor checkpoint. Public Scrum undo/redo methods
 now accept optional caller-persisted request IDs, retaining the selected row
 and returning its original completion on retry. Empty and unsupported results
-remain stable too. Keyboard shortcuts still use unkeyed calls; their recovery
-UI, non-Scrum replay and shared writer coordination remain unfinished.
+remain stable too. Keyboard shortcuts now persist and retry request IDs; their
+visible recovery UI (which needs new translated text), non-Scrum replay and
+shared writer coordination remain unfinished.
 Validation for this increment is recorded in Upcoming.
 
 The preceding rule-email increment confirms independently verified SMTP
@@ -209,9 +210,9 @@ IDs to the first stored selection before mutation. Retries use the original
 completion after uncertain cleanup and even after a later opposite operation.
 Changed/missing sources, lost original intent evidence and revoked access stop
 recovery. Empty stacks remain empty for that ID; non-Scrum selections are
-explicitly refused without mutation. Keyboard request persistence, recovery
-controls, non-Scrum replay, receipt retention and shared writer coordination
-remain unfinished. Ordinary writes
+explicitly refused without mutation. Keyboard shortcuts now persist request
+IDs; recovery controls, non-Scrum replay, receipt retention and shared writer
+coordination remain unfinished. Ordinary writes
 and History remain non-atomic, and automatic startup replay is still pending.
 Native whole-board export/import and duplication remap planning records and
 snapshots, validate lifecycle/policy consistency, and report reduced data.
@@ -1735,6 +1736,27 @@ regression coverage. Other browsers and backends were not run for this change.
 </details>
 
 **History** - verify completed operations and preserve unfinished recovery.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c659b4bbc">Keyboard undo and redo retry a lost request instead of repeating it</a>. Thanks to xet7.</summary>
+
+Ctrl+Z and Ctrl+Y called the History methods without a request ID, so a reply
+lost to a disconnect or reload left the user pressing again and undoing a
+second Scrum change. Each keystroke now carries an ID kept in `sessionStorage`
+until the server answers; the next keystroke on that board retries it first,
+and in the same direction the retry is the keystroke. Unanswered IDs expire
+after ten minutes. Non-Scrum rows, which keyed requests do not cover, are
+refused unchanged and the keystroke falls back to the ordinary call - a
+deliberate exception now documented in the Scrum design for maintainer review.
+
+A Node suite covers planning, expiry, lost replies, fallback, definitive errors
+and blocked storage. In Chromium, a Ctrl+Z creates one keyed request, a stored
+request whose undo already ran is retried after a reload without undoing
+another change, and an ordinary title edit is still undone; all twelve Scrum
+History cases pass. Visible recovery controls need new translated text and
+remain in TODO Later.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/6b44f61b2">Retry keyed Scrum undo and redo without advancing the stack again</a>. Thanks to xet7.</summary>
