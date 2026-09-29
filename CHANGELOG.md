@@ -3635,6 +3635,25 @@ remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d5060f014">Correct Bulgarian calendar, voting and comment vocabulary</a>. Thanks to xet7.</summary>
+
+Replace 27 remaining Serbian or mixed-language labels with Bulgarian for
+calendar navigation, voting, comments, date formats and email verification.
+Preserve date ordering, comment visibility restrictions and the site-name
+placeholder. Existing Bulgarian translations remain intact.
+
+The Bulgarian and translation-token suites pass, together with all 21 human-
+preference checks. Coverage checks wrong-language vocabulary, previous/next
+month, today/tomorrow, date ordering and comment visibility. Browser layout
+and fluent-speaker review were not run. Existing Upcoming entries retain their
+recorded regression evidence. The vocabulary audit continues through the
+interface labels; later entries
+and other locales still require work. The all-language goal remains
+unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
