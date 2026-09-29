@@ -14,6 +14,10 @@ template(name="moveObjectsPopup")
       each options
         option(value=_id selected=selected)= title
   select.js-object-position(aria-label="{{_ 'move-selection'}}")
-    option(value="before") ↑
-    option(value="after") ↓
+    //- Words, not ↑/↓: an arrow character is a platform-drawn picture (see
+    //- tests/fontAwesomeIcons.test.cjs), and an <option> cannot hold a Font
+    //- Awesome <i>. "Before"/"after" also says the right thing for a list, whose
+    //- neighbours are to its left and right rather than above and below.
+    option(value="before") {{_ 'move-selection-before'}}
+    option(value="after") {{_ 'move-selection-after'}}
   button.primary.js-move-objects(disabled=busy.get) {{_ 'move-selection'}}

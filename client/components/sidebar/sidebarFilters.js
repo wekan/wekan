@@ -484,7 +484,10 @@ Template.multiselectionSidebar.events({
     }
   },
   'click .js-move-selection'(event) {
-    Popup.open(MultiSelection.hasObjects() ? 'moveObjects' : 'moveSelection').call(this, event);
+    // moveObjects reuses the translated "Move selection" phrase as its title
+    // (tests/popupTitles.test.cjs), rather than a second copy of it.
+    if (MultiSelection.hasObjects()) Popup.open('moveObjects', { titleKey: 'move-selection' }).call(this, event);
+    else Popup.open('moveSelection').call(this, event);
   },
   'click .js-copy-selection': Popup.open('copySelection'),
   'click .js-selection-color': Popup.open('setSelectionColor'),

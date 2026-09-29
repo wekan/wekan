@@ -9,6 +9,9 @@ const delegated = new Map([
   ['editCardSpentTimePopup/js-submit-time', 'form submission'],
   ['addListPopup/js-submit-add-list', 'form submission'],
   ['importDependenciesPopup/js-import-dependencies-submit', 'form submission'],
+  // 58d166029: the per-board due-reminder Save is a type=submit button inside
+  // form.js-due-reminder-form; 'submit .js-due-reminder-form' handles it.
+  ['notificationSettingsPopup/js-due-reminder-save', 'form submission'],
   ['listHeader/js-list-handle', 'sortable drag handle'],
   ['swimlaneFixedHeader/js-swimlane-header-handle', 'sortable drag handle'],
   ['header/js-header-collapsible-icon', 'styling; another action class handles click'],
@@ -24,4 +27,17 @@ assert.deepEqual(missing(actions), [], 'menu action has no located implementatio
 assert.equal(missing([{ template: 'newMenuPopup', selector: 'js-disconnected', handlers: [] }]).length, 1,
   'negative control: an unimplemented action must fail the audit');
 assert.equal(missing([{ template: 'newMenuPopup', selector: 'js-working', handlers: ['implementation.js'] }]).length, 0);
+// A 'form submission' delegation is only true while the form handler exists and
+// the button is still inside that form.
+{
+  const fs = require('node:fs');
+  const js = fs.readFileSync('client/components/settings/notificationSettingsPopup.js', 'utf8');
+  const jade = fs.readFileSync('client/components/settings/notificationSettingsPopup.jade', 'utf8');
+  assert.match(js, /'submit \.js-due-reminder-form'\(event, instance\)/, 'the due-reminder form has a submit handler');
+  const form = jade.slice(jade.indexOf('form.js-due-reminder-form'));
+  const formIndent = jade.slice(jade.lastIndexOf('\n', jade.indexOf('form.js-due-reminder-form')) + 1).search(/\S/);
+  const save = form.split('\n').find(line => line.includes('js-due-reminder-save'));
+  assert.ok(save && /type="submit"/.test(save), 'Save is a submit button');
+  assert.ok(save.search(/\S/) > formIndent, 'and it is nested inside the form it submits');
+}
 console.log(`${actions.length} menu action selectors audited; ${actions.filter(a => !a.testReferences.length).length} have no literal browser-spec reference (not a runtime coverage claim).`);

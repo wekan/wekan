@@ -178,7 +178,7 @@ Meteor.startup(() => {
     } catch (error) {
       // The picker allows correcting incomplete destinations, including a new
       // board or a precise child position, without losing the selection.
-      Popup.open('moveObjects').call({ destination, error: error.reason || error.message }, {
+      Popup.open('moveObjects', { titleKey: 'move-selection' }).call({ destination, error: error.reason || error.message }, {
         currentTarget: completed.target.node, target: completed.target.node, preventDefault() {},
       });
     }

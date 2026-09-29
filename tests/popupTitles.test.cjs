@@ -125,6 +125,25 @@ test('a title key is only added where the app has no words already (negative)', 
   }
 });
 
+test('the mixed-selection move picker has a header wherever it is opened', () => {
+  // moveObjects shipped with no title at all: its body opened with an h3 of
+  // "Move selection", but the pop-over header - and so its close button - was
+  // empty. It reuses the translated phrase rather than a new key, and BOTH
+  // places that open it (the sidebar's Move button and a failed drag-drop,
+  // which opens it to correct the destination) must say so.
+  assert.strictEqual(explicitTitleKeys.get('moveObjects'), 'move-selection');
+  assert.ok(!en['moveObjectsPopup-title'], 'no second copy of "Move selection"');
+  for (const file of ['client/components/sidebar/sidebarFilters.js',
+    'client/components/main/structuralSelection.js']) {
+    const src = read(file);
+    const opens = src.match(/Popup\.open\([^)]*'moveObjects'[^)]*\)/g) || [];
+    assert.ok(opens.length > 0, `${file} opens moveObjects`);
+    for (const call of opens) {
+      assert.match(call, /titleKey: 'move-selection'/, `${file}: ${call} has no title (negative)`);
+    }
+  }
+});
+
 test('the popup takes both, in that order', () => {
   const popup = read('client/lib/popup.js');
   assert.ok(/const translationKey = titleKey \|\| `\$\{popupName\}-title`;/.test(popup),

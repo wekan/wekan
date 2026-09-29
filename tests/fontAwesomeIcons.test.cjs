@@ -112,6 +112,21 @@ test('the date badges use Font Awesome codepoints, with the font named', () => {
   }
 });
 
+test('the move-selection position picker names its choices in words', () => {
+  // It shipped as `option ↑` / `option ↓`. An <option> can hold only text, so
+  // there is no Font Awesome glyph to put there instead; the choices are the
+  // translated words, which also fit a list, whose neighbours are left/right.
+  const jade = read('client/components/main/structuralSelection.jade');
+  const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
+  assert.match(jade, /option\(value="before"\) \{\{_ 'move-selection-before'\}\}/);
+  assert.match(jade, /option\(value="after"\) \{\{_ 'move-selection-after'\}\}/);
+  assert.strictEqual(en['move-selection-before'], 'Before');
+  assert.strictEqual(en['move-selection-after'], 'After');
+  // negative: the arrows are not back on a rendered line
+  const rendered = jade.split('\n').filter((line, i, all) => !rendersNothing(all)[i]);
+  assert.ok(!rendered.some(line => /[\u2191\u2193]/u.test(line)), 'no ↑/↓ option text');
+});
+
 test('the helpers that produce icons return Font Awesome class names', () => {
   const gantt = read('client/components/gantt/gantt.js');
   for (const cls of ['fa-inbox', 'fa-rocket', 'fa-clock-o', 'fa-flag-checkered']) {
