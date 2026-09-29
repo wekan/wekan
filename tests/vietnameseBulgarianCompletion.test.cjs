@@ -10,7 +10,8 @@ const english = read('en');
 for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valencia',
   'ru', 'ru-RU', 'ru-UA', 'ru_RU', 'uk', 'uk-UA', 'pl', 'pl-PL', 'cs', 'cs-CZ',
   'de', 'de_DE', 'de-AT', 'de-CH', 'fr', 'fr-FR', 'fr-BE', 'fr-CA', 'fr-CH',
-  'es', 'es-AR', 'es-LA', 'es-CL', 'es_CO', 'es-CO', 'es-PY', 'es-PE', 'es-MX', 'it']) {
+  'es', 'es-AR', 'es-LA', 'es-CL', 'es_CO', 'es-CO', 'es-PY', 'es-PE', 'es-MX', 'it',
+  'pt', 'pt-PT', 'pt_PT', 'pt-BR', 'nl', 'nl-NL']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(english), `${code}: source key order`);
   for (const key of Object.keys(english)) {
@@ -94,6 +95,8 @@ for (const [codes, duplicate, never] of [
   [['fr', 'fr-FR', 'fr-BE', 'fr-CA', 'fr-CH'], /deux fois/, /jamais envoyé/],
   [['es', 'es-AR', 'es-LA', 'es-CL', 'es_CO', 'es-CO', 'es-PY', 'es-PE', 'es-MX'], /dos veces/, /Nunca se enviará/],
   [['it'], /due volte/, /Non sarà mai inviata/],
+  [['pt', 'pt-PT', 'pt_PT', 'pt-BR'], /duas vezes/, /[Nn]unca será enviado/],
+  [['nl', 'nl-NL'], /twee keer/, /nooit verzonden/],
 ]) {
   for (const code of codes) {
     const locale = read(code);
@@ -101,4 +104,6 @@ for (const [codes, duplicate, never] of [
     assert.match(locale['rule-email-legacy-discard-confirm'], never);
   }
 }
+assert.equal(read('pt-BR')['rule-email-recovery-recipient-accepted'], 'Aceito');
+assert.equal(read('pt-PT')['rule-email-recovery-recipient-accepted'], 'Aceite');
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
