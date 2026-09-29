@@ -380,6 +380,23 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
   assert.match(bg['email-failure-delivery-unconfirmed'], /прегледайте преди повторен опит/);
   assert.match(bg['sync-original-time'], /часове/);
   assert.match(bg['sync-remaining-time'], /часове/);
+  const recoveryFillKeys = ["sync-time-estimate-hint", "activity-recovery-heading", "activity-recovery-description", "activity-recovery-empty", "activity-recovery-unavailable", "activity-recovery-retry", "activity-recovery-retrying", "activity-recovery-status-pending", "activity-recovery-status-preparing", "activity-recovery-status-processing", "activity-recovery-status-missing", "activity-recovery-status-changed", "activity-recovery-status-invalid", "activity-recovery-status-inconsistent", "activity-recovery-busy", "activity-recovery-denied", "activity-recovery-source-unavailable", "activity-recovery-disabled", "activity-recovery-failed", "activity-recovery-pause", "activity-recovery-resume", "activity-recovery-paused", "activity-recovery-control-conflict", "activity-recovery-control-failed", "activity-recovery-status-cancelled", "activity-recovery-cancel", "activity-recovery-cancel-confirm", "rule-email-recovery-heading", "rule-email-recovery-description", "rule-email-recovery-all", "rule-email-recovery-unconfirmed", "rule-email-recovery-sent", "rule-email-recovery-invalid", "rule-email-recovery-identifiers", "rule-email-recovery-started", "rule-email-recovery-finished", "rule-email-recovery-empty", "rule-email-recovery-unavailable", "saml-login-not-started", "move-selection-before", "move-selection-after"];
+  for (const key of recoveryFillKeys) {
+    assert.ok(bg[key]?.trim(), key);
+    assert.notEqual(bg[key], en[key], key);
+    assert.deepEqual(translationTokens(bg[key]), translationTokens(en[key]), key);
+    assert.match(bg[key], /[А-Яа-я]/, key);
+  }
+  assert.match(bg['sync-time-estimate-hint'], /точно едно.*игнорират.*null изчиства/);
+  assert.match(bg['activity-recovery-description'], /никога не създава дейността отново/);
+  assert.match(bg['activity-recovery-denied'], /вече не позволяват доставка/);
+  assert.match(bg['activity-recovery-failed'], /Чакащата работа е запазена/);
+  assert.match(bg['activity-recovery-cancel-confirm'], /не може да бъде възобновена.*не се оттеглят/);
+  assert.match(bg['rule-email-recovery-description'], /още да изпращат или да са прекъснати.*не повтаря и не отменя/);
+  assert.match(bg['rule-email-recovery-sent'], /Прието от пощенския сървър/);
+  assert.match(bg['saml-login-not-started'], /SAML.*този раздел.*влезте отново/);
+  assert.equal(bg['move-selection-before'], 'Преди');
+  assert.equal(bg['move-selection-after'], 'След');
   assert.equal(bg.swimlane, 'Коридор');
   assert.equal(bg['welcome-swimlane'], 'Етап 1');
   assert.match(bg['swimlane-height-error-message'], /положително цяло число/);
