@@ -3366,6 +3366,25 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/841d2cca8">Translate history recovery messages in 59 locales</a>. Thanks to xet7.</summary>
+
+Translate five new pending undo/redo, retry, forget and recovery-hint strings
+in 59 locales, adding 295 translations. The messages distinguish undo from
+redo and explain that retrying sends the same request without undoing a second
+change. Existing translations are preserved by the placeholder-only fill.
+
+All 27 translation suites and 21 human-preference checks pass. New coverage
+checks the five messages in every updated locale, placeholder inventories,
+distinct undo/redo messages and distinct retry/forget controls. Existing
+locale suites also check source coverage, order and native terminology.
+Browser layout and fluent-speaker review were not run. Existing Upcoming
+entries retain their recorded regression evidence. Other locales still need
+these messages alongside their earlier untranslated text; older wrong-language
+Bulgarian values also remain. The all-language goal remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
