@@ -2437,7 +2437,7 @@ and has the following developer-tooling fix:
 
 and updates the following translations:
 
-**Languages updated:** Finnish, Arabic, Algerian Arabic, Egyptian Arabic, Turkish, Spanish, Argentine Spanish, Chilean Spanish, Colombian Spanish, Latin American Spanish, Mexican Spanish, Peruvian Spanish, Paraguayan Spanish, Italian, Portuguese, Brazilian Portuguese, European Portuguese, Galician, Korean, Japanese, Traditional Chinese, Chinese (Taiwan), Chinese (Hong Kong), Simplified Chinese, Mandarin Chinese, Chinese (Singapore), French, Belgian French, Canadian French, Swiss French, German, Austrian German, Swiss German, Swedish, Danish, Norwegian Bokmål, Dutch, Romanian, Indonesian, Polish.
+**Languages updated:** Finnish, Arabic, Algerian Arabic, Egyptian Arabic, Turkish, Spanish, Argentine Spanish, Chilean Spanish, Colombian Spanish, Latin American Spanish, Mexican Spanish, Peruvian Spanish, Paraguayan Spanish, Italian, Portuguese, Brazilian Portuguese, European Portuguese, Galician, Korean, Japanese, Traditional Chinese, Chinese (Taiwan), Chinese (Hong Kong), Simplified Chinese, Mandarin Chinese, Chinese (Singapore), French, Belgian French, Canadian French, Swiss French, German, Austrian German, Swiss German, Swedish, Danish, Norwegian Bokmål, Dutch, Romanian, Indonesian, Polish, Czech.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ef52698fe">Complete Finnish and Arabic planning and recovery translations</a>. Thanks to xet7.</summary>
@@ -2896,6 +2896,24 @@ in the visibility confirmation, alongside the existing locale regressions.
 Browser layout and fluent-speaker review were not run. Existing Upcoming
 entries retain their recorded regression evidence. Other locales and future
 English additions remain in scope; the all-language goal is unfinished.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7931444d6">Translate Czech planning, filters and board visibility</a>. Thanks to xet7.</summary>
+
+Fill 128 missing or English values for date filters, saved filters, rules,
+reminders, Scrum and signed-in-user board visibility. Two existing translations
+were preserved by the fill step. Rule variables, date-filter keywords and URL
+scheme names remain unchanged.
+
+Czech planning coverage and the translation-token suite pass, as do all 21
+human-preference checks. Tests cover translated planning prose, source order
+for present keys, interpolation tokens, unknown estimates and visibility
+restrictions. Czech synchronization and recovery translations remain pending.
+Browser layout and fluent-speaker review were not run. Existing Upcoming
+entries retain their recorded regression evidence. The all-language goal
+remains unfinished.
 
 </details>
 
