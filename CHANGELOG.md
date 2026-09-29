@@ -1396,8 +1396,9 @@ Fixed in Upcoming and removed from this list:
 [#5323](https://github.com/wekan/wekan/issues/5323),
 [#4278](https://github.com/wekan/wekan/issues/4278),
 [#4294](https://github.com/wekan/wekan/issues/4294),
-[#2953](https://github.com/wekan/wekan/issues/2953) and
-[#572](https://github.com/wekan/wekan/issues/572). The #4790 split is prepared
+[#2953](https://github.com/wekan/wekan/issues/2953),
+[#572](https://github.com/wekan/wekan/issues/572) and
+[#3195](https://github.com/wekan/wekan/issues/3195). The #4790 split is prepared
 and waits for the maintainer to file it (see "Waiting on the maintainer" above).
 
 [#2713](https://github.com/wekan/wekan/issues/2713) (email rules now offer
@@ -1438,9 +1439,6 @@ summaries are now included. Stored Details now binds related-source chains,
 admin access and custom-field definition fingerprints; older Details snapshots
 require operator recovery. Converted checklist subtasks now use readable live
 titles and persisted reference evidence, including without Details),
-[#3195](https://github.com/wekan/wekan/issues/3195) (rule action and trigger
-values can now read a custom field with `{customField:Name}`; what remains is
-a custom-field picker in the rule editor, so the token need not be typed),
 [#2698](https://github.com/wekan/wekan/issues/2698) (sync rules with GitLab -
 a third-party integration needing a GitLab API credential and webhook
 endpoint, environment/infrastructure this sandbox cannot stand up or verify).
@@ -1916,6 +1914,20 @@ and an unknown token stays literal. The editor shows a new hint (English,
 pending Transifex). A unit suite covers resolution and whole-trigger matching;
 a Chromium case moves two cards to the same list and only the one whose field
 names it fires the rule.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0bc06c801">Pick rule variables from a list instead of typing them</a>. Thanks to chessboards and xet7.</summary>
+
+The trigger and action editors have an "Insert variable" list: the card's
+people, its card, list and board names, and one `{customField:Name}` per custom
+field of the board. Picking one inserts it at the caret of the text field last
+focused. Admin-only fields are not offered, since rules do not read them, and
+neither is a name with a brace, which the token syntax cannot spell. A unit
+suite checks that every offered token resolves and that a missing selection
+appends; a Chromium case inserts into two fields in turn and finds the
+admin-only field absent. The label is English, pending Transifex.
 
 </details>
 
