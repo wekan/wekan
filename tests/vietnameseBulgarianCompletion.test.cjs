@@ -7,7 +7,8 @@ const { translationTokens } = require('../releases/translations/placeholder-toke
 const root = path.resolve(__dirname, '..');
 const read = code => JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/data', `${code}.i18n.json`)));
 const english = read('en');
-for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valencia']) {
+for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valencia',
+  'ru', 'ru-RU', 'ru-UA', 'ru_RU', 'uk', 'uk-UA']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(english), `${code}: source key order`);
   for (const key of Object.keys(english)) {
@@ -57,5 +58,20 @@ for (const code of ['ca', 'ca_ES', 'ca@valencia']) {
   assert.equal(locale['blockly-INPUT_LABEL_MATH_DIVISOR'], 'divisor');
   assert.ok(locale['r-trigger-vars-hint'].includes('{customField:Name}'));
   assert.ok(locale['advanced-filter-card-dates-hint'].includes('@endAt = none'));
+}
+for (const code of ['ru', 'ru-RU', 'ru-UA', 'ru_RU']) {
+  const locale = read(code);
+  assert.match(locale['r-insert-variable'], /переменную/);
+  assert.match(locale['rule-email-recovery-resend-confirm'], /дважды/);
+  assert.match(locale['rule-email-legacy-discard-confirm'], /никогда не будет отправлено/);
+  assert.equal(locale['blockly-ENTER_KEY'], 'Enter');
+}
+for (const code of ['uk', 'uk-UA']) {
+  const locale = read(code);
+  assert.match(locale['r-insert-variable'], /змінну/);
+  assert.match(locale['rule-email-recovery-resend-confirm'], /двічі/);
+  assert.match(locale['rule-email-legacy-discard-confirm'], /ніколи не буде надіслано/);
+  assert.doesNotMatch(locale['r-insert-variable'], /переменную/);
+  assert.equal(locale['blockly-ENTER_KEY'], 'Enter');
 }
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');

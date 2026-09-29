@@ -90,7 +90,7 @@ const LOCALE_INVARIANTS = {
   ])])),
   bg: new Set(['blockly-CHROME_OS', 'blockly-MAC_OS']),
   // Russian retains printed keyboard legends, product names and math notation.
-  ru: new Set([
+  ...Object.fromEntries(['ru', 'ru-RU', 'ru-UA', 'ru_RU'].map(code => [code, new Set([
     'blockly-ALT_KEY', 'blockly-BACKSPACE_KEY', 'blockly-CAPS_LOCK_KEY',
     'blockly-CHROME_OS', 'blockly-COMMAND_KEY', 'blockly-CONTROL_KEY',
     'blockly-END_KEY', 'blockly-ENTER_KEY', 'blockly-ESCAPE', 'blockly-HOME_KEY',
@@ -98,9 +98,9 @@ const LOCALE_INVARIANTS = {
     'blockly-MATH_TRIG_COS', 'blockly-MATH_TRIG_SIN', 'blockly-MATH_TRIG_TAN',
     'blockly-OPTION_KEY', 'blockly-PAGE_DOWN_KEY', 'blockly-PAGE_UP_KEY',
     'blockly-PAUSE_KEY', 'blockly-SHIFT_KEY', 'blockly-TAB_KEY', 'blockly-WINDOWS',
-  ]),
+  ])])),
   // Ukrainian keeps printed keyboard legends, product names and math notation.
-  uk: new Set([
+  ...Object.fromEntries(['uk', 'uk-UA'].map(code => [code, new Set([
     'blockly-ALT_KEY', 'blockly-BACKSPACE_KEY', 'blockly-CAPS_LOCK_KEY',
     'blockly-CHROME_OS', 'blockly-COMMAND_KEY', 'blockly-END_KEY',
     'blockly-ENTER_KEY', 'blockly-ESCAPE', 'blockly-HOME_KEY',
@@ -108,7 +108,7 @@ const LOCALE_INVARIANTS = {
     'blockly-MATH_TRIG_COS', 'blockly-MATH_TRIG_SIN', 'blockly-MATH_TRIG_TAN',
     'blockly-OPTION_KEY', 'blockly-PAGE_DOWN_KEY', 'blockly-PAGE_UP_KEY',
     'blockly-PAUSE_KEY', 'blockly-SHIFT_KEY', 'blockly-TAB_KEY', 'blockly-WINDOWS',
-  ]),
+  ])])),
   // Hungarian shared mathematical/Scrum terms and keyboard/product names.
   hu: new Set([
     'blockly-ALT_KEY', 'blockly-BACKSPACE_KEY', 'blockly-CAPS_LOCK_KEY',
