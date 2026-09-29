@@ -2767,6 +2767,29 @@ pending Transifex remain in scope. The all-language goal remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/34f6f0ba8">Correct Indonesian labels, poker values and report meaning</a>. Thanks to xet7.</summary>
+
+Correct 139 older Indonesian strings after reviewing Malay vocabulary and
+source meaning. Restore poker values 8 and 100, balanced privacy markup,
+board-versus-card wording, assignment labels, due-date filters and complete
+time-adjustment help. Correct planning, invitation, WIP, template and system
+labels while preserving unrelated values.
+
+The Indonesian and URL translation suites pass, as do 21 human-preference
+checks. Regressions verify numeric values, markup, opposite actions, source
+keys, interpolation tokens and the distinction between time corrections and
+individual sessions. Existing Upcoming implementation entries retain their
+recorded regression evidence. Browser layout and fluent-speaker review were
+not run for this batch.
+
+The broader Indonesian vocabulary review and the remaining language backlog
+are still open. An empty placeholder inventory alone does not establish
+translation quality. New English source keys remain in scope for every
+locale, including keys pending Transifex.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
