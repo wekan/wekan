@@ -2506,7 +2506,7 @@ and has the following developer-tooling fix:
 
 and updates the following translations:
 
-**Languages updated:** Finnish, Arabic, Algerian Arabic, Egyptian Arabic, Turkish, Spanish, Argentine Spanish, Chilean Spanish, Colombian Spanish, Latin American Spanish, Mexican Spanish, Peruvian Spanish, Paraguayan Spanish, Italian, Portuguese, Brazilian Portuguese, European Portuguese, Galician, Korean, Japanese, Traditional Chinese, Chinese (Taiwan), Chinese (Hong Kong), Simplified Chinese, Mandarin Chinese, Chinese (Singapore), French, Belgian French, Canadian French, Swiss French, German, Austrian German, Swiss German, Swedish, Danish, Norwegian Bokmål, Dutch, Romanian, Indonesian, Polish, Czech, Slovak, Hungarian, Ukrainian, Russian.
+**Languages updated:** Finnish, Arabic, Algerian Arabic, Egyptian Arabic, Turkish, Spanish, Argentine Spanish, Chilean Spanish, Colombian Spanish, Latin American Spanish, Mexican Spanish, Peruvian Spanish, Paraguayan Spanish, Italian, Portuguese, Brazilian Portuguese, European Portuguese, Galician, Korean, Japanese, Traditional Chinese, Chinese (Taiwan), Chinese (Hong Kong), Simplified Chinese, Mandarin Chinese, Chinese (Singapore), French, Belgian French, Canadian French, Swiss French, German, Austrian German, Swiss German, Swedish, Danish, Norwegian Bokmål, Dutch, Romanian, Indonesian, Polish, Czech, Slovak, Hungarian, Ukrainian, Russian, Bulgarian.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ef52698fe">Complete Finnish and Arabic planning and recovery translations</a>. Thanks to xet7.</summary>
@@ -3269,6 +3269,25 @@ remain against the current English source. Browser layout and fluent-speaker
 review were not run. Existing Upcoming entries retain their recorded
 regression evidence. Other locales and new English additions remain in scope;
 the all-language goal is unfinished.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/57e178bc0">Replace Serbian swimlane text with Bulgarian translations</a>. Thanks to xet7.</summary>
+
+Correct 26 wrong-language values in the Bulgarian file for swimlane actions,
+height controls, activity messages, search help and recovery steps. Use the
+existing Bulgarian term for swimlane and preserve source placeholders.
+Correct-language translations remain intact.
+
+The Bulgarian swimlane and translation-token suites pass, as do all 21
+human-preference checks. Coverage checks vocabulary as well as script, source
+tokens, positive integer height, irreversible deletion and distinct move/copy
+actions. The audit found extensive Serbian text elsewhere in the Bulgarian
+file; those corrections and missing translations remain pending. Browser
+layout and fluent-speaker review were not run. Existing Upcoming entries
+retain their recorded regression evidence. The all-language goal remains
+unfinished.
 
 </details>
 
