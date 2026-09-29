@@ -3694,5 +3694,7 @@
   "rule-email-recovery-finished": "Doğrulandı",
   "rule-email-recovery-empty": "Bu aramayla eşleşen kural e-postası denemesi yok.",
   "rule-email-recovery-unavailable": "Kural e-postası denemeleri yüklenemedi. Yeniden denemek için yenileyin.",
-  "saml-login-not-started": "Bu SAML oturum açma işlemi bu tarayıcı sekmesinde başlatılmadı. Lütfen yeniden oturum açın."
+  "saml-login-not-started": "Bu SAML oturum açma işlemi bu tarayıcı sekmesinde başlatılmadı. Lütfen yeniden oturum açın.",
+  "move-selection-before": "Öncesine",
+  "move-selection-after": "Sonrasına"
 }

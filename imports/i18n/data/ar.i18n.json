@@ -3694,5 +3694,7 @@
   "rule-email-recovery-finished": "مؤكدة",
   "rule-email-recovery-empty": "لا توجد محاولات لإرسال بريد القواعد تطابق هذا البحث.",
   "rule-email-recovery-unavailable": "تعذر تحميل محاولات إرسال بريد القواعد. حدّث لإعادة المحاولة.",
-  "saml-login-not-started": "لم يبدأ تسجيل الدخول عبر SAML في علامة تبويب المتصفح هذه. يُرجى تسجيل الدخول مجددًا."
+  "saml-login-not-started": "لم يبدأ تسجيل الدخول عبر SAML في علامة تبويب المتصفح هذه. يُرجى تسجيل الدخول مجددًا.",
+  "move-selection-before": "قبل",
+  "move-selection-after": "بعد"
 }

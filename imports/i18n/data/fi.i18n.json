@@ -3694,5 +3694,7 @@
   "rule-email-recovery-finished": "Vahvistettu",
   "rule-email-recovery-empty": "Hakua vastaavia sääntöjen sähköpostiyrityksiä ei ole.",
   "rule-email-recovery-unavailable": "Sääntöjen sähköpostiyrityksiä ei voitu ladata. Päivitä näkymä yrittääksesi uudelleen.",
-  "saml-login-not-started": "Tätä SAML-kirjautumista ei aloitettu tässä selainvälilehdessä. Kirjaudu uudelleen."
+  "saml-login-not-started": "Tätä SAML-kirjautumista ei aloitettu tässä selainvälilehdessä. Kirjaudu uudelleen.",
+  "move-selection-before": "Ennen",
+  "move-selection-after": "Jälkeen"
 }

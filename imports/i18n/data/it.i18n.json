@@ -3694,5 +3694,7 @@
   "rule-email-recovery-finished": "Confermato",
   "rule-email-recovery-empty": "Nessun tentativo di invio email delle regole corrisponde a questa ricerca.",
   "rule-email-recovery-unavailable": "Impossibile caricare i tentativi di invio email delle regole. Aggiorna per riprovare.",
-  "saml-login-not-started": "Questo accesso SAML non è stato avviato in questa scheda del browser. Accedi di nuovo."
+  "saml-login-not-started": "Questo accesso SAML non è stato avviato in questa scheda del browser. Accedi di nuovo.",
+  "move-selection-before": "Prima di",
+  "move-selection-after": "Dopo"
 }

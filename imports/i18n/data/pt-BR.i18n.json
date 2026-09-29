@@ -3694,5 +3694,7 @@
   "rule-email-recovery-finished": "Confirmada",
   "rule-email-recovery-empty": "Nenhuma tentativa de correio das regras corresponde a esta pesquisa.",
   "rule-email-recovery-unavailable": "Não foi possível carregar as tentativas de correio das regras. Atualize para tentar novamente.",
-  "saml-login-not-started": "Este login SAML não foi iniciado nesta aba do navegador. Entre novamente."
+  "saml-login-not-started": "Este login SAML não foi iniciado nesta aba do navegador. Entre novamente.",
+  "move-selection-before": "Antes de",
+  "move-selection-after": "Depois de"
 }
