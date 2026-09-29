@@ -3183,6 +3183,24 @@ goal is unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dd8c2b8bf">Translate import warnings in 56 more locales</a>. Thanks to xet7.</summary>
+
+Fill 168 values for the import-warning heading, explanation and open-board
+button across the previously audited locales. The explanation distinguishes
+successful board creation from omitted content and points to the retained
+report. Ukrainian already received these strings in its own batch. Existing
+translations remain intact.
+
+All 25 translation suites and 21 human-preference checks pass. Coverage checks
+all three warning strings in 57 locales for missing prose, preserved tokens,
+report-navigation separators and distinct heading/action labels. Browser
+layout and fluent-speaker review were not run. Existing Upcoming entries
+retain their recorded regression evidence. Other locales and future English
+additions remain in scope; the all-language goal is unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
