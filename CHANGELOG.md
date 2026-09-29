@@ -1659,6 +1659,20 @@ added during feature development.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/224ea9b37">Complete Greek translations and new email recovery actions</a>. Thanks to xet7.</summary>
+
+Fill 753 values across the two Greek locales and the previously completed
+Vietnamese and Bulgarian locales. Include the 23 new email recovery strings
+added during this translation batch. Preserve existing translations, variable
+syntax, product names and mathematical symbols.
+
+Completeness, placeholder, key-order and native-vocabulary checks pass for all
+five locale files against the latest English source. Human-preference checks
+also pass. Translation work continues for the other languages.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.10 2026-09-29 WeKan ® release
