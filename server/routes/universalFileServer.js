@@ -25,6 +25,9 @@ import { canReadBoard } from '/models/lib/boardVisibility';
 import fs from 'fs';
 import path from 'path';
 import { DocumentPreviews, indexDocumentText } from '/server/lib/documentGif';
+import { boundedStreamBuffer, gifCacheKey } from '/server/lib/imageGif';
+import { convertImageBufferToThumbnail, cachedThumbnail, rememberThumbnail } from '/server/lib/imageThumbnail';
+const { isThumbnailPath, canThumbnail, THUMBNAIL_TYPE } = require('/models/lib/attachmentThumbnail');
 
 async function normalizeStoredNameOnRead(collection, fileObj, factory) {
   if (!fileObj) return fileObj;
@@ -541,6 +544,27 @@ if (Meteor.isServer) {
     readStream.pipe(res);
   }
 
+  // #3275: a thumbnail is a WebP of at most THUMBNAIL_EDGE pixels. Private
+  // caching only: it is readable by the same people as the original, which is
+  // not everybody.
+  function sendThumbnail(req, res, attachment, key, buffer) {
+    const etag = `"${attachment._id}-thumbnail-${key.slice(0, 16)}"`;
+    if (req.headers['if-none-match'] === etag) {
+      res.writeHead(304, { ETag: etag });
+      res.end();
+      return;
+    }
+    res.writeHead(200, {
+      'Content-Type': THUMBNAIL_TYPE,
+      'Content-Length': buffer.length,
+      'Cache-Control': 'private, max-age=86400',
+      ETag: etag,
+      'X-Content-Type-Options': 'nosniff',
+      'Content-Security-Policy': "default-src 'none'; sandbox;",
+    });
+    res.end(buffer);
+  }
+
   // ============================================================================
   // NEW METEOR-FILES ROUTES (URL-agnostic)
   // ============================================================================
@@ -645,6 +669,23 @@ if (Meteor.isServer) {
         }
       }
 
+      // #3275: /cdn/storage/attachments/<id>/thumbnail - everything above
+      // (board access, download block and limit, storage read flag) has
+      // already been applied, so a thumbnail is readable exactly when the
+      // original is.
+      const wantsThumbnail = isThumbnailPath((req.url || '').replace(/^\/cdn\/storage\/attachments(?=\/)/, ''));
+      if (wantsThumbnail && !canThumbnail(attachment)) {
+        res.writeHead(404);
+        res.end('No thumbnail for this attachment');
+        return;
+      }
+      const thumbnailKey = wantsThumbnail ? gifCacheKey(attachment) : null;
+      const cached = wantsThumbnail ? cachedThumbnail(thumbnailKey) : null;
+      if (cached) {
+        sendThumbnail(req, res, attachment, thumbnailKey, cached);
+        return;
+      }
+
       // Choose proper streaming based on source
       let readStream;
       if (attachment?.meta?.source === 'legacy') {
@@ -659,6 +700,23 @@ if (Meteor.isServer) {
       if (!readStream) {
         res.writeHead(404);
         res.end('Attachment file not found in storage');
+        return;
+      }
+
+      if (wantsThumbnail) {
+        let thumbnail;
+        try {
+          thumbnail = await convertImageBufferToThumbnail(await boundedStreamBuffer(readStream));
+        } catch (error) {
+          // Too large, damaged or a format the converter cannot read: the
+          // original, which passed the same checks, still shows the image.
+          if (typeof readStream.destroy === 'function') readStream.destroy();
+          res.writeHead(302, { Location: Meteor.absoluteUrl(`cdn/storage/attachments/${fileId}`), 'Cache-Control': 'no-store' });
+          res.end();
+          return;
+        }
+        rememberThumbnail(thumbnailKey, thumbnail);
+        sendThumbnail(req, res, attachment, thumbnailKey, thumbnail);
         return;
       }
 

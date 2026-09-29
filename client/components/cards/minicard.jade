@@ -145,7 +145,7 @@ template(name="minicard")
         if $eq section "cover"
           if cover
             if currentBoard.allowsCoverAttachmentOnMinicard
-              .minicard-cover(style="background-image: url('{{cover.link 'original'}}?dummyReloadAfterSessionEstablished={{sess}}');")
+              .minicard-cover(style="background-image: url('{{attachmentPreviewUrl cover}}?dummyReloadAfterSessionEstablished={{sess}}');")
 
         if $eq section "labels"
           unless labelsAboveTitle

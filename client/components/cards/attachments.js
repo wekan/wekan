@@ -4,6 +4,8 @@ import { formatDateForDisplay } from '/client/lib/dateDisplay';
 import { ReactiveCache } from '/imports/reactiveCache';
 import '/client/components/cards/attachments.jade';
 import { attachmentKind } from '/models/lib/attachmentKind';
+import { generateUniversalAttachmentUrl } from '/models/lib/universalUrlGenerator';
+import { canThumbnail, thumbnailUrl } from '/models/lib/attachmentThumbnail';
 import { liveAttachments } from '/models/lib/attachmentSoftDelete';
 import DOMPurify from 'dompurify';
 import { sanitizeHTML, sanitizeText } from '/imports/lib/secureDOMPurify';
@@ -395,6 +397,16 @@ Template.attachmentViewer.events({
     openPrevAttachment();
   },
 });
+
+// #3275: the URL to SHOW an attachment small - the gallery tile and the
+// minicard cover. A raster image gets its /thumbnail (a WebP of at most 512
+// pixels) instead of the full original; anything else keeps the original URL.
+export function attachmentPreviewUrl(attachment) {
+  if (!attachment || !attachment._id) return '';
+  const url = generateUniversalAttachmentUrl(attachment._id);
+  return canThumbnail(attachment) ? thumbnailUrl(url) : url;
+}
+Template.registerHelper('attachmentPreviewUrl', attachmentPreviewUrl);
 
 Template.attachmentGallery.helpers({
   attachments() {

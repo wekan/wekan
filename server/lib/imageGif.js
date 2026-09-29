@@ -7,7 +7,7 @@ export const IMAGE_MAX_PIXELS = 40 * 1000 * 1000;
 export const IMAGE_MAX_EDGE = 1024;
 
 // Load the native image converter only when an image needs conversion.
-function loadSharpAtRuntime() {
+export function loadSharpAtRuntime() {
   // Release application dependencies live under programs/server/npm/node_modules.
   // Node's parent lookup also finds source-checkout node_modules in development.
   const runtimeRequire = createRequire(path.join(process.cwd(), 'npm', 'package.json'));

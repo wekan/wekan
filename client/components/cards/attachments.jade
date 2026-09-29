@@ -66,7 +66,7 @@ template(name="attachmentGallery")
         button.attachment-thumbnail-container.open-preview(type="button" aria-label="{{_ 'preview'}}: {{cleanFilename name}}" data-attachment-id="{{_id}}" data-card-id="{{ meta.cardId }}")
           if link
             if(isImage)
-              img.attachment-thumbnail(src="{{link}}" title="{{cleanFilename name}}" alt="{{cleanFilename name}}")
+              img.attachment-thumbnail(src="{{attachmentPreviewUrl this}}" title="{{cleanFilename name}}" alt="{{cleanFilename name}}")
             else if($eq extension 'svg')
               img.attachment-thumbnail(src="{{link}}" title="{{cleanFilename name}}" alt="{{cleanFilename name}}" type="image/svg+xml")
             else if($eq extension 'mp3')
