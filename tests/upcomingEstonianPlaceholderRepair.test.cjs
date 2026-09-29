@@ -60,4 +60,15 @@ assert.match(translated['sync-conflict-hint'], /Lähtesüsteemi ei saadeta midag
 assert.match(translated['sync-conflict-detach-hint'], /sisu jääb WeKani alles/);
 assert.match(translated['sync-report-partial'], /ei jätka ega võta käivitust tagasi/);
 assert.match(translated['sync-estimate-field-hint'], /Puuduvaid lähteväärtusi eiratakse.*null tühjendab/);
+for (const key of Object.keys(english).filter(key =>
+  /^(email-(recovery|failure)-|activity-recovery-|history-request-)/.test(key))) {
+  assert.ok(translated[key]?.trim(), `${key}: missing Estonian text`);
+  assert.notStrictEqual(translated[key], english[key], `${key}: English placeholder`);
+}
+assert.match(translated['activity-recovery-cancel-confirm'], /ei saa jätkata/);
+assert.match(translated['email-recovery-confirm-cancel'], /ei saa taastada/);
+assert.match(translated['history-request-hint'], /ei saa.*teist muudatust tagasi võtta/);
+for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:']) {
+  assert.ok(translated['import-board-instruction-todotxt'].includes(token), `preserve todo.txt ${token}`);
+}
 console.log('upcomingEstonianPlaceholderRepair: placeholders, recovery, filters, Scrum, Sync and rule syntax passed');
