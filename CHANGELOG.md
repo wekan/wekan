@@ -1572,7 +1572,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# Upcoming WeKan ® release
+# v12.10 2026-09-29 WeKan ® release
 
 **In short:** **Security** blocks private-data disclosure through card and board
 copying, and card copies reject invalid destinations. **Pulse** adds an annual
