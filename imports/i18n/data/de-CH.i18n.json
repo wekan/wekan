@@ -1039,6 +1039,7 @@
   "custom-help-link-url": "Benutzerdefinierter URL-Link zur Hilfe",
   "text-below-custom-login-logo": "Text unterhalb benutzerdefiniertem Login Logo",
   "automatic-linked-url-schemes": "Spezielle URL-Schemas, die durch Klick automatisch öffenbar sein sollen. Ein URL-Schema pro Zeile",
+  "automatic-linked-url-schemes-hint": "Standardmässig leer, sodass nur Web- und E-Mail-Links anklickbar sind. Jedes aufgeführte Schema, zum Beispiel thunderlink oder onenote, öffnet die dafür registrierte Anwendung. javascript, data, vbscript und ähnliche Schemata werden niemals in Links umgewandelt.",
   "external-link-pattern": "Externer Issue-Tracker Autolink",
   "external-link-pattern-description": "Verlinkt automatisch Tokens im Stil \"#1234\" in Kartentexten mit einem externen Issue-Tracker. Ein leeres Feld deaktiviert die Funktion.",
   "external-link-pattern-prefix": "Token-Präfix",

@@ -1039,6 +1039,7 @@
   "custom-help-link-url": "رابط صفحة المساعدة المخصص URL",
   "text-below-custom-login-logo": "متن پایین لوگوی سفارشی در فرم لاگین",
   "automatic-linked-url-schemes": "مخططات URL المخصصة التي يجب أن تكون قابلة للنقر تلقائياً. مخطط URL واحد لكل سطر",
+  "automatic-linked-url-schemes-hint": "تكون فارغة افتراضيًا، لذا يمكن النقر على روابط الويب والبريد فقط. يفتح كل مخطط مدرج، مثل thunderlink أو onenote، التطبيق المسجل له. لا تُحوَّل مخططات javascript وdata وvbscript والمخططات المشابهة إلى روابط أبدًا.",
   "external-link-pattern": "الربط التلقائي بمتتبع مشاكل خارجي",
   "external-link-pattern-description": "يربط تلقائيًا الرموز من نوع \"#1234\" الموجودة في نص البطاقة بمتتبع مشاكل خارجي. اترك أحد الحقلين فارغًا لتعطيل هذه الميزة.",
   "external-link-pattern-prefix": "بادئة الرمز",

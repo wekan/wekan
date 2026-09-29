@@ -1039,6 +1039,7 @@
   "custom-help-link-url": "URL-ul legăturii de ajutor personalizate",
   "text-below-custom-login-logo": "Text sub sigla personalizată pentru autentificare",
   "automatic-linked-url-schemes": "Esquemas de URL personalizados que deberían ser clicables automáticamente. Un esquema de URL por línea.",
+  "automatic-linked-url-schemes-hint": "Gol în mod implicit, astfel încât doar linkurile web și de e-mail pot fi accesate prin clic. Fiecare schemă listată, de exemplu thunderlink sau onenote, deschide aplicația înregistrată pentru ea. Schemele javascript, data, vbscript și cele similare nu sunt niciodată transformate în linkuri.",
   "external-link-pattern": "Legare automată către un tracker extern de probleme",
   "external-link-pattern-description": "Transformă automat token-urile de tip \"#1234\" din textul cardului în legături către un tracker extern de probleme. Lăsați un câmp gol pentru a dezactiva.",
   "external-link-pattern-prefix": "Prefix token",

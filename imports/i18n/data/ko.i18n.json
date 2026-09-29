@@ -1039,6 +1039,7 @@
   "custom-help-link-url": "도움말 링크 URL 사용자정의",
   "text-below-custom-login-logo": "사용자정의 로그인 로고 아래 텍스트",
   "automatic-linked-url-schemes": "자동으로 클릭 가능하게 할 사용자 지정 URL 스킴. 한 줄에 하나씩",
+  "automatic-linked-url-schemes-hint": "기본값은 비어 있으므로 웹 및 이메일 링크만 클릭할 수 있습니다. 나열된 각 스킴(예: thunderlink 또는 onenote)은 해당 스킴에 등록된 애플리케이션을 엽니다. javascript, data, vbscript 및 유사한 스킴은 절대로 링크로 변환되지 않습니다.",
   "external-link-pattern": "외부 이슈 트래커 자동 링크",
   "external-link-pattern-description": "카드 텍스트에서 발견된 \"#1234\" 형식의 토큰을 외부 이슈 트래커로 자동 연결합니다. 비활성화하려면 필드 중 하나를 비워 두세요.",
   "external-link-pattern-prefix": "토큰 접두사",

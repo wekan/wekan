@@ -1039,6 +1039,7 @@
   "custom-help-link-url": "Link URL di aiuto personalizzato",
   "text-below-custom-login-logo": "Testo sotto il logo personalizzato per il login",
   "automatic-linked-url-schemes": "Schemi URL personalizzati che devono essere automaticamente cliccabili. Uno schema URL per riga",
+  "automatic-linked-url-schemes-hint": "Vuoto per impostazione predefinita, quindi solo i collegamenti web e di posta sono cliccabili. Ogni schema elencato, ad esempio thunderlink o onenote, apre l'applicazione registrata per esso. Gli schemi javascript, data, vbscript e simili non vengono mai trasformati in collegamenti.",
   "external-link-pattern": "Collegamento automatico a un tracker esterno",
   "external-link-pattern-description": "Collega automaticamente i token in stile \"#1234\" trovati nel testo delle schede a un tracker di problemi esterno. Lascia un campo vuoto per disattivare.",
   "external-link-pattern-prefix": "Prefisso del token",

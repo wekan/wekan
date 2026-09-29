@@ -1039,6 +1039,7 @@
   "custom-help-link-url": "ヘルプのリンクURLを変更する",
   "text-below-custom-login-logo": "カスタムログインロゴイメージの下のテキスト",
   "automatic-linked-url-schemes": "自動的にクリック可能になるカスタムURLスキーム。 1行につき1件のURLスキーム",
+  "automatic-linked-url-schemes-hint": "既定では空欄のため、ウェブとメールのリンクのみクリックできます。一覧にある各スキーム（thunderlink や onenote など）は、そのスキームに登録されたアプリを開きます。javascript、data、vbscript などのスキームはリンクに変換されません。",
   "external-link-pattern": "外部課題トラッカーへの自動リンク",
   "external-link-pattern-description": "カードのテキストに含まれる「#1234」のようなトークンを、外部の課題トラッカーへ自動的にリンクします。無効にするには、いずれかの項目を空にしてください。",
   "external-link-pattern-prefix": "トークンの接頭辞",

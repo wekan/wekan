@@ -1039,6 +1039,7 @@
   "custom-help-link-url": "Maatwerk Help Link URL",
   "text-below-custom-login-logo": "Tekst onder Maatwerk Aanmeld Logo",
   "automatic-linked-url-schemes": "Maatwerk URL-schema's die automatisch klikbaar zouden moeten zijn. Een URL per regel.",
+  "automatic-linked-url-schemes-hint": "Standaard leeg, zodat alleen web- en e-maillinks aanklikbaar zijn. Elk vermeld schema, bijvoorbeeld thunderlink of onenote, opent de daarvoor geregistreerde toepassing. javascript, data, vbscript en vergelijkbare schema’s worden nooit in links omgezet.",
   "external-link-pattern": "Automatische link naar externe issuetracker",
   "external-link-pattern-description": "Koppelt automatisch tokens in de stijl \"#1234\" in kaarttekst aan een externe issuetracker. Laat een veld leeg om uit te schakelen.",
   "external-link-pattern-prefix": "Token-voorvoegsel",

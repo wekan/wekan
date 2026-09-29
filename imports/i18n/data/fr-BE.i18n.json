@@ -1039,6 +1039,7 @@
   "custom-help-link-url": "Lien URL vers l'aide personnalisée",
   "text-below-custom-login-logo": "Texte sous le logo de connexion personnalisé",
   "automatic-linked-url-schemes": "Schémas d'URL personnalisés qui devraient être automatiquement cliquables. Un schéma d'URL par ligne",
+  "automatic-linked-url-schemes-hint": "Vide par défaut : seuls les liens web et de messagerie sont cliquables. Chaque schéma indiqué, par exemple thunderlink ou onenote, ouvre l’application enregistrée pour celui-ci. Les schémas javascript, data, vbscript et similaires ne sont jamais transformés en liens.",
   "external-link-pattern": "Lien automatique vers un suivi de tickets externe",
   "external-link-pattern-description": "Transforme automatiquement les jetons du type \"#1234\" trouvés dans le texte des cartes en liens vers un suivi de tickets externe. Laisser un champ vide désactive la fonction.",
   "external-link-pattern-prefix": "Préfixe du jeton",

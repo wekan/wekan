@@ -1039,6 +1039,7 @@
   "custom-help-link-url": "URL til hjælpelink",
   "text-below-custom-login-logo": "Tekst under brugerdefineret logolink på loginsiden",
   "automatic-linked-url-schemes": "Brugerdefinerede URL-skemaer, som automatisk skal være klikbare. Ét URL-skema pr. linje",
+  "automatic-linked-url-schemes-hint": "Tomt som standard, så kun web- og e-maillinks kan klikkes på. Hvert angivet skema, for eksempel thunderlink eller onenote, åbner det program, der er registreret til det. javascript, data, vbscript og lignende skemaer omdannes aldrig til links.",
   "external-link-pattern": "Automatisk link til ekstern issue-tracker",
   "external-link-pattern-description": "Linker automatisk \"#1234\"-lignende tokens i kortets tekst til en ekstern issue-tracker. Lad et felt være tomt for at deaktivere.",
   "external-link-pattern-prefix": "Token-præfiks",

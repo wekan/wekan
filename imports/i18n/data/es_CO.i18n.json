@@ -1039,6 +1039,7 @@
   "custom-help-link-url": "Enlace URL de ayuda personalizada",
   "text-below-custom-login-logo": "Texto debajo del logo personalizado de inicio de sesión",
   "automatic-linked-url-schemes": "Esquemas de URL personalizados que deberían ser clicables automáticamente. Un esquema de URL por línea.",
+  "automatic-linked-url-schemes-hint": "Vacío de forma predeterminada, por lo que solo se pueden pulsar los enlaces web y de correo. Cada esquema indicado, por ejemplo thunderlink u onenote, abre la aplicación registrada para él. Los esquemas javascript, data, vbscript y similares nunca se convierten en enlaces.",
   "external-link-pattern": "Enlace automático a un rastreador de incidencias externo",
   "external-link-pattern-description": "Enlaza automáticamente los tokens tipo \"#1234\" del texto de las tarjetas a un rastreador de incidencias externo. Deja un campo vacío para desactivarlo.",
   "external-link-pattern-prefix": "Prefijo del token",

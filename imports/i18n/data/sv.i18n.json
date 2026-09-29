@@ -1039,6 +1039,7 @@
   "custom-help-link-url": "Anpassad hjälp-länk URL",
   "text-below-custom-login-logo": "Text under anpassad logga för inloggning",
   "automatic-linked-url-schemes": "Anpassade URL-scheman som ska vara klickbara automatiskt. Ett URL-schema per rad",
+  "automatic-linked-url-schemes-hint": "Tomt som standard, så endast webb- och e-postlänkar är klickbara. Varje angivet schema, till exempel thunderlink eller onenote, öppnar det program som är registrerat för det. javascript, data, vbscript och liknande scheman omvandlas aldrig till länkar.",
   "external-link-pattern": "Automatisk länkning till extern ärendehanterare",
   "external-link-pattern-description": "Länkar automatiskt \"#1234\"-liknande token i korttext till en extern ärendehanterare. Lämna ett fält tomt för att inaktivera.",
   "external-link-pattern-prefix": "Tokenprefix",

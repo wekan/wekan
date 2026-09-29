@@ -32,3 +32,22 @@ test('real interpolation tokens remain checked in URL fields and surrounding pro
   assert.throws(() => validateTranslation(JSON.stringify({ help: 'https://example.org/%D8%B9' }),
     { help: 'https://example.org/?value=%s' }), /Broken source placeholders/);
 });
+
+test('completed locale batches translate URL scheme help without changing scheme names', () => {
+  const codes = ['fi', 'ar', 'ar-DZ', 'ar-EG', 'tr', 'es', 'es-AR', 'es-CL',
+    'es-CO', 'es-LA', 'es-MX', 'es-PE', 'es-PY', 'es_CO', 'it', 'pt', 'pt-PT',
+    'pt_PT', 'pt-BR', 'gl', 'gl-ES', 'ko', 'ko-KR', 'ja', 'ja-JP', 'ja-HI',
+    'zh-Hant', 'zh-TW', 'zh-HK', 'zh', 'zh-CN', 'zh-Hans', 'zh-GB', 'zh_SG',
+    'cmn', 'fr', 'fr-FR', 'fr-BE', 'fr-CH', 'fr-CA', 'de', 'de-AT', 'de_DE',
+    'de-CH', 'sv', 'da', 'nb', 'nl', 'nl-NL', 'ro', 'ro-RO', 'id'];
+  const key = 'automatic-linked-url-schemes-hint';
+  const english = JSON.parse(fs.readFileSync(path.join(directory, 'en.i18n.json')))[key];
+  for (const code of codes) {
+    const value = JSON.parse(fs.readFileSync(path.join(directory, code + '.i18n.json')))[key];
+    assert.ok(value?.trim(), code);
+    assert.notEqual(value, english, code);
+    for (const scheme of ['thunderlink', 'onenote', 'javascript', 'data', 'vbscript']) {
+      assert.equal(value.split(scheme).length - 1, 1, code + ':' + scheme);
+    }
+  }
+});

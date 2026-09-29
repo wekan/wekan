@@ -1039,6 +1039,7 @@
   "custom-help-link-url": "Mukautettu Ohje linkki URL",
   "text-below-custom-login-logo": "Teksti mukautetun kirjautumis logon alla",
   "automatic-linked-url-schemes": "Mukautetut URL-mallit, joiden pitäisi olla automaattisesti klikattavissa. Yksi URL-malli riviä kohden",
+  "automatic-linked-url-schemes-hint": "Oletuksena tyhjä, joten vain verkko- ja sähköpostilinkit ovat napsautettavia. Jokainen lueteltu skeema, esimerkiksi thunderlink tai onenote, avaa sille rekisteröidyn sovelluksen. javascript-, data-, vbscript- ja vastaavia skeemoja ei koskaan muuteta linkeiksi.",
   "external-link-pattern": "Automaattinen linkitys ulkoiseen virheenseurantaan",
   "external-link-pattern-description": "Linkittää automaattisesti korttien tekstistä löytyvät \"#1234\"-tyyppiset tunnisteet ulkoiseen virheenseurantajärjestelmään. Jätä kenttä tyhjäksi poistaaksesi käytöstä.",
   "external-link-pattern-prefix": "Tunnisteen etuliite",

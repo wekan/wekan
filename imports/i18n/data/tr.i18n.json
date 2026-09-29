@@ -1039,6 +1039,7 @@
   "custom-help-link-url": "Özel Yardım Bağlantısı URL'si",
   "text-below-custom-login-logo": "Özel Oturum Açma Logosunun altındaki metin",
   "automatic-linked-url-schemes": "Otomatik olarak tıklanabilir olması gereken Özel URL Şemaları. Satır başına bir URL Şeması",
+  "automatic-linked-url-schemes-hint": "Varsayılan olarak boştur; bu nedenle yalnızca web ve e-posta bağlantıları tıklanabilir. Listelenen her şema, örneğin thunderlink veya onenote, kendisi için kayıtlı uygulamayı açar. javascript, data, vbscript ve benzeri şemalar hiçbir zaman bağlantıya dönüştürülmez.",
   "external-link-pattern": "Harici sorun izleyiciye otomatik bağlantı",
   "external-link-pattern-description": "Kart metninde bulunan \"#1234\" biçimindeki belirteçleri otomatik olarak harici bir sorun izleyiciye bağlar. Devre dışı bırakmak için bir alanı boş bırakın.",
   "external-link-pattern-prefix": "Belirteç öneki",
