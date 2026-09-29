@@ -104,7 +104,24 @@ test('route wires LDAP through Meteor handlers and keeps REST token creation', (
     /ldapRestLoginRequest\(options\.username, options\.password\)/,
   );
   assert.match(source, /Accounts\._generateStampedLoginToken\(\)/);
-  assert.match(source, /Accounts\._insertLoginToken\(result\.userId/);
+  // The token is still inserted for the user the login handlers returned, but
+  // through insertActiveLoginToken (server/lib/activeUser.js) rather than
+  // Accounts._insertLoginToken: c3caf87a1 made issuance re-check loginDisabled
+  // in the same update that pushes the token, so a disable racing a login
+  // cannot leave a usable token behind.
+  assert.match(
+    source,
+    /require\('\/server\/lib\/activeUser'\)\.insertActiveLoginToken\(result\.userId, stampedLoginToken\)/,
+  );
+});
+
+test('no REST path mints a token that skips the disabled-account check (negative)', () => {
+  const source = fs.readFileSync(
+    path.join(__dirname, '..', 'server', 'apiAuthRoutes.js'),
+    'utf8',
+  );
+  assert.doesNotMatch(source, /Accounts\._insertLoginToken\(/,
+    'a raw _insertLoginToken would issue a token to a disabled account');
 });
 
 test('negative LDAP results share the throttled uniform REST failure', () => {
@@ -114,7 +131,10 @@ test('negative LDAP results share the throttled uniform REST failure', () => {
   );
   assert.match(
     source,
-    /!result \|\| result\.error \|\| !result\.userId \|\| !user/,
+    // The last clause was `!user`; c3caf87a1 widened it to allowActiveUser,
+    // which is also false for a missing user AND refuses a disabled one with
+    // the same uniform error, so the failure stays indistinguishable.
+    /!result \|\| result\.error \|\| !result\.userId \|\| !require\('\/server\/lib\/activeUser'\)\.allowActiveUser\(user, 'rest-login', req\)/,
   );
   assert.match(source, /restLoginThrottle\.recordFailure\(clientKey, now\)/);
   assert.match(source, /throw uniformLoginError\(\)/);

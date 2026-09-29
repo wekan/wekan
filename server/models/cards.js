@@ -815,7 +815,7 @@ Meteor.methods({
         if (error.securityAttempt) require('/server/lib/securityLog').record({ key: 'authz.card-copy-overrides',
           action: 'blocked', source: 'method:copyCard', userId: this.userId,
           detail: 'Unsupported card-copy overrides refused' });
-      } catch (logError) { /* logging must never break the guard */ }
+      } catch (e) { /* logging must never break the guard */ }
       throw new Meteor.Error('bad-request', 'Invalid card copy overrides');
     }
 

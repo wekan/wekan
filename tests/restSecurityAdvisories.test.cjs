@@ -99,11 +99,24 @@ const tokenCreate = route(
 );
 assert.match(tokenCreate, /A reason is required/);
 assert.match(tokenCreate, /await ImpersonatedUsers\.insertAsync/);
+// c3caf87a1 replaced Accounts._insertLoginToken with insertActiveLoginToken
+// (server/lib/activeUser.js), which refuses to mint a token for a disabled
+// account in the same update that pushes it. The audit-first order is what
+// this guard is about, so it now looks for the new call - and both needles
+// must be FOUND, because a missing one (indexOf -1) would otherwise make the
+// ordering check pass or fail for the wrong reason.
+const auditAt = tokenCreate.indexOf('ImpersonatedUsers.insertAsync');
+const tokenAt = tokenCreate.indexOf(
+  "require('/server/lib/activeUser').insertActiveLoginToken(",
+);
+assert.ok(auditAt >= 0, 'the impersonation audit record is written');
+assert.ok(tokenAt >= 0, 'the impersonation token goes through insertActiveLoginToken');
 assert.ok(
-  tokenCreate.indexOf('ImpersonatedUsers.insertAsync') <
-    tokenCreate.indexOf('Accounts._insertLoginToken'),
+  auditAt < tokenAt,
   'the audit record must be written before the impersonation token',
 );
+// Negative: no raw insert that would skip the disabled-account check.
+assert.doesNotMatch(tokenCreate, /Accounts\._insertLoginToken\(/);
 
 for (const source of [boards, users]) {
   assert.doesNotMatch(source, /sendJsonResult\(res, \{ code: 200, data: error \}\)/);

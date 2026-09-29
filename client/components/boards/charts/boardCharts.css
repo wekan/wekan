@@ -74,8 +74,8 @@
 .archive-day-detail { min-height: 40px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 8px 0; }
 .archive-day-detail .card-label { display: inline-block; width: auto; height: auto; padding: 4px 8px; }
 .archive-cell { position: relative; }
-.archive-tooltip { display: none; position: absolute; z-index: 10; top: 100%; left: 0; width: max-content; max-width: 240px; white-space: normal; background: #fff; color: #222; border: 1px solid #777; padding: 8px; box-shadow: 0 2px 5px #0003; }
-.archive-cell:nth-last-child(-n+4) .archive-tooltip { left: auto; right: 0; }
+.archive-tooltip { display: none; position: absolute; z-index: 10; top: 100%; inset-inline-start: 0; width: max-content; max-width: 240px; white-space: normal; background: #fff; color: #222; border: 1px solid #777; padding: 8px; box-shadow: 0 2px 5px #0003; }
+.archive-cell:nth-last-child(-n+4) .archive-tooltip { inset-inline-start: auto; inset-inline-end: 0; }
 .archive-cell:hover .archive-tooltip, .archive-cell:focus-within .archive-tooltip { display: block; }
 .archive-tooltip .card-label { display: block; width: auto; height: auto; margin-top: 4px; }
 .archive-cell .archive-tooltip.archive-tooltip-dismissed { display: none; }

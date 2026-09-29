@@ -83,7 +83,10 @@ template(name="timeView")
             each timeAdjustmentEntries
               tr
                 td {{displayDate at}}
-                td {{title}}
+                td
+                  .time-view-card-title
+                    +viewer
+                      = title
                 td {{author}}
                 td {{hours}}
                 td {{total}}

@@ -63,6 +63,16 @@ assert.match(timeViewJade, /\{\{_ 'board-status-overtime-cards'\}\}/);
 // Card titles share the sanitized Markdown/emoji viewer used by other board views.
 assert.match(timeViewJade, /\.time-view-card-title\n\s+\+viewer\n\s+= title/);
 assert.doesNotMatch(timeViewJade, /td \{\{title\}\}/);
+// The time-adjustments history table (added in 6d99ad73c) first rendered its
+// card column as a bare `td {{title}}`; it must go through the same viewer, and
+// every `title` the template renders must be one of those viewer blocks.
+const adjustmentsJade = timeViewJade.slice(timeViewJade.indexOf('each timeAdjustmentEntries'));
+assert.match(adjustmentsJade, /\.time-view-card-title\n\s+\+viewer\n\s+= title/,
+  'the adjustments table renders card titles with the viewer too');
+const titleRenders = timeViewJade.match(/(?:\{\{title\}\}|= title\b)/g) || [];
+const viewerTitles = timeViewJade.match(/\+viewer\n\s+= title\b/g) || [];
+assert.strictEqual(titleRenders.length, viewerTitles.length,
+  'no card title in the Time view bypasses the viewer');
 assert.match(timeViewJade, /if isOvertime\n\s+\|.*overtime/,
   'overtime status stays outside user-authored Markdown');
 

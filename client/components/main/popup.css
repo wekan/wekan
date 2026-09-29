@@ -1361,8 +1361,11 @@ body.mobile-mode .pop-over .content-wrapper {
     position: fixed;
     width: min(960px, calc(100vw - 24px)) !important;
     max-width: calc(100vw - 24px) !important;
-    left: max(12px, calc((100vw - 960px) / 2)) !important;
-    right: auto !important;
+    /* Logical, so RTL mirrors it; the value is symmetric, so both centre.
+       inset-inline-end: auto is `right` in LTR and `left` in RTL, so it also
+       overrides the inline left the popup placement code sets. */
+    inset-inline-start: max(12px, calc((100vw - 960px) / 2)) !important;
+    inset-inline-end: auto !important;
     top: 12px !important;
     margin-top: 0;
     max-height: calc(100vh - 24px) !important;
