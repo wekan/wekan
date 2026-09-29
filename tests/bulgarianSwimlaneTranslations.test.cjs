@@ -307,6 +307,24 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
   assert.match(bg['allboards.edit-workspace-icon'], /Markdown/);
   assert.match(bg['app-try-reconnect'], /свържете отново/);
   assert.equal(bg['allboards.add-workspace'], bg['addWorkspacePopup-title']);
+  const planningFillKeys = ["notification-activity-archive", "notification-activity-created", "due-reminder-heading", "due-reminder-days-label", "due-reminder-off", "due-reminder-webhook", "due-reminder-invalid", "due-reminder-saved", "dependency-type-duplicates", "dependency-type-is-duplicated-by", "custom-field-stringtemplate-context-hint", "filter-presets", "filter-preset-choose", "filter-preset-name", "filter-preset-save", "filter-preset-replace-hint", "filter-preset-saved", "filter-preset-applied", "filter-preset-deleted", "filter-preset-error", "filter-card-text-label", "import-report-heading", "import-report-description", "import-report-open-board", "draggable", "blockly-CONTEXT_MENU_KEY", "blockly-SPACE_KEY", "board-view-product-backlog", "board-view-sprints", "board-view-sprint-report", "board-view-velocity", "scrum-settings", "scrum-product-owner", "scrum-master", "scrum-developers", "scrum-working-days", "scrum-enabled", "scrum-product-goal", "scrum-definition-of-done", "scrum-estimate-source", "scrum-estimate-unit", "scrum-completion-policy", "scrum-source-poker", "scrum-source-customField", "scrum-policy-dueComplete", "scrum-policy-doneLists", "scrum-sprints", "scrum-sprint", "scrum-start-sprint", "scrum-close-sprint", "scrum-cancel-sprint", "scrum-rollover-sprint", "scrum-cancel-reason", "scrum-product-backlog", "scrum-edit-sprint", "scrum-sprint-goal", "scrum-capacity", "scrum-new-sprint", "scrum-releases", "scrum-release", "scrum-select-sprint", "scrum-backlog", "scrum-backlog-help", "scrum-estimate", "scrum-backlog-rank", "scrum-issue-type", "scrum-acceptance-criteria", "scrum-events", "scrum-event-kind", "scrum-timebox"];
+  for (const key of planningFillKeys) {
+    assert.ok(bg[key]?.trim(), key);
+    assert.notEqual(bg[key], en[key], key);
+    assert.deepEqual(translationTokens(bg[key]), translationTokens(en[key]), key);
+    assert.match(bg[key], /[А-Яа-я]/, key);
+  }
+  assert.match(bg['due-reminder-days-label'], /0.*положителните.*преди.*отрицателните.*след.*празно/);
+  assert.match(bg['due-reminder-invalid'], /до десет.*-14 до 14/);
+  assert.match(bg['filter-preset-replace-hint'], /Лични за вас.*същото име ги заменя/);
+  assert.match(bg['import-report-description'], /Таблото е създадено, но.*Административен панел → Проблеми → Възстановяване/);
+  assert.deepEqual(bg['custom-field-stringtemplate-context-hint'].match(/%\{[^}]+\}/g), en['custom-field-stringtemplate-context-hint'].match(/%\{[^}]+\}/g));
+  assert.notEqual(bg['dependency-type-duplicates'], bg['dependency-type-is-duplicated-by']);
+  assert.notEqual(bg['scrum-close-sprint'], bg['scrum-cancel-sprint']);
+  assert.match(bg['scrum-policy-dueComplete'], /отбелязана като завършена/);
+  assert.match(bg['scrum-policy-doneLists'], /списък от категория/);
+  assert.match(bg['scrum-backlog-help'], /планиран или активен спринт/);
+  assert.match(bg['scrum-timebox'], /минути/);
   assert.equal(bg.swimlane, 'Коридор');
   assert.equal(bg['welcome-swimlane'], 'Етап 1');
   assert.match(bg['swimlane-height-error-message'], /положително цяло число/);
