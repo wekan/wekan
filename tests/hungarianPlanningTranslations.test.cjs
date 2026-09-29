@@ -32,5 +32,16 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
   for (const scheme of ['thunderlink', 'onenote', 'javascript', 'data', 'vbscript']) {
     assert.equal(hu['automatic-linked-url-schemes-hint'].split(scheme).length - 1, 1, scheme);
   }
-  console.log('Hungarian filters, rules and preferences preserve tokens and restrictions');
+  for (const key of Object.keys(en).filter(key => key.startsWith('scrum-'))) {
+    if (['scrum-master', 'scrum-sprint'].includes(key)) continue;
+    assert.ok(hu[key]?.trim(), key);
+    assert.notEqual(hu[key], en[key], key);
+  }
+  assert.match(hu['scrum-report-help'], /nem nulla értékű becslések/);
+  assert.match(hu['scrum-daily-observations-help'], /nem rögzítenek minden változást/);
+  assert.match(hu['scrum-confirm-cancel'], /hozzárendelve maradnak/);
+  assert.match(hu['scrum-added'], /sprint feladataihoz/);
+  assert.match(hu['scrum-removed'], /sprint feladatai közül/);
+  assert.notEqual(hu['scrum-category-todo'], hu['scrum-category-done']);
+  console.log('Hungarian filters, rules, Scrum and preferences preserve tokens and restrictions');
 })().catch(error => { console.error(error); process.exitCode = 1; });
