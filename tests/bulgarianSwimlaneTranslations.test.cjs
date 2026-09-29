@@ -34,6 +34,20 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
   assert.match(bg['add-card-to-top-of-list'], /началото/);
   assert.match(bg['add-card-to-bottom-of-list'], /края/);
   assert.equal(bg['allowNonBoardMembers'], 'Разрешаване на всички влезли потребители');
+  const controlKeys = ["deleteVotePopup-title", "vote-delete-pop", "cardStartPlanningPokerPopup-title", "card-edit-planning-poker", "editPokerEndDatePopup-title", "deletePokerPopup-title", "poker-delete-pop", "cardArchivePopup-title", "cardAssigneePopup-title", "casSignIn", "samlSignIn", "deleteAvatarPopup-title", "color-magenta", "color-mistyrose", "comment-assigned-only", "comment-assigned-only-desc", "comment-delete", "deleteCommentPopup-title", "read-assigned-only", "read-assigned-only-desc", "confirm-checklist-delete-popup", "subtaskDeletePopup-title", "checklistDeletePopup-title", "checklistItemDeletePopup-title", "copy-text-to-clipboard", "copyManyCardsPopup-title", "copyManyCardsPopup-instructions", "copyManyCardsPopup-format", "createTemplateContainerPopup-title", "custom-field-delete-pop", "custom-field-dropdown-options", "disambiguateMultiLabelPopup-title", "disambiguateMultiMemberPopup-title", "addReactionPopup-title", "email-enrollAccount-text", "email-invite-subject", "email-invite-text", "push-invite-title", "push-invite-text", "email-resetPassword-subject", "email-resetPassword-text", "email-verifyEmail-text", "error-csv-schema", "error-orgname-taken", "error-teamname-taken"];
+  for (const key of controlKeys) {
+    assert.deepEqual(translationTokens(bg[key]), translationTokens(en[key]), key);
+    assert.doesNotMatch(bg[key], /[јћђљњџЈЋЂЉЊЏ]|поступ|списи|опорав|предмет/i, key);
+    assert.match(bg[key], /[А-Яа-я]/, key);
+  }
+  assert.match(bg['read-assigned-only-desc'], /само възложените карти.*Не може да редактира/);
+  assert.match(bg['comment-assigned-only-desc'], /само възложените карти.*само да коментира/);
+  assert.match(bg['custom-field-delete-pop'], /необратимо.*всички карти.*историята/);
+  assert.match(bg['card-edit-planning-poker'], /планиране/);
+  assert.match(bg['email-invite-subject'], /^__inviter__ ви изпрати покана$/);
+  const example = JSON.parse(bg['copyManyCardsPopup-format']);
+  assert.equal(example.length, 3);
+  for (const card of example) assert.deepEqual(Object.keys(card), ['title', 'description']);
   assert.equal(bg.swimlane, 'Коридор');
   assert.equal(bg['welcome-swimlane'], 'Етап 1');
   assert.match(bg['swimlane-height-error-message'], /положително цяло число/);
