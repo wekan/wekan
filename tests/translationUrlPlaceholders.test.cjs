@@ -156,3 +156,22 @@ test('map view instructions and controls are translated in reviewed locales', as
   assert.match(fi['map-view-empty'], /Taulun ylläpitäjä.*pohjapiirroksen, aluekartan tai piirroksen/);
   assert.match(fi['map-view-place-hint'], /Vedä.*tai valitse.*napsauta/);
 });
+
+
+test('multiple-parent card controls are translated in reviewed locales', async () => {
+  const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
+  const source = JSON.parse(fs.readFileSync(path.join(directory, 'en.i18n.json')));
+  for (const code of ["fi", "ar", "ar-DZ", "ar-EG", "tr", "es", "es-AR", "es-CL", "es-CO", "es-LA", "es-MX", "es-PE", "es-PY", "es_CO", "it", "pt", "pt-PT", "pt_PT", "pt-BR", "gl", "gl-ES", "ko", "ko-KR", "ja", "ja-JP", "ja-HI", "zh-Hant", "zh-TW", "zh-HK", "zh", "zh-CN", "zh-Hans", "zh-GB", "zh_SG", "cmn", "fr", "fr-FR", "fr-BE", "fr-CH", "fr-CA", "de", "de-AT", "de_DE", "de-CH", "sv", "da", "nb", "nl", "nl-NL", "ro", "ro-RO", "id", "pl", "cs", "sk", "hu", "uk", "ru", "bg"]) {
+    const locale = JSON.parse(fs.readFileSync(path.join(directory, code + '.i18n.json')));
+    for (const key of ["other-parent-cards", "add-parent-card", "remove-parent-card"]) {
+      assert.ok(locale[key]?.trim(), code + ':' + key);
+      assert.notEqual(locale[key], source[key], code + ':' + key);
+      assert.deepEqual(translationTokens(locale[key]), translationTokens(source[key]), code + ':' + key);
+    }
+    assert.notEqual(locale['add-parent-card'], locale['remove-parent-card'], code);
+  }
+  const fi = JSON.parse(fs.readFileSync(path.join(directory, 'fi.i18n.json')));
+  assert.match(fi['add-parent-card'], /toinen yläkortti/);
+  assert.match(fi['remove-parent-card'], /Ei enää tämän kortin alitehtävä/);
+  assert.doesNotMatch(fi['remove-parent-card'], /poista|tuhoa/i);
+});
