@@ -2,6 +2,7 @@
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { navigateInApp, openBoard } = require('../helpers/auth');
+const { waitForImportedBoard } = require('../helpers/import');
 
 test('Jira status names that match object properties retain lists and Scrum categories', async ({ loggedInPage: page }) => {
   const title = `Jira status names ${db.uniqueSuffix()}`;
@@ -49,7 +50,7 @@ test('Jira Scrum metadata imports hidden, exports and survives native import', a
     await navigateInApp(page, '/import/jira');
     await page.locator('#import-textarea').fill(JSON.stringify(source));
     await page.locator('.js-import-without-mapping').click();
-    await page.waitForURL(/\/b\//);
+    await waitForImportedBoard(page);
     const id = page.url().match(/\/b\/([^/]+)/)[1]; ids.push(id);
     expect(db.findOne('cards', { boardId: id, 'scrum.issueType': 'Story' })).toBeTruthy();
     expect(db.findOne('lists', { boardId: id, title: 'Finished' }).scrum.category).toBe('done');
@@ -78,7 +79,7 @@ test('Jira Scrum metadata imports hidden, exports and survives native import', a
     const toggle = page.locator('.js-import-part-toggle[data-field="scrum"]');
     await toggle.click();
     await page.locator('#import-textarea').fill(JSON.stringify(source));
-    await page.locator('.js-import-without-mapping').click(); await page.waitForURL(/\/b\//);
+    await page.locator('.js-import-without-mapping').click(); await waitForImportedBoard(page);
     const omitted = page.url().match(/\/b\/([^/]+)/)[1]; ids.push(omitted);
     expect(db.find('cards', { boardId: omitted }).every(card => !card.scrum?.issueType)).toBe(true);
     expect(db.find('lists', { boardId: omitted }).every(list => !list.scrum?.category)).toBe(true);

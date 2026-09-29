@@ -1,7 +1,17 @@
 template(name="import")
-  .wrapper.import-page
+  .wrapper.import-page(class="{{#if importReport}}has-import-report{{/if}}")
     if error.get
       .warning {{_ error.get}}
+    //- An import that completed with warnings says what it could not bring
+      over before opening the board (server/methods/importReport.js).
+    if importReport
+      .import-report.js-import-report
+        h2 {{_ 'import-report-heading'}}
+        p {{_ 'import-report-description'}}
+        ul
+          each importReport.rows
+            li.import-report-row {{detail}}
+        button.primary.js-open-imported-board(type="button") {{_ 'import-report-open-board'}}
     if zipImporting
       .warning {{_ 'import-trello-zip-progress'}}
     //- #1173: ONE import page. Every source used to be its own address reached

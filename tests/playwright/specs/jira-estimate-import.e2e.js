@@ -2,6 +2,7 @@
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { navigateInApp } = require('../helpers/auth');
+const { waitForImportedBoard } = require('../helpers/import');
 test('explicit Jira estimate mapping imports through the UI and survives export and copy', async ({ loggedInPage: page, request, user }) => {
   const ids = [];
   const source = { board: { name: `Jira points ${db.uniqueSuffix()}` }, issues: [0, 2.5, null].map((value, index) => ({ key: `POINTS-${index}`, fields: { summary: `Estimate ${index}`, customfield_10016: value } })) };
@@ -10,7 +11,7 @@ test('explicit Jira estimate mapping imports through the UI and survives export 
     await page.locator('#import-textarea').fill(JSON.stringify(source));
     await page.locator('.js-jira-estimate-field').fill('customfield_10016');
     await page.locator('.js-jira-estimate-unit').fill('points');
-    await page.locator('.js-import-without-mapping').click(); await page.waitForURL(/\/b\//);
+    await page.locator('.js-import-without-mapping').click(); await waitForImportedBoard(page);
     const id = page.url().match(/\/b\/([^/]+)/)[1]; ids.push(id);
     const checkBoard = boardId => {
       const field = db.findOne('customFields', { boardIds: boardId, 'settings.jiraEstimateFieldId': 'customfield_10016' });

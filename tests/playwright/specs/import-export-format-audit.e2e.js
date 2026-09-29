@@ -7,6 +7,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const fixtures = path.resolve(__dirname, '../../fixtures/import-formats');
 const expected = require('../../fixtures/import-formats/expectations.json');
+const { waitForImportedBoard } = require('../helpers/import');
 const sources = ['jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit'];
 const read = source => JSON.parse(fs.readFileSync(path.join(fixtures, `${source === 'zenkit' ? 'zenkit-adapter' : source}.json`)));
 
@@ -17,7 +18,7 @@ for (const source of sources) {
       await navigateInApp(page, `/import/${source}`);
       await page.locator('#import-textarea').fill(JSON.stringify(read(source)));
       await page.locator('.js-import-without-mapping').click();
-      await page.waitForURL(/\/b\//);
+      await waitForImportedBoard(page);
       boardId = page.url().match(/\/b\/([^/]+)/)[1];
       const cards = db.find('cards', { boardId });
       expect(cards).toHaveLength(1);
@@ -136,7 +137,7 @@ test('zenkit: API entries import stages, checklists, fields and hierarchy', asyn
     await navigateInApp(page, '/import/zenkit');
     await page.locator('#import-textarea').fill(JSON.stringify(doc));
     await page.locator('.js-import-without-mapping').click();
-    await page.waitForURL(/\/b\//);
+    await waitForImportedBoard(page);
     boardId = page.url().match(/\/b\/([^/]+)/)[1];
     const cards = db.find('cards', { boardId });
     expect(cards.map(c => c.title).sort()).toEqual(['Audit child', expected.title].sort());
@@ -168,7 +169,7 @@ test('openproject: parent hierarchy and relations link the imported cards', asyn
     await navigateInApp(page, '/import/openproject');
     await page.locator('#import-textarea').fill(JSON.stringify(doc));
     await page.locator('.js-import-without-mapping').click();
-    await page.waitForURL(/\/b\//);
+    await waitForImportedBoard(page);
     boardId = page.url().match(/\/b\/([^/]+)/)[1];
     const card = title => db.findOne('cards', { boardId, title });
     const [parent, child, blocked] = ['Epic parent', 'Child item', 'Blocked item'].map(card);
@@ -187,7 +188,7 @@ for (const [source, want] of Object.entries(FIDELITY)) {
       await navigateInApp(page, `/import/${source}`);
       await page.locator('#import-textarea').fill(JSON.stringify(read(source)));
       await page.locator('.js-import-without-mapping').click();
-      await page.waitForURL(/\/b\//);
+      await waitForImportedBoard(page);
       boardId = page.url().match(/\/b\/([^/]+)/)[1];
       const card = db.findOne('cards', { boardId });
       const comments = db.find('card_comments', { boardId });
@@ -214,11 +215,14 @@ for (const [source, want] of Object.entries(FIDELITY)) {
 
 test('imports with losses record one Recovery row; a complete import records none', async ({ loggedInPage: page, user, adminUser }) => {
   const boardIds = [];
+  // An import with losses now stays on the import page and says what it could
+  // not bring over; a complete one opens its board at once.
+  const reports = {};
   const importText = async (source, doc) => {
     await navigateInApp(page, `/import/${source}`);
     await page.locator('#import-textarea').fill(JSON.stringify(doc));
     await page.locator('.js-import-without-mapping').click();
-    await page.waitForURL(/\/b\//);
+    reports[source] = await waitForImportedBoard(page);
     const id = page.url().match(/\/b\/([^/]+)/)[1];
     boardIds.push(id);
     return id;
@@ -233,13 +237,19 @@ test('imports with losses record one Recovery row; a complete import records non
     expect(events[0].detail).toContain('/acl');
     expect(events[0].detail).toContain('1 deleted card(s) skipped');
     expect(events[0].userId).toBe(user.id);
+    // The import page showed the same report to the person who imported it.
+    expect(reports.deck).toEqual([events[0].detail]);
     const gitlabBoard = await importText('gitlab', read('gitlab'));
     expect(db.find('recoveryEvents', { boardIds: gitlabBoard })).toHaveLength(0);
+    expect(reports.gitlab).toBeNull();
+    // The importer can ask for it again; another user (the admin below) gets nothing.
+    expect(await page.evaluate(id => Meteor.callAsync('importReportForBoard', id), deckBoard)).toHaveLength(1);
     // The importing member cannot read the Recovery report; an administrator can.
     const row = page.locator('tr', { hasText: 'import-completed-with-warnings' }).filter({ hasText: '/acl' }).first();
     await navigateInApp(page, '/admin/problems/recovery');
     await expect(row).toHaveCount(0);
     await loginWithToken(page, adminUser.id, adminUser.token);
+    expect(await page.evaluate(id => Meteor.callAsync('importReportForBoard', id), deckBoard)).toEqual([]);
     await navigateInApp(page, '/admin/problems/recovery');
     await expect(page.locator('tr', { hasText: 'import-completed-with-warnings' }).filter({ hasText: '/acl' }).first()).toBeVisible();
   } finally {
@@ -261,7 +271,7 @@ test('WeKan JSON import keeps each card creation date (#1992)', async ({ boardPa
     await navigateInApp(page, '/import/wekan');
     await page.locator('#import-textarea').fill(JSON.stringify(exported));
     await page.locator('.js-import-without-mapping').click();
-    await page.waitForURL(/\/b\//);
+    await waitForImportedBoard(page);
     boardId = page.url().match(/\/b\/([^/]+)/)[1];
     const imported = db.findOne('cards', { boardId, title: card.title });
     expect(new Date(imported.createdAt).toISOString()).toBe(createdAt.toISOString());
@@ -306,7 +316,7 @@ test('Trello ZIP imports comment, checklist and exact attachment bytes; JSON rou
     await navigateInApp(page, '/import/wekan');
     await page.locator('#import-textarea').fill(JSON.stringify(exported));
     await page.locator('.js-import-without-mapping').click();
-    await page.waitForURL(/\/b\//);
+    await waitForImportedBoard(page);
     const restored = page.url().match(/\/b\/([^/]+)/)[1]; boardIds.push(restored);
     expect(db.find('card_comments', { boardId: restored }).map(c => c.text)).toContain(expected.comment);
     expect(db.find('checklistItems', { boardId: restored })).toHaveLength(1);
@@ -363,7 +373,7 @@ for (const source of ['csv', 'markdown', 'excel']) {
         await page.locator('#import-textarea').fill(fs.readFileSync(path.join(fixtures, source === 'csv' ? 'csv.csv' : 'markdown.md'), 'utf8'));
         await page.locator('.js-import-without-mapping').click();
       }
-      await page.waitForURL(/\/b\//);
+      await waitForImportedBoard(page);
       boardId = page.url().match(/\/b\/([^/]+)/)[1];
       const cards = db.find('cards', { boardId });
       expect(cards).toHaveLength(1);

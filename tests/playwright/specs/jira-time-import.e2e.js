@@ -2,6 +2,7 @@
 const {test,expect}=require('../fixtures');
 const db=require('../helpers/db');
 const {navigateInApp}=require('../helpers/auth');
+const { waitForImportedBoard } = require('../helpers/import');
 test('Jira time import reuses spent hours and hidden numeric estimates, retaining them in native export',async({loggedInPage:page,request,user})=>{
  let boardId, roundTrip;
  const nativeCopies=[];
@@ -13,7 +14,7 @@ test('Jira time import reuses spent hours and hidden numeric estimates, retainin
   await navigateInApp(page,'/import/jira');
   await page.locator('#import-textarea').fill(JSON.stringify(source));
   await page.locator('.js-import-without-mapping').click();
-  await page.waitForURL(/\/b\//);boardId=page.url().match(/\/b\/([^/]+)/)[1];
+  await waitForImportedBoard(page);boardId=page.url().match(/\/b\/([^/]+)/)[1];
   const fields=db.find('customFields',{boardIds:boardId});expect(fields).toHaveLength(2);
   expect(fields.every(field=>field.type==='number'&&field.showOnCard===false&&field.alwaysOnCard===false)).toBe(true);
   const original=fields.find(field=>field.name==='Jira original estimate (hours)');
@@ -86,7 +87,7 @@ test('Jira import section controls exclude estimates and spent time independentl
     if(wanted!==checked)await toggle.click();
    }
    await page.locator('#import-textarea').fill(JSON.stringify({board:{name:`Selected Jira ${selected}`},issues:[{key:'SELECT-1',fields:{summary:'Selected time',timespent:1800,timeoriginalestimate:7200,timeestimate:0,timetracking:{timeSpentSeconds:1800,originalEstimateSeconds:7200,remainingEstimateSeconds:0}}}]}));
-   await page.locator('.js-import-without-mapping').click();await page.waitForURL(/\/b\//);
+   await page.locator('.js-import-without-mapping').click();await waitForImportedBoard(page);
    const id=page.url().match(/\/b\/([^/]+)/)[1];ids.push(id);
    const card=db.findOne('cards',{boardId:id});
    if(selected==='dates'){

@@ -14,6 +14,7 @@
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { navigateInApp } = require('../helpers/auth');
+const { waitForImportedBoard } = require('../helpers/import');
 
 // A minimal but valid WeKan board export (mirrors tests/wekanCreator.import.test.js).
 const now = '2020-01-01T00:00:00.000Z';
@@ -67,7 +68,7 @@ test.describe('Import without mapping members', () => {
       await navigateInApp(loggedInPage, '/import/wekan');
       await loggedInPage.locator('#import-textarea').fill(JSON.stringify(legacyExport));
       await loggedInPage.locator('.js-import-without-mapping').click();
-      await loggedInPage.waitForURL(/\/b\//, { timeout: 30_000 });
+      await waitForImportedBoard(loggedInPage);
 
       await expect(loggedInPage.locator('body')).toContainText('Imported card', {
         timeout: 20_000,
@@ -94,7 +95,7 @@ test.describe('Import without mapping members', () => {
     await loggedInPage.locator('.js-import-without-mapping').click();
 
     // Skips the map-members step entirely and navigates to the new board (/b/...).
-    await loggedInPage.waitForURL(/\/b\//, { timeout: 30_000 });
+    await waitForImportedBoard(loggedInPage);
 
     // The imported list/card is present on the new board.
     await expect(

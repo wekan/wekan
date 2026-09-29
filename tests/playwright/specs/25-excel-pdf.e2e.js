@@ -12,6 +12,7 @@ const db = require('../helpers/db');
 const { navigateInApp } = require('../helpers/auth');
 // exceljs lives in the repo root node_modules (used by the Excel importer).
 const ExcelJS = require('../../../node_modules/@wekanteam/exceljs');
+const { waitForImportedBoard } = require('../helpers/import');
 
 const XLSX_MIME =
   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
@@ -34,7 +35,7 @@ test.describe('Excel import & board PDF export', () => {
     await loggedInPage.locator('form input[type=submit]').first().click();
 
     // Lands on the new board, which contains the imported card.
-    await loggedInPage.waitForURL(/\/b\//, { timeout: 30_000 });
+    await waitForImportedBoard(loggedInPage);
     await expect(loggedInPage.locator('body')).toContainText('ExcelCardOne', {
       timeout: 20_000,
     });

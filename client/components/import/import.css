@@ -233,3 +233,23 @@ a.show-mapping {
 .import-page .import-part-list a.flex .materialCheckBox.is-checked {
   margin-inline-end: 17px;
 }
+
+/* The loss report replaces the page until the board is opened. */
+.import-page.has-import-report .import-columns {
+  display: none;
+}
+.import-report {
+  margin: 12px 0;
+  padding: 12px 16px;
+  border: 1px solid #e6a100;
+  border-radius: 4px;
+  background: #fff8e1;
+  color: #333;
+}
+.import-report ul {
+  margin: 8px 0 12px;
+  padding-inline-start: 20px;
+}
+.import-report-row {
+  overflow-wrap: anywhere;
+}
