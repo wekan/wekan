@@ -2,14 +2,14 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
+const { spawnSync } = require('node:child_process');
 const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data/' + code + '.i18n.json'), 'utf8'));
 (async () => {
   const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
   const en = read('en'), uk = read('uk');
-  // Synchronization and recovery sections are still pending in this locale.
-  assert.deepEqual(Object.keys(uk), Object.keys(en).filter(key => key in uk));
+  assert.deepEqual(Object.keys(uk), Object.keys(en));
   for (const key of Object.keys(en)) {
-    if (key in uk) assert.deepEqual(translationTokens(uk[key]), translationTokens(en[key]), key);
+    assert.deepEqual(translationTokens(uk[key]), translationTokens(en[key]), key);
     if (/^(filter-recency-|filter-date-range-|filter-column-age|filter-preset|notification-activity-|auto-archive-|due-reminder-)/.test(key)) {
       assert.ok(uk[key]?.trim(), key);
       assert.notEqual(uk[key], en[key], key);
@@ -46,5 +46,22 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
   assert.match(uk['import-report-description'], /Дошку створено.*не вдалося перенести/);
   assert.notEqual(uk['scrum-category-todo'], uk['scrum-category-done']);
   assert.equal(uk['blockly-SPACE_KEY'], 'Пробіл');
-  console.log('Ukrainian filters, Scrum and preference prose preserves tokens and restrictions');
+  for (const key of Object.keys(en).filter(key => /^(sync-|email-recovery-|email-failure-|activity-recovery-|rule-email-recovery-)/.test(key))) {
+    assert.ok(uk[key]?.trim(), key);
+    assert.notEqual(uk[key], en[key], key);
+    assert.match(uk[key], /[А-Яа-яІіЇїЄєҐґ]/, key);
+    assert.doesNotMatch(uk[key], /[ыэъЫЭЪ]/, key);
+  }
+  assert.match(uk['sync-conflict-hint'], /нічого не надсилається/);
+  assert.match(uk['activity-recovery-cancel-confirm'], /не можна буде відновити/);
+  assert.match(uk['email-recovery-confirm-cancel'], /Нові повідомлення.*буде збережено/);
+  assert.match(uk['sync-time-estimate-hint'], /явне null очищує/);
+  assert.notEqual(uk['move-selection-before'], uk['move-selection-after']);
+  assert.equal(uk['blockly-CONTEXT_MENU_KEY'], '≣ Меню');
+  const inventory = spawnSync(process.execPath,
+    ['releases/translations/fill-translations.mjs', '--list', 'uk'],
+    { cwd: path.resolve(__dirname, '..'), encoding: 'utf8' });
+  assert.equal(inventory.status, 0, inventory.stderr);
+  assert.deepEqual(JSON.parse(inventory.stdout), {});
+  console.log('Ukrainian source keys, tokens, planning and recovery warning meanings verified');
 })().catch(error => { console.error(error); process.exitCode = 1; });
