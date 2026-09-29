@@ -48,6 +48,20 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
   const example = JSON.parse(bg['copyManyCardsPopup-format']);
   assert.equal(example.length, 3);
   for (const card of example) assert.deepEqual(Object.keys(card), ['title', 'description']);
+  const importKeys = ["user-can-not-export-card-to-pdf", "remove-sort", "list-sort-by", "list-label-modifiedAt", "list-label-sort", "filter-dates-label", "filter-no-due-date", "filter-overdue", "filter-due-this-week", "filter-due-next-week", "list-filter-label", "filter-member-label", "filter-assignee-label", "filter-creator-label", "filter-custom-fields-label", "import-board-instruction-trello", "import-board-instruction-csv", "import-board-instruction-wekan", "import-board-instruction-about-errors", "import-map-members", "import-members-map", "import-members-map-note", "import-show-user-mapping", "import-user-select", "label-delete-pop", "last-admin-desc", "leave-board-pop", "listActionPopup-title", "list-delete-pop", "selection-color", "muted-info", "normal-desc", "normal-assigned-only", "normal-assigned-only-desc", "not-accepted-yet", "notify-participate", "page-maybe-private", "participating", "private-desc", "public-desc", "quick-access-description", "remove-member-pop", "rescue-card-description", "rescue-card-description-dialogue", "set-wip-limit-value", "shortcut-filter-my-assigned-cards", "shortcut-show-shortcuts", "star-board-title", "toggle-assignees", "toggle-labels"];
+  for (const key of importKeys) {
+    assert.deepEqual(translationTokens(bg[key]), translationTokens(en[key]), key);
+    assert.doesNotMatch(bg[key], /[јћђљњџЈЋЂЉЊЋЏ]|поступ|списи|опорав|предмет/i, key);
+    assert.match(bg[key], /[А-Яа-я]/, key);
+  }
+  assert.match(bg['import-board-instruction-wekan'], /Експортиране на табло/);
+  assert.match(bg['public-desc'], /Само хората.*могат да го редактират/);
+  assert.match(bg['normal-desc'], /Не може да променя настройките/);
+  assert.match(bg['last-admin-desc'], /поне един администратор/);
+  assert.match(bg['import-members-map-note'], /текущия потребител/);
+  assert.match(bg['page-maybe-private'], /<a href='%s'>.*<\/a>/);
+  assert.equal((bg['toggle-labels'].match(/1-9/g) || []).length, 2);
+  assert.match(bg['toggle-assignees'], /1-9/);
   assert.equal(bg.swimlane, 'Коридор');
   assert.equal(bg['welcome-swimlane'], 'Етап 1');
   assert.match(bg['swimlane-height-error-message'], /положително цяло число/);
