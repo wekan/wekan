@@ -453,6 +453,23 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
   assert.match(bg['convert-to-markdown'], /Markdown/);
   assert.match(bg['remaining_time'], /Оставащо време/);
   assert.equal(bg.storage, bg['sandstorm-storage-item']);
+  const monitoringAuditKeys = ["all-migrations","pause","stop","migration-progress","mongodb-gridfs-storage","pause-all-migrations","s3-bucket","s3-endpoint","s3-endpoint-description","s3-minio-storage","s3-port","s3-region","s3-region-description","schedule-board-backup","start-all-migrations","test-s3-connection","back-to-settings","comprehensive-board-migration","migrations","run-migration","migration-progress-overall","steps","step-finalize","days-old","errors","every-1-hour","every-1-minute","every-10-minutes","every-30-minutes","every-5-minutes","every-6-hours","filesystem-size","filesystem-storage","idle-migration","job-description","job-name","job-queue","migrate-all-to-filesystem","migrate-all-to-gridfs","migrate-all-to-s3","migration-batch-size","migration-delay-ms","migration-log","migration-steps","monitoring-export-failed","monitoring-refresh-failed","next-run","of","overall-progress","pause-migration","previous","resume-migration","schedule","start-time","stop-migration","storage-distribution","system-resources","total-size"];
+  for (const key of monitoringAuditKeys) {
+    assert.notEqual(bg[key], en[key], key);
+    assert.deepEqual(translationTokens(bg[key]), translationTokens(en[key]), key);
+    assert.doesNotMatch(bg[key], /Све|обнове|Предах|Заустави|Напредак|складиште|тачка|нпр|Закажи|израду|резервног|примерка|Пуна|везе|Натраг|поставку|Свеобухватна|Радионица|Покрени|опоравак|Укупни|кораци|Завршавам|дана стар|Грешке|сваки|сваких|сати|локалног|складишта|обнова|посла|Посао|Пресели|издели|захвата|Задршка|Записник|обнови|Не могу|податаке|податке|Наредни|покрет|Измерени|Претходна|Настави|Распоред|штоперицу|Расподела|Системска|снага|Укупна/i, key);
+  }
+  for (const [key, count] of [['every-1-hour', 1], ['every-1-minute', 1], ['every-10-minutes', 10], ['every-30-minutes', 30], ['every-5-minutes', 5], ['every-6-hours', 6]]) {
+    assert.ok(bg[key].includes(String(count)), key);
+  }
+  assert.match(bg['pause-all-migrations'], /всички миграции на пауза/);
+  assert.match(bg['start-all-migrations'], /Стартиране на всички миграции/);
+  assert.match(bg['resume-migration'], /Възобновяване/);
+  assert.match(bg['stop-migration'], /Спиране/);
+  assert.match(bg['s3-endpoint-description'], /s3\.amazonaws\.com.*minio\.example\.com/);
+  assert.match(bg['s3-region-description'], /us-east-1/);
+  assert.match(bg['migration-delay-ms'], /\(ms\)/);
+  assert.match(bg['start-time'], /Начален час/);
   assert.equal(bg.swimlane, 'Коридор');
   assert.equal(bg['welcome-swimlane'], 'Етап 1');
   assert.match(bg['swimlane-height-error-message'], /положително цяло число/);
