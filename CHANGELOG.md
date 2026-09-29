@@ -101,9 +101,8 @@ for one of four stated reasons, not left unexamined:
 Node suite health at this pass: 163 of 1445 suites fail; 162 already failed at
 the pass's starting commit (mostly translation-completeness suites, plus source
 guards such as `changeHistoryWiring` and `historyRestoreAppliesWhatIsShown`).
-The other is `activeForgeMirror`, which reads the real `.tools/wekan-gitlab`
-directory instead of a mock and fails on any checkout that has one - on the
-starting commit too, once that directory exists.
+The other, `activeForgeMirror`, read the real `.tools/wekan-gitlab` directory
+and failed on any checkout that has one; it is fixed in Upcoming.
 
 Investigated but not finished, with findings
 recorded for whoever picks them up next. Entries that have since been FIXED are
@@ -2034,6 +2033,13 @@ dated creator insert to use it, and a browser test re-imports a WeKan export
 and compares the card's creation date.
 
 </details>
+
+and has the following developer-tooling fix:
+
+- [The forge mirror CLI test no longer reads real mirror checkouts](https://github.com/wekan/wekan/commit/0172bc51e):
+  `WEKAN_MIRROR_TOOLS_DIR` relocates them and the test uses a temporary
+  directory, so it passes on machines that have `.tools/wekan-gitlab`.
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
