@@ -1429,6 +1429,7 @@
   "r-subject": "Konu",
   "r-email-vars-hint": "Kullanılabilir etiketler: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Liste, kulvar, başlık, kontrol listesi ve kullanıcı alanları ayrıca {creator}, {assignees}, {members} ve {customField:Name} değişkenlerini kabul eder; değerleri kural denetlenirken karttan okunur.",
+  "r-insert-variable": "Insert variable into the last text field:",
   "r-vars-people-hint": "Ayrıca: {creator}, {assignees}, {members} (metinde kullanıcı adları, Alıcı alanında e-posta adresleri) ve {customField:Field name}. Bunlar diğer eylemlerdeki üye, liste ve kulvar adlarında da çalışır.",
   "r-rule-details": "Kural Detayları",
   "r-rule-any-trigger-help": "Kural, tetikleyicilerinden herhangi biri gerçekleştiğinde çalışır. Eylemleri sırayla çalışır.",

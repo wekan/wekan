@@ -1429,6 +1429,7 @@
   "r-subject": "Betreff",
   "r-email-vars-hint": "Verfügbare Platzhalter: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Die Felder für Liste, Swimlane, Titel, Checkliste und Benutzer akzeptieren auch {creator}, {assignees}, {members} und {customField:Name}. Ihre Werte werden beim Prüfen der Regel aus der Karte gelesen.",
+  "r-insert-variable": "Insert variable into the last text field:",
   "r-vars-people-hint": "Außerdem: {creator}, {assignees}, {members} (Benutzernamen im Text, E-Mail-Adressen im An-Feld) und {customField:Field name}. Diese Variablen funktionieren auch in Namen von Mitgliedern, Listen und Arbeitsbahnen anderer Aktionen.",
   "r-rule-details": "Regeldetails",
   "r-rule-any-trigger-help": "Die Regel wird ausgeführt, sobald einer ihrer Auslöser eintritt. Ihre Aktionen werden der Reihe nach ausgeführt.",

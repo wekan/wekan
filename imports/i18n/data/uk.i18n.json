@@ -1429,6 +1429,7 @@
   "r-subject": "Тема",
   "r-email-vars-hint": "Доступні теги: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Поля списку, лінії, назви, контрольного списку та користувача також приймають {creator}, {assignees}, {members} і {customField:Name}. Їхні значення зчитуються з картки під час перевірки правила.",
+  "r-insert-variable": "Insert variable into the last text field:",
   "r-vars-people-hint": "Також: {creator}, {assignees}, {members} (імена користувачів у тексті, адреси електронної пошти в полі Кому) та {customField:Field name}. Вони також працюють в іменах учасників, назвах списків і ліній інших дій.",
   "r-rule-details": "Деталі правила",
   "r-rule-any-trigger-help": "Правило виконується, коли спрацьовує будь-який із його тригерів. Його дії виконуються послідовно.",

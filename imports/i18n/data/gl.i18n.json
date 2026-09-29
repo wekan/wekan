@@ -1429,6 +1429,7 @@
   "r-subject": "asunto",
   "r-email-vars-hint": "Etiquetas dispoñibles: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Os campos de lista, carril, título, lista de comprobación e usuario tamén aceptan {creator}, {assignees}, {members} e {customField:Name}, cuxos valores se len da tarxeta ao comprobar a regra.",
+  "r-insert-variable": "Insert variable into the last text field:",
   "r-vars-people-hint": "Tamén: {creator}, {assignees}, {members} (nomes de usuario no texto, enderezos de correo no campo Para) e {customField:Field name}. Tamén funcionan nos nomes de membros, listas e carrís doutras accións.",
   "r-rule-details": "Detalles da regra",
   "r-rule-any-trigger-help": "A regra execútase cando ocorre calquera dos seus desencadeantes. As súas accións execútanse por orde.",

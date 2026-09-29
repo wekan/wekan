@@ -1429,6 +1429,7 @@
   "r-subject": "主题",
   "r-email-vars-hint": "可用的标签: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "列表、泳道、标题、检查清单和用户字段也支持 {creator}、{assignees}、{members} 和 {customField:Name}，其值会在检查规则时从卡片读取。",
+  "r-insert-variable": "Insert variable into the last text field:",
   "r-vars-people-hint": "也可使用 {creator}、{assignees}、{members}（在文本中为用户名，在收件人字段中为电子邮件地址）及 {customField:Field name}。这些变量也可用于其他操作中的成员、列表及泳道名称。",
   "r-rule-details": "规则详情",
   "r-rule-any-trigger-help": "任一触发条件发生时便会执行规则。操作会按顺序执行。",

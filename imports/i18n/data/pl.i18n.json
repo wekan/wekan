@@ -1429,6 +1429,7 @@
   "r-subject": "temat",
   "r-email-vars-hint": "Dostępne znaczniki: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Pola listy, ścieżki, tytułu, checklisty i użytkownika przyjmują również {creator}, {assignees}, {members} i {customField:Name}. Ich wartości są odczytywane z karty podczas sprawdzania reguły.",
+  "r-insert-variable": "Insert variable into the last text field:",
   "r-vars-people-hint": "Także: {creator}, {assignees}, {members} (nazwy użytkowników w tekście, adresy e-mail w polu Do) oraz {customField:Field name}. Działają również w nazwach członków, list i ścieżek w innych działaniach.",
   "r-rule-details": "Szczegóły reguł",
   "r-rule-any-trigger-help": "Reguła uruchamia się po wystąpieniu dowolnego z jej wyzwalaczy. Jej działania są wykonywane po kolei.",

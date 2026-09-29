@@ -1429,6 +1429,7 @@
   "r-subject": "oggetto",
   "r-email-vars-hint": "Tag disponibili: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "I campi elenco, corsia, titolo, lista di controllo e utente accettano anche {creator}, {assignees}, {members} e {customField:Name}, i cui valori vengono letti dalla scheda quando si verifica la regola.",
+  "r-insert-variable": "Insert variable into the last text field:",
   "r-vars-people-hint": "Anche: {creator}, {assignees}, {members} (nomi utente nel testo, indirizzi email nel campo A) e {customField:Field name}. Funzionano anche nei nomi di membri, liste e corsie delle altre azioni.",
   "r-rule-details": "Dettagli della regola",
   "r-rule-any-trigger-help": "La regola viene eseguita quando si verifica uno qualsiasi dei suoi eventi di attivazione. Le azioni vengono eseguite in ordine.",

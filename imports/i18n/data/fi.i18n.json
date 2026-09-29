@@ -1429,6 +1429,7 @@
   "r-subject": "aihe",
   "r-email-vars-hint": "Käytettävissä olevat tunnisteet: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Luettelo-, uimarata-, otsikko-, tarkistuslista- ja käyttäjäkentissä voi käyttää myös muuttujia {creator}, {assignees}, {members} ja {customField:Name}, joiden arvot luetaan kortista sääntöä tarkistettaessa.",
+  "r-insert-variable": "Insert variable into the last text field:",
   "r-vars-people-hint": "Myös: {creator}, {assignees}, {members} (tekstissä käyttäjänimet, vastaanottajakentässä sähköpostiosoitteet) ja {customField:Field name}. Näitä voi käyttää myös muiden toimintojen jäsenten, listojen ja uimaratojen nimissä.",
   "r-rule-details": "Säännön yksityiskohdat",
   "r-rule-any-trigger-help": "Sääntö suoritetaan, kun jokin sen käynnistimistä aktivoituu. Toiminnot suoritetaan järjestyksessä.",

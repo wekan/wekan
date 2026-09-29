@@ -1429,6 +1429,7 @@
   "r-subject": "oggetto",
   "r-email-vars-hint": "Etichete disponibile: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Câmpurile pentru listă, culoar, titlu, listă de verificare și utilizator acceptă și {creator}, {assignees}, {members} și {customField:Name}, ale căror valori sunt citite din card la verificarea regulii.",
+  "r-insert-variable": "Insert variable into the last text field:",
   "r-vars-people-hint": "De asemenea: {creator}, {assignees}, {members} (nume de utilizator în text, adrese de e-mail în Către) și {customField:Field name}. Acestea funcționează și în numele membrilor, listelor și culoarelor din alte acțiuni.",
   "r-rule-details": "Dettagli della regola",
   "r-rule-any-trigger-help": "Regula se execută când are loc oricare dintre evenimentele sale declanșatoare. Acțiunile se execută în ordine.",

@@ -1429,6 +1429,7 @@
   "r-subject": "ämne",
   "r-email-vars-hint": "Tillgängliga taggar: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Fälten för lista, simbana, titel, checklista och användare accepterar även {creator}, {assignees}, {members} och {customField:Name}, vars värden hämtas från kortet när regeln kontrolleras.",
+  "r-insert-variable": "Insert variable into the last text field:",
   "r-vars-people-hint": "Även: {creator}, {assignees}, {members} (användarnamn i text, e-postadresser i Till) och {customField:Field name}. Dessa fungerar även i namn på medlemmar, listor och simbanor i andra åtgärder.",
   "r-rule-details": "Regeldetaljer",
   "r-rule-any-trigger-help": "Regeln körs när någon av dess utlösande händelser inträffar. Åtgärderna körs i ordning.",

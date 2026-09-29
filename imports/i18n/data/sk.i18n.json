@@ -1429,6 +1429,7 @@
   "r-subject": "předmět",
   "r-email-vars-hint": "Dostupné značky: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Polia zoznamu, dráhy, názvu, kontrolného zoznamu a používateľa prijímajú aj {creator}, {assignees}, {members} a {customField:Name}. Ich hodnoty sa načítajú z karty pri kontrole pravidla.",
+  "r-insert-variable": "Insert variable into the last text field:",
   "r-vars-people-hint": "Aj: {creator}, {assignees}, {members} (používateľské mená v texte, e-mailové adresy v poli Komu) a {customField:Field name}. Fungujú aj v názvoch členov, zoznamov a dráh pri ďalších akciách.",
   "r-rule-details": "Podrobnosti pravidla",
   "r-rule-any-trigger-help": "Pravidlo sa spustí, keď nastane ktorýkoľvek z jeho spúšťačov. Jeho akcie sa vykonávajú postupne.",

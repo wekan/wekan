@@ -1429,6 +1429,7 @@
   "r-subject": "제목",
   "r-email-vars-hint": "사용 가능한 태그: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "목록, 스윔레인, 제목, 체크리스트 및 사용자 필드에는 {creator}, {assignees}, {members}, {customField:Name}도 사용할 수 있으며, 해당 값은 규칙을 확인할 때 카드에서 읽습니다.",
+  "r-insert-variable": "Insert variable into the last text field:",
   "r-vars-people-hint": "추가로 {creator}, {assignees}, {members} (텍스트에서는 사용자 이름, 받는 사람 필드에서는 이메일 주소) 및 {customField:Field name}을 사용할 수 있습니다. 다른 작업의 구성원, 목록 및 스윔레인 이름에도 사용할 수 있습니다.",
   "r-rule-details": "규칙 세부 정보",
   "r-rule-any-trigger-help": "트리거 중 하나라도 발생하면 규칙이 실행됩니다. 작업은 순서대로 실행됩니다.",

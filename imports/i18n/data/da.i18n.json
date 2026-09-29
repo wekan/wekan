@@ -1429,6 +1429,7 @@
   "r-subject": "emne",
   "r-email-vars-hint": "Tilgængelige tags: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Felterne for liste, svømmebane, titel, tjekliste og bruger accepterer også {creator}, {assignees}, {members} og {customField:Name}, hvis værdier læses fra kortet, når reglen kontrolleres.",
+  "r-insert-variable": "Insert variable into the last text field:",
   "r-vars-people-hint": "Også: {creator}, {assignees}, {members} (brugernavne i tekst, e-mailadresser i Til) og {customField:Field name}. Disse virker også i navne på medlemmer, lister og svømmebaner i andre handlinger.",
   "r-rule-details": "Detaljer for regel",
   "r-rule-any-trigger-help": "Reglen kører, når en af dens udløsende hændelser indtræffer. Handlingerne køres i rækkefølge.",

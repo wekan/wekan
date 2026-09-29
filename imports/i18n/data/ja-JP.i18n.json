@@ -1429,6 +1429,7 @@
   "r-subject": "件名",
   "r-email-vars-hint": "利用可能なタグ: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "リスト、スイムレーン、タイトル、チェックリスト、ユーザーの各フィールドでは、{creator}、{assignees}、{members}、{customField:Name} も使用できます。これらの値はルールの確認時にカードから読み取られます。",
+  "r-insert-variable": "Insert variable into the last text field:",
   "r-vars-people-hint": "{creator}、{assignees}、{members}（本文ではユーザー名、宛先ではメールアドレス）、{customField:Field name} も使用できます。他のアクションのメンバー名、リスト名、スイムレーン名にも使用できます。",
   "r-rule-details": "ルール詳細",
   "r-rule-any-trigger-help": "いずれかのトリガーが発生するとルールが実行されます。アクションは順番に実行されます。",

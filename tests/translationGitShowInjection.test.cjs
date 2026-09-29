@@ -34,6 +34,8 @@ for (const script of scripts) {
     fs.copyFileSync(path.join(root, 'releases/translations', script), path.join(scriptDir, script));
 
     if (script === 'merge-translations.mjs') {
+      fs.copyFileSync(path.join(root, 'releases/translations/placeholder-tokens.mjs'),
+        path.join(scriptDir, 'placeholder-tokens.mjs'));
       fs.copyFileSync(path.join(root, 'releases/translations/rejected-pull-values.json'),
         path.join(scriptDir, 'rejected-pull-values.json'));
     }

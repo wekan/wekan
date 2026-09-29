@@ -1429,6 +1429,7 @@
   "r-subject": "sujet",
   "r-email-vars-hint": "Balises disponibles: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Les champs de liste, de couloir, de titre, de liste de contrôle et d’utilisateur acceptent aussi {creator}, {assignees}, {members} et {customField:Name}, dont les valeurs sont lues depuis la carte lors de la vérification de la règle.",
+  "r-insert-variable": "Insert variable into the last text field:",
   "r-vars-people-hint": "Également : {creator}, {assignees}, {members} (noms d’utilisateur dans le texte, adresses électroniques dans le champ À) et {customField:Field name}. Ces variables fonctionnent aussi dans les noms de membres, de listes et de couloirs des autres actions.",
   "r-rule-details": "Détails de la règle",
   "r-rule-any-trigger-help": "La règle s’exécute dès que l’un de ses déclencheurs se produit. Ses actions s’exécutent dans l’ordre.",

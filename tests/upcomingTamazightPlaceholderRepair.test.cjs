@@ -7,8 +7,8 @@ const read = code => JSON.parse(fs.readFileSync(path.join(ROOT,
   'imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const english = read('en');
 const translated = read('zgh');
-const pattern = /__[^\s]+?__|%(?:\d+\$)?[A-Za-z]/g;
-const inventory = value => (value.match(pattern) || []).sort();
+// URL percent encoding is data, not a printf placeholder.
+const { translationTokens: inventory } = require('../releases/translations/placeholder-tokens.mjs');
 for (const [key, source] of Object.entries(english)) {
   assert.deepStrictEqual(inventory(translated[key] || ''), inventory(source),
     `zgh:${key} changed a placeholder`);
@@ -507,7 +507,7 @@ assert.ok(translated['smtp-tls-description'].includes(translated['smtp-tls']));
 assert.ok(translated['send-smtp-test'].includes('ⵉⵎⴰⵢⵍ ⵏ ⵓⴽⴰⵢⴰⴷ'));
 console.log('Tamazight SMTP labels retain protocol identifiers and existing terminology');
 
-assert.strictEqual(translated['smtp-port'], 'Port SMTP');
+assert.strictEqual(translated['smtp-port'], 'SMTP ⵒⵓⵔⵜ');
 assert.strictEqual(translated['smtp-port-description'], 'Port ⵍⵍⵉ ⵉⵙⵙⵎⵔⵙ ⵓⵎⴰⴽⴽⴰⵢ ⴰⵙⵏⵎⴰⵍⴰⵢ SMTP ⵏⴽ ⵉ ⵓⵣⵏ ⵏ ⵜⵉⵎⵢⴰⵣⴰⵏⵉⵏ ⵜⵉⵍⵉⴽⵟⵕⵓⵏⵉⵜⵉⵏ.');
 assert.doesNotMatch(translated['smtp-port-description'], /Le port|[\u0600-\u06ff]|ⴰⴼⵜⴰⵙ/u);
 assert.ok(translated['smtp-port-description'].includes('ⵉ ⵓⵣⵏ'));

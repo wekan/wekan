@@ -1429,6 +1429,7 @@
   "r-subject": "عنوان",
   "r-email-vars-hint": "الوسوم المتاحة: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "تقبل حقول القائمة والمسار والعنوان وقائمة التحقق والمستخدم أيضًا {creator} و{assignees} و{members} و{customField:Name}، وتُقرأ قيمها من البطاقة عند التحقق من القاعدة.",
+  "r-insert-variable": "Insert variable into the last text field:",
   "r-vars-people-hint": "أيضًا: {creator} و{assignees} و{members} (أسماء المستخدمين في النص وعناوين البريد الإلكتروني في حقل المستلم) و{customField:Field name}. تعمل هذه المتغيرات أيضًا في أسماء الأعضاء والقوائم والمسارات في الإجراءات الأخرى.",
   "r-rule-details": "جزئیات قاعده",
   "r-rule-any-trigger-help": "تُنفّذ القاعدة عند حدوث أي من مشغّلاتها. وتُنفّذ إجراءاتها بالترتيب.",

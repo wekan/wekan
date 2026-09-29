@@ -1429,6 +1429,7 @@
   "r-subject": "onderwerp",
   "r-email-vars-hint": "Beschikbare tags: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "De velden voor lijst, zwembaan, titel, checklist en gebruiker accepteren ook {creator}, {assignees}, {members} en {customField:Name}. De waarden worden uit de kaart gelezen wanneer de regel wordt gecontroleerd.",
+  "r-insert-variable": "Insert variable into the last text field:",
   "r-vars-people-hint": "Ook: {creator}, {assignees}, {members} (gebruikersnamen in tekst, e-mailadressen in Aan) en {customField:Field name}. Deze werken ook in namen van leden, lijsten en werkbanen bij andere acties.",
   "r-rule-details": "Regel details",
   "r-rule-any-trigger-help": "De regel wordt uitgevoerd zodra een van de activerende gebeurtenissen optreedt. De acties worden op volgorde uitgevoerd.",

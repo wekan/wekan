@@ -1429,6 +1429,7 @@
   "r-subject": "asunto",
   "r-email-vars-hint": "Etiquetas disponibles: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Los campos de lista, carril, título, lista de verificación y usuario también aceptan {creator}, {assignees}, {members} y {customField:Name}, cuyos valores se leen de la tarjeta al comprobar la regla.",
+  "r-insert-variable": "Insert variable into the last text field:",
   "r-vars-people-hint": "También: {creator}, {assignees}, {members} (nombres de usuario en el texto y direcciones de correo en Para) y {customField:Field name}. También funcionan en los nombres de miembros, listas y carriles de otras acciones.",
   "r-rule-details": "Detalle de la regla",
   "r-rule-any-trigger-help": "La regla se ejecuta cuando ocurre cualquiera de sus desencadenantes. Sus acciones se ejecutan en orden.",

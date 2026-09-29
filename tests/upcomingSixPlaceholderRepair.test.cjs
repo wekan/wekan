@@ -14,8 +14,8 @@ const repairedLanguages = [
   'az-AZ', 'az-LA', 'az', 'ca_ES', 'ca', 'ca@valencia',
   'ru_RU', 'ru-RU', 'ru-UA', 'ru',
 ];
-const tokenPattern = /__[^\s]+?__|%(?:\d+\$)?[A-Za-z]/g;
-const inventory = value => (value.match(tokenPattern) || []).sort();
+// URL percent encoding is data, not a printf placeholder.
+const { translationTokens: inventory } = require('../releases/translations/placeholder-tokens.mjs');
 
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }

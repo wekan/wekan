@@ -6,8 +6,8 @@ const ROOT = path.resolve(__dirname, '..');
 const read = code => JSON.parse(fs.readFileSync(path.join(ROOT,
   'imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const english = read('en');
-const pattern = /__[^\s]+?__|%(?:\d+\$)?[A-Za-z]/g;
-const inventory = value => (value.match(pattern) || []).sort();
+// URL percent encoding is data, not a printf placeholder.
+const { translationTokens: inventory } = require('../releases/translations/placeholder-tokens.mjs');
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 

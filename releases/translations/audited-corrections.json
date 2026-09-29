@@ -31,8 +31,8 @@
     "locale": "bg",
     "key": "copyManyCardsPopup-format",
     "before": "[ {\"наслов\": \"Наслов првог предмета\", \"опис\":\"Опис првог предмета\"}, {\"наслов\":\"Наслов другог предмета\",\"опис\":\"Опис другог предмета\"},{\"наслов\":\"Наслов последњег предмете\",\"опис\":\"Опис последњег предмета\"} ]",
-    "after": "[{\"title\": \"Наслов првог предмета\",\"description\": \"Опис првог предмета\"},{\"title\": \"Наслов другог предмета\",\"description\": \"Опис другог предмета\"},{\"title\": \"Наслов последњег предмете\",\"description\": \"Опис последњег предмета\"}]",
-    "reason": "Restore literal JSON property names; preserve translated sample prose."
+    "after": "[ {\"title\": \"Заглавие на първата карта\", \"description\": \"Описание на първата карта\"}, {\"title\": \"Заглавие на втората карта\", \"description\": \"Описание на втората карта\"}, {\"title\": \"Заглавие на последната карта\", \"description\": \"Описание на последната карта\"} ]",
+    "reason": "Restore literal JSON property names and retain the newer Bulgarian sample prose."
   },
   {
     "locale": "bi",
@@ -156999,8 +156999,8 @@
     "locale": "es-AR",
     "key": "blockly-PAUSE_KEY",
     "before": "Pausar",
-    "after": "Pause",
-    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+    "after": "Pausa",
+    "reason": "Keep the newer localized keyboard key label, rather than restoring the English label."
   },
   {
     "locale": "es-AR",
@@ -157034,8 +157034,8 @@
     "locale": "es-CL",
     "key": "blockly-PAUSE_KEY",
     "before": "Pausar",
-    "after": "Pause",
-    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+    "after": "Pausa",
+    "reason": "Keep the newer localized keyboard key label, rather than restoring the English label."
   },
   {
     "locale": "es-CL",
@@ -157083,8 +157083,8 @@
     "locale": "es-CO",
     "key": "blockly-PAUSE_KEY",
     "before": "Pausar",
-    "after": "Pause",
-    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+    "after": "Pausa",
+    "reason": "Keep the newer localized keyboard key label, rather than restoring the English label."
   },
   {
     "locale": "es-CO",
@@ -157132,8 +157132,8 @@
     "locale": "es-LA",
     "key": "blockly-PAUSE_KEY",
     "before": "Pausar",
-    "after": "Pause",
-    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+    "after": "Pausa",
+    "reason": "Keep the newer localized keyboard key label, rather than restoring the English label."
   },
   {
     "locale": "es-LA",
@@ -157181,8 +157181,8 @@
     "locale": "es-MX",
     "key": "blockly-PAUSE_KEY",
     "before": "Pausar",
-    "after": "Pause",
-    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+    "after": "Pausa",
+    "reason": "Keep the newer localized keyboard key label, rather than restoring the English label."
   },
   {
     "locale": "es-MX",
@@ -157216,8 +157216,8 @@
     "locale": "es-PE",
     "key": "blockly-PAUSE_KEY",
     "before": "Pausar",
-    "after": "Pause",
-    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+    "after": "Pausa",
+    "reason": "Keep the newer localized keyboard key label, rather than restoring the English label."
   },
   {
     "locale": "es-PE",
@@ -157265,8 +157265,8 @@
     "locale": "es-PY",
     "key": "blockly-PAUSE_KEY",
     "before": "Pausar",
-    "after": "Pause",
-    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+    "after": "Pausa",
+    "reason": "Keep the newer localized keyboard key label, rather than restoring the English label."
   },
   {
     "locale": "es-PY",
@@ -157300,8 +157300,8 @@
     "locale": "es",
     "key": "blockly-PAUSE_KEY",
     "before": "Pausar",
-    "after": "Pause",
-    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+    "after": "Pausa",
+    "reason": "Keep the newer localized keyboard key label, rather than restoring the English label."
   },
   {
     "locale": "es",
@@ -158350,8 +158350,8 @@
     "locale": "pt-BR",
     "key": "blockly-PAUSE_KEY",
     "before": "Parar",
-    "after": "Pause",
-    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+    "after": "Pausa",
+    "reason": "Keep the newer localized keyboard key label, rather than restoring the English label."
   },
   {
     "locale": "pt-BR",
@@ -158532,8 +158532,8 @@
     "locale": "pt",
     "key": "blockly-PAUSE_KEY",
     "before": "Parar",
-    "after": "Pause",
-    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+    "after": "Pausa",
+    "reason": "Keep the newer localized keyboard key label, rather than restoring the English label."
   },
   {
     "locale": "pt",
@@ -158623,8 +158623,8 @@
     "locale": "pt_PT",
     "key": "blockly-PAUSE_KEY",
     "before": "Parar",
-    "after": "Pause",
-    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+    "after": "Pausa",
+    "reason": "Keep the newer localized keyboard key label, rather than restoring the English label."
   },
   {
     "locale": "sl",
@@ -158833,8 +158833,8 @@
     "locale": "sv",
     "key": "blockly-PAUSE_KEY",
     "before": "Pausa",
-    "after": "Pause",
-    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
+    "after": "Paus",
+    "reason": "Keep the newer localized keyboard key label, rather than restoring the English label."
   },
   {
     "locale": "sv",
@@ -159118,13 +159118,6 @@
   },
   {
     "locale": "zh-Hant",
-    "key": "blockly-PAUSE_KEY",
-    "before": "暫停",
-    "after": "Pause",
-    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
-  },
-  {
-    "locale": "zh-Hant",
     "key": "blockly-PROCEDURES_DEFNORETURN_TITLE",
     "before": "收件人",
     "after": "到",
@@ -159157,13 +159150,6 @@
     "before": "透明",
     "after": "清除",
     "reason": "Restore the target-language meaning in its Blockly/UI context; reject foreign-language or wrong-sense replacement."
-  },
-  {
-    "locale": "zh-TW",
-    "key": "blockly-PAUSE_KEY",
-    "before": "暫停",
-    "after": "Pause",
-    "reason": "Preserve the printed keyboard key name; this is not a pause action button."
   },
   {
     "locale": "zh-TW",

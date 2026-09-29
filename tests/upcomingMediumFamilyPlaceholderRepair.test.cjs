@@ -8,8 +8,8 @@ const read = code => JSON.parse(fs.readFileSync(path.join(
 const english = read('en');
 const languages = ['af', 'af_ZA', 'ro', 'ro-RO', 'zh-Hant',
   'zh-CN', 'zh-GB', 'zh-Hans', 'zh', 'zh_SG'];
-const pattern = /__[^\s]+?__|%(?:\d+\$)?[A-Za-z]/g;
-const inventory = value => (value.match(pattern) || []).sort();
+// URL percent encoding is data, not a printf placeholder.
+const { translationTokens: inventory } = require('../releases/translations/placeholder-tokens.mjs');
 let passed = 0;
 function test(name, fn) { fn(); passed += 1; console.log('  ok -', name); }
 

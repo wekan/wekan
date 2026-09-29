@@ -1429,6 +1429,7 @@
   "r-subject": "Тема",
   "r-email-vars-hint": "Налични етикети: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Полетата за списък, коридор, заглавие, чеклист и потребител приемат също {creator}, {assignees}, {members} и {customField:Name}, прочетени от картата при проверката на правилото.",
+  "r-insert-variable": "Insert variable into the last text field:",
   "r-vars-people-hint": "Също: {creator}, {assignees}, {members} (потребителски имена в текста, имейл адреси в полето До) и {customField:Field name}. Те работят и в имената на членове, списъци и коридори в други действия.",
   "r-rule-details": "Детайли за правилото",
   "r-rule-any-trigger-help": "Правилото се изпълнява, когато настъпи което и да е от задействащите го събития. Действията му се изпълняват по ред.",

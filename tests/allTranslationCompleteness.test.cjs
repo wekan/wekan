@@ -15,9 +15,7 @@ const locales = fs.readdirSync(dataDir)
   .filter(file => !/^en(?:[-_]|\.)/.test(file))
   .sort();
 
-const tokens = value => [...String(value).matchAll(
-  /__[A-Za-z0-9_.]+__|%(?:\d+\$)?[A-Za-z%]/g,
-)].map(match => match[0]).sort();
+const { translationTokens: tokens } = require('../releases/translations/placeholder-tokens.mjs');
 
 assert.strictEqual(locales.length, 234,
   'the completeness gate covers every registered non-English locale file');

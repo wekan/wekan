@@ -1429,6 +1429,7 @@
   "r-subject": "subyek",
   "r-email-vars-hint": "Tag yang tersedia: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "Kolom daftar, jalur, judul, daftar periksa, dan pengguna juga menerima {creator}, {assignees}, {members}, dan {customField:Name}, yang nilainya dibaca dari kartu saat aturan diperiksa.",
+  "r-insert-variable": "Insert variable into the last text field:",
   "r-vars-people-hint": "Juga: {creator}, {assignees}, {members} (nama pengguna dalam teks, alamat email dalam Kepada) dan {customField:Field name}. Ini juga berfungsi pada nama anggota, daftar, dan jalur dalam tindakan lain.",
   "r-rule-details": "Perincian Peraturan",
   "r-rule-any-trigger-help": "Aturan dijalankan ketika salah satu pemicunya terjadi. Tindakannya dijalankan secara berurutan.",

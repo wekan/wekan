@@ -1429,6 +1429,7 @@
   "r-subject": "tárgy",
   "r-email-vars-hint": "Elérhető címkék: {card}, {cardLink}, {list}, {board}, {member}",
   "r-trigger-vars-hint": "A lista, úszósáv, cím, ellenőrzőlista és felhasználó mezőiben a {creator}, {assignees}, {members} és {customField:Name} változók is használhatók. Értéküket a szabály ellenőrzésekor a kártyából olvassa ki a rendszer.",
+  "r-insert-variable": "Insert variable into the last text field:",
   "r-vars-people-hint": "Továbbá: {creator}, {assignees}, {members} (a szövegben felhasználónevek, a Címzett mezőben e-mail-címek) és {customField:Field name}. Ezek más műveletek tag-, lista- és úszósávneveiben is működnek.",
   "r-rule-details": "A Szabály részletei",
   "r-rule-any-trigger-help": "A szabály bármelyik kiváltó esemény bekövetkezésekor lefut. A műveletei sorrendben hajtódnak végre.",

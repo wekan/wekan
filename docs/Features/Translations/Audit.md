@@ -1,6 +1,6 @@
 # Translation audit progress
 
-Audit date: **2026-09-12**. Last updated: **2026-09-16**.
+Audit date: **2026-09-12**. Last updated: **2026-09-30**.
 
 | Status | Flagged keys |
 | --- | ---: |
@@ -385,7 +385,7 @@ explicit broader wrong-language review item and must be resolved before the
 full audit closes.
 
 The [correction ledger](../../../releases/translations/audited-corrections.json)
-records contain **22,302** exact before/after values, including unflagged
+records contain **22,808** exact before/after values, including unflagged
 repairs. [Detailed evidence](Audit-Evidence.md) preserves categorized findings,
 source references, dated commit history and low-confidence limits.
 Corrected counts classify changed values; they do not certify full fluency.
@@ -408,7 +408,7 @@ DOM and saved-description repairs are `1e4411183` and `0c51a3261`.
 | --- | ---: |
 
 Remaining review includes unflagged and prior low-confidence values beyond
-this now-empty pending table. Structural checks preserve exact English
+the pending table. Structural checks preserve exact English
 placeholders, JSON examples and key order; they do not establish language
 quality. Correct-language human translations remain preferred. No external
 translation service is used, and no remote push was performed.
