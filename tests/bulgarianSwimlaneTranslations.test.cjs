@@ -189,6 +189,40 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
     assert.match(bg['board-' + operation + '-scheduled'], /планирано успешно/);
   }
   assert.notEqual(bg['board-backup-scheduled'], bg['board-archive-scheduled']);
+  const migrationKeys = ["cron-job-deleted", "cron-job-pause-failed", "cron-job-paused", "cron-migration-warnings", "cron-error-details", "cron-errors-cleared", "cron-no-failed-migrations", "cron-no-paused-migrations", "cron-migrations-resumed", "complete", "idle", "filesystem-path-description", "gridfs-enabled-description", "migration-pause-failed", "migration-paused", "migration-start-failed", "migration-started", "migration-status", "migration-stop-confirm", "migration-stop-failed", "migration-stopped", "s3-access-key", "s3-access-key-description", "s3-access-key-placeholder", "s3-bucket-description", "s3-connection-failed", "s3-connection-success", "s3-enabled-description", "s3-port-description", "s3-secret-key", "s3-secret-key-description", "s3-secret-key-placeholder", "s3-secret-key-required", "s3-settings-save-failed", "s3-settings-saved", "s3-ssl-enabled", "save-s3-settings", "schedule-board-archive", "schedule-board-cleanup", "scheduled-board-operations"];
+  for (const key of migrationKeys) {
+    assert.deepEqual(translationTokens(bg[key]), translationTokens(en[key]), key);
+    assert.doesNotMatch(bg[key], /[јћђљњџЈЋЂЉЊЋЏ]|поступ|списи|опорав|предмет/i, key);
+    assert.match(bg[key], /[А-Яа-я]/, key);
+    if (key.startsWith('s3-') || key === 'save-s3-settings') assert.match(bg[key], /S3/);
+  }
+  assert.match(bg['migration-paused'], /на пауза/);
+  assert.match(bg['migration-stopped'], /спрени/);
+  assert.match(bg['migration-started'], /стартирани/);
+  assert.match(bg['cron-migrations-resumed'], /възобновени/);
+  assert.match(bg['migration-stop-confirm'], /всички миграции/);
+  assert.match(bg['cron-no-failed-migrations'], /Няма неуспешни миграции/);
+  assert.match(bg['cron-no-paused-migrations'], /Няма миграции на пауза/);
+  assert.match(bg['s3-access-key'], /Ключ за достъп/);
+  assert.match(bg['s3-secret-key'], /Таен ключ/);
+  assert.match(bg['s3-enabled-description'], /AWS S3 или MinIO/);
+  assert.match(bg['gridfs-enabled-description'], /MongoDB GridFS/);
+  const recoveryKeys = ["writable-path", "writable-path-description", "add-job", "attachment-migration", "attachment-monitoring", "attachment-settings", "attachment-storage-settings", "automatic-migration", "board-migration", "board-migrations", "card-show-lists-on-minicard", "comprehensive-board-migration-description", "delete-duplicate-empty-lists-migration", "delete-duplicate-empty-lists-migration-description", "lost-cards", "lost-cards-list", "restore-lost-cards-migration", "restore-lost-cards-migration-description", "restore-all-archived-migration-description", "fix-missing-lists-migration", "fix-missing-lists-migration-description", "fix-avatar-urls-migration-description", "fix-all-file-urls-migration", "fix-all-file-urls-migration-description", "migration-needed", "migration-complete", "migration-running", "migration-successful", "migration-failed", "migrations-admin-only", "migrations-description", "no-issues-found", "run-comprehensive-migration-confirm", "run-delete-duplicate-empty-lists-migration-confirm", "run-restore-lost-cards-migration-confirm", "run-restore-all-archived-migration-confirm", "run-fix-missing-lists-migration-confirm", "run-fix-avatar-urls-migration-confirm", "run-fix-all-file-urls-migration-confirm", "restore-lost-cards-nothing-to-restore"];
+  for (const key of recoveryKeys) {
+    assert.deepEqual(translationTokens(bg[key]), translationTokens(en[key]), key);
+    assert.doesNotMatch(bg[key], /[јћђљњџЈЋЂЉЊЋЏ]|поступ|списи|опорав|предмет/i, key);
+    assert.match(bg[key], /[А-Яа-я]/, key);
+    for (const field of ['swimlaneId', 'listId']) {
+      if (en[key].includes(field)) assert.ok(bg[key].includes(field), key + ':' + field);
+    }
+  }
+  assert.match(bg['delete-duplicate-empty-lists-migration-description'], /нямат карти И.*същото заглавие, съдържащ карти/);
+  assert.match(bg['run-delete-duplicate-empty-lists-migration-confirm'], /първо.*всеки коридор.*след което/);
+  assert.match(bg['run-restore-lost-cards-migration-confirm'], /само неархивирани елементи/);
+  assert.match(bg['run-restore-all-archived-migration-confirm'], /ВСИЧКИ архивирани коридори, списъци и карти/);
+  assert.match(bg['run-restore-all-archived-migration-confirm'], /не може лесно да бъде отменено/);
+  assert.match(bg['migrations-admin-only'], /Само администраторите на таблото/);
+  assert.match(bg['restore-lost-cards-nothing-to-restore'], /коридори, списъци или карти/);
   assert.equal(bg.swimlane, 'Коридор');
   assert.equal(bg['welcome-swimlane'], 'Етап 1');
   assert.match(bg['swimlane-height-error-message'], /положително цяло число/);
