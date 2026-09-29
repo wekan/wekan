@@ -74,6 +74,13 @@ Settings.attachSchema(
       optional: true,
       defaultValue: false,
     },
+    // Sync activation (server/lib/syncActivation.js): stored rule,
+    // notification and webhook effects for SCHEDULED Sync runs. Off by default.
+    enableSyncCronEffects: {
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+    },
     disableNotifications: {
       type: Boolean,
       optional: true,

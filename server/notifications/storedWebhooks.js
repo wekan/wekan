@@ -8,6 +8,7 @@ import Integrations from '/models/integrations';
 import CardComments, { canEditComment } from '/models/cardComments';
 import { sendStoredWebhook } from '/server/notifications/storedWebhookHttp';
 import { getFeatureFlags } from '/models/lib/featureFlags';
+const { validateSyncTrigger, assertSyncActivation } = require('/server/lib/syncActivation');
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { prepareActivityWebhookPlan } from '/server/notifications/prepareWebhooks';
 const { EJSON } = require('bson');
@@ -38,12 +39,13 @@ const { memberCan } = require('/models/lib/boardRoleCapabilities');
 const { prepareWebhookCommentPlan, ensureWebhookCommentPlan, applyWebhookCommentPlan } = require('/server/lib/syncWebhookComment');
 
 // The journal supplies its lease, intent and source-configuration guard.
-function storedWebhookContext({ activity, policy, assertCurrent }) {
+function storedWebhookContext({ activity, policy, assertCurrent, trigger }) {
   const saved = EJSON.parse(EJSON.stringify(activity), { relaxed: true });
   notificationActivityIdentity(saved);
   policy = validateSyncEffectPolicy(policy);
   if (!policy.activities || !policy.notifications || typeof assertCurrent !== 'function' ||
       typeof saved.listId !== 'string' || !saved.listId) throw new Error('sync-webhook-stage-invalid');
+  validateSyncTrigger(trigger);
   async function guard() {
     await assertCurrent();
     await assertSyncEffectPolicy(policy, async () => syncEffectPolicy(getFeatureFlags()));
@@ -56,6 +58,7 @@ function storedWebhookContext({ activity, policy, assertCurrent }) {
     ]);
     if (!stored || canonical(stored) !== canonical(saved)) throw new Error('sync-webhook-activity-changed');
     if (!board || !card || !list) throw new Error('sync-webhook-context-unavailable');
+    assertSyncActivation({ board, trigger, flags: getFeatureFlags() });
     if (!canWriteWebhookCard({ user, board, card })) throw new Error('sync-webhook-actor-denied');
     await assertCurrent();
     return { user, board, card };

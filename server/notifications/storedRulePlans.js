@@ -34,6 +34,7 @@ const { ensureRuleArchiveEffects, prepareRuleArchiveEffects, applyRuleArchiveEff
 const { createRuleArchiveCards } = require('/server/lib/syncRuleArchiveCards');
 const { createRuleArchiveActivities } = require('/server/lib/syncRuleArchiveActivities');
 const { exactFieldSelector } = require('/models/lib/exactFieldSelector');
+const { validateSyncTrigger, assertSyncActivation } = require('/server/lib/syncActivation');
 const { onlyChildrenSelector } = require('/models/lib/cardParents');
 
 export const SyncRuleArchiveCommands = new Mongo.Collection('listSyncRuleArchiveCommands');
@@ -69,12 +70,13 @@ Meteor.startup(async () => {
 // Both capture and execution require the journal's list-incarnation,
 // source-configuration, lease and actor-access guard in addition to these
 // checks. This module is internal and does not activate manual/cron Sync.
-function executionContext({ effectId, activity, policy, assertCurrent }) {
+function executionContext({ effectId, activity, policy, assertCurrent, trigger }) {
   const saved = EJSON.parse(EJSON.stringify(activity), { relaxed: true });
   policy = validateSyncEffectPolicy(policy);
   if (!policy.activities || typeof assertCurrent !== 'function' || typeof saved?.listId !== 'string' || !saved.listId) {
     throw new Error('sync-rule-stage-invalid');
   }
+  validateSyncTrigger(trigger);
   const guard = async () => {
     await assertCurrent();
     await assertSyncEffectPolicy(policy, async () => syncEffectPolicy(getFeatureFlags()));
@@ -85,6 +87,7 @@ function executionContext({ effectId, activity, policy, assertCurrent }) {
       Lists.findOneAsync({ _id: saved.listId, boardId: saved.boardId }),
     ]);
     if (!stored || canonical(stored) !== canonical(saved)) throw new Error('sync-rule-activity-changed');
+    assertSyncActivation({ board, trigger, flags: getFeatureFlags() });
     if (!user || user.loginDisabled || !board || !card || !list || !memberCan(board.members, user._id, 'write') ||
         (isAssignedOnlyMember(board, user._id) && !card.assignees?.includes(user._id))) {
       throw new Error('sync-rule-context-denied');
@@ -265,7 +268,7 @@ export async function runStoredSyncRuleArchive({ withHistoryReservation,
       activities: createRuleArchiveActivities({ ...input, effects, activities: Activities, withActor }),
       receipts: SyncRuleArchiveReceipts.rawCollection(), assertCard: captured.assertCard,
       readPolicy: async () => syncEffectPolicy(getFeatureFlags()),
-      completeDelivery: context => completeDelivery({ ...context, assertCurrent: async () => {
+      completeDelivery: context => completeDelivery({ ...context, trigger: options.trigger, assertCurrent: async () => {
         await guard(); await context.assertCurrent(); await guard();
       } }) });
     await guard(); return result;

@@ -20,7 +20,7 @@ describe('Shared webhook plan preparation', function () {
     try {
       flags.disableNotifications = false; flags.disableActivities = false;
       await Meteor.users.rawCollection().insertOne({ _id: actor, username: `webhook-${actor}`, profile: { language: 'en' } });
-      await Boards.rawCollection().insertOne({ _id: boardId, title: 'Webhook board', permission: 'private',
+      await Boards.rawCollection().insertOne({ _id: boardId, syncEffectsEnabled: true, title: 'Webhook board', permission: 'private',
         members: [{ userId: actor, isActive: true, isAdmin: true }], watchers: [] });
       await Lists.rawCollection().insertOne({ _id: listId, boardId, title: 'Webhook list', watchers: [] });
       await Cards.rawCollection().insertOne({ _id: cardId, boardId, listId, title: 'Original card', userId: actor, watchers: [] });
@@ -46,7 +46,7 @@ describe('Shared webhook plan preparation', function () {
       assert.equal(JSON.parse(two.request.body).description, 'act-createCard');
       assert.equal(await Activities.find({ _id: activityId }).countAsync(), 0);
       await Activities.rawCollection().insertOne(activity);
-      const input = { activity, policy: { activities: true, notifications: true }, assertCurrent: async () => {} };
+      const input = { activity, policy: { activities: true, notifications: true }, trigger: 'manual', assertCurrent: async () => {} };
       const stored = await captureStoredSyncWebhookPlan(input);
       assert.deepEqual(stored, plan);
       await Cards.rawCollection().updateOne({ _id: cardId }, { $set: { title: 'Changed' } });

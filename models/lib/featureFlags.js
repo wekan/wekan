@@ -15,6 +15,9 @@ const flags = {
   // (permanently) delete soft-deleted content. Off by default — ordinary deletes
   // are always soft. GDPR/account erasure is a separate path and ignores this.
   enablePermanentDelete: false,
+  // Admin Panel: run rules, notifications and webhooks for changes that
+  // SCHEDULED Sync makes (server/lib/syncActivation.js). Off by default.
+  enableSyncCronEffects: false,
 };
 
 export function getFeatureFlags() {
@@ -27,6 +30,7 @@ function applyFields(fields) {
   if ('disableNotifications' in fields) flags.disableNotifications = !!fields.disableNotifications;
   if ('disableWatch' in fields) flags.disableWatch = !!fields.disableWatch;
   if ('enablePermanentDelete' in fields) flags.enablePermanentDelete = !!fields.enablePermanentDelete;
+  if ('enableSyncCronEffects' in fields) flags.enableSyncCronEffects = !!fields.enableSyncCronEffects;
 }
 
 if (Meteor.isServer) {
@@ -35,7 +39,7 @@ if (Meteor.isServer) {
     // merges rather than replaces — correct for the single Settings document.
     await Settings.find(
       {},
-      { fields: { disableActivities: 1, disableNotifications: 1, disableWatch: 1, enablePermanentDelete: 1 } },
+      { fields: { disableActivities: 1, disableNotifications: 1, disableWatch: 1, enablePermanentDelete: 1, enableSyncCronEffects: 1 } },
     ).observeChangesAsync({
       added(id, fields) { applyFields(fields); },
       changed(id, fields) { applyFields(fields); },
@@ -44,6 +48,7 @@ if (Meteor.isServer) {
         flags.disableNotifications = false;
         flags.disableWatch = false;
         flags.enablePermanentDelete = false;
+        flags.enableSyncCronEffects = false;
       },
     });
   });

@@ -18,12 +18,12 @@ describe('Stored Sync notification delivery',function(){
   const boardId=Random.id(),listId=Random.id(),cardId=Random.id(),activityId=Random.id();
   const flags=getFeatureFlags(),original={...flags};
   const activity={_id:activityId,activityType:'createCard',userId:actor,boardId,listId,cardId,createdAt:new Date(),modifiedAt:new Date()};
-  const options={activity,policy:{activities:true,notifications:true},assertCurrent:async()=>{}};
+  const options={activity,policy:{activities:true,notifications:true}, trigger: 'manual',assertCurrent:async()=>{}};
   try {
    flags.disableActivities=false;flags.disableNotifications=false;
    await Meteor.users.rawCollection().insertMany(ids.map(_id=>({_id,username:'stored-'+_id,
     profile:{notifyOverrideEmail:true,notifyOverrideTray:true,language:'en'}})));
-   await Boards.rawCollection().insertOne({_id:boardId,title:'Original board',permission:'private',members:ids.map(userId=>({userId,isActive:true,isAdmin:userId===actor,isReadAssignedOnly:userId===restricted})),
+   await Boards.rawCollection().insertOne({_id:boardId, syncEffectsEnabled: true,title:'Original board',permission:'private',members:ids.map(userId=>({userId,isActive:true,isAdmin:userId===actor,isReadAssignedOnly:userId===restricted})),
     watchers:[{userId:watcher,level:'watching'},{userId:restricted,level:'watching'}]});
    await Lists.rawCollection().insertOne({_id:listId,boardId,title:'List',watchers:[]});
    await Cards.rawCollection().insertOne({_id:cardId,boardId,listId,title:'Original card',userId:actor,assignees:[],watchers:[]});

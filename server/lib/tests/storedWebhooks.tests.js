@@ -23,7 +23,7 @@ describe('Stored Sync webhook delivery', function () {
     try {
       flags.disableActivities = false; flags.disableNotifications = false;
       await Meteor.users.rawCollection().insertOne({ _id: actor, username: `delivery-${actor}`, profile: { language: 'en' } });
-      await Boards.rawCollection().insertOne({ _id: boardId, title: 'Delivery', permission: 'private', watchers: [],
+      await Boards.rawCollection().insertOne({ _id: boardId, syncEffectsEnabled: true, title: 'Delivery', permission: 'private', watchers: [],
         members: [{ userId: actor, isActive: true, isAdmin: true }] });
       await Lists.rawCollection().insertOne({ _id: listId, boardId, title: 'List', watchers: [] });
       await Cards.rawCollection().insertOne({ _id: cardId, boardId, listId, title: 'Card', userId: actor, assignees: [actor], watchers: [] });
@@ -33,7 +33,7 @@ describe('Stored Sync webhook delivery', function () {
         type: Integrations.Const.TWOWAY, userId: actor, url: 'https://unreachable.invalid/hook', token: 'original', createdAt: new Date(0) });
       const activity = { _id: activityId, activityType: 'createCard', boardId, listId, cardId, userId: actor, createdAt: new Date() };
       await Activities.rawCollection().insertOne(activity);
-      const input = { activity, policy: { activities: true, notifications: true }, assertCurrent: async () => {} };
+      const input = { activity, policy: { activities: true, notifications: true }, trigger: 'manual', assertCurrent: async () => {} };
       const plan = await captureStoredSyncWebhookPlan(input), target = plan.targets.find(row => row.integrationId === hookId);
       // Model a crash after HTTP acceptance but before reply application. The
       // subsequent production entry point has no injected transport or writer.

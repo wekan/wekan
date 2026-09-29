@@ -544,6 +544,13 @@ Boards.attachSchema(
       type: String,
       optional: true,
     },
+    // Sync activation (server/lib/syncActivation.js): a board administrator's
+    // opt-in to rules, notifications and webhooks for changes Sync makes on
+    // this board. Absent means off.
+    syncEffectsEnabled: {
+      type: Boolean,
+      optional: true,
+    },
     allowsCardCounterList: {
       /**
        * Show card counter per list

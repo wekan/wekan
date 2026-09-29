@@ -9,8 +9,8 @@ const { syncEffectPolicy } = require('/server/lib/syncEffectPolicy');
 // stage supports durable email and saved no-op selections. Unsupported pending
 // actions fail preflight; ordinary executeRules is never used as a fallback.
 // Manual/cron activation still requires other actions and History coordination.
-export function runStoredSyncActivityDelivery({ effectId, activity, policy, assertCurrent, rules = runStoredSyncRules }) {
-  return deliverSyncActivity({ effectId, activity, policy, assertCurrent, rules,
+export function runStoredSyncActivityDelivery({ effectId, activity, policy, assertCurrent, trigger, rules = runStoredSyncRules }) {
+  return deliverSyncActivity({ effectId, activity, policy, assertCurrent, rules, trigger,
     readPolicy: async () => syncEffectPolicy(getFeatureFlags()),
     notifications: runStoredSyncNotifications, webhooks: runStoredSyncWebhooks });
 }

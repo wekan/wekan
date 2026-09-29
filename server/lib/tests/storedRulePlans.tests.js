@@ -26,19 +26,34 @@ describe('Stored Sync rule selection', function () {
     const ruleId = Random.id(), triggerId = Random.id(), actionId = Random.id();
     const activity = { _id: activityId, activityType: 'createCard', boardId, listId, cardId, userId: actor,
       cardTitle: 'Original card', listName: 'List', swimlaneName: 'Lane', createdAt: new Date(1000), modifiedAt: new Date(1000) };
-    const input = { activity, effectId: 'a'.repeat(64), policy: { activities: true, notifications: true }, assertCurrent: async () => {} };
+    const input = { activity, effectId: 'a'.repeat(64), policy: { activities: true, notifications: true }, trigger: 'manual', assertCurrent: async () => {} };
     const originalFrom = Accounts.emailTemplates.from, originalSend = Email.sendAsync;
     Accounts.emailTemplates.from = 'wekan@example.org';
     Email.sendAsync = async () => { throw new Error('capture must never send mail'); };
     try {
       await Meteor.users.rawCollection().insertOne({ _id: actor, username: actor });
-      await Boards.rawCollection().insertOne({ _id: boardId, title: 'Board', members: [{ userId: actor, isAdmin: true, isActive: true }] });
+      await Boards.rawCollection().insertOne({ _id: boardId, syncEffectsEnabled: true, title: 'Board', members: [{ userId: actor, isAdmin: true, isActive: true }] });
       await Lists.rawCollection().insertOne({ _id: listId, boardId, title: 'List' });
       await Cards.rawCollection().insertOne({ _id: cardId, boardId, listId, title: 'Original card', assignees: [] });
       await Activities.rawCollection().insertOne(activity);
       await Triggers.rawCollection().insertOne({ _id: triggerId, boardId, activityType: 'createCard', listName: '*', userId: '*', swimlaneName: '*', cardTitle: '*' });
       await Rules.rawCollection().insertOne({ _id: ruleId, boardId, triggerId, actionId, enabled: true, title: 'Rule' });
       await Actions.rawCollection().insertOne({ _id: actionId, actionType: 'addLabel', boardId, labelId: 'original' });
+      // Sync activation (maintainer decision of 2026-09-30): off unless the
+      // board opted in; scheduled runs also need the instance switch; the
+      // caller must name its trigger. Refusals write nothing.
+      await assert.rejects(captureStoredSyncRulePlan({ ...input, trigger: undefined }), /trigger-required/);
+      await Boards.rawCollection().updateOne({ _id: boardId }, { $unset: { syncEffectsEnabled: 1 } });
+      await assert.rejects(captureStoredSyncRulePlan(input), /sync-effects-not-enabled/);
+      await Boards.rawCollection().updateOne({ _id: boardId }, { $set: { syncEffectsEnabled: true } });
+      const syncFlags = getFeatureFlags(), cron = syncFlags.enableSyncCronEffects;
+      try {
+        syncFlags.enableSyncCronEffects = false;
+        await assert.rejects(captureStoredSyncRulePlan({ ...input, trigger: 'scheduled' }), /sync-cron-effects-not-enabled/);
+        assert.equal(await SyncRulePlans.find({ _id: planId(input.effectId, activityId) }).countAsync(), 0);
+        syncFlags.enableSyncCronEffects = true;
+        assert.equal((await captureStoredSyncRulePlan({ ...input, trigger: 'scheduled' })).actions.length, 1);
+      } finally { syncFlags.enableSyncCronEffects = cron; }
       const first = await captureStoredSyncRulePlan(input);
       assert.equal(first.actions.length, 1);
       assert.equal(first.actions[0].rule._id, ruleId);
@@ -89,7 +104,7 @@ describe('Stored Sync rule selection', function () {
       const flags = getFeatureFlags(), oldFlags = { ...flags };
       try {
         flags.disableNotifications = true;
-        const run = { ...archiveInput, policy: { activities: true, notifications: false },
+        const run = { ...archiveInput, policy: { activities: true, notifications: false }, trigger: 'manual',
           withHistoryReservation: async (id, work) => {
             assert.equal(id, boardId);
             return work({ previousHash: null, redoRows: [], assertCurrent: async () => {} });
@@ -223,10 +238,10 @@ describe('Stored Sync rule email network delivery', function () {
     Accounts.emailTemplates.from = 'sender@example.org'; Email.customTransport = undefined;
     const activity = { _id: activityId, activityType: 'createCard', boardId, listId, cardId, userId: actor,
       cardTitle: 'Network card', listName: 'List', swimlaneName: 'Lane', createdAt: new Date(1000), modifiedAt: new Date(1000) };
-    const input = { activity, effectId: 'e'.repeat(64), index: 0, policy: { activities: true, notifications: false }, assertCurrent: async () => {} };
+    const input = { activity, effectId: 'e'.repeat(64), index: 0, policy: { activities: true, notifications: false }, trigger: 'manual', assertCurrent: async () => {} };
     try {
       await Meteor.users.rawCollection().insertOne({ _id: actor, username: actor });
-      await Boards.rawCollection().insertOne({ _id: boardId, title: 'Network board', members: [{ userId: actor, isAdmin: true, isActive: true }] });
+      await Boards.rawCollection().insertOne({ _id: boardId, syncEffectsEnabled: true, title: 'Network board', members: [{ userId: actor, isAdmin: true, isActive: true }] });
       await Lists.rawCollection().insertOne({ _id: listId, boardId, title: 'List' });
       await Cards.rawCollection().insertOne({ _id: cardId, boardId, listId, title: 'Network card', description: 'Saved description' });
       await Activities.rawCollection().insertOne(activity);

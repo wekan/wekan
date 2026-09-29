@@ -6,6 +6,7 @@ import Cards from '/models/cards';
 import Lists from '/models/lists';
 import Settings from '/models/settings';
 import { getFeatureFlags } from '/models/lib/featureFlags';
+const { validateSyncTrigger, assertSyncActivation } = require('/server/lib/syncActivation');
 import { resolveNotificationSetting } from '/models/lib/notificationSettings';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { prepareActivityDeliveryPlan } from '/server/notifications/prepareDelivery';
@@ -26,18 +27,20 @@ Meteor.startup(async () => {
 // Internal stage only: the caller supplies the journal's ownership/access guard.
 // Returning confirms tray receipts and email enqueue, not rules, SMTP or webhooks.
 // Retain plans without TTL; job activation and retention are separate work.
-export async function runStoredSyncNotifications({ activity, policy, assertCurrent }) {
+export async function runStoredSyncNotifications({ activity, policy, assertCurrent, trigger }) {
   const saved = EJSON.parse(EJSON.stringify(activity), { relaxed: true });
   notificationActivityIdentity(saved);
   policy = validateSyncEffectPolicy(policy);
   if (!policy.activities || !policy.notifications || typeof assertCurrent !== 'function' ||
       typeof saved.listId !== 'string' || !saved.listId) throw new Error('sync-notification-stage-invalid');
+  validateSyncTrigger(trigger);
   async function context() {
     const [board,card,list] = await Promise.all([
       Boards.findOneAsync(saved.boardId), Cards.findOneAsync({ _id: saved.cardId, boardId: saved.boardId, listId: saved.listId }),
       Lists.findOneAsync({ _id: saved.listId, boardId: saved.boardId }),
     ]);
     if (!board || !card || !list) throw new Error('sync-notification-context-unavailable');
+    assertSyncActivation({ board, trigger, flags: getFeatureFlags() });
     return { board,card,list };
   }
   async function guard() {
