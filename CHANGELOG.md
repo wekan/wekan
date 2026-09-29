@@ -105,10 +105,10 @@ for one of four stated reasons, not left unexamined:
 - **Checked:** `SamlAccountMergeBleed` needs no Hall of Fame page: SAML
   refused that merge from its first commit, so it is a detection category
   like `CanaryBleed`, not a fixed vulnerability.
-- **Decisions not yet built:** the parents array and the Scrum/Sync journal
-  work. Of the recovery controls, keyboard undo/redo now has
-  its notice; operator recovery for legacy unbound Sync commands and online
-  SMTP resolution remain, and belong to the journal work.
+- **Decisions not yet built:** the Scrum/Sync journal work. Of the recovery
+  controls, keyboard undo/redo now has its notice; operator recovery for legacy
+  unbound Sync commands and online SMTP resolution remain, and belong to the
+  journal work.
 - **Intermittent:** in a run of all seven import specs one case failed twice in
   four runs (once seen as the `jira-time-import` case about section controls,
   with a value mismatch); every case passes alone and in its own file.
@@ -1511,17 +1511,7 @@ minicard, a checkbox custom field's tick/cross icon, per-board default label
 text visibility, and custom-field sort order. Needs the maintainer either to
 describe the screenshot's blue markup or to pick which additional visual
 property should become the customizable one before this can be scoped),
-[#3626](https://github.com/wekan/wekan/issues/3626)
-(decided 2026-09-29: a full parents-array model, migrating every ancestor walk;
-not built yet. A card as a subtask of MULTIPLE parents - today `parentId`
-(`models/cards.js`) is a single field, and every ancestor walk (`setParentId`'s
-\#3328 cycle guard, `parentList`, `parentString`, the subtask completion
-counter) assumes exactly one parent; turning that into an array or a separate
-join changes the shape all of them read, so it needs a deliberate design
-decision rather than a quick patch. The other two parts of #3626 are done: the
-completed/total subtask counter was already correct (pinned by the #4050 work),
-and picking an EXISTING card as a subtask from the parent card's own UI is now
-built.), [#2460](https://github.com/wekan/wekan/issues/2460) (SQRL login - the
+[#2460](https://github.com/wekan/wekan/issues/2460) (SQRL login - the
 report is a single comment-free link to https://www.grc.com/sqrl from 2019.
 SQRL has no official Meteor/Node package, unlike accounts-2fa (#3058);
 confirmed no `sqrl` dependency exists in `package.json`. Supporting it would
@@ -1697,6 +1687,28 @@ and fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
 and adds semi-open boards, a Map view, auto-archive, archive reporting, code
 highlighting, custom URL schemes, attachment thumbnails and improves Scrum
 History recovery:
+
+**Subtasks** - one card under several parents.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a904ca880">Let a card be a subtask of several parent cards</a>. Thanks to ikomhoog and xet7.</summary>
+
+"A must be done before B and C can start, so A is a subtask of both"
+([#3626](https://github.com/wekan/wekan/issues/3626)). A card keeps every parent
+in `parentIds`, with `parentId` still the primary one, so everything that reads
+one parent keeps working. Picking an existing card as a subtask adds a parent
+instead of replacing it; Card → More lists and removes the other parents.
+Children are found under any parent - the subtask list and counter, the parent
+filter, rule email Details and the exports - and the loop guard and board
+publication walk every parent. Archiving or deleting a card takes only the
+subtasks it is the one parent of; a shared subtask just loses it. Every parent
+written must be on a board the writer can see (GHSA-jvv9-498p-hxrg), and board
+copy and WeKan import remap them all. Unit suites pin the rules and a tree-wide
+scan for children lookups by `parentId` alone; a server Mocha test runs archive
+and delete against real hooks; Chromium cases add a second parent, refuse a
+loop and remove a parent. 156 subtask-related Chromium cases pass.
+
+</details>
 
 **Board views** - a Map of the board's cards.
 
