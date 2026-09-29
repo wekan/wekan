@@ -99,9 +99,10 @@ for one of four stated reasons, not left unexamined:
 
 Maintainer decisions of 2026-09-29, answering the blockers above:
 
-- **New interface text** is added in English to every locale and listed in
-  `releases/translations/pending-transifex.json` until Transifex supplies
-  translations; the completeness gate reports those keys separately.
+- **New interface text** is added to `en.i18n.json` and listed in
+  `releases/translations/pending-transifex.json`; the interface falls back to
+  English until the translating agent or Transifex fills each locale. Locale
+  files are that agent's work, not part of feature commits.
 - **Rule variables** ([#4294](https://github.com/wekan/wekan/issues/4294),
   [#3195](https://github.com/wekan/wekan/issues/3195)): reuse the email
   `{token}` syntax in action and trigger values, adding `{creator}`,
@@ -1817,6 +1818,35 @@ node-saml 5.1.0: an Assertion-only signature fails with the reported error under
 wrong certificates are refused. Seven Chromium cases pass, including a full
 redirect login through the fixture identity provider and a token link opened
 in another browser. The new message is English, pending Transifex.
+
+</details>
+
+**Rules** - variables in action values, and start-date reminders.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a91855993">Resolve people and custom-field variables in rule action values</a>. Thanks to xet7.</summary>
+
+Rule actions reuse the email `{token}` syntax. `{creator}`, `{assignees}` and
+`{members}` name the triggering card's people - usernames in text, email
+addresses in the send-email recipient, where people without an address are
+left out - and `{customField:Name}` reads a custom field's displayed value,
+never an admin-only field. "Add/remove member" accepts a token that names
+several people; list and swimlane names of move actions are resolved too.
+Literal values behave exactly as before and unknown tokens stay literal.
+Node suites cover substitution and the recipient form; three Chromium cases run
+real rules (assign `{creator}`, move to the list named `{card}`, an unknown
+token assigning nobody), and the existing rule suites still pass.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0f8d35fe7">Let scheduled rule triggers watch a card's start date</a>. Thanks to xet7.</summary>
+
+A scheduled "due" trigger can now choose Due Date or Start, so a rule fires when
+a card starts within N days or should have started N days ago; with
+`{assignees}` as the recipient the reminder reaches the card's assignees. The
+date filter is a pure module with unit tests, and triggers saved before keep
+watching the due date. Fixes [#4278](https://github.com/wekan/wekan/issues/4278).
 
 </details>
 
