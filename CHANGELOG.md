@@ -2086,6 +2086,16 @@ progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6370ef260">Translate Arabic recovery messages and todo.txt guidance</a>. Thanks to xet7.</summary>
+
+Fill 45 recovery, legacy-review, variable-insertion and import strings.
+Arabic passes completeness, placeholder, import-syntax and delivery-warning
+checks against the current English source. Existing translations are preserved
+and human-preference checks pass. Other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
