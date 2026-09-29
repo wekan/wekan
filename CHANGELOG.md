@@ -105,8 +105,8 @@ for one of four stated reasons, not left unexamined:
 - **Checked:** `SamlAccountMergeBleed` needs no Hall of Fame page: SAML
   refused that merge from its first commit, so it is a detection category
   like `CanaryBleed`, not a fixed vulnerability.
-- **Decisions not yet built:** the parents array, the Map board view, and the
-  Scrum/Sync journal work. Of the recovery controls, keyboard undo/redo now has
+- **Decisions not yet built:** the parents array and the Scrum/Sync journal
+  work. Of the recovery controls, keyboard undo/redo now has
   its notice; operator recovery for legacy unbound Sync commands and online
   SMTP resolution remain, and belong to the journal work.
 - **Intermittent:** in a run of all seven import specs one case failed twice in
@@ -1514,8 +1514,8 @@ property should become the customizable one before this can be scoped),
 [#3256](https://github.com/wekan/wekan/issues/3256) (requests an
 image-coordinate-based "hot area" marker visualization - upload a background
 image, overlay a grid, place clickable card markers on it - a new data model
-and rendering mode outside WeKan's existing list/swimlane structure; decided
-2026-09-29 as a new Map board view, not built yet),
+and rendering mode outside WeKan's existing list/swimlane structure; built in
+Upcoming as the Map board view, and closes with that commit),
 [#3626](https://github.com/wekan/wekan/issues/3626)
 (decided 2026-09-29: a full parents-array model, migrating every ancestor walk;
 not built yet. A card as a subtask of MULTIPLE parents - today `parentId`
@@ -1699,8 +1699,29 @@ and fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
   or to write non-HTML output. No shipped code had the one-pass form, so there
   is no Hall of Fame row or Problems key. Thanks to GitHub CodeQL and xet7.
 
-and adds semi-open boards, auto-archive, archive reporting, code highlighting,
-custom URL schemes, attachment thumbnails and improves Scrum History recovery:
+and adds semi-open boards, a Map view, auto-archive, archive reporting, code
+highlighting, custom URL schemes, attachment thumbnails and improves Scrum
+History recovery:
+
+**Board views** - a Map of the board's cards.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3d891ace0">Add a Map board view: cards as markers on an uploaded image</a>. Thanks to javen9881 and xet7.</summary>
+
+A board admin uploads an image - a floor plan, a site map, a drawing - and the
+cards become markers on it, coloured by their first label and numbered like
+the card ([#3256](https://github.com/wekan/wekan/issues/3256)). Members who can
+edit drag a card from "Not on the map", or choose it and click where it
+belongs, and drag a marker to move it; a click opens the card. A place is
+stored as percentages of the image (`mapX`, `mapY`), so a marker keeps its spot
+at any size, and the image is a board attachment served under the board's own
+access rules. Read-only members see the map but cannot change it. A unit suite
+covers the position maths, including a null coordinate that must not count as
+the top-left corner, and every registry the view needs; a Chromium case
+uploads an image, places cards both ways, moves a marker, opens a card and
+checks a read-only member. New strings are English, pending Transifex.
+
+</details>
 
 **Board visibility** - a board every signed-in user can see.
 
