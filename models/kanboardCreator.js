@@ -2,10 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Activities from '/models/activities';
 import Boards from './boards';
-import CardComments from '/models/cardComments';
 import Cards from '/models/cards';
-import ChecklistItems from '/models/checklistItems';
-import Checklists from '/models/checklists';
 import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
 import { CARD_COLORS } from '/models/metadata/colors';
@@ -18,6 +15,7 @@ import {
 import { normalizeDependency } from '/models/metadata/dependencies';
 import CustomFields from '/models/customFields';
 import { writeImportedEntity } from '/models/lib/importPipeline';
+import { insertImportedChecklists, insertImportedComments } from '/models/lib/importedCardChildren';
 
 // Creates a WeKan board from a Kanboard export.
 //
@@ -205,8 +203,9 @@ export class KanboardCreator {
       if (values.length) cardToCreate.customFields = values;
       const cardId = await writeImportedEntity(Cards, cardToCreate);
       cardIds[index] = cardId;
-      await this.createChecklists(plan.checklists, boardId, cardId);
-      await this.createComments(plan.comments, boardId, cardId);
+      // Subtasks of many sources arrive as checklists.
+      await insertImportedChecklists(plan.checklists, { boardId, cardId, now: this._now() });
+      await insertImportedComments(plan.comments, { boardId, cardId, now: this._now(), importerId: this._user() });
     }
     await this.createLinks(tasks, cardIds);
   }
@@ -236,44 +235,6 @@ export class KanboardCreator {
       await Cards.direct.updateAsync(cardIds[index], { $set: {
         cardDependencies: deps.map(dep => normalizeDependency({ cardId: cardIds[dep.target], type: dep.type })),
       } });
-    }
-  }
-
-  // Kanboard subtasks, Asana subtasks, Jira sub-tasks and the like arrive as
-  // checklists; .direct inserts bypass the hooks that would derive boardId.
-  async createChecklists(checklists, boardId, cardId) {
-    for (const checklist of checklists) {
-      const checklistId = await writeImportedEntity(Checklists, {
-        boardId,
-        cardId,
-        title: checklist.title,
-        sort: checklist.sort,
-        createdAt: this._now(),
-      });
-      for (const item of checklist.items) {
-        await ChecklistItems.direct.insertAsync({
-          boardId,
-          cardId,
-          checklistId,
-          title: item.title,
-          sort: item.sort,
-          isFinished: item.isFinished,
-        });
-      }
-    }
-  }
-
-  async createComments(comments, boardId, cardId) {
-    for (const comment of comments) {
-      const createdAt = comment.createdAt || this._now();
-      const userId = comment.userId || this._user();
-      const commentId = await writeImportedEntity(CardComments, {
-        boardId, cardId, createdAt, text: comment.text, userId,
-      });
-      // The activity feed and comment counters read addComment activities.
-      await Activities.direct.insertAsync({
-        activityType: 'addComment', boardId, cardId, commentId, createdAt, userId,
-      });
     }
   }
 

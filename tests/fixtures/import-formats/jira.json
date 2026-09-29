@@ -62,7 +62,12 @@
                     ]
                   }
                 ]
-              }
+              },
+              "author": {
+                "accountId": "jira-acc",
+                "displayName": "jira-user"
+              },
+              "created": "2026-09-30T12:34:56.000+0000"
             }
           ]
         },
@@ -74,8 +79,43 @@
             "mimeType": "text/plain",
             "content": "https://example.invalid/audit.txt"
           }
+        ],
+        "priority": {
+          "name": "High"
+        },
+        "components": [
+          {
+            "name": "Audit component"
+          }
+        ],
+        "fixVersions": [
+          {
+            "name": "1.0"
+          }
+        ],
+        "customfield_10020": 5,
+        "customfield_10030": {
+          "value": "Blue"
+        },
+        "customfield_10040": null,
+        "subtasks": [
+          {
+            "key": "AUDIT-9",
+            "fields": {
+              "summary": "Audit subtask",
+              "status": {
+                "statusCategory": {
+                  "key": "done"
+                }
+              }
+            }
+          }
         ]
       }
     }
-  ]
+  ],
+  "names": {
+    "customfield_10020": "Audit points",
+    "customfield_10030": "Audit team"
+  }
 }

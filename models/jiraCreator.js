@@ -14,6 +14,14 @@ import Rules from '/models/rules';
 import Triggers from '/models/triggers';
 import Actions from '/models/actions';
 import { writeImportedEntity } from '/models/lib/importPipeline';
+import { insertImportedChecklists, insertImportedComments } from '/models/lib/importedCardChildren';
+import {
+  importedChecklists,
+  importedComment,
+  importedCustomFieldValues,
+  planImportedCustomFields,
+} from '/models/lib/importedTaskPlan';
+import { jiraIssueExtras } from '/models/lib/jiraIssueExtras';
 import {
   DEFAULT_DEPENDENCY_TYPE,
   normalizeDependency,
@@ -65,6 +73,20 @@ export class JiraCreator {
     return data.issues || [];
   }
 
+  // Comments, sub-tasks, parent, custom fields and extra labels of one issue
+  // (models/lib/jiraIssueExtras.js), computed once per issue.
+  _extras(data, issue) {
+    if (!this.extras) this.extras = new Map();
+    if (!this.extras.has(issue)) {
+      const importedKeys = new Set(this._issues(data).map(i => i && i.key).filter(Boolean));
+      const skipFields = this.estimateMapping ? [this.estimateMapping.estimateFieldId] : [];
+      this.extras.set(issue, jiraIssueExtras(issue, {
+        names: (data && !Array.isArray(data) && data.names) || {}, importedKeys, skipFields,
+      }));
+    }
+    return this.extras.get(issue);
+  }
+
   async createBoard(data) {
     const title =
       (data.board && data.board.name) ||
@@ -97,11 +119,12 @@ export class JiraCreator {
       title,
     };
 
-    // Jira labels => board labels.
+    // Jira labels, priorities, components and fix versions => board labels.
     const labelNames = new Set();
     for (const issue of this._issues(data)) {
       const labels = (issue.fields && issue.fields.labels) || [];
       labels.forEach(l => labelNames.add(l));
+      this._extras(data, issue).tags.forEach(t => labelNames.add(t));
     }
     for (const name of labelNames) {
       boardToCreate.labels.push({ _id: Random.id(6), color: 'black', name });
@@ -174,7 +197,20 @@ export class JiraCreator {
 
   async createCards(data, boardId) {
     const board = await ReactiveCache.getBoard(boardId);
-    for (const issue of this._issues(data)) {
+    const issues = this._issues(data);
+    const extras = issues.map(issue => this._extras(data, issue));
+    const fieldPlan = planImportedCustomFields(extras).fields;
+    const fieldIds = {};
+    for (const field of fieldPlan) {
+      fieldIds[field.name] = await writeImportedEntity(CustomFields, {
+        boardIds: [boardId], name: field.name, type: field.type, settings: {},
+        showOnCard: false, automaticallyOnCard: false, alwaysOnCard: false,
+        showLabelOnMiniCard: false, createdAt: this._now(),
+      });
+    }
+    for (let index = 0; index < issues.length; index += 1) {
+      const issue = issues[index];
+      const extra = extras[index];
       const fields = issue.fields || {};
       const statusName = (fields.status && fields.status.name) || 'Imported';
       const titleParts = [];
@@ -188,7 +224,8 @@ export class JiraCreator {
         description: adfPlainText(fields.description),
         listId: this.lists[statusName],
         swimlaneId: this.swimlane,
-        sort: -1,
+        // Search order, which is the JQL's ORDER BY.
+        sort: index,
         title: titleParts.join(' ') || 'Imported issue',
         userId: this._user(),
         labelIds: [],
@@ -205,6 +242,8 @@ export class JiraCreator {
         .map(field => ({ _id: this.timeFields[field.key], value: time[field.key] }));
       const estimate = jiraEstimateValue(fields, this.estimateMapping);
       if (estimate !== undefined) cardToCreate.customFields.push({ _id: this.estimateFieldId, value: estimate });
+      importedCustomFieldValues(extra, fieldPlan)
+        .forEach(({ name, value }) => cardToCreate.customFields.push({ _id: fieldIds[name], value }));
       // Jira's REPORTER is WeKan's "Requested By": the person who asked for the
       // work, as opposed to the assignee who does it. It is a free-text field
       // here, so it takes the display name rather than needing a mapped user -
@@ -220,7 +259,7 @@ export class JiraCreator {
       if (fields.updated) cardToCreate.modifiedAt = this._now(fields.updated);
 
       // Labels.
-      for (const labelName of fields.labels || []) {
+      for (const labelName of [...(fields.labels || []), ...extra.tags]) {
         const label = board.getLabel(labelName, 'black');
         if (label) cardToCreate.labelIds.push(label._id);
       }
@@ -234,6 +273,17 @@ export class JiraCreator {
       }
       const cardId = await writeImportedEntity(Cards, cardToCreate);
       if (issue.key) this.cardsByKey[issue.key] = cardId;
+      await insertImportedChecklists(importedChecklists(extra.checklists), { boardId, cardId, now: this._now() });
+      const comments = extra.comments.map(c => importedComment(c, this.members)).filter(Boolean);
+      await insertImportedComments(comments, { boardId, cardId, now: this._now(), importerId: this._user() });
+    }
+    // Sub-tasks and child issues imported together keep their parent.
+    for (let index = 0; index < issues.length; index += 1) {
+      const parentId = extras[index].parentKey && this.cardsByKey[extras[index].parentKey];
+      const cardId = this.cardsByKey[issues[index].key];
+      if (parentId && cardId && parentId !== cardId) {
+        await Cards.direct.updateAsync(cardId, { $set: { parentId } });
+      }
     }
   }
 

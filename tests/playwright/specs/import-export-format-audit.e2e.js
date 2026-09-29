@@ -116,6 +116,17 @@ const FIDELITY = {
     },
     labels: [expected.label],
   },
+  jira: {
+    comments: [`jira-user: ${expected.comment}`],
+    checklistItems: [['[AUDIT-9] Audit subtask', true]],
+    card: card => {
+      const fields = Object.fromEntries(db.find('customFields', { boardIds: card.boardId }).map(f => [f._id, f.name]));
+      expect(Object.fromEntries(card.customFields.map(v => [fields[v._id], v.value])))
+        .toEqual({ 'Audit points': 5, 'Audit team': 'Blue' });
+      expect(card.sort).toBe(0);
+    },
+    labels: [expected.label, 'priority:High', 'Audit component', 'version:1.0'],
+  },
 };
 
 test('zenkit: API entries import stages, checklists, fields and hierarchy', async ({ loggedInPage: page }) => {

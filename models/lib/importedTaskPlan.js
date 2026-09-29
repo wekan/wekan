@@ -11,7 +11,7 @@
 //   spent_hours                             - time already spent, in hours
 //   assignees: [source user key]            - more people besides the owner
 //   checklists: [{ title, items: [{ title, done }] }]
-//   comments:   [{ text, author, date }]
+//   comments:   [{ text, author, authorName, date }]
 // Every one of them is optional; a task without them imports as before.
 
 const HEX6 = /^#?([0-9a-fA-F]{6})$/;
@@ -57,10 +57,13 @@ function text(value) {
 export function importedComment(comment, members = {}) {
   const body = text(comment && comment.text).trim();
   if (!body) return null;
+  // `author` is the key members are mapped by; `authorName`, when the source
+  // has one (Jira's account id vs display name), is what a reader sees.
   const author = text(comment.author).trim();
+  const shown = text(comment.authorName).trim() || author;
   const userId = (author && members[author]) || null;
   return {
-    text: userId || !author ? body : `${author}: ${body}`,
+    text: userId || !shown ? body : `${shown}: ${body}`,
     userId,
     createdAt: importedDate(comment.date),
   };

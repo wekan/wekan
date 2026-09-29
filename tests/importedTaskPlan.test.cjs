@@ -85,9 +85,15 @@ async function main() {
   assert.match(creator, /\.\.\.plan\.card/);
   assert.match(creator, /cardToCreate\.members = plan\.memberIds/);
   assert.match(creator, /sort: index,/, 'cards keep their source order');
-  assert.match(creator, /createChecklists\(plan\.checklists, boardId, cardId\)/);
-  assert.match(creator, /createComments\(plan\.comments, boardId, cardId\)/);
-  assert.match(creator, /activityType: 'addComment'/);
+  assert.match(creator, /insertImportedChecklists\(plan\.checklists, \{ boardId, cardId/);
+  assert.match(creator, /insertImportedComments\(plan\.comments, \{ boardId, cardId/);
+  const children = fs.readFileSync(path.join(__dirname, '../models/lib/importedCardChildren.js'), 'utf8');
+  assert.match(children, /activityType: 'addComment'/);
+  assert.match(children, /writeImportedEntity\(CardComments,/);
+  assert.match(children, /writeImportedEntity\(Checklists,/);
+  // Jira maps users by account id but shows a display name.
+  assert.deepEqual(importedComment({ text: 'x', author: 'acc-1', authorName: 'Ann' }, {}).text, 'Ann: x');
+  assert.equal(importedComment({ text: 'x', author: 'acc-1', authorName: 'Ann' }, { 'acc-1': 'uA' }).text, 'x');
   assert.doesNotMatch(creator, /cardToCreate\.dueAt = /, 'dates come only from the plan');
 
   console.log('  ok - imported tasks carry checklists, comments, dates, archive state and colors');
