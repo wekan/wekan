@@ -411,6 +411,16 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
   assert.equal(bg['date-format-mm-dd-yyyy'], 'месец-ден-година');
   assert.match(bg['no-comments-desc'], /Не може да вижда/);
   assert.match(bg['email-verifyEmail-subject'], /__siteName__/);
+  const shortcutAuditKeys = ["listImportCardsTsvPopup-title", "remove-cover", "shortcut-add-self", "shortcut-autocomplete-emoji", "shortcut-toggle-searchbar", "what-to-do", "modifiedAt", "delete-all-notifications", "description-on-minicard"];
+  for (const key of shortcutAuditKeys) {
+    assert.deepEqual(translationTokens(bg[key]), translationTokens(en[key]), key);
+    assert.doesNotMatch(bg[key], /Унеси|Уклони|слику|омота|Доделите|надлежност|себи|попуни|Алат|претрагу|Шта|желите|урадите|измене|Избриши|сва|Пун/i, key);
+  }
+  assert.match(bg['remove-cover'], /изображението.*миникартата/);
+  assert.match(bg['shortcut-add-self'], /себе си.*текущата карта/);
+  assert.match(bg['shortcut-toggle-searchbar'], /Показване или скриване.*страничната лента.*търсене/);
+  assert.match(bg['delete-all-notifications'], /всички известия/);
+  assert.match(bg['description-on-minicard'], /Описание.*миникартата/);
   assert.equal(bg.swimlane, 'Коридор');
   assert.equal(bg['welcome-swimlane'], 'Етап 1');
   assert.match(bg['swimlane-height-error-message'], /положително цяло число/);
