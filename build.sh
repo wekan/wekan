@@ -2195,6 +2195,37 @@ function ensure_inotify_watches(){
 	return 0
 }
 
+# The machine's LAN address, for a dev server other devices can open.
+# macOS has no `ip` command and no `hostname -I`: ask which interface carries
+# the default route and read that interface's address, then fall back to the
+# usual Wi-Fi/Ethernet names. Linux asks the kernel which source address it
+# would use. Prints localhost when nothing is found.
+function current_ip_address(){
+	local iface addr
+	if [[ "$OSTYPE" == "darwin"* ]]; then
+		iface=$(route -n get default 2>/dev/null | awk '/interface:/{print $2; exit}')
+		for iface in $iface en0 en1 en2 en3; do
+			addr=$(ipconfig getifaddr "$iface" 2>/dev/null) && [ -n "$addr" ] && { echo "$addr"; return; }
+		done
+	else
+		addr=$(ip route get 1.1.1.1 2>/dev/null | sed -n 's/.* src \([0-9.]*\).*/\1/p' | head -1)
+		[ -z "$addr" ] && addr=$(hostname -I 2>/dev/null | awk '{print $1}')
+		[ -n "$addr" ] && { echo "$addr"; return; }
+	fi
+	echo localhost
+}
+
+# Every IPv4 address of this machine, one "interface address" per line, for
+# the CUSTOM-IP prompt. `ip` exists only on Linux; macOS and the BSDs have
+# ifconfig.
+function list_ip_addresses(){
+	if command -v ip >/dev/null 2>&1; then
+		ip -4 -o address show 2>/dev/null | awk '{sub(/\/.*/, "", $4); print $2, $4}'
+	elif command -v ifconfig >/dev/null 2>&1; then
+		ifconfig 2>/dev/null | awk '/^[^ \t]/{iface=$1; sub(/:$/, "", iface)} $1=="inet"{print iface, $2}'
+	fi
+}
+
 # ── Dev server URL ───────────────────────────────────────────────────────────
 # Ask for the port Meteor LISTENS on and for ROOT_URL, so a dev server can run
 # somewhere other than http://localhost:3000 without editing this script. Sets
@@ -3049,11 +3080,7 @@ for _once in 1; do
     "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000")
 		ensure_rspack_public_dirs
 		kill_meteor_on_port 3000 || break
-		if [[ "$OSTYPE" == "darwin"* ]]; then
-		  IPADDRESS=$(ipconfig getifaddr en0 2>/dev/null || ipconfig getifaddr en1 2>/dev/null || echo localhost)
-		else
-		  IPADDRESS=$(ip route get 1.1.1.1 2>/dev/null | grep -oP 'src \K[0-9.]+' | head -1 | grep . || hostname -I 2>/dev/null | awk '{print $1}' | grep . || echo localhost)
-		fi
+		IPADDRESS=$(current_ip_address)
 		echo "Your IP address is $IPADDRESS"
 		#---------------------------------------------------------------------
 		#Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
@@ -3068,11 +3095,7 @@ for _once in 1; do
     "Run Meteor for dev on http://CURRENT-IP-ADDRESS:3000 with MONGO_URL=mongodb://127.0.0.1:27019/wekan")
 		ensure_rspack_public_dirs
 		kill_meteor_on_port 3000 || break
-                if [[ "$OSTYPE" == "darwin"* ]]; then
-                  IPADDRESS=$(ipconfig getifaddr en0 2>/dev/null || ipconfig getifaddr en1 2>/dev/null || echo localhost)
-                else
-                  IPADDRESS=$(ip route get 1.1.1.1 2>/dev/null | grep -oP 'src \K[0-9.]+' | head -1 | grep . || hostname -I 2>/dev/null | awk '{print $1}' | grep . || echo localhost)
-                fi
+                IPADDRESS=$(current_ip_address)
                 echo "Your IP address is $IPADDRESS"
                 #---------------------------------------------------------------------
                 #Not in use, could increase RAM usage: NODE_OPTIONS="--max_old_space_size=4096"
@@ -3100,9 +3123,11 @@ for _once in 1; do
 
     "Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT")
 		ensure_rspack_public_dirs
-		ip address
-		echo "From above list, what is your IP address?"
+		list_ip_addresses
+		DEFAULT_IPADDRESS=$(current_ip_address)
+		echo "From above list, what is your IP address? [$DEFAULT_IPADDRESS]"
 		read IPADDRESS
+		IPADDRESS="${IPADDRESS:-$DEFAULT_IPADDRESS}"
 		echo "On what port you would like to run Wekan?"
 		read PORT
 		echo "ROOT_URL=http://$IPADDRESS:$PORT"
