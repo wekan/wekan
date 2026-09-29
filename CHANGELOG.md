@@ -1390,26 +1390,14 @@ licence and about 16 GB of memory.
 <details>
 <summary>Feature requests / behaviour-by-design rather than bugs.</summary>
 
-[#5323](https://github.com/wekan/wekan/issues/5323) (notification/webhook
-reminder on a card's due date with a per-board offset — labelled Feature; the
-built-in due-date reminder already exists (`NOTIFY_DUE_DAYS_BEFORE_AND_AFTER`,
-improved in #3192), so the remaining ask is the per-board offset UI + a webhook
-reminder, a feature; [#4278](https://github.com/wekan/wekan/issues/4278) asks
-for rule email reminders to assigned people when a card is due, overdue or
-starting. Scheduled due/overdue triggers already exist in
-`server/scheduledRules.js`; resolving assignee email recipients and scheduling
-start-date reminders remain missing),
-[#4294](https://github.com/wekan/wekan/issues/4294) (rule actions should
-support a limited set of variables, e.g. assigning a card to its creator by
-default — the acting-user member option and email variables already exist, but
-arbitrary variable-valued action fields still need a templating contract in
-`server/rulesHelper.js`'s action runner, a new kind of field),
-[#4294](https://github.com/wekan/wekan/issues/4294) (a rule should be able to
-combine multiple triggers/actions instead of one of each — `models/rules.js`
-ties a rule to exactly one `triggerId`/`actionId`; supporting several is a
-schema change, not a UI fix, and needs a decision on how a multi-trigger rule
-matches: any trigger, or all of them; [#2953](https://github.com/wekan/wekan/issues/2953)
-asks for the same thing),
+Fixed in Upcoming and removed from this list:
+[#5323](https://github.com/wekan/wekan/issues/5323),
+[#4278](https://github.com/wekan/wekan/issues/4278),
+[#4294](https://github.com/wekan/wekan/issues/4294),
+[#2953](https://github.com/wekan/wekan/issues/2953) and
+[#572](https://github.com/wekan/wekan/issues/572). The #4790 split is prepared
+and waits for the maintainer to file it (see "Waiting on the maintainer" above).
+
 [#2713](https://github.com/wekan/wekan/issues/2713) (email rules now offer
 optional live-card attachments, with source-access rechecks and verified
 filesystem/GridFS SMTP delivery. The original request also asks for all card
@@ -1448,31 +1436,12 @@ summaries are now included. Stored Details now binds related-source chains,
 admin access and custom-field definition fingerprints; older Details snapshots
 require operator recovery. Converted checklist subtasks now use readable live
 titles and persisted reference evidence, including without Details),
-[#3195](https://github.com/wekan/wekan/issues/3195) (rule action/trigger
-values should be able to reference a custom field's value — today's action
-and trigger value inputs are plain literals; resolving a per-board custom
-field by id needs the same kind of templating layer as the #4294 variables
-ask above, plus a custom-field picker in the rule UI),
-[#2698](https://github.com/wekan/wekan/issues/2698) (sync rules with GitLab —
+[#3195](https://github.com/wekan/wekan/issues/3195) (rule action and trigger
+values can now read a custom field with `{customField:Name}`; what remains is
+a custom-field picker in the rule editor, so the token need not be typed),
+[#2698](https://github.com/wekan/wekan/issues/2698) (sync rules with GitLab -
 a third-party integration needing a GitLab API credential and webhook
-endpoint, environment/infrastructure this sandbox cannot stand up or verify),
-[#4790](https://github.com/wekan/wekan/issues/4790) (a sprawling "User
-Filter" wishlist - the reporter's own words are "I'm kind of confused" about
-whether it is one feature or several; it bundles per-org/team/board label
-expansion, granular board roles, LDAP-group-driven auto-labeling and
-permission inheritance, none of which is a filter change - needs it split
-into separate, concretely-scoped issues before any one part is buildable),
-[#572](https://github.com/wekan/wekan/issues/572) (label add/remove as its own
-controllable Notification Settings option - the activity feed entry it asks
-for already exists (`models/cards.js`'s `cardLabels()` hook logs
-`addedLabel`/`removedLabel`, wired the same way `cardMembers`/`cardAssignees`
-are); what is genuinely missing is the option. The 3-tier Notification
-Settings system (`models/lib/notificationSettings.js`,
-`resolveNotificationSetting()`) resolves a member/board/admin override, but
-only for the two transport SERVICES (`tray`, `email`), not per activity
-type - there is no catalog to register "label added/removed" into yet, so
-adding it means building that per-type catalog first, a larger change than
-one more key).
+endpoint, environment/infrastructure this sandbox cannot stand up or verify).
 
 </details>
 
