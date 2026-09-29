@@ -3291,6 +3291,25 @@ unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f8b9f26c5">Correct Bulgarian activity messages and common controls</a>. Thanks to xet7.</summary>
+
+Replace 55 Serbian values with Bulgarian for activity messages, workspace
+controls, card actions, keyboard shortcuts, display modes and voting. Preserve
+all source placeholders and the distinction between irreversible deletion
+and reversible archiving. Correct-language translations remain intact.
+
+The Bulgarian and translation-token suites pass, together with all 21
+human-preference checks. Tests check vocabulary and script, interpolation
+tokens, opposite shortcut actions, list positions and signed-in-user voting.
+The same local commit also contains separately staged import-warning feature
+work; these translation checks do not validate that feature. More Serbian
+values and missing translations remain in the Bulgarian file. Browser layout
+and fluent-speaker review were not run. Existing Upcoming entries retain their
+recorded regression evidence. The all-language goal remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
