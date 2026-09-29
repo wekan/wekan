@@ -40,4 +40,15 @@ for (const token of ['{creator}', '{assignees}', '{members}', '{customField:Name
 assert.ok(translated['r-vars-people-hint'].includes('{customField:Field name}'));
 assert.match(translated['filter-column-age-hint'], /ei nulli/);
 assert.match(translated['instance-desc'], /Sisse logimata inimestele seda kunagi ei näidata/);
-console.log('upcomingEstonianPlaceholderRepair: placeholders, recovery, filters and rule syntax passed');
+for (const key of Object.keys(english).filter(key => key.startsWith('scrum-'))) {
+  assert.ok(translated[key]?.trim(), `${key}: missing Estonian text`);
+  // Sprint has the same spelling in Estonian and English.
+  if (key !== 'scrum-sprint') {
+    assert.notStrictEqual(translated[key], english[key], `${key}: English placeholder`);
+  }
+}
+assert.match(translated['scrum-total'], /kaarti/);
+assert.match(translated['scrum-report-help'], /ei ole nullhinnangud/);
+assert.match(translated['scrum-daily-observations-help'], /ei salvesta iga muudatust/);
+assert.match(translated['scrum-partial-report'], /ainult praegu sulle määratud kaardid/);
+console.log('upcomingEstonianPlaceholderRepair: placeholders, recovery, filters, Scrum and rule syntax passed');
