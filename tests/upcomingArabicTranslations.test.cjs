@@ -63,3 +63,35 @@ test('universal API labels remain unchanged', () => {
 });
 
 console.log('\nupcomingArabicTranslations: ' + passed + ' tests passed');
+
+(async () => {
+  const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
+  test('completed Arabic locales preserve every key and interpolation token', () => {
+    for (const code of ['ar', 'ar-DZ', 'ar-EG']) {
+      const lang = read(code);
+      assert.deepStrictEqual(Object.keys(lang), Object.keys(en), code);
+      for (const key of Object.keys(en)) {
+        assert.deepStrictEqual(translationTokens(lang[key]), translationTokens(en[key]), `${code}:${key}`);
+      }
+    }
+  });
+  test('new planning and recovery prose is Arabic, with no English placeholders left', () => {
+    const { execFileSync } = require('node:child_process');
+    const root = path.resolve(DATA, '../../..');
+    for (const code of ['ar', 'ar-DZ', 'ar-EG']) {
+      const lang = read(code);
+      for (const key of ['filter-column-age-hint', 'scrum-total',
+        'sync-preview-saved', 'email-recovery-description',
+        'activity-recovery-busy', 'rule-email-recovery-description',
+        'saml-login-not-started']) {
+        assert.notStrictEqual(lang[key], en[key], `${code}:${key}`);
+        assert.match(lang[key], /\p{Script=Arabic}/u, `${code}:${key}`);
+      }
+      const missing = JSON.parse(execFileSync(process.execPath,
+        ['releases/translations/fill-translations.mjs', '--list', code],
+        { cwd: root, encoding: 'utf8' }));
+      assert.deepStrictEqual(missing, {}, code);
+      assert.strictEqual(lang['blockly-MATH_TRIG_ACOS'], 'acos');
+    }
+  });
+})().catch(error => { console.error(error); process.exitCode = 1; });

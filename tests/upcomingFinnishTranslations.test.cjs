@@ -55,3 +55,32 @@ test('REST API and WITH_API stay recognizable in translated descriptions', () =>
 });
 
 console.log(`\nupcomingFinnishTranslations: ${passed} tests passed`);
+
+(async () => {
+  const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
+  test('Finnish preserves source key order and interpolation tokens', () => {
+    assert.deepStrictEqual(Object.keys(finnish), Object.keys(english));
+    for (const key of Object.keys(english)) {
+      assert.deepStrictEqual(translationTokens(finnish[key]), translationTokens(english[key]), key);
+    }
+  });
+  test('filters, Scrum, sync and notification recovery have Finnish prose', () => {
+    for (const key of ['filter-column-age-hint', 'scrum-total',
+      'scrum-import-reference-omitted', 'sync-preview-saved',
+      'activity-recovery-busy', 'due-reminder-heading', 'saml-login-not-started']) {
+      assert.ok(finnish[key]?.trim(), key);
+      assert.notStrictEqual(finnish[key], english[key], key);
+    }
+  });
+  test('only reviewed product names and math symbols remain unchanged', () => {
+    const { execFileSync } = require('node:child_process');
+    const missing = JSON.parse(execFileSync(process.execPath,
+      ['releases/translations/fill-translations.mjs', '--list', 'fi'],
+      { cwd: ROOT, encoding: 'utf8' }));
+    assert.deepStrictEqual(missing, {});
+    assert.strictEqual(finnish['blockly-MAC_OS'], 'macOS');
+    assert.strictEqual(finnish['blockly-MATH_TRIG_COS'], 'cos');
+    assert.notStrictEqual(finnish['blockly-MATH_ADDITION_SYMBOL_ARIA'],
+      english['blockly-MATH_ADDITION_SYMBOL_ARIA']);
+  });
+})().catch(error => { console.error(error); process.exitCode = 1; });
