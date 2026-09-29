@@ -17,7 +17,8 @@ function fixture(fallback = false) {
   const helper = vm.runInNewContext(`(${object})`, {
     ReactiveCache: cache, console: { error: error => errors.push(error) },
     buildRuleVars: async () => ({ cardname: 'Card', description: 'Description', cardlink: 'https://example.org/card' }),
-    substituteVars: value => value, TAPi18n: { getLanguage: () => 'en' },
+    // recipientVars turns people tokens into addresses; identity is enough here.
+    substituteVars: value => value, recipientVars: vars => vars, TAPi18n: { getLanguage: () => 'en' },
     Accounts: { emailTemplates: { from: 'sender@example.org' } },
     EmailLocalization: fallback ? undefined : { sendEmail: send }, Email: { sendAsync: send },
   });

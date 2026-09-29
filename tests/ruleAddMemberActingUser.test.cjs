@@ -174,8 +174,11 @@ test('negative: no other file re-implements the same acting-user shape independe
 // --- fixed-member "add member" action is unaffected ---
 
 test('the ordinary fixed-member addMember path still looks up ReactiveCache.getUser by username', () => {
+  // #4294: the username now passes through ruleUsernames(), which returns a
+  // literal username unchanged ([action.username]) and expands {tokens}; each
+  // is still looked up with ReactiveCache.getUser({ username }).
   assert.ok(
-    /ReactiveCache\.getUser\(\{\s*username:\s*action\.username\s*\}\)/.test(addMemberBlock),
+    /for \(const username of ruleUsernames\(action\.username, ruleVars\)\)\s*\{\s*const member = await ReactiveCache\.getUser\(\{ username \}\)/.test(addMemberBlock),
     'a normal (non-sentinel) username must still resolve via ReactiveCache.getUser({ username })',
   );
 });
@@ -183,7 +186,7 @@ test('the ordinary fixed-member addMember path still looks up ReactiveCache.getU
 test('the fixed-member path is reached only in the else branch of the sentinel check', () => {
   const sentinelIdx = addMemberBlock.indexOf('RULE_ACTING_USER_SENTINEL');
   const elseIdx = addMemberBlock.indexOf('} else {', sentinelIdx);
-  const lookupIdx = addMemberBlock.indexOf('ReactiveCache.getUser({ username: action.username })');
+  const lookupIdx = addMemberBlock.indexOf('ruleUsernames(action.username, ruleVars)');
   assert.ok(sentinelIdx > -1 && elseIdx > sentinelIdx && lookupIdx > elseIdx,
     'the fixed-member lookup must sit in the else branch, after the sentinel check');
 });

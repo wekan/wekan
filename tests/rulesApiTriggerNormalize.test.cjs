@@ -312,13 +312,15 @@ test('member actions resolve the user defensively and await the card writes', ()
   // original fixed-member lookup, so this no longer matches immediately
   // after the actionType check - the fixed-member lookup is still there,
   // in the else branch.
-  assert.ok(/const member = await ReactiveCache\.getUser\(\{ username: action\.username \}\);\s*\n\s*if \(member\) \{\s*\n\s*await card\.assignMember\(member\._id\);/.test(rulesHelperSrc));
+  // #4294: each username from ruleUsernames() (a literal one unchanged) is
+  // resolved the same defensive way.
+  assert.ok(/const member = await ReactiveCache\.getUser\(\{ username \}\);\s*\n\s*if \(member\) \{\s*\n\s*await card\.assignMember\(member\._id\);/.test(rulesHelperSrc));
   assert.ok(/await card\.unassignMember\(member\._id\);/.test(rulesHelperSrc));
   assert.ok(rulesHelperSrc.includes('not found; skipping.'));
 });
 
 test('negative: the crashing `(await getUser(...))._id` pattern is gone', () => {
-  assert.ok(!/\(await ReactiveCache\.getUser\(\{ username: action\.username \}\)\)\._id/.test(rulesHelperSrc));
+  assert.ok(!/\(await ReactiveCache\.getUser\(\{ username(: action\.username)? \}\)\)\._id/.test(rulesHelperSrc));
 });
 
 // --- the capability is documented (api.py + API docs) --------------------------
