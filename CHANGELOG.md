@@ -2338,6 +2338,24 @@ and compares the card's creation date.
 **Interface** - right-to-left layout, font scale, titles, pickers, task lists.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/831c7e65e">Keep every popup's resize grip in its bottom corner</a>. Thanks to xet7.</summary>
+
+The resize button could inherit full-width theme styling outside date and
+Board View Settings popups. Every popup now has a small transparent grip at
+bottom-right for LTR and bottom-left for RTL. Dragging or arrow keys resize
+from that corner while keeping the opposite edge fixed and staying inside
+the viewport. Shrinking scrolls the content instead of hiding the grip.
+
+The popup resize and calendar picker unit suites pass. Two isolated Chromium
+cases pass with the real popup styles and event handlers, covering LTR/RTL
+corners, full-width theme overrides, pointer growth and keyboard shrinking.
+The existing live RTL date-popup case now expects the left corner and passes
+syntax checking; it was not run because no application server was available.
+Existing Upcoming entries retain their recorded regression evidence.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/4ff3a2c91">Fix RTL offsets, a fixed font size and unsanitized time-view titles</a>. Thanks to xet7.</summary>
 
 The archive-chart tooltip and the menu-column popup used physical left/right
