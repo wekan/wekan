@@ -1530,6 +1530,21 @@ Boards.helpers({
       await Boards.updateAsync(_id, { $set: defaultsPatch });
     }
 
+    // Clone custom field definitions BEFORE any card is copied, and give card
+    // copy the old -> new id map. Cards used to be inserted with the source
+    // board's field ids and re-keyed afterwards; the admin-only field guard
+    // (AdminFieldBleed) refuses a card whose field belongs to another board,
+    // so every board copy with custom fields failed.
+    const cfMap = {};
+    const customFields = selection.customFields ? await ReactiveCache.getCustomFields({ boardIds: oldId }) : [];
+    for (const cf of customFields) {
+      const id = cf._id;
+      delete cf._id;
+      cf.boardIds = [_id];
+      cfMap[id] = await CustomFields.insertAsync(cf);
+    }
+    selection.customFieldIdMap = cfMap;
+
     // Copy all swimlanes in board. cardIdMap collects old card id -> new card
     // id so card-to-card dependencies (#3392 "Red Strings") can be remapped to
     // the copies once every card has been created.
@@ -1579,32 +1594,7 @@ Boards.helpers({
       }
     }
 
-    // copy custom field definitions
-    const cfMap = {};
-    const customFields = selection.customFields ? await ReactiveCache.getCustomFields({ boardIds: oldId }) : [];
-    for (const cf of customFields) {
-      const id = cf._id;
-      delete cf._id;
-      cf.boardIds = [_id];
-      cfMap[id] = await CustomFields.insertAsync(cf);
-    }
-    const cards = await ReactiveCache.getCards({ boardId: _id });
-    for (const card of cards) {
-      // Guard against a card with no customFields (the schema defaults it to []
-      // but a card copied via `.direct` / seeded raw can lack it) — otherwise
-      // `.map` throws and the whole board copy fails. Skip cards that have none,
-      // matching the `!this.customFields || !Array.isArray(...)` guard used
-      // elsewhere in this model.
-      if (!Array.isArray(card.customFields) || card.customFields.length === 0) continue;
-      await Cards.updateAsync(card._id, {
-        $set: {
-          customFields: card.customFields.map(cf => {
-            cf._id = cfMap[cf._id];
-            return cf;
-          }),
-        },
-      });
-    }
+    // Custom field definitions were cloned before the cards (see above).
 
     if (scrumExport) {
       const { importScrumTransfer } = require('/server/lib/scrumTransferImport');

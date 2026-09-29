@@ -1128,8 +1128,15 @@ Cards.helpers({
 
       // A scoped board copy clones definitions and remaps their IDs after the
       // cards exist. Do not share/mutate the source definitions on this path.
+      // A whole-board copy clones the definitions first and passes their new
+      // ids; a value whose field was not cloned is dropped, never left
+      // pointing at the source board's field.
+      const fieldIds = copyOptions && copyOptions.customFieldIdMap;
       cardData.customFields = copyOptions
-        ? (copyOptions.customFields ? (cardData.customFields || []).map(field => ({ ...field })) : [])
+        ? (copyOptions.customFields
+          ? (cardData.customFields || []).map(field => ({ ...field, _id: fieldIds ? fieldIds[field._id] : field._id }))
+            .filter(field => field._id)
+          : [])
         : await this.mapCustomFieldsToBoard.call({ customFields: cardData.customFields }, newBoard._id);
     }
 

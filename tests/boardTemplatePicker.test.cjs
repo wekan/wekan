@@ -48,10 +48,18 @@ test('board copies recreate custom fields and remap card values', () => {
   assert.match(copyOptions, /\{ key: 'customFields', label: 'custom-fields' \}/);
   assert.match(copyOptions, /if \(input === undefined\) return allBoardCopyOptions\(\);/,
     'a copy with no explicit selection (the template picker) keeps custom fields');
+  // The definitions are cloned BEFORE the cards and card copy re-keys the
+  // values while inserting: re-keying afterwards inserted cards pointing at the
+  // source board's fields, which the admin-only field guard refuses, so every
+  // board copy with custom fields failed.
   const cards = read('models/cards.js');
-  assert.match(cards, /\(copyOptions\.customFields \? \(cardData\.customFields \|\| \[\]\)\.map\(field => \(\{ \.\.\.field \}\)\) : \[\]\)/);
   assert.match(boards, /cf\.boardIds = \[_id\]/);
-  assert.match(boards, /cf\._id = cfMap\[cf\._id\]/);
+  assert.match(boards, /selection\.customFieldIdMap = cfMap;/);
+  assert.ok(boards.indexOf('selection.customFieldIdMap = cfMap;') < boards.indexOf('await swimlane.copy(_id'),
+    'definitions are cloned before any swimlane or card is copied');
+  assert.doesNotMatch(boards, /cf\._id = cfMap\[cf\._id\]/, 'no after-the-fact re-keying of inserted cards');
+  assert.match(cards, /_id: fieldIds \? fieldIds\[field\._id\] : field\._id/);
+  assert.match(cards, /\.filter\(field => field\._id\)/, 'a value whose field was not cloned is dropped');
 });
 
 console.log(`\nboardTemplatePicker: ${passed} tests passed`);
