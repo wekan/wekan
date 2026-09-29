@@ -64,3 +64,29 @@ test('universal API labels remain unchanged', () => {
 });
 
 console.log('\nupcomingJapaneseKoreanTranslations: ' + passed + ' tests passed');
+
+(async () => {
+  const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
+  const { execFileSync } = require('node:child_process');
+  const root = path.resolve(DATA, '../../..');
+  for (const code of japanese) {
+    const locale = read(code);
+    assert.deepStrictEqual(Object.keys(locale), Object.keys(en), code);
+    for (const key of Object.keys(en)) {
+      assert.deepStrictEqual(translationTokens(locale[key]), translationTokens(en[key]), `${code}:${key}`);
+    }
+    for (const key of ['filter-column-age-hint', 'scrum-total', 'sync-preview-saved',
+      'email-recovery-description', 'activity-recovery-busy', 'saml-login-not-started',
+      'r-rule-any-trigger-help', 'move-selection-before', 'move-selection-after']) {
+      assert.notStrictEqual(locale[key], en[key], `${code}:${key} remains English`);
+      assert.match(locale[key], /[\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}]/u, `${code}:${key}`);
+    }
+    assert.strictEqual(locale['blockly-LOGIC_BOOLEAN_TRUE'], '真');
+    assert.strictEqual(locale['blockly-LOGIC_BOOLEAN_FALSE'], '偽');
+    assert.strictEqual(locale['blockly-LOGIC_NULL'], 'null');
+    assert.deepStrictEqual(JSON.parse(execFileSync(process.execPath,
+      ['releases/translations/fill-translations.mjs', '--list', code],
+      { cwd: root, encoding: 'utf8' })), {});
+  }
+  console.log('Japanese source order, tokens, localized prose and completeness verified');
+})().catch(error => { console.error(error); process.exitCode = 1; });

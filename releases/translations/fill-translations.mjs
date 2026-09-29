@@ -83,6 +83,14 @@ const isEnglishVariant = code => /^en([_-].*)?$/.test(code) || code === 'en';
 // source-wide list would hide real work in every language.
 const LOCALE_INVARIANTS = {
   // Locale-specific shared vocabulary, not exemptions for English prose.
+  // Japanese keyboard legends, product names, null and mathematical symbols.
+  ...Object.fromEntries(['ja', 'ja-JP', 'ja-HI'].map(code => [code, new Set([
+    'blockly-ALT_KEY', 'blockly-CHROME_OS', 'blockly-COMMAND_KEY',
+    'blockly-END_KEY', 'blockly-ENTER_KEY', 'blockly-LINUX', 'blockly-LOGIC_NULL',
+    'blockly-MAC_OS', 'blockly-MATH_TRIG_ACOS', 'blockly-MATH_TRIG_ASIN',
+    'blockly-MATH_TRIG_ATAN', 'blockly-MATH_TRIG_COS', 'blockly-MATH_TRIG_SIN',
+    'blockly-MATH_TRIG_TAN', 'blockly-OPTION_KEY', 'blockly-WINDOWS',
+  ])])),
   // Korean keyboard legends, product name and mathematical function symbols.
   ...Object.fromEntries(['ko', 'ko-KR'].map(code => [code, new Set([
     'blockly-ALT_KEY', 'blockly-CAPS_LOCK_KEY', 'blockly-END_KEY',
