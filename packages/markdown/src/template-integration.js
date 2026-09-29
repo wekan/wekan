@@ -3,7 +3,7 @@ import MarkdownIt from 'markdown-it';
 import * as markdownItEmoji from 'markdown-it-emoji';
 import markdownItMath from 'markdown-it-math/no-default-renderer';
 import temml from 'temml';
-import { getSecureDOMPurifyConfig } from './secureDOMPurify';
+import { secureSanitize } from './secureDOMPurify';
 import { Blaze } from 'meteor/blaze';
 import { HTML } from 'meteor/htmljs';
 import { Template } from 'meteor/templating';
@@ -518,7 +518,7 @@ Blaze.Template.registerHelper('markdown', new Template('markdown', function () {
     const warn = hasHiddenLink
       ? 'Warning! Hidden markdown link description!'
       : 'Code shown as plain text';
-    return HTML.Raw('<pre' + style + ' title="' + warn + '" aria-label="' + warn + '">' + DOMPurify.sanitize(escaped, getSecureDOMPurifyConfig()) + '</pre>');
+    return HTML.Raw('<pre' + style + ' title="' + warn + '" aria-label="' + warn + '">' + secureSanitize(DOMPurify, escaped) + '</pre>');
   } else {
     // Prevent hiding info: https://wekan.github.io/hall-of-fame/invisiblebleed/
     // If text does not have hidden markdown link, render all markdown.
@@ -553,14 +553,14 @@ Blaze.Template.registerHelper('markdown', new Template('markdown', function () {
         Markdown.resolveCardTitle,
       );
       const renderedMarkdown = Markdown.render(textWithCardLinks).replace('<!--', '<font color="red" title="Warning! Hidden HTML comment!" aria-label="Warning! Hidden HTML comment!">&lt;!--</font>').replace('-->', '<font color="red" title="Warning! Hidden HTML comment!" aria-label="Warning! Hidden HTML comment!">--&gt;</font>');
-      sanitized = DOMPurify.sanitize(renderedMarkdown, getSecureDOMPurifyConfig());
+      sanitized = secureSanitize(DOMPurify, renderedMarkdown);
     } catch (error) {
       const message = (error && error.message) ? error.message : String(error);
       // eslint-disable-next-line no-console
       console.error('[markdown] rendering failed, showing the text as-is:', message);
       const title = 'This text could not be formatted, so it is shown as it was written';
       sanitized = '<pre title="' + title + '" aria-label="' + title + '">'
-        + DOMPurify.sanitize(escapeHtmlSource(text), getSecureDOMPurifyConfig()) + '</pre>';
+        + secureSanitize(DOMPurify, escapeHtmlSource(text)) + '</pre>';
     }
     return HTML.Raw(sanitized);
   }

@@ -30,8 +30,8 @@ export function getSecureDOMPurifyConfig() {
     // Allow common markdown elements including anchor tags, plus MathML for Temml math.
     // wekan/wekan#2419: 'input' is allowed so a GFM task-list checkbox
     // ("- [ ] Task") survives sanitization as a real, disabled <input
-    // type="checkbox">; uponSanitizeAttribute below still restricts it to
-    // exactly that shape (type=checkbox only, no name/value/form attributes).
+    // type="checkbox">; the onlyTaskCheckboxes hook below still restricts it to
+    // exactly that shape (a disabled checkbox with no name/value/form).
     ALLOWED_TAGS: ['a', 'p', 'br', 'strong', 'em', 'u', 's', 'del', 'strike', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li', 'blockquote', 'pre', 'code', 'img', 'table', 'thead', 'tbody', 'tr', 'th', 'td', 'hr', 'div', 'span', 'input', ...MATHML_TAGS],
     // Allow safe attributes including href for anchor tags, plus MathML presentation attributes.
     // 'type', 'checked', 'disabled' are for the task-list checkbox above (#2419).
@@ -55,147 +55,43 @@ export function getSecureDOMPurifyConfig() {
     FORBID_ATTR: ['xlink:href', 'onload', 'onerror', 'onclick', 'onmouseover', 'onfocus', 'onblur', 'onchange', 'onsubmit', 'onreset', 'onselect', 'onunload', 'onresize', 'onscroll', 'onkeydown', 'onkeyup', 'onkeypress', 'onmousedown', 'onmouseup', 'onmouseover', 'onmouseout', 'onmousemove', 'ondblclick', 'oncontextmenu', 'onwheel', 'ontouchstart', 'ontouchend', 'ontouchmove', 'ontouchcancel', 'onabort', 'oncanplay', 'oncanplaythrough', 'ondurationchange', 'onemptied', 'onended', 'onerror', 'onloadeddata', 'onloadedmetadata', 'onloadstart', 'onpause', 'onplay', 'onplaying', 'onprogress', 'onratechange', 'onseeked', 'onseeking', 'onstalled', 'onsuspend', 'ontimeupdate', 'onvolumechange', 'onwaiting', 'onbeforeunload', 'onhashchange', 'onpagehide', 'onpageshow', 'onpopstate', 'onstorage', 'onunload', 'style', 'class', 'id', 'data-*', 'aria-*'],
     // Block data URIs that could contain malicious content
     ALLOW_DATA_ATTR: false,
-    // Custom hooks for additional security
-    HOOKS: {
-      uponSanitizeElement: function(node, data) {
-        // Block any remaining dangerous elements
-        const dangerousTags = ['svg', 'style', 'script', 'link', 'meta', 'iframe', 'object', 'embed', 'applet'];
-        if (node.tagName && dangerousTags.includes(node.tagName.toLowerCase())) {
-          if (process.env.DEBUG === 'true') {
-            console.warn('Blocked potentially dangerous element:', node.tagName);
-          }
-          return false;
-        }
-
-        // Block img tags with SVG data URIs that could contain malicious JavaScript
-        if (node.tagName && node.tagName.toLowerCase() === 'img') {
-          const src = node.getAttribute('src');
-          if (src) {
-            // Block all SVG data URIs to prevent XSS via embedded JavaScript
-            if (src.startsWith('data:image/svg') || src.endsWith('.svg')) {
-              if (process.env.DEBUG === 'true') {
-                console.warn('Blocked potentially malicious SVG image:', src);
-              }
-              return false;
-            }
-            
-            // Additional check for base64 encoded SVG with script tags
-            if (src.startsWith('data:image/svg+xml;base64,')) {
-              try {
-                const base64Content = src.split(',')[1];
-                const decodedContent = atob(base64Content);
-                if (decodedContent.includes('<script') || decodedContent.includes('javascript:')) {
-                  if (process.env.DEBUG === 'true') {
-                    console.warn('Blocked SVG with embedded JavaScript:', src.substring(0, 100) + '...');
-                  }
-                  return false;
-                }
-              } catch (e) {
-                // If decoding fails, block it as a safety measure
-                if (process.env.DEBUG === 'true') {
-                  console.warn('Blocked malformed SVG data URI:', src);
-                }
-                return false;
-              }
-            }
-          }
-        }
-
-        // Block elements with dangerous attributes. For MathML (Temml math
-        // output) a bare `style` attribute must NOT delete the whole element —
-        // that would silently drop the entire formula. The attribute itself is
-        // still stripped by uponSanitizeAttribute below, so CSS-injection
-        // protection is preserved; only event handlers remove MathML elements.
-        const isMathML = node.namespaceURI === 'http://www.w3.org/1998/Math/MathML';
-        const dangerousAttrs = isMathML
-          ? ['onload', 'onerror', 'onclick', 'onmouseover', 'onfocus', 'onblur']
-          : ['style', 'onload', 'onerror', 'onclick', 'onmouseover', 'onfocus', 'onblur'];
-        for (const attr of dangerousAttrs) {
-          if (node.hasAttribute && node.hasAttribute(attr)) {
-            if (process.env.DEBUG === 'true') {
-              console.warn('Blocked element with dangerous attribute:', node.tagName, attr);
-            }
-            return false;
-          }
-        }
-
-        // wekan/wekan#2419: an <input> element may only be the task-list
-        // checkbox this package itself emits - a plain, disabled checkbox
-        // with no name/value/form. Anything else (a text/password/file
-        // input, or one carrying name/value/formaction) is dropped rather
-        // than let through as a harmless-looking form control.
-        if (node.tagName && node.tagName.toLowerCase() === 'input') {
-          const type = (node.getAttribute('type') || '').toLowerCase();
-          if (type !== 'checkbox' || node.hasAttribute('name') || node.hasAttribute('value')
-            || node.hasAttribute('form') || node.hasAttribute('formaction')) {
-            if (process.env.DEBUG === 'true') {
-              console.warn('Blocked non-checkbox or form-carrying input element');
-            }
-            return false;
-          }
-        }
-
-        return true;
-      },
-      uponSanitizeAttribute: function(node, data) {
-        // Task-list checkbox (#2419): only ever "checkbox" - never
-        // text/password/file/etc, which could otherwise render a live form
-        // control out of card text.
-        if (data.attrName === 'type' && node.tagName && node.tagName.toLowerCase() === 'input') {
-          if (data.attrValue !== 'checkbox') {
-            if (process.env.DEBUG === 'true') {
-              console.warn('Blocked non-checkbox input type:', data.attrValue);
-            }
-            return false;
-          }
-        }
-
-        // Block style attributes completely
-        if (data.attrName === 'style') {
-          if (process.env.DEBUG === 'true') {
-            console.warn('Blocked style attribute');
-          }
-          return false;
-        }
-
-        // Block class and id attributes that might be used for CSS injection
-        if (data.attrName === 'class' || data.attrName === 'id') {
-          if (process.env.DEBUG === 'true') {
-            console.warn('Blocked class/id attribute:', data.attrName, data.attrValue);
-          }
-          return false;
-        }
-
-        // Block data attributes
-        if (data.attrName && data.attrName.startsWith('data-')) {
-          if (process.env.DEBUG === 'true') {
-            console.warn('Blocked data attribute:', data.attrName);
-          }
-          return false;
-        }
-
-        // Allow href attribute for anchor tags only
-        if (data.attrName === 'href') {
-          // Only allow href on anchor tags
-          if (node.tagName && node.tagName.toLowerCase() === 'a') {
-            return true;
-          } else {
-            if (process.env.DEBUG === 'true') {
-              console.warn('Blocked href attribute on non-anchor element:', node.tagName);
-            }
-            return false;
-          }
-        }
-
-        return true;
-      }
-    }
+    // Element and attribute rules that the lists above cannot express are
+    // DOMPurify hooks, installed around each call by secureSanitize() below.
+    // (A HOOKS key in this object would be ignored: DOMPurify has no such
+    // option, which is how the #2419 checkbox rule silently never ran.)
   };
+}
+
+// wekan/wekan#2419: an <input> may only be the task-list checkbox markdown
+// emits - a plain, disabled checkbox. A text/password/file field in card text
+// would be a live control somebody could type a password into.
+// An element hook drops an element by removing it from the tree; its return
+// value is ignored.
+function onlyTaskCheckboxes(node) {
+  if (!node.nodeName || node.nodeName.toLowerCase() !== 'input') return;
+  const type = (node.getAttribute('type') || '').toLowerCase();
+  if (type !== 'checkbox' || node.hasAttribute('name') || node.hasAttribute('value')
+    || node.hasAttribute('form') || node.hasAttribute('formaction')) {
+    node.parentNode.removeChild(node);
+    return;
+  }
+  node.setAttribute('disabled', '');
+}
+
+// Sanitize with this package's config and hooks. The hooks are added for this
+// call only, so other DOMPurify users in the app are not affected.
+export function secureSanitize(purifier, html, config = getSecureDOMPurifyConfig()) {
+  purifier.addHook('afterSanitizeAttributes', onlyTaskCheckboxes);
+  try {
+    return purifier.sanitize(html, config);
+  } finally {
+    purifier.removeHook('afterSanitizeAttributes', onlyTaskCheckboxes);
+  }
 }
 
 // Convenience function for secure sanitization
 export function sanitizeHTML(html) {
-  return DOMPurify.sanitize(html, getSecureDOMPurifyConfig());
+  return secureSanitize(DOMPurify, html);
 }
 
 // Convenience function for sanitizing text (no HTML)

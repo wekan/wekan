@@ -684,6 +684,22 @@ a:not(.disabled).is-active i.fa {
 .viewer em {
   font-style: italic;
 }
+/* wekan/wekan#2419: a GFM task-list item ("- [ ] Task") renders a disabled
+   native checkbox, which forms.css would otherwise hide like every bare
+   checkbox in the app. */
+.viewer input[type="checkbox"]:not(:checked),
+.viewer input[type="checkbox"]:checked {
+  display: inline-block;
+  visibility: visible;
+  position: static;
+  inset-inline-start: auto;
+  width: 14px;
+  height: 14px;
+  margin: 0;
+  margin-inline-end: 6px;
+  vertical-align: middle;
+  appearance: auto;
+}
 .viewer pre,
 .viewer code {
   padding: 10px 12px 7px;

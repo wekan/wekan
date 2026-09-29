@@ -188,7 +188,9 @@ test('the viewer never lets a render failure close the card (negative)', () => {
   const catchBlock = helper.slice(helper.indexOf('} catch (error)'));
   assert.ok(/escapeHtmlSource\(text\)/.test(catchBlock),
     'and the fallback shows the text as written, rather than an empty card');
-  assert.ok(/DOMPurify\.sanitize/.test(catchBlock),
+  // secureSanitize(DOMPurify, ...) is DOMPurify.sanitize with the package's
+  // hooks installed around it (#2419); a bare sanitize call would skip them.
+  assert.ok(/secureSanitize\(DOMPurify, /.test(catchBlock),
     'still sanitized: a render that failed is not a reason to inject raw text');
   assert.ok(!/return;\s*}/.test(catchBlock.slice(0, 200)),
     'and it must RETURN something - returning nothing is the blank panel again');
