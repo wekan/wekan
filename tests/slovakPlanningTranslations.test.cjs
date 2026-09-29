@@ -2,14 +2,14 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
+const { spawnSync } = require('node:child_process');
 const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports/i18n/data/' + code + '.i18n.json'), 'utf8'));
 (async () => {
   const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
   const en = read('en'), sk = read('sk');
-  // Synchronization and recovery entries are still pending in this locale.
-  assert.deepEqual(Object.keys(sk), Object.keys(en).filter(key => key in sk));
+  assert.deepEqual(Object.keys(sk), Object.keys(en));
   for (const key of Object.keys(en)) {
-    if (key in sk) assert.deepEqual(translationTokens(sk[key]), translationTokens(en[key]), key);
+    assert.deepEqual(translationTokens(sk[key]), translationTokens(en[key]), key);
     if (/^(filter-recency-|filter-date-range-|filter-column-age|filter-preset|scrum-)/.test(key)
       && key !== 'scrum-master') {
       assert.ok(sk[key]?.trim(), key);
@@ -34,5 +34,20 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
   for (const scheme of ['thunderlink', 'onenote', 'javascript', 'data', 'vbscript']) {
     assert.equal(sk['automatic-linked-url-schemes-hint'].split(scheme).length - 1, 1, scheme);
   }
-  console.log('Slovak planning, filter and visibility prose preserves source tokens and restrictions');
+  for (const key of Object.keys(en).filter(key => /^(sync-|email-recovery-|email-failure-|activity-recovery-|rule-email-recovery-|notification-activity-)/.test(key))) {
+    assert.ok(sk[key]?.trim(), key);
+    assert.notEqual(sk[key], en[key], key);
+  }
+  assert.match(sk['sync-conflict-hint'], /Do zdrojového systému sa nič neposiela/);
+  assert.match(sk['activity-recovery-cancel-confirm'], /Nedá sa znova obnoviť/);
+  assert.match(sk['email-recovery-confirm-cancel'], /Nové správy.*zostanú zachované/);
+  assert.match(sk['notification-activity-description'], /Pripomenutia termínov a @zmienky prichádzajú vždy/);
+  assert.notEqual(sk['move-selection-before'], sk['move-selection-after']);
+  assert.equal(sk['blockly-LOGIC_TERNARY_CONDITION'], 'podmienka');
+  const inventory = spawnSync(process.execPath,
+    ['releases/translations/fill-translations.mjs', '--list', 'sk'],
+    { cwd: path.resolve(__dirname, '..'), encoding: 'utf8' });
+  assert.equal(inventory.status, 0, inventory.stderr);
+  assert.deepEqual(JSON.parse(inventory.stdout), {});
+  console.log('Slovak source keys, tokens, notification and recovery warning meanings verified');
 })().catch(error => { console.error(error); process.exitCode = 1; });
