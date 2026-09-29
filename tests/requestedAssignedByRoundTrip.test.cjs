@@ -151,7 +151,10 @@ test("Jira's Reporter arrives as Requested By", () => {
 
 test("an issue tracker's author arrives as Requested By", () => {
   const parsers = read('models/lib/externalParsers.js');
-  const kanboard = read('models/kanboardCreator.js');
+  // KanboardCreator writes what models/lib/importedTaskPlan.js plans, so the
+  // read moved there when the creator started inserting the whole plan.
+  const kanboard = read('models/lib/importedTaskPlan.js');
+  assert.match(read('models/kanboardCreator.js'), /\.\.\.plan\.card/);
   assert.ok(/requested_by: \(issue\.user/.test(parsers),
     'GitHub, Gitea and Forgejo: whoever opened the issue');
   assert.ok(/requested_by: issue\.author/.test(parsers), 'GitLab: the same by another name');
@@ -161,7 +164,7 @@ test("an issue tracker's author arrives as Requested By", () => {
 
 test('a source without the field imports nothing for it (negative)', () => {
   // Trello and CSV have no such concept; they must not invent one.
-  const kanboard = read('models/kanboardCreator.js');
+  const kanboard = read('models/lib/importedTaskPlan.js');
   assert.ok(/if \(task\.requested_by\)/.test(kanboard),
     'the field is set only when the source had one');
   const trello = read('models/trelloCreator.js');

@@ -1601,17 +1601,20 @@ browser build to verify).
 docs/Features/ImportExport/Format-Coverage.md is the design contract for every
 import/export format. Trello, the canonical WeKan zip, CSV/TSV, XLSX and PDF/
 HTML/SVG already meet it, each with real code and tests. GitHub/Gitea/Forgejo
-was brought up to it this round (second assignee, milestone, state reason,
-comments, an `unsupported` loss report). Six formats in
-models/lib/externalParsers.js / externalExporters.js are still the thin,
-intentionally best-effort stub each got when the shared import/export
-plumbing (validation boundary, checkpoints, one import page) landed: Jira
-(no ADF description, no custom fields, no pagination), Kanboard (no
-subtasks/comments), NextCloud Deck (no ACL/attachments/comments), OpenProject
-(no hierarchy/relations/watchers/custom fields), Asana (no
-subtasks/dependencies/stories/custom-field values) and Zenkit (no hierarchy/
-members/item-level custom fields, no loss report). Each needs its own
-fixture/spec pass, the way GitHub just got one - not a shared shallow bump.
+was brought up to it earlier (second assignee, milestone, state reason,
+comments, an `unsupported` loss report). The Jira, Kanboard, Nextcloud Deck,
+OpenProject, Asana and Zenkit IMPORT adapters now have their own fixture/spec
+passes (see Upcoming): comments, subtasks/hierarchy, dependencies, custom
+fields, dates, members and a loss report recorded in Problems → Recovery.
+Still open for them: (1) the import page does not show the loss report
+itself - that needs a new translated string in every locale, and translation
+is outside the current work queue (see the note at the top of TODO Later);
+(2) file CONTENTS - these JSON sources carry
+attachment metadata only, so bytes need live API connectors with credentials;
+(3) Deck sharing rules, OpenProject watchers and Asana followers have no
+safe mapping (an import never grants access); (4) Zenkit's native
+single-file export is unverified because Zenkit publishes no schema; (5) the
+matching EXPORT formatters in externalExporters.js were not revisited.
 
 Additional formats named but not yet researched or built: the Leo literate
 editor's `.leo` outline format, and whatever else other kanban/outline tools
@@ -1629,14 +1632,13 @@ the Markdown commit as the template.
 
 # Upcoming WeKan ® release
 
-**In short:** **Security** blocks private-child disclosure through card copying.
-Card copies also reject invalid destinations. **Pulse** adds an annual
-archived-card contribution grid with
-colored label tooltips and assigned-only counts. **Scrum History recovery**
-retains completion evidence before
-removing its checkpoint. API callers can supply request IDs to retry Scrum
-undo/redo without selecting another change. Keyboard recovery and shared
-writer coordination remain in development.
+**In short:** **Security** blocks private-child disclosure through card copying,
+and card copies reject invalid destinations. **Pulse** adds an annual
+archived-card contribution grid. **Scrum History recovery** retains completion
+evidence, and API callers can retry undo/redo by request ID. **Imports** from
+Kanboard, Nextcloud Deck, OpenProject, Asana, Zenkit and Jira now bring
+comments, subtasks, custom fields, hierarchy and dates, keep source creation
+dates, parse only sanitized input and report what they could not import.
 
 This release fixes the following CRITICAL SECURITY ISSUE of [CopyIdentityBleed](https://wekan.fi/hall-of-fame/copyidentitybleed/):
 
@@ -1816,6 +1818,162 @@ fingerprint warnings. Existing Upcoming regression evidence remains recorded.
 Record explicit resumption of non-translation work. Cross-document writer
 coordination, durable completion receipts and recovery after an uncertain final
 read remain in TODO Later. This readback does not make restoration atomic.
+
+</details>
+
+and brings the external imports up to their format contracts:
+
+**External imports** - Kanboard, Nextcloud Deck, OpenProject, Asana, Zenkit and
+Jira keep what each source has a WeKan place for, and report the rest.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bc153a99f">Every external import can bring checklists, comments, dates, archive state and colors</a>. Thanks to xet7.</summary>
+
+All non-Trello, non-WeKan imports go through KanboardCreator, which wrote a card
+and nothing else. A pure planner, `models/lib/importedTaskPlan.js`, now decides
+what a normalized task becomes; the creator inserts checklists, comments with
+their `addComment` activities, and start, end and creation dates, archive
+state, card color and time spent. A comment by an unmapped author is posted by
+the importing user, with the author's name leading the text. Dates that do not
+parse, and Kanboard's `0` for "no date", are no longer stored as Invalid Date
+or 1970. Later commits add several assignees, source order, custom fields,
+hierarchy and dependencies to the same planner.
+
+Seven new Node suites (`importedTaskPlan`, `kanboardImport`, `deckImport`,
+`openProjectImport`, `asanaImport`, `zenkitImport`, `jiraIssueExtras`) cover
+each format's mapping with positive and negative cases. In Chromium,
+`import-export-format-audit.e2e.js` imports every fixture through the real UI
+and reads comments, checklist items, custom fields, labels, dates, parents and
+dependencies back from the database and the opened card; all 38 cases pass.
+Firefox and WebKit were not run.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ba4157ec1">Kanboard imports subtasks, comments, categories, colors and dates</a>. Thanks to xet7.</summary>
+
+The assembled JSON-RPC document used to reach the creator unparsed, so only
+fields Kanboard spells like the shared task shape survived, and a task with
+only `column_id` landed in the first list. `parseKanboard` resolves column,
+swimlane and category ids, makes subtasks a checklist, keeps comments by
+author, archives closed tasks, maps Kanboard color ids onto the WeKan palette,
+and keeps start, completion and creation dates, time spent, priority and the
+task URL. Estimates, files and task links are reported.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5035b7aa2">Nextcloud Deck imports every assignee, comments, order and archive state</a>. Thanks to xet7.</summary>
+
+The Deck parser kept one assignee and label names. It now keeps every mapped
+assignee, comments from the OCS comments API, archive, done and creation
+times, and stack and card order; trashed stacks and cards are skipped.
+Sharing rules never become board members, because a file naming a user must
+not grant access. External imports now keep the source card order instead of
+sorting every card at 0.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/29785fcd2">OpenProject imports custom fields, comments, hierarchy and relations</a>. Thanks to xet7.</summary>
+
+The parser now reads start and creation dates, spent time from ISO 8601
+durations, priority, category, version, responsible and author, embedded
+comments, the parent hierarchy and embedded relations. Custom fields take their
+names from embedded schemas, and estimated time and progress become number
+fields. The creator makes one typed board custom field per source field and
+links parents and dependencies once every card exists. Links resolve only
+within one import; unknown targets, duplicate ids and parent cycles are
+reported, never guessed.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1d32801cf">Asana imports custom fields, comments, subtasks and dependencies</a>. Thanks to xet7.</summary>
+
+The parser now keeps start, completion and creation dates, custom-field values
+of every Asana kind (number, text, enum, multi-enum, date, people and formula
+display values), comment stories, dependencies as blocking links and the task
+permalink. Subtasks fetched as tasks become child cards; subtasks only embedded
+on their parent become a checklist. Followers and attachments are reported.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/13ea3e9c6">Zenkit imports API entries, hierarchy, members, fields and checklists</a>. Thanks to xet7.</summary>
+
+Zenkit publishes no single-file JSON export schema. Besides the adapter shape,
+the parser now reads Zenkit API entries and elements with the value keys the
+zenkit API client documents: stages, labels, description, dates, persons,
+hierarchy, dependencies, text/number/date fields, checklists, creation dates
+and order. Files, formulas, cross-list references, comments and element kinds
+with no documented value format are reported rather than guessed. The adapter
+shape gains parents, several assignees, fields, comments and checklists, and
+reports keys it does not know. Native single-file export compatibility remains
+unverified.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/be13dd663">Jira imports comments, sub-tasks, parents, custom fields and more labels</a>. Thanks to xet7.</summary>
+
+JiraCreator now imports comments with ADF bodies as text, shown by display name
+and posted by the mapped account; links sub-tasks and child issues imported
+together to their parent, listing the others as a Sub-tasks checklist; makes
+priority, components and fix versions labels; imports `customfield_` values
+named from the search response's `names` map, except the mapped estimate
+field; and keeps the search order instead of sorting every card at -1.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/50a24abce">Record what an external import could not bring over in Problems → Recovery</a>. Thanks to xet7.</summary>
+
+Parsers and the planner returned `unsupported` and `warnings` entries, but
+nothing stored them, so an import that dropped sharing rules or a parent
+outside the file looked complete. The external creators now record one bounded
+`import-completed-with-warnings` Recovery row with the board, the importing
+user and the first paths and reasons; a complete import records none, and a
+member cannot read the row while an administrator can (Node and Chromium
+tests). The import page does not show the report yet: that needs a new
+translated string.
+
+</details>
+
+and fixes the following import bugs:
+
+**Import boundary** - continue with what the boundary returns.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/94115454c">Parse and store only the sanitized import value</a>. Thanks to xet7.</summary>
+
+The shared import boundary returns a new value with prototype keys and active
+markup removed; it does not clean its argument. The Deck, OpenProject, GitHub,
+GitLab, Gitea/Forgejo, Asana, Zenkit and Markdown branches parsed the raw
+upload instead, so cards kept the markup that Admin Panel → Problems recorded
+as sanitized. The Trello API import named its workspace and job result from
+the raw board the same way. Rendering still passes through the viewer's
+sanitizer, so no script execution was reproduced; this restores the boundary's
+defence in depth. A source test flags any import-direction boundary whose raw
+input is used afterwards anywhere under `models/` or `server/`, and proves its
+detector finds the code as it was before.
+
+</details>
+
+**Import dates** - keep when things were created.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b6d695a62">Keep source creation dates on imported boards, cards, comments and lists</a>. Thanks to xet7.</summary>
+
+Every schema's `createdAt` autoValue replaces the value on insert, and
+collection2 cleans the inserted document in place. The WeKan, Trello, Jira and
+Kanboard importers passed each source creation date to such an insert, so the
+earlier #1992 restoration and Trello's board, card, list and comment dates were
+reset to the import time: a WeKan export of a card created in 2020 re-imported
+as created today. `writeImportedEntity` now reads `createdAt` before inserting
+and writes it back through the raw collection; a source audit requires every
+dated creator insert to use it, and a browser test re-imports a WeKan export
+and compares the card's creation date.
 
 </details>
 
