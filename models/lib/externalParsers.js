@@ -29,6 +29,107 @@ function uniq(arr) {
   return [...new Set(arr.filter(Boolean))];
 }
 
+// --- Kanboard ---------------------------------------------------------------
+// Kanboard has no single-file export; its JSON-RPC API is assembled into
+// { board, columns, swimlanes, categories, tasks }, each task carrying what
+// getAllSubtasks / getAllComments / getTaskTags / getAllTaskFiles /
+// getAllTaskLinks returned for it. Ids resolve through the sibling arrays so
+// a task with only column_id/swimlane_id/category_id still lands correctly.
+const KANBOARD_COLORS = {
+  yellow: 'yellow', blue: 'blue', green: 'green', purple: 'purple', red: 'red',
+  orange: 'orange', grey: 'gray', brown: 'saddlebrown', deep_orange: 'crimson',
+  dark_grey: 'black', pink: 'pink', teal: 'paleturquoise', cyan: 'sky',
+  lime: 'lime', light_green: 'darkgreen', amber: 'gold',
+};
+
+function byId(items, nameKeys) {
+  const map = {};
+  (Array.isArray(items) ? items : []).forEach(item => {
+    if (!item || item.id === undefined || item.id === null) return;
+    const name = nameKeys.map(k => item[k]).find(v => typeof v === 'string' && v);
+    if (name) map[String(item.id)] = name;
+  });
+  return map;
+}
+
+function kanboardTags(tags) {
+  if (Array.isArray(tags)) return tags.map(t => (typeof t === 'string' ? t : t && t.name)).filter(Boolean);
+  // getTaskTags returns { "<tag id>": "<name>" }.
+  if (tags && typeof tags === 'object') return Object.values(tags).filter(t => typeof t === 'string' && t);
+  return [];
+}
+
+export function parseKanboard(data) {
+  const columnNames = byId(data.columns, ['title', 'name']);
+  const swimlaneNames = byId(data.swimlanes, ['name', 'title']);
+  const categoryNames = byId(data.categories, ['name']);
+  const unsupported = [];
+  const rawTasks = Array.isArray(data) ? data : Array.isArray(data.tasks) ? data.tasks : [];
+  const tasks = rawTasks.map((task, index) => {
+    const at = `/tasks/${index}`;
+    const tags = kanboardTags(task.tags);
+    const category = task.category_name || categoryNames[String(task.category_id)];
+    if (category) tags.push(category);
+    const priority = Number(task.priority);
+    if (Number.isFinite(priority) && priority > 0) tags.push(`priority:${priority}`);
+    const subtasks = Array.isArray(task.subtasks) ? task.subtasks : [];
+    const estimated = Number(task.time_estimated);
+    if (Number.isFinite(estimated) && estimated > 0) {
+      unsupported.push({ path: `${at}/time_estimated`, reason: 'WeKan cards have no estimate field; map it to a custom field by hand' });
+    }
+    for (const key of ['files', 'links', 'external_links']) {
+      if (Array.isArray(task[key]) && task[key].length) {
+        unsupported.push({
+          path: `${at}/${key}`,
+          reason: key === 'files'
+            ? `${task[key].length} file(s): the API export carries metadata, not file contents`
+            : `${task[key].length} task link(s) are not imported`,
+        });
+      }
+    }
+    const footer = task.url ? `Source: ${task.url}` : '';
+    return {
+      title: task.title || 'Imported task',
+      description: [task.description || '', footer].filter(Boolean).join('\n\n'),
+      column_name: task.column_name || task.column_title || columnNames[String(task.column_id)],
+      swimlane_name: task.swimlane_name || swimlaneNames[String(task.swimlane_id)],
+      date_due: task.date_due,
+      date_started: task.date_started,
+      date_end: task.date_completed,
+      date_creation: task.date_creation,
+      archived: task.is_active === '0' || task.is_active === 0 || task.is_active === false,
+      color: KANBOARD_COLORS[task.color_id] || undefined,
+      spent_hours: task.time_spent,
+      owner_id: task.owner_id,
+      owner_username: task.owner_username || task.assignee_username,
+      owner_name: task.owner_name || task.assignee_name,
+      requested_by: task.creator_username || task.creator_name || undefined,
+      tags: uniq(tags),
+      checklists: subtasks.length ? [{
+        title: 'Subtasks',
+        items: subtasks.map(sub => ({ title: sub && sub.title, done: String(sub && sub.status) === '2' })),
+      }] : [],
+      comments: (Array.isArray(task.comments) ? task.comments : []).map(comment => ({
+        text: comment && comment.comment,
+        author: comment && (comment.username || comment.name),
+        date: comment && comment.date_creation,
+      })),
+    };
+  });
+  return {
+    board: { name: (data.board && (data.board.name || data.board.title)) || data.name || 'Imported Kanboard project' },
+    columns: Array.isArray(data.columns) && data.columns.length
+      ? data.columns.map(c => ({ title: c.title || c.name })).filter(c => c.title)
+      : uniq(tasks.map(t => t.column_name)).map(title => ({ title })),
+    swimlanes: Array.isArray(data.swimlanes) && data.swimlanes.length
+      ? data.swimlanes.map(s => ({ name: s.name || s.title })).filter(s => s.name)
+      : [{ name: 'Default' }],
+    tasks,
+    warnings: [],
+    unsupported,
+  };
+}
+
 // --- NextCloud Deck ---------------------------------------------------------
 // Accepts a Deck board with stacks (each stack carries its cards), e.g. the
 // shape returned by the Deck REST API (GET /boards/{id} + /stacks).
@@ -376,6 +477,7 @@ export function parseJira(data) {
 
 // Map an import source name to its parser (forgejo reuses the Gitea parser).
 export const EXTERNAL_PARSERS = {
+  kanboard: parseKanboard,
   deck: parseNextcloudDeck,
   openproject: parseOpenProject,
   github: parseGithub,

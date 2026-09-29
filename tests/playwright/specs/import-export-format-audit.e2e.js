@@ -52,6 +52,52 @@ for (const source of sources) {
   });
 }
 
+// What each external adapter now preserves beyond title/description/due/label,
+// imported through the real UI and read back from the database.
+const FIDELITY = {
+  kanboard: {
+    comments: [`kanboard-user: ${expected.comment}`],
+    checklistItems: [['Audit subtask done', true], ['Audit subtask open', false]],
+    card: card => {
+      expect(card.color).toBe('crimson');
+      expect(card.spentTime).toBe(1.5);
+      expect(new Date(card.startAt).toISOString()).toBe('2026-09-01T00:00:00.000Z');
+      expect(card.archived).toBe(false);
+    },
+    labels: ['Audit category', 'priority:2'],
+  },
+};
+
+for (const [source, want] of Object.entries(FIDELITY)) {
+  test(`${source}: comments, checklists and card fields survive a UI import`, async ({ loggedInPage: page }) => {
+    let boardId;
+    try {
+      await navigateInApp(page, `/import/${source}`);
+      await page.locator('#import-textarea').fill(JSON.stringify(read(source)));
+      await page.locator('.js-import-without-mapping').click();
+      await page.waitForURL(/\/b\//);
+      boardId = page.url().match(/\/b\/([^/]+)/)[1];
+      const card = db.findOne('cards', { boardId });
+      const comments = db.find('card_comments', { boardId });
+      expect(comments.map(c => c.text).sort()).toEqual([...want.comments].sort());
+      expect(comments.every(c => c.cardId === card._id)).toBe(true);
+      const activities = db.find('activities', { boardId, activityType: 'addComment' });
+      expect(activities).toHaveLength(want.comments.length);
+      const items = db.find('checklistItems', { boardId }).sort((a, b) => a.sort - b.sort);
+      expect(items.map(i => [i.title, i.isFinished])).toEqual(want.checklistItems);
+      expect(items.every(i => i.cardId === card._id)).toBe(true);
+      want.card(card);
+      const board = db.findOne('boards', { _id: boardId });
+      const names = board.labels.filter(l => card.labelIds.includes(l._id)).map(l => l.name);
+      for (const label of want.labels) expect(names).toContain(label);
+      // The comment and checklist are visible in the opened card, not only stored.
+      await page.locator('.minicard').first().click();
+      await expect(page.locator('.js-checklist-item').first()).toBeVisible();
+      await expect(page.locator('.comment-text').first()).toContainText(expected.comment);
+    } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
+  });
+}
+
 test('Trello ZIP imports comment, checklist and exact attachment bytes; JSON round-trip preserves them', async ({ loggedInPage: page, user }, info) => {
   test.setTimeout(90000);
   const JSZip = require('jszip');

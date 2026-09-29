@@ -107,6 +107,10 @@ Meteor.methods({
         break;
       case 'kanboard':
         check(board, Object);
+        // Resolve Kanboard's ids and nested subtasks/comments into the shared
+        // task shape; the creator used to read only the handful of fields
+        // that shape and Kanboard's API happen to spell the same way.
+        importedBoard = EXTERNAL_PARSERS.kanboard(importedBoard);
         creator = new KanboardCreator(data);
         break;
       case 'excel':

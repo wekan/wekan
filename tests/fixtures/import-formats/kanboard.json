@@ -30,7 +30,10 @@
       ],
       "comments": [
         {
-          "comment": "Audit comment"
+          "id": "1",
+          "comment": "Audit comment",
+          "username": "kanboard-user",
+          "date_creation": "1790771696"
         }
       ],
       "files": [
@@ -40,7 +43,42 @@
           "path": "tasks/audit.txt",
           "size": 25
         }
+      ],
+      "category_id": "4",
+      "color_id": "deep_orange",
+      "is_active": "1",
+      "priority": "2",
+      "date_started": "1788220800",
+      "time_spent": "1.5",
+      "time_estimated": "3",
+      "creator_username": "kanboard-creator",
+      "url": "https://kanboard.example/task/1",
+      "subtasks": [
+        {
+          "id": "1",
+          "title": "Audit subtask done",
+          "status": "2"
+        },
+        {
+          "id": "2",
+          "title": "Audit subtask open",
+          "status": "0"
+        }
+      ],
+      "links": [
+        {
+          "id": "1",
+          "task_id": "2",
+          "label": "relates to"
+        }
       ]
+    }
+  ],
+  "categories": [
+    {
+      "id": "4",
+      "name": "Audit category",
+      "color_id": "blue"
     }
   ]
 }
