@@ -3348,6 +3348,25 @@ remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b017a64c1">Correct Bulgarian import, filter and access descriptions</a>. Thanks to xet7.</summary>
+
+Replace 50 Serbian values with Bulgarian for sorting, filters, import mapping,
+board permissions, notifications and shortcuts. Correct the import preparation
+instruction to export the source board. Restore shortcut number ranges and
+retain access restrictions, placeholders and link markup. Correct-language
+translations remain intact.
+
+The Bulgarian and translation-token suites pass, together with all 21
+human-preference checks. Coverage checks vocabulary, script, tokens, source
+export instructions, administrator and editing restrictions, user mapping,
+link markup and shortcut ranges. More wrong-language values and missing
+translations remain in Bulgarian. Browser layout and fluent-speaker review
+were not run. Existing Upcoming entries retain their recorded regression
+evidence. The all-language goal remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
