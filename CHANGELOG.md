@@ -105,10 +105,10 @@ for one of four stated reasons, not left unexamined:
 - **Checked:** `SamlAccountMergeBleed` needs no Hall of Fame page: SAML
   refused that merge from its first commit, so it is a detection category
   like `CanaryBleed`, not a fixed vulnerability.
-- **Decisions not yet built:** semi-open boards, the parents array,
-  first-class Jira issue types, the Map board view, splitting issue #4790,
-  per-activity notification options (#572), Deck-style auto-archive, the
-  import-page loss report, recovery controls, and the Scrum/Sync journal work.
+- **Decisions not yet built:** the parents array, first-class Jira issue
+  types, the Map board view, splitting issue #4790, per-activity notification
+  options (#572), Deck-style auto-archive, the import-page loss report,
+  recovery controls, and the Scrum/Sync journal work.
 
 Maintainer decisions of 2026-09-29, answering the blockers above:
 
@@ -1781,8 +1781,30 @@ and fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
   or to write non-HTML output. No shipped code had the one-pass form, so there
   is no Hall of Fame row or Problems key. Thanks to GitHub CodeQL and xet7.
 
-and adds archive reporting, code highlighting, custom URL schemes, attachment
-thumbnails and improves Scrum History recovery:
+and adds semi-open boards, archive reporting, code highlighting, custom URL
+schemes, attachment thumbnails and improves Scrum History recovery:
+
+**Board visibility** - a board every signed-in user can see.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f122a8287">Add semi-open boards, visible to every signed-in user</a>. Thanks to relikd and xet7.</summary>
+
+A board's visibility can be "Signed-in users" (`permission: 'instance'`,
+[#3249](https://github.com/wekan/wekan/issues/3249)): every signed-in user of
+the instance reads it, nobody signed out does, and only its members edit it,
+as on a public board. One pure rule, `models/lib/boardPermission.js`, feeds
+`isVisibleBy` and the shared selector builder, so publications, All Boards,
+search, exports, attachments, backgrounds, watching, filter presets and rule
+destinations follow it. Link previews, public avatars, the no-token export
+branch and anonymous archived lists stay public-only; a source suite lists every
+remaining public-only check so a new one gets reviewed. The Public page and `GET
+/api/boards` include instance boards only for a signed-in caller, "private
+boards only" refuses them like public ones, and a WeKan export keeps the setting
+on import. New strings are English, pending Transifex. Chromium cases cover the
+visibility menu, a non-member reading but not writing, a signed-out visitor
+seeing nothing (with a public board as the control) and the private-only policy.
+
+</details>
 
 **Attachments** - small images where images are shown small.
 
@@ -2315,6 +2337,12 @@ disabled bell, and fails on the old code; a source guard also fails if any
 server code calls `notify()` again.
 
 </details>
+
+**Popups** - the resize grip at every font size.
+
+- [Centre the popup resize grip with flexbox](https://github.com/wekan/wekan/commit/37508be68):
+  its fixed line-height did not follow the font-scale preset, which the
+  `uiFonts` guard caught. Thanks to xet7.
 
 **Import boundary** - continue with what the boundary returns.
 
