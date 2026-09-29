@@ -1572,7 +1572,7 @@ the Markdown commit as the template.
 </details>
 </details>
 
-# v12.10 2026-09-29 WeKan ® release
+# Upcoming WeKan ® release
 
 **In short:** **Security** blocks private-data disclosure through card and board
 copying, and card copies reject invalid destinations. **Pulse** adds an annual
@@ -1652,6 +1652,11 @@ and fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
   tree-wide suite requires every tag-stripping replace to loop to a fixed point
   or to write non-HTML output. No shipped code had the one-pass form, so there
   is no Hall of Fame row or Problems key. Thanks to GitHub CodeQL and xet7.
+- [Alert 546: the full-app test loader check escapes every regex metacharacter](https://github.com/wekan/wekan/commit/1a43b470a):
+  `tests/mochaFullApp.test.cjs` escaped only `.` in a file name before building
+  a RegExp. A complete escape now treats the name as data. Test-only code, so
+  there is no Hall of Fame row or Problems key. Thanks to GitHub CodeQL and
+  xet7.
 
 and adds semi-open boards, a Map view, auto-archive, archive reporting, code
 highlighting, custom URL schemes, attachment thumbnails and improves Scrum
@@ -2481,6 +2486,12 @@ change. Checkboxes stay read-only ([#2419](https://github.com/wekan/wekan/issues
 </details>
 
 and has the following developer-tooling fix:
+
+- [The OpenAPI generator survives declarations without an initializer](https://github.com/wekan/wekan/commit/9c79602b6):
+  the release bump job stopped with `'NoneType' object has no attribute
+  'type'` on a `let x;` in a REST handler. The generator also walks `?:`
+  branches, so the board copy title is documented again, and rewrites `||=`
+  and `&&=` so no model file is skipped. Thanks to xet7.
 
 - [The forge mirror CLI test no longer reads real mirror checkouts](https://github.com/wekan/wekan/commit/0172bc51e):
   `WEKAN_MIRROR_TOOLS_DIR` relocates them and the test uses a temporary
