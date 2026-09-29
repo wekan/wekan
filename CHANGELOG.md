@@ -3405,6 +3405,26 @@ feature work. The all-language goal remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/115cca73e">Translate map view instructions in 59 locales</a>. Thanks to xet7.</summary>
+
+Translate seven new map-view strings in 59 locales, adding 413 translations.
+The instructions retain the board-administrator upload requirement, example
+image types and both drag and select/click placement methods. Uploading and
+removing the image remain distinct from placing cards. Existing translations
+are preserved by the placeholder-only fill; Swiss German spelling is retained.
+
+All 27 translation suites and 21 human-preference checks pass. New regression
+coverage checks all seven messages in each updated locale, source tokens,
+distinct upload/remove and placed/unplaced states, and Finnish instruction
+semantics. Existing locale suites check source coverage, order and terminology.
+Browser layout and fluent-speaker review were not run. Existing Upcoming
+entries retain their recorded regression evidence. Other locales still need
+these strings and their earlier untranslated text; older wrong-language
+Bulgarian values also remain. The all-language goal remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
