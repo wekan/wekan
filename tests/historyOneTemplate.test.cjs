@@ -73,6 +73,14 @@ test('the history table is defined exactly once, in one file', () => {
         assert.doesNotMatch(chart, /changeHistory\./);
         continue;
       }
+      // The keyboard undo/redo recovery notice (client/lib/historyKeyRecovery.js)
+      // is a status line with Retry/Forget for ONE pending request, not a
+      // history view. Pin that shape so the exception cannot hide a table.
+      if (relative === 'client/components/main/historyRecoveryNotice.jade' && m[1] === 'historyRecoveryNotice') {
+        assert.match(text, /role="status"/);
+        assert.doesNotMatch(text, /\+historyTable|\beach\b|\btable[.(]/);
+        continue;
+      }
       defining.push([relative, m[1]]);
     }
   }
