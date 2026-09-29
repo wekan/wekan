@@ -135,7 +135,7 @@ const LOCALE_INVARIANTS = {
     'blockly-TAB_KEY', 'blockly-WINDOWS', 'scrum-master',
   ]),
   // Czech shared mathematical terms, Scrum role and printed keyboard legends.
-  cs: new Set([
+  ...Object.fromEntries(['cs', 'cs-CZ'].map(code => [code, new Set([
     'blockly-ALT_KEY', 'blockly-BACKSPACE_KEY', 'blockly-CAPS_LOCK_KEY',
     'blockly-CHROME_OS', 'blockly-CONTEXT_MENU_KEY', 'blockly-END_KEY',
     'blockly-ENTER_KEY', 'blockly-ESCAPE', 'blockly-HOME_KEY',
@@ -147,9 +147,9 @@ const LOCALE_INVARIANTS = {
     'blockly-MATH_TRIG_TAN', 'blockly-PAGE_DOWN_KEY', 'blockly-PAGE_UP_KEY',
     'blockly-PAUSE_KEY', 'blockly-SHIFT_KEY', 'blockly-TAB_KEY', 'blockly-WINDOWS',
     'scrum-master', 'scrum-sprint',
-  ]),
+  ])])),
   // Polish mathematical terms, Scrum role and keyboard/product names.
-  pl: new Set([
+  ...Object.fromEntries(['pl', 'pl-PL'].map(code => [code, new Set([
     'blockly-ALT_KEY', 'blockly-BACKSPACE_KEY', 'blockly-CAPS_LOCK_KEY',
     'blockly-CHROME_OS', 'blockly-CONTEXT_MENU_KEY', 'blockly-END_KEY',
     'blockly-ENTER_KEY', 'blockly-ESCAPE', 'blockly-HOME_KEY',
@@ -159,7 +159,7 @@ const LOCALE_INVARIANTS = {
     'blockly-MATH_TRIG_COS', 'blockly-MATH_TRIG_SIN', 'blockly-PAGE_DOWN_KEY',
     'blockly-PAGE_UP_KEY', 'blockly-PAUSE_KEY', 'blockly-SHIFT_KEY',
     'blockly-TAB_KEY', 'blockly-WINDOWS', 'scrum-master', 'scrum-sprint',
-  ]),
+  ])])),
   // Indonesian shared mathematical vocabulary and unchanged keyboard/product names.
   id: new Set([
     'blockly-ALT_KEY', 'blockly-BACKSPACE_KEY', 'blockly-CAPS_LOCK_KEY',
