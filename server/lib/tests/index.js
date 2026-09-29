@@ -98,6 +98,7 @@ import './activityNotificationRecovery.tests';
 import './storedRulePlans.tests';
 
 import './storedHistoryChain.tests';
+import './undoRedoClaim.tests';
 
 import './scrumHistoryConfirmation.tests';
 

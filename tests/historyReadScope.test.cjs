@@ -20,7 +20,11 @@ test('all universal history reversal paths share the scope guard and paging filt
  const fs=require('node:fs');const path=require('node:path');
  const source=fs.readFileSync(path.join(__dirname,'../server/models/changeHistory.js'),'utf8');
  assert.match(source,/async function applyRow\(row, direction\) \{\s*await requireHistoryRowAccess\(row, Meteor\.userId\(\)\);/);
- for(const direction of ['restore','undo','redo']) assert.ok(source.includes(`applyRow(row, '${direction}')`));
+ // Undo/redo go through applyClaimed (it claims the row first), which calls
+ // applyRow with the same direction, so they share the scope guard too.
+ assert.ok(source.includes(`applyRow(row, 'restore')`));
+ for(const direction of ['undo','redo']) assert.ok(source.includes(`applyClaimed(row, '${direction}', claim)`));
+ assert.ok(source.includes('applied = await applyRow(row, direction);'));
  // The streaming reader must retain the original security boundary: filter
  // each batch before search, totals, contributors or page selection.
  // Keep row authorization AND redact protected content before search/counting.

@@ -418,6 +418,31 @@ async function recordReversal(row, userId, before) {
   });
 }
 
+// Claim an ordinary row for one undo or redo BEFORE applying it. Two calls
+// that picked the same row (two tabs, a repeating key) used to both apply it,
+// both flip its flag and both record a reversal. The flag is now flipped
+// conditionally first, so only one caller proceeds; the other is told it lost.
+// When the apply then does nothing, or throws, the claim is released exactly as
+// taken. A crash between claim and apply leaves the row flagged but its value
+// unchanged: redoing or undoing it again re-applies the value it already has.
+async function claimReversal(row, direction) {
+  const at = new Date();
+  const [selector, taken, released] = direction === 'undo'
+    ? [{ _id: row._id, undone: false, superseded: { $ne: true } }, { undone: true, undoneAt: at }, { undone: false, undoneAt: null }]
+    : [{ _id: row._id, undone: true, superseded: { $ne: true } }, { undone: false, undoneAt: null }, { undone: true, undoneAt: row.undoneAt }];
+  const claimed = await ChangeHistory.updateAsync(selector, { $set: taken });
+  if (!claimed) return null;
+  return { release: () => ChangeHistory.updateAsync({ _id: row._id, ...taken }, { $set: released }) };
+}
+
+// Apply a claimed row; any outcome but "applied" gives the claim back.
+async function applyClaimed(row, direction, claim) {
+  let applied;
+  try { applied = await applyRow(row, direction); } catch (error) { if (claim) await claim.release(); throw error; }
+  if (!applied && claim) await claim.release();
+  return applied;
+}
+
 Meteor.methods({
   /*
    * One paginated, searchable read for every History view (History.md §6). The
@@ -574,14 +599,12 @@ Meteor.methods({
     await requireHistoryIntegrity(row, this);
 
     const before = await currentContentOf(row);
-    const applied = await applyRow(row, 'undo');
+    // Scrum rows are flagged by their own finalizer (scrumHistoryFinalizer.js).
+    const claim = row.entityType === 'scrum' ? null : await claimReversal(row, 'undo');
+    if (row.entityType !== 'scrum' && !claim) return { undone: false, reason: 'conflict' };
+    const applied = await applyClaimed(row, 'undo', claim);
     if (!applied) return { undone: false, reason: 'not-applicable' };
-    if (row.entityType !== 'scrum') {
-      await ChangeHistory.updateAsync(row._id, {
-        $set: { undone: true, undoneAt: new Date() },
-      });
-      await recordReversal(row, this.userId, before);
-    }
+    if (claim) await recordReversal(row, this.userId, before);
     return {
       undone: true,
       entityType: row.entityType,
@@ -608,14 +631,11 @@ Meteor.methods({
     await requireHistoryIntegrity(row, this);
 
     const before = await currentContentOf(row);
-    const applied = await applyRow(row, 'redo');
+    const claim = row.entityType === 'scrum' ? null : await claimReversal(row, 'redo');
+    if (row.entityType !== 'scrum' && !claim) return { redone: false, reason: 'conflict' };
+    const applied = await applyClaimed(row, 'redo', claim);
     if (!applied) return { redone: false, reason: 'not-applicable' };
-    if (row.entityType !== 'scrum') {
-      await ChangeHistory.updateAsync(row._id, {
-        $set: { undone: false, undoneAt: null },
-      });
-      await recordReversal(row, this.userId, before);
-    }
+    if (claim) await recordReversal(row, this.userId, before);
     return {
       redone: true,
       entityType: row.entityType,

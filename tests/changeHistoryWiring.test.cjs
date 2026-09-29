@@ -211,8 +211,11 @@ test('undo applies the previous content and redo the new one', () => {
 
   assert.match(server, /contentForDirection\(row, direction\)/,
     'applyRow must use the shared rule rather than a second copy of it');
-  assert.match(server, /applyRow\(row, 'undo'\)/);
-  assert.match(server, /applyRow\(row, 'redo'\)/);
+  // Undo and redo reach applyRow through applyClaimed, which claims the row
+  // first (see the claim test below); the direction still travels unchanged.
+  assert.match(server, /applyClaimed\(row, 'undo', claim\)/);
+  assert.match(server, /applyClaimed\(row, 'redo', claim\)/);
+  assert.match(server, /applied = await applyRow\(row, direction\);/);
 });
 
 // History.md §8.2: a restore goes through the SAME setters as an ordinary edit,
@@ -249,6 +252,26 @@ test('an applier that cannot apply reports it, and the row stays', () => {
   const undo = server.slice(server.indexOf("'changeHistory.undoLast'"));
   assert.match(undo, /if \(!applied\) return \{ undone: false, reason: 'not-applicable' \};/,
     'and the row must not be marked undone when nothing was undone');
+  // The row is claimed (flagged) before it is applied, so that two concurrent
+  // undos cannot both apply it; an apply that does nothing or throws gives the
+  // claim back, which is what keeps the rule above true.
+  const claimed = server.slice(server.indexOf('async function applyClaimed'), server.indexOf('async function applyClaimed') + 400);
+  assert.match(claimed, /if \(!applied && claim\) await claim\.release\(\);/);
+  assert.match(claimed, /catch \(error\) \{ if \(claim\) await claim\.release\(\); throw error; \}/);
+});
+
+test('undo and redo claim the row before applying it, so a race applies it once', () => {
+  const claim = server.slice(server.indexOf('async function claimReversal'), server.indexOf('async function applyClaimed'));
+  assert.match(claim, /\{ _id: row\._id, undone: false, superseded: \{ \$ne: true \} \}/, 'undo claims only a live row');
+  assert.match(claim, /\{ _id: row\._id, undone: true, superseded: \{ \$ne: true \} \}/, 'redo never claims a superseded row');
+  assert.match(claim, /if \(!claimed\) return null;/);
+  for (const [method, key] of [["async 'changeHistory.undoLast'(", 'undone'], ["async 'changeHistory.redoLast'(", 'redone']]) {
+    const body = server.slice(server.indexOf(method), server.indexOf(method) + 1800);
+    assert.ok(body.indexOf('claimReversal(') < body.indexOf('applyClaimed('), `${method} claims first`);
+    assert.match(body, new RegExp(`return \\{ ${key}: false, reason: 'conflict' \\}`), `${method} reports a lost race`);
+    // Negative: no unconditional flag write remains after the apply.
+    assert.doesNotMatch(body.slice(0, body.indexOf('return {\n')), /ChangeHistory\.updateAsync\(row\._id,/);
+  }
 });
 
 test('a restore is itself recorded, for both people involved', () => {
