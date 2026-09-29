@@ -99,12 +99,6 @@ for one of four stated reasons, not left unexamined:
 
 **Paused for a release on 2026-09-29 - in progress, not in this release:**
 
-- **Code highlighting** (decision above): highlight.js with markdown-it and a
-  colour stylesheet work in the client, parked in
-  `.tools/tmp/highlight-wip.patch` and `.tools/tmp/highlight-wip/`; the browser
-  check is unfinished and the dependency is not added. The viewer's second
-  sanitizer pass removes every class, so the colours also need a class rule
-  there, like the task-checkbox hook it now has.
 - **Failing suites not yet fixed:** `calendarDateDisplay`,
   `multilineTitles` and `pomodoroTimer` all wait for the locale files to
   follow `en.i18n.json`'s key order, which is the translation agent's work.
@@ -112,7 +106,7 @@ for one of four stated reasons, not left unexamined:
   refused that merge from its first commit, so it is a detection category
   like `CanaryBleed`, not a fixed vulnerability.
 - **Decisions not yet built:** trigger-value variables, the thumbnail route,
-  semi-open boards, the parents array, the URL-scheme allowlist, first-class
+  semi-open boards, the parents array, first-class
   Jira issue types, the Map board view, splitting #4790, per-activity
   notification options (#572), Deck-style auto-archive, the import-page loss
   report, recovery controls, and the Scrum/Sync journal work.
@@ -1712,7 +1706,8 @@ the Markdown commit as the template.
 
 **In short:** **Security** blocks private-data disclosure through card and board
 copying, and card copies reject invalid destinations. **Pulse** adds an annual
-archived-card contribution grid. **Scrum History recovery** retains completion
+archived-card grid. **Card text** colours code blocks and links the custom URL
+schemes an administrator allows. **Scrum History recovery** retains completion
 evidence, and API callers can retry undo/redo by request ID. **Imports** from
 Kanboard, Nextcloud Deck, OpenProject, Asana, Zenkit and Jira now bring
 comments, subtasks, custom fields, hierarchy and dates, keep source creation
@@ -1778,7 +1773,49 @@ All 24 board-copy Chromium cases pass.
 
 </details>
 
-and adds archive reporting and improves Scrum History recovery:
+and fixes the following SECURITY ISSUES found by GitHub CodeQL code scanning:
+
+- [Alert 545: the import boundary test drives the real sanitizer](https://github.com/wekan/wekan/commit/9dd1f20a8):
+  its stand-in stripped tags in one pass, which leaves `<script` from
+  `<<script>script>`. It now uses `server/lib/inputSanitizer.js`, and a
+  tree-wide suite requires every tag-stripping replace to loop to a fixed point
+  or to write non-HTML output. No shipped code had the one-pass form, so there
+  is no Hall of Fame row or Problems key. Thanks to GitHub CodeQL and xet7.
+
+and adds archive reporting, code highlighting, custom URL schemes and improves
+Scrum History recovery:
+
+**Card text** - code blocks in colour, and links an administrator allows.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9486ea3d4">Highlight fenced code blocks in card text</a>. Thanks to xet7.</summary>
+
+A fenced block with a known language (```` ```js ````) is coloured by
+highlight.js 11.12.0, a new BSD-3-Clause dependency; a block with no or an
+unknown language stays plain. Both sanitizer passes keep only `hljs-*` and
+`language-*` classes, only on `code` and `span` inside `pre`, through a hook
+added for that call; every other class is still removed. A jsdom suite checks
+both passes against real highlight.js output, and a Chromium case checks the
+colour and that no class appears outside code.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b7a3b29a2">Link custom URL schemes only when an administrator lists them</a>. Thanks to chrisi51 and xet7.</summary>
+
+Admin Panel → Features → URL stored "Custom URL Schemes" but nothing read it:
+eight hardcoded schemes were recognised and then refused by markdown-it and
+both sanitizers, so none was clickable ([#3218](https://github.com/wekan/wekan/issues/3218)).
+The listed schemes now pass all three and nothing else does; the setting is
+empty by default. `javascript:`, `data:`, `vbscript:` and similar schemes are
+never linked, in the app's parser and again inside the markdown package. A
+listed scheme opens its application in place. The new hint under the field is
+English, pending Transifex. Unit suites cover parsing, the app/package rule
+agreement and both passes; a Chromium case checks bare, markdown and raw HTML
+links with the list empty and set.
+
+</details>
+
 
 **Reports** - show archived-card contributions by calendar date.
 
