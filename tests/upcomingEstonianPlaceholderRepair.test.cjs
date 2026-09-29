@@ -51,4 +51,13 @@ assert.match(translated['scrum-total'], /kaarti/);
 assert.match(translated['scrum-report-help'], /ei ole nullhinnangud/);
 assert.match(translated['scrum-daily-observations-help'], /ei salvesta iga muudatust/);
 assert.match(translated['scrum-partial-report'], /ainult praegu sulle määratud kaardid/);
-console.log('upcomingEstonianPlaceholderRepair: placeholders, recovery, filters, Scrum and rule syntax passed');
+for (const key of Object.keys(english).filter(key =>
+  /^sync-(conflict|preview|source|report|recovery|estimate)-/.test(key))) {
+  assert.ok(translated[key]?.trim(), `${key}: missing Estonian text`);
+  assert.notStrictEqual(translated[key], english[key], `${key}: English placeholder`);
+}
+assert.match(translated['sync-conflict-hint'], /Lähtesüsteemi ei saadeta midagi/);
+assert.match(translated['sync-conflict-detach-hint'], /sisu jääb WeKani alles/);
+assert.match(translated['sync-report-partial'], /ei jätka ega võta käivitust tagasi/);
+assert.match(translated['sync-estimate-field-hint'], /Puuduvaid lähteväärtusi eiratakse.*null tühjendab/);
+console.log('upcomingEstonianPlaceholderRepair: placeholders, recovery, filters, Scrum, Sync and rule syntax passed');
