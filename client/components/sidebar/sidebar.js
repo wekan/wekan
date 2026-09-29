@@ -1555,6 +1555,9 @@ Template.boardInfoOnMyBoardsPopup.helpers({
   cardAgingDays1() {
     return Template.instance().currentBoard.cardAgingDays1 ?? 7;
   },
+  autoArchiveInactiveDays() {
+    return Template.instance().currentBoard.autoArchiveInactiveDays || '';
+  },
   cardAgingDays2() {
     return Template.instance().currentBoard.cardAgingDays2 ?? 14;
   },
@@ -1612,6 +1615,9 @@ Template.boardInfoOnMyBoardsPopup.events({
     tpl.currentBoard.setCardAging(tpl.currentBoard.cardAging);
     $(`.js-field-has-cardaging ${MCB}`).toggleClass(CKCLS, tpl.currentBoard.cardAging);
     $('.js-field-has-cardaging').toggleClass(CKCLS, tpl.currentBoard.cardAging);
+  },
+  'change .js-auto-archive-days'(evt, tpl) {
+    tpl.currentBoard.setAutoArchiveInactiveDays(evt.currentTarget.value.trim());
   },
   'change .js-card-aging-days'(evt, tpl) {
     // #3984: save the three board-configurable card-aging day thresholds.

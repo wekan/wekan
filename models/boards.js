@@ -7,6 +7,7 @@ import { ReactiveCache } from '/imports/reactiveCache';
 const { notHelperBoardTitle } = require('/models/lib/helperBoards');
 const { boardVisibilitySelectors } = require('/models/lib/boardVisibilitySelectors');
 const { BOARD_PERMISSIONS, readableWithoutMembership, withoutMembershipSelectors } = require('/models/lib/boardPermission');
+const { normalizeAutoArchiveDays } = require('/models/lib/autoArchive');
 const boardViewSettings = require('/models/lib/boardViewSettings');
 import escapeForRegex from 'escape-string-regexp';
 import CustomFields from './customFields';
@@ -566,6 +567,16 @@ Boards.attachSchema(
        */
       type: Boolean,
       defaultValue: false,
+    },
+    autoArchiveInactiveDays: {
+      /**
+       * Nextcloud Deck-style auto-archive: archive cards with no activity for
+       * this many days (models/lib/autoArchive.js). Unset means off.
+       */
+      type: SimpleSchema.Integer,
+      optional: true,
+      min: 1,
+      max: 3650,
     },
     cardAgingDays1: {
       /** #3984: days of inactivity for the first (lightest) card-aging fade tier. */
@@ -3151,6 +3162,14 @@ Boards.helpers({
     return await Boards.updateAsync(this._id, {
       $set: { cardAgingDays1, cardAgingDays2, cardAgingDays3 },
     });
+  },
+
+  // Deck-style auto-archive: a whole number of days, or null/'' for off.
+  async setAutoArchiveInactiveDays(value) {
+    const days = normalizeAutoArchiveDays(value);
+    return await Boards.updateAsync(this._id, days
+      ? { $set: { autoArchiveInactiveDays: days } }
+      : { $unset: { autoArchiveInactiveDays: '' } });
   },
 
   async setAllowsBoardMemberList(allowsBoardMemberList) {

@@ -131,6 +131,18 @@
     {
       "key": "notification-activity-created",
       "since": "2026-09-29"
+    },
+    {
+      "key": "auto-archive-days",
+      "since": "2026-09-29"
+    },
+    {
+      "key": "auto-archive-off",
+      "since": "2026-09-29"
+    },
+    {
+      "key": "auto-archive-hint",
+      "since": "2026-09-29"
     }
   ]
 }

@@ -102,3 +102,4 @@ import './storedHistoryChain.tests';
 import './scrumHistoryConfirmation.tests';
 
 import "./cardListEntry.tests";
+import './autoArchiveCards.tests';
