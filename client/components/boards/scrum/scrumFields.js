@@ -7,7 +7,9 @@ import { Tracker } from 'meteor/tracker';
 import { ReactiveCache } from '/imports/reactiveCache';
 const definitions = {
   card: [['Sprint', 'sprintId', 'scrum-sprint'], ['PastSprints', 'pastSprintIds', 'scrum-past-sprints'], ['Release', 'releaseId', 'scrum-release'], ['IssueType', 'issueType', 'scrum-issue-type'], ['AcceptanceCriteria', 'acceptanceCriteria', 'scrum-acceptance-criteria'], ['BacklogRank', 'backlogRank', 'scrum-backlog-rank']],
-  minicard: [['Sprint', 'sprintId', 'scrum-sprint'], ['Release', 'releaseId', 'scrum-release'], ['IssueType', 'issueType', 'scrum-issue-type'], ['BacklogRank', 'backlogRank', 'scrum-backlog-rank']],
+  // The issue type is not a Scrum minicard field any more: the minicard shows
+  // it as a badge with an icon on every board (models/lib/issueTypeIcon.js).
+  minicard: [['Sprint', 'sprintId', 'scrum-sprint'], ['Release', 'releaseId', 'scrum-release'], ['BacklogRank', 'backlogRank', 'scrum-backlog-rank']],
   list: [['Category', 'category', 'scrum-list-category']],
   swimlane: [['Sprint', 'sprintId', 'scrum-sprint'], ['Release', 'releaseId', 'scrum-release'], ['Purpose', 'purpose', 'scrum-swimlane-purpose']],
 };

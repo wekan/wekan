@@ -222,6 +222,13 @@ template(name="minicard")
               +minicardChecklist(checklist=. card=..)
         if $eq section "badges"
           .badges
+            //- Jira issue type (models/lib/issueTypeIcon.js): first, because it
+              says what kind of card this is.
+            if issueTypeBadge
+              .badge.minicard-issue-type(class="issue-type-{{issueTypeBadge.tone}}" title="{{issueTypeBadge.name}}")
+                span.badge-icon
+                  i.fa(class="{{issueTypeBadge.icon}}")
+                span.badge-text {{issueTypeBadge.name}}
             //- The description BADGE - shown when the description's text is not
               on the minicard - belongs to the Description text row, whose own
               position is the full text further down; it keeps the first place

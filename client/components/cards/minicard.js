@@ -12,6 +12,7 @@ import Cards from '/models/cards';
 import { resolveCoverId } from '/models/lib/linkedCardCover';
 import { isLiveAttachment } from '/models/lib/attachmentSoftDelete';
 import { isChecklistShownAtMinicard } from '/models/lib/minicardChecklistVisibility';
+const { issueTypeBadge } = require('/models/lib/issueTypeIcon');
 import { hasUnreadComments } from '/models/lib/unreadComments';
 import {
   parseChecklistItemTitles,
@@ -314,6 +315,10 @@ Template.minicard.helpers({
   hiddenMinicardLabelText,
   stickers() {
     return this.getStickers();
+  },
+  // The card's issue type with its icon, shown whenever the card has one.
+  issueTypeBadge() {
+    return issueTypeBadge(this.scrum && this.scrum.issueType);
   },
   cover() {
     // #5666: for a linked card the cover lives on the real card it points at, so

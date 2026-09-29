@@ -1119,6 +1119,20 @@
   opacity: 1;
 }
 
+/* Jira issue type badge (models/lib/issueTypeIcon.js). */
+.minicard .badge.minicard-issue-type .badge-text {
+  max-width: 8em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.minicard .issue-type-red .badge-icon { color: #d04437; }
+.minicard .issue-type-green .badge-icon { color: #2e8540; }
+.minicard .issue-type-blue .badge-icon { color: #2a6ebb; }
+.minicard .issue-type-purple .badge-icon { color: #7a4fb0; }
+.minicard .issue-type-orange .badge-icon { color: #c26a00; }
+.minicard .issue-type-grey .badge-icon { color: #6b778c; }
+
 /* Markdown title headings retain their hierarchy after the global reset and
    mobile normal-text rules. Relative sizes follow the selected UI font scale. */
 #content .minicard-title-text .viewer h1 { font-size: 2em !important; }
