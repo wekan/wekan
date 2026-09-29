@@ -46,6 +46,25 @@ const read = code => JSON.parse(fs.readFileSync(path.join(root, 'imports/i18n/da
   assert.notEqual(id['r-d-move-to-top-spec'], id['r-d-move-to-bottom-spec']);
   assert.match(id['flow-note-agingWip'], /persentil ke-85.*lima/);
   assert.match(id['flow-note-sizeCycleTime'], /tanggal yang tidak valid diabaikan/);
+  assert.equal(id['poker-eight'], en['poker-eight']);
+  assert.equal(id['poker-oneHundred'], en['poker-oneHundred']);
+  assert.equal(id.hours, 'jam');
+  assert.equal(id['assigned-by'], 'Ditugaskan Oleh');
+  assert.match(id['board-archived'], /^Papan/);
+  assert.doesNotMatch(id['board-archived'], /Kartu/);
+  assert.equal(id['board-private-info'], 'Papan ini akan bersifat <strong>pribadi</strong>.');
+  assert.equal(id['board-public-info'], 'Papan ini akan bersifat <strong>publik</strong>.');
+  assert.match(id['list-move-cards'], /dalam daftar ini/);
+  assert.doesNotMatch(id['list-move-cards'], /ke daftar ini/);
+  assert.match(id['filter-due-tomorrow'], /Jatuh tempo besok/);
+  assert.match(id['time-adjustment-note'], /bukan sesi kerja individual.*Nilai negatif adalah koreksi/);
+  assert.match(id['time-adjustment-note'], /tidak tercatat tidak dapat dikaitkan/);
+  assert.match(id['email-invite-subject'], /__inviter__ mengirimkan undangan/);
+  for (const key of ['cardStartPlanningPokerPopup-title', 'card-edit-planning-poker',
+    'poker-question', 'deletePokerPopup-title']) {
+    assert.match(id[key], /perencanaan/i, key);
+    assert.doesNotMatch(id[key], /perancangan/i, key);
+  }
   const inventory = spawnSync(process.execPath,
     ['releases/translations/fill-translations.mjs', '--list', 'id'], { cwd: root, encoding: 'utf8' });
   assert.equal(inventory.status, 0, inventory.stderr);
