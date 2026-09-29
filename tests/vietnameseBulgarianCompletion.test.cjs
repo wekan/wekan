@@ -11,7 +11,7 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
   'ru', 'ru-RU', 'ru-UA', 'ru_RU', 'uk', 'uk-UA', 'pl', 'pl-PL', 'cs', 'cs-CZ',
   'de', 'de_DE', 'de-AT', 'de-CH', 'fr', 'fr-FR', 'fr-BE', 'fr-CA', 'fr-CH',
   'es', 'es-AR', 'es-LA', 'es-CL', 'es_CO', 'es-CO', 'es-PY', 'es-PE', 'es-MX', 'it',
-  'pt', 'pt-PT', 'pt_PT', 'pt-BR', 'nl', 'nl-NL', 'sv', 'fi', 'da', 'nb', 'tr', 'id', 'ro', 'hu', 'sk']) {
+  'pt', 'pt-PT', 'pt_PT', 'pt-BR', 'nl', 'nl-NL', 'sv', 'fi', 'da', 'nb', 'tr', 'id', 'ro', 'hu', 'sk', 'ja']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(english), `${code}: source key order`);
   for (const key of Object.keys(english)) {
@@ -106,6 +106,7 @@ for (const [codes, duplicate, never] of [
   [['ro'], /de două ori/, /Nu va fi trimis niciodată/],
   [['hu'], /kétszer/, /Soha nem lesz elküldve/],
   [['sk'], /dvakrát/, /Nikdy nebude odoslaný/],
+  [['ja'], /2回届きます/, /今後送信されることはありません/],
 ]) {
   for (const code of codes) {
     const locale = read(code);
