@@ -24,12 +24,15 @@ async function main() {
     write('fi.i18n.json', { a: 'Aa', b: 'Bb' });
     const pending = path.join(work, 'pending.json');
 
-    assert.equal(addPendingKeys({ n1: 'New one', n2: 'New two' }, { after: 'a', dir, pending, today: '2026-09-29' }), 2);
+    // Default: English only - locale files belong to the translating agent.
+    assert.equal(addPendingKeys({ n0: 'English only' }, { dir, pending, today: '2026-09-29' }), 1);
+    assert.equal(JSON.parse(fs.readFileSync(path.join(dir, 'fi.i18n.json'), 'utf8')).n0, undefined);
+    assert.equal(JSON.parse(fs.readFileSync(path.join(dir, 'en.i18n.json'), 'utf8')).n0, 'English only');
+    assert.equal(addPendingKeys({ n1: 'New one', n2: 'New two' }, { after: 'a', allLocales: true, dir, pending, today: '2026-09-29' }), 2);
     const read = name => JSON.parse(fs.readFileSync(path.join(dir, name), 'utf8'));
-    assert.deepEqual(Object.keys(read('en.i18n.json')), ['a', 'n1', 'n2', 'b'], 'inserted after the anchor');
+    assert.deepEqual(Object.keys(read('en.i18n.json')), ['a', 'n1', 'n2', 'b', 'n0'], 'inserted after the anchor');
     assert.deepEqual(read('fi.i18n.json'), { a: 'Aa', n1: 'New one', n2: 'New two', b: 'Bb' }, 'English in every locale, translations kept');
-    assert.deepEqual(JSON.parse(fs.readFileSync(pending, 'utf8')).keys,
-      [{ key: 'n1', since: '2026-09-29' }, { key: 'n2', since: '2026-09-29' }]);
+    assert.deepEqual(JSON.parse(fs.readFileSync(pending, 'utf8')).keys.map(k => k.key), ['n0', 'n1', 'n2']);
 
     // Negative: never overwrite an existing key, never add empty text, never guess an anchor.
     assert.throws(() => addPendingKeys({ a: 'x' }, { dir, pending }), /already exists/);
@@ -38,12 +41,12 @@ async function main() {
     assert.equal(read('en.i18n.json').z, undefined, 'a refused call writes nothing');
     // A symlinked locale shares its target and is written once, not refused.
     fs.symlinkSync('fi.i18n.json', path.join(dir, 'fi-FI.i18n.json'));
-    assert.equal(addPendingKeys({ n3: 'Three' }, { dir, pending }), 2);
+    assert.equal(addPendingKeys({ n3: 'Three' }, { dir, pending, allLocales: true }), 2);
     assert.equal(read('fi-FI.i18n.json').n3, 'Three');
     // A clash in one locale leaves every file untouched.
     write('sv.i18n.json', { a: 'A', n1: 'x', n2: 'y', b: 'B', n3: 'z', clash: 'already' });
     const before = read('en.i18n.json');
-    assert.throws(() => addPendingKeys({ clash: 'C' }, { dir, pending }), /sv\.i18n\.json already has clash/);
+    assert.throws(() => addPendingKeys({ clash: 'C' }, { dir, pending, allLocales: true }), /sv\.i18n\.json already has clash/);
     assert.deepEqual(read('en.i18n.json'), before);
     assert.deepEqual(Object.keys(insertKeys({ a: 1 }, { x: 2 })), ['a', 'x'], 'no anchor appends');
   } finally {

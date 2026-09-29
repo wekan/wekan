@@ -4,9 +4,11 @@
 //   node releases/translations/add-pending-keys.mjs <new-keys.json> [--after <existing-key>]
 //
 // <new-keys.json> is { "key": "English text", ... }. Each key is added to
-// en.i18n.json (after --after, or at the end) and to EVERY locale file with the
-// same English text, in the same key order, and recorded in
-// pending-transifex.json. The completeness gate counts those keys separately
+// en.i18n.json (after --after, or at the end) and recorded in
+// pending-transifex.json. Locale files are NOT touched by default: another
+// agent translates them, and writing them here would race its edits. The
+// interface falls back to the English text for a key a locale lacks.
+// --all-locales also writes the English text into every locale file. The completeness gate counts those keys separately
 // instead of as missing (fill-translations.mjs --missing), and the pull merge
 // takes a real Transifex translation over the English text as it does for any
 // other key. This is the maintainer's 2026-09-29 decision for features that
@@ -35,7 +37,7 @@ export function insertKeys(object, additions, after) {
   return out;
 }
 
-export function addPendingKeys(additions, { after, today = new Date().toISOString().slice(0, 10), dir = dataDir, pending = pendingFile } = {}) {
+export function addPendingKeys(additions, { after, allLocales = false, today = new Date().toISOString().slice(0, 10), dir = dataDir, pending = pendingFile } = {}) {
   const enPath = path.join(dir, 'en.i18n.json');
   const en = JSON.parse(fs.readFileSync(enPath, 'utf8'));
   for (const [key, value] of Object.entries(additions)) {
@@ -47,7 +49,8 @@ export function addPendingKeys(additions, { after, today = new Date().toISOStrin
   // real file once. Check every file before writing any, so a refusal leaves
   // the tree untouched.
   const files = fs.readdirSync(dir)
-    .filter(f => f.endsWith('.i18n.json') && !fs.lstatSync(path.join(dir, f)).isSymbolicLink());
+    .filter(f => f.endsWith('.i18n.json') && !fs.lstatSync(path.join(dir, f)).isSymbolicLink())
+    .filter(f => allLocales || f === 'en.i18n.json');
   const updated = files.map(file => {
     const locale = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf8'));
     for (const key of Object.keys(additions)) {
@@ -65,11 +68,14 @@ export function addPendingKeys(additions, { after, today = new Date().toISOStrin
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(new URL(import.meta.url).pathname)) {
-  const [file, flag, after] = process.argv.slice(2);
-  if (!file || (flag && flag !== '--after')) {
-    console.error('Usage: add-pending-keys.mjs <new-keys.json> [--after <existing-key>]');
+  const args = process.argv.slice(2);
+  const file = args[0];
+  const afterAt = args.indexOf('--after');
+  const after = afterAt > -1 ? args[afterAt + 1] : undefined;
+  if (!file || (afterAt > -1 && !after)) {
+    console.error('Usage: add-pending-keys.mjs <new-keys.json> [--after <existing-key>] [--all-locales]');
     process.exit(1);
   }
-  const count = addPendingKeys(JSON.parse(fs.readFileSync(file, 'utf8')), { after });
+  const count = addPendingKeys(JSON.parse(fs.readFileSync(file, 'utf8')), { after, allLocales: args.includes('--all-locales') });
   console.error(`[pending] added to ${count} locale files and pending-transifex.json`);
 }
