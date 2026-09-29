@@ -15,4 +15,15 @@ for (const [key, source] of Object.entries(english)) {
 }
 const values = Object.values(translated).join('\n');
 assert.doesNotMatch(values, /__(?:manus|kaart|kaardile|loend|nimekiri|laud|tahvel|kutsuja|kasutaja|loe|algus|lõpp|predikaat_)/);
-console.log('upcomingEstonianPlaceholderRepair: 2 tests passed');
+const emailKeys = Object.keys(english).filter(key =>
+  /^rule-email-(recovery|resolution|legacy)-/.test(key) || key === 'r-insert-variable');
+assert.ok(emailKeys.length >= 55);
+for (const key of emailKeys) {
+  assert.ok(translated[key]?.trim(), `${key}: missing Estonian text`);
+  assert.notStrictEqual(translated[key], english[key], `${key}: English placeholder`);
+}
+assert.match(translated['rule-email-recovery-resend-confirm'], /kaks korda/);
+assert.match(translated['rule-email-legacy-discard-confirm'], /ei saadeta kunagi/);
+assert.match(translated['rule-email-legacy-description'], /autoril on endiselt juurdepääs/);
+assert.match(translated['rule-email-recovery-actions-hint'], /ei saada.*kunagi ise uuesti/);
+console.log('upcomingEstonianPlaceholderRepair: placeholders and email recovery translations passed');
