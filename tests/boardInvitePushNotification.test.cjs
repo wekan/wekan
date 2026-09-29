@@ -1,175 +1,73 @@
 'use strict';
 
-// Regression coverage for #3136: inviting a user to a board must also send a
-// PUSH notification, not just email - reusing the SAME push-notification
-// helper other event types already use (card assignment, due dates,
-// mentions, ...), not a new/duplicate implementation.
+// Regression coverage for #3136: inviting an EXISTING user to a board also
+// tells them in the in-app notification bell, not only by email.
 //
-// `Users.inviteUserToBoard` (server/models/users.js) is a full Meteor method
-// (Accounts, Boards, ReactiveCache) that cannot run outside a Meteor server,
-// so - like the other source-inspection regression tests in this suite -
-// this test reads the actual source and pins the exact shape of the fix:
-//
-// - it imports `Notifications` from the SAME module every other event type
-//   subscribes to/notifies through (server/notifications/notifications.js);
-// - it calls `Notifications.notify(user, title, description, params)` -
-//   the exact helper signature every subscribed notification service
-//   (server/notifications/{email,profile}.js) receives - not a new
-//   push-sending function;
-// - the call is guarded so it only fires for an EXISTING user (isNewUser is
-//   false): a brand-new invitee created from an email address with no
-//   matching WeKan account has no push/notification target yet, so they
-//   stay email-only, with no error;
-// - the email send itself remains UNGUARDED (still fires for both existing
-//   and brand-new invitees, exactly as before).
+// The first fix called Notifications.notify(user, 'push-invite-title',
+// 'push-invite-text', params) - and this test pinned that call. It never
+// delivered anything: `params` was a const inside the email try block, so the
+// call threw a ReferenceError that its own catch logged; and with `params` in
+// scope the tray service would still have refused it (the bell lists
+// activities and tray delivery requires an activityId), while the email
+// service queued a second email beside the invitation. The guard below pins
+// the replacement instead: server/lib/boardInviteTray.js delivers the
+// membership's own addBoardMember activity to the invitee's tray.
+// tests/playwright/specs/board-invite-tray.e2e.js checks it in a real server.
 
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 
-const usersSourcePath = path.join(__dirname, '..', 'server/models/users.js');
-const usersSource = fs.readFileSync(usersSourcePath, 'utf8');
+const read = file => fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
+const code = text => text.replace(/^\s*\/\/.*$/gm, '');
+const usersSource = read('server/models/users.js');
+const helper = read('server/lib/boardInviteTray.js');
 
-// 1) The push-notification helper is imported from the shared notifications
-// module - the same one server/notifications/{email,profile}.js subscribe to
-// subscribe to (profile.js is the in-app notification bell).
-assert.match(
-  usersSource,
-  /import\s*\{\s*Notifications\s*\}\s*from\s*['"]\/server\/notifications\/notifications['"]/,
-  '#3136: inviteUserToBoard must reuse the existing Notifications module, not a new one',
-);
-
-// 2) Isolate the inviteUserToBoard method body so the assertions below can't
-// accidentally match some unrelated method elsewhere in the file.
 const methodMatch = usersSource.match(
   /async inviteUserToBoard\(username, boardId\) \{[\s\S]*?\n  \},\n\n  async impersonate/,
 );
 assert.ok(methodMatch, 'inviteUserToBoard method body must be found in server/models/users.js');
 const methodBody = methodMatch[0];
 
-// 3) It calls the exact same Notifications.notify(user, title, description,
-// params) helper/signature every notification service subscribes with, not a
-// bespoke push-sending call.
-//
-// This sanity check used to point at server/models/activities.js, which called
-// Notifications.notify(user, title, description, params) directly. Since
-// 54c3130ce/4c762f407 activity notifications are frozen into a stored plan and
-// delivered by server/notifications/activityPlans.js instead, so activities.js
-// deliberately no longer calls notify(). The helper itself - and the services
-// subscribed to it with the same four arguments - is what the invite reuses,
-// so that is what is pinned now.
-const notificationsSource = fs.readFileSync(
-  path.join(__dirname, '..', 'server/notifications/notifications.js'), 'utf8');
-assert.match(
-  notificationsSource,
-  /\bnotify: \(user, title, description, params\) =>/,
-  'sanity check: server/notifications/notifications.js still exports notify(user, title, description, params)',
-);
-for (const service of ['email', 'profile']) {
-  const serviceSource = fs.readFileSync(
-    path.join(__dirname, '..', `server/notifications/${service}.js`), 'utf8');
-  assert.match(
-    serviceSource,
-    new RegExp(`Notifications\\.subscribe\\('${service}', async \\(user, title, description, params\\) =>`),
-    `sanity check: the ${service} service still subscribes to notify() with (user, title, description, params)`,
-  );
-}
-assert.match(
-  methodBody,
-  /Notifications\.notify\(\s*user,\s*['"]push-invite-title['"],\s*['"]push-invite-text['"],\s*params\s*\)/,
-  '#3136: inviteUserToBoard must call Notifications.notify(user, title, description, params) - the same helper/shape other event types use',
-);
+// 1) The invite uses the tray helper, only for an existing user, after the
+// email, inside its own try so a failure cannot break the invite.
+assert.match(methodBody,
+  /if \(!isNewUser\) \{\s*try \{\s*await deliverBoardInviteToTray\(\{/,
+  '#3136: an existing invitee gets the bell entry, guarded by its own try');
+const emailIndex = methodBody.indexOf("subject: 'email-invite-subject'");
+assert.ok(emailIndex !== -1, 'the email invite must still be sent');
+assert.ok(emailIndex < methodBody.indexOf('if (!isNewUser)'), 'the email stays unconditional, before the bell');
+// Only a membership that was inactive is recorded again; an active member
+// re-invited adds nobody.
+assert.match(methodBody, /reactivated: memberIndex >= 0 && board\.members\[memberIndex\]\.isActive !== true/);
+assert.match(methodBody, /const invitedAt = new Date\(\);\s*\n\s*const memberIndex = /,
+  'the activity is looked up from the moment before membership changes');
 
-// 4) Exactly one call site to Notifications.notify( in the whole method body
-// - no duplicate/parallel push implementation was written.
-const notifyCallCount = (methodBody.match(/Notifications\.notify\(/g) || []).length;
-assert.equal(
-  notifyCallCount,
-  1,
-  '#3136: exactly one Notifications.notify(...) call - reuse, not a second implementation',
-);
+// 2) Negative: the dead shape is gone - no notify() with invite-only params,
+// which has no activity for the tray and would email the invitee twice.
+assert.doesNotMatch(code(methodBody), /Notifications\.notify\(/);
+assert.doesNotMatch(usersSource, /import \{ Notifications \} from '\/server\/notifications\/notifications'/);
 
-// 5) The push call is guarded by `!isNewUser` (only an EXISTING user gets a
-// push notification target) and sits after that guard, not unconditionally.
-const guardIndex = methodBody.indexOf('if (!isNewUser)');
-const notifyIndex = methodBody.indexOf('Notifications.notify(');
-assert.ok(guardIndex !== -1, '#3136: the push notification must be guarded by `if (!isNewUser)`');
-assert.ok(
-  notifyIndex > guardIndex,
-  '#3136: Notifications.notify(...) must be inside the `if (!isNewUser)` guard',
-);
+// 3) The helper delivers an activity, to the tray only, honouring settings.
+assert.match(helper, /if \(!await prepareTrayNotification\(user, \{ boardId \}\)\) return null;/);
+assert.match(helper, /activityType: 'addBoardMember', boardId, memberId: user\._id, createdAt: \{ \$gte: since \}/);
+assert.match(helper, /await trayDelivery\.deliver\(user\._id, activity\._id\);/);
+assert.doesNotMatch(code(helper), /emailOutbox|Notifications\.notify/, 'the invitation email is the only email');
 
-// 6) The email send remains unconditional (still runs for both existing and
-// brand-new invitees) - email-invitation behaviour for non-existent users
-// must not have changed.
-const emailSubjectIndex = methodBody.indexOf("subject: 'email-invite-subject'");
-assert.ok(emailSubjectIndex !== -1, 'the email invite must still be sent');
-assert.ok(
-  emailSubjectIndex < guardIndex,
-  '#3136: the email send must remain outside/ahead of the push-only `if (!isNewUser)` guard',
-);
-
-// 7) A failing push notification must never break the invite itself - it is
-// wrapped in its own try/catch, separate from the email try/catch above it.
-assert.match(
-  methodBody,
-  /if \(!isNewUser\) \{\s*try \{\s*Notifications\.notify\(/,
-  '#3136: the push notification call must be wrapped in its own try so a failure cannot break the invite',
-);
-
-// 8) i18n: the new push notification keys exist in en.i18n.json (the source
-// of truth for keys/placeholders) and carry the same placeholders as their
-// email-invite counterparts (no dangling/renamed tokens).
-const enI18nPath = path.join(__dirname, '..', 'imports/i18n/data/en.i18n.json');
-const enI18n = JSON.parse(fs.readFileSync(enI18nPath, 'utf8'));
-assert.ok(
-  typeof enI18n['push-invite-title'] === 'string' && enI18n['push-invite-title'].length > 0,
-  '#3136: en.i18n.json must have a push-invite-title key',
-);
-assert.ok(
-  typeof enI18n['push-invite-text'] === 'string' && enI18n['push-invite-text'].length > 0,
-  '#3136: en.i18n.json must have a push-invite-text key',
-);
-
-function placeholderTokens(str) {
-  return new Set((str.match(/__[a-zA-Z0-9]+__/g) || []));
-}
-assert.deepEqual(
-  placeholderTokens(enI18n['push-invite-title']),
-  placeholderTokens(enI18n['email-invite-subject']),
-  'push-invite-title must carry the same placeholder tokens as email-invite-subject',
-);
-assert.deepEqual(
-  placeholderTokens(enI18n['push-invite-text']),
-  placeholderTokens(enI18n['email-invite-text']),
-  'push-invite-text must carry the same placeholder tokens as email-invite-text',
-);
-
-// 9) Every one of the params built for the email (user, inviter, board, url)
-// is available to the push call too - it is passed the exact same `params`
-// object, so every placeholder above resolves.
-['user:', 'inviter:', 'board:', 'url:'].forEach((field) => {
-  assert.ok(
-    methodBody.includes(field),
-    `#3136: params passed to both email and push must build a "${field}" field`,
-  );
-});
-
-// --- Negative / no-regression checks ----------------------------------------
-
-// 10) Every locale file carries the same two keys, in the same position as
-// en.i18n.json (allTranslationCompleteness.test.cjs already enforces exact
-// key-order parity across all locales; this only pins that these two keys
-// specifically made it into every file, not just English).
-const dataDir = path.join(__dirname, '..', 'imports/i18n/data');
-const localeFiles = fs.readdirSync(dataDir).filter((f) => f.endsWith('.i18n.json'));
-let missing = [];
-localeFiles.forEach((file) => {
-  const data = JSON.parse(fs.readFileSync(path.join(dataDir, file), 'utf8'));
-  if (!('push-invite-title' in data) || !('push-invite-text' in data)) {
-    missing.push(file);
+// 4) Negative, app-wide: no server caller hands notify() a params object
+// without an activityId - that is the shape tray delivery refuses.
+const serverFiles = [];
+(function walk(dir) {
+  for (const entry of fs.readdirSync(path.join(__dirname, '..', dir), { withFileTypes: true })) {
+    const rel = `${dir}/${entry.name}`;
+    if (entry.isDirectory()) { if (entry.name !== 'tests' && entry.name !== 'node_modules') walk(rel); }
+    else if (entry.name.endsWith('.js')) serverFiles.push(rel);
   }
-});
-assert.deepEqual(missing, [], `every locale file must carry push-invite-title/push-invite-text: missing in ${missing.join(', ')}`);
+}('server'));
+const callers = serverFiles.filter(file => /\bNotifications\.notify\(/.test(code(read(file))));
+assert.deepEqual(callers, [], `Notifications.notify() callers need an activityId: ${callers.join(', ')}`);
+
+// 5) The bell renders the activity it is given.
+assert.match(read('client/components/notifications/notificationIcon.jade'), /'addBoardMember'/);
 
 console.log('boardInvitePushNotification: all assertions passed');

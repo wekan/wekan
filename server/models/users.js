@@ -28,7 +28,7 @@ import { isKnownFont, isKnownFontSize, isHexColor6 } from '/models/lib/uiFonts';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import { publicErrorData } from '/server/lib/apiResponseHelpers';
 import escapeForRegex from 'escape-string-regexp';
-import { Notifications } from '/server/notifications/notifications';
+import { deliverBoardInviteToTray } from '/server/lib/boardInviteTray';
 import { providerOfUser, onCreateProviderUser } from '/server/lib/oauthProviders';
 const { recordAuthRateLimitDenial } = require('/server/lib/authRateLimitDecision');
 const { decideAnonymize, buildAnonymizeUpdate } = require('/models/lib/userAnonymization');
@@ -1597,6 +1597,7 @@ Meteor.methods({
       }
     }
 
+    const invitedAt = new Date();
     const memberIndex = board.members.findIndex(m => m.userId === user._id);
     if (memberIndex >= 0) {
       await Boards.updateAsync(boardId, {
@@ -1699,19 +1700,20 @@ Meteor.methods({
       throw new Meteor.Error('email-fail', e.message);
     }
 
-    // #3136: also push-notify the invitee, the same way other event types
-    // (card assignment, due dates, mentions, ...) already do - via the
-    // shared notify() helper, which fans out to every subscribed
-    // notification service (email + the in-app notification bell). Only
-    // possible for an EXISTING user: a brand-new invitee has no established
-    // notification target yet, so they stay email-only (isNewUser is true
-    // only when no matching account existed above).
+    // #3136: also tell an existing invitee in the in-app notification bell
+    // (see server/lib/boardInviteTray.js for why this delivers the
+    // membership's activity rather than calling Notifications.notify()). A
+    // brand-new invitee has no account to sign in to yet, so they stay
+    // email-only (isNewUser is true only when no matching account existed).
     if (!isNewUser) {
       try {
-        Notifications.notify(user, 'push-invite-title', 'push-invite-text', params);
+        await deliverBoardInviteToTray({
+          user, boardId, inviterId: inviter._id, since: invitedAt,
+          reactivated: memberIndex >= 0 && board.members[memberIndex].isActive !== true,
+        });
       } catch (e) {
         // Logging must never break the invite itself.
-        console.error('Error sending board invite push notification:', e);
+        console.error('Error sending board invite notification:', e);
       }
     }
 
