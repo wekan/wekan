@@ -3147,6 +3147,23 @@ recorded regression evidence. The all-language goal remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/eeb8c204c">Translate Ukrainian Scrum reports and import warnings</a>. Thanks to xet7.</summary>
+
+Fill 88 missing or English values for Scrum planning, reports, sprint actions,
+the space-key label and newly added import-warning messages. Existing
+translations remain intact. Report wording distinguishes unknown estimates
+from zero and daily observations from complete change histories.
+
+Ukrainian coverage and the translation-token suite pass, as do all 21
+human-preference checks. Tests check Scrum prose, source tokens, script,
+sprint cancellation, distinct workflow states and partial-import wording.
+Ukrainian synchronization and recovery text remains pending. Browser layout
+and fluent-speaker review were not run. Existing Upcoming entries retain their
+recorded regression evidence. The all-language goal remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
