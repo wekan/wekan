@@ -6,7 +6,7 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
 (async () => {
   const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
   const en = read('en'), uk = read('uk');
-  // Scrum and recovery sections are still pending in this locale.
+  // Synchronization and recovery sections are still pending in this locale.
   assert.deepEqual(Object.keys(uk), Object.keys(en).filter(key => key in uk));
   for (const key of Object.keys(en)) {
     if (key in uk) assert.deepEqual(translationTokens(uk[key]), translationTokens(en[key]), key);
@@ -34,5 +34,17 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
   for (const scheme of ['thunderlink', 'onenote', 'javascript', 'data', 'vbscript']) {
     assert.equal(uk['automatic-linked-url-schemes-hint'].split(scheme).length - 1, 1, scheme);
   }
-  console.log('Ukrainian filter and preference prose preserves tokens and restrictions');
+  for (const key of Object.keys(en).filter(key => key.startsWith('scrum-') || key.startsWith('import-report-'))) {
+    assert.ok(uk[key]?.trim(), key);
+    assert.notEqual(uk[key], en[key], key);
+    assert.match(uk[key], /[А-Яа-яІіЇїЄєҐґ]/, key);
+    assert.doesNotMatch(uk[key], /[ыэъЫЭЪ]/, key);
+  }
+  assert.match(uk['scrum-report-help'], /не є нульовими оцінками/);
+  assert.match(uk['scrum-daily-observations-help'], /не фіксують кожну зміну/);
+  assert.match(uk['scrum-confirm-cancel'], /залишаться призначеними/);
+  assert.match(uk['import-report-description'], /Дошку створено.*не вдалося перенести/);
+  assert.notEqual(uk['scrum-category-todo'], uk['scrum-category-done']);
+  assert.equal(uk['blockly-SPACE_KEY'], 'Пробіл');
+  console.log('Ukrainian filters, Scrum and preference prose preserves tokens and restrictions');
 })().catch(error => { console.error(error); process.exitCode = 1; });
