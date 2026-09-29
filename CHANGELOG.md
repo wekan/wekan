@@ -2270,7 +2270,7 @@ and has the following developer-tooling fix:
 
 and updates the following translations:
 
-**Languages updated:** Finnish, Arabic, Algerian Arabic, Egyptian Arabic, Turkish, Spanish, Argentine Spanish, Chilean Spanish, Colombian Spanish, Latin American Spanish, Mexican Spanish, Peruvian Spanish, Paraguayan Spanish, Italian, Portuguese, Brazilian Portuguese, European Portuguese, Galician, Korean, Japanese, Traditional Chinese, Chinese (Taiwan), Chinese (Hong Kong).
+**Languages updated:** Finnish, Arabic, Algerian Arabic, Egyptian Arabic, Turkish, Spanish, Argentine Spanish, Chilean Spanish, Colombian Spanish, Latin American Spanish, Mexican Spanish, Peruvian Spanish, Paraguayan Spanish, Italian, Portuguese, Brazilian Portuguese, European Portuguese, Galician, Korean, Japanese, Traditional Chinese, Chinese (Taiwan), Chinese (Hong Kong), Simplified Chinese, Mandarin Chinese, Chinese (Singapore).
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/ef52698fe">Complete Finnish and Arabic planning and recovery translations</a>. Thanks to xet7.</summary>
@@ -2440,6 +2440,28 @@ were not run for this batch.
 The inventory lists 205 unfinished locales. Newly added English keys remain
 in scope for every locale, including missing keys and those pending Transifex.
 The all-language translation goal remains unfinished.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9f97b4416">Complete Simplified Chinese planning and recovery translations</a>. Thanks to xet7.</summary>
+
+Fill 1,685 missing or English values in six Simplified Chinese locale files
+for filters, Scrum, Sync, reminders, rules and delivery recovery. Singapore
+also receives reviewed Blockly and rule-editor wording from the existing
+Chinese locale. Existing translations remain intact; reviewed keyboard
+legends and product names stay unchanged.
+
+Twelve translation suites and 21 human-preference checks pass against current
+English keys. Coverage checks source key order, interpolation tokens,
+Simplified Chinese wording and no remaining placeholders, and rechecks the
+previously completed locales. Existing Upcoming implementation entries retain
+their recorded regression evidence. Browser layout and fluent-speaker review
+were not run for this batch.
+
+The inventory lists 199 unfinished locales. Newly added English keys remain
+in scope for every locale, including missing keys and those pending Transifex.
+The all-language goal remains unfinished.
 
 </details>
 
