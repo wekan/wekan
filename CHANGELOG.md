@@ -3632,6 +3632,26 @@ Bulgarian and other locales. The all-language goal remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ba5015c38">Translate Bulgarian activity recovery and login messages</a>. Thanks to xet7.</summary>
+
+Fill 41 Bulgarian placeholders for activity notification recovery, rule email
+reports, time-estimate mapping, SAML sign-in and move-selection controls.
+Preserve cancellation irreversibility, queued-email scope, retained pending
+work and the distinction between server acceptance and confirmed delivery.
+
+The Bulgarian and translation-token suites pass, together with all 21 human-
+preference checks. Coverage checks source tokens, exactly-one-field mapping,
+no recreated activities, current recipient permissions, non-resumable
+cancellation, report-only behavior and browser-tab login scope. Browser layout
+and fluent-speaker review were not run. Existing Upcoming entries retain their
+recorded regression evidence. The remaining English-equal Bulgarian entries in
+the current check are keyboard labels and platform names; vocabulary review is
+still incomplete. Other locales still need translation. The all-language goal
+remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
