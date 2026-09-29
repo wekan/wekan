@@ -145,6 +145,9 @@ test('every recorded row carries the ids its scopes filter on', () => {
 // ---- undo / redo is now the whole history, not just positions ---------------
 
 test('the keyboard reads the unified store', () => {
+  // The keystroke's request handling lives in client/lib/historyKeyRequest.js.
+  const keyboard = code('client/lib/keyboard.js') + code('client/lib/historyKeyRequest.js');
+  assert.match(code('client/lib/keyboard.js'), /runKeystroke\(/);
   assert.match(keyboard, /changeHistory\.undoLast/,
     'History.md §7c: Ctrl+Z restores the last own change, of any kind');
   assert.match(keyboard, /changeHistory\.redoLast/);

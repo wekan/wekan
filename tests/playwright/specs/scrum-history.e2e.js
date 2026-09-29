@@ -263,3 +263,43 @@ test('keyed empty and unsupported History requests never reselect later Scrum wo
   await expect(call(page,'changeHistory.undoLast',board.boardId,'short')).rejects.toThrow(/scrum-history-request-conflict/);
  }finally{clean(board.boardId);}
 });
+
+test('Ctrl+Z sends a persisted request ID, retries it after a lost reply, and falls back for ordinary edits',async({page,user,board})=>{
+ try{
+  // Seeded users have keyboard shortcuts switched off in their profile.
+  db.updateOne('users',{_id:user.id},{$set:{'profile.keyboardShortcuts':true}});
+  await loginWithToken(page,user.id,user.token);await openBoard(page,board.boardId,board.slug);
+  const card=db.find('cards',{boardId:board.boardId})[0];
+  await call(page,'scrum.updateCard',board.boardId,card._id,{issueType:'Story'},0);
+  await call(page,'scrum.updateCard',board.boardId,card._id,{issueType:'Bug'},1);
+  await call(page,'scrum.updateCard',board.boardId,card._id,{issueType:'Epic'},2);
+  await page.locator('body').click({position:{x:5,y:5}});
+  await page.keyboard.press('Control+z');
+  await expect.poll(()=>db.findOne('cards',{_id:card._id}).scrum.issueType).toBe('Bug');
+  const requests=db.find('scrumHistoryRequests',{boardId:board.boardId});
+  expect(requests).toHaveLength(1);
+  expect(await page.evaluate(()=>sessionStorage.getItem('wekan-history-key-request'))).toBeNull();
+  // A keystroke whose undo ran but whose reply was lost before the tab
+  // reloaded: its ID is still stored, so the next Ctrl+Z repeats THAT request
+  // and leaves Story in place instead of also undoing Story.
+  const requestId='lost-reply-'+db.uid().replace(/[^A-Za-z0-9_-]/g,'');
+  await call(page,'changeHistory.undoLast',board.boardId,requestId);
+  expect(db.findOne('cards',{_id:card._id}).scrum.issueType).toBe('Story');
+  const revision=db.findOne('cards',{_id:card._id}).scrumRevision;
+  await page.evaluate(({boardId,requestId})=>sessionStorage.setItem('wekan-history-key-request',
+    JSON.stringify({boardId,direction:'undo',requestId,at:Date.now()})),{boardId:board.boardId,requestId});
+  await page.reload();await openBoard(page,board.boardId,board.slug);
+  await page.locator('body').click({position:{x:5,y:5}});
+  await page.keyboard.press('Control+z');
+  await expect.poll(()=>page.evaluate(()=>sessionStorage.getItem('wekan-history-key-request'))).toBeNull();
+  expect(db.find('scrumHistoryRequests',{boardId:board.boardId})).toHaveLength(2);
+  expect(db.findOne('cards',{_id:card._id}).scrumRevision).toBe(revision);
+  expect(db.findOne('cards',{_id:card._id}).scrum.issueType).toBe('Story');
+  // An ordinary title edit is outside the keyed contract: Ctrl+Z still undoes it.
+  const rows=db.find('changeHistory',{boardId:board.boardId}).length;
+  await call(page,'/cards/update',{_id:card._id},{$set:{title:'Keyboard title'}});
+  await expect.poll(()=>db.find('changeHistory',{boardId:board.boardId}).length).toBeGreaterThan(rows);
+  await page.keyboard.press('Control+z');
+  await expect.poll(()=>db.findOne('cards',{_id:card._id}).title).not.toBe('Keyboard title');
+ }finally{clean(board.boardId);}
+});
