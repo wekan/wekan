@@ -1338,21 +1338,32 @@ Meteor.methods({
     // POST /api/boards/:boardId/copy (checkAdminOrCondition with adminAccess).
     if (!board.hasAdmin(this.userId)) throw new Meteor.Error('not-authorized');
 
-    // Strip fields the caller must not control on the copy, and pull out
-    // withoutCards (#4726 "Clone Board without cards") - it steers the copy
-    // itself rather than being a field assigned onto the board doc.
-    const { members, permission, withoutCards, copyOptions, ...safeProperties } = properties;
+    // CopyIdentityBleed: the caller may change only the copy's title, sort,
+    // type and card selection. These used to be assigned onto the source board
+    // object itself, so passing another board's _id made board.copy() read and
+    // duplicate that board - a private board the caller cannot see. Refuse any
+    // other field before reading anything, and apply the supported ones to a
+    // separate object.
+    const { boardCopyProperties, boardWithCopyProperties } = require('/models/lib/boardCopyProperties');
+    let values;
+    try { values = boardCopyProperties(properties); }
+    catch (error) {
+      try {
+        if (error.securityAttempt) require('/server/lib/securityLog').record({ key: 'authz.board-copy-overrides',
+          action: 'blocked', source: 'method:copyBoard', userId: this.userId,
+          detail: 'Unsupported board-copy properties refused' });
+      } catch (e) { /* logging must never break the guard */ }
+      throw new Meteor.Error('invalid-copy-properties', 'Invalid board copy properties');
+    }
     let selection;
-    if (copyOptions !== undefined) {
-      try { selection = normalizeBoardCopyOptions(copyOptions); }
+    if (values.copyOptions !== undefined) {
+      try { selection = normalizeBoardCopyOptions(values.copyOptions); }
       catch (error) { throw new Meteor.Error('invalid-copy-options', error.message); }
     }
-    for (const key of Object.keys(safeProperties)) {
-      board[key] = safeProperties[key];
-    }
+    const copy = boardWithCopyProperties(board, values);
 
-    if (selection) return board.copy(!selection.cards, selection);
-    return board.copy(!!withoutCards);
+    if (selection) return copy.copy(!selection.cards, selection);
+    return copy.copy(!!values.withoutCards);
   },
 
   // Board status for the sidebar Status popup: accurate counts computed on the

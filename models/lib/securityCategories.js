@@ -10,6 +10,7 @@
 
 const CATALOG = {
   'authz.card-copy-overrides': { category: 'authz', bleed: 'CopyIdentityBleed', severity: 'high', cwe: 'CWE-915' },
+  'authz.board-copy-overrides': { category: 'authz', bleed: 'CopyIdentityBleed', severity: 'high', cwe: 'CWE-915' },
   'authz.admin-only-field': { category: 'authz', bleed: 'AdminFieldBleed', severity: 'high', cwe: 'CWE-863' },
   'authn.saml-replay': { category: 'authn', bleed: 'SamlReplayBleed', severity: 'high', cwe: 'CWE-294' },
   'authn.ldap-empty': { category: 'authn', bleed: 'LdapBindBleed', severity: 'critical', cwe: 'CWE-287' },

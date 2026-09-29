@@ -1408,8 +1408,11 @@ WebApp.handlers.post('/api/boards/:boardId/copy', async function(req, res) {
     const board = await ReactiveCache.getBoard(id);
     const adminAccess = board.members.some(e => e.userId === req.userId && e.isAdmin);
     await Authentication.checkAdminOrCondition(req.userId, adminAccess);
-    board.title = req.body.title || await Boards.uniqueTitle(board.title);
-    const ret = await board.copy();
+    // Only a string title is taken from the request, and it is applied to a
+    // separate object so the cached source board is not changed.
+    const title = typeof req.body?.title === 'string' && req.body.title ? req.body.title : await Boards.uniqueTitle(board.title);
+    const copy = Object.assign(Object.create(Object.getPrototypeOf(board)), board, { title });
+    const ret = await copy.copy();
     sendJsonResult(res, {
       code: 200,
       data: ret,

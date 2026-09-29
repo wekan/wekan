@@ -108,18 +108,24 @@ assert.equal(
   'models/swimlanes.js must have exactly one (non-comment) card.copy( call site, and it must be the gated one',
 );
 
-// 5. The Meteor method strips withoutCards out of the properties object (so
-// it is never assigned onto the board document as a stray field) and passes
-// it through to board.copy().
+// 5. The Meteor method validates the caller's properties (CopyIdentityBleed:
+// only title/sort/type/withoutCards/copyOptions, see
+// models/lib/boardCopyProperties.js), keeps withoutCards off the board
+// document, and passes it through to the copy as a boolean.
 assert.match(
   copyBoardMethod,
-  /const \{ members, permission, withoutCards, copyOptions, \.\.\.safeProperties \} = properties;/,
-  'copyBoard must destructure withoutCards out of the caller-supplied properties',
+  /values = boardCopyProperties\(properties\)/,
+  'copyBoard must validate the caller-supplied properties',
+);
+assert.match(
+  read('models/lib/boardCopyProperties.js'),
+  /const \{ withoutCards, copyOptions, \.\.\.fields \} = values;/,
+  'withoutCards and copyOptions are never assigned onto the board document',
 );
 assert.match(
   copyBoardMethod,
-  /return board\.copy\(!!withoutCards\);/,
-  'copyBoard must call board.copy() with the withoutCards flag coerced to a boolean',
+  /return copy\.copy\(!!values\.withoutCards\);/,
+  'copyBoard must call copy() with the withoutCards flag coerced to a boolean',
 );
 
 // 6. The client popup has the checkbox and reads it into the Meteor call.
