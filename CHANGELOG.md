@@ -2030,6 +2030,17 @@ progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/207416ac8">Translate Estonian synchronization conflicts and reports</a>. Thanks to xet7.</summary>
+
+Fill 60 synchronization strings covering conflict resolution, previews, source
+fields, reports and diagnostics. Tests preserve placeholders and distinctions
+between missing and null values, local changes and source writes, and reports
+and recovery actions. Existing translations are preserved and human-preference
+checks pass. Estonian has 97 reported placeholders remaining.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
