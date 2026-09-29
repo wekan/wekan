@@ -3425,6 +3425,26 @@ Bulgarian values also remain. The all-language goal remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e355a4a15">Correct Bulgarian migration, recovery and storage messages</a>. Thanks to xet7.</summary>
+
+Replace 80 Serbian values with Bulgarian for scheduled jobs, migration states,
+S3 settings, storage and board recovery. Restore pause/stop/resume distinctions,
+access/secret-key terminology, administrator restrictions and the scope and
+warnings of recovery operations. Preserve source placeholders and field names.
+
+The Bulgarian and translation-token suites pass, together with all 21
+human-preference checks. Coverage checks language, placeholders, backend names,
+state distinctions, duplicate-list conditions, migration ordering, non-archived
+recovery limits, all-archive warnings and administrator-only execution. Browser
+layout and fluent-speaker review were not run. Existing Upcoming entries retain
+their recorded regression evidence. More wrong-language values and untranslated
+strings remain in Bulgarian and other locales; removing distinctive Serbian
+letters alone will not complete the language audit. The all-language goal
+remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
