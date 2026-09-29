@@ -18,11 +18,18 @@ test('removed member cannot forge an invitation and reactivate membership', asyn
       try {
         await window.Meteor.callAsync('/users/update', { _id: userId }, { $addToSet: { 'profile.invitedBoards': boardId } });
       } catch (error) { errorCode = error.error; }
-      const accepted = await window.Meteor.callAsync('acceptInvite', boardId);
-      return { errorCode, accepted };
+      let accepted = false, acceptanceError;
+      try { accepted = await window.Meteor.callAsync('acceptInvite', boardId); }
+      catch (error) { acceptanceError = error.error; }
+      return { errorCode, accepted, acceptanceError };
     }, { userId: user.id, boardId: board.boardId });
     expect(result.errorCode).toBe(403);
     expect(result.accepted).toBe(false);
+    if (result.acceptanceError) {
+      // The high-severity forgery guard may already have blocked this session.
+      expect(['error-notAuthorized', 'not-authorized', 403]).toContain(result.acceptanceError);
+      expect(db.findOne('users', { _id: user.id }).loginDisabled).toBe(true);
+    }
     expect(db.getBoard(board.boardId).members.find(member => member.userId === user.id).isActive).toBe(false);
   } finally {
     db.updateOne('boards', { _id: board.boardId }, { $set: { members: original.members } });

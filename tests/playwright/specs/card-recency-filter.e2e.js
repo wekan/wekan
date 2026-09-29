@@ -40,6 +40,10 @@ test('creation and modification presets filter immediately, combine, persist and
   }
   await page.locator('.js-clear-all').click();
   await expectCards(cards.map(card => card._id));
+  // Clearing keeps the sidebar open. Close it before testing a fresh reopen.
+  await expect(created.first()).toBeVisible();
+  await page.locator('.js-open-filter-view').click();
+  await expect(created.first()).toBeHidden();
   await page.locator('.js-open-filter-view').click();
   await expect(created.and(page.locator(':checked'))).toHaveValue('');
   await expect(modified.and(page.locator(':checked'))).toHaveValue('');

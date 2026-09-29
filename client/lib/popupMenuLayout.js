@@ -9,7 +9,9 @@ export function updatePopupMenuColumns(popup) {
   const hasSearch = !!content?.querySelector(searchFields);
   const keepSearchLayout = hasSearch && content.classList.contains('popup-menu-columns');
   const hasWidget = !!content?.querySelector(`form, input:not(${searchFields}), textarea, select, table, .palette-colors`);
-  const eligible = (count >= 8 || keepSearchLayout) && !hasWidget;
+  // The language picker has its own fullscreen, regional-column layout.
+  const specialized = popup.dataset?.popup === 'changeLanguagePopup';
+  const eligible = (count >= 8 || keepSearchLayout) && !hasWidget && !specialized;
   for (const entry of popup.querySelectorAll('.content-container > .content')) {
     const wanted = eligible && entry === content;
     if (entry.classList.contains('popup-menu-columns') !== wanted) entry.classList.toggle('popup-menu-columns', wanted);

@@ -7,6 +7,7 @@ const CardPage = require('../pages/CardPage');
 for (const handles of [false, true]) {
   test(`minicard checklist progress and third-position drop (handles ${handles})`, async ({ boardPage: page, board, user }) => {
     db.updateOne('users', { _id: user.id }, { $set: { 'profile.showDesktopDragHandles': handles } });
+    await page.reload(); // Settle the drag-handle layout before opening details.
     const bp = new BoardPage(page), cp = new CardPage(page);
     await bp.clickCard(board.listIds[0], 'Alpha Card');
     await cp.waitForOpen();

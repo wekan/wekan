@@ -3,7 +3,7 @@
 // image attachment, under exactly the original's access rules.
 const path = require('path');
 const fs = require('fs');
-const sharp = require('sharp');
+const { solidPng, imageDimensions } = require('../helpers/images');
 const { request: playwrightRequest } = require('@playwright/test');
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
@@ -30,7 +30,7 @@ function seed(board, id, name, type, bytes) {
 
 test('an image attachment has a small thumbnail with the same access rules', async ({ boardPage: page, board, baseURL }) => {
   const suffix = Date.now();
-  const png = await sharp({ create: { width: 2000, height: 1500, channels: 3, background: '#3366aa' } }).png().toBuffer();
+  const png = await solidPng(page, 2000, 1500, '#3366aa');
   const cleanups = [
     seed(board, `thumbpng${suffix}`, 'photo.png', 'image/png', png),
     seed(board, `thumbsvg${suffix}`, 'drawing.svg', 'image/svg+xml', Buffer.from('<svg xmlns="http://www.w3.org/2000/svg"/>')),
@@ -46,8 +46,9 @@ test('an image attachment has a small thumbnail with the same access rules', asy
     expect(thumb.headers()['cache-control']).toBe('private, max-age=86400');
     expect(thumb.headers()['x-content-type-options']).toBe('nosniff');
     const body = await thumb.body();
-    const meta = await sharp(body).metadata();
-    expect([meta.format, meta.width, meta.height]).toEqual(['webp', 512, 384]);
+    expect(body.toString('ascii', 0, 4)).toBe('RIFF');
+    expect(body.toString('ascii', 8, 12)).toBe('WEBP');
+    expect(await imageDimensions(page, body, 'image/webp')).toEqual([512, 384]);
     expect(body.length).toBeLessThan(png.length);
     // Revalidation, and the original is untouched.
     const again = await page.request.get(`${base}/thumbnail`, { headers: { 'If-None-Match': thumb.headers().etag } });

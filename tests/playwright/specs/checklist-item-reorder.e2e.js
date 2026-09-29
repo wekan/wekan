@@ -7,6 +7,9 @@ const CardPage = require('../pages/CardPage');
 for (const handles of [false, true]) {
   test(`#6723 third-position drop follows placeholder (handles ${handles})`, async ({ boardPage: page, board, user }) => {
     db.updateOne('users', { _id: user.id }, { $set: { 'profile.showDesktopDragHandles': handles } });
+    // Apply the layout preference before opening a card; its reactive redraw
+    // otherwise races the click and closes the newly opened details pane.
+    await page.reload();
     const bp = new BoardPage(page), cp = new CardPage(page);
     await bp.clickCard(board.listIds[0], 'Alpha Card');
     await cp.waitForOpen();

@@ -52,7 +52,8 @@ test('both releases and every repack path enforce the gates', () => {
   assert.match(read('.github/workflows/windows.yml'), /check-telemetry.py --archive/);
   // These logging/metrics features are deliberately retained, not removed by keyword.
   assert.match(read('.meteor/packages'), /^package-stats-opt-out@1.0.8$/m);
-  assert.match(read('.meteor/packages'), /^instrumentation$/m);
+  // Meteor updates may pin the package; it must still be present.
+  assert.match(read('.meteor/packages'), /^instrumentation(?:@[^\s]+)?$/m);
   for (const workflow of ['release-all.yml', 'release-all-missing.yml']) {
     assert.match(read('.github/workflows/' + workflow), /DO_NOT_TRACK: '1'/);
   }

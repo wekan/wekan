@@ -7,13 +7,15 @@ const { planId } = require('../../../server/lib/activityNotificationPlan');
 function seed(id, activity, recipients) {
   const activityHash = sha256(canonical(activity));
   const intentId = sha256(canonical(['activity-notification-intent', id]));
-  db.insertOne('activityNotificationIntents', { _id: intentId, activityHash, version: 1, state: 'pending',
-    activity, writerId: 'test-writer', dispatchUserId: null });
   if (recipients) {
     db.insertOne('activities', activity);
     const plan = { version: 1, activityId: id, activityHash, dispatchUserId: null, recipients };
     db.insertOne('activityNotificationPlans', { _id: planId(id), checksum: sha256(canonical(plan)), plan });
   }
+  // Publish the pending intent last: the live recovery worker must not race
+  // fixture setup and create a competing plan before our stored plan exists.
+  db.insertOne('activityNotificationIntents', { _id: intentId, activityHash, version: 1, state: 'pending',
+    activity, writerId: 'test-writer', dispatchUserId: null });
   return intentId;
 }
 function cleanup(ids) {

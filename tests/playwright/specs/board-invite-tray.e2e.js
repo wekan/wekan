@@ -4,9 +4,19 @@
 // out of scope, so nothing was ever delivered.
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
+const { smtpSink } = require('../helpers/smtpSink');
+let sink;
+test.beforeEach(async () => {
+  test.skip(!process.env.WEKAN_TEST_SMTP_PORT, 'Requires the local SMTP capture port');
+  sink = await smtpSink(Number(process.env.WEKAN_TEST_SMTP_PORT));
+});
+test.afterEach(async () => { await sink?.close(); sink = undefined; });
 
 const invite = (page, username, boardId) =>
-  page.evaluate(({ username, boardId }) => Meteor.callAsync('inviteUserToBoard', username, boardId), { username, boardId });
+  page.evaluate(async ({ username, boardId }) => {
+    try { return await Meteor.callAsync('inviteUserToBoard', username, boardId); }
+    catch (error) { throw new Error(`${error.error}: ${error.reason || error.message}`); }
+  }, { username, boardId });
 const bell = userId => (db.findOne('users', { _id: userId }).profile?.notifications || []).map(n => n.activity);
 const memberActivities = (boardId, memberId) =>
   db.find('activities', { boardId, memberId, activityType: 'addBoardMember' });

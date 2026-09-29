@@ -38,6 +38,8 @@ test('any signed-in user reads it, only members edit it', async ({ page, board, 
   // Listed for them on /public (the fixture does not carry the title).
   const title = db.findOne('boards', { _id: board.boardId }).title;
   await page.goto('/public', { waitUntil: 'domcontentloaded' });
+  await page.locator('.js-table-page-search').fill(title);
+  await page.locator('.js-table-page-search').press('Enter');
   await expect(page.locator('a', { hasText: title }).first()).toBeVisible();
 
   // Negative: reading is all it grants.
@@ -50,7 +52,9 @@ test('any signed-in user reads it, only members edit it', async ({ page, board, 
 
   // Negative: back to private, and the same user sees nothing.
   db.updateOne('boards', { _id: board.boardId }, { $set: { permission: 'private' } });
-  expect(await boardSeen(page, board.boardId)).toBeFalsy();
+  // Earlier subscriptions may still have this board in Minimongo while the
+  // permission change propagates; require the reactive revocation to settle.
+  await expect.poll(() => boardSeen(page, board.boardId)).toBeFalsy();
 });
 
 test('nobody signed out sees it anywhere', async ({ browser, board, baseURL }) => {

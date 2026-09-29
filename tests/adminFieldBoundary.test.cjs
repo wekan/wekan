@@ -101,3 +101,40 @@ test('export authorization examines raw unknown values outside the caller search
   unknown = { _id: 'orphan' };
   await assert.rejects(context.run({}, () => guard('a', 'admin')), /not-authorized/);
 });
+
+test('authorized writes keep exact hook snapshots while caller field searches stay scoped', async () => {
+  const vm = require('node:vm');
+  const { AsyncLocalStorage } = require('node:async_hooks');
+  const fieldReadContext = new AsyncLocalStorage();
+  const policy = { definitions, adminBoards: new Set() };
+  const selectors = [];
+  let deny = false;
+  const driver = {
+    insertAsync: async () => {}, upsertAsync: async () => {},
+    find: selector => { selectors.push(selector); return { fetchAsync: async () => [card] }; },
+    findOneAsync: async () => card, rawCollection: () => ({}),
+    updateAsync: async selector => {
+      assert.equal(fieldReadContext.getStore(), undefined, 'internal hook reads use the checked snapshot');
+      assert.deepEqual(selector.$and[1].$or[0].customFields, card.customFields);
+      return 1;
+    },
+  };
+  const Cards = { _collection: driver, find: (...args) => driver.find(...args) };
+  const CustomFields = { _collection: { insertAsync() {}, updateAsync() {}, upsertAsync() {}, removeAsync() {} } };
+  const source = fs.readFileSync('server/adminOnlyFieldWrites.js', 'utf8').replace(/^import .*;\n/gm, '');
+  vm.runInNewContext(source, { Cards, CustomFields, fieldReadContext,
+    DDP: { _CurrentMethodInvocation: { get: () => ({ userId: 'member' }) } },
+    currentReportRequest: () => null,
+    require: () => require('../models/lib/adminOnlyCustomFields'),
+    modifiedCard: row => row,
+    assertFieldWrite: async () => { if (deny) throw new Error('protected-value'); },
+  });
+  await fieldReadContext.run(policy, async () => {
+    assert.equal(await driver.updateAsync('card', { $set: { 'customFields.1.value': 'updated' } }), 1);
+    assert.equal(fieldReadContext.getStore(), policy, 'context restored for subsequent caller reads');
+    driver.find({ customFields: { $eq: card.customFields } });
+    assert.equal(selectors.at(-1).customFields.$elemMatch._id.$in.length, 0);
+    deny = true;
+    await assert.rejects(driver.updateAsync('card', { $set: { 'customFields.0.value': 'forged' } }), /protected-value/);
+  });
+});

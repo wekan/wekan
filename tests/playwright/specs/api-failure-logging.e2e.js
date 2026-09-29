@@ -21,6 +21,8 @@ test('failed authenticated exports fold safe route diagnostics without storing r
   expect(rows[0].detail).toContain('exception text are omitted');
   await loginWithToken(page, adminUser.id, adminUser.token);
   await navigateInApp(page, '/admin/problems/api');
+  await page.getByRole('searchbox', { name: 'Search', exact: true }).fill(selector.api);
+  await page.getByRole('searchbox', { name: 'Search', exact: true }).press('Enter');
   await expect(page.locator('.main-body')).toContainText(selector.api);
   await expect(page.locator('.main-body')).not.toContainText(user.token);
   await expect(page.locator('.main-body')).not.toContainText(marker);

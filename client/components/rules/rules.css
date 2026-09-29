@@ -434,7 +434,7 @@
 .rules-page .triggers-content { color: #333; }
 .rules-page .triggers-content .triggers-body { align-items: flex-start; min-width: 0; }
 .rules-page .triggers-content .triggers-main-body { min-width: 0; box-sizing: border-box; }
-.rules-page .triggers-content .triggers-main-body .trigger-item { height: auto; min-height: 80px; display: flex; align-items: center; flex-wrap: wrap; gap: 10px; overflow: visible; color: #333; }
+.rules-page .triggers-content .triggers-body .triggers-main-body .trigger-item { height: auto; min-height: 80px; display: flex; align-items: center; flex-wrap: wrap; gap: 10px; overflow: visible; color: #333; }
 .rules-page .triggers-content .triggers-main-body .trigger-item .trigger-content { position: static; transform: none; flex: 1 1 200px; min-width: 0; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
 .rules-page .triggers-content .trigger-item .trigger-dropdown { min-width: 0; max-width: 100%; }
 .rules-page .triggers-content .trigger-item .trigger-dropdown :is(textarea,input,select) { box-sizing: border-box; max-width: 100%; margin: 0; }

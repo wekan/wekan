@@ -1163,8 +1163,8 @@ export const Utils = {
           .toLowerCase();
       } else if (element.find('input[type=checkbox]').length > 0) {
         if (element.find('input[type=checkbox]').is(':checked')) part = element.text().trim();
-      } else if (element.find('input').length > 0) {
-        let inputvalue = element.find('input').val();
+      } else if (element.find('input, textarea').length > 0) {
+        let inputvalue = element.find('input, textarea').val();
         if (inputvalue === undefined || inputvalue === '') {
           inputvalue = '*';
         }

@@ -651,10 +651,36 @@ function run_playwright_docker(){
 		fi
 		docker_mongo_url="${docker_mongo_url//127.0.0.1/host.docker.internal}"
 		docker_mongo_url="${docker_mongo_url//localhost/host.docker.internal}"
+		# The source server's replica set advertises host loopback addresses.
+		# Pin this test connection to the gateway instead of rediscovering them.
+		if [[ "$docker_mongo_url" == *host.docker.internal* && "$docker_mongo_url" != *directConnection=* ]]; then
+			if [[ "$docker_mongo_url" == *\?* ]]; then
+				docker_mongo_url="${docker_mongo_url}&directConnection=true"
+			else
+				docker_mongo_url="${docker_mongo_url}?directConnection=true"
+			fi
+		fi
 	fi
 	mkdir -p "$filesroot"
 	echo "Running Playwright $browser in Docker ($image)."
 	echo "Expecting WeKan at $docker_base_url."
+	local smtp_proxy_pid="" smtp_proxy_ready="" container_name="wekan-playwright-${browser}-$$"
+	if [ "$(uname -s)" = Darwin ] && [ -n "${WEKAN_TEST_SMTP_PORT:-}" ]; then
+		smtp_proxy_ready="$(mktemp "$WEKAN_DIR/.tools/tmp/smtp-proxy.XXXXXX")"
+		node "$pwdir/helpers/docker-smtp-proxy.cjs" "$container_name" "$WEKAN_TEST_SMTP_PORT" "$smtp_proxy_ready" &
+		smtp_proxy_pid=$!
+		for i in 1 2 3 4 5 6 7 8 9 10; do
+			[ -s "$smtp_proxy_ready" ] && break
+			kill -0 "$smtp_proxy_pid" 2>/dev/null || break
+			sleep 0.1
+		done
+		if [ ! -s "$smtp_proxy_ready" ]; then
+			kill "$smtp_proxy_pid" 2>/dev/null; wait "$smtp_proxy_pid" 2>/dev/null
+			rm -f "$smtp_proxy_ready"
+			echo "ERROR: local SMTP test proxy did not start."
+			return 1
+		fi
+	fi
 	# Mount the whole repo so specs that reach the repo-root node_modules
 	# (e.g. @wekanteam/exceljs) and .tools resolve; run from tests/playwright.
 	# Run as the host user (--user) with a writable HOME so the container does
@@ -662,6 +688,7 @@ function run_playwright_docker(){
 	# native Chromium/Firefox runs fail with "EACCES: permission denied, mkdir
 	# .../test-results/.playwright-artifacts-N").
 	docker_exec run --rm --init --ipc=host --network host \
+		--name "$container_name" \
 		--label org.wekan.test-run=everything \
 		--user "$(id -u):$(id -g)" \
 		-e HOME=/repo/.tools/tmp \
@@ -698,6 +725,12 @@ function run_playwright_docker(){
 			fi
 			npx playwright test --project="$0" "$@"
 		' "$browser" "$@"
+	local playwright_rc=$?
+	if [ -n "$smtp_proxy_pid" ]; then
+		kill "$smtp_proxy_pid" 2>/dev/null; wait "$smtp_proxy_pid" 2>/dev/null
+		rm -f "$smtp_proxy_ready"
+	fi
+	return "$playwright_rc"
 }
 
 # Run the older Puppeteer-based Node E2E regression suite in the same browser
@@ -1328,11 +1361,13 @@ function run_all_tests(){
 		echo "    Port 3000 is now free."
 	fi
 
+	# Both server modes use the local-only SMTP sink owned by the email specs.
+	# Bundle mode used to omit this, failing invitations and skipping delivery tests.
+	export WEKAN_TEST_SMTP_PORT="${WEKAN_TEST_SMTP_PORT:-2525}"
+	export MAIL_URL="smtp://127.0.0.1:$WEKAN_TEST_SMTP_PORT"
+	export EMAIL_NOTIFICATION_TIMEOUT=100
 	if [ "${WEKAN_TEST_SERVER_MODE:-bundle}" = source ]; then
 		export WEKAN_PLAYWRIGHT_PROBE=0
-		export WEKAN_TEST_SMTP_PORT="${WEKAN_TEST_SMTP_PORT:-2525}"
-		export MAIL_URL="smtp://127.0.0.1:$WEKAN_TEST_SMTP_PORT"
-		export EMAIL_NOTIFICATION_TIMEOUT=100
 		local WRITABLE_ABS="$WEKAN_DIR/.tools/test-writable"
 		mkdir -p "$WRITABLE_ABS/files"
 		export WEKAN_FILES_PATH_HOST="$WRITABLE_ABS/files"

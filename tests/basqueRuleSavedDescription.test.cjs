@@ -22,7 +22,7 @@ function element(kind, value) {
       if (kind === 'user' && selector === 'input') return { length: 1, val: () => value };
       if (kind === 'user' && selector === '.trigger-text') return { length: 1, text: () => 'Nork:' };
       if (kind === 'select' && (selector === 'select' || selector === 'select option:selected')) return { length: 1, text: () => value };
-      if (kind === 'input' && selector === 'input') return { length: 1, val: () => value };
+      if (['input', 'textarea'].includes(kind) && selector === 'input, textarea') return { length: 1, val: () => value };
       return empty;
     },
   };
@@ -48,5 +48,7 @@ console.log('Basque saved descriptions: actual production method preserves subje
 assert.equal(run([element('text', 'When'), element('date', '  1405-06-23  '), element('time', '09:30'), element('user', 'Demo')]),
  'when 1405-06-23 09:30 nork: Demo');
 assert.equal(run([element('user', '')]), 'nork: *');
+assert.equal(run([element('textarea', 'Demo\nSecond'), element('text', 'Kontrol-zerrenda hau')]),
+  'Demo\nSecond kontrol-zerrenda hau', 'multiline trigger names remain in saved descriptions');
 assert.equal(run([element('input', ' Demo '), element('text', 'Kide hau')]), ' Demo  kide hau', 'input whitespace is preserved as data');
 assert.equal(run([element('button', ''), element('text', '')]), '');

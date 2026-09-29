@@ -72,7 +72,9 @@ for (const withoutCards of [false, true]) {
       expect(copies()).toHaveLength(0);
       await action.click();
       const popup = page.locator('.js-duplicate-boards-form');
-      await expect(popup.locator('[role="checkbox"][aria-checked="true"]')).toHaveCount(10);
+      // Scrum settings are the eleventh independently selectable copy section.
+      await expect(popup.locator('[role="checkbox"][aria-checked="true"]')).toHaveCount(11);
+      await expect(popup.locator('[data-field="scrum"]')).toHaveAttribute('aria-checked', 'true');
       if (withoutCards) await popup.locator('[data-field="cards"]').click();
       await popup.locator('button[type="submit"]').click();
       await expect(popup).toHaveCount(0);

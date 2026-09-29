@@ -569,6 +569,15 @@ html[dir='rtl'] .pop-over > button.js-date-popup-resize > span {
   overflow-y: auto !important;
 }
 
+/* Resized date forms retain one scroll surface: the popup itself. */
+.pop-over[data-user-resized]:has(.edit-date) {
+  overflow: auto !important;
+}
+.pop-over[data-user-resized]:has(.edit-date) > .content-wrapper {
+  flex: 0 0 auto !important;
+  overflow: visible !important;
+}
+
 .pop-over:has(.edit-date) .calendar-time-input select {
   margin-bottom: 0;
 }

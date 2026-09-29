@@ -77,4 +77,34 @@ test('browser retry policy preserves normal runs and stops immediately in bail m
   }
 });
 
+
+test('macOS Docker pins only gateway Mongo connections and preserves URI options', () => {
+  const { execFileSync } = require('node:child_process');
+  const root = path.resolve(__dirname, '..');
+  const temp = fs.mkdtempSync(path.join(root, '.tools/tmp/playwright-docker-uri-'));
+  const runner = build.slice(build.indexOf('function run_playwright_docker'),
+    build.indexOf('function run_playwright_webkit_docker'));
+  const script = `
+    docker_available() { return 0; }
+    ensure_playwright_test_dependencies() { return 0; }
+    uname() { printf Darwin; }
+    node() { printf 1.63.0; }
+    docker_exec() { printf '%s\\n' "$@"; }
+    ${runner}
+    run_playwright_docker firefox --list
+  `;
+  try {
+    for (const [uri, expected] of [
+      ['mongodb://127.0.0.1:3101/meteor', 'mongodb://host.docker.internal:3101/meteor?directConnection=true'],
+      ['mongodb://localhost:3101/meteor?replicaSet=meteor', 'mongodb://host.docker.internal:3101/meteor?replicaSet=meteor&directConnection=true'],
+      ['mongodb://localhost:3101/meteor?directConnection=false', 'mongodb://host.docker.internal:3101/meteor?directConnection=false'],
+      ['mongodb://database.example/meteor', 'mongodb://database.example/meteor'],
+    ]) {
+      const output = execFileSync('bash', ['-c', script], { encoding: 'utf8',
+        env: { ...process.env, TMPDIR: temp, WEKAN_DIR: temp, WEKAN_FILES_PATH_HOST: temp, WEKAN_MONGO_URL: uri, WEKAN_TEST_SMTP_PORT: '' } });
+      assert.ok(output.split('\n').includes(`WEKAN_MONGO_URL=${expected}`), output);
+    }
+  } finally { fs.rmSync(temp, { recursive: true, force: true }); }
+});
+
 console.log(`\n${passed} tests passed`);

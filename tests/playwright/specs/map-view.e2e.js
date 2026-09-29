@@ -1,6 +1,6 @@
 'use strict';
 // #3256: the Map board view - an uploaded image with the cards as markers.
-const sharp = require('sharp');
+const { solidPng } = require('../helpers/images');
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { loginWithToken, openBoard } = require('../helpers/auth');
@@ -17,7 +17,7 @@ test('a board admin uploads a map, and members place and move cards on it', asyn
   try {
     await openMap(page);
     await expect(page.locator('.js-map-view')).toContainText('no map image yet');
-    const png = await sharp({ create: { width: 800, height: 400, channels: 3, background: '#dfe9f3' } }).png().toBuffer();
+    const png = await solidPng(page, 800, 400, '#dfe9f3');
     await page.locator('.js-map-upload-input').setInputFiles({ name: 'plan.png', mimeType: 'image/png', buffer: png });
     await expect.poll(() => db.findOne('boards', { _id: board.boardId }).mapImageAttachmentId, { timeout: 20000 }).toBeTruthy();
     const image = page.locator('.map-view-image');

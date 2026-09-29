@@ -88,12 +88,16 @@ for (const language of ['fi','ar','gu-IN','sv','sl','vi']) test(`Blocks supports
     await workspace.scrollIntoViewIfNeeded();
     const block=workspace.locator('.blocklySvg > .blocklyWorkspace > .blocklyBlockCanvas > .blocklyDraggable').first();
     await expect(block).toBeVisible();
+    // Compare workspace coordinates: the dirty-state banner can move the
+    // editor in the page while a block is being dragged.
+    const blockY=()=>block.evaluate(element=>element.transform.baseVal.consolidate().matrix.f);
+    const beforeY=await blockY();
     const before=await block.boundingBox();
     await page.mouse.move(before.x+before.width/2,before.y+12);
     await page.mouse.down();
     await page.mouse.move(before.x+before.width/2+65,before.y+72,{steps:12});
     await page.mouse.up();
-    await expect.poll(async()=>Math.abs((await block.boundingBox()).y-before.y)).toBeGreaterThan(20);
+    await expect.poll(async()=>Math.abs(await blockY()-beforeY)).toBeGreaterThan(20);
     await block.locator('.blocklyEditableField').first().dblclick();
     const input=page.locator('.blocklyHtmlInput');
     await input.fill('Localized list');

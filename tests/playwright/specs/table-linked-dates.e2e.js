@@ -1,7 +1,7 @@
 'use strict';
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
-const { openBoard } = require('../helpers/auth');
+const { openLazyBoard } = require('../helpers/lazyBoard');
 
 test('lazy Table date order follows linked cards/boards, source edits and source permission changes', async ({ loggedInPage: page, user, user2 }) => {
   test.setTimeout(150000);
@@ -22,7 +22,7 @@ test('lazy Table date order follows linked cards/boards, source edits and source
     db.updateOne('cards', { _id: sourceCard._id }, { $set: { dueAt: new Date('2026-02-01') } });
     db.updateOne('cards', { _id: secret._id }, { $set: { dueAt: new Date('2025-01-01') } });
     db.updateOne('boards', { _id: source.boardId }, { $set: { dueAt: new Date('2026-04-01') } });
-    await openBoard(page, local.boardId, local.slug);
+    await openLazyBoard(page, local);
     await page.locator('.js-toggle-board-view').first().click();
     await page.locator('.pop-over .js-open-table-view').click();
     await page.locator('.js-table-view-sort[data-field="dueAt"]').click();

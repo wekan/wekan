@@ -45,7 +45,11 @@ for (const operation of ['updateAsync', 'upsertAsync']) {
         { $or: rows.map(row => ({ _id: row._id, boardId: row.boardId,
           customFields: Object.hasOwn(row, 'customFields') ? row.customFields : { $exists: false } })) }] };
     }
-    return write.call(this, selector, modifier, ...args);
+    // The caller selector is already scoped and the requested mutation checked.
+    // Hooks now need the exact server-generated snapshot predicate above. Running
+    // that read through the search filter again rejects array equality, silently
+    // skipping every before/after hook while the actual write still succeeds.
+    return fieldReadContext.exit(() => write.call(this, selector, modifier, ...args));
   };
 }
 // A shared definition's protection cannot be removed by an administrator of

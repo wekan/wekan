@@ -127,7 +127,14 @@ Template.filterSidebar.events({
     tpl.find('.js-card-date-to').setCustomValidity('');
   },
   'click .js-clear-date-range'(event, tpl) {
-    event.preventDefault(); tpl.find('.js-card-date-to').setCustomValidity('');
+    event.preventDefault();
+    // Reset the native date controls as well as the reactive model. WebKit can
+    // retain an edited date segment after Blaze changes the value attribute.
+    for (const selector of ['.js-card-date-from', '.js-card-date-to']) {
+      const input = tpl.find(selector);
+      input.value = '';
+      input.setCustomValidity('');
+    }
     Filter.dateRange.reset(); Filter.resetExceptions();
   },
   'submit .js-column-age-filter'(event, tpl) {

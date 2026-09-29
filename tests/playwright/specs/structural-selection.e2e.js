@@ -26,16 +26,22 @@ test('mixed checklist and loose item create one card; selected descendants move 
   for (const id of [first.itemId, loose.itemId]) expect(db.findOne('checklistItems', { _id: id }).cardId).toBe(result.result.cardId);
   expect(db.findOne('checklists', { _id: first.id }).cardId).toBe(result.result.cardId);
 });
-test('reject foreign selections, moving targets and inaccessible destinations before writes', async ({ boardPage: page, board, user2 }) => {
+// Each rejection uses a fresh account: an inaccessible-board attempt can
+// trigger the security policy's account block before a subsequent RPC.
+for (const invalid of ['destination', 'selection', 'moving-target']) test(`reject invalid ${invalid} before writes`, async ({ boardPage: page, board, user2 }) => {
   const other = db.seedBoard({ ownerId: user2.id, cardTitlesPerList: [['Private']] });
   const a = db.findOne('cards', { boardId: board.boardId, title: 'Alpha Card' });
   try {
-    const denied = await move(page, board, [{ kind: 'card', id: a._id }], { boardId: other.boardId, swimlaneId: other.swimlaneId, listId: other.listIds[0] });
-    expect(denied.error).toBe('not-authorized');
     const foreign = db.findOne('cards', { boardId: other.boardId });
     const target = { boardId: board.boardId, swimlaneId: board.swimlaneId, listId: board.listIds[1] };
-    expect((await move(page, board, [{ kind: 'card', id: a._id }, { kind: 'card', id: foreign._id }], target)).error).toBe('invalid-selection');
-    expect((await move(page, board, [{ kind: 'list', id: board.listIds[1] }], target)).error).toBe('invalid-destination');
+    if (invalid === 'destination') {
+      const denied = await move(page, board, [{ kind: 'card', id: a._id }], { boardId: other.boardId, swimlaneId: other.swimlaneId, listId: other.listIds[0] });
+      expect(denied.error).toBe('not-authorized');
+    } else if (invalid === 'selection') {
+      expect((await move(page, board, [{ kind: 'card', id: a._id }, { kind: 'card', id: foreign._id }], target)).error).toBe('invalid-selection');
+    } else {
+      expect((await move(page, board, [{ kind: 'list', id: board.listIds[1] }], target)).error).toBe('invalid-destination');
+    }
     expect(db.findOne('cards', { _id: a._id }).listId).toBe(a.listId);
   } finally { db.cleanup({ boardIds: [other.boardId] }); }
 });

@@ -1,3 +1,4 @@
+import { fieldReadContext } from '/server/lib/adminFieldReadContext';
 import '/server/notifications/storedRulePlans';
 import '/server/notifications/storedWebhooks';
 import '/server/notifications/storedDelivery';
@@ -265,10 +266,12 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
     await assertCurrent();
     if (!await Lists.findOneAsync(listSelector)) return { error: 'Sync settings changed. Run Sync again.' };
     const selector = syncTextSelector(plan.card, list.boardId, list._id);
+    // This snapshot selector is built from persisted server data, not a field
+    // search from the caller. Keep it exact; the driver still checks write access.
     // Assignment loss between the read and write must fail the same atomic
     // comparison as a changed card value. Scope remains server-owned.
-    const changed = await Cards.updateAsync(currentScope ? { $and: [selector, currentScope] } : selector,
-      { $set: { ...syncValueChanges(plan.changes, plan.card, estimateMapping, timeMappings), dateLastActivity: new Date() }, ...(plan.unset ? { $unset: plan.unset } : {}) }, SYNC_TEXT_WRITE_OPTIONS);
+    const changed = await fieldReadContext.exit(() => Cards.updateAsync(currentScope ? { $and: [selector, currentScope] } : selector,
+      { $set: { ...syncValueChanges(plan.changes, plan.card, estimateMapping, timeMappings), dateLastActivity: new Date() }, ...(plan.unset ? { $unset: plan.unset } : {}) }, SYNC_TEXT_WRITE_OPTIONS));
     return changed ? { resolved: true } : { error: 'The card changed. Run Sync again to review the current values.' };
   }
   if (conflicts.length) {
@@ -349,7 +352,8 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
       // eslint-disable-next-line no-await-in-loop
       const previous = existingById.get(update.cardId);
       await assertCurrent();
-      const changed = await Cards.updateAsync(syncTextSelector(previous, list.boardId, list._id), { $set: { ...syncValueChanges(cardChanges, previous, estimateMapping, timeMappings), dateLastActivity: now } }, SYNC_TEXT_WRITE_OPTIONS);
+      // Compare the trusted snapshot without rewriting its custom-field array.
+      const changed = await fieldReadContext.exit(() => Cards.updateAsync(syncTextSelector(previous, list.boardId, list._id), { $set: { ...syncValueChanges(cardChanges, previous, estimateMapping, timeMappings), dateLastActivity: now } }, SYNC_TEXT_WRITE_OPTIONS));
       if (!changed) {
         const error = 'Sync card changed while applying updates; retry sync.';
         await assertCurrent();
@@ -363,9 +367,9 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
   for (const cardId of plan.toArchive) {
     const previous = existingById.get(cardId);
     await assertCurrent();
-    const changed = await Cards.updateAsync(syncTextSelector(previous, list.boardId, list._id), {
+    const changed = await fieldReadContext.exit(() => Cards.updateAsync(syncTextSelector(previous, list.boardId, list._id), {
       $set: { archived: true, archivedAt: now },
-    });
+    }));
     if (!changed) {
       const error = 'Sync card changed while archiving; retry sync.';
       await assertCurrent();

@@ -1,14 +1,14 @@
 'use strict';
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
-const { openBoard } = require('../helpers/auth');
+const { openLazyBoard } = require('../helpers/lazyBoard');
 
 test('lazy Table view pages the whole board, searches off-page cards, sorts and retracts revoked pages', async ({ loggedInPage: page, user, user2 }) => {
   test.setTimeout(120000);
   const board = db.seedBoard({ ownerId: user.id, cardTitlesPerList: [Array.from({ length: 62 }, (_, i) => `Card ${i}`)] });
   const foreign = db.seedBoard({ ownerId: user2.id, cardTitlesPerList: [['Private card']] });
   try {
-    await openBoard(page, board.boardId, board.slug);
+    await openLazyBoard(page, board);
     await page.locator('.js-toggle-board-view').first().click();
     await page.locator('.pop-over .js-open-table-view').click();
     const titles = page.locator('.my-cards-card-title-table');

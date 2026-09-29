@@ -48,6 +48,10 @@ test(`Files Report previews a private ${extension} file for a non-member adminis
     expect((await request.get(`${url}?download=true`)).status()).toBe(403);
     expect((await request.get(url, { headers: { Authorization: `Bearer ${user2.token}` } })).status()).toBe(403);
     await navigateInApp(page, '/admin/problems/files');
+    // Reports are paginated; unrelated files from other tests may fill page 1.
+    const search = page.getByRole('searchbox', { name: 'Search', exact: true });
+    await search.fill(id);
+    await search.press('Enter');
     const response = extension === 'docx' ? page.waitForResponse(r => new URL(r.url()).pathname === url && r.request().resourceType() === 'fetch') : null;
     await page.locator(`.js-table-page-attachment-preview[data-attachment-id="${id}"]`).first().click();
     if (response) expect((await response).status()).toBe(200);
