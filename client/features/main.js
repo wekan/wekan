@@ -51,6 +51,7 @@ import '/client/components/main/myAttachments.js';
 import '/client/components/main/starredItems.js';
 import '/client/components/main/popup.js';
 import '/client/components/main/recoveryMaintenance.js';
+import '/client/components/main/historyRecoveryNotice.js';
 import '/client/components/main/safeFilename.js';
 import '/client/components/main/spinner.js';
 import '/client/components/main/support.js';

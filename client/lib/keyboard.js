@@ -8,6 +8,7 @@ import { Filter } from '/client/lib/filter';
 import { MultiSelection } from '/client/lib/multiSelection';
 import { Utils } from '/client/lib/utils';
 import { newHistoryRequestId, runKeystroke } from '/client/lib/historyKeyRequest';
+import { historyRequestStorage, refreshPendingHistoryRequest } from '/client/lib/historyKeyRecovery';
 
 // Late-bind Sidebar to avoid circular dependency (sidebar.js needs its template first)
 let _Sidebar;
@@ -326,21 +327,21 @@ hotkeys('\xf7', archiveCard);
 // Each keystroke carries a request ID kept in sessionStorage until the server
 // answers, so a reply lost to a disconnect or reload is retried rather than
 // repeated (client/lib/historyKeyRequest.js).
-function undoRedoLast(direction) {
+export function undoRedoLast(direction) {
   const boardId = Session.get('currentBoard');
   if (!boardId || !Utils.canModifyBoard()) {
-    return;
+    return Promise.resolve();
   }
-  let storage;
-  try { storage = window.sessionStorage; } catch (e) { storage = null; }
-  const memory = { value: null, getItem() { return this.value; }, setItem(k, v) { this.value = v; }, removeItem() { this.value = null; } };
-  runKeystroke({
-    storage: storage || memory,
+  const storage = historyRequestStorage();
+  // Whatever happens, the recovery notice shows what is still unanswered
+  // (client/lib/historyKeyRecovery.js).
+  return runKeystroke({
+    storage,
     call: (method, ...args) => Meteor.callAsync(method, ...args),
     boardId,
     direction,
     newId: newHistoryRequestId(),
-  }).catch(() => {});
+  }).catch(() => {}).then(() => refreshPendingHistoryRequest(storage));
 }
 hotkeys('ctrl+z, command+z', event => {
   event.preventDefault();

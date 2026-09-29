@@ -96,7 +96,10 @@ async function main() {
   // The keyboard uses it for both shortcuts.
   const keyboard = fs.readFileSync(path.join(__dirname, '../client/lib/keyboard.js'), 'utf8');
   assert.match(keyboard, /runKeystroke\(\{/);
-  assert.match(keyboard, /window\.sessionStorage/);
+  // The storage accessor moved to client/lib/historyKeyRecovery.js, which the
+  // recovery notice shares, so both read the same pending request.
+  assert.match(keyboard, /const storage = historyRequestStorage\(\);/);
+  assert.match(fs.readFileSync(path.join(__dirname, '../client/lib/historyKeyRecovery.js'), 'utf8'), /window\.sessionStorage/);
   assert.match(keyboard, /undoRedoLast\('undo'\)/);
   assert.match(keyboard, /undoRedoLast\('redo'\)/);
   assert.doesNotMatch(keyboard, /Meteor\.call\(method, boardId, \(\) => \{\}\)/, 'no unkeyed fire-and-forget call remains');

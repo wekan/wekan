@@ -3720,5 +3720,10 @@
   "rule-email-recovery-unavailable": "Could not load rule email attempts. Refresh to try again.",
   "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
   "move-selection-before": "Before",
-  "move-selection-after": "After"
+  "move-selection-after": "After",
+  "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",
+  "history-request-pending-redo": "Your last redo has not been confirmed by the server yet.",
+  "history-request-hint": "Trying again repeats the same request, so it can never take back a second change.",
+  "history-request-retry": "Try again",
+  "history-request-forget": "Forget it"
 }

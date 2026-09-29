@@ -1322,3 +1322,24 @@ a:not(.disabled).is-active i.fa {
     transform: rotate(360deg);
   }
 }
+
+/* Keyboard undo/redo still waiting for the server (historyRecoveryNotice). */
+.history-recovery-notice {
+  position: fixed;
+  inset-inline-start: 16px;
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  z-index: 1000;
+  max-width: min(420px, calc(100vw - 32px));
+  padding: 12px 16px;
+  border: 1px solid #e6a100;
+  border-radius: 4px;
+  background: #fff8e1;
+  color: #333;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+.history-recovery-notice p {
+  margin: 0 0 8px;
+}
+.history-recovery-notice button {
+  margin-inline-end: 8px;
+}

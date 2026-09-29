@@ -1,0 +1,9 @@
+//- Keyboard undo/redo that is still waiting for the server
+  (client/lib/historyKeyRecovery.js).
+template(name="historyRecoveryNotice")
+  if pending
+    .history-recovery-notice.js-history-recovery-notice(role="status" aria-live="polite")
+      p {{_ pending.messageKey}}
+      p.quiet {{_ 'history-request-hint'}}
+      button.primary.js-history-retry(type="button" disabled=busy) {{_ 'history-request-retry'}}
+      button.js-history-forget(type="button" disabled=busy) {{_ 'history-request-forget'}}
