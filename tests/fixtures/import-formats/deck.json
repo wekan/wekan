@@ -28,9 +28,55 @@
               "type": "file",
               "data": "audit.txt"
             }
+          ],
+          "owner": {
+            "uid": "deck-owner",
+            "displayname": "Deck Owner"
+          },
+          "createdAt": 1788220800,
+          "archived": false,
+          "done": null,
+          "assignedUsers": [
+            {
+              "participant": {
+                "uid": "deck-a",
+                "displayname": "A"
+              }
+            },
+            {
+              "participant": {
+                "uid": "deck-b",
+                "displayname": "B"
+              }
+            }
+          ],
+          "comments": [
+            {
+              "id": 1,
+              "message": "Audit comment",
+              "actorId": "deck-user",
+              "actorType": "users",
+              "creationDateTime": "2026-09-30T12:34:56+00:00"
+            }
           ]
+        },
+        {
+          "id": 2,
+          "title": "Trashed card",
+          "order": 1,
+          "deletedAt": 1788220900,
+          "labels": []
         }
       ]
+    }
+  ],
+  "acl": [
+    {
+      "participant": {
+        "uid": "deck-guest",
+        "type": 0
+      },
+      "permissionEdit": true
     }
   ]
 }

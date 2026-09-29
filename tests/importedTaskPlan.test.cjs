@@ -64,13 +64,16 @@ async function main() {
     title: 'Task', description: 'Body', archived: true, requestedBy: 'carol',
     dueAt: new Date('2026-09-30T12:34:56Z'), startAt: new Date('2026-09-01'), color: 'red', spentTime: 2.5,
   });
-  assert.equal(plan.memberId, 'uA');
+  assert.deepEqual(plan.memberIds, ['uA']);
+  // Further assignees join the owner; unmapped and duplicate identities do not.
+  assert.deepEqual(planImportedTask({ owner_username: 'alice', assignees: ['bob', 'alice', 'zed', 7, null, {}] },
+    { members: { alice: 'uA', bob: 'uB', 7: 'u7' } }).memberIds, ['uA', 'uB', 'u7']);
   assert.equal(plan.checklists.length, 1);
   assert.deepEqual(plan.comments.map(c => c.text), ['bob: c1']);
 
   // Negative: a task with only the original fields imports exactly as before.
   const minimal = planImportedTask({ title: 'Old', tags: ['x'], owner_username: 'nobody' }, { members: {} });
-  assert.deepEqual(minimal, { card: { title: 'Old', description: '', archived: false }, memberId: null, checklists: [], comments: [] });
+  assert.deepEqual(minimal, { card: { title: 'Old', description: '', archived: false }, memberIds: [], checklists: [], comments: [] });
   for (const spent of [0, -1, 'NaN', null]) {
     assert.equal(planImportedTask({ spent_hours: spent }).card.spentTime, undefined);
   }
@@ -80,6 +83,8 @@ async function main() {
   const creator = fs.readFileSync(path.join(__dirname, '../models/kanboardCreator.js'), 'utf8');
   assert.match(creator, /planImportedTask\(task, \{ members: this\.members, allowedColors: CARD_COLORS \}\)/);
   assert.match(creator, /\.\.\.plan\.card/);
+  assert.match(creator, /cardToCreate\.members = plan\.memberIds/);
+  assert.match(creator, /sort: index,/, 'cards keep their source order');
   assert.match(creator, /createChecklists\(plan\.checklists, boardId, cardId\)/);
   assert.match(creator, /createComments\(plan\.comments, boardId, cardId\)/);
   assert.match(creator, /activityType: 'addComment'/);

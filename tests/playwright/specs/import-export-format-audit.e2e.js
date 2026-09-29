@@ -66,6 +66,16 @@ const FIDELITY = {
     },
     labels: ['Audit category', 'priority:2'],
   },
+  deck: {
+    comments: [`deck-user: ${expected.comment}`],
+    checklistItems: [],
+    card: card => {
+      expect(new Date(card.createdAt).toISOString()).toBe('2026-09-01T00:00:00.000Z');
+      expect(card.archived).toBe(false);
+      expect(card.endAt).toBeFalsy();
+    },
+    labels: [expected.label],
+  },
 };
 
 for (const [source, want] of Object.entries(FIDELITY)) {
@@ -92,11 +102,35 @@ for (const [source, want] of Object.entries(FIDELITY)) {
       for (const label of want.labels) expect(names).toContain(label);
       // The comment and checklist are visible in the opened card, not only stored.
       await page.locator('.minicard').first().click();
-      await expect(page.locator('.js-checklist-item').first()).toBeVisible();
+      if (want.checklistItems.length) await expect(page.locator('.js-checklist-item').first()).toBeVisible();
       await expect(page.locator('.comment-text').first()).toContainText(expected.comment);
     } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
   });
 }
+
+test('WeKan JSON import keeps each card creation date (#1992)', async ({ boardPage: page, board, user }) => {
+  const card = db.findOne('cards', { boardId: board.boardId });
+  const createdAt = new Date('2020-01-02T03:04:05Z');
+  db.updateOne('cards', { _id: card._id }, { $set: { createdAt } });
+  const response = await page.request.get(`/api/boards/${board.boardId}/export?authToken=${encodeURIComponent(user.token)}`);
+  expect(response.status()).toBe(200);
+  const exported = await response.json();
+  exported.title += ` dates ${db.uniqueSuffix()}`;
+  let boardId;
+  try {
+    await navigateInApp(page, '/import/wekan');
+    await page.locator('#import-textarea').fill(JSON.stringify(exported));
+    await page.locator('.js-import-without-mapping').click();
+    await page.waitForURL(/\/b\//);
+    boardId = page.url().match(/\/b\/([^/]+)/)[1];
+    const imported = db.findOne('cards', { boardId, title: card.title });
+    expect(new Date(imported.createdAt).toISOString()).toBe(createdAt.toISOString());
+    // A card whose export carried no date of its own still gets one.
+    const others = db.find('cards', { boardId, title: { $ne: card.title } });
+    expect(others.length).toBeGreaterThan(0);
+    for (const other of others) expect(Number.isNaN(new Date(other.createdAt).getTime())).toBe(false);
+  } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
+});
 
 test('Trello ZIP imports comment, checklist and exact attachment bytes; JSON round-trip preserves them', async ({ loggedInPage: page, user }, info) => {
   test.setTimeout(90000);

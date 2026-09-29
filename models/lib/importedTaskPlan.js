@@ -9,6 +9,7 @@
 //   archived                                - true for a closed/done-and-archived item
 //   color                                   - a WeKan card color or a hex value
 //   spent_hours                             - time already spent, in hours
+//   assignees: [source user key]            - more people besides the owner
 //   checklists: [{ title, items: [{ title, done }] }]
 //   comments:   [{ text, author, date }]
 // Every one of them is optional; a task without them imports as before.
@@ -103,10 +104,17 @@ export function planImportedTask(task, { members = {}, allowedColors = [] } = {}
   if (task.spent_hours !== undefined && task.spent_hours !== null && Number.isFinite(spent) && spent > 0) {
     card.spentTime = spent;
   }
-  const ownerKey = task.owner_id || task.owner_username || task.owner_name;
+  // The owner first, then any further assignees (Deck, GitHub and Asana can
+  // have several); only source identities that were mapped become members.
+  const keys = [task.owner_id || task.owner_username || task.owner_name]
+    .concat(Array.isArray(task.assignees) ? task.assignees : []);
+  const memberIds = [...new Set(keys
+    .filter(key => (typeof key === 'string' && key) || (typeof key === 'number' && Number.isFinite(key)))
+    .map(key => members[key])
+    .filter(Boolean))];
   return {
     card,
-    memberId: (ownerKey && members[ownerKey]) || null,
+    memberIds,
     checklists: importedChecklists(task.checklists),
     comments: (Array.isArray(task.comments) ? task.comments : [])
       .map(comment => importedComment(comment, members))

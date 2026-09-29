@@ -10,6 +10,7 @@ import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
 import { CARD_COLORS } from '/models/metadata/colors';
 import { planImportedTask } from '/models/lib/importedTaskPlan';
+import { writeImportedEntity } from '/models/lib/importPipeline';
 
 // Creates a WeKan board from a Kanboard export.
 //
@@ -166,7 +167,9 @@ export class KanboardCreator {
   async createCards(data, boardId) {
     const board = await ReactiveCache.getBoard(boardId);
     const firstSwimlane = Object.values(this.swimlanes)[0];
-    for (const task of this._tasks(data)) {
+    const tasks = this._tasks(data);
+    for (let index = 0; index < tasks.length; index += 1) {
+      const task = tasks[index];
       const columnName = task.column_name || task.column || this._columnNames(data)[0];
       const swimlaneName = task.swimlane_name || task.swimlane || 'Default';
       const plan = planImportedTask(task, { members: this.members, allowedColors: CARD_COLORS });
@@ -176,7 +179,8 @@ export class KanboardCreator {
         dateLastActivity: this._now(),
         listId: this.lists[columnName] || Object.values(this.lists)[0],
         swimlaneId: this.swimlanes[swimlaneName] || firstSwimlane,
-        sort: 0,
+        // Source order: parsers emit tasks in the order the source shows them.
+        sort: index,
         userId: this._user(),
         labelIds: [],
       };
@@ -186,8 +190,8 @@ export class KanboardCreator {
         const label = name && board.getLabel(name, 'black');
         if (label) cardToCreate.labelIds.push(label._id);
       }
-      if (plan.memberId) cardToCreate.members = [plan.memberId];
-      const cardId = await Cards.direct.insertAsync(cardToCreate);
+      if (plan.memberIds.length) cardToCreate.members = plan.memberIds;
+      const cardId = await writeImportedEntity(Cards, cardToCreate);
       await this.createChecklists(plan.checklists, boardId, cardId);
       await this.createComments(plan.comments, boardId, cardId);
     }
@@ -197,7 +201,7 @@ export class KanboardCreator {
   // checklists; .direct inserts bypass the hooks that would derive boardId.
   async createChecklists(checklists, boardId, cardId) {
     for (const checklist of checklists) {
-      const checklistId = await Checklists.direct.insertAsync({
+      const checklistId = await writeImportedEntity(Checklists, {
         boardId,
         cardId,
         title: checklist.title,
@@ -221,7 +225,7 @@ export class KanboardCreator {
     for (const comment of comments) {
       const createdAt = comment.createdAt || this._now();
       const userId = comment.userId || this._user();
-      const commentId = await CardComments.direct.insertAsync({
+      const commentId = await writeImportedEntity(CardComments, {
         boardId, cardId, createdAt, text: comment.text, userId,
       });
       // The activity feed and comment counters read addComment activities.

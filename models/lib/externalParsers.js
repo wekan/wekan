@@ -131,28 +131,72 @@ export function parseKanboard(data) {
 }
 
 // --- NextCloud Deck ---------------------------------------------------------
-// Accepts a Deck board with stacks (each stack carries its cards), e.g. the
-// shape returned by the Deck REST API (GET /boards/{id} + /stacks).
+// Accepts a Deck board with stacks (each stack carrying its cards), the shape
+// of GET /boards/{id} plus /stacks in the Deck REST API. Comments come from
+// the separate OCS comments API and are read from `card.comments` when the
+// export embedded them. Trashed stacks and cards (a non-zero `deletedAt`) are
+// skipped; sharing (acl) is never imported, because naming a user in a file
+// must not grant them access to the new board.
+function deckUser(user) {
+  if (!user) return undefined;
+  if (typeof user === 'string') return user;
+  const who = user.participant || user;
+  return who.uid || who.primaryKey || who.displayname || undefined;
+}
+
+function deckLive(item) {
+  return item && !(Number(item.deletedAt) > 0);
+}
+
+function byOrder(a, b) {
+  return (Number(a.order) || 0) - (Number(b.order) || 0);
+}
+
 export function parseNextcloudDeck(data) {
   const board = data.board || data;
-  const stacks = board.stacks || data.stacks || [];
+  const allStacks = Array.isArray(board.stacks) ? board.stacks : Array.isArray(data.stacks) ? data.stacks : [];
+  const stacks = allStacks.filter(deckLive).sort(byOrder);
+  const unsupported = [];
+  const warnings = [];
+  const trashed = allStacks.length - stacks.length;
+  if (trashed) warnings.push({ path: '/stacks', reason: `${trashed} deleted stack(s) skipped` });
+  if (Array.isArray(board.acl) && board.acl.length) {
+    unsupported.push({ path: '/acl', reason: `${board.acl.length} sharing rule(s): board access is granted in WeKan, not by an import` });
+  }
   const tasks = [];
   stacks.forEach(stack => {
-    (stack.cards || []).forEach(card => {
+    const stackIndex = allStacks.indexOf(stack);
+    const cards = (Array.isArray(stack.cards) ? stack.cards : []);
+    const live = cards.filter(deckLive).sort(byOrder);
+    if (cards.length !== live.length) {
+      warnings.push({ path: `/stacks/${stackIndex}/cards`, reason: `${cards.length - live.length} deleted card(s) skipped` });
+    }
+    live.forEach(card => {
+      const at = `/stacks/${stackIndex}/cards/${cards.indexOf(card)}`;
+      const people = (Array.isArray(card.assignedUsers) ? card.assignedUsers : []).map(deckUser).filter(Boolean);
+      const attachments = Array.isArray(card.attachments) ? card.attachments.length : Number(card.attachmentCount) || 0;
+      if (attachments) {
+        unsupported.push({ path: `${at}/attachments`, reason: `${attachments} attachment(s) are Nextcloud files, not part of the export` });
+      }
       tasks.push({
         title: card.title || 'Imported card',
         description: card.description || '',
         column_name: stack.title,
         swimlane_name: 'Default',
         date_due: card.duedate || card.dueDate,
-        owner_username:
-          (card.assignedUsers &&
-            card.assignedUsers[0] &&
-            (card.assignedUsers[0].participant
-              ? card.assignedUsers[0].participant.uid
-              : card.assignedUsers[0].uid)) ||
-          card.owner,
-        tags: (card.labels || []).map(l => (typeof l === 'string' ? l : l.title)),
+        date_creation: card.createdAt,
+        // Deck 1.13+ marks a card done with a timestamp.
+        date_end: card.done || undefined,
+        archived: card.archived === true,
+        owner_username: people[0] || deckUser(card.owner),
+        assignees: people.slice(1),
+        requested_by: deckUser(card.owner),
+        tags: (card.labels || []).map(l => (typeof l === 'string' ? l : l && l.title)).filter(Boolean),
+        comments: (Array.isArray(card.comments) ? card.comments : []).map(comment => ({
+          text: comment && comment.message,
+          author: comment && (comment.actorId || comment.actorDisplayName),
+          date: comment && comment.creationDateTime,
+        })),
       });
     });
   });
@@ -161,6 +205,8 @@ export function parseNextcloudDeck(data) {
     columns: stacks.map(s => ({ title: s.title })),
     swimlanes: [{ name: 'Default' }],
     tasks,
+    warnings,
+    unsupported,
   };
 }
 
