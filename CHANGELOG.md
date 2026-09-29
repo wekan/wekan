@@ -1558,8 +1558,8 @@ for them: (2) file CONTENTS - these JSON sources carry
 attachment metadata only, so bytes need live API connectors with credentials;
 (3) Deck sharing rules, OpenProject watchers and Asana followers have no
 safe mapping (an import never grants access); (4) Zenkit's native
-single-file export is unverified because Zenkit publishes no schema; (5) the
-matching EXPORT formatters in externalExporters.js were not revisited.
+single-file export is unverified because Zenkit publishes no schema. The
+EXPORT formatters now carry what each importer reads (see Upcoming).
 
 Additional formats named but not yet researched or built: the Leo literate
 editor's `.leo` outline format, and whatever else other kanban/outline tools
@@ -2151,6 +2151,22 @@ and brings the external imports up to their format contracts:
 
 **External imports** - Kanboard, Nextcloud Deck, OpenProject, Asana, Zenkit and
 Jira keep what each source has a WeKan place for, and report the rest.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7e784d4f9">Export comments, checklists, parents, people and custom fields to other tools</a>. Thanks to xet7.</summary>
+
+The Kanboard, Nextcloud Deck, OpenProject, Asana, Zenkit and Jira exports
+carried title, description, due date and labels, while WeKan's importers for
+those tools read far more, so a board sent out and brought back lost its
+comments, checklists, parent links, people, dates and custom fields. Each
+formatter now emits them, when selected, in the shape its importer reads; a
+suite runs every export back through that importer, and a Chromium case reads a
+real comment and checklist from the Kanboard and Asana routes and checks that
+the selection removes them. The formatters are a pure module, and Kanboard now
+uses the shared route with the export selection and the admin-only custom field
+check.
+
+</details>
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/e0bf4cbb7">Show a card's Jira issue type on the minicard with an icon</a>. Thanks to xet7.</summary>
