@@ -83,6 +83,15 @@ const isEnglishVariant = code => /^en([_-].*)?$/.test(code) || code === 'en';
 // source-wide list would hide real work in every language.
 const LOCALE_INVARIANTS = {
   // Locale-specific shared vocabulary, not exemptions for English prose.
+  // Simplified Chinese keyboard legends and product names.
+  ...Object.fromEntries(['zh', 'zh-CN', 'zh-Hans', 'zh-GB', 'zh_SG', 'cmn']
+    .map(code => [code, new Set([
+      'blockly-ALT_KEY', 'blockly-CAPS_LOCK_KEY', 'blockly-CHROME_OS',
+      'blockly-END_KEY', 'blockly-ENTER_KEY', 'blockly-HOME_KEY',
+      'blockly-INSERT_KEY', 'blockly-LINUX', 'blockly-MAC_OS',
+      'blockly-PAGE_DOWN_KEY', 'blockly-PAGE_UP_KEY', 'blockly-SHIFT_KEY',
+      'blockly-TAB_KEY', 'blockly-WINDOWS',
+    ])])),
   // Traditional Chinese retains the printed keyboard legends and OS names.
   ...Object.fromEntries(['zh-Hant', 'zh-TW', 'zh-HK'].map(code => [code, new Set([
     'blockly-ALT_KEY', 'blockly-BACKSPACE_KEY', 'blockly-CAPS_LOCK_KEY',

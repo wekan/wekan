@@ -74,3 +74,30 @@ test('universal API labels remain universal rather than receiving invented prose
 });
 
 console.log(`\nupcomingChineseTranslations: ${passed} tests passed`);
+
+(async () => {
+  const { translationTokens } = await import('../releases/translations/placeholder-tokens.mjs');
+  const { execFileSync } = require('node:child_process');
+  const root = path.resolve(DATA, '../../..');
+  for (const code of ['zh', 'zh-CN', 'zh-Hans', 'zh-GB', 'zh_SG', 'cmn']) {
+    const locale = read(code);
+    assert.deepStrictEqual(Object.keys(locale), Object.keys(en), code);
+    for (const key of Object.keys(en)) {
+      assert.deepStrictEqual(translationTokens(locale[key]), translationTokens(en[key]), `${code}:${key}`);
+    }
+    for (const key of ['filter-column-age-hint', 'scrum-total', 'sync-preview-saved',
+      'email-recovery-description', 'activity-recovery-busy', 'saml-login-not-started',
+      'r-rule-any-trigger-help', 'move-selection-before', 'move-selection-after',
+      'blockly-WORKSPACE_SEARCH_INPUT_LABEL']) {
+      assert.notStrictEqual(locale[key], en[key], `${code}:${key} remains English`);
+      assert.match(locale[key], /\p{Script=Han}/u, `${code}:${key}`);
+    }
+    assert.match(locale['filter-preset-save'], /保存.*筛选/);
+    assert.doesNotMatch(locale['filter-preset-save'], /儲存|篩選/);
+    assert.notStrictEqual(locale['move-selection-before'], locale['move-selection-after']);
+    assert.deepStrictEqual(JSON.parse(execFileSync(process.execPath,
+      ['releases/translations/fill-translations.mjs', '--list', code],
+      { cwd: root, encoding: 'utf8' })), {});
+  }
+  console.log('Simplified Chinese source order, tokens, script and completeness verified');
+})().catch(error => { console.error(error); process.exitCode = 1; });
