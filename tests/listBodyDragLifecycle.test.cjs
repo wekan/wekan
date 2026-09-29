@@ -15,11 +15,21 @@ let destroy;
 const queued = [];
 let writable = true;
 let handles = false;
+// 7950979cb added per-board draggable settings: the card sortable is disabled
+// when the user cannot modify the board OR the board has turned card dragging
+// off (Utils.canDragBoardObject('card')). The stub grew that helper; both
+// switches are asserted below so neither can be dropped from the autorun.
+let cardDragAllowed = true;
+const draggedKinds = [];
 vm.runInNewContext(source.slice(start, end), {
   Template: { listBody: { onRendered(fn) { render = fn; }, onDestroyed(fn) { destroy = fn; } } },
   document: { querySelector: () => null },
   Blaze: { getView: () => null },
-  Utils: { canModifyBoard: () => writable, isTouchScreenOrShowDesktopDragHandles: () => handles },
+  Utils: {
+    canModifyBoard: () => writable,
+    canDragBoardObject: kind => { draggedKinds.push(kind); return cardDragAllowed; },
+    isTouchScreenOrShowDesktopDragHandles: () => handles,
+  },
   Tracker: { nonreactive: fn => fn(), afterFlush: fn => queued.push(fn) },
   Session: { get: () => 'board' },
   ReactiveCache: { getCards: () => [] },
@@ -54,6 +64,13 @@ const expanded = body();
 assert.ok(expanded.state.widget, 'expanding creates a working sortable on the replacement body');
 while (queued.length) queued.shift()();
 assert.equal(expanded.state.drops, 1);
+assert.ok(draggedKinds.includes('card'), 'the list body asks whether CARDS may be dragged on this board');
+cardDragAllowed = false;
+expanded.state.runs[0]();
+assert.equal(expanded.state.options.disabled, true, 'a board that turned card dragging off disables the sortable (negative)');
+cardDragAllowed = true;
+expanded.state.runs[0]();
+assert.equal(expanded.state.options.disabled, false, 'and turning it back on re-enables it');
 writable = false;
 expanded.state.runs[0]();
 assert.equal(expanded.state.options.disabled, true, 'read-only users remain unable to drag after expansion');

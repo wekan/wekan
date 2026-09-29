@@ -65,26 +65,34 @@ assert.match(
 );
 
 // It must thread that flag into the swimlane copy call, not silently drop it.
+// The call now also carries `selection` and `copyMaps` (scoped duplication and
+// 4af54df66's Scrum remap need the old->new list/swimlane ids), so the guard
+// pins withoutCards in the SAME argument position on the default (no
+// copyOptions) path, followed by those two extra arguments.
 assert.match(
   boardsModel,
-  /await swimlane\.copy\(_id, null, 'below', '', cardIdMap, withoutCards\);/,
+  /await swimlane\.copy\(_id, null, 'below', '', cardIdMap, withoutCards, selection, copyMaps\);/,
   'Boards.helpers().copy() must pass withoutCards into Swimlanes.helpers().copy()',
 );
 
 // 4. Swimlanes.helpers().copy() accepts the same flag...
 assert.match(
   swimlanesModel,
-  /async copy\(boardId, targetSwimlaneId = null, position = 'below', title = '', cardIdMap = null, withoutCards = false, copyOptions\) \{/,
+  // copyMaps (4af54df66) is appended after copyOptions; withoutCards keeps its
+  // position and its false default.
+  /async copy\(boardId, targetSwimlaneId = null, position = 'below', title = '', cardIdMap = null, withoutCards = false, copyOptions, copyMaps = null\) \{/,
   'Swimlanes.helpers().copy() must accept withoutCards, defaulting to false',
 );
 
 // ...and the per-list card-copy loop (the ONE place cards are actually
 // created on the destination board) is skipped when it is set. Pin the
 // negative shape too: the loop must be gated, not just decorated with a
-// nearby comment.
+// nearby comment. 4af54df66 appended `!!copyMaps` (Cards.copy's deferScrum:
+// a whole-board copy remaps Scrum data after every card exists), which does
+// not change the gating this pins.
 assert.match(
   swimlanesModel,
-  /if \(!withoutCards\) \{\s*\n\s*const cardQuery = \{[\s\S]*?for \(const card of cards\) \{\s*\n\s*await card\.copy\(boardId, newSwimlaneId, newListId, cardIdMap, copyOptions\);\s*\n\s*\}\s*\n\s*\}/,
+  /if \(!withoutCards\) \{\s*\n\s*const cardQuery = \{[\s\S]*?for \(const card of cards\) \{\s*\n\s*await card\.copy\(boardId, newSwimlaneId, newListId, cardIdMap, copyOptions, !!copyMaps\);\s*\n\s*\}\s*\n\s*\}/,
   'the card-copy loop inside Swimlanes.helpers().copy() must be skipped when withoutCards is set',
 );
 

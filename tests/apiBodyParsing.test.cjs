@@ -115,7 +115,12 @@ test('the API middleware compiles with the installed Rspack without body-parser'
   const compiler = rspack({
     mode: 'development', target: 'node', entry: path.join(root, 'server/apiMiddleware.js'),
     output: { path: output, filename: 'middleware.cjs' },
-    externals: [({ request }, callback) => callback(null, request?.startsWith('meteor/') || request?.startsWith('/server/') ? `commonjs ${request}` : undefined)],
+    // App-root paths ('/server/...', and since 89a65ee7c also '/models/...')
+    // are resolved by Meteor's module system, not by this bare Rspack run, so
+    // every one of them stays external. What this test pins is unchanged:
+    // the middleware's OWN npm dependencies must bundle, and body-parser
+    // must not be one of them.
+    externals: [({ request }, callback) => callback(null, request?.startsWith('meteor/') || /^\/(server|models|imports|client|config)\//.test(request || '') ? `commonjs ${request}` : undefined)],
   });
   try {
     const stats = await new Promise((resolve, reject) => compiler.run((error, result) => error ? reject(error) : resolve(result)));

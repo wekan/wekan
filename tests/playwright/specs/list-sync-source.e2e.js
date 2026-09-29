@@ -47,7 +47,9 @@ test('concurrent Sync runs create one card, and a moved card blocks replacement 
   const second = await secondContext.newPage();
   try {
     await loginWithToken(page, user.id, user.token);
-    await loginWithToken(second, user.id, user.token);
+    // Its own resume token: two contexts sharing one would both be logged out
+    // if either ended its session (tests/e2eSessionTokens.test.cjs).
+    await loginWithToken(second, user.id, db.addResumeToken(user.id));
     await openBoard(page, board.boardId, board.slug);
     await openBoard(second, board.boardId, board.slug);
     await call(page, 'setListSyncSource', listId, config);
@@ -443,7 +445,9 @@ test('expired Sync worker stops before reconciling after a settings save reclaim
   const second = await secondContext.newPage();
   try {
     await loginWithToken(page, user.id, user.token);
-    await loginWithToken(second, user.id, user.token);
+    // Its own resume token: two contexts sharing one would both be logged out
+    // if either ended its session (tests/e2eSessionTokens.test.cjs).
+    await loginWithToken(second, user.id, db.addResumeToken(user.id));
     await call(page, 'setListSyncSource', listId, config);
     const running = call(page, 'syncListNow', listId);
     await expect.poll(() => heldResponses.length).toBe(1);

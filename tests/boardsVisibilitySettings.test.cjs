@@ -283,7 +283,10 @@ test('Visibility is named groups, in order, and nothing was dropped', () => {
   const firstRule = pane.indexOf('li.admin-pane-group-separator');
   assert.ok(firstRule > pane.indexOf("_ 'all-boards-hide'") && firstRule < pane.indexOf("settings-group-url"),
     'the first rule sits between the All Boards group and the URL title');
-  assert.ok(pane.indexOf('js-visibility-logo-save') > at('custom-top-left-corner-logo-height'),
+  // Look for the BUTTON, not the bare class: since 88e234f05 the login-logo
+  // textarea names it in data-editor-submit=".js-visibility-logo-save" (so
+  // Ctrl+Enter submits through it), and that reference sits above the fields.
+  assert.ok(pane.indexOf('button.js-visibility-logo-save') > at('custom-top-left-corner-logo-height'),
     'the Logo section Save sits below every field it writes');
 });
 

@@ -95,13 +95,27 @@ function duplicateTokens(source) {
     if (node.type !== 'CallExpression' || !/^test(?:\.(?:only|skip))?$/.test(tokenName(node.callee) || '')) return;
     const callback = node.arguments.at(-1)?.expression;
     if (!['ArrowFunctionExpression', 'FunctionExpression'].includes(callback?.type)) return;
-    const counts = new Map();
+    // token -> the set of PAGES it logs in. Logging the SAME page in again
+    // with the same token (admin, then user, then admin again; or once per
+    // branch of a seed/verify test) is safe: loginWithToken ends the previous
+    // session in the client only (first test above), so the shared resume token
+    // is never deleted server-side. What breaks is two DIFFERENT pages holding
+    // one token, because either may log out and take the other with it. The
+    // guard used to count logins per test, which flagged every same-page
+    // re-login as well and so could only be satisfied by minting tokens a test
+    // did not need; it now counts the distinct pages each token reaches.
+    const pages = new Map();
     walk(callback.body, call => {
       if (call.type !== 'CallExpression' || !/^login\w*$/.test(tokenName(call.callee) || '')) return;
       const token = tokenName(call.arguments[2]?.expression);
-      if (token?.endsWith('.token')) counts.set(token, (counts.get(token) || 0) + 1);
+      if (!token?.endsWith('.token')) return;
+      const target = call.arguments[0]?.expression;
+      const pageName = tokenName(target) ||
+        (target?.span ? `<expr@${target.span.start}>` : '<unknown>');
+      if (!pages.has(token)) pages.set(token, new Set());
+      pages.get(token).add(pageName);
     });
-    for (const [token, count] of counts) if (count > 1) duplicates.push(`${token} used for ${count} logins in one test`);
+    for (const [token, set] of pages) if (set.size > 1) duplicates.push(`${token} used for ${set.size} pages in one test`);
   });
   return duplicates;
 }
@@ -115,7 +129,29 @@ test('parameterized tests have separate token scopes regardless of line layout',
   assert.deepStrictEqual(duplicateTokens(`test('two pages', async () => {
     await loginWithToken(page, user.id, user.token);
     await loginWithToken(otherPage, user.id, user.token);
-  });`), ['user.token used for 2 logins in one test']);
+  });`), ['user.token used for 2 pages in one test']);
+});
+
+test('re-logging the SAME page with its token is allowed; a second page is not', () => {
+  // Positive: one page, switched admin -> user -> admin, reuses admin's token.
+  assert.deepStrictEqual(duplicateTokens(`test('switch users', async () => {
+    await loginWithToken(page, admin.id, admin.token);
+    await loginWithToken(page, user.id, user.token);
+    await loginWithToken(page, admin.id, admin.token);
+  });`), []);
+  // Negative: a page from a second context with the same token is still caught,
+  // even when the first page re-logs in between.
+  assert.deepStrictEqual(duplicateTokens(`test('second context', async () => {
+    const second = await (await browser.newContext()).newPage();
+    await loginWithToken(page, user.id, user.token);
+    await loginWithToken(page, user.id, user.token);
+    await loginWithToken(second, user.id, user.token);
+  });`), ['user.token used for 2 pages in one test']);
+  // And the fix the message recommends passes.
+  assert.deepStrictEqual(duplicateTokens(`test('own token', async () => {
+    await loginWithToken(page, user.id, user.token);
+    await loginWithToken(second, user.id, db.addResumeToken(user.id));
+  });`), []);
 });
 
 test('no spec logs two pages in with the SAME token', () => {

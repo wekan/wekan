@@ -5,11 +5,28 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 
 function fixture() {
-  const hooks = [], deliveries = [], notifications = [];
+  const hooks = [], deliveries = [], notifications = [], pendingDeliveries = [];
   const source = fs.readFileSync(require.resolve('../server/models/activities.js'), 'utf8').replace(/^import .*;\n/gm, '').replace(/^export /gm, '');
   const context = { Meteor: { startup() {}, call(name, integration, description, params, callback) {
     assert.equal(name, 'outgoingWebhooks'); deliveries.push(structuredClone(params)); callback(null);
-  } }, Activities: { after: { insert: fn => hooks.push(fn) }, _transform: doc => doc },
+  } },
+    // Since 54c3130ce/4c762f407 the model captures a notification intent in a
+    // before.insert hook and the after.insert hook no longer calls
+    // Notifications.notify directly: it hands the prepared context to
+    // deliverStoredActivityNotifications, which freezes one plan row per
+    // recipient from context.params. The fixture therefore registers the
+    // before hook separately (it is not under test here) and records the
+    // params each recipient's stored delivery is built from, so every value
+    // assertion below still checks what a notification actually receives.
+    Activities: { before: { insert: () => {} }, after: { insert: fn => hooks.push(fn) }, _transform: doc => doc },
+    deliverStoredActivityNotifications: (activity, userId, buildContext) => {
+      const delivery = (async () => {
+        const context = await buildContext();
+        for (const user of context.users) notifications.push(structuredClone(context.params));
+      })();
+      pendingDeliveries.push(delivery);
+      return delivery;
+    },
     RulesHelper: { executeRules: async () => {} }, getFeatureFlags: () => ({}),
     ACTIVITY_NOTIFICATION_TITLE: {}, Integrations: { Const: { GLOBAL_WEBHOOK_ID: 'global' } },
     ReactiveCache: { getIntegrations: async () => [{ _id: 'integration' }] },
@@ -19,7 +36,10 @@ function fixture() {
   vm.runInNewContext(source, context);
   const doc = value => ({ _id: 'activity', activityType: 'setCustomField',
     customFieldId: 'field', customField: async () => ({ name: 'Estimate' }), ...value });
-  return { deliveries, notifications, run: value => hooks[1]('author', doc(value)),
+  return { deliveries, notifications, run: async value => {
+    await hooks[1]('author', doc(value));
+    await Promise.all(pendingDeliveries);
+  },
     prepare: value => context.prepareActivityNotification('author', doc(value)) };
 }
 test('actual activity hook forwards zero, false, empty and null to notifications and webhooks', async () => {

@@ -34,12 +34,29 @@ const docs = {
 };
 const raw = name => ({ find(selector) {
   const values = selector._id === '__none__' || (name === 'cards' && selector.parentId) ? [] : (docs[name] || []);
-  return { async *[Symbol.asyncIterator]() { yield* structuredClone(values); } };
+  // Real driver cursors are async-iterable AND have toArray(); the Scrum
+  // pre-scan (d70358219) uses the latter.
+  return { async *[Symbol.asyncIterator]() { yield* structuredClone(values); },
+    async toArray() { return structuredClone(values); } };
 } });
+// buildStream now also consults the admin-only custom field guard (89a65ee7c)
+// and the Scrum transfer exporter (d70358219) through app-root requires. Both
+// are server modules with their own suites; here they are stubbed so the
+// writer itself still runs, and the field guard is recorded so the test can
+// prove it is consulted for the exported board and that its refusal aborts
+// the download instead of streaming a partial board.
+const fieldExportChecks = [];
+let refuseFieldExport = false;
 const injected = {
   assertExportEnabled: async () => {}, Npm: { require },
   require(name) {
     if (name === '/server/lib/secureTransfer') return { secureTransfer };
+    if (name === '/server/lib/adminOnlyCustomFields') return { async assertFieldExport(boardId, userId) {
+      fieldExportChecks.push({ boardId, userId });
+      if (refuseFieldExport) throw new Error('This export requires board administrator access');
+    } };
+    if (name === '/server/lib/scrumTransferExport') return { exportScrumTransfer: async () => null, scrumTransferUserIds: () => [] };
+    if (name === '/models/lib/ruleParts') return require('../models/lib/ruleParts');
     const collection = raw(name.split('/').pop());
     return { default: { rawCollection: () => collection, collection: { rawCollection: () => collection } } };
   },
@@ -82,6 +99,20 @@ function response() {
       if (excludeAttachments) assert.equal(board.attachments[0].file, undefined);
       else assert.deepEqual(Buffer.from(board.attachments[0].file, 'base64'), bytes);
       console.log('ok: complete JSON with HTML cards, attachments excluded =', excludeAttachments);
+    }
+    assert.deepEqual(fieldExportChecks.map(c => c.boardId), ['board1', 'board1'],
+      'every JSON export consults the admin-only custom field guard for its board');
+    {
+      refuseFieldExport = true;
+      const res = response();
+      const exporter = { ...writer, _boardId: 'board1', _scope: {}, _excludeAttachments: true,
+        hasField: () => true, hasScope: () => false, _scopedCardSelector: async () => ({ boardId: 'board1' }) };
+      await route(res, exporter);
+      refuseFieldExport = false;
+      assert.equal(res.statusCode, 500);
+      assert.deepEqual(JSON.parse(res.body), { error: 'Export failed' });
+      assert.doesNotMatch(res.body, /Roadmap|Meteor 3/, 'a refused export writes no board data');
+      console.log('ok: a refused admin-only field check aborts the export before any board data');
     }
     for (const partial of [false, true]) {
       const res = response();

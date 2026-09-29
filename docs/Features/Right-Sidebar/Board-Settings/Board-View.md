@@ -24,6 +24,7 @@ Board admins only - same restriction as Swimlane and List.
 │  ▸ Board View        <- here │
 │  Swimlane                    │
 │  List                        │
+│  Scrum settings              │
 │  Card                        │
 │  ────────────────────────    │
 │  Export                      │

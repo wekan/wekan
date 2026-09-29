@@ -75,6 +75,14 @@ const WIRED = [
   // Other common attacks.
   ['spoof.forwarded-header',           'models/server/metrics.js',                    'MetricsBleed'],
   ['brute.login-lockout',              'server/apiAuthRoutes.js',                     'LockoutBleed'],
+  // Authentication boundaries (679a8b349, GHSA-m87f-f43w-hwmc). These live in
+  // Meteor packages, which cannot import server/lib/canary.js, so they trip
+  // through the global.__wekanTripCanary bridge that canary.js installs - the
+  // same bridge cas.account-conflict already uses.
+  ['saml.response-replay',             'packages/wekan-accounts-saml/saml_server.js', 'SamlReplayBleed'],
+  ['ldap.invalid-credentials',         'packages/wekan-ldap/server/userCredentials.js', 'LdapBindBleed'],
+  ['ldap.group-denied',                'packages/wekan-ldap/server/loginHandler.js',  'DirectoryGroupBleed'],
+  ['cas.group-denied',                 'packages/wekan-accounts-cas/cas_server.js',    'DirectoryGroupBleed'],
 ];
 
 // One canary above is declared where its DETECTOR lives rather than at a call
@@ -108,7 +116,11 @@ test('every wired canary is in the catalog, and its file names it', () => {
     const src = read(file);
     assert.ok(namedBy(src, id), `${file} must name ${id}`);
     if (!DECLARED_NOT_TRIPPED.has(id)) {
-      assert.ok(/tripCanary|tripCanaryDeny/.test(src), `${file} must actually trip a canary`);
+      // A package reaches the same rate-limited tripCanary through the
+      // global.__wekanTripCanary bridge (server/lib/canary.js), so that call
+      // counts as tripping one too.
+      assert.ok(/tripCanary|tripCanaryDeny|__wekanTripCanary\(/.test(src),
+        `${file} must actually trip a canary`);
     }
   });
 });
@@ -127,7 +139,8 @@ test('the attempts behind published vulnerabilities are watched', () => {
   const watched = new Set(WIRED.map(w => w[2]).filter(b => b !== '-'));
   ['BoardBleed', 'ChecklistBleed', 'PathBleed', 'ParentBleed', 'CommentBleed',
     'CalendarBleed', 'AssignedBleed', 'TenantBleed', 'MiniProfileBleed',
-    'PositionHistoryBleed', 'CasBleed'].forEach(bleed => {
+    'PositionHistoryBleed', 'CasBleed', 'SamlReplayBleed', 'LdapBindBleed',
+    'DirectoryGroupBleed'].forEach(bleed => {
     assert.ok(watched.has(bleed), `${bleed}'s attempt has no canary`);
   });
 });
@@ -141,7 +154,8 @@ test('SILENT: no canary call site changes what the caller gets back', () => {
   const files = [...new Set(WIRED.map(w => w[1]))];
   files.forEach(file => {
     const src = read(file);
-    const calls = src.match(/trip(Canary|CanaryDeny)\([^;]*?\)/g) || [];
+    // [tT]: also the package bridge, global.__wekanTripCanary(...).
+    const calls = src.match(/[tT]rip(Canary|CanaryDeny)\([^;]*?\)/g) || [];
     calls.forEach(call => {
       assert.ok(!/throw/.test(call), `${file}: a canary must not throw: ${call}`);
     });

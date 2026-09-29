@@ -13,8 +13,9 @@
 // - it imports `Notifications` from the SAME module every other event type
 //   subscribes to/notifies through (server/notifications/notifications.js);
 // - it calls `Notifications.notify(user, title, description, params)` -
-//   the exact helper signature used at server/models/activities.js:414 -
-//   not a new push-sending function;
+//   the exact helper signature every subscribed notification service
+//   (server/notifications/{email,profile}.js) receives - not a new
+//   push-sending function;
 // - the call is guarded so it only fires for an EXISTING user (isNewUser is
 //   false): a brand-new invitee created from an email address with no
 //   matching WeKan account has no push/notification target yet, so they
@@ -31,7 +32,7 @@ const usersSource = fs.readFileSync(usersSourcePath, 'utf8');
 
 // 1) The push-notification helper is imported from the shared notifications
 // module - the same one server/notifications/{email,profile}.js subscribe to
-// and server/models/activities.js already calls for other event types.
+// subscribe to (profile.js is the in-app notification bell).
 assert.match(
   usersSource,
   /import\s*\{\s*Notifications\s*\}\s*from\s*['"]\/server\/notifications\/notifications['"]/,
@@ -47,15 +48,32 @@ assert.ok(methodMatch, 'inviteUserToBoard method body must be found in server/mo
 const methodBody = methodMatch[0];
 
 // 3) It calls the exact same Notifications.notify(user, title, description,
-// params) helper/signature used elsewhere (server/models/activities.js:414),
-// not a bespoke push-sending call.
-const activitiesSourcePath = path.join(__dirname, '..', 'server/models/activities.js');
-const activitiesSource = fs.readFileSync(activitiesSourcePath, 'utf8');
+// params) helper/signature every notification service subscribes with, not a
+// bespoke push-sending call.
+//
+// This sanity check used to point at server/models/activities.js, which called
+// Notifications.notify(user, title, description, params) directly. Since
+// 54c3130ce/4c762f407 activity notifications are frozen into a stored plan and
+// delivered by server/notifications/activityPlans.js instead, so activities.js
+// deliberately no longer calls notify(). The helper itself - and the services
+// subscribed to it with the same four arguments - is what the invite reuses,
+// so that is what is pinned now.
+const notificationsSource = fs.readFileSync(
+  path.join(__dirname, '..', 'server/notifications/notifications.js'), 'utf8');
 assert.match(
-  activitiesSource,
-  /Notifications\.notify\(user, title, description, params\)/,
-  'sanity check: server/models/activities.js still calls Notifications.notify(user, title, description, params) for other event types',
+  notificationsSource,
+  /\bnotify: \(user, title, description, params\) =>/,
+  'sanity check: server/notifications/notifications.js still exports notify(user, title, description, params)',
 );
+for (const service of ['email', 'profile']) {
+  const serviceSource = fs.readFileSync(
+    path.join(__dirname, '..', `server/notifications/${service}.js`), 'utf8');
+  assert.match(
+    serviceSource,
+    new RegExp(`Notifications\\.subscribe\\('${service}', async \\(user, title, description, params\\) =>`),
+    `sanity check: the ${service} service still subscribes to notify() with (user, title, description, params)`,
+  );
+}
 assert.match(
   methodBody,
   /Notifications\.notify\(\s*user,\s*['"]push-invite-title['"],\s*['"]push-invite-text['"],\s*params\s*\)/,

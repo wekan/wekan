@@ -46,7 +46,15 @@ async function check(name, fn) { await fn(); passed += 1; console.log('  ok -', 
       'fileTypeCorrection.js'), 'utf8');
     assert.match(source, /import\('file-type'\)/);
     assert.ok(source.indexOf("import('file-type')") < source.indexOf("return detectMimeFile"));
-    assert.strictEqual(require('../package.json').dependencies['file-type'], '^22.0.2');
+    // The range used to be pinned to exactly '^22.0.2'. Dependabot's bump to
+    // ^22.1.1 (616e648d7) was a deliberate, compatible upgrade, so the guard now
+    // pins what matters: a caret range on major 22 (the ESM-only API that
+    // fileTypeCorrection.js imports dynamically), at least 22.0.2.
+    const range = require('../package.json').dependencies['file-type'];
+    const m = /^\^22\.(\d+)\.(\d+)$/.exec(range || '');
+    assert.ok(m, `file-type must stay a ^22.x.y range, got ${range}`);
+    assert.ok(Number(m[1]) > 0 || Number(m[2]) >= 2,
+      `file-type must be at least 22.0.2, got ${range}`);
   });
 
   await check('JavaScript magic-byte detection identifies PNG content', async () => {

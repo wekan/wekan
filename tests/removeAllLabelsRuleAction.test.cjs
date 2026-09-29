@@ -46,10 +46,15 @@ const cardActionsJadeSource = fs.readFileSync(
 // 2) server/rulesHelper.js wires the 'removeAllLabels' actionType to
 //    card.removeAllLabels(), the same way 'removeLabel' wires to
 //    card.removeLabel(action.labelId).
+//    The call is AWAITED: card.removeAllLabels() returns the promise of its
+//    updateAsync, and the rule runner must not move on to the next action (or
+//    report success) before the write lands. The guard used to require the bare
+//    call; it now accepts an optional `await` but still requires the call to be
+//    the first statement of that branch.
 {
   assert.match(
     rulesHelperSource,
-    /actionType === 'removeAllLabels'\)\s*\{\s*\n\s*card\.removeAllLabels\(\);/,
+    /actionType === 'removeAllLabels'\)\s*\{\s*\n\s*(?:await\s+)?card\.removeAllLabels\(\);/,
     'rulesHelper calls card.removeAllLabels() for the removeAllLabels action',
   );
 }

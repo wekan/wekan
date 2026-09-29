@@ -100,10 +100,28 @@ test('junk is refused rather than throwing (negative)', () => {
 
 // ---- and the wiring, so the rule is the one actually used ---------------------
 
+// Locate a method by its DEFINITION, `async 'name'(`, not by the first mention
+// of its name. The file used to mention each name only once; since the Scrum
+// undo/redo rate limit (DDPRateLimiter.addRule near the top) also lists
+// 'changeHistory.undoLast', the first mention is no longer the method, and a
+// slice from restore to the first undoLast came back EMPTY - which failed the
+// positive assertions and would have silently passed every doesNotMatch.
+const methodAt = (server, name) => {
+  const at = server.indexOf(`async '${name}'(`);
+  assert.ok(at >= 0, `server/models/changeHistory.js defines ${name}`);
+  return at;
+};
+const restoreMethod = server => {
+  const body = server.slice(methodAt(server, 'changeHistory.restore'),
+    methodAt(server, 'changeHistory.undoLast'));
+  assert.ok(body.length > 0, 'the restore method body was found (an empty slice proves nothing)');
+  return body;
+};
+
+
 test('the restore method asks for the restore direction, not undo', () => {
   const server = read('server/models/changeHistory.js');
-  const method = server.slice(server.indexOf("'changeHistory.restore'"),
-    server.indexOf("'changeHistory.undoLast'"));
+  const method = restoreMethod(server);
   assert.match(method, /applyRow\(row, 'restore'\)/,
     'this line is the bug: it read `applyRow(row, \'undo\')`');
   assert.doesNotMatch(method, /applyRow\(row, 'undo'\)/);
@@ -111,10 +129,11 @@ test('the restore method asks for the restore direction, not undo', () => {
 
 test('and undo/redo still use their own directions', () => {
   const server = read('server/models/changeHistory.js');
-  const undo = server.slice(server.indexOf("'changeHistory.undoLast'"));
+  const undo = server.slice(methodAt(server, 'changeHistory.undoLast'),
+    methodAt(server, 'changeHistory.redoLast'));
   assert.match(undo, /applyRow\(row, 'undo'\)/,
     'Ctrl+Z reverses the last change and must not become a restore');
-  assert.match(server.slice(server.indexOf("'changeHistory.redoLast'")), /applyRow\(row, 'redo'\)/);
+  assert.match(server.slice(methodAt(server, 'changeHistory.redoLast')), /applyRow\(row, 'redo'\)/);
 });
 
 // The display side of the same sentence. If this ever shows previousContent,
@@ -131,8 +150,7 @@ test('the table shows the content that restore applies', () => {
 // restores, a false one.
 test('the appended rows describe the restore, not the row restored', () => {
   const server = read('server/models/changeHistory.js');
-  const method = server.slice(server.indexOf("'changeHistory.restore'"),
-    server.indexOf("'changeHistory.undoLast'"));
+  const method = restoreMethod(server);
   assert.match(method, /const displaced = await currentContentOf\(row\)/,
     'the live value has to be read BEFORE the write');
   assert.match(method, /previousContent: displaced/);

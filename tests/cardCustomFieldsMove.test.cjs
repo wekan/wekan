@@ -205,13 +205,27 @@ test('missing or malformed customFields still yields an array', async () => {
 test('both callers await it', async () => {
   // An unawaited call puts a Promise straight into the document, which is how the
   // whole class of bug gets in.
-  const calls = [...src.matchAll(/(\w*\s*)this\.mapCustomFieldsToBoard\(/g)];
+  //
+  // copy() now calls it as `this.mapCustomFieldsToBoard.call({ customFields:
+  // cardData.customFields }, …)` (89a65ee7c, AdminFieldBleed GHSA-m8gh-2h78-f57x):
+  // it must re-key the card data that has ALREADY had admin-only values filtered
+  // out, not the source card's raw `this.customFields`. The call sits in a
+  // ternary (`: await …`), not after `=`, so the guard counts both call forms and
+  // requires `await` directly before each one instead of `= await`.
+  const calls = [...src.matchAll(/(\w*\s*)this\.mapCustomFieldsToBoard(?:\.call)?\(/g)];
   assert.ok(calls.length >= 2, `expected move() and copy() to call it, found ${calls.length}`);
-  const unawaited = [...src.matchAll(/[^ ]\s*=\s*this\.mapCustomFieldsToBoard\(/g)];
-  assert.deepStrictEqual(unawaited, [], 'every call site must be `await this.mapCustom…`');
+  const unawaited = calls.filter(m => m[1].trim() !== 'await');
+  assert.deepStrictEqual(unawaited.map(m => m[0]), [],
+    'every call site must be `await this.mapCustom…`');
   assert.strictEqual(
-    (src.match(/= await this\.mapCustomFieldsToBoard\(/g) || []).length, calls.length,
-    'move() and copy() both assign the AWAITED result');
+    (src.match(/= await this\.mapCustomFieldsToBoard\(/g) || []).length, 1,
+    'move() assigns the AWAITED result');
+  assert.match(src,
+    /: await this\.mapCustomFieldsToBoard\.call\(\{ customFields: cardData\.customFields \}, newBoard\._id\)/,
+    'copy() re-keys the already-filtered cardData.customFields, awaited');
+  // Negative: copy() must not go back to re-keying the raw source values.
+  assert.doesNotMatch(src, /cardData\.customFields\s*=[^;]*this\.mapCustomFieldsToBoard\(newBoard\._id\)/,
+    'copy() must not map the unfiltered this.customFields');
 });
 
 (async () => {

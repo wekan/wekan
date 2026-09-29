@@ -3,7 +3,7 @@
 //
 //   Rules, Change color, Change Background Image, Date
 //   ---
-//   Board View, Swimlane, List, Card
+//   Board View, Swimlane, List, Scrum settings, Card
 //   ---
 //   Export, Import, Notifications, Outgoing Webhooks
 //   ---
@@ -17,6 +17,12 @@
 // from the list above fails here rather than being noticed in a screenshot.
 // The guards each entry carries are pinned too: a reorder must move entries,
 // not loosen who sees them.
+//
+// Scrum settings joined the second group in 83eac1021 (Scrum sprint
+// planning): it sits after List, under the same board-admin guard as Board
+// View / Swimlane / List, and opens the Sprints view's settings rather than a
+// popup of its own. The expectation below, its guard and the docs diagram
+// were extended for it deliberately - the other entries' order is unchanged.
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
@@ -64,6 +70,7 @@ const EXPECTED = [
   'js-open-board-view-settings',
   'js-open-board-swimlane-settings',
   'js-open-board-list-settings',
+  'js-open-board-scrum-settings',
   'js-open-board-card-settings',
   'hr',
   'js-export-board',
@@ -115,6 +122,7 @@ test('the reorder kept every guard (negative: nothing became visible to more peo
   assert.deepStrictEqual(guardsOf('js-open-board-swimlane-settings'), ['if currentUser', admin]);
   assert.deepStrictEqual(guardsOf('js-open-board-date-settings'), [admin]);
   assert.deepStrictEqual(guardsOf('js-open-board-list-settings'), ['if currentUser', admin]);
+  assert.deepStrictEqual(guardsOf('js-open-board-scrum-settings'), ['if currentUser', admin]);
   assert.deepStrictEqual(guardsOf('js-open-board-card-settings'), ['if currentUser'],
     'Card stays open to any board member for its personal Labels text row');
   assert.deepStrictEqual(guardsOf('js-export-board'), ['if withApi', 'unless exportDisabled']);
@@ -141,7 +149,7 @@ test('the docs draw the same order', () => {
     .filter(Boolean);
   assert.deepStrictEqual(names, [
     'Rules', 'Change color', 'Change Background Image', 'Date', 'hr',
-    'Board View', 'Swimlane', 'List', 'Card', 'hr',
+    'Board View', 'Swimlane', 'List', 'Scrum settings', 'Card', 'hr',
     'Export', 'Import', 'Notifications', 'Outgoing Webhooks', 'hr',
     'Archived items', 'Move Board to Archive',
   ], 'the diagram lists the entries and rules in the menu\'s order');
