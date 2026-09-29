@@ -264,6 +264,20 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
   assert.match(bg['above-selected-card'], /^Над/);
   assert.match(bg['below-selected-card'], /^Под/);
   assert.match(bg['import-csv-placeholder'], /CSV\/TSV/);
+  const remainingVocabularyKeys = ["editUserPopup-title", "newUserPopup-title", "view-all", "my-cards", "my-attachments", "myCardsViewChange-title", "myCardsViewChangePopup-title", "dueCards-title", "globalSearch-title", "operator-user", "operator-org", "globalSearch-instructions-operator-board", "globalSearch-instructions-status-archived", "globalSearch-instructions-status-ended", "label-names", "sort-cards", "sort-is-on", "cardsSortPopup-title", "maximize-card", "minimize-card", "remove-team-from-table", "copyChecklist", "copyChecklistPopup-title", "copyChecklistFromTemplate", "copyChecklistFromTemplatePopup-title", "card-show-lists", "minicardDetailsActionsPopup-title", "accounts-lockout-show-locked-users", "admin-people-filter-all", "cron-migration-errors", "anonymized-user", "gridfs-enabled", "select-migration", "s3-enabled", "s3-ssl-enabled-description", "stop-all-migrations", "restore-all-archived-migration", "fix-avatar-urls-migration", "step-analyze-board-structure", "step-analyze-lists", "step-delete-duplicate-empty-lists", "step-scan-users", "show-list-on-minicard"];
+  for (const key of remainingVocabularyKeys) {
+    assert.deepEqual(translationTokens(bg[key]), translationTokens(en[key]), key);
+    assert.doesNotMatch(bg[key], /предмет|спис[иа]|поступ|сарад|налеп|корис|назив|правни/i, key);
+    assert.match(bg[key], /[А-Яа-я]/, key);
+  }
+  assert.equal(bg['dueCards-title'], 'Карти с краен срок');
+  assert.match(bg['globalSearch-instructions-status-ended'], /с дата на приключване/);
+  assert.match(bg['accounts-lockout-show-locked-users'], /само на блокираните/);
+  assert.match(bg['stop-all-migrations'], /всички миграции/);
+  assert.match(bg['restore-all-archived-migration'], /всичко архивирано/);
+  assert.match(bg['copyChecklistFromTemplate'], /от шаблон/);
+  assert.match(bg['s3-ssl-enabled-description'], /SSL\/TLS.*S3/);
+  assert.notEqual(bg['maximize-card'], bg['minimize-card']);
   assert.equal(bg.swimlane, 'Коридор');
   assert.equal(bg['welcome-swimlane'], 'Етап 1');
   assert.match(bg['swimlane-height-error-message'], /положително цяло число/);
