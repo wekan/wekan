@@ -337,7 +337,7 @@ test('every external export menu link returns text and refuses an unrelated user
   // Include description through the actual shared selection controls.
   const details = page.locator('.js-export-card-details-toggle');
   if (await details.getAttribute('aria-checked') !== 'true') await details.click();
-  for (const format of ['trello', 'jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit', 'markdown', 'leo']) {
+  for (const format of ['trello', 'jira', 'kanboard', 'deck', 'openproject', 'github', 'gitlab', 'gitea', 'forgejo', 'asana', 'zenkit', 'markdown', 'leo', 'todotxt']) {
     await test.step(format, async () => {
       const anchor = page.locator(`.js-pop-over a[href*="/export/${format}?"]`);
       await expect(anchor).toBeVisible();
@@ -351,6 +351,33 @@ test('every external export menu link returns text and refuses an unrelated user
       expect([401, 403]).toContain(refused.status());
     });
   }
+});
+
+// todo.txt has no description, so it gets its own case: title, list, labels and dates.
+test('todo.txt: tasks import with their list, labels, priority and dates', async ({ loggedInPage: page }) => {
+  let boardId;
+  try {
+    await navigateInApp(page, '/import/todotxt');
+    await page.locator('#import-textarea').fill([
+      `(A) 2026-09-01 ${expected.title} +${expected.label.replace(/ /g, '_')} @phone due:2026-10-10`,
+      'x 2026-10-09 2026-09-02 Finished task list:Done',
+    ].join('\n'));
+    await page.locator('.js-import-without-mapping').click();
+    await waitForImportedBoard(page);
+    boardId = page.url().match(/\/b\/([^/]+)/)[1];
+    const cards = db.find('cards', { boardId });
+    expect(cards).toHaveLength(2);
+    const open = cards.find(card => card.title === expected.title);
+    const board = db.findOne('boards', { _id: boardId });
+    const labelNames = open.labelIds.map(id => board.labels.find(label => label._id === id).name).sort();
+    expect(labelNames).toEqual(['@phone', expected.label, 'priority:A'].sort());
+    expect(new Date(open.dueAt).toISOString().slice(0, 10)).toBe('2026-10-10');
+    const lists = db.find('lists', { boardId });
+    const done = cards.find(card => card.title === 'Finished task');
+    expect(lists.find(list => list._id === done.listId).title).toBe('Done');
+    expect(new Date(done.endAt).toISOString().slice(0, 10)).toBe('2026-10-09');
+    await expect(page.locator('.minicard-title', { hasText: expected.title })).toBeVisible();
+  } finally { if (boardId) db.cleanup({ boardIds: [boardId] }); }
 });
 
 for (const source of ['csv', 'markdown', 'excel']) {

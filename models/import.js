@@ -69,8 +69,8 @@ Meteor.methods({
     // feature lookup, creator or write is reached before authentication.
     // String is accepted alongside Object/Array for markdown-kanban text
     // imports (models/lib/externalParsers.js parseMarkdownKanban); the
-    // 'markdown' and 'leo' cases below are the only ones that let a string
-    // through their own per-source check().
+    // 'markdown', 'todotxt' and 'leo' cases below are the only ones that let a
+    // string through their own per-source check().
     check(board, Match.OneOf(Object, Array, String));
     check(data, Object);
     check(importSource, String);
@@ -129,6 +129,16 @@ Meteor.methods({
         check(board, String);
         importedBoard = EXTERNAL_PARSERS.markdown(importedBoard);
         creator = new KanboardCreator(data, 'markdown');
+        break;
+      case 'todotxt':
+        // todo.txt, one task per line - see models/lib/todoTxtFormat.js.
+        check(board, String);
+        try {
+          importedBoard = EXTERNAL_PARSERS.todotxt(importedBoard);
+        } catch (error) {
+          throw new Meteor.Error('invalid-import-format', error.message);
+        }
+        creator = new KanboardCreator(data, 'todotxt');
         break;
       case 'leo':
         // The Leo literate editor's outline - see models/lib/leoOutline.js.

@@ -12,6 +12,7 @@
 // field for; that is the honest answer, not a loss this module invents.
 import { formatMarkdownKanban } from './markdownKanbanFormat.js';
 import { formatLeo } from './leoOutlineFormat.js';
+import { formatTodoTxt } from './todoTxtFormat.js';
 
 // A WeKan list maps to a "closed" issue state when its name looks terminal.
 function isClosed(listTitle) {
@@ -239,6 +240,8 @@ export const formatters = {
   // The Leo literate editor's .leo outline (XML): lists, cards and checklists
   // as nested nodes. Round-trips with parseLeo in leoOutline.js.
   leo: formatLeo,
+  // todo.txt: one task per line; round-trips with parseTodoTxt (todoTxtFormat.js).
+  todotxt: formatTodoTxt,
 };
 
 export const EXTERNAL_EXPORT_FORMATS = Object.keys(formatters);
