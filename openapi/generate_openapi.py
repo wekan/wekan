@@ -15,6 +15,10 @@ err_context = 3
 
 
 def get_req_body_elems(obj, elems):
+    # An absent child is valid JavaScript: `let x;` has no init, `for (;;)`
+    # has no test, `[a, , b]` has a hole. There is nothing to read in it.
+    if obj is None:
+        return ''
     if obj.type in ['FunctionExpression', 'ArrowFunctionExpression']:
         get_req_body_elems(obj.body, elems)
     elif obj.type == 'BlockStatement':
@@ -65,6 +69,10 @@ def get_req_body_elems(obj, elems):
     elif obj.type in ('LogicalExpression', 'BinaryExpression', 'AssignmentExpression'):
         get_req_body_elems(obj.left, elems)
         get_req_body_elems(obj.right, elems)
+    elif obj.type == 'ConditionalExpression':
+        get_req_body_elems(obj.test, elems)
+        get_req_body_elems(obj.consequent, elems)
+        get_req_body_elems(obj.alternate, elems)
     elif obj.type == 'ChainExpression':
         get_req_body_elems(obj.expression, elems)
     elif obj.type in ('ReturnStatement', 'UnaryExpression'):
@@ -992,6 +1000,8 @@ def downlevel_js(data):
       foo?.[i] -> foo [i]     (optional index)
       foo?.bar -> foo .bar    (optional member)
       a ??= b  -> a   = b     (nullish assignment)
+      a ||= b  -> a   = b     (logical OR assignment)
+      a &&= b  -> a   = b     (logical AND assignment)
       a ?? b   -> a || b      (nullish coalescing)
       catch {  -> catch (_) { (optional catch binding, ES2019)
       for await (x of y) -> for (x of y)   (async iteration, ES2018)
@@ -1009,6 +1019,8 @@ def downlevel_js(data):
     data = data.replace('?.[', '  [')
     data = data.replace('?.', ' .')
     data = data.replace('??=', '  =')
+    data = data.replace('||=', '  =')
+    data = data.replace('&&=', '  =')
     data = data.replace('??', '||')
     data = re.sub(r'\bcatch\s*\{', 'catch (_) {', data)
     data = re.sub(r'\bfor\s+await\s*\(', 'for (', data)
