@@ -3499,6 +3499,25 @@ The all-language goal remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1a967d339">Correct Bulgarian user, checklist and migration controls</a>. Thanks to xet7.</summary>
+
+Replace 43 Serbian or mixed-language values with Bulgarian for user controls,
+card views, search help, checklist copying and migration actions. Preserve the
+meaning of cards with due dates, end-date filtering, locked-user-only views,
+all-item recovery and template copying. Correct Bulgarian legal-notice text
+matched by the vocabulary search remains unchanged.
+
+The Bulgarian and translation-token suites pass, together with all 21
+human-preference checks. Coverage checks vocabulary, placeholders, filtering
+scope, all-migration actions, template origin and SSL/TLS terminology. Browser
+layout and fluent-speaker review were not run. Existing Upcoming entries retain
+their recorded regression evidence. Broader vocabulary review and untranslated
+strings remain, including three new parent-card messages from feature work.
+The all-language translation goal remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
