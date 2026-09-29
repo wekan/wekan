@@ -344,6 +344,23 @@ const read = code => JSON.parse(fs.readFileSync(path.join(__dirname, '../imports
   assert.match(bg['sync-conflict-review-complete'], /Не е извършена синхронизация на целия списък/);
   assert.match(bg['sync-conflict-detach-hint'], /Съдържанието му остава в WeKan/);
   assert.match(bg['sync-conflict-archive-hint'], /Подкартите не се променят/);
+  const syncFillKeys = ["sync-conflict-creation", "sync-conflict-creation-hint", "sync-conflict-create-replacement", "sync-preview-button", "sync-preview-heading", "sync-preview-saved", "sync-preview-unavailable", "sync-preview-blocked", "sync-preview-create", "sync-preview-update", "sync-preview-archive", "sync-preview-baseline", "sync-preview-truncated", "sync-preview-omissions", "sync-preview-scope", "sync-preview-excluded", "sync-preview-unmapped", "sync-preview-parser-warnings", "sync-preview-parser-unsupported", "sync-source-heading", "sync-source-scope", "sync-source-unmapped", "sync-source-excluded", "sync-source-converted", "sync-source-fallback", "sync-source-excluded-item", "sync-source-occurrences", "sync-source-truncated", "sync-source-omitted", "sync-report-button", "sync-report-retention", "sync-report-partial", "sync-report-unfinished", "sync-report-failed", "sync-report-completed", "sync-report-completed-with-warnings", "sync-report-skipped", "sync-report-review-only", "sync-report-unavailable", "sync-report-empty", "sync-recovery-heading", "sync-recovery-description", "sync-recovery-unavailable", "sync-recovery-all", "sync-estimate-field"];
+  for (const key of syncFillKeys) {
+    assert.ok(bg[key]?.trim(), key);
+    assert.notEqual(bg[key], en[key], key);
+    assert.deepEqual(translationTokens(bg[key]), translationTokens(en[key]), key);
+    assert.match(bg[key], /[А-Яа-я]/, key);
+  }
+  assert.match(bg['sync-conflict-creation-hint'], /предишната карта непроменена.*същата заместваща карта/);
+  assert.match(bg['sync-preview-saved'], /извлича и проверява източника отново/);
+  assert.match(bg['sync-preview-truncated'], /първите 100/);
+  assert.match(bg['sync-source-truncated'], /100 пътя.*съкратени/);
+  assert.match(bg['sync-source-scope'], /стойностите им не се показват/);
+  assert.match(bg['sync-report-retention'], /20.*30 дни/);
+  assert.match(bg['sync-report-partial'], /може да са променили.*не възобновяват и не отменят/);
+  assert.match(bg['sync-report-unavailable'], /право на запис за целия списък/);
+  assert.match(bg['sync-recovery-description'], /още да работи или да е прекъснато.*Обновете/);
+  assert.match(bg['sync-recovery-unavailable'], /администраторския достъп/);
   assert.equal(bg.swimlane, 'Коридор');
   assert.equal(bg['welcome-swimlane'], 'Етап 1');
   assert.match(bg['swimlane-height-error-message'], /положително цяло число/);
