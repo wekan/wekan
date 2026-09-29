@@ -2,9 +2,14 @@ import { Meteor } from 'meteor/meteor';
 import { ReactiveCache } from '/imports/reactiveCache';
 import Activities from '/models/activities';
 import Boards from './boards';
+import CardComments from '/models/cardComments';
 import Cards from '/models/cards';
+import ChecklistItems from '/models/checklistItems';
+import Checklists from '/models/checklists';
 import Lists from '/models/lists';
 import Swimlanes from '/models/swimlanes';
+import { CARD_COLORS } from '/models/metadata/colors';
+import { planImportedTask } from '/models/lib/importedTaskPlan';
 
 // Creates a WeKan board from a Kanboard export.
 //
@@ -19,8 +24,14 @@ import Swimlanes from '/models/swimlanes';
 //     "swimlanes": [ { "name": "Default" }, ... ],            // optional
 //     "tasks": [ { "title", "description", "column_name", "swimlane_name",
 //                  "date_due", "owner_id"|"owner_name"|"owner_username",
-//                  "tags": [ ... ] }, ... ]
+//                  "tags": [ ... ],
+//                  "date_started", "date_end", "archived", "color", "spent_hours",
+//                  "checklists": [ { "title", "items": [ { "title", "done" } ] } ],
+//                  "comments": [ { "text", "author", "date" } ] }, ... ]
 //   }
+//
+// What each task becomes is decided by models/lib/importedTaskPlan.js, which
+// plain-Node tests exercise; this class only performs the inserts.
 export class KanboardCreator {
   constructor(data) {
     this._nowDate = new Date();
@@ -158,33 +169,65 @@ export class KanboardCreator {
     for (const task of this._tasks(data)) {
       const columnName = task.column_name || task.column || this._columnNames(data)[0];
       const swimlaneName = task.swimlane_name || task.swimlane || 'Default';
+      const plan = planImportedTask(task, { members: this.members, allowedColors: CARD_COLORS });
       const cardToCreate = {
-        archived: false,
+        ...plan.card,
         boardId,
         dateLastActivity: this._now(),
-        description: task.description || '',
         listId: this.lists[columnName] || Object.values(this.lists)[0],
         swimlaneId: this.swimlanes[swimlaneName] || firstSwimlane,
         sort: 0,
-        title: task.title || 'Imported task',
         userId: this._user(),
         labelIds: [],
       };
-      // The Kanboard shape every external parser normalises to carries it now.
-      if (task.requested_by) cardToCreate.requestedBy = String(task.requested_by);
-      if (task.assigned_by) cardToCreate.assignedBy = String(task.assigned_by);
-      if (task.date_due) cardToCreate.dueAt = this._now(task.date_due);
-      if (task.date_creation) cardToCreate.createdAt = this._now(task.date_creation);
+      if (cardToCreate.archived) cardToCreate.archivedAt = this._now();
       for (const t of task.tags || []) {
         const name = typeof t === 'string' ? t : t.name;
         const label = name && board.getLabel(name, 'black');
         if (label) cardToCreate.labelIds.push(label._id);
       }
-      const ownerKey = task.owner_id || task.owner_username || task.owner_name;
-      if (ownerKey && this.members[ownerKey]) {
-        cardToCreate.members = [this.members[ownerKey]];
+      if (plan.memberId) cardToCreate.members = [plan.memberId];
+      const cardId = await Cards.direct.insertAsync(cardToCreate);
+      await this.createChecklists(plan.checklists, boardId, cardId);
+      await this.createComments(plan.comments, boardId, cardId);
+    }
+  }
+
+  // Kanboard subtasks, Asana subtasks, Jira sub-tasks and the like arrive as
+  // checklists; .direct inserts bypass the hooks that would derive boardId.
+  async createChecklists(checklists, boardId, cardId) {
+    for (const checklist of checklists) {
+      const checklistId = await Checklists.direct.insertAsync({
+        boardId,
+        cardId,
+        title: checklist.title,
+        sort: checklist.sort,
+        createdAt: this._now(),
+      });
+      for (const item of checklist.items) {
+        await ChecklistItems.direct.insertAsync({
+          boardId,
+          cardId,
+          checklistId,
+          title: item.title,
+          sort: item.sort,
+          isFinished: item.isFinished,
+        });
       }
-      await Cards.direct.insertAsync(cardToCreate);
+    }
+  }
+
+  async createComments(comments, boardId, cardId) {
+    for (const comment of comments) {
+      const createdAt = comment.createdAt || this._now();
+      const userId = comment.userId || this._user();
+      const commentId = await CardComments.direct.insertAsync({
+        boardId, cardId, createdAt, text: comment.text, userId,
+      });
+      // The activity feed and comment counters read addComment activities.
+      await Activities.direct.insertAsync({
+        activityType: 'addComment', boardId, cardId, commentId, createdAt, userId,
+      });
     }
   }
 
