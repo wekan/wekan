@@ -1643,6 +1643,22 @@ marked pending Transifex. Completeness checks remain enabled.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fbf3fbe96">Complete Vietnamese and Bulgarian translation placeholders</a>. Thanks to xet7.</summary>
+
+Fill 645 values across Vietnamese, its Vietnam locale and Bulgarian, including
+strings previously pending Transifex. Translate filters, reminders, maps,
+Scrum, synchronization and notification recovery. Preserve existing regional
+translations, executable variables, product names and mathematical symbols.
+
+Regression checks cover every key and placeholder in these three locales,
+remaining English prose including pending keys, native vocabulary and filter
+syntax. Four focused suites and all 21 human-preference checks pass. The
+remaining languages are still being translated, including new English keys
+added during feature development.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.10 2026-09-29 WeKan ® release
