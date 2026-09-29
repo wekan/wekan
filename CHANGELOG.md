@@ -3461,6 +3461,25 @@ remains unfinished.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/858586cd8">Correct Bulgarian migration progress and analytics explanations</a>. Thanks to xet7.</summary>
+
+Replace 70 Serbian or mixed-language values with Bulgarian for migration
+progress, resource monitoring and analytics. Restore the full explanations of
+historical percentiles, overlapping blockers, forecast assumptions and limits,
+and recorded-time corrections. Preserve placeholders, numeric ranges and units.
+
+The Bulgarian and translation-token suites pass, together with all 21
+human-preference checks. Coverage checks migration continuity, pause thresholds,
+units, forecast bounds, absent history, non-guarantees and time attribution.
+A whole-file check now rejects distinctive Serbian letters. This does not prove
+that all remaining vocabulary is Bulgarian: shared-script words and English
+placeholders still require review. Browser layout and fluent-speaker review
+were not run. Existing Upcoming entries retain their recorded regression
+evidence. The all-language translation goal remains unfinished.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.09 2026-09-28 WeKan ® release
