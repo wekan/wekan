@@ -91,6 +91,10 @@ const CANARIES = {
     key: 'authz.comment',
     what: "tried to delete another user's comment over the REST API",
   },
+  'comment.foreign-edit': {
+    key: 'authz.comment',
+    what: "tried to edit another user's comment over the REST API",
+  },
   'calendar.import-without-write': {
     key: 'authz.calendar',
     what: 'tried to import iCalendar events as cards without board write access',
@@ -134,6 +138,10 @@ const CANARIES = {
   'saml.response-replay': {
     key: 'authn.saml-replay',
     what: 'tried to reuse a SAML login response',
+  },
+  'saml.account-conflict': {
+    key: 'authn.saml-link',
+    what: 'tried to sign in with SAML as an existing non-SAML account without account linking enabled',
   },
   'ldap.invalid-credentials': {
     key: 'authn.ldap-empty',

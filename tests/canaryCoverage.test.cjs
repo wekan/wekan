@@ -54,6 +54,7 @@ const WIRED = [
   ['attachment.restricted-field',      'server/permissions/attachments.js',           'PathBleed'],
   ['reaction.foreign',                 'server/permissions/cardCommentReactions.js',  '-'],
   ['comment.foreign-delete',           'server/models/cardComments.js',               'CommentBleed'],
+  ['comment.foreign-edit',             'server/models/cardComments.js',               'CommentBleed'],
   ['calendar.import-without-write',    'server/methods/icsImport.js',                  'CalendarBleed'],
   ['board.write-without-capability',   'server/authentication.js',                     'AssignedBleed'],
   ['rule.cross-board-write',           'server/rulesHelper.js',                       'RuleBleed'],
@@ -80,6 +81,7 @@ const WIRED = [
   // through the global.__wekanTripCanary bridge that canary.js installs - the
   // same bridge cas.account-conflict already uses.
   ['saml.response-replay',             'packages/wekan-accounts-saml/saml_server.js', 'SamlReplayBleed'],
+  ['saml.account-conflict',            'packages/wekan-accounts-saml/saml_server.js', 'SamlAccountMergeBleed'],
   ['ldap.invalid-credentials',         'packages/wekan-ldap/server/userCredentials.js', 'LdapBindBleed'],
   ['ldap.group-denied',                'packages/wekan-ldap/server/loginHandler.js',  'DirectoryGroupBleed'],
   ['cas.group-denied',                 'packages/wekan-accounts-cas/cas_server.js',    'DirectoryGroupBleed'],
@@ -334,6 +336,37 @@ test('FerretDB refuses these operations and marks the refusal', () => {
   // It must write nothing: the client decides what is recorded.
   assert.ok(!/os\.OpenFile|sql\.Open|log\.New\(/.test(src),
     'the canary package must not store anything itself');
+});
+
+// Every id passed to a canary call anywhere in the app or its local packages
+// must be catalogued: an unknown id is still recorded, but as "unknown", with
+// the wrong category and no description - which is how the SAML
+// account-conflict canary went unnoticed. Scans literal first arguments.
+const CANARY_CALL = /\b(?:tripCanary|tripCanaryDeny|__wekanTripCanary)\(\s*'([a-z0-9-]+\.[a-z0-9.-]+)'/g;
+function trippedCanaryIds() {
+  const found = new Map();
+  const walk = dir => {
+    for (const entry of fs.readdirSync(path.join(repoRoot, dir), { withFileTypes: true })) {
+      if (['node_modules', '_build', '.npm', '.build'].includes(entry.name)) continue;
+      const rel = path.join(dir, entry.name);
+      if (entry.isDirectory()) walk(rel);
+      else if (/\.(js|mjs|cjs)$/.test(entry.name)) {
+        for (const match of read(rel).matchAll(CANARY_CALL)) found.set(match[1], rel);
+      }
+    }
+  };
+  for (const dir of ['server', 'models', 'client', 'imports', 'packages', 'config']) walk(dir);
+  return found;
+}
+test('every canary id tripped in the code is catalogued (negative: no "unknown" trips)', () => {
+  const tripped = trippedCanaryIds();
+  assert.ok(tripped.has('saml.account-conflict'), 'the scan sees package bridge calls');
+  assert.ok(tripped.size >= 20, `scan found ${tripped.size} canary ids`);
+  const known = new Set(canaryIds());
+  const unknown = [...tripped].filter(([id]) => !known.has(id)).map(([id, file]) => `${id} (${file})`);
+  assert.deepStrictEqual(unknown, [], `canary ids tripped but not catalogued: ${unknown.join(', ')}`);
+  assert.equal(canaryFor('saml.account-conflict').known, true);
+  assert.equal(canaryFor('saml.account-conflict').key, 'authn.saml-link');
 });
 
 function requireDatabaseProblemsHelpers() {

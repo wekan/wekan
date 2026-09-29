@@ -40,6 +40,10 @@ const CATALOG = {
   'authz.position-history': { category: 'authz', bleed: 'PositionHistoryBleed', severity: 'high', cwe: 'CWE-639' },
   'auth-race.cas':   { category: 'auth-race', bleed: 'CasBleed', severity: 'high', cwe: 'CWE-362' },
   'authn.cas-link':  { category: 'authn', bleed: 'CasAccountMergeBleed', severity: 'medium', cwe: 'CWE-287' },
+  // A SAML login that would take over an existing non-SAML account of the same
+  // username while SAML_MERGE_EXISTING_USERS is off - the SAML counterpart of
+  // CasAccountMergeBleed (packages/wekan-accounts-saml/saml_server.js).
+  'authn.saml-link': { category: 'authn', bleed: 'SamlAccountMergeBleed', severity: 'medium', cwe: 'CWE-287' },
   // A Google/GitHub/Facebook/… login whose email matches an account made by
   // another method, while OAUTH_PROVIDERS_MERGE_EXISTING_USERS is off: the same
   // takeover shape as CasBleed and OIDC's GHSA-mp7g-hj5q-gxhq, refused and recorded.
