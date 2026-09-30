@@ -4074,6 +4074,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e2cb5a041">Correct Asturian board and card interface messages</a>. Thanks to xet7.</summary>
+
+- Correct 26 mixed-language messages, including the single home-board limit
+  and the warning that removing it from Home does not delete it.
+- Translation, registry and human-preference checks pass, covering preserved
+  translations, placeholders, native terminology and archive actions.
+  Wording is lower confidence; browser layout and fluent-speaker review were
+  not run. The wider language audit continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
