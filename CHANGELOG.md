@@ -5027,6 +5027,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/87fb06ba42">Correct Kashubian notification and sharing messages</a>. Thanks to xet7.</summary>
+
+- Correct 20 notification and sharing messages. Preserve invitation tokens,
+  tenant configuration, access warnings and activity-recording distinctions.
+- Translation, registry and human-preference checks pass. Kashubian wording
+  is lower confidence; fluent-speaker and browser review were not run.
+  Other mixed-language text and languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
