@@ -2237,6 +2237,17 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `gd: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /Cuir caochladair/);
+  for (const key of Object.keys(english).filter(key => key.startsWith('sync-'))) {
+    assert.notEqual(locale[key], english[key], `gd:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `gd:${key}: tokens`);
+  }
+  assert.match(locale['sync-conflict-hint'], /Cha tèid càil a chur/);
+  assert.match(locale['sync-report-partial'], /Cha lean.*cha dèan.*neo-dhèanamh/);
+  assert.match(locale['sync-conflict-review-complete'], /Cha deach an liosta air fad/);
+  assert.match(locale['sync-conflict-detach-hint'], /Fanaidh an susbaint ann an WeKan/);
+  assert.match(locale['sync-estimate-field-hint'], /glanaidh null soilleir/);
+  assert.match(locale['sync-time-estimate-hint'], /dìreach aon raon/);
+  assert.match(locale['sync-recovery-description'], /chan urrainn.*leantainn.*neo-dhèanamh/);
   assert.match(locale['rule-email-recovery-resend-confirm'], /dà thuras/);
   assert.match(locale['rule-email-recovery-actions-hint'], /ach dha na faightearan gun dearbhadh/);
   assert.match(locale['rule-email-legacy-discard-confirm'], /Cha tèid a chur gu bràth/);
