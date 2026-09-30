@@ -28,6 +28,27 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Somali additions for todo.txt import and email recovery.
+{
+  const locale = read('so');
+  const keys = ["import-board-instruction-todotxt", "rule-email-recovery-dropped", "rule-email-recovery-review", "rule-email-recovery-recipients", "rule-email-recovery-recipient-accepted", "rule-email-recovery-recipient-unconfirmed", "rule-email-recovery-actions-hint", "rule-email-recovery-wait", "rule-email-recovery-resends", "rule-email-recovery-resend", "rule-email-recovery-mark-sent", "rule-email-recovery-drop", "rule-email-recovery-resend-confirm", "rule-email-recovery-mark-sent-confirm", "rule-email-recovery-drop-confirm", "rule-email-resolution-too-early", "rule-email-resolution-already-resolved", "rule-email-resolution-resend-in-flight", "rule-email-resolution-nothing-to-resend", "rule-email-resolution-resend-uncertain", "rule-email-resolution-busy", "rule-email-resolution-command-changed", "rule-email-resolution-attempt-invalid", "rule-email-resolution-failed", "rule-email-legacy-heading", "rule-email-legacy-description", "rule-email-legacy-source", "rule-email-legacy-mail", "rule-email-legacy-reason", "rule-email-legacy-reason-unbound", "rule-email-legacy-reason-details-snapshot", "rule-email-legacy-rebind", "rule-email-legacy-discard", "rule-email-legacy-rebind-confirm", "rule-email-legacy-discard-confirm", "rule-email-legacy-empty", "rule-email-legacy-unavailable", "rule-email-legacy-access-denied", "rule-email-legacy-source-changed", "rule-email-legacy-source-unavailable", "rule-email-legacy-plan-unavailable", "rule-email-legacy-attempt-exists", "rule-email-legacy-not-legacy", "rule-email-legacy-failed"];
+  for (const key of keys) {
+    assert.equal(typeof locale[key], 'string', `so:${key}: present`);
+    assert.notEqual(locale[key], english[key], `so:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `so:${key}: tokens`);
+  }
+  for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:', 'Done']) {
+    assert.ok(locale['import-board-instruction-todotxt'].includes(token), `so: todo.txt token ${token}`);
+  }
+  assert.match(locale['rule-email-recovery-actions-hint'], /waligiis iskiis dib uguma diro/);
+  assert.match(locale['rule-email-recovery-resend-confirm'], /laba jeer/);
+  assert.match(locale['rule-email-resolution-resend-uncertain'], /wuu gaari karay ama ma gaarin/);
+  assert.match(locale['rule-email-legacy-description'], /hubiso in qoraha xeerku weli leeyahay gelitaan/);
+  assert.match(locale['rule-email-legacy-discard-confirm'], /Waligiis lama diri doono/);
+  assert.notEqual(locale['rule-email-legacy-rebind'], locale['rule-email-legacy-discard']);
+  assert.notEqual(locale['rule-email-recovery-recipient-accepted'], locale['rule-email-recovery-recipient-unconfirmed']);
+}
+
 // Haitian Creole additions for todo.txt import and email recovery.
 {
   const locale = read('ht');
