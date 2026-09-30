@@ -2317,6 +2317,48 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedJobResultKeys = [
+    "location-detect-none",
+    "default-save-storage-save-failed",
+    "board-archive-failed",
+    "board-backup-failed",
+    "board-cleanup-failed",
+    "cron-job-delete-failed",
+    "cron-job-pause-failed",
+    "cron-job-resume-failed",
+    "cron-job-start-failed",
+    "cron-no-errors",
+    "cloud-settings-save-failed",
+    "s3-settings-save-failed",
+    "no-issues-found",
+    "restore-lost-cards-nothing-to-restore",
+    "monitoring-export-failed",
+    "monitoring-refresh-failed",
+    "no-repositories",
+    "invalid-credentials",
+    "account-creation-failed",
+    "no-new-problems",
+    "board-archived",
+    "board-archive-scheduled",
+    "board-backup-scheduled",
+    "board-cleanup-scheduled",
+    "cron-job-delete-confirm",
+    "cron-job-deleted",
+    "cron-job-paused",
+    "cron-job-resumed",
+    "cron-job-started",
+    "cloud-settings-saved",
+    "s3-settings-saved"
+  ];
+  for (const key of correctedJobResultKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /(?:Nié znaleziono|Nié udało się|Nieprawidł|Brak |pomyślnié|została|Czy na pewno)/, `csb:${key}: Polish remnants`);
+  }
+  for (const key of ['board-archive-failed', 'board-backup-failed', 'board-cleanup-failed']) assert.match(locale[key], /Nie dało sã zaplanowac/);
+  assert.equal(new Set(['cron-job-deleted', 'cron-job-paused', 'cron-job-resumed', 'cron-job-started'].map(key => locale[key])).size, 4);
+  assert.match(locale['restore-lost-cards-nothing-to-restore'], /stegnów, lëstów ani kôrtów/);
+  assert.match(locale['invalid-credentials'], /miono brëkòwnika abò parola/);
+  for (const key of ['s3-settings-save-failed', 's3-settings-saved']) assert.match(locale[key], /S3/);
   const correctedErrorKeys = [
     "add-existing-card-as-subtask-empty",
     "no-archived-boards",
