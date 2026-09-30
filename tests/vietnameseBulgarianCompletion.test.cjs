@@ -31,6 +31,15 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Maltese filters and imports; remaining untranslated strings are filled separately.
 {
   const locale = read('mt');
+  const correctedMonitoringKeys = ["job-queue", "last-run", "max-concurrent", "memory-usage", "migrated-attachments", "migration-batch-size", "migration-cpu-threshold", "migration-delay-ms", "migration-detector", "migration-log", "migration-markers", "migration-resumed", "migration-steps", "next", "next-run", "operation-type", "overall-progress", "page", "pause-migration", "previous", "refresh", "refresh-monitoring", "remaining-attachments", "resume-migration", "run-once", "scanning-status", "schedule", "showing", "start-test-operation", "step-progress", "stop-migration", "storage-distribution", "system-resources", "total-attachments", "total-operations"];
+  for (const key of correctedMonitoringKeys) {
+    assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
+    assert.doesNotMatch(locale[key], /Traduzzjoni Maltija:/, `mt:${key}: no prefixed English`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `mt:${key}: tokens`);
+  }
+  assert.notEqual(locale['pause-migration'], locale['stop-migration']);
+  assert.notEqual(locale['last-run'], locale['next-run']);
+  assert.match(locale['migration-delay-ms'], /\(ms\)/);
   const correctedJobProgressKeys = ["migration-successful", "migration-failed", "migrations", "run-migration", "migration-progress-overall", "migration-progress-status", "migration-progress-details", "steps", "has-swimlanes", "step-validate-migration", "step-fix-avatar-urls", "step-finalize", "step-fix-missing-ids", "step-fix-file-urls", "cleanup", "completed", "cpu-cores", "cpu-usage", "database-migrations", "duration", "errors", "estimated-time-remaining", "every-1-hour", "every-1-minute", "every-10-minutes", "every-30-minutes", "every-5-minutes", "every-6-hours", "filesystem-attachments", "filesystem-size", "filesystem-storage", "gridfs-attachments", "gridfs-size", "idle-migration", "job-details"];
   for (const key of correctedJobProgressKeys) {
     assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
