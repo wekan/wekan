@@ -4673,6 +4673,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/204953ec43">Correct Kashubian mail and system information labels</a>. Thanks to xet7.</summary>
+
+- Replace 50 Polish-seeded strings, preserving product names, environment
+  variables and reactivity modes. Distinguish email subjects from bodies
+  and free from total memory.
+- Translation, registry and human-preference checks pass. Kashubian wording
+  is lower confidence; fluent-speaker and browser review were not run.
+  Older mixed-language values and other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
