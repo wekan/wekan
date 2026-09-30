@@ -6745,6 +6745,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4ee45c952f">Translate Tagalog text processing basics</a>. Thanks to xet7.</summary>
+
+- Translate 25 English strings for text processing and keyboard controls,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including append
+  semantics, character positions and case conversion.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
