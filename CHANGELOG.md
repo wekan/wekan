@@ -8573,6 +8573,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/227c620c4bdf2cb29f1aebf767d319127e212f33">Correct mixed-language Romansh status and maintenance messages</a>. Thanks to xet7.</summary>
+
+- Replace 20 mixed-language status, maintenance, storage and import strings
+  with Romansh, preserving other translations and replacement tokens.
+- Translation, registry and human-preference checks pass, covering shared
+  labels, team membership guards, problem counts and technical names.
+  Low-confidence wording needs fluent-speaker review.
+  Browser review was not run; wider language cleanup remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
