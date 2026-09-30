@@ -6073,6 +6073,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fbc05d9a96">Complete Georgian placeholder translations</a>. Thanks to xet7.</summary>
+
+- Translate the final 29 flagged Georgian prose entries. Retain ten standard
+  keyboard labels, operating system names and math symbols.
+- Full Georgian key-order, token and untranslated-prose checks pass against
+  3783 English keys, alongside registry and human-preference checks.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
