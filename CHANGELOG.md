@@ -3407,6 +3407,16 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5562add65">Translate Corsican filters, reminders and automation controls</a>. Thanks to xet7.</summary>
+
+- Fill 81 Corsican filter, reminder, automation, map and import messages.
+- Translation, registry and human-preference checks pass, including preserved
+  translations, syntax tokens, visibility restrictions and reminder offsets.
+  Browser layout and fluent-speaker review were not run.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
