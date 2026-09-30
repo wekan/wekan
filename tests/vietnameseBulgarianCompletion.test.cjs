@@ -28,6 +28,27 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Turkmen additions for todo.txt import and email recovery.
+{
+  const locale = read('tk_TM');
+  const keys = ["import-board-instruction-todotxt", "rule-email-recovery-dropped", "rule-email-recovery-review", "rule-email-recovery-recipients", "rule-email-recovery-recipient-accepted", "rule-email-recovery-recipient-unconfirmed", "rule-email-recovery-actions-hint", "rule-email-recovery-wait", "rule-email-recovery-resends", "rule-email-recovery-resend", "rule-email-recovery-mark-sent", "rule-email-recovery-drop", "rule-email-recovery-resend-confirm", "rule-email-recovery-mark-sent-confirm", "rule-email-recovery-drop-confirm", "rule-email-resolution-too-early", "rule-email-resolution-already-resolved", "rule-email-resolution-resend-in-flight", "rule-email-resolution-nothing-to-resend", "rule-email-resolution-resend-uncertain", "rule-email-resolution-busy", "rule-email-resolution-command-changed", "rule-email-resolution-attempt-invalid", "rule-email-resolution-failed", "rule-email-legacy-heading", "rule-email-legacy-description", "rule-email-legacy-source", "rule-email-legacy-mail", "rule-email-legacy-reason", "rule-email-legacy-reason-unbound", "rule-email-legacy-reason-details-snapshot", "rule-email-legacy-rebind", "rule-email-legacy-discard", "rule-email-legacy-rebind-confirm", "rule-email-legacy-discard-confirm", "rule-email-legacy-empty", "rule-email-legacy-unavailable", "rule-email-legacy-access-denied", "rule-email-legacy-source-changed", "rule-email-legacy-source-unavailable", "rule-email-legacy-plan-unavailable", "rule-email-legacy-attempt-exists", "rule-email-legacy-not-legacy", "rule-email-legacy-failed"];
+  for (const key of keys) {
+    assert.equal(typeof locale[key], 'string', `tk_TM:${key}: present`);
+    assert.notEqual(locale[key], english[key], `tk_TM:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `tk_TM:${key}: tokens`);
+  }
+  for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:', 'Done']) {
+    assert.ok(locale['import-board-instruction-todotxt'].includes(token), `tk_TM: todo.txt token ${token}`);
+  }
+  assert.match(locale['rule-email-recovery-actions-hint'], /hiç haçan özbaşdak gaýtadan ibermeýär/);
+  assert.match(locale['rule-email-recovery-resend-confirm'], /iki gezek alarlar/);
+  assert.match(locale['rule-email-resolution-resend-uncertain'], /ýetip-ýetmändigi belli däl/);
+  assert.match(locale['rule-email-legacy-description'], /awtorynyň henizem giriş hukugynyň bardygyny barlanyňyzdan/);
+  assert.match(locale['rule-email-legacy-discard-confirm'], /hiç haçan iberilmez/);
+  assert.notEqual(locale['rule-email-legacy-rebind'], locale['rule-email-legacy-discard']);
+  assert.notEqual(locale['rule-email-recovery-recipient-accepted'], locale['rule-email-recovery-recipient-unconfirmed']);
+}
+
 // Kyrgyz additions for todo.txt import and email recovery.
 {
   const locale = read('ky');
