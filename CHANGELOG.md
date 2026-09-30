@@ -8259,6 +8259,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c4f1d7293047d053ba3a226cb767464149601942">Translate Frisian Scrum settings</a>. Thanks to xet7.</summary>
+
+- Translate 30 Scrum planning labels in each of fy and fy-NL, preserving
+  existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including consistent
+  backlog labels and distinct sprint actions.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
