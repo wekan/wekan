@@ -8621,6 +8621,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/32782227d8ec1aa32e88a79a0b97057ad52cf848">Correct Romansh backup paths and mixed-language warnings</a>. Thanks to xet7.</summary>
+
+- Replace 17 mixed-language backup, settings and deletion strings with
+  Romansh. Restore exact backup directory patterns from English.
+- Translation, registry and human-preference checks pass, covering tokens,
+  backup paths, deletion warnings and aging levels.
+  Low-confidence wording needs fluent-speaker review.
+  Browser review was not run; wider language cleanup remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
