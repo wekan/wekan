@@ -31,6 +31,20 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Romansh date filters, imports and archive-language corrections.
 {
   const locale = read('rm');
+  const diagnosticEmailKeys = ["sync-report-completed", "sync-report-completed-with-warnings", "sync-report-skipped", "sync-report-review-only", "sync-report-unavailable", "sync-report-empty", "sync-recovery-heading", "sync-recovery-description", "sync-recovery-unavailable", "sync-recovery-all", "sync-estimate-field", "sync-estimate-field-hint", "email-recovery-heading", "email-recovery-description", "email-recovery-saving", "email-recovery-queued", "email-recovery-retrying", "email-recovery-attempts", "email-recovery-oldest", "email-recovery-next", "email-recovery-changed", "email-recovery-pause", "email-recovery-resume", "email-recovery-cancel", "email-recovery-paused"];
+  for (const key of diagnosticEmailKeys) {
+    assert.notEqual(locale[key], english[key], `rm:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
+  }
+  assert.ok(locale['sync-recovery-description'].includes('30'));
+  assert.match(locale['sync-recovery-description'], /na pon betg cuntinuar.*far enavos/);
+  for (const token of ['Jira', 'null']) assert.ok(locale['sync-estimate-field-hint'].includes(token));
+  assert.match(locale['sync-estimate-field-hint'], /mancantas vegnan ignoradas/);
+  assert.match(locale['email-recovery-description'], /na po betg vegnir revocà/);
+  assert.match(locale['email-recovery-description'], /intscherta po vegnir repetida/);
+  assert.match(locale['email-recovery-description'], /respecta ina pausa existenta/);
+  assert.equal(new Set(['pause', 'resume', 'cancel'].map(action => locale[`email-recovery-${action}`])).size, 3);
+
   const syncPreviewKeys = ["sync-preview-heading", "sync-preview-saved", "sync-preview-unavailable", "sync-preview-blocked", "sync-preview-create", "sync-preview-update", "sync-preview-archive", "sync-preview-baseline", "sync-preview-truncated", "sync-preview-omissions", "sync-preview-scope", "sync-preview-excluded", "sync-preview-unmapped", "sync-preview-parser-warnings", "sync-preview-parser-unsupported", "sync-source-heading", "sync-source-scope", "sync-source-unmapped", "sync-source-excluded", "sync-source-converted", "sync-source-fallback", "sync-source-excluded-item", "sync-source-occurrences", "sync-source-truncated", "sync-source-omitted", "sync-report-button", "sync-report-retention", "sync-report-partial", "sync-report-unfinished", "sync-report-failed"];
   for (const key of syncPreviewKeys) {
     assert.notEqual(locale[key], english[key], `rm:${key}: translated`);
