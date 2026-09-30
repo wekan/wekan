@@ -2317,6 +2317,59 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedReportKeys = [
+    "office-logins",
+    "office-first-seen",
+    "office-last-seen",
+    "apiReportTitle",
+    "api-endpoint",
+    "api-calls",
+    "recovery-severity",
+    "recovery-db",
+    "wait-spinner",
+    "Cube",
+    "Cube-Grid",
+    "Dot",
+    "Wave",
+    "subject",
+    "carbon-copy",
+    "tickets",
+    "ticket-number",
+    "open",
+    "pending",
+    "closed",
+    "resolved",
+    "cancelled",
+    "history",
+    "history-change-removed",
+    "history-change-edited",
+    "history-change-moved",
+    "request",
+    "requests",
+    "help-request",
+    "add-teams-label",
+    "confirm-btn",
+    "to-create-teams-contact-admin",
+    "Node_heap_total_heap_size",
+    "Node_heap_total_heap_size_executable",
+    "Node_heap_total_physical_size",
+    "Node_heap_total_available_size",
+    "Node_heap_used_heap_size",
+    "Node_heap_heap_size_limit",
+    "Node_heap_malloced_memory",
+    "Node_memory_usage_rss"
+  ];
+  for (const key of correctedReportKeys) {
+    assert.doesNotMatch(locale[key], /— pò kaszëbskù/, `csb:${key}: language label is not a translation`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+  }
+  for (const key of ['apiReportTitle', 'api-endpoint']) assert.equal(locale[key], 'API');
+  assert.ok(locale['carbon-copy'].includes('(Cc:)'));
+  assert.equal(new Set(['open', 'pending', 'closed', 'resolved', 'cancelled'].map(key => locale[key])).size, 5);
+  assert.match(locale.Node_heap_total_available_size, /przistãpnô/);
+  assert.match(locale.Node_heap_used_heap_size, /ùżëtô/);
+  assert.match(locale.Node_heap_malloced_memory, /malloc/);
+  assert.match(locale.Node_memory_usage_rss, /RSS/);
   const correctedDependencyKeys = [
     "dependency-icon",
     "dependency-type-related-to",
