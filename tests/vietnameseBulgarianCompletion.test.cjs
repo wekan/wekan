@@ -1609,5 +1609,13 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /Nun vene mannato maje/);
   assert.match(locale['rule-email-legacy-access-denied'], /nun tene cchiù accesso/);
   assert.match(locale['r-insert-variable'], /Miette na variabbile/);
+  for (const key of Object.keys(english).filter(key => key.startsWith('sync-'))) {
+    assert.notEqual(locale[key], english[key], `nap:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `nap:${key}: tokens`);
+  }
+  assert.match(locale['sync-conflict-hint'], /Niente vene mannato/);
+  assert.match(locale['sync-report-partial'], /nun ripigliano.*nun annullano/);
+  assert.match(locale['sync-estimate-field-hint'], /null esplicito scancella/);
+  assert.match(locale['sync-time-estimate-hint'], /esattamente nu campo/);
 }
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
