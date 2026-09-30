@@ -6673,6 +6673,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/10c48f8c12">Translate Tagalog math constants and number checks</a>. Thanks to xet7.</summary>
+
+- Translate 25 English strings for math constants and number checks,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including inclusive
+  limits, coordinate ranges and distinct numeric concepts.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
