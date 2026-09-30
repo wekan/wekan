@@ -5905,6 +5905,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/607545ed5b">Translate Georgian text positions and editor shortcuts</a>. Thanks to xet7.</summary>
+
+- Translate 34 English strings for scrolling, text casing, character positions
+  and substrings, preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including indexing
+  direction, letter case, opposite scroll directions and occurrence counting.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
