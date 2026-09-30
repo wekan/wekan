@@ -4062,6 +4062,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2ccd04782">Correct Asturian import text and core action labels</a>. Thanks to xet7.</summary>
+
+- Correct 13 mixed-language import and email messages and core labels,
+  including Save incorrectly labelled Add. Preserve other translations.
+- Translation, registry and human-preference checks pass, covering native
+  terminology, placeholders, import field names and API paths.
+  Wording is lower confidence; browser layout and fluent-speaker review were
+  not run. The wider language audit continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
