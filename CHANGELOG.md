@@ -5412,6 +5412,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1667587f2f4d0d1699738f295574168cf8662071">Translate Armenian sprint reports and completion states</a>. Thanks to xet7.</summary>
+
+- Fill 30 English placeholders for sprint reports and completion states,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including unknown
+  estimates, partial reports and cancellation behavior. Fluent-speaker and
+  browser review were not run. Translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
