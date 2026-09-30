@@ -1,7 +1,9 @@
 // The Board Settings menu (boardMenuPopup, client/components/sidebar/
-// sidebar.jade) is four groups divided by a rule, in this exact order:
+// sidebar.jade) is five groups divided by a rule, in this exact order:
 //
-//   Rules, Change color, Change Background Image, Date
+//   Rules, List View, Workflow, Blocks, History, Import / Export
+//   ---
+//   Change color, Change Background Image, Date
 //   ---
 //   Board View, Swimlane, List, Scrum settings, Card
 //   ---
@@ -23,6 +25,12 @@
 // View / Swimlane / List, and opens the Sprints view's settings rather than a
 // popup of its own. The expectation below, its guard and the docs diagram
 // were extended for it deliberately - the other entries' order is unchanged.
+//
+// The Rules page's own views joined the first group on 2026-09-30, at the
+// maintainer's request: List View, Workflow, Blocks, History and Import /
+// Export sit directly under Rules, under its board-admin guard, and a rule
+// now separates that group from Change color. The other entries' order is
+// unchanged.
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
@@ -61,8 +69,12 @@ const sequence = lines
   .map(l => (l.text === 'hr' ? 'hr' : (l.text.match(/^a\.(js-[a-z-]+)/) || [])[1]))
   .filter(Boolean);
 
+const RULES_VIEWS = ['js-open-rules-list-view', 'js-open-rules-workflow-view',
+  'js-open-rules-blocks-view', 'js-open-rules-history', 'js-open-rules-import-export'];
 const EXPECTED = [
   'js-open-rules-view',
+  ...RULES_VIEWS,
+  'hr',
   'js-change-board-color',
   'js-change-background-image',
   'js-open-board-date-settings',
@@ -82,7 +94,7 @@ const EXPECTED = [
   'js-archive-board',
 ];
 
-test('the Board Settings menu is Rules ... Move Board to Archive, in four groups', () => {
+test('the Board Settings menu is Rules ... Move Board to Archive, in five groups', () => {
   assert.deepStrictEqual(sequence, EXPECTED);
 });
 
@@ -116,6 +128,7 @@ function guardsOf(cls) {
 test('the reorder kept every guard (negative: nothing became visible to more people)', () => {
   const admin = 'if currentUser.isBoardAdmin';
   assert.deepStrictEqual(guardsOf('js-open-rules-view'), [admin]);
+  for (const cls of RULES_VIEWS) assert.deepStrictEqual(guardsOf(cls), [admin], `${cls} is board-admin only, like Rules`);
   assert.deepStrictEqual(guardsOf('js-change-board-color'), [admin]);
   assert.deepStrictEqual(guardsOf('js-change-background-image'), [admin]);
   assert.deepStrictEqual(guardsOf('js-open-board-view-settings'), ['if currentUser', admin]);
@@ -135,8 +148,8 @@ test('the reorder kept every guard (negative: nothing became visible to more peo
 
 test('each group is its own ul, and a rule never follows a rule (negative)', () => {
   const uls = lines.filter(l => l.text === 'ul.pop-over-list').length;
-  assert.strictEqual(uls, 4, 'four groups, four lists');
-  assert.strictEqual(sequence.filter(s => s === 'hr').length, 3, 'three rules between four groups');
+  assert.strictEqual(uls, 5, 'five groups, five lists');
+  assert.strictEqual(sequence.filter(s => s === 'hr').length, 4, 'four rules between five groups');
   assert.ok(sequence[0] !== 'hr' && sequence[sequence.length - 1] !== 'hr', 'no rule at either end');
   assert.ok(!sequence.some((s, i) => s === 'hr' && sequence[i + 1] === 'hr'), 'no doubled rule');
 });
@@ -153,4 +166,24 @@ test('the docs draw the same order', () => {
     'Export', 'Import', 'Notifications', 'Outgoing Webhooks', 'hr',
     'Archived items', 'Move Board to Archive',
   ], 'the diagram lists the entries and rules in the menu\'s order');
+});
+
+test('each Rules view entry opens the Rules page in that view; Import / Export opens its popup', () => {
+  const eventsAt = js.indexOf('Template.boardMenuPopup.events(');
+  const events = js.slice(eventsAt, js.indexOf('\n});', eventsAt));
+  for (const [cls, mode] of [['list-view', 'list'], ['workflow-view', 'workflow'], ['blocks-view', 'blocks'], ['history', 'history']]) {
+    assert.match(events, new RegExp(`'click \\.js-open-rules-${cls}'\\(event\\) \\{ event\\.preventDefault\\(\\); openRulesViewFromBoardMenu\\('${mode}'\\); \\}`));
+  }
+  assert.match(events, /'click \.js-open-rules-import-export': Popup\.open\('rulesImportExport'\)/);
+  const helper = js.slice(js.indexOf('function openRulesViewFromBoardMenu'), js.indexOf('Template.boardMenuPopup.events('));
+  assert.match(helper, /Session\.set\('rulesViewMode', mode\)/);
+  assert.match(helper, /FlowRouter\.go\('board-rules'/);
+  // Negative: leaving unsaved Blocks work asks first, as the Rules page sidebar does.
+  assert.match(helper, /mode !== 'blocks' && Session\.get\('rulesBlocksDirty'\) && !confirm\(TAPi18n\.__\('r-blocks-discard'\)\)\) return;/);
+  // The labels are the Rules page sidebar's own keys, so no new text to translate.
+  const rules = read('client/components/rules/rulesMain.jade');
+  // Import / Export uses the popup's own title, "Import / Export rules".
+  for (const key of ['r-list-view', 'r-workflow-view', 'r-blocks-view', 'history', 'rulesImportExportPopup-title']) {
+    assert.ok(rules.includes(`{{_ '${key}'}}`) && menu.includes(`{{_ '${key}'}}`), key);
+  }
 });

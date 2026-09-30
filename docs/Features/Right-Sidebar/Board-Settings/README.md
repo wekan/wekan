@@ -6,6 +6,8 @@ this order; permissions and site policy can hide individual entries.
 | Entry | Guide or action | Who can change it |
 | --- | --- | --- |
 | Rules | [Automation rules](../../Automation/Rules/Rules.md) | Board admin |
+| List View, Workflow, Blocks, History | The Rules page opened in that view | Board admin |
+| Import / Export rules | Rules import and export, opened here | Board admin |
 | Change Color | Board background color | Board admin |
 | Change Background Image | [Upload and choose a background](Background-Image.md) | Board admin |
 | Board View | [Visible views, defaults and menu order](Board-View.md) | Board admin |
@@ -19,6 +21,9 @@ this order; permissions and site policy can hide individual entries.
 | Outgoing Webhooks | [Send events to integrations](../../Webhooks/Discord/Outgoing-Webhook-to-Discord.md) | Board admin |
 | Archived Items | [Review and restore archives](../../Board/Archive-and-Delete.md) | Actions depend on role |
 | Move Board to Archive | [Archive the board](../../Board/Archive-and-Delete.md) | Board admin; unavailable on the templates board |
+
+Rules and its five views form the first group; a divider separates them from
+Change Color and the rest of the board's look.
 
 Custom Fields are reached from an opened card's menu, then the settings cog.
 Subtasks settings are behind the menu beside an opened card's **Subtasks**

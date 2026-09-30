@@ -17,9 +17,11 @@ template(name="rulesControls")
   a.board-header-btn.js-rules-history(title="{{_ 'history'}}")
     i.fa.fa-history
     | {{_ 'history'}}
-  a.board-header-btn.js-rules-import-export(title="{{_ 'r-import-export'}}")
+  //- "Import / Export rules": the popup's own title key, already translated,
+    so the entry says what it imports and exports.
+  a.board-header-btn.js-rules-import-export(title="{{_ 'rulesImportExportPopup-title'}}")
     i.fa.fa-exchange
-    | {{_ 'r-import-export'}}
+    | {{_ 'rulesImportExportPopup-title'}}
 
 template(name="rulesMain")
   .wrapper

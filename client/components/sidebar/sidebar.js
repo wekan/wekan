@@ -493,8 +493,28 @@ Template.memberPopup.helpers({
   },
 });
 
+// Board Settings / Rules / <view>: open the Rules page in that view. The page
+// reads Session 'rulesViewMode' (client/components/rules/rulesMain.js), which
+// outlives the route change; the request counter brings it back to the rules
+// list tab if the page is already open on another tab. Unsaved Blocks work is
+// only lost after the same confirmation the Rules page sidebar asks for.
+function openRulesViewFromBoardMenu(mode) {
+  if (mode !== 'blocks' && Session.get('rulesBlocksDirty') && !confirm(TAPi18n.__('r-blocks-discard'))) return;
+  const currentBoard = Utils.getCurrentBoard();
+  Popup.back();
+  Session.set('rulesViewMode', mode);
+  Session.set('rulesViewRequest', (Session.get('rulesViewRequest') || 0) + 1);
+  if (currentBoard) {
+    FlowRouter.go('board-rules', { id: currentBoard._id, slug: currentBoard.slug });
+  }
+}
 
 Template.boardMenuPopup.events({
+  'click .js-open-rules-list-view'(event) { event.preventDefault(); openRulesViewFromBoardMenu('list'); },
+  'click .js-open-rules-workflow-view'(event) { event.preventDefault(); openRulesViewFromBoardMenu('workflow'); },
+  'click .js-open-rules-blocks-view'(event) { event.preventDefault(); openRulesViewFromBoardMenu('blocks'); },
+  'click .js-open-rules-history'(event) { event.preventDefault(); openRulesViewFromBoardMenu('history'); },
+  'click .js-open-rules-import-export': Popup.open('rulesImportExport'),
   'click .js-rename-board': Popup.open('boardChangeTitle'),
   'click .js-open-rules-view'() {
     const currentBoard = Utils.getCurrentBoard();

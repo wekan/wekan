@@ -497,6 +497,34 @@ template(name="boardMenuPopup")
         a.js-open-rules-view(title="{{_ 'rules'}}")
           i.fa.fa-magic
           | {{_ 'rules'}}
+      //- The Rules page's own views, reachable from here too, so the one wanted
+        is a click away rather than Rules first and then its page sidebar. Each
+        opens the Rules page in that view; Import / Export opens its popup
+        here. Same labels and icons as the Rules page sidebar (rulesControls in
+        client/components/rules/rulesMain.jade).
+      li
+        a.js-open-rules-list-view(title="{{_ 'r-list-view'}}")
+          i.fa.fa-list
+          | {{_ 'r-list-view'}}
+      li
+        a.js-open-rules-workflow-view(title="{{_ 'r-workflow-view'}}")
+          i.fa.fa-sitemap
+          | {{_ 'r-workflow-view'}}
+      li
+        a.js-open-rules-blocks-view(title="{{_ 'r-blocks-view'}}")
+          i.fa.fa-puzzle-piece
+          | {{_ 'r-blocks-view'}}
+      li
+        a.js-open-rules-history(title="{{_ 'history'}}")
+          i.fa.fa-history
+          | {{_ 'history'}}
+      li
+        a.js-open-rules-import-export(title="{{_ 'rulesImportExportPopup-title'}}")
+          i.fa.fa-exchange
+          | {{_ 'rulesImportExportPopup-title'}}
+    //- Rules and its views are one group; the board's look starts below it.
+    hr
+    ul.pop-over-list
       //- "Custom Fields" was here. The board's list of them is in the card's own
         menu now - Card menu / Custom Fields, whose Settings cog opens it - which
         is where somebody looking at a card's fields already is.

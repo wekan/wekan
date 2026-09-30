@@ -207,7 +207,8 @@ the [REST API](#rest-api).
 
 ## Import / Export
 
-Click **Import / Export** on the Rules page.
+Click **Import / Export rules** on the Rules page, or in Board Settings under
+**Rules**.
 
 - **Export to JSON** — lossless; each rule embeds its full trigger and action.
 - **Export to CSV** — round-trippable (common fields as columns, the rest as a JSON
