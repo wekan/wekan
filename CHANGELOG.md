@@ -3090,6 +3090,15 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a8930106e">Translate Urdu filters, reminders and automation controls</a>. Thanks to xet7.</summary>
+
+- Fill 81 Urdu messages and update the language completion count.
+- Preserve existing translations and executable tokens; verify board access,
+  reminder timing and list-age warnings with translation regression checks.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
