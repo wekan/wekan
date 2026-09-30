@@ -1663,6 +1663,22 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /Nunca no se ninviará/);
   assert.match(locale['rule-email-legacy-access-denied'], /ya no tiene acceso/);
   assert.match(locale['r-insert-variable'], /Fica una variable/);
+  for (const key of ['r-when', 'r-when-due', 'r-when-card-in-list',
+    'r-when-a-card', 'r-when-a-label-is', 'r-when-the-label',
+    'r-when-a-member', 'r-when-the-member', 'r-when-a-assignee']) {
+    assert.match(locale[key], /^Quan/);
+    assert.doesNotMatch(locale[key], /^Cuando/);
+  }
+  assert.match(locale['last-admin-desc'], /a lo menos un administrador/);
+  assert.match(locale['fixed-list-width-note'], /nomás ta tu/);
+  assert.match(locale['personal-list-width-description'], /se comparten con totz/);
+  for (const token of ['== != <= >= && || ( )', 'Field1 == Value1',
+    "'Field 1' == 'Value 1'", 'F1 == V1 || F1 == V2',
+    'F1 == V1 && ( F2 == V2 || F2 == V3 )', 'F1 == /Tes.*/i']) {
+    assert.ok(locale['advanced-filter-description'].includes(token), `an: filter example ${token}`);
+  }
+  const escapedExample = english['advanced-filter-description'].match(/Field1 == I[^.]+/)[0];
+  assert.ok(locale['advanced-filter-description'].includes(escapedExample));
   assert.match(locale['enable-permanent-delete-description'], /no borra cosa por sí mesmo/);
   assert.match(locale['remove-member-pop'], /Rezibirá un aviso/);
   assert.doesNotMatch(locale['remove-member-pop'], /En ellas se mostrará/);
