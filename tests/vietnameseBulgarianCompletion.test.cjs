@@ -2317,6 +2317,73 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedMixedAdminKeys = [
+    "attachment-transfer-limits-title",
+    "attachment-transfer-limits-description",
+    "attachment-transfer-limits-saved",
+    "attachment-transfer-limits-save-failed",
+    "avatars-upload-blocked-description",
+    "attachment-repair-locations",
+    "attachment-repair-locations-description",
+    "attachment-repair-running",
+    "attachment-repair-broken",
+    "support-info-not-added-yet",
+    "support-info-only-for-logged-in-users",
+    "accessibility-info-not-added-yet",
+    "accounts-lockout-settings",
+    "accounts-lockout-info",
+    "accounts-lockout-known-users",
+    "accounts-lockout-unknown-users",
+    "accounts-lockout-settings-updated",
+    "accounts-lockout-locked-users",
+    "accounts-lockout-locked-users-info",
+    "accounts-lockout-no-locked-users",
+    "accounts-lockout-failed-attempts",
+    "accounts-lockout-user-unlocked",
+    "accounts-lockout-confirm-unlock",
+    "accounts-lockout-confirm-unlock-all",
+    "accounts-lockout-show-locked-users",
+    "accounts-lockout-click-to-unlock",
+    "accounts-lockout-all-users-unlocked",
+    "accounts-lockout-unlock-all",
+    "attachment-soft-delete-pop",
+    "avatar-too-big",
+    "attachmentDeletePopup-title",
+    "subtaskDeletePopup-title",
+    "copy-card-link-to-clipboard",
+    "copyListPopup-title",
+    "copyManyCardsPopup-title",
+    "copyManyCardsPopup-instructions",
+    "copySelectionPopup-title",
+    "subtask-settings",
+    "attachment-count",
+    "filesReportTitle",
+    "filename-invisible-legend",
+    "copy-swimlane",
+    "copySwimlanePopup-title",
+    "attachment-last-move",
+    "attachment-storage-configuration",
+    "attachments-path",
+    "attachments-path-description",
+    "avatars-path",
+    "avatars-path-description",
+    "filesystem-path-description",
+    "filesystem-enabled",
+    "filesystem-disabled",
+    "filesystem-enabled-description"
+  ];
+  for (const key of correctedMixedAdminKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /(?:użytkownik|Użytkownik|Ścieżka|Kopiuj|Usunąć|załącznik|załączni|zostały|nieudane|Nié udało się)/, `csb:${key}: Polish remnants`);
+  }
+  assert.match(locale['attachment-soft-delete-pop'], /lopk òstôwô zachòwóny/);
+  assert.match(locale['attachment-soft-delete-pop'], /przëwrócëc z historie kôrtë/);
+  assert.match(locale['attachment-repair-locations-description'], /GridFS/);
+  assert.match(locale['copyManyCardsPopup-instructions'], /JSON/);
+  assert.match(locale['accounts-lockout-known-users'], /pòprawné miono.*niepòprawnô parola/);
+  assert.match(locale['accounts-lockout-unknown-users'], /nieistniejącé miono/);
+  assert.notEqual(locale['filesystem-enabled'], locale['filesystem-disabled']);
+  assert.notEqual(locale['accounts-lockout-confirm-unlock'], locale['accounts-lockout-confirm-unlock-all']);
   const correctedFlowKeys = [
     "every-1-hour",
     "every-1-minute",
