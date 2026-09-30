@@ -5159,6 +5159,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7d461d72f47c0facfc2f9a27c7d3c6a3f271964e">Translate Albanian filters, rules and email recovery messages</a>. Thanks to xet7.</summary>
+
+- Fill 88 missing entries and English placeholders for filters, imports,
+  visibility, rule variables and email recovery. Preserve existing translations.
+- Translation, key-order, registry and human-preference checks pass. All current
+  source keys are present in Albanian, but other English placeholders remain.
+  Fluent-speaker and browser review were not run; translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
