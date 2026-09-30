@@ -7190,6 +7190,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6cebc36c6fa7ff635a0f88d23dd8ec8ae5bf96d8">Translate Maltese block labels and input types</a>. Thanks to xet7.</summary>
+
+- Translate 24 English placeholders for block labels, input types and warnings,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  comment and warning announcements.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
