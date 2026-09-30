@@ -31,6 +31,19 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Romansh date filters, imports and archive-language corrections.
 {
   const locale = read('rm');
+  const correctedStatusKeys = ["recovery-detail", "recovery-maintenance-title", "delete-team-warning-message", "board-status-loading-mode", "uploading", "board-archive-failed", "board-backup-failed", "board-cleanup-failed", "board-operations", "cron-job-delete-failed", "cards-loading", "backup-storage", "cloud-settings-save-failed", "s3-settings-save-failed", "scheduled-board-operations", "problems-summary-help", "problems-in-progress-help", "event-detail", "import-board-source", "import-source-heading"];
+  for (const key of correctedStatusKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /\b(Impossibile|Dettaglio|Ripristino|Ciaria|Salva|Importa|sulla|pianificate|Queste)\b/, `rm:${key}: no mixed-language seed`);
+  }
+  assert.equal(locale['recovery-detail'], locale['event-detail']);
+  assert.equal(locale['board-status-loading-mode'], locale['cards-loading']);
+  assert.match(locale['delete-team-warning-message'], /almain in utilisader/);
+  assert.match(locale['problems-summary-help'], /novs problems.*zero/);
+  assert.match(locale['problems-in-progress-help'], /CPU/);
+  assert.ok(locale['s3-settings-save-failed'].includes('S3'));
+  for (const token of ['Trello', 'Jira', 'WeKan', 'CSV', 'Excel']) assert.ok(locale['import-board-source'].includes(token));
+
   const correctedSharingKeys = ["avatars-upload-blocked-description", "org-shared-templates", "team-shared-templates", "subtask-settings", "boardSubtaskSettingsPopup-title", "deposit-subtasks-list", "r-import-export", "r-import-json", "r-import-csv", "r-import-target", "r-import-workflow", "r-sort-list", "board-member-list", "shared-templates", "shared-templates-info", "myCardsSortChange-title", "myCardsSortChangePopup-title", "sort-cards", "sort-boards", "cardsSortPopup-title", "import-dependencies-parse-error", "custom-field-stringtemplate", "new-problems", "recovery-event"];
   for (const key of correctedSharingKeys) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
