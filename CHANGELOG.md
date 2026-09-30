@@ -6133,6 +6133,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/60cca3d15e">Translate Swahili map and movement announcements</a>. Thanks to xet7.</summary>
+
+- Translate 19 English strings for map placement and movement announcements,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including placement
+  alternatives, before/after movement and all four scrolling directions.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
