@@ -2255,6 +2255,17 @@ remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/351b592ab">Translate Persian notification settings and map controls</a>. Thanks to xet7.</summary>
+
+Fill 86 strings across both Persian locale files, covering notifications,
+reminders, saved filters, import reports and map controls. Tests preserve
+placeholders and reminder timing. Existing translations are preserved and
+human-preference checks pass. Persian has 247 reported placeholders remaining,
+and Persian (Iran) has 244. Other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
