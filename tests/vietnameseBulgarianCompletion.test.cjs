@@ -1447,5 +1447,13 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /Ùn serà mai mandatu/);
   assert.match(locale['rule-email-legacy-access-denied'], /ùn hà più accessu/);
   assert.match(locale['r-insert-variable'], /Inserisce una variabile/);
+  for (const key of Object.keys(english).filter(key => key.startsWith('sync-'))) {
+    assert.notEqual(locale[key], english[key], `co:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `co:${key}: tokens`);
+  }
+  assert.match(locale['sync-conflict-hint'], /Nunda hè mandatu/);
+  assert.match(locale['sync-report-partial'], /ùn ripiglianu micca.*ùn annullanu micca/);
+  assert.match(locale['sync-estimate-field-hint'], /null esplicitu sguassa/);
+  assert.match(locale['sync-time-estimate-hint'], /esattamente un campu/);
 }
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
