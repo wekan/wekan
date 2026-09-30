@@ -5225,6 +5225,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/574e8f81d7d4111c0602aedf64a9ee24ed086a56">Translate Albanian planning and sprint labels</a>. Thanks to xet7.</summary>
+
+- Fill 60 English placeholders for planning and sprint reporting. Preserve
+  existing translations and update the coverage count to 116 languages.
+- Translation, registry and human-preference checks pass, including unknown
+  estimates and opposite actions. Fluent-speaker and browser review were
+  not run. The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
