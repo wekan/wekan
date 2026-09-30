@@ -28,6 +28,24 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Swahili archive and filter guidance; other placeholders remain.
+{
+  const locale = read('sw');
+  const keys = ["auto-archive-days", "auto-archive-off", "auto-archive-hint", "filter-recency-any", "filter-recency-day", "filter-recency-week", "filter-recency-month", "filter-recency-older", "filter-movement-range", "filter-date-range-field", "filter-date-range-from", "filter-date-range-to", "filter-date-range-missing", "filter-date-range-list-entry", "filter-date-range-invalid", "filter-due-any", "filter-due-previous-week", "filter-due-next-month", "filter-column-age", "filter-column-age-disabled"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `sw:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sw:${key}: tokens`);
+  }
+  assert.match(locale['auto-archive-hint'], /kila saa.*violezo haviwekwi kamwe/);
+  for (const suffix of ['from', 'to']) {
+    assert.match(locale[`filter-date-range-${suffix}`], /ikijumuishwa/);
+  }
+  assert.match(locale['filter-date-range-invalid'], /sawa na au baada/);
+  assert.match(locale['filter-recency-day'], /24/);
+  assert.match(locale['filter-recency-week'], /7/);
+  assert.match(locale['filter-recency-older'], /Zaidi ya siku 30/);
+  assert.match(locale['filter-date-range-missing'], /zisizo na tarehe/);
+}
 // Georgian translation batches and semantic regression checks.
 {
   const locale = read('ka');
