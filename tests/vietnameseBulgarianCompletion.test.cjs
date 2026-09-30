@@ -233,5 +233,14 @@ for (const code of ['fa', 'fa-IR']) {
   assert.ok(locale['r-vars-people-hint'].includes('{customField:Field name}'));
   assert.match(locale['filter-column-age-hint'], /صفر نمی‌کند/);
   assert.match(locale['instance-desc'], /هرگز به کسانی که وارد نشده‌اند نمایش داده نمی‌شود/);
+  for (const key of Object.keys(english).filter(key =>
+    /^(notification-activity-|due-reminder-|filter-preset|filter-card-text|map-view-)/.test(key))) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+  }
+  assert.deepEqual(translationTokens(locale['custom-field-stringtemplate-context-hint']),
+    translationTokens(english['custom-field-stringtemplate-context-hint']));
+  assert.match(locale['due-reminder-days-label'], /مثبت.*پیش.*منفی.*پس/);
+  assert.match(locale['notification-activity-description'], /همیشه می‌رسند/);
 }
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
