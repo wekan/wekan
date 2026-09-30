@@ -7622,6 +7622,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d418faf2d22630043da2f8c63fb5fe64336edd23">Translate Luxembourgish workspace search and help</a>. Thanks to xet7.</summary>
+
+- Translate 18 missing or English strings for workspace search and block
+  editor help, preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including keyboard
+  names and distinct next/previous search actions.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
