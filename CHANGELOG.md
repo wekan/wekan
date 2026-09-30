@@ -2375,6 +2375,16 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ac6b42ec8">Translate Malay notification recovery and delivery controls</a>. Thanks to xet7.</summary>
+
+- Fill 77 English placeholders in each Malay locale for email queues,
+  activity recovery, rule delivery reports, sign-in and history requests.
+- Preserve existing translations and test placeholder inventories, permanent
+  cancellation warnings and safe retry wording.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
