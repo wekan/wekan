@@ -8981,6 +8981,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/013ab07ff1eea9069824ebd4a7d1783570b9c195">Correct Shona export and selection controls</a>. Thanks to xet7.</summary>
+
+- Translate 32 prefixed English entries and restore three sort labels.
+  Preserve existing values outside this correction batch.
+- Translation, registry and human-preference checks pass, covering preview
+  labels, import tokens, selection controls and exact placeholders.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Another 503 prefixed English entries remain; wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
