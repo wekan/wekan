@@ -2395,6 +2395,16 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d70442ba0">Translate Malay editor inputs and logic controls</a>. Thanks to xet7.</summary>
+
+- Fill 91 English placeholders in each Malay locale for editor inputs,
+  keyboard navigation, list sorting, logic and mathematical operations.
+- Verify placeholders, inclusive limits and logical conditions; update the
+  README count to 79 locales meeting the existing completeness threshold.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
