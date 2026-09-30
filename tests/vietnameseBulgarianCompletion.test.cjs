@@ -31,6 +31,19 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Armenian filters and import guidance; other placeholders remain.
 {
   const locale = read('hy');
+  const searchRuleKeys = ["blockly-WORKSPACE_LABEL_FLYOUT_WORKSPACE", "blockly-WORKSPACE_LABEL_MANY_STACKS", "blockly-WORKSPACE_LABEL_MUTATOR_WORKSPACE", "blockly-WORKSPACE_LABEL_PLAIN", "blockly-WORKSPACE_SEARCH_CLOSE", "blockly-WORKSPACE_SEARCH_FIND_NEXT", "blockly-WORKSPACE_SEARCH_FIND_PREVIOUS", "blockly-WORKSPACE_SEARCH_INPUT_LABEL", "blockly-WORKSPACE_SEARCH_MATCH", "blockly-WORKSPACE_SEARCH_NO_MATCHES", "blockly-WORKSPACE_SEARCH_PLACEHOLDER", "blockly-ZOOM_TO_FIT_ARIA_LABEL", "r-blocks-view", "r-blocks-help", "r-blocks-discard", "r-blocks-unavailable", "r-blocks-invalid", "r-blocks-conflict", "r-blocks-permission", "r-blocks-unsaved", "r-blocks-saved", "r-blocks-reload", "board-view-product-backlog", "board-view-sprints", "board-view-sprint-report"];
+  for (const key of searchRuleKeys) {
+    assert.notEqual(locale[key], english[key], `hy:${key}: translated`);
+    assert.match(locale[key], /[\u0531-\u0587]/, `hy:${key}: Armenian script`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `hy:${key}: tokens`);
+  }
+  for (const token of ['Enter', 'Shift+Enter', 'Escape']) assert.ok(locale['blockly-WORKSPACE_SEARCH_INPUT_LABEL'].includes(token));
+  assert.match(locale['r-blocks-invalid'], /ճիշտ մեկ գործարկիչ մեկ գործողության.*չմիացված կամ ավելորդ/);
+  assert.match(locale['r-blocks-permission'], /տախտակի ադմինիստրատորի թույլտվություն/);
+  assert.match(locale['r-blocks-conflict'], /Պահպանելուց առաջ վերաբեռնեք/);
+  assert.match(locale['blockly-WORKSPACE_SEARCH_NO_MATCHES'], /բլոկներ չկան/);
+  assert.notEqual(locale['blockly-WORKSPACE_SEARCH_FIND_NEXT'], locale['blockly-WORKSPACE_SEARCH_FIND_PREVIOUS']);
+  assert.notEqual(locale['r-blocks-unsaved'], locale['r-blocks-saved']);
   const workspaceNavigationKeys = ["blockly-SHORTCUTS_JUMP_TOP_STACK", "blockly-SHORTCUTS_MOVE_DOWN", "blockly-SHORTCUTS_MOVE_LEFT", "blockly-SHORTCUTS_MOVE_RIGHT", "blockly-SHORTCUTS_MOVE_UP", "blockly-SHORTCUTS_NEXT_HEADING", "blockly-SHORTCUTS_NEXT_STACK", "blockly-SHORTCUTS_PERFORM_ACTION", "blockly-SHORTCUTS_PREVIOUS_HEADING", "blockly-SHORTCUTS_PREVIOUS_STACK", "blockly-SHORTCUTS_SCROLL_DOWN", "blockly-SHORTCUTS_SCROLL_LEFT", "blockly-SHORTCUTS_SCROLL_RIGHT", "blockly-SHORTCUTS_SCROLL_UP", "blockly-SHORTCUTS_SHOW_CONTEXT_MENU", "blockly-SHORTCUTS_SHOW_TOOLTIP", "blockly-SHORTCUTS_START_MOVE", "blockly-SHORTCUTS_START_MOVE_STACK", "blockly-SHORTCUTS_TOGGLE_SCREENREADER_MODE", "blockly-SPACE_KEY", "blockly-TEXT_FROM_END_ARIA", "blockly-TEXT_FROM_START_ARIA", "blockly-UNKNOWN", "blockly-VARIABLE_ALREADY_EXISTS_FOR_A_PARAMETER", "blockly-WORKSPACE_CONTENTS_BLOCKS_MANY", "blockly-WORKSPACE_CONTENTS_BLOCKS_ONE", "blockly-WORKSPACE_CONTENTS_BLOCKS_ZERO", "blockly-WORKSPACE_CONTENTS_COMMENTS_MANY", "blockly-WORKSPACE_CONTENTS_COMMENTS_ONE", "blockly-WORKSPACE_LABEL_1_STACK"];
   for (const key of workspaceNavigationKeys) {
     assert.notEqual(locale[key], english[key], `hy:${key}: translated`);
