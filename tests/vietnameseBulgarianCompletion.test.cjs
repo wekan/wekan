@@ -1555,6 +1555,14 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /Nun veni mannatu mai/);
   assert.match(locale['rule-email-legacy-access-denied'], /nun avi cchiù accessu/);
   assert.match(locale['r-insert-variable'], /Nserisci na variàbbili/);
+  for (const key of Object.keys(english).filter(key => key.startsWith('scrum-'))) {
+    assert.notEqual(locale[key], english[key], `scn:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `scn:${key}: tokens`);
+  }
+  assert.match(locale['scrum-report-help'], /nun sunnu stimi a zeru/);
+  assert.match(locale['scrum-partial-report'], /sulu li carti assignati a tia/);
+  assert.match(locale['scrum-daily-observations-help'], /nun riggìstranu ogni canciamentu/);
+  assert.match(locale['scrum-daily-observations-export-help'], /Li stimi scunusciuti nun sunnu zeru/);
   for (const key of Object.keys(english).filter(key => key.startsWith('sync-'))) {
     assert.notEqual(locale[key], english[key], `scn:${key}: untranslated`);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `scn:${key}: tokens`);
