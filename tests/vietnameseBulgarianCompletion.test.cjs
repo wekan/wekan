@@ -2317,6 +2317,41 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedRecoveryDialogKeys = [
+    "comprehensive-board-migration-description",
+    "delete-duplicate-empty-lists-migration-description",
+    "restore-lost-cards-migration",
+    "restore-lost-cards-migration-description",
+    "restore-all-archived-migration",
+    "restore-all-archived-migration-description",
+    "fix-missing-lists-migration",
+    "fix-missing-lists-migration-description",
+    "fix-avatar-urls-migration",
+    "fix-avatar-urls-migration-description",
+    "fix-all-file-urls-migration",
+    "fix-all-file-urls-migration-description",
+    "migrations-admin-only",
+    "migrations-description",
+    "run-comprehensive-migration-confirm",
+    "run-delete-duplicate-empty-lists-migration-confirm",
+    "run-restore-lost-cards-migration-confirm",
+    "run-restore-all-archived-migration-confirm",
+    "run-fix-missing-lists-migration-confirm",
+    "run-fix-avatar-urls-migration-confirm",
+    "run-fix-all-file-urls-migration-confirm"
+  ];
+  for (const key of correctedRecoveryDialogKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /(?:Spowoduje|Wykonuje|Wykrywa|Aktualizuje|Przywr|Napraw|Usuwa|Znajduje|Tylko|Uruchom|Każdą)/, `csb:${key}: Polish remnants`);
+    for (const token of ['swimlaneId', 'listId', 'URL']) {
+      if (english[key].includes(token)) assert.ok(locale[key].includes(token), `csb:${key}: ${token}`);
+    }
+  }
+  assert.match(locale['delete-duplicate-empty-lists-migration-description'], /nie mają kôrtów I mają jinszą lëstã/);
+  assert.match(locale['run-restore-lost-cards-migration-confirm'], /blós niezarchiwizowónëch elementów/);
+  assert.match(locale['run-restore-all-archived-migration-confirm'], /WSZËTCZÉ zarchiwizowóné/);
+  assert.match(locale['run-restore-all-archived-migration-confirm'], /nie mòżna letkò cofnąc/);
+  assert.match(locale['migrations-admin-only'], /Blós administratorzë/);
   const correctedMigrationKeys = [
     "cron-migrations",
     "cron-migration-errors",
