@@ -6396,6 +6396,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3eeab4f03e">Translate Swahili workspace search and block guidance</a>. Thanks to xet7.</summary>
+
+- Translate 30 English strings for workspace search, block labels and rule
+  guidance, preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including keyboard
+  shortcuts, unsaved changes and one-trigger/one-action guidance.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
