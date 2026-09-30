@@ -6878,6 +6878,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5cbfef839fecc477ffea89011df2907381f90e07">Complete Tagalog placeholder translations</a>. Thanks to xet7.</summary>
+
+- Translate the final 21 English prose placeholders in Tagalog, preserving
+  existing translations, replacement tokens and standard technical labels.
+- Translation, registry and human-preference checks pass, including all 3,783
+  source keys and their tokens. No flagged prose placeholders remain in Tagalog.
+  Fluent-speaker and browser review were not run.
+  Wider translation and language-quality work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
