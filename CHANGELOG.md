@@ -8223,6 +8223,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b1151b404b12ac8db07e61228cb49244afe07c39">Translate Frisian reminders and saved filters</a>. Thanks to xet7.</summary>
+
+- Translate 22 notification, reminder, dependency and saved-filter strings in
+  each of fy and fy-NL, preserving translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including template
+  variables, reminder bounds and distinct actions.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
