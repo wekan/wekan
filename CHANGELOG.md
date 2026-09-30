@@ -234,6 +234,12 @@ Remaining, and why:
   (sort order across lists or boards, with Card.move's own History), adding or
   removing checklists, and creating, copying or linking cards and swimlanes.
   Each needs its own saved command (server/lib/listSyncSteps.js).
+  Moves are the next candidate. Even a same-list move to top or bottom (list
+  and swimlane '*' on the card's board, which only changes sort) writes the
+  hook's position History row and a legacy UserPositionHistory row directly
+  from Card.move, which Ctrl+Z still reads. A cross-list or cross-board move
+  also relabels, renumbers, maps custom fields and re-syncs checklists and
+  attachments. A durable move has to plan all of those rows, not one field.
 - **Atomicity.** Cards, History, activities and effects are coordinated by the
   write-ahead journal and replay, not by a transaction. The FerretDB v1 backend
   has no multi-document transactions, and journal ownership cannot fence a
