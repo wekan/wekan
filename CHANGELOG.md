@@ -2887,6 +2887,16 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/18790806f">Complete remaining Afrikaans notification and keyboard translations</a>. Thanks to xet7.</summary>
+
+- Fill 88 notification, recovery, history and keyboard messages in each
+  Afrikaans locale, af and af_ZA.
+- Preserve existing translations and shared terms; check completeness,
+  placeholders and irreversible-action warnings against the English source.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
