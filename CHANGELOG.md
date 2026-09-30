@@ -100,10 +100,10 @@ remains below is blocked for one of three stated reasons, not left unexamined:
 
 **Paused for a release on 2026-09-29 - in progress, not in this release:**
 
-- **Failing suites not yet fixed:** `calendarDateDisplay` and
-  `multilineTitles` wait for the locale files to follow `en.i18n.json`'s key
-  order, which is the translation agent's work (`pomodoroTimer` passes again
-  as of 2026-09-30).
+- **Failing suites not yet fixed:** `calendarDateDisplay`,
+  `multilineTitles` and `pomodoroTimer` wait for the locale files to follow
+  `en.i18n.json`'s key order, which is the translation agent's work; they pass
+  or fail with the locale files as that work moves.
 - **Checked:** `SamlAccountMergeBleed` needs no Hall of Fame page: SAML
   refused that merge from its first commit, so it is a detection category
   like `CanaryBleed`, not a fixed vulnerability.
@@ -185,8 +185,8 @@ admitted through the board's History writer gate, and one worker per Scrum
 History operation. 561 server tests pass; the new and affected browser specs
 pass in Chromium and WebKit against a production bundle (Firefox cannot launch
 on the macOS machine used). The only non-translation node suites still failing
-are `calendarDateDisplay` and `multilineTitles`, which wait on locale key
-order.
+are `calendarDateDisplay`, `multilineTitles` and `pomodoroTimer`, which wait
+on locale key order.
 
 **Needs a maintainer decision - the multi-row History reservation.** Sync and
 the rule archive runner hash their History rows when they PLAN them, so the
