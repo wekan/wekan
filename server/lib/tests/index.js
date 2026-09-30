@@ -101,6 +101,7 @@ import './storedHistoryChain.tests';
 import './undoRedoClaim.tests';
 
 import './scrumHistoryConfirmation.tests';
+import './scrumIncarnation.tests';
 
 import "./cardListEntry.tests";
 import './autoArchiveCards.tests';

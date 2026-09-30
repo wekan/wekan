@@ -6,7 +6,10 @@ function historyDocument(type, doc) {
   if (!doc) return null;
   if (METADATA_TYPES.has(type)) return { _id: doc._id, boardId: type === 'board' ? doc._id : doc.boardId, scrum: structuredClone(doc.scrum || {}) };
   if (!RECORD_TYPES.has(type)) throw new Error('Unsupported Scrum history record');
-  const { revision, updatedAt, updatedBy, rolloverPending, ...content } = doc;
+  // `incarnation` identifies one lifetime of the record (maintainer decision
+  // of 2026-09-30), not its content: History must never carry an old one back
+  // into a restored record, which gets a fresh one.
+  const { revision, updatedAt, updatedBy, rolloverPending, incarnation, ...content } = doc;
   return structuredClone(content);
 }
 function historyRecords(changes) {

@@ -55,8 +55,10 @@ export async function importScrumTransfer(creator, source, boardId) {
     for (const record of transfer[key]) {
       const provenance = record.provenance || { system: 'wekan', recordId: sourceIds.get(record._id),
         ...(typeof source._id === 'string' && source._id.length <= 500 ? { projectId: source._id } : {}) };
+      // A fresh incarnation per imported record, chosen in the plan so a
+      // resumed import writes the same one (never the source board's).
       steps.push({ kind: 'insert', collection: key, after: { ...record, provenance, boardId, revision: 1,
-        ...(key === 'sprints' ? { scrumImportPending: true } : {}) } });
+        incarnation: Random.id(), ...(key === 'sprints' ? { scrumImportPending: true } : {}) } });
     }
   }
   for (const [key, collection] of [['cards',Cards],['lists',Lists],['swimlanes',Swimlanes]]) {

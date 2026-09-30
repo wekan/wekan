@@ -70,3 +70,68 @@ test('read-only preflight accepts mixed pending/applied steps and rejects later 
   assert.equal(f.rows[0].scrumRevision, 1);
   assert.deepEqual(f.rows[0].scrum, {});
 });
+
+// Incarnations (maintainer decision of 2026-09-30): matching values and
+// revision do not prove a record is the one this operation planned against or
+// created - one deleted and recreated under the same _id can match both.
+const { plannedIncarnations } = require('../server/lib/scrumHistoryWriteState');
+test('a record recreated under the same _id is not taken for the original', () => {
+  const current = { _id: 's1', boardId: 'b', name: 'Sprint', revision: 3, incarnation: 'life-1' };
+  const before = historyDocument('scrum-sprint', current);
+  assert.equal(before.incarnation, undefined, 'History content never carries an incarnation');
+  // Deleting it: pending while the planned lifetime is there...
+  assert.equal(state({ type: 'scrum-sprint', current, before, after: null, revision: 3,
+    incarnation: { before: 'life-1', after: null } }), 'pending');
+  // ...but a same-looking record from ANOTHER lifetime must not be deleted (negative).
+  assert.throws(() => state({ type: 'scrum-sprint', current: { ...current, incarnation: 'life-2' }, before,
+    after: null, revision: 3, incarnation: { before: 'life-1', after: null } }), /revision conflict/);
+  // Creating it: only the incarnation this operation chose counts as its insert.
+  const created = { ...current, revision: 1, incarnation: 'planned' };
+  const plan = { type: 'scrum-sprint', before: null, after: before, revision: null,
+    incarnation: { before: null, after: 'planned' } };
+  assert.equal(state({ ...plan, current: null }), 'pending');
+  assert.equal(state({ ...plan, current: created }), 'applied');
+  assert.throws(() => state({ ...plan, current: { ...created, incarnation: 'someone-else' } }), /revision conflict/);
+  // An update keeps the same lifetime.
+  const updated = { ...current, name: 'Renamed', revision: 4 };
+  const change = { type: 'scrum-sprint', before, after: historyDocument('scrum-sprint', updated), revision: 3,
+    incarnation: { before: 'life-1', after: 'life-1' } };
+  assert.equal(state({ ...change, current: updated }), 'applied');
+  assert.throws(() => state({ ...change, current: { ...updated, incarnation: 'life-9' } }), /revision conflict/);
+});
+
+test('checkpoints and records from before incarnations keep working; bad shapes are refused', () => {
+  const legacy = { _id: 's1', boardId: 'b', name: 'Sprint', revision: 3 };
+  const doc = historyDocument('scrum-sprint', legacy);
+  assert.equal(state({ type: 'scrum-sprint', current: legacy, before: doc, after: null, revision: 3 }), 'pending',
+    'a checkpoint without incarnations is judged as before');
+  assert.equal(state({ type: 'scrum-sprint', current: legacy, before: doc, after: null, revision: 3,
+    incarnation: { before: null, after: null } }), 'pending', 'a record without one is lifetime null');
+  for (const incarnation of [null, {}, { before: 'x' }, { before: 1, after: null }, { before: '', after: null }]) {
+    assert.throws(() => state({ type: 'scrum-sprint', current: legacy, before: doc, after: null, revision: 3, incarnation }), /revision conflict/);
+  }
+});
+
+test('a new checkpoint plans the lifetime each target has and will have', () => {
+  let n = 0;
+  const planned = plannedIncarnations({ newId: () => `new-${++n}`,
+    targets: [{ type: 'scrum-sprint', document: { name: 'x' } }, { type: 'scrum-release', document: null },
+      { type: 'scrum-event', document: { name: 'y' } }, { type: 'card', document: { scrum: {} } }],
+    current: [null, { incarnation: 'r-1' }, { incarnation: 'e-1' }, { _id: 'c' }] });
+  assert.deepEqual(planned, [{ before: null, after: 'new-1' }, { before: 'r-1', after: null },
+    { before: 'e-1', after: 'e-1' }, { before: null, after: null }]);
+  assert.throws(() => plannedIncarnations({ targets: [{}], current: [], newId: () => 'x' }), /revision conflict/);
+});
+
+test('every place a Scrum record is created gives it a fresh incarnation', () => {
+  const fs = require('node:fs'), path = require('node:path');
+  const read = rel => fs.readFileSync(path.join(__dirname, '..', rel), 'utf8');
+  assert.match(read('server/scrum.js'), /if \(!before\) \{[\s\S]*?after\.incarnation = Random\.id\(\);/);
+  assert.match(read('server/lib/scrumTransferImport.js'), /revision: 1,\n\s*incarnation: Random\.id\(\),/);
+  const history = read('server/lib/scrumHistory.js');
+  assert.match(history, /incarnations: plannedIncarnations\(\{ targets, current, newId: \(\) => Random\.id\(\) \}\)/);
+  assert.match(history, /\.\.\.\(incarnation\?\.after \? \{ incarnation: incarnation\.after \} : \{\}\)/);
+  // Negative: an update never unsets it, although History content leaves it out.
+  assert.match(history, /\['_id','revision','updatedAt','updatedBy','incarnation'\]\.includes\(key\)/);
+  assert.doesNotMatch(read('models/lib/scrum.js'), /incarnation/, 'a client can not supply one');
+});

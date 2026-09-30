@@ -24,7 +24,7 @@ const collections = { board: Boards, card: Cards, list: Lists, swimlane: Swimlan
 const { recordScrumRestoreOnce } = require('./scrumHistoryRestoreWriter');
 const { finishScrumHistory, verifyScrumHistorySource } = require('./scrumHistoryFinalizer');
 const { ensureScrumHistoryOperation, claimScrumHistoryWorker, assertScrumHistoryWorker } = require('./scrumHistoryOwnership');
-const { scrumHistoryWriteState, inspectScrumHistoryWrites, verifyScrumHistoryWrites } = require('./scrumHistoryWriteState');
+const { scrumHistoryWriteState, inspectScrumHistoryWrites, verifyScrumHistoryWrites, plannedIncarnations } = require('./scrumHistoryWriteState');
 const { scrumHistoryWriteSelector } = require('./scrumHistoryWriteSelector');
 const { readScrumHistoryRequestCompletion } = require('./scrumHistoryCompletion');
 const batches = new AsyncLocalStorage();
@@ -172,7 +172,10 @@ export async function applyScrumHistory(row, content, direction, request) {
       const expected = direction === 'undo' ? row.newContent : row.previousContent;
       if (direction !== 'restore' && !EJSON.equals(live, expected)) conflict();
       journal = { _id: row.boardId, rowId: row._id, direction, userId, operationId: operationId || Random.id(), content: EJSON.clone(content),
-        before: live, revisions: current.map((doc,index) => doc ? (METADATA_TYPES.has(targets[index].type) ? doc.scrumRevision || 0 : doc.revision || 0) : null) };
+        before: live, revisions: current.map((doc,index) => doc ? (METADATA_TYPES.has(targets[index].type) ? doc.scrumRevision || 0 : doc.revision || 0) : null),
+        // Which lifetime of each record this plan was made against, and which
+        // one a record it creates will have (scrumHistoryWriteState.js).
+        incarnations: plannedIncarnations({ targets, current, newId: () => Random.id() }) };
       await ScrumHistoryPending.insertAsync(journal);
     } else {
       const current = await Promise.all(targets.map(entry => collections[entry.type].findOneAsync(entry.id)));
@@ -187,8 +190,9 @@ export async function applyScrumHistory(row, content, direction, request) {
       await assertScrumHistoryWorker(ScrumHistoryPending, journal, worker);
       await assertSource();
     };
-    const verifyWrites = async (entries = targets, before = journal.before.records, revisions = journal.revisions) => {
-      try { await verifyScrumHistoryWrites({ targets: entries, before, revisions, assertCurrent,
+    const verifyWrites = async (entries = targets, before = journal.before.records, revisions = journal.revisions,
+      incarnations = journal.incarnations) => {
+      try { await verifyScrumHistoryWrites({ targets: entries, before, revisions, incarnations, assertCurrent,
         read: entry => collections[entry.type].findOneAsync(entry.id) }); }
       catch (error) { conflict(); }
     };
@@ -196,7 +200,7 @@ export async function applyScrumHistory(row, content, direction, request) {
     // advancing its first unfinished write. Per-write guards remain necessary
     // because this read-only preflight is not an atomic database snapshot.
     try { await inspectScrumHistoryWrites({ targets, before: journal.before.records,
-      revisions: journal.revisions, assertCurrent,
+      revisions: journal.revisions, incarnations: journal.incarnations, assertCurrent,
       read: entry => collections[entry.type].findOneAsync(entry.id) }); }
     catch (error) { conflict(); }
     await withoutRecording(async () => {
@@ -208,8 +212,9 @@ export async function applyScrumHistory(row, content, direction, request) {
         if (before?.type !== entry.type || before?.id !== entry.id) conflict();
         const originalRevision = journal.revisions[index];
         let state;
+        const incarnation = journal.incarnations?.[index];
         try { state = scrumHistoryWriteState({ type: entry.type, current,
-          before: before.document, after: entry.document, revision: originalRevision }); }
+          before: before.document, after: entry.document, revision: originalRevision, incarnation }); }
         catch (error) { conflict(); }
         if (state === 'applied') continue;
         const metadata = METADATA_TYPES.has(entry.type);
@@ -220,15 +225,18 @@ export async function applyScrumHistory(row, content, direction, request) {
         } else if (metadata) {
           if (!await collection.updateAsync(selector, { $set: { scrum: EJSON.clone(entry.document.scrum), scrumRevision: originalRevision + 1 } })) conflict();
         } else if (!current) {
-          await collection.insertAsync({ ...EJSON.clone(entry.document), revision: 1, updatedAt: new Date(), updatedBy: userId });
+          await collection.insertAsync({ ...EJSON.clone(entry.document), revision: 1, updatedAt: new Date(), updatedBy: userId,
+            ...(incarnation?.after ? { incarnation: incarnation.after } : {}) });
         } else {
           const { _id, ...fields } = EJSON.clone(entry.document);
-          const unset = Object.fromEntries(Object.keys(current).filter(key => !['_id','revision','updatedAt','updatedBy'].includes(key) && !(key in fields)).map(key => [key,'']));
+          // `incarnation` is not History content (historyDocument leaves it
+          // out) and must survive an update: it is the same record.
+          const unset = Object.fromEntries(Object.keys(current).filter(key => !['_id','revision','updatedAt','updatedBy','incarnation'].includes(key) && !(key in fields)).map(key => [key,'']));
           const modifier = { $set: { ...fields, revision: originalRevision + 1, updatedAt: new Date(), updatedBy: userId } };
           if (Object.keys(unset).length) modifier.$unset = unset;
           if (!await collection.updateAsync(selector, modifier)) conflict();
         }
-        await verifyWrites([entry], [before], [originalRevision]);
+        await verifyWrites([entry], [before], [originalRevision], journal.incarnations ? [incarnation] : undefined);
       }
     });
     // Keep recovery durable until BOTH the timeline and the undo-stack flag

@@ -7,10 +7,16 @@ function scrumHistorySelector(journal) {
       !Array.isArray(journal.content?.records) || !Array.isArray(journal.before?.records) ||
       !Array.isArray(journal.revisions) || journal.content.records.length !== journal.before.records.length ||
       journal.content.records.length !== journal.revisions.length ||
-      (Object.hasOwn(journal, 'operationId') && (typeof journal.operationId !== 'string' || !journal.operationId))) fail();
+      (Object.hasOwn(journal, 'operationId') && (typeof journal.operationId !== 'string' || !journal.operationId)) ||
+      (Object.hasOwn(journal, 'incarnations') && (!Array.isArray(journal.incarnations) ||
+        journal.incarnations.length !== journal.revisions.length))) fail();
+  // A checkpoint saved before incarnations existed has none, and gets no key
+  // here: the completion's planHash digests this selector, so adding one would
+  // change the identity of a checkpoint that was pending across the upgrade.
   return { _id: journal._id, rowId: journal.rowId, userId: journal.userId, direction: journal.direction,
     operationId: Object.hasOwn(journal, 'operationId') ? journal.operationId : { $exists: false },
-    content: { $eq: journal.content }, before: { $eq: journal.before }, revisions: { $eq: journal.revisions } };
+    content: { $eq: journal.content }, before: { $eq: journal.before }, revisions: { $eq: journal.revisions },
+    ...(Object.hasOwn(journal, 'incarnations') ? { incarnations: { $eq: journal.incarnations } } : {}) };
 }
 async function assertScrumHistoryOperation(pending, journal) {
   if (!journal.operationId || !await pending.findOneAsync(scrumHistorySelector(journal))) fail();

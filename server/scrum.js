@@ -3,6 +3,7 @@ import { ScrumImportPending } from '/server/lib/scrumImportJournal';
 import { canEditCardOrLinkedCard } from '/server/lib/linkedCardPermission';
 import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
+import { Random } from 'meteor/random';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import Boards from '/models/boards';
 import Cards from '/models/cards';
@@ -157,7 +158,12 @@ async function saveRecord(userId, kind, boardId, recordId, changes, expectedRevi
   }
   const now = new Date();
   after.revision = (before?.revision || 0) + 1; after.updatedAt = now; after.updatedBy = userId;
-  if (!before) { after.createdAt = now; after.createdBy = userId; if (kind !== 'event') after.state = after.state || 'planned'; }
+  if (!before) {
+    after.createdAt = now; after.createdBy = userId; if (kind !== 'event') after.state = after.state || 'planned';
+    // One lifetime of this record (maintainer decision of 2026-09-30): Scrum
+    // History tells it from a record deleted and recreated under the same _id.
+    after.incarnation = Random.id();
+  }
   if (before) {
     const { _id, ...fields } = after;
     if (!(await collection.updateAsync({ _id: recordId, boardId, revision: before.revision }, { $set: fields }))) conflict();
