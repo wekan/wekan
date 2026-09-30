@@ -6613,6 +6613,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9fa234bf7f">Translate Tagalog editor actions and bitmap labels</a>. Thanks to xet7.</summary>
+
+- Translate 25 English strings for editor actions and bitmap labels,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including deletion
+  counts, pixel coordinates, keyboard labels and comment controls.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
