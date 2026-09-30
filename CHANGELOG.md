@@ -7658,6 +7658,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/909abd4c955d8612da470d3db140ceedc95b61da">Translate Luxembourgish sprint reports and states</a>. Thanks to xet7.</summary>
+
+- Translate 24 missing or English strings for sprint reports and states,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  sprint states and separate close/cancel confirmations.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
