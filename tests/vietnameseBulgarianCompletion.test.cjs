@@ -1101,6 +1101,15 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /कहिल्यै पठाइने छैन/);
   assert.match(locale['rule-email-legacy-access-denied'], /पहुँच छैन/);
   assert.match(locale['r-insert-variable'], /चर राख्नुहोस्/);
+  for (const key of Object.keys(english).filter(key =>
+    /^sync-(conflict-|preview-|source-|report-|recovery-|estimate-|original-time|remaining-time|time-estimate)/.test(key))) {
+    assert.notEqual(locale[key], english[key], `ne:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ne:${key}: tokens`);
+  }
+  assert.match(locale['sync-conflict-hint'], /स्रोत प्रणालीमा केही पनि पठाइँदैन/);
+  assert.match(locale['sync-report-partial'], /फेरि सुरु गर्दैनन्.*परिवर्तन उल्टाउँदैनन्/);
+  assert.match(locale['sync-estimate-field-hint'], /null ले सम्बन्धित मान खाली गर्छ/);
+  assert.match(locale['sync-time-estimate-hint'], /ठ्याक्कै एउटा मिल्दो फिल्ड/);
   for (const key of Object.keys(english).filter(key => key.startsWith('scrum-'))) {
     assert.notEqual(locale[key], english[key], `ne:${key}: untranslated`);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ne:${key}: tokens`);
