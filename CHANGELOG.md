@@ -8657,6 +8657,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/60419cd0b14f7f8df538185aace29d118935ef5c">Correct Romansh filter instructions and import messages</a>. Thanks to xet7.</summary>
+
+- Replace 20 mixed-language filter, import, display and settings strings
+  with Romansh. Restore exact filter examples and escaping.
+- Translation, registry and human-preference checks pass, covering tokens,
+  filter syntax, shared labels and technical identifiers.
+  Low-confidence wording needs fluent-speaker review.
+  Browser review was not run; wider language cleanup remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
