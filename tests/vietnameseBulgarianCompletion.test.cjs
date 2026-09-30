@@ -31,6 +31,18 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Swahili archive and filter guidance; other placeholders remain.
 {
   const locale = read('sw');
+  const emailFailureKeys = ["email-recovery-empty", "email-recovery-unavailable", "email-recovery-busy", "email-recovery-failed", "email-recovery-superseded", "email-recovery-confirm-cancel", "email-recovery-attention", "email-recovery-stopped", "email-recovery-retry", "email-failure-smtp-temporary", "email-failure-smtp-rejected", "email-failure-smtp-authentication", "email-failure-smtp-configuration", "email-failure-recipient-unavailable", "email-failure-delivery-unconfirmed", "email-failure-acknowledgement-failed", "email-failure-delivery-failed", "email-failure-retry-limit", "sync-original-time", "sync-remaining-time"];
+  for (const key of emailFailureKeys) {
+    assert.notEqual(locale[key], english[key], `sw:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sw:${key}: tokens`);
+  }
+  assert.match(locale['email-recovery-confirm-cancel'], /hayawezi kurejeshwa/);
+  assert.match(locale['email-recovery-confirm-cancel'], /baada ya ombi hili utahifadhiwa/);
+  assert.match(locale['email-failure-smtp-temporary'], /kwa muda/);
+  assert.match(locale['email-failure-smtp-rejected'], /kwa kudumu/);
+  for (const key of ['sync-original-time', 'sync-remaining-time']) {
+    assert.match(locale[key], /\(saa\)/);
+  }
   const emailQueueKeys = ["sync-report-completed-with-warnings", "sync-report-skipped", "sync-report-review-only", "sync-report-unavailable", "sync-report-empty", "sync-recovery-heading", "sync-recovery-description", "sync-recovery-unavailable", "sync-recovery-all", "sync-estimate-field", "sync-estimate-field-hint", "email-recovery-heading", "email-recovery-description", "email-recovery-saving", "email-recovery-queued", "email-recovery-retrying", "email-recovery-attempts", "email-recovery-oldest", "email-recovery-next", "email-recovery-changed", "email-recovery-pause", "email-recovery-resume", "email-recovery-cancel", "email-recovery-paused", "email-recovery-pending"];
   for (const key of emailQueueKeys) {
     assert.notEqual(locale[key], english[key], `sw:${key}: translated`);
