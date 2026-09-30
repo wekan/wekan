@@ -9,6 +9,30 @@ import { EmailJobs } from '/server/notifications/emailQueue';
 const { ensureActivityNotificationPlan, planId } = require('/server/lib/activityNotificationPlan');
 const { controlActivityNotification, cancelActivityNotification } = require('/server/lib/activityNotificationControl');
 const { idFor } = require('/server/lib/emailReceiptIdentity');
+const { createActivityNotificationRecovery } = require('/server/lib/activityNotificationRecovery');
+
+// One FULL pass over pending intents. The shared scanner reads 100 at a time
+// and keeps its place between calls (and the startup scan uses it too), so in
+// a full test run, with other suites' intents pending, one call may not reach
+// this test's intent - that made the paused-scan assertion intermittent.
+// A private scanner paged to the end sees every pending intent; a repeat
+// absorbs a race with the background scan holding the same lease (sync-busy).
+async function fullRecoveryPass(accept) {
+  let total;
+  for (let attempt = 0; attempt < 5; attempt++) {
+    const scan = createActivityNotificationRecovery({ intents: ActivityNotificationIntents.rawCollection(),
+      run: resumeActivityNotifications, limit: 1000 });
+    total = { visited: 0, completed: 0, skipped: 0, failed: 0, busy: 0 };
+    for (let page = 0; page < 1000; page++) {
+      const result = await scan();
+      for (const key of Object.keys(total)) total[key] += result[key];
+      if (result.visited < 1000) break;
+    }
+    if (accept(total)) return total;
+    await new Promise(resolve => setTimeout(resolve, 50));
+  }
+  return total;
+}
 
 describe('Activity notification recovery', function () {
   this.timeout(15000);
@@ -40,8 +64,9 @@ describe('Activity notification recovery', function () {
       await assert.rejects(resumeActivityNotifications(intent._id), /notification-paused/);
       await assert.rejects(deliverStoredActivityNotifications(activity, null,
         () => assert.fail('paused notifications must not prepare context')), /notification-paused/);
-      const pausedScan = await recoverActivityNotifications();
+      const pausedScan = await fullRecoveryPass(result => result.skipped >= 1);
       assert.ok(pausedScan.skipped >= 1);
+      assert.equal(typeof recoverActivityNotifications, 'function', 'the production scanner is the same factory');
       assert.equal(calls, 0);
       assert.equal(await EmailJobs.rawCollection().findOne({ _id: idFor(userId, activityId) }), null);
       assert.equal((await intents.findOne({ _id: intent._id })).state, 'pending');
@@ -69,10 +94,10 @@ describe('Activity notification recovery', function () {
       await assert.rejects(resumeActivityNotifications(orphan._id), /activity-unconfirmed/);
       assert.equal(await Activities.findOneAsync(orphanId), undefined);
       assert.equal((await intents.findOne({ _id: orphan._id })).state, 'pending');
-      assert.ok((await recoverActivityNotifications()).failed >= 1);
+      assert.ok((await fullRecoveryPass(result => result.failed >= 1)).failed >= 1);
       await cancelActivityNotification({ ...control, intentId: orphan._id, expectedRevision: 0,
         requestId: 'cancel-orphan-request-123' });
-      assert.ok((await recoverActivityNotifications()).skipped >= 1);
+      assert.ok((await fullRecoveryPass(result => result.skipped >= 1)).skipped >= 1);
       await assert.rejects(resumeActivityNotifications(orphan._id), /notification-cancelled/);
       assert.equal((await intents.findOne({ _id: orphan._id })).state, 'cancelled');
       assert.equal((await intents.findOne({ _id: orphan._id })).activity, undefined);
