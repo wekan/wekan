@@ -7887,6 +7887,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/01d388589b6349fe2250eb23f45881885f8ce7fc">Translate Faroese synchronization previews</a>. Thanks to xet7.</summary>
+
+- Translate 25 synchronization strings, preserving existing translations
+  and replacement tokens. Update the README coverage count to 126.
+- Translation, registry and human-preference checks pass, including preview
+  limits and action distinctions. Faroese has lower confidence.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
