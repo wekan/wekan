@@ -5929,6 +5929,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/27049e6e88">Translate Georgian workspace and variable guidance</a>. Thanks to xet7.</summary>
+
+- Translate 24 English strings for variables, workspace summaries and search,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including keyboard
+  names, comment fragment spacing and variable type versus parameter conflicts.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
