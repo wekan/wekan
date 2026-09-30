@@ -6169,6 +6169,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ede99fc35f">Translate Swahili color and loop controls</a>. Thanks to xet7.</summary>
+
+- Translate 20 English strings for colors, block controls and loop flow,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including color
+  ranges and exiting a loop versus continuing with its next iteration.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
