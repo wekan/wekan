@@ -4994,6 +4994,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/39b6450057">Correct Kashubian storage guidance and backup paths</a>. Thanks to xet7.</summary>
+
+- Correct 22 storage messages and restore the literal backup attachment path.
+  Preserve avatar import scope, storage names and compaction prerequisites.
+- Translation, registry and human-preference checks pass. Kashubian wording
+  is lower confidence; fluent-speaker and browser review were not run.
+  Other mixed-language text and languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
