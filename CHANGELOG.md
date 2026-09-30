@@ -6025,6 +6025,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f8a260121f">Translate Georgian email failure and retry guidance</a>. Thanks to xet7.</summary>
+
+- Translate 20 English strings for email failures, recovery and time estimates,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including rejection
+  types, cancellation limits, retry review and time units.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
