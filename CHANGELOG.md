@@ -7058,6 +7058,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/663b89dff959752eb2a4cabc9eb9eb4515c2ac38">Translate Maltese report and location labels</a>. Thanks to xet7.</summary>
+
+- Replace 35 prefixed English values with Maltese for locations, reports
+  and recovery details, preserving existing translations and tokens.
+- Translation, registry and human-preference checks pass, including template
+  placeholders. Another 302 prefixed English values remain to translate.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
