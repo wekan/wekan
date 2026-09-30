@@ -8717,6 +8717,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/eaad52af2936b00224793d8a011020ae03259431">Correct Romansh board view, role and import messages</a>. Thanks to xet7.</summary>
+
+- Replace 23 mixed-language board-view, role and import strings with
+  Romansh, preserving other translations and replacement tokens.
+- Translation, registry and human-preference checks pass, covering role
+  restrictions, opposite star actions and Kanboard/Deck field names.
+  Low-confidence wording needs fluent-speaker review.
+  Browser review was not run; wider language cleanup remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
