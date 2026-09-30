@@ -7634,6 +7634,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/aabeb10494d7931552d6fd22233a447c68785222">Translate Luxembourgish rule editing and Scrum settings</a>. Thanks to xet7.</summary>
+
+- Translate 24 missing or English strings for rule editing and Scrum settings,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass. Update README
+  coverage after Luxembourgish crosses the 90 percent threshold.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
