@@ -2321,6 +2321,17 @@ checks pass. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1e6b7e916">Translate Malay recovery messages and import guidance</a>. Thanks to xet7.</summary>
+
+Fill 90 strings across both Malay locale files. Focused tests preserve
+placeholders, import syntax, delivery warnings and access-check wording.
+Existing translations are preserved and human-preference checks pass.
+Each Malay locale still has 643 reported placeholders. Other languages remain
+in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
