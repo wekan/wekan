@@ -2144,6 +2144,16 @@ progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/164269c4a">Translate Hebrew recovery messages and import guidance</a>. Thanks to xet7.</summary>
+
+Fill 90 strings across both Hebrew locale files. Focused checks cover Hebrew
+text, placeholders, import syntax and delivery warnings. Existing translations
+are preserved and human-preference checks pass. Each Hebrew locale still has
+332 placeholders; other languages also remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
