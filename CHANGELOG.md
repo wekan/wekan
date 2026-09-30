@@ -5280,6 +5280,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/efd20f3cbb47ff9e23760bea0dd00b1e13635431">Translate Armenian filters, imports and board visibility</a>. Thanks to xet7.</summary>
+
+- Fill 28 missing entries and English placeholders for filters, imports and
+  board visibility, preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including date
+  boundaries, import syntax and access restrictions. Fluent-speaker and browser
+  review were not run. The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
