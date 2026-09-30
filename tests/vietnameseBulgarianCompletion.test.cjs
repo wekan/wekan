@@ -916,4 +916,19 @@ for (const code of ['af', 'af_ZA']) {
   assert.match(locale['due-reminder-days-label'], /positiewe.*daarvoor.*negatiewe.*daarna/);
   assert.match(locale['notification-activity-description'], /kom altyd aan/);
 }
+for (const code of ['hi', 'hi-IN']) {
+  const locale = read(code);
+  assert.deepEqual(Object.keys(locale), Object.keys(english), `${code}: source key order`);
+  for (const key of hiraganaBatchKeys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+  }
+  for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:']) {
+    assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve ${token}`);
+  }
+  assert.match(locale['rule-email-recovery-resend-confirm'], /दो बार मिलेगा/);
+  assert.match(locale['rule-email-legacy-discard-confirm'], /कभी नहीं भेजा जाएगा/);
+  assert.match(locale['rule-email-legacy-access-denied'], /अब इस कार्ड की पहुँच नहीं है/);
+  assert.match(locale['r-insert-variable'], /चर/);
+}
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
