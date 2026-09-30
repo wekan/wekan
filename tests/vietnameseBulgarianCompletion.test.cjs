@@ -31,6 +31,15 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Maltese filters and imports; remaining untranslated strings are filled separately.
 {
   const locale = read('mt');
+  const correctedEventsFlowKeys = ["total-size", "weight", "otp", "already-account", "repositories", "repository", "size-bytes", "last-modified", "api-endpoints", "otp-required", "log", "server", "protocol", "summary", "problems-status-title", "repairing", "cpu-cores-suffix", "cpu-load-average", "event-category", "event-severity", "event-source", "event-detail", "event-ip", "event-ipv4", "event-ipv6", "event-attempts", "integrityReportTitle", "operator-number", "wip-limit-group-apply-swimlane", "board-view-blocker-analysis", "board-view-size-cycle-time", "flow-unknown", "flow-age-days", "flow-samples", "flow-signal"];
+  for (const key of correctedEventsFlowKeys) {
+    assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
+    assert.doesNotMatch(locale[key], /Traduzzjoni Maltija:/, `mt:${key}: no prefixed English`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `mt:${key}: tokens`);
+  }
+  assert.match(locale['event-ipv4'], /IPv4/);
+  assert.match(locale['event-ipv6'], /IPv6/);
+  assert.match(locale['otp-required'], /OTP/);
   const correctedMonitoringKeys = ["job-queue", "last-run", "max-concurrent", "memory-usage", "migrated-attachments", "migration-batch-size", "migration-cpu-threshold", "migration-delay-ms", "migration-detector", "migration-log", "migration-markers", "migration-resumed", "migration-steps", "next", "next-run", "operation-type", "overall-progress", "page", "pause-migration", "previous", "refresh", "refresh-monitoring", "remaining-attachments", "resume-migration", "run-once", "scanning-status", "schedule", "showing", "start-test-operation", "step-progress", "stop-migration", "storage-distribution", "system-resources", "total-attachments", "total-operations"];
   for (const key of correctedMonitoringKeys) {
     assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
