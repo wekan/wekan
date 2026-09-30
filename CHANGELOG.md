@@ -7466,6 +7466,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/64aa727ef714d85f60d71533bf4846094ade51aa">Translate Luxembourgish numeric and text inputs</a>. Thanks to xet7.</summary>
+
+- Translate 30 missing or English strings for numeric and text inputs,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  dividend/divisor, minimum/maximum and start/end labels.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
