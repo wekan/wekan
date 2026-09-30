@@ -8669,6 +8669,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/81df03fcdf3bdda03c136b0a8315f0aca956d982">Correct Romansh search, checklist and permission messages</a>. Thanks to xet7.</summary>
+
+- Replace 15 mixed-language search, checklist, permission and attachment
+  strings with Romansh, preserving other translations and tokens.
+- Translation, registry and human-preference checks pass, covering search
+  examples, global-admin rights, checklist order and storage names.
+  Low-confidence wording needs fluent-speaker review.
+  Browser review was not run; wider language cleanup remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
