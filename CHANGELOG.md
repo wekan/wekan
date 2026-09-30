@@ -3983,6 +3983,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/08f0a9f01">Translate Asturian rule email recovery and import messages</a>. Thanks to xet7.</summary>
+
+- Fill 45 Asturian recovery, variable insertion and todo.txt import messages.
+- Translation, registry and human-preference checks pass, including preserved
+  translations, syntax tokens, duplicate delivery and lost-access warnings.
+  Wording is lower confidence; browser layout and fluent-speaker review were
+  not run. Other translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
