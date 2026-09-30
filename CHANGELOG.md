@@ -2133,6 +2133,17 @@ needs review, and other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bd82fd24c">Translate recovery and import guidance into Japanese Hiragana</a>. Thanks to xet7.</summary>
+
+Fill 45 missing strings with hiragana prose and reading spaces. Tests reject
+kanji and katakana in this batch while preserving placeholders, import syntax
+and delivery warnings. Translation and human-preference checks pass. Older
+strings in this locale still need a script review; other languages remain in
+progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
