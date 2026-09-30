@@ -2317,6 +2317,113 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedBackupKeys = [
+    "active-cron-jobs",
+    "cron-jobs",
+    "cron-error-severity",
+    "cron-error-message",
+    "cron-clear-errors",
+    "complete",
+    "idle",
+    "storage-read",
+    "storage-enabled",
+    "s3-force-path-style",
+    "azure-blob-storage",
+    "azure-blob-storage-description",
+    "azure-account-key",
+    "azure-connection-string",
+    "azure-container",
+    "gcs-storage",
+    "gcs-storage-description",
+    "database-migration-phase",
+    "sandstorm-migration-success",
+    "sandstorm-storage-item",
+    "sandstorm-disk-usage",
+    "collections",
+    "features",
+    "features-performance",
+    "features-security",
+    "render-links-as-plain-text",
+    "always-show-code-as-text",
+    "disable-all-export",
+    "disable-activities",
+    "disable-notifications",
+    "backup-data",
+    "backup-scope",
+    "backup-scope-instance",
+    "backup-frequency",
+    "backup-frequency-off",
+    "backup-frequency-weekly",
+    "backup-frequency-monthly",
+    "backup-time",
+    "backup-day-of-week",
+    "backup-day-of-month"
+  ];
+  for (const key of correctedBackupKeys) {
+    assert.doesNotMatch(locale[key], /— pò kaszëbskù/, `csb:${key}: language label is not a translation`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+  }
+  for (const key of ['azure-blob-storage', 'azure-blob-storage-description', 'gcs-storage', 'gcs-storage-description']) {
+    assert.equal(locale[key], english[key], `csb:${key}: storage product name`);
+  }
+  assert.match(locale['backup-time'], /HH:MM/);
+  assert.match(locale['backup-day-of-month'], /1-28/);
+  assert.match(locale['s3-force-path-style'], /URL/);
+  assert.notEqual(locale['backup-frequency-weekly'], locale['backup-frequency-monthly']);
+  const correctedStatusKeys = [
+    "board-status-time-spent-total",
+    "board-status-cards-with-time",
+    "board-status-overtime-cards",
+    "remaining_time",
+    "speed",
+    "progress",
+    "if-you-already-have-an-account",
+    "Mongo_sessions_count",
+    "max-upload-filesize",
+    "max-avatar-filesize",
+    "translation-number",
+    "translation-text",
+    "show-subtasks-field",
+    "show-week-of-year",
+    "convert-to-markdown",
+    "collapse",
+    "collapse-checklist",
+    "expand-checklist",
+    "uncollapse",
+    "hideCheckedChecklistItems",
+    "hideAllChecklistItems",
+    "support",
+    "supportPopup-title",
+    "support-page-enabled",
+    "support-title",
+    "support-content",
+    "accessibility",
+    "accessibility-page-enabled",
+    "accessibility-title",
+    "accessibility-content",
+    "accounts-lockout-failures-before",
+    "accounts-lockout-period",
+    "accounts-lockout-failure-window",
+    "accounts-lockout-remaining-time",
+    "accounts-lockout-user-locked",
+    "accounts-lockout-status",
+    "admin-people-filter-show",
+    "admin-people-filter-active",
+    "admin-people-filter-inactive",
+    "admin-people-active-status"
+  ];
+  for (const key of correctedStatusKeys) {
+    assert.doesNotMatch(locale[key], /— pò kaszëbskù/, `csb:${key}: language label is not a translation`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+  }
+  assert.match(locale['show-week-of-year'], /ISO 8601/);
+  assert.match(locale['convert-to-markdown'], /Markdown/);
+  assert.notEqual(locale['collapse-checklist'], locale['expand-checklist']);
+  assert.notEqual(locale['hideCheckedChecklistItems'], locale['hideAllChecklistItems']);
+  assert.notEqual(locale['accounts-lockout-period'], locale['accounts-lockout-failure-window']);
+  assert.notEqual(locale['admin-people-filter-active'], locale['admin-people-filter-inactive']);
+  assert.equal(locale.support, 'Pòmòc');
+  assert.equal(locale['supportPopup-title'], locale.support);
   const correctedStorageKeys = [
     "Node_memory_usage_heap_total",
     "Node_memory_usage_external",
