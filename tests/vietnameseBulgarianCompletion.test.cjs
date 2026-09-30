@@ -1663,6 +1663,29 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /Nunca no se ninviará/);
   assert.match(locale['rule-email-legacy-access-denied'], /ya no tiene acceso/);
   assert.match(locale['r-insert-variable'], /Fica una variable/);
+  for (const key of ['email-enrollAccount-text', 'email-invite-text',
+    'email-resetPassword-text', 'email-verifyEmail-text', 'email-invite-register-text']) {
+    assert.match(locale[key], /vinclo de debaixo/);
+    assert.match(locale[key], /Grazias/);
+    assert.doesNotMatch(locale[key], /haz clic|siguiente enlace|Gracias|Querido|Estimado/);
+  }
+  for (const key of ['kanboard', 'deck', 'openproject', 'issues', 'asana', 'zenkit', 'jira']) {
+    assert.match(locale[`import-board-instruction-${key}`], /^Apega /);
+    assert.doesNotMatch(locale[`import-board-instruction-${key}`], /se convierten|objeto|tareas/);
+  }
+  for (const token of ['columns', 'column_name', 'tasks', 'title', 'description',
+    'swimlane_name', 'date_due', 'owner', 'tags']) {
+    assert.ok(locale['import-board-instruction-kanboard'].includes(token));
+  }
+  assert.ok(locale['import-board-instruction-openproject'].includes('GET /api/v3/work_packages'));
+  assert.ok(locale['import-board-instruction-asana'].includes('GET /tasks'));
+  assert.ok(locale['import-board-instruction-asana'].includes('memberships'));
+  assert.ok(locale['import-board-instruction-jira'].includes('GET /rest/api/2/search'));
+  assert.ok(locale['import-board-instruction-jira'].includes('automationRules'));
+  for (const token of ['## ', '- [ ]', '- [x]']) {
+    assert.ok(locale['import-board-instruction-markdown'].includes(token));
+  }
+  assert.match(locale['email-smtp-test-text'], /Has ninviau un correu/);
   assert.match(locale['email-recovery-confirm-cancel'], /no se podrán restaurar/);
   assert.match(locale['email-recovery-description'], /ninvío incerto puede repetir-se/);
   assert.match(locale['activity-recovery-description'], /nunca no recrea/);
