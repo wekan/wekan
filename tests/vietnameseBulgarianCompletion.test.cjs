@@ -2237,6 +2237,17 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `gd: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /Cuir caochladair/);
+  for (const key of Object.keys(english).filter(key => key.startsWith('scrum-'))) {
+    assert.notEqual(locale[key], english[key], `gd:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `gd:${key}: tokens`);
+  }
+  assert.match(locale['scrum-report-help'], /chan e tuairmsean neoni/);
+  assert.match(locale['scrum-report-help'], /poileasaidhean a tha a' freagairt ri chèile/);
+  assert.match(locale['scrum-partial-report'], /air an sònrachadh dhut an-dràsta/);
+  assert.match(locale['scrum-daily-observations-help'], /Cha chlàraich.*gach atharrachadh/);
+  assert.match(locale['scrum-daily-observations-help'], /bhàr-inneal toraidhean an sprint/);
+  assert.match(locale['scrum-daily-observations-export-help'], /Chan eil tuairmsean neo-aithnichte co-ionann ri neoni/);
+  assert.match(locale['scrum-import-pending'], /Chan eil deasachadh Scrum no às-phortadh aithisgean ri fhaighinn/);
   for (const key of Object.keys(english).filter(key => key.startsWith('sync-'))) {
     assert.notEqual(locale[key], english[key], `gd:${key}: untranslated`);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `gd:${key}: tokens`);
