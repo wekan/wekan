@@ -7370,6 +7370,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0470cb06bb01c088038137ad27fcd8325f9acddd">Finish Maltese source coverage for recovery messages</a>. Thanks to xet7.</summary>
+
+- Translate the final nine missing recovery strings and retain nine technical
+  labels. Maltese has all 3,783 source keys and no flagged prose placeholders.
+- Translation, registry and human-preference checks pass, including full-locale
+  source order, replacement tokens and pending translation keys.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
