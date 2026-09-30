@@ -8235,6 +8235,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/aa147ab772b9591d9fac5dc4962102ad01d119b3">Translate Frisian import reports and map view</a>. Thanks to xet7.</summary>
+
+- Translate 11 import-report and map-view strings in each of fy and fy-NL,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including matching
+  admin navigation and distinct map actions.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
