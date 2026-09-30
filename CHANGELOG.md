@@ -4523,6 +4523,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b25d5d6d7">Translate Scottish Gaelic filters and notification controls</a>. Thanks to xet7.</summary>
+
+- Translate 81 filter, reminder, rule-variable, map and import strings.
+- Translation, registry and human-preference checks pass, covering date
+  commands, rule variables, reminder offsets and access restrictions.
+  Scottish Gaelic wording is lower confidence; fluent-speaker and browser
+  review were not run. Other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
