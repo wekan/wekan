@@ -12,7 +12,7 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
   'de', 'de_DE', 'de-AT', 'de-CH', 'fr', 'fr-FR', 'fr-BE', 'fr-CA', 'fr-CH',
   'es', 'es-AR', 'es-LA', 'es-CL', 'es_CO', 'es-CO', 'es-PY', 'es-PE', 'es-MX', 'it',
   'pt', 'pt-PT', 'pt_PT', 'pt-BR', 'nl', 'nl-NL', 'sv', 'fi', 'et-EE', 'da', 'nb', 'tr', 'id', 'ro', 'ro-RO', 'hu', 'sk', 'ja', 'ja-JP', 'ko', 'ko-KR',
-  'zh-CN', 'zh-Hans', 'zh', 'cmn', 'zh_SG', 'zh-GB', 'zh-Hant', 'zh-TW', 'zh-HK', 'ar', 'ar-DZ', 'ar-EG', 'gl', 'gl-ES', 'he', 'he-IL', 'fa', 'fa-IR', 'ms', 'ms-MY', 'sl', 'sl_SI', 'hr', 'sr', 'bs', 'mk', 'be', 'lt', 'lv', 'is', 'af', 'af_ZA']) {
+  'zh-CN', 'zh-Hans', 'zh', 'cmn', 'zh_SG', 'zh-GB', 'zh-Hant', 'zh-TW', 'zh-HK', 'ar', 'ar-DZ', 'ar-EG', 'gl', 'gl-ES', 'he', 'he-IL', 'fa', 'fa-IR', 'ms', 'ms-MY', 'sl', 'sl_SI', 'hr', 'sr', 'bs', 'mk', 'be', 'lt', 'lv', 'is', 'af', 'af_ZA', 'hi', 'hi-IN']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(english), `${code}: source key order`);
   for (const key of Object.keys(english)) {
@@ -930,6 +930,10 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /कभी नहीं भेजा जाएगा/);
   assert.match(locale['rule-email-legacy-access-denied'], /अब इस कार्ड की पहुँच नहीं है/);
   assert.match(locale['r-insert-variable'], /चर/);
+  assert.match(locale['email-recovery-confirm-cancel'], /वापस नहीं लाई जा सकेगी/);
+  assert.match(locale['activity-recovery-cancel-confirm'], /फिर शुरू नहीं किया जा सकता/);
+  assert.match(locale['activity-recovery-description'], /कभी गतिविधि को दोबारा नहीं बनाता/);
+  assert.match(locale['history-request-hint'], /कभी दूसरे बदलाव को वापस नहीं ले सकता/);
   for (const key of Object.keys(english).filter(key => key.startsWith('sync-'))) {
     assert.notEqual(locale[key], english[key], `${code}:${key}: untranslated`);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
