@@ -82,6 +82,11 @@ const isEnglishVariant = code => /^en([_-].*)?$/.test(code) || code === 'en';
 // needs a different word. Keep those exceptions per locale; putting them in the
 // source-wide list would hide real work in every language.
 const LOCALE_INVARIANTS = {
+  // Maltese retains the Alt key legend, OS brands and these trig symbols.
+  mt: new Set([
+    'blockly-ALT_KEY', 'blockly-CHROME_OS', 'blockly-LINUX',
+    'blockly-MAC_OS', 'blockly-WINDOWS', 'blockly-MATH_TRIG_ASIN',
+    'blockly-MATH_TRIG_ATAN', 'blockly-MATH_TRIG_SIN', 'blockly-MATH_TRIG_TAN']),
   // Tagalog retains physical key labels, OS brands and short trig symbols.
   tl: new Set([
     'blockly-ALT_KEY', 'blockly-COMMAND_KEY',

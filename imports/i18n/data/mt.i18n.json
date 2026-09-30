@@ -3773,12 +3773,13 @@
   "rule-email-legacy-plan-unavailable": "L-eżekuzzjoni tar-regola li ħejjiet dan il-messaġġ elettroniku m’għadhiex maħżuna, għalhekk ma jistax jintrabat mill-ġdid. Tista’ twarrbu.",
   "rule-email-legacy-attempt-exists": "Dan il-messaġġ elettroniku diġà ntbagħat, sar tentattiv biex jintbagħat, jew twarrab.",
   "rule-email-legacy-not-legacy": "Dan il-messaġġ elettroniku diġà ntrabat mill-ġdid.",
-  "saml-login-not-started": "This SAML sign-in was not started in this browser tab. Please sign in again.",
-  "move-selection-before": "Before",
-  "move-selection-after": "After",
-  "history-request-pending-undo": "Your last undo has not been confirmed by the server yet.",
-  "history-request-pending-redo": "Your last redo has not been confirmed by the server yet.",
-  "history-request-hint": "Trying again repeats the same request, so it can never take back a second change.",
-  "history-request-retry": "Try again",
-  "history-request-forget": "Forget it"
+  "rule-email-legacy-failed": "Din l-azzjoni ma setgħetx titlesta. Aġġorna u erġa’ pprova.",
+  "saml-login-not-started": "Dan id-dħul b’SAML ma nbediex f’din it-tab tal-brawżer. Jekk jogħġbok idħol mill-ġdid.",
+  "move-selection-before": "Qabel",
+  "move-selection-after": "Wara",
+  "history-request-pending-undo": "L-aħħar azzjoni tiegħek biex treġġa’ lura bidla għadha ma ġietx ikkonfermata mis-servitur.",
+  "history-request-pending-redo": "L-aħħar azzjoni tiegħek biex terġa’ tapplika bidla għadha ma ġietx ikkonfermata mis-servitur.",
+  "history-request-hint": "Tentattiv ieħor jirrepeti l-istess talba, għalhekk qatt ma jista’ jreġġa’ lura bidla oħra.",
+  "history-request-retry": "Erġa’ pprova",
+  "history-request-forget": "Insieha"
 }
