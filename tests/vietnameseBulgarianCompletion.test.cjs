@@ -2317,6 +2317,19 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedFeatureDescriptionKeys = ["always-show-code-as-text-description", "disable-all-import-description", "disable-all-export-description", "disable-export-avatars-description", "anonymize-import-users-description", "anonymize-export-users-description", "anonymize-account-confirm-popup", "disable-activities-description"];
+  for (const key of correctedFeatureDescriptionKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /(?:Gdy włączone|zastępuje|użytkownika|Domyślnié)/);
+    if (key !== 'anonymize-account-confirm-popup') assert.match(locale[key], /Domëslno wëłączoné/);
+    for (const literal of ['<!-- -->', 'JavaScript', 'WeKan JSON', 'NextCloud Deck', 'Forgejo', '@username', 'requested-by', 'assigned-by']) {
+      if (english[key].includes(literal)) assert.ok(locale[key].includes(literal), `csb:${key}: ${literal}`);
+    }
+  }
+  assert.match(locale['anonymize-account-confirm-popup'], /na wiedno.*adres e-mail.*rëmnie awatar i wëłączi logòwanié/);
+  assert.match(locale['anonymize-account-confirm-popup'], /zachòwają historiã.*nie mòżna cofnąc/);
+  assert.doesNotMatch(locale['anonymize-account-confirm-popup'], /ekspòrt|user1|@username/);
+  for (const key of ['disable-all-import-description', 'disable-all-export-description']) assert.match(locale[key], /serwer òdrzucô kòżdé żądanié/);
   const correctedEditingHelpKeys = ["no-boards-selected", "personal-list-width-description", "fixed-list-width-note", "board_members", "card_members", "comment-only", "no-comments-desc", "custom-field-delete-pop", "select-none", "label-delete-pop", "r-when-due", "r-when-card-in-list", "r-when-a-card", "r-when-a-member", "r-when-a-attach", "r-when-a-card-is-moved", "submit-on-enter-description", "all-board-members", "invalid-file", "admin-people-filter-locked", "render-links-as-plain-text-description"];
   for (const key of correctedEditingHelpKeys) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
