@@ -7754,6 +7754,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/32fa01b0324eaa7ff50f4869a0262a3e7020c65f">Translate Luxembourgish rule email delivery</a>. Thanks to xet7.</summary>
+
+- Translate 20 missing or English strings for rule-email delivery,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  accepted/unconfirmed and started/confirmed states.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
