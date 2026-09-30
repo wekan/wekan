@@ -4447,6 +4447,19 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8afaefbb3">Translate Welsh filters, reminders and interface controls</a>. Thanks to xet7.</summary>
+
+- Fill 81 entries in each Welsh locale for filters, reminders, rules, imports
+  and map controls. Preserve existing translations and source syntax; each
+  locale has 93 flagged entries remaining.
+- Translation, registry and human-preference checks pass, covering reminder
+  offsets, board visibility, notification exceptions and list age semantics.
+  Welsh wording is lower confidence; fluent-speaker and browser review were
+  not run. Other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
