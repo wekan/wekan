@@ -8295,6 +8295,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8e32f662f226840d0831433a192b9d805d2762f0">Translate Frisian synchronization conflicts</a>. Thanks to xet7.</summary>
+
+- Translate 25 synchronization conflict and preview strings in each of fy
+  and fy-NL, preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  local/source choices and preview actions.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
