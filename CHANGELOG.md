@@ -7130,6 +7130,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/aa4095671fa4a61b4507c75eaf23953f1542771e">Translate Maltese job progress and schedule labels</a>. Thanks to xet7.</summary>
+
+- Replace 35 prefixed English values with Maltese for migration progress,
+  job schedules and storage statistics, preserving translations and tokens.
+- Translation, registry and human-preference checks pass, including schedule
+  intervals. Another 92 prefixed English values remain to translate.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
