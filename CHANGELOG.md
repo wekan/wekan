@@ -218,6 +218,7 @@ Second pass of 2026-09-30 - built and tested (in Upcoming):
 - Sync and archive rows are linked at write, with no reservation.
 - Scrum sprints, releases and events carry incarnations.
 - Finished rule email commands are compacted after 90 days.
+- Abandoned History writers are recovered online, fenced.
 
 Remaining, and why:
 
@@ -228,8 +229,9 @@ Remaining, and why:
   completions** waits on a completion timestamp. Those rows have none, so no
   sweep can tell a 90-day-old receipt from a new one. Notification plans
   already compact on completion.
-- **Online writer-token recovery** is not built yet. It changes the History
-  writer protocol for every writer and for migration.
+- **Online writer-token recovery** is built (leases and fenced inserts). A
+  token written by a server older than it has no lease and still needs the
+  offline tool; that is by design, not a gap to close.
 - **The rest of the Scrum/Sync handoff:** atomic coordination of cards,
   History, activities and effects, startup replay, and calling the stored
   stages from manual and scheduled Sync. The reservation no longer blocks these.
@@ -1663,9 +1665,10 @@ template.
 # Upcoming WeKan ® release
 
 **In short:** Fixes **ReplyBleed**: a reply to a notification email is now
-attributed only to the person it was sent to. Carries out three of the
-maintainer's 2026-09-30 decisions: **Scrum record incarnations**, **rule email
-compaction after 90 days**, and **Sync History rows linked when written**.
+attributed only to the person it was sent to. Carries out the maintainer's
+2026-09-30 decisions: **Scrum record incarnations**, **rule email compaction
+after 90 days**, **Sync History rows linked when written**, and **online
+recovery of abandoned History writers**.
 Irish gains the rule email recovery and legacy review translations.
 
 This release fixes the following CRITICAL SECURITY ISSUE of [ReplyBleed](https://wekan.fi/hall-of-fame/replybleed/):
@@ -1770,6 +1773,31 @@ Plans are now content only, and each row is linked when appended:
 Appends are idempotent by row id. The archive runner needs no reservation.
 Plans in the old chained format are refused. Unit, MongoDB and full-app tests
 cover both modes, replay, and History written between planning and writing.
+
+</details>
+
+**History writers** - a server that died while writing History no longer needs
+every server stopped before its board can be migrated.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e191baef7">Recover abandoned History writers online, fenced, without stopping servers</a>. Thanks to xet7.</summary>
+
+A legacy History writer holds a token on its board's gate until its write is
+confirmed. A writer that died kept that token forever, and removing it needed
+every server stopped. Each writer now keeps a renewed lease beside its token,
+and claims each row id in it before inserting. Once a lease has been expired
+for another full period (`HISTORY_WRITER_LEASE_MS`, default 30 s), recovery:
+
+- fences the lease, so the writer can neither renew nor claim again;
+- puts a tombstone under any claimed row id, so a late insert fails on the
+  unique `_id`, while a row that had already landed stays;
+- only then removes the token.
+
+Safety rests on the fence, not the clock. A chain migration does this while
+the board drains, and `releases/recover-history-writer.cjs --recover-expired`
+does it on demand. Tokens from older servers have no lease and still need the
+offline procedure. MongoDB tests with two clients and a full-app test cover a
+dead writer, a fenced slow writer, a landed row, live writers and migration.
 
 </details>
 
