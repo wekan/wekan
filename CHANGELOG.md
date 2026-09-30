@@ -6109,6 +6109,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/538580ff42">Translate Swahili notifications and reminders</a>. Thanks to xet7.</summary>
+
+- Translate 20 English strings for activity notifications and due reminders,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including reminder
+  offsets, server defaults, day limits and notifications that always arrive.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
