@@ -8753,6 +8753,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/289e618181cee268954f7c1e56b6302530dff7b2">Correct Romansh search operators and card view labels</a>. Thanks to xet7.</summary>
+
+- Replace 16 mixed-language search and view strings with Romansh,
+  preserving other translations and replacement tokens.
+- Translation, registry and human-preference checks pass, covering exact
+  operator syntax, shared labels and incomplete due-card visibility.
+  Low-confidence wording needs fluent-speaker review.
+  Browser review was not run; wider language cleanup remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
