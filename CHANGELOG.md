@@ -6805,6 +6805,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3dd97b936c7d89a3e0bdba9aadc34bc76f3fcb23">Translate Tagalog sprint reports and observations</a>. Thanks to xet7.</summary>
+
+- Translate 35 English strings for sprint reports, observations and sync,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including unknown
+  estimates, observation limits and sync direction.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
