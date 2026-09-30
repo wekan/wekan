@@ -2278,6 +2278,17 @@ Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ad5dde9e4">Translate Persian synchronization conflicts and reports</a>. Thanks to xet7.</summary>
+
+Fill 126 strings across both Persian locale files. Tests preserve placeholders
+and distinctions between missing and null values, local and source changes,
+and reports and recovery actions. Existing translations are preserved and
+human-preference checks pass. Persian has 104 reported placeholders remaining,
+and Persian (Iran) has 102. Other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
