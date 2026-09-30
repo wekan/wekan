@@ -82,6 +82,16 @@ const isEnglishVariant = code => /^en([_-].*)?$/.test(code) || code === 'en';
 // needs a different word. Keep those exceptions per locale; putting them in the
 // source-wide list would hide real work in every language.
 const LOCALE_INVARIANTS = {
+  // Bosnian retains product names, printed key legends and mathematical terms.
+  bs: new Set([
+    'server',
+    'blockly-ALT_KEY', 'blockly-COMMAND_KEY', 'blockly-OPTION_KEY',
+    'blockly-SHIFT_KEY', 'blockly-TAB_KEY', 'blockly-CHROME_OS', 'blockly-LINUX',
+    'blockly-MAC_OS', 'blockly-WINDOWS', 'blockly-MATH_ADDITION_SYMBOL_ARIA',
+    'blockly-MATH_SUBTRACTION_SYMBOL_ARIA', 'blockly-MATH_TRIG_ACOS',
+    'blockly-MATH_TRIG_ASIN', 'blockly-MATH_TRIG_ATAN', 'blockly-MATH_TRIG_COS',
+    'blockly-MATH_TRIG_SIN', 'blockly-MATH_TRIG_TAN', 'scrum-sprint',
+  ]),
   // Serbian retains these printed modifier legends and product names.
   sr: new Set([
     'blockly-ALT_KEY', 'blockly-COMMAND_KEY', 'blockly-OPTION_KEY',
@@ -408,7 +418,6 @@ const LOCALE_INVARIANTS = {
     'blockly-MATH_TRIG_ACOS', 'blockly-MATH_TRIG_ATAN',
     'blockly-MATH_TRIG_COS', 'blockly-MATH_TRIG_TAN', 'blockly-WINDOWS',
   ])])),
-  bs: new Set(['server']),
   // Native MediaWiki vep.json: view-pool-error and api-clientside-error-http
   // use the nominative server. This is Veps, not the legacy Venda ve locale.
   've-PP': new Set(['server']),
