@@ -4795,6 +4795,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/174a20bb33">Correct Kashubian cloud storage and migration translations</a>. Thanks to xet7.</summary>
+
+- Correct 60 mixed-language cloud storage, credentials and migration labels.
+  Preserve console menu names, hostnames, identifiers and placeholders.
+- Translation, registry and human-preference checks pass. Kashubian wording
+  is lower confidence; fluent-speaker and browser review were not run.
+  Older mixed-language values and other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
