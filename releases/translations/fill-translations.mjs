@@ -82,6 +82,24 @@ const isEnglishVariant = code => /^en([_-].*)?$/.test(code) || code === 'en';
 // needs a different word. Keep those exceptions per locale; putting them in the
 // source-wide list would hide real work in every language.
 const LOCALE_INVARIANTS = {
+  // Neapolitan retains these printed key legends, product names and math symbols.
+  'nap': new Set([
+    'move-progress-file',
+    'blockly-ALT_KEY',
+    'blockly-CHROME_OS',
+    'blockly-COMMAND_KEY',
+    'blockly-LINUX',
+    'blockly-MAC_OS',
+    'blockly-MATH_TRIG_ACOS',
+    'blockly-MATH_TRIG_ASIN',
+    'blockly-MATH_TRIG_ATAN',
+    'blockly-MATH_TRIG_COS',
+    'blockly-MATH_TRIG_SIN',
+    'blockly-MATH_TRIG_TAN',
+    'blockly-TAB_KEY',
+    'blockly-WINDOWS',
+  ]),
+
   // Sicilian retains these printed key legends, product names and math symbols.
   'scn': new Set([
     'blockly-ALT_KEY',
@@ -735,7 +753,6 @@ const LOCALE_INVARIANTS = {
   ])])),
   rup: new Set(['color-indigo', 'color-magenta']),
   lld: new Set(['move-progress-file']),
-  nap: new Set(['move-progress-file']),
   // Galician shared vocabulary, product names and mathematical notation.
   ...Object.fromEntries(['gl', 'gl-ES'].map(code => [code, new Set([
     ...(code === 'gl' ? ['predicate-selector'] : []),
