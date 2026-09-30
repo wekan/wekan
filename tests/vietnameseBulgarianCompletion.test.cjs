@@ -2317,6 +2317,15 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedActivityDetailKeys = ["act-addAttachment", "act-addSubtask", "act-addLabel", "act-addedLabel", "act-addChecklist", "act-addChecklistItem", "act-addComment", "act-createBoard", "act-createSwimlane", "act-createCard", "act-createCustomField", "act-setCustomField", "act-createList", "act-addBoardMember", "act-archivedCard", "act-archivedList", "act-archivedSwimlane", "act-joinMember", "act-moveCard", "act-moveCardToOtherBoard"];
+  for (const key of correctedActivityDetailKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /(?:dodał|utworzył|zmienił|na liście|na ścieżce|etykietę|czeklist)/);
+    assert.deepEqual(locale[key].match(/__[A-Za-z0-9_]+__/g), english[key].match(/__[A-Za-z0-9_]+__/g), `csb:${key}: argument order`);
+  }
+  assert.equal(locale['act-addLabel'], locale['act-addedLabel']);
+  assert.match(locale['act-moveCardToOtherBoard'], /z lëstë __oldList__.*__oldBoard__ do lëstë __list__/);
+  assert.match(locale['act-setCustomField'], /__customField__: __customFieldValue__/);
   const correctedNotificationHelpKeys = ["act-activity-notify", "email-invite-subject", "push-invite-title", "just-invited", "muted-info", "not-accepted-yet", "notify-watch", "sandstorm-remove-member-warning", "watching-info", "email-invite-register-subject", "email-invite-register-text", "error-invitation-code-not-exist", "org-domains-description", "delete-all-notifications", "drag-template-here-to-share", "shared-templates-info", "invite-people-success", "invite-people-error", "disable-notifications-description", "disable-watch-description"];
   for (const key of correctedNotificationHelpKeys) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
