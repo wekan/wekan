@@ -5869,6 +5869,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b81f3c8ffc">Translate Georgian math functions and variable controls</a>. Thanks to xet7.</summary>
+
+- Translate 47 English strings for rounding, trigonometry, variable creation
+  and editor navigation, preserving existing translations and tokens.
+- Translation, registry and human-preference checks pass, including rounding
+  directions, inverse functions, angle units and variable field labels.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
