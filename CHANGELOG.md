@@ -6097,6 +6097,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d34a7869bc">Translate Swahili import and rule guidance</a>. Thanks to xet7.</summary>
+
+- Translate 20 English strings for filters, imports, board visibility and rules,
+  preserving existing translations, syntax examples and replacement tokens.
+- Translation, registry and human-preference checks pass, including import
+  syntax, date examples, editing permissions and rule action order.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
