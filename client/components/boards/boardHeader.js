@@ -288,6 +288,16 @@ Template.boardChangeViewPopup.helpers({
 });
 
 Template.boardChangeViewPopup.events({
+  // On the Rules page, picking a board view goes back to the board, where
+  // views are drawn - the Rules page's own Back button went with its separate
+  // sidebar. Runs beside the per-view handler below, which sets the view.
+  // Unsaved Blocks work is only dropped after the usual confirmation.
+  'click .js-board-view-entry'() {
+    if (FlowRouter.getRouteName() !== 'board-rules') return;
+    if (Session.get('rulesBlocksDirty') && !confirm(TAPi18n.__('r-blocks-discard'))) return;
+    const board = Utils.getCurrentBoard();
+    if (board) FlowRouter.go('board', { id: board._id, slug: board.slug });
+  },
   'click .js-open-lists-view'() {
     Utils.setBoardView('board-view-lists');
     Popup.back();

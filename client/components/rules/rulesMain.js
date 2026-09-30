@@ -1,8 +1,5 @@
 import { ReactiveCache } from '/imports/reactiveCache';
-import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
-import { TAPi18n } from '/imports/i18n';
 import { Utils } from '/client/lib/utils';
-import { closePageSidebar } from '/client/lib/pageSidebar';
 import { triggerValueHasVars } from '/models/lib/ruleTriggerVars';
 
 Template.rulesMain.onCreated(function () {
@@ -17,8 +14,8 @@ Template.rulesMain.onCreated(function () {
   this.editingRuleId = new ReactiveVar(null);
 
   // The Workflow view is the rulesList tab's alternative rendering, so it can
-  // only show while that tab is current. The toggle lives in rulesControls -
-  // a separate template in the page sidebar with no handle on this instance
+  // only show while that tab is current. The toggle lives in Board Settings
+  // (client/components/sidebar/sidebar.js) with no handle on this instance
   // - and it only flips Session 'rulesViewMode'; from the Add trigger / Add
   // action / rule details tabs that changed the button's label and nothing
   // else. Switching to the workflow view therefore brings the page back to
@@ -67,58 +64,6 @@ Template.rulesMain.helpers({
   isWorkflowView() {
     return Session.get('rulesViewMode') === 'workflow';
   },
-});
-
-Template.rulesControls.helpers({
-  currentBoard() {
-    return Utils.getCurrentBoard();
-  },
-  isWorkflowView() {
-    return Session.get('rulesViewMode') === 'workflow';
-  },
-});
-
-Template.rulesControls.events({
-  'click .js-rules-list-view'(event) {
-    event.preventDefault();
-    if (Session.get('rulesBlocksDirty') && !confirm(TAPi18n.__('r-blocks-discard'))) return;
-    Session.set('rulesViewMode', 'list');
-    Session.set('rulesViewRequest', (Session.get('rulesViewRequest') || 0) + 1);
-    closePageSidebar();
-  },
-  'click .js-rules-history'(event) {
-    event.preventDefault();
-    if (Session.get('rulesBlocksDirty') && !confirm(TAPi18n.__('r-blocks-discard'))) return;
-    Session.set('rulesViewMode', 'history');
-    Session.set('rulesViewRequest', (Session.get('rulesViewRequest') || 0) + 1);
-    closePageSidebar();
-  },
-  'click .js-rules-blocks-view'(event) {
-    event.preventDefault();
-    Session.set('rulesViewMode', 'blocks');
-    Session.set('rulesViewRequest', (Session.get('rulesViewRequest') || 0) + 1);
-    closePageSidebar();
-  },
-  'click .js-rules-back-to-board'(event) {
-    event.preventDefault();
-    if (Session.get('rulesBlocksDirty') && !confirm(TAPi18n.__('r-blocks-discard'))) return;
-    const currentBoard = Utils.getCurrentBoard();
-    if (currentBoard) {
-      FlowRouter.go('board', {
-        id: currentBoard._id,
-        slug: currentBoard.slug,
-      });
-    }
-  },
-  'click .js-rules-toggle-view'(event) {
-    event.preventDefault();
-    if (Session.get('rulesBlocksDirty') && !confirm(TAPi18n.__('r-blocks-discard'))) return;
-    const mode = 'workflow';
-    Session.set('rulesViewMode', mode);
-    Session.set('rulesViewRequest', (Session.get('rulesViewRequest') || 0) + 1);
-    closePageSidebar();
-  },
-  'click .js-rules-import-export': Popup.open('rulesImportExport'),
 });
 
 function sanitizeObject(obj) {

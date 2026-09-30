@@ -108,7 +108,8 @@ test('and their handlers followed their markup', () => {
     ['client/components/main/myCards.js', 'myCardsControls'],
     ['client/components/main/dueCards.js', 'dueCardsControls'],
     ['client/components/main/globalSearch.js', 'globalSearchControls'],
-    ['client/components/rules/rulesMain.js', 'rulesControls'],
+    // The Rules page's controls are gone: it uses the board sidebar, where its
+    // views are in Board Settings under Rules.
   ]) {
     const src = read(file);
     assert.ok(new RegExp(`Template\\.${ctl}\\.(events|helpers)`).test(src),
@@ -182,3 +183,15 @@ for (const [name, fn] of tests) {
   catch (err) { console.error(`  FAIL - ${name}\n    ${err.message}`); process.exitCode = 1; }
 }
 console.log(`\npageSidebar: ${passed} tests passed`);
+
+test('the Rules page uses the board sidebar, not a page sidebar of its own', () => {
+  assert.ok(OWN_SIDEBAR_ROUTES.includes('board-rules'), 'the Rules route has the board sidebar');
+  assert.ok(!Object.prototype.hasOwnProperty.call(PAGE_SIDEBAR_TEMPLATES, 'board-rules'), 'and no page sidebar');
+  const jade = read('client/components/rules/rulesMain.jade');
+  assert.ok(/\n    \+sidebar\n?/.test(jade), 'rulesMain draws the board sidebar');
+  // Negative: the limited sidebar and its template are gone everywhere.
+  for (const rel of ['client/components/rules/rulesMain.jade', 'client/components/rules/rulesMain.js',
+    'models/lib/pageSidebar.js']) {
+    assert.ok(!/template\(name="rulesControls"\)|Template\.rulesControls|'rulesControls'/.test(read(rel)), `${rel} has no rulesControls`);
+  }
+});

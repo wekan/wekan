@@ -1,4 +1,5 @@
 'use strict';
+const { openRulesMenuEntry } = require('../helpers/rulesMenu');
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { loginWithToken, navigateInApp } = require('../helpers/auth');
@@ -54,9 +55,8 @@ for (const {width,theme,language} of [
       await page.locator(selector).click();
       await withinRows(page);
     }
-    await page.locator('.js-toggle-page-sidebar').first().click();
-    await page.locator('.js-rules-toggle-view').click();
-    await expect(page.locator('.js-close-page-sidebar')).not.toBeVisible();
+    await openRulesMenuEntry(page, 'js-open-rules-workflow-view');
+    await expect(page.locator('.js-pop-over')).not.toBeVisible();
     await expect(page.locator('.rules-workflow')).toBeVisible();
     const overflow=await page.locator('.rules-workflow').evaluate(el=>el.scrollWidth>el.clientWidth+2);
     expect(overflow).toBe(false);

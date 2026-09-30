@@ -169,7 +169,7 @@ template(name="boardChangeViewPopup")
   ul.pop-over-list
     each boardViewMenuEntries
       li
-        a(class="{{jsClass}}")
+        a.js-board-view-entry(class="{{jsClass}}")
           i.fa(class="{{icon}}")
           | {{_ labelKey}}
           if isCurrent

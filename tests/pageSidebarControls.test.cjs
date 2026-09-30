@@ -62,12 +62,15 @@ test('both sidebars that use this shell get it', () => {
 test('it is the class the pages actually use (negative)', () => {
   // Not a new class invented for the sidebar: every controls template draws
   // `.board-header-btn`, because that is what these controls were.
-  for (const rel of ['client/components/rules/rulesMain.jade',
+  // The Rules page no longer has page-sidebar controls: it uses the board
+  // sidebar, whose Board Settings lists its views (models/lib/pageSidebar.js).
+  for (const rel of ['client/components/main/dueCards.jade',
     'client/components/main/myCards.jade']) {
     assert.ok(/a\.board-header-btn/.test(read(rel)), `${rel} draws that class`);
   }
-  assert.ok(/'board-rules': 'rulesControls'/.test(pageSidebar),
+  assert.ok(/'due-cards': 'dueCardsControls'/.test(pageSidebar),
     'and the page sidebar is what renders them');
+  assert.ok(!/rulesControls/.test(pageSidebar), 'the Rules page has no page-sidebar controls now');
 });
 
 console.log(`\npageSidebarControls: ${passed} tests passed`);

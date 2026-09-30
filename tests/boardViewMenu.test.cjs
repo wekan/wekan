@@ -98,7 +98,9 @@ test('the menu lists every view in the required top-to-bottom order', () => {
   assert.deepStrictEqual(bvs.DEFAULT_BOARD_VIEW_ORDER, VIEWS.map(v => v.view));
   // A board with no stored order renders exactly that, all of it.
   assert.deepStrictEqual(bvs.boardViewMenuEntries({ permission: 'private' }).map(e => e.view), VIEWS.map(v => v.view));
-  assert.match(popup, /each boardViewMenuEntries\n\s*li\n\s*a\(class="\{\{jsClass\}\}"\)/, 'the template loops over the entries');
+  // Each anchor also carries js-board-view-entry: on the Rules page, picking a
+  // view goes back to the board.
+  assert.match(popup, /each boardViewMenuEntries\n\s*li\n\s*a\.js-board-view-entry\(class="\{\{jsClass\}\}"\)/, 'the template loops over the entries');
 });
 
 test('every entry carries a font-awesome icon', () => {
@@ -250,6 +252,17 @@ test('the new templates and stylesheets are registered, like every other board v
     .forEach(f => {
       assert.ok(boardsFeature.includes(`/client/components/boards/${f}`), `${f} is imported`);
     });
+});
+
+test('on the Rules page, picking a board view goes back to the board', () => {
+  const js = read('client/components/boards/boardHeader.js');
+  const at = js.indexOf("'click .js-board-view-entry'()");
+  assert.ok(at !== -1);
+  const body = js.slice(at, js.indexOf('\n  },', at));
+  assert.match(body, /if \(FlowRouter\.getRouteName\(\) !== 'board-rules'\) return;/, 'only on the Rules page');
+  assert.match(body, /FlowRouter\.go\('board', \{ id: board\._id, slug: board\.slug \}\)/);
+  // Negative: unsaved Blocks work is not dropped without asking.
+  assert.match(body, /if \(Session\.get\('rulesBlocksDirty'\) && !confirm\(TAPi18n\.__\('r-blocks-discard'\)\)\) return;/);
 });
 
 console.log(`\nboardViewMenu: ${passed} tests passed`);

@@ -1,4 +1,5 @@
 'use strict';
+const { openRulesMenuEntry } = require('../helpers/rulesMenu');
 const {test,expect}=require('../fixtures');
 const db=require('../helpers/db');
 const {loginWithToken,navigateInApp,openBoard}=require('../helpers/auth');
@@ -27,8 +28,7 @@ test('rule create, compound edit, enable and delete use existing history and rev
  expect(db.findOne('rules',{_id:ids._id})).toBeNull();
  expect((await call(page,'changeHistory.undoLast',board.boardId)).undone).toBe(true);
  expect(db.findOne('actions',{_id:ids.actionId}).actionType).toBe('unarchive');
- await page.locator('.js-toggle-page-sidebar').first().click();
- await page.locator('.js-rules-history').click();
+ await openRulesMenuEntry(page,'js-open-rules-history');
  await expect(page.locator('.history-table')).toBeVisible();
  const added=rows(board.boardId).find(r=>r.changeType==='added');
  await page.locator(`.js-history-select[data-id="${added._id}"]`).click();

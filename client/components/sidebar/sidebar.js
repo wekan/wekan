@@ -48,6 +48,7 @@ import {
 } from '/client/lib/minicardLabelText';
 import {
   clearSidebarInstance,
+  getSidebarInstance,
   setSidebarInstance,
 } from '/client/features/sidebar/service';
 
@@ -504,6 +505,13 @@ function openRulesViewFromBoardMenu(mode) {
   Popup.back();
   Session.set('rulesViewMode', mode);
   Session.set('rulesViewRequest', (Session.get('rulesViewRequest') || 0) + 1);
+  // Already on the Rules page, this board sidebar stays mounted: close it so
+  // the chosen view is not left under it. From the board, the Rules page
+  // mounts its own copy, closed.
+  if (FlowRouter.getRouteName() === 'board-rules') {
+    getSidebarInstance()?.hide?.();
+    return;
+  }
   if (currentBoard) {
     FlowRouter.go('board-rules', { id: currentBoard._id, slug: currentBoard.slug });
   }

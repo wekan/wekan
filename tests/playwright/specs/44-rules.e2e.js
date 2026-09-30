@@ -1,4 +1,5 @@
 'use strict';
+const { openRulesMenuEntry } = require('../helpers/rulesMenu');
 
 /**
  * Spec 44 — Board Rules page (#6489, #6490).
@@ -99,15 +100,8 @@ test.describe('Board Rules', () => {
       await loginWithToken(page, adminUser.id, adminUser.token);
       await navigateInApp(page, `/b/${board.boardId}/${board.slug}/rules`);
 
-      // Switch to the Workflow view.
-      // The view toggle is in the page's right sidebar now, not in a second
-      // header bar. docs/Features/Page/Header.md
-      const toggle = page.locator('.js-rules-toggle-view');
-      if (!(await toggle.isVisible().catch(() => false))) {
-        await page.locator('.js-toggle-page-sidebar').first().click();
-        await toggle.waitFor({ timeout: 15_000 });
-      }
-      await toggle.click();
+      // Switch to the Workflow view, from Board Settings / Rules in the board sidebar.
+      await openRulesMenuEntry(page, 'js-open-rules-workflow-view');
 
       // The palette renders with LABELLED chips. This is the exact signature of the
       // #6489 bug: before the import fix, paletteLabel() threw "ReferenceError:

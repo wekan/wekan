@@ -1,4 +1,5 @@
 'use strict';
+const { openRulesMenuEntry } = require('../helpers/rulesMenu');
 const { test, expect } = require('../fixtures');
 const db = require('../helpers/db');
 const { loginWithToken, navigateInApp } = require('../helpers/auth');
@@ -20,8 +21,7 @@ test('Blocks loads on demand, edits real rules without data loss and creates exe
     await navigateInApp(page, `/b/${board.boardId}/${board.slug}/rules`);
     await expect(page.locator('.rules-list')).toBeVisible();
     await expect(page.locator('.blocklySvg')).toHaveCount(0);
-    if (!await page.locator('.js-rules-blocks-view').isVisible()) await page.locator('.js-toggle-page-sidebar').first().click();
-    await page.locator('.js-rules-blocks-view').click();
+    await openRulesMenuEntry(page, 'js-open-rules-blocks-view');
     await expect(page.locator('.rules-blocks .blocklySvg')).toBeVisible();
     await page.locator('.js-blocks-rule').selectOption(ids.id);
     await expect(page.locator('.rules-blocks .blocklyText').filter({ hasText: 'When: Card is created' }).first()).toBeVisible();
@@ -32,8 +32,7 @@ test('Blocks loads on demand, edits real rules without data loss and creates exe
     expect(db.findOne('triggers',{_id:ids.triggerId}).extraData).toEqual({keep:'unchanged'});
     await page.locator('.js-blocks-form').click();
     await expect(page.locator('.triggers-content')).toBeVisible();
-    if (!await page.locator('.js-rules-blocks-view').isVisible()) await page.locator('.js-toggle-page-sidebar').first().click();
-    await page.locator('.js-rules-blocks-view').click();
+    await openRulesMenuEntry(page, 'js-open-rules-blocks-view');
     await expect(page.locator('.rules-blocks .blocklySvg')).toBeVisible();
     await page.locator('.js-blocks-title').fill('Incomplete blocks');
     await page.locator('.js-blocks-save').click();
@@ -60,8 +59,15 @@ test('Blocks keeps rule writes restricted to board admins', async ({ page, board
   try {
     await loginWithToken(page,user2.id,user2.token);
     await navigateInApp(page,`/b/${board.boardId}/${board.slug}/rules`);
-    if (!await page.locator('.js-rules-blocks-view').isVisible()) await page.locator('.js-toggle-page-sidebar').first().click();
-    await page.locator('.js-rules-blocks-view').click();
+    // The Rules views are in Board Settings for board admins only, so a member
+    // is not offered them there (negative). The page itself must still refuse
+    // when the Blocks view is reached some other way, e.g. a stored mode.
+    await page.locator('.js-toggle-page-sidebar').first().click();
+    await page.locator('.board-sidebar .js-open-board-menu').click();
+    await page.locator('.js-pop-over').waitFor();
+    await expect(page.locator('.js-pop-over [class*="js-open-rules"]')).toHaveCount(0);
+    await page.keyboard.press('Escape');
+    await page.evaluate(() => { Session.set('rulesViewMode', 'blocks'); Session.set('rulesViewRequest', (Session.get('rulesViewRequest') || 0) + 1); });
     await expect(page.locator('.rules-blocks')).toContainText('administrator permission');
     await expect(page.locator('.blocklySvg')).toHaveCount(0);
     const result = await page.evaluate(async boardId=>{
@@ -81,8 +87,9 @@ for (const language of ['fi','ar','gu-IN','sv','sl','vi']) test(`Blocks supports
     await loginWithToken(page,user.id,user.token);
     await navigateInApp(page,`/b/${board.boardId}/${board.slug}/rules`);
     await page.locator('.js-toggle-page-sidebar').first().click();
-    await expect(page.locator('.js-rules-blocks-view')).toContainText(translations['r-blocks-view']);
-    await page.locator('.js-rules-blocks-view').click();
+    await page.locator('.board-sidebar .js-open-board-menu').click();
+    await expect(page.locator('.js-pop-over .js-open-rules-blocks-view')).toContainText(translations['r-blocks-view']);
+    await page.locator('.js-pop-over .js-open-rules-blocks-view').click();
     await page.locator('.js-blocks-rule').selectOption(ids.id);
     const workspace=page.locator('.rules-blocks-workspace');
     await workspace.scrollIntoViewIfNeeded();

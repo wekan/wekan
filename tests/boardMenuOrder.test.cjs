@@ -180,10 +180,14 @@ test('each Rules view entry opens the Rules page in that view; Import / Export o
   assert.match(helper, /FlowRouter\.go\('board-rules'/);
   // Negative: leaving unsaved Blocks work asks first, as the Rules page sidebar does.
   assert.match(helper, /mode !== 'blocks' && Session\.get\('rulesBlocksDirty'\) && !confirm\(TAPi18n\.__\('r-blocks-discard'\)\)\) return;/);
-  // The labels are the Rules page sidebar's own keys, so no new text to translate.
-  const rules = read('client/components/rules/rulesMain.jade');
-  // Import / Export uses the popup's own title, "Import / Export rules".
-  for (const key of ['r-list-view', 'r-workflow-view', 'r-blocks-view', 'history', 'rulesImportExportPopup-title']) {
-    assert.ok(rules.includes(`{{_ '${key}'}}`) && menu.includes(`{{_ '${key}'}}`), key);
+  // Existing, translated keys only - the Rules page's own sidebar, which used
+  // them first, is gone (the page uses the board sidebar). Import / Export
+  // uses the popup's own title, "Import / Export rules".
+  const en = JSON.parse(read('imports/i18n/data/en.i18n.json'));
+  const labels = { 'r-list-view': 'List view', 'r-workflow-view': 'Workflow view', 'r-blocks-view': 'Blocks',
+    history: 'History', 'rulesImportExportPopup-title': 'Import / Export rules' };
+  for (const [key, text] of Object.entries(labels)) {
+    assert.ok(menu.includes(`{{_ '${key}'}}`), key);
+    assert.strictEqual(en[key], text, key);
   }
 });

@@ -20,13 +20,14 @@ const PAGE_SIDEBAR_TEMPLATES = {
   'my-cards': 'myCardsControls',
   'due-cards': 'dueCardsControls',
   'global-search': 'globalSearchControls',
-  'board-rules': 'rulesControls',
 };
 
 // The routes that have their own sidebar already, and so must NOT get this one.
 const OWN_SIDEBAR_ROUTES = [
-  // Every board route: the board sidebar.
-  'board', 'card', 'boardCard',
+  // Every board route: the board sidebar. The Rules page is a page of the
+  // board and uses it too; its own sidebar, which held only its views, is gone
+  // - they are in Board Settings under Rules, in the board sidebar.
+  'board', 'card', 'boardCard', 'board-rules',
   // All Boards and its sections, and Public: the All Boards sidebar.
   'home', 'allboards', 'allboards-templates', 'allboards-remaining', 'public',
 ];

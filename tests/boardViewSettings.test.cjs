@@ -129,7 +129,7 @@ test('the Board View menu and the popup render the same BOARD_VIEWS table, every
   // rows and the menu's entries are the same list by construction; every
   // view has a click handler (per-view class), a label key and an icon.
   assert.ok(bvs.BOARD_VIEWS.length >= 25, `the table has ${bvs.BOARD_VIEWS.length} views`);
-  assert.match(menu, /each boardViewMenuEntries\n\s*li\n\s*a\(class="\{\{jsClass\}\}"\)\n\s*i\.fa\(class="\{\{icon\}\}"\)\n\s*\| \{\{_ labelKey\}\}/);
+  assert.match(menu, /each boardViewMenuEntries\n\s*li\n\s*a\.js-board-view-entry\(class="\{\{jsClass\}\}"\)\n\s*i\.fa\(class="\{\{icon\}\}"\)\n\s*\| \{\{_ labelKey\}\}/);
   bvs.BOARD_VIEWS.forEach(v => {
     assert.ok(typeof en[v.labelKey] === 'string' && en[v.labelKey], `${v.labelKey} is an English key`);
     assert.ok(/^fa-[a-z-]+$/.test(v.icon), `${v.view} has an icon`);

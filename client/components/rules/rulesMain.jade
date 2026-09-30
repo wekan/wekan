@@ -1,28 +1,8 @@
-template(name="rulesControls")
-  //- The controls of this page. They were a group in its second header bar,
-    beside a title the first bar now carries; they are a view of the shared
-    page sidebar. models/lib/pageSidebar.js, docs/Features/Page/Header.md
-  a.board-header-btn.js-rules-back-to-board(title="{{_ 'back'}}")
-    i.fa.fa-arrow-left
-    | {{_ 'board'}}
-  a.board-header-btn.js-rules-list-view(title="{{_ 'r-list-view'}}")
-    i.fa.fa-list
-    | {{_ 'r-list-view'}}
-  a.board-header-btn.js-rules-toggle-view(title="{{_ 'r-workflow-view'}}")
-    i.fa.fa-sitemap
-    | {{_ 'r-workflow-view'}}
-  a.board-header-btn.js-rules-blocks-view(title="{{_ 'r-blocks-view'}}")
-    i.fa.fa-puzzle-piece
-    | {{_ 'r-blocks-view'}}
-  a.board-header-btn.js-rules-history(title="{{_ 'history'}}")
-    i.fa.fa-history
-    | {{_ 'history'}}
-  //- "Import / Export rules": the popup's own title key, already translated,
-    so the entry says what it imports and exports.
-  a.board-header-btn.js-rules-import-export(title="{{_ 'rulesImportExportPopup-title'}}")
-    i.fa.fa-exchange
-    | {{_ 'rulesImportExportPopup-title'}}
-
+//- The Rules page had its own sidebar, holding only Back and its views. It uses
+  the board's own right sidebar now, like the board itself: its views are in
+  Board Settings under Rules (client/components/sidebar/sidebar.jade), and a
+  board view picked in the Board View menu goes back to the board.
+  models/lib/pageSidebar.js
 template(name="rulesMain")
   .wrapper
     .rules-page(class=currentBoard.colorClass)
@@ -41,3 +21,4 @@ template(name="rulesMain")
         +rulesActions(ruleName=ruleName triggerVar=triggerVar ruleId=editingRuleId)
       if($eq rulesCurrentTab.get 'ruleDetails')
         +ruleDetails(ruleId=ruleId)
+    +sidebar
