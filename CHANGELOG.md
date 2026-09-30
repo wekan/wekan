@@ -4169,6 +4169,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/245da61a9">Translate Occitan Scrum planning and reporting</a>. Thanks to xet7.</summary>
+
+- Fill 84 Occitan Scrum and navigation messages. Refresh the measured
+  language completion count.
+- Translation, registry and human-preference checks pass, including preserved
+  translations, unknown estimates, partial reports and daily observations.
+  Wording is lower confidence; browser layout and fluent-speaker review were
+  not run. Other translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
