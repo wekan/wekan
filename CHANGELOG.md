@@ -6432,6 +6432,19 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9b0320048d">Translate Swahili sprint reporting guidance</a>. Thanks to xet7.</summary>
+
+- Translate 30 English strings for sprint reports and daily observations,
+  preserving existing translations and replacement tokens. Update the README
+  coverage count to 122 after Swahili passes the 90 percent threshold.
+- Translation, registry and human-preference checks pass, including UTC days,
+  missing observations and unknown estimates being different from zero.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
