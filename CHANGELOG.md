@@ -8127,6 +8127,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f3ff2065557a3d7dbb0d46dc0f4cba9aa09a3ec2">Translate Friulian email controls and failures</a>. Thanks to xet7.</summary>
+
+- Translate 25 email-queue, delivery-failure and time-estimate strings,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  queue actions and SMTP failure types. Friulian has lower confidence.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
