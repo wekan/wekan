@@ -24,15 +24,30 @@ export const SyncWebhookReceipts = new Mongo.Collection('listSyncWebhookReceipts
 export const SyncWebhookResponses = new Mongo.Collection('listSyncWebhookResponses');
 export const SyncWebhookCommentPlans = new Mongo.Collection('listSyncWebhookCommentPlans');
 export const SyncWebhookCommentReceipts = new Mongo.Collection('listSyncWebhookCommentReceipts');
+// Plan completion receipts: every target delivered. Kept for good; they let a
+// plan be compacted and a late replay skip it (syncWebhookRetention.js).
+export const SyncWebhookCompletions = new Mongo.Collection('listSyncWebhookCompletions');
 for (const collection of [SyncWebhookPlans, SyncWebhookReceipts, SyncWebhookResponses,
-  SyncWebhookCommentPlans, SyncWebhookCommentReceipts]) {
+  SyncWebhookCommentPlans, SyncWebhookCommentReceipts, SyncWebhookCompletions]) {
   collection.deny({ insert: () => true, update: () => true, remove: () => true });
 }
 Meteor.startup(async () => {
   await ensureIndex(SyncWebhookPlans, { 'plan.boardId': 1, 'plan.cardId': 1 });
   await ensureIndex(SyncWebhookReceipts, { planId: 1 });
   await ensureIndex(SyncWebhookCommentPlans, { 'plan.change.before._id': 1 });
+  await ensureIndex(SyncWebhookCompletions, { completedAt: 1, _id: 1 });
+  // Retention (maintainer decision of 2026-09-30): compact delivered plans,
+  // with their URLs and tokens, after SYNC_RECEIPT_METADATA_DAYS (90).
+  const { days, intervalMs } = syncReceiptPolicy();
+  const retention = createSyncWebhookRetention({ plans: SyncWebhookPlans.rawCollection(),
+    receipts: SyncWebhookCompletions.rawCollection(), responses: SyncWebhookResponses.rawCollection(),
+    commentPlans: SyncWebhookCommentPlans.rawCollection(), days });
+  Meteor.setInterval(() => {
+    retention.sweep().catch(() => console.error('Sync webhook retention pass failed; it is retried on the next pass'));
+  }, intervalMs);
 });
+const { recordWebhookCompletion, createSyncWebhookRetention } = require('/server/lib/syncWebhookRetention');
+const { syncReceiptPolicy } = require('/server/lib/syncRuleEmailRetention');
 
 const { canWriteWebhookCard, isCurrentWebhookTarget } = require('/server/lib/syncWebhookAccess');
 const { memberCan } = require('/models/lib/boardRoleCapabilities');
@@ -72,12 +87,15 @@ export async function captureStoredSyncWebhookPlan(input) {
     build: activity => prepareActivityWebhookPlan({ activity, assertCurrent: guard }) });
 }
 
-// Internal delivery stage, still not called by manual/cron Sync. Every network
+// Delivery stage of durable Sync (server/lib/listSyncApplication.js). Every network
 // attempt uses fetchSafe; receipts distinguish HTTP acceptance from reply effects.
 export async function runStoredSyncWebhooks(input) {
   const { saved, guard } = storedWebhookContext(input);
   const plan = await ensureWebhookPlan({ plans: SyncWebhookPlans.rawCollection(), activity: saved, assertCurrent: guard,
+    receipts: SyncWebhookCompletions.rawCollection(),
     build: activity => prepareActivityWebhookPlan({ activity, assertCurrent: guard }) });
+  // Compacted: delivered more than the retention period ago; nothing to resend.
+  if (plan.compacted) { await input.assertCurrent(); return plan.id; }
   async function assertTarget(target) {
     await guard();
     const integration = await Integrations.findOneAsync(target.integrationId, { transform: null });
@@ -121,7 +139,11 @@ export async function runStoredSyncWebhooks(input) {
     if (receipt !== deliveryId) throw new Error('sync-webhook-comment-unconfirmed');
     return receipt;
   }
-  return deliverWebhookPlan({ plan, activity: saved, receipts: SyncWebhookReceipts.rawCollection(),
+  const id = await deliverWebhookPlan({ plan, activity: saved, receipts: SyncWebhookReceipts.rawCollection(),
     assertCurrent: guard, assertTarget, deliver: item => sendStoredWebhook({ item,
       responses: SyncWebhookResponses.rawCollection(), assertCurrent: guard, assertTarget, completeResponse }) });
+  const stored = await SyncWebhookPlans.rawCollection().findOne({ _id: id });
+  await recordWebhookCompletion({ receipts: SyncWebhookCompletions.rawCollection(), id,
+    activityHash: plan.activityHash, checksum: stored?.checksum });
+  return id;
 }

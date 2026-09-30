@@ -9,7 +9,8 @@ import Activities from '/models/activities';
 import Integrations from '/models/integrations';
 import { getFeatureFlags } from '/models/lib/featureFlags';
 import { captureStoredSyncWebhookPlan, runStoredSyncWebhooks, SyncWebhookPlans, SyncWebhookReceipts,
-  SyncWebhookResponses, SyncWebhookCommentPlans, SyncWebhookCommentReceipts } from '/server/notifications/storedWebhooks';
+  SyncWebhookResponses, SyncWebhookCommentPlans, SyncWebhookCommentReceipts, SyncWebhookCompletions } from '/server/notifications/storedWebhooks';
+const { createSyncWebhookRetention } = require('/server/lib/syncWebhookRetention');
 const { deliverStoredWebhookHttp } = require('/server/lib/syncWebhookHttp');
 const { deliveryId, planId } = require('/server/lib/syncWebhookPlan');
 
@@ -68,6 +69,25 @@ describe('Stored Sync webhook delivery', function () {
       await assert.rejects(runStoredSyncWebhooks(input), /actor-denied/);
       // A fresh one-way attempt still goes through the actual network guard.
       await Cards.rawCollection().updateOne({ _id: cardId }, { $set: { assignees: [actor] } });
+      // Retention (2026-09-30): 90 days after every target was delivered, the
+      // reply and comment-plan rows go and the plan - URL and token included -
+      // is compacted in place; a late replay returns as delivered.
+      const completion = await SyncWebhookCompletions.rawCollection().findOne({ _id: planId(activityId) });
+      assert.ok(completion.completedAt instanceof Date);
+      assert.equal(await SyncWebhookResponses.find({ _id: id }).countAsync(), 1, 'the reply is kept while the plan is');
+      const past90 = new Date(completion.completedAt.getTime() + 91 * 86400000);
+      assert.ok((await createSyncWebhookRetention({ plans: SyncWebhookPlans.rawCollection(),
+        receipts: SyncWebhookCompletions.rawCollection(), responses: SyncWebhookResponses.rawCollection(),
+        commentPlans: SyncWebhookCommentPlans.rawCollection(), now: () => past90 }).sweep()).compacted >= 1);
+      const compact = await SyncWebhookPlans.rawCollection().findOne({ _id: planId(activityId) });
+      assert.equal(compact.compactReceiptVersion, 1);
+      assert.ok(!JSON.stringify(compact).includes('unreachable.invalid') && !JSON.stringify(compact).includes('original'),
+        'the URL and the token are gone');
+      assert.deepEqual([await SyncWebhookResponses.find({ _id: id }).countAsync(), await SyncWebhookCommentPlans.find({ _id: id }).countAsync(),
+        await SyncWebhookReceipts.find({ _id: id }).countAsync(), await SyncWebhookCommentReceipts.find({ _id: id }).countAsync()], [0, 0, 1, 1]);
+      assert.equal(await runStoredSyncWebhooks(input), planId(activityId), 'a late replay returns as delivered');
+      assert.equal((await CardComments.rawCollection().findOne({ _id: commentId })).text, 'Later human edit');
+      await SyncWebhookCompletions.rawCollection().deleteMany({ _id: planId(activityId) });
       await Integrations.rawCollection().updateOne({ _id: hookId }, { $set: { type: Integrations.Const.ONEWAY, url: 'http://127.0.0.1/hook' } });
       await SyncWebhookPlans.rawCollection().deleteMany({ _id: planId(activityId) });
       await SyncWebhookReceipts.rawCollection().deleteMany({ _id: id });
@@ -78,6 +98,7 @@ describe('Stored Sync webhook delivery', function () {
     } finally {
       flags.disableActivities = original.activities; flags.disableNotifications = original.notifications;
       await SyncWebhookPlans.rawCollection().deleteMany({ _id: planId(activityId) });
+      await SyncWebhookCompletions.rawCollection().deleteMany({ _id: planId(activityId) });
       for (const collection of [SyncWebhookReceipts, SyncWebhookResponses, SyncWebhookCommentPlans, SyncWebhookCommentReceipts]) {
         await collection.rawCollection().deleteMany({ _id: id });
       }
