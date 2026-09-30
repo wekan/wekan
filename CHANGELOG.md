@@ -8428,6 +8428,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3a3d6a31f06c4804db8bde0368166a1d9ad86817">Translate Romansh observations and synchronization conflicts</a>. Thanks to xet7.</summary>
+
+- Translate 25 observation and synchronization strings, preserving existing
+  translations and replacement tokens.
+- Translation, registry and human-preference checks pass, covering UTC days,
+  unknown estimates, export scope and retention of local cards and subcards.
+  Low-confidence wording needs fluent-speaker review.
+  Browser review was not run; wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
