@@ -249,5 +249,14 @@ for (const code of ['fa', 'fa-IR']) {
   assert.match(locale['scrum-report-help'], /برآورد صفر نیستند/);
   assert.match(locale['scrum-partial-report'], /فقط کارت‌هایی که اکنون به شما اختصاص دارند/);
   assert.match(locale['scrum-daily-observations-help'], /همهٔ تغییرات را ثبت نمی‌کنند/);
+  for (const key of Object.keys(english).filter(key =>
+    /^sync-(conflict|preview|source|report|recovery|estimate)-/.test(key))) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+  }
+  assert.match(locale['sync-conflict-hint'], /چیزی به سامانهٔ منبع فرستاده نمی‌شود/);
+  assert.match(locale['sync-conflict-detach-hint'], /محتوای آن در WeKan باقی می‌ماند/);
+  assert.match(locale['sync-report-partial'], /ادامه نمی‌دهند.*برنمی‌گردانند/);
+  assert.match(locale['sync-estimate-field-hint'], /نادیده گرفته می‌شوند.*null.*پاک می‌کند/);
 }
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
