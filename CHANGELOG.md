@@ -7826,6 +7826,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/405b54c524d30e5152a706ae1233c1bb6604c9ba">Translate Faroese reminders and notification categories</a>. Thanks to xet7.</summary>
+
+- Translate 16 reminder, notification, dependency and filter strings,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including reminder
+  bounds, dependency direction and URL variables. Faroese has lower confidence.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
