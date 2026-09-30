@@ -7382,6 +7382,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/93bd021d4ff88a4a74e88f83af7ad25e2dabc81f">Translate Luxembourgish filters and import instructions</a>. Thanks to xet7.</summary>
+
+- Translate 25 missing or English strings for archiving, date filters and
+  imports, preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including literal
+  filter syntax and todo.txt import markers.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
