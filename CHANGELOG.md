@@ -5953,6 +5953,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a503e6476f">Translate Georgian sprint planning controls</a>. Thanks to xet7.</summary>
+
+- Translate 30 English strings for Scrum roles, estimates, completion policies
+  and sprint controls, preserving existing translations and tokens.
+- Translation, registry and human-preference checks pass, including completion
+  policies, closing versus cancelling a sprint and shared planning labels.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
