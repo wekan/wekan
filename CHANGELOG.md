@@ -7851,6 +7851,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/183c8f42bb0a7792b7fcaa18d57655a5f238de39">Translate Faroese keyboard and Scrum labels</a>. Thanks to xet7.</summary>
+
+- Translate 37 keyboard and Scrum labels; recognize 13 unchanged terms for
+  brands, math notation, Alt and the imperative set. Preserve translations.
+- Translation, registry and human-preference checks pass, including key
+  direction, replacement tokens and invariants. Faroese has lower confidence.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
