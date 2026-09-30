@@ -31,6 +31,25 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Albanian filter and rule messages; remaining locale backlog is separate.
 {
   const locale = read('sq');
+  const reportSyncKeys = ["scrum-state-closed", "scrum-state-cancelled", "scrum-unknown-estimate", "scrum-confirm-close", "scrum-confirm-cancel", "scrum-past-sprints", "scrum-list-category", "scrum-swimlane-purpose", "scrum-category-backlog", "scrum-category-todo", "scrum-category-doing", "scrum-category-done", "scrum-partial-report", "scrum-state-released", "scrum-released-at", "scrum-follow-up-cards", "scrum-import-reference-omitted", "scrum-partial-snapshot", "scrum-resume-close", "scrum-daily-observations", "scrum-daily-observations-help", "scrum-daily-truncated", "scrum-daily-empty", "scrum-observed-scope", "scrum-daily-observations-export-help", "scrum-import-pending", "sync-conflict-heading", "sync-conflict-hint", "sync-conflict-local", "sync-conflict-keep-local", "sync-conflict-use-source", "sync-conflict-refresh", "sync-conflict-review-complete", "sync-conflict-duplicate", "sync-conflict-keep-mapping", "sync-conflict-detach", "sync-conflict-detach-hint", "sync-conflict-archive", "sync-conflict-archive-hint", "sync-conflict-keep-card-local", "sync-conflict-creation", "sync-conflict-creation-hint", "sync-conflict-create-replacement", "sync-preview-button", "sync-preview-heading", "sync-preview-saved", "sync-preview-unavailable", "sync-preview-blocked"];
+  for (const key of reportSyncKeys) {
+    assert.notEqual(locale[key], english[key], `sq:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sq:${key}: tokens`);
+  }
+  assert.match(locale['scrum-confirm-close'], /papërfunduara do të zhvendosen/);
+  assert.match(locale['scrum-confirm-cancel'], /mbeten pjesë e tij derisa të ricaktohen/);
+  for (const key of ['scrum-daily-observations-help', 'scrum-daily-observations-export-help']) {
+    assert.match(locale[key], /UTC/);
+    assert.match(locale[key], /[Dd]itët që mungojnë nuk përfshihen/);
+    assert.match(locale[key], /Vlerësimet e panjohura nuk janë zero/);
+  }
+  assert.match(locale['scrum-daily-truncated'], /366/);
+  assert.match(locale['sync-conflict-hint'], /Asgjë nuk i dërgohet sistemit burimor/);
+  assert.match(locale['sync-conflict-review-complete'], /të gjithë listës nuk u ekzekutua/);
+  assert.match(locale['sync-conflict-detach-hint'], /Hiq vetëm.*Përmbajtja e saj mbetet/);
+  assert.match(locale['sync-conflict-archive-hint'], /Nënkartat nuk ndryshohen/);
+  assert.match(locale['sync-conflict-creation-hint'], /të pandryshuar.*ripërdorin/);
+  assert.notEqual(locale['sync-conflict-keep-local'], locale['sync-conflict-use-source']);
   const planningKeys = ["r-blocks-saved", "r-blocks-reload", "board-view-product-backlog", "board-view-sprints", "board-view-sprint-report", "board-view-velocity", "scrum-settings", "scrum-product-owner", "scrum-master", "scrum-developers", "scrum-working-days", "scrum-enabled", "scrum-product-goal", "scrum-definition-of-done", "scrum-estimate-source", "scrum-estimate-unit", "scrum-completion-policy", "scrum-source-poker", "scrum-source-customField", "scrum-policy-dueComplete", "scrum-policy-doneLists", "scrum-sprints", "scrum-sprint", "scrum-start-sprint", "scrum-close-sprint", "scrum-cancel-sprint", "scrum-rollover-sprint", "scrum-cancel-reason", "scrum-product-backlog", "scrum-edit-sprint", "scrum-sprint-goal", "scrum-capacity", "scrum-new-sprint", "scrum-releases", "scrum-release", "scrum-select-sprint", "scrum-backlog", "scrum-backlog-help", "scrum-estimate", "scrum-backlog-rank", "scrum-issue-type", "scrum-acceptance-criteria", "scrum-events", "scrum-event-kind", "scrum-timebox", "scrum-notes", "scrum-event-planning", "scrum-event-daily", "scrum-event-review", "scrum-event-retrospective", "scrum-committed", "scrum-completed", "scrum-added", "scrum-removed", "scrum-incomplete", "scrum-no-closed-sprints", "scrum-report-help", "scrum-total", "scrum-state-planned", "scrum-state-active"];
   for (const key of planningKeys) {
     assert.notEqual(locale[key], english[key], `sq:${key}: translated`);
