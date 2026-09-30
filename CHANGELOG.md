@@ -2187,6 +2187,17 @@ translation and human-preference checks pass. Each Hebrew locale still has
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/75b68d57c">Translate Hebrew notification recovery and history messages</a>. Thanks to xet7.</summary>
+
+Fill 160 strings across both Hebrew locale files. Tests preserve placeholders,
+irreversible cancellation warnings and retry semantics. Existing translations
+are preserved; translation and human-preference checks pass. Each Hebrew
+locale still has 27 reported technical terms requiring review. Other languages
+remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
