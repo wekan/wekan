@@ -6733,6 +6733,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ca2fa5e111">Translate Tagalog keyboard shortcut labels</a>. Thanks to xet7.</summary>
+
+- Translate 30 English strings for keyboard shortcuts,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including movement
+  versus scrolling, navigation endpoints and detailed announcements.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
