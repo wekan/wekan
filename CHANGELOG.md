@@ -8199,6 +8199,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b8d8e07a3c7982a5f75f3ea9b8e675b2cd4ecff0">Translate Frisian imports and board visibility</a>. Thanks to xet7.</summary>
+
+- Translate 12 import, list-age and board-visibility strings in each of fy
+  and fy-NL, preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including import
+  syntax, URL schemes and HTML tags.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
