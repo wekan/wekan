@@ -7911,6 +7911,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/61eed7073721a34f0f9578ec1887e8e2e25879e0">Translate Faroese email queue controls</a>. Thanks to xet7.</summary>
+
+- Translate 25 estimate and email-queue recovery strings, preserving
+  existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including technical
+  literals and distinct queue actions. Faroese wording has lower confidence.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
