@@ -7286,6 +7286,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d39be2403f7eeb93ac228afe5ef1c5cd0febc484">Translate Maltese block workspace and rule editor</a>. Thanks to xet7.</summary>
+
+- Translate 27 English placeholders for workspace search and rule editing,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including search
+  direction and saved-state distinctions.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
