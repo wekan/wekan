@@ -31,6 +31,18 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Romansh date filters, imports and archive-language corrections.
 {
   const locale = read('rm');
+  const correctedBackupKeys = ["disable-watch-description", "backup-description", "s3-secret-key-menu-path", "no-issues-found", "run-restore-all-archived-migration-confirm", "conversion-info-text", "no-new-problems", "allboards.delete-workspace-confirm", "poker-delete-pop", "delete-avatar-confirm", "card-aging-tier1", "card-aging-tier2", "card-aging-tier3", "confirm-subtask-delete-popup", "confirm-checklist-item-delete-popup", "copyManyCardsPopup-instructions", "custom-field-delete-pop"];
+  for (const key of correctedBackupKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /\b(Puoi|viene|verrà|Nessun|Sei|questo|TUTTE)\b/, `rm:${key}: no mixed-language seed`);
+  }
+  for (const token of ['backup/YYYY/MM/DD/HH_MM_SS/backup.zip', 'YYYY_MM_DD-HH_MM_SS/attachments', '/avatars', '/data', 'S3/MinIO', 'Azure', 'GCS']) assert.ok(locale['backup-description'].includes(token));
+  assert.match(locale['backup-description'], /senza datoteca temporara/);
+  assert.match(locale['run-restore-all-archived-migration-confirm'], /na po betg vegnir fatg enavos facilmain/);
+  assert.match(locale['custom-field-delete-pop'], /tut las cartas.*cronologia vegn destruida/);
+  for (const token of ['Access key ID', 'Secret access key', 'Download .csv']) assert.ok(locale['s3-secret-key-menu-path'].includes(token));
+  for (let tier = 1; tier <= 3; tier++) assert.ok(locale[`card-aging-tier${tier}`].includes(`Nivel ${tier}`));
+
   const correctedSettingsKeys = ["roles-status-empty", "delete-linked-card-before-this-card", "delete-linked-cards-before-this-list", "no-items-message", "globalSearch-instructions-notes-4", "mongodb-compact-warning", "change-visibility", "invalid-file", "delete-translation-confirm-popup", "add-cron-job-placeholder", "cron-no-errors", "sandstorm-migration-description", "cards-loading-description", "always-show-code-as-text-description", "anonymize-import-users-description", "disable-activities-description"];
   for (const key of correctedSettingsKeys) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
