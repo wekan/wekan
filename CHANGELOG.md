@@ -5302,6 +5302,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dcad33e135253827c406a0d90610e486784edf0c">Translate Armenian saved filters and map messages</a>. Thanks to xet7.</summary>
+
+- Fill 27 English placeholders for saved filters, maps and import reports,
+  preserving existing translations and executable variables.
+- Translation, registry and human-preference checks pass, including filter
+  replacement, placement and menu labels. Fluent-speaker and browser review
+  were not run. The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
