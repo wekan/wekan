@@ -8,6 +8,8 @@
 //   addLabel / removeLabel   labelIds    ($addToSet / $pull semantics)
 //   removeAllLabels          labelIds    set to []
 //   markCardComplete / -Incomplete  dueComplete
+//   addMember / removeMember members    (the people are resolved at capture,
+//                            as performAction resolves them, and saved)
 //   setDate / updateDate / setDateRelative / removeDate
 //                            the action's dateField (startAt, endAt, dueAt,
 //                            receivedAt); setDate only fills an unset date,
@@ -31,7 +33,14 @@ const text = value => typeof value === 'string' && value.length > 0;
 
 const RULE_CARD_ACTIONS = { setColor: 'color', addLabel: 'labelIds', removeLabel: 'labelIds', removeAllLabels: 'labelIds',
   markCardComplete: 'dueComplete', markCardIncomplete: 'dueComplete',
-  setDate: 'date', updateDate: 'date', setDateRelative: 'date', removeDate: 'date' };
+  setDate: 'date', updateDate: 'date', setDateRelative: 'date', removeDate: 'date',
+  addMember: 'members', removeMember: 'members' };
+const MEMBER_ACTIONS = ['addMember', 'removeMember'];
+function validTargets(targets) {
+  return Array.isArray(targets) && targets.length <= 1000 && targets.every(target => target &&
+    Object.keys(target).sort().join(',') === 'userId,username' && text(target.userId) &&
+    (target.username === null || typeof target.username === 'string'));
+}
 const DATE_FIELDS = ['startAt', 'endAt', 'dueAt', 'receivedAt'];
 function fieldOf(action) {
   const field = RULE_CARD_ACTIONS[action?.actionType];
@@ -55,9 +64,20 @@ function identity({ plan, activity, effectId, index }) {
 
 // The field after the action, from the field before it ({} when absent).
 // `now` is the command's capture time, so a replay makes the same change.
-function targetFields(action, before, field, now) {
+function targetFields(action, before, field, now, targets = []) {
   const has = Object.hasOwn(before, field), value = before[field];
   switch (action.actionType) {
+    // One $addToSet / $pull per person, in order; nothing to do leaves the field as it is.
+    case 'addMember': {
+      const members = Array.isArray(value) ? [...value] : [];
+      for (const { userId } of targets) if (!members.includes(userId)) members.push(userId);
+      return has || targets.length ? { members } : {};
+    }
+    case 'removeMember': {
+      if (!has) return {};
+      const removed = new Set(targets.map(target => target.userId));
+      return { members: (Array.isArray(value) ? value : []).filter(id => !removed.has(id)) };
+    }
     case 'setColor': return { color: action.selectedColor === 'white' ? null : (action.selectedColor ?? null) };
     case 'addLabel': {
       if (!text(action.labelId)) fail('invalid');
@@ -81,8 +101,23 @@ function targetFields(action, before, field, now) {
   }
 }
 
-function activitiesFor({ base, action, before, after, effectId, createdAt, username, cardTitle }) {
+function activitiesFor({ base, action, before, after, effectId, createdAt, username, cardTitle, targets = [] }) {
   const receipt = () => sha256(canonical([effectId, 'activity']));
+  if (MEMBER_ACTIONS.includes(action.actionType)) {
+    // What the members hook writes for each person who really joined or left.
+    const had = new Set(before.members || []), rows = [], seen = new Set();
+    for (const { userId, username: name } of targets) {
+      if (seen.has(userId)) continue;
+      seen.add(userId);
+      const join = action.actionType === 'addMember';
+      if (join === had.has(userId)) continue;
+      const receiptId = sha256(canonical([effectId, 'activity', userId]));
+      rows.push({ receiptId, activity: { _id: `sync-rule-card-${receiptId}`, userId: base.actorId, username: name,
+        activityType: join ? 'joinMember' : 'unjoinMember', boardId: base.boardId, cardId: base.cardId, memberId: userId,
+        listId: base.listId, swimlaneId: base.swimlaneId, createdAt, modifiedAt: createdAt } });
+    }
+    return rows;
+  }
   if (DATE_FIELDS.includes(base.field)) {
     if (canonical(before) === canonical(after)) return [];
     const receiptId = receipt(), field = base.field;
@@ -103,30 +138,34 @@ function activitiesFor({ base, action, before, after, effectId, createdAt, usern
 
 // Capture from the card as it is now. `redoRows` are the actor's undone rows
 // this change supersedes, as for any ordinary edit.
-function prepareRuleCardCommand({ plan, activity, effectId, index, card, createdAt, redoRows = [], username = '' }) {
+function prepareRuleCardCommand({ plan, activity, effectId, index, card, createdAt, redoRows = [], username = '',
+  targets = [] }) {
   const base = identity({ plan, activity, effectId, index });
   if (!card || card._id !== base.cardId || card.boardId !== base.boardId || !text(card.listId) || !text(card.swimlaneId) ||
       ['cardType-linkedCard', 'cardType-linkedBoard'].includes(card.type) ||
       !(createdAt instanceof Date) || !Number.isFinite(createdAt.getTime())) fail('card-invalid');
   const action = plan.actions[index].action, field = base.field;
   const before = Object.hasOwn(card, field) ? { [field]: copy(card[field]) } : {};
-  if (typeof username !== 'string') fail('invalid');
-  const after = targetFields(action, before, field, createdAt);
+  const members = MEMBER_ACTIONS.includes(action.actionType);
+  if (typeof username !== 'string' || !validTargets(targets) || (!members && targets.length)) fail('invalid');
+  const after = targetFields(action, before, field, createdAt, targets);
   const located = { ...base, listId: card.listId, swimlaneId: card.swimlaneId };
   const changeId = effectIdFor(base._id);
   const ids = { _id: base.cardId, boardId: base.boardId, listId: card.listId, swimlaneId: card.swimlaneId };
   const history = prepareCardFieldHistory({ before: { ...ids, ...before }, after: { ...ids, ...after },
     effectId: changeId, userId: base.actorId, createdAt, redoRows, fields: RULE_CARD_FIELDS });
-  const command = { ...located, before, after, createdAt: new Date(createdAt),
+  const command = { ...located, ...(members ? { targets: copy(targets) } : {}), before, after, createdAt: new Date(createdAt),
     effects: { history, activities: activitiesFor({ base: located, action, before, after, effectId: changeId, createdAt,
-      username, cardTitle: card.title }) } };
+      username, cardTitle: card.title, targets }) } };
   command.checksum = sha256(canonical(command));
   return validateRuleCardCommand(command, { plan, activity, effectId, index });
 }
 
 function validateRuleCardCommand(row, context) {
   const base = identity(context);
-  const keys = [...Object.keys(base), 'listId', 'swimlaneId', 'before', 'after', 'createdAt', 'effects', 'checksum'].sort().join(',');
+  const members = MEMBER_ACTIONS.includes(base.actionType);
+  const keys = [...Object.keys(base), 'listId', 'swimlaneId', 'before', 'after', 'createdAt', 'effects', 'checksum',
+    ...(members ? ['targets'] : [])].sort().join(',');
   if (!row || Object.keys(row).sort().join(',') !== keys ||
       Object.entries(base).some(([key, value]) => canonical(row[key]) !== canonical(value)) ||
       !text(row.listId) || !text(row.swimlaneId) || !(row.createdAt instanceof Date) ||
@@ -137,7 +176,8 @@ function validateRuleCardCommand(row, context) {
   if (checksum !== sha256(canonical(content))) fail('command-invalid');
   // The saved after-value is what this action makes of the saved before-value.
   const action = context.plan.actions[context.index].action;
-  if (canonical(targetFields(action, row.before, base.field, row.createdAt)) !== canonical(row.after)) fail('command-invalid');
+  if ((members && !validTargets(row.targets)) ||
+      canonical(targetFields(action, row.before, base.field, row.createdAt, row.targets)) !== canonical(row.after)) fail('command-invalid');
   return copy(row);
 }
 
@@ -149,4 +189,4 @@ function fieldSelector(command, fields) {
   return selector;
 }
 
-module.exports = { RULE_CARD_ACTIONS, DATE_FIELDS, commandId, effectIdFor, prepareRuleCardCommand, validateRuleCardCommand, fieldSelector };
+module.exports = { RULE_CARD_ACTIONS, DATE_FIELDS, MEMBER_ACTIONS, commandId, effectIdFor, prepareRuleCardCommand, validateRuleCardCommand, fieldSelector };

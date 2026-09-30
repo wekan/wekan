@@ -16,7 +16,7 @@ function deferSyncRecording(kind, doc, fields) {
       doc.boardId!==scope.boardId || doc.listId!==scope.listId) return false;
   // Sync's own fields, and the one field a durable rule card action changes
   // (server/lib/syncRuleCardCommand.js); its History is written from its plan.
-  if(kind==='history' && (!Array.isArray(fields) || fields.some(field=>!['title','description','spentTime','customFields','archived','labelIds','color','dueComplete','startAt','endAt','dueAt','receivedAt'].includes(field)))) return false;
+  if(kind==='history' && (!Array.isArray(fields) || fields.some(field=>!['title','description','spentTime','customFields','archived','labelIds','color','dueComplete','startAt','endAt','dueAt','receivedAt','members'].includes(field)))) return false;
   // Each expected hook consumes its own slot. Nested/unrelated writes and
   // delayed callbacks after the owning mutation must keep normal recording.
   scope.kinds.delete(kind);

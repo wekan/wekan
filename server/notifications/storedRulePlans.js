@@ -366,8 +366,10 @@ export async function runStoredSyncRuleCard({ index, completeDelivery = runStore
     const redoRows = await ChangeHistory.find({ boardId: plan.boardId, userId: plan.actorId, undone: true,
       superseded: { $ne: true } }, { transform: null, limit: 10000 }).fetchAsync();
     const actor = await Meteor.users.findOneAsync(plan.actorId, { fields: { username: 1 } });
+    const targets = MEMBER_ACTIONS.includes(invocation.action.actionType)
+      ? await RulesHelper.resolveMemberTargets(context.saved, await Cards.findOneAsync(plan.cardId), invocation.action) : [];
     const candidate = prepareRuleCardCommand({ ...commandContext, card, createdAt: new Date(), redoRows,
-      username: actor?.username || '' });
+      username: actor?.username || '', targets });
     await guard();
     let failure;
     try { await commands.insertOne(candidate); } catch (error) { failure = error; }
@@ -409,7 +411,7 @@ export async function runStoredSyncRuleCard({ index, completeDelivery = runStore
   await guard();
   return invocation.id;
 }
-const { RULE_CARD_ACTIONS, DATE_FIELDS, commandId: ruleCardCommandId, prepareRuleCardCommand, validateRuleCardCommand,
+const { RULE_CARD_ACTIONS, DATE_FIELDS, MEMBER_ACTIONS, commandId: ruleCardCommandId, prepareRuleCardCommand, validateRuleCardCommand,
   fieldSelector: ruleCardFieldSelector } = require('/server/lib/syncRuleCardCommand');
 const { persistSyncFieldHistory, RULE_CARD_FIELDS } = require('/server/lib/syncHistoryBatch');
 const { persistSyncActivity } = require('/server/lib/syncActivityPersistence');

@@ -155,6 +155,21 @@ describe('Durable list Sync', function () {
       assert.equal(await ChangeHistory.find({ cardId: fifth._id, group: 'dates' }).countAsync(), 1, 'one dates History row');
       await Rules.rawCollection().deleteMany({ boardId }); await Triggers.rawCollection().deleteMany({ boardId });
 
+      // Members: "add me to every created card", resolved by username at capture.
+      const memberActionId = Random.id(), memberTriggerId = Random.id();
+      await Actions.rawCollection().insertOne({ _id: memberActionId, actionType: 'addMember', username: `sync-${actor}`, boardId, desc: 'member' });
+      await Triggers.rawCollection().insertOne({ _id: memberTriggerId, activityType: 'createCard', boardId,
+        listName: '*', userId: '*', swimlaneName: '*', cardTitle: '*', desc: 'created' });
+      await Rules.rawCollection().insertOne({ _id: Random.id(), title: 'member new', triggerId: memberTriggerId, actionId: memberActionId, boardId });
+      issues = [issue('P-1', 'First renamed'), issue('P-6', 'Joined by rule')];
+      const joined = await run();
+      assert.deepEqual([joined.durable, joined.created], [true, 1], JSON.stringify(joined));
+      const sixth = (await cards()).find(card => card.syncExternalId === 'P-6');
+      assert.deepEqual(sixth.members, [actor], 'the rule added the member');
+      assert.equal(await Activities.find({ cardId: sixth._id, activityType: 'joinMember' }).countAsync(), 1, 'one joinMember activity');
+      assert.equal(await ChangeHistory.find({ cardId: sixth._id, group: 'members' }).countAsync(), 1, 'one members History row');
+      await Rules.rawCollection().deleteMany({ boardId }); await Triggers.rawCollection().deleteMany({ boardId });
+
       // A rule action without a durable adapter keeps the direct path.
       const actionId = await Actions.insertAsync({ actionType: 'moveCardToTop', boardId, desc: 'top' });
       await Rules.rawCollection().insertOne({ _id: Random.id(), title: 'r', triggerId: Random.id(), actionId, boardId });

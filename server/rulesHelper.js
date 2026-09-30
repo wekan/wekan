@@ -162,6 +162,38 @@ async function addCardPeopleAndFields(vars, card) {
 }
 
 export const RulesHelper = {
+  // The people a member action names, resolved exactly as performAction does
+  // below (#2522 acting user, #4294 tokens, #2674 "remove every member" reads
+  // the card's assignees): for the durable rule card command
+  // (server/lib/syncRuleCardCommand.js), which saves them once at capture.
+  async resolveMemberTargets(activity, card, action) {
+    const ids = [];
+    const byUsername = async () => {
+      const vars = await buildRuleVars(activity, card);
+      for (const username of ruleUsernames(action.username, vars)) {
+        const member = await ReactiveCache.getUser({ username });
+        if (member) ids.push(member._id);
+      }
+    };
+    // Written without the performAction branch text, which source guards locate.
+    const type = action.actionType;
+    if (type === 'addMember') {
+      if (action.username === RULE_ACTING_USER_SENTINEL) {
+        const memberId = resolveActingUserId(activity);
+        if (memberId) ids.push(memberId);
+      } else await byUsername();
+    } else if (type === 'removeMember') {
+      if (action.username === '*') ids.push(...(card.assignees || []));
+      else await byUsername();
+    }
+    const targets = [];
+    for (const userId of ids) {
+      const user = await ReactiveCache.getUser(userId);
+      targets.push({ userId, username: user?.username ?? null });
+    }
+    return targets;
+  },
+
   async executeRules(activity) {
     const matchingRules = await this.findMatchingRules(activity);
     for (let i = 0; i < matchingRules.length; i++) {

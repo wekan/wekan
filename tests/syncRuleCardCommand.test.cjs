@@ -78,8 +78,8 @@ test('tampering, linked cards and other action types are refused (negative)', as
   assert.throws(() => f.prepare({ card: { ...f.card, boardId: 'other' } }), /card-invalid/);
   const other = await fixture({ actionType: 'moveCardToTop' });
   assert.throws(() => other.prepare(), /sync-rule-card-invalid/);
-  assert.deepEqual(Object.keys(C.RULE_CARD_ACTIONS).sort(), ['addLabel', 'markCardComplete', 'markCardIncomplete',
-    'removeAllLabels', 'removeDate', 'removeLabel', 'setColor', 'setDate', 'setDateRelative', 'updateDate']);
+  assert.deepEqual(Object.keys(C.RULE_CARD_ACTIONS).sort(), ['addLabel', 'addMember', 'markCardComplete', 'markCardIncomplete',
+    'removeAllLabels', 'removeDate', 'removeLabel', 'removeMember', 'setColor', 'setDate', 'setDateRelative', 'updateDate']);
   const badDate = await fixture({ actionType: 'updateDate', dateField: 'createdAt' });
   assert.throws(() => badDate.prepare(), /sync-rule-card-invalid/, 'only the four card dates');
 });
@@ -112,4 +112,32 @@ test('date actions follow the ordinary action and its timing activity', async ()
   assert.deepEqual(planned.after, { endAt: new Date(1000 + 2 * 86400000) });
   assert.deepEqual(C.validateRuleCardCommand(planned, { plan: relative.plan, activity: relative.activity,
     effectId: relative.effectId, index: 0 }), planned);
+});
+
+test('member actions add and remove the resolved people, one activity per real change', async () => {
+  const people = [{ userId: 'u1', username: 'one' }, { userId: 'u2', username: 'two' }];
+  const add = await fixture({ actionType: 'addMember', username: '{assignees}' });
+  add.card.members = ['u1'];
+  const added = add.prepare({ targets: people });
+  assert.deepEqual(added.after, { members: ['u1', 'u2'] });
+  assert.deepEqual(added.targets, people, 'the people are saved, not re-resolved on replay');
+  assert.deepEqual(added.effects.activities.map(row => [row.activity.activityType, row.activity.memberId, row.activity.username]),
+    [['joinMember', 'u2', 'two']], 'u1 was already a member');
+  assert.deepEqual(added.effects.history.rows.map(row => row.group), ['members']);
+  const remove = await fixture({ actionType: 'removeMember', username: '*' });
+  remove.card.members = ['u1', 'u3'];
+  const removed = remove.prepare({ targets: people });
+  assert.deepEqual(removed.after, { members: ['u3'] });
+  assert.deepEqual(removed.effects.activities.map(row => row.activity.activityType), ['unjoinMember']);
+  const nobody = await fixture({ actionType: 'addMember', username: 'ghost' });
+  delete nobody.card.members;
+  const none = nobody.prepare({ targets: [] });
+  assert.deepEqual([none.before, none.after, none.effects.activities.length], [{}, {}, 0], 'no one resolved, nothing written');
+  // Negative: targets on another action, malformed targets, tampered targets.
+  const label = await fixture({ actionType: 'addLabel', labelId: 'x' });
+  assert.throws(() => label.prepare({ targets: people }), /sync-rule-card-invalid/);
+  assert.throws(() => add.prepare({ targets: [{ userId: '' }] }), /sync-rule-card-invalid/);
+  const { checksum, ...content } = { ...added, targets: [...people, { userId: 'u9', username: 'nine' }] };
+  assert.throws(() => C.validateRuleCardCommand({ ...content, checksum: sha256(canonical(content)) },
+    { plan: add.plan, activity: add.activity, effectId: add.effectId, index: 0 }), /command-invalid/);
 });

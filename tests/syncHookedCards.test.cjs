@@ -11,7 +11,9 @@ test('deferred recording is isolated by async write, card identity, field and ho
   await waiting;
   assert.equal(deferSyncRecording('title',{...card,_id:'other'}),false);
   assert.equal(deferSyncRecording('title',{...card,boardId:'other'}),false);
-  assert.equal(deferSyncRecording('history',card,['members']),false);
+  // members, labels, dates and colour are deferrable for durable rule card
+  // actions (server/lib/syncRuleCardCommand.js); assignees are not.
+  assert.equal(deferSyncRecording('history',card,['assignees']),false);
   assert.equal(deferSyncRecording('history',card,['title']),true);
   assert.equal(deferSyncRecording('title',card),true);
   assert.equal(deferSyncRecording('title',card),false);

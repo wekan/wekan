@@ -40,7 +40,7 @@ function redoTarget(row) {
 // The card fields a planned History row may record: Sync's own, and the ones
 // durable rule card actions change (server/lib/syncRuleCardCommand.js).
 const SYNC_FIELDS = ['title', 'description', 'spentTime', 'customFields', 'archived'];
-const RULE_CARD_FIELDS = ['labelIds', 'color', 'dueComplete', 'startAt', 'endAt', 'dueAt', 'receivedAt'];
+const RULE_CARD_FIELDS = ['labelIds', 'color', 'dueComplete', 'startAt', 'endAt', 'dueAt', 'receivedAt', 'members'];
 function prepareSyncFieldHistory({ step, effectId, userId, createdAt, redoRows = [], ...rest }) {
   prepareSyncOperationMutation(step);
   if (Object.keys(rest).length) fail();
