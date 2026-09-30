@@ -4662,6 +4662,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/18636280f2">Correct Kashubian navigation and transfer limit labels</a>. Thanks to xet7.</summary>
+
+- Replace 55 Polish-seeded strings, preserving assigned-card restrictions,
+  login links, units and upload versus download directions.
+- Translation, registry and human-preference checks pass. Kashubian wording
+  is lower confidence; fluent-speaker and browser review were not run.
+  Older mixed-language values and other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
