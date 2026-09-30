@@ -2342,6 +2342,17 @@ still has 605 reported placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3104f3845">Translate Malay notification settings and map controls</a>. Thanks to xet7.</summary>
+
+Fill 86 strings across both Malay locale files, covering notifications,
+reminders, saved filters, import reports and map controls. Tests preserve
+placeholders and reminder timing. Existing translations are preserved and
+human-preference checks pass. Each Malay locale still has 562 reported
+placeholders. Other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
