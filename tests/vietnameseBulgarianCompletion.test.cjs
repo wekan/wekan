@@ -31,6 +31,15 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Maltese filters and imports; remaining untranslated strings are filled separately.
 {
   const locale = read('mt');
+  const correctedFlowNoteKeys = ["flow-unusual", "flow-blocker", "flow-episodes", "flow-active", "flow-blocked-days", "flow-unknown-start", "flow-confidence", "flow-finish-days", "flow-finish-date", "flow-target-date", "flow-history-days", "flow-size-source", "flow-size", "flow-error", "flow-details", "flow-note-agingWip", "flow-note-blockerAnalysis", "flow-note-monteCarlo", "flow-note-processBehavior", "flow-note-sizeCycleTime", "time-adjustments", "time-adjustment-note"];
+  for (const key of correctedFlowNoteKeys) {
+    assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `mt:${key}: tokens`);
+  }
+  for (const value of Object.values(locale)) assert.doesNotMatch(value, /Traduzzjoni Maltija:/, 'mt: no prefixed English remains');
+  for (const token of ['2,000', 'UTC', '3,650']) assert.ok(locale['flow-note-monteCarlo'].includes(token));
+  assert.match(locale['flow-note-monteCarlo'], /mhuwiex garanzija/);
+  assert.match(locale['time-adjustment-note'], /mhumiex sessjonijiet individwali/);
   const correctedEventsFlowKeys = ["total-size", "weight", "otp", "already-account", "repositories", "repository", "size-bytes", "last-modified", "api-endpoints", "otp-required", "log", "server", "protocol", "summary", "problems-status-title", "repairing", "cpu-cores-suffix", "cpu-load-average", "event-category", "event-severity", "event-source", "event-detail", "event-ip", "event-ipv4", "event-ipv6", "event-attempts", "integrityReportTitle", "operator-number", "wip-limit-group-apply-swimlane", "board-view-blocker-analysis", "board-view-size-cycle-time", "flow-unknown", "flow-age-days", "flow-samples", "flow-signal"];
   for (const key of correctedEventsFlowKeys) {
     assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
