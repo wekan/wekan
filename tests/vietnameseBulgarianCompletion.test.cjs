@@ -2222,3 +2222,25 @@ for (const code of ['cy', 'cy-GB']) {
   assert.match(locale['rule-email-legacy-description'], /ni fydd WeKan yn eu hanfon ar ei ben ei hun/);
   assert.match(locale['rule-email-resolution-resend-uncertain'], /wedi cyrraedd neu beidio/);
 }
+
+{
+  const locale = read('gd');
+  assert.deepEqual(Object.keys(locale), Object.keys(english), 'gd: source key order');
+  const keys = Object.keys(english).filter(key => key.startsWith('rule-email-') ||
+    key === 'r-insert-variable' || key === 'import-board-instruction-todotxt');
+  assert.equal(keys.length, 56);
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `gd:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `gd:${key}: tokens`);
+  }
+  for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:']) {
+    assert.ok(locale['import-board-instruction-todotxt'].includes(token), `gd: preserve ${token}`);
+  }
+  assert.match(locale['r-insert-variable'], /Cuir caochladair/);
+  assert.match(locale['rule-email-recovery-resend-confirm'], /dà thuras/);
+  assert.match(locale['rule-email-recovery-actions-hint'], /ach dha na faightearan gun dearbhadh/);
+  assert.match(locale['rule-email-legacy-discard-confirm'], /Cha tèid a chur gu bràth/);
+  assert.match(locale['rule-email-legacy-access-denied'], /Chan eil cothrom inntrigidh.*tuilleadh/);
+  assert.match(locale['rule-email-legacy-description'], /cha chuir WeKan iad leis fhèin/);
+  assert.match(locale['rule-email-resolution-resend-uncertain'], /ràinig.*no nach do ràinig/);
+}
