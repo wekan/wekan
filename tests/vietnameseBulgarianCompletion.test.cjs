@@ -2317,6 +2317,37 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedDisplayKeys = [
+    "setSelectionColorPopup-title",
+    "setCardActionsColorPopup-title",
+    "setSwimlaneColorPopup-title",
+    "setListColorPopup-title",
+    "r-set-color",
+    "hide-minicard-label-text",
+    "roles-info",
+    "hide-finished-checklist",
+    "shared-templates-select-scope",
+    "import-dependencies-empty",
+    "set-as-active",
+    "delete-org-warning-message",
+    "delete-team-warning-message",
+    "card-show-lists",
+    "default-save-storage-description",
+    "theme-override-all-tenants",
+    "card-show-lists-on-minicard",
+    "hide-list-on-minicard",
+    "show-list-on-minicard",
+    "wip-limit-group-select-swimlane"
+  ];
+  for (const key of correctedDisplayKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /(?:Wybierz|Pokaż|Ukryj|Ustaw|Nié można|Użytkownicy|wykonywać)/, `csb:${key}: Polish remnants`);
+  }
+  for (const key of ['setCardActionsColorPopup-title', 'setSwimlaneColorPopup-title', 'setListColorPopup-title']) assert.equal(locale[key], locale['select-color']);
+  assert.notEqual(locale['hide-list-on-minicard'], locale['show-list-on-minicard']);
+  assert.equal(locale['wip-limit-group-select-swimlane'], 'Wëbierzë stegnã');
+  assert.match(locale['roles-info'], /wiedno mają wszëtczé prawa i nie mòżna jich tu ògrańczëc/);
+  for (const key of ['delete-org-warning-message', 'delete-team-warning-message']) assert.match(locale[key], /przënômni jeden brëkòwnik/);
   const correctedSelectionKeys = [
     "multi-selection-active",
     "select-only-one-board",
