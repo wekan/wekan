@@ -877,6 +877,14 @@ for (const code of ['af', 'af_ZA']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /nooit gestuur word nie/);
   assert.match(locale['rule-email-legacy-access-denied'], /nie meer toegang/);
   assert.match(locale['r-insert-variable'], /veranderlike/);
+  for (const key of Object.keys(english).filter(key => key.startsWith('sync-'))) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+  }
+  assert.match(locale['sync-conflict-hint'], /Niks word na die bronstelsel gestuur nie/);
+  assert.match(locale['sync-report-partial'], /hervat nie.*ongedaan nie/);
+  assert.match(locale['sync-estimate-field-hint'], /null maak die gekoppelde waarde leeg/);
+  assert.match(locale['sync-time-estimate-hint'], /Presies een ooreenstemmende veld/);
   for (const key of Object.keys(english).filter(key => key.startsWith('scrum-'))) {
     assert.notEqual(locale[key], english[key], `${code}:${key}: untranslated`);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
