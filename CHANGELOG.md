@@ -6938,6 +6938,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7e4117954eea7b2a054bd828633219996e6e5be7">Translate Maltese appearance and voting labels</a>. Thanks to xet7.</summary>
+
+- Replace 35 prefixed English values with Maltese for voting, appearance
+  and colors, preserving existing correct-language translations and tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  font sizes. Another 652 prefixed English values remain to translate.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
