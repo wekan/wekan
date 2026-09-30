@@ -31,6 +31,15 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Maltese filters and imports; remaining untranslated strings are filled separately.
 {
   const locale = read('mt');
+  const correctedReportKeys = ["location-longitude", "location-detect", "map-region-europe", "created-at-newest-first", "created-at-oldest-first", "links-heading", "custom-field-stringtemplate", "custom-field-stringtemplate-format", "creator", "filesReportTitle", "filename-invisible-legend", "reports", "securityReportTitle", "speedReportTitle", "testsReportTitle", "cpuReportTitle", "databaseReportTitle", "new-problems", "acknowledge", "rulesReportTitle", "impersonationReportTitle", "officeReportTitle", "office-location", "office-address", "office-logins", "office-first-seen", "office-last-seen", "office-shared", "api-calls", "api-first-called", "api-last-called", "recovery-event", "recovery-severity", "recovery-db", "recovery-detail"];
+  for (const key of correctedReportKeys) {
+    assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
+    assert.doesNotMatch(locale[key], /Traduzzjoni Maltija:/, `mt:${key}: no prefixed English`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `mt:${key}: tokens`);
+  }
+  assert.ok(locale['custom-field-stringtemplate-format'].includes('%{value}'));
+  assert.notEqual(locale['created-at-newest-first'], locale['created-at-oldest-first']);
+  assert.notEqual(locale['office-first-seen'], locale['office-last-seen']);
   const correctedDependencyKeys = ["predicate-overdue", "predicate-quarter", "predicate-due", "predicate-modified", "predicate-attachment", "predicate-checklist", "predicate-start", "predicate-end", "predicate-assignee", "predicate-public", "predicate-private", "predicate-selector", "predicate-projection", "operator-number-expected", "next-page", "previous-page", "heading-notes", "globalSearch-instructions-notes-1", "archived-at", "due-complete", "card-mark-complete", "card-mark-incomplete", "stickers", "card-dependencies", "dependency-type", "dependency-icon", "dependency-type-blocks", "dependency-type-is-blocked-by", "dependency-type-fixes", "dependency-type-is-fixed-by", "import-dependencies-placeholder", "import-dependencies-done", "location", "location-address", "location-latitude"];
   for (const key of correctedDependencyKeys) {
     assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
