@@ -336,5 +336,13 @@ for (const code of ['ms', 'ms-MY']) {
   assert.match(locale['activity-recovery-cancel-confirm'], /tidak boleh disambung semula/);
   assert.match(locale['email-recovery-confirm-cancel'], /tidak boleh dipulihkan/);
   assert.match(locale['history-request-hint'], /tidak sekali-kali boleh membuat asal perubahan kedua/);
+  for (const key of Object.keys(english).filter(key =>
+    /^blockly-(ANNOUNCE_|ARIA_|BLOCK_LABEL_|BUBBLE_LABEL_|FIELD_BITMAP_|FIELD_LABEL_|FIELD_MULTILINEINPUT_|ICON_LABEL_)/.test(key))) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+  }
+  assert.match(locale['blockly-CANNOT_DELETE_VARIABLE_PROCEDURE'], /Tidak boleh memadam pemboleh ubah/);
+  assert.match(locale['blockly-COLLAPSED_WARNINGS_WARNING'], /mengandungi amaran/);
+  assert.notEqual(locale['blockly-END_KEY'], locale['end-date']);
 }
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
