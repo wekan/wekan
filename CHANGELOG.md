@@ -8777,6 +8777,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fe2577cf5fcd0b0e8a90ea6db6f79e74d3ffdfc1">Translate new import and email recovery strings into Marathi</a>. Thanks to xet7.</summary>
+
+- Fill 44 missing Marathi strings for todo.txt imports and rule-email recovery,
+  preserving existing translations, placeholders and import syntax.
+- Translation, registry and human-preference checks pass, covering uncertain
+  delivery, duplicate delivery warnings and legacy email review actions.
+  Existing Marathi translations remain unchanged.
+  Browser and fluent-speaker review were not run; translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
