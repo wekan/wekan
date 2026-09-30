@@ -39,6 +39,13 @@ function getActivityUserName(user, fallback = '') {
 // write before issuing the activity insert. Deferred Sync owns its own plans.
 Activities.before.insert(async (userId, doc) => {
   if (deferSyncActivity('notificationIntent', doc)) return;
+  // Incarnation (maintainer decision of 2026-09-30): every insert is a new
+  // lifetime of the activity. Notification recovery compares the stored
+  // activity with the one its intent captured, so an activity deleted and
+  // recreated under the same _id with the same values is not taken for the
+  // original. Sync-planned activities return above: their deterministic id
+  // is their identity, and a replay must match the plan exactly.
+  doc.incarnation = Random.id();
   if (getFeatureFlags().disableActivities || getFeatureFlags().disableNotifications) return;
   if (!doc._id) doc._id = Random.id();
   await captureActivityNotificationIntent(doc, userId);
