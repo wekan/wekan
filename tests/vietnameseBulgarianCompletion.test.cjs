@@ -31,6 +31,19 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Swahili archive and filter guidance; other placeholders remain.
 {
   const locale = read('sw');
+  const editorLabelKeys = ["blockly-ARIA_LABEL_ADD_TEXT", "blockly-ARIA_LABEL_BUTTON", "blockly-ARIA_LABEL_COMMENT_COLLAPSE", "blockly-ARIA_LABEL_COMMENT_EXPAND", "blockly-ARIA_LABEL_FIELD_ANGLE", "blockly-ARIA_LABEL_REMOVE_ELSE_IF", "blockly-ARIA_LABEL_REMOVE_INPUT", "blockly-ARIA_LABEL_REMOVE_LIST_ITEM", "blockly-ARIA_LABEL_REMOVE_TEXT", "blockly-ARIA_LABEL_TRASH_EMPTY", "blockly-ARIA_TYPE_FIELD_ANGLE", "blockly-ARIA_TYPE_FIELD_BITMAP", "blockly-ARIA_TYPE_FIELD_CHECKBOX", "blockly-ARIA_TYPE_FIELD_COLOUR", "blockly-ARIA_TYPE_FIELD_DATE", "blockly-ARIA_TYPE_FIELD_DROPDOWN", "blockly-ARIA_TYPE_FIELD_GRID", "blockly-ARIA_TYPE_FIELD_IMAGE", "blockly-ARIA_TYPE_FIELD_INPUT", "blockly-ARIA_TYPE_FIELD_TEXT_INPUT_ARGUMENT"];
+  for (const key of editorLabelKeys) {
+    assert.notEqual(locale[key], english[key], `sw:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sw:${key}: tokens`);
+  }
+  for (const suffix of ['TEXT', 'INPUT', 'LIST_ITEM', 'ELSE_IF']) {
+    assert.match(locale[`blockly-ARIA_LABEL_ADD_${suffix}`], /^Ongeza/);
+    assert.match(locale[`blockly-ARIA_LABEL_REMOVE_${suffix}`], /^Ondoa/);
+  }
+  assert.match(locale['blockly-ARIA_LABEL_FIELD_ANGLE'], /digrii %1/);
+  assert.match(locale['blockly-ARIA_LABEL_TRASH_EMPTY'], /tupu/);
+  assert.notEqual(locale['blockly-ARIA_LABEL_COMMENT_COLLAPSE'], locale['blockly-ARIA_LABEL_COMMENT_EXPAND']);
+  assert.notEqual(locale['blockly-ARIA_TYPE_FIELD_BITMAP'], locale['blockly-ARIA_TYPE_FIELD_IMAGE']);
   const mapAccessibilityKeys = ["map-view-unplaced", "map-view-place-hint", "map-view-all-placed", "blockly-ADD_COMMENT", "blockly-ANNOUNCE_CANT_SCROLL_FURTHER", "blockly-ANNOUNCE_MOVE_AFTER", "blockly-ANNOUNCE_MOVE_AROUND", "blockly-ANNOUNCE_MOVE_BEFORE", "blockly-ANNOUNCE_MOVE_CANCELED", "blockly-ANNOUNCE_MOVE_INSIDE", "blockly-ANNOUNCE_MOVE_TO", "blockly-ANNOUNCE_MOVE_WORKSPACE", "blockly-ANNOUNCE_SCROLLED_DOWN", "blockly-ANNOUNCE_SCROLLED_LEFT", "blockly-ANNOUNCE_SCROLLED_RIGHT", "blockly-ANNOUNCE_SCROLLED_UP", "blockly-ARIA_LABEL_ADD_ELSE_IF", "blockly-ARIA_LABEL_ADD_INPUT", "blockly-ARIA_LABEL_ADD_LIST_ITEM"];
   for (const key of mapAccessibilityKeys) {
     assert.notEqual(locale[key], english[key], `sw:${key}: translated`);
