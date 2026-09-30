@@ -771,6 +771,14 @@ for (const code of ['sl', 'sl_SI']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /nekad netiks nosūtīts/);
   assert.match(locale['rule-email-legacy-access-denied'], /vairs nav piekļuves/);
   assert.match(locale['r-insert-variable'], /mainīgo/);
+  for (const key of Object.keys(english).filter(key => key.startsWith('scrum-'))) {
+    assert.notEqual(locale[key], english[key], `lv:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `lv:${key}: tokens`);
+  }
+  assert.match(locale['scrum-report-help'], /nav nulles novērtējumi/);
+  assert.match(locale['scrum-partial-report'], /tikai jums pašlaik piešķirtās kartiņas/);
+  assert.match(locale['scrum-daily-observations-help'], /nereģistrē katru izmaiņu/);
+  assert.match(locale['scrum-daily-observations-export-help'], /nav nulle/);
   for (const key of Object.keys(english).filter(key =>
     /^(auto-archive-|filter-(recency|movement-range|date-range|due-|column-age|preset|card-text)|notification-activity-|due-reminder-|map-view-)/.test(key))) {
     assert.notEqual(locale[key], english[key], `lv:${key}: untranslated`);
