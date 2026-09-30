@@ -5390,6 +5390,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/59583399ca46b6f3b385e7c8195afff6f8f8a186">Translate Armenian workspace search and rule editing</a>. Thanks to xet7.</summary>
+
+- Fill 25 English placeholders for workspace search and rule editing,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including shortcuts,
+  permissions and rule restrictions. Fluent-speaker and browser review were
+  not run. The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
