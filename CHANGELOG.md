@@ -6974,6 +6974,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/97204c95415e26b82f89a3f721e263fa17b9f80b">Translate Maltese settings and attachment limits</a>. Thanks to xet7.</summary>
+
+- Replace 35 prefixed English values with Maltese for settings, previews,
+  time tracking and file limits, preserving existing translations and tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  upload and download labels. Another 547 prefixed English values remain.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
