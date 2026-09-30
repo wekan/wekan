@@ -2317,6 +2317,80 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedCloudKeys = [
+    "backup-datetime",
+    "backup-path",
+    "backup-restore-mode",
+    "backup-restore-replace-all",
+    "gcs-project-id",
+    "gcs-bucket",
+    "gcs-key-filename",
+    "gcs-credentials",
+    "gcs-project-id-description",
+    "s3-endpoint-menu-path",
+    "s3-secret-key-menu-path",
+    "azure-account-key-menu-path",
+    "azure-connection-string-menu-path",
+    "gcs-key-filename-menu-path",
+    "move-storage-azure",
+    "move-storage-gcs",
+    "gridfs-enabled",
+    "gridfs-disabled",
+    "s3-disabled",
+    "select-migration",
+    "pause",
+    "stop",
+    "mongodb-gridfs-storage",
+    "s3-access-key",
+    "s3-access-key-description",
+    "s3-access-key-placeholder",
+    "s3-bucket",
+    "s3-enabled",
+    "s3-endpoint-description",
+    "s3-minio-storage",
+    "s3-port",
+    "s3-port-description",
+    "s3-region",
+    "s3-region-description",
+    "s3-secret-key",
+    "s3-secret-key-description",
+    "s3-secret-key-placeholder",
+    "s3-secret-key-required",
+    "s3-ssl-enabled",
+    "s3-ssl-enabled-description",
+    "writable-path",
+    "migration-complete",
+    "migration-running",
+    "run-migration",
+    "migration-progress-current-step",
+    "steps",
+    "view",
+    "has-swimlanes",
+    "step-validate-migration",
+    "step-finalize",
+    "step-fix-missing-ids",
+    "cleanup-old-jobs",
+    "completed",
+    "cpu-usage",
+    "current-action",
+    "days-old",
+    "duration",
+    "errors",
+    "estimated-time-remaining",
+    "every-1-day"
+  ];
+  for (const key of correctedCloudKeys) {
+    assert.doesNotMatch(locale[key], /— pò kaszëbskù/, `csb:${key}: language label is not a translation`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+  }
+  for (const key of ['move-storage-azure', 'move-storage-gcs']) assert.equal(locale[key], english[key]);
+  for (const literal of ['s3.amazonaws.com', 'minio.example.com']) assert.ok(locale['s3-endpoint-description'].includes(literal));
+  assert.match(locale['s3-region-description'], /us-east-1/);
+  assert.match(locale['s3-ssl-enabled-description'], /SSL\/TLS/);
+  assert.match(locale['gcs-credentials'], /JSON/);
+  assert.notEqual(locale['gridfs-enabled'], locale['gridfs-disabled']);
+  assert.notEqual(locale['s3-access-key'], locale['s3-secret-key']);
+  for (const literal of ['Access key ID', 'Secret access key', 'Download .csv']) assert.ok(locale['s3-secret-key-menu-path'].includes(literal));
   const correctedBackupKeys = [
     "active-cron-jobs",
     "cron-jobs",
