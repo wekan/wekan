@@ -7730,6 +7730,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/987d5c9e893b8db4cdc6a5a578a22905f25013af">Translate Luxembourgish email failures and activity recovery</a>. Thanks to xet7.</summary>
+
+- Translate 20 missing or English strings for email failures, time estimates
+  and activity recovery, preserving existing translations and tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  failure types, time estimates and the null token.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
