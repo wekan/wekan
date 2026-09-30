@@ -7899,6 +7899,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3a9a9df01d586ac1f7ecafcd617368e41b925fc7">Translate Faroese synchronization diagnostics</a>. Thanks to xet7.</summary>
+
+- Translate 25 source-field report and synchronization diagnostic strings,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including retention
+  limits and distinct outcomes. Faroese wording has lower confidence.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
