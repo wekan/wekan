@@ -2317,6 +2317,67 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedSearchKeys = [
+    "status",
+    "owner",
+    "last-modified-at",
+    "last-activity",
+    "hide-checked-items",
+    "domains",
+    "domain",
+    "share-template-with",
+    "domain-user-count",
+    "shared-templates",
+    "person",
+    "day",
+    "month",
+    "context-separator",
+    "myCardsViewChange-choice-table",
+    "dueCards-title",
+    "dueCardsViewChange-choice-me",
+    "globalSearchViewChange-title",
+    "globalSearchViewChangePopup-title",
+    "operator-board-abbrev",
+    "operator-swimlane",
+    "operator-swimlane-abbrev",
+    "operator-list-abbrev",
+    "operator-label",
+    "operator-label-abbrev",
+    "operator-user-abbrev",
+    "operator-member-abbrev",
+    "operator-assignee",
+    "operator-assignee-abbrev",
+    "operator-status",
+    "operator-due",
+    "operator-created",
+    "operator-modified",
+    "operator-sort",
+    "operator-has",
+    "operator-team",
+    "operator-title",
+    "operator-customfield",
+    "operator-checklist-text",
+    "predicate-archived",
+    "predicate-open",
+    "predicate-ended",
+    "predicate-all",
+    "predicate-overdue",
+    "predicate-week"
+  ];
+  for (const key of correctedSearchKeys) {
+    assert.doesNotMatch(locale[key], /— pò kaszëbskù/, `csb:${key}: language label is not a translation`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+    if (key.endsWith('-abbrev') || key === 'context-separator') assert.equal(locale[key], english[key]);
+    if (key.startsWith('operator-') && !key.endsWith('-abbrev')) assert.match(locale[key], /^[\p{Letter}\p{Mark}]+$/u);
+  }
+  const shortSearchAliases = Object.keys(english).filter(key => /^operator-.*-abbrev$/.test(key)).map(key => locale[key]);
+  assert.equal(new Set(shortSearchAliases).size, shortSearchAliases.length, 'csb: unique short search aliases');
+  const searchParser = fs.readFileSync(path.join(root, 'config/query-classes.js'), 'utf8');
+  for (const key of correctedSearchKeys.filter(key => /^(operator-|predicate-)/.test(key))) {
+    assert.ok(searchParser.includes(`'${key}':`), `csb:${key}: registered search syntax`);
+  }
+  assert.equal(locale['operator-swimlane'], 'stegna');
+  assert.equal(locale['predicate-overdue'], 'pòterminie');
   const correctedDateKeys = [
     "layout",
     "hide-logo",
