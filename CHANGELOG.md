@@ -7430,6 +7430,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e7278a6943eea455617b328a80c97d011750b3ad">Translate Luxembourgish block labels and loop controls</a>. Thanks to xet7.</summary>
+
+- Translate 29 missing or English strings for block labels, colors and loop
+  controls, preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  break/continue and singular/plural input labels.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
