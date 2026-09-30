@@ -31,6 +31,20 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Romansh date filters, imports and archive-language corrections.
 {
   const locale = read('rm');
+  const correctedFlowKeys = ["board-cleanup-scheduled", "cron-job-delete-confirm", "cron-job-deleted", "gcs-key-filename-menu-path", "migration-stop-confirm", "flow-unknown", "flow-unknown-start", "flow-note-agingWip", "flow-note-blockerAnalysis", "flow-note-sizeCycleTime", "flow-note-monteCarlo", "flow-note-processBehavior"];
+  for (const key of correctedFlowKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /\b(Sei|questo|sconosciuto|pianificata|pianificato|successo)\b/, `rm:${key}: no mixed-language seed`);
+  }
+  assert.match(locale['flow-note-agingWip'], /85avel.*almain tschintg/);
+  assert.match(locale['flow-note-blockerAnalysis'], /cuvran temporalmain.*separadamain/);
+  assert.match(locale['flow-note-sizeCycleTime'], /mancantas e datas nunvalidas vegnan omessas/);
+  for (const token of ['2 000', 'UTC', '3 650']) assert.ok(locale['flow-note-monteCarlo'].includes(token));
+  assert.match(locale['flow-note-monteCarlo'], /n’è betg ina garanzia/);
+  assert.match(locale['flow-note-monteCarlo'], /Senza cartas terminadas.*nagina prognosa/);
+  assert.match(locale['flow-note-processBehavior'], /XmR.*almain duas terminaziuns validas/);
+  for (const token of ['WeKan', 'JSON']) assert.ok(locale['gcs-key-filename-menu-path'].includes(token));
+
   const correctedConfirmationKeys = ["custom-field-dropdown-unknown", "error-teamname-taken", "trello-cancel-delete-confirm", "just-invited", "leave-board-pop", "disable-webhook", "show-field-on-card", "delete-all-notifications-confirm", "delete-duplicate-lists-confirm", "duplicate-board-confirm", "delete-team-confirm-popup", "delete-org-confirm-popup", "remove-domain-from-board", "team-name-not-found", "remove-team-from-table", "remove-organization-from-board", "accounts-lockout-click-to-unlock", "add-cron-job", "board-archive-scheduled", "board-backup-scheduled"];
   for (const key of correctedConfirmationKeys) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
