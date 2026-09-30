@@ -5357,6 +5357,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0d509aad5569a5d05b9416bbc7d93bbc4877caea">Translate Armenian mathematical accessibility labels</a>. Thanks to xet7.</summary>
+
+- Fill 34 English placeholders for mathematical accessibility and block
+  controls, preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including comparisons,
+  inverse functions and opposite operations. Fluent-speaker and browser review
+  were not run. The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
