@@ -8609,6 +8609,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/af82db71852c7dee1dc15d5c292f79206d3c176b">Correct Romansh settings descriptions and stale loading text</a>. Thanks to xet7.</summary>
+
+- Replace 16 mixed-language settings and status strings with Romansh,
+  including the current automatic card-loading description.
+- Translation, registry and human-preference checks pass, covering tokens,
+  configuration identifiers, privacy wording and migration paths.
+  Low-confidence wording needs fluent-speaker review.
+  Browser review was not run; wider language cleanup remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
