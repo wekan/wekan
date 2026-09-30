@@ -1684,6 +1684,20 @@ Chromium and WebKit cover review and discard.
 
 </details>
 
+**Board Settings** - the Rules page's views are reached from the board menu.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b4217f962">List view, Workflow, Blocks, History and Import / Export rules sit under Rules</a>. Thanks to xet7.</summary>
+
+Each opens the Rules page in that view, asking before unsaved Blocks work is
+lost; Import / Export rules opens its popup from the menu. They share Rules'
+board-admin guard, and a divider now separates them from Change Color. The
+entry is labelled "Import / Export rules" in both menus, using the popup's
+existing, already translated title. A source test pins the order and guards;
+a Playwright case checks the order and the views in Chromium and WebKit.
+
+</details>
+
 **External imports** - GitLab reaches the format contract in both directions,
 watchers and followers survive an import, and todo.txt is a new format.
 
