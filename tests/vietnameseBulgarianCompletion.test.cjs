@@ -1595,4 +1595,19 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['sync-estimate-field-hint'], /null esplìcitu cancella/);
   assert.match(locale['sync-time-estimate-hint'], /esattamenti un campu/);
 }
+{
+  const locale = read('nap');
+  assert.deepEqual(Object.keys(locale), Object.keys(english), 'nap: source key order');
+  for (const key of hiraganaBatchKeys) {
+    assert.notEqual(locale[key], english[key], `nap:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `nap:${key}: tokens`);
+  }
+  for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:']) {
+    assert.ok(locale['import-board-instruction-todotxt'].includes(token), `nap: preserve ${token}`);
+  }
+  assert.match(locale['rule-email-recovery-resend-confirm'], /ddoje vote/);
+  assert.match(locale['rule-email-legacy-discard-confirm'], /Nun vene mannato maje/);
+  assert.match(locale['rule-email-legacy-access-denied'], /nun tene cchiù accesso/);
+  assert.match(locale['r-insert-variable'], /Miette na variabbile/);
+}
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
