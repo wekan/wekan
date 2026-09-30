@@ -6541,6 +6541,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e59fbe1464">Translate Tagalog filtering and import guidance</a>. Thanks to xet7.</summary>
+
+- Translate 25 English strings for filtering, archiving and imports,
+  preserving existing translations, replacement tokens and import syntax.
+- Translation, registry and human-preference checks pass, including inclusive
+  date boundaries, template exclusion and literal import tokens.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
