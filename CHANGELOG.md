@@ -2415,6 +2415,16 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5719fe0cc">Translate Slovenian email recovery controls</a>. Thanks to xet7.</summary>
+
+- Fill 45 missing translations in each Slovenian locale for email recovery,
+  legacy message review, variable insertion and todo.txt import.
+- Preserve existing translations and verify placeholders, duplicate-delivery
+  warnings, permanent discard wording and source-access restrictions.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
