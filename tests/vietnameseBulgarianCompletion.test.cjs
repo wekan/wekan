@@ -2317,6 +2317,17 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedImportFormatKeys = ["import-board-instruction-todotxt", "import-board-instruction-jira", "import-board-instruction-wekan", "import-members-map", "import-members-map-note", "import-show-user-mapping", "import-board-zip", "import-not-wekan-export"];
+  for (const key of correctedImportFormatKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /(?:Wklej |wyszukiwania|przypisane|Przejrzyj|Zaimportowana)/);
+  }
+  for (const literal of ['GET /rest/api/2/search', '"issues"', '"automationRules"']) assert.ok(locale['import-board-instruction-jira'].includes(literal));
+  assert.doesNotMatch(locale['import-board-instruction-jira'], /api\/2\/Szëkôj/);
+  for (const literal of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:']) assert.ok(locale['import-board-instruction-todotxt'].includes(literal));
+  assert.ok(locale['import-board-instruction-wekan'].includes(locale.menu));
+  assert.ok(locale['import-board-instruction-wekan'].includes(locale['export-board']));
+  assert.match(locale['import-board-zip'], /\.zip.*JSON/);
   const correctedTrelloKeys = ["import-trello-zip-file-hint", "import-trello-zip-progress", "import-trello-failed", "import-trello-zip-failed", "import-trello-zip-too-large", "import-trello-zip-too-many-files", "import-trello-zip-file-too-large", "import-trello-workspace", "import-trello-workspace-placeholder", "import-trello-parent-workspace", "trello-api-import-desc", "trello-api-token", "trello-list-workspaces", "trello-import-selected", "trello-importing", "trello-api-credentials-saved", "trello-import-more", "trello-cancel", "trello-cancel-delete", "trello-cancel-delete-confirm", "trello-resume", "trello-delete-imported"];
   for (const key of correctedTrelloKeys) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
