@@ -4049,6 +4049,19 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f598b1db1">Fill remaining Asturian notification and recovery placeholders</a>. Thanks to xet7.</summary>
+
+- Translate 78 Asturian notification, recovery and keyboard messages.
+  No flagged English placeholders remain, including pending keys. Retain
+  reviewed shared terms and technical labels.
+- Translation, registry and human-preference checks pass, covering tokens,
+  preserved translations and irreversible recovery actions. Wording is lower
+  confidence; browser layout and fluent-speaker review were not run.
+  Older mixed-language values still require review.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
