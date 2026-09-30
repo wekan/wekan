@@ -6360,6 +6360,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4c7a7e237c">Translate Swahili accessibility shortcuts</a>. Thanks to xet7.</summary>
+
+- Translate 44 English strings for screen-reader modes, navigation and editor
+  shortcuts, preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including mode
+  toggles and the distinction between block movement and scrolling.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
