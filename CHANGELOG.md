@@ -6348,6 +6348,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/baaa73d587">Translate Swahili procedure and editor guidance</a>. Thanks to xet7.</summary>
+
+- Translate 34 English strings for procedures, inputs and editor actions,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including output
+  distinctions, disabled functions and function-only block warnings.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
