@@ -6890,6 +6890,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0deccee03ba8b95d36a069a67ec0edfce357e7f7">Translate Maltese filters, imports and board visibility</a>. Thanks to xet7.</summary>
+
+- Translate 30 English strings for filters, imports and board visibility,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including import
+  syntax and visibility markup.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
