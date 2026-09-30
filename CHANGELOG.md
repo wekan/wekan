@@ -7454,6 +7454,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5dd0b457b5d9cf3a7b0a2f19849bc14c35c99712">Translate Luxembourgish list inputs and editor icons</a>. Thanks to xet7.</summary>
+
+- Translate 30 missing or English strings for editor icons and list inputs,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  warning actions, conditions and list positions.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
