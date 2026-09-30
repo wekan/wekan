@@ -7875,6 +7875,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/84859eec67bd4a07dcefdac2786092bf9373c22d">Translate Faroese observations and sync conflicts</a>. Thanks to xet7.</summary>
+
+- Translate 30 Scrum-observation, workflow and synchronization strings,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including UTC,
+  observation limits and action distinctions. Faroese has lower confidence.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
