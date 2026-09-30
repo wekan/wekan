@@ -2973,6 +2973,15 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e56e969f3">Translate Bengali synchronization messages</a>. Thanks to xet7.</summary>
+
+- Fill 63 Bengali synchronization, conflict and diagnostic messages.
+- Verify existing translations, placeholders, partial-change warnings and null
+  handling with translation, human-preference and language registry checks.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
