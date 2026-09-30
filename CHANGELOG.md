@@ -7538,6 +7538,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6665f00c0c717a5ebec093c39e11afc4e993539d">Translate Luxembourgish math function descriptions</a>. Thanks to xet7.</summary>
+
+- Translate 20 missing or English strings for random numbers, logarithms,
+  powers and statistics, preserving existing translations and tokens.
+- Translation, registry and human-preference checks pass, including logarithm
+  and exponent distinctions and inclusive/exclusive random-number bounds.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
