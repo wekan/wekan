@@ -1799,6 +1799,16 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /Nunca se va unviar/);
   assert.match(locale['rule-email-legacy-access-denied'], /yá nun tien accesu/);
   assert.match(locale['r-insert-variable'], /Inxertar una variable/);
+  assert.match(locale['close-board-pop'], /Archivu.*Tolos tableros/);
+  assert.doesNotMatch(locale['close-board-pop'], /páxina d'aniciu/);
+  assert.match(locale['normal-desc'], /Nun pue camudar los axustes/);
+  assert.match(locale['comment-only-desc'], /Namás pue comentar/);
+  assert.match(locale['delete-linked-cards-before-this-list'], /ensin desaniciar primero/);
+  assert.match(locale['card-archived'], /movióse al archivu/);
+  for (const key of ['cards', 'cards-count']) assert.equal(locale[key], 'Tarxetes');
+  for (const key of ['cards-count-one', 'cardType-card']) assert.equal(locale[key], 'Tarxeta');
+  assert.match(locale['move-card-up'], /p'arriba/);
+  assert.match(locale['move-card-down'], /p'abaxo/);
   for (const key of ['add', 'add-attachment', 'add-template',
     'add-card-to-top-of-list', 'add-card-to-bottom-of-list', 'addListPopup-title',
     'add-swimlane', 'add-subtask', 'add-checklist', 'add-checklist-item',
