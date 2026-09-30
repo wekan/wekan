@@ -1339,6 +1339,14 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /ಎಂದಿಗೂ ಕಳುಹಿಸಲಾಗುವುದಿಲ್ಲ/);
   assert.match(locale['rule-email-legacy-access-denied'], /ಇನ್ನು ಪ್ರವೇಶವಿಲ್ಲ/);
   assert.match(locale['r-insert-variable'], /ಚರವನ್ನು ಸೇರಿಸಿ/);
+  for (const key of Object.keys(english).filter(key => key.startsWith('sync-'))) {
+    assert.notEqual(locale[key], english[key], `kn:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `kn:${key}: tokens`);
+  }
+  assert.match(locale['sync-conflict-hint'], /ಏನನ್ನೂ ಕಳುಹಿಸಲಾಗುವುದಿಲ್ಲ/);
+  assert.match(locale['sync-report-partial'], /ಮುಂದುವರಿಸುವುದಿಲ್ಲ.*ರದ್ದುಗೊಳಿಸುವುದಿಲ್ಲ/);
+  assert.match(locale['sync-estimate-field-hint'], /null.*ತೆರವುಗೊಳಿಸುತ್ತದೆ/);
+  assert.match(locale['sync-time-estimate-hint'], /ನಿಖರವಾಗಿ ಒಂದೇ/);
   for (const key of Object.keys(english).filter(key => key.startsWith('scrum-'))) {
     assert.notEqual(locale[key], english[key], `kn:${key}: untranslated`);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `kn:${key}: tokens`);
