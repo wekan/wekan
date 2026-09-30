@@ -2655,6 +2655,16 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/42a079d4f">Complete Macedonian notification recovery translations</a>. Thanks to xet7.</summary>
+
+- Fill 90 Macedonian placeholders for notification recovery, email delivery,
+  history requests and keyboard labels.
+- Review 15 unchanged technical terms and verify complete source coverage,
+  placeholders, irreversible cancellation warnings and safe retry wording.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
