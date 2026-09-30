@@ -242,5 +242,12 @@ for (const code of ['fa', 'fa-IR']) {
     translationTokens(english['custom-field-stringtemplate-context-hint']));
   assert.match(locale['due-reminder-days-label'], /مثبت.*پیش.*منفی.*پس/);
   assert.match(locale['notification-activity-description'], /همیشه می‌رسند/);
+  for (const key of Object.keys(english).filter(key => key.startsWith('scrum-'))) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+  }
+  assert.match(locale['scrum-report-help'], /برآورد صفر نیستند/);
+  assert.match(locale['scrum-partial-report'], /فقط کارت‌هایی که اکنون به شما اختصاص دارند/);
+  assert.match(locale['scrum-daily-observations-help'], /همهٔ تغییرات را ثبت نمی‌کنند/);
 }
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
