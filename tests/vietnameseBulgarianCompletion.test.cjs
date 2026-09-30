@@ -1997,6 +1997,17 @@ console.log('Completed translation batches: completeness, tokens, syntax and nat
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `br: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /Enlakaat ur varienn/);
+  for (const key of Object.keys(english).filter(key => key.startsWith('sync-'))) {
+    assert.notEqual(locale[key], english[key], `br:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `br:${key}: tokens`);
+  }
+  assert.match(locale['sync-conflict-hint'], /N'eus netra kaset/);
+  assert.match(locale['sync-report-partial'], /ne zizober ket/);
+  assert.match(locale['sync-conflict-review-complete'], /N'eo ket bet kenamzeriet ar roll a-bezh/);
+  assert.match(locale['sync-conflict-detach-hint'], /Chom a ra e endalc'had/);
+  assert.match(locale['sync-estimate-field-hint'], /null splann a ziverk/);
+  assert.match(locale['sync-time-estimate-hint'], /ur vaezienn kenglotus hepken/);
+  assert.match(locale['sync-recovery-description'], /ne c'hall ket.*adloc'hañ na dizober/);
   assert.match(locale['rule-email-recovery-resend-confirm'], /div wech/);
   assert.match(locale['rule-email-recovery-actions-hint'], /ne adkas morse/);
   assert.match(locale['rule-email-recovery-actions-hint'], /nann-kadarnaet hepken/);
