@@ -2317,6 +2317,18 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  for (const key of Object.keys(english).filter(key => key.startsWith('sync-'))) {
+    assert.notEqual(locale[key], english[key], `csb:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /— pò kaszëbskù/);
+  }
+  assert.match(locale['sync-conflict-hint'], /Nic nie je wësëłóné/);
+  assert.match(locale['sync-report-partial'], /nie wznôwiają ani nie cofają/);
+  assert.match(locale['sync-conflict-review-complete'], /całi lëstë nie bëła ùruchòmionô/);
+  assert.match(locale['sync-conflict-detach-hint'], /zamkłosc òstaje w WeKan/);
+  assert.match(locale['sync-estimate-field-hint'], /jawnô wôrtnota null czëszczi/);
+  assert.match(locale['sync-time-estimate-hint'], /dokładno jedno/);
+  assert.match(locale['sync-recovery-description'], /nie mògą wznowic ani cofnąc/);
   assert.equal(locale['rule-email-recovery-recipients'], 'Òdbiérôcze');
   assert.match(locale['rule-email-recovery-resend-confirm'], /dwa razë/);
   assert.match(locale['rule-email-recovery-actions-hint'], /blós do òdbiérôczów bez pòcwierdzeniô/);
