@@ -7178,6 +7178,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c49d154658ec979a82a4e3b2d4b2c5cd4b9e70f0">Translate Maltese block editor accessibility labels</a>. Thanks to xet7.</summary>
+
+- Translate 25 English placeholders for block editor accessibility and movement
+  announcements, preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including movement
+  directions and comment controls.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
