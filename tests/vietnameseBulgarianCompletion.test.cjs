@@ -2083,6 +2083,15 @@ console.log('Completed translation batches: completeness, tokens, syntax and nat
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `eu: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /Txertatu aldagaia/);
+  assert.match(locale['board-view-timeline-showing'], /Une honetako egoera/);
+  assert.doesNotMatch(locale['board-view-timeline-showing'], /honetatik/);
+  assert.equal(locale['import-map-members'], 'Lotu kideak');
+  assert.match(locale['import-members-map'], /Lotu.*zure erabiltzaileekin/);
+  for (const kind of ['invite', 'activity']) {
+    assert.match(locale[`email-templates-${kind}-subject`], /mezuaren gaia/);
+    assert.match(locale[`email-templates-${kind}-body`], /mezuaren gorputza/);
+    assert.doesNotMatch(locale[`email-templates-${kind}-subject`], /Asunto|Gonbidatu/);
+  }
   assert.match(locale['email-recovery-confirm-cancel'], /ezin izango dira leheneratu/);
   assert.match(locale['email-recovery-description'], /bidalketa zalantzagarria errepika daiteke/);
   assert.match(locale['activity-recovery-description'], /ez du inoiz jarduera bat birsortzen/);
