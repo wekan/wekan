@@ -6529,6 +6529,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/73567b3ecc">Fill remaining Swahili recovery translations</a>. Thanks to xet7.</summary>
+
+- Translate 29 missing recovery, sign-in and history strings. Swahili now has
+  all 3783 source keys with no flagged English prose; standard key names,
+  OS brands and short mathematical symbols are retained.
+- Full key-order, replacement-token, registry and human-preference checks pass.
+  Fluent-speaker and browser review were not run.
+  Wider translation and language-quality work remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
