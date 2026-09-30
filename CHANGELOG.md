@@ -6289,6 +6289,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/65d29d6fa0">Translate Swahili sorting and comparison guidance</a>. Thanks to xet7.</summary>
+
+- Translate 20 English strings for sorting, splitting and comparisons,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including comparison
+  boundaries, joining versus splitting, copy semantics and sort direction.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
