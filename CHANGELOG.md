@@ -4851,6 +4851,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d563f024c4">Correct Kashubian progress and offline messages</a>. Thanks to xet7.</summary>
+
+- Correct 19 mixed-language progress and offline messages. Preserve limits,
+  background behavior, action labels and the definite data-loss warning.
+- Translation, registry and human-preference checks pass. Kashubian wording
+  is lower confidence; fluent-speaker and browser review were not run.
+  Other mixed-language text and languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
