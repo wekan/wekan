@@ -2317,6 +2317,18 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedArchiveHelpKeys = ["board-drag-drop-reorder-or-click-open", "allowNonBoardMembers", "soft-wip-limit", "trello-api-credentials-required", "accounts-allowUserDelete", "globalSearch-instructions-notes-5", "gridfs-enabled-description", "s3-enabled-description", "error-user-notSameOrgOrTeam", "act-archivedBoard", "auto-watch", "card-archived", "card-delete-pop", "card-delete-suggest-archive", "card-archive-suggest-cancel", "list-archive-suggest", "swimlane-archive-suggest", "worker-desc", "error-board-notAMember", "error-watch-disabled", "error-linked-card-not-allowed", "error-user-notAllowSelf", "error-user-notCreated", "import-trello-json-file-hint", "import-timeout", "import-trello-zip-unsafe-path"];
+  for (const key of correctedArchiveHelpKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /(?:Możesz|został|zostan|Użyj |użytkownik|przechowywania)/);
+  }
+  assert.match(locale['card-delete-pop'], /nie mòżna cofnąc/);
+  assert.match(locale['card-delete-suggest-archive'], /zachòwac aktiwnosc/);
+  assert.match(locale['worker-desc'], /blós.*przëpisëwac sebie/);
+  assert.match(locale['trello-api-credentials-required'], /i klucz, i token API Trello/);
+  assert.match(locale['import-trello-json-file-hint'], /\.json/);
+  assert.match(locale['import-trello-zip-unsafe-path'], /\.zip/);
+  assert.match(locale['soft-wip-limit'], /WIP/);
   const correctedToggleKeys = ["delete-team-confirm-popup", "delete-org-confirm-popup", "remove-domain-from-board", "editCardSortOrderPopup-title", "remove-team-from-table", "remove-organization-from-board", "change-visibility", "delete-translation-confirm-popup", "sandstorm-delete-raw-mongodb-confirm", "admin-announcement-active", "enable-permanent-delete", "enable-permanent-delete-description", "enable-vertical-scrollbars", "enable-wip-limit", "multi-selection-off", "accounts-allowEmailChange", "accounts-allowUserNameChange", "r-rule-enabled", "custom-head-tags-enabled", "custom-manifest-enabled", "custom-assetlinks-enabled", "allow-rename", "allowRenamePopup-title", "allow-invite-to-board", "disable-all-import", "disable-import-avatars", "disable-export-avatars", "disable-watch"];
   for (const key of correctedToggleKeys) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
