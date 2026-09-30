@@ -6685,6 +6685,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ac2c6d3fd6">Translate Tagalog statistics and rounding guidance</a>. Thanks to xet7.</summary>
+
+- Translate 25 English strings for statistics, random values and rounding,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including random
+  bounds, modes and distinct rounding directions.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
