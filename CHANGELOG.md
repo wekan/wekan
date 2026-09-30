@@ -6962,6 +6962,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f96c84ce73a19f725d65bd772f93ded3c61c1d88">Translate Maltese import and navigation labels</a>. Thanks to xet7.</summary>
+
+- Replace 35 prefixed English values with Maltese for imports, exports,
+  filtering and navigation, preserving correct-language translations and tokens.
+- Translation, registry and human-preference checks pass, including file
+  extensions. Another 582 prefixed English values remain to translate.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
