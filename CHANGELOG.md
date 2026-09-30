@@ -4917,6 +4917,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ecaa5b4d1f">Correct Kashubian settings and removal confirmations</a>. Thanks to xet7.</summary>
+
+- Correct 28 settings and confirmation messages. Preserve permanent deletion
+  warnings, board removal scope and technical names.
+- Translation, registry and human-preference checks pass. Kashubian wording
+  is lower confidence; fluent-speaker and browser review were not run.
+  Other mixed-language text and languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
