@@ -5071,6 +5071,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6d4f605df1">Correct Kashubian feature and anonymization descriptions</a>. Thanks to xet7.</summary>
+
+- Correct eight feature descriptions. Replace incorrect export text in the
+  account anonymization confirmation; preserve defaults and restrictions.
+- Translation, registry and human-preference checks pass. Kashubian wording
+  is lower confidence; fluent-speaker and browser review were not run.
+  Other mixed-language text and languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
