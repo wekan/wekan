@@ -1799,6 +1799,20 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /Nunca se va unviar/);
   assert.match(locale['rule-email-legacy-access-denied'], /yá nun tien accesu/);
   assert.match(locale['r-insert-variable'], /Inxertar una variable/);
+  for (const key of ['add', 'add-attachment', 'add-template',
+    'add-card-to-top-of-list', 'add-card-to-bottom-of-list', 'addListPopup-title',
+    'add-swimlane', 'add-subtask', 'add-checklist', 'add-checklist-item',
+    'add-cover', 'add-label', 'add-list', 'add-after-list', 'add-members',
+    'addMemberPopup-title', 'add-template-container', 'add-background-image']) {
+    assert.match(locale[key], /^Amestar/);
+    assert.doesNotMatch(locale[key], /Añadir/);
+  }
+  assert.match(locale['card-delete-suggest-archive'], /caltener l'actividá/);
+  assert.match(locale['card-archive-suggest-cancel'], /restaurar la tarxeta/);
+  assert.match(locale['board-view-timeline-showing'], /na fecha/);
+  assert.doesNotMatch(locale['board-view-timeline-showing'], /dende/);
+  assert.match(locale['activity-archived'], /movióse al archivu/);
+  assert.match(locale['cardDeletePopup-title'], /Desaniciar la tarxeta/);
   assert.match(locale['home-board-empty'], /namás un tableru/);
   assert.match(locale['home-board-remove-confirm'], /nun se desanicia/);
   assert.match(locale['add-card'], /Amestar una tarxeta/);
