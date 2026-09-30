@@ -31,6 +31,18 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Georgian filters and import guidance; other placeholders remain.
 {
   const locale = read('ka');
+  const activityRecoveryKeys = ["sync-time-estimate-hint", "activity-recovery-heading", "activity-recovery-description", "activity-recovery-empty", "activity-recovery-unavailable", "activity-recovery-retry", "activity-recovery-retrying", "activity-recovery-status-pending", "activity-recovery-status-preparing", "activity-recovery-status-processing", "activity-recovery-status-missing", "activity-recovery-status-changed", "activity-recovery-status-invalid", "activity-recovery-status-inconsistent", "activity-recovery-busy", "activity-recovery-denied", "activity-recovery-source-unavailable", "activity-recovery-disabled", "activity-recovery-failed", "activity-recovery-pause"];
+  for (const key of activityRecoveryKeys) {
+    assert.notEqual(locale[key], english[key], `ka:${key}: translated`);
+    assert.match(locale[key], /[ა-ჿ]/, `ka:${key}: Georgian script`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ka:${key}: tokens`);
+  }
+  assert.match(locale['sync-time-estimate-hint'], /ზუსტად ერთი შესაბამისი ველი/);
+  assert.match(locale['sync-time-estimate-hint'], /null ასუფთავებს/);
+  assert.match(locale['activity-recovery-description'], /არასოდეს ქმნის თავიდან/);
+  assert.match(locale['activity-recovery-source-unavailable'], /არაფერი შექმნილა თავიდან/);
+  assert.match(locale['activity-recovery-failed'], /სამუშაო შენარჩუნებულია/);
+  assert.notEqual(locale['activity-recovery-status-missing'], locale['activity-recovery-status-changed']);
   const emailFailureKeys = ["email-recovery-empty", "email-recovery-unavailable", "email-recovery-busy", "email-recovery-failed", "email-recovery-superseded", "email-recovery-confirm-cancel", "email-recovery-attention", "email-recovery-stopped", "email-recovery-retry", "email-failure-smtp-temporary", "email-failure-smtp-rejected", "email-failure-smtp-authentication", "email-failure-smtp-configuration", "email-failure-recipient-unavailable", "email-failure-delivery-unconfirmed", "email-failure-acknowledgement-failed", "email-failure-delivery-failed", "email-failure-retry-limit", "sync-original-time", "sync-remaining-time"];
   for (const key of emailFailureKeys) {
     assert.notEqual(locale[key], english[key], `ka:${key}: translated`);
