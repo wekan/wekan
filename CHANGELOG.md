@@ -4685,6 +4685,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8a8368ade9">Correct Kashubian card details and rule editor labels</a>. Thanks to xet7.</summary>
+
+- Replace 50 Polish-seeded strings, preserving checklist counts, format
+  tokens and Trello import limitations.
+- Translation, registry and human-preference checks pass. Kashubian wording
+  is lower confidence; fluent-speaker and browser review were not run.
+  Older mixed-language values and other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
