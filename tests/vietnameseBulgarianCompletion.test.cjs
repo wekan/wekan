@@ -169,5 +169,13 @@ for (const code of ['he', 'he-IL']) {
     translationTokens(english['custom-field-stringtemplate-context-hint']));
   assert.match(locale['filter-column-age-hint'], /אינה מאפסת/);
   assert.match(locale['instance-desc'], /לעולם אינו מוצג למי שאינו מחובר/);
+  for (const key of Object.keys(english).filter(key => key.startsWith('scrum-'))) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: untranslated`);
+    assert.match(locale[key], /\p{Script=Hebrew}/u, `${code}:${key}: Hebrew text`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+  }
+  assert.match(locale['scrum-report-help'], /אינן הערכות אפס/);
+  assert.match(locale['scrum-partial-report'], /רק כרטיסים שמשויכים אליך כעת/);
+  assert.match(locale['scrum-daily-observations-help'], /אינן מתעדות כל שינוי/);
 }
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
