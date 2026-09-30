@@ -31,6 +31,16 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Georgian filters and import guidance; other placeholders remain.
 {
   const locale = read('ka');
+  const blockLabelKeys = ["blockly-ARIA_LABEL_REMOVE_ELSE_IF", "blockly-ARIA_LABEL_REMOVE_INPUT", "blockly-ARIA_LABEL_REMOVE_LIST_ITEM", "blockly-ARIA_LABEL_REMOVE_TEXT", "blockly-ARIA_LABEL_TRASH_EMPTY", "blockly-ARIA_TYPE_FIELD_ANGLE", "blockly-ARIA_TYPE_FIELD_BITMAP", "blockly-ARIA_TYPE_FIELD_CHECKBOX", "blockly-ARIA_TYPE_FIELD_COLOUR", "blockly-ARIA_TYPE_FIELD_DATE", "blockly-ARIA_TYPE_FIELD_DROPDOWN", "blockly-ARIA_TYPE_FIELD_GRID", "blockly-ARIA_TYPE_FIELD_IMAGE", "blockly-ARIA_TYPE_FIELD_INPUT", "blockly-ARIA_TYPE_FIELD_TEXT_INPUT_ARGUMENT", "blockly-ARIA_TYPE_FIELD_TEXT_INPUT_PROCEDURE", "blockly-BACKSPACE_KEY", "blockly-BLOCK_LABEL_BEGIN_PREFIX", "blockly-BLOCK_LABEL_BEGIN_STACK", "blockly-BLOCK_LABEL_COLLAPSED", "blockly-BLOCK_LABEL_CONTAINER", "blockly-BLOCK_LABEL_DISABLED", "blockly-BLOCK_LABEL_HAS_BRANCHES", "blockly-BLOCK_LABEL_HAS_INPUT", "blockly-BLOCK_LABEL_HAS_INPUTS", "blockly-BLOCK_LABEL_REPLACEABLE", "blockly-BLOCK_LABEL_STACK_BLOCKS", "blockly-BLOCK_LABEL_STATEMENT", "blockly-BLOCK_LABEL_TOOLBOX_CATEGORY", "blockly-BLOCK_LABEL_VALUE", "blockly-BUBBLE_LABEL_COMMENT", "blockly-BUBBLE_LABEL_DEFAULT", "blockly-BUBBLE_LABEL_WARNING", "blockly-CANNOT_DELETE_VARIABLE_PROCEDURE"];
+  for (const key of blockLabelKeys) {
+    assert.notEqual(locale[key], english[key], `ka:${key}: translated`);
+    assert.match(locale[key], /[\u10d0-\u10ff]/, `ka:${key}: Georgian script`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ka:${key}: tokens`);
+  }
+  assert.match(locale['blockly-ARIA_LABEL_TRASH_EMPTY'], /ამჟამად ცარიელია/);
+  assert.match(locale['blockly-BLOCK_LABEL_HAS_BRANCHES'], /%1 ტოტი/);
+  assert.match(locale['blockly-CANNOT_DELETE_VARIABLE_PROCEDURE'], /'%1'.*წაშლა შეუძლებელია.*'%2'.*განსაზღვრების ნაწილია/);
+  for (const pair of [['blockly-BLOCK_LABEL_HAS_INPUT', 'blockly-BLOCK_LABEL_HAS_INPUTS'], ['blockly-BUBBLE_LABEL_COMMENT', 'blockly-BUBBLE_LABEL_WARNING'], ['blockly-ARIA_TYPE_FIELD_TEXT_INPUT_ARGUMENT', 'blockly-ARIA_TYPE_FIELD_TEXT_INPUT_PROCEDURE'], ['blockly-ARIA_LABEL_ADD_INPUT', 'blockly-ARIA_LABEL_REMOVE_INPUT']]) assert.notEqual(locale[pair[0]], locale[pair[1]]);
   const mapAccessibilityKeys = ["draggable", "board-view-map", "map-view-empty", "map-view-upload", "map-view-remove-image", "map-view-unplaced", "map-view-place-hint", "map-view-all-placed", "blockly-ADD_COMMENT", "blockly-ANNOUNCE_CANT_SCROLL_FURTHER", "blockly-ANNOUNCE_MOVE_AFTER", "blockly-ANNOUNCE_MOVE_AROUND", "blockly-ANNOUNCE_MOVE_BEFORE", "blockly-ANNOUNCE_MOVE_CANCELED", "blockly-ANNOUNCE_MOVE_INSIDE", "blockly-ANNOUNCE_MOVE_TO", "blockly-ANNOUNCE_MOVE_WORKSPACE", "blockly-ANNOUNCE_SCROLLED_DOWN", "blockly-ANNOUNCE_SCROLLED_LEFT", "blockly-ANNOUNCE_SCROLLED_RIGHT", "blockly-ANNOUNCE_SCROLLED_UP", "blockly-ARIA_LABEL_ADD_ELSE_IF", "blockly-ARIA_LABEL_ADD_INPUT", "blockly-ARIA_LABEL_ADD_LIST_ITEM", "blockly-ARIA_LABEL_ADD_TEXT", "blockly-ARIA_LABEL_BUTTON", "blockly-ARIA_LABEL_COMMENT_COLLAPSE", "blockly-ARIA_LABEL_COMMENT_EXPAND", "blockly-ARIA_LABEL_FIELD_ANGLE"];
   for (const key of mapAccessibilityKeys) {
     assert.notEqual(locale[key], english[key], `ka:${key}: translated`);
