@@ -187,5 +187,14 @@ for (const code of ['he', 'he-IL']) {
   assert.match(locale['sync-conflict-detach-hint'], /התוכן שלו נשאר/);
   assert.match(locale['sync-report-partial'], /אינם ממשיכים הרצה ואינם מבטלים אותה/);
   assert.match(locale['sync-estimate-field-hint'], /חסרים.*להתעלמות.*null מפורש מנקה/);
+  for (const key of Object.keys(english).filter(key =>
+    /^(email-(recovery|failure)-|activity-recovery-|rule-email-recovery-|history-request-)/.test(key))) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: untranslated`);
+    assert.match(locale[key], /\p{Script=Hebrew}/u, `${code}:${key}: Hebrew text`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+  }
+  assert.match(locale['activity-recovery-cancel-confirm'], /לא ניתן יהיה לחדש אותה/);
+  assert.match(locale['email-recovery-confirm-cancel'], /לא ניתן יהיה לשחזרו/);
+  assert.match(locale['history-request-hint'], /לעולם אינו יכול לבטל שינוי נוסף/);
 }
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
