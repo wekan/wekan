@@ -4230,6 +4230,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/161aa2186">Correct Occitan email labels and import guidance</a>. Thanks to xet7.</summary>
+
+- Correct 12 mixed-language or inaccurate messages, including account
+  creation described as activation and a missing Trello export menu step.
+- Translation, registry and human-preference checks pass, covering preserved
+  translations, placeholders, email labels and import API syntax.
+  Wording is lower confidence; browser layout and fluent-speaker review were
+  not run. The wider language audit continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
