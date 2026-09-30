@@ -233,12 +233,13 @@ Remaining, and why:
   through it: each nested delivery stage re-runs every outer guard. That guard
   composition has to be made cheaper before archive can be listed
   (server/lib/listSyncSteps.js).
-- **Retention of the other stored Sync content.** Rule plans (rule and action
-  documents), rule archive commands and effects (card titles, History and
-  activity content), webhook plans (URLs and tokens), webhook responses and
-  webhook comment plans still keep content forever. None has a completion
-  receipt with a time yet; each needs one, as notification plans now have,
-  before it can be compacted.
+- **Retention of the rule plans and rule archive content.** Rule plans (rule
+  and action documents) and rule archive commands and effects (card titles,
+  History and activity content) still keep content forever. Notification and
+  webhook plans are compacted now (server/lib/syncPlanRetention.js). These two
+  are different: every replay re-validates them in full, and a rule email
+  command and an archive command take their checksum from the plan. A compact
+  form needs those readers to accept a completion receipt first.
 - **Atomicity.** Cards, History, activities and effects are coordinated by the
   write-ahead journal and replay, not by a transaction. The FerretDB v1 backend
   has no multi-document transactions, and journal ownership cannot fence a
@@ -1678,9 +1679,10 @@ template.
 **In short:** Fixes **ReplyBleed**: a reply to a notification email is now
 attributed only to the person it was sent to. Carries out the maintainer's
 2026-09-30 decisions: **incarnations** for Scrum records and activities,
-**90-day compaction** of rule email and notification plans, **Sync History
-linked when written**, **online History writer recovery**, and **manual and
-scheduled Sync through the durable journal** with replay after a restart.
+**90-day compaction** of rule email, notification and webhook plans, **Sync
+History linked when written**, **online History writer recovery**, and
+**manual and scheduled Sync through the durable journal** with replay after a
+restart.
 Irish gains the rule email recovery and legacy review translations.
 
 This release fixes the following CRITICAL SECURITY ISSUE of [ReplyBleed](https://wekan.fi/hall-of-fame/replybleed/):
@@ -1758,8 +1760,8 @@ the same values and timestamps and recovery refuses it.
 
 </details>
 
-**Retention** - finished rule emails and notification plans no longer keep their
-content forever.
+**Retention** - finished rule emails, notification plans and webhook plans no
+longer keep their content forever.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1e342170b">Compact finished rule email commands after 90 days</a>. Thanks to xet7.</summary>
@@ -1792,6 +1794,19 @@ resending; within 90 days a replay still re-checks every recipient. Scrum
 completions and requests and Sync intents and completions hold only ids and
 timestamps already, so there is nothing in them to compact. MongoDB and
 full-app tests cover compaction, replay and refusal.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5a7b74bd1">Compact delivered Sync webhook plans, with their URLs and tokens, after 90 days</a>. Thanks to xet7.</summary>
+
+A stored webhook plan kept each target's URL, its X-Wekan-Token credential and
+the request body forever, beside the receiver's reply and any comment plan.
+Notification plan retention becomes a shared kit, and webhooks use it. A
+completion receipt is written once every target is delivered. After 90 days
+the reply and comment-plan rows are removed and the plan is compacted in
+place, so the stored token is gone. A late replay returns as delivered. MongoDB
+and full-app tests cover it.
 
 </details>
 
