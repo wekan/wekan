@@ -2317,6 +2317,50 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedSelectionKeys = [
+    "multi-selection-active",
+    "select-only-one-board",
+    "set-selected-home",
+    "show-at-all-boards-page",
+    "show-card-counter-per-list",
+    "board-open-and-move-between-remaining-and-workspaces",
+    "vote-public",
+    "map-to-existing-user-desc",
+    "click-to-star",
+    "click-to-unstar",
+    "export-card-excel-no-disk-space",
+    "sort-desc",
+    "filter-show-archive",
+    "filter-hide-empty",
+    "import-board-instruction-excel",
+    "trello-select-boards",
+    "import-user-select",
+    "importMapMembersAddPopup-title",
+    "set-color-list",
+    "rescue-card-description",
+    "select-color",
+    "select-board",
+    "set-wip-limit-value",
+    "setWipLimitPopup-title",
+    "show-cards-minimum-count",
+    "star-board-title",
+    "set-default-board-title",
+    "subscribe",
+    "showSum-field-on-list",
+    "setCardColorPopup-title"
+  ];
+  for (const key of correctedSelectionKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /(?:Kliknij|Wybierz|Pokaż|Ukryj|Ustaw|Nié można|Zapiszë się)/, `csb:${key}: Polish remnants`);
+  }
+  for (const literal of ['.xlsx', 'Title', 'Description', 'Status/List', 'Members', 'Labels']) {
+    assert.ok(locale['import-board-instruction-excel'].includes(literal), `csb:Excel import: ${literal}`);
+  }
+  assert.match(locale['click-to-star'], /òznaczëc.*gwiôzdką/);
+  assert.match(locale['click-to-unstar'], /rëmnąc gwiôzdkã/);
+  assert.match(locale['map-to-existing-user-desc'], /nigdë nie mòże dac wiãcy prawów jak impòrt/);
+  assert.match(locale['setWipLimitPopup-title'], /WIP/);
+  assert.equal(locale['set-color-list'], locale['setCardColorPopup-title']);
   const correctedProgressKeys = [
     "idle-migration",
     "migration-batch-size-description",
