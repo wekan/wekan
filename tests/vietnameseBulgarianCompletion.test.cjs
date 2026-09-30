@@ -31,6 +31,14 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Friulian date filters; further translation batches remain.
 {
   const locale = read('fur');
+  const ruleNotificationKeys = ["add-parent-card", "remove-parent-card", "r-when-card-date", "r-trigger-vars-hint", "r-insert-variable", "r-vars-people-hint", "r-rule-any-trigger-help", "r-add-trigger-to-rule", "r-add-action-to-rule", "r-remove-rule-part", "notification-activity-heading", "notification-activity-description", "notification-activity-labels", "notification-activity-members", "notification-activity-assignees", "notification-activity-comments", "notification-activity-moves", "notification-activity-dates", "notification-activity-checklists", "notification-activity-attachments"];
+  for (const key of ruleNotificationKeys) {
+    assert.notEqual(locale[key], english[key], `fur:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `fur:${key}: tokens`);
+  }
+  for (const key of ['r-trigger-vars-hint', 'r-vars-people-hint']) assert.deepEqual(locale[key].match(/\{[^}]+\}/g), english[key].match(/\{[^}]+\}/g));
+  assert.notEqual(locale['r-add-trigger-to-rule'], locale['r-add-action-to-rule']);
+  assert.notEqual(locale['notification-activity-members'], locale['notification-activity-assignees']);
   const importVisibilityKeys = ["filter-column-age", "filter-column-age-disabled", "filter-column-age-days", "filter-column-age-hint", "advanced-filter-card-dates-hint", "import-board-instruction-leo", "import-board-instruction-todotxt", "instance", "instance-desc", "board-instance-info", "automatic-linked-url-schemes-hint", "other-parent-cards"];
   for (const key of importVisibilityKeys) {
     assert.notEqual(locale[key], english[key], `fur:${key}: translated`);
