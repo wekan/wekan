@@ -4254,6 +4254,19 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ef61a9ff8">Translate Breton rule email recovery messages</a>. Thanks to xet7.</summary>
+
+- Fill 56 missing or English entries for rule email recovery, resend and
+  discard actions, variable insertion and todo.txt import. Preserve existing
+  translations, placeholders and import syntax; 320 Breton entries remain.
+- Translation, registry and human-preference checks pass, including duplicate
+  delivery and access-denial warnings. Breton wording is lower confidence;
+  dictionary terminology was checked, but fluent-speaker and browser review
+  were not run. Other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
