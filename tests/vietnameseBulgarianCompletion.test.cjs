@@ -1280,5 +1280,23 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /ક્યારેય મોકલાશે નહીં/);
   assert.match(locale['rule-email-legacy-access-denied'], /પ્રવેશ નથી/);
   assert.match(locale['r-insert-variable'], /ચલ ઉમેરો/);
+  for (const key of Object.keys(english).filter(key =>
+    /^(auto-archive-|filter-(recency|movement-range|date-range|due-|column-age|preset|card-text)|notification-activity-|due-reminder-|map-view-)/.test(key))) {
+    assert.notEqual(locale[key], english[key], `gu-IN:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `gu-IN:${key}: tokens`);
+  }
+  for (const token of ['@createdAt', '@receivedAt', '@startAt', '@dueAt', '@endAt', '@listEnteredAt', 'none']) {
+    assert.ok(locale['advanced-filter-card-dates-hint'].includes(token), `gu-IN: preserve ${token}`);
+  }
+  for (const token of ['{creator}', '{assignees}', '{members}', '{customField:Name}']) {
+    assert.ok(locale['r-trigger-vars-hint'].includes(token), `gu-IN: preserve ${token}`);
+  }
+  assert.ok(locale['r-vars-people-hint'].includes('{customField:Field name}'));
+  assert.deepEqual(translationTokens(locale['custom-field-stringtemplate-context-hint']),
+    translationTokens(english['custom-field-stringtemplate-context-hint']));
+  assert.match(locale['filter-column-age-hint'], /ફરી શરૂ થતી નથી/);
+  assert.match(locale['instance-desc'], /ક્યારેય દેખાડવામાં આવતું નથી/);
+  assert.match(locale['due-reminder-days-label'], /ધન.*પહેલાંના.*ઋણ.*પછીના/);
+  assert.match(locale['notification-activity-description'], /હંમેશાં આવે છે/);
 }
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
