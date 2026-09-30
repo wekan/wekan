@@ -206,4 +206,18 @@ for (const code of ['he', 'he-IL']) {
   assert.match(locale['email-recovery-confirm-cancel'], /לא ניתן יהיה לשחזרו/);
   assert.match(locale['history-request-hint'], /לעולם אינו יכול לבטל שינוי נוסף/);
 }
+for (const code of ['fa', 'fa-IR']) {
+  const locale = read(code);
+  for (const key of hiraganaBatchKeys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: untranslated`);
+    assert.match(locale[key], /\p{Script=Arabic}/u, `${code}:${key}: Persian text`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+  }
+  for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:']) {
+    assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve ${token}`);
+  }
+  assert.match(locale['rule-email-recovery-resend-confirm'], /دو بار دریافت خواهد کرد/);
+  assert.match(locale['rule-email-legacy-discard-confirm'], /هرگز ارسال نخواهد شد/);
+  assert.match(locale['rule-email-legacy-description'], /نویسندهٔ قانون هنوز دسترسی دارد/);
+}
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
