@@ -4344,6 +4344,19 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0407c37ae">Translate Basque synchronization messages</a>. Thanks to xet7.</summary>
+
+- Fill 63 entries for synchronization conflicts, previews, reports and Jira
+  estimates. Preserve existing translations and source tokens; 257 Basque
+  entries remain flagged.
+- Translation, registry and human-preference checks pass, covering source
+  isolation, retained local content, report limitations and explicit null
+  handling. Fluent-speaker and browser review were not run. Other languages
+  remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
