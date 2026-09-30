@@ -312,5 +312,12 @@ for (const code of ['ms', 'ms-MY']) {
     translationTokens(english['custom-field-stringtemplate-context-hint']));
   assert.match(locale['due-reminder-days-label'], /positif.*sebelumnya.*negatif.*selepasnya/);
   assert.match(locale['notification-activity-description'], /sentiasa diterima/);
+  for (const key of Object.keys(english).filter(key => key.startsWith('scrum-'))) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+  }
+  assert.match(locale['scrum-report-help'], /bukan anggaran sifar/);
+  assert.match(locale['scrum-partial-report'], /hanya kad yang kini ditugaskan kepada anda/);
+  assert.match(locale['scrum-daily-observations-help'], /tidak merekodkan setiap perubahan/);
 }
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
