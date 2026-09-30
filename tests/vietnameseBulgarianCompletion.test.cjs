@@ -1280,6 +1280,15 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /ક્યારેય મોકલાશે નહીં/);
   assert.match(locale['rule-email-legacy-access-denied'], /પ્રવેશ નથી/);
   assert.match(locale['r-insert-variable'], /ચલ ઉમેરો/);
+  for (const key of Object.keys(english).filter(key =>
+    /^sync-(conflict-|preview-|source-|report-|recovery-|estimate-|original-time|remaining-time|time-estimate)/.test(key))) {
+    assert.notEqual(locale[key], english[key], `gu-IN:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `gu-IN:${key}: tokens`);
+  }
+  assert.match(locale['sync-conflict-hint'], /સ્રોત સિસ્ટમને કંઈ મોકલાતું નથી/);
+  assert.match(locale['sync-report-partial'], /ફરી શરૂ કરતા નથી.*ફેરફારો પાછા લેતા નથી/);
+  assert.match(locale['sync-estimate-field-hint'], /null જોડાયેલું મૂલ્ય સાફ/);
+  assert.match(locale['sync-time-estimate-hint'], /બરાબર એક મેળ ખાતું ક્ષેત્ર/);
   for (const key of Object.keys(english).filter(key => key.startsWith('scrum-'))) {
     assert.notEqual(locale[key], english[key], `gu-IN:${key}: untranslated`);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `gu-IN:${key}: tokens`);
