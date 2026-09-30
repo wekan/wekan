@@ -4396,6 +4396,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/441c30e07">Correct Basque timeline, member mapping and email labels</a>. Thanks to xet7.</summary>
+
+- Correct seven entries with changed meaning or mixed Spanish wording,
+  covering timeline state, member mapping and email-template labels.
+  Other translations remain unchanged.
+- Translation, registry and human-preference checks pass, including positive
+  and negative wording regressions. Fluent-speaker and browser review were
+  not run. The wider language audit continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
