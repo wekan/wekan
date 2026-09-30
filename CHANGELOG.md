@@ -2776,6 +2776,15 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/37a3c4682">Translate Latvian Scrum planning and reports</a>. Thanks to xet7.</summary>
+
+- Fill 84 Latvian Scrum planning, sprint and report messages.
+- Preserve existing translations and placeholders; check unknown estimates,
+  partial reports and observation limits. Update the translation coverage count.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
