@@ -8067,6 +8067,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5b3c74159f3f27581a356b5daa1b4ad2d3f92ff5">Translate Friulian sprint reports and events</a>. Thanks to xet7.</summary>
+
+- Translate 30 sprint-report and event strings, preserving existing
+  translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including report
+  counts and distinct sprint states. Friulian wording has lower confidence.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
