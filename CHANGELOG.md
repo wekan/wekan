@@ -8969,6 +8969,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/43dccd2fb9e354b6b7613633cef4bdcd6fc2b721">Correct Shona colors fields and invitation labels</a>. Thanks to xet7.</summary>
+
+- Translate 42 prefixed English entries and restore three literal date formats.
+  Preserve existing values outside this correction batch.
+- Translation, registry and human-preference checks pass, covering distinct
+  color choices, date formats, invitation tokens and warning-only work limits.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Another 538 prefixed English entries remain; wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
