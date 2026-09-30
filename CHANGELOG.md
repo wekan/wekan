@@ -7514,6 +7514,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5a401b6aa893a13aac6ab06c0c88ec7c66b8f35e">Translate Luxembourgish logic and math descriptions</a>. Thanks to xet7.</summary>
+
+- Translate 17 missing or English strings for logic and math descriptions,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including comparison
+  operators, AND/OR distinctions and conditional-field references.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
