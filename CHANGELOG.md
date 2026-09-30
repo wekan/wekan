@@ -4972,6 +4972,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a2c166d08f">Correct Kashubian search logic and status instructions</a>. Thanks to xet7.</summary>
+
+- Correct 15 search instructions and restore literal examples. Clarify AND
+  versus OR, unarchived card inclusion and positive integer limits.
+- Translation, registry and human-preference checks pass. Kashubian wording
+  is lower confidence; fluent-speaker and browser review were not run.
+  Other mixed-language text and languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
