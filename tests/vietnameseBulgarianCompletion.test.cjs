@@ -2317,6 +2317,86 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedCardControlKeys = [
+    "board-view-table",
+    "board-view-stats",
+    "calendar-previous-month-label",
+    "calendar-next-month-label",
+    "card-delete-notice",
+    "card-due",
+    "card-due-on",
+    "card-spent",
+    "card-edit-labels",
+    "card-start-on",
+    "cardCustomField-datePopup-title",
+    "positiveVoteMembersPopup-title",
+    "negativeVoteMembersPopup-title",
+    "editVoteEndDatePopup-title",
+    "vote-for-it",
+    "vote-against",
+    "deleteVotePopup-title",
+    "vote-delete-pop",
+    "cardStartPlanningPokerPopup-title",
+    "card-edit-planning-poker",
+    "editPokerEndDatePopup-title",
+    "poker-question",
+    "poker-one",
+    "poker-two",
+    "poker-three",
+    "poker-five",
+    "poker-eight",
+    "poker-thirteen",
+    "poker-twenty",
+    "poker-forty",
+    "poker-oneHundred",
+    "poker-unsure",
+    "poker-finish",
+    "poker-result-votes",
+    "poker-result-who",
+    "set-estimation",
+    "deletePokerPopup-title",
+    "poker-delete-pop",
+    "cardDetailsActionsPopup-title",
+    "cardDependencyIconPopup-title",
+    "dependencyLinePopup-title",
+    "importDependenciesPopup-title",
+    "adminChangeAvatarPopup-title",
+    "importSwimlanePopup-title",
+    "cardStickersPopup-title",
+    "invitePeoplePopup-title",
+    "rulesImportExportPopup-title",
+    "casSignIn",
+    "samlSignIn",
+    "change",
+    "change-avatar",
+    "change-permissions",
+    "theme-default",
+    "theme-category",
+    "theme-category-flat",
+    "theme-category-clear",
+    "theme-category-dark",
+    "theme-category-special",
+    "font-default",
+    "font-size",
+    "font-size-default",
+    "font-size-smaller",
+    "font-size-small",
+    "font-size-large",
+    "font-size-larger"
+  ];
+  for (const key of correctedCardControlKeys) {
+    assert.doesNotMatch(locale[key], /— pò kaszëbskù/, `csb:${key}: language label is not a translation`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+  }
+  for (const key of ['poker-one', 'poker-two', 'poker-three', 'poker-five', 'poker-eight',
+    'poker-thirteen', 'poker-twenty', 'poker-forty', 'poker-oneHundred', 'poker-unsure']) {
+    assert.equal(locale[key], english[key], `csb:${key}: preserve vote value`);
+  }
+  for (const key of ['card-delete-notice', 'vote-delete-pop', 'poker-delete-pop']) {
+    assert.match(locale[key], /na wiedno.*Stracysz wszëtczé dzejbë/);
+  }
+  assert.equal(locale['vote-against'], 'procëm');
+  assert.match(locale['samlSignIn'], /przez SAML/);
   const correctedActionKeys = [
     "activity-changedTitle",
     "comment-in-reply-to",
