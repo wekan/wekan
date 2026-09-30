@@ -2300,6 +2300,17 @@ Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/eeb42566e">Complete Persian keyboard labels and review technical terms</a>. Thanks to xet7.</summary>
+
+Translate 22 keyboard labels while preserving existing regional wording.
+Retain 15 reviewed keyboard legends, product names and mathematical symbols
+per locale. Both Persian files pass current-source completeness checks,
+including pending strings, plus placeholder and human-preference checks.
+Other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
