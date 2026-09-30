@@ -5611,6 +5611,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8ee15900ad">Translate Azerbaijani sprint reports and events</a>. Thanks to xet7.</summary>
+
+- Translate 30 English strings in each of three Azerbaijani locales for sprint
+  events, reports and states. Update the README coverage count to 120 locales.
+- Translation, registry and human-preference checks pass, including tokens,
+  unknown estimates and sprint cancellation. Fluent-speaker and browser review
+  were not run. The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
