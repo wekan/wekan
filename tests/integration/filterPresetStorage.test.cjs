@@ -18,7 +18,13 @@ test('preset writes are atomic per owner/board/name and deletion hooks clean onl
   let methods, removeBoard, removeUser;
   const boards = db.collection('boards');
   await boards.insertMany(['a', 'b'].map(_id => ({ _id, permission: 'private', members: ['one', 'two'] })));
-  const context = { createHash, validateFilterPresetState, check() {}, Match: { Any: 'any' },
+  // server/filterPresets.js reads boardPermission (semi-open boards, f122a8287);
+  // the sandbox hands it the real module and nothing else.
+  const sandboxRequire = id => {
+    if (id !== '/models/lib/boardPermission') throw new Error(`unexpected require ${id}`);
+    return require('../../models/lib/boardPermission.js');
+  };
+  const context = { createHash, validateFilterPresetState, check() {}, Match: { Any: 'any' }, require: sandboxRequire,
     Meteor: { methods: value => { methods = value; }, Error: class extends Error { constructor(code) { super(code); this.error = code; } },
       users: { after: { remove: hook => { removeUser = hook; } } } },
     Mongo: { Collection: class { rawCollection() { return collection; } async removeAsync(query) { return (await collection.deleteMany(query)).deletedCount; } } },
