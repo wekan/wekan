@@ -7562,6 +7562,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1718091b478c164c98422d10d2bc1bfc4733a22b">Translate Luxembourgish function blocks and navigation</a>. Thanks to xet7.</summary>
+
+- Translate 22 missing or English strings for workspace navigation and
+  function blocks, preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  return/no-return and Page Up/Page Down labels.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
