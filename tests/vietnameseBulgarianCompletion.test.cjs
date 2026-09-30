@@ -2144,3 +2144,25 @@ console.log('Completed translation batches: completeness, tokens, syntax and nat
   assert.match(locale['rule-email-legacy-description'], /ez ditu bere kabuz bidaliko/);
   assert.match(locale['rule-email-resolution-resend-uncertain'], /iritsi izana edo ez/);
 }
+
+for (const code of ['cy', 'cy-GB']) {
+  const locale = read(code);
+  assert.deepEqual(Object.keys(locale), Object.keys(english), `${code}: source key order`);
+  const keys = Object.keys(english).filter(key => key.startsWith('rule-email-') ||
+    key === 'r-insert-variable' || key === 'import-board-instruction-todotxt');
+  assert.equal(keys.length, 56);
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+  }
+  for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:']) {
+    assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve ${token}`);
+  }
+  assert.match(locale['r-insert-variable'], /Mewnosod newidyn/);
+  assert.match(locale['rule-email-recovery-resend-confirm'], /ddwywaith/);
+  assert.match(locale['rule-email-recovery-actions-hint'], /Dim ond at y derbynwyr heb eu cadarnhau/);
+  assert.match(locale['rule-email-legacy-discard-confirm'], /Ni chaiff byth ei anfon/);
+  assert.match(locale['rule-email-legacy-access-denied'], /Nid oes.*fynediad.*mwyach/);
+  assert.match(locale['rule-email-legacy-description'], /ni fydd WeKan yn eu hanfon ar ei ben ei hun/);
+  assert.match(locale['rule-email-resolution-resend-uncertain'], /wedi cyrraedd neu beidio/);
+}
