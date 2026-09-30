@@ -8549,6 +8549,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1851a42f87447ebaf9e37a30bfdc1b69d7677de7">Correct mixed-language Romansh import and template messages</a>. Thanks to xet7.</summary>
+
+- Replace 31 mixed-language import, upload, template and loading strings
+  with Romansh, preserving other translations and replacement tokens.
+- Translation, registry and human-preference checks pass, covering the
+  data-loss warning, shared template labels and import format names.
+  Low-confidence wording needs fluent-speaker review.
+  Browser review was not run; wider language cleanup remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
