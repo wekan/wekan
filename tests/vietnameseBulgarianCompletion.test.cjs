@@ -31,6 +31,22 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Romansh date filters, imports and archive-language corrections.
 {
   const locale = read('rm');
+  const correctedCloudKeys = ["cron-clear-errors", "database-migration-confirm", "disable-import-avatars-description", "disable-export-avatars-description", "gcs-permissions-note", "s3-access-key-menu-path", "azure-account-name-menu-path", "azure-container-menu-path", "gcs-credentials-menu-path", "restore-lost-cards-migration-description", "restore-all-archived-migration", "restore-all-archived-migration-description"];
+  for (const key of correctedCloudKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /\b(gli|degli|il tuo|Concedi|Trova|Cancella|Incolla)\b/, `rm:${key}: no mixed-language seed`);
+  }
+  assert.ok(locale['gcs-permissions-note'].includes('"client_email"'));
+  assert.ok(locale['gcs-permissions-note'].includes('"Storage Object Admin"'));
+  assert.ok(locale['gcs-credentials-menu-path'].includes('Service accounts'));
+  for (const key of ['azure-account-name-menu-path', 'azure-container-menu-path']) assert.ok(locale[key].includes('Storage accounts'));
+  for (const token of ['LDAP', 'OIDC/OAuth2', 'JSON', 'Trello']) assert.ok(locale['disable-import-avatars-description'].includes(token));
+  assert.match(locale['disable-export-avatars-description'], /autras datas vegnan tuttina exportads/);
+  assert.match(locale['database-migration-confirm'], /na vegnan betg pertutgads/);
+  for (const key of ['restore-lost-cards-migration-description', 'restore-all-archived-migration-description']) {
+    for (const token of ['swimlaneId', 'listId']) assert.ok(locale[key].includes(token));
+  }
+
   const correctedStorageKeys = ["move-all-attachments", "attachment-repair-locations-description", "mongodb-compact-description", "import-board-zip", "hideCheckedChecklistItems", "hideAllChecklistItems", "support-info-only-for-logged-in-users", "accounts-lockout-show-locked-users", "admin-people-filter-all", "attachment-storage-configuration", "attachments-path", "avatars-path"];
   for (const key of correctedStorageKeys) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
