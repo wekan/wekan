@@ -8331,6 +8331,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d5043485ceae745388f3ea538fb0176de4442fdd">Translate Frisian email controls and failures</a>. Thanks to xet7.</summary>
+
+- Translate 25 email-queue, delivery-failure and time-estimate strings in each
+  of fy and fy-NL, preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  queue actions and SMTP failure types.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
