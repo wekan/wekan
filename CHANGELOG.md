@@ -8043,6 +8043,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a6dab1b0419d7256708b9a30ff232c05893ee1f7">Translate Friulian keyboard labels</a>. Thanks to xet7.</summary>
+
+- Translate 15 keyboard labels and recognize 15 unchanged brands, symbols
+  and Friulian terms. Preserve existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including keyboard
+  directions and invariants. Friulian wording has lower confidence.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
