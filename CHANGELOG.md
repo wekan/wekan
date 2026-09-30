@@ -7358,6 +7358,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5c274b0558d0e09f69a65b14a03bc5b1e3af4b65">Translate Maltese email resolution and legacy review</a>. Thanks to xet7.</summary>
+
+- Translate 35 missing or English strings for email resolution and reviewing
+  older queued messages, preserving existing translations and tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  resolution actions and legacy confirmation messages.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
