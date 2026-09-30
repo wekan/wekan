@@ -810,4 +810,19 @@ for (const code of ['sl', 'sl_SI']) {
   assert.match(locale['due-reminder-days-label'], /pozitīvi.*pirms tās.*negatīvi.*pēc tās/);
   assert.match(locale['notification-activity-description'], /vienmēr tiek saņemti/);
 }
+{
+  const locale = read('is');
+  assert.deepEqual(Object.keys(locale), Object.keys(english), 'is: source key order');
+  for (const key of hiraganaBatchKeys) {
+    assert.notEqual(locale[key], english[key], `is:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `is:${key}: tokens`);
+  }
+  for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:']) {
+    assert.ok(locale['import-board-instruction-todotxt'].includes(token), `is: preserve ${token}`);
+  }
+  assert.match(locale['rule-email-recovery-resend-confirm'], /fá hann tvisvar/);
+  assert.match(locale['rule-email-legacy-discard-confirm'], /verður aldrei sendur/);
+  assert.match(locale['rule-email-legacy-access-denied'], /ekki lengur aðgang/);
+  assert.match(locale['r-insert-variable'], /breytu/);
+}
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
