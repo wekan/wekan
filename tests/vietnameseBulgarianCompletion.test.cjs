@@ -31,6 +31,19 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Romansh date filters, imports and archive-language corrections.
 {
   const locale = read('rm');
+  const correctedSearchViewKeys = ["r-all-boards", "r-of-cards-in-list", "r-move-all-cards", "card-counter-list", "roles-status-sees", "autoAddUsersWithDomainName", "myCardsViewChange-title", "myCardsViewChangePopup-title", "dueCardsViewChange-choice-all-description", "globalSearchViewChange-choice-me", "globalSearchViewChange-choice-all", "n-n-of-n-cards-found", "globalSearch-instructions-operator-board", "globalSearch-instructions-operator-creator", "globalSearch-instructions-operator-org", "globalSearch-instructions-operator-team"];
+  for (const key of correctedSearchViewKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /\b(ciartes|tabellai|utenc|Sposta|Vede)\b/, `rm:${key}: no mixed-language seed`);
+  }
+  assert.equal(locale['myCardsViewChange-title'], locale['myCardsViewChangePopup-title']);
+  assert.equal(locale['globalSearchViewChange-choice-all'], locale['cards-loading-all']);
+  assert.match(locale['dueCardsViewChange-choice-all-description'], /betg terminadas.*scadenza.*dretgs/);
+  for (const kind of ['board', 'creator', 'org', 'team']) {
+    const key = `globalSearch-instructions-operator-${kind}`;
+    assert.equal(locale[key].split('`')[1], english[key].split('`')[1], `rm:${key}: operator syntax`);
+  }
+
   const correctedNotificationKeys = ["notify-watch", "rescue-card-description", "shortcut-filter-my-cards", "show-cards-minimum-count", "star-board-title", "starred-boards-description", "has-overtime-cards", "tracking-info", "attachment-transfer-limits-title", "automatically-field-on-card", "always-field-on-card", "tableVisibilityMode-allowPrivateOnly", "tableVisibilityMode", "org-propagate-members-to-boards", "team-propagate-members-to-boards", "delete-board-confirm-popup", "delete-all-notifications", "show-parent-in-minicard", "attachment-count", "r-import-trello-note"];
   for (const key of correctedNotificationKeys) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
