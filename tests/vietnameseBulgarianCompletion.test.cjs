@@ -31,6 +31,18 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Armenian filters and import guidance; other placeholders remain.
 {
   const locale = read('hy');
+  const planningKeys = ["board-view-velocity", "scrum-settings", "scrum-product-owner", "scrum-master", "scrum-developers", "scrum-working-days", "scrum-enabled", "scrum-product-goal", "scrum-definition-of-done", "scrum-estimate-source", "scrum-estimate-unit", "scrum-completion-policy", "scrum-source-poker", "scrum-source-customField", "scrum-policy-dueComplete", "scrum-policy-doneLists", "scrum-sprints", "scrum-sprint", "scrum-start-sprint", "scrum-close-sprint", "scrum-cancel-sprint", "scrum-rollover-sprint", "scrum-cancel-reason", "scrum-product-backlog", "scrum-edit-sprint", "scrum-sprint-goal", "scrum-capacity", "scrum-new-sprint", "scrum-releases", "scrum-release", "scrum-select-sprint", "scrum-backlog", "scrum-backlog-help", "scrum-estimate", "scrum-backlog-rank", "scrum-issue-type", "scrum-acceptance-criteria", "scrum-events", "scrum-event-kind", "scrum-timebox"];
+  for (const key of planningKeys) {
+    assert.notEqual(locale[key], english[key], `hy:${key}: translated`);
+    assert.match(locale[key], /[\u0531-\u0587]/, `hy:${key}: Armenian script`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `hy:${key}: tokens`);
+  }
+  assert.equal(locale['scrum-product-backlog'], locale['board-view-product-backlog']);
+  assert.equal(locale['scrum-sprints'], locale['board-view-sprints']);
+  assert.match(locale['scrum-backlog-help'], /պլանավորված կամ ակտիվ/);
+  assert.match(locale['scrum-rollover-sprint'], /Չավարտված աշխատանքը/);
+  assert.match(locale['scrum-timebox'], /րոպեներ/);
+  for (const pair of [['scrum-start-sprint', 'scrum-close-sprint'], ['scrum-close-sprint', 'scrum-cancel-sprint'], ['scrum-policy-dueComplete', 'scrum-policy-doneLists'], ['scrum-estimate-source', 'scrum-estimate-unit']]) assert.notEqual(locale[pair[0]], locale[pair[1]]);
   const searchRuleKeys = ["blockly-WORKSPACE_LABEL_FLYOUT_WORKSPACE", "blockly-WORKSPACE_LABEL_MANY_STACKS", "blockly-WORKSPACE_LABEL_MUTATOR_WORKSPACE", "blockly-WORKSPACE_LABEL_PLAIN", "blockly-WORKSPACE_SEARCH_CLOSE", "blockly-WORKSPACE_SEARCH_FIND_NEXT", "blockly-WORKSPACE_SEARCH_FIND_PREVIOUS", "blockly-WORKSPACE_SEARCH_INPUT_LABEL", "blockly-WORKSPACE_SEARCH_MATCH", "blockly-WORKSPACE_SEARCH_NO_MATCHES", "blockly-WORKSPACE_SEARCH_PLACEHOLDER", "blockly-ZOOM_TO_FIT_ARIA_LABEL", "r-blocks-view", "r-blocks-help", "r-blocks-discard", "r-blocks-unavailable", "r-blocks-invalid", "r-blocks-conflict", "r-blocks-permission", "r-blocks-unsaved", "r-blocks-saved", "r-blocks-reload", "board-view-product-backlog", "board-view-sprints", "board-view-sprint-report"];
   for (const key of searchRuleKeys) {
     assert.notEqual(locale[key], english[key], `hy:${key}: translated`);
