@@ -863,4 +863,19 @@ for (const code of ['sl', 'sl_SI']) {
   assert.match(locale['due-reminder-days-label'], /jákvæðar.*fyrir hann.*neikvæðar.*eftir hann/);
   assert.match(locale['notification-activity-description'], /berast alltaf/);
 }
+for (const code of ['af', 'af_ZA']) {
+  const locale = read(code);
+  assert.deepEqual(Object.keys(locale), Object.keys(english), `${code}: source key order`);
+  for (const key of hiraganaBatchKeys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+  }
+  for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:']) {
+    assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve ${token}`);
+  }
+  assert.match(locale['rule-email-recovery-resend-confirm'], /twee keer ontvang/);
+  assert.match(locale['rule-email-legacy-discard-confirm'], /nooit gestuur word nie/);
+  assert.match(locale['rule-email-legacy-access-denied'], /nie meer toegang/);
+  assert.match(locale['r-insert-variable'], /veranderlike/);
+}
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
