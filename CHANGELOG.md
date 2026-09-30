@@ -6721,6 +6721,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6a97f0ab08">Translate Tagalog procedures and accessibility controls</a>. Thanks to xet7.</summary>
+
+- Translate 25 English strings for procedures and accessibility controls,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including return
+  values, function-only restrictions and screen-reader toggles.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
