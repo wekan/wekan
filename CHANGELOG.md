@@ -6914,6 +6914,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/338a88170d6004edd614ba40fd90ce3aadd99ab6">Translate Maltese saved filters and map guidance</a>. Thanks to xet7.</summary>
+
+- Translate 29 English placeholders and replace two prefixed English menu labels
+  with Maltese. Match import report navigation to the menu labels.
+- Translation, registry and token checks pass, including URL variables and
+  movement directions. Another 722 prefixed English values remain to translate.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
