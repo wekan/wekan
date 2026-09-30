@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { sweepUntil } from './sweepUntil';
 import { Meteor } from 'meteor/meteor';
 import { Random } from 'meteor/random';
 import Boards from '/models/boards';
@@ -87,9 +88,9 @@ describe('Stored Sync notification delivery',function(){
    const receipt=await SyncNotificationReceipts.rawCollection().findOne({_id:id});
    assert.ok(receipt.completedAt instanceof Date);assert.equal(receipt.checksum,stored.checksum);
    const past90=new Date(receipt.completedAt.getTime()+91*86400000);
-   // Other suites' delivered plans may be swept too; this one must be among them.
-   assert.ok((await createSyncNotificationRetention({plans:SyncNotificationPlans.rawCollection(),
-    receipts:SyncNotificationReceipts.rawCollection(),now:()=>past90}).sweep()).compacted>=1);
+   // Other suites' delivered plans may come first; sweep until this one is compacted.
+   assert.ok(await sweepUntil(createSyncNotificationRetention({plans:SyncNotificationPlans.rawCollection(),
+    receipts:SyncNotificationReceipts.rawCollection(),now:()=>past90}), async()=>(await SyncNotificationPlans.rawCollection().findOne({_id:id}))?.compactReceiptVersion===1));
    const compact=await SyncNotificationPlans.rawCollection().findOne({_id:id});
    assert.equal(compact.compactReceiptVersion,1);assert.equal(compact.plan,undefined);
    await EmailJobs.rawCollection().deleteMany({userId:{$in:ids}});

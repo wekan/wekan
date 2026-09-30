@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { sweepUntil } from './sweepUntil';
 import { Meteor } from 'meteor/meteor';
 import { Random } from 'meteor/random';
 import Boards from '/models/boards';
@@ -76,9 +77,9 @@ describe('Stored Sync webhook delivery', function () {
       assert.ok(completion.completedAt instanceof Date);
       assert.equal(await SyncWebhookResponses.find({ _id: id }).countAsync(), 1, 'the reply is kept while the plan is');
       const past90 = new Date(completion.completedAt.getTime() + 91 * 86400000);
-      assert.ok((await createSyncWebhookRetention({ plans: SyncWebhookPlans.rawCollection(),
+      assert.ok(await sweepUntil(createSyncWebhookRetention({ plans: SyncWebhookPlans.rawCollection(),
         receipts: SyncWebhookCompletions.rawCollection(), responses: SyncWebhookResponses.rawCollection(),
-        commentPlans: SyncWebhookCommentPlans.rawCollection(), now: () => past90 }).sweep()).compacted >= 1);
+        commentPlans: SyncWebhookCommentPlans.rawCollection(), now: () => past90 }), async () => (await SyncWebhookPlans.rawCollection().findOne({ _id: planId(activityId) }))?.compactReceiptVersion === 1));
       const compact = await SyncWebhookPlans.rawCollection().findOne({ _id: planId(activityId) });
       assert.equal(compact.compactReceiptVersion, 1);
       assert.ok(!JSON.stringify(compact).includes('unreachable.invalid') && !JSON.stringify(compact).includes('original'),

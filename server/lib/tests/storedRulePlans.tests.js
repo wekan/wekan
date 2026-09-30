@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { sweepUntil } from './sweepUntil';
 import { Meteor } from 'meteor/meteor';
 import { Random } from 'meteor/random';
 import { Accounts } from 'meteor/accounts-base';
@@ -176,8 +177,8 @@ describe('Stored Sync rule selection', function () {
       const doneId = planId('b'.repeat(64), activityId);
       const completion = await SyncRuleCompletions.rawCollection().findOne({ _id: doneId });
       assert.ok(completion.completedAt instanceof Date);
-      assert.ok((await createSyncRuleRetention({ plans: SyncRulePlans.rawCollection(), receipts: SyncRuleCompletions.rawCollection(),
-        now: () => new Date(completion.completedAt.getTime() + 91 * 86400000) }).sweep()).compacted >= 1);
+      assert.ok(await sweepUntil(createSyncRuleRetention({ plans: SyncRulePlans.rawCollection(), receipts: SyncRuleCompletions.rawCollection(),
+        now: () => new Date(completion.completedAt.getTime() + 91 * 86400000) }), async () => (await SyncRulePlans.rawCollection().findOne({ _id: doneId }))?.compactReceiptVersion === 1));
       const compact = await SyncRulePlans.rawCollection().findOne({ _id: doneId });
       assert.deepEqual(Object.keys(compact).sort(), ['_id', 'activityHash', 'checksum', 'compactReceiptVersion']);
       assert.equal(await runStoredSyncRules({ ...input, effectId: 'b'.repeat(64), adapters: {} }), 'b'.repeat(64));
