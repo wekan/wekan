@@ -31,6 +31,16 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Friulian date filters; further translation batches remain.
 {
   const locale = read('fur');
+  const observationKeys = ["scrum-unknown-estimate", "scrum-confirm-close", "scrum-confirm-cancel", "scrum-past-sprints", "scrum-list-category", "scrum-swimlane-purpose", "scrum-category-backlog", "scrum-category-todo", "scrum-category-doing", "scrum-category-done", "scrum-partial-report", "scrum-state-released", "scrum-released-at", "scrum-follow-up-cards", "scrum-import-reference-omitted", "scrum-partial-snapshot", "scrum-resume-close", "scrum-daily-observations", "scrum-daily-observations-help", "scrum-daily-truncated", "scrum-daily-empty", "scrum-observed-scope", "scrum-daily-observations-export-help", "scrum-import-pending", "sync-conflict-heading"];
+  for (const key of observationKeys) {
+    assert.notEqual(locale[key], english[key], `fur:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `fur:${key}: tokens`);
+  }
+  assert.equal(locale['scrum-category-backlog'], locale['scrum-backlog']);
+  assert.equal(locale['scrum-category-done'], locale['scrum-completed']);
+  assert.ok(locale['scrum-daily-truncated'].includes('366'));
+  for (const key of ['scrum-daily-observations-help', 'scrum-daily-observations-export-help']) assert.ok(locale[key].includes('UTC'));
+  assert.notEqual(locale['scrum-confirm-close'], locale['scrum-confirm-cancel']);
   const scrumReportKeys = ["scrum-new-sprint", "scrum-releases", "scrum-release", "scrum-select-sprint", "scrum-backlog", "scrum-backlog-help", "scrum-estimate", "scrum-backlog-rank", "scrum-issue-type", "scrum-acceptance-criteria", "scrum-events", "scrum-event-kind", "scrum-timebox", "scrum-notes", "scrum-event-planning", "scrum-event-daily", "scrum-event-review", "scrum-event-retrospective", "scrum-committed", "scrum-completed", "scrum-added", "scrum-removed", "scrum-incomplete", "scrum-no-closed-sprints", "scrum-report-help", "scrum-total", "scrum-state-planned", "scrum-state-active", "scrum-state-closed", "scrum-state-cancelled"];
   for (const key of scrumReportKeys) {
     assert.notEqual(locale[key], english[key], `fur:${key}: translated`);
