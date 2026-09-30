@@ -2785,6 +2785,15 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a29104809">Translate Latvian synchronization messages</a>. Thanks to xet7.</summary>
+
+- Fill 63 Latvian Sync conflict, preview, report and estimate messages.
+- Preserve existing translations and placeholders; check source-write warnings,
+  partial-run limitations and explicit null handling.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
