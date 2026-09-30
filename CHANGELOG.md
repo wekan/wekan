@@ -8139,6 +8139,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ccc2d8b2d31605486978b126f6f0d90442025d22">Translate Friulian activity recovery</a>. Thanks to xet7.</summary>
+
+- Translate 25 activity-recovery and time-estimate strings, preserving
+  existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including matching
+  delivery controls and distinct recovery states. Friulian has lower confidence.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
