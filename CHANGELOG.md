@@ -5401,6 +5401,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d8f5600584aaca1208e6335647c078830947de2d">Translate Armenian sprint planning labels</a>. Thanks to xet7.</summary>
+
+- Fill 40 English placeholders for sprint planning, preserving existing
+  translations. Update the coverage count to 117 languages.
+- Translation, registry and human-preference checks pass, including naming,
+  time units and opposite actions. Fluent-speaker and browser review were
+  not run. The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
