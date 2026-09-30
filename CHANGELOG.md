@@ -2703,6 +2703,16 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f7ad3b102">Complete remaining Belarusian notification and keyboard translations</a>. Thanks to xet7.</summary>
+
+- Translate 90 notification, recovery, history and keyboard messages; retain
+  product names, printed modifier legends and mathematical function names.
+- Check Belarusian completeness against English, including pending keys, token
+  preservation and irreversible-action warnings. Preserve existing translations.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
