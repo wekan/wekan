@@ -2445,6 +2445,16 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a50d2e75f">Translate Slovenian synchronization controls and reports</a>. Thanks to xet7.</summary>
+
+- Fill 63 English placeholders in each Slovenian locale for synchronization
+  conflicts, previews, source omissions, reports and estimate mappings.
+- Preserve existing translations and verify placeholders, local-content
+  retention, report limitations and missing-value versus null behavior.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
