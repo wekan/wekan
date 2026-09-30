@@ -5335,6 +5335,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3d6da3be3907c7c64068766408d19f9f8a207b6e">Translate Armenian block input roles</a>. Thanks to xet7.</summary>
+
+- Fill 35 English placeholders for block controls and input roles, preserving
+  existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including opposite
+  controls, positions and arithmetic roles. Fluent-speaker and browser review
+  were not run. The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
