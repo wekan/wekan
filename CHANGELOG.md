@@ -5941,6 +5941,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5eea6b13de">Translate Georgian search and rule editor guidance</a>. Thanks to xet7.</summary>
+
+- Translate 25 English strings for search, rule editing and planning views,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including trigger
+  counts, administrator permission, reload instructions and shared labels.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
