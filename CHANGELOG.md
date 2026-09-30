@@ -5324,6 +5324,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/75ea317047ee4489cf767fde59440fcbfbee8998">Translate Armenian block field and editing labels</a>. Thanks to xet7.</summary>
+
+- Fill 37 English placeholders for block fields, editing and keyboard controls,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including coordinate
+  order and distinct editing actions. Fluent-speaker and browser review were
+  not run. The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
