@@ -1501,6 +1501,14 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /Non at a èssere imbiadu mai/);
   assert.match(locale['rule-email-legacy-access-denied'], /non tenet prus atzessu/);
   assert.match(locale['r-insert-variable'], /Inserta una variàbile/);
+  for (const key of Object.keys(english).filter(key => key.startsWith('scrum-'))) {
+    assert.notEqual(locale[key], english[key], `sc:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sc:${key}: tokens`);
+  }
+  assert.match(locale['scrum-report-help'], /non sunt istimas a zero/);
+  assert.match(locale['scrum-partial-report'], /isceti is cartas assignadas a tie/);
+  assert.match(locale['scrum-daily-observations-help'], /non registrant cada càmbiu/);
+  assert.match(locale['scrum-daily-observations-export-help'], /Is istimas disconnotas non sunt zero/);
   for (const key of Object.keys(english).filter(key => key.startsWith('sync-'))) {
     assert.notEqual(locale[key], english[key], `sc:${key}: untranslated`);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sc:${key}: tokens`);
