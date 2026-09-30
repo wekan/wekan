@@ -548,6 +548,13 @@ for (const code of ['sl', 'sl_SI']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /Nikada neće biti poslana/);
   assert.match(locale['rule-email-legacy-access-denied'], /više nema pristup/);
   assert.match(locale['r-insert-variable'], /promjenljivu/);
+  for (const key of Object.keys(english).filter(key => key.startsWith('scrum-'))) {
+    if (key !== 'scrum-sprint') assert.notEqual(locale[key], english[key], `bs:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `bs:${key}: tokens`);
+  }
+  assert.match(locale['scrum-report-help'], /nisu nulte procjene/);
+  assert.match(locale['scrum-partial-report'], /samo kartice koje su vam trenutno dodijeljene/);
+  assert.match(locale['scrum-daily-observations-help'], /ne bilježe svaku promjenu/);
   for (const key of Object.keys(english).filter(key =>
     /^(auto-archive-|filter-(recency|movement-range|date-range|due-|column-age|preset|card-text)|notification-activity-|due-reminder-|map-view-)/.test(key))) {
     assert.notEqual(locale[key], english[key], `bs:${key}: untranslated`);
