@@ -31,6 +31,14 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Frisian date filters; further translation batches remain.
 for (const code of ['fy', 'fy-NL']) {
   const locale = read(code);
+  const diagnosticEmailKeys = ["sync-report-review-only", "sync-report-unavailable", "sync-report-empty", "sync-recovery-heading", "sync-recovery-description", "sync-recovery-unavailable", "sync-recovery-all", "sync-estimate-field", "sync-estimate-field-hint", "email-recovery-heading", "email-recovery-description", "email-recovery-saving", "email-recovery-queued", "email-recovery-retrying", "email-recovery-attempts", "email-recovery-oldest", "email-recovery-next", "email-recovery-changed"];
+  for (const key of diagnosticEmailKeys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+  }
+  assert.ok(locale['sync-recovery-description'].includes('30'));
+  for (const token of ['Jira', 'ID', 'null']) assert.ok(locale['sync-estimate-field-hint'].includes(token));
+  assert.notEqual(locale['email-recovery-oldest'], locale['email-recovery-next']);
   const syncReportKeys = ["sync-preview-truncated", "sync-preview-omissions", "sync-preview-scope", "sync-preview-excluded", "sync-preview-unmapped", "sync-preview-parser-warnings", "sync-preview-parser-unsupported", "sync-source-heading", "sync-source-scope", "sync-source-unmapped", "sync-source-excluded", "sync-source-converted", "sync-source-fallback", "sync-source-excluded-item", "sync-source-occurrences", "sync-source-truncated", "sync-source-omitted", "sync-report-button", "sync-report-retention", "sync-report-partial", "sync-report-unfinished", "sync-report-failed", "sync-report-completed", "sync-report-completed-with-warnings", "sync-report-skipped"];
   for (const key of syncReportKeys) {
     assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
