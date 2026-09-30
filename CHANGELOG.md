@@ -3338,7 +3338,8 @@ placeholders. Other languages remain in progress.
 
 - Fill 63 Irish Sync conflict, preview, report and recovery messages.
 - Translation, registry and human-preference checks pass, including preserved
-  translations, placeholders, partial-change warnings and explicit-null handling.
+  translations, placeholders, partial-change warnings and explicit-null
+  handling.
   Browser layout and fluent-speaker review were not run.
 
 </details>
