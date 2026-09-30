@@ -7322,6 +7322,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f3b76a42a5ddcbc35634724e84d3baa2c43717f7">Translate Maltese Sync diagnostics and email queue</a>. Thanks to xet7.</summary>
+
+- Translate 36 English placeholders for Sync diagnostics and email delivery,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including retention
+  periods, null semantics and distinct delivery actions.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
