@@ -31,6 +31,24 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Romansh date filters, imports and archive-language corrections.
 {
   const locale = read('rm');
+  const ruleReminderKeys = ["add-parent-card", "remove-parent-card", "r-when-card-date", "r-trigger-vars-hint", "r-insert-variable", "r-vars-people-hint", "r-rule-any-trigger-help", "r-add-trigger-to-rule", "r-add-action-to-rule", "r-remove-rule-part", "notification-activity-heading", "notification-activity-description", "notification-activity-labels", "notification-activity-members", "notification-activity-assignees", "notification-activity-comments", "notification-activity-moves", "notification-activity-dates", "notification-activity-checklists", "notification-activity-attachments", "notification-activity-customFields", "notification-activity-archive", "notification-activity-created", "due-reminder-heading", "due-reminder-days-label", "due-reminder-off", "due-reminder-webhook", "due-reminder-invalid", "due-reminder-saved", "dependency-type-duplicates", "dependency-type-is-duplicated-by", "custom-field-stringtemplate-context-hint", "filter-presets", "filter-preset-choose", "filter-preset-name", "filter-preset-save", "filter-preset-replace-hint", "filter-preset-saved", "filter-preset-applied", "filter-preset-deleted", "filter-preset-error", "filter-card-text-label"];
+  for (const key of ruleReminderKeys) {
+    assert.notEqual(locale[key], english[key], `rm:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
+  }
+  for (const token of ['{creator}', '{assignees}', '{members}', '{customField:Name}']) {
+    assert.ok(locale['r-trigger-vars-hint'].includes(token), `rm: preserve ${token}`);
+  }
+  assert.ok(locale['r-vars-people-hint'].includes('{customField:Field name}'));
+  assert.match(locale['r-rule-any-trigger-help'], /in da ses.*en successiun/);
+  assert.match(locale['notification-activity-description'], /arrivan adina/);
+  assert.match(locale['due-reminder-days-label'], /0.*positivs.*avant.*negativs.*suenter/);
+  assert.match(locale['due-reminder-invalid'], /diesch.*-14.*14/);
+  assert.notEqual(locale['dependency-type-duplicates'], locale['dependency-type-is-duplicated-by']);
+  for (const [key, original] of [['comments', 'comments'], ['checklists', 'checklists'], ['attachments', 'attachments']]) {
+    assert.equal(locale[`notification-activity-${key}`], locale[original]);
+  }
+
   const keys = ["auto-archive-days", "auto-archive-off", "auto-archive-hint", "filter-recency-any", "filter-recency-day", "filter-recency-week", "filter-recency-month", "filter-recency-older", "filter-movement-range", "filter-date-range-field", "filter-date-range-from", "filter-date-range-to", "filter-date-range-missing", "filter-date-range-list-entry", "filter-date-range-invalid", "filter-due-any", "filter-due-previous-week", "filter-due-next-month", "filter-column-age", "filter-column-age-disabled", "filter-column-age-days", "filter-column-age-hint", "advanced-filter-card-dates-hint", "import-board-instruction-leo", "import-board-instruction-todotxt", "instance", "instance-desc", "board-instance-info", "automatic-linked-url-schemes-hint", "other-parent-cards", "archive-board-confirm", "archive-list", "archive-swimlane", "archive-selection", "archiveBoardPopup-title", "archived-boards", "card-archived", "board-archived", "card-archive-pop", "card-archive-suggest-cancel", "list-archive-pop", "list-archive-suggest", "listArchivePopup-title", "swimlane-archive-pop", "swimlane-archive-suggest", "swimlaneArchivePopup-title"];
   for (const key of keys) {
     assert.notEqual(locale[key], english[key], `rm:${key}: translated`);
