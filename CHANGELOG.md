@@ -2353,6 +2353,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4d5e5fa19">Translate Malay Scrum planning and reports</a>. Thanks to xet7.</summary>
+
+Fill 168 Scrum strings across both Malay locale files. Tests preserve
+placeholders and warnings about unknown estimates, partial reports and daily
+observations. Existing translations are preserved and human-preference checks
+pass. Each Malay locale still has 478 reported placeholders. Other languages
+remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
