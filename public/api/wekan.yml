@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v12.11
+  version: v12.12
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -5363,6 +5363,9 @@ definitions:
            background is an uploaded/imported image rather than an external URL.
         type: string
         x-nullable: true
+      syncEffectsEnabled:
+        type: boolean
+        x-nullable: true
       allowsCardCounterList:
         description: |
            Show card counter per list
@@ -7548,6 +7551,9 @@ definitions:
         type: string
         x-nullable: true
       disableActivities:
+        type: boolean
+        x-nullable: true
+      enableSyncCronEffects:
         type: boolean
         x-nullable: true
       disableNotifications:
