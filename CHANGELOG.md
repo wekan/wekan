@@ -2154,6 +2154,17 @@ are preserved and human-preference checks pass. Each Hebrew locale still has
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a9ab2378e">Translate Hebrew filters, notifications and board controls</a>. Thanks to xet7.</summary>
+
+Fill 162 strings across both Hebrew locale files. Tests preserve filter and
+rule syntax, placeholders and visibility warnings. Existing translations are
+preserved; translation, language wiring and human-preference checks pass.
+Update the README coverage count to 75. Each Hebrew locale still has 251
+reported placeholders; other languages also remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
