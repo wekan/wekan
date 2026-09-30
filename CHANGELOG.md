@@ -5005,6 +5005,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c6c4339f47">Correct Kashubian backup scope and export messages</a>. Thanks to xet7.</summary>
+
+- Correct 15 backup and export messages. Preserve organization backup
+  exclusions and restore boundaries; correct the monitoring export action.
+- Translation, registry and human-preference checks pass. Kashubian wording
+  is lower confidence; fluent-speaker and browser review were not run.
+  Other mixed-language text and languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
