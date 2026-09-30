@@ -5677,6 +5677,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f844ff3423">Translate Azerbaijani rule email resolution</a>. Thanks to xet7.</summary>
+
+- Translate 30 missing or English strings in each of three Azerbaijani locales
+  for email review and resending, preserving translations and tokens.
+- Translation, registry and human-preference checks pass, including server
+  acceptance and duplicate delivery warnings. Fluent-speaker and browser
+  review were not run. The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
