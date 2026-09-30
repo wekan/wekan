@@ -2237,6 +2237,18 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `gd: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /Cuir caochladair/);
+  assert.equal(locale['email-templates-title'], 'Teamplaidean puist-d');
+  for (const kind of ['invite', 'activity']) {
+    assert.match(locale[`email-templates-${kind}-subject`], /^Cuspair puist-d/);
+    assert.match(locale[`email-templates-${kind}-body`], /^Bodhaig puist-d/);
+  }
+  assert.match(locale['email-templates-activity-subject'], /fios gnìomhachd/);
+  assert.equal(locale['anonymize-account'], 'Dèan an cunntas gun urra');
+  assert.match(locale['anonymize-account-confirm-popup'], /gu buan/);
+  assert.match(locale['anonymize-account-confirm-popup'], /clàradh a-steach à comas/);
+  assert.match(locale['anonymize-account-confirm-popup'], /cumaidh bùird, cairtean agus beachdan an eachdraidh/);
+  assert.match(locale['anonymize-account-confirm-popup'], /Cha ghabh an gnìomh seo a neo-dhèanamh/);
+  assert.doesNotMatch(locale['anonymize-account-confirm-popup'], /às-phortadh|iom-phortadh/);
   assert.match(locale['email-recovery-confirm-cancel'], /cha ghabh a h-aiseag/);
   assert.match(locale['email-recovery-description'], /lìbhrigeadh neo-chinnteach tachairt a-rithist/);
   assert.match(locale['activity-recovery-description'], /Cha chruthaich ath-fheuchainn.*às ùr gu bràth/);
