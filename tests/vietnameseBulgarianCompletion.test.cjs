@@ -31,6 +31,15 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Maltese filters and imports; remaining untranslated strings are filled separately.
 {
   const locale = read('mt');
+  const correctedCloudKeys = ["backup-frequency", "backup-frequency-off", "backup-frequency-daily", "backup-frequency-weekly", "backup-frequency-monthly", "backup-restore-replace-all", "gcs-project-id", "gcs-bucket", "gcs-key-filename", "gcs-credentials", "gcs-project-id-description", "test-cloud-connection", "cloud-connection-success", "cloud-connection-failed", "cloud-settings-saved", "pause", "stop", "migration-starting", "migration-pausing", "migration-stopping", "migration-paused", "migration-progress", "migration-started", "migration-status", "migration-stopped", "s3-region-description", "test-s3-connection", "writable-path", "attachment-storage-settings", "automatic-migration", "lost-cards-list", "fix-avatar-urls-migration", "migration-needed", "migration-complete", "migration-running"];
+  for (const key of correctedCloudKeys) {
+    assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
+    assert.doesNotMatch(locale[key], /Traduzzjoni Maltija:/, `mt:${key}: no prefixed English`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `mt:${key}: tokens`);
+  }
+  assert.notEqual(locale.pause, locale.stop);
+  assert.notEqual(locale['cloud-connection-success'], locale['cloud-connection-failed']);
+  assert.match(locale['s3-region-description'], /us-east-1/);
   const correctedBackupMigrationKeys = ["cron-error-severity", "cron-error-details", "cron-retry-failed", "cron-resume-paused", "cron-migrations-resumed", "cron-migrations-retried", "complete", "idle", "storage-read", "s3-force-path-style", "azure-account-key", "azure-connection-string", "azure-container", "database-migration", "database-migration-phase", "sandstorm-migration-status", "sandstorm-migration-success", "sandstorm-migration-failed", "sandstorm-migration-pending", "sandstorm-storage-item", "sandstorm-disk-usage", "sandstorm-raw-mongodb", "collections", "features", "features-performance", "features-security", "render-links-as-plain-text", "always-show-code-as-text", "backup", "backup-data", "backup-scope", "backup-scope-instance", "backup-now", "backup-done", "backup-schedule"];
   for (const key of correctedBackupMigrationKeys) {
     assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
