@@ -663,5 +663,23 @@ for (const code of ['sl', 'sl_SI']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /ніколі не будзе адпраўлены/);
   assert.match(locale['rule-email-legacy-access-denied'], /больш не мае доступу/);
   assert.match(locale['r-insert-variable'], /зменную/);
+  for (const key of Object.keys(english).filter(key =>
+    /^(auto-archive-|filter-(recency|movement-range|date-range|due-|column-age|preset|card-text)|notification-activity-|due-reminder-|map-view-)/.test(key))) {
+    assert.notEqual(locale[key], english[key], `be:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `be:${key}: tokens`);
+  }
+  for (const token of ['@createdAt', '@receivedAt', '@startAt', '@dueAt', '@endAt', '@listEnteredAt', 'none']) {
+    assert.ok(locale['advanced-filter-card-dates-hint'].includes(token), `be: preserve ${token}`);
+  }
+  for (const token of ['{creator}', '{assignees}', '{members}', '{customField:Name}']) {
+    assert.ok(locale['r-trigger-vars-hint'].includes(token), `be: preserve ${token}`);
+  }
+  assert.ok(locale['r-vars-people-hint'].includes('{customField:Field name}'));
+  assert.deepEqual(translationTokens(locale['custom-field-stringtemplate-context-hint']),
+    translationTokens(english['custom-field-stringtemplate-context-hint']));
+  assert.match(locale['filter-column-age-hint'], /не скідае/);
+  assert.match(locale['instance-desc'], /ніколі не паказваецца тым, хто не ўвайшоў/);
+  assert.match(locale['due-reminder-days-label'], /дадатныя.*да яго.*адмоўныя.*пасля яго/);
+  assert.match(locale['notification-activity-description'], /заўсёды прыходзяць/);
 }
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
