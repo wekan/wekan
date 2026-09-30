@@ -969,4 +969,19 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['due-reminder-days-label'], /धनात्मक.*पहले.*ऋणात्मक.*बाद/);
   assert.match(locale['notification-activity-description'], /हमेशा मिलते हैं/);
 }
+{
+  const locale = read('bn');
+  assert.deepEqual(Object.keys(locale), Object.keys(english), 'bn: source key order');
+  for (const key of hiraganaBatchKeys) {
+    assert.notEqual(locale[key], english[key], `bn:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `bn:${key}: tokens`);
+  }
+  for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:']) {
+    assert.ok(locale['import-board-instruction-todotxt'].includes(token), `bn: preserve ${token}`);
+  }
+  assert.match(locale['rule-email-recovery-resend-confirm'], /দুবার পাবেন/);
+  assert.match(locale['rule-email-legacy-discard-confirm'], /কখনো পাঠানো হবে না/);
+  assert.match(locale['rule-email-legacy-access-denied'], /আর প্রবেশাধিকার নেই/);
+  assert.match(locale['r-insert-variable'], /ভেরিয়েবল/);
+}
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
