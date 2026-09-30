@@ -4383,6 +4383,19 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9ee092452">Complete flagged Basque notification and keyboard translations</a>. Thanks to xet7.</summary>
+
+- Fill 79 entries and retain 13 reviewed keyboard labels, product names and
+  mathematical symbols. Basque has no flagged placeholders, including pending
+  keys; existing translations and source tokens are preserved.
+- Whole-locale translation, registry and human-preference checks pass, with
+  regressions for uncertain delivery and irreversible cancellation.
+  Fluent-speaker and browser review were not run. The older wording audit
+  and other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
