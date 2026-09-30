@@ -2317,6 +2317,59 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedSearchHelpKeys = [
+    "predicate-month",
+    "predicate-quarter",
+    "predicate-year",
+    "predicate-due",
+    "predicate-modified",
+    "predicate-created",
+    "predicate-checklist",
+    "predicate-start",
+    "predicate-end",
+    "predicate-assignee",
+    "predicate-public",
+    "predicate-private",
+    "predicate-selector",
+    "predicate-projection",
+    "operator-number-expected",
+    "operator-sort-invalid",
+    "operator-status-invalid",
+    "next-page",
+    "previous-page",
+    "heading-notes",
+    "globalSearch-instructions-heading",
+    "globalSearch-instructions-operators",
+    "globalSearch-instructions-operator-status",
+    "globalSearch-instructions-notes-1",
+    "globalSearch-instructions-notes-3-2",
+    "link-to-search",
+    "excel-font",
+    "label-colors",
+    "label-names",
+    "archived-at",
+    "sort-boards-title-asc",
+    "sort-boards-title-desc",
+    "due-complete",
+    "card-mark-complete",
+    "card-mark-incomplete",
+    "stickers",
+    "card-dependencies",
+    "show-dependencies",
+    "hide-dependencies",
+    "drag-to-connect"
+  ];
+  for (const key of correctedSearchHelpKeys) {
+    assert.doesNotMatch(locale[key], /— pò kaszëbskù/, `csb:${key}: language label is not a translation`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+    if (key.startsWith('predicate-')) assert.match(locale[key], /^[\p{Letter}\p{Mark}]+$/u);
+  }
+  assert.equal(locale['excel-font'], 'Arial');
+  assert.ok(locale['globalSearch-instructions-operator-status'].includes('`__operator_status__:<status>`'));
+  assert.match(locale['globalSearch-instructions-notes-3-2'], /dodatną abò ùjemną całkòwitą lëczbã/);
+  assert.match(locale['sort-boards-title-asc'], /A → Z/);
+  assert.match(locale['sort-boards-title-desc'], /Z → A/);
+  assert.notEqual(locale['card-mark-complete'], locale['card-mark-incomplete']);
   const correctedSearchKeys = [
     "status",
     "owner",
