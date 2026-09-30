@@ -5236,6 +5236,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3f7a0f1aaba2ef44875d661ce5456f9bf31ba8a7">Translate Albanian sprint reports and sync conflicts</a>. Thanks to xet7.</summary>
+
+- Fill 48 English placeholders for sprint reports and synchronization
+  conflicts, preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including partial
+  reports, unknown estimates and local card preservation. Fluent-speaker and
+  browser review were not run. The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
