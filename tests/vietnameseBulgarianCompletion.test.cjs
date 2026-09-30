@@ -2068,3 +2068,25 @@ console.log('Completed translation batches: completeness, tokens, syntax and nat
   assert.match(locale['rule-email-resolution-resend-uncertain'], /erruet pe get/);
   assert.doesNotMatch(locale['rule-email-resolution-resend-uncertain'], /kaset gant berzh/);
 }
+
+{
+  const locale = read('eu');
+  assert.deepEqual(Object.keys(locale), Object.keys(english), 'eu: source key order');
+  const keys = Object.keys(english).filter(key => key.startsWith('rule-email-') ||
+    key === 'r-insert-variable' || key === 'import-board-instruction-todotxt');
+  assert.equal(keys.length, 56);
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `eu:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `eu:${key}: tokens`);
+  }
+  for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:']) {
+    assert.ok(locale['import-board-instruction-todotxt'].includes(token), `eu: preserve ${token}`);
+  }
+  assert.match(locale['r-insert-variable'], /Txertatu aldagaia/);
+  assert.match(locale['rule-email-recovery-resend-confirm'], /bi aldiz/);
+  assert.match(locale['rule-email-recovery-actions-hint'], /berretsi gabeko hartzaileei soilik/);
+  assert.match(locale['rule-email-legacy-discard-confirm'], /Ez da inoiz bidaliko/);
+  assert.match(locale['rule-email-legacy-access-denied'], /ez du jada.*sarbiderik/);
+  assert.match(locale['rule-email-legacy-description'], /ez ditu bere kabuz bidaliko/);
+  assert.match(locale['rule-email-resolution-resend-uncertain'], /iritsi izana edo ez/);
+}
