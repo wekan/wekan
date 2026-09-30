@@ -4603,6 +4603,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/362a51672c">Translate remaining flagged Kashubian recovery strings</a>. Thanks to xet7.</summary>
+
+- Translate 81 recovery and keyboard strings and retain 11 technical terms.
+  No flagged English placeholders remain; older Polish-seeded values still
+  require correction.
+- Translation, registry and human-preference checks pass, covering all tokens
+  and recovery warnings. Kashubian wording is lower confidence; fluent-speaker
+  and browser review were not run. Other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
