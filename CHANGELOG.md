@@ -7166,6 +7166,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0e12e3653a7930ccb0ebcf3b7312ebd00bb8f33f">Translate remaining prefixed Maltese flow explanations</a>. Thanks to xet7.</summary>
+
+- Replace the final 22 prefixed English values with Maltese flow explanations
+  and add regression coverage against this pattern throughout the locale.
+- Translation, registry and human-preference checks pass, including forecast
+  limits and time-adjustment caveats. Other English placeholders remain.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
