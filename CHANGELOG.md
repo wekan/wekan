@@ -8079,6 +8079,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/140789d355e2510fdd865821eac7d78fe9e30fe4">Translate Friulian sprint observations</a>. Thanks to xet7.</summary>
+
+- Translate 25 workflow and observation strings, preserving existing
+  translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including UTC,
+  observation limits and confirmations. Friulian has lower confidence.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
