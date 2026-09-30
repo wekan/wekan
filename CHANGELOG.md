@@ -8585,6 +8585,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b738c51bf3b49d678e14f24c2099999c5d5dfbde">Correct mixed-language Romansh user and editing messages</a>. Thanks to xet7.</summary>
+
+- Replace 20 mixed-language user, editing and permission strings with
+  Romansh, preserving other translations and replacement tokens.
+- Translation, registry and human-preference checks pass, covering shared
+  labels, Home removal, imported-member permissions and card-link limits.
+  Low-confidence wording needs fluent-speaker review.
+  Browser review was not run; wider language cleanup remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
