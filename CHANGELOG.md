@@ -8380,6 +8380,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bf3a7f950c6bf959bcad828f13414e125ec46187">Translate Romansh rules, reminders and saved filters</a>. Thanks to xet7.</summary>
+
+- Translate 42 rule, notification, reminder and saved-filter strings,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including rule
+  variables, reminder timing and limits, and dependency direction.
+  Low-confidence wording needs fluent-speaker review.
+  Browser review was not run; wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
