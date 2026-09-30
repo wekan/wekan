@@ -8163,6 +8163,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/84bd2b036996a81b2ce80de3543f53fc3eef4192">Translate Friulian legacy email recovery</a>. Thanks to xet7.</summary>
+
+- Translate 22 email-resolution and legacy-recovery strings, preserving
+  existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  recovery confirmations. Friulian wording has lower confidence.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
