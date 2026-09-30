@@ -31,6 +31,15 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Maltese filters and imports; remaining untranslated strings are filled separately.
 {
   const locale = read('mt');
+  const correctedEmailExportKeys = ["color-peachpuff", "color-pink", "color-plum", "color-purple", "color-saddlebrown", "color-silver", "color-sky", "color-slateblue", "unset-color", "read-only", "read-assigned-only", "worker", "computer", "current", "custom-field-checkbox", "custom-field-currency", "custom-field-currency-option", "custom-field-dropdown-none", "custom-field-dropdown-unknown", "decline", "discard", "soft-wip-limit", "email", "email-fail", "email-invalid", "email-invite", "email-invite-subject", "push-invite-title", "email-sent", "error-email-taken", "export-board-without-attachments", "export-ical-feed", "export-card-subtasks", "export-card-field-dates", "export-card-attachment-filename"];
+  for (const key of correctedEmailExportKeys) {
+    assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
+    assert.doesNotMatch(locale[key], /Traduzzjoni Maltija:/, `mt:${key}: no prefixed English`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `mt:${key}: tokens`);
+  }
+  assert.equal(locale['email-invite-subject'], locale['push-invite-title']);
+  assert.notEqual(locale['email-fail'], locale['email-sent']);
+  assert.notEqual(locale['read-only'], locale['read-assigned-only']);
   const correctedAppearanceKeys = ["vote-against", "cardStartPlanningPokerPopup-title", "poker-finish", "poker-result-votes", "poker-result-who", "poker-replay", "cardDependencyIconPopup-title", "cardStickersPopup-title", "invitePeoplePopup-title", "theme-category", "theme-category-flat", "theme-category-dark", "theme-category-special", "change-font", "font", "font-size", "font-size-smaller", "font-size-small", "font-size-large", "font-size-larger", "font-size-largest", "subtasks", "go-back", "modal-title", "color-crimson", "color-darkgreen", "color-gold", "color-gray", "color-indigo", "color-lime", "color-magenta", "color-mistyrose", "color-navy", "color-orange", "color-paleturquoise"];
   for (const key of correctedAppearanceKeys) {
     assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
