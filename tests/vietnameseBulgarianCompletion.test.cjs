@@ -28,6 +28,24 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Shona colors, fields and invitations replace prefixed English.
+{
+  const locale = read('sn');
+  const keys = ["modal-title", "color-black", "color-blue", "color-crimson", "color-darkgreen", "color-gold", "color-gray", "color-green", "color-indigo", "color-lime", "color-magenta", "color-mistyrose", "color-navy", "color-orange", "color-paleturquoise", "color-peachpuff", "color-pink", "color-plum", "color-purple", "color-red", "color-saddlebrown", "color-silver", "color-sky", "color-slateblue", "color-white", "color-yellow", "unset-color", "worker", "computer", "custom-field-checkbox", "custom-field-currency", "custom-field-currency-option", "custom-field-dropdown-unknown", "custom-field-number", "date-format-yyyy-mm-dd", "date-format-dd-mm-yyyy", "date-format-mm-dd-yyyy", "decline", "discard", "soft-wip-limit", "email", "email-fail", "email-invalid", "email-invite-subject", "push-invite-title"];
+  for (const key of keys) {
+    assert.doesNotMatch(locale[key], /Mashoko echiShona:/, `sn:${key}: no prefixed English`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+    if (key.startsWith('date-format-')) assert.equal(locale[key], english[key], `sn:${key}: date notation`);
+    else assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+  }
+  const colors = keys.filter(key => key.startsWith('color-'));
+  assert.equal(new Set(colors.map(key => locale[key])).size, colors.length, 'Shona color choices remain distinct');
+  assert.equal(locale['email-invite-subject'], locale['push-invite-title']);
+  assert.match(locale['soft-wip-limit'], /unoyambira/);
+  assert.equal(locale['custom-field-dropdown-unknown'], '(hazvizivikanwi)');
+  assert.notEqual(locale.decline, locale.discard);
+}
+
 // Replace prefixed English in Shona controls; retain numeric and named tokens.
 {
   const locale = read('sn');
