@@ -6854,6 +6854,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/04962bd966c74ea61fec49d2a364fc04c03fc218">Translate Tagalog notification recovery and rule email reports</a>. Thanks to xet7.</summary>
+
+- Translate 35 English strings for notification recovery and rule email reports,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including cancellation
+  limits, missing activities and mail-server acceptance.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
