@@ -7478,6 +7478,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/59b3e06777bf477ad1362b9580a1baf0e188a08d">Translate Luxembourgish list operations and navigation</a>. Thanks to xet7.</summary>
+
+- Translate 19 missing or English strings for list operations and keyboard
+  navigation, preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  retrieval and removal descriptions.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
