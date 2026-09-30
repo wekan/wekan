@@ -362,4 +362,19 @@ for (const code of ['ms', 'ms-MY']) {
   assert.match(locale['blockly-PROCEDURES_CALL_DISABLED_DEF_WARNING'], /Tidak boleh.*dinyahdayakan/);
   assert.notEqual(locale['blockly-END_KEY'], locale['end-date']);
 }
+for (const code of ['sl', 'sl_SI']) {
+  const locale = read(code);
+  assert.deepEqual(Object.keys(locale), Object.keys(english), `${code}: source key order`);
+  for (const key of hiraganaBatchKeys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+  }
+  for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:']) {
+    assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve ${token}`);
+  }
+  assert.match(locale['rule-email-recovery-resend-confirm'], /prejel dvakrat/);
+  assert.match(locale['rule-email-legacy-discard-confirm'], /Nikoli ne bo poslano/);
+  assert.match(locale['rule-email-legacy-access-denied'], /nima več dostopa/);
+  assert.match(locale['r-insert-variable'], /spremenljivko/);
+}
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
