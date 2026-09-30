@@ -1393,5 +1393,13 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /Ní sheolfar é riamh/);
   assert.match(locale['rule-email-legacy-access-denied'], /Níl rochtain.*a thuilleadh/);
   assert.match(locale['r-insert-variable'], /Cuir athróg isteach/);
+  for (const key of Object.keys(english).filter(key => key.startsWith('sync-'))) {
+    assert.notEqual(locale[key], english[key], `ga:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ga:${key}: tokens`);
+  }
+  assert.match(locale['sync-conflict-hint'], /Ní sheoltar aon rud/);
+  assert.match(locale['sync-report-partial'], /Ní atosaíonn.*ní chealaíonn/);
+  assert.match(locale['sync-estimate-field-hint'], /glanann null follasach/);
+  assert.match(locale['sync-time-estimate-hint'], /amháin go díreach/);
 }
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
