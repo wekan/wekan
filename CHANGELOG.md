@@ -2848,6 +2848,16 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/591d91056">Translate Afrikaans email recovery and todo import messages</a>. Thanks to xet7.</summary>
+
+- Fill 45 recovery, variable insertion and todo.txt import messages in each
+  Afrikaans locale, af and af_ZA.
+- Preserve existing translations, placeholders and import syntax; check
+  duplicate delivery, permanent removal and lost-access warnings.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
