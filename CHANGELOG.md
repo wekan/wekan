@@ -5655,6 +5655,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/97a81729eb">Translate Azerbaijani email queue recovery</a>. Thanks to xet7.</summary>
+
+- Translate 35 English strings in each of three Azerbaijani locales for email
+  recovery and time estimates, preserving existing translations and tokens.
+- Translation, registry and human-preference checks pass, including delivery
+  uncertainty and paused retries. Fluent-speaker and browser review were
+  not run. The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
