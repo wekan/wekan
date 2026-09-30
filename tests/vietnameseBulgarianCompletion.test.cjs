@@ -1905,6 +1905,25 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /Serà pas jamai mandat/);
   assert.match(locale['rule-email-legacy-access-denied'], /a pas pus accès/);
   assert.match(locale['r-insert-variable'], /Inserir una variabla/);
+  for (const key of ['cancel', 'move-progress-cancel', 'twoFactorCode-cancel']) {
+    assert.equal(locale[key], 'Anullar', `oc:${key}: cancel, not return`);
+  }
+  assert.match(locale['close-board-pop'], /Archius.*Totes los tablèus/);
+  assert.doesNotMatch(locale['close-board-pop'], /acuèlh/i);
+  assert.doesNotMatch(locale['board-view-timeline-showing'], /a partir de/);
+  assert.match(locale['board-view-timeline-showing'], /estat al/);
+  assert.match(locale['card-delete-notice'], /totas las accions/);
+  assert.match(locale['card-delete-pop'], /se pòt pas anullar/);
+  assert.equal(locale['remove-member-from-card'], 'Levar de la carta');
+  assert.equal(locale['deleteVotePopup-title'], 'Suprimir lo vòte ?');
+  assert.match(locale['import-map-members'], /^Associar/);
+  assert.match(locale['import-members-map'], /que volètz importar/);
+  assert.equal(locale['anonymize-account'], 'Anonimizar lo compte');
+  for (const phrase of ['definitivament', 'adreça de corrièl', 'suprimís l’avatar',
+    'desactiva la connexion', 'consèrvan lor istoric', 'se pòt pas anullar']) {
+    assert.ok(locale['anonymize-account-confirm-popup'].includes(phrase), `oc: anonymization ${phrase}`);
+  }
+  assert.doesNotMatch(locale['anonymize-account-confirm-popup'], /exportacion|user1|desactivat/);
   assert.match(locale['email-enrollAccount-subject'], /compte es estat creat/);
   assert.doesNotMatch(locale['email-enrollAccount-subject'], /activat/);
   assert.equal(locale['email-addresses'], 'Adreças de corrièl');
