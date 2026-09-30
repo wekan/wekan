@@ -31,6 +31,15 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Maltese filters and imports; remaining untranslated strings are filled separately.
 {
   const locale = read('mt');
+  const correctedImportNavigationKeys = ["export-card-attachment-size", "export-card-attachment-type", "export-card-attachment-uploaded-by", "export-card-attachment-uploaded-at", "export-card-excel-free", "export-card-excel-needed", "sorted", "list-label-sort", "filter-overdue", "filter-creator-label", "other-filters-label", "import-excel-file", "import-json-file", "import-trello-json-file", "import-trello-zip-file", "trello-parent-workspace-top", "unselect-all", "trello-resume", "running", "paused", "info", "check-version", "initials", "invalid-date", "invalid-time", "joined", "keyboard-shortcuts", "label-default", "calendar", "log-in", "loginPopup-title", "menu", "multi-selection", "multi-selection-off", "muted"];
+  for (const key of correctedImportNavigationKeys) {
+    assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
+    assert.doesNotMatch(locale[key], /Traduzzjoni Maltija:/, `mt:${key}: no prefixed English`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `mt:${key}: tokens`);
+  }
+  assert.equal(locale['log-in'], locale['loginPopup-title']);
+  assert.match(locale['import-excel-file'], /\.xlsx/);
+  assert.notEqual(locale.running, locale.paused);
   const correctedEmailExportKeys = ["color-peachpuff", "color-pink", "color-plum", "color-purple", "color-saddlebrown", "color-silver", "color-sky", "color-slateblue", "unset-color", "read-only", "read-assigned-only", "worker", "computer", "current", "custom-field-checkbox", "custom-field-currency", "custom-field-currency-option", "custom-field-dropdown-none", "custom-field-dropdown-unknown", "decline", "discard", "soft-wip-limit", "email", "email-fail", "email-invalid", "email-invite", "email-invite-subject", "push-invite-title", "email-sent", "error-email-taken", "export-board-without-attachments", "export-ical-feed", "export-card-subtasks", "export-card-field-dates", "export-card-attachment-filename"];
   for (const key of correctedEmailExportKeys) {
     assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
