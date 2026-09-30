@@ -28,6 +28,29 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Romansh date filters, imports and archive-language corrections.
+{
+  const locale = read('rm');
+  const keys = ["auto-archive-days", "auto-archive-off", "auto-archive-hint", "filter-recency-any", "filter-recency-day", "filter-recency-week", "filter-recency-month", "filter-recency-older", "filter-movement-range", "filter-date-range-field", "filter-date-range-from", "filter-date-range-to", "filter-date-range-missing", "filter-date-range-list-entry", "filter-date-range-invalid", "filter-due-any", "filter-due-previous-week", "filter-due-next-month", "filter-column-age", "filter-column-age-disabled", "filter-column-age-days", "filter-column-age-hint", "advanced-filter-card-dates-hint", "import-board-instruction-leo", "import-board-instruction-todotxt", "instance", "instance-desc", "board-instance-info", "automatic-linked-url-schemes-hint", "other-parent-cards", "archive-board-confirm", "archive-list", "archive-swimlane", "archive-selection", "archiveBoardPopup-title", "archived-boards", "card-archived", "board-archived", "card-archive-pop", "card-archive-suggest-cancel", "list-archive-pop", "list-archive-suggest", "listArchivePopup-title", "swimlane-archive-pop", "swimlane-archive-suggest", "swimlaneArchivePopup-title"];
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `rm:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /\b(Puoi|questa glista dopo|sarà|nell'archiv|sposta tl)\b/, `rm:${key}: no Italian seed`);
+  }
+  for (const token of ['@createdAt', '@receivedAt', '@startAt', '@dueAt', '@endAt', '@listEnteredAt', 'none']) {
+    assert.ok(locale['advanced-filter-card-dates-hint'].includes(token), `rm: preserve ${token}`);
+  }
+  for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:']) {
+    assert.ok(locale['import-board-instruction-todotxt'].includes(token), `rm: preserve ${token}`);
+  }
+  for (const [suffix, number] of [['day', '24'], ['week', '7'], ['month', '30'], ['older', '30']]) {
+    assert.ok(locale[`filter-recency-${suffix}`].includes(number));
+  }
+  assert.match(locale['filter-column-age-hint'], /na fa betg cumenzar da nov/);
+  assert.match(locale['instance-desc'], /mai mussada.*betg annunziadas/);
+  assert.match(locale['board-instance-info'], /<strong>.*<\/strong>/);
+  for (const kind of ['card', 'list', 'swimlane']) assert.match(locale[`${kind}-archive-pop`], /na vegn betg pli.*visibla/);
+}
 // Frisian recovery, date filters and other completed translation batches.
 for (const code of ['fy', 'fy-NL']) {
   const locale = read(code);
