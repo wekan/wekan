@@ -31,6 +31,21 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Romansh date filters, imports and archive-language corrections.
 {
   const locale = read('rm');
+  const correctedSettingsKeys = ["roles-status-empty", "delete-linked-card-before-this-card", "delete-linked-cards-before-this-list", "no-items-message", "globalSearch-instructions-notes-4", "mongodb-compact-warning", "change-visibility", "invalid-file", "delete-translation-confirm-popup", "add-cron-job-placeholder", "cron-no-errors", "sandstorm-migration-description", "cards-loading-description", "always-show-code-as-text-description", "anonymize-import-users-description", "disable-activities-description"];
+  for (const key of correctedSettingsKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /\b(puoi|Nessun|viene|sarà|Sei|Quando|Cambia)\b/, `rm:${key}: no mixed-language seed`);
+  }
+  for (const token of ['CARDS_LOADING', 'all/lazy/auto', 'CARDS_LOADING_LAZY_THRESHOLD']) assert.ok(locale['cards-loading-description'].includes(token));
+  assert.match(locale['cards-loading-description'], /automaticamain.*mo las cartas actualmain visiblas/);
+  assert.match(locale['always-show-code-as-text-description'], /na po betg vegnir cliccà.*na vegn betg exequì/);
+  assert.ok(locale['always-show-code-as-text-description'].includes('<!-- -->'));
+  for (const token of ['user1', 'user2', '@username', 'JSON']) assert.ok(locale['anonymize-import-users-description'].includes(token));
+  assert.match(locale['anonymize-import-users-description'], /Nagina identitad reala/);
+  assert.match(locale['disable-activities-description'], /mai registradas e mai mussadas/);
+  assert.match(locale['delete-translation-confirm-popup'], /na po betg vegnir fatg enavos/);
+  for (const token of ['MongoDB 3', 'FerretDB v1', 'SQLite', 'files/attachments', 'files/avatars']) assert.ok(locale['sandstorm-migration-description'].includes(token));
+
   const correctedAccessKeys = ["filter-no-assignee", "import-trello-zip-no-boards", "import-trello-workspace-placeholder", "trello-api-credentials-saved", "public-desc", "remove-member-pop", "org-domains-description", "editCardReceivedDatePopup-title", "editCardEndDatePopup-title", "change-card-parent", "r-w-card-created", "r-w-card-archived", "r-w-card-unarchived", "r-is-moved", "r-when-a-label-is", "r-when-the-label", "r-when-a-member", "r-when-the-member", "r-when-a-card-is-moved", "delete-user-confirm-popup"];
   for (const key of correctedAccessKeys) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
