@@ -2317,6 +2317,40 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedProgressKeys = [
+    "idle-migration",
+    "migration-batch-size-description",
+    "migration-delay-ms",
+    "migration-delay-ms-description",
+    "migration-info-text",
+    "migration-log",
+    "migration-markers",
+    "migration-resume-failed",
+    "migration-resumed",
+    "migration-steps",
+    "migration-warning-text",
+    "problems-summary-help",
+    "problems-in-progress-help",
+    "problems-none-in-progress",
+    "board-migration",
+    "board-migrations",
+    "comprehensive-board-migration",
+    "delete-duplicate-empty-lists-migration",
+    "app-is-offline"
+  ];
+  for (const key of correctedProgressKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /(?:przeglądark|Dziennik|Znaczniki|Nié udało się|proszę|Odświeżenié|wznowić)/, `csb:${key}: Polish remnants`);
+  }
+  assert.match(locale['migration-batch-size-description'], /1-100/);
+  assert.match(locale['migration-delay-ms-description'], /100-10000/);
+  assert.match(locale['migration-delay-ms'], /\(ms\)/);
+  assert.ok(locale['problems-summary-help'].includes(locale.acknowledge));
+  assert.ok(locale['problems-in-progress-help'].includes(locale.loading.replace(/\.$/, '')));
+  assert.ok(locale['app-is-offline'].startsWith(locale.loading));
+  assert.match(locale['app-is-offline'], /sprawi ùtratã pòdôwków/);
+  assert.match(locale['migration-info-text'], /nawet jeżlë zamkniesz przezérnik/);
+  assert.match(locale['migration-warning-text'], /Nie zamikôj przezérnika/);
   const correctedRecoveryDialogKeys = [
     "comprehensive-board-migration-description",
     "delete-duplicate-empty-lists-migration-description",
