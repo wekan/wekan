@@ -1280,6 +1280,14 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /ક્યારેય મોકલાશે નહીં/);
   assert.match(locale['rule-email-legacy-access-denied'], /પ્રવેશ નથી/);
   assert.match(locale['r-insert-variable'], /ચલ ઉમેરો/);
+  for (const key of Object.keys(english).filter(key => key.startsWith('scrum-'))) {
+    assert.notEqual(locale[key], english[key], `gu-IN:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `gu-IN:${key}: tokens`);
+  }
+  assert.match(locale['scrum-report-help'], /શૂન્ય અંદાજ નથી/);
+  assert.match(locale['scrum-partial-report'], /તમને સોંપેલા કાર્ડ જ/);
+  assert.match(locale['scrum-daily-observations-help'], /દરેક ફેરફાર નોંધતાં નથી/);
+  assert.match(locale['scrum-daily-observations-export-help'], /અજ્ઞાત અંદાજ શૂન્ય નથી/);
   for (const key of Object.keys(english).filter(key =>
     /^(auto-archive-|filter-(recency|movement-range|date-range|due-|column-age|preset|card-text)|notification-activity-|due-reminder-|map-view-)/.test(key))) {
     assert.notEqual(locale[key], english[key], `gu-IN:${key}: untranslated`);
