@@ -2749,6 +2749,15 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ea1ca0629">Complete remaining Lithuanian notification and keyboard translations</a>. Thanks to xet7.</summary>
+
+- Fill 88 Lithuanian notification, recovery, history and keyboard messages.
+- Preserve existing translations and technical terms; check completeness,
+  placeholders and irreversible-action warnings against the English source.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
