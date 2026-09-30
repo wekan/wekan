@@ -31,6 +31,21 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Friulian date filters; further translation batches remain.
 {
   const locale = read('fur');
+  const keyboardKeys = ["blockly-BACKSPACE_KEY", "blockly-CAPS_LOCK_KEY", "blockly-COMMAND_KEY", "blockly-CONTROL_KEY", "blockly-END_KEY", "blockly-ENTER_KEY", "blockly-ESCAPE", "blockly-HOME_KEY", "blockly-INSERT_KEY", "blockly-OPTION_KEY", "blockly-PAGE_DOWN_KEY", "blockly-PAGE_UP_KEY", "blockly-SHIFT_KEY", "blockly-TAB_KEY", "blockly-UNNAMED_KEY"];
+  for (const key of keyboardKeys) {
+    assert.notEqual(locale[key], english[key], `fur:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `fur:${key}: tokens`);
+  }
+  assert.ok(locale['blockly-PAGE_DOWN_KEY'].includes('jù'));
+  assert.ok(locale['blockly-PAGE_UP_KEY'].includes('sù'));
+  assert.notEqual(locale['blockly-END_KEY'], locale['end-date']);
+  const untranslatedFur = JSON.parse(execFileSync(process.execPath,
+    ['releases/translations/fill-translations.mjs', '--list', 'fur'],
+    { cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }));
+  for (const key of ["blockly-PAUSE_KEY", "blockly-ALT_KEY", "blockly-ARIA_TYPE_FIELD_DATE", "blockly-CHROME_OS", "blockly-INPUT_LABEL_LOOP_BY", "blockly-LINUX", "blockly-LISTS_SORT_TYPE_NUMERIC", "blockly-MAC_OS", "blockly-WINDOWS", "blockly-MATH_TRIG_ACOS", "blockly-MATH_TRIG_ASIN", "blockly-MATH_TRIG_ATAN", "blockly-MATH_TRIG_COS", "blockly-MATH_TRIG_SIN", "blockly-MATH_TRIG_TAN"]) {
+    assert.equal(locale[key], english[key], `fur:${key}: invariant`);
+    assert.ok(!(key in untranslatedFur), `fur:${key}: recognized invariant`);
+  }
   const mapKeys = ["import-report-heading", "import-report-description", "import-report-open-board", "draggable", "board-view-map", "map-view-empty", "map-view-upload", "map-view-remove-image", "map-view-unplaced", "map-view-place-hint", "map-view-all-placed"];
   for (const key of mapKeys) {
     assert.notEqual(locale[key], english[key], `fur:${key}: translated`);
