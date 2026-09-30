@@ -31,6 +31,16 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Azerbaijani filter and import guidance; other placeholders remain.
 for (const code of ['az', 'az-AZ', 'az-LA']) {
   const locale = read(code);
+  const emailQueueKeys = ["email-recovery-heading", "email-recovery-description", "email-recovery-saving", "email-recovery-queued", "email-recovery-retrying", "email-recovery-attempts", "email-recovery-oldest", "email-recovery-next", "email-recovery-changed", "email-recovery-pause", "email-recovery-resume", "email-recovery-cancel", "email-recovery-paused", "email-recovery-pending", "email-recovery-empty", "email-recovery-unavailable", "email-recovery-busy", "email-recovery-failed", "email-recovery-superseded", "email-recovery-confirm-cancel", "email-recovery-attention", "email-recovery-stopped", "email-recovery-retry", "email-failure-smtp-temporary", "email-failure-smtp-rejected", "email-failure-smtp-authentication", "email-failure-smtp-configuration", "email-failure-recipient-unavailable", "email-failure-delivery-unconfirmed", "email-failure-acknowledgement-failed", "email-failure-delivery-failed", "email-failure-retry-limit", "sync-original-time", "sync-remaining-time", "sync-time-estimate-hint"];
+  for (const key of emailQueueKeys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+  }
+  assert.match(locale['email-recovery-description'], /geri çağırmaq mümkün deyil.*çatdırılma təkrarlana bilər/);
+  assert.match(locale['email-recovery-description'], /mövcud fasiləni qoruyur/);
+  assert.match(locale['email-recovery-confirm-cancel'], /bərpa edilə bilməyəcək.*yeni mesajlar saxlanılır/);
+  assert.match(locale['sync-time-estimate-hint'], /dəqiq bir uyğun sahə.*olmayan qiymətlər nəzərə alınmır.*null.*təmizləyir/);
+  for (const pair of [['email-recovery-pause', 'email-recovery-resume'], ['email-failure-smtp-temporary', 'email-failure-smtp-rejected'], ['sync-original-time', 'sync-remaining-time']]) assert.notEqual(locale[pair[0]], locale[pair[1]]);
   const syncReportKeys = ["sync-source-occurrences", "sync-source-truncated", "sync-source-omitted", "sync-report-button", "sync-report-retention", "sync-report-partial", "sync-report-unfinished", "sync-report-failed", "sync-report-completed", "sync-report-completed-with-warnings", "sync-report-skipped", "sync-report-review-only", "sync-report-unavailable", "sync-report-empty", "sync-recovery-heading", "sync-recovery-description", "sync-recovery-unavailable", "sync-recovery-all", "sync-estimate-field", "sync-estimate-field-hint"];
   for (const key of syncReportKeys) {
     assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
