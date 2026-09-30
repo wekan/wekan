@@ -12,7 +12,7 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
   'de', 'de_DE', 'de-AT', 'de-CH', 'fr', 'fr-FR', 'fr-BE', 'fr-CA', 'fr-CH',
   'es', 'es-AR', 'es-LA', 'es-CL', 'es_CO', 'es-CO', 'es-PY', 'es-PE', 'es-MX', 'it',
   'pt', 'pt-PT', 'pt_PT', 'pt-BR', 'nl', 'nl-NL', 'sv', 'fi', 'et-EE', 'da', 'nb', 'tr', 'id', 'ro', 'ro-RO', 'hu', 'sk', 'ja', 'ja-JP', 'ko', 'ko-KR',
-  'zh-CN', 'zh-Hans', 'zh', 'cmn', 'zh_SG', 'zh-GB', 'zh-Hant', 'zh-TW', 'zh-HK', 'ar', 'ar-DZ', 'ar-EG', 'gl', 'gl-ES', 'he', 'he-IL', 'fa', 'fa-IR', 'ms', 'ms-MY', 'sl', 'sl_SI', 'hr', 'sr', 'bs', 'mk', 'be', 'lt', 'lv', 'is', 'af', 'af_ZA', 'hi', 'hi-IN', 'bn', 'ta', 'ne', 'ur', 'th', 'gu-IN', 'kn', 'ga', 'co', 'sc', 'scn', 'nap', 'an', 'ast-ES']) {
+  'zh-CN', 'zh-Hans', 'zh', 'cmn', 'zh_SG', 'zh-GB', 'zh-Hant', 'zh-TW', 'zh-HK', 'ar', 'ar-DZ', 'ar-EG', 'gl', 'gl-ES', 'he', 'he-IL', 'fa', 'fa-IR', 'ms', 'ms-MY', 'sl', 'sl_SI', 'hr', 'sr', 'bs', 'mk', 'be', 'lt', 'lv', 'is', 'af', 'af_ZA', 'hi', 'hi-IN', 'bn', 'ta', 'ne', 'ur', 'th', 'gu-IN', 'kn', 'ga', 'co', 'sc', 'scn', 'nap', 'an', 'ast-ES', 'oc']) {
   const locale = read(code);
   assert.deepEqual(Object.keys(locale), Object.keys(english), `${code}: source key order`);
   for (const key of Object.keys(english)) {
@@ -1905,6 +1905,11 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /Serà pas jamai mandat/);
   assert.match(locale['rule-email-legacy-access-denied'], /a pas pus accès/);
   assert.match(locale['r-insert-variable'], /Inserir una variabla/);
+  assert.match(locale['email-recovery-confirm-cancel'], /poiràn pas èsser restaurats/);
+  assert.match(locale['email-recovery-description'], /mandadís incert pòt èsser repetit/);
+  assert.match(locale['activity-recovery-description'], /torna pas jamai crear/);
+  assert.match(locale['activity-recovery-cancel-confirm'], /Se poirà pas reprendre/);
+  assert.match(locale['history-request-hint'], /pòt pas jamai anullar un segond cambiament/);
   for (const key of Object.keys(english).filter(key =>
     /^(auto-archive-|filter-(recency|movement-range|date-range|due-|column-age|preset|card-text)|notification-activity-|due-reminder-|map-view-)/.test(key))) {
     assert.notEqual(locale[key], english[key], `oc:${key}: untranslated`);
