@@ -5313,6 +5313,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a849e1a5c1bb3757445c31d7b6ff290eeff61cd7">Translate Armenian block accessibility labels</a>. Thanks to xet7.</summary>
+
+- Fill 39 English placeholders for block accessibility, preserving existing
+  translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including movement
+  directions, opposite actions and angle values. Fluent-speaker and browser
+  review were not run. The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
