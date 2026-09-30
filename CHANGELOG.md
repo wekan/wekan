@@ -7154,6 +7154,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ed392330b9e2d26aa22bbd11d9bb181ba8c38ccd">Translate Maltese event and flow report labels</a>. Thanks to xet7.</summary>
+
+- Replace 35 prefixed English values with Maltese for event details, sign-in
+  labels and flow reports, preserving existing translations and tokens.
+- Translation, registry and human-preference checks pass, including technical
+  identifiers. Another 22 prefixed English values and other placeholders remain.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
