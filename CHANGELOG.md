@@ -7418,6 +7418,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ac020df64277c18c2b065cbf8c399526c3d25f81">Translate Luxembourgish block accessibility messages</a>. Thanks to xet7.</summary>
+
+- Translate 29 missing or English strings for map placement and block-editor
+  accessibility, preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  movement, expand/collapse and add/remove announcements.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
