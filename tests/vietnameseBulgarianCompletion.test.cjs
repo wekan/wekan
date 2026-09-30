@@ -31,6 +31,24 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Romansh date filters, imports and archive-language corrections.
 {
   const locale = read('rm');
+  const observationConflictKeys = ["scrum-daily-observations", "scrum-daily-observations-help", "scrum-daily-truncated", "scrum-daily-empty", "scrum-observed-scope", "scrum-daily-observations-export-help", "scrum-import-pending", "sync-conflict-heading", "sync-conflict-hint", "sync-conflict-local", "sync-conflict-keep-local", "sync-conflict-use-source", "sync-conflict-refresh", "sync-conflict-review-complete", "sync-conflict-duplicate", "sync-conflict-keep-mapping", "sync-conflict-detach", "sync-conflict-detach-hint", "sync-conflict-archive", "sync-conflict-archive-hint", "sync-conflict-keep-card-local", "sync-conflict-creation", "sync-conflict-creation-hint", "sync-conflict-create-replacement", "sync-preview-button"];
+  for (const key of observationConflictKeys) {
+    assert.notEqual(locale[key], english[key], `rm:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
+  }
+  for (const key of ['scrum-daily-observations-help', 'scrum-daily-observations-export-help']) {
+    assert.ok(locale[key].includes('UTC'));
+    assert.match(locale[key], /n’èn betg zero/);
+    assert.match(locale[key], /na registreschan betg mintga midada/);
+  }
+  assert.ok(locale['scrum-daily-truncated'].includes('366'));
+  assert.match(locale['scrum-daily-observations-help'], /trav d’utensils exportescha ils resultats/);
+  assert.match(locale['sync-conflict-hint'], /Nagut vegn tramess/);
+  assert.match(locale['sync-conflict-review-complete'], /entira glista n’è betg vegnida exequida/);
+  assert.match(locale['sync-conflict-detach-hint'], /cuntegn resta en WeKan/);
+  assert.match(locale['sync-conflict-archive-hint'], /sutcartas na vegnan betg midadas/);
+  assert.match(locale['sync-conflict-creation-hint'], /reutiliseschan la carta/);
+
   const scrumReportKeys = ["scrum-event-review", "scrum-event-retrospective", "scrum-committed", "scrum-completed", "scrum-added", "scrum-removed", "scrum-incomplete", "scrum-no-closed-sprints", "scrum-report-help", "scrum-total", "scrum-state-planned", "scrum-state-active", "scrum-state-closed", "scrum-state-cancelled", "scrum-unknown-estimate", "scrum-confirm-close", "scrum-confirm-cancel", "scrum-past-sprints", "scrum-list-category", "scrum-swimlane-purpose", "scrum-category-backlog", "scrum-category-todo", "scrum-category-doing", "scrum-category-done", "scrum-partial-report", "scrum-state-released", "scrum-released-at", "scrum-follow-up-cards", "scrum-import-reference-omitted", "scrum-partial-snapshot", "scrum-resume-close"];
   for (const key of scrumReportKeys) {
     assert.notEqual(locale[key], english[key], `rm:${key}: translated`);
