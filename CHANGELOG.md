@@ -3994,6 +3994,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e6a71ae7c">Translate Asturian synchronization conflicts and reports</a>. Thanks to xet7.</summary>
+
+- Fill 63 Asturian synchronization, preview, report and recovery messages.
+- Translation, registry and human-preference checks pass, covering preserved
+  translations, report limitations, explicit null and estimate-field rules.
+  Wording is lower confidence; browser layout and fluent-speaker review were
+  not run. Other translation work remains.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
