@@ -7214,6 +7214,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1ab553f27d702b65da0bea15dc4ad95416983764">Translate Maltese list and loop input labels</a>. Thanks to xet7.</summary>
+
+- Translate 25 English placeholders for conditions, lists and loop inputs,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  start and end labels.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
