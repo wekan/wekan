@@ -31,6 +31,17 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Romansh date filters, imports and archive-language corrections.
 {
   const locale = read('rm');
+  const correctedConfirmationKeys = ["custom-field-dropdown-unknown", "error-teamname-taken", "trello-cancel-delete-confirm", "just-invited", "leave-board-pop", "disable-webhook", "show-field-on-card", "delete-all-notifications-confirm", "delete-duplicate-lists-confirm", "duplicate-board-confirm", "delete-team-confirm-popup", "delete-org-confirm-popup", "remove-domain-from-board", "team-name-not-found", "remove-team-from-table", "remove-organization-from-board", "accounts-lockout-click-to-unlock", "add-cron-job", "board-archive-scheduled", "board-backup-scheduled"];
+  for (const key of correctedConfirmationKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /\b(Sei|questo|sconosciuto|pianificata|pianificato|successo|trovato)\b/, `rm:${key}: no mixed-language seed`);
+  }
+  for (const key of ['trello-cancel-delete-confirm', 'delete-team-confirm-popup', 'delete-org-confirm-popup']) assert.match(locale[key], /na po betg vegnir fatg enavos/);
+  assert.match(locale['delete-all-notifications-confirm'], /na po betg vegnir fatga enavos/);
+  assert.match(locale['delete-duplicate-lists-confirm'], /medem num.*naginas cartas/);
+  assert.match(locale['leave-board-pop'], /tut las cartas/);
+  assert.equal(locale['custom-field-dropdown-unknown'], '(nunenconuschent)');
+
   const correctedBackupKeys = ["disable-watch-description", "backup-description", "s3-secret-key-menu-path", "no-issues-found", "run-restore-all-archived-migration-confirm", "conversion-info-text", "no-new-problems", "allboards.delete-workspace-confirm", "poker-delete-pop", "delete-avatar-confirm", "card-aging-tier1", "card-aging-tier2", "card-aging-tier3", "confirm-subtask-delete-popup", "confirm-checklist-item-delete-popup", "copyManyCardsPopup-instructions", "custom-field-delete-pop"];
   for (const key of correctedBackupKeys) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
