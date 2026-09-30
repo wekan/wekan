@@ -7262,6 +7262,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a657efa1cb501158c3d9a40688b8c81662a51efc">Translate Maltese screen reader and shortcut guidance</a>. Thanks to xet7.</summary>
+
+- Translate 25 English placeholders for screen reader guidance and keyboard
+  shortcuts, preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  enable, disable, finish and cancel actions.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
