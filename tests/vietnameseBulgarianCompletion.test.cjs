@@ -31,6 +31,20 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Azerbaijani filter and import guidance; other placeholders remain.
 for (const code of ['az', 'az-AZ', 'az-LA']) {
   const locale = read(code);
+  const observationSyncKeys = ["scrum-category-done", "scrum-partial-report", "scrum-state-released", "scrum-released-at", "scrum-follow-up-cards", "scrum-import-reference-omitted", "scrum-partial-snapshot", "scrum-resume-close", "scrum-daily-observations", "scrum-daily-observations-help", "scrum-daily-truncated", "scrum-daily-empty", "scrum-observed-scope", "scrum-daily-observations-export-help", "scrum-import-pending", "sync-conflict-heading", "sync-conflict-hint", "sync-conflict-local", "sync-conflict-keep-local", "sync-conflict-use-source", "sync-conflict-refresh", "sync-conflict-review-complete", "sync-conflict-duplicate", "sync-conflict-keep-mapping", "sync-conflict-detach"];
+  for (const key of observationSyncKeys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+  }
+  for (const key of ['scrum-daily-observations-help', 'scrum-daily-observations-export-help']) {
+    assert.match(locale[key], /UTC gününün ilk qeydə alınmış müşahidə/);
+    assert.match(locale[key], /[Mm]əlumat olmayan günlər buraxılır/);
+    assert.match(locale[key], /Naməlum qiymətləndirmələr sıfır deyil/);
+  }
+  assert.match(locale['scrum-daily-truncated'], /366/);
+  assert.match(locale['sync-conflict-hint'], /Mənbə sisteminə heç nə göndərilmir/);
+  assert.match(locale['sync-conflict-review-complete'], /Bütün siyahının sinxronlaşdırılması aparılmadı/);
+  assert.notEqual(locale['sync-conflict-keep-local'], locale['sync-conflict-use-source']);
   const sprintReportKeys = ["scrum-acceptance-criteria", "scrum-events", "scrum-event-kind", "scrum-timebox", "scrum-notes", "scrum-event-planning", "scrum-event-daily", "scrum-event-review", "scrum-event-retrospective", "scrum-committed", "scrum-completed", "scrum-added", "scrum-removed", "scrum-incomplete", "scrum-no-closed-sprints", "scrum-report-help", "scrum-total", "scrum-state-planned", "scrum-state-active", "scrum-state-closed", "scrum-state-cancelled", "scrum-unknown-estimate", "scrum-confirm-close", "scrum-confirm-cancel", "scrum-past-sprints", "scrum-list-category", "scrum-swimlane-purpose", "scrum-category-backlog", "scrum-category-todo", "scrum-category-doing"];
   for (const key of sprintReportKeys) {
     assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
