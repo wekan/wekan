@@ -31,6 +31,18 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Armenian filters and import guidance; other placeholders remain.
 {
   const locale = read('hy');
+  const sprintReportKeys = ["scrum-notes", "scrum-event-planning", "scrum-event-daily", "scrum-event-review", "scrum-event-retrospective", "scrum-committed", "scrum-completed", "scrum-added", "scrum-removed", "scrum-incomplete", "scrum-no-closed-sprints", "scrum-report-help", "scrum-total", "scrum-state-planned", "scrum-state-active", "scrum-state-closed", "scrum-state-cancelled", "scrum-unknown-estimate", "scrum-confirm-close", "scrum-confirm-cancel", "scrum-past-sprints", "scrum-list-category", "scrum-swimlane-purpose", "scrum-category-backlog", "scrum-category-todo", "scrum-category-doing", "scrum-category-done", "scrum-partial-report", "scrum-state-released", "scrum-released-at"];
+  for (const key of sprintReportKeys) {
+    assert.notEqual(locale[key], english[key], `hy:${key}: translated`);
+    assert.match(locale[key], /[\u0531-\u0587]/, `hy:${key}: Armenian script`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `hy:${key}: tokens`);
+  }
+  assert.match(locale['scrum-report-help'], /հաշվվում են առանձին.*զրոյական գնահատականներ չեն.*միայն.*համընկնող/);
+  assert.match(locale['scrum-confirm-close'], /Չավարտված քարտերը կտեղափոխվեն/);
+  assert.match(locale['scrum-confirm-cancel'], /մնում են սպրինտի կազմում մինչև վերանշանակվելը/);
+  assert.match(locale['scrum-partial-report'], /միայն ներկայում ձեզ նշանակված/);
+  assert.equal(locale['scrum-category-backlog'], locale['scrum-backlog']);
+  for (const pair of [['scrum-added', 'scrum-removed'], ['scrum-completed', 'scrum-incomplete'], ['scrum-state-closed', 'scrum-state-cancelled'], ['scrum-state-planned', 'scrum-state-active'], ['scrum-event-review', 'scrum-event-retrospective']]) assert.notEqual(locale[pair[0]], locale[pair[1]]);
   const planningKeys = ["board-view-velocity", "scrum-settings", "scrum-product-owner", "scrum-master", "scrum-developers", "scrum-working-days", "scrum-enabled", "scrum-product-goal", "scrum-definition-of-done", "scrum-estimate-source", "scrum-estimate-unit", "scrum-completion-policy", "scrum-source-poker", "scrum-source-customField", "scrum-policy-dueComplete", "scrum-policy-doneLists", "scrum-sprints", "scrum-sprint", "scrum-start-sprint", "scrum-close-sprint", "scrum-cancel-sprint", "scrum-rollover-sprint", "scrum-cancel-reason", "scrum-product-backlog", "scrum-edit-sprint", "scrum-sprint-goal", "scrum-capacity", "scrum-new-sprint", "scrum-releases", "scrum-release", "scrum-select-sprint", "scrum-backlog", "scrum-backlog-help", "scrum-estimate", "scrum-backlog-rank", "scrum-issue-type", "scrum-acceptance-criteria", "scrum-events", "scrum-event-kind", "scrum-timebox"];
   for (const key of planningKeys) {
     assert.notEqual(locale[key], english[key], `hy:${key}: translated`);
