@@ -1663,6 +1663,22 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /Nunca no se ninviará/);
   assert.match(locale['rule-email-legacy-access-denied'], /ya no tiene acceso/);
   assert.match(locale['r-insert-variable'], /Fica una variable/);
+  for (const key of ['multi-selection-active', 'click-to-enable-fixed-list-width',
+    'click-to-disable-fixed-list-width', 'keyboard-shortcuts-enabled',
+    'keyboard-shortcuts-disabled', 'board-open-and-move-between-remaining-and-workspaces',
+    'click-to-star', 'click-to-unstar', 'click-to-star-page', 'click-to-unstar-page',
+    'click-to-enable-auto-width', 'click-to-disable-auto-width', 'filter-on-desc',
+    'star-board-title', 'set-default-board-title', 'unset-default-board-title',
+    'accounts-lockout-click-to-unlock']) {
+    assert.match(locale[key], /Fe clic/);
+    assert.doesNotMatch(locale[key], /Haz clic|deshabilitado|habilitado/);
+  }
+  assert.match(locale['map-to-existing-user-desc'], /nunca no puede atorgar más permisos/);
+  assert.match(locale['sandstorm-delete-raw-mongodb-confirm'], /no se puede desfer/);
+  assert.match(locale['cloud-secret-set'], /deixa-lo vuedo ta conservar-lo/);
+  assert.match(locale['push-invite-text'], /vinclo de debaixo/);
+  assert.match(locale['push-invite-text'], /Grazias/);
+  assert.match(locale['user-can-not-export-card-to-pdf'], /no puede exportar a tarcheta a PDF/);
   for (const key of ['email-enrollAccount-text', 'email-invite-text',
     'email-resetPassword-text', 'email-verifyEmail-text', 'email-invite-register-text']) {
     assert.match(locale[key], /vinclo de debaixo/);
