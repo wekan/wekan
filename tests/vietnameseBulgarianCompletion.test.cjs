@@ -2159,6 +2159,17 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /Mewnosod newidyn/);
+  for (const key of Object.keys(english).filter(key => key.startsWith('sync-'))) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+  }
+  assert.match(locale['sync-conflict-hint'], /Ni anfonir dim/);
+  assert.match(locale['sync-report-partial'], /Nid yw.*ailddechrau nac yn dadwneud/);
+  assert.match(locale['sync-conflict-review-complete'], /Ni redwyd.*rhestr gyfan/);
+  assert.match(locale['sync-conflict-detach-hint'], /ei gynnwys yn aros yn WeKan/);
+  assert.match(locale['sync-estimate-field-hint'], /null penodol yn clirio/);
+  assert.match(locale['sync-time-estimate-hint'], /union un maes/);
+  assert.match(locale['sync-recovery-description'], /ni all.*ailddechrau na dadwneud/);
   assert.match(locale['rule-email-recovery-resend-confirm'], /ddwywaith/);
   assert.match(locale['rule-email-recovery-actions-hint'], /Dim ond at y derbynwyr heb eu cadarnhau/);
   assert.match(locale['rule-email-legacy-discard-confirm'], /Ni chaiff byth ei anfon/);
