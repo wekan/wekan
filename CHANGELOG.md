@@ -8307,6 +8307,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4de131375a79459ed37ad3635b1faddefe7ca433">Translate Frisian synchronization reports</a>. Thanks to xet7.</summary>
+
+- Translate 25 source-field and synchronization report strings in each of fy
+  and fy-NL, preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including report
+  limits, consistent source labels and distinct outcomes.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
