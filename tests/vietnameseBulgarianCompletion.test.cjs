@@ -31,6 +31,19 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Armenian filters and import guidance; other placeholders remain.
 {
   const locale = read('hy');
+  const filterMapKeys = ["dependency-type-is-duplicated-by", "custom-field-stringtemplate-context-hint", "filter-presets", "filter-preset-choose", "filter-preset-name", "filter-preset-save", "filter-preset-replace-hint", "filter-preset-saved", "filter-preset-applied", "filter-preset-deleted", "filter-preset-error", "filter-card-text-label", "import-report-heading", "import-report-description", "import-report-open-board", "draggable", "board-view-map", "map-view-empty", "map-view-upload", "map-view-remove-image", "map-view-unplaced", "map-view-place-hint", "map-view-all-placed", "blockly-ANNOUNCE_CANT_SCROLL_FURTHER", "blockly-ANNOUNCE_MOVE_AFTER", "blockly-ANNOUNCE_MOVE_AROUND", "blockly-ANNOUNCE_MOVE_BEFORE"];
+  for (const key of filterMapKeys) {
+    assert.notEqual(locale[key], english[key], `hy:${key}: translated`);
+    assert.match(locale[key], /[\u0531-\u0587]/, `hy:${key}: Armenian script`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `hy:${key}: tokens`);
+  }
+  for (const token of ['%{card.title}', '%{board.title}', '%{list.title}', '%{swimlane.title}', '|urlencode', '%{value|urlencode}']) assert.ok(locale['custom-field-stringtemplate-context-hint'].includes(token));
+  for (const key of ['admin-panel', 'problems', 'recoveryReportTitle']) assert.ok(locale['import-report-description'].includes(locale[key]));
+  assert.match(locale['filter-preset-replace-hint'], /միայն ձեզ.*Նույն անունով.*փոխարինում/);
+  assert.match(locale['map-view-place-hint'], /քաշեք.*կամ ընտրեք.*սեղմեք/);
+  assert.match(locale['blockly-ANNOUNCE_MOVE_AFTER'], /հետո/);
+  assert.match(locale['blockly-ANNOUNCE_MOVE_BEFORE'], /առաջ/);
+  assert.notEqual(locale['dependency-type-is-duplicated-by'], locale['dependency-type-duplicates']);
   const ruleReminderKeys = ["automatic-linked-url-schemes-hint", "other-parent-cards", "add-parent-card", "remove-parent-card", "r-when-card-date", "r-trigger-vars-hint", "r-insert-variable", "r-vars-people-hint", "r-rule-any-trigger-help", "r-add-trigger-to-rule", "r-add-action-to-rule", "r-remove-rule-part", "notification-activity-heading", "notification-activity-description", "notification-activity-labels", "notification-activity-members", "notification-activity-assignees", "notification-activity-comments", "notification-activity-moves", "notification-activity-dates", "notification-activity-checklists", "notification-activity-attachments", "notification-activity-customFields", "notification-activity-archive", "notification-activity-created", "due-reminder-heading", "due-reminder-days-label", "due-reminder-off", "due-reminder-webhook", "due-reminder-invalid", "due-reminder-saved", "dependency-type-duplicates"];
   for (const key of ruleReminderKeys) {
     assert.notEqual(locale[key], english[key], `hy:${key}: translated`);
