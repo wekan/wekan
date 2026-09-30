@@ -7863,6 +7863,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/229217ccb812e046f6db8cab52c1dbf6085c044d">Translate Faroese Scrum planning and reports</a>. Thanks to xet7.</summary>
+
+- Translate 40 sprint-planning, event, state and report strings, preserving
+  existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  sprint states and consistent backlog labels. Faroese has lower confidence.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
