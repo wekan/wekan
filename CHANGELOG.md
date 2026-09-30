@@ -5490,6 +5490,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/491c2259e4">Translate Azerbaijani filter and import guidance</a>. Thanks to xet7.</summary>
+
+- Translate 30 missing or English strings in each of three Azerbaijani locales
+  for filters, imports and visibility, preserving existing translations.
+- Translation, registry and human-preference checks pass, including tokens,
+  query examples and todo.txt syntax. Fluent-speaker and browser review
+  were not run. The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
