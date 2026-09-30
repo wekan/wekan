@@ -849,7 +849,11 @@ const LOCALE_INVARIANTS = {
     'blockly-TAB_KEY',
     'blockly-WINDOWS',
   ]),
-  br: new Set(['pomodoro']),
+  br: new Set(['pomodoro',
+    'blockly-ALT_KEY', 'blockly-COMMAND_KEY', 'blockly-TAB_KEY',
+    'blockly-CHROME_OS', 'blockly-LINUX', 'blockly-MAC_OS', 'blockly-WINDOWS',
+    'blockly-MATH_TRIG_ACOS', 'blockly-MATH_TRIG_ASIN', 'blockly-MATH_TRIG_ATAN',
+    'blockly-MATH_TRIG_COS', 'blockly-MATH_TRIG_SIN', 'blockly-MATH_TRIG_TAN']),
   wo: new Set(['pomodoro']),
   wa: new Set(['pomodoro']),
 };
