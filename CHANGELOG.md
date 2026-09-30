@@ -5556,6 +5556,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/88d43dc89f">Translate Azerbaijani navigation and mathematics labels</a>. Thanks to xet7.</summary>
+
+- Translate 35 English strings in each of three Azerbaijani locales for
+  keyboard navigation, comparisons and mathematics, preserving tokens.
+- Translation, registry and human-preference checks pass, including movement
+  confirmation and square roots. Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
