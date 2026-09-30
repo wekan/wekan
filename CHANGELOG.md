@@ -4217,6 +4217,19 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/39013666f">Fill remaining Occitan notification and recovery placeholders</a>. Thanks to xet7.</summary>
+
+- Translate 79 Occitan notification, recovery and keyboard messages.
+  No flagged English placeholders remain, including pending keys. Retain
+  reviewed shared words and technical labels.
+- Translation, registry and human-preference checks pass, covering tokens,
+  preserved translations and irreversible recovery actions. Wording is lower
+  confidence; browser layout and fluent-speaker review were not run.
+  The broader language audit remains open.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
