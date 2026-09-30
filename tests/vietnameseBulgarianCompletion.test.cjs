@@ -28,6 +28,41 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Albanian filter and rule messages; remaining locale backlog is separate.
+{
+  const locale = read('sq');
+  const emailKeys = ["rule-email-recovery-dropped", "rule-email-recovery-review", "rule-email-recovery-recipients", "rule-email-recovery-recipient-accepted", "rule-email-recovery-recipient-unconfirmed", "rule-email-recovery-actions-hint", "rule-email-recovery-wait", "rule-email-recovery-resends", "rule-email-recovery-resend", "rule-email-recovery-mark-sent", "rule-email-recovery-drop", "rule-email-recovery-resend-confirm", "rule-email-recovery-mark-sent-confirm", "rule-email-recovery-drop-confirm", "rule-email-resolution-too-early", "rule-email-resolution-already-resolved", "rule-email-resolution-resend-in-flight", "rule-email-resolution-nothing-to-resend", "rule-email-resolution-resend-uncertain", "rule-email-resolution-busy", "rule-email-resolution-command-changed", "rule-email-resolution-attempt-invalid", "rule-email-resolution-failed", "rule-email-legacy-heading", "rule-email-legacy-description", "rule-email-legacy-source", "rule-email-legacy-mail", "rule-email-legacy-reason", "rule-email-legacy-reason-unbound", "rule-email-legacy-reason-details-snapshot", "rule-email-legacy-rebind", "rule-email-legacy-discard", "rule-email-legacy-rebind-confirm", "rule-email-legacy-discard-confirm", "rule-email-legacy-empty", "rule-email-legacy-unavailable", "rule-email-legacy-access-denied", "rule-email-legacy-source-changed", "rule-email-legacy-source-unavailable", "rule-email-legacy-plan-unavailable", "rule-email-legacy-attempt-exists", "rule-email-legacy-not-legacy", "rule-email-legacy-failed"];
+  for (const key of emailKeys) {
+    assert.notEqual(locale[key], english[key], `sq:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sq:${key}: tokens`);
+  }
+  assert.deepEqual(Object.keys(locale), Object.keys(english), 'sq: source key order');
+  assert.match(locale['rule-email-recovery-actions-hint'], /nuk e ridërgon kurrë vetë.*vetëm te marrësit pa konfirmim/);
+  assert.match(locale['rule-email-recovery-resend-confirm'], /dy herë/);
+  assert.match(locale['rule-email-recovery-mark-sent-confirm'], /vetëm nëse e di se ka mbërritur/);
+  assert.match(locale['rule-email-resolution-resend-uncertain'], /mund të ketë mbërritur ose jo/);
+  assert.match(locale['rule-email-legacy-description'], /nuk do t'i dërgojë vetë.*gjendja aktuale.*ka ende qasje/);
+  assert.match(locale['rule-email-legacy-discard-confirm'], /Nuk do të dërgohet kurrë/);
+  assert.match(locale['rule-email-legacy-access-denied'], /nuk ka më qasje.*ose rregulli ka ndryshuar/);
+  const keys = ["auto-archive-days", "auto-archive-off", "auto-archive-hint", "filter-recency-any", "filter-recency-day", "filter-recency-week", "filter-recency-month", "filter-recency-older", "filter-movement-range", "filter-date-range-field", "filter-date-range-from", "filter-date-range-to", "filter-date-range-missing", "filter-date-range-list-entry", "filter-date-range-invalid", "filter-due-any", "filter-due-previous-week", "filter-due-next-month", "filter-column-age", "filter-column-age-disabled", "filter-column-age-days", "filter-column-age-hint", "advanced-filter-card-dates-hint", "import-board-instruction-leo", "import-board-instruction-todotxt", "instance", "instance-desc", "board-instance-info", "automatic-linked-url-schemes-hint", "other-parent-cards", "add-parent-card", "remove-parent-card", "r-when-card-date", "r-trigger-vars-hint", "r-insert-variable", "r-vars-people-hint", "r-rule-any-trigger-help", "r-add-trigger-to-rule", "r-add-action-to-rule", "r-remove-rule-part", "notification-activity-heading", "notification-activity-description", "notification-activity-labels", "notification-activity-members", "notification-activity-assignees"];
+  for (const key of keys) {
+    assert.equal(typeof locale[key], 'string', `sq:${key}: present`);
+    assert.notEqual(locale[key], english[key], `sq:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sq:${key}: tokens`);
+  }
+  for (const token of ['@createdAt', '@receivedAt', '@startAt', '@dueAt', '@endAt', '@listEnteredAt', "@endAt >= '2026-01-01'", '@endAt = none']) assert.ok(locale['advanced-filter-card-dates-hint'].includes(token));
+  for (const key of ['r-trigger-vars-hint', 'r-vars-people-hint']) assert.deepEqual(locale[key].match(/\{[^{}]+\}/g), english[key].match(/\{[^{}]+\}/g));
+  for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:']) assert.ok(locale['import-board-instruction-todotxt'].includes(token));
+  assert.match(locale['auto-archive-hint'], /çdo orë.*nuk arkivohen kurrë.*bosh/);
+  assert.match(locale['filter-column-age-hint'], /të panjohur mbeten të dukshme.*nuk e rinis/);
+  for (const key of ['filter-date-range-from', 'filter-date-range-to']) assert.match(locale[key], /përfshirë/);
+  assert.match(locale['instance-desc'], /nuk u shfaqet kurrë.*nuk janë identifikuar.*Vetëm personat e shtuar/);
+  assert.match(locale['board-instance-info'], /<strong>çdo përdorues të identifikuar<\/strong>/);
+  assert.match(locale['notification-activity-description'], /Kujtesat e afatit dhe @përmendjet mbërrijnë gjithmonë/);
+  for (const token of ['thunderlink', 'onenote', 'javascript', 'data', 'vbscript']) assert.ok(locale['automatic-linked-url-schemes-hint'].includes(token));
+  assert.match(locale['automatic-linked-url-schemes-hint'], /nuk kthehen kurrë në lidhje/);
+  assert.match(locale['r-rule-any-trigger-help'], /cilido.*sipas radhës/);
+}
 // Esperanto completion and meaning checks for the newly translated messages.
 {
   const locale = read('eo');
