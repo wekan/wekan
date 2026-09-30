@@ -4421,6 +4421,19 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/33fd58bb0">Translate Welsh synchronization messages</a>. Thanks to xet7.</summary>
+
+- Fill 63 entries in each Welsh locale for synchronization conflicts,
+  previews, reports and Jira estimates. Preserve existing translations and
+  source tokens; each locale has 258 flagged entries remaining.
+- Translation, registry and human-preference checks pass, covering source
+  isolation, retained content, report limitations and explicit null handling.
+  Welsh wording is lower confidence; fluent-speaker and browser review were
+  not run. Other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
