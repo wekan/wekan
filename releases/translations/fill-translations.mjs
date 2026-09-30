@@ -82,6 +82,16 @@ const isEnglishVariant = code => /^en([_-].*)?$/.test(code) || code === 'en';
 // needs a different word. Keep those exceptions per locale; putting them in the
 // source-wide list would hide real work in every language.
 const LOCALE_INVARIANTS = {
+  // Malay keeps printed key legends, product/code/math names and these loanwords.
+  ...Object.fromEntries(['ms', 'ms-MY'].map(code => [code, new Set([
+    'blockly-ALT_KEY', 'blockly-COMMAND_KEY', 'blockly-CONTEXT_MENU_KEY',
+    'blockly-OPTION_KEY', 'blockly-SHIFT_KEY', 'blockly-TAB_KEY',
+    'blockly-CHROME_OS', 'blockly-LINUX', 'blockly-MAC_OS', 'blockly-WINDOWS',
+    'blockly-LOGIC_NULL', 'blockly-MATH_TRIG_ACOS', 'blockly-MATH_TRIG_ASIN',
+    'blockly-MATH_TRIG_ATAN', 'blockly-MATH_TRIG_COS', 'blockly-MATH_TRIG_SIN',
+    'blockly-MATH_TRIG_TAN', 'blockly-INPUT_LABEL_NUMBER_MIN',
+    'blockly-MATH_ONLIST_OPERATOR_MIN_ARIA',
+  ])])),
   // Persian retains these printed keyboard legends, products and math symbols.
   ...Object.fromEntries(['fa', 'fa-IR'].map(code => [code, new Set([
     'blockly-ALT_KEY', 'blockly-COMMAND_KEY', 'blockly-OPTION_KEY',
