@@ -220,24 +220,35 @@ Second pass of 2026-09-30 - built and tested (in Upcoming):
 - Finished rule email commands are compacted after 90 days.
 - Abandoned History writers are recovered online, fenced.
 
+Third pass of 2026-09-30 - built and tested (in Upcoming): activities carry
+incarnations; delivered Sync notification plans are compacted after 90 days;
+manual and scheduled Sync run through the durable journal, with replay every
+minute; the intermittent activity-recovery test was two test races and is fixed.
+
 Remaining, and why:
 
-- **Activities get no incarnation.** Their ids are deterministic, and recovery
-  compares their canonical content. A recreated activity with the same content
-  is the same activity, so an incarnation would never decide anything.
-- **90-day compaction of Scrum completions and requests and of Sync intents and
-  completions** waits on a completion timestamp. Those rows have none, so no
-  sweep can tell a 90-day-old receipt from a new one. Notification plans
-  already compact on completion.
-- **Online writer-token recovery** is built (leases and fenced inserts). A
-  token written by a server older than it has no lease and still needs the
-  offline tool; that is by design, not a gap to close.
-- **The rest of the Scrum/Sync handoff:** atomic coordination of cards,
-  History, activities and effects, startup replay, and calling the stored
-  stages from manual and scheduled Sync. The reservation no longer blocks these.
-- **Intermittent test.** The full-app "Activity notification recovery"
-  `pausedScan.skipped` case failed once in a full run and passed twice on its
-  own. It is not reproduced.
+- **Durable rule actions other than email.** A board with any other rule
+  action keeps direct Sync, because about thirty action types have no durable
+  adapter. Archive has a stored runner, but one rule-archived card took 36 s
+  through it: each nested delivery stage re-runs every outer guard. That guard
+  composition has to be made cheaper before archive can be listed
+  (server/lib/listSyncSteps.js).
+- **Retention of the other stored Sync content.** Rule plans (rule and action
+  documents), rule archive commands and effects (card titles, History and
+  activity content), webhook plans (URLs and tokens), webhook responses and
+  webhook comment plans still keep content forever. None has a completion
+  receipt with a time yet; each needs one, as notification plans now have,
+  before it can be compacted.
+- **Atomicity.** Cards, History, activities and effects are coordinated by the
+  write-ahead journal and replay, not by a transaction. The FerretDB v1 backend
+  has no multi-document transactions, and journal ownership cannot fence a
+  card write that is already in flight. That is a property of the backends,
+  not a step left undone.
+- **Lists created before list lifetimes existed** have no incarnation, so they
+  keep direct Sync. Saving settings does not give them one: only a server
+  insertion does (models/lists.js). Assigning one by migration would stop
+  their stored credential from matching until the settings are saved again,
+  so it needs a maintainer decision.
 
 Node suite health at this pass: 163 of 1445 suites fail; 162 already failed at
 the pass's starting commit (mostly translation-completeness suites, plus source
@@ -1666,9 +1677,10 @@ template.
 
 **In short:** Fixes **ReplyBleed**: a reply to a notification email is now
 attributed only to the person it was sent to. Carries out the maintainer's
-2026-09-30 decisions: **Scrum record incarnations**, **rule email compaction
-after 90 days**, **Sync History rows linked when written**, and **online
-recovery of abandoned History writers**.
+2026-09-30 decisions: **incarnations** for Scrum records and activities,
+**90-day compaction** of rule email and notification plans, **Sync History
+linked when written**, **online History writer recovery**, and **manual and
+scheduled Sync through the durable journal** with replay after a restart.
 Irish gains the rule email recovery and legacy review translations.
 
 This release fixes the following CRITICAL SECURITY ISSUE of [ReplyBleed](https://wekan.fi/hall-of-fame/replybleed/):
@@ -1713,8 +1725,8 @@ are still not parsed; JSON and URL-encoded ones are.
 
 and adds the following new features:
 
-**Scrum History** - a record deleted and recreated under the same id is no
-longer mistaken for the one an undo planned against.
+**Incarnations** - a Scrum record or activity deleted and recreated under the
+same id is no longer mistaken for the original.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/20275418d">Give every Scrum record a lifetime incarnation and refuse retries against another lifetime</a>. Thanks to xet7.</summary>
@@ -1733,7 +1745,21 @@ identical record of another lifetime mid-undo: the retry refuses and leaves it.
 
 </details>
 
-**Rule email** - finished commands no longer keep the whole mail forever.
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d2e583080">Give every activity a lifetime incarnation that notification recovery checks</a>. Thanks to xet7.</summary>
+
+The server insert hook gives every activity a new random incarnation, whatever
+the caller passed, before its notification intent captures it. Recovery
+already compares the stored activity with the captured one, so an activity
+recreated under the same id is refused as unconfirmed. Sync-planned
+activities are exempt on purpose: their deterministic id is their identity,
+and a replay must match the plan. A full-app test recreates an activity with
+the same values and timestamps and recovery refuses it.
+
+</details>
+
+**Retention** - finished rule emails and notification plans no longer keep their
+content forever.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1e342170b">Compact finished rule email commands after 90 days</a>. Thanks to xet7.</summary>
@@ -1751,6 +1777,21 @@ the outcome row. The attempt row stays as the receipt a late retry finds. The
 recovery and legacy review readers accept the compact form. A MongoDB test
 covers what is compacted, what is left for later, idempotence and a command
 that no longer matches its attempt.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bb591c448">Compact delivered Sync notification plans after 90 days</a>. Thanks to xet7.</summary>
+
+A stored notification plan keeps every recipient's rendered subject and HTML,
+and had no completion evidence of its own, so it was kept forever. Delivery
+now writes a receipt with its completion time. After
+`SYNC_RECEIPT_METADATA_DAYS` (90), a sweep replaces the exact plan with its
+ids and checksum in place. A late replay returns as delivered without
+resending; within 90 days a replay still re-checks every recipient. Scrum
+completions and requests and Sync intents and completions hold only ids and
+timestamps already, so there is nothing in them to compact. MongoDB and
+full-app tests cover compaction, replay and refusal.
 
 </details>
 
@@ -1798,6 +1839,54 @@ the board drains, and `releases/recover-history-writer.cjs --recover-expired`
 does it on demand. Tokens from older servers have no lease and still need the
 offline procedure. MongoDB tests with two clients and a full-app test cover a
 dead writer, a fenced slow writer, a landed row, live writers and migration.
+
+</details>
+
+**List Sync** - a restart in the middle of a Sync run no longer loses its
+History, activities, rules, notifications or webhooks.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6ed28c41f">Run manual and scheduled Sync through the durable journal, with replay</a>. Thanks to xet7.</summary>
+
+The write-ahead journal and its stored stages were built but never called;
+Sync wrote cards directly. A run now takes the durable path when:
+
+- the board enabled Sync effects (and cron effects for a scheduled run);
+- the list has a versioned scope;
+- every rule action on the board has a durable adapter. Only sending email
+  has one so far.
+
+Otherwise it uses the direct writes as before, so no rule stops running.
+Steps are built from the stored cards, and a local edit since the fetch stops
+the run. Each step is applied, with its planned effects, as the actor and
+trigger that started it. The `wekan-list-sync-replay` job resumes interrupted
+runs every minute. A full-app test creates, updates and archives, crashes at a
+card write and replays without duplicates.
+
+</details>
+
+- [Record why rule archive is not a durable Sync action yet](https://github.com/wekan/wekan/commit/1e40e7e06):
+  measured at 36 s per archived card, because nested delivery re-runs every
+  outer guard. Thanks to xet7.
+
+and has the following developer-tooling fixes:
+
+**Full-app tests** - two recovery tests no longer fail by chance in a full run.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2c2aeaff8">Make the paused-scan recovery test read a full pass, not one page</a>. Thanks to xet7.</summary>
+
+The recovery scanner reads 100 pending intents per call and keeps its place,
+so with other suites' intents pending one call could miss this test's intent.
+The test now pages to the end with its own scanner.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5b93e725b">Retry busy operator actions in the activity recovery test</a>. Thanks to xet7.</summary>
+
+The startup scan holds an intent's lease every second, so a pause or cancel
+could meet sync-busy, which an operator retries. The test now does too.
 
 </details>
 
@@ -3794,6 +3883,18 @@ placeholders. Other languages remain in progress.
   preserved translations and irreversible recovery actions. Wording is lower
   confidence; browser layout and fluent-speaker review were not run.
   Older mixed-language values still require correction.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7ed5c2937">Correct mixed-language Aragonese email and import messages</a>. Thanks to xet7.</summary>
+
+- Replace Spanish and mixed-language wording in 30 reviewed Aragonese email,
+  template and import messages, preserving all other locale values.
+- Translation, registry and human-preference checks pass. Regression coverage
+  checks Aragonese wording, placeholders, API paths, JSON fields and Markdown
+  syntax. Wording is lower confidence; browser layout and fluent-speaker
+  review were not run. The broader language audit remains in progress.
 
 </details>
 
