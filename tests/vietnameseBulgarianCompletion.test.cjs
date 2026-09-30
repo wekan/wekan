@@ -2317,6 +2317,20 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedRuleActionSummaryKeys = ["r-schedule-daily", "r-move-all-cards", "r-made-incomplete", "r-add-actinguser-member", "r-send-email", "r-d-send-email", "r-d-move-to-top-gen", "r-d-move-to-top-spec", "r-d-move-to-bottom-gen", "r-d-move-to-bottom-spec", "r-d-archive", "r-d-unarchive", "r-d-add-label", "r-d-remove-label", "r-d-add-member", "r-d-remove-member", "r-d-remove-all-member", "r-d-check-all", "r-d-uncheck-all", "r-d-add-checklist", "r-d-remove-checklist"];
+  for (const key of correctedRuleActionSummaryKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /(?:Codziennié|wszystkie|nieukończona|reguł|člonka|Wyślij|wiadomość|początek|koniec|Zarchiwizuj|Przywròć|etykietę|czeklistę)/);
+  }
+  for (const pair of [['r-d-check-all', 'r-d-uncheck-all'], ['r-d-archive', 'r-d-unarchive'], ['r-d-add-label', 'r-d-remove-label'], ['r-d-add-member', 'r-d-remove-member'], ['r-d-add-checklist', 'r-d-remove-checklist']]) assert.notEqual(locale[pair[0]], locale[pair[1]]);
+  for (const position of ['top', 'bottom']) {
+    assert.match(locale[`r-d-move-to-${position}-gen`], /ji lëstë/);
+    assert.doesNotMatch(locale[`r-d-move-to-${position}-spec`], /ji lëstë/);
+  }
+  assert.match(locale['r-d-check-all'], /^Òznaczë wszëtczé/);
+  assert.match(locale['r-d-uncheck-all'], /^Òdznaczë wszëtczé/);
+  assert.match(locale['r-d-remove-all-member'], /wszëtczich nôleżników/);
+  assert.match(locale['r-add-actinguser-member'], /brëkòwnika.*wëzwòlił nã reglã.*nôleżnika/);
   const correctedRuleBuilderKeys = ["r-add-rule", "r-delete-rule", "r-new-rule-name", "r-edit-rule-trigger-action", "r-toggle-rule-enabled", "r-workflow-help", "r-w-card-created", "r-w-card-archived", "r-w-card-unarchived", "r-w-label-added", "r-w-label-removed", "r-w-member-added", "r-w-member-removed", "r-w-assignee-added", "r-w-assignee-removed", "r-w-checklist-added", "r-w-attachment-added", "r-w-every-day-at", "r-import-trello-note"];
   for (const key of correctedRuleBuilderKeys) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
