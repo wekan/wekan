@@ -31,6 +31,16 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Swahili archive and filter guidance; other placeholders remain.
 {
   const locale = read('sw');
+  const notificationKeys = ["notification-activity-heading", "notification-activity-description", "notification-activity-labels", "notification-activity-members", "notification-activity-assignees", "notification-activity-comments", "notification-activity-moves", "notification-activity-dates", "notification-activity-checklists", "notification-activity-attachments", "notification-activity-customFields", "notification-activity-archive", "notification-activity-created", "due-reminder-heading", "due-reminder-days-label", "due-reminder-off", "due-reminder-webhook", "due-reminder-invalid", "due-reminder-saved", "dependency-type-duplicates"];
+  for (const key of notificationKeys) {
+    assert.notEqual(locale[key], english[key], `sw:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sw:${key}: tokens`);
+  }
+  assert.match(locale['notification-activity-description'], /kutajwa kwa @ hufika kila wakati/);
+  assert.match(locale['due-reminder-days-label'], /0.*chanya.*kabla.*hasi.*baada/);
+  assert.match(locale['due-reminder-days-label'], /Acha tupu.*chaguomsingi la seva/);
+  assert.match(locale['due-reminder-invalid'], /kumi.*-14 hadi 14/);
+  assert.notEqual(locale['notification-activity-members'], locale['notification-activity-assignees']);
   const importRuleKeys = ["filter-column-age-days", "filter-column-age-hint", "advanced-filter-card-dates-hint", "import-board-instruction-leo", "import-board-instruction-todotxt", "instance", "instance-desc", "board-instance-info", "automatic-linked-url-schemes-hint", "other-parent-cards", "add-parent-card", "remove-parent-card", "r-when-card-date", "r-trigger-vars-hint", "r-insert-variable", "r-vars-people-hint", "r-rule-any-trigger-help", "r-add-trigger-to-rule", "r-add-action-to-rule", "r-remove-rule-part"];
   for (const key of importRuleKeys) {
     assert.notEqual(locale[key], english[key], `sw:${key}: translated`);
