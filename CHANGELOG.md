@@ -4773,6 +4773,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/75eef42957">Correct Kashubian checklist and storage translations</a>. Thanks to xet7.</summary>
+
+- Correct 40 mixed-language checklist, attachment and storage labels while
+  preserving product names and checking translation placeholders.
+- Translation, registry and human-preference checks pass. Kashubian wording
+  is lower confidence; fluent-speaker and browser review were not run.
+  Older mixed-language values and other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
