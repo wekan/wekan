@@ -2317,6 +2317,66 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedMigrationKeys = [
+    "cron-migrations",
+    "cron-migration-errors",
+    "cron-migration-warnings",
+    "cron-no-failed-migrations",
+    "cron-no-paused-migrations",
+    "cron-migrations-resumed",
+    "cron-migrations-retried",
+    "database-migration",
+    "database-migration-description",
+    "database-migration-confirm",
+    "database-migration-done",
+    "sandstorm-migration-description",
+    "sandstorm-migration-status",
+    "sandstorm-migration-failed",
+    "sandstorm-migration-pending",
+    "migration-starting",
+    "migration-pausing",
+    "migration-stopping",
+    "migration-pause-failed",
+    "migration-paused",
+    "migration-progress",
+    "migration-start-failed",
+    "migration-started",
+    "migration-not-needed",
+    "migration-status",
+    "migration-stop-confirm",
+    "migration-stop-failed",
+    "migration-stopped",
+    "pause-all-migrations",
+    "start-all-migrations",
+    "stop-all-migrations",
+    "attachment-migration",
+    "automatic-migration",
+    "migration-needed",
+    "migration-successful",
+    "migration-failed",
+    "migration-progress-title",
+    "migration-progress-overall",
+    "migration-progress-status",
+    "migration-progress-details",
+    "migration-progress-note",
+    "database-migrations",
+    "overall-progress",
+    "remaining-attachments",
+    "resume-migration"
+  ];
+  for (const key of correctedMigrationKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /(?:Uruchom|Wstrzymaj|Zatrzymaj|pomyślnié|bazy danych|Nié udało się|zakończona|Szczegòły)/, `csb:${key}: Polish remnants`);
+  }
+  for (const literal of ['mongodb://127.0.0.1:27018', 'mongodb://127.0.0.1:27019', 'WEKAN_FERRETDB_URL', 'WEKAN_MONGODB_URL', 'MONGO_URL', 'snap set wekan database=ferretdb', '=mongodb']) {
+    assert.ok(locale['database-migration-description'].includes(literal), `csb:database migration: ${literal}`);
+  }
+  for (const literal of ['files/attachments', 'files/avatars', 'MongoDB 3', 'FerretDB v1', 'SQLite']) {
+    assert.ok(locale['sandstorm-migration-description'].includes(literal), `csb:Sandstorm migration: ${literal}`);
+  }
+  assert.doesNotMatch(locale['sandstorm-migration-description'], /files\/Przëdôwczi/);
+  assert.equal(new Set(['migration-starting', 'migration-pausing', 'migration-stopping'].map(key => locale[key])).size, 3);
+  assert.equal(new Set(['migration-started', 'migration-paused', 'migration-stopped'].map(key => locale[key])).size, 3);
   const correctedMixedAdminKeys = [
     "attachment-transfer-limits-title",
     "attachment-transfer-limits-description",
