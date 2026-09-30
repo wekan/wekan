@@ -82,6 +82,12 @@ const isEnglishVariant = code => /^en([_-].*)?$/.test(code) || code === 'en';
 // needs a different word. Keep those exceptions per locale; putting them in the
 // source-wide list would hide real work in every language.
 const LOCALE_INVARIANTS = {
+  // Serbian retains these printed modifier legends and product names.
+  sr: new Set([
+    'blockly-ALT_KEY', 'blockly-COMMAND_KEY', 'blockly-OPTION_KEY',
+    'blockly-SHIFT_KEY', 'blockly-TAB_KEY', 'blockly-CHROME_OS',
+    'blockly-LINUX', 'blockly-MAC_OS', 'blockly-WINDOWS',
+  ]),
   // Croatian retains product names, printed key legends and mathematical terms.
   hr: new Set([
     'blockly-ALT_KEY', 'blockly-COMMAND_KEY', 'blockly-OPTION_KEY',
