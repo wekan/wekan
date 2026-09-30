@@ -824,6 +824,14 @@ for (const code of ['sl', 'sl_SI']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /verður aldrei sendur/);
   assert.match(locale['rule-email-legacy-access-denied'], /ekki lengur aðgang/);
   assert.match(locale['r-insert-variable'], /breytu/);
+  for (const key of Object.keys(english).filter(key => key.startsWith('sync-'))) {
+    assert.notEqual(locale[key], english[key], `is:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `is:${key}: tokens`);
+  }
+  assert.match(locale['sync-conflict-hint'], /Ekkert er sent til upprunakerfisins/);
+  assert.match(locale['sync-report-partial'], /halda ekki áfram keyrslu eða afturkalla/);
+  assert.match(locale['sync-estimate-field-hint'], /null hreinsar/);
+  assert.match(locale['sync-time-estimate-hint'], /Nákvæmlega einn samsvarandi reitur/);
   for (const key of Object.keys(english).filter(key => key.startsWith('scrum-'))) {
     assert.notEqual(locale[key], english[key], `is:${key}: untranslated`);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `is:${key}: tokens`);
