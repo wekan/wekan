@@ -31,6 +31,19 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Romansh date filters, imports and archive-language corrections.
 {
   const locale = read('rm');
+  const correctedImportListKeys = ["import-board-instruction-openproject", "import-board-instruction-jira", "import-trello-zip-file-hint", "import-trello-zip-progress", "trello-api-import-desc", "trello-importing", "trello-delete-imported", "import-members-map", "label-delete-pop", "list-archive-cards", "list-archive-cards-pop", "list-move-cards", "list-select-cards", "my-boards", "no-archived-cards", "normal-desc"];
+  for (const key of correctedImportListKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /\b(ciartes|tabellai|utenc|injuntes|Incolla|Sposta)\b/, `rm:${key}: no mixed-language seed`);
+  }
+  assert.ok(locale['import-board-instruction-openproject'].includes('GET /api/v3/work_packages'));
+  for (const token of ['GET /rest/api/2/search', '"issues"', '"automationRules"']) assert.ok(locale['import-board-instruction-jira'].includes(token));
+  for (const token of ['.zip', '.json', 'Trello Card Attachments Downloader']) assert.ok(locale['import-trello-zip-file-hint'].includes(token));
+  assert.match(locale['label-delete-pop'], /na po betg vegnir fatg enavos.*cronologia vegn destruida/);
+  assert.match(locale['normal-desc'], /Na po betg midar ils parameters/);
+  assert.ok(locale['list-archive-cards-pop'].includes(locale.menu));
+  assert.equal(new Set(['archive', 'move', 'select'].map(action => locale[`list-${action}-cards`])).size, 3);
+
   const correctedBoardViewKeys = ["step-update-cards", "refresh", "refresh-monitoring", "multi-selection-active", "set-selected-starred", "set-selected-unstarred", "all-boards-hide", "and-n-other-card_plural", "auto-watch", "show-at-all-boards-page", "show-card-counter-per-list", "comment-only", "no-comments-desc", "read-only-desc", "worker-desc", "confirm-move-list-to-swimlane", "editNotificationPopup-title", "error-watch-disabled", "export-board-without-attachments", "filter-cards", "filter-on-desc", "import-board-instruction-kanboard", "import-board-instruction-deck"];
   for (const key of correctedBoardViewKeys) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
