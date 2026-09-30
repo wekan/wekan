@@ -31,6 +31,15 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Maltese filters and imports; remaining untranslated strings are filled separately.
 {
   const locale = read('mt');
+  const correctedSettingsKeys = ["normal", "normal-assigned-only", "password", "participating", "preview", "previewAttachedImagePopup-title", "previewClipboardImagePopup-title", "rules", "shortcut-autocomplete-emoji", "subscribe", "spent-time-hours", "overtime-hours", "overtime", "remove-labels-multiselect", "tracking", "type", "uploaded-avatar", "uploading-files", "watching", "welcome-swimlane", "welcome-list1", "welcome-list2", "wipLimitErrorPopup-title", "settings", "attachment-limits", "attachment-upload-limit-label", "avatars-upload-blocked-label", "attachment-download-limit-label", "api-upload-limit-label", "api-download-limit-label", "attachment-limit-mode-unlimited", "attachment-limit-mode-blocked", "registration", "self-registration", "invite"];
+  for (const key of correctedSettingsKeys) {
+    assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
+    assert.doesNotMatch(locale[key], /Traduzzjoni Maltija:/, `mt:${key}: no prefixed English`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `mt:${key}: tokens`);
+  }
+  assert.equal(locale.preview, locale['previewAttachedImagePopup-title']);
+  assert.notEqual(locale['attachment-limit-mode-unlimited'], locale['attachment-limit-mode-blocked']);
+  assert.notEqual(locale['api-upload-limit-label'], locale['api-download-limit-label']);
   const correctedImportNavigationKeys = ["export-card-attachment-size", "export-card-attachment-type", "export-card-attachment-uploaded-by", "export-card-attachment-uploaded-at", "export-card-excel-free", "export-card-excel-needed", "sorted", "list-label-sort", "filter-overdue", "filter-creator-label", "other-filters-label", "import-excel-file", "import-json-file", "import-trello-json-file", "import-trello-zip-file", "trello-parent-workspace-top", "unselect-all", "trello-resume", "running", "paused", "info", "check-version", "initials", "invalid-date", "invalid-time", "joined", "keyboard-shortcuts", "label-default", "calendar", "log-in", "loginPopup-title", "menu", "multi-selection", "multi-selection-off", "muted"];
   for (const key of correctedImportNavigationKeys) {
     assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
