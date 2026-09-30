@@ -6217,6 +6217,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2bca7bcfd7">Translate Swahili list inputs and warning controls</a>. Thanks to xet7.</summary>
+
+- Translate 20 English strings for list inputs, conditions and warnings,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including text/list
+  operations, start/end positions and open/close warning actions.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
