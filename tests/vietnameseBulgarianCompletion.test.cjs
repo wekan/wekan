@@ -499,6 +499,15 @@ for (const code of ['sl', 'sl_SI']) {
   assert.match(locale['scrum-partial-report'], /само картице које су вам тренутно додељене/);
   assert.match(locale['scrum-daily-observations-help'], /не бележе сваку промену/);
   for (const key of Object.keys(english).filter(key =>
+    /^sync-(conflict|preview|source|report|recovery|estimate)-/.test(key))) {
+    assert.notEqual(locale[key], english[key], `sr:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sr:${key}: tokens`);
+  }
+  assert.match(locale['sync-conflict-hint'], /Ништа се не шаље изворном систему/);
+  assert.match(locale['sync-conflict-detach-hint'], /садржај остаје у WeKan-у/);
+  assert.match(locale['sync-report-partial'], /не настављају нити поништавају/);
+  assert.match(locale['sync-estimate-field-hint'], /недостају се занемарују.*null брише/);
+  for (const key of Object.keys(english).filter(key =>
     /^(auto-archive-|filter-(recency|movement-range|date-range|due-|column-age|preset|card-text)|notification-activity-|due-reminder-|map-view-)/.test(key))) {
     assert.notEqual(locale[key], english[key], `sr:${key}: untranslated`);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sr:${key}: tokens`);
