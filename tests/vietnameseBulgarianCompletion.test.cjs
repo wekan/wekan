@@ -303,5 +303,14 @@ for (const code of ['ms', 'ms-MY']) {
   assert.ok(locale['r-vars-people-hint'].includes('{customField:Field name}'));
   assert.match(locale['filter-column-age-hint'], /tidak menetapkan semula/);
   assert.match(locale['instance-desc'], /tidak pernah ditunjukkan kepada orang yang belum log masuk/);
+  for (const key of Object.keys(english).filter(key =>
+    /^(notification-activity-|due-reminder-|filter-preset|filter-card-text|map-view-)/.test(key))) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+  }
+  assert.deepEqual(translationTokens(locale['custom-field-stringtemplate-context-hint']),
+    translationTokens(english['custom-field-stringtemplate-context-hint']));
+  assert.match(locale['due-reminder-days-label'], /positif.*sebelumnya.*negatif.*selepasnya/);
+  assert.match(locale['notification-activity-description'], /sentiasa diterima/);
 }
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
