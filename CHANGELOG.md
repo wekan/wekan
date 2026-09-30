@@ -2926,6 +2926,16 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2bc853431">Translate Hindi synchronization messages</a>. Thanks to xet7.</summary>
+
+- Fill 63 Sync conflict, preview, report and estimate messages in each
+  Hindi locale, hi and hi-IN.
+- Preserve existing translations and placeholders; check source-write warnings,
+  partial-run limitations and explicit null handling.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
