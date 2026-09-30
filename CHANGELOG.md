@@ -7610,6 +7610,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4213cb62c75b41ba5e3f536ba4c376c4b31a2a72">Translate Luxembourgish text prompts and variables</a>. Thanks to xet7.</summary>
+
+- Translate 21 missing or English strings for text prompts, trimming,
+  variables and workspace announcements, preserving translations and tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  trim directions, prompt types and get/set actions.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
