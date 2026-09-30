@@ -227,17 +227,12 @@ minute; the intermittent activity-recovery test was two test races and is fixed.
 
 Remaining, and why:
 
-- **Durable rule actions other than email.** A board with any other rule
-  action keeps direct Sync, because about thirty action types have no durable
-  adapter. Archive has a stored runner, but one rule-archived card took 36 s
-  through it: each nested delivery stage re-runs every outer guard. That guard
-  composition has to be made cheaper before archive can be listed
-  (server/lib/listSyncSteps.js).
-- **Retention of rule archive commands and effects.** Rule, notification and
-  webhook plans are compacted now (server/lib/syncPlanRetention.js). Archive
-  commands and effects are written only by the stored archive runner, which is
-  not registered as a durable adapter (see above), so production writes none.
-  Their retention belongs with that registration.
+- **Durable rule actions other than email, archive and unarchive.** A board
+  with any other rule action keeps direct Sync. About thirty action types -
+  labels, members, dates, colours, checklists, moves, copies, links - have no
+  durable adapter. Each needs its own saved command and its own planned History
+  and activities, the way archive has, so they are a design project, not one
+  change (server/lib/listSyncSteps.js).
 - **Atomicity.** Cards, History, activities and effects are coordinated by the
   write-ahead journal and replay, not by a transaction. The FerretDB v1 backend
   has no multi-document transactions, and journal ownership cannot fence a
@@ -1758,8 +1753,8 @@ the same values and timestamps and recovery refuses it.
 
 </details>
 
-**Retention** - finished rule emails, rule plans, notification plans and webhook
-plans no longer keep their content forever.
+**Retention** - finished rule emails, rule plans, rule archives, notification
+plans and webhook plans no longer keep their content forever.
 
 <details>
 <summary><a href="https://github.com/wekan/wekan/commit/1e342170b">Compact finished rule email commands after 90 days</a>. Thanks to xet7.</summary>
@@ -1817,6 +1812,18 @@ Rules now write a completion receipt once every action is done, and the plan is
 compacted in place 90 days later. A replay of the compact form returns as done.
 Every other stage refuses the stub, and the legacy email review treats its
 commands as finished. MongoDB and full-app tests cover it.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/023090a65">Compact finished rule archive commands and their effects after 90 days</a>. Thanks to xet7.</summary>
+
+An archive command keeps up to 1000 cards' titles, and its effects row keeps
+the History and activity content written for them. The archive runner now
+writes a completion receipt with its time. 90 days later the effects row is
+removed and the command compacted in place. A late replay returns the
+invocation as done when the runner's final receipt confirms it. MongoDB and
+full-app tests cover it.
 
 </details>
 
@@ -1878,8 +1885,8 @@ Sync wrote cards directly. A run now takes the durable path when:
 
 - the board enabled Sync effects (and cron effects for a scheduled run);
 - the list has a versioned scope;
-- every rule action on the board has a durable adapter. Only sending email
-  has one so far.
+- every rule action on the board has a durable adapter: sending email and,
+  since the guard change below, archive and unarchive.
 
 Otherwise it uses the direct writes as before, so no rule stops running.
 Steps are built from the stored cards, and a local edit since the fetch stops
@@ -1893,6 +1900,20 @@ card write and replays without duplicates.
 - [Record why rule archive is not a durable Sync action yet](https://github.com/wekan/wekan/commit/1e40e7e06):
   measured at 36 s per archived card, because nested delivery re-runs every
   outer guard. Thanks to xet7.
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f06ecdee0">Share guard results within one check, and make rule archive a durable Sync action</a>. Thanks to xet7.</summary>
+
+Every stored stage checks before and after by calling the guard below it
+twice, so one innermost check re-ran every outer guard 2^depth times. Each guard
+now runs at most once per evaluation. A call from ordinary work, between stages
+or after a write, still checks everything afresh, so a policy change or lost
+lease between stages still stops the next one. A first attempt with a 100 ms
+reuse window missed exactly that and was dropped. Archive and unarchive are now
+durable rule adapters. The durable Sync test runs an "archive every created
+card" rule end to end in about a second.
+
+</details>
 
 and has the following developer-tooling fixes:
 
