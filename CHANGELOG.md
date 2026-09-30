@@ -8007,6 +8007,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b36ba3081f4251b06e21a2f1ea68a6b9d4ff2205">Translate Friulian rules and notifications</a>. Thanks to xet7.</summary>
+
+- Translate 20 rule and notification strings, preserving existing
+  translations, replacement tokens and rule variables.
+- Translation, registry and human-preference checks pass, including distinct
+  trigger, action and recipient labels. Friulian has lower confidence.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
