@@ -6145,6 +6145,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c6749d1411">Translate Swahili editor accessibility labels</a>. Thanks to xet7.</summary>
+
+- Translate 20 English strings for editor actions and field types,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including add/remove
+  actions, collapse/expand labels, image types and angle units.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
