@@ -31,6 +31,16 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Frisian date filters; further translation batches remain.
 for (const code of ['fy', 'fy-NL']) {
   const locale = read(code);
+  const syncReportKeys = ["sync-preview-truncated", "sync-preview-omissions", "sync-preview-scope", "sync-preview-excluded", "sync-preview-unmapped", "sync-preview-parser-warnings", "sync-preview-parser-unsupported", "sync-source-heading", "sync-source-scope", "sync-source-unmapped", "sync-source-excluded", "sync-source-converted", "sync-source-fallback", "sync-source-excluded-item", "sync-source-occurrences", "sync-source-truncated", "sync-source-omitted", "sync-report-button", "sync-report-retention", "sync-report-partial", "sync-report-unfinished", "sync-report-failed", "sync-report-completed", "sync-report-completed-with-warnings", "sync-report-skipped"];
+  for (const key of syncReportKeys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+  }
+  for (const suffix of ['unmapped', 'excluded']) assert.equal(locale[`sync-source-${suffix}`], locale[`sync-preview-${suffix}`]);
+  for (const [key, numbers] of [['sync-preview-truncated', ['100']], ['sync-source-truncated', ['100']], ['sync-report-retention', ['20', '30']]]) {
+    for (const number of numbers) assert.ok(locale[key].includes(number));
+  }
+  assert.equal(new Set(['unfinished', 'failed', 'completed', 'skipped'].map(state => locale[`sync-report-${state}`])).size, 4);
   const syncConflictKeys = ["sync-conflict-hint", "sync-conflict-local", "sync-conflict-keep-local", "sync-conflict-use-source", "sync-conflict-refresh", "sync-conflict-review-complete", "sync-conflict-duplicate", "sync-conflict-keep-mapping", "sync-conflict-detach", "sync-conflict-detach-hint", "sync-conflict-archive", "sync-conflict-archive-hint", "sync-conflict-keep-card-local", "sync-conflict-creation", "sync-conflict-creation-hint", "sync-conflict-create-replacement", "sync-preview-button", "sync-preview-heading", "sync-preview-saved", "sync-preview-unavailable", "sync-preview-blocked", "sync-preview-create", "sync-preview-update", "sync-preview-archive", "sync-preview-baseline"];
   for (const key of syncConflictKeys) {
     assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
