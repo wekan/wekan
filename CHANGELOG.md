@@ -2685,6 +2685,15 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f63480890">Translate Belarusian Scrum planning and reports</a>. Thanks to xet7.</summary>
+
+- Fill 84 Belarusian Scrum labels, planning controls and report explanations.
+- Preserve placeholders and existing translations; check partial-report and
+  observation warnings. Update the documented translation coverage count.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
