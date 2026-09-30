@@ -1,7 +1,7 @@
 'use strict';
 const { AsyncLocalStorage } = require('node:async_hooks');
 const storage = new AsyncLocalStorage();
-const KINDS = ['create','archive','title','description','customFields','history'];
+const KINDS = ['create','archive','title','description','customFields','history','timing'];
 async function withSyncRecordingDeferred({ cardId, boardId, listId, kinds }, work) {
   if (![cardId,boardId,listId].every(value=>typeof value==='string'&&value) || !Array.isArray(kinds) ||
       kinds.some(kind=>!KINDS.includes(kind)) || typeof work!=='function') throw new Error('sync-recording-scope-invalid');
@@ -16,7 +16,7 @@ function deferSyncRecording(kind, doc, fields) {
       doc.boardId!==scope.boardId || doc.listId!==scope.listId) return false;
   // Sync's own fields, and the one field a durable rule card action changes
   // (server/lib/syncRuleCardCommand.js); its History is written from its plan.
-  if(kind==='history' && (!Array.isArray(fields) || fields.some(field=>!['title','description','spentTime','customFields','archived','labelIds','color','dueComplete'].includes(field)))) return false;
+  if(kind==='history' && (!Array.isArray(fields) || fields.some(field=>!['title','description','spentTime','customFields','archived','labelIds','color','dueComplete','startAt','endAt','dueAt','receivedAt'].includes(field)))) return false;
   // Each expected hook consumes its own slot. Nested/unrelated writes and
   // delayed callbacks after the owning mutation must keep normal recording.
   scope.kinds.delete(kind);

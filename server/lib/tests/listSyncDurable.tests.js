@@ -139,6 +139,22 @@ describe('Durable list Sync', function () {
       assert.equal(await replayStoredListSync().then(() => Activities.find({ cardId: fourth._id, activityType: 'addedLabel' }).countAsync()), 1);
       await Rules.rawCollection().deleteMany({ boardId }); await Triggers.rawCollection().deleteMany({ boardId });
 
+      // Dates too: "give every created card a due date" - the timing hook's own
+      // activity is deferred, so there is exactly one a-dueAt activity.
+      const dateActionId = Random.id(), dateTriggerId = Random.id();
+      await Actions.rawCollection().insertOne({ _id: dateActionId, actionType: 'updateDate', dateField: 'dueAt', boardId, desc: 'due' });
+      await Triggers.rawCollection().insertOne({ _id: dateTriggerId, activityType: 'createCard', boardId,
+        listName: '*', userId: '*', swimlaneName: '*', cardTitle: '*', desc: 'created' });
+      await Rules.rawCollection().insertOne({ _id: Random.id(), title: 'due new', triggerId: dateTriggerId, actionId: dateActionId, boardId });
+      issues = [issue('P-1', 'First renamed'), issue('P-5', 'Due by rule')];
+      const dated = await run();
+      assert.deepEqual([dated.durable, dated.created], [true, 1], JSON.stringify(dated));
+      const fifth = (await cards()).find(card => card.syncExternalId === 'P-5');
+      assert.ok(fifth.dueAt instanceof Date, 'the rule set a due date');
+      assert.equal(await Activities.find({ cardId: fifth._id, activityType: 'a-dueAt' }).countAsync(), 1, 'one a-dueAt activity');
+      assert.equal(await ChangeHistory.find({ cardId: fifth._id, group: 'dates' }).countAsync(), 1, 'one dates History row');
+      await Rules.rawCollection().deleteMany({ boardId }); await Triggers.rawCollection().deleteMany({ boardId });
+
       // A rule action without a durable adapter keeps the direct path.
       const actionId = await Actions.insertAsync({ actionType: 'moveCardToTop', boardId, desc: 'top' });
       await Rules.rawCollection().insertOne({ _id: Random.id(), title: 'r', triggerId: Random.id(), actionId, boardId });

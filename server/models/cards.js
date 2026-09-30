@@ -1060,6 +1060,8 @@ Cards.before.update(async (userId, doc, fieldNames, modifier) => {
   const timingaction = ['receivedAt', 'dueAt', 'startAt', 'endAt'];
   const action = fields[0];
   if (fields.length > 0 && timingaction.includes(action)) {
+    // A durable rule date action writes this activity from its saved plan.
+    if (deferSyncRecording('timing', doc)) return;
     const value = modifier.$set[action];
     const oldvalue = doc[action] || '';
     const activityType = `a-${action}`;

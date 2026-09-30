@@ -365,7 +365,9 @@ export async function runStoredSyncRuleCard({ index, completeDelivery = runStore
     const card = await Cards.findOneAsync({ _id: plan.cardId, boardId: plan.boardId }, { transform: null });
     const redoRows = await ChangeHistory.find({ boardId: plan.boardId, userId: plan.actorId, undone: true,
       superseded: { $ne: true } }, { transform: null, limit: 10000 }).fetchAsync();
-    const candidate = prepareRuleCardCommand({ ...commandContext, card, createdAt: new Date(), redoRows });
+    const actor = await Meteor.users.findOneAsync(plan.actorId, { fields: { username: 1 } });
+    const candidate = prepareRuleCardCommand({ ...commandContext, card, createdAt: new Date(), redoRows,
+      username: actor?.username || '' });
     await guard();
     let failure;
     try { await commands.insertOne(candidate); } catch (error) { failure = error; }
@@ -378,13 +380,15 @@ export async function runStoredSyncRuleCard({ index, completeDelivery = runStore
   await guard();
   if (!await matches(command.after)) {
     if (!await matches(command.before)) throw new Error('sync-rule-card-changed');
-    const modifier = Object.hasOwn(command.after, command.field) ? { $set: { [command.field]: command.after[command.field] } } : null;
+    const modifier = Object.hasOwn(command.after, command.field) ? { $set: { [command.field]: command.after[command.field] } }
+      : Object.hasOwn(command.before, command.field) ? { $unset: { [command.field]: '' } } : null;
     if (modifier) {
       await guard();
       // The card may have moved since capture; the deferral is for this write.
       const { listId } = await Cards.findOneAsync({ _id: command.cardId }, { fields: { listId: 1 }, transform: null });
       await DDP._CurrentMethodInvocation.withValue({ userId: command.actorId, isSimulation: false }, () =>
-        withSyncRecordingDeferred({ cardId: command.cardId, boardId: command.boardId, listId, kinds: ['history'] },
+        withSyncRecordingDeferred({ cardId: command.cardId, boardId: command.boardId, listId,
+          kinds: DATE_FIELDS.includes(command.field) ? ['history', 'timing'] : ['history'] },
           () => Cards.updateAsync(ruleCardFieldSelector(command, command.before), modifier, { removeEmptyStrings: false, trimStrings: false })));
     }
     if (!await matches(command.after)) throw new Error('sync-rule-card-unconfirmed');
@@ -405,7 +409,7 @@ export async function runStoredSyncRuleCard({ index, completeDelivery = runStore
   await guard();
   return invocation.id;
 }
-const { RULE_CARD_ACTIONS, commandId: ruleCardCommandId, prepareRuleCardCommand, validateRuleCardCommand,
+const { RULE_CARD_ACTIONS, DATE_FIELDS, commandId: ruleCardCommandId, prepareRuleCardCommand, validateRuleCardCommand,
   fieldSelector: ruleCardFieldSelector } = require('/server/lib/syncRuleCardCommand');
 const { persistSyncFieldHistory, RULE_CARD_FIELDS } = require('/server/lib/syncHistoryBatch');
 const { persistSyncActivity } = require('/server/lib/syncActivityPersistence');

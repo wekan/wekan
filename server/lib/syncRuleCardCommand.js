@@ -8,23 +8,37 @@
 //   addLabel / removeLabel   labelIds    ($addToSet / $pull semantics)
 //   removeAllLabels          labelIds    set to []
 //   markCardComplete / -Incomplete  dueComplete
+//   setDate / updateDate / setDateRelative / removeDate
+//                            the action's dateField (startAt, endAt, dueAt,
+//                            receivedAt); setDate only fills an unset date,
+//                            and "now" is the command's capture time
 //
 // The command saves the field's value before and after, and the effects the
 // ordinary hooks would have written: one History row for the field, and for
 // addLabel/removeLabel the addedLabel/removedLabel activity - only when the
-// label really changed, as the ordinary hook does. Replays apply the saved
+// label really changed, as the ordinary hook does - and for a date the
+// a-<field> activity the timing hook writes (no timeValue when unset). Replays apply the saved
 // command, never the rule's current configuration. Pure: tested by
 // tests/syncRuleCardCommand.test.cjs.
 const { EJSON } = require('bson');
 const { canonical, sha256 } = require('../../models/lib/changeHistoryIntegrity');
 const { validateRulePlan, planId } = require('./syncRulePlan');
 const { prepareCardFieldHistory, RULE_CARD_FIELDS } = require('./syncHistoryBatch');
+const { relativeDateOffset } = require('../../models/lib/relativeDateOffset');
 const copy = value => EJSON.parse(EJSON.stringify(value), { relaxed: true });
 const fail = code => { throw new Error(`sync-rule-card-${code}`); };
 const text = value => typeof value === 'string' && value.length > 0;
 
 const RULE_CARD_ACTIONS = { setColor: 'color', addLabel: 'labelIds', removeLabel: 'labelIds', removeAllLabels: 'labelIds',
-  markCardComplete: 'dueComplete', markCardIncomplete: 'dueComplete' };
+  markCardComplete: 'dueComplete', markCardIncomplete: 'dueComplete',
+  setDate: 'date', updateDate: 'date', setDateRelative: 'date', removeDate: 'date' };
+const DATE_FIELDS = ['startAt', 'endAt', 'dueAt', 'receivedAt'];
+function fieldOf(action) {
+  const field = RULE_CARD_ACTIONS[action?.actionType];
+  if (field !== 'date') return field;
+  if (!DATE_FIELDS.includes(action.dateField)) fail('invalid');
+  return action.dateField;
+}
 
 const commandId = invocationId => sha256(canonical(['sync-rule-card', invocationId]));
 const effectIdFor = id => sha256(canonical(['sync-rule-card-effect', id]));
@@ -36,11 +50,12 @@ function identity({ plan, activity, effectId, index }) {
   if (!Number.isSafeInteger(index) || index < 0 || !Object.hasOwn(RULE_CARD_ACTIONS, actionType)) fail('invalid');
   return { _id: commandId(invocation.id), version: 1, invocationId: invocation.id, planId: planId(effectId, activity._id),
     planHash: sha256(canonical(plan)), actorId: plan.actorId, boardId: plan.boardId, cardId: plan.cardId,
-    actionType, field: RULE_CARD_ACTIONS[actionType] };
+    actionType, field: fieldOf(invocation.action) };
 }
 
 // The field after the action, from the field before it ({} when absent).
-function targetFields(action, before, field) {
+// `now` is the command's capture time, so a replay makes the same change.
+function targetFields(action, before, field, now) {
   const has = Object.hasOwn(before, field), value = before[field];
   switch (action.actionType) {
     case 'setColor': return { color: action.selectedColor === 'white' ? null : (action.selectedColor ?? null) };
@@ -57,15 +72,30 @@ function targetFields(action, before, field) {
     case 'removeAllLabels': return { labelIds: [] };
     case 'markCardComplete': return { dueComplete: true };
     case 'markCardIncomplete': return { dueComplete: false };
+    // Ordinary setDate only fills a date that is undefined (getStart() etc.).
+    case 'setDate': return has && value !== undefined ? { [field]: value } : { [field]: new Date(now) };
+    case 'updateDate': return { [field]: new Date(now) };
+    case 'setDateRelative': return { [field]: relativeDateOffset(new Date(now), action.days, action.unit) };
+    case 'removeDate': return {};
     default: return fail('invalid');
   }
 }
 
-function activitiesFor({ base, action, before, after, effectId, createdAt }) {
+function activitiesFor({ base, action, before, after, effectId, createdAt, username, cardTitle }) {
+  const receipt = () => sha256(canonical([effectId, 'activity']));
+  if (DATE_FIELDS.includes(base.field)) {
+    if (canonical(before) === canonical(after)) return [];
+    const receiptId = receipt(), field = base.field;
+    // What the timing hook in server/models/cards.js writes for this write.
+    return [{ receiptId, activity: { _id: `sync-rule-card-${receiptId}`, userId: base.actorId, username,
+      activityType: `a-${field}`, boardId: base.boardId, cardId: base.cardId, cardTitle, timeKey: field,
+      ...(Object.hasOwn(after, field) ? { timeValue: after[field] } : {}), timeOldValue: before[field] || '',
+      listId: base.listId, swimlaneId: base.swimlaneId, createdAt, modifiedAt: createdAt } }];
+  }
   if (!['addLabel', 'removeLabel'].includes(action.actionType)) return [];
   const had = (before.labelIds || []).includes(action.labelId), has = (after.labelIds || []).includes(action.labelId);
   if (had === has) return [];
-  const receiptId = sha256(canonical([effectId, 'activity']));
+  const receiptId = receipt();
   return [{ receiptId, activity: { _id: `sync-rule-card-${receiptId}`, userId: base.actorId, labelId: action.labelId,
     activityType: has ? 'addedLabel' : 'removedLabel', boardId: base.boardId, cardId: base.cardId,
     listId: base.listId, swimlaneId: base.swimlaneId, createdAt, modifiedAt: createdAt } }];
@@ -73,21 +103,23 @@ function activitiesFor({ base, action, before, after, effectId, createdAt }) {
 
 // Capture from the card as it is now. `redoRows` are the actor's undone rows
 // this change supersedes, as for any ordinary edit.
-function prepareRuleCardCommand({ plan, activity, effectId, index, card, createdAt, redoRows = [] }) {
+function prepareRuleCardCommand({ plan, activity, effectId, index, card, createdAt, redoRows = [], username = '' }) {
   const base = identity({ plan, activity, effectId, index });
   if (!card || card._id !== base.cardId || card.boardId !== base.boardId || !text(card.listId) || !text(card.swimlaneId) ||
       ['cardType-linkedCard', 'cardType-linkedBoard'].includes(card.type) ||
       !(createdAt instanceof Date) || !Number.isFinite(createdAt.getTime())) fail('card-invalid');
   const action = plan.actions[index].action, field = base.field;
   const before = Object.hasOwn(card, field) ? { [field]: copy(card[field]) } : {};
-  const after = targetFields(action, before, field);
+  if (typeof username !== 'string') fail('invalid');
+  const after = targetFields(action, before, field, createdAt);
   const located = { ...base, listId: card.listId, swimlaneId: card.swimlaneId };
   const changeId = effectIdFor(base._id);
   const ids = { _id: base.cardId, boardId: base.boardId, listId: card.listId, swimlaneId: card.swimlaneId };
   const history = prepareCardFieldHistory({ before: { ...ids, ...before }, after: { ...ids, ...after },
     effectId: changeId, userId: base.actorId, createdAt, redoRows, fields: RULE_CARD_FIELDS });
   const command = { ...located, before, after, createdAt: new Date(createdAt),
-    effects: { history, activities: activitiesFor({ base: located, action, before, after, effectId: changeId, createdAt }) } };
+    effects: { history, activities: activitiesFor({ base: located, action, before, after, effectId: changeId, createdAt,
+      username, cardTitle: card.title }) } };
   command.checksum = sha256(canonical(command));
   return validateRuleCardCommand(command, { plan, activity, effectId, index });
 }
@@ -105,7 +137,7 @@ function validateRuleCardCommand(row, context) {
   if (checksum !== sha256(canonical(content))) fail('command-invalid');
   // The saved after-value is what this action makes of the saved before-value.
   const action = context.plan.actions[context.index].action;
-  if (canonical(targetFields(action, row.before, base.field)) !== canonical(row.after)) fail('command-invalid');
+  if (canonical(targetFields(action, row.before, base.field, row.createdAt)) !== canonical(row.after)) fail('command-invalid');
   return copy(row);
 }
 
@@ -117,4 +149,4 @@ function fieldSelector(command, fields) {
   return selector;
 }
 
-module.exports = { RULE_CARD_ACTIONS, commandId, effectIdFor, prepareRuleCardCommand, validateRuleCardCommand, fieldSelector };
+module.exports = { RULE_CARD_ACTIONS, DATE_FIELDS, commandId, effectIdFor, prepareRuleCardCommand, validateRuleCardCommand, fieldSelector };

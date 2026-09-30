@@ -78,6 +78,38 @@ test('tampering, linked cards and other action types are refused (negative)', as
   assert.throws(() => f.prepare({ card: { ...f.card, boardId: 'other' } }), /card-invalid/);
   const other = await fixture({ actionType: 'moveCardToTop' });
   assert.throws(() => other.prepare(), /sync-rule-card-invalid/);
-  assert.deepEqual(Object.keys(C.RULE_CARD_ACTIONS).sort(),
-    ['addLabel', 'markCardComplete', 'markCardIncomplete', 'removeAllLabels', 'removeLabel', 'setColor']);
+  assert.deepEqual(Object.keys(C.RULE_CARD_ACTIONS).sort(), ['addLabel', 'markCardComplete', 'markCardIncomplete',
+    'removeAllLabels', 'removeDate', 'removeLabel', 'setColor', 'setDate', 'setDateRelative', 'updateDate']);
+  const badDate = await fixture({ actionType: 'updateDate', dateField: 'createdAt' });
+  assert.throws(() => badDate.prepare(), /sync-rule-card-invalid/, 'only the four card dates');
+});
+
+test('date actions follow the ordinary action and its timing activity', async () => {
+  const now = new Date(1000);
+  // setDate fills only an unset date.
+  const unset = await fixture({ actionType: 'setDate', dateField: 'startAt' });
+  const filled = unset.prepare();
+  assert.deepEqual(filled.after, { startAt: now });
+  const act = filled.effects.activities[0].activity;
+  assert.deepEqual([act.activityType, act.timeKey, act.timeValue, act.timeOldValue, act.cardTitle],
+    ['a-startAt', 'startAt', now, '', 'T'], 'as server/models/cards.js writes it');
+  assert.deepEqual(filled.effects.history.rows.map(row => [row.group, row.changeType]), [['dates', 'added']]);
+  const set = await fixture({ actionType: 'setDate', dateField: 'startAt' }); set.card.startAt = new Date(5);
+  const kept = set.prepare();
+  assert.deepEqual([kept.after, kept.effects.activities.length, kept.effects.history.rows.length], [{ startAt: new Date(5) }, 0, 0]);
+  // updateDate always sets; removeDate unsets, with no timeValue.
+  const update = await fixture({ actionType: 'updateDate', dateField: 'dueAt' }); update.card.dueAt = new Date(5);
+  assert.deepEqual(update.prepare().after, { dueAt: now });
+  const remove = await fixture({ actionType: 'removeDate', dateField: 'dueAt' }); remove.card.dueAt = new Date(5);
+  const removed = remove.prepare();
+  assert.deepEqual(removed.after, {});
+  const gone = removed.effects.activities[0].activity;
+  assert.ok(!Object.hasOwn(gone, 'timeValue')); assert.deepEqual(gone.timeOldValue, new Date(5));
+  assert.equal(removed.effects.history.rows[0].changeType, 'removed');
+  // setDateRelative is relative to the capture time, so a replay is identical.
+  const relative = await fixture({ actionType: 'setDateRelative', dateField: 'endAt', days: 2, unit: 'days' });
+  const planned = relative.prepare();
+  assert.deepEqual(planned.after, { endAt: new Date(1000 + 2 * 86400000) });
+  assert.deepEqual(C.validateRuleCardCommand(planned, { plan: relative.plan, activity: relative.activity,
+    effectId: relative.effectId, index: 0 }), planned);
 });
