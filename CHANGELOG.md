@@ -5523,6 +5523,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/de5d41a0e4">Translate Azerbaijani block editor labels</a>. Thanks to xet7.</summary>
+
+- Translate 38 English strings in each of three Azerbaijani locales for
+  accessible fields, block structure and keyboard labels, preserving tokens.
+- Translation, registry and human-preference checks pass, including input
+  counts and comment states. Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
