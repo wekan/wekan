@@ -4884,6 +4884,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/227258bbf8">Correct Kashubian errors and empty state translations</a>. Thanks to xet7.</summary>
+
+- Correct 30 error and empty-state messages. Preserve format tokens, import
+  extensions, validation examples and matching-card/username distinctions.
+- Translation, registry and human-preference checks pass. Kashubian wording
+  is lower confidence; fluent-speaker and browser review were not run.
+  Other mixed-language text and languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
