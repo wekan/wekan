@@ -2165,6 +2165,17 @@ reported placeholders; other languages also remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ff8ee5447">Translate Hebrew Scrum planning and reports</a>. Thanks to xet7.</summary>
+
+Fill 168 Scrum strings across both Hebrew locale files. Tests preserve
+placeholders and the distinctions between unknown and zero estimates, partial
+reports and full reports, and daily observations and complete change histories.
+Existing translations are preserved; translation and human-preference checks
+pass. Each Hebrew locale still has 167 reported placeholders remaining.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
