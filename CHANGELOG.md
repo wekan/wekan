@@ -6121,6 +6121,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/31602c4a13">Translate Swahili saved filters and map controls</a>. Thanks to xet7.</summary>
+
+- Translate 20 English strings for saved filters, import warnings and maps,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including template
+  variables, private filter replacement and recovery menu labels.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
