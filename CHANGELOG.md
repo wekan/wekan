@@ -4086,6 +4086,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/45bc0ba7b">Correct Asturian action labels and timeline wording</a>. Thanks to xet7.</summary>
+
+- Correct 29 mixed-language action messages and clarify that the timeline
+  shows the state at a date. Preserve other translations and placeholders.
+- Translation, registry and human-preference checks pass, covering native
+  action wording, archive restoration and timeline meaning.
+  Wording is lower confidence; browser layout and fluent-speaker review were
+  not run. The wider language audit continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
