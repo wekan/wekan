@@ -125,4 +125,21 @@ for (const [codes, duplicate, never] of [
 }
 assert.equal(read('pt-BR')['rule-email-recovery-recipient-accepted'], 'Aceito');
 assert.equal(read('pt-PT')['rule-email-recovery-recipient-accepted'], 'Aceite');
+// This batch uses the script declared by ja-Hira; older strings still need review.
+const hiragana = read('ja-HI');
+const hiraganaBatchKeys = Object.keys(english).filter(key =>
+  /^rule-email-(legacy|resolution)-/.test(key) ||
+  /^rule-email-recovery-(dropped|review|recipients|recipient-|actions-hint|wait|resends|resend|mark-sent|drop)/.test(key) ||
+  key === 'r-insert-variable' || key === 'import-board-instruction-todotxt');
+assert.equal(hiraganaBatchKeys.length, 45);
+for (const key of hiraganaBatchKeys) {
+  assert.notEqual(hiragana[key], english[key], `ja-Hira:${key}: untranslated`);
+  assert.doesNotMatch(hiragana[key], /[\p{Script=Han}\p{Script=Katakana}]/u, `ja-Hira:${key}: use hiragana`);
+  assert.deepEqual(translationTokens(hiragana[key]), translationTokens(english[key]), `ja-Hira:${key}: tokens`);
+}
+for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:']) {
+  assert.ok(hiragana['import-board-instruction-todotxt'].includes(token), `ja-Hira: preserve ${token}`);
+}
+assert.match(hiragana['rule-email-recovery-resend-confirm'], /2かい とどきます/);
+assert.match(hiragana['rule-email-legacy-discard-confirm'], /こんご おくられることは ありません/);
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
