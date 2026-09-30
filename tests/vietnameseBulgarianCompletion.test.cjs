@@ -1379,4 +1379,19 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['due-reminder-days-label'], /ಧನಾತ್ಮಕ.*ಹಿಂದಿನ.*ಋಣಾತ್ಮಕ.*ನಂತರದ/);
   assert.match(locale['notification-activity-description'], /ಯಾವಾಗಲೂ ಬರುತ್ತವೆ/);
 }
+{
+  const locale = read('ga');
+  assert.deepEqual(Object.keys(locale), Object.keys(english), 'ga: source key order');
+  for (const key of hiraganaBatchKeys) {
+    assert.notEqual(locale[key], english[key], `ga:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ga:${key}: tokens`);
+  }
+  for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:']) {
+    assert.ok(locale['import-board-instruction-todotxt'].includes(token), `ga: preserve ${token}`);
+  }
+  assert.match(locale['rule-email-recovery-resend-confirm'], /faoi dhó/);
+  assert.match(locale['rule-email-legacy-discard-confirm'], /Ní sheolfar é riamh/);
+  assert.match(locale['rule-email-legacy-access-denied'], /Níl rochtain.*a thuilleadh/);
+  assert.match(locale['r-insert-variable'], /Cuir athróg isteach/);
+}
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
