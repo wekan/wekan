@@ -2311,6 +2311,16 @@ Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0be3130fd">Complete Romanian regional recovery and import translations</a>. Thanks to xet7.</summary>
+
+Fill 45 missing strings in Romanian (Romania) using reviewed translations for
+the same source keys. Existing regional wording is preserved. Current-source
+completeness, placeholder, import-syntax, delivery-warning and human-preference
+checks pass. Other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
