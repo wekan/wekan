@@ -4718,6 +4718,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ae166d97b8">Correct Kashubian date reminders and layout labels</a>. Thanks to xet7.</summary>
+
+- Replace 45 Polish-seeded strings, preserving reminder tokens and line
+  breaks, relative positions and read/unread distinctions.
+- Translation, registry and human-preference checks pass. Kashubian wording
+  is lower confidence; fluent-speaker and browser review were not run.
+  Older mixed-language values and other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
