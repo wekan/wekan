@@ -2317,6 +2317,16 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedToggleKeys = ["delete-team-confirm-popup", "delete-org-confirm-popup", "remove-domain-from-board", "editCardSortOrderPopup-title", "remove-team-from-table", "remove-organization-from-board", "change-visibility", "delete-translation-confirm-popup", "sandstorm-delete-raw-mongodb-confirm", "admin-announcement-active", "enable-permanent-delete", "enable-permanent-delete-description", "enable-vertical-scrollbars", "enable-wip-limit", "multi-selection-off", "accounts-allowEmailChange", "accounts-allowUserNameChange", "r-rule-enabled", "custom-head-tags-enabled", "custom-manifest-enabled", "custom-assetlinks-enabled", "allow-rename", "allowRenamePopup-title", "allow-invite-to-board", "disable-all-import", "disable-import-avatars", "disable-export-avatars", "disable-watch"];
+  for (const key of correctedToggleKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /(?:Czy na pewno|Usunąć|Zmień|Wyłącz|Zezwòl)/);
+  }
+  assert.match(locale['enable-permanent-delete-description'], /Samò włączenié ti nastôwë nic nie rëmô/);
+  for (const key of ['delete-team-confirm-popup', 'delete-org-confirm-popup', 'delete-translation-confirm-popup', 'sandstorm-delete-raw-mongodb-confirm']) assert.match(locale[key], /nie mòżna cofnąc/);
+  assert.match(locale['custom-assetlinks-enabled'], /assetlinks\.json/);
+  assert.match(locale['custom-head-tags-enabled'], /head/);
+  assert.match(locale['sandstorm-delete-raw-mongodb-confirm'], /MongoDB 3.*ju przeniesioné do FerretDB/);
   const correctedConfirmationKeys = [
     "home-board-remove-confirm",
     "archive-board-confirm",
