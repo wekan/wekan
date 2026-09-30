@@ -5291,6 +5291,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5e582efc1c7b5a25589abb0689bec9f2f7c4660f">Translate Armenian rules and reminder messages</a>. Thanks to xet7.</summary>
+
+- Fill 32 English placeholders for rules, notifications and reminders,
+  preserving existing translations and executable variables.
+- Translation, registry and human-preference checks pass, including reminder
+  timing, notification exceptions and URL schemes. Fluent-speaker and browser
+  review were not run. The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
