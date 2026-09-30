@@ -2545,6 +2545,16 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/dcbcd779c">Translate Serbian synchronization controls and reports</a>. Thanks to xet7.</summary>
+
+- Fill 63 Serbian placeholders for synchronization conflicts, previews,
+  source omissions, reports, recovery diagnostics and estimate mappings.
+- Preserve existing translations and verify placeholders, local-content
+  retention, partial-change warnings and missing-value versus null behavior.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
