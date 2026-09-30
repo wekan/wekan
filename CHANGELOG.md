@@ -3726,6 +3726,19 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a57750281">Complete Neapolitan notification and recovery translations</a>. Thanks to xet7.</summary>
+
+- Translate the remaining 80 notification, recovery and keyboard messages.
+  Neapolitan has no flagged English placeholders, including pending keys.
+  Retain reviewed product names, key legends and mathematical symbols.
+- Translation, registry and human-preference checks pass, with coverage for
+  preserved translations, placeholders and irreversible recovery actions.
+  Wording is lower confidence; browser layout and fluent-speaker review were
+  not run. Other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
