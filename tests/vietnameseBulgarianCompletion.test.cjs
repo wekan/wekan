@@ -2317,6 +2317,17 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedActivityResultKeys = ["act-deleteCard", "act-deleteAttachment", "act-removeLabel", "act-removedLabel", "act-removeChecklist", "act-removeChecklistItem", "act-checkedItem", "act-uncheckedItem", "act-completeChecklist", "act-uncompleteChecklist", "act-editComment", "act-deleteComment", "act-importCard", "act-restoredCard", "act-unjoinMember", "act-atUserComment", "act-a-dueAt", "act-a-endAt", "act-a-receivedAt", "act-almostdue", "act-pastdue", "act-duenow"];
+  for (const key of correctedActivityResultKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+    assert.deepEqual(locale[key].match(/__[A-Za-z0-9_]+__/g), english[key].match(/__[A-Za-z0-9_]+__/g), `csb:${key}: argument order`);
+    assert.doesNotMatch(locale[key], /(?:na liście|na ścieżce|na karcie|czeklist|przypominał)/);
+  }
+  assert.equal(locale['act-removeLabel'], locale['act-removedLabel']);
+  assert.notEqual(locale['act-checkedItem'], locale['act-uncheckedItem']);
+  assert.notEqual(locale['act-completeChecklist'], locale['act-uncompleteChecklist']);
+  assert.equal(new Set(['act-almostdue', 'act-pastdue', 'act-duenow'].map(key => locale[key])).size, 3);
+  assert.equal(locale['act-a-dueAt'].split('\n').length, english['act-a-dueAt'].split('\n').length);
   const correctedActivityDetailKeys = ["act-addAttachment", "act-addSubtask", "act-addLabel", "act-addedLabel", "act-addChecklist", "act-addChecklistItem", "act-addComment", "act-createBoard", "act-createSwimlane", "act-createCard", "act-createCustomField", "act-setCustomField", "act-createList", "act-addBoardMember", "act-archivedCard", "act-archivedList", "act-archivedSwimlane", "act-joinMember", "act-moveCard", "act-moveCardToOtherBoard"];
   for (const key of correctedActivityDetailKeys) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
