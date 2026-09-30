@@ -31,6 +31,15 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Maltese filters and imports; remaining untranslated strings are filled separately.
 {
   const locale = read('mt');
+  const correctedSystemWorkflowKeys = ["OS_Freemem", "OS_Loadavg", "OS_Platform", "OS_Release", "OS_Totalmem", "OS_Type", "OS_Uptime", "hours", "minutes", "seconds", "visibility", "createdAt", "modifiedAt", "verified", "org-shared-templates", "team-shared-templates", "card-received", "card-received-on", "card-end", "card-end-on", "assigned-by", "requested-by", "queue", "subtask-settings", "boardSubtaskSettingsPopup-title", "cover-image", "no-parent", "activity-unset-customfield", "r-rule", "r-unselect-all", "r-edit-rule-trigger-action", "r-workflow-view", "r-when", "r-drop-trigger", "r-drop-action"];
+  for (const key of correctedSystemWorkflowKeys) {
+    assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
+    assert.doesNotMatch(locale[key], /Traduzzjoni Maltija:/, `mt:${key}: no prefixed English`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `mt:${key}: tokens`);
+  }
+  assert.equal(locale['subtask-settings'], locale['boardSubtaskSettingsPopup-title']);
+  assert.notEqual(locale.OS_Freemem, locale.OS_Totalmem);
+  assert.notEqual(locale['r-drop-trigger'], locale['r-drop-action']);
   const correctedAdminKeys = ["invite-people", "email-addresses", "smtp-host", "smtp-port", "smtp-password", "smtp-tls", "send-from", "email-templates-title", "email-templates-invite-subject", "email-templates-invite-body", "email-templates-activity-subject", "email-templates-activity-body", "invitation-code", "email-invite-register-subject", "email-smtp-test-subject", "email-smtp-test-text", "error-invitation-code-not-exist", "outgoing-webhooks", "bidirectional-webhooks", "outgoingWebhooksPopup-title", "global-webhook", "no-name", "package", "Database", "Node_version", "Meteor_version", "Database_type", "Database_commit", "FerretDB_version", "FerretDB_commit", "Reactivity_mode", "Reactivity_order", "DDP_transport", "OS_Arch", "OS_Cpus"];
   for (const key of correctedAdminKeys) {
     assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
