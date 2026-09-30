@@ -31,6 +31,19 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Romansh date filters, imports and archive-language corrections.
 {
   const locale = read('rm');
+  const correctedSearchHelpKeys = ["globalSearch-instructions-operator-due", "globalSearch-instructions-status-archived", "globalSearch-instructions-status-all", "globalSearch-instructions-status-public", "globalSearch-instructions-status-private", "globalSearch-instructions-operator-has", "globalSearch-instructions-operator-limit", "globalSearch-instructions-notes-2", "globalSearch-instructions-notes-5", "search-boards", "now-activities-of-all-boards-are-hidden", "boardsReportTitle", "cardsReportTitle", "accounts-lockout-known-users"];
+  for (const key of correctedSearchHelpKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /\b(ciartes|tabellai|utenc|soltanto|dove|Vengono)\b/, `rm:${key}: no mixed-language seed`);
+  }
+  assert.match(locale['globalSearch-instructions-operator-limit'], /dumber entir positiv/);
+  assert.ok(locale['globalSearch-instructions-operator-has'].includes('has:-due'));
+  assert.match(locale['globalSearch-instructions-operator-has'], /absenza.*senza data da scadenza/);
+  assert.match(locale['globalSearch-instructions-notes-2'], /OR.*almain ina/);
+  assert.ok(locale['globalSearch-instructions-notes-2'].includes('__operator_list__:Available __operator_list__:Blocked'));
+  assert.match(locale['globalSearch-instructions-notes-5'], /archivadas betg tschertgadas/);
+  assert.notEqual(locale['globalSearch-instructions-status-public'], locale['globalSearch-instructions-status-private']);
+
   const correctedSearchViewKeys = ["r-all-boards", "r-of-cards-in-list", "r-move-all-cards", "card-counter-list", "roles-status-sees", "autoAddUsersWithDomainName", "myCardsViewChange-title", "myCardsViewChangePopup-title", "dueCardsViewChange-choice-all-description", "globalSearchViewChange-choice-me", "globalSearchViewChange-choice-all", "n-n-of-n-cards-found", "globalSearch-instructions-operator-board", "globalSearch-instructions-operator-creator", "globalSearch-instructions-operator-org", "globalSearch-instructions-operator-team"];
   for (const key of correctedSearchViewKeys) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
