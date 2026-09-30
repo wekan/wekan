@@ -5633,6 +5633,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/083d10abb3">Translate Azerbaijani synchronization previews</a>. Thanks to xet7.</summary>
+
+- Translate 30 English strings in each of three Azerbaijani locales for sync
+  previews, duplicate recovery and source omissions, preserving translations.
+- Translation, registry and human-preference checks pass, including tokens,
+  unchanged subcards and hidden source values. Fluent-speaker and browser
+  review were not run. The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
