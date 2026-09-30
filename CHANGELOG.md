@@ -8464,6 +8464,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/cb58da9097e6285e5627760f877c95be3a460d9a">Translate Romansh email failures and activity recovery</a>. Thanks to xet7.</summary>
+
+- Translate 25 delivery-failure, estimate and activity-recovery strings,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, covering permanent
+  cancellation, future messages, SMTP failure types and notification retries.
+  Low-confidence wording needs fluent-speaker review.
+  Browser review was not run; wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
