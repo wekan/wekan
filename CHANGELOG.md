@@ -7550,6 +7550,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/64531a49915d444db9adce271e4bd03b8b6271e7">Translate Luxembourgish trigonometry descriptions</a>. Thanks to xet7.</summary>
+
+- Translate 13 missing or English strings for square roots and trigonometry,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including inverse
+  function distinctions and degree versus radian wording.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
