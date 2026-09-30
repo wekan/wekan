@@ -7082,6 +7082,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a71e71ea991b9d9f156a94cb655469b283c7381e">Translate Maltese storage and file repair labels</a>. Thanks to xet7.</summary>
+
+- Replace 35 prefixed English values with Maltese for storage, file repair
+  and memory usage, preserving existing translations and tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  source and destination labels. Another 232 prefixed English values remain.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
