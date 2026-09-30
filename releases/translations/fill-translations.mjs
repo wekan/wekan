@@ -82,6 +82,9 @@ const isEnglishVariant = code => /^en([_-].*)?$/.test(code) || code === 'en';
 // needs a different word. Keep those exceptions per locale; putting them in the
 // source-wide list would hide real work in every language.
 const LOCALE_INVARIANTS = {
+  // Frisian retains brands, key legends, math symbols and list/test/minimum/plus.
+  "fy": new Set(["blockly-ALT_KEY", "blockly-CHROME_OS", "blockly-CONTEXT_MENU_KEY", "blockly-INPUT_LABEL_NUMBER_MIN", "blockly-LINUX", "blockly-LISTS_CREATE_WITH_CONTAINER_TITLE_ADD", "blockly-LOGIC_TERNARY_CONDITION", "blockly-MAC_OS", "blockly-MATH_ADDITION_SYMBOL_ARIA", "blockly-MATH_ONLIST_OPERATOR_MIN_ARIA", "blockly-WINDOWS", "blockly-MATH_TRIG_ACOS", "blockly-MATH_TRIG_ASIN", "blockly-MATH_TRIG_ATAN", "blockly-MATH_TRIG_COS", "blockly-MATH_TRIG_SIN", "blockly-MATH_TRIG_TAN"]),
+  "fy-NL": new Set(["blockly-ALT_KEY", "blockly-CHROME_OS", "blockly-CONTEXT_MENU_KEY", "blockly-INPUT_LABEL_NUMBER_MIN", "blockly-LINUX", "blockly-LISTS_CREATE_WITH_CONTAINER_TITLE_ADD", "blockly-LOGIC_TERNARY_CONDITION", "blockly-MAC_OS", "blockly-MATH_ADDITION_SYMBOL_ARIA", "blockly-MATH_ONLIST_OPERATOR_MIN_ARIA", "blockly-WINDOWS", "blockly-MATH_TRIG_ACOS", "blockly-MATH_TRIG_ASIN", "blockly-MATH_TRIG_ATAN", "blockly-MATH_TRIG_COS", "blockly-MATH_TRIG_SIN", "blockly-MATH_TRIG_TAN"]),
   // Friulian retains brands, Alt, trig symbols and date/increment/numeric/Pause.
   fur: new Set(["blockly-PAUSE_KEY", "blockly-ALT_KEY", "blockly-ARIA_TYPE_FIELD_DATE", "blockly-CHROME_OS", "blockly-INPUT_LABEL_LOOP_BY", "blockly-LINUX", "blockly-LISTS_SORT_TYPE_NUMERIC", "blockly-MAC_OS", "blockly-WINDOWS", "blockly-MATH_TRIG_ACOS", "blockly-MATH_TRIG_ASIN", "blockly-MATH_TRIG_ATAN", "blockly-MATH_TRIG_COS", "blockly-MATH_TRIG_SIN", "blockly-MATH_TRIG_TAN"]),
   // Faroese retains brands, Alt, trig symbols, minus and the imperative set.

@@ -31,6 +31,21 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Frisian date filters; further translation batches remain.
 for (const code of ['fy', 'fy-NL']) {
   const locale = read(code);
+  const keyboardKeys = ["blockly-BACKSPACE_KEY", "blockly-CAPS_LOCK_KEY", "blockly-COMMAND_KEY", "blockly-CONTROL_KEY", "blockly-END_KEY", "blockly-ENTER_KEY", "blockly-ESCAPE", "blockly-HOME_KEY", "blockly-INSERT_KEY", "blockly-MATH_IS_EVEN", "blockly-OPTION_KEY", "blockly-PAGE_DOWN_KEY", "blockly-PAGE_UP_KEY", "blockly-PAUSE_KEY", "blockly-SHIFT_KEY", "blockly-TAB_KEY", "blockly-UNNAMED_KEY", "blockly-VARIABLES_DEFAULT_NAME", "blockly-LISTS_CREATE_WITH_ITEM_TITLE", "blockly-MATH_CHANGE_TITLE_ITEM", "blockly-TEXT_APPEND_VARIABLE", "blockly-TEXT_CREATE_JOIN_ITEM_TITLE_ITEM"];
+  for (const key of keyboardKeys) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+  }
+  assert.ok(locale['blockly-PAGE_DOWN_KEY'].includes('omleech'));
+  assert.ok(locale['blockly-PAGE_UP_KEY'].includes('omheech'));
+  assert.notEqual(locale['blockly-END_KEY'], locale['end-date']);
+  const untranslated = JSON.parse(execFileSync(process.execPath,
+    ['releases/translations/fill-translations.mjs', '--list', code],
+    { cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }));
+  for (const key of ["blockly-ALT_KEY", "blockly-CHROME_OS", "blockly-CONTEXT_MENU_KEY", "blockly-INPUT_LABEL_NUMBER_MIN", "blockly-LINUX", "blockly-LISTS_CREATE_WITH_CONTAINER_TITLE_ADD", "blockly-LOGIC_TERNARY_CONDITION", "blockly-MAC_OS", "blockly-MATH_ADDITION_SYMBOL_ARIA", "blockly-MATH_ONLIST_OPERATOR_MIN_ARIA", "blockly-WINDOWS", "blockly-MATH_TRIG_ACOS", "blockly-MATH_TRIG_ASIN", "blockly-MATH_TRIG_ATAN", "blockly-MATH_TRIG_COS", "blockly-MATH_TRIG_SIN", "blockly-MATH_TRIG_TAN"]) {
+    assert.equal(locale[key], english[key], `${code}:${key}: invariant`);
+    assert.ok(!(key in untranslated), `${code}:${key}: recognized invariant`);
+  }
   const mapKeys = ["import-report-heading", "import-report-description", "import-report-open-board", "draggable", "board-view-map", "map-view-empty", "map-view-upload", "map-view-remove-image", "map-view-unplaced", "map-view-place-hint", "map-view-all-placed"];
   for (const key of mapKeys) {
     assert.notEqual(locale[key], english[key], `${code}:${key}: translated`);
