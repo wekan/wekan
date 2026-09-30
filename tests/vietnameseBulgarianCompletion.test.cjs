@@ -1221,6 +1221,14 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /จะไม่ถูกส่งอีกเลย/);
   assert.match(locale['rule-email-legacy-access-denied'], /ไม่มีสิทธิ์เข้าถึง/);
   assert.match(locale['r-insert-variable'], /แทรกตัวแปร/);
+  for (const key of Object.keys(english).filter(key => key.startsWith('scrum-'))) {
+    assert.notEqual(locale[key], english[key], `th:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `th:${key}: tokens`);
+  }
+  assert.match(locale['scrum-report-help'], /ไม่ใช่ค่าประมาณศูนย์/);
+  assert.match(locale['scrum-partial-report'], /เฉพาะการ์ดที่มอบหมายให้คุณ/);
+  assert.match(locale['scrum-daily-observations-help'], /ไม่ได้บันทึกทุกการเปลี่ยนแปลง/);
+  assert.match(locale['scrum-daily-observations-export-help'], /ค่าประมาณที่ไม่ทราบไม่ใช่ศูนย์/);
   for (const key of Object.keys(english).filter(key =>
     /^(auto-archive-|filter-(recency|movement-range|date-range|due-|column-age|preset|card-text)|notification-activity-|due-reminder-|map-view-)/.test(key))) {
     assert.notEqual(locale[key], english[key], `th:${key}: untranslated`);
