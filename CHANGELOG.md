@@ -5688,6 +5688,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fd2d0d715e">Fill remaining Azerbaijani translation placeholders</a>. Thanks to xet7.</summary>
+
+- Translate 28 recovery and history strings in each Azerbaijani locale.
+  Retain standard key labels, OS brands, trig symbols and the Sprint loanword.
+- All 3,783 keys and replacement tokens pass completeness checks; no flagged
+  English prose remains. Registry and human-preference checks also pass.
+- Fluent-speaker and browser review were not run. Older vocabulary review
+  and the wider translation work remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
