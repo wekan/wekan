@@ -6842,6 +6842,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e828e6e1f168b89a0666fd904dc017d30f14f9f3">Translate Tagalog email queue controls and failures</a>. Thanks to xet7.</summary>
+
+- Translate 35 English strings for email controls, failures and time estimates,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including cancellation
+  limits, estimate fields and temporary versus permanent failures.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
