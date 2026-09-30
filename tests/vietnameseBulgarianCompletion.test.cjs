@@ -177,5 +177,15 @@ for (const code of ['he', 'he-IL']) {
   assert.match(locale['scrum-report-help'], /אינן הערכות אפס/);
   assert.match(locale['scrum-partial-report'], /רק כרטיסים שמשויכים אליך כעת/);
   assert.match(locale['scrum-daily-observations-help'], /אינן מתעדות כל שינוי/);
+  for (const key of Object.keys(english).filter(key =>
+    /^sync-(conflict|preview|source|report|recovery|estimate)-/.test(key))) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: untranslated`);
+    assert.match(locale[key], /\p{Script=Hebrew}/u, `${code}:${key}: Hebrew text`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+  }
+  assert.match(locale['sync-conflict-hint'], /דבר אינו נשלח למערכת המקור/);
+  assert.match(locale['sync-conflict-detach-hint'], /התוכן שלו נשאר/);
+  assert.match(locale['sync-report-partial'], /אינם ממשיכים הרצה ואינם מבטלים אותה/);
+  assert.match(locale['sync-estimate-field-hint'], /חסרים.*להתעלמות.*null מפורש מנקה/);
 }
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
