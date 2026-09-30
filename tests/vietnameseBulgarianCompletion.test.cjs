@@ -2317,6 +2317,67 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedRuleKeys = [
+    "modifiedAt",
+    "verified",
+    "active",
+    "org-shared-templates",
+    "team-shared-templates",
+    "active-person",
+    "card-received",
+    "card-received-on",
+    "card-end",
+    "card-end-on",
+    "editCardReceivedDatePopup-title",
+    "editCardEndDatePopup-title",
+    "assigned-by",
+    "requested-by",
+    "default",
+    "defaultdefault",
+    "queue",
+    "show-parent-in-minicard",
+    "checklist-count-on-minicard",
+    "checklist-count",
+    "cover-image",
+    "prefix-with-full-path",
+    "prefix-with-parent",
+    "subtext-with-full-path",
+    "subtext-with-parent",
+    "activity-added-label",
+    "activity-added-label-card",
+    "r-rule",
+    "r-view-rule",
+    "r-no-rules",
+    "r-import-export",
+    "r-select-all",
+    "r-unselect-all",
+    "r-export-selected",
+    "r-edit-rule",
+    "r-edit-rule-trigger-action",
+    "r-workflow-view",
+    "r-when",
+    "r-drop-trigger",
+    "r-drop-action",
+    "r-w-set-received-now",
+    "r-export-json",
+    "r-export-csv",
+    "r-import-json",
+    "r-import-csv",
+    "r-import-trello",
+    "r-import-paste",
+    "r-import-done",
+    "r-import-target",
+    "r-import-workflow"
+  ];
+  for (const key of correctedRuleKeys) {
+    assert.doesNotMatch(locale[key], /— pò kaszëbskù/, `csb:${key}: language label is not a translation`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+  }
+  for (const key of ['checklist-count', 'checklist-count-on-minicard']) assert.ok(locale[key].includes('(0/0)'));
+  assert.match(locale['r-import-trello'], /Trello Butler.*w miarã mòżlëwòsców/);
+  assert.match(locale['r-w-set-received-now'], /datã dostaniô na terô/);
+  assert.notEqual(locale['prefix-with-full-path'], locale['prefix-with-parent']);
+  assert.notEqual(locale['assigned-by'], locale['requested-by']);
   const correctedSystemKeys = [
     "smtp-host",
     "smtp-port",
