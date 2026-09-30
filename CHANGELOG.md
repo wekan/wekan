@@ -6781,6 +6781,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ece4e1167780605d669147442ba25767f9579502">Translate Tagalog rule editing and Scrum labels</a>. Thanks to xet7.</summary>
+
+- Translate 30 English strings for rule editing and Scrum planning,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including rule
+  connection requirements and administrator permissions.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
