@@ -4939,6 +4939,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/846d47b130">Correct Kashubian Trello import messages</a>. Thanks to xet7.</summary>
+
+- Correct 22 Trello import messages. Preserve ZIP limits, job-scoped deletion,
+  saved credential behavior and technical names.
+- Translation, registry and human-preference checks pass. Kashubian wording
+  is lower confidence; fluent-speaker and browser review were not run.
+  Other mixed-language text and languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
