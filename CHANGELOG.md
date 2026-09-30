@@ -7298,6 +7298,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/41d6d21f21ddce0b2c8747fa72981ba7a55a31c6">Translate Maltese Scrum planning and reports</a>. Thanks to xet7.</summary>
+
+- Translate 66 English placeholders for Scrum planning and sprint reports,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including consistent
+  backlog labels and distinct sprint states and confirmation messages.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
