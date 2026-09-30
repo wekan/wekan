@@ -31,6 +31,18 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Romansh date filters, imports and archive-language corrections.
 {
   const locale = read('rm');
+  const correctedAccessKeys = ["filter-no-assignee", "import-trello-zip-no-boards", "import-trello-workspace-placeholder", "trello-api-credentials-saved", "public-desc", "remove-member-pop", "org-domains-description", "editCardReceivedDatePopup-title", "editCardEndDatePopup-title", "change-card-parent", "r-w-card-created", "r-w-card-archived", "r-w-card-unarchived", "r-is-moved", "r-when-a-label-is", "r-when-the-label", "r-when-a-member", "r-when-the-member", "r-when-a-card-is-moved", "delete-user-confirm-popup"];
+  for (const key of correctedAccessKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /\b(Puoi|Cambia|Nessun|viene|sarà|Quando|Rimuovere|Sei)\b/, `rm:${key}: no mixed-language seed`);
+  }
+  assert.match(locale['public-desc'], /Mo persunas agiuntadas.*pon la modifitgar/);
+  assert.match(locale['remove-member-pop'], /tut las cartas.*notificaziun/);
+  assert.match(locale['delete-user-confirm-popup'], /na po betg vegnir fatg enavos/);
+  for (const token of ['a.example.com', 'kanban.example.org', 'MULTITENANCY=true']) assert.ok(locale['org-domains-description'].includes(token));
+  for (const token of ['Trello', '.json', '.zip']) assert.ok(locale['import-trello-zip-no-boards'].includes(token));
+  assert.notEqual(locale['r-w-card-archived'], locale['r-w-card-unarchived']);
+
   const correctedUserKeys = ["error-user-notSameOrgOrTeam", "home-board-remove-confirm", "changeColorPopup-title", "allBoardsChangeColorPopup-title", "card-labels-title", "cardCustomField-datePopup-title", "editPokerEndDatePopup-title", "adminChangeAvatarPopup-title", "change-avatar", "change-color", "map-to-existing-user-desc", "changeAvatarPopup-title", "changeLanguagePopup-title", "no-comments", "editCardStartDatePopup-title", "editCardDueDatePopup-title", "editCardSpentTimePopup-title", "error-linked-card-not-allowed", "error-user-notAllowSelf", "filter-no-member"];
   for (const key of correctedUserKeys) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
