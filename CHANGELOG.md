@@ -7814,6 +7814,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/553fb8a32ae1a792f9584d12c6286784e3eb061f">Translate Faroese rules and notifications</a>. Thanks to xet7.</summary>
+
+- Translate 18 missing or English strings for rules and notifications,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including rule
+  variables and trigger/action labels. Faroese wording has lower confidence.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
