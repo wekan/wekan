@@ -6625,6 +6625,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e496e44db7">Translate Tagalog list and loop input labels</a>. Thanks to xet7.</summary>
+
+- Translate 25 English strings for list and loop inputs and warning controls,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including warning
+  controls, start and end positions and consistent repetition counts.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
