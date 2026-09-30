@@ -8055,6 +8055,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5970fd5d089338f4387dddbcc80207893901f989">Translate Friulian Scrum settings</a>. Thanks to xet7.</summary>
+
+- Translate 30 Scrum planning labels, preserving existing translations and
+  replacement tokens. Update the README coverage count to 127.
+- Translation, registry and human-preference checks pass, including consistent
+  backlog labels and distinct sprint actions. Friulian has lower confidence.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
