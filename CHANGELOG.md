@@ -227,12 +227,13 @@ minute; the intermittent activity-recovery test was two test races and is fixed.
 
 Remaining, and why:
 
-- **Durable rule actions other than email, archive and unarchive.** A board
-  with any other rule action keeps direct Sync. About thirty action types -
-  labels, members, dates, colours, checklists, moves, copies, links - have no
-  durable adapter. Each needs its own saved command and its own planned History
-  and activities, the way archive has, so they are a design project, not one
-  change (server/lib/listSyncSteps.js).
+- **Structural rule actions.** Sixteen action types are durable now: email,
+  archive and unarchive, colour, labels, completion, dates and members. A board
+  with any other rule action keeps direct Sync. The rest change more than one
+  card field: moves and list sorting (sort order, possibly across lists or
+  boards, with Card.move's own History), checklists (another collection),
+  and creating, copying or linking cards and swimlanes. Each needs its own
+  saved command (server/lib/listSyncSteps.js).
 - **Atomicity.** Cards, History, activities and effects are coordinated by the
   write-ahead journal and replay, not by a transaction. The FerretDB v1 backend
   has no multi-document transactions, and journal ownership cannot fence a
@@ -1912,6 +1913,42 @@ lease between stages still stops the next one. A first attempt with a 100 ms
 reuse window missed exactly that and was dropped. Archive and unarchive are now
 durable rule adapters. The durable Sync test runs an "archive every created
 card" rule end to end in about a second.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ff86170f3">Make colour, label and completion rule actions durable in Sync</a>. Thanks to xet7.</summary>
+
+setColor, addLabel, removeLabel, removeAllLabels and marking a card complete or
+incomplete now take durable Sync. Each rule invocation saves one command with
+the card field's value before and after, following the ordinary action's
+semantics. It also saves the effects the ordinary hooks would write: a History
+row and, for single labels, the label activity only when the label changed.
+The runner applies the change conditionally with ordinary History deferred,
+then writes the planned rows and delivers the activities durably.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ad4ccd5c3">Make the date rule actions durable in Sync</a>. Thanks to xet7.</summary>
+
+setDate, updateDate, setDateRelative and removeDate follow the ordinary
+actions, with "now" fixed when the command is captured. A full-app probe of the
+ordinary writes fixed exactly what they record: a dates History row and the
+timing hook's a-field activity, with no new value when a date is removed. The
+timing hook can now be deferred, so the saved activity is written instead of
+the hook's own, never both.
+
+</details>
+
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0395989d0">Make the member rule actions durable in Sync</a>. Thanks to xet7.</summary>
+
+addMember and removeMember resolve their people at capture exactly as the
+ordinary action does - the acting user, username tokens, and the card's
+assignees for "remove every member" - and save them. A replay therefore acts
+on the same people. Each person who really joined or left gets the ordinary
+joinMember or unjoinMember activity, and the change gets one History row.
 
 </details>
 
