@@ -1,6 +1,7 @@
 'use strict';
 const { EJSON } = require('bson');
 const { validateSyncEffectPolicy, assertSyncEffectPolicy } = require('./syncEffectPolicy');
+const { reuseWithinEvaluation } = require('./syncGuardWindow');
 const { syncOperationEffectId, applySyncOperationStep } = require('./syncOperationApply');
 const { createSyncHistoryPlanner, validateSyncFieldHistory, persistSyncFieldHistory } = require('./syncHistoryBatch');
 const { prepareSyncCreationActivity, validateSyncCreationActivity, persistSyncCreationActivity } = require('./syncCreationActivity');
@@ -62,11 +63,11 @@ function createEffectGuard({ history, activities, plan, step, effectId, assertCu
       !['findOneAsync','insertAsync','updateAsync'].every(key => typeof history?.[key] === 'function') ||
       (policy.activities && (typeof completeDelivery !== 'function' ||
         !['findOneAsync','insertAsync'].every(key => typeof activities?.[key] === 'function')))) fail();
-  return async () => {
+  return reuseWithinEvaluation(async () => {
     await assertCurrent();
     await assertSyncEffectPolicy(policy, readPolicy);
     await assertCurrent();
-  };
+  });
 }
 async function persistSyncEffects(options) {
   const { history, activities, step, effectId, completeDelivery } = options;

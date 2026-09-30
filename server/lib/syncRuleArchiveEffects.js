@@ -1,4 +1,5 @@
 'use strict';
+const { reuseWithinEvaluation } = require('./syncGuardWindow');
 const { EJSON, calculateObjectSize } = require('bson');
 const { canonical, sha256 } = require('../../models/lib/changeHistoryIntegrity');
 const { validateRuleArchiveCommand } = require('./syncRuleArchiveCommand');
@@ -95,11 +96,11 @@ async function applyRuleArchiveEffects(options) {
   if (typeof assertCurrent !== 'function' || typeof readPolicy !== 'function' ||
       !['findOneAsync', 'insertAsync', 'updateAsync'].every(key => typeof history?.[key] === 'function')) fail();
   const units = archiveUnits(command, options);
-  const guard = async () => {
+  const guard = reuseWithinEvaluation(async () => {
     await assertCurrent();
     if (saved.rows.length) await assertSyncEffectPolicy(saved.rows[0].policy, readPolicy);
     await assertCurrent();
-  };
+  });
   const rows = new Map(units.map((unit, i) => [unit.effectId, { unit, effects: saved.rows[i] }]));
   if (saved.rows.some(row => row.policy.activities) && (typeof completeDelivery !== 'function' ||
       !['findOneAsync', 'insertAsync'].every(key => typeof activities?.[key] === 'function'))) fail();

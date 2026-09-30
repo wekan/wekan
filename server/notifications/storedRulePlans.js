@@ -16,6 +16,7 @@ import Actions from '/models/actions';
 import { RulesHelper } from '/server/rulesHelper';
 import { getFeatureFlags } from '/models/lib/featureFlags';
 import { ensureIndex } from '/server/lib/mongoStartup';
+const { reuseWithinEvaluation } = require('/server/lib/syncGuardWindow');
 const { EJSON } = require('bson');
 const { assertRuleEmailSourceBinding } = require('/server/lib/ruleEmailSource');
 const { canonical } = require('/models/lib/changeHistoryIntegrity');
@@ -100,7 +101,7 @@ function executionContext({ effectId, activity, policy, assertCurrent, trigger }
     throw new Error('sync-rule-stage-invalid');
   }
   validateSyncTrigger(trigger);
-  const guard = async () => {
+  const guard = reuseWithinEvaluation(async () => {
     await assertCurrent();
     await assertSyncEffectPolicy(policy, async () => syncEffectPolicy(getFeatureFlags()));
     const [stored, user, board, card, list] = await Promise.all([
@@ -116,7 +117,7 @@ function executionContext({ effectId, activity, policy, assertCurrent, trigger }
       throw new Error('sync-rule-context-denied');
     }
     await assertCurrent();
-  };
+  });
   return { saved, effectId, guard };
 }
 
@@ -145,8 +146,15 @@ export async function runStoredSyncRules({ adapters, ...options }) {
   // Compacted: its actions finished more than the retention period ago.
   if (plan.compacted) { await context.guard(); return context.effectId; }
   const indices = new Map(plan.actions.map((row, index) => [row.id, index]));
+  // Durable adapters; server/lib/listSyncSteps.js DURABLE_RULE_ACTIONS lists
+  // the same action types, and a board with any other one keeps direct Sync.
+  // The archive runner returns the invocation id once its cards, History,
+  // activities and their own delivery are confirmed.
+  const archive = ({ invocation }) => runStoredSyncRuleArchive({ ...options, index: indices.get(invocation.id) });
   const durableAdapters = {
     sendEmail: ({ invocation }) => runStoredSyncRuleEmail({ ...options, index: indices.get(invocation.id) }),
+    archive,
+    unarchive: archive,
     ...adapters,
   };
   const done = await executeRulePlan({ plan, activity: context.saved, effectId: context.effectId,
@@ -221,7 +229,7 @@ async function archiveContext({ index, ...options }) {
       !['archive', 'unarchive'].includes(invocation?.action?.actionType)) {
     throw new Error('sync-rule-archive-command-invalid');
   }
-  const guard = async () => {
+  const guard = reuseWithinEvaluation(async () => {
     await context.guard();
     const [rule, action] = await Promise.all([
       Rules.rawCollection().findOne({ _id: invocation.rule._id }),
@@ -230,7 +238,7 @@ async function archiveContext({ index, ...options }) {
     if (!rule || !action || canonical(rule) !== canonical(invocation.rule) ||
         canonical(action) !== canonical(invocation.action)) throw new Error('sync-rule-archive-configuration-changed');
     await context.guard();
-  };
+  });
   const assertCard = async snapshot => {
     await guard();
     const [card, list, user, board] = await Promise.all([

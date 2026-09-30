@@ -7,6 +7,7 @@ import { withListSyncLease } from '/server/lib/listSyncLease';
 const { runSyncOperation } = require('/server/lib/syncOperationJournal');
 const { intentIdentity, ensureSyncOperationIntent, readSyncOperationIntent, loadSyncOperationIntent } = require('/server/lib/syncOperationIntent');
 const { createSyncOperationScopeGuard } = require('/server/lib/syncOperationScope');
+const { reuseWithinEvaluation } = require('/server/lib/syncGuardWindow');
 
 // Private durable storage. No publications, client writes or TTL: incomplete
 // plans and immutable completion receipts must survive restarts and deletion
@@ -50,11 +51,12 @@ export async function runStoredListSyncOperation({ scope, actorId, assertAccess,
       ...(trigger === undefined ? {} : { trigger }) };
     await ensureSyncOperationIntent({ ...input, operations: operations.rawCollection(),
       completions: completions.rawCollection(), assertCurrent: assertScope });
-    const assertCurrent = async () => {
+    // The base of every stored-stage guard; see syncGuardWindow.js.
+    const assertCurrent = reuseWithinEvaluation(async () => {
       await assertScope();
       await readSyncOperationIntent(input);
       await assertLease();
-    };
+    });
     const actorContext = context => ({ ...context, userId: identity.actorId });
     return runSyncOperation({ ...operation, scope: frozenScope, assertCurrent,
       build: context => operation.build(actorContext(context)),

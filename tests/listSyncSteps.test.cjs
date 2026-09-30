@@ -31,7 +31,9 @@ test('every missing condition keeps the direct path, and says which (negative)',
     [{ trigger: 'webhook' }, 'trigger'],
   ];
   for (const [over, reason] of reasons) assert.deepEqual(ok(over), { eligible: false, reason }, reason);
-  assert.deepEqual([...DURABLE_RULE_ACTIONS], ['sendEmail'], 'only sending email has a durable adapter');
+  assert.deepEqual([...DURABLE_RULE_ACTIONS], ['sendEmail', 'archive', 'unarchive'], 'the actions with durable adapters');
+  const rules = fs.readFileSync(path.join(__dirname, '../server/notifications/storedRulePlans.js'), 'utf8');
+  for (const type of DURABLE_RULE_ACTIONS) assert.match(rules, new RegExp(`\\b${type}[:,]`), `${type} is registered in runStoredSyncRules`);
 });
 
 const card = (id, extra = {}) => ({ customFields: [{ _id: 'other', value: 1 }], _id: id, boardId: 'board', listId: 'list', swimlaneId: 'lane', title: `T ${id}`,

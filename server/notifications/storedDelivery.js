@@ -14,6 +14,7 @@ import { trayDelivery } from '/server/notifications/trayQueue';
 import { emailOutbox } from '/server/notifications/emailQueue';
 const { EJSON } = require('bson');
 const { canonical } = require('/models/lib/changeHistoryIntegrity');
+const { reuseWithinEvaluation } = require('/server/lib/syncGuardWindow');
 const { ensureNotificationPlan, deliverNotificationPlan, notificationActivityIdentity, planId: notificationPlanId } = require('/server/lib/syncNotificationPlan');
 const { recordNotificationCompletion, createSyncNotificationRetention } = require('/server/lib/syncNotificationRetention');
 const { syncReceiptPolicy } = require('/server/lib/syncRuleEmailRetention');
@@ -59,14 +60,14 @@ export async function runStoredSyncNotifications({ activity, policy, assertCurre
     assertSyncActivation({ board, trigger, flags: getFeatureFlags() });
     return { board,card,list };
   }
-  async function guard() {
+  const guard = reuseWithinEvaluation(async () => {
     await assertCurrent();
     await assertSyncEffectPolicy(policy, async () => syncEffectPolicy(getFeatureFlags()));
     const stored = await Activities.findOneAsync(saved._id, { transform: null });
     if (!stored || canonical(stored) !== canonical(saved)) throw new Error('sync-notification-activity-changed');
     await context();
     await assertCurrent();
-  }
+  });
   async function recipient(userId) {
     await guard();
     const user = await Meteor.users.findOneAsync(userId);

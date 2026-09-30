@@ -1,6 +1,7 @@
 'use strict';
 const { EJSON } = require('bson');
 const { validateSyncEffectPolicy, assertSyncEffectPolicy } = require('./syncEffectPolicy');
+const { reuseWithinEvaluation } = require('./syncGuardWindow');
 const { notificationActivityIdentity, planId: notificationId } = require('./syncNotificationPlan');
 const { planId: webhookId } = require('./syncWebhookPlan');
 const copy = value => EJSON.parse(EJSON.stringify(value), { relaxed: true });
@@ -22,11 +23,11 @@ async function deliverSyncActivity({ effectId, activity, policy, assertCurrent, 
       (captured.notifications && (typeof notifications !== 'function' || typeof webhooks !== 'function'))) {
     throw new Error('sync-activity-delivery-adapter-required');
   }
-  const guard = async () => {
+  const guard = reuseWithinEvaluation(async () => {
     await assertCurrent();
     await assertSyncEffectPolicy(captured, readPolicy);
     await assertCurrent();
-  };
+  });
   const run = async (adapter, expected) => {
     await guard();
     const receipt = await adapter({ effectId, activity: copy(saved), policy: { ...captured }, assertCurrent: guard, trigger });

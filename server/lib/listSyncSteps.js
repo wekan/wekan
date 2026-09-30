@@ -12,17 +12,15 @@
 //   - the board enabled Sync effects, and for a scheduled run the instance
 //     enabled them for cron (server/lib/syncActivation.js);
 //   - the list has a versioned scope (saved since lifetimes were added);
-//   - every rule action on the board has a durable adapter. Only sending email
-//     has one; any other action keeps the board on the direct path.
+//   - every rule action on the board has a durable adapter: sending email,
+//     archive and unarchive. Any other action keeps the board on the direct path.
 const { syncValueChanges } = require('../../models/lib/listSyncTimeEstimates');
 
-// Rule actions with a durable adapter in runStoredSyncRules. Archive and
-// unarchive have a stored runner (runStoredSyncRuleArchive) but are NOT listed:
-// measured on 2026-09-30, one Sync-created card archived by a rule took 36 s,
-// because each nested delivery stage re-runs every outer guard (journal scope,
-// intent, lease, rule and archive checks) hundreds of times. Direct Sync does
-// it at once, so listing them now would slow boards down, not make them safer.
-const DURABLE_RULE_ACTIONS = new Set(['sendEmail']);
+// Rule actions with a durable adapter in runStoredSyncRules: email, and
+// archive/unarchive through the stored archive runner. Archive was held back
+// while one rule-archived card took 36 s through nested guards; guard results
+// are now shared within one evaluation (server/lib/syncGuardWindow.js).
+const DURABLE_RULE_ACTIONS = new Set(['sendEmail', 'archive', 'unarchive']);
 // Sync-owned card fields a saved step carries: the ones the direct path's
 // conditional update compares, plus placement. SimpleSchema owns
 // dateLastActivity, so it is never part of a step.

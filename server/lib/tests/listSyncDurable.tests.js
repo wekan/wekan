@@ -11,6 +11,7 @@ import Activities from '/models/activities';
 import ChangeHistory from '/models/changeHistory';
 import Rules from '/models/rules';
 import Actions from '/models/actions';
+import Triggers from '/models/triggers';
 import { syncOneList } from '/server/listSync';
 import { durableSyncDecision, replayStoredListSync } from '/server/lib/listSyncApplication';
 
@@ -83,6 +84,25 @@ describe('Durable list Sync', function () {
       assert.equal(await completions.countDocuments({ 'scope.listId': listId }), 3);
       assert.equal(rows.length, 2, 'no duplicate cards');
 
+      // A rule whose action has a durable adapter keeps the durable path:
+      // "archive every created card" runs through the stored archive runner,
+      // in bounded time (it took 36 s before guards reused recent results).
+      const archiveActionId = Random.id(), triggerId = Random.id();
+      await Actions.rawCollection().insertOne({ _id: archiveActionId, actionType: 'archive', boardId, desc: 'archive' });
+      await Triggers.rawCollection().insertOne({ _id: triggerId, activityType: 'createCard', boardId,
+        listName: '*', userId: '*', swimlaneName: '*', cardTitle: '*', desc: 'created' });
+      await Rules.rawCollection().insertOne({ _id: Random.id(), title: 'archive new', triggerId, actionId: archiveActionId, boardId });
+      assert.equal((await durableSyncDecision({ list, board: await Boards.findOneAsync(boardId), trigger: 'manual', actorId: actor })).eligible, true);
+      issues = [issue('P-1', 'First renamed'), issue('P-3', 'Archived by rule')];
+      const started = Date.now();
+      const ruled = await run();
+      const elapsed = Date.now() - started;
+      assert.deepEqual([ruled.durable, ruled.created], [true, 1], JSON.stringify(ruled));
+      assert.equal((await cards()).find(card => card.syncExternalId === 'P-3').archived, true, 'the rule archived it');
+      assert.equal(await collection('listSyncRuleArchiveCommands').countDocuments({ boardId }), 1);
+      assert.ok(elapsed < 10000, `a rule-archived card took ${elapsed} ms`);
+      await Rules.rawCollection().deleteMany({ boardId }); await Triggers.rawCollection().deleteMany({ boardId });
+
       // A rule action without a durable adapter keeps the direct path.
       const actionId = await Actions.insertAsync({ actionType: 'moveCardToTop', boardId, desc: 'top' });
       await Rules.rawCollection().insertOne({ _id: Random.id(), title: 'r', triggerId: Random.id(), actionId, boardId });
@@ -98,6 +118,13 @@ describe('Durable list Sync', function () {
       await Activities.rawCollection().deleteMany({ boardId });
       await ChangeHistory.rawCollection().deleteMany({ boardId });
       await Rules.rawCollection().deleteMany({ boardId });
+      await Triggers.rawCollection().deleteMany({ boardId });
+      const commands = await collection('listSyncRuleArchiveCommands').find({ boardId }, { projection: { _id: 1 } }).toArray();
+      await collection('listSyncRuleArchiveReceipts').deleteMany({ commandId: { $in: commands.map(row => row._id) } });
+      await collection('listSyncRuleArchiveEffects').deleteMany({ _id: { $in: commands.map(row => row._id) } });
+      await collection('listSyncRuleArchiveCommands').deleteMany({ boardId });
+      const ruleCompletions = await collection('listSyncRulePlans').find({ 'plan.boardId': boardId }, { projection: { _id: 1 } }).toArray();
+      await collection('listSyncRuleCompletions').deleteMany({ _id: { $in: ruleCompletions.map(row => row._id) } });
       // The stored effect plans this run delivered, and their receipts.
       const plans = await collection('listSyncNotificationPlans').find({ 'plan.boardId': boardId }, { projection: { _id: 1 } }).toArray();
       await collection('listSyncNotificationReceipts').deleteMany({ _id: { $in: plans.map(row => row._id) } });

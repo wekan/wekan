@@ -289,7 +289,9 @@ describe('Stored Sync rule email network delivery', function () {
       assert.equal(connections, 3); assert.equal(bodies.length, 3);
       assert.ok(recipients.some(line => line.includes('rejected@example.org')));
       assert.equal((await SyncRuleEmailAttempts.findOneAsync(partial._id)).state, 'sending');
-      await Actions.rawCollection().insertOne({ _id: extraAction, boardId, actionType: 'archive' });
+      // An action with no durable adapter (archive has one since 2026-09-30,
+      // server/lib/listSyncSteps.js) is refused before anything is sent.
+      await Actions.rawCollection().insertOne({ _id: extraAction, boardId, actionType: 'moveCardToTop' });
       await Triggers.rawCollection().insertOne({ _id: extraTrigger, boardId, activityType: 'createCard', listName: '*', userId: '*', swimlaneName: '*', cardTitle: '*' });
       await Rules.rawCollection().insertOne({ _id: extraRule, boardId, triggerId: extraTrigger, actionId: extraAction, enabled: true });
       const blockedInput = { ...input, effectId: '2'.repeat(64) };
