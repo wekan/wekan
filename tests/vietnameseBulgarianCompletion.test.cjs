@@ -2317,6 +2317,56 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedConfirmationKeys = [
+    "home-board-remove-confirm",
+    "archive-board-confirm",
+    "archive-swimlane",
+    "archive-selection",
+    "board-change-color",
+    "boardChangeColorPopup-title",
+    "changeColorPopup-title",
+    "allBoardsChangeColorPopup-title",
+    "boardChangeTitlePopup-title",
+    "boardChangeVisibilityPopup-title",
+    "boardChangeWatchPopup-title",
+    "card-labels-title",
+    "change-color",
+    "change-settings",
+    "change-font",
+    "changeLanguagePopup-title",
+    "changeSettingsPopup-title",
+    "close-board",
+    "close-dialog",
+    "comment-delete",
+    "deleteCommentPopup-title",
+    "confirm-subtask-delete-popup",
+    "deleteCustomFieldPopup-title",
+    "edit-wip-limit",
+    "leave-board-pop",
+    "listDeletePopup-title",
+    "deleted-user",
+    "remove-member-pop",
+    "removeMemberPopup-title",
+    "rename-board",
+    "board-delete-notice",
+    "boardDeletePopup-title",
+    "delete-all-notifications-confirm",
+    "delete-duplicate-lists-confirm",
+    "change-card-parent",
+    "duplicate-board-confirm",
+    "delete-user-confirm-popup"
+  ];
+  for (const key of correctedConfirmationKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /(?:Czy |Usunąć|Usunię|Zmień|Zamknij|zostanié usunię|Użytkownik)/, `csb:${key}: Polish remnants`);
+  }
+  assert.match(locale['home-board-remove-confirm'], /Sama tôfla nie òstanié rëmniãtô/);
+  assert.match(locale['remove-member-pop'], /Dostónie ùwiadomienié/);
+  assert.match(locale['board-delete-notice'], /na wiedno.*lëstë, kôrtë i dzejbë/);
+  for (const key of ['delete-all-notifications-confirm', 'delete-user-confirm-popup']) assert.match(locale[key], /nie mòżna cofnąc/);
+  assert.match(locale['delete-duplicate-lists-confirm'], /z tim samim mionã i bez kôrtów/);
+  assert.match(locale['edit-wip-limit'], /WIP/);
+  assert.equal(locale['rename-board'], locale['boardChangeTitlePopup-title']);
   const correctedJobResultKeys = [
     "location-detect-none",
     "default-save-storage-save-failed",
