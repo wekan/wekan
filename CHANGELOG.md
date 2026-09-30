@@ -2425,6 +2425,16 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/f6c220e93">Translate Slovenian filters and notification controls</a>. Thanks to xet7.</summary>
+
+- Fill 81 English placeholders in each Slovenian locale for filters,
+  automatic archiving, notifications, reminders, imports and map views.
+- Check executable syntax, placeholders and visibility warnings; update the
+  README to 81 locales meeting the existing completeness threshold.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
