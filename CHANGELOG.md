@@ -8993,6 +8993,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/75e47e817a505d05c349e958ac103aaeff65f693">Correct Shona settings and mail labels</a>. Thanks to xet7.</summary>
+
+- Translate 38 prefixed English entries and restore two storage abbreviations.
+  Preserve existing values outside this correction batch.
+- Translation, registry and human-preference checks pass, covering invitation
+  tokens, upload limits, logo links and protocol names.
+  Lower-confidence wording needs fluent-speaker review; browser review not run.
+  Another 463 prefixed English entries remain; wider translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
