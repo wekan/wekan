@@ -2231,6 +2231,17 @@ Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5df1041ad">Translate Persian filters and board controls</a>. Thanks to xet7.</summary>
+
+Fill 76 strings across both Persian locale files. Tests preserve filter syntax,
+rule variables, placeholders and board visibility warnings. Existing
+translations are preserved and human-preference checks pass. Persian still
+has 290 reported placeholders, and Persian (Iran) has 287. Other languages
+remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
