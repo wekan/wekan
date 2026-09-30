@@ -31,6 +31,19 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Romansh date filters, imports and archive-language corrections.
 {
   const locale = read('rm');
+  const activityRecoveryKeys = ["activity-recovery-unavailable", "activity-recovery-retry", "activity-recovery-retrying", "activity-recovery-status-pending", "activity-recovery-status-preparing", "activity-recovery-status-processing", "activity-recovery-status-missing", "activity-recovery-status-changed", "activity-recovery-status-invalid", "activity-recovery-status-inconsistent", "activity-recovery-busy", "activity-recovery-denied", "activity-recovery-source-unavailable", "activity-recovery-disabled", "activity-recovery-failed", "activity-recovery-pause", "activity-recovery-resume", "activity-recovery-paused", "activity-recovery-control-conflict", "activity-recovery-control-failed", "activity-recovery-status-cancelled", "activity-recovery-cancel", "activity-recovery-cancel-confirm", "rule-email-recovery-heading", "rule-email-recovery-description"];
+  for (const key of activityRecoveryKeys) {
+    assert.notEqual(locale[key], english[key], `rm:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
+  }
+  for (const action of ['pause', 'resume']) assert.equal(locale[`activity-recovery-${action}`], locale[`email-recovery-${action}`]);
+  assert.equal(new Set(['pending', 'preparing', 'processing', 'missing', 'changed', 'invalid', 'inconsistent'].map(state => locale[`activity-recovery-status-${state}`])).size, 7);
+  assert.notEqual(locale['activity-recovery-paused'], locale['activity-recovery-status-cancelled']);
+  assert.match(locale['activity-recovery-cancel-confirm'], /na po betg vegnir cuntinuada/);
+  assert.match(locale['activity-recovery-cancel-confirm'], /na vegnan betg revocads/);
+  assert.match(locale['activity-recovery-source-unavailable'], /Nagut è vegnì recreà/);
+  assert.match(locale['rule-email-recovery-description'], /na repeta betg.*annullescha betg/);
+
   const emailFailureKeys = ["email-recovery-pending", "email-recovery-empty", "email-recovery-unavailable", "email-recovery-busy", "email-recovery-failed", "email-recovery-superseded", "email-recovery-confirm-cancel", "email-recovery-attention", "email-recovery-stopped", "email-recovery-retry", "email-failure-smtp-temporary", "email-failure-smtp-rejected", "email-failure-smtp-authentication", "email-failure-smtp-configuration", "email-failure-recipient-unavailable", "email-failure-delivery-unconfirmed", "email-failure-acknowledgement-failed", "email-failure-delivery-failed", "email-failure-retry-limit", "sync-original-time", "sync-remaining-time", "sync-time-estimate-hint", "activity-recovery-heading", "activity-recovery-description", "activity-recovery-empty"];
   for (const key of emailFailureKeys) {
     assert.notEqual(locale[key], english[key], `rm:${key}: translated`);
