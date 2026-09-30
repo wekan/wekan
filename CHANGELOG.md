@@ -4460,6 +4460,19 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7bf81015b">Complete flagged Welsh notification and keyboard translations</a>. Thanks to xet7.</summary>
+
+- Fill 80 entries in each Welsh locale and retain 13 reviewed keyboard labels,
+  product names and mathematical symbols. Neither has flagged placeholders,
+  including pending keys; existing translations and tokens are preserved.
+- Whole-locale translation, registry and human-preference checks pass, covering
+  uncertain delivery and irreversible cancellation. Welsh wording is lower
+  confidence; fluent-speaker and browser review were not run. The older
+  wording audit and other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
