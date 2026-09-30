@@ -2083,6 +2083,17 @@ console.log('Completed translation batches: completeness, tokens, syntax and nat
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `eu: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /Txertatu aldagaia/);
+  for (const key of Object.keys(english).filter(key => key.startsWith('sync-'))) {
+    assert.notEqual(locale[key], english[key], `eu:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `eu:${key}: tokens`);
+  }
+  assert.match(locale['sync-conflict-hint'], /Ez da ezer bidaltzen/);
+  assert.match(locale['sync-report-partial'], /ez dute.*berrekin edo desegiten/);
+  assert.match(locale['sync-conflict-review-complete'], /Ez da zerrenda osoaren/);
+  assert.match(locale['sync-conflict-detach-hint'], /Edukia WeKanen geratuko da/);
+  assert.match(locale['sync-estimate-field-hint'], /null esplizitu batek.*garbitzen/);
+  assert.match(locale['sync-time-estimate-hint'], /eremu bakarra/);
+  assert.match(locale['sync-recovery-description'], /ezin dituzte.*berrekin edo desegin/);
   assert.match(locale['rule-email-recovery-resend-confirm'], /bi aldiz/);
   assert.match(locale['rule-email-recovery-actions-hint'], /berretsi gabeko hartzaileei soilik/);
   assert.match(locale['rule-email-legacy-discard-confirm'], /Ez da inoiz bidaliko/);
