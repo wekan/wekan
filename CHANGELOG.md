@@ -4280,6 +4280,19 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7fa5a1003">Translate Breton Scrum planning and reports</a>. Thanks to xet7.</summary>
+
+- Fill 80 Scrum entries for planning, sprint lifecycle and reports. Preserve
+  existing translations and source tokens. Breton has 177 flagged entries
+  remaining; the README measured language-completion count is now 109.
+- Translation, registry and human-preference checks pass, covering unknown
+  estimates, partial reports and daily observations. Breton wording is lower
+  confidence; fluent-speaker and browser review were not run. The wider
+  translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
