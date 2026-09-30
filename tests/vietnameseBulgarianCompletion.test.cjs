@@ -1609,6 +1609,14 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /Nun vene mannato maje/);
   assert.match(locale['rule-email-legacy-access-denied'], /nun tene cchiù accesso/);
   assert.match(locale['r-insert-variable'], /Miette na variabbile/);
+  for (const key of Object.keys(english).filter(key => key.startsWith('scrum-'))) {
+    assert.notEqual(locale[key], english[key], `nap:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `nap:${key}: tokens`);
+  }
+  assert.match(locale['scrum-report-help'], /nun songo stime a zero/);
+  assert.match(locale['scrum-partial-report'], /carte assignate a te mo/);
+  assert.match(locale['scrum-daily-observations-help'], /nun registrano ogni cagnamento/);
+  assert.match(locale['scrum-daily-observations-export-help'], /stime scanusciute nun songo zero/);
   for (const key of Object.keys(english).filter(key => key.startsWith('sync-'))) {
     assert.notEqual(locale[key], english[key], `nap:${key}: untranslated`);
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `nap:${key}: tokens`);
