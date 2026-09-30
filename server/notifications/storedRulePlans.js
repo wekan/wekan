@@ -19,7 +19,7 @@ import { ensureIndex } from '/server/lib/mongoStartup';
 const { reuseWithinEvaluation } = require('/server/lib/syncGuardWindow');
 const { EJSON } = require('bson');
 const { assertRuleEmailSourceBinding } = require('/server/lib/ruleEmailSource');
-const { canonical } = require('/models/lib/changeHistoryIntegrity');
+const { canonical, sha256 } = require('/models/lib/changeHistoryIntegrity');
 const { memberCan } = require('/models/lib/boardRoleCapabilities');
 const { isAssignedOnlyMember } = require('/models/lib/boardCardScope');
 const { validateSyncEffectPolicy, assertSyncEffectPolicy, syncEffectPolicy } = require('/server/lib/syncEffectPolicy');
@@ -48,6 +48,8 @@ for (const collection of [SyncRuleArchiveCommands, SyncRuleArchiveEffects, SyncR
 export const SyncRulePlans = new Mongo.Collection('listSyncRulePlans');
 // Plan completion receipts with their time (syncRuleRetention.js); kept for good.
 export const SyncRuleCompletions = new Mongo.Collection('listSyncRuleCompletions');
+// Archive command completion receipts with their time (syncRuleArchiveRetention.js).
+export const SyncRuleArchiveCompletions = new Mongo.Collection('listSyncRuleArchiveCompletions');
 export const SyncRuleEmailAttempts = new Mongo.Collection('listSyncRuleEmailAttempts');
 SyncRuleEmailAttempts.deny({ insert: () => true, update: () => true, remove: () => true });
 export const SyncRuleEmailResolutions = new Mongo.Collection('listSyncRuleEmailResolutions');
@@ -61,6 +63,7 @@ export const SyncRuleReceipts = new Mongo.Collection('listSyncRuleReceipts');
 SyncRuleReceipts.deny({ insert: () => true, update: () => true, remove: () => true });
 SyncRulePlans.deny({ insert: () => true, update: () => true, remove: () => true });
 SyncRuleCompletions.deny({ insert: () => true, update: () => true, remove: () => true });
+SyncRuleArchiveCompletions.deny({ insert: () => true, update: () => true, remove: () => true });
 Meteor.startup(async () => {
   await ensureIndex(SyncRuleArchiveCommands, { boardId: 1, cardId: 1 });
   await ensureIndex(SyncRuleArchiveEffects, { commandHash: 1 });
@@ -87,7 +90,15 @@ Meteor.startup(async () => {
   Meteor.setInterval(() => {
     planRetention.sweep().catch(() => console.error('Rule plan retention pass failed; it is retried on the next pass'));
   }, intervalMs);
+  // ...and finished rule archive commands with their effects.
+  await ensureIndex(SyncRuleArchiveCompletions, { completedAt: 1, _id: 1 });
+  const archiveRetention = createSyncRuleArchiveRetention({ commands: SyncRuleArchiveCommands.rawCollection(),
+    effects: SyncRuleArchiveEffects.rawCollection(), completions: SyncRuleArchiveCompletions.rawCollection(), days });
+  Meteor.setInterval(() => {
+    archiveRetention.sweep().catch(() => console.error('Rule archive retention pass failed; it is retried on the next pass'));
+  }, intervalMs);
 });
+const { recordArchiveCompletion, readCompactedArchive, createSyncRuleArchiveRetention } = require('/server/lib/syncRuleArchiveRetention');
 const { recordRuleCompletion, createSyncRuleRetention } = require('/server/lib/syncRuleRetention');
 const { planId: rulePlanId } = require('/server/lib/syncRulePlan');
 
@@ -281,6 +292,16 @@ export async function captureStoredSyncRuleArchiveCommand(options) {
 export async function runStoredSyncRuleArchive({ completeDelivery = runStoredSyncActivityDelivery, ...options }) {
   if (typeof completeDelivery !== 'function') throw new Error('sync-rule-archive-delivery-required');
   const captured = await archiveContext(options);
+  // Compacted (syncRuleArchiveRetention.js): finished more than the retention
+  // period ago; the invocation is done and nothing is rebuilt.
+  const commandId = sha256(canonical(['sync-rule-archive', captured.plan.actions[captured.index].id]));
+  const existing = await SyncRuleArchiveCommands.rawCollection().findOne({ _id: commandId });
+  if (existing?.compactReceiptVersion !== undefined) {
+    const done = await readCompactedArchive({ row: existing, completions: SyncRuleArchiveCompletions.rawCollection(),
+      receipts: SyncRuleArchiveReceipts.rawCollection() });
+    await captured.guard();
+    return done;
+  }
   const command = await captureArchive(captured);
   const guard = async () => { await captured.guard(); };
   await guard();
@@ -307,5 +328,7 @@ export async function runStoredSyncRuleArchive({ completeDelivery = runStoredSyn
     completeDelivery: context => completeDelivery({ ...context, trigger: options.trigger, assertCurrent: async () => {
       await guard(); await context.assertCurrent(); await guard();
     } }) });
-  await guard(); return result;
+  await guard();
+  await recordArchiveCompletion({ completions: SyncRuleArchiveCompletions.rawCollection(), command });
+  return result;
 }

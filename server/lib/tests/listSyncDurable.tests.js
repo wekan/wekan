@@ -14,6 +14,8 @@ import Actions from '/models/actions';
 import Triggers from '/models/triggers';
 import { syncOneList } from '/server/listSync';
 import { durableSyncDecision, replayStoredListSync } from '/server/lib/listSyncApplication';
+import { runStoredSyncRuleArchive } from '/server/notifications/storedRulePlans';
+const { createSyncRuleArchiveRetention } = require('/server/lib/syncRuleArchiveRetention');
 
 // The rest of the Scrum/Sync handoff (maintainer decision of 2026-09-30):
 // manual and scheduled Sync write through the durable journal, and an
@@ -101,6 +103,23 @@ describe('Durable list Sync', function () {
       assert.equal((await cards()).find(card => card.syncExternalId === 'P-3').archived, true, 'the rule archived it');
       assert.equal(await collection('listSyncRuleArchiveCommands').countDocuments({ boardId }), 1);
       assert.ok(elapsed < 10000, `a rule-archived card took ${elapsed} ms`);
+      // Retention (2026-09-30): 90 days after the archive finished, its effects
+      // go and the command - card titles included - is compacted in place; a
+      // late replay of the rule action returns as done.
+      const archiveCommand = await collection('listSyncRuleArchiveCommands').findOne({ boardId });
+      const archiveDone = await collection('listSyncRuleArchiveCompletions').findOne({ _id: archiveCommand._id });
+      assert.ok(archiveDone.completedAt instanceof Date);
+      assert.ok((await createSyncRuleArchiveRetention({ commands: collection('listSyncRuleArchiveCommands'),
+        effects: collection('listSyncRuleArchiveEffects'), completions: collection('listSyncRuleArchiveCompletions'),
+        now: () => new Date(archiveDone.completedAt.getTime() + 91 * 86400000) }).sweep()).compacted >= 1);
+      const compactCommand = await collection('listSyncRuleArchiveCommands').findOne({ _id: archiveCommand._id });
+      assert.deepEqual(Object.keys(compactCommand).sort(), ['_id', 'checksum', 'compactReceiptVersion', 'invocationId', 'planId']);
+      assert.equal(await collection('listSyncRuleArchiveEffects').countDocuments({ _id: archiveCommand._id }), 0);
+      const rulePlan = await collection('listSyncRulePlans').findOne({ _id: archiveCommand.planId });
+      const ruleActivity = await Activities.rawCollection().findOne({ _id: rulePlan.plan.activityId });
+      assert.equal(await runStoredSyncRuleArchive({ activity: ruleActivity, effectId: rulePlan.plan.effectId, index: 0,
+        policy: { activities: true, notifications: true }, trigger: 'manual', assertCurrent: async () => {} }),
+      rulePlan.plan.actions[0].id);
       await Rules.rawCollection().deleteMany({ boardId }); await Triggers.rawCollection().deleteMany({ boardId });
 
       // A rule action without a durable adapter keeps the direct path.
@@ -122,6 +141,7 @@ describe('Durable list Sync', function () {
       const commands = await collection('listSyncRuleArchiveCommands').find({ boardId }, { projection: { _id: 1 } }).toArray();
       await collection('listSyncRuleArchiveReceipts').deleteMany({ commandId: { $in: commands.map(row => row._id) } });
       await collection('listSyncRuleArchiveEffects').deleteMany({ _id: { $in: commands.map(row => row._id) } });
+      await collection('listSyncRuleArchiveCompletions').deleteMany({ _id: { $in: commands.map(row => row._id) } });
       await collection('listSyncRuleArchiveCommands').deleteMany({ boardId });
       const ruleCompletions = await collection('listSyncRulePlans').find({ 'plan.boardId': boardId }, { projection: { _id: 1 } }).toArray();
       await collection('listSyncRuleCompletions').deleteMany({ _id: { $in: ruleCompletions.map(row => row._id) } });
