@@ -1663,6 +1663,21 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /Nunca no se ninviará/);
   assert.match(locale['rule-email-legacy-access-denied'], /ya no tiene acceso/);
   assert.match(locale['r-insert-variable'], /Fica una variable/);
+  assert.match(locale['enable-permanent-delete-description'], /no borra cosa por sí mesmo/);
+  assert.match(locale['remove-member-pop'], /Rezibirá un aviso/);
+  assert.doesNotMatch(locale['remove-member-pop'], /En ellas se mostrará/);
+  assert.match(locale['swimlane-delete-pop'], /No se puede desfer/);
+  assert.match(locale['roles-status-desc'], /Nomás lectura/);
+  assert.match(locale['api-no-calls'], /WITH_API=true/);
+  for (const key of ['above-selected-card', 'above-selected-swimlane']) {
+    assert.match(locale[key], /^Dencima /);
+  }
+  for (const key of ['below-selected-card', 'below-selected-swimlane']) {
+    assert.match(locale[key], /^Debaixo /);
+  }
+  for (const key of ['activity-delete-attach', 'activity-delete-attach-card']) {
+    assert.match(locale[key], /ha borrau un adchunto/);
+  }
   for (const key of ['act-addAttachment', 'act-addSubtask', 'act-addLabel',
     'act-addedLabel', 'act-addChecklist', 'act-addChecklistItem', 'act-createList',
     'act-joinMember', 'activity-checklist-item-added']) {
