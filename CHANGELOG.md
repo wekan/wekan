@@ -7574,6 +7574,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a42f2a09cf71b980f69bb73cdc5a58f40a40a40d">Translate Luxembourgish screenreader controls and shortcuts</a>. Thanks to xet7.</summary>
+
+- Translate 21 missing or English strings for screen-reader controls and
+  editor shortcuts, preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  enabled/disabled, abort/finish and focus-target labels.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
