@@ -5104,6 +5104,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/341d15da07e480add02226a67b8a5a0c8a9ea638">Translate Esperanto email recovery and todo.txt guidance</a>. Thanks to xet7.</summary>
+
+- Fill 44 missing entries and 11 related English placeholders, preserving
+  existing translations, delivery uncertainty and executable import syntax.
+- Translation, registry and human-preference checks pass. Fluent-speaker
+  and browser review were not run. Older Esperanto placeholders and other
+  languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
