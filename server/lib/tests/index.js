@@ -108,3 +108,4 @@ import './autoArchiveCards.tests';
 import './cardParents.tests';
 import './inboundEmailRoute.tests';
 import './activityIncarnation.tests';
+import './listSyncDurable.tests';

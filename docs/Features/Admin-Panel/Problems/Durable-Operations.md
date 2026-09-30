@@ -263,6 +263,33 @@ acknowledgements; it does **not** fence an already in-flight card write. That
 cross-collection boundary and atomic multi-card reconciliation remain open.
 No automatic retry scheduler or application UI is enabled by this engine alone.
 
+### Manual and scheduled Sync use the engine (2026-09-30)
+
+Manual "Sync now" and the 15-minute scheduled Sync now write through this
+engine when it can do everything (`server/lib/listSyncSteps.js`):
+
+- the board enabled Sync effects, and for a scheduled run the instance enabled
+  cron effects;
+- the list has a versioned scope, which a list gets when its settings are saved;
+- every rule action on the board has a durable adapter. Only sending email has
+  one so far.
+
+Otherwise the run uses the direct writes it always used, so no rule stops
+running. `server/lib/listSyncApplication.js` turns the reconcile plan into saved
+steps. The steps are built from the stored cards, and a local edit since the
+fetch stops the run. It plans History and activities with the shared effect
+planner and applies each step through the hooked card and activity adapters and
+durable delivery.
+
+A new run first finishes the list's unfinished operation. The
+`wekan-list-sync-replay` cron job resumes interrupted operations every minute,
+under the list lease, with the actor and trigger stored in the intent (intent
+version 2). An operation still preparing has written nothing and is discarded,
+since a replay has no source data to rebuild it from.
+
+The in-flight-write and atomicity limits above still apply. Rule actions other
+than email need their own durable adapters before those boards can use this path.
+
 ### Card activity and History boundary found during adapter integration
 
 The installed collection-hooks update wrapper calls `after.update` even when

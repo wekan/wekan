@@ -18,7 +18,7 @@ test('registered private storage retains recovery evidence and refuses recreated
  withListSyncLease:(id,work)=>withSyncLease(db.collection('leases'),id,work),
  require:p=>require(path.resolve(__dirname,'../..',p.slice(1)))};
  const sourceFile=fs.readFileSync(path.resolve(__dirname,'../../server/lib/listSyncOperations.js'),'utf8');
- vm.runInNewContext(sourceFile.replace(/^import .*;\n/gm,'').replace('export async function','async function'),context);
+ vm.runInNewContext(sourceFile.replace(/^import .*;\n/gm,'').replace(/export async function/g,'async function'),context);
  for(const fn of startup)await fn();
  for(const c of collections.values()){
   assert.ok(c.rules.insert());assert.ok(c.rules.update());assert.ok(c.rules.remove());

@@ -3,6 +3,7 @@ import '/server/notifications/storedRulePlans';
 import '/server/notifications/storedWebhooks';
 import '/server/notifications/storedDelivery';
 import '/server/lib/listSyncOperations';
+import { currentSyncActor, durableSyncDecision, runDurableListSync, replayStoredListSync } from '/server/lib/listSyncApplication';
 // List sync (docs/Features/ImportExport/Sync.md, Priority 1 of the
 // import/export/sync audit): periodic job that keeps a WeKan list up to date
 // from an external tracker (Jira first, end to end; the same mechanism also
@@ -64,7 +65,7 @@ export async function syncOneList(list, options = {}) {
           findBoard: id => Boards.findOneAsync(id),
           canWrite: allowIsBoardMemberWithWriteAccess, assignedScope: assignedOnlyCardScope,
           withActor: (userId, fn) => DDP._CurrentMethodInvocation.withValue({ userId, isSimulation: false }, fn),
-          run: assertCurrent => reconcileList(current, options, { assertCurrent }),
+          run: assertCurrent => reconcileList(current, { ...options, scheduled: true }, { assertCurrent }),
           assertCurrent: lease.assertCurrent,
         });
       }
@@ -87,7 +88,7 @@ export async function syncOneList(list, options = {}) {
 }
 
 async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, previewConflicts = false, dryRun = false,
-  assertConflictAccess, recordCoverage } = {}, { assertCurrent }) {
+  assertConflictAccess, recordCoverage, scheduled = false } = {}, { assertCurrent }) {
   if (dryRun && resolution) return { error: 'Preview cannot resolve conflicts.' };
   const source = list.syncSource;
   if (!source || !source.type || (!dryRun && source.enabled === false)) return { skipped: true };
@@ -105,7 +106,7 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
     await assertCurrent();
     return withSyncRunReport(ListSyncRunReports.rawCollection(), list,
       recordCoverage => reconcileList(list, { fetchers, previewConflicts,
-        assertConflictAccess, recordCoverage }, { assertCurrent }));
+        assertConflictAccess, recordCoverage, scheduled }, { assertCurrent }));
   }
 
   const credential = await readSyncCredential(ListSyncCredentials, list);
@@ -301,6 +302,66 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
 
   const board = await Boards.findOneAsync(list.boardId);
   const now = new Date();
+  // Only when something is created: finding the default swimlane may create one.
+  const swimlaneId = plan.toCreate.length ? list.swimlaneId || (board && (await board.getDefaultSwimlineAsync())._id) || '' : '';
+  const creationDocument = (task, cardId) => ({
+    _id: cardId,
+    title: task.title || 'Imported item',
+    description: task.description || '',
+    ...(task.spentTime !== undefined ? { spentTime: task.spentTime } : {}),
+    ...syncValueChanges(Object.fromEntries(['estimate', ...Object.keys(TIME_FIELDS)].filter(field => task[field] !== undefined).map(field => [field, task[field]])), null, estimateMapping, timeMappings),
+    listId: list._id,
+    swimlaneId,
+    boardId: list.boardId,
+    sort: -1,
+    dateLastActivity: now,
+    syncExternalId: String(task.externalId),
+    syncSourceType: source.type,
+    syncSourceKey: sourceKey,
+    syncLastSource: {
+      ...syncTimeBaseline(task, timeMappings),
+      ...(task.title !== undefined ? { title: task.title } : {}),
+      ...(task.description !== undefined ? { description: task.description } : {}),
+      ...(task.spentTime !== undefined ? { spentTime: task.spentTime } : {}),
+      ...(task.estimate !== undefined ? { estimate: task.estimate, estimateMapping: estimateMapping.identity } : {}),
+    },
+  });
+
+  // Durable path (maintainer decision of 2026-09-30): through the write-ahead
+  // journal, with History, activities and effects replayed after a restart -
+  // when the board enabled Sync effects and every rule action has a durable
+  // adapter (server/lib/listSyncSteps.js). Otherwise the direct writes below.
+  const trigger = scheduled ? 'scheduled' : 'manual';
+  const actorId = currentSyncActor();
+  const decision = await durableSyncDecision({ list, board, trigger, actorId });
+  if (decision.eligible) {
+    const creations = plan.toCreate.map(task => {
+      const cardId = creationTargets.get(String(task.externalId)).targetId;
+      return { cardId, document: creationDocument(task, cardId) };
+    });
+    try {
+      await runDurableListSync({ list, trigger, actorId, lease: { assertCurrent }, plan, creations,
+        fetched: existingCards, estimateMapping, timeMappings, now });
+    } catch (e) {
+      if (e?.error === 'sync-busy' || e?.error === 'sync-lease-lost') throw e;
+      const code = e?.code || e?.message || '';
+      // The code only - never card values or provider text.
+      console.error('listSync: durable run stopped for list', list._id, String(code).slice(0, 120));
+      const error = code === 'sync-operation-local-state-changed'
+        ? 'Sync creation conflict: a card for this source item already exists. Retry Sync to review a replacement in the Sync popup.'
+        : ['sync-card-changed', 'sync-operation-write-unconfirmed'].includes(code)
+          ? 'Sync card changed while applying updates; retry sync.'
+          : 'Sync did not finish; its saved progress resumes automatically.';
+      await assertCurrent();
+      await Lists.updateAsync(listSelector, { $set: { 'syncSource.lastSyncError': error } });
+      return { error };
+    }
+    await assertCurrent();
+    await Lists.updateAsync(listSelector, {
+      $set: { 'syncSource.lastSyncedAt': now, 'syncSource.lastSyncError': '' },
+    });
+    return { created: plan.toCreate.length, updated: plan.toUpdate.length, archived: plan.toArchive.length, durable: true };
+  }
 
   for (const task of plan.toCreate) {
     const target = creationTargets.get(String(task.externalId));
@@ -311,28 +372,7 @@ async function reconcileList(list, { fetchers = LIST_SYNC_FETCHERS, resolution, 
       if ((await readSyncTarget(ListSyncTargets, list._id, sourceKey, task.externalId)).targetId !== cardId) {
         return { error: 'The replacement target changed. Run Sync again.' };
       }
-      await Cards.insertAsync({
-        _id: cardId,
-        title: task.title || 'Imported item',
-        description: task.description || '',
-        ...(task.spentTime !== undefined ? { spentTime: task.spentTime } : {}),
-        ...syncValueChanges(Object.fromEntries(['estimate', ...Object.keys(TIME_FIELDS)].filter(field => task[field] !== undefined).map(field => [field, task[field]])), null, estimateMapping, timeMappings),
-        listId: list._id,
-        swimlaneId: list.swimlaneId || (board && (await board.getDefaultSwimlineAsync())._id) || '',
-        boardId: list.boardId,
-        sort: -1,
-        dateLastActivity: now,
-        syncExternalId: String(task.externalId),
-        syncSourceType: source.type,
-        syncSourceKey: sourceKey,
-        syncLastSource: {
-          ...syncTimeBaseline(task, timeMappings),
-          ...(task.title !== undefined ? { title: task.title } : {}),
-          ...(task.description !== undefined ? { description: task.description } : {}),
-          ...(task.spentTime !== undefined ? { spentTime: task.spentTime } : {}),
-          ...(task.estimate !== undefined ? { estimate: task.estimate, estimateMapping: estimateMapping.identity } : {}),
-        },
-      }, SYNC_TEXT_WRITE_OPTIONS);
+      await Cards.insertAsync(creationDocument(task, cardId), SYNC_TEXT_WRITE_OPTIONS);
     } catch (e) {
       // A second worker or a retry after a card move must not create a new
       // target or overwrite the existing card. Never treat a duplicate as a
@@ -425,6 +465,16 @@ Meteor.startup(async () => {
           console.error('listSync: credential cleanup scan failed; retrying on the next sweep.');
           return { failed: true };
         }
+      },
+    });
+    // Durable Sync operations interrupted by a restart resume here, from their
+    // saved plans (server/lib/listSyncApplication.js).
+    SyncedCron.add({
+      name: 'wekan-list-sync-replay',
+      schedule(parser) { return parser.text('every 1 minute'); },
+      async job() {
+        try { return await replayStoredListSync(); }
+        catch (_) { console.error('listSync: replay scan failed; retrying on the next pass.'); return { failed: true }; }
       },
     });
     SyncedCron.add({

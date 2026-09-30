@@ -5,7 +5,7 @@ import Boards from '/models/boards';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { withListSyncLease } from '/server/lib/listSyncLease';
 const { runSyncOperation } = require('/server/lib/syncOperationJournal');
-const { intentIdentity, ensureSyncOperationIntent, readSyncOperationIntent } = require('/server/lib/syncOperationIntent');
+const { intentIdentity, ensureSyncOperationIntent, readSyncOperationIntent, loadSyncOperationIntent } = require('/server/lib/syncOperationIntent');
 const { createSyncOperationScopeGuard } = require('/server/lib/syncOperationScope');
 
 // Private durable storage. No publications, client writes or TTL: incomplete
@@ -27,20 +27,27 @@ Meteor.startup(async () => {
   await ensureIndex(completions, { 'scope.boardId': 1, 'scope.listId': 1, 'scope.incarnation': 1 });
 });
 
-// Internal entry point only. Manual/cron Sync does not call this yet. The
-// caller must retain intentId and provide fresh authorization/mapping checks,
-// validated application/effect adapters and a stable versioned list scope.
-export async function runStoredListSyncOperation({ scope, actorId, assertAccess, ...operation }) {
-  const identity = intentIdentity({ intentId: operation.intentId, actorId, scope });
+// Manual and scheduled Sync call this through server/lib/listSyncApplication.js
+// when the durable path applies. The caller retains intentId and provides
+// fresh authorization/mapping checks, validated application/effect adapters
+// and a stable versioned list scope. `lease`, when given, is the list lease the
+// caller already holds (with its own checks folded into assertCurrent); the
+// lease is not taken twice.
+export async function runStoredListSyncOperation({ scope, actorId, assertAccess, trigger, lease: held, ...operation }) {
+  const identity = intentIdentity({ intentId: operation.intentId, actorId, scope, trigger });
   const frozenScope = identity.scope;
   let assertLease;
   if (typeof assertAccess !== 'function') throw new Error('sync-operation-access-required');
   const assertScope = createSyncOperationScopeGuard({ lists: Lists, boards: Boards,
     scope: frozenScope, assertCurrent: () => assertLease(),
     assertAccess: current => assertAccess({ ...current, userId: identity.actorId }) });
-  return withListSyncLease(frozenScope.listId, async lease => {
+  const withLease = held
+    ? work => { if (typeof held.assertCurrent !== 'function') throw new Error('sync-operation-lease-required'); return work(held); }
+    : work => withListSyncLease(frozenScope.listId, work);
+  return withLease(async lease => {
     assertLease = lease.assertCurrent;
-    const input = { intents: intents.rawCollection(), intentId: identity._id, actorId: identity.actorId, scope: frozenScope };
+    const input = { intents: intents.rawCollection(), intentId: identity._id, actorId: identity.actorId, scope: frozenScope,
+      ...(trigger === undefined ? {} : { trigger }) };
     await ensureSyncOperationIntent({ ...input, operations: operations.rawCollection(),
       completions: completions.rawCollection(), assertCurrent: assertScope });
     const assertCurrent = async () => {
@@ -56,4 +63,37 @@ export async function runStoredListSyncOperation({ scope, actorId, assertAccess,
       ...(operation.validateEffects ? { validateEffects: (effects, step, context) => operation.validateEffects(effects, step, actorContext(context)) } : {}),
       operations: operations.rawCollection(), steps: steps.rawCollection(), completions: completions.rawCollection() });
   });
+}
+
+// The unfinished operation of a list, if any: what a new run must finish first,
+// and what replay after a restart looks for.
+export async function readPendingListSyncOperation(listId) {
+  const row = await operations.rawCollection().findOne({ _id: listId });
+  if (!row) return null;
+  const intent = await loadSyncOperationIntent({ intents: intents.rawCollection(), intentId: row.intentId });
+  return { operationId: row.operationId, intentId: row.intentId, state: row.state, scope: row.scope,
+    actorId: intent.actorId, trigger: intent.trigger ?? null };
+}
+
+// An operation still PREPARING has written nothing (syncOperationJournal.js):
+// its plan was never completed, and a replay has no source data to rebuild it
+// from. Discard exactly that operation; its intent stays as evidence. The
+// caller holds the list lease.
+export async function discardPreparingListSyncOperation({ listId, operationId, assertCurrent }) {
+  if (typeof assertCurrent !== 'function') throw new Error('sync-operation-lease-required');
+  await assertCurrent();
+  const raw = operations.rawCollection();
+  try { await raw.deleteOne({ _id: listId, operationId, state: 'preparing' }); } catch (_) { /* read back below */ }
+  if (await raw.findOne({ _id: listId, operationId }, { projection: { _id: 1 } })) {
+    throw new Error('sync-operation-discard-unconfirmed');
+  }
+  await steps.rawCollection().deleteMany({ operationId });
+  await assertCurrent();
+  return true;
+}
+
+// Unfinished operations, oldest first (index { state: 1, touchedAt: 1 }).
+export async function listPendingListSyncOperations(limit = 100) {
+  return operations.rawCollection().find({ state: { $in: ['preparing', 'applying', 'completed', 'cleaning'] } },
+    { projection: { _id: 1 } }).sort({ touchedAt: 1 }).limit(limit).toArray();
 }
