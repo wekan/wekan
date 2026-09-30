@@ -2317,6 +2317,65 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedScheduleKeys = [
+    "r-workflow-format",
+    "r-import-workflow-note",
+    "r-set-scheduled-triggers",
+    "r-set-button-triggers",
+    "r-when-scheduled",
+    "r-schedule-type",
+    "r-schedule-once",
+    "r-schedule-weekday",
+    "r-schedule-weekly",
+    "r-schedule-monthly",
+    "r-schedule-on-weekday",
+    "r-schedule-on-day",
+    "r-schedule-on-date",
+    "r-due-soon",
+    "r-due-overdue",
+    "r-days-before",
+    "r-days-after",
+    "r-for-n-days",
+    "r-button-label",
+    "r-run",
+    "r-sort-by",
+    "r-sort-due",
+    "r-set-date-relative",
+    "r-unit-minutes",
+    "r-unit-hours",
+    "r-unit-days",
+    "r-unit-weeks",
+    "r-unit-months",
+    "r-trigger",
+    "r-action",
+    "r-is",
+    "r-is-moved",
+    "r-added-to",
+    "r-attachment-added-to",
+    "r-removed-from",
+    "r-attachment-removed-from",
+    "set-filter",
+    "r-moved-to",
+    "r-moved-from",
+    "r-archived",
+    "r-when-a-label-is",
+    "r-when-the-label",
+    "r-when-the-member",
+    "r-when-the-assignee",
+    "r-when-a-due-date-changed"
+  ];
+  for (const key of correctedScheduleKeys) {
+    assert.doesNotMatch(locale[key], /— pò kaszëbskù/, `csb:${key}: language label is not a translation`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+  }
+  assert.match(locale['r-import-workflow-note'], /n8n abò Node-RED/);
+  assert.match(locale['r-import-workflow-note'], /wãzłë bez przëpisaniô są zgłôszóné/);
+  assert.match(locale['r-schedule-weekday'], /pòniedzôłk–piątk/);
+  assert.equal(locale['r-days-before'], 'dni przed');
+  assert.equal(locale['r-days-after'], 'dni pò');
+  assert.equal(locale['r-moved-to'], 'Przeniesóné do');
+  assert.equal(locale['r-moved-from'], 'Przeniesóné z');
+  assert.match(locale['r-when-a-due-date-changed'], /nastawiony abò zmieniony/);
   const correctedRuleKeys = [
     "modifiedAt",
     "verified",
