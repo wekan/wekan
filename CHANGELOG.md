@@ -6493,6 +6493,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7887f33788">Translate Swahili activity notification recovery</a>. Thanks to xet7.</summary>
+
+- Translate 20 English strings for activity notification recovery,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including retained
+  pending work, no activity recreation and missing versus null source values.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
