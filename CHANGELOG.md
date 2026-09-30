@@ -8091,6 +8091,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a838ae5c6fd6908b65aedb402c3e8055291caad5">Translate Friulian synchronization conflicts</a>. Thanks to xet7.</summary>
+
+- Translate 25 synchronization conflict and preview strings, preserving
+  existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  local/source choices and preview actions. Friulian has lower confidence.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
