@@ -5082,6 +5082,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9a3695eee3">Correct Kashubian rule builder messages</a>. Thanks to xet7.</summary>
+
+- Correct 19 rule-builder messages. Preserve event distinctions, member and
+  assignee roles, time placeholders and Butler import limitations.
+- Translation, registry and human-preference checks pass. Kashubian wording
+  is lower confidence; fluent-speaker and browser review were not run.
+  Other mixed-language text and languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
