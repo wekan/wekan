@@ -6986,6 +6986,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8ed5f4caf2bc2d45a7e295e4f796c3647988c3dd">Translate Maltese email configuration and system labels</a>. Thanks to xet7.</summary>
+
+- Replace 35 prefixed English values with Maltese for email configuration,
+  webhooks and system information, preserving tokens and technical identifiers.
+- Translation, registry and human-preference checks pass, including invitation
+  placeholders. Another 512 prefixed English values remain to translate.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
