@@ -5589,6 +5589,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b7fc0531a6">Translate Azerbaijani workspace and rule editor guidance</a>. Thanks to xet7.</summary>
+
+- Translate 31 English strings in each of three Azerbaijani locales for
+  workspace announcements, search and rule editing, preserving tokens.
+- Translation, registry and human-preference checks pass, including shortcuts,
+  comment fragments and rule constraints. Fluent-speaker and browser review
+  were not run. The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
