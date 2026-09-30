@@ -8681,6 +8681,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8ace4c2395023be3817c56c4b52f8a646a0236d1">Correct Romansh storage, checklist and access messages</a>. Thanks to xet7.</summary>
+
+- Replace 12 mixed-language storage, checklist and access strings with
+  Romansh, preserving other translations and replacement tokens.
+- Translation, registry and human-preference checks pass, covering
+  compaction timing, file formats, shared labels and signed-in access.
+  Low-confidence wording needs fluent-speaker review.
+  Browser review was not run; wider language cleanup remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
