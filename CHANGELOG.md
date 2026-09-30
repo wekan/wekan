@@ -5368,6 +5368,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/b78e28ab7e2023996a6ad4729f6f7c89bc80795e">Translate Armenian keyboard and screen reader instructions</a>. Thanks to xet7.</summary>
+
+- Fill 35 English placeholders for keyboard and screen reader instructions,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including mode changes,
+  disabled functions and navigation commands. Fluent-speaker and browser review
+  were not run. The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
