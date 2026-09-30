@@ -3429,6 +3429,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e44fa0f99">Translate Sardinian rule email recovery and review messages</a>. Thanks to xet7.</summary>
+
+- Fill 45 Sardinian recovery, review, variable and todo.txt import messages.
+- Translation, registry and human-preference checks pass, including duplicate
+  delivery warnings, permanent discard warnings and preserved syntax tokens.
+  Existing translations are preserved. Wording is lower confidence; browser
+  layout and fluent-speaker review were not run.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
