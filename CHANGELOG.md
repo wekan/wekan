@@ -178,12 +178,15 @@ Maintainer decisions of 2026-09-30, for the design steps that remained:
 
 Pass of 2026-09-30 - built and tested (all in Upcoming): the three decisions
 above - operator resolution of partially accepted rule emails, review of
-legacy rule emails and the Sync activation switches - plus GitLab import
-fidelity, OpenProject watchers and Asana followers as card watchers, a raced
-undo or redo applied once, Sync History admitted through the board's History
-writer gate, and one worker per Scrum History operation. 561 server tests
-pass; the new browser cases pass in Chromium and WebKit (Firefox cannot
-launch on the macOS machine used).
+legacy rule emails and the Sync activation switches - plus GitLab import and
+export fidelity, todo.txt as a new format, OpenProject watchers and Asana
+followers as card watchers, a raced undo or redo applied once, Sync History
+admitted through the board's History writer gate, and one worker per Scrum
+History operation. 561 server tests pass; the new and affected browser specs
+pass in Chromium and WebKit against a production bundle (Firefox cannot launch
+on the macOS machine used). The only non-translation node suites still failing
+are `calendarDateDisplay` and `multilineTitles`, which wait on locale key
+order.
 
 **Needs a maintainer decision - the multi-row History reservation.** Sync and
 the rule archive runner hash their History rows when they PLAN them, so the
