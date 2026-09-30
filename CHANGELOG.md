@@ -8825,6 +8825,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0a879f8c36dfdccd8f85d2cea8ef6f53c245e56d">Translate import and email recovery additions into Javanese</a>. Thanks to xet7.</summary>
+
+- Fill 44 missing Javanese strings for todo.txt imports and rule-email recovery,
+  preserving existing translations, placeholders and import syntax.
+- Translation, registry and human-preference checks pass, covering uncertain
+  delivery, duplicate delivery warnings and legacy email review actions.
+  Existing Javanese translations remain unchanged.
+  Browser and fluent-speaker review were not run; translation work continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
