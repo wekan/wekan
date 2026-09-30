@@ -5917,6 +5917,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/aee6badea8">Translate Georgian text processing guidance</a>. Thanks to xet7.</summary>
+
+- Translate 30 English strings for text searching, replacement, prompts and
+  trimming, preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including missing
+  text, replacing all occurrences, counting spaces and trimming directions.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
