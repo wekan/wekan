@@ -17,6 +17,18 @@ const { createActivityNotificationRecovery } = require('/server/lib/activityNoti
 // this test's intent - that made the paused-scan assertion intermittent.
 // A private scanner paged to the end sees every pending intent; a repeat
 // absorbs a race with the background scan holding the same lease (sync-busy).
+// The startup scan runs every second and holds an intent's lease while it
+// looks at it, so an operator action can meet sync-busy - and should retry,
+// as an operator would.
+async function retryBusy(action) {
+  for (let attempt = 0; ; attempt++) {
+    try { return await action(); } catch (error) {
+      const busy = error && (error.code === 'sync-busy' || error.error === 'sync-busy');
+      if (!busy || attempt >= 50) throw error;
+      await new Promise(resolve => setTimeout(resolve, 20));
+    }
+  }
+}
 async function fullRecoveryPass(accept) {
   let total;
   for (let attempt = 0; attempt < 5; attempt++) {
@@ -60,8 +72,8 @@ describe('Activity notification recovery', function () {
       const control = { controls: ActivityNotificationControls.rawCollection(), intents, leases,
         intentId: intent._id, paused: true, expectedRevision: 0, requestId: 'pause-request-123456789',
         actorId: userId, assertAdmin: async () => {} };
-      await controlActivityNotification(control);
-      await assert.rejects(resumeActivityNotifications(intent._id), /notification-paused/);
+      await retryBusy(() => controlActivityNotification(control));
+      await assert.rejects(retryBusy(() => resumeActivityNotifications(intent._id)), /notification-paused/);
       await assert.rejects(deliverStoredActivityNotifications(activity, null,
         () => assert.fail('paused notifications must not prepare context')), /notification-paused/);
       const pausedScan = await fullRecoveryPass(result => result.skipped >= 1);
@@ -70,35 +82,35 @@ describe('Activity notification recovery', function () {
       assert.equal(calls, 0);
       assert.equal(await EmailJobs.rawCollection().findOne({ _id: idFor(userId, activityId) }), null);
       assert.equal((await intents.findOne({ _id: intent._id })).state, 'pending');
-      await controlActivityNotification({ ...control, paused: false, expectedRevision: 1,
-        requestId: 'resume-request-12345678' });
+      await retryBusy(() => controlActivityNotification({ ...control, paused: false, expectedRevision: 1,
+        requestId: 'resume-request-12345678' }));
       let accessChecks = 0;
-      await assert.rejects(resumeActivityNotifications(intent._id, {
+      await assert.rejects(retryBusy(() => (accessChecks = 0, resumeActivityNotifications(intent._id, {
         assertAllowed: async () => {
           if (++accessChecks > 1) throw new Meteor.Error('not-authorized');
         },
-      }), /not-authorized/);
+      }))), /not-authorized/);
       assert.equal(accessChecks, 2);
       assert.equal(calls, 0, 'revocation inside the reservation prevents delivery');
       assert.equal(await leases.findOne({ _id: intent._id }), null);
-      const running = resumeActivityNotifications(intent._id);
+      const running = retryBusy(() => resumeActivityNotifications(intent._id));
       for (let i = 0; calls === 0 && i < 200; i++) await new Promise(resolve => setTimeout(resolve, 10));
       assert.equal(calls, 1);
       await assert.rejects(resumeActivityNotifications(intent._id), { code: 'sync-busy' });
       release(); assert.equal(await running, 'completed');
-      assert.equal(await resumeActivityNotifications(intent._id), 'skipped');
+      assert.equal(await retryBusy(() => resumeActivityNotifications(intent._id)), 'skipped');
       assert.equal(calls, 1);
       assert.equal((await intents.findOne({ _id: intent._id })).state, 'completed');
       const job = await EmailJobs.rawCollection().findOne({ _id: idFor(userId, activityId) });
       assert.equal(job.html, 'Frozen body'); assert.equal(job.language, 'fi');
-      await assert.rejects(resumeActivityNotifications(orphan._id), /activity-unconfirmed/);
+      await assert.rejects(retryBusy(() => resumeActivityNotifications(orphan._id)), /activity-unconfirmed/);
       assert.equal(await Activities.findOneAsync(orphanId), undefined);
       assert.equal((await intents.findOne({ _id: orphan._id })).state, 'pending');
       assert.ok((await fullRecoveryPass(result => result.failed >= 1)).failed >= 1);
-      await cancelActivityNotification({ ...control, intentId: orphan._id, expectedRevision: 0,
-        requestId: 'cancel-orphan-request-123' });
+      await retryBusy(() => cancelActivityNotification({ ...control, intentId: orphan._id, expectedRevision: 0,
+        requestId: 'cancel-orphan-request-123' }));
       assert.ok((await fullRecoveryPass(result => result.skipped >= 1)).skipped >= 1);
-      await assert.rejects(resumeActivityNotifications(orphan._id), /notification-cancelled/);
+      await assert.rejects(retryBusy(() => resumeActivityNotifications(orphan._id)), /notification-cancelled/);
       assert.equal((await intents.findOne({ _id: orphan._id })).state, 'cancelled');
       assert.equal((await intents.findOne({ _id: orphan._id })).activity, undefined);
       assert.equal((await ActivityNotificationPlans.rawCollection().findOne({ _id: planId(orphanId) })).cancelled, true);
