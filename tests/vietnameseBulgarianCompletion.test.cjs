@@ -2317,6 +2317,72 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedSystemKeys = [
+    "smtp-host",
+    "smtp-port",
+    "smtp-tls",
+    "send-from",
+    "send-smtp-test",
+    "email-templates-invite-subject",
+    "email-templates-invite-body",
+    "email-templates-activity-subject",
+    "email-templates-activity-body",
+    "invitation-code",
+    "outgoing-webhooks",
+    "bidirectional-webhooks",
+    "outgoingWebhooksPopup-title",
+    "disable-webhook",
+    "global-webhook",
+    "no-name",
+    "Platform",
+    "package",
+    "OS",
+    "Meteor",
+    "Database",
+    "Node",
+    "Node_version",
+    "Meteor_version",
+    "Database_type",
+    "Database_commit",
+    "FerretDB_version",
+    "FerretDB_commit",
+    "Reactivity_mode",
+    "Reactivity_order",
+    "DDP_transport",
+    "MongoDB_version",
+    "MongoDB_storage_engine",
+    "MongoDB_Oplog_enabled",
+    "OS_Arch",
+    "OS_Cpus",
+    "OS_Freemem",
+    "OS_Platform",
+    "OS_Release",
+    "OS_Totalmem",
+    "OS_Type",
+    "OS_Uptime",
+    "days",
+    "hours",
+    "minutes",
+    "seconds",
+    "show-field-on-card",
+    "showLabel-field-on-card",
+    "visibility",
+    "createdAt"
+  ];
+  for (const key of correctedSystemKeys) {
+    assert.doesNotMatch(locale[key], /— pò kaszëbskù/, `csb:${key}: language label is not a translation`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+  }
+  for (const key of ['Meteor', 'Node']) assert.equal(locale[key], english[key]);
+  for (const token of ['changeStreams', 'oplog', 'polling']) assert.ok(locale.Reactivity_mode.includes(token));
+  assert.ok(locale.Reactivity_order.includes('METEOR_REACTIVITY_ORDER'));
+  assert.ok(locale.DDP_transport.includes('DDP_TRANSPORT'));
+  for (const kind of ['invite', 'activity']) {
+    assert.match(locale[`email-templates-${kind}-subject`], /^Téma lëstu/);
+    assert.match(locale[`email-templates-${kind}-body`], /^Zamkłosc lëstu/);
+  }
+  assert.match(locale['email-templates-activity-subject'], /pòwiadomieniô ò aktiwnoscë/);
+  assert.notEqual(locale.OS_Freemem, locale.OS_Totalmem);
   const correctedNavigationKeys = [
     "swimlaneActionPopup-title",
     "listImportCardsTsvPopup-title",
