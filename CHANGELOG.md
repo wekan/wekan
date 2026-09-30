@@ -2266,6 +2266,18 @@ and Persian (Iran) has 244. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3724383d4">Translate Persian Scrum planning and reports</a>. Thanks to xet7.</summary>
+
+Fill 159 Scrum strings across both Persian locale files while preserving
+existing translations. Tests preserve placeholders and warnings about unknown
+estimates, partial reports and daily observations. Translation, language wiring
+and human-preference checks pass. Update the README coverage count to 77.
+Persian has 167 reported placeholders remaining, and Persian (Iran) has 165.
+Other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
