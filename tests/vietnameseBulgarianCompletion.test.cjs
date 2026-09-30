@@ -1087,4 +1087,19 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['due-reminder-days-label'], /நேர்மறை.*முந்தைய.*எதிர்மறை.*பிந்தைய/);
   assert.match(locale['notification-activity-description'], /எப்போதும் வரும்/);
 }
+{
+  const locale = read('ne');
+  assert.deepEqual(Object.keys(locale), Object.keys(english), 'ne: source key order');
+  for (const key of hiraganaBatchKeys) {
+    assert.notEqual(locale[key], english[key], `ne:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ne:${key}: tokens`);
+  }
+  for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:']) {
+    assert.ok(locale['import-board-instruction-todotxt'].includes(token), `ne: preserve ${token}`);
+  }
+  assert.match(locale['rule-email-recovery-resend-confirm'], /दुई पटक पाउनेछन्/);
+  assert.match(locale['rule-email-legacy-discard-confirm'], /कहिल्यै पठाइने छैन/);
+  assert.match(locale['rule-email-legacy-access-denied'], /पहुँच छैन/);
+  assert.match(locale['r-insert-variable'], /चर राख्नुहोस्/);
+}
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
