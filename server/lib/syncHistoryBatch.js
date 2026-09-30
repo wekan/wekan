@@ -41,6 +41,11 @@ function redoTarget(row) {
 // durable rule card actions change (server/lib/syncRuleCardCommand.js).
 const SYNC_FIELDS = ['title', 'description', 'spentTime', 'customFields', 'archived'];
 const RULE_CARD_FIELDS = ['labelIds', 'color', 'dueComplete', 'startAt', 'endAt', 'dueAt', 'receivedAt', 'members'];
+// ...and the checklist item field durable rule checklist actions change
+// (server/lib/syncRuleChecklistCommand.js), recorded on the item.
+const RULE_CHECKLIST_ITEM_FIELDS = ['isFinished'];
+const entityOf = fields => (fields === RULE_CHECKLIST_ITEM_FIELDS ? 'checklistItem'
+  : [SYNC_FIELDS, RULE_CARD_FIELDS].includes(fields) ? 'card' : fail());
 function prepareSyncFieldHistory({ step, effectId, userId, createdAt, redoRows = [], ...rest }) {
   prepareSyncOperationMutation(step);
   if (Object.keys(rest).length) fail();
@@ -51,16 +56,19 @@ function prepareSyncFieldHistory({ step, effectId, userId, createdAt, redoRows =
 }
 // The rows one planned card change records, one per changed field, with the
 // redo rows it supersedes. `fields` bounds which fields may be recorded.
-function prepareCardFieldHistory({ before, after, effectId, userId, createdAt, redoRows = [], fields: allowed }) {
+// For a checklist item, `entityId` is the item and `cardId` its card.
+function prepareCardFieldHistory({ before, after, effectId, userId, createdAt, redoRows = [], fields: allowed,
+  entityId = after?._id, cardId = after?._id }) {
+  const entityType = entityOf(allowed);
   if (!/^[a-f0-9]{64}$/.test(effectId) || typeof userId !== 'string' || !userId ||
       !(createdAt instanceof Date) || !Number.isFinite(createdAt.getTime()) || !after ||
-      ![SYNC_FIELDS, RULE_CARD_FIELDS].includes(allowed)) fail();
+      typeof entityId !== 'string' || !entityId || typeof cardId !== 'string' || !cardId) fail();
   const fields = [...new Set([...Object.keys(before || {}), ...Object.keys(after)])].sort();
-  const changes = before === null ? [] : diffFields('card', before, after, fields);
+  const changes = before === null ? [] : diffFields(entityType, before, after, fields);
   const rows = changes.map(change => {
     const row = { _id: `sync-history-${sha256(canonical([effectId, change.field]))}`,
       boardId: after.boardId, swimlaneId: after.swimlaneId ?? null, listId: after.listId,
-      cardId: after._id, entityType: 'card', entityId: after._id, group: change.group,
+      cardId, entityType, entityId, group: change.group,
       changeType: change.changeType, previousContent: change.previousContent, newContent: change.newContent,
       userId, batchId: `sync-${effectId}`, restoredFromId: null, restoredByUserId: null,
       createdAt: new Date(createdAt), undone: false, undoneAt: null, superseded: false,
@@ -97,6 +105,7 @@ function createSyncHistoryPlanner(options) {
 }
 
 function validatePlan(plan, allowed = SYNC_FIELDS) {
+  const entityType = entityOf(allowed);
   if (!plan || Object.keys(plan).sort().join(',') !== 'boardId,effectId,redo,rows,userId' ||
       typeof plan.effectId !== 'string' || !/^[a-f0-9]{64}$/.test(plan.effectId) ||
       !['boardId', 'userId'].every(key => typeof plan[key] === 'string' && plan[key]) ||
@@ -111,8 +120,9 @@ function validatePlan(plan, allowed = SYNC_FIELDS) {
         !['entityId', 'listId'].every(key => typeof row[key] === 'string' && row[key]) ||
         row._id !== `sync-history-${sha256(canonical([plan.effectId, field]))}` ||
         ids.has(row._id) || row.boardId !== plan.boardId || row.userId !== plan.userId ||
-        row.batchId !== `sync-${plan.effectId}` || row.entityType !== 'card' || row.cardId !== row.entityId ||
-        row.group !== groupForField('card', field) || !['added', 'removed', 'edited'].includes(row.changeType) ||
+        row.batchId !== `sync-${plan.effectId}` || row.entityType !== entityType ||
+        (entityType === 'card' ? row.cardId !== row.entityId : typeof row.cardId !== 'string' || !row.cardId) ||
+        row.group !== groupForField(entityType, field) || !['added', 'removed', 'edited'].includes(row.changeType) ||
         row.restoredFromId !== null || row.restoredByUserId !== null ||
         row.isCheckpoint !== false || row.undone !== false || row.undoneAt !== null || row.superseded !== false) fail();
     for (const content of [row.previousContent, row.newContent]) {
@@ -152,7 +162,7 @@ function validatePlan(plan, allowed = SYNC_FIELDS) {
 // linking and is idempotent by row _id. There is no default for either: an
 // adapter without them is refused, never silently written around the gate.
 async function persistSyncFieldHistory({ history, plan, assertCurrent, fields = SYNC_FIELDS }) {
-  if (![SYNC_FIELDS, RULE_CARD_FIELDS].includes(fields)) fail();
+  entityOf(fields);
   validatePlan(plan, fields);
   if (typeof assertCurrent !== 'function' || typeof history?.admitHistoryWriter !== 'function' ||
       typeof history?.appendSyncHistoryRow !== 'function') fail();
@@ -213,4 +223,4 @@ function validateSyncFieldHistory(plan, step, effectId) {
   return true;
 }
 module.exports = { createSyncHistoryPlanner, prepareSyncFieldHistory, prepareCardFieldHistory, persistSyncFieldHistory,
-  validateSyncFieldHistory, isPlannedRow, SYNC_FIELDS, RULE_CARD_FIELDS };
+  validateSyncFieldHistory, isPlannedRow, SYNC_FIELDS, RULE_CARD_FIELDS, RULE_CHECKLIST_ITEM_FIELDS };

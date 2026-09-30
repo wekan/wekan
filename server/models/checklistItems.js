@@ -14,6 +14,7 @@ import ChecklistItems, {
 import Activities from '/models/activities';
 import { ensureIndex } from '/server/lib/mongoStartup';
 import { backfillBoardIdFromCard } from '/server/lib/denormalizeBoardId';
+const { deferSyncItemRecording } = require('/server/lib/syncRecordingScope');
 
 // --- Denormalized boardId (see models/checklistItems.js schema) -------------
 // Set boardId from the card on insert, and re-sync it whenever the item is
@@ -51,12 +52,16 @@ Meteor.startup(async () => {
   });
 });
 
+// A durable rule checklist action writes these from its saved plan
+// (server/lib/syncRuleChecklistCommand.js), never both.
 ChecklistItems.after.update(async (userId, doc, fieldNames) => {
+  if (deferSyncItemRecording('itemCheck', doc)) return;
   await publishCheckActivity(userId, doc);
   await publishChekListCompleted(userId, doc, fieldNames);
 });
 
 ChecklistItems.before.update(async (userId, doc, fieldNames) => {
+  if (deferSyncItemRecording('itemUncomplete', doc)) return;
   await publishChekListUncompleted(userId, doc, fieldNames);
 });
 

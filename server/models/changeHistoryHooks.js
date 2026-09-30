@@ -9,7 +9,7 @@ import Swimlanes from '/models/swimlanes';
 import Attachments from '/models/attachments';
 import ChangeHistory from '/models/changeHistory';
 import { isRecordingSuppressed } from '/server/lib/historyRecordingScope';
-const { deferSyncRecording } = require('/server/lib/syncRecordingScope');
+const { deferSyncRecording, deferSyncItemRecording } = require('/server/lib/syncRecordingScope');
 import { diffFields } from '/models/lib/changeHistoryGroups';
 
 // Phase 5 of docs/Features/Reports/History/History.md: record EVERY remaining
@@ -106,6 +106,7 @@ async function recordUpdate(entityType, userId, doc, fieldNames, previous) {
     }
     if (changes.length === 0) return;
     if (entityType === 'card' && deferSyncRecording('history', doc, changes.map(change => change.field))) return;
+    if (entityType === 'checklistItem' && deferSyncItemRecording('itemHistory', doc)) return;
     const where = await locate(entityType, doc);
     if (!where || !where.boardId) return;
 

@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { sweepUntil } from './sweepUntil';
 import { Meteor } from 'meteor/meteor';
 import { DDP } from 'meteor/ddp';
 import { Random } from 'meteor/random';
@@ -109,9 +110,9 @@ describe('Durable list Sync', function () {
       const archiveCommand = await collection('listSyncRuleArchiveCommands').findOne({ boardId });
       const archiveDone = await collection('listSyncRuleArchiveCompletions').findOne({ _id: archiveCommand._id });
       assert.ok(archiveDone.completedAt instanceof Date);
-      assert.ok((await createSyncRuleArchiveRetention({ commands: collection('listSyncRuleArchiveCommands'),
+      assert.ok(await sweepUntil(createSyncRuleArchiveRetention({ commands: collection('listSyncRuleArchiveCommands'),
         effects: collection('listSyncRuleArchiveEffects'), completions: collection('listSyncRuleArchiveCompletions'),
-        now: () => new Date(archiveDone.completedAt.getTime() + 91 * 86400000) }).sweep()).compacted >= 1);
+        now: () => new Date(archiveDone.completedAt.getTime() + 91 * 86400000) }), async () => (await collection('listSyncRuleArchiveCommands').findOne({ _id: archiveCommand._id }))?.compactReceiptVersion === 1));
       const compactCommand = await collection('listSyncRuleArchiveCommands').findOne({ _id: archiveCommand._id });
       assert.deepEqual(Object.keys(compactCommand).sort(), ['_id', 'checksum', 'compactReceiptVersion', 'invocationId', 'planId']);
       assert.equal(await collection('listSyncRuleArchiveEffects').countDocuments({ _id: archiveCommand._id }), 0);

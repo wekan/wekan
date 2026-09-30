@@ -13,6 +13,7 @@ import Boards from '/models/boards';
 import Cards from '/models/cards';
 import Lists from '/models/lists';
 import Actions from '/models/actions';
+import ChecklistItems from '/models/checklistItems';
 import { RulesHelper } from '/server/rulesHelper';
 import { getFeatureFlags } from '/models/lib/featureFlags';
 import { ensureIndex } from '/server/lib/mongoStartup';
@@ -168,6 +169,8 @@ export async function runStoredSyncRules({ adapters, ...options }) {
     archive,
     unarchive: archive,
     ...Object.fromEntries(Object.keys(RULE_CARD_ACTIONS).map(type => [type, cardField])),
+    ...Object.fromEntries(Object.keys(RULE_CHECKLIST_ACTIONS).map(type => [type, ({ invocation }) =>
+      runStoredSyncRuleChecklist({ ...options, index: indices.get(invocation.id) })])),
     ...adapters,
   };
   const done = await executeRulePlan({ plan, activity: context.saved, effectId: context.effectId,
@@ -417,3 +420,94 @@ const { persistSyncFieldHistory, RULE_CARD_FIELDS } = require('/server/lib/syncH
 const { persistSyncActivity } = require('/server/lib/syncActivityPersistence');
 const { withSyncRecordingDeferred } = require('/server/lib/syncRecordingScope');
 const { withSyncActivityDeferred } = require('/server/lib/syncActivityScope');
+
+// Durable rule checklist actions (server/lib/syncRuleChecklistCommand.js):
+// captured with performAction's own lookups, then item by item - the
+// before-write activity, the conditional write with the item's hooks
+// deferred, its History and its after-write activities, each delivered
+// durably - so a rule triggered by one item runs before the next, as it does
+// ordinarily. Every step is idempotent on replay.
+export const SyncRuleChecklistCommands = new Mongo.Collection('listSyncRuleChecklistCommands');
+SyncRuleChecklistCommands.deny({ insert: () => true, update: () => true, remove: () => true });
+
+export async function runStoredSyncRuleChecklist({ index, completeDelivery = runStoredSyncActivityDelivery, ...options }) {
+  const context = executionContext(options), plan = await capture(context);
+  const invocation = plan.actions[index], action = invocation?.action;
+  if (!Object.hasOwn(RULE_CHECKLIST_ACTIONS, action?.actionType)) throw new Error('sync-rule-checklist-invalid');
+  const commandContext = { plan, activity: context.saved, effectId: context.effectId, index };
+  const guard = reuseWithinEvaluation(async () => {
+    await context.guard();
+    const [rule, current] = await Promise.all([
+      Rules.rawCollection().findOne({ _id: invocation.rule._id }),
+      Actions.rawCollection().findOne({ _id: action._id }),
+    ]);
+    if (!rule || !current || canonical(rule) !== canonical(invocation.rule) ||
+        canonical(current) !== canonical(action)) throw new Error('sync-rule-checklist-configuration-changed');
+    await context.guard();
+  });
+  const commands = SyncRuleChecklistCommands.rawCollection(), id = ruleChecklistCommandId(invocation.id);
+  await guard();
+  let row = await commands.findOne({ _id: id });
+  if (!row) {
+    const card = await Cards.findOneAsync({ _id: plan.cardId, boardId: plan.boardId }, { transform: null });
+    // The ordinary action's own lookups (server/rulesHelper.js performAction).
+    const checklist = card ? await ReactiveCache.getChecklist({ title: action.checklistName, cardId: card._id }) : null;
+    const items = checklist ? await ReactiveCache.getChecklistItems({ checklistId: checklist._id }) : [];
+    let targetIds = [];
+    if (checklist && ['checkAll', 'uncheckAll'].includes(action.actionType)) {
+      const ids = selectBulkCheckItemIds(items, checklist._id);
+      targetIds = items.filter(item => ids.includes(item._id)).map(item => item._id);
+    } else if (checklist) {
+      const item = await ReactiveCache.getChecklistItem({ title: action.checkItemName, checkListId: checklist._id });
+      if (item) targetIds = [item._id];
+    }
+    const redoRows = await ChangeHistory.find({ boardId: plan.boardId, userId: plan.actorId, undone: true,
+      superseded: { $ne: true } }, { transform: null, limit: 10000 }).fetchAsync();
+    const candidate = prepareRuleChecklistCommand({ ...commandContext, card, checklist, items, targetIds,
+      createdAt: new Date(), redoRows });
+    await guard();
+    let failure;
+    try { await commands.insertOne(candidate); } catch (error) { failure = error; }
+    row = await commands.findOne({ _id: id });
+    if (!row) throw failure || new Error('sync-rule-checklist-command-unconfirmed');
+  }
+  const command = validateRuleChecklistCommand(row, commandContext);
+  const activities = {
+    findOneAsync: activityId => Activities.findOneAsync(activityId, { transform: null }),
+    insertAsync: document => DDP._CurrentMethodInvocation.withValue({ userId: command.actorId, isSimulation: false },
+      () => withSyncActivityDeferred(document, () => Activities.insertAsync(document))),
+  };
+  const deliver = async rows => {
+    for (const { receiptId, activity } of rows) {
+      await persistSyncActivity({ activities, activity, effectId: receiptId, assertCurrent: guard,
+        completeDelivery: delivery => completeDelivery({ ...delivery, policy: options.policy, trigger: options.trigger }) });
+    }
+  };
+  const items = ChecklistItems.rawCollection();
+  const selector = (unit, fields) => ({ _id: unit.itemId, cardId: command.cardId, checklistId: command.checklist._id,
+    ...(Object.hasOwn(fields, 'isFinished') ? { isFinished: { $eq: fields.isFinished } } : { isFinished: { $exists: false } }) });
+  for (const unit of command.units) {
+    await deliver(unit.beforeActivities);
+    await guard();
+    if (!await items.findOne(selector(unit, unit.after))) {
+      if (!await items.findOne(selector(unit, unit.before))) throw new Error('sync-rule-checklist-changed');
+      const { listId } = await Cards.findOneAsync({ _id: command.cardId }, { fields: { listId: 1 }, transform: null });
+      await DDP._CurrentMethodInvocation.withValue({ userId: command.actorId, isSimulation: false }, () =>
+        withSyncRecordingDeferred({ cardId: command.cardId, boardId: command.boardId, listId, itemId: unit.itemId,
+          kinds: ['itemUncomplete', 'itemCheck', 'itemHistory'] },
+        () => ChecklistItems.updateAsync(selector(unit, unit.before), { $set: { isFinished: unit.after.isFinished } })));
+      if (!await items.findOne(selector(unit, unit.after))) throw new Error('sync-rule-checklist-unconfirmed');
+    }
+    if (unit.history.rows.length) {
+      await persistSyncFieldHistory({ history: ChangeHistory, plan: unit.history, assertCurrent: guard,
+        fields: RULE_CHECKLIST_ITEM_FIELDS });
+    }
+    await deliver(unit.afterActivities);
+  }
+  await guard();
+  return invocation.id;
+}
+const { RULE_CHECKLIST_ACTIONS, commandId: ruleChecklistCommandId, prepareRuleChecklistCommand,
+  validateRuleChecklistCommand } = require('/server/lib/syncRuleChecklistCommand');
+const { RULE_CHECKLIST_ITEM_FIELDS } = require('/server/lib/syncHistoryBatch');
+const { selectBulkCheckItemIds } = require('/models/lib/checklistBulkCheck');
