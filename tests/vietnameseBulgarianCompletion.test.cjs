@@ -1982,3 +1982,27 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['sync-time-estimate-hint'], /exactament un camp/);
 }
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
+
+{
+  const locale = read('br');
+  assert.deepEqual(Object.keys(locale), Object.keys(english), 'br: source key order');
+  const keys = Object.keys(english).filter(key => key.startsWith('rule-email-') ||
+    key === 'r-insert-variable' || key === 'import-board-instruction-todotxt');
+  assert.equal(keys.length, 56);
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `br:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `br:${key}: tokens`);
+  }
+  for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:']) {
+    assert.ok(locale['import-board-instruction-todotxt'].includes(token), `br: preserve ${token}`);
+  }
+  assert.match(locale['r-insert-variable'], /Enlakaat ur varienn/);
+  assert.match(locale['rule-email-recovery-resend-confirm'], /div wech/);
+  assert.match(locale['rule-email-recovery-actions-hint'], /ne adkas morse/);
+  assert.match(locale['rule-email-recovery-actions-hint'], /nann-kadarnaet hepken/);
+  assert.match(locale['rule-email-legacy-discard-confirm'], /Ne vo kaset morse/);
+  assert.match(locale['rule-email-legacy-access-denied'], /N'en deus ket mui/);
+  assert.match(locale['rule-email-legacy-description'], /ne gaso ket WeKan anezho e-unan/);
+  assert.match(locale['rule-email-resolution-resend-uncertain'], /erruet pe get/);
+  assert.doesNotMatch(locale['rule-email-resolution-resend-uncertain'], /kaset gant berzh/);
+}
