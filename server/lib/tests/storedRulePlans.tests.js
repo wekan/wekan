@@ -13,7 +13,8 @@ import ChangeHistory from '/models/changeHistory';
 import Rules from '/models/rules';
 import Triggers from '/models/triggers';
 import Actions from '/models/actions';
-import { runStoredSyncRuleArchive, captureStoredSyncRuleArchiveCommand, SyncRuleArchiveCommands, SyncRuleArchiveEffects, SyncRuleArchiveReceipts, captureStoredSyncRulePlan, captureStoredSyncRuleEmailCommand, runStoredSyncRuleEmail, SyncRuleEmailAttempts, runStoredSyncRules, SyncRulePlans, SyncRuleReceipts, SyncRuleEmailCommands } from '/server/notifications/storedRulePlans';
+import { runStoredSyncRuleArchive, captureStoredSyncRuleArchiveCommand, SyncRuleArchiveCommands, SyncRuleArchiveEffects, SyncRuleArchiveReceipts, captureStoredSyncRulePlan, captureStoredSyncRuleEmailCommand, runStoredSyncRuleEmail, SyncRuleEmailAttempts, runStoredSyncRules, SyncRulePlans, SyncRuleReceipts, SyncRuleEmailCommands, SyncRuleCompletions } from '/server/notifications/storedRulePlans';
+const { createSyncRuleRetention } = require('/server/lib/syncRuleRetention');
 
 const { planId, actionId: invocationId } = require('/server/lib/syncRulePlan');
 
@@ -165,7 +166,21 @@ describe('Stored Sync rule selection', function () {
       await Activities.rawCollection().updateOne({ _id: activityId }, { $set: { cardTitle: 'changed' } });
       await assert.rejects(captureStoredSyncRulePlan(input), /activity-changed/);
       assert.equal(await SyncRulePlans.find({ 'plan.activityId': activityId }).countAsync(), 5);
+      // Retention (2026-09-30): a finished plan leaves a completion receipt;
+      // 90 days later its rule and action documents are compacted away, and
+      // a replay returns as done while every other stage refuses the stub.
+      await Activities.rawCollection().updateOne({ _id: activityId }, { $set: { cardTitle: 'Original card' } });
+      const doneId = planId('b'.repeat(64), activityId);
+      const completion = await SyncRuleCompletions.rawCollection().findOne({ _id: doneId });
+      assert.ok(completion.completedAt instanceof Date);
+      assert.ok((await createSyncRuleRetention({ plans: SyncRulePlans.rawCollection(), receipts: SyncRuleCompletions.rawCollection(),
+        now: () => new Date(completion.completedAt.getTime() + 91 * 86400000) }).sweep()).compacted >= 1);
+      const compact = await SyncRulePlans.rawCollection().findOne({ _id: doneId });
+      assert.deepEqual(Object.keys(compact).sort(), ['_id', 'activityHash', 'checksum', 'compactReceiptVersion']);
+      assert.equal(await runStoredSyncRules({ ...input, effectId: 'b'.repeat(64), adapters: {} }), 'b'.repeat(64));
+      await assert.rejects(captureStoredSyncRulePlan({ ...input, effectId: 'b'.repeat(64) }), /plan-compacted/);
     } finally {
+      await SyncRuleCompletions.rawCollection().deleteMany({ _id: { $in: ['a', 'b', 'c', 'd', 'e'].map(c => planId(c.repeat(64), activityId)) } });
       const archiveCommands = await SyncRuleArchiveCommands.find({ boardId }, { fields: { _id: 1 } }).fetchAsync();
       const archiveIds = archiveCommands.map(row => row._id);
       await SyncRuleArchiveEffects.rawCollection().deleteMany({ _id: { $in: archiveIds } });

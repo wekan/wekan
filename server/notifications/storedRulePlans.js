@@ -45,6 +45,8 @@ for (const collection of [SyncRuleArchiveCommands, SyncRuleArchiveEffects, SyncR
   collection.deny({ insert: () => true, update: () => true, remove: () => true });
 }
 export const SyncRulePlans = new Mongo.Collection('listSyncRulePlans');
+// Plan completion receipts with their time (syncRuleRetention.js); kept for good.
+export const SyncRuleCompletions = new Mongo.Collection('listSyncRuleCompletions');
 export const SyncRuleEmailAttempts = new Mongo.Collection('listSyncRuleEmailAttempts');
 SyncRuleEmailAttempts.deny({ insert: () => true, update: () => true, remove: () => true });
 export const SyncRuleEmailResolutions = new Mongo.Collection('listSyncRuleEmailResolutions');
@@ -57,6 +59,7 @@ SyncRuleEmailCommands.deny({ insert: () => true, update: () => true, remove: () 
 export const SyncRuleReceipts = new Mongo.Collection('listSyncRuleReceipts');
 SyncRuleReceipts.deny({ insert: () => true, update: () => true, remove: () => true });
 SyncRulePlans.deny({ insert: () => true, update: () => true, remove: () => true });
+SyncRuleCompletions.deny({ insert: () => true, update: () => true, remove: () => true });
 Meteor.startup(async () => {
   await ensureIndex(SyncRuleArchiveCommands, { boardId: 1, cardId: 1 });
   await ensureIndex(SyncRuleArchiveEffects, { commandHash: 1 });
@@ -76,7 +79,16 @@ Meteor.startup(async () => {
   Meteor.setInterval(() => {
     retention.sweep().catch(() => console.error('Rule email retention pass failed; it is retried on the next pass'));
   }, intervalMs);
+  // ...and completed rule plans, with their rule and action documents.
+  await ensureIndex(SyncRuleCompletions, { completedAt: 1, _id: 1 });
+  const planRetention = createSyncRuleRetention({ plans: SyncRulePlans.rawCollection(),
+    receipts: SyncRuleCompletions.rawCollection(), days });
+  Meteor.setInterval(() => {
+    planRetention.sweep().catch(() => console.error('Rule plan retention pass failed; it is retried on the next pass'));
+  }, intervalMs);
 });
+const { recordRuleCompletion, createSyncRuleRetention } = require('/server/lib/syncRuleRetention');
+const { planId: rulePlanId } = require('/server/lib/syncRulePlan');
 
 // Both capture and execution require the journal's list-incarnation,
 // source-configuration, lease and actor-access guard in addition to these
@@ -108,11 +120,16 @@ function executionContext({ effectId, activity, policy, assertCurrent, trigger }
   return { saved, effectId, guard };
 }
 
-function capture({ saved, effectId, guard }) {
-  return ensureRulePlan({ plans: SyncRulePlans.rawCollection(), activity: saved, effectId, assertCurrent: guard,
+// Only runStoredSyncRules accepts a compacted plan: it stands for finished
+// work. Every other stage needs the whole plan and refuses one.
+async function capture({ saved, effectId, guard }, { allowCompacted = false } = {}) {
+  const plan = await ensureRulePlan({ plans: SyncRulePlans.rawCollection(), activity: saved, effectId, assertCurrent: guard,
+    receipts: SyncRuleCompletions.rawCollection(),
     build: activity => prepareRulePlan({ activity, effectId, assertCurrent: guard,
       selectRules: activity => RulesHelper.findMatchingRules(activity),
       readAction: id => Actions.rawCollection().findOne({ _id: id }) }) });
+  if (plan.compacted && !allowCompacted) throw new Error('sync-rule-plan-compacted');
+  return plan;
 }
 
 // Capturing configuration alone is never a rules-completion receipt.
@@ -124,14 +141,21 @@ export async function captureStoredSyncRulePlan(options) {
 // In particular ordinary RulesHelper.performAction is not an adapter here.
 export async function runStoredSyncRules({ adapters, ...options }) {
   const context = executionContext(options);
-  const plan = await capture(context);
+  const plan = await capture(context, { allowCompacted: true });
+  // Compacted: its actions finished more than the retention period ago.
+  if (plan.compacted) { await context.guard(); return context.effectId; }
   const indices = new Map(plan.actions.map((row, index) => [row.id, index]));
   const durableAdapters = {
     sendEmail: ({ invocation }) => runStoredSyncRuleEmail({ ...options, index: indices.get(invocation.id) }),
     ...adapters,
   };
-  return executeRulePlan({ plan, activity: context.saved, effectId: context.effectId,
+  const done = await executeRulePlan({ plan, activity: context.saved, effectId: context.effectId,
     receipts: SyncRuleReceipts.rawCollection(), adapters: durableAdapters, assertCurrent: context.guard });
+  const id = rulePlanId(context.effectId, context.saved._id);
+  const stored = await SyncRulePlans.rawCollection().findOne({ _id: id });
+  await recordRuleCompletion({ receipts: SyncRuleCompletions.rawCollection(), id,
+    activityHash: plan.activityHash, checksum: stored?.checksum });
+  return done;
 }
 
 // Capture the ordinary rule's substituted, localized transport fields once.

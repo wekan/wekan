@@ -33,7 +33,8 @@ function legacyReason(command, invocation) {
 
 async function readPlan(plans, command) {
   const row = await plans.findOne({ _id: command.planId });
-  if (!row || row.checksum !== sha256(canonical(row.plan))) return null;
+  // A compacted plan (syncRuleRetention.js) belongs to finished work.
+  if (!row || row.compactReceiptVersion !== undefined || row.checksum !== sha256(canonical(row.plan))) return null;
   return row.plan;
 }
 

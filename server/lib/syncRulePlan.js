@@ -67,13 +67,21 @@ async function prepareRulePlan({ activity, effectId, selectRules, readAction, as
   validateRulePlan(plan, saved, effectId);
   return copy(plan);
 }
-async function ensureRulePlan({ plans, activity, effectId, build, assertCurrent }) {
-  activity = copy(activity); identity(activity, effectId);
+// With `receipts`, a plan compacted after completion (syncRuleRetention.js) is
+// returned as { compacted: true, id }: its actions are done, it is never rebuilt.
+async function ensureRulePlan({ plans, activity, effectId, build, assertCurrent, receipts = null }) {
+  activity = copy(activity);
+  const { activityHash } = identity(activity, effectId);
   if (typeof build !== 'function' || typeof assertCurrent !== 'function') fail();
   const _id = planId(effectId, activity._id);
   const read = async () => {
     const row = await plans.findOne({ _id });
     if (!row) return null;
+    if (row.compactReceiptVersion !== undefined) {
+      if (!receipts || row._id !== _id) fail();
+      const { readCompactedRule } = require('./syncRuleRetention');
+      return { compacted: true, id: await readCompactedRule({ receipts, row, activityHash }) };
+    }
     if (!keys(row, '_id,checksum,plan')) fail();
     validateRulePlan(row.plan, activity, effectId);
     if (row.checksum !== sha256(canonical(row.plan))) fail();
