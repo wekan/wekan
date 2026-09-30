@@ -31,6 +31,20 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Romansh date filters, imports and archive-language corrections.
 {
   const locale = read('rm');
+  const correctedPrivacyKeys = ["fix-avatar-urls-migration-description", "fix-all-file-urls-migration-description", "migrations-admin-only", "run-restore-lost-cards-migration-confirm", "run-fix-avatar-urls-migration-confirm", "run-fix-all-file-urls-migration-confirm", "step-scan-users", "step-scan-files", "restrict-comment-editing", "default-avatar", "r-update", "cards-loading-all", "render-links-as-plain-text-description", "disable-all-import-description", "disable-all-export-description", "anonymize-export-users-description", "anonymize-account-confirm-popup", "disable-notifications-description"];
+  for (const key of correctedPrivacyKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /\b(gli|degli|Controllo|Aggiorna|predefinito|rimuove)\b/, `rm:${key}: no mixed-language seed`);
+  }
+  assert.match(locale['anonymize-account-confirm-popup'], /permanentamain.*deactivescha l’annunzia/);
+  assert.match(locale['anonymize-account-confirm-popup'], /mantegnan.*cronologia.*na po betg vegnir fatga enavos/);
+  assert.notEqual(locale['anonymize-account-confirm-popup'], locale['anonymize-export-users-description']);
+  for (const token of ['user1', 'user2', '@username']) assert.ok(locale['anonymize-export-users-description'].includes(token));
+  for (const token of ['[label](url)', '<a href>']) assert.ok(locale['render-links-as-plain-text-description'].includes(token));
+  for (const kind of ['import', 'export']) assert.match(locale[`disable-all-${kind}-description`], /server refusescha mintga dumonda/);
+  assert.match(locale['disable-notifications-description'], /activitads pon tuttina vegnir registradas/);
+  assert.match(locale['run-restore-lost-cards-migration-confirm'], /mo elements betg archivads/);
+
   const correctedCloudKeys = ["cron-clear-errors", "database-migration-confirm", "disable-import-avatars-description", "disable-export-avatars-description", "gcs-permissions-note", "s3-access-key-menu-path", "azure-account-name-menu-path", "azure-container-menu-path", "gcs-credentials-menu-path", "restore-lost-cards-migration-description", "restore-all-archived-migration", "restore-all-archived-migration-description"];
   for (const key of correctedCloudKeys) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
