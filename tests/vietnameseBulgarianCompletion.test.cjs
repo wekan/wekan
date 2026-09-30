@@ -258,5 +258,13 @@ for (const code of ['fa', 'fa-IR']) {
   assert.match(locale['sync-conflict-detach-hint'], /محتوای آن در WeKan باقی می‌ماند/);
   assert.match(locale['sync-report-partial'], /ادامه نمی‌دهند.*برنمی‌گردانند/);
   assert.match(locale['sync-estimate-field-hint'], /نادیده گرفته می‌شوند.*null.*پاک می‌کند/);
+  for (const key of Object.keys(english).filter(key =>
+    /^(email-(recovery|failure)-|activity-recovery-|rule-email-recovery-|history-request-)/.test(key))) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+  }
+  assert.match(locale['activity-recovery-cancel-confirm'], /امکان ادامهٔ آن وجود نخواهد داشت/);
+  assert.match(locale['email-recovery-confirm-cancel'], /قابل بازیابی نیست/);
+  assert.match(locale['history-request-hint'], /هرگز نمی‌تواند تغییر دیگری را برگرداند/);
 }
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
