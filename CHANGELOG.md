@@ -7947,6 +7947,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/789f65858ed67b17f57f15dbd539accedd32c464">Translate Faroese rule email recovery actions</a>. Thanks to xet7.</summary>
+
+- Translate 20 rule-email recovery actions and confirmations, preserving
+  existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  recovery actions and recipient states. Faroese has lower confidence.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
