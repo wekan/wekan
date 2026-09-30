@@ -4434,6 +4434,19 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6002bb6ff">Translate Welsh Scrum planning and reports</a>. Thanks to xet7.</summary>
+
+- Fill 84 Scrum and navigation entries in each Welsh locale, preserving
+  existing translations and tokens. Each has 174 flagged entries remaining;
+  the README measured language-completion count is now 112.
+- Translation, registry and human-preference checks pass, covering unknown
+  estimates, partial reports and daily observations. Welsh wording is lower
+  confidence; fluent-speaker and browser review were not run. Other languages
+  remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
