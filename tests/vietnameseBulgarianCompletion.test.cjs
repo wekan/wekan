@@ -2317,6 +2317,82 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedActionKeys = [
+    "activity-changedTitle",
+    "comment-in-reply-to",
+    "comment-reply",
+    "due-date-changes",
+    "due-date-changed-times",
+    "actions",
+    "activity-added",
+    "activity-archived",
+    "activity-created",
+    "activity-excluded",
+    "activity-imported",
+    "activity-imported-board",
+    "activity-joined",
+    "activity-on",
+    "activity-sent",
+    "activity-unjoined",
+    "activity-checked-item",
+    "activity-unchecked-item",
+    "activity-checklist-added",
+    "activity-checklist-completed",
+    "activity-checklist-item-added",
+    "activity-checked-item-card",
+    "activity-unchecked-item-card",
+    "activity-receivedDate",
+    "activity-startDate",
+    "allboards.starred",
+    "allboards.remaining",
+    "allboards.edit-workspace",
+    "allboards.edit-workspace-icon",
+    "allboards.workspace-menu",
+    "allboards.delete-workspace-confirm",
+    "allboards.delete-workspace-confirm-check",
+    "selected-label",
+    "activity-dueDate",
+    "activity-endDate",
+    "setListWidthPopup-title",
+    "set-list-width",
+    "list-width-personal-note",
+    "setSwimlaneHeightPopup-title",
+    "set-swimlane-height",
+    "set-swimlane-height-value",
+    "swimlane-height-error-message",
+    "close-add-checklist-item",
+    "close-edit-checklist-item",
+    "added",
+    "admin",
+    "public-boards",
+    "apply",
+    "archived-items",
+    "archived-boards",
+    "archives",
+    "attachment-delete-pop",
+    "board-change-background-image",
+    "board-background-image-url",
+    "board-nb-stars",
+    "boardChangeBackgroundImagePopup-title",
+    "allBoardsChangeBackgroundImagePopup-title",
+    "mobile-mode",
+    "mobile-desktop-toggle",
+    "zoom-level",
+    "enter-zoom-level",
+    "board-view-cal",
+    "board-view-multiboard-cal",
+    "board-view-collapse",
+    "board-view-gantt"
+  ];
+  for (const key of correctedActionKeys) {
+    assert.doesNotMatch(locale[key], /— pò kaszëbskù/, `csb:${key}: language label is not a translation`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+  }
+  assert.equal(locale.actions, 'Dzejbë');
+  assert.equal(locale['activity-sent'], 'wësłôł %s do %s');
+  assert.match(locale['board-view-multiboard-cal'], /wielu tôflów/);
+  assert.match(locale['swimlane-height-error-message'], /dodatną całkòwitą lëczbą/);
+  assert.match(locale['attachment-delete-pop'], /na wiedno.*Nie mòżna tegò cofnąc/);
   assert.match(locale['email-recovery-confirm-cancel'], /nie mòże bëc przëwróconô/);
   assert.match(locale['email-recovery-description'], /niepewnô wësëłka mòże bëc pòwtórzonô/);
   assert.match(locale['activity-recovery-description'], /nigdë nie ùsôdzô aktiwnoscë znowa/);
