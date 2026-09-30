@@ -2982,6 +2982,15 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c5b28a4bd">Complete Bengali notification and keyboard translations</a>. Thanks to xet7.</summary>
+
+- Fill 90 Bengali messages and labels; record 15 unchanged technical terms.
+- Bengali has no flagged placeholders. Verify tokens, preserved translations,
+  cancellation warnings and language registration with the translation suites.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
