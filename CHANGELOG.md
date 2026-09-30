@@ -3045,6 +3045,15 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c2d78321b">Translate Nepali filters, reminders and automation controls</a>. Thanks to xet7.</summary>
+
+- Fill 81 Nepali filter, reminder, automation, map and import messages.
+- Preserve existing translations and executable tokens; verify board access,
+  reminder timing and list-age warnings with translation regression checks.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
