@@ -7586,6 +7586,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4a7f9168b8efa0e9c975ca3f99edc265c7159d02">Translate Luxembourgish movement shortcuts and text actions</a>. Thanks to xet7.</summary>
+
+- Translate 25 missing or English strings for movement shortcuts and text
+  actions, preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  directions, next/previous stacks and top/bottom positions.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
