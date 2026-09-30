@@ -2694,6 +2694,15 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/bfc67b27d">Translate Belarusian synchronization messages</a>. Thanks to xet7.</summary>
+
+- Fill 63 Belarusian Sync conflict, preview, report and estimate messages.
+- Preserve existing translations and placeholders; check warnings about source
+  writes, partial runs and explicit null values.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
