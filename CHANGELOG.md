@@ -7694,6 +7694,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/963356e6fb74200cf9bc40dcd744ee642e40462a">Translate Luxembourgish Sync source reports</a>. Thanks to xet7.</summary>
+
+- Translate 20 missing or English strings for synchronization previews and
+  source-field reports, preserving existing translations and tokens.
+- Translation, registry and human-preference checks pass, including matching
+  labels across views and report limits.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
