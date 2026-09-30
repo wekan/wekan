@@ -4829,6 +4829,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/71545b9bbd">Correct Kashubian migration messages and storage paths</a>. Thanks to xet7.</summary>
+
+- Correct 45 mixed-language migration messages and restore the literal
+  files/attachments path. Check database URLs, commands and migration states.
+- Translation, registry and human-preference checks pass. Kashubian wording
+  is lower confidence; fluent-speaker and browser review were not run.
+  Other mixed-language text and languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
