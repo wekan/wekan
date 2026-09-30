@@ -7226,6 +7226,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/e91d7ac6833614ede39cdce8f89084b1370d245d">Translate Maltese numeric and text input labels</a>. Thanks to xet7.</summary>
+
+- Translate 25 English placeholders for numeric and text inputs,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  minimum, maximum, start and end labels.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
