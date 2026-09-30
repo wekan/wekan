@@ -31,6 +31,18 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Romansh date filters, imports and archive-language corrections.
 {
   const locale = read('rm');
+  const correctedFilterKeys = ["personal-list-width-description", "close-add-checklist-item", "admin-desc", "show-board_members-avatar", "map-to-existing-user-search", "advanced-filter-description", "import-board-instruction-zenkit", "import-board-instruction-excel", "import-board-instruction-about-errors", "import-trello-json-file-hint", "importMapMembersAddPopup-title", "quick-access-description", "select-color", "toggle-assignees", "attachment-upload-limit-label", "attachment-download-limit-label", "smtp-port-description", "setCardActionsColorPopup-title", "setSwimlaneColorPopup-title", "setListColorPopup-title"];
+  for (const key of correctedFilterKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /\b(Scegli|gli|degli|aggiungere|utilizza|Il filtro)\b/, `rm:${key}: no mixed-language seed`);
+  }
+  for (const key of ['setCardActionsColorPopup-title', 'setSwimlaneColorPopup-title', 'setListColorPopup-title']) assert.equal(locale[key], locale['select-color']);
+  for (const token of ['Field1 == Value1', "'Field 1' == 'Value 1'", "Field1 == I\\'m", 'F1 == V1 || F1 == V2', 'F1 == V1 && ( F2 == V2 || F2 == V3 )', 'F1 == /Tes.*/i']) assert.ok(locale['advanced-filter-description'].includes(token), `rm: preserve ${token}`);
+  for (const token of ['"title"', '"stages"', '"items"']) assert.ok(locale['import-board-instruction-zenkit'].includes(token));
+  assert.match(locale['personal-list-width-description'], /atgnas ladezzas.*tut ils utilisaders/);
+  assert.ok(locale['toggle-assignees'].includes('1-9'));
+  assert.ok(locale['smtp-port-description'].includes('SMTP'));
+
   const correctedFlowKeys = ["board-cleanup-scheduled", "cron-job-delete-confirm", "cron-job-deleted", "gcs-key-filename-menu-path", "migration-stop-confirm", "flow-unknown", "flow-unknown-start", "flow-note-agingWip", "flow-note-blockerAnalysis", "flow-note-sizeCycleTime", "flow-note-monteCarlo", "flow-note-processBehavior"];
   for (const key of correctedFlowKeys) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
