@@ -319,5 +319,14 @@ for (const code of ['ms', 'ms-MY']) {
   assert.match(locale['scrum-report-help'], /bukan anggaran sifar/);
   assert.match(locale['scrum-partial-report'], /hanya kad yang kini ditugaskan kepada anda/);
   assert.match(locale['scrum-daily-observations-help'], /tidak merekodkan setiap perubahan/);
+  for (const key of Object.keys(english).filter(key =>
+    /^sync-(conflict|preview|source|report|recovery|estimate)-/.test(key))) {
+    assert.notEqual(locale[key], english[key], `${code}:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `${code}:${key}: tokens`);
+  }
+  assert.match(locale['sync-conflict-hint'], /Tiada apa-apa dihantar ke sistem sumber/);
+  assert.match(locale['sync-conflict-detach-hint'], /Kandungannya kekal dalam WeKan/);
+  assert.match(locale['sync-report-partial'], /tidak menyambung atau membuat asal/);
+  assert.match(locale['sync-estimate-field-hint'], /tiada diabaikan.*null.*mengosongkan/);
 }
 console.log('Completed translation batches: completeness, tokens, syntax and native vocabulary passed');
