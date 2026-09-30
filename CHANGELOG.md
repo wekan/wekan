@@ -3126,6 +3126,15 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/ef202b0ce">Translate Thai email recovery and todo import messages</a>. Thanks to xet7.</summary>
+
+- Fill 45 Thai recovery, variable and todo.txt import messages.
+- Verify preserved translations, placeholders, import syntax, duplicate-delivery
+  warnings and access restrictions with translation regression checks.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
