@@ -6950,6 +6950,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/073b4f4b5fb8e85164bed05f6c41633fca760f2f">Translate Maltese email, export and permission labels</a>. Thanks to xet7.</summary>
+
+- Replace 35 prefixed English values with Maltese for colors, permissions,
+  email and exports, preserving correct-language translations and tokens.
+- Translation, registry and human-preference checks pass, including invitation
+  tokens. Another 617 prefixed English values remain to translate.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
