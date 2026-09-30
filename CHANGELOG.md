@@ -4498,6 +4498,19 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/07979f147">Translate Scottish Gaelic synchronization messages</a>. Thanks to xet7.</summary>
+
+- Fill 63 entries for synchronization conflicts, previews, reports and Jira
+  estimates. Preserve existing translations and source tokens; 258 Scottish
+  Gaelic entries remain flagged.
+- Translation, registry and human-preference checks pass, covering source
+  isolation, retained content, report limitations and explicit null handling.
+  Scottish Gaelic wording is lower confidence; fluent-speaker and browser
+  review were not run. Other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
