@@ -5423,6 +5423,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/57c14c31ef">Translate Armenian observations and synchronization guidance</a>. Thanks to xet7.</summary>
+
+- Fill 20 English placeholders for daily observations and sync conflicts,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including observation
+  limits and local conflict resolution. Fluent-speaker and browser review were
+  not run. The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
