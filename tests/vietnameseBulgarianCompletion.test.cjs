@@ -31,6 +31,19 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Swahili archive and filter guidance; other placeholders remain.
 {
   const locale = read('sw');
+  const sortingComparisonKeys = ["blockly-LISTS_SORT_ORDER_DESCENDING", "blockly-LISTS_SORT_TITLE", "blockly-LISTS_SORT_TOOLTIP", "blockly-LISTS_SORT_TYPE_IGNORECASE", "blockly-LISTS_SORT_TYPE_NUMERIC", "blockly-LISTS_SORT_TYPE_TEXT", "blockly-LISTS_SPLIT_LIST_FROM_TEXT", "blockly-LISTS_SPLIT_TEXT_FROM_LIST", "blockly-LISTS_SPLIT_TOOLTIP_JOIN", "blockly-LISTS_SPLIT_TOOLTIP_SPLIT", "blockly-LISTS_SPLIT_WITH_DELIMITER", "blockly-LOGIC_BOOLEAN_FALSE", "blockly-LOGIC_BOOLEAN_TOOLTIP", "blockly-LOGIC_BOOLEAN_TRUE", "blockly-LOGIC_COMPARE_EQ_ARIA", "blockly-LOGIC_COMPARE_GTE_ARIA", "blockly-LOGIC_COMPARE_GT_ARIA", "blockly-LOGIC_COMPARE_LTE_ARIA", "blockly-LOGIC_COMPARE_LT_ARIA", "blockly-LOGIC_COMPARE_NEQ_ARIA"];
+  for (const key of sortingComparisonKeys) {
+    assert.notEqual(locale[key], english[key], `sw:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sw:${key}: tokens`);
+  }
+  for (const comparison of ['GT', 'LT']) {
+    assert.doesNotMatch(locale[`blockly-LOGIC_COMPARE_${comparison}_ARIA`], /au sawa na/);
+    assert.match(locale[`blockly-LOGIC_COMPARE_${comparison}E_ARIA`], /au sawa na/);
+  }
+  assert.match(locale['blockly-LISTS_SORT_TOOLTIP'], /nakala/);
+  assert.match(locale['blockly-LISTS_SPLIT_TOOLTIP_JOIN'], /^Unganisha/);
+  assert.match(locale['blockly-LISTS_SPLIT_TOOLTIP_SPLIT'], /^Gawanya/);
+  assert.notEqual(locale['blockly-LISTS_SORT_ORDER_DESCENDING'], locale['blockly-LISTS_SORT_ORDER_ASCENDING']);
   const listEditingKeys = ["blockly-LISTS_INLIST", "blockly-LISTS_ISEMPTY_TITLE", "blockly-LISTS_ISEMPTY_TOOLTIP", "blockly-LISTS_LENGTH_TITLE", "blockly-LISTS_LENGTH_TOOLTIP", "blockly-LISTS_REPEAT_TITLE", "blockly-LISTS_REPEAT_TOOLTIP", "blockly-LISTS_REVERSE_MESSAGE0", "blockly-LISTS_REVERSE_TOOLTIP", "blockly-LISTS_SET_INDEX_INSERT", "blockly-LISTS_SET_INDEX_SET", "blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_FIRST", "blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_FROM", "blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_LAST", "blockly-LISTS_SET_INDEX_TOOLTIP_INSERT_RANDOM", "blockly-LISTS_SET_INDEX_TOOLTIP_SET_FIRST", "blockly-LISTS_SET_INDEX_TOOLTIP_SET_FROM", "blockly-LISTS_SET_INDEX_TOOLTIP_SET_LAST", "blockly-LISTS_SET_INDEX_TOOLTIP_SET_RANDOM", "blockly-LISTS_SORT_ORDER_ASCENDING"];
   for (const key of listEditingKeys) {
     assert.notEqual(locale[key], english[key], `sw:${key}: translated`);
