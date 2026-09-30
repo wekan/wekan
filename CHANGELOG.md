@@ -3252,6 +3252,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/660bb6950">Complete Kannada notification and keyboard translations</a>. Thanks to xet7.</summary>
+
+- Fill 90 Kannada notification, recovery, history and keyboard strings.
+- No flagged placeholders remain, including pending translation keys. Keep
+  printed modifier legends, product names and mathematical symbols unchanged.
+- Translation, language registry and human-preference checks pass, including
+  cancellation warnings and preservation of existing translations and tokens.
+  Browser layout and fluent-speaker review were not run.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
