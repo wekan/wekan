@@ -4639,6 +4639,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/fd4f6ef314">Correct Kashubian permissions, colors and field labels</a>. Thanks to xet7.</summary>
+
+- Replace 65 Polish-seeded strings, including permission roles, colors,
+  field controls and enrollment email. Restore the empty comment placeholder
+  and unchanged date-format codes.
+- Translation, registry and human-preference checks pass. Kashubian wording
+  is lower confidence; fluent-speaker and browser review were not run.
+  Older mixed-language values and other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
