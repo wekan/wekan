@@ -5269,6 +5269,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2db35874145e8404b2d4e11cbc5c7036ffc2a742">Complete the Albanian recovery message placeholder fill</a>. Thanks to xet7.</summary>
+
+- Fill the remaining 35 Albanian prose placeholders and classify 12 unchanged
+  key names, product names and mathematical terms explicitly.
+- Full key-order, token, registry and human-preference checks pass. No flagged
+  English prose placeholders remain in Albanian. Fluent-speaker and browser
+  review were not run; the wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
