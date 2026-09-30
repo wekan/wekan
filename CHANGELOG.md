@@ -5148,6 +5148,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/0ee1b215d307fd1676a0c1d4f230868d0113e99e">Complete the Esperanto recovery message placeholder fill</a>. Thanks to xet7.</summary>
+
+- Fill the remaining 55 Esperanto prose placeholders and classify 13 unchanged
+  key names, product names and mathematical abbreviations explicitly.
+- Full key-order, token, registry and human-preference checks pass. No flagged
+  English prose placeholders remain in Esperanto. Fluent-speaker and browser
+  review were not run; the wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
