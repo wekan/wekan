@@ -31,6 +31,13 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Maltese filters and imports; remaining untranslated strings are filled separately.
 {
   const locale = read('mt');
+  const malteseBlockLabelKeys = ["blockly-ARIA_TYPE_FIELD_GRID", "blockly-ARIA_TYPE_FIELD_IMAGE", "blockly-ARIA_TYPE_FIELD_INPUT", "blockly-ARIA_TYPE_FIELD_TEXT_INPUT_ARGUMENT", "blockly-ARIA_TYPE_FIELD_TEXT_INPUT_PROCEDURE", "blockly-BACKSPACE_KEY", "blockly-BLOCK_LABEL_BEGIN_PREFIX", "blockly-BLOCK_LABEL_BEGIN_STACK", "blockly-BLOCK_LABEL_COLLAPSED", "blockly-BLOCK_LABEL_CONTAINER", "blockly-BLOCK_LABEL_DISABLED", "blockly-BLOCK_LABEL_HAS_BRANCHES", "blockly-BLOCK_LABEL_HAS_INPUT", "blockly-BLOCK_LABEL_HAS_INPUTS", "blockly-BLOCK_LABEL_REPLACEABLE", "blockly-BLOCK_LABEL_STACK_BLOCKS", "blockly-BLOCK_LABEL_STATEMENT", "blockly-BLOCK_LABEL_TOOLBOX_CATEGORY", "blockly-BLOCK_LABEL_VALUE", "blockly-BUBBLE_LABEL_COMMENT", "blockly-BUBBLE_LABEL_DEFAULT", "blockly-BUBBLE_LABEL_WARNING", "blockly-CAPS_LOCK_KEY", "blockly-CLOSE_BACKPACK"];
+  for (const key of malteseBlockLabelKeys) {
+    assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `mt:${key}: tokens`);
+  }
+  assert.notEqual(locale['blockly-BUBBLE_LABEL_COMMENT'], locale['blockly-BUBBLE_LABEL_WARNING']);
+  assert.match(locale['blockly-BACKSPACE_KEY'], /Backspace/);
   const blockAccessibilityKeys = ["blockly-ANNOUNCE_MOVE_TO", "blockly-ANNOUNCE_MOVE_WORKSPACE", "blockly-ANNOUNCE_SCROLLED_DOWN", "blockly-ANNOUNCE_SCROLLED_LEFT", "blockly-ANNOUNCE_SCROLLED_RIGHT", "blockly-ANNOUNCE_SCROLLED_UP", "blockly-ARIA_LABEL_ADD_ELSE_IF", "blockly-ARIA_LABEL_ADD_INPUT", "blockly-ARIA_LABEL_ADD_LIST_ITEM", "blockly-ARIA_LABEL_ADD_TEXT", "blockly-ARIA_LABEL_BUTTON", "blockly-ARIA_LABEL_COMMENT_COLLAPSE", "blockly-ARIA_LABEL_COMMENT_EXPAND", "blockly-ARIA_LABEL_FIELD_ANGLE", "blockly-ARIA_LABEL_REMOVE_ELSE_IF", "blockly-ARIA_LABEL_REMOVE_INPUT", "blockly-ARIA_LABEL_REMOVE_LIST_ITEM", "blockly-ARIA_LABEL_REMOVE_TEXT", "blockly-ARIA_LABEL_TRASH_EMPTY", "blockly-ARIA_TYPE_FIELD_ANGLE", "blockly-ARIA_TYPE_FIELD_BITMAP", "blockly-ARIA_TYPE_FIELD_CHECKBOX", "blockly-ARIA_TYPE_FIELD_COLOUR", "blockly-ARIA_TYPE_FIELD_DATE", "blockly-ARIA_TYPE_FIELD_DROPDOWN"];
   for (const key of blockAccessibilityKeys) {
     assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
