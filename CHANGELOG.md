@@ -4950,6 +4950,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/1a1306563c">Correct Kashubian import instructions and Jira endpoint</a>. Thanks to xet7.</summary>
+
+- Correct eight import messages, restore the literal Jira API endpoint and
+  align menu labels. Preserve todo.txt syntax, file formats and placeholders.
+- Translation, registry and human-preference checks pass. Kashubian wording
+  is lower confidence; fluent-speaker and browser review were not run.
+  Other mixed-language text and languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
