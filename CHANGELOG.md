@@ -1687,6 +1687,17 @@ Chromium and WebKit cover review and discard.
 **Board Settings** - the Rules page's views are reached from the board menu.
 
 <details>
+<summary><a href="https://github.com/wekan/wekan/commit/40a4d9b17">The Rules page uses the board's right sidebar instead of its own</a>. Thanks to xet7.</summary>
+
+Its separate sidebar held only Back and its views; the board sidebar has the
+same views in Board Settings under Rules, and closes after one is chosen on the
+Rules page. Picking a Board View menu view there goes back to the board, asking
+before unsaved Blocks work is lost. Source tests and the Rules browser specs
+cover it in Chromium and WebKit.
+
+</details>
+
+<details>
 <summary><a href="https://github.com/wekan/wekan/commit/b4217f962">List view, Workflow, Blocks, History and Import / Export rules sit under Rules</a>. Thanks to xet7.</summary>
 
 Each opens the Rules page in that view, asking before unsaved Blocks work is
