@@ -2385,6 +2385,16 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/8eaa8f67c">Translate Malay block editor accessibility controls</a>. Thanks to xet7.</summary>
+
+- Translate 97 strings in each Malay locale for screen-reader announcements,
+  block controls, keyboard navigation, pixel editing and variable warnings.
+- Check editor translation coverage, placeholder preservation and warnings
+  while preserving existing translations.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
