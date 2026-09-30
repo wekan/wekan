@@ -31,6 +31,14 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Maltese filters and imports; remaining untranslated strings are filled separately.
 {
   const locale = read('mt');
+  const correctedCoreKeys = ["comment-reply", "activity-joined", "activity-on", "activity-unjoined", "allboards.starred", "allboards.remaining", "selected-label", "added", "admin-announcement", "apply", "template-container", "attached", "board-nb-stars", "changeFontPopup-title", "allBoardsMenuPopup-title", "desktop-mode", "mobile-mode", "zoom-in", "zoom-out", "zoom-level", "board-view-cal", "board-view-multiboard-cal", "board-view-collapse", "board-view-table", "board-view-stats", "calendar-previous-month-label", "calendar-next-month-label", "card-due", "card-due-on", "card-start-on", "cardAttachmentsPopup-title", "cardStartVotingPopup-title", "positiveVoteMembersPopup-title", "negativeVoteMembersPopup-title", "vote-question"];
+  for (const key of correctedCoreKeys) {
+    assert.notEqual(locale[key], english[key], `mt:${key}: translated`);
+    assert.doesNotMatch(locale[key], /Traduzzjoni Maltija:/, `mt:${key}: no prefixed English`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `mt:${key}: tokens`);
+  }
+  assert.notEqual(locale['zoom-in'], locale['zoom-out']);
+  assert.notEqual(locale['positiveVoteMembersPopup-title'], locale['negativeVoteMembersPopup-title']);
   assert.equal(locale.problems, 'Problemi');
   assert.equal(locale.recoveryReportTitle, 'Irkupru');
   assert.ok(locale['import-report-description'].includes(`${locale['admin-panel']} → ${locale.problems} → ${locale.recoveryReportTitle}`));
