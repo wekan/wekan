@@ -82,6 +82,14 @@ const isEnglishVariant = code => /^en([_-].*)?$/.test(code) || code === 'en';
 // needs a different word. Keep those exceptions per locale; putting them in the
 // source-wide list would hide real work in every language.
 const LOCALE_INVARIANTS = {
+  // Estonian product names, printed modifier legends, code/math symbols and loanword.
+  'et-EE': new Set([
+    'blockly-ALT_KEY', 'blockly-COMMAND_KEY', 'blockly-CONTROL_KEY', 'blockly-OPTION_KEY',
+    'blockly-CHROME_OS', 'blockly-LINUX', 'blockly-MAC_OS', 'blockly-WINDOWS',
+    'blockly-LOGIC_NULL', 'blockly-MATH_TRIG_ACOS', 'blockly-MATH_TRIG_ASIN',
+    'blockly-MATH_TRIG_ATAN', 'blockly-MATH_TRIG_COS', 'blockly-MATH_TRIG_SIN',
+    'blockly-MATH_TRIG_TAN', 'scrum-sprint',
+  ]),
   // Hebrew retains these keyboard legends, product names, null and math symbols.
   ...Object.fromEntries(['he', 'he-IL'].map(code => [code, new Set([
     'blockly-ALT_KEY', 'blockly-COMMAND_KEY', 'blockly-CONTROL_KEY',

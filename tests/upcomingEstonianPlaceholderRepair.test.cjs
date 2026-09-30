@@ -7,6 +7,16 @@ const read = code => JSON.parse(fs.readFileSync(path.join(ROOT,
   'imports/i18n/data', `${code}.i18n.json`), 'utf8'));
 const english = read('en');
 const translated = read('et-EE');
+assert.strictEqual(translated['blockly-BACKSPACE_KEY'], 'Tagasilüke');
+assert.strictEqual(translated['blockly-SHIFT_KEY'], 'Tõstuklahv');
+assert.notStrictEqual(translated['blockly-END_KEY'], translated['end-date']);
+for (const key of ['blockly-ALT_KEY', 'blockly-COMMAND_KEY', 'blockly-CONTROL_KEY',
+  'blockly-OPTION_KEY', 'blockly-CHROME_OS', 'blockly-LINUX', 'blockly-MAC_OS',
+  'blockly-WINDOWS', 'blockly-LOGIC_NULL', 'blockly-MATH_TRIG_ACOS',
+  'blockly-MATH_TRIG_ASIN', 'blockly-MATH_TRIG_ATAN', 'blockly-MATH_TRIG_COS',
+  'blockly-MATH_TRIG_SIN', 'blockly-MATH_TRIG_TAN', 'scrum-sprint']) {
+  assert.strictEqual(translated[key], english[key], `${key}: preserve technical term`);
+}
 // URL percent encoding is data, not a printf placeholder.
 const { translationTokens: inventory } = require('../releases/translations/placeholder-tokens.mjs');
 for (const [key, source] of Object.entries(english)) {
