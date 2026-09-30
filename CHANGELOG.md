@@ -7022,6 +7022,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/9166ee5cb8b3ddded56f271d4b06af72dd6ee787">Translate Maltese roles, weekdays and rule details</a>. Thanks to xet7.</summary>
+
+- Replace 35 prefixed English values with Maltese for rule details,
+  authentication, roles and weekdays, preserving translations and tokens.
+- Translation, registry and human-preference checks pass, including reminder
+  placeholders. Another 407 prefixed English values remain to translate.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
