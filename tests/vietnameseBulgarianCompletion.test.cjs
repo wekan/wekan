@@ -28,6 +28,27 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Replace prefixed English in Shona controls; retain numeric and named tokens.
+{
+  const locale = read('sn');
+  const keys = ["activity-joined", "activity-unjoined", "allboards.starred", "allboards.workspaces", "setListWidthPopup-title", "set-list-width", "admin-announcement", "admin-announcement-active", "apply", "template-container", "attached", "board-nb-stars", "changeFontPopup-title", "desktop-mode", "mobile-mode", "zoom-out", "zoom-level", "enter-zoom-level", "board-view-cal", "board-view-multiboard-cal", "board-view-collapse", "board-view-gantt", "board-view-table", "board-view-stats", "card-due", "cardStartVotingPopup-title", "positiveVoteMembersPopup-title", "negativeVoteMembersPopup-title", "vote-question", "vote-for-it", "vote-against", "cardStartPlanningPokerPopup-title", "poker-question", "poker-one", "poker-two", "poker-three", "poker-five", "poker-eight", "poker-thirteen", "poker-twenty", "poker-forty", "poker-oneHundred", "poker-unsure", "poker-finish", "poker-result-votes", "poker-result-who", "poker-replay", "set-estimation", "cardDependencyIconPopup-title", "cardStickersPopup-title", "theme-category", "theme-category-flat", "theme-category-dark", "theme-category-special", "change-font", "font", "font-preview-text", "font-size", "font-size-smaller", "font-size-small", "font-size-large", "font-size-larger", "font-size-largest", "subtasks", "go-back"];
+  const invariants = ["board-view-gantt", "poker-one", "poker-two", "poker-three", "poker-five", "poker-eight", "poker-thirteen", "poker-twenty", "poker-forty", "poker-oneHundred", "poker-unsure"];
+  for (const key of keys) {
+    assert.equal(typeof locale[key], 'string', `sn:${key}: present`);
+    assert.doesNotMatch(locale[key], /Mashoko echiShona:/, `sn:${key}: no prefixed English`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+    if (invariants.includes(key)) assert.equal(locale[key], english[key], `sn:${key}: unchanged notation`);
+    else assert.notEqual(locale[key], english[key], `sn:${key}: translated prose`);
+  }
+  assert.equal(locale['setListWidthPopup-title'], locale['set-list-width']);
+  assert.equal(locale.font, locale['change-font']);
+  assert.equal(locale.font, locale['changeFontPopup-title']);
+  assert.ok(locale['enter-zoom-level'].includes('50-300%'));
+  assert.ok(locale['font-preview-text'].includes('0123456789'));
+  assert.notEqual(locale['positiveVoteMembersPopup-title'], locale['negativeVoteMembersPopup-title']);
+  assert.equal(new Set(['smaller', 'small', 'large', 'larger', 'largest'].map(size => locale[`font-size-${size}`])).size, 5);
+}
+
 // Shona additions for todo.txt import and email recovery.
 {
   const locale = read('sn');
