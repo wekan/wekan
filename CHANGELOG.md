@@ -7598,6 +7598,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c55c0e6e8f60f6c1b5ff5f9e3d60bcb56838966d">Translate Luxembourgish text positions and searches</a>. Thanks to xet7.</summary>
+
+- Translate 20 missing or English strings for text positions, searches and
+  letter case, preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  first/last, start/end and uppercase/lowercase labels.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
