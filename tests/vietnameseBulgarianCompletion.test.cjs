@@ -28,6 +28,27 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `${code}: preserve todo.txt ${token}`);
   }
 }
+// Shona system information and shared templates replace prefixed English.
+{
+  const locale = read('sn');
+  const keys = ["bidirectional-webhooks", "outgoingWebhooksPopup-title", "global-webhook", "no-name", "Platform", "package", "OS", "Meteor", "Database", "Node", "Node_version", "Meteor_version", "Database_type", "Database_commit", "FerretDB_version", "FerretDB_commit", "Reactivity_mode", "Reactivity_order", "DDP_transport", "MongoDB_version", "MongoDB_storage_engine", "OS_Arch", "OS_Cpus", "OS_Freemem", "OS_Loadavg", "OS_Platform", "OS_Release", "OS_Totalmem", "OS_Type", "OS_Uptime", "hours", "seconds", "visibility", "verified", "active", "org-shared-templates", "team-shared-templates", "active-person", "card-received", "card-end"];
+  for (const key of keys) {
+    assert.doesNotMatch(locale[key], /Mashoko echiShona:/, `sn:${key}: no prefixed English`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sn:${key}: tokens`);
+    if (['Meteor', 'Node'].includes(key)) assert.equal(locale[key], english[key], `sn:${key}: product name`);
+    else assert.notEqual(locale[key], english[key], `sn:${key}: translated`);
+  }
+  assert.equal(locale['org-shared-templates'], locale['team-shared-templates']);
+  assert.equal(locale['outgoingWebhooksPopup-title'], locale['outgoing-webhooks']);
+  for (const token of ['changeStreams', 'oplog', 'polling']) assert.ok(locale.Reactivity_mode.includes(token));
+  assert.ok(locale.Reactivity_order.includes('METEOR_REACTIVITY_ORDER'));
+  assert.ok(locale.DDP_transport.includes('DDP_TRANSPORT'));
+  assert.notEqual(locale.OS_Freemem, locale.OS_Totalmem);
+  assert.match(locale.OS_Freemem, /dzisiri kushandiswa/);
+  assert.match(locale.OS_Totalmem, /dzese/);
+  assert.match(locale.OS_Cpus, /CPU/);
+}
+
 // Shona settings and mail labels replace prefixed English.
 {
   const locale = read('sn');
