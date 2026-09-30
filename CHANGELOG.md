@@ -8404,6 +8404,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/00d4abe5e2e23f21e81dded0b35c7c3b18323581">Translate Romansh Scrum planning settings</a>. Thanks to xet7.</summary>
+
+- Translate 46 planning, sprint, backlog and event strings, preserving
+  existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, covering shared
+  labels, distinct sprint actions, completion policies and timebox units.
+  Low-confidence wording needs fluent-speaker review.
+  Browser review was not run; wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
