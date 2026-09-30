@@ -3971,6 +3971,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/5263f205f">Correct Aragonese help text and filter examples</a>. Thanks to xet7.</summary>
+
+- Correct 22 mixed-language help and automation messages. Restore equality
+  and escaping in advanced-filter examples, preserving other translations.
+- Translation, registry and human-preference checks pass, including native
+  wording, list-width scope and executable filter examples.
+  Wording is lower confidence; browser layout and fluent-speaker review were
+  not run. The wider language audit continues.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
