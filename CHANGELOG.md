@@ -5060,6 +5060,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/55b7ea9226">Correct Kashubian editing and rule messages</a>. Thanks to xet7.</summary>
+
+- Correct 21 editing and rule messages. Preserve keyboard shortcuts, link
+  syntax, personal settings scope and deletion warnings.
+- Translation, registry and human-preference checks pass. Kashubian wording
+  is lower confidence; fluent-speaker and browser review were not run.
+  Other mixed-language text and languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
