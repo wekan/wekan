@@ -7526,6 +7526,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2f8904a3b1f3559eb3fa882129c7f3d909bbeea6">Translate Luxembourgish math constants and statistics</a>. Thanks to xet7.</summary>
+
+- Translate 20 missing or English strings for math constants, limits and
+  list statistics, preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including math
+  symbols and distinct median/mode and square-root labels.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
