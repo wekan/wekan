@@ -7766,6 +7766,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/4891b993d7309a8c5e5d1b1911f82d6bcbf670d8">Translate Luxembourgish email resolution and review</a>. Thanks to xet7.</summary>
+
+- Translate 20 missing or English strings for email resolution and review
+  of older queued messages, preserving existing translations and tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  resend, mark-as-sent and discard confirmations.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
