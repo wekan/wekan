@@ -31,6 +31,16 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Georgian filters and import guidance; other placeholders remain.
 {
   const locale = read('ka');
+  const mapAccessibilityKeys = ["draggable", "board-view-map", "map-view-empty", "map-view-upload", "map-view-remove-image", "map-view-unplaced", "map-view-place-hint", "map-view-all-placed", "blockly-ADD_COMMENT", "blockly-ANNOUNCE_CANT_SCROLL_FURTHER", "blockly-ANNOUNCE_MOVE_AFTER", "blockly-ANNOUNCE_MOVE_AROUND", "blockly-ANNOUNCE_MOVE_BEFORE", "blockly-ANNOUNCE_MOVE_CANCELED", "blockly-ANNOUNCE_MOVE_INSIDE", "blockly-ANNOUNCE_MOVE_TO", "blockly-ANNOUNCE_MOVE_WORKSPACE", "blockly-ANNOUNCE_SCROLLED_DOWN", "blockly-ANNOUNCE_SCROLLED_LEFT", "blockly-ANNOUNCE_SCROLLED_RIGHT", "blockly-ANNOUNCE_SCROLLED_UP", "blockly-ARIA_LABEL_ADD_ELSE_IF", "blockly-ARIA_LABEL_ADD_INPUT", "blockly-ARIA_LABEL_ADD_LIST_ITEM", "blockly-ARIA_LABEL_ADD_TEXT", "blockly-ARIA_LABEL_BUTTON", "blockly-ARIA_LABEL_COMMENT_COLLAPSE", "blockly-ARIA_LABEL_COMMENT_EXPAND", "blockly-ARIA_LABEL_FIELD_ANGLE"];
+  for (const key of mapAccessibilityKeys) {
+    assert.notEqual(locale[key], english[key], `ka:${key}: translated`);
+    assert.match(locale[key], /[\u10d0-\u10ff]/, `ka:${key}: Georgian script`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `ka:${key}: tokens`);
+  }
+  assert.match(locale['map-view-empty'], /დაფის ადმინისტრატორს შეუძლია ატვირთოს/);
+  assert.match(locale['map-view-place-hint'], /გადაათრიეთ.*ან აირჩიეთ.*დააწკაპუნეთ/);
+  assert.match(locale['blockly-ARIA_LABEL_FIELD_ANGLE'], /%1 გრადუსი/);
+  for (const pair of [['blockly-ANNOUNCE_MOVE_AFTER', 'blockly-ANNOUNCE_MOVE_BEFORE'], ['blockly-ANNOUNCE_SCROLLED_LEFT', 'blockly-ANNOUNCE_SCROLLED_RIGHT'], ['blockly-ANNOUNCE_SCROLLED_DOWN', 'blockly-ANNOUNCE_SCROLLED_UP'], ['blockly-ARIA_LABEL_COMMENT_COLLAPSE', 'blockly-ARIA_LABEL_COMMENT_EXPAND'], ['map-view-upload', 'map-view-remove-image']]) assert.notEqual(locale[pair[0]], locale[pair[1]]);
   const reminderPresetKeys = ["notification-activity-customFields", "notification-activity-archive", "notification-activity-created", "due-reminder-heading", "due-reminder-days-label", "due-reminder-off", "due-reminder-webhook", "due-reminder-invalid", "due-reminder-saved", "dependency-type-duplicates", "dependency-type-is-duplicated-by", "custom-field-stringtemplate-context-hint", "filter-presets", "filter-preset-choose", "filter-preset-name", "filter-preset-save", "filter-preset-replace-hint", "filter-preset-saved", "filter-preset-applied", "filter-preset-deleted", "filter-preset-error", "filter-card-text-label", "import-report-heading", "import-report-description", "import-report-open-board"];
   for (const key of reminderPresetKeys) {
     assert.notEqual(locale[key], english[key], `ka:${key}: translated`);
