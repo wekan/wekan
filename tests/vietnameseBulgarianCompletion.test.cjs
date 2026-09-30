@@ -2317,6 +2317,85 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedFieldKeys = [
+    "font-size-largest",
+    "changeAvatarPopup-title",
+    "delete-avatar-confirm",
+    "deleteAvatarPopup-title",
+    "changePermissionsPopup-title",
+    "subtasks",
+    "click-to-star-page",
+    "click-to-unstar-page",
+    "clipboard",
+    "close-popup",
+    "close-card",
+    "color-black",
+    "color-blue",
+    "color-darkgreen",
+    "color-gold",
+    "color-gray",
+    "color-green",
+    "color-indigo",
+    "color-red",
+    "color-silver",
+    "color-sky",
+    "color-slateblue",
+    "color-white",
+    "unset-color",
+    "comment-placeholder",
+    "comment-assigned-only",
+    "no-comments",
+    "read-only",
+    "read-assigned-only",
+    "worker",
+    "computer",
+    "confirm-checklist-delete-popup",
+    "confirm-checklist-item-delete-popup",
+    "checklistDeletePopup-title",
+    "checklistItemDeletePopup-title",
+    "copy-link-to-clipboard",
+    "copy-text-to-clipboard",
+    "custom-field-checkbox",
+    "custom-field-currency",
+    "custom-field-currency-option",
+    "custom-field-dropdown-none",
+    "custom-field-dropdown-options-placeholder",
+    "custom-field-dropdown-unknown",
+    "custom-field-number",
+    "custom-field-text",
+    "date-format",
+    "date-format-yyyy-mm-dd",
+    "date-format-dd-mm-yyyy",
+    "date-format-mm-dd-yyyy",
+    "decline",
+    "default-avatar",
+    "deleteLabelPopup-title",
+    "discard",
+    "download",
+    "edit-profile",
+    "editCardStartDatePopup-title",
+    "editCardDueDatePopup-title",
+    "editCustomFieldPopup-title",
+    "editCardSpentTimePopup-title",
+    "editLabelPopup-title",
+    "editNotificationPopup-title",
+    "editProfilePopup-title",
+    "email-enrollAccount-subject",
+    "email-enrollAccount-text",
+    "email-sent"
+  ];
+  for (const key of correctedFieldKeys) {
+    assert.doesNotMatch(locale[key], /— pò kaszëbskù/, `csb:${key}: language label is not a translation`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+  }
+  for (const key of ['comment-placeholder', 'date-format-yyyy-mm-dd', 'date-format-dd-mm-yyyy', 'date-format-mm-dd-yyyy']) {
+    assert.equal(locale[key], english[key], `csb:${key}: preserve empty placeholder or format code`);
+  }
+  assert.equal(locale['color-blue'], 'mòdri');
+  assert.equal(locale['color-black'], 'czôrny');
+  assert.match(locale['comment-assigned-only'], /Kòmentowanié blós przëpisónëch kôrtów/);
+  assert.match(locale['read-assigned-only'], /Òdczët blós przëpisónëch kôrtów/);
+  assert.ok(locale['email-enrollAccount-text'].includes('\n\n__url__\n\n'));
   const correctedCardControlKeys = [
     "board-view-table",
     "board-view-stats",
