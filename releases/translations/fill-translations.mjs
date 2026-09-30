@@ -82,6 +82,8 @@ const isEnglishVariant = code => /^en([_-].*)?$/.test(code) || code === 'en';
 // needs a different word. Keep those exceptions per locale; putting them in the
 // source-wide list would hide real work in every language.
 const LOCALE_INVARIANTS = {
+  // Luxembourgish retains OS brands, math terms, key legends and Scrum loanwords.
+  lb: new Set(["blockly-ALT_KEY", "blockly-CHROME_OS", "blockly-LINUX", "blockly-LOGIC_NULL", "blockly-MAC_OS", "blockly-MATH_ADDITION_SYMBOL_ARIA", "blockly-MATH_SUBTRACTION_SYMBOL_ARIA", "blockly-MATH_TRIG_ACOS", "blockly-MATH_TRIG_ASIN", "blockly-MATH_TRIG_ATAN", "blockly-MATH_TRIG_COS", "blockly-MATH_TRIG_SIN", "blockly-MATH_TRIG_TAN", "blockly-WINDOWS", "board-view-sprints", "scrum-sprints", "scrum-sprint", "scrum-backlog", "scrum-category-backlog"]),
   // Maltese retains the Alt key legend, OS brands and these trig symbols.
   mt: new Set([
     'blockly-ALT_KEY', 'blockly-CHROME_OS', 'blockly-LINUX',
