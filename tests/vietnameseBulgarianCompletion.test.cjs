@@ -31,6 +31,19 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Romansh date filters, imports and archive-language corrections.
 {
   const locale = read('rm');
+  const correctedImportKeys = ["add-template", "app-is-offline", "template-container", "add-template-container", "importDependenciesPopup-title", "importSwimlanePopup-title", "importListPopup-title", "importCardPopup-title", "importBoardIntoPopup-title", "listsortPopup-title", "rulesImportExportPopup-title", "createTemplateContainerPopup-title", "chooseBoardSourcePopup-title", "export-card-attachment-uploaded-by", "export-card-attachment-uploaded-at", "list-sort-by", "import-board", "import-board-c", "trello-api-import", "trello-import-selected", "trello-import-more", "listImportCardPopup-title", "listImportCardsTsvPopup-title", "menu", "upload", "upload-avatar", "upload-completed", "import-usernames", "card-templates-swimlane", "list-templates-swimlane", "board-templates-swimlane"];
+  for (const key of correctedImportKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /\b(Ciaria|Importa|Ordina|Elenco|Template|direttamente|attendere|prego|Aggiornare)\b/, `rm:${key}: no mixed-language seed`);
+  }
+  assert.equal(locale['add-template-container'], locale['createTemplateContainerPopup-title']);
+  assert.equal(locale['chooseBoardSourcePopup-title'], locale['import-board-c']);
+  assert.match(locale['app-is-offline'], /chaschuna ina perdita da datas/);
+  assert.match(locale['app-is-offline'], /server n’è betg vegnì fermà/);
+  for (const token of ['Trello', 'API', 'token']) assert.ok(locale['trello-api-import'].includes(token));
+  for (const token of ['CSV/TSV', 'Excel']) assert.ok(locale['listImportCardsTsvPopup-title'].includes(token));
+  for (const kind of ['card', 'list', 'board']) assert.match(locale[`${kind}-templates-swimlane`], /^Models da /);
+
   const correctedCardKeys = ["card-due-on", "card-spent", "card-edit-attachments", "card-received", "card-received-on", "card-end", "card-end-on", "card-sorting-by-number", "card-sorting-by-number-on-minicard", "list-delete-pop", "list-delete-suggest-archive", "listDeletePopup-title", "board-delete-notice", "boardDeletePopup-title", "swimlaneDeletePopup-title", "swimlane-delete-pop", "board-title-not-found", "list-title-not-found", "archived-at", "card-dependencies", "filter-dependencies-label", "board-backgrounds", "board-background-delete-pop", "cardDetailsPopup-title", "board-status", "board-status-time-spent-total", "board-status-overtime-cards", "save-s3-settings", "card-show-lists", "card-show-lists-on-minicard"];
   for (const key of correctedCardKeys) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
