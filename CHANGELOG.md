@@ -2535,6 +2535,16 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/7cbe71472">Translate Serbian Scrum planning and reports</a>. Thanks to xet7.</summary>
+
+- Fill 84 Serbian placeholders for Scrum planning, sprint lifecycle
+  controls, reports and daily observations.
+- Preserve existing translations and verify placeholders, partial-report
+  scope and warnings about unknown estimates and incomplete observations.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
