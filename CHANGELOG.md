@@ -8031,6 +8031,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/6dad31fc0a6848cc6164a8eaa1cd655bec83d3a6">Translate Friulian import reports and map view</a>. Thanks to xet7.</summary>
+
+- Translate 11 import-report and map-view strings, preserving existing
+  translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including matching
+  admin navigation and distinct map actions. Friulian has lower confidence.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
