@@ -7718,6 +7718,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/95dc9b2522447c64df4f44ea510d850ead379f2d">Translate Luxembourgish email delivery queue</a>. Thanks to xet7.</summary>
+
+- Translate 20 missing or English strings for the email delivery queue,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including distinct
+  pause, resume, cancel, busy and failure messages.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
