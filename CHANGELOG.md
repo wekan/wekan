@@ -6372,6 +6372,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/df2c1c8a04">Translate Swahili text positions and keyboard guidance</a>. Thanks to xet7.</summary>
+
+- Translate 39 English strings for text processing and keyboard guidance,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including text
+  positions, append behavior and the value returned for a missing match.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
