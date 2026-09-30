@@ -2220,6 +2220,17 @@ Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2b493d541">Translate Persian recovery messages and import guidance</a>. Thanks to xet7.</summary>
+
+Fill 90 strings across both Persian locale files. Focused tests preserve
+placeholders, import syntax and duplicate-delivery and permanent-discard
+warnings. Existing translations are preserved and human-preference checks
+pass. Persian still has 328 reported placeholders, and Persian (Iran) has 325.
+Other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
