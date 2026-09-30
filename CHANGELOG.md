@@ -4651,6 +4651,17 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/2d64861d2d">Correct Kashubian import, export and filter labels</a>. Thanks to xet7.</summary>
+
+- Replace 55 Polish-seeded strings, preserving import syntax, API paths,
+  URLs, date-field scope and compact labels.
+- Translation, registry and human-preference checks pass. Kashubian wording
+  is lower confidence; fluent-speaker and browser review were not run.
+  Older mixed-language values and other languages remain in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
