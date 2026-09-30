@@ -7778,6 +7778,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/d1fc287fc0a4ebfd3cc4376b9ae9aed5691494b5">Finish Luxembourgish source coverage for recovery messages</a>. Thanks to xet7.</summary>
+
+- Translate the final 22 missing recovery strings and retain 19 technical
+  terms. All 3,783 source keys are present, with no flagged prose placeholders.
+- Translation, registry and human-preference checks pass, including full-locale
+  source order, replacement tokens and pending translation keys.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
