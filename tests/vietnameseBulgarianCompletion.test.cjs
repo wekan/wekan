@@ -2301,3 +2301,27 @@ for (const code of ['cy', 'cy-GB']) {
   assert.match(locale['rule-email-legacy-description'], /cha chuir WeKan iad leis fhèin/);
   assert.match(locale['rule-email-resolution-resend-uncertain'], /ràinig.*no nach do ràinig/);
 }
+
+{
+  const locale = read('csb');
+  assert.deepEqual(Object.keys(locale), Object.keys(english), 'csb: source key order');
+  const keys = Object.keys(english).filter(key => key.startsWith('rule-email-') ||
+    key === 'r-insert-variable' || key === 'import-board-instruction-todotxt');
+  assert.equal(keys.length, 56);
+  for (const key of keys) {
+    assert.notEqual(locale[key], english[key], `csb:${key}: untranslated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /— pò kaszëbskù/, `csb:${key}: no language-label substitute`);
+  }
+  for (const token of ['todo.txt', '"x"', '+project', '@context', '(A)', 'due:', 't:']) {
+    assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
+  }
+  assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  assert.equal(locale['rule-email-recovery-recipients'], 'Òdbiérôcze');
+  assert.match(locale['rule-email-recovery-resend-confirm'], /dwa razë/);
+  assert.match(locale['rule-email-recovery-actions-hint'], /blós do òdbiérôczów bez pòcwierdzeniô/);
+  assert.match(locale['rule-email-legacy-discard-confirm'], /Nigdë nie bãdze wësłóny/);
+  assert.match(locale['rule-email-legacy-access-denied'], /ni mô ju przistãpù/);
+  assert.match(locale['rule-email-legacy-description'], /WeKan nie wëslë jich sóm/);
+  assert.match(locale['rule-email-resolution-resend-uncertain'], /mògła dojsc abò nie dojsc/);
+}
