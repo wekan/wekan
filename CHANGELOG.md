@@ -6037,6 +6037,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/3017d9e0a9">Translate Georgian activity recovery guidance</a>. Thanks to xet7.</summary>
+
+- Translate 20 English strings for activity recovery and mapped time estimates,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including retained
+  work, missing versus changed activities and retries not recreating activities.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
