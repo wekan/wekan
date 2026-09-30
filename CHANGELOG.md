@@ -6469,6 +6469,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/a30c6ef45e">Translate Swahili sync diagnostics and email queue</a>. Thanks to xet7.</summary>
+
+- Translate 25 English strings for synchronization diagnostics and email queues,
+  preserving existing translations and replacement tokens.
+- Translation, registry and human-preference checks pass, including missing
+  versus null values, repeated delivery and respecting an existing pause.
+  Fluent-speaker and browser review were not run.
+  The wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
