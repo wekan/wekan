@@ -8452,6 +8452,18 @@ placeholders. Other languages remain in progress.
 
 </details>
 
+<details>
+<summary><a href="https://github.com/wekan/wekan/commit/c1072865e8ae46fd5b4444f7db2095bad3a14ab8">Translate Romansh diagnostics and email queue messages</a>. Thanks to xet7.</summary>
+
+- Translate 25 diagnostic and email-delivery strings, preserving existing
+  translations and replacement tokens.
+- Translation, registry and human-preference checks pass, covering report
+  limits, null estimates, uncertain delivery and retries during a pause.
+  Low-confidence wording needs fluent-speaker review.
+  Browser review was not run; wider translation work remains in progress.
+
+</details>
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v12.11 2026-09-30 WeKan ® release
