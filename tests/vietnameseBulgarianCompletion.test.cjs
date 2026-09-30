@@ -31,6 +31,20 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Albanian filter and rule messages; remaining locale backlog is separate.
 {
   const locale = read('sq');
+  const syncDiagnosticKeys = ["sync-preview-create", "sync-preview-update", "sync-preview-archive", "sync-preview-baseline", "sync-preview-truncated", "sync-preview-omissions", "sync-preview-scope", "sync-preview-excluded", "sync-preview-unmapped", "sync-preview-parser-warnings", "sync-preview-parser-unsupported", "sync-source-heading", "sync-source-scope", "sync-source-unmapped", "sync-source-excluded", "sync-source-converted", "sync-source-fallback", "sync-source-excluded-item", "sync-source-occurrences", "sync-source-truncated", "sync-source-omitted", "sync-report-button", "sync-report-retention", "sync-report-partial", "sync-report-unfinished", "sync-report-failed", "sync-report-completed", "sync-report-completed-with-warnings", "sync-report-skipped", "sync-report-review-only", "sync-report-unavailable", "sync-report-empty", "sync-recovery-heading", "sync-recovery-description", "sync-recovery-unavailable", "sync-recovery-all", "sync-estimate-field", "sync-estimate-field-hint", "email-recovery-heading", "email-recovery-description"];
+  for (const key of syncDiagnosticKeys) {
+    assert.notEqual(locale[key], english[key], `sq:${key}: translated`);
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `sq:${key}: tokens`);
+  }
+  assert.match(locale['sync-report-retention'], /20.*30/);
+  assert.match(locale['sync-source-truncated'], /100.*shkurtuar/);
+  assert.match(locale['sync-source-scope'], /si tërësi.*vlerat e tyre nuk shfaqen/);
+  assert.match(locale['sync-report-partial'], /mund të kenë ndryshuar.*nuk vazhdojnë dhe nuk zhbëjnë/);
+  assert.match(locale['sync-report-unavailable'], /qasje shkrimi në të gjithë listën/);
+  assert.match(locale['sync-estimate-field-hint'], /mungojnë shpërfillen.*null.*zbraz/);
+  assert.match(locale['email-recovery-description'], /ekzistuese dhe të ardhshme.*deri në kohën e kërkesës.*nuk mund të tërhiqet.*i pasigurt mund të përsëritet.*respekton një pezullim ekzistues/);
+  assert.notEqual(locale['sync-report-completed'], locale['sync-report-completed-with-warnings']);
+  assert.notEqual(locale['sync-preview-create'], locale['sync-preview-archive']);
   const reportSyncKeys = ["scrum-state-closed", "scrum-state-cancelled", "scrum-unknown-estimate", "scrum-confirm-close", "scrum-confirm-cancel", "scrum-past-sprints", "scrum-list-category", "scrum-swimlane-purpose", "scrum-category-backlog", "scrum-category-todo", "scrum-category-doing", "scrum-category-done", "scrum-partial-report", "scrum-state-released", "scrum-released-at", "scrum-follow-up-cards", "scrum-import-reference-omitted", "scrum-partial-snapshot", "scrum-resume-close", "scrum-daily-observations", "scrum-daily-observations-help", "scrum-daily-truncated", "scrum-daily-empty", "scrum-observed-scope", "scrum-daily-observations-export-help", "scrum-import-pending", "sync-conflict-heading", "sync-conflict-hint", "sync-conflict-local", "sync-conflict-keep-local", "sync-conflict-use-source", "sync-conflict-refresh", "sync-conflict-review-complete", "sync-conflict-duplicate", "sync-conflict-keep-mapping", "sync-conflict-detach", "sync-conflict-detach-hint", "sync-conflict-archive", "sync-conflict-archive-hint", "sync-conflict-keep-card-local", "sync-conflict-creation", "sync-conflict-creation-hint", "sync-conflict-create-replacement", "sync-preview-button", "sync-preview-heading", "sync-preview-saved", "sync-preview-unavailable", "sync-preview-blocked"];
   for (const key of reportSyncKeys) {
     assert.notEqual(locale[key], english[key], `sq:${key}: translated`);
