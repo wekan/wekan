@@ -2317,6 +2317,49 @@ for (const code of ['cy', 'cy-GB']) {
     assert.ok(locale['import-board-instruction-todotxt'].includes(token), `csb: preserve ${token}`);
   }
   assert.match(locale['r-insert-variable'], /slédnégò tekstowégò pòla/);
+  const correctedErrorKeys = [
+    "add-existing-card-as-subtask-empty",
+    "no-archived-boards",
+    "board-not-found",
+    "map-to-existing-user-no-results",
+    "email-invalid",
+    "filter-no-member",
+    "filter-no-custom-fields",
+    "import-trello-zip-no-boards",
+    "import-trello-zip-read-failed",
+    "version-check-failed",
+    "invalid-year",
+    "no-archived-cards",
+    "no-archived-lists",
+    "wipLimitErrorPopup-title",
+    "r-import-unmapped",
+    "roles-status-empty",
+    "invalid-domain",
+    "no-items-message",
+    "no-shared-templates",
+    "dueCards-noResults-title",
+    "board-title-not-found",
+    "swimlane-title-not-found",
+    "list-title-not-found",
+    "label-not-found",
+    "user-username-not-found",
+    "comment-not-found",
+    "org-name-not-found",
+    "team-name-not-found",
+    "no-cards-found",
+    "import-dependencies-parse-error"
+  ];
+  for (const key of correctedErrorKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `csb:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /(?:Nié znaleziono|Nié udało się|Nieprawidł|Brak )/, `csb:${key}: Polish remnants`);
+  }
+  assert.match(locale['invalid-year'], /sztërë cëfrë.*2026/);
+  for (const literal of ['example.com', '@']) assert.ok(locale['invalid-domain'].includes(literal));
+  for (const literal of ['.json', '.zip', 'Trello']) assert.ok(locale['import-trello-zip-no-boards'].includes(literal));
+  assert.match(locale['wipLimitErrorPopup-title'], /WIP/);
+  assert.match(locale['user-username-not-found'], /Miono brëkòwnika/);
+  assert.match(locale['comment-not-found'], /dopòwiescą.*tekst/);
+  assert.match(locale['add-existing-card-as-subtask-empty'], /pasowné/);
   const correctedDisplayKeys = [
     "setSelectionColorPopup-title",
     "setCardActionsColorPopup-title",
