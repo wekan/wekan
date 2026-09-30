@@ -31,6 +31,18 @@ for (const code of ['vi', 'vi-VN', 'bg', 'el', 'el-GR', 'ca', 'ca_ES', 'ca@valen
 // Romansh date filters, imports and archive-language corrections.
 {
   const locale = read('rm');
+  const correctedUserKeys = ["error-user-notSameOrgOrTeam", "home-board-remove-confirm", "changeColorPopup-title", "allBoardsChangeColorPopup-title", "card-labels-title", "cardCustomField-datePopup-title", "editPokerEndDatePopup-title", "adminChangeAvatarPopup-title", "change-avatar", "change-color", "map-to-existing-user-desc", "changeAvatarPopup-title", "changeLanguagePopup-title", "no-comments", "editCardStartDatePopup-title", "editCardDueDatePopup-title", "editCardSpentTimePopup-title", "error-linked-card-not-allowed", "error-user-notAllowSelf", "filter-no-member"];
+  for (const key of correctedUserKeys) {
+    assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
+    assert.doesNotMatch(locale[key], /\b(Puoi|puoi|Cambia|Nessun|viene|Scegli|collegare|Rimuovere)\b/, `rm:${key}: no mixed-language seed`);
+  }
+  for (const key of ['changeColorPopup-title', 'allBoardsChangeColorPopup-title']) assert.equal(locale[key], locale['change-color']);
+  for (const key of ['adminChangeAvatarPopup-title', 'changeAvatarPopup-title']) assert.equal(locale[key], locale['change-avatar']);
+  assert.match(locale['home-board-remove-confirm'], /na vegn betg stizzada/);
+  assert.match(locale['map-to-existing-user-desc'], /mai conceder dapli permissiuns che l’import/);
+  assert.match(locale['error-linked-card-not-allowed'], /inaccessiblas/);
+  assert.match(locale['error-user-notAllowSelf'], /na pos betg envidar tai sez/);
+
   const correctedStatusKeys = ["recovery-detail", "recovery-maintenance-title", "delete-team-warning-message", "board-status-loading-mode", "uploading", "board-archive-failed", "board-backup-failed", "board-cleanup-failed", "board-operations", "cron-job-delete-failed", "cards-loading", "backup-storage", "cloud-settings-save-failed", "s3-settings-save-failed", "scheduled-board-operations", "problems-summary-help", "problems-in-progress-help", "event-detail", "import-board-source", "import-source-heading"];
   for (const key of correctedStatusKeys) {
     assert.deepEqual(translationTokens(locale[key]), translationTokens(english[key]), `rm:${key}: tokens`);
