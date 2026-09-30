@@ -1799,6 +1799,17 @@ for (const code of ['hi', 'hi-IN']) {
   assert.match(locale['rule-email-legacy-discard-confirm'], /Nunca se va unviar/);
   assert.match(locale['rule-email-legacy-access-denied'], /yá nun tien accesu/);
   assert.match(locale['r-insert-variable'], /Inxertar una variable/);
+  assert.match(locale['home-board-empty'], /namás un tableru/);
+  assert.match(locale['home-board-remove-confirm'], /nun se desanicia/);
+  assert.match(locale['add-card'], /Amestar una tarxeta/);
+  assert.match(locale['archive-card'], /Mover la tarxeta al archivu/);
+  assert.match(locale['and-n-other-card_plural'], /otres __count__ tarxetes/);
+  assert.match(locale['restrict-comment-editing'], /Torgar.*comentarios d'otros usuarios/);
+  for (const key of ['act-deleteCard', 'act-removeBoard', 'act-removeList',
+    'act-removeSwimlane', 'act-createBoard', 'act-importBoard']) {
+    assert.match(locale[key], /tableru/);
+    assert.doesNotMatch(locale[key], /tarjeta|tablero/);
+  }
   assert.equal(locale.save, 'Guardar');
   assert.equal(locale.card, 'Tarxeta');
   assert.equal(locale.board, 'Tableru');
